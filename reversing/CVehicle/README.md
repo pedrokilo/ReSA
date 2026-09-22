@@ -1,0 +1,115 @@
+# CVehicle: reconstrucción de RemoveObjectsCB
+
+## Estado
+
+Objetivo elegido por el usuario: la entrada pendiente de CVehicle (141/142).
+Se ha escrito la reconstrucción y corregido un fallo directamente relacionado en su llamador.
+La comparación diferencial aislada pasa y la compilación completa Debug x86 terminó correctamente.
+Se generó bin/Debug/gta_reversed.asi y se recompiló después del ajuste final del registro.
+El hook ahora usa reversed=true por defecto, enabled=false y locked=false: implementación reconstruida, disponible para pruebas y desactivada por defecto.
+No se ha instalado nada en el juego. La prueba dentro del juego sigue pendiente.
+docs/hooks.csv y docs/ReversedClasses.md conservan la instantánea original; no se regeneraron como si ya existiera una validación de juego. Con el registro actualizado, las 142 entradas de CVehicle tienen implementación marcada reversed, pero esto no certifica equivalencia completa ni incluye funciones fuera del catálogo.
+
+## Función localizada
+
+- Registro: CVehicle / RemoveObjectsCB-Object.
+- Dirección virtual: 0x006D33B0; RVA: 0x002D33B0.
+- Firma: RwObject* __cdecl RemoveObjectsCB(RwObject*, void*).
+- Es un callback global registrado en la categoría CVehicle.
+- EXE analizado: D:\Grand Theft Auto San Andreas\gta-sa.exe.
+- Tamaño: 5.189.632 bytes.
+- SHA-256: 72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b.
+
+Para este caso se usó el desensamblador de Visual Studio (dumpbin). Sus 98 bytes de código permiten analizar la función directamente, sin instalar Ghidra ni un tracer general.
+
+## Comportamiento reconstruido
+
+1. Si el objeto no es un atomic de RenderWare (tipo 1), devuelve el mismo puntero sin tocar data.
+2. Obtiene los indicadores con CVisibilityPlugins::GetAtomicId (0x732370).
+3. Escribe los 32 bits del resultado en data. Esta escritura ocurre incluso si no elimina el atomic.
+4. Si está activo ATOMIC_UPGRADE (0x800), devuelve el objeto sin eliminarlo.
+5. Obtiene CBaseModelInfo (0x732260) y conserva el frame antes de destruir el atomic.
+6. Retira el atomic del clump (0x74A4C0) y lo destruye (0x749DC0).
+7. Consulta el identificador de jerarquía del frame (0x732A20). Si es cero, destruye el frame (0x7F05A0).
+8. Si existe información de modelo, llama a RemoveRef (0x4C4BB0).
+9. Devuelve el valor del puntero recibido, como hace el original, sin volver a acceder al objeto destruido.
+
+No se añadieron validaciones de null que cambien el contrato original: data debe apuntar a memoria escribible si el objeto es un atomic.
+
+## Corrección del llamador
+
+CVehicle::RemoveReplacementUpgrade (0x6D39E0) pasaba &frameOfUpgrade a los callbacks.
+El callback original sobrescribe ese almacenamiento con los indicadores del atomic.
+La siguiente utilización del frame podía entonces usar esos indicadores como una dirección de memoria.
+
+El desensamblado del llamador original mantiene el frame en EDI y usa un almacenamiento separado, inicializado a cero, para los indicadores.
+La corrección usa int32 atomicFlags = 0 y pasa &atomicFlags a ambos recorridos.
+Esto restaura el contrato del ejecutable original. No es un cambio de comportamiento intencional del juego.
+
+## Pruebas realizadas
+
+El programa de pruebas extrae las tres funciones de un ejecutable cuyo hash debe coincidir exactamente:
+callback de objeto, callback de frame y RemoveReplacementUpgrade.
+Relocaliza siete operandos de dirección absoluta comprobados; conserva los desplazamientos relativos.
+Ejecuta el código x86 en un proceso propio y lo compara con las funciones extraídas del Vehicle.cpp editado y compiladas con MSVC x86.
+
+Las dependencias del motor se sustituyen por dobles controlados. Se comparan el orden y los argumentos de llamadas, la salida escrita en data, el retorno, el contador simulado de referencias y efectos simulados sobre atomic/clump/frame.
+
+Resultados:
+- 393.475 casos de callback aprobados.
+- 12 casos del llamador aprobados.
+- Todos los valores de indicadores de 16 bits, combinados con jerarquía 0/7/-1 y modelo presente/ausente.
+- Los 255 tipos de objeto distintos de atomic, con data nulo.
+- Cuatro valores adicionales que prueban bits altos de la salida de 32 bits.
+- Compilación sin optimización y con /O2; advertencias de C++ tratadas como errores.
+- Control negativo: eliminar la escritura de indicadores falla.
+- Control negativo: restaurar el paso de &frameOfUpgrade produce acceso inválido (0xC0000005) en el proceso de prueba.
+- La ejecución final con el código correcto vuelve a aprobar.
+
+Estos son casos de prueba aislados, no sesiones de juego ni evidencia exhaustiva del motor RenderWare. Los dobles no prueban los efectos internos reales de destrucción, memoria, texturas o recorrido de listas del motor.
+
+## Archivos y reproducción
+
+- source/game_sa/Entity/Vehicle/Vehicle.cpp: candidato y llamador corregido.
+- reversing/CVehicle/Vehicle.cpp.before: respaldo previo.
+- original-callbacks.asm.txt y original-caller.asm.txt: desensamblado.
+- differential.cpp: banco de comparación x86.
+- validate.py: extracción, verificación de hash, compilación y ejecución.
+- check_regressions.py: controles negativos y validación final optimizada.
+- test-build/result.json y test-build/regressions.json: resultados.
+- changes.patch: diferencias exactas respecto al respaldo.
+- full-build.log: compilación completa y dependencias.
+- final-build.log: recompilación final aprobada tras ajustar el registro.
+- build-project.ps1: preparación de rutas locales y comando de compilación.
+- manifest.json: hashes de la fuente final, el ASI y sus entradas.
+
+Ejecutar desde esta carpeta, con Python instalado:
+
+    python validate.py --exe "D:\Grand Theft Auto San Andreas\gta-sa.exe" --optimized
+    python check_regressions.py "D:\Grand Theft Auto San Andreas\gta-sa.exe"
+
+El script conoce la ubicación de Visual Studio 2026 de esta computadora. En otra máquina habría que ajustar esa ruta.
+
+## Qué falta para activarlo y cerrar la validación
+
+- Habilitar el hook reconstruido en una instalación de ensayo y verificar la integración en ejecución.
+- Probar en una instalación de ensayo los cambios y retiros de componentes de vehículos, incluyendo objetos con ATOMIC_UPGRADE, frames con/sin jerarquía y componentes con modelo asociado.
+- Comprobar que no aparecen crashes ni diferencias visuales o de referencias durante ciclos repetidos.
+- Regenerar el catálogo mediante el flujo del proyecto cuando corresponda.
+
+El 142/142 se refiere únicamente a los hooks registrados bajo CVehicle. En Vehicle.cpp aún hay funciones comentadas en el registro o redirecciones al original fuera de ese conteo. No se puede equiparar ese porcentaje con la reconstrucción de toda la clase ni de todo el subsistema de vehículos.
+
+
+## Preparación y resultado de compilación
+
+Se preparó Conan 2.32.0 en un entorno virtual local y una caché separada.
+Se compilaron las dependencias declaradas por el proyecto con MSVC 19.51, x86 Debug y CMake 4.2.0.
+El primer intento encontró CMake fuera del PATH; se corrigieron las rutas de las herramientas descargadas.
+La compilación completa y la recompilación final terminaron con código 0.
+
+El resultado diferencial conserva el hash de la fuente probada antes del cambio exclusivo de metadatos del hook.
+Se verificó que los cuerpos de las tres funciones compiladas por la prueba son idénticos a los de la fuente final.
+El único ajuste posterior fue registrar el callback con reversed=true por defecto y enabled=false; la compilación real final verificó ese registro.
+
+No se arrancó GTA, no se copiaron archivos al directorio del juego y no se alteraron partidas.
+El siguiente trabajo concreto es la validación en una instalación de ensayo, no volver a escribir la función.

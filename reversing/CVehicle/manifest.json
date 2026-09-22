@@ -1,0 +1,34 @@
+{
+  "full_build": "passed",
+  "final_build": "passed",
+  "differential_bodies_match_final_source": true,
+  "hook": {
+    "reversed": true,
+    "enabled": false,
+    "locked": false
+  },
+  "in_game_test": "not performed",
+  "game_installation_changed": false,
+  "artifacts": {
+    "Vehicle.cpp": {
+      "path": "E:\\Original\\gta-reversed-master\\source\\game_sa\\Entity\\Vehicle\\Vehicle.cpp",
+      "bytes": 163553,
+      "sha256": "c850b5443d0ea7f5784b4aea2338b4e7c72499163ccdc2f068397eee9e1e09f4"
+    },
+    "Vehicle.cpp.before": {
+      "path": "E:\\Original\\gta-reversed-master\\reversing\\CVehicle\\Vehicle.cpp.before",
+      "bytes": 162873,
+      "sha256": "6688cc7d7cbf13df9355702530e9a61723972eda6a363b2020d6c2416669425b"
+    },
+    "gta_reversed.asi": {
+      "path": "E:\\Original\\gta-reversed-master\\bin\\Debug\\gta_reversed.asi",
+      "bytes": 41491456,
+      "sha256": "9438a366e66a672825b94caace095becd324b186c945c6af6aae5473b89b9232"
+    },
+    "original_exe": {
+      "path": "D:\\Grand Theft Auto San Andreas\\gta-sa.exe",
+      "bytes": 5189632,
+      "sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+    }
+  }
+}

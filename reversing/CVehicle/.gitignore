@@ -1,0 +1,4 @@
+/tooling/
+/conan-cache/
+/test-build/
+/Vehicle.cpp.before

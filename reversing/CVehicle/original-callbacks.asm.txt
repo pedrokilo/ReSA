@@ -1,0 +1,89 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  006D33B0: 53                 push        ebx
+  006D33B1: 56                 push        esi
+  006D33B2: 8B 74 24 0C        mov         esi,dword ptr [esp+0Ch]
+  006D33B6: 80 3E 01           cmp         byte ptr [esi],1
+  006D33B9: 75 52              jne         006D340D
+  006D33BB: 56                 push        esi
+  006D33BC: E8 AF EF 05 00     call        00732370
+  006D33C1: 8B 4C 24 14        mov         ecx,dword ptr [esp+14h]
+  006D33C5: 83 C4 04           add         esp,4
+  006D33C8: F6 C4 08           test        ah,8
+  006D33CB: 89 01              mov         dword ptr [ecx],eax
+  006D33CD: 75 3E              jne         006D340D
+  006D33CF: 57                 push        edi
+  006D33D0: 56                 push        esi
+  006D33D1: E8 8A EE 05 00     call        00732260
+  006D33D6: 8B 56 3C           mov         edx,dword ptr [esi+3Ch]
+  006D33D9: 8B 7E 04           mov         edi,dword ptr [esi+4]
+  006D33DC: 56                 push        esi
+  006D33DD: 52                 push        edx
+  006D33DE: 8B D8              mov         ebx,eax
+  006D33E0: E8 DB 70 07 00     call        0074A4C0
+  006D33E5: 56                 push        esi
+  006D33E6: E8 D5 69 07 00     call        00749DC0
+  006D33EB: 57                 push        edi
+  006D33EC: E8 2F F6 05 00     call        00732A20
+  006D33F1: 83 C4 14           add         esp,14h
+  006D33F4: 85 C0              test        eax,eax
+  006D33F6: 75 09              jne         006D3401
+  006D33F8: 57                 push        edi
+  006D33F9: E8 A2 D1 11 00     call        007F05A0
+  006D33FE: 83 C4 04           add         esp,4
+  006D3401: 85 DB              test        ebx,ebx
+  006D3403: 5F                 pop         edi
+  006D3404: 74 07              je          006D340D
+  006D3406: 8B CB              mov         ecx,ebx
+  006D3408: E8 A3 17 DF FF     call        004C4BB0
+  006D340D: 8B C6              mov         eax,esi
+  006D340F: 5E                 pop         esi
+  006D3410: 5B                 pop         ebx
+  006D3411: C3                 ret
+  006D3412: 90                 nop
+  006D3413: 90                 nop
+  006D3414: 90                 nop
+  006D3415: 90                 nop
+  006D3416: 90                 nop
+  006D3417: 90                 nop
+  006D3418: 90                 nop
+  006D3419: 90                 nop
+  006D341A: 90                 nop
+  006D341B: 90                 nop
+  006D341C: 90                 nop
+  006D341D: 90                 nop
+  006D341E: 90                 nop
+  006D341F: 90                 nop
+  006D3420: 56                 push        esi
+  006D3421: 8B 74 24 08        mov         esi,dword ptr [esp+8]
+  006D3425: 57                 push        edi
+  006D3426: 8B 7C 24 10        mov         edi,dword ptr [esp+10h]
+  006D342A: 57                 push        edi
+  006D342B: 68 B0 33 6D 00     push        6D33B0h
+  006D3430: 56                 push        esi
+  006D3431: E8 CA DD 11 00     call        007F1200
+  006D3436: 57                 push        edi
+  006D3437: 68 20 34 6D 00     push        6D3420h
+  006D343C: 56                 push        esi
+  006D343D: E8 7E D9 11 00     call        007F0DC0
+  006D3442: 83 C4 18           add         esp,18h
+  006D3445: 5F                 pop         edi
+  006D3446: 8B C6              mov         eax,esi
+  006D3448: 5E                 pop         esi
+  006D3449: C3                 ret
+  006D344A: 90                 nop
+  006D344B: 90                 nop
+  006D344C: 90                 nop
+  006D344D: 90                 nop
+  006D344E: 90                 nop
+  006D344F: 90                 nop
+
+  Summary
+
+      456000 .text

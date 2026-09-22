@@ -1,0 +1,183 @@
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=x86
+build_type=Debug
+compiler=msvc
+compiler.cppstd=23
+compiler.runtime=static
+compiler.runtime_type=Debug
+compiler.version=195
+os=Windows
+[replace_tool_requires]
+cmake/*: cmake/4.2.0
+
+Profile build:
+[settings]
+arch=x86_64
+build_type=Release
+compiler=msvc
+compiler.cppstd=14
+compiler.runtime=dynamic
+compiler.runtime_type=Release
+compiler.version=195
+os=Windows
+
+
+======== Computing dependency graph ========
+cmake/4.2.0: Not found in local cache, looking in remotes...
+cmake/4.2.0: Checking remote: conancenter
+Connecting to remote 'conancenter' anonymously
+cmake/4.2.0: Downloaded recipe revision ae0a44f44a1ef9ab68fd4b3e9a1f8671
+sdl/3.4.14: Not found in local cache, looking in remotes...
+sdl/3.4.14: Checking remote: conancenter
+sdl/3.4.14: Downloaded recipe revision 162ae1cefa61e290d31d9849820ee4ce
+opengl/system: Not found in local cache, looking in remotes...
+opengl/system: Checking remote: conancenter
+opengl/system: Downloaded recipe revision cfcf523b9d2bad75cbf377f56562634c
+nlohmann_json/3.12.0: Not found in local cache, looking in remotes...
+nlohmann_json/3.12.0: Checking remote: conancenter
+nlohmann_json/3.12.0: Downloaded recipe revision 2d634ab0ec8d9f56353e5ccef6d6612c
+spdlog/1.17.0: Not found in local cache, looking in remotes...
+spdlog/1.17.0: Checking remote: conancenter
+spdlog/1.17.0: Downloaded recipe revision bcbaaf7147bda6ad24ffbd1ac3d7142c
+tracy/cci.20220130: Not found in local cache, looking in remotes...
+tracy/cci.20220130: Checking remote: conancenter
+tracy/cci.20220130: Downloaded recipe revision 5b779d92b705504f18a4c6620eea369c
+imgui/1.92.9b-docking: Not found in local cache, looking in remotes...
+imgui/1.92.9b-docking: Checking remote: conancenter
+imgui/1.92.9b-docking: Downloaded recipe revision e46e8051a5c5e45422ddf7fa3c28e96e
+ogg/1.3.5: Not found in local cache, looking in remotes...
+ogg/1.3.5: Checking remote: conancenter
+ogg/1.3.5: Downloaded recipe revision e8186fe05ebe9f8e706fa4bde2164d12
+vorbis/1.3.7: Not found in local cache, looking in remotes...
+vorbis/1.3.7: Checking remote: conancenter
+vorbis/1.3.7: Downloaded recipe revision a019e93187ade6ee8a51762f88092604
+libjpeg-turbo/3.2.0: Not found in local cache, looking in remotes...
+libjpeg-turbo/3.2.0: Checking remote: conancenter
+libjpeg-turbo/3.2.0: Downloaded recipe revision 408aa1196343c45acb93e68250cca2d8
+nasm/2.15.05: Not found in local cache, looking in remotes...
+nasm/2.15.05: Checking remote: conancenter
+nasm/2.15.05: Downloaded recipe revision f7d6a6f3b14f583e001d9ae84e8cd152
+strawberryperl/5.32.1.1: Not found in local cache, looking in remotes...
+strawberryperl/5.32.1.1: Checking remote: conancenter
+strawberryperl/5.32.1.1: Downloaded recipe revision 8d114504d172cfea8ea1662d09b6333e
+Graph root
+    conanfile.py (gta-reversed/1.0): E:\Original\gta-reversed-master\conanfile.py
+Requirements
+    imgui/1.92.9b-docking#e46e8051a5c5e45422ddf7fa3c28e96e - Downloaded (conancenter)
+    libjpeg-turbo/3.2.0#408aa1196343c45acb93e68250cca2d8 - Downloaded (conancenter)
+    nlohmann_json/3.12.0#2d634ab0ec8d9f56353e5ccef6d6612c - Downloaded (conancenter)
+    ogg/1.3.5#e8186fe05ebe9f8e706fa4bde2164d12 - Downloaded (conancenter)
+    opengl/system#cfcf523b9d2bad75cbf377f56562634c - Downloaded (conancenter)
+    sdl/3.4.14#162ae1cefa61e290d31d9849820ee4ce - Downloaded (conancenter)
+    spdlog/1.17.0#bcbaaf7147bda6ad24ffbd1ac3d7142c - Downloaded (conancenter)
+    tracy/cci.20220130#5b779d92b705504f18a4c6620eea369c - Downloaded (conancenter)
+    vorbis/1.3.7#a019e93187ade6ee8a51762f88092604 - Downloaded (conancenter)
+Build requirements
+    cmake/4.2.0#ae0a44f44a1ef9ab68fd4b3e9a1f8671 - Downloaded (conancenter)
+    nasm/2.15.05#f7d6a6f3b14f583e001d9ae84e8cd152 - Downloaded (conancenter)
+    strawberryperl/5.32.1.1#8d114504d172cfea8ea1662d09b6333e - Downloaded (conancenter)
+Replaced requires
+    cmake/[>=4.2.0]: cmake/4.2.0
+    cmake/[>=3.24]: cmake/4.2.0
+
+======== Computing necessary packages ========
+imgui/1.92.9b-docking: Main binary package 'd0bd8d533a7041b61fb25937d6b93a4457c94369' missing
+imgui/1.92.9b-docking: Checking 3 compatible configurations
+imgui/1.92.9b-docking: Compatible configurations not found in cache, checking servers
+imgui/1.92.9b-docking: '0a785cb68fb8a562881a3c7680bdefae559e0ac0': compiler.cppstd=14
+imgui/1.92.9b-docking: '395747e13b96d0f5995794b35e61eed9abb7f980': compiler.cppstd=17
+imgui/1.92.9b-docking: '254f393647f127ae10c76a126fd3106974fff3b1': compiler.cppstd=20
+imgui/1.92.9b-docking: No compatible configuration found
+spdlog/1.17.0: Main binary package 'd9fbaedf85c63109816a75e7846cede313056422' missing
+spdlog/1.17.0: Checking 1 compatible configurations
+spdlog/1.17.0: Compatible configurations not found in cache, checking servers
+spdlog/1.17.0: 'ceb21da0e2b244ebac8a5a451f17d83830ac3a72': compiler.cppstd=20
+spdlog/1.17.0: No compatible configuration found
+tracy/cci.20220130: Main binary package '0d2dc46956f508a5ac2474c0cb303b13f4b55b28' missing
+tracy/cci.20220130: Checking 3 compatible configurations
+tracy/cci.20220130: Compatible configurations not found in cache, checking servers
+tracy/cci.20220130: 'dc4165a54be45fcf797ae299ca79469acc9a303d': compiler.cppstd=14
+tracy/cci.20220130: '78d7dae0ac7a6e3c3448cbb850945382bf2c52ff': compiler.cppstd=17
+tracy/cci.20220130: '5c97ce707215fcd2d0e607ed1fe7d2038074d51d': compiler.cppstd=20
+tracy/cci.20220130: No compatible configuration found
+
+A new experimental approach for binary compatibility detection is available.
+    Enable it by setting the core.graph:compatibility_mode=optimized conf
+    and get improved performance when querying multiple compatible binaries in remotes.
+
+Requirements
+    imgui/1.92.9b-docking#e46e8051a5c5e45422ddf7fa3c28e96e:d0bd8d533a7041b61fb25937d6b93a4457c94369 - Build
+    libjpeg-turbo/3.2.0#408aa1196343c45acb93e68250cca2d8:5fb0b9e9d2a1dc525e90d727aabc6a29fb239576 - Build
+    nlohmann_json/3.12.0#2d634ab0ec8d9f56353e5ccef6d6612c:da39a3ee5e6b4b0d3255bfef95601890afd80709#2ea4b814fc9da53f7cdf5b7d68052688 - Download (conancenter)
+    ogg/1.3.5#e8186fe05ebe9f8e706fa4bde2164d12:c516fcf791b8318fdd6f9eb730db085127b48b8c - Build
+    opengl/system#cfcf523b9d2bad75cbf377f56562634c:da39a3ee5e6b4b0d3255bfef95601890afd80709#0ba8627bd47edc3a501e8f0eb9a79e5e - Download (conancenter)
+    sdl/3.4.14#162ae1cefa61e290d31d9849820ee4ce:7f3fae5b0ba8c41cc75273d1d53588332aa3ebb0 - Build
+    spdlog/1.17.0#bcbaaf7147bda6ad24ffbd1ac3d7142c:d9fbaedf85c63109816a75e7846cede313056422 - Build
+    tracy/cci.20220130#5b779d92b705504f18a4c6620eea369c:0d2dc46956f508a5ac2474c0cb303b13f4b55b28 - Build
+    vorbis/1.3.7#a019e93187ade6ee8a51762f88092604:692d5931d56860716e6ac1cd283732f30703d353 - Build
+Build requirements
+    cmake/4.2.0#ae0a44f44a1ef9ab68fd4b3e9a1f8671:522dcea5982a3f8a5b624c16477e47195da2f84f#95951e2e6b3af57992b0ec04e5cf9607 - Download (conancenter)
+    nasm/2.15.05#f7d6a6f3b14f583e001d9ae84e8cd152:723257509aee8a72faf021920c2874abc738e029#bc3d7fd683f42e62b82527d39c831710 - Download (conancenter)
+Skipped binaries
+    strawberryperl/5.32.1.1
+
+======== Installing packages ========
+
+-------- Downloading 4 packages --------
+Downloading binary packages in 16 parallel threads
+nasm/2.15.05: Retrieving package 723257509aee8a72faf021920c2874abc738e029 from remote 'conancenter'
+nlohmann_json/3.12.0: Retrieving package da39a3ee5e6b4b0d3255bfef95601890afd80709 from remote 'conancenter'
+opengl/system: Retrieving package da39a3ee5e6b4b0d3255bfef95601890afd80709 from remote 'conancenter'
+cmake/4.2.0: Retrieving package 522dcea5982a3f8a5b624c16477e47195da2f84f from remote 'conancenter'
+opengl/system: Package installed da39a3ee5e6b4b0d3255bfef95601890afd80709
+opengl/system: Downloaded package revision 0ba8627bd47edc3a501e8f0eb9a79e5e
+nlohmann_json/3.12.0: Package installed da39a3ee5e6b4b0d3255bfef95601890afd80709
+nlohmann_json/3.12.0: Downloaded package revision 2ea4b814fc9da53f7cdf5b7d68052688
+nasm/2.15.05: Package installed 723257509aee8a72faf021920c2874abc738e029
+nasm/2.15.05: Downloaded package revision bc3d7fd683f42e62b82527d39c831710
+cmake/4.2.0: Downloading 32.0MB conan_package.tgz
+cmake/4.2.0: Downloaded 29.0MB 90% conan_package.tgz
+cmake/4.2.0: Decompressing 32.0MB conan_package.tgz
+cmake/4.2.0: Package installed 522dcea5982a3f8a5b624c16477e47195da2f84f
+cmake/4.2.0: Downloaded package revision 95951e2e6b3af57992b0ec04e5cf9607
+
+-------- Installing package imgui/1.92.9b-docking (2 of 11) --------
+Building from source imgui/1.92.9b-docking:d0bd8d533a7041b61fb25937d6b93a4457c94369
+imgui/1.92.9b-docking: settings: os=Windows arch=x86 compiler=msvc compiler.cppstd=23 compiler.runtime=static compiler.runtime_type=Debug compiler.version=195 build_type=Debug
+imgui/1.92.9b-docking: options: enable_test_engine=False shared=False use_wchar32=False with_sdl3_binding=False
+>>> Source step
+imgui/1.92.9b-docking: Sources downloaded from 'conancenter'
+Getting sources for imgui/1.92.9b-docking
+Calling source() in E:\Original\gta-reversed-master\reversing\CVehicle\conan-cache\p\imguidaccbaefc507e\s\src
+Sources correctly downloaded from https://github.com/ocornut/imgui/archive/v1.92.9b-docking.tar.gz
+Uncompressing v1.92.9b-docking.tar.gz to .
+Sources correctly downloaded from https://github.com/ocornut/imgui_test_engine/archive/v1.92.9.tar.gz
+Uncompressing v1.92.9.tar.gz to test_engine
+apply_conandata_patches(): No patches defined in conandata
+Copying sources to build folder
+Sources in E:\Original\gta-reversed-master\reversing\CVehicle\conan-cache\p\b\imgui87401ff6aab80\b\src
+>>> Generate step for imgui/1.92.9b-docking
+Generators folder: E:\Original\gta-reversed-master\reversing\CVehicle\conan-cache\p\b\imgui87401ff6aab80\b\build\generators
+Calling generate() method in recipe
+CMakeToolchain generated: conan_toolchain.cmake
+CMakeToolchain generated: E:\Original\gta-reversed-master\reversing\CVehicle\conan-cache\p\b\imgui87401ff6aab80\b\build\generators\CMakePresets.json
+Generating aggregated env files
+Generated aggregated env files: ['conanbuild.bat', 'conanrun.bat']
+Building your package in E:\Original\gta-reversed-master\reversing\CVehicle\conan-cache\p\b\imgui87401ff6aab80\b
+>>> Build step for imgui/1.92.9b-docking
+imgui/1.92.9b-docking: Calling build()
+imgui/1.92.9b-docking: Running CMake.configure()
+imgui/1.92.9b-docking: RUN: cmake -G "Visual Studio 18 2026" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="E:/Original/gta-reversed-master/reversing/CVehicle/conan-cache/p/b/imgui87401ff6aab80/p" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" "E:/Original/gta-reversed-master/reversing/CVehicle/conan-cache/p/b/imgui87401ff6aab80/b/src/.."
+"cmake" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+
+imgui/1.92.9b-docking: ERROR: 
+Package 'd0bd8d533a7041b61fb25937d6b93a4457c94369' build failed
+imgui/1.92.9b-docking: WARN: Build folder E:\Original\gta-reversed-master\reversing\CVehicle\conan-cache\p\b\imgui87401ff6aab80\b\build
+ERROR: imgui/1.92.9b-docking: Error in build() method, line 98
+	cmake.configure(build_script_folder=os.path.join(self.source_folder, os.pardir))
+	ConanException: Error 1 while executing
+Error: Command '['conan', 'install', '.', '--build=missing', '--profile', './conan/profiles/windows-msvc.txt']' returned non-zero exit status 1.

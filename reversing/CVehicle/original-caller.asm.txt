@@ -1,0 +1,52 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  006D39E0: 53                 push        ebx
+  006D39E1: 8B 5C 24 08        mov         ebx,dword ptr [esp+8]
+  006D39E5: 56                 push        esi
+  006D39E6: 57                 push        edi
+  006D39E7: 8B F1              mov         esi,ecx
+  006D39E9: 8B 46 18           mov         eax,dword ptr [esi+18h]
+  006D39EC: 53                 push        ebx
+  006D39ED: 50                 push        eax
+  006D39EE: E8 CD 19 DF FF     call        004C53C0
+  006D39F3: 8D 4C 24 18        lea         ecx,[esp+18h]
+  006D39F7: 51                 push        ecx
+  006D39F8: 8B F8              mov         edi,eax
+  006D39FA: 68 B0 33 6D 00     push        6D33B0h
+  006D39FF: 57                 push        edi
+  006D3A00: C7 44 24 24 00 00  mov         dword ptr [esp+24h],0
+            00 00
+  006D3A08: E8 F3 D7 11 00     call        007F1200
+  006D3A0D: 8D 54 24 24        lea         edx,[esp+24h]
+  006D3A11: 52                 push        edx
+  006D3A12: 68 20 34 6D 00     push        6D3420h
+  006D3A17: 57                 push        edi
+  006D3A18: E8 A3 D3 11 00     call        007F0DC0
+  006D3A1D: 0F BF 46 22        movsx       eax,word ptr [esi+22h]
+  006D3A21: 8B 0C 85 C8 B0 A9  mov         ecx,dword ptr [eax*4+00A9B0C8h]
+            00
+  006D3A28: 8B 41 1C           mov         eax,dword ptr [ecx+1Ch]
+  006D3A2B: 53                 push        ebx
+  006D3A2C: 50                 push        eax
+  006D3A2D: E8 8E 19 DF FF     call        004C53C0
+  006D3A32: 8B 56 18           mov         edx,dword ptr [esi+18h]
+  006D3A35: 57                 push        edi
+  006D3A36: 68 50 34 6D 00     push        6D3450h
+  006D3A3B: 50                 push        eax
+  006D3A3C: 89 15 58 CB C1 00  mov         dword ptr ds:[00C1CB58h],edx
+  006D3A42: E8 B9 D7 11 00     call        007F1200
+  006D3A47: 83 C4 34           add         esp,34h
+  006D3A4A: 5F                 pop         edi
+  006D3A4B: 5E                 pop         esi
+  006D3A4C: 5B                 pop         ebx
+  006D3A4D: C2 04 00           ret         4
+
+  Summary
+
+      456000 .text

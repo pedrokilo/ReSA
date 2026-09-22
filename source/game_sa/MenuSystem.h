@@ -1,0 +1,108 @@
+/*
+    Plugin-SDK file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
+#pragma once
+
+#ifdef InsertMenu
+#undef InsertMenu
+#endif
+
+typedef uint8 MenuId;
+
+class CMenuSystem {
+public:
+    enum {
+        MENU_COL_COUNT       = 4,
+        MENU_ROW_COUNT       = 12,
+        MENU_COUNT           = 2,
+        MENU_CAR_COLOR_COUNT = 64,
+
+        MENU_UNDEFINED       = -99,
+    };
+
+    enum eMenuType : uint8 {
+        MENU_TYPE_DEFAULT = 0,
+        MENU_TYPE_GRID    = 1,
+    };
+
+    enum eColumnInteractive {
+        INTERACTIVE_DEFAULT = 0,
+        INTERACTIVE_DPAD    = 1,
+    };
+
+    struct Menu {
+        uint8          m_anUsedCarColors[MENU_CAR_COLOR_COUNT];
+        eMenuType      m_nType;
+        char           m_aaacRowTitles[MENU_COL_COUNT][MENU_ROW_COUNT][10];
+        int32          m_aanNumberInRowTitle[MENU_COL_COUNT][MENU_ROW_COUNT];
+        int32          m_aadw2ndNumberInRowTitle[MENU_COL_COUNT][MENU_ROW_COUNT];
+        char           m_aacColumnHeaders[MENU_COL_COUNT][10];
+        char           m_szTitle[10];
+        bool           m_abRowSelectable[MENU_ROW_COUNT];
+        uint8          m_abRowAlreadyBought[MENU_ROW_COUNT];
+        eFontAlignment m_anColumnAlignment[MENU_COL_COUNT];
+        eFontAlignment m_anColumnHeaderAlignment[MENU_COL_COUNT];
+        uint8          m_nNumRows;
+        uint8          m_nNumColumns;
+        bool           m_abColumnInteractive[MENU_COL_COUNT];
+        float          m_afColumnWidth[MENU_COL_COUNT];
+        CVector2D      m_vPosn;
+        bool           m_bColumnBackground;
+        int8           m_nSelectedRow;
+        int8           m_nAcceptedRow;
+    };
+
+    static inline auto& MenuInUse = StaticRef<std::array<bool, CMenuSystem::MENU_COUNT>>(0xBA82E0);
+    static inline auto& CurrentMenuInUse = StaticRef<int8>(0xBA82E2);
+    static inline auto& num_menus_in_use = StaticRef<uint8>(0xBA82E3); // OG name
+
+public:
+    static void InjectHooks();
+
+    static void Initialise();
+    static void Process(int8 menu = MENU_UNDEFINED);
+
+    static int8 CheckForAccept(MenuId id);
+    static int8 CheckForSelected(MenuId id);
+
+    static void Input(MenuId id);
+    static void InputStandardMenu(MenuId id);
+    static void InputGridMenu(MenuId id);
+    static void Display(MenuId id, uint8 unk);
+    static void DisplayStandardMenu(MenuId id, bool bRightFont);
+    static void DisplayGridMenu(MenuId id, bool bFade);
+
+    static MenuId CreateNewMenu(eMenuType type, const char* title, float x, float y, float width, uint8 columns, bool interactive, bool background, eFontAlignment alignment);
+    static void ActivateItems(MenuId id, bool b1, bool b2, bool b3, bool b4, bool b5, bool b6, bool b7, bool b8, bool b9, bool b10, bool b11, bool b12);
+    static void ActivateOneItem(MenuId id, uint8 rowId, bool enable);
+    static void InsertMenu(MenuId id, uint8 column, const char* colHeader, const char* row0 = nullptr, const char* row1 = nullptr, const char* row2 = nullptr, const char* row3 = nullptr,
+                           const char* row4 = nullptr, const char* row5 = nullptr, const char* row6 = nullptr, const char* row7 = nullptr, const char* row8 = nullptr, const char* row9 = nullptr,
+                           const char* row10 = nullptr, const char* row11 = nullptr);
+    static void FillGridWithCarColours(MenuId id);
+
+    static void HighlightOneItem(MenuId id, uint8 item, bool bought);
+    static void InsertOneMenuItem(MenuId id, uint8 column, uint8 row, const char* text);
+    static void InsertOneMenuItemWithNumber(MenuId id, uint8 column, uint8 row, const char* text, int32 num1, int32 num2);
+    static void SwitchOffMenu(MenuId id);
+
+    static void SetActiveMenuItem(MenuId id, int8 item);
+    static void SetColumnHeader(MenuId id, uint8 column, Const char* header);
+    static void SetRowTitle(MenuId id, uint8 column, uint8 row, Const char* title);
+    static void SetColumnOrientation(MenuId id, uint8 column, uint8 orientation);
+    static void SetColumnWidth(MenuId id, uint8 column, uint16 width);
+    static void SetHeaderOrientation(MenuId id, uint8 column, uint8 orientation);
+    static void SetDPadInput(MenuId id, uint8 nbDPadInput);
+
+    static uint8 GetCarColourFromGrid(MenuId id, uint8 colorId);
+    static void  GetMenuPosition(MenuId id, float* outX, float* outY);
+
+    static MenuId GetNumMenusInUse() noexcept { return num_menus_in_use; } // 0x558DC0
+
+private:
+    static void CalcNonEmptyRows(MenuId id);
+};
+
+VALIDATE_SIZE(CMenuSystem::Menu, 0x418);

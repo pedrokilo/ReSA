@@ -1,0 +1,24 @@
+RwObject* RemoveObjectsCB(RwObject* object, void* data) {
+    if (RwObjectGetType(object) != rpATOMIC) {
+        return object;
+    }
+
+    const auto atomic = reinterpret_cast<RpAtomic*>(object);
+    const auto flags = CVisibilityPlugins::GetAtomicId(atomic);
+    *static_cast<int32*>(data) = flags;
+    if (flags & eAtomicComponentFlag::ATOMIC_UPGRADE) {
+        return object;
+    }
+
+    const auto modelInfo = CVisibilityPlugins::GetModelInfo(atomic);
+    const auto frame = RpAtomicGetFrame(atomic);
+    RpClumpRemoveAtomic(RpAtomicGetClump(atomic), atomic);
+    RpAtomicDestroy(atomic);
+    if (!CVisibilityPlugins::GetFrameHierarchyId(frame)) {
+        RwFrameDestroy(frame);
+    }
+    if (modelInfo) {
+        modelInfo->RemoveRef();
+    }
+    return object;
+}

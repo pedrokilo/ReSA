@@ -1,0 +1,72 @@
+#include "StdInc.h"
+
+#include "EventDamage.h"
+#include "TaskSimpleEvasiveDive.h"
+
+// 0x653560
+CTaskSimpleEvasiveDive::CTaskSimpleEvasiveDive(CVehicle* vehicle) :
+    m_EvadeVeh{vehicle}
+{
+}
+
+// 0x6535D0
+CTaskSimpleEvasiveDive::~CTaskSimpleEvasiveDive() {
+    if (m_DiveAnim) {
+        m_DiveAnim->SetFinishCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+    }
+}
+
+// 0x653640
+bool CTaskSimpleEvasiveDive::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
+    if (priority == ABORT_PRIORITY_IMMEDIATE) {
+        if (m_DiveAnim) {
+            m_DiveAnim->SetBlendDelta(-1000.f);
+        }
+        return true;
+    }
+    if (const auto eDmg = notsa::dyn_cast_if_present<const CEventDamage>(event)) {
+        if (eDmg->m_pSourceEntity && eDmg->m_pSourceEntity->GetIsTypeVehicle()) {
+            switch (eDmg->m_weaponType) {
+            case WEAPON_RAMMEDBYCAR:
+            case WEAPON_RUNOVERBYCAR:
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+// 0x657AC0
+bool CTaskSimpleEvasiveDive::ProcessPed(CPed* ped) {
+    if (m_bFinished) {
+        return true;
+    }
+    if (!m_DiveAnim) {
+        StartAnim(ped);
+    }
+    return false;
+}
+
+// 0x655F20
+void CTaskSimpleEvasiveDive::StartAnim(CPed* ped) {
+    ped->Say(CTX_GLOBAL_DODGE);
+
+    m_DiveAnim = CAnimManager::BlendAnimation(ped->GetRpClump(), ANIM_GROUP_DEFAULT, ANIM_ID_EV_DIVE, 8.0f);
+    m_DiveAnim->SetFinishCallback(FinishAnimEvasiveDiveCB, this);
+
+    if (m_EvadeVeh && ped->IsCop()) {
+        if (m_EvadeVeh->m_pDriver && m_EvadeVeh->m_pDriver->IsPlayer()) {
+            const auto wanted = FindPlayerWanted();
+            wanted->RegisterCrime_Immediately(CRIME_VEHICLE_DAMAGE, ped->GetPosition(), (uint32)ped, false);
+            wanted->RegisterCrime_Immediately(CRIME_SPEEDING, ped->GetPosition(), (uint32)ped, false);
+        }
+    }
+}
+
+// 0x6536A0
+void CTaskSimpleEvasiveDive::FinishAnimEvasiveDiveCB(CAnimBlendAssociation* assoc, void* data) {
+    const auto self = notsa::cast<CTaskSimpleEvasiveDive>(static_cast<CTask*>(data));
+
+    self->m_bFinished = true;
+    self->m_DiveAnim  = nullptr;
+}
