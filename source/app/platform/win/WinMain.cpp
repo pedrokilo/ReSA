@@ -65,9 +65,6 @@ char* getDvdGamePath() {
 
 // 0x746870
 void MessageLoop() {
-#ifdef NOTSA_USE_SDL3
-    notsa::SDLWrapper::ProcessEvents();
-#else
     MSG msg;
     while (PeekMessageA(&msg, nullptr, 0, 0, PM_REMOVE | PM_NOYIELD)) {
         if (msg.message == WM_QUIT) {
@@ -77,15 +74,17 @@ void MessageLoop() {
             DispatchMessageA(&msg);
         }
     }
-#endif
 }
 
-#ifndef NOTSA_USE_SDL3
 // 0x7486A0
 bool Win32_InitApplication(HINSTANCE hInstance) {
     WNDCLASS windowClass      = { 0 };
     windowClass.style         = CS_BYTEALIGNWINDOW;
+#ifdef NOTSA_USE_SDL3
+    windowClass.lpfnWndProc   = reinterpret_cast<WNDPROC>(0x747EB0);
+#else
     windowClass.lpfnWndProc   = __MainWndProc;
+#endif
     windowClass.hInstance     = hInstance;
     windowClass.hIcon         = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MAIN_ICON));
     windowClass.hCursor       = LoadCursor(nullptr, IDC_ARROW);
@@ -113,7 +112,6 @@ auto Win32_InitInstance(HINSTANCE hInstance) {
         nullptr
     );
 }
-#endif
 
 // 0x7468E0
 bool IsAlreadyRunning() {
@@ -373,16 +371,10 @@ INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdL
         return false;
     }
 
-#ifdef NOTSA_USE_SDL3
-    if (!SDL_Init(SDL_INIT_GAMEPAD | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC)) {
-        NOTSA_UNREACHABLE("Failed to initialize SDL: {}", SDL_GetError());
-        return -1;
-    }
-#else
     if (!Win32_InitApplication(instance)) {
+        NOTSA_LOG_ERR("Window class registration failed: {}", GetLastError());
         return false;
     }
-#endif
 
     char** argv = __argv;
     int    argc = __argc;
@@ -397,17 +389,7 @@ INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdL
     __argv  = nullptr;
     __wargv = nullptr;
 
-#ifdef NOTSA_USE_SDL3
-    SDL_Window* sdlWnd = SDL_CreateWindow(
-        APP_CLASS,
-        APP_DEFAULT_WIDTH, APP_DEFAULT_HEIGHT,
-        SDL_WINDOW_RESIZABLE  //| SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_MOUSE_FOCUS// | SDL_WINDOW_MOUSE_GRABBED | SDL_WINDOW_INPUT_FOCUS | SDL_WINDOW_MOUSE_FOCUS
-    );
-    PSGLOBAL(sdlWindow) = sdlWnd;
-    PSGLOBAL(window) = (HWND)(SDL_GetPointerProperty(SDL_GetWindowProperties(sdlWnd), SDL_PROP_WINDOW_WIN32_HWND_POINTER, NULL)); // NOTE/TODO: Hacky, but required due to RW
-#else
     PSGLOBAL(window) = Win32_InitInstance(instance);
-#endif
 
     if (!PSGLOBAL(window)) {
         return false;
@@ -415,9 +397,7 @@ INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdL
     PSGLOBAL(instance) = instance; // Not used anywhere, just set here
 
     // 0x7487CF
-#ifndef NOTSA_USE_SDL3
     VERIFY(WinInput::Initialise());
-#endif
     ControlsManager.ReinitControls();
 
     // 0x748847
@@ -451,13 +431,7 @@ INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdL
     SystemParametersInfo(SPI_SETSTICKYKEYS, sizeof(STICKYKEYS), &pvParam1, 2u);
 
     UpdateWindow(PSGLOBAL(window));
-#ifdef NOTSA_USE_SDL3
-    SDL_SetWindowFocusable(sdlWnd, true);
-    SDL_SetWindowPosition(sdlWnd, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-    SDL_RaiseWindow(sdlWnd);
-#else
     ShowWindow(PSGLOBAL(window), nCmdShow);
-#endif
 
     // 0x748995
     CFileMgr::SetDirMyDocuments();
@@ -527,9 +501,9 @@ void InjectWinMainStuff() {
     RH_ScopedGlobalInstall(IsForegroundApp, 0x746060);
     RH_ScopedGlobalInstall(IsAlreadyRunning, 0x7468E0);
 
-    // Unhooking these 2 after the game has started will do nothing
-    RH_ScopedGlobalInstall(NOTSA_WinMain, 0x748710, {.locked = true});
-    RH_ScopedGlobalInstall(MessageLoop, 0x746870, {.locked = true});
+    // WinMain is selected at startup; MessageLoop can also be switched at runtime.
+    RH_ScopedGlobalInstall(NOTSA_WinMain, 0x748710);
+    RH_ScopedGlobalInstall(MessageLoop, 0x746870);
 
 #ifndef NOTSA_USE_SDL3
     RH_ScopedGlobalInstall(Win32_InitApplication, 0x7486A0);

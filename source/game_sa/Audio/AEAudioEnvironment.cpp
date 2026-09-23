@@ -13,8 +13,8 @@ void CAEAudioEnvironment::InjectHooks() {
     RH_ScopedInstall(GetDistanceAttenuation, 0x4D7F20);
     RH_ScopedInstall(GetDirectionalMikeAttenuation, 0x4D7F60);
     RH_ScopedInstall(GetReverbEnvironmentAndDepth, 0x4D8010);
-    RH_ScopedOverloadedInstall(GetPositionRelativeToCamera, "vec", 0x4D80B0, CVector(*)(const CVector&), { .locked = true }); // Unook -> Crash due to different signature
-    RH_ScopedOverloadedInstall(GetPositionRelativeToCamera, "placeable", 0x4D8340, CVector(*)(CPlaceable*));
+    RH_ScopedNamedInstall(GetPositionRelativeToCamera_Vector, "GetPositionRelativeToCamera-vec", 0x4D80B0);
+    RH_ScopedNamedInstall(GetPositionRelativeToCamera_Placeable, "GetPositionRelativeToCamera-placeable", 0x4D8340);
 }
 
 // 0x4D7E40
@@ -102,28 +102,123 @@ void CAEAudioEnvironment::GetReverbEnvironmentAndDepth(int8* reverbEnv, int32* d
     *depth = -100;
 }
 
+CVector CAEAudioEnvironment::GetPositionRelativeToCamera(const CVector& pos) {
+    CVector result;
+    GetPositionRelativeToCamera_Vector(&result, &pos);
+    return result;
+}
+
 // 0x4D80B0
-CVector CAEAudioEnvironment::GetPositionRelativeToCamera(const CVector& pt) {
-    const auto& camMat = TheCamera.m_mCameraMatrix;
-    const auto Calculate = [&](CVector camOffset) -> CVector { // @ 0x4D82DF
-        const auto p = camMat.InverseTransformVector(pt - (TheCamera.GetPosition() - camOffset));
-        return { -p.x, p.y, p.z };
-    };
-
-    switch (CCamera::GetActiveCamera().m_nMode) {
-    case eCamMode::MODE_SNIPER:
-    case eCamMode::MODE_ROCKETLAUNCHER:
-    case eCamMode::MODE_1STPERSON:
-        return Calculate(camMat.GetForward() * 2.f);
+void CAEAudioEnvironment::GetPositionRelativeToCamera_Vector(CVector* output, const CVector* pos) {
+    if (!pos) {
+        return; // The executable leaves the output buffer untouched.
     }
+    const auto* center = &TheCamera.GetPosition();
+    const auto* matrix = &TheCamera.m_mCameraMatrix;
+    const auto mode = CCamera::GetActiveCamera().m_nMode;
+    const bool firstPerson = mode == eCamMode::MODE_SNIPER || mode == eCamMode::MODE_ROCKETLAUNCHER || mode == eCamMode::MODE_1STPERSON;
+    float cameraOffset = -2.f;
+    if (!firstPerson) {
+        cameraOffset = 0.f;
+        if (auto* player = FindPlayerPed()) {
+            const auto* playerPos = &player->GetPosition();
+            const float half = .5f;
+            uint8 deltaXExt[10], deltaYExt[10], deltaZValue[10];
+            __asm {
+                mov eax, playerPos
+                mov edx, center
+                fld dword ptr [eax]
+                fsub dword ptr [edx]
+                fstp tbyte ptr deltaXExt
+                fld dword ptr [eax + 4]
+                fsub dword ptr [edx + 4]
+                fstp tbyte ptr deltaYExt
+                fld dword ptr [eax + 8]
+                fsub dword ptr [edx + 8]
+                fstp tbyte ptr deltaZValue
+                fld tbyte ptr deltaXExt
+                fmul st, st(0)
+                fld tbyte ptr deltaYExt
+                fmul st, st(0)
+                faddp st(1), st
+                fld tbyte ptr deltaZValue
+                fmul st, st(0)
+                faddp st(1), st
+                fsqrt
+                fsub half
+                fstp cameraOffset
+            }
+            cameraOffset = std::clamp(cameraOffset, 0.f, .5f);
+        }
+    }
+    // Preserve the original x87 intermediates: Y remains extended, Z is
+    // rounded to float, and the lateral dot product adds Y+Z before X.
+    uint8 deltaXExt[10], deltaYExt[10];
+    float deltaZValue, temp;
+    __asm {
+        mov eax, matrix
+        mov edx, center
+        mov ecx, pos
+        fld dword ptr [eax + 10h]
+        fmul cameraOffset
+        fstp temp
+        fld temp
+        fadd dword ptr [edx]
+        fstp temp
+        fld dword ptr [ecx]
+        fsub temp
+        fstp tbyte ptr deltaXExt
+        fld dword ptr [eax + 14h]
+        fmul cameraOffset
+        fstp temp
+        fld temp
+        fadd dword ptr [edx + 4]
+        fsubr dword ptr [ecx + 4]
+        fstp tbyte ptr deltaYExt
+        fld dword ptr [eax + 18h]
+        fmul cameraOffset
+        fadd dword ptr [edx + 8]
+        fsubr dword ptr [ecx + 8]
+        fstp deltaZValue
+        mov edx, output
+        fld tbyte ptr deltaYExt
+        fmul dword ptr [eax + 4]
+        fld deltaZValue
+        fmul dword ptr [eax + 8]
+        faddp st(1), st
+        fld tbyte ptr deltaXExt
+        fmul dword ptr [eax]
+        faddp st(1), st
+        fchs
+        fstp dword ptr [edx]
+        fld tbyte ptr deltaXExt
+        fmul dword ptr [eax + 10h]
+        fld tbyte ptr deltaYExt
+        fmul dword ptr [eax + 14h]
+        faddp st(1), st
+        fld deltaZValue
+        fmul dword ptr [eax + 18h]
+        faddp st(1), st
+        fstp dword ptr [edx + 4]
+        fld tbyte ptr deltaXExt
+        fmul dword ptr [eax + 20h]
+        fld tbyte ptr deltaYExt
+        fmul dword ptr [eax + 24h]
+        faddp st(1), st
+        fld deltaZValue
+        fmul dword ptr [eax + 28h]
+        faddp st(1), st
+        fstp dword ptr [edx + 8]
+    }
+}
 
-    const auto camDist = FindPlayerPed()
-        ? CVector::Dist(camMat.GetPosition(), FindPlayerPed()->GetPosition())
-        : 0.5f;
-    return Calculate(camMat.GetBackward() * std::clamp(camDist - 0.5f, 0.f, 0.5f));
+CVector CAEAudioEnvironment::GetPositionRelativeToCamera(CPlaceable* placeable) {
+    CVector result;
+    GetPositionRelativeToCamera_Placeable(&result, placeable);
+    return result;
 }
 
 // 0x4D8340
-CVector CAEAudioEnvironment::GetPositionRelativeToCamera(CPlaceable* placeable) {
-    return CAEAudioEnvironment::GetPositionRelativeToCamera(placeable->GetPosition());
+void CAEAudioEnvironment::GetPositionRelativeToCamera_Placeable(CVector* output, CPlaceable* placeable) {
+    GetPositionRelativeToCamera_Vector(output, &placeable->GetPosition());
 }

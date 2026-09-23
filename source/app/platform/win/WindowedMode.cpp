@@ -276,9 +276,6 @@ void AdjustPresentParams(D3DPRESENT_PARAMETERS* pp) {
 
     auto [desktopW, desktopH] = GetDesktopRes();
 
-    RsGlobal.maximumWidth  = pp->BackBufferWidth;
-    RsGlobal.maximumHeight = pp->BackBufferHeight;
-
     RECT rcClient = { 0, 0, (LONG)pp->BackBufferWidth, (LONG)pp->BackBufferHeight };
     AdjustWindowRectEx(&rcClient, GetWindowLong(WindowHandle, GWL_STYLE), FALSE, GetWindowLong(WindowHandle, GWL_EXSTYLE));
 
@@ -294,6 +291,11 @@ void AdjustPresentParams(D3DPRESENT_PARAMETERS* pp) {
     pp->BackBufferWidth  = rcClient.right;
     pp->BackBufferHeight = rcClient.bottom;
     pp->hDeviceWindow    = WindowHandle;
+
+    // Foreign/native windows can have a client area smaller than the requested
+    // video mode. Camera rasters must use the final back-buffer dimensions.
+    RsGlobal.maximumWidth  = pp->BackBufferWidth;
+    RsGlobal.maximumHeight = pp->BackBufferHeight;
 }
 
 struct ScopedRestoreWindowInfo {

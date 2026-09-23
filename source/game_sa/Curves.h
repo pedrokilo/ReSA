@@ -9,6 +9,7 @@ public:
     static void InjectHooks();
 
     static void TestCurves();
+    static void RunLocalTests(); // NOTSA: separate from the original no-op.
 
     /*!
     * @brief Calculate the shortest distance needed for 2 mathematical lines to cross

@@ -3,9 +3,7 @@
 
 #include "ControllerConfigManager.h"
 
-#ifndef NOTSA_USE_SDL3
 #include "WinPlatform.h"
-#endif // !NOTSA_USE_SDL3
 
 using enum eControllerAction;
 
@@ -787,23 +785,16 @@ void CControllerConfigManager::InitialiseControllerActionNameArray() {
 void CControllerConfigManager::ReinitControls() {
     ControlsManager.MakeControllerActionsBlank();
     ControlsManager.InitDefaultControlConfiguration();
-#ifdef NOTSA_USE_SDL3
-    const auto MouseSetUp = CMouseControllerState{};
-#else
     const auto MouseSetUp = WinInput::GetMouseSetUp();
-#endif
     ControlsManager.InitDefaultControlConfigMouse(MouseSetUp, FrontEndMenuManager.m_ControlMethod == eController::MOUSE_PLUS_KEYS);
 
     if (AllValidWinJoys.JoyStickNum[PAD1].bJoyAttachedToPort) {
-#ifdef NOTSA_USE_SDL3
-        ControlsManager.InitDefaultControlConfigJoyPad(JOYBUTTON_COUNT - 1);
-#else
+
         DIDEVCAPS devCaps;
         devCaps.dwSize = sizeof(DIDEVCAPS);
         if (!FAILED(PSGLOBAL(diDevice1)->GetCapabilities(&devCaps))) {
             ControlsManager.InitDefaultControlConfigJoyPad(devCaps.dwButtons);
         }
-#endif
     }
 }
 
@@ -1134,10 +1125,8 @@ void CControllerConfigManager::MakeControllerActionsBlank() {
 
 // 0x531140
 void CControllerConfigManager::AffectPadFromKeyBoard() {
-#ifndef NOTSA_USE_SDL3
     RsKeyCodes keyCode;
     GTATranslateShiftKey(&keyCode);
-#endif
 
     const auto inMenu = !CPad::padNumber && !FrontEndMenuManager.m_bMenuActive;
     for (auto& action : m_Actions) {

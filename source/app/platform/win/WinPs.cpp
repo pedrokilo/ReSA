@@ -13,6 +13,7 @@
 #ifdef NOTSA_USE_SDL3
 #include <SDL3/SDL.h>
 #include "WindowedMode.hpp"
+#include "SDLWrapper.hpp"
 #endif
 #include "winincl.h"
 #include "intrin.h"
@@ -22,9 +23,7 @@
 
 static inline char gCpuVendor[13] = "GTAReversed!"; // = "UnknownVendr";
 
-#ifndef NOTSA_USE_SDL3 // For SDL we do a `new`
 static auto& PsGlobal = StaticRef<psGlobalType>(0xC8CF88);
-#endif
 
 // 0x7455E0 - Get available videomem
 static HRESULT GetVideoMemInfo(LPDWORD total, LPDWORD available) {
@@ -103,11 +102,7 @@ static void InitialiseLanguage() {
 // 0x747420
 RwBool psInitialize() {
     SetProcessDPIAware();
-#ifdef NOTSA_USE_SDL3
-    auto ps = new psGlobalType;
-#else
     auto ps = &PsGlobal;
-#endif
 
     RsGlobal.ps = ps;
 
@@ -206,9 +201,7 @@ RwBool psInitialize() {
 
 // 0x7458A0
 void psTerminate() {
-#ifdef NOTSA_USE_SDL3
-    delete RsGlobal.ps;
-#endif
+    // The executable owns this static block; SDL owns its separate wrapper.
 }
 
 // 0x7451B0
@@ -566,7 +559,8 @@ bool psSelectDevice() {
     RwEngineGetVideoModeInfo(&vmi, GcurSelVM);
 
 #ifdef NOTSA_USE_SDL3
-    SDL_SetWindowSize(PSGLOBAL(sdlWindow), (int)(vmi.width), (int)(vmi.height));
+    if (!notsa::SDLWrapper::Initialize()) { return FALSE; }
+    SDL_SetWindowSize(notsa::SDLWrapper::GetWindow(), (int)(vmi.width), (int)(vmi.height));
 #endif
 
     if (vmi.flags & rwVIDEOMODEEXCLUSIVE) {
@@ -589,8 +583,8 @@ void WinPsInjectHooks() {
     RH_ScopedCategory("Win");
     RH_ScopedNamespaceName("Ps");
 
-    RH_ScopedGlobalInstall(psInitialize, 0x747420, { .locked = true }); // Locked because of SDL3 stuff
-    RH_ScopedGlobalInstall(psTerminate, 0x7458A0, { .locked = true }); // -||-
+    RH_ScopedGlobalInstall(psInitialize, 0x747420);
+    RH_ScopedGlobalInstall(psTerminate, 0x7458A0);
     RH_ScopedGlobalInstall(psWindowSetText, 0x7451B0);
     RH_ScopedGlobalInstall(psErrorMessage, 0x7451D0);
     RH_ScopedGlobalInstall(psWarningMessage, 0x7451F0);

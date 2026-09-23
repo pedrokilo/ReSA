@@ -77,10 +77,7 @@ void CVehicle::InjectHooks() {
     RH_ScopedVMTInstall(Save, 0x5D4760, {.enabled = false });
     RH_ScopedVMTInstall(Load, 0x5D2900, {.enabled = false });
 
-    // It can't be properly unhooked, original function assumes that CVehicle::GetVehicleAppearance doesn't spoil ECX register, and calls
-    // it without making sure that the pointer in it still points to current instance. While it worked for original function, we can't
-    // force the compiler to keep ECX unchanged through function execution
-    RH_ScopedVMTInstall(ProcessDrivingAnims, 0x6DF4A0, { .enabled = true, .locked = true });
+    RH_ScopedVMTInstall(ProcessDrivingAnims, 0x6DF4A0);
 
     RH_ScopedOverloadedInstall(IsPassenger, "Ped", 0x6D1BD0, bool(CVehicle::*)(CPed*) const);
     RH_ScopedOverloadedInstall(IsPassenger, "ModelID", 0x6D1C00, bool(CVehicle::*)(int32) const);
@@ -97,7 +94,7 @@ void CVehicle::InjectHooks() {
     RH_ScopedInstall(ApplyBoatWaterResistance, 0x6D2740);
     RH_ScopedInstall(ProcessBoatControl, 0x6DBCE0);
     RH_ScopedInstall(ChangeLawEnforcerState, 0x6D2330);
-    RH_ScopedInstall(GetVehicleAppearance, 0x6D1080);
+    RH_ScopedNamedInstall(GetVehicleAppearance_Reversed, "GetVehicleAppearance", 0x6D1080);
     RH_ScopedInstall(DoHeadLightBeam, 0x6E0E20);
     RH_ScopedInstall(GetPlaneNumGuns, 0x6D3F30); // ??: register problem?
 
@@ -917,14 +914,28 @@ void CVehicle::ProcessDrivingAnims(CPed* driver, bool blend) {
     else if (CVehicleAnimGroupData::UsesTruckDrivingAnims(static_cast<AssocGroupId>(m_pHandlingData->m_nAnimGroup)))
         usedAnims = &aDriveAnimIdsTruck;
     else {
-        const auto fDrivingSkill = CStats::GetStatValue(eStats::STAT_DRIVING_SKILL);
-        const auto fSpeed = m_vecMoveSpeed.Magnitude();
-        if (fDrivingSkill < 50.0F) {
-            usedAnims = fSpeed <= 0.4F ? &aDriveAnimIdsBadSlow : &aDriveAnimIdsBad;
-        } else if (fDrivingSkill < 100.0F) {
+        // Preserve the executable's x87 rounding and stat-read order.
+        const auto* speed = &m_vecMoveSpeed;
+        float fSpeed;
+        __asm {
+            mov eax, speed
+            fld dword ptr [eax]
+            fmul st(0), st(0)
+            fld dword ptr [eax+4]
+            fmul st(0), st(0)
+            faddp st(1), st(0)
+            fld dword ptr [eax+8]
+            fmul st(0), st(0)
+            faddp st(1), st(0)
+            fsqrt
+            fstp fSpeed
+        }
+        if (CStats::GetStatValue(eStats::STAT_DRIVING_SKILL) >= 100.0F) {
+            usedAnims = fSpeed <= 0.4F ? &aDriveAnimIdsProSlow : &aDriveAnimIdsPro;
+        } else if (CStats::GetStatValue(eStats::STAT_DRIVING_SKILL) >= 50.0F) {
             usedAnims = fSpeed <= 0.4F ? &aDriveAnimIdsStdSlow : &aDriveAnimIdsStd;
         } else {
-            usedAnims = fSpeed <= 0.4F ? &aDriveAnimIdsProSlow : &aDriveAnimIdsPro;
+            usedAnims = fSpeed <= 0.4F ? &aDriveAnimIdsBadSlow : &aDriveAnimIdsBad;
         }
     }
 
@@ -979,7 +990,14 @@ void CVehicle::ProcessDrivingAnims(CPed* driver, bool blend) {
         return;
     }
 
-    auto fUsedAngle = std::fabs(m_fSteerAngle / 0.61F);
+    const auto angle = m_fSteerAngle;
+    const float scale = angle < 0.0F ? -0x1.a3ac1p+0F : 0x1.a3ac1p+0F;
+    float fUsedAngle;
+    __asm {
+        fld angle
+        fmul scale
+        fstp fUsedAngle
+    }
     fUsedAngle = std::clamp(fUsedAngle, 0.0F, 1.0F);
 
     if (m_fSteerAngle < 0) {
@@ -1200,6 +1218,19 @@ void CVehicle::ResetAfterRender() {
         auto* const mi = GetVehicleModelInfo();
         assert(mi != nullptr);
         AsAutomobile()->CustomCarPlate_AfterRenderingStop(mi);
+    }
+}
+
+// Native ProcessDrivingAnims keeps ECX and EDX live across both calls. The C++ ABI
+// allows them to be clobbered, so preserve them at the executable boundary.
+__declspec(naked) eVehicleAppearance __fastcall CVehicle::GetVehicleAppearance_Reversed(const CVehicle*, void*) {
+    __asm {
+        push ecx
+        push edx
+        call CVehicle::GetVehicleAppearance
+        pop edx
+        pop ecx
+        ret
     }
 }
 

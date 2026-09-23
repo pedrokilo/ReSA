@@ -6,7 +6,7 @@
 
 class CAEDataStream : public IStream {
 public:
-    FILESTREAM m_pFileHandle;
+    HANDLE     m_pFileHandle; // Native Win32 handle; interchangeable with original methods.
     char*      m_pszFilename;
     bool       m_bIsOpen;
     uint32     m_nCurrentPosition;

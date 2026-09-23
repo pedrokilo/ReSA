@@ -11,11 +11,11 @@ void CTaskComplexWaitForBus::InjectHooks() {
 
     RH_ScopedInstall(Destructor, 0x632930);
 
-    RH_ScopedVMTInstall(Clone, 0x636A60, {.reversed = false});
-    RH_ScopedVMTInstall(GetTaskType, 0x632920, {.reversed = false});
-    RH_ScopedVMTInstall(CreateNextSubTask, 0x632940, {.reversed = false});
-    RH_ScopedVMTInstall(CreateFirstSubTask, 0x638940, {.reversed = false});
-    RH_ScopedVMTInstall(ControlSubTask, 0x632A40, {.reversed = false});
+    RH_ScopedVMTInstall(Clone, 0x636A60);
+    RH_ScopedVMTInstall(GetTaskType, 0x632920);
+    RH_ScopedVMTInstall(CreateNextSubTask, 0x632940);
+    RH_ScopedVMTInstall(CreateFirstSubTask, 0x638940);
+    RH_ScopedVMTInstall(ControlSubTask, 0x632A40);
 }
 
 CTaskComplexWaitForBus::CTaskComplexWaitForBus(const CTaskComplexWaitForBus& o) :
@@ -35,17 +35,15 @@ CTask* CTaskComplexWaitForBus::CreateNextSubTask(CPed* ped) {
         ped->bDontDragMeOutCar = true;
 
 
-        if (const auto player = FindPlayerPed()) {
-            if (m_bus->IsPassenger(player) || m_bus->IsDriver(player)) { // NOTE: Why complicate it so much? `ped->IsInVehicle(player)` ?
-                assert(player->IsInVehicle(m_bus)); // This should always hold true. If so, replace above with this
-                player->GetPlayerData()->m_nBusFaresCollected += 5; // TODO: Fix bugs.
-            }
+        auto* player = FindPlayerPed();
+        if ((player && m_bus->IsPassenger(player)) || m_bus->IsDriver(player)) {
+            player->GetPlayerData()->m_nBusFaresCollected += 5;
         }
 
         return nullptr; // Got on the bus, so task is finito
     }
     default:
-        NOTSA_UNREACHABLE();
+        return nullptr;
     }
 }
 
@@ -53,3 +51,7 @@ CTask* CTaskComplexWaitForBus::CreateNextSubTask(CPed* ped) {
 CTask* CTaskComplexWaitForBus::CreateFirstSubTask(CPed* ped) {
     return new CTaskSimpleWaitForBus{};
 }
+
+CTask* CTaskComplexWaitForBus::Clone() const { return new CTaskComplexWaitForBus{ *this }; }
+eTaskType CTaskComplexWaitForBus::GetTaskType() const { return Type; }
+CTask* CTaskComplexWaitForBus::ControlSubTask(CPed* ped) { return m_pSubTask; }

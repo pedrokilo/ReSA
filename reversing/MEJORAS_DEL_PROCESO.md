@@ -1,5 +1,7 @@
 # Reconstrucción y pruebas: proceso y mejoras
 
+> **Estado vigente:** [continuidad de desbloqueos terminados](#continuidad-vigente) e [informe conjunto](Unlocks/README.md). Las secciones de continuidad anteriores son históricas; sus cifras, pendientes y hashes describen cada entrega. Comprobar siempre Git antes de continuar.
+
 ## Qué se hizo realmente y qué faltaba mostrar
 
 Las pruebas anteriores fueron comparaciones automatizadas dentro del proceso de GTA. Una sonda preparaba entradas, ejecutaba la función original y la reconstrucción, y comparaba resultados. CWeaponEffects también registró las llamadas de dibujo y estados gráficos, reenviándolos al motor. Esto aporta evidencia técnica, pero no equivale a observar una situación jugable ni a comparar capturas.
@@ -38,7 +40,7 @@ Separar fuentes de prueba y documentación de los artefactos locales voluminosos
 
 ## Estado de implementación
 
-- Formato del listado: clases completas como «CVehicle (142)<br />», sin repetir fracción ni porcentaje.
+- Formato del listado: panel generado desde hooks.csv, con resumen, tablas y bloqueos; las clases completas muestran nombre y total, y las parciales muestran fracción, pendientes y porcentaje. Ver [ReversedClasses.md](../docs/ReversedClasses.md).
 - Acceso común: PROBAR.cmd, reversing/run.py y reversing/cases.json.
 - Ejecutores históricos: conservados, pendientes de extraer su infraestructura repetida.
 - Demostración visible después del prólogo: opcional y fuera del flujo obligatorio, según la preferencia del usuario. No confundirla con las comparaciones automáticas realizadas.
@@ -188,7 +190,7 @@ Evidencia final: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-usegun/20
 
 ## Cola autorizada por el usuario (2026-09-22)
 
-Continuar en este orden sin volver a preguntar la siguiente clase entre entradas. Completar reconstrucci?n, comparaci?n contra el original dentro del motor, compilaci?n normal, instalaci?n en la copia de pruebas y documentaci?n por clase. No actualizar progreso antes de validar, no hacer commit/push. Los porcentajes siguientes son el estado inicial, no cobertura de pruebas.
+Continuar en este orden sin volver a preguntar la siguiente clase entre entradas. Completar reconstrucción, comparación contra el original dentro del motor, compilación normal, instalación en la copia de pruebas y documentación por clase. No actualizar progreso antes de validar, no hacer commit/push. Los porcentajes siguientes son el estado inicial, no cobertura de pruebas.
 
 | Orden | Clase | Estado inicial | Pendiente registrada | Estado del trabajo |
 |---|---|---|---|---|
@@ -289,3 +291,87 @@ Banco automático integrado en el único PROBAR.cmd: --case clothes-scripted-spr
 Evidencia final: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-clothes-scripted-sprint\20260923-001346-817023. ASI normal instalado solo en copia de pruebas: d62c1071aadb1b459964a46efc4bfc3b9c6b3ea094521374408c14de7e9da034. Respaldo _baseline/before-clothes-scripted-sprint-20260923. Fuentes normales coinciden con el manifiesto; partidas sin cambios e instalación personal intacta.
 
 hooks.csv actualizado solo para cuatro filas tras validar, ReversedClasses.md regenerado y README actualizado. Guía de prioridades conserva su corte inicial y ahora señala estos tres cierres; quedan 97 clases incompletas y 551 entradas pendientes. Rama PGTASA, sin commit/push. Conservar cambios anteriores, incluido CQuadBike sin validar/deshabilitado y el constructor CPlayerInfo ya corregido.
+
+
+## Continuidad: CGeneral desbloqueado (2026-09-23)
+
+CGeneral sigue 9/9 y ahora tiene cero locked. GetRandomNumberInRange<float> 0x41BD90 estaba desactivada/bloqueada por una aserción con extremos invertidos (caller 0x6DF26D). Especialización float local x87 reproduce orden, control de precisión y retorno ST(0) del original sin esa aserción. El primer candidato double falló y se descartó. No eliminar la aritmética x87 sin volver a comparar: double/SSE no son equivalentes en este contexto.
+
+65.536 pares exactos finales, cero diferencias float y retorno de 80 bits, una llamada RNG por lado. Banco con 16 intervalos y entradas RNG controladas; ver README/validation-summary.json en reversing/CGeneral. Hook habilitado y desbloqueado desde arranque, luego compilación normal sin instrumentación. No se revalidaron las otras ocho entradas ni todos los callers, incluido el template entero que usa el helper float. No prueba todos los modos FP, NaN/infinito, conducción prolongada ni estabilidad general.
+
+Evidencia: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-general\20260923-003344-869382. Caso --case general en el único PROBAR.cmd y en --all. Fuentes restauradas y comparadas con el manifiesto. ASI normal instalado solo en copia de pruebas: e5b8d16815fb880a46fe0a23e012d825e3607304ef3429f7a248a3ad03192a67; respaldo _baseline/before-general-20260923. Partidas sin cambios, instalación personal intacta.
+
+hooks.csv actualizado solo en locked de la fila float tras validar; ReversedClasses.md regenerado y eliminado el candado de CGeneral. README y hash de trazabilidad de ReversingPriorities actualizados. La guía conserva la actualización anterior completa: 97 clases pendientes, 551 funciones y Top 10 renovado, no volver a introducir clases ya cerradas. Sin commit/push. Campaña integral aplazada y ULTIMA_EJECUCION.md histórico.
+
+
+## Continuidad: inicio normal, cierre de audio y documentación en español (2026-09-23)
+
+El usuario pidió traducir todos los MD y que GTA arranque desde el principio, sin carga automática. Se revisaron los 38 Markdown propios existentes, incluidos los ocultos en .github; seis documentos en inglés fueron traducidos. Se corrigieron acentos dañados, manteniendo símbolos, comandos y documentación histórica identificada. Se añadieron README en español para CAESound e InicioNormal. No se tradujeron cachés o dependencias descargadas.
+
+Ambos gta-reversed.ini de la copia de pruebas tenían FastLoader activo y SaveGameToLoad=2. Ahora Enable=false y SaveGameToLoad=-2; opciones de omitir pantallas en false. Se conservó Misc.SaveDirectoryPath. Respaldos de INI y del log del cierre en reversing/InicioNormal/artifacts. El comando normal es Set-Location a la copia de pruebas y & '.\gta_sa.exe', sin argumentos ni exclusiones.
+
+runtime_runner.py ahora respalda y restaura ambos INI byte por byte: FastLoader y ranura 2 solo se activan temporalmente durante bancos. La restauración se verificó en una reproducción fallida y en el banco aprobado (configs_restored=true). No dejar FastLoader activado permanentemente otra vez. No añadir nuevos CMD.
+
+Cierre registrado a las 00:36:43: acceso inválido 0xC0000005 en CAESound::UpdateParameters:252, lectura 0xDDDDDE0D. El usuario indicó un choque previo. Reproducción dentro del motor confirmó que la asignación implícita de CAESound copia EntityRef sin registrar el destino ni retirar la referencia anterior; ResolveReferences deja el destino colgando. Se implementó operator= explícito, con referencia registrada, autoasignación y preservación de m_IsAudioHardwareAware/relleno como el original 0x4EF680. La reparación no modifica globalmente EntityRef.
+
+1.024 pares exactos aprobados con Audio activo desde arranque; solo SurfaceInfos excluido en este banco. Caso sound-copy integrado en el único PROBAR.cmd y --all. README y validation-summary.json en reversing/CAESound. Evidencia: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-sound-copy\20260923-004932-410885. La reproducción fallida quedó en 20260923-004623-831808. No se revalidó toda la clase ni se reprodujo exactamente el mismo choque. Los errores de asignación CEntryExit del log siguen como incidencia separada.
+
+ASI normal instalado solo en copia de pruebas: 08ac3949fc40b466eac6d61c600a4df6987247e692a43d295824f9c473b7668d; respaldo _baseline/before-sound-copy-20260923. Después se abrió sin exclusiones y se comprobó por lectura de gGameState que llegó al menú en 27,32 s, permaneció allí diez segundos y no cargó partida. Estados observados 0,1,2,3,5,7; sin revisión visual de vídeos ni sesión prolongada. Evidencia en reversing/InicioNormal/validation-summary.json.
+
+Partidas e instalación personal conservadas. No se cambiaron flags del CSV para CAESound: operator= ya estaba habilitado y registrado. Los cambios previos de CGeneral y documentos permanecen. Sin commit/push. Campaña integral sigue aplazada; los bancos históricos archivados no prueban conjuntamente todos los cambios del ASI actual.
+
+
+## Continuidad: diez candidatos completados y arranque SDL (2026-09-23)
+
+Petición completada: CTaskComplexGoToPointShooting 3/3, CScriptResourceManager 4/4, CTaskComplexLeaveCarAndWander 8/8, CTaskComplexWaitForBus 7/7, CPopCycle 15/15, CCarCtrl 22/22, CTaskAllocatorKillThreatsBasic 6/6, FxPrimBP_c 2/2, CEntityScanner 4/4 y CTaskComplexDragPedFromCar 2/2. **No volver a tratarlas como pendientes.** Las 22 nuevas entradas están habilitadas y sin bloqueo tras comparación con el original dentro del motor.
+
+Cuatro bancos finales, todos aprobados: ShootingResources 18.432 pares, LeaveCarBus 5.632, PopulationFactory 18.432 y ScannerDragFx 9.216. Total **51.712 pares exactos sobre 24 funciones**, incluidos 2.048 Initialise de recursos y 2.048 constructor Aiming. No sumar las pasadas iniciales como cobertura nueva. Aiming continúa 5/8; CQuadBike permanece 11/12 y ProcessControl sin validar/deshabilitado. RpAnimBlend sigue 43/43 con su evidencia anterior.
+
+[Informe conjunto](Top10/README.md) y [resumen verificable](Top10/validation-summary.json). Cada banco conserva README, fuentes, ejecutor y validation-summary con rutas/hashes. Los artefactos extensos, sondas y logs quedan ignorados. Los casos shooting-resources, leave-car-bus, population-factory y scanner-drag-fx se integraron en cases.json y run_all.py; un solo PROBAR.cmd. Para ejecución autónoma usar python reversing/run.py --case ID.
+
+Hallazgos: Shooting::Clone construye Aiming y luego instala la vtable Shooting; se corrigió la copia de *this. Aiming conserva un indicador si la memoria reutilizada ya coincide. Los recursos almacenan tipo uint16 y conservan relleno; Add usa última ranura libre, Remove última coincidencia propia y devuelve según otros propietarios. LeaveCarAndWander asigna Wander también si el default es nulo. PopCycle usa rand/32768 y límites estrictos. La fábrica elige automóvil por defecto y activa caballete de moto/BMX; conserva el fallo original de asignación a 0x614 en esas dos ramas. Amenazas usa selección global 8×8, desempates y fallback exactos.
+
+EntityScanner necesita registro virtual con vtable exportada; el registro simple anterior apuntaba al thunk. FxPrimBP::Load usa adaptador no virtual con nombre Load por la misma razón. Se compararon sectores, temporizadores, orden, referencias, ocupantes, flags, versiones FX, matriz, texturas y posición del archivo. Los intentos iniciales con diferencias, thunk recursivo y captura de excepción bloqueada quedaron archivados; todos fueron restaurados y los defectos detectados se resolvieron antes de aprobar.
+
+Límites: bancos con Audio y SurfaceInfos excluidos, dependencias controladas documentadas, sin rutas completas, combate prolongado, todas las animaciones, constructores completos de vehículos ni render exhaustivo. PopulationFactory captura solo la excepción nativa esperada de 0x614 con instrumentación temporal del manejador; el manejador normal fue restaurado. RNG/tablas/hooks/referencias y fuentes restaurados, verificados contra manifiestos. FastLoader solicita ranura 2 temporalmente; el log rechaza su versión y empieza partida nueva. No forzar carga ni alterar el guardado. Campaña integral continúa aplazada.
+
+Después de los bancos, el arranque normal agotó dos veces el plazo en el logo. La segunda lectura descartó pérdida de foco. SDLWrapper no reenviaba WM_GRAPHNOTIFY al manejador de vídeo; se añadió un callback para la ventana del juego y estados 2/4 que llama al OnGraphNotify existente. Este cambio de integración posterior no alteró fuentes comparadas ni filas adicionales del CSV. Las sondas finales preceden a ese callback. Arranque normal final validado aparte, sin argumentos/exclusiones/teclas: estados 0, 1, 2, 3, 4, 5, 7, menú a los 130.49 s y diez segundos estable; sin carga automática. Ver InicioNormal/validation-summary.json. Su ejecutor ahora registra foco y extrae solamente el log nuevo.
+
+ASI normal Debug x86 final, sin instrumentación: `4bfe388ecf97ee2ad8c7d4a296bdc2d720e69d29f7fda000312890f5276a9805`, instalado solo en copia de pruebas. Respaldo inmediato `_baseline/before-top10-sdl-20260923`; respaldo del ASI CAESound anterior `_baseline/before-top10-20260923`. Partidas e INI conservados por hash, instalación personal intacta. El comando directo a gta_sa.exe sigue mostrando inicio y menú.
+
+hooks.csv actualizado solo en las 22 filas validadas (Scanner pasa a tipo virtual); ReversedClasses regenerado, README y ReversingPriorities actualizados. **614 completas, 85 parciales, 2 sin revertir; 7.485/8.014 entradas y 529 pendientes.** La guía contiene 87 clases incompletas y nuevo Top 10 intermedio de 28 pendientes; no volver a introducir clases cerradas. Comprobados 734 enlaces locales, coherencia del catálogo, totales y diff sin errores de espacios. ULTIMA_EJECUCION.md sigue siendo histórico; no se repitió toda la suite.
+
+Rama PGTASA. Cambios previos conservados. Sin commit ni push.
+
+
+<a id="continuidad-vigente"></a>
+
+## Continuidad: desbloqueos terminados y plataforma conmutable (2026-09-23)
+
+Petición completada: **24 candados retirados en 16 clases/namespaces**. CGeneral, número 17 de la lista, ya estaba desbloqueado; no repetir sus 65.536 pares ni tratarlo como pendiente. El usuario autorizó rehacer SDL/ImGui para poder conmutar los siete hooks de CPad, CMenuManager, Ps y Win; ya no conservan esos bloqueos. RpAnimBlend sigue 43/43 con su evidencia anterior.
+
+[Informe conjunto](Unlocks/README.md) y [resumen verificable](Unlocks/validation-summary.json). Bancos finales: Core 7.968, Tasks 7.168, Physical 3.072, Audio 9.216, Radio 224, Driving 16.640 e Input 6.144: **50.432 pares**. Plataforma: nueve arranques, **324 pares repetidos y 18 comprobaciones de entrada**. Los primeros siete bancos y cada modo final verifican los estados de hooks. No sumar las pasadas preliminares como cobertura nueva.
+
+Core corrige ABI uint8/x87 de CCover, la entrada New del pool antes registrada como GetAt, la llamada thiscall de RemoveDecisionMaker y el hook duplicado de VehicleRecording::Render. TestCurves y Render son retornos vacíos nativos; las pruebas extensas de curvas se conservan como RunLocalTests. EntryInfoNode conserva cursor/referencias/free del pool original sin cambiar globalmente todos los pools.
+
+Tasks implementa CreateSubTask de DestroyCarArmed y ProcessPed de ThrowControl. SeekEntityStandard::Destructor pasa de 0x46AD50 (wrapper scalar deleting) a 0x46AD70; adaptador Constructor con intervalos en orden correcto. Esta ABI incorrecta provocaba el fallo ESP. Physical conserva listas, pools, sectores negativos y aritmética x87. AudioEnvironment recibe buffer de salida sin prometer EAX, y se revalidó también su adaptador Placeable. Driving conserva ECX y EDX a través de GetVehicleAppearance mediante adaptador y 256 casos ABI adicionales.
+
+Radio usa vector nativo de punteros y CRT compatible, orden de argumentos correcto, enlaces de archivo/carpeta y propiedad de memoria reparados. Mantiene mejoras Unicode y recarga inmediata, documentadas y comprobadas como contratos propios; no se afirma identidad binaria de archivos. Fixtures privados reproducibles mediante UnlockRadio/prepare_fixtures.ps1; no música personal. Audio activo en Audio y Radio; los demás bancos excluyen Audio y SurfaceInfos.
+
+Input conserva la ABI y las máscaras 0x80 del ratón, DirectInput bajo SDL, adquisición/lectura, ejes x87, POV, zona muerta y padNumber. Plataforma mantiene PsGlobal nativo de 40 bytes, HWND compartido con SDL y bombeo independiente mediante temporizador. WM_GRAPHNOTIFY llega al vídeo y la captura de ImGui no requiere bloquear hooks. Matriz 127, 0, 126, 125, 123, 119, 111, 95 y 63 aprobada; no son todas las 128 combinaciones.
+
+La aserción RwCameraGetRaster(camera) se reprodujo con modo solicitado 1920×1080 y cliente real 1920×1055. WindowedMode ahora asigna RsGlobal.maximumWidth/Height después de conocer el backbuffer final. Se mantiene la aserción, no se oculta. Las sondas capturan RTC/aserciones para evitar diálogos detenidos. La captura temprana final de plataforma deja actuar a SEH local y solo termina por excepciones no manejadas; un intento anterior detenía primera oportunidad durante Direct3D y quedó fallido. El manejador normal deja continuar la búsqueda y evita repetir indefinidamente la instrucción fallida. Los fallos previos siguen archivados.
+
+ASI normal final sin instrumentación: **112cdb045c60ce0a3ca3114f77fc321e8482f569fd7d5458bdf3ce6b225208e3**. Instalado exclusivamente en la copia de pruebas; respaldo `_baseline/before-unlocks-20260923-122454`. Fuentes de las funciones comparadas coinciden con sus manifiestos. Después de la matriz solo se quitaron líneas vacías finales en WinInput.cpp/.h, con hashes antes/después registrados; se recompiló normal.
+
+Inicio normal final sin argumentos/exclusiones/teclas: estados muestreados 0,1,2,4,5,7, menú a los **68,89 s**, diez segundos estable, sin carga automática. Evidencia InicioNormal/artifacts/startup-20260923-122459. Observación conjunta del mismo ASI: **30 s en IDLE**, 863 frames de avance, sin exclusiones y Audio activo; Unlocks/artifacts/current-20260923-122728. No simula conducción, combate ni sesión prolongada. Partidas e INI conservados por hash; instalación personal intacta.
+
+Los ocho casos unlock-* se integraron en cases.json y run_all.py. Un solo PROBAR.cmd; matriz en UnlockPlatform/run_matrix.py y comprobación breve del ASI instalado en Unlocks/run_current_build.py. Los bancos son autónomos, con plazos y restauración; runtime_runner reintenta brevemente la copia si Windows tarda en liberar el ASI. FastLoader y ranura 2 solo temporales; al terminar ambos INI siguen Enable=false y SaveGameToLoad=-2. La ranura incompatible no se fuerza ni se altera.
+
+hooks.csv actualizado solo después de validar: 24 flags locked y dos correcciones de registro (pool y destructor). ReversedClasses regenerado; README, guía de prioridades, InicioNormal y documentación de bancos actualizados. Totales intactos: **614 completas, 85 parciales, 2 sin revertir; 7.485/8.014 entradas, 529 pendientes**. Quedan otros 630 candados fuera de esta petición. La guía conserva sus 87 clases pendientes; no reintroducir clases completadas. ULTIMA_EJECUCION sigue siendo histórico.
+
+Rama PGTASA, cambios previos conservados, sin commit ni push. La campaña integral sigue aplazada hasta completar las clases; las sondas históricas no prueban conjuntamente todo el ASI actual. No se garantiza estabilidad general. No hay orden vigente de apagar el equipo: el apagado pedido para la tarea anterior no es permanente.
+
+Revisión final de logs: avisos de Acquire antes de mostrar ventana, timecyc y rechazo del guardado permanecen documentados. En la ejecución conjunta, el driver Intel/D3D9On12 generó una excepción de primera oportunidad; el motor continuó 863 frames. El rótulo legado UNHANDLED EXCEPTION lo escribe el VEH antes de los manejadores SEH y no prueba un cierre por sí solo. No atribuir esa línea a un nuevo fallo terminal sin comprobar salida del proceso y continuidad.
+
+Revisión documental posterior a petición del usuario: inventario de 54 Markdown propios, nueve documentos corregidos. CVehicle ya no figura pendiente de habilitación/prueba; los ASI de Top10, CAESound, CGeneral y ClothesScriptedSprint se identifican como históricos. ULTIMA_EJECUCION enlaza la tanda vigente sin inventar otra pasada de la suite. Actualizados formato del catálogo y recuento documental; 17 clases solicitadas sin candados, 630 bloqueos fuera de la petición. Verificados 813 enlaces locales y concordancia del catálogo generado y la guía con hooks.csv. Solo documentación; sin cambios de CSV, código, binarios ni partidas, y sin repetir GTA. Registro local: artifacts/docs-audit-20260923.json. Sin commit/push.

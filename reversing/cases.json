@@ -1,5 +1,75 @@
 [
   {
+    "id": "unlock-core",
+    "name": "ABI, geometría, recursos y memoria",
+    "runner": "UnlockCore/run_local.py"
+  },
+  {
+    "id": "unlock-tasks",
+    "name": "Destrucción de vehículos y control de lanzamiento",
+    "runner": "UnlockTasks/run_local.py"
+  },
+  {
+    "id": "unlock-physical",
+    "name": "Inserción y redistribución de entidades físicas",
+    "runner": "UnlockPhysical/run_local.py"
+  },
+  {
+    "id": "unlock-audio",
+    "name": "Posición del audio respecto a la cámara",
+    "runner": "UnlockAudio/run_local.py"
+  },
+  {
+    "id": "unlock-radio",
+    "name": "Escáner e hilo de radio del usuario",
+    "runner": "UnlockRadio/run_local.py"
+  },
+  {
+    "id": "unlock-driving",
+    "name": "Animaciones de conducción y ABI",
+    "runner": "UnlockDriving/run_local.py"
+  },
+  {
+    "id": "unlock-input",
+    "name": "Ratón y mando DirectInput",
+    "runner": "UnlockInput/run_local.py"
+  },
+  {
+    "id": "unlock-platform",
+    "name": "Arranque, menú e integración SDL/ImGui",
+    "runner": "UnlockPlatform/run_local.py"
+  },
+  {
+    "id": "shooting-resources",
+    "name": "Shooting y recursos de scripts",
+    "runner": "ShootingResources/run_local.py"
+  },
+  {
+    "id": "leave-car-bus",
+    "name": "Salir del coche y esperar el autobús",
+    "runner": "LeaveCarBus/run_local.py"
+  },
+  {
+    "id": "population-factory",
+    "name": "Población, fábrica de vehículos y amenazas",
+    "runner": "PopulationFactory/run_local.py"
+  },
+  {
+    "id": "scanner-drag-fx",
+    "name": "Escáner, expulsión y primitivas FX",
+    "runner": "ScannerDragFx/run_local.py"
+  },
+  {
+    "id": "sound-copy",
+    "name": "CAESound: copia y referencias de entidades",
+    "runner": "CAESound/run_local.py"
+  },
+  {
+    "id": "general",
+    "name": "CGeneral: RNG float y limites invertidos",
+    "runner": "CGeneral/run_local.py"
+  },
+  {
     "id": "clothes-scripted-sprint",
     "name": "CClothes, CScripted2dEffects y Sprint",
     "runner": "ClothesScriptedSprint/run_local.py"

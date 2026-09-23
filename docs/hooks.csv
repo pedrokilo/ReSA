@@ -532,7 +532,7 @@ CVehicleRecording,PausePlaybackRecordedCar,0x00459740,1,0,S
 CVehicleRecording,RegisterRecordingFile,0x00459F80,1,0,S
 CVehicleRecording,RemoveAllRecordingsThatArentUsed,0x0045A160,1,0,S
 CVehicleRecording,RemoveRecordingFile,0x0045A0A0,1,0,S
-CVehicleRecording,Render,0x00459F70,1,1,S
+CVehicleRecording,Render,0x00459F70,1,0,S
 CVehicleRecording,RenderLineSegment,0x00459F00,1,0,S
 CVehicleRecording,RequestRecordingFile,0x0045A020,1,0,S
 CVehicleRecording,RestoreInfoForCar,0x00459A30,1,0,S
@@ -1273,7 +1273,7 @@ CPopCycle,IsPedInGroup,0x00610210,1,0,S
 CPopCycle,PedIsAcceptableInCurrentZone,0x00610720,1,0,S
 CPopCycle,PickARandomGroupOfOtherPeds,0x00610420,1,0,S
 CPopCycle,PickGangToCreateMembersOf,0x0060F8D0,1,0,S
-CPopCycle,PickPedMIToStreamInForCurrentZone,0x0060FFD0,0,1,S
+CPopCycle,PickPedMIToStreamInForCurrentZone,0x0060FFD0,1,0,S
 CPopCycle,PlayerKilledADealer,0x00610490,1,0,S
 CPopCycle,Update,0x00610BF0,1,0,S
 CPopCycle,UpdateAreaDodgyness,0x00610560,1,0,S
@@ -1724,7 +1724,7 @@ CPad,LookAroundUpDown,0x00540CC0,1,0,S
 CPad,MeleeAttackJustDown,0x00540390,1,0,S
 CPad,NextStationJustUp,0x005405B0,1,0,S
 CPad,ProcessPCSpecificStuff,0x0053FB40,1,0,S
-CPad,ProcessPad,0x00746A10,1,1,S
+CPad,ProcessPad,0x00746A10,1,0,S
 CPad,ReconcileTwoControllersInput,0x0053F530,1,0,S
 CPad,SetTouched,0x0053F200,1,0,S
 CPad,ShiftTargetLeftJustDown,0x00540850,1,0,S
@@ -1737,7 +1737,7 @@ CPad,StartShake_Distance,0x0053F9A0,1,0,S
 CPad,StartShake_Train,0x0053FA70,1,0,S
 CPad,StopShaking,0x0053FB50,1,0,S
 CPad,Update,0x00541C40,1,0,S
-CPad,UpdateMouse,0x0053F3C0,1,1,S
+CPad,UpdateMouse,0x0053F3C0,1,0,S
 CPad,WeaponJustDown,0x00540250,1,0,S
 COnscreenTimer,AddClock,0x0044CD50,1,0,S
 COnscreenTimer,AddCounter,0x0044CDA0,1,0,S
@@ -1831,7 +1831,7 @@ CMenuSystem,SwitchOffMenu,0x00580750,1,0,S
 CMenuManager,AdditionalOptionInput,0x005773D0,1,0,S
 CMenuManager,CentreMousePointer,0x0057C520,1,0,S
 CMenuManager,CheckCodesForControls,0x0057DB20,1,0,S
-CMenuManager,CheckForMenuClosing,0x00576B70,1,1,S
+CMenuManager,CheckForMenuClosing,0x00576B70,1,0,S
 CMenuManager,CheckFrontEndDownInput,0x005738B0,1,0,S
 CMenuManager,CheckFrontEndLeftInput,0x00573920,1,0,S
 CMenuManager,CheckFrontEndRightInput,0x00573990,1,0,S
@@ -2051,7 +2051,7 @@ CGeneral,GetATanOfXY,0x0053CC70,1,0,S
 CGeneral,GetAngleBetweenPoints,0x0053CEA0,1,0,S
 CGeneral,GetNodeHeadingFromVector,0x0053CDC0,1,0,S
 CGeneral,GetRadianAngleBetweenPoints-,0x0053CBE0,1,0,S
-CGeneral,GetRandomNumberInRange<float>-,0x0041BD90,1,1,S
+CGeneral,GetRandomNumberInRange<float>-,0x0041BD90,1,0,S
 CGeneral,GetRandomNumberInRange_int32,0x00407180,1,0,S
 CGeneral,LimitAngle,0x0053CB00,1,0,S
 CGeneral,LimitRadianAngle,0x0053CB50,1,0,S
@@ -2343,7 +2343,7 @@ CEntryExitManager,EnableBurglaryHouses,0x0043F180,1,0,S
 CEntryExitManager,FindNearestDoor,0x0043F630,1,0,S
 CEntryExitManager,FindNearestEntryExit,0x0043F4B0,1,0,S
 CEntryExitManager,GetEntryExitIndex,0x0043EFD0,1,0,S
-CEntryExitManager,GetPositionRelativeToOutsideWorld,0x0043F150,1,1,S
+CEntryExitManager,GetPositionRelativeToOutsideWorld,0x0043F150,1,0,S
 CEntryExitManager,Init,0x0043F880,1,0,S
 CEntryExitManager,LinkEntryExit,0x0043F050,1,0,S
 CEntryExitManager,Load,0x005D55C0,1,0,S
@@ -2368,7 +2368,7 @@ CEntryExit,WarpGangWithPlayer,0x0043F1F0,1,0,S
 CEntityScanner,Clear,0x005FF9D0,1,0,S
 CEntityScanner,Constructor,0x005FF990,1,0,S
 CEntityScanner,Destructor,0x00603480,1,0,S
-CEntityScanner,ScanForEntitiesInRange,0x005FFA20,0,1,S
+CEntityScanner,ScanForEntitiesInRange,0x005FFA20,1,0,V
 CDraw,CalculateAspectRatio,0x006FF420,1,0,S
 CDraw,SetFOV,0x006FF410,1,0,S
 CDoor,GetAngleOpenRatio,0x006F47E0,1,0,S
@@ -2511,7 +2511,7 @@ CCurves,CalcCurvePoint,0x0043C900,1,0,S
 CCurves,CalcSpeedScaleFactor,0x0043C710,1,0,S
 CCurves,CalcSpeedVariationInBend,0x0043C660,1,0,S
 CCurves,DistForLineToCrossOtherLine,0x0043C610,1,0,S
-CCurves,TestCurves,0x0043C600,1,1,S
+CCurves,TestCurves,0x0043C600,1,0,S
 CCurrentVehicle,Display,0x00571EA0,1,0,S
 CCurrentVehicle,Process,0x00572040,1,0,S
 CCullZones,AddCullZone,0x0072DF70,1,0,S
@@ -2553,8 +2553,8 @@ CCover,Find2HighestPoints,0x006988E0,1,0,S
 CCover,FindAndReserveCoverPoint,0x006992B0,1,0,S
 CCover,FindCoordinatesCoverPoint,0x00699570,1,0,S
 CCover,FindCoverPointsForThisBuilding,0x00699120,1,0,S
-CCover,FindDirFromVector,0x00698D40,1,1,S
-CCover,FindVectorFromDir,0x00698D60,1,1,S
+CCover,FindDirFromVector,0x00698D40,1,0,S
+CCover,FindVectorFromDir,0x00698D60,1,0,S
 CCover,FindVectorFromFirstToMissingVertex,0x00698790,1,0,S
 CCover,Init,0x00698710,1,0,S
 CCover,RemoveCoverPointIfEntityLost,0x00698DB0,1,0,S
@@ -2887,7 +2887,7 @@ CCarCtrl,ChoosePoliceCarModel,0x00421980,1,0,S
 CCarCtrl,CreateCarForScript,0x00431F80,1,0,S
 CCarCtrl,FindMaxSteerAngle,0x00427FE0,1,0,S
 CCarCtrl,GenerateRandomCars,0x004341C0,1,0,S
-CCarCtrl,GetNewVehicleDependingOnCarModel,0x00421440,0,1,S
+CCarCtrl,GetNewVehicleDependingOnCarModel,0x00421440,1,0,S
 CCarCtrl,Init,0x004212E0,1,0,S
 CCarCtrl,InitSequence,0x00421740,1,0,S
 CCarCtrl,IsAnyoneParking,0x0042C250,1,0,S
@@ -3417,7 +3417,7 @@ CObjectPool,New,0x005A1C20,1,0,S
 CNodeRoutePool,New,0x0041B710,1,0,S
 CIplDefPool,New,0x004059B0,1,0,S
 CEventPool,New,0x004B5570,1,0,S
-CEntryInfoNodePool,GetAt,0x00536D10,1,0,S
+CEntryInfoNodePool,New,0x00536D10,1,0,S
 CDummyPool,New,0x00532630,1,0,S
 CColModelPool,New,0x0040FB80,1,0,S
 CBuildingPool,New,0x00403FA0,1,0,S
@@ -3709,7 +3709,7 @@ CVehicle,PreRenderDriverAndPassengers,0x006D3DB0,1,0,S
 CVehicle,ProcessBoatControl,0x006DBCE0,1,0,S
 CVehicle,ProcessCarAlarm,0x006D21F0,1,0,S
 CVehicle,ProcessDelayedExplosion,0x006D1340,1,0,S
-CVehicle,ProcessDrivingAnims,0x00000000,1,1,V
+CVehicle,ProcessDrivingAnims,0x00000000,1,0,V
 CVehicle,ProcessOpenDoor,0x00000000,1,0,V
 CVehicle,ProcessWheel,0x006D6C00,1,0,S
 CVehicle,ProcessWheelRotation,0x006D1230,1,0,S
@@ -4102,7 +4102,7 @@ FxSphere_c,IsCollision,0x004A9FC0,1,0,S
 FxSphere_c,operator delete-,0x004A9FB0,1,0,S
 FxSphere_c,operator new,0x004A9F80,1,0,S
 FxPrimBP_c,GetRWMatrix,0x004A9DC0,1,0,S
-FxPrimBP_c,Load,0x005C2010,0,1,S
+FxPrimBP_c,Load,0x005C2010,1,0,S
 FxMemoryPool_c,Exit,0x004A9C80,1,0,S
 FxMemoryPool_c,GetMem,0x004A9CA0,1,0,S
 FxMemoryPool_c,Init,0x004A9C30,1,0,S
@@ -4579,8 +4579,8 @@ CAEUserRadioTrackManager,ScanUserTracks,0x004F4BA0,1,0,S
 CAEUserRadioTrackManager,SelectUserTrackIndex,0x004F3250,1,0,S
 CAEUserRadioTrackManager,SetUserTrackIndex,0x004F3340,1,0,S
 CAEUserRadioTrackManager,Shutdown,0x004F2FB0,1,0,S
-CAEUserRadioTrackManager,WriteUserTracksFile-,0x004F4690,1,1,S
-CAEUserRadioTrackManager,WriteUserTracksThread,0x004F4A20,1,1,S
+CAEUserRadioTrackManager,WriteUserTracksFile-,0x004F4690,1,0,S
+CAEUserRadioTrackManager,WriteUserTracksThread,0x004F4A20,1,0,S
 CAESoundManager,AreSoundsOfThisEventPlayingForThisEntity,0x004EF570,1,0,S
 CAESoundManager,AreSoundsOfThisEventPlayingForThisEntityAndPhysical,0x004EF5D0,1,0,S
 CAESoundManager,AreSoundsPlayingInBankSlot,0x004EF520,1,0,S
@@ -4895,7 +4895,7 @@ CAEAudioEnvironment,GetDirectionalMikeAttenuation,0x004D7F60,1,0,S
 CAEAudioEnvironment,GetDistanceAttenuation,0x004D7F20,1,0,S
 CAEAudioEnvironment,GetDopplerRelativeFrequency,0x004D7E40,1,0,S
 CAEAudioEnvironment,GetPositionRelativeToCamera-placeable,0x004D8340,1,0,S
-CAEAudioEnvironment,GetPositionRelativeToCamera-vec,0x004D80B0,1,1,S
+CAEAudioEnvironment,GetPositionRelativeToCamera-vec,0x004D80B0,1,0,S
 CAEAudioEnvironment,GetReverbEnvironmentAndDepth,0x004D8010,1,0,S
 CEntitySeekPosCalculatorXYOffset,ComputeEntitySeekPos,0x00000000,1,0,V
 CEntitySeekPosCalculatorStandard,ComputeEntitySeekPos,0x00000000,1,0,V
@@ -4907,7 +4907,7 @@ CTaskComplexSeekEntityStandard,ControlSubTask,0x00000000,1,0,V
 CTaskComplexSeekEntityStandard,CreateFirstSubTask,0x00000000,1,0,V
 CTaskComplexSeekEntityStandard,CreateNextSubTask,0x00000000,1,0,V
 CTaskComplexSeekEntityStandard,CreateSubTask,0x0046F1E0,1,0,S
-CTaskComplexSeekEntityStandard,Destructor,0x0046AD50,1,0,S
+CTaskComplexSeekEntityStandard,Destructor,0x0046AD70,1,0,S
 CTaskComplexSeekEntityStandard,GetTaskType,0x00000000,1,0,V
 CTaskComplexSeekEntityStandard,MakeAbortable,0x00000000,1,0,V
 CTaskComplexSeekEntityRadiusAngleOffset,Clone,0x00000000,1,0,V
@@ -5008,7 +5008,7 @@ CTaskSimpleThrowControl,Constructor,0x0061F8B0,1,0,S
 CTaskSimpleThrowControl,Destructor,0x0061F950,1,0,S
 CTaskSimpleThrowControl,GetTaskType,0x00000000,1,0,V
 CTaskSimpleThrowControl,MakeAbortable,0x00000000,1,0,V
-CTaskSimpleThrowControl,ProcessPed,0x00000000,1,1,V
+CTaskSimpleThrowControl,ProcessPed,0x00000000,1,0,V
 CTaskSimpleSwim,ApplyRollAndPitch,0x0068A8E0,1,0,S
 CTaskSimpleSwim,Constructor,0x00688930,1,0,S
 CTaskSimpleSwim,CreateFxSystem,0x0068A9F0,1,0,S
@@ -5690,13 +5690,13 @@ CTaskComplexWaitForDryWeather,CreateFirstSubTask,0x00000000,1,0,V
 CTaskComplexWaitForDryWeather,CreateNextSubTask,0x00000000,1,0,V
 CTaskComplexWaitForDryWeather,Destructor,0x00632830,1,0,S
 CTaskComplexWaitForDryWeather,GetTaskType,0x00000000,1,0,V
-CTaskComplexWaitForBus,Clone,0x00000000,0,1,V
+CTaskComplexWaitForBus,Clone,0x00636A60,1,0,V
 CTaskComplexWaitForBus,Constructor,0x00632900,1,0,S
-CTaskComplexWaitForBus,ControlSubTask,0x00000000,0,1,V
-CTaskComplexWaitForBus,CreateFirstSubTask,0x00000000,0,1,V
-CTaskComplexWaitForBus,CreateNextSubTask,0x00000000,0,1,V
+CTaskComplexWaitForBus,ControlSubTask,0x00632A40,1,0,V
+CTaskComplexWaitForBus,CreateFirstSubTask,0x00638940,1,0,V
+CTaskComplexWaitForBus,CreateNextSubTask,0x00632940,1,0,V
 CTaskComplexWaitForBus,Destructor,0x00632930,1,0,S
-CTaskComplexWaitForBus,GetTaskType,0x00000000,0,1,V
+CTaskComplexWaitForBus,GetTaskType,0x00632920,1,0,V
 CTaskComplexWaitForBackup,Clone,0x00000000,1,0,V
 CTaskComplexWaitForBackup,Constructor,0x00697290,1,0,S
 CTaskComplexWaitForBackup,ControlSubTask,0x00000000,1,0,V
@@ -6008,14 +6008,14 @@ CTaskComplexLeaveCarAsPassengerWait,Destructor,0x0063B4A0,1,0,S
 CTaskComplexLeaveCarAsPassengerWait,GetNextPassengerToLeave,0x0063B500,1,0,S
 CTaskComplexLeaveCarAsPassengerWait,GetTaskType,0x00000000,1,0,V
 CTaskComplexLeaveCarAsPassengerWait,SetPedInZerothPassengerSeat,0x0063B540,1,0,S
-CTaskComplexLeaveCarAndWander,Clone,0x00000000,0,1,V
+CTaskComplexLeaveCarAndWander,Clone,0x0063DAD0,1,0,V
 CTaskComplexLeaveCarAndWander,Constructor,0x0063BDD0,1,0,S
-CTaskComplexLeaveCarAndWander,ControlSubTask,0x00000000,0,1,V
-CTaskComplexLeaveCarAndWander,CreateFirstSubTask,0x00000000,0,1,V
-CTaskComplexLeaveCarAndWander,CreateNextSubTask,0x00000000,0,1,V
-CTaskComplexLeaveCarAndWander,CreateSubTask,0x0063BEC0,0,1,S
+CTaskComplexLeaveCarAndWander,ControlSubTask,0x0063BEB0,1,0,V
+CTaskComplexLeaveCarAndWander,CreateFirstSubTask,0x00642340,1,0,V
+CTaskComplexLeaveCarAndWander,CreateNextSubTask,0x006422C0,1,0,V
+CTaskComplexLeaveCarAndWander,CreateSubTask,0x0063BEC0,1,0,S
 CTaskComplexLeaveCarAndWander,Destructor,0x0063BE50,1,0,S
-CTaskComplexLeaveCarAndWander,GetTaskType,0x00000000,0,1,V
+CTaskComplexLeaveCarAndWander,GetTaskType,0x0063BE40,1,0,V
 CTaskComplexLeaveCarAndFlee,Clone,0x00000000,1,0,V
 CTaskComplexLeaveCarAndFlee,Constructor,0x0063BF90,1,0,S
 CTaskComplexLeaveCarAndFlee,ControlSubTask,0x00000000,1,0,V
@@ -6154,9 +6154,9 @@ CTaskComplexGotoDoorAndOpen,ControlSubTask,0x0066C1F0,0,1,S
 CTaskComplexGotoDoorAndOpen,CreateFirstSubTask,0x0066BD40,0,1,S
 CTaskComplexGotoDoorAndOpen,CreateNextSubTask,0x0066C0D0,0,1,S
 CTaskComplexGotoDoorAndOpen,Destructor,0x0066BC00,1,0,S
-CTaskComplexGoToPointShooting,Clone,0x00000000,0,1,V
+CTaskComplexGoToPointShooting,Clone,0x0066CE10,1,0,V
 CTaskComplexGoToPointShooting,Constructor,0x00668C70,1,0,S
-CTaskComplexGoToPointShooting,GetTaskType,0x00000000,0,1,V
+CTaskComplexGoToPointShooting,GetTaskType,0x00668CC0,1,0,V
 CTaskComplexGoToPointAnyMeans,Constructor-1,0x0066B720,1,0,S
 CTaskComplexGoToPointAnyMeans,Constructor-2,0x0066B790,1,0,S
 CTaskComplexGoToPointAnyMeans,ControlSubTask,0x00672A50,0,1,S
@@ -6437,7 +6437,7 @@ CTaskComplexDriveFireTruck,CreateFirstSubTask,0x00000000,1,0,V
 CTaskComplexDriveFireTruck,CreateNextSubTask,0x00000000,1,0,V
 CTaskComplexDriveFireTruck,CreateSubTask,0x0065A240,1,0,S
 CTaskComplexDragPedFromCar,ControlSubTask,0x00000000,1,0,V
-CTaskComplexDragPedFromCar,CreateFirstSubTask,0x00000000,0,1,V
+CTaskComplexDragPedFromCar,CreateFirstSubTask,0x00643D00,1,0,V
 CTaskComplexDiveFromAttachedEntityAndGetUp,Clone,0x00000000,1,0,V
 CTaskComplexDiveFromAttachedEntityAndGetUp,Constructor,0x00492E20,1,0,S
 CTaskComplexDiveFromAttachedEntityAndGetUp,ControlSubTask,0x00000000,1,0,V
@@ -6466,13 +6466,13 @@ CTaskComplexDestroyCarMelee,CreateSubTask,0x00628A70,1,0,S
 CTaskComplexDestroyCarMelee,Destructor,0x00621DA0,1,0,S
 CTaskComplexDestroyCarMelee,GetTaskType,0x00000000,1,0,V
 CTaskComplexDestroyCarMelee,MakeAbortable,0x00000000,1,0,V
-CTaskComplexDestroyCarArmed,CalculateSearchPositionAndRanges,0x00628C80,1,1,S
+CTaskComplexDestroyCarArmed,CalculateSearchPositionAndRanges,0x00628C80,1,0,S
 CTaskComplexDestroyCarArmed,Clone,0x00000000,1,0,V
 CTaskComplexDestroyCarArmed,Constructor,0x00621F50,1,0,S
 CTaskComplexDestroyCarArmed,ControlSubTask,0x00000000,1,0,V
 CTaskComplexDestroyCarArmed,CreateFirstSubTask,0x00000000,1,0,V
 CTaskComplexDestroyCarArmed,CreateNextSubTask,0x00000000,1,0,V
-CTaskComplexDestroyCarArmed,CreateSubTask,0x00628DA0,1,1,S
+CTaskComplexDestroyCarArmed,CreateSubTask,0x00628DA0,1,0,S
 CTaskComplexDestroyCarArmed,Destructor,0x00622010,1,0,S
 CTaskComplexDestroyCarArmed,GetTaskType,0x00000000,1,0,V
 CTaskComplexDestroyCarArmed,MakeAbortable,0x00000000,1,0,V
@@ -6599,7 +6599,7 @@ CTaskAllocatorKillThreatsDriveby,ProcessGroup,0x00000000,1,0,V
 CTaskAllocatorKillThreatsBasicRandomGroup,AllocateTasks,0x0069D460,1,0,S
 CTaskAllocatorKillThreatsBasicRandomGroup,GetType,0x005F68F0,1,0,S
 CTaskAllocatorKillThreatsBasic,AllocateTasks,0x00000000,1,0,V
-CTaskAllocatorKillThreatsBasic,ComputeClosestPeds,0x0069C850,0,1,S
+CTaskAllocatorKillThreatsBasic,ComputeClosestPeds,0x0069C850,1,0,S
 CTaskAllocatorKillThreatsBasic,Constructor,0x0069C710,1,0,S
 CTaskAllocatorKillThreatsBasic,Destructor,0x0069C780,1,0,S
 CTaskAllocatorKillThreatsBasic,GetType,0x00000000,1,0,V
@@ -6948,7 +6948,7 @@ CPlaceable,SetOrientation-xyz,0x00439A80,1,0,S
 CPlaceable,SetPosn-vector,0x004241C0,1,0,S
 CPlaceable,SetPosn-xyz,0x00420B80,1,0,S
 CPlaceable,ShutdownMatrixArray,0x0054EFD0,1,0,S
-CPhysical,Add,0x00000000,1,1,V
+CPhysical,Add,0x00000000,1,0,V
 CPhysical,AddCollisionRecord,0x00543490,1,0,S
 CPhysical,AddToMovingList,0x00542800,1,0,S
 CPhysical,ApplyAirResistance,0x00544C40,1,0,S
@@ -6997,7 +6997,7 @@ CPhysical,ProcessEntityCollision,0x00000000,1,0,V
 CPhysical,ProcessShift,0x00000000,1,0,V
 CPhysical,ProcessShiftSectorList,0x00546670,1,0,S
 CPhysical,Remove,0x00000000,1,0,V
-CPhysical,RemoveAndAdd,0x00542560,1,1,S
+CPhysical,RemoveAndAdd,0x00542560,1,0,S
 CPhysical,RemoveFromMovingList,0x00542860,1,0,S
 CPhysical,RemoveRefsToEntity,0x00544280,1,0,S
 CPhysical,SetDamagedPieceRecord,0x005428C0,1,0,S
@@ -7316,8 +7316,8 @@ CKeyGen,AppendStringToKey,0x0053CF70,1,0,S
 CKeyGen,GetKey-null-terminated,0x0053CF00,1,0,S
 CKeyGen,GetKey-sized,0x0053CED0,1,0,S
 CKeyGen,GetUppercaseKey-,0x0053CF30,1,0,S
-CEntryInfoNode,operator delete,0x00536DD0,1,1,S
-CEntryInfoNode,operator new,0x00536DC0,1,1,S
+CEntryInfoNode,operator delete,0x00536DD0,1,0,S
+CEntryInfoNode,operator new,0x00536DC0,1,0,S
 CEntryInfoList,Flush,0x00536E10,1,0,S
 CAnimManager,AddAnimAssocDefinition,0x004D3BA0,1,0,S
 CAnimManager,AddAnimBlockRef,0x004D3FB0,1,0,S
@@ -7708,10 +7708,10 @@ CScripted2dEffects,GetEffectPairs,0x006FA840,1,0,S
 CScripted2dEffects,GetIndex,0x006F9F60,1,0,S
 CScripted2dEffects,Init,0x006FA6F0,1,0,S
 CScripted2dEffects,ReturnScripted2DEffect,0x006F9E80,1,0,S
-CScriptResourceManager,AddToResourceManager,0x004704B0,0,1,S
-CScriptResourceManager,HasResourceBeenRequested,0x00470620,0,1,S
+CScriptResourceManager,AddToResourceManager,0x004704B0,1,0,S
+CScriptResourceManager,HasResourceBeenRequested,0x00470620,1,0,S
 CScriptResourceManager,Initialise,0x00470480,1,0,S
-CScriptResourceManager,RemoveFromResourceManager,0x00470510,0,1,S
+CScriptResourceManager,RemoveFromResourceManager,0x00470510,1,0,S
 CRunningScript,AddScriptToList,0x00464C00,1,0,S
 CRunningScript,CarInAreaCheckCommand,0x00488EC0,0,1,S
 CRunningScript,CharInAngledAreaCheckCommand,0x00487F60,0,1,S
@@ -7828,8 +7828,8 @@ Win,GTATranslateKey,0x00747820,1,0,S
 Win,GTATranslateShiftKey,0x00747CD0,1,0,S
 Win,IsAlreadyRunning,0x007468E0,1,0,S
 Win,IsForegroundApp,0x00746060,1,0,S
-Win,MessageLoop,0x00746870,1,1,S
-Win,NOTSA_WinMain,0x00748710,1,1,S
+Win,MessageLoop,0x00746870,1,0,S
+Win,NOTSA_WinMain,0x00748710,1,0,S
 Ps,CheckDirectSound,0x00745840,1,0,S
 Ps,GetVideoMemInfo,0x007455E0,1,0,S
 Ps,InitialiseLanguage,0x007465B0,1,0,S
@@ -7839,7 +7839,7 @@ Ps,psCameraShowRaster,0x00745240,1,0,S
 Ps,psDebugMessageHandler,0x00745540,1,0,S
 Ps,psErrorMessage,0x007451D0,1,0,S
 Ps,psGrabScreen,0x007452B0,1,0,S
-Ps,psInitialize,0x00747420,1,1,S
+Ps,psInitialize,0x00747420,1,0,S
 Ps,psInstallFileSystem,0x00745520,1,0,S
 Ps,psMouseSetPos,0x007453F0,1,0,S
 Ps,psMouseSetVisibility,0x007453E0,1,0,S
@@ -7848,7 +7848,7 @@ Ps,psPathGetSeparator,0x00745500,1,0,S
 Ps,psPathnameCreate,0x00745470,1,0,S
 Ps,psPathnameDestroy,0x007454E0,1,0,S
 Ps,psSelectDevice,0x00746190,1,0,S
-Ps,psTerminate,0x007458A0,1,1,S
+Ps,psTerminate,0x007458A0,1,0,S
 Ps,psTimer,0x00745270,1,0,S
 Ps,psWarningMessage,0x007451F0,1,0,S
 Ps,psWindowSetText,0x007451B0,1,0,S
@@ -7913,7 +7913,7 @@ CDecisionMakerTypesFileLoader,LoadDecisionMaker-enum,0x00607D30,1,0,S
 CDecisionMakerTypesFileLoader,LoadDecisionMaker-ptr,0x006076B0,1,0,S
 CDecisionMakerTypesFileLoader,LoadDefaultDecisionMaker,0x005BF400,1,0,S
 CDecisionMakerTypesFileLoader,ReStart,0x00607D00,1,0,S
-CDecisionMakerTypesFileLoader,UnloadDecisionMaker,0x00607A70,1,1,S
+CDecisionMakerTypesFileLoader,UnloadDecisionMaker,0x00607A70,1,0,S
 CConversations,AwkwardSay,0x0043A810,1,0,S
 CConversations,Clear,0x0043A7B0,1,0,S
 CConversations,DoneSettingUpConversation,0x0043ADB0,1,0,S

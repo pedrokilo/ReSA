@@ -16,7 +16,7 @@ void CPopCycle::InjectHooks() {
     RH_ScopedGlobalInstall(Initialise, 0x5BC090);
     RH_ScopedGlobalInstall(PickGangToCreateMembersOf, 0x60F8D0);
     RH_ScopedGlobalInstall(FindNewPedType, 0x60FBD0);
-    RH_ScopedGlobalInstall(PickPedMIToStreamInForCurrentZone, 0x60FFD0, { .reversed = false });
+    RH_ScopedGlobalInstall(PickPedMIToStreamInForCurrentZone, 0x60FFD0);
     RH_ScopedGlobalInstall(IsPedAppropriateForCurrentZone, 0x610150);
     RH_ScopedGlobalInstall(IsPedInGroup, 0x610210);
     RH_ScopedGlobalInstall(PickARandomGroupOfOtherPeds, 0x610420);
@@ -297,7 +297,15 @@ ePopcycleGroup CPopCycle::PickARandomGroupOfOtherPeds() {
 // 0x60FFD0
 eModelID CPopCycle::PickPedMIToStreamInForCurrentZone() {
     for (auto tr = 0; tr < 10; tr++) { // 10 tries
-        const auto grpId        = PickARandomGroupOfOtherPeds();
+        // This inlined selector uses strict boundaries and rand / 32768;
+        // PickARandomGroupOfOtherPeds has different boundary semantics.
+        auto percentage = int32(CGeneral::GetRandomNumber()) * 100 / 32768;
+        const auto& percentages = m_nPercTypeGroup[m_nCurrentTimeIndex][m_nCurrentTimeOfWeek][m_pCurrZoneInfo->PopType];
+        int32 group = 0;
+        while (percentage >= percentages[group]) {
+            percentage -= percentages[group++];
+        }
+        const auto grpId = ePopcycleGroup(group);
         const auto pedGrpId     = CPopulation::GetPedGroupId(grpId, CPopulation::CurrentWorldZone);
         const auto npeds        = CPopulation::GetNumPedsInGroup(pedGrpId);
         auto& nextPedToLoadSlot = CStreaming::ms_NextPedToLoadFromGroup[grpId];

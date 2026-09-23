@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 16640,
+  "pairs_per_function": {
+    "0": 16384,
+    "1": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 0,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 1,
+      "locked": false,
+      "startup_calls": 0
+    }
+  ],
+  "log_sha256": "5bcca4366031617478ea23e721222606a1ed621d6991783720531cae82640725",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-driving\\20260923-114405-636221",
+  "build_manifest": {
+    "binaries": {
+      "asi": "dbbd4ee31623a4eee92b5dceb73ac0a5a7652e4c3c33656328cb179a1bf36c20",
+      "pdb": "d3e3e8597610465deb5d4324c1ad180bcabb3be6a0b0810c60e2019bce31a1ec"
+    },
+    "sources": {
+      "source\\game_sa\\Entity\\Vehicle\\Vehicle.cpp": "a3748cde424ebe0722d13e340b748f5921fee5134657223d826245d193985442",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "Probe.hpp": "f32f248169285b198b6b3d70e57d4fa460e5194c4e3511a925e0e7d548b87932",
+      "LiveComparison.hpp": "81293aa9f2eb5c95ca59727df8f86ff7e536e30df394cf42400f71192585ad7b",
+      "build_probe.py": "c9aed53d6d9cf10164c82a8b73c957bff2733cf46aa93c4b84bedbba20c5758c"
+    },
+    "dependencies": {
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "c509bf10f697951ef02f03aab3984c17d28bc7e578f0c96de95742235161110d"
+    }
+  },
+  "scope": "Animaciones con asociaciones controladas; 256 comparaciones adicionales de la ABI de GetVehicleAppearance. No conducción prolongada."
+}

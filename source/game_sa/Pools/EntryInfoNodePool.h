@@ -9,9 +9,15 @@ public:
         RH_ScopedClass(CEntryInfoNodePool);
         RH_ScopedCategory("Pools");
 
-        RH_ScopedInstall(GetAt, 0x00536D10);
+        RH_ScopedInstall(New, 0x00536D10);
     }
 
 public:
     using CPool::CPool;
+
+    CEntryInfoNode* New() {
+        return NewLegacy();
+    }
+
+    void Delete(CEntryInfoNode* node) { DeleteLegacy(node); }
 };

@@ -20,6 +20,16 @@
 
 constexpr size_t MAX_SUPPORTED_DECODERS = 8;
 
+// VC6 vector of pointers used by the executable. Its allocator occupies the
+// first four bytes; it is not ABI-compatible with std::vector in this DLL.
+struct UserTracksLegacyVector {
+    uint32 allocator{};
+    tUserTracksInfo** first{};
+    tUserTracksInfo** last{};
+    tUserTracksInfo** end{};
+};
+VALIDATE_SIZE(UserTracksLegacyVector, 0x10);
+
 class CAEUserRadioTrackManager {
 public:
     tUserTracksInfo*    m_pUserTracksInfo;
@@ -49,6 +59,7 @@ public:
 
 private:
     static DWORD __stdcall WriteUserTracksThread(CAEUserRadioTrackManager* self);
+    int32 WriteUserTracksFile_Legacy(const char* dir, UserTracksLegacyVector& offsets, FILE* file, size_t& currentLength, int32 depth);
     int32 WriteUserTracksFile(const char* dir, size_t& currentLength, auto file, std::vector<tUserTracksInfo>& offsets, int32 depth);
     char* ResolveShortcut(const char* path);
 

@@ -1025,12 +1025,10 @@ void CMenuManager::CheckForMenuClosing() {
                     pad->ClearKeyBoardHistory();
                     pad->ClearMouseHistory();
 
-#ifndef NOTSA_USE_SDL3
                     if (IsVideoModeExclusive()) {
                         DIReleaseMouse();
                         InitialiseMouse(false);
                     }
-#endif // NOTSA_USE_SDL3
 
                     Initialise();
                     LoadAllTextures();
@@ -1051,7 +1049,6 @@ void CMenuManager::CheckForMenuClosing() {
                 pad->ClearKeyBoardHistory();
                 pad->ClearMouseHistory();
 
-#ifndef NOTSA_USE_SDL3
                 if (IsVideoModeExclusive()) {
                     DIReleaseMouse();
     #ifdef FIX_BUGS // Causes the retarded fucktard code to not dispatch mouse input to WndProc => ImGUI mouse not working. Amazing piece of technology.
@@ -1060,7 +1057,6 @@ void CMenuManager::CheckForMenuClosing() {
                     InitialiseMouse(true);
     #endif // !FIX_BUGS
                 }
-#endif // NOTSA_USE_SDL3
 
                 m_fStatsScrollSpeed = 150.0f;
                 SaveSettings();
@@ -1119,12 +1115,10 @@ void CMenuManager::CheckForMenuClosing() {
         m_bMenuActive = true;
         m_isPreInitialised = true;
 
-#ifndef NOTSA_USE_SDL3
         if (IsVideoModeExclusive()) {
             DIReleaseMouse();
             InitialiseMouse(false);
         }
-#endif // NOTSA_USE_SDL3
 
         Initialise();
         LoadAllTextures();

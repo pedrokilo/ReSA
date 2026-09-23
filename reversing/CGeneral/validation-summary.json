@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 65536,
+  "max_ulp": 0,
+  "different_pairs": 0,
+  "tolerance_ulp": 0,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "calls_before_bank": 592,
+      "enabled": true,
+      "event": "hook_state",
+      "locked": false
+    }
+  ],
+  "log_sha256": "3cc7408ae510f4ac4047c9074920bcf2900060f5549bcbb1b0d0d2b9a107f577",
+  "saves_unchanged": true,
+  "class_name": "CGeneral",
+  "registered_progress": "9/9",
+  "validated_functions": [
+    "GetRandomNumberInRange<float>"
+  ],
+  "evidence": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-general\\20260923-003344-869382",
+  "build_manifest": {
+    "binaries": {
+      "asi": "c96a593ca006bd9e5a871dbc431199125c542637309a4f84f9e00119b387c771",
+      "pdb": "7f9b2ecc99c37cf32c3be831eb72053ae9608f742824ada585a014c509621ebe"
+    },
+    "sources": {
+      "source\\game_sa\\General.cpp": "434bb58f87768f080efce211266d9fd45daa5688f614057d29d82734017a1a39",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "Probe.hpp": "d3fe70eecadfcfa5da45202a609d267b1b426bf2f319badae293edb7360f78f0",
+      "LiveComparison.hpp": "03f105817e656bc33c9ba83b8e70d6348627e6e54ee038b56f5d6ce1fc36281d",
+      "build_probe.py": "67deb50df44372f2b5981cad20845b495c224053e5cd7f2be8731396681cbe6a"
+    },
+    "dependencies": {
+      "source/game_sa/General.h": "88d996445a000412b69fabc48ef2ff94982a3ec5a438bdd1e5c6fd5466dc3748"
+    }
+  },
+  "installation": {
+    "normal_asi_sha256": "e5b8d16815fb880a46fe0a23e012d825e3607304ef3429f7a248a3ad03192a67",
+    "previous_hashes": {
+      "asi": "d62c1071aadb1b459964a46efc4bfc3b9c6b3ea094521374408c14de7e9da034",
+      "pdb": "8d22518b16510a3732674db505005544682bb21ac67063dde7672b751d44a6d5"
+    },
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-general-20260923",
+    "saves_unchanged": true
+  },
+  "scope": "Finite differential comparison of float RNG, including ST(0); not other CGeneral methods or general stability."
+}

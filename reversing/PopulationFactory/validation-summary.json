@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 18432,
+  "pairs_per_function": {
+    "0": 8192,
+    "1": 2048,
+    "2": 8192
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 0,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 1,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 2,
+      "locked": false,
+      "startup_calls": 0
+    }
+  ],
+  "log_sha256": "48315043da3526995eb13b1b5f0c2a683c81160f93050204660aebb751150a2d",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-population-factory\\20260923-014955-867189",
+  "build_manifest": {
+    "binaries": {
+      "asi": "62b40b230da34eb2dd9c32dac16ea94c3fbb3d8079563e9ddbfee4e1d02e6c65",
+      "pdb": "5e7667dbdea883b6254e3ec8b33239f9c69bea1c70dfab911f7f0342f4232415"
+    },
+    "sources": {
+      "source\\game_sa\\PopCycle.cpp": "c6aa8f330cd429b101aeaaf6f5174d00d3a0d2a53a127fcbbadc2d0dd2a1a7ec",
+      "source\\game_sa\\CarCtrl.cpp": "3b34917195f4afb20d257c43b996c93a329dfe04fae639e0cdaf32e5668a9239",
+      "source\\game_sa\\Tasks\\Allocators\\TaskAllocatorKillThreatsBasic.cpp": "80f1a050efdab5ae2262f6febc30a5105fa3b74d08295d756f8ee8dd8816fd7a",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde",
+      "source\\app\\app_debug.cpp": "ca423df24bdda94b865fb565d69c5802bfb55bfc58d0508098f353f60e1be1ff"
+    },
+    "instrumentation": {
+      "Probe.hpp": "fcd6ac71ed4862b700a26ec0a5693d946c31dd45be9cdc38e59650c924f4866d",
+      "LiveComparison.hpp": "4af2798802a77e8854ca51ee0c4d17238a0048bcb2886a8fc3b0a79e52c5a77e",
+      "build_probe.py": "e0ae7f10287c850c05cbc109c20c5c37108f4ea249176566c3ba7b02cca46756"
+    },
+    "dependencies": {
+      "source/game_sa/PopCycle.h": "5fd882e072af687a9c5690c3a803c0debb07ab63eeeb3aecab1e7a78a1aa9cf0",
+      "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b",
+      "source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.h": "10c7ec76264b2a43165feb896ed0e5348ab6ce163f2f91eafc9a750c5eec446b"
+    }
+  },
+  "classes": [
+    {
+      "name": "CPopCycle",
+      "registered_progress": "15/15",
+      "pairs": 8192
+    },
+    {
+      "name": "CCarCtrl",
+      "registered_progress": "22/22",
+      "pairs": 2048
+    },
+    {
+      "name": "CTaskAllocatorKillThreatsBasic",
+      "registered_progress": "6/6",
+      "pairs": 8192
+    }
+  ],
+  "functions": [
+    {
+      "index": 0,
+      "name": "PickPedMIToStreamInForCurrentZone",
+      "pairs": 8192
+    },
+    {
+      "index": 1,
+      "name": "GetNewVehicleDependingOnCarModel",
+      "pairs": 2048
+    },
+    {
+      "index": 2,
+      "name": "ComputeClosestPeds",
+      "pairs": 8192
+    }
+  ],
+  "scope": "Comparación acotada dentro del motor; no estabilidad general",
+  "excluded_hooks": [
+    "Audio",
+    "Global/SurfaceInfos_c"
+  ],
+  "startup_world": "Partida nueva tras rechazo por versión de la ranura 2; guardado intacto"
+}

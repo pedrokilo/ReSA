@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 7168,
+  "pairs_per_function": {
+    "0": 4096,
+    "1": 1024,
+    "2": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 0,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 1,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 2,
+      "locked": false,
+      "startup_calls": 0
+    }
+  ],
+  "log_sha256": "73924c3ab4241c3dc82d3699e7c6e25ea6d28e577cf1c2e9a15a92828854f358",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-tasks\\20260923-105157-996567",
+  "build_manifest": {
+    "binaries": {
+      "asi": "98907ddba47c55ea01cd8b6b71823a55227c365193d0323c5e0336054e8e8023",
+      "pdb": "ccae3ea0bc90634bda7278bf40f14a57a36f53b5a5812b46866d7bad3e76a843"
+    },
+    "sources": {
+      "source\\game_sa\\Tasks\\TaskTypes\\TaskComplexDestroyCarArmed.cpp": "17be457d7bba97b25f72f875a5cdbffebf190b011060d04e139a459c40781b46",
+      "source\\game_sa\\Tasks\\TaskTypes\\TaskSimpleThrowControl.cpp": "a59a2ac678e3b8129847f6dc77810eee5d1fd7c95ae05df2c95e561138fd195e",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "Probe.hpp": "33f455e9bcd812083a7c395cb71d6387d31659d27d1cf86e359e8cc86c1f52af",
+      "LiveComparison.hpp": "5bd0ad207cef064ade83ca9eb72ffc6ea173f2e6f58add159cb7b0b96f0fd58b",
+      "build_probe.py": "2a0b375e5582f4df1d0f4da2aa8174158e631307c9f6224c59d6190a2930877e"
+    },
+    "dependencies": {
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "26c91c6a29c0ff2fd3368b904f334772976acf638a3aa8de47b258e5f8bdd7ee",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c"
+    }
+  },
+  "scope": "Comparación local de rangos, fábricas y control de lanzamiento. Dependencias y entidades aisladas; no combate prolongado ni estabilidad general."
+}

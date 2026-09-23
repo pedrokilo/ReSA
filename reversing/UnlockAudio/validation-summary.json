@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 9216,
+  "pairs_per_function": {
+    "0": 8192,
+    "1": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 0,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 1,
+      "locked": false,
+      "startup_calls": 0
+    }
+  ],
+  "log_sha256": "b104914f87dd6ba817b9c059b3ab21dc4a4f652ec2582593c3a3b1f2f95cf16d",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-audio\\20260923-110719-041921",
+  "build_manifest": {
+    "binaries": {
+      "asi": "a086e5f875d53bed63d807b6662110b93b968614fbb3c06cee69e8e75e47656d",
+      "pdb": "d9630ffbd8243afae645304e0fc4f8a857016cd6e8bcb07dbae787ca1b599574"
+    },
+    "sources": {
+      "source\\game_sa\\Audio\\AEAudioEnvironment.cpp": "65ec97dc96b2e8bbe99b8145e80c973682eef2537b922f301f168dba1d00b859",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "Probe.hpp": "a202b1757acfa3099428ff0e79ae3879a04f46b2bf55674842bc3a0eb8686ac2",
+      "LiveComparison.hpp": "e94470b3cfc24d411ae57568e6ac5bb63a507aa9902c8f9d03241245ccf6f6fa",
+      "build_probe.py": "316a43e8a0a2b42304be7a6b56b1cd305e2963cf51eb352f88f9ea612d466ae2"
+    },
+    "dependencies": {}
+  },
+  "scope": "Transformaciones de audio con cámara y jugador controlados; no mezcla, reproducción prolongada ni estabilidad general."
+}

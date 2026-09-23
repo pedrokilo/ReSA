@@ -138,9 +138,7 @@ public:
     void Update(int32 pad);
     static void UpdatePads();
     void UpdateMouse();
-#ifndef NOTSA_USE_SDL3
     HRESULT GetMouseState(DIMOUSESTATE2* dm);
-#endif
     static void ProcessPad(ePadID padID);
     void ProcessPCSpecificStuff();
     CControllerState& ReconcileTwoControllersInput(CControllerState& out, const CControllerState& controllerA, const CControllerState& controllerB);
@@ -381,10 +379,8 @@ VALIDATE_SIZE(CPad, 0x134);
 int GetCurrentKeyPressed(RsKeyCodes& keys);
 
 // todo: move these fucks out
-#ifndef NOTSA_USE_SDL3
 IDirectInputDevice8* DIReleaseMouse();
 void InitialiseMouse(bool exclusive);
-#endif
 
 /*
 Android has 99 funcs

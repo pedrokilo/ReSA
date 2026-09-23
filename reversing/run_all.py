@@ -10,10 +10,12 @@ from datetime import datetime
 from pathlib import Path
 from runtime_runner import GAME, EXE_HASH, digest, saves
 
-PREFIXES = {'clothes-scripted-sprint': 'clothes-scripted-sprint', 'furniture': 'furniture', 'playerinfo-constructor': 'playerinfo-constructor', 'playerinfo': 'playerinfo', 'pedlist': 'pedlist', 'conversations': 'conversations', 'cped-completion': 'cped-completion', 'jetpack': 'jetpack', 'wander': 'wander', 'usegun': 'usegun', 'menusystem': 'menusystem', 'clouds': 'clouds', 'cvehicle': 'cvehicle', 'pcsave': 'pcsave', 'cplayerped': 'sprint',
+PREFIXES = {'shooting-resources': 'shooting-resources', 'leave-car-bus': 'leave-car-bus', 'population-factory': 'population-factory', 'scanner-drag-fx': 'scanner-drag-fx', 'sound-copy': 'sound-copy', 'general': 'general', 'clothes-scripted-sprint': 'clothes-scripted-sprint', 'furniture': 'furniture', 'playerinfo-constructor': 'playerinfo-constructor', 'playerinfo': 'playerinfo', 'pedlist': 'pedlist', 'conversations': 'conversations', 'cped-completion': 'cped-completion', 'jetpack': 'jetpack', 'wander': 'wander', 'usegun': 'usegun', 'menusystem': 'menusystem', 'clouds': 'clouds', 'cvehicle': 'cvehicle', 'pcsave': 'pcsave', 'cplayerped': 'sprint',
             'cped-attached': 'attached', 'cped-position': 'updateposition',
             'weaponeffects': 'weaponeffects', 'fxmanager': 'fxmanager',
             'basemodelinfo': 'basemodelinfo', 'rpanimblend': 'rpanimblend'}
+PREFIXES.update({name: name for name in ['unlock-audio', 'unlock-core', 'unlock-driving', 'unlock-input', 'unlock-physical', 'unlock-platform', 'unlock-radio', 'unlock-tasks']})
+
 
 def game_running():
     rows = csv.reader(subprocess.check_output(['tasklist', '/FO', 'CSV', '/NH'], text=True, errors='replace').splitlines())

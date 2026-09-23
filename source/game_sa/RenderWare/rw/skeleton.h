@@ -139,10 +139,8 @@ struct psGlobalType {
     LPDIRECTINPUTDEVICE8 diDevice1;
     LPDIRECTINPUTDEVICE8 diDevice2;
 
-#ifdef NOTSA_USE_SDL3
-    SDL_Window* sdlWindow;
-#endif
 };
+VALIDATE_SIZE(psGlobalType, 0x28);
 
 typedef struct RsGlobalType RsGlobalType;
 struct RsGlobalType {

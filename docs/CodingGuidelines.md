@@ -1,131 +1,159 @@
-### General rules
-* Do not change code already written unless it's related to your contribution or absolutely needed.
-* Please check and try to eliminate warnings from your code.
+# Guía de programación
 
-### Code style
-* 4 space indentation, LF line endings
-* No hungarian notation [It's useless]:
+## Reglas generales
+
+- No modifiques código existente salvo que esté relacionado con tu contribución o sea imprescindible.
+- Revisa las advertencias del compilador e intenta eliminarlas.
+
+## Estilo de código
+
+- Usa cuatro espacios de sangría y finales de línea LF.
+- No uses notación húngara:
+
 ```cpp
 class Foo {
-    int32 m_iPlayerHealth; // Bad
-    int32 m_PlayerHealth; // Good
+    int32 m_iPlayerHealth; // Incorrecto
+    int32 m_PlayerHealth;  // Correcto
 }
 ```
-* Variables are named in `camelCase` and types in `PascalCase`.
-* Class/struct members and functions are named in `CamelCase`
-* In classes (**not** structs), use `m_` prefix to member variables:
+
+- Las variables usan `camelCase` y los tipos, `PascalCase`.
+- Los miembros y las funciones de clases y estructuras usan `CamelCase`.
+- En las clases, pero no en las estructuras, usa el prefijo `m_` para variables miembro:
+
 ```cpp
 class Foo {
 public:
-    static int ms_TotalFoos; // Static member variable
+    static int ms_TotalFoos; // Variable miembro estática
 
 private:
-    int m_FooCount; // Non-static member variable
+    int m_FooCount; // Variable miembro de instancia
 }
 ```
-* For shared variables outside a class, use `g_` prefix, and define them in the header:
+
+- Las variables compartidas fuera de una clase usan `g_` y se definen en la cabecera:
+
 ```cpp
-// Header-defined shared global
-inline int g_InlineGlobalCounter = 0; // Prefer `inline` over `extern`
+// Variable global compartida definida en una cabecera
+inline int g_InlineGlobalCounter = 0; // Preferir inline a extern
 ```
-* For static variables in a source file (eg.: `.cpp`), use `s_` prefix:
+
+- Las variables estáticas de un archivo fuente, por ejemplo `.cpp`, usan `s_`:
+
 ```cpp
-// Source-defined static variable
 static int s_StaticGlobalCounter = 0;
 ```
-* For shared variables inside a class, use `ms_` prefix, and define them in the header:
-```cpp
-class Foo {
-public:
-    static inline int ms_StaticGlobalCounter = 0; // Static member variable
-}
-```
-* Static and global variables should reference back to the original game address using `StaticRef` (In cases the original data is const, eg. its some configuration the value can be copied directly instead of referencing it):
-```cpp
-class Foo {
-public:
-    static inline auto& ms_StaticGlobalCounter = StaticRef<int>(0xDEADBEEF); // Static member variable
-}
-``` 
-* If some rule about something is not specified here, refer to how it's done in the code
-* Some classes may have *helper* functions to make code more readable. (Denoted by *NOTSA*) - Try adding new ones, or looking for and using them.
-* If you made *helper* functions in a source file, mark them as `static`.
-* If a helper doesn't fit into any of the existing files, see the `extensions` folder
-* Prefer `get`-ters/`set`-ters over raw member access
-* Use range-based for loops as much as possible:
-```cpp
-for (auto& element : array) { // Good
-    // ...
-} 
 
-for (int i = 0; i < std::size(array); i++) { // Bad
+- Las variables compartidas dentro de una clase usan `ms_` y se definen en la cabecera:
+
+```cpp
+class Foo {
+public:
+    static inline int ms_StaticGlobalCounter = 0;
+}
+```
+
+- Las variables estáticas y globales deben referirse a la dirección original del juego mediante `StaticRef`. Cuando los datos originales sean constantes, por ejemplo una configuración, se puede copiar su valor:
+
+```cpp
+class Foo {
+public:
+    static inline auto& ms_StaticGlobalCounter = StaticRef<int>(0xDEADBEEF);
+}
+```
+
+- Si una regla no aparece aquí, sigue el estilo del código existente.
+- Algunas clases incluyen funciones auxiliares marcadas como `NOTSA`. Busca las existentes antes de añadir otras.
+- Marca como `static` las funciones auxiliares definidas en un archivo fuente.
+- Si una función auxiliar no encaja en los archivos existentes, revisa la carpeta `extensions`.
+- Prefiere métodos de acceso y modificación frente al acceso directo a miembros.
+- Usa bucles basados en rangos siempre que sea posible:
+
+```cpp
+for (auto& element : array) { // Recomendado
+    // ...
+}
+
+for (int i = 0; i < std::size(array); i++) { // Evitar si basta un rango
     // ...
 }
 ```
-* Use `ranges` versions of `std` functions as much as possible.
-* Use `rng::` instead of `std::ranges` and `rngv::` instead of `std::views`.
-* We encourage you to write modern C++, but if that's not your style please adhere to the existing code style of the original game or in the file you're working on.
-* Use `rngv::enumerate` if you need both the index and object.
+
+- Prefiere las versiones para rangos de las funciones de `std`.
+- Usa `rng::` en lugar de `std::ranges` y `rngv::` en lugar de `std::views`.
+- Se recomienda C++ moderno. Si no lo usas, respeta el estilo del archivo o del código original.
+- Usa `rngv::enumerate` cuando necesites tanto el índice como el objeto:
+
 ```cpp
-for (auto&& [i, e] : rngv::enumerate(array));
+for (auto&& [i, e] : rngv::enumerate(array)) {
+    // ...
+}
 ```
-* If there's a dynamic `count` variable associated with a fixed size array, use `std::span` or `rng::views::take`. E.g.:
+
+- Si un arreglo de tamaño fijo tiene un contador dinámico de elementos activos, usa `std::span` o `rng::views::take`:
+
 ```cpp
-// Bad
+// Evitar
 for (auto i = 0u; i < m_numThings; i++);
 
-// Good
+// Recomendado
 for (auto& thing : std::span{ m_things, m_numThings });
-// Also good
+
+// También válido
 for (auto& thing : m_things | rng::views::take(m_numThings));
 
-// ^ If these funcs are called more than once, make a helper function in the header. Like below:
+// Si se repite, crear una función auxiliar en la cabecera:
 auto GetActiveThings() {
-    return std::span{ m_things, m_numThings }
+    return std::span{ m_things, m_numThings };
 }
 ```
-* Use `f` in float literals [As omitting it would make them a `double`] (e.g. `1.0f`)
-* Use `std` library for generic functions like `min`, `max`, `lerp`, etc...
-* `CVector` is interchangible with 3 floats [As is `CVector2D` with 2 floats] for function args
-* Use lambdas for repetitive procedures in functions
-* Use `constexpr` variables instead of macros
-* Use `static inline` instead of `extern` and `static` in headers:
+
+- Añade `f` a los literales `float`, por ejemplo `1.0f`; sin el sufijo son `double`.
+- Usa la biblioteca estándar para operaciones genéricas como `min`, `max` o `lerp`.
+- En argumentos de funciones, `CVector` es intercambiable con tres valores `float`; `CVector2D`, con dos.
+- Usa funciones lambda para procedimientos repetidos dentro de una función.
+- Prefiere variables `constexpr` a macros.
+- En cabeceras, usa `static inline` en lugar de declaraciones separadas con `extern` y `static`:
+
 ```cpp
 class Foo {
-    static uint32& m_FooCount; // Bad
+    static uint32& m_FooCount; // Evitar
 
-    static inline auto& m_FooCount = StaticRef<uint32, 0xDEADBEEF>(); // Good
+    static inline auto& m_FooCount = StaticRef<uint32, 0xDEADBEEF>(); // Recomendado
 }
 ```
 
-#### Types
-* Use `auto` in function bodies if the variables' type is guessable.
-* Guess for enum values [Or at least leave a `TODO` comment]
-* Take care of const correctness [Especially of class methods] (e.g. `const char*` over `char*` or `const CVector&` over `CVector&`)
-* Try to use SA types over RW as much as possible, **except** `RwMatrix`. (e.g. `CVector` for `RwV3d`, `CRGBA` for `RwRGBA`)
-* Use fixed width integer types (e.g. `uint8`, `int32` over `unsigned char`, `int` etc).
-* Do not use Win32 integer types. [Except for Win32 exclusive code] (e.g. `DWORD` -> `uint32`)
-* For array sizes, etc... prefer using `unsigned` (u) types over `signed` ones (eg.: `uint32` over `int32`). If possible use `size_t`.
-* Whenever possible use `std::array` over `C-Style` array [as the former has bounds checking in debug mode, and can help us discover bugs]
+### Tipos
 
-#### Fixing bugs
-Whenever you find a bug, we encourage you to fix it [and/or at least] leave a comment explaining what the bug is.
-If you do a bugfix you're required to use `notsa::bugfixes` - this helps documenting and testing these fixes.
-See `reversiblebugfixes/Bugs.hpp` for more info.
+- Usa `auto` dentro de funciones cuando el tipo sea fácil de deducir.
+- Propón nombres para los valores de enumeraciones; si aún se desconocen, deja al menos un comentario `TODO`.
+- Respeta `const`, especialmente en métodos de clase; por ejemplo, `const char*` y `const CVector&`.
+- Prefiere tipos de SA a los de RenderWare, excepto `RwMatrix`: por ejemplo, `CVector` en lugar de `RwV3d` y `CRGBA` en lugar de `RwRGBA`.
+- Usa enteros de ancho fijo, como `uint8` e `int32`, en lugar de `unsigned char` o `int`.
+- No uses tipos enteros de Win32 salvo en código exclusivo de Win32; por ejemplo, prefiere `uint32` a `DWORD`.
+- Para tamaños de arreglos y similares, prefiere tipos sin signo a tipos con signo; usa `size_t` cuando sea posible.
+- Prefiere `std::array` a arreglos de estilo C: sus comprobaciones en depuración ayudan a detectar errores.
 
-#### Using `assert`
-We encourage the usage of `assert` - if you think something may be out-of-bounds, or otherwise bug-prone, make sure to add an `assert`, it can help debugging the code a lot!
-Do **not** add early returns for possible error conditions, use `assert` instead!
-If the original game did early outs for possible unexpected error conditions then please also prefer using `assert` instead of just quietly erroring. Do not use it if the game can handle/recover from that error condition, an error or a warning log is enough.
+### Corrección de errores
 
-### Handling translated (GXT) text
-* GXT code page is a partial superset of ASCII, it's one-to-one except for `^`, `[` and `]`. (translated to [`¡`](https://en.wikipedia.org/wiki/Inverted_question_and_exclamation_marks), `<` and `>` respectively)
-* GXT encoded characters are 1-byte long and strings are null-terminated. They can be used in `char` typed C copy/compare functions.
-* Do not assume anything other than above for GXT strings.
-* Use `AsciiToGxtChar` and `GxtCharToUTF8` for safely converting. UTF-8 strings should be safe to print and manipulate in general.
-* Use `AsciiFromGxtChar` (or `""_gxt` for literals) and `GxtCharFromAscii` for implicitly converting. You **must** be sure that all characters are ASCII.
+Cuando encuentres un error, intenta corregirlo o deja un comentario que lo explique. Las correcciones que alteren errores del juego original deben usar `notsa::bugfixes` para poder documentarlas y probarlas. Consulta `reversiblebugfixes/Bugs.hpp`.
 
-### Contributing
-Please make sure to test your code before opening a PR. Guess what places/missions are affected by your code and test them. Use debug menu (F7) for quick access to stuff.
+### Uso de assert
 
-If you don't know how to test the code or think you have not tested enough specify it in the PR message.
+Usa `assert` para detectar accesos fuera de límites y otras condiciones propensas a errores. Ante una condición inesperada que deba señalarse, prefiere una aserción a un retorno anticipado silencioso.
+
+Si el juego puede gestionar o recuperarse de una condición, basta con registrar un error o una advertencia. En PGTASA, contrasta las precondiciones con el original: una aserción añadida no debe rechazar entradas que el motor utiliza legítimamente.
+
+## Tratamiento del texto traducido GXT
+
+- La página de códigos GXT contiene parcialmente ASCII y mantiene su correspondencia salvo en `^`, `[` y `]`, que representan [`¡`](https://en.wikipedia.org/wiki/Inverted_question_and_exclamation_marks), `<` y `>`, respectivamente.
+- Los caracteres GXT ocupan un byte y las cadenas terminan en cero. Se pueden usar con funciones C de copia y comparación de cadenas `char`.
+- No supongas otras propiedades de las cadenas GXT.
+- Usa `AsciiToGxtChar` y `GxtCharToUTF8` para conversiones seguras. Las cadenas UTF-8 pueden imprimirse y manipularse como tales.
+- Usa `AsciiFromGxtChar` —o `""_gxt` para literales— y `GxtCharFromAscii` para conversiones implícitas. Debes asegurarte de que todos los caracteres sean ASCII.
+
+## Contribuciones
+
+Prueba el código antes de abrir una solicitud de cambios. Identifica los lugares y las misiones afectados y compruébalos. El menú de depuración, accesible con F7, facilita estas comprobaciones.
+
+Para el trabajo local de PGTASA, sigue además el [proceso de comparación y continuidad](../reversing/MEJORAS_DEL_PROCESO.md): no actualices el progreso antes de validar contra el original dentro del motor.

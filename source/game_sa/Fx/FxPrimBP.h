@@ -72,6 +72,13 @@ public:
     virtual bool FreePrtFromPrim(FxSystem_c* system) = 0;
 
     void GetRWMatrix(RwMatrix& outMatrix);
+
+private:
+    // Load has a base implementation but remains pure virtual; avoid its vcall thunk.
+    bool Load_Reversed(FILESTREAM file, int32 version, FxName32_t* textureNames) {
+        return FxPrimBP_c::Load(file, version, textureNames);
+    }
+
 };
 
 VALIDATE_SIZE(FxPrimBP_c, 0x40);

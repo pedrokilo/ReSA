@@ -1,44 +1,72 @@
-All the scripts are based off of from j0y's [differential testing utility](https://github.com/j0y/gta-reversed-diff-test). Thank you!
+# Compilar con MSVC desde Linux mediante Wine
+
+Los scripts se basan en la [herramienta de pruebas diferenciales de j0y](https://github.com/j0y/gta-reversed-diff-test). ¡Gracias por su trabajo!
 
 > [!IMPORTANT]
-> This is for building **Windows versions** of the ASI using Linux. It's meant for developers using Linux only!
+> Este procedimiento compila **versiones de Windows** del ASI desde Linux. Está dirigido a desarrolladores que trabajan en Linux.
 
-### 0. Requirements
-python, cmake, msiextract
+### 0. Requisitos
 
-### 1. Clone msvc-wine and install VS
+Python, CMake y `msiextract`.
+
+### 1. Clonar msvc-wine e instalar Visual Studio
+
 > [!NOTE]
-> You *should* install into `/opt/msvc`, or comply to following notes.
+> Se recomienda instalar en `/opt/msvc`. Si se usa otra ruta, habrá que ajustar los pasos siguientes.
 >
-> Also don't forget to own the dir since `/opt` is typically owned by `root`.
+> Comprueba los permisos de la carpeta: normalmente `/opt` pertenece a `root`.
 
-`./vsdownload.py --accept-license --dest /opt/msvc`
-
-### 2. Install the MSVC wrappers
+```sh
+./vsdownload.py --accept-license --dest /opt/msvc
 ```
+
+### 2. Instalar los adaptadores de MSVC
+
+```sh
 wineboot --init
 wineserver --wait
 ./install.sh /opt/msvc
 wineserver --wait
 ```
 
-### 3. Patch the wrappers by running the `patch-wrappers.sh` script.
-> [!NOTE]
-> You need to modify the path if you haven't installed MSVC into `/opt/msvc`!
+### 3. Aplicar los ajustes a los adaptadores
 
-Check if the `cl` wrapper works: `/opt/msvc/bin/x86/cl 2>&1 | head -3`. You should see the MS branding title.
+Ejecutar `patch-wrappers.sh`. Si MSVC no está instalado en `/opt/msvc`, modificar la ruta del script.
 
-### 4. Install Conan using `pipx` or preferably your distro's package manager.
-`pipx install "conan>=2.0,<3.0"`
+Comprobar el adaptador de `cl`:
 
-### 5. Let Conan detect your profile
-`conan profile detect --force`
+```sh
+/opt/msvc/bin/x86/cl 2>&1 | head -3
+```
 
-### 6. Test the installed toolchain
-`./test-toolchain.sh`
+Debe aparecer el encabezado de Microsoft.
 
-### 7. Copy `toolchain-msvc-wine.cmake` into the `/opt/msvc` directory:
-`cp toolchain-msvc-wine.cmake /opt/msvc`
+### 4. Instalar Conan
 
-### 8. Profit
-You should be able to run `python setup.py --profile contrib/msvc-wine/conanprofile-wine.txt` to setup and build with the `--build` parameter.
+Usar `pipx` o, preferiblemente, el gestor de paquetes de la distribución.
+
+```sh
+pipx install "conan>=2.0,<3.0"
+```
+
+### 5. Detectar el perfil de Conan
+
+```sh
+conan profile detect --force
+```
+
+### 6. Comprobar las herramientas de compilación
+
+```sh
+./test-toolchain.sh
+```
+
+### 7. Copiar el archivo de configuración
+
+```sh
+cp toolchain-msvc-wine.cmake /opt/msvc
+```
+
+### 8. Configurar y compilar el proyecto
+
+Ejecutar `python setup.py --profile contrib/msvc-wine/conanprofile-wine.txt`. Añadir `--build` para compilar.

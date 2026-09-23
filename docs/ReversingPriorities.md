@@ -3,18 +3,20 @@
 [Inicio](../README.md) · [Progreso registrado](ReversedClasses.md) · [Proceso y continuidad](../reversing/MEJORAS_DEL_PROCESO.md)
 
 > [!NOTE]
-> **Actualización posterior al corte:** ya se completaron los tres primeros candidatos: CClothes **11/11**, CScripted2dEffects **5/5** y CTaskComplexUseClosestFreeScriptedAttractorSprint **4/4**, tras 8.448 pares dentro del motor. [Evidencia y límites](../reversing/ClothesScriptedSprint/README.md). Las tablas inferiores conservan la estimación inicial solicitada (100 clases / 555 pendientes); actualmente quedan **97 clases incompletas / 551 pendientes**. Saltar estos tres candidatos al elegir el siguiente.
+> **Completadas y retiradas de pendientes:** CClothes **11/11**, CScripted2dEffects **5/5** y CTaskComplexUseClosestFreeScriptedAttractorSprint **4/4**, tras 8.448 pares dentro del motor. [Evidencia y límites](../reversing/ClothesScriptedSprint/README.md). También se cerraron las diez clases del anterior Top 10 tras 51.712 pares: [resultados y límites](../reversing/Top10/README.md). Las tablas y el nuevo Top 10 reflejan **87 clases incompletas / 529 pendientes**.
 
 
-> **Rama inspeccionada:** `PGTASA` · **Corte:** 23 de septiembre de 2026 · **Alcance:** las 100 clases incompletas de la lista solicitada.
+> **Rama inspeccionada:** `PGTASA` · **Corte:** 23 de septiembre de 2026 · **Alcance:** las 87 clases todavía incompletas de la lista solicitada.
 
 **Objetivo:** maximizar cierres de clases con el menor esfuerzo real de reconstrucción y validación, no perseguir el porcentaje más alto. Esta propuesta no reemplaza automáticamente la cola de trabajo autorizada.
 
 | Clases evaluadas | Funciones pendientes | Parciales | Sin revertir |
 | :---: | :---: | :---: | :---: |
-| **100** | **555** | **98** | **2** |
+| **87** | **529** | **85** | **2** |
 
 **Navegación:** [🟢 Fáciles](#faciles) · [🟡 Intermedia](#intermedia) · [🟠 Difíciles](#dificiles) · [🔴 Final](#final) · [Evidencia](#evidencia) · [Top 10](#top-10)
+
+Los 24 bloqueos solicitados se retiraron tras comparación dentro del motor: [bancos de desbloqueo](../reversing/Unlocks/README.md). CGeneral ya estaba desbloqueado. No cambia el número de funciones pendientes ni la clasificación de esta guía.
 
 ## Cómo se estimó el esfuerzo
 
@@ -23,7 +25,7 @@ Se cruzó `hooks.csv` con registros de hooks, cuerpos C++ y headers de la rama. 
 El orden es editorial, no una fórmula de porcentajes. Pesa la combinación de cantidad pendiente, lógica efectiva, acoplamiento, código comparable, incertidumbre del cuerpo nativo y coste de preparar una comparación reproducible dentro de GTA. Un candidato escrito reduce trabajo, pero todavía puede estar equivocado.
 
 > [!IMPORTANT]
-> **Estimación, no certificación.** Se inspeccionaron fuentes de las 100 clases; no se reconstruyeron ni desensamblaron exhaustivamente las 555 funciones. Se profundizó en candidatos inmediatos y se consultó ensamblador local para los clones Sprint/Shooting, el gestor de recursos, selección de amenazas y textura de suciedad. Un passthrough de tres líneas no informa del tamaño nativo. Las posiciones apoyadas principalmente en passthroughs tienen menor confianza y deben revisarse antes de empezar.
+> **Estimación, no certificación.** La inspección inicial abarcó 100 clases y 555 pendientes; después se cerraron trece clases y 26 funciones, en dos entregas. No se reconstruyeron ni desensamblaron exhaustivamente las 529 funciones restantes. Se profundizó en candidatos inmediatos y se consultó ensamblador local para los clones Sprint/Shooting, el gestor de recursos, selección de amenazas y textura de suciedad. Un passthrough de tres líneas no informa del tamaño nativo. Las posiciones apoyadas principalmente en passthroughs tienen menor confianza y deben revisarse antes de empezar.
 
 Las cifras de líneas son aproximaciones del C++ visible, incluyendo borradores cuando se indica; no tamaños de código máquina. No se prometen horas ni fechas. Los tests sugeridos son trabajo futuro, no pruebas aprobadas.
 
@@ -31,7 +33,7 @@ Las cifras de líneas son aproximaciones del C++ visible, incluyendo borradores 
 
 | Grupo | Clases | Pendientes | Enfoque |
 | --- | ---: | ---: | --- |
-| [🟢 Más fáciles / buenos candidatos para terminar primero](#faciles) | 13 | 26 | Retornos, tablas, clones y transiciones acotadas; buen rendimiento por clase cerrada. |
+| [🟢 Más fáciles / buenos candidatos para terminar primero](#faciles) | 0 | 0 | Los diez candidatos de este grupo ya están cerrados; consultar su evidencia. |
 | [🟡 Dificultad intermedia](#intermedia) | 31 | 92 | Máquinas de estados o recursos con dependencias manejables; preparar fixtures específicos. |
 | [🟠 Difíciles](#dificiles) | 39 | 173 | Funciones extensas, física, render o audio; el banco de validación pesa mucho. |
 | [🔴 Dejar para el final](#final) | 17 | 264 | Sistemas centrales o grandes bloques desconocidos; dividir antes en hitos internos. |
@@ -39,45 +41,9 @@ Las cifras de líneas son aproximaciones del C++ visible, incluyendo borradores 
 <a id="faciles"></a>
 ## 🟢 Más fáciles / buenos candidatos para terminar primero
 
-Retornos, tablas, clones y transiciones acotadas; buen rendimiento por clase cerrada. Dentro del grupo, el orden va aproximadamente de menor a mayor esfuerzo.
+**Los diez candidatos de este grupo ya se completaron.** Se retiraron 22 entradas pendientes después de comparar con el original dentro del motor. [Clases, resultados y límites](../reversing/Top10/README.md).
 
-| Clase — revertidas/total — porcentaje | Faltan | Función del sistema y motivo |
-| --- | ---: | --- |
-| [CClothes](../source/game_sa/Clothes.cpp) — **10/11 — 90.91%** | 1 | **Dependencias de texturas de ropa.** GetTextureDependency ya es un switch de 14 líneas; comparar enums y retornos, sin reconstruir ropa completa. |
-| [CScripted2dEffects](../source/game_sa/Scripts/Scripted2dEffects.cpp) — **4/5 — 80.00%** | 1 | **Inicializar efectos 2DFX de scripts.** Init ya recorre arrays en 13 líneas; comparación exacta y restauración de tablas, sin escena visual. |
-| [CTaskComplexUseClosestFreeScriptedAttractorSprint](../source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractorSprint.cpp) — **2/4 — 50.00%** | 2 | **Variante sprint de un atractor.** Solo Clone/GetTaskType; original pequeño y constructor base disponible. Verificar copia, referencias y vtable. |
-| [CTaskComplexGoToPointShooting](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointShooting.cpp) — **1/3 — 33.33%** | 2 | **Desplazamiento con disparo.** Solo Clone/GetTaskType; el original de Clone construye Aiming. No corregir esa peculiaridad por intuición; revisar la copia con *this. |
-| [CScriptResourceManager](../source/game_sa/ScriptResourceManager.cpp) — **1/4 — 25.00%** | 3 | **Registro de recursos de scripts.** Tres operaciones sobre 75 entradas; ensamblador con recorridos acotados. Revisar ABI thiscall, duplicados y tabla llena. |
-| [CTaskComplexLeaveCarAndWander](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.cpp) — **2/8 — 25.00%** | 6 | **Salir del coche y deambular.** Seis pendientes, pero Clone/Type/Control mínimos y transiciones ya escritas. Reutilizar factories y banco de Wander. |
-| [CTaskComplexWaitForBus](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBus.cpp) — **2/7 — 28.57%** | 5 | **Esperar autobús y subir.** Cinco pendientes con código breve; comprobar transiciones, pasajero y cobro de tarifa, sin recorrer una ruta. |
-| [CPopCycle](../source/game_sa/PopCycle.cpp) — **14/15 — 93.33%** | 1 | **Elegir peatones para una zona.** Selector de 16 líneas y diez intentos; fijar RNG, grupos, índices y modelos cargados en un banco acotado. |
-| [CCarCtrl](../source/game_sa/CarCtrl.cpp) — **21/22 — 95.45%** | 1 | **Crear el subtipo de vehículo.** La única pendiente es una fábrica de diez ramas, no toda la IA de tráfico. Borrador comentado; verificar constructores y fallo de asignación. |
-| [CTaskAllocatorKillThreatsBasic](../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp) — **5/6 — 83.33%** | 1 | **Emparejar grupos con amenazas.** ComputeClosestPeds usa grupos de ocho y matriz 8×8 en el original. Comprobar distancias, empates y asignación sin combate completo. |
-| [FxPrimBP_c](../source/game_sa/Fx/FxPrimBP.cpp) — **1/2 — 50.00%** | 1 | **Cargar primitivas base de FX.** Load tiene borrador de unas 50 líneas tras passthrough; probar versiones, matriz, texturas y consumo del archivo. Soporte FX existente. |
-| [CEntityScanner](../source/game_sa/EntityScanner.cpp) — **3/4 — 75.00%** | 1 | **Detectar entidades cercanas.** Una exploración de capacidad 16; callers Ped/Object/VehicleScanner y bancos de sectores sirven de guía. Cuerpo aún nativo: mayor incertidumbre. |
-| [CTaskComplexDragPedFromCar](../source/game_sa/Tasks/TaskTypes/TaskComplexDragPedFromCar.cpp) — **1/2 — 50.00%** | 1 | **Iniciar la expulsión del ocupante.** Solo CreateFirstSubTask; base EnterCar y Control ya orientan. Probar referencias al ocupante y tipos de vehículo, no asumir una factory trivial. |
-
-<details>
-<summary>Funciones pendientes concretas de este grupo</summary>
-
-| Clase | Entradas pendientes en hooks.csv |
-| --- | --- |
-| `CClothes` | [GetTextureDependency](../source/game_sa/Clothes.cpp#L222) |
-| `CScripted2dEffects` | [Init](../source/game_sa/Scripts/Scripted2dEffects.cpp#L18) |
-| `CTaskComplexUseClosestFreeScriptedAttractorSprint` | [Clone](../source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractorSprint.h#L14), [GetTaskType](../source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractorSprint.h#L15) |
-| `CTaskComplexGoToPointShooting` | [Clone](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointShooting.h#L23), [GetTaskType](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointShooting.h#L22) |
-| `CScriptResourceManager` | [AddToResourceManager](../source/game_sa/ScriptResourceManager.cpp#L23), [HasResourceBeenRequested](../source/game_sa/ScriptResourceManager.cpp#L33), [RemoveFromResourceManager](../source/game_sa/ScriptResourceManager.cpp#L28) |
-| `CTaskComplexLeaveCarAndWander` | [Clone](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.h#L30), [ControlSubTask](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.h#L34), [CreateFirstSubTask](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.cpp#L85), [CreateNextSubTask](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.cpp#L65), [CreateSubTask](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.cpp#L45), [GetTaskType](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.h#L31) |
-| `CTaskComplexWaitForBus` | [Clone](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBus.h#L21), [ControlSubTask](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBus.h#L26), [CreateFirstSubTask](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBus.cpp#L53), [CreateNextSubTask](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBus.cpp#L27), [GetTaskType](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBus.h#L22) |
-| `CPopCycle` | [PickPedMIToStreamInForCurrentZone](../source/game_sa/PopCycle.cpp#L298) |
-| `CCarCtrl` | [GetNewVehicleDependingOnCarModel](../source/game_sa/CarCtrl.cpp#L424) |
-| `CTaskAllocatorKillThreatsBasic` | [ComputeClosestPeds](../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp#L71) |
-| `FxPrimBP_c` | [Load](../source/game_sa/Fx/FxPrimBP.cpp#L38) |
-| `CEntityScanner` | [ScanForEntitiesInRange](../source/game_sa/EntityScanner.cpp#L41) |
-| `CTaskComplexDragPedFromCar` | [CreateFirstSubTask](../source/game_sa/Tasks/TaskTypes/TaskComplexDragPedFromCar.cpp#L41) |
-
-</details>
-
+La selección siguiente procede del grupo intermedio. No se rebaja su dificultad solo para llenar este apartado; requiere preparar bancos nuevos y confirmar los cuerpos nativos.
 
 <a id="intermedia"></a>
 ## 🟡 Dificultad intermedia
@@ -186,7 +152,7 @@ Funciones extensas, física, render o audio; el banco de validación pesa mucho.
 | [CPostEffects](../source/game_sa/PostEffects.cpp) — **35/38 — 92.11%** | 3 | **Efectos de pantalla.** HeatHazeFX, Radiosity y SpeedFX son pipelines distintos; buffers, estados GPU y recursos hacen costosa la comparación. |
 | [CStencilShadows](../source/game_sa/StencilShadows.cpp) — **9/13 — 69.23%** | 4 | **Sombras stencil.** Registro parece vacío y Render tiene borrador; caminos de objetos/coches nativos necesitan geometría y estados gráficos coherentes. |
 | [CFont](../source/game_sa/Font.cpp) — **32/36 — 88.89%** | 4 | **Glifos y cadenas de texto.** PrintChar ronda 119 líneas; intérprete de cadena y buffer siguen nativos. Formatos y estado global requieren variedad de entradas. |
-| [CClothesBuilder](../source/game_sa/ClothesBuilder.cpp) — **15/23 — 65.22%** | 8 | **Geometría y texturas de ropa.** Ocho pendientes incluyen blending y skinning; mucho más complejo que la tabla aislada pendiente en CClothes. |
+| [CClothesBuilder](../source/game_sa/ClothesBuilder.cpp) — **15/23 — 65.22%** | 8 | **Geometría y texturas de ropa.** Ocho pendientes incluyen blending y skinning; mucho más complejo que la tabla aislada ya validada en CClothes. |
 | [CPopulation](../source/game_sa/Population.cpp) — **64/66 — 96.97%** | 2 | **Crear población y gestionar objetos.** AddToPopulation/ManageObject son nativas y conectan mundo, pools, modelos y streaming. Pocas pendientes no significan cierre rápido. |
 | [CPools](../source/game_sa/Pools.cpp) — **16/19 — 84.21%** | 3 | **Serializar entidades del mundo.** Tres Save*Pool nativas con estructuras y referencias cruzadas; comparar bytes y recuperación con archivos desechables. |
 | [CRopes](../source/game_sa/Ropes.cpp) — **9/11 — 81.82%** | 2 | **Registrar cuerdas y consultar su recorrido.** Dos nativas con segmentos, entidades y estado global. Menor alcance que CRope::Update, pero necesita fixtures físicos. |
@@ -306,9 +272,9 @@ Sistemas centrales o grandes bloques desconocidos; dividir antes en hitos intern
 <a id="evidencia"></a>
 ## Evidencia que cambia la prioridad
 
-- **Tablas frente a sistemas completos.** [GetTextureDependency](../source/game_sa/Clothes.cpp) es un switch usado desde Clothes, PedClothesDesc y Shopping. [Scripted2dEffects::Init](../source/game_sa/Scripts/Scripted2dEffects.cpp), llamado desde TheScripts, inicializa arrays. Ambos admiten comparación exacta y restauración sin escena completa.
-- **Clones que no conviene corregir por intuición.** El original de [GoToPointShooting::Clone](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointShooting.h), en 0x66CE10, llama al constructor Aiming 0x668790. El constructor de copia de Shooting usa *this de forma sospechosa. La prioridad baja en esfuerzo no elimina la revisión de campos, vtable y referencias.
-- **ABI y tamaño real.** [ScriptResourceManager](../source/game_sa/ScriptResourceManager.cpp) expone miembros pero sus wrappers omiten this; el original recorre 75 entradas desde ECX. Lo usan comandos de objetos y CutsceneMgr. [ComputeClosestPeds](../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp) trabaja con grupos de ocho, con referencias en BasicRandomGroup y Driveby.
+- **Tablas frente a sistemas completos.** [GetTextureDependency](../source/game_sa/Clothes.cpp) es un switch usado desde Clothes, PedClothesDesc y Shopping. [Scripted2dEffects::Init](../source/game_sa/Scripts/Scripted2dEffects.cpp), llamado desde TheScripts, inicializa arrays. Ambos ya pasaron comparación exacta y restauración sin escena completa. Init requirió conservar campos y relleno que el original no reinicia; el clon Sprint también necesitó corregir su movimiento. Un candidato breve no equivale a un candidato correcto.
+- **Clones y memoria previa.** [Shooting::Clone](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointShooting.cpp) construye Aiming y después instala la vtable Shooting. Se corrigió la copia desde *this y se validaron campos y referencias. El banco encontró además que el constructor Aiming conserva un indicador cuando la memoria del pool ya coincide; ese constructor fue corregido, pero la clase Aiming sigue 5/8. [Evidencia](../reversing/ShootingResources/README.md).
+- **ABI y tamaño real.** [ScriptResourceManager](../source/game_sa/ScriptResourceManager.cpp) ya tiene sus cuatro entradas reconstruidas: 75 recursos, tipo de 16 bits, relleno preservado y política exacta de duplicados. [ComputeClosestPeds](../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp) también quedó validada: matriz 8×8, desempates y fallback. Sus bancos facilitan las clases de grupos que aún faltan.
 - **Código disponible no significa código correcto.** [SitInLeaderCar](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorSitInLeaderCar.h) reutiliza el índice del líder dentro del bucle de seguidores; [FightingControl](../source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp) tiene un borrador incompleto comentado; [QuadBike](../source/game_sa/Entity/Vehicle/QuadBike.cpp) compila, pero no pasó todavía su comparación final.
 - **Una pendiente puede ser grande.** [EntryExit](../source/game_sa/EntryExit.cpp) conecta streaming, cámara, scripts, población y ropa. [Ambience](../source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp) cruza clima, radio y zonas. [SetAudioBuffer](../source/game_sa/Audio/Hardware/AEStaticChannel.cpp) es un stub, no una implementación trivial.
 - **Cuerpos nativos y render.** El original de [InitialiseDirtTexture](../source/game_sa/Fx/CarFXRenderer.cpp) contiene bucles sobre píxeles y llamadas raster/TXD. Necesita verificar buffers y recursos; no basta observar que el wrapper tiene tres líneas.
@@ -317,8 +283,8 @@ Sistemas centrales o grandes bloques desconocidos; dividir antes en hitos intern
 
 | Familia | Código o evidencia disponible | Qué facilita |
 | --- | --- | --- |
-| Listas y grupos | [CPedList](../reversing/CPedList/README.md), allocators BasicRandomGroup/Driveby | Fixtures de miembros, nulos, orden y restauración; no ejecuta por sí solo toda la IA. |
-| Sectores y búsquedas | [CPlayerInfo](../reversing/CPlayerInfo/README.md), PedScanner/ObjectScanner/VehicleScanner | Entradas espaciales, códigos de escaneo y datos independientes. |
+| Listas y grupos | [CPedList](../reversing/CPedList/README.md), [KillThreatsBasic](../reversing/PopulationFactory/README.md), allocators BasicRandomGroup/Driveby | Fixtures de miembros, nulos, orden y restauración; no ejecuta por sí solo toda la IA. |
+| Sectores y búsquedas | [CPlayerInfo](../reversing/CPlayerInfo/README.md), [EntityScanner](../reversing/ScannerDragFx/README.md), PedScanner/ObjectScanner/VehicleScanner | Entradas espaciales, códigos de escaneo y datos independientes. |
 | Transiciones y animación | [Wander](../reversing/CTaskComplexWander/README.md), [UseGun](../reversing/CTaskSimpleUseGun/README.md), LeaveCar, EnterCarAsPassenger y RunAnim | Comparar factories, abortos y argumentos con constructores reales cuando sea viable. |
 | Efectos y recursos | [FxManager](../reversing/FxManager/README.md), [CClouds](../reversing/CClouds/README.md), [FurnitureSubGroup](../reversing/FurnitureSubGroup_c/README.md) | Trazas y snapshots de datos; no certifican automáticamente píxeles ni todos los formatos FX. |
 | Infraestructura | [runtime_runner.py](../reversing/runtime_runner.py), [ProbeSupport.hpp](../reversing/ProbeSupport.hpp) | Un único PROBAR.cmd, ejecución autónoma, respaldo, hashes y restauración. |
@@ -327,26 +293,26 @@ Los bancos habituales excluyen Audio y SurfaceInfos; validar audio exige activar
 
 ### Trazabilidad
 
-`hooks.csv` SHA-256: `031cc99b5f4db44ec820e59a394e3ba1d216a3060e21b2eecb37d9549e93f865`.
+`hooks.csv` SHA-256: `03b00a43c8a589138cc73883a81d96aa1ca76824f1d6149bff156888406498bb`.
 
-La lista coincide con 98 clases parciales y dos 0/N: cada clase aparece una vez en la clasificación y suma 555 pendientes. Los enlaces apuntan al árbol inspeccionado, incluidos cambios locales sin commit. La guía es una evaluación manual fechada: si cambian flags, cuerpos o dependencias, revisar cifras y orden. No se regenera automáticamente con ReversedClasses.md.
+La lista coincide con 85 clases parciales y dos 0/N: cada clase aparece una vez en la clasificación y suma 529 pendientes. Los enlaces apuntan al árbol inspeccionado, con enlaces a la evidencia de las clases completadas. La guía es una evaluación manual fechada: si cambian flags, cuerpos o dependencias, revisar cifras y orden. No se regenera automáticamente con ReversedClasses.md.
 
 <a id="top-10"></a>
 ## Top 10 para atacar ahora
 
-Orden recomendado para maximizar clases cerradas. Estas diez suman **23 entradas pendientes**. Algunas ya tienen código pequeño; otras necesitan corrección o reconstrucción. Ninguna debe habilitarse sin comparar con el original.
+Los diez anteriores ya están completados. Esta selección continúa con candidatos intermedios del código inspeccionado, ordenados aproximadamente por esfuerzo y reutilización de bancos. Suman **28 entradas pendientes**; no se han habilitado ni validado por aparecer aquí.
 
 | Orden | Clase — revertidas/total — porcentaje | Faltan | Primer trabajo y validación propuesta |
 | ---: | --- | ---: | --- |
-| 1 | [CClothes](../source/game_sa/Clothes.cpp) — **10/11 — 90.91%** | 1 | Comparar enums y valores fuera del dominio de GetTextureDependency; retorno exacto. |
-| 2 | [CScripted2dEffects](../source/game_sa/Scripts/Scripted2dEffects.cpp) — **4/5 — 80.00%** | 1 | Ejecutar Init sobre patrones distintos; comparar arrays completos y restaurarlos. |
-| 3 | [CTaskComplexUseClosestFreeScriptedAttractorSprint](../source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractorSprint.cpp) — **2/4 — 50.00%** | 2 | Comparar Clone/GetTaskType con estados distintos de la base, campos y vtable. |
-| 4 | [CTaskComplexGoToPointShooting](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointShooting.cpp) — **1/3 — 33.33%** | 2 | Comparar el clon que construye Aiming y sus referencias; no cambiar la semántica solo por el nombre. |
-| 5 | [CScriptResourceManager](../source/game_sa/ScriptResourceManager.cpp) — **1/4 — 25.00%** | 3 | Rehacer operaciones con ABI correcto; 75 slots, duplicados, scripts distintos y tabla llena. |
-| 6 | [CTaskComplexLeaveCarAndWander](../source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.cpp) — **2/8 — 25.00%** | 6 | Probar seis entradas: dentro/fuera del coche y default ausente, Wander o diferente. |
-| 7 | [CTaskComplexWaitForBus](../source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBus.cpp) — **2/7 — 28.57%** | 5 | Probar cinco entradas, transición al pasajero, retirada del ped y tarifa con/sin jugador. |
-| 8 | [CPopCycle](../source/game_sa/PopCycle.cpp) — **14/15 — 93.33%** | 1 | Controlar RNG, población y streaming; diez intentos, índices y ausencia de candidatos. |
-| 9 | [CCarCtrl](../source/game_sa/CarCtrl.cpp) — **21/22 — 95.45%** | 1 | Contrastar tipos, argumentos de constructor y fallos; añadir construcción real controlada. |
-| 10 | [CTaskAllocatorKillThreatsBasic](../source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp) — **5/6 — 83.33%** | 1 | Comparar grupos 8×8 con nulos, distancias, empates y exclusiones. |
+| 1 | [CCustomBuildingRenderer](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp) — **3/7 — 42.86%** | 4 | **Preparar edificios para render.** Cuatro pendientes; reloj/balance tienen borradores cortos, pero AtomicSetup y pipelines requieren fixtures RenderWare y globals. |
+| 2 | [CPedGroup](../source/game_sa/PedGroup.cpp) — **10/12 — 83.33%** | 2 | **Órdenes y medidas del grupo.** Distancia al miembro más lejano ya es breve; Gather sigue nativa. Membresía de CPedList ayuda a probar órdenes y eventos. |
+| 3 | [CPedGroupDefaultTaskAllocatorRandom](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.h) — **1/2 — 50.00%** | 1 | **Asignar tareas por defecto.** Una nativa y allocators hermanos como referencia; comprobar RNG, elección y propiedad de tareas. |
+| 4 | [CPedGroupDefaultTaskAllocatorSitInLeaderCar](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorSitInLeaderCar.h) — **1/2 — 50.00%** | 1 | **Asignar conductor y pasajeros.** Candidato sospechoso: el bucle de seguidores reutiliza el slot del líder. Revisar asientos, índices y liberaciones, no solo activar. |
+| 5 | [CTaskComplexGoToAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp) — **2/5 — 40.00%** | 3 | **Llegar y notificar al atractor.** Clone/Next pequeños; First sigue nativa. Cola del atractor y BroadcastArrival añaden referencias y callbacks. |
+| 6 | [CTaskComplexGoToPointAndStandStillAndAchieveHeading](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStillAndAchieveHeading.cpp) — **3/7 — 42.86%** | 4 | **Llegar, detenerse y orientarse.** Cuatro pendientes con Clone y Next pequeñas; reutiliza GoToPoint/StandStill, pero hay que comparar la secuencia completa de subtareas. |
+| 7 | [CTaskComplexGangJoinRespond](../source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp) — **2/7 — 28.57%** | 5 | **Responder al reclutamiento.** Clone/aborto mínimos e inicio ya gira al jugador; faltan Control/Next y sus condiciones de finalización. |
+| 8 | [CTaskComplexSignalAtPed](../source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp) — **4/7 — 57.14%** | 3 | **Hacer señales a un peatón.** Tres transiciones nativas; patrones de señales/animación disponibles, pero temporizadores y callbacks por reconstruir. |
+| 9 | [CTaskSimpleRunNamedAnim](../source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.cpp) — **4/7 — 57.14%** | 3 | **Ejecutar una animación nombrada.** Clone/Type breves; ProcessPed nativa necesita bloques, flags y finalización de asociaciones. |
+| 10 | [CTaskSimpleChoking](../source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp) — **5/7 — 71.43%** | 2 | **Respuesta de asfixia.** Aborto y ProcessPed nativos; patrones de tarea simple ayudan, pero daño y callbacks requieren casos propios. |
 
-**Siguientes alternativas:** FxPrimBP_c, CEntityScanner y CTaskComplexDragPedFromCar. Si la validación descubre dependencias nuevas, reajustar el orden antes de forzar un cierre por porcentaje.
+Los bancos nuevos de recursos, grupos y tareas reducen el coste de preparar casos, pero no sustituyen comparar estas funciones. Si aparecen dependencias nuevas, reajustar el orden antes de forzar un cierre por porcentaje.

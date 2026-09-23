@@ -18,6 +18,8 @@
 
 #ifdef NOTSA_USE_SDL3
 #include <SDL3/SDL.h>
+#include "SDLWrapper.hpp"
+#include "WinInput.h"
 #include <libs/imgui/bindings/imgui_impl_sdl3.h>
 #else
 #include <libs/imgui/bindings/imgui_impl_win32.h>
@@ -42,7 +44,8 @@ UIRenderer::UIRenderer() :
     m_ImIO->DisplaySize = ImVec2(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 #ifdef NOTSA_USE_SDL3
-    ImGui_ImplSDL3_InitForD3D(PSGLOBAL(sdlWindow));
+    VERIFY(notsa::SDLWrapper::Initialize());
+    ImGui_ImplSDL3_InitForD3D(notsa::SDLWrapper::GetWindow());
 #else
     ImGui_ImplWin32_Init(PSGLOBAL(window));
 #endif
@@ -61,6 +64,9 @@ UIRenderer::~UIRenderer() {
     ImGui_ImplWin32_Shutdown();
 #endif
     ImGui::DestroyContext(m_ImCtx);
+#ifdef NOTSA_USE_SDL3
+    notsa::SDLWrapper::Terminate();
+#endif
 
     //NOTSA_LOG_DEBUG("Good bye!");
 }
@@ -95,7 +101,13 @@ void UIRenderer::SetIsActive(bool active) {
     }
 
 #ifdef NOTSA_USE_SDL3
-    SDL_SetWindowRelativeMouseMode(PSGLOBAL(sdlWindow), !active);
+    // Native menu code may acquire the mouse exclusively. Release that mode
+    // before ImGui needs Windows/SDL mouse messages, whichever menu hook is active.
+    if (active && PSGLOBAL(diMouse)) {
+        DIReleaseMouse();
+        WinInput::diMouseInit(false);
+    }
+    SDL_SetWindowRelativeMouseMode(notsa::SDLWrapper::GetWindow(), false);
 #endif
 }
 

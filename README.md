@@ -18,7 +18,7 @@ El objetivo es preservar el comportamiento original. Cada reconstrucción se con
 
 La fuente del progreso es [docs/hooks.csv](docs/hooks.csv). El [informe generado](docs/ReversedClasses.md) muestra totales, pendientes y bloqueos; la [guía técnica de prioridades](docs/ReversingPriorities.md) ordena el trabajo por esfuerzo estimado, dependencias y facilidad de validación.
 
-**Corte documental del 23 de septiembre de 2026, hora de México:** 604 clases completas, 95 parciales y 2 sin revertir; 7.463 de 8.014 entradas registradas como revertidas. Estos números no estiman líneas de código ni porcentaje de comportamiento probado. Consultar el informe para el estado posterior.
+**Corte documental del 23 de septiembre de 2026, hora de México:** 614 clases completas, 85 parciales y 2 sin revertir; 7.485 de 8.014 entradas registradas como revertidas. Estos números no estiman líneas de código ni porcentaje de comportamiento probado. Consultar el informe para el estado posterior.
 
 ### Reconstrucciones recientes con evidencia local
 
@@ -39,11 +39,31 @@ Las comparaciones corresponden al alcance descrito en cada README, no necesariam
 | `CPedList` | 7/7 | 4.096 | [Alcance y resultados](reversing/CPedList/README.md) |
 | `CPlayerInfo` | 28/28 | 16.896 + 4.224 del constructor | [Alcance y resultados](reversing/CPlayerInfo/README.md) |
 | `FurnitureSubGroup_c` | 3/3 | 20.480 | [Alcance y resultados](reversing/FurnitureSubGroup_c/README.md) |
+| `CGeneral` | 9/9, sin bloqueos | 65.536 | [Alcance y resultados](reversing/CGeneral/README.md) |
 | `CClothes` | 11/11 | 4,096 | [Alcance y resultados](reversing/CClothes/README.md) |
 | `CScripted2dEffects` | 5/5 | 256 | [Alcance y resultados](reversing/CScripted2dEffects/README.md) |
 | `CTaskComplexUseClosestFreeScriptedAttractorSprint` | 4/4 | 4,096 | [Alcance y resultados](reversing/CTaskComplexUseClosestFreeScriptedAttractorSprint/README.md) |
 
+**Última tanda:** [24 bloqueos retirados y plataforma conmutable](reversing/Unlocks/README.md). 50.432 pares de función, más 324 pares repetidos en nueve arranques y 18 comprobaciones de entrada SDL/ImGui. CGeneral ya estaba desbloqueado. Se repararon contratos ABI, memoria, entrada y dimensiones de cámara; el CSV mantiene los mismos totales de progreso.
+
+**Cierre anterior:** [diez clases del Top 10](reversing/Top10/README.md), 22 entradas nuevas y 51.712 comparaciones exactas. Incluye Shooting, recursos de scripts, LeaveCarAndWander, WaitForBus, PopCycle, CarCtrl, KillThreatsBasic, FxPrimBP, EntityScanner y DragPedFromCar.
+
 El constructor de `CPlayerInfo` ya fue corregido, validado y desbloqueado; incluye regresiones de entrega y selección de armas. `CQuadBike::ProcessControl` tiene un candidato que compila, pero continúa **sin validar y deshabilitado**, con progreso 11/12. Se conservan también los bancos históricos de vehículos, guardados, jugador y efectos de armas.
+
+## Abrir el juego desde el inicio
+
+La copia de pruebas tiene `FastLoader.Enable = false` y `SaveGameToLoad = -2`. Muestra las pantallas de inicio y el menú; el usuario elige **Nueva partida** o **Cargar partida**.
+
+```powershell
+Set-Location 'E:\JUEGOS\GTA San Andreas - CVehicle Test'
+& '.\gta_sa.exe'
+```
+
+Este arranque carga el ASI normal con los hooks habilitados de la compilación, sin exclusiones por argumentos. Los bancos automáticos activan temporalmente la carga rápida solicitando la ranura 2 y restauran los dos INI originales al terminar, incluso si la prueba falla.
+
+En las últimas pruebas, la versión del guardado de esa ranura no coincidió y el juego inició partida nueva; no se forzó la carga ni se modificó el guardado.
+
+[Configuración y comprobación del inicio](reversing/InicioNormal/README.md) · [Diagnóstico y reparación del cierre de audio](reversing/CAESound/README.md).
 
 ## Ejecutar las pruebas
 
@@ -65,7 +85,7 @@ python reversing/run.py --all
 
 El catálogo está en [reversing/cases.json](reversing/cases.json). Las sondas deben estar compiladas y archivadas con el hash esperado por cada ejecutor; ejecutar un caso no recompila automáticamente la sonda. `--all` requiere disponer de los artefactos locales de todos los bancos.
 
-El runner compartido comprueba el ejecutable, evita ejecuciones simultáneas, respalda ASI/PDB, instala la sonda, abre su propio GTA, audita los logs, cierra ese proceso y restaura los binarios. Verifica los hashes de las partidas. Los informes por caso quedan en la copia de pruebas; los informes conjuntos, en `reversing/artifacts/suite-*/summary.json`.
+El runner compartido comprueba el ejecutable, evita ejecuciones simultáneas, respalda ASI/PDB, instala la sonda, abre su propio GTA, audita los logs, cierra ese proceso y restaura los binarios y ambos INI. Verifica los hashes de las partidas. Los informes por caso quedan en la copia de pruebas; los informes conjuntos, en `reversing/artifacts/suite-*/summary.json`.
 
 > [!IMPORTANT]
 > `--all` ejecuta **sondas archivadas** de cada trabajo. No demuestra que todos los cambios sean estables juntos en la última compilación. La campaña de integración, guardado/carga y sesiones prolongadas se hará cuando estén completas todas las clases, según lo acordado en el [proceso](reversing/MEJORAS_DEL_PROCESO.md).
@@ -86,7 +106,7 @@ El ejecutable de referencia es **GTA SA Compact**, distinto de otros ejecutables
 72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b
 ```
 
-Los bancos habituales arrancan con `--unhook=Audio,Global/SurfaceInfos_c`. Esa exclusión limita sus conclusiones; una futura validación de funciones de audio necesita configurar y comprobar explícitamente sus hooks. Las pruebas son automáticas y no requieren una demostración visual.
+Los bancos habituales arrancan con `--unhook=Audio,Global/SurfaceInfos_c`. El caso `sound-copy` mantiene Audio activo y solo excluye SurfaceInfos. Esa exclusión limita sus conclusiones; una futura validación de funciones de audio necesita configurar y comprobar explícitamente sus hooks. Las pruebas son automáticas y no requieren una demostración visual.
 
 ## Compilar
 

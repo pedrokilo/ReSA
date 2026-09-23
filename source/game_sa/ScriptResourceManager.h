@@ -18,7 +18,7 @@ enum eScriptResourceType {
 struct tScriptResource {
     int32               m_nModelId;
     void*               m_pThread;
-    eScriptResourceType m_nType;
+    uint16              m_nType; // The original reads/writes a word; the final two bytes are padding.
 
     tScriptResource() {
         m_nModelId = -1;

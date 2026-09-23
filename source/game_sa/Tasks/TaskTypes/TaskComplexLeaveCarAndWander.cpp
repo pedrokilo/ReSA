@@ -12,13 +12,13 @@ void CTaskComplexLeaveCarAndWander::InjectHooks() {
 
     RH_ScopedInstall(Destructor, 0x63BE50);
 
-    RH_ScopedInstall(CreateSubTask, 0x63BEC0, {.reversed = false});
+    RH_ScopedInstall(CreateSubTask, 0x63BEC0);
 
-    RH_ScopedVMTInstall(Clone, 0x63DAD0, {.reversed = false});
-    RH_ScopedVMTInstall(GetTaskType, 0x63BE40, {.reversed = false});
-    RH_ScopedVMTInstall(CreateNextSubTask, 0x6422C0, {.reversed = false});
-    RH_ScopedVMTInstall(CreateFirstSubTask, 0x642340, {.reversed = false});
-    RH_ScopedVMTInstall(ControlSubTask, 0x63BEB0, {.reversed = false});
+    RH_ScopedVMTInstall(Clone, 0x63DAD0);
+    RH_ScopedVMTInstall(GetTaskType, 0x63BE40);
+    RH_ScopedVMTInstall(CreateNextSubTask, 0x6422C0);
+    RH_ScopedVMTInstall(CreateFirstSubTask, 0x642340);
+    RH_ScopedVMTInstall(ControlSubTask, 0x63BEB0);
 }
 
 // 0x63BDD0
@@ -57,7 +57,7 @@ CTask* CTaskComplexLeaveCarAndWander::CreateSubTask(eTaskType taskType) {
     case TASK_FINISHED:
         return nullptr;
     default:
-        NOTSA_UNREACHABLE();
+        return nullptr;
     }
 }
 
@@ -68,17 +68,16 @@ CTask* CTaskComplexLeaveCarAndWander::CreateNextSubTask(CPed* ped) {
     case TASK_COMPLEX_LEAVE_CAR:
         break;
     default:
-        NOTSA_UNREACHABLE();
+        return nullptr;
     }
 
-    // Make sure ped's default task is `ComplexWander`
-    if (const auto defaultPrimary = ped->GetTaskManager().GetTaskPrimary(TASK_PRIMARY_DEFAULT)) {
-        if (!notsa::isa<CTaskComplexWander>(defaultPrimary)) {
-            ped->GetTaskManager().SetTask(CTaskComplexWander::GetWanderTaskByPedType(ped), TASK_PRIMARY_DEFAULT);
-        }
+    auto* next = CreateSubTask(TASK_FINISHED);
+    auto& manager = ped->GetTaskManager();
+    auto* current = manager.GetTaskPrimary(TASK_PRIMARY_DEFAULT);
+    if (!current || current->GetTaskType() != TASK_COMPLEX_WANDER) {
+        manager.SetTask(CTaskComplexWander::GetWanderTaskByPedType(ped), TASK_PRIMARY_DEFAULT);
     }
-
-    return CreateSubTask(TASK_FINISHED);
+    return next;
 }
 
 // 0x642340
@@ -89,3 +88,7 @@ CTask* CTaskComplexLeaveCarAndWander::CreateFirstSubTask(CPed* ped) {
             : TASK_NONE
     );
 }
+
+CTask* CTaskComplexLeaveCarAndWander::Clone() const { return new CTaskComplexLeaveCarAndWander{ *this }; }
+eTaskType CTaskComplexLeaveCarAndWander::GetTaskType() const { return Type; }
+CTask* CTaskComplexLeaveCarAndWander::ControlSubTask(CPed* ped) { return m_pSubTask; }

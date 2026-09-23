@@ -8,10 +8,10 @@ public:
     eMoveState m_moveState{};
     CEntity* m_aimAtEntity{};
     CVector m_aimPos{};
-    CVector m_movePos{};
-    float m_moveTargetRadius{};
-    float m_slowDownDistance{};
-    bool m_newTargetSet : 1{};
+    CVector m_movePos;
+    float m_moveTargetRadius;
+    float m_slowDownDistance;
+    bool m_newTargetSet : 1;
 
 public:
     static constexpr auto Type = eTaskType::TASK_COMPLEX_GO_TO_POINT_AIMING;

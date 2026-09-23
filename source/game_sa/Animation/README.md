@@ -1,26 +1,29 @@
+# Estructuras de animación
+
 ## CAnimBlendSequence
-Represents frames for a single bone.
+
+Representa los fotogramas de animación de un solo hueso.
 
 ## CAnimBlendAssociation
-Represents a running animtion for a clump (Usually peds)
- 
-The sequence/frames data is copied from `CAnimBlendHierarchy` to `CAnimBlendAssociation` when a clump requests an animation.
-The instance of `CAnimBlendAssociation` gets destroyed when the ped/clump stops playing the animation.
-But for `CAnimBlendHierarchy`, it is never destroyed and stays in memory unless CStreaming forces the IFP to unload to create space in memory.
 
-A clump can have one, or more, instances of this class. Usually there's only 1 primary animation,
-but there are also partial animations, which can be played alongside primary animations, like hand gestures or smoking.
-So if an animation moves up to 15 bones in one animation, there'll be 15 instances of `CAnimBlendSequence`,
-and there'll be always one instance of `CAnimBlendHierarchy` - the animation itself
+Representa una animación que se está reproduciendo en un conjunto de objetos RenderWare (`clump`), normalmente un peatón.
+
+Los datos de secuencias y fotogramas se copian de `CAnimBlendHierarchy` a `CAnimBlendAssociation` cuando el conjunto solicita una animación. La instancia de `CAnimBlendAssociation` se destruye cuando el peatón o conjunto deja de reproducirla. En cambio, la jerarquía permanece en memoria hasta que `CStreaming` descarga el IFP para liberar espacio.
+
+Un conjunto puede tener una o varias asociaciones. Normalmente hay una animación principal, pero también existen animaciones parciales que se reproducen junto a ella, como los gestos de las manos o fumar.
+
+Si una animación mueve 15 huesos, hay 15 instancias de `CAnimBlendSequence` y una instancia de `CAnimBlendHierarchy` que representa la animación completa.
 
 ## CAnimBlendHierarchy
-The animation object. It contains `CAnimBlendSequence`'s each of which are the animation for one bone (node).
-The sequence/frames data is copied from it to `CAnimBlendAssociation` when a clump requests an animation.
-It is never destroyed and stays in memory unless `CStreaming` forces the IFP to unload to create space in memory.
+
+Es el objeto de animación. Contiene secuencias `CAnimBlendSequence`, cada una correspondiente a un hueso o nodo.
+
+Sus datos se copian a `CAnimBlendAssociation` cuando un conjunto solicita la animación. Permanece en memoria hasta que `CStreaming` descarga el IFP para liberar espacio.
 
 ## CAnimBlendStaticAssociation
-Stores static animation data loaded from an animation clump.
+
+Almacena datos estáticos de animación cargados desde un conjunto de animación.
 
 ## CAnimBlendAssocGroup
-Represents a group (block) (Such as `ped`, `int_house`, etc).
-Is also used for mapping `AnimationId`'s and animation names to animation data.
+
+Representa un grupo o bloque, como `ped` o `int_house`. También relaciona los valores `AnimationId` y los nombres de animación con sus datos.

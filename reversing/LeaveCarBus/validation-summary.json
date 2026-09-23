@@ -1,0 +1,206 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 5632,
+  "pairs_per_function": {
+    "0": 512,
+    "1": 512,
+    "2": 512,
+    "3": 512,
+    "4": 512,
+    "5": 512,
+    "6": 512,
+    "7": 512,
+    "8": 512,
+    "9": 512,
+    "10": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 0,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 1,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 2,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 3,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 4,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 5,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 6,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 7,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 8,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 9,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 10,
+      "locked": false,
+      "startup_calls": 0
+    }
+  ],
+  "log_sha256": "5bcd0eadc19759ebe0347c0ea0d78f6a1199e1c3561f0fe93c91065a94f5e76e",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-leave-car-bus\\20260923-014914-529111",
+  "build_manifest": {
+    "binaries": {
+      "asi": "fde5c53c6ef155011a29034b499624f3879838dce0c10cadee9ba24d4475f4ec",
+      "pdb": "12170b704ae376b180ca4cad1609fb3b15979071c0ef27f9a1e7d3c566e1db44"
+    },
+    "sources": {
+      "source\\game_sa\\Tasks\\TaskTypes\\TaskComplexLeaveCarAndWander.cpp": "f7f05e5a90c975253e3e2a6a55733b683d7c820f02aafc7f84436fba42ee9df1",
+      "source\\game_sa\\Tasks\\TaskTypes\\TaskComplexWaitForBus.cpp": "3f2f17812a2c0ce443ab784a661db199d4e2c5e89283c352c032c0cdfe54483a",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "Probe.hpp": "a0c4cf532ca5a1d8bc77522494cd1dc98f84a893305c340b3853580d7631ee91",
+      "LiveComparison.hpp": "248021b82e11b6e673df1a635a4bafdb6962195e4196d93e0587356e96111477",
+      "build_probe.py": "9738d26e4d32c8ee73a754e0180307b6d25934a791c06bcf6e6b3e46c16a19d6"
+    },
+    "dependencies": {
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.h": "69992ec24b7614ceb807d60815d4f37d965cc60af3379d8f3aff6ea50922e4df",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBus.h": "8c3e8639a42c2cb456c1aa8ce98d5bdc369bd873f9fd65560fbcfe092c71e900"
+    }
+  },
+  "classes": [
+    {
+      "name": "CTaskComplexLeaveCarAndWander",
+      "registered_progress": "8/8",
+      "pairs": 3072
+    },
+    {
+      "name": "CTaskComplexWaitForBus",
+      "registered_progress": "7/7",
+      "pairs": 2560
+    }
+  ],
+  "functions": [
+    {
+      "index": 0,
+      "name": "Leave::CreateSubTask",
+      "pairs": 512
+    },
+    {
+      "index": 1,
+      "name": "Leave::Clone",
+      "pairs": 512
+    },
+    {
+      "index": 2,
+      "name": "Leave::GetTaskType",
+      "pairs": 512
+    },
+    {
+      "index": 3,
+      "name": "Leave::CreateNextSubTask",
+      "pairs": 512
+    },
+    {
+      "index": 4,
+      "name": "Leave::CreateFirstSubTask",
+      "pairs": 512
+    },
+    {
+      "index": 5,
+      "name": "Leave::ControlSubTask",
+      "pairs": 512
+    },
+    {
+      "index": 6,
+      "name": "Bus::Clone",
+      "pairs": 512
+    },
+    {
+      "index": 7,
+      "name": "Bus::GetTaskType",
+      "pairs": 512
+    },
+    {
+      "index": 8,
+      "name": "Bus::CreateNextSubTask",
+      "pairs": 512
+    },
+    {
+      "index": 9,
+      "name": "Bus::CreateFirstSubTask",
+      "pairs": 512
+    },
+    {
+      "index": 10,
+      "name": "Bus::ControlSubTask",
+      "pairs": 512
+    }
+  ],
+  "scope": "Comparación acotada dentro del motor; no estabilidad general",
+  "excluded_hooks": [
+    "Audio",
+    "Global/SurfaceInfos_c"
+  ],
+  "startup_world": "Partida nueva tras rechazo por versión de la ranura 2; guardado intacto"
+}

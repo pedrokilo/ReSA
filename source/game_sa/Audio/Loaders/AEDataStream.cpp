@@ -1,4 +1,5 @@
-#include "StdInc.h" // TODO: Remove
+#include "StdInc.h"
+#include "E:/Original/gta-reversed-master/reversing/UnlockDataStream/Probe.hpp" // TODO: Remove
 
 #include "common.h"
 
@@ -9,7 +10,7 @@
 // originally startPosition and length is int32
 // 0x4dc620
 CAEDataStream::CAEDataStream(int32 trackId, char* filename, uint32 startPosition, uint32 length, bool encrypted) {
-    m_pFileHandle      = nullptr;
+    // The native constructor leaves the handle untouched until Initialise.
     m_pszFilename      = filename;
     m_bIsOpen          = false;
     m_nCurrentPosition = 0;
@@ -22,7 +23,9 @@ CAEDataStream::CAEDataStream(int32 trackId, char* filename, uint32 startPosition
 
 // 0x4dc490
 CAEDataStream::~CAEDataStream() {
-    Close();
+    if (m_bIsOpen) {
+        Close();
+    }
 
     if (m_pszFilename) {
         delete[] m_pszFilename;
@@ -123,10 +126,14 @@ HRESULT CAEDataStream::UnlockRegion(ULARGE_INTEGER libOffset, ULARGE_INTEGER cb,
 
 // 0x4dc3a0
 HRESULT CAEDataStream::Stat(STATSTG* statout, DWORD flags) {
-    if (!m_bIsOpen || statout == nullptr || flags != STATFLAG_NONAME)
+    ++DSProbe::calls[6];
+    if (statout == nullptr || flags != STATFLAG_NONAME)
         return E_INVALIDARG;
 
-    auto fileSize = CFileMgr::GetTotalSize(m_pFileHandle);
+    const auto fileSize = GetFileSize(m_pFileHandle, nullptr);
+    if (fileSize == INVALID_FILE_SIZE) {
+        return HRESULT_FROM_WIN32(GetLastError());
+    }
     memset(statout, 0, sizeof(STATSTG));
     statout->cbSize.LowPart = fileSize;
     statout->type = STGTY_STREAM;
@@ -140,14 +147,16 @@ HRESULT CAEDataStream::Clone(IStream** target) {
 
 // 0x4dc1c0
 size_t CAEDataStream::FillBuffer(void* dest, size_t size) {
-    if (!m_bIsOpen)
-        return 0;
-
+    ++DSProbe::calls[3];
     size_t sizeToRead = static_cast<size_t>((m_nCurrentPosition - m_nLength) - m_nStartPosition);
     if (size < sizeToRead)
         sizeToRead = size;
 
-    size = CFileMgr::Read(m_pFileHandle, dest, sizeToRead);
+    DWORD bytesRead{};
+    if (!ReadFile(m_pFileHandle, dest, static_cast<DWORD>(sizeToRead), &bytesRead, nullptr)) {
+        GetLastError();
+    }
+    size = bytesRead;
 
     if (m_bIsEncrypted)
         AEStreamTransformer.TransformBuffer(dest, size, m_nCurrentPosition);
@@ -158,15 +167,14 @@ size_t CAEDataStream::FillBuffer(void* dest, size_t size) {
 
 // 0x4dc230
 uint32 CAEDataStream::GetCurrentPosition() {
-    uint32 pos = static_cast<uint32>(CFileMgr::Tell(m_pFileHandle));
+    ++DSProbe::calls[4];
+    const auto pos = SetFilePointer(m_pFileHandle, 0, nullptr, FILE_CURRENT);
     return pos - m_nStartPosition;
 }
 
 // 0x4dc250
 uint32 CAEDataStream::Seek(long offset, int32 whence) {
-    if (!m_bIsOpen)
-        return uint32(-1);
-
+    ++DSProbe::calls[5];
     if (whence == SEEK_SET) {
         offset += m_nStartPosition;
     } else if (whence == SEEK_END) {
@@ -174,47 +182,40 @@ uint32 CAEDataStream::Seek(long offset, int32 whence) {
         whence = SEEK_SET;
     }
 
-    CFileMgr::Seek(m_pFileHandle, offset, whence);
-
-    m_nCurrentPosition = static_cast<uint32>(CFileMgr::Tell(m_pFileHandle));
+    m_nCurrentPosition = SetFilePointer(m_pFileHandle, offset, nullptr, whence);
     return m_nCurrentPosition - m_nStartPosition;
 }
 
 bool CAEDataStream::Close() {
-    if (m_bIsOpen) {
-        m_bIsOpen = false;
-        return CFileMgr::CloseFile(m_pFileHandle);
-    }
-
-    return true;
+    m_bIsOpen = false;
+    return CloseHandle(m_pFileHandle) != FALSE;
 }
 
 // 0x4dc2b0
 bool CAEDataStream::Initialise() {
+    ++DSProbe::calls[2];
     if (m_bIsOpen)
         return true;
 
-    // NOTSA(MikuAuahDark): Rewrite it to use CFileMgr
-    CFileMgr::SetDir("");
-    m_pFileHandle = CFileMgr::OpenFile(m_pszFilename, "rb");
-
-    if (m_pFileHandle) {
-        CFileMgr::Seek(m_pFileHandle, m_nStartPosition, SEEK_SET);
-
-        m_nCurrentPosition = static_cast<uint32>(CFileMgr::Tell(m_pFileHandle));
-        m_nLength = m_nLength == 0 ? CFileMgr::GetTotalSize(m_pFileHandle) : m_nLength;
+    // Preserve Unicode paths while returning the same handle type as CreateFileA.
+    const auto filename = UTF8ToUnicode(m_pszFilename);
+    m_pFileHandle = CreateFileW(filename.c_str(), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0, nullptr);
+    const bool opened = m_pFileHandle != INVALID_HANDLE_VALUE;
+    if (opened) {
+        m_nCurrentPosition = SetFilePointer(m_pFileHandle, m_nStartPosition, nullptr, FILE_BEGIN);
         m_bIsOpen = true;
     }
-
-    return m_pFileHandle != nullptr;
+    if (m_nLength == 0) {
+        m_nLength = GetFileSize(m_pFileHandle, nullptr);
+    }
+    return opened;
 }
 
 void CAEDataStream::InjectHooks() {
     RH_ScopedClass(CAEDataStream);
     RH_ScopedCategory("Audio/Loaders");
 
-    // NOTSA: This class used Win32 file functions to deal with files, we converted
-    // them to C-compatible ones. So all of them have to be locked.
+    // Keep the locks until the Win32 interoperability bank validates all methods.
 
     RH_ScopedInstall(Constructor, 0x4dc620, {.locked = true});
     RH_ScopedInstall(Destructor, 0x4dc490, {.locked = true});
@@ -226,7 +227,7 @@ void CAEDataStream::InjectHooks() {
     // IStream implementation. These depend on functions above so most of them don't have to be locked.
     RH_ScopedInstall(Read, 0x4dc320);
     RH_ScopedOverloadedInstall(Seek, "istream", 0x4dc340, HRESULT(__stdcall CAEDataStream::*)(LARGE_INTEGER, DWORD, ULARGE_INTEGER*));
-    RH_ScopedInstall(Stat, 0x4dc3a0, {.locked = false}); // Uses CFileMgr::GetTotalSize
+    RH_ScopedInstall(Stat, 0x4dc3a0, {.locked = false});
     RH_ScopedInstall(QueryInterface, 0x4dc410);
     RH_ScopedInstall(AddRef, 0x4dc460);
     RH_ScopedInstall(Write, 0x4dc4d0);
@@ -243,10 +244,12 @@ void CAEDataStream::InjectHooks() {
 }
 
 CAEDataStream* CAEDataStream::Constructor(int32 trackID, char* filename, uint32 startPosition, uint32 length, int32 encrypted) {
+    ++DSProbe::calls[0];
     this->CAEDataStream::CAEDataStream(trackID, filename, startPosition, length, encrypted);
     return this;
 }
 
 void CAEDataStream::Destructor() {
+    ++DSProbe::calls[1];
     this->CAEDataStream::~CAEDataStream();
 }

@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 224,
+  "pairs_per_function": {
+    "0": 192,
+    "1": 32
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 0,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 1,
+      "locked": false,
+      "startup_calls": 0
+    }
+  ],
+  "log_sha256": "e6842a9ce70a7292b4b0593bfb31516932e2bebd62cc0ca08fcf0602730154b1",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-radio\\20260923-114120-514045",
+  "build_manifest": {
+    "binaries": {
+      "asi": "8198131692fd0a2839a1dbb005f5f232bded74ecf2e3ce29c1d12c6aa879bf0f",
+      "pdb": "76f44c39fc32779699be6b26beebf44cb021c6bf4b959ba22422ccb8a7f90b63"
+    },
+    "sources": {
+      "source\\game_sa\\Audio\\Managers\\AEUserRadioTrackManager.cpp": "bf3aa20675ed765812c6b2391348361391ab3873bb0e595253b641900140005d",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "Probe.hpp": "d5b06e2ed2eeafa74dfff17fdafbcd356966d8ceb9d30ec1d64e12bd25120c1f",
+      "LiveComparison.hpp": "8cbe4ecb78606c139768344be566cb5df63b38be984a7d25378958c5d8fe36f2",
+      "build_probe.py": "b12a40fd2089aafcf2521c348f4403da65507b64c3c31567254dfa10c81e144d"
+    },
+    "dependencies": {
+      "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "e8914a1b70379029cda4815f702ac804d0d0ff4db6d99b62f660c58ff757c10d"
+    }
+  },
+  "scope": "Interoperabilidad ABI, registros y rutas normalizadas en fixtures; no decodificación de audio ni bibliotecas personales."
+}

@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 3072,
+  "pairs_per_function": {
+    "0": 1024,
+    "1": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 0,
+      "locked": false,
+      "startup_calls": 4
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 1,
+      "locked": false,
+      "startup_calls": 0
+    }
+  ],
+  "log_sha256": "ad2b648de1214db8a0cfe9de153c5ba7206f8fdcfeeae2f13a72559a382a6b37",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-physical\\20260923-112121-250000",
+  "build_manifest": {
+    "binaries": {
+      "asi": "18222348034d7b109a9d1f4a1ab3007bbc652618f3b041fc80b7402308dc2aa4",
+      "pdb": "9a390f70e7d231dc4e3054c1b06423a966d59ffef43e8ea717d55071744064ed"
+    },
+    "sources": {
+      "source\\game_sa\\Entity\\Physical.cpp": "d9b392358dcc44a6f912568fc70c468c0a6dedff973df1546efff8ee6c602b89",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "Probe.hpp": "8aba76a5dd5ef5bdc85e4932d45e752eaa348b06210fafc524120f2c749af28e",
+      "LiveComparison.hpp": "201e0973ca35df40fe753e7441aa1bc19599c3e803badfa611317cde8e0bf6dd",
+      "build_probe.py": "e46103be3d31b5a910090be6e710e75dd60d6d7465fe766c6c066fd41a3209fb"
+    },
+    "dependencies": {}
+  },
+  "scope": "Sectores y listas con pools privados; no simulación prolongada de colisiones ni estabilidad general."
+}

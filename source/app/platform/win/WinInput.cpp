@@ -1,6 +1,5 @@
 #include "StdInc.h"
 
-#ifndef NOTSA_USE_SDL3
 
 #include "WinInput.h"
 #include "ControllerConfigManager.h"
@@ -33,7 +32,7 @@ bool Initialise() {
     }
 
     diMouseInit(false);
-    diPadInit();
+    plugin::Call<0x7485C0>(); // Keep native device enumeration for both startup paths.
 
     return true;
 }
@@ -433,5 +432,3 @@ bool IsKeyDown(unsigned int keyCode) {
     return GetAsyncKeyState(keyCode) >> 0x8;
 }
 } // namespace WinInput
-
-#endif // NOTSA_USE_DINPUT

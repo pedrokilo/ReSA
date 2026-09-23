@@ -2,6 +2,9 @@
 
 #include "TaskComplexDestroyCarArmed.h"
 #include "TaskSimplePause.h"
+#include "TaskSimpleThrowControl.h"
+#include "TaskSimpleGunControl.h"
+#include "SeekEntity/TaskComplexSeekEntityStandard.h"
 #include <TaskComplexGoToPointAndStandStill.h>
 
 void CTaskComplexDestroyCarArmed::InjectHooks() {
@@ -11,8 +14,8 @@ void CTaskComplexDestroyCarArmed::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x621F50);
     RH_ScopedInstall(Destructor, 0x622010);
 
-    RH_ScopedInstall(CalculateSearchPositionAndRanges, 0x628C80, { .enabled = false, .locked = true });
-    RH_ScopedInstall(CreateSubTask, 0x628DA0, { .enabled = false, .locked = true });
+    RH_ScopedInstall(CalculateSearchPositionAndRanges, 0x628C80);
+    RH_ScopedInstall(CreateSubTask, 0x628DA0);
 
     RH_ScopedVMTInstall(Clone, 0x623600);
     RH_ScopedVMTInstall(GetTaskType, 0x622000);
@@ -48,59 +51,63 @@ void CTaskComplexDestroyCarArmed::CalculateSearchPositionAndRanges(CPed* ped) {
     m_PedPos = ped->GetPosition();
     m_VehiclePos = m_VehToDestroy->GetPosition();
     m_PedToVehDirUnnorm = m_VehiclePos - m_PedPos;
-    m_PedVehDist = m_PedToVehDirUnnorm.Magnitude();
+    const auto* delta = &m_PedToVehDirUnnorm;
+    float distance;
+    __asm {
+        mov eax, delta
+        fld dword ptr [eax]
+        fmul st, st(0)
+        fld dword ptr [eax + 4]
+        fmul st, st(0)
+        faddp st(1), st
+        fld dword ptr [eax + 8]
+        fmul st, st(0)
+        faddp st(1), st
+        fsqrt
+        fstp distance
+    }
+    m_PedVehDist = distance;
 
     const auto& weapon = ped->GetActiveWeapon();
     const auto& winfo  = weapon.GetWeaponInfo(ped);
-    m_fWeaponRange = winfo.m_fWeaponRange / 2.f;
-    m_fWeaponRangeClamped = std::max(0.8f, m_fWeaponRange * 0.9f);
-    m_fWeaponRange *= 1.1f; // = winfo.m_fWeaponRange * 0.55f
+    const float range = winfo.m_fWeaponRange;
+    const float half = .5f, inner = .9f, outer = 1.1f;
+    float halfRange, innerRange, outerRange;
+    __asm {
+        fld range
+        fmul half
+        fst halfRange
+        fmul inner
+        fstp innerRange
+        fld halfRange
+        fmul outer
+        fstp outerRange
+    }
+    m_fWeaponRangeClamped = std::max(.8f, innerRange);
+    m_fWeaponRange = outerRange;
 }
 
 // 0x628DA0
 CTask* CTaskComplexDestroyCarArmed::CreateSubTask(eTaskType taskType, CPed* ped) {
-    NOTSA_UNREACHABLE("Redirected code can't be reached");
-    return nullptr;
-    /* Redirected */
-
-    /*
-    * Missing stubs for the 3 of tasks below
-    * Other than that, it should be correct
+    const auto create = []<typename T, typename... Args>(Args&&... args) -> T* {
+        auto* memory = CTask::operator new(sizeof(T));
+        return memory ? ::new (memory) T(std::forward<Args>(args)...) : nullptr;
+    };
     switch (taskType) {
-    case TASK_SIMPLE_GUN_CTRL: {
-        const auto& winfo = ped->GetActiveWeapon().GetWeaponInfo(ped);
-        if (winfo.flags.bThrow) {
-            return new CTaskSimpleThrowControl{ m_VehToDestroy, false };
+    case TASK_SIMPLE_GUN_CTRL:
+        if (ped->GetActiveWeapon().GetWeaponInfo(ped).flags.bThrow) {
+            return create.operator()<CTaskSimpleThrowControl>(m_VehToDestroy, nullptr);
         }
-        return new CTaskSimpleGunControl{ m_VehToDestroy, 0, 0, 3, 5, 5000 };
+        return create.operator()<CTaskSimpleGunControl>(m_VehToDestroy, CVector{}, CVector{}, eGunCommand::FIREBURST, int16{5}, 5000);
+    case TASK_COMPLEX_SEEK_ENTITY:
+        return create.operator()<CTaskComplexSeekEntityStandard>(m_VehToDestroy, 50000, 1000, 1.f, 2.f, 2.f, true, true);
+    case TASK_SIMPLE_PAUSE:
+        return create.operator()<CTaskSimplePause>(100);
+    case TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL:
+        return create.operator()<CTaskComplexGoToPointAndStandStill>(PEDMOVE_RUN, m_VehiclePos, .5f, 2.f, false, false);
+    default:
+        return nullptr;
     }
-    case TASK_COMPLEX_SEEK_ENTITY: {
-        return new CTaskComplexSeekEntity<CEntitySeekPosCalculatorStandard>{
-            m_VehToDestroy,
-            50000,
-            1000,
-            1.0,
-            2.0,
-            2.0,
-            1,
-            1
-        };
-    }
-    case TASK_SIMPLE_PAUSE: {
-        return new CTaskSimplePause{ 100 };
-    }
-    case TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL: {
-        return new CTaskComplexGoToPointAndStandStill{
-            PEDMOVE_RUN,
-            m_VehiclePos,
-            0.5f,
-            2.0f,
-            false,
-            false
-        };
-    }
-    }
-    */
 }
 
 // 0x622070

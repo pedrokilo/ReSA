@@ -18,12 +18,12 @@ public:
     CTaskComplexWaitForBus(const CTaskComplexWaitForBus&);
     ~CTaskComplexWaitForBus() = default;
 
-    CTask*    Clone() const override { return new CTaskComplexWaitForBus{ *this }; }
-    eTaskType GetTaskType() const override { return Type; }
+    CTask*    Clone() const override;
+    eTaskType GetTaskType() const override;
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return true; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;
-    CTask*    ControlSubTask(CPed* ped) override { return m_pSubTask; }
+    CTask*    ControlSubTask(CPed* ped) override;
 
 private: // Wrappers for hooks
     // 0x632900

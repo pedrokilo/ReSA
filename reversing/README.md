@@ -32,3 +32,29 @@ Se eliminaron los siete lanzadores específicos de la raíz y tres copias tempor
 
 
 Banco añadido: [CClothes, CScripted2dEffects y Sprint](ClothesScriptedSprint/README.md), 8.448 pares; `python reversing/run.py --case clothes-scripted-sprint`. Integrado en `--all`.
+
+Banco añadido: [CGeneral: RNG float](CGeneral/README.md), 65.536 pares exactos y desbloqueo; `python reversing/run.py --case general`, incluido en `--all`.
+
+[CAESound: copia y referencias](CAESound/README.md): 1.024 pares exactos, Audio activo, caso `sound-copy`. Los ejecutores compartidos activan la carga rápida solo durante las pruebas y restauran ambos INI. [Inicio normal y diagnóstico del cierre](InicioNormal/README.md).
+
+## Diez clases del Top 10 completadas
+
+[Informe conjunto y límites](Top10/README.md): **51.712 pares exactos**, 22 entradas habilitadas y dos funciones auxiliares revalidadas. Los cuatro bancos se repitieron con las diez clases habilitadas antes de instalar el ASI normal.
+
+| Caso autónomo | Banco | Pares |
+| --- | --- | ---: |
+| `shooting-resources` | [Shooting y recursos](ShootingResources/README.md) | 18.432 |
+| `leave-car-bus` | [Salir del coche y autobús](LeaveCarBus/README.md) | 5.632 |
+| `population-factory` | [Población, fábrica y amenazas](PopulationFactory/README.md) | 18.432 |
+| `scanner-drag-fx` | [Escáner, expulsión y FX](ScannerDragFx/README.md) | 9.216 |
+
+Ejemplo: `python reversing/run.py --case scanner-drag-fx`. Integrados en el catálogo y `--all`, conservando un solo PROBAR.cmd. Esta tarea no repitió toda la suite histórica.
+
+
+## Desbloqueos y plataforma conmutable
+
+[Informe conjunto](Unlocks/README.md): **24 candados retirados**, 50.432 pares en siete bancos y nueve arranques de plataforma (324 pares repetidos, 18 rutas de entrada). CGeneral conserva su desbloqueo anterior. Incluye correcciones de ABI, pools, física, audio, radio, conducción y SDL/ImGui.
+
+Casos nuevos: `unlock-core`, `unlock-tasks`, `unlock-physical`, `unlock-audio`, `unlock-radio`, `unlock-driving`, `unlock-input` y `unlock-platform`. Todos disponibles en el único PROBAR.cmd y `--all`. Para las nueve combinaciones: `python reversing/UnlockPlatform/run_matrix.py`.
+
+Se conserva la configuración de inicio normal. Los bancos usan carga rápida temporal, restauran ASI/PDB e INI y verifican partidas. Los binarios históricos de bancos no prueban conjuntamente toda la compilación actual; la campaña integral sigue aplazada.

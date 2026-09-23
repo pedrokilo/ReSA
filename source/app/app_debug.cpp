@@ -61,13 +61,17 @@ void FlushObrsPrintfs() {
 
 // This probably should be in winps :D
 LONG WINAPI WindowsExceptionHandler(PEXCEPTION_POINTERS pExceptionInfo) {
-    // If this function itself crashes it's invoked again
-    // So let's prevent the recusion with this simple hack
-    static bool s_HasHandled = false;
-    if (s_HasHandled) {
-        return EXCEPTION_CONTINUE_EXECUTION;
+    // OutputDebugString uses first-chance exceptions; these are not crashes.
+    const auto code = pExceptionInfo->ExceptionRecord->ExceptionCode;
+    if (code == 0x40010006 || code == 0x4001000A || code == 0xE06D7363) {
+        return EXCEPTION_CONTINUE_SEARCH;
     }
-    s_HasHandled = true;
+    // A logging failure must not resume the faulting instruction indefinitely.
+    static thread_local bool handling{};
+    if (handling) {
+        return EXCEPTION_CONTINUE_SEARCH;
+    }
+    handling = true;
 
     spdlog::apply_all([](auto&& logger) {
         logger->dump_backtrace();
@@ -193,7 +197,8 @@ LONG WINAPI WindowsExceptionHandler(PEXCEPTION_POINTERS pExceptionInfo) {
         logger->flush();
     });
 
-    return EXCEPTION_EXECUTE_HANDLER;
+    handling = false;
+    return EXCEPTION_CONTINUE_SEARCH;
 }
 
 notsa::Logging::Logging() {

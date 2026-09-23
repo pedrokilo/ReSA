@@ -42,6 +42,8 @@ public:
     static void FindCoverPointsForThisBuilding(CBuilding* building);
     static CCoverPoint::Dir FindDirFromVector(CVector dir);
     static CVector FindVectorFromDir(CCoverPoint::Dir direction);
+    static uint8 FindDirFromVector_Reversed(CVector dir);
+    static CVector FindVectorFromDir_Reversed(uint8 direction);
     static CVector FindVectorFromFirstToMissingVertex(CColTriangle* triangle, int32* a3, CVector* vertPositions);
 
     static auto& GetCoverPoints() { return m_Points; }

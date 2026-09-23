@@ -1,0 +1,138 @@
+{
+  "passed": true,
+  "pairs": 51712,
+  "newly_enabled_entries": 22,
+  "compared_functions": 24,
+  "completed_classes": 10,
+  "banks": [
+    {
+      "name": "ShootingResources",
+      "case": "shooting-resources",
+      "pairs": 18432,
+      "evidence": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shooting-resources\\20260923-014724-555531",
+      "log_sha256": "08f70236798db5264328f1184a36b689021ad31d976f3538443d98e44ca38b95",
+      "probe_sha256": "bdbcdaa715859dcfa1dacdeaef873137ba48f7926ed577eb777fcf892f2dae4b",
+      "summary": "../ShootingResources/validation-summary.json"
+    },
+    {
+      "name": "LeaveCarBus",
+      "case": "leave-car-bus",
+      "pairs": 5632,
+      "evidence": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-leave-car-bus\\20260923-014914-529111",
+      "log_sha256": "5bcd0eadc19759ebe0347c0ea0d78f6a1199e1c3561f0fe93c91065a94f5e76e",
+      "probe_sha256": "fde5c53c6ef155011a29034b499624f3879838dce0c10cadee9ba24d4475f4ec",
+      "summary": "../LeaveCarBus/validation-summary.json"
+    },
+    {
+      "name": "PopulationFactory",
+      "case": "population-factory",
+      "pairs": 18432,
+      "evidence": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-population-factory\\20260923-014955-867189",
+      "log_sha256": "48315043da3526995eb13b1b5f0c2a683c81160f93050204660aebb751150a2d",
+      "probe_sha256": "62b40b230da34eb2dd9c32dac16ea94c3fbb3d8079563e9ddbfee4e1d02e6c65",
+      "summary": "../PopulationFactory/validation-summary.json"
+    },
+    {
+      "name": "ScannerDragFx",
+      "case": "scanner-drag-fx",
+      "pairs": 9216,
+      "evidence": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-scanner-drag-fx\\20260923-015108-016690",
+      "log_sha256": "b209251eda0ca95ca0c74c9789886333e4fc9bcb127767017d52c6f2cb277534",
+      "probe_sha256": "9c79d1bd04e3580e9191a14e0e0f948b9262cbe3afc20f0f7e8e27f5fcaa1368",
+      "summary": "../ScannerDragFx/validation-summary.json"
+    }
+  ],
+  "installation": {
+    "normal_asi_sha256": "4bfe388ecf97ee2ad8c7d4a296bdc2d720e69d29f7fda000312890f5276a9805",
+    "previous_hashes": {
+      "asi": "9c14eafce2ca8f3923df57c1bf632f6d136cafbd95c7e1ebfad0bf1b3db9cb28",
+      "pdb": "e8b23e3c49d2f9ee17c2f48c594581bfa84177d4db059345ea1ec52b60f28be5"
+    },
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-top10-sdl-20260923",
+    "saves_unchanged": true
+  },
+  "source_manifests_match": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "excluded_hooks": [
+    "Audio",
+    "Global/SurfaceInfos_c"
+  ],
+  "general_stability_certified": false,
+  "limits": [
+    "Casos finitos y dependencias controladas descritas por banco",
+    "No se revalidaron todas las funciones anteriores de las clases",
+    "No se repitió toda la suite histórica ni la campaña integral aplazada"
+  ],
+  "normal_startup": {
+    "passed": true,
+    "states": [
+      {
+        "state": 0,
+        "seconds": 0.0
+      },
+      {
+        "state": 1,
+        "seconds": 23.05
+      },
+      {
+        "state": 2,
+        "seconds": 23.3
+      },
+      {
+        "state": 3,
+        "seconds": 39.08
+      },
+      {
+        "state": 4,
+        "seconds": 39.33
+      },
+      {
+        "state": 5,
+        "seconds": 128.48
+      },
+      {
+        "state": 7,
+        "seconds": 130.49
+      }
+    ],
+    "foreground": [
+      {
+        "active": true,
+        "seconds": 0.0,
+        "foreground_pid": 14104
+      },
+      {
+        "active": true,
+        "seconds": 0.25,
+        "foreground_pid": 32888
+      }
+    ],
+    "saves_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+      "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+    },
+    "configs_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+    },
+    "asi_sha256": "4bfe388ecf97ee2ad8c7d4a296bdc2d720e69d29f7fda000312890f5276a9805",
+    "menu_stable_seconds": 10,
+    "saves_unchanged": true,
+    "configs_unchanged": true,
+    "automatic_save_load_logged": false,
+    "evidence": "E:\\Original\\gta-reversed-master\\reversing\\InicioNormal\\artifacts\\startup-20260923-020408",
+    "method": "Lectura de gGameState cada 250 ms y registro del foco; sin teclas, argumentos, escritura de memoria ni cambios de INI.",
+    "scope": "Arranque normal, vídeos y menú estable; sin sesión prolongada ni certificación visual.",
+    "fresh_log_sha256": "8c7fbf88567a0b575a81dfaa23d3a8de5a89476715f08614f140277e5bea412f",
+    "runner_sha256": "cdedafde8f14dc2e2a6ee3eb087abb7c3a9e8e0c1e545fcf6052813711b2eeee",
+    "sdl_source_sha256": "fa8fa1e9102425649398cf4f1ac528f5f35e8a1f8c33c53c3fa1c209e47656b2"
+  },
+  "build_configuration": "Debug x86",
+  "original_executable_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "integration_change_after_probes": "SDLWrapper reenvía WM_GRAPHNOTIFY al manejador existente; comprobado por arranque normal sin exclusiones. Fuentes de las funciones comparadas intactas.",
+  "failed_startup_evidence": [
+    "E:\\Original\\gta-reversed-master\\reversing\\InicioNormal\\artifacts\\startup-20260923-015325",
+    "E:\\Original\\gta-reversed-master\\reversing\\InicioNormal\\artifacts\\startup-20260923-015853"
+  ]
+}

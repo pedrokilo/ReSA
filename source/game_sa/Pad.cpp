@@ -37,8 +37,8 @@ void CPad::InjectHooks() {
     RH_ScopedInstall(ClearMouseHistory, 0x541BD0);
     RH_ScopedInstall(Clear, 0x541A70);
     RH_ScopedInstall(Update, 0x541C40);
-    RH_ScopedInstall(UpdateMouse, 0x53F3C0, {.locked = true}); // Locked because of SDL3 & ImGui
-    RH_ScopedInstall(ProcessPad, 0x746A10, {.locked = true}); // -||-
+    RH_ScopedInstall(UpdateMouse, 0x53F3C0);
+    RH_ScopedInstall(ProcessPad, 0x746A10);
     RH_ScopedInstall(ProcessPCSpecificStuff, 0x53FB40);
     RH_ScopedInstall(ReconcileTwoControllersInput, 0x53F530);
     RH_ScopedInstall(SetTouched, 0x53F200);
@@ -236,7 +236,6 @@ void CPad::UpdatePads() {
 }
 
 // 0x746ED0
-#ifndef NOTSA_USE_SDL3 // SDL doesn't use DirectInput
 HRESULT CPad::GetMouseState(DIMOUSESTATE2 *dm) {
     if (!PSGLOBAL(diMouse)) {
         return 1;
@@ -264,72 +263,55 @@ HRESULT CPad::GetMouseState(DIMOUSESTATE2 *dm) {
     // Try one more time to get the state
     return PSGLOBAL(diMouse)->GetDeviceState(sizeof(DIMOUSESTATE2), dm);
 }
-#endif
 
 // 0x53F3C0
 void CPad::UpdateMouse() {
-    int32 invertX = 1, invertY = 1;
     if (!IsForegroundApp()) {
         return;
     }
-    if (!FrontEndMenuManager.m_bMenuActive) {
-        invertX = FrontEndMenuManager.bInvertMouseX ? -1 : 1;
-        invertY = FrontEndMenuManager.bInvertMouseY ? -1 : 1;
-    }
-
-#ifndef NOTSA_USE_SDL3
-    DIMOUSESTATE2 mouseState;
-    if (PSGLOBAL(diMouse)) {
-        if (PSGLOBAL(diMouse) && SUCCEEDED(CPad::GetMouseState(&mouseState))) {
-            TempMouseControllerState.m_AmountMoved.x = static_cast<float>(invertX * mouseState.lX);
-            TempMouseControllerState.m_AmountMoved.y = static_cast<float>(invertY * mouseState.lY);
-            TempMouseControllerState.isMouseWheelMovedUp = (mouseState.lZ > 0);
-            TempMouseControllerState.isMouseWheelMovedDown = (mouseState.lZ < 0);
-            TempMouseControllerState.isMouseLeftButtonPressed = (mouseState.rgbButtons[0] & 0x80) != 0;
-            TempMouseControllerState.isMouseRightButtonPressed = (mouseState.rgbButtons[1] & 0x80) != 0;
-            TempMouseControllerState.isMouseMiddleButtonPressed = (mouseState.rgbButtons[2] & 0x80) != 0;
-            TempMouseControllerState.isMouseFirstXPressed = (mouseState.rgbButtons[3] & 0x80) != 0;
-            TempMouseControllerState.isMouseSecondXPressed = (mouseState.rgbButtons[4] & 0x80) != 0;
-            OldMouseControllerState = std::exchange(NewMouseControllerState, TempMouseControllerState);
-
-            if (NewMouseControllerState.CheckForInput()) {
-                SetTouched();
-            }
-        }
-    } else {
+    if (!PSGLOBAL(diMouse)) {
         WinInput::diMouseInit(!FrontEndMenuManager.m_bMenuActive && IsVideoModeExclusive());
     }
-#else // NOTSA_USE_SDL3
-      // Use the temporary state populated by SDL events
-    CMouseControllerState state = TempMouseControllerState;
-
-    if (state.CheckForInput()) {
+    DIMOUSESTATE2 state;
+    if (!PSGLOBAL(diMouse) || FAILED(GetMouseState(&state))) {
+        return;
+    }
+    const auto invertX = !FrontEndMenuManager.m_bMenuActive && FrontEndMenuManager.bInvertMouseX ? -1 : 1;
+    const auto invertY = !FrontEndMenuManager.m_bMenuActive && FrontEndMenuManager.bInvertMouseY ? -1 : 1;
+    TempMouseControllerState.m_AmountMoved = {float(invertX * state.lX), float(invertY * state.lY)};
+    TempMouseControllerState.m_fWheelMoved = float(state.lZ);
+    TempMouseControllerState.isMouseWheelMovedUp = state.lZ > 0;
+    TempMouseControllerState.isMouseWheelMovedDown = state.lZ < 0;
+    TempMouseControllerState.isMouseLeftButtonPressed = state.rgbButtons[0] & 0x80;
+    TempMouseControllerState.isMouseRightButtonPressed = state.rgbButtons[1] & 0x80;
+    TempMouseControllerState.isMouseMiddleButtonPressed = state.rgbButtons[2] & 0x80;
+    TempMouseControllerState.isMouseFirstXPressed = state.rgbButtons[3] & 0x80;
+    TempMouseControllerState.isMouseSecondXPressed = state.rgbButtons[4] & 0x80;
+    OldMouseControllerState = std::exchange(NewMouseControllerState, TempMouseControllerState);
+    if (NewMouseControllerState.CheckForInput()) {
         SetTouched();
     }
+}
 
-    // Update states
-    OldMouseControllerState = std::exchange(NewMouseControllerState, state);
-    NewMouseControllerState.m_AmountMoved.x *= invertX;
-    NewMouseControllerState.m_AmountMoved.y *= invertY;
-
-    // Clear the temporary SDL state delta values
-    TempMouseControllerState.m_AmountMoved.Reset();
-    TempMouseControllerState.isMouseWheelMovedDown = false;
-    TempMouseControllerState.isMouseWheelMovedUp = false;
-#endif
+namespace {
+float NormalizePadAxis(LONG value) {
+    const float scale = 0.0005F;
+    float result;
+    __asm {
+        fild value
+        fmul scale
+        fstp result
+    }
+    return result;
+}
 }
 
 // 0x746A10
 void CPad::ProcessPad(ePadID padID) {
-    #ifndef NOTSA_USE_SDL3
-    constexpr int deviceAxisMin = -2000;
-    constexpr int deviceAxisMax = 2000;
-    constexpr float deviceAxisOffset = float(float(deviceAxisMax - deviceAxisMin)  / 2.0f);
-
     LPDIRECTINPUTDEVICE8* pDiDevice = nullptr;
     DIJOYSTATE2 joyState;
-    RwV2d leftStickPos{};
-    RwV2d rightStickPos{};
+    auto& leftStickPos = StaticRef<RwV2d>(0xC8CFB8);
+    auto& rightStickPos = StaticRef<RwV2d>(0xC8CFB0);
 
     if (padID == PAD1) {
         pDiDevice = &PSGLOBAL(diDevice1);
@@ -379,34 +361,47 @@ void CPad::ProcessPad(ePadID padID) {
 
     if (*pDiDevice) {
         // Calculate left stick position
-        leftStickPos.x = (float)joyState.lX / deviceAxisOffset;
-        leftStickPos.y = (float)joyState.lY / deviceAxisOffset;
+        leftStickPos.x = NormalizePadAxis(joyState.lX);
+        leftStickPos.y = NormalizePadAxis(joyState.lY);
         
         // Handle POV
         if (LOWORD(joyState.rgdwPOV[0]) != 0xFFFF) {
-            float angle = DegreesToRadians((float)joyState.rgdwPOV[0] / 100.0f);
-            leftStickPos.x = sin(angle);
-            leftStickPos.y = -cos(angle);
+            const double pov = joyState.rgdwPOV[0];
+            const float hundredth = 0.01F, degreesToRadians = 0.01745329238474369F;
+            float horizontal, vertical;
+            __asm {
+                fld pov
+                fmul hundredth
+                fmul degreesToRadians
+                fld st(0)
+                fsin
+                fstp horizontal
+                fcos
+                fchs
+                fstp vertical
+            }
+            leftStickPos = {horizontal, vertical};
         }
         
         // Calculate right stick position
         if (AllValidWinJoys.JoyStickNum[padID].bZRotPresent && AllValidWinJoys.JoyStickNum[padID].bZAxisPresent) {
-            rightStickPos.x = (float)joyState.lZ / deviceAxisOffset;
-            rightStickPos.y = (float)joyState.lRz / deviceAxisOffset;
+            rightStickPos.x = NormalizePadAxis(joyState.lZ);
+            rightStickPos.y = NormalizePadAxis(joyState.lRz);
         }
 
+        padID = padNumber ? PAD2 : PAD1;
         RsPadEventHandler(RsEvent::rsPADBUTTONUP, &padID);
         RsPadEventHandler(RsEvent::rsPADBUTTONDOWN, &padID);
-        CPad& pPad = *CPad::GetPad(padID);
+        CPad& pPad = *CPad::GetPad(padNumber ? PAD2 : PAD1);
 
         const auto UpdateJoyStickPosition = [&](float& pos, int16& outSwapped, int16& outNormal, bool isInverted, bool isSwapped) {
-            if (std::fabs(pos) <= 0.3f) {
+            if (std::fabs(pos) <= 0.3F) {
                 return;
             }
             if (isInverted) {
                 pos *= -1.0f;
             }
-            (isSwapped) ? outSwapped : outNormal = static_cast<int32>(pos * 128.0f);
+            (isSwapped ? outSwapped : outNormal) = static_cast<int16>(pos * 128.0f);
         };
 
         // Left stick
@@ -417,7 +412,6 @@ void CPad::ProcessPad(ePadID padID) {
         UpdateJoyStickPosition(rightStickPos.x, pPad.PCTempJoyState.RightStickY, pPad.PCTempJoyState.RightStickX, FrontEndMenuManager.m_bInvertPadX2, FrontEndMenuManager.m_bSwapPadAxis2);
         UpdateJoyStickPosition(rightStickPos.y, pPad.PCTempJoyState.RightStickX, pPad.PCTempJoyState.RightStickY, FrontEndMenuManager.m_bInvertPadY2, FrontEndMenuManager.m_bSwapPadAxis2);
     }
-#endif
 }
 
 // 0x53FB40
@@ -1424,12 +1418,10 @@ int GetCurrentKeyPressed(RsKeyCodes& keys) {
     return plugin::CallAndReturn<int, 0x541490, RsKeyCodes&>(keys);
 }
 
-#ifndef NOTSA_USE_SDL3
 IDirectInputDevice8* DIReleaseMouse() { // todo: wininput
-    return plugin::CallAndReturn<IDirectInputDevice8*>(0x746F70);
+    return plugin::CallAndReturn<IDirectInputDevice8*, 0x746F70>();
 }
 
 void InitialiseMouse(bool exclusive) {
     WinInput::diMouseInit(exclusive);
 }
-#endif

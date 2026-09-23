@@ -52,6 +52,7 @@ public:
         float           speedVariance
     );
     ~CAESound();
+    CAESound& operator=(const CAESound& other);
 
     void Initialise(
         eSoundBankSlot  bankSlot,

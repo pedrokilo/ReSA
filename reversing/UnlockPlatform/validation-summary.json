@@ -1,0 +1,684 @@
+{
+  "passed": true,
+  "masks": [
+    127,
+    0,
+    126,
+    125,
+    123,
+    119,
+    111,
+    95,
+    63
+  ],
+  "runs": [
+    {
+      "mask": 127,
+      "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-platform\\20260923-121923-629435",
+      "summary": {
+        "passed": true,
+        "saves_before": {
+          "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+          "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+        },
+        "config_hashes_before": {
+          "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+          "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+        },
+        "game_stopped_before_analysis": true,
+        "pairs": 36,
+        "pairs_per_function": {
+          "2": 4,
+          "4": 16,
+          "6": 16
+        },
+        "mask": 127,
+        "startup": {
+          "calls": [
+            2,
+            2,
+            2,
+            1,
+            0,
+            1,
+            50
+          ],
+          "enabled": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "event": "startup",
+          "ps_size": 40,
+          "ps_static": true,
+          "rw_camera": true,
+          "sdl_attached": true
+        },
+        "input_routes": [
+          {
+            "event": "input_route",
+            "game_received": true,
+            "passed": true,
+            "ui_active": false,
+            "ui_received": true
+          },
+          {
+            "event": "input_route",
+            "game_received": false,
+            "passed": true,
+            "ui_active": true,
+            "ui_received": true
+          }
+        ],
+        "all_equal": true,
+        "state_restored": true,
+        "log_sha256": "d8b64666b231047efe279344cefb8910b7f49696028e94b2b7fb263cb1de6dcc",
+        "saves_unchanged": true,
+        "configs_restored": true
+      }
+    },
+    {
+      "mask": 0,
+      "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-platform\\20260923-121941-805027",
+      "summary": {
+        "passed": true,
+        "saves_before": {
+          "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+          "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+        },
+        "config_hashes_before": {
+          "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+          "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+        },
+        "game_stopped_before_analysis": true,
+        "pairs": 36,
+        "pairs_per_function": {
+          "2": 4,
+          "4": 16,
+          "6": 16
+        },
+        "mask": 0,
+        "startup": {
+          "calls": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "enabled": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "event": "startup",
+          "ps_size": 40,
+          "ps_static": true,
+          "rw_camera": true,
+          "sdl_attached": true
+        },
+        "input_routes": [
+          {
+            "event": "input_route",
+            "game_received": true,
+            "passed": true,
+            "ui_active": false,
+            "ui_received": true
+          },
+          {
+            "event": "input_route",
+            "game_received": false,
+            "passed": true,
+            "ui_active": true,
+            "ui_received": true
+          }
+        ],
+        "all_equal": true,
+        "state_restored": true,
+        "log_sha256": "ca769fab0444f1556d0c31316566e86c0593c3b8ece0020f2956f53d4ec32134",
+        "saves_unchanged": true,
+        "configs_restored": true
+      }
+    },
+    {
+      "mask": 126,
+      "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-platform\\20260923-122053-200433",
+      "summary": {
+        "passed": true,
+        "saves_before": {
+          "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+          "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+        },
+        "config_hashes_before": {
+          "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+          "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+        },
+        "game_stopped_before_analysis": true,
+        "pairs": 36,
+        "pairs_per_function": {
+          "2": 4,
+          "4": 16,
+          "6": 16
+        },
+        "mask": 126,
+        "startup": {
+          "calls": [
+            0,
+            2,
+            2,
+            1,
+            0,
+            1,
+            50
+          ],
+          "enabled": [
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "event": "startup",
+          "ps_size": 40,
+          "ps_static": true,
+          "rw_camera": true,
+          "sdl_attached": true
+        },
+        "input_routes": [
+          {
+            "event": "input_route",
+            "game_received": true,
+            "passed": true,
+            "ui_active": false,
+            "ui_received": true
+          },
+          {
+            "event": "input_route",
+            "game_received": false,
+            "passed": true,
+            "ui_active": true,
+            "ui_received": true
+          }
+        ],
+        "all_equal": true,
+        "state_restored": true,
+        "log_sha256": "bb9aca04ecbe358a7d1731fdff0962f7cda264fd89cefdf6e2d8051fb56de600",
+        "saves_unchanged": true,
+        "configs_restored": true
+      }
+    },
+    {
+      "mask": 125,
+      "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-platform\\20260923-122109-394045",
+      "summary": {
+        "passed": true,
+        "saves_before": {
+          "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+          "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+        },
+        "config_hashes_before": {
+          "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+          "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+        },
+        "game_stopped_before_analysis": true,
+        "pairs": 36,
+        "pairs_per_function": {
+          "2": 4,
+          "4": 16,
+          "6": 16
+        },
+        "mask": 125,
+        "startup": {
+          "calls": [
+            2,
+            0,
+            2,
+            1,
+            0,
+            1,
+            50
+          ],
+          "enabled": [
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "event": "startup",
+          "ps_size": 40,
+          "ps_static": true,
+          "rw_camera": true,
+          "sdl_attached": true
+        },
+        "input_routes": [
+          {
+            "event": "input_route",
+            "game_received": true,
+            "passed": true,
+            "ui_active": false,
+            "ui_received": true
+          },
+          {
+            "event": "input_route",
+            "game_received": false,
+            "passed": true,
+            "ui_active": true,
+            "ui_received": true
+          }
+        ],
+        "all_equal": true,
+        "state_restored": true,
+        "log_sha256": "07f2559ecbc3d2fd14d14e1172a1da2eff5cff5396cab2cf53d6879273f77b62",
+        "saves_unchanged": true,
+        "configs_restored": true
+      }
+    },
+    {
+      "mask": 123,
+      "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-platform\\20260923-122125-590790",
+      "summary": {
+        "passed": true,
+        "saves_before": {
+          "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+          "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+        },
+        "config_hashes_before": {
+          "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+          "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+        },
+        "game_stopped_before_analysis": true,
+        "pairs": 36,
+        "pairs_per_function": {
+          "2": 4,
+          "4": 16,
+          "6": 16
+        },
+        "mask": 123,
+        "startup": {
+          "calls": [
+            2,
+            2,
+            0,
+            1,
+            0,
+            1,
+            50
+          ],
+          "enabled": [
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true
+          ],
+          "event": "startup",
+          "ps_size": 40,
+          "ps_static": true,
+          "rw_camera": true,
+          "sdl_attached": true
+        },
+        "input_routes": [
+          {
+            "event": "input_route",
+            "game_received": true,
+            "passed": true,
+            "ui_active": false,
+            "ui_received": true
+          },
+          {
+            "event": "input_route",
+            "game_received": false,
+            "passed": true,
+            "ui_active": true,
+            "ui_received": true
+          }
+        ],
+        "all_equal": true,
+        "state_restored": true,
+        "log_sha256": "c1c6c232153502fa7ebfc5008b8566d56aa7923a852a37943ba4f700b2ae2543",
+        "saves_unchanged": true,
+        "configs_restored": true
+      }
+    },
+    {
+      "mask": 119,
+      "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-platform\\20260923-122143-103396",
+      "summary": {
+        "passed": true,
+        "saves_before": {
+          "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+          "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+        },
+        "config_hashes_before": {
+          "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+          "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+        },
+        "game_stopped_before_analysis": true,
+        "pairs": 36,
+        "pairs_per_function": {
+          "2": 4,
+          "4": 16,
+          "6": 16
+        },
+        "mask": 119,
+        "startup": {
+          "calls": [
+            2,
+            2,
+            2,
+            0,
+            0,
+            1,
+            50
+          ],
+          "enabled": [
+            true,
+            true,
+            true,
+            false,
+            true,
+            true,
+            true
+          ],
+          "event": "startup",
+          "ps_size": 40,
+          "ps_static": true,
+          "rw_camera": true,
+          "sdl_attached": true
+        },
+        "input_routes": [
+          {
+            "event": "input_route",
+            "game_received": true,
+            "passed": true,
+            "ui_active": false,
+            "ui_received": true
+          },
+          {
+            "event": "input_route",
+            "game_received": false,
+            "passed": true,
+            "ui_active": true,
+            "ui_received": true
+          }
+        ],
+        "all_equal": true,
+        "state_restored": true,
+        "log_sha256": "01177a12bffe6b783c9ee44845458a224637e8eb2ce33366d91709ab78f2ae97",
+        "saves_unchanged": true,
+        "configs_restored": true
+      }
+    },
+    {
+      "mask": 111,
+      "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-platform\\20260923-122159-625699",
+      "summary": {
+        "passed": true,
+        "saves_before": {
+          "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+          "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+        },
+        "config_hashes_before": {
+          "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+          "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+        },
+        "game_stopped_before_analysis": true,
+        "pairs": 36,
+        "pairs_per_function": {
+          "2": 4,
+          "4": 16,
+          "6": 16
+        },
+        "mask": 111,
+        "startup": {
+          "calls": [
+            2,
+            2,
+            2,
+            1,
+            0,
+            1,
+            50
+          ],
+          "enabled": [
+            true,
+            true,
+            true,
+            true,
+            false,
+            true,
+            true
+          ],
+          "event": "startup",
+          "ps_size": 40,
+          "ps_static": true,
+          "rw_camera": true,
+          "sdl_attached": true
+        },
+        "input_routes": [
+          {
+            "event": "input_route",
+            "game_received": true,
+            "passed": true,
+            "ui_active": false,
+            "ui_received": true
+          },
+          {
+            "event": "input_route",
+            "game_received": false,
+            "passed": true,
+            "ui_active": true,
+            "ui_received": true
+          }
+        ],
+        "all_equal": true,
+        "state_restored": true,
+        "log_sha256": "febee3d9168de378ce55e8fb125684f9ce4d013114d7aa7ff7549e82200344ad",
+        "saves_unchanged": true,
+        "configs_restored": true
+      }
+    },
+    {
+      "mask": 95,
+      "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-platform\\20260923-122216-787901",
+      "summary": {
+        "passed": true,
+        "saves_before": {
+          "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+          "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+        },
+        "config_hashes_before": {
+          "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+          "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+        },
+        "game_stopped_before_analysis": true,
+        "pairs": 36,
+        "pairs_per_function": {
+          "2": 4,
+          "4": 16,
+          "6": 16
+        },
+        "mask": 95,
+        "startup": {
+          "calls": [
+            2976067,
+            2976067,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "enabled": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true
+          ],
+          "event": "startup",
+          "ps_size": 40,
+          "ps_static": true,
+          "rw_camera": true,
+          "sdl_attached": true
+        },
+        "input_routes": [
+          {
+            "event": "input_route",
+            "game_received": true,
+            "passed": true,
+            "ui_active": false,
+            "ui_received": true
+          },
+          {
+            "event": "input_route",
+            "game_received": false,
+            "passed": true,
+            "ui_active": true,
+            "ui_received": true
+          }
+        ],
+        "all_equal": true,
+        "state_restored": true,
+        "log_sha256": "843a7f341ad380d3c0c494e1c28a93885391d24b2d1b82e58e0257d0f97540b0",
+        "saves_unchanged": true,
+        "configs_restored": true
+      }
+    },
+    {
+      "mask": 63,
+      "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-platform\\20260923-122336-775167",
+      "summary": {
+        "passed": true,
+        "saves_before": {
+          "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+          "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+        },
+        "config_hashes_before": {
+          "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+          "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+        },
+        "game_stopped_before_analysis": true,
+        "pairs": 36,
+        "pairs_per_function": {
+          "2": 4,
+          "4": 16,
+          "6": 16
+        },
+        "mask": 63,
+        "startup": {
+          "calls": [
+            2,
+            2,
+            2,
+            1,
+            0,
+            1,
+            0
+          ],
+          "enabled": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            false
+          ],
+          "event": "startup",
+          "ps_size": 40,
+          "ps_static": true,
+          "rw_camera": true,
+          "sdl_attached": true
+        },
+        "input_routes": [
+          {
+            "event": "input_route",
+            "game_received": true,
+            "passed": true,
+            "ui_active": false,
+            "ui_received": true
+          },
+          {
+            "event": "input_route",
+            "game_received": false,
+            "passed": true,
+            "ui_active": true,
+            "ui_received": true
+          }
+        ],
+        "all_equal": true,
+        "state_restored": true,
+        "log_sha256": "667bc3b52838f6da3de379bfb17abbdc14c2ace78f951d79774a53c475954b70",
+        "saves_unchanged": true,
+        "configs_restored": true
+      }
+    }
+  ],
+  "pairs": 324,
+  "build_manifest": {
+    "binaries": {
+      "asi": "ae413d05a310b07159a40e6275813a075b7efc31fcf46ec6da1ed7864fe67ea6",
+      "pdb": "812a7ee20a274df14b8abaa7d4d5a7359833d43e65b6eafce00aba626a11d770"
+    },
+    "sources": {
+      "source\\game_sa\\Pad.cpp": "2289a1bb02ee0aa6d078dcf51b8d008156ad5752c3f9c1ba63a1f6881bba0ec9",
+      "source\\game_sa\\Frontend\\MenuManager_Input.cpp": "61908d85a666d9815fa3fa3c56307dfc39da9d605d6e8e2470ebe9f665aa4b94",
+      "source\\app\\platform\\win\\WinPs.cpp": "a3a292bc384312fbe3db698fad0ab23dbef6451c57d98a464b397476b32b035f",
+      "source\\app\\platform\\win\\WinMain.cpp": "3d0fc7da092a425e363828a0cb943baeb1d7df3ff55e6557272a22bf6eea993d",
+      "source\\app\\platform\\SDLWrapper.cpp": "5aae09fe6fed4f868775b4621107171a8085cf7bf375f00499591bdafb1907fd",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde",
+      "source\\dllmain.cpp": "f9c9b7f57e5e6391372df9a9e65ed0b3a3c34c56b7ec5a7340af9fc5f5fbfb67"
+    },
+    "dependencies": {
+      "source/game_sa/MenuManager.cpp": "2ea40889e9bc7021ab6da36f619a1c7ab396fb4f0a201d6fa704e3aa942480e8",
+      "source/game_sa/RenderWare/rw/skeleton.h": "71b122ab04bb543ecd1b8487a455af048f41782e61e5983e1afeb325c5192961",
+      "source/app/platform/SDLWrapper.hpp": "d76afd8b4bead7a7bae846ba7cb2c1d4097f3210fa8f69c1ab557e34aad57b0c",
+      "source/app/platform/win/WinInput.cpp": "365ec84ad0f9b5f55e8397f9fbf6426f6d09686791db12ab535c1a8d6340fc62",
+      "source/app/platform/win/WinInput.h": "2d19af5169f974d3d7cdac8d768f74399d79d71385e8dd263505dcf08b1615a7",
+      "source/toolsmenu/UIRenderer.cpp": "b474d068182af717bc102e9e09728941c64146284bb608881b2a26b52b2359a0",
+      "source/game_sa/ControllerConfigManager.cpp": "b853e7e922971615262f7942344471068f33e0e7d9774729444a7424d536f181",
+      "source/app/platform/win/WindowedMode.cpp": "01f67896db392f86c975465ac7cc0df286b749158bfb1757c705edf9f15e9982",
+      "source/app/app_debug.cpp": "2e37193dcfe647ca4364af58baa4f324b03e8bc8103350c66cda369f343ad1e7",
+      "source/game_sa/MouseControllerState.h": "b59a79dec1f3d49ece4c4d00decdfe96502ec963d4bf4fac6e0357e4b50367e3"
+    },
+    "instrumentation": {
+      "Probe.hpp": "d4357361ce555b4e63bd5db23bfe2f7b1a2db18ee731901a3d7ad2fca4e55ea0",
+      "LiveComparison.hpp": "9a399a0f0630e72a66e26a5db19944ffb102dc1450b5694103e9f5b999954127",
+      "build_probe.py": "25d46ce768a208dd5ff41c76bf10ceee97cb068eb561b53fe6dd19a3eb632909",
+      "ProbeRuntime.hpp": "5b1a6686637b0970d8f76853e042400d06c7d03019c1935f9bcf6c367ae4f201"
+    }
+  },
+  "post_validation_formatting": {
+    "source/app/platform/win/WinInput.cpp": {
+      "before": "365ec84ad0f9b5f55e8397f9fbf6426f6d09686791db12ab535c1a8d6340fc62",
+      "after": "9b2fc6ed1c23191dc1436deadc48f5df591fe508429cf92ac90fcabba23aba2c",
+      "change": "Only trailing blank lines removed"
+    },
+    "source/app/platform/win/WinInput.h": {
+      "before": "2d19af5169f974d3d7cdac8d768f74399d79d71385e8dd263505dcf08b1615a7",
+      "after": "4e48da9a1e1361f3f345f325aef8ae88c78748d8f5d3f6a668c9fb81bbb928a7",
+      "change": "Only trailing blank lines removed"
+    }
+  },
+  "scope": "Nueve procesos de arranque, 36 pares repetidos por modo y dos rutas de entrada por modo. No todas las 128 combinaciones ni todas las rutas de WinMain."
+}

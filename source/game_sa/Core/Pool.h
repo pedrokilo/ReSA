@@ -349,6 +349,34 @@ public:
     }
 
 protected:
+    // Original pool policy, for native callers sharing a pool with replacements:
+    // start after the cursor and preserve the bytes in allocated/freed storage.
+    // The existing New/Delete debug-fill policy remains unchanged for other pools.
+    T* NewLegacy() {
+        bool wrapped = false;
+        for (;;) {
+            if (++m_LastFreeSlot == m_Capacity) {
+                m_LastFreeSlot = 0;
+                if (wrapped) {
+                    return nullptr;
+                }
+                wrapped = true;
+            }
+            auto& state = m_SlotState[m_LastFreeSlot];
+            if (state.IsEmpty) {
+                state.IsEmpty = false;
+                state.Ref++;
+                return reinterpret_cast<T*>(&m_Storage[m_LastFreeSlot]);
+            }
+        }
+    }
+
+    void DeleteLegacy(T* obj) {
+        const auto index = GetIndex(obj);
+        m_SlotState[index].IsEmpty = true;
+        m_LastFreeSlot = std::min(m_LastFreeSlot, index);
+    }
+
     void DoFill(byte fill, StorageType* at = nullptr) {
         if (at) {
             memset(at, fill, sizeof(StorageType)); /* One object */

@@ -28,12 +28,17 @@ CTaskComplexGoToPointAiming::CTaskComplexGoToPointAiming(
 ) :
     m_aimPos{aimPos},
     m_aimAtEntity{aimAtEntity},
-    m_moveState{moveState},
-    m_movePos{movePos},
-    m_moveTargetRadius{targetRadius},
-    m_slowDownDistance{slowDownDist}
+    m_moveState{moveState}
 {
     CEntity::SafeRegisterRef(m_aimAtEntity);
+    // The original updates the destination in-place, preserving the flag when
+    // the pool slot already contains exactly the same destination and distances.
+    if (m_movePos != movePos || m_moveTargetRadius != targetRadius || m_slowDownDistance != slowDownDist) {
+        m_movePos = movePos;
+        m_moveTargetRadius = targetRadius;
+        m_slowDownDistance = slowDownDist;
+        m_newTargetSet = true;
+    }
 }
 
 CTaskComplexGoToPointAiming::CTaskComplexGoToPointAiming(const CTaskComplexGoToPointAiming& o) :

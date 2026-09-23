@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 1024,
+  "all_equal": true,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "calls_before_bank": 7,
+      "enabled": true,
+      "event": "hook_state",
+      "locked": false
+    }
+  ],
+  "log_sha256": "9d4debb10d258fa55c42c920ba5e41be808fa2599741bc7aeb5f1f20c8f43a9d",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "class_name": "CAESound",
+  "function": "operator=",
+  "evidence": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-sound-copy\\20260923-004932-410885",
+  "build_manifest": {
+    "binaries": {
+      "asi": "ddc749b5c11ca89ed6e0246c1eaa41479f7d9c1cf7ca095c5ae531e1df540510",
+      "pdb": "42c43251c7dbb19b59f097cd1aa2abdf451ddc34d39c074ce56a17dd6d593ba7"
+    },
+    "sources": {
+      "source\\game_sa\\Audio\\AESound.cpp": "8745e2f0e9f98a3773612db762d63fccc7c817c8d85b47dfd43479bb411236b6",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "Probe.hpp": "79d624a886f25700bb4b5c155683f55096b4dd5e6238eb77c30c02fe625d36dc",
+      "LiveComparison.hpp": "279d2e3f99d4f4f5b1ebba7d41a7f8f838417d1bbc6319382041feb253349e6c",
+      "build_probe.py": "47960de03ad1c46c4b2768bb6baaf5e3d97c800403397090ef0da1f515ee9e24"
+    },
+    "dependencies": {
+      "source/game_sa/Audio/AESound.h": "52a63db3ba913d365882ec48f2a190e5759c6af03512eac6811e747936570209"
+    }
+  },
+  "installation": {
+    "normal_asi_sha256": "08ac3949fc40b466eac6d61c600a4df6987247e692a43d295824f9c473b7668d",
+    "previous_hashes": {
+      "asi": "e5b8d16815fb880a46fe0a23e012d825e3607304ef3429f7a248a3ad03192a67",
+      "pdb": "4dccba442c42034892c14c2ae6a618b3eb08a18bcc784c90bcb633e52b4b29e0"
+    },
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-sound-copy-20260923",
+    "saves_unchanged": true
+  },
+  "scope": "Copia de sonido, campos conservados y ciclo de referencias; no todas las rutas de audio."
+}

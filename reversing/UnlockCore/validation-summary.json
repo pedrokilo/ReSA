@@ -1,0 +1,127 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 7968,
+  "pairs_per_function": {
+    "0": 4096,
+    "1": 256,
+    "2": 1024,
+    "3": 1024,
+    "4": 512,
+    "5": 512,
+    "6": 16,
+    "7": 16,
+    "8": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 0,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 1,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 2,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 3,
+      "locked": false,
+      "startup_calls": 40
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 4,
+      "locked": false,
+      "startup_calls": 10
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 5,
+      "locked": false,
+      "startup_calls": 9
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 6,
+      "locked": false,
+      "startup_calls": 1
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 7,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 8,
+      "locked": false,
+      "startup_calls": 10
+    }
+  ],
+  "log_sha256": "b3a07ff0d4bd467b32f189ed97160b45b432271515c9602f2c8b0249667d635c",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-core\\20260923-121136-653022",
+  "build_manifest": {
+    "binaries": {
+      "asi": "71352a35bda74bd6d98d11484a638efdcad9d66bf77b367899d5635dd73cb9b6",
+      "pdb": "8f0ea5a37358582700475ce7fcd7bee9289586533aa45a3115213a3bf2c209e6"
+    },
+    "sources": {
+      "source\\game_sa\\Cover.cpp": "ccd5a652dfdaa8f41bda9317be544ff328eaf482e41a5968fa5aee34b7014e89",
+      "source\\game_sa\\EntryExitManager.cpp": "0d0abdcf1111d82a9054db5b11fcc1128c50c0232587c8de9bf7512d17803762",
+      "source\\game_sa\\DecisionMakers\\DecisionMakerTypesFileLoader.cpp": "157c0d10bfbaf0ee682fd4996143229e02641a613f05c995db39509710170ddd",
+      "source\\game_sa\\Core\\EntryInfoNode.cpp": "05b9b667bbce5852162f58e402532eb90abdd6eb802b838dac163b6e3c646c3a",
+      "source\\game_sa\\Curves.cpp": "a02f6fd2cfb1640c7b4c9af2c69db8f02ce3b6eda5be6ace8af400c4b50df80e",
+      "source\\game_sa\\VehicleRecording.cpp": "73ddd07cc0030f1fcd47261054254edf6c9a34186f73645532ec4092b46688e6",
+      "source\\game_sa\\Pools\\EntryInfoNodePool.h": "5458119c7420f0966600955f5a72ccaf4318a84a8aa7ddf5f8429cf84014f906",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde",
+      "source\\dllmain.cpp": "f9c9b7f57e5e6391372df9a9e65ed0b3a3c34c56b7ec5a7340af9fc5f5fbfb67"
+    },
+    "instrumentation": {
+      "Probe.hpp": "fdf6a4869a040df7e217224050703d75f5c8b3909cbdf23f7eacb2e0facc9adc",
+      "LiveComparison.hpp": "516db7036b4f6a436b0e677d74ceb87c54506b490c7bba597cfa4c4893627a45",
+      "build_probe.py": "b2d8803b3f88c46df5ad4bc0741e3d8740faff5b7a4ba915c409e9085a6da166"
+    },
+    "dependencies": {
+      "source/InjectHooksMain.cpp": "58c9136cb7b038291b4acceaefa07e527fbb960887d47d70b963eedef0b710a6",
+      "source/game_sa/Cover.h": "f6975109f0384075677b0cf3ea0e9b9338070394922400980522c9b378118e9d",
+      "source/game_sa/Curves.h": "8625c0cdc242a1df1103a3ac40615a4863d8c089afce5523f94198a217587b54",
+      "source/game_sa/Core/EntryInfoNode.h": "30b3b2adcced72a5a07917c40f036176a205dd53bb444d1bfc190968890f0de4",
+      "source/game_sa/Core/Pool.h": "a1f5be278118d54af05d6685f5e151a843b938268fffbc45c4c845fb90d275bb",
+      "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "65bea4a53ea7a722893c87c18a7a95e1556af41e8b09489a46d97ccc6dffa3f6",
+      "source/game_sa/EntryExit.cpp": "798f6e84bc06213bda557521ac38ff89da8fd55262470db616dec7b21ce0d6b7"
+    }
+  },
+  "scope": "ABI y casos controlados de geometría, pools y recursos; no estabilidad general."
+}

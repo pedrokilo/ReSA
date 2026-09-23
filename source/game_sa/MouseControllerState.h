@@ -2,13 +2,14 @@
 
 class CMouseControllerState {
 public:
-    bool      isMouseLeftButtonPressed{};   // LMB
-    bool      isMouseRightButtonPressed{};  // RMB
-    bool      isMouseMiddleButtonPressed{}; // MMB
+    // DirectInput stores button masks (0 or 0x80), not canonical C++ bools.
+    uint8     isMouseLeftButtonPressed{};   // LMB
+    uint8     isMouseRightButtonPressed{};  // RMB
+    uint8     isMouseMiddleButtonPressed{}; // MMB
     bool      isMouseWheelMovedUp{};        // Wheel up
     bool      isMouseWheelMovedDown{};      // Wheel down
-    bool      isMouseFirstXPressed{};       // BMX1
-    bool      isMouseSecondXPressed{};      // BMX2
+    uint8     isMouseFirstXPressed{};       // BMX1
+    uint8     isMouseSecondXPressed{};      // BMX2
     float     m_fWheelMoved{};              // Wheel movement
     CVector2D m_AmountMoved{};              // Mouse movement
 

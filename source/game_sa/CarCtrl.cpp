@@ -37,7 +37,7 @@ void CCarCtrl::InjectHooks()
     RH_ScopedInstall(CreateCarForScript, 0x431F80);
     RH_ScopedInstall(ChooseBoatModel, 0x421970);
     RH_ScopedInstall(ChooseCarModelToLoad, 0x421900);
-    RH_ScopedInstall(GetNewVehicleDependingOnCarModel, 0x421440, { .reversed = false });
+    RH_ScopedInstall(GetNewVehicleDependingOnCarModel, 0x421440);
     RH_ScopedInstall(IsAnyoneParking, 0x42C250);
     RH_ScopedInstall(IsThisVehicleInteresting, 0x423EA0);
     RH_ScopedInstall(JoinCarWithRoadAccordingToMission, 0x432CB0);
@@ -422,32 +422,30 @@ void CCarCtrl::GetAIPlaneToDoDogFightAgainstPlayer(CAutomobile* automobile) {
 
 // 0x421440
 CVehicle* CCarCtrl::GetNewVehicleDependingOnCarModel(int32 modelId, uint8 createdBy) {
-    return plugin::CallAndReturn<CVehicle*, 0x421440, int32, uint8>(modelId, createdBy);
-    /*
+    const auto create = [=]<typename T, typename... Args>(Args... args) -> T* {
+        auto* memory = CVehicle::operator new(sizeof(T));
+        return memory ? ::new (memory) T(modelId, eVehicleCreatedBy(createdBy), args...) : nullptr;
+    };
     switch (CModelInfo::GetModelInfo(modelId)->AsVehicleModelInfoPtr()->m_nVehicleType) {
-    case VEHICLE_TYPE_MTRUCK:
-        return new CMonsterTruck(modelId, createdBy);
-    case VEHICLE_TYPE_QUAD:
-        return new CQuadBike(modelId, createdBy);
-    case VEHICLE_TYPE_HELI:
-        return new CHeli(modelId, createdBy);
-    case VEHICLE_TYPE_PLANE:
-        return new CPlane(modelId, createdBy);
-    case VEHICLE_TYPE_BOAT:
-        return new CBoat(modelId, createdBy);
-    case VEHICLE_TYPE_TRAIN:
-        return new CTrain(modelId, createdBy);
-    case VEHICLE_TYPE_BIKE:
-        return new CBike(modelId, createdBy);
-    case VEHICLE_TYPE_BMX:
-        return new CBmx(modelId, createdBy);
-    case VEHICLE_TYPE_TRAILER:
-        return new CTrailer(modelId, createdBy);
-    case VEHICLE_TYPE_AUTOMOBILE:
-        return new CAutomobile(modelId, createdBy, 1);
+    case VEHICLE_TYPE_MTRUCK:  return create.operator()<CMonsterTruck>();
+    case VEHICLE_TYPE_QUAD:    return create.operator()<CQuadBike>();
+    case VEHICLE_TYPE_HELI:    return create.operator()<CHeli>();
+    case VEHICLE_TYPE_PLANE:   return create.operator()<CPlane>();
+    case VEHICLE_TYPE_BOAT:    return create.operator()<CBoat>();
+    case VEHICLE_TYPE_TRAIN:   return create.operator()<CTrain>();
+    case VEHICLE_TYPE_TRAILER: return create.operator()<CTrailer>();
+    case VEHICLE_TYPE_BIKE: {
+        auto* bike = create.operator()<CBike>();
+        bike->bikeFlags.bOnSideStand = true;
+        return bike;
     }
-    return nullptr;
-    */
+    case VEHICLE_TYPE_BMX: {
+        auto* bike = create.operator()<CBmx>();
+        bike->bikeFlags.bOnSideStand = true;
+        return bike;
+    }
+    default: return create.operator()<CAutomobile>(true);
+    }
 }
 
 // 0x42C250

@@ -38,11 +38,11 @@ Cada par ejecuta la direccion original con el hook apagado y despues el candidat
 - PlayFootSteps controla asociaciones, RNG, aterrizaje, adhesion, ropa, audio y recepcion del evento; usa el constructor real de CEventSoundQuiet y su limpieza de referencias.
 - Neumaticos compara listas sinteticas, duplicados, scan codes, limites de distancia/velocidad, sangre y suspension. Las fuerzas de CPhysical son reales; caja de colision, audio y vibracion estan controlados.
 - Recolocacion controla colisiones, linea de vision, puertas, nodos y altura del suelo para recorrer salidas iniciales, laterales, extremos, techo, fracaso y fallback de nodos. No representa toda la geometria de los interiores/mapa.
-- Atropellos controla tareas consultadas, RNG, da?o, recepcion de eventos, animacion, audio, crimen, cap? y aplicacion final de fuerza. Compara el impulso solicitado; la fuerza angular sobre el cap? usa CPhysical real. Incluye excepciones, impactos leves, atropellos y rebotes, pero no una simulacion completa de trafico o lesiones.
+- Atropellos controla tareas consultadas, RNG, daño, recepcion de eventos, animacion, audio, crimen, capó y aplicacion final de fuerza. Compara el impulso solicitado; la fuerza angular sobre el capó usa CPhysical real. Incluye excepciones, impactos leves, atropellos y rebotes, pero no una simulacion completa de trafico o lesiones.
 
 La sonda redirige temporalmente llamadas C++ directas de esas dependencias a sus entradas originales para aplicar el mismo control a ambos lados. Esa redireccion NO queda en el ASI normal. DoFootLanded conserva dos dependencias originales independientes (0x5E3630 y 0x5E37C0) mediante adaptadores de su ABI en registros; no son delegaciones de las seis funciones reconstruidas.
 
-Se excluyen `Audio` y `Global/SurfaceInfos_c`, como en la infraestructura existente. Este banco finito no certifica estabilidad general, sesiones largas, todas las misiones ni compatibilidad de mods. La campa?a integral sigue aplazada hasta completar todas las clases.
+Se excluyen `Audio` y `Global/SurfaceInfos_c`, como en la infraestructura existente. Este banco finito no certifica estabilidad general, sesiones largas, todas las misiones ni compatibilidad de mods. La campaña integral sigue aplazada hasta completar todas las clases.
 
 ### Repeticion autonoma
 

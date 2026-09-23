@@ -1,0 +1,157 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 18432,
+  "pairs_per_function": {
+    "0": 1024,
+    "1": 1024,
+    "2": 2048,
+    "3": 4096,
+    "4": 4096,
+    "5": 4096,
+    "6": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 0,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 1,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 2,
+      "locked": false,
+      "startup_calls": 3
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 3,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 4,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 5,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 6,
+      "locked": false,
+      "startup_calls": 0
+    }
+  ],
+  "log_sha256": "08f70236798db5264328f1184a36b689021ad31d976f3538443d98e44ca38b95",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shooting-resources\\20260923-014724-555531",
+  "build_manifest": {
+    "binaries": {
+      "asi": "bdbcdaa715859dcfa1dacdeaef873137ba48f7926ed577eb777fcf892f2dae4b",
+      "pdb": "23da678e828eb131efac80cc2da1f2a007dfb37b760bd72186393b91a7fb62f3"
+    },
+    "sources": {
+      "source\\game_sa\\Tasks\\TaskTypes\\TaskComplexGoToPointShooting.cpp": "15da4b758f74aa58bdc46c9d48850d5423250192c84f7b1a39b463aa0d4c2a5c",
+      "source\\game_sa\\ScriptResourceManager.cpp": "8c10b09ac360827d8f74667a52d5a443f64de115fccc1280f43810d7f0df68f7",
+      "source\\game_sa\\Tasks\\TaskTypes\\TaskComplexGoToPointAiming.cpp": "37879a60bf29c50a82b1e97b3ea44d0cfd78747c5a8670ad449cfda12ba6111b",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "Probe.hpp": "781ccf8e13690b4232701082a9cef7d76d308008e3fd23b6f206db205854145d",
+      "LiveComparison.hpp": "2fcdd9e6501b50487b1c929ea079b4f248db185976fbbe719410b93534c9e124",
+      "build_probe.py": "38cdb552fa16d5571f82dd7a7a548d156506d86b446f6102d16136b21de4b1d2"
+    },
+    "dependencies": {
+      "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointShooting.h": "c00fe052a3613e6d1f2b01d53f34880c289e55e75d6c8d4b394f21864be385d4",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "37879a60bf29c50a82b1e97b3ea44d0cfd78747c5a8670ad449cfda12ba6111b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "83e6c71c749b40129ab983ddf929a392934b5fe53f35d04dbce41f02ad5ec3ee"
+    }
+  },
+  "classes": [
+    {
+      "name": "CTaskComplexGoToPointShooting",
+      "registered_progress": "3/3",
+      "pairs": 2048
+    },
+    {
+      "name": "CScriptResourceManager",
+      "registered_progress": "4/4",
+      "pairs": 14336
+    }
+  ],
+  "functions": [
+    {
+      "index": 0,
+      "name": "Clone",
+      "pairs": 1024
+    },
+    {
+      "index": 1,
+      "name": "GetTaskType",
+      "pairs": 1024
+    },
+    {
+      "index": 2,
+      "name": "Initialise",
+      "pairs": 2048
+    },
+    {
+      "index": 3,
+      "name": "AddToResourceManager",
+      "pairs": 4096
+    },
+    {
+      "index": 4,
+      "name": "RemoveFromResourceManager",
+      "pairs": 4096
+    },
+    {
+      "index": 5,
+      "name": "HasResourceBeenRequested",
+      "pairs": 4096
+    },
+    {
+      "index": 6,
+      "name": "CTaskComplexGoToPointAiming::Constructor",
+      "pairs": 2048
+    }
+  ],
+  "scope": "Comparación acotada dentro del motor; no estabilidad general",
+  "excluded_hooks": [
+    "Audio",
+    "Global/SurfaceInfos_c"
+  ],
+  "startup_world": "Partida nueva tras rechazo por versión de la ranura 2; guardado intacto"
+}

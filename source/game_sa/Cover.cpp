@@ -19,8 +19,8 @@ void CCover::InjectHooks() {
     RH_ScopedInstall(FindAndReserveCoverPoint, 0x6992B0);
     RH_ScopedInstall(FindCoordinatesCoverPoint, 0x699570);
     RH_ScopedInstall(FindCoverPointsForThisBuilding, 0x699120);
-    RH_ScopedInstall(FindDirFromVector, 0x698D40, {.locked = true});
-    RH_ScopedInstall(FindVectorFromDir, 0x698D60, {.locked = true});
+    RH_ScopedNamedInstall(FindDirFromVector_Reversed, "FindDirFromVector", 0x698D40);
+    RH_ScopedNamedInstall(FindVectorFromDir_Reversed, "FindVectorFromDir", 0x698D60);
     RH_ScopedInstall(FindVectorFromFirstToMissingVertex, 0x698790);
 }
 
@@ -331,12 +331,51 @@ void CCover::FindCoverPointsForThisBuilding(CBuilding* building) {
 
 // 0x698D40 - unused
 CCoverPoint::Dir CCover::FindDirFromVector(CVector dir) {
-    return atan2(-dir.x, dir.y);
+    return CCoverPoint::Dir{FindDirFromVector_Reversed(dir)};
+}
+
+uint8 CCover::FindDirFromVector_Reversed(CVector dir) {
+    const float scale = 0x1.45f306p+5f;
+    const float x = dir.x, y = dir.y;
+    uint16 oldControl, truncControl;
+    int64 result;
+    __asm {
+        fld x
+        fchs
+        fld y
+        fpatan
+        fmul scale
+        fnstcw oldControl
+        mov ax, oldControl
+        or ax, 0C00h
+        mov truncControl, ax
+        fldcw truncControl
+        fistp result
+        fldcw oldControl
+    }
+    return uint8(result);
 }
 
 // 0x698D60
 CVector CCover::FindVectorFromDir(CCoverPoint::Dir direction) {
-    return CVector{ std::sin(direction), std::cos(direction), 0.f };
+    return FindVectorFromDir_Reversed(std::bit_cast<uint8>(direction));
+}
+
+CVector CCover::FindVectorFromDir_Reversed(uint8 direction) {
+    const int32 value = direction;
+    const float scale = 0x1.921fb6p-6f;
+    float x, y;
+    __asm {
+        fild value
+        fmul scale
+        fld st(0)
+        fsin
+        fchs
+        fstp x
+        fcos
+        fstp y
+    }
+    return {x, y, 0.f};
 }
 
 // unused

@@ -1,5 +1,7 @@
 # CClothes, CScripted2dEffects y AttractorSprint
 
+> Informe de esta entrega, conservado como evidencia histórica. El ASI instalado actualmente y los desbloqueos posteriores se documentan en el [informe vigente](../Unlocks/README.md). Los hashes y pruebas de este documento corresponden a su propia entrega.
+
 **8.448 pares exactos aprobados** en la ejecución final del 23 de septiembre de 2026. Una primera ejecución, con hooks inicialmente deshabilitados, pasó otros 8.448 pares del mismo banco; no son cobertura adicional.
 
 | Clase | Función | Original | Pares |
@@ -43,4 +45,4 @@ Se validaron las cuatro funciones pendientes, no todos los métodos de estas cla
 
 Se mantienen excluidos Audio y Global/SurfaceInfos_c al arrancar. No se repitieron las sondas de otras clases. Este banco finito y la compilación normal no garantizan estabilidad general; la campaña integral queda para cuando estén completas todas las clases.
 
-ASI normal instalado solo en la copia de pruebas: `d62c1071aadb1b459964a46efc4bfc3b9c6b3ea094521374408c14de7e9da034`. Respaldo _baseline/before-clothes-scripted-sprint-20260923. Partidas sin cambios, instalación personal intacta. Sin commit/push.
+Al cerrar esta entrega se instaló este ASI normal solo en la copia de pruebas: `d62c1071aadb1b459964a46efc4bfc3b9c6b3ea094521374408c14de7e9da034`. Respaldo _baseline/before-clothes-scripted-sprint-20260923. Partidas sin cambios, instalación personal intacta. Sin commit/push.

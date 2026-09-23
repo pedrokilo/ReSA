@@ -1,10 +1,9 @@
-# Copilot review instructions
+# Instrucciones de revisión para Copilot
 
-For pull requests that add or modify reversed classes under `source/game_sa/**`, always review `docs/HookRegistration.md` and enforce its checklist.
-Make no mistakes!
+En las solicitudes de cambios que añadan o modifiquen clases reconstruidas bajo `source/game_sa/**`, revisa siempre `docs/HookRegistration.md` y aplica su lista de comprobación. Revisa con cuidado para evitar errores.
 
-Required checks for each new reversed class:
+Comprobaciones obligatorias para cada clase reconstruida nueva:
 
-1. The class declaration contains `static void InjectHooks();`.
-2. `source/InjectHooksMain.cpp` contains a matching `ClassName::InjectHooks();` call inside `InjectHooksMain()`.
-3. `friend void InjectHooksMain();` appears only when private hook-wrapper access is required.
+1. La declaración de la clase contiene `static void InjectHooks();`.
+2. `source/InjectHooksMain.cpp` contiene la llamada correspondiente a `ClassName::InjectHooks();` dentro de `InjectHooksMain()`.
+3. `friend void InjectHooksMain();` aparece únicamente cuando se necesita acceso a adaptadores privados de hooks.

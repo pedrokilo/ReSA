@@ -1,4 +1,5 @@
 #include "StdInc.h"
+#include "E:/Original/gta-reversed-master/reversing/ProbeRuntime.hpp"
 #include "config.h"
 #include <cstdlib>
 
@@ -83,6 +84,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
             notsa::debug::WaitForDebugger();
         }
 
+        ReversingProbe::InstallFailureCapture("unlock-data-stream");
         LoadConfigurations();
 
         InjectHooksMain(hModule);

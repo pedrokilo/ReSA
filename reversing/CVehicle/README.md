@@ -90,17 +90,16 @@ Ejecutar desde esta carpeta, con Python instalado:
 
 El script conoce la ubicación de Visual Studio 2026 de esta computadora. En otra máquina habría que ajustar esa ruta.
 
-## Qué falta para activarlo y cerrar la validación
+## Validación completada y límites
 
-- Habilitar el hook reconstruido en una instalación de ensayo y verificar la integración en ejecución.
-- Probar en una instalación de ensayo los cambios y retiros de componentes de vehículos, incluyendo objetos con ATOMIC_UPGRADE, frames con/sin jerarquía y componentes con modelo asociado.
-- Comprobar que no aparecen crashes ni diferencias visuales o de referencias durante ciclos repetidos.
-- Regenerar el catálogo mediante el flujo del proyecto cuando corresponda.
+El callback ya está habilitado y el catálogo actualizado. El banco dentro del motor aprobó 60 pares de vehículos y tres casos adicionales, incluyendo componentes conservados/retirados, jerarquía y referencias; [resultado verificable](runtime/results.json). No está pendiente volver a habilitarlo.
+
+Sigue fuera de este banco la cobertura exhaustiva de vehículos, la revisión visual y una sesión prolongada. Los ciclos finitos comparados no garantizan estabilidad general.
 
 El 142/142 se refiere únicamente a los hooks registrados bajo CVehicle. En Vehicle.cpp aún hay funciones comentadas en el registro o redirecciones al original fuera de ese conteo. No se puede equiparar ese porcentaje con la reconstrucción de toda la clase ni de todo el subsistema de vehículos.
 
 
-## Preparación y resultado de compilación
+## Historial de preparación y compilación inicial
 
 Se preparó Conan 2.32.0 en un entorno virtual local y una caché separada.
 Se compilaron las dependencias declaradas por el proyecto con MSVC 19.51, x86 Debug y CMake 4.2.0.
@@ -109,7 +108,8 @@ La compilación completa y la recompilación final terminaron con código 0.
 
 El resultado diferencial conserva el hash de la fuente probada antes del cambio exclusivo de metadatos del hook.
 Se verificó que los cuerpos de las tres funciones compiladas por la prueba son idénticos a los de la fuente final.
-El único ajuste posterior fue registrar el callback con reversed=true por defecto y enabled=false; la compilación real final verificó ese registro.
+En esa primera etapa aislada, el callback quedó registrado con reversed=true y enabled=false; todavía no se había arrancado GTA ni instalado el ASI. Posteriormente se completó la validación dentro del motor descrita al principio y se habilitó el hook. Esa etapa inicial no representa el estado vigente.
 
-No se arrancó GTA, no se copiaron archivos al directorio del juego y no se alteraron partidas.
-El siguiente trabajo concreto es la validación en una instalación de ensayo, no volver a escribir la función.
+## Desbloqueo posterior de conducción
+
+CVehicle conserva 142/142 entradas registradas y ahora no tiene candados. ProcessDrivingAnims se corrigió y desbloqueó con 16.384 pares; otros 256 comprueban la ABI de GetVehicleAppearance. [Banco de conducción y límites](../UnlockDriving/README.md). Estas pruebas son adicionales y no sustituyen la evidencia del callback. El [informe vigente](../Unlocks/README.md) identifica el ASI instalado en la copia de pruebas.

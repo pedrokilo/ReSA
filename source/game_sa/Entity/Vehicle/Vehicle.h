@@ -517,6 +517,7 @@ public:
     void CalculateLightingFromCollision();
     void ResetAfterRender();
     [[nodiscard]] eVehicleAppearance GetVehicleAppearance() const;
+    static eVehicleAppearance __fastcall GetVehicleAppearance_Reversed(const CVehicle*, void*);
     bool CustomCarPlate_TextureCreate(CVehicleModelInfo* model);
     void CustomCarPlate_TextureDestroy();
     bool CanBeDeleted();

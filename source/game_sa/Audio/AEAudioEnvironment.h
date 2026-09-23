@@ -18,6 +18,9 @@ public:
     static float GetDirectionalMikeAttenuation(const CVector& soundDir);
     static void  GetReverbEnvironmentAndDepth(int8* reverbEnv, int32* depth);
     static CVector  GetPositionRelativeToCamera(const CVector& pos);
+    // Native ABI writes to an explicit output buffer and does not return it in EAX.
+    static void GetPositionRelativeToCamera_Vector(CVector* out, const CVector* pos);
+    static void GetPositionRelativeToCamera_Placeable(CVector* out, CPlaceable* placeable);
     static CVector  GetPositionRelativeToCamera(CPlaceable* placeable);
 };
 

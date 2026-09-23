@@ -1,0 +1,44 @@
+# Plataforma conmutable: Windows, SDL e ImGui
+
+**Nueve arranques aprobados**, con los siete hooks sin candado en las fuentes. **324 pares de función y 18 comprobaciones de entrada**. [Resumen verificable](validation-summary.json).
+
+## Qué se cambió
+
+PsGlobal vuelve al bloque nativo de 40 bytes en 0xC8CF88. La ventana es un HWND nativo que SDL envuelve; el puntero SDL se mantiene fuera de ese bloque. Un temporizador de la ventana bombea los eventos tanto con WinMain/MessageLoop originales como reversados. La captura de ImGui está entre el procedimiento SDL y el procedimiento del juego, y WM_GRAPHNOTIFY sigue llegando al reproductor de vídeo.
+
+Ratón y mando del juego usan DirectInput, también bajo SDL; su equivalencia se comprueba en [UnlockInput](../UnlockInput/README.md). La enumeración de dispositivos conserva la función original. El área final de cliente determina las dimensiones del backbuffer y de cámara, reparando el raster nulo observado al pedir 1920×1080 y obtener 1920×1055.
+
+Se retiraron los cinco bloqueos restantes: CMenuManager::CheckForMenuClosing, Ps::psInitialize/psTerminate y Win::NOTSA_WinMain/MessageLoop. Los dos de CPad se validaron y retiraron en su banco propio.
+
+## Matriz final
+
+Orden de bits: UpdateMouse, ProcessPad, CheckForMenuClosing, psInitialize, psTerminate, NOTSA_WinMain, MessageLoop. Bit 1 selecciona el reversado; bit 0, el original.
+
+| Máscara | Selección al arrancar | Resultado |
+| ---: | --- | --- |
+| 127 | Todos reversados | Aprobado |
+| 0 | Los siete originales | Aprobado |
+| 126 | Solo UpdateMouse original | Aprobado |
+| 125 | Solo ProcessPad original | Aprobado |
+| 123 | Solo CheckForMenuClosing original | Aprobado |
+| 119 | Solo psInitialize original | Aprobado |
+| 111 | Solo psTerminate original | Aprobado |
+| 95 | Solo NOTSA_WinMain original | Aprobado |
+| 63 | Solo MessageLoop original | Aprobado |
+
+Cada proceso verifica estado de hooks, llamadas de arranque, bloque Ps, ventana SDL y raster existente. Después compara 16 pares de psTerminate, 16 pares de MessageLoop con WM_NULL/WM_QUIT y cuatro aperturas/cierres del menú por implementación. Por último comprueba una tecla y movimiento del ratón con ImGui desactivado y activado. Los 36 pares se repiten en cada modo; no son 324 escenarios únicos.
+
+El banco impide escribir ajustes y controla la consulta de resintonización de radio. No compara byte por byte todo CMenuManager: compara las transiciones y banderas descritas en el log. La verificación de entrada registra mensajes recibidos, sin demostración visual. El proceso se cierra al terminar; la restauración comprobada abarca hooks, menú cerrado y bloque Ps, no todos los globals del mundo.
+
+## Ejecución autónoma y límites
+
+```powershell
+python reversing/UnlockPlatform/run_local.py --mask 127
+python reversing/UnlockPlatform/run_matrix.py
+```
+
+El caso `unlock-platform` del único PROBAR.cmd ejecuta la máscara 127. La matriz ejecuta nueve procesos en serie y se detiene ante el primer fallo. Plazo máximo de cinco minutos por proceso, restauración de ASI/PDB e INI y hashes de partidas. Cuando se usa WinMain original, el banco envía entrada exclusivamente a su HWND para pasar las introducciones y seleccionar partida nueva; no modifica guardados.
+
+Audio y SurfaceInfos excluidos. No cubre las 128 combinaciones posibles, todas las ramas de WinMain, todos los dispositivos, hotplug, reinicio del render, todos los modos de pantalla ni estabilidad general.
+
+Los intentos fallidos se conservan y no cuentan como aprobación. La sonda inicial también interrumpía excepciones de primera oportunidad durante Direct3D; la final permite los manejadores SEH locales y captura las no manejadas. No se desactivaron las aserciones del juego. Tras la matriz solo se eliminaron líneas vacías al final de WinInput.cpp/.h; los hashes antes/después figuran en el resumen, y el ASI normal se recompiló aparte.

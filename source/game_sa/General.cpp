@@ -16,6 +16,28 @@ static int32 GetRandomNumberInRange_int32(int32 min, int32 max) {
     return CGeneral::GetRandomNumberInRange(min, max);
 }
 
+// 0x41BD90
+// x87 is intentional: GTA changes its precision control, and intermediate
+// values have a wider exponent range than float. SSE/double expressions can
+// change rounding or overflow. Keep ST(0) intact for native callers as well.
+template<>
+__declspec(naked) float CGeneral::GetRandomNumberInRange<float>(float min, float max) {
+    __asm {
+        push ecx
+        call GetRandomNumber
+        movzx eax, ax
+        mov [esp], eax
+        fild dword ptr [esp]
+        fmul dword ptr [RAND_MAX_FLOAT_RECIPROCAL]
+        fld dword ptr [esp + 12]
+        fsub dword ptr [esp + 8]
+        fmulp st(1), st(0)
+        fadd dword ptr [esp + 8]
+        pop ecx
+        ret
+    }
+}
+
 void CGeneral::InjectHooks() {
     RH_ScopedNamespace(CGeneral);
     RH_ScopedCategoryGlobal();
@@ -28,7 +50,7 @@ void CGeneral::InjectHooks() {
     RH_ScopedInstall(SolveQuadratic, 0x53CE30);
     RH_ScopedInstall(GetAngleBetweenPoints, 0x53CEA0);
     RH_ScopedGlobalInstall(GetRandomNumberInRange_int32, 0x407180);
-    RH_ScopedOverloadedInstall(GetRandomNumberInRange<float>, "", 0x41BD90, float (*)(float, float), { .enabled = false, .locked = true }); // There's a bug in the code at 0x6DF26D which causes the assert to be triggered, so I'm unhooking this for now
+    RH_ScopedOverloadedInstall(GetRandomNumberInRange<float>, "", 0x41BD90, float (*)(float, float));
 }
 
 // 0x53CB00

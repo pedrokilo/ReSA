@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 6144,
+  "pairs_per_function": {
+    "0": 2048,
+    "1": 4096
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 0,
+      "locked": false,
+      "startup_calls": 2
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 1,
+      "locked": false,
+      "startup_calls": 2
+    }
+  ],
+  "log_sha256": "7cb8a82be3258b4679fd1d558599afd30b0df10c446bc933a47d1e1856c8ff21",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-input\\20260923-121517-657498",
+  "build_manifest": {
+    "binaries": {
+      "asi": "abf0b06e3a7a9b0bde9f0248cb309ce58dacf1321d11ed846d65cc2b74786631",
+      "pdb": "553953bcd500c285c98640b01ec2d9c99ab2869ceff7a65dc946e25a3e58812d"
+    },
+    "sources": {
+      "source\\game_sa\\Pad.cpp": "2289a1bb02ee0aa6d078dcf51b8d008156ad5752c3f9c1ba63a1f6881bba0ec9",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde",
+      "source\\dllmain.cpp": "f9c9b7f57e5e6391372df9a9e65ed0b3a3c34c56b7ec5a7340af9fc5f5fbfb67"
+    },
+    "instrumentation": {
+      "Probe.hpp": "2489459fde5b222f74b6e3c455a1cf0cca77a87c57c6ee8fa808b2262f95c7cc",
+      "LiveComparison.hpp": "0e4ba1c08e19d0106eaa101b78e72a5541e5437ea6cf8d0401936c32fe61af63",
+      "build_probe.py": "a07929c4de9a89966de1427aefa8456b9ecb40286002224ec6c5c64d6921811e"
+    },
+    "dependencies": {
+      "source/game_sa/Pad.h": "478c06acc86628c09d9ba3140519ae92b5eb6b4fcbedaaa7d8e9fcf7edacc64e",
+      "source/game_sa/MouseControllerState.h": "b59a79dec1f3d49ece4c4d00decdfe96502ec963d4bf4fac6e0357e4b50367e3",
+      "source/app/platform/SDLWrapper.cpp": "5aae09fe6fed4f868775b4621107171a8085cf7bf375f00499591bdafb1907fd",
+      "source/app/platform/win/WinMain.cpp": "13ccfcd3dc9e70e0249bcb6563276a84fe925e659e642f2e7f922bde745a723b",
+      "source/app/platform/win/WinPs.cpp": "e3f1e2b42540940b06d2e4b105ad4a12de1d5a94acababdfe048bc191bbc9514"
+    }
+  },
+  "scope": "Dispositivos DirectInput controlados; igualdad de bytes y llamadas, no todos los controladores físicos."
+}

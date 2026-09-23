@@ -1,0 +1,109 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 9216,
+  "pairs_per_function": {
+    "0": 4096,
+    "1": 4096,
+    "2": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 0,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 1,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 2,
+      "locked": false,
+      "startup_calls": 161
+    }
+  ],
+  "log_sha256": "b209251eda0ca95ca0c74c9789886333e4fc9bcb127767017d52c6f2cb277534",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-scanner-drag-fx\\20260923-015108-016690",
+  "build_manifest": {
+    "binaries": {
+      "asi": "9c79d1bd04e3580e9191a14e0e0f948b9262cbe3afc20f0f7e8e27f5fcaa1368",
+      "pdb": "412e0a8efb19b42c485ff0aa2181711673a16d82eb9553e042ac57a7e900b613"
+    },
+    "sources": {
+      "source\\game_sa\\EntityScanner.cpp": "8c580b1cf348eb4acf4a01d5b29300a415140dcfac9f2b0745fd4a1b0d582e7e",
+      "source\\game_sa\\Tasks\\TaskTypes\\TaskComplexDragPedFromCar.cpp": "22bcd44afbbcc61f9071192fd67f7f3f1b3149b83a89ace7f35866ef2990632e",
+      "source\\game_sa\\Fx\\FxPrimBP.cpp": "cce57f88d3dc298ea71bab3fe632f7204a1f2550c71a20fb7dc0e71736c02e90",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "Probe.hpp": "12cd0bf60256c4982c0ad2b05b5c2f9a5477a187daf9dbfd64f3fb2a9d2b26a7",
+      "LiveComparison.hpp": "bf9e08129866c845d0a9ea7d39216803015ff8f0865aabb5b1f3647c73daa16c",
+      "build_probe.py": "6c3685d920c81b6a8d529d13a1076b656beadd40026a9e9ca7d76ff083592694"
+    },
+    "dependencies": {
+      "source/game_sa/EntityScanner.h": "2f66450dba55116cc34ed0f86f4e97e9a655a7329f4e16d55fe116c700f64664",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDragPedFromCar.h": "54833f58d9652592a608e0bbad8c294f32f1be7317f1f2e17df5d577224324b9",
+      "source/game_sa/Fx/FxPrimBP.h": "9b2100a3b632a6a149d5b2c2d1e2085a91608215082672f632c5d1b50c81aed4"
+    }
+  },
+  "classes": [
+    {
+      "name": "CEntityScanner",
+      "registered_progress": "4/4",
+      "pairs": 4096
+    },
+    {
+      "name": "CTaskComplexDragPedFromCar",
+      "registered_progress": "2/2",
+      "pairs": 4096
+    },
+    {
+      "name": "FxPrimBP_c",
+      "registered_progress": "2/2",
+      "pairs": 1024
+    }
+  ],
+  "functions": [
+    {
+      "index": 0,
+      "name": "ScanForEntitiesInRange",
+      "pairs": 4096
+    },
+    {
+      "index": 1,
+      "name": "CreateFirstSubTask",
+      "pairs": 4096
+    },
+    {
+      "index": 2,
+      "name": "Load",
+      "pairs": 1024
+    }
+  ],
+  "scope": "Comparación acotada dentro del motor; no estabilidad general",
+  "excluded_hooks": [
+    "Audio",
+    "Global/SurfaceInfos_c"
+  ],
+  "startup_world": "Partida nueva tras rechazo por versión de la ranura 2; guardado intacto"
+}

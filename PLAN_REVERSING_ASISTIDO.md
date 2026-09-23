@@ -2,7 +2,7 @@
 
 Fecha: 22 de septiembre de 2026.
 Carpeta de trabajo: E:\Original\gta-reversed-master
-Estado: planificación. No se han instalado herramientas, instrumentado el juego ni implementado funciones durante esta tarea.
+Estado: **plan histórico del 22 de septiembre**. Las observaciones y cifras siguientes pertenecen a la inspección inicial; el proyecto ya dispone de Git, compilación y bancos dentro del motor. Para el estado actual consulta [el README](README.md) y [la continuidad](reversing/MEJORAS_DEL_PROCESO.md).
 
 ## 1. Objetivo y forma de trabajar
 

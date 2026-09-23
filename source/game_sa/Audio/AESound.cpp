@@ -70,6 +70,47 @@ CAESound::~CAESound() {
     UnregisterWithPhysicalEntity();
 }
 
+// 0x4EF680
+CAESound& CAESound::operator=(const CAESound& other) {
+    if (this == &other) {
+        return *this;
+    }
+
+    UnregisterWithPhysicalEntity();
+    m_BankSlot = other.m_BankSlot;
+    m_SoundID = other.m_SoundID;
+    m_AudioEntity = other.m_AudioEntity;
+    m_Event = other.m_Event;
+    m_ClientVariable = other.m_ClientVariable;
+    m_Volume = other.m_Volume;
+    m_RollOffFactor = other.m_RollOffFactor;
+    m_Speed = other.m_Speed;
+    m_SpeedVariance = other.m_SpeedVariance;
+    m_CurrPos = other.m_CurrPos;
+    m_PrevPos = other.m_PrevPos;
+    m_LastFrameUpdatedAt = other.m_LastFrameUpdatedAt;
+    m_CurrTimeUpdateMs = other.m_CurrTimeUpdateMs;
+    m_PrevTimeUpdateMs = other.m_PrevTimeUpdateMs;
+    m_CurrCamDist = other.m_CurrCamDist;
+    m_PrevCamDist = other.m_PrevCamDist;
+    m_Doppler = other.m_Doppler;
+    m_FrameDelay = other.m_FrameDelay;
+    m_Flags = other.m_Flags;
+    m_IsInUse = other.m_IsInUse;
+    m_PlayTime = other.m_PlayTime;
+    m_IsPhysicallyPlaying = other.m_IsPhysicallyPlaying;
+    m_ListenerVolume = other.m_ListenerVolume;
+    m_ListenerSpeed = other.m_ListenerSpeed;
+    m_HasRequestedStopped = other.m_HasRequestedStopped;
+    m_Headroom = other.m_Headroom;
+    m_Length = other.m_Length;
+    // The original preserves m_IsAudioHardwareAware and padding. Assign the
+    // raw entity pointer so EntityRef registers this destination, not a copy
+    // of the source's pointer without lifetime tracking.
+    m_PhysicalEntity = other.m_PhysicalEntity.Get();
+    return *this;
+}
+
 // 0x4EFE50
 void CAESound::Initialise(
     eSoundBankSlot  bankSlot,

@@ -1,12 +1,12 @@
-# How to add a new debug module
-- 1. Create a file in this directory (.hpp and .cpp), the name being the name of your module (Ex.: `YourModuleNameDebugModule.cpp`, gotta have the `DebugModule` suffix for now)
-- 2. Write code for the module (See templates below)
-- 3. Go to "DebugModules::CreateModules" and add your module to there
-- 4. Profit
+# Cómo añadir un módulo de depuración
+1. Crea los archivos de cabecera y fuente en esta carpeta (.hpp y .cpp), con el nombre del módulo; por ejemplo, `YourModuleNameDebugModule.cpp`. Por ahora deben llevar el sufijo `DebugModule`
+2. Escribe el código del módulo; las plantillas están más abajo.
+3. Añade el módulo a `DebugModules::CreateModules`.
+4. Compila y comprueba que aparezca en el menú.
 
-# How to structure code
+# Organización del código
 
-Header file (.hpp):
+Archivo de cabecera (.hpp):
 ```cpp
 #pragma once
 
@@ -14,22 +14,22 @@ Header file (.hpp):
 
 namespace notsa { 
 namespace debugmodules {
-class Rendering /*No "DebugModule" suffix needed */ final : public DebugModule {
+class Rendering /*No necesita el sufijo "DebugModule" */ final : public DebugModule {
 public:
     void RenderWindow() override;
     void RenderMenuEntry() override; 
     void Render3D() override;
-    // There's also `void Update()`, but you'll rarely need that one
+    // También existe `void Update()`, aunque rara vez será necesario
 
 private:
-    bool m_IsOpen{};        // Main window's state
+    bool m_IsOpen{};        // Estado de la ventana principal
     bool m_ShowClosest{};
 };
 }; // namespace debugmodules
 }; // namespace notsa
 ```
 
-Source file (.cpp):
+Archivo fuente (.cpp):
 ```cpp
 #include <StdInc.h>
 #include "Rendering.hpp"
@@ -37,36 +37,36 @@ Source file (.cpp):
 namespace notsa { 
 namespace debugmodules {
 
-// If you want to render a window (or more), this is the place to do it!
+// Dibuja aquí las ventanas del módulo.
 void Rendering::RenderWindow() {
     const ::notsa::ui::ScopedWindow window{ "Rendering", {}, m_IsOpen };
     if (!m_IsOpen) {
         return;
     }
-    // Your window's content here
+    // Contenido de la ventana
 }
 
-// Render the menu entry of this module here. This function is called witihn `BeginMainMenu`, so you don't need to call it yourself
+// Dibuja aquí la entrada del módulo. Esta función se invoca dentro de `BeginMainMenu`, por lo que no necesitas llamar a esa función
 void Rendering::RenderMenuEntry() {
     notsa::ui::DoNestedMenuIL({ "Visualization", "Rendering" }, [&] { // Visualization -> Rendering 
-        ImGui::Checkbox("Show Closest", &m_ShowClosest);   // Show a checkbox if the "Rendering" sub-menu is open
+        ImGui::Checkbox("Show Closest", &m_ShowClosest);   // Mostrar una casilla si está abierto el submenú "Rendering"
     });
 
-    notsa::ui::DoNestedMenuIL({ "Extra" }, [&] { // Extra menu
-        ImGui::MenuItem("Rendering", nullptr, &m_IsOpen); // Toggles the window
+    notsa::ui::DoNestedMenuIL({ "Extra" }, [&] { // Menú adicional
+        ImGui::MenuItem("Rendering", nullptr, &m_IsOpen); // Alterna la visibilidad de la ventana
     });
 }
 
 void Rendering::Render3D() {
-    // Render your 3D stuff here (if any)
+    // Dibuja aquí los elementos 3D, si los hay
 }
 }; // namespace debugmodules
 }; // namespace notsa
 ```
 
-## Template (To copy for new modules)
+## Plantilla para copiar al crear módulos
 
-Header file (`YourModuleNameDebugModule.hpp`):
+Archivo de cabecera (`YourModuleNameDebugModule.hpp`):
 ```cpp
 #pragma once
 
@@ -86,7 +86,7 @@ private:
 }; // namespace notsa
 ```
 
-Source file (`YourModuleNameDebugModule.cpp`):
+Archivo fuente (`YourModuleNameDebugModule.cpp`):
 ```cpp
 #include <StdInc.h>
 #include "YourModuleName.hpp"
@@ -98,7 +98,7 @@ void YourModuleName::RenderWindow() {
     if (!m_IsOpen) {
         return;
     }
-    // Your window's content here
+    // Contenido de la ventana
 }
 
 void YourModuleName::RenderMenuEntry() {

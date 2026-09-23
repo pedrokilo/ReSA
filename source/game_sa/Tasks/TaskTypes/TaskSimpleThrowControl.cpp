@@ -1,5 +1,6 @@
 #include "StdInc.h"
 #include "TaskSimpleThrowControl.h"
+#include "TaskSimpleThrowProjectile.h"
 
 void CTaskSimpleThrowControl::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleThrowControl, 0x86D7B4, 9);
@@ -11,7 +12,7 @@ void CTaskSimpleThrowControl::InjectHooks() {
     RH_ScopedVMTInstall(Clone, 0x6230B0);
     RH_ScopedVMTInstall(GetTaskType, 0x61F940);
     RH_ScopedVMTInstall(MakeAbortable, 0x61F9B0);
-    RH_ScopedVMTInstall(ProcessPed, 0x61F9F0, { .enabled = false, .locked = true });
+    RH_ScopedVMTInstall(ProcessPed, 0x61F9F0);
 }
 
 // 0x61F8B0
@@ -45,5 +46,46 @@ bool CTaskSimpleThrowControl::MakeAbortable(CPed* ped, eAbortPriority priority, 
 
 // 0x61F9F0
 bool CTaskSimpleThrowControl::ProcessPed(CPed* ped) {
-    return plugin::CallMethodAndReturn<bool, 0x61F9F0, CTaskSimpleThrowControl*, CPed*>(this, ped);
+    if (byte8) {
+        return true;
+    }
+    ped->SetMoveState(PEDMOVE_STILL);
+    auto& manager = ped->GetTaskManager();
+    auto* secondary = manager.GetTaskSecondary(TASK_SECONDARY_ATTACK);
+    if (!secondary) {
+        if (m_isAttacking) {
+            return true;
+        }
+        manager.SetTaskSecondary(new CTaskSimpleThrowProjectile{m_entity, m_pos}, TASK_SECONDARY_ATTACK);
+        m_isAttacking = true;
+    } else if (secondary->GetTaskType() != TASK_SIMPLE_THROW_PROJECTILE) {
+        secondary->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr);
+        return false;
+    }
+    auto* throwing = ped->GetIntelligence()->GetTaskThrow();
+    const auto* targetPos = m_pos != CVector{} ? &m_pos : nullptr;
+    if (m_entity || targetPos) {
+        const auto delta = (m_entity ? m_entity->GetPosition() : m_pos) - ped->GetPosition();
+        float heading;
+        // Preserve the original x87 atan2 and its signed-zero behavior.
+        const float x = delta.x, y = delta.y;
+        __asm {
+            fld x
+            fchs
+            fld y
+            fpatan
+            fstp heading
+        }
+        ped->m_fAimingRotation = heading;
+    }
+    if (!m_isAttacking) {
+        return false;
+    }
+    if (throwing->m_bIsFinished) {
+        return true;
+    }
+    if (targetPos) {
+        throwing->m_TargetPos = *targetPos;
+    }
+    return false;
 }

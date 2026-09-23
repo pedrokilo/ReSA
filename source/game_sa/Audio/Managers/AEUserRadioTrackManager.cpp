@@ -274,31 +274,36 @@ DWORD __stdcall CAEUserRadioTrackManager::WriteUserTracksThread(CAEUserRadioTrac
 
     if (const auto ufiles = CFileMgr::OpenFile("sa-ufiles.dat", "wb")) {
         size_t dummy{};
-        std::vector<tUserTracksInfo> offsets;
+        UserTracksLegacyVector offsets;
 
-        // Retrieve all user tracks info
-        int32 amountOfTracks = self->WriteUserTracksFile(fs::path(CFileMgr::ms_dirName) / "User Tracks", dummy, ufiles, offsets, 0);
+        // Use the executable's ABI so the worker and scanner can be switched
+        // independently. Each record and the vector storage use its CRT.
+        const auto directory = UnicodeToUTF8((fs::path(CFileMgr::ms_dirName) / "User Tracks").wstring());
+        const auto amountOfTracks = self->WriteUserTracksFile_Legacy(directory.c_str(), offsets, ufiles, dummy, 0);
         CFileMgr::CloseFile(ufiles);
 
         // Open sa-utrax.dat containing the offsets
         if (const auto utrax = CFileMgr::OpenFile("sa-utrax.dat", "wb")) {
-            if (amountOfTracks > 0)
-                CFileMgr::Write(utrax, offsets.data(), amountOfTracks * sizeof(tUserTracksInfo));
-
-            // SA: Game duplicates the entry if there is only one?
-            if (amountOfTracks == 1)
-                CFileMgr::Write(utrax, offsets.data(), sizeof(tUserTracksInfo));
+            if (amountOfTracks == 1) {
+                CFileMgr::Write(utrax, *offsets.first, sizeof(tUserTracksInfo));
+            }
+            for (auto** entry = offsets.first; entry != offsets.last; ++entry) {
+                CFileMgr::Write(utrax, *entry, sizeof(tUserTracksInfo));
+            }
 
             CFileMgr::CloseFile(utrax);
 
             FrontEndMenuManager.m_UserTrackIndex = 0;
             self->m_nUserTracksScanState = USER_TRACK_SCAN_COMPLETE;
 
-            CoUninitialize();
         } else {
             // NOTSA(MikuAuahDark): GTASA doesn't check if sa-utrax.dat fails to open
             self->m_nUserTracksScanState = USER_TRACK_SCAN_ERROR;
         }
+        for (auto** entry = offsets.first; entry != offsets.last; ++entry) {
+            plugin::Call<0x8214BD>(*entry);
+        }
+        plugin::Call<0x8214BD>(offsets.first);
     } else {
         self->m_nUserTracksScanState = USER_TRACK_SCAN_ERROR;
     }
@@ -310,6 +315,32 @@ DWORD __stdcall CAEUserRadioTrackManager::WriteUserTracksThread(CAEUserRadioTrac
     CFileMgr::SetDir("");
     CoUninitialize();
     return 0;
+}
+
+// 0x4F4690. The original order is (directory, vector, FILE, length, depth).
+int32 CAEUserRadioTrackManager::WriteUserTracksFile_Legacy(const char* dir, UserTracksLegacyVector& offsets, FILE* file, size_t& currentLength, int32 depth) {
+    std::vector<tUserTracksInfo> found;
+    const auto count = WriteUserTracksFile(dir, currentLength, file, found, depth);
+    for (const auto& track : found) {
+        if (offsets.last == offsets.end) {
+            const auto size = offsets.first ? offsets.last - offsets.first : 0;
+            const auto capacity = std::max<ptrdiff_t>(1, size * 2);
+            auto** storage = plugin::CallAndReturn<tUserTracksInfo**, 0x821195>(size_t(capacity) * sizeof(tUserTracksInfo*));
+            if (size) {
+                std::copy_n(offsets.first, size, storage);
+            }
+            plugin::Call<0x8214BD>(offsets.first);
+            offsets.first = storage;
+            offsets.last = storage + size;
+            offsets.end = storage + capacity;
+        }
+        // The native worker deletes both these records and the vector storage
+        // with the executable's CRT; allocate them from that same CRT.
+        auto* record = plugin::CallAndReturn<tUserTracksInfo*, 0x821195>(sizeof(tUserTracksInfo));
+        *record = track;
+        *offsets.last++ = record;
+    }
+    return count;
 }
 
 // 0x4f4690
@@ -325,6 +356,9 @@ int32 CAEUserRadioTrackManager::WriteUserTracksFile(const std::wstring& dir, siz
 
     int32 numTracks{};
     for (auto& entry : fs::directory_iterator(dir)) {
+        if (entry.path().filename().native().starts_with(L'.')) {
+            continue;
+        }
         if (fs::is_directory(entry)) {
             // NOTE: STD can also do recursive search, maybe use that?
             numTracks += WriteUserTracksFile(entry.path(), currentLength, file, offsets, depth + 1);
@@ -333,17 +367,17 @@ int32 CAEUserRadioTrackManager::WriteUserTracksFile(const std::wstring& dir, siz
 
         auto path = entry.path();
 #ifdef WIN32
-        if (path.extension() == ".lnk")
+        if (depth == 0 && _wcsicmp(path.extension().c_str(), L".lnk") == 0)
             path = ResolveShortcut(path.wstring());
 #endif
 
-        // TODO: symlink
-        if (!fs::is_regular_file(path))
-            continue;
-
-        // if shortcut was a directory.
+        // A shortcut can refer to a directory as well as a file.
         if (fs::is_directory(path)) {
             numTracks += WriteUserTracksFile(path, currentLength, file, offsets, depth + 1);
+            continue;
+        }
+
+        if (!fs::is_regular_file(path)) {
             continue;
         }
 
@@ -366,7 +400,7 @@ int32 CAEUserRadioTrackManager::WriteUserTracksFile(const std::wstring& dir, siz
 // 0x4f30f0
 char* CAEUserRadioTrackManager::ResolveShortcut(const char* path) {
     std::string str = UnicodeToUTF8(ResolveShortcut(UTF8ToUnicode(path)));
-    char*       result = new char[str.length() + 1];
+    char*       result = plugin::CallAndReturn<char*, 0x821195>(str.length() + 1);
 
     memcpy(result, str.c_str(), str.length() + 1);
     return result;
@@ -397,6 +431,7 @@ std::wstring CAEUserRadioTrackManager::ResolveShortcut(const std::wstring& path)
     persistFile->Release();
     shellLink->Release();
 
+    target.resize(wcslen(target.c_str()));
     return target;
 }
 
@@ -416,7 +451,7 @@ void CAEUserRadioTrackManager::InjectHooks() {
     RH_ScopedInstall(LoadUserTrack, 0x4f35f0);
     RH_ScopedInstall(GetUserTrackPlayMode, 0x4f3330);
     RH_ScopedInstall(SetUserTrackIndex, 0x4f3340);
-    RH_ScopedOverloadedInstall(WriteUserTracksFile, "", 0x4f4690, int32(CAEUserRadioTrackManager::*)(const char*, size_t&, FILE*, std::vector<tUserTracksInfo>&, int32), {.locked=true});
-    RH_ScopedInstall(WriteUserTracksThread, 0x4f4a20, {.locked=true});
+    RH_ScopedNamedInstall(WriteUserTracksFile_Legacy, "WriteUserTracksFile-", 0x4f4690);
+    RH_ScopedInstall(WriteUserTracksThread, 0x4f4a20);
     RH_ScopedInstall(ScanUserTracks, 0x4f4ba0);
 }

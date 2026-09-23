@@ -1,0 +1,554 @@
+{
+  "passed": true,
+  "branch": "PGTASA",
+  "unlocked_rows": 24,
+  "requested_classes": 17,
+  "already_unlocked": [
+    "CGeneral"
+  ],
+  "newly_unlocked_classes": 16,
+  "function_bank_pairs": 50432,
+  "platform_repeated_pairs": 324,
+  "total_pairs": 50756,
+  "platform_startups": 9,
+  "input_routes": 18,
+  "banks": [
+    {
+      "bank": "UnlockCore",
+      "pairs": 7968,
+      "summary": "reversing\\UnlockCore\\validation-summary.json",
+      "sha256": "9598ca05fc4d3faf86ef6d6dcadbe9c47db1e7fbfb890589f08a4dd329ff5531",
+      "probe_sha256": "71352a35bda74bd6d98d11484a638efdcad9d66bf77b367899d5635dd73cb9b6"
+    },
+    {
+      "bank": "UnlockTasks",
+      "pairs": 7168,
+      "summary": "reversing\\UnlockTasks\\validation-summary.json",
+      "sha256": "5ec67d578e4370020f0b9bd4e31ca47ac45cde8b45e48092c7028c1604e2617d",
+      "probe_sha256": "98907ddba47c55ea01cd8b6b71823a55227c365193d0323c5e0336054e8e8023"
+    },
+    {
+      "bank": "UnlockPhysical",
+      "pairs": 3072,
+      "summary": "reversing\\UnlockPhysical\\validation-summary.json",
+      "sha256": "96a71a4ac5aef6571f24a52ebbb11b1199908f320e1a4515c16b4bfd872de8e4",
+      "probe_sha256": "18222348034d7b109a9d1f4a1ab3007bbc652618f3b041fc80b7402308dc2aa4"
+    },
+    {
+      "bank": "UnlockAudio",
+      "pairs": 9216,
+      "summary": "reversing\\UnlockAudio\\validation-summary.json",
+      "sha256": "51eef9091d74b6d337e79c7031a3851b32b19fd547afa9bda4fa61306628ca6a",
+      "probe_sha256": "a086e5f875d53bed63d807b6662110b93b968614fbb3c06cee69e8e75e47656d"
+    },
+    {
+      "bank": "UnlockRadio",
+      "pairs": 224,
+      "summary": "reversing\\UnlockRadio\\validation-summary.json",
+      "sha256": "0d5daa0f9b1b2cf1db608368163dfc90087077f32cfd5d5fcd716a0eebef3c3d",
+      "probe_sha256": "8198131692fd0a2839a1dbb005f5f232bded74ecf2e3ce29c1d12c6aa879bf0f"
+    },
+    {
+      "bank": "UnlockDriving",
+      "pairs": 16640,
+      "summary": "reversing\\UnlockDriving\\validation-summary.json",
+      "sha256": "bd1696c1ad84ee590625c0469292abbb6a1b6412d2a9953c63eb5c074417cd5e",
+      "probe_sha256": "dbbd4ee31623a4eee92b5dceb73ac0a5a7652e4c3c33656328cb179a1bf36c20"
+    },
+    {
+      "bank": "UnlockInput",
+      "pairs": 6144,
+      "summary": "reversing\\UnlockInput\\validation-summary.json",
+      "sha256": "68310c747a60734b993e9f4581dfdd3a43c14dd201ea840736f3dfb6d98ae0d1",
+      "probe_sha256": "abf0b06e3a7a9b0bde9f0248cb309ce58dacf1321d11ed846d65cc2b74786631"
+    },
+    {
+      "bank": "UnlockPlatform",
+      "pairs": 324,
+      "summary": "reversing\\UnlockPlatform\\validation-summary.json",
+      "sha256": "5d8c12792ff2ff577df6932d892b016596110b13fe9fd56105431d39060e0bd3",
+      "probe_sha256": "ae413d05a310b07159a40e6275813a075b7efc31fcf46ec6da1ed7864fe67ea6"
+    }
+  ],
+  "validated_function_sources_unchanged": {
+    "UnlockCore": {
+      "source\\game_sa\\Cover.cpp": true,
+      "source\\game_sa\\EntryExitManager.cpp": true,
+      "source\\game_sa\\DecisionMakers\\DecisionMakerTypesFileLoader.cpp": true,
+      "source\\game_sa\\Core\\EntryInfoNode.cpp": true,
+      "source\\game_sa\\Curves.cpp": true,
+      "source\\game_sa\\VehicleRecording.cpp": true,
+      "source\\game_sa\\Pools\\EntryInfoNodePool.h": true,
+      "source\\game_sa\\Game.cpp": true,
+      "source\\dllmain.cpp": true
+    },
+    "UnlockTasks": {
+      "source\\game_sa\\Tasks\\TaskTypes\\TaskComplexDestroyCarArmed.cpp": true,
+      "source\\game_sa\\Tasks\\TaskTypes\\TaskSimpleThrowControl.cpp": true,
+      "source\\game_sa\\Game.cpp": true
+    },
+    "UnlockPhysical": {
+      "source\\game_sa\\Entity\\Physical.cpp": true,
+      "source\\game_sa\\Game.cpp": true
+    },
+    "UnlockAudio": {
+      "source\\game_sa\\Audio\\AEAudioEnvironment.cpp": true,
+      "source\\game_sa\\Game.cpp": true
+    },
+    "UnlockRadio": {
+      "source\\game_sa\\Audio\\Managers\\AEUserRadioTrackManager.cpp": true,
+      "source\\game_sa\\Game.cpp": true
+    },
+    "UnlockDriving": {
+      "source\\game_sa\\Entity\\Vehicle\\Vehicle.cpp": true,
+      "source\\game_sa\\Game.cpp": true
+    },
+    "UnlockInput": {
+      "source\\game_sa\\Pad.cpp": true,
+      "source\\game_sa\\Game.cpp": true,
+      "source\\dllmain.cpp": true
+    },
+    "UnlockPlatform": {
+      "source\\game_sa\\Pad.cpp": true,
+      "source\\game_sa\\Frontend\\MenuManager_Input.cpp": true,
+      "source\\app\\platform\\win\\WinPs.cpp": true,
+      "source\\app\\platform\\win\\WinMain.cpp": true,
+      "source\\app\\platform\\SDLWrapper.cpp": true,
+      "source\\game_sa\\Game.cpp": true,
+      "source\\dllmain.cpp": true
+    }
+  },
+  "normal_install": {
+    "saves_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+      "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+    },
+    "configs_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+    },
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-unlocks-20260923-122454",
+    "binaries": {
+      "asi": "112cdb045c60ce0a3ca3114f77fc321e8482f569fd7d5458bdf3ce6b225208e3",
+      "pdb": "78378f0f0420fb582a34e27212718444d1bb146fe6394d850f1c8f946d40bb72"
+    },
+    "saves_unchanged": true,
+    "configs_unchanged": true,
+    "changed_source_hashes": {
+      "source/InjectHooksMain.cpp": "58c9136cb7b038291b4acceaefa07e527fbb960887d47d70b963eedef0b710a6",
+      "source/app/app_debug.cpp": "2e37193dcfe647ca4364af58baa4f324b03e8bc8103350c66cda369f343ad1e7",
+      "source/app/platform/SDLWrapper.cpp": "5aae09fe6fed4f868775b4621107171a8085cf7bf375f00499591bdafb1907fd",
+      "source/app/platform/SDLWrapper.hpp": "d76afd8b4bead7a7bae846ba7cb2c1d4097f3210fa8f69c1ab557e34aad57b0c",
+      "source/app/platform/win/WinInput.cpp": "9b2fc6ed1c23191dc1436deadc48f5df591fe508429cf92ac90fcabba23aba2c",
+      "source/app/platform/win/WinInput.h": "4e48da9a1e1361f3f345f325aef8ae88c78748d8f5d3f6a668c9fb81bbb928a7",
+      "source/app/platform/win/WinMain.cpp": "3d0fc7da092a425e363828a0cb943baeb1d7df3ff55e6557272a22bf6eea993d",
+      "source/app/platform/win/WinPs.cpp": "a3a292bc384312fbe3db698fad0ab23dbef6451c57d98a464b397476b32b035f",
+      "source/app/platform/win/WindowedMode.cpp": "01f67896db392f86c975465ac7cc0df286b749158bfb1757c705edf9f15e9982",
+      "source/game_sa/Animation/README.md": "7d1e1b5ab3a71f11230c2f23cd7c63932af745fe0451a82b7e3b550259af32b4",
+      "source/game_sa/Audio/AEAudioEnvironment.cpp": "65ec97dc96b2e8bbe99b8145e80c973682eef2537b922f301f168dba1d00b859",
+      "source/game_sa/Audio/AEAudioEnvironment.h": "071325b9d5d41a3e3ac8ebc585cafde1300ec380796939ef050b6a6d54d77696",
+      "source/game_sa/Audio/AESound.cpp": "8745e2f0e9f98a3773612db762d63fccc7c817c8d85b47dfd43479bb411236b6",
+      "source/game_sa/Audio/AESound.h": "52a63db3ba913d365882ec48f2a190e5759c6af03512eac6811e747936570209",
+      "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "bf3aa20675ed765812c6b2391348361391ab3873bb0e595253b641900140005d",
+      "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "e8914a1b70379029cda4815f702ac804d0d0ff4db6d99b62f660c58ff757c10d",
+      "source/game_sa/CarCtrl.cpp": "3b34917195f4afb20d257c43b996c93a329dfe04fae639e0cdaf32e5668a9239",
+      "source/game_sa/ControllerConfigManager.cpp": "b853e7e922971615262f7942344471068f33e0e7d9774729444a7424d536f181",
+      "source/game_sa/Core/EntryInfoNode.cpp": "05b9b667bbce5852162f58e402532eb90abdd6eb802b838dac163b6e3c646c3a",
+      "source/game_sa/Core/Pool.h": "a1f5be278118d54af05d6685f5e151a843b938268fffbc45c4c845fb90d275bb",
+      "source/game_sa/Cover.cpp": "ccd5a652dfdaa8f41bda9317be544ff328eaf482e41a5968fa5aee34b7014e89",
+      "source/game_sa/Cover.h": "f6975109f0384075677b0cf3ea0e9b9338070394922400980522c9b378118e9d",
+      "source/game_sa/Curves.cpp": "a02f6fd2cfb1640c7b4c9af2c69db8f02ce3b6eda5be6ace8af400c4b50df80e",
+      "source/game_sa/Curves.h": "8625c0cdc242a1df1103a3ac40615a4863d8c089afce5523f94198a217587b54",
+      "source/game_sa/DecisionMakers/DecisionMakerTypes.cpp": "65bea4a53ea7a722893c87c18a7a95e1556af41e8b09489a46d97ccc6dffa3f6",
+      "source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp": "157c0d10bfbaf0ee682fd4996143229e02641a613f05c995db39509710170ddd",
+      "source/game_sa/Entity/Physical.cpp": "d9b392358dcc44a6f912568fc70c468c0a6dedff973df1546efff8ee6c602b89",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "a3748cde424ebe0722d13e340b748f5921fee5134657223d826245d193985442",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "c509bf10f697951ef02f03aab3984c17d28bc7e578f0c96de95742235161110d",
+      "source/game_sa/EntityScanner.cpp": "8c580b1cf348eb4acf4a01d5b29300a415140dcfac9f2b0745fd4a1b0d582e7e",
+      "source/game_sa/EntityScanner.h": "2f66450dba55116cc34ed0f86f4e97e9a655a7329f4e16d55fe116c700f64664",
+      "source/game_sa/EntryExitManager.cpp": "0d0abdcf1111d82a9054db5b11fcc1128c50c0232587c8de9bf7512d17803762",
+      "source/game_sa/Frontend/MenuManager_Input.cpp": "61908d85a666d9815fa3fa3c56307dfc39da9d605d6e8e2470ebe9f665aa4b94",
+      "source/game_sa/Fx/FxPrimBP.cpp": "cce57f88d3dc298ea71bab3fe632f7204a1f2550c71a20fb7dc0e71736c02e90",
+      "source/game_sa/Fx/FxPrimBP.h": "9b2100a3b632a6a149d5b2c2d1e2085a91608215082672f632c5d1b50c81aed4",
+      "source/game_sa/General.cpp": "434bb58f87768f080efce211266d9fd45daa5688f614057d29d82734017a1a39",
+      "source/game_sa/General.h": "88d996445a000412b69fabc48ef2ff94982a3ec5a438bdd1e5c6fd5466dc3748",
+      "source/game_sa/MenuManager.cpp": "2ea40889e9bc7021ab6da36f619a1c7ab396fb4f0a201d6fa704e3aa942480e8",
+      "source/game_sa/MouseControllerState.h": "b59a79dec1f3d49ece4c4d00decdfe96502ec963d4bf4fac6e0357e4b50367e3",
+      "source/game_sa/Pad.cpp": "2289a1bb02ee0aa6d078dcf51b8d008156ad5752c3f9c1ba63a1f6881bba0ec9",
+      "source/game_sa/Pad.h": "478c06acc86628c09d9ba3140519ae92b5eb6b4fcbedaaa7d8e9fcf7edacc64e",
+      "source/game_sa/Pools/EntryInfoNodePool.h": "5458119c7420f0966600955f5a72ccaf4318a84a8aa7ddf5f8429cf84014f906",
+      "source/game_sa/PopCycle.cpp": "c6aa8f330cd429b101aeaaf6f5174d00d3a0d2a53a127fcbbadc2d0dd2a1a7ec",
+      "source/game_sa/RenderWare/rw/skeleton.h": "71b122ab04bb543ecd1b8487a455af048f41782e61e5983e1afeb325c5192961",
+      "source/game_sa/ScriptResourceManager.cpp": "8c10b09ac360827d8f74667a52d5a443f64de115fccc1280f43810d7f0df68f7",
+      "source/game_sa/ScriptResourceManager.h": "b663b000c059af206739fe2c16b25ea116da52d744fa8b298a3460283cef161f",
+      "source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp": "80f1a050efdab5ae2262f6febc30a5105fa3b74d08295d756f8ee8dd8816fd7a",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "26c91c6a29c0ff2fd3368b904f334772976acf638a3aa8de47b258e5f8bdd7ee",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp": "17be457d7bba97b25f72f875a5cdbffebf190b011060d04e139a459c40781b46",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDragPedFromCar.cpp": "22bcd44afbbcc61f9071192fd67f7f3f1b3149b83a89ace7f35866ef2990632e",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp": "37879a60bf29c50a82b1e97b3ea44d0cfd78747c5a8670ad449cfda12ba6111b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.h": "83e6c71c749b40129ab983ddf929a392934b5fe53f35d04dbce41f02ad5ec3ee",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointShooting.cpp": "15da4b758f74aa58bdc46c9d48850d5423250192c84f7b1a39b463aa0d4c2a5c",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointShooting.h": "c00fe052a3613e6d1f2b01d53f34880c289e55e75d6c8d4b394f21864be385d4",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.cpp": "f7f05e5a90c975253e3e2a6a55733b683d7c820f02aafc7f84436fba42ee9df1",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.h": "69992ec24b7614ceb807d60815d4f37d965cc60af3379d8f3aff6ea50922e4df",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBus.cpp": "3f2f17812a2c0ce443ab784a661db199d4e2c5e89283c352c032c0cdfe54483a",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBus.h": "8c3e8639a42c2cb456c1aa8ce98d5bdc369bd873f9fd65560fbcfe092c71e900",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp": "a59a2ac678e3b8129847f6dc77810eee5d1fd7c95ae05df2c95e561138fd195e",
+      "source/game_sa/VehicleRecording.cpp": "73ddd07cc0030f1fcd47261054254edf6c9a34186f73645532ec4092b46688e6",
+      "source/toolsmenu/DebugModules/!README.md": "a30bc7720239d1796355704d2364defe476abdafee222ad055773fa9ba53c5a7",
+      "source/toolsmenu/UIRenderer.cpp": "b474d068182af717bc102e9e09728941c64146284bb608881b2a26b52b2359a0"
+    },
+    "branch": "PGTASA",
+    "instrumented": false
+  },
+  "normal_startup": {
+    "passed": true,
+    "states": [
+      {
+        "state": 0,
+        "seconds": 0.0
+      },
+      {
+        "state": 1,
+        "seconds": 22.8
+      },
+      {
+        "state": 2,
+        "seconds": 23.3
+      },
+      {
+        "state": 4,
+        "seconds": 39.08
+      },
+      {
+        "state": 5,
+        "seconds": 66.88
+      },
+      {
+        "state": 7,
+        "seconds": 68.89
+      }
+    ],
+    "foreground": [
+      {
+        "active": true,
+        "seconds": 0.0,
+        "foreground_pid": 7524
+      },
+      {
+        "active": true,
+        "seconds": 0.25,
+        "foreground_pid": 9416
+      }
+    ],
+    "saves_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+      "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+    },
+    "configs_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+    },
+    "asi_sha256": "112cdb045c60ce0a3ca3114f77fc321e8482f569fd7d5458bdf3ce6b225208e3",
+    "menu_stable_seconds": 10,
+    "saves_unchanged": true,
+    "configs_unchanged": true,
+    "automatic_save_load_logged": false,
+    "evidence_directory": "E:\\Original\\gta-reversed-master\\reversing\\InicioNormal\\artifacts\\startup-20260923-122459",
+    "scope": "Inicio normal sin argumentos, exclusiones, teclas ni carga automática; 10 segundos de menú"
+  },
+  "combined_current_build": {
+    "passed": true,
+    "states": [
+      {
+        "state": 0,
+        "seconds": 0.0
+      },
+      {
+        "state": 7,
+        "seconds": 3.0
+      },
+      {
+        "state": 8,
+        "seconds": 3.5
+      },
+      {
+        "state": 9,
+        "seconds": 12.51
+      }
+    ],
+    "samples": [
+      {
+        "seconds": 12.51,
+        "frame": 0
+      },
+      {
+        "seconds": 13.01,
+        "frame": 14
+      },
+      {
+        "seconds": 13.51,
+        "frame": 29
+      },
+      {
+        "seconds": 14.01,
+        "frame": 44
+      },
+      {
+        "seconds": 14.52,
+        "frame": 59
+      },
+      {
+        "seconds": 15.02,
+        "frame": 73
+      },
+      {
+        "seconds": 15.52,
+        "frame": 88
+      },
+      {
+        "seconds": 16.02,
+        "frame": 103
+      },
+      {
+        "seconds": 16.52,
+        "frame": 118
+      },
+      {
+        "seconds": 17.02,
+        "frame": 128
+      },
+      {
+        "seconds": 17.52,
+        "frame": 145
+      },
+      {
+        "seconds": 18.02,
+        "frame": 160
+      },
+      {
+        "seconds": 18.52,
+        "frame": 175
+      },
+      {
+        "seconds": 19.02,
+        "frame": 190
+      },
+      {
+        "seconds": 19.52,
+        "frame": 205
+      },
+      {
+        "seconds": 20.02,
+        "frame": 220
+      },
+      {
+        "seconds": 20.52,
+        "frame": 235
+      },
+      {
+        "seconds": 21.02,
+        "frame": 250
+      },
+      {
+        "seconds": 21.52,
+        "frame": 265
+      },
+      {
+        "seconds": 22.02,
+        "frame": 280
+      },
+      {
+        "seconds": 22.52,
+        "frame": 295
+      },
+      {
+        "seconds": 23.02,
+        "frame": 310
+      },
+      {
+        "seconds": 23.52,
+        "frame": 325
+      },
+      {
+        "seconds": 24.02,
+        "frame": 340
+      },
+      {
+        "seconds": 24.53,
+        "frame": 355
+      },
+      {
+        "seconds": 25.03,
+        "frame": 370
+      },
+      {
+        "seconds": 25.53,
+        "frame": 385
+      },
+      {
+        "seconds": 26.03,
+        "frame": 393
+      },
+      {
+        "seconds": 26.53,
+        "frame": 393
+      },
+      {
+        "seconds": 27.03,
+        "frame": 404
+      },
+      {
+        "seconds": 27.53,
+        "frame": 419
+      },
+      {
+        "seconds": 28.03,
+        "frame": 434
+      },
+      {
+        "seconds": 28.53,
+        "frame": 446
+      },
+      {
+        "seconds": 29.03,
+        "frame": 461
+      },
+      {
+        "seconds": 29.53,
+        "frame": 476
+      },
+      {
+        "seconds": 30.04,
+        "frame": 491
+      },
+      {
+        "seconds": 30.54,
+        "frame": 506
+      },
+      {
+        "seconds": 31.04,
+        "frame": 521
+      },
+      {
+        "seconds": 31.54,
+        "frame": 536
+      },
+      {
+        "seconds": 32.04,
+        "frame": 551
+      },
+      {
+        "seconds": 32.54,
+        "frame": 566
+      },
+      {
+        "seconds": 33.04,
+        "frame": 581
+      },
+      {
+        "seconds": 33.54,
+        "frame": 596
+      },
+      {
+        "seconds": 34.04,
+        "frame": 611
+      },
+      {
+        "seconds": 34.54,
+        "frame": 627
+      },
+      {
+        "seconds": 35.04,
+        "frame": 642
+      },
+      {
+        "seconds": 35.54,
+        "frame": 657
+      },
+      {
+        "seconds": 36.04,
+        "frame": 672
+      },
+      {
+        "seconds": 36.54,
+        "frame": 683
+      },
+      {
+        "seconds": 37.04,
+        "frame": 697
+      },
+      {
+        "seconds": 37.54,
+        "frame": 712
+      },
+      {
+        "seconds": 38.04,
+        "frame": 727
+      },
+      {
+        "seconds": 38.55,
+        "frame": 742
+      },
+      {
+        "seconds": 39.05,
+        "frame": 757
+      },
+      {
+        "seconds": 39.55,
+        "frame": 773
+      },
+      {
+        "seconds": 40.05,
+        "frame": 788
+      },
+      {
+        "seconds": 40.55,
+        "frame": 803
+      },
+      {
+        "seconds": 41.05,
+        "frame": 818
+      },
+      {
+        "seconds": 41.55,
+        "frame": 833
+      },
+      {
+        "seconds": 42.05,
+        "frame": 848
+      },
+      {
+        "seconds": 42.55,
+        "frame": 863
+      }
+    ],
+    "saves_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+      "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+    },
+    "asi_sha256": "112cdb045c60ce0a3ca3114f77fc321e8482f569fd7d5458bdf3ce6b225208e3",
+    "unhook": "",
+    "scope": "30 segundos en estado IDLE; sin conducción, combate ni guardado",
+    "idle_seconds": 30.04,
+    "frames_advanced": 863,
+    "configs_restored": true,
+    "saves_unchanged": true,
+    "asi_unchanged": true,
+    "evidence_directory": "E:\\Original\\gta-reversed-master\\reversing\\Unlocks\\artifacts\\current-20260923-122728"
+  },
+  "scope": "Comparaciones acotadas y 30 segundos de motor activo; no estabilidad general ni campaña integral",
+  "committed": false,
+  "pushed": false,
+  "log_review": {
+    "normal_startup": "Sin aserciones ni excepciones registradas; avisos Acquire y timecyc",
+    "combined_build": "Excepción de primera oportunidad en ruta Intel/D3D9On12; el proceso continuó y completó 863 frames. El rótulo legado UNHANDLED EXCEPTION procede del VEH y no certifica una excepción final no manejada.",
+    "remaining_warnings": [
+      "Acquire 0x80070005 antes de mostrar la ventana",
+      "Línea de timecyc inválida ya presente",
+      "Guardado v1 Modified rechazado frente a v1 Unmodified, sin modificarlo"
+    ],
+    "general_stability_guaranteed": false
+  }
+}
