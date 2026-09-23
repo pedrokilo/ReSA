@@ -1,0 +1,17 @@
+{
+  "class_name": "CTaskComplexUseClosestFreeScriptedAttractorSprint",
+  "registered_progress": "4/4",
+  "pairs": 4096,
+  "functions": [
+    "Clone",
+    "GetTaskType"
+  ],
+  "passed": true,
+  "shared_evidence": "../ClothesScriptedSprint/validation-summary.json",
+  "probe_asi_sha256": "404e08a94aeb175d5e1ceecc0e3dd6ee87b9060ec006b15ed811de37cc33250f",
+  "normal_asi_sha256": "d62c1071aadb1b459964a46efc4bfc3b9c6b3ea094521374408c14de7e9da034",
+  "evidence": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clothes-scripted-sprint\\20260923-001346-817023",
+  "all_equal": true,
+  "saves_unchanged": true,
+  "limitations": "Solo funciones pendientes indicadas; no cobertura exhaustiva de la clase ni estabilidad general."
+}

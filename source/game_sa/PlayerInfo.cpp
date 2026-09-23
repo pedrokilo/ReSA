@@ -4,17 +4,33 @@
 #include "FireManager.h"
 #include "MenuSystem.h"
 #include "Hud.h"
+#include "Cranes.h"
+#include "PedGeometryAnalyser.h"
+#include "CarEnterExit.h"
+#include "Bridge.h"
+#include "TaskComplexLeaveCar.h"
+#include "TaskComplexEnterCarAsDriver.h"
+#include "TaskComplexEnterCarAsPassenger.h"
+#include "TaskComplexEnterBoatAsDriver.h"
+#include "TaskComplexStealCar.h"
+#include "TaskComplexGoPickUpEntity.h"
+#include "TaskSimpleSwim.h"
+#include "TaskSimpleHoldEntity.h"
+#include "TaskSimpleJetPack.h"
+#include "EventScriptCommand.h"
+#include "CullZones.h"
+#include "Renderer.h"
 
 void CPlayerInfo::InjectHooks() {
     RH_ScopedClass(CPlayerInfo);
     RH_ScopedCategoryGlobal();
 
-    RH_ScopedInstall(Constructor, 0x571920, { .enabled = false, .locked = true }); // hooking ctor will produce bugs with weapons, you will never give weapon through cheat or something
+    RH_ScopedInstall(Constructor, 0x571920);
     RH_ScopedInstall(CancelPlayerEnteringCars, 0x56E860);
-    RH_ScopedInstall(FindObjectToSteal, 0x56DBD0, { .reversed = false });
+    RH_ScopedInstall(FindObjectToSteal, 0x56DBD0);
     RH_ScopedInstall(EvaluateCarPosition, 0x56DAD0);
-    RH_ScopedInstall(Process, 0x56F8D0, { .reversed = false });
-    RH_ScopedInstall(FindClosestCarSectorList, 0x56F4E0, { .reversed = false });
+    RH_ScopedInstall(Process, 0x56F8D0);
+    RH_ScopedInstall(FindClosestCarSectorList, 0x56F4E0);
     RH_ScopedInstall(Clear, 0x56F330);
     RH_ScopedInstall(StreamParachuteWeapon, 0x56EB30);
     RH_ScopedInstall(AddHealth, 0x56EAB0);
@@ -41,11 +57,8 @@ void CPlayerInfo::InjectHooks() {
 
 // 0x571920
 CPlayerInfo::CPlayerInfo() {
-    plugin::CallMethod<0x571920, CPlayerInfo*>(this); // see hook
-    return;
-
-    m_PlayerData = CPlayerPedData();
-
+    // m_PlayerData is constructed once, in place, before this body.
+    // Copying a temporary would overwrite fields the original leaves untouched.
     m_pSkinTexture = nullptr;
     m_bParachuteReferenced = false;
     m_nRequireParachuteTimer = 0;
@@ -74,7 +87,36 @@ void CPlayerInfo::CancelPlayerEnteringCars(CVehicle* vehicle) {
 
 // 0x56DBD0
 CEntity* CPlayerInfo::FindObjectToSteal(CPed* ped) {
-    return plugin::CallAndReturn<CEntity*, 0x56DBD0, CPed*>(ped);
+    const auto centre = ped->GetPosition() + (ped->GetForward() * 0.5f) * 3.0f;
+    const auto minX = std::max(0, CWorld::GetSectorX(centre.x - 3.0f));
+    const auto minY = std::max(0, CWorld::GetSectorY(centre.y - 3.0f));
+    const auto maxX = std::min(119, CWorld::GetSectorX(centre.x + 3.0f));
+    const auto maxY = std::min(119, CWorld::GetSectorY(centre.y + 3.0f));
+    CWorld::AdvanceCurrentScanCode();
+    CEntity* result = nullptr;
+    for (auto y = minY; y <= maxY; ++y) {
+        for (auto x = minX; x <= maxX; ++x) {
+            for (auto* node = CWorld::GetRepeatSector(x, y).Objects.GetNode(); node;) {
+                auto* object = node->Item;
+                node = node->Next;
+                const auto delta = object->GetPosition() - centre;
+                if (!object->objectFlags.bIsLiftable || object->GetScanCode() == CWorld::ms_nCurrentScanCode) {
+                    continue;
+                }
+                if (delta.z * delta.z + delta.y * delta.y + delta.x * delta.x < 4.5f) {
+                    const auto dot = [&](const CVector& v) { return delta.z * v.z + delta.y * v.y + delta.x * v.x; };
+                    const auto forward = dot(ped->GetForward());
+                    const auto score = std::abs(dot(ped->GetRight())) * 3.0f + (forward < 0.0f ? 10.0f - forward : forward);
+                    // The original neither marks scan codes nor lowers the score limit:
+                    // the last qualifying object in sector/list order wins.
+                    if (score < 1000.0f) {
+                        result = object;
+                    }
+                }
+            }
+        }
+    }
+    return result;
 }
 
 // 0x56DAD0
@@ -128,14 +170,173 @@ void CPlayerInfo::SetLastTargetVehicle(CVehicle* vehicle) {
     CEntity::SafeRegisterRef(m_pLastTargetVehicle);
 }
 
+#include "PlayerInfoProcess.cpp.inc"
+
 // 0x56F8D0
 void CPlayerInfo::Process(uint32 playerIndex) {
-    plugin::CallMethod<0x56F8D0, CPlayerInfo*, uint32>(this, playerIndex);
+    if (CReplay::Mode == MODE_PLAYBACK) return;
+    auto* pad = CPad::GetPad(playerIndex);
+    auto* car = m_pPed->bInVehicle ? m_pPed->m_pVehicle : nullptr;
+    if (m_bTaxiTimerScore && car && (car->m_nModelIndex == MODEL_TAXI || car->m_nModelIndex == MODEL_CABBIE) && car->m_pDriver == m_pPed && car->m_nNumPassengers) {
+        const auto seconds = (CTimer::GetTimeInMS() - m_nTaxiTimer) / 1000;
+        m_nMoney += seconds;
+        m_nTaxiTimer += seconds * 1000;
+    } else m_nTaxiTimer = CTimer::GetTimeInMS();
+    ProcessPlayerStunts(*this);
+    WorkOutEnergyFromHunger();
+    if (m_nMoney != m_nDisplayMoney) {
+        const auto difference = m_nMoney - m_nDisplayMoney;
+        const auto amount = std::abs(difference);
+        const auto step = amount > 100000 ? 12345 : amount > 10000 ? 1234 : amount > 1000 ? 123 : amount > 50 ? 42 : 1;
+        m_nDisplayMoney += difference < 0 ? -step : step;
+    }
+    m_pPed->m_fMaxHealth = CStats::GetFatAndMuscleModifier(STAT_MOD_MAX_HEALTH);
+    m_nMaxHealth = uint8(int32(m_pPed->m_fMaxHealth));
+    if (m_pPed->bInVehicle && CStats::GetStatValue(STAT_FLYING_SKILL) >= 400.0f) StreamParachuteWeapon(true);
+    else if (m_bParachuteReferenced) {
+        CGameLogic::IsCoopGameGoingOn();
+        if (m_bParachuteReferenced) {
+            CStreaming::SetModelIsDeletable(MODEL_GUN_PARA);
+            m_bParachuteReferenced = false;
+            m_nRequireParachuteTimer = 0;
+        }
+    }
+    if (!(CTimer::GetFrameCounter() & 15)) {
+        const auto& pos = m_pPed->bInVehicle ? m_pPed->m_pVehicle->GetPosition() : m_pPed->GetPosition();
+        m_fRoadDensityAroundPlayer = ThePaths.CalcRoadDensity(pos.x, pos.y);
+    }
+    m_fRoadDensityAroundPlayer = std::clamp((m_fRoadDensityAroundPlayer - 1.0f) * 0.6f + 1.0f, 0.5f, 1.45f);
+    ProcessPlayerVehicleInteraction(*this, playerIndex, pad);
+
+    if (m_bAfterRemoteVehicleExplosion) {
+        const auto elapsed = CTimer::GetTimeInMS() - m_nTimeOfRemoteVehicleExplosion;
+        if (CTimer::GetPreviousTimeInMS() - m_nTimeOfRemoteVehicleExplosion < 1000 && elapsed >= 1000 && !m_nPlayerState && m_bFadeAfterRemoteVehicleExplosion) {
+            TheCamera.SetFadeColour(0, 0, 0);
+            TheCamera.Fade(1.0f, eFadeFlag(0));
+        }
+        if (elapsed > 2000) {
+            if (!m_nPlayerState && m_bFadeAfterRemoteVehicleExplosion) {
+                TheCamera.RestoreWithJumpCut();
+                TheCamera.SetFadeColour(0, 0, 0);
+                TheCamera.Fade(1.0f, eFadeFlag(1));
+                TheCamera.Process();
+                CTimer::Stop();
+                CRenderer::RequestObjectsInFrustum(nullptr, 0);
+                CStreaming::LoadAllRequestedModels(false);
+                CTimer::Update();
+            }
+            m_bAfterRemoteVehicleExplosion = false;
+            auto& focused = FindPlayerInfo();
+            if (focused.m_pRemoteVehicle) focused.m_pRemoteVehicle->m_bRemoveFromWorld = true;
+            focused.m_pRemoteVehicle = nullptr;
+            if (auto* vehicle = FindPlayerVehicle()) vehicle->SetStatus(STATUS_PLAYER);
+        }
+    }
+    if (!(CTimer::GetFrameCounter() & 31)) {
+        auto* vehicle = FindPlayerVehicle();
+        if (vehicle && m_pPed->bInVehicle && vehicle->GetUp().z < 0.0f && vehicle->m_vecMoveSpeed.Magnitude() < 0.05f && (vehicle->IsAutomobile() || vehicle->IsBoat()) && !vehicle->physicalFlags.bSubmergedInWater) {
+            m_nTimesUpsideDownInARow += vehicle->GetUp().z < -0.5f ? 2 : 1;
+        } else m_nTimesUpsideDownInARow = 0;
+        if (m_nTimesUpsideDownInARow > 6 && vehicle->vehicleFlags.bCanBeDamaged) {
+            vehicle->m_fHealth = std::min(vehicle->m_fHealth, 249.0f);
+            if (vehicle->IsAutomobile()) {
+                vehicle->AsAutomobile()->m_damageManager.SetEngineStatus(225);
+                vehicle->AsAutomobile()->m_fBurnTimer = 0.0f;
+            }
+        }
+    }
+    auto* focusedPed = FindPlayerPed();
+    if (auto* vehicle = FindPlayerVehicle()) {
+        if (vehicle->m_nModelIndex == MODEL_CADDY) CStats::IncrementStat(STAT_DISTANCE_TRAVELLED_BY_GOLF_CART, vehicle->m_fMovingSpeed);
+        else if (vehicle->IsSubBMX()) CStats::IncrementStat(STAT_DISTANCE_TRAVELLED_BY_BICYCLE, vehicle->m_fMovingSpeed);
+        else {
+            if (vehicle->GetVehicleAppearance() == VEHICLE_APPEARANCE_HELI) CStats::IncrementStat(STAT_DISTANCE_TRAVELLED_BY_HELICOPTER, vehicle->m_fMovingSpeed);
+            if (vehicle->GetVehicleAppearance() == VEHICLE_APPEARANCE_PLANE) CStats::IncrementStat(STAT_DISTANCE_TRAVELLED_BY_PLANE, vehicle->m_fMovingSpeed);
+            if (vehicle->GetVehicleAppearance() == VEHICLE_APPEARANCE_AUTOMOBILE) CStats::IncrementStat(STAT_DISTANCE_TRAVELLED_BY_CAR, vehicle->m_fMovingSpeed);
+            if (vehicle->GetVehicleAppearance() == VEHICLE_APPEARANCE_BIKE) CStats::IncrementStat(STAT_DISTANCE_TRAVELLED_BY_MOTORBIKE, vehicle->m_fMovingSpeed);
+            if (vehicle->GetVehicleAppearance() == VEHICLE_APPEARANCE_BOAT) CStats::IncrementStat(STAT_DISTANCE_TRAVELLED_BY_BOAT, vehicle->m_fMovingSpeed);
+            if ((vehicle->GetVehicleAppearance() == VEHICLE_APPEARANCE_PLANE || vehicle->GetVehicleAppearance() == VEHICLE_APPEARANCE_HELI) && vehicle->m_vecMoveSpeed.Magnitude() > 0.2f) CStats::IncrementStat(STAT_FLIGHT_TIME, CTimer::GetTimeStep() * 16.0f);
+        }
+        if (!FindPlayerTrain() && vehicle->m_vecMoveSpeed.SquaredMagnitude() > 0.0f) {
+            switch (vehicle->GetVehicleAppearance()) {
+            case VEHICLE_APPEARANCE_BIKE: if (!vehicle->IsSubBMX()) CStats::UpdateStatsWhenOnMotorBike(vehicle->AsBike()); break;
+            case VEHICLE_APPEARANCE_HELI: case VEHICLE_APPEARANCE_PLANE: CStats::UpdateStatsWhenFlying(vehicle); break;
+            case VEHICLE_APPEARANCE_BOAT: break;
+            default: CStats::UpdateStatsWhenDriving(vehicle); break;
+            }
+        }
+    } else if (focusedPed->m_fMovingSpeed > 0.0f) {
+        if (m_pPed->GetIntelligence()->GetTaskSwim()) {
+            if (CPad::GetPad(0)->GetPedWalkLeftRight() || CPad::GetPad(0)->GetAccelerate()) CStats::IncrementStat(STAT_DISTANCE_TRAVELLED_BY_SWIMMING, focusedPed->m_fMovingSpeed);
+        } else if (m_pPed->GetIntelligence()->GetTaskJetPack()) CStats::IncrementStat(STAT_TIME_ON_JETPACK, CTimer::GetTimeStep() * 16.0f);
+        else CStats::IncrementStat(STAT_DISTANCE_TRAVELLED_ON_FOOT, focusedPed->m_fMovingSpeed);
+    }
+    const auto wanted = uint32(m_pPed->GetWanted()->GetWantedLevel());
+    if (wanted && !CTheScripts::IsPlayerOnAMission()) {
+        auto& lastPosition = StaticRef<CVector>(0xB9B994);
+        auto& initialized = StaticRef<uint32>(0xB9B9A0);
+        auto& nearRoad = StaticRef<bool>(0x8CDF20);
+        auto& moved = StaticRef<bool>(0x8CDF21);
+        initialized |= 1;
+        if (CTimer::GetTimeInMS() / 20000 != CTimer::GetPreviousTimeInMS() / 20000) {
+            moved = (lastPosition - FindPlayerCoors()).Magnitude() >= 10.0f;
+            lastPosition = FindPlayerCoors();
+            nearRoad = ThePaths.FindNodeClosestToCoors(FindPlayerCoors(), PATH_TYPE_VEH, 60.0f, 1, 0, 0, 0, 0).IsAreaValid();
+        }
+        constexpr std::array targets{31.0f, 62.0f, 125.0f, 250.0f, 500.0f, 1000.0f};
+        const auto delta = ((wanted <= targets.size() ? targets[wanted - 1] : 0.0f) - m_fCurrentChaseValue) * CTimer::GetTimeStep() * 0.0001f;
+        if (delta < 0.0f || (moved && nearRoad && !CCullZones::NoPolice() && !CCullZones::PoliceAbandonCars() && CGame::currArea == 0)) m_fCurrentChaseValue += delta;
+    } else m_fCurrentChaseValue = 0.0f;
+    // Separate original crosshair controller (not the Process entry).
+    reinterpret_cast<void(__thiscall*)(uint32*, uint32, CPad*)>(0x56EC80)(&m_nCrosshairActivated, playerIndex, pad);
+    m_nMoney = std::min(m_nMoney, 999999999);
+    m_nDisplayMoney = std::min(m_nDisplayMoney, 999999999);
 }
 
 // 0x56F4E0
 void CPlayerInfo::FindClosestCarSectorList(CPtrListDoubleLink<CVehicle*>& ptrList, CPed* ped, float minX, float minY, float maxX, float maxY, float* outVehDist, CVehicle** outVehicle) {
-    plugin::CallMethod<0x56F4E0, CPlayerInfo*, CPtrListDoubleLink<CVehicle*>&, CPed*, float, float, float, float, float*, CVehicle**>(this, ptrList, ped, minX, minY, maxX, maxY, outVehDist, outVehicle);
+    for (auto* node = ptrList.GetNode(); node;) {
+        auto* car = node->Item;
+        node = node->Next;
+        if (car->GetScanCode() == CWorld::ms_nCurrentScanCode || !car->m_bUsesCollision || !car->GetIsTypeVehicle()) {
+            continue;
+        }
+        car->SetScanCode(CWorld::ms_nCurrentScanCode);
+        if (car->GetStatus() == STATUS_WRECKED || car->GetStatus() == STATUS_TRAIN_MOVING) {
+            continue;
+        }
+        if (car->GetMatrix().GetUp().z <= 0.3f && !car->IsBike()) {
+            continue;
+        }
+        CVector position;
+        car->GetBoundCentre(position);
+        position = car->GetPosition();
+        position.z = position.z - car->GetHeightAboveRoad() + 1.0f;
+        auto height = ped->GetPosition().z - position.z;
+        CVector doorPosition;
+        int32 door = 0;
+        bool heightOK = false;
+        if (car->m_nModelIndex == MODEL_AT400 && CCarEnterExit::GetNearestCarDoor(ped, car, doorPosition, door)) {
+            height = std::abs(ped->GetPosition().z - doorPosition.z);
+            heightOK = height < 1.0f;
+        }
+        heightOK = heightOK || std::abs(height) < 2.0f;
+        if (!heightOK && !(car->IsBoat() && ((position.z < ped->GetPosition().z && ped->GetPosition().z - 4.0f < position.z) || ped->m_pContactEntity == car))) {
+            continue;
+        }
+        door = 0;
+        if (!car->vehicleFlags.bConsideredByPlayer || !CCarEnterExit::GetNearestCarDoor(ped, car, doorPosition, door)) {
+            continue;
+        }
+        const auto delta = ped->GetPosition() - car->GetPosition();
+        auto distance = std::sqrt(delta.x * delta.x + delta.y * delta.y);
+        if (distance > 10.0f && CPedGeometryAnalyser::LiesInsideBoundingBox(*ped, ped->GetPosition(), *car)) {
+            distance = 10.0f;
+        }
+        if (distance <= 10.0f && !CCranes::IsThisCarBeingCarriedByAnyCrane(car)) {
+            EvaluateCarPosition(car, ped, distance, outVehDist, outVehicle);
+        }
+    }
 }
 
 // 0x56F330

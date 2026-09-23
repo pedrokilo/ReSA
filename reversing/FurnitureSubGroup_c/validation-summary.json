@@ -1,0 +1,80 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 20480,
+  "pairs_per_function": {
+    "0": 4096,
+    "1": 8192,
+    "2": 8192
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 0,
+      "locked": false
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 1,
+      "locked": false
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 2,
+      "locked": false
+    }
+  ],
+  "log_sha256": "065e2c8ac36048aebd89f9f263a0aaca8ea3aeeb731a0ead1ba57481f1b0ce18",
+  "saves_unchanged": true,
+  "class_recorded_progress": "3/3",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-furniture\\20260922-234110-237502",
+  "functions": [
+    "AddFurniture",
+    "GetFurniture",
+    "GetRandomId"
+  ],
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "cc80f54439a89c7f19d84230f3471c65e15b2ed0a0da79cb17f4e41825fc9a73",
+      "pdb": "a5d916c2930142523093d2abb6f105604c3762ae663ed84b4a928bec89f79a9a"
+    },
+    "sources": {
+      "source\\game_sa\\Interior\\FurnitureSubGroup_c.cpp": "5e3c8bed11c374aa5646a4fdccab3a9e470b78f127849b8cc297a0a9bb4a3f4f",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "Probe.hpp": "17aa205fedb1560b2b9bf61dcca0331a48ce1bd9c68e4e0a1508fbd9af2cc16c",
+      "LiveComparison.hpp": "0e7ba9652d755dda783ed0895f75e3e08125fd463a46cbdf7a12bab234aecd7c",
+      "build_probe.py": "109883f9981b02451def62b7fc369c8a8522ad0dc6ff7bcf9ec5ed5c02a89bc3"
+    },
+    "dependencies": {
+      "source/game_sa/Interior/FurnitureSubGroup_c.h": "1c84cf7b83023d9ade238867bcf1e544e80c040eaf812c40b2fb4c656d5673ef",
+      "source/game_sa/Interior/Furniture_c.h": "13c5c9d6d0ea5448412e158532530f5e9a30b95228f01bc6e48fc27a92f71216",
+      "source/game_sa/Core/List_c.h": "1c02f9f92aff20a4ecfd2df540b3faacf6f4ccbabdd57bb063bb67589ad48cc9",
+      "source/game_sa/General.cpp": "e1692b7db2039a5972ec9943e71950fd872471de139ed6df5c60dc5b4e5d0c0d"
+    }
+  },
+  "normal_installation": {
+    "normal_asi_sha256": "36910037caae88d3f125d9492f1987e4d025b78677133b37b25efd622ac24ca1",
+    "previous_hashes": {
+      "asi": "dc6281acd032e459eb86eeab373be832c9d203a7d0c00cf38ab6ea4446195009",
+      "pdb": "aa7ee9df4d35be925d4299aca46b7949616bd253128b2ef74a625c6411e211b3"
+    },
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-furniture-20260922",
+    "saves_unchanged": true
+  },
+  "limitations": [
+    "Deterministic controlled RNG; isolated lists and collision boxes, not full interior placement or theft gameplay.",
+    "Original AddItem retains its existing shared hook.",
+    "Finite valid geometry; no NaN/infinity or invalid pointers. No general game stability guarantee."
+  ]
+}

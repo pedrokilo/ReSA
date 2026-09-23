@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "pairs": 720,
+  "destroy_all_pairs": 180,
+  "update_pairs": 540,
+  "all_equal": true,
+  "candidate_calls": 1980,
+  "independent_inputs": true,
+  "state_restored": true,
+  "destruction_order_equal": true,
+  "particle_conservation": true,
+  "idempotent": true,
+  "systems_destroyed_per_version": 6192,
+  "log_sha256": "e1522295f076aedef9534234a89f560298c0ef1ff0fa2b82e0f1e73f55bf3ac7",
+  "saves_unchanged": true,
+  "functions": {"DestroyAllFxSystems": "0x004A98B0", "Update": "0x004A9A80"},
+  "class_recorded_progress": "25/25",
+  "probe_asi_sha256": "9815524b4a0519cbcc6aea3c85aa2bdf733bf4558a134d8240158989e301146f",
+  "normal_asi_sha256": "6999d5daf6a7e4a9051ed773dda66dcd0d66e8572b1211bcbf9059b58c8b5176",
+  "normal_build": "Debug x86, completed, instrumentation excluded",
+  "evidence_directory": "E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fxmanager/20260922-194518-413631",
+  "normal_backup": "E:/JUEGOS/GTA San Andreas - CVehicle Test/_baseline/before-fxmanager-20260922",
+  "excluded_hooks": ["Audio", "Global/SurfaceInfos_c"],
+  "visual_review": false,
+  "analyzer_verified": {"valid_log_pairs": 720, "incomplete_log": "pending", "rejected_mutations": ["duplicate_case", "candidate_counter", "update_transition", "duplicate_particle"]}
+}

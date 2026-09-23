@@ -208,43 +208,41 @@ bool CQuadBike::ProcessAI(uint32& extraHandlingFlags) {
 
 // 0x6CDCC0
 void CQuadBike::ProcessControl() {
-    return plugin::CallMethod<0x6CDCC0, CQuadBike*>(this);
-
-    if (GetStatus() != STATUS_PLAYER || !bDoQuadDamping) {
-        CAutomobile::ProcessControl();
-        return;
-    }
-
-    const auto turnSpeed_Mult_Matrix = m_matrix->InverseTransformVector(m_vecTurnSpeed);
-    float v2 = vecQuadResistance.y, v5 = vecQuadResistance.x;
-    if (AreFrontWheelsNotTouchingGround()) {
-        if (!AreRearWheelsNotTouchingGround() && m_matrix->GetForward().z > 0.0f) {
-            v5 = vecQuadResistance.x - std::min(0.07f, fabs(m_pHandling->m_fWheelieAng - m_matrix->GetForward().z) * 0.25f);
-        }
-    } else {
-        if (m_WheelCounts[CAR_WHEEL_REAR_LEFT] == 1.0f && m_WheelCounts[CAR_WHEEL_REAR_RIGHT] == 1.0f) {
+    if (GetStatus() == STATUS_PLAYER && bDoQuadDamping) {
+        const auto velocity = m_matrix->InverseTransformVector(m_vecTurnSpeed);
+        float resistanceX = vecQuadResistance.x;
+        float speedResistanceX;
+        const auto& compression = m_fWheelsSuspensionCompression;
+        if (compression[CAR_WHEEL_FRONT_LEFT] == 1.0f && compression[CAR_WHEEL_FRONT_RIGHT] == 1.0f) {
+            speedResistanceX = 0.995f;
+            if ((compression[CAR_WHEEL_REAR_LEFT] < 1.0f || compression[CAR_WHEEL_REAR_RIGHT] < 1.0f) && m_matrix->GetForward().z > 0.0f) {
+                resistanceX -= std::min(0.07f, std::abs(m_pHandling->m_fWheelieAng - m_matrix->GetForward().z) * 0.25f);
+            } else {
+                resistanceX = 0.995f;
+            }
+        } else if (m_WheelCounts[CAR_WHEEL_REAR_LEFT] == 1.0f && m_WheelCounts[CAR_WHEEL_REAR_RIGHT] == 1.0f) {
+            speedResistanceX = 0.995f;
             if (m_matrix->GetForward().z < 0.0f) {
-                v5 = vecQuadResistance.x * (0.9f + std::min(0.1f, fabs(m_pHandling->m_fStoppieAng - m_matrix->GetForward().z) * 0.3f));
+                resistanceX *= 0.9f + std::min(0.1f, std::abs(m_pHandling->m_fStoppieAng - m_matrix->GetForward().z) * 0.3f);
             }
         } else {
-            v2 = 0.5f;
+            speedResistanceX = 0.5f;
         }
+        resistanceX /= velocity.x * velocity.x * speedResistanceX + 1.0f;
+        const float resistanceY = vecQuadResistance.y / (velocity.y * velocity.y + 1.0f);
+        const float dampingX = std::pow(resistanceX, CTimer::GetTimeStep());
+        const float dampingY = std::pow(resistanceY, CTimer::GetTimeStep());
+        const float deltaX = velocity.x * dampingX - velocity.x;
+        const float deltaY = velocity.y * dampingY - velocity.y;
+        ApplyTurnForce(
+            m_matrix->GetUp() * -1.0f * deltaY * m_fTurnMass,
+            m_matrix->GetRight() + m_matrix->TransformVector(m_vecCentreOfMass)
+        );
+        ApplyTurnForce(
+            m_matrix->GetUp() * deltaX * m_fTurnMass,
+            m_matrix->GetForward() + m_matrix->TransformVector(m_vecCentreOfMass)
+        );
     }
-
-    const CVector velocityOS = m_matrix->InverseTransformVector(m_vecTurnSpeed);
-    CVector unk{ // In the original code `x` is calculated once then immediately overwritten by the below line
-        std::pow(vecQuadResistance.x, CTimer::GetTimeStep()),
-        vecQuadResistance.y / (velocityOS.y * velocityOS.y + 1.0f),
-        1.0f
-    };
-    const auto centreOfMassOS = m_matrix->InverseTransformVector(m_vecCentreOfMass);
-
-    const float v9 = std::pow(unk.y, CTimer::GetTimeStep()) * velocityOS.y - velocityOS.y;
-    ApplyTurnForce(m_matrix->GetUp() * -1.0f * v9 * m_fTurnMass, m_matrix->GetRight() + centreOfMassOS);
-
-    const float v19 = velocityOS.x * unk.x - velocityOS.x;
-    ApplyTurnForce(m_matrix->GetUp() * v19 * m_fTurnMass, m_matrix->GetForward() + centreOfMassOS);
-
     CAutomobile::ProcessControl();
 }
 

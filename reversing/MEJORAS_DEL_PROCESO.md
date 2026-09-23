@@ -47,3 +47,245 @@ Separar fuentes de prueba y documentación de los artefactos locales voluminosos
 ## Porcentajes de avance
 
 Se calculan a partir del indicador reversed en docs/hooks.csv y se muestran con dos decimales mediante contrib/hooks2md.py. El encabezado mide clases del grupo respecto a clases totales; cada fila mide funciones reconstruidas respecto a funciones registradas de esa clase. No representan cobertura de pruebas. Un recálculo del informe no cambia el estado de ninguna función.
+
+## Continuidad para otro chat (2026-09-22)
+
+### Instrucciones del usuario
+
+Trabajar en español y ejecutar el trabajo técnico de principio a fin. El usuario no necesita manejar Ghidra ni preparar pruebas manualmente. Priorizar scripts locales que puedan terminar sin un agente activo; consultar el resultado al finalizar, evitando supervisión constante. La reconstrucción y el diagnóstico siguen requiriendo trabajo técnico: el runner automatiza la ejecución de pruebas, no reconstruye funciones por sí solo.
+
+La revisión visual es opcional. No detener el trabajo porque computer-use no esté disponible. Anteriormente falló la conexión nativa al escritorio; eso no impidió ejecutar comparaciones automáticas en GTA. No instalar Ghidra por rutina: se ha usado dumpbin y el código del proyecto.
+
+No cambiar docs/hooks.csv ni completar una clase en docs/ReversedClasses.md antes de comparar la función contra el original dentro del motor. Compilar, arrancar GTA o ver un hook habilitado no demuestra que la función se haya probado. No afirmar cobertura exhaustiva ni estabilidad general a partir de los casos controlados.
+
+### Rutas y estado comprobado
+
+- Repositorio: E:\Original\gta-reversed-master.
+- Rama local comprobada: PGTASA. Destino indicado por el usuario: pedrokilo/RePorteoGTA-XBOXONESS. Verificar el remoto antes de cualquier publicación.
+- Al comenzar esta actualización documental, git status --short estaba limpio. No suponer que siguen pendientes los cambios mencionados en el chat anterior; consultar Git. Esta actualización del Markdown es un cambio nuevo. No se realizó commit ni push en esta tarea de traspaso.
+- Juego de pruebas: E:\JUEGOS\GTA San Andreas - CVehicle Test.
+- Instalación personal: E:\JUEGOS\GTA San Andreas. Conservarla y conservar las partidas originales.
+- Ejecutable original analizado: D:\Grand Theft Auto San Andreas\gta-sa.exe. SHA-256 esperado: 72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b. Verificar también el ejecutable de la copia de pruebas antes de usar direcciones fijas.
+- Los cambios se cargan mediante scripts\gta_reversed.asi en la copia de pruebas. Los hooks modifican el proceso en memoria; no se necesita parchear el ejecutable en disco.
+- ASI normal instalado al finalizar RpAnimBlend: SHA-256 48b5332d9d96f75a69aa20471ef801f38649c94f581567d18dd5eba20199ab15. Verificar si posteriormente cambió.
+
+### Último trabajo completado: RpAnimBlend
+
+RpAnimBlendClumpUpdateAnimations, dirección 0x004D34F0, quedó habilitada tras 652 comparaciones aprobadas dentro del motor. RpAnimBlend figura completa con 43 funciones. Error máximo 2.9802322387695312e-08 frente a tolerancia 1e-05. Pose del jugador y partidas sin cambios.
+
+Leer RpAnimBlend/README.md, RpAnimBlend/validation-summary.json y RpAnimBlend/fixture-notes.md. El registro completo local está en E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-rpanimblend\20260922-191537-770481. Su hash se conserva en el resumen. No usar los ensayos descartados como evidencia de aprobación.
+
+Lección importante: RpClumpClone podía dejar atomics apuntando a la jerarquía original. La sonda final reasigna la jerarquía clonada, crea su animación y exige almacenamiento de poses independiente entre original, candidato y jugador. La igualdad entre dos resultados no es suficiente si comparten memoria modificable.
+
+El ASI normal se compiló sin la instrumentación temporal, se instaló con respaldo y se retiraron las copias .before utilizadas para restaurar las fuentes. La sonda archivada para repetir el banco está en la carpeta _baseline del juego de pruebas; su hash esperado está en RpAnimBlend/run_local.py. Las fuentes de la sonda se conservan en Probe.hpp y LiveComparison.hpp, pero no están conectadas al build normal. No confundir recompilar el ASI normal con regenerar esa sonda.
+
+También se trabajaron CVehicle, C_PcSave, CPlayerPed, dos funciones de CPed y CWeaponEffects. Consultar sus informes en reversing y los contadores actuales en docs; no repetirlas ni cambiar sus estados por memoria del chat. CPed quedó documentada en 139/145. No hay una siguiente función elegida por el usuario después de RpAnimBlend.
+
+### Herramientas locales y ejecución
+
+Desde la raíz del repositorio:
+
+```powershell
+.\PROBAR.cmd --list
+.\PROBAR.cmd --case rpanimblend
+& 'C:\Users\pedro\AppData\Local\Programs\Python\Python314\python.exe' reversing/run.py --case rpanimblend
+```
+
+El último comando evita la pausa interactiva del CMD. Consultar reversing/cases.json para los demás identificadores. Mantener un solo PROBAR.cmd y carpetas por clase, reutilizando infraestructura. Los siete CMD específicos se eliminaron. La carpeta reversing sí se utiliza; no borrarla ni eliminar CVehicle/conan-cache, todavía referenciada por CMake.
+
+Compilación normal utilizada:
+
+```powershell
+& 'E:\Original\gta-reversed-master\reversing\CVehicle\conan-cache\p\cmake20ac4e0137fee\p\bin\cmake.exe' --build build --config Debug
+```
+
+Salida: bin\Debug\gta_reversed.asi y .pdb. Compilador Visual Studio 18 Community, MSVC 14.51.36231, x86. dumpbin está bajo C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x86. Comprobar rutas si el entorno cambió.
+
+El runner compartido reversing/runtime_runner.py comprueba hashes, evita concurrencia, respalda el ASI instalado, instala la sonda, inicia GTA con límite de tiempo, analiza registros y restaura el ASI anterior. Solo termina el proceso iniciado por él y verifica las partidas. Los ejecutores antiguos aún conservan parte de su infraestructura propia: no asumir que todos usan el runner compartido.
+
+La configuración de pruebas utilizada excluye los hooks Audio y Global/SurfaceInfos_c mediante --unhook=Audio,Global/SurfaceInfos_c; registra también runtime-hooks.csv. Esta configuración limita el alcance de la prueba y no demuestra compatibilidad con todos los hooks activos. No modificar partidas para forzar una carga incompatible.
+
+### Procedimiento para la siguiente reconstrucción
+
+1. Leer este archivo, comprobar instrucciones locales, Git, docs/hooks.csv y el informe de la clase elegida. Si el nuevo chat no indica otra función, pedir únicamente cuál quiere abordar; no reabrir RpAnimBlend como pendiente.
+2. Identificar dirección y contrato original; desensamblar el ejecutable verificado y contrastar con el C++. Revisar ABI, registros, tamaños, tipos, orden aritmético, enlaces, callbacks y efectos globales.
+3. Implementar el cambio mínimo y compilar. Mantener el original disponible para comparación y no publicar todavía el progreso.
+4. Preparar un caso reproducible con entradas iguales y memoria independiente. Alternar el hook para llamar al original y al candidato. Registrar contadores que demuestren cuál se ejecutó, estados antes/después, callbacks, errores y tolerancias justificadas.
+5. Cubrir ramas pertinentes y estados válidos. Si falla el propio original por una entrada artificial inválida, documentarlo y corregir el banco; no ocultarlo ni contarlo como éxito del candidato. Nunca sustituir la comparación por una prueba que repita la misma implementación.
+6. Ejecutar el banco mediante scripts locales sin requerir control visual. Guardar logs y resumen con hashes. Corregir diferencias y repetir los casos afectados antes de declarar éxito.
+7. Restaurar fuentes instrumentadas, compilar el ASI normal e instalarlo únicamente en la copia de pruebas con respaldo. Conservar fuentes y evidencia de la sonda. Verificar que no quedan llamadas de instrumentación en el build normal.
+8. Solo tras aprobar: cambiar la fila correspondiente de hooks.csv, regenerar ReversedClasses.md y documentar alcance y limitaciones. No importar indiscriminadamente todo runtime-hooks.csv: contiene selecciones temporales de hooks.
+9. Revisar el diff, el menú y los archivos necesarios. No borrar dependencias activas, informes útiles ni cambios ajenos. Publicar o crear commits solo cuando lo pida el usuario; un pedido de nombre de commit no es una orden de publicarlo.
+
+Regeneración del listado:
+
+```powershell
+& 'C:\Users\pedro\AppData\Local\Programs\Python\Python314\python.exe' contrib/hooks2md.py --input docs/hooks.csv --output docs/ReversedClasses.md
+```
+
+Clases completas: `- RpAnimBlend (43)<br />`. Parciales: fracción y porcentaje con dos decimales. Los porcentajes cuentan funciones registradas como reconstruidas, no porcentaje del comportamiento del juego demostrado.
+
+## Fase futura: estabilidad del conjunto, después de completar todas las clases
+
+Decisión del usuario (2026-09-22): realizar esta fase cuando todas las clases estén completas. Hasta entonces, continuar la reconstrucción y validación individual exigida antes de habilitar cada función y actualizar el progreso. No iniciar ahora la campaña integral ni sustituir con ella las comparaciones contra el original.
+
+Los trabajos de `reversing` aportan evidencia sobre funciones, entradas y escenarios documentados; no garantizan la estabilidad general del juego. Una clase marcada como 34/34 tiene sus 34 funciones registradas como reconstruidas, pero eso no significa que las 34 hayan sido verificadas exhaustivamente. Las pruebas aprobadas conservan su valor dentro de su alcance.
+
+Ejemplos de alcance: CBaseModelInfo tiene 65.536 comparaciones de flags de SwaysInWind; RpAnimBlend tiene 652 comparaciones de actualización de animaciones; las 2.088 comparaciones de C_PcSave verifican GenerateGameFilename, no un ciclo completo de guardar/cargar; CWeaponEffects compara llamadas de dibujo, no todos los efectos durante una partida.
+
+### Trabajo previsto al completar todas las clases
+
+1. **Regresión sobre una misma compilación actualizada.** Adaptar y ejecutar los bancos contra la versión conjunta vigente, vinculando fuentes, configuración, binarios e informes mediante hashes. Los ejecutores actuales usan sondas archivadas: repetirlas comprueba aquellas versiones, no automáticamente los cambios posteriores.
+2. **Pruebas de integración reproducibles.** Combinar animaciones, peatones, vehículos, combate, interiores y streaming para comprobar interacciones entre sistemas.
+3. **Ciclos completos de guardar y cargar.** Utilizar exclusivamente partidas desechables y aisladas en la copia de pruebas; comprobar que el estado esperado se conserva tras la carga.
+4. **Sesiones prolongadas automatizadas.** Detectar cierres, bloqueos, referencias residuales y crecimiento anormal de memoria. Registrar duración, escenarios, resultados y diagnósticos suficientes para reproducir los fallos.
+5. **Configuración real de uso.** Resolver o delimitar los problemas de los hooks Audio y Global/SurfaceInfos_c, excluidos en las comparaciones anteriores. Documentar exactamente qué hooks están activos y qué configuraciones se han probado.
+
+Reutilizar `reversing`, el runner compartido y un solo `PROBAR.cmd`. Priorizar ejecuciones locales autónomas con límites de tiempo, registros, respaldo/restauración y protección de la instalación personal y las partidas originales. La revisión visual sigue siendo opcional.
+
+El resultado deberá expresarse como «esta compilación pasó estos escenarios durante tantas horas, con esta configuración», acompañado de evidencia y limitaciones. Las pruebas finitas no garantizan ausencia absoluta de fallos; esta fase busca aportar evidencia de estabilidad del conjunto mucho más amplia que las validaciones individuales.
+
+## Actualización de continuidad: CBaseModelInfo y FxManager_c (2026-09-22)
+
+Esta actualización complementa el estado histórico de RpAnimBlend descrito arriba. CBaseModelInfo quedó en 34/34 tras corregir el retorno de SwaysInWind y aprobar 65.536 comparaciones. FxManager_c quedó en 25/25 tras corregir la lectura del siguiente nodo después de destruirlo en DestroyAllFxSystems y Update. El banco final aprobó 720 comparaciones: 180 de destrucción y 540 del recorrido de Update. Consultar los README y validation-summary.json de ambas carpetas; no tratarlas como pendientes.
+
+El ASI normal más reciente, sin instrumentación, está instalado únicamente en la copia de pruebas y tiene SHA-256 `6999d5daf6a7e4a9051ed773dda66dcd0d66e8572b1211bcbf9059b58c8b5176`. Respaldo anterior en `_baseline/before-fxmanager-20260922`. Partidas sin cambios. Ejecutar `PROBAR.cmd --case fxmanager` o el runner Python para repetir el banco con la sonda archivada. El alcance de Update es el recorrido de sistemas en estados FX_KILLED/FX_3, no toda la simulación de efectos.
+
+No hubo commit ni push. Hay cambios de código, documentación y carpetas de pruebas de estos trabajos en el árbol de trabajo; comprobar Git antes de continuar y conservarlos. No se ha elegido otra clase después de FxManager_c. La campaña integral sigue aplazada hasta completar todas las clases.
+
+## Actualización de continuidad: CClouds (2026-09-22)
+
+El usuario eligió CClouds después de FxManager_c. Quedó en 21/21 al reconstruir RenderBottomFromHeight (0x7154B0), antes vacía y deshabilitada. El banco final aprobó 1.170 comparaciones dentro del motor con igualdad numérica exacta (tolerancia cero), verificando geometría, proyección, sprites, estados y restauración. Los contadores distinguen original y candidato. Se corrigieron diferencias detectadas en el color de los sprites y la precisión aritmética: el hilo de renderizado usa x87 de 24 bits. Consultar reversing/CClouds/README.md y validation-summary.json; no tratar esta función como pendiente.
+
+La clase figura como completa por sus 21 funciones registradas; este banco valida específicamente RenderBottomFromHeight, no todas las funciones de CClouds ni la estabilidad general del juego. Usa la matriz de vista real y dependencias de dibujo compartidas. Continúan excluidos Audio y Global/SurfaceInfos_c. La campaña de estabilidad del conjunto permanece aplazada hasta completar todas las clases.
+
+El ASI normal más reciente, sin instrumentación, está instalado solo en la copia de pruebas y tiene SHA-256 `1500be85a8d953d1c8a8485eabc3e6439445c03b19671d36e25b881027ac78f0`. PDB: `3ca09924b8ea7694287e3fe66203445af22cacc3ad439c65c8179e3205b7bcce`. Respaldo en `_baseline/before-clouds-20260922`. Partidas verificadas sin cambios. La sonda final archivada tiene SHA-256 `548c54113a6673f7db9aee8ee55fe38582bf71b36d97c8dad859f6eefee99e50` y se repite mediante `PROBAR.cmd --case clouds` o `python reversing/run.py --case clouds`, que termina sin pausa. Está integrada también en --all, conservando un solo PROBAR.cmd.
+
+La ejecución conjunta documentada en ULTIMA_EJECUCION.md es anterior a CClouds: sus nueve bancos aprobaron 76.319 pares con sondas archivadas. No confundir ese informe histórico con una ejecución de los diez bancos actuales ni con una compilación integrada. La última ejecución de CClouds está en `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-clouds/20260922-202449-837866`.
+
+No hubo commit ni push. Conservar los cambios de las clases anteriores y de la infraestructura. No se ha elegido la siguiente clase después de CClouds.
+
+## Actualización de continuidad: CMenuSystem (2026-09-22)
+
+El usuario eligió CMenuSystem después de CClouds. Quedó en 21/21 al reconstruir FillGridWithCarColours (0x5820E0), antes delegada al original. El banco aprobó 784 pares dentro del motor, con 196 paletas, ambos IDs de menú y dos patrones de memoria inicial: 50.176 índices de color iguales. Verifica estructuras independientes, contadores de ejecución, escrituras limitadas a la cuadrícula, tabla de colores inmutable y restauración. Consultar reversing/CMenuSystem/README.md y validation-summary.json; no tratarla como pendiente.
+
+La reconstrucción conserva los límites RGB estrictos de 15, la comparación adicional con una entrada negra y el uso del índice 127 al agotar alternativas. El banco cubre FillGridWithCarColours; no valida el dibujo, navegación ni todas las funciones de CMenuSystem. Continúan las exclusiones de Audio y Global/SurfaceInfos_c y la campaña integral sigue aplazada hasta completar todas las clases.
+
+ASI normal actual, sin instrumentación, instalado solo en la copia de pruebas: SHA-256 `ce812b18c0f2154af48dede876b863e68040d4e0fa3d85f6c0aa68f303f1feb3`. PDB: `d51c5b1332d30eb38f523f987feeb1d161143db926fc3f2795e79a56a4d8fa06`. Respaldo en `_baseline/before-menusystem-20260922`. Partidas verificadas sin cambios. Sonda archivada: `31f0abcaad1fd61e590e4aa26b3da26c01ae224f1d4883a18d26349b129dee00`. Ejecución: `PROBAR.cmd --case menusystem` o `python reversing/run.py --case menusystem`, sin pausa. Caso añadido a --all, conservando un solo CMD.
+
+Evidencia final: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-menusystem/20260922-203512-507016`. El informe ULTIMA_EJECUCION.md sigue siendo histórico y anterior a CClouds y CMenuSystem; no se volvió a ejecutar toda la serie en este trabajo. No hubo commit ni push. Conservar los cambios previos. No se ha elegido otra clase después de CMenuSystem.
+
+## Actualización de continuidad: CTaskSimpleUseGun (2026-09-22)
+
+El usuario eligió CTaskSimpleUseGun después de CMenuSystem. Quedó en 19/19 al reconstruir ProcessPed (0x62A380), antes delegada al original con un borrador incompleto. El banco final aprobó 3.232 comparaciones dentro del motor: 64 casos con dependencias reales alcanzadas y 3.168 con dependencias de animación/apuntado controladas. Diferencia numérica máxima 0 con tolerancia 1e-5. Incluye órdenes, cuentas atrás, disparo simple/continuo/doble, ráfagas, recarga, objetivos vivos/muertos, orientación y cambio de arma. Consultar reversing/CTaskSimpleUseGun/README.md y validation-summary.json; no tratarla como pendiente.
+
+Límite esencial: los casos controlados registran y sustituyen efectos de AimGun, SetMoveAnim, RemoveStanceAnims, StartAnim y FightStrike. No equivalen a validar un combate completo con poses, impactos y cadenas IK activas. Se compara la función original real en ambos modos, con almacenamiento independiente, contadores y restauración; los callbacks se normalizan por identidad de función. Los detalles y las dependencias que sí continúan al motor están en su README. La campaña integral sigue aplazada hasta completar todas las clases.
+
+ASI normal actual, sin instrumentación, instalado solo en la copia de pruebas: SHA-256 `05e7cbda3213066e8ae6452d8578a3e23b1c37a45631313303183fb3e2e571d5`. PDB: `1c20494da65b4b41a0cbd3957d0be7ada4ef4aee14148291dc307d0a80102c0c`. Respaldo en `_baseline/before-usegun-20260922`. Partidas y jugador real verificados sin cambios. Sonda archivada: `a10f00f4cb717fa3e556b9ea42f4f019036bbf997f6f4f6d0ab621029a8ba345`. Se repite mediante `PROBAR.cmd --case usegun` o `python reversing/run.py --case usegun` sin pausa. Integrada en --all, con un solo PROBAR.cmd.
+
+Evidencia final: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-usegun/20260922-205940-939686`. Se corrigió durante las comparaciones la exclusión exacta del final del bucle de disparo continuo. No se ejecutó toda la serie de sondas; ULTIMA_EJECUCION.md sigue siendo un informe histórico anterior. Se mantienen excluidos Audio y Global/SurfaceInfos_c durante las comparaciones. No hubo commit ni push. Conservar los trabajos anteriores y los cambios de esta clase. No se ha elegido la siguiente clase después de CTaskSimpleUseGun.
+
+
+## Cola autorizada por el usuario (2026-09-22)
+
+Continuar en este orden sin volver a preguntar la siguiente clase entre entradas. Completar reconstrucci?n, comparaci?n contra el original dentro del motor, compilaci?n normal, instalaci?n en la copia de pruebas y documentaci?n por clase. No actualizar progreso antes de validar, no hacer commit/push. Los porcentajes siguientes son el estado inicial, no cobertura de pruebas.
+
+| Orden | Clase | Estado inicial | Pendiente registrada | Estado del trabajo |
+|---|---|---|---|---|
+| 1 | CTaskComplexWander | 13/14 | CreateNextSubTask | Completada: 14/14, 10.240 pares |
+| 2 | CTaskSimpleJetPack | 13/14 | DropJetPack | Completada: 14/14, 128 pares |
+| 3 | CQuadBike | 11/12 | ProcessControl | En curso |
+| 4 | CTaskSimplePlayerOnFoot | 11/12 | PlayerControlFighter | En cola |
+| 5 | CClothes | 11/11 | GetTextureDependency | Validada: 4.096 pares |
+| 6 | CConversations | 11/11 | DoneSettingUpConversation | Validada: 2.048 pares |
+| 7 | CEntryExit | 10/11 | TransitionFinished | En cola |
+| 8 | CCarFXRenderer | 9/10 | InitialiseDirtTexture | En cola |
+| 9 | CTaskComplexDestroyCar | 8/9 | ControlSubTask | En cola |
+| 10 | CRoadBlocks | 7/8 | CreateRoadBlockBetween2Points | En cola |
+| 11 | CAEStaticChannel | 7/8 | SetAudioBuffer | En cola |
+| 12 | CAEAmbienceTrackManager | 6/7 | UpdateAmbienceTrackAndVolume | En cola |
+| 13 | CTaskSimpleFightingControl | 6/7 | ProcessPed | En cola |
+| 14 | CTaskAllocatorKillThreatsBasic | 5/6 | ComputeClosestPeds | En cola |
+| 15 | CAEWeatherAudioEntity | 4/5 | AddAudioEvent | En cola |
+| 16 | CScripted2dEffects | 5/5 | Init | Validada: 256 pares |
+| 17 | CEntityScanner | 3/4 | ScanForEntitiesInRange | En cola |
+| 18 | FxPrimBP_c | 1/2 | Load | En cola |
+| 19 | CTaskComplexDragPedFromCar | 1/2 | CreateFirstSubTask | En cola |
+| 20 | CPedGroupDefaultTaskAllocatorSitInLeaderCar | 1/2 | AllocateDefaultTasks | En cola |
+| 21 | CPedGroupDefaultTaskAllocatorRandom | 1/2 | AllocateDefaultTasks | En cola |
+
+## Continuidad: CTaskComplexWander (2026-09-22)
+
+14/14 tras 10.240 comparaciones de CreateNextSubTask dentro del motor. Se corrigio la comparacion contra el nodo anterior guardado, se elimino una transicion ausente en el original y se conservo el orden de creacion de tareas. Banco con rutas y consultas controladas, constructores reales; no valida ejecutar toda la navegacion. README y validation-summary.json contienen evidencia. PROBAR.cmd --case wander, tambien integrado en --all. ASI normal instalado solo en copia de pruebas: `a170d33dba406d745f272f3fbde87fa37ed1f2092edc4ee550aaf5ed80b4cbfd`. Partidas sin cambios. Sin commit/push. Sigue CTaskSimpleJetPack y despues el resto de la cola autorizada. La campana integral sigue aplazada.
+
+## Continuidad: CTaskSimpleJetPack (2026-09-22)
+
+14/14 tras 128 pares de DropJetPack. La implementacion existente coincide: se habilito despues de generar realmente 32 pickups por lado y verificar el fallo controlado de generacion. Se usan coordenadas/collision reales; RNG determinista temporal y aborto virtual controlado. No se valido vuelo completo ni recogida/visualizacion/FX/audio. README y validation-summary.json detallan evidencia. PROBAR.cmd --case jetpack y --all. ASI normal en copia de pruebas: `b2ad166660a0fbcb3d38d1f5e76900b5c052fede16dcb5a601d6db4dd6ae2d76`. Partidas y tabla de pickups restauradas. Sin commit/push. Sigue CQuadBike y el resto de la cola.
+
+## Punto de interrupcion: CQuadBike (2026-09-22)
+
+Trabajo interrumpido tras completar Wander y JetPack. CQuadBike::ProcessControl tiene un candidato nuevo en source/game_sa/Entity/Vehicle/QuadBike.cpp, todavia SIN compilar ni validar; hook sigue reversed=false y progreso 11/12. No habilitar antes de comparar. Desensamblado local en reversing/CQuadBike/artifacts/ProcessControl.asm (ignorado por Git). Se corrigieron sobre el borrador: uso de resistencia X ajustada, resistencia dependiente de velocidad X, pruebas exactas de suspension y TransformVector del centro de masa. Revisar contra el original en motor antes de darlo por correcto.
+
+Constantes leidas del ejecutable: 0x871ABC=.995, 0x871AC0=.5, 0x871AC4=1, 0x871AC8=1. Original toma velocidad angular local (0x59C810), ajusta resistenciaX y coeficiente de velocidadX (.995 o .5), divide X por (vx*vx*coef+1), Y por (vy*vy+1), eleva a timestep; aplica dos fuerzas (0x542A50), primero -up*deltaY*turnMass en right+TransformVector(COM), despues up*deltaX*turnMass en forward+TransformVector(COM); termina CAutomobile::ProcessControl(0x6B1880). Caso delanteras con compresion exactamente 1: rueda trasera <1 y forward.z>0 ajusta wheelie; de lo contrario fija resistenciaX=.995. Si delanteras apoyadas y WheelCounts traseras exactamente1, ajusta stoppie para forward.z<0. Falta banco con entradas independientes, fuerzas reales y ProcessControl de Automobile controlado, restauracion de timestep/resistencia/hooks. Se agrego reversing/ProbeSupport.hpp con EntryPatch/Bytes reutilizables, usado por JetPack.
+
+No hay GTA ni MSBuild ejecutandose al comprobar este punto. ASI normal instalado sigue siendo el de JetPack (b2ad166660a0fbcb3d38d1f5e76900b5c052fede16dcb5a601d6db4dd6ae2d76), no contiene el candidato nuevo de QuadBike. Continuar la cola autorizada desde CQuadBike; quedan esta y las 18 posteriores. Sin commit/push.
+
+
+## Continuidad: CPed completada (2026-09-22)
+
+El usuario dio prioridad a CPed sobre la cola anterior. CPed queda en 145/145 entradas registradas tras reconstruir CalculateNewVelocity, DoFootLanded, PlayFootSteps, MakeTyresMuddySectorList, PositionPedOutOfCollision y KillPedWithCar. No tratar estas seis como pendientes. El banco final paso 28.672 pares original/candidato dentro de GTA, tambien arrancando con los seis hooks habilitados: 4096 + 2048 + 8192 + 2048 + 4096 + 8192 respectivamente. Diferencia maxima 0.000000476837158203125, tolerancia 0.00001. README y validation-summary.json detallan evidencia, hashes y limites. Los bancos historicos de PositionAttachedPed y UpdatePosition se conservaron, sin repetirlos en este cierre.
+
+PROBAR.cmd --case cped-completion, tambien integrado en --all. Una sola infraestructura y un solo CMD. El nuevo banco termina automaticamente, compara estados y argumentos de dependencias controladas, valida los contadores y restaura hooks/globals/jugador, ASI/PDB y partidas. Algunas fuerzas fisicas y constructores permanecen reales; no se validaron todas las cadenas de tareas, colisiones reales del mapa, trafico completo, dano real ni representacion audiovisual. DoFootLanded conserva dos helpers originales separados con ABI en registros. El 145/145 no incluye virtuales no registradas ni significa cobertura exhaustiva o estabilidad general. La campana integral sigue aplazada hasta completar todas las clases.
+
+ASI normal sin instrumentacion instalado SOLO en la copia de pruebas: `971e1d165ec8392b9c2301c2225988d708c4313292b8d745f04d2385bc26b5b6`. Respaldo `_baseline/before-cped-completion-20260922`. Partidas verificadas sin cambios; instalacion personal intacta. Evidencia final: `E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cped-completion\20260922-221131-711733`. La unica diferencia del fuente normal frente al de la sonda final es la inclusion explicita de PedPlacement.h; la implementacion es identica. Compilacion Debug x86 aprobada. No se ejecuto de nuevo toda la serie de sondas y ULTIMA_EJECUCION.md sigue siendo historico.
+
+Sin commit/push. Conservar todos los trabajos previos. CQuadBike sigue pendiente de validacion y con hook deshabilitado (11/12), aunque su candidato ahora compila como parte del proyecto. La cola autorizada de 21 clases sigue conservada; tras Wander y JetPack quedan CQuadBike y las 18 posteriores. CPed fue la prioridad de esta peticion, no una anulacion de esa cola.
+
+## Continuidad: lote CConversations, CPlayerInfo y CPedList (2026-09-22)
+
+Lote completado: CConversations 11/11 con 2.048 pares; CPedList 7/7 con 4.096 pares (1.024 por funcion); CPlayerInfo 28/28 registradas con 16.896 pares (4.096 objetos, 4.096 vehiculos y 8.704 Process). Comparaciones originales/candidatos dentro de GTA, con contadores de entrada, estados y trazas. CPlayerInfo final arranco con los tres hooks habilitados. Evidencia y hashes por clase en README.md y validation-summary.json. No tratar estas ocho funciones como pendientes.
+
+Constructor de CPlayerInfo permanece deshabilitado y locked por el fallo conocido con armas; ya figuraba reversed y sigue delegando al original. El 28/28 no significa que este reparado. Se corrigio la firma thiscall de FindObjectToSteal. Process conserva el helper independiente de mirilla 0x56EC80 con receptor m_nCrosshairActivated (0x158), CalcRoadDensity 0x44EFC0 y constructor de recogida aun original. Dependencias controladas y cobertura finita; no cooperativo, ejecucion integral de tareas, recogida, efectos de camara RC ni estabilidad general. Campana integral aplazada hasta completar todas las clases.
+
+hooks.csv sincronizado reversed/locked tras validar; ReversedClasses.md regenerado con contrib/hooks2md.py. Unico PROBAR.cmd: --case conversations, --case playerinfo y --case pedlist; integrados en --all. runtime_runner puede cerrar su propio proceso al evento final antes de auditar registros grandes, sin aceptar el evento por si solo. Los bancos archivados no son una prueba combinada de la compilacion actual; no se repitio toda la suite historica y ULTIMA_EJECUCION.md sigue historico.
+
+ASI normal Debug x86 sin instrumentacion instalado SOLO en copia de pruebas: 9f6dc8c8db43ea47e9cd377c489a8fe5691f3dd0f24979426c8a5e3812221f80. Respaldo _baseline/before-playerinfo-conversations-pedlist-20260922. Partidas sin cambios; instalacion personal intacta. Sin commit/push. Rama PGTASA; conservar cambios previos. CQuadBike sigue 11/12, compilada pero NO validada y hook deshabilitado. La cola anterior conserva las demas clases pendientes; este lote no las completa.
+
+## Continuidad: constructor de CPlayerInfo corregido (2026-09-22)
+
+Sustituye la excepcion de constructor locked descrita en el cierre anterior. CPlayerInfo sigue 28/28, ahora todas sus entradas registradas estan habilitadas y desbloqueadas. Se retiro la llamada original 0x571920 y la asignacion redundante del temporal: m_PlayerData se construye una vez in situ, preservando los campos que el original no inicializa. El temporal anterior podia copiar campos/flags indeterminados.
+
+4.224 pares originales/candidatos aprobados: 4.096 patrones completos de memoria con guardas/retorno/contador de una inicializacion y 128 regresiones de cuatro conjuntos de armas con entregas repetidas, inventario, municion, seleccion y referencias de modelos. Ultima prueba con hook activo y unlocked desde arranque; tres llamadas reales al candidato antes del banco. Streaming y representacion de armas controlados; SetInitialState y funciones de armas compartidas existentes. No prueba disparos ni estabilidad general, ni certifica todas las manifestaciones historicas del fallo.
+
+Evidencia: reversing/CPlayerInfo/constructor-validation-summary.json y README.md; logs en E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-playerinfo-constructor\20260922-233000-236046. PROBAR.cmd --case playerinfo-constructor, integrado en --all sin nuevos CMD. Constructor actualizado a reversed=1, locked=0 solo tras validar. Banco anterior de 16.896 pares conservado sin repetir: las tres funciones no cambiaron.
+
+ASI normal sin instrumentacion instalado SOLO en copia de pruebas: dc6281acd032e459eb86eeab373be832c9d203a7d0c00cf38ab6ea4446195009. Respaldo _baseline/before-playerinfo-constructor-20260922. Fuentes restauradas; partidas sin cambios; instalacion personal intacta. Rama PGTASA; sin commit/push. Conservar los trabajos anteriores y cola pendiente. Campana integral sigue aplazada.
+
+## Continuidad: FurnitureSubGroup_c (2026-09-22)
+
+Completada 3/3: AddFurniture 0x5C00C0, GetFurniture 0x590EE0 y GetRandomId 0x590FD0. 20.480 pares exactos dentro de GTA (4.096 + 8.192 + 8.192), banco final con los tres hooks habilitados y sin locked desde arranque. IDs no negativos ignoran riqueza; negativos seleccionan por intervalo inclusivo. Riqueza 255 no es comodin (comparacion original contra -1 inalcanzable). Se consume RNG incluso sin coincidencias. AddFurniture conserva low-word del contador, almacen 256, insercion al principio y umbral dimensional >=0.02.
+
+Fixtures de listas/cajas aisladas y RNG controlado; AddItem compartido existente. No colocacion/robo completos, representacion ni estabilidad general. README y validation-summary.json detallan evidencia: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-furniture\20260922-234110-237502. PROBAR.cmd --case furniture, incluido en --all sin nuevos CMD. hooks.csv actualizado reversed=1/locked=0 tras validar; ReversedClasses.md regenerado.
+
+ASI normal sin instrumentacion instalado solo en copia de pruebas: 36910037caae88d3f125d9492f1987e4d025b78677133b37b25efd622ac24ca1. Respaldo _baseline/before-furniture-20260922. Fuentes restauradas, partidas sin cambios e instalacion personal intacta. Rama PGTASA, sin commit/push. Conservar trabajos anteriores y cola pendiente; CQuadBike sigue sin validar/deshabilitada. CPlayerInfo constructor sigue corregido y habilitado. No se repitio toda la suite ni se inicio la campana integral.
+
+## Continuidad documental: progreso y prioridades (2026-09-23)
+
+Se actualizó README.md para describir PGTASA, los bancos aprobados, copia de pruebas, partidas, hooks y límites reales. Se retiró la estimación genérica heredada de 50-60%; los números proceden de hooks.csv. ReversedClasses.md ahora es un panel con resumen, navegación, tablas y columna locked; su formato vive en contrib/hooks2md.py y se conserva al regenerar, incluida la ejecución desde CI.
+
+Nueva guía manual docs/ReversingPriorities.md: las 100 clases incompletas (98 parciales, 2 sin revertir), 555 funciones pendientes, cuatro grupos de dificultad y Top 10 con 23 entradas pendientes. Inspección de fuentes/headers, registros, referencias y algunos originales para candidatos inmediatos; no se presenta como desensamblado exhaustivo de 555 funciones. Incluye código candidato frente a wrappers/borradores, límites y enlaces al pendiente concreto.
+
+La propuesta de prioridad no reemplaza automáticamente la cola autorizada ni habilita funciones. No se cambiaron fuentes del juego, flags de hooks.csv, binarios ni partidas en esta tarea documental. Se comprobaron enlaces locales, integridad de los totales, presencia única de las 701 clases y generación con casos completos/parciales/cero y locked. Sin nuevas pruebas GTA, commit ni push. El ASI normal instalado continúa siendo el de FurnitureSubGroup_c del cierre anterior.
+
+
+## Continuidad: CClothes, CScripted2dEffects y Sprint (2026-09-23)
+
+Completadas por petición expresa: CClothes 11/11, CScripted2dEffects 5/5 y CTaskComplexUseClosestFreeScriptedAttractorSprint 4/4. No tratar las cuatro funciones como pendientes. 8.448 pares exactos finales con hooks habilitados y unlocked desde arranque: 4.096 GetTextureDependency, 256 Init, 2.048 Clone y 2.048 GetTaskType. Primera ejecución del mismo banco también aprobada antes de habilitar; no suma cobertura distinta.
+
+GetTextureDependency existente coincide. Init ahora conserva segundo PartnerTask y relleno como el helper original 0x6F9EB0. Clone construye una tarea nueva con sprint, no copia a través del constructor de copia de la base que reiniciaba a caminar. GetTaskType=262. Detalles, límites y hashes en reversing/ClothesScriptedSprint/README.md y validation-summary.json; cada clase dispone además de su README y resumen.
+
+Banco automático integrado en el único PROBAR.cmd: --case clothes-scripted-sprint y --all. Compara tablas completas con guardas, pool real y objetos; restaura globals/hooks/jugador y comprueba partidas. No se probaron interacción prolongada, ropa completa, agotamiento del pool, tareas reales de atractores ni estabilidad general. No se repitió toda la suite. Campaña integral sigue aplazada; ULTIMA_EJECUCION.md es histórico.
+
+Evidencia final: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-clothes-scripted-sprint\20260923-001346-817023. ASI normal instalado solo en copia de pruebas: d62c1071aadb1b459964a46efc4bfc3b9c6b3ea094521374408c14de7e9da034. Respaldo _baseline/before-clothes-scripted-sprint-20260923. Fuentes normales coinciden con el manifiesto; partidas sin cambios e instalación personal intacta.
+
+hooks.csv actualizado solo para cuatro filas tras validar, ReversedClasses.md regenerado y README actualizado. Guía de prioridades conserva su corte inicial y ahora señala estos tres cierres; quedan 97 clases incompletas y 551 entradas pendientes. Rama PGTASA, sin commit/push. Conservar cambios anteriores, incluido CQuadBike sin validar/deshabilitado y el constructor CPlayerInfo ya corregido.

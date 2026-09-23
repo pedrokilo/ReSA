@@ -5,9 +5,15 @@
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+
 #include "PathFind.h"
 
 #include <reversiblebugfixes/Bugs.hpp>
+
+// 0x44EFC0
+float CPathFind::CalcRoadDensity(float x, float y) {
+    return plugin::CallMethodAndReturn<float, 0x44EFC0>(this, x, y);
+}
 
 // TODO: Move into the class itself
 auto& s_pathsNeededPosn = StaticRef<CVector>(0x977B70);

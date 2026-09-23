@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "pairs": 784,
+  "palettes": 196,
+  "all_equal": true,
+  "grid_entries_compared": 50176,
+  "independent_inputs": true,
+  "bounded_writes": true,
+  "inputs_unchanged": true,
+  "candidate_calls": 784,
+  "state_restored": true,
+  "log_sha256": "935f9e59a31bea79fff778b241b5d83a23383a07ec48d1efc445e281449419b4",
+  "saves_unchanged": true,
+  "fallback_entries": 32492,
+  "max_unique_colours": 64,
+  "function": "CMenuSystem::FillGridWithCarColours",
+  "address": "0x005820E0",
+  "class_recorded_progress": "21/21",
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-menusystem\\20260922-203512-507016",
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "31f0abcaad1fd61e590e4aa26b3da26c01ae224f1d4883a18d26349b129dee00",
+      "pdb": "9dcaf942971b806603d55ffd30559f9a37df5a70394f23952d19d70ceddeeba7"
+    },
+    "sources": {
+      "source\\game_sa\\MenuSystem.cpp": "a6d88747932b1afd59ec86cc99940d5a0e72359107d14a765f4dbb7ac3239376",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "Probe.hpp": "f7b8396d1f9a527054667d094942d270f2287e095a5c48826b33d38b4afdeaab",
+      "LiveComparison.hpp": "fe8ffc0fbe8d8a086532ff4d81ad1897bd5622ce6f0f67cddf27e749aef55e53",
+      "build_probe.py": "25de15524be6b47d15f929b12483aa92f75bc317fbc147dc2e2ce3ccee8efaab"
+    }
+  },
+  "normal_asi_sha256": "ce812b18c0f2154af48dede876b863e68040d4e0fa3d85f6c0aa68f303f1feb3",
+  "normal_pdb_sha256": "d51c5b1332d30eb38f523f987feeb1d161143db926fc3f2795e79a56a4d8fa06",
+  "normal_build": "Debug x86; instrumentation excluded",
+  "normal_source_hashes": {
+    "source/game_sa/MenuSystem.cpp": "3828d05d2b207140fdde0c86afe3abf0c1186b5b9e139a1266357d2d295771f2",
+    "source/game_sa/Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+  },
+  "source_restoration_verified": "Equal after normalizing newlines and enabling the validated hook",
+  "installation": {
+    "normal_asi_sha256": "ce812b18c0f2154af48dede876b863e68040d4e0fa3d85f6c0aa68f303f1feb3",
+    "previous_hashes": {
+      "asi": "1500be85a8d953d1c8a8485eabc3e6439445c03b19671d36e25b881027ac78f0",
+      "pdb": "3ca09924b8ea7694287e3fe66203445af22cacc3ad439c65c8179e3205b7bcce"
+    },
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-menusystem-20260922",
+    "saves_unchanged": true
+  },
+  "analyzer_verified": {
+    "valid_log_pairs": 784,
+    "incomplete_log": "pending",
+    "rejected_mutations": [
+      "duplicate_case",
+      "candidate_counter",
+      "grid_colour",
+      "bounded_writes",
+      "palette_boundary",
+      "restoration"
+    ]
+  },
+  "excluded_hooks": [
+    "Audio",
+    "Global/SurfaceInfos_c"
+  ],
+  "visual_review": false,
+  "scope": "FillGridWithCarColours only; no menu rendering, navigation or general game stability"
+}

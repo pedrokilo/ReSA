@@ -6,7 +6,7 @@ void CScripted2dEffects::InjectHooks() {
     RH_ScopedClass(CScripted2dEffects);
     RH_ScopedCategory("Scripts");
 
-    RH_ScopedInstall(Init, 0x6FA6F0, { .reversed = false });
+    RH_ScopedInstall(Init, 0x6FA6F0);
     RH_ScopedInstall(GetEffectPairs, 0x6FA840);
     RH_ScopedInstall(GetIndex, 0x6F9F60);
     RH_ScopedInstall(AddScripted2DEffect, 0x6FA7C0);
@@ -14,7 +14,6 @@ void CScripted2dEffects::InjectHooks() {
 }
 
 // 0x6FA6F0
-// FIXME: Makes game crash for some reason
 void CScripted2dEffects::Init() {
     for (auto i = 0u; i < NUM_SCRIPTED_2D_EFFECTS; i++) {
         ms_activated[i]             = false;
@@ -25,7 +24,19 @@ void CScripted2dEffects::Init() {
         ms_radii[i]                 = -1.0f;
         rng::fill(ms_userLists[i].m_UserTypes, -1);
         rng::fill(ms_userLists[i].m_UserTypesByPedType, -1);
-        ms_effectPairs[i] = CScriptedEffectPairs{};
+        auto& pairs = ms_effectPairs[i];
+        pairs.NumPairs = 0;
+        for (auto& pair : pairs.Pairs) {
+            for (auto& effect : pair.Effects) {
+                effect.Effect = -1;
+                effect.WaitingTask = -1;
+                effect.PartnerUseMode = CScriptedEffectPair::eMode::NONE;
+            }
+            // The original reset (0x6F9EB0) preserves the second PartnerTask
+            // and structure padding. Do not assign a value-initialized pair.
+            pair.Effects[0].PartnerTask = -1;
+            pair.UsePartnerImmediately = false;
+        }
     }
 }
 

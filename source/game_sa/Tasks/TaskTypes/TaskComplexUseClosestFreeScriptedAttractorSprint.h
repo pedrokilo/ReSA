@@ -11,8 +11,8 @@ public:
     CTaskComplexUseClosestFreeScriptedAttractorSprint();
     ~CTaskComplexUseClosestFreeScriptedAttractorSprint() override = default;
 
-    CTask*    Clone()       const override { return new CTaskComplexUseClosestFreeScriptedAttractorSprint{ *this }; }
-    eTaskType GetTaskType() const override { return Type; }
+    CTask*    Clone()       const override;
+    eTaskType GetTaskType() const override;
 
 private: // Wrappers for hooks
     // 0x4B8850

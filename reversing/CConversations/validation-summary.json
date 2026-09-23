@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "pairs": 2048,
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "84216b582257cc132a56332c7972cd39f86b9de9c7b529e51e9ae3fffe947a52",
+  "saves_unchanged": true,
+  "function": "CConversations::DoneSettingUpConversation",
+  "address": "0x43ADB0",
+  "class_recorded_progress": "11/11",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-conversations\\20260922-222048-923059",
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "abc1a0e4c0c5cbb6e0ebea3a729b00ef631a63a050d9a467ef9a99d8a37ee367",
+      "pdb": "cc501ed8e4ed8388cd28ea2e26c6d8dd85a54c1542174d90f2aa8dc12292db6d"
+    },
+    "sources": {
+      "source\\game_sa\\Conversations\\Conversations.cpp": "4de078d40635c9f4035691bdd03e30309606d72816e166561a942a38ecf7ad6f",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "Probe.hpp": "fd9f85ffb98c42d48250b72de5c82c09d59571fb207bc36b2d74834fef28c104",
+      "LiveComparison.hpp": "165487beeeada4dca13205a680d273befb0869491c92cf506265f5eec2e3ffbf",
+      "build_probe.py": "b076bb9fefabd12cb07890255555151a2de638182ac86a53e5750c5844c494e6"
+    }
+  },
+  "limitations": [
+    "Setup and reference management only; no conversation playback, speech, subtitles or general stability validation.",
+    "Valid bounded names; 0-12 temporary nodes, duplicate/missing/case-sensitive names, occupied node pool and conversation slots. Original requires at least one free conversation slot."
+  ],
+  "normal_installation": {
+    "normal_asi_sha256": "9f6dc8c8db43ea47e9cd377c489a8fe5691f3dd0f24979426c8a5e3812221f80",
+    "previous_hashes": {
+      "asi": "971e1d165ec8392b9c2301c2225988d708c4313292b8d745f04d2385bc26b5b6",
+      "pdb": "4a3fb914b3d790459abb6d7ecca9c321527efbdf9968563b817c4995668dcc0e"
+    },
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-playerinfo-conversations-pedlist-20260922",
+    "saves_unchanged": true
+  }
+}

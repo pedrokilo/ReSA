@@ -1,0 +1,11 @@
+# CTaskSimpleJetPack — 14/14
+
+DropJetPack (0x67B660) aprobó 128 comparaciones dentro del motor. La implementación existente coincide con el original; se habilitó después de validar. El comentario antiguo sobre GenerateNewOne no se reprodujo en los escenarios probados.
+
+64 pares permiten GenerateNewOne real: 32 crean un pickup por lado y los otros 32 parten de tarea finalizada. Otros 64 pares simulan fallo de generación. Se ejecuta CreatePickupCoorsCloseToCoors original con consultas reales al mundo y una secuencia aleatoria determinista temporal. Se comparan argumentos, coordenadas, handle, tabla de pickups, estado de tarea, orden de llamadas, prioridad de aborto y empuje. Incluye matriz y posición simple, tarea finalizada, aborto aceptado/rechazado y empuje variable. Contadores verifican original independiente del candidato.
+
+MakeAbortable se sustituye con una implementación virtual controlada. No se validan vuelo completo, animación, recogida del pickup, renderizado, FX o audio. Audio y Global/SurfaceInfos_c están excluidos. 14/14 cuenta funciones registradas, no cobertura exhaustiva de toda la clase ni estabilidad del juego.
+
+El banco elimina objetos de pickups temporales, restaura su tabla, jugador, parches y hooks; el runner comprueba partidas y restaura ASI/PDB. `PROBAR.cmd --case jetpack` o `python reversing/run.py --case jetpack` termina sin supervisión. Integrado en --all con sonda archivada. build_probe.py restaura fuentes en finally; hashes y resultado en validation-summary.json.
+
+Evidencia: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-jetpack/20260922-211855-495635`. Sin commit/push.

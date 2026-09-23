@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "pairs": 65536,
+  "all_equal": true,
+  "full_eax": true,
+  "independent_inputs": true,
+  "inputs_unchanged": true,
+  "stack_balanced": true,
+  "candidate_calls": 65536,
+  "state_restored": true,
+  "log_sha256": "12eec0be12550c0f437b377e415901fe0ed874ca3fb503d6a38d1b1c29e4b447",
+  "saves_unchanged": true,
+  "function": "CBaseModelInfo::SwaysInWind",
+  "address": "0x004212C0",
+  "class_recorded_progress": "34/34",
+  "probe_asi_sha256": "9926f9f24abc3d14ca3b6b8bd3676c6fccdc2ca560add9cfcd1de233faeb3fa9",
+  "normal_asi_sha256": "5097bf9decd488a832e9ca3bcb6c533c37ab1e131b50de8815fc56919b777310",
+  "normal_build": "Debug x86, completed, instrumentation excluded",
+  "evidence_directory": "E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-basemodelinfo/20260922-192751-463543",
+  "normal_backup": "E:/JUEGOS/GTA San Andreas - CVehicle Test/_baseline/before-basemodelinfo-20260922",
+  "excluded_hooks": ["Audio", "Global/SurfaceInfos_c"],
+  "visual_review": false
+}

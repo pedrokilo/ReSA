@@ -45,8 +45,7 @@ void CBaseModelInfo::InjectHooks() {
 
     RH_ScopedInstall(IsBreakableStatuePart, 0x59F090);
     RH_ScopedInstall(IsTagModel, 0x49CC20);
-    // Hooking SwaysInWind function causes side effects
-    RH_ScopedInstall(SwaysInWind, 0x4212C0, { .reversed = false });
+    RH_ScopedInstall(SwaysInWind, 0x4212C0);
 
     RH_ScopedInstall(SetBaseModelInfoFlags, 0x5B3AD0);
 }
@@ -55,6 +54,11 @@ void CBaseModelInfo::InjectHooks() {
 CBaseModelInfo::CBaseModelInfo() {
     m_nRefCount = 0;
     ClearTexDictionary();
+}
+
+// 0x4212C0: returns a full-width integer, not an AL-only bool.
+int32 CBaseModelInfo::SwaysInWind() const {
+    return IsSwayInWind1() || IsSwayInWind2();
 }
 
 // 0x4C4A80

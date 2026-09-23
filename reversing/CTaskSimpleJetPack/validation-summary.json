@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "pairs": 128,
+  "all_equal": true,
+  "real_generator_pairs": 64,
+  "controlled_generator_pairs": 64,
+  "candidate_calls": 128,
+  "state_restored": true,
+  "log_sha256": "844fef26a07d806abe55a341ae2c3d9d0c1dcfac97d7b444370711915d132c73",
+  "saves_unchanged": true,
+  "function": "CTaskSimpleJetPack::DropJetPack",
+  "address": "0x67B660",
+  "class_recorded_progress": "14/14",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-jetpack\\20260922-211855-495635",
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "791d5856572521e1b20c5b7265b018f84268da9deb88155a062d7b0997f11610",
+      "pdb": "0a2b05d4ecc9d943a941f0e6af4076c5e9dff2717bd775cbc001b80603b1b1e9"
+    },
+    "sources": {
+      "source\\game_sa\\Tasks\\TaskTypes\\TaskSimpleJetPack.cpp": "9034cd364b77ce3fadf3fe28b0dde5bc1082c91e3fd63da680a474d19292f235",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "Probe.hpp": "da6ff63bfa227987329e3e69e78b21e9b00e1c29366033bada64996b44eceba6",
+      "LiveComparison.hpp": "40ccd4e8ef6a6b868110a76f37e987aae7e7dcc72bb60ac1bc2e09093aec2055",
+      "build_probe.py": "b72787f297f2418c0aa054c4a4be646aca1f3ec5a4317e7295c2da571f3bd138"
+    }
+  },
+  "installation": {
+    "normal_asi_sha256": "b2ad166660a0fbcb3d38d1f5e76900b5c052fede16dcb5a601d6db4dd6ae2d76",
+    "previous_hashes": {
+      "asi": "a170d33dba406d745f272f3fbde87fa37ed1f2092edc4ee550aaf5ed80b4cbfd",
+      "pdb": "c3fadf12507d7e649cc163b61fb0be8eb56035f8b43e58d532e108d13a2103e4"
+    },
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-jetpack-20260922",
+    "saves_unchanged": true
+  },
+  "actual_pickups_per_side": 32,
+  "limitations": [
+    "MakeAbortable is a controlled virtual override; RNG is deterministic and temporarily patched.",
+    "Real coordinate collision query and GenerateNewOne; failure injected for half of the cases.",
+    "No full jetpack flight, model rendering, pickup collection, FX or audio validation."
+  ]
+}

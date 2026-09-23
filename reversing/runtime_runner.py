@@ -14,7 +14,17 @@ def digest(path):
 def saves():
     roots=[GAME/'userfiles',Path(r'C:\Users\pedro\OneDrive\Documents\GTA San Andreas User Files')]
     return {str(p):digest(p) for root in roots for p in root.glob('*.b')}
-def run_case(prefix,probe_hash,analyze,title,timeout=180):
+def terminal_event(path):
+    """Cheap completion check; the full analyzer remains responsible for acceptance."""
+    if not path.exists():return False
+    with path.open('rb') as stream:
+        stream.seek(max(0,path.stat().st_size-4096))
+        tail=stream.read()
+    if not tail.endswith(b'\n'):return False
+    try:return json.loads(tail.splitlines()[-1]).get('event') in ('complete','error','assertion')
+    except (ValueError,IndexError):return False
+
+def run_case(prefix,probe_hash,analyze,title,timeout=180,stop_before_analysis=False):
     exe=GAME/'gta_sa.exe';probe=GAME/f'_baseline/gta_reversed-{prefix}-probe.asi'
     if digest(exe)!=EXE_HASH or digest(probe)!=probe_hash:raise RuntimeError('Ejecutable o sonda no coincide con el hash aprobado.')
     rows=csv.reader(subprocess.check_output(['tasklist','/FO','CSV','/NH'],text=True,errors='replace').splitlines())
@@ -36,6 +46,10 @@ def run_case(prefix,probe_hash,analyze,title,timeout=180):
         process=subprocess.Popen([str(exe),'--unhook=Audio,Global/SurfaceInfos_c','--dump-hooks-to=runtime-hooks.csv'],cwd=GAME)
         deadline=time.monotonic()+timeout
         while time.monotonic()<deadline:
+            if stop_before_analysis and process.poll() is None and terminal_event(log):
+                process.terminate()
+                process.wait(timeout=15)
+                result['game_stopped_before_analysis']=True
             evidence=analyze(log)
             if evidence is not None:result.update(evidence,passed=True);break
             if process.poll() is not None:raise RuntimeError(f'GTA termino antes de completar ({process.returncode}).')

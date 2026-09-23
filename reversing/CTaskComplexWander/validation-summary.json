@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "pairs": 10240,
+  "all_equal": true,
+  "controlled_dependency_pairs": 10240,
+  "candidate_calls": 10240,
+  "state_restored": true,
+  "log_sha256": "3b8af01c484dc9edacd1cbd189e390c5b30ac4b55f8d0da826fe932ecdaaa120",
+  "saves_unchanged": true,
+  "function": "CTaskComplexWander::CreateNextSubTask",
+  "address": "0x674140",
+  "class_recorded_progress": "14/14",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-wander\\20260922-211400-323524",
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "26e9852b2c1a1af51066da29d9603590cd744a577f86bc27ead9d0e6155d25cb",
+      "pdb": "1a78f905425424f77f682fd5de747c5f967a2f11a8bab92085f6f4ff84e7ee31"
+    },
+    "sources": {
+      "source\\game_sa\\Tasks\\TaskTypes\\TaskComplexWander.cpp": "09ff4932124bdb44a633854976861c44d7ec8abb81c529f5f6ac6e1a867466e1",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde",
+      "source\\game_sa\\PathFind.cpp": "0f0e094d11dd58bd75b0cba97065541298d8b2f7aae3711cb8c3a2ca7bc1bd9e"
+    },
+    "instrumentation": {
+      "Probe.hpp": "ed75ec4912b06e171c198875d2791ec7eae2abe1ca9618ce70d561525c1b34a5",
+      "LiveComparison.hpp": "e555b49958e695a1eb1a05b81847e872388ee9f4473cdc34584f21b6aaaa9fc4",
+      "build_probe.py": "c016e25bf3335549cba84dfda2b8a9b8c9a4eb2db475d7667f5053e8ef6ed1b1"
+    }
+  },
+  "installation": {
+    "normal_asi_sha256": "a170d33dba406d745f272f3fbde87fa37ed1f2092edc4ee550aaf5ed80b4cbfd",
+    "previous_hashes": {
+      "asi": "05e7cbda3213066e8ae6452d8578a3e23b1c37a45631313303183fb3e2e571d5",
+      "pdb": "1c20494da65b4b41a0cbd3957d0be7ada4ef4aee14148291dc307d0a80102c0c"
+    },
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-wander-20260922",
+    "saves_unchanged": true
+  },
+  "limitations": [
+    "Controlled path updates, target position/heading and traffic queries; real task allocations and constructors.",
+    "Does not execute resulting tasks or validate general NPC navigation.",
+    "Audio and Global/SurfaceInfos_c excluded."
+  ]
+}

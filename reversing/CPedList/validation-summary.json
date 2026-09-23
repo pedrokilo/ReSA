@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "pairs": 4096,
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "6397212875926cabb57387d931001b49bac34f4e704c1a9e4cdb8be75a81f061",
+  "saves_unchanged": true,
+  "class_recorded_progress": "7/7",
+  "pairs_per_function": 1024,
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-pedlist\\20260922-223011-757333",
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "be16059038c44381b33726563185f14cf2516046c7a4e1f443073e0508a6c614",
+      "pdb": "9e5df91e6e9d93413440a7696b4cc78bfa85d65314b856f9fcb0d38cd681d665"
+    },
+    "sources": {
+      "source\\game_sa\\PedList.cpp": "f1046a900e307777015d6df0164f593f5c0a23a0f959ba7c3e0cf1c3f138076e",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "Probe.hpp": "7005c6e6ba0ac1f2fd9b1340c7c9718638103e2a59c94d413f3666ee167e876c",
+      "LiveComparison.hpp": "756c7ef801b213cb719a561afdee9409333d4f9da6f633134934f7b9c1d5954b",
+      "build_probe.py": "6f8fb436111e86d4f940845ca74f5fca463daf2b75a3f8f333194b8bcd1ab218"
+    }
+  },
+  "limitations": [
+    "Intelligence queries are controlled and their call order is compared; no complete NPC/task AI execution.",
+    "Local non-owning ped pool fixtures and group slots; list storage and input immutability checked exactly."
+  ],
+  "normal_installation": {
+    "normal_asi_sha256": "9f6dc8c8db43ea47e9cd377c489a8fe5691f3dd0f24979426c8a5e3812221f80",
+    "previous_hashes": {
+      "asi": "971e1d165ec8392b9c2301c2225988d708c4313292b8d745f04d2385bc26b5b6",
+      "pdb": "4a3fb914b3d790459abb6d7ecca9c321527efbdf9968563b817c4995668dcc0e"
+    },
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-playerinfo-conversations-pedlist-20260922",
+    "saves_unchanged": true
+  }
+}

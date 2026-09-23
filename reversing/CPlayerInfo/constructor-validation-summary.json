@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "game_stopped_before_analysis": true,
+  "hook_state": {
+    "enabled": true,
+    "event": "hook_state",
+    "locked": false,
+    "startup_candidate_calls": 3
+  },
+  "pairs": 4224,
+  "pairs_by_kind": {
+    "constructor": 4096,
+    "weapons": 128
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "a628a4a0a38e5f90ed18facec472b8af5e4cc9f0a83019197c8d99f19655d14c",
+  "saves_unchanged": true,
+  "function": "CPlayerInfo::Constructor",
+  "address": "0x571920",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-playerinfo-constructor\\20260922-233000-236046",
+  "probe_build_manifest": {
+    "helper_source": "6e49da436e4ee78f3156307786f2292a3ecf808d4bd55cc73433e1d6a5803370",
+    "binaries": {
+      "asi": "f608d334bce5dc30ae8a344505d66acfec1b82dbfb8ab4ff43595a0769aae663",
+      "pdb": "95c639260bc9b84fa1b91065ccf20b51ccb6a2ee06ee49d993daa0050120eeba"
+    },
+    "sources": {
+      "source\\game_sa\\PlayerInfo.cpp": "f203fef3705a57c9dcd1d456e868cda73e260a86abcdeaed2177577bbfd76b04",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde",
+      "source\\game_sa\\PlayerPedData.cpp": "bf560011520f16f82d73318f1c2371f41e66a6482bd64b36c7905023bc93956e"
+    },
+    "instrumentation": {
+      "ConstructorProbe.hpp": "3fa2e6c92ac9dea8727392584841c6058851982f0005acbd6ab721fde2a63b25",
+      "ConstructorLive.hpp": "43080baa8392f5ab4edeefc4b16bc414fc074a94c60b3222f97949c15cf0015e",
+      "build_constructor_probe.py": "8431832d513dc345feb25e70acd08474068bb449cda0bc9f2b30d711995548aa"
+    },
+    "dependencies": {
+      "source/game_sa/PlayerInfo.h": "11a8c605fff40d0100fac89328ecad28ea39c833def1ad3949517aaf8140cd58",
+      "source/game_sa/PathFind.cpp": "fb5727c1f494f1eed3471312032d47669eea19266ace4b1562ef8ebf42b5c0db",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterBoatAsDriver.h": "56016576dc4cb257d5ec28cd42386381deeab9842fd45d919ec3a818b1544339"
+    }
+  },
+  "normal_installation": {
+    "normal_asi_sha256": "dc6281acd032e459eb86eeab373be832c9d203a7d0c00cf38ab6ea4446195009",
+    "previous_hashes": {
+      "asi": "9f6dc8c8db43ea47e9cd377c489a8fe5691f3dd0f24979426c8a5e3812221f80",
+      "pdb": "d98e24af66ac3aa16f08185e4e0954b96a65ebfe16602772ef322de6985b2f7f"
+    },
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-playerinfo-constructor-20260922",
+    "saves_unchanged": true
+  },
+  "limitations": [
+    "SetInitialState and weapon/cheat dependencies use the existing shared reversed implementations.",
+    "Real inventory, ammo, weapon selection and model reference counting; model streaming and visual attachment are intercepted.",
+    "No firing, rendering, cooperative gameplay or general stability certification."
+  ]
+}

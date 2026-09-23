@@ -26,7 +26,7 @@ void CMenuSystem::InjectHooks() {
     RH_ScopedInstall(CreateNewMenu, 0x582300);
     RH_ScopedInstall(ActivateItems, 0x581990);
     RH_ScopedInstall(ActivateOneItem, 0x581B30);
-    RH_ScopedInstall(FillGridWithCarColours, 0x5820E0, { .reversed = false });
+    RH_ScopedInstall(FillGridWithCarColours, 0x5820E0);
     RH_ScopedInstall(InsertMenu, 0x581E00);
     RH_ScopedInstall(SwitchOffMenu, 0x580750);
 }
@@ -603,7 +603,32 @@ void CMenuSystem::ActivateOneItem(MenuId id, uint8 row, bool enable) {
 
 // 0x5820E0
 void CMenuSystem::FillGridWithCarColours(MenuId id) {
-    plugin::Call<0x5820E0, MenuId>(id);
+    std::array<CRGBA, MENU_CAR_COLOR_COUNT> used;
+    used.fill(CRGBA{0, 0, 0, 255});
+    for (size_t slot = 0; slot < used.size(); ++slot) {
+        for (uint32 colourId = 0; colourId < 128; ++colourId) {
+            auto colour = CVehicleModelInfo::ms_vehicleColourTable[colourId];
+            colour.a = 255;
+            bool similar = false;
+            if (slot != 0) {
+                // The original also compares the next, still black, entry.
+                for (size_t previous = 0; previous <= slot; ++previous) {
+                    const auto& other = used[previous];
+                    if (std::abs(int(colour.r) - other.r) < 15
+                        && std::abs(int(colour.g) - other.g) < 15
+                        && std::abs(int(colour.b) - other.b) < 15) {
+                        similar = true;
+                    }
+                }
+            }
+            // If every colour is similar, the original falls back to index 127.
+            if (!similar || colourId == 127) {
+                used[slot] = colour;
+                MenuNumber[id]->m_anUsedCarColors[slot] = uint8(colourId);
+                break;
+            }
+        }
+    }
 }
 
 // Insert menu column

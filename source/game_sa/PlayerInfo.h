@@ -97,7 +97,7 @@ public:
     CPlayerInfo& operator=(const CPlayerInfo& rhs);
 
     static void CancelPlayerEnteringCars(CVehicle* vehicle);
-    static CEntity* FindObjectToSteal(CPed* ped);
+    CEntity* FindObjectToSteal(CPed* ped);
 
     void Process(uint32 playerIndex);
     void FindClosestCarSectorList(CPtrListDoubleLink<CVehicle*>& ptrList, CPed* ped, float minX, float minY, float maxX, float maxY, float* outVehDist, CVehicle** outVehicle);

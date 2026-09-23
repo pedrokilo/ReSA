@@ -219,7 +219,8 @@ public:
 
     [[nodiscard]] bool IsSwayInWind1()         const { return nSpecialType == eModelInfoSpecialType::TREE; }               // 0x0800
     [[nodiscard]] bool IsSwayInWind2()         const { return nSpecialType == eModelInfoSpecialType::PALM; }               // 0x1000
-    [[nodiscard]] bool SwaysInWind()           const { return IsSwayInWind1() || IsSwayInWind2(); }
+    // Original callers test all of EAX (0x426C5C, 0x5699A7, 0x59FA66).
+    [[nodiscard]] int32 SwaysInWind() const;
     [[nodiscard]] bool IsGlassType1()          const { return nSpecialType == eModelInfoSpecialType::GLASS_TYPE_1; }       // 0x2000
     [[nodiscard]] bool IsGlassType2()          const { return nSpecialType == eModelInfoSpecialType::GLASS_TYPE_2; }       // 0x2800
     [[nodiscard]] bool IsGlass()               const { return IsGlassType1() || IsGlassType2(); }

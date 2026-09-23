@@ -11,7 +11,12 @@ def main():
     parser=argparse.ArgumentParser(description='Pruebas locales de gta-reversed, sin IA')
     parser.add_argument('--list',action='store_true')
     parser.add_argument('--case',choices=[c['id'] for c in cases])
+    parser.add_argument('--all', action='store_true', help='Ejecutar todos los bancos dentro de GTA, en serie')
     args=parser.parse_args()
+    if args.all:
+        if args.case or args.list: parser.error('--all no se combina con --case o --list')
+        from run_all import main as run_all
+        return run_all()
     if not args.case:
         print('Comparaciones automatizadas; no son demostraciones visuales.\n')
         for i,c in enumerate(cases,1):print(f"{i}. {c['name']} [{c['id']}]")

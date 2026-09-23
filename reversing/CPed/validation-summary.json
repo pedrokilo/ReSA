@@ -1,0 +1,89 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "pairs": 28672,
+  "function_pairs": {
+    "CalculateNewVelocity": 4096,
+    "DoFootLanded": 2048,
+    "PlayFootSteps": 8192,
+    "MakeTyresMuddySectorList": 2048,
+    "PositionPedOutOfCollision": 4096,
+    "KillPedWithCar": 8192
+  },
+  "all_equal": true,
+  "max_error": 4.76837158203125e-07,
+  "tolerance": 1e-05,
+  "state_restored": true,
+  "log_sha256": "0c950d4192f00c60e6886d2820b0f6e23a4bc1d1b40ac4125a6a7a09332e197c",
+  "saves_unchanged": true,
+  "class_recorded_progress": "145/145",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cped-completion\\20260922-221131-711733",
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "1c01208a8ae43d5b125309f2b35a0884a28634e2dbcbcffb72b2ab486a7eb633",
+      "pdb": "f6d68e4509a43fd6c625e34ef407e35067019dc44d9224d7c56db57b85923dac"
+    },
+    "sources": {
+      "source\\game_sa\\Entity\\Ped\\Ped.cpp": "fc2b74d3cbd1877320f01c6f2c5a85a57d0fb0107465532679a4d93514a7355d",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "CompletionLive.hpp": "1cf3258a68a139cd6737bcf7ac909f021f935d22f9ec5dec0e0ec86949cfc165",
+      "CompletionProbe.hpp": "2ed5b262cceafe21bcdeb3928d858ff6e72aa349487e69382bfb0caa6e3a2917",
+      "FootLandedComparison.hpp": "2670f7b44b404c185fe9964262137fc03c344efe2601e22139a127507d11fd27",
+      "FootStepsComparison.hpp": "0826c4bddf1da90cd2adb7c5df94847ac15c542a720d6e29d34bf8c24f0b4cd4",
+      "KillComparison.hpp": "35d0e8863a177b38bc9eab05b39991b166cd03afe08be56ea2a1a8480c1ead62",
+      "PositionComparison.hpp": "46982dcf19fa5ac578f551684513bb6a7d3e8bb91fe0d770dcc19fb83e1c8743",
+      "TyresComparison.hpp": "24d4e4ccbb6923af3c1c506dd801c54dc343d9bca2523186486d040c8c41e46a",
+      "build_completion_probe.py": "af309c05f240e5f9f7fd7d71b3534d2e96cf92fbfd94c0497a755709e270469b",
+      "ProbeSupport.hpp": "723fa314edaf3fa1ea4b06078c389707d078f4e5f676fe8502c663de00a50724"
+    }
+  },
+  "installation": {
+    "normal_asi_sha256": "971e1d165ec8392b9c2301c2225988d708c4313292b8d745f04d2385bc26b5b6",
+    "previous_hashes": {
+      "asi": "b2ad166660a0fbcb3d38d1f5e76900b5c052fede16dcb5a601d6db4dd6ae2d76",
+      "pdb": "a8b3b36d7da6c11c913902abda925db22ad9ab95f34afa611a6db5d78440d28e"
+    },
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-cped-completion-20260922",
+    "saves_unchanged": true
+  },
+  "normal_sources": {
+    "source/game_sa/Entity/Ped/Ped.cpp": "a57b88f9a24cce82f3726e94c9d3dfb05bc89014ed2507445d6d4e73073ca8ef",
+    "source/game_sa/Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+  },
+  "normal_pdb_sha256": "4a3fb914b3d790459abb6d7ecca9c321527efbdf9968563b817c4995668dcc0e",
+  "post_probe_source_change": "Only the explicit PedPlacement.h include was added for the normal build; implementation unchanged.",
+  "active_at_game_start": true,
+  "previous_banks_not_rerun": {
+    "PositionAttachedPed": 361,
+    "UpdatePosition": 2534
+  },
+  "limitations": [
+    "Recorded hook count, not exhaustive coverage of all CPed methods or unregistered virtual functions.",
+    "Controlled dependencies for animation, particles, audio, collision queries, damage and final car force; see README.",
+    "Real tyre forces and bonnet turn force; independent fixtures; actual game executable as oracle.",
+    "Temporary probe dependency redirects are absent from the normal build. Original rain/dust custom-ABI helpers remain dependencies.",
+    "Audio and Global/SurfaceInfos_c excluded. No general game stability or long-session guarantee."
+  ],
+  "kill_observed_events": {
+    "['affects', 49, 3]": 3901,
+    "['blend', 0, 25]": 191,
+    "['vehicle_audio', 0, 121]": 2268,
+    "['blend', 0, 24]": 448,
+    "['blend', 0, 26]": 965,
+    "['vehicle_audio', 0, 119]": 694,
+    "['crime', 10]": 402,
+    "['affects', 50, 3]": 901,
+    "['blend', 0, 27]": 297,
+    "['crime', 11]": 374,
+    "['bonnet']": 38,
+    "['blend', 0, 23]": 74,
+    "['vehicle_audio', 0, 122]": 70,
+    "['blend', 0, 22]": 82
+  },
+  "runner_sha256": "03bdd0845b07879ad42f6b2e577098e6d1307ef3f3c0806fbeb5a6a0e888d682"
+}

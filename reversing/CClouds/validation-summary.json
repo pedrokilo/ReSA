@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "pairs": 1170,
+  "all_equal": true,
+  "candidate_calls": 1170,
+  "tolerance": 0,
+  "max_error": 0.0,
+  "state_restored": true,
+  "coverage": {
+    "state": 11880,
+    "geometry": 486,
+    "transform_result": 486,
+    "indices": 486,
+    "end3d": 486,
+    "projection": 9666,
+    "sprite": 2748,
+    "draw2d": 162
+  },
+  "fp_control": 50987039,
+  "log_sha256": "4c2f575350a25dacbea19ca7885d03978936bdd4d97d8a0fa03812c04addece3",
+  "saves_unchanged": true,
+  "function": "CClouds::RenderBottomFromHeight",
+  "address": "0x007154B0",
+  "class_recorded_progress": "21/21",
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clouds\\20260922-202449-837866",
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "548c54113a6673f7db9aee8ee55fe38582bf71b36d97c8dad859f6eefee99e50",
+      "pdb": "b8071389eef492fa553eb8bc8a6eab1861930d352e8283ee2ac536ee135c65de"
+    },
+    "sources": {
+      "source\\game_sa\\Clouds.cpp": "01682560c077443caf89f6ae221d43362c7cba34e5224cd1fc52053c17640d83",
+      "source\\game_sa\\Sprite.cpp": "da44871922ac06ad303c8f4c9fff4184fd82d2829fc8302b4df9a0755f36a7c5",
+      "source\\app\\app_game.cpp": "bcc8581bd74d076909374dbfdc56f3badc145fdd2bade01afc383a05ccdca732"
+    },
+    "instrumentation": {
+      "Probe.hpp": "f19032d9eb822022f5729693d6cde5869f9b39e9b10bba351ce18864962dda87",
+      "LiveComparison.hpp": "a26484ee528fbbc4c568ec661086dda2942302ce3dbb175f8325a8f659c6c80c",
+      "build_probe.py": "2446d61f427b3cc8d84142eb1b5a772ada09e6683fe11de2604a927b00f9f885"
+    }
+  },
+  "normal_asi_sha256": "1500be85a8d953d1c8a8485eabc3e6439445c03b19671d36e25b881027ac78f0",
+  "normal_pdb_sha256": "3ca09924b8ea7694287e3fe66203445af22cacc3ad439c65c8179e3205b7bcce",
+  "normal_build": "Debug x86; instrumentation excluded",
+  "normal_source_hashes": {
+    "source/game_sa/Clouds.cpp": "7ebcba5de184e3bd2743744df854ca6f66b7da51c2831c65c69ddc293a891390",
+    "source/game_sa/Sprite.cpp": "da44871922ac06ad303c8f4c9fff4184fd82d2829fc8302b4df9a0755f36a7c5",
+    "source/app/app_game.cpp": "bcc8581bd74d076909374dbfdc56f3badc145fdd2bade01afc383a05ccdca732"
+  },
+  "source_restoration_verified": "Equal after normalizing newlines and enabling the validated hook",
+  "installation": {
+    "normal_asi_sha256": "1500be85a8d953d1c8a8485eabc3e6439445c03b19671d36e25b881027ac78f0",
+    "previous_hashes": {
+      "asi": "6999d5daf6a7e4a9051ed773dda66dcd0d66e8572b1211bcbf9059b58c8b5176",
+      "pdb": "f5f297105f01f83cf67a8620b3af1a131cbc50806e6ae6df13da16ee1135d858"
+    },
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-clouds-20260922",
+    "saves_unchanged": true
+  },
+  "analyzer_verified": {
+    "valid_log_pairs": 1170,
+    "incomplete_log": "pending",
+    "rejected_mutations": [
+      "duplicate_case",
+      "candidate_counter",
+      "discrete_state",
+      "float_difference",
+      "failed_restoration"
+    ]
+  },
+  "excluded_hooks": [
+    "Audio",
+    "Global/SurfaceInfos_c"
+  ],
+  "visual_review": false,
+  "scope": "RenderBottomFromHeight only; draw data and states, not pixels or general game stability"
+}

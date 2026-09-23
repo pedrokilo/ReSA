@@ -1,0 +1,93 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "pairs": 3232,
+  "real_dependency_pairs": 64,
+  "controlled_dependency_pairs": 3168,
+  "all_equal": true,
+  "max_error": 0.0,
+  "tolerance": 1e-05,
+  "candidate_calls": 3232,
+  "state_restored": true,
+  "events": {
+    "AbortIK": 2656,
+    "RemoveStanceAnims": 236,
+    "AimGun": 619,
+    "SetMoveAnim": 2942,
+    "FightStrike": 30,
+    "StartAnim": 648
+  },
+  "log_sha256": "ca0c9f33a6afcd10cf389c76beee89c7ebd56dbe82809a7d162f5c84c364f1a5",
+  "saves_unchanged": true,
+  "function": "CTaskSimpleUseGun::ProcessPed",
+  "address": "0x0062A380",
+  "class_recorded_progress": "19/19",
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-usegun\\20260922-205940-939686",
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "a10f00f4cb717fa3e556b9ea42f4f019036bbf997f6f4f6d0ab621029a8ba345",
+      "pdb": "9f1154798821e77cfec20a67cea6647e0607cb789e9fa30863a8ec1b09820595"
+    },
+    "sources": {
+      "source\\game_sa\\Tasks\\TaskTypes\\TaskSimpleUseGun.cpp": "83875becf4bccc4e9cd84f28886bfcf4c9303fd15d411e727551b60c5773df75",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "Probe.hpp": "852f6a783258b7408d0daf29cd87c60624edb73068a13b02df146fd490b16d29",
+      "LiveComparison.hpp": "166e58740a995097957007e8cf57f65e746a522327f3b3b5849fcd9fba2a4fd0",
+      "build_probe.py": "5506a6ed51c85721f25b11a185fe6832cdf7061d9dd8ef4610f6fad8311f6955"
+    }
+  },
+  "normal_asi_sha256": "05e7cbda3213066e8ae6452d8578a3e23b1c37a45631313303183fb3e2e571d5",
+  "normal_pdb_sha256": "1c20494da65b4b41a0cbd3957d0be7ada4ef4aee14148291dc307d0a80102c0c",
+  "normal_build": "Debug x86; instrumentation excluded",
+  "normal_source_hashes": {
+    "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp": "85d2862bdb2c03b462924e85335504ea330a7c2d578bbaa9532121cff29dd9fd",
+    "source/game_sa/Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+  },
+  "source_restoration_verified": "Equal after normalizing newlines and enabling the validated hook",
+  "installation": {
+    "normal_asi_sha256": "05e7cbda3213066e8ae6452d8578a3e23b1c37a45631313303183fb3e2e571d5",
+    "previous_hashes": {
+      "asi": "ce812b18c0f2154af48dede876b863e68040d4e0fa3d85f6c0aa68f303f1feb3",
+      "pdb": "d51c5b1332d30eb38f523f987feeb1d161143db926fc3f2795e79a56a4d8fa06"
+    },
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-usegun-20260922",
+    "saves_unchanged": true
+  },
+  "analyzer_verified": {
+    "valid_log_pairs": 3232,
+    "incomplete_log": "pending",
+    "rejected_mutations": [
+      "candidate_counter",
+      "independence",
+      "readonly_dependency",
+      "return_value",
+      "float_state",
+      "call_trace",
+      "duplicate_case"
+    ]
+  },
+  "excluded_hooks": [
+    "Audio",
+    "Global/SurfaceInfos_c"
+  ],
+  "visual_review": false,
+  "controlled_dependencies": [
+    "AimGun",
+    "SetMoveAnim",
+    "RemoveStanceAnims",
+    "StartAnim",
+    "FightStrike"
+  ],
+  "comparison_normalization": [
+    "Independent object pointers",
+    "Unused firing flag bits",
+    "Default callback identity"
+  ],
+  "scope": "ProcessPed decision flow and states; not full combat, animation poses, impacts, active IK chains or general game stability"
+}

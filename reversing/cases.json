@@ -1,5 +1,65 @@
 [
   {
+    "id": "clothes-scripted-sprint",
+    "name": "CClothes, CScripted2dEffects y Sprint",
+    "runner": "ClothesScriptedSprint/run_local.py"
+  },
+  {
+    "id": "furniture",
+    "name": "FurnitureSubGroup_c: seleccion y almacenamiento",
+    "runner": "FurnitureSubGroup_c/run_local.py"
+  },
+  {
+    "id": "playerinfo-constructor",
+    "name": "CPlayerInfo: constructor y armas",
+    "runner": "CPlayerInfo/run_constructor.py"
+  },
+  {
+    "id": "playerinfo",
+    "name": "CPlayerInfo: busquedas y Process",
+    "runner": "CPlayerInfo/run_local.py"
+  },
+  {
+    "id": "pedlist",
+    "name": "CPedList: cuatro funciones",
+    "runner": "CPedList/run_local.py"
+  },
+  {
+    "id": "conversations",
+    "name": "CConversations: configuracion de conversaciones",
+    "runner": "CConversations/run_local.py"
+  },
+  {
+    "id": "cped-completion",
+    "name": "CPed: seis funciones completadas",
+    "runner": "CPed/run_completion.py"
+  },
+  {
+    "id": "jetpack",
+    "name": "CTaskSimpleJetPack: soltar jetpack",
+    "runner": "CTaskSimpleJetPack/run_local.py"
+  },
+  {
+    "id": "wander",
+    "name": "CTaskComplexWander: transiciones de tareas",
+    "runner": "CTaskComplexWander/run_local.py"
+  },
+  {
+    "id": "usegun",
+    "name": "CTaskSimpleUseGun: ProcessPed",
+    "runner": "CTaskSimpleUseGun/run_local.py"
+  },
+  {
+    "id": "menusystem",
+    "name": "CMenuSystem: cuadricula de colores",
+    "runner": "CMenuSystem/run_local.py"
+  },
+  {
+    "id": "clouds",
+    "name": "CClouds: nubes desde altura",
+    "runner": "CClouds/run_local.py"
+  },
+  {
     "id": "cvehicle",
     "name": "CVehicle: componentes",
     "runner": "CVehicle/runtime/run_local.py"
@@ -16,7 +76,7 @@
   },
   {
     "id": "cped-attached",
-    "name": "CPed: posiciÃ³n adjunta",
+    "name": "CPed: posiciÃƒÆ’Ã‚Â³n adjunta",
     "runner": "CPed/runtime/run_local.py"
   },
   {
@@ -33,6 +93,16 @@
     "id": "pcsave-isolated",
     "name": "C_PcSave: comparacion aislada",
     "runner": "C_PcSave/validate.py"
+  },
+  {
+    "id": "fxmanager",
+    "name": "FxManager_c: destruccion de sistemas y particulas",
+    "runner": "FxManager/run_local.py"
+  },
+  {
+    "id": "basemodelinfo",
+    "name": "CBaseModelInfo: SwaysInWind y ABI de retorno",
+    "runner": "CBaseModelInfo/run_local.py"
   },
   {
     "id": "rpanimblend",

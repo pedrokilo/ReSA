@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 8448,
+  "pairs_per_function": {
+    "0": 4096,
+    "1": 256,
+    "2": 2048,
+    "3": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 0,
+      "locked": false,
+      "startup_calls": 18
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 1,
+      "locked": false,
+      "startup_calls": 3
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 2,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 3,
+      "locked": false,
+      "startup_calls": 4096
+    }
+  ],
+  "log_sha256": "a2949581e2bcce814b0c2f366801470a3f0a11f9ea8652fe938288c208d30c46",
+  "saves_unchanged": true,
+  "evidence": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clothes-scripted-sprint\\20260923-001346-817023",
+  "build_manifest": {
+    "binaries": {
+      "asi": "404e08a94aeb175d5e1ceecc0e3dd6ee87b9060ec006b15ed811de37cc33250f",
+      "pdb": "057e3a521dbefe9694e8a016f6a6fe94d94fab3f6e338af50f5b68996dd26884"
+    },
+    "sources": {
+      "source\\game_sa\\Clothes.cpp": "6ed92f6cf697e54bcac8b5b65ce954511b5aad93ee550bee272912fd0de22625",
+      "source\\game_sa\\Scripts\\Scripted2dEffects.cpp": "e6a474974bf7c54149b9d87efd21cac01d18f8559e582a6b94e9f214dd11f6c1",
+      "source\\game_sa\\Tasks\\TaskTypes\\TaskComplexUseClosestFreeScriptedAttractorSprint.cpp": "26ce760af647281e660a84e88554f0609767e546df5c4bd35be3fa206d78fb11",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde"
+    },
+    "instrumentation": {
+      "Probe.hpp": "ff4642be18910e674cf2ec9a28666fdc70295d55def02fb1a7888833876f7702",
+      "LiveComparison.hpp": "94ef55d938811ac55473b0dd8cf69cef85eb4ce4e0a3d070c0dea793055be4e9",
+      "build_probe.py": "c7e4160d7f0577534da3a4e19370ce7d3fccee84fac9e737f81fd511a70f6320"
+    },
+    "dependencies": {
+      "source/game_sa/Clothes.h": "d7cc9d2b576c70695fb1a734eb2adfe58ab1ecb339c81e60d58d842b67a1b388",
+      "source/game_sa/Scripts/Scripted2dEffects.h": "600c13998f395ceea39d85336d5e18cf06786571088fa69af630b7ac210d99a3",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractorSprint.h": "1bee954addaa34f21ec8c3073872e72996db0a5814ab9f53593df1dfbec2e208",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractor.cpp": "8f44e7eab5b345d220b2328d92bfba28b3367d2d33a2be4001beb3a0c642336e"
+    }
+  },
+  "installation": {
+    "normal_asi_sha256": "d62c1071aadb1b459964a46efc4bfc3b9c6b3ea094521374408c14de7e9da034",
+    "previous_hashes": {
+      "asi": "36910037caae88d3f125d9492f1987e4d025b78677133b37b25efd622ac24ca1",
+      "pdb": "89d1629bd11178f20bb82029e61afe1d0445831fae85e9d7ceb4ccd4fa5ce5a7"
+    },
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-clothes-scripted-sprint-20260923",
+    "saves_unchanged": true
+  },
+  "scope": "Four pending registered functions; finite in-engine differential tests, not whole-class or general stability certification."
+}

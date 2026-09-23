@@ -20,7 +20,7 @@ void CClouds::InjectHooks() {
     RH_ScopedInstall(SetUpOneSkyPoly, 0x713060);
     RH_ScopedInstall(Render, 0x713950);
     RH_ScopedInstall(RenderSkyPolys, 0x714650);
-    RH_ScopedInstall(RenderBottomFromHeight, 0x7154B0, { .reversed = false });
+    RH_ScopedInstall(RenderBottomFromHeight, 0x7154B0);
 
     // Moving fog
     RH_ScopedInstall(MovingFogInit, 0x713660);
@@ -859,41 +859,113 @@ void CClouds::RenderSkyPolys() {
 
 // 0x7154B0
 void CClouds::RenderBottomFromHeight() {
-    /****
-    * Code below should be good
-    * but it isn't complete...
-    *****\
-   
-    const auto camPos = TheCamera.GetPosition();
-    if (camPos.z < -90.f) { // 0x71557D [Moved up here]
+    const auto& colours = CTimeCycle::m_CurrentColours;
+    const auto red = uint8(std::min(colours.m_nFluffyCloudsBottomRed * 2.f + 20.f, 255.f));
+    const auto green = uint8(std::min(colours.m_nFluffyCloudsBottomGreen * 1.5f, 255.f));
+    const auto blue = uint8(std::min(colours.m_nFluffyCloudsBottomBlue * 1.5f, 255.f));
+    const auto camera = TheCamera.GetPosition();
+    if (camera.z < -90.f) {
         return;
     }
 
-    const auto& cc = CTimeCycle::m_CurrentColours; // cc = color component
-    const auto ClampClr = [](float clr) {
-        return std::min(clr, 255.f);
-    };
-    const auto fcClr = CRGBA{ // fc = fluffy clouds
-        (uint8)ClampClr(cc.m_nFluffyCloudsBottomRed * 2.f + 20.f),
-        (uint8)ClampClr(cc.m_nFluffyCloudsBottomGreen * 1.5f),
-        (uint8)ClampClr(cc.m_nFluffyCloudsBottomBlue * 1.5f),
-        (uint8)255
-    };
-
-    auto lowZ = 160.f, highZ = 190.f;
-
+    // The rendering thread uses x87 24-bit precision; preserve single-precision arithmetic.
+    float low = 160.f, high = 190.f;
+    const float rise = (camera.z - 190.f - 10.f) * 0.3f;
+    if (rise > 0.f) {
+        low = 160.f + rise;
+        high = 190.f + rise;
+    }
     auto& windShift = StaticRef<float>(0xC6E954);
+    windShift = CTimer::GetTimeStep() * CWeather::Wind * 0.25f + windShift;
 
-    RwRenderStateSet(rwRENDERSTATEZWRITEENABLE,      RWRSTATE(TRUE));
-    RwRenderStateSet(rwRENDERSTATEZTESTENABLE,       RWRSTATE(TRUE));
+    RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(FALSE));
+    RwRenderStateSet(rwRENDERSTATEZTESTENABLE, RWRSTATE(TRUE));
     RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(TRUE));
-    RwRenderStateSet(rwRENDERSTATEFOGENABLE,         RWRSTATE(TRUE));
-    RwRenderStateSet(rwRENDERSTATESRCBLEND,          RWRSTATE(rwBLENDSRCALPHA));
-    RwRenderStateSet(rwRENDERSTATEDESTBLEND,         RWRSTATE(rwBLENDINVSRCALPHA));
-    RwRenderStateSet(rwRENDERSTATETEXTURERASTER,     RWRSTATE(RwTextureGetRaster(gpCloudMaskTex)));
+    RwRenderStateSet(rwRENDERSTATEFOGENABLE, RWRSTATE(FALSE));
+    RwRenderStateSet(rwRENDERSTATESRCBLEND, RWRSTATE(rwBLENDSRCALPHA));
+    RwRenderStateSet(rwRENDERSTATEDESTBLEND, RWRSTATE(rwBLENDINVSRCALPHA));
+    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(RwTextureGetRaster(gpCloudMaskTex)));
 
-    // TODO....
-    */
+    const int32 baseAlpha = int32(colours.m_fCloudAlpha);
+    const auto& random = StaticRef<std::array<float, 80>>(0x8D5658);
+    const auto sample = [&](int i) { return random[i % random.size()]; };
+    const auto blockCentre = [](float value, int32 mask, int32 half) { return (int32(value) & mask) + half; };
+    auto& vertices = StaticRef<uint32>(0xC4B950);
+    auto& indices = StaticRef<uint32>(0xC4B954);
+    const float thickness = high - low;
+    if (baseAlpha != 0) {
+        vertices = indices = 0;
+        for (int i = 0; i < 28; ++i) {
+            const float shift = (sample(i + 6) * 0.5f + 1.f) * windShift;
+            const float dx = sample(i) * 512.f + shift - camera.x;
+            const float dy = sample(i + 1) * 512.f + shift - camera.y;
+            const float wrappedX = dx - blockCentre(dx, ~511, 256);
+            const float x = wrappedX + camera.x;
+            const float y = dy - blockCentre(dy, ~511, 256) + camera.y;
+            const float z = thickness * sample(i + 2) + low;
+            const float height = z - camera.z;
+            int32 alpha = height > 0.f ? int32((1.f - height * 0.004f) * baseAlpha) : baseAlpha;
+            if (alpha <= 0) continue;
+            const float distance = std::max(std::abs(camera.x - x), std::abs(camera.y - y)) / 256.f;
+            if (distance > 0.75f) alpha = int32((1.f - (distance - 0.75f) * 4.f) * alpha);
+            if (alpha <= 0) continue;
+            const float width = sample(i + 3) * 100.f + 60.f;
+            const float depth = sample(i + 4) * 100.f + 60.f;
+            const CVector positions[] = {
+                {x - width, y + depth, z},
+                {x + width, y + depth, z},
+                {x - width, y - depth, z},
+                {x + width, y - depth, z}
+            };
+            for (const auto offset : {2, 1, 0, 2, 3, 1}) aTempBufferIndices[indices++] = RxVertexIndex(vertices + offset);
+            for (int j = 0; j < 4; ++j) {
+                auto& v = TempBufferVertices.m_3d[vertices++];
+                RwIm3DVertexSetPos(&v, positions[j].x, positions[j].y, positions[j].z);
+                // Only the first corner uses the brighter colour in the original.
+                RwIm3DVertexSetRGBA(&v, j == 0 ? red : colours.m_nFluffyCloudsBottomRed,
+                    j == 0 ? green : colours.m_nFluffyCloudsBottomGreen,
+                    j == 0 ? blue : colours.m_nFluffyCloudsBottomBlue, alpha);
+                RwIm3DVertexSetU(&v, j >= 2 ? 1.f : 0.f);
+                RwIm3DVertexSetV(&v, j % 2 ? 1.f : 0.f);
+            }
+        }
+        if (indices && RwIm3DTransform(TempBufferVertices.m_3d, vertices, nullptr, rwIM3D_VERTEXUV | rwIM3D_VERTEXXYZ | rwIM3D_VERTEXRGBA)) {
+            RwIm3DRenderIndexedPrimitive(rwPRIMTYPETRILIST, aTempBufferIndices, indices);
+            RwIm3DEnd();
+        }
+        vertices = indices = 0;
+    }
+
+    CSprite::InitSpriteBuffer();
+    if (baseAlpha > 0) {
+        const auto& xs = StaticRef<std::array<float, 30>>(0x8D5818);
+        const auto& ys = StaticRef<std::array<float, 30>>(0x8D57A0);
+        for (int i = 0; i < 30; ++i) {
+            const float shift = windShift * 0.5f;
+            const float dx = shift + xs[i] - camera.x;
+            const float dy = shift + ys[i] - camera.y;
+            const float wrappedX = dx - blockCentre(dx, ~255, 128);
+            const CVector pos{wrappedX + camera.x, dy - blockCentre(dy, ~255, 128) + camera.y, thickness * sample(i) + low};
+            int32 alpha = int32((1.f - std::abs(camera.z - pos.z) * 0.004f) * baseAlpha);
+            if (alpha <= 0) continue;
+            const float size = (sample(i + 1) + 1.f) * 12.f;
+            const float distance = std::min(std::max(std::abs(camera.x - pos.x), std::abs(camera.y - pos.y)) / 128.f, 1.f);
+            if (distance > 0.75f) alpha = int32((1.f - (distance - 0.75f) * 4.f) * alpha);
+            if (distance <= 0.05f) continue;
+            if (distance < 0.1f) alpha = int32((distance - 0.05f) * alpha * 20.f);
+            CVector screen; float w, h;
+            if (CSprite::CalcScreenCoors(pos, &screen, &w, &h, false, true)) {
+                CSprite::RenderBufferedOneXLUSprite(screen, {w * size, h * size},
+                    uint8(colours.m_nFluffyCloudsBottomRed), uint8(colours.m_nFluffyCloudsBottomGreen),
+                    uint8(colours.m_nFluffyCloudsBottomBlue), 256, 1.f / screen.z, uint8(alpha));
+            }
+        }
+    }
+    CSprite::FlushSpriteBuffer();
+    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(nullptr));
+    RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(FALSE));
+    RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(TRUE));
+    RwRenderStateSet(rwRENDERSTATEZTESTENABLE, RWRSTATE(TRUE));
 }
 
 //

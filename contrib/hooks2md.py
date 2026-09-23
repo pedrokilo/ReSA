@@ -1,116 +1,103 @@
+"""Generate the progress dashboard from recorded hook flags (not test coverage)."""
 import argparse
-from contextlib import contextmanager
 import csv
 import datetime
 import os
-import tkinter.filedialog as tkFileDialog
 from dataclasses import dataclass
-from typing import Any
+from pathlib import Path
 
-GITHUB_SHA = os.environ.get("GITHUB_SHA", "unknown")
-GITHUB_REPO_URL = os.environ.get("GITHUB_REPO_URL")
-
-ap = argparse.ArgumentParser(description="Generate a Markdown file with reversed classes stats from hooks.csv")
-ap.add_argument("--input", default=None, help="Path to the hooks.csv file (if not provided, a file dialog will be shown to select the input file)")
-ap.add_argument("--output", default=None, help="Path to the output Markdown file (if not provided, a file dialog will be shown to select the output location)")
-args = ap.parse_args()
-
-if args.input is None:
-    args.input = tkFileDialog.askopenfilename(title='Please select the hooks.csv file')
-if args.output is None:
-    args.output = tkFileDialog.asksaveasfilename(title='Please select the output MD file location', defaultextension=".md")
 
 @dataclass
 class Klass:
     name: str
-    num_reversed: int
-    num_not_reversed: int
-
-    def process_row(self, row: dict[str, Any]):
-        if bool(int(row['reversed'])):
-            self.num_reversed += 1
-        else:
-            self.num_not_reversed += 1
+    reversed: int = 0
+    total: int = 0
+    locked: int = 0
 
     @property
-    def num_fn(self):
-        return self.num_not_reversed + self.num_reversed
-    
-    @property
-    def is_completely_reversed(self):
-        return self.num_not_reversed == 0
+    def pending(self):
+        return self.total - self.reversed
+
+
+def generate(input_path, output_path):
+    classes = {}
+    with open(input_path, encoding="utf-8-sig", newline="") as stream:
+        for row in csv.DictReader(stream):
+            item = classes.setdefault(row["class"], Klass(row["class"]))
+            item.total += 1
+            item.reversed += int(row["reversed"])
+            item.locked += int(row["locked"])
+    if not classes:
+        raise ValueError("hooks.csv no contiene funciones")
+    ordered = sorted(classes.values(), key=lambda c: c.name.casefold())
+    full = [c for c in ordered if not c.pending]
+    partial = [c for c in ordered if c.reversed and c.pending]
+    empty = [c for c in ordered if not c.reversed]
+    total = sum(c.total for c in ordered)
+    reversed_count = sum(c.reversed for c in ordered)
+    locked = sum(c.locked for c in ordered)
+    now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    lines = ["# Progreso del reversing", "",
+             "[Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)", "",
+             f"> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** {now}", "",
+             "## Vista general", "",
+             "| Clases completas | Clases parciales | Sin revertir | Funciones revertidas | Funciones pendientes |",
+             "| :---: | :---: | :---: | :---: | :---: |",
+             f"| **{len(full)} / {len(ordered)}** | **{len(partial)} / {len(ordered)}** | **{len(empty)} / {len(ordered)}** | **{reversed_count:,} / {total:,}** | **{total-reversed_count:,}** |",
+             f"| {len(full)/len(ordered):.2%} | {len(partial)/len(ordered):.2%} | {len(empty)/len(ordered):.2%} | {reversed_count/total:.2%} | {(total-reversed_count)/total:.2%} |", "",
+             "**Ir a:** [Completas](#completas) · [Parciales](#parciales) · [Sin revertir](#sin-revertir) · [Cómo leer y actualizar](#metodo)", "",
+             "> [!NOTE]", "> Estos porcentajes miden entradas registradas como `reversed`, no cobertura de pruebas ni estabilidad del juego. Una clase completa puede conservar hooks bloqueados o funciones todavía no registradas.", ""]
+    repo, sha = os.environ.get("GITHUB_REPO_URL"), os.environ.get("GITHUB_SHA")
+    if repo and sha and sha != "unknown":
+        lines += [f"Generación de CI: [{sha[:12]}]({repo}/commit/{sha}).", ""]
+    lines += ['<a id="completas"></a>', f"## 🟢 Completas · {len(full)} clases", "",
+              "Orden alfabético. El número entre paréntesis indica funciones registradas; 🔒 señala que al menos una sigue bloqueada.", "",
+              "<details>", "<summary>Mostrar catálogo de clases completas</summary>", "",
+              "| Clase (funciones) | Clase (funciones) | Clase (funciones) |", "| --- | --- | --- |"]
+    height = (len(full) + 2) // 3
+    for i in range(height):
+        cells = []
+        for column in range(3):
+            idx = i + column * height
+            if idx < len(full):
+                c = full[idx]
+                cells.append(f"`{c.name}` ({c.total})" + (f" 🔒 {c.locked}" if c.locked else ""))
+            else:
+                cells.append("")
+        lines.append("| " + " | ".join(cells) + " |")
+    lines += ["", "</details>", "", '<a id="parciales"></a>', f"## 🟡 Parciales · {len(partial)} clases", "",
+              "Orden alfabético para localizar clases. Para decidir qué abordar primero, consultar la [estimación por dificultad](ReversingPriorities.md).", "",
+              "| Clase | Revertidas / total | Pendientes | Avance | Locked |", "| --- | ---: | ---: | ---: | ---: |"]
+    for c in partial:
+        lines.append(f"| `{c.name}` | {c.reversed}/{c.total} | **{c.pending}** | {c.reversed/c.total:.2%} | {c.locked} |")
+    lines += ["", '<a id="sin-revertir"></a>', f"## 🔴 Sin revertir · {len(empty)} clases", "",
+              "| Clase | Revertidas / total | Pendientes | Avance | Locked |", "| --- | ---: | ---: | ---: | ---: |"]
+    for c in empty:
+        lines.append(f"| `{c.name}` | 0/{c.total} | **{c.pending}** | 0.00% | {c.locked} |")
+    lines += ["", '<a id="metodo"></a>', "## Cómo leer y actualizar", "",
+              "- **Pendientes:** total menos revertidas. Cada fila del CSV cuenta como una entrada, incluidas sobrecargas y virtuales.",
+              f"- **Locked:** indicador de bloqueo del hook; hay {locked:,} entradas bloqueadas en el CSV. No equivale por sí solo a pendiente ni informa si el hook está activo durante una ejecución.",
+              "- **Porcentajes:** las categorías cuentan clases; el avance de cada clase cuenta funciones. Se muestran dos decimales.",
+              "- **Alcance:** solo incluye lo registrado en el CSV; completar una fila no certifica todo el comportamiento de una clase.", "",
+              "Actualizar los flags solo después de comparar con el original dentro del motor y regenerar desde la raíz:", "",
+              "```powershell", "python contrib/hooks2md.py --input docs/hooks.csv --output docs/ReversedClasses.md", "```", "",
+              "El formato vive en [contrib/hooks2md.py](../contrib/hooks2md.py). La [automatización de CI](../.github/workflows/update-re-progress.yml) también usa este generador. La guía de prioridades es una evaluación separada y requiere revisión cuando cambian las funciones pendientes.", ""]
+    Path(output_path).write_text("\n".join(lines), encoding="utf-8", newline="\n")
+
 
 def main():
-    klass_info : dict[str, Klass] = {}
-    with open(args.input, "r", encoding='utf8') as hooksf:
-        for r in csv.DictReader(hooksf):
-            name: str = r["class"]
-            klass_info.setdefault(name, Klass(name, 0, 0)).process_row(r)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--input", help="Ruta de hooks.csv")
+    parser.add_argument("--output", help="Ruta del Markdown generado")
+    args = parser.parse_args()
+    if args.input is None or args.output is None:
+        from tkinter import filedialog
+        args.input = args.input or filedialog.askopenfilename(title="Seleccionar hooks.csv")
+        args.output = args.output or filedialog.asksaveasfilename(title="Guardar informe", defaultextension=".md")
+    if not args.input or not args.output:
+        parser.error("Se requieren las rutas de entrada y salida")
+    generate(args.input, args.output)
 
-    not_at_all: list[Klass] = []
-    partially: list[Klass]  = []
-    completely: list[Klass] = []
-    for klass in klass_info.values():
-        if klass.num_not_reversed == 0:
-            completely.append(klass)
-        elif klass.num_reversed == 0:
-            not_at_all.append(klass)
-        else:
-            partially.append(klass)
-    num_total_klass = len(partially) + len(completely) + len(not_at_all)
 
-    with open(args.output, "w", encoding="utf8", newline='\n') as outf:
-        outf.write("# Reversed Classes progress\n")
-        outf.write("This file is updated automatically every time the hooks.csv file is updated (which happens every time there are changes to hooks made by a commit), and shows the current progress of reversed classes in the project.\n\n")
-        updated_at = datetime.datetime.now(datetime.timezone.utc).strftime('%b %d, %Y at %H:%M:%S')
-        if GITHUB_REPO_URL and GITHUB_SHA != "unknown":
-            outf.write(f"Last update: {updated_at} UTC, triggered by [{GITHUB_SHA}]({GITHUB_REPO_URL}/commit/{GITHUB_SHA}).\n")
-        else:
-            outf.write(f"Last update: {updated_at} UTC, regenerated locally from hooks.csv.\n")
-        outf.write("\n")
-
-        outf.write("## Disclaimer\n")
-        outf.write(
-            "The percentages and the number of classes shown here may not be "
-            "completely accurate, because not all classes and functions "
-            "are documented yet.\n"
-            "Percentages use the reversed flag in hooks.csv and are rounded to two decimal places. "
-            "They measure recorded reconstruction progress, not test coverage or verified gameplay correctness. "
-            "Section percentages count classes; individual class percentages count functions.\n"
-        )
-
-        #outf.write("## Brief stats\n")
-        #outf.write(f"- #Functions: {sum(k.num_fn for k in klass_info.values())}<br />\n")
-        #outf.write(f"- #Classes: {len(klass_info)}<br />\n")
-        
-        outf.write(f"## Stats ({sum(k.num_fn for k in klass_info.values())} functions, {len(klass_info)} classes)\n")
-
-        def write_header(title: str, klasses: list[Klass]):
-            outf.write("\n")
-            outf.write(f"#### {title} ({len(klasses)}/{num_total_klass}) [{len(klasses) / num_total_klass:.2%}]\n")
-            outf.write("\n")
-
-        @contextmanager
-        def class_list_spoiler():
-            outf.write("<details>\n")
-            outf.write("<summary>See list of classes</summary>\n\n")
-            yield
-            outf.write("\n</details>\n")
-
-        write_header("Completely reversed classes", completely)
-        with class_list_spoiler():
-            for klass in completely:
-                outf.write(f"- {klass.name} ({klass.num_fn})<br />\n")
-
-        write_header("Partially reversed classes", partially)
-        with class_list_spoiler():
-            for klass in partially:
-                outf.write(f"- {klass.name} ({klass.num_reversed}/{klass.num_fn}) [{klass.num_reversed / klass.num_fn:.2%}]<br />\n")
-
-        write_header("Not-at-all reversed classes", not_at_all)
-        with class_list_spoiler():
-            for klass in not_at_all:
-                outf.write(f"- {klass.name} ({klass.num_fn})<br />\n")
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
