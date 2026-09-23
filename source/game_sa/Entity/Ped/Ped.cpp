@@ -73,7 +73,7 @@ void CPed::InjectHooks() {
     RH_ScopedInstall(GiveObjectToPedToHold, 0x5E4390);
     RH_ScopedInstall(ClearLookFlag, 0x5E1950);
     RH_ScopedInstall(WorkOutHeadingForMovingFirstPerson, 0x5E1A00);
-    RH_ScopedInstall(UpdatePosition, 0x5E1B10, { .reversed = false });
+    RH_ScopedInstall(UpdatePosition, 0x5E1B10);
     RH_ScopedInstall(MakeTyresMuddySectorList<CPtrListSingleLink<CPhysical*>>, 0x6AE0D0, { .reversed = false });
     RH_ScopedInstall(IsPedInControl, 0x5E3960);
     RH_ScopedInstall(RemoveWeaponModel, 0x5E3990);
@@ -168,7 +168,7 @@ void CPed::InjectHooks() {
     RH_ScopedInstall(GetBikeRidingSkill, 0x5DF510);
     RH_ScopedInstall(SetPedPositionInCar, 0x5DF910);
     RH_ScopedInstall(SetRadioStation, 0x5DFD90);
-    RH_ScopedInstall(PositionAttachedPed, 0x5DFDF0, { .reversed = false });
+    RH_ScopedInstall(PositionAttachedPed, 0x5DFDF0);
     RH_ScopedInstall(ResetGunFlashAlpha, 0x5DF4E0);
 
     RH_ScopedVMTInstall(SetModelIndex, 0x5E4880);
@@ -1358,9 +1358,59 @@ void CPed::SetRadioStation()
 /*!
 * @addr 0x5DFDF0
 */
-void CPed::PositionAttachedPed()
-{
-    ((void(__thiscall *)(CPed*))0x5DFDF0)(this);
+void CPed::PositionAttachedPed() {
+    if (!m_pAttachedTo) {
+        return;
+    }
+
+    CMatrix attachedMatrix;
+    auto offset = m_vecTurretOffset;
+    if (m_pAttachedTo->m_nModelIndex == MODEL_FIRELA
+        && static_cast<CAutomobile*>(m_pAttachedTo)->m_aCarNodes[CAR_MISC_B]
+        && offset.z < -900.0f
+    ) {
+        attachedMatrix.Attach(RwFrameGetLTM(static_cast<CAutomobile*>(m_pAttachedTo)->m_aCarNodes[CAR_MISC_B]), false);
+        attachedMatrix.Detach();
+        offset.z += 1000.0f;
+    } else {
+        attachedMatrix = m_pAttachedTo->GetMatrix();
+    }
+    attachedMatrix.GetPosition() += attachedMatrix.TransformVector(offset);
+    const auto attachedHeading = std::atan2(-attachedMatrix.GetForward().x, attachedMatrix.GetForward().y);
+
+    if (!IsPlayer()) {
+        auto heading = attachedHeading;
+        switch (m_fTurretAngleA) {
+        case 1: heading += HALF_PI; break;
+        case 2: heading += PI; break;
+        case 3: heading -= HALF_PI; break;
+        }
+        heading = CGeneral::LimitRadianAngle(heading);
+        m_fCurrentRotation = CGeneral::LimitRadianAngle(m_fCurrentRotation);
+        auto difference = m_fCurrentRotation - heading;
+        if (difference > PI) {
+            difference -= TWO_PI;
+        } else if (difference < -PI) {
+            difference += TWO_PI;
+        }
+        if (difference > m_fTurretAngleB) {
+            m_fCurrentRotation = heading + m_fTurretAngleB;
+        } else if (difference < -m_fTurretAngleB) {
+            m_fCurrentRotation = heading - m_fTurretAngleB;
+        }
+        m_fCurrentRotation = CGeneral::LimitRadianAngle(m_fCurrentRotation);
+    }
+
+    CMatrix rotation;
+    rotation.SetRotateZ(m_fCurrentRotation - attachedHeading);
+    attachedMatrix *= rotation;
+    SetMatrix(attachedMatrix);
+    if (m_pAttachedTo->GetIsTypeVehicle() || m_pAttachedTo->GetIsTypeObject()) {
+        m_vecMoveSpeed = m_pAttachedTo->m_vecMoveSpeed;
+        m_vecTurnSpeed = m_pAttachedTo->m_vecTurnSpeed;
+    }
+    m_standingOnEntity = nullptr;
+    bIsStanding = true;
 }
 
 /*!
@@ -1688,9 +1738,81 @@ float CPed::WorkOutHeadingForMovingFirstPerson(float heading) {
 /*!
 * @addr 0x5E1B10
 */
-void CPed::UpdatePosition()
-{
-    ((void(__thiscall *)(CPed*))0x5E1B10)(this);
+void CPed::UpdatePosition() {
+    if (CReplay::Mode == MODE_PLAYBACK) {
+        return;
+    }
+    if (!bIsStanding) {
+        const auto task = GetTaskManager().m_aPrimaryTasks[TASK_PRIMARY_PRIMARY];
+        if (GetIntelligence()->GetTaskSwim() || GetIntelligence()->GetTaskJetPack()
+            || (task && task->GetTaskType() == TASK_COMPLEX_USE_SWAT_ROPE)
+        ) {
+            SetHeading(m_fCurrentRotation);
+        }
+        return;
+    }
+    if (m_pAttachedTo) {
+        return;
+    }
+    SetHeading(m_fCurrentRotation);
+
+    const auto timeStep = CTimer::GetTimeStep();
+    auto* const standingOn = static_cast<CPhysical*>(m_standingOnEntity);
+    CVector2D change;
+    if (standingOn) {
+        CVector contactSpeed;
+        if (!IsPlayer() && standingOn->GetIsTypeVehicle() && standingOn->AsVehicle()->IsBoat()) {
+            auto relative = GetPosition() - standingOn->GetPosition();
+            relative.z -= 1.0f;
+            contactSpeed = standingOn->m_vecMoveSpeed + CrossProduct(standingOn->m_vecTurnSpeed, relative);
+            contactSpeed += (-standingOn->m_vecTurnSpeed.SquaredMagnitude() * relative) * timeStep;
+            m_vecMoveSpeed.z = contactSpeed.z;
+        } else {
+            contactSpeed = standingOn->GetSpeed(field_56C);
+        }
+        change = CVector2D{contactSpeed.x + m_vecAnimMovingShift.x - m_vecMoveSpeed.x,
+                           contactSpeed.y + m_vecAnimMovingShift.y - m_vecMoveSpeed.y};
+        m_fCurrentRotation += timeStep * standingOn->m_vecTurnSpeed.z;
+        m_fAimingRotation += timeStep * standingOn->m_vecTurnSpeed.z;
+    } else if (g_surfaceInfos.IsSteepSlope(m_nContactSurface) && (field_578.x != 0.0f || field_578.y != 0.0f)) {
+        CVector2D normal{field_578.x, field_578.y};
+        normal.Normalise();
+        m_vecMoveSpeed = CVector{0.0f, 0.0f, -0.001f};
+        change = m_vecAnimMovingShift + normal * 0.02f;
+        const auto projection = normal.Dot(change);
+        if (projection < 0.0f) {
+            change -= normal * projection;
+        }
+    } else {
+        change = m_vecAnimMovingShift - CVector2D{m_vecMoveSpeed.x, m_vecMoveSpeed.y};
+    }
+
+    if (standingOn && !standingOn->m_pAttachedTo
+        && (!standingOn->physicalFlags.bDisableCollisionForce || standingOn->physicalFlags.bCollidable)
+    ) {
+        const auto magnitude = change.Magnitude();
+        auto limit = magnitude;
+        if (!standingOn->GetIsTypeVehicle()) {
+            limit = timeStep * 0.01f;
+        } else if (m_nPedState == PEDSTATE_DIE) {
+            limit = timeStep * 0.002f;
+        } else if (standingOn->AsVehicle()->IsBike() && standingOn->m_vecMoveSpeed.SquaredMagnitude() > sq(0.2f)) {
+            limit = timeStep * 0.0002f;
+        } else if (standingOn->AsVehicle()->IsAutomobile()) {
+            limit = timeStep * 0.01f;
+        }
+        if (magnitude > limit) {
+            change *= limit / magnitude;
+        }
+    } else if (!standingOn && bFallenDown) {
+        const auto magnitude = change.Magnitude();
+        const auto limit = timeStep * 0.01f;
+        if (magnitude > limit) {
+            change *= limit / magnitude;
+        }
+    }
+    m_vecMoveSpeed.x += change.x;
+    m_vecMoveSpeed.y += change.y;
 }
 
 /*!

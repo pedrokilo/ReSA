@@ -1,0 +1,610 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  006AE0D0: 81 EC 84 00 00 00  sub         esp,84h
+  006AE0D6: 8B 84 24 88 00 00  mov         eax,dword ptr [esp+00000088h]
+            00
+  006AE0DD: 8B 00              mov         eax,dword ptr [eax]
+  006AE0DF: 53                 push        ebx
+  006AE0E0: 33 DB              xor         ebx,ebx
+  006AE0E2: 3B C3              cmp         eax,ebx
+  006AE0E4: 55                 push        ebp
+  006AE0E5: 8B E9              mov         ebp,ecx
+  006AE0E7: 89 6C 24 08        mov         dword ptr [esp+8],ebp
+  006AE0EB: 89 5C 24 0C        mov         dword ptr [esp+0Ch],ebx
+  006AE0EF: 0F 84 33 07 00 00  je          006AE828
+  006AE0F5: 56                 push        esi
+  006AE0F6: 57                 push        edi
+  006AE0F7: EB 07              jmp         006AE100
+  006AE0F9: 8B 44 24 30        mov         eax,dword ptr [esp+30h]
+  006AE0FD: 8D 49 00           lea         ecx,[ecx]
+  006AE100: 8B 30              mov         esi,dword ptr [eax]
+  006AE102: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  006AE105: 66 A1 78 CD B7 00  mov         ax,word ptr ds:[00B7CD78h]
+  006AE10B: 66 39 46 2C        cmp         word ptr [esi+2Ch],ax
+  006AE10F: 89 4C 24 30        mov         dword ptr [esp+30h],ecx
+  006AE113: 0F 84 01 07 00 00  je          006AE81A
+  006AE119: 66 89 46 2C        mov         word ptr [esi+2Ch],ax
+  006AE11D: 8B 4D 14           mov         ecx,dword ptr [ebp+14h]
+  006AE120: 85 C9              test        ecx,ecx
+  006AE122: 8D 79 30           lea         edi,[ecx+30h]
+  006AE125: 75 03              jne         006AE12A
+  006AE127: 8D 7D 04           lea         edi,[ebp+4]
+  006AE12A: 8B 56 14           mov         edx,dword ptr [esi+14h]
+  006AE12D: 85 D2              test        edx,edx
+  006AE12F: 8D 42 30           lea         eax,[edx+30h]
+  006AE132: 75 03              jne         006AE137
+  006AE134: 8D 46 04           lea         eax,[esi+4]
+  006AE137: D9 07              fld         dword ptr [edi]
+  006AE139: 8D 79 30           lea         edi,[ecx+30h]
+  006AE13C: D8 20              fsub        dword ptr [eax]
+  006AE13E: D8 1D 50 8B 85 00  fcomp       dword ptr ds:[00858B50h]
+  006AE144: DF E0              fnstsw      ax
+  006AE146: F6 C4 05           test        ah,5
+  006AE149: 7A 19              jp          006AE164
+  006AE14B: 85 C9              test        ecx,ecx
+  006AE14D: 75 03              jne         006AE152
+  006AE14F: 8D 7D 04           lea         edi,[ebp+4]
+  006AE152: 85 D2              test        edx,edx
+  006AE154: 8D 42 30           lea         eax,[edx+30h]
+  006AE157: 75 03              jne         006AE15C
+  006AE159: 8D 46 04           lea         eax,[esi+4]
+  006AE15C: D9 07              fld         dword ptr [edi]
+  006AE15E: D8 20              fsub        dword ptr [eax]
+  006AE160: D9 E0              fchs
+  006AE162: EB 15              jmp         006AE179
+  006AE164: 85 C9              test        ecx,ecx
+  006AE166: 75 03              jne         006AE16B
+  006AE168: 8D 7D 04           lea         edi,[ebp+4]
+  006AE16B: 85 D2              test        edx,edx
+  006AE16D: 8D 42 30           lea         eax,[edx+30h]
+  006AE170: 75 03              jne         006AE175
+  006AE172: 8D 46 04           lea         eax,[esi+4]
+  006AE175: D9 07              fld         dword ptr [edi]
+  006AE177: D8 20              fsub        dword ptr [eax]
+  006AE179: D8 1D 2C 86 85 00  fcomp       dword ptr ds:[0085862Ch]
+  006AE17F: DF E0              fnstsw      ax
+  006AE181: F6 C4 05           test        ah,5
+  006AE184: 0F 8A 90 06 00 00  jp          006AE81A
+  006AE18A: 85 C9              test        ecx,ecx
+  006AE18C: 8D 79 30           lea         edi,[ecx+30h]
+  006AE18F: 75 03              jne         006AE194
+  006AE191: 8D 7D 04           lea         edi,[ebp+4]
+  006AE194: 85 D2              test        edx,edx
+  006AE196: 8D 42 30           lea         eax,[edx+30h]
+  006AE199: 75 03              jne         006AE19E
+  006AE19B: 8D 46 04           lea         eax,[esi+4]
+  006AE19E: D9 47 04           fld         dword ptr [edi+4]
+  006AE1A1: D8 60 04           fsub        dword ptr [eax+4]
+  006AE1A4: D8 1D 50 8B 85 00  fcomp       dword ptr ds:[00858B50h]
+  006AE1AA: DF E0              fnstsw      ax
+  006AE1AC: F6 C4 05           test        ah,5
+  006AE1AF: 7A 20              jp          006AE1D1
+  006AE1B1: 85 C9              test        ecx,ecx
+  006AE1B3: 74 05              je          006AE1BA
+  006AE1B5: 83 C1 30           add         ecx,30h
+  006AE1B8: EB 03              jmp         006AE1BD
+  006AE1BA: 8D 4D 04           lea         ecx,[ebp+4]
+  006AE1BD: 85 D2              test        edx,edx
+  006AE1BF: 8D 42 30           lea         eax,[edx+30h]
+  006AE1C2: 75 03              jne         006AE1C7
+  006AE1C4: 8D 46 04           lea         eax,[esi+4]
+  006AE1C7: D9 41 04           fld         dword ptr [ecx+4]
+  006AE1CA: D8 60 04           fsub        dword ptr [eax+4]
+  006AE1CD: D9 E0              fchs
+  006AE1CF: EB 1C              jmp         006AE1ED
+  006AE1D1: 85 C9              test        ecx,ecx
+  006AE1D3: 74 05              je          006AE1DA
+  006AE1D5: 83 C1 30           add         ecx,30h
+  006AE1D8: EB 03              jmp         006AE1DD
+  006AE1DA: 8D 4D 04           lea         ecx,[ebp+4]
+  006AE1DD: 85 D2              test        edx,edx
+  006AE1DF: 8D 42 30           lea         eax,[edx+30h]
+  006AE1E2: 75 03              jne         006AE1E7
+  006AE1E4: 8D 46 04           lea         eax,[esi+4]
+  006AE1E7: D9 41 04           fld         dword ptr [ecx+4]
+  006AE1EA: D8 60 04           fsub        dword ptr [eax+4]
+  006AE1ED: D8 1D 2C 86 85 00  fcomp       dword ptr ds:[0085862Ch]
+  006AE1F3: DF E0              fnstsw      ax
+  006AE1F5: F6 C4 05           test        ah,5
+  006AE1F8: 0F 8A 1C 06 00 00  jp          006AE81A
+  006AE1FE: 8B 86 90 05 00 00  mov         eax,dword ptr [esi+00000590h]
+  006AE204: 85 C0              test        eax,eax
+  006AE206: 75 08              jne         006AE210
+  006AE208: 8B DE              mov         ebx,esi
+  006AE20A: 89 44 24 14        mov         dword ptr [esp+14h],eax
+  006AE20E: EB 0B              jmp         006AE21B
+  006AE210: 83 F8 09           cmp         eax,9
+  006AE213: 75 06              jne         006AE21B
+  006AE215: 33 DB              xor         ebx,ebx
+  006AE217: 89 74 24 14        mov         dword ptr [esp+14h],esi
+  006AE21B: D9 46 48           fld         dword ptr [esi+48h]
+  006AE21E: D9 46 44           fld         dword ptr [esi+44h]
+  006AE221: D9 C0              fld         st(0)
+  006AE223: D8 C9              fmul        st,st(1)
+  006AE225: D9 C2              fld         st(2)
+  006AE227: D8 CB              fmul        st,st(3)
+  006AE229: DE C1              faddp       st(1),st
+  006AE22B: D8 1D 28 8C 85 00  fcomp       dword ptr ds:[00858C28h]
+  006AE231: DF E0              fnstsw      ax
+  006AE233: DD D8              fstp        st(0)
+  006AE235: F6 C4 41           test        ah,41h
+  006AE238: DD D8              fstp        st(0)
+  006AE23A: 0F 85 DA 05 00 00  jne         006AE81A
+  006AE240: 85 DB              test        ebx,ebx
+  006AE242: 0F 84 3A 03 00 00  je          006AE582
+  006AE248: 8B 7C 24 10        mov         edi,dword ptr [esp+10h]
+  006AE24C: 33 ED              xor         ebp,ebp
+  006AE24E: 8B FF              mov         edi,edi
+  006AE250: 8A 84 2B 20 08 00  mov         al,byte ptr [ebx+ebp+00000820h]
+            00
+  006AE257: 84 C0              test        al,al
+  006AE259: 0F 85 14 03 00 00  jne         006AE573
+  006AE25F: D9 84 AB D4 07 00  fld         dword ptr [ebx+ebp*4+000007D4h]
+            00
+  006AE266: D8 1D 24 86 85 00  fcomp       dword ptr ds:[00858624h]
+  006AE26C: DF E0              fnstsw      ax
+  006AE26E: F6 C4 05           test        ah,5
+  006AE271: 0F 8A FC 02 00 00  jp          006AE573
+  006AE277: 83 FD 03           cmp         ebp,3
+  006AE27A: 0F 87 E8 00 00 00  ja          006AE368
+  006AE280: FF 24 AD 34 E8 6A  jmp         dword ptr [ebp*4+006AE834h]
+            00
+  006AE287: 0F BF 53 22        movsx       edx,word ptr [ebx+22h]
+  006AE28B: 8B 04 95 C8 B0 A9  mov         eax,dword ptr [edx*4+00A9B0C8h]
+            00
+  006AE292: 8B 40 14           mov         eax,dword ptr [eax+14h]
+  006AE295: C7 44 24 54 00 00  mov         dword ptr [esp+54h],0
+            00 00
+  006AE29D: D9 40 0C           fld         dword ptr [eax+0Ch]
+  006AE2A0: D9 E0              fchs
+  006AE2A2: D9 5C 24 4C        fstp        dword ptr [esp+4Ch]
+  006AE2A6: 8B 4C 24 4C        mov         ecx,dword ptr [esp+4Ch]
+  006AE2AA: D9 40 10           fld         dword ptr [eax+10h]
+  006AE2AD: 8B 44 24 54        mov         eax,dword ptr [esp+54h]
+  006AE2B1: D9 5C 24 50        fstp        dword ptr [esp+50h]
+  006AE2B5: 8B 54 24 50        mov         edx,dword ptr [esp+50h]
+  006AE2B9: 89 4C 24 24        mov         dword ptr [esp+24h],ecx
+  006AE2BD: 89 54 24 28        mov         dword ptr [esp+28h],edx
+  006AE2C1: 89 44 24 2C        mov         dword ptr [esp+2Ch],eax
+  006AE2C5: E9 9E 00 00 00     jmp         006AE368
+  006AE2CA: 0F BF 4B 22        movsx       ecx,word ptr [ebx+22h]
+  006AE2CE: 8B 14 8D C8 B0 A9  mov         edx,dword ptr [ecx*4+00A9B0C8h]
+            00
+  006AE2D5: 8B 42 14           mov         eax,dword ptr [edx+14h]
+  006AE2D8: C7 44 24 3C 00 00  mov         dword ptr [esp+3Ch],0
+            00 00
+  006AE2E0: 8B 54 24 3C        mov         edx,dword ptr [esp+3Ch]
+  006AE2E4: D9 40 0C           fld         dword ptr [eax+0Ch]
+  006AE2E7: D9 E0              fchs
+  006AE2E9: D9 5C 24 34        fstp        dword ptr [esp+34h]
+  006AE2ED: D9 40 04           fld         dword ptr [eax+4]
+  006AE2F0: 8B 44 24 34        mov         eax,dword ptr [esp+34h]
+  006AE2F4: D9 5C 24 38        fstp        dword ptr [esp+38h]
+  006AE2F8: 8B 4C 24 38        mov         ecx,dword ptr [esp+38h]
+  006AE2FC: EB 5E              jmp         006AE35C
+  006AE2FE: 0F BF 43 22        movsx       eax,word ptr [ebx+22h]
+  006AE302: 8B 0C 85 C8 B0 A9  mov         ecx,dword ptr [eax*4+00A9B0C8h]
+            00
+  006AE309: 8B 41 14           mov         eax,dword ptr [ecx+14h]
+  006AE30C: 8B 50 0C           mov         edx,dword ptr [eax+0Ch]
+  006AE30F: 89 54 24 70        mov         dword ptr [esp+70h],edx
+  006AE313: D9 40 10           fld         dword ptr [eax+10h]
+  006AE316: C7 44 24 78 00 00  mov         dword ptr [esp+78h],0
+            00 00
+  006AE31E: D9 5C 24 74        fstp        dword ptr [esp+74h]
+  006AE322: 8B 4C 24 74        mov         ecx,dword ptr [esp+74h]
+  006AE326: 8B C2              mov         eax,edx
+  006AE328: 8B 54 24 78        mov         edx,dword ptr [esp+78h]
+  006AE32C: EB 2E              jmp         006AE35C
+  006AE32E: 0F BF 43 22        movsx       eax,word ptr [ebx+22h]
+  006AE332: 8B 0C 85 C8 B0 A9  mov         ecx,dword ptr [eax*4+00A9B0C8h]
+            00
+  006AE339: 8B 41 14           mov         eax,dword ptr [ecx+14h]
+  006AE33C: 8B 50 0C           mov         edx,dword ptr [eax+0Ch]
+  006AE33F: 89 54 24 64        mov         dword ptr [esp+64h],edx
+  006AE343: D9 40 04           fld         dword ptr [eax+4]
+  006AE346: C7 44 24 6C 00 00  mov         dword ptr [esp+6Ch],0
+            00 00
+  006AE34E: D9 5C 24 68        fstp        dword ptr [esp+68h]
+  006AE352: 8B 4C 24 68        mov         ecx,dword ptr [esp+68h]
+  006AE356: 8B C2              mov         eax,edx
+  006AE358: 8B 54 24 6C        mov         edx,dword ptr [esp+6Ch]
+  006AE35C: 89 44 24 24        mov         dword ptr [esp+24h],eax
+  006AE360: 89 4C 24 28        mov         dword ptr [esp+28h],ecx
+  006AE364: 89 54 24 2C        mov         dword ptr [esp+2Ch],edx
+  006AE368: 8B 43 14           mov         eax,dword ptr [ebx+14h]
+  006AE36B: 8D 4C 24 24        lea         ecx,[esp+24h]
+  006AE36F: 51                 push        ecx
+  006AE370: 50                 push        eax
+  006AE371: 8D 94 24 84 00 00  lea         edx,[esp+00000084h]
+            00
+  006AE378: 52                 push        edx
+  006AE379: E8 12 E5 EE FF     call        0059C890
+  006AE37E: 8B 08              mov         ecx,dword ptr [eax]
+  006AE380: 8B 50 04           mov         edx,dword ptr [eax+4]
+  006AE383: 8B 40 08           mov         eax,dword ptr [eax+8]
+  006AE386: 89 4C 24 24        mov         dword ptr [esp+24h],ecx
+  006AE38A: 8B 4F 14           mov         ecx,dword ptr [edi+14h]
+  006AE38D: 83 C4 0C           add         esp,0Ch
+  006AE390: 85 C9              test        ecx,ecx
+  006AE392: 89 44 24 20        mov         dword ptr [esp+20h],eax
+  006AE396: 89 54 24 1C        mov         dword ptr [esp+1Ch],edx
+  006AE39A: 8D 41 30           lea         eax,[ecx+30h]
+  006AE39D: 75 03              jne         006AE3A2
+  006AE39F: 8D 47 04           lea         eax,[edi+4]
+  006AE3A2: D9 44 24 20        fld         dword ptr [esp+20h]
+  006AE3A6: D8 60 08           fsub        dword ptr [eax+8]
+  006AE3A9: D8 1D 50 8B 85 00  fcomp       dword ptr ds:[00858B50h]
+  006AE3AF: DF E0              fnstsw      ax
+  006AE3B1: F6 C4 05           test        ah,5
+  006AE3B4: 8D 41 30           lea         eax,[ecx+30h]
+  006AE3B7: 7A 12              jp          006AE3CB
+  006AE3B9: 85 C9              test        ecx,ecx
+  006AE3BB: 75 03              jne         006AE3C0
+  006AE3BD: 8D 47 04           lea         eax,[edi+4]
+  006AE3C0: D9 44 24 20        fld         dword ptr [esp+20h]
+  006AE3C4: D8 60 08           fsub        dword ptr [eax+8]
+  006AE3C7: D9 E0              fchs
+  006AE3C9: EB 0E              jmp         006AE3D9
+  006AE3CB: 85 C9              test        ecx,ecx
+  006AE3CD: 75 03              jne         006AE3D2
+  006AE3CF: 8D 47 04           lea         eax,[edi+4]
+  006AE3D2: D9 44 24 20        fld         dword ptr [esp+20h]
+  006AE3D6: D8 60 08           fsub        dword ptr [eax+8]
+  006AE3D9: D8 1D A0 8C 85 00  fcomp       dword ptr ds:[00858CA0h]
+  006AE3DF: DF E0              fnstsw      ax
+  006AE3E1: F6 C4 05           test        ah,5
+  006AE3E4: 0F 8A 89 01 00 00  jp          006AE573
+  006AE3EA: 85 C9              test        ecx,ecx
+  006AE3EC: 74 05              je          006AE3F3
+  006AE3EE: 8D 79 30           lea         edi,[ecx+30h]
+  006AE3F1: EB 03              jmp         006AE3F6
+  006AE3F3: 83 C7 04           add         edi,4
+  006AE3F6: 85 C9              test        ecx,ecx
+  006AE3F8: 74 05              je          006AE3FF
+  006AE3FA: 8D 71 30           lea         esi,[ecx+30h]
+  006AE3FD: EB 07              jmp         006AE406
+  006AE3FF: 8B 74 24 10        mov         esi,dword ptr [esp+10h]
+  006AE403: 83 C6 04           add         esi,4
+  006AE406: 85 C9              test        ecx,ecx
+  006AE408: 74 05              je          006AE40F
+  006AE40A: 8D 51 30           lea         edx,[ecx+30h]
+  006AE40D: EB 07              jmp         006AE416
+  006AE40F: 8B 54 24 10        mov         edx,dword ptr [esp+10h]
+  006AE413: 83 C2 04           add         edx,4
+  006AE416: 85 C9              test        ecx,ecx
+  006AE418: 74 05              je          006AE41F
+  006AE41A: 8D 41 30           lea         eax,[ecx+30h]
+  006AE41D: EB 07              jmp         006AE426
+  006AE41F: 8B 44 24 10        mov         eax,dword ptr [esp+10h]
+  006AE423: 83 C0 04           add         eax,4
+  006AE426: D9 44 24 1C        fld         dword ptr [esp+1Ch]
+  006AE42A: D8 60 04           fsub        dword ptr [eax+4]
+  006AE42D: D9 44 24 1C        fld         dword ptr [esp+1Ch]
+  006AE431: D8 62 04           fsub        dword ptr [edx+4]
+  006AE434: DE C9              fmulp       st(1),st
+  006AE436: D9 44 24 18        fld         dword ptr [esp+18h]
+  006AE43A: D8 27              fsub        dword ptr [edi]
+  006AE43C: D9 44 24 18        fld         dword ptr [esp+18h]
+  006AE440: D8 26              fsub        dword ptr [esi]
+  006AE442: DE C9              fmulp       st(1),st
+  006AE444: DE C1              faddp       st(1),st
+  006AE446: D8 1D 24 86 85 00  fcomp       dword ptr ds:[00858624h]
+  006AE44C: DF E0              fnstsw      ax
+  006AE44E: F6 C4 05           test        ah,5
+  006AE451: 0F 8A 18 01 00 00  jp          006AE56F
+  006AE457: E8 D4 ED EB FF     call        0056D230
+  006AE45C: 84 C0              test        al,al
+  006AE45E: 74 17              je          006AE477
+  006AE460: 6A 00              push        0
+  006AE462: 6A 78              push        78h
+  006AE464: 8D 8B 38 01 00 00  lea         ecx,[ebx+00000138h]
+  006AE46A: C6 84 2B 20 08 00  mov         byte ptr [ebx+ebp+00000820h],1
+            00 01
+  006AE472: E8 A9 7F E4 FF     call        004F6420
+  006AE477: D9 83 8C 00 00 00  fld         dword ptr [ebx+0000008Ch]
+  006AE47D: D8 1D 58 8B 85 00  fcomp       dword ptr ds:[00858B58h]
+  006AE483: DF E0              fnstsw      ax
+  006AE485: F6 C4 41           test        ah,41h
+  006AE488: 0F 85 E1 00 00 00  jne         006AE56F
+  006AE48E: 8B 74 24 10        mov         esi,dword ptr [esp+10h]
+  006AE492: D9 86 8C 00 00 00  fld         dword ptr [esi+0000008Ch]
+  006AE498: D8 0D DC 8C 85 00  fmul        dword ptr ds:[00858CDCh]
+  006AE49E: D9 05 24 86 85 00  fld         dword ptr ds:[00858624h]
+  006AE4A4: D8 D9              fcomp       st(1)
+  006AE4A6: DF E0              fnstsw      ax
+  006AE4A8: F6 C4 05           test        ah,5
+  006AE4AB: 7A 08              jp          006AE4B5
+  006AE4AD: DD D8              fstp        st(0)
+  006AE4AF: D9 05 24 86 85 00  fld         dword ptr ds:[00858624h]
+  006AE4B5: D8 0D 40 8B 85 00  fmul        dword ptr ds:[00858B40h]
+  006AE4BB: 51                 push        ecx
+  006AE4BC: 8B CB              mov         ecx,ebx
+  006AE4BE: D9 1C 24           fstp        dword ptr [esp]
+  006AE4C1: 6A 00              push        0
+  006AE4C3: 6A 00              push        0
+  006AE4C5: E8 D6 D6 DF FF     call        004ABBA0
+  006AE4CA: D9 86 90 00 00 00  fld         dword ptr [esi+00000090h]
+  006AE4D0: D8 0D 78 99 85 00  fmul        dword ptr ds:[00859978h]
+  006AE4D6: D9 05 24 86 85 00  fld         dword ptr ds:[00858624h]
+  006AE4DC: D8 D9              fcomp       st(1)
+  006AE4DE: DF E0              fnstsw      ax
+  006AE4E0: F6 C4 05           test        ah,5
+  006AE4E3: 7A 08              jp          006AE4ED
+  006AE4E5: DD D8              fstp        st(0)
+  006AE4E7: D9 05 24 86 85 00  fld         dword ptr ds:[00858624h]
+  006AE4ED: 8B 43 14           mov         eax,dword ptr [ebx+14h]
+  006AE4F0: 85 C0              test        eax,eax
+  006AE4F2: 8D 50 30           lea         edx,[eax+30h]
+  006AE4F5: 75 0F              jne         006AE506
+  006AE4F7: 8D 53 04           lea         edx,[ebx+4]
+  006AE4FA: 8D 4B 04           lea         ecx,[ebx+4]
+  006AE4FD: 85 C0              test        eax,eax
+  006AE4FF: 74 0A              je          006AE50B
+  006AE501: 83 C0 30           add         eax,30h
+  006AE504: EB 08              jmp         006AE50E
+  006AE506: 8D 48 30           lea         ecx,[eax+30h]
+  006AE509: EB F2              jmp         006AE4FD
+  006AE50B: 8D 43 04           lea         eax,[ebx+4]
+  006AE50E: D9 44 24 20        fld         dword ptr [esp+20h]
+  006AE512: 83 EC 10           sub         esp,10h
+  006AE515: D8 62 08           fsub        dword ptr [edx+8]
+  006AE518: D9 5C 24 0C        fstp        dword ptr [esp+0Ch]
+  006AE51C: D9 44 24 2C        fld         dword ptr [esp+2Ch]
+  006AE520: D8 61 04           fsub        dword ptr [ecx+4]
+  006AE523: 8B CB              mov         ecx,ebx
+  006AE525: D9 5C 24 08        fstp        dword ptr [esp+8]
+  006AE529: D9 44 24 28        fld         dword ptr [esp+28h]
+  006AE52D: D8 20              fsub        dword ptr [eax]
+  006AE52F: D9 5C 24 04        fstp        dword ptr [esp+4]
+  006AE533: D8 0D 40 8B 85 00  fmul        dword ptr ds:[00858B40h]
+  006AE539: D9 1C 24           fstp        dword ptr [esp]
+  006AE53C: 6A 00              push        0
+  006AE53E: 6A 00              push        0
+  006AE540: E8 2B F5 FA FF     call        0065DA70
+  006AE545: 6A 00              push        0
+  006AE547: 6A FF              push        0FFFFFFFFh
+  006AE549: E8 82 FB EB FF     call        0056E0D0
+  006AE54E: 83 C4 08           add         esp,8
+  006AE551: 3B D8              cmp         ebx,eax
+  006AE553: 75 1A              jne         006AE56F
+  006AE555: 6A 00              push        0
+  006AE557: 6A 46              push        46h
+  006AE559: 68 2C 01 00 00     push        12Ch
+  006AE55E: 6A 00              push        0
+  006AE560: E8 0B 16 E9 FF     call        0053FB70
+  006AE565: 83 C4 04           add         esp,4
+  006AE568: 8B C8              mov         ecx,eax
+  006AE56A: E8 B1 13 E9 FF     call        0053F920
+  006AE56F: 8B 7C 24 10        mov         edi,dword ptr [esp+10h]
+  006AE573: 45                 inc         ebp
+  006AE574: 83 FD 04           cmp         ebp,4
+  006AE577: 0F 8C D3 FC FF FF  jl          006AE250
+  006AE57D: E9 94 02 00 00     jmp         006AE816
+  006AE582: 8B 44 24 14        mov         eax,dword ptr [esp+14h]
+  006AE586: 85 C0              test        eax,eax
+  006AE588: 0F 84 8C 02 00 00  je          006AE81A
+  006AE58E: 8B 7C 24 10        mov         edi,dword ptr [esp+10h]
+  006AE592: 33 ED              xor         ebp,ebp
+  006AE594: 8B F0              mov         esi,eax
+  006AE596: EB 08              jmp         006AE5A0
+  006AE598: 8D A4 24 00 00 00  lea         esp,[esp+00000000h]
+            00
+  006AE59F: 90                 nop
+  006AE5A0: 8A 84 2E 4C 07 00  mov         al,byte ptr [esi+ebp+0000074Ch]
+            00
+  006AE5A7: 84 C0              test        al,al
+  006AE5A9: 0F 85 5D 02 00 00  jne         006AE80C
+  006AE5AF: D9 84 EE 10 07 00  fld         dword ptr [esi+ebp*8+00000710h]
+            00
+  006AE5B6: D8 1D 24 86 85 00  fcomp       dword ptr ds:[00858624h]
+  006AE5BC: DF E0              fnstsw      ax
+  006AE5BE: F6 C4 05           test        ah,5
+  006AE5C1: 0F 8A 45 02 00 00  jp          006AE80C
+  006AE5C7: 8B C5              mov         eax,ebp
+  006AE5C9: 83 E8 00           sub         eax,0
+  006AE5CC: 74 3C              je          006AE60A
+  006AE5CE: 48                 dec         eax
+  006AE5CF: 75 7C              jne         006AE64D
+  006AE5D1: 0F BF 4E 22        movsx       ecx,word ptr [esi+22h]
+  006AE5D5: 8B 14 8D C8 B0 A9  mov         edx,dword ptr [ecx*4+00A9B0C8h]
+            00
+  006AE5DC: 8B 42 14           mov         eax,dword ptr [edx+14h]
+  006AE5DF: C7 44 24 40 00 00  mov         dword ptr [esp+40h],0
+            00 00
+  006AE5E7: 8B 4C 24 40        mov         ecx,dword ptr [esp+40h]
+  006AE5EB: D9 40 04           fld         dword ptr [eax+4]
+  006AE5EE: C7 44 24 48 00 00  mov         dword ptr [esp+48h],0
+            00 00
+  006AE5F6: D8 0D 98 8C 85 00  fmul        dword ptr ds:[00858C98h]
+  006AE5FC: 8B 44 24 48        mov         eax,dword ptr [esp+48h]
+  006AE600: D9 5C 24 44        fstp        dword ptr [esp+44h]
+  006AE604: 8B 54 24 44        mov         edx,dword ptr [esp+44h]
+  006AE608: EB 37              jmp         006AE641
+  006AE60A: 0F BF 4E 22        movsx       ecx,word ptr [esi+22h]
+  006AE60E: 8B 14 8D C8 B0 A9  mov         edx,dword ptr [ecx*4+00A9B0C8h]
+            00
+  006AE615: 8B 42 14           mov         eax,dword ptr [edx+14h]
+  006AE618: C7 44 24 58 00 00  mov         dword ptr [esp+58h],0
+            00 00
+  006AE620: 8B 4C 24 58        mov         ecx,dword ptr [esp+58h]
+  006AE624: D9 40 10           fld         dword ptr [eax+10h]
+  006AE627: C7 44 24 60 00 00  mov         dword ptr [esp+60h],0
+            00 00
+  006AE62F: D8 0D 98 8C 85 00  fmul        dword ptr ds:[00858C98h]
+  006AE635: 8B 44 24 60        mov         eax,dword ptr [esp+60h]
+  006AE639: D9 5C 24 5C        fstp        dword ptr [esp+5Ch]
+  006AE63D: 8B 54 24 5C        mov         edx,dword ptr [esp+5Ch]
+  006AE641: 89 4C 24 24        mov         dword ptr [esp+24h],ecx
+  006AE645: 89 54 24 28        mov         dword ptr [esp+28h],edx
+  006AE649: 89 44 24 2C        mov         dword ptr [esp+2Ch],eax
+  006AE64D: 8B 46 14           mov         eax,dword ptr [esi+14h]
+  006AE650: 8D 4C 24 24        lea         ecx,[esp+24h]
+  006AE654: 51                 push        ecx
+  006AE655: 50                 push        eax
+  006AE656: 8D 94 24 90 00 00  lea         edx,[esp+00000090h]
+            00
+  006AE65D: 52                 push        edx
+  006AE65E: E8 2D E2 EE FF     call        0059C890
+  006AE663: 8B 08              mov         ecx,dword ptr [eax]
+  006AE665: 8B 50 04           mov         edx,dword ptr [eax+4]
+  006AE668: 8B 40 08           mov         eax,dword ptr [eax+8]
+  006AE66B: 89 4C 24 24        mov         dword ptr [esp+24h],ecx
+  006AE66F: 8B 4F 14           mov         ecx,dword ptr [edi+14h]
+  006AE672: 83 C4 0C           add         esp,0Ch
+  006AE675: 85 C9              test        ecx,ecx
+  006AE677: 89 44 24 20        mov         dword ptr [esp+20h],eax
+  006AE67B: 89 54 24 1C        mov         dword ptr [esp+1Ch],edx
+  006AE67F: 8D 41 30           lea         eax,[ecx+30h]
+  006AE682: 75 03              jne         006AE687
+  006AE684: 8D 47 04           lea         eax,[edi+4]
+  006AE687: D9 44 24 20        fld         dword ptr [esp+20h]
+  006AE68B: D8 60 08           fsub        dword ptr [eax+8]
+  006AE68E: D8 1D 50 8B 85 00  fcomp       dword ptr ds:[00858B50h]
+  006AE694: DF E0              fnstsw      ax
+  006AE696: F6 C4 05           test        ah,5
+  006AE699: 8D 41 30           lea         eax,[ecx+30h]
+  006AE69C: 7A 12              jp          006AE6B0
+  006AE69E: 85 C9              test        ecx,ecx
+  006AE6A0: 75 03              jne         006AE6A5
+  006AE6A2: 8D 47 04           lea         eax,[edi+4]
+  006AE6A5: D9 44 24 20        fld         dword ptr [esp+20h]
+  006AE6A9: D8 60 08           fsub        dword ptr [eax+8]
+  006AE6AC: D9 E0              fchs
+  006AE6AE: EB 0E              jmp         006AE6BE
+  006AE6B0: 85 C9              test        ecx,ecx
+  006AE6B2: 75 03              jne         006AE6B7
+  006AE6B4: 8D 47 04           lea         eax,[edi+4]
+  006AE6B7: D9 44 24 20        fld         dword ptr [esp+20h]
+  006AE6BB: D8 60 08           fsub        dword ptr [eax+8]
+  006AE6BE: D8 1D A0 8C 85 00  fcomp       dword ptr ds:[00858CA0h]
+  006AE6C4: DF E0              fnstsw      ax
+  006AE6C6: F6 C4 05           test        ah,5
+  006AE6C9: 0F 8A 3D 01 00 00  jp          006AE80C
+  006AE6CF: 85 C9              test        ecx,ecx
+  006AE6D1: 74 05              je          006AE6D8
+  006AE6D3: 8D 79 30           lea         edi,[ecx+30h]
+  006AE6D6: EB 03              jmp         006AE6DB
+  006AE6D8: 83 C7 04           add         edi,4
+  006AE6DB: 85 C9              test        ecx,ecx
+  006AE6DD: 74 05              je          006AE6E4
+  006AE6DF: 8D 71 30           lea         esi,[ecx+30h]
+  006AE6E2: EB 07              jmp         006AE6EB
+  006AE6E4: 8B 74 24 10        mov         esi,dword ptr [esp+10h]
+  006AE6E8: 83 C6 04           add         esi,4
+  006AE6EB: 85 C9              test        ecx,ecx
+  006AE6ED: 74 05              je          006AE6F4
+  006AE6EF: 8D 51 30           lea         edx,[ecx+30h]
+  006AE6F2: EB 07              jmp         006AE6FB
+  006AE6F4: 8B 54 24 10        mov         edx,dword ptr [esp+10h]
+  006AE6F8: 83 C2 04           add         edx,4
+  006AE6FB: 85 C9              test        ecx,ecx
+  006AE6FD: 74 05              je          006AE704
+  006AE6FF: 8D 41 30           lea         eax,[ecx+30h]
+  006AE702: EB 07              jmp         006AE70B
+  006AE704: 8B 44 24 10        mov         eax,dword ptr [esp+10h]
+  006AE708: 83 C0 04           add         eax,4
+  006AE70B: D9 44 24 1C        fld         dword ptr [esp+1Ch]
+  006AE70F: D8 60 04           fsub        dword ptr [eax+4]
+  006AE712: D9 44 24 1C        fld         dword ptr [esp+1Ch]
+  006AE716: D8 62 04           fsub        dword ptr [edx+4]
+  006AE719: DE C9              fmulp       st(1),st
+  006AE71B: D9 44 24 18        fld         dword ptr [esp+18h]
+  006AE71F: D8 26              fsub        dword ptr [esi]
+  006AE721: D9 44 24 18        fld         dword ptr [esp+18h]
+  006AE725: D8 27              fsub        dword ptr [edi]
+  006AE727: DE C9              fmulp       st(1),st
+  006AE729: DE C1              faddp       st(1),st
+  006AE72B: D8 1D 24 86 85 00  fcomp       dword ptr ds:[00858624h]
+  006AE731: DF E0              fnstsw      ax
+  006AE733: F6 C4 05           test        ah,5
+  006AE736: 0F 8A C8 00 00 00  jp          006AE804
+  006AE73C: E8 EF EA EB FF     call        0056D230
+  006AE741: 84 C0              test        al,al
+  006AE743: 8B 74 24 14        mov         esi,dword ptr [esp+14h]
+  006AE747: 74 17              je          006AE760
+  006AE749: 6A 00              push        0
+  006AE74B: 6A 78              push        78h
+  006AE74D: 8D 8E 38 01 00 00  lea         ecx,[esi+00000138h]
+  006AE753: C6 84 2E 4C 07 00  mov         byte ptr [esi+ebp+0000074Ch],1
+            00 01
+  006AE75B: E8 C0 7C E4 FF     call        004F6420
+  006AE760: D9 86 8C 00 00 00  fld         dword ptr [esi+0000008Ch]
+  006AE766: D8 1D 28 86 85 00  fcomp       dword ptr ds:[00858628h]
+  006AE76C: DF E0              fnstsw      ax
+  006AE76E: F6 C4 41           test        ah,41h
+  006AE771: 0F 85 8D 00 00 00  jne         006AE804
+  006AE777: 68 00 00 20 41     push        41200000h
+  006AE77C: 6A 00              push        0
+  006AE77E: 6A 00              push        0
+  006AE780: 8B CE              mov         ecx,esi
+  006AE782: E8 19 D4 DF FF     call        004ABBA0
+  006AE787: 8B 46 14           mov         eax,dword ptr [esi+14h]
+  006AE78A: 85 C0              test        eax,eax
+  006AE78C: 8D 50 30           lea         edx,[eax+30h]
+  006AE78F: 75 0F              jne         006AE7A0
+  006AE791: 8D 56 04           lea         edx,[esi+4]
+  006AE794: 8D 4E 04           lea         ecx,[esi+4]
+  006AE797: 85 C0              test        eax,eax
+  006AE799: 74 0A              je          006AE7A5
+  006AE79B: 83 C0 30           add         eax,30h
+  006AE79E: EB 08              jmp         006AE7A8
+  006AE7A0: 8D 48 30           lea         ecx,[eax+30h]
+  006AE7A3: EB F2              jmp         006AE797
+  006AE7A5: 8D 46 04           lea         eax,[esi+4]
+  006AE7A8: D9 44 24 20        fld         dword ptr [esp+20h]
+  006AE7AC: 83 EC 0C           sub         esp,0Ch
+  006AE7AF: D8 62 08           fsub        dword ptr [edx+8]
+  006AE7B2: D9 5C 24 08        fstp        dword ptr [esp+8]
+  006AE7B6: D9 44 24 28        fld         dword ptr [esp+28h]
+  006AE7BA: D8 61 04           fsub        dword ptr [ecx+4]
+  006AE7BD: 8B CE              mov         ecx,esi
+  006AE7BF: D9 5C 24 04        fstp        dword ptr [esp+4]
+  006AE7C3: D9 44 24 24        fld         dword ptr [esp+24h]
+  006AE7C7: D8 20              fsub        dword ptr [eax]
+  006AE7C9: D9 1C 24           fstp        dword ptr [esp]
+  006AE7CC: 68 00 00 20 41     push        41200000h
+  006AE7D1: 6A 00              push        0
+  006AE7D3: 6A 00              push        0
+  006AE7D5: E8 96 F2 FA FF     call        0065DA70
+  006AE7DA: 6A 00              push        0
+  006AE7DC: 6A FF              push        0FFFFFFFFh
+  006AE7DE: E8 ED F8 EB FF     call        0056E0D0
+  006AE7E3: 83 C4 08           add         esp,8
+  006AE7E6: 3B F0              cmp         esi,eax
+  006AE7E8: 75 1A              jne         006AE804
+  006AE7EA: 6A 00              push        0
+  006AE7EC: 6A 46              push        46h
+  006AE7EE: 68 2C 01 00 00     push        12Ch
+  006AE7F3: 6A 00              push        0
+  006AE7F5: E8 76 13 E9 FF     call        0053FB70
+  006AE7FA: 83 C4 04           add         esp,4
+  006AE7FD: 8B C8              mov         ecx,eax
+  006AE7FF: E8 1C 11 E9 FF     call        0053F920
+  006AE804: 8B 7C 24 10        mov         edi,dword ptr [esp+10h]
+  006AE808: 8B 74 24 14        mov         esi,dword ptr [esp+14h]
+  006AE80C: 45                 inc         ebp
+  006AE80D: 83 FD 02           cmp         ebp,2
+  006AE810: 0F 8C 8A FD FF FF  jl          006AE5A0
+  006AE816: 8B 6C 24 10        mov         ebp,dword ptr [esp+10h]
+  006AE81A: 8B 44 24 30        mov         eax,dword ptr [esp+30h]
+  006AE81E: 85 C0              test        eax,eax
+  006AE820: 0F 85 D3 F8 FF FF  jne         006AE0F9
+  006AE826: 5F                 pop         edi
+  006AE827: 5E                 pop         esi
+  006AE828: 5D                 pop         ebp
+  006AE829: 5B                 pop         ebx
+  006AE82A: 81 C4 84 00 00 00  add         esp,84h
+  006AE830: C2 04 00           ret         4
+  006AE833: 90                 nop
+  006AE834: 87
+
+  Summary
+
+      456000 .text

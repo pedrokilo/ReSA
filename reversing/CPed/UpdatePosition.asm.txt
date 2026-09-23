@@ -1,0 +1,349 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  005E1B10: A0 88 30 A4 00     mov         al,byte ptr ds:[00A43088h]
+  005E1B15: 83 EC 4C           sub         esp,4Ch
+  005E1B18: 3C 01              cmp         al,1
+  005E1B1A: 56                 push        esi
+  005E1B1B: 57                 push        edi
+  005E1B1C: 8B F1              mov         esi,ecx
+  005E1B1E: 0F 84 75 04 00 00  je          005E1F99
+  005E1B24: F6 86 6C 04 00 00  test        byte ptr [esi+0000046Ch],1
+            01
+  005E1B2B: 75 69              jne         005E1B96
+  005E1B2D: 8B 8E 7C 04 00 00  mov         ecx,dword ptr [esi+0000047Ch]
+  005E1B33: E8 38 F5 01 00     call        00601070
+  005E1B38: 85 C0              test        eax,eax
+  005E1B3A: 75 2E              jne         005E1B6A
+  005E1B3C: 8B 8E 7C 04 00 00  mov         ecx,dword ptr [esi+0000047Ch]
+  005E1B42: E8 C9 F5 01 00     call        00601110
+  005E1B47: 85 C0              test        eax,eax
+  005E1B49: 75 1F              jne         005E1B6A
+  005E1B4B: 8B 86 7C 04 00 00  mov         eax,dword ptr [esi+0000047Ch]
+  005E1B51: 8B 48 10           mov         ecx,dword ptr [eax+10h]
+  005E1B54: 85 C9              test        ecx,ecx
+  005E1B56: 0F 84 3D 04 00 00  je          005E1F99
+  005E1B5C: 8B 11              mov         edx,dword ptr [ecx]
+  005E1B5E: FF 52 10           call        dword ptr [edx+10h]
+  005E1B61: 83 F8 6C           cmp         eax,6Ch
+  005E1B64: 0F 85 2F 04 00 00  jne         005E1F99
+  005E1B6A: 8B 4E 14           mov         ecx,dword ptr [esi+14h]
+  005E1B6D: 85 C9              test        ecx,ecx
+  005E1B6F: 8B 86 58 05 00 00  mov         eax,dword ptr [esi+00000558h]
+  005E1B75: 89 44 24 08        mov         dword ptr [esp+8],eax
+  005E1B79: 74 0E              je          005E1B89
+  005E1B7B: 8B D0              mov         edx,eax
+  005E1B7D: 52                 push        edx
+  005E1B7E: E8 9D 94 FB FF     call        0059B020
+  005E1B83: 5F                 pop         edi
+  005E1B84: 5E                 pop         esi
+  005E1B85: 83 C4 4C           add         esp,4Ch
+  005E1B88: C3                 ret
+  005E1B89: 8B 44 24 08        mov         eax,dword ptr [esp+8]
+  005E1B8D: 89 46 10           mov         dword ptr [esi+10h],eax
+  005E1B90: 5F                 pop         edi
+  005E1B91: 5E                 pop         esi
+  005E1B92: 83 C4 4C           add         esp,4Ch
+  005E1B95: C3                 ret
+  005E1B96: 8B 86 FC 00 00 00  mov         eax,dword ptr [esi+000000FCh]
+  005E1B9C: 85 C0              test        eax,eax
+  005E1B9E: 0F 85 F5 03 00 00  jne         005E1F99
+  005E1BA4: 8B 8E 58 05 00 00  mov         ecx,dword ptr [esi+00000558h]
+  005E1BAA: 89 4C 24 08        mov         dword ptr [esp+8],ecx
+  005E1BAE: 8B 4E 14           mov         ecx,dword ptr [esi+14h]
+  005E1BB1: 85 C9              test        ecx,ecx
+  005E1BB3: 74 0C              je          005E1BC1
+  005E1BB5: 8B 54 24 08        mov         edx,dword ptr [esp+8]
+  005E1BB9: 52                 push        edx
+  005E1BBA: E8 61 94 FB FF     call        0059B020
+  005E1BBF: EB 07              jmp         005E1BC8
+  005E1BC1: 8B 44 24 08        mov         eax,dword ptr [esp+8]
+  005E1BC5: 89 46 10           mov         dword ptr [esi+10h],eax
+  005E1BC8: 8B BE 68 05 00 00  mov         edi,dword ptr [esi+00000568h]
+  005E1BCE: 85 FF              test        edi,edi
+  005E1BD0: 0F 84 9D 01 00 00  je          005E1D73
+  005E1BD6: 8B 86 98 05 00 00  mov         eax,dword ptr [esi+00000598h]
+  005E1BDC: 85 C0              test        eax,eax
+  005E1BDE: 0F 84 FD 00 00 00  je          005E1CE1
+  005E1BE4: 83 F8 01           cmp         eax,1
+  005E1BE7: 0F 84 F4 00 00 00  je          005E1CE1
+  005E1BED: 8A 4F 36           mov         cl,byte ptr [edi+36h]
+  005E1BF0: 80 E1 07           and         cl,7
+  005E1BF3: 80 F9 02           cmp         cl,2
+  005E1BF6: 0F 85 E5 00 00 00  jne         005E1CE1
+  005E1BFC: 83 BF 90 05 00 00  cmp         dword ptr [edi+00000590h],5
+            05
+  005E1C03: 0F 85 D8 00 00 00  jne         005E1CE1
+  005E1C09: 8B 46 14           mov         eax,dword ptr [esi+14h]
+  005E1C0C: 85 C0              test        eax,eax
+  005E1C0E: 74 05              je          005E1C15
+  005E1C10: 83 C0 30           add         eax,30h
+  005E1C13: EB 03              jmp         005E1C18
+  005E1C15: 8D 46 04           lea         eax,[esi+4]
+  005E1C18: 8B 10              mov         edx,dword ptr [eax]
+  005E1C1A: 89 54 24 18        mov         dword ptr [esp+18h],edx
+  005E1C1E: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  005E1C21: 89 4C 24 1C        mov         dword ptr [esp+1Ch],ecx
+  005E1C25: 8B 50 08           mov         edx,dword ptr [eax+8]
+  005E1C28: 89 54 24 20        mov         dword ptr [esp+20h],edx
+  005E1C2C: D9 44 24 20        fld         dword ptr [esp+20h]
+  005E1C30: D8 25 24 86 85 00  fsub        dword ptr ds:[00858624h]
+  005E1C36: D9 5C 24 20        fstp        dword ptr [esp+20h]
+  005E1C3A: 8B 47 14           mov         eax,dword ptr [edi+14h]
+  005E1C3D: 85 C0              test        eax,eax
+  005E1C3F: 74 05              je          005E1C46
+  005E1C41: 83 C0 30           add         eax,30h
+  005E1C44: EB 03              jmp         005E1C49
+  005E1C46: 8D 47 04           lea         eax,[edi+4]
+  005E1C49: 50                 push        eax
+  005E1C4A: 8D 4C 24 1C        lea         ecx,[esp+1Ch]
+  005E1C4E: E8 1D 51 E2 FF     call        00406D70
+  005E1C53: 8D 47 44           lea         eax,[edi+44h]
+  005E1C56: 50                 push        eax
+  005E1C57: 8D 4C 24 1C        lea         ecx,[esp+1Ch]
+  005E1C5B: 51                 push        ecx
+  005E1C5C: 83 C7 50           add         edi,50h
+  005E1C5F: 8D 54 24 2C        lea         edx,[esp+2Ch]
+  005E1C63: 57                 push        edi
+  005E1C64: 52                 push        edx
+  005E1C65: E8 C6 AA FB FF     call        0059C730
+  005E1C6A: 83 C4 0C           add         esp,0Ch
+  005E1C6D: 50                 push        eax
+  005E1C6E: 8D 44 24 38        lea         eax,[esp+38h]
+  005E1C72: 50                 push        eax
+  005E1C73: E8 B8 E1 E2 FF     call        0040FE30
+  005E1C78: 8B 08              mov         ecx,dword ptr [eax]
+  005E1C7A: 8B 50 04           mov         edx,dword ptr [eax+4]
+  005E1C7D: 8B 40 08           mov         eax,dword ptr [eax+8]
+  005E1C80: 89 4C 24 18        mov         dword ptr [esp+18h],ecx
+  005E1C84: 8B 0D 5C CB B7 00  mov         ecx,dword ptr ds:[00B7CB5Ch]
+  005E1C8A: 83 C4 0C           add         esp,0Ch
+  005E1C8D: 51                 push        ecx
+  005E1C8E: 8B 8E 68 05 00 00  mov         ecx,dword ptr [esi+00000568h]
+  005E1C94: 89 54 24 14        mov         dword ptr [esp+14h],edx
+  005E1C98: 8D 54 24 1C        lea         edx,[esp+1Ch]
+  005E1C9C: 52                 push        edx
+  005E1C9D: 83 C1 50           add         ecx,50h
+  005E1CA0: 89 44 24 1C        mov         dword ptr [esp+1Ch],eax
+  005E1CA4: E8 F7 50 E2 FF     call        00406DA0
+  005E1CA9: D8 0D 1C 8C 85 00  fmul        dword ptr ds:[00858C1Ch]
+  005E1CAF: 51                 push        ecx
+  005E1CB0: 8D 44 24 48        lea         eax,[esp+48h]
+  005E1CB4: D9 1C 24           fstp        dword ptr [esp]
+  005E1CB7: 50                 push        eax
+  005E1CB8: E8 D3 E1 E2 FF     call        0040FE90
+  005E1CBD: 83 C4 0C           add         esp,0Ch
+  005E1CC0: 50                 push        eax
+  005E1CC1: 8D 4C 24 50        lea         ecx,[esp+50h]
+  005E1CC5: 51                 push        ecx
+  005E1CC6: E8 F5 E1 E2 FF     call        0040FEC0
+  005E1CCB: 83 C4 0C           add         esp,0Ch
+  005E1CCE: 50                 push        eax
+  005E1CCF: 8D 4C 24 10        lea         ecx,[esp+10h]
+  005E1CD3: E8 28 FD E2 FF     call        00411A00
+  005E1CD8: 8B 54 24 14        mov         edx,dword ptr [esp+14h]
+  005E1CDC: 89 56 4C           mov         dword ptr [esi+4Ch],edx
+  005E1CDF: EB 3B              jmp         005E1D1C
+  005E1CE1: 83 EC 0C           sub         esp,0Ch
+  005E1CE4: 8D 86 6C 05 00 00  lea         eax,[esi+0000056Ch]
+  005E1CEA: 8B 10              mov         edx,dword ptr [eax]
+  005E1CEC: 8B CC              mov         ecx,esp
+  005E1CEE: 89 11              mov         dword ptr [ecx],edx
+  005E1CF0: 8B 50 04           mov         edx,dword ptr [eax+4]
+  005E1CF3: 8B 40 08           mov         eax,dword ptr [eax+8]
+  005E1CF6: 89 51 04           mov         dword ptr [ecx+4],edx
+  005E1CF9: 89 41 08           mov         dword ptr [ecx+8],eax
+  005E1CFC: 8D 4C 24 54        lea         ecx,[esp+54h]
+  005E1D00: 51                 push        ecx
+  005E1D01: 8B CF              mov         ecx,edi
+  005E1D03: E8 D8 0F F6 FF     call        00542CE0
+  005E1D08: 8B 10              mov         edx,dword ptr [eax]
+  005E1D0A: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  005E1D0D: 89 54 24 0C        mov         dword ptr [esp+0Ch],edx
+  005E1D11: 8B 50 08           mov         edx,dword ptr [eax+8]
+  005E1D14: 89 4C 24 10        mov         dword ptr [esp+10h],ecx
+  005E1D18: 89 54 24 14        mov         dword ptr [esp+14h],edx
+  005E1D1C: D9 44 24 0C        fld         dword ptr [esp+0Ch]
+  005E1D20: 8B 86 68 05 00 00  mov         eax,dword ptr [esi+00000568h]
+  005E1D26: D8 86 50 05 00 00  fadd        dword ptr [esi+00000550h]
+  005E1D2C: D8 66 44           fsub        dword ptr [esi+44h]
+  005E1D2F: D9 5C 24 18        fstp        dword ptr [esp+18h]
+  005E1D33: D9 44 24 10        fld         dword ptr [esp+10h]
+  005E1D37: D8 86 54 05 00 00  fadd        dword ptr [esi+00000554h]
+  005E1D3D: D8 66 48           fsub        dword ptr [esi+48h]
+  005E1D40: D9 5C 24 1C        fstp        dword ptr [esp+1Ch]
+  005E1D44: D9 05 5C CB B7 00  fld         dword ptr ds:[00B7CB5Ch]
+  005E1D4A: D8 48 58           fmul        dword ptr [eax+58h]
+  005E1D4D: D8 86 58 05 00 00  fadd        dword ptr [esi+00000558h]
+  005E1D53: D9 9E 58 05 00 00  fstp        dword ptr [esi+00000558h]
+  005E1D59: D9 05 5C CB B7 00  fld         dword ptr ds:[00B7CB5Ch]
+  005E1D5F: D8 48 58           fmul        dword ptr [eax+58h]
+  005E1D62: D8 86 5C 05 00 00  fadd        dword ptr [esi+0000055Ch]
+  005E1D68: D9 9E 5C 05 00 00  fstp        dword ptr [esi+0000055Ch]
+  005E1D6E: E9 F7 00 00 00     jmp         005E1E6A
+  005E1D73: 0F B6 86 BA 00 00  movzx       eax,byte ptr [esi+000000BAh]
+            00
+  005E1D7A: 50                 push        eax
+  005E1D7B: B9 38 95 B7 00     mov         ecx,0B79538h
+  005E1D80: E8 EB C9 F7 FF     call        0055E770
+  005E1D85: 84 C0              test        al,al
+  005E1D87: 0F 84 BF 00 00 00  je          005E1E4C
+  005E1D8D: D9 86 78 05 00 00  fld         dword ptr [esi+00000578h]
+  005E1D93: D8 1D 50 8B 85 00  fcomp       dword ptr ds:[00858B50h]
+  005E1D99: DF E0              fnstsw      ax
+  005E1D9B: F6 C4 44           test        ah,44h
+  005E1D9E: 7A 17              jp          005E1DB7
+  005E1DA0: D9 86 7C 05 00 00  fld         dword ptr [esi+0000057Ch]
+  005E1DA6: D8 1D 50 8B 85 00  fcomp       dword ptr ds:[00858B50h]
+  005E1DAC: DF E0              fnstsw      ax
+  005E1DAE: F6 C4 44           test        ah,44h
+  005E1DB1: 0F 8B 95 00 00 00  jnp         005E1E4C
+  005E1DB7: 8B 8E 78 05 00 00  mov         ecx,dword ptr [esi+00000578h]
+  005E1DBD: D9 86 7C 05 00 00  fld         dword ptr [esi+0000057Ch]
+  005E1DC3: 89 4C 24 0C        mov         dword ptr [esp+0Ch],ecx
+  005E1DC7: D9 5C 24 10        fstp        dword ptr [esp+10h]
+  005E1DCB: 8D 4C 24 0C        lea         ecx,[esp+0Ch]
+  005E1DCF: E8 AC C6 E6 FF     call        0044E480
+  005E1DD4: D9 44 24 0C        fld         dword ptr [esp+0Ch]
+  005E1DD8: D8 0D 38 8B 85 00  fmul        dword ptr ds:[00858B38h]
+  005E1DDE: C7 46 44 00 00 00  mov         dword ptr [esi+44h],0
+            00
+  005E1DE5: C7 46 48 00 00 00  mov         dword ptr [esi+48h],0
+            00
+  005E1DEC: C7 46 4C 6F 12 83  mov         dword ptr [esi+4Ch],0BA83126Fh
+            BA
+  005E1DF3: D8 86 50 05 00 00  fadd        dword ptr [esi+00000550h]
+  005E1DF9: D9 5C 24 18        fstp        dword ptr [esp+18h]
+  005E1DFD: D9 44 24 10        fld         dword ptr [esp+10h]
+  005E1E01: D8 0D 38 8B 85 00  fmul        dword ptr ds:[00858B38h]
+  005E1E07: D8 86 54 05 00 00  fadd        dword ptr [esi+00000554h]
+  005E1E0D: D9 5C 24 1C        fstp        dword ptr [esp+1Ch]
+  005E1E11: D9 44 24 10        fld         dword ptr [esp+10h]
+  005E1E15: D8 4C 24 1C        fmul        dword ptr [esp+1Ch]
+  005E1E19: D9 44 24 0C        fld         dword ptr [esp+0Ch]
+  005E1E1D: D8 4C 24 18        fmul        dword ptr [esp+18h]
+  005E1E21: DE C1              faddp       st(1),st
+  005E1E23: D8 15 50 8B 85 00  fcom        dword ptr ds:[00858B50h]
+  005E1E29: DF E0              fnstsw      ax
+  005E1E2B: F6 C4 05           test        ah,5
+  005E1E2E: 7A 38              jp          005E1E68
+  005E1E30: D9 44 24 0C        fld         dword ptr [esp+0Ch]
+  005E1E34: D8 C9              fmul        st,st(1)
+  005E1E36: D8 6C 24 18        fsubr       dword ptr [esp+18h]
+  005E1E3A: D9 5C 24 18        fstp        dword ptr [esp+18h]
+  005E1E3E: D8 4C 24 10        fmul        dword ptr [esp+10h]
+  005E1E42: D8 6C 24 1C        fsubr       dword ptr [esp+1Ch]
+  005E1E46: D9 5C 24 1C        fstp        dword ptr [esp+1Ch]
+  005E1E4A: EB 1E              jmp         005E1E6A
+  005E1E4C: D9 86 50 05 00 00  fld         dword ptr [esi+00000550h]
+  005E1E52: D8 66 44           fsub        dword ptr [esi+44h]
+  005E1E55: D9 5C 24 18        fstp        dword ptr [esp+18h]
+  005E1E59: D9 86 54 05 00 00  fld         dword ptr [esi+00000554h]
+  005E1E5F: D8 66 48           fsub        dword ptr [esi+48h]
+  005E1E62: D9 5C 24 1C        fstp        dword ptr [esp+1Ch]
+  005E1E66: EB 02              jmp         005E1E6A
+  005E1E68: DD D8              fstp        st(0)
+  005E1E6A: 8B 86 68 05 00 00  mov         eax,dword ptr [esi+00000568h]
+  005E1E70: 85 C0              test        eax,eax
+  005E1E72: 0F 84 B8 00 00 00  je          005E1F30
+  005E1E78: 8B 88 FC 00 00 00  mov         ecx,dword ptr [eax+000000FCh]
+  005E1E7E: 85 C9              test        ecx,ecx
+  005E1E80: 0F 85 AA 00 00 00  jne         005E1F30
+  005E1E86: 8B 48 40           mov         ecx,dword ptr [eax+40h]
+  005E1E89: F6 C1 04           test        cl,4
+  005E1E8C: 74 09              je          005E1E97
+  005E1E8E: F6 C1 08           test        cl,8
+  005E1E91: 0F 84 99 00 00 00  je          005E1F30
+  005E1E97: D9 44 24 1C        fld         dword ptr [esp+1Ch]
+  005E1E9B: 8A 50 36           mov         dl,byte ptr [eax+36h]
+  005E1E9E: D8 4C 24 1C        fmul        dword ptr [esp+1Ch]
+  005E1EA2: 80 E2 07           and         dl,7
+  005E1EA5: 80 FA 02           cmp         dl,2
+  005E1EA8: D9 44 24 18        fld         dword ptr [esp+18h]
+  005E1EAC: D8 4C 24 18        fmul        dword ptr [esp+18h]
+  005E1EB0: DE C1              faddp       st(1),st
+  005E1EB2: D9 FA              fsqrt
+  005E1EB4: D9 54 24 0C        fst         dword ptr [esp+0Ch]
+  005E1EB8: D9 54 24 08        fst         dword ptr [esp+8]
+  005E1EBC: 75 51              jne         005E1F0F
+  005E1EBE: 83 BE 30 05 00 00  cmp         dword ptr [esi+00000530h],36h
+            36
+  005E1EC5: 75 10              jne         005E1ED7
+  005E1EC7: DD D8              fstp        st(0)
+  005E1EC9: D9 05 5C CB B7 00  fld         dword ptr ds:[00B7CB5Ch]
+  005E1ECF: D8 0D 44 8F 85 00  fmul        dword ptr ds:[00858F44h]
+  005E1ED5: EB 46              jmp         005E1F1D
+  005E1ED7: 8B B8 90 05 00 00  mov         edi,dword ptr [eax+00000590h]
+  005E1EDD: 83 FF 09           cmp         edi,9
+  005E1EE0: 75 29              jne         005E1F0B
+  005E1EE2: 8D 48 44           lea         ecx,[eax+44h]
+  005E1EE5: DD D8              fstp        st(0)
+  005E1EE7: E8 B4 4E E2 FF     call        00406DA0
+  005E1EEC: D8 1D 44 32 86 00  fcomp       dword ptr ds:[00863244h]
+  005E1EF2: DF E0              fnstsw      ax
+  005E1EF4: F6 C4 41           test        ah,41h
+  005E1EF7: 75 0E              jne         005E1F07
+  005E1EF9: D9 05 5C CB B7 00  fld         dword ptr ds:[00B7CB5Ch]
+  005E1EFF: D8 0D 04 C3 86 00  fmul        dword ptr ds:[0086C304h]
+  005E1F05: EB 16              jmp         005E1F1D
+  005E1F07: D9 44 24 0C        fld         dword ptr [esp+0Ch]
+  005E1F0B: 85 FF              test        edi,edi
+  005E1F0D: 75 0E              jne         005E1F1D
+  005E1F0F: DD D8              fstp        st(0)
+  005E1F11: D9 05 5C CB B7 00  fld         dword ptr ds:[00B7CB5Ch]
+  005E1F17: D8 0D 58 8C 85 00  fmul        dword ptr ds:[00858C58h]
+  005E1F1D: D9 44 24 08        fld         dword ptr [esp+8]
+  005E1F21: D8 D9              fcomp       st(1)
+  005E1F23: DF E0              fnstsw      ax
+  005E1F25: F6 C4 41           test        ah,41h
+  005E1F28: 75 59              jne         005E1F83
+  005E1F2A: D8 74 24 08        fdiv        dword ptr [esp+8]
+  005E1F2E: EB 3D              jmp         005E1F6D
+  005E1F30: F7 86 74 04 00 00  test        dword ptr [esi+00000474h],100000h
+            00 00 10 00
+  005E1F3A: 74 49              je          005E1F85
+  005E1F3C: 85 C0              test        eax,eax
+  005E1F3E: 75 45              jne         005E1F85
+  005E1F40: D9 44 24 1C        fld         dword ptr [esp+1Ch]
+  005E1F44: D8 4C 24 1C        fmul        dword ptr [esp+1Ch]
+  005E1F48: D9 44 24 18        fld         dword ptr [esp+18h]
+  005E1F4C: D8 4C 24 18        fmul        dword ptr [esp+18h]
+  005E1F50: DE C1              faddp       st(1),st
+  005E1F52: D9 FA              fsqrt
+  005E1F54: D9 05 5C CB B7 00  fld         dword ptr ds:[00B7CB5Ch]
+  005E1F5A: D8 0D 8C C2 86 00  fmul        dword ptr ds:[0086C28Ch]
+  005E1F60: D9 C1              fld         st(1)
+  005E1F62: D8 D9              fcomp       st(1)
+  005E1F64: DF E0              fnstsw      ax
+  005E1F66: F6 C4 41           test        ah,41h
+  005E1F69: 75 16              jne         005E1F81
+  005E1F6B: DE F1              fdivrp      st(1),st
+  005E1F6D: D9 44 24 18        fld         dword ptr [esp+18h]
+  005E1F71: D8 C9              fmul        st,st(1)
+  005E1F73: D9 5C 24 18        fstp        dword ptr [esp+18h]
+  005E1F77: D8 4C 24 1C        fmul        dword ptr [esp+1Ch]
+  005E1F7B: D9 5C 24 1C        fstp        dword ptr [esp+1Ch]
+  005E1F7F: EB 04              jmp         005E1F85
+  005E1F81: DD D8              fstp        st(0)
+  005E1F83: DD D8              fstp        st(0)
+  005E1F85: D9 44 24 18        fld         dword ptr [esp+18h]
+  005E1F89: D8 46 44           fadd        dword ptr [esi+44h]
+  005E1F8C: D9 5E 44           fstp        dword ptr [esi+44h]
+  005E1F8F: D9 44 24 1C        fld         dword ptr [esp+1Ch]
+  005E1F93: D8 46 48           fadd        dword ptr [esi+48h]
+  005E1F96: D9 5E 48           fstp        dword ptr [esi+48h]
+  005E1F99: 5F                 pop         edi
+  005E1F9A: 5E                 pop         esi
+  005E1F9B: 83 C4 4C           add         esp,4Ch
+  005E1F9E: C3                 ret
+  005E1F9F: 90                 nop
+  005E1FA0: 64
+
+  Summary
+
+      456000 .text

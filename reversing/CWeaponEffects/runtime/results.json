@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "pairs": 301,
+  "all_equal": true,
+  "tolerance": 0.002,
+  "max_error": 6.103515625e-05,
+  "groups": {
+    "early": 5,
+    "triangles": 96,
+    "flight": 90,
+    "offscreen": 8,
+    "coop_aim": 6,
+    "weapon_radius": 24,
+    "coop_lock": 72
+  },
+  "state_restored": true,
+  "candidate_calls": 301,
+  "log_sha256": "d846f29bdd1547c737b628bbfa3c8ee2b23e6ad7a17e397a07c7448055da319e",
+  "saves_unchanged": true,
+  "normal_asi_sha256": "33822463ed974ea42c6b2a9734ab45660df8911938d0369ab7d3b9cd6191e53e",
+  "probe_asi_sha256": "d43ae1d51ec2b89e85055d3859b9975ccc7e776bfa1999b1e5f6cb562ba7e14f",
+  "source_sha256": {
+    "source\\game_sa\\WeaponEffects.cpp": "d3a9a63086062c6fa8a934af19a11d9d912ae50976caa0a7e0f24ae7921f92b8",
+    "source\\game_sa\\WeaponEffects.h": "7a7fb60f10faa20362442ab8f8109d1d3d70e232b2d9912f1e4b450f8f07ea4b"
+  },
+  "run_folder": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-weaponeffects\\20260922-184045-082606"
+}

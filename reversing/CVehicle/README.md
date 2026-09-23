@@ -2,13 +2,13 @@
 
 ## Estado
 
-Objetivo elegido por el usuario: la entrada pendiente de CVehicle (141/142).
-Se ha escrito la reconstrucción y corregido un fallo directamente relacionado en su llamador.
-La comparación diferencial aislada pasa y la compilación completa Debug x86 terminó correctamente.
-Se generó bin/Debug/gta_reversed.asi y se recompiló después del ajuste final del registro.
-El hook ahora usa reversed=true por defecto, enabled=false y locked=false: implementación reconstruida, disponible para pruebas y desactivada por defecto.
-No se ha instalado nada en el juego. La prueba dentro del juego sigue pendiente.
-docs/hooks.csv y docs/ReversedClasses.md conservan la instantánea original; no se regeneraron como si ya existiera una validación de juego. Con el registro actualizado, las 142 entradas de CVehicle tienen implementación marcada reversed, pero esto no certifica equivalencia completa ni incluye funciones fuera del catálogo.
+RemoveObjectsCB-Object esta reconstruida y activada; su llamador RemoveReplacementUpgrade utiliza almacenamiento separado para los indicadores. La compilacion completa Debug x86 finalizo correctamente.
+
+Las pruebas aisladas aprobaron 393.475 casos del callback y 12 del llamador. Dentro del motor real aprobaron 60 comparaciones de vehiculos y 3 casos adicionales contra las funciones originales, sin diferencias y con cero cambios residuales en referencias. El ejecutor independiente repitio satisfactoriamente las 63 comparaciones.
+
+La instalacion de pruebas es `E:\JUEGOS\GTA San Andreas - CVehicle Test`; conserva por separado el juego y las partidas originales. Se desactivan los hooks Audio y Global/SurfaceInfos_c para esta prueba debido a errores ajenos al objetivo observados durante las sesiones. No se certifica estabilidad general ni aspecto visual.
+
+Para repetir sin Codex ni consumo de tokens, ejecutar `PROBAR.cmd --case cvehicle` en la carpeta principal. Ver [instrucciones del ejecutor](runtime/README.md) y [resultados detallados](runtime/results.json).
 
 ## Función localizada
 

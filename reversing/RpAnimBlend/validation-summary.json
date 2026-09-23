@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "pairs": 652,
+  "all_equal": true,
+  "tolerance": 1e-05,
+  "max_error": 2.9802322387695312e-08,
+  "state_restored": true,
+  "player_pose_unchanged": true,
+  "independent_inputs": true,
+  "log_sha256": "0bdb9f65285934aee34f1b797d857f44e35455e0109af2a0b96af4e2e7070a29",
+  "candidate_calls": 652,
+  "saves_unchanged": true,
+  "normal_asi_sha256": "48b5332d9d96f75a69aa20471ef801f38649c94f581567d18dd5eba20199ab15",
+  "normal_build": "Debug x86, completed"
+}

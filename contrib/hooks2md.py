@@ -62,7 +62,11 @@ def main():
     with open(args.output, "w", encoding="utf8", newline='\n') as outf:
         outf.write("# Reversed Classes progress\n")
         outf.write("This file is updated automatically every time the hooks.csv file is updated (which happens every time there are changes to hooks made by a commit), and shows the current progress of reversed classes in the project.\n\n")
-        outf.write(f"Last update was at {datetime.datetime.now(datetime.timezone.utc).strftime('%b %d, %Y at %H:%M:%S')} UTC triggered by [{GITHUB_SHA}]({GITHUB_REPO_URL}/commit/{GITHUB_SHA}) \n")
+        updated_at = datetime.datetime.now(datetime.timezone.utc).strftime('%b %d, %Y at %H:%M:%S')
+        if GITHUB_REPO_URL and GITHUB_SHA != "unknown":
+            outf.write(f"Last update: {updated_at} UTC, triggered by [{GITHUB_SHA}]({GITHUB_REPO_URL}/commit/{GITHUB_SHA}).\n")
+        else:
+            outf.write(f"Last update: {updated_at} UTC, regenerated locally from hooks.csv.\n")
         outf.write("\n")
 
         outf.write("## Disclaimer\n")
@@ -70,6 +74,9 @@ def main():
             "The percentages and the number of classes shown here may not be "
             "completely accurate, because not all classes and functions "
             "are documented yet.\n"
+            "Percentages use the reversed flag in hooks.csv and are rounded to two decimal places. "
+            "They measure recorded reconstruction progress, not test coverage or verified gameplay correctness. "
+            "Section percentages count classes; individual class percentages count functions.\n"
         )
 
         #outf.write("## Brief stats\n")
@@ -80,13 +87,13 @@ def main():
 
         def write_header(title: str, klasses: list[Klass]):
             outf.write("\n")
-            outf.write(f"#### {title} ({len(klasses)}/{num_total_klass}) [{len(klasses) / num_total_klass:.0%}]\n")
+            outf.write(f"#### {title} ({len(klasses)}/{num_total_klass}) [{len(klasses) / num_total_klass:.2%}]\n")
             outf.write("\n")
 
         @contextmanager
         def class_list_spoiler():
             outf.write("<details>\n")
-            outf.write("<summary>See list of classes</summary>")
+            outf.write("<summary>See list of classes</summary>\n\n")
             yield
             outf.write("\n</details>\n")
 
@@ -98,7 +105,7 @@ def main():
         write_header("Partially reversed classes", partially)
         with class_list_spoiler():
             for klass in partially:
-                outf.write(f"- {klass.name} ({klass.num_reversed}/{klass.num_fn}) [{1 - klass.num_not_reversed / klass.num_fn:.0%}]<br />\n")
+                outf.write(f"- {klass.name} ({klass.num_reversed}/{klass.num_fn}) [{klass.num_reversed / klass.num_fn:.2%}]<br />\n")
 
         write_header("Not-at-all reversed classes", not_at_all)
         with class_list_spoiler():

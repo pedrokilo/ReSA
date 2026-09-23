@@ -190,7 +190,7 @@ CdStream,CdStreamShutdown,0x00406370,1,0,S
 CdStream,CdStreamSync,0x00406460,1,0,S
 CdStream,CdStreamThread,0x00406560,1,0,S
 C_PcSave,DeleteSlot,0x006190D0,1,0,S
-C_PcSave,GenerateGameFilename,0x006190A0,0,1,S
+C_PcSave,GenerateGameFilename,0x006190A0,1,0,S
 C_PcSave,PopulateSlotInfo,0x00619140,1,0,S
 C_PcSave,SaveSlot,0x00619060,1,0,S
 C_PcSave,SetSaveDirectory,0x00619040,1,0,S
@@ -320,7 +320,7 @@ CWeaponEffects,ClearCrossHairsImmediately,0x00742CC0,1,0,S
 CWeaponEffects,Init,0x00742AB0,1,0,S
 CWeaponEffects,IsLockedOn,0x00742BD0,1,0,S
 CWeaponEffects,MarkTarget,0x00742BF0,1,0,S
-CWeaponEffects,Render,0x00742CF0,0,1,S
+CWeaponEffects,Render,0x00742CF0,1,0,S
 CWeaponEffects,Shutdown,0x00742B80,1,0,S
 CWeapon,AddGunshell,0x0073A3E0,1,0,S
 CWeapon,CanBeUsedFor2Player-Method,0x0073DEF0,1,0,S
@@ -3721,7 +3721,7 @@ CVehicle,RemoveAllUpgradesCB,0x006D34D0,1,0,S
 CVehicle,RemoveDriver,0x006D1950,1,0,S
 CVehicle,RemoveLighting,0x00000000,1,0,V
 CVehicle,RemoveObjectsCB-Frame,0x006D3420,1,0,S
-CVehicle,RemoveObjectsCB-Object,0x006D33B0,0,1,S
+CVehicle,RemoveObjectsCB-Object,0x006D33B0,1,0,S
 CVehicle,RemovePassenger,0x006D1610,1,0,S
 CVehicle,RemoveReplacementUpgrade,0x006D39E0,1,0,S
 CVehicle,RemoveUpgrade,0x006D3630,1,0,S
@@ -6684,7 +6684,7 @@ CPlayerPed,FindPedToAttack,0x0060C5F0,1,0,S
 CPlayerPed,FindTargetPriority,0x00609DE0,1,0,S
 CPlayerPed,ForceGroupToAlwaysFollow,0x0060C7C0,1,0,S
 CPlayerPed,ForceGroupToNeverFollow,0x0060C800,1,0,S
-CPlayerPed,GetButtonSprintResults,0x0060A820,0,1,S
+CPlayerPed,GetButtonSprintResults,0x0060A820,1,0,S
 CPlayerPed,GetPadFromPlayer,0x00609560,1,0,S
 CPlayerPed,GetPlayerInfoForThisPlayerPed,0x00609FF0,1,0,S
 CPlayerPed,GetWantedLevel,0x0041BE60,1,0,S
@@ -6794,7 +6794,7 @@ CPed,PedIsInvolvedInConversation,0x0043AB90,1,0,S
 CPed,PedIsReadyForConversation,0x0043ABA0,1,0,S
 CPed,PlayFootSteps,0x005E57F0,0,1,S
 CPed,PositionAnyPedOutOfCollision,0x005E13C0,1,0,S
-CPed,PositionAttachedPed,0x005DFDF0,0,1,S
+CPed,PositionAttachedPed,0x005DFDF0,1,0,S
 CPed,PositionPedOutOfCollision,0x005E0820,0,1,S
 CPed,PreRender,0x00000000,1,0,V
 CPed,PreRenderAfterTest,0x005E65A0,1,0,S
@@ -6854,7 +6854,7 @@ CPed,Teleport,0x00000000,1,0,V
 CPed,TurnBody,0x005E4000,1,0,S
 CPed,Undress,0x005E00F0,1,0,S
 CPed,Update,0x005DEBE0,1,0,S
-CPed,UpdatePosition,0x005E1B10,0,1,S
+CPed,UpdatePosition,0x005E1B10,1,0,S
 CPed,UpdateStatEnteringVehicle,0x005E01A0,1,0,S
 CPed,UpdateStatLeavingVehicle,0x005E01B0,1,0,S
 CPed,UseGroundColModel,0x005DEFE0,1,0,S
@@ -7177,7 +7177,7 @@ RpAnimBlend,RpAnimBlendClumpRemoveAllAssociations,0x004D6C00,1,0,S
 RpAnimBlend,RpAnimBlendClumpRemoveAssociations,0x004D6820,1,0,S
 RpAnimBlend,RpAnimBlendClumpSetBlendDeltas,0x004D67E0,1,0,S
 RpAnimBlend,RpAnimBlendClumpUnPauseAllAnimations,0x004D6B30,1,0,S
-RpAnimBlend,RpAnimBlendClumpUpdateAnimations,0x004D34F0,0,1,S
+RpAnimBlend,RpAnimBlendClumpUpdateAnimations,0x004D34F0,1,0,S
 RpAnimBlend,RpAnimBlendCreateAnimationForHierarchy,0x004D60E0,1,0,S
 RpAnimBlend,RpAnimBlendFrameGetName,0x004D5EF0,1,0,S
 RpAnimBlend,RpAnimBlendFrameSetName,0x004D5F00,1,0,S

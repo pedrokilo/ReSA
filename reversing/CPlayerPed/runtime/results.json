@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "pairs": 4064,
+  "all_equal": true,
+  "edx_preserved": true,
+  "speed_restored": true,
+  "candidate_calls": 4064,
+  "startup_candidate_calls": 0,
+  "log_sha256": "aeda7272e9dd0cf9b9c4a25b7a0f8a3ca419845c1455adc5f79307ccb8714376",
+  "saves_unchanged": true,
+  "date": "2026-09-22T23:58:18.083125+00:00",
+  "source_sha256": "da1b1c6abbbcdf5b6e8786923947f17c8d128bc83f9ed48ce10b33d499147b4c",
+  "probe_asi_sha256": "879fb1cb7076a2c55d502dafbbcf488f83bb4b5ea69e193f3dcfe10173c65185",
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "raw_log": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-sprint\\20260922-174555-105527\\comparisons.jsonl",
+  "launch_arguments": "--unhook=Audio,Global/SurfaceInfos_c --dump-hooks-to=runtime-hooks.csv",
+  "visual_review": false,
+  "general_ped_stability_validated": false
+}

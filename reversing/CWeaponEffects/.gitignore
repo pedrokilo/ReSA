@@ -1,0 +1,5 @@
+*.log
+*.asm.txt
+*.normal
+*.jsonl
+__pycache__/

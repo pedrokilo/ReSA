@@ -1,0 +1,42 @@
+[
+  {
+    "id": "cvehicle",
+    "name": "CVehicle: componentes",
+    "runner": "CVehicle/runtime/run_local.py"
+  },
+  {
+    "id": "pcsave",
+    "name": "C_PcSave: nombre de guardado",
+    "runner": "C_PcSave/runtime/run_local.py"
+  },
+  {
+    "id": "cplayerped",
+    "name": "CPlayerPed: sprint",
+    "runner": "CPlayerPed/runtime/run_local.py"
+  },
+  {
+    "id": "cped-attached",
+    "name": "CPed: posiciÃ³n adjunta",
+    "runner": "CPed/runtime/run_local.py"
+  },
+  {
+    "id": "cped-position",
+    "name": "CPed: movimiento",
+    "runner": "CPed/UpdatePosition/runtime/run_local.py"
+  },
+  {
+    "id": "weaponeffects",
+    "name": "CWeaponEffects: miras",
+    "runner": "CWeaponEffects/runtime/run_local.py"
+  },
+  {
+    "id": "pcsave-isolated",
+    "name": "C_PcSave: comparacion aislada",
+    "runner": "C_PcSave/validate.py"
+  },
+  {
+    "id": "rpanimblend",
+    "name": "RpAnimBlend: actualizacion de animaciones",
+    "runner": "RpAnimBlend/run_local.py"
+  }
+]

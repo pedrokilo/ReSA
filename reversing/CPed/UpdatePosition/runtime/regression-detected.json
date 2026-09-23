@@ -1,0 +1,62 @@
+{
+  "description": "Initial candidate incorrectly checked IsBMX rather than the original primary class VEHICLE_TYPE_BIKE (includes BMX). In-game comparator stopped at pair 696. Fixed candidate passed the full expanded suite.",
+  "failed_case": {
+    "candidate": {
+      "attached": 0,
+      "fallen": false,
+      "matrix": false,
+      "numbers": [
+        21.0,
+        31.0,
+        7.0,
+        0.699999988079071,
+        0.9038421511650085,
+        -0.5232211947441101,
+        0.30000001192092896,
+        0.0,
+        0.0,
+        0.0,
+        0.699999988079071,
+        -0.4000000059604645
+      ],
+      "standing": true,
+      "support": 454104184
+    },
+    "candidate_calls": 1,
+    "dying": 0,
+    "equal": false,
+    "event": "comparison",
+    "fast": 2,
+    "flags": 0,
+    "group": "support",
+    "matrix_case": 0,
+    "max_error": 0.8038421273231506,
+    "model": 481,
+    "original": {
+      "attached": 0,
+      "fallen": false,
+      "matrix": false,
+      "numbers": [
+        21.0,
+        31.0,
+        7.0,
+        0.699999988079071,
+        0.10000000149011612,
+        -0.20000000298023224,
+        0.30000001192092896,
+        0.0,
+        0.0,
+        0.0,
+        0.699999988079071,
+        -0.4000000059604645
+      ],
+      "standing": true,
+      "support": 454104184
+    },
+    "original_candidate_calls": 0,
+    "pair": 696,
+    "parent_attached": 0,
+    "player_type": 0,
+    "step": 0
+  }
+}

@@ -23,8 +23,8 @@ public:
     CVector m_vecPosn;
     CRGBA   m_color;
     float   m_fSize;
-    int32   field_1C;
-    int32   field_20;
+    float   field_1C; // Rotation of the triangular reticle
+    float   field_20; // Distance of the flight reticle from its target
     float   m_fRotation;
     bool    m_bClearImmediately;
 

@@ -1,0 +1,31 @@
+{
+  "source_sha256": "1e7b760a6242d2e69f8cbc20112d710ec9a588d7b9a67134dcc6ac5e2dcdf628",
+  "original_function_sha256": "ca8b0d53fe923a7d3dc63bb31485d54c47a97f12f201412ff00eeae98021e3ce",
+  "runs": [
+    {
+      "name": "debug",
+      "exitcode": 0,
+      "output": "PASS 2080 cases, including all 8 slots and prefix lengths 0..259\n",
+      "expected_pass": true
+    },
+    {
+      "name": "optimized",
+      "exitcode": 0,
+      "output": "PASS 2080 cases, including all 8 slots and prefix lengths 0..259\n",
+      "expected_pass": true
+    },
+    {
+      "name": "mutation",
+      "exitcode": 1,
+      "output": "Mismatch length=0 slot=0\n",
+      "expected_pass": false
+    },
+    {
+      "name": "legacy",
+      "exitcode": 3221226505,
+      "output": "",
+      "expected_pass": false
+    }
+  ],
+  "limitations": "Original instructions relocated; sprintf redirected to the host MSVC CRT. In-memory test only, no save/load or live game session."
+}

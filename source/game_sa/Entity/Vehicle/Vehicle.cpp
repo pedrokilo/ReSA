@@ -228,7 +228,7 @@ void CVehicle::InjectHooks() {
     RH_ScopedGlobalInstall(IsVehiclePointerValid, 0x6E38F0);
     // RH_ScopedGlobalInstall(RemoveUpgradeCB, 0x6D3300);
     // RH_ScopedGlobalInstall(FindUpgradeCB, 0x6D3370);
-    RH_ScopedGlobalOverloadedInstall(RemoveObjectsCB, "Object", 0x6D33B0, RwObject*(*)(RwObject*, void*), { .enabled = false }); // Pending in-game validation
+    RH_ScopedGlobalOverloadedInstall(RemoveObjectsCB, "Object", 0x6D33B0, RwObject*(*)(RwObject*, void*));
     RH_ScopedGlobalOverloadedInstall(RemoveObjectsCB, "Frame", 0x6D3420, RwFrame*(*)(RwFrame*, void*));
     RH_ScopedGlobalInstall(CopyObjectsCB, 0x6D3450);
     // RH_ScopedGlobalInstall(FindReplacementUpgradeCB, 0x6D3490);

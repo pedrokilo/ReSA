@@ -1,0 +1,900 @@
+{
+  "date": "2026-09-22",
+  "vehicle_pairs": 60,
+  "edge_pairs": 3,
+  "all_equal": true,
+  "cycles_per_vehicle": 3,
+  "vehicles_created": 120,
+  "add_remove_cycles_per_implementation": 180,
+  "models": [
+    560,
+    562,
+    565
+  ],
+  "coverage": {
+    "calls": 948,
+    "destroyed_frame": 45,
+    "kept_upgrade": 2,
+    "model_ref": 450,
+    "non_atomic": 1,
+    "removed": 945
+  },
+  "nonzero_reference_deltas": 0,
+  "runtime_log_sha256": "5475ba7e05bd4dde2e45933aaed1af087b967635bde6c589fd32a4e06ce32845",
+  "probe_asi_sha256": "2941ea33e49a6b319368c81f775f08dbc3688b2306591508f1278ab3ba45c845",
+  "launch_arguments": "--unhook=Audio,Global/SurfaceInfos_c --dump-hooks-to=runtime-hooks.csv",
+  "visual_review": "not performed; computer-use native pipe unavailable",
+  "full_project_stability": "not validated; other runtime faults observed",
+  "comparison_scope": "same process, original callback/caller versus reconstructed callback/caller, independently created vehicles; real engine dependencies",
+  "per_pair": [
+    {
+      "pair": 0,
+      "model": 560,
+      "upgrade": 1073,
+      "equal": true,
+      "coverage": {
+        "calls": 24,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 12,
+        "non_atomic": 0,
+        "removed": 24
+      }
+    },
+    {
+      "pair": 1,
+      "model": 560,
+      "upgrade": 1028,
+      "equal": true,
+      "coverage": {
+        "calls": 9,
+        "destroyed_frame": 3,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 9
+      }
+    },
+    {
+      "pair": 2,
+      "model": 560,
+      "upgrade": 1169,
+      "equal": true,
+      "coverage": {
+        "calls": 12,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 12
+      }
+    },
+    {
+      "pair": 3,
+      "model": 560,
+      "upgrade": 1140,
+      "equal": true,
+      "coverage": {
+        "calls": 18,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 18
+      }
+    },
+    {
+      "pair": 4,
+      "model": 562,
+      "upgrade": 1074,
+      "equal": true,
+      "coverage": {
+        "calls": 24,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 12,
+        "non_atomic": 0,
+        "removed": 24
+      }
+    },
+    {
+      "pair": 5,
+      "model": 562,
+      "upgrade": 1034,
+      "equal": true,
+      "coverage": {
+        "calls": 9,
+        "destroyed_frame": 3,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 9
+      }
+    },
+    {
+      "pair": 6,
+      "model": 562,
+      "upgrade": 1171,
+      "equal": true,
+      "coverage": {
+        "calls": 18,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 18
+      }
+    },
+    {
+      "pair": 7,
+      "model": 562,
+      "upgrade": 1148,
+      "equal": true,
+      "coverage": {
+        "calls": 18,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 18
+      }
+    },
+    {
+      "pair": 8,
+      "model": 565,
+      "upgrade": 1075,
+      "equal": true,
+      "coverage": {
+        "calls": 24,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 12,
+        "non_atomic": 0,
+        "removed": 24
+      }
+    },
+    {
+      "pair": 9,
+      "model": 565,
+      "upgrade": 1046,
+      "equal": true,
+      "coverage": {
+        "calls": 9,
+        "destroyed_frame": 3,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 9
+      }
+    },
+    {
+      "pair": 10,
+      "model": 565,
+      "upgrade": 1153,
+      "equal": true,
+      "coverage": {
+        "calls": 12,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 12
+      }
+    },
+    {
+      "pair": 11,
+      "model": 565,
+      "upgrade": 1150,
+      "equal": true,
+      "coverage": {
+        "calls": 12,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 12
+      }
+    },
+    {
+      "pair": 12,
+      "model": 560,
+      "upgrade": 1073,
+      "equal": true,
+      "coverage": {
+        "calls": 24,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 12,
+        "non_atomic": 0,
+        "removed": 24
+      }
+    },
+    {
+      "pair": 13,
+      "model": 560,
+      "upgrade": 1028,
+      "equal": true,
+      "coverage": {
+        "calls": 9,
+        "destroyed_frame": 3,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 9
+      }
+    },
+    {
+      "pair": 14,
+      "model": 560,
+      "upgrade": 1169,
+      "equal": true,
+      "coverage": {
+        "calls": 12,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 12
+      }
+    },
+    {
+      "pair": 15,
+      "model": 560,
+      "upgrade": 1140,
+      "equal": true,
+      "coverage": {
+        "calls": 18,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 18
+      }
+    },
+    {
+      "pair": 16,
+      "model": 562,
+      "upgrade": 1074,
+      "equal": true,
+      "coverage": {
+        "calls": 24,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 12,
+        "non_atomic": 0,
+        "removed": 24
+      }
+    },
+    {
+      "pair": 17,
+      "model": 562,
+      "upgrade": 1034,
+      "equal": true,
+      "coverage": {
+        "calls": 9,
+        "destroyed_frame": 3,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 9
+      }
+    },
+    {
+      "pair": 18,
+      "model": 562,
+      "upgrade": 1171,
+      "equal": true,
+      "coverage": {
+        "calls": 18,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 18
+      }
+    },
+    {
+      "pair": 19,
+      "model": 562,
+      "upgrade": 1148,
+      "equal": true,
+      "coverage": {
+        "calls": 18,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 18
+      }
+    },
+    {
+      "pair": 20,
+      "model": 565,
+      "upgrade": 1075,
+      "equal": true,
+      "coverage": {
+        "calls": 24,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 12,
+        "non_atomic": 0,
+        "removed": 24
+      }
+    },
+    {
+      "pair": 21,
+      "model": 565,
+      "upgrade": 1046,
+      "equal": true,
+      "coverage": {
+        "calls": 9,
+        "destroyed_frame": 3,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 9
+      }
+    },
+    {
+      "pair": 22,
+      "model": 565,
+      "upgrade": 1153,
+      "equal": true,
+      "coverage": {
+        "calls": 12,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 12
+      }
+    },
+    {
+      "pair": 23,
+      "model": 565,
+      "upgrade": 1150,
+      "equal": true,
+      "coverage": {
+        "calls": 12,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 12
+      }
+    },
+    {
+      "pair": 24,
+      "model": 560,
+      "upgrade": 1073,
+      "equal": true,
+      "coverage": {
+        "calls": 24,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 12,
+        "non_atomic": 0,
+        "removed": 24
+      }
+    },
+    {
+      "pair": 25,
+      "model": 560,
+      "upgrade": 1028,
+      "equal": true,
+      "coverage": {
+        "calls": 9,
+        "destroyed_frame": 3,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 9
+      }
+    },
+    {
+      "pair": 26,
+      "model": 560,
+      "upgrade": 1169,
+      "equal": true,
+      "coverage": {
+        "calls": 12,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 12
+      }
+    },
+    {
+      "pair": 27,
+      "model": 560,
+      "upgrade": 1140,
+      "equal": true,
+      "coverage": {
+        "calls": 18,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 18
+      }
+    },
+    {
+      "pair": 28,
+      "model": 562,
+      "upgrade": 1074,
+      "equal": true,
+      "coverage": {
+        "calls": 24,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 12,
+        "non_atomic": 0,
+        "removed": 24
+      }
+    },
+    {
+      "pair": 29,
+      "model": 562,
+      "upgrade": 1034,
+      "equal": true,
+      "coverage": {
+        "calls": 9,
+        "destroyed_frame": 3,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 9
+      }
+    },
+    {
+      "pair": 30,
+      "model": 562,
+      "upgrade": 1171,
+      "equal": true,
+      "coverage": {
+        "calls": 18,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 18
+      }
+    },
+    {
+      "pair": 31,
+      "model": 562,
+      "upgrade": 1148,
+      "equal": true,
+      "coverage": {
+        "calls": 18,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 18
+      }
+    },
+    {
+      "pair": 32,
+      "model": 565,
+      "upgrade": 1075,
+      "equal": true,
+      "coverage": {
+        "calls": 24,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 12,
+        "non_atomic": 0,
+        "removed": 24
+      }
+    },
+    {
+      "pair": 33,
+      "model": 565,
+      "upgrade": 1046,
+      "equal": true,
+      "coverage": {
+        "calls": 9,
+        "destroyed_frame": 3,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 9
+      }
+    },
+    {
+      "pair": 34,
+      "model": 565,
+      "upgrade": 1153,
+      "equal": true,
+      "coverage": {
+        "calls": 12,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 12
+      }
+    },
+    {
+      "pair": 35,
+      "model": 565,
+      "upgrade": 1150,
+      "equal": true,
+      "coverage": {
+        "calls": 12,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 12
+      }
+    },
+    {
+      "pair": 36,
+      "model": 560,
+      "upgrade": 1073,
+      "equal": true,
+      "coverage": {
+        "calls": 24,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 12,
+        "non_atomic": 0,
+        "removed": 24
+      }
+    },
+    {
+      "pair": 37,
+      "model": 560,
+      "upgrade": 1028,
+      "equal": true,
+      "coverage": {
+        "calls": 9,
+        "destroyed_frame": 3,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 9
+      }
+    },
+    {
+      "pair": 38,
+      "model": 560,
+      "upgrade": 1169,
+      "equal": true,
+      "coverage": {
+        "calls": 12,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 12
+      }
+    },
+    {
+      "pair": 39,
+      "model": 560,
+      "upgrade": 1140,
+      "equal": true,
+      "coverage": {
+        "calls": 18,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 18
+      }
+    },
+    {
+      "pair": 40,
+      "model": 562,
+      "upgrade": 1074,
+      "equal": true,
+      "coverage": {
+        "calls": 24,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 12,
+        "non_atomic": 0,
+        "removed": 24
+      }
+    },
+    {
+      "pair": 41,
+      "model": 562,
+      "upgrade": 1034,
+      "equal": true,
+      "coverage": {
+        "calls": 9,
+        "destroyed_frame": 3,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 9
+      }
+    },
+    {
+      "pair": 42,
+      "model": 562,
+      "upgrade": 1171,
+      "equal": true,
+      "coverage": {
+        "calls": 18,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 18
+      }
+    },
+    {
+      "pair": 43,
+      "model": 562,
+      "upgrade": 1148,
+      "equal": true,
+      "coverage": {
+        "calls": 18,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 18
+      }
+    },
+    {
+      "pair": 44,
+      "model": 565,
+      "upgrade": 1075,
+      "equal": true,
+      "coverage": {
+        "calls": 24,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 12,
+        "non_atomic": 0,
+        "removed": 24
+      }
+    },
+    {
+      "pair": 45,
+      "model": 565,
+      "upgrade": 1046,
+      "equal": true,
+      "coverage": {
+        "calls": 9,
+        "destroyed_frame": 3,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 9
+      }
+    },
+    {
+      "pair": 46,
+      "model": 565,
+      "upgrade": 1153,
+      "equal": true,
+      "coverage": {
+        "calls": 12,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 12
+      }
+    },
+    {
+      "pair": 47,
+      "model": 565,
+      "upgrade": 1150,
+      "equal": true,
+      "coverage": {
+        "calls": 12,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 12
+      }
+    },
+    {
+      "pair": 48,
+      "model": 560,
+      "upgrade": 1073,
+      "equal": true,
+      "coverage": {
+        "calls": 24,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 12,
+        "non_atomic": 0,
+        "removed": 24
+      }
+    },
+    {
+      "pair": 49,
+      "model": 560,
+      "upgrade": 1028,
+      "equal": true,
+      "coverage": {
+        "calls": 9,
+        "destroyed_frame": 3,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 9
+      }
+    },
+    {
+      "pair": 50,
+      "model": 560,
+      "upgrade": 1169,
+      "equal": true,
+      "coverage": {
+        "calls": 12,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 12
+      }
+    },
+    {
+      "pair": 51,
+      "model": 560,
+      "upgrade": 1140,
+      "equal": true,
+      "coverage": {
+        "calls": 18,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 18
+      }
+    },
+    {
+      "pair": 52,
+      "model": 562,
+      "upgrade": 1074,
+      "equal": true,
+      "coverage": {
+        "calls": 24,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 12,
+        "non_atomic": 0,
+        "removed": 24
+      }
+    },
+    {
+      "pair": 53,
+      "model": 562,
+      "upgrade": 1034,
+      "equal": true,
+      "coverage": {
+        "calls": 9,
+        "destroyed_frame": 3,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 9
+      }
+    },
+    {
+      "pair": 54,
+      "model": 562,
+      "upgrade": 1171,
+      "equal": true,
+      "coverage": {
+        "calls": 18,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 18
+      }
+    },
+    {
+      "pair": 55,
+      "model": 562,
+      "upgrade": 1148,
+      "equal": true,
+      "coverage": {
+        "calls": 18,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 18
+      }
+    },
+    {
+      "pair": 56,
+      "model": 565,
+      "upgrade": 1075,
+      "equal": true,
+      "coverage": {
+        "calls": 24,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 12,
+        "non_atomic": 0,
+        "removed": 24
+      }
+    },
+    {
+      "pair": 57,
+      "model": 565,
+      "upgrade": 1046,
+      "equal": true,
+      "coverage": {
+        "calls": 9,
+        "destroyed_frame": 3,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 9
+      }
+    },
+    {
+      "pair": 58,
+      "model": 565,
+      "upgrade": 1153,
+      "equal": true,
+      "coverage": {
+        "calls": 12,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 12
+      }
+    },
+    {
+      "pair": 59,
+      "model": 565,
+      "upgrade": 1150,
+      "equal": true,
+      "coverage": {
+        "calls": 12,
+        "destroyed_frame": 0,
+        "kept_upgrade": 0,
+        "model_ref": 6,
+        "non_atomic": 0,
+        "removed": 12
+      }
+    }
+  ],
+  "edge_cases": [
+    {
+      "flags": -1,
+      "equal": true,
+      "coverage": {
+        "calls": 1,
+        "kept_upgrade": 0,
+        "non_atomic": 1
+      }
+    },
+    {
+      "flags": 2048,
+      "equal": true,
+      "coverage": {
+        "calls": 1,
+        "kept_upgrade": 1,
+        "non_atomic": 0
+      }
+    },
+    {
+      "flags": 65535,
+      "equal": true,
+      "coverage": {
+        "calls": 1,
+        "kept_upgrade": 1,
+        "non_atomic": 0
+      }
+    }
+  ]
+}

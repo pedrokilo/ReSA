@@ -1,0 +1,29 @@
+{
+  "source_sha256": "da1b1c6abbbcdf5b6e8786923947f17c8d128bc83f9ed48ce10b33d499147b4c",
+  "runs": [
+    {
+      "build": "debug",
+      "exitcode": 0,
+      "output": "cases=120192 bit_differences=0 worst_absolute=0 EDX_preserved=true\n",
+      "expected_pass": true
+    },
+    {
+      "build": "optimized",
+      "exitcode": 0,
+      "output": "cases=120192 bit_differences=0 worst_absolute=0 EDX_preserved=true\n",
+      "expected_pass": true
+    },
+    {
+      "build": "abi-mutation",
+      "exitcode": 2,
+      "output": "EDX changed 1234abcd 00000000\n",
+      "expected_pass": false
+    },
+    {
+      "build": "math-mutation",
+      "exitcode": 1,
+      "output": "Difference pc=131072 index=8 type=0 original=3f800000 candidate=41033334\nDifference pc=131072 index=8 type=1 original=3f800001 candidate=41c80001\nDifference pc=131072 index=8 type=2 original=3f800000 candidate=41033334\nDifference pc=131072 index=8 type=3 original=3f800001 candidate=41c80001\nDifference pc=131072 index=11 type=0 original=7d75c28f candidate=7f800000\ncases=120192 bit_differences=102012 worst_absolute=431.952 EDX_preserved=true\n",
+      "expected_pass": false
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "functions": [
+    {
+      "name": "CalculateNewVelocity",
+      "status": "pending_reconstruction_and_in_game_validation"
+    },
+    {
+      "name": "DoFootLanded",
+      "status": "pending_reconstruction_and_in_game_validation"
+    },
+    {
+      "name": "KillPedWithCar",
+      "status": "pending_reconstruction_and_in_game_validation"
+    },
+    {
+      "name": "MakeTyresMuddySectorList<CPtrListSingleLink<CPhysical*>>",
+      "status": "pending_reconstruction_and_in_game_validation"
+    },
+    {
+      "name": "PlayFootSteps",
+      "status": "pending_reconstruction_and_in_game_validation"
+    },
+    {
+      "name": "PositionAttachedPed",
+      "status": "reconstructed_and_in_game_comparison_passed"
+    },
+    {
+      "name": "PositionPedOutOfCollision",
+      "status": "pending_reconstruction_and_in_game_validation"
+    },
+    {
+      "name": "UpdatePosition",
+      "status": "reconstructed_and_in_game_comparison_passed"
+    }
+  ]
+}

@@ -58,7 +58,7 @@ void CPlayerPed::InjectHooks() {
     RH_ScopedInstall(MakePlayerGroupDisappear, 0x60A440);
     RH_ScopedInstall(MakePlayerGroupReappear, 0x60A4B0);
     RH_ScopedInstall(HandleSprintEnergy, 0x60A550);
-    RH_ScopedInstall(GetButtonSprintResults, 0x60A820, { .reversed = false });
+    RH_ScopedInstall(GetButtonSprintResults, 0x60A820);
     RH_ScopedInstall(HandlePlayerBreath, 0x60A8D0);
     RH_ScopedOverloadedInstall(MakeChangesForNewWeapon, "", 0x60B460, void(CPlayerPed::*)(eWeaponType));
     RH_ScopedGlobalInstall(LOSBlockedBetweenPeds, 0x60B550);
@@ -678,21 +678,36 @@ float CPlayerPed::ControlButtonSprint(eSprintType sprintType) {
     return plugin::CallMethodAndReturn<float, 0x60A610, CPlayerPed *, eSprintType>(this, sprintType);
 }
 
-// Reverse CPlayerPed::SetRealMoveAnim before hooking this func
+// The original caller at 0x60B430 keeps an animation pointer in EDX across this call.
+// Keep the ABI bridge separate from the C++ calculation so compiler changes cannot clobber it.
+static float __fastcall GetButtonSprintResultsImpl(CPlayerPed* player, void*, eSprintType sprintType) {
+    const auto speed = player->GetPlayerData()->m_fMoveSpeed;
+    if (speed > PLAYER_SPRINT_THRESHOLD) {
+        // Keep the original x87 intermediate precision instead of rounding each SSE operation.
+        const auto multiplier = PLAYER_SPRINT_SET[sprintType].field_1C;
+        const float one = 1.0f;
+        float result;
+        __asm {
+            fld speed
+            fdiv PLAYER_SPRINT_THRESHOLD
+            fsub one
+            fmul multiplier
+            fadd one
+            fstp result
+        }
+        return result;
+    }
+    return speed > 0.0f ? 1.0f : 0.0f;
+}
+
 // 0x60A820
-float CPlayerPed::GetButtonSprintResults(eSprintType sprintType) {
-    return plugin::CallMethodAndReturn<float, 0x60A820, CPlayerPed *, eSprintType>(this, sprintType);
-
-    // Forces the compiler to preserve the value of `edx`.
-    // Otherwise it's value is lost when called from 0x60B44C.
-    // which causes a crash (as it is used to store a pointer to an anim blend assoc)
-    __asm { and edx, edx };
-
-    if (GetPlayerData()->m_fMoveSpeed <= PLAYER_SPRINT_THRESHOLD) {
-        return GetPlayerData()->m_fMoveSpeed <= 0.0f ? 0.0f : 1.0f;
-    } else {
-        const float progress = std::max(0.0f, GetPlayerData()->m_fMoveSpeed / PLAYER_SPRINT_THRESHOLD - 1.0f);
-        return PLAYER_SPRINT_SET[sprintType].field_1C * progress + 1.0f;
+__declspec(naked) float CPlayerPed::GetButtonSprintResults(eSprintType) {
+    __asm {
+        push edx
+        push dword ptr [esp + 8]
+        call GetButtonSprintResultsImpl
+        pop edx
+        ret 4
     }
 }
 
