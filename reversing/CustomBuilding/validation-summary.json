@@ -1,0 +1,107 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 95168,
+  "pairs_per_function": [
+    256,
+    256,
+    90496,
+    4096,
+    64
+  ],
+  "all_equal": true,
+  "hook_states": [
+    {
+      "calls_before_bank": 1234,
+      "enabled": true,
+      "event": "hook",
+      "function": 0,
+      "locked": false
+    },
+    {
+      "calls_before_bank": 1616,
+      "enabled": true,
+      "event": "hook",
+      "function": 1,
+      "locked": false
+    },
+    {
+      "calls_before_bank": 0,
+      "enabled": true,
+      "event": "hook",
+      "function": 2,
+      "locked": false
+    },
+    {
+      "calls_before_bank": 0,
+      "enabled": true,
+      "event": "hook",
+      "function": 3,
+      "locked": false
+    },
+    {
+      "calls_before_bank": 1234,
+      "enabled": true,
+      "event": "hook",
+      "function": 4,
+      "locked": false
+    }
+  ],
+  "environment": {
+    "event": "environment",
+    "fp_control": 50987039,
+    "hooks_restored": true
+  },
+  "validation": {
+    "counters_valid": true,
+    "counts": [
+      256,
+      256,
+      90496,
+      4096,
+      64
+    ],
+    "differences": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "event": "complete",
+    "inputs_unchanged": true,
+    "player_unchanged": true,
+    "state_restored": true
+  },
+  "log_sha256": "22f222f9f81ce250f7b313013e8b7a5c8d1d8e69d9387c6722ef0050f9bf5d09",
+  "scope": "Renderer orchestration; real private RenderWare fixtures with no materials; no drawing or full pipelines",
+  "probe_sha256": "dbe8ad84f5171b1d4cf56a064cf97d10f673c3986e2328d7001d04954fecb940",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "status": "bank_passed_integration_deferred_by_user",
+  "run_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-custom-building\\20260923-173028-884697",
+  "manifest": {
+    "base_sources": {
+      "source\\game_sa\\Pipelines\\CustomBuilding\\CustomBuildingRenderer.cpp": "b8a1e8fa02f98176b1aca07bbcede44a8c80281219843cb47e8ad9b499ec4b82",
+      "source\\game_sa\\Pipelines\\CustomBuilding\\CustomBuildingDNPipeline.cpp": "6ad828a3d99da9074313fd4d7b4c86ef46c373aa89a98f4e7dfb90e6bfd6410d",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde",
+      "source\\dllmain.cpp": "f9c9b7f57e5e6391372df9a9e65ed0b3a3c34c56b7ec5a7340af9fc5f5fbfb67"
+    },
+    "probe_sources": {
+      "LiveComparison.hpp": "7a04edb13be5617bc503a407461bdfc6c9066db8b424cdb97cad07343ed752a3",
+      "Probe.hpp": "a167e2c7d2460850e9db8565904701d1419a0e9d9cfac52276db5211f2e2249e"
+    },
+    "asi": "dbe8ad84f5171b1d4cf56a064cf97d10f673c3986e2328d7001d04954fecb940",
+    "pdb": "26c1d71394126bc303952a61c505310f9c381feb3723a7358bece9a2cba13a8b"
+  },
+  "catalog_updated": false,
+  "normal_build_installed": false
+}

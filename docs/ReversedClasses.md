@@ -2,7 +2,22 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-09-23 19:20 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-09-23 23:33 UTC
+
+## Objetivo y dimensiones de progreso
+
+La [hoja de ruta de PGTASA](ProjectRoadmap.md) define una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del EXE, seguida de un ejecutable propio. Completar este catálogo es un hito intermedio hacia **PGTASA — Zero Original Function Dependency**.
+
+| Dimensión | Progreso | Medición |
+| --- | --- | --- |
+| Clases completas | `██████████████████░░` | 614/701 · 87.59% |
+| Funciones reconstruidas | `███████████████████░` | 7,485/8,014 · 93.40% |
+| Funciones validadas, vigencia confirmada | `░░░░░░░░░░░░░░░░░░░░` | 0/8,014 · 0.00%; inventario parcial |
+| Dependencias de funciones originales eliminadas | Sin barra | No medido; requiere auditoría directa y transitiva |
+
+Hay 8,014 entradas catalogadas, 620 bloqueadas y 7,394 sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente; el número de funciones que usan código original sigue sin medir. No se deducen hooks eliminados del contador de locks.
+
+**Validación consolidada parcialmente:** 33 funciones con evidencia aprobada vinculada, 3 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md). Esta barra mide acreditación en el registro, no ausencia de pruebas previas ni cobertura exhaustiva.
 
 ## Vista general
 

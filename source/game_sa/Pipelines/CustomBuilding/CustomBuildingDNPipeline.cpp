@@ -211,7 +211,7 @@ RpAtomic* CCustomBuildingDNPipeline::CustomPipeAtomicSetup(RpAtomic* atomic) {
     RpGeometryForAllMaterials(atomic->geometry, CustomPipeMaterialSetup, nullptr);
     RpD3D9GeometrySetUsageFlags(atomic->geometry, rpD3D9GEOMETRYUSAGE_DYNAMICPRELIT);
     atomic->pipeline = ObjPipeline;
-    SetPipelineID(atomic, CUSTOM_BUILDING_DN_PIPELINE_ID);
+    SetPipelineID(atomic, 0x53F20098); // Native per-atomic ID at 0x5D71E3.
     return atomic;
 }
 

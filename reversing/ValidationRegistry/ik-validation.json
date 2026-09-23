@@ -1,0 +1,89 @@
+{
+  "passed": true,
+  "trees": {
+    "source": "5dd20d33a4b7deeb25e2bf96808fa2b41295366dc1687c0f60e0a9c5bf1e0c9f",
+    "cmake": "13a7092f104fd72f5bf7ff73a5e69cd3754739bd3adac116cefeb4502cb14138",
+    "conan": "b4f26a0fba4638355b8eac182866e178c5ca339dd1400a4e332802cc8813c5a2"
+  },
+  "files": {
+    "CMakeLists.txt": "b68fad6160dbe5ae12e78e142b1691b49b337db1c84c8c37947268db85f3e0a1",
+    "CMakePresets.json": "278db23a35ce7d561aaae93db74680019337a0b4bb9fcabffa34492a658ff570",
+    "conanfile.py": "1964851bde9c9813e3ae2a8c3195339a54a5694917432c304c2e3644fa1e4363",
+    "reversing/IKDataWarnings/LiveComparison.hpp": "f2490805c6a16ca791d9e32a4a4558f831d1388246d6c4bb44919c523072a211",
+    "reversing/IKDataWarnings/Probe.hpp": "f504aed0fba9b05f6011b15e4fe1a0cb9e438da9c7919d51035e4c581d2872fb",
+    "reversing/IKDataWarnings/build_probe.py": "569c187074d3032b1c82630d8bc685dd933be2ca8315717d5cff6ac9b9792221",
+    "reversing/IKDataWarnings/run_local.py": "feab9cf610f9abcce91561c3e8f93d80acc0d8ad08b610833363283a9c2334ca",
+    "reversing/runtime_runner.py": "f49feac7b2f5077822360a9f28f42de4e9b8418d72efda3cbe751acdc0db3645",
+    "reversing/ProbeSupport.hpp": "723fa314edaf3fa1ea4b06078c389707d078f4e5f676fe8502c663de00a50724",
+    "reversing/ProbeRuntime.hpp": "5b1a6686637b0970d8f76853e042400d06c7d03019c1935f9bcf6c367ae4f201",
+    "reversing/IKDataWarnings/data-repair.json": "788b6657a809ae22d3dcccccab5c987112303078f0712202f67e292a1ecabb35"
+  },
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "protected_before": {
+    "E:\\Original\\gta-reversed-master\\bin\\Debug\\gta_reversed.asi": "ec43e626ac929660f8f75e027cd7c4292b8438db0c37ee78136544ab4483944f",
+    "E:\\Original\\gta-reversed-master\\bin\\Debug\\gta_reversed.pdb": "e84a25d8106924485ebfeb8648ebf219d65bc9ae255986509fa2399bffad48a1",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta_reversed.asi": "ec43e626ac929660f8f75e027cd7c4292b8438db0c37ee78136544ab4483944f",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta_reversed.pdb": "e84a25d8106924485ebfeb8648ebf219d65bc9ae255986509fa2399bffad48a1",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\data\\timecyc.dat": "7e74f573f055fd054b6595547a625c59f83d025a97fe7092e1c60030f16c3f12",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\data\\vehicles.ide": "942e8ccd03556e9e7b2ee58cdba2ee9b547b1a956ea6bc59e28c25dced81f81c",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\data\\cargrp.dat": "ebf0b5394ede5af099a3cb7a601d5405845e195a040e9b8f582977a0e777c9e0"
+  },
+  "head": "11fd6912f759d3bc93208a9def001b6dd751dbdf",
+  "cmake_cache_sha256": "e0e5ddd24828d256d686bdbf416ea1fe8945898ba63562f8313475fe2dad9f78",
+  "manifest": {
+    "base_sources": {
+      "source\\game_sa\\Ragdoll\\IKChain.cpp": "9f1ce7f8ba7afcbf75e13b9fff15a233f7287ce42843fb1eeacf595ab4d58e70",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde",
+      "source\\dllmain.cpp": "f9c9b7f57e5e6391372df9a9e65ed0b3a3c34c56b7ec5a7340af9fc5f5fbfb67"
+    },
+    "probe_sources": {
+      "LiveComparison.hpp": "f2490805c6a16ca791d9e32a4a4558f831d1388246d6c4bb44919c523072a211",
+      "Probe.hpp": "f504aed0fba9b05f6011b15e4fe1a0cb9e438da9c7919d51035e4c581d2872fb"
+    },
+    "asi": "511a491a0856c02e88124f1bc49995ca73be6be2b119587253a320385fdcf44c",
+    "pdb": "dc16be5467e3b4f87974109bae2e0c766b9052338215e9f42d9b61b6cfa23865"
+  },
+  "runtime_report": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ik-data\\20260923-164625-027968\\summary.json",
+  "runtime": {
+    "passed": true,
+    "saves_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+      "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+    },
+    "config_hashes_before": {
+      "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+      "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+    },
+    "game_stopped_before_analysis": true,
+    "validation": {
+      "bone_nodes_returned": true,
+      "chain_differences": 0,
+      "chain_pairs": 131,
+      "counters_valid": true,
+      "event": "complete",
+      "groups_equal": true,
+      "skeleton_unchanged": true,
+      "skimmer_defaults_explicit": true,
+      "state_restored": true,
+      "timecycle_different_bytes": 0
+    },
+    "pairs": 131,
+    "log_sha256": "d46f54646a2b6e3f7f48af0e2b04c3441ebf568c3bd621d7e7649c428cd92c40",
+    "scope": "IK SetupBones semantic pairs plus native weather-table and active car-group comparison",
+    "probe_sha256": "511a491a0856c02e88124f1bc49995ca73be6be2b119587253a320385fdcf44c",
+    "saves_unchanged": true,
+    "configs_restored": true
+  },
+  "sources_restored": true,
+  "inputs_unchanged": true,
+  "protected_restored": true,
+  "saves_unchanged": true,
+  "chain_unique_pairs_audited": 131,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "toolchain": "Debug x86; Visual Studio 18 2026; MSVC 14.51.36231; Win32; v145"
+}

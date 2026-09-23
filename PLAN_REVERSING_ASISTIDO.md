@@ -6,6 +6,8 @@ Estado: **plan histórico del 22 de septiembre**. Las observaciones y cifras sig
 
 ## 1. Objetivo y forma de trabajar
 
+> **Objetivo vigente (23 de septiembre de 2026):** reconstrucción funcionalmente equivalente, validada e independiente de funciones originales, seguida de un ejecutable propio. Consultar la [hoja de ruta](docs/ProjectRoadmap.md); las etapas siguientes se conservan como plan histórico, no como orden de ejecución actual.
+
 Construir progresivamente un flujo que combine gta-reversed, Ghidra y observación del juego para identificar funciones pendientes, analizar su comportamiento, proponer C++ y comprobarlo contra el original.
 
 Yo me encargaré del trabajo técnico: preparar herramientas, escribir y ejecutar scripts, manejar Ghidra, interpretar resultados, desarrollar instrumentación, compilar, diagnosticar errores y documentar lo comprobado. Tú no necesitas aprender Ghidra, programar ni interpretar ensamblador.

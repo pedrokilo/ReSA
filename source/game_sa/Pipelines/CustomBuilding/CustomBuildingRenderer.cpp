@@ -12,10 +12,10 @@ void CCustomBuildingRenderer::InjectHooks() {
     RH_ScopedInstall(Initialise, 0x5D7EC0);
     RH_ScopedInstall(Shutdown, 0x5D7EE0);
     RH_ScopedInstall(PluginAttach, 0x5D7EF0);
-    RH_ScopedInstall(AtomicSetup, 0x5D7F00, { .reversed = false });
-    RH_ScopedInstall(IsCBPCPipelineAttached, 0x5D7F40, { .reversed = false });
-    RH_ScopedInstall(UpdateDayNightBalanceParam, 0x5D7F80, { .reversed = false });
-    RH_ScopedInstall(Update, 0x5D8050, { .reversed = false });
+    RH_ScopedInstall(AtomicSetup, 0x5D7F00);
+    RH_ScopedInstall(IsCBPCPipelineAttached, 0x5D7F40);
+    RH_ScopedInstall(UpdateDayNightBalanceParam, 0x5D7F80);
+    RH_ScopedInstall(Update, 0x5D8050);
 }
 
 // 0x5D7EC0
@@ -40,61 +40,53 @@ bool CCustomBuildingRenderer::PluginAttach() {
 
 // 0x5D7F00
 void CCustomBuildingRenderer::AtomicSetup(RpAtomic* atomic) {
-    plugin::Call<0x5D7F00, RpAtomic*>(atomic);
+    auto* const geometry = RpAtomicGetGeometry(atomic);
+    if (CCustomBuildingDNPipeline::GetExtraVertColourPtr(geometry)->NightColors && RpGeometryGetPreLightColors(geometry)) {
+        CCustomBuildingDNPipeline::CustomPipeAtomicSetup(atomic);
+    } else {
+        CCustomBuildingPipeline::CustomPipeAtomicSetup(atomic);
+    }
 }
 
 // 0x5D7F40
 bool CCustomBuildingRenderer::IsCBPCPipelineAttached(RpAtomic* atomic) {
-    return plugin::CallAndReturn<bool, 0x5D7F40, RpAtomic*>(atomic);
+    const auto id = GetPipelineID(atomic);
+    if (id == 0x53F2009C || id == 0x53F20098) {
+        return true;
+    }
+    auto* const geometry = RpAtomicGetGeometry(atomic);
+    return CCustomBuildingDNPipeline::GetExtraVertColourPtr(geometry)->NightColors && RpGeometryGetPreLightColors(geometry);
 }
 
 // 0x5D7F80
 void CCustomBuildingRenderer::UpdateDayNightBalanceParam() {
-    plugin::Call<0x5D7F80>();
-    /*
-    const auto minutes = (float)CClock::GetMinutesToday();
-
-    const auto six_hours = 360.0f;
-    if (minutes < six_hours) {
-        CCustomBuildingDNPipeline::m_fDNBalanceParam = 1.0f;
-        return;
+    // The executable multiplies seconds by this float reciprocal before storing
+    // the minute value to float. Preserve that rounding and the x87 products.
+    constexpr float invMinute = 1.0f / 60.0f;
+    const float fractionalMinutes = float(double(CClock::GetGameClockSeconds()) * invMinute);
+    const float minutes = float(CClock::GetGameClockHours() * 60 + CClock::GetGameClockMinutes()) + fractionalMinutes;
+    auto& balance = CCustomBuildingDNPipeline::m_fDNBalanceParam;
+    if (minutes < 360.0f) {
+        balance = 1.0f;
+    } else if (minutes < 420.0f) {
+        balance = float(double(420.0f - minutes) * invMinute);
+    } else if (minutes < 1200.0f) {
+        balance = 0.0f;
+    } else if (minutes < 1260.0f) {
+        // GTA uses single-precision x87 arithmetic here: round the product
+        // before subtracting it from one, including at exactly 20:00.
+        const float remainingDay = float(double(1260.0f - minutes) * invMinute);
+        balance = 1.0f - remainingDay;
+    } else {
+        balance = 1.0f;
     }
-
-    const auto seven_hours = 420.0f;
-    if (minutes < seven_hours) {
-        CCustomBuildingDNPipeline::m_fDNBalanceParam = float(seven_hours - minutes) / 60.0f;
-        return;
-    }
-
-    const auto twenty_hours = 1200.0f;
-    if (minutes < twenty_hours) {
-        CCustomBuildingDNPipeline::m_fDNBalanceParam = 0.0f;
-        return;
-    }
-
-    const auto twenty_one_hour = 1260.0f;
-    if (minutes >= twenty_one_hour)
-        CCustomBuildingDNPipeline::m_fDNBalanceParam = 1.0f;
-    else
-        CCustomBuildingDNPipeline::m_fDNBalanceParam = 1.0f - float(twenty_one_hour - minutes) / 60.0f;
-    */
 }
 
 // 0x5D8050
 void CCustomBuildingRenderer::Update() {
     ZoneScoped;
-
-    plugin::Call<0x5D8050>();
-
-    /*
-    void sub_5D6830(int a1) {
-        static uint32 dword_C02C14, dword_C02C18 = 0;
-
-        dword_C02C14 = (dword_C02C14 + 1) & 15;
-        dword_C02C18 = a1;
-    }
-
-    CCustomBuildingRenderer::UpdateDayNightBalanceParam();
-    sub_5D6830(0);
-    */
+    UpdateDayNightBalanceParam();
+    auto& workingIndex = StaticRef<uint32>(0xC02C14);
+    workingIndex = (workingIndex + 1u) & 15u;
+    StaticRef<uint32>(0xC02C18) = 0;
 }

@@ -1,7 +1,9 @@
 # ESOS WEYES DEL REVERSE SE DEMORAN UN CHINGO Y SON MUCHOOOS 
 # GTA San Andreas · Reversing en PGTASA
 
-Reconstrucción en C++ del comportamiento original de GTA San Andreas, con comparaciones automáticas dentro del motor antes de habilitar las funciones trabajadas.
+Recrear GTA San Andreas PC de forma funcionalmente equivalente mediante código fuente reconstruido, reduciendo hasta eliminar la dependencia de funciones originales del ejecutable. La meta es una reconstrucción completa y validada, seguida de un ejecutable propio.
+
+La [hoja de ruta de PGTASA](docs/ProjectRoadmap.md) define el objetivo **PGTASA — Zero Original Function Dependency**. Completar el catálogo es un hito intermedio.
 
 **[📊 Progreso](docs/ReversedClasses.md) · [🧭 Qué abordar después](docs/ReversingPriorities.md) · [🧪 Pruebas](reversing/README.md) · [📋 Proceso y continuidad](reversing/MEJORAS_DEL_PROCESO.md)**
 
@@ -19,6 +21,17 @@ El objetivo es preservar el comportamiento original. Cada reconstrucción se con
 La fuente del progreso es [docs/hooks.csv](docs/hooks.csv). El [informe generado](docs/ReversedClasses.md) muestra totales, pendientes y bloqueos; la [guía técnica de prioridades](docs/ReversingPriorities.md) ordena el trabajo por esfuerzo estimado, dependencias y facilidad de validación.
 
 **Corte documental del 23 de septiembre de 2026, hora de México:** 614 clases completas, 85 parciales y 2 sin revertir; 7.485 de 8.014 entradas registradas como revertidas. Estos números no estiman líneas de código ni porcentaje de comportamiento probado. Consultar el informe para el estado posterior.
+
+### Cuatro dimensiones de progreso
+
+| Dimensión | Estado |
+| --- | --- |
+| Clases completas | 614/701 · 87,59% |
+| Funciones reconstruidas | 7.485/8.014 · 93,40% |
+| Funciones validadas, vigencia confirmada | 0/8.014 · 0,00%; 33 evidencias históricas; vigencia pendiente tras cambios locales de CustomBuilding |
+| Dependencias de funciones originales eliminadas | No medido; requiere auditoría de llamadas y dependencias |
+
+Quedan 529 entradas pendientes, 87 clases incompletas y 620 locks. Las 7.394 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
 
 ### Reconstrucciones recientes con evidencia local
 

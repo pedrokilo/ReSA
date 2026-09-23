@@ -1,6 +1,6 @@
 # Reconstrucción y pruebas: proceso y mejoras
 
-> **Estado vigente:** [continuidad de peatones](#continuidad-vigente) e [informe del desplazamiento de animación](FallenPeds/README.md). Las secciones de continuidad anteriores son históricas; sus cifras, pendientes y hashes describen cada entrega. Comprobar siempre Git antes de continuar.
+> **Estado vigente:** [objetivo y continuidad](#continuidad-vigente) y [hoja de ruta de PGTASA](../docs/ProjectRoadmap.md). Las secciones de continuidad anteriores son históricas; sus cifras, pendientes y hashes describen cada entrega. Comprobar siempre Git antes de continuar.
 
 ## Qué se hizo realmente y qué faltaba mostrar
 
@@ -484,9 +484,9 @@ Integración sin exclusiones: **121,16 segundos, 3.605 fotogramas**, cero avisos
 
 No se observó cierre inesperado, aserción ni RTC en la integración final. No se probaron conducción, combate, guardar/cargar completo, todos los esqueletos ni sesiones prolongadas; no se garantiza estabilidad general. CEntryExit mantiene 512 plazas y su evidencia de 1.854 comprobaciones: 1.833 resultados normalizados iguales y 21 diferencias esperadas FIX_BUGS. RpAnimBlend sigue 43/43. Permanecen aplazados **CCollision 59, CFileMgr 13, GangLeader 11 y Game 3: 86 bloqueos**; no aplicar el parche diferido sin petición. Sin apagado.
 
-<a id="continuidad-vigente"></a>
+<a id="continuidad-raton"></a>
 
-## Continuidad vigente: recuperación del ratón comprobada y revisión de Markdown (2026-09-23)
+## Continuidad histórica: recuperación del ratón comprobada y revisión de Markdown (2026-09-23)
 
 Petición: comprobar el fallo inicial de adquisición del ratón y actualizar todos los Markdown. Git revisado en **PGTASA**, HEAD **4516c033c3e8e205af47aac18c9ca4f58f323b68**, conservando los cambios existentes de peatones e IK/datos. Sin commit ni push.
 
@@ -501,3 +501,58 @@ Petición: comprobar el fallo inicial de adquisición del ratón y actualizar to
 Última integración normal sigue siendo la de IK/datos: **121,16 s y 3.605 fotogramas**, sin avisos comprobados de IK/datos/peatones y sin fallos de CEntryExit. Sus 131 pares de IK y tablas de clima/grupos coincidentes conservan su alcance. El nuevo diagnóstico no vuelve a ejecutar esa integración ni toda la suite. No prueba clics/movimiento físico, hotplug, todos los controladores, conducción, combate, guardar/cargar completo ni estabilidad general. La partida incompatible sigue rechazándose de forma prevista; no forzar carga ni modificar partidas.
 
 **Aplazados sin cambios:** CCollision 59, CFileMgr 13, GangLeader 11, Game 3: 86 bloqueos. No aplicar `UnlockBatch2/deferred-filemgr-game.patch` sin petición. RpAnimBlend 43/43; CEntryExit 512 plazas, 1.854 comprobaciones (1.833 resultados normalizados iguales y 21 diferencias esperadas FIX_BUGS). Sin apagado.
+
+<a id="continuidad-vigente"></a>
+
+## Continuidad vigente: objetivo de independencia del ejecutable (2026-09-23)
+
+Petición documental: orientar PGTASA hacia una reconstrucción completa, funcionalmente equivalente y validada, reduciendo hasta eliminar la dependencia de funciones originales; después, construir un ejecutable propio. La [hoja de ruta](../docs/ProjectRoadmap.md) define el orden y los criterios. Sustituye el 100% del Markdown como objetivo final; no invalida los bancos anteriores.
+
+Git comprobado al comenzar: **PGTASA**, HEAD **11fd6912f759d3bc93208a9def001b6dd751dbdf**, árbol limpio, sin archivos no rastreados no ignorados. Ese commit posterior a 4516c03 incorpora peatones, IK/datos y documentación del ratón. No asumir que los cambios descritos en continuidades anteriores siguen sin commit. Esta actualización deja cambios documentales y del generador sin commit; comprobar siempre Git real.
+
+Cifras del CSV: **7.485/8.014** entradas reconstruidas (93,40%), **614/701** clases completas (87,59%), 529 pendientes, 87 clases incompletas y 620 locks. Las 7.394 entradas desbloqueadas no son una medida de independencia. El número único de funciones validadas por versión y el de funciones que todavía usan código original **no están consolidados ni medidos**. No inferirlos del número de casos o pares. El panel mantiene estas dimensiones separadas mediante su generador; no se añaden flags ni se modifica el CSV.
+
+Orden estratégico: completar funciones, eliminar locks con evidencia, cerrar las clases registradas, inventariar dependencias originales, consolidar equivalencia reproducible, probar el juego integrado, independizar subsistemas y acreditar ausencia de ejecución de lógica original. Hito posterior a los porcentajes: **PGTASA — Zero Original Function Dependency**. El ejecutable propio exige además sustituir inicialización y servicios del host. La validación deberá tener seguimiento separado y vinculado a evidencia, sin rebajar la comparación dentro del motor exigida para nuevas marcas reversed=1.
+
+Se actualizan README, prioridades, índice de pruebas, referencia del plan histórico, panel y proceso. Esta tarea no compila, instala ni ejecuta GTA; no cambia resultados históricos, binarios, configuración o partidas. El estado instalado y las limitaciones siguen siendo los documentados en la [continuidad del ratón](#continuidad-raton): ASI ec43e626ac929660f8f75e027cd7c4292b8438db0c37ee78136544ab4483944f; última integración normal de 121,16 s y 3.605 fotogramas; 41 casos, sin repetir toda la suite ni afirmar estabilidad general.
+
+**Aplazamientos y protección intactos:** CCollision 59, CFileMgr 13, CTaskComplexGangLeader 11 y Game 3 (86); no aplicar el parche diferido sin petición expresa. La campaña integral sigue prevista tras completar las clases. Solo copia de pruebas, instalación personal y partidas conservadas, ranura 2 incompatible sin forzar, FastLoader=false y SaveGameToLoad=-2 para uso normal. Un solo PROBAR.cmd y reutilización de reversing. Esta petición no selecciona una nueva clase ni inicia los hitos técnicos. Sin commit, push ni apagado.
+### Ampliación vigente: registro separado de validaciones
+
+El usuario autorizó crear el registro separado y conectarlo al panel. Se añadieron `reversing/validation-registry.json`, `contrib/validation_registry.py`, su documentación en [ValidationRegistry](ValidationRegistry/README.md) y ocho pruebas automáticas. No se añadió una columna validated al CSV ni se cambió ningún flag.
+
+Inventario inicial: tres funciones con resúmenes aprobados vinculados por hash (constructor con parámetros de CTaskSimpleRunNamedAnim, SetupBones y RpAnimBlendClumpUpdateAnimations); las dos primeras conservan los hashes de fuentes registrados. Las tres siguen pendientes de revisión de dependencias para acreditar vigencia completa. El panel muestra **0/8.014 acreditadas con vigencia**, no «cero funciones probadas». No se invalida evidencia histórica ni se clasifica el resto como fallido. RpAnimBlend requiere además recuperar la procedencia de las fuentes de su prueba. No usar el hash actual como sustituto del hash de la versión probada.
+
+El auditor comprueba identidad única en el catálogo, resumen aprobado con hash y archivos de fuentes/revisión. Cambios o archivos ausentes retiran la acreditación al regenerar. La exhaustividad del mapa de dependencias necesita revisión humana/técnica; el script no analiza automáticamente llamadas C++. La independencia del original sigue sin medirse. Se conserva el alcance limitado de los bancos y no se vuelve a ejecutar GTA en esta tarea.
+
+Ocho pruebas del registro aprobadas, incluida detección de cambios en fuentes, dependencias e informes, evidencias ausentes/no aprobadas e identidades duplicadas. Panel regenerado con el mismo CSV. Cambios previos conservados; sin commit, push, instalación ni modificación de partidas. Los 86 bloqueos continúan aplazados.
+### Ampliación vigente: primera función con vigencia acreditada
+
+Autorizada la revisión del constructor de peatones. Se revisaron sus constructores base, timer/vector, copias CRT, búsqueda de bloque/jerarquía, CRC y tipos/tablas. Para resolver la falta de un manifiesto histórico completo se recompiló y ejecutó el banco existente con las fuentes actuales. Resultado: 8.192 pares del constructor, 128 de ProcessPed original y 512 de desplazamiento, cero diferencias. Las repeticiones no aumentan cobertura única.
+
+[Informe y dependencias](ValidationRegistry/namedanim-review.md) y [resumen](ValidationRegistry/namedanim-validation.json). Ejecución 20260923-164058-543160, sonda 7902d9c275ac7c7c00ecfab8790b8c01aac9e95bd59c384edc8f93187f6e3874. El registro ahora acredita **1/8.014 (0,01%)**: Constructor-Anim, únicamente dentro del alcance probado y entorno documentado. IK y RpAnimBlend siguen pendientes de completar su revisión. Independencia del EXE sin medir.
+
+Se capturaron antes de compilar y verificaron después las huellas de source/cmake/conan y configuración/fuentes del banco. El auditor retira la acreditación por cambios, archivos añadidos o eliminados. Nueve pruebas del auditor aprobadas. Entorno externo acotado a la compilación probada, sin certificar cambios de toolchain. La sonda nueva y su configuración quedan archivadas, conservando los artefactos históricos predeterminados.
+
+Fuentes, ASI/PDB normales, INI y partidas restaurados/verificados por hash. ASI normal sigue ec43e626ac929660f8f75e027cd7c4292b8438db0c37ee78136544ab4483944f. Proceso propio cerrado automáticamente, instalación personal intacta. No se cambió hooks.csv ni se completó toda la clase; no se repitió la suite ni se acredita estabilidad general. Cambios anteriores conservados, 86 bloqueos aplazados, sin commit/push ni apagado.
+### Ampliación vigente: SetupBones acreditada
+
+Se revisaron SetupBones, acceso a jerarquías/matriz del pivote, BoneNodeManager, BoneNode::Init/InitLimits/AddChild, listas y liberación. Se recompiló la sonda IK con fuentes actuales y se repitió el banco: **131 pares únicos coincidentes**, contadores original/candidato 0/1, nodos devueltos y jugador/gestor/frames/keyframes conservados. También coinciden 9.384 bytes de clima y grupos de coches con los datos ya corregidos. No suma cobertura única ni otras funciones acreditadas.
+
+[Revisión de dependencias](ValidationRegistry/ik-review.md) y [evidencia](ValidationRegistry/ik-validation.json). Ejecución 20260923-164625-027968, sonda 511a491a0856c02e88124f1bc49995ca73be6be2b119587253a320385fdcf44c. Registro: **2/8.014 (0,02%)**, constructor de animación por nombre y SetupBones, dentro del alcance y entorno documentados. RpAnimBlend sigue pendiente de revisión. SetupBones utiliza servicios originales RenderWare; no se acredita independencia del EXE.
+
+Se reutilizó el ejecutor de revalidación con --case ik-data, sin nuevo CMD ni caso de catálogo. Huellas de source/cmake/conan y banco capturadas antes y verificadas después. Fuentes, sondas históricas, ASI/PDB normales e INI restaurados; tres archivos de datos y partidas intactos por hash. ASI normal conserva ec43e626ac929660f8f75e027cd7c4292b8438db0c37ee78136544ab4483944f. Proceso propio cerrado, instalación personal intacta. CSV y código normal sin cambios. Nueve pruebas del auditor aprobadas. No se repitió toda la suite ni se garantiza estabilidad general; 86 bloqueos aplazados, sin commit/push ni apagado.
+### Ampliación vigente: RpAnimBlend y consolidación de todas las reconstruidas
+
+Revalidada RpAnimBlendClumpUpdateAnimations con sonda recompilada de las fuentes actuales: **652 pares aprobados**, error máximo 2.9802322387695312e-08, tolerancia 1e-5, poses independientes y jugador conservado. Se mantienen exclusiones Audio/SurfaceInfos y límites del fixture. Se revisaron recorrido, asociaciones, tiempos y callbacks; persisten llamadas originales. [Revisión](ValidationRegistry/rpanimblend-review.md), [resumen](ValidationRegistry/rpanimblend-validation.json). Ejecución 20260923-170100-430075; sonda a163757411fb3e80a39a964b2d9d571d30df62b81b6c397e6f174dc1f259d2bc. No se acredita toda RpAnimBlend 43/43.
+
+Incorporadas 30 funciones adicionales mediante identidad exacta y resumen aprobado: son evidencia histórica, no vigencia actual. Registro **33 con evidencia / 3 con vigencia**; barra **3/8.014 (0,04%)**. El [inventario completo](../docs/ValidationInventory.md) clasifica las 7.485 entradas reversed=1: 3 vigentes, 30 históricas por revisar y 7.452 sin evidencia vinculada todavía. Esta última etiqueta no significa nunca probada. Las 529 pendientes de reconstrucción quedan aparte. La siguiente tanda está listada por función y resumen, sin reabrir los 86 bloqueos aplazados.
+
+Nuevo build_probe.py para RpAnimBlend; el ejecutor de revalidación admite --case rpanimblend, conserva el runner histórico y su sonda predeterminada. Importador histórico idempotente; inventario regenerable con contrib/validation_inventory.py. CSV, clases reconstruidas y flags intactos. Fuentes normales, ASI/PDB, INI y partidas restaurados por hash; ASI normal ec43e626ac929660f8f75e027cd7c4292b8438db0c37ee78136544ab4483944f. Instalación personal intacta, GTA propio cerrado, sin commit/push ni apagado. No se repitió toda la suite ni se afirma estabilidad general. La independencia del EXE sigue sin medirse globalmente.
+### Pausa vigente: CCustomBuildingRenderer (2026-09-23)
+
+Por petición del usuario, se aplaza el trabajo para evaluar qué ofrece menor coste: reconstrucciones nuevas o desbloqueos. [Estado completo y punto de reanudación](CustomBuilding/README.md), [resumen](CustomBuilding/validation-summary.json). La prueba ya iniciada terminó con **95.168 pares exactos**, cinco hooks habilitados desde arranque y restauración verificada. No se inició otra prueba después de la pausa. Fuentes candidatas conservadas; CSV y catálogo siguen 3/7. Falta compilación normal, integración, instalación y cierre del registro; no declarar la clase terminada. ASI/PDB normales conservan los hashes de la continuidad del ratón. Partidas e INI restaurados y GTA cerrado. Git: PGTASA, HEAD 11fd6912f759d3bc93208a9def001b6dd751dbdf; cambios locales y archivos no rastreados conservados, sin commit/push.
+
+Panel e inventario regenerados sin alterar CSV: 33 evidencias históricas, 0 acreditaciones vigentes para el árbol modificado y 7.452 reconstruidas sin evidencia vinculada. Las tres anteriores requieren revisar el cambio de huella global de source; no es un fallo de sus pruebas. CustomBuilding aún no aporta acreditaciones al registro.
+
+Criterio propuesto, no campaña iniciada: priorizar funciones con implementación próxima al original, causa del bloqueo entendida y banco reutilizable. Suelen costar menos que una reconstrucción desde cero. Un lock complejo puede costar más que reconstruir una función pequeña; comparar funciones y dependencias, no número de clases. La validación sigue siendo obligatoria en ambos casos. Sin estimaciones numéricas de tokens o tiempo ni reapertura de los 86 bloqueos aplazados.

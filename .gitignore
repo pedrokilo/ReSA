@@ -67,5 +67,8 @@ compile_commands.json
 # Python virtual environment
 .venv
 
+# Python caches for documentation tools and their tests
+/contrib/**/__pycache__/
+
 ## TODO: These files can be put into a better place?
 /source/libs/imgui/*

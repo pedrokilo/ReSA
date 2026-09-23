@@ -8,7 +8,7 @@
 
 > **Rama inspeccionada:** `PGTASA` · **Corte:** 23 de septiembre de 2026 · **Alcance:** las 87 clases todavía incompletas de la lista solicitada.
 
-**Objetivo:** maximizar cierres de clases con el menor esfuerzo real de reconstrucción y validación, no perseguir el porcentaje más alto. Esta propuesta no reemplaza automáticamente la cola de trabajo autorizada.
+**Objetivo:** contribuir a una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del ejecutable original, conforme a la [hoja de ruta](ProjectRoadmap.md). Esta guía estima el esfuerzo para completar las 529 entradas y 87 clases pendientes; cerrar clases es un hito intermedio. La estrategia incluye retirar los 620 locks con evidencia y eliminar dependencias originales por subsistema. No reabre automáticamente los 86 bloqueos aplazados ni reemplaza la cola autorizada.
 
 | Clases evaluadas | Funciones pendientes | Parciales | Sin revertir |
 | :---: | :---: | :---: | :---: |

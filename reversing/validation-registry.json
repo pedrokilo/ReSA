@@ -1,0 +1,830 @@
+{
+  "schema_version": 1,
+  "functions": [
+    {
+      "hook": {
+        "class": "CTaskSimpleRunNamedAnim",
+        "fn_name": "Constructor-Anim",
+        "address": "0x0061A990",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ValidationRegistry/namedanim-validation.json",
+        "sha256": "6875ee112a54c36de12e32be2dbd13765c56161373fa96ee3761e917acf5d0a5",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 8192,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.cpp": "6aa6ac2098b1c6363649693acfa0cab42950470756c423b8bacb37665ef38fa6",
+        "source/game_sa/Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde",
+        "source/dllmain.cpp": "f9c9b7f57e5e6391372df9a9e65ed0b3a3c34c56b7ec5a7340af9fc5f5fbfb67"
+      },
+      "source_provenance": "Fresh probe build, revalidation 20260923-164036; base_sources in namedanim-validation.json",
+      "dependency_review": {
+        "evidence_path": "reversing/ValidationRegistry/namedanim-review.md",
+        "evidence_sha256": "bd84497c4e7f49cf34f35ba3664add6d5e77e7efba4f33e167c85ccc5ddecde0",
+        "files": {
+          "CMakeLists.txt": "b68fad6160dbe5ae12e78e142b1691b49b337db1c84c8c37947268db85f3e0a1",
+          "CMakePresets.json": "278db23a35ce7d561aaae93db74680019337a0b4bb9fcabffa34492a658ff570",
+          "conanfile.py": "1964851bde9c9813e3ae2a8c3195339a54a5694917432c304c2e3644fa1e4363",
+          "reversing/FallenPeds/LiveComparison.hpp": "ee234b939cd952e80a5fdb363d0c96fe5b7d3d1c0986c3d7327204714cb78f04",
+          "reversing/FallenPeds/Probe.hpp": "f45a88607b51c0b63d560424f83dafdfa6e1dbeeb8de09ff7aeff58169b3ee53",
+          "reversing/FallenPeds/build_probe.py": "55638951d544a0ba2a084093fd1d3af25ef7549fb14af5d4f8d5fbe15a4f9942",
+          "reversing/FallenPeds/run_local.py": "5ef5ca9357d68ac26af4ab2f757f7e3341336b3115764072154faece4f9f0fb3",
+          "reversing/runtime_runner.py": "f49feac7b2f5077822360a9f28f42de4e9b8418d72efda3cbe751acdc0db3645",
+          "reversing/ProbeSupport.hpp": "723fa314edaf3fa1ea4b06078c389707d078f4e5f676fe8502c663de00a50724",
+          "reversing/ProbeRuntime.hpp": "5b1a6686637b0970d8f76853e042400d06c7d03019c1935f9bcf6c367ae4f201"
+        },
+        "trees": {
+          "source": "5dd20d33a4b7deeb25e2bf96808fa2b41295366dc1687c0f60e0a9c5bf1e0c9f",
+          "cmake": "13a7092f104fd72f5bf7ff73a5e69cd3754739bd3adac116cefeb4502cb14138",
+          "conan": "b4f26a0fba4638355b8eac182866e178c5ca339dd1400a4e332802cc8813c5a2"
+        }
+      },
+      "scope": "Constructor con parametros: 8192 pares; excluye vtable, padding, colas de cadenas e ID de animacion no inicializado por el original.",
+      "previous_evidence": {
+        "path": "reversing/FallenPeds/validation-summary.json",
+        "sha256": "ac49845615515a4a6e323007f4bae1dd240b38c6c5f07658271cb5da7c848255",
+        "passed_path": [
+          "differential",
+          "passed"
+        ],
+        "pairs": 8192,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      }
+    },
+    {
+      "hook": {
+        "class": "IKChain_c",
+        "fn_name": "SetupBones",
+        "address": "0x00617CA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ValidationRegistry/ik-validation.json",
+        "sha256": "9e1f15392651547dd07bc3aa2c83baf6c57c17d1671de0487f3d5c6d6b215817",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 131,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Ragdoll/IKChain.cpp": "9f1ce7f8ba7afcbf75e13b9fff15a233f7287ce42843fb1eeacf595ab4d58e70",
+        "source/game_sa/Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde",
+        "source/dllmain.cpp": "f9c9b7f57e5e6391372df9a9e65ed0b3a3c34c56b7ec5a7340af9fc5f5fbfb67"
+      },
+      "source_provenance": "Fresh probe build, revalidation 20260923-164601; base_sources in ik-validation.json",
+      "dependency_review": {
+        "evidence_path": "reversing/ValidationRegistry/ik-review.md",
+        "evidence_sha256": "3b82ba38acde7d0e6541189b6e282f49921dd0e40b8ccdd484010206c600abfd",
+        "files": {
+          "CMakeLists.txt": "b68fad6160dbe5ae12e78e142b1691b49b337db1c84c8c37947268db85f3e0a1",
+          "CMakePresets.json": "278db23a35ce7d561aaae93db74680019337a0b4bb9fcabffa34492a658ff570",
+          "conanfile.py": "1964851bde9c9813e3ae2a8c3195339a54a5694917432c304c2e3644fa1e4363",
+          "reversing/IKDataWarnings/LiveComparison.hpp": "f2490805c6a16ca791d9e32a4a4558f831d1388246d6c4bb44919c523072a211",
+          "reversing/IKDataWarnings/Probe.hpp": "f504aed0fba9b05f6011b15e4fe1a0cb9e438da9c7919d51035e4c581d2872fb",
+          "reversing/IKDataWarnings/build_probe.py": "569c187074d3032b1c82630d8bc685dd933be2ca8315717d5cff6ac9b9792221",
+          "reversing/IKDataWarnings/run_local.py": "feab9cf610f9abcce91561c3e8f93d80acc0d8ad08b610833363283a9c2334ca",
+          "reversing/runtime_runner.py": "f49feac7b2f5077822360a9f28f42de4e9b8418d72efda3cbe751acdc0db3645",
+          "reversing/ProbeSupport.hpp": "723fa314edaf3fa1ea4b06078c389707d078f4e5f676fe8502c663de00a50724",
+          "reversing/ProbeRuntime.hpp": "5b1a6686637b0970d8f76853e042400d06c7d03019c1935f9bcf6c367ae4f201",
+          "reversing/IKDataWarnings/data-repair.json": "788b6657a809ae22d3dcccccab5c987112303078f0712202f67e292a1ecabb35"
+        },
+        "trees": {
+          "source": "5dd20d33a4b7deeb25e2bf96808fa2b41295366dc1687c0f60e0a9c5bf1e0c9f",
+          "cmake": "13a7092f104fd72f5bf7ff73a5e69cd3754739bd3adac116cefeb4502cb14138",
+          "conan": "b4f26a0fba4638355b8eac182866e178c5ca339dd1400a4e332802cc8813c5a2"
+        }
+      },
+      "scope": "131 pares semanticos de cadenas; excluye padding, direcciones, matrices sin calcular y solver completo.",
+      "previous_evidence": {
+        "path": "reversing/IKDataWarnings/validation-summary.json",
+        "sha256": "5d0a37697504160f636b25607f5be4c75b79e06290c65af704592c000fdb5a3f",
+        "passed_path": [
+          "differential",
+          "passed"
+        ],
+        "pairs": 131,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      }
+    },
+    {
+      "hook": {
+        "class": "RpAnimBlend",
+        "fn_name": "RpAnimBlendClumpUpdateAnimations",
+        "address": "0x004D34F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ValidationRegistry/rpanimblend-validation.json",
+        "sha256": "ae6db1c44d48eacefd310a7c325ac81c7604f5fca8d1ee11acffc6cedc2022fd",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 652,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp": "c0435b29b7eb8b683495b17eb80ade100dc43155cf66c4ab614e78f2f46b7f8d",
+        "source/game_sa/Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde",
+        "source/dllmain.cpp": "f9c9b7f57e5e6391372df9a9e65ed0b3a3c34c56b7ec5a7340af9fc5f5fbfb67"
+      },
+      "source_provenance": "Fresh probe build 20260923-170039; base_sources in rpanimblend-validation.json",
+      "dependency_review": {
+        "evidence_path": "reversing/ValidationRegistry/rpanimblend-review.md",
+        "evidence_sha256": "7858c1e69e8aac630ec8b24f4c3db02778125f9672b9a2f4c7f2b3aab6e829a8",
+        "files": {
+          "CMakeLists.txt": "b68fad6160dbe5ae12e78e142b1691b49b337db1c84c8c37947268db85f3e0a1",
+          "CMakePresets.json": "278db23a35ce7d561aaae93db74680019337a0b4bb9fcabffa34492a658ff570",
+          "conanfile.py": "1964851bde9c9813e3ae2a8c3195339a54a5694917432c304c2e3644fa1e4363",
+          "reversing/RpAnimBlend/LiveComparison.hpp": "05ee9d49153776076d6ed22c2bd2b887a9b5aaf861f3895d6d3a8896cdd5dc3f",
+          "reversing/RpAnimBlend/Probe.hpp": "e0e23bd257f8cedb3408209ee4b5530df067ab7a7d8b49ac700918bd05a30659",
+          "reversing/RpAnimBlend/build_probe.py": "628517a683c94dd50303e8d02ac18e1065f8c74ccab425020c2da22c1aeaec9c",
+          "reversing/RpAnimBlend/run_local.py": "294c8d9afc933978d80b1e837d1266eefd88af1ff5f242beadb04d88a6a660c2",
+          "reversing/runtime_runner.py": "f49feac7b2f5077822360a9f28f42de4e9b8418d72efda3cbe751acdc0db3645",
+          "reversing/ProbeSupport.hpp": "723fa314edaf3fa1ea4b06078c389707d078f4e5f676fe8502c663de00a50724",
+          "reversing/ProbeRuntime.hpp": "5b1a6686637b0970d8f76853e042400d06c7d03019c1935f9bcf6c367ae4f201"
+        },
+        "trees": {
+          "source": "5dd20d33a4b7deeb25e2bf96808fa2b41295366dc1687c0f60e0a9c5bf1e0c9f",
+          "cmake": "13a7092f104fd72f5bf7ff73a5e69cd3754739bd3adac116cefeb4502cb14138",
+          "conan": "b4f26a0fba4638355b8eac182866e178c5ca339dd1400a4e332802cc8813c5a2"
+        }
+      },
+      "scope": "652 pares controlados de actualizacion; no cubre todo el juego ni acredita regresion de la compilacion actual.",
+      "previous_evidence": {
+        "path": "reversing/RpAnimBlend/validation-summary.json",
+        "sha256": "ad43e7dbd87ac02ce42a91d0ea4892d017124d44a1870b14fa9fb752f4978fbc",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 652,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      }
+    },
+    {
+      "hook": {
+        "class": "CBaseModelInfo",
+        "fn_name": "SwaysInWind",
+        "address": "0x004212C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CBaseModelInfo/validation-summary.json",
+        "sha256": "0b150fca9d4a3e7e86ff1eb38145cd0135c2af5080cf821757d90f98c4c5fd97",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 65536,
+        "original_address": "0x004212C0"
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Alcance limitado al banco; consultar el README. Vigencia pendiente de revision.",
+      "review_reference": "reversing/CBaseModelInfo/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "RenderBottomFromHeight",
+        "address": "0x007154B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CClouds/validation-summary.json",
+        "sha256": "3252b5c2fb48a87420bb923079a057088b68cf44af5b7932ce18cf0b5356ebdd",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 1170,
+        "original_address": "0x007154B0"
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "RenderBottomFromHeight only; draw data and states, not pixels or general game stability",
+      "review_reference": "reversing/CClouds/README.md"
+    },
+    {
+      "hook": {
+        "class": "CConversations",
+        "fn_name": "DoneSettingUpConversation",
+        "address": "0x0043ADB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CConversations/validation-summary.json",
+        "sha256": "e3ea5c2f1a98be651a15195aacee326e21b131b4fffb2ab19585cef625c1389b",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 2048,
+        "original_address": "0x43ADB0"
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Setup and reference management only; no conversation playback, speech, subtitles or general stability validation. Valid bounded names; 0-12 temporary nodes, duplicate/missing/case-sensitive names, occupied node pool and conversation slots. Original requires at least one free conversation slot.",
+      "review_reference": "reversing/CConversations/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuSystem",
+        "fn_name": "FillGridWithCarColours",
+        "address": "0x005820E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CMenuSystem/validation-summary.json",
+        "sha256": "1478a90f79897d501e0a36badd3e838ccb8a3a1d8c2c2ad58e9153c656a7bcd6",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 784,
+        "original_address": "0x005820E0"
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "FillGridWithCarColours only; no menu rendering, navigation or general game stability",
+      "review_reference": "reversing/CMenuSystem/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexWander",
+        "fn_name": "CreateNextSubTask",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CTaskComplexWander/validation-summary.json",
+        "sha256": "7af41d08a0939834c71233daa56f6c0d3e771ae1217812e4bd93a8097879f68c",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 10240,
+        "original_address": "0x674140"
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Controlled path updates, target position/heading and traffic queries; real task allocations and constructors. Does not execute resulting tasks or validate general NPC navigation. Audio and Global/SurfaceInfos_c excluded.",
+      "review_reference": "reversing/CTaskComplexWander/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleJetPack",
+        "fn_name": "DropJetPack",
+        "address": "0x0067B660",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CTaskSimpleJetPack/validation-summary.json",
+        "sha256": "ec1dcf08d030d256c543101e666588e476cba334974be10de12f1d71db8415d2",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 128,
+        "original_address": "0x67B660"
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "MakeAbortable is a controlled virtual override; RNG is deterministic and temporarily patched. Real coordinate collision query and GenerateNewOne; failure injected for half of the cases. No full jetpack flight, model rendering, pickup collection, FX or audio validation.",
+      "review_reference": "reversing/CTaskSimpleJetPack/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskSimpleUseGun",
+        "fn_name": "ProcessPed",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CTaskSimpleUseGun/validation-summary.json",
+        "sha256": "2eda09ed38ff69d48a5e0ad2b50ade0cc0ff8d74b869d2bfae9cf6561e91545a",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 3232,
+        "original_address": "0x0062A380"
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "ProcessPed decision flow and states; not full combat, animation poses, impacts, active IK chains or general game stability",
+      "review_reference": "reversing/CTaskSimpleUseGun/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxManager_c",
+        "fn_name": "DestroyAllFxSystems",
+        "address": "0x004A98B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FxManager/validation-summary.json",
+        "sha256": "2b0b4468ffbb483c654427dc5e34b29ce21d06a00be4af8c32985aa9084bdcc2",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 180,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Alcance limitado al banco; consultar el README. Vigencia pendiente de revision.",
+      "review_reference": "reversing/FxManager/README.md"
+    },
+    {
+      "hook": {
+        "class": "FxManager_c",
+        "fn_name": "Update",
+        "address": "0x004A9A80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FxManager/validation-summary.json",
+        "sha256": "2b0b4468ffbb483c654427dc5e34b29ce21d06a00be4af8c32985aa9084bdcc2",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 540,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Alcance limitado al banco; consultar el README. Vigencia pendiente de revision.",
+      "review_reference": "reversing/FxManager/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedList",
+        "fn_name": "BuildListFromGroup_NotInCar_NoLeader",
+        "address": "0x0069A340",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedList/validation-summary.json",
+        "sha256": "96cb9a45f8465a5f66cc2f44488ce1304207e1cbc38bea955116605bf5b7a9fc",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 1024,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Intelligence queries are controlled and their call order is compared; no complete NPC/task AI execution. Local non-owning ped pool fixtures and group slots; list storage and input immutability checked exactly.",
+      "review_reference": "reversing/CPedList/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedList",
+        "fn_name": "BuildListOfPedsOfPedType",
+        "address": "0x0069A3B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedList/validation-summary.json",
+        "sha256": "96cb9a45f8465a5f66cc2f44488ce1304207e1cbc38bea955116605bf5b7a9fc",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 1024,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Intelligence queries are controlled and their call order is compared; no complete NPC/task AI execution. Local non-owning ped pool fixtures and group slots; list storage and input immutability checked exactly.",
+      "review_reference": "reversing/CPedList/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedList",
+        "fn_name": "RemovePedsAttackingPedType",
+        "address": "0x0069A450",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedList/validation-summary.json",
+        "sha256": "96cb9a45f8465a5f66cc2f44488ce1304207e1cbc38bea955116605bf5b7a9fc",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 1024,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Intelligence queries are controlled and their call order is compared; no complete NPC/task AI execution. Local non-owning ped pool fixtures and group slots; list storage and input immutability checked exactly.",
+      "review_reference": "reversing/CPedList/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPedList",
+        "fn_name": "RemovePedsThatDontListenToPlayer",
+        "address": "0x0069A420",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedList/validation-summary.json",
+        "sha256": "96cb9a45f8465a5f66cc2f44488ce1304207e1cbc38bea955116605bf5b7a9fc",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 1024,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Intelligence queries are controlled and their call order is compared; no complete NPC/task AI execution. Local non-owning ped pool fixtures and group slots; list storage and input immutability checked exactly.",
+      "review_reference": "reversing/CPedList/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClothes",
+        "fn_name": "GetTextureDependency",
+        "address": "0x005A7EA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CClothes/validation-summary.json",
+        "sha256": "2e69d56cf1e3a0ca3d00c32040b4b1b790888b8ea88d293172d1975403739483",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 4096,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Solo funciones pendientes indicadas; no cobertura exhaustiva de la clase ni estabilidad general.",
+      "review_reference": "reversing/CClothes/README.md"
+    },
+    {
+      "hook": {
+        "class": "CScripted2dEffects",
+        "fn_name": "Init",
+        "address": "0x006FA6F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CScripted2dEffects/validation-summary.json",
+        "sha256": "62febfc090a8fe1eba4bd7624078e79f260a6589caaab7f74710271d1c7c43e7",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 256,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Solo funciones pendientes indicadas; no cobertura exhaustiva de la clase ni estabilidad general.",
+      "review_reference": "reversing/CScripted2dEffects/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexUseClosestFreeScriptedAttractorSprint",
+        "fn_name": "Clone",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CTaskComplexUseClosestFreeScriptedAttractorSprint/validation-summary.json",
+        "sha256": "45bb31c787d9560bc1ebb2d0f5db738a1076144585cb9f1d6760c04fb0ebbf21",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 2048,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Solo funciones pendientes indicadas; no cobertura exhaustiva de la clase ni estabilidad general.",
+      "review_reference": "reversing/CTaskComplexUseClosestFreeScriptedAttractorSprint/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexUseClosestFreeScriptedAttractorSprint",
+        "fn_name": "GetTaskType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CTaskComplexUseClosestFreeScriptedAttractorSprint/validation-summary.json",
+        "sha256": "45bb31c787d9560bc1ebb2d0f5db738a1076144585cb9f1d6760c04fb0ebbf21",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 2048,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Solo funciones pendientes indicadas; no cobertura exhaustiva de la clase ni estabilidad general.",
+      "review_reference": "reversing/CTaskComplexUseClosestFreeScriptedAttractorSprint/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAESound",
+        "fn_name": "operator=",
+        "address": "0x004EF680",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CAESound/validation-summary.json",
+        "sha256": "fc688e565a723545ee081135d7ddc84794fdc2e11d99263001bb980794cb847a",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 1024,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Copia de sonido, campos conservados y ciclo de referencias; no todas las rutas de audio.",
+      "review_reference": "reversing/CAESound/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "CalculateNewVelocity",
+        "address": "0x005E4C50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPed/validation-summary.json",
+        "sha256": "b3bb04576ffb54099119f58d884ae49ac8de76afa0d9577903f28eb4f5bcf300",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 4096,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Recorded hook count, not exhaustive coverage of all CPed methods or unregistered virtual functions. Controlled dependencies for animation, particles, audio, collision queries, damage and final car force; see README. Real tyre forces and bonnet turn force; independent fixtures; actual game executable as oracle. Temporary probe dependency redirects are absent from the normal build. Original rain/dust custom-ABI helpers remain dependencies. Audio and Global/SurfaceInfos_c excluded. No general game stability or long-session guarantee.",
+      "review_reference": "reversing/CPed/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "DoFootLanded",
+        "address": "0x005E5380",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPed/validation-summary.json",
+        "sha256": "b3bb04576ffb54099119f58d884ae49ac8de76afa0d9577903f28eb4f5bcf300",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 2048,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Recorded hook count, not exhaustive coverage of all CPed methods or unregistered virtual functions. Controlled dependencies for animation, particles, audio, collision queries, damage and final car force; see README. Real tyre forces and bonnet turn force; independent fixtures; actual game executable as oracle. Temporary probe dependency redirects are absent from the normal build. Original rain/dust custom-ABI helpers remain dependencies. Audio and Global/SurfaceInfos_c excluded. No general game stability or long-session guarantee.",
+      "review_reference": "reversing/CPed/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "PlayFootSteps",
+        "address": "0x005E57F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPed/validation-summary.json",
+        "sha256": "b3bb04576ffb54099119f58d884ae49ac8de76afa0d9577903f28eb4f5bcf300",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 8192,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Recorded hook count, not exhaustive coverage of all CPed methods or unregistered virtual functions. Controlled dependencies for animation, particles, audio, collision queries, damage and final car force; see README. Real tyre forces and bonnet turn force; independent fixtures; actual game executable as oracle. Temporary probe dependency redirects are absent from the normal build. Original rain/dust custom-ABI helpers remain dependencies. Audio and Global/SurfaceInfos_c excluded. No general game stability or long-session guarantee.",
+      "review_reference": "reversing/CPed/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "MakeTyresMuddySectorList<CPtrListSingleLink<CPhysical*>>",
+        "address": "0x006AE0D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPed/validation-summary.json",
+        "sha256": "b3bb04576ffb54099119f58d884ae49ac8de76afa0d9577903f28eb4f5bcf300",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 2048,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Recorded hook count, not exhaustive coverage of all CPed methods or unregistered virtual functions. Controlled dependencies for animation, particles, audio, collision queries, damage and final car force; see README. Real tyre forces and bonnet turn force; independent fixtures; actual game executable as oracle. Temporary probe dependency redirects are absent from the normal build. Original rain/dust custom-ABI helpers remain dependencies. Audio and Global/SurfaceInfos_c excluded. No general game stability or long-session guarantee.",
+      "review_reference": "reversing/CPed/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "PositionPedOutOfCollision",
+        "address": "0x005E0820",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPed/validation-summary.json",
+        "sha256": "b3bb04576ffb54099119f58d884ae49ac8de76afa0d9577903f28eb4f5bcf300",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 4096,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Recorded hook count, not exhaustive coverage of all CPed methods or unregistered virtual functions. Controlled dependencies for animation, particles, audio, collision queries, damage and final car force; see README. Real tyre forces and bonnet turn force; independent fixtures; actual game executable as oracle. Temporary probe dependency redirects are absent from the normal build. Original rain/dust custom-ABI helpers remain dependencies. Audio and Global/SurfaceInfos_c excluded. No general game stability or long-session guarantee.",
+      "review_reference": "reversing/CPed/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "KillPedWithCar",
+        "address": "0x005F0360",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPed/validation-summary.json",
+        "sha256": "b3bb04576ffb54099119f58d884ae49ac8de76afa0d9577903f28eb4f5bcf300",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 8192,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Recorded hook count, not exhaustive coverage of all CPed methods or unregistered virtual functions. Controlled dependencies for animation, particles, audio, collision queries, damage and final car force; see README. Real tyre forces and bonnet turn force; independent fixtures; actual game executable as oracle. Temporary probe dependency redirects are absent from the normal build. Original rain/dust custom-ABI helpers remain dependencies. Audio and Global/SurfaceInfos_c excluded. No general game stability or long-session guarantee.",
+      "review_reference": "reversing/CPed/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPlayerInfo",
+        "fn_name": "FindObjectToSteal",
+        "address": "0x0056DBD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPlayerInfo/validation-summary.json",
+        "sha256": "4e5a28e665c4573e0758dd6b3627640ab82a414a954a496a3bfe3d2960cb60f5",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 4096,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Controlled dependencies; finite fixture coverage, not general game stability. No cooperative gameplay, full task execution, pickup interaction, RC camera effects or streaming validation. Separate original helpers: crosshair controller 0x56EC80, road density 0x44EFC0, pickup-task constructor 0x6919C0.",
+      "review_reference": "reversing/CPlayerInfo/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPlayerInfo",
+        "fn_name": "FindClosestCarSectorList",
+        "address": "0x0056F4E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPlayerInfo/validation-summary.json",
+        "sha256": "4e5a28e665c4573e0758dd6b3627640ab82a414a954a496a3bfe3d2960cb60f5",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 4096,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Controlled dependencies; finite fixture coverage, not general game stability. No cooperative gameplay, full task execution, pickup interaction, RC camera effects or streaming validation. Separate original helpers: crosshair controller 0x56EC80, road density 0x44EFC0, pickup-task constructor 0x6919C0.",
+      "review_reference": "reversing/CPlayerInfo/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPlayerInfo",
+        "fn_name": "Process",
+        "address": "0x0056F8D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPlayerInfo/validation-summary.json",
+        "sha256": "4e5a28e665c4573e0758dd6b3627640ab82a414a954a496a3bfe3d2960cb60f5",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 8704,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Controlled dependencies; finite fixture coverage, not general game stability. No cooperative gameplay, full task execution, pickup interaction, RC camera effects or streaming validation. Separate original helpers: crosshair controller 0x56EC80, road density 0x44EFC0, pickup-task constructor 0x6919C0.",
+      "review_reference": "reversing/CPlayerInfo/README.md"
+    },
+    {
+      "hook": {
+        "class": "FurnitureSubGroup_c",
+        "fn_name": "AddFurniture",
+        "address": "0x005C00C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FurnitureSubGroup_c/validation-summary.json",
+        "sha256": "d868622638c7b4d496e6ce15efdf27c2d1e162d9b67f7cc5bdfb583be05d2bed",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 4096,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Deterministic controlled RNG; isolated lists and collision boxes, not full interior placement or theft gameplay. Original AddItem retains its existing shared hook. Finite valid geometry; no NaN/infinity or invalid pointers. No general game stability guarantee.",
+      "review_reference": "reversing/FurnitureSubGroup_c/README.md"
+    },
+    {
+      "hook": {
+        "class": "FurnitureSubGroup_c",
+        "fn_name": "GetFurniture",
+        "address": "0x00590EE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FurnitureSubGroup_c/validation-summary.json",
+        "sha256": "d868622638c7b4d496e6ce15efdf27c2d1e162d9b67f7cc5bdfb583be05d2bed",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 8192,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Deterministic controlled RNG; isolated lists and collision boxes, not full interior placement or theft gameplay. Original AddItem retains its existing shared hook. Finite valid geometry; no NaN/infinity or invalid pointers. No general game stability guarantee.",
+      "review_reference": "reversing/FurnitureSubGroup_c/README.md"
+    },
+    {
+      "hook": {
+        "class": "FurnitureSubGroup_c",
+        "fn_name": "GetRandomId",
+        "address": "0x00590FD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/FurnitureSubGroup_c/validation-summary.json",
+        "sha256": "d868622638c7b4d496e6ce15efdf27c2d1e162d9b67f7cc5bdfb583be05d2bed",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 8192,
+        "original_address": null
+      },
+      "tested_sources": {},
+      "source_provenance": null,
+      "dependency_review": null,
+      "scope": "Deterministic controlled RNG; isolated lists and collision boxes, not full interior placement or theft gameplay. Original AddItem retains its existing shared hook. Finite valid geometry; no NaN/infinity or invalid pointers. No general game stability guarantee.",
+      "review_reference": "reversing/FurnitureSubGroup_c/README.md"
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import datetime
 import os
 from dataclasses import dataclass
 from pathlib import Path
+from validation_registry import evaluate
 
 
 @dataclass
@@ -20,6 +21,7 @@ class Klass:
 
 
 def generate(input_path, output_path):
+    validation = evaluate(Path(__file__).resolve().parents[1], input_path)
     classes = {}
     with open(input_path, encoding="utf-8-sig", newline="") as stream:
         for row in csv.DictReader(stream):
@@ -40,6 +42,16 @@ def generate(input_path, output_path):
     lines = ["# Progreso del reversing", "",
              "[Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)", "",
              f"> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** {now}", "",
+             "## Objetivo y dimensiones de progreso", "",
+             "La [hoja de ruta de PGTASA](ProjectRoadmap.md) define una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del EXE, seguida de un ejecutable propio. Completar este catálogo es un hito intermedio hacia **PGTASA — Zero Original Function Dependency**.", "",
+             "| Dimensión | Progreso | Medición |",
+             "| --- | --- | --- |",
+             f"| Clases completas | `{'█' * round(20*len(full)/len(ordered))}{'░' * (20-round(20*len(full)/len(ordered)))}` | {len(full)}/{len(ordered)} · {len(full)/len(ordered):.2%} |",
+             f"| Funciones reconstruidas | `{'█' * round(20*reversed_count/total)}{'░' * (20-round(20*reversed_count/total))}` | {reversed_count:,}/{total:,} · {reversed_count/total:.2%} |",
+             f"| Funciones validadas, vigencia confirmada | `{'█' * round(20*validation['current']/total)}{'░' * (20-round(20*validation['current']/total))}` | {validation['current']}/{total:,} · {validation['current']/total:.2%}; inventario parcial |",
+             "| Dependencias de funciones originales eliminadas | Sin barra | No medido; requiere auditoría directa y transitiva |", "",
+             f"Hay {total:,} entradas catalogadas, {locked:,} bloqueadas y {total-locked:,} sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente; el número de funciones que usan código original sigue sin medir. No se deducen hooks eliminados del contador de locks.", "",
+             f"**Validación consolidada parcialmente:** {validation['documented']} funciones con evidencia aprobada vinculada, {validation['source_matches']} con fuentes registradas coincidentes y {validation['current']} con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md). Esta barra mide acreditación en el registro, no ausencia de pruebas previas ni cobertura exhaustiva.", "",
              "## Vista general", "",
              "| Clases completas | Clases parciales | Sin revertir | Funciones revertidas | Funciones pendientes |",
              "| :---: | :---: | :---: | :---: | :---: |",

@@ -1,0 +1,81 @@
+{
+  "passed": true,
+  "trees": {
+    "source": "5dd20d33a4b7deeb25e2bf96808fa2b41295366dc1687c0f60e0a9c5bf1e0c9f",
+    "cmake": "13a7092f104fd72f5bf7ff73a5e69cd3754739bd3adac116cefeb4502cb14138",
+    "conan": "b4f26a0fba4638355b8eac182866e178c5ca339dd1400a4e332802cc8813c5a2"
+  },
+  "files": {
+    "CMakeLists.txt": "b68fad6160dbe5ae12e78e142b1691b49b337db1c84c8c37947268db85f3e0a1",
+    "CMakePresets.json": "278db23a35ce7d561aaae93db74680019337a0b4bb9fcabffa34492a658ff570",
+    "conanfile.py": "1964851bde9c9813e3ae2a8c3195339a54a5694917432c304c2e3644fa1e4363",
+    "reversing/RpAnimBlend/LiveComparison.hpp": "05ee9d49153776076d6ed22c2bd2b887a9b5aaf861f3895d6d3a8896cdd5dc3f",
+    "reversing/RpAnimBlend/Probe.hpp": "e0e23bd257f8cedb3408209ee4b5530df067ab7a7d8b49ac700918bd05a30659",
+    "reversing/RpAnimBlend/build_probe.py": "628517a683c94dd50303e8d02ac18e1065f8c74ccab425020c2da22c1aeaec9c",
+    "reversing/RpAnimBlend/run_local.py": "294c8d9afc933978d80b1e837d1266eefd88af1ff5f242beadb04d88a6a660c2",
+    "reversing/runtime_runner.py": "f49feac7b2f5077822360a9f28f42de4e9b8418d72efda3cbe751acdc0db3645",
+    "reversing/ProbeSupport.hpp": "723fa314edaf3fa1ea4b06078c389707d078f4e5f676fe8502c663de00a50724",
+    "reversing/ProbeRuntime.hpp": "5b1a6686637b0970d8f76853e042400d06c7d03019c1935f9bcf6c367ae4f201"
+  },
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "protected_before": {
+    "E:\\Original\\gta-reversed-master\\bin\\Debug\\gta_reversed.asi": "ec43e626ac929660f8f75e027cd7c4292b8438db0c37ee78136544ab4483944f",
+    "E:\\Original\\gta-reversed-master\\bin\\Debug\\gta_reversed.pdb": "e84a25d8106924485ebfeb8648ebf219d65bc9ae255986509fa2399bffad48a1",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta_reversed.asi": "ec43e626ac929660f8f75e027cd7c4292b8438db0c37ee78136544ab4483944f",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta_reversed.pdb": "e84a25d8106924485ebfeb8648ebf219d65bc9ae255986509fa2399bffad48a1",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "head": "11fd6912f759d3bc93208a9def001b6dd751dbdf",
+  "cmake_cache_sha256": "e0e5ddd24828d256d686bdbf416ea1fe8945898ba63562f8313475fe2dad9f78",
+  "manifest": {
+    "base_sources": {
+      "source\\game_sa\\Plugins\\RpAnimBlendPlugin\\RpAnimBlend.cpp": "c0435b29b7eb8b683495b17eb80ade100dc43155cf66c4ab614e78f2f46b7f8d",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde",
+      "source\\dllmain.cpp": "f9c9b7f57e5e6391372df9a9e65ed0b3a3c34c56b7ec5a7340af9fc5f5fbfb67"
+    },
+    "probe_sources": {
+      "LiveComparison.hpp": "05ee9d49153776076d6ed22c2bd2b887a9b5aaf861f3895d6d3a8896cdd5dc3f",
+      "Probe.hpp": "e0e23bd257f8cedb3408209ee4b5530df067ab7a7d8b49ac700918bd05a30659"
+    },
+    "asi": "a163757411fb3e80a39a964b2d9d571d30df62b81b6c397e6f174dc1f259d2bc",
+    "pdb": "055e604ee3c23aa8027fcd360b03f705c0aa2871e602ea2918e2a0825e242d96"
+  },
+  "runtime_report": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-rpanimblend\\20260923-170100-430075\\summary.json",
+  "runtime": {
+    "passed": true,
+    "saves_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+      "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+    },
+    "config_hashes_before": {
+      "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+      "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+    },
+    "game_stopped_before_analysis": true,
+    "pairs": 652,
+    "all_equal": true,
+    "tolerance": 1e-05,
+    "max_error": 2.9802322387695312e-08,
+    "state_restored": true,
+    "player_pose_unchanged": true,
+    "independent_inputs": true,
+    "log_sha256": "0bdb9f65285934aee34f1b797d857f44e35455e0109af2a0b96af4e2e7070a29",
+    "candidate_calls": 652,
+    "saves_unchanged": true,
+    "configs_restored": true
+  },
+  "sources_restored": true,
+  "inputs_unchanged": true,
+  "protected_restored": true,
+  "saves_unchanged": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "excluded_hooks": [
+    "Audio",
+    "Global/SurfaceInfos_c"
+  ],
+  "toolchain": "Debug x86; Visual Studio 18 2026; MSVC 14.51.36231; Win32; v145"
+}
