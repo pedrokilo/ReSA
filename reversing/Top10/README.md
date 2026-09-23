@@ -1,6 +1,6 @@
 # Diez clases completadas y validadas
 
-> Informe de esta entrega, conservado como evidencia histórica. El ASI instalado actualmente y los desbloqueos posteriores se documentan en el [informe vigente](../Unlocks/README.md). Los hashes y pruebas de este documento corresponden a su propia entrega.
+> Informe de esta entrega, conservado como evidencia histórica. El estado instalado más reciente y las entregas posteriores se documentan en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente). Los hashes y pruebas de este documento corresponden a su propia entrega.
 
 [Inicio](../../README.md) · [Progreso](../../docs/ReversedClasses.md) · [Prioridades restantes](../../docs/ReversingPriorities.md) · [Resumen verificable](validation-summary.json)
 

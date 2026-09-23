@@ -1,6 +1,6 @@
 # Ejecución conjunta de los bancos de reversing
 
-> Informe histórico del 22 de septiembre: no describe el último ASI instalado ni los cierres posteriores. La última entrega es [DataStream y TrackEntity](UnlockBatch2/README.md); también puede consultarse [el proceso y la continuidad](MEJORAS_DEL_PROCESO.md#continuidad-vigente). Este archivo conserva el resultado histórico de la suite, que no se ha vuelto a ejecutar completa.
+> Informe histórico del 22 de septiembre: no describe el último ASI instalado ni los cierres posteriores. La última corrección es la [reserva de CEntryExit](CEntryExitPool/README.md), posterior a [DataStream y TrackEntity](UnlockBatch2/README.md); también puede consultarse [el proceso y la continuidad](MEJORAS_DEL_PROCESO.md#continuidad-vigente). Este archivo conserva el resultado histórico de la suite, que no se ha vuelto a ejecutar completa.
 
 Fecha local: 2026-09-22. Rama: PGTASA. Resultado: **9/9 bancos aprobados, 76.319 comparaciones dentro de GTA**.
 

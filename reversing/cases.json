@@ -1,5 +1,10 @@
 [
   {
+    "id": "entryexit-pool",
+    "name": "CEntryExit: saturación, reserva y reutilización",
+    "runner": "CEntryExitPool/run_local.py"
+  },
+  {
     "id": "unlock-data-stream",
     "name": "CAEDataStream: archivos e interoperabilidad",
     "runner": "UnlockDataStream/run_local.py"

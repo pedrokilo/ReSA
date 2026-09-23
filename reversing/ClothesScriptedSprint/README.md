@@ -1,6 +1,6 @@
 # CClothes, CScripted2dEffects y AttractorSprint
 
-> Informe de esta entrega, conservado como evidencia histórica. El ASI instalado actualmente y los desbloqueos posteriores se documentan en el [informe vigente](../Unlocks/README.md). Los hashes y pruebas de este documento corresponden a su propia entrega.
+> Informe de esta entrega, conservado como evidencia histórica. El estado instalado más reciente y las entregas posteriores se documentan en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente). Los hashes y pruebas de este documento corresponden a su propia entrega.
 
 **8.448 pares exactos aprobados** en la ejecución final del 23 de septiembre de 2026. Una primera ejecución, con hooks inicialmente deshabilitados, pasó otros 8.448 pares del mismo banco; no son cobertura adicional.
 

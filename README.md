@@ -44,7 +44,9 @@ Las comparaciones corresponden al alcance descrito en cada README, no necesariam
 | `CScripted2dEffects` | 5/5 | 256 | [Alcance y resultados](reversing/CScripted2dEffects/README.md) |
 | `CTaskComplexUseClosestFreeScriptedAttractorSprint` | 4/4 | 4,096 | [Alcance y resultados](reversing/CTaskComplexUseClosestFreeScriptedAttractorSprint/README.md) |
 
-**Última entrega:** [DataStream y TrackEntity](reversing/UnlockBatch2/README.md), diez candados retirados tras 15.360 pares y 64 combinaciones de DataStream. CSV y catálogos sincronizados: quedan **620 candados** en el registro. Los 86 restantes del lote solicitado se aplazan; sus borradores se conservan fuera de la compilación. ASI normal instalado en la copia de pruebas: inicio al menú y 30 segundos de integración sin exclusiones comprobados; los avisos de CEntryExit y los límites constan en el informe.
+**Últimos desbloqueos:** [DataStream y TrackEntity](reversing/UnlockBatch2/README.md), diez candados retirados tras 15.360 pares y 64 combinaciones de DataStream. CSV y catálogos sincronizados: quedan **620 candados** en el registro. Los 86 restantes del lote solicitado se aplazan; sus borradores se conservan fuera de la compilación. ASI normal instalado en la copia de pruebas: inicio al menú y 30 segundos de integración sin exclusiones comprobados; los avisos históricos y los límites constan en el informe.
+
+**Última corrección:** [reserva de CEntryExit](reversing/CEntryExitPool/README.md), ampliada de 400 a 512 tras reproducir el agotamiento también con el original. Banco de 1.854 comprobaciones (21 diferencias previstas de FIX_BUGS) y ASI normal con 120 segundos de integración sin fallos de asignación. Se conservan partidas, inicio normal y los 86 bloqueos aplazados.
 
 **Tanda anterior:** [24 bloqueos retirados y plataforma conmutable](reversing/Unlocks/README.md). 50.432 pares de función, más 324 pares repetidos en nueve arranques y 18 comprobaciones de entrada SDL/ImGui. CGeneral ya estaba desbloqueado. Se repararon contratos ABI, memoria, entrada y dimensiones de cámara; el CSV mantiene los mismos totales de progreso.
 

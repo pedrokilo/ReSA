@@ -1,6 +1,6 @@
 # Reconstrucción y pruebas: proceso y mejoras
 
-> **Estado vigente:** [continuidad de desbloqueos terminados](#continuidad-vigente) e [informe conjunto](Unlocks/README.md). Las secciones de continuidad anteriores son históricas; sus cifras, pendientes y hashes describen cada entrega. Comprobar siempre Git antes de continuar.
+> **Estado vigente:** [continuidad de CEntryExit](#continuidad-vigente) e [informe de la reserva](CEntryExitPool/README.md). Las secciones de continuidad anteriores son históricas; sus cifras, pendientes y hashes describen cada entrega. Comprobar siempre Git antes de continuar.
 
 ## Qué se hizo realmente y qué faltaba mostrar
 
@@ -408,9 +408,9 @@ CFileMgr conserva 13 candados y cambios candidatos sin aprobación final. Últim
 No hay procesos GTA/MSBuild/cl/link activos al detener. ASI normal instalado comprobado: 112cdb045c60ce0a3ca3114f77fc321e8482f569fd7d5458bdf3ce6b225208e3; la sonda fue retirada. Fuentes sin instrumentación temporal. bin/Debug puede contener la última sonda: no instalarlo directamente. CSV, ReversedClasses y prioridades no sincronizados para este lote; faltan validación del resto, documentación final, compilación normal e integración conjunta. No commit/push del agente, no apagado, instalación personal y partidas conservadas.
 
 
-<a id="continuidad-vigente"></a>
+<a id="continuidad-entrega-parcial"></a>
 
-## Continuidad vigente: entrega parcial cerrada; 86 bloqueos aplazados (2026-09-23)
+## Continuidad histórica: entrega parcial cerrada; 86 bloqueos aplazados (2026-09-23)
 
 El usuario acotó la tarea a sincronizar catálogos, compilar normal y comprobar la integración de lo ya validado. **Completado:** CAEDataStream 6 candados y TrackEntity 4, con su dependencia GoToPointFine::SetTargetPos reparada. Total: 15.360 pares finales y 64 combinaciones de DataStream. TrackEntity se recompiló sin los borradores y repitió 9.216 pares: resultados-unlock-track-entity/20260923-132113-463503. Las repeticiones no aumentan la cobertura única.
 
@@ -423,3 +423,21 @@ ASI normal Debug x86 final, sin instrumentación: **16f5542f9ff8fc2e84d8adb31cad
 Inicio normal sin argumentos/exclusiones/teclas: estados muestreados 0,1,2,5,7; menú a **30,82 s**, diez segundos estable, sin carga automática. Evidencia InicioNormal/artifacts/startup-20260923-132328. Integración del mismo ASI: **30,03 s en IDLE, 873 frames**, Audio activo, sin exclusiones. Evidencia Unlocks/artifacts/current-20260923-132450. Proceso cerrado automáticamente al terminar. INI restaurados y partidas conservadas por hash; instalación personal intacta. FastLoader=false/SaveGameToLoad=-2 para uso normal.
 
 Limitaciones: el log conjunto registró 13 fallos de asignación de CEntryExit; el motor siguió funcionando. No se investigó ni atribuyó su causa. Persisten aviso timecyc y rechazo de la ranura 2 incompatible; no forzar su carga. El arranque mostró un aviso de adquisición del ratón. No hubo cierre inesperado, aserción ni RTC observado en las comprobaciones finales. No se probó conducción, combate, carga/guardado completo ni sesión prolongada; no garantiza estabilidad general. Campaña integral sigue aplazada. Rama PGTASA, sin commit/push del agente, sin apagar. Esperar otra petición antes de continuar los 86 pendientes.
+
+
+<a id="continuidad-vigente"></a>
+
+## Continuidad vigente: reserva de CEntryExit reparada (2026-09-23)
+
+Petición completada: investigar los fallos de asignación de CEntryExit. Git comenzó limpio en PGTASA, HEAD cba65c3, posterior a la entrega parcial. No recuperar los borradores de CFileMgr/Game: siguen aplazados los mismos 86 candados.
+
+Traza: 444 altas, 25 bajas y 19 fallos con 400 plazas; ninguna búsqueda de una baja falló. Banco con pools privados: el original y el candidato fallan en las mismas 19 altas con 400, y aceptan todas con 512 (419 entradas activas). Se cambió únicamente la reserva inicial de CEntryExitManager::Init a 512; 6.832 bytes adicionales. Ampliación deliberada del límite original, no equivalencia de Init ni una corrección general del pool. Los objetos no se mueven después de asignarse.
+
+[Informe](CEntryExitPool/README.md) y [resumen verificable](CEntryExitPool/validation-summary.json). Banco final resultados-entryexit-pool/20260923-141006-579167: 1.854 comprobaciones, 1.833 pares normalizados iguales y 21 retornos distintos esperados de FIX_BUGS (-1 frente al 0 original). También vacía y reutiliza las 512 plazas. Índices/generaciones y padding normalizados; no prueba puertas rotadas, enlaces ni todas las funciones de CEntryExit. Sonda 12a1673274333d01b296e4ec83e1d567180e494222d8193a0dd87acc696dba11; caso entryexit-pool añadido al único PROBAR.cmd y --all. Total 39 casos, 38 de motor y uno aislado. CSV y ReversedClasses sin cambios: ningún estado de hook varió, continúan 614/85/2 clases y 620 candados.
+
+ASI normal Debug x86 instalado solo en la copia de pruebas y presente en bin/Debug: **f01faea570319f6f3f7b5a7278ae7b80e3fc27507e478fa367a811b677fdaa93**; PDB 0e77e137a91dc56f9390013ed991cdd7a3a3709f075b80ba0f8a49b6105587f6. Respaldo `_baseline/before-entryexit-pool-20260923-141213`. Fuentes sin instrumentación y hashes verificados contra la sonda. Integración sin exclusiones: **120,24 segundos, 3.404 fotogramas, cero fallos de CEntryExit**, máximo 394/512. Evidencia Unlocks/artifacts/current-20260923-141219. La pasada natural no alcanzó 400; el desbordamiento y las plazas extra se prueban en el banco determinista.
+
+INI restaurados (FastLoader=false, SaveGameToLoad=-2), partidas sin cambios por hash, instalación personal intacta. No se repitió el banco de llegada al menú, ni conducción o guardar/cargar completo. La capacidad sigue siendo finita; no se garantiza compatibilidad de guardados nuevos con índices superiores a 399 en un motor limitado a 400. El log conserva avisos de datos, ranura incompatible, cinco de IK y 18 de peatones fuera del mapa; no se investigaron y no se afirma estabilidad general. Ya había un aviso de peatón en una observación del ASI anterior. No hubo cierre inesperado, aserción o RTC en la prueba final. Campaña integral y 86 desbloqueos aplazados. Sin commit/push, sin apagado. Esperar otra petición.
+
+
+Revisión documental posterior: se inspeccionaron los 59 Markdown propios del repositorio y se corrigieron ocho documentos con referencias vigentes desactualizadas o ambiguas. CAESound ya enlaza el diagnóstico de CEntryExit; ULTIMA_EJECUCION apunta a la reparación reciente; los informes históricos remiten al ancla estable de continuidad. Se comprobaron 855 enlaces locales, sin rutas rotas. Inventario y resultado en CEntryExitPool/artifacts/docs-inventory.json. Esta revisión solo modificó documentación; no recompiló, no repitió GTA ni cambió CSV, binarios o partidas. Sin commit/push.

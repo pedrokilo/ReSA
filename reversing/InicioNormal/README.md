@@ -23,7 +23,7 @@ El juego llega al menú; el usuario elige **Nueva partida** o **Cargar partida**
 
 El registro original y Windows coinciden: excepción de acceso `0xC0000005` a las 00:36:43 del 23 de septiembre de 2026, en `CAESound::UpdateParameters:252`. Se intentaba obtener la posición de una entidad física mediante un puntero inválido; dirección leída `0xDDDDDE0D`, compatible con memoria liberada de depuración.
 
-Se reprodujo y reparó un defecto de asignación de CAESound que dejaba referencias sin registrar y, por tanto, sin anular cuando desaparecía la entidad. [Reproducción, 1.024 comparaciones y límites](../CAESound/README.md). No se reprodujo exactamente el mismo choque; el registro también mostró fallos de asignación de CEntryExit que quedan como incidencia separada.
+Se reprodujo y reparó un defecto de asignación de CAESound que dejaba referencias sin registrar y, por tanto, sin anular cuando desaparecía la entidad. [Reproducción, 1.024 comparaciones y límites](../CAESound/README.md). No se reprodujo exactamente el mismo choque; el registro también mostró fallos de asignación de CEntryExit, tratados posteriormente en la [ampliación de su reserva](../CEntryExitPool/README.md).
 
 El registro previo a las nuevas ejecuciones se conserva en `artifacts/crash-20260923-003643.log`. Los dos INI originales también están respaldados en esa carpeta.
 
@@ -62,6 +62,9 @@ Se conservaron los documentos ya escritos en español, se corrigieron acentos da
 
 Los dos documentos añadidos en aquella revisión también quedaron en español. Tras añadir los bancos posteriores, la revisión documental del 23 de septiembre abarca **54 Markdown propios**. Se corrigieron pendientes ya resueltos y referencias ambiguas a instalaciones históricas, conservando sus evidencias. Esta revisión no vuelve a ejecutar pruebas ni cambia sus resultados.
 
-## Estado final
+## Estado de la comprobación de arranque
 
-ASI normal en la copia de pruebas: `16f5542f9ff8fc2e84d8adb31caddccbb29cecb8ca633076efda5c51df0600b9`. Respaldo inmediato en `_baseline/before-unlock-batch2-20260923-132316`. Se mantienen los respaldos anteriores. Partidas e INI conservados e instalación personal intacta. [Entrega parcial, integración y límites](../UnlockBatch2/README.md). No se garantiza estabilidad general ni se inició la campaña integral aplazada. Sin commit ni push.
+ASI normal usado en esa comprobación: `16f5542f9ff8fc2e84d8adb31caddccbb29cecb8ca633076efda5c51df0600b9`. Respaldo inmediato en `_baseline/before-unlock-batch2-20260923-132316`. Se mantienen los respaldos anteriores. Partidas e INI conservados e instalación personal intacta. [Entrega parcial, integración y límites](../UnlockBatch2/README.md). No se garantiza estabilidad general ni se inició la campaña integral aplazada. Sin commit ni push.
+
+
+**Estado instalado posterior:** `f01faea570319f6f3f7b5a7278ae7b80e3fc27507e478fa367a811b677fdaa93`, con la [reserva de CEntryExit ampliada](../CEntryExitPool/README.md). Se comprobó durante 120,24 segundos con carga rápida temporal; no se repitió el banco de llegada al menú. Ambos INI conservan el inicio normal indicado arriba y las partidas permanecen intactas.

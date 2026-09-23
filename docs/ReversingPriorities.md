@@ -18,6 +18,8 @@
 
 Los 24 bloqueos solicitados se retiraron tras comparación dentro del motor: [bancos de desbloqueo](../reversing/Unlocks/README.md). CGeneral ya estaba desbloqueado. No cambia el número de funciones pendientes ni la clasificación de esta guía. La entrega posterior de [DataStream y TrackEntity](../reversing/UnlockBatch2/README.md) retira otros diez candados validados; tampoco cambia las 87 clases incompletas ni el Top 10. Quedan 620 candados globales, de los cuales 86 pertenecen al lote aplazado.
 
+La [ampliación de la reserva de CEntryExit](../reversing/CEntryExitPool/README.md) corrige la saturación observada, sin completar funciones pendientes ni retirar candados; no modifica estas prioridades ni sus totales.
+
 ## Cómo se estimó el esfuerzo
 
 Se cruzó `hooks.csv` con registros de hooks, cuerpos C++ y headers de la rama. Se revisaron funciones concretas pendientes, código activo frente a borradores comentados o inalcanzables, estructuras, llamadas y referencias comparables. Las direcciones cero de virtuales en el CSV se contrastaron con sus registros: no indican que la función original no exista.

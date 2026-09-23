@@ -1,0 +1,139 @@
+{
+  "passed": true,
+  "scope": "Ampliación intencional de la reserva de CEntryExit; no cierre de clase ni equivalencia de todos sus métodos.",
+  "original_capacity": 400,
+  "capacity": 512,
+  "extra_bytes": 6832,
+  "diagnostic_trace": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-entryexit-pool\\20260923-135543-623103\\comparisons.jsonl",
+  "recorded_requests": 444,
+  "recorded_deletes": 25,
+  "recorded_failed_requests": 19,
+  "differential": {
+    "passed": true,
+    "saves_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+      "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+    },
+    "config_hashes_before": {
+      "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+      "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+    },
+    "game_stopped_before_analysis": true,
+    "pairs": 1854,
+    "equal_pairs": 1833,
+    "expected_FIX_BUGS_differences": 21,
+    "state_restored": true,
+    "capacity_results": [
+      {
+        "candidate_calls": 1270,
+        "candidate_failures": 19,
+        "capacity": 400,
+        "event": "capacity_result",
+        "original_candidate_calls": 0,
+        "original_failures": 19
+      },
+      {
+        "candidate_calls": 1401,
+        "candidate_failures": 0,
+        "capacity": 512,
+        "event": "capacity_result",
+        "original_candidate_calls": 0,
+        "original_failures": 0
+      }
+    ],
+    "live_capacity": 512,
+    "log_sha256": "ef26571b869aff75952d97f03a4984ad6e2929fc644790881f3aa2ee894c3e87",
+    "saves_unchanged": true,
+    "configs_restored": true
+  },
+  "differential_report": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-entryexit-pool\\20260923-141006-579167\\summary.json",
+  "probe_sha256": "12a1673274333d01b296e4ec83e1d567180e494222d8193a0dd87acc696dba11",
+  "probe_sources": {
+    "LiveComparison.hpp": "0e9587b368c3b054336e2e021252cec9f4685f7ad1347013701057004d9baa15",
+    "Probe.hpp": "05ddd57cd7366cc8d8c0b8f03b960b8f2436acbea880df481815b69a0847e59d",
+    "TraceOperations.hpp": "10e57e89d476f4867aa286250f856096091b98f5d633319afcce2c43b96b96d5"
+  },
+  "normal_build": {
+    "branch": "PGTASA",
+    "head": "cba65c35330308840d581cf56c51bb55b905eb98",
+    "binaries": {
+      "asi": "f01faea570319f6f3f7b5a7278ae7b80e3fc27507e478fa367a811b677fdaa93",
+      "pdb": "0e77e137a91dc56f9390013ed991cdd7a3a3709f075b80ba0f8a49b6105587f6"
+    },
+    "sources": {
+      "source\\game_sa\\EntryExitManager.cpp": "889d2d5ce01f3a5e7bb803f29a5839c63858ea029eaab3d4423bce44c4c56fcd",
+      "source\\game_sa\\Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde",
+      "source\\dllmain.cpp": "f9c9b7f57e5e6391372df9a9e65ed0b3a3c34c56b7ec5a7340af9fc5f5fbfb67"
+    },
+    "instrumentation_absent": true,
+    "installed_matches_build": true
+  },
+  "installation": {
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-entryexit-pool-20260923-141213",
+    "saves_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+      "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+    },
+    "binaries": {
+      "asi": "f01faea570319f6f3f7b5a7278ae7b80e3fc27507e478fa367a811b677fdaa93",
+      "pdb": "0e77e137a91dc56f9390013ed991cdd7a3a3709f075b80ba0f8a49b6105587f6"
+    },
+    "configs": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+    },
+    "saves_unchanged": true
+  },
+  "integration": {
+    "passed": true,
+    "states": [
+      {
+        "state": 0,
+        "seconds": 0.0
+      },
+      {
+        "state": 5,
+        "seconds": 3.5
+      },
+      {
+        "state": 8,
+        "seconds": 4.0
+      },
+      {
+        "state": 9,
+        "seconds": 14.52
+      }
+    ],
+    "saves_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+      "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+    },
+    "asi_sha256": "f01faea570319f6f3f7b5a7278ae7b80e3fc27507e478fa367a811b677fdaa93",
+    "unhook": "",
+    "scope": "120 segundos en estado IDLE; sin conducción, combate ni guardado",
+    "entryexit_peak": 394,
+    "idle_seconds": 120.24,
+    "frames_advanced": 3404,
+    "configs_restored": true,
+    "saves_unchanged": true,
+    "asi_unchanged": true,
+    "entryexit_allocation_failures": 0
+  },
+  "integration_report": "E:\\Original\\gta-reversed-master\\reversing\\Unlocks\\artifacts\\current-20260923-141219\\summary.json",
+  "integration_log_sha256": "39216317153c86ee457fffdd6e1eba615c1d631c60f2e1e5bef81363a918f71c",
+  "other_log_findings": {
+    "Another ped has fallen": 18,
+    "Bone tag": 5,
+    "UNHANDLED EXCEPTION": 0,
+    "Assertion failed": 0,
+    "Run-Time Check Failure": 0
+  },
+  "limitations": [
+    "La observación final alcanzó 394/512; la demanda de 419 y la reutilización de todas las plazas se validaron en el banco.",
+    "21 diferencias esperadas de FIX_BUGS (-1 frente a 0), 1833 pares normalizados iguales.",
+    "No valida sesiones largas, puertas rotadas, transiciones de interiores ni guardar/cargar completo.",
+    "No garantiza compatibilidad de nuevos guardados con índices superiores a 399 en un ejecutable limitado a 400.",
+    "Persisten avisos de datos, guardado incompatible, IK y peatones; no se investigan en esta tarea.",
+    "86 bloqueos siguen aplazados; CSV sin cambios."
+  ]
+}

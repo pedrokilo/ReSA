@@ -1,5 +1,6 @@
 """Observa 30 segundos de motor activo con el ASI instalado, sin exclusiones."""
 import csv
+import argparse
 import ctypes
 import json
 import subprocess
@@ -13,6 +14,12 @@ from runtime_runner import GAME, EXE_HASH, digest, saves, probe_configuration
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--seconds', type=int, default=30)
+    parser.add_argument('--entryexit-pool', action='store_true')
+    options = parser.parse_args()
+    if not 1 <= options.seconds <= 120:
+        parser.error('--seconds debe estar entre 1 y 120')
     rows = csv.reader(subprocess.check_output(['tasklist', '/FO', 'CSV', '/NH'], text=True).splitlines())
     if any(r and r[0].lower() in ('gta_sa.exe', 'gta-sa.exe') for r in rows):
         raise RuntimeError('Ya hay GTA abierto; no se cierra una sesión ajena.')
@@ -28,7 +35,7 @@ def main():
     handle = None
     result = dict(passed=False, states=[], samples=[], saves_before=saves(),
                   asi_sha256=digest(GAME / 'scripts/gta_reversed.asi'), unhook='',
-                  scope='30 segundos en estado IDLE; sin conducción, combate ni guardado')
+                  scope=f'{options.seconds} segundos en estado IDLE; sin conducción, combate ni guardado')
     kernel = ctypes.WinDLL('kernel32', use_last_error=True)
     kernel.OpenProcess.argtypes = [ctypes.c_ulong, ctypes.c_int, ctypes.c_ulong]
     kernel.OpenProcess.restype = ctypes.c_void_p
@@ -37,12 +44,15 @@ def main():
     log = GAME / 'scripts/logs/log.log'
     previous_log = log.read_bytes() if log.exists() else b''
 
-    def read_int(address):
-        value = ctypes.c_uint32()
+    def read_bytes(address, size):
+        value = (ctypes.c_ubyte * size)()
         read = ctypes.c_size_t()
-        if not kernel.ReadProcessMemory(handle, address, ctypes.byref(value), 4, ctypes.byref(read)) or read.value != 4:
+        if not kernel.ReadProcessMemory(handle, address, value, size, ctypes.byref(read)) or read.value != size:
             raise ctypes.WinError(ctypes.get_last_error())
-        return value.value
+        return bytes(value)
+
+    def read_int(address):
+        return int.from_bytes(read_bytes(address, 4), 'little')
 
     try:
         for index, path in enumerate(paths):
@@ -65,10 +75,24 @@ def main():
                 result['states'].append(dict(state=state, seconds=elapsed))
             if state == 9:
                 frame = read_int(0xB7CB4C)
-                result['samples'].append(dict(seconds=elapsed, frame=frame))
+                sample = dict(seconds=elapsed, frame=frame)
+                if options.entryexit_pool:
+                    pool = read_int(0x96A7D8)
+                    capacity = read_int(pool + 8)
+                    if not 1 <= capacity <= 10000:
+                        raise RuntimeError(f'Capacidad de EntryExit inesperada: {capacity}')
+                    states = read_bytes(read_int(pool + 4), capacity)
+                    sample.update(entryexit_capacity=capacity, entryexit_used=sum(not (s & 128) for s in states))
+                    if sample['entryexit_used'] > result.get('entryexit_peak', -1):
+                        result['entryexit_peak'] = sample['entryexit_used']
+                        (folder / 'entryexit-peak.bin').write_bytes(read_bytes(read_int(pool), capacity * 60))
+                        (folder / 'entryexit-peak-states.bin').write_bytes(states)
+                    if sample['entryexit_used'] == capacity and not (folder / 'entryexit-full.bin').exists():
+                        (folder / 'entryexit-full.bin').write_bytes(read_bytes(read_int(pool), capacity * 60))
+                result['samples'].append(sample)
                 if active_since is None:
                     active_since, first_frame = time.monotonic(), frame
-                if time.monotonic() - active_since >= 30:
+                if time.monotonic() - active_since >= options.seconds:
                     progress = (frame - first_frame) & 0xFFFFFFFF
                     if progress < 100:
                         raise RuntimeError('El contador no avanzó al menos 100 frames.')
@@ -95,7 +119,11 @@ def main():
         result['passed'] &= result['configs_restored'] and result['saves_unchanged'] and result['asi_unchanged']
         if log.exists():
             current = log.read_bytes()
-            (folder / 'game.log').write_bytes(current[len(previous_log):] if current.startswith(previous_log) else current)
+            fresh = current[len(previous_log):] if current.startswith(previous_log) else current
+            (folder / 'game.log').write_bytes(fresh)
+            if options.entryexit_pool:
+                result['entryexit_allocation_failures'] = sum(b'Allocation failed' in line and b'CEntryExit' in line for line in fresh.splitlines())
+                result['passed'] &= result['entryexit_allocation_failures'] == 0
         lock.unlink()
         (folder / 'summary.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
         print(('APROBADO' if result['passed'] else 'FALLO') + ': ASI normal sin exclusiones')

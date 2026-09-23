@@ -1,5 +1,7 @@
 # Desbloqueos solicitados e integración de plataforma
 
+> Informe histórico de esta tanda. Para el ASI instalado más reciente, consultar la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente). Después se entregaron [DataStream/TrackEntity](../UnlockBatch2/README.md) y la [ampliación de CEntryExit](../CEntryExitPool/README.md).
+
 Se retiraron **24 bloqueos en 16 clases/namespaces** después de comparar sus funciones con el original dentro del motor. CGeneral, la clase número 17 de la petición, ya estaba desbloqueada y conserva sus 65.536 comparaciones anteriores. No aumenta el número de funciones registradas como revertidas: los candados y el progreso son indicadores distintos. Las 17 clases solicitadas tienen cero candados en el CSV; en aquel corte quedaban **630 bloqueos en otras clases**. La [entrega posterior de DataStream y TrackEntity](../UnlockBatch2/README.md) retira diez más y deja 620.
 
 [Resumen conjunto verificable](validation-summary.json). Las evidencias separan pruebas de funciones, integración de arranque y comprobación del ASI normal.

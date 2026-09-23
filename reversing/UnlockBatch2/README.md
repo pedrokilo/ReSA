@@ -18,7 +18,7 @@ CFileMgr conserva sus trece bloqueos. Su último banco falló en LoadFile: el or
 El CSV actualiza únicamente los diez flags validados. Los totales siguen en 614 clases completas, 85 parciales, 2 sin revertir, 7.485/8.014 entradas y 529 pendientes. Candados registrados: **620**. No garantiza estabilidad general ni sustituye la campaña integral futura.
 
 
-## ASI normal e integración
+## ASI normal e integración de esta entrega
 
 Debug x86, sin instrumentación: `16f5542f9ff8fc2e84d8adb31caddccbb29cecb8ca633076efda5c51df0600b9`. Instalado solo en la copia de pruebas; respaldo `_baseline/before-unlock-batch2-20260923-132316`. Las fuentes entregadas coinciden con los manifiestos de los bancos. TrackEntity se recompiló y repitió sin los borradores aplazados antes de cerrar la entrega.
 
@@ -29,3 +29,6 @@ Debug x86, sin instrumentación: `16f5542f9ff8fc2e84d8adb31caddccbb29cecb8ca6330
 **El log no está limpio:** se observaron 13 fallos de asignación de CEntryExit, además del aviso timecyc y el rechazo de la ranura incompatible; al arrancar también apareció un aviso de adquisición del ratón. El motor continuó. No se determinó la causa de CEntryExit ni se atribuye automáticamente a estos cambios. No se validó conducción, combate, guardado/carga completa ni una sesión prolongada.
 
 Catálogo sincronizado: `unlock-data-stream` y `unlock-track-entity` están en cases.json/run_all.py y en el único PROBAR.cmd. La suite histórica no se ejecutó completa. Sin commit ni push.
+
+
+**Corrección posterior:** la incidencia de CEntryExit se diagnosticó y se amplió su reserva de 400 a 512: [evidencia, ASI actual y límites](../CEntryExitPool/README.md). Los 13 fallos anteriores se conservan como evidencia histórica; no describen la comprobación final de esa reparación. Los 86 desbloqueos siguen aplazados.

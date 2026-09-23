@@ -10,7 +10,7 @@ from datetime import datetime
 from pathlib import Path
 from runtime_runner import GAME, EXE_HASH, digest, saves
 
-PREFIXES = {'shooting-resources': 'shooting-resources', 'leave-car-bus': 'leave-car-bus', 'population-factory': 'population-factory', 'scanner-drag-fx': 'scanner-drag-fx', 'sound-copy': 'sound-copy', 'general': 'general', 'clothes-scripted-sprint': 'clothes-scripted-sprint', 'furniture': 'furniture', 'playerinfo-constructor': 'playerinfo-constructor', 'playerinfo': 'playerinfo', 'pedlist': 'pedlist', 'conversations': 'conversations', 'cped-completion': 'cped-completion', 'jetpack': 'jetpack', 'wander': 'wander', 'usegun': 'usegun', 'menusystem': 'menusystem', 'clouds': 'clouds', 'cvehicle': 'cvehicle', 'pcsave': 'pcsave', 'cplayerped': 'sprint',
+PREFIXES = {'entryexit-pool': 'entryexit-pool', 'shooting-resources': 'shooting-resources', 'leave-car-bus': 'leave-car-bus', 'population-factory': 'population-factory', 'scanner-drag-fx': 'scanner-drag-fx', 'sound-copy': 'sound-copy', 'general': 'general', 'clothes-scripted-sprint': 'clothes-scripted-sprint', 'furniture': 'furniture', 'playerinfo-constructor': 'playerinfo-constructor', 'playerinfo': 'playerinfo', 'pedlist': 'pedlist', 'conversations': 'conversations', 'cped-completion': 'cped-completion', 'jetpack': 'jetpack', 'wander': 'wander', 'usegun': 'usegun', 'menusystem': 'menusystem', 'clouds': 'clouds', 'cvehicle': 'cvehicle', 'pcsave': 'pcsave', 'cplayerped': 'sprint',
             'cped-attached': 'attached', 'cped-position': 'updateposition',
             'weaponeffects': 'weaponeffects', 'fxmanager': 'fxmanager',
             'basemodelinfo': 'basemodelinfo', 'rpanimblend': 'rpanimblend'}

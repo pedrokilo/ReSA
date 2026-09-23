@@ -1,6 +1,6 @@
 # CGeneral: desbloqueo de GetRandomNumberInRange<float>
 
-> Informe de esta entrega, conservado como evidencia histórica. El ASI instalado actualmente y los desbloqueos posteriores se documentan en el [informe vigente](../Unlocks/README.md). Los hashes y pruebas de este documento corresponden a su propia entrega.
+> Informe de esta entrega, conservado como evidencia histórica. El estado instalado más reciente y las entregas posteriores se documentan en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente). Los hashes y pruebas de este documento corresponden a su propia entrega.
 
 **9/9 entradas registradas, cero bloqueadas.** La función 0x41BD90 quedó habilitada y desbloqueada tras compararla contra el original dentro de GTA.
 

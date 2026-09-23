@@ -42,7 +42,10 @@ void CEntryExitManager::Init() {
     ms_entryExitStackPosn = 0;
     ms_bBurglaryHousesEnabled = false;
 
-    mp_poolEntryExits = new CEntryExitsPool(400u, "Entry exits");
+    // NOTSA: the intro's streaming can exceed the original 400 entries (419 in
+    // the recorded trace). Reserve headroom up front: growing a live pool would
+    // invalidate links, the quadtree and entry/exit stack pointers.
+    mp_poolEntryExits = new CEntryExitsPool(512u, "Entry exits");
     mp_poolEntryExits->SetDealWithNoMemory(true);
 }
 

@@ -112,4 +112,4 @@ En esa primera etapa aislada, el callback quedó registrado con reversed=true y 
 
 ## Desbloqueo posterior de conducción
 
-CVehicle conserva 142/142 entradas registradas y ahora no tiene candados. ProcessDrivingAnims se corrigió y desbloqueó con 16.384 pares; otros 256 comprueban la ABI de GetVehicleAppearance. [Banco de conducción y límites](../UnlockDriving/README.md). Estas pruebas son adicionales y no sustituyen la evidencia del callback. El [informe vigente](../Unlocks/README.md) identifica el ASI instalado en la copia de pruebas.
+CVehicle conserva 142/142 entradas registradas y ahora no tiene candados. ProcessDrivingAnims se corrigió y desbloqueó con 16.384 pares; otros 256 comprueban la ABI de GetVehicleAppearance. [Banco de conducción y límites](../UnlockDriving/README.md). Estas pruebas son adicionales y no sustituyen la evidencia del callback. La [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente) identifica el ASI instalado en la copia de pruebas.

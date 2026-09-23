@@ -1,6 +1,6 @@
 # CAESound: referencia inválida tras copiar un sonido
 
-> Informe de esta entrega, conservado como evidencia histórica. El ASI instalado actualmente y los desbloqueos posteriores se documentan en el [informe vigente](../Unlocks/README.md). Los hashes y pruebas de este documento corresponden a su propia entrega.
+> Informe de esta entrega, conservado como evidencia histórica. El estado instalado más reciente y las entregas posteriores se documentan en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente). Los hashes y pruebas de este documento corresponden a su propia entrega.
 
 El cierre registrado el 23 de septiembre de 2026 a las 00:36:43 ocurrió en `CAESound::UpdateParameters`, línea 252, al leer la posición de la entidad física de un sonido. Excepción `0xC0000005`, dirección leída `0xDDDDDE0D`, con `EDX=0xDDDDDDDD`. Este patrón es compatible con memoria liberada en una compilación de depuración. El usuario indicó que acababa de chocar.
 
@@ -32,6 +32,6 @@ Al cerrar esta entrega se instaló este ASI normal solo en la copia de pruebas: 
 
 ## Límites
 
-El defecto de referencias es real y reproduce el mecanismo compatible con el cierre observado; no se reprodujo exactamente la misma colisión del usuario. No se validaron todas las rutas de audio ni una sesión prolongada. El registro también contiene fallos de asignación de CEntryExit antes del cierre, que quedan como incidencia separada sin causa determinada.
+El defecto de referencias es real y reproduce el mecanismo compatible con el cierre observado; no se reprodujo exactamente la misma colisión del usuario. No se validaron todas las rutas de audio ni una sesión prolongada. El registro también contiene fallos de asignación de CEntryExit antes del cierre. Esa incidencia se investigó posteriormente: se reprodujo el agotamiento de 400 plazas también con el original y se amplió la reserva a 512. Consultar la [evidencia de CEntryExit y sus límites](../CEntryExitPool/README.md); no se atribuye a esa saturación el cierre de audio.
 
 Este banco solo excluye Global/SurfaceInfos_c; Audio permanece activo. La prueba separada de inicio normal no aplica exclusiones. No se promete estabilidad general. Sin commit ni push.

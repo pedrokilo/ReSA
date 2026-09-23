@@ -63,3 +63,8 @@ Se conserva la configuración de inicio normal. Los bancos usan carga rápida te
 ## Entrega parcial: DataStream y TrackEntity
 
 [Informe y trabajo aplazado](UnlockBatch2/README.md): diez candados retirados, 15.360 pares y 64 combinaciones de DataStream. Casos `unlock-data-stream` y `unlock-track-entity` añadidos a cases.json, PROBAR.cmd y `--all`. Los borradores de CFileMgr/Game quedan archivados fuera de la compilación; no se añaden como bancos aprobados. El catálogo conserva los otros 86 bloqueos solicitados para después.
+
+
+## CEntryExit: reserva agotada
+
+[Diagnóstico y corrección](CEntryExitPool/README.md): reserva ampliada deliberadamente de 400 a 512. Banco de 1.854 comprobaciones, con 21 diferencias conocidas de FIX_BUGS; reproducción de las mismas 19 altas fallidas en original y candidato a 400, ninguna a 512. ASI normal: 120,24 s y 3.404 fotogramas sin fallos de CEntryExit; otros avisos documentados. Caso `entryexit-pool` disponible en PROBAR.cmd y `--all`: 39 casos, 38 dentro del motor y uno aislado. No cambia ningún indicador del CSV.
