@@ -1,5 +1,7 @@
 # Desbloqueo de CAEAudioEnvironment
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 **9.216 comparaciones exactas aprobadas con Audio activo**: 8.192 del vector y 1.024 del adaptador Placeable. [Resumen verificable](validation-summary.json).
 
 El original recibe un buffer de salida y no garantiza devolverlo en EAX. Se corrigieron ambos adaptadores de ABI, manteniendo las funciones públicas que devuelven CVector. También se corrigieron la posición de cámara y la precisión/orden de las operaciones x87.

@@ -1,5 +1,7 @@
 # Desbloqueos de geometría, recursos y memoria
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 **7.968 pares exactos aprobados**, con nueve hooks habilitados y sin bloqueo desde el arranque. [Resumen verificable](validation-summary.json).
 
 | Función | Pares |

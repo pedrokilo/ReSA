@@ -17,9 +17,15 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--seconds', type=int, default=30)
     parser.add_argument('--entryexit-pool', action='store_true')
+    parser.add_argument('--fallen-peds', action='store_true', help='Exigir cero avisos nuevos de peatones fuera del mapa')
+    parser.add_argument('--ik-data', action='store_true', help='Exigir cero avisos nuevos de IK y de los datos reparados')
+    parser.add_argument('--min-frames', type=int, default=100)
+    parser.add_argument('--timeout', type=int, default=180)
     options = parser.parse_args()
     if not 1 <= options.seconds <= 120:
         parser.error('--seconds debe estar entre 1 y 120')
+    if not 100 <= options.min_frames <= 10000 or not options.seconds < options.timeout <= 900:
+        parser.error('--min-frames debe estar entre 100 y 10000; --timeout debe superar --seconds y no exceder 900')
     rows = csv.reader(subprocess.check_output(['tasklist', '/FO', 'CSV', '/NH'], text=True).splitlines())
     if any(r and r[0].lower() in ('gta_sa.exe', 'gta-sa.exe') for r in rows):
         raise RuntimeError('Ya hay GTA abierto; no se cierra una sesión ajena.')
@@ -35,7 +41,8 @@ def main():
     handle = None
     result = dict(passed=False, states=[], samples=[], saves_before=saves(),
                   asi_sha256=digest(GAME / 'scripts/gta_reversed.asi'), unhook='',
-                  scope=f'{options.seconds} segundos en estado IDLE; sin conducción, combate ni guardado')
+                  min_frames=options.min_frames,
+                  scope=f'Al menos {options.seconds} segundos y {options.min_frames} fotogramas en estado IDLE; sin conducción, combate ni guardado')
     kernel = ctypes.WinDLL('kernel32', use_last_error=True)
     kernel.OpenProcess.argtypes = [ctypes.c_ulong, ctypes.c_int, ctypes.c_ulong]
     kernel.OpenProcess.restype = ctypes.c_void_p
@@ -66,7 +73,7 @@ def main():
         started = time.monotonic()
         active_since = None
         first_frame = None
-        while time.monotonic() - started < 180:
+        while time.monotonic() - started < options.timeout:
             if process.poll() is not None:
                 raise RuntimeError(f'GTA terminó antes de completar: {process.returncode}')
             state = read_int(0xC8D4C0)
@@ -92,17 +99,15 @@ def main():
                 result['samples'].append(sample)
                 if active_since is None:
                     active_since, first_frame = time.monotonic(), frame
-                if time.monotonic() - active_since >= options.seconds:
-                    progress = (frame - first_frame) & 0xFFFFFFFF
-                    if progress < 100:
-                        raise RuntimeError('El contador no avanzó al menos 100 frames.')
+                progress = (frame - first_frame) & 0xFFFFFFFF
+                if time.monotonic() - active_since >= options.seconds and progress >= options.min_frames:
                     result.update(passed=True, idle_seconds=round(time.monotonic() - active_since, 2), frames_advanced=progress)
                     break
             else:
                 active_since = None
             time.sleep(.5)
         else:
-            raise RuntimeError('Tiempo agotado; el motor no completó 30 segundos activos.')
+            raise RuntimeError('Tiempo agotado; el motor no completó los segundos y fotogramas exigidos.')
     except Exception as error:
         result['error'] = str(error)
     finally:
@@ -124,6 +129,19 @@ def main():
             if options.entryexit_pool:
                 result['entryexit_allocation_failures'] = sum(b'Allocation failed' in line and b'CEntryExit' in line for line in fresh.splitlines())
                 result['passed'] &= result['entryexit_allocation_failures'] == 0
+            if options.fallen_peds:
+                result['fallen_ped_warnings'] = fresh.count(b'Another ped has fallen through the map')
+                result['passed'] &= bool(fresh) and result['fallen_ped_warnings'] == 0
+            if options.ik_data:
+                result['ik_data_warnings'] = {
+                    'ik': fresh.count(b'not found in chain'),
+                    'timecyc': fresh.count(b'Bad timecyc line'),
+                    'vehicle_arguments': sum(b'FileLoader.cpp' in line and b'Expected' in line for line in fresh.splitlines()),
+                    'group_capacity': fresh.count(b"there's no memory"),
+                }
+                result['passed'] &= bool(fresh) and not any(result['ik_data_warnings'].values())
+        elif options.fallen_peds or options.entryexit_pool or options.ik_data:
+            result.update(passed=False, error='No existe el log de integración.')
         lock.unlink()
         (folder / 'summary.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
         print(('APROBADO' if result['passed'] else 'FALLO') + ': ASI normal sin exclusiones')

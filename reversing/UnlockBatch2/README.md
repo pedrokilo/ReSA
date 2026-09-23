@@ -1,5 +1,7 @@
 # Entrega parcial: DataStream y TrackEntity
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 Entrega autorizada: **10 candados retirados** tras comparación dentro del motor. Se conservan **86** para otra sesión: CCollision 59, CFileMgr 13, GangLeader 11 y Game 3.
 
 | Banco | Candados retirados | Pares finales |
@@ -27,6 +29,8 @@ Debug x86, sin instrumentación: `16f5542f9ff8fc2e84d8adb31caddccbb29cecb8ca6330
 - INI restaurados, ASI conservado y partidas sin cambios por hash. Para uso normal, FastLoader sigue desactivado y SaveGameToLoad=-2. No se modificó la instalación personal.
 
 **El log no está limpio:** se observaron 13 fallos de asignación de CEntryExit, además del aviso timecyc y el rechazo de la ranura incompatible; al arrancar también apareció un aviso de adquisición del ratón. El motor continuó. No se determinó la causa de CEntryExit ni se atribuye automáticamente a estos cambios. No se validó conducción, combate, guardado/carga completa ni una sesión prolongada.
+
+Seguimiento posterior de esos avisos: [CEntryExit](../CEntryExitPool/README.md), [datos e IK](../IKDataWarnings/README.md) y [recuperación del ratón](../MouseRecovery/README.md). La falta de diagnóstico anterior corresponde a esta entrega histórica; no describe el estado vigente. La protección de partidas incompatibles se mantiene.
 
 Catálogo sincronizado: `unlock-data-stream` y `unlock-track-entity` están en cases.json/run_all.py y en el único PROBAR.cmd. La suite histórica no se ejecutó completa. Sin commit ni push.
 

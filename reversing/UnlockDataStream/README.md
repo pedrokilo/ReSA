@@ -1,5 +1,7 @@
 # CAEDataStream: seis hooks conmutables
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 Estado: **6/6 desbloqueados**, validados dentro de GTA en la copia de pruebas. [Resumen verificable](validation-summary.json).
 
 El bloqueo protegía una incompatibilidad real: el original guardaba un `HANDLE` de Windows y la reconstrucción un `FILE*` de otro runtime. Ahora ambos lados comparten `HANDLE`, apertura, lectura, posición y cierre. También se adaptó `Stat`; el constructor conserva el identificador sin inicializar hasta `Initialise`, como el original, y el destructor solo cierra cuando corresponde.

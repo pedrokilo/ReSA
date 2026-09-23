@@ -1,5 +1,7 @@
 # CPed: progreso comprobado
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 145/145 entradas registradas reconstruidas y habilitadas. Las seis pendientes se completaron el 2026-09-22 tras compararlas con el original dentro de GTA. Este porcentaje mide entradas registradas, no cobertura exhaustiva ni todas las funciones virtuales no registradas.
 
 PositionAttachedPed coloca el peaton en la matriz de la entidad a la que esta unido, aplica el desplazamiento y la orientacion de torreta, limita la rotacion de peatones no jugadores y copia velocidades cuando corresponde. Reproduce la variante de MODEL_FIRELA con CAR_MISC_B y el desplazamiento z codificado por debajo de -900. Limpia m_standingOnEntity (0x568), conserva m_pContactEntity y marca bIsStanding.

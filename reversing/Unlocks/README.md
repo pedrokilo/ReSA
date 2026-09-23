@@ -55,3 +55,5 @@ Para repetir esta observación breve: `python reversing/Unlocks/run_current_buil
 
 
 La revisión de logs conserva avisos de adquisición del ratón antes de mostrar la ventana, una línea de timecyc inválida y el rechazo conocido del guardado modificado. En la observación conjunta se registró también una excepción de primera oportunidad en la ruta Intel/D3D9On12: el juego continuó y completó los 863 frames. El rótulo legado `UNHANDLED EXCEPTION` del manejador vectorizado no distingue primera oportunidad de una excepción final no manejada; no debe interpretarse por sí solo como cierre. No se afirma que los logs estén libres de avisos.
+
+Seguimiento posterior: los [datos fueron reparados](../IKDataWarnings/README.md) y se comprobó la [recuperación natural del ratón](../MouseRecovery/README.md). El rechazo de la partida incompatible se conserva como protección. Estos resultados posteriores no alteran el registro histórico anterior.

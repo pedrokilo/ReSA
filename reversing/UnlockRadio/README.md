@@ -1,5 +1,7 @@
 # Desbloqueo de la radio del usuario
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 **224 comparaciones aprobadas con Audio activo**, ambos hooks habilitados y sin bloqueo desde el arranque. [Resumen verificable](validation-summary.json).
 
 192 casos de WriteUserTracksFile y 32 ejecuciones del hilo, comparando las cuatro combinaciones original/reversado del escáner y del hilo. Incluye archivos únicos (registro duplicado), carpetas vacías, subcarpetas, límite de profundidad, extensiones, archivos ignorados, enlaces a archivos y carpetas. Cada hilo termina bajo un plazo de diez segundos.

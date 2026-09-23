@@ -1,7 +1,17 @@
 [
   {
+    "id": "ik-data",
+    "name": "IK: pivote de cadena y datos corregidos",
+    "runner": "IKDataWarnings/run_local.py"
+  },
+  {
+    "id": "namedanim-init",
+    "name": "Peatones: inicializaciÃ³n y desplazamiento de animaciones",
+    "runner": "FallenPeds/run_local.py"
+  },
+  {
     "id": "entryexit-pool",
-    "name": "CEntryExit: saturación, reserva y reutilización",
+    "name": "CEntryExit: saturaciÃ³n, reserva y reutilizaciÃ³n",
     "runner": "CEntryExitPool/run_local.py"
   },
   {
@@ -16,42 +26,42 @@
   },
   {
     "id": "unlock-core",
-    "name": "ABI, geometría, recursos y memoria",
+    "name": "ABI, geometrÃ­a, recursos y memoria",
     "runner": "UnlockCore/run_local.py"
   },
   {
     "id": "unlock-tasks",
-    "name": "Destrucción de vehículos y control de lanzamiento",
+    "name": "DestrucciÃ³n de vehÃ­culos y control de lanzamiento",
     "runner": "UnlockTasks/run_local.py"
   },
   {
     "id": "unlock-physical",
-    "name": "Inserción y redistribución de entidades físicas",
+    "name": "InserciÃ³n y redistribuciÃ³n de entidades fÃ­sicas",
     "runner": "UnlockPhysical/run_local.py"
   },
   {
     "id": "unlock-audio",
-    "name": "Posición del audio respecto a la cámara",
+    "name": "PosiciÃ³n del audio respecto a la cÃ¡mara",
     "runner": "UnlockAudio/run_local.py"
   },
   {
     "id": "unlock-radio",
-    "name": "Escáner e hilo de radio del usuario",
+    "name": "EscÃ¡ner e hilo de radio del usuario",
     "runner": "UnlockRadio/run_local.py"
   },
   {
     "id": "unlock-driving",
-    "name": "Animaciones de conducción y ABI",
+    "name": "Animaciones de conducciÃ³n y ABI",
     "runner": "UnlockDriving/run_local.py"
   },
   {
     "id": "unlock-input",
-    "name": "Ratón y mando DirectInput",
+    "name": "RatÃ³n y mando DirectInput",
     "runner": "UnlockInput/run_local.py"
   },
   {
     "id": "unlock-platform",
-    "name": "Arranque, menú e integración SDL/ImGui",
+    "name": "Arranque, menÃº e integraciÃ³n SDL/ImGui",
     "runner": "UnlockPlatform/run_local.py"
   },
   {
@@ -61,17 +71,17 @@
   },
   {
     "id": "leave-car-bus",
-    "name": "Salir del coche y esperar el autobús",
+    "name": "Salir del coche y esperar el autobÃºs",
     "runner": "LeaveCarBus/run_local.py"
   },
   {
     "id": "population-factory",
-    "name": "Población, fábrica de vehículos y amenazas",
+    "name": "PoblaciÃ³n, fÃ¡brica de vehÃ­culos y amenazas",
     "runner": "PopulationFactory/run_local.py"
   },
   {
     "id": "scanner-drag-fx",
-    "name": "Escáner, expulsión y primitivas FX",
+    "name": "EscÃ¡ner, expulsiÃ³n y primitivas FX",
     "runner": "ScannerDragFx/run_local.py"
   },
   {

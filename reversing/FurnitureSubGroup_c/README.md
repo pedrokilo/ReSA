@@ -1,5 +1,7 @@
 # FurnitureSubGroup_c - 3/3
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 Reconstruccion de AddFurniture (0x5C00C0), GetFurniture (0x590EE0) y GetRandomId (0x590FD0). Sin delegacion a esas tres funciones originales desde los candidatos.
 
 AddFurniture reserva una entrada en el almacen global de 256 muebles, escribe modelo, ID, dimensiones, riqueza y flags, y la inserta al principio de la lista. Solo lee/escribe los 16 bits bajos del contador global. Si esta lleno devuelve false sin modificarlo. Los muebles robables usan maximo menos minimo de la caja; los demas usan maximo mas 0.5. Cada dimension se trunca y se incrementa si la fraccion es al menos 0.02; se conserva la conversion final a un byte.

@@ -67,4 +67,16 @@ Se conserva la configuración de inicio normal. Los bancos usan carga rápida te
 
 ## CEntryExit: reserva agotada
 
-[Diagnóstico y corrección](CEntryExitPool/README.md): reserva ampliada deliberadamente de 400 a 512. Banco de 1.854 comprobaciones, con 21 diferencias conocidas de FIX_BUGS; reproducción de las mismas 19 altas fallidas en original y candidato a 400, ninguna a 512. ASI normal: 120,24 s y 3.404 fotogramas sin fallos de CEntryExit; otros avisos documentados. Caso `entryexit-pool` disponible en PROBAR.cmd y `--all`: 39 casos, 38 dentro del motor y uno aislado. No cambia ningún indicador del CSV.
+[Diagnóstico y corrección](CEntryExitPool/README.md): reserva ampliada deliberadamente de 400 a 512. Banco de 1.854 comprobaciones, con 21 diferencias conocidas de FIX_BUGS; reproducción de las mismas 19 altas fallidas en original y candidato a 400, ninguna a 512. Integración de aquella entrega: 120,24 s y 3.404 fotogramas sin fallos de CEntryExit; otros avisos documentados. Caso `entryexit-pool` disponible en PROBAR.cmd y `--all`. No cambió ningún indicador del CSV.
+
+## Peatones: desplazamiento de animación sin inicializar
+
+[Diagnóstico y corrección](FallenPeds/README.md): el constructor con parámetros de CTaskSimpleRunNamedAnim dejaba un desplazamiento y su bandera pendiente sin inicializar. Banco aprobado de 8.832 pares contra el original; control anterior con 8.160 diferencias de inicialización y 64 saltos de posición. Caso `namedanim-init` integrado en PROBAR.cmd y `--all`. No completa la clase ni cambia el CSV.
+
+## IK y datos incompletos
+
+[Diagnóstico y reparación](IKDataWarnings/README.md): se evita buscar el pivote deliberadamente excluido de la cadena; 131 pares únicos coincidentes con el original. Datos reparados solo en la copia de pruebas, con respaldo: clima, skimmer y grupos de coches. Las tablas de clima y entradas activas de grupos coinciden con el original usando los datos corregidos. Integración: 121,16 s y 3.605 fotogramas, cero avisos de IK/datos/peatones y cero fallos de CEntryExit. Caso `ik-data` integrado en el único PROBAR.cmd y `--all`: **41 casos, 40 de motor y uno aislado**. No se repitió toda la suite ni cambió el CSV; no se afirma estabilidad general.
+
+## Recuperación del ratón al arrancar
+
+[Observación con el dispositivo real](MouseRecovery/README.md): el fallo inicial de Acquire se reproduce con la ventana oculta y sin foco; a los 1,485 s la adquisición y lectura son correctas, seguidas de 120 actualizaciones válidas. No requiere cambio del código normal. Este diagnóstico no suma pares ni casos al catálogo diferencial. La misma entrega revisa todos los Markdown propios y sus referencias vigentes.

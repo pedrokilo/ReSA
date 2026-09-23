@@ -1,5 +1,7 @@
 # CScripted2dEffects
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 **5/5 entradas registradas**, habilitadas y sin bloqueos. Cierre: 23 de septiembre de 2026.
 
 Se sustituyó la asignación de una estructura temporal por el reinicio explícito del original: conserva Effects[1].PartnerTask y los bytes de relleno de cada pareja.

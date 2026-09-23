@@ -1,5 +1,7 @@
 # CPlayerInfo - 28/28
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 Funciones reconstruidas: FindObjectToSteal (0x56DBD0), FindClosestCarSectorList (0x56F4E0) y Process (0x56F8D0). La firma de FindObjectToSteal se corrigio a miembro thiscall. Se conservan el orden de busqueda, codigos de escaneo, criterios de seleccion, temporizadores, acrobacias, dinero, salud, persecuciones e interaccion con vehiculos del original.
 
 El banco compara 16.896 pares dentro de GTA: 4.096 de objetos, 4.096 de vehiculos y 8.704 de Process. Comprueba estados, argumentos y orden de llamadas; exige cero entradas al candidato al ejecutar el original y una al ejecutar el candidato. Tolerancia absoluta de flotantes: 0.00001; bytes y enteros exactos. Incluye limites del mapa, listas vacias/llenas, escaneo, taxi, suspension, umbrales temporales, estadisticas, persecucion, replay y entrada/salida de vehiculos. Constructores de tareas reales, asignacion y varias dependencias controladas. Restaura globals, hooks, jugador y partidas.

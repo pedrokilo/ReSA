@@ -1,5 +1,7 @@
 # CPlayerPed: GetButtonSprintResults
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 Reconstruida y activada la entrada 0x60A820. CPlayerPed completa las 51 entradas del listado despues de la prueba dentro del juego.
 
 El llamador original 0x60B430 conserva un puntero de animacion en EDX y escribe en [EDX+0x24] despues de la llamada. Un puente x86 conserva explicitamente EDX y limpia el argumento de la pila; el calculo mantiene las operaciones x87 para evitar las diferencias de redondeo detectadas con SSE. Los valores NaN siguen la salida cero del original.

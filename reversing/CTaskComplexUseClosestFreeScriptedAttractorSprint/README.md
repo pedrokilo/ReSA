@@ -1,5 +1,7 @@
 # CTaskComplexUseClosestFreeScriptedAttractorSprint
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 **4/4 entradas registradas**, habilitadas y sin bloqueos. Cierre: 23 de septiembre de 2026.
 
 Clone crea una tarea nueva con PEDMOVE_SPRINT (7). La copia anterior usaba el constructor de copia de la base, que reiniciaba el movimiento a caminar. GetTaskType devuelve 262.

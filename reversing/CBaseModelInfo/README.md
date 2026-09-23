@@ -1,5 +1,7 @@
 # CBaseModelInfo — 34/34 funciones registradas
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 `SwaysInWind` (0x4212C0), la única entrada pendiente, quedó validada y habilitada el 2026-09-22. Las otras 33 entradas ya estaban registradas como reconstruidas; este banco no las vuelve a certificar.
 
 ## Corrección

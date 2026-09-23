@@ -1,5 +1,7 @@
 # CConversations - 11/11
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 DoneSettingUpConversation (0x43ADB0) reconstruida y validada con 2.048 pares original/candidato dentro de GTA. Coincidencia exacta de tablas, nodos temporales, referencias, estados y contadores. Partidas y estado del jugador restaurados. Hook habilitado despues de validar.
 
 Ejecutar desde el unico PROBAR.cmd: PROBAR.cmd --case conversations; tambien incluido en --all. Sonda archivada, no una prueba conjunta de estabilidad del ASI actual.

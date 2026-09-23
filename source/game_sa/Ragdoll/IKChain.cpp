@@ -293,7 +293,9 @@ void IKChain_c::SetupBones(eBoneTag32 effector, CVector effectorPos, eBoneTag32 
     // Link bones together
     for (auto& bone : GetBones()) {
         const auto prevBoneId = GetBoneLinkPrev(bone->GetBoneTag());
-        if (prevBoneId == BONE_UNKNOWN) { // This should only really happen with the effector bone (0th index)
+        // The pivot anchors the chain but is deliberately excluded from m_Bones.
+        // Its child is the chain root, so no in-chain parent link is needed.
+        if (prevBoneId == pivot || prevBoneId == BONE_UNKNOWN) {
             continue;
         }
         const auto prevBoneNode = GetBoneNodeFromTag(prevBoneId);

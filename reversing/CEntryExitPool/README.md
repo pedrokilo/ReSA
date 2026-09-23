@@ -1,5 +1,7 @@
 # CEntryExit: agotamiento de la reserva
 
+> Esta entrega precede a la [corrección del desplazamiento de peatones](../FallenPeds/README.md). Los hashes y la integración de este informe corresponden al cierre de CEntryExit; el ASI normal más reciente figura en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 ## Diagnóstico y corrección
 
 El registro anterior contenía 13 fallos de asignación. El problema es intermitente: dos observaciones del ASI anterior alcanzaron 399/400 y 396/400 plazas sin errores; una traza posterior registró **444 altas, 25 bajas y 19 altas fallidas**, con las 400 plazas ocupadas. Las búsquedas de las entradas que se intentaron liberar no fallaron. Solo había dos duplicados de posición entre las altas aceptadas, presentes ya en la carga inicial; no se borraron entradas del mapa.
@@ -35,6 +37,8 @@ Disponible en el único `PROBAR.cmd` y en `--all`. [run_local.py](run_local.py) 
 Integración sin exclusiones: **120,24 segundos**, **3.404 fotogramas**, **0 fallos de asignación de CEntryExit**, máximo **394/512** entradas. Esta pasada natural no volvió a alcanzar 400; la demanda de 419 y la reutilización de las 512 plazas se probaron en el banco determinista. Evidencia: [informe de integración](../Unlocks/artifacts/current-20260923-141219/summary.json).
 
 No hubo cierre inesperado, aserción ni RTC. Persisten avisos de timecyc, definición skimmer, guardado incompatible, cinco de IK y 18 de peatones fuera del mapa. Ya existía un aviso de peatón en una observación del ASI anterior; no se establece aquí una causa ni se declara limpio el log completo.
+
+Esos avisos describen esta ejecución histórica. Después se repararon [peatones](../FallenPeds/README.md) e [IK/datos](../IKDataWarnings/README.md), y se verificó la [recuperación del ratón](../MouseRecovery/README.md). La partida incompatible continúa protegida frente a carga forzada.
 
 El [resumen verificable](validation-summary.json) identifica binarios, fuentes, respaldo, logs y restauración. El ejecutor de integración permite:
 

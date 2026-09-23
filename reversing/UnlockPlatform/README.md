@@ -1,5 +1,7 @@
 # Plataforma conmutable: Windows, SDL e ImGui
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 **Nueve arranques aprobados**, con los siete hooks sin candado en las fuentes. **324 pares de función y 18 comprobaciones de entrada**. [Resumen verificable](validation-summary.json).
 
 ## Qué se cambió
@@ -7,6 +9,8 @@
 PsGlobal vuelve al bloque nativo de 40 bytes en 0xC8CF88. La ventana es un HWND nativo que SDL envuelve; el puntero SDL se mantiene fuera de ese bloque. Un temporizador de la ventana bombea los eventos tanto con WinMain/MessageLoop originales como reversados. La captura de ImGui está entre el procedimiento SDL y el procedimiento del juego, y WM_GRAPHNOTIFY sigue llegando al reproductor de vídeo.
 
 Ratón y mando del juego usan DirectInput, también bajo SDL; su equivalencia se comprueba en [UnlockInput](../UnlockInput/README.md). La enumeración de dispositivos conserva la función original. El área final de cliente determina las dimensiones del backbuffer y de cámara, reparando el raster nulo observado al pedir 1920×1080 y obtener 1920×1055.
+
+El aviso inicial de adquisición del ratón se investigó después: [recuperación natural comprobada](../MouseRecovery/README.md) a los 1,485 s, con la ventana visible y en primer plano, seguida de 120 actualizaciones válidas. Esa observación no repite la matriz de modos de este informe.
 
 Se retiraron los cinco bloqueos restantes: CMenuManager::CheckForMenuClosing, Ps::psInitialize/psTerminate y Win::NOTSA_WinMain/MessageLoop. Los dos de CPad se validaron y retiraron en su banco propio.
 

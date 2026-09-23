@@ -1,0 +1,78 @@
+{
+  "branch": "PGTASA",
+  "head": "4516c033c3e8e205af47aac18c9ca4f58f323b68",
+  "differential": {
+    "passed": true,
+    "saves_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+      "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+    },
+    "config_hashes_before": {
+      "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+      "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+    },
+    "game_stopped_before_analysis": true,
+    "validation": {
+      "bone_nodes_returned": true,
+      "chain_differences": 0,
+      "chain_pairs": 131,
+      "counters_valid": true,
+      "event": "complete",
+      "groups_equal": true,
+      "skeleton_unchanged": true,
+      "skimmer_defaults_explicit": true,
+      "state_restored": true,
+      "timecycle_different_bytes": 0
+    },
+    "pairs": 131,
+    "log_sha256": "d46f54646a2b6e3f7f48af0e2b04c3441ebf568c3bd621d7e7649c428cd92c40",
+    "scope": "IK SetupBones semantic pairs plus native weather-table and active car-group comparison",
+    "probe_sha256": "218564db47286769690da2734e5b34e9f2b6c0fecb61e4a5007fec4b9edf91f2",
+    "saves_unchanged": true,
+    "configs_restored": true
+  },
+  "differential_report": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ik-data\\20260923-152556-990651\\summary.json",
+  "integration_report": "reversing\\Unlocks\\artifacts\\current-20260923-152730\\summary.json",
+  "integration": {
+    "passed": true,
+    "states": [
+      {
+        "state": 0,
+        "seconds": 0.0
+      },
+      {
+        "state": 8,
+        "seconds": 2.5
+      },
+      {
+        "state": 9,
+        "seconds": 11.51
+      }
+    ],
+    "asi_sha256": "ec43e626ac929660f8f75e027cd7c4292b8438db0c37ee78136544ab4483944f",
+    "unhook": "",
+    "min_frames": 3600,
+    "scope": "Al menos 120 segundos y 3600 fotogramas en estado IDLE; sin conducci\u00f3n, combate ni guardado",
+    "entryexit_peak": 403,
+    "idle_seconds": 121.16,
+    "frames_advanced": 3605,
+    "configs_restored": true,
+    "saves_unchanged": true,
+    "asi_unchanged": true,
+    "entryexit_allocation_failures": 0,
+    "fallen_ped_warnings": 0,
+    "ik_data_warnings": {
+      "ik": 0,
+      "timecyc": 0,
+      "vehicle_arguments": 0,
+      "group_capacity": 0
+    }
+  },
+  "normal_asi": "ec43e626ac929660f8f75e027cd7c4292b8438db0c37ee78136544ab4483944f",
+  "normal_pdb": "e84a25d8106924485ebfeb8648ebf219d65bc9ae255986509fa2399bffad48a1",
+  "binary_backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-ik-normal-20260923-152717",
+  "data_manifest": "data-repair.json",
+  "hooks_csv_unchanged": true,
+  "all_suite_rerun": false,
+  "attachment_sha256": "a596abbcf2692364983048fdc21b6abcce84deaeaed19b6538aad85870212ad8"
+}

@@ -1,6 +1,6 @@
 # Reconstrucción y pruebas: proceso y mejoras
 
-> **Estado vigente:** [continuidad de CEntryExit](#continuidad-vigente) e [informe de la reserva](CEntryExitPool/README.md). Las secciones de continuidad anteriores son históricas; sus cifras, pendientes y hashes describen cada entrega. Comprobar siempre Git antes de continuar.
+> **Estado vigente:** [continuidad de peatones](#continuidad-vigente) e [informe del desplazamiento de animación](FallenPeds/README.md). Las secciones de continuidad anteriores son históricas; sus cifras, pendientes y hashes describen cada entrega. Comprobar siempre Git antes de continuar.
 
 ## Qué se hizo realmente y qué faltaba mostrar
 
@@ -425,9 +425,9 @@ Inicio normal sin argumentos/exclusiones/teclas: estados muestreados 0,1,2,5,7; 
 Limitaciones: el log conjunto registró 13 fallos de asignación de CEntryExit; el motor siguió funcionando. No se investigó ni atribuyó su causa. Persisten aviso timecyc y rechazo de la ranura 2 incompatible; no forzar su carga. El arranque mostró un aviso de adquisición del ratón. No hubo cierre inesperado, aserción ni RTC observado en las comprobaciones finales. No se probó conducción, combate, carga/guardado completo ni sesión prolongada; no garantiza estabilidad general. Campaña integral sigue aplazada. Rama PGTASA, sin commit/push del agente, sin apagar. Esperar otra petición antes de continuar los 86 pendientes.
 
 
-<a id="continuidad-vigente"></a>
+<a id="continuidad-entryexit"></a>
 
-## Continuidad vigente: reserva de CEntryExit reparada (2026-09-23)
+## Continuidad histórica: reserva de CEntryExit reparada (2026-09-23)
 
 Petición completada: investigar los fallos de asignación de CEntryExit. Git comenzó limpio en PGTASA, HEAD cba65c3, posterior a la entrega parcial. No recuperar los borradores de CFileMgr/Game: siguen aplazados los mismos 86 candados.
 
@@ -441,3 +441,63 @@ INI restaurados (FastLoader=false, SaveGameToLoad=-2), partidas sin cambios por 
 
 
 Revisión documental posterior: se inspeccionaron los 59 Markdown propios del repositorio y se corrigieron ocho documentos con referencias vigentes desactualizadas o ambiguas. CAESound ya enlaza el diagnóstico de CEntryExit; ULTIMA_EJECUCION apunta a la reparación reciente; los informes históricos remiten al ancla estable de continuidad. Se comprobaron 855 enlaces locales, sin rutas rotas. Inventario y resultado en CEntryExitPool/artifacts/docs-inventory.json. Esta revisión solo modificó documentación; no recompiló, no repitió GTA ni cambió CSV, binarios o partidas. Sin commit/push.
+
+<a id="continuidad-peatones"></a>
+
+## Continuidad histórica: desplazamiento de peatones por animación reparado (2026-09-23)
+
+Petición: investigar y reparar los avisos de peatones fuera del mapa. Git comenzó limpio en **PGTASA, HEAD 4516c03**, que ya contenía CEntryExit y su documentación. Esta tarea no hizo commit ni push; comprobar el estado real antes de continuar y conservar los cambios nuevos.
+
+Los avisos anteriores tenían coordenadas compatibles con `0xCDCDCDCD`. Una traza registró 74 saltos de posición y 14 avisos; otra acotó 39 saltos a `CPedIntelligence::Process` → `CTaskManager::ManageTasks` (117 registros al observar los mismos saltos en tres niveles, no 117 sucesos independientes). Las pasadas naturales son variables y dos no reprodujeron. No se identificó el nombre concreto de la animación de los 18 avisos históricos.
+
+El desensamblado y el banco determinista identificaron tres inicializaciones omitidas en el constructor con parámetros de **CTaskSimpleRunNamedAnim, 0x61A990**: vector `m_vecOffsetAtEnd` a cero, bandera `m_bOffsetAvailable` desactivada y `m_pAnimHierarchy` nulo si falta el bloque. `ProcessPed` original consulta primero esa bandera y aplica el desplazamiento; con memoria 0xCD, el constructor anterior provocó exactamente el salto de coordenadas en el banco. Solo se repararon esas inicializaciones; no se alteraron el constructor predeterminado, la función de desplazamiento ni los avisos de CWorld.
+
+[Informe](FallenPeds/README.md) y [resumen verificable](FallenPeds/validation-summary.json). **8.832 pares aprobados:** 8.192 constructores, 128 ejecuciones controladas de ProcessPed original y 512 aplicaciones de OffsetPedPosition. Sin diferencias en los resultados comparados, error máximo de posición 0. El control anterior registró 8.160 diferencias de inicialización y 64 de posición; las 512 aplicaciones de desplazamiento ya coincidían. Campos semánticos, objetos independientes y clump privado vacío; se excluyen vtable, padding, colas de cadenas y el identificador no inicializado por el original. No prueba todas las animaciones ni cierra la clase.
+
+Banco corregido: `resultados-namedanim-init/20260923-150054-230081`. Sonda SHA-256 `d2096562927cb082cfce314b1419ed81343f15cbc9b4178cd1a73636449bcdfc`. Repetición: `python reversing/run.py --case namedanim-init`. Integrado en el único PROBAR.cmd y `--all`: **40 casos, 39 dentro del motor y uno aislado**. No se repitió toda la suite histórica. CSV y ReversedClasses intactos: no cambiaron estados de hooks ni porcentajes.
+
+**ASI normal instalado solo en la copia de pruebas y presente en bin/Debug:** `6835a6eebc877f597a0d1cffe3992b7e8889cc0ddbff80446b4928d7978cd311`; PDB `9276a2b633756577980ed15fe390220a80ce7bd03be8886cd15029d95d8bdd3f`. Sin instrumentación, fuentes verificadas contra el manifiesto del banco. Respaldo `_baseline/before-fallen-peds-20260923-150204`.
+
+Integración final sin exclusiones: **120,64 segundos, 3.609 fotogramas, cero avisos de peatones y cero fallos de CEntryExit**, máximo 402/512 entradas. Evidencia `Unlocks/artifacts/current-20260923-150550`. La primera pasada solo avanzó 815 fotogramas; se repitió exigiendo 3.600. Comando: `python reversing/Unlocks/run_current_build.py --fallen-peds --entryexit-pool --seconds 120 --min-frames 3600 --timeout 600`. No hubo cierre inesperado, aserción ni RTC. INI restaurados (`FastLoader=false`, `SaveGameToLoad=-2`), partidas conservadas por hash, instalación personal intacta y GTA cerrado al terminar.
+
+El log final mantiene avisos de timecyc/skimmer; no apareció IK en esta muestra, pero no se investigó ni reparó. No se certifican otras causas posibles de peatones fuera del mapa, conducción, combate, guardar/cargar completo ni estabilidad general. CEntryExit conserva sus 512 plazas y su banco de 1.854 comprobaciones (1.833 resultados normalizados iguales y 21 diferencias esperadas de FIX_BUGS); RpAnimBlend sigue 43/43. **Siguen aplazados los mismos 86 bloqueos: CCollision 59, CFileMgr 13, GangLeader 11 y Game 3.** No aplicar el parche diferido sin petición. Campaña integral aplazada; sin apagado.
+
+<a id="continuidad-ik-datos"></a>
+
+## Continuidad histórica: aviso del pivote IK y datos reparados (2026-09-23)
+
+El usuario pidió reparar IK/datos y revisar el debug adjunto de las 15:02. Rama **PGTASA**, HEAD **4516c033c3e8e205af47aac18c9ca4f58f323b68**. Se conservaron todos los cambios existentes de peatones y su documentación; no hubo commit ni push. Comprobar Git real antes de continuar.
+
+**IKChain_c::SetupBones:** evita buscar como padre interno el pivote excluido deliberadamente de la cadena. El original también omite ese enlace; la reconstrucción emitía un aviso falso, incluido el caso cabeza/cuello (hueso 4). Se mantiene el diagnóstico para otras búsquedas fallidas. No se modifica el solver ni se completa la clase.
+
+**Datos, solo copia de pruebas:** `timecyc.dat` tenía 183 filas de 51 campos y una de 49; ambos lectores solicitan 52. Se completa la fila defectuosa con ambiente `255 255 255` y se añade multiplicador neutro `1.0` a las 184 filas. Es una reparación explícita del dato indeterminado; no se conocen con certeza los valores ambiente perdidos. `vehicles.ide` explicita los valores predeterminados actuales de skimmer `-1, 0.7, 0.7`. `cargrp.dat` conserva los primeros 23 modelos de los grupos 6/7 y elimina únicamente los 3/6 sobrantes ignorados por el motor. Su aviso de «no memory» no indicaba falta de RAM. Lectores CTimeCycle/CFileLoader/Population intactos. Respaldo exacto `_baseline/before-ik-data-20260923-152119`; [manifiesto de datos](IKDataWarnings/data-repair.json). El reparador es idempotente, comprueba hashes y exige GTA cerrado para escribir.
+
+[Informe](IKDataWarnings/README.md) y [resumen verificable](IKDataWarnings/validation-summary.json). **131 pares únicos de SetupBones aprobados**, comparando orden, etiquetas, padres, orientación, límites y velocidad; contadores original 0/candidato 1. Jugador, gestor de nodos, frames y keyframes intactos; devolución de nodos comprobada. No se comparan padding, direcciones ni matrices aún sin calcular. **9.384 bytes de tablas de clima coincidentes** usando los datos corregidos; no son 9.384 casos independientes. Cantidades y entradas activas de grupos de coches iguales al original; skimmer carga los valores explícitos esperados. No se valida toda la clase IK ni todo LoadVehicleObject.
+
+Banco final `resultados-ik-data/20260923-152556-990651`, sonda ASI `218564db47286769690da2734e5b34e9f2b6c0fecb61e4a5007fec4b9edf91f2`. La primera pasada también aprobó 131 pares; no se suma como cobertura nueva. Repetición: `python reversing/run.py --case ik-data`. Único PROBAR.cmd reutilizado; **41 casos, 40 de motor y uno aislado**. CSV y ReversedClasses intactos, sin cambios en indicadores ni porcentajes. No se ejecutó la suite completa.
+
+**ASI normal instalado y presente en bin/Debug:** `ec43e626ac929660f8f75e027cd7c4292b8438db0c37ee78136544ab4483944f`; PDB `e84a25d8106924485ebfeb8648ebf219d65bc9ae255986509fa2399bffad48a1`. Sin sonda; fuentes normales verificadas contra el manifiesto. Respaldo anterior `_baseline/before-ik-normal-20260923-152717`.
+
+Integración sin exclusiones: **121,16 segundos, 3.605 fotogramas**, cero avisos de IK/timecyc/argumentos de vehículos/capacidad de grupos/peatones y cero fallos de CEntryExit; máximo 403/512. Evidencia `Unlocks/artifacts/current-20260923-152730`. Comando: `python reversing/Unlocks/run_current_build.py --ik-data --fallen-peds --entryexit-pool --seconds 120 --min-frames 3600 --timeout 600`. INI restaurados (`FastLoader=false`, `SaveGameToLoad=-2`), partidas sin cambios por hash, instalación personal intacta y proceso propio cerrado.
+
+**Otros mensajes:** persiste `Acquire` del ratón con HRESULT 0x80070005 al arrancar; existe reintento en CPad, pero esta prueba no verificó su recuperación. La carga automática temporal intenta la ranura 2 `v1 Modified`; el motor espera `v1 Unmodified`, rechaza la carga y comienza partida nueva. No forzar compatibilidad ni modificar partidas. El adjunto no contenía avisos IK/peatones y pertenecía a la primera integración de 815 fotogramas, no a la posterior de 3.609.
+
+No se observó cierre inesperado, aserción ni RTC en la integración final. No se probaron conducción, combate, guardar/cargar completo, todos los esqueletos ni sesiones prolongadas; no se garantiza estabilidad general. CEntryExit mantiene 512 plazas y su evidencia de 1.854 comprobaciones: 1.833 resultados normalizados iguales y 21 diferencias esperadas FIX_BUGS. RpAnimBlend sigue 43/43. Permanecen aplazados **CCollision 59, CFileMgr 13, GangLeader 11 y Game 3: 86 bloqueos**; no aplicar el parche diferido sin petición. Sin apagado.
+
+<a id="continuidad-vigente"></a>
+
+## Continuidad vigente: recuperación del ratón comprobada y revisión de Markdown (2026-09-23)
+
+Petición: comprobar el fallo inicial de adquisición del ratón y actualizar todos los Markdown. Git revisado en **PGTASA**, HEAD **4516c033c3e8e205af47aac18c9ca4f58f323b68**, conservando los cambios existentes de peatones e IK/datos. Sin commit ni push.
+
+**Diagnóstico confirmado:** una sonda temporal observa las llamadas reales, sin añadir Acquire/GetDeviceState ni inyectar movimiento/clics. El primer Acquire devuelve `0x80070005` con la ventana oculta y otra ventana en primer plano. A los **1,485 segundos**, con la ventana visible y con foco, la primera lectura falla (`0x8007000C`), el reintento de adquisición da `S_OK` y la segunda lectura también, dentro de la misma llamada. Se registran **120 lecturas correctas y 120 actualizaciones de estado**; termina a los 15,110 s desde el primer intento. Las inicializaciones posteriores también adquieren el dispositivo. No hizo falta cambiar el código normal ni ocultar el aviso. Esto demuestra recuperación en esta ejecución, no retrospectivamente en todas las sesiones anteriores.
+
+[Informe](MouseRecovery/README.md) y [resumen verificable](MouseRecovery/validation-summary.json). Evidencia `resultados-mouse-recovery/20260923-154347-737501`. Sonda ASI `c09c409dc44c30ade89ed3237dccbf2a67ea9210c436fa89e9616439901adccc`; registro SHA-256 `81c7768545e71b7bfb2038f8d93772763076105720eeb1b51295857bc9ef0e2f`. Repetición: `python reversing/MouseRecovery/build_probe.py`, después `python reversing/MouseRecovery/run_local.py`. Es observación del dispositivo real, no pares de equivalencia. El catálogo conserva **41 casos, 40 de motor y uno aislado**; único PROBAR.cmd intacto.
+
+**ASI normal sin cambios:** `ec43e626ac929660f8f75e027cd7c4292b8438db0c37ee78136544ab4483944f`; PDB `e84a25d8106924485ebfeb8648ebf219d65bc9ae255986509fa2399bffad48a1`, tanto en bin/Debug como en la copia de pruebas. Fuentes, binarios normales e INI restaurados por hash. Partidas conservadas y proceso propio cerrado. FastLoader=false y SaveGameToLoad=-2. Se conservan los tres archivos de datos reparados y sus respaldos; instalación personal intacta.
+
+**Documentación:** revisados **62 Markdown propios**, incluidos `.github` y archivos no rastreados, con cachés/dependencias/artefactos ignorados excluidos. Se actualizan diagnóstico del ratón, estado instalado de InicioNormal, referencias históricas a avisos ya investigados, índices y navegación a continuidad de 40 informes que no la tenían. Las guías técnicas y el catálogo generado conservan sus contenidos válidos. **944 enlaces a archivos locales comprobados, sin destinos inexistentes**; no se verifican URLs remotas ni fragmentos de encabezados. Inventario final en `MouseRecovery/artifacts/docs-audit.json`; no se alteran resultados históricos ni indicadores CSV.
+
+Última integración normal sigue siendo la de IK/datos: **121,16 s y 3.605 fotogramas**, sin avisos comprobados de IK/datos/peatones y sin fallos de CEntryExit. Sus 131 pares de IK y tablas de clima/grupos coincidentes conservan su alcance. El nuevo diagnóstico no vuelve a ejecutar esa integración ni toda la suite. No prueba clics/movimiento físico, hotplug, todos los controladores, conducción, combate, guardar/cargar completo ni estabilidad general. La partida incompatible sigue rechazándose de forma prevista; no forzar carga ni modificar partidas.
+
+**Aplazados sin cambios:** CCollision 59, CFileMgr 13, GangLeader 11, Game 3: 86 bloqueos. No aplicar `UnlockBatch2/deferred-filemgr-game.patch` sin petición. RpAnimBlend 43/43; CEntryExit 512 plazas, 1.854 comprobaciones (1.833 resultados normalizados iguales y 21 diferencias esperadas FIX_BUGS). Sin apagado.

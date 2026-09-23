@@ -1,5 +1,7 @@
 # CMenuSystem — FillGridWithCarColours
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 Validación del 2026-09-22: **784 comparaciones aprobadas dentro de GTA**, con igualdad exacta de los 50.176 índices de color comparados. CMenuSystem pasa de 20/21 a 21/21 funciones registradas. Este banco valida específicamente `FillGridWithCarColours` (`0x5820E0`), antes delegada al original y deshabilitada como reconstrucción.
 
 La función llena las 64 casillas buscando en la tabla de 128 colores de vehículos. Rechaza un color si las diferencias de sus tres componentes RGB respecto a otro son estrictamente menores que 15. Conserva el comportamiento original: la primera casilla acepta el índice cero; las siguientes comparan también la casilla aún negra; la búsqueda vuelve al índice cero después de cada selección; al agotar las alternativas usa el índice 127, aunque se repita. La tabla de colores no se modifica.

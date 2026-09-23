@@ -1,5 +1,7 @@
 # FxManager_c — 25/25 funciones registradas
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 El 2026-09-22 se validó y habilitó `DestroyAllFxSystems` (0x4A98B0), la última entrada pendiente. También se corrigió el mismo defecto en `Update` (0x4A9A80), que ya figuraba como reconstruida. Las otras 23 entradas no se vuelven a certificar con este banco.
 
 ## Defecto y reconstrucción

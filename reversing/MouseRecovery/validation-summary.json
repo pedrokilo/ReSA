@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "game_stopped_before_analysis": true,
+  "validation": {
+    "delivered": 120,
+    "event": "complete",
+    "initial_failures": 1,
+    "ms": 15110,
+    "reacquire_successes": 1,
+    "read_failures": 1,
+    "read_successes": 120
+  },
+  "first_failure": {
+    "event": "initial_acquire",
+    "foreground": 4785558,
+    "hr": 2147942405,
+    "ms": 0,
+    "ok": false,
+    "visible": false,
+    "window": 2164604
+  },
+  "first_success": {
+    "event": "retry_read",
+    "foreground": 2164604,
+    "hr": 0,
+    "ms": 1485,
+    "ok": true,
+    "visible": true,
+    "window": 2164604
+  },
+  "log_sha256": "81c7768545e71b7bfb2038f8d93772763076105720eeb1b51295857bc9ef0e2f",
+  "scope": "Natural acquisition and delivered mouse states; no synthetic movement or clicks",
+  "probe_sha256": "c09c409dc44c30ade89ed3237dccbf2a67ea9210c436fa89e9616439901adccc",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "normal_asi": "ec43e626ac929660f8f75e027cd7c4292b8438db0c37ee78136544ab4483944f",
+  "normal_pdb": "e84a25d8106924485ebfeb8648ebf219d65bc9ae255986509fa2399bffad48a1",
+  "normal_sources_restored": true,
+  "normal_binaries_restored": true,
+  "code_changed": false,
+  "catalog_changed": false,
+  "report_folder": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-mouse-recovery\\20260923-154347-737501"
+}

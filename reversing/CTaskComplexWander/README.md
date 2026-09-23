@@ -1,5 +1,7 @@
 # CTaskComplexWander — 14/14
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 CreateNextSubTask (0x674140) aprobó 10.240 comparaciones originales/candidatas dentro de GTA. Se compara el árbol de tareas creado, parámetros, flags, nodos y orden de llamadas; contadores independientes comprueban que el original no ejecuta el candidato. Peatones independientes y jugador real sin modificaciones. La copia de pruebas restaura binarios y verifica partidas automáticamente.
 
 Correcciones: comparar el siguiente nodo con el nodo anterior guardado después de UpdateDir y antes de UpdatePathNodes; eliminar la transición de sentarse ausente en el original; conservar el orden de construcción de la secuencia y de las decisiones de tráfico.

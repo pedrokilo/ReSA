@@ -15,6 +15,8 @@ PREFIXES = {'entryexit-pool': 'entryexit-pool', 'shooting-resources': 'shooting-
             'weaponeffects': 'weaponeffects', 'fxmanager': 'fxmanager',
             'basemodelinfo': 'basemodelinfo', 'rpanimblend': 'rpanimblend'}
 PREFIXES.update({name: name for name in ['unlock-data-stream', 'unlock-track-entity', 'unlock-audio', 'unlock-core', 'unlock-driving', 'unlock-input', 'unlock-physical', 'unlock-platform', 'unlock-radio', 'unlock-tasks']})
+PREFIXES['namedanim-init'] = 'namedanim-init'
+PREFIXES['ik-data'] = 'ik-data'
 
 
 def game_running():
@@ -65,6 +67,8 @@ def main():
                 rows = [json.loads(line) for line in log.read_text(encoding='utf-8').splitlines()]
                 result['log_events'] = dict(Counter(r.get('event', 'unknown') for r in rows))
                 result['comparisons'] = sum(result['log_events'].get(e, 0) for e in ('comparison', 'edge_comparison', 'comparison_update'))
+                if name in ('namedanim-init', 'ik-data'):
+                    result['comparisons'] = evidence['pairs']
                 if process.returncode != 0 or not summary.get('passed'): raise RuntimeError('El ejecutor no aprobo el caso.')
                 result['passed'] = True
             except Exception as error: result['error'] = str(error)

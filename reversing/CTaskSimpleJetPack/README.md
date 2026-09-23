@@ -1,5 +1,7 @@
 # CTaskSimpleJetPack — 14/14
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 DropJetPack (0x67B660) aprobó 128 comparaciones dentro del motor. La implementación existente coincide con el original; se habilitó después de validar. El comentario antiguo sobre GenerateNewOne no se reprodujo en los escenarios probados.
 
 64 pares permiten GenerateNewOne real: 32 crean un pickup por lado y los otros 32 parten de tarea finalizada. Otros 64 pares simulan fallo de generación. Se ejecuta CreatePickupCoorsCloseToCoors original con consultas reales al mundo y una secuencia aleatoria determinista temporal. Se comparan argumentos, coordenadas, handle, tabla de pickups, estado de tarea, orden de llamadas, prioridad de aborto y empuje. Incluye matriz y posición simple, tarea finalizada, aborto aceptado/rechazado y empuje variable. Contadores verifican original independiente del candidato.

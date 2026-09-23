@@ -1,5 +1,7 @@
 # Desbloqueo de tareas de combate
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 **7.168 comparaciones aprobadas dentro del motor**, con los tres hooks habilitados y sin bloqueo desde el arranque. [Resumen verificable](validation-summary.json).
 
 | Función | Pares |

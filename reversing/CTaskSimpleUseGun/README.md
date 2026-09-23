@@ -1,5 +1,7 @@
 # CTaskSimpleUseGun — ProcessPed
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 Validación del 2026-09-22: **3.232 comparaciones aprobadas dentro del motor**, con diferencia numérica máxima cero. CTaskSimpleUseGun pasa de 18/19 a 19/19 funciones registradas al reconstruir `ProcessPed` (`0x62A380`). El banco se centra en esta función, no valida exhaustivamente las otras dieciocho.
 
 La implementación anterior delegaba al original y conservaba un borrador incompleto comentado. Se reconstruyó el flujo de adquisición/cambio de arma, finalización, pérdida de control, bloqueo de brazos, arranque/transición de animaciones, recarga, golpe con el arma, disparos simples/continuos/dobles, ráfagas y límites de apuntado. Se conserva la interpretación con signo de los contadores de ráfaga al compararlos con cero. Se corrigieron condiciones invertidas del borrador. El banco detectó además que el disparo continuo exige estar estrictamente antes del final del bucle: la igualdad con ese límite no dispara.

@@ -1,5 +1,7 @@
 # RpAnimBlendClumpUpdateAnimations (0x4D34F0)
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 Estado: reconstrucción validada y hook activado. RpAnimBlend: 43/43 funciones registradas (100%).
 
 El ejecutable revisado es el Compact US cuyo SHA-256 es 72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b. El desensamblado local abarca 0x4D34F0–0x4D3773.

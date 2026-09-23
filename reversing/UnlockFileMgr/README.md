@@ -1,5 +1,7 @@
 # CFileMgr: trabajo aplazado
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 **No validado; trece candados conservados.** Este banco no forma parte del catálogo de pruebas aprobadas.
 
 El borrador y sus adaptaciones se conservan en el [parche de la entrega parcial](../UnlockBatch2/deferred-filemgr-game.patch), con [manifiesto y copias locales](../UnlockBatch2/deferred-manifest.json). Las fuentes compilables vuelven al estado anterior. No reconstruir esta sonda sin recuperar y revisar primero el borrador.

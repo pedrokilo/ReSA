@@ -1,5 +1,7 @@
 # C_PcSave / GenerateGameFilename
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 Reconstruida la entrada 0x006190A0 y activado su hook. C_PcSave completa las cinco entradas del catalogo; no implica validacion completa del sistema de guardado.
 
 ## Evidencia

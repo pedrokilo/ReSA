@@ -1,5 +1,7 @@
 # TrackEntity: cuatro hooks desbloqueados
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 **4/4 activos y conmutables**, con **9.216 comparaciones aprobadas dentro del motor**. [Resumen verificable](validation-summary.json).
 
 Se implementaron `CalcTargetPos` y `CalcMoveRatio`, antes llamadas al original. Se corrigieron la caducidad (inicio + intervalo), la rama `FollowNodeRoute` y el orden de consultas virtuales. El controlador original reutiliza `ECX` después de `GoToPointFine::SetTargetPos`; un adaptador preserva ese registro. El setter también debe conservar los cuatro bits altos y activar 0x20, en lugar de borrarlo por una máscara incorrecta.

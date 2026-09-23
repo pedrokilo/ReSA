@@ -20,6 +20,8 @@ Los 24 bloqueos solicitados se retiraron tras comparación dentro del motor: [ba
 
 La [ampliación de la reserva de CEntryExit](../reversing/CEntryExitPool/README.md) corrige la saturación observada, sin completar funciones pendientes ni retirar candados; no modifica estas prioridades ni sus totales.
 
+Las reparaciones posteriores de [peatones](../reversing/FallenPeds/README.md) e [IK/datos](../reversing/IKDataWarnings/README.md), y la [recuperación comprobada del ratón](../reversing/MouseRecovery/README.md), tampoco cambian estos indicadores. Siguen aplazados CCollision 59, CFileMgr 13, GangLeader 11 y Game 3: 86 bloqueos. RpAnimBlend conserva 43/43.
+
 ## Cómo se estimó el esfuerzo
 
 Se cruzó `hooks.csv` con registros de hooks, cuerpos C++ y headers de la rama. Se revisaron funciones concretas pendientes, código activo frente a borradores comentados o inalcanzables, estructuras, llamadas y referencias comparables. Las direcciones cero de virtuales en el CSV se contrastaron con sus registros: no indican que la función original no exista.

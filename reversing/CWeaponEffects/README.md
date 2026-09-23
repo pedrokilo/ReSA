@@ -1,5 +1,7 @@
 # CWeaponEffects::Render (0x742CF0)
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 Reconstruida en C++ y activada después de 301 comparaciones automatizadas dentro de GTA. El progreso pasó de 8/9 a 9/9 solamente después de verificar el informe aprobado. Los campos field_1C y field_20 son flotantes; se corrigieron sus tipos conservando el tamaño y la distribución de memoria de CWeaponEffects.
 
 ## Evidencia dentro del juego

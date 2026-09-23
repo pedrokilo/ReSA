@@ -1,5 +1,7 @@
 # Desbloqueo de CPhysical
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 **3.072 comparaciones exactas aprobadas** con Add y RemoveAndAdd habilitados y sin bloqueo desde el arranque. [Resumen verificable](validation-summary.json).
 
 Se compararon 1.024 altas y 2.048 redistribuciones: nodos reutilizados, listas vacías, retirada de sobrantes, peatones/objetos/vehículos, límites negativos del mapa y delegación de edificios grandes. El banco usa pools privados y compara listas, cursores, referencias y sectores; las llamadas base de entidad se controlan con dobles comunes.

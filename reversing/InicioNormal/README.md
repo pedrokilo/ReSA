@@ -1,5 +1,7 @@
 # Inicio normal y cierre después de un choque
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 ## Abrir la copia de pruebas desde el principio
 
 ```powershell
@@ -60,11 +62,11 @@ En la revisión inicial se revisaron los 38 Markdown propios que existían enton
 
 Se conservaron los documentos ya escritos en español, se corrigieron acentos dañados y se marcaron claramente el plan y el informe de ejecución históricos. Los comandos, nombres de clases, rutas, claves de configuración y nombres visibles de las interfaces técnicas se conservan. Las cachés y dependencias descargadas no forman parte de esta traducción.
 
-Los dos documentos añadidos en aquella revisión también quedaron en español. Tras añadir los bancos posteriores, la revisión documental del 23 de septiembre abarca **54 Markdown propios**. Se corrigieron pendientes ya resueltos y referencias ambiguas a instalaciones históricas, conservando sus evidencias. Esta revisión no vuelve a ejecutar pruebas ni cambia sus resultados.
+Los dos documentos añadidos en aquella revisión también quedaron en español. Una revisión posterior abarcó 54 Markdown propios; ese recuento es histórico. La [revisión vigente](../MouseRecovery/README.md#revisión-documental) incluye los documentos incorporados después y verifica referencias y enlaces, conservando las evidencias históricas.
 
 ## Estado de la comprobación de arranque
 
 ASI normal usado en esa comprobación: `16f5542f9ff8fc2e84d8adb31caddccbb29cecb8ca633076efda5c51df0600b9`. Respaldo inmediato en `_baseline/before-unlock-batch2-20260923-132316`. Se mantienen los respaldos anteriores. Partidas e INI conservados e instalación personal intacta. [Entrega parcial, integración y límites](../UnlockBatch2/README.md). No se garantiza estabilidad general ni se inició la campaña integral aplazada. Sin commit ni push.
 
 
-**Estado instalado posterior:** `f01faea570319f6f3f7b5a7278ae7b80e3fc27507e478fa367a811b677fdaa93`, con la [reserva de CEntryExit ampliada](../CEntryExitPool/README.md). Se comprobó durante 120,24 segundos con carga rápida temporal; no se repitió el banco de llegada al menú. Ambos INI conservan el inicio normal indicado arriba y las partidas permanecen intactas.
+**Estado instalado vigente:** `ec43e626ac929660f8f75e027cd7c4292b8438db0c37ee78136544ab4483944f`, con las reparaciones de [IK/datos](../IKDataWarnings/README.md), [peatones](../FallenPeds/README.md) y [CEntryExit](../CEntryExitPool/README.md). Integración: 121,16 s y 3.605 fotogramas con carga rápida temporal; no se repitió el banco de llegada al menú. El [diagnóstico del ratón](../MouseRecovery/README.md) verificó después su recuperación natural sin cambiar ese ASI normal. Ambos INI conservan el inicio normal indicado arriba y las partidas permanecen intactas.

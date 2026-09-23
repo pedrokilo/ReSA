@@ -1,5 +1,7 @@
 # CClouds — RenderBottomFromHeight
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 Validación del 2026-09-22: **1.170 comparaciones aprobadas dentro de GTA, con igualdad numérica exacta**. La clase pasa de 20/21 a 21/21 funciones registradas. Este banco cubre la última función, `RenderBottomFromHeight` (`0x7154B0`); no valida exhaustivamente las otras veinte.
 
 Se reconstruyó la función vacía a partir del ejecutable original verificado: geometría de nubes, desplazamiento por viento, distribución alrededor de la cámara, transparencia por altura/distancia, proyección, sprites y estados de RenderWare. Se conserva la peculiaridad original de aumentar el color únicamente en el primer vértice de cada cuadrilátero. Los sprites usan el color sin aumentar. La aritmética utiliza precisión simple, acorde con el control x87 de 24 bits observado durante el renderizado.

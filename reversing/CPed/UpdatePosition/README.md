@@ -1,5 +1,7 @@
 # CPed::UpdatePosition (0x5E1B10)
 
+> Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
+
 Reconstruida y activada tras pasar 2.534 comparaciones dentro de GTA. El progreso documentado se actualizo solamente despues de comprobar el informe final.
 
 La funcion actualiza orientacion y velocidad del peaton a partir del desplazamiento de animacion, la velocidad de su apoyo, la pendiente y los limites de aceleracion. Respeta las salidas tempranas durante replay, estando adjunto y en el aire; en este ultimo caso solo ajusta orientacion para natacion, jetpack o cuerda SWAT. Reproduce el ajuste de barcos para peatones no jugadores, el descenso sobre pendientes, las restricciones al morir y al caer, y los limites de automoviles y la clase base de motos/bicicletas.

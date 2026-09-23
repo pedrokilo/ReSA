@@ -1,8 +1,10 @@
 # Ejecución conjunta de los bancos de reversing
 
-> Informe histórico del 22 de septiembre: no describe el último ASI instalado ni los cierres posteriores. La última corrección es la [reserva de CEntryExit](CEntryExitPool/README.md), posterior a [DataStream y TrackEntity](UnlockBatch2/README.md); también puede consultarse [el proceso y la continuidad](MEJORAS_DEL_PROCESO.md#continuidad-vigente). Este archivo conserva el resultado histórico de la suite, que no se ha vuelto a ejecutar completa.
+> Informe histórico del 22 de septiembre: no describe el último ASI instalado ni los cierres posteriores. La última corrección es la de [IK y datos incompletos](IKDataWarnings/README.md), posterior a [peatones](FallenPeds/README.md), [CEntryExit](CEntryExitPool/README.md) y [DataStream y TrackEntity](UnlockBatch2/README.md); también puede consultarse [el proceso y la continuidad](MEJORAS_DEL_PROCESO.md#continuidad-vigente). Este archivo conserva el resultado histórico de la suite, que no se ha vuelto a ejecutar completa.
 
 Fecha local: 2026-09-22. Rama: PGTASA. Resultado: **9/9 bancos aprobados, 76.319 comparaciones dentro de GTA**.
+
+La observación posterior más reciente es la [recuperación del ratón al arrancar](MouseRecovery/README.md): no cambia el ASI normal de IK/datos ni repite esta suite histórica.
 
 Se abrió y cerró GTA para cada banco, utilizando exclusivamente `E:/JUEGOS/GTA San Andreas - CVehicle Test`. Después de cada ejecución se volvió a analizar su registro nuevo y se verificaron el hash de la evidencia, la restauración de ASI/PDB, el cierre del proceso y los hashes de las partidas. No se contaron informes históricos como ejecuciones nuevas.
 
