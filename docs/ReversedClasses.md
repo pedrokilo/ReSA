@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-09-23 18:20 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-09-23 19:20 UTC
 
 ## Vista general
 
@@ -37,7 +37,7 @@ Orden alfabético. El número entre paréntesis indica funciones registradas; �
 | `C3dMarkers` (20) | `CInformFriendsEventQueue` (4) | `CTaskComplexStareAtPed` (7) |
 | `C_PcSave` (5) | `CInformGroupEvent` (3) | `CTaskComplexStealCar` (8) |
 | `CAccidentManager` (5) | `CInformGroupEventQueue` (4) | `CTaskComplexStuckInAir` (6) |
-| `CAcquaintance` (5) | `CIniFile` (1) | `CTaskComplexTrackEntity` (11) 🔒 4 |
+| `CAcquaintance` (5) | `CIniFile` (1) | `CTaskComplexTrackEntity` (11) |
 | `CActiveOccluder` (2) | `CIplDefPool` (1) | `CTaskComplexTreatAccident` (7) |
 | `CAEAudioChannel` (12) | `CIplStore` (34) | `CTaskComplexTurnToFaceEntityOrCoord` (9) |
 | `CAEAudioEnvironment` (6) | `CKeyArray` (4) | `CTaskComplexUseAttractor` (7) |
@@ -46,7 +46,7 @@ Orden alfabético. El número entre paréntesis indica funciones registradas; �
 | `CAEBankLoader` (6) | `CLinkedUpgradeList` (2) | `CTaskComplexUseClosestFreeScriptedAttractorSprint` (4) |
 | `CAECollisionAudioEntity` (17) | `CLoadedCarGroup` (8) | `CTaskComplexUseEffect` (8) |
 | `CAECutsceneTrackManager` (8) | `CLoadingScreen` (20) | `CTaskComplexUseEffectRunning` (2) |
-| `CAEDataStream` (20) 🔒 6 | `CLoadMonitor` (7) | `CTaskComplexUseEffectSprinting` (2) |
+| `CAEDataStream` (20) | `CLoadMonitor` (7) | `CTaskComplexUseEffectSprinting` (2) |
 | `CAEDoorAudioEntity` (6) | `CLocalisation` (18) | `CTaskComplexUseGoggles` (5) |
 | `CAEExplosionAudioEntity` (3) | `CLodAtomicModelInfo` (3) | `CTaskComplexUseScriptedAttractor` (7) |
 | `CAEFireAudioEntity` (7) | `CMatrixLink` (2) | `CTaskComplexUseScriptedBrain` (8) |
@@ -339,7 +339,7 @@ Orden alfabético para localizar clases. Para decidir qué abordar primero, cons
 ## Cómo leer y actualizar
 
 - **Pendientes:** total menos revertidas. Cada fila del CSV cuenta como una entrada, incluidas sobrecargas y virtuales.
-- **Locked:** indicador de bloqueo del hook; hay 630 entradas bloqueadas en el CSV. No equivale por sí solo a pendiente ni informa si el hook está activo durante una ejecución.
+- **Locked:** indicador de bloqueo del hook; hay 620 entradas bloqueadas en el CSV. No equivale por sí solo a pendiente ni informa si el hook está activo durante una ejecución.
 - **Porcentajes:** las categorías cuentan clases; el avance de cada clase cuenta funciones. Se muestran dos decimales.
 - **Alcance:** solo incluye lo registrado en el CSV; completar una fila no certifica todo el comportamiento de una clase.
 

@@ -2,8 +2,8 @@ import json,sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from runtime_runner import run_case,digest,terminal_event
-PROBE_HASH='abf0b06e3a7a9b0bde9f0248cb309ce58dacf1321d11ed846d65cc2b74786631'
-REQUIRE_ENABLED=False
+PROBE_HASH='2ed02de894c2bf0dd1eb325d687705b049c6867b228a8147e77988e783bffb54'
+REQUIRE_ENABLED=True
 COUNTS={0:256,1:256,2:512,3:2048,4:512,5:2048,6:512}
 def analyze(path):
     if not terminal_event(path):return None
@@ -24,4 +24,4 @@ def analyze(path):
     if len(states)!=7 or (REQUIRE_ENABLED and any(not r['enabled'] or r['locked'] for r in states)):raise RuntimeError('Estado de hooks incorrecto')
     if len(interop)!=64 or {r['mask'] for r in interop}!=set(range(64)) or not all(r['passed'] for r in interop):raise RuntimeError('Interoperabilidad incompleta')
     return dict(interop_modes=64,pairs=sum(COUNTS.values()),pairs_per_function=COUNTS,all_equal=True,state_restored=True,hook_states=states,log_sha256=digest(path))
-if __name__=='__main__':sys.exit(run_case('unlock-data-stream',PROBE_HASH,analyze,'Desbloqueos: raton y mando',timeout=300,stop_before_analysis=True,unhook="Global/SurfaceInfos_c"))
+if __name__=='__main__':sys.exit(run_case('unlock-data-stream',PROBE_HASH,analyze,'Desbloqueos: flujo de audio',timeout=300,stop_before_analysis=True,unhook="Global/SurfaceInfos_c"))

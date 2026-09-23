@@ -16,7 +16,7 @@
 
 **Navegación:** [🟢 Fáciles](#faciles) · [🟡 Intermedia](#intermedia) · [🟠 Difíciles](#dificiles) · [🔴 Final](#final) · [Evidencia](#evidencia) · [Top 10](#top-10)
 
-Los 24 bloqueos solicitados se retiraron tras comparación dentro del motor: [bancos de desbloqueo](../reversing/Unlocks/README.md). CGeneral ya estaba desbloqueado. No cambia el número de funciones pendientes ni la clasificación de esta guía.
+Los 24 bloqueos solicitados se retiraron tras comparación dentro del motor: [bancos de desbloqueo](../reversing/Unlocks/README.md). CGeneral ya estaba desbloqueado. No cambia el número de funciones pendientes ni la clasificación de esta guía. La entrega posterior de [DataStream y TrackEntity](../reversing/UnlockBatch2/README.md) retira otros diez candados validados; tampoco cambia las 87 clases incompletas ni el Top 10. Quedan 620 candados globales, de los cuales 86 pertenecen al lote aplazado.
 
 ## Cómo se estimó el esfuerzo
 

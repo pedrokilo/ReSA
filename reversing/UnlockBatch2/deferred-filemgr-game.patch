@@ -1,0 +1,561 @@
+diff --git a/source/app/app_game.cpp b/source/app/app_game.cpp
+index 3e480a4..8ae2f10 100644
+--- a/source/app/app_game.cpp
++++ b/source/app/app_game.cpp
+@@ -381,9 +381,6 @@ void Idle(void* param) {
+     CDebug::DebugDisplayTextBuffer();
+     FlushObrsPrintfs();
+ 
+-    // NOTSA: ImGui menu draw loop
+-    notsa::ui::UIRenderer::GetSingleton().DrawLoop();
+-
+     RwCameraEndUpdate(Scene.m_pRwCamera);
+     RsCameraShowRaster(Scene.m_pRwCamera);
+ }
+@@ -438,9 +435,6 @@ void FrontendIdle() {
+         CDebug::DebugDisplayTextBuffer();
+         FlushObrsPrintfs();
+ 
+-        // NOTSA: ImGui menu draw loop
+-        notsa::ui::UIRenderer::GetSingleton().DrawLoop();
+-
+         RwCameraEndUpdate(Scene.m_pRwCamera);
+         RsCameraShowRaster(Scene.m_pRwCamera);
+     }
+diff --git a/source/extensions/debug.hpp b/source/extensions/debug.hpp
+index 901d368..37933f0 100644
+--- a/source/extensions/debug.hpp
++++ b/source/extensions/debug.hpp
+@@ -36,7 +36,7 @@ inline void DisplayConsole() {
+     VERIFY(AllocConsole());
+ #endif
+ 
+-    FILESTREAM fs{};
++    FILE* fs{};
+     VERIFY(freopen_s(&fs, "CONIN$", "r", stdin) == NOERROR);
+     VERIFY(freopen_s(&fs, "CONOUT$", "w", stdout) == NOERROR);
+     VERIFY(freopen_s(&fs, "CONOUT$", "w", stderr) == NOERROR);
+diff --git a/source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp b/source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp
+index aee7050..b0a31b0 100644
+--- a/source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp
++++ b/source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp
+@@ -318,7 +318,7 @@ DWORD __stdcall CAEUserRadioTrackManager::WriteUserTracksThread(CAEUserRadioTrac
+ }
+ 
+ // 0x4F4690. The original order is (directory, vector, FILE, length, depth).
+-int32 CAEUserRadioTrackManager::WriteUserTracksFile_Legacy(const char* dir, UserTracksLegacyVector& offsets, FILE* file, size_t& currentLength, int32 depth) {
++int32 CAEUserRadioTrackManager::WriteUserTracksFile_Legacy(const char* dir, UserTracksLegacyVector& offsets, FILESTREAM file, size_t& currentLength, int32 depth) {
+     std::vector<tUserTracksInfo> found;
+     const auto count = WriteUserTracksFile(dir, currentLength, file, found, depth);
+     for (const auto& track : found) {
+diff --git a/source/game_sa/Audio/Managers/AEUserRadioTrackManager.h b/source/game_sa/Audio/Managers/AEUserRadioTrackManager.h
+index e053b46..4b59f88 100644
+--- a/source/game_sa/Audio/Managers/AEUserRadioTrackManager.h
++++ b/source/game_sa/Audio/Managers/AEUserRadioTrackManager.h
+@@ -1,4 +1,5 @@
+ #pragma once
++#include "FileMgr.h"
+ 
+ #include <cstdio>
+ 
+@@ -59,7 +60,7 @@ public:
+ 
+ private:
+     static DWORD __stdcall WriteUserTracksThread(CAEUserRadioTrackManager* self);
+-    int32 WriteUserTracksFile_Legacy(const char* dir, UserTracksLegacyVector& offsets, FILE* file, size_t& currentLength, int32 depth);
++    int32 WriteUserTracksFile_Legacy(const char* dir, UserTracksLegacyVector& offsets, FILESTREAM file, size_t& currentLength, int32 depth);
+     int32 WriteUserTracksFile(const char* dir, size_t& currentLength, auto file, std::vector<tUserTracksInfo>& offsets, int32 depth);
+     char* ResolveShortcut(const char* path);
+ 
+diff --git a/source/game_sa/Camera.cpp b/source/game_sa/Camera.cpp
+index 91e850e..16b227f 100644
+--- a/source/game_sa/Camera.cpp
++++ b/source/game_sa/Camera.cpp
+@@ -1679,7 +1679,7 @@ void CCamera::DeleteCutSceneCamDataMemory() {
+ }
+ 
+ // 0x5B24D0
+-void CCamera::LoadPathSplines(FILE* file) {
++void CCamera::LoadPathSplines(FILESTREAM file) {
+     plugin::CallMethod<0x5B24D0, CCamera*>(this);
+ }
+ 
+diff --git a/source/game_sa/Camera.h b/source/game_sa/Camera.h
+index 2b1a998..29f1227 100644
+--- a/source/game_sa/Camera.h
++++ b/source/game_sa/Camera.h
+@@ -5,6 +5,7 @@
+     Do not delete this comment block. Respect others' work!
+ */
+ #pragma once
++#include "FileMgr.h"
+ 
+ #include <RenderWare.h>
+ #include <Vector.h>
+@@ -351,7 +352,7 @@ public:
+     void InitialiseScriptableComponents();
+     void InitialiseCameraForDebugMode();
+ 
+-    void LoadPathSplines(FILE* file);
++    void LoadPathSplines(FILESTREAM file);
+ 
+     bool IsTargetingActive();
+     bool IsExtraEntityToIgnore(CEntity *entity);
+diff --git a/source/game_sa/FileMgr.cpp b/source/game_sa/FileMgr.cpp
+index 8efc808..54f4bad 100644
+--- a/source/game_sa/FileMgr.cpp
++++ b/source/game_sa/FileMgr.cpp
+@@ -3,6 +3,8 @@
+ #include <cerrno>
+ #include <cstring>
+ #include <direct.h>
++#include <cstdarg>
++#include <mutex>
+ 
+ #include "winincl.h"
+ #include <ShlObj.h>
+@@ -12,6 +14,48 @@
+ #include "HookSystem.h"
+ #include "extensions/Configs/Miscellaneous.hpp"
+ 
++namespace {
++// The executable statically links a different CRT. Keep its FILE ownership and
++// redirect only this thread's current UTF-8 fopen request to CreateFileW.
++thread_local const char* nativeOpenPath{};
++thread_local const wchar_t* nativeOpenWidePath{};
++using CreateFileAFn = HANDLE(WINAPI*)(LPCSTR,DWORD,DWORD,LPSECURITY_ATTRIBUTES,DWORD,DWORD,HANDLE);
++CreateFileAFn originalCreateFileA{};
++HANDLE WINAPI CreateNativeFile(LPCSTR path,DWORD access,DWORD share,LPSECURITY_ATTRIBUTES security,DWORD creation,DWORD flags,HANDLE templ) {
++    if (nativeOpenPath && path && std::strcmp(path,nativeOpenPath)==0) {
++        return CreateFileW(nativeOpenWidePath,access,share,security,creation,flags,templ);
++    }
++    return originalCreateFileA(path,access,share,security,creation,flags,templ);
++}
++struct NativeOpenPath {
++    const char* previousPath = nativeOpenPath;
++    const wchar_t* previousWidePath = nativeOpenWidePath;
++    std::wstring widePath;
++    explicit NativeOpenPath(const char* path) : widePath(UTF8ToUnicode(path)) {
++        static std::once_flag installed;
++        std::call_once(installed, [] {
++            auto** entry = reinterpret_cast<void**>(0x8580A0);
++            DWORD old{};
++            VERIFY(VirtualProtect(entry,sizeof(*entry),PAGE_READWRITE,&old));
++            originalCreateFileA = reinterpret_cast<CreateFileAFn>(*entry);
++            InterlockedExchangePointer(entry,reinterpret_cast<void*>(&CreateNativeFile));
++            DWORD ignored{};
++            VERIFY(VirtualProtect(entry,sizeof(*entry),old,&ignored));
++        });
++        nativeOpenPath=path;
++        nativeOpenWidePath=widePath.c_str();
++    }
++    ~NativeOpenPath() { nativeOpenPath=previousPath; nativeOpenWidePath=previousWidePath; }
++};
++struct NativeFileFunctions {
++    void* beforeSeek[8];
++    int (__cdecl* seek)(FILESTREAM,long,int);
++    void* flush;
++    int (__cdecl* tell)(FILESTREAM);
++};
++NativeFileFunctions* FileFunctions() { return plugin::CallAndReturn<NativeFileFunctions*,0x804130>(); }
++}
++
+ auto& user_tracks_dir_path = StaticRef<char[256]>(0xc92168);
+ auto& user_gallery_dir_path = StaticRef<char[256]>(0xc92268);
+ auto& gta_user_dir_path = StaticRef<char[256]>(0xc92368);
+@@ -215,7 +259,8 @@ int32 CFileMgr::SetDirMyDocuments()
+         return -1;
+     }
+ 
+-    strcpy_s(ms_dirName, userDir);
++    std::memset(ms_dirName, 0, sizeof(ms_dirName));
++    std::memcpy(ms_dirName, userDir, std::strlen(userDir) + 1);
+ 
+     int32 r;
+     if (WindowsCharset != CP_UTF8)
+@@ -236,30 +281,19 @@ size_t CFileMgr::LoadFile(const char *path, uint8 *buf, size_t size, const char
+     if (f == nullptr)
+         return -1;
+ 
+-    // MikuAuahDark: The original implementation actually ignore
+-    // "size" parameter and adds NUL terminator at the end of the
+-    // buffer, but that behavior causes buffer overflow
+-    size_t readed = fread(buf, 1, size, f);
+-    fclose(f);
+-
+-    return readed;
++    // Preserve the bounded-buffer extension. The native terminator is written
++    // when it fits; the executable's unbounded read must not overrun callers.
++    const auto read = CFileMgr::Read(f, buf, size);
++    if (read < size) buf[read] = 0;
++    CFileMgr::CloseFile(f);
++    return read;
+ }
+ 
+ // 0x538900
+-FILESTREAM CFileMgr::OpenFile(const char *path, const char *mode) {
++FILESTREAM CFileMgr::OpenFile(const char* path, const char* mode) {
+     ZoneScoped;
+-
+-    FILESTREAM fs{nullptr};
+-    if (WindowsCharset == CP_UTF8) {
+-        fopen_s(&fs, path, mode);
+-    } else {
+-        // MikuAuahDark: Let's improve it to allow opening non-ANSI names
+-        // Convert to wide char
+-        std::wstring pathWide = UTF8ToUnicode(path);
+-        std::wstring modeWide = UTF8ToUnicode(mode);
+-        _wfopen_s(&fs, pathWide.c_str(), modeWide.c_str());
+-    }
+-    return fs;
++    NativeOpenPath unicodePath(path);
++    return plugin::CallAndReturn<FILESTREAM,0x8232D8>(path,mode);
+ }
+ 
+ // 0x538910
+@@ -277,77 +311,70 @@ FILESTREAM CFileMgr::OpenFileForAppending(const char *path)
+ // 0x538950
+ size_t CFileMgr::Read(FILESTREAM file, void *buf, size_t size)
+ {
+-    return fread(buf, 1, size, file);
++    return plugin::CallAndReturn<size_t,0x823521>(buf,size_t(1),size,file);
+ }
+ 
+ // 0x538970
+ size_t CFileMgr::Write(FILESTREAM file, const void *buf, size_t size)
+ {
+-    return fwrite(buf, 1, size, file);
++    return plugin::CallAndReturn<size_t,0x823674>(buf,size_t(1),size,file);
+ }
+ 
+ // 0x538990
+ bool CFileMgr::Seek(FILESTREAM file, long offset, int32 origin)
+ {
+-    // MikuAuahDark: Pretty sure it shouldn't be ret != 0
+-    return fseek(file, offset, origin) != 0;
++    return plugin::CallAndReturn<int,0x82374F>(file,offset,origin) != 0;
+ }
+ 
+ // 0x5389b0
+ bool CFileMgr::ReadLine(FILESTREAM file, char *str, int32 num)
+ {
+-    return fgets(str, num, file) != nullptr;
++    return plugin::CallAndReturn<char*,0x823798>(str,num,file) != nullptr;
+ }
+ 
+ // 0x5389d0
+ int32 CFileMgr::CloseFile(FILESTREAM file)
+ {
+-    return fclose(file);
++    return plugin::CallAndReturn<int,0x82318B>(file);
+ }
+ 
+ // 0x5389e0
+ int32 CFileMgr::GetTotalSize(FILESTREAM file)
+ {
+-    int32 currentPos, size;
+-    // MikuAuahDark: The actual implementation uses RwOsGetFileInterface
+-    // but for sake of portability, default stdio functions is used.
+-    /*
+-    RwFileFunctions *functions = RwOsGetFileInterface();
+-
+-    currentPos = functions->rwftell(file);
+-    functions->rwfseek(file, 0, SEEK_END);
+-    size = functions->rwftell(file);
+-    functions->rwfseek(file, currentPos, SEEK_SET);
+-
+-    return size;
+-    */
+-    currentPos = ftell(file);
+-    fseek(file, 0, SEEK_END);
+-    size = ftell(file);
+-    fseek(file, currentPos, SEEK_SET);
+-
++    const auto position = FileFunctions()->tell(file);
++    FileFunctions()->seek(file, 0, SEEK_END);
++    const auto size = FileFunctions()->tell(file);
++    FileFunctions()->seek(file, position, SEEK_SET);
+     return size;
+ }
+ 
+ // 0x538a20
+-int32 CFileMgr::Tell(FILESTREAM file)
+-{
+-    /*
+-    RwFileFunctions *functions = RwOsGetFileInterface();
+-    return functions->rwftell(file);
+-    */
+-    return ftell(file);
++int32 CFileMgr::Tell(FILESTREAM file) {
++    return FileFunctions()->tell(file);
+ }
+ 
+ // 0x538a50
+-bool CFileMgr::GetErrorReadWrite(FILESTREAM file)
+-{
+-    return (bool) ferror(file);
++uint32 CFileMgr::GetErrorReadWrite(FILESTREAM file) {
++    return reinterpret_cast<const uint32*>(file)[3] & 0x20;
++}
++
++// NOTSA: format in the DLL and write through the stream's owning CRT.
++int CFileMgr::Printf(FILESTREAM file, const char* format, ...) {
++    va_list args;
++    va_start(args,format);
++    const auto length = _vscprintf(format,args);
++    va_end(args);
++    if (length < 0) return length;
++    std::vector<char> text(size_t(length)+1);
++    va_start(args,format);
++    vsnprintf(text.data(),text.size(),format,args);
++    va_end(args);
++    return Write(file,text.data(),size_t(length)) == size_t(length) ? length : -1;
+ }
+ 
+-// notsa
+ void CFileMgr::SeekNextLine(FILESTREAM file) {
+-    while (!feof(file) && fgetc(file) != '\n');
++    char ch{};
++    while (Read(file,&ch,1)==1 && ch!='\n') {}
+ }
+ 
+ void CFileMgr::InjectHooks()
+diff --git a/source/game_sa/FileMgr.h b/source/game_sa/FileMgr.h
+index 8245457..4917645 100644
+--- a/source/game_sa/FileMgr.h
++++ b/source/game_sa/FileMgr.h
+@@ -8,8 +8,9 @@
+ 
+ #include <cstdio>
+ 
+-// For backward compatibility
+-typedef FILE* FILESTREAM;
++// Streams owned by the executable CRT. Never pass these to the DLL stdio.
++struct NativeFile;
++using FILESTREAM = NativeFile*;
+ constexpr size_t DIRNAMELENGTH = 128;
+ 
+ static constexpr auto TopLineEmptyFile{ "THIS FILE IS NOT VALID YET" };
+@@ -34,7 +35,9 @@ public:
+     static int32 CloseFile(FILESTREAM file);
+     static int32 GetTotalSize(FILESTREAM file);
+     static int32 Tell(FILESTREAM file);
+-    static bool GetErrorReadWrite(FILESTREAM file);
++    static uint32 GetErrorReadWrite(FILESTREAM file);
++
++    static int Printf(FILESTREAM file, const char* format, ...);
+ 
+     //! Increment the file's seek pointer until after the next new line (`\n`) (make sure file is open in non-binary mode!)
+     static void SeekNextLine(FILESTREAM file);
+diff --git a/source/game_sa/Frontend/MenuManager_Process.cpp b/source/game_sa/Frontend/MenuManager_Process.cpp
+index b91cbc9..a55d33c 100644
+--- a/source/game_sa/Frontend/MenuManager_Process.cpp
++++ b/source/game_sa/Frontend/MenuManager_Process.cpp
+@@ -619,7 +619,9 @@ void CMenuManager::ProcessMissionPackNewGame() {
+             isAnyMissionPackAvailable = true;
+ 
+             // NOTSA
+-            VERIFY(fscanf_s(file, "%" PRIu8 "#%[^\n\r#]#", &m_MissionPacks[i].m_Id, SCANF_S_STR(m_MissionPacks[i].m_Name)) == 2);
++            std::array<char, 512> missionPackLine{};
++            CFileMgr::ReadLine(file, missionPackLine.data(), int(missionPackLine.size()));
++            VERIFY(sscanf_s(missionPackLine.data(), "%" PRIu8 "#%[^\n\r#]#", &m_MissionPacks[i].m_Id, SCANF_S_STR(m_MissionPacks[i].m_Name)) == 2);
+             CFileMgr::CloseFile(file);
+         }
+     }
+diff --git a/source/game_sa/GenericGameStorage.h b/source/game_sa/GenericGameStorage.h
+index fd3ff63..628b650 100644
+--- a/source/game_sa/GenericGameStorage.h
++++ b/source/game_sa/GenericGameStorage.h
+@@ -1,4 +1,5 @@
+ #pragma once
++#include "FileMgr.h"
+ 
+ static constexpr auto MAX_SAVEGAME_SLOTS{ 8u };
+ 
+@@ -63,7 +64,7 @@ public:
+     static inline auto& ms_CheckSum = StaticRef<uint32>(0xC16134);
+     static inline auto& ms_WorkBuffer = StaticRef<uint8*>(0xC16EE8);
+     static inline auto& ms_WorkBufferPos = StaticRef<int32>(0xC16EEC);
+-    static inline auto& ms_FileHandle = StaticRef<FILE*>(0xC16EF0);
++    static inline auto& ms_FileHandle = StaticRef<FILESTREAM>(0xC16EF0);
+     static inline auto& ms_FilePos = StaticRef<uint32>(0xC16EF4);
+     static inline auto& ms_FileSize = StaticRef<uint32>(0xC16EF8);
+     static inline auto& ms_bFailed = StaticRef<bool>(0xC16EFC);
+diff --git a/source/game_sa/MenuManager.cpp b/source/game_sa/MenuManager.cpp
+index 12c835b..b67e3fb 100644
+--- a/source/game_sa/MenuManager.cpp
++++ b/source/game_sa/MenuManager.cpp
+@@ -846,30 +846,30 @@ void CMenuManager::SaveStatsToFile() {
+     };
+ 
+     // FIX_BUGS: Use UTF-8 instead of ANSI.
+-    fprintf_s(file, "<meta charset=\"UTF-8\"/>\n");
++    CFileMgr::Printf(file, "<meta charset=\"UTF-8\"/>\n");
+ 
+-    fprintf_s(file, "<title>Grand Theft Auto San Andreas Stats</title>\n");
+-    fprintf_s(file, "<body bgcolor=\"#000000\" leftmargin=\"10\" topmargin=\"10\" marginwidth=\"10\" marginheight=\"10\">\n");
+-    fprintf_s(file, "<table width=\"560\" align=\"center\" border=\"0\" cellpadding=\"5\" cellspacing=\"0\">\n"
++    CFileMgr::Printf(file, "<title>Grand Theft Auto San Andreas Stats</title>\n");
++    CFileMgr::Printf(file, "<body bgcolor=\"#000000\" leftmargin=\"10\" topmargin=\"10\" marginwidth=\"10\" marginheight=\"10\">\n");
++    CFileMgr::Printf(file, "<table width=\"560\" align=\"center\" border=\"0\" cellpadding=\"5\" cellspacing=\"0\">\n"
+                   "<tr align=\"center\" valign=\"top\"> \n"
+                   "<td height=\"59\" colspan=\"2\" bgcolor=\"#000000\"><div align=\"center\"><font color=\"#FFFFFF\" size=\"5\" face=\"Arial, \n");
+-    fprintf_s(file, "Helvetica, sans-serif\">-------------------------------------------------------------------</font><font \nsize=\"5\" face=\"Arial, Helvetica, sans-serif\"><br>\n");
+-    fprintf_s(file, "<strong><font color=\"#FFFFFF\">GRAND THEFT AUTO SAN ANDREAS ");
+-    fprintf_s(file, "%s</font></strong><br><font\n", ToUpperCase(GxtCharToUTF8(TheText.Get("FEH_STA"))).c_str()); // Stats
+-    fprintf_s(file, "color=\"#FFFFFF\">-------------------------------------------------------------------</font></font></div></td> </tr>\n");
+-    fprintf_s(file, "<tr align=\"center\" valign=\"top\" bgcolor=\"#000000\">     <td height=\"22\" colspan=\"2\">&nbsp;</td>  </tr>\n"
++    CFileMgr::Printf(file, "Helvetica, sans-serif\">-------------------------------------------------------------------</font><font \nsize=\"5\" face=\"Arial, Helvetica, sans-serif\"><br>\n");
++    CFileMgr::Printf(file, "<strong><font color=\"#FFFFFF\">GRAND THEFT AUTO SAN ANDREAS ");
++    CFileMgr::Printf(file, "%s</font></strong><br><font\n", ToUpperCase(GxtCharToUTF8(TheText.Get("FEH_STA"))).c_str()); // Stats
++    CFileMgr::Printf(file, "color=\"#FFFFFF\">-------------------------------------------------------------------</font></font></div></td> </tr>\n");
++    CFileMgr::Printf(file, "<tr align=\"center\" valign=\"top\" bgcolor=\"#000000\">     <td height=\"22\" colspan=\"2\">&nbsp;</td>  </tr>\n"
+                     "<tr align=\"center\" valign=\"top\" bgcolor=\"#000000\"> \n");
+-    fprintf_s(file, R"(<td height="40" colspan="2"> <p><font color="#F0000C" size="2" face="Arial, Helvetica, sans-serif"><stro)");
+-    fprintf_s(file, "ng><font color=\"#F0000C\" size=\"1\">%s: \n", GxtCharToUTF8(TheText.Get("FES_DAT"), 0u)); // DATE
+-    fprintf_s(file, "%s</font><br>        %s: </strong>", date, GxtCharToUTF8(TheText.Get("FES_CMI"), 0u));     // LAST MISSION PASSED
+-    fprintf_s(file, "%s<strong><br></strong> </font></p></td></tr>\n", ToUpperCase(GxtCharToUTF8(lastMissionPassedKey)).c_str());
+-    fprintf_s(file, "<tr align=\"center\" valign=\"top\" bgcolor=\"#000000\"> <td height=\"5\" colspan=\"2\"></td> </tr> <tr align=\"center\" valign=\"top\" bgcolor=\"#000000\"> \n"
++    CFileMgr::Printf(file, R"(<td height="40" colspan="2"> <p><font color="#F0000C" size="2" face="Arial, Helvetica, sans-serif"><stro)");
++    CFileMgr::Printf(file, "ng><font color=\"#F0000C\" size=\"1\">%s: \n", GxtCharToUTF8(TheText.Get("FES_DAT"), 0u)); // DATE
++    CFileMgr::Printf(file, "%s</font><br>        %s: </strong>", date, GxtCharToUTF8(TheText.Get("FES_CMI"), 0u));     // LAST MISSION PASSED
++    CFileMgr::Printf(file, "%s<strong><br></strong> </font></p></td></tr>\n", ToUpperCase(GxtCharToUTF8(lastMissionPassedKey)).c_str());
++    CFileMgr::Printf(file, "<tr align=\"center\" valign=\"top\" bgcolor=\"#000000\"> <td height=\"5\" colspan=\"2\"></td> </tr> <tr align=\"center\" valign=\"top\" bgcolor=\"#000000\"> \n"
+                   "<td height=\"10\" colspan=\"2\"></td> </tr> <tr align=\"center\" valign=\"top\" bgcolor=\"#000000\"> \n");
+-    fprintf_s(file, R"(<td height="20" colspan="2"><font color="#F0000C" size="2" face="Arial, Helvetica, sans-serif">)");
+-    fprintf_s(file, "<strong> %s</strong>\n ", GxtCharToUTF8(TheText.Get("CRIMRA"), 0u)); // Criminal rating:
++    CFileMgr::Printf(file, R"(<td height="20" colspan="2"><font color="#F0000C" size="2" face="Arial, Helvetica, sans-serif">)");
++    CFileMgr::Printf(file, "<strong> %s</strong>\n ", GxtCharToUTF8(TheText.Get("CRIMRA"), 0u)); // Criminal rating:
+     TextCopy(gGxtString, CStats::FindCriminalRatingString());
+-    fprintf_s(file, "%s (%d)</font></td>  </tr>", GxtCharToUTF8(gGxtString, 0u), CStats::FindCriminalRatingNumber());
+-    fprintf_s(file, "<tr align=\"left\" valign=\"top\" bgcolor=\"#000000\"><td height=\"10\" colspan=\"2\"></td>  </tr>\n");
++    CFileMgr::Printf(file, "%s (%d)</font></td>  </tr>", GxtCharToUTF8(gGxtString, 0u), CStats::FindCriminalRatingNumber());
++    CFileMgr::Printf(file, "<tr align=\"left\" valign=\"top\" bgcolor=\"#000000\"><td height=\"10\" colspan=\"2\"></td>  </tr>\n");
+ 
+     static constexpr const char* strToPrint[] = {
+         "FES_PLA", "FES_MON", "FES_WEA", "FES_GAN",
+@@ -878,11 +878,11 @@ void CMenuManager::SaveStatsToFile() {
+     for (auto menuItem = 0u; menuItem < 8u; menuItem++) {
+         auto numStatLines = CStats::ConstructStatLine(99'999, menuItem);
+ 
+-        fprintf_s(file, "</font></strong></div></td> </tr> <tr align=\"left\" valign=\"top\" bgcolor=\"#000000\">  <td height=\"25\" colspan=\"2\"></td> </tr>\n"
++        CFileMgr::Printf(file, "</font></strong></div></td> </tr> <tr align=\"left\" valign=\"top\" bgcolor=\"#000000\">  <td height=\"25\" colspan=\"2\"></td> </tr>\n"
+                       "<tr align=\"left\" valign=\"top\"><td height=\"30\" bgcolor=\"#000000\"><font color=\"#009900\" size=\"4\" face=\"Arial, Helvetica, sans-serif\"><strong>\n");
+ 
+-        fprintf_s(file, "%s", GxtCharToUTF8(TheText.Get(strToPrint[menuItem]), 0u));
+-        fprintf_s(file, "</strong></font></td> <td width=\"500\" align=\"right\" valign=\"middle\" bgcolor=\"#000000\"> <div align=\"right\"><strong><font color=\"#FF0CCC\">\n");
++        CFileMgr::Printf(file, "%s", GxtCharToUTF8(TheText.Get(strToPrint[menuItem]), 0u));
++        CFileMgr::Printf(file, "</strong></font></td> <td width=\"500\" align=\"right\" valign=\"middle\" bgcolor=\"#000000\"> <div align=\"right\"><strong><font color=\"#FF0CCC\">\n");
+         if (numStatLines <= 0)
+             continue;
+ 
+@@ -891,12 +891,12 @@ void CMenuManager::SaveStatsToFile() {
+ 
+             auto str = GxtCharToUTF8(gGxtString, 0u);
+             if (*str) {
+-                fprintf_s(file, "</font></strong></div></td> </tr> <tr align=\"left\" valign=\"top\" bgcolor=\"#000000\">  <td height=\"10\" colspan=\"2\"></td> </tr>\n");
++                CFileMgr::Printf(file, "</font></strong></div></td> </tr> <tr align=\"left\" valign=\"top\" bgcolor=\"#000000\">  <td height=\"10\" colspan=\"2\"></td> </tr>\n");
+             }
+ 
+-            fprintf_s(file, "<tr align=\"left\" valign=\"top\"><td width=\"500\" height=\"22\" bgcolor=\"#555555\"><font color=\"#FFFFFF\" size=\"2\" face=\"Arial, Helvetica, sans-serif\"><strong>\n");
+-            fprintf_s(file, "%s", (*str) ? str : " ");
+-            fprintf_s(file, "</strong></font></td> <td width=\"500\" align=\"right\" valign=\"middle\" bgcolor=\"#555555\"> <div align=\"right\"><strong><font color=\"#FFFFFF\">\n");
++            CFileMgr::Printf(file, "<tr align=\"left\" valign=\"top\"><td width=\"500\" height=\"22\" bgcolor=\"#555555\"><font color=\"#FFFFFF\" size=\"2\" face=\"Arial, Helvetica, sans-serif\"><strong>\n");
++            CFileMgr::Printf(file, "%s", (*str) ? str : " ");
++            CFileMgr::Printf(file, "</strong></font></td> <td width=\"500\" align=\"right\" valign=\"middle\" bgcolor=\"#555555\"> <div align=\"right\"><strong><font color=\"#FFFFFF\">\n");
+             auto val = GxtCharToUTF8(gGxtString2, 0u);
+             auto valFormatted = (char*)val;
+ 
+@@ -911,7 +911,7 @@ void CMenuManager::SaveStatsToFile() {
+                     *v = -70; // double vertical bar
+                 }
+             }
+-            fprintf_s(file, "%s", valFormatted);
++            CFileMgr::Printf(file, "%s", valFormatted);
+         }
+     }
+ 
+diff --git a/source/game_sa/RenderWare/rw/rwcore.cpp b/source/game_sa/RenderWare/rw/rwcore.cpp
+index 1af3f47..00b27d7 100644
+--- a/source/game_sa/RenderWare/rw/rwcore.cpp
++++ b/source/game_sa/RenderWare/rw/rwcore.cpp
+@@ -1,6 +1,7 @@
+ #include "StdInc.h"
+ 
+ #include "rwcore.h"
++#include "UIRenderer.h"
+ 
+ void RwCoreInjectHooks() {
+     RH_ScopedCategory("Renderware");
+@@ -1087,6 +1088,7 @@ RwCamera* RwCameraClear(RwCamera* camera, RwRGBA* colour, RwInt32 clearMode) {
+ 
+ RwCamera* RwCameraShowRaster(RwCamera* camera, void* pDev, RwUInt32 flags) {
+     ZoneScoped;
++    notsa::ui::UIRenderer::RenderBeforePresent(camera);
+     return RwRasterShowRaster(RwCameraGetRaster(camera), pDev, flags) != 0 ? camera : nullptr;
+ }
+ 
+diff --git a/source/game_sa/Text/MissionTextOffsets.h b/source/game_sa/Text/MissionTextOffsets.h
+index b9e979b..d435025 100644
+--- a/source/game_sa/Text/MissionTextOffsets.h
++++ b/source/game_sa/Text/MissionTextOffsets.h
+@@ -1,4 +1,5 @@
+ #pragma once
++#include "FileMgr.h"
+ 
+ #include "Text.h"
+ 
+@@ -12,7 +13,7 @@ class CMissionTextOffsets {
+ public:
+     CMissionTextOffsets();
+ 
+-    bool Load(uint32 length, FILE* file, uint32* offset, int32 unknown);
++    bool Load(uint32 length, FILESTREAM file, uint32* offset, int32 unknown);
+ 
+     tMissionTextOffset GetTextOffset(uint32 id) const { return m_offsets[id]; }
+     uint32 GetSize() const { return m_size; }
+diff --git a/source/toolsmenu/UIRenderer.cpp b/source/toolsmenu/UIRenderer.cpp
+index 21bfbbf..be95812 100644
+--- a/source/toolsmenu/UIRenderer.cpp
++++ b/source/toolsmenu/UIRenderer.cpp
+@@ -163,6 +163,15 @@ void UIRenderer::DrawLoop() {
+     }
+ }
+ 
++void UIRenderer::RenderBeforePresent(RwCamera* camera) {
++    if (camera != Scene.m_pRwCamera ||
++        (gGameState != GAME_STATE_FRONTEND_IDLE && gGameState != GAME_STATE_IDLE) ||
++        !StaticRef<RwBool>(0xC97C54)) { // RenderWare's D3D9 scene is still open until presentation.
++        return;
++    }
++    GetSingleton().DrawLoop();
++}
++
+ void UIRenderer::Render2D() {
+     ZoneScoped;
+ 
+diff --git a/source/toolsmenu/UIRenderer.h b/source/toolsmenu/UIRenderer.h
+index 3da6a96..3adf0d7 100644
+--- a/source/toolsmenu/UIRenderer.h
++++ b/source/toolsmenu/UIRenderer.h
+@@ -26,6 +26,9 @@ public:
+     //! Is active
+     bool IsActive() { return m_InputActive; }
+ 
++    //! Shared presentation boundary for original and reconstructed game loops.
++    static void RenderBeforePresent(RwCamera* camera);
++
+ private:
+     //! Render 3D stuff in the world (If rendered elsewhere it won't be visible)
+     void Render3D();
+@@ -47,10 +50,7 @@ private:
+ 
+ private:
+     friend void ::RenderEffects();  // For `Render3D()`
+-    friend void ::FrontendIdle();   // For `DrawLoop()` VVV
+-    friend void ::Idle(void*);      // For `DrawLoop()` Yes, called in 2 places, but they are never called in the same frame (As `Idle` is called when not in the menu only)
+     friend void ::CPad::UpdatePads();
+-    friend void ::Idle(void*);
+ 
+ private:
+     bool          m_Initialised{};

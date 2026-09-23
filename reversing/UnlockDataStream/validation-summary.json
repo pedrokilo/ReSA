@@ -1,0 +1,87 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "game_stopped_before_analysis": true,
+  "interop_modes": 64,
+  "pairs": 6144,
+  "pairs_per_function": {
+    "0": 256,
+    "1": 256,
+    "2": 512,
+    "3": 2048,
+    "4": 512,
+    "5": 2048,
+    "6": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 0,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 1,
+      "locked": false,
+      "startup_calls": 0
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 2,
+      "locked": false,
+      "startup_calls": 2
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 3,
+      "locked": false,
+      "startup_calls": 86
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 4,
+      "locked": false,
+      "startup_calls": 1
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 5,
+      "locked": false,
+      "startup_calls": 4
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 6,
+      "locked": false,
+      "startup_calls": 0
+    }
+  ],
+  "log_sha256": "263e30ec7ea5096dc3f6f884c850bf2d88812c6a7aa5baa67cedbda7c885ecb5",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "run": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-data-stream\\20260923-125257-865113",
+  "scope": "6 hooks desbloqueados y Stat dependiente",
+  "limitations": [
+    "Archivos de prueba ASCII, lecturas y búsquedas acotadas; no valida todos los decodificadores ni sesiones de audio prolongadas.",
+    "SurfaceInfos excluido; Audio activo.",
+    "Las 64 combinaciones cubren los seis métodos, no todas las funciones IStream.",
+    "CreateFileW conserva soporte UTF-8 como extensión; esta pasada no prueba nombres Unicode."
+  ]
+}

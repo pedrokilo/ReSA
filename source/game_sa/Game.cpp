@@ -1,5 +1,4 @@
 #include "StdInc.h"
-#include "E:/Original/gta-reversed-master/reversing/UnlockDataStream/LiveComparison.hpp"
 
 #include "UIRenderer.h"
 
@@ -715,7 +714,6 @@ void CGame::InitialiseWhenRestarting() {
 
 // 0x53BEE0
 void CGame::Process() {
-    DSLive::Update();
     ZoneScoped;
 
     CPad::UpdatePads();

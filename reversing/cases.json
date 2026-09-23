@@ -1,5 +1,15 @@
 [
   {
+    "id": "unlock-data-stream",
+    "name": "CAEDataStream: archivos e interoperabilidad",
+    "runner": "UnlockDataStream/run_local.py"
+  },
+  {
+    "id": "unlock-track-entity",
+    "name": "TrackEntity: seguimiento, temporizadores y ABI",
+    "runner": "UnlockTrackEntity/run_local.py"
+  },
+  {
     "id": "unlock-core",
     "name": "ABI, geometría, recursos y memoria",
     "runner": "UnlockCore/run_local.py"
@@ -146,7 +156,7 @@
   },
   {
     "id": "cped-attached",
-    "name": "CPed: posiciÃƒÆ’Ã‚Â³n adjunta",
+    "name": "CPed: posicion adjunta",
     "runner": "CPed/runtime/run_local.py"
   },
   {

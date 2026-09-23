@@ -12,7 +12,7 @@ void CTaskSimpleGoToPointFine::InjectHooks() {
     RH_ScopedVMTInstall(ProcessPed, 0x663540);
     RH_ScopedInstall(SetBlendedMoveAnim, 0x65EF80);
     RH_ScopedInstall(Finish, 0x65EF00);
-    RH_ScopedInstall(SetTargetPos, 0x65F330);
+    RH_ScopedNamedInstall(SetTargetPos_Reversed, "SetTargetPos", 0x65F330);
     RH_ScopedInstall(BaseRatio, 0x65EF30);
 }
 
@@ -181,7 +181,21 @@ void CTaskSimpleGoToPointFine::SetTargetPos(CVector posn) {
     if (m_vecTargetPoint != posn || m_fRadius != 0.5f) {
         m_fRadius = 0.5f;
         m_vecTargetPoint = posn;
-        m_GoToFlags &= 0xD0 | 0x20; // todo: flags
+        m_GoToFlags = (m_GoToFlags & 0xF0) | 0x20;
+    }
+}
+
+// Native TrackEntity::ControlSubTask keeps the child pointer in ECX across this
+// call and immediately writes its move ratio. Preserve that executable ABI.
+__declspec(naked) void __fastcall CTaskSimpleGoToPointFine::SetTargetPos_Reversed(CTaskSimpleGoToPointFine*, void*, CVector) {
+    __asm {
+        push ecx
+        push dword ptr [esp + 16]
+        push dword ptr [esp + 16]
+        push dword ptr [esp + 16]
+        call CTaskSimpleGoToPointFine::SetTargetPos
+        pop ecx
+        ret 12
     }
 }
 

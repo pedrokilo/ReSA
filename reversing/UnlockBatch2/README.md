@@ -1,0 +1,31 @@
+# Entrega parcial: DataStream y TrackEntity
+
+Entrega autorizada: **10 candados retirados** tras comparación dentro del motor. Se conservan **86** para otra sesión: CCollision 59, CFileMgr 13, GangLeader 11 y Game 3.
+
+| Banco | Candados retirados | Pares finales |
+| --- | ---: | ---: |
+| [CAEDataStream](../UnlockDataStream/README.md) | 6 | 6.144 |
+| [TrackEntity y dependencia SetTargetPos](../UnlockTrackEntity/README.md) | 4 | 9.216 |
+
+Además, DataStream comprobó las 64 combinaciones de sus seis métodos. No se suman pasadas repetidas como cobertura nueva. La compilación normal y las dos comprobaciones de integración finalizaron. [Resumen verificable](validation-summary.json).
+
+## Trabajo conservado para después
+
+Los cambios candidatos de CFileMgr y Game se separaron de las fuentes compilables: [parche recuperable](deferred-filemgr-game.patch) y [manifiesto de los 15 archivos](deferred-manifest.json). Copias exactas antes/después en artifacts/deferred-20260923. El parche parte de b7b3dc4 y debe revisarse con `git apply --check` antes de recuperarlo en una sesión futura; no aplicarlo automáticamente sobre fuentes que hayan cambiado.
+
+CFileMgr conserva sus trece bloqueos. Su último banco falló en LoadFile: el original devolvió 0 y el candidato 256. Game conserva tres bloqueos; su traslado de ImGui a presentación no estaba validado. Collision y GangLeader solo se inspeccionaron. Ninguna de estas cuatro clases se declara terminada.
+
+El CSV actualiza únicamente los diez flags validados. Los totales siguen en 614 clases completas, 85 parciales, 2 sin revertir, 7.485/8.014 entradas y 529 pendientes. Candados registrados: **620**. No garantiza estabilidad general ni sustituye la campaña integral futura.
+
+
+## ASI normal e integración
+
+Debug x86, sin instrumentación: `16f5542f9ff8fc2e84d8adb31caddccbb29cecb8ca633076efda5c51df0600b9`. Instalado solo en la copia de pruebas; respaldo `_baseline/before-unlock-batch2-20260923-132316`. Las fuentes entregadas coinciden con los manifiestos de los bancos. TrackEntity se recompiló y repitió sin los borradores aplazados antes de cerrar la entrega.
+
+- Inicio normal sin argumentos, exclusiones ni teclas: menú a los **30,82 s**, diez segundos en él, sin carga automática. [Evidencia local](../InicioNormal/artifacts/startup-20260923-132328/summary.json).
+- Integración del mismo ASI con Audio activo y sin exclusiones: **30,03 s en IDLE y 873 frames**. Terminó automáticamente sin cierre inesperado, aserción ni fallo RTC observado. [Evidencia local](../Unlocks/artifacts/current-20260923-132450/summary.json).
+- INI restaurados, ASI conservado y partidas sin cambios por hash. Para uso normal, FastLoader sigue desactivado y SaveGameToLoad=-2. No se modificó la instalación personal.
+
+**El log no está limpio:** se observaron 13 fallos de asignación de CEntryExit, además del aviso timecyc y el rechazo de la ranura incompatible; al arrancar también apareció un aviso de adquisición del ratón. El motor continuó. No se determinó la causa de CEntryExit ni se atribuye automáticamente a estos cambios. No se validó conducción, combate, guardado/carga completa ni una sesión prolongada.
+
+Catálogo sincronizado: `unlock-data-stream` y `unlock-track-entity` están en cases.json/run_all.py y en el único PROBAR.cmd. La suite histórica no se ejecutó completa. Sin commit ni push.

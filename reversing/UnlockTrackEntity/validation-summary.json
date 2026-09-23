@@ -1,0 +1,66 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 9216,
+  "pairs_per_function": {
+    "0": 512,
+    "1": 2048,
+    "2": 4096,
+    "3": 2048,
+    "4": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "hook_states": [
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 0,
+      "locked": false
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 1,
+      "locked": false
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 2,
+      "locked": false
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 3,
+      "locked": false
+    },
+    {
+      "enabled": true,
+      "event": "hook_state",
+      "function": 4,
+      "locked": false
+    }
+  ],
+  "log_sha256": "21df3d9cebc410e0bb95261c7770a8015391c9800df2ee75c5c14b5d63b0e4bc",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "run": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-track-entity\\20260923-132113-463503",
+  "limitations": [
+    "Matrices preasignadas en el banco; no agota el pool de matrices.",
+    "Subtarea y factory controladas; compara decisión, argumentos, flags y estado, no navegación prolongada.",
+    "No modifica ni valida el constructor de TrackEntity en esta tanda.",
+    "Audio y SurfaceInfos excluidos."
+  ],
+  "previous_final_run": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-track-entity\\20260923-131036-501962",
+  "accepted_baseline_recheck": true
+}

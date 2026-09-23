@@ -7,23 +7,19 @@
     },
     {
       "state": 1,
-      "seconds": 22.8
+      "seconds": 22.31
     },
     {
       "state": 2,
-      "seconds": 23.3
-    },
-    {
-      "state": 4,
-      "seconds": 39.08
+      "seconds": 22.81
     },
     {
       "state": 5,
-      "seconds": 66.88
+      "seconds": 28.57
     },
     {
       "state": 7,
-      "seconds": 68.89
+      "seconds": 30.82
     }
   ],
   "foreground": [
@@ -35,7 +31,7 @@
     {
       "active": true,
       "seconds": 0.25,
-      "foreground_pid": 9416
+      "foreground_pid": 14224
     }
   ],
   "saves_before": {
@@ -46,11 +42,66 @@
     "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
     "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
   },
-  "asi_sha256": "112cdb045c60ce0a3ca3114f77fc321e8482f569fd7d5458bdf3ce6b225208e3",
+  "asi_sha256": "16f5542f9ff8fc2e84d8adb31caddccbb29cecb8ca633076efda5c51df0600b9",
   "menu_stable_seconds": 10,
   "saves_unchanged": true,
   "configs_unchanged": true,
   "automatic_save_load_logged": false,
-  "evidence_directory": "E:\\Original\\gta-reversed-master\\reversing\\InicioNormal\\artifacts\\startup-20260923-122459",
-  "scope": "Inicio normal sin argumentos, exclusiones, teclas ni carga automática; 10 segundos de menú"
+  "run": "E:\\Original\\gta-reversed-master\\reversing\\InicioNormal\\artifacts\\startup-20260923-132328",
+  "previous_summary": {
+    "passed": true,
+    "states": [
+      {
+        "state": 0,
+        "seconds": 0.0
+      },
+      {
+        "state": 1,
+        "seconds": 22.8
+      },
+      {
+        "state": 2,
+        "seconds": 23.3
+      },
+      {
+        "state": 4,
+        "seconds": 39.08
+      },
+      {
+        "state": 5,
+        "seconds": 66.88
+      },
+      {
+        "state": 7,
+        "seconds": 68.89
+      }
+    ],
+    "foreground": [
+      {
+        "active": true,
+        "seconds": 0.0,
+        "foreground_pid": 7524
+      },
+      {
+        "active": true,
+        "seconds": 0.25,
+        "foreground_pid": 9416
+      }
+    ],
+    "saves_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+      "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+    },
+    "configs_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+    },
+    "asi_sha256": "112cdb045c60ce0a3ca3114f77fc321e8482f569fd7d5458bdf3ce6b225208e3",
+    "menu_stable_seconds": 10,
+    "saves_unchanged": true,
+    "configs_unchanged": true,
+    "automatic_save_load_logged": false,
+    "evidence_directory": "E:\\Original\\gta-reversed-master\\reversing\\InicioNormal\\artifacts\\startup-20260923-122459",
+    "scope": "Inicio normal sin argumentos, exclusiones, teclas ni carga automÃ¡tica; 10 segundos de menÃº"
+  }
 }

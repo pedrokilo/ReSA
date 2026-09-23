@@ -344,7 +344,7 @@ hooks.csv actualizado solo en las 22 filas validadas (Scanner pasa a tipo virtua
 Rama PGTASA. Cambios previos conservados. Sin commit ni push.
 
 
-<a id="continuidad-vigente"></a>
+
 
 ## Continuidad: desbloqueos terminados y plataforma conmutable (2026-09-23)
 
@@ -375,3 +375,51 @@ Rama PGTASA, cambios previos conservados, sin commit ni push. La campaña integr
 Revisión final de logs: avisos de Acquire antes de mostrar ventana, timecyc y rechazo del guardado permanecen documentados. En la ejecución conjunta, el driver Intel/D3D9On12 generó una excepción de primera oportunidad; el motor continuó 863 frames. El rótulo legado UNHANDLED EXCEPTION lo escribe el VEH antes de los manejadores SEH y no prueba un cierre por sí solo. No atribuir esa línea a un nuevo fallo terminal sin comprobar salida del proceso y continuidad.
 
 Revisión documental posterior a petición del usuario: inventario de 54 Markdown propios, nueve documentos corregidos. CVehicle ya no figura pendiente de habilitación/prueba; los ASI de Top10, CAESound, CGeneral y ClothesScriptedSprint se identifican como históricos. ULTIMA_EJECUCION enlaza la tanda vigente sin inventar otra pasada de la suite. Actualizados formato del catálogo y recuento documental; 17 clases solicitadas sin candados, 630 bloqueos fuera de la petición. Verificados 813 enlaces locales y concordancia del catálogo generado y la guía con hooks.csv. Solo documentación; sin cambios de CSV, código, binarios ni partidas, y sin repetir GTA. Registro local: artifacts/docs-audit-20260923.json. Sin commit/push.
+
+
+
+
+## Continuidad: segundo lote de desbloqueos en curso (2026-09-23)
+
+Petición vigente: CCollision 59, CFileMgr 13, CTaskComplexGangLeader 11, CAEDataStream 6, CTaskComplexTrackEntity 4 y Game 3: **96 bloqueos reales** inventariados en UnlockBatch2/artifacts/initial-state.json. No confundir este lote con los 24 candados del informe anterior.
+
+CAEDataStream ya tiene sus seis candados retirados tras 6.144 comparaciones y 64 combinaciones aprobadas. Pasada final: resultados-unlock-data-stream/20260923-125257-865113; [detalle](UnlockDataStream/README.md). HANDLE nativo sustituye FILE* incompatible, con Stat adaptado. Audio activo; SurfaceInfos excluido. ASI de prueba final 2ed02de894c2bf0dd1eb325d687705b049c6867b228a8147e77988e783bffb54. La versión normal instalada sigue siendo 112cdb045c60ce0a3ca3114f77fc321e8482f569fd7d5458bdf3ce6b225208e3, restaurada automáticamente; partidas/INI conservados.
+
+**Trabajo restante: 90 candados.** TrackEntity está en reparación, aún sin validar: dos helpers eran passthrough y el temporizador sumaba start+start. El original ControlSubTask conserva ECX tras GoToPointFine::SetTargetPos; ese contrato exige adaptador y también comprobar sus flags. CFileMgr mezcla runtimes FILE incompatibles. GangLeader tiene lógica/transiciones pendientes de auditar. Game requiere separar la integración de interfaz del camino conmutable. Collision necesita banco y revisión de ABI/rendimiento, no quitar flags a ciegas.
+
+CSV y catálogo siguen sin actualizar en esta tanda. No recompilar/instalar normal hasta validar las modificaciones candidatas; continuar el trabajo técnico y sincronizar documentación al cerrar. Sin commit/push, sin apagar, instalación personal intacta.
+
+
+Avance posterior del segundo lote: TrackEntity **4/4 desbloqueados**, 9.216 pares finales aprobados en resultados-unlock-track-entity/20260923-131036-501962. Ver UnlockTrackEntity/README.md. ABI ECX y máscara del setter reparadas; temporizador y rama FollowNodeRoute contrastados. Total de esta tanda validado en fuentes: 10/96; quedan 86 candados. Catálogos aún sin sincronizar.
+
+CFileMgr está en reparación y pruebas (13 candados conservados): FILESTREAM ahora es un tipo opaco del CRT del ejecutable; consola mantiene FILE del DLL. Menú/estadísticas usan lectura/formato seguidos por CFileMgr; los demás consumidores FILE* se adaptaron al tipo. Un puente acotado por thread_local en CreateFileA permite a fopen nativo abrir UTF-8 mediante CreateFileW. LoadFile conserva extensión acotada con terminador solo si cabe. La primera comparación encontró relleno 0xFE de strcpy_s en SetDirMyDocuments: corregido a cola cero; siguiente pasada pendiente. No instalar este candidato como normal.
+
+Game está en preparación: se movió DrawLoop a RenderBeforePresent en RwCameraShowRaster, con cámara principal, estados 7/9 y escena D3D abierta; aún sin validar y sus tres candados siguen. Collision/GangLeader siguen pendientes. No afirmar cierre del lote.
+
+Git HEAD actual b7b3dc4 (commit externo durante la compilación inicial) capturó instrumentación temporal de DataStream. El árbol de trabajo ya restaura esas fuentes sin sonda; conservar esa limpieza y no revertirla al HEAD instrumentado. El agente no hizo commit ni push.
+
+
+### Detenido a petición del usuario (2026-09-23)
+
+El usuario pidió detener el trabajo y dar estado. No continuar automáticamente. Estado final de esta pausa: **10/96 candados retirados y validados en fuentes**, CAEDataStream 6 y TrackEntity 4; 15.360 pares finales entre ambos bancos y 64 combinaciones de DataStream. No sumar pasadas preliminares.
+
+CFileMgr conserva 13 candados y cambios candidatos sin aprobación final. Última pasada fallida: resultados-unlock-file-mgr/20260923-131422-691585, LoadFile caso 1: original devuelve 0 y candidato 256; causa pendiente de investigar. La diferencia de cola del directorio ya fue corregida. No afirmar equivalencia de LoadFile ni cierre del banco. Game conserva 3 candados: traslado de ImGui a presentación escrito, todavía sin compilar/validar. Collision 59 y GangLeader 11 siguen sin cambios de implementación en esta tanda; solo inspección. Total pendiente: **86**.
+
+No hay procesos GTA/MSBuild/cl/link activos al detener. ASI normal instalado comprobado: 112cdb045c60ce0a3ca3114f77fc321e8482f569fd7d5458bdf3ce6b225208e3; la sonda fue retirada. Fuentes sin instrumentación temporal. bin/Debug puede contener la última sonda: no instalarlo directamente. CSV, ReversedClasses y prioridades no sincronizados para este lote; faltan validación del resto, documentación final, compilación normal e integración conjunta. No commit/push del agente, no apagado, instalación personal y partidas conservadas.
+
+
+<a id="continuidad-vigente"></a>
+
+## Continuidad vigente: entrega parcial cerrada; 86 bloqueos aplazados (2026-09-23)
+
+El usuario acotó la tarea a sincronizar catálogos, compilar normal y comprobar la integración de lo ya validado. **Completado:** CAEDataStream 6 candados y TrackEntity 4, con su dependencia GoToPointFine::SetTargetPos reparada. Total: 15.360 pares finales y 64 combinaciones de DataStream. TrackEntity se recompiló sin los borradores y repitió 9.216 pares: resultados-unlock-track-entity/20260923-132113-463503. Las repeticiones no aumentan la cobertura única.
+
+[Informe actual](UnlockBatch2/README.md) y [resumen verificable](UnlockBatch2/validation-summary.json). Los 15 archivos candidatos de CFileMgr y Game se archivaron y separaron de las fuentes compilables: UnlockBatch2/deferred-filemgr-game.patch, deferred-manifest.json y copias exactas en artifacts/deferred-20260923. git apply --check aprobado sobre la base actual. No recuperarlos automáticamente ni incorporarlos al ASI normal. CFileMgr mantiene su diferencia LoadFile pendiente; Game aún no tiene validado el cambio de presentación. Collision/GangLeader solo inspeccionados. **Quedan para después CCollision 59, CFileMgr 13, GangLeader 11 y Game 3: 86.**
+
+CSV actualizado exclusivamente en diez flags locked después de validar. ReversedClasses regenerado, README/prioridades/índice de pruebas/InicioNormal/documentación de bancos sincronizados. Añadidos unlock-data-stream y unlock-track-entity a cases.json y run_all.py: 38 casos, un solo PROBAR.cmd. Totales de progreso intactos: 614 completas, 85 parciales, 2 sin revertir; 7.485/8.014 entradas y 529 pendientes. Quedan **620 candados globales**. RpAnimBlend conserva 43/43 y su evidencia previa. La suite histórica completa no se repitió.
+
+ASI normal Debug x86 final, sin instrumentación: **16f5542f9ff8fc2e84d8adb31caddccbb29cecb8ca633076efda5c51df0600b9**. PDB cf09026d3fd7f169f9d36c3ae235ab91efd7fed389f5df6d4ce38a80e27cf3d9. bin/Debug y copia de pruebas contienen la versión normal. Respaldo anterior en `_baseline/before-unlock-batch2-20260923-132316`. Fuentes validadas coinciden con manifiestos; fuentes diferidas coinciden con base. No restaurar globalmente HEAD b7b3dc4: ese commit externo capturó instrumentación temporal de DataStream y el árbol actual conserva su limpieza.
+
+Inicio normal sin argumentos/exclusiones/teclas: estados muestreados 0,1,2,5,7; menú a **30,82 s**, diez segundos estable, sin carga automática. Evidencia InicioNormal/artifacts/startup-20260923-132328. Integración del mismo ASI: **30,03 s en IDLE, 873 frames**, Audio activo, sin exclusiones. Evidencia Unlocks/artifacts/current-20260923-132450. Proceso cerrado automáticamente al terminar. INI restaurados y partidas conservadas por hash; instalación personal intacta. FastLoader=false/SaveGameToLoad=-2 para uso normal.
+
+Limitaciones: el log conjunto registró 13 fallos de asignación de CEntryExit; el motor siguió funcionando. No se investigó ni atribuyó su causa. Persisten aviso timecyc y rechazo de la ranura 2 incompatible; no forzar su carga. El arranque mostró un aviso de adquisición del ratón. No hubo cierre inesperado, aserción ni RTC observado en las comprobaciones finales. No se probó conducción, combate, carga/guardado completo ni sesión prolongada; no garantiza estabilidad general. Campaña integral sigue aplazada. Rama PGTASA, sin commit/push del agente, sin apagar. Esperar otra petición antes de continuar los 86 pendientes.

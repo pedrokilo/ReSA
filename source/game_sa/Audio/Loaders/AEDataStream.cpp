@@ -1,5 +1,4 @@
-#include "StdInc.h"
-#include "E:/Original/gta-reversed-master/reversing/UnlockDataStream/Probe.hpp" // TODO: Remove
+#include "StdInc.h" // TODO: Remove
 
 #include "common.h"
 
@@ -126,7 +125,6 @@ HRESULT CAEDataStream::UnlockRegion(ULARGE_INTEGER libOffset, ULARGE_INTEGER cb,
 
 // 0x4dc3a0
 HRESULT CAEDataStream::Stat(STATSTG* statout, DWORD flags) {
-    ++DSProbe::calls[6];
     if (statout == nullptr || flags != STATFLAG_NONAME)
         return E_INVALIDARG;
 
@@ -147,7 +145,6 @@ HRESULT CAEDataStream::Clone(IStream** target) {
 
 // 0x4dc1c0
 size_t CAEDataStream::FillBuffer(void* dest, size_t size) {
-    ++DSProbe::calls[3];
     size_t sizeToRead = static_cast<size_t>((m_nCurrentPosition - m_nLength) - m_nStartPosition);
     if (size < sizeToRead)
         sizeToRead = size;
@@ -167,14 +164,12 @@ size_t CAEDataStream::FillBuffer(void* dest, size_t size) {
 
 // 0x4dc230
 uint32 CAEDataStream::GetCurrentPosition() {
-    ++DSProbe::calls[4];
     const auto pos = SetFilePointer(m_pFileHandle, 0, nullptr, FILE_CURRENT);
     return pos - m_nStartPosition;
 }
 
 // 0x4dc250
 uint32 CAEDataStream::Seek(long offset, int32 whence) {
-    ++DSProbe::calls[5];
     if (whence == SEEK_SET) {
         offset += m_nStartPosition;
     } else if (whence == SEEK_END) {
@@ -193,7 +188,6 @@ bool CAEDataStream::Close() {
 
 // 0x4dc2b0
 bool CAEDataStream::Initialise() {
-    ++DSProbe::calls[2];
     if (m_bIsOpen)
         return true;
 
@@ -215,14 +209,14 @@ void CAEDataStream::InjectHooks() {
     RH_ScopedClass(CAEDataStream);
     RH_ScopedCategory("Audio/Loaders");
 
-    // Keep the locks until the Win32 interoperability bank validates all methods.
+    // Native and reconstructed methods share Win32 HANDLE ownership.
 
-    RH_ScopedInstall(Constructor, 0x4dc620, {.locked = true});
-    RH_ScopedInstall(Destructor, 0x4dc490, {.locked = true});
-    RH_ScopedInstall(Initialise, 0x4dc2b0, {.locked = true});
-    RH_ScopedInstall(FillBuffer, 0x4dc1c0, {.locked = true});
-    RH_ScopedInstall(GetCurrentPosition, 0x4dc230, {.locked = true});
-    RH_ScopedOverloadedInstall(Seek, "OG", 0x4dc250, uint32(CAEDataStream::*)(long offset, int32 whence), {.locked = true});
+    RH_ScopedInstall(Constructor, 0x4dc620);
+    RH_ScopedInstall(Destructor, 0x4dc490);
+    RH_ScopedInstall(Initialise, 0x4dc2b0);
+    RH_ScopedInstall(FillBuffer, 0x4dc1c0);
+    RH_ScopedInstall(GetCurrentPosition, 0x4dc230);
+    RH_ScopedOverloadedInstall(Seek, "OG", 0x4dc250, uint32(CAEDataStream::*)(long offset, int32 whence));
 
     // IStream implementation. These depend on functions above so most of them don't have to be locked.
     RH_ScopedInstall(Read, 0x4dc320);
@@ -244,12 +238,10 @@ void CAEDataStream::InjectHooks() {
 }
 
 CAEDataStream* CAEDataStream::Constructor(int32 trackID, char* filename, uint32 startPosition, uint32 length, int32 encrypted) {
-    ++DSProbe::calls[0];
     this->CAEDataStream::CAEDataStream(trackID, filename, startPosition, length, encrypted);
     return this;
 }
 
 void CAEDataStream::Destructor() {
-    ++DSProbe::calls[1];
     this->CAEDataStream::~CAEDataStream();
 }

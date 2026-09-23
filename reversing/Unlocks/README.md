@@ -1,6 +1,6 @@
 # Desbloqueos solicitados e integración de plataforma
 
-Se retiraron **24 bloqueos en 16 clases/namespaces** después de comparar sus funciones con el original dentro del motor. CGeneral, la clase número 17 de la petición, ya estaba desbloqueada y conserva sus 65.536 comparaciones anteriores. No aumenta el número de funciones registradas como revertidas: los candados y el progreso son indicadores distintos. Las 17 clases solicitadas tienen cero candados en el CSV; quedan **630 bloqueos en otras clases**, fuera de esta petición.
+Se retiraron **24 bloqueos en 16 clases/namespaces** después de comparar sus funciones con el original dentro del motor. CGeneral, la clase número 17 de la petición, ya estaba desbloqueada y conserva sus 65.536 comparaciones anteriores. No aumenta el número de funciones registradas como revertidas: los candados y el progreso son indicadores distintos. Las 17 clases solicitadas tienen cero candados en el CSV; en aquel corte quedaban **630 bloqueos en otras clases**. La [entrega posterior de DataStream y TrackEntity](../UnlockBatch2/README.md) retira diez más y deja 620.
 
 [Resumen conjunto verificable](validation-summary.json). Las evidencias separan pruebas de funciones, integración de arranque y comprobación del ASI normal.
 
@@ -45,7 +45,7 @@ Esto no garantiza estabilidad general, sesiones largas, todos los dispositivos f
 
 ## ASI normal instalado y comprobado
 
-Compilación Debug x86 sin instrumentación, instalada solo en la copia de pruebas: `112cdb045c60ce0a3ca3114f77fc321e8482f569fd7d5458bdf3ce6b225208e3`. Respaldo anterior: `_baseline/before-unlocks-20260923-122454`.
+Compilación histórica de esta tanda, Debug x86 sin instrumentación, instalada entonces solo en la copia de pruebas: `112cdb045c60ce0a3ca3114f77fc321e8482f569fd7d5458bdf3ce6b225208e3`. Respaldo anterior: `_baseline/before-unlocks-20260923-122454`.
 
 El inicio normal, sin argumentos ni exclusiones, llegó al menú en **68,89 s** y permaneció allí diez segundos, sin carga automática. Después, una ejecución del mismo ASI con carga rápida temporal completó **30 segundos en estado IDLE** y 863 frames de avance, con Audio y todos sus hooks habilitados, sin exclusiones. Es una observación breve del motor, no una prueba de conducción o combate. Las partidas e INI quedaron intactos; el ASI normal permaneció instalado.
 

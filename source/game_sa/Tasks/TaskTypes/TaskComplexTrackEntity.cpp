@@ -11,16 +11,16 @@ void CTaskComplexTrackEntity::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x65F3B0);
     RH_ScopedInstall(Destructor, 0x65F460);
 
-    RH_ScopedInstall(SetOffsetPos, 0x65F760, {.enabled = false, .locked = true});
-    RH_ScopedInstall(CalcTargetPos, 0x65F780, {.enabled = false, .locked = true});
-    RH_ScopedInstall(CalcMoveRatio, 0x65F930, {.enabled = false, .locked = true});
+    RH_ScopedInstall(SetOffsetPos, 0x65F760);
+    RH_ScopedInstall(CalcTargetPos, 0x65F780);
+    RH_ScopedInstall(CalcMoveRatio, 0x65F930);
 
     RH_ScopedVMTInstall(Clone, 0x65F4E0);
     RH_ScopedVMTInstall(GetTaskType, 0x65F450);
     RH_ScopedVMTInstall(MakeAbortable, 0x65F4C0);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x65F590);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x65F700);
-    RH_ScopedVMTInstall(ControlSubTask, 0x663640, { .locked = true }); // Locked because it fucks up the stack and crashes 
+    RH_ScopedVMTInstall(ControlSubTask, 0x663640);
 }
 
 // 0x65F3B0
@@ -55,12 +55,38 @@ void CTaskComplexTrackEntity::SetOffsetPos(CVector posn) {
 
 // 0x65F780
 void CTaskComplexTrackEntity::CalcTargetPos(CPed* ped) {
-    plugin::CallMethod<0x65F780, CTaskComplexTrackEntity*, CPed*>(this, ped);
+    m_goToPos = m_toTrack->GetPosition();
+    if (f) {
+        m_toTrack->GetMatrix();
+        m_goToPos += m_toTrack->GetRight() * m_offsetPosn.x;
+        m_goToPos += m_toTrack->GetForward() * m_offsetPosn.y;
+    } else {
+        m_goToPos.x += m_offsetPosn.x;
+        m_goToPos.y += m_offsetPosn.y;
+    }
+    if (m_toTrack->GetIsTypeVehicle() || m_toTrack->GetIsTypePed()) {
+        m_goToPos += static_cast<CPhysical*>(m_toTrack)->m_vecMoveSpeed * CTimer::GetTimeStep();
+    }
+    const auto delta = m_goToPos - ped->GetPosition();
+    m_distToTargetSq = delta.y * delta.y + delta.x * delta.x;
 }
 
 // 0x65F930
 void CTaskComplexTrackEntity::CalcMoveRatio(CPed* ped) {
-    plugin::CallMethod<0x65F930, CTaskComplexTrackEntity*, CPed*>(this, ped);
+    if (m_distToTargetSq < sq(0.2f)) {
+        float40 = 0.0f;
+    } else if (m_distToTargetSq > sq(5.0f)) {
+        float40 = 1.0f;
+    } else if (m_distToTargetSq < sq(1.0f)) {
+        float40 = (std::sqrt(m_distToTargetSq) - 0.2f) * (1.0f / (1.0f - 0.2f)) * 0.5f;
+    } else {
+        float40 = (std::sqrt(m_distToTargetSq) - 1.0f) * (1.0f / (5.0f - 1.0f)) * 0.5f + 0.5f;
+    }
+    float40 = std::sqrt(float40) * 3.0f;
+    if (!a && float40 > 2.0f) {
+        float40 = 2.0f;
+    }
+    m_fMoveRatio = float40 - m_fMoveRatio > 0.2f ? m_fMoveRatio + 0.2f : float40;
 }
 
 // 0x65F4C0
@@ -123,22 +149,19 @@ CTask* CTaskComplexTrackEntity::ControlSubTask(CPed* ped) {
         return TryAbortGetTask();
     }
 
-    assert(!gap2 && !gap3); // NOTE: Both seem to be always be false, let's see if that's the case.
-
     if (gap2) {
         if (gap3) {
             m_someStartTimeMs = CTimer::GetTimeInMS();
             gap3 = false;
         }
-        if (CTimer::GetTimeInMS() >= m_someStartTimeMs + m_someStartTimeMs) {
+        if (CTimer::GetTimeInMS() >= m_someStartTimeMs + m_expirationInterval) {
             return TryAbortGetTask();
         }
     }
 
     CalcTargetPos(ped);
 
-    switch (m_pSubTask->GetTaskType()) {
-    case TASK_COMPLEX_FOLLOW_POINT_ROUTE: {
+    if (m_pSubTask->GetTaskType() == TASK_COMPLEX_FOLLOW_NODE_ROUTE) {
         // If we're totally out of range...
         if (m_distToTargetSq > sq(m_rangeMax)) {
             return nullptr;
@@ -149,10 +172,8 @@ CTask* CTaskComplexTrackEntity::ControlSubTask(CPed* ped) {
             return CreateNextSubTask(ped);
         }
 
-        break;
-    }
-    case TASK_SIMPLE_GO_TO_POINT_FINE: {
-        // Check if we're still in range, if not, abort and create `TASK_COMPLEX_FOLLOW_POINT_ROUTE`
+    } else if (m_pSubTask->GetTaskType() == TASK_SIMPLE_GO_TO_POINT_FINE) {
+        // Check if we're still in range, if not, abort and create `TASK_COMPLEX_FOLLOW_NODE_ROUTE`
         if (m_distToTargetSq >= sq(m_rangeMin) && TryAbort()) {
             return CreateNextSubTask(ped);
         }
@@ -163,8 +184,6 @@ CTask* CTaskComplexTrackEntity::ControlSubTask(CPed* ped) {
         gotoTask->SetTargetPos(m_goToPos);
         gotoTask->SetMoveRatio(m_fMoveRatio);
 
-        break;
-    }
     }
 
     return m_pSubTask;

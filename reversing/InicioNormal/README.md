@@ -29,7 +29,9 @@ El registro previo a las nuevas ejecuciones se conserva en `artifacts/crash-2026
 
 ## Comprobación automática del arranque
 
-Última comprobación tras los desbloqueos: ASI normal **sin argumentos ni exclusiones**. Estados observados: 0, 1, 2, 4, 5, 7. Alcanzó el menú en **68,89 segundos** y permaneció allí diez segundos; no entró en los estados 8 o 9 ni registró carga automática. El ejecutor no pulsó teclas ni cambió la configuración. La muestra cada 250 ms puede omitir estados breves.
+Última comprobación tras la entrega parcial de DataStream y TrackEntity: ASI normal **sin argumentos ni exclusiones**. Estados muestreados: 0, 1, 2, 5, 7. Alcanzó el menú en **30,82 segundos** y permaneció allí diez segundos; no entró en los estados 8 o 9 ni registró carga automática. El ejecutor no pulsó teclas ni cambió la configuración. La muestra cada 250 ms puede omitir estados breves. Evidencia: artifacts/startup-20260923-132328.
+
+La pasada de la tanda anterior de desbloqueos alcanzó el menú en 68,89 segundos y sigue conservada como evidencia histórica.
 
 La comprobación anterior, después de las diez clases, observó 0, 1, 2, 3, 4, 5, 7 y menú a los 130,49 segundos; sigue archivada como evidencia histórica.
 
@@ -62,4 +64,4 @@ Los dos documentos añadidos en aquella revisión también quedaron en español.
 
 ## Estado final
 
-ASI normal en la copia de pruebas: `112cdb045c60ce0a3ca3114f77fc321e8482f569fd7d5458bdf3ce6b225208e3`. Respaldo inmediato en `_baseline/before-unlocks-20260923-122454`. Se mantienen los respaldos anteriores. Partidas e INI conservados e instalación personal intacta. [Desbloqueos, matriz de plataforma y límites](../Unlocks/README.md). No se garantiza estabilidad general ni se inició la campaña integral aplazada. Sin commit ni push.
+ASI normal en la copia de pruebas: `16f5542f9ff8fc2e84d8adb31caddccbb29cecb8ca633076efda5c51df0600b9`. Respaldo inmediato en `_baseline/before-unlock-batch2-20260923-132316`. Se mantienen los respaldos anteriores. Partidas e INI conservados e instalación personal intacta. [Entrega parcial, integración y límites](../UnlockBatch2/README.md). No se garantiza estabilidad general ni se inició la campaña integral aplazada. Sin commit ni push.

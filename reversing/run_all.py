@@ -14,7 +14,7 @@ PREFIXES = {'shooting-resources': 'shooting-resources', 'leave-car-bus': 'leave-
             'cped-attached': 'attached', 'cped-position': 'updateposition',
             'weaponeffects': 'weaponeffects', 'fxmanager': 'fxmanager',
             'basemodelinfo': 'basemodelinfo', 'rpanimblend': 'rpanimblend'}
-PREFIXES.update({name: name for name in ['unlock-audio', 'unlock-core', 'unlock-driving', 'unlock-input', 'unlock-physical', 'unlock-platform', 'unlock-radio', 'unlock-tasks']})
+PREFIXES.update({name: name for name in ['unlock-data-stream', 'unlock-track-entity', 'unlock-audio', 'unlock-core', 'unlock-driving', 'unlock-input', 'unlock-physical', 'unlock-platform', 'unlock-radio', 'unlock-tasks']})
 
 
 def game_running():

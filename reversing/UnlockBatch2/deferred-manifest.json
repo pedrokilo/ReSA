@@ -1,0 +1,67 @@
+{
+  "base_commit": "b7b3dc432c5bf08bdf1e1f09e0daa5e25b079e1a",
+  "archive": "reversing\\UnlockBatch2\\artifacts\\deferred-20260923",
+  "patch_sha256": "dc48e589883ce1e793c5f15114e050f669a1c5022a63f0b3fa2f6018a97f2b59",
+  "files": {
+    "source/extensions/debug.hpp": {
+      "candidate_sha256": "918439233dbee476ceaed723da531835e4f27aec6ce05fb8538f3564eb13554e",
+      "base_sha256": "70b40109058fddb051fed2f436094c44ec222e4c6013aaec47a27fbddd6444b3"
+    },
+    "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": {
+      "candidate_sha256": "369f8656b3c8c8d6a1d846ec445dae56744027e64cea905f98979f25729bd46f",
+      "base_sha256": "5b00cdcf6b132a640ea38b43fee94a008e4624c5e8f810e1a4857444722874f7"
+    },
+    "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": {
+      "candidate_sha256": "cfaeb64ec65c75e70477bc45e7196ee6d98c1c0c6900cc8c16b608d3d41c89c1",
+      "base_sha256": "430874416a74863b7ce29ca095964aea8b85a0711038d11cd045a083af07fc79"
+    },
+    "source/game_sa/Camera.cpp": {
+      "candidate_sha256": "69b6bea8101dac1c0a9a46e09b3cf9e7eda75499f81232f375783962105e647e",
+      "base_sha256": "4019abcd4693ca1acbfe9caa6ceb061565362b6bd7be1e912937d2175d33b598"
+    },
+    "source/game_sa/Camera.h": {
+      "candidate_sha256": "f0c34fa4289330f3ea6878bfe92c4f6554d90d9b1181bd9cfae3a5fcbc62c3ed",
+      "base_sha256": "a70e8e9a6c56763330d39e9b5ab05a81f5a6cf34d2820063a3b4ba17d5da6fa8"
+    },
+    "source/game_sa/FileMgr.cpp": {
+      "candidate_sha256": "5e8b49f316d95cc78c064159526d60c86ea3f260c811652aa2bc77b855546167",
+      "base_sha256": "437d843da3e8a0876ec89890403a0c76921c58cc5f4413def1f7f53e9fe4e1f6"
+    },
+    "source/game_sa/FileMgr.h": {
+      "candidate_sha256": "5e78672f95f412dd2327c172ee8c78b72fdccdfb2d23d640721aa2b26cbd6d30",
+      "base_sha256": "3369a5ddf9e29a2c8e336fae40d5f4a9ec2e1f67fda2e58d124b336f60a57d63"
+    },
+    "source/game_sa/Frontend/MenuManager_Process.cpp": {
+      "candidate_sha256": "8969b7dbe9c6ff4711fc5346384f7f544f6bf282552c226c5f84a9cfa9e9f318",
+      "base_sha256": "afb1331390c5e7f10c47943afcd7ec9d6755c08a21725b685b4bbabef64de2f9"
+    },
+    "source/game_sa/GenericGameStorage.h": {
+      "candidate_sha256": "fd25d8188f33b9cd7ef47937984975f5bf90c9e9a9db1b888aa3f7beba1b8733",
+      "base_sha256": "01b1ede214c3871cac34a38c30fcc4578b85487f140c8b3e3ae95b7c230662d0"
+    },
+    "source/game_sa/MenuManager.cpp": {
+      "candidate_sha256": "08eb12bd73af155206498a90bfe208b516adb1842ec23ee8652dfafde9eaf8d9",
+      "base_sha256": "2ea40889e9bc7021ab6da36f619a1c7ab396fb4f0a201d6fa704e3aa942480e8"
+    },
+    "source/game_sa/Text/MissionTextOffsets.h": {
+      "candidate_sha256": "f7f164831d16b09f5f22a4cd2231d0954ca743e8b22b6f7be84a6b5634045b46",
+      "base_sha256": "f055fcfc630a9eae849232d57dd8d64f8684c4207ec63e537326ff8ac3914b96"
+    },
+    "source/app/app_game.cpp": {
+      "candidate_sha256": "e03899f6651e09f5d59367d5dab16921e319de03e4cb18a6a3341a6fca620844",
+      "base_sha256": "bcc8581bd74d076909374dbfdc56f3badc145fdd2bade01afc383a05ccdca732"
+    },
+    "source/game_sa/RenderWare/rw/rwcore.cpp": {
+      "candidate_sha256": "4a9b2a0879012b7d73237ade0724e64baf9298dbbe2bd8920b1e8915599bb869",
+      "base_sha256": "9f4079a75c0d86221e991c340555212f2fe9eb63cd07fb3f5cf3a672844ee1a8"
+    },
+    "source/toolsmenu/UIRenderer.cpp": {
+      "candidate_sha256": "2ba12e2133760da7b2067bf1c7af3ad7809504b5f3e3ccd7eaf6bb4207cd9b15",
+      "base_sha256": "21b2f589185a496cb93d2b6752f0eeab34a2e6471ac499e01122311002eccad0"
+    },
+    "source/toolsmenu/UIRenderer.h": {
+      "candidate_sha256": "bceae009b5ec4b8d1a8abf6e40c406536a3c94b3f3c427bce09573388e09b443",
+      "base_sha256": "edd9e95423ec1ad377650c6dad8c149232127dc2ea392c8b58b83f2b774924bf"
+    }
+  }
+}

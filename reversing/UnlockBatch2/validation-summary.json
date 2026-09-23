@@ -1,0 +1,574 @@
+{
+  "passed": true,
+  "scope": "Entrega parcial: 10 desbloqueos validados; inicio normal y 30 segundos de motor activo sin exclusiones. No es una campaña exhaustiva.",
+  "branch": "PGTASA",
+  "delivered": {
+    "CAEDataStream": 6,
+    "CTaskComplexTrackEntity": 4
+  },
+  "deferred": {
+    "CCollision": 59,
+    "CFileMgr": 13,
+    "CTaskComplexGangLeader": 11,
+    "Game": 3
+  },
+  "differential_pairs": 15360,
+  "data_stream_interop_modes": 64,
+  "csv_locked_total": 620,
+  "normal_build": {
+    "branch": "PGTASA",
+    "head": "b7b3dc432c5bf08bdf1e1f09e0daa5e25b079e1a",
+    "binaries": {
+      "asi": "16f5542f9ff8fc2e84d8adb31caddccbb29cecb8ca633076efda5c51df0600b9",
+      "pdb": "cf09026d3fd7f169f9d36c3ae235ab91efd7fed389f5df6d4ce38a80e27cf3d9"
+    },
+    "validated_sources": {
+      "source/game_sa/Audio/Loaders/AEDataStream.cpp": "cf291306d6640c1db264143d5b025272586f5291b59dd000f5b49a94a3f441dd",
+      "source/game_sa/Audio/Loaders/AEDataStream.h": "a3ed0d1ff78105fdfd82578e8e773acead0630fc8797b39dd875da0def57b3bf",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp": "a05513787ef577ab37e126c4cace1ced4a5433adaa966373c998a43dbb8b8b91",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.h": "7fdcacdcd0a11386147a2b38c9eb0f370f3314b20702568ac81165798290b24b",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp": "156576d932fe6be3dd2aecf8ed3fabecbf68a919973162841cb57031d4386510",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.h": "e66eb7a688f829594f3755a41d5a925c7dac359cce7f410f2481a596caeb79b0",
+      "source/game_sa/Game.cpp": "f07d70a79e69f71f8a59d2d263a4a872ebabaa603d523e93f17e40dd540bbcde",
+      "source/dllmain.cpp": "f9c9b7f57e5e6391372df9a9e65ed0b3a3c34c56b7ec5a7340af9fc5f5fbfb67"
+    },
+    "deferred_files_at_base": [
+      "source/extensions/debug.hpp",
+      "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp",
+      "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h",
+      "source/game_sa/Camera.cpp",
+      "source/game_sa/Camera.h",
+      "source/game_sa/FileMgr.cpp",
+      "source/game_sa/FileMgr.h",
+      "source/game_sa/Frontend/MenuManager_Process.cpp",
+      "source/game_sa/GenericGameStorage.h",
+      "source/game_sa/MenuManager.cpp",
+      "source/game_sa/Text/MissionTextOffsets.h",
+      "source/app/app_game.cpp",
+      "source/game_sa/RenderWare/rw/rwcore.cpp",
+      "source/toolsmenu/UIRenderer.cpp",
+      "source/toolsmenu/UIRenderer.h"
+    ]
+  },
+  "installation": {
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-unlock-batch2-20260923-132316",
+    "saves_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+      "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+    },
+    "config_hashes": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+    },
+    "before": {
+      "asi": "112cdb045c60ce0a3ca3114f77fc321e8482f569fd7d5458bdf3ce6b225208e3",
+      "pdb": "78378f0f0420fb582a34e27212718444d1bb146fe6394d850f1c8f946d40bb72"
+    },
+    "after": {
+      "asi": "16f5542f9ff8fc2e84d8adb31caddccbb29cecb8ca633076efda5c51df0600b9",
+      "pdb": "cf09026d3fd7f169f9d36c3ae235ab91efd7fed389f5df6d4ce38a80e27cf3d9"
+    }
+  },
+  "startup": {
+    "path": "E:\\Original\\gta-reversed-master\\reversing\\InicioNormal\\artifacts\\startup-20260923-132328",
+    "passed": true,
+    "states": [
+      {
+        "state": 0,
+        "seconds": 0.0
+      },
+      {
+        "state": 1,
+        "seconds": 22.31
+      },
+      {
+        "state": 2,
+        "seconds": 22.81
+      },
+      {
+        "state": 5,
+        "seconds": 28.57
+      },
+      {
+        "state": 7,
+        "seconds": 30.82
+      }
+    ],
+    "foreground": [
+      {
+        "active": true,
+        "seconds": 0.0,
+        "foreground_pid": 7524
+      },
+      {
+        "active": true,
+        "seconds": 0.25,
+        "foreground_pid": 14224
+      }
+    ],
+    "saves_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+      "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+    },
+    "configs_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+    },
+    "asi_sha256": "16f5542f9ff8fc2e84d8adb31caddccbb29cecb8ca633076efda5c51df0600b9",
+    "menu_stable_seconds": 10,
+    "saves_unchanged": true,
+    "configs_unchanged": true,
+    "automatic_save_load_logged": false
+  },
+  "combined_runtime": {
+    "path": "E:\\Original\\gta-reversed-master\\reversing\\Unlocks\\artifacts\\current-20260923-132450",
+    "passed": true,
+    "states": [
+      {
+        "state": 0,
+        "seconds": 0.0
+      },
+      {
+        "state": 7,
+        "seconds": 2.5
+      },
+      {
+        "state": 8,
+        "seconds": 3.0
+      },
+      {
+        "state": 9,
+        "seconds": 12.01
+      }
+    ],
+    "samples": [
+      {
+        "seconds": 12.01,
+        "frame": 5
+      },
+      {
+        "seconds": 12.51,
+        "frame": 7
+      },
+      {
+        "seconds": 13.01,
+        "frame": 22
+      },
+      {
+        "seconds": 13.51,
+        "frame": 37
+      },
+      {
+        "seconds": 14.01,
+        "frame": 52
+      },
+      {
+        "seconds": 14.51,
+        "frame": 67
+      },
+      {
+        "seconds": 15.01,
+        "frame": 82
+      },
+      {
+        "seconds": 15.51,
+        "frame": 97
+      },
+      {
+        "seconds": 16.02,
+        "frame": 112
+      },
+      {
+        "seconds": 16.52,
+        "frame": 123
+      },
+      {
+        "seconds": 17.02,
+        "frame": 138
+      },
+      {
+        "seconds": 17.52,
+        "frame": 155
+      },
+      {
+        "seconds": 18.02,
+        "frame": 170
+      },
+      {
+        "seconds": 18.52,
+        "frame": 185
+      },
+      {
+        "seconds": 19.02,
+        "frame": 200
+      },
+      {
+        "seconds": 19.52,
+        "frame": 212
+      },
+      {
+        "seconds": 20.02,
+        "frame": 227
+      },
+      {
+        "seconds": 20.52,
+        "frame": 242
+      },
+      {
+        "seconds": 21.02,
+        "frame": 257
+      },
+      {
+        "seconds": 21.52,
+        "frame": 272
+      },
+      {
+        "seconds": 22.02,
+        "frame": 286
+      },
+      {
+        "seconds": 22.52,
+        "frame": 300
+      },
+      {
+        "seconds": 23.02,
+        "frame": 315
+      },
+      {
+        "seconds": 23.52,
+        "frame": 330
+      },
+      {
+        "seconds": 24.03,
+        "frame": 345
+      },
+      {
+        "seconds": 24.53,
+        "frame": 360
+      },
+      {
+        "seconds": 25.03,
+        "frame": 375
+      },
+      {
+        "seconds": 25.53,
+        "frame": 390
+      },
+      {
+        "seconds": 26.03,
+        "frame": 405
+      },
+      {
+        "seconds": 26.53,
+        "frame": 420
+      },
+      {
+        "seconds": 27.03,
+        "frame": 435
+      },
+      {
+        "seconds": 27.53,
+        "frame": 449
+      },
+      {
+        "seconds": 28.03,
+        "frame": 464
+      },
+      {
+        "seconds": 28.53,
+        "frame": 479
+      },
+      {
+        "seconds": 29.03,
+        "frame": 494
+      },
+      {
+        "seconds": 29.53,
+        "frame": 509
+      },
+      {
+        "seconds": 30.03,
+        "frame": 524
+      },
+      {
+        "seconds": 30.53,
+        "frame": 539
+      },
+      {
+        "seconds": 31.03,
+        "frame": 554
+      },
+      {
+        "seconds": 31.53,
+        "frame": 569
+      },
+      {
+        "seconds": 32.03,
+        "frame": 584
+      },
+      {
+        "seconds": 32.53,
+        "frame": 599
+      },
+      {
+        "seconds": 33.03,
+        "frame": 614
+      },
+      {
+        "seconds": 33.54,
+        "frame": 628
+      },
+      {
+        "seconds": 34.04,
+        "frame": 641
+      },
+      {
+        "seconds": 34.54,
+        "frame": 656
+      },
+      {
+        "seconds": 35.04,
+        "frame": 671
+      },
+      {
+        "seconds": 35.54,
+        "frame": 686
+      },
+      {
+        "seconds": 36.04,
+        "frame": 701
+      },
+      {
+        "seconds": 36.54,
+        "frame": 716
+      },
+      {
+        "seconds": 37.04,
+        "frame": 731
+      },
+      {
+        "seconds": 37.54,
+        "frame": 746
+      },
+      {
+        "seconds": 38.04,
+        "frame": 760
+      },
+      {
+        "seconds": 38.54,
+        "frame": 774
+      },
+      {
+        "seconds": 39.04,
+        "frame": 789
+      },
+      {
+        "seconds": 39.54,
+        "frame": 804
+      },
+      {
+        "seconds": 40.04,
+        "frame": 819
+      },
+      {
+        "seconds": 40.54,
+        "frame": 834
+      },
+      {
+        "seconds": 41.04,
+        "frame": 849
+      },
+      {
+        "seconds": 41.54,
+        "frame": 864
+      },
+      {
+        "seconds": 42.04,
+        "frame": 878
+      }
+    ],
+    "saves_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+      "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+    },
+    "asi_sha256": "16f5542f9ff8fc2e84d8adb31caddccbb29cecb8ca633076efda5c51df0600b9",
+    "unhook": "",
+    "scope": "30 segundos en estado IDLE; sin conducción, combate ni guardado",
+    "idle_seconds": 30.03,
+    "frames_advanced": 873,
+    "configs_restored": true,
+    "saves_unchanged": true,
+    "asi_unchanged": true
+  },
+  "banks": {
+    "UnlockDataStream": {
+      "passed": true,
+      "saves_before": {
+        "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+        "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+      },
+      "config_hashes_before": {
+        "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+        "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+      },
+      "game_stopped_before_analysis": true,
+      "interop_modes": 64,
+      "pairs": 6144,
+      "pairs_per_function": {
+        "0": 256,
+        "1": 256,
+        "2": 512,
+        "3": 2048,
+        "4": 512,
+        "5": 2048,
+        "6": 512
+      },
+      "all_equal": true,
+      "state_restored": true,
+      "hook_states": [
+        {
+          "enabled": true,
+          "event": "hook_state",
+          "function": 0,
+          "locked": false,
+          "startup_calls": 0
+        },
+        {
+          "enabled": true,
+          "event": "hook_state",
+          "function": 1,
+          "locked": false,
+          "startup_calls": 0
+        },
+        {
+          "enabled": true,
+          "event": "hook_state",
+          "function": 2,
+          "locked": false,
+          "startup_calls": 2
+        },
+        {
+          "enabled": true,
+          "event": "hook_state",
+          "function": 3,
+          "locked": false,
+          "startup_calls": 86
+        },
+        {
+          "enabled": true,
+          "event": "hook_state",
+          "function": 4,
+          "locked": false,
+          "startup_calls": 1
+        },
+        {
+          "enabled": true,
+          "event": "hook_state",
+          "function": 5,
+          "locked": false,
+          "startup_calls": 4
+        },
+        {
+          "enabled": true,
+          "event": "hook_state",
+          "function": 6,
+          "locked": false,
+          "startup_calls": 0
+        }
+      ],
+      "log_sha256": "263e30ec7ea5096dc3f6f884c850bf2d88812c6a7aa5baa67cedbda7c885ecb5",
+      "saves_unchanged": true,
+      "configs_restored": true,
+      "run": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-data-stream\\20260923-125257-865113",
+      "scope": "6 hooks desbloqueados y Stat dependiente",
+      "limitations": [
+        "Archivos de prueba ASCII, lecturas y búsquedas acotadas; no valida todos los decodificadores ni sesiones de audio prolongadas.",
+        "SurfaceInfos excluido; Audio activo.",
+        "Las 64 combinaciones cubren los seis métodos, no todas las funciones IStream.",
+        "CreateFileW conserva soporte UTF-8 como extensión; esta pasada no prueba nombres Unicode."
+      ]
+    },
+    "UnlockTrackEntity": {
+      "passed": true,
+      "saves_before": {
+        "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+        "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+      },
+      "config_hashes_before": {
+        "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+        "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+      },
+      "game_stopped_before_analysis": true,
+      "pairs": 9216,
+      "pairs_per_function": {
+        "0": 512,
+        "1": 2048,
+        "2": 4096,
+        "3": 2048,
+        "4": 512
+      },
+      "all_equal": true,
+      "state_restored": true,
+      "hook_states": [
+        {
+          "enabled": true,
+          "event": "hook_state",
+          "function": 0,
+          "locked": false
+        },
+        {
+          "enabled": true,
+          "event": "hook_state",
+          "function": 1,
+          "locked": false
+        },
+        {
+          "enabled": true,
+          "event": "hook_state",
+          "function": 2,
+          "locked": false
+        },
+        {
+          "enabled": true,
+          "event": "hook_state",
+          "function": 3,
+          "locked": false
+        },
+        {
+          "enabled": true,
+          "event": "hook_state",
+          "function": 4,
+          "locked": false
+        }
+      ],
+      "log_sha256": "21df3d9cebc410e0bb95261c7770a8015391c9800df2ee75c5c14b5d63b0e4bc",
+      "saves_unchanged": true,
+      "configs_restored": true,
+      "run": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-track-entity\\20260923-132113-463503",
+      "limitations": [
+        "Matrices preasignadas en el banco; no agota el pool de matrices.",
+        "Subtarea y factory controladas; compara decisión, argumentos, flags y estado, no navegación prolongada.",
+        "No modifica ni valida el constructor de TrackEntity en esta tanda.",
+        "Audio y SurfaceInfos excluidos."
+      ],
+      "previous_final_run": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-unlock-track-entity\\20260923-131036-501962",
+      "accepted_baseline_recheck": true
+    }
+  },
+  "log_findings": {
+    "startup_mouse_acquire_warning": true,
+    "timecyc_warning": true,
+    "save_version_rejected": true,
+    "entryexit_allocation_failures": 13,
+    "terminal_crash_observed": false,
+    "assertion_or_rtc_observed": false,
+    "unhandled_exception_label_observed_in_combined_run": false
+  },
+  "limitations": [
+    "No conducción, combate ni guardado/carga completo en la comprobación conjunta.",
+    "CEntryExit registró 13 fallos de asignación; no se investigó su causa en esta entrega.",
+    "La ranura 2 incompatible se rechazó; no se forzó ni se alteró.",
+    "La suite histórica completa no se repitió.",
+    "Los 86 bloqueos aplazados se conservan; CFileMgr/Game candidatos fuera del build."
+  ]
+}

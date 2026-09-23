@@ -58,3 +58,8 @@ Ejemplo: `python reversing/run.py --case scanner-drag-fx`. Integrados en el cat�
 Casos nuevos: `unlock-core`, `unlock-tasks`, `unlock-physical`, `unlock-audio`, `unlock-radio`, `unlock-driving`, `unlock-input` y `unlock-platform`. Todos disponibles en el único PROBAR.cmd y `--all`. Para las nueve combinaciones: `python reversing/UnlockPlatform/run_matrix.py`.
 
 Se conserva la configuración de inicio normal. Los bancos usan carga rápida temporal, restauran ASI/PDB e INI y verifican partidas. Los binarios históricos de bancos no prueban conjuntamente toda la compilación actual; la campaña integral sigue aplazada.
+
+
+## Entrega parcial: DataStream y TrackEntity
+
+[Informe y trabajo aplazado](UnlockBatch2/README.md): diez candados retirados, 15.360 pares y 64 combinaciones de DataStream. Casos `unlock-data-stream` y `unlock-track-entity` añadidos a cases.json, PROBAR.cmd y `--all`. Los borradores de CFileMgr/Game quedan archivados fuera de la compilación; no se añaden como bancos aprobados. El catálogo conserva los otros 86 bloqueos solicitados para después.
