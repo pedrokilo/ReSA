@@ -1,3 +1,45 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CProjectileInfo
+ * Reconstrucción: INCOMPLETA — 1/12 funciones reconstruidas.
+ * Pendientes de reconstruir: 11.
+ * Funciones bloqueadas: 11.
+ * Evidencia aprobada vinculada: 0/12 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   AddProjectile | 0x00737C80 | S
+ *   GetProjectileInfo | 0x00737BF0 | S
+ *   Initialise | 0x00737B40 | S
+ *   RemoveAllProjectiles | 0x007399B0 | S
+ *   RemoveDetonatorProjectiles | 0x00738860 | S
+ *   RemoveFXSystem | 0x00737B80 | S
+ *   RemoveIfThisIsAProjectile | 0x00739A40 | S
+ *   RemoveNotAdd | 0x00737C00 | S
+ *   RemoveProjectile | 0x007388F0 | S
+ *   Shutdown | 0x00737BC0 | S
+ *   Update | 0x00738B20 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   AddProjectile | 0x00737C80 | S
+ *   GetProjectileInfo | 0x00737BF0 | S
+ *   Initialise | 0x00737B40 | S
+ *   RemoveAllProjectiles | 0x007399B0 | S
+ *   RemoveDetonatorProjectiles | 0x00738860 | S
+ *   RemoveFXSystem | 0x00737B80 | S
+ *   RemoveIfThisIsAProjectile | 0x00739A40 | S
+ *   RemoveNotAdd | 0x00737C00 | S
+ *   RemoveProjectile | 0x007388F0 | S
+ *   Shutdown | 0x00737BC0 | S
+ *   Update | 0x00738B20 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "ProjectileInfo.h"

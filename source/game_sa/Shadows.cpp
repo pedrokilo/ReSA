@@ -1,3 +1,52 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CShadows
+ * Reconstrucción: INCOMPLETA — 21/31 funciones reconstruidas.
+ * Pendientes de reconstruir: 10.
+ * Funciones bloqueadas: 10.
+ * Evidencia aprobada vinculada: 0/31 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   AddPermanentShadow | 0x00706F60 | S
+ *   CastRealTimeShadowSectorList<CPtrListSingleLink<CPhysical*>> | 0x0070A7E0 | S
+ *   CastShadowEntityXY | 0x007086B0 | S
+ *   CastShadowEntityXYZ | 0x0070A040 | S
+ *   CastShadowSectorList<CPtrListSingleLink<CPhysical*>> | 0x0070A630 | S
+ *   GeneratePolysForStaticShadow | 0x0070B730 | S
+ *   ShadowRenderTriangleCB | 0x00709CF0 | S
+ *   StoreShadowForVehicle | 0x0070BDA0 | S
+ *   StoreStaticShadow | 0x0070BA00 | S
+ *   UpdatePermanentShadows | 0x0070C950 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   AddPermanentShadow | 0x00706F60 | S
+ *   CastRealTimeShadowSectorList<CPtrListSingleLink<CPhysical*>> | 0x0070A7E0 | S
+ *   CastShadowEntityXY | 0x007086B0 | S
+ *   CastShadowEntityXYZ | 0x0070A040 | S
+ *   CastShadowSectorList<CPtrListSingleLink<CPhysical*>> | 0x0070A630 | S
+ *   GeneratePolysForStaticShadow | 0x0070B730 | S
+ *   ShadowRenderTriangleCB | 0x00709CF0 | S
+ *   StoreShadowForVehicle | 0x0070BDA0 | S
+ *   StoreStaticShadow | 0x0070BA00 | S
+ *   UpdatePermanentShadows | 0x0070C950 | S
+ *
+ * ESTADO: CStaticShadow
+ * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Evidencia aprobada vinculada: 0/1 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 /*
     Plugin-SDK file
     Authors: GTA Community. See more here

@@ -6,6 +6,8 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 from validation_registry import evaluate
+from source_status import read_classes, source_index, update_comments
+from urllib.parse import quote
 
 
 @dataclass
@@ -20,8 +22,23 @@ class Klass:
         return self.total - self.reversed
 
 
-def generate(input_path, output_path):
-    validation = evaluate(Path(__file__).resolve().parents[1], input_path)
+def generate(input_path, output_path, update_source_status=False):
+    root = Path(__file__).resolve().parents[1]
+    recorded = read_classes(input_path)
+    index = source_index(root, recorded)
+    if update_source_status:
+        changed = update_comments(root, input_path, recorded, index)
+        print(f'Comentarios: {len(index)} clases/grupos; {changed} archivos actualizados.')
+    validation = evaluate(root, input_path)
+
+    def class_link(name):
+        paths = index[name]
+        links = []
+        for i, path in enumerate(paths):
+            target = quote(Path(os.path.relpath(path, Path(output_path).resolve().parent)).as_posix())
+            label = name.replace('<', '&lt;').replace('>', '&gt;') if i == 0 else f'archivo {i + 1}'
+            links.append(f'[{label}]({target})')
+        return ' · '.join(links)
     classes = {}
     with open(input_path, encoding="utf-8-sig", newline="") as stream:
         for row in csv.DictReader(stream):
@@ -73,7 +90,7 @@ def generate(input_path, output_path):
             idx = i + column * height
             if idx < len(full):
                 c = full[idx]
-                cells.append(f"`{c.name}` ({c.total})" + (f" 🔒 {c.locked}" if c.locked else ""))
+                cells.append(f"{class_link(c.name)} ({c.total})" + (f" 🔒 {c.locked}" if c.locked else ""))
             else:
                 cells.append("")
         lines.append("| " + " | ".join(cells) + " |")
@@ -81,18 +98,23 @@ def generate(input_path, output_path):
               "Orden alfabético para localizar clases. Para decidir qué abordar primero, consultar la [estimación por dificultad](ReversingPriorities.md).", "",
               "| Clase | Revertidas / total | Pendientes | Avance | Locked |", "| --- | ---: | ---: | ---: | ---: |"]
     for c in partial:
-        lines.append(f"| `{c.name}` | {c.reversed}/{c.total} | **{c.pending}** | {c.reversed/c.total:.2%} | {c.locked} |")
+        lines.append(f"| {class_link(c.name)} | {c.reversed}/{c.total} | **{c.pending}** | {c.reversed/c.total:.2%} | {c.locked} |")
     lines += ["", '<a id="sin-revertir"></a>', f"## 🔴 Sin revertir · {len(empty)} clases", "",
               "| Clase | Revertidas / total | Pendientes | Avance | Locked |", "| --- | ---: | ---: | ---: | ---: |"]
     for c in empty:
-        lines.append(f"| `{c.name}` | 0/{c.total} | **{c.pending}** | 0.00% | {c.locked} |")
+        lines.append(f"| {class_link(c.name)} | 0/{c.total} | **{c.pending}** | 0.00% | {c.locked} |")
     lines += ["", '<a id="metodo"></a>', "## Cómo leer y actualizar", "",
               "- **Pendientes:** total menos revertidas. Cada fila del CSV cuenta como una entrada, incluidas sobrecargas y virtuales.",
               f"- **Locked:** indicador de bloqueo del hook; hay {locked:,} entradas bloqueadas en el CSV. No equivale por sí solo a pendiente ni informa si el hook está activo durante una ejecución.",
               "- **Porcentajes:** las categorías cuentan clases; el avance de cada clase cuenta funciones. Se muestran dos decimales.",
               "- **Alcance:** solo incluye lo registrado en el CSV; completar una fila no certifica todo el comportamiento de una clase.", "",
+              "- **Acceso al código:** pulsa el nombre para abrir el archivo que registra sus hooks. Si el registro está repartido, los enlaces adicionales abren los demás archivos. Algunas clases registran sus hooks en una cabecera.",
+              "- **Comentarios de estado:** resumen por clase/grupo, con nombres de pendientes y bloqueadas. Los conteos abarcan la clase completa aunque su implementación esté repartida entre archivos.", "",
               "Actualizar los flags solo después de comparar con el original dentro del motor y regenerar desde la raíz:", "",
               "```powershell", "python contrib/hooks2md.py --input docs/hooks.csv --output docs/ReversedClasses.md", "```", "",
+              "Para sincronizar también los comentarios de los archivos fuente:", "",
+              "```powershell", "python contrib/hooks2md.py --input docs/hooks.csv --output docs/ReversedClasses.md --update-source-status", "python contrib/validation_inventory.py", "```", "",
+              "Los comentarios se generan desde el CSV y la evidencia vinculada; no modifican flags ni acreditan validación. La vigencia se consulta en el [inventario](ValidationInventory.md). Añadir comentarios cambia las huellas de los archivos: el auditor conserva la evidencia histórica y exige revisar su vigencia, sin declarar fallidas las pruebas ni actualizar sus hashes de referencia.", "",
               "El formato vive en [contrib/hooks2md.py](../contrib/hooks2md.py). La [automatización de CI](../.github/workflows/update-re-progress.yml) también usa este generador. La guía de prioridades es una evaluación separada y requiere revisión cuando cambian las funciones pendientes.", ""]
     Path(output_path).write_text("\n".join(lines), encoding="utf-8", newline="\n")
 
@@ -101,6 +123,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", help="Ruta de hooks.csv")
     parser.add_argument("--output", help="Ruta del Markdown generado")
+    parser.add_argument("--update-source-status", action="store_true", help="Sincronizar comentarios de estado en los archivos fuente")
     args = parser.parse_args()
     if args.input is None or args.output is None:
         from tkinter import filedialog
@@ -108,7 +131,7 @@ def main():
         args.output = args.output or filedialog.asksaveasfilename(title="Guardar informe", defaultextension=".md")
     if not args.input or not args.output:
         parser.error("Se requieren las rutas de entrada y salida")
-    generate(args.input, args.output)
+    generate(args.input, args.output, args.update_source_status)
 
 
 if __name__ == "__main__":

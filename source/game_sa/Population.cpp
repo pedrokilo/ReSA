@@ -1,3 +1,27 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CPopulation
+ * Reconstrucción: INCOMPLETA — 64/66 funciones reconstruidas.
+ * Pendientes de reconstruir: 2.
+ * Funciones bloqueadas: 2.
+ * Evidencia aprobada vinculada: 0/66 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   AddToPopulation | 0x00614720 | S
+ *   ManageObject | 0x00615DC0 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   AddToPopulation | 0x00614720 | S
+ *   ManageObject | 0x00615DC0 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 /*
     Plugin-SDK file
     Authors: GTA Community. See more here

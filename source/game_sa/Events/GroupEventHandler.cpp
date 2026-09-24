@@ -1,3 +1,27 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CGroupEventHandler
+ * Reconstrucción: INCOMPLETA — 30/32 funciones reconstruidas.
+ * Pendientes de reconstruir: 2.
+ * Funciones bloqueadas: 2.
+ * Evidencia aprobada vinculada: 0/32 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   ComputeResponsLeaderQuitEnteringCar | 0x005F9530 | S
+ *   ComputeResponseLeaderEnteredCar | 0x005F8900 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   ComputeResponsLeaderQuitEnteringCar | 0x005F9530 | S
+ *   ComputeResponseLeaderEnteredCar | 0x005F8900 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "GroupEventHandler.h"

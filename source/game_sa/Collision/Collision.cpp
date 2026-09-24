@@ -1,3 +1,81 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CCollision
+ * Reconstrucción: COMPLETA — 59/59 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 59.
+ * Evidencia aprobada vinculada: 0/59 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   BuildCacheOfCameraCollision | 0x0041AC40 | S
+ *   CalculateColPointInsideBox | 0x00411EC0 | S
+ *   CalculateTrianglePlanes-colData | 0x00416330 | S
+ *   CameraConeCastVsWorldCollision | 0x0041B000 | S
+ *   CheckCameraCollisionBuildings | 0x0041A820 | S
+ *   CheckCameraCollisionObjects | 0x0041AB20 | S
+ *   CheckCameraCollisionPeds | 0x00415320 | S
+ *   CheckCameraCollisionVehicles | 0x0041A990 | S
+ *   CheckPeds | 0x004154A0 | S
+ *   Closest3 | 0x00415950 | S
+ *   ClosestPointOnLine | 0x00417FD0 | S
+ *   ClosestPointOnPoly | 0x00418150 | S
+ *   ClosestPointsOnPoly | 0x00418100 | S
+ *   ClosestSquaredDistanceBetweenFiniteLines | 0x00415A40 | S
+ *   DistAlongLine2D | 0x00412A80 | S
+ *   DistToLine | 0x00417610 | S
+ *   DistToLineSqr | 0x00412850 | S
+ *   DistToMathematicalLine | 0x00412970 | S
+ *   DistToMathematicalLine2D | 0x00412A30 | S
+ *   GetBoundingBoxFromTwoSpheres | 0x00415230 | S
+ *   GetPrincipleAxis | 0x004156D0 | S
+ *   Init | 0x00416260 | S
+ *   IsStoredPolyStillValidVerticalLine | 0x00414D70 | S
+ *   IsThisVehicleSittingOnMe | 0x004152C0 | S
+ *   PointInPoly | 0x00415730 | S
+ *   PointInTriangle | 0x00412700 | S
+ *   ProcessColModels | 0x004185C0 | S
+ *   ProcessDiscCollision | 0x00413960 | S
+ *   ProcessLineBox | 0x00413100 | S
+ *   ProcessLineOfSight | 0x00417950 | S
+ *   ProcessLineSphere | 0x00412AA0 | S
+ *   ProcessLineTriangle | 0x004140F0 | S
+ *   ProcessSphereBox | 0x00412130 | S
+ *   ProcessSphereSphere | 0x00416450 | S
+ *   ProcessSphereTriangle | 0x00416BA0 | S
+ *   ProcessVerticalLine | 0x00417BF0 | S
+ *   ProcessVerticalLineTriangle | 0x004147E0 | S
+ *   RayPolyPOP | 0x00415620 | S
+ *   RemoveTrianglePlanes-colData | 0x00416400 | S
+ *   ResetMadeInvisibleObjects | 0x00415540 | S
+ *   Shutdown | 0x004162E0 | S
+ *   SortOutCollisionAfterLoad | 0x00411E30 | S
+ *   SphereCastVersusVsPoly | 0x00415CF0 | S
+ *   SphereCastVsBBox | 0x00415590 | S
+ *   SphereCastVsCaches | 0x004181B0 | S
+ *   SphereCastVsEntity | 0x00419F00 | S
+ *   SphereCastVsSphere | 0x00417F20 | S
+ *   SphereVsEntity | 0x0041A5A0 | S
+ *   Test2DLineAgainst2DLine | 0x004138D0 | S
+ *   TestLineBox | 0x00413070 | S
+ *   TestLineBox_DW | 0x00412C70 | S
+ *   TestLineOfSight | 0x00417730 | S
+ *   TestLineSphere | 0x00417470 | S
+ *   TestLineTriangle | 0x00413AC0 | S
+ *   TestSphereBox | 0x004120C0 | S
+ *   TestSphereSphere | 0x00411E70 | S
+ *   TestSphereTriangle | 0x004165B0 | S
+ *   TestVerticalLineBox | 0x00413080 | S
+ *   Update | 0x00411E20 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 /*
     Plugin-SDK file
     Authors: GTA Community. See more here

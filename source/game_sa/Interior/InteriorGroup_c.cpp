@@ -1,3 +1,67 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: InteriorGroup_c
+ * Reconstrucción: INCOMPLETA — 2/24 funciones reconstruidas.
+ * Pendientes de reconstruir: 22.
+ * Funciones bloqueadas: 22.
+ * Evidencia aprobada vinculada: 0/24 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   AddInterior | 0x00594840 | S
+ *   ArePathsLoaded | 0x00595380 | S
+ *   CalcIsVisible | 0x00595200 | S
+ *   ContainsInteriorType | 0x00595250 | S
+ *   Exit | 0x00595290 | S
+ *   FindClosestInteriorInfo | 0x00594A50 | S
+ *   FindInteriorInfo | 0x00594970 | S
+ *   GetEntity | 0x00594BD0 | S
+ *   GetNumInteriorInfos | 0x00594920 | S
+ *   GetPed | 0x00594B90 | S
+ *   GetRandomInterior | 0x005948C0 | S
+ *   Init | 0x005947E0 | S
+ *   RemovePed | 0x00594E30 | S
+ *   Setup | 0x00595320 | S
+ *   SetupHousePeds | 0x005965E0 | S
+ *   SetupOfficePeds | 0x00594BF0 | S
+ *   SetupPaths | 0x00595590 | S
+ *   SetupPeds | 0x00596890 | S
+ *   SetupShopPeds | 0x00594C10 | S
+ *   Update | 0x005968E0 | S
+ *   UpdateOfficePeds | 0x00594E90 | S
+ *   UpdatePeds | 0x00596830 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   AddInterior | 0x00594840 | S
+ *   ArePathsLoaded | 0x00595380 | S
+ *   CalcIsVisible | 0x00595200 | S
+ *   ContainsInteriorType | 0x00595250 | S
+ *   Exit | 0x00595290 | S
+ *   FindClosestInteriorInfo | 0x00594A50 | S
+ *   FindInteriorInfo | 0x00594970 | S
+ *   GetEntity | 0x00594BD0 | S
+ *   GetNumInteriorInfos | 0x00594920 | S
+ *   GetPed | 0x00594B90 | S
+ *   GetRandomInterior | 0x005948C0 | S
+ *   Init | 0x005947E0 | S
+ *   RemovePed | 0x00594E30 | S
+ *   Setup | 0x00595320 | S
+ *   SetupHousePeds | 0x005965E0 | S
+ *   SetupOfficePeds | 0x00594BF0 | S
+ *   SetupPaths | 0x00595590 | S
+ *   SetupPeds | 0x00596890 | S
+ *   SetupShopPeds | 0x00594C10 | S
+ *   Update | 0x005968E0 | S
+ *   UpdateOfficePeds | 0x00594E90 | S
+ *   UpdatePeds | 0x00596830 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 #include "InteriorGroup_c.h"
 

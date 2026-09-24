@@ -1,3 +1,33 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CInterestingEvents
+ * Reconstrucción: INCOMPLETA — 2/7 funciones reconstruidas.
+ * Pendientes de reconstruir: 5.
+ * Funciones bloqueadas: 5.
+ * Evidencia aprobada vinculada: 0/7 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   Add | 0x00602590 | S
+ *   Constructor | 0x006023A0 | S
+ *   Destructor | 0x00856880 | S
+ *   GetInterestingEvent | 0x006028A0 | S
+ *   ScanForNearbyEntities | 0x00605A30 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   Add | 0x00602590 | S
+ *   Constructor | 0x006023A0 | S
+ *   Destructor | 0x00856880 | S
+ *   GetInterestingEvent | 0x006028A0 | S
+ *   ScanForNearbyEntities | 0x00605A30 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "InterestingEvents.h"

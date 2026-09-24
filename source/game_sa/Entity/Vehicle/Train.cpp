@@ -1,3 +1,63 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CTrain
+ * Reconstrucción: INCOMPLETA — 20/40 funciones reconstruidas.
+ * Pendientes de reconstruir: 20.
+ * Funciones bloqueadas: 20.
+ * Evidencia aprobada vinculada: 0/40 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   AddNearbyPedAsRandomPassenger | 0x006F8170 | S
+ *   Constructor | 0x006F6030 | S
+ *   CreateMissionTrain | 0x006F7550 | S
+ *   DoTrainGenerationAndRemoval | 0x006F7900 | S
+ *   FindCaboose | 0x006F5E70 | S
+ *   FindCarriage | 0x006F5EB0 | S
+ *   FindClosestTrackNode | 0x006F6BD0 | S
+ *   FindCoorsFromPositionOnTrack | 0x006F59E0 | S
+ *   FindEngine | 0x006F5E90 | S
+ *   FindMaximumSpeedToStopAtStations | 0x006F5BA0 | S
+ *   FindNearestTrain | 0x006F7090 | S
+ *   FindNextStationPositionInDirection | 0x006F5F00 | S
+ *   FindPositionOnTrackFromCoors | 0x006F6CC0 | S
+ *   InitTrains | 0x006F7440 | S
+ *   IsNextStationAllowed | 0x006F7260 | S
+ *   ReadAndInterpretTrackFile | 0x006F55D0 | S
+ *   RemoveAllTrains | 0x006F6AA0 | S
+ *   RemoveRandomPassenger | 0x006F6850 | S
+ *   SkipToNextAllowedStation | 0x006F72F0 | S
+ *   TrainHitStuff<CPtrListSingleLink<CPhysical*>> | 0x006F5CF0 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   AddNearbyPedAsRandomPassenger | 0x006F8170 | S
+ *   Constructor | 0x006F6030 | S
+ *   CreateMissionTrain | 0x006F7550 | S
+ *   DoTrainGenerationAndRemoval | 0x006F7900 | S
+ *   FindCaboose | 0x006F5E70 | S
+ *   FindCarriage | 0x006F5EB0 | S
+ *   FindClosestTrackNode | 0x006F6BD0 | S
+ *   FindCoorsFromPositionOnTrack | 0x006F59E0 | S
+ *   FindEngine | 0x006F5E90 | S
+ *   FindMaximumSpeedToStopAtStations | 0x006F5BA0 | S
+ *   FindNearestTrain | 0x006F7090 | S
+ *   FindNextStationPositionInDirection | 0x006F5F00 | S
+ *   FindPositionOnTrackFromCoors | 0x006F6CC0 | S
+ *   InitTrains | 0x006F7440 | S
+ *   IsNextStationAllowed | 0x006F7260 | S
+ *   ReadAndInterpretTrackFile | 0x006F55D0 | S
+ *   RemoveAllTrains | 0x006F6AA0 | S
+ *   RemoveRandomPassenger | 0x006F6850 | S
+ *   SkipToNextAllowedStation | 0x006F72F0 | S
+ *   TrainHitStuff<CPtrListSingleLink<CPhysical*>> | 0x006F5CF0 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 /*
     Plugin-SDK file
     Authors: GTA Community. See more here

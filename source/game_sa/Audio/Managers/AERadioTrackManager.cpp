@@ -1,3 +1,51 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CAERadioTrackManager
+ * Reconstrucción: INCOMPLETA — 29/43 funciones reconstruidas.
+ * Pendientes de reconstruir: 14.
+ * Funciones bloqueadas: 14.
+ * Evidencia aprobada vinculada: 0/43 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   CheckForStationRetune | 0x004EB660 | S
+ *   CheckForTrackConcatenation | 0x004EA930 | S
+ *   ChooseAdvertIndex | 0x004E9570 | S
+ *   ChooseDJBanterIndex | 0x004EA2D0 | S
+ *   ChooseDJBanterIndexFromList | 0x004E95E0 | S
+ *   ChooseIdentIndex | 0x004E94C0 | S
+ *   ChooseMusicTrackIndex | 0x004EA270 | S
+ *   ChooseTalkRadioShow | 0x004E8E40 | S
+ *   IsVehicleRadioActive | 0x004E9800 | S
+ *   QueueUpTracksForStation | 0x004EA670 | S
+ *   Service | 0x004EB9A0 | S
+ *   StopRadio | 0x004E9820 | S
+ *   TrackRadioStation | 0x004EAC30 | S
+ *   UpdateRadioVolumes | 0x004EA010 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   CheckForStationRetune | 0x004EB660 | S
+ *   CheckForTrackConcatenation | 0x004EA930 | S
+ *   ChooseAdvertIndex | 0x004E9570 | S
+ *   ChooseDJBanterIndex | 0x004EA2D0 | S
+ *   ChooseDJBanterIndexFromList | 0x004E95E0 | S
+ *   ChooseIdentIndex | 0x004E94C0 | S
+ *   ChooseMusicTrackIndex | 0x004EA270 | S
+ *   ChooseTalkRadioShow | 0x004E8E40 | S
+ *   IsVehicleRadioActive | 0x004E9800 | S
+ *   QueueUpTracksForStation | 0x004EA670 | S
+ *   Service | 0x004EB9A0 | S
+ *   StopRadio | 0x004E9820 | S
+ *   TrackRadioStation | 0x004EAC30 | S
+ *   UpdateRadioVolumes | 0x004EA010 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "AERadioTrackManager.h"

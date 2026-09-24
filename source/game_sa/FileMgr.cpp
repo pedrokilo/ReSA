@@ -1,3 +1,35 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CFileMgr
+ * Reconstrucción: COMPLETA — 17/17 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 13.
+ * Evidencia aprobada vinculada: 0/17 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   CloseFile | 0x005389D0 | S
+ *   GetErrorReadWrite | 0x00538A50 | S
+ *   GetTotalSize | 0x005389E0 | S
+ *   LoadFile | 0x00538890 | S
+ *   OpenFile | 0x00538900 | S
+ *   OpenFileForAppending | 0x00538930 | S
+ *   OpenFileForWriting | 0x00538910 | S
+ *   Read | 0x00538950 | S
+ *   ReadLine | 0x005389B0 | S
+ *   Seek | 0x00538990 | S
+ *   SetDirMyDocuments | 0x00538860 | S
+ *   Tell | 0x00538A20 | S
+ *   Write | 0x00538970 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include <cerrno>

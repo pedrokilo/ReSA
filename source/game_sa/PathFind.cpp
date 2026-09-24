@@ -1,3 +1,36 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CPathFind
+ * Reconstrucción: INCOMPLETA — 54/56 funciones reconstruidas.
+ * Pendientes de reconstruir: 2.
+ * Funciones bloqueadas: 2.
+ * Evidencia aprobada vinculada: 0/56 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   ComputeRoute | 0x00452760 | S
+ *   DoPathSearch | 0x004515D0 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   ComputeRoute | 0x00452760 | S
+ *   DoPathSearch | 0x004515D0 | S
+ *
+ * ESTADO: CPathNode
+ * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Evidencia aprobada vinculada: 0/1 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 /*
     Plugin-SDK file
     Authors: GTA Community. See more here

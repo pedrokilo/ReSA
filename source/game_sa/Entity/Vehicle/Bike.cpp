@@ -1,3 +1,59 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CBike
+ * Reconstrucción: INCOMPLETA — 22/40 funciones reconstruidas.
+ * Pendientes de reconstruir: 18.
+ * Funciones bloqueadas: 18.
+ * Evidencia aprobada vinculada: 0/40 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   BlowUpCar | 0x00000000 | V
+ *   BurstTyre | 0x00000000 | V
+ *   DoBurstAndSoftGroundRatios | 0x00000000 | V
+ *   DoSoftGroundResistance | 0x006B6D40 | S
+ *   FixHandsToBars | 0x006B7F90 | S
+ *   GetCorrectedWorldDoorPosition | 0x006BF230 | S
+ *   PlaceOnRoadProperly | 0x006BEEB0 | S
+ *   PlayCarHorn | 0x00000000 | V
+ *   PreRender | 0x00000000 | V
+ *   ProcessAI | 0x006BC930 | S
+ *   ProcessControl | 0x00000000 | V
+ *   ProcessControlInputs | 0x00000000 | V
+ *   ProcessRiderAnims | 0x006B7280 | S
+ *   ResetSuspension | 0x006B6740 | S
+ *   SetRemoveAnimFlags | 0x006B5F50 | S
+ *   SetUpWheelColModel | 0x00000000 | V
+ *   SetupSuspensionLines | 0x00000000 | V
+ *   VehicleDamage | 0x00000000 | V
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   BlowUpCar | 0x00000000 | V
+ *   BurstTyre | 0x00000000 | V
+ *   DoBurstAndSoftGroundRatios | 0x00000000 | V
+ *   DoSoftGroundResistance | 0x006B6D40 | S
+ *   FixHandsToBars | 0x006B7F90 | S
+ *   GetCorrectedWorldDoorPosition | 0x006BF230 | S
+ *   PlaceOnRoadProperly | 0x006BEEB0 | S
+ *   PlayCarHorn | 0x00000000 | V
+ *   PreRender | 0x00000000 | V
+ *   ProcessAI | 0x006BC930 | S
+ *   ProcessControl | 0x00000000 | V
+ *   ProcessControlInputs | 0x00000000 | V
+ *   ProcessRiderAnims | 0x006B7280 | S
+ *   ResetSuspension | 0x006B6740 | S
+ *   SetRemoveAnimFlags | 0x006B5F50 | S
+ *   SetUpWheelColModel | 0x00000000 | V
+ *   SetupSuspensionLines | 0x00000000 | V
+ *   VehicleDamage | 0x00000000 | V
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 /*
     Plugin-SDK file
     Authors: GTA Community. See more here

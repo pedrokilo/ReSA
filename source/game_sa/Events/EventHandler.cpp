@@ -1,3 +1,29 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CEventHandler
+ * Reconstrucción: INCOMPLETA — 69/72 funciones reconstruidas.
+ * Pendientes de reconstruir: 3.
+ * Funciones bloqueadas: 3.
+ * Evidencia aprobada vinculada: 0/72 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   ComputeKnockOffBikeResponse | 0x004B9FF0 | S
+ *   ComputePedCollisionWithPedResponse | 0x004BDB80 | S
+ *   ComputePedCollisionWithPlayerResponse | 0x004BE7D0 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   ComputeKnockOffBikeResponse | 0x004B9FF0 | S
+ *   ComputePedCollisionWithPedResponse | 0x004BDB80 | S
+ *   ComputePedCollisionWithPlayerResponse | 0x004BE7D0 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "EventHandler.h"

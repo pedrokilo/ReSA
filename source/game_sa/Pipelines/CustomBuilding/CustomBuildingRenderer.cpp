@@ -1,3 +1,31 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CCustomBuildingRenderer
+ * Reconstrucción: INCOMPLETA — 3/7 funciones reconstruidas.
+ * Pendientes de reconstruir: 4.
+ * Funciones bloqueadas: 4.
+ * Evidencia aprobada vinculada: 0/7 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   AtomicSetup | 0x005D7F00 | S
+ *   IsCBPCPipelineAttached | 0x005D7F40 | S
+ *   Update | 0x005D8050 | S
+ *   UpdateDayNightBalanceParam | 0x005D7F80 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   AtomicSetup | 0x005D7F00 | S
+ *   IsCBPCPipelineAttached | 0x005D7F40 | S
+ *   Update | 0x005D8050 | S
+ *   UpdateDayNightBalanceParam | 0x005D7F80 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "CustomBuildingRenderer.h"

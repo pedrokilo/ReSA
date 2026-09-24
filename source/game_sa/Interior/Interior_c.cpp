@@ -1,3 +1,127 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: Interior_c
+ * Reconstrucción: SIN RECONSTRUIR — 0/52 funciones reconstruidas.
+ * Pendientes de reconstruir: 52.
+ * Funciones bloqueadas: 52.
+ * Evidencia aprobada vinculada: 0/52 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   AddGotoPt | 0x00591D20 | S
+ *   AddInteriorInfo | 0x00591E40 | S
+ *   AddPickups | 0x00591F90 | S
+ *   Bedroom_AddTableItem | 0x00593F10 | S
+ *   CalcExitPts | 0x005924A0 | S
+ *   CalcMatrix | 0x005914D0 | S
+ *   CheckTilesEmpty | 0x00591680 | S
+ *   Exit | 0x00592230 | S
+ *   FindBoundingBox | 0x005922C0 | S
+ *   FindEmptyTiles | 0x00591C50 | S
+ *   Furnish | 0x00591590 | S
+ *   FurnishBedroom | 0x00593FC0 | S
+ *   FurnishKitchen | 0x005970B0 | S
+ *   FurnishLounge | 0x00597740 | S
+ *   FurnishOffice | 0x00599AF0 | S
+ *   FurnishShop | 0x0059A790 | S
+ *   GetBoundingBox | 0x00593DB0 | S
+ *   GetFurnitureEntity | 0x005913B0 | S
+ *   GetNumEmptyTiles | 0x00591920 | S
+ *   GetRandomTile | 0x00591B20 | S
+ *   GetTileCentre | 0x00591BD0 | S
+ *   GetTileStatus | 0x005918E0 | S
+ *   Init | 0x00593BF0 | S
+ *   IsPtInside | 0x005913E0 | S
+ *   IsVisible | 0x005929F0 | S
+ *   Kitchen_FurnishEdges | 0x00596930 | S
+ *   Lounge_AddChairInfo | 0x005974E0 | S
+ *   Lounge_AddHifi | 0x00597430 | S
+ *   Lounge_AddSofaInfo | 0x005975C0 | S
+ *   Lounge_AddTV | 0x00597240 | S
+ *   Office_FurnishCenter | 0x00599A30 | S
+ *   Office_FurnishEdges | 0x00599770 | S
+ *   Office_PlaceDesk | 0x005993E0 | S
+ *   Office_PlaceDeskQuad | 0x00599960 | S
+ *   Office_PlaceEdgeDesks | 0x005995B0 | S
+ *   Office_PlaceEdgeFillers | 0x00599210 | S
+ *   PlaceFurniture | 0x00592AA0 | S
+ *   PlaceFurnitureInCorner | 0x00593340 | S
+ *   PlaceFurnitureOnWall | 0x00593120 | S
+ *   PlaceObject | 0x005934E0 | S
+ *   ResetTiles | 0x00593910 | S
+ *   SetCornerTiles | 0x005917C0 | S
+ *   SetTilesStatus | 0x00591700 | S
+ *   Shop_AddShelfInfo | 0x0059A140 | S
+ *   Shop_FurnishAisles | 0x0059A590 | S
+ *   Shop_FurnishCeiling | 0x0059A130 | S
+ *   Shop_FurnishEdges | 0x0059A1B0 | S
+ *   Shop_Place3PieceUnit | 0x00599BB0 | S
+ *   Shop_PlaceCounter | 0x00599EF0 | S
+ *   Shop_PlaceEdgeUnits | 0x00599DC0 | S
+ *   Shop_PlaceFixedUnits | 0x0059A030 | S
+ *   Unfurnish | 0x005915D0 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   AddGotoPt | 0x00591D20 | S
+ *   AddInteriorInfo | 0x00591E40 | S
+ *   AddPickups | 0x00591F90 | S
+ *   Bedroom_AddTableItem | 0x00593F10 | S
+ *   CalcExitPts | 0x005924A0 | S
+ *   CalcMatrix | 0x005914D0 | S
+ *   CheckTilesEmpty | 0x00591680 | S
+ *   Exit | 0x00592230 | S
+ *   FindBoundingBox | 0x005922C0 | S
+ *   FindEmptyTiles | 0x00591C50 | S
+ *   Furnish | 0x00591590 | S
+ *   FurnishBedroom | 0x00593FC0 | S
+ *   FurnishKitchen | 0x005970B0 | S
+ *   FurnishLounge | 0x00597740 | S
+ *   FurnishOffice | 0x00599AF0 | S
+ *   FurnishShop | 0x0059A790 | S
+ *   GetBoundingBox | 0x00593DB0 | S
+ *   GetFurnitureEntity | 0x005913B0 | S
+ *   GetNumEmptyTiles | 0x00591920 | S
+ *   GetRandomTile | 0x00591B20 | S
+ *   GetTileCentre | 0x00591BD0 | S
+ *   GetTileStatus | 0x005918E0 | S
+ *   Init | 0x00593BF0 | S
+ *   IsPtInside | 0x005913E0 | S
+ *   IsVisible | 0x005929F0 | S
+ *   Kitchen_FurnishEdges | 0x00596930 | S
+ *   Lounge_AddChairInfo | 0x005974E0 | S
+ *   Lounge_AddHifi | 0x00597430 | S
+ *   Lounge_AddSofaInfo | 0x005975C0 | S
+ *   Lounge_AddTV | 0x00597240 | S
+ *   Office_FurnishCenter | 0x00599A30 | S
+ *   Office_FurnishEdges | 0x00599770 | S
+ *   Office_PlaceDesk | 0x005993E0 | S
+ *   Office_PlaceDeskQuad | 0x00599960 | S
+ *   Office_PlaceEdgeDesks | 0x005995B0 | S
+ *   Office_PlaceEdgeFillers | 0x00599210 | S
+ *   PlaceFurniture | 0x00592AA0 | S
+ *   PlaceFurnitureInCorner | 0x00593340 | S
+ *   PlaceFurnitureOnWall | 0x00593120 | S
+ *   PlaceObject | 0x005934E0 | S
+ *   ResetTiles | 0x00593910 | S
+ *   SetCornerTiles | 0x005917C0 | S
+ *   SetTilesStatus | 0x00591700 | S
+ *   Shop_AddShelfInfo | 0x0059A140 | S
+ *   Shop_FurnishAisles | 0x0059A590 | S
+ *   Shop_FurnishCeiling | 0x0059A130 | S
+ *   Shop_FurnishEdges | 0x0059A1B0 | S
+ *   Shop_Place3PieceUnit | 0x00599BB0 | S
+ *   Shop_PlaceCounter | 0x00599EF0 | S
+ *   Shop_PlaceEdgeUnits | 0x00599DC0 | S
+ *   Shop_PlaceFixedUnits | 0x0059A030 | S
+ *   Unfurnish | 0x005915D0 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 #include "Interior_c.h"
 

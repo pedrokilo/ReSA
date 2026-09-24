@@ -1,3 +1,39 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CClothesBuilder
+ * Reconstrucción: INCOMPLETA — 15/23 funciones reconstruidas.
+ * Pendientes de reconstruir: 8.
+ * Funciones bloqueadas: 8.
+ * Evidencia aprobada vinculada: 0/23 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   BlendGeometry-2 | 0x005A4F10 | S
+ *   BlendGeometry-3 | 0x005A4940 | S
+ *   ConstructGeometryAndSkinArrays | 0x005A6530 | S
+ *   ConstructGeometryArray | 0x005A55A0 | S
+ *   ConstructTextures | 0x005A6040 | S
+ *   CopyGeometry | 0x005A5340 | S
+ *   PreprocessClothesDesc | 0x005A44C0 | S
+ *   ReleaseGeometry | 0x005A47B0 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   BlendGeometry-2 | 0x005A4F10 | S
+ *   BlendGeometry-3 | 0x005A4940 | S
+ *   ConstructGeometryAndSkinArrays | 0x005A6530 | S
+ *   ConstructGeometryArray | 0x005A55A0 | S
+ *   ConstructTextures | 0x005A6040 | S
+ *   CopyGeometry | 0x005A5340 | S
+ *   PreprocessClothesDesc | 0x005A44C0 | S
+ *   ReleaseGeometry | 0x005A47B0 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include <extensions/ci_string.hpp>

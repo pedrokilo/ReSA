@@ -1,3 +1,31 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CFont
+ * Reconstrucción: INCOMPLETA — 32/36 funciones reconstruidas.
+ * Pendientes de reconstruir: 4.
+ * Funciones bloqueadas: 4.
+ * Evidencia aprobada vinculada: 0/36 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   FindSubFontCharacter | 0x007192C0 | S
+ *   PrintChar | 0x00718A10 | S
+ *   ProcessCurrentString | 0x0071A220 | S
+ *   RenderFontBuffer | 0x00719840 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   FindSubFontCharacter | 0x007192C0 | S
+ *   PrintChar | 0x00718A10 | S
+ *   ProcessCurrentString | 0x0071A220 | S
+ *   RenderFontBuffer | 0x00719840 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 /*
     Plugin-SDK file
     Authors: GTA Community. See more here

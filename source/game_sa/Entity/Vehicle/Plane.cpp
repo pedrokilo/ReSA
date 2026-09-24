@@ -1,3 +1,41 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CPlane
+ * Reconstrucción: INCOMPLETA — 14/23 funciones reconstruidas.
+ * Pendientes de reconstruir: 9.
+ * Funciones bloqueadas: 9.
+ * Evidencia aprobada vinculada: 0/23 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   BlowUpCar | 0x00000000 | V
+ *   DoPlaneGenerationAndRemoval | 0x006CD2F0 | S
+ *   FindPlaneCreationCoors | 0x006CD090 | S
+ *   PreRender | 0x00000000 | V
+ *   ProcessControl | 0x00000000 | V
+ *   ProcessControlInputs | 0x00000000 | V
+ *   ProcessFlyingCarStuff | 0x00000000 | V
+ *   SwitchAmbientPlanes | 0x006CCC50 | S
+ *   VehicleDamage | 0x00000000 | V
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   BlowUpCar | 0x00000000 | V
+ *   DoPlaneGenerationAndRemoval | 0x006CD2F0 | S
+ *   FindPlaneCreationCoors | 0x006CD090 | S
+ *   PreRender | 0x00000000 | V
+ *   ProcessControl | 0x00000000 | V
+ *   ProcessControlInputs | 0x00000000 | V
+ *   ProcessFlyingCarStuff | 0x00000000 | V
+ *   SwitchAmbientPlanes | 0x006CCC50 | S
+ *   VehicleDamage | 0x00000000 | V
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "Plane.h"

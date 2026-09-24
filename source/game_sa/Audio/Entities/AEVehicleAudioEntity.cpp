@@ -1,3 +1,34 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CAEVehicleAudioEntity
+ * Reconstrucción: INCOMPLETA — 102/106 funciones reconstruidas.
+ * Pendientes de reconstruir: 4.
+ * Funciones bloqueadas: 7.
+ * Evidencia aprobada vinculada: 0/106 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   ProcessDummyBicycle | 0x004FFDC0 | S
+ *   ProcessDummyHovercraft | 0x00500F50 | S
+ *   ProcessGenericJet | 0x004FF900 | S
+ *   ProcessPlayerBicycle | 0x00500040 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   ProcessDummyBicycle | 0x004FFDC0 | S
+ *   ProcessDummyHovercraft | 0x00500F50 | S
+ *   ProcessGenericJet | 0x004FF900 | S
+ *   ProcessPlayerBicycle | 0x00500040 | S
+ *   ProcessPlayerVehicleEngine | 0x004FBB10 | S
+ *   ProcessVehicle | 0x00501E10 | S
+ *   Service | 0x00502280 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "AEVehicleAudioEntity.h"

@@ -1,3 +1,31 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CAEPoliceScannerAudioEntity
+ * Reconstrucción: INCOMPLETA — 13/17 funciones reconstruidas.
+ * Pendientes de reconstruir: 4.
+ * Funciones bloqueadas: 4.
+ * Evidencia aprobada vinculada: 0/17 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   AddAudioEvent | 0x004E71E0 | S
+ *   LoadSlots | 0x004E6CD0 | S
+ *   PlayLoadedDialogue | 0x004E6F60 | S
+ *   Service | 0x004E7630 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   AddAudioEvent | 0x004E71E0 | S
+ *   LoadSlots | 0x004E6CD0 | S
+ *   PlayLoadedDialogue | 0x004E6F60 | S
+ *   Service | 0x004E7630 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "AEPoliceScannerAudioEntity.h"
