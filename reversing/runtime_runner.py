@@ -39,7 +39,7 @@ def probe_configuration(data):
         text = replacement + text
     return text.encode('utf-8')
 
-def run_case(prefix,probe_hash,analyze,title,timeout=180,stop_before_analysis=False,unhook='Audio,Global/SurfaceInfos_c'):
+def run_case(prefix,probe_hash,analyze,title,timeout=180,stop_before_analysis=False,unhook='Audio,Global/SurfaceInfos_c',wait_for_exit=False):
     exe=GAME/'gta_sa.exe';probe=GAME/f'_baseline/gta_reversed-{prefix}-probe.asi'
     if digest(exe)!=EXE_HASH or digest(probe)!=probe_hash:raise RuntimeError('Ejecutable o sonda no coincide con el hash aprobado.')
     rows=csv.reader(subprocess.check_output(['tasklist','/FO','CSV','/NH'],text=True,errors='replace').splitlines())
@@ -74,7 +74,12 @@ def run_case(prefix,probe_hash,analyze,title,timeout=180,stop_before_analysis=Fa
                 process.wait(timeout=15)
                 result['game_stopped_before_analysis']=True
             evidence=analyze(log)
-            if evidence is not None:result.update(evidence,passed=True);break
+            if evidence is not None:
+                if wait_for_exit:
+                    code=process.wait(timeout=30)
+                    if code!=0:raise RuntimeError(f'Cierre normal fallido: {code}')
+                    result.update(natural_exit=True,exit_code=code)
+                result.update(evidence,passed=True);break
             if process.poll() is not None:raise RuntimeError(f'GTA termino antes de completar ({process.returncode}).')
             time.sleep(1)
         else:raise RuntimeError('Tiempo agotado.')

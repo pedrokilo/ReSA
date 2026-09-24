@@ -51,6 +51,16 @@ void CCover::Init() {
     rng::fill(m_Points, CCoverPoint{});
 }
 
+// NOTSA: cleanup while the referenced buildings are still alive.
+void CCover::ClearProcessedBuildings() {
+    // Nodes can own registered entity references when FIX_BUGS is enabled.
+    // Unregister them before freeing the storage containing their pointer.
+    for (auto* node = m_ListOfProcessedBuildings.GetNode(); node; node = node->Next) {
+        CEntity::SafeCleanUpRef(node->Item);
+    }
+    m_ListOfProcessedBuildings.Flush();
+}
+
 // 0x698DB0
 void CCover::RemoveCoverPointIfEntityLost(CCoverPoint& cpt) {
     if (cpt.GetType() > CCoverPoint::eType::NONE && cpt.GetType() < CCoverPoint::eType::NUM) {

@@ -216,6 +216,9 @@ void CGame::DrasticTidyUpMemory(bool a1) {
 
 // 0x53C900
 bool CGame::Shutdown() {
+    // The cover list validates its building pointers when unlinking nodes.
+    // Release it while those buildings and their reference lists still exist.
+    CCover::ClearProcessedBuildings();
     g_breakMan.Exit();
     g_interiorMan.Exit();
     g_procObjMan.Exit();
@@ -269,7 +272,6 @@ bool CGame::Shutdown() {
     CSkidmarks::Shutdown();
     CWeaponEffects::Shutdown();
     CTimeCycle::Shutdown();
-    CCover::m_ListOfProcessedBuildings.Flush();
     CPedGroups::CleanUpForShutDown();
     CTaskSequences::CleanUpForShutdown();
     CInformGroupEventQueue::Flush();

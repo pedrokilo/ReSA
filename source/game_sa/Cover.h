@@ -25,6 +25,7 @@ public:
     static void InjectHooks();
 
     static void Init();
+    static void ClearProcessedBuildings(); // NOTSA: release references before destroying buildings
     static void RemoveCoverPointIfEntityLost(CCoverPoint& point);
     static void RemoveCoverPointsForThisEntity(CEntity* entity);
     static bool ShouldThisBuildingHaveItsCoverPointsCreated(CBuilding* building);

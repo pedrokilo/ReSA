@@ -308,7 +308,13 @@ void CAECollisionAudioEntity::UpdateLoopingCollisionSound(
 
 // 0x4DB7C0
 void CAECollisionAudioEntity::PlayBulletHitCollisionSound(eSurfaceType surface, const CVector& posn, float angleWithColPointNorm) {
-    if (surface >= TOTAL_NUM_COLLISION_SURFACE_TYPES) {
+    // ReportBulletHit uses a collision-audio ID for BMX (188), not a surface
+    // index. Bullet impacts on its frame use vehicle material, just like other
+    // vehicles. Never index the 179-entry surface table with an audio-only ID.
+    if (surface == AE_SURFACE_TYPE_BMX) {
+        surface = SURFACE_CAR;
+    }
+    if (surface >= TOTAL_NUM_SURFACE_TYPES) {
         return;
     }
     const auto PlayRandomSound = [&](int32 minID, int32 maxID, float volumeOffset = 0.f, float rollOff = 1.5f) { // 0x4DB9BF

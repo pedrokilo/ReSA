@@ -18,6 +18,8 @@ El objetivo es preservar el comportamiento original. Cada reconstrucción se con
 
 ## Estado del trabajo
 
+**Pendiente por decisión del usuario (23/09/2026):** [fallo al cerrar el juego: CCover / PtrListDoubleLink](reversing/ShutdownLists/README.md). Se conserva una corrección candidata en las fuentes; la última prueba de cierre normal terminó con código 3. No se instaló el candidato ni se considera validado. El registro incluye evidencia y pasos para retomarlo.
+
 La fuente del progreso es [docs/hooks.csv](docs/hooks.csv). El [informe generado](docs/ReversedClasses.md) muestra totales, pendientes y bloqueos; la [guía técnica de prioridades](docs/ReversingPriorities.md) ordena el trabajo por esfuerzo estimado, dependencias y facilidad de validación.
 
 **Corte documental del 23 de septiembre de 2026, hora de México:** 614 clases completas, 85 parciales y 2 sin revertir; 7.485 de 8.014 entradas registradas como revertidas. Estos números no estiman líneas de código ni porcentaje de comportamiento probado. Consultar el informe para el estado posterior.
@@ -70,6 +72,8 @@ Las comparaciones corresponden al alcance descrito en cada README, no necesariam
 El constructor de `CPlayerInfo` ya fue corregido, validado y desbloqueado; incluye regresiones de entrega y selección de armas. `CQuadBike::ProcessControl` tiene un candidato que compila, pero continúa **sin validar y deshabilitado**, con progreso 11/12. Se conservan también los bancos históricos de vehículos, guardados, jugador y efectos de armas.
 
 ## Abrir el juego desde el inicio
+
+**Corrección instalada:** [impactos de bala sobre BMX](reversing/CollisionBulletHit/README.md). Se evita consultar la tabla de 179 superficies con el identificador especial de audio 188. Banco aprobado: 8.234 comparaciones con el original, 256 identificadores y cuatro casos de `ReportBulletHit`. ASI normal instalado: `d8b39a395abfed3acae54a480df9db7368dbdbbaff94caeed817dcc121f903ec`; configuración y partidas conservadas.
 
 La copia de pruebas tiene `FastLoader.Enable = false` y `SaveGameToLoad = -2`. Muestra las pantallas de inicio y el menú; el usuario elige **Nueva partida** o **Cargar partida**.
 

@@ -1,5 +1,15 @@
 [
   {
+    "id": "shutdown-lists",
+    "name": "Cierre normal y referencias de cobertura",
+    "runner": "ShutdownLists/run_local.py"
+  },
+  {
+    "id": "bullet-hit",
+    "name": "Impactos de bala: BMX y limites de superficies",
+    "runner": "CollisionBulletHit/run_local.py"
+  },
+  {
     "id": "ik-data",
     "name": "IK: pivote de cadena y datos corregidos",
     "runner": "IKDataWarnings/run_local.py"
