@@ -22,6 +22,9 @@ END GENERATED HOOK STATUS */
 
 auto& gCollisionPluginOffset = StaticRef<RwInt32>(0x9689DC);
 
+/**
+ * Registra la integración de datos COL embebidos en RpClump.
+ */
 void CCollisionPlugin::InjectHooks() {
     RH_ScopedClass(CCollisionPlugin);
     RH_ScopedCategory("Plugins");
@@ -50,6 +53,13 @@ static void* ClumpCollisionCopyConstructor(void* dstObject, const void* srcObjec
 
 // internal
 // 0x41B1D0
+/**
+ * Callback de lectura del chunk de colisión de un clump.
+ *
+ * IMPORTANTE: la implementación efectiva continúa delegada al EXE mediante
+ * plugin::CallAndReturn. El código situado después del return conserva el trabajo
+ * incompleto de reversing y no se ejecuta en esta ruta.
+ */
 static RwStream* ClumpCollisionStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
     return plugin::CallAndReturn<RwStream*, 0x41B1D0, RwStream*, RwInt32, void*, RwInt32, RwInt32>(stream, binaryLength, object, offsetInObject, sizeInObject);
 
@@ -90,6 +100,7 @@ static RwInt32 ClumpCollisionGetSize(const void* object, RwInt32 offsetInObject,
 }
 
 // 0x41B310
+// Registra el plugin sin payload propio y conecta los callbacks de stream COL.
 bool CCollisionPlugin::PluginAttach() {
     // 0x9689DC unused
     gCollisionPluginOffset = RpClumpRegisterPlugin(
@@ -111,6 +122,7 @@ bool CCollisionPlugin::PluginAttach() {
 }
 
 // 0x41B350
+// Establece el CClumpModelInfo que recibirá el CColModel durante la lectura del stream.
 void CCollisionPlugin::SetModelInfo(CClumpModelInfo* modelInfo) {
     ms_currentModel = modelInfo;
 }
