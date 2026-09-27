@@ -87,6 +87,194 @@ Las comparaciones corresponden al alcance descrito en cada README, no necesariam
 
 El constructor de `CPlayerInfo` ya fue corregido, validado y desbloqueado; incluye regresiones de entrega y selección de armas. `CQuadBike::ProcessControl` tiene un candidato que compila, pero continúa **sin validar y deshabilitado**, con progreso 11/12. Se conservan también los bancos históricos de vehículos, guardados, jugador y efectos de armas.
 
+
+## Comparación técnica con `gta-reversed/gta-reversed`: por qué su progreso no cuenta toda la historia
+
+Este proyecto parte del trabajo público de [gta-reversed/gta-reversed](https://github.com/gta-reversed/gta-reversed), que sigue siendo una referencia importante para nombres, estructuras, direcciones y reconstrucciones de GTA San Andreas. La comparación siguiente no pretende borrar ese trabajo: explica por qué **su forma actual de medir y presentar el progreso es insuficiente** y por qué PGTASA mantiene un catálogo, una auditoría y un registro de validación más estrictos.
+
+### El primer problema: su propio README reconoce que el progreso está desactualizado
+
+El README de `gta-reversed/gta-reversed` dice literalmente que el seguimiento de clases **“needs to be updated”** y, al mismo tiempo, presenta una estimación general de **“about 50-60% of the code is done”**.
+
+Ese número no está ligado a un procedimiento reproducible visible en el repositorio. En cambio, su `docs/hooks.csv` registra actualmente:
+
+| Métrica | gta-reversed upstream | PGTASA |
+| --- | ---: | ---: |
+| Clases/grupos catalogados | 701 | **712** |
+| Entradas catalogadas | 8.014 | **8.080** |
+| Marcadas como reconstruidas | 7.428 | **7.545** |
+| Pendientes | 586 | **535** |
+| Clases completas | 584 | **621** |
+| Clases parciales | 114 | **88** |
+| Sin revertir | 3 | **3** |
+| Locks registrados | 713 | **625** |
+
+Por tanto, hay dos métricas distintas en upstream que no deben mezclarse: una estimación informal del “50-60% del código” y un catálogo de hooks que marca aproximadamente **92,69%** de sus entradas como `reversed=1`. Ninguna de las dos, por sí sola, significa “porcentaje del juego terminado”, pero el README no ofrece una metodología que conecte ambas cifras.
+
+PGTASA tampoco interpreta su **93,38%** como “93,38% del juego terminado”. Aquí ese porcentaje significa solamente: **7.545 de 8.080 entradas actualmente catalogadas tienen `reversed=1`**.
+
+### El segundo problema: el catálogo upstream no es bidireccional
+
+La diferencia se hizo visible al revisar el subsistema `Conversations`.
+
+En el código público upstream existen:
+
+- `CConversationForPed::InjectHooks()`
+- `CConversationNode::InjectHooks()`
+- `CPedToPlayerConversations::InjectHooks()`
+
+pero esos tres owners **no aparecen en su `docs/hooks.csv`** y tampoco se llaman directamente desde su `InjectHooksMain.cpp`.
+
+Eso provoca que funciones reales presentes en la fuente queden fuera del denominador del progreso.
+
+Ejemplo especialmente claro:
+
+```cpp
+bool CConversationForPed::IsPlayerInPositionForConversation(bool randomConversation) {
+    return plugin::CallMethodAndReturn<bool, 0x43AC40, CConversationForPed*, bool>(
+        this,
+        randomConversation
+    );
+}
+```
+
+La función continúa ejecutando lógica del EXE original, pero en upstream su instalación es:
+
+```cpp
+RH_ScopedInstall(IsPlayerInPositionForConversation, 0x43AC40);
+```
+
+sin `.reversed = false`.
+
+Aun así, el problema ni siquiera llega a alterar sus estadísticas porque **`CConversationForPed` no está incluido en el CSV**. Es decir: una dependencia original puede existir en fuente y quedar fuera de la medición completa.
+
+PGTASA corrigió este caso de dos formas:
+
+1. registra los owners faltantes en el flujo global;
+2. marca explícitamente como pendientes las funciones que todavía llaman al EXE.
+
+El estado real del subsistema queda así:
+
+| Owner | upstream en hooks.csv | PGTASA |
+| --- | ---: | ---: |
+| `CConversations` | 10/11 | **11/11** |
+| `CConversationNode` | no catalogada | **1/1** |
+| `CPedToPlayerConversations` | no catalogada | **2/3** |
+| `CConversationForPed` | no catalogada | **0/2** |
+
+Y `CConversations::DoneSettingUpConversation`, que en upstream todavía es:
+
+```cpp
+plugin::Call<0x43ADB0, bool>(bSuppressSubtitles);
+```
+
+en PGTASA ya tiene una reconstrucción C++ documentada y un banco de comparación de **2.048 pares original/candidato** para su alcance.
+
+### El tercer problema: “reversed” no significa “validado”
+
+El upstream genera `ReversedClasses.md` desde `hooks.csv`, pero ese documento incluso incluye su propio disclaimer:
+
+> los porcentajes y el número de clases pueden no ser completamente exactos porque no todas las clases y funciones están documentadas.
+
+Ese disclaimer es correcto, pero deja una consecuencia importante: **una clase completa en el panel no demuestra equivalencia funcional**.
+
+PGTASA separa explícitamente cuatro dimensiones:
+
+1. **Reconstruida:** existe una implementación C++ registrada.
+2. **Validada:** existe evidencia original/candidato vinculada a una versión concreta.
+3. **Desbloqueada:** el hook ya no conserva un lock preventivo.
+4. **Independiente del EXE:** ni la función ni sus dependencias necesitan ejecutar lógica original.
+
+Una función puede estar reconstruida y no validada. Puede estar validada y todavía depender transitivamente del EXE. Puede estar desbloqueada sin que eso pruebe independencia.
+
+Por eso PGTASA mantiene por separado:
+
+- [`docs/hooks.csv`](docs/hooks.csv)
+- [`docs/ReversedClasses.md`](docs/ReversedClasses.md)
+- [`docs/ValidationInventory.md`](docs/ValidationInventory.md)
+- [el registro de validaciones](reversing/ValidationRegistry/README.md)
+- los bancos y resúmenes de evidencia bajo [`reversing/`](reversing/)
+- [la hoja de ruta hacia independencia](docs/ProjectRoadmap.md)
+
+En la búsqueda pública realizada sobre upstream no aparece un equivalente a `ValidationInventory.md`, `audit_hook_catalog.py` ni un registro de `validation-summary` que conecte sistemáticamente cada función con evidencia versionada.
+
+Eso no demuestra que sus colaboradores nunca prueben nada. Significa algo más concreto: **el repositorio no expone una contabilidad equivalente que permita auditar esas pruebas función por función desde el propio árbol**.
+
+### El cuarto problema: un generador no arregla un inventario incompleto
+
+Upstream dice que `ReversedClasses.md` se actualiza automáticamente cuando cambia `hooks.csv`. Eso está bien, pero automatizar la generación no garantiza que la entrada sea completa.
+
+Si el flujo es:
+
+```text
+hooks.csv incompleto
+    ↓
+generador automático
+    ↓
+ReversedClasses.md perfectamente generado
+```
+
+el resultado sigue siendo un informe perfectamente generado **sobre un denominador incompleto**.
+
+PGTASA añadió una comprobación en la dirección contraria:
+
+```powershell
+python contrib/audit_hook_catalog.py --strict
+```
+
+La auditoría revisa fuente → registro → CSV y actualmente exige que sean cero:
+
+- hooks activos ausentes de `hooks.csv`;
+- registros indirectos activos ausentes del CSV;
+- entradas del CSV sin scope correspondiente en fuente;
+- llamadas activas con instalaciones propias sin owner catalogado.
+
+Los hooks escritos pero deliberadamente inactivos se reportan con `--verbose`, pero no se añaden artificialmente al progreso.
+
+### Entonces, ¿qué le falta realmente a upstream?
+
+No basta con “revertir más funciones”. Para que su porcentaje pueda interpretarse con rigor, todavía necesita al menos:
+
+- auditar bidireccionalmente `InjectHooksMain`, scopes e instalaciones contra `hooks.csv`;
+- incorporar owners que existen en fuente pero no están catalogados cuando forman parte del registro activo;
+- marcar consistentemente `.reversed = false` en wrappers que todavía ejecutan el original;
+- separar reconstrucción de validación;
+- vincular evidencia reproducible a funciones concretas y versiones concretas;
+- medir dependencias directas y transitivas del ejecutable original;
+- distinguir hooks activos de código de reversing que existe pero está deshabilitado;
+- evitar presentar una estimación general de progreso como si fuera equivalente al porcentaje del catálogo;
+- mantener el panel de progreso como una consecuencia del inventario auditado, no como sustituto de ese inventario.
+
+### Lo que sí sabemos y lo que todavía no sabemos
+
+**Sabemos** que PGTASA tiene actualmente 8.080 entradas auditadas, frente a 8.014 en el catálogo upstream. Sabemos exactamente cuáles están marcadas como reconstruidas, cuáles pendientes y cuáles bloqueadas. Sabemos también que el catálogo upstream omite al menos owners del subsistema Conversations que sí existen en su fuente.
+
+**Sabemos** que PGTASA ha encontrado candidatos aparentemente correctos que no coincidían con el original hasta compararlos dentro del motor. Por eso aquí “el código compila” o “la clase aparece completa” no se considera evidencia suficiente.
+
+**No sabemos todavía** qué porcentaje del comportamiento total de GTA San Andreas representa el catálogo completo. Tampoco tenemos aún una medida global de cuántas funciones reconstruidas siguen dependiendo transitivamente del EXE. PGTASA lo declara como desconocido en vez de convertirlo en un porcentaje decorativo.
+
+La diferencia metodológica puede resumirse así:
+
+```text
+gta-reversed:
+    función escrita
+        → hook
+        → reversed=1
+        → porcentaje
+
+PGTASA:
+    función reconstruida
+        → registro auditado
+        → comparación con el original
+        → evidencia versionada
+        → estado de lock
+        → revisión de dependencias
+        → progreso por dimensiones
+```
+
+El objetivo no es ganar una carrera de porcentajes. El objetivo es poder llegar a **PGTASA — Zero Original Function Dependency** y demostrar, paso a paso, qué parte del juego ya no necesita la lógica original.
+
+
 ## Abrir el juego desde el inicio
 
 **Corrección instalada:** [impactos de bala sobre BMX](reversing/CollisionBulletHit/README.md). Se evita consultar la tabla de 179 superficies con el identificador especial de audio 188. Banco aprobado: 8.234 comparaciones con el original, 256 identificadores y cuatro casos de `ReportBulletHit`. ASI normal instalado: `d8b39a395abfed3acae54a480df9db7368dbdbbaff94caeed817dcc121f903ec`; configuración y partidas conservadas.
