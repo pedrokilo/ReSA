@@ -8,12 +8,15 @@
  * ESTADO: CConversationForPed
  * Reconstrucción: SIN RECONSTRUIR — 0/2 funciones reconstruidas.
  * Pendientes de reconstruir: 2.
- * Funciones bloqueadas: 0.
+ * Funciones bloqueadas: 2.
  * Evidencia aprobada vinculada: 0/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
  * PENDIENTES (nombre | dirección | tipo):
+ *   IsPlayerInPositionForConversation | 0x0043AC40 | S
+ *   Update | 0x0043C190 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
  *   IsPlayerInPositionForConversation | 0x0043AC40 | S
  *   Update | 0x0043C190 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
