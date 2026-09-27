@@ -24,11 +24,16 @@ END GENERATED HOOK STATUS */
 #include "ProcObjectMan.h"
 
 // 0x5DC210
+// Usa el área real del triángulo como multiplicador espacial de las densidades
+// configuradas para su superficie.
 float GetPlantDensity(CPlantLocTri* plant) {
     // The magnitude of the cross product of 2 vectors give the area of a paralellogram they span.
     return (plant->m_V2 - plant->m_V1).Cross(plant->m_V3 - plant->m_V1).Magnitude() / 2.f;
 }
 
+/**
+ * Registra creación y liberación de triángulos capaces de producir plantas u objetos.
+ */
 void CPlantLocTri::InjectHooks() {
     RH_ScopedClass(CPlantLocTri);
     RH_ScopedCategory("Plant");
@@ -40,6 +45,13 @@ void CPlantLocTri::InjectHooks() {
 }
 
 // 0x5DC290
+/**
+ * Inicializa geometría, superficie y reglas de generación para un triángulo.
+ *
+ * Cuando genera plantas calcula máximos por especie a partir del área y las
+ * propiedades de superficie; después mueve el nodo desde la lista libre al slot
+ * de proximidad correspondiente. Los triángulos sólo de objetos usan el slot 3.
+ */
 CPlantLocTri* CPlantLocTri::Add(const CVector& p1, const CVector& p2, const CVector& p3, uint8 surface, tColLighting lightning, bool createsPlants, bool createsObjects) {
     m_V1 = p1;
     m_V2 = p2;
@@ -85,6 +97,10 @@ CPlantLocTri* CPlantLocTri::Add(const CVector& p1, const CVector& p2, const CVec
 }
 
 // 0x5DB6D0
+/**
+ * Retira objetos procedurales si llegaron a crearse, desenlaza el triángulo de su
+ * lista activa y lo devuelve a la lista global de libres.
+ */
 void CPlantLocTri::Release() {
     rng::fill(m_nMaxNumPlants, 0u);
     if (m_createdObjects)
