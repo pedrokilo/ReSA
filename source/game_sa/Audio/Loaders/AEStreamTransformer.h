@@ -2,6 +2,12 @@
 
 #include "AEDataStream.h"
 
+/**
+ * Transformador XOR de 16 bytes empleado por ciertos recursos de audio.
+ *
+ * La operación es simétrica y depende de la posición absoluta, por lo que puede
+ * descifrar fragmentos independientes después de un seek.
+ */
 class CAEStreamTransformer {
 public:
     void Initialise();
