@@ -25,12 +25,14 @@ END GENERATED HOOK STATUS */
 auto& AEStreamTransformer = StaticRef<CAEStreamTransformer>(0xb612d8);
 
 // 0x4f1750
+// Carga la clave fija de 16 bytes utilizada por los streams cifrados del juego.
 void CAEStreamTransformer::Initialise() {
     static uint8 t[] = {0xEA, 0x3A, 0xC4, 0xA1, 0x9A, 0xA8, 0x14, 0xF3, 0x48, 0xB0, 0xD7, 0x23, 0x9D, 0xE8, 0xFF, 0xF1};
     memcpy(table, t, sizeof(t));
 }
 
 // 0x4f17d0
+// Aplica XOR repetitivo indexado por posición para permitir lectura aleatoria/seek.
 void CAEStreamTransformer::TransformBuffer(void* buffer, size_t size, uint32 position) {
     uint8* buf = reinterpret_cast<uint8*>(buffer);
 
@@ -38,6 +40,9 @@ void CAEStreamTransformer::TransformBuffer(void* buffer, size_t size, uint32 pos
         buf[i] ^= table[(position + i) & 0xF];
 }
 
+/**
+ * Registra la transformación simétrica de cifrado/descifrado de streams.
+ */
 void CAEStreamTransformer::InjectHooks() {
     RH_ScopedClass(CAEStreamTransformer);
     RH_ScopedCategory("Audio/Loaders");
