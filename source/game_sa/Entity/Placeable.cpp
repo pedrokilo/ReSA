@@ -26,6 +26,9 @@ END GENERATED HOOK STATUS */
 
 #include "Placeable.h"
 
+/**
+ * Registra las operaciones de transformación y gestión del pool global de matrices.
+ */
 void CPlaceable::InjectHooks() {
     RH_ScopedVirtualClass(CPlaceable, 0x863C40, 1);
     RH_ScopedCategory("Entity");
@@ -48,10 +51,14 @@ void CPlaceable::InjectHooks() {
     RH_ScopedInstall(FreeStaticMatrix, 0x54F010);
 }
 
+// Comienza con la representación compacta CSimpleTransform y sin CMatrixLink asignada.
 CPlaceable::CPlaceable() : m_placement() {
     m_matrix = nullptr;
 }
 
+/**
+ * Devuelve cualquier matriz dinámica al pool antes de invalidar el enlace local.
+ */
 CPlaceable::~CPlaceable() {
     if (m_matrix) {
         CPlaceable::RemoveMatrix();
@@ -89,6 +96,12 @@ void CPlaceable::SetPosn(const CVector& posn) {
     pos = posn;
 }
 
+/**
+ * Actualiza orientación conservando la posición existente.
+ *
+ * Si no hay matriz completa, sólo puede representarse heading Z y se mantiene la
+ * forma compacta para ahorrar una entrada del pool.
+ */
 void CPlaceable::SetOrientation(float x, float y, float z) {
     if (!m_matrix) {
         m_placement.m_fHeading = z;
@@ -155,6 +168,10 @@ bool CPlaceable::IsWithinArea(float x1, float y1, float z1, float x2, float y2, 
         && vecPos.z <= z2;
 }
 
+/**
+ * Colapsa la CMatrixLink completa a posición + heading, la devuelve a gMatrixList
+ * y deja el objeto nuevamente en representación compacta.
+ */
 void CPlaceable::RemoveMatrix() {
     const auto& vecForward = m_matrix->GetForward();
     auto fHeading = std::atan2(-vecForward.x, vecForward.y);
@@ -167,6 +184,7 @@ void CPlaceable::RemoveMatrix() {
     m_matrix = nullptr;
 }
 
+// Reserva/mueve la matriz a la segunda lista del pool, expulsando la más antigua si está lleno.
 void CPlaceable::AllocateStaticMatrix() {
     if (m_matrix)
         return gMatrixList.MoveToList2(m_matrix);
@@ -178,6 +196,7 @@ void CPlaceable::AllocateStaticMatrix() {
     m_matrix->m_pOwner = this;
 }
 
+// Reserva una matriz de la lista principal y asigna este CPlaceable como owner.
 void CPlaceable::AllocateMatrix() {
     if (m_matrix)
         return;
@@ -210,6 +229,10 @@ bool CPlaceable::IsPointInRange(const CVector& point, float range) {
     return DistanceBetweenPointsSquared(point, GetPosition()) <= sq(range);
 }
 
+/**
+ * Materializa perezosamente una CMatrixLink a partir de CSimpleTransform cuando
+ * algún consumidor necesita la transformación completa.
+ */
 CMatrix& CPlaceable::GetMatrix() {
     if (!m_matrix) {
         CPlaceable::AllocateMatrix();
