@@ -11,12 +11,19 @@ struct MovementInfo_t;
 struct RenderInfo_t;
 class FxInfo_c;
 
+/**
+ * Contenedor ordenado de moduladores FxInfo asociados a una primitiva.
+ *
+ * m_MovementOffset y m_RenderOffset dividen el array en tres fases: emisión,
+ * movimiento y render. Cada fase actualiza una estructura distinta durante la vida
+ * de las partículas.
+ */
 class FxInfoManager_c {
 public:
     int32      m_nNumInfos;
-    FxInfo_c** m_pInfos;
-    int8       m_MovementOffset;
-    int8       m_RenderOffset;
+    FxInfo_c** m_pInfos; //!< Array de punteros a moduladores, almacenado en la arena FX.
+    int8       m_MovementOffset; //!< Primera entrada del bloque de movimiento.
+    int8       m_RenderOffset;   //!< Primera entrada del bloque de render.
     char       _align[2]; // urgent
 
     // FxEmitterBP_c
