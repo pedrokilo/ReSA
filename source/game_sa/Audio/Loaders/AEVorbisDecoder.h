@@ -4,6 +4,12 @@
 
 #include "AEStreamingDecoder.h"
 
+/**
+ * Decoder Ogg Vorbis respaldado por un CAEDataStream.
+ *
+ * libvorbis accede al stream exclusivamente mediante callbacks estáticos que
+ * redirigen lectura/seek/tell/close al objeto fuente adoptado por la clase base.
+ */
 class CAEVorbisDecoder : public CAEStreamingDecoder {
 public:
     CAEVorbisDecoder(CAEDataStream* dataStream, int32 userTrack);
@@ -19,11 +25,11 @@ public:
 
 private:
     ov_callbacks    m_sCallbacks;
-    OggVorbis_File* m_pVorbisFileHandle;
+    OggVorbis_File* m_pVorbisFileHandle; //!< Estado libvorbis propiedad del decoder.
     bool            m_bInitialized;
     bool            m_bIsUserTrack;
     CAEDataStream*  m_pDataStreamCopy;
-    vorbis_info*    m_pVorbisInfo;
+    vorbis_info*    m_pVorbisInfo; //!< Metadata prestada por libvorbis; no se libera por separado.
 
     static ov_callbacks staticCallbacks;
 
