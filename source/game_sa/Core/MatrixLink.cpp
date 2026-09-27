@@ -20,6 +20,10 @@ END GENERATED HOOK STATUS */
 
 #include "MatrixLink.h"
 
+/**
+ * Registra las operaciones que enlazan y desenlazan matrices dentro de las listas
+ * intrusivas administradas por CMatrixLinkList.
+ */
 void CMatrixLink::InjectHooks()
 {
     RH_ScopedClass(CMatrixLink);
@@ -29,6 +33,14 @@ void CMatrixLink::InjectHooks()
     RH_ScopedInstall(Remove, 0x54E910);
 }
 
+/**
+ * Inserta @p pWhere inmediatamente después de este nodo.
+ *
+ * La lista es intrusiva: los enlaces anterior/siguiente pertenecen a la propia
+ * CMatrixLink, por lo que no se crea ni destruye memoria durante la operación.
+ *
+ * @pre Esta matriz ya debe formar parte de una lista bien enlazada.
+ */
 void CMatrixLink::Insert(CMatrixLink* pWhere)
 {
     pWhere->m_pNext = m_pNext;
@@ -38,6 +50,12 @@ void CMatrixLink::Insert(CMatrixLink* pWhere)
     m_pNext = pWhere;
 }
 
+/**
+ * Desconecta esta matriz de su lista actual reparando los enlaces de sus vecinos.
+ *
+ * Los punteros del propio nodo no se limpian; normalmente el llamador lo inserta
+ * inmediatamente en otra de las listas de CMatrixLinkList.
+ */
 void CMatrixLink::Remove()
 {
     m_pNext->m_pPrev = m_pPrev;
