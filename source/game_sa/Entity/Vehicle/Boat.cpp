@@ -44,6 +44,9 @@ auto& fTimeMult = StaticRef<float>(0xC279CC); // 1.2f / CBoat::WAKE_LIFETIME
 int16 nWakeSkipCounters[4]; // 0xC279A4
 int16 nWakeSkipCounterVertex[4]; // 0xC279AC
 
+/**
+ * Registra construcción, control, wake trail y comportamiento específico de barcos.
+ */
 void CBoat::InjectHooks() {
     RH_ScopedVirtualClass(CBoat, 0x8721a0, 66);
     RH_ScopedCategory("Vehicle");
@@ -76,6 +79,9 @@ void CBoat::InjectHooks() {
 }
 
 // 0x6F2940
+/**
+ * Inicializa handling, nodos, buoyancy, audio y estado del wake a partir del model info.
+ */
 CBoat::CBoat(int32 modelIndex, eVehicleCreatedBy createdBy) : CVehicle(createdBy) {
     CVehicleModelInfo* mi = CModelInfo::GetModelInfo(modelIndex)->AsVehicleModelInfoPtr();
 
@@ -154,6 +160,7 @@ CBoat::~CBoat() {
 }
 
 // 0x6F01A0
+// Reconstruye el array de RwFrame* de componentes a partir del clump del vehículo.
 void CBoat::SetupModelNodes() {
     rng::fill(m_BoatNodes, nullptr);
     CClumpModelInfo::FillFrameArray(GetRpClump(), m_BoatNodes.data());
@@ -210,6 +217,7 @@ void CBoat::ModifyHandlingValue(const bool& plus) {
 }
 
 // 0x6F0E20
+// Envejece los puntos de wake y recorta m_NumWakeCoords al primer slot expirado.
 void CBoat::PruneWakeTrail() {
     int16 count = 0;
     for (; count < (int16)std::size(m_WakePtCounters); count++) {
@@ -229,6 +237,10 @@ void CBoat::PruneWakeTrail() {
 }
 
 // 0x6F2550
+/**
+ * Inserta un nuevo punto en la cabeza del historial si el barco avanzó lo suficiente.
+ * La longitud máxima del historial depende de player/mission/ambient.
+ */
 void CBoat::AddWakePoint(CVector pos) {
     const auto ucIntensity = static_cast<uint8>(m_vecMoveSpeed.Magnitude() * 100.0F);
 
@@ -279,7 +291,11 @@ void CBoat::AddWakePoint(CVector pos) {
     }
 }
 
-// NOTSA: Code from `CWaterLevel::RenderBoatWakes`, but makes more sense here...
+// NOTSA: trasladado desde CWaterLevel::RenderBoatWakes.
+/**
+ * Convierte el historial de wake en segmentos de agua con anchura y alpha dependientes
+ * de edad, velocidad y distancia a cámara.
+ */
 void CBoat::RenderWakePoints() {
     if (m_NumWakeCoords <= 1) { // From 0x6EDAF7
         return;
@@ -461,6 +477,10 @@ void CBoat::CheckForSkippingCalculations() {
 }
 
 // 0x6F2710
+/**
+ * Selecciona para este frame los barcos con wake relevantes para cámara, limitado al
+ * pequeño array global de generación.
+ */
 void CBoat::FillBoatList() {
     apFrameWakeGeneratingBoats.fill(nullptr);
 
@@ -526,6 +546,9 @@ void CBoat::SetModelIndex(uint32 index) {
 }
 
 // 0x6F1770
+/**
+ * Orquesta audio, wake, alarmas, input/AI, buoyancy y física según eEntityStatus.
+ */
 void CBoat::ProcessControl() {
     m_vehicleAudio.Service();
     PruneWakeTrail();
