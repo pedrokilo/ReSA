@@ -22,10 +22,14 @@ END GENERATED HOOK STATUS */
 #include "FxManager.h"
 
 // 0x4A18B0
+// Los arrays de partículas se reservan linealmente dentro del pool de memoria FX.
 void* FxEmitterPrt_c::operator new[](size_t size) {
     return g_fxMan.GetMemPool().GetMem(size);
 }
 
+/**
+ * Registra la ruta de asignación de arrays de partículas de emisor.
+ */
 void FxEmitterPrt_c::InjectHooks() {
     RH_ScopedClass(FxEmitterPrt_c);
     RH_ScopedCategory("Fx");
