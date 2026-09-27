@@ -18,14 +18,21 @@ enum eSoundPlayingStatus : int16 {
 
 using tSoundReference = int16;
 
+/**
+ * Planificador de hasta 300 voces virtuales sobre un número menor de canales físicos.
+ *
+ * CAESound conserva el estado lógico aunque no tenga canal hardware. Service()
+ * prioriza qué voces merecen los canales disponibles, mantiene las uncancellable,
+ * aplica pausa/Doppler/volumen y sincroniza play time con AEAudioHardware.
+ */
 class CAESoundManager {
 public:
     uint16           m_NumAllocatedPhysicalChannels;
     int16            m_AudioHardwareHandle;
-    CAESound         m_VirtuallyPlayingSoundList[MAX_NUM_SOUNDS];
-    tSoundReference* m_PhysicallyPlayingSoundList;                        //!< List of sounds that are currently playing (Size: `m_AllocatedPhysicalChannels`)
-    int16*           m_ChannelPosition;                                   //!< Sound positions (Size: `m_AllocatedPhysicalChannels`)
-    tSoundReference* m_PrioritisedSoundList;                              //!< List of sounds that are currently playing and are uncancellable (Size: `m_AllocatedPhysicalChannels`)
+    CAESound         m_VirtuallyPlayingSoundList[MAX_NUM_SOUNDS]; //!< Pool fijo de voces lógicas.
+    tSoundReference* m_PhysicallyPlayingSoundList;                        //!< Por canal físico, índice de la voz virtual asignada o -1.
+    int16*           m_ChannelPosition;                                   //!< Play time reportado por cada canal físico.
+    tSoundReference* m_PrioritisedSoundList;                              //!< Ranking temporal de voces candidatas a canal físico.
     int16            m_VirtualChannelSoundLengths[MAX_NUM_SOUNDS];        //!< Sound lengths in ms (Size: `m_AllocatedPhysicalChannels`)
     int16            m_VirtualChannelSoundLoopStartTimes[MAX_NUM_SOUNDS]; //!< Sound loop start times in ms (Size: `m_AllocatedPhysicalChannels`)
     uint32           m_TimeLastCalled;
@@ -47,9 +54,9 @@ public:
     CAESound* RequestNewSound(CAESound* pSound);
 
     struct tSoundPlayParams {
-        eSoundBankSlot  BankSlotID;               //!< The slot to play the sound from
+        eSoundBankSlot  BankSlotID;               //!< Slot que contiene el banco solicitado.
         eSoundID        SoundID;                  //!< The sound ID to play (From the specified bank slot)
-        CAEAudioEntity* AudioEntity;              //!< The audio entity that requested this sound
+        CAEAudioEntity* AudioEntity;              //!< Controlador lógico que recibirá callbacks; no owned.
         CVector         Pos;                      //!< The position
         float           Volume;                   //!< The volume (in dB)
         float           RollOffFactor{ 1.f };     //!< ??
@@ -61,13 +68,13 @@ public:
         int16           PlayTime{ 0 };            //!< Where to start the sound (AKA `CurrentPlayPosition`)
 
         // NOTSA Args //
-        CEntity*        RegisterWithEntity{};     //!< The entity to register this sound with (Automatically adds the `SOUND_LIFESPAN_TIED_TO_PHYSICAL_ENTITY` flag)
+        CEntity*        RegisterWithEntity{};     //!< Entidad world cuya vida/posición seguirá la voz; activa el flag correspondiente.
         int32           EventID{ AE_UNDEFINED };  //!< Event ID, this can be anything, but it's usually `eAudioEvents` value
         float           ClientVariable{ 0.f };    //!< Custom value that is just stored
     };
     /*!
-     * @brief Play a new sound (Works like calling `RequestNewSound` with an initialized `CAESound` object)
-     * @return The sound object, or null if it can't be played
+     * @brief Construye y solicita una nueva voz virtual a partir de parámetros de alto nivel.
+     * @return Slot CAESound asignado, o nullptr si el pool virtual está lleno.
      */
     CAESound* PlaySound(tSoundPlayParams p);
     int16     AreSoundsPlayingInBankSlot(int16 bankSlot);
