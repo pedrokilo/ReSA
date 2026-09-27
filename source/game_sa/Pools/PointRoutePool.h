@@ -21,8 +21,19 @@ END GENERATED HOOK STATUS */
 #include "Pool.h"
 #include "PedGeometryAnalyser.h"
 
+/**
+ * Pool especializado para rutas de puntos generadas por los analizadores de geometría.
+ *
+ * Hereda de CPool el almacenamiento fijo, la reutilización de slots y el sistema
+ * de referencias/índices del juego. La clase concreta sólo fija el tipo máximo
+ * almacenado y registra las entradas que tienen dirección propia en el ejecutable.
+ */
 class CPointRoutePool : public CPool<CPointRoute> {
 public:
+    /**
+     * Registra los hooks propios de CPointRoutePool; las operaciones genéricas del pool
+     * continúan implementadas por CPool.
+     */
     static void InjectHooks() {
         RH_ScopedClass(CPointRoutePool);
         RH_ScopedCategory("Pools");
