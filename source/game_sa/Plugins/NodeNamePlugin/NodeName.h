@@ -32,7 +32,7 @@ void InjectHooks();
 extern RwInt32& gNodeNamePluginOffset;
 
 /**
- * Attach NodeName plugin
+ * Registra el payload de nombre en RwFrame y sus callbacks de streaming.
  *
  * @since   gta3
  * @return  true if plugin was successfully attached
@@ -41,8 +41,8 @@ extern RwInt32& gNodeNamePluginOffset;
 _NODENAMEPLUGINAPI RwBool NodeNamePluginAttach();
 
 /**
- * Get node name for RwFrame
- * Maximum length is 23 chars.
+ * Obtiene el nombre almacenado en el payload de un RwFrame.
+ * La longitud máxima persistente es de 23 caracteres.
  *
  * @since   gta3
  * @param   frame   pointer to RwFrame struct
@@ -52,8 +52,7 @@ _NODENAMEPLUGINAPI RwBool NodeNamePluginAttach();
 _NODENAMEPLUGINAPI RwChar const* GetFrameNodeName(RwFrame* frame);
 
 /**
- * Set node name for RwFrame
- * Name will be truncated to 23 chars.
+ * Sustituye el nombre del RwFrame; se trunca a 23 caracteres y se termina en '\0'.
  *
  * @since   gta3
  * @param   frame   pointer to RwFrame struct
