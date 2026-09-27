@@ -21,6 +21,13 @@ public:
 };
 VALIDATE_SIZE(tBeatInfo, 0xAC);
 
+/**
+ * Facade de alto nivel que coordina las entidades y managers de audio del juego.
+ *
+ * Enruta eventos de gameplay a subsistemas específicos, administra radio/cutscene/
+ * mission audio y centraliza Service()/Reset() sin poseer necesariamente todos los
+ * managers globales que utiliza.
+ */
 class CAudioEngine {
 public:
     bool                        m_bPlayingMissionCompleteTrack;
@@ -32,7 +39,7 @@ public:
     CAEFrontendAudioEntity      m_FrontendAE;
     CAEScriptAudioEntity        m_ScriptAE;
     CAECollisionAudioEntity     m_CollisionAE;
-    CAEGlobalWeaponAudioEntity* m_GlobalWeaponAE;
+    CAEGlobalWeaponAudioEntity* m_GlobalWeaponAE; //!< Entidad global creada durante inicialización y gestionada por el engine.
     CAEPedlessSpeechAudioEntity m_PedlessSpeechAE;
     CAEDoorAudioEntity          m_DoorAE;
 
@@ -141,6 +148,7 @@ public:
     static void PauseAllSounds();
     static void ResumeAllSounds();
 
+    // Actualiza tracks, entidades de audio, speech/scanner y finalmente el SoundManager.
     void Service();
 
 #ifdef ANDROID
