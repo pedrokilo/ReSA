@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "ModelInfo.h"
 
+/**
+ * Registra las operaciones específicas de los modelos con visibilidad por horario.
+ */
 void CTimeModelInfo::InjectHooks() {
     RH_ScopedVirtualClass(CTimeModelInfo, 0x85BCB0, 16);
     RH_ScopedCategory("Models");
@@ -34,6 +37,7 @@ ModelInfoType CTimeModelInfo::GetModelType() {
 }
 
 // 0x4C5670
+// Expone los metadatos horarios embebidos para que CBaseModelInfo pueda tratar pares día/noche.
 CTimeInfo* CTimeModelInfo::GetTimeInfo() {
     return &m_timeInfo;
 }
