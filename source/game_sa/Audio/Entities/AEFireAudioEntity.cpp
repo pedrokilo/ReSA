@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 auto& gfFireFrequencyVariations = StaticRef<std::array<float, 5>>(0x8AE598);
 
 // 0x4DCF20
+// Vincula la entidad al FxSystem_c cuyo movimiento/estado seguirá el sonido.
 void CAEFireAudioEntity::Initialise(FxSystem_c* system) {
     m_FxSystem   = system;
     m_SoundLeft  = nullptr;
@@ -54,6 +55,7 @@ void CAEFireAudioEntity::AddAudioEvent(eAudioEvents audioId, CVector& posn) {
 }
 
 // 0x4DD0D0
+// Crea dos capas de fuego con distinto banco, pitch y envolvente de volumen.
 void CAEFireAudioEntity::PlayFireSounds(eAudioEvents audioId, CVector& posn) {
     m_snLastFireFrequencyIndex = (m_snLastFireFrequencyIndex + 1) % 5;
     const float volume = GetDefaultVolume(audioId);
@@ -92,6 +94,7 @@ void CAEFireAudioEntity::PlayFireSounds(eAudioEvents audioId, CVector& posn) {
 }
 
 // 0x4DD270
+// Crea las dos capas usadas por el efecto de hidrante/agua.
 void CAEFireAudioEntity::PlayWaterSounds(eAudioEvents audioId, CVector& posn) {
     m_SoundLeft = AESoundManager.PlaySound({
          .BankSlotID        = SND_BANK_SLOT_COLLISIONS,
@@ -126,6 +129,10 @@ void CAEFireAudioEntity::PlayWaterSounds(eAudioEvents audioId, CVector& posn) {
 }
 
 // 0x4DCF60
+/**
+ * Sigue la matriz del FxSystem_c y usa m_Event como estado interno para modular/finalizar
+ * las capas conforme cambia el efecto visual.
+ */
 void CAEFireAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) {
     if (curPlayPos <= 0) {
         if (curPlayPos == -1) {
@@ -173,6 +180,9 @@ void CAEFireAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) {
     }
 }
 
+/**
+ * Registra la entidad que sonoriza sistemas FX de fuego e hidrantes.
+ */
 void CAEFireAudioEntity::InjectHooks() {
     RH_ScopedVirtualClass(CAEFireAudioEntity, 0x85AA94, 1);
     RH_ScopedCategory("Audio/Entities");
