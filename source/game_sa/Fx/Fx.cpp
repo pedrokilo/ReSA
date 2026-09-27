@@ -31,6 +31,12 @@ static auto& TempVertexBuffer = StaticRef<std::array<RxObjSpace3DVertex, 4>>(0xC
 
 auto& g_fx = StaticRef<Fx_c>(0xA9AE00);
 
+/**
+ * Registra las funciones reconstruidas del facade global de efectos.
+ *
+ * Varias rutinas auxiliares de impacto todavía conservan llamadas directas al EXE
+ * y no forman parte de los hooks activos de este bloque.
+ */
 void Fx_c::InjectHooks() {
     RH_ScopedClass(Fx_c);
     RH_ScopedCategory("Fx");
@@ -83,6 +89,7 @@ Fx_c* Fx_c::Constructor() { this->Fx_c::Fx_c(); return this; }
 Fx_c* Fx_c::Destructor() { this->Fx_c::~Fx_c(); return this; }
 
 // 0x49E660
+// Crea y conserva los sistemas de partículas estáticos reutilizados por efectos frecuentes.
 void Fx_c::InitStaticSystems() {
     m_Blood          = g_fxMan.CreateFxSystem("prt_blood",            CVector{}, nullptr, true);
     m_BoatSplash     = g_fxMan.CreateFxSystem("prt_boatsplash",       CVector{}, nullptr, true);
@@ -130,6 +137,7 @@ void Fx_c::InitEntitySystems() {
 }
 
 // NOTSA
+// Evita crear sistemas efímeros lejanos; los aceptados se reproducen una vez y se autodestruyen.
 static void CreateFxWithinCameraRange(const char* name, const CVector& pos, float range) {
     if (DistanceBetweenPointsSquared(TheCamera.GetPosition(), pos) <= range) {
         if (auto* fxSystem = g_fxMan.CreateFxSystem(name, pos, nullptr, false)) {
@@ -139,6 +147,7 @@ static void CreateFxWithinCameraRange(const char* name, const CVector& pos, floa
 }
 
 // 0x4A12D0
+// Destruye sistemas ligados a entidades y libera sus nodos de seguimiento.
 void Fx_c::ExitEntitySystems() {
     for (auto it = m_FxEntities.GetHead(); it; it = m_FxEntities.GetNext(it)) {
         m_FxEntities.RemoveItem(it);
@@ -148,6 +157,9 @@ void Fx_c::ExitEntitySystems() {
 }
 
 // 0x49EA90
+/**
+ * Inicializa FxManager, carga effects.fxp y conecta la dirección/intensidad de viento.
+ */
 void Fx_c::Init() {
     ZoneScoped;
 
@@ -215,6 +227,10 @@ void Fx_c::Render(RwCamera* camera, bool heatHaze) {
 }
 
 // 0x49E950
+/**
+ * Esta función continúa delegada al ejecutable original mediante llamada directa.
+ * El bloque C++ posterior al return conserva una reconstrucción inactiva de referencia.
+ */
 void Fx_c::CreateMatFromVec(RwMatrix* out, const CVector* origin, const CVector* direction) {
     ((void(__thiscall*)(Fx_c*, RwMatrix*, const CVector*, const CVector*))0x49E950)(this, out, origin, direction);
     return;
@@ -247,6 +263,7 @@ FxQuality_e Fx_c::GetFxQuality() const {
 }
 
 // 0x49EB00
+// Implementación real aún delegada al EXE original.
 void Fx_c::AddBlood(const CVector& pos, const CVector& direction, int32 amount, float lightMult) {
     ((void(__thiscall*)(Fx_c*, const CVector&, const CVector&, int32, float))0x49EB00)(this, pos, direction, amount, lightMult);
 }
@@ -426,6 +443,7 @@ void RenderAddTri(CVector pos1, CVector pos2, CVector pos3, RwTexCoords coord1, 
 }
 
 // 0x4A1600
+// Envía el batch pendiente a RenderWare y reinicia los contadores/buffer temporal.
 void RenderEnd() {
     if (!g_fx.m_nVerticesCount)
         return;
@@ -464,6 +482,7 @@ void RotateVecIntoVec(RwV3d& vecRes, const RwV3d& vec, const RwV3d& vecAlign) {
 }
 
 // 0x4A1780
+// Aplica la fórmula de Rodrigues para rotar vec alrededor de axis.
 void RotateVecAboutVec(RwV3d& vecRes, const RwV3d& vec, const RwV3d& axis, float angle) {
     const float x = axis.x, y = axis.y, z = axis.z;
 
