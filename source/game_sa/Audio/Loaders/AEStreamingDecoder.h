@@ -2,6 +2,12 @@
 
 #include "AEDataStream.h"
 
+/**
+ * Interfaz polimórfica común para decoders que producen PCM bajo demanda.
+ *
+ * La clase base adopta un CAEDataStream y deja a cada codec la inicialización,
+ * seek, sample rate y conversión real a PCM.
+ */
 class CAEStreamingDecoder {
 public:
     CAEStreamingDecoder(CAEDataStream* dataStream);
@@ -20,7 +26,7 @@ public:
     virtual int32 GetStreamID() = 0;
 
 protected:
-    CAEDataStream* m_dataStream;
+    CAEDataStream* m_dataStream; //!< Stream fuente propiedad del decoder.
 
 private:
     friend void InjectHooksMain();
