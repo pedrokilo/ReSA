@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "AnimBlendNode.h"
 
+/**
+ * Registra las operaciones de interpolación temporal de un nodo de animación.
+ */
 void CAnimBlendNode::InjectHooks() {
     RH_ScopedClass(CAnimBlendNode);
     RH_ScopedCategory("Animation");
@@ -43,11 +46,18 @@ void CAnimBlendNode::InjectHooks() {
 }
 
 // 0x4CFB70
+// Restablece índices, tiempos y referencias al estado inicial por defecto.
 void CAnimBlendNode::Init() {
     *this = CAnimBlendNode{};
 }
 
 // 0x4D0240
+/**
+ * Sitúa el nodo en el par de keyframes que contiene @p time.
+ *
+ * Consume DeltaTime sucesivos, respeta el flag looped de la asociación y calcula
+ * después los parámetros de interpolación de rotación para el par seleccionado.
+ */
 bool CAnimBlendNode::FindKeyFrame(float time) {
     if (m_Seq->m_FramesNum == 0) {
         return false;
@@ -83,6 +93,7 @@ bool CAnimBlendNode::FindKeyFrame(float time) {
 }
 
 // 0x4D00E0
+// Precalcula el ángulo y 1/sin(theta) usados por Slerp entre los dos keyframes.
 void CAnimBlendNode::CalcTheta(float angleCos) {
     m_Theta       = std::acos(std::min(angleCos, 1.0f));
     m_InvSinTheta = m_Theta == 0.0f
@@ -91,6 +102,7 @@ void CAnimBlendNode::CalcTheta(float angleCos) {
 }
 
 // 0x4D0190
+// Prepara la interpolación de rotación para keyframes sin comprimir.
 void CAnimBlendNode::CalcDeltas() {
     if (!m_Seq->m_bHasRotation) {
         return;
@@ -105,6 +117,12 @@ void CAnimBlendNode::CalcDeltas() {
 }
 
 // 0x4D0350
+/**
+ * Prepara la interpolación de rotación comprimida.
+ *
+ * Si los quaternions caen en hemisferios opuestos invierte el anterior para que
+ * Slerp recorra el arco corto y evita una rotación visualmente innecesaria.
+ */
 void CAnimBlendNode::CalcDeltasCompressed() {
     if (!m_Seq->m_bHasRotation) {
         return;
@@ -128,6 +146,7 @@ bool CAnimBlendNode::NextKeyFrameNoCalc() {
 }
 
 // 0x4D0650
+// Inicializa el primer intervalo de una secuencia comprimida y sus deltas de rotación.
 bool CAnimBlendNode::SetupKeyFrameCompressed() {
     if (m_Seq->m_FramesNum < 1) {
         return false;
