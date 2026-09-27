@@ -12,7 +12,8 @@ La [hoja de ruta de PGTASA](ProjectRoadmap.md) define una reconstrucción funcio
 | --- | --- | --- |
 | Clases completas | `█████████████████░░░` | 621/712 · 87.22% |
 | Funciones reconstruidas | `███████████████████░` | 7,545/8,080 · 93.38% |
-| Funciones validadas, vigencia confirmada | `░░░░░░░░░░░░░░░░░░░░` | 0/8,080 · 0.00%; inventario parcial |
+| Funciones validadas (evidencia aprobada) | `░░░░░░░░░░░░░░░░░░░░` | **34/8,080 · 0.42%** |
+| Validaciones vigentes para el árbol actual | `░░░░░░░░░░░░░░░░░░░░` | 0/8,080 · 0.00%; inventario parcial |
 | Dependencias de funciones originales eliminadas | Sin barra | No medido; requiere auditoría directa y transitiva |
 
 Hay 8,080 entradas catalogadas, 625 bloqueadas y 7,455 sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente; el número de funciones que usan código original sigue sin medir. No se deducen hooks eliminados del contador de locks.
@@ -257,108 +258,109 @@ Orden alfabético. El número entre paréntesis indica funciones registradas; �
 
 Orden alfabético para localizar clases. Para decidir qué abordar primero, consultar la [estimación por dificultad](ReversingPriorities.md).
 
-| Clase | Revertidas / total | Pendientes | Avance | Locked |
-| --- | ---: | ---: | ---: | ---: |
-| [CAEAmbienceTrackManager](../source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp) | 6/7 | **1** | 85.71% | 1 |
-| [CAEFrontendAudioEntity](../source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp) | 4/6 | **2** | 66.67% | 2 |
-| [CAEPedAudioEntity](../source/game_sa/Audio/Entities/AEPedAudioEntity.cpp) | 16/20 | **4** | 80.00% | 4 |
-| [CAEPoliceScannerAudioEntity](../source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.cpp) | 13/17 | **4** | 76.47% | 4 |
-| [CAERadioTrackManager](../source/game_sa/Audio/Managers/AERadioTrackManager.cpp) | 29/43 | **14** | 67.44% | 14 |
-| [CAEScriptAudioEntity](../source/game_sa/Audio/Entities/AEScriptAudioEntity.cpp) | 8/19 | **11** | 42.11% | 11 |
-| [CAEStaticChannel](../source/game_sa/Audio/Hardware/AEStaticChannel.cpp) | 7/8 | **1** | 87.50% | 1 |
-| [CAEStreamingChannel](../source/game_sa/Audio/Hardware/AEStreamingChannel.cpp) | 21/24 | **3** | 87.50% | 3 |
-| [CAEVehicleAudioEntity](../source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp) | 102/106 | **4** | 96.23% | 7 |
-| [CAEWeatherAudioEntity](../source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp) | 4/5 | **1** | 80.00% | 1 |
-| [CBike](../source/game_sa/Entity/Vehicle/Bike.cpp) | 22/40 | **18** | 55.00% | 18 |
-| [CBmx](../source/game_sa/Entity/Vehicle/Bmx.cpp) | 7/10 | **3** | 70.00% | 3 |
-| [CCam](../source/game_sa/Cam.cpp) | 14/44 | **30** | 31.82% | 30 |
-| [CCamera](../source/game_sa/Camera.cpp) | 91/110 | **19** | 82.73% | 19 |
-| [CCarEnterExit](../source/game_sa/CarEnterExit.cpp) | 27/32 | **5** | 84.38% | 5 |
-| [CCarFXRenderer](../source/game_sa/Fx/CarFXRenderer.cpp) | 9/10 | **1** | 90.00% | 1 |
-| [CClothesBuilder](../source/game_sa/ClothesBuilder.cpp) | 15/23 | **8** | 65.22% | 8 |
-| [CCustomBuildingRenderer](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp) | 3/7 | **4** | 42.86% | 4 |
-| [CEntryExit](../source/game_sa/EntryExit.cpp) | 10/11 | **1** | 90.91% | 2 |
-| [CEventHandler](../source/game_sa/Events/EventHandler.cpp) | 69/72 | **3** | 95.83% | 3 |
-| [CFont](../source/game_sa/Font.cpp) | 32/36 | **4** | 88.89% | 4 |
-| [CFormation](../source/game_sa/Formation.cpp) | 1/9 | **8** | 11.11% | 8 |
-| [CGangWars](../source/game_sa/GangWars.cpp) | 32/35 | **3** | 91.43% | 3 |
-| [CGenericGameStorage](../source/game_sa/GenericGameStorage.cpp) | 5/19 | **14** | 26.32% | 14 |
-| [CGroupEventHandler](../source/game_sa/Events/GroupEventHandler.cpp) | 30/32 | **2** | 93.75% | 2 |
-| [CInterestingEvents](../source/game_sa/InterestingEvents.cpp) | 2/7 | **5** | 28.57% | 5 |
-| [CMonsterTruck](../source/game_sa/Entity/Vehicle/MonsterTruck.cpp) | 5/11 | **6** | 45.45% | 6 |
-| [CPathFind](../source/game_sa/PathFind.cpp) | 54/56 | **2** | 96.43% | 2 |
-| [CPedDamageResponseCalculator](../source/game_sa/PedDamageResponseCalculator.cpp) | 2/7 | **5** | 28.57% | 5 |
-| [CPedGeometryAnalyser](../source/game_sa/PedGeometryAnalyser.cpp) | 9/38 | **29** | 23.68% | 29 |
-| [CPedGroup](../source/game_sa/PedGroup.cpp) | 10/12 | **2** | 83.33% | 2 |
-| [CPedGroupDefaultTaskAllocatorRandom](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.h) | 1/2 | **1** | 50.00% | 1 |
-| [CPedGroupDefaultTaskAllocatorSitInLeaderCar](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorSitInLeaderCar.h) | 1/2 | **1** | 50.00% | 1 |
-| [CPedGroupPlacer](../source/game_sa/PedGroupPlacer.cpp) | 1/4 | **3** | 25.00% | 3 |
-| [CPedToPlayerConversations](../source/game_sa/Conversations/PedToPlayerConversations.cpp) | 2/3 | **1** | 66.67% | 1 |
-| [CPickups](../source/game_sa/Pickups.cpp) | 35/37 | **2** | 94.59% | 2 |
-| [CPlane](../source/game_sa/Entity/Vehicle/Plane.cpp) | 14/23 | **9** | 60.87% | 9 |
-| [CPools](../source/game_sa/Pools.cpp) | 16/19 | **3** | 84.21% | 3 |
-| [CPopulation](../source/game_sa/Population.cpp) | 64/66 | **2** | 96.97% | 2 |
-| [CPostEffects](../source/game_sa/PostEffects.cpp) | 35/38 | **3** | 92.11% | 4 |
-| [CProjectileInfo](../source/game_sa/ProjectileInfo.cpp) | 1/12 | **11** | 8.33% | 11 |
-| [CQuadBike](../source/game_sa/Entity/Vehicle/QuadBike.cpp) | 11/12 | **1** | 91.67% | 1 |
-| [CRealTimeShadowManager](../source/game_sa/RealTimeShadowManager.cpp) | 5/7 | **2** | 71.43% | 2 |
-| [CRoadBlocks](../source/game_sa/RoadBlocks.cpp) | 7/8 | **1** | 87.50% | 1 |
-| [CRope](../source/game_sa/Rope.cpp) | 5/7 | **2** | 71.43% | 2 |
-| [CRopes](../source/game_sa/Ropes.cpp) | 9/11 | **2** | 81.82% | 2 |
-| [CRunningScript](../source/game_sa/Scripts/RunningScript.cpp) | 24/39 | **15** | 61.54% | 15 |
-| [CScriptsForBrains](../source/game_sa/ScriptsForBrains.cpp) | 3/6 | **3** | 50.00% | 3 |
-| [CShadows](../source/game_sa/Shadows.cpp) | 21/31 | **10** | 67.74% | 10 |
-| [CStencilShadows](../source/game_sa/StencilShadows.cpp) | 9/13 | **4** | 69.23% | 4 |
-| [CTaskComplexArrestPed](../source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp) | 4/7 | **3** | 57.14% | 3 |
-| [CTaskComplexCarSlowBeDraggedOutAndStandUp](../source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOutAndStandUp.cpp) | 3/9 | **6** | 33.33% | 6 |
-| [CTaskComplexDestroyCar](../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp) | 8/9 | **1** | 88.89% | 1 |
-| [CTaskComplexFollowLeaderInFormation](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp) | 1/7 | **6** | 14.29% | 6 |
-| [CTaskComplexGangJoinRespond](../source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp) | 2/7 | **5** | 28.57% | 5 |
-| [CTaskComplexGoToAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp) | 2/5 | **3** | 40.00% | 3 |
-| [CTaskComplexGotoDoorAndOpen](../source/game_sa/Tasks/TaskTypes/TaskComplexGotoDoorAndOpen.cpp) | 3/7 | **4** | 42.86% | 4 |
-| [CTaskComplexGoToPointAiming](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp) | 5/8 | **3** | 62.50% | 3 |
-| [CTaskComplexGoToPointAndStandStillAndAchieveHeading](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStillAndAchieveHeading.cpp) | 3/7 | **4** | 42.86% | 4 |
-| [CTaskComplexGoToPointAnyMeans](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAnyMeans.cpp) | 3/7 | **4** | 42.86% | 4 |
-| [CTaskComplexKillCriminal](../source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp) | 9/11 | **2** | 81.82% | 2 |
-| [CTaskComplexKillPedFromBoat](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp) | 2/7 | **5** | 28.57% | 5 |
-| [CTaskComplexKillPedOnFootArmed](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp) | 9/11 | **2** | 81.82% | 2 |
-| [CTaskComplexPlayHandSignalAnim](../source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp) | 3/9 | **6** | 33.33% | 6 |
-| [CTaskComplexSignalAtPed](../source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp) | 4/7 | **3** | 57.14% | 3 |
-| [CTaskComplexSmartFleePoint](../source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp) | 2/12 | **10** | 16.67% | 10 |
-| [CTaskComplexSunbathe](../source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp) | 2/8 | **6** | 25.00% | 6 |
-| [CTaskComplexUseClosestFreeScriptedAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractor.cpp) | 6/8 | **2** | 75.00% | 2 |
-| [CTaskComplexWalkRoundCar](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundCar.cpp) | 9/13 | **4** | 69.23% | 4 |
-| [CTaskGangHasslePed](../source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp) | 2/5 | **3** | 40.00% | 3 |
-| [CTaskGangHassleVehicle](../source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp) | 2/8 | **6** | 25.00% | 6 |
-| [CTaskGoToVehicleAndLean](../source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp) | 2/7 | **5** | 28.57% | 5 |
-| [CTaskInteriorSitAtDesk](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp) | 8/9 | **1** | 88.89% | 1 |
-| [CTaskInteriorUseInfo](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorUseInfo.cpp) | 6/8 | **2** | 75.00% | 2 |
-| [CTaskLeanOnVehicle](../source/game_sa/Tasks/TaskTypes/TaskLeanOnVehicle.cpp) | 3/5 | **2** | 60.00% | 2 |
-| [CTaskSimpleCarDrive](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp) | 7/13 | **6** | 53.85% | 6 |
-| [CTaskSimpleChoking](../source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp) | 5/7 | **2** | 71.43% | 2 |
-| [CTaskSimpleFightingControl](../source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp) | 6/7 | **1** | 85.71% | 1 |
-| [CTaskSimplePlayerOnFoot](../source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp) | 11/12 | **1** | 91.67% | 1 |
-| [CTaskSimpleRunNamedAnim](../source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.cpp) | 4/7 | **3** | 57.14% | 3 |
-| [CTaskUtilityLineUpPedWithCar](../source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp) | 2/5 | **3** | 40.00% | 3 |
-| [CTrain](../source/game_sa/Entity/Vehicle/Train.cpp) | 20/40 | **20** | 50.00% | 20 |
-| [CWaterLevel](../source/game_sa/WaterLevel.cpp) | 25/30 | **5** | 83.33% | 5 |
-| [CWeapon](../source/game_sa/Weapon.cpp) | 35/41 | **6** | 85.37% | 6 |
-| [CWeather](../source/game_sa/Weather.cpp) | 10/13 | **3** | 76.92% | 3 |
-| [FxEmitterBP_c](../source/game_sa/Fx/FxEmitterBP.cpp) | 2/9 | **7** | 22.22% | 7 |
-| [FxSystem_c](../source/game_sa/Fx/FxSystem.cpp) | 31/35 | **4** | 88.57% | 4 |
-| [InteriorGroup_c](../source/game_sa/Interior/InteriorGroup_c.cpp) | 2/24 | **22** | 8.33% | 22 |
+| Clase | Revertidas / total | Pendientes | Avance | Validated | Locked |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| [CAEAmbienceTrackManager](../source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp) | 6/7 | **1** | 85.71% | 0 | 1 |
+| [CAEFrontendAudioEntity](../source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp) | 4/6 | **2** | 66.67% | 0 | 2 |
+| [CAEPedAudioEntity](../source/game_sa/Audio/Entities/AEPedAudioEntity.cpp) | 16/20 | **4** | 80.00% | 0 | 4 |
+| [CAEPoliceScannerAudioEntity](../source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.cpp) | 13/17 | **4** | 76.47% | 0 | 4 |
+| [CAERadioTrackManager](../source/game_sa/Audio/Managers/AERadioTrackManager.cpp) | 29/43 | **14** | 67.44% | 0 | 14 |
+| [CAEScriptAudioEntity](../source/game_sa/Audio/Entities/AEScriptAudioEntity.cpp) | 8/19 | **11** | 42.11% | 0 | 11 |
+| [CAEStaticChannel](../source/game_sa/Audio/Hardware/AEStaticChannel.cpp) | 7/8 | **1** | 87.50% | 0 | 1 |
+| [CAEStreamingChannel](../source/game_sa/Audio/Hardware/AEStreamingChannel.cpp) | 21/24 | **3** | 87.50% | 0 | 3 |
+| [CAEVehicleAudioEntity](../source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp) | 102/106 | **4** | 96.23% | 0 | 7 |
+| [CAEWeatherAudioEntity](../source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp) | 4/5 | **1** | 80.00% | 0 | 1 |
+| [CBike](../source/game_sa/Entity/Vehicle/Bike.cpp) | 22/40 | **18** | 55.00% | 0 | 18 |
+| [CBmx](../source/game_sa/Entity/Vehicle/Bmx.cpp) | 7/10 | **3** | 70.00% | 0 | 3 |
+| [CCam](../source/game_sa/Cam.cpp) | 14/44 | **30** | 31.82% | 0 | 30 |
+| [CCamera](../source/game_sa/Camera.cpp) | 91/110 | **19** | 82.73% | 0 | 19 |
+| [CCarEnterExit](../source/game_sa/CarEnterExit.cpp) | 27/32 | **5** | 84.38% | 0 | 5 |
+| [CCarFXRenderer](../source/game_sa/Fx/CarFXRenderer.cpp) | 9/10 | **1** | 90.00% | 0 | 1 |
+| [CClothesBuilder](../source/game_sa/ClothesBuilder.cpp) | 15/23 | **8** | 65.22% | 0 | 8 |
+| [CCustomBuildingRenderer](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp) | 3/7 | **4** | 42.86% | 0 | 4 |
+| [CEntryExit](../source/game_sa/EntryExit.cpp) | 10/11 | **1** | 90.91% | 0 | 2 |
+| [CEventHandler](../source/game_sa/Events/EventHandler.cpp) | 69/72 | **3** | 95.83% | 0 | 3 |
+| [CFont](../source/game_sa/Font.cpp) | 32/36 | **4** | 88.89% | 0 | 4 |
+| [CFormation](../source/game_sa/Formation.cpp) | 1/9 | **8** | 11.11% | 0 | 8 |
+| [CGangWars](../source/game_sa/GangWars.cpp) | 32/35 | **3** | 91.43% | 0 | 3 |
+| [CGenericGameStorage](../source/game_sa/GenericGameStorage.cpp) | 5/19 | **14** | 26.32% | 0 | 14 |
+| [CGroupEventHandler](../source/game_sa/Events/GroupEventHandler.cpp) | 30/32 | **2** | 93.75% | 0 | 2 |
+| [CInterestingEvents](../source/game_sa/InterestingEvents.cpp) | 2/7 | **5** | 28.57% | 0 | 5 |
+| [CMonsterTruck](../source/game_sa/Entity/Vehicle/MonsterTruck.cpp) | 5/11 | **6** | 45.45% | 0 | 6 |
+| [CPathFind](../source/game_sa/PathFind.cpp) | 54/56 | **2** | 96.43% | 0 | 2 |
+| [CPedDamageResponseCalculator](../source/game_sa/PedDamageResponseCalculator.cpp) | 2/7 | **5** | 28.57% | 0 | 5 |
+| [CPedGeometryAnalyser](../source/game_sa/PedGeometryAnalyser.cpp) | 9/38 | **29** | 23.68% | 0 | 29 |
+| [CPedGroup](../source/game_sa/PedGroup.cpp) | 10/12 | **2** | 83.33% | 0 | 2 |
+| [CPedGroupDefaultTaskAllocatorRandom](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.h) | 1/2 | **1** | 50.00% | 0 | 1 |
+| [CPedGroupDefaultTaskAllocatorSitInLeaderCar](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorSitInLeaderCar.h) | 1/2 | **1** | 50.00% | 0 | 1 |
+| [CPedGroupPlacer](../source/game_sa/PedGroupPlacer.cpp) | 1/4 | **3** | 25.00% | 0 | 3 |
+| [CPedToPlayerConversations](../source/game_sa/Conversations/PedToPlayerConversations.cpp) | 2/3 | **1** | 66.67% | 0 | 1 |
+| [CPickups](../source/game_sa/Pickups.cpp) | 35/37 | **2** | 94.59% | 0 | 2 |
+| [CPlane](../source/game_sa/Entity/Vehicle/Plane.cpp) | 14/23 | **9** | 60.87% | 0 | 9 |
+| [CPools](../source/game_sa/Pools.cpp) | 16/19 | **3** | 84.21% | 0 | 3 |
+| [CPopulation](../source/game_sa/Population.cpp) | 64/66 | **2** | 96.97% | 0 | 2 |
+| [CPostEffects](../source/game_sa/PostEffects.cpp) | 35/38 | **3** | 92.11% | 0 | 4 |
+| [CProjectileInfo](../source/game_sa/ProjectileInfo.cpp) | 1/12 | **11** | 8.33% | 0 | 11 |
+| [CQuadBike](../source/game_sa/Entity/Vehicle/QuadBike.cpp) | 11/12 | **1** | 91.67% | 0 | 1 |
+| [CRealTimeShadowManager](../source/game_sa/RealTimeShadowManager.cpp) | 5/7 | **2** | 71.43% | 0 | 2 |
+| [CRoadBlocks](../source/game_sa/RoadBlocks.cpp) | 7/8 | **1** | 87.50% | 0 | 1 |
+| [CRope](../source/game_sa/Rope.cpp) | 5/7 | **2** | 71.43% | 0 | 2 |
+| [CRopes](../source/game_sa/Ropes.cpp) | 9/11 | **2** | 81.82% | 0 | 2 |
+| [CRunningScript](../source/game_sa/Scripts/RunningScript.cpp) | 24/39 | **15** | 61.54% | 0 | 15 |
+| [CScriptsForBrains](../source/game_sa/ScriptsForBrains.cpp) | 3/6 | **3** | 50.00% | 0 | 3 |
+| [CShadows](../source/game_sa/Shadows.cpp) | 21/31 | **10** | 67.74% | 0 | 10 |
+| [CStencilShadows](../source/game_sa/StencilShadows.cpp) | 9/13 | **4** | 69.23% | 0 | 4 |
+| [CTaskComplexArrestPed](../source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp) | 4/7 | **3** | 57.14% | 0 | 3 |
+| [CTaskComplexCarSlowBeDraggedOutAndStandUp](../source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOutAndStandUp.cpp) | 3/9 | **6** | 33.33% | 0 | 6 |
+| [CTaskComplexDestroyCar](../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp) | 8/9 | **1** | 88.89% | 0 | 1 |
+| [CTaskComplexFollowLeaderInFormation](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp) | 1/7 | **6** | 14.29% | 0 | 6 |
+| [CTaskComplexGangJoinRespond](../source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp) | 2/7 | **5** | 28.57% | 0 | 5 |
+| [CTaskComplexGoToAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp) | 2/5 | **3** | 40.00% | 0 | 3 |
+| [CTaskComplexGotoDoorAndOpen](../source/game_sa/Tasks/TaskTypes/TaskComplexGotoDoorAndOpen.cpp) | 3/7 | **4** | 42.86% | 0 | 4 |
+| [CTaskComplexGoToPointAiming](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp) | 5/8 | **3** | 62.50% | 0 | 3 |
+| [CTaskComplexGoToPointAndStandStillAndAchieveHeading](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStillAndAchieveHeading.cpp) | 3/7 | **4** | 42.86% | 0 | 4 |
+| [CTaskComplexGoToPointAnyMeans](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAnyMeans.cpp) | 3/7 | **4** | 42.86% | 0 | 4 |
+| [CTaskComplexKillCriminal](../source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp) | 9/11 | **2** | 81.82% | 0 | 2 |
+| [CTaskComplexKillPedFromBoat](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp) | 2/7 | **5** | 28.57% | 0 | 5 |
+| [CTaskComplexKillPedOnFootArmed](../source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp) | 9/11 | **2** | 81.82% | 0 | 2 |
+| [CTaskComplexPlayHandSignalAnim](../source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp) | 3/9 | **6** | 33.33% | 0 | 6 |
+| [CTaskComplexSignalAtPed](../source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp) | 4/7 | **3** | 57.14% | 0 | 3 |
+| [CTaskComplexSmartFleePoint](../source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp) | 2/12 | **10** | 16.67% | 0 | 10 |
+| [CTaskComplexSunbathe](../source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp) | 2/8 | **6** | 25.00% | 0 | 6 |
+| [CTaskComplexUseClosestFreeScriptedAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractor.cpp) | 6/8 | **2** | 75.00% | 0 | 2 |
+| [CTaskComplexWalkRoundCar](../source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundCar.cpp) | 9/13 | **4** | 69.23% | 0 | 4 |
+| [CTaskGangHasslePed](../source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp) | 2/5 | **3** | 40.00% | 0 | 3 |
+| [CTaskGangHassleVehicle](../source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp) | 2/8 | **6** | 25.00% | 0 | 6 |
+| [CTaskGoToVehicleAndLean](../source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp) | 2/7 | **5** | 28.57% | 0 | 5 |
+| [CTaskInteriorSitAtDesk](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp) | 8/9 | **1** | 88.89% | 0 | 1 |
+| [CTaskInteriorUseInfo](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorUseInfo.cpp) | 6/8 | **2** | 75.00% | 0 | 2 |
+| [CTaskLeanOnVehicle](../source/game_sa/Tasks/TaskTypes/TaskLeanOnVehicle.cpp) | 3/5 | **2** | 60.00% | 0 | 2 |
+| [CTaskSimpleCarDrive](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp) | 7/13 | **6** | 53.85% | 0 | 6 |
+| [CTaskSimpleChoking](../source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp) | 5/7 | **2** | 71.43% | 0 | 2 |
+| [CTaskSimpleFightingControl](../source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp) | 6/7 | **1** | 85.71% | 0 | 1 |
+| [CTaskSimplePlayerOnFoot](../source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp) | 11/12 | **1** | 91.67% | 0 | 1 |
+| [CTaskSimpleRunNamedAnim](../source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.cpp) | 4/7 | **3** | 57.14% | 1 | 3 |
+| [CTaskUtilityLineUpPedWithCar](../source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp) | 2/5 | **3** | 40.00% | 0 | 3 |
+| [CTrain](../source/game_sa/Entity/Vehicle/Train.cpp) | 20/40 | **20** | 50.00% | 0 | 20 |
+| [CWaterLevel](../source/game_sa/WaterLevel.cpp) | 25/30 | **5** | 83.33% | 0 | 5 |
+| [CWeapon](../source/game_sa/Weapon.cpp) | 35/41 | **6** | 85.37% | 0 | 6 |
+| [CWeather](../source/game_sa/Weather.cpp) | 10/13 | **3** | 76.92% | 0 | 3 |
+| [FxEmitterBP_c](../source/game_sa/Fx/FxEmitterBP.cpp) | 2/9 | **7** | 22.22% | 0 | 7 |
+| [FxSystem_c](../source/game_sa/Fx/FxSystem.cpp) | 31/35 | **4** | 88.57% | 0 | 4 |
+| [InteriorGroup_c](../source/game_sa/Interior/InteriorGroup_c.cpp) | 2/24 | **22** | 8.33% | 0 | 22 |
 <a id="sin-revertir"></a>
 ## 🔴 Sin revertir · 3 clases
 
-| Clase | Revertidas / total | Pendientes | Avance | Locked |
-| --- | ---: | ---: | ---: | ---: |
-| [CConversationForPed](../source/game_sa/Conversations/ConversationForPed.cpp) | 0/2 | **2** | 0.00% | 2 |
-| [CTaskComplexGangFollower](../source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp) | 0/7 | **7** | 0.00% | 7 |
-| [Interior_c](../source/game_sa/Interior/Interior_c.cpp) | 0/52 | **52** | 0.00% | 52 |
+| Clase | Revertidas / total | Pendientes | Avance | Validated | Locked |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| [CConversationForPed](../source/game_sa/Conversations/ConversationForPed.cpp) | 0/2 | **2** | 0.00% | 0 | 2 |
+| [CTaskComplexGangFollower](../source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp) | 0/7 | **7** | 0.00% | 0 | 7 |
+| [Interior_c](../source/game_sa/Interior/Interior_c.cpp) | 0/52 | **52** | 0.00% | 0 | 52 |
 <a id="metodo"></a>
 ## Cómo leer y actualizar
 
 - **Pendientes:** total menos revertidas. Cada fila del CSV cuenta como una entrada, incluidas sobrecargas y virtuales.
+- **Validated:** `1` indica que existe evidencia aprobada vinculada para esa entrada. No implica vigencia actual ni independencia del EXE.
 - **Locked:** indicador de bloqueo del hook; hay 625 entradas bloqueadas en el CSV. No equivale por sí solo a pendiente ni informa si el hook está activo durante una ejecución.
 - **Porcentajes:** las categorías cuentan clases; el avance de cada clase cuenta funciones. Se muestran dos decimales.
 - **Alcance:** solo incluye lo registrado en el CSV; completar una fila no certifica todo el comportamiento de una clase.
@@ -366,7 +368,13 @@ Orden alfabético para localizar clases. Para decidir qué abordar primero, cons
 - **Acceso al código:** pulsa el nombre para abrir el archivo que registra sus hooks. Si el registro está repartido, los enlaces adicionales abren los demás archivos. Algunas clases registran sus hooks en una cabecera.
 - **Comentarios de estado:** resumen por clase/grupo, con nombres de pendientes y bloqueadas. Los conteos abarcan la clase completa aunque su implementación esté repartida entre archivos.
 
-Actualizar los flags solo después de comparar con el original dentro del motor y regenerar desde la raíz:
+Sincronizar primero `validated` desde el registro de evidencia:
+
+```powershell
+python contrib/sync_validated_flags.py
+```
+
+Actualizar los flags de reconstrucción solo después de comparar con el original dentro del motor y regenerar desde la raíz:
 
 ```powershell
 python contrib/hooks2md.py --input docs/hooks.csv --output docs/ReversedClasses.md
