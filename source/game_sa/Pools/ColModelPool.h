@@ -21,8 +21,19 @@ END GENERATED HOOK STATUS */
 #include "Pool.h"
 #include "ColModel.h"
 
+/**
+ * Pool especializado para modelos de colisión reutilizados por entidades y model infos.
+ *
+ * Hereda de CPool el almacenamiento fijo, la reutilización de slots y el sistema
+ * de referencias/índices del juego. La clase concreta sólo fija el tipo máximo
+ * almacenado y registra las entradas que tienen dirección propia en el ejecutable.
+ */
 class CColModelPool : public CPool<CColModel> {
 public:
+    /**
+     * Registra los hooks propios de CColModelPool; las operaciones genéricas del pool
+     * continúan implementadas por CPool.
+     */
     static void InjectHooks() {
         RH_ScopedClass(CColModelPool);
         RH_ScopedCategory("Pools");
