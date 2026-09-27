@@ -20,8 +20,20 @@ END GENERATED HOOK STATUS */
 
 #include "Pool.h"
 
+/**
+ * Pool especializado para rutas basadas en nodos utilizadas por la navegación.
+ *
+ * Hereda la administración de slots, handles y reutilización de memoria de CPool;
+ * esta clase fija el tipo almacenado y conecta sus operaciones con los hooks del juego.
+ * Los objetos obtenidos continúan perteneciendo al pool hasta que se liberan mediante
+ * la interfaz correspondiente de CPool.
+ */
 class CNodeRoutePool : public CPool<CNodeRoute> {
 public:
+    /**
+     * Registra las operaciones específicas de CNodeRoutePool en sus direcciones originales.
+     * La lógica común de administración de memoria permanece centralizada en CPool.
+     */
     static void InjectHooks() {
         RH_ScopedClass(CNodeRoutePool);
         RH_ScopedCategory("Pools");
