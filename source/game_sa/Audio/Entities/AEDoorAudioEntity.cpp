@@ -36,6 +36,7 @@ void CAEDoorAudioEntity::StaticInitialise() {
 }
 
 // 0x4DC6B0
+// Reinicia temporizadores y cancela todas las voces todavía propiedad de esta entidad.
 void CAEDoorAudioEntity::Reset() {
     m_nTime = 0;
     m_nMovingDoorTime = 0;
@@ -43,6 +44,7 @@ void CAEDoorAudioEntity::Reset() {
 }
 
 // 0x4DC9F0
+// Limita el loop de puerta móvil para no reiniciarlo más de una vez cada cuatro segundos.
 void CAEDoorAudioEntity::AddAudioEvent(eAudioEvents event, CPhysical* physical) {
     if (event == AE_ENTRY_EXIT_DOOR_MOVING && !AESoundManager.AreSoundsOfThisEventPlayingForThisEntity(AE_ENTRY_EXIT_DOOR_MOVING, this) &&
         CTimer::GetTimeInMS() > m_nMovingDoorTime + 4000) {
@@ -100,6 +102,10 @@ void CAEDoorAudioEntity::AddAudioEvent(eAudioEvents event, CVector& posn, float 
 }
 
 // 0x4DC6D0
+/**
+ * Crea la voz de puerta solicitada y decide frontend/world según el centinela de posición.
+ * Si el banco aún no está disponible sólo solicita su carga para un evento posterior.
+ */
 void CAEDoorAudioEntity::PlayDoorSound(int16 sfxId, eAudioEvents event, CVector& posn, float volumeDelta, float speed) {
     if (!AEAudioHardware.IsSoundBankLoaded(SND_BANK_GENRL_DOORS, SND_BANK_SLOT_DOORS)) {
         StaticInitialise();
@@ -130,6 +136,7 @@ void CAEDoorAudioEntity::PlayDoorSound(int16 sfxId, eAudioEvents event, CVector&
 }
 
 // 0x4DCA60
+// Completa automáticamente transiciones opening/closing hacia opened/closed y termina el loop.
 void CAEDoorAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) {
     if (curPlayPos <= 0)
         return;
@@ -196,6 +203,9 @@ void CAEDoorAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) {
 #endif
 }
 
+/**
+ * Registra la lógica de audio de puertas de garaje/entry-exit.
+ */
 void CAEDoorAudioEntity::InjectHooks() {
     RH_ScopedVirtualClass(CAEDoorAudioEntity, 0x85998C, 1);
     RH_ScopedCategory("Audio/Entities");
