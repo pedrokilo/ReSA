@@ -28,11 +28,22 @@ enum eSparkType : uint8 {
 };
 
 // original name unknown
+/**
+ * Asociación entre un FxSystem_c persistente y la entidad a la que está ligado.
+ * El nodo pertenece a Fx_c mientras permanezca en m_FxEntities.
+ */
 struct FxEntitySystem : public ListItem_c<FxEntitySystem> {
     FxSystem_c* m_System;
     CEntity*    m_Entity;
 };
 
+/**
+ * Facade global de los efectos visuales de gameplay.
+ *
+ * Mantiene sistemas de partículas estáticos reutilizables, efectos ligados a
+ * entidades y el estado temporal usado para batching de triángulos RenderWare.
+ * La creación/gestión profunda de sistemas se delega en g_fxMan.
+ */
 class Fx_c {
 public:
     FxSystem_c*             m_Blood;
@@ -52,7 +63,7 @@ public:
     FxSystem_c*             m_WaterSplash;
     FxSystem_c*             m_WheelDirt;
     FxSystem_c*             m_Glass;
-    TList_c<FxEntitySystem> m_FxEntities;
+    TList_c<FxEntitySystem> m_FxEntities; //!< Sistemas persistentes ligados a CEntity.
     uint32                  m_Randomizer;
 
     FxQuality_e             m_FxQuality;
