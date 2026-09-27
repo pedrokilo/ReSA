@@ -1,7 +1,14 @@
 #pragma once
 
+/**
+ * Controlador de un único stream reservado para cutscenes y beat tracks.
+ *
+ * Expone estados compactos al resto del juego, mientras Service() traduce la
+ * señalización interna de CAEAudioHardware a preload/play/stop.
+ */
 class CAECutsceneTrackManager {
 public:
+    // Estados internos conservados con sus valores binarios originales.
     enum Status : int32 {
         S0 = 0,
         S1 = 1,
@@ -20,13 +27,13 @@ public:
     bool   m_bPaused;
     int32  m_nAudioChannel;
     int32  m_nStatus;
-    uint32 m_nTrackId;
+    uint32 m_nTrackId;       //!< Track solicitado/preparado.
     int32  _f10;
     uint32 _f14;
     int32  _f18;
     int8   m_bIsUserTrack;
     char   _pad[4];
-    uint32 m_nPlayingTrackId;
+    uint32 m_nPlayingTrackId; //!< Track que el hardware informa como actualmente activo.
     int32  m_nTrackPlayTime;
     int32  m_nTrackLengthMs;
 
