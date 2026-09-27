@@ -33,6 +33,9 @@ typedef struct tNodeNamePlugin {
     RwChar name[NAME_LENGTH + 1];
 } NodeNamePluginInstance;
 
+/**
+ * Registra el plugin que añade un nombre corto persistente a cada RwFrame.
+ */
 void NodeNamePlugin::InjectHooks() {
     RH_ScopedNamespace(NodeNamePlugin);
     RH_ScopedCategory("Plugins");
@@ -60,6 +63,7 @@ static void* NodeNameDestructor(void* object, RwInt32 offsetInObject, RwInt32 si
 
 // internal
 // 0x72F9F0
+// Copia el nombre almacenado en el payload manteniendo el límite fijo del plugin.
 static void* NodeNameCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) {
     strncpy_s(RWPLUGINOFFSET(NodeNamePluginInstance, dstObject, gNodeNamePluginOffset)->name, RWPLUGINOFFSET(NodeNamePluginInstance, srcObject, gNodeNamePluginOffset)->name, NAME_LENGTH);
     return dstObject;
@@ -89,6 +93,9 @@ static RwInt32 NodeNameStreamGetSize(const void* object, RwInt32 offsetInObject,
     return 0;
 }
 
+/**
+ * Registra el payload de 24 bytes y sus callbacks de construcción, copia y streaming.
+ */
 RwBool NodeNamePluginAttach() {
     // register plugin
     gNodeNamePluginOffset = RwFrameRegisterPlugin(sizeof(NodeNamePluginInstance), rwID_NODENAMEPLUGIN, NodeNameConstructor, NodeNameDestructor, NodeNameCopy);
@@ -99,6 +106,7 @@ RwBool NodeNamePluginAttach() {
     return gNodeNamePluginOffset != -1;
 }
 
+// Devuelve la cadena alojada dentro del propio RwFrame cuando el plugin está disponible.
 const RwChar* GetFrameNodeName(RwFrame* frame) {
     if (gNodeNamePluginOffset > 0)
         return RWPLUGINOFFSET(NodeNamePluginInstance, frame, gNodeNamePluginOffset)->name;
@@ -106,6 +114,7 @@ const RwChar* GetFrameNodeName(RwFrame* frame) {
     return nullptr;
 }
 
+// Copia como máximo NAME_LENGTH caracteres y fuerza terminación nula.
 void SetFrameNodeName(RwFrame* frame, const RwChar* name) {
     if (gNodeNamePluginOffset > 0) {
         strncpy_s(RWPLUGINOFFSET(NodeNamePluginInstance, frame, gNodeNamePluginOffset)->name, name, NAME_LENGTH);
