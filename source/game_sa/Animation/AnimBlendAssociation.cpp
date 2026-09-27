@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "AnimBlendAssociation.h"
 
+/**
+ * Registra las operaciones del estado dinámico de reproducción de una animación.
+ */
 void CAnimBlendAssociation::InjectHooks() {
     RH_ScopedClass(CAnimBlendAssociation);
     RH_ScopedCategory("Animation");
@@ -103,6 +106,10 @@ CAnimBlendAssociation::CAnimBlendAssociation(CAnimBlendStaticAssociation& assoc)
 }
 
 // 0x4CECF0
+/**
+ * Libera los nodos por bone, se desenlaza del clump y retira la referencia al
+ * AnimBlock cuando esta asociación la había adquirido.
+ */
 CAnimBlendAssociation::~CAnimBlendAssociation() {
     if (m_BlendNodes) {
         CMemoryMgr::FreeAlign(m_BlendNodes);
@@ -118,6 +125,12 @@ float CAnimBlendAssociation::GetTimeProgress() const {
 }
 
 // 0x4CED50
+/**
+ * Construye el estado por nodo para una jerarquía concreta sobre @p clump.
+ *
+ * Cada secuencia se asigna al frame/bone correspondiente; los nodos sin secuencia
+ * permanecen válidos como slots vacíos para conservar el mismo orden que el clump.
+ */
 void CAnimBlendAssociation::Init(RpClump* clump, CAnimBlendHierarchy* animHierarchy) {
     CAnimBlendClumpData* animClumpData = RpAnimBlendClumpGetData(clump);
     m_NumBlendNodes = animClumpData->m_NumFrameData;
@@ -170,6 +183,7 @@ void CAnimBlendAssociation::Init(CAnimBlendStaticAssociation& assoc) {
 }
 
 // 0x4CEB70
+// Marca la asociación como activa y posiciona todas sus secuencias en el tiempo pedido.
 void CAnimBlendAssociation::Start(float currentTime) {
     m_Flags |= ANIMATION_IS_PLAYING;
     SetCurrentTime(currentTime);
@@ -206,6 +220,13 @@ void CAnimBlendAssociation::SetBlendTo(float blendAmount, float blendDelta) {
 }
 
 // 0x4CEA80
+/**
+ * Reposiciona la animación y sincroniza el keyframe activo de cada nodo.
+ *
+ * En animaciones looped normaliza el tiempo dentro de la duración total; en las
+ * no looped lo satura al final. Después prepara secuencias comprimidas o expandidas
+ * según la política de la jerarquía.
+ */
 void CAnimBlendAssociation::SetCurrentTime(float currentTime) {
     for (m_CurrentTime = currentTime; m_CurrentTime >= m_BlendHier->m_fTotalTime; m_CurrentTime -= m_BlendHier->m_fTotalTime) {
         if (!IsLooped()) {
@@ -247,11 +268,18 @@ void CAnimBlendAssociation::SetFinishCallback(void (*callback)(CAnimBlendAssocia
 }
 
 // 0x4CEB40
+// Conserva el mismo progreso relativo que otra asociación aunque sus duraciones difieran.
 void CAnimBlendAssociation::SyncAnimation(CAnimBlendAssociation* syncWith) {
     SetCurrentTime(syncWith->GetTimeProgress() * m_BlendHier->GetTotalTime());
 }
 
 // 0x4D1490
+/**
+ * Avanza el peso de mezcla y procesa la eliminación automática al llegar a cero.
+ *
+ * Si la asociación se autodestruye, ejecuta primero el callback configurado y
+ * devuelve false para advertir al llamador que this ya no es válido.
+ */
 bool CAnimBlendAssociation::UpdateBlend(float timeStep) {
     m_BlendAmount += m_BlendDelta * timeStep;
 
@@ -278,6 +306,12 @@ bool CAnimBlendAssociation::UpdateBlend(float timeStep) {
 }
 
 // 0x4D13D0
+/**
+ * Avanza el reloj de reproducción, aplica looping o fija el último frame al terminar.
+ *
+ * También arma el fade-out automático y dispara el callback de finalización cuando
+ * corresponda. El avance real por frame se encuentra en m_TimeStep.
+ */
 bool CAnimBlendAssociation::UpdateTime(float timeStep, float timeMult) {
     UNUSED(timeStep);
     UNUSED(timeMult);
@@ -327,6 +361,7 @@ bool CAnimBlendAssociation::UpdateTime(float timeStep, float timeMult) {
 }
 
 // 0x4D13A0
+// Calcula el incremento temporal del frame respetando sincronización y velocidad.
 void CAnimBlendAssociation::UpdateTimeStep(float timeStep, float totalTimeRecp) {
     if (IsPlaying()) {
         m_TimeStep = IsSyncronised()
@@ -341,6 +376,7 @@ bool CAnimBlendAssociation::HasFinished() const {
 }
 
 // 0x4CEA50
+// Adquiere exactamente una referencia al bloque para impedir su descarga durante el uso.
 void CAnimBlendAssociation::ReferenceAnimBlock() {
     if (m_Flags & ANIMATION_REFERENCE_BLOCK) {
         return;
