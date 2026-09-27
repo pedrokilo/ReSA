@@ -21,8 +21,20 @@ END GENERATED HOOK STATUS */
 #include "Pool.h"
 #include "TaskSimpleSlideToCoord.h"
 
+/**
+ * Pool especializado para tareas de IA, reservando tamaño suficiente para sus variantes derivadas.
+ *
+ * Hereda la administración de slots, handles y reutilización de memoria de CPool;
+ * esta clase fija el tipo almacenado y conecta sus operaciones con los hooks del juego.
+ * Los objetos obtenidos continúan perteneciendo al pool hasta que se liberan mediante
+ * la interfaz correspondiente de CPool.
+ */
 class CTaskPool : public CPool<CTask, CTaskSimpleSlideToCoord> {
 public:
+    /**
+     * Registra las operaciones específicas de CTaskPool en sus direcciones originales.
+     * La lógica común de administración de memoria permanece centralizada en CPool.
+     */
     static void InjectHooks() {
         RH_ScopedClass(CTaskPool);
         RH_ScopedCategory("Pools");
