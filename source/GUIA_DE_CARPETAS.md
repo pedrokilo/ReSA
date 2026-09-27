@@ -1,8 +1,8 @@
 # Guía de las carpetas de `source`
 
-Esta guía explica todas las carpetas y subcarpetas presentes en `source` al 23 de septiembre de 2026. Las rutas de las tablas son relativas a `source/` y enlazan a las carpetas correspondientes.
+Esta guía explica todas las carpetas y subcarpetas presentes en `source` al 26 de septiembre de 2026. Las rutas de las tablas son relativas a `source/` y enlazan a las carpetas correspondientes.
 
-Aquí conviven el código reconstruido de GTA San Andreas, la integración con Windows, las herramientas de depuración y las utilidades del proyecto. La existencia de una carpeta o clase no significa que toda su implementación esté reconstruida, habilitada o validada. Para consultar el avance, véase [el informe de clases](../docs/ReversedClasses.md).
+Aquí conviven el código reconstruido de GTA San Andreas, la integración con Windows, las herramientas de depuración y las utilidades del proyecto. La existencia de una carpeta o clase no significa que toda su implementación esté reconstruida, habilitada o validada. Para consultar el avance, véase [el informe de clases](../docs/ReversedClasses.md). Para comprobar que los hooks activos y el catálogo siguen sincronizados, usar `python contrib/audit_hook_catalog.py --strict` desde la raíz.
 
 ## Vista general
 
