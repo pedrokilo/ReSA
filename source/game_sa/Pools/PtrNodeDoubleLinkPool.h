@@ -21,8 +21,17 @@ END GENERATED HOOK STATUS */
 #include "Pool.h"
 #include "PtrNodeDoubleLink.h"
 
+/**
+ * Pool especializado para nodos genéricos de listas doblemente enlazadas.
+ *
+ * Reutiliza el almacenamiento administrado por CPool para evitar asignaciones
+ * dispersas y conservar el modelo de memoria esperado por el juego original.
+ */
 class CPtrNodeDoubleLinkPool : public CPool<CPtrNodeDoubleLink<void*>> {
 public:
+    /**
+     * Registra las operaciones con dirección propia de CPtrNodeDoubleLinkPool.
+     */
     static void InjectHooks() {
         RH_ScopedClass(CPtrNodeDoubleLinkPool);
         RH_ScopedCategory("Pools");
