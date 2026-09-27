@@ -47,6 +47,9 @@ static std::array<uint32, 48> s_EAXEnvironments = {
 };
 #endif
 
+/**
+ * Registra las operaciones comunes de un canal DirectSound.
+ */
 void CAEAudioChannel::InjectHooks() {
     RH_ScopedVirtualClass(CAEAudioChannel, 0x85F03C, 9);
     RH_ScopedCategory("Audio/Hardware");
@@ -66,6 +69,7 @@ void CAEAudioChannel::InjectHooks() {
 }
 
 // 0x4D7890
+// Inicializa formato PCM y estado lógico del canal sin crear todavía buffers DirectSound.
 CAEAudioChannel::CAEAudioChannel(IDirectSound* directSound, uint16 channelId, uint32 samplesPerSec, uint16 bitsPerSample) {
     m_pDirectSound               = directSound;
     m_nChannelId                 = channelId;
@@ -101,6 +105,12 @@ CAEAudioChannel::~CAEAudioChannel() {
 }
 
 // 0x4D7D00
+/**
+ * Aplica pitch relativo a la frecuencia original.
+ *
+ * Un factor 0 pausa el canal mediante fade/Stop; un factor posterior distinto de
+ * cero restaura reproducción y volumen conservando la posición actual.
+ */
 void CAEAudioChannel::SetFrequencyScalingFactor(float factor) {
     if (factor == 0.0F) {
         if (m_pDirectSoundBuffer &&
@@ -150,6 +160,7 @@ void CAEAudioChannel::SetPosition(const CVector& vecPos) const {
 }
 
 // 0x4D7C60
+// Usa smooth-fade para cambios grandes durante reproducción y escritura directa en el resto.
 void CAEAudioChannel::SetVolume(float volume) {
     if (!m_pDirectSoundBuffer)
         return;
@@ -211,6 +222,7 @@ void CAEAudioChannel::SetOriginalFrequency(uint32 freq) {
 }
 
 // 0x4D7BD0
+// Refresca flags del buffer y trata inmediatamente un buffer DirectSound perdido.
 void CAEAudioChannel::UpdateStatus() {
 #ifdef USE_DSOUND
     m_pDirectSoundBuffer->GetStatus(reinterpret_cast<LPDWORD>(&m_nBufferStatus));
