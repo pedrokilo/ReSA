@@ -21,8 +21,20 @@ END GENERATED HOOK STATUS */
 #include "Pool.h"
 #include <IplDef.h>
 
+/**
+ * Pool especializado para definiciones IPL cargadas por el mundo.
+ *
+ * Hereda la administración de slots, handles y reutilización de memoria de CPool;
+ * esta clase fija el tipo almacenado y conecta sus operaciones con los hooks del juego.
+ * Los objetos obtenidos continúan perteneciendo al pool hasta que se liberan mediante
+ * la interfaz correspondiente de CPool.
+ */
 class CIplDefPool : public CPool<IplDef> {
 public:
+    /**
+     * Registra las operaciones específicas de CIplDefPool en sus direcciones originales.
+     * La lógica común de administración de memoria permanece centralizada en CPool.
+     */
     static void InjectHooks() {
         RH_ScopedClass(CIplDefPool);
         RH_ScopedCategory("Pools");
