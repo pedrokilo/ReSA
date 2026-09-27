@@ -8,6 +8,9 @@
 
 #include "Building.h"
 
+/**
+ * Building cuyo RpClump requiere actualización de frame y HAnim antes del render.
+ */
 class NOTSA_EXPORT_VTABLE CAnimatedBuilding : public CBuilding {
 public:
     CAnimatedBuilding() : CBuilding() {}
