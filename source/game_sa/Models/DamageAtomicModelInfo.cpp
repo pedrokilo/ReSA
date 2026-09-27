@@ -22,6 +22,9 @@ END GENERATED HOOK STATUS */
 #include "CustomBuildingRenderer.h"
 #include "CarFXRenderer.h"
 
+/**
+ * Registra las operaciones del model info con variante dañada de RpAtomic.
+ */
 void CDamageAtomicModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CDamageAtomicModelInfo, 0x85BC30, 16);
@@ -50,6 +53,7 @@ void CDamageAtomicModelInfo::Init()
 }
 
 // 0x4C49D0
+// Destruye primero la plantilla dañada y delega después la limpieza de la normal a la base.
 void CDamageAtomicModelInfo::DeleteRwObject()
 {
     if (m_pDamagedAtomic) {
@@ -62,6 +66,10 @@ void CDamageAtomicModelInfo::DeleteRwObject()
     CAtomicModelInfo::DeleteRwObject();
 }
 
+/**
+ * Crea la versión normal o dañada según el selector global ms_bCreateDamagedVersion.
+ * La variante dañada se clona con un frame propio igual que una instancia atomic normal.
+ */
 RwObject* CDamageAtomicModelInfo::CreateInstance()
 {
     if (!CDamageAtomicModelInfo::ms_bCreateDamagedVersion)
@@ -91,6 +99,10 @@ RwObject* CDamageAtomicModelInfo::CreateInstance(RwMatrix* matrix)
     return reinterpret_cast<RwObject*>(atomic);
 }
 
+/**
+ * Registra la plantilla dañada y le aplica el pipeline especializado correspondiente.
+ * El puntero pasa a ser gestionado por este model info y se destruye en DeleteRwObject().
+ */
 void CDamageAtomicModelInfo::SetDamagedAtomic(RpAtomic* atomic)
 {
     m_pDamagedAtomic = atomic;
