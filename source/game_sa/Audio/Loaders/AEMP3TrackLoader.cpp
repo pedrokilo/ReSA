@@ -22,6 +22,9 @@ END GENERATED HOOK STATUS */
 #include "FileMgr.h"
 #include "MemoryMgr.h"
 
+/**
+ * Registra carga de tablas de tracks y detección de la fuente local/DVD.
+ */
 void CAEMP3TrackLoader::InjectHooks() {
     RH_ScopedClass(CAEMP3TrackLoader);
     RH_ScopedCategory("Audio/Loaders");
@@ -54,6 +57,10 @@ CAEMP3TrackLoader::~CAEMP3TrackLoader() {
 }
 
 // 0x4E0C50
+/**
+ * Carga STRMPAKS.DAT/TRAKLKUP.DAT y comprueba primero AUDIO\\STREAMS local.
+ * Si no está disponible, intenta resolver la ruta de medios del DVD.
+ */
 bool CAEMP3TrackLoader::Initialise() {
     if (!LoadStreamPackTable() || !LoadTrackLookupTable())
         return false;
@@ -77,6 +84,7 @@ bool CAEMP3TrackLoader::Initialise() {
 }
 
 // 0x4E0970
+// Carga la tabla fija de nombres de paquetes de streaming en memoria propia.
 bool CAEMP3TrackLoader::LoadStreamPackTable(void) {
     // NOTSA: Originally Win32 file API was used.
     auto* fp = fopen("AUDIO\\CONFIG\\STRMPAKS.DAT", "rb");
@@ -108,6 +116,7 @@ bool CAEMP3TrackLoader::LoadStreamPackTable(void) {
 }
 
 // 0x4E09F0
+// Carga para cada track su pack, offset y tamaño dentro del archivo de streams.
 bool CAEMP3TrackLoader::LoadTrackLookupTable(void) {
     // NOTSA: Originally Win32 file API was used.
     auto* fp = fopen("AUDIO\\CONFIG\\TRAKLKUP.DAT", "rb");
@@ -139,6 +148,12 @@ bool CAEMP3TrackLoader::LoadTrackLookupTable(void) {
 }
 
 // 0x4E0A70
+/**
+ * Lee únicamente la cabecera tTrackInfo almacenada al principio del track cifrado.
+ *
+ * La cadena path se transfiere a CAEDataStream; el stream temporal la destruye al
+ * finalizar. El tTrackInfo devuelto sí pasa a ser responsabilidad del llamador.
+ */
 tTrackInfo* CAEMP3TrackLoader::GetTrackInfo(uint32 trackId) {
     if (trackId >= m_nTrackCount)
         return nullptr;
@@ -179,6 +194,7 @@ tTrackInfo* CAEMP3TrackLoader::GetTrackInfo(uint32 trackId) {
 }
 
 // 0x4E0BD0
+// Obtiene la ruta del medio y valida que el primer stream pack exista allí.
 bool CAEMP3TrackLoader::IsCurrentAudioStreamAvailable() {
     if (m_pszDvdDrivePath = getDvdGamePath()) {
         const auto dvdPath = std::format("{}\\AUDIO\\STREAMS\\{}", getDvdGamePath(), m_paStreamPacks[0].m_szName);
