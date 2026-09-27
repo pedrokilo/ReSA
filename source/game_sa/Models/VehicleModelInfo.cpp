@@ -46,6 +46,9 @@ auto& gpWhiteTexture = StaticRef<RwTexture*>(0xB4E3EC);
 auto& fEnvMapDefaultCoeff = StaticRef<float>(0x8A7780);
 auto& fRearDoubleWheelOffsetFactor = StaticRef<float>(0x8A7784);
 
+/**
+ * Registra las operaciones de configuración, extras, materiales y upgrades de vehículos.
+ */
 void CVehicleModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CVehicleModelInfo, 0x85C5C8, 17);
@@ -139,6 +142,9 @@ void CVehicleModelInfo::InjectHooks()
     RH_ScopedGlobalInstall(GetOkAndDamagedAtomicCB, 0x4C7BD0);
 }
 
+/**
+ * Inicializa colecciones opcionales, remaps y upgrades antes de cargar el clump real.
+ */
 CVehicleModelInfo::CVehicleModelInfo() : CClumpModelInfo()
 {
     m_pVehicleStruct = nullptr;
@@ -165,6 +171,7 @@ void CVehicleModelInfo::Init()
 }
 
 // 0x4C9890
+// Libera la estructura derivada de componentes y delega el resto del clump a la clase base.
 void CVehicleModelInfo::DeleteRwObject()
 {
     delete m_pVehicleStruct;
@@ -173,6 +180,12 @@ void CVehicleModelInfo::DeleteRwObject()
 }
 
 // 0x4C9680
+/**
+ * Clona el vehículo base y materializa hasta dos extras elegidos por las reglas del modelo.
+ *
+ * Los atomics extra se clonan con frames propios y se anexan al clump de la instancia;
+ * ms_compsUsed registra cuáles fueron seleccionados para el siguiente procesamiento.
+ */
 RwObject* CVehicleModelInfo::CreateInstance()
 {
     auto clump = reinterpret_cast<RpClump*>(CClumpModelInfo::CreateInstance());
@@ -221,6 +234,7 @@ RwObject* CVehicleModelInfo::CreateInstance()
 }
 
 // 0x4C7670
+// Conserva temporalmente el nombre del AnimBlock hasta resolverlo a índice.
 void CVehicleModelInfo::SetAnimFile(const char* filename)
 {
     if (!strcmp(filename, "null")) {
@@ -252,6 +266,12 @@ int32 CVehicleModelInfo::GetAnimFileIndex()
 }
 
 // 0x4C95C0
+/**
+ * Instala el clump base, crea CVehicleStructure y preprocesa componentes/render callbacks.
+ *
+ * A partir de aquí la estructura auxiliar conserva dummies, extras y posiciones de
+ * upgrades extraídas de la jerarquía del modelo.
+ */
 void CVehicleModelInfo::SetClump(RpClump* clump)
 {
     m_pVehicleStruct = new CVehicleStructure();
