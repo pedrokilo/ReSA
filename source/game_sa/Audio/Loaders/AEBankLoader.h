@@ -68,6 +68,9 @@ struct AEAudioStream {
 #pragma warning(pop)
 VALIDATE_SIZE(AEAudioStream, 0x12C4 /* + samples*/);
 
+/**
+ * Estado de una solicitud asíncrona para cargar un banco completo o un único sample.
+ */
 class CAESoundRequest {
 public:
     CAEBankSlot*        SlotInfo{};                              //!< Slot's info (Same as `&m_BankSlots[Slot]`)
@@ -83,6 +86,12 @@ public:
 };
 VALIDATE_SIZE(CAESoundRequest, 0x20);
 
+/**
+ * Base de carga de bancos SFX.
+ *
+ * Administra metadatos de slots/bancos/PAK, un buffer compartido para samples y
+ * una cola fija de solicitudes que las subclases procesan mediante CdStream.
+ */
 class CAEBankLoader {
 public:
     static void InjectHooks();
@@ -119,9 +128,9 @@ protected:
     uint16                          __pad1{};
     bool                            m_IsInitialised{};
     uint32                          m_BufferSize{};
-    uint8*                          m_Buffer{};
+    uint8*                          m_Buffer{}; //!< Almacenamiento contiguo de todos los bank slots.
     int32*                          m_StreamHandles{};
-    std::array<CAESoundRequest, 50> m_Requests{};
+    std::array<CAESoundRequest, 50> m_Requests{}; //!< Cola circular fija de cargas pendientes.
     uint16                          m_NextOneSoundReqIdx{};
     uint16                          m_RequestCnt{};
     uint16                          m_NextRequestIdx{};
