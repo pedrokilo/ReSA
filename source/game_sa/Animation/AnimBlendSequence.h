@@ -12,7 +12,11 @@
 #undef MoveMemory
 
 /*!
- * @brief Animation key-frames of a single node (bone)
+ * @brief Secuencia de keyframes que anima un único nodo/bone.
+ *
+ * Puede identificar el destino por eBoneTag o por hash de nombre y almacenar sus
+ * frames comprimidos o expandidos. m_bUsingExternalMemory distingue buffers prestados
+ * de memoria propiedad de la secuencia.
  */
 class CAnimBlendSequence {
 public:
@@ -38,10 +42,10 @@ public:
     bool HasTranslation() const { return m_bHasTranslation; }
 
     /*!
-     * @brief Used to implement copy-paste functions
-     * @tparam AsCompressed Whenever `IsCompressed()` is returning true/false at the runtime.
-     * @param n The index of the key-frame
-     * @return The `n`th key-frame
+     * @brief Acceso tipado común para keyframes comprimidos o expandidos.
+     * @tparam AsCompressed Debe coincidir con IsCompressed() en tiempo de ejecución.
+     * @param n Índice del keyframe.
+     * @return Puntero al keyframe solicitado.
     */
     template<bool AsCompressed>
     auto GetKeyFrame(size_t n) const {
@@ -90,17 +94,16 @@ public:
 
 private:
     /*!
-     * @brief Implementation for compression/decompression of key-frames
-     * @tparam From Key-Frame type to convert from
-     * @tparam To Key-Frame type to convert to
-     * @param [opt] frameData Pre-allocated frame data buffer
+     * @brief Implementación común de compresión/descompresión del array completo.
+     * @tparam From Tipo de keyframe de origen.
+     * @tparam To Tipo de keyframe de destino.
+     * @param pDataBlock Buffer externo opcional donde escribir la conversión.
     */
     template<typename From, typename To>
     bool ConvertKeyFrames(byte* pDataBlock);
 
 private:
-    //! The bone/frame this sequence is associated with
-    //! Thanks to jte for some info
+    //! Identificador del bone/frame asociado; la interpretación depende de m_IsUsingBoneTag.
     union {
         eBoneTag16 m_BoneTag{BONE_UNKNOWN};  // IF m_IsUsingBoneTag == TRUE
         uint32     m_NameHashKey;          // IF m_IsUsingBoneTag == FALSE
@@ -108,9 +111,9 @@ private:
 
 public:
     uint16 m_bHasRotation : 1{};
-    uint16 m_bHasTranslation : 1{};      // Root key frames have translation values (quaternion).
-    uint16 m_bIsCompressed : 1{};        // Compressed key frames.
-    uint16 m_bUsingExternalMemory : 1{}; // When this flag is NOT set, you have to loop through all key frames in m_pFrames and free them separately.
+    uint16 m_bHasTranslation : 1{};      // La secuencia almacena traslación además de rotación.
+    uint16 m_bIsCompressed : 1{};        // m_Frames usa el formato comprimido.
+    uint16 m_bUsingExternalMemory : 1{}; // El buffer fue proporcionado externamente y no debe liberarse aquí.
     uint16 m_IsUsingBoneTag : 1{};
     uint16 m_FramesNum{};
     void*  m_Frames{};
