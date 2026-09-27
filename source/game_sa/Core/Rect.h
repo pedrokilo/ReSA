@@ -8,7 +8,12 @@
 
 #include "Vector2D.h"
 
-/* CRect class describes a rectangle.
+/* CRect describe un rectángulo alineado con los ejes.
+
+    La nomenclatura left/top/right/bottom procede de la estructura original y
+    convive con una orientación de Y que puede resultar poco intuitiva. Por ello
+    conviene usar las operaciones de la propia clase en lugar de reinterpretar
+    manualmente sus límites.
 
     A(left;top)_____________________→
     |                               |
@@ -20,7 +25,8 @@
 
 class CRect {
 public:
-    // Init in flipped state
+    // El estado por defecto queda deliberadamente "flipped". Esto permite usar
+    // StretchToPoint() para construir progresivamente un rectángulo desde puntos.
     //union {
     //    struct {
     //        CVector2D tl{1000000.0F, -1000000.0F};
@@ -74,24 +80,30 @@ public:
     {
     }
 
-    /// A rect that can fit a circle of `radius` inside with `center` being the center
+    /// Construye el rectángulo delimitador de un círculo con centro y radio dados.
     constexpr CRect(const CVector2D& center, float radius) :
         CRect{ center.x - radius, center.y - radius, center.x + radius, center.y + radius }
     {
     }
 
+    // Detecta límites todavía invertidos o inválidos según la convención de CRect.
     [[nodiscard]] constexpr inline bool IsFlipped() const { // 0x404190
         return left > right || bottom > top;
     }
 
+    // Ajusta los límites para abarcar también restriction.
     void Restrict(const CRect& restriction);
+    // Desplaza simétricamente los cuatro bordes por las cantidades indicadas.
     void Resize(float resizeX, float resizeY);
+    // Comprueba inclusión con bordes incluidos.
     [[nodiscard]] bool IsPointInside(CVector2D const& point) const;
+    // Permite una tolerancia adicional alrededor de los cuatro bordes.
     [[nodiscard]] bool IsPointInside(CVector2D const& point, float tolerance) const;
     [[nodiscard]] bool IsRectInside(const CRect& rect) const; // NOTSA (or maybe it is?)
     void SetFromCenter(float x, float y, float size);
     void GetCenter(float* x, float* y) const;
     [[nodiscard]] inline CVector2D GetCenter() const { return { (right + left) * 0.5F, (bottom + top) * 0.5F }; }
+    // Expande sólo los límites que sean necesarios para incluir el punto.
     void StretchToPoint(float x, float y);
 
     CVector2D GetTopLeft() const { return { left, top }; }
@@ -99,19 +111,19 @@ public:
 
     /*!
     * @addr notsa
-    * @brief Constrain a point into the rectangle.
+    * @brief Restringe un punto para que quede dentro del rectángulo.
     *
-    * @param pt The point to constrain
+    * @param pt Punto que se ajustará in-place.
     *
-    * @return Whenever the point was constrained
+    * @return true si alguna coordenada fue modificada.
     */
     bool DoConstrainPoint(CVector2D& pt) const;
 
     /*!
     * @addr notsa
-    * @brief Get corners of this rect (Order: top left, top right, bottom right, bottom left)
+    * @brief Obtiene las esquinas en orden: superior izquierda, superior derecha, inferior derecha e inferior izquierda.
     * 
-    * @param z The Z position to be used for all corners
+    * @param z Coordenada Z común para las cuatro esquinas.
     */
     auto GetCorners3D(float z) const -> std::array<CVector, 4> {
         return {
@@ -124,13 +136,13 @@ public:
     
     /*!
     * @notsa
-    * @brief Check if this rect collides with another
+    * @brief Comprueba si este rectángulo se solapa con otro, incluyendo sus bordes.
     */
     bool OverlapsWith(const CRect& o) const;
 
     /*!
     * @notsa
-    * @brief Check if this rectangle is inside another one
+    * @brief Comprueba si el rectángulo recibido está contenido por completo en éste.
     */
     bool Contains(const CRect& o) const;
 
