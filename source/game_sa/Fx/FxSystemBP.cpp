@@ -25,6 +25,9 @@ END GENERATED HOOK STATUS */
 
 #include "FxTools.h"
 
+/**
+ * Registra el ciclo de vida y carga de los blueprints de sistemas FX.
+ */
 void FxSystemBP_c::InjectHooks() {
     RH_ScopedClass(FxSystemBP_c);
     RH_ScopedCategory("Fx");
@@ -42,6 +45,7 @@ void FxSystemBP_c::InjectHooks() {
 }
 
 // 0x4AA100
+// Los blueprints se almacenan en la arena FX porque viven durante todo el proyecto cargado.
 void* FxSystemBP_c::operator new(unsigned size) {
     return g_fxMan.GetMemPool().GetMem(size);
 }
@@ -67,6 +71,12 @@ FxSystemBP_c* FxSystemBP_c::Destructor() {
 }
 
 // 0x5C05F0
+/**
+ * Parsea una definición de sistema desde effects.fxp y crea sus primitivos emitter.
+ *
+ * Primero recoge nombres de textura y configuración; las texturas se cargan al final
+ * una vez conocidas todas las primitivas del sistema.
+ */
 void FxSystemBP_c::Load(Const char* filename, FILESTREAM file, int32 version) {
     assert(file);
 
@@ -165,6 +175,7 @@ void FxSystemBP_c::Render(RwCamera* camera, float dayNightBalance, bool bHeatHaz
 }
 
 // 0x4AA1B0
+// Solicita a cada primitiva liberar la partícula indicada y se detiene al encontrarla.
 bool FxSystemBP_c::FreePrtFromSystem(FxSystem_c* system) {
     if (m_nNumPrims <= 0)
         return false;
@@ -183,6 +194,7 @@ FxSphere_c* FxSystemBP_c::GetBoundingSphere() const {
 }
 
 // 0x4AA200
+// Crea el bound una sola vez y únicamente para radios positivos.
 void FxSystemBP_c::SetBoundingSphere(const CVector& center, float radius) {
     if (!m_BoundingSphere && radius > 0.0f) {
         m_BoundingSphere = new (false) FxSphere_c();
