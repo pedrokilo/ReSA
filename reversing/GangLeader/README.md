@@ -10,6 +10,8 @@ El original verificado tiene SHA-256 `72ae59e44c761389e354a50dc6215e964fe771121e
 
 Se retiran `.enabled = false, .locked = true` únicamente de este registro. Los otros diez bloqueos de la clase permanecen. El CSV conserva `reversed=1`, dirección virtual catalogada cero y tipo V; solo cambia `locked=1` a `0`. Totales: 619 locks, 85 aplazados de las cuatro clases completas.
 
+> **Nota de vigencia:** esos 619 locks y 85 aplazados corresponden al cierre histórico de esta entrega. El catálogo vigente se amplió después de la auditoría de hooks; consultar [ReversedClasses.md](../../docs/ReversedClasses.md) para los totales actuales.
+
 ## Evidencia dentro del motor
 
 Banco aprobado `20260924-203415-111032`: **24 pares exactos**, ocho valores del timer y tres rutas: entrada del EXE, entrada de la tabla GTA y llamada virtual C++ mediante CTask. Utiliza dos objetos locales independientes, sin peatones ni grupos activos. Se ejecuta en FrontendIdle, desde el menú del motor; no es una sesión jugable.
