@@ -21,6 +21,9 @@ END GENERATED HOOK STATUS */
 #include "FxPrimBP.h"
 #include "FxTools.h"
 
+/**
+ * Registra la carga común y recuperación de matriz de los blueprints de primitivas FX.
+ */
 void FxPrimBP_c::InjectHooks() {
     RH_ScopedClass(FxPrimBP_c);
     RH_ScopedCategory("Fx");
@@ -35,6 +38,7 @@ FxPrimBP_c::FxPrimBP_c() {
 }
 
 // 0x4A9D20
+// Libera todas las texturas adquiridas por la primitiva y anula sus punteros.
 FxPrimBP_c::~FxPrimBP_c() {
     // FIX_BUGS: They forgot destroy third texture (texture 3 destroyed twice)
     for (auto& texture : m_apTextures) {
@@ -44,6 +48,7 @@ FxPrimBP_c::~FxPrimBP_c() {
 }
 
 // 0x4A9DC0
+// Expande la matriz compacta si existe; la ausencia de datos representa identidad.
 void FxPrimBP_c::GetRWMatrix(RwMatrix& outMatrix) {
     if (m_pMatrixBuffered) {
         m_pMatrixBuffered->CopyToRwMatrix(outMatrix);
@@ -53,6 +58,10 @@ void FxPrimBP_c::GetRWMatrix(RwMatrix& outMatrix) {
 }
 
 // 0x5C2010
+/**
+ * Lee la sección base de una primitiva: matriz, nombres de texturas, alpha/blend
+ * y bloques FxInfo. La matriz identidad se representa con nullptr para ahorrar memoria.
+ */
 bool FxPrimBP_c::Load(FILESTREAM file, int32 version, FxName32_t* textureNames) {
     char line[256], field[128];
 
