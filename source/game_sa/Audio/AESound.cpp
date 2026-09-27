@@ -31,6 +31,9 @@ END GENERATED HOOK STATUS */
 #include "AEAudioHardware.h"
 #include "AEAudioUtility.h"
 
+/**
+ * Registra el estado y cálculos de una voz lógica antes de asignarla al hardware.
+ */
 void CAESound::InjectHooks() {
     RH_ScopedClass(CAESound);
     RH_ScopedCategory("Audio");
@@ -84,11 +87,18 @@ CAESound::CAESound(
     SetPosition(pos);
 }
 
+// Al destruir la voz elimina cualquier referencia segura a la entidad física asociada.
 CAESound::~CAESound() {
     UnregisterWithPhysicalEntity();
 }
 
 // 0x4EF680
+/**
+ * Copia todo el estado lógico conservando correctamente el seguimiento de EntityRef.
+ *
+ * La entidad física se reasigna desde el puntero crudo para registrar esta instancia
+ * como nuevo observador, en lugar de copiar ciegamente el estado interno de referencia.
+ */
 CAESound& CAESound::operator=(const CAESound& other) {
     if (this == &other) {
         return *this;
@@ -180,6 +190,12 @@ void CAESound::SetFlags(uint16 envFlag, uint16 bEnabled) {
 }
 
 // 0x4EF2E0
+/**
+ * Avanza el tiempo lógico cuando la voz aún no está reproduciéndose físicamente.
+ *
+ * Al alcanzar el final, termina la voz o la reubica en loopStartTime. El bugfix
+ * existente evita módulo por cero cuando faltan datos de audio.
+ */
 void CAESound::UpdatePlayTime(int16 soundLength, int16 loopStartTime, int16 playProgress) {
     m_Length = soundLength;
 
@@ -225,6 +241,7 @@ void CAESound::GetRelativePosition(CVector* outVec) const {
 }
 
 // 0x4EF390
+// Calcula una velocidad de escucha con variación aleatoria limitada por m_SpeedVariance.
 void CAESound::CalculateFrequency() {
     m_ListenerSpeed = m_SpeedVariance <= 0.f || m_SpeedVariance >= m_Speed
         ? m_Speed
@@ -253,6 +270,7 @@ float CAESound::GetSlowMoFrequencyScalingFactor() const {
 }
 
 // 0x4EF7A0
+// Reinicia flags de hardware y calcula headroom/frecuencia al entrar a la lista VPSL.
 void CAESound::NewVPSLEntry() {
     m_IsPhysicallyPlaying  = false;
     m_HasRequestedStopped  = false;
@@ -278,6 +296,10 @@ void CAESound::StopSoundAndForget() {
 }
 
 // 0x4EF880
+/**
+ * Actualiza posición, distancia a cámara y timestamps preservando la muestra anterior.
+ * Sólo desplaza el estado previo una vez por frame, requisito del cálculo Doppler.
+ */
 void CAESound::SetPosition(CVector pos) {
     const auto dist = DistanceBetweenPoints(pos, TheCamera.GetPosition());
     if (!m_LastFrameUpdatedAt) { // 0x4EF898
@@ -296,6 +318,7 @@ void CAESound::SetPosition(CVector pos) {
 }
 
 // 0x4EFA10
+// Combina volumen base/headroom con atenuación direccional y distancia salvo frontend.
 void CAESound::CalculateVolume() {
     m_ListenerVolume = m_Volume - m_Headroom;
     if (!IsFrontEnd()) {
@@ -305,6 +328,10 @@ void CAESound::CalculateVolume() {
 }
 
 // 0x4EFF50
+/**
+ * Sincroniza la voz con su entidad física y solicita al CAEAudioEntity propietario
+ * cualquier actualización específica mientras SOUND_REQUEST_UPDATES permanezca activo.
+ */
 void CAESound::UpdateParameters(int16 curPlayPos) {
     if (IsLifespanTiedToPhysicalEntity()) {
         if (m_PhysicalEntity) {
