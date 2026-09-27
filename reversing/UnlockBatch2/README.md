@@ -19,6 +19,8 @@ CFileMgr conserva sus trece bloqueos. Su último banco falló en LoadFile: el or
 
 El CSV actualiza únicamente los diez flags validados. Los totales siguen en 614 clases completas, 85 parciales, 2 sin revertir, 7.485/8.014 entradas y 529 pendientes. Candados registrados: **620**. No garantiza estabilidad general ni sustituye la campaña integral futura.
 
+> **Nota de vigencia:** estas cifras corresponden al cierre de esta entrega del 23 de septiembre. El catálogo vigente incorporó owners activos antes omitidos y se consulta en [ReversedClasses.md](../../docs/ReversedClasses.md). Los diez desbloqueos y sus evidencias no cambian por esa ampliación del denominador.
+
 
 ## ASI normal e integración de esta entrega
 
