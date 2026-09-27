@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 #include "AETrackLoader.h"
 #include "FileMgr.h"
 
+/**
+ * Registra la creación de CAEDataStream para tracks empaquetados.
+ */
 void CAETrackLoader::InjectHooks() {
     RH_ScopedClass(CAETrackLoader);
     RH_ScopedCategory("Audio/Loaders");
@@ -27,6 +30,13 @@ void CAETrackLoader::InjectHooks() {
     RH_ScopedInstall(GetDataStream, 0x4E0D20);
 }
 
+/**
+ * Construye un stream lógico sobre la sección de audio de un track.
+ *
+ * Salta sizeof(tTrackInfo) porque esa cabecera se consume por separado. La cadena
+ * path pasa a ser propiedad de CAEDataStream, que también aplica el transformador
+ * al tratar estos tracks como cifrados.
+ */
 CAEDataStream* CAETrackLoader::GetDataStream(uint32 trackId) {
     if (trackId >= m_nTrackCount)
         return nullptr;
