@@ -9,8 +9,19 @@
 // CRC-32-IEEE
 // https://www.xilinx.com/support/documentation/application_notes/xapp209.pdf
 
+/**
+ * Generador de identificadores CRC-32 utilizado para convertir cadenas del juego
+ * en claves numéricas estables.
+ *
+ * Varias tablas y sistemas de datos almacenan estas claves en lugar del texto
+ * original. Las variantes permiten continuar un CRC existente, limitar la longitud
+ * procesada o normalizar letras ASCII a mayúsculas antes de calcularlo.
+ */
 class CKeyGen {
 public:
+    // Continúa un CRC ya iniciado incorporando una cadena terminada en '\0'.
+    // Es útil cuando la clave se construye concatenando varios fragmentos sin
+    // materializar primero una cadena temporal completa.
     // 0x53CF70
     [[nodiscard]] static constexpr uint32 AppendStringToKey(uint32 key, const char* str) noexcept {
         for (int32 i = 0; str[i]; ++i) {
@@ -19,6 +30,7 @@ public:
         return key;
     }
 
+    // Calcula la clave CRC de una cadena completa respetando sus mayúsculas/minúsculas.
     // 0x53CF00
     [[nodiscard]] static constexpr uint32 GetKey(const char* str) noexcept {
         uint32 key = INITIAL_REMAINDER;
@@ -28,6 +40,8 @@ public:
         return key;
     }
 
+    // Calcula la clave de exactamente size bytes; no requiere terminador nulo dentro
+    // del rango indicado y por ello puede trabajar con segmentos de buffers.
     // 0x53CED0
     [[nodiscard]] static constexpr uint32 GetKey(const char* str, int32 size) noexcept {
         uint32 key = INITIAL_REMAINDER;
@@ -37,6 +51,8 @@ public:
         return key;
     }
 
+    // Calcula la clave después de normalizar caracteres ASCII a mayúsculas, evitando
+    // que diferencias de capitalización produzcan identificadores distintos.
     // 0x53CF30
     [[nodiscard]] static constexpr uint32 GetUppercaseKey(const char* str) noexcept {
         uint32 key = INITIAL_REMAINDER;
@@ -46,6 +62,8 @@ public:
         return key;
     }
 
+    // Variante por rango [begin, end) que permite hashear una subcadena sin copiarla
+    // ni exigir que termine en '\0'.
     [[nodiscard]] static constexpr uint32 GetUppercaseKey(const char* begin, const char* end) noexcept {
         uint32 key = INITIAL_REMAINDER;
         for (auto i = begin; i != end; i++) {
@@ -55,6 +73,8 @@ public:
     }
 
 private:
+    // Normalización ASCII deliberadamente mínima: el algoritmo original sólo necesita
+    // convertir 'a'..'z' y deja sin alterar el resto de valores.
     static constexpr char ToUppercase(char x) {
         return ('a' <= x && x <= 'z') ? x - 0x20 : x;
     }
@@ -62,8 +82,10 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    // Resto inicial estándar empleado por esta variante de CRC-32.
     static constexpr uint32 INITIAL_REMAINDER = 0xFFFFFFFF;
 
+    // Tabla precalculada del polinomio CRC-32-IEEE; evita calcular cada paso bit a bit.
     // 0x8CD068
     // https://web.mit.edu/freebsd/head/sys/libkern/crc32.c -- 0xEDB88320
     static constexpr uint32 KeyTable[256] = {
