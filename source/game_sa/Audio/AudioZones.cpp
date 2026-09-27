@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "AudioZones.h"
 
+/**
+ * Registra el catálogo y actualización espacial de AudioZones.
+ */
 void CAudioZones::InjectHooks() {
     RH_ScopedClass(CAudioZones);
     RH_ScopedCategory("Audio");
@@ -42,6 +45,7 @@ void CAudioZones::Init() {
 }
 
 // 0x508240
+// Añade una zona AABB comprimida al siguiente slot disponible del array global.
 void CAudioZones::RegisterAudioBox(char name[8], int32 id, bool isActive, CVector min, CVector max) {
 
     tAudioZoneBox audioZoneBox;
@@ -53,6 +57,7 @@ void CAudioZones::RegisterAudioBox(char name[8], int32 id, bool isActive, CVecto
 }
 
 // 0x5081C0
+// Añade una zona esférica al catálogo global conservando nombre, ID y estado activo.
 void CAudioZones::RegisterAudioSphere(char name[8], int32 id, bool isActive, CVector position, float radius) {
     tAudioZoneSphere audioZoneSphere;
     strcpy_s(audioZoneSphere.m_szName, name);
@@ -64,6 +69,7 @@ void CAudioZones::RegisterAudioSphere(char name[8], int32 id, bool isActive, CVe
 }
 
 // 0x508320
+// Activa/desactiva todas las zonas cuyo nombre coincide sin distinguir mayúsculas.
 void CAudioZones::SwitchAudioZone(const char* zoneName, bool enable) {
     for (auto& sphere : GetAvailableSpheres()) {
         if (!_stricmp(zoneName, sphere.m_szName))
@@ -77,6 +83,12 @@ void CAudioZones::SwitchAudioZone(const char* zoneName, bool enable) {
 }
 
 // 0x5083C0
+/**
+ * Recalcula qué zonas contienen la posición dada.
+ *
+ * Salvo forceUpdate, limita el coste mediante una comprobación periódica y por
+ * distancia recorrida. Los arrays activos guardan índices hacia los catálogos fijos.
+ */
 void CAudioZones::Update(bool forceUpdate, CVector posn) {
     ZoneScoped;
 
