@@ -46,6 +46,12 @@ struct BreakInfo_t {
 };
 VALIDATE_SIZE(BreakInfo_t, 0x34);
 
+/**
+ * Payload mínimo anexado a RpGeometry.
+ *
+ * El mismo campo se interpreta primero como cabecera de sección y, una vez cargado,
+ * como puntero al BreakInfo_t contenido en un BreakablePluginData dinámico.
+ */
 struct BreakablePlugin {
     union {
         uint32       m_SectionHeader;
@@ -58,6 +64,12 @@ struct BreakablePlugin {
 };
 VALIDATE_SIZE(BreakablePlugin, 0x4);
 
+/**
+ * Bloque de tamaño variable que empaqueta BreakInfo_t seguido de todos sus arrays.
+ *
+ * Los helpers calculan cada offset en función del número de vértices, triángulos y
+ * materiales para mantener una sola asignación propietaria y punteros internos estables.
+ */
 struct BreakablePluginData {
     BreakInfo_t m_Info;
 
