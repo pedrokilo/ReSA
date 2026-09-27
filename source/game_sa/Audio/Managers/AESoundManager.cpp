@@ -28,6 +28,9 @@ END GENERATED HOOK STATUS */
 
 auto& AESoundManager = StaticRef<CAESoundManager>(0xB62CB0);
 
+/**
+ * Registra la planificación de voces virtuales sobre los canales físicos disponibles.
+ */
 void CAESoundManager::InjectHooks() {
     RH_ScopedClass(CAESoundManager);
     RH_ScopedCategory("Audio/Managers");
@@ -49,6 +52,12 @@ void CAESoundManager::InjectHooks() {
 }
 
 // 0x5B9690
+/**
+ * Reserva canales hardware y arrays auxiliares de planificación.
+ *
+ * Las 300 CAESound permanecen preasignadas como voces virtuales; sólo un subconjunto
+ * cabe simultáneamente en los canales físicos devueltos por AEAudioHardware.
+ */
 bool CAESoundManager::Initialise() {
     const auto availChannels = AEAudioHardware.GetNumAvailableChannels();
     if (availChannels <= 10) {
@@ -110,6 +119,13 @@ void CAESoundManager::PauseManually(uint8 bPause) {
 }
 
 // 0x4F0000
+/**
+ * Sincroniza cada frame las voces virtuales con los canales físicos.
+ *
+ * Actualiza tiempo/posición/volumen, mantiene sonidos uncancellable, prioriza el resto
+ * por sus parámetros audibles, detiene voces desplazadas y asigna los canales libres.
+ * Finalmente actualiza volumen, Doppler y pausa sobre los sonidos que siguen físicos.
+ */
 void CAESoundManager::Service() {
     // Clear sounds uncancellable status for this frame
     std::fill_n(m_PrioritisedSoundList, m_NumAllocatedPhysicalChannels, -1);
@@ -349,6 +365,10 @@ void CAESoundManager::Service() {
 }
 
 // 0x4EFB10
+/**
+ * Copia una voz temporal al primer slot virtual libre y solicita al hardware la
+ * metadata necesaria para duración/loop de ese índice.
+ */
 CAESound* CAESoundManager::RequestNewSound(CAESound* pSound) {
     size_t sidx;
     auto   s = GetFreeSound(&sidx);
@@ -368,6 +388,10 @@ CAESound* CAESoundManager::RequestNewSound(CAESound* pSound) {
     return s;
 }
 
+/**
+ * Helper NOTSA que construye una CAESound temporal desde parámetros de alto nivel
+ * y la entrega a RequestNewSound().
+ */
 CAESound* CAESoundManager::PlaySound(tSoundPlayParams p) {
     if (p.RegisterWithEntity) {
         p.Flags |= SOUND_LIFESPAN_TIED_TO_PHYSICAL_ENTITY;
@@ -500,6 +524,7 @@ int16 CAESoundManager::GetVirtualChannelForPhysicalChannel(int16 physicalChannel
 }
 
 // NOTSA
+// Busca linealmente el primer slot virtual marcado como inactivo.
 CAESound* CAESoundManager::GetFreeSound(size_t* outIdx) {
     for (auto&& [i, s] : rngv::enumerate(m_VirtuallyPlayingSoundList)) {
         if (!s.IsActive()) {
