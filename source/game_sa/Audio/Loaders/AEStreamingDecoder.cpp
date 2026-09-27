@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include "AEStreamingDecoder.h"
 
 // 0x4f2810
+// Adopta el CAEDataStream recibido e intenta abrirlo inmediatamente si no es nulo.
 CAEStreamingDecoder::CAEStreamingDecoder(CAEDataStream* dataStream) {
     m_dataStream = dataStream;
     if (dataStream)
@@ -34,6 +35,7 @@ void CAEStreamingDecoder::operator delete(void* mem) {
 #endif
 
 // 0x4f2830
+// La clase base es propietaria de m_dataStream y lo destruye al finalizar el decoder.
 CAEStreamingDecoder::~CAEStreamingDecoder() {
     // The game checks if dataStream is nullptr, but
     // deleting null pointer is perfectly safe.
@@ -41,6 +43,9 @@ CAEStreamingDecoder::~CAEStreamingDecoder() {
     m_dataStream = nullptr;
 }
 
+/**
+ * Registra el ciclo de vida común de todos los decoders de streaming.
+ */
 void CAEStreamingDecoder::InjectHooks() {
     RH_ScopedClass(CAEStreamingDecoder);
     RH_ScopedCategory("Audio/Loaders");
