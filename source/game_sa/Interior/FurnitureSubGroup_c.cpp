@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 #include "FurnitureSubGroup_c.h"
 #include "Furniture_c.h"
 
+/**
+ * Registra las operaciones de selección y creación de mobiliario de un subgrupo.
+ */
 void FurnitureSubGroup_c::InjectHooks() {
     RH_ScopedClass(FurnitureSubGroup_c);
     RH_ScopedCategory("Interior");
@@ -30,6 +33,12 @@ void FurnitureSubGroup_c::InjectHooks() {
 }
 
 namespace {
+/**
+ * Selecciona uniformemente una entrada cuyo intervalo de wealth contiene el valor pedido.
+ *
+ * Se conserva el consumo de RNG incluso cuando no hay candidatos porque forma parte
+ * del comportamiento observable del ejecutable original.
+ */
 Furniture_c* SelectFurnitureByWealth(TList_c<Furniture_c>& list, uint8 wealth) {
     const auto matches = [wealth](const Furniture_c& f) {
         return wealth >= uint8(f.m_nWealthMin) && wealth <= uint8(f.m_nWealthMax);
@@ -44,8 +53,13 @@ Furniture_c* SelectFurnitureByWealth(TList_c<Furniture_c>& list, uint8 wealth) {
 }
 
 // 0x5C00C0
+/**
+ * Reserva el siguiente Furniture_c del almacén global fijo y deriva sus dimensiones
+ * desde el ColModel del modelo. Finalmente copia las restricciones del subgrupo y
+ * enlaza el objeto en m_Furnitures.
+ */
 bool FurnitureSubGroup_c::AddFurniture(uint16 modelId, int16 id, uint8 wealthMin, uint8 wealthMax, uint8 maxAng) {
-    // Only the low word is read/written by this function.
+        // Esta función sólo lee/escribe la palabra baja del contador global original.
     auto& next = StaticRef<uint16>(0xBAB378);
     auto& store = StaticRef<Furniture_c[256]>(0xBAE1F8);
     if (next >= std::size(store)) return false;
@@ -71,13 +85,17 @@ bool FurnitureSubGroup_c::AddFurniture(uint16 modelId, int16 id, uint8 wealthMin
 }
 
 // 0x590EE0
+/**
+ * Con un id explícito busca coincidencia exacta; con id negativo selecciona una
+ * variante compatible con wealth mediante la misma ruta aleatoria del juego.
+ */
 Furniture_c* FurnitureSubGroup_c::GetFurniture(int16 id, uint8 wealth) {
     if (id >= 0) {
         for (auto& f : m_Furnitures) if (f.m_nId == id) return &f;
         return nullptr;
     }
-    // The original zero-extends wealth before comparing it with -1, so 255
-    // follows the ordinary wealth filter rather than acting as a wildcard.
+    // El original extiende wealth sin signo antes de compararlo con -1; por ello 255
+    // sigue el filtro normal de riqueza y no funciona como comodín.
     return SelectFurnitureByWealth(m_Furnitures, wealth);
 }
 
