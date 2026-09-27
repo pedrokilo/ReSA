@@ -13,6 +13,12 @@ struct tVehicleComponentFlag {
     uint32      m_nFlag;
 };
 
+/**
+ * Model info cuya representación RenderWare es un único RpAtomic.
+ *
+ * Administra la plantilla compartida que se clona al crear instancias del mundo,
+ * sus referencias de TXD/AnimBlock, efectos 2DFX y configuración de pipeline.
+ */
 class NOTSA_EXPORT_VTABLE CAtomicModelInfo : public CBaseModelInfo {
 public:
     CAtomicModelInfo() : CBaseModelInfo() {}
@@ -30,9 +36,11 @@ public:
     RwObject* CreateInstance(RwMatrix* matrix) override;
 
     // vtable added methods
+    // Adopta el atomic como plantilla del model info y registra sus dependencias.
     virtual void SetAtomic(RpAtomic* atomic);
 
     // class methods
+    // Devuelve la plantilla sólo cuando supera la prueba de distancia LOD.
     struct RpAtomic* GetAtomicFromDistance(float distance);
     void SetupVehicleUpgradeFlags(const char* name);
 };
