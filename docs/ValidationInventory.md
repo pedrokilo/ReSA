@@ -6,11 +6,12 @@ Universo de esta revisión: **7,545 entradas reversed=1**, de 8,080 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
+| `validated=1` · evidencia aprobada vinculada | **34** |
 | Vigencia acreditada para su alcance | 0 |
 | Evidencia histórica vinculada; revisión pendiente | 34 |
 | Sin evidencia aprobada vinculada en este registro | 7511 |
 
-Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. La integridad del universo catalogado se comprueba por separado con `python contrib/audit_hook_catalog.py --strict`; en el corte actual la auditoría crítica devuelve OK. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
+`validated=1` significa que existe evidencia aprobada vinculada al menos una vez; la vigencia actual se calcula por separado con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. La integridad del universo catalogado se comprueba por separado con `python contrib/audit_hook_catalog.py --strict`; en el corte actual la auditoría crítica devuelve OK. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
 ## Siguiente tanda con evidencia disponible
 
