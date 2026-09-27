@@ -23,6 +23,9 @@ END GENERATED HOOK STATUS */
 
 #include "rtslerp.h"
 
+/**
+ * Registra las operaciones de nodos óseos usadas por IK/ragdoll.
+ */
 void BoneNode_c::InjectHooks() {
     RH_ScopedClass(BoneNode_c);
     RH_ScopedCategoryGlobal();
@@ -48,6 +51,12 @@ void BoneNode_c::InjectHooks() {
 }
 
 // 0x6177B0
+/**
+ * Vincula el nodo con un frame de animación y captura su pose local inicial.
+ *
+ * También reinicia jerarquía, límites y velocidad; m_InterpFrame permanece como
+ * referencia externa al estado de animación del ped.
+ */
 bool BoneNode_c::Init(eBoneTag32 boneTag, RpHAnimBlendInterpFrame* interpFrame) {
     m_BoneTag     = boneTag;
     m_InterpFrame = interpFrame;
@@ -64,6 +73,7 @@ bool BoneNode_c::Init(eBoneTag32 boneTag, RpHAnimBlendInterpFrame* interpFrame) 
 }
 
 // 0x617490
+// Deriva los límites Euler absolutos sumando/restando tolerancias a la pose base del bone.
 void BoneNode_c::InitLimits() {
     const auto& bone = BoneNodeManager_c::ms_boneInfos[GetIdFromBoneTag(m_BoneTag)];
     m_LimitMin = bone.PoseRots - CVector{
@@ -78,8 +88,8 @@ void BoneNode_c::InitLimits() {
     };
 }
 
-// degrees → radians → half-angles → quaternion
-// Tait-Bryan XYZ convention
+// Convierte grados Euler a quaternion usando la convención Tait-Bryan XYZ y
+// normaliza el resultado para evitar acumular error numérico.
 // 0x6171F0
 void BoneNode_c::EulerToQuat(const CVector& angles, RtQuat& outQuat) {
     const CVector halfRadAngles = {
@@ -226,6 +236,7 @@ void BoneNode_c::Limit(float blend) {
 }
 
 // 0x616E30
+// Mezcla mediante Slerp la orientación original del frame con la orientación IK calculada.
 void BoneNode_c::BlendKeyframe(float blend) {
     auto src = m_InterpFrame->q;
     auto dst = m_Orientation;
@@ -262,12 +273,17 @@ void BoneNode_c::GetLimits(eRotationAxis axis, float& outMin, float& outMax) con
 }
 
 // 0x616BD0
+// Establece la relación padre-hijo y enlaza el hijo en la lista intrusiva local.
 void BoneNode_c::AddChild(BoneNode_c* children) {
     children->m_Parent = this;
     m_Childs.AddItem(children);
 }
 
 // 0x616CD0
+/**
+ * Compone la transformación local con la matriz del padre y propaga recursivamente
+ * el resultado a todos los hijos, formando la cadena de matrices world de IK.
+ */
 void BoneNode_c::CalcWldMat(const RwMatrix* boneMatrix) {
     RwMatrix rotMatrix = [this] {
         CMatrix mat{};
