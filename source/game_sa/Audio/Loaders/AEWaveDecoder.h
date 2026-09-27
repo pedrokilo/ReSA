@@ -7,6 +7,12 @@
 
 #include "AEStreamingDecoder.h"
 
+/**
+ * Decoder ligero de WAV PCM de 16 bits.
+ *
+ * Conserva los campos principales de la cabecera RIFF y normaliza audio mono a
+ * estéreo durante FillBuffer() para entregar el formato esperado por el mixer.
+ */
 class CAEWaveDecoder : public CAEStreamingDecoder {
 public:
     CAEWaveDecoder(CAEDataStream* dataStream);
@@ -22,7 +28,7 @@ public:
 
 private:
     bool           m_bInitialized;
-    CAEDataStream* _dataStreamCopy;
+    CAEDataStream* _dataStreamCopy; //!< Alias histórico del stream de la clase base; no ownership adicional.
 
     // RIFF header
     union {
@@ -38,8 +44,8 @@ private:
             uint32 bytesPerSecond;
             uint16 blockAlign;
             uint16 bitsPerSample;
-            uint32 dataPosition;
-            uint32 dataChunkSize;
+            uint32 dataPosition;  //!< Offset del primer byte PCM dentro del stream lógico.
+            uint32 dataChunkSize; //!< Longitud del chunk PCM.
         };
         char fileHeaderArray[44];
     };
