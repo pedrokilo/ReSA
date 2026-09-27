@@ -26,6 +26,9 @@ END GENERATED HOOK STATUS */
 
 #include "BaseModelInfo.h"
 
+/**
+ * Registra las operaciones comunes compartidas por todos los tipos de model info.
+ */
 void CBaseModelInfo::InjectHooks() {
     RH_ScopedVirtualClass(CBaseModelInfo, 0x85BB9C, 15);
     RH_ScopedCategory("Models");
@@ -69,6 +72,7 @@ void CBaseModelInfo::InjectHooks() {
 }
 
 
+// Inicializa el conteo de referencias y deja el TXD sin resolver.
 CBaseModelInfo::CBaseModelInfo() {
     m_nRefCount = 0;
     ClearTexDictionary();
@@ -100,6 +104,11 @@ CTimeInfo* CBaseModelInfo::GetTimeInfo() {
 }
 
 // 0x4C4B10
+/**
+ * Restablece el estado común de un model info antes de cargar recursos concretos.
+ *
+ * No crea RwObject ni CColModel: sólo fija centinelas, flags y valores por defecto.
+ */
 void CBaseModelInfo::Init() {
     m_nRefCount = 0;
     m_pColModel = nullptr;
@@ -115,6 +124,10 @@ void CBaseModelInfo::Init() {
 }
 
 // 0x4C4D50
+/**
+ * Ejecuta la limpieza polimórfica del recurso RenderWare y de la colisión poseída,
+ * y devuelve los metadatos comunes a su estado inicial.
+ */
 void CBaseModelInfo::Shutdown() {
     DeleteRwObject();
     DeleteCollisionModel();
@@ -152,16 +165,24 @@ void CBaseModelInfo::RemoveTexDictionaryRef() {
     CTxdStore::RemoveRef(m_nTxdIndex);
 }
 
+// Incrementa conjuntamente la referencia del model info y la del TXD asociado.
 void CBaseModelInfo::AddRef() {
     ++m_nRefCount;
     AddTexDictionaryRef();
 }
 
+// Libera en paralelo una referencia lógica y una referencia al diccionario de texturas.
 void CBaseModelInfo::RemoveRef() {
     --m_nRefCount;
     RemoveTexDictionaryRef();
 }
 
+/**
+ * Asocia un CColModel y configura su relación LOD.
+ *
+ * En modelos con CTimeInfo puede compartir el mismo CColModel con la variante horaria
+ * complementaria, dejando a una sola de ellas marcada como propietaria lógica/LOD.
+ */
 void CBaseModelInfo::SetColModel(CColModel* colModel, bool bIsLodModel) {
     m_pColModel = colModel;
     if (!bIsLodModel) {
@@ -187,6 +208,7 @@ void CBaseModelInfo::Init2dEffects() {
     m_n2dfxCount = 0;
 }
 
+// Elimina la colisión sólo cuando este model info está marcado como propietario LOD.
 void CBaseModelInfo::DeleteCollisionModel() {
     if (m_pColModel && bIsLod)
         delete m_pColModel;
@@ -194,6 +216,10 @@ void CBaseModelInfo::DeleteCollisionModel() {
     m_pColModel = nullptr;
 }
 
+/**
+ * Resuelve un 2DFX combinando el store global de CModelInfo y los efectos embebidos
+ * directamente en la geometría RenderWare del modelo.
+ */
 C2dEffect* CBaseModelInfo::Get2dEffect(int32 index) const {
     auto uiStoredEffectsCount = m_n2dfxCount;
     RpGeometry* geometry = nullptr;
@@ -218,6 +244,7 @@ C2dEffect* CBaseModelInfo::Get2dEffect(int32 index) const {
 }
 
 // 0x4C4D20
+// Registra la primera posición del rango contiguo en el store global y aumenta su conteo.
 void CBaseModelInfo::Add2dEffect(C2dEffect* effect) {
     if (m_n2dEffectIndex >= 0)
         ++m_n2dfxCount;
