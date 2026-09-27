@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **7,485 entradas reversed=1**, de 8,014 registradas. Las 529 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **7,488 entradas reversed=1**, de 8,020 registradas. Las 532 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
 | Vigencia acreditada para su alcance | 0 |
 | Evidencia histórica vinculada; revisión pendiente | 34 |
-| Sin evidencia aprobada vinculada en este registro | 7451 |
+| Sin evidencia aprobada vinculada en este registro | 7454 |
 
 Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -170,6 +170,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CControllerConfigManager` | 58 | 0 | 0 | 58 |
 | `CControllerState` | 2 | 0 | 0 | 2 |
 | `CConversations` | 11 | 0 | 1 | 10 |
+| `CConversationNode` | 1 | 0 | 0 | 1 |
 | `CCopPed` | 7 | 0 | 0 | 7 |
 | `CCoronas` | 11 | 0 | 0 | 11 |
 | `CCover` | 16 | 0 | 0 | 16 |
@@ -357,6 +358,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedIK` | 9 | 0 | 0 | 9 |
 | `CPedIntelligence` | 52 | 0 | 0 | 52 |
 | `CPedIntelligencePool` | 1 | 0 | 0 | 1 |
+| `CPedToPlayerConversations` | 2 | 0 | 0 | 2 |
 | `CPedList` | 7 | 0 | 4 | 3 |
 | `CPedModelInfo` | 9 | 0 | 0 | 9 |
 | `CPedPlacement` | 3 | 0 | 0 | 3 |
