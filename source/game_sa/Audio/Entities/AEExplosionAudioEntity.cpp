@@ -36,6 +36,12 @@ void CAEExplosionAudioEntity::StaticInitialise() {
 }
 
 // 0x4DCBE0
+/**
+ * Construye una explosión por capas con distintos roll-off y dos componentes frontend.
+ *
+ * m_Speed rota entre variaciones discretas para evitar que explosiones consecutivas
+ * compartan exactamente el mismo pitch.
+ */
 void CAEExplosionAudioEntity::AddAudioEvent(eAudioEvents audioEvent, CVector& posn, float volume) {
     volume += GetDefaultVolume(AE_EXPLOSION);
 
@@ -91,6 +97,7 @@ void CAEExplosionAudioEntity::AddAudioEvent(eAudioEvents audioEvent, CVector& po
 }
 
 // 0x4DCB90
+// Reduce progresivamente cualquier volumen positivo una vez iniciada la reproducción.
 void CAEExplosionAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) {
     if (curPlayPos > 0) {
         if (sound->m_Volume > 0.0f) {
@@ -99,6 +106,9 @@ void CAEExplosionAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos
     }
 }
 
+/**
+ * Registra la entidad global encargada de eventos de explosión.
+ */
 void CAEExplosionAudioEntity::InjectHooks() {
     RH_ScopedVirtualClass(CAEExplosionAudioEntity, 0x862E60, 1);
     RH_ScopedCategory("Audio/Entities");
