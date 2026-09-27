@@ -8,6 +8,13 @@
 
 #include "Vector.h"
 
+/**
+ * Segmento de colisión definido por dos puntos 3D.
+ *
+ * Además de los extremos conserva dos campos de tamaño heredados del formato de
+ * colisión original. Las utilidades de esta clase sólo operan sobre la geometría
+ * del segmento salvo que se indique lo contrario.
+ */
 class CColLine {
 public:
     static void InjectHooks();
@@ -19,20 +26,20 @@ public:
 
     /*!
     * @notsa
-    * @brief Distance to a point from this line (Uses `CCollision::DistToLine`)
+    * @brief Calcula la distancia desde un punto al segmento usando CCollision::DistToLine().
     */
     float DistTo(CVector pos) const;
 
     /*!
     * @addr notsa
-    * @brief Render the line in the 3D world (Be sure to call from a place where 3D stuff is rendered, if called from elsewhere you won't see the lines!)
+    * @brief Dibuja el segmento en el mundo 3D como ayuda visual.
     *
-    * @param transform Transformation matrix to be used
-    * @param color     Color of the lines used
+    * @param transform Transformación aplicada a ambos extremos.
+    * @param color     Color utilizado para el segmento.
     */
     void DrawWireFrame(CRGBA color, const CMatrix& transform = CMatrix::Unity()) const;
 
-    //! Is the line vertical
+    //! Indica si ambos extremos comparten exactamente la misma posición XY.
     bool IsVertical() const { return CVector2D{ m_vecStart } == CVector2D{ m_vecEnd }; }
 
     friend auto TransformObject(const CColLine& ln, const CMatrix& transform) -> CColLine {
@@ -40,10 +47,10 @@ public:
     }
 
 public:
-    CVector m_vecStart;
-    float   m_fStartSize;
-    CVector m_vecEnd;
-    float   m_fEndSize;
+    CVector m_vecStart;   //!< Extremo inicial.
+    float   m_fStartSize; //!< Campo de tamaño conservado por compatibilidad con el formato original.
+    CVector m_vecEnd;     //!< Extremo final.
+    float   m_fEndSize;   //!< Campo de tamaño conservado por compatibilidad con el formato original.
 
 };
 
