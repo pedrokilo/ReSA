@@ -9,9 +9,15 @@
 #include "ClumpModelInfo.h"
 #include "eWeaponType.h"
 
+/**
+ * Model info para armas renderizadas como RpClump.
+ *
+ * Añade la asociación con eWeaponType y aplica configuración especial al componente
+ * gunflash al cargar el clump.
+ */
 class NOTSA_EXPORT_VTABLE CWeaponModelInfo : public CClumpModelInfo {
 private:
-    eWeaponType m_weaponInfo;
+    eWeaponType m_weaponInfo; //!< Tipo lógico de arma representado por este modelo.
 
 public:
     CWeaponModelInfo() : CClumpModelInfo() {}
