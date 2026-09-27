@@ -21,8 +21,19 @@ END GENERATED HOOK STATUS */
 #include "Pool.h"
 #include "PedIntelligence.h"
 
+/**
+ * Pool especializado para la inteligencia y estado de decisión asociado a los peatones.
+ *
+ * Hereda de CPool el almacenamiento fijo, la reutilización de slots y el sistema
+ * de referencias/índices del juego. La clase concreta sólo fija el tipo máximo
+ * almacenado y registra las entradas que tienen dirección propia en el ejecutable.
+ */
 class CPedIntelligencePool : public CPool<CPedIntelligence> {
 public:
+    /**
+     * Registra los hooks propios de CPedIntelligencePool; las operaciones genéricas del pool
+     * continúan implementadas por CPool.
+     */
     static void InjectHooks() {
         RH_ScopedClass(CPedIntelligencePool);
         RH_ScopedCategory("Pools");
