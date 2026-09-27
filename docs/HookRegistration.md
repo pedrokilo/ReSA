@@ -32,3 +32,16 @@ python contrib/audit_hook_catalog.py --strict
 
 Esta auditoría complementa a `source_status.py`: revisa también la dirección
 **fuente -> catálogo**, que antes no se comprobaba.
+
+
+### Cómo interpretar el auditor
+
+El auditor elimina comentarios antes de analizar `InjectHooksMain.cpp`, por lo que
+una línea como `// CTaskFoo::InjectHooks();` **no cuenta como registro activo**.
+
+También distingue entre:
+
+- **Owner activo con instalaciones ausente del CSV:** inconsistencia real; `--strict` falla.
+- **Owner inactivo con instalaciones:** código existente pero no registrado globalmente; se informa para revisión, sin añadirlo automáticamente al catálogo.
+- **Llamada activa sin nombre propio en el CSV:** puede ser válida si el método sólo agrupa/encamina registros. Por ejemplo, `RpAnimBlendPlugin::InjectHooks()` registra bajo el namespace `RpAnimBlend`, que es el owner que aparece en `hooks.csv`.
+- **Scope sin `RH_Scoped*Install`:** no crea una entrada de función y no debe inflar el catálogo.
