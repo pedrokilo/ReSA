@@ -21,8 +21,17 @@ END GENERATED HOOK STATUS */
 #include "Pool.h"
 #include "Heli.h"
 
+/**
+ * Pool especializado para vehículos y sus variantes derivadas, usando CHeli como tipo de tamaño máximo.
+ *
+ * CPool conserva la propiedad del almacenamiento y permite reutilizar slots con
+ * direcciones estables, algo importante para referencias y handles del motor.
+ */
 class CVehiclePool : public CPool<CVehicle, CHeli> {
 public:
+    /**
+     * Registra las operaciones propias de CVehiclePool; la gestión común permanece en CPool.
+     */
     static void InjectHooks() {
         RH_ScopedClass(CVehiclePool);
         RH_ScopedCategory("Pools");
