@@ -28,6 +28,9 @@ END GENERATED HOOK STATUS */
 #define DEV_LOG_COL(...)
 #endif
 
+/**
+ * Registra las operaciones de ciclo de vida y almacenamiento de CColModel.
+ */
 void CColModel::InjectHooks() {
     RH_ScopedClass(CColModel);
     RH_ScopedCategory("Collision");
@@ -43,6 +46,9 @@ void CColModel::InjectHooks() {
     RH_ScopedInstall(RemoveTrianglePlanes, 0x40FA40);
 }
 
+/**
+ * Crea un modelo de colisión activo pero todavía sin CCollisionData asociado.
+ */
 CColModel::CColModel() : m_boundBox() {
     m_nColSlot              = 0;
     m_pColData              = nullptr;
@@ -51,6 +57,10 @@ CColModel::CColModel() : m_boundBox() {
     m_IsActive             = true;
 }
 
+/**
+ * Libera la geometría sólo cuando la instancia participa del ciclo de vida normal.
+ * m_IsActive permite representar modelos que no deben apropiarse/liberar sus datos.
+ */
 CColModel::~CColModel() {
     if (!m_IsActive) {
         return;
@@ -59,6 +69,13 @@ CColModel::~CColModel() {
 }
 
 // 0x40F7C0
+/**
+ * Copia los límites y reutiliza el almacenamiento de colisión ya presente en destino.
+ *
+ * Esta operación no asigna m_pColData cuando el destino carece de él; conserva el
+ * comportamiento reconstruido existente y deja esa situación marcada por el break
+ * de depuración que ya forma parte del código.
+ */
 CColModel& CColModel::operator=(const CColModel& colModel) {
     assert(&colModel != this); // BUG(Prone) No self assignment check
 
@@ -74,6 +91,12 @@ CColModel& CColModel::operator=(const CColModel& colModel) {
     return *this;
 }
 
+/**
+ * Convierte un modelo almacenado en un único bloque en asignaciones independientes.
+ *
+ * Se crea un CCollisionData nuevo, se realiza una copia profunda y finalmente se
+ * libera el bloque contiguo anterior. Tras ello cada array puede gestionarse por separado.
+ */
 void CColModel::MakeMultipleAlloc() {
     if (!m_bIsSingleColDataAlloc)
         return;
@@ -88,13 +111,21 @@ void CColModel::MakeMultipleAlloc() {
     m_pColData = colData;
 }
 
+// Crea sólo la cabecera CCollisionData; sus arrays se asignarán posteriormente.
 void CColModel::AllocateData() {
     m_bIsSingleColDataAlloc = false;
     m_pColData = new CCollisionData();
     assert(m_pColData);
 }
 
-// Memory layout of m_pColData is: | CCollisionData | CColSphere[] | CColLine[]/CColDisk[] | CColBox[] | Vertices[] | CColTriangle[] |
+// Disposición de m_pColData: | CCollisionData | CColSphere[] | CColLine[]/CColDisk[] | CColBox[] | Vertices[] | CColTriangle[] |
+/**
+ * Reserva en un único bloque la cabecera y todos los arrays solicitados.
+ *
+ * Los punteros internos se convierten en vistas sobre offsets del mismo bloque;
+ * los triángulos se alinean a 4 bytes. m_bIsSingleColDataAlloc registra este modo
+ * para que RemoveCollisionVolumes() use una única liberación.
+ */ | CCollisionData | CColSphere[] | CColLine[]/CColDisk[] | CColBox[] | Vertices[] | CColTriangle[] |
 void CColModel::AllocateData(int32 numSpheres, int32 numBoxes, int32 numLines, int32 numVertices, int32 numTriangles, bool bUsesDisks) {
     const auto baseSize = sizeof(CCollisionData);
     const auto spheresSize = numSpheres * sizeof(CColSphere);
@@ -138,6 +169,7 @@ void CColModel::AllocateData(int32 numSpheres, int32 numBoxes, int32 numLines, i
     m_pColData->bUsesDisks = bUsesDisks;
 }
 
+// Reserva el bloque contiguo bruto y marca el modelo como single-allocation.
 void CColModel::AllocateData(int32 size) {
     DEV_LOG_COL("AllocateData[Size]: {} [ColSlot: {}; Size: {}]", LOG_PTR(this), m_nColSlot, size);
 
@@ -146,6 +178,12 @@ void CColModel::AllocateData(int32 size) {
     assert(m_pColData);
 }
 
+/**
+ * Libera m_pColData según el modo en que fue creado.
+ *
+ * En single-allocation la geometría comparte el mismo bloque; en modo múltiple
+ * CCollisionData es responsable de liberar primero cada uno de sus arrays.
+ */
 void CColModel::RemoveCollisionVolumes() {
     if (!m_pColData) {
         return;
@@ -164,20 +202,24 @@ void CColModel::RemoveCollisionVolumes() {
     m_pColData = nullptr;
 }
 
+// Construye la caché derivada sólo cuando existe información de colisión.
 void CColModel::CalculateTrianglePlanes() {
     if (m_pColData)
         m_pColData->CalculateTrianglePlanes();
 }
 
+// Descarta la caché de planos sin eliminar el resto de la geometría.
 void CColModel::RemoveTrianglePlanes() {
     if (m_pColData)
         m_pColData->RemoveTrianglePlanes();
 }
 
+// Los CColModel dinámicos se obtienen del pool dedicado, no del heap general.
 void* CColModel::operator new(unsigned size) {
     return GetColModelPool()->New();
 }
 
+// Devuelve la entrada a CColModelPool conservando el modelo de memoria del juego.
 void CColModel::operator delete(void* data) {
     GetColModelPool()->Delete(static_cast<CColModel*>(data));
 }
