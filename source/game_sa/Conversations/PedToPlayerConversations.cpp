@@ -8,12 +8,14 @@
  * ESTADO: CPedToPlayerConversations
  * Reconstrucción: INCOMPLETA — 2/3 funciones reconstruidas.
  * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 0.
+ * Funciones bloqueadas: 1.
  * Evidencia aprobada vinculada: 0/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
  * PENDIENTES (nombre | dirección | tipo):
+ *   Update | 0x0043B0F0 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
  *   Update | 0x0043B0F0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
