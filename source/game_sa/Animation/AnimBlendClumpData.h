@@ -10,15 +10,22 @@
 #include "Vector.h"
 #include "AnimBlendFrameData.h"
 
+/**
+ * Estado de animación asociado a un RpClump.
+ *
+ * Mantiene la lista de CAnimBlendAssociation activas y un array alineado con los
+ * datos de cada frame/bone que participan en el blend. El array pertenece a esta
+ * instancia; m_PedPosition sólo referencia una posición mantenida externamente.
+ */
 class CAnimBlendClumpData {
 public:
-    CAnimBlendLink m_AnimList; //!< List of `CAnimBlendAssociation` - List of anims that are being played on this clump
+    CAnimBlendLink m_AnimList; //!< Lista de asociaciones que se reproducen sobre este clump.
     union {
-        uint32 m_NumFrameData; // For skinned clumps
-        uint32 m_NumBones;  // For non-skinned clumps
+        uint32 m_NumFrameData; // Número de frame data en clumps skinned.
+        uint32 m_NumBones;     // Mismo campo interpretado como número de bones en clumps no skinned.
     };
-    CVector*            m_PedPosition;
-    AnimBlendFrameData* m_FrameDatas; // There's always at least 1 frame present
+    CVector*            m_PedPosition; //!< Posición externa asociada al ped/clump; no owned.
+    AnimBlendFrameData* m_FrameDatas;  //!< Bloque alineado propiedad de esta instancia.
 
 public:
     static void InjectHooks();
@@ -32,8 +39,8 @@ public:
 
     /*!
      * @notsa
-     * @brief Iterate all frames (Using a functor, usually a lambda) 
-     * @param Fn The functor to be called
+     * @brief Recorre todos los frames usando un functor/lambda.
+     * @param Fn Función invocada con un puntero a cada AnimBlendFrameData.
     */
     template<typename Functor>
     void ForAllFramesF(Functor&& Fn) {
