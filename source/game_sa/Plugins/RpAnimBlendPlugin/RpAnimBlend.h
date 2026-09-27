@@ -11,9 +11,9 @@ struct RtAnimAnimation;
 #define rwID_RPANIMBLENDPLUGIN MAKECHUNKID(rwVENDORID_DEVELOPER, 0xFB)
 
 /*!
- * @brief Get RpAnimBlend data associated with this clump
- * @param clump 
- * @return 
+ * @brief Accede al puntero CAnimBlendClumpData almacenado en el payload del clump.
+ * @param clump Clump registrado con el plugin.
+ * @return Referencia al puntero para permitir lectura y actualización.
 */
 CAnimBlendClumpData*& RpAnimBlendClumpGetData(RpClump* clump);
 
@@ -22,8 +22,8 @@ namespace RpAnimBlendPlugin {
 };
 
 /*!
- * @brief Attach this plugin to RW
- * @return If the plugin was successfully attached
+ * @brief Registra el payload de clump y el esquema de interpolación en RenderWare.
+ * @return true si ambos registros pudieron inicializarse.
 */
 bool RpAnimBlendPluginAttach();
 
@@ -265,10 +265,10 @@ void RpAnimBlendClumpSetBlendDeltas(RpClump* clump, uint32 flags, float blendDel
 
 /*!
  * @addr 0x4D34F0
- * @brief Update all animations associated with the clump
- * @param clump The clump
- * @param step Time step
- * @param onScreen If the clump is visible on the screen
+ * @brief Avanza tiempo, blend y transformaciones de todas las asociaciones del clump.
+ * @param clump Clump cuyo estado de animación se actualiza.
+ * @param step Paso temporal del frame.
+ * @param onScreen Indica si el clump está visible y condiciona trabajo de actualización.
 */
 void RpAnimBlendClumpUpdateAnimations(RpClump* clump, float step, bool onScreen);
 
