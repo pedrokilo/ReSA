@@ -10,11 +10,17 @@
 
 class FxSystem_c;
 
+/**
+ * Audio asociado a un FxSystem_c de fuego/agua.
+ *
+ * Conserva punteros no propietarios a las voces gestionadas por AESoundManager para
+ * poder actualizar posición, volumen y detectar cuándo terminan.
+ */
 class NOTSA_EXPORT_VTABLE CAEFireAudioEntity : public CAEAudioEntity {
 public:
     CAESound*   m_SoundLeft;
     CAESound*   m_SoundRight;
-    FxSystem_c* m_FxSystem;
+    FxSystem_c* m_FxSystem; //!< Sistema visual seguido por las voces; no owned.
 
     static inline auto& m_snLastFireFrequencyIndex = StaticRef<uint8>(0xB612EC);
 
