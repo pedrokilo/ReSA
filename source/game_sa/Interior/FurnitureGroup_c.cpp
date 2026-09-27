@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 #include "FurnitureGroup_c.h"
 #include "FurnitureManager_c.h"
 
+/**
+ * Registra las operaciones de agrupación y consulta de mobiliario interior.
+ */
 void FurnitureGroup_c::InjectHooks() {
     RH_ScopedClass(FurnitureGroup_c);
     RH_ScopedCategory("Interior");
@@ -38,12 +41,19 @@ int32 FurnitureGroup_c::Init() {
 }
 
 // 0x5910B0
+// Vacía cada subgrupo antes de retirar sus nodos de la lista del grupo.
 void FurnitureGroup_c::Exit() {
     rng::for_each(m_subGroupsList, &FurnitureSubGroup_c::Exit);
     m_subGroupsList.RemoveAll();
 }
 
 // 0x5910E0
+/**
+ * Obtiene un FurnitureSubGroup_c del almacén global y lo configura para este grupo.
+ *
+ * El grupo no reserva memoria dinámica para el subgrupo: FurnitureManager_c controla
+ * el almacén fijo del que procede y esta lista sólo mantiene el enlace.
+ */
 bool FurnitureGroup_c::AddSubGroup(int32 subGroupId, int32 minWidth, int32 minDepth, int32 maxWidth, int32 maxDepth, uint8 canPlaceInFrontOfWindow, bool isTall, bool canSteal) {
     const auto sg = FurnitureManager_c::NewSubGroup();
     if (!sg) {
@@ -84,7 +94,8 @@ bool FurnitureGroup_c::AddFurniture(int32 subGroupId, uint16 modelId, int16 id, 
     return false;
 }
 
-// notsa
+// NOTSA
+// Busca linealmente por ID dentro de la pequeña lista de subgrupos pertenecientes al grupo.
 FurnitureSubGroup_c* FurnitureGroup_c::GetSubGroup(int32 subGroupId) {
     for (auto& sg : m_subGroupsList) {
         if (sg.m_SubGroupId == subGroupId) {
