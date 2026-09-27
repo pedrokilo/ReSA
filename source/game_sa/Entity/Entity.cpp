@@ -41,6 +41,9 @@ END GENERATED HOOK STATUS */
 #include "Shadows.h"
 #include "CustomBuildingRenderer.h"
 
+/**
+ * Registra el ciclo de vida, streaming, referencias, render y efectos comunes de CEntity.
+ */
 void CEntity::InjectHooks() {
     RH_ScopedVirtualClass(CEntity, 0x863928, 22);
     RH_ScopedCategory("Entity");
@@ -121,8 +124,10 @@ void CEntity::InjectHooks() {
     RH_ScopedGlobalInstall(IsEntityPointerValid, 0x533310);
 }
 
-// Initializes a new CEntity instance with default values
 // 0x532A90
+/**
+ * Inicializa una entidad sin modelo ni RwObject, con estado/área/LOD en sus valores base.
+ */
 CEntity::CEntity() : CPlaceable() {
     SetStatus(STATUS_ABANDONED);
     SetType(ENTITY_TYPE_NOTHING);
@@ -144,9 +149,11 @@ CEntity::CEntity() : CPlaceable() {
     SetLod(nullptr);
 }
 
-// Destructor for CEntity, handling cleanup of LOD children,
-// RenderWare objects, and resolving any references to this entity
 // 0x535E90
+/**
+ * Desvincula la relación LOD, destruye el recurso RenderWare y resuelve todas las
+ * referencias registradas para que ningún puntero externo conserve this.
+ */
 CEntity::~CEntity() {
     if (GetLod()) {
         GetLod()->RemoveLodChildren();
@@ -156,15 +163,19 @@ CEntity::~CEntity() {
     CEntity::ResolveReferences();
 }
 
-// Adds the entity to the world sectors based on its current bounding rectangle
 // 0x533020
+// Inserta la entidad en los sectores del mundo cubiertos por su bounding rectangle.
 void CEntity::Add() {
     Add(GetBoundRect());
 }
 
-// Adds the entity to the appropriate world sectors based on a given rectangle
-// The entity is added to LOD sectors if it's a big building, otherwise to regular sectors
 // 0x5347D0
+/**
+ * Inserta la entidad en sectores LOD o normales según m_bIsBIGBuilding.
+ *
+ * La lista concreta depende de eEntityType; el rectángulo se recorta primero a los
+ * límites válidos del mapa.
+ */
 void CEntity::Add(const CRect& rect) {
     CRect usedRect = rect;
     if (usedRect.left < -3000.0F) {
@@ -205,8 +216,8 @@ void CEntity::Add(const CRect& rect) {
     }
 }
 
-// Removes the entity from the world sectors it occupies
 // 0x534AE0
+// Ejecuta el proceso inverso de Add(), retirando la entidad de todas las listas espaciales.
 void CEntity::Remove() {
     auto usedRect = GetBoundRect();
     if (usedRect.left < -3000.0F) {
@@ -247,16 +258,18 @@ void CEntity::Remove() {
     }
 }
 
-// Sets the entity's model by index and then creates its RenderWare object
 // 0x532AE0
+// Cambia model info y materializa inmediatamente el recurso RenderWare correspondiente.
 void CEntity::SetModelIndex(uint32 index) {
     SetModelIndexNoCreate(index);
     CreateRwObject();
 }
 
-// Sets the entity's model by index without creating its RenderWare object
-// Also updates entity flags based on the new model's properties
 // 0x533700
+/**
+ * Cambia sólo el model index y sincroniza flags derivados del CBaseModelInfo.
+ * No crea todavía el RpAtomic/RpClump.
+ */
 void CEntity::SetModelIndexNoCreate(uint32 index) {
     auto mi = CModelInfo::GetModelInfo(index);
     m_nModelIndex = index;
