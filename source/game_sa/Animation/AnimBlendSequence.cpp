@@ -21,6 +21,9 @@ END GENERATED HOOK STATUS */
 #include "AnimBlendSequence.h"
 #include <reversiblebugfixes/Bugs.hpp>
 
+/**
+ * Registra las operaciones de almacenamiento y conversión de keyframes.
+ */
 void CAnimBlendSequence::InjectHooks() {
     RH_ScopedClass(CAnimBlendSequence);
     RH_ScopedCategory("Animation");
@@ -42,6 +45,7 @@ void CAnimBlendSequence::InjectHooks() {
 }
 
 // 0x4D0C30
+// Sólo libera m_Frames cuando la secuencia es propietaria de ese almacenamiento.
 CAnimBlendSequence::~CAnimBlendSequence() {
     // If we allocated memory, clean it
     if (!m_bUsingExternalMemory && m_Frames) {
@@ -49,6 +53,12 @@ CAnimBlendSequence::~CAnimBlendSequence() {
     }
 }
 
+/**
+ * Convierte todo el array entre las representaciones comprimida y sin comprimir.
+ *
+ * Si pDataBlock es nulo reserva memoria propia; de lo contrario escribe en el
+ * buffer externo y marca m_bUsingExternalMemory para evitar liberarlo después.
+ */
 template<typename From, typename To>
 bool CAnimBlendSequence::ConvertKeyFrames(byte* pDataBlock) {
     constexpr auto HasTranslation = requires{ To::Trans; };
@@ -84,6 +94,7 @@ bool CAnimBlendSequence::ConvertKeyFrames(byte* pDataBlock) {
 }
 
 // 0x4D0F40
+// Convierte el array a la variante comprimida apropiada según tenga traslación.
 void CAnimBlendSequence::CompressKeyframes(uint8* pDataBlock) {
     assert(!m_bIsCompressed);
 
@@ -96,6 +107,7 @@ void CAnimBlendSequence::CompressKeyframes(uint8* pDataBlock) {
 }
 
 // 0x4D0D40
+// Expande el array comprimido para permitir interpolación con valores completos.
 void CAnimBlendSequence::Uncompress(uint8* pDataBlock) {
     assert(m_bIsCompressed);
 
@@ -123,6 +135,12 @@ size_t CAnimBlendSequence::GetDataSize(bool compressed) const {
 }
 
 // 0x4D1190
+/**
+ * Mantiene quaternions consecutivos en el mismo hemisferio.
+ *
+ * q y -q describen la misma orientación; invertir el segundo cuando el producto
+ * escalar es negativo evita interpolaciones que recorran el arco largo.
+ */
 void CAnimBlendSequence::RemoveQuaternionFlips() const {
     if (m_FramesNum < 2) {
         return;
@@ -156,6 +174,12 @@ void CAnimBlendSequence::SetBoneTag(eBoneTag32 boneId) {
 }
 
 // 0x4D0CD0
+/**
+ * Configura formato y cantidad de frames y selecciona su almacenamiento.
+ *
+ * frameData transfiere únicamente el uso del buffer, no su ownership: cuando se
+ * proporciona, m_bUsingExternalMemory impide que el destructor lo libere.
+ */
 void CAnimBlendSequence::SetNumFrames(uint32 count, bool bHasTranslation, bool compressed, void* frameData) {
     m_bHasTranslation      = bHasTranslation;
     m_FramesNum            = (uint16)count;
@@ -166,6 +190,7 @@ void CAnimBlendSequence::SetNumFrames(uint32 count, bool bHasTranslation, bool c
 }
 
 // 0x4D1150
+// Solicita al memory manager reubicar sólo buffers propios y comunica si cambió la dirección.
 bool CAnimBlendSequence::MoveMemory() {
     if (m_bUsingExternalMemory || !m_Frames) {
         return false;
