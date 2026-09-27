@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "TimeInfo.h"
 
+/**
+ * Registra la lógica que enlaza las variantes diurna/nocturna de modelos temporizados.
+ */
 void CTimeInfo::InjectHooks() {
     RH_ScopedClass(CTimeInfo);
     RH_ScopedCategory("Models");
@@ -33,6 +36,12 @@ void CTimeInfo::InjectHooks() {
 }
 
 // 0x4C47E0
+/**
+ * Resuelve la pareja temporal sustituyendo el sufijo _nt por _dy o viceversa.
+ *
+ * Si existe un model info temporal con el nombre resultante, almacena su índice en
+ * m_nOtherTimeModel para evitar repetir la resolución por nombre.
+ */
 CTimeInfo* CTimeInfo::FindOtherTimeModel(const char* modelName) {
     char timeSwitchModelName[24];
     strcpy_s(timeSwitchModelName, modelName);
