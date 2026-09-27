@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "ColSphere.h"
 
+/**
+ * Registra las pruebas geométricas de CColSphere.
+ */
 void CColSphere::InjectHooks() {
     RH_ScopedClass(CColSphere);
     RH_ScopedCategory("Collision");
@@ -32,6 +35,7 @@ void CColSphere::InjectHooks() {
 }
 
 // 0x40FD10
+// Actualiza conjuntamente geometría y metadatos de superficie de la esfera.
 void CColSphere::Set(float radius, const CVector& center, eSurfaceType material, uint8 pieceType, tColLighting lighting) {
     m_fRadius = radius;
     m_vecCenter = center;
@@ -41,6 +45,12 @@ void CColSphere::Set(float radius, const CVector& center, eSurfaceType material,
 }
 
 // 0x40FF20
+/**
+ * Interseca una recta parametrizada con la esfera resolviendo la ecuación cuadrática.
+ *
+ * @param direction Se asume con la escala apropiada para la parametrización usada.
+ * @return true cuando existen soluciones reales; ambos puntos de corte se devuelven.
+ */
 bool CColSphere::IntersectRay(const CVector& rayOrigin, const CVector& direction, CVector& intersectPoint1, CVector& intersectPoint2) {
     CVector distance = rayOrigin - m_vecCenter;
     float b = 2.0f * DotProduct(direction, distance);
@@ -55,6 +65,12 @@ bool CColSphere::IntersectRay(const CVector& rayOrigin, const CVector& direction
 }
 
 // 0x4100E0
+/**
+ * Restringe la intersección esfera/rayo al segmento [startPoint, endPoint].
+ *
+ * Los parámetros de entrada/salida se recortan a los extremos del segmento cuando
+ * uno de los cortes matemáticos queda fuera de su longitud finita.
+ */
 bool CColSphere::IntersectEdge(const CVector& startPoint, const CVector& endPoint, CVector& intersectPoint1, CVector& intersectPoint2) {
     CVector originCenterDistance = startPoint - m_vecCenter;
     CVector rayDirection = endPoint - startPoint;
@@ -63,9 +79,8 @@ bool CColSphere::IntersectEdge(const CVector& startPoint, const CVector& endPoin
     float a = DotProduct(rayDirection, rayDirection);
     float b = 2.0f * DotProduct(originCenterDistance, rayDirection);
     float c = DotProduct(originCenterDistance, originCenterDistance) - m_fRadius * m_fRadius;
-    float discriminant = b * b - 4.0f * a * c; // discriminant = b^2-4ac
-    // discriminant == 0: the ray intersects one point on the sphere
-    // discriminant > 0: the ray intersects two points on the sphere
+    float discriminant = b * b - 4.0f * a * c; // discriminante = b^2 - 4ac
+    // discriminante == 0: hay un punto tangente; > 0: hay dos cortes.
     if (discriminant < 0.0f) {
         return false;
     }
@@ -90,17 +105,20 @@ bool CColSphere::IntersectEdge(const CVector& startPoint, const CVector& endPoin
 }
 
 // 0x410040
+// Utiliza distancia al cuadrado y una comparación estricta: el borde exacto no cuenta.
 bool CColSphere::IntersectPoint(const CVector& point) {
     CVector distance = m_vecCenter - point;
     return m_fRadius * m_fRadius > distance.SquaredMagnitude();
 }
 
 // 0x410090
+// Dos esferas se solapan cuando la distancia entre centros es menor que la suma de radios.
 bool CColSphere::IntersectSphere(const CColSphere& right) const {
     CVector distance = m_vecCenter - right.m_vecCenter;
     return std::powf(m_fRadius + right.m_fRadius, 2.0f) > distance.SquaredMagnitude();
 }
 
+// Conserva los metadatos de superficie mientras transforma la esfera geométrica.
 auto TransformObject(const CColSphere& sp, const CMatrix& transform) -> CColSphere {
     return CColSphere{
         TransformObject(static_cast<const CSphere&>(sp), transform),
