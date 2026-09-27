@@ -8,6 +8,12 @@
 
 class Furniture_c;
 
+/**
+ * Gestor global del catálogo de muebles empleado al poblar interiores procedurales.
+ *
+ * Mantiene stores de tamaño fijo, traduce nombres de furnitur.dat a IDs y organiza
+ * el mobiliario en grupos/subgrupos con filtros de riqueza y colocación.
+ */
 class FurnitureManager_c {
 private:
     static inline auto& g_currSubGroupId  = StaticRef<uint32>(0xBAB37C);
@@ -31,9 +37,9 @@ public:
     int32 GetRandomId(int32 groupId, int32 a3, uint8 a4);
 
 private:
-    std::array<FurnitureGroup_c, 9> m_Groups;
-    std::array<FurnitureItem, 512>  m_FurnitureItem;
-    TList_c<FurnitureItem>          m_FurnitureList;
+    std::array<FurnitureGroup_c, 9> m_Groups;       //!< Categorías principales del archivo de mobiliario.
+    std::array<FurnitureItem, 512>  m_FurnitureItem; //!< Store preasignado de nodos auxiliares.
+    TList_c<FurnitureItem>          m_FurnitureList; //!< Lista libre/activa construida sobre m_FurnitureItem.
 };
 VALIDATE_SIZE(FurnitureManager_c, 0x2078);
 
