@@ -21,6 +21,9 @@ END GENERATED HOOK STATUS */
 #include "CollisionData.h"
 #include "ColHelpers.h"
 
+/**
+ * Registra las operaciones de administración y consulta de los datos de colisión.
+ */
 void CCollisionData::InjectHooks() {
     RH_ScopedClass(CCollisionData);
     RH_ScopedCategory("Collision");
@@ -36,6 +39,12 @@ void CCollisionData::InjectHooks() {
 }
 
 // 0x40F030
+/**
+ * Inicializa una descripción de colisión vacía sin reservar volúmenes.
+ *
+ * Los distintos arrays se asignan posteriormente de forma independiente o como
+ * vistas dentro de un bloque único creado por CColModel::AllocateData().
+ */
 CCollisionData::CCollisionData() {
     bUsesDisks = false;
     bHasFaceGroups = false;
@@ -63,6 +72,12 @@ CCollisionData::CCollisionData() {
 }
 
 // 0x40F070
+/**
+ * Libera todos los arrays de geometría cuya propiedad corresponde a este objeto.
+ *
+ * También elimina el bloque auxiliar de planos de triángulo y deja los contadores
+ * y punteros principales en estado vacío para impedir reutilizar memoria liberada.
+ */
 void CCollisionData::RemoveCollisionVolumes() {
     CMemoryMgr::Free(m_pSpheres);
     CMemoryMgr::Free(m_pLines);
@@ -88,6 +103,15 @@ void CCollisionData::RemoveCollisionVolumes() {
 }
 
 // 0x40F120
+/**
+ * Realiza una copia profunda de los volúmenes y mallas de @p src.
+ *
+ * Cada array se redimensiona sólo cuando cambia su forma. Para triángulos se deduce
+ * el número de vértices a partir del índice máximo referenciado, ya que el formato
+ * no almacena explícitamente ese contador para la malla principal.
+ *
+ * Los face groups no se copian por esta ruta; la precondición se protege con assert.
+ */
 void CCollisionData::Copy(const CCollisionData& src) {
     assert(!bHasFaceGroups); // Avoid possible random bugs - See header for more info.
 
@@ -198,8 +222,14 @@ void CCollisionData::Copy(const CCollisionData& src) {
     }
 }
 
-// Memory layout: | CColTrianglePlane[] | (4 Byte aligned)CLink<CCollisionData*>* |
+// Disposición: | CColTrianglePlane[] | CLink<CCollisionData*>* alineado a 4 bytes |
 // 0x40F590
+/**
+ * Precalcula un plano por triángulo para acelerar posteriores pruebas de colisión.
+ *
+ * Se reserva una entrada adicional porque el espacio inmediatamente posterior al
+ * array también se reutiliza para almacenar el puntero de enlace de la caché.
+ */
 void CCollisionData::CalculateTrianglePlanes() {
     m_pTrianglePlanes = static_cast<CColTrianglePlane*>(CMemoryMgr::Malloc((m_nNumTriangles + 1) * sizeof(CColTrianglePlane)));
     for (auto i = 0; i < m_nNumTriangles; ++i) {
@@ -208,22 +238,31 @@ void CCollisionData::CalculateTrianglePlanes() {
 }
 
 // 0x40F6A0
+// Libera exclusivamente la caché de planos; la malla de triángulos permanece intacta.
 void CCollisionData::RemoveTrianglePlanes() {
     CMemoryMgr::Free(m_pTrianglePlanes);
     m_pTrianglePlanes = nullptr;
 }
 
 // 0x40F5E0
+// Expande un vértice comprimido de la malla principal al vector de salida.
 void CCollisionData::GetTrianglePoint(CVector& outVec, int32 vertId) {
     outVec = m_pVertices[vertId];
 }
 
 // 0x40F640
+// Expande un vértice comprimido perteneciente a la malla de sombras.
 void CCollisionData::GetShadTrianglePoint(CVector& outVec, int32 vertId) {
     outVec = m_pShadowVertices[vertId];
 }
 
 // 0x40F6C0
+/**
+ * Guarda el enlace de caché en el espacio alineado situado después de los planos.
+ *
+ * Esta disposición evita añadir otro campo a CCollisionData y reproduce el layout
+ * esperado por el juego para los planos calculados dinámicamente.
+ */
 void CCollisionData::SetLinkPtr(CLink<CCollisionData*>* link) {
     // Original calculation method:
     // const auto dwLinkAddress = (reinterpret_cast<uint32>(&m_pTrianglePlanes[m_nNumTriangles]) + 3) & 0xFFFFFFFC; // 4 bytes aligned address
@@ -235,6 +274,7 @@ void CCollisionData::SetLinkPtr(CLink<CCollisionData*>* link) {
 }
 
 // 0x40F6E0
+// Recupera el enlace almacenado tras el array de planos y comprueba que apunte a este objeto.
 CLink<CCollisionData*>* CCollisionData::GetLinkPtr() {
     // Original calculation method:
     // const auto dwLinkAddress = (reinterpret_cast<uint32>(&m_pTrianglePlanes[m_nNumTriangles]) + 3) & 0xFFFFFFFC; // 4 bytes aligned address
@@ -247,6 +287,8 @@ CLink<CCollisionData*>* CCollisionData::GetLinkPtr() {
     return l;
 }
 
+// Los face groups se encuentran físicamente antes de m_pTriangles en ciertos
+// modelos cargados como bloque único; no existe un puntero dedicado en la estructura.
 auto CCollisionData::GetNumFaceGroups() const -> uint32 {
     if (bHasFaceGroups) {
         assert(m_pTriangles);
@@ -255,6 +297,7 @@ auto CCollisionData::GetNumFaceGroups() const -> uint32 {
     return 0;
 }
 
+// Reconstruye una vista de los face groups mediante aritmética sobre el layout cargado.
 auto CCollisionData::GetFaceGroups() const -> std::span<ColHelpers::TFaceGroup> {
     using namespace ColHelpers;
     if (const auto numfg = GetNumFaceGroups()) {
@@ -267,6 +310,7 @@ auto CCollisionData::GetFaceGroups() const -> std::span<ColHelpers::TFaceGroup> 
     return {};
 }
 
+// Expande los tres índices de un triángulo a coordenadas de vértice.
 auto CCollisionData::GetTriVertices(const CColTriangle& tri) const->std::array<CVector, 3> {
     std::array<CVector, 3> verts;
     for (auto&& [i, j] : rngv::enumerate(tri.m_vertIndices)) {
@@ -276,12 +320,14 @@ auto CCollisionData::GetTriVertices(const CColTriangle& tri) const->std::array<C
 }
 
 // NOTSA
+// Reserva un array independiente de líneas y actualiza su contador.
 void CCollisionData::AllocateLines(uint32 num) {
     m_nNumLines = num;
     m_pLines = static_cast<CColLine*>(CMemoryMgr::Malloc(sizeof(CColLine) * num));
 }
 
 // NOTSA
+// Copia en el almacenamiento ya reservado exactamente m_nNumSpheres entradas.
 void CCollisionData::SetSpheres(const CColSphere* spheres) {
     for (auto i = 0; i < m_nNumSpheres; ++i) {
         m_pSpheres[i] = spheres[i];
