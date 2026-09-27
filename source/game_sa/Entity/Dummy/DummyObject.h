@@ -8,6 +8,12 @@
 
 #include "Dummy.h"
 
+/**
+ * Proxy de streaming capaz de intercambiar su recurso RenderWare con un CObject.
+ *
+ * Permite conservar una representación ligera cuando el objeto dinámico no necesita
+ * permanecer materializado.
+ */
 class NOTSA_EXPORT_VTABLE CDummyObject : public CDummy {
 public:
     CDummyObject();
