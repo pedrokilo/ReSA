@@ -21,8 +21,19 @@ END GENERATED HOOK STATUS */
 #include "Pool.h"
 #include "Building.h"
 
+/**
+ * Pool especializado para entidades CBuilding estáticas del mundo.
+ *
+ * Hereda de CPool el almacenamiento fijo, la reutilización de slots y el sistema
+ * de referencias/índices del juego. La clase concreta sólo fija el tipo máximo
+ * almacenado y registra las entradas que tienen dirección propia en el ejecutable.
+ */
 class CBuildingPool : public CPool<CBuilding> {
 public:
+    /**
+     * Registra los hooks propios de CBuildingPool; las operaciones genéricas del pool
+     * continúan implementadas por CPool.
+     */
     static void InjectHooks() {
         RH_ScopedClass(CBuildingPool);
         RH_ScopedCategory("Pools");
