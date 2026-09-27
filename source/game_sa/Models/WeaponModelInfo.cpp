@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "WeaponModelInfo.h"
 
+/**
+ * Registra la inicialización y configuración RenderWare de modelos de armas.
+ */
 void CWeaponModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CWeaponModelInfo, 0x85BD78, 17);
@@ -37,6 +40,7 @@ ModelInfoType CWeaponModelInfo::GetModelType()
 }
 
 // 0x4C98F0
+// Restablece el estado heredado y deja el tipo de arma en WEAPON_UNARMED hasta configurarlo.
 void CWeaponModelInfo::Init()
 {
     CClumpModelInfo::Init();
@@ -44,6 +48,12 @@ void CWeaponModelInfo::Init()
 }
 
 // 0x4C9910
+/**
+ * Instala el clump y configura todos sus atomics con el renderer específico de armas.
+ *
+ * Si existe el frame gunflash, oculta su primer atomic y ajusta el material para que
+ * pueda activarse posteriormente como fogonazo sin renderizarse por defecto.
+ */
 void CWeaponModelInfo::SetClump(RpClump* clump)
 {
     CClumpModelInfo::SetClump(clump);
