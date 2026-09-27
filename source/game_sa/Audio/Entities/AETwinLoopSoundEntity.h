@@ -6,15 +6,16 @@
 */
 #pragma once
 
-/* This class is used to control 2 sounds as one. There are 2 sounds
-   created with `PlayTwinLoopSound()`, and one of them is playing when second
-   is simply muted. When time m_TimeToSwapSoundsMs is reached, these sounds
-   are switched: second starts playing, first begins being muted.
-   The time m_TimeToSwapSoundsMs is calculated as:
-   `CAEAudioUtility::GetRandomNumberInRange(m_SwapTimeMin, m_SwapTimeMax)`
-   Notice these sounds must be situated in same bank slot.
-   `m_AudioEntity` is a pointer to audio which created twin sound. For example,
-   this could be CAEVehicleAudioEntity for playing skid sounds.              */
+/**
+ * Controla dos CAESound looped como una sola fuente continua.
+ *
+ * Ambas voces se crean en el mismo bank slot y permanecen activas, pero sólo una es
+ * audible. Al vencer m_TimeToSwapSoundsMs se transfiere el volumen a la otra voz y
+ * se programa un nuevo intervalo aleatorio, evitando reiniciar los samples.
+ *
+ * m_AudioEntity referencia al controlador que originó este twin-loop; no es propiedad
+ * de esta clase.
+ */
 
 #include "AEAudioEntity.h"
 
@@ -75,14 +76,14 @@ private:
 private:
     eSoundBankSlotS16 m_BankSlot{};
     std::array<eSoundID, NUM_SOUNDS>  m_SoundIDs{};
-    CAEAudioEntity*                   m_AudioEntity{};
+    CAEAudioEntity*                   m_AudioEntity{}; //!< Controlador lógico padre; no owned.
     int16                             m_IsInUse{};
     std::array<int16, NUM_SOUNDS>     m_SoundsLengths{};
     uint16                            m_SwapTimeMin{};
     uint16                            m_SwapTimeMax{};
-    uint32                            m_TimeToSwapSoundsMs{};
+    uint32                            m_TimeToSwapSoundsMs{}; //!< Timestamp de pausa para el próximo intercambio.
     bool                              m_IsPlayingFirstSound{};
     std::array<int16, NUM_SOUNDS>     m_SoundPlayPercentages{}; // 0 - 99%
-    std::array<CAESound*, NUM_SOUNDS> m_Sounds{};
+    std::array<CAESound*, NUM_SOUNDS> m_Sounds{}; //!< Voces administradas por AESoundManager; no owned.
 };
 VALIDATE_SIZE(CAETwinLoopSoundEntity, 0xA8);
