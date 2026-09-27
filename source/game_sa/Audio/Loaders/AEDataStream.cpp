@@ -24,8 +24,8 @@ END GENERATED HOOK STATUS */
 #include "AEStreamTransformer.h"
 #include "FileMgr.h"
 
-// originally startPosition and length is int32
 // 0x4dc620
+// Conserva una ventana [m_nStartPosition, m_nStartPosition + m_nLength) sobre el archivo.
 CAEDataStream::CAEDataStream(int32 trackId, char* filename, uint32 startPosition, uint32 length, bool encrypted) {
     // The native constructor leaves the handle untouched until Initialise.
     m_pszFilename      = filename;
@@ -39,6 +39,7 @@ CAEDataStream::CAEDataStream(int32 trackId, char* filename, uint32 startPosition
 }
 
 // 0x4dc490
+// Cierra el HANDLE si sigue abierto y libera el nombre de archivo propiedad del stream.
 CAEDataStream::~CAEDataStream() {
     if (m_bIsOpen) {
         Close();
@@ -82,6 +83,7 @@ ULONG CAEDataStream::Release() {
 }
 
 // 0x4dc320
+// Adapta FillBuffer() a la interfaz COM IStream.
 HRESULT CAEDataStream::Read(void* dest, ULONG size, ULONG* readed) {
     *readed = static_cast<ULONG>(FillBuffer(dest, size));
     return S_OK;
@@ -162,6 +164,10 @@ HRESULT CAEDataStream::Clone(IStream** target) {
 }
 
 // 0x4dc1c0
+/**
+ * Lee desde el HANDLE respetando la ventana lógica del track y, si procede,
+ * descifra in-place mediante CAEStreamTransformer usando la posición absoluta.
+ */
 size_t CAEDataStream::FillBuffer(void* dest, size_t size) {
     size_t sizeToRead = static_cast<size_t>((m_nCurrentPosition - m_nLength) - m_nStartPosition);
     if (size < sizeToRead)
@@ -187,6 +193,7 @@ uint32 CAEDataStream::GetCurrentPosition() {
 }
 
 // 0x4dc250
+// Traduce SEEK_SET/SEEK_END desde coordenadas relativas del track al offset real del archivo.
 uint32 CAEDataStream::Seek(long offset, int32 whence) {
     if (whence == SEEK_SET) {
         offset += m_nStartPosition;
@@ -205,6 +212,10 @@ bool CAEDataStream::Close() {
 }
 
 // 0x4dc2b0
+/**
+ * Abre el archivo con CreateFileW, posiciona el cursor en m_nStartPosition y,
+ * si m_nLength era cero, utiliza el tamaño completo del archivo.
+ */
 bool CAEDataStream::Initialise() {
     if (m_bIsOpen)
         return true;
@@ -223,6 +234,9 @@ bool CAEDataStream::Initialise() {
     return opened;
 }
 
+/**
+ * Registra la implementación Win32/IStream del stream de datos de audio.
+ */
 void CAEDataStream::InjectHooks() {
     RH_ScopedClass(CAEDataStream);
     RH_ScopedCategory("Audio/Loaders");
