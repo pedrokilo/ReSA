@@ -8,6 +8,9 @@ enum eSmoothFadeEntryStatus : uint32 {
     STATE_CANCELLED = 2,
 };
 
+/**
+ * Solicitud de fade que retiene temporalmente una referencia COM al sound buffer.
+ */
 struct tSmoothFadeEntry {
     IDirectSoundBuffer*    m_pSoundBuffer;
     float                  m_fStartVolume;
@@ -22,6 +25,13 @@ struct tSmoothFadeEntry {
 };
 VALIDATE_SIZE(tSmoothFadeEntry, 0x20);
 
+/**
+ * Worker dedicado a interpolar cambios grandes de volumen sin saltos audibles.
+ *
+ * Mantiene hasta 64 solicitudes sobre IDirectSoundBuffer y equilibra AddRef/Release
+ * durante su ciclo de vida. El thread sólo manipula fades; la reproducción sigue
+ * perteneciendo a CAEAudioChannel/DirectSound.
+ */
 class CAESmoothFadeThread {
 public:
     static constexpr int32 NUM_SMOOTHFADE_ENTRIES = 64;
