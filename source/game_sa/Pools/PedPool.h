@@ -21,8 +21,19 @@ END GENERATED HOOK STATUS */
 #include "Pool.h"
 #include "CopPed.h"
 
+/**
+ * Pool especializado para peatones, incluyendo las variantes derivadas que requieren mayor tamaño.
+ *
+ * Hereda de CPool el almacenamiento fijo, la reutilización de slots y el sistema
+ * de referencias/índices del juego. La clase concreta sólo fija el tipo máximo
+ * almacenado y registra las entradas que tienen dirección propia en el ejecutable.
+ */
 class CPedPool : public CPool<CPed, CCopPed> {
 public:
+    /**
+     * Registra los hooks propios de CPedPool; las operaciones genéricas del pool
+     * continúan implementadas por CPool.
+     */
     static void InjectHooks() {
         RH_ScopedClass(CPedPool);
         RH_ScopedCategory("Pools");
