@@ -14,6 +14,12 @@ class CClumpModelInfo;
 */
 extern RwInt32& gCollisionPluginOffset;
 
+/**
+ * Adaptador RenderWare para cargar un modelo de colisión embebido en un RpClump.
+ *
+ * ms_currentModel actúa como contexto temporal de destino durante el callback de
+ * streaming. El lector real sigue delegado al ejecutable original.
+ */
 class CCollisionPlugin {
 public:
     static inline auto& ms_currentModel = StaticRef<CClumpModelInfo*>(0x9689E0);
