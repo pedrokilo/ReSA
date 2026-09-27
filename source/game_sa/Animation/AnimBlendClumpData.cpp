@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "AnimBlendClumpData.h"
 
+/**
+ * Registra el ciclo de vida y recorrido de los datos de animación anexos a un clump.
+ */
 void CAnimBlendClumpData::InjectHooks() {
     RH_ScopedClass(CAnimBlendClumpData);
     RH_ScopedCategory("Animation");
@@ -33,6 +36,7 @@ void CAnimBlendClumpData::InjectHooks() {
 }
 
 // 0x4CF0E0
+// Inicializa un contenedor vacío; SetNumberOfBones() reserva después los frame data.
 CAnimBlendClumpData::CAnimBlendClumpData() {
     m_NumFrameData   = 0;
     m_PedPosition = nullptr;
@@ -40,6 +44,12 @@ CAnimBlendClumpData::CAnimBlendClumpData() {
 }
 
 // 0x4CF100
+/**
+ * Desenlaza la lista de asociaciones y libera el array alineado de frame data.
+ *
+ * Las asociaciones enlazadas gestionan su propio ciclo de vida; Remove() sólo
+ * separa el nodo centinela/lista mantenido por este clump.
+ */
 CAnimBlendClumpData::~CAnimBlendClumpData() {
     m_AnimList.Remove();
     if (m_FrameDatas) {
@@ -48,6 +58,10 @@ CAnimBlendClumpData::~CAnimBlendClumpData() {
 }
 
 // 0x4CF140
+/**
+ * Redimensiona el almacenamiento de AnimBlendFrameData con alineación de 64 bytes.
+ * Cualquier array anterior se libera antes de reservar el nuevo bloque.
+ */
 void CAnimBlendClumpData::SetNumberOfBones(uint32 numBones) {
     if (m_FrameDatas) {
         CMemoryMgr::FreeAlign(&m_FrameDatas);
@@ -57,6 +71,7 @@ void CAnimBlendClumpData::SetNumberOfBones(uint32 numBones) {
 }
 
 // 0x4CF190
+// Invoca el callback para cada frame conservando el mismo contexto data.
 void CAnimBlendClumpData::ForAllFrames(void (*callback)(AnimBlendFrameData*, void*), void* data) {
     for (auto& frame : std::span{ m_FrameDatas, m_NumFrameData }) {
         callback(&frame, data);
@@ -64,11 +79,13 @@ void CAnimBlendClumpData::ForAllFrames(void (*callback)(AnimBlendFrameData*, voi
 }
 
 // 0x4CF1D0
+// Entrada del ejecutable original que en esta plataforma reconstruida no requiere trabajo.
 void CAnimBlendClumpData::LoadFramesIntoSPR() {
     // NOP
 }
 
 // 0x4CF1E0
+// Compañera de LoadFramesIntoSPR(); permanece como NOP en esta implementación.
 void CAnimBlendClumpData::ForAllFramesInSPR(void (*callback)(AnimBlendFrameData*, void*), void* data, uint32 a3) {
     // NOP
 }
