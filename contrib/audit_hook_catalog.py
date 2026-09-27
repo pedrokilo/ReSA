@@ -13,10 +13,10 @@ SCOPE = re.compile(
     re.MULTILINE,
 )
 INSTALL = re.compile(
-    r'^\\s*RH_Scoped(?:'
+    r'^\s*RH_Scoped(?:'
     r'Install|OverloadedInstall|VMTInstall|OverloadedVMTInstall|'
     r'GlobalInstall|GlobalOverloadedInstall'
-    r')\\s*\\(',
+    r')\s*\(',
     re.MULTILINE,
 )
 MAIN_CALL = re.compile(
