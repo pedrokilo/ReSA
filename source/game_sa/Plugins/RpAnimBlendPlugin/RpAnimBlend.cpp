@@ -20,8 +20,10 @@ END GENERATED HOOK STATUS */
 
 #include "RpAnimBlend.h"
 
+// Offset del payload CAnimBlendClumpData* registrado dentro de cada RpClump.
 static auto& ClumpOffset = StaticRef<uint32>(0xB5F878);
 
+// Devuelve una referencia al puntero almacenado en el payload para permitir inicializarlo o limpiarlo.
 CAnimBlendClumpData*& RpAnimBlendClumpGetData(RpClump* clump) {
     return *RWPLUGINOFFSET(CAnimBlendClumpData*, clump, ClumpOffset);
 }
@@ -39,6 +41,10 @@ void* ClumpAnimConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObj
 }
 
 // 0x4D6110
+/**
+ * Retira y destruye todas las asociaciones antes de liberar CAnimBlendClumpData.
+ * El RpClump continúa siendo propiedad de RenderWare.
+ */
 void* ClumpAnimDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
     UNUSED(offsetInObject);
     UNUSED(sizeInObject);
@@ -84,6 +90,12 @@ void RpAnimBlendKeyFrameInterpolate(void* voidOut, void* voidIn1, void* voidIn2,
 }
 
 // 0x4D6150
+/**
+ * Registra en RpClump el puntero a CAnimBlendClumpData y el esquema de interpolación.
+ *
+ * RenderWare conserva los callbacks de keyframe, mientras el juego administra por
+ * separado las asociaciones y secuencias reconstruidas por el plugin.
+ */
 bool RpAnimBlendPluginAttach() {
     ClumpOffset = RpClumpRegisterPlugin(
         sizeof(CAnimBlendClumpData*),
@@ -125,6 +137,12 @@ void RpAnimBlendAllocateData(RpClump* clump) {
 }
 
 // 0x4D6510
+/**
+ * Construye un AnimBlendFrameData por bone de un clump skinned.
+ *
+ * Deriva posiciones locales desde las matrices skin-to-bone y relaciona cada slot
+ * con el frame del RtAnimInterpolator correspondiente.
+ */
 void RpAnimBlendClumpInitSkinned(RpClump* clump) { // Can't hook, `clump` passed in eax
     const auto bd = RpAnimBlendClumpGetData(clump);
 
@@ -195,6 +213,10 @@ RwFrame* SetFrameDataFrameCB(RwFrame* f, void* data) {
 }
 
 // 0x
+/**
+ * Inicializa clumps no skinned recorriendo sus RwFrame hijos y conservando la
+ * posición base de cada frame para posteriores mezclas de traslación.
+ */
 void RpAnimBlendClumpInitNonSkinned(RpClump* clump) {
     const auto bd = RpAnimBlendClumpGetData(clump);
 
@@ -214,6 +236,7 @@ void RpAnimBlendClumpInitNonSkinned(RpClump* clump) {
 }
 
 // 0x4D6720
+// Reserva los datos del clump y selecciona la ruta skinned/no-skinned adecuada.
 void RpAnimBlendClumpInit(RpClump* clump) {
     RpAnimBlendAllocateData(clump); // Moved this common piece out of the 2 functions
     if (IsClumpSkinned(clump)) {
