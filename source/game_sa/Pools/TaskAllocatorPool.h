@@ -21,8 +21,17 @@ END GENERATED HOOK STATUS */
 #include "Pool.h"
 #include "Allocators/TaskAllocator.h"
 
+/**
+ * Pool especializado para allocators de tareas, reservando espacio para sus variantes derivadas.
+ *
+ * Reutiliza el almacenamiento administrado por CPool para evitar asignaciones
+ * dispersas y conservar el modelo de memoria esperado por el juego original.
+ */
 class CTaskAllocatorPool : public CPool<CTaskAllocator, char[32]> { // char[32] == CTaskAllocatorPlayerCommandAttack
 public:
+    /**
+     * Registra las operaciones con dirección propia de CTaskAllocatorPool.
+     */
     static void InjectHooks() {
         RH_ScopedClass(CTaskAllocatorPool);
         RH_ScopedCategory("Pools");
