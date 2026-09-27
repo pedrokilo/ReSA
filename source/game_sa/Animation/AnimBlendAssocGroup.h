@@ -17,10 +17,11 @@ class CAnimBlock;
 struct RpClump;
 
 /*!
- * @brief Animation group (block)
- * 
- * Represents a group (block) (Such as `ped`, `int_house`, etc).
- * Is also used for mapping `AnimationId`'s and animation names to animation data.
+ * @brief Grupo de asociaciones asociado normalmente a un bloque de animaciones.
+ *
+ * Representa conjuntos como ped o int_house y mantiene el mapeo entre nombres,
+ * AnimationId y CAnimBlendStaticAssociation. El grupo es propietario de m_Anims,
+ * pero m_AnimBlock referencia el catálogo global gestionado por CAnimManager.
 */
 class CAnimBlendAssocGroup {
 public:
@@ -32,11 +33,10 @@ public:
     /*!
      * @addr 0x4CE0B0
      * 
-     * @brief Instantiate an animation
-     * 
-     * @param name Name of the animation
-     * 
-     * @return The uncompressed instantiated animation
+     * @brief Crea una asociación dinámica a partir de una definición estática.
+     *
+     * @param name Nombre de la animación dentro del grupo.
+     * @return Nueva asociación reproducible, o nullptr si no existe la definición.
     */
     CAnimBlendAssociation* CopyAnimation(const char* name);
 
@@ -46,31 +46,31 @@ public:
     /*!
      * @addr 0x4CE220
      * 
-     * @brief Create default associations
-     * 
-     * @param blockName Name of the anim block to load the anims from
+     * @brief Crea las asociaciones predeterminadas del bloque indicado.
+     *
+     * @param blockName Nombre del bloque que aporta las jerarquías de animación.
     */
     void CreateAssociations(const char* blockName);
 
     /*!
-     * @brief Create associations for the specified animations
-     * 
-     * @param blockName Name of the anim block to load the anims from
-     * @param clump Fuck knows
-     * @param names Animation names to load
-     * @param cnt Num of anims to load (same as #names)
+     * @brief Crea asociaciones concretas contra un mismo RpClump.
+     *
+     * @param blockName Bloque del que se resuelven las jerarquías.
+     * @param clump Clump cuya estructura de frames se utiliza para inicializarlas.
+     * @param names Nombres de las animaciones; una cadena vacía reserva un slot sin ID.
+     * @param cnt Número de entradas de names.
     */
     void CreateAssociations(const char* blockName, RpClump* clump, const char** names, uint32 cnt);
 
     /*!
      * @addr 0x4CE3B0
      * 
-     * @brief Create animation associations with the given models
+     * @brief Relaciona animaciones y modelos a partir de buffers paralelos.
      * 
-     * @param blockName Name of the anim block to load the anims from
-     * @param animNames Animation name array
-     * @param modelNames Model (Clump models, I guess animation clumps?) name array. This and `animNames` form a kv map (So, the `n`th animation is associated with the `n`th model)
-     * @param strBufLen Size of each field in the above name arrays.
+     * @param blockName Bloque fuente.
+     * @param animNames Buffer de nombres de animación.
+     * @param modelNames Buffer paralelo de nombres de modelo.
+     * @param strBufLen Longitud fija de cada campo en ambos buffers.
     */
     void CreateAssociations(const char* blockName, const char* animNames, const char* modelNames, uint32 strBufLen);
 
@@ -127,10 +127,10 @@ private: // Wrappers for hooks
     }
 
 public:
-    CAnimBlock*                  m_AnimBlock{};              ///< The anim block of this group
-    CAnimBlendStaticAssociation* m_Anims{};
-    uint32                       m_NumAnims{};               ///< Number of anims (in the `m_Anims` array)
-    uint32                       m_IdOffset{};               ///< This group's first anim ID
-    AssocGroupId                 m_GroupID{ANIM_GROUP_NONE}; ///< This group's ID
+    CAnimBlock*                  m_AnimBlock{};              ///< Bloque global del que proceden las animaciones; no owned.
+    CAnimBlendStaticAssociation* m_Anims{};                  ///< Array propiedad del grupo.
+    uint32                       m_NumAnims{};               ///< Número de entradas válidas de m_Anims.
+    uint32                       m_IdOffset{};               ///< Primer AnimationId reservado para este grupo.
+    AssocGroupId                 m_GroupID{ANIM_GROUP_NONE}; ///< Identificador lógico del grupo.
 };
 VALIDATE_SIZE(CAnimBlendAssocGroup, 0x14);
