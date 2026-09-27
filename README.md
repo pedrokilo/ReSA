@@ -1,4 +1,4 @@
-# ESOS WEYES DEL REVERSE SE DEMORAN UN CHINGO Y SON MUCHOOOS 
+# ESOS WEYES DEL REVERSE SE DEMORAN UN CHINGO, SUS CLASES REVERTIDAS NI ESTÁN VALIDADAS Y ESO QUE SON UN MONTÓN DE GENTE PTM 
 # GTA San Andreas · Reversing en PGTASA
 
 Recrear GTA San Andreas PC de forma funcionalmente equivalente mediante código fuente reconstruido, reduciendo hasta eliminar la dependencia de funciones originales del ejecutable. La meta es una reconstrucción completa y validada, seguida de un ejecutable propio.
