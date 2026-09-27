@@ -20,8 +20,8 @@
 
 constexpr size_t MAX_SUPPORTED_DECODERS = 8;
 
-// VC6 vector of pointers used by the executable. Its allocator occupies the
-// first four bytes; it is not ABI-compatible with std::vector in this DLL.
+// Vector legacy de VC6 usado por el ejecutable. Su allocator ocupa los primeros
+// cuatro bytes y no es ABI-compatible con std::vector dentro de esta DLL.
 struct UserTracksLegacyVector {
     uint32 allocator{};
     tUserTracksInfo** first{};
@@ -30,15 +30,22 @@ struct UserTracksLegacyVector {
 };
 VALIDATE_SIZE(UserTracksLegacyVector, 0x10);
 
+/**
+ * Gestor de la emisora de user tracks.
+ *
+ * Mantiene el índice persistente de archivos escaneados, selecciona el decoder según
+ * extensión y ejecuta el escaneo del directorio en un thread separado. Los registros
+ * tUserTracksInfo describen offsets dentro de sa-ufiles.dat.
+ */
 class CAEUserRadioTrackManager {
 public:
-    tUserTracksInfo*    m_pUserTracksInfo;
+    tUserTracksInfo*    m_pUserTracksInfo; //!< Array cargado desde sa-utrax.dat.
     bool                m_bUserTracksLoaded;
     bool                m_bUserTracksLoadedCopy;
     uint16              m_nUserTracksCount;
     bool                m_baDecodersSupported[MAX_SUPPORTED_DECODERS]; // index with eAudioFileType
     DWORD               m_nUserTracksScanThreadID;
-    HANDLE              m_hwndUserTracksScanThreadHandle;
+    HANDLE              m_hwndUserTracksScanThreadHandle; //!< Thread de escaneo del directorio User Tracks.
     eUserTrackScanState m_nUserTracksScanState;
 
 public:
