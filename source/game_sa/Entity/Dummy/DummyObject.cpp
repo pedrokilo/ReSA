@@ -21,6 +21,9 @@ END GENERATED HOOK STATUS */
 #include "DummyObject.h"
 #include "TheScripts.h"
 
+/**
+ * Registra la conversión bidireccional entre CDummyObject y CObject real.
+ */
 void CDummyObject::InjectHooks() {
     RH_ScopedVirtualClass(CDummyObject, 0x866E78, 22);
     RH_ScopedCategory("Entity/Dummy");
@@ -35,6 +38,10 @@ CDummyObject::CDummyObject() : CDummy() {
 }
 
 // 0x59EA20
+/**
+ * Adopta temporalmente el RwObject de un CObject y conserva IPL/area sin duplicar
+ * el recurso RenderWare. El objeto fuente queda separado del RwObject.
+ */
 CDummyObject::CDummyObject(CObject* obj) : CDummy() {
     CEntity::SetModelIndexNoCreate(GetModelIndex());
     if (obj->GetRwObject())
@@ -47,6 +54,10 @@ CDummyObject::CDummyObject(CObject* obj) : CDummy() {
 }
 
 // 0x59EAC0
+/**
+ * Materializa un CObject dinámico a partir del dummy, transfiere su LOD y desactiva
+ * visibilidad/colisión del proxy mientras el objeto real queda activo.
+ */
 CObject* CDummyObject::CreateObject() {
     m_bImBeingRendered = true; // BUG? Seems like that flag doesn't fit here
     auto* obj = CObject::Create(this);
@@ -65,6 +76,10 @@ CObject* CDummyObject::CreateObject() {
 }
 
 // 0x59EB70
+/**
+ * Recupera el RwObject/estado relevante de un CObject antes de volver a usar el dummy
+ * como representación de streaming y transfiere de nuevo la relación LOD.
+ */
 void CDummyObject::UpdateFromObject(CObject* obj) {
     SetIsVisible(true);
     SetUsesCollision(true);
