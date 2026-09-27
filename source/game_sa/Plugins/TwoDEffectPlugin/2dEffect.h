@@ -218,7 +218,10 @@ struct tEffectInterior {
 };
 VALIDATE_SIZE(tEffectInterior, 0x34 - 0x10);
 
-//! NOTASA base class (otherwise SA)
+/**
+ * Cabecera binaria común a todos los efectos 2DFX: posición local y discriminante.
+ * Las estructuras tipadas NOTSA comparten exactamente el layout de C2dEffect.
+ */
 struct C2dEffectBase {
     CVector       m_Pos;
     e2dEffectType m_Type;
@@ -229,9 +232,8 @@ struct C2dEffectBase {
 };
 VALIDATE_SIZE(C2dEffectBase, 0x10);
 
-//! NOTSA
-//! Prefer using these types instead of the `C2dEffect` for type safety reasons
-//! They are binary compatible (that is, same memory layout)
+//! Vistas tipadas NOTSA preferibles a acceder directamente a la unión de C2dEffect.
+//! Son compatibles binariamente y DynCast/Cast validan m_Type.
 struct C2dEffectLight            : C2dEffectBase, tEffectLight {};
 struct C2dEffectParticle         : C2dEffectBase, tEffectParticle {};
 struct C2dEffectPedAttractor     : C2dEffectBase, tEffectPedAttractor {};
@@ -242,6 +244,13 @@ struct C2dEffectCoverPoint       : C2dEffectBase, tEffectCoverPoint {};
 struct C2dEffectEscalator        : C2dEffectBase, tEffectEscalator {};
 struct C2dEffectInterior         : C2dEffectBase, tEffectInterior {};
 
+/**
+ * Entrada 2DFX almacenada en el plugin de una RpGeometry.
+ *
+ * m_Type selecciona la variante válida de la unión. Algunas variantes poseen
+ * recursos externos (texturas, texto, RpAtomic) y por ello requieren Shutdown()
+ * antes de liberar el bloque que contiene la entrada.
+ */
 struct C2dEffect : public C2dEffectBase {
     union {
         tEffectLight            light;
@@ -274,12 +283,14 @@ public:
 public:
     static void InjectHooks();
 
+    // Libera únicamente los recursos auxiliares de la variante activa.
     void Shutdown();
 
     static int32 Roadsign_GetNumLinesFromFlags(CRoadsignAttrFlags flags);
     static int32 Roadsign_GetNumLettersFromFlags(CRoadsignAttrFlags flags);
     static int32 Roadsign_GetPaletteIDFromFlags(CRoadsignAttrFlags flags);
 
+    // Registra el payload y callbacks de streaming del plugin en RpGeometry.
     static bool PluginAttach();
     static void DestroyAtomic(RpAtomic* atomic);
 };
