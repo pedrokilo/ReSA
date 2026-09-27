@@ -7,10 +7,16 @@
 #include "BoneNode.h"
 #include "Ragdoll/BoneInfo.h"
 
+/**
+ * Pool fijo de BoneNode_c utilizado al construir cadenas IK.
+ *
+ * No realiza asignaciones por nodo: m_Space contiene todas las entradas y m_Bones
+ * actúa como lista libre. ms_boneInfos aporta pose base y límites por eBoneTag.
+ */
 class BoneNodeManager_c {
 private:
-    std::array<BoneNode_c, 128> m_Space;
-    TList_c<BoneNode_c>         m_Bones;
+    std::array<BoneNode_c, 128> m_Space; //!< Almacenamiento propiedad del manager.
+    TList_c<BoneNode_c>         m_Bones; //!< Lista de entradas actualmente libres.
 
     static inline auto& ms_boneInfos = StaticRef<std::array<BoneInfo_t, MAX_BONE_NUM>>(0x8D26D0);
 
