@@ -29,6 +29,9 @@ END GENERATED HOOK STATUS */
 #include "CustomBuildingRenderer.h"
 #include "CarFXRenderer.h"
 
+/**
+ * Registra el ciclo de vida, clonación y utilidades de jerarquía de CClumpModelInfo.
+ */
 void CClumpModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CClumpModelInfo, 0x85BD30, 17);
@@ -81,6 +84,10 @@ void CClumpModelInfo::Shutdown()
 }
 
 // 0x4C4E70
+/**
+ * Destruye el RpClump propietario, actualiza el conteo de 2DFX y libera referencias
+ * a TXD/AnimBlock. Si este model info posee su colisión también la elimina.
+ */
 void CClumpModelInfo::DeleteRwObject()
 {
     if (!GetRwObject())
@@ -102,6 +109,12 @@ void CClumpModelInfo::DeleteRwObject()
         CBaseModelInfo::DeleteCollisionModel();
 }
 
+/**
+ * Clona el clump base y reconstruye el estado de animación necesario para la instancia.
+ *
+ * En clumps skinned reestablece la jerarquía HAnim y, cuando bHasAnimBlend está activo,
+ * inicializa RpAnimBlend y arranca la animación asociada al bloque del modelo.
+ */
 RwObject* CClumpModelInfo::CreateInstance()
 {
     if (!GetRwObject())
@@ -140,6 +153,7 @@ RwObject* CClumpModelInfo::CreateInstance(RwMatrix* matrix)
 }
 
 // 0x4C5200
+// Conserva temporalmente el nombre del IFP hasta ConvertAnimFileIndex().
 void CClumpModelInfo::SetAnimFile(const char* filename)
 {
     if (!strcmp(filename, "null"))
@@ -152,6 +166,7 @@ void CClumpModelInfo::SetAnimFile(const char* filename)
 }
 
 // 0x4C5250
+// Sustituye el nombre temporal por el índice real del AnimBlock y libera la cadena.
 void CClumpModelInfo::ConvertAnimFileIndex()
 {
     if (m_nAnimFileIndex == -1)
@@ -175,6 +190,12 @@ CBox* CClumpModelInfo::GetBoundingBox()
 }
 
 // 0x4C4F70
+/**
+ * Instala el RpClump base y configura referencias, pipelines, skin y jerarquía HAnim.
+ *
+ * También normaliza los pesos de skin y sincroniza el conteo de 2DFX procedentes
+ * de la geometría del clump.
+ */
 void CClumpModelInfo::SetClump(RpClump* clump)
 {
     if (GetRwObject()) {
@@ -225,6 +246,7 @@ void CClumpModelInfo::SetClump(RpClump* clump)
 }
 
 // 0x4C5460
+// Asigna IDs de jerarquía buscando por nombre sólo frames que aún no tienen ID.
 void CClumpModelInfo::SetFrameIds(RwObjectNameIdAssocation* data) {
     if (!data->m_pName)
         return;
@@ -278,6 +300,7 @@ RpAtomic* CClumpModelInfo::SetHierarchyForSkinAtomic(RpAtomic* atomic, void* dat
     return atomic;
 }
 
+// Recorre recursivamente la jerarquía y detiene la rama al encontrar el nombre pedido.
 RwFrame* CClumpModelInfo::FindFrameFromNameCB(RwFrame* frame, void* searchData)
 {
     auto searchInfo = reinterpret_cast<tCompSearchStructByName*>(searchData);
@@ -309,6 +332,7 @@ RwFrame* CClumpModelInfo::FindFrameFromNameWithoutIdCB(RwFrame* frame, void* sea
         return frame;
 }
 
+// Busca recursivamente un frame por el ID almacenado en CVisibilityPlugins.
 RwFrame* CClumpModelInfo::FindFrameFromIdCB(RwFrame* frame, void* searchData)
 {
     auto searchInfo = reinterpret_cast<tCompSearchStructById*>(searchData);
