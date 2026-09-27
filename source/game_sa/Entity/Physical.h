@@ -61,6 +61,13 @@ enum eEntityAltCollision : uint16 {
     ALT_ENITY_COL_BOAT,
 };
 
+/**
+ * Base física para vehículos, peatones y objetos dinámicos.
+ *
+ * Añade velocidades, fuerzas, masa, fricción, historial de contactos, lighting,
+ * attachments y una CEntryInfoList que registra exactamente en qué repeat-sectors
+ * se encuentra el cuerpo.
+ */
 class NOTSA_EXPORT_VTABLE CPhysical : public CEntity {
 public:
     float  field_38;
@@ -118,8 +125,8 @@ public:
     float               m_fElasticity;
     float               m_fBuoyancyConstant;
     CVector             m_vecCentreOfMass;
-    CEntryInfoList      m_pCollisionList;
-    CPtrNodeDoubleLink<CPhysical*>* m_pMovingList;
+    CEntryInfoList      m_pCollisionList; //!< Nodos espaciales creados al insertar el cuerpo en CWorld.
+    CPtrNodeDoubleLink<CPhysical*>* m_pMovingList; //!< Enlace opcional en la lista global de cuerpos en movimiento.
     uint8               m_nFakePhysics;
     uint8               m_nNumEntitiesCollided;
     eSurfaceType        m_nContactSurface;
@@ -130,11 +137,11 @@ public:
     CVector             m_vecLastCollisionImpactVelocity;
     CVector             m_vecLastCollisionPosn;
     uint16              m_nPieceType;
-    CPhysical*          m_pAttachedTo;
+    CPhysical*          m_pAttachedTo; //!< Cuerpo padre de un attachment; referencia externa.
     CVector             m_vecAttachOffset;
     CVector             m_vecAttachedEntityRotation;
     CQuaternion         m_qAttachedEntityRotation;
-    CEntity*            m_pEntityIgnoredCollision;
+    CEntity*            m_pEntityIgnoredCollision; //!< Entidad omitida temporalmente durante pruebas de colisión.
     float               m_fContactSurfaceBrightness;
     float               m_fDynamicLighting;
     CRealTimeShadow*    m_pShadowData;
