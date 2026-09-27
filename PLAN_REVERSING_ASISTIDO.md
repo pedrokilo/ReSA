@@ -21,15 +21,25 @@ La ejecución ocurre durante sesiones de trabajo y procesos que dejemos configur
 ## 2. Lo comprobado en esta copia
 
 - El README describe una DLL/ASI que sustituye funciones del juego por implementaciones reconstruidas.
-- docs/hooks.csv contiene 8.014 registros: 7.428 con reversed=1 y 586 con reversed=0. Son registros del catálogo, no un inventario exhaustivo del ejecutable ni necesariamente direcciones únicas.
+- En la inspección inicial, `docs/hooks.csv` contenía 8.014 registros. **Estado vigente:** 8.080 entradas, 7.545 con `reversed=1` y 535 pendientes. Son registros del catálogo, no un inventario exhaustivo del ejecutable ni necesariamente direcciones únicas.
 - Sus columnas son class, fn_name, address, reversed, locked y type. Interpretaré locked y type leyendo su implementación antes de usarlos como filtros.
-- docs/ReversedClasses.md enumera 701 clases y 584 completamente reconstruidas. Advierte que la documentación es incompleta: el 83% de clases no significa el 83% del juego.
+- En la inspección inicial, `docs/ReversedClasses.md` enumeraba 701 clases. **Estado vigente:** 712 clases/grupos, 621 completas, 88 parciales y 3 sin revertir. El porcentaje del catálogo no equivale al porcentaje del juego probado ni a independencia del EXE.
 - docs/HookRegistration.md exige marcar reversed=false en funciones que todavía redirigen al código original.
 - El README exige GTA SA Compact exe de 5.189.632 bytes y distingue esta versión de otros ejecutables 1.0 US. El tamaño será un filtro preliminar; también comprobaré hash, cabeceras PE y bytes en direcciones relevantes.
 - El README pide Visual Studio 2026, Python, Conan 2 y CMake 4.2 o superior. La compilación prevista es x86.
 - La consulta inicial al PATH encontró comandos python y java, pero no verificó sus versiones ni su funcionamiento. No encontró cmake ni conan por nombre. Esto no demuestra que falten instalaciones fuera del PATH.
 - No apareció AGENTS.md en la búsqueda dentro del proyecto. La carpeta parece una extracción del código; no se observó .git en la raíz.
 - Todavía no se ha localizado ni verificado el ejecutable del juego o una instalación de Ghidra.
+
+### Estado vigente del catálogo
+
+La rama `PGTASA` incorpora una auditoría bidireccional que contrasta scopes e instalaciones de hooks, llamadas de registro y `docs/hooks.csv`. El corte actual pasa:
+
+```powershell
+python contrib/audit_hook_catalog.py --strict
+```
+
+con cero inconsistencias críticas. El modo `--verbose` muestra adicionalmente hooks inactivos, registros indirectos y aliases informativos sin incorporarlos automáticamente al progreso.
 
 ## 3. Arquitectura propuesta
 
