@@ -24,6 +24,9 @@ END GENERATED HOOK STATUS */
 
 auto& AESmoothFadeThread = StaticRef<CAESmoothFadeThread>(0xB608D0);
 
+/**
+ * Registra la cola y el hilo encargado de transiciones suaves de volumen DirectSound.
+ */
 void CAESmoothFadeThread::InjectHooks() {
     RH_ScopedClass(CAESmoothFadeThread);
     RH_ScopedCategory("Audio");
@@ -51,6 +54,9 @@ CAESmoothFadeThread::CAESmoothFadeThread() {
     m_nNumAvailableBuffers = 0;
 }
 
+/**
+ * Reinicia los slots y crea el thread suspendido; Start() controla cuándo comienza a servirlos.
+ */
 void CAESmoothFadeThread::Initialise() {
     InitialiseRequestSlots();
     m_threadHandle = CreateThread(nullptr, 0, &CAESmoothFadeThread::SmoothFadeProc, this, CREATE_SUSPENDED, &m_dwThreadId);
@@ -83,6 +89,10 @@ void CAESmoothFadeThread::WaitForExit() {
     WaitForSingleObject(m_threadHandle, -1);
 }
 
+/**
+ * Avanza cada fade activo, escribe el volumen interpolado y libera la referencia
+ * COM al buffer al completar o cancelar la solicitud.
+ */
 void CAESmoothFadeThread::Service() {
     m_currentTime = (uint32)CAEAudioUtility::GetCurrentTimeInMS();
     for (auto& entry : m_aEntries) {
@@ -144,6 +154,12 @@ void CAESmoothFadeThread::CancelFade(IDirectSoundBuffer* buffer) {
             entry.m_nStatus = eSmoothFadeEntryStatus::STATE_CANCELLED;
 }
 
+/**
+ * Inserta o actualiza un fade para un buffer que esté reproduciéndose.
+ *
+ * AddRef() mantiene vivo el IDirectSoundBuffer mientras el thread lo usa; Service()
+ * equilibra esa referencia al completar/cancelar la entrada.
+ */
 bool CAESmoothFadeThread::RequestFade(IDirectSoundBuffer* buffer, float fTargetVolume, int16 fadeTime, bool bStopBufferAfterFade) {
     if (!m_bInitialized || m_bSmoothFadesDisabled)
         return false;
@@ -220,6 +236,7 @@ bool CAESmoothFadeThread::RequestFade(IDirectSoundBuffer* buffer, float fTargetV
     return true;
 }
 
+// Escribe directamente el volumen salvo que exista un fade activo incompatible, que se cancela.
 void CAESmoothFadeThread::SetBufferVolume(IDirectSoundBuffer* buffer, float volume) {
     const auto newVolume = static_cast<LONG>(volume * 100.0F);
     if (m_bSmoothFadesDisabled) {
@@ -246,6 +263,7 @@ void CAESmoothFadeThread::SetBufferVolume(IDirectSoundBuffer* buffer, float volu
     }
 }
 
+// Loop del thread: procesa fades aproximadamente cada milisegundo mientras esté activo.
 DWORD WINAPI CAESmoothFadeThread::SmoothFadeProc(void* smoothFade) {
 #ifdef TRACY_ENABLE
     tracy::SetThreadName("AESmoothFadeThread");
