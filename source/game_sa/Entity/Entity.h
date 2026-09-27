@@ -40,6 +40,13 @@ class CBaseModelInfo;
 
 struct RwObject;
 
+/**
+ * Base común de todas las entidades registrables en CWorld.
+ *
+ * Añade a CPlaceable un recurso RenderWare opcional, model/area/IPL, flags de
+ * streaming/render/colisión, relaciones LOD y el sistema de referencias seguras.
+ * Las subclases especializan física y comportamiento manteniendo este layout base.
+ */
 class NOTSA_EXPORT_VTABLE CEntity : public CPlaceable {
 public:
     struct CEntityInfo {
@@ -48,7 +55,7 @@ public:
     };
 
 private:
-    RwObject* m_pRwObject; // Use `GetRwObject`/`GetRpClump`/`GetRpAtomic` to access
+    RwObject* m_pRwObject; //!< Recurso RenderWare base; acceder mediante los getters tipados.
 
 public:
 
@@ -106,10 +113,10 @@ public:
 
     uint16 m_nModelIndex;
 
-    CReference* m_pReferences;
+    CReference* m_pReferences; //!< Lista de ubicaciones externas que apuntan a esta entidad.
 
 protected:
-    CLink<CEntity*>* m_pStreamingLink;
+    CLink<CEntity*>* m_pStreamingLink; //!< Enlace opcional en listas internas de streaming.
 
     uint16     m_ScanCode;
     uint8      m_IplIndex;
@@ -130,6 +137,7 @@ public:
     CEntity();
     ~CEntity() override;
 
+    // Inserción/remoción en las listas espaciales de CWorld.
     virtual void Add();
     virtual void Add(const CRect& rect);
     virtual void Remove();
@@ -251,8 +259,10 @@ public:
 
     void SetupBigBuilding();
 
+    // Registra la dirección de un puntero externo para poder anularlo al destruir this.
     void RegisterReference(CEntity** entity);
 
+    // Mantiene la lista de referencias externas y elimina entradas obsoletas.
     void CleanUpOldReference(CEntity** entity);
     void ResolveReferences();
     void PruneReferences();
