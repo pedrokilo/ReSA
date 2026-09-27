@@ -16,6 +16,13 @@
 
 struct BoneInfo_t;
 
+/**
+ * Nodo de una jerarquía ósea temporal utilizada por las cadenas IK.
+ *
+ * Mantiene pose local, límites angulares, matriz world y relaciones padre/hijos.
+ * m_InterpFrame referencia el frame real del clump; el nodo se obtiene del pool fijo
+ * de BoneNodeManager_c y no es propietario de ese frame.
+ */
 class BoneNode_c : public ListItem_c<BoneNode_c> {
 public:
     BoneNode_c() = default;  // 0x616B30
@@ -68,17 +75,17 @@ public:
 
 private:
     eBoneTag32               m_BoneTag;
-    RpHAnimBlendInterpFrame* m_InterpFrame;
+    RpHAnimBlendInterpFrame* m_InterpFrame; //!< Frame de animación externo que recibirá el blend IK.
     RtQuat                   m_Orientation; 
     CVector                  m_Pos;
 
-    BoneNode_c*              m_Parent;
-    TList_c<BoneNode_c>      m_Childs;
+    BoneNode_c*              m_Parent; //!< Padre dentro de la cadena temporal.
+    TList_c<BoneNode_c>      m_Childs; //!< Hijos enlazados sin transferir ownership.
 
     RwMatrix                 m_WorldMat;
 
-    CVector                  m_LimitMin;
-    CVector                  m_LimitMax;
+    CVector                  m_LimitMin; //!< Límites Euler mínimos en grados.
+    CVector                  m_LimitMax; //!< Límites Euler máximos en grados.
 
     float                    m_Speed;
 };
