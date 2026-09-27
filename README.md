@@ -109,6 +109,7 @@ Ese número no está ligado a un procedimiento reproducible visible en el reposi
 | Clases parciales | 114 | **88** |
 | Sin revertir | 3 | **3** |
 | Locks registrados | 713 | **625** |
+| Evidencia aprobada por función (`validated=1`) | sin columna equivalente | **34** |
 
 Por tanto, hay dos métricas distintas en upstream que no deben mezclarse: una estimación informal del “50-60% del código” y un catálogo de hooks que marca aproximadamente **92,69%** de sus entradas como `reversed=1`. Ninguna de las dos, por sí sola, significa “porcentaje del juego terminado”, pero el README no ofrece una metodología que conecte ambas cifras.
 
