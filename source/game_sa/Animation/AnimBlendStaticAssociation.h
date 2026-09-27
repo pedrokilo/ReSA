@@ -13,7 +13,13 @@
 class CAnimBlendSequence;
 class CAnimBlendHierarchy;
 
-//! Stores static animation data loaded from an animation clump.
+/**
+ * Asociación estática entre una jerarquía de animación y la estructura de un clump.
+ *
+ * m_BlendSeqs contiene un puntero por nodo del clump hacia la secuencia que lo anima.
+ * Sirve como plantilla barata para crear CAnimBlendAssociation dinámicas sin volver
+ * a resolver bones/frames cada vez. No es propietaria de CAnimBlendHierarchy.
+ */
 class NOTSA_EXPORT_VTABLE CAnimBlendStaticAssociation {
 public:
     static void InjectHooks();
@@ -32,12 +38,12 @@ public:
     auto GetAnimHierarchy() const { return m_BlendHier; }
 
 public:
-    uint16                        m_NumBlendNodes{};
+    uint16                        m_NumBlendNodes{}; //!< Tamaño de m_BlendSeqs y número de nodos del clump usado al crearla.
     notsa::WEnumS16<AnimationId>  m_AnimId{ANIM_ID_UNDEFINED};
     notsa::WEnumS16<AssocGroupId> m_AnimGroupId{ANIM_GROUP_NONE};
     uint16                        m_Flags{};
-    CAnimBlendSequence**          m_BlendSeqs{};
-    CAnimBlendHierarchy*          m_BlendHier{};
+    CAnimBlendSequence**          m_BlendSeqs{};    //!< Mapa por nodo propiedad de esta asociación; secuencias no owned.
+    CAnimBlendHierarchy*          m_BlendHier{};    //!< Jerarquía global referenciada; no owned.
 
 private:
     // 0x4CE940
