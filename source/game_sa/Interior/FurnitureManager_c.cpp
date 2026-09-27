@@ -19,9 +19,13 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "FurnitureManager_c.h"
 
+// Contadores globales que avanzan sobre los almacenes fijos de subgrupos y muebles.
 auto& g_currSubGroupId = StaticRef<uint32>(0xBAB37C);
 auto& g_currFurnitureId = StaticRef<uint32>(0xBAB378);
 
+/**
+ * Registra el ciclo de vida, carga y consultas del catálogo global de mobiliario.
+ */
 void FurnitureManager_c::InjectHooks() {
     RH_ScopedClass(FurnitureManager_c);
     RH_ScopedCategory("Interior");
@@ -36,6 +40,10 @@ void FurnitureManager_c::InjectHooks() {
 }
 
 // 0x5C04A0
+/**
+ * Reinicia los stores, enlaza los FurnitureItem preasignados e inicializa grupos.
+ * Después carga data\\furnitur.dat para poblar la jerarquía grupo/subgrupo/item.
+ */
 bool FurnitureManager_c::Init() {
     g_currSubGroupId = 0;
     g_currFurnitureId = 0;
@@ -57,7 +65,8 @@ void FurnitureManager_c::Exit() {
     rng::for_each(m_Groups, &FurnitureGroup_c::Exit);
 }
 
-// notsa
+// NOTSA
+// Entrega secuencialmente una entrada del store fijo; nullptr indica agotamiento.
 FurnitureSubGroup_c* FurnitureManager_c::NewSubGroup() {
     return g_currSubGroupId < std::size(g_subGroupStore)
         ? &g_subGroupStore[g_currSubGroupId++]
@@ -65,6 +74,13 @@ FurnitureSubGroup_c* FurnitureManager_c::NewSubGroup() {
 }
 
 // 0x5C0280
+/**
+ * Parsea data\\furnitur.dat manteniendo el contexto del GROUP y SUBGROUP actuales.
+ *
+ * Las líneas ITEM se resuelven a model IDs y se delegan al subgrupo vigente. Los
+ * objetos resultantes viven en stores fijos, por lo que el parser no transfiere
+ * ownership mediante asignaciones individuales.
+ */
 void FurnitureManager_c::LoadFurniture() {
     auto file = CFileMgr::OpenFile("data\\furnitur.dat", "rb");
 
@@ -78,7 +94,8 @@ void FurnitureManager_c::LoadFurniture() {
     * A group can't direcly have items, only a subgroup can.
     **/
 
-    // They originally used IDs, and searched for the sub-group each loop, so I'm replacing it with pointers instead
+    // La reconstrucción conserva punteros al grupo/subgrupo actual para evitar repetir
+    // búsquedas por ID en cada línea, sin alterar el contenido cargado.
     FurnitureGroup_c* grp{};
     FurnitureSubGroup_c* subGrp{};
     while (const auto l = CFileLoader::LoadLine(file)) {
