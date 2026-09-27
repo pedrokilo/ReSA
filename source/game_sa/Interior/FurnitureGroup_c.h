@@ -7,6 +7,13 @@
 class Furniture_c;
 class FurnitureSubGroup_c;
 
+/**
+ * Agrupa FurnitureSubGroup_c de una misma categoría de interior.
+ *
+ * Actúa como punto de despacho para búsquedas por subGroupId. Los subgrupos proceden
+ * del almacén fijo administrado por FurnitureManager_c y se enlazan aquí sin cambiar
+ * su ubicación en memoria.
+ */
 class FurnitureGroup_c {
 public:
     static void InjectHooks();
@@ -23,6 +30,6 @@ public:
     FurnitureSubGroup_c* GetSubGroup(int32 subGroupId);
 
 private:
-    TList_c<FurnitureSubGroup_c> m_subGroupsList;
+    TList_c<FurnitureSubGroup_c> m_subGroupsList; //!< Subgrupos activos pertenecientes a esta categoría.
 };
 VALIDATE_SIZE(FurnitureGroup_c, 0xC);
