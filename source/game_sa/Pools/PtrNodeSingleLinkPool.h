@@ -21,8 +21,17 @@ END GENERATED HOOK STATUS */
 #include "Pool.h"
 #include "PtrNodeSingleLink.h"
 
+/**
+ * Pool especializado para nodos genéricos de listas simplemente enlazadas.
+ *
+ * Reutiliza el almacenamiento administrado por CPool para evitar asignaciones
+ * dispersas y conservar el modelo de memoria esperado por el juego original.
+ */
 class CPtrNodeSingleLinkPool : public CPool<CPtrNodeSingleLink<void*>> {
 public:
+    /**
+     * Registra las operaciones con dirección propia de CPtrNodeSingleLinkPool.
+     */
     static void InjectHooks() {
         RH_ScopedClass(CPtrNodeSingleLinkPool);
         RH_ScopedCategory("Pools");
