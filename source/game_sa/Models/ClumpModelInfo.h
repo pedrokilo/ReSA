@@ -28,11 +28,18 @@ struct tCompSearchStructById {
     inline tCompSearchStructById(int32 id, RwFrame* frame) : m_nId(id), m_pFrame(frame) {}
 };
 
+/**
+ * Model info para recursos RenderWare representados por RpClump.
+ *
+ * Gestiona el clump base compartido, su AnimBlock opcional, jerarquías HAnim, IDs de
+ * frames y configuración de pipelines. Las instancias creadas por CreateInstance()
+ * son clones independientes; m_pRwObject conserva el recurso base del model info.
+ */
 class NOTSA_EXPORT_VTABLE CClumpModelInfo : public CBaseModelInfo {
 public:
     union {
-        char*  m_animFileName;
-        uint32 m_nAnimFileIndex;
+        char*  m_animFileName;   //!< Nombre temporal antes de resolver el AnimBlock.
+        uint32 m_nAnimFileIndex; //!< Índice resuelto del AnimBlock.
     };
 
 public:
@@ -57,6 +64,7 @@ public:
     virtual void SetClump(RpClump* clump);
 
     // Class functions
+    // Resuelve nombres de componentes a IDs de jerarquía sobre el clump base.
     void SetFrameIds(RwObjectNameIdAssocation* data);
 
     void SetClumpModelInfoFlags(uint32 flags); // Also calls SetBaseModelInfoFlags
@@ -64,6 +72,7 @@ public:
     // static functions
     static RpAtomic* SetAtomicRendererCB(RpAtomic* atomic, void* renderFunc);
     static RpAtomic* AtomicSetupLightingCB(RpAtomic* atomic, void* data);
+    // Asocia cada atomic skinned con la jerarquía HAnim correspondiente.
     static RpAtomic* SetHierarchyForSkinAtomic(RpAtomic* atomic, void* data);
     /* struct tSearchData { char *name; RwFrame *result; };
       returns 0 if we found frame, or last frame if we need to continue searching */
