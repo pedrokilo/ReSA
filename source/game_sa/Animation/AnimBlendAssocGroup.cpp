@@ -30,6 +30,9 @@ END GENERATED HOOK STATUS */
 #include "AnimBlock.h"
 #include "AnimBlendAssocGroup.h"
 
+/**
+ * Registra las operaciones de los grupos de asociaciones de animación.
+ */
 void CAnimBlendAssocGroup::InjectHooks() {
     RH_ScopedClass(CAnimBlendAssocGroup);
     RH_ScopedCategory("Animation");
@@ -54,6 +57,7 @@ void CAnimBlendAssocGroup::InjectHooks() {
 }
 
 // 0x4CE0B0
+// Resuelve la definición estática por nombre y crea una asociación reproducible independiente.
 CAnimBlendAssociation* CAnimBlendAssocGroup::CopyAnimation(const char* name) {
     return CopyAnimation(GetAnimation(name));
 }
@@ -63,7 +67,8 @@ CAnimBlendAssociation* CAnimBlendAssocGroup::CopyAnimation(AnimationId id) {
     return CopyAnimation(GetAnimation(id));
 }
 
-// Implementation
+// Implementación común: asegura que la jerarquía esté descomprimida antes de
+// instanciar la asociación dinámica que mantendrá su propio estado de reproducción.
 CAnimBlendAssociation* CAnimBlendAssocGroup::CopyAnimation(CAnimBlendStaticAssociation* anim) {
     if (!anim) {
         return nullptr;
@@ -72,7 +77,14 @@ CAnimBlendAssociation* CAnimBlendAssocGroup::CopyAnimation(CAnimBlendStaticAssoc
     return new CAnimBlendAssociation(*anim);
 }
 
-// notsa
+// NOTSA
+/**
+ * Inicializa una asociación estática contra un clump temporal creado desde @p mi.
+ *
+ * El clump sólo se usa para resolver la correspondencia entre la jerarquía del
+ * modelo y la animación; después se destruye. La asociación conserva IDs de grupo
+ * y animación, no ownership sobre ese clump temporal.
+ */
 void CAnimBlendAssocGroup::CreateAssociation(CAnimBlendStaticAssociation* assoc, CAnimBlendHierarchy* anim, CBaseModelInfo* mi, size_t groupAnimId) {
     const auto clump = reinterpret_cast<RpClump*>(mi->CreateInstance());
     RpAnimBlendClumpInit(clump);
@@ -89,6 +101,12 @@ void CAnimBlendAssocGroup::CreateAssociation(CAnimBlendStaticAssociation* assoc,
 }
 
 // 0x4CE220
+/**
+ * Crea una asociación por cada animación del bloque.
+ *
+ * Cada jerarquía se vincula al model info cuyo hash coincide con el almacenado
+ * por la animación. Las entradas sin modelo correspondiente se dejan sin inicializar.
+ */
 void CAnimBlendAssocGroup::CreateAssociations(const char* blockName) {
     ZoneScoped;
 
@@ -110,6 +128,10 @@ void CAnimBlendAssocGroup::CreateAssociations(const char* blockName) {
 }
 
 // 0x4CE3B0
+/**
+ * Construye sólo las asociaciones que pueden resolverse en dos buffers paralelos
+ * de nombres de animación/modelo. m_NumAnims se compacta para no dejar huecos.
+ */
 void CAnimBlendAssocGroup::CreateAssociations(const char* blockName, const char* animNames, const char* modelNames, uint32 buffStride) {
     ZoneScoped;
 
@@ -119,8 +141,8 @@ void CAnimBlendAssocGroup::CreateAssociations(const char* blockName, const char*
 
     const auto ab = AllocateForBlock(blockName, -1);
 
-    // We need to start from 0 in this case - some of the animations may not be found,
-    // and if we assume that all went well we end up with gaps in the ms_aAnimations table
+    // Se reinicia el contador porque algunas animaciones pueden no encontrarse;
+    // incrementarlo sólo al crear una asociación mantiene el array compacto.
     m_NumAnims = 0;
 
     for (size_t i = 0; i < ab->NumAnims; i++) {
@@ -131,8 +153,8 @@ void CAnimBlendAssocGroup::CreateAssociations(const char* blockName, const char*
         const auto* animName = animNames;
         const auto* modelName = modelNames;
 
-        // Find the anim's name and it's model's name, then initialize it
-        // Remember that these 2 arrays (animNames, modelNames) are "parallel" (like kv pairs)
+        // Busca la pareja nombre de animación/modelo. Ambos buffers son paralelos:
+        // la entrada k de animNames corresponde a la entrada k de modelNames.
         bool found;
         for (size_t k = 0; found = k < ab->NumAnims;k++, animName += buffStride, modelName += buffStride) {
             if (CKeyGen::GetUppercaseKey(animName) == anim->GetHashKey()) {
@@ -161,6 +183,10 @@ void CAnimBlendAssocGroup::CreateAssociations(const char* blockName, const char*
 }
 
 // 0x4CE6E0
+/**
+ * Inicializa un número explícito de asociaciones usando un mismo RpClump.
+ * Los nombres vacíos reservan su posición pero dejan ANIM_ID_UNDEFINED.
+ */
 void CAnimBlendAssocGroup::CreateAssociations(const char* blockName, RpClump* clump, const char** names, uint32 cnt) {
     ZoneScoped;
 
@@ -185,12 +211,14 @@ void CAnimBlendAssocGroup::CreateAssociations(const char* blockName, RpClump* cl
 }
 
 // 0x4CDFF0
+// Destruye el array propiedad del grupo y restablece su tamaño a cero.
 void CAnimBlendAssocGroup::DestroyAssociations() {
     delete[] std::exchange(m_Anims, nullptr);
     m_NumAnims = 0;
 }
 
 // 0x4CE040
+// Busca por la misma clave uppercase utilizada al cargar las animaciones.
 CAnimBlendStaticAssociation* CAnimBlendAssocGroup::GetAnimation(const char* name) {
     const auto key = CKeyGen::GetUppercaseKey(name);
     for (auto& a : GetAssociations()) {
@@ -224,7 +252,11 @@ void CAnimBlendAssocGroup::InitEmptyAssociations(RpClump* clump) {
     }
 }
 
-// notsa
+// NOTSA
+/**
+ * Reemplaza cualquier array anterior y reserva asociaciones para el bloque solicitado.
+ * @return El CAnimBlock global; el grupo no es propietario del bloque.
+ */
 CAnimBlock* CAnimBlendAssocGroup::AllocateForBlock(const char* blockName, int32 numAnims) {
     if (m_Anims) {
         DestroyAssociations();
