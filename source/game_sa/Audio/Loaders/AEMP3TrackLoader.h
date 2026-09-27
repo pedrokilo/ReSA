@@ -1,6 +1,12 @@
 #pragma once
 #include "AETrackLoader.h"
 
+/**
+ * Loader de metadata para los tracks de radio/streaming empaquetados.
+ *
+ * Inicializa las tablas de lookup y decide si los packs se leen desde la instalación
+ * local o desde una ruta de DVD compatible con el comportamiento original.
+ */
 class CAEMP3TrackLoader : public CAETrackLoader {
 public:
     static void InjectHooks();
@@ -13,7 +19,7 @@ public:
     bool LoadTrackLookupTable(void);
     tTrackInfo* GetTrackInfo(uint32 trackId);
 
-    // Checks for DVD stream.
+    // Comprueba y selecciona la ruta alternativa de DVD para AUDIO\\STREAMS.
     bool IsCurrentAudioStreamAvailable();
 
 private:
