@@ -8,6 +8,12 @@
 
 #include "Entity.h"
 
+/**
+ * Entidad ligera del mundo almacenada en CDummyPool.
+ *
+ * Comparte la infraestructura de CEntity pero evita el coste de CPhysical cuando
+ * sólo se necesita una representación estática/dummy para streaming.
+ */
 class NOTSA_EXPORT_VTABLE CDummy : public CEntity {
 public:
     CDummy();
