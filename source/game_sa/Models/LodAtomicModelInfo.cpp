@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "LodAtomicModelInfo.h"
 
+/**
+ * Registra las operaciones del model info especializado para LODs.
+ */
 void CLodAtomicModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CLodAtomicModelInfo, 0x85BC70, 16);
@@ -30,6 +33,7 @@ void CLodAtomicModelInfo::InjectHooks()
     RH_ScopedVMTInstall(Init, 0x4C54D0);
 }
 
+// Inicializa los contadores usados para coordinar hijos LOD y los ya renderizados.
 CLodAtomicModelInfo::CLodAtomicModelInfo() : CAtomicModelInfo()
 {
     m_numChildren = 0;
