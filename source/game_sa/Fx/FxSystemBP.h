@@ -12,8 +12,12 @@ class FxSystem_c;
 class FxPrimBP_c;
 class FxSphere_c;
 
-/* FX System BluePrint */
-
+/**
+ * Blueprint inmutable de un sistema de efectos cargado desde effects.fxp.
+ *
+ * Define duración, looping, distancia de culling, primitivas y bound. Las instancias
+ * FxSystem_c referencian este blueprint; m_Prims vive en la arena administrada por g_fxMan.
+ */
 class FxSystemBP_c : public ListItem_c<FxSystemBP_c> {
 public:
     uint32       m_nNameKey;
@@ -23,8 +27,8 @@ public:
     uint16       m_nCullDist;
     uint8        m_nPlayMode;
     uint8        m_nNumPrims;
-    FxPrimBP_c** m_Prims;
-    FxSphere_c*  m_BoundingSphere;
+    FxPrimBP_c** m_Prims;          //!< Array de blueprints de primitivas.
+    FxSphere_c*  m_BoundingSphere; //!< Bound opcional usado para culling.
 
 public:
     static void InjectHooks();
