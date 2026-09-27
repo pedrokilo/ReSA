@@ -21,6 +21,9 @@ END GENERATED HOOK STATUS */
 #include "FxSphere.h"
 #include "FxPlane.h"
 
+/**
+ * Registra asignación y pruebas geométricas de las esferas FX.
+ */
 void FxSphere_c::InjectHooks() {
     RH_ScopedClass(FxSphere_c);
     RH_ScopedCategory("Fx");
@@ -37,6 +40,7 @@ FxSphere_c::FxSphere_c() {
 }
 
 // 0x4A9F80
+// Selecciona entre heap global y arena FX según el ciclo de vida solicitado.
 void* FxSphere_c::operator new(uint32 size, bool32 bUseGlobalHeep) {
     if (bUseGlobalHeep)
         return CMemoryMgr::Malloc(size);
@@ -56,11 +60,13 @@ void FxSphere_c::operator delete(void* data, bool32 bUseGlobalHeep) {
 }
 
 // 0x4A9FC0
+// Comprueba solapamiento estricto comparando distancia al cuadrado y suma de radios.
 bool FxSphere_c::IsCollision(const FxSphere_c& sphere) const {
     return sq(m_fRadius + sphere.m_fRadius) > (sphere.m_vecCenter - m_vecCenter).SquaredMagnitude();
 }
 
 // 0x4AA010
+// Devuelve la distancia firmada del centro al plano; el radio se evalúa externamente.
 float FxSphere_c::GetDistToPlane(const FxPlane_c& plane) const {
     return DotProduct(plane.normal, m_vecCenter) - plane.distance;
 }
