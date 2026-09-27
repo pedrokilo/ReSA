@@ -22,6 +22,9 @@ END GENERATED HOOK STATUS */
 #include "PlantMgr.h"
 #include "PlantLocTri.h"
 
+/**
+ * Registra la asociación entre entidades de colisión y triángulos locales de vegetación.
+ */
 void CPlantColEntEntry::InjectHooks() {
     RH_ScopedClass(CPlantColEntEntry);
     RH_ScopedCategory("Plant");
@@ -31,6 +34,13 @@ void CPlantColEntEntry::InjectHooks() {
 }
 
 // 0x5DB7D0
+/**
+ * Activa esta entrada para una entidad, registra una referencia segura y reserva
+ * un slot CPlantLocTri* por triángulo de su ColData.
+ *
+ * Al completar la preparación mueve el nodo desde la lista de entradas libres a
+ * la lista de entidades cercanas administrada por CPlantMgr.
+ */
 CPlantColEntEntry* CPlantColEntEntry::AddEntry(CEntity* entity) {
     m_Entity = entity;
     entity->RegisterReference(&m_Entity);
@@ -68,6 +78,10 @@ CPlantColEntEntry* CPlantColEntEntry::AddEntry(CEntity* entity) {
 }
 
 // 0x5DB8A0
+/**
+ * Libera todos los CPlantLocTri creados, limpia la referencia a CEntity y devuelve
+ * esta entrada a la lista de libres de CPlantMgr.
+ */
 void CPlantColEntEntry::ReleaseEntry() {
     if (m_Objects) {
         if (m_numTriangles) {
