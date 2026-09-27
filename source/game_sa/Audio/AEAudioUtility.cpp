@@ -59,6 +59,9 @@ static constexpr std::array<eSoundBank, AE_SCRIPT_BANK_LAST - AE_SCRIPT_BANK_FIR
     SND_BANK_SCRIPT_TEMPEST
 };
 
+/**
+ * Registra helpers matemáticos, temporales y de traducción de eventos de audio.
+ */
 void CAEAudioUtility::InjectHooks() {
     RH_ScopedClass(CAEAudioUtility);
     RH_ScopedCategory("Audio");
@@ -78,11 +81,16 @@ void CAEAudioUtility::InjectHooks() {
 }
 
 // 0x4d9c80
+// Resuelve una probabilidad normalizada usando el RNG común del juego.
 bool CAEAudioUtility::ResolveProbability(float p) {
     return p >= 1.0f || CGeneral::RandomBool(100.0f * p);
 }
 
 // 0x4d9d90
+/**
+ * Evalúa una curva definida por pares X/Y, saturando extremos e interpolando
+ * linealmente entre los dos puntos que encierran x.
+ */
 float CAEAudioUtility::GetPiecewiseLinear(float x, int16 dataCount, const float (*data)[2]) {
     assert(dataCount >= 1);
     if (x >= data[dataCount - 1][0]) {
@@ -155,6 +163,10 @@ void CAEAudioUtility::StaticInitialise() {
 }
 
 // 0x4D9CC0
+/**
+ * Traduce un eAudioEvents de script al banco y sound ID que consume el hardware.
+ * Los slots personalizados utilizan reglas separadas del esquema de 200 sonidos por banco.
+ */
 bool CAEAudioUtility::GetBankAndSoundFromScriptSlotAudioEvent(const eAudioEvents& scriptID, eSoundBankS32& outBankID, int32& outSoundID, int32 slot) {
     if (scriptID < AE_SCRIPT_BANK_FIRST) {
         return false;
@@ -175,6 +187,7 @@ bool CAEAudioUtility::GetBankAndSoundFromScriptSlotAudioEvent(const eAudioEvents
 }
 
 // 0x4D9E10
+// Devuelve el vehículo conducido por el jugador o, como fallback, el vehículo al que está adherido.
 CVehicle* CAEAudioUtility::FindVehicleOfPlayer() {
     auto* vehicle = FindPlayerVehicle(-1, true);
     if (vehicle)
