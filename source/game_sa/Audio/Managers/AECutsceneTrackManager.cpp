@@ -24,6 +24,9 @@ END GENERATED HOOK STATUS */
 
 auto& AECutsceneTrackManager = StaticRef<CAECutsceneTrackManager>(0x8AE554);
 
+/**
+ * Registra la máquina de estados que prepara y reproduce tracks de cutscene/beat.
+ */
 void CAECutsceneTrackManager::InjectHooks() {
     RH_ScopedClass(CAECutsceneTrackManager);
     RH_ScopedCategory("Audio/Managers");
@@ -99,6 +102,12 @@ void CAECutsceneTrackManager::PauseTrack(bool pause) {
 }
 
 // 0x4DBFB0
+/**
+ * Avanza la máquina de estados de preload, reproducción, pausa y parada.
+ *
+ * Los valores especiales de play time provienen de AEAudioHardware y se traducen
+ * aquí a estados lógicos consumidos por CAudioEngine.
+ */
 void CAECutsceneTrackManager::Service(int32 trackPlayTime) {
     static int32 previousPlayTime = m_nTrackPlayTime;
     m_nTrackPlayTime = trackPlayTime;
@@ -150,6 +159,7 @@ void CAECutsceneTrackManager::Service(int32 trackPlayTime) {
 }
 
 // 0x4DBF10
+// Configura canal/fader para el track ya preparado y ordena al hardware iniciar reproducción.
 void CAECutsceneTrackManager::StartTrackPlayback() const {
     AEAudioHardware.DisableBassEq();
     AEAudioHardware.SetChannelFlags(m_nAudioChannel, 0, 39);
@@ -158,6 +168,10 @@ void CAECutsceneTrackManager::StartTrackPlayback() const {
 }
 
 // 0x4DC0E0
+/**
+ * Publica un nuevo track y opcionalmente bloquea sirviendo hardware hasta llegar
+ * al estado preparado S2.
+ */
 void CAECutsceneTrackManager::PreloadCutsceneTrack(int16 trackId, bool wait) {
     m_nTrackId = trackId;
     _f14 = 0;
