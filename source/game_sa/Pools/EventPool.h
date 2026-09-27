@@ -21,8 +21,17 @@ END GENERATED HOOK STATUS */
 #include "Pool.h"
 #include <Events/EventDamage.h>
 
+/**
+ * Pool especializado para eventos de IA, reservando espacio suficiente para variantes como CEventDamage.
+ *
+ * CPool conserva la propiedad del almacenamiento y permite reutilizar slots con
+ * direcciones estables, algo importante para referencias y handles del motor.
+ */
 class CEventPool : public CPool<CEvent, CEventDamage> {
 public:
+    /**
+     * Registra las operaciones propias de CEventPool; la gestión común permanece en CPool.
+     */
     static void InjectHooks() {
         RH_ScopedClass(CEventPool);
         RH_ScopedCategory("Pools");
