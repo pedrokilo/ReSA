@@ -13,7 +13,10 @@ SCOPE = re.compile(
     re.MULTILINE,
 )
 INSTALL = re.compile(
-    r'^\s*RH_Scoped(?:Overloaded)?Install\s*\(',
+    r'^\\s*RH_Scoped(?:'
+    r'Install|OverloadedInstall|VMTInstall|OverloadedVMTInstall|'
+    r'GlobalInstall|GlobalOverloadedInstall'
+    r')\\s*\\(',
     re.MULTILINE,
 )
 MAIN_CALL = re.compile(
@@ -85,12 +88,18 @@ def main():
     main_calls = read_main_calls(root / 'source' / 'InjectHooksMain.cpp')
     owner_files, owners_with_installs = scan_source(root)
 
-    # Caso más importante: hay funciones instaladas bajo un owner que no existe
-    # como clase/grupo en hooks.csv.
-    missing_catalog = sorted(
+    # Funciones instaladas bajo owners que no aparecen en el catálogo.
+    # Se separan los owners activos de los que existen en fuente pero no están
+    # registrados globalmente (por ejemplo, clases deliberadamente desactivadas).
+    active_missing_catalog = sorted(
         (owner, sorted(paths))
         for owner, paths in owners_with_installs.items()
-        if owner not in catalog
+        if owner in main_calls and owner not in catalog
+    )
+    inactive_missing_catalog = sorted(
+        (owner, sorted(paths))
+        for owner, paths in owners_with_installs.items()
+        if owner not in main_calls and owner not in catalog
     )
 
     # Hooks definidos en fuente que nunca se registran globalmente.
@@ -121,12 +130,17 @@ def main():
     print(f'  owners con RH_ScopedInstall en fuente: {len(owners_with_installs)}')
     print(f'  llamadas ::InjectHooks() en InjectHooksMain: {len(main_calls)}')
 
-    print_group('Owners con funciones instaladas pero ausentes de hooks.csv', missing_catalog)
+    print_group('Owners ACTIVOS con funciones instaladas pero ausentes de hooks.csv', active_missing_catalog)
+    print_group('Owners INACTIVOS con funciones instaladas y ausentes de hooks.csv', inactive_missing_catalog)
     print_group('Owners con funciones instaladas pero ausentes de InjectHooksMain', missing_main)
     print_group('Clases/grupos del CSV sin scope encontrado en fuente', missing_source)
     print_group('Llamadas de InjectHooksMain sin clase/grupo en hooks.csv', main_without_catalog)
 
-    inconsistent = missing_catalog or missing_main or missing_source
+    # --strict falla sólo por incoherencias del registro activo o por entradas del
+    # catálogo sin fuente. Los owners inactivos se informan para revisión, pero no
+    # se consideran error automáticamente porque muchas clases están deshabilitadas
+    # de forma deliberada en InjectHooksMain.
+    inconsistent = active_missing_catalog or missing_source
     if args.strict and inconsistent:
         raise SystemExit(1)
 
