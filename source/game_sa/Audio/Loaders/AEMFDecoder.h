@@ -5,6 +5,12 @@
 
 #include "AEStreamingDecoder.h"
 
+/**
+ * Decoder de streaming respaldado por Windows Media Foundation.
+ *
+ * Mantiene compatibilidad binaria con la clase original de QuickTime y produce
+ * PCM estéreo de 16 bits para el resto del subsistema de audio.
+ */
 class CAEMFDecoder : public CAEStreamingDecoder {
 private:
     static constexpr size_t TEMPBUFFRAME = 65536;
@@ -18,10 +24,10 @@ private:
     union {
         uint32 _unknown2[36];
         struct {
-            IMFSourceReader* m_pSourceReader;
-            IMFMediaType*    m_pPcmAudio;
-            int16*         m_wpTempBuffer;
-            size_t           m_nTempBufferUsed;
+            IMFSourceReader* m_pSourceReader;   //!< Reader COM propiedad del decoder.
+            IMFMediaType*    m_pPcmAudio;       //!< Tipo PCM negociado con Media Foundation.
+            int16*           m_wpTempBuffer;    //!< Frames sobrantes entre llamadas FillBuffer().
+            size_t           m_nTempBufferUsed; //!< Número de frames válidos en el buffer temporal.
         };
     };
     long m_nPlayTime; // index 160
