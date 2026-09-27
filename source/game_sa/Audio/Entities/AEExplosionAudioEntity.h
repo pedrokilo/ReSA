@@ -8,9 +8,12 @@
 
 #include "AEAudioEntity.h"
 
+/**
+ * Entidad global que sintetiza explosiones mediante varias CAESound superpuestas.
+ */
 class NOTSA_EXPORT_VTABLE CAEExplosionAudioEntity : public CAEAudioEntity {
 public:
-    uint32 m_Speed{};
+    uint32 m_Speed{}; //!< Índice cíclico dentro de gfExplosionFrequencyVariations.
 
 public:
     static void InjectHooks();
