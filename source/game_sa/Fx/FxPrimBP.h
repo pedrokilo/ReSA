@@ -19,6 +19,9 @@ class FxPrimBP_c;
 // };
 using FxName32_t = char[32];
 
+/**
+ * Matriz FX cuantizada a int16 para reducir memoria de blueprints.
+ */
 struct FxBufferedMatrix {
     static constexpr float FX_RECIPROCAL = std::numeric_limits<int16>::max();
 
@@ -47,13 +50,19 @@ struct FxBufferedMatrix {
 };
 VALIDATE_SIZE(FxBufferedMatrix, 0x18);
 
+/**
+ * Base de blueprint para una primitiva de un sistema FX.
+ *
+ * Conserva configuración de blending, texturas, transformación compacta y un
+ * FxInfoManager_c con los moduladores que controlan partículas en tiempo de ejecución.
+ */
 class FxPrimBP_c {
 public:
     int8                      m_Type;
     uint8                     m_nSrcBlendId;
     uint8                     m_nDstBlendId;
     bool                      m_bAlphaOn;
-    FxBufferedMatrix*         m_pMatrixBuffered; // int16* m_matVals;
+    FxBufferedMatrix*         m_pMatrixBuffered; //!< nullptr equivale a matriz identidad.
     std::array<RwTexture*, 4> m_apTextures;
     int32 m_TxdIndex;
     TList_c<Particle_c>       m_Particles;
