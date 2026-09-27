@@ -10,20 +10,30 @@
 
 class CPlaceable;
 
+/**
+ * Matriz transformable que además actúa como nodo de una lista doblemente enlazada.
+ *
+ * El juego mantiene estas matrices en pools y mueve los mismos objetos entre listas
+ * de uso y de libres. m_pOwner relaciona la transformación con el CPlaceable que la
+ * está utilizando; m_pPrev/m_pNext implementan el enlace intrusivo.
+ */
 class CMatrixLink : public CMatrix {
 public:
     CMatrixLink() : CMatrix() {}
     CMatrixLink(float fScale) : CMatrix() { SetScale(fScale); }
 
 public:
-    CPlaceable*  m_pOwner;
-    CMatrixLink* m_pPrev;
-    CMatrixLink* m_pNext;
+    CPlaceable*  m_pOwner; //!< Objeto que utiliza esta matriz; no implica ownership de CPlaceable.
+    CMatrixLink* m_pPrev;  //!< Nodo anterior dentro de la lista intrusiva actual.
+    CMatrixLink* m_pNext;  //!< Nodo siguiente dentro de la lista intrusiva actual.
 
 public:
     static void InjectHooks();
 
+    // Inserta otro nodo inmediatamente después de éste dentro de la lista actual.
     inline void Insert(CMatrixLink* pWhere);
+
+    // Separa este nodo de la lista; la memoria continúa perteneciendo al pool.
     inline void Remove();
 };
 
