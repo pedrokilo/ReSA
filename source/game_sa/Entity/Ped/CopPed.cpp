@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "CopPed.h"
 
+/**
+ * Registra construcción, persecución y lista de criminales de policías.
+ */
 void CCopPed::InjectHooks() {
     RH_ScopedVirtualClass(CCopPed, 0x86C120, 26);
     RH_ScopedCategory("Entity/Ped");
@@ -34,6 +37,7 @@ void CCopPed::InjectHooks() {
 }
 
 // NOTSA
+// Traduce el tipo lógico de policía al model ID utilizado al materializar el ped.
 eModelID CCopPed::GetPedModelForCopType(eCopType ctype) {
     switch (ctype) {
     case COP_TYPE_CITYCOP:
@@ -54,7 +58,7 @@ eModelID CCopPed::GetPedModelForCopType(eCopType ctype) {
     }
 }
 
-/* Horrible design, but R* also allowed to pass in a ModelID */
+// El parámetro histórico acepta tanto eCopType como un model ID directo.
 eModelID ResolveModelForCopType(uint32_t typeOrModelID) {
     switch (typeOrModelID) {
     case COP_TYPE_CITYCOP:
@@ -71,6 +75,10 @@ eModelID ResolveModelForCopType(uint32_t typeOrModelID) {
 }
 
 // 0x5DDC60
+/**
+ * Selecciona modelo/equipamiento por tipo y prepara inteligencia, speech, partner y
+ * lista fija de objetivos criminales.
+ */
 CCopPed::CCopPed(uint32_t copTypeOrModelID) :
     CPed{ PED_TYPE_COP },
     m_nCopTypeOrModelID{ copTypeOrModelID }
@@ -156,6 +164,7 @@ CCopPed* CCopPed::Destructor() {
 }
 
 // 0x5DDE80
+// Sustituye el partner manteniendo correctamente el sistema de referencias de CEntity.
 void CCopPed::SetPartner(CCopPed* partner) {
     CEntity::SafeCleanUpRef(m_pCopPartner);
     m_pCopPartner = partner;
@@ -192,6 +201,10 @@ size_t CCopPed::GetEmptySlotForCriminalToKill() {
 }
 
 // 0x5DDEB0
+/**
+ * Inserta un objetivo válido en el primer slot libre, registra referencia segura y
+ * extiende temporalmente su rango/tiempo de streaming para mantenerlo disponible.
+ */
 int32 CCopPed::AddCriminalToKill(CPed* criminal) {
     if (!criminal)
         return -1;
@@ -240,6 +253,7 @@ void CCopPed::RemoveCriminalToKill(int32 unk, int32 nCriminalLocalIdx) {
 }
 
 // 0x5DE070
+// Restaura flags de streaming/removal y limpia las referencias a todos los objetivos.
 void CCopPed::ClearCriminalsToKill() {
     for (CPed*& ped : m_apCriminalsToKill) {
         if (ped) {
@@ -254,6 +268,10 @@ void CCopPed::ClearCriminalsToKill() {
 // 0x5DE160
 
 // 0x5DE160
+/**
+ * Ejecuta CPed::ProcessControl(), actualiza arma/speech y aplica la lógica policial
+ * adicional sólo cuando el ped no fue pospuesto ni ha muerto.
+ */
 void CCopPed::ProcessControl() {
     if (FindPlayerWanted()->GetWantedLevel() != eWantedLevel::WANTED_CLEAN) {
         if (GetIntelligence()->GetPedDecisionMakerType() == eDecisionMakerEvents::DM_EVENT_PED_ENTERED_MY_VEHICLE)
