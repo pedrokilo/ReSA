@@ -6,6 +6,12 @@
 
 #include "AEStreamingDecoder.h"
 
+/**
+ * Decoder WMA basado en IWMSyncReader.
+ *
+ * Mantiene un buffer grande de sobrantes para adaptar muestras del codec a los
+ * tamaños de lectura solicitados por el sistema de streaming.
+ */
 class CAEWMADecoder : public CAEStreamingDecoder {
 private:
     static constexpr size_t TEMPBUFSIZE = 131072;
@@ -19,7 +25,7 @@ private:
     uint16         m_wStreamNumber;
     int32          m_nSampleRate;
     long           m_nLengthMs;
-    IWMSyncReader* syncReader;
+    IWMSyncReader* syncReader; //!< Reader COM propiedad del decoder mientras está inicializado.
     int32          _unknown2;
 
     HRESULT SelectStreamIndex(IWMProfile* profile);
