@@ -221,11 +221,23 @@ notsa::Logging::Logging() {
     spdlog::set_default_logger(Create("default"));
     spdlog::flush_every(100ms);
     
-    AddVectoredExceptionHandler(1, WindowsExceptionHandler);
+    m_exceptionHandler = AddVectoredExceptionHandler(1, WindowsExceptionHandler);
 }
 
 notsa::Logging::~Logging() {
-    //spdlog::shutdown(); // some kind of deadlock occurs and it never shuts down
+    // WinMain shuts down the workers before DLL detach, while they can still run.
+}
+
+void notsa::Logging::Shutdown() {
+    if (std::exchange(m_shutdown, true)) {
+        return;
+    }
+    // The exception handler uses the default logger, which shutdown releases.
+    if (m_exceptionHandler) {
+        RemoveVectoredExceptionHandler(std::exchange(m_exceptionHandler, nullptr));
+    }
+    spdlog::apply_all([](const auto& logger) { logger->flush(); });
+    spdlog::shutdown();
 }
 
 auto notsa::Logging::Create(std::string name, std::optional<spdlog::level::level_enum> level) -> notsa::log_ptr {

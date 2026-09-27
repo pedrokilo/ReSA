@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "manifest": {
+    "head": "aef6bcbf051d0370cc6ed68e8d9809e0b7bb8d51",
+    "isolated_files": {
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp": "11fd6912f759d3bc93208a9def001b6dd751dbdf",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "11fd6912f759d3bc93208a9def001b6dd751dbdf",
+      "source/game_sa/Game.cpp": "aef6bcb^",
+      "source/game_sa/Cover.cpp": "aef6bcb^",
+      "source/game_sa/Cover.h": "aef6bcb^",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp": "aef6bcb"
+    },
+    "workspace_sources": {
+      "source/dllmain.cpp": "f9c9b7f57e5e6391372df9a9e65ed0b3a3c34c56b7ec5a7340af9fc5f5fbfb67",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "d2f74ff0a50a35592e1259c2f4e5d4122adb4e6ed799568afd9be8163c36612d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.h": "1a9cadf4ec39398c164829097f8a6106c915e5b2fa678a94f67e56a994effbf3",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp": "cf6962d9e6a6ccf0dd55a1e160b2b58f55fcb126036d4d603db8344b054e93ce",
+      "source/game_sa/Cover.h": "03784c7658cfd5c8060f8b8c61ad68faaca9037f43bf4e54ddd2a6930601144b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "387df8c13dcf20d1a020875d9354dca2e85573ca41d174ee3a90480b68bf1308",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp": "13e7cba4dfc865aecc2c5124b00803a90220ad854aaee3d41c18057428087e76",
+      "source/game_sa/Cover.cpp": "4428e5996f4d3ea425ba053f77834199b0a06246ef6494db3670df9a9432b304",
+      "source/game_sa/Game.cpp": "44dff9478c1d32340f569ebe3cfdf89a34e54496e6d9aa521eace119223532e0",
+      "source/app/app_game.cpp": "99be285f5e86037f61ff320b89eafbf39c402c5fed492a9d4f82a142a2bb661b"
+    },
+    "compiled_sources": {
+      "source/dllmain.cpp": "f9c9b7f57e5e6391372df9a9e65ed0b3a3c34c56b7ec5a7340af9fc5f5fbfb67",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "45ef43c07cd95ed44b16060f65126371fb1be7f904c345196db3431ccb10918b",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.h": "1a9cadf4ec39398c164829097f8a6106c915e5b2fa678a94f67e56a994effbf3",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp": "0791d511c784b980091b0d9c551d12401ca6cea83e9c4da3cf14ae5e15011b3f",
+      "source/game_sa/Cover.h": "f6975109f0384075677b0cf3ea0e9b9338070394922400980522c9b378118e9d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "387df8c13dcf20d1a020875d9354dca2e85573ca41d174ee3a90480b68bf1308",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp": "dc6e9ad9f70427987400e513c0214df21a7f7b319fea205e6344cd056e5c9684",
+      "source/game_sa/Cover.cpp": "60078fbdd2e465404035027022d595e67424f25b19a5b77556becc1c67359f07",
+      "source/game_sa/Game.cpp": "5ad6585d974ab7c9cbaf38947e5d3adfbcbc017a65e9c40f51778e933cc1acc6",
+      "source/app/app_game.cpp": "99be285f5e86037f61ff320b89eafbf39c402c5fed492a9d4f82a142a2bb661b"
+    },
+    "bank_sources": {
+      "LiveComparison.hpp": "5854040c7a27e52d1dc784fd9d04397e91d5d472ee9664b2fcf6f89820c3dedf",
+      "build_probe.py": "df97d76e019c3dc16474fbe3eccbf07db1e3f2f9ee72627b3be5605e663ddb43"
+    },
+    "asi": "fa25398636579a405ab50c2067c28077c5c9cb2e4f7bf7a0d6dd855cf6d78558",
+    "pdb": "cd39cc7bbe38478e6787c0dd4798dece473dcda6d9d2f933d1b539e0e92e3fb9"
+  },
+  "backup_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-gang-leader-20260924-203727",
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "configs_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "temporary_configuration": "FastLoader=true, SaveGameToLoad=-2; skip videos, remain at menu",
+  "integration": {
+    "passed": true,
+    "states": [
+      {
+        "state": 0,
+        "seconds": 0.0
+      },
+      {
+        "state": 7,
+        "seconds": 2.25
+      }
+    ],
+    "foreground": [
+      {
+        "active": true,
+        "seconds": 0.0,
+        "foreground_pid": 21468
+      },
+      {
+        "active": true,
+        "seconds": 0.25,
+        "foreground_pid": 19492
+      }
+    ],
+    "saves_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+      "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+    },
+    "configs_before": {
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\gta-reversed.ini": "e3c0a3dd2ef61431b8bd6225890ff3106afa2f57022ec63c6ce1c8da6a4e985c",
+      "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta-reversed.ini": "e3c0a3dd2ef61431b8bd6225890ff3106afa2f57022ec63c6ce1c8da6a4e985c"
+    },
+    "asi_sha256": "fa25398636579a405ab50c2067c28077c5c9cb2e4f7bf7a0d6dd855cf6d78558",
+    "get_task_type_hook": {
+      "entry_bytes": "e999940d70c3",
+      "vtable_target": "0x707373be",
+      "jump_target": "0x707373be",
+      "enabled": true
+    },
+    "menu_stable_seconds": 10,
+    "saves_unchanged": true,
+    "configs_unchanged": true,
+    "automatic_save_load_logged": false
+  },
+  "integration_path": "E:\\Original\\gta-reversed-master\\reversing\\InicioNormal\\artifacts\\startup-20260924-203732\\summary.json",
+  "integration_sha256": "f6bc24b2f20d753394bc76234fd7b5c0e51d4b0e2f773d0b314a79873f33d78f",
+  "saves_unchanged": true,
+  "configs_unchanged": true,
+  "installed_hashes": {
+    "asi": "fa25398636579a405ab50c2067c28077c5c9cb2e4f7bf7a0d6dd855cf6d78558",
+    "pdb": "cd39cc7bbe38478e6787c0dd4798dece473dcda6d9d2f933d1b539e0e92e3fb9"
+  }
+}

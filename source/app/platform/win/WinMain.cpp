@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "UIRenderer.h"
 
 #ifdef NOTSA_USE_SDL3
 #include <SDL3/SDL.h>
@@ -380,6 +381,12 @@ void MainLoop(INT nCmdShow) {
 
 // 0x748710
 INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdLine, INT nCmdShow) {
+    const notsa::ScopeGuard shutdownLogging{[] {
+        // Windows terminates other threads before DLL detach; join logging workers now.
+        if (notsa::Logging::HasInstance()) {
+            notsa::Logging::GetSingleton().Shutdown();
+        }
+    }};
     SystemParametersInfo(SPI_SETFOREGROUNDLOCKTIMEOUT, 0u, nullptr, 2);
     if (IsAlreadyRunning()) {
         return false;
@@ -473,6 +480,10 @@ INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdL
 
     // now quit 0x748E75
     AudioEngine.Shutdown();
+    // Release ImGui/SDL while the D3D device, native window and worker threads exist.
+    if (notsa::ui::UIRenderer::HasInstance()) {
+        notsa::ui::UIRenderer::DestroySingleton();
+    }
     FreeVideoModeList();
     RsEventHandler(rsRWTERMINATE, nullptr);
     DestroyWindow(PSGLOBAL(window));

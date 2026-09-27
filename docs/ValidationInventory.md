@@ -7,14 +7,14 @@ Universo de esta revisión: **7,485 entradas reversed=1**, de 8,014 registradas.
 | Estado | Entradas |
 | --- | ---: |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 33 |
-| Sin evidencia aprobada vinculada en este registro | 7452 |
+| Evidencia histórica vinculada; revisión pendiente | 34 |
+| Sin evidencia aprobada vinculada en este registro | 7451 |
 
 Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
 ## Siguiente tanda con evidencia disponible
 
-Revisar fuentes, versión, configuración y dependencias; repetir el banco cuando no se pueda confirmar su vigencia. Esta lista no autoriza desbloquear los 86 pendientes aplazados. No se marca toda una clase por validar una de sus funciones.
+Revisar fuentes, versión, configuración y dependencias; repetir el banco cuando no se pueda confirmar su vigencia. Esta lista no autoriza desbloquear los 85 pendientes aplazados. No se marca toda una clase por validar una de sus funciones.
 
 | Clase | Función registrada | Evidencia |
 | --- | --- | --- |
@@ -38,6 +38,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlayerInfo | `FindObjectToSteal` | [Resumen](../reversing/CPlayerInfo/validation-summary.json) |
 | CPlayerInfo | `Process` | [Resumen](../reversing/CPlayerInfo/validation-summary.json) |
 | CScripted2dEffects | `Init` | [Resumen](../reversing/CScripted2dEffects/validation-summary.json) |
+| CTaskComplexGangLeader | `GetTaskType` | [Resumen](../reversing/GangLeader/validation-summary.json) |
 | CTaskComplexUseClosestFreeScriptedAttractorSprint | `Clone` | [Resumen](../reversing/CTaskComplexUseClosestFreeScriptedAttractorSprint/validation-summary.json) |
 | CTaskComplexUseClosestFreeScriptedAttractorSprint | `GetTaskType` | [Resumen](../reversing/CTaskComplexUseClosestFreeScriptedAttractorSprint/validation-summary.json) |
 | CTaskComplexWander | `CreateNextSubTask` | [Resumen](../reversing/CTaskComplexWander/validation-summary.json) |
@@ -479,7 +480,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexFollowPedFootsteps` | 1 | 0 | 0 | 1 |
 | `CTaskComplexFollowPointRoute` | 13 | 0 | 0 | 13 |
 | `CTaskComplexGangJoinRespond` | 2 | 0 | 0 | 2 |
-| `CTaskComplexGangLeader` | 13 | 0 | 0 | 13 |
+| `CTaskComplexGangLeader` | 13 | 0 | 1 | 12 |
 | `CTaskComplexGetOnBoatSeat` | 8 | 0 | 0 | 8 |
 | `CTaskComplexGetUpAndStandStill` | 5 | 0 | 0 | 5 |
 | `CTaskComplexGoToAttractor` | 2 | 0 | 0 | 2 |

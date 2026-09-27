@@ -18,7 +18,7 @@ El objetivo es preservar el comportamiento original. Cada reconstrucción se con
 
 ## Estado del trabajo
 
-**Pendiente por decisión del usuario (23/09/2026):** [fallo al cerrar el juego: CCover / PtrListDoubleLink](reversing/ShutdownLists/README.md). Se conserva una corrección candidata en las fuentes; la última prueba de cierre normal terminó con código 3. No se instaló el candidato ni se considera validado. El registro incluye evidencia y pasos para retomarlo.
+**Corregido e instalado en la copia de pruebas (25/09/2026):** [cierre del juego: Cover, logs e interfaz](reversing/ShutdownLists/README.md). Tres cierres normales sin depurador con código 0 y 16 casos de limpieza aprobados. Arranque de pruebas automático en partida nueva; partidas e INI conservados. CustomBuilding continúa aplazado.
 
 La fuente del progreso es [docs/hooks.csv](docs/hooks.csv). El [informe generado](docs/ReversedClasses.md) muestra totales, pendientes y bloqueos; la [guía técnica de prioridades](docs/ReversingPriorities.md) ordena el trabajo por esfuerzo estimado, dependencias y facilidad de validación.
 
@@ -30,10 +30,10 @@ La fuente del progreso es [docs/hooks.csv](docs/hooks.csv). El [informe generado
 | --- | --- |
 | Clases completas | 614/701 · 87,59% |
 | Funciones reconstruidas | 7.485/8.014 · 93,40% |
-| Funciones validadas, vigencia confirmada | 0/8.014 · 0,00%; 33 evidencias históricas; vigencia pendiente tras cambios locales de CustomBuilding |
+| Funciones validadas, vigencia confirmada | 0/8.014 · 0,00%; 34 evidencias históricas; vigencia pendiente tras cambios locales de CustomBuilding |
 | Dependencias de funciones originales eliminadas | No medido; requiere auditoría de llamadas y dependencias |
 
-Quedan 529 entradas pendientes, 87 clases incompletas y 620 locks. Las 7.394 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
+Quedan 529 entradas pendientes, 87 clases incompletas y 619 locks. Las 7.395 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
 
 ### Reconstrucciones recientes con evidencia local
 
@@ -61,7 +61,7 @@ Las comparaciones corresponden al alcance descrito en cada README, no necesariam
 
 **Últimos desbloqueos:** [DataStream y TrackEntity](reversing/UnlockBatch2/README.md), diez candados retirados tras 15.360 pares y 64 combinaciones de DataStream. CSV y catálogos sincronizados: quedan **620 candados** en el registro. Los 86 restantes del lote solicitado se aplazan; sus borradores se conservan fuera de la compilación. ASI normal instalado en la copia de pruebas: inicio al menú y 30 segundos de integración sin exclusiones comprobados; los avisos históricos y los límites constan en el informe.
 
-**Última corrección:** [aviso de pivote IK y datos incompletos](reversing/IKDataWarnings/README.md): 131 pares de cadenas contra el original, tablas de clima y grupos de coches coincidentes con los datos reparados. Integración normal: 121,16 s y 3.605 fotogramas sin los avisos comprobados. Se conserva la reparación de [peatones](reversing/FallenPeds/README.md), la reserva de [CEntryExit](reversing/CEntryExitPool/README.md) de 512 plazas, las partidas, el inicio normal y los 86 bloqueos aplazados.
+**Última corrección:** [aviso de pivote IK y datos incompletos](reversing/IKDataWarnings/README.md): 131 pares de cadenas contra el original, tablas de clima y grupos de coches coincidentes con los datos reparados. Integración normal: 121,16 s y 3.605 fotogramas sin los avisos comprobados. Se conserva la reparación de [peatones](reversing/FallenPeds/README.md), la reserva de [CEntryExit](reversing/CEntryExitPool/README.md) de 512 plazas, las partidas, el inicio normal y los 85 bloqueos aplazados.
 
 **Última comprobación:** [recuperación natural del ratón](reversing/MouseRecovery/README.md). Tras fallar con la ventana oculta y sin foco, Acquire y la lectura tienen éxito a los 1,485 segundos; 120 actualizaciones válidas. Sin cambio del ASI normal. Revisados los Markdown propios y actualizadas las referencias vigentes, manteniendo la evidencia histórica.
 

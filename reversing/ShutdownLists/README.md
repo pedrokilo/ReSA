@@ -1,21 +1,30 @@
-# Aserción al cerrar: lista de edificios de CCover
+# Corrección del cierre: Cover, logs e interfaz
 
-## Estado: PENDIENTE, pausado por el usuario
+## Estado: corregido e instalado en la copia de pruebas (25/09/2026)
 
-Registro actualizado el 23 de septiembre de 2026. Se detuvo la investigación por petición del usuario. **No se considera corregido ni validado el cierre normal del juego.**
+La petición del usuario levantó el aplazamiento de esta corrección. Se validaron **tres arranques automáticos y cierres normales sin depurador, todos con código 0**, y los **16 casos de limpieza de Cover** con un cierre instrumentado también con código 0. Cada ejecución normal permaneció diez segundos en el estado de juego antes de enviar `WM_CLOSE`. Es una prueba de cierre durante el inicio de una partida nueva, no de una sesión prolongada ni de carga/guardado.
 
-Se conserva una corrección candidata en [Game.cpp](../../source/game_sa/Game.cpp), [Cover.cpp](../../source/game_sa/Cover.cpp) y [Cover.h](../../source/game_sa/Cover.h): limpiar la lista de edificios de cobertura y retirar sus referencias antes de destruir el mundo.
+### Causas y archivos
 
-Resultados obtenidos:
+- [Game.cpp](../../source/game_sa/Game.cpp), [Cover.cpp](../../source/game_sa/Cover.cpp) y [Cover.h](../../source/game_sa/Cover.h): la lista retenía punteros a edificios ya destruidos. `ClearProcessedBuildings` retira las referencias y vacía los nodos antes de destruir el mundo y sus reservas. Esta parte candidata ya estaba en HEAD y se conserva.
+- [app_debug.cpp](../../source/app/app_debug.cpp) y [app_debug.h](../../source/app/app_debug.h): el destructor de `spdlog::periodic_worker` intentaba adquirir un mutex durante la descarga de la DLL, después de terminar los otros hilos. `Logging::Shutdown` retira el manejador de excepciones que usa los logs, vacía los logs y cierra los trabajadores mientras todavía pueden ejecutarse.
+- [WinMain.cpp](../../source/app/platform/win/WinMain.cpp): destruye ImGui/SDL antes de RenderWare y de la ventana, y cierra los logs al salir de WinMain, incluyendo retornos anticipados. La segunda pila mostró una excepción `0x87a` en DXGI desde `SDL_Quit`, llamado por el destructor tardío de `UIRenderer` durante la descarga del ASI. No se ocultan excepciones ni se fuerza el código de salida.
+- [FastLoader.hpp](../../source/extensions/Configs/FastLoader.hpp): añade `SaveGameToLoad=0` para iniciar una partida nueva automáticamente. El ejecutor activa temporalmente `FastLoader Enable=true` y ese valor; no necesita capturas ni navegación por menús. Al terminar restaura `Enable=false`, `SaveGameToLoad=-2`. No carga la ranura 2 incompatible.
 
-- El banco instrumentado superó 16 casos de limpieza (listas vacías, referencias registradas, retiradas y nulas, e idempotencia). También hubo cierres instrumentados con código 0, incluyendo cierre mediante `WM_CLOSE`.
-- Otras ejecuciones instrumentadas terminaron con `0xC0000409`; no se ha establecido la causa de ese fallo adicional.
-- La última prueba del ASI normal terminó con código **3**, por lo que la validación completa sigue fallando. Evidencia: [summary.json](artifacts/normal-20260923-192201/summary.json). SHA-256 del candidato probado: `a81bb5fb1cb3cd3586c57a349193b2f5715390768e9fe40ec437943ec0891153`.
-- El ejecutor restauró los archivos instalados y la configuración; comprobó que las partidas no cambiaron. No queda un proceso `gta_sa` abierto al registrar la pausa.
+### Evidencia y entrega
 
-**Instalación conservada:** el ASI anterior con la corrección de impactos de bala, SHA-256 `d8b39a395abfed3acae54a480df9db7368dbdbbaff94caeed817dcc121f903ec`. La corrección candidata de cierre permanece en el código fuente, **sin instalar**. `bin/Debug` contiene el candidato compilado; no confundirlo con el ASI instalado.
+- [Tres cierres normales](artifacts/normal-20260925-080922/summary.json).
+- [16 casos y cierre instrumentado](artifacts/normal-20260925-081051/summary.json): tamaños 0/1/8/32, referencias sin registrar, registradas, retiradas y nulas; lista vacía, devolución de nodos, referencias conservadas e idempotencia. Se introducen dos edificios vivos al entrar en Shutdown y se verifica que la lista queda vacía.
+- Diagnóstico del trabajador de logs: `artifacts/normal-20260925-075910/debug/hit-3-ntdll32-NtTerminateProcess.txt`. Diagnóstico SDL/DXGI: `artifacts/normal-20260925-080751/debug/exception-4.txt`. Son capturas diagnósticas; el resultado aprobado procede de las tres ejecuciones posteriores sin depurador.
+- [Resumen de instalación y hashes de fuentes](installation-summary.json). ASI normal: `b132855e4c96c1a02824b91569de158848a723718059962d5b83f91e02c5f980`. PDB: `7fbdff7c8c62a74cdd266cb3898bf8f2160b41ff36fdc14687d8b4ba22751750`.
 
-Para retomar: capturar la pila del fallo del ASI normal que termina con código 3, determinar si es otra aserción o un fallo posterior, corregir su causa y repetir cierres normales antes de instalar. Las pruebas instrumentadas no bastan para dar por resuelto este incidente. Scripts conservados: [run_normal.py](run_normal.py), [run_local.py](run_local.py), [build_probe.py](build_probe.py) y [LiveComparison.hpp](LiveComparison.hpp).
+Instalado en `bin/Debug` y exclusivamente en `E:/JUEGOS/GTA San Andreas - CVehicle Test/scripts`. El resumen identifica el respaldo anterior. Partidas y ambos INI conservados por hash; instalación personal intacta. Sin commit ni push.
+
+La compilación incluye GangLeader::GetTaskType y esta corrección, pero **excluye CustomBuilding aplazado y el cambio local de Climb**. [build_isolated.py](build_isolated.py) conserva y restaura sus fuentes por bytes y registra las versiones compiladas; no equivale a compilar el árbol sin filtros. No se cambiaron locks, indicadores ni acreditaciones del catálogo por esta corrección.
+
+Para reproducir: `python reversing/ShutdownLists/build_isolated.py`, seguido de `python reversing/ShutdownLists/run_normal.py`. Para el banco: compilar con `--probe` y ejecutar `run_normal.py --probe`. [install_normal.py](install_normal.py) exige los dos resúmenes aprobados, sus hashes y fuentes coincidentes antes de instalar. El banco puede ejecutarse durante la introducción: solo requiere edificios vivos y no acredita control libre del jugador. El antiguo `run_local.py` conserva el analizador, pero se usa el nuevo ejecutor para evitar la configuración compartida histórica de la ranura 2.
+
+## Diagnóstico histórico de Cover (23/09/2026)
 
 Captura en vivo del proceso 24488, hilo principal 24076, el 23 de septiembre de 2026. El aviso permaneció abierto durante la inspección. No se cerró el proceso, no se omitió la aserción y no se escribió memoria del juego.
 

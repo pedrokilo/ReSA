@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-09-24 00:03 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-09-25 02:35 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -15,9 +15,9 @@ La [hoja de ruta de PGTASA](ProjectRoadmap.md) define una reconstrucción funcio
 | Funciones validadas, vigencia confirmada | `░░░░░░░░░░░░░░░░░░░░` | 0/8,014 · 0.00%; inventario parcial |
 | Dependencias de funciones originales eliminadas | Sin barra | No medido; requiere auditoría directa y transitiva |
 
-Hay 8,014 entradas catalogadas, 620 bloqueadas y 7,394 sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente; el número de funciones que usan código original sigue sin medir. No se deducen hooks eliminados del contador de locks.
+Hay 8,014 entradas catalogadas, 619 bloqueadas y 7,395 sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente; el número de funciones que usan código original sigue sin medir. No se deducen hooks eliminados del contador de locks.
 
-**Validación consolidada parcialmente:** 33 funciones con evidencia aprobada vinculada, 0 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md). Esta barra mide acreditación en el registro, no ausencia de pruebas previas ni cobertura exhaustiva.
+**Validación consolidada parcialmente:** 34 funciones con evidencia aprobada vinculada, 0 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md). Esta barra mide acreditación en el registro, no ausencia de pruebas previas ni cobertura exhaustiva.
 
 ## Vista general
 
@@ -207,7 +207,7 @@ Orden alfabético. El número entre paréntesis indica funciones registradas; �
 | [CEventNewGangMember](../source/game_sa/Events/EventNewGangMember.cpp) (1) | [CTaskComplexFollowNodeRoute](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.cpp) (19) | [CWeaponInfo](../source/game_sa/WeaponInfo.cpp) (10) |
 | [CEventObjectCollision](../source/game_sa/Events/EventObjectCollision.cpp) (2) | [CTaskComplexFollowPedFootsteps](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp) (1) | [CWeaponModelInfo](../source/game_sa/Models/WeaponModelInfo.cpp) (3) |
 | [CEventOnFire](../source/game_sa/Events/EventOnFire.cpp) (1) | [CTaskComplexFollowPointRoute](../source/game_sa/Tasks/TaskTypes/TaskComplexFollowPointRoute.cpp) (13) | [CWindModifiers](../source/game_sa/WindModifiers.cpp) (2) |
-| [CEventPassObject](../source/game_sa/Events/EventPassObject.cpp) (2) | [CTaskComplexGangLeader](../source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp) (13) 🔒 11 | [CWorld](../source/game_sa/World.cpp) (94) |
+| [CEventPassObject](../source/game_sa/Events/EventPassObject.cpp) (2) | [CTaskComplexGangLeader](../source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp) (13) 🔒 10 | [CWorld](../source/game_sa/World.cpp) (94) |
 | [CEventPedCollisionWithPed](../source/game_sa/Events/EventPedCollisionWithPed.cpp) (3) | [CTaskComplexGetOnBoatSeat](../source/game_sa/Tasks/TaskTypes/TaskComplexGetOnBoatSeat.cpp) (8) | [FurnitureGroup_c](../source/game_sa/Interior/FurnitureGroup_c.cpp) (6) |
 | [CEventPedCollisionWithPlayer](../source/game_sa/Events/EventPedCollisionWithPlayer.cpp) (1) | [CTaskComplexGetUpAndStandStill](../source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp) (5) | [FurnitureManager_c](../source/game_sa/Interior/FurnitureManager_c.cpp) (7) |
 | [CEventPlayerCollisionWithPed](../source/game_sa/Events/EventPlayerCollisionWithPed.cpp) (1) | [CTaskComplexGoToBoatSteeringWheel](../source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp) (6) | [FurnitureSubGroup_c](../source/game_sa/Interior/FurnitureSubGroup_c.cpp) (3) |
@@ -354,7 +354,7 @@ Orden alfabético para localizar clases. Para decidir qué abordar primero, cons
 ## Cómo leer y actualizar
 
 - **Pendientes:** total menos revertidas. Cada fila del CSV cuenta como una entrada, incluidas sobrecargas y virtuales.
-- **Locked:** indicador de bloqueo del hook; hay 620 entradas bloqueadas en el CSV. No equivale por sí solo a pendiente ni informa si el hook está activo durante una ejecución.
+- **Locked:** indicador de bloqueo del hook; hay 619 entradas bloqueadas en el CSV. No equivale por sí solo a pendiente ni informa si el hook está activo durante una ejecución.
 - **Porcentajes:** las categorías cuentan clases; el avance de cada clase cuenta funciones. Se muestran dos decimales.
 - **Alcance:** solo incluye lo registrado en el CSV; completar una fila no certifica todo el comportamiento de una clase.
 

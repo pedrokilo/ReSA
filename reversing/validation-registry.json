@@ -825,6 +825,30 @@
       "dependency_review": null,
       "scope": "Deterministic controlled RNG; isolated lists and collision boxes, not full interior placement or theft gameplay. Original AddItem retains its existing shared hook. Finite valid geometry; no NaN/infinity or invalid pointers. No general game stability guarantee.",
       "review_reference": "reversing/FurnitureSubGroup_c/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexGangLeader",
+        "fn_name": "GetTaskType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/GangLeader/validation-summary.json",
+        "sha256": "9d3d016ef2a3f194e2ee6ea3468832ce2d0162ae06cfaaf4300c0aea4acf9088",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 24,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.h": "1a9cadf4ec39398c164829097f8a6106c915e5b2fa678a94f67e56a994effbf3",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "22de12b6770330566f82c4f9701d3f0fe164e270e63d71554c30e0865c6419fa"
+      },
+      "source_provenance": "Fresh isolated probe; archived build manifest. Hook unlocked after comparison. No current-version accreditation requested.",
+      "dependency_review": null,
+      "scope": "24 pairs at the frontend: direct entry, GTA vtable slot 4 and C++ virtual dispatch; return, unchanged objects, execution counters and hook restoration. No gameplay, shutdown or class-wide validation."
     }
   ]
 }

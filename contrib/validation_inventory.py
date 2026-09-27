@@ -35,7 +35,7 @@ def generate(root):
              f"| Sin evidencia aprobada vinculada en este registro | {counts['sin_vincular']} |", '',
              'Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.', '',
              '## Siguiente tanda con evidencia disponible', '',
-             'Revisar fuentes, versión, configuración y dependencias; repetir el banco cuando no se pueda confirmar su vigencia. Esta lista no autoriza desbloquear los 86 pendientes aplazados. No se marca toda una clase por validar una de sus funciones.', '',
+             'Revisar fuentes, versión, configuración y dependencias; repetir el banco cuando no se pueda confirmar su vigencia. Esta lista no autoriza desbloquear los 85 pendientes aplazados. No se marca toda una clase por validar una de sus funciones.', '',
              '| Clase | Función registrada | Evidencia |', '| --- | --- | --- |']
     for row, path in sorted(pending, key=lambda x:(x[0]['class'],x[0]['fn_name'])):
         lines.append(f"| {row['class']} | `{row['fn_name']}` | [Resumen](../{path}) |")

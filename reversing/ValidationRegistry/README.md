@@ -12,9 +12,9 @@ Datos: [validation-registry.json](../validation-registry.json). Auditor de solo 
 | IKChain_c::SetupBones | 131 pares únicos, repetidos con fuentes actuales | Sí | Acreditada para el alcance del banco |
 | RpAnimBlendClumpUpdateAnimations | 652 pares, repetidos con fuentes actuales | Sí | Acreditada para el alcance del banco |
 
-Hay **33 funciones con evidencia histórica** y **0 con vigencia confirmada para el árbol modificado**. Las tres acreditaciones anteriores quedan pendientes por el cambio de huella global de source durante CustomBuilding; no significa que hayan fallado sus bancos. La barra es **0/8.014 · 0,00%**. CustomBuilding sigue aplazada y todavía no se incorpora al registro.
+Hay **34 funciones con evidencia histórica** y **0 con vigencia confirmada para el árbol modificado**. Las tres acreditaciones anteriores quedan pendientes por el cambio de huella global de source durante CustomBuilding; no significa que hayan fallado sus bancos. La barra es **0/8.014 · 0,00%**. CustomBuilding sigue aplazada y todavía no se incorpora al registro.
 
-El [inventario de todas las funciones reconstruidas](../../docs/ValidationInventory.md) clasifica las 7.485 entradas: 0 vigentes, 33 históricas por revisar y 7.452 sin evidencia vinculada todavía. Incluye las clases y la siguiente tanda de funciones concretas. No significa que las 7.452 nunca se probaran: faltan bancos por incorporar. Las 529 entradas sin reconstruir se contabilizan aparte.
+El [inventario de todas las funciones reconstruidas](../../docs/ValidationInventory.md) clasifica las 7.485 entradas: 0 vigentes, 34 históricas por revisar y 7.451 sin evidencia vinculada todavía. Incluye las clases y la siguiente tanda de funciones concretas. No significa que las 7.451 nunca se probaran: faltan bancos por incorporar. Las 529 entradas sin reconstruir se contabilizan aparte.
 
 ## Cómo funciona
 
@@ -36,10 +36,14 @@ python contrib/validation_inventory.py
 python -m unittest discover -s contrib/tests -p test_validation_registry.py
 ```
 
-La primera orden muestra las comprobaciones; la segunda actualiza la barra y la tercera la lista completa de trabajo. El siguiente paso es revisar la vigencia de las 30 entradas históricas e incorporar los bancos restantes. No exige repetir automáticamente toda la suite. No se modifica `validated` manualmente en el CSV ni se retiran locks. Los 86 bloqueos aplazados y las reglas de protección permanecen vigentes.
+La primera orden muestra las comprobaciones; la segunda actualiza la barra y la tercera la lista completa de trabajo. El siguiente paso es revisar la vigencia de las 30 entradas históricas e incorporar los bancos restantes. No exige repetir automáticamente toda la suite. No se modifica `validated` manualmente en el CSV ni se retiran locks. Los 85 bloqueos aplazados y las reglas de protección permanecen vigentes.
 
 Para repetir la comprobación actual del constructor, `python reversing/ValidationRegistry/revalidate_namedanim.py` recompila el banco existente, conserva la sonda anterior, ejecuta la copia de pruebas y verifica la restauración. Sus resultados nuevos requieren revisión antes de actualizar el registro; no acredita funciones automáticamente. Reutiliza el banco y runner existentes, sin añadir otro CMD.
 
 El mismo ejecutor acepta `--case ik-data` para SetupBones; también verifica que los tres archivos de datos permanecen intactos y utiliza el banco IK existente. No vuelve a reparar datos ni añade otro caso al catálogo.
 
 También acepta `--case rpanimblend`: utiliza el nuevo build_probe.py y el analizador histórico con sus exclusiones Audio/SurfaceInfos, sin cambiar el hash fijo del runner archivado. `import_historical.py` importa de forma idempotente la tanda revisada de 30 funciones; exige identidad única y resumen aprobado, no concede vigencia ni infiere funciones por el total de pares. Conserva direcciones originales del informe cuando el CSV registra cero para una virtual.
+
+### GetTaskType de GangLeader (2026-09-24)
+
+Vinculada su [evidencia de 24 pares](../GangLeader/validation-summary.json), sin nueva acreditaci?n vigente. Se probaron entrada directa y rutas virtuales dentro del men? del motor, con contadores y conmutaci?n. La entrega usa fuentes aisladas para excluir los trabajos aplazados; no acredita toda la clase ni sus dependencias. Totales actuales: 34 evidencias hist?ricas, 0 vigentes, 7.451 reconstruidas sin evidencia vinculada.

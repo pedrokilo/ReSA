@@ -14,7 +14,7 @@ inline struct FastLoaderConfig {
 
     INI_CONFIG_SECTION("FastLoader");
 
-    int32  SaveGameToLoad       = -2;         //< -2 - Don't load, -1 = Load first available, 0 = unused, 1 <= - load from save slot
+    int32  SaveGameToLoad       = -2;         //< -2 - Menu, -1 - First available save, 0 - New game, 1 <= - Save slot
     uint32 SkipSaveGameLoadKey  = VK_CONTROL; //< Skip auto-loading save game (If enabled)
     uint32 SoundDelay           = 50;
 
@@ -37,6 +37,12 @@ inline struct FastLoaderConfig {
     //! Start the game from a slot
     //! `slot` can have the same values as `SaveGameToLoad`
     bool StartGame(int32 slot) {
+        if (slot == 0) {
+            NOTSA_LOG_TRACE("Starting new game (FastLoader)");
+            FrontEndMenuManager.SimulateGameLoad(true, 0);
+            return true;
+        }
+
         const auto CheckIfSaveFileExists = [](int32 slot) {
             return std::filesystem::exists(std::filesystem::path(InitUserDirectories()) / std::format("GTASAsf{}.b", slot));
         };

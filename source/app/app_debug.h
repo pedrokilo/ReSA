@@ -23,11 +23,14 @@ using log_ptr = std::shared_ptr<spdlog::logger>;
 struct Logging : public Singleton<Logging> {
     Logging();
     ~Logging();
+    void Shutdown();
 
     auto Create(std::string name, std::optional<spdlog::level::level_enum> level = std::nullopt) -> log_ptr;
 
 private:
     std::vector<spdlog::sink_ptr> m_sinks;
+    void* m_exceptionHandler{};
+    bool m_shutdown{};
 };
 };
 //! Make sure to *NOT* call this function to initialize static variables, it will fuck up spdlog.

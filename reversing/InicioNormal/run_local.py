@@ -4,7 +4,7 @@ from datetime import datetime
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from runtime_runner import GAME,EXE_HASH,digest,saves
-def main():
+def main(observer=None):
     rows=csv.reader(subprocess.check_output(['tasklist','/FO','CSV','/NH'],text=True,errors='replace').splitlines())
     if any(r and r[0].lower() in ('gta_sa.exe','gta-sa.exe') for r in rows):raise RuntimeError('Ya hay GTA abierto; no se cierra una sesion ajena.')
     assert digest(GAME/'gta_sa.exe')==EXE_HASH
@@ -47,6 +47,7 @@ def main():
                 if value==7:
                     if menu_since is None:menu_since=time.monotonic()
                     if time.monotonic()-menu_since>=10:
+                        if observer is not None: observer(handle, kernel, result)
                         result.update(passed=True,menu_stable_seconds=10);break
                 else:menu_since=None
             time.sleep(.25)

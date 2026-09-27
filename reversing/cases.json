@@ -1,5 +1,10 @@
 [
   {
+    "id": "gang-leader-type",
+    "name": "GangLeader: GetTaskType y conmutacion virtual",
+    "runner": "GangLeader/run_local.py"
+  },
+  {
     "id": "shutdown-lists",
     "name": "Cierre normal y referencias de cobertura",
     "runner": "ShutdownLists/run_local.py"

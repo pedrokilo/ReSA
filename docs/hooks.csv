@@ -6235,7 +6235,7 @@ CTaskComplexGangLeader,CreateNextSubTask,0x00000000,1,1,V
 CTaskComplexGangLeader,Destructor,0x0065DF30,1,0,S
 CTaskComplexGangLeader,DoGangAbuseSpeech,0x0065E860,1,1,S
 CTaskComplexGangLeader,GetRandomGangAmbientAnim,0x0065E730,1,1,S
-CTaskComplexGangLeader,GetTaskType,0x00000000,1,1,V
+CTaskComplexGangLeader,GetTaskType,0x00000000,1,0,V
 CTaskComplexGangLeader,MakeAbortable,0x00000000,1,1,V
 CTaskComplexGangLeader,ScanForStuff,0x00000000,1,1,V
 CTaskComplexGangLeader,ShouldLoadGangAnims,0x0065E7F0,1,1,S

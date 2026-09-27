@@ -24,7 +24,8 @@ inline void InvalidParameter(const wchar_t*,const wchar_t*,const wchar_t*,unsign
     Write({{"event","error"},{"reason","invalid CRT parameter"},{"stack",frames}});ExitProcess(95);
 }
 inline void Update() {
-    if(armed || !FindPlayerPed() || CCutsceneMgr::IsRunning())return;
+    // These fixtures only need live buildings; a new game's intro is sufficient.
+    if(armed || !FindPlayerPed())return;
     char exe[MAX_PATH]{};GetModuleFileNameA(nullptr,exe,MAX_PATH);
     const auto dir=std::filesystem::path(exe).parent_path();
     if(!std::filesystem::exists(dir/"shutdown-lists-runtime.start"))return;

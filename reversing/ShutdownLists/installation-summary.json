@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "manifest": {
+    "head": "aef6bcbf051d0370cc6ed68e8d9809e0b7bb8d51",
+    "asi": "b132855e4c96c1a02824b91569de158848a723718059962d5b83f91e02c5f980",
+    "pdb": "7fbdff7c8c62a74cdd266cb3898bf8f2160b41ff36fdc14687d8b4ba22751750",
+    "probe": false,
+    "isolated_files": {
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp": "11fd6912f759d3bc93208a9def001b6dd751dbdf",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "11fd6912f759d3bc93208a9def001b6dd751dbdf",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp": "aef6bcbf051d0370cc6ed68e8d9809e0b7bb8d51"
+    },
+    "workspace_sources": {
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp": "cf6962d9e6a6ccf0dd55a1e160b2b58f55fcb126036d4d603db8344b054e93ce",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "d2f74ff0a50a35592e1259c2f4e5d4122adb4e6ed799568afd9be8163c36612d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp": "13e7cba4dfc865aecc2c5124b00803a90220ad854aaee3d41c18057428087e76"
+    },
+    "source_hashes": {
+      "source/game_sa/Game.cpp": "44dff9478c1d32340f569ebe3cfdf89a34e54496e6d9aa521eace119223532e0",
+      "source/game_sa/Cover.cpp": "4428e5996f4d3ea425ba053f77834199b0a06246ef6494db3670df9a9432b304",
+      "source/game_sa/Cover.h": "03784c7658cfd5c8060f8b8c61ad68faaca9037f43bf4e54ddd2a6930601144b",
+      "source/app/app_debug.cpp": "f2ed1508b419733eeed7e4ac887f21332331d2199f15ec4c8f9be43787525a79",
+      "source/app/app_debug.h": "bade45d7f26c4ff334407add7d280fbedf0fa287548fdc741ae3883b0e20ee14",
+      "source/app/platform/win/WinMain.cpp": "008eb0d4f558f108ffffcf1ba89087bea66ebd6cf02776f9f55156de0f2cec44",
+      "source/extensions/Configs/FastLoader.hpp": "8df710a21807aeb08c96e36f7b27d6aac6016bda4a9a11050b1321271493c647"
+    },
+    "full_manifest_sha256": "51718f64c8abfd8aacf2b76e9611f8ccf334b0656fecaac4a7b09b2a67e59591"
+  },
+  "normal": {
+    "passed": true,
+    "runs": [
+      {
+        "attempt": 0,
+        "exit_code": 0,
+        "natural_exit": true,
+        "startup": "FastLoader new game; SaveGameToLoad=0"
+      },
+      {
+        "attempt": 1,
+        "exit_code": 0,
+        "natural_exit": true,
+        "startup": "FastLoader new game; SaveGameToLoad=0"
+      },
+      {
+        "attempt": 2,
+        "exit_code": 0,
+        "natural_exit": true,
+        "startup": "FastLoader new game; SaveGameToLoad=0"
+      }
+    ],
+    "asi": "b132855e4c96c1a02824b91569de158848a723718059962d5b83f91e02c5f980",
+    "saves_unchanged": true,
+    "restored": true
+  },
+  "probe": {
+    "passed": true,
+    "runs": [
+      {
+        "attempt": 0,
+        "exit_code": 0,
+        "natural_exit": true,
+        "startup": "FastLoader new game; SaveGameToLoad=0"
+      }
+    ],
+    "asi": "f2eb9106185b05566175a35b49f61f1223e1d5d1491080aac54d3d80d127961f",
+    "cleanup": {
+      "cleanup_cases": 16,
+      "shutdown_returned": true,
+      "log_sha256": "a5f78248b0db52c25aaffead19a7058218e92f58520b9c38bcc0ea031300ee4e"
+    },
+    "saves_unchanged": true,
+    "restored": true
+  },
+  "normal_evidence": "reversing\\ShutdownLists\\artifacts\\normal-20260925-080922\\summary.json",
+  "probe_evidence": "reversing\\ShutdownLists\\artifacts\\normal-20260925-081051\\summary.json",
+  "backup_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-shutdown-20260925-081135",
+  "saves_unchanged": true,
+  "ini_unchanged": true
+}

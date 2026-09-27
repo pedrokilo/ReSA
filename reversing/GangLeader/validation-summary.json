@@ -1,0 +1,73 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "game_stopped_before_analysis": true,
+  "pairs": 24,
+  "all_equal": true,
+  "hook_state": {
+    "enabled": false,
+    "event": "hook",
+    "locked": true
+  },
+  "state_restored": true,
+  "log_sha256": "0c0dcc5c1d095a32a1c8111cb96b10b73a7f07f7f0418ca5a45a8912da496834",
+  "scope": "Frontend motor; direct entry and both vtables; no gameplay or save loading",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "run_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gang-leader\\20260924-203415-111032",
+  "manifest": {
+    "head": "aef6bcbf051d0370cc6ed68e8d9809e0b7bb8d51",
+    "isolated_files": {
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp": "11fd6912f759d3bc93208a9def001b6dd751dbdf",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "11fd6912f759d3bc93208a9def001b6dd751dbdf",
+      "source/game_sa/Game.cpp": "aef6bcb^",
+      "source/game_sa/Cover.cpp": "aef6bcb^",
+      "source/game_sa/Cover.h": "aef6bcb^",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp": "aef6bcb"
+    },
+    "workspace_sources": {
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp": "cf6962d9e6a6ccf0dd55a1e160b2b58f55fcb126036d4d603db8344b054e93ce",
+      "source/game_sa/Cover.cpp": "4428e5996f4d3ea425ba053f77834199b0a06246ef6494db3670df9a9432b304",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.h": "1a9cadf4ec39398c164829097f8a6106c915e5b2fa678a94f67e56a994effbf3",
+      "source/game_sa/Game.cpp": "44dff9478c1d32340f569ebe3cfdf89a34e54496e6d9aa521eace119223532e0",
+      "source/game_sa/Cover.h": "03784c7658cfd5c8060f8b8c61ad68faaca9037f43bf4e54ddd2a6930601144b",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp": "13e7cba4dfc865aecc2c5124b00803a90220ad854aaee3d41c18057428087e76",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "22de12b6770330566f82c4f9701d3f0fe164e270e63d71554c30e0865c6419fa",
+      "source/dllmain.cpp": "f9c9b7f57e5e6391372df9a9e65ed0b3a3c34c56b7ec5a7340af9fc5f5fbfb67",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "d2f74ff0a50a35592e1259c2f4e5d4122adb4e6ed799568afd9be8163c36612d",
+      "source/app/app_game.cpp": "99be285f5e86037f61ff320b89eafbf39c402c5fed492a9d4f82a142a2bb661b"
+    },
+    "compiled_sources": {
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp": "0791d511c784b980091b0d9c551d12401ca6cea83e9c4da3cf14ae5e15011b3f",
+      "source/game_sa/Cover.cpp": "60078fbdd2e465404035027022d595e67424f25b19a5b77556becc1c67359f07",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.h": "6007e5b5b96d6131355c0daf8946405b1432ae87522f0e4b1ff2220ae9b73c3f",
+      "source/game_sa/Game.cpp": "5ad6585d974ab7c9cbaf38947e5d3adfbcbc017a65e9c40f51778e933cc1acc6",
+      "source/game_sa/Cover.h": "f6975109f0384075677b0cf3ea0e9b9338070394922400980522c9b378118e9d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp": "dc6e9ad9f70427987400e513c0214df21a7f7b319fea205e6344cd056e5c9684",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "22de12b6770330566f82c4f9701d3f0fe164e270e63d71554c30e0865c6419fa",
+      "source/dllmain.cpp": "09f84280845f086785cd50fd5ff8760090cb18e7f688eb62a5ca1c5d449a7648",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "45ef43c07cd95ed44b16060f65126371fb1be7f904c345196db3431ccb10918b",
+      "source/app/app_game.cpp": "0bbdb373684056c46a41f5e2d18acf8e82b10ae981d07261c0e198aa04e7e192"
+    },
+    "bank_sources": {
+      "LiveComparison.hpp": "5854040c7a27e52d1dc784fd9d04397e91d5d472ee9664b2fcf6f89820c3dedf",
+      "build_probe.py": "df97d76e019c3dc16474fbe3eccbf07db1e3f2f9ee72627b3be5605e663ddb43"
+    },
+    "asi": "a6841677bc3802b56adecc1db46e0b323bb91ef3d7277fe7ce222c4e2f40581a",
+    "pdb": "aaa2ced0b0396b5c2f1d0f5d19257b1da10269d6a615dfb2d30cee9526a9ea9d"
+  },
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "runner_sha256": "31b357c719fae5fedd9bd3c8bd2ee02f2b20c4c37c349fa31438c2ecba1a2f28",
+  "temporary_configuration": "FastLoader=true; SaveGameToLoad=-2; no hook exclusions",
+  "original_address": "0x0065DF20",
+  "original_bytes": "b8 b1 04 00 00 c3",
+  "vtable_address": "0x0086F8FC",
+  "vtable_index": 4
+}

@@ -8,8 +8,8 @@
  * ESTADO: CTaskComplexGangLeader
  * Reconstrucción: COMPLETA — 13/13 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 11.
- * Evidencia aprobada vinculada: 0/13 entradas.
+ * Funciones bloqueadas: 10.
+ * Evidencia aprobada vinculada: 1/13 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -20,7 +20,6 @@
  *   CreateNextSubTask | 0x00000000 | V
  *   DoGangAbuseSpeech | 0x0065E860 | S
  *   GetRandomGangAmbientAnim | 0x0065E730 | S
- *   GetTaskType | 0x00000000 | V
  *   MakeAbortable | 0x00000000 | V
  *   ScanForStuff | 0x00000000 | V
  *   ShouldLoadGangAnims | 0x0065E7F0 | S
@@ -64,6 +63,9 @@ void CTaskComplexGangLeader::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x65DED0);
     RH_ScopedInstall(Destructor, 0x65DF30);
 
+    // Independently compared against the original; see reversing/GangLeader.
+    RH_ScopedVMTInstall(GetTaskType, 0x65DF20);
+
     /*
     * There are some weird crashes when these are hooked.
     * I'm not entirely sure which function it's caused by.
@@ -76,7 +78,6 @@ void CTaskComplexGangLeader::InjectHooks() {
     RH_ScopedInstall(TryToPassObject, 0x65EA50, { .enabled = false, .locked = true });
 
     RH_ScopedVMTInstall(Clone, 0x661FA0, { .enabled = false, .locked = true });
-    RH_ScopedVMTInstall(GetTaskType, 0x65DF20, { .enabled = false, .locked = true });
     RH_ScopedVMTInstall(MakeAbortable, 0x65DFA0, { .enabled = false, .locked = true });
     RH_ScopedVMTInstall(CreateNextSubTask, 0x65DFF0, { .enabled = false, .locked = true });
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x65E1F0, { .enabled = false, .locked = true });

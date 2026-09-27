@@ -556,3 +556,32 @@ Por petición del usuario, se aplaza el trabajo para evaluar qué ofrece menor c
 Panel e inventario regenerados sin alterar CSV: 33 evidencias históricas, 0 acreditaciones vigentes para el árbol modificado y 7.452 reconstruidas sin evidencia vinculada. Las tres anteriores requieren revisar el cambio de huella global de source; no es un fallo de sus pruebas. CustomBuilding aún no aporta acreditaciones al registro.
 
 Criterio propuesto, no campaña iniciada: priorizar funciones con implementación próxima al original, causa del bloqueo entendida y banco reutilizable. Suelen costar menos que una reconstrucción desde cero. Un lock complejo puede costar más que reconstruir una función pequeña; comparar funciones y dependencias, no número de clases. La validación sigue siendo obligatoria en ambos casos. Sin estimaciones numéricas de tokens o tiempo ni reapertura de los 86 bloqueos aplazados.
+
+### Continuidad posterior: GetTaskType de GangLeader desbloqueado (2026-09-24)
+
+Autorizada únicamente `CTaskComplexGangLeader::GetTaskType`. Git real: **PGTASA**, HEAD **aef6bcbf051d0370cc6ed68e8d9809e0b7bb8d51**, con cambio local previo en TaskSimpleClimb.cpp, conservado byte a byte. El HEAD y los binarios eran posteriores a los del traspaso. Sin commit, push ni apagado.
+
+Original verificado `0x65DF20`: `mov eax,1201; ret`, tabla virtual `0x86F8FC`, índice 4. El cuerpo C++ ya coincidía. Su lock era una precaución colectiva con el hook deshabilitado, no una obligación de mantenerlo activo; no se atribuye a esta función la causa de los cierres mencionados en la clase. [Informe y reproducción](GangLeader/README.md), [24 pares aprobados](GangLeader/validation-summary.json): entrada directa y rutas virtuales, contadores original/candidato 0/1, bytes y tablas al conmutar, objetos y otros hooks conservados. Banco dentro del menú del motor; no sesión jugable. Intento previo descartado por índice incorrecto de la sonda conservado.
+
+Único lock retirado: GetTaskType. CSV/catalogado 13/13 intacto; GangLeader **10 locks**, total **619**, restantes aplazados de clases completas **85**. Clone, otros métodos de GangLeader, CCollision, CFileMgr y Game siguen fuera del alcance. Registro: **34 evidencias históricas, 0 acreditaciones vigentes**, 7.451 reconstruidas sin evidencia vinculada. No se atribuye independencia del EXE ni estabilidad general; no se repitió toda la suite.
+
+**Entrega normal aislada instalada solo en la copia de pruebas**, con [manifiesto y resumen](GangLeader/installation-summary.json). ASI en bin/Debug e instalado: **fa25398636579a405ab50c2067c28077c5c9cb2e4f7bf7a0d6dd855cf6d78558**; PDB **cd39cc7bbe38478e6787c0dd4798dece473dcda6d9d2f933d1b539e0e92e3fb9**. Respaldo anterior `_baseline/before-gang-leader-20260924-203727`: instalado d8b39a39 (impactos de bala), bin/Debug a81bb5fb (candidato de cierre). Integración sin sonda: menú a los 2,25 s y diez segundos estable, salto original y entrada virtual apuntando al candidato. Proceso propio terminado; no se prueba el cierre normal.
+
+Para excluir entregas aplazadas se compilaron temporalmente los dos .cpp de CustomBuilding de `11fd6912`, Game.cpp/Cover.cpp/Cover.h de `aef6bcb^` y TaskSimpleClimb.cpp de `aef6bcb`. Las fuentes actuales y el cambio local de escalada se restauraron por bytes. **El ASI entregado no es una compilación sin filtros del árbol actual.** Usar `GangLeader/build_probe.py --normal` para reproducirlo; una compilación habitual incluiría los trabajos aplazados. CustomBuilding y la corrección de ShutdownLists permanecen pendientes, conservados y excluidos de esta entrega.
+
+Runner compartido reutilizado con configuración temporal que omite vídeos, **sin cargar partidas** (`SaveGameToLoad=-2`). Se restauran ambos INI normales (`FastLoader=false`, `SaveGameToLoad=-2`) y se comprueban partidas por hash. La integración no verifica el recorrido de vídeos con FastLoader=false. Instalación personal intacta. Caso `gang-leader-type` incorporado al catálogo de 44 casos; único PROBAR.cmd conservado. InicioNormal admite un observador opcional de solo lectura para comprobar el hook en la integración normal.
+
+
+## Continuidad: cierre Game/Cover corregido (2026-09-25)
+
+El usuario autorizó retomar el fallo de cierre y pidió usar un inicio automático en vez de capturas y navegación por menús. [Informe vigente](ShutdownLists/README.md), [instalación y evidencia](ShutdownLists/installation-summary.json). Esta entrega sustituye el aplazamiento de ShutdownLists y los hashes instalados de GangLeader; CustomBuilding sigue aplazado.
+
+Se conserva la limpieza de Cover al principio de CGame::Shutdown. Las pilas identificaron dos destructores demasiado tardíos: el trabajador periódico de spdlog y UIRenderer/SDL, este último con excepción 0x87a al cerrar DXGI. Ahora WinMain destruye la interfaz antes de RenderWare/ventana y cierra los trabajadores de logs antes de retornar. Se retira primero el manejador de excepciones que depende del logger.
+
+Tres ejecuciones normales sin depurador aprobaron inicio automático, diez segundos en estado de juego y cierre mediante WM_CLOSE, todas con código 0. Banco instrumentado: 16 casos aprobados y cierre 0. Alcance: inicio/introducción de partida nueva, sin cargar partidas, conducir, combatir ni sesión prolongada; no se repitió toda la suite.
+
+FastLoader admite SaveGameToLoad=0 para partida nueva. Las pruebas lo activan temporalmente y restauran Enable=false/SaveGameToLoad=-2. Evitar la ranura 2 incompatible; no hacen falta capturas ni menús para estas pruebas. Partidas y ambos INI conservados por hash, instalación personal intacta.
+
+ASI normal en bin/Debug y copia de pruebas: b132855e4c96c1a02824b91569de158848a723718059962d5b83f91e02c5f980. PDB: 7fbdff7c8c62a74cdd266cb3898bf8f2160b41ff36fdc14687d8b4ba22751750. Reproducir con ShutdownLists/build_isolated.py: excluye los dos candidatos CustomBuilding y el cambio local de Climb, restaurados por bytes. Incluye GetTaskType ya entregado. El manifiesto identifica las fuentes exactas y el resumen el respaldo anterior. No usar la compilación aislada histórica de GangLeader para esta entrega: aquella excluía Game/Cover.
+
+Se conservan 619 locks y los 85 aplazados de clases completas; no se alteraron CSV, catálogo ni acreditaciones en esta corrección. Rama PGTASA, HEAD aef6bcbf051d0370cc6ed68e8d9809e0b7bb8d51, cambios anteriores preservados. Sin commit, push ni apagado.
