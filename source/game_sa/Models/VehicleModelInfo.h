@@ -129,6 +129,13 @@ public:
 };
 VALIDATE_SIZE(UpgradePosnDesc, 0x20);
 
+/**
+ * Model info especializado de vehículos.
+ *
+ * Además del clump base conserva handling, colores, remaps, extras, upgrades, dummies,
+ * materiales editables y metadatos de render. CVehicleStructure es propiedad de esta
+ * instancia y resume la jerarquía preprocesada para crear vehículos rápidamente.
+ */
 class NOTSA_EXPORT_VTABLE CVehicleModelInfo : public CClumpModelInfo {
 public:
     RpMaterial*        m_pPlateMaterial;
@@ -150,6 +157,12 @@ public:
     tVehicleCompsUnion m_extraComps;
     float              m_fBikeSteerAngle;
 
+    /**
+     * Datos derivados del clump que se reutilizan al instanciar vehículos.
+     *
+     * Contiene posiciones de dummies/upgrades y atomics extra compartidos desde el
+     * modelo base; los extras se clonan al crear cada instancia de vehículo.
+     */
     class CVehicleStructure {
     public:
         CVehicleStructure();
@@ -181,7 +194,7 @@ public:
             return m_nMaskComponentsDamagable & (1 << nodeIndex);
         }
 
-    } * m_pVehicleStruct;
+    } * m_pVehicleStruct; //!< Estructura derivada propiedad de CVehicleModelInfo.
 
     char        field_60[464];
     std::array<RpMaterial*, 32> m_apDirtMaterials;
@@ -204,6 +217,9 @@ public:
         uint32 m_nAnimBlockIndex;
     };
 
+    /**
+     * Tabla global de parejas de upgrades que deben considerarse vinculados.
+     */
     class CLinkedUpgradeList {
     public:
         std::array<int16, 30> m_anUpgrade1;
@@ -211,9 +227,9 @@ public:
         uint32 m_nLinksCount;
 
     public:
-        // add upgrade with components upgrade1 and upgrade2
+        // Registra una pareja bidireccional de componentes compatibles.
         void AddUpgradeLink(int16 upgrade1, int16 upgrade2);
-        // find linked upgrade for this upgrade. In this case upgrade param could be upgrade1 or upgrade2
+        // Devuelve la contraparte de cualquiera de los dos IDs, o el centinela correspondiente.
         int16 FindOtherUpgrade(int16 upgrade);
     };
 
