@@ -23,6 +23,17 @@ struct TFaceGroup;
 // https://gtamods.com/wiki/Collision_File
 //
 
+/**
+ * Contenedor de los volúmenes y mallas que componen un modelo de colisión.
+ *
+ * Puede apuntar a arrays asignados por separado o a regiones de una asignación
+ * contigua administrada por CColModel. Además mantiene datos opcionales de sombras,
+ * face groups y una caché derivada de planos de triángulo.
+ *
+ * La estructura reproduce el layout binario original; los punteros no implican por
+ * sí solos el tipo de asignación. CColModel::m_bIsSingleColDataAlloc determina cómo
+ * debe liberarse el conjunto.
+ */
 class CCollisionData {
 public:
     CCollisionData();
@@ -80,13 +91,19 @@ public:
 public:
     static void InjectHooks();
 
+    // Libera la geometría asignada por separado y deja esta instancia vacía.
     void RemoveCollisionVolumes();
+    // Copia profundamente geometría principal y de sombras; no conserva face groups.
     void Copy(const CCollisionData& src);
+    // Genera la caché de planos y reserva al final espacio para el enlace de caché.
     void CalculateTrianglePlanes();
+    // Elimina únicamente la caché derivada de planos.
     void RemoveTrianglePlanes();
     void GetTrianglePoint(CVector& outVec, int32 vertId);
     void GetShadTrianglePoint(CVector& outVec, int32 vertId);
+    // Guarda el enlace en el espacio alineado posterior a m_pTrianglePlanes.
     void SetLinkPtr(CLink<CCollisionData*>* link);
+    // Recupera el enlace almacenado junto a la caché de planos.
     CLink<CCollisionData*>* GetLinkPtr();
 
     // NOTSA section
