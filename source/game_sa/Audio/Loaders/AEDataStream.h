@@ -4,14 +4,20 @@
 
 #include <objidl.h>
 
+/**
+ * IStream de sólo lectura sobre una sección de un archivo de audio.
+ *
+ * Posee el HANDLE y el nombre de archivo, mantiene un rango lógico por track y puede
+ * aplicar el XOR de CAEStreamTransformer durante las lecturas de recursos cifrados.
+ */
 class CAEDataStream : public IStream {
 public:
-    HANDLE     m_pFileHandle; // Native Win32 handle; interchangeable with original methods.
-    char*      m_pszFilename;
+    HANDLE     m_pFileHandle; //!< HANDLE Win32 propiedad del stream mientras m_bIsOpen.
+    char*      m_pszFilename; //!< Cadena dinámica propiedad de la instancia.
     bool       m_bIsOpen;
     uint32     m_nCurrentPosition;
-    uint32     m_nStartPosition;
-    uint32     m_nLength;
+    uint32     m_nStartPosition; //!< Offset inicial del track dentro del archivo.
+    uint32     m_nLength;        //!< Longitud lógica del track.
     uint32     m_nTrackId;
     bool       m_bIsEncrypted;
     uint32     m_lRefCount;
