@@ -21,6 +21,9 @@ END GENERATED HOOK STATUS */
 #include "ColTrianglePlane.h"
 #include "ColTriangle.h"
 
+/**
+ * Registra la obtención y reconstrucción de planos asociados a triángulos de colisión.
+ */
 void CColTrianglePlane::InjectHooks()
 {
     RH_ScopedClass(CColTrianglePlane);
@@ -30,6 +33,8 @@ void CColTrianglePlane::InjectHooks()
     RH_ScopedInstall(Set, 0x411660);
 }
 
+// Resuelve los índices del triángulo sobre el array comprimido y delega en el
+// constructor geométrico común.
 CColTrianglePlane::CColTrianglePlane(const CColTriangle& tri, const CompressedVector* vertices) :
     CColTrianglePlane{
         vertices[tri.vA],
@@ -39,6 +44,7 @@ CColTrianglePlane::CColTrianglePlane(const CColTriangle& tri, const CompressedVe
 {
 }
 
+// Construye el plano directamente a partir de los tres vértices almacenados.
 CColTrianglePlane::CColTrianglePlane(const CStoredCollPoly& poly) :
     CColTrianglePlane{
         poly.verts[0],
@@ -48,6 +54,13 @@ CColTrianglePlane::CColTrianglePlane(const CStoredCollPoly& poly) :
 {
 }
 
+/**
+ * Calcula la normal unitaria, el desplazamiento del plano y su eje dominante.
+ *
+ * m_orientation codifica tanto el eje cuyo valor absoluto domina la normal como
+ * su signo; esa clasificación permite elegir proyecciones más estables/rápidas
+ * en otras rutinas de colisión.
+ */
 CColTrianglePlane::CColTrianglePlane(const CVector& vA, const CVector& vB, const CVector& vC) {
     const auto normal = (vC - vA).Cross(vB - vA).Normalized();
 
@@ -70,10 +83,12 @@ CColTrianglePlane::CColTrianglePlane(const CVector& vA, const CVector& vB, const
     }();
 } 
 
+// Expande la normal comprimida en el vector de salida.
 void CColTrianglePlane::GetNormal(CVector& out) {
     out = GetNormal();
 }
 
+// Recalcula por completo el plano reutilizando la misma lógica del constructor.
 void CColTrianglePlane::Set(const CompressedVector* vertices, const CColTriangle& triangle) {
     *this = CColTrianglePlane{ triangle, vertices };
 }
