@@ -3,20 +3,20 @@
 [Inicio](../README.md) · [Progreso registrado](ReversedClasses.md) · [Proceso y continuidad](../reversing/MEJORAS_DEL_PROCESO.md)
 
 > [!NOTE]
-> **Completadas y retiradas de pendientes:** CClothes **11/11**, CScripted2dEffects **5/5** y CTaskComplexUseClosestFreeScriptedAttractorSprint **4/4**, tras 8.448 pares dentro del motor. [Evidencia y límites](../reversing/ClothesScriptedSprint/README.md). También se cerraron las diez clases del anterior Top 10 tras 51.712 pares: [resultados y límites](../reversing/Top10/README.md). Las tablas y el nuevo Top 10 reflejan **87 clases incompletas / 529 pendientes**.
+> **Completadas y retiradas de pendientes:** CClothes **11/11**, CScripted2dEffects **5/5** y CTaskComplexUseClosestFreeScriptedAttractorSprint **4/4**, tras 8.448 pares dentro del motor. [Evidencia y límites](../reversing/ClothesScriptedSprint/README.md). También se cerraron las diez clases del anterior Top 10 tras 51.712 pares: [resultados y límites](../reversing/Top10/README.md). Las tablas y el nuevo Top 10 reflejan **91 clases incompletas / 535 pendientes**.
 
 
-> **Rama inspeccionada:** `PGTASA` · **Corte:** 23 de septiembre de 2026 · **Alcance:** las 87 clases todavía incompletas de la lista solicitada.
+> **Rama inspeccionada:** `PGTASA` · **Corte:** 26 de septiembre de 2026 · **Alcance:** las 91 clases actualmente incompletas del catálogo auditado.
 
-**Objetivo:** contribuir a una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del ejecutable original, conforme a la [hoja de ruta](ProjectRoadmap.md). Esta guía estima el esfuerzo para completar las 529 entradas y 87 clases pendientes; cerrar clases es un hito intermedio. La estrategia incluye retirar los 620 locks con evidencia y eliminar dependencias originales por subsistema. No reabre automáticamente los 86 bloqueos aplazados ni reemplaza la cola autorizada.
+**Objetivo:** contribuir a una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del ejecutable original, conforme a la [hoja de ruta](ProjectRoadmap.md). Esta guía estima el esfuerzo para completar las 535 entradas y 91 clases pendientes; cerrar clases es un hito intermedio. La estrategia incluye retirar los 625 locks con evidencia y eliminar dependencias originales por subsistema. No reabre automáticamente los 86 bloqueos aplazados ni reemplaza la cola autorizada.
 
 | Clases evaluadas | Funciones pendientes | Parciales | Sin revertir |
 | :---: | :---: | :---: | :---: |
-| **87** | **529** | **85** | **2** |
+| **91** | **535** | **88** | **3** |
 
 **Navegación:** [🟢 Fáciles](#faciles) · [🟡 Intermedia](#intermedia) · [🟠 Difíciles](#dificiles) · [🔴 Final](#final) · [Evidencia](#evidencia) · [Top 10](#top-10)
 
-Los 24 bloqueos solicitados se retiraron tras comparación dentro del motor: [bancos de desbloqueo](../reversing/Unlocks/README.md). CGeneral ya estaba desbloqueado. No cambia el número de funciones pendientes ni la clasificación de esta guía. La entrega posterior de [DataStream y TrackEntity](../reversing/UnlockBatch2/README.md) retira otros diez candados validados; tampoco cambia las 87 clases incompletas ni el Top 10. Quedan 620 candados globales, de los cuales 86 pertenecen al lote aplazado.
+Los 24 bloqueos solicitados se retiraron tras comparación dentro del motor: [bancos de desbloqueo](../reversing/Unlocks/README.md). CGeneral ya estaba desbloqueado. No cambia el número de funciones pendientes ni la clasificación de esta guía. La entrega posterior de [DataStream y TrackEntity](../reversing/UnlockBatch2/README.md) retira otros diez candados validados; no altera las clases históricas de esa entrega ni el Top 10. En el catálogo vigente quedan 625 candados globales, de los cuales 86 pertenecen al lote aplazado.
 
 La [ampliación de la reserva de CEntryExit](../reversing/CEntryExitPool/README.md) corrige la saturación observada, sin completar funciones pendientes ni retirar candados; no modifica estas prioridades ni sus totales.
 
@@ -29,16 +29,26 @@ Se cruzó `hooks.csv` con registros de hooks, cuerpos C++ y headers de la rama. 
 El orden es editorial, no una fórmula de porcentajes. Pesa la combinación de cantidad pendiente, lógica efectiva, acoplamiento, código comparable, incertidumbre del cuerpo nativo y coste de preparar una comparación reproducible dentro de GTA. Un candidato escrito reduce trabajo, pero todavía puede estar equivocado.
 
 > [!IMPORTANT]
-> **Estimación, no certificación.** La inspección inicial abarcó 100 clases y 555 pendientes; después se cerraron trece clases y 26 funciones, en dos entregas. No se reconstruyeron ni desensamblaron exhaustivamente las 529 funciones restantes. Se profundizó en candidatos inmediatos y se consultó ensamblador local para los clones Sprint/Shooting, el gestor de recursos, selección de amenazas y textura de suciedad. Un passthrough de tres líneas no informa del tamaño nativo. Las posiciones apoyadas principalmente en passthroughs tienen menor confianza y deben revisarse antes de empezar.
+> **Estimación, no certificación.** La inspección inicial abarcó 100 clases y 555 pendientes; después se cerraron trece clases y 26 funciones, en dos entregas. No se reconstruyeron ni desensamblaron exhaustivamente las 535 funciones pendientes actuales. El catálogo creció después de aquella inspección al incorporar owners activos omitidos en la documentación. Se profundizó en candidatos inmediatos y se consultó ensamblador local para los clones Sprint/Shooting, el gestor de recursos, selección de amenazas y textura de suciedad. Un passthrough de tres líneas no informa del tamaño nativo. Las posiciones apoyadas principalmente en passthroughs tienen menor confianza y deben revisarse antes de empezar.
 
 Las cifras de líneas son aproximaciones del C++ visible, incluyendo borradores cuando se indica; no tamaños de código máquina. No se prometen horas ni fechas. Los tests sugeridos son trabajo futuro, no pruebas aprobadas.
+
+### Integridad del catálogo auditado
+
+Antes de usar esta guía para priorizar trabajo, ejecutar:
+
+```powershell
+python contrib/audit_hook_catalog.py --strict
+```
+
+El corte actual devuelve **OK**: cero hooks activos fuera del CSV, cero registros indirectos ausentes, cero entradas del CSV sin scope fuente y cero owners activos con instalaciones propias sin catálogo. Los owners inactivos se muestran sólo con `--verbose` y no forman parte del progreso mientras no se registren globalmente.
 
 ### Distribución propuesta
 
 | Grupo | Clases | Pendientes | Enfoque |
 | --- | ---: | ---: | --- |
 | [🟢 Más fáciles / buenos candidatos para terminar primero](#faciles) | 0 | 0 | Los diez candidatos de este grupo ya están cerrados; consultar su evidencia. |
-| [🟡 Dificultad intermedia](#intermedia) | 31 | 92 | Máquinas de estados o recursos con dependencias manejables; preparar fixtures específicos. |
+| [🟡 Dificultad intermedia](#intermedia) | 35 | 98 | Máquinas de estados o recursos con dependencias manejables; preparar fixtures específicos. |
 | [🟠 Difíciles](#dificiles) | 39 | 173 | Funciones extensas, física, render o audio; el banco de validación pesa mucho. |
 | [🔴 Dejar para el final](#final) | 17 | 264 | Sistemas centrales o grandes bloques desconocidos; dividir antes en hitos internos. |
 
@@ -56,6 +66,10 @@ Máquinas de estados o recursos con dependencias manejables; preparar fixtures e
 
 | Clase — revertidas/total — porcentaje | Faltan | Función del sistema y motivo |
 | --- | ---: | --- |
+| [CPedToPlayerConversations](../source/game_sa/Conversations/PedToPlayerConversations.cpp) — **2/3 — 66.67%** | 1 | **Conversación ambiental peatón-jugador.** Sólo `Update` continúa delegado al ejecutable original; el estado global, audio y cierre ya están reconstruidos. Requiere comparar la máquina de estados y temporizadores con escenarios de apertura/cierre. |
+| [CTaskInteriorSitAtDesk](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp) — **8/9 — 88.89%** | 1 | **Comportamiento de sentarse en escritorio.** Sólo `ProcessPed` sigue original; animaciones auxiliares y aborto ya están reconstruidos. Buen candidato para un fixture de animación/interior. |
+| [CTaskInteriorUseInfo](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorUseInfo.cpp) — **6/8 — 75.00%** | 2 | **Uso de puntos de información en interiores.** Faltan `CreateFirstSubTask` y `CreateNextSubTask`; el resto de la máquina de estados ya está disponible para comparar transiciones. |
+| [CConversationForPed](../source/game_sa/Conversations/ConversationForPed.cpp) — **0/2 — 0.00%** | 2 | **Máquina de conversación guionizada por peatón.** `Update` y la comprobación de posición todavía delegan al EXE. Aunque son sólo dos entradas, concentran la lógica temporal y espacial del subsistema. |
 | [CCustomBuildingRenderer](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp) — **3/7 — 42.86%** | 4 | **Preparar edificios para render.** Cuatro pendientes; reloj/balance tienen borradores cortos, pero AtomicSetup y pipelines requieren fixtures RenderWare y globals. |
 | [CPedGroup](../source/game_sa/PedGroup.cpp) — **10/12 — 83.33%** | 2 | **Órdenes y medidas del grupo.** Distancia al miembro más lejano ya es breve; Gather sigue nativa. Membresía de CPedList ayuda a probar órdenes y eventos. |
 | [CPedGroupDefaultTaskAllocatorRandom](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.h) — **1/2 — 50.00%** | 1 | **Asignar tareas por defecto.** Una nativa y allocators hermanos como referencia; comprobar RNG, elección y propiedad de tareas. |
@@ -93,6 +107,10 @@ Máquinas de estados o recursos con dependencias manejables; preparar fixtures e
 
 | Clase | Entradas pendientes en hooks.csv |
 | --- | --- |
+| `CPedToPlayerConversations` | `Update` en [PedToPlayerConversations.cpp](../source/game_sa/Conversations/PedToPlayerConversations.cpp) |
+| `CTaskInteriorSitAtDesk` | `ProcessPed` en [TaskInteriorSitAtDesk.cpp](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp) |
+| `CTaskInteriorUseInfo` | `CreateFirstSubTask`, `CreateNextSubTask` en [TaskInteriorUseInfo.cpp](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorUseInfo.cpp) |
+| `CConversationForPed` | `IsPlayerInPositionForConversation`, `Update` en [ConversationForPed.cpp](../source/game_sa/Conversations/ConversationForPed.cpp) |
 | `CCustomBuildingRenderer` | [AtomicSetup](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp#L42), [IsCBPCPipelineAttached](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp#L47), [Update](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp#L84), [UpdateDayNightBalanceParam](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp#L52) |
 | `CPedGroup` | [FindDistanceToFurthestMember](../source/game_sa/PedGroup.cpp#L9), [PlayerGaveCommand_Gather](../source/game_sa/PedGroup.cpp#L78) |
 | `CPedGroupDefaultTaskAllocatorRandom` | [AllocateDefaultTasks](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.h#L13) |
@@ -297,9 +315,9 @@ Los bancos habituales excluyen Audio y SurfaceInfos; validar audio exige activar
 
 ### Trazabilidad
 
-`hooks.csv` SHA-256: `03b00a43c8a589138cc73883a81d96aa1ca76824f1d6149bff156888406498bb`.
+El catálogo vigente es `docs/hooks.csv`; su coherencia con la fuente se comprueba con `python contrib/audit_hook_catalog.py --strict`. El hash anterior correspondía al corte histórico del 23 de septiembre y no debe usarse para identificar el catálogo actual.
 
-La lista coincide con 85 clases parciales y dos 0/N: cada clase aparece una vez en la clasificación y suma 529 pendientes. Los enlaces apuntan al árbol inspeccionado, con enlaces a la evidencia de las clases completadas. La guía es una evaluación manual fechada: si cambian flags, cuerpos o dependencias, revisar cifras y orden. No se regenera automáticamente con ReversedClasses.md.
+La lista coincide con 88 clases parciales y tres 0/N: cada clase aparece una vez en la clasificación y suma 535 pendientes. Los enlaces apuntan al árbol inspeccionado, con enlaces a la evidencia de las clases completadas. La guía es una evaluación manual fechada: si cambian flags, cuerpos o dependencias, revisar cifras y orden. No se regenera automáticamente con ReversedClasses.md.
 
 <a id="top-10"></a>
 ## Top 10 para atacar ahora
