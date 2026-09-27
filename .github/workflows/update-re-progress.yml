@@ -4,9 +4,12 @@ on:
   push:
      branches:
        - master
+       - PGTASA
      paths:
        - 'source/**'
        - 'contrib/hooks2md.py'
+       - 'contrib/source_status.py'
+       - 'docs/hooks.csv'
        - '.github/**'
 
 concurrency:
