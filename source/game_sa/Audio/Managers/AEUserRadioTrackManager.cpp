@@ -53,6 +53,10 @@ static auto audioExtensionTypes = std::to_array<tAudioExtensionType>({
 });
 
 // 0x4f35b0
+/**
+ * Carga el índice persistente de user tracks e inicializa los decoders disponibles.
+ * Si Media Foundation no está disponible, reasigna MP3 al decoder WMA compatible.
+ */
 bool CAEUserRadioTrackManager::Initialise() {
     m_bUserTracksLoaded = ReadUserTracks();
     m_bUserTracksLoadedCopy = m_bUserTracksLoaded;
@@ -89,6 +93,10 @@ void CAEUserRadioTrackManager::Shutdown() {
 }
 
 // 0x4f3050
+/**
+ * Recupera desde sa-ufiles.dat la cadena de ruta correspondiente al registro indicado.
+ * La cadena devuelta se reserva dinámicamente y pasa al decoder/CAEDataStream que la adopta.
+ */
 char* CAEUserRadioTrackManager::GetTrackPath(int32 trackID) const {
     if (trackID >= static_cast<int32>(m_nUserTracksCount))
         return nullptr;
@@ -113,6 +121,12 @@ char* CAEUserRadioTrackManager::GetTrackPath(int32 trackID) const {
 }
 
 // 0x4f35f0
+/**
+ * Selecciona y construye el decoder apropiado según tUserTracksInfo::fileType.
+ *
+ * Los decoders basados en CAEDataStream adoptan el stream y su filename; la ruta
+ * Media Foundation se entrega directamente a CAEMFDecoder.
+ */
 CAEStreamingDecoder* CAEUserRadioTrackManager::LoadUserTrack(int32 trackID) {
     if (!m_bUserTracksLoaded)
         return nullptr;
@@ -167,6 +181,7 @@ CAEStreamingDecoder* CAEUserRadioTrackManager::LoadUserTrack(int32 trackID) {
 }
 
 // 0x4f2fd0
+// Recarga sa-utrax.dat como array contiguo de tUserTracksInfo, liberando cualquier copia previa.
 bool CAEUserRadioTrackManager::ReadUserTracks() {
     CFileMgr::SetDirMyDocuments();
     auto file = CFileMgr::OpenFile("sa-utrax.dat", "rb");
@@ -196,6 +211,7 @@ bool CAEUserRadioTrackManager::ReadUserTracks() {
 }
 
 // 0x4f4ba0
+// Arranca una única exploración asíncrona y expone su estado sin bloquear al llamador.
 bool CAEUserRadioTrackManager::ScanUserTracks() {
     switch (m_nUserTracksScanState) {
     case USER_TRACK_SCAN_OFF:
@@ -231,6 +247,7 @@ void CAEUserRadioTrackManager::SetUserTrackIndex(int32 index) {
 }
 
 // 0x4f3250
+// Aplica el modo secuencial/aleatorio evitando repetir inmediatamente la pista anterior.
 int32 CAEUserRadioTrackManager::SelectUserTrackIndex() const {
     if (m_nUserTracksCount > 0 && FrontEndMenuManager.m_RadioMode >= 0) {
         switch (FrontEndMenuManager.m_RadioMode) {
@@ -284,6 +301,12 @@ uint8 CAEUserRadioTrackManager::GetUserTrackPlayMode() {
 }
 
 // 0x4f4a20
+/**
+ * Worker que reconstruye sa-ufiles.dat y sa-utrax.dat a partir de User Tracks.
+ *
+ * La compatibilidad con el vector/CRT de VC6 obliga a usar los alloc/free del EXE
+ * para los registros que cruzan esa frontera ABI.
+ */
 DWORD __stdcall CAEUserRadioTrackManager::WriteUserTracksThread(CAEUserRadioTrackManager* self) {
     VERIFY(SUCCEEDED(CoInitialize(nullptr)));
 
@@ -335,7 +358,8 @@ DWORD __stdcall CAEUserRadioTrackManager::WriteUserTracksThread(CAEUserRadioTrac
     return 0;
 }
 
-// 0x4F4690. The original order is (directory, vector, FILE, length, depth).
+// 0x4F4690. Mantiene la ABI del vector VC6 y traduce internamente desde std::vector.
+// El orden original de argumentos es (directory, vector, FILE, length, depth).
 int32 CAEUserRadioTrackManager::WriteUserTracksFile_Legacy(const char* dir, UserTracksLegacyVector& offsets, FILE* file, size_t& currentLength, int32 depth) {
     std::vector<tUserTracksInfo> found;
     const auto count = WriteUserTracksFile(dir, currentLength, file, found, depth);
