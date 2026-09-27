@@ -12,10 +12,17 @@
 class CBox;
 class CRect;
 
+/**
+ * Base espacial para entidades que pueden representarse con posición+heading o matriz completa.
+ *
+ * Para ahorrar memoria de matrices, m_matrix se asigna bajo demanda desde gMatrixList.
+ * Mientras es nullptr, m_placement conserva la posición y el heading suficientes
+ * para objetos sin inclinación.
+ */
 class NOTSA_EXPORT_VTABLE CPlaceable {
 public:
-    CSimpleTransform m_placement;
-    CMatrixLink *m_matrix;
+    CSimpleTransform m_placement; //!< Representación compacta usada cuando no hay matriz completa.
+    CMatrixLink* m_matrix;        //!< Entrada prestada del pool global de matrices, o nullptr.
 
 public:
     static void InjectHooks();
@@ -23,6 +30,7 @@ public:
     CPlaceable();
     virtual ~CPlaceable();
 
+    // Materializa una matriz completa si todavía se usa la representación compacta.
     CMatrix& GetMatrix();
 
     static void ShutdownMatrixArray();
@@ -43,6 +51,7 @@ public:
     float GetRoll() const;
     bool IsWithinArea(float x1, float y1, float x2, float y2) const;
     bool IsWithinArea(float x1, float y1, float z1, float x2, float y2, float z2) const;
+    // Devuelve la matriz al pool preservando posición y heading.
     void RemoveMatrix();
     void AllocateStaticMatrix();
     void AllocateMatrix();
