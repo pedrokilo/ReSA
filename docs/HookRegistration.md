@@ -16,8 +16,7 @@ Para cada clase **del juego** reconstruida que se añada bajo `source/game_sa/**
 
 ## Auditoría bidireccional del catálogo
 
-Para detectar clases que tengan hooks en el código pero no estén reflejadas en
-`docs/hooks.csv`, o hooks definidos que no se llamen desde `InjectHooksMain()`:
+Para comprobar la coherencia entre hooks instalados, registros directos o indirectos y `docs/hooks.csv`:
 
 ```powershell
 python contrib/audit_hook_catalog.py
@@ -28,6 +27,12 @@ existan inconsistencias:
 
 ```powershell
 python contrib/audit_hook_catalog.py --strict
+```
+
+Para inspeccionar también owners inactivos, registros indirectos y aliases informativos:
+
+```powershell
+python contrib/audit_hook_catalog.py --strict --verbose
 ```
 
 Esta auditoría complementa a `source_status.py`: revisa también la dirección
@@ -45,3 +50,17 @@ También distingue entre:
 - **Owner inactivo con instalaciones:** código existente pero no registrado globalmente; se informa para revisión, sin añadirlo automáticamente al catálogo.
 - **Llamada activa sin nombre propio en el CSV:** puede ser válida si el método sólo agrupa/encamina registros. Por ejemplo, `RpAnimBlendPlugin::InjectHooks()` registra bajo el namespace `RpAnimBlend`, que es el owner que aparece en `hooks.csv`.
 - **Scope sin `RH_Scoped*Install`:** no crea una entrada de función y no debe inflar el catálogo.
+
+
+### Estado comprobado del corte actual
+
+En `PGTASA`, el modo estricto devuelve **OK** con:
+
+- 712 clases/grupos catalogados.
+- 8.080 entradas en `hooks.csv`.
+- 0 hooks activos ausentes del CSV.
+- 0 registros indirectos activos ausentes del CSV.
+- 0 entradas del CSV sin scope fuente.
+- 0 llamadas directas con instalaciones propias sin owner catalogado.
+
+Los owners inactivos se mantienen fuera del catálogo activo mientras no se registren globalmente. No deben añadirse sólo porque exista código de hook en sus archivos.
