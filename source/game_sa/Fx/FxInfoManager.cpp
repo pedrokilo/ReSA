@@ -62,6 +62,9 @@ END GENERATED HOOK STATUS */
 #include "FxInfoRotateOffset.h"
 
 
+/**
+ * Registra la creación y procesamiento de los distintos bloques FxInfo.
+ */
 void FxInfoManager_c::InjectHooks() {
     RH_ScopedClass(FxInfoManager_c);
     RH_ScopedCategory("Fx");
@@ -74,6 +77,7 @@ void FxInfoManager_c::InjectHooks() {
 }
 
 // 0x4A7B00
+// Instancia la subclase correspondiente al identificador de bloque del archivo FX.
 FxInfo_c* FxInfoManager_c::AddFxInfo(int32 info) {
     switch (info) {
     case FX_INFO_EMRATE_DATA:        return new FxInfoEmRate_c();
@@ -154,6 +158,11 @@ constexpr struct { int32 type; const char* name; } FXINFOMANAGER_C_LOAD_MAPPING[
 };
 
 // 0x5C0B70
+/**
+ * La implementación efectiva todavía se delega al ejecutable original mediante
+ * plugin::CallMethod. El parser C++ posterior al return se conserva como reversing
+ * incompleto/de referencia y no se ejecuta en esta ruta.
+ */
 void FxInfoManager_c::Load(FILESTREAM file, int32 version) {
     plugin::CallMethod<0x5C0B70, FxInfoManager_c*, FILESTREAM, int32>(this, file, version);
     return;
@@ -208,6 +217,7 @@ void FxInfoManager_c::Load(FILESTREAM file, int32 version) {
  */
 
 // 0x4A4960
+// Aplica primero el estado base de emisión y luego los FxInfo del bloque de emisión.
 void FxInfoManager_c::ProcessEmissionInfo(float currentTime, float mult, float totalTime, bool useConst, EmissionInfo_t* emission) {
     emission->Process(mult);
 
@@ -221,6 +231,7 @@ void FxInfoManager_c::ProcessEmissionInfo(float currentTime, float mult, float t
 
 // a6 - always false
 // 0x4A4A10
+// Procesa únicamente los FxInfo clasificados en el rango de movimiento.
 void FxInfoManager_c::ProcessMovementInfo(float currentTime, float mult, float totalTime, float length, bool useConst, MovementInfo_t* movementInfo) {
     movementInfo->Process();
 
@@ -234,6 +245,7 @@ void FxInfoManager_c::ProcessMovementInfo(float currentTime, float mult, float t
 
 // a6 - always false
 // 0x4A4A80
+// Procesa el tramo final de FxInfo que modifica color, tamaño, sprites y otros datos de render.
 void FxInfoManager_c::ProcessRenderInfo(float currentTime, float mult, float totalTime, float length, bool useConst, RenderInfo_t* renderInfo) {
     renderInfo->Process();
 
