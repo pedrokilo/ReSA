@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "PedModelInfo.h"
 
+/**
+ * Registra las operaciones específicas de modelos de peatón.
+ */
 void CPedModelInfo::InjectHooks() {
     RH_ScopedVirtualClass(CPedModelInfo, 0x85BDC0, 17);
     RH_ScopedCategory("Models");
@@ -41,6 +44,7 @@ ModelInfoType CPedModelInfo::GetModelType() {
 }
 
 // 0x4C6C50
+// Libera primero el clump heredado y después el modelo de colisión de impactos propio.
 void CPedModelInfo::DeleteRwObject() {
     CClumpModelInfo::DeleteRwObject();
     delete m_pHitColModel;
@@ -48,6 +52,11 @@ void CPedModelInfo::DeleteRwObject() {
 }
 
 // 0x4C7340
+/**
+ * Instala el clump del ped, asigna IDs de bones/frames y prepara la colisión de impactos.
+ *
+ * Todos los atomics reciben además el callback de render específico de peatones.
+ */
 void CPedModelInfo::SetClump(RpClump* clump) {
     CClumpModelInfo::SetClump(clump);
     CClumpModelInfo::SetFrameIds(CPedModelInfo::m_pPedIds);
@@ -70,6 +79,12 @@ void CPedModelInfo::SetFaceTexture(RwTexture* texture) {
 }
 
 // 0x4C6D90
+/**
+ * Construye un CColModel compuesto por esferas ligadas a bones relevantes del esqueleto.
+ *
+ * Cada centro local se transforma mediante la matriz actual del bone, de modo que
+ * m_pHitColModel pueda reutilizarse como volumen de impactos animado.
+ */
 void CPedModelInfo::CreateHitColModelSkinned(RpClump* clump) {
     auto hierarchy = GetAnimHierarchyFromSkinClump(clump);
     auto cm = new CColModel();
@@ -100,6 +115,10 @@ void CPedModelInfo::CreateHitColModelSkinned(RpClump* clump) {
 }
 
 // 0x4C6F70
+/**
+ * Reposiciona las esferas del hit-col en espacio local del clump usando la pose actual.
+ * También centra los bounds alrededor de BONE_SPINE1 para acompañar al cuerpo.
+ */
 CColModel* CPedModelInfo::AnimatePedColModelSkinned(RpClump* clump) {
     if (!m_pHitColModel) {
         CreateHitColModelSkinned(clump);
@@ -138,6 +157,7 @@ CColModel* CPedModelInfo::AnimatePedColModelSkinned(RpClump* clump) {
 }
 
 // 0x4C7170
+// Variante que escribe directamente posiciones world obtenidas de las matrices del esqueleto.
 CColModel* CPedModelInfo::AnimatePedColModelSkinnedWorld(RpClump* clump) {
     if (!m_pHitColModel)
         CreateHitColModelSkinned(clump);
@@ -169,6 +189,7 @@ CColModel* CPedModelInfo::AnimatePedColModelSkinnedWorld(RpClump* clump) {
 }
 
 // 0x4C7300
+// Avanza cíclicamente dentro del rango de voces configurado; -1 invalida la selección.
 void CPedModelInfo::IncrementVoice() {
     if (m_nVoiceMin < 0 || m_nVoiceMax < 0) {
         m_nVoiceId = -1;
