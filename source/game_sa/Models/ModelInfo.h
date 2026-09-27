@@ -17,9 +17,15 @@
 #include "PedModelInfo.h"
 
 
+/**
+ * Registro global que mapea IDs de modelo a CBaseModelInfo y administra stores tipados.
+ *
+ * Los objetos viven en CStore de capacidad fija; ms_modelInfoPtrs proporciona una
+ * vista unificada por model ID independientemente de la subclase concreta.
+ */
 class CModelInfo {
 public:
-    // static CBaseModelInfo *ms_modelInfoPtrs[20000]; Use GetModelInfo(int32 index) to get model info by id
+    // Tabla maestra model ID -> model info; las instancias reales pertenecen a stores tipados.
     static constexpr int32 NUM_MODEL_INFOS = 20000;
     static inline auto& ms_modelInfoPtrs = StaticRef<CBaseModelInfo*[NUM_MODEL_INFOS]>(0xA9B0C8);
     static inline auto& ms_lastPositionSearched = StaticRef<int32>(0xAAE948);
@@ -57,7 +63,9 @@ public:
 public:
     static void InjectHooks();
 
+    // Reinicia el store 2DFX y los rangos registrados en cada modelo.
     static void ReInit2dEffects();
+    // Libera recursos internos de todos los model infos y vacía los stores.
     static void ShutDown();
     static CAtomicModelInfo* AddAtomicModel(int32 index);
     static CDamageAtomicModelInfo* AddDamageAtomicModel(int32 index);
@@ -86,7 +94,7 @@ public:
     static bool IsQuadBikeModel(int32 index);
     static bool IsBmxModel(int32 index);
     static bool IsTrailerModel(int32 index);
-    // return -1 if model is not a vehicle model otherwise returns vehicle model type
+    // Devuelve -1 si el ID no corresponde a vehículo; en caso contrario devuelve eVehicleType.
     static int32 IsVehicleModelType(int32 index);
 
     static CBaseModelInfo* GetModelInfo(int32 index) { return ms_modelInfoPtrs[index]; }
