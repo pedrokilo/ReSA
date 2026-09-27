@@ -15,12 +15,22 @@ def generate(root):
     with (root/'docs/hooks.csv').open(encoding='utf-8-sig', newline='') as stream:
         rows = list(csv.DictReader(stream))
     counts, classes, pending = Counter(), defaultdict(Counter), []
+    validated_flags = 0
     for row in rows:
         if row['reversed'] != '1':
             continue
         key = tuple(row[k] for k in KEY)
         entry = states.get(key, {})
-        status = 'vigente' if entry.get('current') else 'historica' if entry.get('evidence_ok') else 'sin_vincular'
+        expected_validated = bool(entry.get('evidence_ok'))
+        if row.get('validated') not in ('0', '1'):
+            raise ValueError(f"validated inválido o ausente: {row}")
+        if (row['validated'] == '1') != expected_validated:
+            raise ValueError(
+                f"validated desincronizado para {key}. Ejecuta: "
+                "python contrib/sync_validated_flags.py"
+            )
+        validated_flags += row['validated'] == '1'
+        status = 'vigente' if entry.get('current') else 'historica' if expected_validated else 'sin_vincular'
         counts[status] += 1
         classes[row['class']][status] += 1
         if status == 'historica':
@@ -30,12 +40,13 @@ def generate(root):
              '[Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)', '',
              f'Universo de esta revisión: **{total:,} entradas reversed=1**, de {len(rows):,} registradas. Las {len(rows)-total} pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.', '',
              '| Estado | Entradas |', '| --- | ---: |',
+             f"| `validated=1` · evidencia aprobada vinculada | {validated_flags} |",
              f"| Vigencia acreditada para su alcance | {counts['vigente']} |",
              f"| Evidencia histórica vinculada; revisión pendiente | {counts['historica']} |",
              f"| Sin evidencia aprobada vinculada en este registro | {counts['sin_vincular']} |", '',
-             'Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.', '',
+             '`validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.', '',
              '## Siguiente tanda con evidencia disponible', '',
-             'Revisar fuentes, versión, configuración y dependencias; repetir el banco cuando no se pueda confirmar su vigencia. Esta lista no autoriza desbloquear los 85 pendientes aplazados. No se marca toda una clase por validar una de sus funciones.', '',
+             'Revisar fuentes, versión, configuración y dependencias; repetir el banco cuando no se pueda confirmar su vigencia. Esta lista no autoriza desbloquear los 86 bloqueos aplazados documentados. No se marca toda una clase por validar una de sus funciones.', '',
              '| Clase | Función registrada | Evidencia |', '| --- | --- | --- |']
     for row, path in sorted(pending, key=lambda x:(x[0]['class'],x[0]['fn_name'])):
         lines.append(f"| {row['class']} | `{row['fn_name']}` | [Resumen](../{path}) |")
