@@ -598,11 +598,15 @@ Estado vigente del catálogo:
 - **712 clases/grupos**.
 - **8.080 entradas** registradas.
 - **7.545 reconstruidas** (93,38%).
+- **34 con `validated=1`** (0,42%): evidencia aprobada vinculada.
+- **0 validaciones vigentes** para el árbol actual según hashes/dependencias.
 - **535 pendientes**.
 - **621 clases completas**, **88 parciales** y **3 sin revertir**.
 - **625 entradas bloqueadas** y **7.455 sin bloqueo**.
 - **91 clases incompletas**.
 - 34 funciones con evidencia histórica vinculada; 0 con vigencia acreditada para el árbol actual en el registro consolidado.
+
+`validated` se sincroniza automáticamente desde `reversing/validation-registry.json` mediante `python contrib/sync_validated_flags.py`; no se edita a mano.
 
 La comprobación local vigente es:
 
