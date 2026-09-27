@@ -22,8 +22,8 @@ END GENERATED HOOK STATUS */
 static auto& g_ScreenshotFileBuf    = StaticRef<std::array<uint8, 204'800>>(0xBD0B78);
 static auto& g_JpegDecodingToRaster = StaticRef<CRGBA*>(0xBD0160);
 
-// NOTSA. For debugging purposes, without using this callback,
-// game terminates without notice in case of any libjpeg failure.
+// NOTSA. Convierte los fallos de libjpeg en un error visible de depuración en lugar
+// de permitir que el juego termine sin contexto.
 static void JPegErrorExit(j_common_ptr cinfo) {
     static char message[JMSG_LENGTH_MAX]{};
 
@@ -32,6 +32,9 @@ static void JPegErrorExit(j_common_ptr cinfo) {
     NOTSA_UNREACHABLE("libjpeg error!\nCode:\n{}\nMessage:\n{}", einfo->msg_code, message);
 }
 
+/**
+ * Registra las rutas de captura JPEG y las funciones heredadas de galería.
+ */
 void JPegPlugin::InjectHooks() {
     RH_ScopedNamespace(JPegPlugin);
     RH_ScopedCategory("Plugins");
@@ -44,6 +47,11 @@ void JPegPlugin::InjectHooks() {
 }
 
 // 0x5D0470
+/**
+ * Captura la cámara a RwImage y alimenta libjpeg línea por línea en formato RGBA.
+ * El destino se inyecta mediante jpeg_destination_mgr para reutilizar la misma
+ * compresión tanto con archivo como con otros buffers.
+ */
 void JPegCompressScreen(RwCamera* camera, jpeg_destination_mgr& dst) {
     jpeg_error_mgr       jerr{};
     jpeg_compress_struct cinfo{
@@ -78,6 +86,10 @@ void JPegCompressScreen(RwCamera* camera, jpeg_destination_mgr& dst) {
 }
 
 // 0x5D0820
+/**
+ * Implementa un jpeg_destination_mgr respaldado por el buffer global y vuelca al
+ * archivo cada vez que libjpeg agota el espacio, incluyendo el remanente final.
+ */
 void JPegCompressScreenToFile(RwCamera* camera, const char* path) {
     static FILESTREAM g_ScreenshotFileHandle{};
 
@@ -162,6 +174,7 @@ void JPegCompressScreenToBuffer(RwCamera* cam, uint8** buffer, size_t& bufferSiz
 }
 
 // 0x5D05F0 -- PS2 leftover
+// Decodifica scanlines JPEG y las convierte al formato de píxel del RwRaster bloqueado.
 void JPegDecompressToRaster(RwRaster* raster, jpeg_source_mgr& src) {
     static auto& g_JpegScan = StaticRef<uint8*>(0xBD0170);
 
@@ -203,6 +216,8 @@ void JPegDecompressToRaster(RwRaster* raster, jpeg_source_mgr& src) {
 }
 
 // 0x5D0320 -- PS2 leftover
+// Adapta el buffer de galería del frontend como jpeg_source_mgr y reutiliza el
+// decodificador común hacia RwRaster.
 void JPegDecompressToVramFromBuffer(RwRaster* raster, bool enable) {
     static auto& g_ScreenshotFilePointer = StaticRef<size_t>(0xBD0B70);
 
