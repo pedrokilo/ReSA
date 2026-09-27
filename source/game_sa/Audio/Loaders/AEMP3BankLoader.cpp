@@ -21,6 +21,9 @@ END GENERATED HOOK STATUS */
 #include "AEAudioUtility.h"
 #include <cstdlib>
 
+/**
+ * Registra la implementación concreta de carga de bancos/sample SFX.
+ */
 void CAEMP3BankLoader::InjectHooks() {
     RH_ScopedClass(CAEMP3BankLoader);
     RH_ScopedCategory("Audio/Loaders");
@@ -41,6 +44,7 @@ void CAEMP3BankLoader::InjectHooks() {
 }
 
 // 0x4E08F0
+// Reinicia la cola y carga todas las tablas requeridas antes de aceptar solicitudes.
 bool CAEMP3BankLoader::Initialise() {
     rng::fill(m_Requests, CAESoundRequest{});
     m_NextOneSoundReqIdx = 0;
@@ -83,6 +87,10 @@ bool CAEMP3BankLoader::GetSoundBankLoadingStatus(eSoundBank bankId, eSoundBankSl
 }
 
 // 0x4E0280
+/**
+ * Devuelve una vista directa al sample cargado dentro del buffer del bank slot,
+ * junto con tamaño y sample rate. Valida banco, slot y modo single-sound.
+ */
 uint8* CAEMP3BankLoader::GetSoundBuffer(eSoundID soundId, eSoundBankSlot bankSlot, uint32& outSize, uint16& outSampleRate) {
     if (!m_IsInitialised) {
         return nullptr;
@@ -137,6 +145,7 @@ bool CAEMP3BankLoader::GetSoundLoadingStatus(eSoundBank bankId, eSoundID soundId
 }
 
 // 0x4E0450
+// Deriva duración y loop-start en milisegundos para cada virtual channel configurado.
 void CAEMP3BankLoader::UpdateVirtualChannels(tVirtualChannelSettings* settings, int16* lengths, int16* loopStartTimes) {
     for (auto i = 0u; i < std::size(settings->BankSlotIDs); i++) {
         const auto sfx    = settings->SoundIDs[i];
@@ -163,7 +172,10 @@ void CAEMP3BankLoader::UpdateVirtualChannels(tVirtualChannelSettings* settings, 
     }
 }
 
-// Implementation of `LoadSoundBank` and `LoadSound`
+/**
+ * Añade una solicitud única a la cola circular y copia en ella los offsets del lookup.
+ * SoundID == -1 representa carga del banco completo.
+ */
 void CAEMP3BankLoader::AddRequest(eSoundBank bank, eSoundBankSlot slot, std::optional<eSoundID> sound) {
     if (!m_IsInitialised) {
         return;
@@ -229,6 +241,12 @@ void CAEMP3BankLoader::LoadSound(eSoundBank bankId, eSoundID soundId, eSoundBank
 }
 
 // 0x4DFE30
+/**
+ * Máquina de estados de las cargas asíncronas.
+ *
+ * Inicia lecturas por sectores, espera a CdStream, copia metadata/sample al slot
+ * definitivo y libera el buffer temporal antes de marcar la solicitud inactiva.
+ */
 void CAEMP3BankLoader::Service() {
     for (auto&& [i, req] : rngv::enumerate(m_Requests)) {
         const auto AllocateMemoryAndRead = [&](size_t readSizeBytes) {
