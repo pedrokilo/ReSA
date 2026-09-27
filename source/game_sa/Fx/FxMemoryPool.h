@@ -9,11 +9,17 @@
 #include "RenderWare.h"
 #include "Vector.h"
 
+/**
+ * Arena lineal de memoria para blueprints, partículas y auxiliares FX.
+ *
+ * GetMem() sólo incrementa un cursor; Reset() invalida conceptualmente todas las
+ * reservas previas y permite reutilizar el bloque completo.
+ */
 class FxMemoryPool_c {
 public:
-    uint8* m_pData;
-    size_t m_nSize;
-    size_t m_nPosition; // offset, current byte
+    uint8* m_pData;     //!< Inicio del bloque propiedad del pool.
+    size_t m_nSize;     //!< Capacidad actual en bytes.
+    size_t m_nPosition; //!< Siguiente offset libre.
 
 public:
     static void InjectHooks();
