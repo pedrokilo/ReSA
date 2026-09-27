@@ -12,10 +12,11 @@
 #include "AnimBlendAssociation.h"
 
 /*!
- * @brief Represents the animation of a single node (bone)
+ * @brief Estado de reproducción de una secuencia para un único nodo/bone.
  *
- * @details An animation can move one or more nodes (bones).
- * @details Each node has a sequence (that contain key-frames)
+ * Conserva el par de keyframes activo, el tiempo restante y los valores auxiliares
+ * necesarios para interpolar traslación y quaternion. m_Seq y m_BlendAssoc son
+ * referencias externas; el nodo no es propietario de ninguno de los dos.
  */
 class CAnimBlendNode {
 public:
@@ -71,7 +72,7 @@ public:
     auto GetRootKF() const { return &m_Seq[0]; }
 
     //! @notsa
-    //! @brief Inverse progress of current frame (Eg.: How much is left of this frame)
+    //! @brief Devuelve el progreso normalizado dentro del intervalo actual.
     template<bool IsCompressed>
     NOTSA_FORCEINLINE float GetTimeRemainingProgress() const {
         const auto kf = m_Seq->GetKeyFrame<IsCompressed>(m_KFCurr);
@@ -199,12 +200,12 @@ public:
     }
 
 public:
-    float                  m_Theta{};           //!< Angle between current and previous key-frames
-    float                  m_InvSinTheta{};     //!< 1 / sin(m_Theta), used in slerp calculation
-    int16                  m_KFCurr{ -1 };      //!< Current key frame (A)
-    int16                  m_KFPrev{ -1 };      //!< Previous key frame (B)
-    float                  m_KFRemainingTime{}; //!< Time until frames have to advance (So, basically time left from current key-frame, so <frame progress> = m_KFRemainingTime / KeyFrameCurr->DeltaTime)
-    CAnimBlendSequence*    m_Seq{};             //!< Node animation key-frames
-    CAnimBlendAssociation* m_BlendAssoc{};      //!< Parent anim to which this node belongs to
+    float                  m_Theta{};           //!< Ángulo entre los keyframes actual y anterior.
+    float                  m_InvSinTheta{};     //!< 1 / sin(m_Theta), precalculado para Slerp.
+    int16                  m_KFCurr{ -1 };      //!< Índice del keyframe actual.
+    int16                  m_KFPrev{ -1 };      //!< Índice del keyframe anterior.
+    float                  m_KFRemainingTime{}; //!< Tiempo restante antes de avanzar al siguiente keyframe.
+    CAnimBlendSequence*    m_Seq{};             //!< Secuencia externa de este bone; no owned.
+    CAnimBlendAssociation* m_BlendAssoc{};      //!< Asociación padre que aporta tiempo/blend; no owned.
 };
 VALIDATE_SIZE(CAnimBlendNode, 0x18);
