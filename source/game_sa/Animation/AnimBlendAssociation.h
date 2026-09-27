@@ -114,31 +114,32 @@ public:
 };
 
 /*!
- * @brief Running animation of a clump (Usually peds), created from an `CAnimBlendHierarchy`.
- * 
- * @details The sequence/frames data is copied from `CAnimBlendHierarchy` to `CAnimBlendAssociation` when a clump requests an animation.
- * @details The instance of `CAnimBlendAssociation` gets destroyed when the ped/clump stops playing the animation.
- * @details But `CAnimBlendHierarchy` is never destroyed and stays in memory unless `CStreaming` forces the IFP to unload (to create space in memory)
+ * @brief Instancia dinámica de una animación que se reproduce sobre un clump.
  *
- * @details A clump can have one, or more, instances of this class. Usually there's only 1 primary animation,
- * @details but there are also partial animations, which can be played alongside primary animations, like hand gestures or smoking.
+ * Conserva tiempo, velocidad, blend, callbacks y un CAnimBlendNode por frame/bone.
+ * La geometría/keyframes siguen perteneciendo a CAnimBlendHierarchy; esta instancia
+ * sólo mantiene el estado mutable de reproducción y puede adquirir una referencia
+ * al AnimBlock para impedir que streaming lo descargue mientras está en uso.
+ *
+ * Un mismo clump puede enlazar varias asociaciones, por ejemplo una animación
+ * principal y animaciones parciales simultáneas.
  */
 class NOTSA_EXPORT_VTABLE CAnimBlendAssociation {
 public:
-    CAnimBlendLink                m_Link;          //!< Link to the next association of the clump
-    uint16                        m_NumBlendNodes; //!< Number of bones this anim moves
+    CAnimBlendLink                m_Link;          //!< Enlace intrusivo dentro de la lista de animaciones del clump.
+    uint16                        m_NumBlendNodes; //!< Número de slots por bone/frame.
     notsa::WEnumS16<AssocGroupId> m_AnimGroupId;   //!< Anim's group
-    CAnimBlendNode*               m_BlendNodes;    //!< Node per-node animations - NOTE: Order of these depends on order of nodes in Clump this was built from
-    CAnimBlendHierarchy*          m_BlendHier;     //!< The animation hierarchy this association was created from
-    float                         m_BlendAmount;   //!< How much this animation is blended
-    float                         m_BlendDelta;    //!< How much `BlendAmount` changes over time
-    float                         m_CurrentTime;   //!< Current play time
-    float                         m_Speed;         //!< Play speed
-    float                         m_TimeStep;      //!< Time-per-tick
+    CAnimBlendNode*               m_BlendNodes;    //!< Array alineado propiedad de esta instancia, ordenado como los frames del clump.
+    CAnimBlendHierarchy*          m_BlendHier;     //!< Jerarquía fuente compartida; no owned.
+    float                         m_BlendAmount;   //!< Peso actual de mezcla.
+    float                         m_BlendDelta;    //!< Velocidad de cambio de m_BlendAmount.
+    float                         m_CurrentTime;   //!< Tiempo actual dentro de la jerarquía.
+    float                         m_Speed;         //!< Multiplicador de reproducción.
+    float                         m_TimeStep;      //!< Avance temporal calculado para el tick actual.
     notsa::WEnumS16<AnimationId>  m_AnimId;        //!< Anim's ID
     uint16                        m_Flags;         //!< Flags
 
-    // Callback shit
+    // Callback opcional ejecutado al finalizar o antes de autoeliminar la asociación.
     eAnimBlendCallbackType m_nCallbackType;
     void (*m_pCallbackFunc)(CAnimBlendAssociation*, void*);
     void* m_pCallbackData;
