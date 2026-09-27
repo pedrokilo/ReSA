@@ -4,11 +4,20 @@
 
 class CPlaceable;
 
+/**
+ * Mapeo compacto AudioZone -> preset de reverb y profundidad de sala.
+ */
 struct sReverbEnvironment {
     uint32 m_nEnvironment;
     int32  m_nDepth;
 };
 
+/**
+ * Utilidades puras del motor de audio espacial.
+ *
+ * Centraliza Doppler, atenuación por distancia/dirección, selección de reverb y
+ * transformación de posiciones al espacio relativo a cámara.
+ */
 class CAEAudioEnvironment {
 public:
     static void InjectHooks();
