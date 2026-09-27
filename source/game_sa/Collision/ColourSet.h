@@ -8,6 +8,13 @@
 
 #include "common.h"
 
+/**
+ * Snapshot de los parámetros visuales y ambientales de CTimeCycle.
+ *
+ * Agrupa colores, intensidades, niebla, clipping, post-FX, agua y nubes para una
+ * pareja hora/clima concreta. Interpolate() permite producir el estado intermedio
+ * utilizado durante las transiciones temporales y meteorológicas.
+ */
 class CColourSet {
 public:
     float  m_fAmbientRed;
@@ -91,6 +98,10 @@ public:
     CColourSet() = default;
     CColourSet(int32 timeId, int32 weatherId);
 
+    /**
+     * Combina A y B en esta instancia con los pesos indicados.
+     * ignoreSky evita sobrescribir el subconjunto de cielo, sol y nubes.
+     */
     void Interpolate(CColourSet* A, CColourSet* B, float multA, float multB, bool ignoreSky);
 
 public: // NOTSA
