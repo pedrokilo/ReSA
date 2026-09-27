@@ -24,16 +24,17 @@ La fuente del progreso es [docs/hooks.csv](docs/hooks.csv). El [informe generado
 
 **Corte documental vigente (26 de septiembre de 2026, hora de México):** 621 clases completas, 88 parciales y 3 sin revertir; 7.545 de 8.080 entradas registradas como reconstruidas. La auditoría bidireccional del catálogo pasa en modo estricto: no hay hooks activos fuera de `hooks.csv`, registros indirectos sin catalogar, clases del CSV sin scope fuente ni owners activos sin catálogo. Estos números miden el catálogo registrado, no líneas de código ni porcentaje de comportamiento probado.
 
-### Cuatro dimensiones de progreso
+### Dimensiones de progreso
 
 | Dimensión | Estado |
 | --- | --- |
 | Clases completas | 621/712 · 87,22% |
 | Funciones reconstruidas | 7.545/8.080 · 93,38% |
-| Funciones validadas, vigencia confirmada | 0/8.080 · 0,00%; 34 evidencias históricas; revisión de vigencia pendiente |
+| Funciones con `validated=1` | **34/8.080 · 0,42%** · evidencia aprobada vinculada |
+| Validaciones vigentes para el árbol actual | 0/8.080 · 0,00%; las 34 conservan evidencia histórica pero requieren revisión de vigencia |
 | Dependencias de funciones originales eliminadas | No medido; requiere auditoría de llamadas y dependencias |
 
-Quedan 535 entradas pendientes, 91 clases incompletas y 625 locks. Las 7.455 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
+Quedan 535 entradas pendientes, 91 clases incompletas y 625 locks. En `hooks.csv`, `type=S` significa **Simple hook** (función normal por dirección) y `type=V` significa **Virtual hook** (entrada de vtable). `validated=1` significa que existe evidencia aprobada vinculada; no significa por sí solo que esa evidencia siga vigente para el árbol actual. Las 7.455 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
 
 ### Auditoría del catálogo de hooks
 
