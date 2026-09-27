@@ -19,6 +19,9 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "AEBankLoader.h"
 
+/**
+ * Registra la carga de tablas BANKLKUP/BANKSLOT/PAKFILES usadas por SFX.
+ */
 void CAEBankLoader::InjectHooks() {
     RH_ScopedClass(CAEBankLoader);
     RH_ScopedCategory("Audio/Loaders");
@@ -32,6 +35,7 @@ void CAEBankLoader::InjectHooks() {
 }
 
 // 0x4DFB20
+// Libera buffers/tablas sólo después de una inicialización válida.
 CAEBankLoader::~CAEBankLoader() {
     if (m_IsInitialised) {
         CMemoryMgr::Free(m_Buffer);
@@ -43,6 +47,7 @@ CAEBankLoader::~CAEBankLoader() {
 }
 
 // 0x4DFBD0
+// Carga BANKLKUP.DAT como array contiguo de AEBankLookup.
 bool CAEBankLoader::LoadBankLookupFile() {
     const auto file = CFileMgr::OpenFile("AUDIO\\CONFIG\\BANKLKUP.DAT", "rb");
     if (!file) {
@@ -67,6 +72,10 @@ bool CAEBankLoader::LoadBankLookupFile() {
 }
 
 // 0x4E0590
+/**
+ * Carga BANKSLOT.DAT, calcula offsets acumulados y reserva el buffer único donde
+ * se materializarán los bancos solicitados.
+ */
 bool CAEBankLoader::LoadBankSlotFile() {
     const auto file = CFileMgr::OpenFile("AUDIO\\CONFIG\\BANKSLOT.DAT", "rb");
     if (!file) {
@@ -95,6 +104,7 @@ bool CAEBankLoader::LoadBankSlotFile() {
 }
 
 // 0x4DFC70
+// Lee PAKFILES.DAT y abre cada paquete SFX mediante CdStream, conservando sus handles.
 bool CAEBankLoader::LoadSFXPakLookupFile() {
     const auto file = CFileMgr::OpenFile("AUDIO\\CONFIG\\PAKFILES.DAT", "rb");
     if (!file) {
@@ -122,6 +132,7 @@ bool CAEBankLoader::LoadSFXPakLookupFile() {
 }
 
 // 0x4DFBA0
+// Convierte tamaños por slot en offsets acumulados dentro de m_Buffer.
 void CAEBankLoader::CalculateBankSlotsInfosOffsets() {
     auto offset = 0u;
     for (auto& slot : std::span{ m_BankSlots, m_BankSlotCnt }) {
