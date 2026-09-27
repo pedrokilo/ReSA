@@ -2,6 +2,12 @@
 
 #include "AEAudioEntity.h"
 
+/**
+ * Entidad de audio para puertas y garajes.
+ *
+ * Mantiene temporizadores para evitar reinicios rápidos de loops y transforma eventos
+ * opening/closing en la secuencia de sonidos de movimiento y final de recorrido.
+ */
 class NOTSA_EXPORT_VTABLE CAEDoorAudioEntity : public CAEAudioEntity {
     uint32 m_nTime;
     uint32 m_nMovingDoorTime;
