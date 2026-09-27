@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "AnimatedBuilding.h"
 
+/**
+ * Registra los overrides mínimos de edificios que poseen jerarquía/animación RenderWare.
+ */
 void CAnimatedBuilding::InjectHooks()
 {
     RH_ScopedVirtualClass(CAnimatedBuilding, 0x8639B0, 22);
@@ -35,12 +38,16 @@ void CAnimatedBuilding::ProcessControl()
 {}
 
 // 0x537A40
+// El edificio animado no integra física aquí; sólo confirma que su posición es segura.
 void CAnimatedBuilding::ProcessCollision()
 {
     SetIsInSafePosition(true);
 }
 
 // 0x403F00
+/**
+ * Ejecuta el pre-render base y sincroniza frame/HAnim antes de dibujar la geometría.
+ */
 void CAnimatedBuilding::PreRender()
 {
     if (!GetRwObject())
