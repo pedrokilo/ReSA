@@ -30,6 +30,9 @@ END GENERATED HOOK STATUS */
 
 auto& AudioEngine = StaticRef<CAudioEngine>(0xB6BC90);
 
+/**
+ * Registra la interfaz de alto nivel que conecta eventos de gameplay con los subsistemas de audio.
+ */
 void CAudioEngine::InjectHooks() {
     RH_ScopedClass(CAudioEngine);
     RH_ScopedCategory("Audio");
@@ -120,6 +123,13 @@ void CAudioEngine::InjectHooks() {
 }
 
 // 0x5B9C60
+/**
+ * Inicializa el hardware y, en orden de dependencia, managers de tracks, SoundManager
+ * y las entidades globales que producen eventos.
+ *
+ * CAEAudioUtility se inicializa antes del hardware para que el reloj relativo esté
+ * disponible durante cualquier cálculo temporal de la fase de arranque.
+ */
 bool CAudioEngine::Initialise() {
     CLoadingScreen::Pause();
 
@@ -621,6 +631,13 @@ void CAudioEngine::ResumeAllSounds() {
 }
 
 // 0x507750
+/**
+ * Servicio principal por frame del motor de audio.
+ *
+ * Actualiza cutscene/ambience/radio, entidades ambientales, speech y SoundManager.
+ * Durante cutscenes silencia el stream normal mediante su fader; durante pausa
+ * mantiene activos únicamente los caminos explícitamente permitidos.
+ */
 void CAudioEngine::Service() {
     ZoneScoped;
 
@@ -690,6 +707,12 @@ void CAudioEngine::ServiceLoadingTune(float fScalingFactor) {
 
 
 // 0x507A90
+/**
+ * Detiene de forma ordenada radio/ambience/cutscene y reinicia las entidades de audio.
+ *
+ * Los managers que poseen máquinas de estados se sirven hasta confirmar su parada
+ * antes de limpiar voces y volver a pausar manualmente SoundManager.
+ */
 void CAudioEngine::Reset() {
     AESoundManager.Service();
 
