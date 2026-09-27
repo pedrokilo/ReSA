@@ -47,6 +47,7 @@ CAEVorbisDecoder::~CAEVorbisDecoder() {
 }
 
 // 0x5024d0
+// Conecta libvorbis a CAEDataStream mediante callbacks y valida un máximo de dos canales.
 bool CAEVorbisDecoder::Initialise() {
     m_pVorbisFileHandle = new OggVorbis_File();
     if (ov_open_callbacks(m_dataStream, m_pVorbisFileHandle, nullptr, 0, m_sCallbacks) != 0)
@@ -69,6 +70,10 @@ bool CAEVorbisDecoder::Initialise() {
 }
 
 // 0x502470
+/**
+ * Decodifica Ogg Vorbis a PCM de 16 bits; si la fuente es mono duplica cada sample
+ * para entregar siempre salida estéreo.
+ */
 size_t CAEVorbisDecoder::FillBuffer(void* dest, size_t size) {
     size_t readedTotal = 0;
     char*  buffer = reinterpret_cast<char*>(dest);
@@ -139,6 +144,7 @@ int32 CAEVorbisDecoder::GetStreamID() {
 }
 
 // 0x502580
+// Adapta FillBuffer() de CAEDataStream a la convención fread esperada por libvorbis.
 size_t CAEVorbisDecoder::ReadCallback(void* ptr, size_t size, size_t nmemb, void* opaque) {
     if (opaque == nullptr)
         return 0;
@@ -177,6 +183,9 @@ long CAEVorbisDecoder::TellCallback(void* opaque) {
     return static_cast<int32>(dataStream->GetCurrentPosition());
 }
 
+/**
+ * Registra el decoder Ogg Vorbis y sus callbacks de IO.
+ */
 void CAEVorbisDecoder::InjectHooks() {
     RH_ScopedClass(CAEVorbisDecoder);
     RH_ScopedCategory("Audio/Loaders");
