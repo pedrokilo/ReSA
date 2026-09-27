@@ -16,7 +16,8 @@
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
-/* MikuAuahDark: This was meant to be CAEQTDecoder
+/* Sustituye el antiguo decoder QuickTime por Media Foundation manteniendo la
+ * interfaz y layout esperados por el juego.
  * but since it's very hard to find documentation on QuickTime
  * and Apple itself no longer support QuickTime, MediaFoundation
  * is used instead!
@@ -92,6 +93,12 @@ CAEMFDecoder::~CAEMFDecoder() {
 }
 
 // 0x4e7cb0
+/**
+ * Abre el archivo con Media Foundation y fuerza salida PCM estéreo de 16 bits.
+ *
+ * También obtiene sample rate/duración y prepara un buffer temporal para conservar
+ * frames sobrantes cuando una muestra decodificada excede el tamaño pedido.
+ */
 bool CAEMFDecoder::Initialise() {
     if (!CAEMFDecoder::quickTimeInitialized)
         return false;
@@ -183,6 +190,10 @@ bool CAEMFDecoder::Initialise() {
 }
 
 // 0x4e7860
+/**
+ * Consume PCM pendiente del buffer temporal y continúa leyendo IMFSample hasta
+ * completar el destino o llegar al final del stream.
+ */
 size_t CAEMFDecoder::FillBuffer(void* dest, size_t size) {
     constexpr size_t PCM_DIVIDER = sizeof(int16) * 2;
 
@@ -278,6 +289,7 @@ long CAEMFDecoder::GetStreamPlayTimeMs() {
 }
 
 // 0x4e78e0
+// Convierte milisegundos a unidades de 100 ns y reposiciona el IMFSourceReader.
 void CAEMFDecoder::SetCursor(unsigned long pos) {
     if (m_bInitialized) {
         PROPVARIANT seekDest;
@@ -301,6 +313,11 @@ int32 CAEMFDecoder::GetStreamID() {
 }
 
 // 0x4e7c70
+/**
+ * Carga dinámicamente mfplat/mfreadwrite y resuelve las APIs necesarias.
+ * quickTimeInitialized se conserva como flag ABI histórico aunque ahora signifique
+ * que Media Foundation está disponible.
+ */
 bool CAEMFDecoder::InitLibrary() {
     /*
     // MikuAuahDark: This is the original function
@@ -381,6 +398,9 @@ void CAEMFDecoder::Shutdown() {
     }
 }
 
+/**
+ * Registra el decoder compatible con la antigua interfaz QuickTime.
+ */
 void CAEMFDecoder::InjectHooks() {
     RH_ScopedClass(CAEMFDecoder);
     RH_ScopedCategory("Audio/Loaders");
