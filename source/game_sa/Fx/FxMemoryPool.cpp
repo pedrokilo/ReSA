@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "FxMemoryPool.h"
 
+/**
+ * Registra el allocator lineal usado por el subsistema FX.
+ */
 void FxMemoryPool_c::InjectHooks() {
     RH_ScopedClass(FxMemoryPool_c);
     RH_ScopedCategory("Fx");
@@ -32,6 +35,7 @@ void FxMemoryPool_c::InjectHooks() {
 }
 
 // 0x4A9C30
+// Reserva inicialmente un megabyte y comienza a entregar memoria desde el offset cero.
 void FxMemoryPool_c::Init() {
     m_nSize     = 1024 * 1024; // 1 megabyte
     m_nPosition = 0;
@@ -47,11 +51,16 @@ void FxMemoryPool_c::Exit() {
 }
 
 // 0x4A9C90
+// Reutiliza todo el bloque sin liberar memoria ni ejecutar destructores individuales.
 void FxMemoryPool_c::Reset() {
     m_nPosition = 0;
 }
 
 // 0x4A9CA0
+/**
+ * Avanza m_nPosition hasta la alineación solicitada y devuelve el siguiente rango.
+ * No mantiene free-list: la memoria individual no se devuelve hasta Reset/Exit.
+ */
 void* FxMemoryPool_c::GetMem(int32 size, int32 align) {
     if (m_nPosition % align > 0)
         m_nPosition = align + m_nPosition - m_nPosition % align;
@@ -62,6 +71,7 @@ void* FxMemoryPool_c::GetMem(int32 size, int32 align) {
 }
 
 // 0x4A9CD0
+// Reduce el bloque al número de bytes efectivamente consumidos durante la carga.
 void FxMemoryPool_c::Optimise() {
     m_pData = static_cast<uint8*>(CMemoryMgr::Realloc(m_pData, m_nPosition));
     m_nSize = m_nPosition;
