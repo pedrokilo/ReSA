@@ -30,6 +30,9 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleClimb.h"
 #include "RealTimeShadowManager.h"
 
+/**
+ * Registra integración física, fuerzas, colisiones, attachments y listas espaciales.
+ */
 void CPhysical::InjectHooks()
 {
     RH_ScopedVirtualClass(CPhysical, 0x863BA0, 23);
@@ -95,6 +98,10 @@ void CPhysical::InjectHooks()
 }
 
 // 0x542260
+/**
+ * Materializa una matriz completa y establece un cuerpo dinámico neutro con gravedad,
+ * colisión y masas por defecto.
+ */
 CPhysical::CPhysical() : CEntity()
 {
     m_pCollisionList.m_node = nullptr;
@@ -181,6 +188,10 @@ CPtrListDoubleLink<CPhysical*>* PhysicalSectorList(CRepeatSector& sector, eEntit
 }
 
 // 0x544A30
+/**
+ * Inserta el cuerpo en cada repeat-sector tocado por su bound y crea un CEntryInfoNode
+ * por inserción para poder retirarlo sin búsquedas posteriores.
+ */
 void CPhysical::Add() {
     if (m_bIsBIGBuilding) {
         CEntity::Add();
@@ -204,6 +215,7 @@ void CPhysical::Add() {
 }
 
 // 0x5424C0
+// Usa m_pCollisionList para eliminar todos los nodos espaciales creados por Add().
 void CPhysical::Remove()
 {
     if (m_bIsBIGBuilding) {
@@ -234,6 +246,10 @@ CRect CPhysical::GetBoundRect() const {
 }
 
 // 0x5485E0
+/**
+ * Reinicia estado transitorio del frame, limpia daños/contactos y acumula gravedad,
+ * resistencia y fricción antes de la fase de aplicación de velocidades.
+ */
 void CPhysical::ProcessControl()
 {
     if (!GetIsTypePed())
@@ -263,6 +279,12 @@ void CPhysical::ProcessControl()
 }
 
 // 0x54DFB0
+/**
+ * Orquesta la detección/resolución de colisiones según status y subtipo.
+ *
+ * La función maneja rutas especiales de simple car/ghost/vehículo y puede cambiar
+ * STATUS_SIMPLE a física completa cuando aparece una colisión relevante.
+ */
 void CPhysical::ProcessCollision() {
     ZoneScoped;
 
