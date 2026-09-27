@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "TempColModels.h"
 
+/**
+ * Registra la inicialización y liberación de los modelos de colisión temporales.
+ */
 void CTempColModels::InjectHooks() {
     RH_ScopedClass(CTempColModels);
     RH_ScopedCategory("Collision");
@@ -28,7 +31,16 @@ void CTempColModels::InjectHooks() {
     RH_ScopedGlobalInstall(Initialise, 0x5BA8C0);
 }
 
+/**
+ * Construye las plantillas de colisión compartidas usadas por objetos temporales.
+ *
+ * Estas plantillas cubren peatones, piezas desprendibles de vehículos, partes del
+ * cuerpo, armas, bounding boxes y objetos de cutscene. Cada CColModel conserva
+ * límites simples y, cuando corresponde, primitivas CColSphere/CColLine propias.
+ */
 void CTempColModels::Initialise() {
+    // Inicializa sólo los límites y el slot común; las primitivas detalladas se
+    // reservan después únicamente para las plantillas que las necesitan.
     const auto InitializeColModel = [](CColModel& cm, CVector bbMin, CVector bbMax, CVector spCenter, float spRadius, uint8 colSlot = 0) {
         cm.GetBoundingSphere().Set(spRadius, spCenter);
         cm.GetBoundingBox().Set(bbMin, bbMax);
@@ -238,6 +250,12 @@ void CTempColModels::Initialise() {
     }
 }
 
+/**
+ * Libera los volúmenes dinámicos asociados a todas las plantillas estáticas.
+ *
+ * Los propios objetos CColModel viven en direcciones globales fijas y no se
+ * destruyen aquí; sólo se devuelve la memoria que reservaron para su geometría.
+ */
 void CTempColModels::Shutdown() {
     ms_colModelBBox.RemoveCollisionVolumes();
     ms_colModelPed1.RemoveCollisionVolumes();
