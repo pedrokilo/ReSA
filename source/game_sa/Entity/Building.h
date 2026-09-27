@@ -8,6 +8,12 @@
 
 #include "Entity.h"
 
+/**
+ * Entidad estática de tipo BUILDING almacenada en el pool dedicado.
+ *
+ * Nace con colisión habilitada y puede cambiar de model index liberando previamente
+ * el recurso RenderWare del modelo anterior.
+ */
 class NOTSA_EXPORT_VTABLE CBuilding : public CEntity {
 public:
     CBuilding();
