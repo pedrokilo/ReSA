@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "Dummy.h"
 
+/**
+ * Registra la validación de punteros para entidades CDummy.
+ */
 void CDummy::InjectHooks() {
     RH_ScopedVirtualClass(CDummy, 0x8638C0, 22);
     RH_ScopedCategory("Entity/Dummy");
@@ -28,6 +31,7 @@ void CDummy::InjectHooks() {
 }
 
 // 0x5326E0
+// Obtiene almacenamiento del pool específico de dummies.
 void* CDummy::operator new(size_t size) {
     return GetDummyPool()->New();
 }
@@ -42,6 +46,7 @@ CDummy::CDummy() : CEntity() {
     SetTypeDummy();
 }
 
+// Comprueba que el puntero corresponda a un slot actualmente válido del pool.
 bool IsDummyPointerValid(CDummy* dummy) {
     return GetDummyPool()->IsObjectValid(dummy);
 }
