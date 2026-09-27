@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "Lines.h"
 
+/**
+ * Registra las operaciones básicas de la caja de colisión alineada con los ejes.
+ */
 void CBox::InjectHooks()
 {
     RH_ScopedClass(CBox);
@@ -29,12 +32,19 @@ void CBox::InjectHooks()
     RH_ScopedInstall(Recalc, 0x40EE20);
 }
 
+// Sustituye ambos extremos sin corregir su orden; Recalc() puede normalizarlos después.
 void CBox::Set(const CVector& vecMin, const CVector& vecMax)
 {
     m_vecMin = vecMin;
     m_vecMax = vecMax;
 }
 
+/**
+ * Normaliza la caja para garantizar que m_vecMin <= m_vecMax en cada eje.
+ *
+ * Esto permite que las pruebas de inclusión y las dimensiones funcionen incluso
+ * cuando los puntos extremos se proporcionaron en orden inverso.
+ */
 void CBox::Recalc()
 {
     if (m_vecMin.x > m_vecMax.x)
@@ -47,7 +57,10 @@ void CBox::Recalc()
         std::swap(m_vecMin.z, m_vecMax.z);
 }
 
-// NOTSA - TODO(OPT): Refactor code (meaningful names, etc) and possibly use std::optional for `CMatrix` (In cases where a unity matrix would be used otherwise)
+// NOTSA
+// Construye las ocho esquinas, aplica la transformación y dibuja las doce aristas
+// sin clipping. Es una ayuda de depuración/render, no modifica la geometría de colisión.
+// TODO(OPT): Refactor code (meaningful names, etc) and possibly use std::optional for `CMatrix` (In cases where a unity matrix would be used otherwise)
 void CBox::DrawWireFrame(CRGBA color, const CMatrix& transform) const {
     auto workVec = m_vecMin;
     CVector v1 = transform.TransformPoint(workVec);
@@ -96,12 +109,14 @@ void CBox::DrawWireFrame(CRGBA color, const CMatrix& transform) const {
     CLines::RenderLineNoClipping(v7, v4, colorRGBA, colorRGBA);
 }
 
+// Comprueba inclusión usando límites cerrados en X, Y y Z.
 bool CBox::IsPointInside(const CVector& point) const {
     return point.x >= m_vecMin.x && point.x <= m_vecMax.x
         && point.y >= m_vecMin.y && point.y <= m_vecMax.y
         && point.z >= m_vecMin.z && point.z <= m_vecMax.z;
 }
 
+// Expande sólo los ejes necesarios para que pt quede dentro de la caja.
 void CBox::StretchToPoint(const CVector& pt) {
     for (size_t i = 0; i < 3; i++) {
         m_vecMin[i] = std::min(m_vecMin[i], pt[i]);
@@ -109,6 +124,12 @@ void CBox::StretchToPoint(const CVector& pt) {
     }
 }
 
+/**
+ * Calcula por eje la separación mínima entre un punto y la caja.
+ *
+ * Un componente vale 0 cuando la coordenada ya cae dentro del intervalo de ese eje;
+ * por tanto, el vector completo es cero para cualquier punto interior.
+ */
 CVector CBox::GetShortestVectorDistToPt(const CVector& pt) const {
     const auto CalculateAxis = [&](int32 i) {
         return std::max({
