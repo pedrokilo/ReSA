@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "BoneNodeManager.h"
 
+/**
+ * Registra las operaciones del pool fijo de BoneNode_c.
+ */
 void BoneNodeManager_c::InjectHooks() {
     RH_ScopedClass(BoneNodeManager_c);
     RH_ScopedCategoryGlobal();
@@ -36,6 +39,7 @@ void BoneNodeManager_c::InjectHooks() {
 }
 
 // 0x6173F0
+// Coloca las 128 entradas preasignadas en la lista libre.
 bool BoneNodeManager_c::Init() {
     for (auto & item : m_Space) {
         m_Bones.AddItem(&item);
@@ -49,17 +53,20 @@ void BoneNodeManager_c::Exit() {
 }
 
 // 0x617430
+// Reconstruye la lista libre sin reasignar el store de BoneNode_c.
 void BoneNodeManager_c::Reset() {
     Exit();
     Init();
 }
 
 // 0x617460
+// Extrae un nodo de la cabeza de la lista libre; puede devolver nullptr si se agotó.
 BoneNode_c* BoneNodeManager_c::GetBoneNode() {
     return m_Bones.RemoveHead();
 }
 
 // 0x617470
+// Devuelve el nodo al pool enlazándolo de nuevo en la lista libre.
 void BoneNodeManager_c::ReturnBoneNode(BoneNode_c* boneNode) {
     m_Bones.AddItem(boneNode);
 }
