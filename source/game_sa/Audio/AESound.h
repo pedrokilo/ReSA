@@ -32,6 +32,13 @@ enum eSoundEnvironment : uint16 {
     SOUND_FORCED_FRONT                     = 0x1000
 };
 
+/**
+ * Voz lógica individual administrada por CAESoundManager.
+ *
+ * Describe qué sample/banco reproducir, posición 3D, pitch, volumen y flags antes de
+ * que el hardware le asigne un canal físico. Puede mantener referencias separadas a
+ * un CAEAudioEntity controlador y a una CEntity cuyo ciclo de vida condiciona el sonido.
+ */
 class CAESound {
     static constexpr float fSlowMoFrequencyScalingFactor = 0.5F;
 public:
@@ -115,8 +122,8 @@ public:
 public:
     eSoundBankSlot     m_BankSlot{};             //!< Slot to use for the sound
     eSoundID           m_SoundID{};              //!< Sound ID in the bank that's loaded into the slot
-    CAEAudioEntity*    m_AudioEntity{};          //!< The entity that's playing this sound
-    notsa::EntityRef<> m_PhysicalEntity{};       //!< If set, the sound is tied to this entity
+    CAEAudioEntity*    m_AudioEntity{};          //!< Controlador lógico que recibe callbacks; no owned.
+    notsa::EntityRef<> m_PhysicalEntity{};       //!< Referencia segura a la entidad world que condiciona posición/vida.
     int32              m_Event{ AE_UNDEFINED };  //!< Not necessarily `eAudioEvents`, for ex. see `CAEWeaponAudioEntity`
     float              m_ClientVariable{ -1.f }; //!< Custom variable set when playing the sound
     float              m_Volume{};               //!< Volume of the sound (Used to calculate the final volume, `ListenerVolume`)
