@@ -21,8 +21,17 @@ END GENERATED HOOK STATUS */
 #include "Pool.h"
 #include "EntryInfoNode.h"
 
+/**
+ * Pool especializado para CEntryInfoNode que enlazan entidades con las estructuras espaciales.
+ *
+ * Reutiliza el almacenamiento administrado por CPool para evitar asignaciones
+ * dispersas y conservar el modelo de memoria esperado por el juego original.
+ */
 class CEntryInfoNodePool : public CPool<CEntryInfoNode> {
 public:
+    /**
+     * Registra las operaciones con dirección propia de CEntryInfoNodePool.
+     */
     static void InjectHooks() {
         RH_ScopedClass(CEntryInfoNodePool);
         RH_ScopedCategory("Pools");
@@ -33,9 +42,12 @@ public:
 public:
     using CPool::CPool;
 
+    // Conserva la interfaz esperada por CEntryInfoNode delegando en el allocator
+    // legacy del pool; el objeto sigue siendo propiedad del propio pool.
     CEntryInfoNode* New() {
         return NewLegacy();
     }
 
+    // Devuelve el slot al pool sin liberar memoria mediante el heap general.
     void Delete(CEntryInfoNode* node) { DeleteLegacy(node); }
 };
