@@ -19,6 +19,9 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "CivilianPed.h"
 
+/**
+ * Registra construcción y control de peatones civiles.
+ */
 void CCivilianPed::InjectHooks() {
     RH_ScopedVirtualClass(CCivilianPed, 0x86C0A8, 26);
     RH_ScopedCategory("Entity/CivilianPed");
@@ -30,12 +33,14 @@ void CCivilianPed::InjectHooks() {
 
 
 // 0x5DDB70
+// Configura modelo y speech sobre la base CPed creada con el ped type indicado.
 CCivilianPed::CCivilianPed(ePedType pedType, uint32 modelIndex) : CPed(pedType) {
     SetModelIndex(modelIndex); // V1053 Calling the 'SetModelIndex' virtual function in the constructor may lead to unexpected result at runtime
     m_pedSpeech.Initialise(this);
 }
 
 // 0x5DDBF0
+// Delega el control normal a CPed y actualiza el arma sólo si el ped sigue procesable.
 void CCivilianPed::ProcessControl() {
     if (GetCreatedBy() != (PED_MISSION | PED_GAME)) {
         CPed::ProcessControl();
