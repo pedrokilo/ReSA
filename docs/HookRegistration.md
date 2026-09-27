@@ -64,3 +64,24 @@ En `PGTASA`, el modo estricto devuelve **OK** con:
 - 0 llamadas directas con instalaciones propias sin owner catalogado.
 
 Los owners inactivos se mantienen fuera del catálogo activo mientras no se registren globalmente. No deben añadirse sólo porque exista código de hook en sus archivos.
+
+
+## Columnas de hooks.csv
+
+| Columna | Significado |
+| --- | --- |
+| `class` | Owner/clase o namespace del hook. |
+| `fn_name` | Nombre estable de la entrada. |
+| `address` | Dirección del original; las virtuales pueden usar `0x00000000` en el catálogo. |
+| `reversed` | `1`: implementación reconstruida; `0`: sigue pendiente. |
+| `locked` | `1`: el hook no debe conmutarse libremente; `0`: sin bloqueo preventivo. |
+| `validated` | `1`: existe evidencia aprobada vinculada; `0`: todavía no está vinculada. No implica vigencia actual. |
+| `type` | `S` = **Simple hook**; `V` = **Virtual hook** mediante vtable. |
+
+`validated` no se edita manualmente. Sincronizarlo desde el registro:
+
+```powershell
+python contrib/sync_validated_flags.py
+```
+
+El generador del panel detiene la ejecución si los `validated=1` no coinciden con la evidencia aprobada del registro.
