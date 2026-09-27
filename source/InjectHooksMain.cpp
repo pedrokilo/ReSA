@@ -834,6 +834,9 @@ void InjectHooksMain() {
     CCustomBuildingRenderer::InjectHooks();
     CCustomBuildingDNPipeline::InjectHooks();
     CCustomCarEnvMapPipeline::InjectHooks();
+    CConversationForPed::InjectHooks();
+    CConversationNode::InjectHooks();
+    CPedToPlayerConversations::InjectHooks();
     CConversations::InjectHooks();
     CProjectileInfo::InjectHooks();
 
