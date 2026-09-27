@@ -21,7 +21,11 @@ def read_classes(input_path):
     classes = defaultdict(list)
     with Path(input_path).open(encoding='utf-8-sig', newline='') as stream:
         for row in csv.DictReader(stream):
-            if row['reversed'] not in ('0', '1') or row['locked'] not in ('0', '1'):
+            if (
+                row['reversed'] not in ('0', '1')
+                or row['locked'] not in ('0', '1')
+                or row.get('validated') not in ('0', '1')
+            ):
                 raise ValueError(f'Invalid hook flags: {row}')
             classes[row['class']].append(row)
     if not classes:
@@ -64,7 +68,7 @@ def status_block(names, classes, evidence):
                   f' * Reconstrucción: {state} — {done}/{len(rows)} funciones reconstruidas.',
                   f' * Pendientes de reconstruir: {len(pending)}.',
                   f' * Funciones bloqueadas: {len(locked)}.',
-                  f' * Evidencia aprobada vinculada: {evidence[name]}/{len(rows)} entradas.',
+                  f" * Validación registrada: {sum(r['validated'] == '1' for r in rows)}/{len(rows)} entradas.",
                   ' * Validación: consultar vigencia en docs/ValidationInventory.md y',
                   ' *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada',
                   ' *   no significa nunca probada ni fallida. Reconstruida no implica validada.']
