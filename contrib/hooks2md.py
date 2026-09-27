@@ -89,7 +89,7 @@ def generate(input_path, output_path, update_source_status=False):
     if repo and sha and sha != "unknown":
         lines += [f"Generación de CI: [{sha[:12]}]({repo}/commit/{sha}).", ""]
     lines += ['<a id="completas"></a>', f"## 🟢 Completas · {len(full)} clases", "",
-              "Orden alfabético. El número entre paréntesis indica funciones registradas; 🔒 señala que al menos una sigue bloqueada.", "",
+              "Orden alfabético. El número entre paréntesis indica funciones registradas; ✅ indica entradas con validated=1 y 🔒 señala bloqueos.", "",
               "<details>", "<summary>Mostrar catálogo de clases completas</summary>", "",
               "| Clase (funciones) | Clase (funciones) | Clase (funciones) |", "| --- | --- | --- |"]
     height = (len(full) + 2) // 3
@@ -99,7 +99,11 @@ def generate(input_path, output_path, update_source_status=False):
             idx = i + column * height
             if idx < len(full):
                 c = full[idx]
-                cells.append(f"{class_link(c.name)} ({c.total})" + (f" 🔒 {c.locked}" if c.locked else ""))
+                cells.append(
+                    f"{class_link(c.name)} ({c.total})"
+                    + (f" ✅ {c.validated}" if c.validated else "")
+                    + (f" 🔒 {c.locked}" if c.locked else "")
+                )
             else:
                 cells.append("")
         lines.append("| " + " | ".join(cells) + " |")
