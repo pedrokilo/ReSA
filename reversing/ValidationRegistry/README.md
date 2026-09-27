@@ -12,9 +12,19 @@ Datos: [validation-registry.json](../validation-registry.json). Auditor de solo 
 | IKChain_c::SetupBones | 131 pares únicos, repetidos con fuentes actuales | Sí | Acreditada para el alcance del banco |
 | RpAnimBlendClumpUpdateAnimations | 652 pares, repetidos con fuentes actuales | Sí | Acreditada para el alcance del banco |
 
-Hay **34 funciones con evidencia histórica** y **0 con vigencia confirmada para el árbol modificado**. Las tres acreditaciones anteriores quedan pendientes por el cambio de huella global de source durante CustomBuilding; no significa que hayan fallado sus bancos. La barra es **0/8.014 · 0,00%**. CustomBuilding sigue aplazada y todavía no se incorpora al registro.
+Hay **34 funciones con evidencia histórica** y **0 con vigencia confirmada para el árbol modificado**. Las tres acreditaciones anteriores quedan pendientes por el cambio de huella global de source durante CustomBuilding; no significa que hayan fallado sus bancos. La barra es **0/8.080 · 0,00%**. CustomBuilding sigue aplazada y todavía no se incorpora al registro.
 
-El [inventario de todas las funciones reconstruidas](../../docs/ValidationInventory.md) clasifica las 7.485 entradas: 0 vigentes, 34 históricas por revisar y 7.451 sin evidencia vinculada todavía. Incluye las clases y la siguiente tanda de funciones concretas. No significa que las 7.451 nunca se probaran: faltan bancos por incorporar. Las 529 entradas sin reconstruir se contabilizan aparte.
+El [inventario de todas las funciones reconstruidas](../../docs/ValidationInventory.md) clasifica las 7.545 entradas: 0 vigentes, 34 históricas por revisar y 7.511 sin evidencia vinculada todavía. Incluye las clases y la siguiente tanda de funciones concretas. No significa que las 7.451 nunca se probaran: faltan bancos por incorporar. Las 535 entradas sin reconstruir se contabilizan aparte.
+
+### Integridad del universo catalogado
+
+El registro de validación no decide qué funciones pertenecen al catálogo. Esa coherencia se comprueba por separado con:
+
+```powershell
+python contrib/audit_hook_catalog.py --strict
+```
+
+En el corte actual el auditor devuelve **OK**: no hay hooks activos ni registros indirectos fuera de `hooks.csv`, ni entradas del CSV sin scope fuente. Los owners inactivos se consideran información de código disponible, no funciones activas del denominador.
 
 ## Cómo funciona
 
