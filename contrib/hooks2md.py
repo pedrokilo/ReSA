@@ -16,6 +16,7 @@ class Klass:
     reversed: int = 0
     total: int = 0
     locked: int = 0
+    validated: int = 0
 
     @property
     def pending(self):
@@ -46,6 +47,7 @@ def generate(input_path, output_path, update_source_status=False):
             item.total += 1
             item.reversed += int(row["reversed"])
             item.locked += int(row["locked"])
+            item.validated += int(row["validated"])
     if not classes:
         raise ValueError("hooks.csv no contiene funciones")
     ordered = sorted(classes.values(), key=lambda c: c.name.casefold())
@@ -55,6 +57,12 @@ def generate(input_path, output_path, update_source_status=False):
     total = sum(c.total for c in ordered)
     reversed_count = sum(c.reversed for c in ordered)
     locked = sum(c.locked for c in ordered)
+    validated_count = sum(c.validated for c in ordered)
+    if validated_count != validation['documented']:
+        raise ValueError(
+            f"hooks.csv validated=1 ({validated_count}) no coincide con evidencia aprobada "
+            f"({validation['documented']}). Ejecuta: python contrib/sync_validated_flags.py"
+        )
     now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     lines = ["# Progreso del reversing", "",
              "[Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)", "",
@@ -65,7 +73,8 @@ def generate(input_path, output_path, update_source_status=False):
              "| --- | --- | --- |",
              f"| Clases completas | `{'█' * round(20*len(full)/len(ordered))}{'░' * (20-round(20*len(full)/len(ordered)))}` | {len(full)}/{len(ordered)} · {len(full)/len(ordered):.2%} |",
              f"| Funciones reconstruidas | `{'█' * round(20*reversed_count/total)}{'░' * (20-round(20*reversed_count/total))}` | {reversed_count:,}/{total:,} · {reversed_count/total:.2%} |",
-             f"| Funciones validadas, vigencia confirmada | `{'█' * round(20*validation['current']/total)}{'░' * (20-round(20*validation['current']/total))}` | {validation['current']}/{total:,} · {validation['current']/total:.2%}; inventario parcial |",
+             f"| Funciones validadas (evidencia aprobada) | `{'█' * round(20*validated_count/total)}{'░' * (20-round(20*validated_count/total))}` | {validated_count:,}/{total:,} · {validated_count/total:.2%} |",
+             f"| Validaciones vigentes para el árbol actual | `{'█' * round(20*validation['current']/total)}{'░' * (20-round(20*validation['current']/total))}` | {validation['current']}/{total:,} · {validation['current']/total:.2%}; inventario parcial |",
              "| Dependencias de funciones originales eliminadas | Sin barra | No medido; requiere auditoría directa y transitiva |", "",
              f"Hay {total:,} entradas catalogadas, {locked:,} bloqueadas y {total-locked:,} sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente; el número de funciones que usan código original sigue sin medir. No se deducen hooks eliminados del contador de locks.", "",
              f"**Validación consolidada parcialmente:** {validation['documented']} funciones con evidencia aprobada vinculada, {validation['source_matches']} con fuentes registradas coincidentes y {validation['current']} con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md). Esta barra mide acreditación en el registro, no ausencia de pruebas previas ni cobertura exhaustiva.", "",
@@ -96,13 +105,13 @@ def generate(input_path, output_path, update_source_status=False):
         lines.append("| " + " | ".join(cells) + " |")
     lines += ["", "</details>", "", '<a id="parciales"></a>', f"## 🟡 Parciales · {len(partial)} clases", "",
               "Orden alfabético para localizar clases. Para decidir qué abordar primero, consultar la [estimación por dificultad](ReversingPriorities.md).", "",
-              "| Clase | Revertidas / total | Pendientes | Avance | Locked |", "| --- | ---: | ---: | ---: | ---: |"]
+              "| Clase | Revertidas / total | Pendientes | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: |"]
     for c in partial:
-        lines.append(f"| {class_link(c.name)} | {c.reversed}/{c.total} | **{c.pending}** | {c.reversed/c.total:.2%} | {c.locked} |")
+        lines.append(f"| {class_link(c.name)} | {c.reversed}/{c.total} | **{c.pending}** | {c.reversed/c.total:.2%} | {c.validated} | {c.locked} |")
     lines += ["", '<a id="sin-revertir"></a>', f"## 🔴 Sin revertir · {len(empty)} clases", "",
-              "| Clase | Revertidas / total | Pendientes | Avance | Locked |", "| --- | ---: | ---: | ---: | ---: |"]
+              "| Clase | Revertidas / total | Pendientes | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: |"]
     for c in empty:
-        lines.append(f"| {class_link(c.name)} | 0/{c.total} | **{c.pending}** | 0.00% | {c.locked} |")
+        lines.append(f"| {class_link(c.name)} | 0/{c.total} | **{c.pending}** | 0.00% | {c.validated} | {c.locked} |")
     lines += ["", '<a id="metodo"></a>', "## Cómo leer y actualizar", "",
               "- **Pendientes:** total menos revertidas. Cada fila del CSV cuenta como una entrada, incluidas sobrecargas y virtuales.",
               f"- **Locked:** indicador de bloqueo del hook; hay {locked:,} entradas bloqueadas en el CSV. No equivale por sí solo a pendiente ni informa si el hook está activo durante una ejecución.",
@@ -110,7 +119,9 @@ def generate(input_path, output_path, update_source_status=False):
               "- **Alcance:** solo incluye lo registrado en el CSV; completar una fila no certifica todo el comportamiento de una clase.", "",
               "- **Acceso al código:** pulsa el nombre para abrir el archivo que registra sus hooks. Si el registro está repartido, los enlaces adicionales abren los demás archivos. Algunas clases registran sus hooks en una cabecera.",
               "- **Comentarios de estado:** resumen por clase/grupo, con nombres de pendientes y bloqueadas. Los conteos abarcan la clase completa aunque su implementación esté repartida entre archivos.", "",
-              "Actualizar los flags solo después de comparar con el original dentro del motor y regenerar desde la raíz:", "",
+              "Sincronizar primero `validated` desde el registro de evidencia:", "",
+              "```powershell", "python contrib/sync_validated_flags.py", "```", "",
+              "Actualizar los flags de reconstrucción solo después de comparar con el original dentro del motor y regenerar desde la raíz:", "",
               "```powershell", "python contrib/hooks2md.py --input docs/hooks.csv --output docs/ReversedClasses.md", "```", "",
               "Para sincronizar también los comentarios de los archivos fuente:", "",
               "```powershell", "python contrib/hooks2md.py --input docs/hooks.csv --output docs/ReversedClasses.md --update-source-status", "python contrib/validation_inventory.py", "```", "",
