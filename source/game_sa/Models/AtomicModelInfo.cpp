@@ -30,6 +30,9 @@ END GENERATED HOOK STATUS */
 #include "CustomBuildingRenderer.h"
 #include "CarFXRenderer.h"
 
+/**
+ * Registra las operaciones específicas de model infos basados en un único RpAtomic.
+ */
 void CAtomicModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CAtomicModelInfo, 0x85BBF0, 16);
@@ -68,6 +71,12 @@ void CAtomicModelInfo::Init()
 }
 
 // 0x4C4440
+/**
+ * Destruye el RpAtomic plantilla y su frame, actualizando antes el conteo de 2DFX.
+ *
+ * También libera las referencias que el model info mantiene sobre el TXD y el
+ * AnimBlock asociado, de modo que streaming pueda descargarlos cuando corresponda.
+ */
 void CAtomicModelInfo::DeleteRwObject()
 {
     if (!GetRpAtomic())
@@ -87,6 +96,12 @@ void CAtomicModelInfo::DeleteRwObject()
         CAnimManager::RemoveAnimBlockRef(iAnimIndex);
 }
 
+/**
+ * Clona el atomic plantilla y le asigna un RwFrame independiente.
+ *
+ * AddRef()/RemoveRef() protegen temporalmente los recursos compartidos del model info
+ * mientras RenderWare realiza la clonación.
+ */
 RwObject* CAtomicModelInfo::CreateInstance()
 {
     if (!GetRpAtomic())
@@ -117,6 +132,13 @@ RwObject* CAtomicModelInfo::CreateInstance(RwMatrix* matrix)
 }
 
 // 0x4C4360
+/**
+ * Sustituye el atomic plantilla y registra todas sus dependencias.
+ *
+ * Ajusta el conteo de 2DFX, adquiere referencias de TXD/AnimBlock, configura el
+ * pipeline especializado que corresponda y prepara los tag models antes de marcar
+ * el recurso como pre-renderizado.
+ */
 void CAtomicModelInfo::SetAtomic(RpAtomic* atomic)
 {
     if (m_pRwObject) {
@@ -144,6 +166,7 @@ void CAtomicModelInfo::SetAtomic(RpAtomic* atomic)
     SetHasBeenPreRendered(true);
 }
 
+// Aplica el multiplicador LOD de la cámara antes de decidir si la plantilla debe renderizarse.
 RpAtomic* CAtomicModelInfo::GetAtomicFromDistance(float distance)
 {
     if (TheCamera.m_fLODDistMultiplier * m_fDrawDistance <= distance)
@@ -152,6 +175,12 @@ RpAtomic* CAtomicModelInfo::GetAtomicFromDistance(float distance)
     return GetRpAtomic();
 }
 
+/**
+ * Clasifica un componente de upgrade por prefijo de nombre.
+ *
+ * Al reconocer una categoría marca el uso del diccionario común de vehículos y
+ * guarda el índice CarMod esperado por el sistema de componentes.
+ */
 void CAtomicModelInfo::SetupVehicleUpgradeFlags(const char* name)
 {
     if (bUseCommonVehicleDictionary)
