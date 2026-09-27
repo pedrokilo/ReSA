@@ -10,22 +10,25 @@
 #undef MoveMemory
 
 /*!
- * @brief The animation object.
- * 
- * @details It contains `CAnimBlendSequence`'s each of which is the animation for one bone (node).
- * @details The data from here is copied to `CAnimBlendAssociation` when an animation is requested for a clump.
- * @details It is never destroyed and stays in memory unless `CStreaming` forces the IFP to unload to free up memory.
+ * @brief Jerarquía reutilizable que representa una animación completa.
+ *
+ * Contiene una CAnimBlendSequence por nodo/bone animado. Las asociaciones de clump
+ * referencian esta jerarquía y crean su propio estado de reproducción; la jerarquía
+ * permanece gestionada por CAnimManager mientras el bloque IFP siga cargado.
+ *
+ * Las secuencias pueden mantenerse comprimidas o expandirse temporalmente y entrar
+ * en la caché LRU de animaciones descomprimidas.
  */
 class CAnimBlendHierarchy {
 public:
     uint32              m_hashKey;
-    CAnimBlendSequence* m_pSequences; //!< Per-node animations - NOTE: Order of these depends on the order of nodes in Clump this was built from
+    CAnimBlendSequence* m_pSequences; //!< Array propiedad de la jerarquía; una secuencia por nodo animado.
     uint16              m_nSeqCount;
     bool                m_bIsCompressed;
     bool                m_bKeepCompressed;
     int32               m_nAnimBlockId;
     float               m_fTotalTime;
-    CLink<CAnimBlendHierarchy*>* m_Link; //!< Link to the next animation in the block (?)
+    CLink<CAnimBlendHierarchy*>* m_Link; //!< Enlace utilizado por la caché/lista de jerarquías descomprimidas.
 
 public:
     CAnimBlendHierarchy();
@@ -33,6 +36,7 @@ public:
 
     void Shutdown();
 
+    // Reserva almacenamiento contiguo para todos los frames en el formato indicado.
     uint8* AllocSequenceBlock(bool compressed) const;
 
     //! @addr 0x4CF2F0
@@ -41,11 +45,13 @@ public:
     //! @addr 0x4CF3E0
     void CalcTotalTimeCompressed() { ICalcTotalTime<true>(); }
 
+    // Destruye secuencias, libera su bloque compartido y retira esta jerarquía de la caché.
     void RemoveAnimSequences();
     void RemoveQuaternionFlips() const;
     void RemoveUncompressedData();
 
     void SetName(const char* string);
+    // Expande todas las secuencias y calcula datos derivados cuando sea necesario.
     void Uncompress();
 
     CAnimBlendSequence* FindSequence(const char* name) const;
