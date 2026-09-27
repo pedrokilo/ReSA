@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "ColourSet.h"
 
+/**
+ * Registra la construcción e interpolación de snapshots de CTimeCycle.
+ */
 void CColourSet::InjectHooks() {
     RH_ScopedClass(CColourSet);
     RH_ScopedCategoryGlobal();
@@ -29,6 +32,12 @@ void CColourSet::InjectHooks() {
 }
 
 // 0x55F4B0
+/**
+ * Captura los parámetros ambientales de una combinación concreta de hora y clima.
+ *
+ * Los valores se copian desde las tablas globales de CTimeCycle para poder mezclarse
+ * posteriormente sin volver a consultar cada tabla individual.
+ */
 CColourSet::CColourSet(int32 timeId, int32 weatherId) {
     m_fAmbientRed               = CTimeCycle::m_nAmbientRed[timeId][weatherId];
     m_fAmbientGreen             = CTimeCycle::m_nAmbientGreen[timeId][weatherId];
@@ -97,13 +106,18 @@ CColourSet::CColourSet(int32 timeId, int32 weatherId) {
 }
 
 /*!
- * @brief Interpolates colour sets
- * @param A First Color Set
- * @param B Second Color Set
- * @param multA First Factor
- * @param multB Second Factor
- * @param ignoreSky
+ * @brief Mezcla dos conjuntos de parámetros de TimeCycle.
+ * @param A Primer conjunto de origen.
+ * @param B Segundo conjunto de origen.
+ * @param multA Peso aplicado a A.
+ * @param multB Peso aplicado a B.
+ * @param ignoreSky Si es true conserva los campos de cielo/sol/nubes ya presentes en destino.
  * @addr 0x55F870
+ */
+/**
+ * La mayoría de los parámetros se combinan mediante una suma ponderada. Cuando
+ * ignoreSky está activo se omite deliberadamente el bloque visual de cielo, sol y
+ * nubes, pero continúan interpolándose ambiente, niebla, post-FX, agua y distancias.
  */
 void CColourSet::Interpolate(CColourSet* A, CColourSet* B, float multA, float multB, bool ignoreSky) {
     if (!ignoreSky) {
