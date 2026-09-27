@@ -8013,3 +8013,9 @@ CTaskSimpleCarFallOut,MakeAbortable,0x00000000,1,0,V
 CTaskSimpleCarFallOut,ProcessPed,0x00000000,1,0,V
 CTaskSimpleCarFallOut,SetPedPosition,0x00000000,1,0,V
 CTaskSimpleCarFallOut,StartAnim,0x0064CCE0,1,0,S
+CConversationForPed,IsPlayerInPositionForConversation,0x0043AC40,0,0,S
+CConversationForPed,Update,0x0043C190,0,0,S
+CConversationNode,ClearRecursively,0x0043A7A0,1,0,S
+CPedToPlayerConversations,Clear,0x0043AAE0,1,0,S
+CPedToPlayerConversations,EndConversation,0x0043AB10,1,0,S
+CPedToPlayerConversations,Update,0x0043B0F0,0,0,S
