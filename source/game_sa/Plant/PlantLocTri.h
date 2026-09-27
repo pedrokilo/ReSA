@@ -2,6 +2,13 @@
 
 #include "Vector.h"
 
+/**
+ * Triángulo de colisión preparado para generación procedural de vegetación/objetos.
+ *
+ * Conserva geometría world, esfera de proximidad, semillas y cupos calculados por
+ * tipo de planta. Los enlaces permiten a CPlantMgr moverlo entre listas de slots
+ * activos y la lista libre sin cambiar su dirección.
+ */
 class CPlantLocTri {
 public:
     CVector m_V1;
@@ -9,8 +16,8 @@ public:
     CVector m_V3;
     CVector m_Center;
     float m_SphereRadius;
-    std::array<float, 3> m_Seed;
-    std::array<uint16, 3> m_nMaxNumPlants;
+    std::array<float, 3> m_Seed;           //!< Semillas estables para distribuir hasta tres tipos de planta.
+    std::array<uint16, 3> m_nMaxNumPlants; //!< Máximos derivados de área y densidad de la superficie.
     uint8 m_SurfaceId;
     tColLighting m_nLighting;
 
