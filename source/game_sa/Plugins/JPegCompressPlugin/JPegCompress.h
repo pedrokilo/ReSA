@@ -11,35 +11,35 @@ void InjectHooks();
 }
 
 /**
- * Compress camera screen common
+ * Comprime una captura de cámara usando el destino libjpeg suministrado.
  *
  * @addr  0x5D0470
  */
 void JPegCompressScreen(RwCamera* camera, struct jpeg_destination_mgr& dst);
 
 /**
- * Compress camera screen and save at the given file path
+ * Captura la cámara, la comprime como JPEG y escribe el stream al archivo indicado.
  *
  * @addr  0x5D0820
  */
 void JPegCompressScreenToFile(RwCamera* camera, const char* path);
 
 /**
- * Compress camera screen to the given buffer
+ * Variante de compresión destinada a un buffer proporcionado por el llamador.
  *
  * @addr  0x5D0740
  */
 void JPegCompressScreenToBuffer(RwCamera* cam, uint8** buffer, size_t& bufferSizeInOut);
 
 /**
- * Decompress a JPEG to a raster for displaying in-game. (PS2 gallery?)
+ * Decodifica una fuente JPEG sobre un RwRaster; ruta heredada de la galería de PS2.
  *
  * @addr  0x5D05F0
  */
 void JPegDecompressToRaster(RwRaster* raster, struct jpeg_source_mgr& src);
 
 /**
- * Decompress a JPEG to memory (GS?) for displaying in-game. (PS2 gallery?)
+ * Usa el buffer de galería como fuente JPEG y vuelca el resultado al raster indicado.
  *
  * @addr  0x5D05F0
  */
