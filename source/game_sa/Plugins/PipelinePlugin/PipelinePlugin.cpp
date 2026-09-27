@@ -25,6 +25,9 @@ END GENERATED HOOK STATUS */
 auto& gPipelinePluginOffset = StaticRef<RwInt32>(0x8D6080);
 
 
+/**
+ * Registra el plugin que persiste un pipelineId adicional en cada RpAtomic.
+ */
 void PipelinePlugin::InjectHooks() {
     RH_ScopedNamespace(PipelinePlugin);
     RH_ScopedCategory("Plugins");
@@ -72,12 +75,13 @@ static RwInt32 PipelineGetSize(const void* object, RwInt32 offsetInObject, RwInt
 }
 
 // internal
-// we need this shit as RW requires write callback
+// RenderWare exige un callback de escritura aunque este plugin no emita payload por esa ruta.
 static RwStream* PipelineStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
     return stream;
 }
 
 // 0x72FBD0
+// Registra el campo pipelineId y sus callbacks de copia/lectura en RpAtomic.
 RwBool PipelinePluginAttach() {
     gPipelinePluginOffset = RpAtomicRegisterPlugin(sizeof(tPipelinePlugin), rwID_PIPELINEPLUGIN, PipelineConstructor, nullptr, PipelineCopy);
     if (gPipelinePluginOffset == -1) {
@@ -91,6 +95,7 @@ RwBool PipelinePluginAttach() {
 }
 
 // 0x72FC40
+// Lee directamente el ID desde el payload anexado al atomic.
 RwUInt32 GetPipelineID(RpAtomic* atomic) {
     return RWPLUGINOFFSET(tPipelinePlugin, atomic, gPipelinePluginOffset)->pipelineId;
 }
