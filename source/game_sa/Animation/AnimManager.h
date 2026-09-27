@@ -19,6 +19,14 @@ constexpr auto MAX_ANIM_BLOCK_NAME = 16;
 constexpr auto NUM_ANIM_ASSOC_GROUPS = 118;
 constexpr auto NUM_ANIM_BLOCKS = 180;
 
+/**
+ * Gestor global de bloques IFP, jerarquías y grupos de asociaciones de animación.
+ *
+ * Centraliza carga/streaming, búsqueda por nombre o ID, referencias de AnimBlock,
+ * creación de asociaciones para RpClump y la caché LRU de jerarquías descomprimidas.
+ * Las tablas principales están vinculadas mediante StaticRef al estado global del
+ * juego y sus elementos se comparten entre múltiples clumps.
+ */
 class CAnimManager {
 private:
     static std::array<AnimAssocDefinition, NUM_ANIM_ASSOC_GROUPS> ms_aAnimAssocDefinitionsX; // replacement
@@ -84,16 +92,13 @@ public:
     /*!
      * @addr 0x4D41C0
      * 
-     * @brief Uncompress animation data (Unless the animation has the keep-compressed flag).
-     * @brief Also marks the anim as recently-used in the LRU cache
-     * 
-     * @details This function does a 2 things:
-     * @details - Uncompress anim data  (Unless the animation has the keep-compressed flag)
-     * @details - Since it uses a LRU cache, the hierarchy is put at the front (thus marking it as recently used)
-     * @details So even if the anim is already un-compressed this function should be called
-     * @details to mark it as recently-used in the LRU cache.
-
-     * @param hier The hierarchy to uncompress
+     * @brief Garantiza que la jerarquía esté disponible para uso y actualiza su posición en la caché LRU.
+     *
+     * Si m_bKeepCompressed no lo impide, expande los keyframes cuando sea necesario.
+     * Incluso una jerarquía ya expandida debe pasar por aquí para marcarse como usada
+     * recientemente y evitar que la política de caché la elija prematuramente.
+     *
+     * @param hier Jerarquía compartida que se va a utilizar.
     */
     static void UncompressAnimation(CAnimBlendHierarchy* hier);
     static CAnimBlendAssociation* BlendAnimation(RpClump* clump, CAnimBlendHierarchy* animBlendHier, int32 flags, float clumpAssocBlendData = 8.f);
@@ -103,7 +108,7 @@ public:
     static bool IsAnimInBlock(const CAnimBlendHierarchy* h, const CAnimBlock* b);
 
 
-    /// NOTSA. Get random gangtalk anim
+    /// NOTSA. Selecciona aleatoriamente una de las animaciones parciales de conversación de pandilla.
     static AnimationId GetRandomGangTalkAnim();
 
     static auto GetAnimBlocks() { return ms_aAnimBlocks | rng::views::take(ms_numAnimBlocks); }
