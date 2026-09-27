@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "BreakablePlugin.h"
 
+/**
+ * Registra el plugin RenderWare que adjunta información de geometría rompible.
+ */
 void BreakablePlugin::InjectHooks() {
     RH_ScopedClass(BreakablePlugin);
     RH_ScopedCategory("Plugins");
@@ -33,6 +36,10 @@ void BreakablePlugin::InjectHooks() {
 }
 
 // 0x59D100
+/**
+ * Reserva espacio de plugin en cada RpGeometry y registra sus callbacks de streaming.
+ * g_BreakablePlugin almacena el offset devuelto por RenderWare para acceder al payload.
+ */
 bool BreakablePluginAttach() {
     g_BreakablePlugin = RpGeometryRegisterPlugin(sizeof(BreakablePlugin), rwID_BREAKABLEPLUGIN, BreakableConstructor, BreakableDestructor, nullptr);
     if (g_BreakablePlugin == -1) {
@@ -61,6 +68,10 @@ void* BreakableConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInO
 }
 
 // 0x59CD90
+/**
+ * Libera las texturas cargadas por el payload y el bloque dinámico BreakablePluginData.
+ * La RpGeometry continúa siendo propiedad de RenderWare.
+ */
 void* BreakableDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
     if (g_BreakablePlugin <= 0)
         return object;
@@ -79,6 +90,12 @@ void* BreakableDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInOb
 }
 
 // 0x59CEC0
+/**
+ * Reconstruye en una sola asignación el descriptor y todos sus arrays variables.
+ *
+ * Tras leer la cabecera calcula offsets internos para vértices, UV, colores,
+ * triángulos, materiales y nombres, y finalmente resuelve las RwTexture usadas.
+ */
 RwStream* BreakableStreamRead(RwStream* stream, int binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
     auto* plugin = RWPLUGINOFFSET(BreakablePlugin, object, g_BreakablePlugin);
     RwStreamRead(stream, &plugin->m_SectionHeader, 4u);
@@ -131,6 +148,7 @@ RwStream* BreakableStreamRead(RwStream* stream, int binaryLength, void* object, 
 }
 
 // 0x59CDE0
+// Serializa el descriptor y los arrays persistentes; los punteros RwTexture se reconstruyen al leer.
 RwStream* BreakableStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
     auto* plugin = RWPLUGINOFFSET(BreakablePlugin, object, g_BreakablePlugin);
     RwStreamWrite(stream, plugin, 4u);
