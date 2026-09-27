@@ -19,18 +19,24 @@ enum eCopType : uint32 { // TODO: Fix naming
     COP_TYPE_CSHER = 7
 };
 
+/**
+ * CPed policial con partner y una lista fija de hasta cinco criminales perseguidos.
+ *
+ * Los punteros de partner/objetivos se registran mediante CEntity references para
+ * anularse automáticamente si la entidad correspondiente desaparece.
+ */
 class NOTSA_EXPORT_VTABLE CCopPed : public CPed {
 public:
     bool     m_bDontPursuit;
     bool     field_79D;
     uint32   m_nCopTypeOrModelID; /* if it's a valid eCopType then eCopType, otherwise a modelID */
     uint32   field_7A4;
-    CCopPed* m_pCopPartner;
-    CPed*    m_apCriminalsToKill[5];
+    CCopPed* m_pCopPartner;            //!< Partner policial; referencia segura, no owned.
+    CPed*    m_apCriminalsToKill[5];   //!< Objetivos perseguidos; referencias seguras.
     bool     m_isTheDriver; //< Whenever this ped should be a passenger or a driver when entering a vehicle
 
 public:
-    //! Get model ID used for a given cop type
+    //! Devuelve el model ID usado por un eCopType.
     static eModelID GetPedModelForCopType(eCopType ctype);
 
     /* May also be called with a modelID */
