@@ -26,6 +26,9 @@ END GENERATED HOOK STATUS */
 
 #include "Rect.h"
 
+/**
+ * Registra las operaciones geométricas de CRect en sus direcciones originales.
+ */
 void CRect::InjectHooks()
 {
     RH_ScopedClass(CRect);
@@ -42,6 +45,8 @@ void CRect::InjectHooks()
 }
 
 // 0x404200
+// Expande los límites actuales cuando restriction sobresale de ellos; pese al
+// nombre histórico, el resultado abarca también el rectángulo recibido.
 inline void CRect::Restrict(const CRect& restriction)
 {
     if (restriction.left < left)
@@ -58,6 +63,7 @@ inline void CRect::Restrict(const CRect& restriction)
 }
 
 // 0x404260
+// Amplía o contrae simétricamente el rectángulo en ambos ejes.
 inline void CRect::Resize(float resizeX, float resizeY)
 {
     left   -= resizeX;
@@ -67,6 +73,7 @@ inline void CRect::Resize(float resizeX, float resizeY)
 }
 
 // 0x404290
+// Comprueba inclusión usando límites cerrados: los puntos sobre el borde cuentan.
 inline bool CRect::IsPointInside(const CVector2D& point) const
 {
     return point.x >= left
@@ -76,6 +83,7 @@ inline bool CRect::IsPointInside(const CVector2D& point) const
 }
 
 // 0x4042D0
+// Igual que IsPointInside(), pero extiende virtualmente cada borde por tolerance.
 inline bool CRect::IsPointInside(const CVector2D& point, float tolerance) const
 {
     return left   - tolerance <= point.x
@@ -84,12 +92,15 @@ inline bool CRect::IsPointInside(const CVector2D& point, float tolerance) const
         && top    + tolerance >= point.y;
 }
 
+// Comprueba si existe intersección entre ambos rangos según la convención de ejes
+// utilizada por CRect. Se conserva el nombre histórico de la función.
 bool CRect::IsRectInside(const CRect& rect) const {
     return rect.left <= right && rect.right >= left
         && rect.top <= bottom && rect.bottom >= top;
 }
 
 // 0x43E020
+// Construye un cuadrado a partir de un centro y una semiextensión común.
 inline void CRect::SetFromCenter(float x, float y, float size)
 {
     left   = x - size;
@@ -99,6 +110,7 @@ inline void CRect::SetFromCenter(float x, float y, float size)
 }
 
 // 0x43E050
+// Devuelve el punto medio aritmético de los límites horizontal y vertical.
 inline void CRect::GetCenter(float* x, float* y) const
 {
     *x = (right + left) / 2.0f;
@@ -106,6 +118,7 @@ inline void CRect::GetCenter(float* x, float* y) const
 }
 
 // 0x5327F0
+// Ajusta únicamente los bordes necesarios para que el punto pase a quedar incluido.
 inline void CRect::StretchToPoint(float x, float y)
 {
     if (x < left)
@@ -121,6 +134,10 @@ inline void CRect::StretchToPoint(float x, float y)
         top = y;
 }
 
+/**
+ * Satura cada coordenada de @p pt al intervalo permitido por el rectángulo.
+ * @return true si al menos una coordenada tuvo que modificarse.
+ */
 bool CRect::DoConstrainPoint(CVector2D& pt) const {
     auto hasConstrained = false;
 
@@ -145,12 +162,14 @@ bool CRect::DoConstrainPoint(CVector2D& pt) const {
 }
 
 // NOTSA
+// Comprueba solapamiento incluyendo el contacto exacto sobre los bordes.
 bool CRect::OverlapsWith(const CRect& o) const {
     return (right >= o.left && left <= o.right)
         && (bottom <= o.top && top >= o.bottom);
 }
 
 // NOTSA
+// Comprueba que todos los límites de o queden dentro o sobre este rectángulo.
 bool CRect::Contains(const CRect& o) const {
     return (o.left >= left && o.right <= right)
         && (o.top <= top && o.bottom >= bottom);
