@@ -95,6 +95,11 @@ def main():
         action='store_true',
         help='Salir con código 1 si se detectan inconsistencias del registro activo',
     )
+    parser.add_argument(
+        '--verbose',
+        action='store_true',
+        help='Mostrar también owners inactivos, registros indirectos y aliases informativos',
+    )
     args = parser.parse_args()
 
     root = Path(args.root).resolve() if args.root else Path(__file__).resolve().parents[1]
@@ -163,50 +168,60 @@ def main():
         if owner not in catalog and owner in owners_with_installs
     )
 
-    print('Auditoría de catálogo de hooks')
-    print(f'  clases/grupos en hooks.csv: {len(catalog)}')
-    print(f'  owners con RH_Scoped*Install en fuente: {len(owners_with_installs)}')
-    print(f'  llamadas directas ::InjectHooks() en InjectHooksMain: {len(main_calls)}')
-
-    print_group(
-        'Owners ACTIVOS con funciones instaladas pero ausentes de hooks.csv',
-        active_missing_catalog,
-    )
-    print_group(
-        'Owners registrados INDIRECTAMENTE y catalogados (no es error)',
-        catalogued_indirect,
-    )
-    print_group(
-        'Owners registrados INDIRECTAMENTE pero ausentes de hooks.csv',
-        indirect_missing_catalog,
-    )
-    print_group(
-        'Owners INACTIVOS con funciones instaladas y ausentes de hooks.csv',
-        inactive_missing_catalog,
-    )
-    print_group(
-        'Owners catalogados con instalaciones pero sin llamada Owner::InjectHooks() conocida',
-        no_known_registration,
-    )
-    print_group(
-        'Clases/grupos del CSV sin scope encontrado en fuente',
-        missing_source,
-    )
-    print_group(
-        'Llamadas directas sin owner propio y SIN instalaciones propias (informativo)',
-        direct_without_own_installs,
-    )
-    print_group(
-        'Llamadas directas con instalaciones propias pero sin owner en hooks.csv',
-        direct_with_own_installs_missing_catalog,
-    )
-
     inconsistent = (
         active_missing_catalog
         or direct_with_own_installs_missing_catalog
         or indirect_missing_catalog
         or missing_source
     )
+
+    print('Auditoría de catálogo de hooks')
+    print(f'  clases/grupos en hooks.csv: {len(catalog)}')
+    print(f'  owners con RH_Scoped*Install en fuente: {len(owners_with_installs)}')
+    print(f'  llamadas directas ::InjectHooks() en InjectHooksMain: {len(main_calls)}')
+    print()
+    print('Comprobaciones críticas:')
+    print(f'  hooks activos ausentes de hooks.csv: {len(active_missing_catalog)}')
+    print(f'  registros indirectos ausentes de hooks.csv: {len(indirect_missing_catalog)}')
+    print(f'  clases/grupos del CSV sin scope fuente: {len(missing_source)}')
+    print(f'  llamadas directas con instalaciones propias sin owner catalogado: {len(direct_with_own_installs_missing_catalog)}')
+    print()
+    print('Resultado: ' + ('ERROR' if inconsistent else 'OK'))
+
+    if args.verbose:
+        print_group(
+            'Owners ACTIVOS con funciones instaladas pero ausentes de hooks.csv',
+            active_missing_catalog,
+        )
+        print_group(
+            'Owners registrados INDIRECTAMENTE y catalogados (no es error)',
+            catalogued_indirect,
+        )
+        print_group(
+            'Owners registrados INDIRECTAMENTE pero ausentes de hooks.csv',
+            indirect_missing_catalog,
+        )
+        print_group(
+            'Owners INACTIVOS con funciones instaladas y ausentes de hooks.csv',
+            inactive_missing_catalog,
+        )
+        print_group(
+            'Owners catalogados con instalaciones pero sin llamada Owner::InjectHooks() conocida',
+            no_known_registration,
+        )
+        print_group(
+            'Clases/grupos del CSV sin scope encontrado en fuente',
+            missing_source,
+        )
+        print_group(
+            'Llamadas directas sin owner propio y SIN instalaciones propias (informativo)',
+            direct_without_own_installs,
+        )
+        print_group(
+            'Llamadas directas con instalaciones propias pero sin owner en hooks.csv',
+            direct_with_own_installs_missing_catalog,
+        )
+
     if args.strict and inconsistent:
         raise SystemExit(1)
 
