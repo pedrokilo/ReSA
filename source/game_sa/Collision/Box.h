@@ -9,16 +9,22 @@
 #include "Vector.h"
 #include "RGBA.h"
 
+/**
+ * Caja tridimensional alineada con los ejes utilizada como volumen delimitador.
+ *
+ * m_vecMin y m_vecMax representan los extremos mínimo y máximo. Recalc() puede
+ * corregir cajas creadas con esos extremos intercambiados.
+ */
 class CBox {
 public:
-    CVector m_vecMin{}, m_vecMax{};
+    CVector m_vecMin{}, m_vecMax{}; //!< Límites mínimo y máximo en X/Y/Z.
 
     constexpr CBox() = default;
     constexpr CBox(CVector min, CVector max) : m_vecMin(min), m_vecMax(max) {}
 
     void Set(const CVector& vecMin, const CVector& vecMax);
 
-    //! Updates box corners, like (if left>right then swap(left, right))
+    //! Normaliza cada eje intercambiando sus extremos cuando min > max.
     void Recalc();
 
     CVector GetSize()   const { return m_vecMax - m_vecMin; }
@@ -27,25 +33,25 @@ public:
     float   GetHeight() const { return m_vecMax.z - m_vecMin.z; }
     CVector GetCenter() const { return (m_vecMax + m_vecMin) / 2.f; }
 
-    //! Check is point within the box
+    //! Comprueba si un punto queda dentro o exactamente sobre la caja.
     bool IsPointInside(const CVector& point) const;
 
-    //! Stretch the bounding box so that the point `pt` will be inside it
+    //! Expande los límites lo mínimo necesario para incluir el punto pt.
     void StretchToPoint(const CVector& pt);
 
     /*!
     * @addr notsa
-    * @brief Render the box in the 3D world (Be sure to call from a place where 3D stuff is rendered, if called from elsewhere you won't see the lines!)
+    * @brief Dibuja las doce aristas de la caja en el mundo 3D como ayuda visual.
     *
-    * @param transform Transformation matrix to be used
-    * @param color     Color of the lines used
+    * @param transform Transformación aplicada a las ocho esquinas antes de dibujarlas.
+    * @param color     Color utilizado para las líneas.
     */
     void DrawWireFrame(CRGBA color, const CMatrix& transform = CMatrix::Unity()) const;
 
     /*!
      * @notsa
-     * @brief Find the shortest vector from the box to the point.
-     * @brief It's magnitude is `0` if `pt` is inside the box.
+     * @brief Obtiene la separación mínima por eje entre la caja y el punto.
+     * El vector resultante es cero cuando pt se encuentra dentro de la caja.
      */
     CVector GetShortestVectorDistToPt(const CVector& pt) const;
 
