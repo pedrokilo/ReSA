@@ -18,3 +18,19 @@ python contrib/audit_hook_catalog.py --strict
 ```
 
 No añadir al CSV owners sólo porque exista código de hook: los registros inactivos o comentados no forman parte del catálogo activo. Usar `--verbose` para investigarlos sin alterar los denominadores.
+
+
+## Validación en hooks.csv
+
+La columna `validated` se deriva de `reversing/validation-registry.json` y no se edita manualmente.
+
+```powershell
+python contrib/sync_validated_flags.py
+```
+
+Semántica:
+- `validated=1`: existe evidencia aprobada vinculada.
+- `validated=0`: no existe evidencia aprobada vinculada todavía.
+- La vigencia para el árbol actual se calcula por separado en `ValidationInventory.md`.
+- `type=S`: Simple hook.
+- `type=V`: Virtual hook mediante vtable.
