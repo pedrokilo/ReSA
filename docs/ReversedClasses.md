@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-09-25 02:35 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Sincronizado:** 2026-09-27 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -30,6 +30,8 @@ Hay 8,080 entradas catalogadas, 625 bloqueadas y 7,455 sin bloqueo. No constituy
 
 > [!NOTE]
 > Estos porcentajes miden entradas registradas como `reversed`, no cobertura de pruebas ni estabilidad del juego. Una clase completa puede conservar hooks bloqueados o funciones todavía no registradas.
+>
+> La integridad del catálogo activo se comprueba con `python contrib/audit_hook_catalog.py --strict`; el corte actual no presenta inconsistencias críticas.
 
 <a id="completas"></a>
 ## 🟢 Completas · 621 clases
