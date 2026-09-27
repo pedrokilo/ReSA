@@ -6,7 +6,7 @@ La evolución de la suite debe relacionar cada función y versión con sus banco
 
 ## Estado actual del catálogo de hooks
 
-El corte vigente de `PGTASA` contiene **712 clases/grupos y 8.080 entradas**: 7.545 reconstruidas y 535 pendientes. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
+El corte vigente de `PGTASA` contiene **712 clases/grupos y 8.080 entradas**: 7.545 reconstruidas y 535 pendientes. De ellas, **34 tienen `validated=1`** porque cuentan con evidencia aprobada vinculada; 0 conservan vigencia acreditada para el árbol actual. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
 
 ```powershell
 python contrib/audit_hook_catalog.py --strict
