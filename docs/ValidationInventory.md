@@ -10,11 +10,11 @@ Universo de esta revisión: **7,545 entradas reversed=1**, de 8,080 registradas.
 | Evidencia histórica vinculada; revisión pendiente | 34 |
 | Sin evidencia aprobada vinculada en este registro | 7511 |
 
-Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
+Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. La integridad del universo catalogado se comprueba por separado con `python contrib/audit_hook_catalog.py --strict`; en el corte actual la auditoría crítica devuelve OK. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
 ## Siguiente tanda con evidencia disponible
 
-Revisar fuentes, versión, configuración y dependencias; repetir el banco cuando no se pueda confirmar su vigencia. Esta lista no autoriza desbloquear los 85 pendientes aplazados. No se marca toda una clase por validar una de sus funciones.
+Revisar fuentes, versión, configuración y dependencias; repetir el banco cuando no se pueda confirmar su vigencia. Esta lista no autoriza desbloquear los 86 bloqueos aplazados documentados en la campaña correspondiente. No se marca toda una clase por validar una de sus funciones.
 
 | Clase | Función registrada | Evidencia |
 | --- | --- | --- |
