@@ -4,6 +4,7 @@ on:
   push:
      branches:
        - master
+       - PGTASA
      paths:
        - 'source/**'
        - 'contrib/hooks2md.py'
@@ -30,7 +31,7 @@ permissions: {}
 
 jobs:
   update-re-progress:
-    runs-on: windows-2025-vs2026
+    runs-on: windows-2025
     steps:
       - name: Create GitHub app token
         uses: actions/create-github-app-token@v3
