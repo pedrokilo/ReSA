@@ -46,6 +46,8 @@ FastLoader solicita la ranura 2 durante las pruebas; el log indica rechazo por v
 
 CSV actualizado después de validar; ReversedClasses regenerado y prioridades revisadas. Estado global: **614 completas, 85 parciales, 2 sin revertir; 7.485/8.014 entradas y 529 pendientes**. Sin commit ni push.
 
+> **Nota de vigencia:** ese estado global corresponde al cierre histórico de esta entrega. El catálogo actual se amplió tras la auditoría de owners y se consulta en [ReversedClasses.md](../../docs/ReversedClasses.md); no reinterpretar los resultados del banco con los denominadores actuales.
+
 ## Comprobación histórica de inicio normal y reparación de SDL
 
 Tras los bancos, el ASI normal se detenía en el estado del logo durante los 180 segundos de plazo. Una segunda prueba registró GTA en primer plano: no era falta de foco. La ruta SDL no reenviaba WM_GRAPHNOTIFY al manejador de DirectShow; se añadió ese reenvío para los estados de logo e introducción, conservando el manejador ya existente.
