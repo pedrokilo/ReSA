@@ -4,6 +4,13 @@
 #include <array>
 #include "Base.h"
 
+/**
+ * Catálogo global de modelos de colisión temporales reutilizados por varios sistemas.
+ *
+ * Las instancias están vinculadas mediante StaticRef a las direcciones originales
+ * del juego. El gestor no crea esas CColModel; Initialise() sólo configura sus
+ * límites y reserva la geometría detallada necesaria.
+ */
 class CTempColModels {
 public:
     static inline auto& ms_colModelBBox      = StaticRef<CColModel>(0x968A00);
@@ -19,6 +26,7 @@ public:
     static inline auto& ms_colModelBodyPart2 = StaticRef<CColModel>(0x968FA0);
     static inline auto& ms_colModelWeapon    = StaticRef<CColModel>(0x968FD0);
 
+    // Número total de slots reservados para los modelos temporales de cutscene.
     static constexpr auto MAX_NUM_CUTSCENE_COLMODELS = MODEL_CUTOBJ20 - MODEL_CUTOBJ01 + 1; // 20
     static inline auto&   ms_colModelCutObj          = StaticRef<std::array<CColModel, MAX_NUM_CUTSCENE_COLMODELS>>(0x968A30);
     
@@ -26,6 +34,8 @@ public:
     static void InjectHooks();
 
 public:
+    // Configura bounds, materiales y primitivas de todas las plantillas.
     static void Initialise();
+    // Libera únicamente los volúmenes dinámicos reservados durante Initialise().
     static void Shutdown();
 };
