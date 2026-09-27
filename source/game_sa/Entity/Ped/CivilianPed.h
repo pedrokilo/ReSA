@@ -2,6 +2,12 @@
 
 #include "Ped.h"
 
+/**
+ * Especialización mínima de CPed para civiles creados por gameplay.
+ *
+ * Mantiene el flujo de control base y añade la actualización explícita del arma
+ * cuando el ped no fue pospuesto ni está muerto.
+ */
 class NOTSA_EXPORT_VTABLE CCivilianPed : public CPed {
 public:
     CCivilianPed(ePedType pedType, uint32 modelIndex);
