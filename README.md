@@ -22,18 +22,34 @@ El objetivo es preservar el comportamiento original. Cada reconstrucción se con
 
 La fuente del progreso es [docs/hooks.csv](docs/hooks.csv). El [informe generado](docs/ReversedClasses.md) muestra totales, pendientes y bloqueos; la [guía técnica de prioridades](docs/ReversingPriorities.md) ordena el trabajo por esfuerzo estimado, dependencias y facilidad de validación.
 
-**Corte documental del 23 de septiembre de 2026, hora de México:** 614 clases completas, 85 parciales y 2 sin revertir; 7.485 de 8.014 entradas registradas como revertidas. Estos números no estiman líneas de código ni porcentaje de comportamiento probado. Consultar el informe para el estado posterior.
+**Corte documental vigente (26 de septiembre de 2026, hora de México):** 621 clases completas, 88 parciales y 3 sin revertir; 7.545 de 8.080 entradas registradas como reconstruidas. La auditoría bidireccional del catálogo pasa en modo estricto: no hay hooks activos fuera de `hooks.csv`, registros indirectos sin catalogar, clases del CSV sin scope fuente ni owners activos sin catálogo. Estos números miden el catálogo registrado, no líneas de código ni porcentaje de comportamiento probado.
 
 ### Cuatro dimensiones de progreso
 
 | Dimensión | Estado |
 | --- | --- |
-| Clases completas | 614/701 · 87,59% |
-| Funciones reconstruidas | 7.485/8.014 · 93,40% |
-| Funciones validadas, vigencia confirmada | 0/8.014 · 0,00%; 34 evidencias históricas; vigencia pendiente tras cambios locales de CustomBuilding |
+| Clases completas | 621/712 · 87,22% |
+| Funciones reconstruidas | 7.545/8.080 · 93,38% |
+| Funciones validadas, vigencia confirmada | 0/8.080 · 0,00%; 34 evidencias históricas; revisión de vigencia pendiente |
 | Dependencias de funciones originales eliminadas | No medido; requiere auditoría de llamadas y dependencias |
 
-Quedan 529 entradas pendientes, 87 clases incompletas y 619 locks. Las 7.395 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
+Quedan 535 entradas pendientes, 91 clases incompletas y 625 locks. Las 7.455 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
+
+### Auditoría del catálogo de hooks
+
+La coherencia entre código y catálogo se comprueba con:
+
+```powershell
+python contrib/audit_hook_catalog.py --strict
+```
+
+Para ver además owners inactivos, registros indirectos y aliases informativos:
+
+```powershell
+python contrib/audit_hook_catalog.py --strict --verbose
+```
+
+El modo estricto falla únicamente ante inconsistencias del registro activo. Los hooks presentes en fuente pero deliberadamente no registrados se muestran sólo como información y no se añaden automáticamente a los porcentajes.
 
 ### Reconstrucciones recientes con evidencia local
 
@@ -59,9 +75,9 @@ Las comparaciones corresponden al alcance descrito en cada README, no necesariam
 | `CScripted2dEffects` | 5/5 | 256 | [Alcance y resultados](reversing/CScripted2dEffects/README.md) |
 | `CTaskComplexUseClosestFreeScriptedAttractorSprint` | 4/4 | 4,096 | [Alcance y resultados](reversing/CTaskComplexUseClosestFreeScriptedAttractorSprint/README.md) |
 
-**Últimos desbloqueos:** [DataStream y TrackEntity](reversing/UnlockBatch2/README.md), diez candados retirados tras 15.360 pares y 64 combinaciones de DataStream. CSV y catálogos sincronizados: quedan **620 candados** en el registro. Los 86 restantes del lote solicitado se aplazan; sus borradores se conservan fuera de la compilación. ASI normal instalado en la copia de pruebas: inicio al menú y 30 segundos de integración sin exclusiones comprobados; los avisos históricos y los límites constan en el informe.
+**Últimos desbloqueos:** [DataStream y TrackEntity](reversing/UnlockBatch2/README.md), diez candados retirados tras 15.360 pares y 64 combinaciones de DataStream. CSV y catálogos sincronizados. Tras ampliar el catálogo con los owners activos que faltaban, quedan **625 candados** en el registro vigente. Los 86 restantes del lote solicitado se aplazan; sus borradores se conservan fuera de la compilación. ASI normal instalado en la copia de pruebas: inicio al menú y 30 segundos de integración sin exclusiones comprobados; los avisos históricos y los límites constan en el informe.
 
-**Última corrección:** [aviso de pivote IK y datos incompletos](reversing/IKDataWarnings/README.md): 131 pares de cadenas contra el original, tablas de clima y grupos de coches coincidentes con los datos reparados. Integración normal: 121,16 s y 3.605 fotogramas sin los avisos comprobados. Se conserva la reparación de [peatones](reversing/FallenPeds/README.md), la reserva de [CEntryExit](reversing/CEntryExitPool/README.md) de 512 plazas, las partidas, el inicio normal y los 85 bloqueos aplazados.
+**Última corrección:** [aviso de pivote IK y datos incompletos](reversing/IKDataWarnings/README.md): 131 pares de cadenas contra el original, tablas de clima y grupos de coches coincidentes con los datos reparados. Integración normal: 121,16 s y 3.605 fotogramas sin los avisos comprobados. Se conserva la reparación de [peatones](reversing/FallenPeds/README.md), la reserva de [CEntryExit](reversing/CEntryExitPool/README.md) de 512 plazas, las partidas, el inicio normal y los 86 bloqueos aplazados.
 
 **Última comprobación:** [recuperación natural del ratón](reversing/MouseRecovery/README.md). Tras fallar con la ventana oculta y sin foco, Acquire y la lectura tienen éxito a los 1,485 segundos; 120 actualizaciones válidas. Sin cambio del ASI normal. Revisados los Markdown propios y actualizadas las referencias vigentes, manteniendo la evidencia histórica.
 
