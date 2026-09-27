@@ -6,6 +6,13 @@
 #include "InteriorObject.h"
 #include "InteriorEffectInfo_t.h"
 
+/**
+ * Gestor de interiores dinámicos generados a partir de efectos 2DFX del mundo.
+ *
+ * Mantiene pools fijos de Interior_c e InteriorGroup_c, activa sólo los efectos
+ * próximos/visibles, relaciona peatones y objetos robables con su interior y evita
+ * asignaciones continuas devolviendo estructuras a listas libres al dejar de usarse.
+ */
 class InteriorManager_c {
 public:
     static void InjectHooks();
@@ -27,27 +34,27 @@ public:
     /*!
     * @addr 0x5984B0
     * 
-    * Add an interior to the free list
+    * Devuelve un Interior_c a la lista libre; no destruye su almacenamiento.
     */
     void ReturnInteriorToPool(Interior_c* interior);
 
     /*!
     * @addr 0x5984A0
-    * @returns An interior from the free list
+    * @returns Una entrada libre del pool, o nullptr si no quedan disponibles.
     */
     Interior_c* GetInteriorFromPool();
 
     /*!
     * @addr 0x5983D0
     *
-    * @returns The interior the point `pt` lies within or `null`
+    * @returns El Interior_c que contiene pt, o nullptr si ninguno lo contiene.
     */
     Interior_c* GetVectorsInterior(const CVector& pt);
 
     /*!
     * @addr 0x598620
     *
-    * @returns The interior the ped (it's position) is within, or null
+    * @returns El Interior_c que contiene la posición del ped, o nullptr.
     */
     Interior_c* GetPedsInterior(const CPed* ped);
 
@@ -65,9 +72,9 @@ public:
     auto GetObjects() const { return m_Objects | rng::views::take(m_ObjectCount); }
 
 private:
-    Interior_c               m_Interiors[8]{};               // 0x0
+    Interior_c               m_Interiors[8]{};               // Store fijo del pool de interiores.               // 0x0
     TList_c<Interior_c>      m_InteriorPool{};               // 0x3CA0
-    InteriorGroup_c          m_InteriorGroups[8]{};          // 0x3CAC
+    InteriorGroup_c          m_InteriorGroups[8]{};          // Store fijo de grupos de interior.          // 0x3CAC
     TList_c<InteriorGroup_c> m_InteriorGroupList{};          // 0x428C
     TList_c<InteriorGroup_c> m_InteriorGroupPool{};          // 0x4298
     size_t                   m_InteriorCount{};              // 0x42A4
