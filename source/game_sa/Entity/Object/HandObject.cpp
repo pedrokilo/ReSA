@@ -18,6 +18,9 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 
+/**
+ * Registra sincronización, pre-render y render de objetos adheridos a la mano de un ped.
+ */
 void CHandObject::InjectHooks()
 {
     RH_ScopedVirtualClass(CHandObject, 0x866EE0, 23);
@@ -28,6 +31,10 @@ void CHandObject::InjectHooks()
     RH_ScopedVMTInstall(Render, 0x59EE80);
 }
 
+/**
+ * Configura el objeto decorativo, selecciona antebrazo izquierdo/derecho y reutiliza
+ * una textura del TXD del ped para el material del hand object.
+ */
 CHandObject::CHandObject(int32 handModelIndex, CPed* ped, bool bLeftHand) : CObject()
 {
     auto* animHierarchy = GetAnimHierarchyFromSkinClump(ped->GetRpClump());
@@ -61,6 +68,7 @@ CHandObject::CHandObject(int32 handModelIndex, CPed* ped, bool bLeftHand) : CObj
 }
 
 // 0x59EC40
+// Copia la matriz world del bone objetivo y actualiza la pertenencia espacial del objeto.
 void CHandObject::ProcessControl()
 {
     auto* animHierarchy = GetAnimHierarchyFromSkinClump(m_pPed->GetRpClump());
@@ -73,6 +81,10 @@ void CHandObject::ProcessControl()
 }
 
 // 0x59ECD0
+/**
+ * Fuerza actualización HAnim del ped, adopta la matriz del bone y neutraliza matrices
+ * descendientes cuando corresponde antes de sincronizar el clump del objeto.
+ */
 void CHandObject::PreRender()
 {
     auto* animHierarchy = GetAnimHierarchyFromSkinClump(m_pPed->GetRpClump());
@@ -112,6 +124,7 @@ void CHandObject::PreRender()
 }
 
 // 0x59EE80
+// Sustituye la textura del primer material por la seleccionada del ped y delega el render.
 void CHandObject::Render()
 {
     auto* firstAtomic = GetFirstAtomic(GetRpClump());
