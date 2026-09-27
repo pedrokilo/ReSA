@@ -502,9 +502,9 @@ Petición: comprobar el fallo inicial de adquisición del ratón y actualizar to
 
 **Aplazados sin cambios:** CCollision 59, CFileMgr 13, GangLeader 11, Game 3: 86 bloqueos. No aplicar `UnlockBatch2/deferred-filemgr-game.patch` sin petición. RpAnimBlend 43/43; CEntryExit 512 plazas, 1.854 comprobaciones (1.833 resultados normalizados iguales y 21 diferencias esperadas FIX_BUGS). Sin apagado.
 
-<a id="continuidad-vigente"></a>
+<a id="continuidad-independencia-20260923"></a>
 
-## Continuidad vigente: objetivo de independencia del ejecutable (2026-09-23)
+## Continuidad histórica: objetivo de independencia del ejecutable (2026-09-23)
 
 Petición documental: orientar PGTASA hacia una reconstrucción completa, funcionalmente equivalente y validada, reduciendo hasta eliminar la dependencia de funciones originales; después, construir un ejecutable propio. La [hoja de ruta](../docs/ProjectRoadmap.md) define el orden y los criterios. Sustituye el 100% del Markdown como objetivo final; no invalida los bancos anteriores.
 
@@ -585,3 +585,37 @@ FastLoader admite SaveGameToLoad=0 para partida nueva. Las pruebas lo activan te
 ASI normal en bin/Debug y copia de pruebas: b132855e4c96c1a02824b91569de158848a723718059962d5b83f91e02c5f980. PDB: 7fbdff7c8c62a74cdd266cb3898bf8f2160b41ff36fdc14687d8b4ba22751750. Reproducir con ShutdownLists/build_isolated.py: excluye los dos candidatos CustomBuilding y el cambio local de Climb, restaurados por bytes. Incluye GetTaskType ya entregado. El manifiesto identifica las fuentes exactas y el resumen el respaldo anterior. No usar la compilación aislada histórica de GangLeader para esta entrega: aquella excluía Game/Cover.
 
 Se conservan 619 locks y los 85 aplazados de clases completas; no se alteraron CSV, catálogo ni acreditaciones en esta corrección. Rama PGTASA, HEAD aef6bcbf051d0370cc6ed68e8d9809e0b7bb8d51, cambios anteriores preservados. Sin commit, push ni apagado.
+
+
+<a id="continuidad-vigente"></a>
+
+## Continuidad vigente: auditoría y sincronización del catálogo (2026-09-26)
+
+Se auditó de forma bidireccional el registro de hooks de `PGTASA` para detectar owners activos presentes en fuente pero ausentes de `docs/hooks.csv`, registros indirectos, scopes sin instalaciones y código de hooks deliberadamente inactivo. La primera comparación sobreestimó candidatos porque incluía llamadas comentadas; el auditor se corrigió para eliminar comentarios antes del análisis y distinguir registro directo, indirecto, inactivo y aliases/namespaces.
+
+Estado vigente del catálogo:
+
+- **712 clases/grupos**.
+- **8.080 entradas** registradas.
+- **7.545 reconstruidas** (93,38%).
+- **535 pendientes**.
+- **621 clases completas**, **88 parciales** y **3 sin revertir**.
+- **625 entradas bloqueadas** y **7.455 sin bloqueo**.
+- **91 clases incompletas**.
+- 34 funciones con evidencia histórica vinculada; 0 con vigencia acreditada para el árbol actual en el registro consolidado.
+
+La comprobación local vigente es:
+
+```powershell
+python contrib/audit_hook_catalog.py --strict
+```
+
+Resultado actual: **OK**. Las cuatro comprobaciones críticas están en cero: hooks activos fuera del CSV, registros indirectos activos ausentes, entradas del CSV sin scope fuente y llamadas directas con instalaciones propias sin owner catalogado. El modo `--strict --verbose` muestra además owners inactivos, registros indirectos catalogados y aliases informativos sin convertirlos en progreso activo.
+
+La auditoría incorporó al catálogo owners activos que antes no estaban reflejados, entre ellos las clases del subsistema Conversations y varias tareas de Interior. El estado de Conversations queda separado correctamente: `CConversations` 11/11, `CConversationNode` 1/1, `CPedToPlayerConversations` 2/3 y `CConversationForPed` 0/2. Por tanto, el antiguo 11/11 nunca debe interpretarse como cobertura completa del subsistema.
+
+También se añadió `contrib/audit_hook_catalog.py`, se documentó en `docs/HookRegistration.md` y se creó un workflow independiente de auditoría. Los workflows de build/progreso se ajustaron para usar `windows-2025` en repositorios privados y el de progreso queda preparado para sincronizar `hooks.csv`, `ReversedClasses.md` y `ValidationInventory.md`. La auditoría local estricta es la referencia inmediata cuando GitHub Actions no llega a ejecutar pasos.
+
+Documentación sincronizada en este corte: README principal, hoja de ruta, panel de progreso, prioridades, inventario y registro de validación, guía de hooks, índice de pruebas, plan histórico contextualizado y README del subsistema Conversations. Los informes de bancos anteriores conservan sus cifras originales como evidencia histórica y enlazan al estado vigente cuando procede; no se reescriben resultados, hashes ni conteos pertenecientes a una entrega pasada.
+
+No se afirma independencia del EXE ni estabilidad general. El crecimiento del catálogo cambia denominadores de progreso, no invalida pruebas anteriores. Los 86 bloqueos aplazados de la campaña documentada siguen siendo una cola histórica concreta y no deben confundirse con los 625 locks globales del catálogo vigente.
