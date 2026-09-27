@@ -20,6 +20,12 @@ struct tPedColNodeInfo {
     float   m_fRadius;
 };
 
+/**
+ * Model info de peatones con metadatos de IA/audio y colisión de impactos por bones.
+ *
+ * m_pHitColModel es propiedad de esta instancia y se recalcula sobre la pose del
+ * clump para aproximar las zonas corporales mediante esferas.
+ */
 class NOTSA_EXPORT_VTABLE CPedModelInfo : public CClumpModelInfo {
 public:
     AssocGroupId       m_nAnimType;
@@ -27,14 +33,14 @@ public:
     ePedStats          m_nStatType;
     uint16             m_nCarsCanDriveMask; //< Bitset of vehicle classes ped can drive. To check if it can drive a given class check if the bit is set (eg.: & (1 << eVehicleClass))
     uint16             m_nPedFlags;
-    CColModel*         m_pHitColModel;
+    CColModel*         m_pHitColModel; //!< Colisión corporal animada propiedad del model info.
     eRadioID           m_nRadio1;
     eRadioID           m_nRadio2;
     uint8              m_nRace; // See `ePedRace` - TODO: Maybe we can change this? Check if `ePedRace` can be made 1 byte.
     eAudioPedType      m_nPedAudioType;
-    ePedSpeechVoiceS16 m_nVoiceMin; // Also called voice1
-    ePedSpeechVoiceS16 m_nVoiceMax; // Also called voice2
-    ePedSpeechVoiceS16 m_nVoiceId;  // In `LoadPedObject` this is set to be the same as `m_nVoiceMin` (Which doesn't mean it will always be the same)
+    ePedSpeechVoiceS16 m_nVoiceMin; // Primer ID permitido del rango de voz. // Also called voice1
+    ePedSpeechVoiceS16 m_nVoiceMax; // Último ID permitido del rango de voz. // Also called voice2
+    ePedSpeechVoiceS16 m_nVoiceId;  // Voz actual seleccionada dentro del rango.  // In `LoadPedObject` this is set to be the same as `m_nVoiceMin` (Which doesn't mean it will always be the same)
 
     static constexpr int32 NUM_PED_NAME_ID_ASSOC = 13;
     static constexpr int32 NUM_PED_COL_NODE_INFOS = 12;
