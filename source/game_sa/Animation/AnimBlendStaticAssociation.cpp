@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "AnimBlendStaticAssociation.h"
 
+/**
+ * Registra el ciclo de vida de las asociaciones estáticas de animación.
+ */
 void CAnimBlendStaticAssociation::InjectHooks() {
     RH_ScopedVirtualClass(CAnimBlendStaticAssociation, 0x85C6CC, 1);
     RH_ScopedCategory("Animation");
@@ -44,6 +47,13 @@ CAnimBlendStaticAssociation::~CAnimBlendStaticAssociation() {
 }
 
 // 0x4CEC20
+/**
+ * Construye el mapa frame-del-clump -> CAnimBlendSequence.
+ *
+ * Para cada secuencia busca el bone/frame correspondiente por tag o hash y guarda
+ * un puntero en el índice equivalente del clump. No copia las secuencias ni toma
+ * ownership de la jerarquía.
+ */
 void CAnimBlendStaticAssociation::Init(RpClump* clump, CAnimBlendHierarchy* h) {
     m_BlendHier = h;
 
@@ -75,6 +85,7 @@ void CAnimBlendStaticAssociation::Init(RpClump* clump, CAnimBlendHierarchy* h) {
 }
 
 // 0x4CE960
+// Reserva el array de punteros por nodo y lo inicializa a nullptr.
 void CAnimBlendStaticAssociation::AllocateSequenceArray(int32 count) {
     m_BlendSeqs = (CAnimBlendSequence**)CMemoryMgr::Malloc(sizeof(CAnimBlendSequence*) * count);
     for (auto& array : std::span{ m_BlendSeqs, (size_t)count }) {
@@ -83,6 +94,7 @@ void CAnimBlendStaticAssociation::AllocateSequenceArray(int32 count) {
 }
 
 // 0x4CE9A0
+// Libera únicamente el mapa de punteros; las secuencias pertenecen a la jerarquía.
 void CAnimBlendStaticAssociation::FreeSequenceArray() {
     if (m_BlendSeqs) {
         CMemoryMgr::Free(m_BlendSeqs);
