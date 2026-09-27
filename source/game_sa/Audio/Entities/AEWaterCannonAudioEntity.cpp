@@ -33,6 +33,7 @@ CAEWaterCannonAudioEntity::~CAEWaterCannonAudioEntity() {
 }
 
 // 0x503060
+// Vincula el CWaterCannon como entidad fuente y reinicia la información de splash.
 void CAEWaterCannonAudioEntity::Initialise(CWaterCannon* waterCannon) {
     m_Entity = reinterpret_cast<CEntity*>(waterCannon); // bruh
     ClearSplashInfo();
@@ -85,6 +86,10 @@ void CAEWaterCannonAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayP
 }
 
 // 0x502F80
+/**
+ * Mantiene una de las cuatro capas: actualiza una CAESound existente, la crea si
+ * pasa a estar activa o solicita su parada cuando la condición desaparece.
+ */
 void CAEWaterCannonAudioEntity::UpdateGenericWaterCannonSound(bool splashInfoEnabled, int16 id, eSoundBankSlot bankSlotId, int16 sfxId, float speed, float volume, CVector pos, float rollOff) {
     auto& sound = m_Sounds[id];
     if (splashInfoEnabled) {
@@ -114,6 +119,7 @@ void CAEWaterCannonAudioEntity::UpdateGenericWaterCannonSound(bool splashInfoEna
 }
 
 // 0x5030D0
+// Deriva las cuatro capas audibles desde el último tramo del cañón y el splash informado.
 void CAEWaterCannonAudioEntity::Service() {
     const auto speed0 = +1.78f;
     const auto speed1 = +0.50f;
@@ -145,6 +151,9 @@ void CAEWaterCannonAudioEntity::Service() {
     UpdateGenericWaterCannonSound(m_bSplashInfoEnabled, 3, SND_BANK_SLOT_COLLISIONS,    3, speed3, volume3, m_vecPosn,        2.0f);
 }
 
+/**
+ * Registra el audio multicapa del water cannon.
+ */
 void CAEWaterCannonAudioEntity::InjectHooks() {
     RH_ScopedVirtualClass(CAEWaterCannonAudioEntity, 0x872A60, 1);
     RH_ScopedCategory("Audio/Entities");
