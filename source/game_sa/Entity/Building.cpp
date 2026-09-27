@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "Building.h"
 
+/**
+ * Registra las operaciones específicas de edificios estáticos y su pool.
+ */
 void CBuilding::InjectHooks()
 {
     RH_ScopedVirtualClass(CBuilding, 0x8585C8, 22);
@@ -35,6 +38,7 @@ CBuilding::CBuilding() : CEntity()
     SetUsesCollision(true);
 }
 
+// Los edificios se asignan exclusivamente desde CBuildingPool.
 void* CBuilding::operator new(unsigned size)
 {
     return GetBuildingPool()->New();
@@ -45,6 +49,12 @@ void CBuilding::operator delete(void* data)
     GetBuildingPool()->Delete(static_cast<CBuilding*>(data));
 }
 
+/**
+ * Elimina el recurso RenderWare actual y cambia el model index.
+ *
+ * Si el modelo anterior ya no tiene referencias solicita a streaming que libere
+ * también sus recursos compartidos.
+ */
 void CBuilding::ReplaceWithNewModel(int32 newModelIndex)
 {
     DeleteRwObject();
