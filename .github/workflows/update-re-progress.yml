@@ -8,6 +8,9 @@ on:
      paths:
        - 'source/**'
        - 'contrib/hooks2md.py'
+       - 'contrib/sync_validated_flags.py'
+       - 'contrib/validation_registry.py'
+       - 'reversing/validation-registry.json'
        - '.github/**'
 
 concurrency:
@@ -77,6 +80,7 @@ jobs:
         shell: bash
         run: |
           ./bin/Debug/gta_reversed.exe --dump-hooks-to=docs/hooks.csv
+          python contrib/sync_validated_flags.py
           echo "::group::Standalone logs (logs/log.log)"
           cat logs/log.log
           echo "::endgroup::"
