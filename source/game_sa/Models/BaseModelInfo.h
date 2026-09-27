@@ -78,12 +78,18 @@ class CVehicleModelInfo;
 class CWeaponModelInfo;
 struct RwObject;
 
-// originally an abstract class
+/**
+ * Base polimórfica de todos los model infos del juego.
+ *
+ * Centraliza referencias de TXD, colisión, 2DFX, distancia de dibujo y flags comunes.
+ * m_pRwObject apunta al recurso RenderWare base administrado por la subclase concreta;
+ * las instancias del mundo se crean mediante CreateInstance().
+ */
 class NOTSA_EXPORT_VTABLE CBaseModelInfo {
 public:
-    uint32 m_nKey;
-    uint16 m_nRefCount;
-    int16  m_nTxdIndex;
+    uint32 m_nKey;      //!< Hash uppercase del nombre del modelo.
+    uint16 m_nRefCount; //!< Referencias activas al recurso compartido.
+    int16  m_nTxdIndex; //!< Slot de CTxdStore asociado, o -1.
     uint8  m_nAlpha;
     uint8  m_n2dfxCount;
     int16  m_n2dEffectIndex;
@@ -132,11 +138,11 @@ public:
         };
     };
 
-    CColModel* m_pColModel;     // 20
-    float      m_fDrawDistance; // 24
+    CColModel* m_pColModel;     //!< Colisión asociada; ownership depende de los flags.
+    float      m_fDrawDistance; //!< Distancia base de render antes del multiplicador de cámara.
 
 protected:
-    RwObject* m_pRwObject; //< Use GetRpClump()/GetRpAtomic() to access
+    RwObject* m_pRwObject; //!< Recurso base compartido; acceder mediante GetRpClump()/GetRpAtomic().
 
 public:
     CBaseModelInfo();
@@ -161,13 +167,14 @@ public:
     void ClearTexDictionary();
     void AddTexDictionaryRef();
     void RemoveTexDictionaryRef();
+    // Mantienen sincronizados el contador del model info y las referencias del TXD.
     void AddRef();
     void RemoveRef();
-    // initPairedModel defines if we need to set col model for time model
+    // Puede compartir la colisión con la variante horaria emparejada.
     void SetColModel(CColModel* colModel, bool bIsLodModel = false);
     void Init2dEffects();
     void DeleteCollisionModel();
-    // index is a number of effect (max number is (m_n2dfxCount - 1))
+    // Combina efectos del store global y efectos embebidos en la geometría.
     C2dEffect* Get2dEffect(int32 index) const; // todo: change ret type to `C2dEffectBase*`
     auto Get2dEffects() {
         return rng::views::iota(m_n2dfxCount) | rng::views::transform([this](size_t i) {
