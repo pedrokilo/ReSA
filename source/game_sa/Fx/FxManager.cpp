@@ -35,6 +35,9 @@ END GENERATED HOOK STATUS */
 
 auto& g_fxMan = StaticRef<FxManager_c>(0xA9AE80);
 
+/**
+ * Registra el ciclo de vida global, carga de proyectos y creación de FxSystem_c.
+ */
 void FxManager_c::InjectHooks() {
     RH_ScopedClass(FxManager_c);
     RH_ScopedCategory("Fx");
@@ -82,6 +85,10 @@ FxManager_c* FxManager_c::Destructor() {
 }
 
 // 0x4A98E0
+/**
+ * Inicializa la arena, el pequeño pool temporal de matrices y las 1000 partículas
+ * emitter preasignadas que se mantienen en la lista libre.
+ */
 bool FxManager_c::Init() {
     m_Pool.Init();
 
@@ -99,6 +106,7 @@ bool FxManager_c::Init() {
 }
 
 // 0x4A9A10
+// Destruye sistemas activos, libera TXD/matrices y finalmente cierra la arena FX.
 void FxManager_c::Exit() {
     DestroyAllFxSystems();
     m_FxSystemBPs.RemoveAll();
@@ -110,6 +118,10 @@ void FxManager_c::Exit() {
 }
 
 // 0x4A9810
+/**
+ * Devuelve al pool todas las partículas pertenecientes al sistema antes de retirarlo
+ * de la lista activa y destruir su instancia.
+ */
 void FxManager_c::DestroyFxSystem(FxSystem_c* system) {
     assert(system);
     assert(system->m_SystemBP);
@@ -143,6 +155,10 @@ void FxManager_c::DestroyAllFxSystems() {
 }
 
 // 0x5C2420
+/**
+ * Carga el TXD complementario y parsea todos los FxSystemBP_c de un proyecto .fxp.
+ * Al terminar compacta la arena al tamaño realmente utilizado por los blueprints.
+ */
 bool FxManager_c::LoadFxProject(const char* path) {
     char txdPath[256]; // to be set to "models\\effectsPC.txd"
     strcpy(txdPath, path);
@@ -228,6 +244,7 @@ FxSystemBP_c* FxManager_c::FindFxSystemBP(const char* name) {
 }
 
 // 0x4A9140
+// Deriva una esfera envolvente y cuatro planos laterales desde la cámara actual.
 void FxManager_c::CalcFrustumInfo(RwCamera* camera) {
     const auto* matrix     = RwFrameGetMatrix(RwCameraGetFrame(camera));
     const auto* viewWindow = RwCameraGetViewWindow(camera);
@@ -246,6 +263,10 @@ void FxManager_c::CalcFrustumInfo(RwCamera* camera) {
 }
 
 // 0x4A9A80
+/**
+ * Actualiza blueprints y sistemas activos; si un FxSystem_c informa fin de vida,
+ * se destruye durante el mismo recorrido sin reutilizar el iterador invalidado.
+ */
 void FxManager_c::Update(RwCamera* camera, float timeDelta) {
     // ((void(__thiscall*)(FxManager_c*, RwCamera*, float))0x4A9A80)(this, camera, timeDelta);
 
@@ -266,6 +287,7 @@ void FxManager_c::Update(RwCamera* camera, float timeDelta) {
 }
 
 // 0x4A92A0
+// Configura estados RenderWare comunes y renderiza todos los blueprints activos.
 void FxManager_c::Render(RwCamera* camera, bool bHeatHaze) {
     // ((void(__thiscall*)(FxManager_c*, RwCamera*, uint8))0x4A92A0)(this, camera, bHeatHaze);
 
@@ -294,6 +316,7 @@ Particle_c* FxManager_c::GetParticle(int8 primType) {
 }
 
 // 0x4A9400
+// Recupera una partícula forzando a un sistema no crítico a liberar una de las suyas.
 void FxManager_c::FreeUpParticle() {
     // ((void(__thiscall*)(FxManager_c*))0x4A9400)(this);
 
@@ -353,6 +376,7 @@ FxSystem_c* FxManager_c::CreateFxSystem(FxSystemBP_c* systemBP, const CVector& p
 }
 
 // 0x4A9500
+// Transforma el bound del blueprint y lo enfrenta al frustum salvo que se omita el culling.
 bool FxManager_c::ShouldCreate(FxSystemBP_c* system, const RwMatrix& transform, RwMatrix* objectMatrix, bool ignoreBoundingChecks) {
     if (ignoreBoundingChecks)
         return true;
