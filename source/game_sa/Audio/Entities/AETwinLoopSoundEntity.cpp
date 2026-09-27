@@ -53,6 +53,7 @@ CAETwinLoopSoundEntity::~CAETwinLoopSoundEntity() {
 }
 
 // 0x4F28A0
+// Reconstruye la configuración sólo cuando la instancia no está actualmente en uso.
 void CAETwinLoopSoundEntity::Initialise(
     eSoundBankSlot  bank,
     eSoundID        soundA,
@@ -78,6 +79,7 @@ void CAETwinLoopSoundEntity::Initialise(
 }
 
 // 0x4F29A0
+// Mantiene posición/velocidad de ambas voces, pero sólo modifica volumen de la activa.
 void CAETwinLoopSoundEntity::UpdateTwinLoopSound(CVector pos, float volume, float speed) {
     for (auto&& [i, sound] : rngv::enumerate(m_Sounds)) {
         if (!sound) {
@@ -92,6 +94,10 @@ void CAETwinLoopSoundEntity::UpdateTwinLoopSound(CVector pos, float volume, floa
 }
 
 // 0x4F2E90
+/**
+ * Recibe callbacks de las dos CAESound: limpia punteros al terminar y evalúa si
+ * corresponde intercambiar cuál de las voces permanece audible.
+ */
 void CAETwinLoopSoundEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) {
     if (curPlayPos == -1) {
         for (auto*& s : m_Sounds) {
@@ -108,6 +114,7 @@ void CAETwinLoopSoundEntity::UpdateParameters(CAESound* sound, int16 curPlayPos)
 }
 
 // 0x4F2C10
+// Transfiere el volumen de la voz activa a la muda y programa el próximo cambio.
 void CAETwinLoopSoundEntity::SwapSounds() {
     auto* curr = m_Sounds[m_IsPlayingFirstSound ? 0 : 1];
     auto* next = m_Sounds[m_IsPlayingFirstSound ? 1 : 0];
@@ -166,6 +173,12 @@ bool CAETwinLoopSoundEntity::DoSoundsSwitchThisFrame() const {
 }
 
 // 0x4F2CB0
+/**
+ * Crea simultáneamente las dos voces en el mismo bank slot.
+ *
+ * La primera arranca audible y la segunda a -100 dB; ambas solicitan callbacks para
+ * que la entidad pueda mantener el intercambio temporal sin reiniciar los loops.
+ */
 void CAETwinLoopSoundEntity::PlayTwinLoopSound(CVector pos, float volume, float speed, float rollOffFactor, float doppler, eSoundEnvironment flags) {
     assert(m_IsInUse && "Must initialize sound first using `Initialise()`");
 
@@ -192,10 +205,14 @@ void CAETwinLoopSoundEntity::PlayTwinLoopSound(CVector pos, float volume, float 
     ReCalculateSwapTime();
 }
 
+// El siguiente intercambio usa reloj de pausa y un intervalo aleatorio configurado.
 void CAETwinLoopSoundEntity::ReCalculateSwapTime() {
     m_TimeToSwapSoundsMs = CTimer::GetTimeInMSPauseMode() + CAEAudioUtility::GetRandomNumberInRange(m_SwapTimeMin, m_SwapTimeMax);
 }
 
+/**
+ * Registra el controlador de loops gemelos y su callback de actualización.
+ */
 void CAETwinLoopSoundEntity::InjectHooks() {
     RH_ScopedVirtualClass(CAETwinLoopSoundEntity, 0x85F438, 1);
     RH_ScopedCategory("Audio/Entities");
