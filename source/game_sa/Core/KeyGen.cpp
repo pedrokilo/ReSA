@@ -26,6 +26,12 @@ END GENERATED HOOK STATUS */
 
 #include "KeyGen.h"
 
+/**
+ * Registra los hooks de las rutinas de generación de claves CRC usadas por el juego.
+ *
+ * Los cuerpos reales de las funciones son constexpr y viven en KeyGen.h; aquí sólo
+ * se asocian esas implementaciones con las direcciones conocidas del ejecutable.
+ */
 void CKeyGen::InjectHooks() {
     RH_ScopedClass(CKeyGen);
     RH_ScopedCategory("Core");
