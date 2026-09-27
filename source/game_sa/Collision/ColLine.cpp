@@ -21,6 +21,9 @@ END GENERATED HOOK STATUS */
 #include "ColLine.h"
 #include "Lines.h"
 
+/**
+ * Registra la operación de inicialización de segmentos de colisión.
+ */
 void CColLine::InjectHooks() {
     RH_ScopedClass(CColLine);
     RH_ScopedCategory("Collision");
@@ -29,23 +32,27 @@ void CColLine::InjectHooks() {
 }
 
 // 0x40EF50
+// Inicializa los extremos geométricos del segmento.
 CColLine::CColLine(const CVector& start, const CVector& end) {
     m_vecStart = start;
     m_vecEnd = end;
 }
 
 // 0x40EF10
+// Reutiliza la instancia sustituyendo ambos extremos del segmento.
 void CColLine::Set(const CVector& start, const CVector& end) {
     m_vecStart = start;
     m_vecEnd = end;
 }
 
 // NOTSA
+// Delega el cálculo geométrico común a CCollision::DistToLine().
 float CColLine::DistTo(CVector pt) const {
     return CCollision::DistToLine(m_vecStart, m_vecEnd, pt);
 }
 
 // NOTSA
+// Dibuja el segmento transformado sin clipping como ayuda de depuración.
 void CColLine::DrawWireFrame(CRGBA color, const CMatrix& transform) const {
     const auto colorARGB = color.ToIntARGB();
     CLines::RenderLineNoClipping(transform.TransformPoint(m_vecStart), transform.TransformPoint(m_vecEnd), colorARGB, colorARGB);
