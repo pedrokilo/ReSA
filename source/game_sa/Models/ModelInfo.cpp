@@ -39,6 +39,9 @@ auto& CModelInfo::ms_vehicleModelInfoStore = StaticRef<CStore<CVehicleModelInfo,
 auto& CModelInfo::ms_pedModelInfoStore = StaticRef<CStore<CPedModelInfo, NUM_PED_MODEL_INFOS>>(0xB478F8);
 auto& CModelInfo::ms_2dFXInfoStore = StaticRef<CStore<C2dEffect, NUM_2DFX_INFOS>>(0xB4C2D8);
 
+/**
+ * Registra las operaciones del catálogo global de model infos.
+ */
 void CModelInfo::InjectHooks()
 {
     RH_ScopedClass(CModelInfo);
@@ -78,6 +81,7 @@ void CModelInfo::InjectHooks()
 }
 
 // 0x4C63B0
+// Vacía el store global de 2DFX y reinicia el rango registrado por cada model info.
 void CModelInfo::ReInit2dEffects()
 {
     ms_2dFXInfoStore.m_nCount = 0;
@@ -86,6 +90,10 @@ void CModelInfo::ReInit2dEffects()
 }
 
 // 0x4C63E0
+/**
+ * Ejecuta Shutdown() sobre cada store tipado y luego reinicia todos sus contadores.
+ * Los stores son globales/fijos; no se destruyen aquí sus bloques de almacenamiento.
+ */
 void CModelInfo::ShutDown()
 {
     for (uint32 i = 0; i < ms_atomicModelInfoStore.m_nCount; ++i)
@@ -212,6 +220,12 @@ CPedModelInfo* CModelInfo::AddPedModel(int32 index)
 }
 
 // 0x4C6810
+/**
+ * Reinicia el catálogo y crea los model infos temporales usados por piezas de vehículo.
+ *
+ * Estas entradas reutilizan los CTempColModels globales y el TXD generic, sin tomar
+ * ownership de esos modelos de colisión compartidos.
+ */
 void CModelInfo::Initialise() {
     ZoneScoped;
 
@@ -269,6 +283,10 @@ void CModelInfo::Initialise() {
 }
 
 // 0x4C5940
+/**
+ * Busca por hash uppercase utilizando ms_lastPositionSearched como punto de inicio.
+ * La posición se conserva para acelerar búsquedas consecutivas durante la carga.
+ */
 CBaseModelInfo* CModelInfo::GetModelInfo(const char* name, int32* index)
 {
     auto iKey = CKeyGen::GetUppercaseKey(name);
