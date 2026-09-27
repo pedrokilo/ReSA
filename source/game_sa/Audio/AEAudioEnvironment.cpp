@@ -23,6 +23,9 @@ auto& gAudioZoneToReverbEnvironmentMap = StaticRef<sReverbEnvironment[NUM_AUDIO_
 
 #include "data/SoundAttenuationTable.h"
 
+/**
+ * Registra las utilidades que convierten posición, distancia y entorno en parámetros de audio 3D.
+ */
 void CAEAudioEnvironment::InjectHooks() {
     RH_ScopedClass(CAEAudioEnvironment);
     RH_ScopedCategory("Audio");
@@ -36,6 +39,12 @@ void CAEAudioEnvironment::InjectHooks() {
 }
 
 // 0x4D7E40
+/**
+ * Calcula el factor Doppler a partir del cambio de distancia entre dos muestras.
+ *
+ * Cambios de cámara, intervalos inválidos o velocidades físicas extremas devuelven
+ * un factor neutro para evitar saltos audibles.
+ */
 float CAEAudioEnvironment::GetDopplerRelativeFrequency(float prevDist, float curDist, uint32 prevTime, uint32 curTime, float dopplerScale) {
     if (TheCamera.Get_Just_Switched_Status()) {
         return 1.0F;
@@ -55,6 +64,7 @@ float CAEAudioEnvironment::GetDopplerRelativeFrequency(float prevDist, float cur
 }
 
 // 0x4D7F20
+// Consulta la tabla precalculada de atenuación y silencia distancias fuera de rango.
 float CAEAudioEnvironment::GetDistanceAttenuation(float dist) {
     assert(dist >= 0.f);
     return dist < ATTENUATION_TABLE_MAX_DIST
@@ -90,6 +100,9 @@ float CAEAudioEnvironment::GetDirectionalMikeAttenuation(const CVector& soundDir
 }
 
 // 0x4D8010
+/**
+ * Selecciona preset y profundidad de reverb según underwaterness, AudioZones y área.
+ */
 void CAEAudioEnvironment::GetReverbEnvironmentAndDepth(int8* reverbEnv, int32* depth) {
     if (CWeather::UnderWaterness >= 0.5F) {
         *reverbEnv = 22; // todo: EAX_ENVIRONMENT_UNDERWATER
@@ -127,6 +140,12 @@ CVector CAEAudioEnvironment::GetPositionRelativeToCamera(const CVector& pos) {
 }
 
 // 0x4D80B0
+/**
+ * Transforma una posición world al sistema relativo utilizado por el mixer.
+ *
+ * Conserva deliberadamente el comportamiento x87 del ejecutable para mantener
+ * equivalencia numérica en las componentes y en el offset especial de primera persona.
+ */
 void CAEAudioEnvironment::GetPositionRelativeToCamera_Vector(CVector* output, const CVector* pos) {
     if (!pos) {
         return; // The executable leaves the output buffer untouched.
