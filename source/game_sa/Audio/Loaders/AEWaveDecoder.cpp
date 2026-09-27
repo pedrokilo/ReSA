@@ -29,6 +29,12 @@ CAEWaveDecoder::CAEWaveDecoder(CAEDataStream* dataStream) : CAEStreamingDecoder(
 }
 
 // 0x5032b0
+/**
+ * Valida cabecera RIFF/WAVE PCM y localiza el chunk data saltando chunks intermedios.
+ *
+ * Sólo acepta 16 bits mono/estéreo y rechaza streams demasiado cortos para el uso
+ * previsto por el sistema de radio/streaming.
+ */
 bool CAEWaveDecoder::Initialise() {
     // RIFF<size>WAVEfmt<space><WAVEFORMAT><WORD>
     constexpr size_t HEADER_READ_SIZE = 36;
@@ -64,6 +70,10 @@ bool CAEWaveDecoder::Initialise() {
 }
 
 // 0x5032a0
+/**
+ * Entrega PCM estéreo. Los WAV mono se leen a mitad de tamaño y cada sample se duplica
+ * en ambos canales; los estéreo se copian directamente desde CAEDataStream.
+ */
 size_t CAEWaveDecoder::FillBuffer(void* dest, size_t size) {
     switch (channelCount) {
     case 1: {
@@ -109,6 +119,7 @@ long CAEWaveDecoder::GetStreamPlayTimeMs() {
 }
 
 // 0x5033c0
+// Convierte milisegundos a bytes dentro del chunk data y reposiciona el stream fuente.
 void CAEWaveDecoder::SetCursor(unsigned long pos) {
     if (m_bInitialized) {
         // The calculation is exactly in this order!
@@ -136,6 +147,9 @@ void CAEWaveDecoder::Destructor() {
     this->CAEWaveDecoder::~CAEWaveDecoder();
 }
 
+/**
+ * Registra el decoder PCM RIFF/WAVE.
+ */
 void CAEWaveDecoder::InjectHooks() {
     RH_ScopedClass(CAEWaveDecoder);
     RH_ScopedCategory("Audio/Loaders");
