@@ -21,8 +21,20 @@ END GENERATED HOOK STATUS */
 #include "Pool.h"
 #include "CutsceneObject.h"
 
+/**
+ * Pool especializado para objetos normales y objetos de cutscene.
+ *
+ * Hereda la administración de slots, handles y reutilización de memoria de CPool;
+ * esta clase fija el tipo almacenado y conecta sus operaciones con los hooks del juego.
+ * Los objetos obtenidos continúan perteneciendo al pool hasta que se liberan mediante
+ * la interfaz correspondiente de CPool.
+ */
 class CObjectPool : public CPool<CObject, CCutsceneObject> {
 public:
+    /**
+     * Registra las operaciones específicas de CObjectPool en sus direcciones originales.
+     * La lógica común de administración de memoria permanece centralizada en CPool.
+     */
     static void InjectHooks() {
         RH_ScopedClass(CObjectPool);
         RH_ScopedCategory("Pools");
