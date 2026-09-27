@@ -2,7 +2,17 @@
 
 La [hoja de ruta de PGTASA](../docs/ProjectRoadmap.md) sitúa estas pruebas dentro del objetivo de reconstrucción funcionalmente equivalente e independencia del EXE. Reconstrucción, validación, desbloqueo e independencia son dimensiones separadas; el total de pares no es un total de funciones validadas.
 
-La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 34 funciones a sus pruebas; las tres acreditaciones de la versión anterior quedan pendientes por el cambio de huella global de source durante CustomBuilding. Las 34 conservan evidencia histórica por revisar. El [inventario de las 7.485 reconstruidas](../docs/ValidationInventory.md) identifica también las 7.451 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
+La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 34 funciones a sus pruebas; las tres acreditaciones de la versión anterior quedan pendientes por el cambio de huella global de source durante CustomBuilding. Las 34 conservan evidencia histórica por revisar. El [inventario de las 7.545 reconstruidas](../docs/ValidationInventory.md) identifica también las 7.511 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
+
+## Estado actual del catálogo de hooks
+
+El corte vigente de `PGTASA` contiene **712 clases/grupos y 8.080 entradas**: 7.545 reconstruidas y 535 pendientes. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
+
+```powershell
+python contrib/audit_hook_catalog.py --strict
+```
+
+El resultado actual es **OK** en las cuatro comprobaciones críticas. El modo `--verbose` lista además owners inactivos, aliases y registros indirectos; esos elementos informativos no se suman automáticamente al progreso.
 
 Esta carpeta sí se utiliza. Ejecutar `PROBAR.cmd` desde la raíz para elegir una prueba; `PROBAR.cmd --list` muestra los casos disponibles. No se necesita un CMD por función.
 
@@ -10,7 +20,7 @@ Esta carpeta sí se utiliza. Ejecutar `PROBAR.cmd` desde la raíz para elegir un
 
 Esta serie usa las sondas archivadas de cada trabajo. No es una prueba de integración de todos los cambios en una única compilación actual ni sustituye la campaña de estabilidad futura.
 
-- [GangLeader](GangLeader/README.md): GetTaskType desbloqueado tras 24 pares; entrega normal aislada e instalada, diez segundos de men? y hook activo comprobados. Caso `gang-leader-type`; 85 bloqueos restantes aplazados.
+- [GangLeader](GangLeader/README.md): GetTaskType desbloqueado tras 24 pares; entrega normal aislada e instalada, diez segundos de men? y hook activo comprobados. Caso `gang-leader-type`; el lote aplazado documentado conserva 86 bloqueos.
 - `run.py` y `cases.json`: menú y catálogo común.
 - `CVehicle`, `C_PcSave`, `CPlayerPed`, `CPed`, `CWeaponEffects`: pruebas repetibles y evidencia de las funciones trabajadas.
 - `RpAnimBlend`: actualización de animaciones, validada mediante 652 comparaciones dentro del motor.
@@ -28,7 +38,7 @@ Se eliminaron los siete lanzadores específicos de la raíz y tres copias tempor
 
 - `CPed`: 145/145 entradas registradas; banco `cped-completion` con 28.672 pares de las seis ultimas funciones. Consultar su README y validation-summary.json para dependencias controladas y limites.
 
-- CConversations: 11/11; 2.048 pares de DoneSettingUpConversation. Configuracion de tablas y referencias, sin reproduccion de dialogos.
+- `CConversations`: 11/11; 2.048 pares de `DoneSettingUpConversation`. Configuración de tablas y referencias, sin reproducción de diálogos. El subsistema incluye además `CConversationNode` 1/1, `CPedToPlayerConversations` 2/3 y `CConversationForPed` 0/2; consultar [su README](CConversations/README.md).
 - CPedList: 7/7; 4.096 pares de sus cuatro funciones pendientes. Fixtures de grupos/pool y consultas de inteligencia controladas.
 
 - `CPlayerInfo`: tres funciones, 16.896 pares dentro del motor; 28/28 registradas y habilitadas; constructor corregido con otros 4.224 pares. Ver README y validation-summary.json.
