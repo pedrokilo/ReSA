@@ -4,13 +4,19 @@
 
 class CVehicle;
 
+/**
+ * Colección de helpers compartidos por los subsistemas de audio.
+ *
+ * Incluye RNG con semántica específica, interpolación de curvas, conversiones entre
+ * bytes/tiempo, resolución de bancos de script y reloj monotónico relativo.
+ */
 class CAEAudioUtility {
 public:
     static void      StaticInitialise();
 
     /*!
-    * @brief This and CGeneral differs in that this function returns a number [min, max + 1], while
-    * @brief the other [min, max]. To solve this we do `max + 1`
+    * @brief Variante entera que conserva la semántica inclusiva esperada por audio.
+    * Internamente adapta el límite superior a la API de CGeneral.
     */
     template<std::integral T>
     static T GetRandomNumberInRange(T min, T max) {
