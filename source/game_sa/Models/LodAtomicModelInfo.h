@@ -2,10 +2,16 @@
 
 #include "AtomicModelInfo.h"
 
+/**
+ * Variante de CAtomicModelInfo usada como representación LOD de otros modelos.
+ *
+ * Los contadores permiten conocer cuántos hijos dependen de este LOD y cuántos
+ * fueron renderizados en el frame actual.
+ */
 class NOTSA_EXPORT_VTABLE CLodAtomicModelInfo : public CAtomicModelInfo {
 public:
-    int16 m_numChildren;
-    int16 m_numChildrenRendered;
+    int16 m_numChildren;         //!< Número de modelos hijos asociados a este LOD.
+    int16 m_numChildrenRendered; //!< Hijos ya renderizados en el ciclo actual.
 
 public:
     CLodAtomicModelInfo();
