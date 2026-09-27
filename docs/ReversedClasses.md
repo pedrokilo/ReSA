@@ -10,12 +10,12 @@ La [hoja de ruta de PGTASA](ProjectRoadmap.md) define una reconstrucción funcio
 
 | Dimensión | Progreso | Medición |
 | --- | --- | --- |
-| Clases completas | `█████████████████░░░` | 615/704 · 87.36% |
-| Funciones reconstruidas | `███████████████████░` | 7,488/8,020 · 93.37% |
-| Funciones validadas, vigencia confirmada | `░░░░░░░░░░░░░░░░░░░░` | 0/8,020 · 0.00%; inventario parcial |
+| Clases completas | `█████████████████░░░` | 621/712 · 87.22% |
+| Funciones reconstruidas | `███████████████████░` | 7,545/8,080 · 93.38% |
+| Funciones validadas, vigencia confirmada | `░░░░░░░░░░░░░░░░░░░░` | 0/8,080 · 0.00%; inventario parcial |
 | Dependencias de funciones originales eliminadas | Sin barra | No medido; requiere auditoría directa y transitiva |
 
-Hay 8,020 entradas catalogadas, 619 bloqueadas y 7,401 sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente; el número de funciones que usan código original sigue sin medir. No se deducen hooks eliminados del contador de locks.
+Hay 8,080 entradas catalogadas, 625 bloqueadas y 7,455 sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente; el número de funciones que usan código original sigue sin medir. No se deducen hooks eliminados del contador de locks.
 
 **Validación consolidada parcialmente:** 34 funciones con evidencia aprobada vinculada, 0 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md). Esta barra mide acreditación en el registro, no ausencia de pruebas previas ni cobertura exhaustiva.
 
@@ -23,8 +23,8 @@ Hay 8,020 entradas catalogadas, 619 bloqueadas y 7,401 sin bloqueo. No constituy
 
 | Clases completas | Clases parciales | Sin revertir | Funciones revertidas | Funciones pendientes |
 | :---: | :---: | :---: | :---: | :---: |
-| **615 / 704** | **86 / 704** | **3 / 704** | **7,488 / 8,020** | **532** |
-| 87.36% | 12.22% | 0.43% | 93.37% | 6.63% |
+| **621 / 712** | **88 / 712** | **3 / 712** | **7,545 / 8,080** | **535** |
+| 87.22% | 12.36% | 0.42% | 93.38% | 6.62% |
 
 **Ir a:** [Completas](#completas) · [Parciales](#parciales) · [Sin revertir](#sin-revertir) · [Cómo leer y actualizar](#metodo)
 
@@ -32,7 +32,7 @@ Hay 8,020 entradas catalogadas, 619 bloqueadas y 7,401 sin bloqueo. No constituy
 > Estos porcentajes miden entradas registradas como `reversed`, no cobertura de pruebas ni estabilidad del juego. Una clase completa puede conservar hooks bloqueados o funciones todavía no registradas.
 
 <a id="completas"></a>
-## 🟢 Completas · 615 clases
+## 🟢 Completas · 621 clases
 
 Orden alfabético. El número entre paréntesis indica funciones registradas; 🔒 señala que al menos una sigue bloqueada.
 
@@ -249,15 +249,23 @@ Orden alfabético. El número entre paréntesis indica funciones registradas; �
 
 | [CConversationNode](../source/game_sa/Conversations/ConversationNode.cpp) (1) |  |  |
 
+| [CTaskInteriorBeInHouse](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInHouse.cpp) (8) |  |  |
+| [CTaskInteriorBeInOffice](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInOffice.cpp) (8) |  |  |
+| [CTaskInteriorBeInShop](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInShop.cpp) (6) |  |  |
+| [CTaskInteriorGoToInfo](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorGoToInfo.cpp) (7) |  |  |
+| [CTaskInteriorLieInBed](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorLieInBed.cpp) (7) |  |  |
+| [CTaskInteriorShopKeeper](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorShopKeeper.cpp) (7) |  |  |
 </details>
 
 <a id="parciales"></a>
-## 🟡 Parciales · 86 clases
+## 🟡 Parciales · 88 clases
 
 Orden alfabético para localizar clases. Para decidir qué abordar primero, consultar la [estimación por dificultad](ReversingPriorities.md).
 
 | Clase | Revertidas / total | Pendientes | Avance | Locked |
 | --- | ---: | ---: | ---: | ---: |
+| [CTaskInteriorUseInfo](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorUseInfo.cpp) | 6/8 | **2** | 75.00% | 2 |
+| [CTaskInteriorSitAtDesk](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp) | 8/9 | **1** | 88.89% | 1 |
 | [CAEAmbienceTrackManager](../source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp) | 6/7 | **1** | 85.71% | 1 |
 | [CAEFrontendAudioEntity](../source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp) | 4/6 | **2** | 66.67% | 2 |
 | [CAEPedAudioEntity](../source/game_sa/Audio/Entities/AEPedAudioEntity.cpp) | 16/20 | **4** | 80.00% | 4 |
@@ -287,7 +295,7 @@ Orden alfabético para localizar clases. Para decidir qué abordar primero, cons
 | [CMonsterTruck](../source/game_sa/Entity/Vehicle/MonsterTruck.cpp) | 5/11 | **6** | 45.45% | 6 |
 | [CPathFind](../source/game_sa/PathFind.cpp) | 54/56 | **2** | 96.43% | 2 |
 | [CPedDamageResponseCalculator](../source/game_sa/PedDamageResponseCalculator.cpp) | 2/7 | **5** | 28.57% | 5 |
-| [CPedToPlayerConversations](../source/game_sa/Conversations/PedToPlayerConversations.cpp) | 2/3 | **1** | 66.67% | 0 |
+| [CPedToPlayerConversations](../source/game_sa/Conversations/PedToPlayerConversations.cpp) | 2/3 | **1** | 66.67% | 1 |
 | [CPedGeometryAnalyser](../source/game_sa/PedGeometryAnalyser.cpp) | 9/38 | **29** | 23.68% | 29 |
 | [CPedGroup](../source/game_sa/PedGroup.cpp) | 10/12 | **2** | 83.33% | 2 |
 | [CPedGroupDefaultTaskAllocatorRandom](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.h) | 1/2 | **1** | 50.00% | 1 |
@@ -351,14 +359,14 @@ Orden alfabético para localizar clases. Para decidir qué abordar primero, cons
 | Clase | Revertidas / total | Pendientes | Avance | Locked |
 | --- | ---: | ---: | ---: | ---: |
 | [CTaskComplexGangFollower](../source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp) | 0/7 | **7** | 0.00% | 7 |
-| [CConversationForPed](../source/game_sa/Conversations/ConversationForPed.cpp) | 0/2 | **2** | 0.00% | 0 |
+| [CConversationForPed](../source/game_sa/Conversations/ConversationForPed.cpp) | 0/2 | **2** | 0.00% | 2 |
 | [Interior_c](../source/game_sa/Interior/Interior_c.cpp) | 0/52 | **52** | 0.00% | 52 |
 
 <a id="metodo"></a>
 ## Cómo leer y actualizar
 
 - **Pendientes:** total menos revertidas. Cada fila del CSV cuenta como una entrada, incluidas sobrecargas y virtuales.
-- **Locked:** indicador de bloqueo del hook; hay 619 entradas bloqueadas en el CSV. No equivale por sí solo a pendiente ni informa si el hook está activo durante una ejecución.
+- **Locked:** indicador de bloqueo del hook; hay 625 entradas bloqueadas en el CSV. No equivale por sí solo a pendiente ni informa si el hook está activo durante una ejecución.
 - **Porcentajes:** las categorías cuentan clases; el avance de cada clase cuenta funciones. Se muestran dos decimales.
 - **Alcance:** solo incluye lo registrado en el CSV; completar una fila no certifica todo el comportamiento de una clase.
 
