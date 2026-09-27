@@ -4,12 +4,19 @@
 
 class CAEMP3TrackLoader;
 
+/**
+ * Worker de streaming musical/radio.
+ *
+ * Coordina CAEStreamingChannel con los loaders/decoders sin bloquear el hilo principal.
+ * Las peticiones se publican mediante m_criticalSection y el worker conserva IDs,
+ * duración y play time del estado activo.
+ */
 class CAEStreamThread {
 public:
     HANDLE m_nHandle;
     LPDWORD               m_lpThreadId;
-    CAEStreamingChannel*  m_pStreamingChannel;
-    CAEMP3TrackLoader*    m_pMp3TrackLoader;
+    CAEStreamingChannel*  m_pStreamingChannel; //!< Canal externo servido por este thread; no owned.
+    CAEMP3TrackLoader*    m_pMp3TrackLoader;   //!< Loader interno propiedad del thread mientras está activo.
     bool                  m_bActive;
     bool                  m_bThreadActive;
     char                  m_bNeedsService;
