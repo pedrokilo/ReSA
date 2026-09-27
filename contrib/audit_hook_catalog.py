@@ -112,22 +112,22 @@ def main():
 
     # Código de hooks presente pero no llamado directamente desde InjectHooksMain.
     # Puede ser deliberadamente inactivo o registrarse indirectamente.
-    indirect_registration = sorted(
+    catalogued_indirect = sorted(
         (owner, sorted(owner_calls[owner]))
         for owner in owners_with_installs
-        if owner not in main_calls and owner in owner_calls
+        if owner not in main_calls and owner in owner_calls and owner in catalog
+    )
+
+    indirect_missing_catalog = sorted(
+        (owner, sorted(owner_calls[owner]))
+        for owner in owners_with_installs
+        if owner not in main_calls and owner in owner_calls and owner not in catalog
     )
 
     inactive_missing_catalog = sorted(
         (owner, sorted(paths))
         for owner, paths in owners_with_installs.items()
         if owner not in main_calls and owner not in owner_calls and owner not in catalog
-    )
-
-    catalogued_indirect = sorted(
-        (owner, sorted(owner_calls[owner]))
-        for owner in owners_with_installs
-        if owner not in main_calls and owner in owner_calls and owner in catalog
     )
 
     no_known_registration = sorted(
@@ -142,12 +142,25 @@ def main():
         if owner not in owner_files
     )
 
-    # Es informativo: algunos métodos InjectHooks() son agregadores vacíos o
-    # registran bajo otro owner/namespace. Ejemplo: RpAnimBlendPlugin -> RpAnimBlend.
+    # Llamadas directas sin owner propio en el catálogo. Si tampoco tienen
+    # instalaciones bajo ese owner, se consideran agregadores/aliases/scopes vacíos
+    # y son informativas, no una omisión de funciones.
     main_without_catalog = sorted(
         (owner, sorted(owner_files.get(owner, ())))
         for owner in main_calls
         if owner not in catalog
+    )
+
+    direct_without_own_installs = sorted(
+        (owner, sorted(owner_files.get(owner, ())))
+        for owner in main_calls
+        if owner not in catalog and owner not in owners_with_installs
+    )
+
+    direct_with_own_installs_missing_catalog = sorted(
+        (owner, sorted(owner_files.get(owner, ())))
+        for owner in main_calls
+        if owner not in catalog and owner in owners_with_installs
     )
 
     print('Auditoría de catálogo de hooks')
@@ -165,7 +178,7 @@ def main():
     )
     print_group(
         'Owners registrados INDIRECTAMENTE pero ausentes de hooks.csv',
-        indirect_registration,
+        indirect_missing_catalog,
     )
     print_group(
         'Owners INACTIVOS con funciones instaladas y ausentes de hooks.csv',
@@ -180,11 +193,20 @@ def main():
         missing_source,
     )
     print_group(
-        'Llamadas directas de InjectHooksMain sin owner propio en hooks.csv (informativo)',
-        main_without_catalog,
+        'Llamadas directas sin owner propio y SIN instalaciones propias (informativo)',
+        direct_without_own_installs,
+    )
+    print_group(
+        'Llamadas directas con instalaciones propias pero sin owner en hooks.csv',
+        direct_with_own_installs_missing_catalog,
     )
 
-    inconsistent = active_missing_catalog or missing_source
+    inconsistent = (
+        active_missing_catalog
+        or direct_with_own_installs_missing_catalog
+        or indirect_missing_catalog
+        or missing_source
+    )
     if args.strict and inconsistent:
         raise SystemExit(1)
 
