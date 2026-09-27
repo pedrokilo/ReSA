@@ -18,19 +18,26 @@ class FxEmitterPrt_c;
 
 static constexpr auto FX_MANAGER_NUM_EMITTERS = 1000;
 
+/**
+ * Gestor central de blueprints e instancias del sistema FX.
+ *
+ * Es propietario de la arena de carga, lista de sistemas activos, partículas emitter
+ * preasignadas y matrices temporales. Los blueprints viven en m_FxSystemBPs y cada
+ * FxSystem_c activo referencia uno de ellos.
+ */
 class FxManager_c {
 public:
-    TList_c<FxSystemBP_c>    m_FxSystemBPs;
-    TList_c<FxSystem_c>      m_FxSystems;
+    TList_c<FxSystemBP_c>    m_FxSystemBPs; //!< Blueprints cargados desde el proyecto FX.
+    TList_c<FxSystem_c>      m_FxSystems;   //!< Instancias activas en el mundo.
     FxEmitterPrt_c*          m_FxEmitters;
-    TList_c<Particle_c>      m_FxEmitterParticles;
+    TList_c<Particle_c>      m_FxEmitterParticles; //!< Lista libre de partículas emitter.
     int32                    m_nFxTxdIndex;
     CVector*                 m_pWindDir;
     float*                   m_pfWindSpeed;
     FxFrustumInfo_c          m_Frustum;
     uint32                   m_nCurrentMatrix;
-    std::array<RwMatrix*, 8> m_apMatrices;
-    FxMemoryPool_c           m_Pool;
+    std::array<RwMatrix*, 8> m_apMatrices; //!< Stack pequeño de matrices temporales reutilizables.
+    FxMemoryPool_c           m_Pool; //!< Arena lineal usada por blueprints y datos FX de larga vida.
     bool                     m_bHeatHazeEnabled;
 
 public:
