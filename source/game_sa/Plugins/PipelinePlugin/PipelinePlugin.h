@@ -34,7 +34,7 @@ void InjectHooks();
 extern RwInt32& gPipelinePluginOffset;
 
 /**
- * Attach pipeline plugin
+ * Registra en cada RpAtomic un identificador de pipeline persistente.
  *
  * @since   gtasa
  * @return  true if plugin was successfully attached.
@@ -42,7 +42,7 @@ extern RwInt32& gPipelinePluginOffset;
 _PIPELINEPLUGINAPI RwBool PipelinePluginAttach();
 
 /**
- * Get pipeline ID
+ * Obtiene el pipelineId almacenado en el payload del RpAtomic.
  *
  * @since   gtasa
  * @param   _pAtomic      pointer to RpAtomic struct
@@ -51,7 +51,7 @@ _PIPELINEPLUGINAPI RwBool PipelinePluginAttach();
 _PIPELINEPLUGINAPI RwUInt32 GetPipelineID(RpAtomic * atomic);
 
 /**
- * Set pipeline ID
+ * Sustituye el pipelineId que posteriormente usa la selección de pipeline de render.
  *
  * @since   gtasa
  * @param   _pAtomic      pointer to RpAtomic struct
