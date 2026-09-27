@@ -102,10 +102,16 @@ jobs:
         run: |
           python contrib/hooks2md.py --input docs/hooks.csv --output docs/ReversedClasses.md
 
+      - name: Update ValidationInventory.md
+        if: steps.check-hooks-csv.outputs.has_changes == 'true'
+        shell: bash
+        run: |
+          python contrib/validation_inventory.py
+
       - name: Commit and push changes
         if: steps.check-hooks-csv.outputs.has_changes == 'true'
         shell: bash
         run: |
-            git add docs/ReversedClasses.md docs/hooks.csv
+            git add docs/ReversedClasses.md docs/ValidationInventory.md docs/hooks.csv
             git commit -m "ci: Update progress tracking docs [skip ci]"
             git push
