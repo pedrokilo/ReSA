@@ -1,6 +1,12 @@
 #pragma once
 #include "AEBankLoader.h"
 
+/**
+ * Configuración paralela de bank slot y sound ID para los virtual channels.
+ *
+ * Cada posición de BankSlotIDs corresponde a la misma posición de SoundIDs; los
+ * centinelas SND_BANK_SLOT_NONE/-1 representan un canal sin sample asignado.
+ */
 struct tVirtualChannelSettings {
     std::array<eSoundBankSlot, 300> BankSlotIDs{};
     std::array<eSoundID, 300>       SoundIDs{};
@@ -12,6 +18,12 @@ struct tVirtualChannelSettings {
 };
 VALIDATE_SIZE(tVirtualChannelSettings, 0x4B0);
 
+/**
+ * Loader concreto que materializa bancos SFX en los slots gestionados por CAEBankLoader.
+ *
+ * Puede cargar un banco completo o un único sample. Las solicitudes se almacenan
+ * en la cola fija heredada y Service() avanza su máquina de estados sobre CdStream.
+ */
 class CAEMP3BankLoader : public CAEBankLoader {
 public:
     static void InjectHooks();
@@ -30,11 +42,13 @@ public:
     void   UpdateVirtualChannels(tVirtualChannelSettings* settings, int16* lengths, int16* loopStartTimes);
     void   LoadSoundBank(eSoundBank bankId, eSoundBankSlot bankSlot);
     void   LoadSound(eSoundBank bankId, eSoundID soundId, eSoundBankSlot bankSlot);
+    // Procesa de forma incremental las solicitudes asíncronas pendientes.
     void   Service();
 
     // notsa
     CAEBankSlot& GetBankSlot(eSoundBankSlot slot) const;
 private:
+    // Inserta una solicitud de banco completo (nullopt) o de un único sample.
     void AddRequest(eSoundBank bank, eSoundBankSlot slot, std::optional<eSoundID> sound);
 
 private:
