@@ -19,6 +19,9 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "2dEffectStream.h"
 
+/**
+ * Registra el plugin RenderWare que almacena efectos 2DFX dentro de RpGeometry.
+ */
 void C2dEffect::InjectHooks()
 {
     RH_ScopedClass(C2dEffect);
@@ -47,6 +50,12 @@ void C2dEffect::InjectHooks()
     RH_ScopedGlobalInstall(Rwt2dEffectPluginDataChunkGetSizeCallBack, 0x6FA630);
 }
 
+/**
+ * Libera recursos auxiliares cuya propiedad depende del tipo concreto de 2DFX.
+ *
+ * Roadsign libera texto y atomic generado; light libera sus texturas. Los tipos
+ * puramente descriptivos no requieren trabajo adicional.
+ */
 void C2dEffect::Shutdown()
 {
     if (m_Type == e2dEffectType::EFFECT_ROADSIGN) {
@@ -116,6 +125,9 @@ int32 C2dEffect::Roadsign_GetPaletteIDFromFlags(CRoadsignAttrFlags flags)
     return 0;
 }
 
+/**
+ * Reserva el payload del plugin en RpGeometry y conecta sus callbacks de streaming.
+ */
 bool C2dEffect::PluginAttach()
 {
     C2dEffect::g2dEffectPluginOffset = RpGeometryRegisterPlugin(
@@ -136,6 +148,7 @@ bool C2dEffect::PluginAttach()
     return C2dEffect::g2dEffectPluginOffset != -1;
 }
 
+// Destruye primero el frame propiedad del atomic y después el propio RpAtomic.
 void C2dEffect::DestroyAtomic(RpAtomic* atomic)
 {
     if (!atomic)
@@ -170,6 +183,10 @@ void* t2dEffectPluginConstructor(void* object, RwInt32 offsetInObject, RwInt32 s
     return object;
 }
 
+/**
+ * Destruye individualmente los recursos de cada efecto y después libera el bloque
+ * contiguo que contiene el contador y el array C2dEffect.
+ */
 void* t2dEffectPluginDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject)
 {
     auto plugin = C2DEFFECTPLG(object, m_pEffectEntries);
@@ -195,6 +212,13 @@ void* t2dEffectPluginCopyConstructor(void* dstObject, const void* srcObject, RwI
     return dstObject;
 }
 // 0x6F9FD0
+/**
+ * Deserializa todos los 2DFX de una geometría en un bloque contiguo.
+ *
+ * Cada sección se valida por tipo/tamaño antes de poblar la unión correspondiente.
+ * Los efectos inválidos se omiten del conteo final; light y roadsign además adquieren
+ * recursos dinámicos que Shutdown() liberará posteriormente.
+ */
 RwStream* Rwt2dEffectPluginDataChunkReadCallBack(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject)
 {
     if (C2dEffect::ms_nTxdSlot == -1) {
