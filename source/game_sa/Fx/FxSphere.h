@@ -3,6 +3,12 @@
 #include "FxPlane.h"
 #include "Sphere.h"
 
+/**
+ * Esfera auxiliar usada para bounds/culling del sistema FX.
+ *
+ * Puede vivir en el heap global o en la arena FX; m_nNumPlanesPassed conserva estado
+ * incremental de pruebas contra planos.
+ */
 class FxSphere_c : public CSphere {
 public:
     uint32 m_nNumPlanesPassed; // m_LastPlaneRejected
