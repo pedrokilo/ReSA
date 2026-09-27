@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "AnimBlendHierarchy.h"
 
+/**
+ * Registra las operaciones de ciclo de vida, compresión y consulta de jerarquías.
+ */
 void CAnimBlendHierarchy::InjectHooks() {
     RH_ScopedClass(CAnimBlendHierarchy);
     RH_ScopedCategory("Animation");
@@ -43,6 +46,7 @@ void CAnimBlendHierarchy::InjectHooks() {
 }
 
 // 0x4CF270
+// Inicializa una jerarquía sin secuencias ni bloque de animación asociado.
 CAnimBlendHierarchy::CAnimBlendHierarchy() {
     m_pSequences = nullptr;
     m_nSeqCount = 0;
@@ -66,6 +70,12 @@ void CAnimBlendHierarchy::Shutdown() {
 }
 
 // 0x4CF8E0
+/**
+ * Elimina todas las secuencias y retira la jerarquía de la caché descomprimida.
+ *
+ * Cuando las secuencias comparten un bloque externo de frames, ese bloque se libera
+ * una sola vez después de destruir el array de CAnimBlendSequence.
+ */
 void CAnimBlendHierarchy::RemoveAnimSequences() {
     void* oldFrameData = nullptr;
     if (m_pSequences && m_pSequences->m_bUsingExternalMemory) {
@@ -82,6 +92,7 @@ void CAnimBlendHierarchy::RemoveAnimSequences() {
 }
 
 // 0x4CF510
+// Reserva un bloque contiguo capaz de almacenar todas las secuencias en el formato elegido.
 uint8* CAnimBlendHierarchy::AllocSequenceBlock(bool compressed) const {
     size_t size = 0;
     for (auto& sequence : GetSequences()) {
@@ -91,6 +102,7 @@ uint8* CAnimBlendHierarchy::AllocSequenceBlock(bool compressed) const {
 }
 
 // 0x4CF290
+// Busca una secuencia por hash uppercase de nombre; devuelve nullptr si no existe.
 CAnimBlendSequence* CAnimBlendHierarchy::FindSequence(const char* name) const {
     if (!m_nSeqCount) {
         return nullptr;
@@ -126,6 +138,10 @@ void* CAnimBlendHierarchy::GetSequenceBlock() const {
 }
 
 // 0x4CF5F0
+/**
+ * Expande todas las secuencias en un bloque nuevo y libera el bloque comprimido previo.
+ * La primera expansión también normaliza quaternions y calcula la duración total.
+ */
 void CAnimBlendHierarchy::Uncompress() {
     assert(m_nSeqCount > 0);
     assert(m_bIsCompressed);
@@ -154,6 +170,7 @@ void CAnimBlendHierarchy::Uncompress() {
 }
 
 // 0x4CF6C0
+// Convierte todas las secuencias a un único bloque comprimido contiguo.
 void CAnimBlendHierarchy::CompressKeyframes() const {
     assert(!m_bIsCompressed);
 
@@ -199,7 +216,8 @@ void CAnimBlendHierarchy::Print() {
     }
 }
 
-// notsa
+// NOTSA
+// Reserva el array propietario de secuencias que compondrá esta jerarquía.
 void CAnimBlendHierarchy::SetNumSequences(size_t n) {
     m_nSeqCount  = (uint16)n;
     m_pSequences = new CAnimBlendSequence[n]; // Yes, they used `new`
