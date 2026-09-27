@@ -3,6 +3,9 @@
 #include "CompressedBox.h"
 #include <span>
 
+/**
+ * Cabecera común de una zona de audio registrada por nombre e ID de entorno.
+ */
 struct tAudioZoneData {
     char  m_szName[8];
     int16 m_nAudioZone;
@@ -24,9 +27,17 @@ struct tAudioZoneBox : tAudioZoneData {
 };
 VALIDATE_SIZE(tAudioZoneBox, 0x18);
 
+/**
+ * Catálogo espacial global de zonas que alteran ambiente/reverb de audio.
+ *
+ * Mantiene arrays fijos de boxes/spheres y listas compactas de índices actualmente
+ * activos en la posición del listener/jugador.
+ */
 class CAudioZones {
 public:
+    // Índices hacia m_aBoxes de las zonas que contienen la posición actual.
     static inline auto& m_aActiveBoxes = StaticRef<std::array<int32, 10>>(0xB6DC6C);
+    // Índices hacia m_aSpheres de las zonas que contienen la posición actual.
     static inline auto& m_aActiveSpheres = StaticRef<std::array<int32, 10>>(0xB6DC94);
 
     static inline auto& m_NumActiveBoxes = StaticRef<uint32>(0xB6DCBC);
