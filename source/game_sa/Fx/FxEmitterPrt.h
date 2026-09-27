@@ -8,6 +8,12 @@
 struct RwRGBA;
 class FxSystem_c;
 
+/**
+ * Partícula concreta emitida por un FxEmitter.
+ *
+ * Extiende Particle_c con multiplicadores visuales compactos, variación aleatoria y
+ * estado de rotación; las colecciones se reservan desde FxMemoryPool_c.
+ */
 class FxEmitterPrt_c : public Particle_c, ListItem_c<FxEmitterPrt_c> {
 public:
     CRGBA m_MultColor;
