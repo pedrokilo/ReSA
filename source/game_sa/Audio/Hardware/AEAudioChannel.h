@@ -6,6 +6,12 @@
 
 
 #pragma pack(push, 1)
+/**
+ * Base polimórfica de un canal de reproducción hardware.
+ *
+ * Conserva buffers DirectSound opcionales, formato PCM, frecuencia/volumen y flags
+ * de reproducción. Las subclases implementan streaming/servicio concreto.
+ */
 class NOTSA_EXPORT_VTABLE CAEAudioChannel {
 public:
 #ifdef USE_DSOUND
@@ -25,8 +31,8 @@ public:
     bool                  m_bPaused;
     uint8                 field_39; // unused
     uint16                m_nChannelId;
-    uint32                m_nFrequency;
-    uint32                m_nOriginalFrequency;
+    uint32                m_nFrequency;         //!< Frecuencia efectiva aplicada al buffer.
+    uint32                m_nOriginalFrequency; //!< Frecuencia base usada para escalado/pitch.
     bool                  m_bLooped;
     bool                  m_bShouldStop;
     bool                  m_bShouldPlay; // unused
