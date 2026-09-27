@@ -43,6 +43,10 @@ CAEWMADecoder::~CAEWMADecoder() {
 }
 
 // 0x502c60
+/**
+ * Inicializa COM/Windows Media, selecciona el primer stream de audio y valida
+ * salida PCM estéreo de 16 bits antes de aceptar el decoder.
+ */
 bool CAEWMADecoder::Initialise() {
     WMT_STREAM_SELECTION activateStream = WMT_ON;
 
@@ -124,6 +128,10 @@ bool CAEWMADecoder::Initialise() {
 }
 
 // 0x5027d0
+/**
+ * Copia PCM desde IWMSyncReader y conserva bytes sobrantes en m_szBuffer para la
+ * siguiente petición cuando una muestra excede el espacio disponible.
+ */
 size_t CAEWMADecoder::FillBuffer(void* dest, size_t size) {
     char*  buf = (char*)dest;
     size_t written = 0;
@@ -218,6 +226,7 @@ int32 CAEWMADecoder::GetStreamID() {
 }
 
 // 0x502b80
+// Carga wmvcore.dll dinámicamente y verifica que WMCreateSyncReader sea realmente utilizable.
 bool CAEWMADecoder::InitLibrary() {
     if (WMCreateSyncReader != nullptr)
         return true;
@@ -256,6 +265,7 @@ void CAEWMADecoder::Shutdown() {
 }
 
 // 0x502990
+// Recorre el perfil hasta encontrar el primer stream cuyo tipo sea WMMEDIATYPE_Audio.
 HRESULT CAEWMADecoder::SelectStreamIndex(IWMProfile* profile) {
     if (profile == nullptr)
         return E_INVALIDARG;
@@ -300,6 +310,9 @@ HRESULT CAEWMADecoder::SelectStreamIndex(IWMProfile* profile) {
     return S_OK;
 }
 
+/**
+ * Registra el decoder Windows Media Audio.
+ */
 void CAEWMADecoder::InjectHooks() {
     RH_ScopedClass(CAEWMADecoder);
     RH_ScopedCategory("Audio/Loaders");
