@@ -24,6 +24,9 @@ END GENERATED HOOK STATUS */
 #include "AEUserRadioTrackManager.h"
 #include "AEVorbisDecoder.h"
 
+/**
+ * Registra el worker que prepara decoders y alimenta el canal de streaming.
+ */
 void CAEStreamThread::InjectHooks() {
     RH_ScopedClass(CAEStreamThread);
     RH_ScopedCategory("Audio");
@@ -50,6 +53,10 @@ CAEStreamThread::~CAEStreamThread() {
 }
 
 // 0x4F1680
+/**
+ * Captura el estado del CAEStreamingChannel, crea el thread suspendido y adquiere
+ * el CAEMP3TrackLoader usado para resolver tracks internos.
+ */
 bool CAEStreamThread::Initialise(CAEStreamingChannel* streamingChannel) {
     m_bActive          = true;
     m_bThreadActive    = false;
@@ -128,6 +135,7 @@ int32 CAEStreamThread::GetPlayingTrackID() const {
 }
 
 // 0x4F1230
+// Publica bajo critical section una nueva petición de track actual/siguiente para Service().
 void CAEStreamThread::PlayTrack(uint32 iTrackId, int32 iNextTrackId, uint32 a3, int32 a4, bool bIsUserTrack, bool bNextIsUserTrack) {
     EnterCriticalSection(&m_criticalSection);
 
@@ -152,6 +160,10 @@ void CAEStreamThread::StopTrack() {
 }
 
 // 0x4F15C0
+/**
+ * Loop del worker. Pausa el canal al perder foreground, sirve cambios de stream y
+ * delega el bombeo continuo a CAEStreamingChannel.
+ */
 DWORD WINAPI CAEStreamThread::MainLoop(LPVOID data) {
 #ifdef TRACY_ENABLE
     tracy::SetThreadName("AEStreamThread");
@@ -194,6 +206,12 @@ DWORD WINAPI CAEStreamThread::MainLoop(LPVOID data) {
 }
 
 // 0x4F1290
+/**
+ * Procesa atómicamente las peticiones pendientes de reproducción.
+ *
+ * Construye el decoder adecuado para tracks internos o user tracks, prepara el
+ * siguiente stream y conserva una copia estable del estado visible para otros hilos.
+ */
 void CAEStreamThread::Service() {
     m_pStreamingChannel->UpdatePlayTime();
     if (m_bStopRequest) {
