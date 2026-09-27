@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **7,488 entradas reversed=1**, de 8,020 registradas. Las 532 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **7,545 entradas reversed=1**, de 8,080 registradas. Las 535 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
 | Vigencia acreditada para su alcance | 0 |
 | Evidencia histórica vinculada; revisión pendiente | 34 |
-| Sin evidencia aprobada vinculada en este registro | 7454 |
+| Sin evidencia aprobada vinculada en este registro | 7511 |
 
 Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -59,6 +59,14 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 <summary>Entradas reconstruidas de todas las clases registradas</summary>
 
 | Clase | Reconstruidas | Vigentes | Históricas por revisar | Sin vincular |
+| `CTaskInteriorUseInfo` | 6 | 0 | 0 | 6 |
+| `CTaskInteriorSitAtDesk` | 8 | 0 | 0 | 8 |
+| `CTaskInteriorShopKeeper` | 7 | 0 | 0 | 7 |
+| `CTaskInteriorLieInBed` | 7 | 0 | 0 | 7 |
+| `CTaskInteriorGoToInfo` | 7 | 0 | 0 | 7 |
+| `CTaskInteriorBeInShop` | 6 | 0 | 0 | 6 |
+| `CTaskInteriorBeInOffice` | 8 | 0 | 0 | 8 |
+| `CTaskInteriorBeInHouse` | 8 | 0 | 0 | 8 |
 | --- | ---: | ---: | ---: | ---: |
 | `App` | 7 | 0 | 0 | 7 |
 | `BoneNodeManager_c` | 8 | 0 | 0 | 8 |
