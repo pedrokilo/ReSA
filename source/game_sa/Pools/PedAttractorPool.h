@@ -21,8 +21,20 @@ END GENERATED HOOK STATUS */
 #include "Pool.h"
 #include "PedAttractor.h"
 
+/**
+ * Pool especializado para atractores que coordinan interacciones de peatones.
+ *
+ * Hereda la administración de slots, handles y reutilización de memoria de CPool;
+ * esta clase fija el tipo almacenado y conecta sus operaciones con los hooks del juego.
+ * Los objetos obtenidos continúan perteneciendo al pool hasta que se liberan mediante
+ * la interfaz correspondiente de CPool.
+ */
 class CPedAttractorPool : public CPool<CPedAttractor> {
 public:
+    /**
+     * Registra las operaciones específicas de CPedAttractorPool en sus direcciones originales.
+     * La lógica común de administración de memoria permanece centralizada en CPool.
+     */
     static void InjectHooks() {
         RH_ScopedClass(CPedAttractorPool);
         RH_ScopedCategory("Pools");
