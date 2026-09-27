@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "EntryInfoList.h"
 
+/**
+ * Registra la operación de vaciado de la lista de CEntryInfoNode.
+ */
 void CEntryInfoList::InjectHooks()
 {
     RH_ScopedClass(CEntryInfoList);
@@ -28,6 +31,12 @@ void CEntryInfoList::InjectHooks()
     RH_ScopedInstall(Flush, 0x536E10);
 }
 
+/**
+ * Elimina todos los nodos de la lista conservando antes el siguiente enlace.
+ *
+ * DeleteNode() actualiza la cabeza y los vecinos, y el operator delete específico
+ * devuelve cada nodo a GetEntryInfoNodePool() en lugar de usar el heap general.
+ */
 void CEntryInfoList::Flush()
 {
     CEntryInfoNode* curNode = m_node;
@@ -39,6 +48,12 @@ void CEntryInfoList::Flush()
 }
 
 // 0x?
+/**
+ * Desenlaza @p node de esta lista doble y destruye únicamente el nodo de enlace.
+ *
+ * Los objetos referenciados desde CEntryInfoNode no se eliminan aquí; la función
+ * gestiona la estructura de seguimiento, no la propiedad de CPhysical ni del sector.
+ */
 void CEntryInfoList::DeleteNode(CEntryInfoNode* node)
 {
     if (m_node == node)
