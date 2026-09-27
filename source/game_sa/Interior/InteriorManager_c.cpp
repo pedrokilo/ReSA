@@ -23,6 +23,9 @@ END GENERATED HOOK STATUS */
 
 #include <TaskTypes/TaskSimpleCarDrive.h>
 
+/**
+ * Registra las operaciones de detección, pooling y actualización de interiores.
+ */
 void InteriorManager_c::InjectHooks() {
     RH_ScopedClass(InteriorManager_c);
     RH_ScopedCategory("Interior");
@@ -51,6 +54,12 @@ void InteriorManager_c::InjectHooks() {
 }
 
 // 0x5C0500
+/**
+ * Inicializa los pools fijos de Interior_c/InteriorGroup_c y el catálogo de muebles.
+ *
+ * Todas las entradas se colocan inicialmente en listas libres; Update() las mueve
+ * después a listas activas conforme aparecen efectos 2DFX de interior visibles.
+ */
 void InteriorManager_c::Init() {
     m_IsFrozen       = false;
     m_IsActive       = true;
@@ -71,6 +80,13 @@ void InteriorManager_c::Init() {
 }
 
 // 0x598F50
+/**
+ * Sincroniza los grupos de interior activos con los efectos 2DFX actualmente visibles.
+ *
+ * Retira grupos cuyo efecto desapareció, obtiene grupos/interiores nuevos desde los
+ * pools para efectos recién visibles, ejecuta Setup() y finalmente actualiza todos
+ * los grupos activos. No realiza asignaciones dinámicas para Interior_c.
+ */
 bool InteriorManager_c::Update() {
     ZoneScoped;
 
@@ -91,7 +107,7 @@ bool InteriorManager_c::Update() {
         return fx.Entity == g.GetEntity() && fx.Effects[0]->m_groupId == g.GetId();
     };
 
-    // Remove interiors that are associated with effects that aren't visible anymore
+    // Devuelve al pool los grupos cuyo efecto dejó de ser visible.
     for (auto it = m_InteriorGroupList.begin(); it != m_InteriorGroupList.end();) {
         auto& g = *it;
         it++; // `RemoveItem` below invalidates the iterator, so increment here
@@ -149,7 +165,7 @@ bool InteriorManager_c::Update() {
         m_TimeLastPickupsGenerated = CTimer::GetTimeInMS();
     }
 
-    // Update all created groups
+    // Actualiza los grupos que permanecen activos tras altas y bajas.
     for (auto& g : m_InteriorGroupList) {
         g.Update();
     }
@@ -158,6 +174,12 @@ bool InteriorManager_c::Update() {
 }
 
 // 0x598A60
+/**
+ * Limita los efectos activos por cantidad y distancia a la cámara.
+ *
+ * Calcula para cada grupo la menor distancia de sus efectos, ordena de cerca a lejos
+ * y marca como culled cualquier entrada que exceda el presupuesto o maxDist.
+ */
 void InteriorManager_c::PruneVisibleEffects(InteriorEffectInfo_t* pIntFxInfos, size_t numInfos, size_t maxVisibleFxCount, float maxDist) {
     const std::span intFxInfos{pIntFxInfos, (size_t)numInfos};
 
@@ -252,6 +274,12 @@ void InteriorManager_c::Exit() {
 }
 
 // 0x598D80
+/**
+ * Reúne efectos C2dEffectInterior visibles de entidades cercanas a la cámara.
+ *
+ * Agrupa después los efectos con el mismo groupId/entidad para que cada
+ * InteriorEffectInfo_t represente una unidad lógica que pueda crear un grupo.
+ */
 size_t InteriorManager_c::GetVisibleEffects(InteriorEffectInfo_t* intFxInfos, uint32 maxNumIntFxInfo) {
     if (!maxNumIntFxInfo) {
         return 0;
@@ -309,6 +337,8 @@ end:
 }
 
 // 0x598690
+// Un efecto se considera visible si cámara o jugadores quedan dentro del bounding
+// box de la entidad, comprobado en coordenadas locales mediante InverseTransformPoint.
 bool InteriorManager_c::IsInteriorEffectVisible(C2dEffectInterior* effect, CEntity* entity) {
     const auto CheckPoint = [
         ebb = &entity->GetColModel()->GetBoundingBox(),
@@ -421,6 +451,10 @@ InteriorGroup_c* InteriorManager_c::GetPedsInteriorGroup(const CPed* ped) {
 }
 
 // 0x598180
+/**
+ * Cambia el EntryExit de referencia para un interior real y reinicia los registros
+ * de objetos robables/interiores cuando cambia el rectángulo de entrada.
+ */
 void InteriorManager_c::SetEntryExitPtr(CEntryExit* enex) {
     if (enex->GetLinkedOrThis()->m_nArea == eAreaCodes::AREA_CODE_NORMAL_WORLD) {
         return;
