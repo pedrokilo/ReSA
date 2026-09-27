@@ -21,8 +21,17 @@ END GENERATED HOOK STATUS */
 #include "Pool.h"
 #include "Dummy.h"
 
+/**
+ * Pool especializado para entidades CDummy usadas como representaciones ligeras del mundo.
+ *
+ * Reutiliza el almacenamiento administrado por CPool para evitar asignaciones
+ * dispersas y conservar el modelo de memoria esperado por el juego original.
+ */
 class CDummyPool : public CPool<CDummy> {
 public:
+    /**
+     * Registra las operaciones con dirección propia de CDummyPool.
+     */
     static void InjectHooks() {
         RH_ScopedClass(CDummyPool);
         RH_ScopedCategory("Pools");
