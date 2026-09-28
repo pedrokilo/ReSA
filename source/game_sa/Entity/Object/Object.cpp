@@ -133,6 +133,8 @@ CObject::CObject(CDummyObject* dummyObj) : CPhysical() {
 }
 
 // 0x59F660
+// Libera referencias a script brains, modelos y texturas; retira registros del
+// radar y de listas de control, y extingue el fuego antes de liberar el objeto.
 CObject::~CObject() {
     if (objectFlags.b0x100000_0x200000) {
         const auto iIndex = SCMToModelId(CTheScripts::ScriptsForBrains.m_aScriptForBrains[m_nStreamedScriptBrainToLoad].m_StreamedScriptIndex);
@@ -783,6 +785,8 @@ void CObject::LockDoor() {
 }
 
 // 0x59F840
+// Aplica los valores iniciales comunes de un objeto físico y, si hay un modelo
+// asignado, obtiene de este propiedades de colisión y representación.
 void CObject::Init() {
     SetTypeObject();
     m_pObjectInfo = &CObjectData::GetDefault();

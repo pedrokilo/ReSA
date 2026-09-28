@@ -4116,6 +4116,7 @@ void CPed::DeleteRwObject()
 */
 void CPed::ProcessControl()
 {
+    // El control del ped en cada frame continúa delegado al ejecutable original.
     plugin::CallMethod<0x5E8CD0, CPed*>(this);
 }
 
@@ -4151,6 +4152,7 @@ void CPed::SpecialEntityPreCollisionStuff(CPhysical* colPhysical,
                                           bool& bCollidedEntityUnableToMove,
                                           bool& bThisOrCollidedEntityStuck)
 {
+    // La preparación de colisión propia del ped continúa delegada al ejecutable original.
     plugin::CallMethod<0x5E3C30, CPed*, CPhysical*, bool, bool&, bool&, bool&, bool&>(this, colPhysical, bIgnoreStuckCheck, bCollisionDisabled, bCollidedEntityCollisionIgnored, bCollidedEntityUnableToMove, bThisOrCollidedEntityStuck);
 }
 
@@ -4159,6 +4161,7 @@ void CPed::SpecialEntityPreCollisionStuff(CPhysical* colPhysical,
 */
 uint8 CPed::SpecialEntityCalcCollisionSteps(bool& bProcessCollisionBeforeSettingTimeStep, bool& unk2)
 {
+    // La selección de pasos de colisión continúa delegada al ejecutable original.
     return plugin::CallMethodAndReturn<uint8, 0x5E3E90, CPed*, bool&, bool&>(this, bProcessCollisionBeforeSettingTimeStep, unk2);
 }
 

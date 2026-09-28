@@ -56,6 +56,8 @@ union PackedModelStartEnd {
 };
 VALIDATE_SIZE(PackedModelStartEnd, 0x4);
 
+// Construye y carga la caché acelerada de colisión para secciones IPL. Mantiene
+// los límites de modelos, los slots de colisión y los datos de entidades IPL.
 class CColAccel {
 public:
     static inline auto& m_colBounds = StaticRef<CColAccelColBound*>(0xBC4090);

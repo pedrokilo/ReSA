@@ -2,6 +2,8 @@
 
 #include "AEWeaponAudioEntity.h"
 
+// Audio de armas que no pertenece a un ped concreto, incluidos los proyectiles
+// y los disparos ambientales. m_Physical identifica la entidad física asociada.
 class NOTSA_EXPORT_VTABLE CAEGlobalWeaponAudioEntity : public CAEWeaponAudioEntity {
 public:
     CAEGlobalWeaponAudioEntity();

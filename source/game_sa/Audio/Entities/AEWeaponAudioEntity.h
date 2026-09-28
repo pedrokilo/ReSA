@@ -15,6 +15,8 @@
 class CPhysical;
 class CPed;
 
+// Estado y reproducción de sonidos de armas compartidos por las entidades de
+// audio de peds y globales, incluidas las secuencias en bucle propias de cada arma.
 class NOTSA_EXPORT_VTABLE CAEWeaponAudioEntity : public CAEAudioEntity {
     enum class eMiniGunState : int8 {
         SPINNING = 0x0,

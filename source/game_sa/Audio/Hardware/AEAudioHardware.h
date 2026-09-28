@@ -56,6 +56,8 @@ enum eAudioChannelFlags : int16 {
     FLAG_SLOW_FADEOUT     = 0x80,
 };
 
+// Interfaz del motor con el backend de audio: controla canales, carga bancos de
+// sonido y pistas en streaming, y administra los niveles globales de audio.
 class CAEAudioHardware {
 public:
     bool                    m_bInitialised{};

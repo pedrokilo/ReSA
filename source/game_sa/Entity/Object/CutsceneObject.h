@@ -8,6 +8,8 @@
 
 #include "Object.h"
 
+// Especialización de CObject para actores y elementos de cinemática. Ajusta la
+// iluminación y ciertos atomics de vehículos para su representación.
 class NOTSA_EXPORT_VTABLE CCutsceneObject : public CObject {
 public:
     union {

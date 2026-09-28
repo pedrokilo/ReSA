@@ -15,6 +15,8 @@
 class CEventDamage;
 class CPlayerInfo;
 
+// Especialización de CPed controlada por el jugador. Recibe entradas del pad
+// asociado y accede a su estado y nivel de búsqueda mediante CPlayerPedData.
 class NOTSA_EXPORT_VTABLE CPlayerPed : public CPed {
 public:
     CPed* m_p3rdPersonMouseTarget;

@@ -183,6 +183,8 @@ struct tHydraulicData {
 
 VALIDATE_SIZE(tHydraulicData, 0x28);
 
+// Estado y comportamiento común de vehículos sobre CPhysical. Las clases
+// especializadas coordinan desde aquí ocupantes, manejo, audio y piloto automático.
 class NOTSA_EXPORT_VTABLE CVehicle : public CPhysical {
 public:
     using Ref = notsa::EntityRef<CVehicle>;

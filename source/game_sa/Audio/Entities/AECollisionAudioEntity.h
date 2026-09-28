@@ -19,6 +19,9 @@ struct tCollisionSound {
 };
 VALIDATE_SIZE(tCollisionSound, 0x14);
 
+// Convierte los contactos físicos notificados en sonidos de colisión puntuales
+// o persistentes. La lista conserva las combinaciones activas de sonido, entidad
+// y superficie entre actualizaciones del servicio de audio.
 class NOTSA_EXPORT_VTABLE CAECollisionAudioEntity : public CAEAudioEntity {
 public:
     static constexpr auto NUM_ENTRIES = 300u;

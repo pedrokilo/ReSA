@@ -175,6 +175,8 @@ void CCutsceneObject::RemoveLighting(bool bRemove) {
 }
 
 // 0x5B1AB0
+// Calcula una vez las claves de nombres de modelo y configura el pipeline de
+// vehículos solo para los atomics de modelos reconocidos en las cinemáticas.
 void CCutsceneObject::SetupCarPipeAtomicsForClump(unsigned modelId, RpClump* clump) {
     static auto& bCarPipeAtomicsInitialized = StaticRef<bool>(0xBC4058); // false
     static auto& anHashKeys = StaticRef<uint32[NUM_CUTSCENE_VEHS]>(0xBC4040);

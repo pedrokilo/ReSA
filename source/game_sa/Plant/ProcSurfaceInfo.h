@@ -5,6 +5,8 @@
 class ProcObjectListItem;
 class CPlantLocTri;
 
+// Parámetros de generación para una combinación de superficie y modelo. La
+// lista asocia los registros de objetos generados con esta configuración.
 class ProcSurfaceInfo_c {
 public:
     uint8  m_SurfaceId;

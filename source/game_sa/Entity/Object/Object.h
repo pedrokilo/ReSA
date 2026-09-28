@@ -22,6 +22,9 @@ enum eObjectType {
 class CDummyObject;
 class CFire;
 
+// Objeto físico del mundo con estado de modelo, daño, misión, scripts y dibujo.
+// Los objetos dinámicos usan el pool de objetos; al destruirse liberan las
+// referencias a modelos y texturas que hayan adquirido.
 class NOTSA_EXPORT_VTABLE CObject : public CPhysical {
 public:
     CPtrNodeDoubleLink<CObject*>* m_pControlCodeList;

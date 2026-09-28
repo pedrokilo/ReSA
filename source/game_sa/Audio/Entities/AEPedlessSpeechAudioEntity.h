@@ -2,6 +2,8 @@
 
 #include "AEPedSpeechAudioEntity.h"
 
+// Especialización de audio de voz para locuciones sin un CPed hablante.
+// EntityRef mantiene una referencia opcional a la entidad asociada al sonido.
 class NOTSA_EXPORT_VTABLE CAEPedlessSpeechAudioEntity final : public CAEPedSpeechAudioEntity {
 public:
     char         gap100[20];

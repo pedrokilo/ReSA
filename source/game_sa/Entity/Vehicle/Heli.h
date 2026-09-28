@@ -57,6 +57,8 @@ VALIDATE_SIZE(tHeliLight, 0x4C);
 
 class FxSystem_c;
 
+// Añade a CAutomobile el control y la representación propios del helicóptero.
+// También coordina focos policiales y ocupantes SWAT mediante estado compartido.
 class NOTSA_EXPORT_VTABLE CHeli : public CAutomobile {
 public:
     uint8        m_nHeliFlags;
@@ -77,7 +79,9 @@ public:
     CVector      field_9C0;
     int32        f9CC; // unused?
     int32        f9D0; // unused?
+    // Punteros a los sistemas de partículas asociados a este helicóptero.
     FxSystem_c** m_pParticlesList;
+    // Coordenadas recientes del objetivo del foco, conservadas en el estado del helicóptero.
     std::array<float, 3> m_aSearchLightHistoryX;
     std::array<float, 3> m_aSearchLightHistoryY;
     uint32       m_nSearchLightTimer;

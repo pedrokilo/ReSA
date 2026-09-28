@@ -8,6 +8,8 @@ class CObject;
 class CEntity;
 class CPlantLocTri;
 
+// Registro del pool que vincula un objeto vegetal generado con el triángulo que
+// lo produjo. El indicador señala si se asignó una matriz para ese elemento.
 class ProcObjectListItem : public ListItem_c<ProcObjectListItem> {
 public:
     CEntity*      m_Obj;
@@ -16,6 +18,8 @@ public:
 };
 VALIDATE_SIZE(ProcObjectListItem, 0x14);
 
+// Gestor global de objetos procedurales y parámetros de generación por
+// superficie. Los arreglos fijos respaldan los pools y la lista reúne los activos.
 class ProcObjectMan_c {
 public:
     int32 m_numAllocatedMatrices;

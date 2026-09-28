@@ -362,6 +362,7 @@ void CPlayerPed::UpdateCameraWeaponModes(CPad* pad) {
 
 // 0x6098F0
 void CPlayerPed::ProcessAnimGroups() {
+    // El procesamiento de grupos de animación del jugador continúa delegado al ejecutable original.
     plugin::CallMethod<0x6098F0, CPlayerPed *>(this);
 }
 
@@ -693,6 +694,7 @@ constexpr struct tPlayerSprintSet { // From 0x8D2460
 
 // 0x60A610
 float CPlayerPed::ControlButtonSprint(eSprintType sprintType) {
+    // El cálculo del control de sprint continúa delegado al ejecutable original.
     return plugin::CallMethodAndReturn<float, 0x60A610, CPlayerPed *, eSprintType>(this, sprintType);
 }
 
@@ -809,6 +811,7 @@ bool LOSBlockedBetweenPeds(CEntity* entity1, CEntity* entity2) {
 
 // 0x60B650
 void CPlayerPed::Compute3rdPersonMouseTarget(bool meleeWeapon) {
+    // El cálculo del objetivo en tercera persona continúa delegado al ejecutable original.
     plugin::CallMethod<0x60B650, CPlayerPed *, bool>(this, meleeWeapon);
 }
 
@@ -943,6 +946,7 @@ bool CPlayerPed::PlayerWantsToAttack() {
 
 // 0x60CD20
 void CPlayerPed::SetInitialState(bool bGroupCreated) {
+    // La configuración inicial del estado del jugador continúa delegada al ejecutable original.
     plugin::CallMethod<0x60CD20, CPlayerPed *, bool>(this, bGroupCreated);
 }
 

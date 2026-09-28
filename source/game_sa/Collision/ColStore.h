@@ -23,6 +23,8 @@ struct ColDef {
 VALIDATE_SIZE(ColDef, 0x2C);
 
 using CColPool = CPool<ColDef>;
+// Administra los slots de archivos de colisión y sus registros ColDef, y solicita
+// datos de colisión según la posición y el área activas del mundo.
 class CColStore {
 public:
     static inline auto& ms_vecCollisionNeeded = StaticRef<CVector>(0x965580);

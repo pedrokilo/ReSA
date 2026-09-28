@@ -280,6 +280,7 @@ void CHeli::RenderAllHeliSearchLights() {
 }
 
 // 0x6C6D30
+// La lógica de explosión continúa delegada al ejecutable original.
 void CHeli::BlowUpCar(CEntity* damager, bool bHideExplosion) {
     plugin::CallMethod<0x6C6D30, CHeli*, CEntity*, uint8>(this, damager, bHideExplosion);
 }
@@ -301,6 +302,7 @@ bool CHeli::SetUpWheelColModel(CColModel* wheelCol) {
 }
 
 // 0x6C4830
+// El procesamiento de controles del helicóptero continúa delegado al ejecutable original.
 void CHeli::ProcessControlInputs(uint8 playerNum) {
     plugin::CallMethod<0x6C4830, CHeli*, uint8>(this, playerNum);
 }
@@ -352,16 +354,19 @@ void CHeli::SetupDamageAfterLoad() {
 }
 
 // 0x6C4E60
+// El procesamiento del modo de vuelo continúa delegado al ejecutable original.
 void CHeli::ProcessFlyingCarStuff() {
     plugin::CallMethod<0x6C4E60, CHeli*>(this);
 }
 
 // 0x6C5420
+// La preparación del helicóptero para el dibujo continúa delegada al ejecutable original.
 void CHeli::PreRender() {
     plugin::CallMethod<0x6C5420, CHeli*>(this);
 }
 
 // 0x6C7050
+// El control del helicóptero continúa delegado al ejecutable original.
 void CHeli::ProcessControl() {
     plugin::CallMethod<0x6C7050, CHeli*>(this);
 }

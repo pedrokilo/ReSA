@@ -37,6 +37,8 @@ enum eExtraHandlingFlags : uint32 {
 
 class FxSystem_c;
 
+// Comportamiento de automóviles de cuatro ruedas compartido por coches y otras
+// clases derivadas, incluidos puertas, daños, colisiones y suspensión.
 class NOTSA_EXPORT_VTABLE CAutomobile : public CVehicle {
 public:
     CDamageManager                      m_damageManager;

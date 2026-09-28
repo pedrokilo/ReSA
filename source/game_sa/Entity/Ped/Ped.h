@@ -108,6 +108,8 @@ enum eCantBeKnockedOffBike : uint8 {
 };
 static_assert(CANT_BE_KNOCKED_OFF_ALWAYS_HARD <= 0b11, "eCantBeKnockedOffBike must fit in the 2-bit CantBeKnockedOffBike field");
 
+// Personaje físico común a peds controlados por el jugador y peds del mundo.
+// CPed coordina animaciones, tareas y eventos, armas, voz, vehículos y grupos.
 class NOTSA_EXPORT_VTABLE CPed : public CPhysical {
 public:
     using Ref = notsa::EntityRef<CPed>;

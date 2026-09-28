@@ -36,15 +36,20 @@ enum eTrailerNodes {
     TRAILER_NUM_NODES
 };
 
+// Especializa la colisión y suspensión del automóvil y mantiene el vínculo de
+// remolque con el tractor almacenado en CVehicle.
 class NOTSA_EXPORT_VTABLE CTrailer : public CAutomobile {
     static constexpr auto NUM_TRAILER_WHEELS = 4;
     static constexpr auto NUM_TRAILER_SUPPORTS = 2;
     static constexpr auto NUM_TRAILER_SUSP_LINES = NUM_TRAILER_WHEELS + NUM_TRAILER_SUPPORTS;
 
 public:
+    // Contactos de colisión y ratios de compresión de las dos patas de apoyo.
     std::array<CColPoint, NUM_TRAILER_SUPPORTS> m_supportCPs{}; // m_aSupportColPoints
     std::array<float, NUM_TRAILER_SUPPORTS> m_supportRatios{ 1.f, 1.f }; // m_aSupportRatios
     float m_fHeight; // m_fSupportStartZ, 0x6CF3DC, 0x6CFC11
+    // Extensión usada para animar los apoyos al enganchar o estacionar el
+    // remolque; los de equipaje emplean un valor centinela propio.
     float m_fTrailerTowedRatio{ 1.f }; // m_fSupportExtension
     float m_fTrailerTowedRatio2{ 1.f }; // m_fSupportMinRatio
 

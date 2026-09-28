@@ -2,6 +2,8 @@
 
 #include "DecisionMakerTypes.h"
 
+// Carga, reinicia y descarga las tablas de decision makers de peds y grupos,
+// incluidas la tabla predeterminada y las variantes propias de misiones.
 class CDecisionMakerTypesFileLoader {
 public:
     static void InjectHooks();

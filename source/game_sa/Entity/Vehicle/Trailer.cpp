@@ -155,6 +155,8 @@ void CTrailer::SetupSuspensionLines() {
 }
 
 // 0x6CFDF0
+// Establece las referencias mutuas del remolque y actualiza su pertenencia a las
+// listas de movimiento; opcionalmente alinea el enganche con la barra tractora.
 bool CTrailer::SetTowLink(CVehicle* vehicle, bool setMyPosToTowBar) {
     if (!vehicle) {
         return false;
@@ -205,6 +207,8 @@ bool CTrailer::SetTowLink(CVehicle* vehicle, bool setMyPosToTowBar) {
 }
 
 // 0x6CF030
+// Vuelve a enlazar un remolque abandonado con un vehículo cercano si las
+// posiciones transformadas del enganche y la barra cumplen los límites fijados.
 void CTrailer::ScanForTowLink() {
     if (m_pTowingVehicle || CVehicleRecording::IsPlaybackGoingOnForCar(this) || m_nModelIndex == MODEL_FARMTR1) {
         return;
@@ -421,6 +425,8 @@ int32 CTrailer::ProcessEntityCollision(CEntity* entity, CColPoint* outColPoints)
 }
 
 // 0x6CED20
+// Ejecuta primero el control del automóvil y después retrae o extiende los
+// soportes; al remolcarlo, aplica el límite mínimo de extensión correspondiente.
 void CTrailer::ProcessControl() {
     CAutomobile::ProcessControl();
     if ((m_nFlags & 0x40) == 0 && m_fTrailerTowedRatio != BAGGAGE_TRAILER_TOWED_RATIO) {
@@ -451,6 +457,8 @@ void CTrailer::ProcessControl() {
 }
 
 // 0x6CF590
+// Añade el comportamiento de remolque tras la IA del automóvil; los remolques
+// de equipaje también orientan su dirección hacia el rumbo del tractor.
 bool CTrailer::ProcessAI(uint32& extraHandlingFlags) {
     const auto returnValue = CAutomobile::ProcessAI(extraHandlingFlags);
 
