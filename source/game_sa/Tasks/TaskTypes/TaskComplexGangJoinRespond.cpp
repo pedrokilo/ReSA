@@ -9,7 +9,7 @@
  * Reconstrucción: INCOMPLETA — 2/7 funciones reconstruidas.
  * Pendientes de reconstruir: 5.
  * Funciones bloqueadas: 5.
- * Evidencia aprobada vinculada: 0/7 entradas.
+ * Validación registrada: 0/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.

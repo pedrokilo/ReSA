@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Evidencia aprobada vinculada: 0/9 entradas.
+ * Validación registrada: 0/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -125,7 +125,7 @@ void CColModel::AllocateData() {
  * Los punteros internos se convierten en vistas sobre offsets del mismo bloque;
  * los triángulos se alinean a 4 bytes. m_bIsSingleColDataAlloc registra este modo
  * para que RemoveCollisionVolumes() use una única liberación.
- */ | CCollisionData | CColSphere[] | CColLine[]/CColDisk[] | CColBox[] | Vertices[] | CColTriangle[] |
+ */
 void CColModel::AllocateData(int32 numSpheres, int32 numBoxes, int32 numLines, int32 numVertices, int32 numTriangles, bool bUsesDisks) {
     const auto baseSize = sizeof(CCollisionData);
     const auto spheresSize = numSpheres * sizeof(CColSphere);

@@ -30,8 +30,7 @@ public:
      * WAITINGFORINPUT:
      *     La conversación está esperando la respuesta positiva o negativa del jugador.
      *
-     * El momento exacto de las transiciones se gestiona en Update(), que todavía
-     * delega su ejecución al ejecutable original.
+     * Update() gestiona las transiciones y los plazos de preguntas y respuestas.
      */
     enum eStatus : uint32 {
         INACTIVE = 0,
@@ -49,7 +48,7 @@ public:
     bool    m_Enabled;                   //!< Indica si actualmente se permite que la conversación avance.
     bool    m_SuppressSubtitles;         //!< Indica si deben ocultarse los subtítulos de esta conversación.
 
-    /** Registra los hooks de esta clase, tanto reconstruidos como delegados al juego original. */
+    /** Registra los hooks de esta clase. */
     static void InjectHooks();
 
     /**
@@ -67,8 +66,7 @@ public:
     /**
      * Avanza la máquina de estados de la conversación asociada al peatón.
      *
-     * Esta implementación todavía no ha sido reconstruida y actualmente llama a
-     * la función original del juego ubicada en 0x43C190.
+     * Conserva los subtítulos, las ramas y los temporizadores de 0x43C190.
      */
     void Update();
 
@@ -82,7 +80,7 @@ public:
      *
      * @return true si la comprobación de posicionamiento del juego original tiene éxito.
      *
-     * La implementación actual delega en la función original ubicada en 0x43AC40.
+     * Las conversaciones aleatorias también excluyen seguidores y búsqueda policial.
      */
     bool IsPlayerInPositionForConversation(bool randomConversation);
 };

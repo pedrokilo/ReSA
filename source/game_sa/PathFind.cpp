@@ -9,7 +9,7 @@
  * Reconstrucción: INCOMPLETA — 54/56 funciones reconstruidas.
  * Pendientes de reconstruir: 2.
  * Funciones bloqueadas: 2.
- * Evidencia aprobada vinculada: 0/56 entradas.
+ * Validación registrada: 0/56 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -24,7 +24,7 @@
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Evidencia aprobada vinculada: 0/1 entradas.
+ * Validación registrada: 0/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
