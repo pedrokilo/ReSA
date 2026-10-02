@@ -23,7 +23,7 @@ END GENERATED HOOK STATUS */
 void CConversationNode::InjectHooks() {
     RH_ScopedClass(CConversationNode);
     RH_ScopedCategory("Conversations");
-    RH_ScopedInstall(ClearRecursively, 0x43A7A0);
+    RH_ScopedInstall(ClearRecursively, 0x43A710); // Antes 0x43A7A0: caía dentro de una instrucción de esta misma función
 }
 
 /**
