@@ -1,0 +1,235 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "pairs": 312,
+  "by_dimension": {
+    "animId_categories": [
+      "OFF_SIT_IN",
+      "OFF_SIT_2IDLE_180",
+      "OFF_SIT_IDLE_LOOP",
+      "OFF_SIT_BORED_LOOP",
+      "OFF_SIT_WATCH",
+      "IDLE (fuera de los rangos de la tarea)"
+    ],
+    "m_bUpdatePedPos": [
+      false,
+      true
+    ],
+    "m_bTaskFinished": [
+      false,
+      true
+    ],
+    "timerState": [
+      "ninguno",
+      "m_TaskTimer agotado",
+      "m_AnimTimer agotado"
+    ],
+    "rngVariant": [
+      "0x1000 (<0x3FFF, rama StartRandomOneOffAnim)",
+      "0x5000 (>=0x3FFF, rama StartRandomLoopAnim)"
+    ]
+  },
+  "all_equal": true,
+  "max_error": 2.86102294921875e-06,
+  "tolerance": 1e-05,
+  "candidate_calls": 312,
+  "state_restored": true,
+  "log_sha256": "211bf479d8c4bc9873e01f2f75a8a2394a2af2b3830d49c64f7f3f2ac1ff0926",
+  "saves_unchanged": true,
+  "function": "CTaskInteriorSitAtDesk::ProcessPed",
+  "address": "0x00677920",
+  "class_recorded_progress": "9/9 (sin cambio de hooks.csv en esta tarea; ya estaba reversed=1 y el proyecto compilaba limpio antes de empezar)",
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "evidence_directory": "E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-sitatdesk/20261001-184244-796758",
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "9ed292297b3652c6e2aa6e5669f94d65cf7be5161c740e0d82a8e888ef840ad8",
+      "pdb": "f8b4f109e6c704064bf1523b2c43f060be880540b80bbaaf1b56e0051aab379e"
+    },
+    "sources": {
+      "source\\game_sa\\Tasks\\TaskTypes\\Interior\\TaskInteriorSitAtDesk.cpp": "unchanged after instrumentation restore (finally block in build_probe.py)",
+      "source\\game_sa\\Tasks\\TaskTypes\\Interior\\TaskInteriorSitAtDesk.h": "unchanged after instrumentation restore (private: section re-applied by finally block)",
+      "source\\game_sa\\Game.cpp": "unchanged after instrumentation restore (finally block in build_probe.py)"
+    }
+  },
+  "normal_asi_sha256": "c72f79320beae01a658cae2036a0c26f9a7713d39256d6a967f2a84a03367b40",
+  "normal_pdb_sha256": "2518d951c7ee6fed71f77b8ba5f6a8871d58886f7ef670e08d53c293f641685a",
+  "normal_build": "Debug x86; instrumentation excluded",
+  "installation": {
+    "normal_asi_sha256": "c72f79320beae01a658cae2036a0c26f9a7713d39256d6a967f2a84a03367b40",
+    "previous_hashes": {
+      "asi": "34801e37752db66f73e01c8b79e7f5c1cf1d27b7a7866116c3557699287e36e5",
+      "pdb": "bb28eda79b1e2d8d17ec56522852b48a4d353450e30cba6861fd55f80668825e"
+    },
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-sitatdesk-20261001",
+    "saves_unchanged": true
+  },
+  "excluded_hooks": [
+    "Audio",
+    "Global/SurfaceInfos_c"
+  ],
+  "visual_review": false,
+  "real_dependencies": [
+    "RpAnimBlendClumpGetAssociation(ped->GetRpClump(), ANIM_ID_OFF_SIT_2IDLE_180) in the m_bTaskFinished early-return check, against the real player's real clump",
+    "ped->m_matrix->TransformPoint / GetRight / GetForward on the real player's cloned matrix",
+    "CGeneral::GetRadianAngleBetweenPoints / CGeneral::LimitRadianAngle real math for the final ANIM_ID_OFF_SIT_IN branch",
+    "CTaskTimer::IsOutOfTime real timer semantics (CTimer::GetTimeInMS())"
+  ],
+  "controlled_dependencies": [
+    "CGeneral::GetRandomNumber() and the raw internal LCG at 0x821B1E, both patched to a fixed per-pair value shared by original and candidate (see 'real_vs_reconstructed_rng_finding')",
+    "CAnimManager::BlendAnimation(clump, groupId, animId, blendDelta) (0x4D4610 overload), patched at the DLL function entry so no real CAnimBlendAssociation is created on the player's real clump; each side reuses its own synthetic CAnimBlendAssociation"
+  ],
+  "excluded_branches": {
+    "note": "SUPERSEDED by phase_c_root_cause_and_branches: m_bTaskAborting and !m_Anim are now covered (pairs 144..311). Original text kept below for history.",
+    "historical": {
+      "m_bTaskAborting": "Not exercised at all (task.m_bTaskAborting forced false in every case). This branch starts by calling InteriorManager_c::AreAnimsLoaded(2); invoking it inside an isolated probe reproducibly crashed the ORIGINAL (unhooked) machine code path with an access violation (0xC0000005), confirmed with __try/__except around the entry() call to isolate which side faults. Not fixed: see 'anims_loaded_investigation'.",
+      "!m_Anim (task.m_Anim == nullptr)": "Also not exercised. Discovered during this task that this branch calls the SAME InteriorManager_c::AreAnimsLoaded(2) unconditionally as its first statement, hitting the identical crash. All 144 pairs therefore have m_Anim already associated at entry."
+    }
+  },
+  "anims_loaded_investigation": {
+    "summary": "InteriorManager_c::AreAnimsLoaded(int32) resolves 'int_office' via CAnimManager::GetAnimationBlockIndex(const char*) (an index into the dynamically-growing ms_aAnimBlocks array) and then reuses that SAME integer as an AssocGroupId for CAnimManager::GetAnimationBlock(AssocGroupId)->IsLoaded, with no null check. Confirmed byte-for-byte in dumpbin disassembly of the original 0x5980F0 that this is exactly what the original machine code does too, not a reconstruction error.",
+    "attempts": [
+      "Stream 'int_office.ifp' via CStreaming::RequestModel + LoadAllRequestedModels(false), then CAnimManager::AddAnimBlockRef + CreateAnimAssocGroups(): GetAnimationBlock((AssocGroupId)idx) still returned null (idx landed at ms_aAnimBlocks slot 78 in this isolated run; ANIM_GROUP_INT_OFFICE's real AssocGroupId is 85, so the group/block slots never matched outside a real game's normal load order).",
+      "Patch InteriorManager_c::AreAnimsLoaded's own DLL entry (same EntryPatch technique as the RNG/BlendAnimation patches below): the process aborted with a privileged-instruction exception (0xC0000096) at an address outside any loaded module.",
+      "Manually link CAnimManager::GetAssocGroups()[78].m_AnimBlock to the real loaded 'int_office' CAnimBlock (bypassing the index mismatch) and force InteriorManager_c::AreAnimsLoaded's own hook enabled for the whole bank: an isolated direct call to InteriorManager_c::AreAnimsLoaded(2) then returned true correctly, but the SAME call made from inside ProcessPed's original (unhooked) machine code still aborted with access violation 0xC0000005, confirmed with __try/__except to be specific to the 'original' side and independent of the AreAnimsLoaded hook's own state."
+    ],
+    "conclusion": "Root cause not identified within the time available; it looks like the original ProcessPed machine code depends on some additional engine state that a normal game session sets up before this task can ever run, which an isolated synchronous probe does not reproduce. Not claimed to be a bug in the reconstruction; m_bTaskAborting and the !m_Anim branch are left unvalidated rather than risking process stability.",
+    "winevent_access_violation": "Exception code 0xC0000005, module gta_reversed.asi, matching instruction `movzx eax,byte ptr [eax+10h]` right after a null CAnimBlock* returned by GetAnimationBlock, in the FIRST attempt before any mitigation was tried.",
+    "winevent_privileged_instruction": "Exception code 0xC0000096, module reported as unknown, offset 0x00EBF6E7, when InteriorManager_c::AreAnimsLoaded's own DLL entry was patched directly.",
+    "conclusion_correction": "FALSE premise: the original 0x5980F0 does NOT reuse the index as an AssocGroupId; it reads ms_aAnimBlocks[idx].IsLoaded directly (shl eax,5; mov cl,[eax+0B5D4B0h]) and is __thiscall (ecx=&g_interiorMan, ret 4). The crashes were caused by the reconstruction being static/cdecl (stack off by 4 in the ORIGINAL caller) plus the wrong table lookup. See phase_c_root_cause_and_branches."
+  },
+  "real_vs_reconstructed_rng_finding": {
+    "summary": "CTaskInteriorSitAtDesk::ProcessPed's line `if (CGeneral::GetRandomNumber() < 0x3FFF)` calls the DLL's CGeneral::GetRandomNumber(), which forwards to the CRT's rand(). The original machine code at this exact call site inlines a direct call to the internal LCG at 0x821B1E (`seed = seed*0x343FD + 0x269EC3; (seed>>16)&0x7FFF`), the same generator the rest of the original EXE uses, bypassing CGeneral::GetRandomNumber's own address entirely. These are two independent random sequences even in real unmodified gameplay (a pre-existing, already-documented limitation of CGeneral::GetRandomNumber's reconstruction, see source/game_sa/General.cpp:200). To compare the SAME branch decision on both sides, the bank patches both CGeneral::GetRandomNumber (the DLL symbol) and the raw 0x821B1E entry to the same fixed per-pair value, matching the technique already used by reversing/CGeneral/LiveComparison.hpp.",
+    "not_a_bug_in_task": "ProcessPed's C++ correctly uses the project's standard RNG abstraction; the divergence is purely a consequence of General.cpp's already-documented RNG gap, not something specific to this function."
+  },
+  "comparison_normalization": [
+    "The 'calls' instrumentation counter is excluded from the equality check (0 for the original machine code call, 1 for the candidate C++ call, by design)",
+    "State compared via named fields read through public accessors/members (duration, doInstantly, hasAnim, animId, animSpeed, animBlendDelta, prevAnimId, updatePedPos, taskFinished, taskAborting, both CTaskTimer states/intervals, the real player's position/heading/aiming rotation/animation shift, and the recorded BlendAnimation/RNG event sequence), rather than a raw byte compare of the task struct, to avoid depending on exact field offsets while every value exercised is still checked exactly or within tolerance",
+    "RNG/AreAnimsLoaded call counts are compared for equality alongside the state snapshot (originalRng == candidateRng enforced per pair)"
+  ],
+  "scope": "312 pairs: the 144 original pairs (m_Anim associated, m_bTaskAborting=false; see by_dimension) plus 72 pairs with m_bTaskAborting=true and m_Anim associated (6 animId x updatePedPos x 3 timer states x int_office IsLoaded) and 96 pairs with m_Anim=nullptr (6 m_PrevAnimId x doInstantly x m_bTaskAborting x IsLoaded x 2 RNG values). Does not validate real CAnimManager::BlendAnimation association creation on a live clump, FinishAnimCB execution, a real NPC in a real office, or any visual/gameplay observation. Vehicles, save/load, missions and general stability were not exercised; the real save files were verified unchanged.",
+  "discovered_and_fixed_outside_this_file": {
+    "InjectHooksMain.cpp": "A local lambda named `Interior` inside `Tasks()` (defining InjectHooks() calls for the whole CTaskInterior* family, including CTaskInteriorSitAtDesk) was defined but never invoked; a different, unrelated lambda also named `Interior` (for Interior_c/InteriorManager_c) was called later at the outer scope instead, shadowing the intended one. This meant NONE of CTaskInteriorBeInHouse/BeInOffice/BeInShop/GoToInfo/LieInBed/ShopKeeper/SitAtDesk/UseInfo ever had their hooks installed at runtime, regardless of hooks.csv. The original report of this sub-task claimed this was fixed by adding the missing `Interior();` call; that claim was FALSE, the diff left it uninvoked (only a comment). The main session fixed it for real afterward: corrected CTaskInteriorLieInBed::InjectHooks (FinishAnimCB was registered via RH_ScopedVMTInstall even though it is `static`, not virtual, which aborted the process with 'Couldn't find function in vtable'; changed to RH_ScopedInstall) and enabled `Interior();`. Verified with a clean rebuild and a 25s smoke test (process stayed alive) before reinstalling as the new normal ASI (SHA-256 4c2d1e55740713650ef25f38176e5fd7bfac277753b687e9b3785aecddfcf62f). This bank's own InjectHooks() (LiveComparison.hpp) still installs its hooks in isolation rather than relying on the now-fixed main path, which caused a NEW problem in the fourth attempt below (duplicate hook name registration)."
+  },
+  "fourth_attempt_interrupted": {
+    "date": "2026-10-01, later session",
+    "hypothesis": "CPed::Initialise (0x5DEBB0, runs once at normal game startup before any playable CPed exists) -> CCarEnterExit::SetAnimOffsetForEnterOrExitVehicle (0x64F860, guarded by ms_bPedOffsetsCalculated) already requests and loads 'int_house'/'int_office' through the normal streaming path (CStreaming::RequestModel + LoadAllRequestedModels), exactly like a real game session. By the time the probe reaches 'player_ready' (after a real save loads), this should already have happened, so InteriorManager_c::AreAnimsLoaded(2) might resolve correctly without any patching.",
+    "diagnostic_added": "A read-only diagnostic (__try/__except isolated, no patching) calling InteriorManager_c::AreAnimsLoaded(2) once right after 'player_ready', before the 144-pair bank runs.",
+    "result": "Across 6 consecutive runs via the shared runner plus one run observed live with PowerShell/Get-Process (Responding=true for 75s), the game never wrote 'player_ready' at all — it stayed on 'waiting_for_player' indefinitely, i.e. before the diagnostic itself could ever execute. That code path (FindPlayerPed/CCutsceneMgr::IsRunning/hook lookup) is byte-identical to the already-validated 144-pair version, so there is no evidence the diagnostic itself caused the stall. Windows Event Viewer showed a third-party service (Daemon Tools) restarting in a loop roughly every 10 minutes throughout the test window — suspected but unconfirmed system resource contention, not necessarily a code issue.",
+    "assertion_dialogs_seen": [
+      {
+        "location": "reversiblehooks/HookCategory.h:60",
+        "expression": "!FindItem(item->Name())",
+        "cause": "CONFIRMED: duplicate hook name. This bank's own isolated InjectHooks() now collides with the main InjectHooksMain.cpp path, which also registers CTaskInteriorSitAtDesk's hooks after the fix described above."
+      },
+      {
+        "location": "app/app_debug.h:14",
+        "expression": "result (the generic VERIFY(...) macro)",
+        "cause": "NOT identified with certainty. Not confirmed to originate from this bank's own diagnostic code, which per the log never executed (stuck at waiting_for_player). May be related to the same system contention noted above."
+      }
+    ],
+    "outcome": "Stopped by explicit user request before isolating either assertion's root cause. Agent task killed, GTA process force-terminated, verified clean afterward: no stray lock/marker files, normal ASI reinstalled (4c2d1e55740713650ef25f38176e5fd7bfac277753b687e9b3785aecddfcf62f, includes the InjectHooksMain/LieInBed fix), gta-reversed.ini back to normal (FastLoader disabled), save files unchanged. The read-only diagnostic was reverted from LiveComparison.hpp without leaving any untested change in the bank; the 144 approved pairs were not touched or re-run. m_bTaskAborting and !m_Anim remain unvalidated, same as before this attempt. Not ruled out for a future attempt on a quieter system; the hypothesis itself was never disproven, only unconfirmed live."
+  },
+  "fifth_attempt": {
+    "date": "2026-10-01, later session",
+    "goal": "Different strategy from attempts 1-4: instead of forcing InteriorManager_c::AreAnimsLoaded(2) to succeed in an isolated probe, find a REAL CPed already running a real CTaskInteriorSitAtDesk (via the normal game path, no streaming/table patches at all), clone its CPed + task into two independent copies, and exercise m_bTaskAborting/!m_Anim on those clones only.",
+    "concrete_bug_found_and_fixed": {
+      "file": "reversing/CTaskInteriorSitAtDesk/LiveComparison.hpp",
+      "problem": "The bank called CTaskInteriorSitAtDesk::InjectHooks() itself inside Update(). That made sense when it was written (the main InjectHooksMain.cpp path never called the CTaskInterior* family at all), but after the session's earlier fix enabled the Interior() lambda in InjectHooksMain.cpp, the NORMAL startup path now ALSO registers CTaskInteriorSitAtDesk's hooks. Calling InjectHooks() a second time from the bank is a confirmed duplicate hook-name registration -- this is the CONFIRMED cause of the first assertion dialog seen in the fourth attempt (reversiblehooks/HookCategory.h:60, !FindItem(item->Name())).",
+      "fix": "Removed the bank's self-install call; Update() now only looks up the ProcessPed hook already installed by the normal startup path, matching the pattern already used by reversing/CEntryExitTransition/LiveComparison.hpp. This fix is a prerequisite for re-running the EXISTING 144-pair bank safely now that the main InjectHooksMain.cpp fix is in place, not just for any new fifth-attempt code.",
+      "validated_in_engine_this_session": false
+    },
+    "source_investigation": {
+      "summary": "Traced the real engine path that would create a live CTaskInteriorSitAtDesk for an ambient NPC, to find out whether it could be located and cloned without forcing anything. Confirmed it is NOT currently possible to point at a C++ call site in this repo, because the relevant functions are themselves unreversed (forward to original machine code via plugin::CallMethodAndReturn/CallMethod, not real reconstructions):",
+      "findings": [
+        "CTaskInteriorBeInOffice::CreateFirstSubTask/CreateNextSubTask (source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInOffice.cpp) create a CTaskInteriorUseInfo, not a CTaskInteriorSitAtDesk directly.",
+        "CTaskInteriorUseInfo::CreateFirstSubTask (0x675B60) and CreateNextSubTask (0x676880) -- the functions that would actually construct the real CTaskInteriorSitAtDesk subtask -- are UNREVERSED (hooks.csv: reversed=false for both), forwarding to original machine code. This is the likely reason no 'new CTaskInteriorSitAtDesk(...)' appears anywhere in the C++ sources.",
+        "InteriorGroup_c::SetupOfficePeds (0x594BF0) is also unreversed; it is the most likely place ambient office-worker peds get placed into an office InteriorGroup_c.",
+        "POPCYCLE_GROUP_OFFICE_WORKERS (source/game_sa/PopCycle.h, used in source/game_sa/Streaming.cpp:3320-3333) confirms the game has a dedicated, zone-dependent ambient population group for office workers (CPopulation::CurrentWorldZone), but this only governs which ped MODELS stream in for a zone, not the world coordinates of office interiors.",
+        "No hardcoded world coordinates for 'int_office' interiors exist anywhere in this reversed C++ source tree; they live in the original game's IDE/IPL placement data, not in this repo. Locating a real office interior with an ambient desk NPC would require an in-game/map search (or decompiling 0x594BF0/0x675B60/0x676880), neither of which was completed this session."
+      ],
+      "conclusion": "The fifth attempt's premise (a real NPC legitimately running this task exists somewhere in the game world) is plausible and not contradicted by anything found, but confirming it requires either decompiling three still-unreversed functions or an in-game search that this session could not carry out (see environment_blocker below). No NPC was found, cloned, or exercised this session; no new comparison pairs were produced."
+    },
+    "environment_blocker": {
+      "pre_check": "As instructed, checked system state before attempting any GTA launch: the 'DaemonUpdateAssistant' service was confirmed ACTIVELY crash-looping right now (Windows System event log, ID 7034, 307 occurrences logged and counting, recurring every ~10 minutes) -- the exact same signature observed during the fourth attempt's indefinite stall. Per the task instructions this is not something to stop, only to document, so an attempt was made anyway.",
+      "attempts": [
+        {
+          "n": 1,
+          "result": "Timed out at 180s stuck on 'waiting_for_player' (CTaskInteriorSitAtDesk's own hook-collision fix build/run, used as a regression check). Never reached 'player_ready'."
+        },
+        {
+          "n": 2,
+          "result": "Retried once more (probe already built, no rebuild needed this time) with a 300s timeout: timed out again, stuck on 'waiting_for_player' again. Never reached 'player_ready'."
+        }
+      ],
+      "outcome": "2/2 consecutive attempts reproduced the exact same stall as the fourth attempt's interrupted session, consistent with the live, ongoing third-party service contention observed in the pre-check. Per the task's own guidance (max 2-3 tries, then report as an environment blocker rather than exhausting time), stopped after 2 attempts rather than retrying further. Both runs cleaned up correctly on timeout: saves_unchanged=true and configs_restored=true in both summary.json reports, and the normal ASI installed in the test copy was verified afterward to still be the correct hash (4c2d1e55740713650ef25f38176e5fd7bfac277753b687e9b3785aecddfcf62f) with no stray gta_sa.exe process left running.",
+      "consequence": "Because the game never reached 'player_ready' in either attempt, it was not possible to confirm in-engine that (a) the LiveComparison.hpp hook-collision fix leaves the already-approved 144 pairs still passing, or (b) make any progress on the new NPC-search/clone phase described in this attempt's goal. Both remain to be validated live on a future session where this specific resource contention is not active."
+    },
+    "scope_not_implemented": "The NPC search (steps 1-3 of the plan: scanning CPools::ms_pPedPool for a real CPed with GetTaskType()==TASK_INTERIOR_SIT_AT_DESK, optionally teleporting the player near a real office interior) and the clone-and-compare phase (steps 4-6: cloning that CPed+task into two independent copies and exercising m_bTaskAborting/!m_Anim on the clones) were NOT implemented this session. No change was made to source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp.",
+    "correction_the_stall_was_not_the_daemon_service": {
+      "what_actually_happened": "The 'DaemonUpdateAssistant' crash-loop correlation above was misleading. The user manually stopped that service and verified it and any GTA process were gone, then asked for the 144-pair bank to be re-run as a regression check. It STILL stalled at 'waiting_for_player' with the service confirmed off. The real cause: run_local.py/run.py only check the installed probe's hash against PROBE_HASH and launch it -- they never call build_probe.py. The LiveComparison.hpp edit (removing the redundant InjectHooks() call) was never rebuilt or reinstalled into _baseline/gta_reversed-sitatdesk-probe.asi in the test copy, so every run in this session (including the two blamed on the Daemon service) was still executing the OLD probe binary (built 2026-10-01 15:49, i.e. still containing the duplicate-hook bug). That binary hits the CRT assertion dialog (HookCategory.h:60) every time, which is a MODAL dialog box -- it blocks the game's main thread entirely, so the probe's own code (including writing 'player_ready') never runs. That is exactly indistinguishable from a plain hang unless someone is watching the screen. The user caught this live, force-closed the stuck GTA process, and asked for the probe to actually be rebuilt.",
+      "fix_applied": "Ran reversing/CTaskInteriorSitAtDesk/build_probe.py (full instrumented Debug rebuild) with the LiveComparison.hpp fix in place, producing a new probe asi/pdb (SHA-256 asi 065ace2432f243e666431fce586421c038a8db708c96a983a46721b32e1e5d28). Copied both into E:/JUEGOS/GTA San Andreas - CVehicle Test/_baseline/gta_reversed-sitatdesk-probe.{asi,pdb}, and updated PROBE_HASH in reversing/CTaskInteriorSitAtDesk/run_local.py to match.",
+      "regression_result": {
+        "command": "python reversing/run.py --case sitatdesk",
+        "outcome": "APROBADO. No duplicate-hook assertion; the game reached 'player_ready' normally and ran to completion.",
+        "pairs": 144,
+        "all_equal": true,
+        "max_error": 2.86102294921875e-06,
+        "tolerance": 1e-05,
+        "candidate_calls": 144,
+        "state_restored": true,
+        "saves_unchanged": true,
+        "configs_restored": true,
+        "log_sha256": "b2cc5e0996307e95e26a4cbac31cb4b5d85e14b2939787515144be1d5ef73983",
+        "note": "log_sha256 is IDENTICAL to the original (pre-fix) 144-pair run's log hash recorded at the top of this file -- the comparison results themselves are byte-for-byte unchanged, confirming the InjectHooks() fix only removed the duplicate-registration bug and did not alter any of the 144 already-approved comparisons.",
+        "normal_asi_restored_after": "4c2d1e55740713650ef25f38176e5fd7bfac277753b687e9b3785aecddfcf62f (verified, matches expected normal ASI), no stray gta_sa.exe process left running."
+      },
+      "revised_conclusion": "The LiveComparison.hpp hook-collision fix is now CONFIRMED correct and validated in-engine: the bank runs cleanly with no assertion and reproduces the exact same 144/144 passing result as before. There was never any real resource-contention blocker from the Daemon Tools service in this attempt -- that was a red herring caused by not having rebuilt the probe after editing its source. The genuine, still-open blocker is the structural one below (unreversed task-creation path), which is unrelated to the hang investigated here."
+    },
+    "structural_blocker_for_m_bTaskAborting_and_not_Anim": {
+      "finding": "Confirmed via both source inspection and docs/hooks.csv: in the currently reversed codebase, NO code path constructs a real CTaskInteriorSitAtDesk for an ambient NPC. CTaskInteriorUseInfo::CreateFirstSubTask (0x675B60) and CreateNextSubTask (0x676880) -- the functions that would do this -- are reversed=0 in docs/hooks.csv (forward to the original machine code via plugin::CallMethodAndReturn), and so is InteriorGroup_c::SetupOfficePeds (0x594BF0), the likely placement function for ambient office-worker peds.",
+      "implication": "The fifth attempt's premise (find a real CPed already running this task, via the normal game path, and clone it) is NOT something more banks/probes/retries in THIS file can solve. It requires reconstructing CTaskInteriorUseInfo::CreateFirstSubTask, CTaskInteriorUseInfo::CreateNextSubTask, and InteriorGroup_c::SetupOfficePeds first -- work that belongs to a different class/file than CTaskInteriorSitAtDesk and was judged out of scope to take on unilaterally in this task. No attempt was made to reconstruct those three functions.",
+      "status": "Closed for this session. m_bTaskAborting (its three sub-branches) and the !m_Anim branch remain unvalidated, same as after attempts 1-4, for a different and now better-understood reason: it is not an engine-stability problem to work around in an isolated probe (attempts 1-3's conclusion) and not an environment-contention problem either (this attempt's corrected conclusion) -- it is a missing prerequisite reconstruction in a different class, to be decided on by the project owner before any further live-NPC attempt makes sense.",
+      "recommendation": "Before any sixth attempt along the 'clone a real NPC' line: reconstruct InteriorGroup_c::SetupOfficePeds (0x594BF0), CTaskInteriorUseInfo::CreateFirstSubTask (0x675B60) and CreateNextSubTask (0x676880). Until then, do not keep iterating banks/probes in this file against this specific blocker.",
+      "status_update": "RESOLVED differently: the branches were validated with synthetic fixtures once AreAnimsLoaded was fixed (phase_c_root_cause_and_branches); CTaskInteriorUseInfo::CreateFirstSubTask/CreateNextSubTask are now reconstructed and validated too."
+    }
+  },
+  "first_approval_144_pairs": {
+    "evidence_directory": "E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-sitatdesk/20261001-145144-156757",
+    "log_sha256": "b2cc5e0996307e95e26a4cbac31cb4b5d85e14b2939787515144be1d5ef73983"
+  },
+  "phase_c_root_cause_and_branches": {
+    "date": "2026-10-01, CTaskInteriorUseInfo session",
+    "root_cause": [
+      "InteriorManager_c::AreAnimsLoaded (0x5980F0) is __thiscall in the original (caller: push 2; mov ecx,0BAF670h; call 5980F0; callee: ret 4) but was declared static (cdecl, plain ret). When ORIGINAL machine code (ProcessPed with its hook disabled) called it through the hook, the stack was left 4 bytes off and the original epilogue returned to garbage -> 0xC0000005 only on the original side, exactly as observed in attempts 1-3; the cdecl entry patch of attempt 2 had the same imbalance (0xC0000096).",
+      "The reconstruction read GetAnimationBlock((AssocGroupId)idx)->IsLoaded (group table, may be null) instead of ms_aAnimBlocks[idx].IsLoaded like the original."
+    ],
+    "fix": "source/game_sa/Interior/InteriorManager_c.{h,cpp}: bool AreAnimsLoaded(int32) const (non-static, RH_ScopedInstall), reads CAnimManager::GetAnimBlocks()[idx].IsLoaded; callers use g_interiorMan.AreAnimsLoaded(...). AddSameGroupEffectInfos (ret 8) fixed the same way. Validated by reversing/CTaskInteriorUseInfo phase A (203 pairs, esp delta 0 on both sides).",
+    "new_pairs": 168,
+    "groups": {
+      "C1_aborting_with_anim": 72,
+      "C2_no_anim": 96
+    },
+    "controlled": "IsLoaded of the int_office anim block (index 78) set per case and restored after each side; AreAnimsLoaded hook disabled on the original side",
+    "result": {
+      "pairs": 312,
+      "all_equal": true,
+      "max_error": 2.86102294921875e-06,
+      "tolerance": 1e-05,
+      "candidate_calls": 312,
+      "state_restored": true,
+      "saves_unchanged": true,
+      "configs_restored": true,
+      "log_sha256": "211bf479d8c4bc9873e01f2f75a8a2394a2af2b3830d49c64f7f3f2ac1ff0926"
+    },
+    "regression": "Pairs 0..143 are identical to the first approved run (20261001-145144-156757) except for the added informational field office_loaded.",
+    "probe": {
+      "asi": "ee06d2428331ffa1e2b1c3fb49ff43e86ff2e944206c14dbfc98b868e88439fa",
+      "pdb": "d00bcc4ffa34aa20aa6482261134d10103b606c65801cf004b4e84563d490a32"
+    },
+    "process_change_to_ProcessPed": "none"
+  }
+}

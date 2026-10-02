@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Evidencia aprobada vinculada: 0/7 entradas.
+ * Validación registrada: 0/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -30,7 +30,7 @@ void CTaskInteriorLieInBed::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x675E20);
     RH_ScopedInstall(Destructor, 0x675E90);
 
-    RH_ScopedVMTInstall(FinishAnimCB, 0x675FC0);
+    RH_ScopedInstall(FinishAnimCB, 0x675FC0);
 
     RH_ScopedVMTInstall(Clone, 0x675EF0);
     RH_ScopedVMTInstall(GetTaskType, 0x675E80);
@@ -131,7 +131,7 @@ bool CTaskInteriorLieInBed::ProcessPed(CPed* ped) {
     };
 
     if (m_TaskAborting) {
-        if (!InteriorManager_c::AreAnimsLoaded(ANIM_GROUP_DEFAULT)) {
+        if (!g_interiorMan.AreAnimsLoaded(ANIM_GROUP_DEFAULT)) {
             ped->GetIntelligence()->GetEventScanner().GetAcquaintanceScanner().SetOnlyScriptPedAllowed();
             return true;
         }
@@ -193,7 +193,7 @@ bool CTaskInteriorLieInBed::ProcessPed(CPed* ped) {
 
             ped->m_fAimingRotation = m_IntInfo->Dir.Heading();
         }
-    } else if (InteriorManager_c::AreAnimsLoaded(ANIM_GROUP_DEFAULT)) { // Create animation
+    } else if (g_interiorMan.AreAnimsLoaded(ANIM_GROUP_DEFAULT)) { // Create animation
         const auto CreateNextAnimAndStartTimer = [&, this](AnimSeqIdx offset, float blendDelta = 1000.f) {
             m_GetOutTimer.Start(m_GetOutAfterInterval);
             CreateNextAnim(offset, blendDelta);

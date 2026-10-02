@@ -24,8 +24,12 @@ public:
     bool Update();
     void Exit();
 
-    static void AddSameGroupEffectInfos(InteriorEffectInfo_t* intFxInfo, int32 a2);
-    static bool AreAnimsLoaded(int32 animBlock);
+    // Ambas son __thiscall en el original (el llamador carga ecx=&g_interiorMan y la
+    // función termina con `ret 4`/`ret 8`). Declararlas `static` (cdecl, `ret` sin
+    // limpiar argumentos) desplazaba la pila del llamador cuando un código original
+    // las invocaba a través del hook. No usan `this`.
+    void AddSameGroupEffectInfos(InteriorEffectInfo_t* intFxInfo, int32 a2);
+    bool AreAnimsLoaded(int32 animBlock) const;
 
     void PruneVisibleEffects(InteriorEffectInfo_t* pInteriorEffectInfos, size_t numInfos, size_t reqdNumInfos, float maxDist);
     size_t GetVisibleEffects(InteriorEffectInfo_t* effectInfo, uint32 totalEffects);

@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "date": "2026-10-01",
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "functions": {
+    "InteriorManager_c::AreAnimsLoaded": "0x005980F0",
+    "CTaskInteriorUseInfo::CreateFirstSubTask": "0x00675B60",
+    "CTaskInteriorUseInfo::CreateNextSubTask": "0x00676880"
+  },
+  "phase_a": {
+    "pairs": 203,
+    "num_anim_blocks": 155,
+    "block_idx": {"int_house": 77, "int_shop": 79, "int_office": 78},
+    "loaded_before": {"int_house": true, "int_shop": false, "int_office": true},
+    "results": {"true": 29, "false": 174},
+    "esp_delta_all_zero": true,
+    "coverage": "args 0..154 on the real load state (0/1/2 by name, 3..154 as raw index) + 8 IsLoaded combinations of the three interior blocks x args {0,1,2,77,79,78}; IsLoaded restored after each combination"
+  },
+  "phase_b": {
+    "pairs": 412,
+    "create_first_sub_task_pairs": 26,
+    "create_next_sub_task_pairs": 386,
+    "returned_task_types": {"null": 264, "1401 GOTO_INFO": 24, "1406 LIE_IN_BED": 32, "1407 SIT_IN_CHAIR": 16, "1408 SIT_AT_DESK": 16, "203 STAND_STILL": 40, "RUN_TIMED_ANIM": 8, "400 RUN_ANIM": 8, "244 SEQUENCE": 4},
+    "say_calls": 12,
+    "keeper_start_serve_anim_set": 4,
+    "dimensions": ["m_IntInfo null/present", "Type 0..11", "subtask GOTO_INFO/other", "m_bDoInstantly", "EntityIgnoredCollision present/absent", "AreAnimsLoaded true/false via IsLoaded", "shopkeeper primary task SHOPKEEPER/other"],
+    "compared": "returned pointer (normalized), every allocated object (requested size, GetTaskType, all dwords from +4 including padding, pointers normalized), CTaskInteriorUseInfo state, InteriorInfo_t Type/IsInUse/EntityIgnoredCollision, every modified dword of the cloned ped, shopkeeper task incl. m_bStartServeAnim, Say calls with arguments, and post-delete freed blocks/IsInUse/ped changes",
+    "original_side": "UseInfo hook and AreAnimsLoaded hook disabled",
+    "candidate_side": "both hooks enabled"
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "log": "E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-interioruseinfo/20261001-184046-436203/comparisons.jsonl",
+  "log_sha256": "f0ba266caf453ed924a8fa1534bbf470f2c0b0d6c975284fc34320d0d6042e69",
+  "failed_run_kept": {
+    "folder": "E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-interioruseinfo/20261001-183945-825045",
+    "reason": "pair 335 (Type 9 shop sequence): padding after CTaskComplexSequence::m_bFlushTasks was 0xCDCDCD00 (original, ctor 0x632BD0) vs 0x00000000 (candidate, value-initialized `new CTaskComplexSequence{}` on a defaulted ctor). Fixed in C++ to `new CTaskComplexSequence;`. Phase A 203/203 and phase B pairs 0..334 had passed."
+  },
+  "cpp_fixes": [
+    "InteriorManager_c::AreAnimsLoaded reads ms_aAnimBlocks[idx].IsLoaded like the original (main session)",
+    "InteriorManager_c::AreAnimsLoaded and AddSameGroupEffectInfos changed from static (cdecl) to non-static members (__thiscall, ret 4 / ret 8) matching the original; callers use g_interiorMan",
+    "CTaskInteriorUseInfo::CreateNextSubTask: `new CTaskComplexSequence;` instead of `{}` (padding only)"
+  ],
+  "controlled_dependencies": [
+    "CTask::operator new/delete (0x61A5A0/0x61A5B0 + DLL entries): per-side 0xCD-filled arena; real task pool untouched",
+    "CPed::Say (0x5EFFE0 + DLL entry): recorded, no audio",
+    "CAnimBlock::IsLoaded of int_house/int_shop/int_office: set per case, restored after each side"
+  ],
+  "probe": {
+    "asi": "1486eeaf27dbaa12e66923b4f88f8c57f16826b8ef4702ec15520cd2f142f368",
+    "pdb": "0da752a69aecb6ee34900f644cc6b8138c71fb80bfa1d557c793af1c117a0f57"
+  },
+  "excluded_hooks": ["Audio", "Global/SurfaceInfos_c"],
+  "visual_review": false,
+  "limits": [
+    "Shopkeeper without a primary default task (nullptr), null m_Int/group or empty group in Type 9 not exercised (both sides dereference without checks)",
+    "GetAnimationBlockIndex returning -1 not exercised",
+    "Synthetic fixtures only; no real NPC in a real interior, no audio, returned animation tasks are not run",
+    "AddSameGroupEffectInfos ABI fix has no dedicated bank"
+  ],
+  "hooks_csv": "CTaskInteriorUseInfo CreateFirstSubTask/CreateNextSubTask set to reversed=1,locked=0; validated unchanged"
+}

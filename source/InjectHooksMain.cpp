@@ -338,7 +338,6 @@
 #include "TaskSimpleCarSlowBeDraggedOut.h"
 #include "TaskComplexReactToGunAimedAt.h"
 #include "Tasks/TaskTypes/TaskSimpleNone.h"
-#include "TaskSimpleNone.h"
 #include "TaskComplexKillPedOnFoot.h"
 #include "TaskSimpleThrowProjectile.h"
 #include "TaskSimpleGoToPoint.h"
@@ -347,7 +346,6 @@
 #include "TaskComplexMoveBackAndJump.h"
 #include "TaskComplexSeekEntityAiming.h"
 #include "Tasks/TaskTypes/TaskSimpleCarDriveTimed.h"
-#include "TaskSimpleCarDriveTimed.h"
 #include "TaskComplexKillPedOnFootStealth.h"
 #include "TaskComplexDriveWander.h"
 #include "TaskSimpleStealthKill.h"
@@ -432,14 +430,12 @@
 #include "TaskComplexEnterCarAsDriverTimed.h"
 #include "TaskComplexBeInGroup.h"
 #include "Tasks/TaskTypes/TaskComplexBeCop.h"
-#include "TaskComplexBeCop.h"
 #include "TaskComplexAvoidOtherPedWhileWandering.h"
 #include "TaskComplexArrestPed.h"
 #include "TaskComplexEnterAnyCarAsDriver.h"
 #include "TaskSimpleSetKindaStayInSamePlace.h"
 #include "TaskSimpleSetCharIgnoreWeaponRangeFlag.h"
 #include "Tasks/TaskTypes/TaskComplexCarDriveMission.h"
-#include "TaskComplexCarDriveMission.h"
 #include "TaskComplexLeaveAnyCar.h"
 #include "TaskSimpleLeaveGroup.h"
 #include "TaskSimpleCreateCarAndGetIn.h"
@@ -937,7 +933,7 @@ void InjectHooksMain() {
         CAETwinLoopSoundEntity::InjectHooks();
         CAEVehicleAudioEntity::InjectHooks();
         CAEWaterCannonAudioEntity::InjectHooks();
-        // CAEWeaponAudioEntity::InjectHooks();
+        CAEWeaponAudioEntity::InjectHooks();
         CAEWeatherAudioEntity::InjectHooks();
 
         // Hardware
@@ -1013,6 +1009,14 @@ void InjectHooksMain() {
         // CTaskInteriorSitInChair::InjectHooks();
             CTaskInteriorUseInfo::InjectHooks();
         };
+        // NOTA (2026-10-01): este `Interior` no se invocaba; ninguna de las 8
+        // clases CTaskInterior* tenía sus hooks instalados en tiempo de
+        // ejecución, sin importar docs/hooks.csv. Al intentar invocarlo se
+        // encontró que CTaskInteriorLieInBed registraba su FinishAnimCB
+        // (estático, no virtual) con RH_ScopedVMTInstall, lo que abortaba el
+        // proceso ("Couldn't find function [FinishAnimCB @ 0x675fc0] in
+        // vtable"); corregido a RH_ScopedInstall en TaskInteriorLieInBed.cpp.
+        Interior();
 
         CTaskComplexUseClosestFreeScriptedAttractorRun::InjectHooks();
         CTaskComplexUseClosestFreeScriptedAttractorSprint::InjectHooks();
@@ -1032,14 +1036,12 @@ void InjectHooksMain() {
         CTaskComplexDestroyCarArmed::InjectHooks();
         CTaskComplexDestroyCarMelee::InjectHooks();
         CTaskComplexDieInCar::InjectHooks();
-        // CTaskComplexDiveFromAttachedEntityAndGetUp::InjectHooks();
         CTaskComplexDragPedFromCar__InjectHooks();
         CTaskComplexDrivePointRoute::InjectHooks();
         CTaskComplexEnterCarAsDriverTimed::InjectHooks();
         CTaskComplexEnterCarAsPassengerTimed::InjectHooks();
         CTaskComplexEnterCarAsPassengerWait::InjectHooks();
         CTaskComplexEvasiveCower::InjectHooks();
-        // CTaskComplexEvasiveDiveAndGetUp::InjectHooks();
         CTaskComplexEvasiveStep::InjectHooks();
         // CTaskComplexExtinguishFireOnFoot::InjectHooks();
         CTaskComplexExtinguishFires::InjectHooks();
@@ -1106,10 +1108,8 @@ void InjectHooksMain() {
         CTaskComplexSeekEntityStandard::InjectHooks();
         CTaskComplexSeekEntityXYOffset::InjectHooks();
         CTaskComplexSeekEntityAiming::InjectHooks();
-        //CTaskComplexSeekEntityXYOffset::InjectHooks();
         CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>::InjectHooks();
 
-        // CTaskComplexSeekEntityAiming::InjectHooks();
         CTaskComplexSeekEntityAnyMeansXYOffset::InjectHooks();
         CTaskComplexShuffleSeats::InjectHooks();
         CTaskComplexSignalAtPed::InjectHooks();
@@ -1123,9 +1123,6 @@ void InjectHooksMain() {
         CTaskComplexUseAttractor::InjectHooks();
         CTaskComplexUseAttractorPartner::InjectHooks();
         CTaskComplexAttractorPartnerWait::InjectHooks();
-        // CTaskComplexUseClosestFreeScriptedAttractor::InjectHooks();
-        // CTaskComplexUseClosestFreeScriptedAttractorRun::InjectHooks();
-        // CTaskComplexUseClosestFreeScriptedAttractorSprint::InjectHooks();
         CTaskComplexUseEffect::InjectHooks();
         CTaskComplexUseEffectRunning::InjectHooks();
         CTaskComplexUseEffectSprinting::InjectHooks();
@@ -1211,8 +1208,6 @@ void InjectHooksMain() {
         CTaskSimpleSitIdle::InjectHooks();
         CTaskSimpleStandUp::InjectHooks();
         CTaskSimpleThrowControl::InjectHooks();
-        // CTaskSimpleTired::InjectHooks();
-        // CTaskSimpleThrowControl::InjectHooks();
         CTaskSimpleTired::InjectHooks();
         // CTaskSimpleTriggerEvent::InjectHooks();
         CTaskSimpleUseAtm::InjectHooks();
@@ -1244,7 +1239,6 @@ void InjectHooksMain() {
         CTaskSimpleStandStill::InjectHooks();
         CTaskSimpleCarDrive::InjectHooks();
         CTaskSimpleScratchHead::InjectHooks();
-        // CTaskSimpleChoking::InjectHooks();
         CTaskComplexPartnerChat::InjectHooks();
         CTaskComplexChat::InjectHooks();
         CTaskSimpleUseGun::InjectHooks();
@@ -1294,8 +1288,8 @@ void InjectHooksMain() {
         CTaskSimpleSwim::InjectHooks();
         CTaskComplexWalkRoundObject::InjectHooks();
         CTaskSimplePause::InjectHooks();
-        CTaskComplexEnterCarAsDriver::InjectHooks();
         CTaskComplexEnterCarAsPassenger::InjectHooks();
+        CTaskComplexEnterCarAsDriver::InjectHooks();
         CTaskSimpleNone::InjectHooks();
         CTaskComplexKillPedOnFoot::InjectHooks();
         CTaskSimpleThrowProjectile::InjectHooks();

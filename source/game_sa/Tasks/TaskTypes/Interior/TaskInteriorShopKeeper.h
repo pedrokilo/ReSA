@@ -23,6 +23,7 @@ public:
     CTask*    CreateFirstSubTask(CPed* ped) override;
     CTask*    ControlSubTask(CPed* ped) override;
 
+    void StartServeAnim() { m_bStartServeAnim = true; }
 
 private: // Wrappers for hooks
     // 0x675660

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 21/21 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Evidencia aprobada vinculada: 0/21 entradas.
+ * Validación registrada: 0/21 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -30,8 +30,8 @@ void InteriorManager_c::InjectHooks() {
     RH_ScopedClass(InteriorManager_c);
     RH_ScopedCategory("Interior");
 
-    RH_ScopedGlobalInstall(AddSameGroupEffectInfos, 0x598430);
-    RH_ScopedGlobalInstall(AreAnimsLoaded, 0x5980F0);
+    RH_ScopedInstall(AddSameGroupEffectInfos, 0x598430);
+    RH_ScopedInstall(AreAnimsLoaded, 0x5980F0);
     RH_ScopedInstall(PruneVisibleEffects, 0x598A60);
     RH_ScopedInstall(Exit, 0x598010);
     RH_ScopedInstall(GetVisibleEffects, 0x598D80);
@@ -250,7 +250,7 @@ void InteriorManager_c::AddSameGroupEffectInfos(InteriorEffectInfo_t* ifxi, int3
 }
 
 // 0x5980F0
-bool InteriorManager_c::AreAnimsLoaded(int32 animBlock) {
+bool InteriorManager_c::AreAnimsLoaded(int32 animBlock) const {
     animBlock = [&] {
         switch (animBlock) {
         case 0:  return CAnimManager::GetAnimationBlockIndex("int_house");
@@ -259,7 +259,7 @@ bool InteriorManager_c::AreAnimsLoaded(int32 animBlock) {
         default: return animBlock;
         }
     }();
-    return CAnimManager::GetAnimationBlock((AssocGroupId)animBlock)->IsLoaded;
+    return CAnimManager::GetAnimBlocks()[animBlock].IsLoaded;
 }
 
 // 0x598010
