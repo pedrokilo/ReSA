@@ -346,6 +346,7 @@
 #include "TaskComplexEvasiveDiveAndGetUp.h"
 #include "TaskComplexMoveBackAndJump.h"
 #include "TaskComplexSeekEntityAiming.h"
+#include "Tasks/TaskTypes/TaskSimpleCarDriveTimed.h"
 #include "TaskSimpleCarDriveTimed.h"
 #include "TaskComplexKillPedOnFootStealth.h"
 #include "TaskComplexDriveWander.h"
@@ -1298,7 +1299,7 @@ void InjectHooksMain() {
         CTaskSimpleThrowProjectile::InjectHooks();
         CTaskSimpleGoToPoint::InjectHooks();
         CTaskComplexWanderMedic::InjectHooks();
-        // CTaskSimpleCarDriveTimed::InjectHooks();
+        CTaskSimpleCarDriveTimed::InjectHooks();
         CTaskComplexCarDriveWander::InjectHooks();
         CTaskSimpleStealthKill::InjectHooks();
         CTaskSimpleCarSetPedOut::InjectHooks();

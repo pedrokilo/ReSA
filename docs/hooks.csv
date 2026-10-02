@@ -8423,3 +8423,8 @@ CTaskSimpleNone,Clone,0x00463570,1,0,0,V
 CTaskSimpleNone,GetTaskType,0x004635C0,1,0,0,V
 CTaskSimpleNone,MakeAbortable,0x004635D0,1,0,0,V
 CTaskSimpleNone,ProcessPed,0x004635E0,1,0,0,V
+CTaskSimpleCarDriveTimed,Clone,0x0046F570,1,0,0,V
+CTaskSimpleCarDriveTimed,Constructor,0x005FF940,1,0,0,S
+CTaskSimpleCarDriveTimed,Destructor,0x0046F690,1,0,0,S
+CTaskSimpleCarDriveTimed,GetTaskType,0x0046F600,1,0,0,V
+CTaskSimpleCarDriveTimed,ProcessPed,0x0046F610,0,1,0,V

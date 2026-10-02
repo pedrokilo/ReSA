@@ -16,13 +16,18 @@ public:
     CTaskSimpleCarDriveTimed(CVehicle* vehicle, int32 nTime = -1);
     ~CTaskSimpleCarDriveTimed() override = default;
 
-    eTaskType GetTaskType() const override { return Type; }
-    CTask* Clone() const override { return new CTaskSimpleCarDriveTimed(m_pVehicle, m_nTime); }
+    eTaskType GetTaskType() const override { return Type; } // 0x46F600
+    CTask* Clone() const override { return new CTaskSimpleCarDriveTimed(m_pVehicle, m_nTime); } // 0x46F570
     bool ProcessPed(class CPed* ped) override;
 
 private:
     friend void InjectHooksMain();
-    static void InjectHooks() {};
+    static void InjectHooks();
     CTaskSimpleCarDriveTimed* Constructor(CVehicle* vehicle, int32 nTime);
+    // 0x46F690
+    CTaskSimpleCarDriveTimed* Destructor() {
+        this->CTaskSimpleCarDriveTimed::~CTaskSimpleCarDriveTimed();
+        return this;
+    }
 };
 VALIDATE_SIZE(CTaskSimpleCarDriveTimed, 0x70);
