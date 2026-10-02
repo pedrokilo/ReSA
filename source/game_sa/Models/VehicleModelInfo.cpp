@@ -121,7 +121,7 @@ void CVehicleModelInfo::InjectHooks()
     RH_ScopedInstall(GetMatFXEffectMaterialCB, 0x4C8810);
     RH_ScopedInstall(SetEnvironmentMapCB, 0x4C8840);
     RH_ScopedInstall(SetEnvMapCoeffCB, 0x4C88B0);
-    RH_ScopedInstall(SetRenderPipelinesCB, 0x4C88F4);
+    RH_ScopedInstall(SetRenderPipelinesCB, 0x4C88F0); // Antes 0x4C88F4: era el ret; la función es mov eax,[esp+4]; ret
     RH_ScopedInstall(CollapseFramesCB, 0x4C8E30);
     RH_ScopedInstall(SetEnvironmentMapAtomicCB, 0x4C9410);
     RH_ScopedInstall(SetEnvMapCoeffAtomicCB, 0x4C9430);

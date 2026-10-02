@@ -3489,7 +3489,7 @@ CVehicleModelInfo,SetEnvMapCoeffCB,0x004C88B0,1,0,0,S
 CVehicleModelInfo,SetEnvironmentMapAtomicCB,0x004C9410,1,0,0,S
 CVehicleModelInfo,SetEnvironmentMapCB,0x004C8840,1,0,0,S
 CVehicleModelInfo,SetRenderPipelines,0x004C8900,1,0,0,S
-CVehicleModelInfo,SetRenderPipelinesCB,0x004C88F4,1,0,0,S
+CVehicleModelInfo,SetRenderPipelinesCB,0x004C88F0,1,0,0,S
 CVehicleModelInfo,SetVehicleColour,0x004C84B0,1,0,0,S
 CVehicleModelInfo,SetVehicleComponentFlags,0x004C7C10,1,0,0,S
 CVehicleModelInfo,SetupCommonData,0x005B8F00,1,0,0,S
