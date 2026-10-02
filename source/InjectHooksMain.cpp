@@ -890,6 +890,7 @@ void InjectHooksMain() {
         CAudioZones::InjectHooks();
 
         // Entities
+        CAEAudioEntity::InjectHooks();
         // CAEAudioEntity::InjectHooks(); -- inlined
         CAECollisionAudioEntity::InjectHooks();
         CAEDoorAudioEntity::InjectHooks();

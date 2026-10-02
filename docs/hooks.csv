@@ -8289,3 +8289,5 @@ CTaskSimpleTogglePedThreatScanner,Constructor,0x00492D10,1,0,0,S
 CTaskSimpleTogglePedThreatScanner,GetTaskType,0x00492DD0,1,0,0,V
 CTaskSimpleTogglePedThreatScanner,MakeAbortable,0x00492DE0,1,0,0,V
 CTaskSimpleTogglePedThreatScanner,ProcessPed,0x006337A0,1,0,0,V
+CAEAudioEntity,Destructor,0x005DE9E0,1,0,0,S
+CAEAudioEntity,UpdateParameters,0x004D7E30,1,0,0,V
