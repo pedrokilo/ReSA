@@ -8386,3 +8386,7 @@ CTaskComplexUseSequence,ControlSubTask,0x00635530,1,0,0,V
 CTaskComplexUseSequence,CreateFirstSubTask,0x006354D0,1,0,0,V
 CTaskComplexUseSequence,CreateNextSubTask,0x006354A0,1,0,0,V
 CTaskComplexUseSequence,MakeAbortable,0x00639730,1,0,0,V
+CPedShelterAttractor,BroadcastDeparture,0x005EF570,0,1,0,V
+CPedShelterAttractor,ComputeAttractHeading,0x005E9690,1,0,0,V
+CPedShelterAttractor,ComputeAttractPos,0x005EFC40,1,0,0,V
+CPedShelterAttractor,GetDisplacement,0x005EF420,0,1,0,S

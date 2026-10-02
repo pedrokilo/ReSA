@@ -160,6 +160,7 @@
 #include "Birds.h"
 #include "Hud.h"
 #include "Attractors/PedAttractor.h"
+#include "Attractors/PedShelterAttractor.h"
 #include "IdleCam.h"
 #include "Tasks/TaskTypes/TaskComplexChat.h"
 #include "Credits.h"
@@ -601,6 +602,7 @@ void InjectHooksMain() {
     CCarFXRenderer::InjectHooks();
     CPedAttractorManager::InjectHooks();
     CPedAttractor::InjectHooks();
+    CPedShelterAttractor::InjectHooks();
     CPedAttractorPedPlacer::InjectHooks();
     BoneNode_c::InjectHooks();
     BoneNodeManager_c::InjectHooks();
