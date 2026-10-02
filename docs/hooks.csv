@@ -8438,3 +8438,6 @@ CTaskComplexCarDriveMissionKillPed,Clone,0x004B8A30,1,0,0,V
 CTaskComplexCarDriveMissionKillPed,Constructor,0x004B8A00,1,0,0,S
 CTaskComplexCarDriveMissionKillPed,Destructor,0x004B8AD0,1,0,0,S
 CTaskComplexCarDriveMissionKillPed,GetTaskType,0x004B8AA0,1,0,0,V
+WindowedModeHooks,RenderWare::_rwD3D9CameraBeginUpdate,0x007F8F20,1,0,0,S
+WindowedModeHooks,RenderWare::_rwD3D9CameraClear,0x007F7730,1,0,0,S
+WindowedModeHooks,notsa::WindowedMode::HookDirect3DDeviceReplacerSA,0x007F6781,1,0,0,S
