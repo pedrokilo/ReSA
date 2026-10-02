@@ -159,6 +159,7 @@
 #include "VehicleRecording.h"
 #include "Birds.h"
 #include "Hud.h"
+#include "Attractors/PedAttractor.h"
 #include "CarFXRenderer.h"
 #include "Curves.h"
 #include "ProcObjectMan.h"
@@ -595,6 +596,7 @@ void InjectHooksMain() {
     CMenuSystem::InjectHooks();
     CCarFXRenderer::InjectHooks();
     CPedAttractorManager::InjectHooks();
+    CPedAttractor::InjectHooks();
     CPedAttractorPedPlacer::InjectHooks();
     BoneNode_c::InjectHooks();
     BoneNodeManager_c::InjectHooks();
