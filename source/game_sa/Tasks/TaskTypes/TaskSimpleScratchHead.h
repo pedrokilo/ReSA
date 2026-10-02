@@ -4,6 +4,8 @@
 
 class NOTSA_EXPORT_VTABLE CTaskSimpleScratchHead : public CTaskSimpleRunAnim {
 public:
+    static void InjectHooks();
+
     CTaskSimpleScratchHead() : CTaskSimpleRunAnim(ANIM_GROUP_DEFAULT, ANIM_ID_XPRESSSCRATCH, 4.0, TASK_SIMPLE_SCRATCH_HEAD, "ScratchHead", false) { }
     ~CTaskSimpleScratchHead() override = default;
 

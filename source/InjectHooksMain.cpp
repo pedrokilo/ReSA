@@ -1209,7 +1209,7 @@ void InjectHooksMain() {
         // CTaskComplexUseMobilePhone::InjectHooks();
         CTaskSimpleStandStill::InjectHooks();
         CTaskSimpleCarDrive::InjectHooks();
-        // CTaskSimpleScratchHead::InjectHooks();
+        CTaskSimpleScratchHead::InjectHooks();
         // CTaskSimpleChoking::InjectHooks();
         CTaskComplexPartnerChat::InjectHooks();
         CTaskSimpleUseGun::InjectHooks();
