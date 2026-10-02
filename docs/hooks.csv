@@ -8079,3 +8079,11 @@ CTaskInteriorUseInfo,MakeAbortable,0x00000000,1,0,0,V
 CTaskInteriorUseInfo,CreateNextSubTask,0x00000000,0,1,0,V
 CTaskInteriorUseInfo,CreateFirstSubTask,0x00000000,0,1,0,V
 CTaskInteriorUseInfo,ControlSubTask,0x00000000,1,0,0,V
+CTaskComplexEnterCarAsPassengerWait,Clone,0x0063D850,1,0,0,V
+CTaskComplexEnterCarAsPassengerWait,Constructor,0x0063B320,1,0,0,S
+CTaskComplexEnterCarAsPassengerWait,ControlSubTask,0x00640730,0,1,0,V
+CTaskComplexEnterCarAsPassengerWait,CreateFirstSubTask,0x00643F00,0,1,0,V
+CTaskComplexEnterCarAsPassengerWait,CreateNextSubTask,0x00643E10,0,1,0,V
+CTaskComplexEnterCarAsPassengerWait,CreateSubTask,0x006408D0,0,1,0,S
+CTaskComplexEnterCarAsPassengerWait,Destructor,0x0063B3C0,1,0,0,S
+CTaskComplexEnterCarAsPassengerWait,GetTaskType,0x0063B3B0,1,0,0,V
