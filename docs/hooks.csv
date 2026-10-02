@@ -8160,3 +8160,6 @@ CTaskComplexCarDriveWander,Constructor,0x0063CB10,1,0,0,S
 CTaskComplexCarDriveWander,CreateSubTaskCannotGetInCar,0x00643240,1,0,0,V
 CTaskComplexCarDriveWander,GetTaskType,0x0063CB40,1,0,0,V
 CTaskComplexCarDriveWander,SetUpCar,0x0063CB60,1,0,0,V
+CTaskComplexEnterCarAsDriver,Clone,0x00643780,1,0,0,V
+CTaskComplexEnterCarAsDriver,Constructor,0x006402F0,1,0,0,S
+CTaskComplexEnterCarAsDriver,GetTaskType,0x00640320,1,0,0,V

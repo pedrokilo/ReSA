@@ -11,6 +11,8 @@
 
 class NOTSA_EXPORT_VTABLE CTaskComplexEnterCarAsDriver : public CTaskComplexEnterCar {
 public:
+    static void InjectHooks();
+
     static constexpr auto Type = TASK_COMPLEX_ENTER_CAR_AS_DRIVER;
 
     explicit CTaskComplexEnterCarAsDriver(CVehicle* targetVehicle);
@@ -18,7 +20,14 @@ public:
     CTaskComplexEnterCarAsDriver(const CTaskComplexEnterCarAsDriver&);
     ~CTaskComplexEnterCarAsDriver() override = default;
 
-    eTaskType GetTaskType() const override { return Type; }
-    CTask*    Clone()       const override { return new CTaskComplexEnterCarAsDriver{*this}; }
+    eTaskType GetTaskType() const override { return Type; } // 0x640320
+    CTask*    Clone()       const override { return new CTaskComplexEnterCarAsDriver{*this}; } // 0x643780
+
+private: // Wrappers for hooks
+    // 0x6402F0
+    CTaskComplexEnterCarAsDriver* Constructor(CVehicle* targetVehicle) {
+        this->CTaskComplexEnterCarAsDriver::CTaskComplexEnterCarAsDriver(targetVehicle);
+        return this;
+    }
 };
 VALIDATE_SIZE(CTaskComplexEnterCarAsDriver, 0x50);
