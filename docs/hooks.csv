@@ -8194,3 +8194,7 @@ CTaskComplexOpenDriverDoor,Clone,0x00643870,1,0,0,V
 CTaskComplexOpenDriverDoor,Constructor,0x00640390,1,0,0,S
 CTaskComplexOpenDriverDoor,Destructor,0x006403D0,1,0,0,S
 CTaskComplexOpenDriverDoor,GetTaskType,0x006403C0,1,0,0,V
+CTaskComplexOpenPassengerDoor,Clone,0x006438E0,0,1,0,V
+CTaskComplexOpenPassengerDoor,Constructor,0x006403E0,1,0,0,S
+CTaskComplexOpenPassengerDoor,Destructor,0x00640420,1,0,0,S
+CTaskComplexOpenPassengerDoor,GetTaskType,0x00640410,1,0,0,V
