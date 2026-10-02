@@ -506,7 +506,7 @@ CVisibilityPlugins,SetAtomicFlag,0x007322B0,1,0,0,S
 CVisibilityPlugins,SetAtomicId,0x00732290,1,0,0,S
 CVisibilityPlugins,SetAtomicRenderCallback,0x007328A0,1,0,0,S
 CVisibilityPlugins,SetClumpAlpha,0x00732B00,1,0,0,S
-CVisibilityPlugins,SetClumpForAllAtomicsFlag,0x00732307,1,0,0,S
+CVisibilityPlugins,SetClumpForAllAtomicsFlag,0x007322F0,1,0,0,S
 CVisibilityPlugins,SetClumpModelInfo,0x00733750,1,0,0,S
 CVisibilityPlugins,SetFrameHierarchyId,0x00732A00,1,0,0,S
 CVisibilityPlugins,SetModelInfoIndex,0x00732230,1,0,0,S
