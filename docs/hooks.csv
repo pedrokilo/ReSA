@@ -8257,3 +8257,11 @@ CTaskSimpleDieInCar,Constructor,0x0062FC20,1,0,0,S
 CTaskSimpleDieInCar,Destructor,0x0062FC70,1,0,0,S
 CTaskSimpleDieInCar,GetTaskType,0x0062FC60,1,0,0,V
 CTaskSimpleDieInCar,ProcessPed,0x006398F0,1,0,0,V
+CTaskSimpleEvasiveDive,Clone,0x006558E0,1,0,0,V
+CTaskSimpleEvasiveDive,Constructor,0x00653560,1,0,0,S
+CTaskSimpleEvasiveDive,Destructor,0x006535D0,1,0,0,S
+CTaskSimpleEvasiveDive,FinishAnimEvasiveDiveCB,0x006536A0,1,0,0,S
+CTaskSimpleEvasiveDive,GetTaskType,0x006535C0,1,0,0,V
+CTaskSimpleEvasiveDive,MakeAbortable,0x00653640,1,0,0,V
+CTaskSimpleEvasiveDive,ProcessPed,0x00657AC0,1,0,0,V
+CTaskSimpleEvasiveDive,StartAnim,0x00655F20,1,0,0,S
