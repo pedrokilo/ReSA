@@ -438,6 +438,7 @@
 #include "TaskComplexEnterAnyCarAsDriver.h"
 #include "TaskSimpleSetKindaStayInSamePlace.h"
 #include "TaskSimpleSetCharIgnoreWeaponRangeFlag.h"
+#include "Tasks/TaskTypes/TaskComplexCarDriveMission.h"
 #include "TaskComplexCarDriveMission.h"
 #include "TaskComplexLeaveAnyCar.h"
 #include "TaskSimpleLeaveGroup.h"
@@ -1314,6 +1315,8 @@ void InjectHooksMain() {
         CTaskSimplePlayHandSignalAnim::InjectHooks();
         CTaskComplexCarDrive::InjectHooks();
         CTaskComplexCarDriveMission::InjectHooks();
+        CTaskComplexCarDriveMissionFleeScene::InjectHooks();
+        CTaskComplexCarDriveMissionKillPed::InjectHooks();
         CTaskComplexKillPedFromBoat::InjectHooks();
         CTaskComplexLeaveCar::InjectHooks();
         CTaskComplexTreatAccident::InjectHooks();

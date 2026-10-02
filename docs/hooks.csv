@@ -8431,3 +8431,11 @@ CTaskSimpleCarDriveTimed,ProcessPed,0x0046F610,0,1,0,V
 CTaskComplexBeCop,Clone,0x00499440,0,1,0,V
 CTaskComplexBeCop,Destructor,0x004994E0,1,0,0,S
 CTaskComplexBeCop,GetTaskType,0x00499430,1,0,0,V
+CTaskComplexCarDriveMissionFleeScene,Clone,0x004B8950,1,0,0,V
+CTaskComplexCarDriveMissionFleeScene,Constructor,0x004B8920,1,0,0,S
+CTaskComplexCarDriveMissionFleeScene,Destructor,0x004B89F0,1,0,0,S
+CTaskComplexCarDriveMissionFleeScene,GetTaskType,0x004B89C0,1,0,0,V
+CTaskComplexCarDriveMissionKillPed,Clone,0x004B8A30,1,0,0,V
+CTaskComplexCarDriveMissionKillPed,Constructor,0x004B8A00,1,0,0,S
+CTaskComplexCarDriveMissionKillPed,Destructor,0x004B8AD0,1,0,0,S
+CTaskComplexCarDriveMissionKillPed,GetTaskType,0x004B8AA0,1,0,0,V

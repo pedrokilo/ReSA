@@ -9,7 +9,25 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Evidencia aprobada vinculada: 0/5 entradas.
+ * Validación registrada: 0/5 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ *
+ * ESTADO: CTaskComplexCarDriveMissionFleeScene
+ * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 0/4 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ *
+ * ESTADO: CTaskComplexCarDriveMissionKillPed
+ * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 0/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -29,6 +47,26 @@ void CTaskComplexCarDriveMission::InjectHooks() {
     RH_ScopedVMTInstall(Clone, 0x63DD70);
     RH_ScopedVMTInstall(GetTaskType, 0x63CCB0);
     RH_ScopedVMTInstall(SetUpCar, 0x63CD20);
+}
+
+void CTaskComplexCarDriveMissionFleeScene::InjectHooks() {
+    RH_ScopedVirtualClass(CTaskComplexCarDriveMissionFleeScene, 0x85B95C, 14);
+    RH_ScopedCategory("Tasks/TaskTypes");
+
+    RH_ScopedInstall(Constructor, 0x4B8920);
+    RH_ScopedInstall(Destructor, 0x4B89F0);
+    RH_ScopedVMTInstall(Clone, 0x4B8950);
+    RH_ScopedVMTInstall(GetTaskType, 0x4B89C0);
+}
+
+void CTaskComplexCarDriveMissionKillPed::InjectHooks() {
+    RH_ScopedVirtualClass(CTaskComplexCarDriveMissionKillPed, 0x85B994, 14);
+    RH_ScopedCategory("Tasks/TaskTypes");
+
+    RH_ScopedInstall(Constructor, 0x4B8A00);
+    RH_ScopedInstall(Destructor, 0x4B8AD0);
+    RH_ScopedVMTInstall(Clone, 0x4B8A30);
+    RH_ScopedVMTInstall(GetTaskType, 0x4B8AA0);
 }
 
 // 0x63CC30

@@ -38,6 +38,15 @@ public:
     static constexpr auto Type = TASK_COMPLEX_CAR_DRIVE_MISSION_FLEE_SCENE;
     eTaskType GetTaskType() const override { return Type; } // 0x4B89C0
     CTask* Clone() const override { return new CTaskComplexCarDriveMissionFleeScene(m_Veh); } // 0x4B8950
+
+private:
+    friend void InjectHooksMain();
+    static void InjectHooks();
+
+    // 0x4B8920
+    CTaskComplexCarDriveMissionFleeScene* Constructor(CVehicle* vehicle) { this->CTaskComplexCarDriveMissionFleeScene::CTaskComplexCarDriveMissionFleeScene(vehicle); return this; }
+    // 0x4B89F0
+    CTaskComplexCarDriveMissionFleeScene* Destructor() { this->CTaskComplexCarDriveMissionFleeScene::~CTaskComplexCarDriveMissionFleeScene(); return this; }
 };
 
 class NOTSA_EXPORT_VTABLE CTaskComplexCarDriveMissionKillPed : public CTaskComplexCarDriveMission {
@@ -48,4 +57,13 @@ public:
     static constexpr auto Type = TASK_COMPLEX_CAR_DRIVE_MISSION_KILL_PED;
     eTaskType GetTaskType() const override { return Type; } // 0x4B8AA0
     CTask* Clone() const override { return new CTaskComplexCarDriveMissionKillPed(m_Veh, m_pTargetVehicle); } // 0x4B8A30
+
+private:
+    friend void InjectHooksMain();
+    static void InjectHooks();
+
+    // 0x4B8A00
+    CTaskComplexCarDriveMissionKillPed* Constructor(CVehicle* vehicle, CEntity* targetVehicle) { this->CTaskComplexCarDriveMissionKillPed::CTaskComplexCarDriveMissionKillPed(vehicle, targetVehicle); return this; }
+    // 0x4B8AD0
+    CTaskComplexCarDriveMissionKillPed* Destructor() { this->CTaskComplexCarDriveMissionKillPed::~CTaskComplexCarDriveMissionKillPed(); return this; }
 };
