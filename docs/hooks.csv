@@ -5309,7 +5309,7 @@ CTaskSimpleGoTo,QuitIK,0x00667CA0,1,0,0,S
 CTaskSimpleGoTo,SetUpIK,0x00667AD0,1,0,0,S
 CTaskSimpleGiveCPR,Clone,0x00000000,1,0,0,V
 CTaskSimpleGiveCPR,Constructor,0x00658860,1,0,0,S
-CTaskSimpleGiveCPR,FinishGiveCPRAnimCB,0x00658910,1,0,0,S
+CTaskSimpleGiveCPR,FinishGiveCPRAnimCB,0x00658990,1,0,0,S
 CTaskSimpleGiveCPR,MakeAbortable,0x00000000,1,0,0,V
 CTaskSimpleGiveCPR,ProcessPed,0x00000000,1,0,0,V
 CTaskSimpleGiveCPR,ReviveDeadPed,0x00658900,1,0,0,S
