@@ -2,6 +2,17 @@
 
 #include "TaskSimpleGangDriveBy.h"
 
+void CTaskSimpleGangDriveBy::InjectHooks() {
+    RH_ScopedVirtualClass(CTaskSimpleGangDriveBy, 0x86D944, 9);
+    RH_ScopedCategory("Tasks/TaskTypes");
+
+    RH_ScopedVMTInstall(GetTaskType, 0x6218B0);
+    // Stubs hacia el original: activarlos provocaría recursión infinita.
+    RH_ScopedVMTInstall(Clone, 0x6236D0, { .reversed = false });
+    RH_ScopedVMTInstall(MakeAbortable, 0x62D290, { .reversed = false });
+    RH_ScopedVMTInstall(ProcessPed, 0x62D3B0, { .reversed = false });
+}
+
 CTaskSimpleGangDriveBy::CTaskSimpleGangDriveBy(CEntity* target, const CVector* targetPos, float abortRange, int8 frequencyPercentage, eDrivebyStyle drivebyStyle, bool seatRHS) {
     m_bSeatRHS             = seatRHS;
     m_nDrivebyStyle        = drivebyStyle;

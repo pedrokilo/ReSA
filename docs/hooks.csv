@@ -8273,3 +8273,7 @@ CTaskSimpleEvasiveStep,GetTaskType,0x006531C0,1,0,0,V
 CTaskSimpleEvasiveStep,MakeAbortable,0x00653240,1,0,0,V
 CTaskSimpleEvasiveStep,ProcessPed,0x00657A60,1,0,0,V
 CTaskSimpleEvasiveStep,StartAnim,0x00655EA0,1,0,0,S
+CTaskSimpleGangDriveBy,Clone,0x006236D0,0,1,0,V
+CTaskSimpleGangDriveBy,GetTaskType,0x006218B0,1,0,0,V
+CTaskSimpleGangDriveBy,MakeAbortable,0x0062D290,0,1,0,V
+CTaskSimpleGangDriveBy,ProcessPed,0x0062D3B0,0,1,0,V

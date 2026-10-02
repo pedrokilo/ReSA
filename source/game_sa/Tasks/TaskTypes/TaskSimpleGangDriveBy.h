@@ -55,6 +55,8 @@ public:
     CVector                m_vecCoords;
 
 public:
+    static void InjectHooks();
+
     static constexpr auto Type = TASK_SIMPLE_GANG_DRIVEBY;
 
     CTaskSimpleGangDriveBy(CEntity *target, const CVector *targetPos, float abortRange, int8 frequencyPercentage, eDrivebyStyle drivebyStyle, bool seatRHS);
