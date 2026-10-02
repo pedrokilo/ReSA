@@ -8390,3 +8390,7 @@ CPedShelterAttractor,BroadcastDeparture,0x005EF570,0,1,0,V
 CPedShelterAttractor,ComputeAttractHeading,0x005E9690,1,0,0,V
 CPedShelterAttractor,ComputeAttractPos,0x005EFC40,1,0,0,V
 CPedShelterAttractor,GetDisplacement,0x005EF420,0,1,0,S
+CPlayerSkin,GetSkinTexture,0x006FFA10,1,0,0,S
+CPlayerSkin,Initialise,0x006FF8A0,1,0,0,S
+CPlayerSkin,RenderFrontendSkinEdit,0x006FF900,1,0,0,S
+CPlayerSkin,Shutdown,0x006FF8D0,1,0,0,S

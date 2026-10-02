@@ -165,6 +165,7 @@
 #include "Tasks/TaskTypes/TaskComplexChat.h"
 #include "Credits.h"
 #include "Tasks/TaskComplexUseSequence.h"
+#include "Entity/Ped/PlayerSkin.h"
 #include "CarFXRenderer.h"
 #include "Curves.h"
 #include "ProcObjectMan.h"
@@ -746,6 +747,7 @@ void InjectHooksMain() {
     CWeapon::InjectHooks();
     cTransmission::InjectHooks();
     CPlayerPed::InjectHooks();
+    CPlayerSkin::InjectHooks();
     CStats::InjectHooks();
     CCarCtrl::InjectHooks();
     CTheZones::InjectHooks();
