@@ -1268,7 +1268,7 @@ void InjectHooksMain() {
         CTaskComplexCarDriveWander::InjectHooks();
         // CTaskComplexDriveWander::InjectHooks();
         CTaskSimpleStealthKill::InjectHooks();
-        // CTaskSimpleCarSetPedOut::InjectHooks();
+        CTaskSimpleCarSetPedOut::InjectHooks();
         CTaskSimpleAnim::InjectHooks();
         CTaskSimpleRunAnim::InjectHooks();
         CTaskComplexWanderCriminal::InjectHooks();

@@ -21,6 +21,8 @@ public:
     uint8       m_nNumGettingInToClear{};
 
 public:
+    static void InjectHooks();
+
     static constexpr auto Type = TASK_SIMPLE_CAR_SET_PED_OUT;
 
     CTaskSimpleCarSetPedOut(CVehicle* targetVehicle, eTargetDoor nTargetDoor, bool bSwitchOffEngine, bool warpingOutOfCar /*notsa arg*/ = false);

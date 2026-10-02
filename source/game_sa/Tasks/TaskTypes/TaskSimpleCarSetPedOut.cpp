@@ -2,6 +2,19 @@
 
 #include "TaskSimpleCarSetPedOut.h"
 
+void CTaskSimpleCarSetPedOut::InjectHooks() {
+    RH_ScopedVirtualClass(CTaskSimpleCarSetPedOut, 0x86EEB8, 9);
+    RH_ScopedCategory("Tasks/TaskTypes");
+
+    // Stubs hacia el original: activarlos provocaría recursión infinita.
+    RH_ScopedInstall(PositionPedOutOfCollision, 0x6479B0, { .reversed = false });
+
+    RH_ScopedVMTInstall(Clone, 0x649F50, { .reversed = false });
+    RH_ScopedVMTInstall(GetTaskType, 0x647930);
+    RH_ScopedVMTInstall(MakeAbortable, 0x647940);
+    RH_ScopedVMTInstall(ProcessPed, 0x647D10, { .reversed = false });
+}
+
 CTaskSimpleCarSetPedOut::CTaskSimpleCarSetPedOut(CVehicle* targetVehicle, eTargetDoor nTargetDoor, bool bSwitchOffEngine, bool warpingOutOfCar) :
     m_nTargetDoor{ nTargetDoor },
     m_pTargetVehicle{ targetVehicle },

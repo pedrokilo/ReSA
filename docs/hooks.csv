@@ -8247,3 +8247,8 @@ CTaskSimpleCarSetPedInAsPassenger,Destructor,0x00647080,1,0,0,S
 CTaskSimpleCarSetPedInAsPassenger,GetTaskType,0x00647060,1,0,0,V
 CTaskSimpleCarSetPedInAsPassenger,MakeAbortable,0x00647070,1,0,0,V
 CTaskSimpleCarSetPedInAsPassenger,ProcessPed,0x0064B5D0,0,1,0,V
+CTaskSimpleCarSetPedOut,Clone,0x00649F50,0,1,0,V
+CTaskSimpleCarSetPedOut,GetTaskType,0x00647930,1,0,0,V
+CTaskSimpleCarSetPedOut,MakeAbortable,0x00647940,1,0,0,V
+CTaskSimpleCarSetPedOut,PositionPedOutOfCollision,0x006479B0,0,1,0,S
+CTaskSimpleCarSetPedOut,ProcessPed,0x00647D10,0,1,0,V
