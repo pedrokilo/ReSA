@@ -8284,3 +8284,8 @@ CTaskSimpleSetStayInSamePlace,Constructor,0x0062F590,1,0,0,S
 CTaskSimpleSetStayInSamePlace,GetTaskType,0x0062F5B0,1,0,0,V
 CTaskSimpleSetStayInSamePlace,MakeAbortable,0x0062F5C0,1,0,0,V
 CTaskSimpleSetStayInSamePlace,ProcessPed,0x0062F5E0,1,0,0,V
+CTaskSimpleTogglePedThreatScanner,Clone,0x00492D50,1,0,0,V
+CTaskSimpleTogglePedThreatScanner,Constructor,0x00492D10,1,0,0,S
+CTaskSimpleTogglePedThreatScanner,GetTaskType,0x00492DD0,1,0,0,V
+CTaskSimpleTogglePedThreatScanner,MakeAbortable,0x00492DE0,1,0,0,V
+CTaskSimpleTogglePedThreatScanner,ProcessPed,0x006337A0,1,0,0,V
