@@ -1289,7 +1289,7 @@ void InjectHooksMain() {
         CTaskComplexUseWaterCannon::InjectHooks();
         // CTaskComplexDriveToPoint::InjectHooks();
         CTaskSimpleSlideToCoord::InjectHooks();
-        // CTaskComplexPartnerDeal::InjectHooks();
+        CTaskComplexPartnerDeal::InjectHooks();
         CTaskSimplePickUpEntity::InjectHooks();
         CTaskComplexBeInGroup::InjectHooks();
         // CTaskComplexBeCop::InjectHooks();

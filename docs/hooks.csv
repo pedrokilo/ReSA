@@ -8097,6 +8097,7 @@ CTaskComplexHitPedWithCar,CreateSubTask,0x006560E0,0,1,0,S
 CTaskComplexHitPedWithCar,Destructor,0x00653A30,1,0,0,S
 CTaskComplexHitPedWithCar,GetTaskType,0x00653A20,0,1,0,V
 CTaskComplexHitPedWithCar,HitHurtsPed,0x00653AE0,0,1,0,S
+CTaskComplexPartnerDeal,Constructor,0x00684190,1,0,0,S
 CTaskComplexScreamInCarThenLeave,Clone,0x0063DBB0,1,0,0,V
 CTaskComplexScreamInCarThenLeave,Constructor,0x0063C240,1,0,0,S
 CTaskComplexScreamInCarThenLeave,ControlSubTask,0x00644360,1,0,0,V
