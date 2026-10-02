@@ -8374,3 +8374,9 @@ CTaskComplexChat,CreateFirstSubTask,0x00682E20,1,0,0,V
 CTaskComplexChat,CreateNextSubTask,0x00682E10,1,0,0,V
 CTaskComplexChat,Destructor,0x00682D40,1,0,0,S
 CTaskComplexChat,GetTaskType,0x00682D30,1,0,0,V
+CCredits,PrintCreditSpace,0x005A87C0,1,0,0,S
+CCredits,PrintCreditText,0x005A8660,1,0,0,S
+CCredits,Render,0x0053D5B0,1,0,0,S
+CCredits,RenderCredits,0x005A87F0,1,0,0,S
+CCredits,Start,0x007170E0,1,0,0,S
+CCredits,Stop,0x00717100,1,0,0,S

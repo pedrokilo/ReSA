@@ -162,6 +162,7 @@
 #include "Attractors/PedAttractor.h"
 #include "IdleCam.h"
 #include "Tasks/TaskTypes/TaskComplexChat.h"
+#include "Credits.h"
 #include "CarFXRenderer.h"
 #include "Curves.h"
 #include "ProcObjectMan.h"
@@ -805,6 +806,7 @@ void InjectHooksMain() {
     CGamma::InjectHooks();
     CHudColours::InjectHooks();
     CHud::InjectHooks();
+    CCredits::InjectHooks();
     CTxdStore::InjectHooks();
     CCarEnterExit::InjectHooks();
     CEntityScanner::InjectHooks();
