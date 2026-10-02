@@ -8111,3 +8111,9 @@ CTaskSimpleChat,Clone,0x005F65E0,1,0,0,V
 CTaskSimpleChat,Destructor,0x005F7FD0,1,0,0,S
 CTaskSimpleChat,IsInterruptable,0x005F6650,1,0,0,V
 CTaskSimpleDead,ProcessPed,0x00630600,0,1,0,S
+CTaskSimpleDoHandSignal,Clone,0x006608C0,1,0,0,V
+CTaskSimpleDoHandSignal,Constructor,0x00660880,1,0,0,S
+CTaskSimpleDoHandSignal,Destructor,0x006608B0,1,0,0,S
+CTaskSimpleDoHandSignal,GetTaskType,0x006608A0,1,0,0,V
+CTaskSimpleDoHandSignal,MakeAbortable,0x00660930,1,0,0,V
+CTaskSimpleDoHandSignal,ProcessPed,0x00660940,1,0,0,V
