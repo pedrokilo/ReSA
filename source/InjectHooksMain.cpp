@@ -1199,7 +1199,7 @@ void InjectHooksMain() {
         // CTaskSimpleGangDriveBy::InjectHooks();
         CTaskComplexObserveTrafficLightsAndAchieveHeading::InjectHooks();
         CTaskSimpleInAir::InjectHooks();
-        // CTaskComplexHitPedWithCar::InjectHooks();
+        CTaskComplexHitPedWithCar::InjectHooks();
         CTaskSimplePlayerOnFoot::InjectHooks();
         CTaskComplexFollowPedFootsteps::InjectHooks();
         CTaskComplexGetUpAndStandStill::InjectHooks();

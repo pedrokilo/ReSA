@@ -8087,6 +8087,16 @@ CTaskComplexEnterCarAsPassengerWait,CreateNextSubTask,0x00643E10,0,1,0,V
 CTaskComplexEnterCarAsPassengerWait,CreateSubTask,0x006408D0,0,1,0,S
 CTaskComplexEnterCarAsPassengerWait,Destructor,0x0063B3C0,1,0,0,S
 CTaskComplexEnterCarAsPassengerWait,GetTaskType,0x0063B3B0,1,0,0,V
+CTaskComplexHitPedWithCar,Clone,0x006559B0,0,1,0,V
+CTaskComplexHitPedWithCar,ComputeEvasiveStepMoveDir,0x00653B40,0,1,0,S
+CTaskComplexHitPedWithCar,Constructor,0x006539A0,1,0,0,S
+CTaskComplexHitPedWithCar,ControlSubTask,0x00653A90,0,1,0,V
+CTaskComplexHitPedWithCar,CreateFirstSubTask,0x00656300,0,1,0,V
+CTaskComplexHitPedWithCar,CreateNextSubTask,0x00657AF0,0,1,0,V
+CTaskComplexHitPedWithCar,CreateSubTask,0x006560E0,0,1,0,S
+CTaskComplexHitPedWithCar,Destructor,0x00653A30,1,0,0,S
+CTaskComplexHitPedWithCar,GetTaskType,0x00653A20,0,1,0,V
+CTaskComplexHitPedWithCar,HitHurtsPed,0x00653AE0,0,1,0,S
 CTaskComplexScreamInCarThenLeave,Clone,0x0063DBB0,1,0,0,V
 CTaskComplexScreamInCarThenLeave,Constructor,0x0063C240,1,0,0,S
 CTaskComplexScreamInCarThenLeave,ControlSubTask,0x00644360,1,0,0,V
