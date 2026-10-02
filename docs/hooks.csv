@@ -8237,3 +8237,8 @@ CTaskComplexWanderStandard,LookForSexyCars,0x0066AFD0,0,1,0,S
 CTaskComplexWanderStandard,ScanForStuff,0x00672600,1,0,0,V
 CTaskComplexWanderStandard,SetNextMinScanTime,0x0066AF60,0,1,0,S
 CTaskComplexWanderStandard,WillChat,0x0066AED0,0,1,0,S
+CTaskSimpleCarSetPedInAsDriver,Clone,0x00649E00,1,0,0,V
+CTaskSimpleCarSetPedInAsDriver,Constructor,0x006470E0,1,0,0,S
+CTaskSimpleCarSetPedInAsDriver,GetTaskType,0x00647150,1,0,0,V
+CTaskSimpleCarSetPedInAsDriver,MakeAbortable,0x00647160,1,0,0,V
+CTaskSimpleCarSetPedInAsDriver,ProcessPed,0x0064B950,0,1,0,V

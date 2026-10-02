@@ -21,6 +21,8 @@ public:
     uint8                         m_nNumGettingInToClear;
 
 public:
+    static void InjectHooks();
+
     static constexpr auto Type = TASK_SIMPLE_CAR_SET_PED_IN_AS_DRIVER;
 
     CTaskSimpleCarSetPedInAsDriver(CVehicle *targetVehicle, CTaskUtilityLineUpPedWithCar *utility = nullptr);
@@ -31,5 +33,12 @@ public:
     CTask* Clone() const override;
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return false; }
     bool ProcessPed(CPed* ped) override;
+
+private: // Wrappers for hooks
+    // 0x6470E0
+    CTaskSimpleCarSetPedInAsDriver* Constructor(CVehicle* targetVehicle, CTaskUtilityLineUpPedWithCar* utility) {
+        this->CTaskSimpleCarSetPedInAsDriver::CTaskSimpleCarSetPedInAsDriver(targetVehicle, utility);
+        return this;
+    }
 };
 VALIDATE_SIZE(CTaskSimpleCarSetPedInAsDriver, 0x1C);
