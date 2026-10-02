@@ -18,13 +18,15 @@ public:
     bool field_38;
 
 public:
+    static void InjectHooks();
+
     static constexpr auto Type = TASK_COMPLEX_CAR_DRIVE_TO_POINT;
 
     CTaskComplexDriveToPoint(CVehicle* vehicle, const CVector& point, float speed, int32 arg4, eModelID carModelIndexToCreate, float radius, eCarDrivingStyle drivingStyle);
     ~CTaskComplexDriveToPoint() override = default;
 
-    eTaskType GetTaskType() const override { return Type;}
-    CTask* Clone() const override { return new CTaskComplexDriveToPoint(m_Veh, m_Point, m_CruiseSpeed, field_30, m_DesiredCarModel, m_Radius, static_cast<eCarDrivingStyle>(m_CarDrivingStyle)); }
+    eTaskType GetTaskType() const override { return Type;} // 0x63CE60
+    CTask* Clone() const override { return new CTaskComplexDriveToPoint(m_Veh, m_Point, m_CruiseSpeed, field_30, m_DesiredCarModel, m_Radius, static_cast<eCarDrivingStyle>(m_CarDrivingStyle)); } // 0x63DDE0
 
     void SetUpCar() override;
     CTask* CreateSubTaskCannotGetInCar(CPed* ped) override;
@@ -36,5 +38,12 @@ public:
 
     /// NOTSA
     void GoToPoint(const CVector& point);
+
+private: // Wrappers for hooks
+    // 0x63CE00
+    CTaskComplexDriveToPoint* Constructor(CVehicle* vehicle, const CVector& point, float speed, int32 arg4, eModelID carModelIndexToCreate, float radius, eCarDrivingStyle drivingStyle) {
+        this->CTaskComplexDriveToPoint::CTaskComplexDriveToPoint(vehicle, point, speed, arg4, carModelIndexToCreate, radius, drivingStyle);
+        return this;
+    }
 };
 VALIDATE_SIZE(CTaskComplexDriveToPoint, 0x3C);

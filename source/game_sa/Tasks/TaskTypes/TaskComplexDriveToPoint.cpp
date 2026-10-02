@@ -3,6 +3,23 @@
 #include "TaskComplexDriveToPoint.h"
 #include "TaskComplexGoToPointAnyMeans.h"
 
+void CTaskComplexDriveToPoint::InjectHooks() {
+    RH_ScopedVirtualClass(CTaskComplexDriveToPoint, 0x86E9DC, 14);
+    RH_ScopedCategory("Tasks/TaskTypes");
+
+    RH_ScopedInstall(Constructor, 0x63CE00);
+
+    // Stubs plugin::Call hacia la misma dirección: activarlos provocaría recursión infinita.
+    RH_ScopedOverloadedInstall(IsTargetBlocked, "", 0x6452C0, bool(CTaskComplexDriveToPoint::*)(CPed*) const, { .reversed = false });
+    RH_ScopedOverloadedInstall(IsTargetBlocked, "entities", 0x6432A0, bool(CTaskComplexDriveToPoint::*)(CPed*, CEntity**, int32) const, { .reversed = false });
+
+    RH_ScopedVMTInstall(Clone, 0x63DDE0);
+    RH_ScopedVMTInstall(GetTaskType, 0x63CE60);
+    RH_ScopedVMTInstall(SetUpCar, 0x63CF00);
+    RH_ScopedVMTInstall(CreateSubTaskCannotGetInCar, 0x63CE80);
+    RH_ScopedVMTInstall(Drive, 0x645420, { .reversed = false }); // Stub plugin::Call
+}
+
 // 0x63CE00
 CTaskComplexDriveToPoint::CTaskComplexDriveToPoint(CVehicle* vehicle, const CVector& point, float speed, int32 arg4, eModelID carModelIndexToCreate, float radius, eCarDrivingStyle drivingStyle) :
       CTaskComplexCarDrive(vehicle, speed, carModelIndexToCreate, drivingStyle),

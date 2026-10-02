@@ -8147,3 +8147,11 @@ CTaskComplexClimb,Clone,0x0046A650,1,0,0,V
 CTaskComplexClimb,Constructor,0x0046A630,1,0,0,S
 CTaskComplexClimb,Destructor,0x0046A6E0,1,0,0,S
 CTaskComplexClimb,GetTaskType,0x0046A6B0,1,0,0,V
+CTaskComplexDriveToPoint,Clone,0x0063DDE0,1,0,0,V
+CTaskComplexDriveToPoint,Constructor,0x0063CE00,1,0,0,S
+CTaskComplexDriveToPoint,CreateSubTaskCannotGetInCar,0x0063CE80,1,0,0,V
+CTaskComplexDriveToPoint,Drive,0x00645420,0,1,0,V
+CTaskComplexDriveToPoint,GetTaskType,0x0063CE60,1,0,0,V
+CTaskComplexDriveToPoint,IsTargetBlocked-,0x006452C0,0,1,0,S
+CTaskComplexDriveToPoint,IsTargetBlocked-entities,0x006432A0,0,1,0,S
+CTaskComplexDriveToPoint,SetUpCar,0x0063CF00,1,0,0,V
