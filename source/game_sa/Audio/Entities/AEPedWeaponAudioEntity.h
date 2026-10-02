@@ -6,6 +6,8 @@ class CPed;
 
 class CAEPedWeaponAudioEntity : public CAEWeaponAudioEntity {
 public:
+    static void InjectHooks();
+
     CAEPedWeaponAudioEntity();
     ~CAEPedWeaponAudioEntity() = default;
 

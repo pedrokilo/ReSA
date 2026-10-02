@@ -901,6 +901,8 @@ void InjectHooksMain() {
         CAEPedAudioEntity::InjectHooks();
         CAEPedlessSpeechAudioEntity::InjectHooks();
         CAEPedSpeechAudioEntity::InjectHooks();
+        // CAEPedWeaponAudioEntity ahora registra sus propios métodos (Initialise, Terminate,
+        // AddAudioEvent, Service) con un nombre distinto al de CAEWeaponAudioEntity.
         CAEPedWeaponAudioEntity::InjectHooks();
         CAEPoliceScannerAudioEntity::InjectHooks();
         CAEScriptAudioEntity::InjectHooks();

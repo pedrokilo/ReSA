@@ -2,6 +2,21 @@
 
 #include "AEPedWeaponAudioEntity.h"
 
+void CAEPedWeaponAudioEntity::InjectHooks() {
+    // No redefine ningún virtual: su vtable del EXE (0x86C2AC, escrita por el
+    // constructor 0x5DE990) solo hereda UpdateParameters de CAEWeaponAudioEntity
+    // (0x504B70), que ya se instala desde CAEWeaponAudioEntity::InjectHooks.
+    RH_ScopedClass(CAEPedWeaponAudioEntity);
+    RH_ScopedCategory("Audio/Entities");
+
+    // El constructor 0x5DE990 no se instala aquí: ya está registrado (bloqueado y
+    // deshabilitado) en CAEWeaponAudioEntity::InjectHooks; duplicarlo chocaría.
+    RH_ScopedInstall(Initialise, 0x4E6AA0);
+    RH_ScopedInstall(Terminate, 0x4E6AC0);
+    RH_ScopedInstall(AddAudioEvent, 0x4E69F0);
+    RH_ScopedInstall(Service, 0x4E6AE0);
+}
+
 // 0x5DE990
 CAEPedWeaponAudioEntity::CAEPedWeaponAudioEntity() : CAEWeaponAudioEntity() {
     m_Ped = nullptr;

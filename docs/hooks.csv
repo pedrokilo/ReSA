@@ -8291,3 +8291,7 @@ CTaskSimpleTogglePedThreatScanner,MakeAbortable,0x00492DE0,1,0,0,V
 CTaskSimpleTogglePedThreatScanner,ProcessPed,0x006337A0,1,0,0,V
 CAEAudioEntity,Destructor,0x005DE9E0,1,0,0,S
 CAEAudioEntity,UpdateParameters,0x004D7E30,1,0,0,V
+CAEPedWeaponAudioEntity,AddAudioEvent,0x004E69F0,1,0,0,S
+CAEPedWeaponAudioEntity,Initialise,0x004E6AA0,1,0,0,S
+CAEPedWeaponAudioEntity,Service,0x004E6AE0,1,0,0,S
+CAEPedWeaponAudioEntity,Terminate,0x004E6AC0,1,0,0,S
