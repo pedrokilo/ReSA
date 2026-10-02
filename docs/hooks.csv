@@ -8223,3 +8223,8 @@ CTaskComplexWanderMedic,Clone,0x006587A0,1,0,0,V
 CTaskComplexWanderMedic,Constructor,0x00658770,1,0,0,S
 CTaskComplexWanderMedic,GetWanderType,0x00658810,1,0,0,V
 CTaskComplexWanderMedic,ScanForStuff,0x00658820,1,0,0,V
+CTaskComplexWanderProstitute,Clone,0x00673C80,1,0,0,V
+CTaskComplexWanderProstitute,Constructor,0x00672690,1,0,0,S
+CTaskComplexWanderProstitute,CreateFirstSubTask,0x00674920,1,0,0,V
+CTaskComplexWanderProstitute,GetWanderType,0x006726C0,1,0,0,V
+CTaskComplexWanderProstitute,ScanForStuff,0x00672700,0,1,0,V
