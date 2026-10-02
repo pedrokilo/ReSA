@@ -171,6 +171,7 @@
 #include "Maths.h"
 #include "Tasks/TaskSequences.h"
 #include "Models/LodTimeModelInfo.h"
+#include "VehicleSaveStructure.h"
 #include "CarFXRenderer.h"
 #include "Curves.h"
 #include "ProcObjectMan.h"
@@ -631,6 +632,7 @@ void InjectHooksMain() {
     CPedPlacement::InjectHooks();
     CWindModifiers::InjectHooks();
     CGenericGameStorage::InjectHooks();
+    CVehicleSaveStructure::InjectHooks();
     C_PcSave::InjectHooks();
     CFileLoader::InjectHooks();
     CWorld::InjectHooks();
