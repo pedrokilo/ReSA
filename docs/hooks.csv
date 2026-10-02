@@ -8409,3 +8409,4 @@ CLodTimeModelInfo,GetModelType,0x004C56C0,1,0,0,V
 CLodTimeModelInfo,GetTimeInfo,0x004C56D0,1,0,0,V
 CVehicleSaveStructure,Construct,0x005D2330,1,0,0,S
 CVehicleSaveStructure,Extract,0x005D23B0,1,0,0,S
+CTaskTimer,IsOutOfTime,0x00420E30,1,0,0,S

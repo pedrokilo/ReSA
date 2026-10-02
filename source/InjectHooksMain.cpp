@@ -172,6 +172,7 @@
 #include "Tasks/TaskSequences.h"
 #include "Models/LodTimeModelInfo.h"
 #include "VehicleSaveStructure.h"
+#include "Tasks/TaskTimer.h"
 #include "CarFXRenderer.h"
 #include "Curves.h"
 #include "ProcObjectMan.h"
@@ -1221,6 +1222,7 @@ void InjectHooksMain() {
         CTaskComplexSequence::InjectHooks();
         CTaskComplexUseSequence::InjectHooks();
         CTaskSequences::InjectHooks();
+        CTaskTimer::InjectHooks();
         CTaskSimpleCarSlowDragPedOut::InjectHooks();
         CTaskManager::InjectHooks();
         CTaskSimpleCreateCarAndGetIn::InjectHooks();
