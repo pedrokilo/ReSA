@@ -9,6 +9,8 @@ public:
     uint32     m_nMinNextScanTime;
 
 public:
+    static void InjectHooks();
+
     CTaskComplexWanderCriminal(eMoveState MoveState, uint8 Dir, bool bWanderSensibly = true);
     ~CTaskComplexWanderCriminal() override = default; // 0x48E720
 
@@ -16,4 +18,16 @@ public:
     eWanderType GetWanderType() override { return WANDER_TYPE_CRIMINAL; } // 0x48E6F0
     void LookForCarsToSteal(CPed* ped);     // 0x66B4F0
     void ScanForStuff(CPed* ped) override;  // 0x670350
+
+private: // Wrappers for hooks
+    // 0x48E610
+    CTaskComplexWanderCriminal* Constructor(eMoveState MoveState, uint8 Dir, bool bWanderSensibly) {
+        this->CTaskComplexWanderCriminal::CTaskComplexWanderCriminal(MoveState, Dir, bWanderSensibly);
+        return this;
+    }
+    // 0x48E720
+    CTaskComplexWanderCriminal* Destructor() {
+        this->CTaskComplexWanderCriminal::~CTaskComplexWanderCriminal();
+        return this;
+    }
 };

@@ -2,6 +2,20 @@
 
 #include "TaskComplexWanderCriminal.h"
 
+void CTaskComplexWanderCriminal::InjectHooks() {
+    RH_ScopedVirtualClass(CTaskComplexWanderCriminal, 0x85A23C, 15);
+    RH_ScopedCategory("Tasks/TaskTypes");
+
+    RH_ScopedInstall(Constructor, 0x48E610);
+    RH_ScopedInstall(Destructor, 0x48E720);
+    RH_ScopedInstall(LookForCarsToSteal, 0x66B4F0, { .reversed = false });
+
+    // El original (0x48E650) pasa también m_bWanderSensibly; el Clone inline usa el valor por defecto.
+    RH_ScopedVMTInstall(Clone, 0x48E650, { .reversed = false });
+    RH_ScopedVMTInstall(GetWanderType, 0x48E6F0);
+    RH_ScopedVMTInstall(ScanForStuff, 0x670350, { .reversed = false });
+}
+
 // 0x48E610
 CTaskComplexWanderCriminal::CTaskComplexWanderCriminal(eMoveState MoveState, uint8 Dir, bool bWanderSensibly) : CTaskComplexWander(MoveState, Dir, bWanderSensibly) { }
 

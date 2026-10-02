@@ -8209,3 +8209,9 @@ CTaskComplexProstituteSolicit,GetRidOfPlayerProstitute,0x00661D30,1,0,0,S
 CTaskComplexProstituteSolicit,GetTaskType,0x00661AE0,1,0,0,V
 CTaskComplexProstituteSolicit,IsTaskValid,0x00661BB0,1,0,0,S
 CTaskComplexProstituteSolicit,MakeAbortable,0x00661B80,1,0,0,V
+CTaskComplexWanderCriminal,Clone,0x0048E650,0,1,0,V
+CTaskComplexWanderCriminal,Constructor,0x0048E610,1,0,0,S
+CTaskComplexWanderCriminal,Destructor,0x0048E720,1,0,0,S
+CTaskComplexWanderCriminal,GetWanderType,0x0048E6F0,1,0,0,V
+CTaskComplexWanderCriminal,LookForCarsToSteal,0x0066B4F0,0,1,0,S
+CTaskComplexWanderCriminal,ScanForStuff,0x00670350,0,1,0,V
