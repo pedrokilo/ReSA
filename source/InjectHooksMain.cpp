@@ -239,6 +239,7 @@
 #include "Interior/TaskInteriorGoToInfo.h"
 #include "TaskSimpleInAir.h"
 #include "TaskComplexHitPedWithCar.h"
+#include "TaskComplexScreamInCarThenLeave.h"
 #include "TaskComplexEnterCarAsPassengerWait.h"
 #include "TaskSimplePlayerOnFoot.h"
 #include "TaskComplexStealCar.h"
@@ -1047,7 +1048,7 @@ void InjectHooksMain() {
         // CTaskComplexReactToAttack::InjectHooks();
         CTaskComplexReactToGunAimedAt::InjectHooks();
         CTaskComplexRoadRage::InjectHooks();
-        // CTaskComplexScreamInCarThenLeave::InjectHooks();
+        CTaskComplexScreamInCarThenLeave::InjectHooks();
         CTaskComplexSeekCoverUntilTargetDead::InjectHooks();
 
         // CTaskComplexSeekEntity<CEntitySeekPosCalculator>::InjectHooks();

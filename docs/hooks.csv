@@ -8087,3 +8087,12 @@ CTaskComplexEnterCarAsPassengerWait,CreateNextSubTask,0x00643E10,0,1,0,V
 CTaskComplexEnterCarAsPassengerWait,CreateSubTask,0x006408D0,0,1,0,S
 CTaskComplexEnterCarAsPassengerWait,Destructor,0x0063B3C0,1,0,0,S
 CTaskComplexEnterCarAsPassengerWait,GetTaskType,0x0063B3B0,1,0,0,V
+CTaskComplexScreamInCarThenLeave,Clone,0x0063DBB0,1,0,0,V
+CTaskComplexScreamInCarThenLeave,Constructor,0x0063C240,1,0,0,S
+CTaskComplexScreamInCarThenLeave,ControlSubTask,0x00644360,1,0,0,V
+CTaskComplexScreamInCarThenLeave,CreateFirstSubTask,0x00644320,1,0,0,V
+CTaskComplexScreamInCarThenLeave,CreateNextSubTask,0x006442D0,1,0,0,V
+CTaskComplexScreamInCarThenLeave,CreateSubTask,0x00642510,1,0,0,S
+CTaskComplexScreamInCarThenLeave,Destructor,0x0063C2C0,1,0,0,S
+CTaskComplexScreamInCarThenLeave,GetTaskType,0x0063C2B0,1,0,0,V
+CTaskComplexScreamInCarThenLeave,MakeAbortable,0x0063C320,1,0,0,V
