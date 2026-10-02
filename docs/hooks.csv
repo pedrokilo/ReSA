@@ -8228,3 +8228,12 @@ CTaskComplexWanderProstitute,Constructor,0x00672690,1,0,0,S
 CTaskComplexWanderProstitute,CreateFirstSubTask,0x00674920,1,0,0,V
 CTaskComplexWanderProstitute,GetWanderType,0x006726C0,1,0,0,V
 CTaskComplexWanderProstitute,ScanForStuff,0x00672700,0,1,0,V
+CTaskComplexWanderStandard,Clone,0x0048E530,0,1,0,V
+CTaskComplexWanderStandard,Constructor,0x0048E4F0,1,0,0,S
+CTaskComplexWanderStandard,GetWanderType,0x0048E5D0,1,0,0,V
+CTaskComplexWanderStandard,LookForChatPartners,0x0066FDA0,0,1,0,S
+CTaskComplexWanderStandard,LookForGangMembers,0x00670100,0,1,0,S
+CTaskComplexWanderStandard,LookForSexyCars,0x0066AFD0,0,1,0,S
+CTaskComplexWanderStandard,ScanForStuff,0x00672600,1,0,0,V
+CTaskComplexWanderStandard,SetNextMinScanTime,0x0066AF60,0,1,0,S
+CTaskComplexWanderStandard,WillChat,0x0066AED0,0,1,0,S

@@ -1242,7 +1242,7 @@ void InjectHooksMain() {
         CTaskComplexPlayHandSignalAnim::InjectHooks();
         // CTaskComplexWaitForPed::InjectHooks();
         CTaskComplexJump::InjectHooks();
-        // CTaskComplexWanderStandard::InjectHooks();
+        CTaskComplexWanderStandard::InjectHooks();
         CTaskComplexSunbathe::InjectHooks();
         CTaskComplexEnterCar::InjectHooks();
         // CTaskSimpleTogglePedThreatScanner::InjectHooks();

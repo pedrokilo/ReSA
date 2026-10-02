@@ -2,6 +2,23 @@
 
 #include "TaskComplexWanderStandard.h"
 
+void CTaskComplexWanderStandard::InjectHooks() {
+    RH_ScopedVirtualClass(CTaskComplexWanderStandard, 0x85A200, 15);
+    RH_ScopedCategory("Tasks/TaskTypes");
+
+    RH_ScopedInstall(Constructor, 0x48E4F0);
+    RH_ScopedInstall(WillChat, 0x66AED0, { .reversed = false });
+    RH_ScopedInstall(SetNextMinScanTime, 0x66AF60, { .reversed = false });
+    RH_ScopedInstall(LookForSexyCars, 0x66AFD0, { .reversed = false });
+    RH_ScopedInstall(LookForChatPartners, 0x66FDA0, { .reversed = false });
+    RH_ScopedInstall(LookForGangMembers, 0x670100, { .reversed = false });
+
+    // El original (0x48E530) pasa también m_bWanderSensibly; el Clone inline usa el valor por defecto.
+    RH_ScopedVMTInstall(Clone, 0x48E530, { .reversed = false });
+    RH_ScopedVMTInstall(GetWanderType, 0x48E5D0);
+    RH_ScopedVMTInstall(ScanForStuff, 0x672600);
+}
+
 // 0x48E4F0
 CTaskComplexWanderStandard::CTaskComplexWanderStandard(eMoveState MoveState, uint8 Dir, bool bWanderSensibly) :
     CTaskComplexWander(MoveState, Dir, bWanderSensibly),

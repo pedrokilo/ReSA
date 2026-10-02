@@ -10,6 +10,8 @@ public:
     uint32     m_nMinNextScanTime;
 
 public:
+    static void InjectHooks();
+
     CTaskComplexWanderStandard(eMoveState MoveState, uint8 Dir, bool bWanderSensibly = true);
 
     CTask* Clone() const override { return new CTaskComplexWanderStandard(m_nMoveState, m_nDir); } // 0x48E530
@@ -21,6 +23,13 @@ public:
     bool LookForSexyCars(CPed* ped);
     bool LookForChatPartners(CPed* ped);
     bool LookForGangMembers(CPed* ped);
+
+private: // Wrappers for hooks
+    // 0x48E4F0
+    CTaskComplexWanderStandard* Constructor(eMoveState MoveState, uint8 Dir, bool bWanderSensibly) {
+        this->CTaskComplexWanderStandard::CTaskComplexWanderStandard(MoveState, Dir, bWanderSensibly);
+        return this;
+    }
 };
 
 VALIDATE_SIZE(CTaskComplexWanderStandard, 0x38);
