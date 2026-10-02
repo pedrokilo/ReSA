@@ -9,7 +9,7 @@
  * Reconstrucción: INCOMPLETA — 6/7 funciones reconstruidas.
  * Pendientes de reconstruir: 1.
  * Funciones bloqueadas: 1.
- * Evidencia aprobada vinculada: 0/7 entradas.
+ * Validación registrada: 0/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -31,6 +31,47 @@ END GENERATED HOOK STATUS */
 
 constexpr auto FIGHT_CTRL_MAX_ATTACK_ANGLE_RAD = DegreesToRadians(15);
 constexpr auto FIGHT_CTRL_FIGHT_IDLE_TIME = 60000.f;
+
+static auto& FightControlAttackInterval = StaticRef<uint32>(0x8D2E4C);
+static auto& FightControlIdleTime = StaticRef<float>(0x8D2E50);
+static auto& FightControlBlockChance = StaticRef<float>(0x8D2E54);
+static auto& FightControlBlockTimeMin = StaticRef<int32>(0x8D2E58);
+static auto& FightControlBlockTimeMax = StaticRef<int32>(0x8D2E5C);
+
+static uint32 FightControlElapsed(float step) {
+    const float seconds = .02f, milliseconds = 1000.f;
+    int64 elapsed;
+    uint16 control, truncate;
+    __asm {
+        fld step
+        fmul seconds
+        fmul milliseconds
+        fnstcw control
+        mov ax, control
+        or ax, 0C00h
+        mov truncate, ax
+        fldcw truncate
+        fistp elapsed
+        fldcw control
+    }
+    return static_cast<uint32>(elapsed);
+}
+
+static bool FightControlShouldBlock(float random, float chance, float rate) {
+    const float scale = .025f;
+    bool result;
+    __asm {
+        fld random
+        fld chance
+        fmul rate
+        fmul scale
+        fcompp
+        fnstsw ax
+        test ah, 41h
+        setz result
+    }
+    return result;
+}
 
 void CTaskSimpleFightingControl::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleFightingControl, 0x86d700, 9);
@@ -196,42 +237,88 @@ bool CTaskSimpleFightingControl::MakeAbortable(CPed* ped, eAbortPriority priorit
 
 // 0x62A0A0
 bool CTaskSimpleFightingControl::ProcessPed(CPed* ped) {
-    return plugin::CallMethodAndReturn<bool, 0x62A0A0, CTaskSimpleFightingControl*, CPed*>(this, ped);
-
-    /*
-    * Code below should be good so far, I'm lazy to finish it
-    if (!m_target) {
-        return false;
-    }
-
-    if (m_bool) {
+    if (!m_target || m_bool) {
         return true;
     }
 
-    const auto pedShootingRange = [ped] {
-        const auto range = (int16)ped->m_nWeaponShootingRate;
-        if (!ped->IsCreatedByMission() && ped->m_nPedType != PED_TYPE_COP && range == 40) {
-            return ped->m_pStats->m_wShootingRate;
-        }
-        return range;
-    }();
-
+    const float shootingRate = !ped->IsCreatedByMission() && ped->m_nPedType != PED_TYPE_COP && ped->m_nWeaponShootingRate == 40
+        ? static_cast<float>(ped->m_pStats->m_flags) // Original reads the word at CPedStat + 0x30.
+        : static_cast<float>(ped->m_nWeaponShootingRate);
     ped->GiveWeaponAtStartOfFight();
 
-    // Create fight task for ped if not already
+    int32 command = 0;
     if (!ped->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_ATTACK)) {
-        ped->GetTaskManager().SetTaskSecondary(new CTaskSimpleFight{ m_target, false, (uint32)FIGHT_CTRL_FIGHT_IDLE_TIME }, TASK_SECONDARY_ATTACK);
+        ped->GetTaskManager().SetTaskSecondary(new CTaskSimpleFight{m_target, 0, static_cast<uint32>(FightControlIdleTime)}, TASK_SECONDARY_ATTACK);
         m_nextAttackTime = 0;
+    } else {
+        if (ped->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_ATTACK)->GetTaskType() != TASK_SIMPLE_FIGHT) {
+            ped->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_ATTACK)->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr);
+            return false;
+        }
+        if (m_nextAttackTime <= CTimer::GetTimeInMS()) {
+            m_nextAttackTime = 0;
+            command = ped->m_nFightingStyle == 4 || ped->GetActiveWeapon().m_Type != WEAPON_UNARMED ? 11 : 12;
+        } else {
+            const bool startBlock = m_target->GetIsTypePed() && !m_someTime
+                && FightControlShouldBlock(CGeneral::GetRandomNumberInRange(0.f, 100.f), FightControlBlockChance, shootingRate);
+            if (startBlock) {
+                m_someTime = CGeneral::GetRandomNumberInRange(FightControlBlockTimeMin, FightControlBlockTimeMax);
+                command = 2;
+            } else if (m_someTime) {
+                const auto elapsed = FightControlElapsed(CTimer::GetTimeStep());
+                m_someTime = m_someTime > elapsed ? m_someTime - elapsed : 0;
+                command = 2;
+            }
+        }
     }
 
-    const auto pedFightTask = ped->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_ATTACK);
-    if (pedFightTask->GetTaskType() != TASK_SIMPLE_FIGHT) {
-        pedFightTask->MakeAbortable(ped);
-        return false;
+    auto* fight = static_cast<CTaskSimpleFight*>(ped->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_ATTACK));
+    m_maxAttackRange = CTaskSimpleFight::m_aComboData[std::max(int32(fight->m_nComboSet) - 4, 0)].m_fRanges;
+    if (!m_nextAttackTime) {
+        // The original keeps the random ratio and denominator on the x87 stack
+        // until its truncating conversion to milliseconds.
+        const int32 random = CGeneral::GetRandomNumber();
+        const float reciprocal = 1.f / 32767.f, quarter = .25f, rateScale = .025f, aggressionScale = .7f, base = .3f;
+        const float aggression = m_unk3;
+        const uint32 interval = FightControlAttackInterval;
+        const double unsignedCorrection = 4294967296.0;
+        int32 delay;
+        __asm {
+            fild random
+            fmul reciprocal
+            fadd quarter
+            fld shootingRate
+            fmul aggression
+            fmul rateScale
+            fmul aggressionScale
+            fadd base
+            fdivp st(1), st(0)
+            fild interval
+            cmp interval, 0
+            jge positive_interval
+            fadd unsignedCorrection
+        positive_interval:
+            fmulp st(1), st(0)
+            sub esp, 12
+            fnstcw word ptr [esp]
+            mov ax, word ptr [esp]
+            or ax, 0C00h
+            mov word ptr [esp+2], ax
+            fldcw word ptr [esp+2]
+            fistp qword ptr [esp+4]
+            fldcw word ptr [esp]
+            mov eax, [esp+4]
+            add esp, 12
+            mov delay, eax
+        }
+        m_nextAttackTime = static_cast<uint32>(delay) + CTimer::GetTimeInMS();
     }
-
-    if (m_nextAttackTime <= CTimer::GetTimeInMS()) {
-        m_nextAttackTime = 0;
+    if (fight->m_nComboSet <= 1) {
+        const auto move = CalcMoveCommand(ped);
+        if (move > -1) {
+            command = move;
+        }
     }
-    */
+    fight->ControlFight(m_target, static_cast<uint8>(command));
+    return false;
 }

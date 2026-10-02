@@ -9,7 +9,7 @@
  * Reconstrucción: INCOMPLETA — 11/12 funciones reconstruidas.
  * Pendientes de reconstruir: 1.
  * Funciones bloqueadas: 1.
- * Evidencia aprobada vinculada: 0/12 entradas.
+ * Validación registrada: 0/12 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -782,7 +782,88 @@ void CTaskSimplePlayerOnFoot::PlayIdleAnimations(CPlayerPed* player) {
 
 // 0x687530
 void CTaskSimplePlayerOnFoot::PlayerControlFighter(CPlayerPed* player) {
-    plugin::CallMethod<0x687530, CTaskSimplePlayerOnFoot*, CPlayerPed*>(this, player);
+    auto* fight = player->GetIntelligence()->GetTaskFighting();
+    if (!fight) {
+        return;
+    }
+    const bool nonMelee = CWeaponInfo::GetWeaponInfo(player->GetActiveWeapon().m_Type, eWeaponSkill::STD)->m_nWeaponFire != WEAPON_FIRE_MELEE;
+    auto* pad = player->GetPadFromPlayer();
+    const float walkX = static_cast<float>(pad->GetPedWalkLeftRight());
+    const float walkY = static_cast<float>(pad->GetPedWalkUpDown());
+    CVector2D movement{walkX / 128.f, walkY / 128.f};
+    const float step = CTimer::GetTimeStep() * .07f;
+    const bool coop = CGameLogic::IsPlayerUse2PlayerControls(player);
+
+    // In cooperative play the direction constraint is evaluated before
+    // projecting the stick into the fighter's local right/forward axes.
+    if (coop || player->m_pTargetedObject || (CCamera::m_bUseMouse3rdPerson && pad->GetTarget())) {
+        float magnitude = movement.Magnitude();
+        if (magnitude > 0.f) {
+            if (!coop && magnitude > 1.f) {
+                magnitude = 1.f;
+            }
+            const float angle = CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints(0.f, 0.f, -movement.x, movement.y) - TheCamera.m_fOrientation);
+            const CVector direction{-std::sin(angle), std::cos(angle), 0.f};
+            if (!coop || CGameLogic::IsPlayerAllowedToGoInThisDirection(player, direction, 0.f)) {
+                movement.x = DotProduct(direction, player->GetRight()) * magnitude;
+                movement.y = -DotProduct(direction, player->GetForward()) * magnitude;
+            } else {
+                movement = {0.f, 0.f};
+            }
+        }
+    }
+
+    auto& fightMovement = player->GetPlayerData()->m_vecFightMovement;
+    const auto approach = [step](float current, float wanted) {
+        const float delta = wanted - current;
+        return std::abs(delta) > step ? (delta > 0.f ? current + step : current - step) : wanted;
+    };
+    if (!player->m_pTargetedObject && !(CCamera::m_bUseMouse3rdPerson && pad->GetTarget())) {
+        float angle = CGeneral::GetRadianAngleBetweenPoints(0.f, 0.f, -walkX, walkY);
+        float magnitude = movement.Magnitude();
+        if (magnitude > 1.f) {
+            magnitude = 1.f;
+        }
+        if (magnitude == 0.f) {
+            fightMovement = {0.f, 0.f};
+        } else if (movement.y <= 0.f) {
+            fightMovement.y = approach(fightMovement.y, -magnitude);
+            fightMovement.x = 0.f;
+            player->m_fAimingRotation = CGeneral::LimitRadianAngle(angle - TheCamera.m_fOrientation);
+        }
+
+        if (!player->m_pTargetedObject && movement.y <= 0.f && static_cast<int8>(fight->m_nLastCommand) < 11) {
+            m_nTimer = static_cast<int32>(static_cast<uint32>(m_nTimer) + static_cast<uint32>(CTimer::GetTimeStep() * .02f * 1000.f));
+        } else {
+            m_nTimer = 0;
+        }
+        if (pad->GetSprint() || pad->GetDuck() || nonMelee || movement.y > 0.f || static_cast<float>(static_cast<uint32>(m_nTimer)) >= 2000.f) {
+            (void)pad->GetSprint(); // This second query is also made by the original.
+            uint8 command = magnitude > .5f ? 16 : 15;
+            if (pad->DuckJustDown() && CTaskSimpleDuck::CanPedDuck(player)) {
+                player->GetIntelligence()->SetTaskDuckSecondary(0);
+                command = 18;
+            }
+            fight->ControlFight(nullptr, command);
+            return;
+        }
+    } else {
+        fightMovement.y = approach(fightMovement.y, movement.y);
+        fightMovement.x = approach(fightMovement.x, movement.x);
+        const bool farTarget = player->m_pTargetedObject
+            && (player->m_pTargetedObject->GetPosition() - player->GetPosition()).SquaredMagnitude() > 16.f
+            && static_cast<int8>(fight->m_nLastCommand) < 11;
+        if (farTarget || pad->GetSprint() || nonMelee) {
+            const uint8 command = pad->GetSprint() ? 17 : movement.y < -.5f ? 16 : 15;
+            fight->ControlFight(nullptr, command);
+            return;
+        }
+    }
+    if (std::abs(fightMovement.y) > 0.f && std::abs(fightMovement.y) > std::abs(fightMovement.x)) {
+        fight->ControlFight(nullptr, fightMovement.y < 0.f ? 3 : 5);
+    } else if (std::abs(fightMovement.x) > 0.f) {
+        fight->ControlFight(nullptr, fightMovement.x > 0.f ? 6 : 4);
+    }
 }
 
 // 0x687C20
