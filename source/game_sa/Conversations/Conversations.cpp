@@ -44,7 +44,7 @@ void CConversations::InjectHooks() {
     // FindConversationForPed). La dirección anterior, 0x43A7F0, caía dentro del bucle de
     // CConversations::Clear (0x43A7B0) y el salto del hook lo corrompía; no se instala.
     RH_ScopedInstall(StartSettingUpConversation, 0x43A840);
-    RH_ScopedInstall(DoneSettingUpConversation, 0x43ADB0, {.reversed = false});
+    RH_ScopedInstall(DoneSettingUpConversation, 0x43ADB0); // Validada: 2.048 pares (reversing/CConversations)
 }
 
 // 0x43A7B0
