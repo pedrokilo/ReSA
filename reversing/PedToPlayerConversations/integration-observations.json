@@ -1,0 +1,326 @@
+{
+  "attempts": [
+    {
+      "report": "E:\\Original\\gta-reversed-master\\reversing\\PedToPlayerConversations\\artifacts\\normal-20260927-230704\\summary.json",
+      "passed": false,
+      "baseline": false,
+      "successful_runs": 2,
+      "error": "Command '['E:\\\\JUEGOS\\\\GTA San Andreas - CVehicle Test\\\\gta_sa.exe']' timed out after 30 seconds",
+      "configs_restored": true,
+      "saves_unchanged": true
+    },
+    {
+      "report": "E:\\Original\\gta-reversed-master\\reversing\\PedToPlayerConversations\\artifacts\\normal-20260927-231149\\summary.json",
+      "passed": false,
+      "baseline": false,
+      "successful_runs": 1,
+      "error": "Command '['E:\\\\JUEGOS\\\\GTA San Andreas - CVehicle Test\\\\gta_sa.exe']' timed out after 30 seconds",
+      "configs_restored": true,
+      "saves_unchanged": true,
+      "main_thread_stack": {
+        "tid": 38080,
+        "stack": [
+          {
+            "pc": "0x7091c743",
+            "frame": "0xebda34",
+            "symbol": "std::tuple<int,CAESoundRequest &>::tuple<int,CAESoundRequest &><int,0>",
+            "source": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\include\\tuple:359"
+          },
+          {
+            "pc": "0x7091f5c8",
+            "frame": "0xebdb1c",
+            "symbol": "std::ranges::enumerate_view<std::ranges::ref_view<std::array<CAESoundRequest,50> > >::_Iterator<1>::operator*",
+            "source": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.51.36231\\include\\ranges:5187"
+          },
+          {
+            "pc": "0x70922507",
+            "frame": "0xebe0ac",
+            "symbol": "CAEMP3BankLoader::Service",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\Audio\\Loaders\\AEMP3BankLoader.cpp:251"
+          },
+          {
+            "pc": "0x709090c7",
+            "frame": "0xebe264",
+            "symbol": "CAEAudioHardware::Service",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\Audio\\Hardware\\AEAudioHardware.cpp:834"
+          },
+          {
+            "pc": "0x70935816",
+            "frame": "0xebe344",
+            "symbol": "CAECutsceneTrackManager::PreloadCutsceneTrack",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\Audio\\Managers\\AECutsceneTrackManager.cpp:182"
+          },
+          {
+            "pc": "0x70845e1f",
+            "frame": "0xebe430",
+            "symbol": "CAudioEngine::PreloadCutsceneTrack",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\Audio\\AudioEngine.cpp:459"
+          },
+          {
+            "pc": "0x70aedbe3",
+            "frame": "0xebec90",
+            "symbol": "CCutsceneMgr::LoadCutsceneData_preload",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\CutsceneMgr.cpp:754"
+          },
+          {
+            "pc": "0x70aed2be",
+            "frame": "0xebede4",
+            "symbol": "CCutsceneMgr::LoadCutsceneData_overlay",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\CutsceneMgr.cpp:454"
+          },
+          {
+            "pc": "0x70aeca9d",
+            "frame": "0xebef48",
+            "symbol": "CCutsceneMgr::LoadCutsceneData",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\CutsceneMgr.cpp:365"
+          },
+          {
+            "pc": "0x480719",
+            "frame": "0xebf118",
+            "symbol": "?",
+            "source": ""
+          },
+          {
+            "pc": "0x7178df3c",
+            "frame": "0xebf280",
+            "symbol": "CRunningScript::ProcessOneCommand",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\Scripts\\RunningScript.cpp:956"
+          },
+          {
+            "pc": "0x7178dd80",
+            "frame": "0xebf36c",
+            "symbol": "CRunningScript::Process",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\Scripts\\RunningScript.cpp:981"
+          },
+          {
+            "pc": "0x717b25eb",
+            "frame": "0xebf5bc",
+            "symbol": "CTheScripts::Process",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\Scripts\\TheScripts.cpp:1457"
+          },
+          {
+            "pc": "0x70da336a",
+            "frame": "0xebf6e0",
+            "symbol": "CGame::Process",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\Game.cpp:766"
+          },
+          {
+            "pc": "0x70783a7d",
+            "frame": "0xebf7d0",
+            "symbol": "Idle",
+            "source": "E:\\Original\\gta-reversed-master\\source\\app\\app_game.cpp:331"
+          },
+          {
+            "pc": "0x7076b062",
+            "frame": "0xebf8b8",
+            "symbol": "AppEventHandler",
+            "source": "E:\\Original\\gta-reversed-master\\source\\app\\app.cpp:135"
+          },
+          {
+            "pc": "0x70791628",
+            "frame": "0xebf9a4",
+            "symbol": "RsEventHandler",
+            "source": "E:\\Original\\gta-reversed-master\\source\\app\\platform\\platform.cpp:310"
+          },
+          {
+            "pc": "0x707a6c42",
+            "frame": "0xebfb10",
+            "symbol": "ProcessGameLogic",
+            "source": "E:\\Original\\gta-reversed-master\\source\\app\\platform\\win\\WinMain.cpp:318"
+          },
+          {
+            "pc": "0x707a5bc9",
+            "frame": "0xebfbf8",
+            "symbol": "MainLoop",
+            "source": "E:\\Original\\gta-reversed-master\\source\\app\\platform\\win\\WinMain.cpp:344"
+          },
+          {
+            "pc": "0x707a6318",
+            "frame": "0xebfe4c",
+            "symbol": "NOTSA_WinMain",
+            "source": "E:\\Original\\gta-reversed-master\\source\\app\\platform\\win\\WinMain.cpp:474"
+          },
+          {
+            "pc": "0x8246f1",
+            "frame": "0xebff74",
+            "symbol": "?",
+            "source": ""
+          },
+          {
+            "pc": "0x77205d49",
+            "frame": "0xebff84",
+            "symbol": "BaseThreadInitThunk",
+            "source": ""
+          },
+          {
+            "pc": "0x777be1fb",
+            "frame": "0xebffdc",
+            "symbol": "RtlInitializeExceptionChain",
+            "source": ""
+          },
+          {
+            "pc": "0x777be181",
+            "frame": "0xebffec",
+            "symbol": "RtlGetAppContainerNamedObjectPath",
+            "source": ""
+          }
+        ]
+      }
+    },
+    {
+      "report": "E:\\Original\\gta-reversed-master\\reversing\\PedToPlayerConversations\\artifacts\\normal-20260927-231415\\summary.json",
+      "passed": false,
+      "baseline": true,
+      "successful_runs": 2,
+      "error": "Command '['E:\\\\JUEGOS\\\\GTA San Andreas - CVehicle Test\\\\gta_sa.exe']' timed out after 30 seconds",
+      "configs_restored": true,
+      "saves_unchanged": true,
+      "tested_asi": "b132855e4c96c1a02824b91569de158848a723718059962d5b83f91e02c5f980",
+      "tested_pdb": "7fbdff7c8c62a74cdd266cb3898bf8f2160b41ff36fdc14687d8b4ba22751750",
+      "main_thread_stack": {
+        "tid": 14580,
+        "stack": [
+          {
+            "pc": "0x724797d1",
+            "frame": "0xebdc48",
+            "symbol": "_pow_pentium4",
+            "source": "minkernel\\crts\\ucrt\\src\\appcrt\\tran\\i386\\pow_pentium4.asm:388"
+          },
+          {
+            "pc": "0x70906ac3",
+            "frame": "0xebe0ac",
+            "symbol": "CAEAudioHardware::RescaleChannelVolumes",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\Audio\\Hardware\\AEAudioHardware.cpp:474"
+          },
+          {
+            "pc": "0x70907572",
+            "frame": "0xebe264",
+            "symbol": "CAEAudioHardware::Service",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\Audio\\Hardware\\AEAudioHardware.cpp:819"
+          },
+          {
+            "pc": "0x70933e76",
+            "frame": "0xebe344",
+            "symbol": "CAECutsceneTrackManager::PreloadCutsceneTrack",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\Audio\\Managers\\AECutsceneTrackManager.cpp:168"
+          },
+          {
+            "pc": "0x7084447f",
+            "frame": "0xebe430",
+            "symbol": "CAudioEngine::PreloadCutsceneTrack",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\Audio\\AudioEngine.cpp:449"
+          },
+          {
+            "pc": "0x70aea5e3",
+            "frame": "0xebec90",
+            "symbol": "CCutsceneMgr::LoadCutsceneData_preload",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\CutsceneMgr.cpp:754"
+          },
+          {
+            "pc": "0x70ae9cbe",
+            "frame": "0xebede4",
+            "symbol": "CCutsceneMgr::LoadCutsceneData_overlay",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\CutsceneMgr.cpp:454"
+          },
+          {
+            "pc": "0x70ae949d",
+            "frame": "0xebef48",
+            "symbol": "CCutsceneMgr::LoadCutsceneData",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\CutsceneMgr.cpp:365"
+          },
+          {
+            "pc": "0x480719",
+            "frame": "0xebf118",
+            "symbol": "?",
+            "source": ""
+          },
+          {
+            "pc": "0x7178ad3c",
+            "frame": "0xebf280",
+            "symbol": "CRunningScript::ProcessOneCommand",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\Scripts\\RunningScript.cpp:956"
+          },
+          {
+            "pc": "0x7178ab80",
+            "frame": "0xebf36c",
+            "symbol": "CRunningScript::Process",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\Scripts\\RunningScript.cpp:981"
+          },
+          {
+            "pc": "0x717af3eb",
+            "frame": "0xebf5bc",
+            "symbol": "CTheScripts::Process",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\Scripts\\TheScripts.cpp:1457"
+          },
+          {
+            "pc": "0x70d9ffaa",
+            "frame": "0xebf6e0",
+            "symbol": "CGame::Process",
+            "source": "E:\\Original\\gta-reversed-master\\source\\game_sa\\Game.cpp:766"
+          },
+          {
+            "pc": "0x707820dd",
+            "frame": "0xebf7d0",
+            "symbol": "Idle",
+            "source": "E:\\Original\\gta-reversed-master\\source\\app\\app_game.cpp:331"
+          },
+          {
+            "pc": "0x707696c2",
+            "frame": "0xebf8b8",
+            "symbol": "AppEventHandler",
+            "source": "E:\\Original\\gta-reversed-master\\source\\app\\app.cpp:135"
+          },
+          {
+            "pc": "0x7078fc88",
+            "frame": "0xebf9a4",
+            "symbol": "RsEventHandler",
+            "source": "E:\\Original\\gta-reversed-master\\source\\app\\platform\\platform.cpp:310"
+          },
+          {
+            "pc": "0x707a52a2",
+            "frame": "0xebfb10",
+            "symbol": "ProcessGameLogic",
+            "source": "E:\\Original\\gta-reversed-master\\source\\app\\platform\\win\\WinMain.cpp:318"
+          },
+          {
+            "pc": "0x707a4229",
+            "frame": "0xebfbf8",
+            "symbol": "MainLoop",
+            "source": "E:\\Original\\gta-reversed-master\\source\\app\\platform\\win\\WinMain.cpp:344"
+          },
+          {
+            "pc": "0x707a4978",
+            "frame": "0xebfe4c",
+            "symbol": "NOTSA_WinMain",
+            "source": "E:\\Original\\gta-reversed-master\\source\\app\\platform\\win\\WinMain.cpp:474"
+          },
+          {
+            "pc": "0x8246f1",
+            "frame": "0xebff74",
+            "symbol": "?",
+            "source": ""
+          },
+          {
+            "pc": "0x77205d49",
+            "frame": "0xebff84",
+            "symbol": "BaseThreadInitThunk",
+            "source": ""
+          },
+          {
+            "pc": "0x777be1fb",
+            "frame": "0xebffdc",
+            "symbol": "RtlInitializeExceptionChain",
+            "source": ""
+          },
+          {
+            "pc": "0x777be181",
+            "frame": "0xebffec",
+            "symbol": "RtlGetAppContainerNamedObjectPath",
+            "source": ""
+          }
+        ]
+      }
+    }
+  ],
+  "conclusion": "PROLOG1 audio preload timeout observed with candidate and previous ShutdownLists ASI using original Update. Root cause not identified; startup-only delivery does not validate the introduction."
+}

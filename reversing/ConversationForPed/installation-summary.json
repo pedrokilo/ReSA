@@ -1,0 +1,96 @@
+{
+  "passed": true,
+  "runs": [
+    {
+      "exit_code": 0,
+      "natural_exit": true,
+      "gameplay_seconds": 3,
+      "hooks": {
+        "Update": {
+          "entry": "0x43c190",
+          "target": "0x6ee67230",
+          "module": "\\Device\\HarddiskVolume7\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta_reversed.asi"
+        },
+        "IsPlayerInPositionForConversation": {
+          "entry": "0x43ac40",
+          "target": "0x6ee47976",
+          "module": "\\Device\\HarddiskVolume7\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta_reversed.asi"
+        }
+      }
+    },
+    {
+      "exit_code": 0,
+      "natural_exit": true,
+      "gameplay_seconds": 3,
+      "hooks": {
+        "Update": {
+          "entry": "0x43c190",
+          "target": "0x6ee67230",
+          "module": "\\Device\\HarddiskVolume7\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta_reversed.asi"
+        },
+        "IsPlayerInPositionForConversation": {
+          "entry": "0x43ac40",
+          "target": "0x6ee47976",
+          "module": "\\Device\\HarddiskVolume7\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta_reversed.asi"
+        }
+      }
+    },
+    {
+      "exit_code": 0,
+      "natural_exit": true,
+      "gameplay_seconds": 3,
+      "hooks": {
+        "Update": {
+          "entry": "0x43c190",
+          "target": "0x6ee67230",
+          "module": "\\Device\\HarddiskVolume7\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta_reversed.asi"
+        },
+        "IsPlayerInPositionForConversation": {
+          "entry": "0x43ac40",
+          "target": "0x6ee47976",
+          "module": "\\Device\\HarddiskVolume7\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta_reversed.asi"
+        }
+      }
+    }
+  ],
+  "build_manifest": "E:\\Original\\gta-reversed-master\\reversing\\ConversationForPed\\artifacts\\20260930-220248-730894\\manifest.json",
+  "validation_sha256": "7006b948b09ca9c27e110f28e63e0bbe7d9dc94f6af9ba80e3ec95ce9977e5ae",
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "tested_asi": "cfb7ccd82ed7b4a289574699fa3a736c195f346e6abde04cd19d9333482949b9",
+  "tested_pdb": "876716f9244e88fa45b38442ba041e16412c3442049bf9fd5692c8e0cbab01d4",
+  "scope": "Three new-game starts, three seconds in state 9 each, both hook targets mapped to the tested module, and natural WM_CLOSE exits. This is not a complete introduction or prolonged gameplay test.",
+  "installed": true,
+  "asi": "cfb7ccd82ed7b4a289574699fa3a736c195f346e6abde04cd19d9333482949b9",
+  "pdb": "876716f9244e88fa45b38442ba041e16412c3442049bf9fd5692c8e0cbab01d4",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "backups": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta_reversed.asi": {
+      "path": "E:\\Original\\gta-reversed-master\\reversing\\ConversationForPed\\artifacts\\normal-20260930-220327-870105\\game-asi",
+      "sha256": "e3e81bf86239ed4bded6ab1783b760c411dcdbfe080131a2a6e0c9569472b358"
+    },
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta_reversed.pdb": {
+      "path": "E:\\Original\\gta-reversed-master\\reversing\\ConversationForPed\\artifacts\\normal-20260930-220327-870105\\game-pdb",
+      "sha256": "65dab3022f7c838c51b80d69abbe1585c64bc844402898f5432b78c0f1992467"
+    },
+    "E:\\Original\\gta-reversed-master\\bin\\Debug\\gta_reversed.asi": {
+      "path": "E:\\Original\\gta-reversed-master\\reversing\\ConversationForPed\\artifacts\\normal-20260930-220327-870105\\build-asi",
+      "sha256": "e3e81bf86239ed4bded6ab1783b760c411dcdbfe080131a2a6e0c9569472b358"
+    },
+    "E:\\Original\\gta-reversed-master\\bin\\Debug\\gta_reversed.pdb": {
+      "path": "E:\\Original\\gta-reversed-master\\reversing\\ConversationForPed\\artifacts\\normal-20260930-220327-870105\\build-pdb",
+      "sha256": "65dab3022f7c838c51b80d69abbe1585c64bc844402898f5432b78c0f1992467"
+    },
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\gta-reversed.ini": {
+      "path": "E:\\Original\\gta-reversed-master\\reversing\\ConversationForPed\\artifacts\\normal-20260930-220327-870105\\root-ini",
+      "sha256": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+    },
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta-reversed.ini": {
+      "path": "E:\\Original\\gta-reversed-master\\reversing\\ConversationForPed\\artifacts\\normal-20260930-220327-870105\\scripts-ini",
+      "sha256": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "pairs": 4702,
+  "function_pairs": {
+    "IsPlayerInPositionForConversation": 2414,
+    "Update": 2288
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "9d949e7f02444e0192193241b8a21125627c5c699487e839fa04a3d155c29cee",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "build_manifest": "E:\\Original\\gta-reversed-master\\reversing\\ConversationForPed\\artifacts\\20260930-220033-182765\\manifest.json",
+  "report": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-conversation-for-ped\\20260930-220116-787212\\summary.json",
+  "source_sha256": {
+    "source/game_sa/Conversations/ConversationForPed.cpp": "ac4e7446a021cbc8e30d87ca17abee8b579060437a3082e31a6a1012c88f247e",
+    "source/game_sa/Conversations/ConversationForPed.h": "bf772e6501457690f0b05f40dfde6c20fe809fa99038beca5dede415caa5958d"
+  },
+  "scope": "Both functions with independent original/candidate executions, controlled dependency providers, exact state and trace comparison. This does not establish audio playback or prolonged gameplay stability."
+}

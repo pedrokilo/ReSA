@@ -6,37 +6,25 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CConversationForPed
- * Reconstrucción: SIN RECONSTRUIR — 0/2 funciones reconstruidas.
- * Pendientes de reconstruir: 2.
- * Funciones bloqueadas: 2.
- * Evidencia aprobada vinculada: 0/2 entradas.
+ * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   IsPlayerInPositionForConversation | 0x0043AC40 | S
- *   Update | 0x0043C190 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   IsPlayerInPositionForConversation | 0x0043AC40 | S
- *   Update | 0x0043C190 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
 #include "ConversationForPed.h"
 #include "Conversations.h"
 
-/**
- * Registra los hooks de CConversationForPed.
- *
- * Update() está marcado explícitamente como no reconstruido porque todavía
- * redirige la ejecución al ejecutable original. IsPlayerInPositionForConversation()
- * también actúa como un wrapper delgado alrededor de la función original.
- */
+/** Registra la actualización y la comprobación espacial de la conversación. */
 void CConversationForPed::InjectHooks() {
     RH_ScopedClass(CConversationForPed);
     RH_ScopedCategory("Conversations");
-    RH_ScopedInstall(Update, 0x43C190, {.reversed = false});
-    RH_ScopedInstall(IsPlayerInPositionForConversation, 0x43AC40, {.reversed = false});
+    RH_ScopedInstall(Update, 0x43C190);
+    RH_ScopedInstall(IsPlayerInPositionForConversation, 0x43AC40);
 }
 
 /**
@@ -73,22 +61,172 @@ void CConversationForPed::Clear(bool dontClearNodes) {
 
 // 0x43C190
 /**
- * Ejecuta la máquina de estados original de la conversación en cada frame.
- *
- * Esta función todavía no ha sido reconstruida en C++. Mantener esta llamada al
- * ejecutable original conserva el comportamiento del juego hasta que se revierta.
+ * Avanza las preguntas y respuestas, conservando los plazos unsigned del juego.
  */
 void CConversationForPed::Update() {
-    plugin::CallMethod<0x43C190, CConversationForPed*>(this);
+    if (!m_pPed || !m_Enabled || !IsPlayerInPositionForConversation(false)) {
+        m_Status = INACTIVE;
+        return;
+    }
+
+    const auto Speak = [](CPed* speaker, int32 speech) {
+        if (speech > 0) {
+            speaker->Say(static_cast<eGlobalSpeechContext>(static_cast<uint16>(speech)));
+        } else if (speech < 0) {
+            CConversations::AwkwardSay(static_cast<int32>(0u - static_cast<uint32>(speech)), speaker);
+        }
+    };
+    const auto Reply = [&](bool yes) {
+        const auto& node = CConversations::m_Nodes[m_CurrentNode];
+        if (!m_SuppressSubtitles) {
+            CMessages::ClearSmallMessagesOnly();
+            strcpy(gString, node.m_Name);
+            strcat(gString, yes ? "Y" : "N");
+            CMessages::AddMessageJump(TheText.Get(gString), 4000, 3, true);
+        }
+        const auto speech = yes ? node.m_SpeechY : node.m_SpeechN;
+        if (speech != 0) {
+            Speak(FindPlayerPed(), speech);
+        }
+        m_CurrentNode = yes ? node.m_NodeYes : node.m_NodeNo;
+        m_LastChange = CTimer::GetTimeInMS();
+        if (!m_SuppressSubtitles) {
+            CMessages::AddMessageQ(TheText.Get(CConversations::m_Nodes[m_CurrentNode].m_Name), 4000, 1, true);
+        }
+        m_Status = PLAYER_SPEAKING;
+    };
+
+    if (CTimer::GetTimeInMS() > m_LastTimeWeWereCloseEnough + 10000u
+        || (m_Status == PLAYER_SPEAKING
+            && (CTimer::GetTimeInMS() > m_LastChange + 4000u
+                || CPad::GetPad(0)->ConversationNoJustDown()
+                || CPad::GetPad(0)->ConversationYesJustDown()))) {
+        const auto& node = CConversations::m_Nodes[m_CurrentNode];
+        if (!m_SuppressSubtitles) {
+            CMessages::ClearSmallMessagesOnly();
+            CMessages::AddMessageJump(TheText.Get(node.m_Name), 4000, 1, true);
+        }
+        Speak(m_pPed, node.m_Speech);
+        m_Status = PED_SPEAKING;
+        m_LastChange = CTimer::GetTimeInMS();
+    } else if (CTimer::GetTimeInMS() > m_LastChange + 400u
+        && (m_Status == PED_SPEAKING || m_Status == WAITINGFORINPUT || m_Status == INACTIVE)) {
+        // El original prueba primero la rama negativa, incluso si ambas teclas bajan.
+        if (CPad::GetPad(0)->ConversationNoJustDown() && CConversations::m_Nodes[m_CurrentNode].m_NodeNo >= 0) {
+            Reply(false);
+        } else if (CPad::GetPad(0)->ConversationYesJustDown() && CConversations::m_Nodes[m_CurrentNode].m_NodeYes >= 0) {
+            Reply(true);
+        }
+    }
+
+    m_LastTimeWeWereCloseEnough = CTimer::GetTimeInMS();
+    if (m_Status == PED_SPEAKING && CTimer::GetTimeInMS() > m_LastChange + 4000u) {
+        m_Status = WAITINGFORINPUT;
+    }
 }
 
 // 0x43AC40
 /**
- * Utiliza la comprobación espacial original del ejecutable para esta conversación.
+ * Comprueba distancia, orientación, movimiento y disponibilidad de los participantes.
  *
  * @param randomConversation true si se prueban las reglas de conversación aleatoria.
  * @return Indica si el jugador está colocado lo bastante cerca/correctamente para conversar.
  */
 bool CConversationForPed::IsPlayerInPositionForConversation(bool randomConversation) {
-    return plugin::CallMethodAndReturn<bool, 0x43AC40, CConversationForPed*, bool>(this, randomConversation);
+    const auto& pedPosition = m_pPed->GetPosition();
+    const auto playerPosition = FindPlayerCoors();
+    // GTA cambia la precisión de x87: ni float ni double conservan todos sus
+    // redondeos intermedios. Comparar en x87 también conserva los casos NaN.
+    const auto* pedCoords = &pedPosition;
+    const auto* playerCoords = &playerPosition;
+    const float maxDistance = 4.f;
+    bool tooFar;
+    __asm {
+        mov ecx, pedCoords
+        mov edx, playerCoords
+        fld dword ptr [edx]
+        fsub dword ptr [ecx]
+        fld dword ptr [edx + 4]
+        fsub dword ptr [ecx + 4]
+        fld dword ptr [edx + 8]
+        fsub dword ptr [ecx + 8]
+        fld st(0)
+        fmul st(0), st(1)
+        fld st(2)
+        fmul st(0), st(3)
+        faddp st(1), st(0)
+        fld st(3)
+        fmul st(0), st(4)
+        faddp st(1), st(0)
+        fsqrt
+        fstp st(3)
+        fstp st(0)
+        fstp st(0)
+        fcomp maxDistance
+        fnstsw ax
+        test ah, 41h
+        setz tooFar
+    }
+    if (tooFar) {
+        return false;
+    }
+
+    const auto& pedForward = m_pPed->GetForward();
+    const auto& playerForward = FindPlayerPed()->GetForward();
+    const auto* pedDirection = &pedForward;
+    const auto* playerDirection = &playerForward;
+    const float maxDot = 0.f;
+    bool facingAway;
+    __asm {
+        mov ecx, pedDirection
+        mov edx, playerDirection
+        fld dword ptr [edx + 8]
+        fmul dword ptr [ecx + 8]
+        fld dword ptr [edx + 4]
+        fmul dword ptr [ecx + 4]
+        faddp st(1), st(0)
+        fld dword ptr [edx]
+        fmul dword ptr [ecx]
+        faddp st(1), st(0)
+        fcomp maxDot
+        fnstsw ax
+        test ah, 41h
+        setz facingAway
+    }
+    if (facingAway) {
+        return false;
+    }
+    const auto& speed = FindPlayerPed()->m_vecMoveSpeed;
+    const auto* moveSpeed = &speed;
+    const float maxSpeed = 0.01f;
+    bool movingTooFast;
+    __asm {
+        mov ecx, moveSpeed
+        fld dword ptr [ecx + 4]
+        fld dword ptr [ecx]
+        fld st(0)
+        fmul st(0), st(1)
+        fld st(2)
+        fmul st(0), st(3)
+        faddp st(1), st(0)
+        fsqrt
+        fstp st(2)
+        fstp st(0)
+        fcomp maxSpeed
+        fnstsw ax
+        test ah, 41h
+        setz movingTooFast
+    }
+    if (movingTooFast) {
+        return false;
+    }
+    if (m_pPed->m_pLastEntityDamage == FindPlayerPed()
+        && CTimer::GetTimeInMS() < static_cast<uint32>(m_pPed->field_768) + 6000u) {
+        return false;
+    }
+    if (randomConversation && FindPlayerPed()->GetPlayerGroup().GetMembership().CountMembersExcludingLeader() >= 1) {
+        return false;
+    }
+    return FindPlayerPed()->PedIsReadyForConversation(randomConversation)
+        && m_pPed->PedIsReadyForConversation(randomConversation);
 }

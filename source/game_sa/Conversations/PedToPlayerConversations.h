@@ -1,15 +1,15 @@
 #pragma once
 
 class CPed;
+class CVehicle;
 
 /**
  * Gestor de conversaciones ambientales/directas iniciadas entre un peatón y el jugador.
  *
  * A diferencia de CConversationForPed, este subsistema utiliza un único conjunto
  * de variables globales de estado en vez de un pool de grafos de nodos. Update()
- * todavía se ejecuta mediante la rutina original del juego, por lo que los estados
- * se documentan a partir de sus nombres y del comportamiento visible en el código
- * de limpieza ya reconstruido.
+ * explora hasta ocho slots del pool, selecciona una apertura según el tema y
+ * procesa las respuestas del jugador y los plazos de cierre.
  */
 class CPedToPlayerConversations {
 public:
@@ -29,6 +29,8 @@ public:
     static inline auto& m_StartTime                    = StaticRef<uint32>(0x9691B8);   //!< Marca temporal en la que comenzó el intercambio actual.
     static inline auto& m_bPositiveReply               = StaticRef<bool>(0x9691B0);     //!< Existe en memoria original; actualmente no se usa en el código reconstruido.
     static inline auto& m_bPositiveOpening             = StaticRef<bool>(0x9691B1);     //!< Indica si la apertura seleccionada por la rutina original es positiva.
+    static inline auto& m_PedPoolIndex                 = StaticRef<int32>(0x969A3C);    //!< Exploración circular: hasta ocho slots por actualización.
+    static inline auto& m_LastPlayerVehicle            = StaticRef<CVehicle*>(0x969A40); //!< Último vehículo del jugador, registrado como referencia de entidad.
 
     /** Registra los hooks del subsistema de conversación peatón-jugador. */
     static void InjectHooks();
@@ -37,10 +39,8 @@ public:
     static void Clear();
 
     /**
-     * Avanza la máquina de estados original de conversación peatón-jugador.
-     *
-     * Todavía no está reconstruida; actualmente llama a la rutina del ejecutable
-     * original ubicada en 0x43B0F0.
+     * Avanza la máquina de estados reconstruida desde 0x43B0F0. Conserva las
+     * dependencias del motor para voz, IK, referencias y tareas.
      */
     static void Update();
 

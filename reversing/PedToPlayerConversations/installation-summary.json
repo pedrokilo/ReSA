@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "baseline": false,
+  "runs": [
+    {
+      "exit_code": 0,
+      "gameplay_seconds": 3,
+      "update_hook_target": "0x704d8a79",
+      "module": "\\Device\\HarddiskVolume7\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta_reversed.asi"
+    },
+    {
+      "exit_code": 0,
+      "gameplay_seconds": 3,
+      "update_hook_target": "0x704d8a79",
+      "module": "\\Device\\HarddiskVolume7\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta_reversed.asi"
+    },
+    {
+      "exit_code": 0,
+      "gameplay_seconds": 3,
+      "update_hook_target": "0x704d8a79",
+      "module": "\\Device\\HarddiskVolume7\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta_reversed.asi"
+    }
+  ],
+  "build_manifest": "E:\\Original\\gta-reversed-master\\reversing\\PedToPlayerConversations\\artifacts\\20260927-231051\\manifest.json",
+  "validation_sha256": "1c2fe72da7a62eb5664a9cea366886d6397760d12ec6755a577c0a7aebd85138",
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "tested_asi": "e3e81bf86239ed4bded6ab1783b760c411dcdbfe080131a2a6e0c9569472b358",
+  "tested_pdb": "65dab3022f7c838c51b80d69abbe1585c64bc844402898f5432b78c0f1992467",
+  "scope": "New-game startup, 3 seconds in state 9, hook mapping and normal close. Not a complete introduction or gameplay stability test.",
+  "known_issue": "Intermittent PROLOG1 audio preload timeout also reproduced with the previous ShutdownLists binary. See integration-observations.json.",
+  "installed": true,
+  "asi": "e3e81bf86239ed4bded6ab1783b760c411dcdbfe080131a2a6e0c9569472b358",
+  "pdb": "65dab3022f7c838c51b80d69abbe1585c64bc844402898f5432b78c0f1992467",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "backups": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta_reversed.asi": {
+      "path": "E:\\Original\\gta-reversed-master\\reversing\\PedToPlayerConversations\\artifacts\\normal-20260927-231623\\game-asi",
+      "sha256": "b132855e4c96c1a02824b91569de158848a723718059962d5b83f91e02c5f980"
+    },
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta_reversed.pdb": {
+      "path": "E:\\Original\\gta-reversed-master\\reversing\\PedToPlayerConversations\\artifacts\\normal-20260927-231623\\game-pdb",
+      "sha256": "7fbdff7c8c62a74cdd266cb3898bf8f2160b41ff36fdc14687d8b4ba22751750"
+    },
+    "E:\\Original\\gta-reversed-master\\bin\\Debug\\gta_reversed.asi": {
+      "path": "E:\\Original\\gta-reversed-master\\reversing\\PedToPlayerConversations\\artifacts\\normal-20260927-231623\\build-asi",
+      "sha256": "b132855e4c96c1a02824b91569de158848a723718059962d5b83f91e02c5f980"
+    },
+    "E:\\Original\\gta-reversed-master\\bin\\Debug\\gta_reversed.pdb": {
+      "path": "E:\\Original\\gta-reversed-master\\reversing\\PedToPlayerConversations\\artifacts\\normal-20260927-231623\\build-pdb",
+      "sha256": "7fbdff7c8c62a74cdd266cb3898bf8f2160b41ff36fdc14687d8b4ba22751750"
+    },
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\gta-reversed.ini": {
+      "path": "E:\\Original\\gta-reversed-master\\reversing\\PedToPlayerConversations\\artifacts\\normal-20260927-231623\\root-ini",
+      "sha256": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+    },
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\scripts\\gta-reversed.ini": {
+      "path": "E:\\Original\\gta-reversed-master\\reversing\\PedToPlayerConversations\\artifacts\\normal-20260927-231623\\scripts-ini",
+      "sha256": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536",
+    "scripts/gta-reversed.ini": "4d6a1463a27bf54320897826b55afa58cfa4df9b9d2996b1d9b36c8ce8d19536"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "pairs": 6266,
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "2ce06169534daae16c82657e29e54376b038a04bb3b3c1514eb1b0be6f5424c2",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "build_manifest": "E:\\Original\\gta-reversed-master\\reversing\\PedToPlayerConversations\\artifacts\\20260927-225808\\manifest.json",
+  "report": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ped-to-player\\20260927-225905-679596\\summary.json",
+  "scope": "Complete Update control flow with deterministic dependency providers; real engine references, geometry and task objects. No audio playback or combat simulation."
+}
