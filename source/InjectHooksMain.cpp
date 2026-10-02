@@ -1281,7 +1281,7 @@ void InjectHooksMain() {
         CTaskComplexEnterCar::InjectHooks();
         CTaskSimpleTogglePedThreatScanner::InjectHooks();
         CTaskComplexUseGoggles::InjectHooks();
-        // CTaskComplexCrossRoadLookAndAchieveHeading::InjectHooks();
+        CTaskComplexCrossRoadLookAndAchieveHeading::InjectHooks();
         CTaskComplexGoToPointAndStandStill::InjectHooks();
         CTaskSimpleAchieveHeading::InjectHooks();
         CTaskSimpleGiveCPR::InjectHooks();

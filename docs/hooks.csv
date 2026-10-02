@@ -8410,3 +8410,12 @@ CLodTimeModelInfo,GetTimeInfo,0x004C56D0,1,0,0,V
 CVehicleSaveStructure,Construct,0x005D2330,1,0,0,S
 CVehicleSaveStructure,Extract,0x005D23B0,1,0,0,S
 CTaskTimer,IsOutOfTime,0x00420E30,1,0,0,S
+CTaskComplexCrossRoadLookAndAchieveHeading,Clone,0x00636500,1,0,0,V
+CTaskComplexCrossRoadLookAndAchieveHeading,Constructor,0x00631AE0,0,1,0,S
+CTaskComplexCrossRoadLookAndAchieveHeading,ControlSubTask,0x00631CB0,1,0,0,V
+CTaskComplexCrossRoadLookAndAchieveHeading,CreateFirstSubTask,0x00631C90,1,0,0,V
+CTaskComplexCrossRoadLookAndAchieveHeading,CreateNextSubTask,0x00631C40,1,0,0,V
+CTaskComplexCrossRoadLookAndAchieveHeading,CreateSubTask,0x00631B60,1,0,0,S
+CTaskComplexCrossRoadLookAndAchieveHeading,Destructor,0x00631B50,1,0,0,S
+CTaskComplexCrossRoadLookAndAchieveHeading,GetTaskType,0x00631B10,1,0,0,V
+CTaskComplexCrossRoadLookAndAchieveHeading,MakeAbortable,0x00631B20,1,0,0,V

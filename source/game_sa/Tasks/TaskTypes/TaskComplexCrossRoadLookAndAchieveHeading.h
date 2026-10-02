@@ -30,4 +30,9 @@ private:
     static void InjectHooks();
 
     CTaskComplexCrossRoadLookAndAchieveHeading* Constructor(int32 durationInMs, float fTargetHeading);
+    // 0x631B50
+    CTaskComplexCrossRoadLookAndAchieveHeading* Destructor() {
+        this->CTaskComplexCrossRoadLookAndAchieveHeading::~CTaskComplexCrossRoadLookAndAchieveHeading();
+        return this;
+    }
 };
