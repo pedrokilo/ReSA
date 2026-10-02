@@ -1198,6 +1198,7 @@ void InjectHooksMain() {
         CTaskComplexLeaveAnyCar::InjectHooks();
         // CTaskSimpleAbseil::InjectHooks();
         CTaskComplexWanderCop::InjectHooks();
+        CTaskSimpleDieInCar::InjectHooks();
         CTaskComplexWanderGang::InjectHooks();
         CTaskComplexObserveTrafficLights::InjectHooks();
         CTaskComplexClimb::InjectHooks();

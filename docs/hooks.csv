@@ -8252,3 +8252,8 @@ CTaskSimpleCarSetPedOut,GetTaskType,0x00647930,1,0,0,V
 CTaskSimpleCarSetPedOut,MakeAbortable,0x00647940,1,0,0,V
 CTaskSimpleCarSetPedOut,PositionPedOutOfCollision,0x006479B0,0,1,0,S
 CTaskSimpleCarSetPedOut,ProcessPed,0x00647D10,0,1,0,V
+CTaskSimpleDieInCar,Clone,0x00635EF0,1,0,0,V
+CTaskSimpleDieInCar,Constructor,0x0062FC20,1,0,0,S
+CTaskSimpleDieInCar,Destructor,0x0062FC70,1,0,0,S
+CTaskSimpleDieInCar,GetTaskType,0x0062FC60,1,0,0,V
+CTaskSimpleDieInCar,ProcessPed,0x006398F0,1,0,0,V
