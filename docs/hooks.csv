@@ -1916,7 +1916,7 @@ CLoadingScreen,DoPCTitleFadeIn,0x00590860,1,0,0,S
 CLoadingScreen,DoPCTitleFadeOut,0x00590990,1,0,0,S
 CLoadingScreen,GetClockTime,0x00590280,1,0,0,S
 CLoadingScreen,Init,0x005902B0,1,0,0,S
-CLoadingScreen,IsActive,0x00744DB5,1,0,0,S
+CLoadingScreen,IsActive,0x00744DB0,1,0,0,S
 CLoadingScreen,LoadSplashes,0x005900B0,1,0,0,S
 CLoadingScreen,LoadingScreen,0x0053DED0,1,0,0,S
 CLoadingScreen,NewChunkLoaded,0x00590D00,1,0,0,S
