@@ -239,6 +239,7 @@
 #include "Interior/TaskInteriorGoToInfo.h"
 #include "TaskSimpleInAir.h"
 #include "TaskComplexHitPedWithCar.h"
+#include "TaskComplexUsePairedAttractor.h"
 #include "TaskComplexScreamInCarThenLeave.h"
 #include "TaskComplexEnterCarAsPassengerWait.h"
 #include "TaskSimplePlayerOnFoot.h"
@@ -1085,7 +1086,7 @@ void InjectHooksMain() {
         CTaskComplexUseEffectRunning::InjectHooks();
         CTaskComplexUseEffectSprinting::InjectHooks();
         // CTaskComplexUseEntryExit::InjectHooks();
-        // CTaskComplexUsePairedAttractor::InjectHooks();
+        CTaskComplexUsePairedAttractor::InjectHooks();
         CTaskComplexUseScriptedBrain::InjectHooks();
         CTaskComplexUseScriptedAttractor::InjectHooks();
         CTaskComplexWaitAtAttractor::InjectHooks();

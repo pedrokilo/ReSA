@@ -8096,3 +8096,14 @@ CTaskComplexScreamInCarThenLeave,CreateSubTask,0x00642510,1,0,0,S
 CTaskComplexScreamInCarThenLeave,Destructor,0x0063C2C0,1,0,0,S
 CTaskComplexScreamInCarThenLeave,GetTaskType,0x0063C2B0,1,0,0,V
 CTaskComplexScreamInCarThenLeave,MakeAbortable,0x0063C320,1,0,0,V
+CTaskComplexUsePairedAttractor,ClearPartnership,0x00633220,1,0,0,S
+CTaskComplexUsePairedAttractor,Clone,0x00636C70,1,0,0,V
+CTaskComplexUsePairedAttractor,Constructor,0x006331A0,1,0,0,S
+CTaskComplexUsePairedAttractor,ControlSubTask,0x00638BD0,1,0,0,V
+CTaskComplexUsePairedAttractor,CreateFirstSubTask,0x00639F70,1,0,0,V
+CTaskComplexUsePairedAttractor,CreateNextSubTask,0x00639E40,1,0,0,V
+CTaskComplexUsePairedAttractor,CreateSubTask,0x00638D30,1,0,0,S
+CTaskComplexUsePairedAttractor,Destructor,0x006331E0,1,0,0,S
+CTaskComplexUsePairedAttractor,GetTaskType,0x006331D0,1,0,0,V
+CTaskComplexUsePairedAttractor,SeekPartnership,0x00638AE0,1,0,0,S
+CTaskComplexUsePairedAttractor,SetPartnership,0x006331F0,1,0,0,S
