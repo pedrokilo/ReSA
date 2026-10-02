@@ -163,6 +163,7 @@
 #include "IdleCam.h"
 #include "Tasks/TaskTypes/TaskComplexChat.h"
 #include "Credits.h"
+#include "Tasks/TaskComplexUseSequence.h"
 #include "CarFXRenderer.h"
 #include "Curves.h"
 #include "ProcObjectMan.h"
@@ -1203,6 +1204,7 @@ void InjectHooksMain() {
         CTaskSimpleWaitUntilPedIsInCar::InjectHooks();
         CTaskSimpleWaitUntilPedIsOutCar::InjectHooks();
         CTaskComplexSequence::InjectHooks();
+        CTaskComplexUseSequence::InjectHooks();
         CTaskSimpleCarSlowDragPedOut::InjectHooks();
         CTaskManager::InjectHooks();
         CTaskSimpleCreateCarAndGetIn::InjectHooks();

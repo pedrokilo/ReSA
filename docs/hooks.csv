@@ -8380,3 +8380,9 @@ CCredits,Render,0x0053D5B0,1,0,0,S
 CCredits,RenderCredits,0x005A87F0,1,0,0,S
 CCredits,Start,0x007170E0,1,0,0,S
 CCredits,Stop,0x00717100,1,0,0,S
+CTaskComplexUseSequence,Clone,0x00637100,1,0,0,V
+CTaskComplexUseSequence,Constructor,0x00635450,1,0,0,S
+CTaskComplexUseSequence,ControlSubTask,0x00635530,1,0,0,V
+CTaskComplexUseSequence,CreateFirstSubTask,0x006354D0,1,0,0,V
+CTaskComplexUseSequence,CreateNextSubTask,0x006354A0,1,0,0,V
+CTaskComplexUseSequence,MakeAbortable,0x00639730,1,0,0,V
