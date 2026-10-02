@@ -8400,3 +8400,6 @@ CCoverPoint,ReserveCoverPointForPed,0x00698EB0,1,0,0,S
 CDecision,From,0x006006B0,1,0,0,S
 CDecision,Set,0x00600570,0,1,0,S
 CDecision,SetDefault,0x00600530,0,1,0,S
+CMaths,GetCosFast,0x004A1360,1,0,0,S
+CMaths,GetSinFast,0x004A1340,1,0,0,S
+CMaths,InitMathsTables,0x0059AC90,1,0,0,S

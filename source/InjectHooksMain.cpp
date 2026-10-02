@@ -168,6 +168,7 @@
 #include "Entity/Ped/PlayerSkin.h"
 #include "CoverPoint.h"
 #include "DecisionMakers/Decision.h"
+#include "Maths.h"
 #include "CarFXRenderer.h"
 #include "Curves.h"
 #include "ProcObjectMan.h"
@@ -811,6 +812,7 @@ void InjectHooksMain() {
     CReplay::InjectHooks();
     CDarkel::InjectHooks();
     CGeneral::InjectHooks();
+    CMaths::InjectHooks();
     CGamma::InjectHooks();
     CHudColours::InjectHooks();
     CHud::InjectHooks();
