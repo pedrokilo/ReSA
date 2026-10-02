@@ -8198,3 +8198,14 @@ CTaskComplexOpenPassengerDoor,Clone,0x006438E0,0,1,0,V
 CTaskComplexOpenPassengerDoor,Constructor,0x006403E0,1,0,0,S
 CTaskComplexOpenPassengerDoor,Destructor,0x00640420,1,0,0,S
 CTaskComplexOpenPassengerDoor,GetTaskType,0x00640410,1,0,0,V
+CTaskComplexProstituteSolicit,Clone,0x006622F0,1,0,0,V
+CTaskComplexProstituteSolicit,Constructor,0x00661A60,1,0,0,S
+CTaskComplexProstituteSolicit,ControlSubTask,0x006669D0,0,1,0,V
+CTaskComplexProstituteSolicit,CreateFirstSubTask,0x006666A0,0,1,0,V
+CTaskComplexProstituteSolicit,CreateNextSubTask,0x00666780,0,1,0,V
+CTaskComplexProstituteSolicit,CreateSubTask,0x00666360,0,1,0,S
+CTaskComplexProstituteSolicit,Destructor,0x00661AF0,1,0,0,S
+CTaskComplexProstituteSolicit,GetRidOfPlayerProstitute,0x00661D30,1,0,0,S
+CTaskComplexProstituteSolicit,GetTaskType,0x00661AE0,1,0,0,V
+CTaskComplexProstituteSolicit,IsTaskValid,0x00661BB0,1,0,0,S
+CTaskComplexProstituteSolicit,MakeAbortable,0x00661B80,1,0,0,V
