@@ -6,17 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CAEAmbienceTrackManager
- * Reconstrucción: INCOMPLETA — 6/7 funciones reconstruidas.
- * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 1.
- * Evidencia aprobada vinculada: 0/7 entradas.
+ * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   UpdateAmbienceTrackAndVolume | 0x004D6E60 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   UpdateAmbienceTrackAndVolume | 0x004D6E60 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -38,7 +34,7 @@ void CAEAmbienceTrackManager::InjectHooks() {
     RH_ScopedInstall(IsAmbienceRadioActive, 0x4D6D40);
     RH_ScopedInstall(PlaySpecialMissionAmbienceTrack, 0x4D6D50);
     RH_ScopedInstall(StopSpecialMissionAmbienceTrack, 0x4D6D60);
-    RH_ScopedInstall(UpdateAmbienceTrackAndVolume, 0x4D6E60, { .reversed = false }); // bad
+    RH_ScopedInstall(UpdateAmbienceTrackAndVolume, 0x4D6E60);
     RH_ScopedInstall(Service, 0x4D76C0);
 }
 
@@ -95,9 +91,17 @@ void CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume() {
 
     if (m_SpecialMissionAmbienceTrackID < 0) { // 0x4D6E97
         if (CWeather::Sandstorm > 0.f) {
-            if (CGame::CanSeeOutSideFromCurrArea() && !CCullZones::PlayerNoRain() && !CCullZones::CamNoRain()) {
+            if (CGame::currArea == AREA_CODE_NORMAL_WORLD && !CCullZones::PlayerNoRain() && !CCullZones::CamNoRain()) {
                 specialTrackId = 167;
-                volume         = std::log10f(2) * std::log2f(CWeather::Sandstorm);
+                const float sandstorm = CWeather::Sandstorm, decibels = 20.f, dbOffset = 6.f;
+                __asm {
+                    fldlg2
+                    fld sandstorm
+                    fyl2x
+                    fmul decibels
+                    fsub dbOffset
+                    fstp volume
+                }
             }
             isSandstorm = true;
         }
@@ -107,15 +111,15 @@ void CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume() {
         m_OverrideRadio            = true;
     }
 
-    if ((CWeather::Sandstorm <= 0.f && m_SpecialMissionAmbienceTrackID < 0) || (m_SpecialMissionAmbienceTrackID >= 0 && specialTrackId == -1)) {
+    if (specialTrackId == -1) {
         auto    activeAuZoIdx = -1;
         CVector activeAuZoPos{};
 
-        if (CAudioZones::m_NumActiveSpheres) { // 0x4D6F0D
+        if (int32(CAudioZones::m_NumActiveSpheres) > 0) { // 0x4D6F0D
             const auto& sp = CAudioZones::m_aSpheres[CAudioZones::m_aActiveSpheres[0]];
             activeAuZoIdx = sp.m_nAudioZone;
             activeAuZoPos = sp.m_Sphere.m_vecCenter;
-        } else if (CAudioZones::m_NumActiveBoxes) {
+        } else if (int32(CAudioZones::m_NumActiveBoxes) > 0) {
             const auto& box = CAudioZones::m_aBoxes[CAudioZones::m_aActiveBoxes[0]];
             activeAuZoIdx = box.m_nAudioZone;
         }
@@ -154,6 +158,7 @@ void CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume() {
             break;
         case 13:
             specialTrackId = 157;
+            volume = GetVolumeByAuZoDist();
             m_OverrideRadio = true;
             break;
         case 15:
@@ -272,94 +277,133 @@ void CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume() {
             StopAmbienceTrack();
         }
     };
-    if (m_AmbienceRadioStation != RADIO_INVALID) { // 0x4D718C
-        if (AudioEngine.IsRadioOn()) { // Inverted
-            if (AudioEngine.GetCurrentRadioStationID() != m_AmbienceRadioStation) {
-                AudioEngine.StopRadio(nullptr, false);
-            }
-        } else {
+    if (int8(m_AmbienceRadioStation) >= 0) {
+        if (!AudioEngine.IsRadioOn()) {
             AudioEngine.StartRadio(m_AmbienceRadioStation, eBassSetting::CUT);
+        } else if (AudioEngine.GetCurrentRadioStationID() != m_AmbienceRadioStation) {
+            AudioEngine.StopRadio(nullptr, false);
         }
-    } else if (prevAmbienceRadioStation != RADIO_INVALID) { //>0x4D71E5 - Radio was running previously, but isn't anymore, so stop it
+        return;
+    }
+    if (int8(prevAmbienceRadioStation) >= 0) {
         if (AudioEngine.IsRadioOn()) {
             AudioEngine.StopRadio(nullptr, false);
         }
-    } else if (AudioEngine.IsRadioOn()) { // 0x4D720A
+        return;
+    }
+    if (AudioEngine.IsRadioOn()) {
         if (m_OverrideRadio) {
             AudioEngine.StopRadio(nullptr, false);
             AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_RADIO_RETUNE_STOP);
         }
         m_LastAmbienceOverrodeRadio = m_OverrideRadio;
-    } else if (specialTrackId != -1) {
-        volume = CAEAudioEnvironment::GetDistanceAttenuation(std::sqrt(sq(TheCamera.m_fDistanceToWater) + sq(TheCamera.GetPosition().z - TheCamera.m_fHeightOfNearestWater)) / SQRT_3) - 12.f;
-        if (CWeather::UnderWaterness < 0.5f) {
-            if (volume <= -34.f) { // 0x4D74A7
-                if (CGameLogic::LaRiotsActiveHere() || !CGame::CanSeeOutSideFromCurrArea()) {
-                    if (m_AmbienceStatus != 8) { // 0x4D7529
-                        if (m_RequestedSettings.TrackID == 174) {
-                            if (volume < -40.f) {
-                                StopAmbienceTrack();
-                            }
-                            m_Volume     = -100.f;
-                            m_FreqFactor = 1.f;
-                        } else if (isSandstorm && m_Volume > -40.f) { // 0x4D756C
-                            m_FreqFactor =  1.f;
-                            m_Volume     -= 0.4f;
-                        } else {
-                            StopAmbienceTrack();
-                            if (m_LastAmbienceOverrodeRadio || AudioEngine.IsVehicleRadioActive()) {
-                                AudioEngine.StartRadio(AudioEngine.GetCurrentRadioStationID(), eBassSetting::NORMAL);
-                            }
-                            m_FreqFactor = 1.f;
-                        }
-                    }
-                } else if (m_AmbienceStatus == 8) { // 0x4D74A9
-                    m_AmbienceStatus            = AmbienceStatus::STARTING;
-                    m_RequestedSettings.TrackID = 166;
-                    m_Volume                    = -34.f;
-                    m_FreqFactor                = 1.f;
-                } else if (m_RequestedSettings.TrackID == 166) { // 0x4D7500
-                    m_Volume = std::min(-12.f, m_Volume + 1.f);
-                } else {
-                    FadeOutAndStop();
-                }
-                return;
+        return;
+    }
+    if (specialTrackId >= 0) {
+        if (specialTrackId == m_SpecialMissionAmbienceTrackID) {
+            if (m_AmbienceStatus == STOPPED) {
+                m_RequestedSettings.TrackID = specialTrackId;
+                m_AmbienceStatus = STARTING;
+                m_Volume = -2.f;
+                m_FreqFactor = 1.f;
+            } else if (m_RequestedSettings.TrackID != specialTrackId) {
+                StopAmbienceTrack();
             }
-        } else {
-            volume = 14.f;
-        }
-
-        if (m_AmbienceStatus == 8) { // 0x4D7370
-            m_RequestedSettings.TrackID = 174;
-            m_AmbienceStatus = AmbienceStatus::STARTING;
-            m_Volume = -34.f;
-            m_FreqFactor = CWeather::UnderWaterness < 0.5
-                ? 1.f
-                : 0.0625f;
-        } else if (m_RequestedSettings.TrackID != 174) { // 0x4D73AE
-            FadeOutAndStop();
-        } else { // 0x4D73E7
-            m_Volume = notsa::step_to(m_Volume, volume, 1.f);
-        }
-        m_FreqFactor = notsa::step_to(m_FreqFactor, CWeather::UnderWaterness < 0.5f ? 1.f : 0.0625f, 0.25f);   
-    } else if (specialTrackId != m_SpecialMissionAmbienceTrackID) { // 0x4D7250
-        if (m_AmbienceStatus == 8) {
+        } else if (m_AmbienceStatus == STOPPED) {
             m_RequestedSettings.TrackID = specialTrackId;
-            m_AmbienceStatus            = AmbienceStatus::STARTING;
-            m_Volume                    = -34.f;
-            m_FreqFactor                = 1.f;
+            m_AmbienceStatus = STARTING;
+            m_Volume = -34.f;
+            m_FreqFactor = 1.f;
         } else if (m_RequestedSettings.TrackID == specialTrackId) {
-            m_Volume = std::min(m_Volume + 1.f, m_Volume);
+            m_Volume = std::min(m_Volume + 1.f, volume);
         } else {
             FadeOutAndStop();
         }
-    } else if (m_AmbienceStatus == 8) { // 0x4D725A
-        m_RequestedSettings.TrackID = specialTrackId;
-        m_AmbienceStatus            = AmbienceStatus::STARTING;
-        m_Volume                    = -2.f;
-        m_FreqFactor                = 1.f;
-    } else if (m_RequestedSettings.TrackID == specialTrackId) { // 0x4D7278
+        return;
+    }
+
+    float targetFrequency;
+    if (CWeather::UnderWaterness >= 0.5f) {
+        volume = 14.f;
+        targetFrequency = 0.0625f;
+    } else {
+        // Preserve the original x87 intermediates and its 4/7 float constant.
+        const float cameraZ = TheCamera.GetPosition().z;
+        const float waterZ = TheCamera.m_fHeightOfNearestWater;
+        const float distance = TheCamera.m_fDistanceToWater;
+        const float scale = 0.5714285969734192f;
+        float attenuationDistance;
+        __asm {
+            fld cameraZ
+            fsub waterZ
+            fld distance
+            fmul distance
+            fld st(1)
+            fmul st, st(2)
+            faddp st(1), st
+            fstp st(1)
+            fsqrt
+            fmul scale
+            fstp attenuationDistance
+        }
+        volume = CAEAudioEnvironment::GetDistanceAttenuation(attenuationDistance) - 12.f;
+        targetFrequency = 1.f;
+    }
+    if (volume > -34.f) {
+        if (m_AmbienceStatus == STOPPED) {
+            m_RequestedSettings.TrackID = 174;
+            m_AmbienceStatus = STARTING;
+            m_Volume = -34.f;
+            m_FreqFactor = CWeather::UnderWaterness >= 0.5f ? 0.0625f : 1.f;
+        } else if (m_RequestedSettings.TrackID != 174) {
+            FadeOutAndStop();
+        } else if (volume > m_Volume) {
+            m_Volume = std::min(m_Volume + 1.f, volume);
+        } else if (volume < m_Volume) {
+            m_Volume = std::max(m_Volume - 1.f, volume);
+        }
+        if (targetFrequency > m_FreqFactor) {
+            m_FreqFactor = std::min(m_FreqFactor + 0.25f, targetFrequency);
+        } else if (targetFrequency < m_FreqFactor) {
+            // 0x4D7486 lee [esp+14h] justo después de `pop edi` (0x4D7485), así que ese
+            // desplazamiento apunta a targetFrequency y no al volumen: no hay sobrepasada.
+            // Comparación explícita: con NaN el original también carga targetFrequency.
+            const auto nextFrequency = m_FreqFactor - 0.25f;
+            m_FreqFactor = nextFrequency > targetFrequency ? nextFrequency : targetFrequency;
+        }
+        return;
+    }
+    if (CGameLogic::LaRiotsActiveHere() && CGame::currArea == AREA_CODE_NORMAL_WORLD) {
+        if (m_AmbienceStatus == STOPPED) {
+            m_AmbienceStatus = STARTING;
+            m_RequestedSettings.TrackID = 166;
+            m_Volume = -34.f;
+            m_FreqFactor = 1.f;
+        } else if (m_RequestedSettings.TrackID == 166) {
+            m_Volume = std::min(m_Volume + 1.f, -12.f);
+        } else {
+            FadeOutAndStop();
+        }
+        return;
+    }
+    if (m_AmbienceStatus == STOPPED) {
+        return;
+    }
+    if (m_RequestedSettings.TrackID == 174) {
+        if (volume < -40.f) {
+            StopAmbienceTrack();
+        }
+        m_Volume = -100.f;
+        m_FreqFactor = 1.f;
+    } else if (isSandstorm && m_Volume > -40.f) {
+        m_Volume -= 0.4f;
+        m_FreqFactor = 1.f;
+    } else {
         StopAmbienceTrack();
+        if (m_LastAmbienceOverrodeRadio || AudioEngine.IsVehicleRadioActive()) {
+            AudioEngine.StartRadio(AudioEngine.GetCurrentRadioStationID(), eBassSetting::NORMAL);
+        }
+        m_FreqFactor = 1.f;
     }
 }
 

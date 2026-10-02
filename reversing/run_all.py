@@ -17,6 +17,7 @@ PREFIXES = {'entryexit-pool': 'entryexit-pool', 'shooting-resources': 'shooting-
 PREFIXES.update({name: name for name in ['unlock-data-stream', 'unlock-track-entity', 'unlock-audio', 'unlock-core', 'unlock-driving', 'unlock-input', 'unlock-physical', 'unlock-platform', 'unlock-radio', 'unlock-tasks']})
 PREFIXES['namedanim-init'] = 'namedanim-init'
 PREFIXES['ik-data'] = 'ik-data'
+PREFIXES['audio-completion'] = 'audio-completion'
 
 
 def game_running():

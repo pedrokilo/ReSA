@@ -1,0 +1,245 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00506800: 6A FF              push        0FFFFFFFFh
+  00506802: 68 48 C5 83 00     push        83C548h
+  00506807: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  0050680D: 50                 push        eax
+  0050680E: 64 89 25 00 00 00  mov         dword ptr fs:[00000000h],esp
+            00
+  00506815: 81 EC 94 00 00 00  sub         esp,94h
+  0050681B: 53                 push        ebx
+  0050681C: 55                 push        ebp
+  0050681D: 56                 push        esi
+  0050681E: 33 DB              xor         ebx,ebx
+  00506820: 57                 push        edi
+  00506821: 8B F1              mov         esi,ecx
+  00506823: C7 44 24 24 9E EF  mov         dword ptr [esp+24h],0BF67EF9Eh
+            67 BF
+  0050682B: C7 44 24 28 75 93  mov         dword ptr [esp+28h],3ED89375h
+            D8 3E
+  00506833: C7 44 24 2C 00 00  mov         dword ptr [esp+2Ch],0
+            00 00
+  0050683B: C7 44 24 18 9E EF  mov         dword ptr [esp+18h],3F67EF9Eh
+            67 3F
+  00506843: C7 44 24 1C 75 93  mov         dword ptr [esp+1Ch],3ED89375h
+            D8 3E
+  0050684B: C7 44 24 20 00 00  mov         dword ptr [esp+20h],0
+            00 00
+  00506853: 89 5C 24 38        mov         dword ptr [esp+38h],ebx
+  00506857: 81 BC 24 B4 00 00  cmp         dword ptr [esp+000000B4h],8Dh
+            00 8D 00 00 00
+  00506862: 89 9C 24 AC 00 00  mov         dword ptr [esp+000000ACh],ebx
+            00
+  00506869: 0F 85 7E 02 00 00  jne         00506AED
+  0050686F: 39 1D 14 29 B7 00  cmp         dword ptr ds:[00B72914h],ebx
+  00506875: 0F 85 72 02 00 00  jne         00506AED
+  0050687B: E8 40 75 22 00     call        0072DDC0
+  00506880: 84 C0              test        al,al
+  00506882: 0F 85 65 02 00 00  jne         00506AED
+  00506888: E8 23 75 22 00     call        0072DDB0
+  0050688D: 84 C0              test        al,al
+  0050688F: 0F 85 58 02 00 00  jne         00506AED
+  00506895: 6A 04              push        4
+  00506897: 6A 34              push        34h
+  00506899: B9 B8 F8 B5 00     mov         ecx,0B5F8B8h
+  0050689E: E8 1D 20 FD FF     call        004D88C0
+  005068A3: 84 C0              test        al,al
+  005068A5: 75 13              jne         005068BA
+  005068A7: 6A 04              push        4
+  005068A9: 6A 34              push        34h
+  005068AB: B9 B8 F8 B5 00     mov         ecx,0B5F8B8h
+  005068B0: E8 EB 1F FD FF     call        004D88A0
+  005068B5: E9 33 02 00 00     jmp         00506AED
+  005068BA: A1 C4 12 C8 00     mov         eax,dword ptr ds:[00C812C4h]
+  005068BF: DB 05 C4 12 C8 00  fild        dword ptr ds:[00C812C4h]
+  005068C5: 85 C0              test        eax,eax
+  005068C7: 7D 06              jge         005068CF
+  005068C9: D8 05 54 8C 85 00  fadd        dword ptr ds:[00858C54h]
+  005068CF: D8 0D 40 2E 86 00  fmul        dword ptr ds:[00862E40h]
+  005068D5: 8B 0D F8 00 BD 00  mov         ecx,dword ptr ds:[00BD00F8h]
+  005068DB: 0F BE 91 8D 00 00  movsx       edx,byte ptr [ecx+0000008Dh]
+            00
+  005068E2: 0F BE 46 7C        movsx       eax,byte ptr [esi+7Ch]
+  005068E6: 89 54 24 10        mov         dword ptr [esp+10h],edx
+  005068EA: DC 05 38 2E 86 00  fadd        qword ptr ds:[00862E38h]
+  005068F0: 40                 inc         eax
+  005068F1: D9 EC              fldlg2
+  005068F3: 99                 cdq
+  005068F4: D9 C9              fxch        st(1)
+  005068F6: B9 03 00 00 00     mov         ecx,3
+  005068FB: F7 F9              idiv        eax,ecx
+  005068FD: D9 F1              fyl2x
+  005068FF: 53                 push        ebx
+  00506900: 8B 6C 24 2C        mov         ebp,dword ptr [esp+2Ch]
+  00506904: 8B 44 24 30        mov         eax,dword ptr [esp+30h]
+  00506908: 53                 push        ebx
+  00506909: 6A 07              push        7
+  0050690B: 53                 push        ebx
+  0050690C: 8B 5C 24 34        mov         ebx,dword ptr [esp+34h]
+  00506910: 68 00 00 80 3F     push        3F800000h
+  00506915: 51                 push        ecx
+  00506916: 8D 4C 24 48        lea         ecx,[esp+48h]
+  0050691A: 0F BE FA           movsx       edi,dl
+  0050691D: 88 56 7C           mov         byte ptr [esi+7Ch],dl
+  00506920: DB 44 24 28        fild        dword ptr [esp+28h]
+  00506924: D9 C9              fxch        st(1)
+  00506926: D8 0D A4 8B 85 00  fmul        dword ptr ds:[00858BA4h]
+  0050692C: DE C1              faddp       st(1),st
+  0050692E: D9 5C 24 2C        fstp        dword ptr [esp+2Ch]
+  00506932: D9 04 BD 00 C3 8C  fld         dword ptr [edi*4+008CC300h]
+            00
+  00506939: D8 0D 44 2E 86 00  fmul        dword ptr ds:[00862E44h]
+  0050693F: D9 1C 24           fstp        dword ptr [esp]
+  00506942: 68 00 00 80 3F     push        3F800000h
+  00506947: 68 00 00 C8 C2     push        0C2C80000h
+  0050694C: 83 EC 0C           sub         esp,0Ch
+  0050694F: 8B D4              mov         edx,esp
+  00506951: 56                 push        esi
+  00506952: 89 1A              mov         dword ptr [edx],ebx
+  00506954: 6A 04              push        4
+  00506956: 89 6A 04           mov         dword ptr [edx+4],ebp
+  00506959: 6A 04              push        4
+  0050695B: 89 42 08           mov         dword ptr [edx+8],eax
+  0050695E: E8 ED 94 FE FF     call        004EFE50
+  00506963: 8D 4C 24 30        lea         ecx,[esp+30h]
+  00506967: 51                 push        ecx
+  00506968: B9 B0 2C B6 00     mov         ecx,0B62CB0h
+  0050696D: C7 44 24 40 01 00  mov         dword ptr [esp+40h],1
+            00 00
+  00506975: E8 96 91 FE FF     call        004EFB10
+  0050697A: D9 04 BD 00 C3 8C  fld         dword ptr [edi*4+008CC300h]
+            00
+  00506981: D8 0D E8 8E 85 00  fmul        dword ptr ds:[00858EE8h]
+  00506987: 8B 44 24 18        mov         eax,dword ptr [esp+18h]
+  0050698B: 6A 00              push        0
+  0050698D: 6A 00              push        0
+  0050698F: 6A 07              push        7
+  00506991: 6A 00              push        0
+  00506993: 68 00 00 80 3F     push        3F800000h
+  00506998: 51                 push        ecx
+  00506999: 8B 4C 24 34        mov         ecx,dword ptr [esp+34h]
+  0050699D: D9 1C 24           fstp        dword ptr [esp]
+  005069A0: 68 00 00 80 3F     push        3F800000h
+  005069A5: 68 00 00 C8 C2     push        0C2C80000h
+  005069AA: 83 EC 0C           sub         esp,0Ch
+  005069AD: 8B D4              mov         edx,esp
+  005069AF: 89 02              mov         dword ptr [edx],eax
+  005069B1: 8B 44 24 4C        mov         eax,dword ptr [esp+4Ch]
+  005069B5: 56                 push        esi
+  005069B6: 89 4A 04           mov         dword ptr [edx+4],ecx
+  005069B9: 6A 04              push        4
+  005069BB: 6A 04              push        4
+  005069BD: 8D 4C 24 68        lea         ecx,[esp+68h]
+  005069C1: 89 42 08           mov         dword ptr [edx+8],eax
+  005069C4: E8 87 94 FE FF     call        004EFE50
+  005069C9: 8D 4C 24 30        lea         ecx,[esp+30h]
+  005069CD: 51                 push        ecx
+  005069CE: B9 B0 2C B6 00     mov         ecx,0B62CB0h
+  005069D3: C7 44 24 40 01 00  mov         dword ptr [esp+40h],1
+            00 00
+  005069DB: E8 30 91 FE FF     call        004EFB10
+  005069E0: D9 44 24 14        fld         dword ptr [esp+14h]
+  005069E4: D8 1D 50 8B 85 00  fcomp       dword ptr ds:[00858B50h]
+  005069EA: DF E0              fnstsw      ax
+  005069EC: F6 C4 05           test        ah,5
+  005069EF: 7A 0A              jp          005069FB
+  005069F1: 8B 54 24 14        mov         edx,dword ptr [esp+14h]
+  005069F5: 89 54 24 10        mov         dword ptr [esp+10h],edx
+  005069F9: EB 08              jmp         00506A03
+  005069FB: C7 44 24 10 00 00  mov         dword ptr [esp+10h],0
+            00 00
+  00506A03: D9 04 BD 00 C3 8C  fld         dword ptr [edi*4+008CC300h]
+            00
+  00506A0A: 8B 44 24 10        mov         eax,dword ptr [esp+10h]
+  00506A0E: D8 0D 44 2E 86 00  fmul        dword ptr ds:[00862E44h]
+  00506A14: 6A 00              push        0
+  00506A16: 8B 54 24 30        mov         edx,dword ptr [esp+30h]
+  00506A1A: 6A 00              push        0
+  00506A1C: 68 07 04 00 00     push        407h
+  00506A21: 6A 00              push        0
+  00506A23: 68 00 00 80 3F     push        3F800000h
+  00506A28: 51                 push        ecx
+  00506A29: D9 1C 24           fstp        dword ptr [esp]
+  00506A2C: 68 00 00 80 3F     push        3F800000h
+  00506A31: 50                 push        eax
+  00506A32: 83 EC 0C           sub         esp,0Ch
+  00506A35: 8B CC              mov         ecx,esp
+  00506A37: 89 19              mov         dword ptr [ecx],ebx
+  00506A39: 56                 push        esi
+  00506A3A: 89 69 04           mov         dword ptr [ecx+4],ebp
+  00506A3D: 6A 01              push        1
+  00506A3F: 89 51 08           mov         dword ptr [ecx+8],edx
+  00506A42: 6A 04              push        4
+  00506A44: 8D 4C 24 68        lea         ecx,[esp+68h]
+  00506A48: E8 03 94 FE FF     call        004EFE50
+  00506A4D: 8D 44 24 30        lea         eax,[esp+30h]
+  00506A51: BB 02 00 00 00     mov         ebx,2
+  00506A56: 50                 push        eax
+  00506A57: B9 B0 2C B6 00     mov         ecx,0B62CB0h
+  00506A5C: 89 5C 24 40        mov         dword ptr [esp+40h],ebx
+  00506A60: E8 AB 90 FE FF     call        004EFB10
+  00506A65: D9 44 24 14        fld         dword ptr [esp+14h]
+  00506A69: D8 1D 50 8B 85 00  fcomp       dword ptr ds:[00858B50h]
+  00506A6F: DF E0              fnstsw      ax
+  00506A71: F6 C4 05           test        ah,5
+  00506A74: 7A 0A              jp          00506A80
+  00506A76: 8B 4C 24 14        mov         ecx,dword ptr [esp+14h]
+  00506A7A: 89 4C 24 10        mov         dword ptr [esp+10h],ecx
+  00506A7E: EB 08              jmp         00506A88
+  00506A80: C7 44 24 10 00 00  mov         dword ptr [esp+10h],0
+            00 00
+  00506A88: D9 04 BD 00 C3 8C  fld         dword ptr [edi*4+008CC300h]
+            00
+  00506A8F: 8B 54 24 10        mov         edx,dword ptr [esp+10h]
+  00506A93: D8 0D E8 8E 85 00  fmul        dword ptr ds:[00858EE8h]
+  00506A99: 6A 00              push        0
+  00506A9B: 6A 00              push        0
+  00506A9D: 68 07 04 00 00     push        407h
+  00506AA2: 6A 00              push        0
+  00506AA4: 68 00 00 80 3F     push        3F800000h
+  00506AA9: 51                 push        ecx
+  00506AAA: 8B 4C 24 30        mov         ecx,dword ptr [esp+30h]
+  00506AAE: D9 1C 24           fstp        dword ptr [esp]
+  00506AB1: 68 00 00 80 3F     push        3F800000h
+  00506AB6: 52                 push        edx
+  00506AB7: 8B 54 24 3C        mov         edx,dword ptr [esp+3Ch]
+  00506ABB: 83 EC 0C           sub         esp,0Ch
+  00506ABE: 8B C4              mov         eax,esp
+  00506AC0: 89 08              mov         dword ptr [eax],ecx
+  00506AC2: 8B 4C 24 4C        mov         ecx,dword ptr [esp+4Ch]
+  00506AC6: 56                 push        esi
+  00506AC7: 89 50 04           mov         dword ptr [eax+4],edx
+  00506ACA: 6A 01              push        1
+  00506ACC: 89 48 08           mov         dword ptr [eax+8],ecx
+  00506ACF: 6A 04              push        4
+  00506AD1: 8D 4C 24 68        lea         ecx,[esp+68h]
+  00506AD5: E8 76 93 FE FF     call        004EFE50
+  00506ADA: 8D 54 24 30        lea         edx,[esp+30h]
+  00506ADE: 52                 push        edx
+  00506ADF: B9 B0 2C B6 00     mov         ecx,0B62CB0h
+  00506AE4: 89 5C 24 40        mov         dword ptr [esp+40h],ebx
+  00506AE8: E8 23 90 FE FF     call        004EFB10
+  00506AED: 8D 4C 24 30        lea         ecx,[esp+30h]
+  00506AF1: C7 84 24 AC 00 00  mov         dword ptr [esp+000000ACh],0FFFFFFFFh
+            00 FF FF FF FF
+  00506AFC: E8 5F 8B FE FF     call        004EF660
+  00506B01: 8B 8C 24 A4 00 00  mov         ecx,dword ptr [esp+000000A4h]
+            00
+  00506B08: 5F                 pop         edi
+  00506B09: 5E                 pop         esi
+  00506B0A: 5D                 pop         ebp
+  00506B0B: 64
+  00506B0C: 89
+  00506B0D: 0D
+  00506B0E: 00 00              add         byte ptr [eax],al
+  00506B10: 00
+
+  Summary
+
+      456000 .text

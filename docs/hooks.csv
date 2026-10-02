@@ -4652,7 +4652,7 @@ CAEAmbienceTrackManager,PlaySpecialMissionAmbienceTrack,0x004D6D50,1,0,0,S
 CAEAmbienceTrackManager,Reset,0x004D6CA0,1,0,0,S
 CAEAmbienceTrackManager,Service,0x004D76C0,1,0,0,S
 CAEAmbienceTrackManager,StopSpecialMissionAmbienceTrack,0x004D6D60,1,0,0,S
-CAEAmbienceTrackManager,UpdateAmbienceTrackAndVolume,0x004D6E60,0,1,0,S
+CAEAmbienceTrackManager,UpdateAmbienceTrackAndVolume,0x004D6E60,1,0,1,S
 CAEStreamingChannel,AddFX,0x004F1AE0,1,0,0,S
 CAEStreamingChannel,Constructor,0x004F1800,0,1,0,S
 CAEStreamingChannel,Destructor,0x004F2200,1,0,0,S

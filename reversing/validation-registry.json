@@ -849,6 +849,107 @@
       "source_provenance": "Fresh isolated probe; archived build manifest. Hook unlocked after comparison. No current-version accreditation requested.",
       "dependency_review": null,
       "scope": "24 pairs at the frontend: direct entry, GTA vtable slot 4 and C++ virtual dispatch; return, unchanged objects, execution counters and hook restoration. No gameplay, shutdown or class-wide validation."
+    },
+    {
+      "hook": {
+        "class": "CPedToPlayerConversations",
+        "fn_name": "Update",
+        "address": "0x0043B0F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/PedToPlayerConversations/validation-summary.json",
+        "sha256": "1c2fe72da7a62eb5664a9cea366886d6397760d12ec6755a577c0a7aebd85138",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 6266,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Conversations/PedToPlayerConversations.cpp": "e712e7857758b7cda2b63f0a13e1a173e113bb0ea0fc60e7aeb488e4f27d833e",
+        "source/game_sa/Conversations/PedToPlayerConversations.h": "8dbddb4e8ce0dde908537b31afd2243db66c32eecac05ca9604639655f65358e"
+      },
+      "source_provenance": "Fresh isolated in-engine probe; original and candidate executed with independent fixtures, controlled dependencies, real references/geometry/tasks. Hook enabled at startup. Subsequent generated status comments are not part of this source fingerprint. See build_manifest in evidence.",
+      "dependency_review": null,
+      "scope": "Complete Update control flow with deterministic dependency providers; real engine references, geometry and task objects. No audio playback or combat simulation.",
+      "review_reference": "reversing/PedToPlayerConversations/README.md"
+    },
+    {
+      "hook": {
+        "class": "CConversationForPed",
+        "fn_name": "Update",
+        "address": "0x0043C190",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ConversationForPed/validation-summary.json",
+        "sha256": "7006b948b09ca9c27e110f28e63e0bbe7d9dc94f6af9ba80e3ec95ce9977e5ae",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 2288,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Conversations/ConversationForPed.cpp": "ac4e7446a021cbc8e30d87ca17abee8b579060437a3082e31a6a1012c88f247e",
+        "source/game_sa/Conversations/ConversationForPed.h": "bf772e6501457690f0b05f40dfde6c20fe809fa99038beca5dede415caa5958d"
+      },
+      "source_provenance": "Independent in-engine fixtures; exact source hashes from the archived build manifest, including generated status comments. No whole-tree dependency accreditation.",
+      "dependency_review": null,
+      "scope": "Both functions with independent original/candidate executions, controlled dependency providers, exact state and trace comparison. This does not establish audio playback or prolonged gameplay stability.",
+      "review_reference": "reversing/ConversationForPed/README.md"
+    },
+    {
+      "hook": {
+        "class": "CConversationForPed",
+        "fn_name": "IsPlayerInPositionForConversation",
+        "address": "0x0043AC40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ConversationForPed/validation-summary.json",
+        "sha256": "7006b948b09ca9c27e110f28e63e0bbe7d9dc94f6af9ba80e3ec95ce9977e5ae",
+        "passed_path": [
+          "passed"
+        ],
+        "pairs": 2414,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Conversations/ConversationForPed.cpp": "ac4e7446a021cbc8e30d87ca17abee8b579060437a3082e31a6a1012c88f247e",
+        "source/game_sa/Conversations/ConversationForPed.h": "bf772e6501457690f0b05f40dfde6c20fe809fa99038beca5dede415caa5958d"
+      },
+      "source_provenance": "Independent in-engine fixtures; exact source hashes from the archived build manifest, including generated status comments. No whole-tree dependency accreditation.",
+      "dependency_review": null,
+      "scope": "Both functions with independent original/candidate executions, controlled dependency providers, exact state and trace comparison. This does not establish audio playback or prolonged gameplay stability.",
+      "review_reference": "reversing/ConversationForPed/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAEAmbienceTrackManager",
+        "fn_name": "UpdateAmbienceTrackAndVolume",
+        "address": "0x004D6E60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/AudioCompletion/validation-summary.json",
+        "sha256": "d840ae752029d5e8a963ab6a368a5f419baa4027e6bdebf4d8a9832952192207",
+        "passed_path": [
+          "covered_functions",
+          "UpdateAmbienceTrackAndVolume"
+        ],
+        "pairs": 7846,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp": "f2c3ab6e589eccfe03063dbb031dead5df739fba19227e464ea0588659877bac",
+        "source/game_sa/Audio/Managers/AEAmbienceTrackManager.h": "130489b3c18d3e9b9ac473ea13dc5e2d23beeaf402284660718b2aa32afc619f"
+      },
+      "source_provenance": "Independent in-engine fixtures; exact source hashes from the archived build manifest (20261001-212155-352577), including generated status comments. No whole-tree dependency accreditation.",
+      "dependency_review": null,
+      "scope": "7.846 casos con ejecuciones independientes original/candidato, proveedores externos controlados (zonas, radio, clima, cámara, atenuación, StopAmbienceTrack) y comparación exacta de estado y traza. El banco se detuvo después en AddAudioEvent (otra función). No acredita la reproducción de audio ni la estabilidad prolongada.",
+      "review_reference": "reversing/AudioCompletion/README.md"
     }
   ]
 }

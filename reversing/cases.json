@@ -1,5 +1,10 @@
 [
   {
+    "id": "audio-completion",
+    "name": "Audio: UpdateAmbienceTrackAndVolume (y AddAudioEvent/SetAudioBuffer hasta la primera diferencia)",
+    "runner": "AudioCompletion/run_local.py"
+  },
+  {
     "id": "gang-leader-type",
     "name": "GangLeader: GetTaskType y conmutacion virtual",
     "runner": "GangLeader/run_local.py"
