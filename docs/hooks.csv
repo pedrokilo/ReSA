@@ -8128,3 +8128,12 @@ CTaskSimpleDoHandSignal,Destructor,0x006608B0,1,0,0,S
 CTaskSimpleDoHandSignal,GetTaskType,0x006608A0,1,0,0,V
 CTaskSimpleDoHandSignal,MakeAbortable,0x00660930,1,0,0,V
 CTaskSimpleDoHandSignal,ProcessPed,0x00660940,1,0,0,V
+CTaskComplexBeInCouple,AbortArmIK,0x006837F0,1,0,0,S
+CTaskComplexBeInCouple,Clone,0x006839C0,1,0,0,V
+CTaskComplexBeInCouple,Constructor,0x006836F0,1,0,0,S
+CTaskComplexBeInCouple,ControlSubTask,0x00684930,0,1,0,V
+CTaskComplexBeInCouple,CreateFirstSubTask,0x006837E0,1,0,0,V
+CTaskComplexBeInCouple,CreateNextSubTask,0x00684840,0,1,0,V
+CTaskComplexBeInCouple,Destructor,0x00683780,1,0,0,S
+CTaskComplexBeInCouple,GetTaskType,0x00683770,1,0,0,V
+CTaskComplexBeInCouple,MakeAbortable,0x006847C0,1,0,0,V

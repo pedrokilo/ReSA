@@ -17,6 +17,8 @@ public:
     float    m_giveUpDist{};
     int8     m_prevSide{};
 public:
+    static void InjectHooks();
+
     static constexpr auto Type = TASK_COMPLEX_BE_IN_COUPLE;
 
     CTaskComplexBeInCouple(
@@ -36,5 +38,17 @@ public:
     CTask* CreateNextSubTask(CPed* ped) override;
     CTask* ControlSubTask(CPed* ped) override;
     void AbortArmIK(CPed* ped);
+
+private: // Wrappers for hooks
+    // 0x6836F0
+    CTaskComplexBeInCouple* Constructor(CPed* ped, bool isLeader, bool holdHands, bool lookAtEachOther, float giveUpDist) {
+        this->CTaskComplexBeInCouple::CTaskComplexBeInCouple(ped, isLeader, holdHands, lookAtEachOther, giveUpDist);
+        return this;
+    }
+    // 0x683780
+    CTaskComplexBeInCouple* Destructor() {
+        this->CTaskComplexBeInCouple::~CTaskComplexBeInCouple();
+        return this;
+    }
 };
 VALIDATE_SIZE(CTaskComplexBeInCouple, 0x20);
