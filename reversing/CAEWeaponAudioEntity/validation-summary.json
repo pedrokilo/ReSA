@@ -1,0 +1,113 @@
+{
+  "passed": true,
+  "date": "2026-10-01",
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "class": "CAEWeaponAudioEntity",
+  "registration_finding": "Los hooks ya se registraban en tiempo de ejecución antes de esta tarea: CAEPedWeaponAudioEntity no declara InjectHooks, así que la llamada CAEPedWeaponAudioEntity::InjectHooks() de InjectHooksMain.cpp resolvía al CAEWeaponAudioEntity::InjectHooks heredado (runtime-hooks.csv previo ya listaba las 20 entradas). Descomentar la llamada sin más habría duplicado los nombres (assert HookCategory.h:60). Se sustituyó por la llamada explícita a CAEWeaponAudioEntity::InjectHooks() y se comentó la heredada; el registro sigue siendo único.",
+  "functions": {
+    "Initialise": {"address": "0x00503450", "pairs": 4},
+    "Terminate": {"address": "0x00503480", "pairs": 2},
+    "Reset": {"address": "0x00503490", "pairs": 3},
+    "StopFlameThrowerIdleGasLoop": {"address": "0x005034E0", "pairs": 4},
+    "PlayGoggleSound": {"address": "0x00503500", "pairs": 24},
+    "WeaponReload": {"address": "0x00503690", "pairs": 116},
+    "PlayFlameThrowerIdleGasLoop": {"address": "0x00503870", "pairs": 4},
+    "ReportChainsawEvent": {"address": "0x00503910", "pairs": 44},
+    "ReportStealthKill": {"address": "0x00503B20", "pairs": 36},
+    "PlayGunSounds": {"address": "0x00503CE0", "pairs": 649},
+    "PlayFlameThrowerSounds": {"address": "0x00504470", "pairs": 48},
+    "PlayWeaponLoopSound": {"address": "0x00504610", "pairs": 24},
+    "PlayCameraSound": {"address": "0x005046F0", "pairs": 18},
+    "PlayMiniGunFireSounds": {"address": "0x005047C0", "pairs": 288},
+    "PlayMiniGunStopSound": {"address": "0x00504960", "pairs": 48},
+    "PlayChainsawStopSound": {"address": "0x00504AA0", "pairs": 20},
+    "UpdateParameters": {"address": "0x00504B70 (virtual, vtable 0x86C2AC idx 0)", "pairs": 1640},
+    "WeaponFire": {"address": "0x00504F80", "pairs": 206},
+    "Constructor": {"address": "0x005DE990", "pairs": 0, "status": "locked=1, hook deshabilitado; comparación documental con diferencia esperada"},
+    "Destructor": {"address": "0x00507560", "pairs": 0, "status": "locked=1, hook deshabilitado; comparación documental con diferencia esperada"}
+  },
+  "bank": {
+    "pairs": 3178,
+    "passed_pairs": 3178,
+    "exact_pairs": 3166,
+    "inexact_within_tolerance": 12,
+    "inexact_detail": "solo PlayGunSounds en la rama de distancia media (dist 11.5, eventos 0x91 y 0x96): log10 x87 (fyl2x) del original frente a std::log10 del candidato",
+    "max_float_diff": 9.5367431640625e-07,
+    "tolerance": "|a-b| <= 1e-5 * max(1, |a|) para valores en coma flotante; enteros, ids, flags, eventos, orden y número de llamadas exactos",
+    "requested_sounds_compared": 3632,
+    "dependency_calls_original": {"isLoaded": 1277, "rand": 724, "prob": 263, "tune": 182, "load": 104, "eventPlaying": 10, "cancelOwned": 5, "slotPlaying": 4, "cancelSlot": 2},
+    "counters": "lado original: 0 llamadas a cualquiera de las 20 reconstrucciones; lado candidato: >= 1 llamada a la función probada",
+    "original_side": "los 18 hooks normales y los 2 bloqueados deshabilitados (ensamblador original, también en las llamadas internas)",
+    "candidate_side": "los 18 hooks normales habilitados",
+    "audio_hooks": "Audio ACTIVO (solo --unhook=Global/SurfaceInfos_c)",
+    "state_restored": true,
+    "foreign_calls": 0,
+    "saves_unchanged": true,
+    "configs_restored": true,
+    "log": "E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-weaponaudio/20261001-193805-388812/comparisons.jsonl",
+    "log_sha256": "18585b0c9d8eeb716fbb58c92eb03856834240c5fcb8bfc26a745b99ce0a24be",
+    "probe_asi_sha256": "f7065c02727426ebf2556cff951a6fbb664d68b6508b1b3c22a2520616db0657",
+    "probe_pdb_sha256": "903497efd6db9b0f1fd3e2c7303bdece2bda54c5bd3ce20647e5286c99a44be9",
+    "probe_sources": {
+      "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "699e14f8c0ae2768a5fed43fe9fa6fe8f5e407b10c983324941a949f474c8fe3",
+      "source/game_sa/Game.cpp": "560f1414191023acfd9aeb705d22b0a426e72d0279d358051cf0569a6b75f1ec",
+      "note": "El hash del .cpp es anterior a la regeneración del bloque de comentario GENERATED HOOK STATUS por sync_docs (solo cambia el comentario de cabecera)."
+    }
+  },
+  "locked_entries": {
+    "Constructor": {
+      "address": "0x005DE990",
+      "finding": "Es el constructor de CAEPedWeaponAudioEntity (escribe vtable 0x86C2AC, +0xA0 byte y +0xA4), no el de CAEWeaponAudioEntity. Constructor() construye un temporal y no toca this.",
+      "bank_result": "distinto: original escribe vtable 0x86C2AC y pone a cero 0x7C..0x7E, 0x84..0x9C, +0xA0, +0xA4; candidato no modifica el objeto",
+      "callers_in_exe": 0
+    },
+    "Destructor": {
+      "address": "0x00507560",
+      "finding": "Es el constructor de CAEWeaponAudioEntity (vtable 0x862E68), no un destructor; la clase no tiene destructor como función separada en el EXE.",
+      "bank_result": "distinto: original escribe vtable 0x862E68 y pone a cero los campos; candidato (destructor) no los modifica",
+      "callers_in_exe": 0
+    },
+    "decision": "RH_ScopedInstall(..., { .enabled = false, .locked = true }) y hooks.csv locked=1; reversed se conserva en 1 (el C++ existe pero su enlace a esas direcciones es incorrecto). Ninguna dirección tiene llamadores en el EXE."
+  },
+  "corrections": [
+    "WeaponReload: sonidos A/B intercambiados en escopetas/SPAS (71/72), recortada (69/70), Uzi/MP5/Tec9 (84/85) y AK/M4 (31/32); atenuación 0.66 (no 2/3); ClientVariable -1",
+    "PlayGunSounds: doppler 1.0 en todos los sonidos (antes 0); atenuación seca 0.66; orden frontal izq., frontal der., posicional izq., posicional der.; interpolación media (12/r-d)/(12/r-5/r) (antes daba t negativo y volumen NaN); límite cercano <=; la cola usa el volumen base sin el ajuste -3/log; cola nunca > 0 dB; orden de sumas como el original",
+    "ReportStealthKill: segundo sonido 47 (push 2Fh), antes 471",
+    "PlayCameraSound: suma audability; sin evento (-1); atenuación 0.66",
+    "PlayMiniGunStopSound: avión con atenuación 1.8*0.66 y velocidad 0.7937 (estaban intercambiados); no avión 0.66",
+    "PlayMiniGunFireSounds: sin banco cargado sale sin actualizar m_LastMiniGunFireTimeMs; atenuación 0.66",
+    "PlayFlameThrowerIdleGasLoop, PlayChainsawStopSound, ReportChainsawEvent (ralentí), PlayFlameThrowerSounds (seco): atenuación 0.66",
+    "Todas las funciones: m_ClientVariable -1 como deja CAESound::Initialise (tSoundPlayParams usa 0 por defecto)",
+    "Reset/Clear: solo pone a cero los campos que pone el original; conserva estados de minigun/motosierra y la base CAEAudioEntity",
+    "UpdateParameters: cualquier curPlayPos negativo sale; límites de volumen/velocidad solo si aún no se alcanzaron (FLAME, EXT, CHAINSAW_ACTIVE); tiempo leído una vez; comparaciones con signo en STEALTH_KNIFE",
+    "WeaponFire: tipos sin sonido o fuera de rango salen sin NOTSA_UNREACHABLE (antes abortaba, p. ej. WEAPON_UNARMED)"
+  ],
+  "contrast_with_previous_cpp": {
+    "description": "Mismo banco compilado con el AEWeaponAudioEntity.cpp anterior (artifacts/AEWeaponAudioEntity.cpp.before); se esperaba divergencia",
+    "log": "E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-weaponaudio/20261001-194045-743643/comparisons.jsonl",
+    "log_sha256": "cc1fe6e3da8d7637ed9f6b7ec8c1a166a9be236f3ee0ccfb1d321b9b45b00ac5",
+    "probe_asi_sha256": "41d1392679345d1576a70d6e9044d1c5bc83703250e2d64fb74e0964a0bbd668",
+    "pairs_logged": 2972,
+    "aborted": "WeaponFire con tipo 0: NOTSA_UNREACHABLE en AEWeaponAudioEntity.cpp:301 (código de salida 3)",
+    "divergent_per_function": {"PlayGunSounds": "641/649", "UpdateParameters": "158/1640", "PlayMiniGunFireSounds": "48/288", "WeaponReload": "39/116", "PlayFlameThrowerSounds": "10/48", "PlayMiniGunStopSound": "9/48", "PlayGoggleSound": "8/24", "PlayWeaponLoopSound": "8/24", "PlayCameraSound": "6/18", "ReportChainsawEvent": "5/44", "PlayChainsawStopSound": "4/20", "Reset": "3/3", "PlayFlameThrowerIdleGasLoop": "2/4", "ReportStealthKill": "2/36", "Initialise": "0/4", "Terminate": "0/2", "StopFlameThrowerIdleGasLoop": "0/4"},
+    "first_attempt": "E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-weaponaudio/20261001-193943-276689: terminó con código 3 justo después de 'Initialised SoundManager', antes de que la sonda escribiera nada; causa no identificada (no se repitió con el C++ corregido ni en las pruebas de humo)"
+  },
+  "earlier_failed_run_kept": {
+    "folder": "E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-weaponaudio/20261001-193623-391575",
+    "log_sha256": "d4f136feba849c05e4cc56bdf9820ac0d28aa0260218223cc35c0b6384ef5cc3",
+    "probe_asi_sha256": "25e9ff1d9d4d71c1a88b4b1574538a99c5883ba48817d407c49e0fe08337e392",
+    "reason": "3176/3178: ReportStealthKill (2 pares) pedía el sonido 471 en vez de 47. Corregido en C++ y repetido el banco completo."
+  },
+  "smoke_tests": [
+    {"folder": "artifacts/smoke-20261001-193423", "asi_sha256": "fe4f937412566a09c30ce9c239ee3b935011a3866144a381b34a5729d7180535", "result": "35 s en estado 9 con Audio activo, sin diálogos, 20 hooks registrados una vez", "note": "compilación anterior a la corrección 471->47; sustituida"},
+    {"folder": "artifacts/smoke-20261001-194259", "asi_sha256": "024731135e4263a04050ef12371ab28fec6a6ff38443a0976090f1a685f3b689", "result": "aprobada", "note": "anterior a la regeneración de cabeceras de sync_docs; sustituida"},
+    {"folder": "artifacts/smoke-20261001-194442", "asi_sha256": "a0c5e7fb049292646cccad293cc175302e54e78270605d48f575c14d330914bd", "result": "aprobada: 35 s en estado 9, Audio activo, sin diálogos de assert, partidas e INI sin cambios", "note": "ASI instalado al final"}
+  ],
+  "installed": {
+    "asi_sha256": "a0c5e7fb049292646cccad293cc175302e54e78270605d48f575c14d330914bd",
+    "pdb_sha256": "3ded71739c3bbbd78d0005fdf6c173cdd62515c13e1f9641f65dadfac3a652e1",
+    "backup": "E:/JUEGOS/GTA San Andreas - CVehicle Test/_baseline/before-weaponaudio-20261001",
+    "backup_asi_sha256": "a77c61c4e55fee47307ea17d78bea9f0a253911fd9d2555b90e19d0458c56090",
+    "backup_pdb_sha256": "cd41d09711b6d1944c6b62b9214bfddbb0ffd5c27d94114b43e077a6a0aa59e1"
+  }
+}
