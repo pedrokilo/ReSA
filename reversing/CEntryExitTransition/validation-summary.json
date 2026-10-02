@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "phase": "1+2 (final pass, supersedes the phase-1-only summary)",
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "pairs": 960,
+  "by_scenario": {
+    "0_food_state0": 192,
+    "1_food_state2_fading_true": 192,
+    "2_else_state0": 192,
+    "3_else_state1_no_primary_task": 192,
+    "4_else_state2_fading_true": 192
+  },
+  "all_equal": true,
+  "max_error": 0,
+  "tolerance": 0,
+  "candidate_calls": 960,
+  "state_restored": true,
+  "log_sha256": "909b67706f6d2457e89f16e5421decc6e2f6371206a03a7ba0fc3540d173d734",
+  "saves_unchanged": true,
+  "function": "CEntryExit::TransitionFinished",
+  "address": "0x004404A0",
+  "class_recorded_progress": "11/11 (sin cambios; ya reversed=1 antes de esta tarea)",
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-enextransition\\20261001-132428-655341",
+  "previous_phase1_only_evidence_directory": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-enextransition\\20261001-125022-681196",
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "48207c1f405c8448e41d28897a6bfbf44afd0e11f6257c3e09096a11acf7bbb3",
+      "pdb": "416fb6d0d7845300095f926c098ccab58751c91db94a133c5bfab825ccb5957a"
+    },
+    "sources": {
+      "source\\game_sa\\EntryExit.cpp": "unchanged after instrumentation restore (finally block in build_probe.py)",
+      "source\\game_sa\\Game.cpp": "unchanged after instrumentation restore (finally block in build_probe.py)"
+    }
+  },
+  "normal_asi_sha256": "34801e37752db66f73e01c8b79e7f5c1cf1d27b7a7866116c3557699287e36e5",
+  "normal_pdb_sha256": "bb28eda79b1e2d8d17ec56522852b48a4d353450e30cba6861fd55f80668825e",
+  "normal_build": "Debug x86; instrumentation excluded",
+  "installation": {
+    "normal_asi_sha256": "34801e37752db66f73e01c8b79e7f5c1cf1d27b7a7866116c3557699287e36e5",
+    "previous_hashes": {
+      "asi": "cfb7ccd82ed7b4a289574699fa3a736c195f346e6abde04cd19d9333482949b9",
+      "pdb": "876716f9244e88fa45b38442ba041e16412c3442049bf9fd5692c8e0cbab01d4"
+    },
+    "backup": "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\_baseline\\before-enextransition-20261001-125342",
+    "saves_unchanged": true
+  },
+  "excluded_hooks": [],
+  "visual_review": false,
+  "real_dependencies": [
+    "CPedGroups::GetPedsGroup",
+    "CColStore::AddCollisionNeededAtPosn",
+    "CIplStore::AddIplsNeededAtPosn",
+    "CStreaming::AddModelsToRequestList",
+    "ThePaths.SetPathsNeededAtPosition",
+    "CRenderer::RequestObjectsInDirection (via RequestObjectsInFrustum, when ms_bWarping)",
+    "TheCamera.Fade",
+    "TheCamera.SetFadeColour",
+    "CEntryExitManager::SetAreaCodeForVisibleObjects (real execution; touched real entities restored to AREA_CODE_NORMAL_WORLD immediately after each call)"
+  ],
+  "controlled_dependencies": [
+    "TheCamera.GetFading() forced to always observe true during phase 1 (keeps EXIT_ENTER_STATE_2 -> EXIT_ENTER_STATE_3 and the whole completion block unreached in that phase; phase 2 reaches it directly by starting from state 3)"
+  ],
+  "comparison_normalization": [
+    "The 'calls' instrumentation counter is excluded from the equality check (0 for the original machine code call, 1 for the candidate C++ call, by design)",
+    "TheCamera.Fade/SetFadeColour exact field values (duration, CTimer::GetTimeInMS() timestamp) are not compared, since the two calls happen microseconds apart; only the resulting state machine transition is compared"
+  ],
+  "scope": "Phase 1 (960 pairs): branches of TransitionFinished that return false without reaching the EXIT_ENTER_STATE_3 world-completion block, using synthetic ped/CEntryExit fixtures. Phase 2 (9 pairs, see 'phase2' below): the real player drives the EXIT_ENTER_STATE_3 completion block, including the full invasive path once. Does not validate: held-entity SetAreaCode, a real CPedGroups membership event, GetEntryExitToDisplayNameOf returning non-null (CHud::SetZoneName/TheText.Get), or the EXIT_ENTER_STATE_1 sub-branch where the primary task is TASK_COMPLEX_GOTO_DOOR_AND_OPEN. Vehicles, save/load, missions and general stability were not exercised; the real save files were verified unchanged before and after both phases.",
+  "phase2": {
+    "description": "Real player, real EXIT_ENTER_STATE_3 completion block (scene streaming, ped Teleport via FindValidTeleportPoint, CPopulation, CTheScripts::Process, CGame::TidyUpMemory, ...), executed once end-to-end per side via hook alternation.",
+    "precondition": "player on foot, AREA_CODE_NORMAL_WORLD, m_pEnex==nullptr, holding nothing (heavy_precondition.safe_to_run=true in this run)",
+    "pairs": 9,
+    "light_early_return_pairs": 8,
+    "full_completion_pairs": 1,
+    "all_equal": true,
+    "candidate_calls": 9,
+    "player_restored": true,
+    "position_delta_full_completion": 1.25,
+    "note": "position_delta is identical between the original and candidate runs of the full_completion pair (both call the same real FindValidTeleportPoint/collision data); the probe re-teleports the player back to its pre-call position afterwards regardless."
+  }
+}
