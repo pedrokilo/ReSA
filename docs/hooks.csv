@@ -8137,3 +8137,9 @@ CTaskComplexBeInCouple,CreateNextSubTask,0x00684840,0,1,0,V
 CTaskComplexBeInCouple,Destructor,0x00683780,1,0,0,S
 CTaskComplexBeInCouple,GetTaskType,0x00683770,1,0,0,V
 CTaskComplexBeInCouple,MakeAbortable,0x006847C0,1,0,0,V
+CTaskComplexBeStill,Clone,0x005F6680,1,0,0,V
+CTaskComplexBeStill,ControlSubTask,0x0062F9F0,1,0,0,V
+CTaskComplexBeStill,CreateFirstSubTask,0x0062F910,1,0,0,V
+CTaskComplexBeStill,CreateNextSubTask,0x0062F8D0,1,0,0,V
+CTaskComplexBeStill,Destructor,0x005F6700,1,0,0,S
+CTaskComplexBeStill,GetTaskType,0x005F66D0,1,0,0,V

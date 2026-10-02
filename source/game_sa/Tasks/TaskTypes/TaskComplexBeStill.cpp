@@ -4,6 +4,19 @@
 #include "TaskSimpleCarDrive.h"
 #include "TaskSimpleStandStill.h"
 
+void CTaskComplexBeStill::InjectHooks() {
+    RH_ScopedVirtualClass(CTaskComplexBeStill, 0x86C7BC, 11);
+    RH_ScopedCategory("Tasks/TaskTypes");
+
+    RH_ScopedInstall(Destructor, 0x5F6700);
+
+    RH_ScopedVMTInstall(Clone, 0x5F6680);
+    RH_ScopedVMTInstall(GetTaskType, 0x5F66D0);
+    RH_ScopedVMTInstall(CreateNextSubTask, 0x62F8D0);
+    RH_ScopedVMTInstall(CreateFirstSubTask, 0x62F910);
+    RH_ScopedVMTInstall(ControlSubTask, 0x62F9F0);
+}
+
 // 0x62F8D0
 CTask* CTaskComplexBeStill::CreateNextSubTask(CPed* ped) {
     auto taskType = m_pSubTask->GetTaskType();

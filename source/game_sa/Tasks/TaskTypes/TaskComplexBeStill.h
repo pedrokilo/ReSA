@@ -4,6 +4,8 @@
 
 class NOTSA_EXPORT_VTABLE CTaskComplexBeStill : public CTaskComplex {
 public:
+    static void InjectHooks();
+
     static constexpr auto Type = TASK_COMPLEX_BE_STILL;
 
     CTaskComplexBeStill() = default;
@@ -15,4 +17,11 @@ public:
     CTask* ControlSubTask(CPed* ped) override;
     CTask* CreateFirstSubTask(CPed* ped) override;
     CTask* CreateNextSubTask(CPed* ped) override;
+
+private: // Wrappers for hooks
+    // 0x5F6700
+    CTaskComplexBeStill* Destructor() {
+        this->CTaskComplexBeStill::~CTaskComplexBeStill();
+        return this;
+    }
 };
