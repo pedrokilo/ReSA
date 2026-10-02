@@ -1,3 +1,25 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CTaskComplexEvasiveStep
+ * Reconstrucción: INCOMPLETA — 7/8 funciones reconstruidas.
+ * Pendientes de reconstruir: 1.
+ * Funciones bloqueadas: 1.
+ * Validación registrada: 0/8 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   CreateSubTask | 0x006533E0 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   CreateSubTask | 0x006533E0 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "TaskComplexEvasiveStep.h"
