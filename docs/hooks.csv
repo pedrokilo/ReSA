@@ -8110,3 +8110,4 @@ CTaskComplexUsePairedAttractor,SetPartnership,0x006331F0,1,0,0,S
 CTaskSimpleChat,Clone,0x005F65E0,1,0,0,V
 CTaskSimpleChat,Destructor,0x005F7FD0,1,0,0,S
 CTaskSimpleChat,IsInterruptable,0x005F6650,1,0,0,V
+CTaskSimpleDead,ProcessPed,0x00630600,0,1,0,S

@@ -239,6 +239,7 @@
 #include "Interior/TaskInteriorGoToInfo.h"
 #include "TaskSimpleInAir.h"
 #include "TaskComplexHitPedWithCar.h"
+#include "TaskSimpleDead.h"
 #include "TaskComplexUsePairedAttractor.h"
 #include "TaskComplexScreamInCarThenLeave.h"
 #include "TaskComplexEnterCarAsPassengerWait.h"
@@ -1123,7 +1124,7 @@ void InjectHooksMain() {
         CTaskSimpleChat::InjectHooks();
         CTaskSimpleCower::InjectHooks();
         CTaskSimpleClearLookAt::InjectHooks();
-        // CTaskSimpleDead::InjectHooks();
+        CTaskSimpleDead::InjectHooks();
         // CTaskSimpleDetonate::InjectHooks();
         // + CTaskSimpleDieInCar
         // CTaskSimpleDoHandSignal::InjectHooks();
