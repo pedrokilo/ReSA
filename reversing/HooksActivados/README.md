@@ -60,3 +60,44 @@ Resultado estricto: **OK** en las seis comprobaciones.
 - `CAEWeaponAudioEntity::InjectHooks` usa el vtable 0x86C2AC, que es el de `CAEPedWeaponAudioEntity`; el suyo es 0x862E68. Funciona porque `UpdateParameters` ocupa el índice 0 en ambos.
 - El comentario `// 0x5F68F0` de `TaskAllocatorRetreat.h` corresponde al `GetType` de otra clase.
 - Destructores no-deleting sin dirección en el código (`CarDriveWander`, `DriveToPoint`, `EnterCarAs*`, `CarSetPedInAsDriver`, `CarSetPedOut`, `GangDriveBy`, `SetStayInSamePlace`, `TogglePedThreatScanner`). Pueden sacarse del destructor deleting en `vtable[0]`.
+
+## Plantillas de clases sin código (2026-10-01, posterior)
+
+Había 22 clases que no existían en el código ni en `hooks.csv`, salvo como llamadas comentadas en `InjectHooksMain.cpp`. Para 21 se creó **solo una plantilla, sin reconstruir nada**. `CTaskComplexDriveWander` no se creó porque ya existe como `CTaskComplexCarDriveWander` en `TaskComplexDriveWander.h`, registrada en la tanda anterior.
+
+Cada plantilla tiene:
+
+- Un `.h` que hereda de `CTaskSimple` o `CTaskComplex` y declara `Type` y `static void InjectHooks();`, con las virtuales comentadas. No tiene constructor, campos ni `VALIDATE_SIZE`.
+- Un `.cpp` con `InjectHooks()` vacío.
+
+Las plantillas no se registran en `InjectHooksMain` ni añaden filas a `hooks.csv`, así que las cifras del catálogo no cambian. `CTaskInteriorSitInChair` está en `Tasks/TaskTypes/Interior/`; las demás, en `Tasks/TaskTypes/`.
+
+| Clase | `eTaskType` | Vtable | `GetTaskType` |
+| --- | --- | --- | --- |
+| `CTaskInteriorSitInChair` | `TASK_INTERIOR_SIT_ON_CHAIR` | 0x870314 | 0x675C80 |
+| `CTaskComplexExtinguishFireOnFoot` | `TASK_COMPLEX_EXTINGUISH_FIRE_ON_FOOT` | 0x86F5FC | 0x6598A0 |
+| `CTaskComplexFallAndStayDown` | `TASK_COMPLEX_FALL_AND_STAY_DOWN` | 0x870480 | 0x678A00 |
+| `CTaskComplexFollowNodeRouteShooting` | `TASK_COMPLEX_FOLLOW_NODE_ROUTE_SHOOTING` | sin localizar | — |
+| `CTaskComplexFollowPatrolRoute` | `TASK_COMPLEX_FOLLOW_PATROL_ROUTE` | 0x870114 | 0x670A60 |
+| `CTaskComplexGoToPointUntilCollisionAndStandStill` | sin identificar | sin localizar | — |
+| `CTaskComplexKillAllThreats` | `TASK_KILL_ALL_THREATS` | 0x86DA1C | 0x6221B0 |
+| `CTaskComplexPresentIDToCop` | `TASK_COMPLEX_PRESENT_ID_TO_COP` | 0x86F544 | 0x659230 |
+| `CTaskComplexReactToAttack` | `TASK_COMPLEX_REACT_TO_ATTACK` | 0x86D868 | 0x620B80 |
+| `CTaskComplexUseEntryExit` | `TASK_COMPLEX_USE_ENTRYEXIT` | sin localizar | — |
+| `CTaskSimpleBeHitWhileMoving` | `TASK_SIMPLE_BE_HIT_WHILE_MOVING` | 0x86D7FC | 0x61FE60 |
+| `CTaskSimpleBeKickedOnGround` | `TASK_SIMPLE_BE_KICKED_ON_GROUND` | 0x86D7D8 | 0x61FC40 |
+| `CTaskSimpleCarForcePedOut` | `TASK_SIMPLE_CAR_FORCE_PED_OUT` | 0x86EE94 | 0x647770 |
+| `CTaskSimpleDetonate` | `TASK_SIMPLE_DETONATE` | sin localizar | — |
+| `CTaskSimpleDuckWhileShotsWhizzing` | `TASK_SIMPLE_DUCK_WHILE_SHOTS_WHIZZING` | 0x870BEC | 0x6926E0 |
+| `CTaskSimpleHailTaxi` | `TASK_SIMPLE_HAIL_TAXI` | sin localizar | — |
+| `CTaskSimpleHailTaxiAndPause` | sin identificar | sin localizar | — |
+| `CTaskSimpleOnEscalator` | `TASK_SIMPLE_ON_ESCALATOR` | 0x85B8DC | 0x4B8720 |
+| `CTaskSimpleRunAnimLoopedMiddle` | `TASK_SIMPLE_ANIM_LOOPED_MIDDLE` | sin localizar | — |
+| `CTaskSimpleTriggerEvent` | `TASK_SIMPLE_TRIGGER_EVENT` | sin localizar | — |
+| `CTaskSimpleWaitForPizza` | `TASK_SIMPLE_WAIT_FOR_PIZZA` | 0x86E1DC | 0x632B50 |
+
+**Cómo se localizaron los vtables:** se busca en `.text` el cuerpo `mov eax, <tipo>; ret` del `GetTaskType`, y luego su referencia en `.rdata` en la entrada 4. Las entradas 2 y 3 coinciden con la base: `0x43E300`/`0x43E310` en las simples y `0x421190`/`0x4211A0` en las complejas. El `N` de `RH_ScopedVirtualClass` es el de la base y está **por confirmar**.
+
+En las ocho sin localizar, el patrón no aparece o el tipo no figura en `eTaskType`. En el caso de `UntilCollision`, el único vtable extra que comparte ese `GetTaskType`, 0x86FDD4, pertenece a `CTaskComplexGoToPointAndStandStillTimed`.
+
+CMake usa `GLOB` sin `CONFIGURE_DEPENDS`, así que hay que reconfigurar (`cmake .` en `build/`) para que entren los archivos nuevos. Compilación Debug sin errores y auditoría estricta OK. Un commit por plantilla.
