@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 15/15 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Evidencia aprobada vinculada: 0/15 entradas.
+ * Validación registrada: 0/15 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -177,11 +177,11 @@ bool CTaskSimpleClimb::ProcessPed(CPed* ped) {
              * Bounded before the carrier's own speed is added, exactly as the step above does, so a
              * climb onto a moving train or boat still takes that speed whole.
              */
-            if (notsa::bugfixes::CTaskSimpleClimb_ProcessPed_SettleSpeedFrameRate) {
-                if (const auto speed = ped->m_vecMoveSpeed.Magnitude(); speed > 0.2f) {
-                    ped->m_vecMoveSpeed *= 0.2f / speed;
-                }
+#ifdef FIX_BUGS
+            if (const auto speed = ped->m_vecMoveSpeed.Magnitude(); speed > 0.2f) {
+                ped->m_vecMoveSpeed *= 0.2f / speed;
             }
+#endif
 
             ped->m_vecMoveSpeed += vecClimbEntSpeed;
 

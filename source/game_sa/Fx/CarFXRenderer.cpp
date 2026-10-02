@@ -9,7 +9,7 @@
  * Reconstrucción: INCOMPLETA — 9/10 funciones reconstruidas.
  * Pendientes de reconstruir: 1.
  * Funciones bloqueadas: 1.
- * Evidencia aprobada vinculada: 0/10 entradas.
+ * Validación registrada: 0/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 
 #include "CarFXRenderer.h"
 #include "CustomCarEnvMapPipeline.h"
+#include "ClothesBuilder.h"
 
 void CCarFXRenderer::InjectHooks() {
     RH_ScopedClass(CCarFXRenderer);
@@ -52,8 +53,32 @@ bool CCarFXRenderer::Initialise() {
 }
 
 // 0x5D5BC0
-void CCarFXRenderer::InitialiseDirtTexture() {
-    plugin::Call<0x5D5BC0>();
+bool CCarFXRenderer::InitialiseDirtTexture() {
+    const auto txd = CTxdStore::FindTxdSlot("vehicle");
+    CTxdStore::PushCurrentTxd();
+    CTxdStore::SetCurrentTxd(txd);
+    auto* texture = RwTextureRead("vehiclegrunge256", nullptr);
+    RwTextureSetFilterMode(texture, rwFILTERLINEAR);
+    const auto width = RwRasterGetWidth(RwTextureGetRaster(texture));
+    const auto height = RwRasterGetHeight(RwTextureGetRaster(texture));
+    for (int32 level = 0; level < NUM_DIRT_TEXTURES; ++level) {
+        auto* dirt = ms_aDirtTextures[level] = CClothesBuilder::CopyTexture(texture);
+        RwTextureSetName(dirt, "vehiclegrunge256");
+        auto* raster = RwTextureGetRaster(dirt);
+        auto* pixels = RwRasterLock(raster, 0, rwRASTERLOCKREAD | rwRASTERLOCKWRITE);
+        const auto white = 255 * (NUM_DIRT_TEXTURES - level) / NUM_DIRT_TEXTURES;
+        for (int32 y = 0; y < height; ++y) {
+            for (int32 x = 0; x < width; ++x) {
+                auto* pixel = pixels + 4 * (y * width + x);
+                for (int32 channel = 0; channel < 3; ++channel) {
+                    pixel[channel] = pixel[channel] * level / NUM_DIRT_TEXTURES + white;
+                }
+            }
+        }
+        RwRasterUnlock(raster);
+    }
+    CTxdStore::PopCurrentTxd();
+    return true;
 }
 
 // 0x5D5AD0
