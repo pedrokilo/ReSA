@@ -184,3 +184,7 @@ Se corrigieron los siete hooks heredados del upstream cuya dirección caía a mi
 `CPedDamageResponseCalculator::IsBleedingWeapon` (0x4B5C2A) también cae a mitad de función, pero está con `reversed=0` y no se activa. Se deja como estaba.
 
 **Comprobaciones.** No hay direcciones duplicadas entre todas las instalaciones del código. La compilación Debug termina sin errores. `smoke_test.py --seconds 60`: **60 s dentro de partida** sin diálogos y con las partidas intactas ([resumen](../CAEWeaponAudioEntity/artifacts/smoke-20261001-210532/summary.json)). El `runtime-hooks.csv` del juego muestra las seis direcciones nuevas y ya no registra `EnableConversation`. Al terminar se restauró el ASI instalado (`a0c5e7fb…`). Hay un commit por hook.
+
+## Diferencias entre catálogo y juego resueltas (2026-10-01)
+
+Las siete diferencias de `reversed` y los tres hooks sin catalogar de la comparación anterior quedaron resueltos (ver [AudioCompletion](../AudioCompletion/README.md) y la [continuidad](../MEJORAS_DEL_PROCESO.md#continuidad-vigente-lote-de-audio-completo-y-catálogo-igual-al-registro-real-2026-10-01)). `audit_hook_catalog.py --runtime` da ahora **0 diferencias** entre `hooks.csv` y el `runtime-hooks.csv` del juego.
