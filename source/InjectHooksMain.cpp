@@ -169,6 +169,7 @@
 #include "CoverPoint.h"
 #include "DecisionMakers/Decision.h"
 #include "Maths.h"
+#include "Tasks/TaskSequences.h"
 #include "CarFXRenderer.h"
 #include "Curves.h"
 #include "ProcObjectMan.h"
@@ -1215,6 +1216,7 @@ void InjectHooksMain() {
         CTaskSimpleWaitUntilPedIsOutCar::InjectHooks();
         CTaskComplexSequence::InjectHooks();
         CTaskComplexUseSequence::InjectHooks();
+        CTaskSequences::InjectHooks();
         CTaskSimpleCarSlowDragPedOut::InjectHooks();
         CTaskManager::InjectHooks();
         CTaskSimpleCreateCarAndGetIn::InjectHooks();
