@@ -8219,3 +8219,7 @@ CTaskComplexWanderGang,Clone,0x00671470,1,0,0,V
 CTaskComplexWanderGang,Constructor,0x0066F5C0,1,0,0,S
 CTaskComplexWanderGang,GetWanderType,0x0066F630,1,0,0,V
 CTaskComplexWanderGang,ScanForStuff,0x0066F640,1,0,0,V
+CTaskComplexWanderMedic,Clone,0x006587A0,1,0,0,V
+CTaskComplexWanderMedic,Constructor,0x00658770,1,0,0,S
+CTaskComplexWanderMedic,GetWanderType,0x00658810,1,0,0,V
+CTaskComplexWanderMedic,ScanForStuff,0x00658820,1,0,0,V
