@@ -8107,3 +8107,6 @@ CTaskComplexUsePairedAttractor,Destructor,0x006331E0,1,0,0,S
 CTaskComplexUsePairedAttractor,GetTaskType,0x006331D0,1,0,0,V
 CTaskComplexUsePairedAttractor,SeekPartnership,0x00638AE0,1,0,0,S
 CTaskComplexUsePairedAttractor,SetPartnership,0x006331F0,1,0,0,S
+CTaskSimpleChat,Clone,0x005F65E0,1,0,0,V
+CTaskSimpleChat,Destructor,0x005F7FD0,1,0,0,S
+CTaskSimpleChat,IsInterruptable,0x005F6650,1,0,0,V
