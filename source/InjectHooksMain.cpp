@@ -161,6 +161,7 @@
 #include "Hud.h"
 #include "Attractors/PedAttractor.h"
 #include "IdleCam.h"
+#include "Tasks/TaskTypes/TaskComplexChat.h"
 #include "CarFXRenderer.h"
 #include "Curves.h"
 #include "ProcObjectMan.h"
@@ -1219,6 +1220,7 @@ void InjectHooksMain() {
         CTaskSimpleScratchHead::InjectHooks();
         // CTaskSimpleChoking::InjectHooks();
         CTaskComplexPartnerChat::InjectHooks();
+        CTaskComplexChat::InjectHooks();
         CTaskSimpleUseGun::InjectHooks();
         CTaskSimpleGangDriveBy::InjectHooks();
         CTaskComplexObserveTrafficLightsAndAchieveHeading::InjectHooks();

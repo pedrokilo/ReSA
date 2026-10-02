@@ -8367,3 +8367,10 @@ CIdleCam,Reset,0x0050A160,1,0,0,S
 CIdleCam,Run,0x0051D3E0,1,0,0,S
 CIdleCam,SetTarget,0x0050A280,1,0,0,S
 CIdleCam,SetTargetPlayer,0x0050EB50,1,0,0,S
+CTaskComplexChat,Clone,0x00682DA0,1,0,0,V
+CTaskComplexChat,Constructor,0x00682CB0,1,0,0,S
+CTaskComplexChat,ControlSubTask,0x00683060,1,0,0,V
+CTaskComplexChat,CreateFirstSubTask,0x00682E20,1,0,0,V
+CTaskComplexChat,CreateNextSubTask,0x00682E10,1,0,0,V
+CTaskComplexChat,Destructor,0x00682D40,1,0,0,S
+CTaskComplexChat,GetTaskType,0x00682D30,1,0,0,V
