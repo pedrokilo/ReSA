@@ -8166,3 +8166,11 @@ CTaskComplexEnterCarAsDriver,GetTaskType,0x00640320,1,0,0,V
 CTaskComplexEnterCarAsPassenger,Clone,0x006437F0,1,0,0,V
 CTaskComplexEnterCarAsPassenger,Constructor,0x00640340,1,0,0,S
 CTaskComplexEnterCarAsPassenger,GetTaskType,0x00640370,1,0,0,V
+CTaskComplexEvasiveCower,Clone,0x00655CD0,1,0,0,V
+CTaskComplexEvasiveCower,Constructor,0x00655460,1,0,0,S
+CTaskComplexEvasiveCower,ControlSubTask,0x00655700,1,0,0,V
+CTaskComplexEvasiveCower,CreateFirstSubTask,0x006556F0,1,0,0,V
+CTaskComplexEvasiveCower,CreateNextSubTask,0x006556A0,1,0,0,V
+CTaskComplexEvasiveCower,CreateSubTask,0x00655570,0,1,0,S
+CTaskComplexEvasiveCower,Destructor,0x006554E0,1,0,0,S
+CTaskComplexEvasiveCower,GetTaskType,0x006554D0,1,0,0,V

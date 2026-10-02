@@ -239,6 +239,7 @@
 #include "Interior/TaskInteriorGoToInfo.h"
 #include "TaskSimpleInAir.h"
 #include "TaskComplexHitPedWithCar.h"
+#include "TaskComplexEvasiveCower.h"
 #include "TaskComplexClimb.h"
 #include "TaskComplexBeStill.h"
 #include "TaskComplexBeInCouple.h"
@@ -999,7 +1000,7 @@ void InjectHooksMain() {
         CTaskComplexEnterCarAsDriverTimed::InjectHooks();
         CTaskComplexEnterCarAsPassengerTimed::InjectHooks();
         CTaskComplexEnterCarAsPassengerWait::InjectHooks();
-        // CTaskComplexEvasiveCower::InjectHooks();
+        CTaskComplexEvasiveCower::InjectHooks();
         // CTaskComplexEvasiveDiveAndGetUp::InjectHooks();
         // CTaskComplexEvasiveStep::InjectHooks();
         // CTaskComplexExtinguishFireOnFoot::InjectHooks();
