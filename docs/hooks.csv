@@ -8174,3 +8174,11 @@ CTaskComplexEvasiveCower,CreateNextSubTask,0x006556A0,1,0,0,V
 CTaskComplexEvasiveCower,CreateSubTask,0x00655570,0,1,0,S
 CTaskComplexEvasiveCower,Destructor,0x006554E0,1,0,0,S
 CTaskComplexEvasiveCower,GetTaskType,0x006554D0,1,0,0,V
+CTaskComplexEvasiveStep,Clone,0x00655870,1,0,0,V
+CTaskComplexEvasiveStep,Constructor,0x006532D0,1,0,0,S
+CTaskComplexEvasiveStep,ControlSubTask,0x00653550,1,0,0,V
+CTaskComplexEvasiveStep,CreateFirstSubTask,0x00653540,1,0,0,V
+CTaskComplexEvasiveStep,CreateNextSubTask,0x006534F0,1,0,0,V
+CTaskComplexEvasiveStep,CreateSubTask,0x006533E0,0,1,0,S
+CTaskComplexEvasiveStep,Destructor,0x00653350,1,0,0,S
+CTaskComplexEvasiveStep,GetTaskType,0x00653340,1,0,0,V
