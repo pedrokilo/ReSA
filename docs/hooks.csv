@@ -8279,3 +8279,8 @@ CTaskSimpleGangDriveBy,MakeAbortable,0x0062D290,0,1,0,V
 CTaskSimpleGangDriveBy,ProcessPed,0x0062D3B0,0,1,0,V
 CTaskSimpleScratchHead,Clone,0x0048DF60,1,0,0,V
 CTaskSimpleScratchHead,IsInterruptable,0x0048DFD0,1,0,0,V
+CTaskSimpleSetStayInSamePlace,Clone,0x00635BD0,1,0,0,V
+CTaskSimpleSetStayInSamePlace,Constructor,0x0062F590,1,0,0,S
+CTaskSimpleSetStayInSamePlace,GetTaskType,0x0062F5B0,1,0,0,V
+CTaskSimpleSetStayInSamePlace,MakeAbortable,0x0062F5C0,1,0,0,V
+CTaskSimpleSetStayInSamePlace,ProcessPed,0x0062F5E0,1,0,0,V

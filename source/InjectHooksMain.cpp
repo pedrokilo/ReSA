@@ -1238,6 +1238,7 @@ void InjectHooksMain() {
         CTaskUtilityLineUpPedWithCar::InjectHooks();
         CTaskSimpleLand::InjectHooks();
         CTaskSimpleJetPack::InjectHooks();
+        CTaskSimpleSetStayInSamePlace::InjectHooks();
         // + CTaskSimpleSetStayInSamePlace::InjectHooks();
         CTaskSimpleJump::InjectHooks();
         CTaskSimpleFall::InjectHooks();
