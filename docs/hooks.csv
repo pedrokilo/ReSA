@@ -8242,3 +8242,8 @@ CTaskSimpleCarSetPedInAsDriver,Constructor,0x006470E0,1,0,0,S
 CTaskSimpleCarSetPedInAsDriver,GetTaskType,0x00647150,1,0,0,V
 CTaskSimpleCarSetPedInAsDriver,MakeAbortable,0x00647160,1,0,0,V
 CTaskSimpleCarSetPedInAsDriver,ProcessPed,0x0064B950,0,1,0,V
+CTaskSimpleCarSetPedInAsPassenger,Clone,0x00649D90,1,0,0,V
+CTaskSimpleCarSetPedInAsPassenger,Destructor,0x00647080,1,0,0,S
+CTaskSimpleCarSetPedInAsPassenger,GetTaskType,0x00647060,1,0,0,V
+CTaskSimpleCarSetPedInAsPassenger,MakeAbortable,0x00647070,1,0,0,V
+CTaskSimpleCarSetPedInAsPassenger,ProcessPed,0x0064B5D0,0,1,0,V

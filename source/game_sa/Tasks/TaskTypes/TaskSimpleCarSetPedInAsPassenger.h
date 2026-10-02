@@ -26,6 +26,8 @@ public:
     uint8                         m_nNumGettingInToClear{};
 
 public:
+    static void InjectHooks();
+
     static constexpr auto Type = TASK_SIMPLE_CAR_SET_PED_IN_AS_PASSENGER;
 
     CTaskSimpleCarSetPedInAsPassenger(CVehicle* targetVehicle, eTargetDoor nTargetDoor, bool warpingInToCar /* notsa arg */ = false, CTaskUtilityLineUpPedWithCar* utility = nullptr);
@@ -36,5 +38,12 @@ public:
     CTask* Clone() const override { return new CTaskSimpleCarSetPedInAsPassenger{*this}; }  // 0x649D90
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return false; }
     bool ProcessPed(CPed* ped) override;
+
+private: // Wrappers for hooks
+    // 0x647080
+    CTaskSimpleCarSetPedInAsPassenger* Destructor() {
+        this->CTaskSimpleCarSetPedInAsPassenger::~CTaskSimpleCarSetPedInAsPassenger();
+        return this;
+    }
 };
 VALIDATE_SIZE(CTaskSimpleCarSetPedInAsPassenger, 0x20);
