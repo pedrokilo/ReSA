@@ -160,6 +160,7 @@
 #include "Birds.h"
 #include "Hud.h"
 #include "Attractors/PedAttractor.h"
+#include "IdleCam.h"
 #include "CarFXRenderer.h"
 #include "Curves.h"
 #include "ProcObjectMan.h"
@@ -765,6 +766,7 @@ void InjectHooksMain() {
     CStuckCarCheck::InjectHooks();
     CUpsideDownCarCheck::InjectHooks();
     CCamera::InjectHooks();
+    CIdleCam::InjectHooks();
     CMessages::InjectHooks();
     CGangWars::InjectHooks();
     CPlayerPedData::InjectHooks();

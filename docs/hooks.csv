@@ -8353,3 +8353,17 @@ CPedAttractor,IsAtHeadOfQueue,0x005EB530,1,0,0,S
 CPedAttractor,IsRegisteredWithPed,0x005EB4C0,1,0,0,S
 CPedAttractor,RegisterPed,0x005EEE30,1,0,0,S
 CPedAttractor,SetTaskForPed,0x005EECA0,1,0,0,S
+CIdleCam,FinaliseIdleCamera,0x0050E760,1,0,0,S
+CIdleCam,GetLookAtPositionOnTarget,0x0050EAE0,1,0,0,S
+CIdleCam,IdleCamGeneralProcess,0x0050E690,1,0,0,S
+CIdleCam,Init,0x0050E6D0,1,0,0,S
+CIdleCam,IsTargetValid,0x00517770,1,0,0,S
+CIdleCam,Process,0x00522C80,1,0,0,S
+CIdleCam,ProcessFOVZoom,0x00517BF0,0,1,0,S
+CIdleCam,ProcessIdleCamTicker,0x0050A200,1,0,0,S
+CIdleCam,ProcessSlerp,0x005179E0,1,0,0,S
+CIdleCam,ProcessTargetSelection,0x00517870,1,0,0,S
+CIdleCam,Reset,0x0050A160,1,0,0,S
+CIdleCam,Run,0x0051D3E0,1,0,0,S
+CIdleCam,SetTarget,0x0050A280,1,0,0,S
+CIdleCam,SetTargetPlayer,0x0050EB50,1,0,0,S
