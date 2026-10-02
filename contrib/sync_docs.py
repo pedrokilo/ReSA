@@ -75,7 +75,7 @@ def load_stats():
     locked_entries = sum(1 for r in rows if r['locked'] == '1')
     total_classes = len(classes)
     complete_classes = sum(1 for c in classes.values() if c['reversed'] == c['total'])
-    validated_classes = sum(1 for c in classes.values() if c['validated'] == c['total'])
+    validated_classes = sum(1 for c in classes.values() if c['validated'] == c['total'] == c['reversed'])  # de las completas
     return {
         'classes': classes,
         'total_entries': total_entries,
@@ -87,11 +87,11 @@ def load_stats():
         'total_classes': total_classes,
         'complete_classes': complete_classes,
         'validated_classes': validated_classes,
-        'pct_validated_classes': round(validated_classes / total_classes * 100, 2),
+        'pct_validated_classes': round(validated_classes / complete_classes * 100, 2),
         'incomplete_classes': total_classes - complete_classes,
         'pct_reversed': round(reversed_entries / total_entries * 100, 2),
         'pct_classes': round(complete_classes / total_classes * 100, 2),
-        'pct_validated': round(validated_entries / total_entries * 100, 2),
+        'pct_validated': round(validated_entries / reversed_entries * 100, 2),  # de las reconstruidas
     }
 
 
@@ -213,9 +213,9 @@ def sync_project_roadmap(stats, dry_run=False):
         return f'{p:.2f}'.replace('.', ',')
 
     text = re.sub(r'\| Clases completas en el catálogo \|.*\|\n?', '', text, count=1)
-    text = re.sub(r'\| Clases validadas en el catálogo \|.*\|\n?', '', text, count=1)
+    text = re.sub(r'\| Clases validadas (en el catálogo|de las completas) \|.*\|\n?', '', text, count=1)
     text = re.sub(r'\| Funciones registradas como reconstruidas \|.*\|\n?', '', text, count=1)
-    text = re.sub(r"\| Funciones con evidencia aprobada \(`validated=1`\) \|.*\|\n?", '', text, count=1)
+    text = re.sub(r"\| Funciones con evidencia aprobada \(`validated=1`\)( de las reconstruidas)? \|.*\|\n?", '', text, count=1)
 
     header = '| Dimensión | Progreso | Medición |\n| --- | --- | --- |\n'
     if header not in text:
@@ -223,12 +223,12 @@ def sync_project_roadmap(stats, dry_run=False):
     rows = (
         f"| Clases completas en el catálogo | `{bar(s['pct_classes'])}` | "
         f"{s['complete_classes']}/{s['total_classes']} · {pct_es(s['pct_classes'])}% |\n"
-        f"| Clases validadas en el catálogo | `{bar(s['pct_validated_classes'])}` | "
-        f"{s['validated_classes']}/{s['total_classes']} · {pct_es(s['pct_validated_classes'])}% |\n"
+        f"| Clases validadas de las completas | `{bar(s['pct_validated_classes'])}` | "
+        f"{s['validated_classes']}/{s['complete_classes']} · {pct_es(s['pct_validated_classes'])}% |\n"
         f"| Funciones registradas como reconstruidas | `{bar(s['pct_reversed'])}` | "
         f"{thousands(s['reversed_entries'])}/{thousands(s['total_entries'])} · {pct_es(s['pct_reversed'])}% |\n"
-        f"| Funciones con evidencia aprobada (`validated=1`) | `{bar(s['pct_validated'])}` | "
-        f"**{thousands(s['validated_entries'])}/{thousands(s['total_entries'])} · {pct_es(s['pct_validated'])}%** |\n"
+        f"| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `{bar(s['pct_validated'])}` | "
+        f"**{thousands(s['validated_entries'])}/{thousands(s['reversed_entries'])} · {pct_es(s['pct_validated'])}%** |\n"
     )
     text = text.replace(header, header + rows, 1)
 

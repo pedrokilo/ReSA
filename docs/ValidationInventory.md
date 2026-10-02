@@ -2,14 +2,14 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **7,860 entradas reversed=1**, de 8,443 registradas. Las 583 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **7,857 entradas reversed=1**, de 8,440 registradas. Las 583 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
 | `validated=1` · evidencia aprobada vinculada | 1020 |
 | Vigencia acreditada para su alcance | 0 |
 | Evidencia histórica vinculada; revisión pendiente | 1020 |
-| Sin evidencia aprobada vinculada en este registro | 6840 |
+| Sin evidencia aprobada vinculada en este registro | 6837 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -1813,7 +1813,6 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `WaterCreatureManager_c` | 7 | 0 | 0 | 7 |
 | `WaterCreature_c` | 3 | 0 | 3 | 0 |
 | `Win` | 6 | 0 | 0 | 6 |
-| `WindowedModeHooks` | 3 | 0 | 0 | 3 |
 | `cBuoyancy` | 9 | 0 | 0 | 9 |
 | `cHandlingDataMgr` | 11 | 0 | 0 | 11 |
 | `cTransmission` | 4 | 0 | 0 | 4 |

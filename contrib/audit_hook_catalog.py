@@ -57,9 +57,22 @@ def strip_comments(text: str) -> str:
     return COMMENT.sub('', text)
 
 
+def notsa_path(path: Path) -> Path:
+    """Catálogo de extras NOTSA (sin equivalente en el EXE), fuera de los contadores de progreso."""
+    return path.with_name('hooks_notsa.csv')
+
+
+def read_rows(path: Path) -> list[dict]:
+    rows = []
+    for item in (path, notsa_path(path)):
+        if item.exists():
+            with item.open(encoding='utf-8-sig', newline='') as stream:
+                rows += list(csv.DictReader(stream))
+    return rows
+
+
 def read_catalog(path: Path) -> set[str]:
-    with path.open(encoding='utf-8-sig', newline='') as stream:
-        rows = list(csv.DictReader(stream))
+    rows = read_rows(path)
     if not rows:
         raise ValueError(f'{path} no contiene entradas')
     return {row['class'] for row in rows}
@@ -193,7 +206,7 @@ def compare_runtime(catalog_path: Path, runtime_path: Path) -> list[tuple[str, l
     def load(path):
         with path.open(encoding='utf-8-sig', newline='') as stream:
             return {(r['class'], r['fn_name']): r for r in csv.DictReader(stream)}
-    catalog, runtime = load(catalog_path), load(runtime_path)
+    catalog, runtime = {(r['class'], r['fn_name']): r for r in read_rows(catalog_path)}, load(runtime_path)
     result = []
     for key in sorted(set(runtime) - set(catalog)):
         result.append(('/'.join(key), ['registrado en el juego, ausente de hooks.csv']))

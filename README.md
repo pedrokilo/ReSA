@@ -34,14 +34,23 @@ La fuente del progreso es [docs/hooks.csv](docs/hooks.csv). El [informe generado
 
 | Dimensión | Estado |
 | --- | --- |
-| Clases completas | 667/772 · 86,40% |
-| Clases validadas | 271/772 · 35,10% |
-| Funciones reconstruidas | 7.860/8.443 · 93,09% |
-| Funciones con `validated=1` | **1.020/8.443 · 12,08%** · evidencia aprobada vinculada |
-| Validaciones vigentes para el árbol actual | 0/8.443 · 0,00%; las 1.020 conservan evidencia histórica o coincidencia de fuentes, pero requieren revisión de dependencias |
-| Dependencias de funciones originales eliminadas | No medido; requiere auditoría de llamadas y dependencias |
+| Clases completas | 666/771 · 86,38% |
+| Clases validadas (de las completas) | 271/666 · 40,69% |
+| Funciones reconstruidas | 7.857/8.440 · 93,09% |
+| Funciones validadas (de las reconstruidas) | **1.020/7.857 · 12,98%** · evidencia aprobada vinculada |
 
-Quedan 585 entradas pendientes, 107 clases incompletas y 677 locks. En `hooks.csv`, `type=S` significa **Simple hook** (función normal por dirección) y `type=V` significa **Virtual hook** (entrada de vtable). `validated=1` significa que existe evidencia aprobada vinculada; no significa por sí solo que esa evidencia siga vigente para el árbol actual. Las 7.765 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
+La validación se mide sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. Los 3 extras NOTSA sin equivalente en el EXE (modo ventana, [hooks_notsa.csv](docs/hooks_notsa.csv)) quedan fuera de la cuenta.
+
+#### Siguientes mediciones
+
+Todavía no tienen un porcentaje útil; la tabla explica qué falta hacer para poder medirlas.
+
+| Dimensión | Estado actual | Qué hay que hacer |
+| --- | --- | --- |
+| Validaciones vigentes para el árbol actual | 0/1.020 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrar el resultado en el [registro de validaciones](reversing/ValidationRegistry/README.md). |
+| Dependencias de funciones originales eliminadas | No medido | Auditar, por cada función reconstruida, las llamadas directas y transitivas que aún saltan al EXE (`plugin::Call*`, direcciones fijas, hooks sin reconstruir) y contar las que ya no dependen de ninguna. |
+
+Quedan 583 entradas pendientes, 105 clases incompletas y 675 locks. En `hooks.csv`, `type=S` significa **Simple hook** (función normal por dirección) y `type=V` significa **Virtual hook** (entrada de vtable). `validated=1` significa que existe evidencia aprobada vinculada; no significa por sí solo que esa evidencia siga vigente para el árbol actual. Las 7.765 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
 
 ### Auditoría del catálogo de hooks
 

@@ -58,7 +58,12 @@ def generate(input_path, output_path, update_source_status=False):
     reversed_count = sum(c.reversed for c in ordered)
     locked = sum(c.locked for c in ordered)
     validated_count = sum(c.validated for c in ordered)
-    validated_classes = [c for c in ordered if c.total and c.validated == c.total]  # todas sus funciones con validated=1
+    validated_classes = [c for c in full if c.validated == c.total]  # clases completas con todas sus funciones validated=1
+    notsa_file = Path(input_path).with_name('hooks_notsa.csv')
+    notsa_count = 0
+    if notsa_file.exists():
+        with notsa_file.open(encoding='utf-8-sig', newline='') as stream:
+            notsa_count = sum(1 for _ in csv.DictReader(stream))
     if validated_count != validation['documented']:
         raise ValueError(
             f"hooks.csv validated=1 ({validated_count}) no coincide con evidencia aprobada "
@@ -73,20 +78,27 @@ def generate(input_path, output_path, update_source_status=False):
              "| Dimensión | Progreso | Medición |",
              "| --- | --- | --- |",
              f"| Clases completas | `{'█' * round(20*len(full)/len(ordered))}{'░' * (20-round(20*len(full)/len(ordered)))}` | {len(full)}/{len(ordered)} · {len(full)/len(ordered):.2%} |",
-             f"| Clases validadas (todas sus funciones) | `{'█' * round(20*len(validated_classes)/len(ordered))}{'░' * (20-round(20*len(validated_classes)/len(ordered)))}` | {len(validated_classes)}/{len(ordered)} · {len(validated_classes)/len(ordered):.2%} |",
+             f"| Clases validadas (de las completas) | `{'█' * round(20*len(validated_classes)/len(full))}{'░' * (20-round(20*len(validated_classes)/len(full)))}` | {len(validated_classes)}/{len(full)} · {len(validated_classes)/len(full):.2%} |",
              f"| Funciones reconstruidas | `{'█' * round(20*reversed_count/total)}{'░' * (20-round(20*reversed_count/total))}` | {reversed_count:,}/{total:,} · {reversed_count/total:.2%} |",
-             f"| Funciones validadas (evidencia aprobada) | `{'█' * round(20*validated_count/total)}{'░' * (20-round(20*validated_count/total))}` | {validated_count:,}/{total:,} · {validated_count/total:.2%} |",
-             f"| Validaciones vigentes para el árbol actual | `{'█' * round(20*validation['current']/total)}{'░' * (20-round(20*validation['current']/total))}` | {validation['current']}/{total:,} · {validation['current']/total:.2%}; inventario parcial |",
-             "| Dependencias de funciones originales eliminadas | Sin barra | No medido; requiere auditoría directa y transitiva |", "",
-             f"Hay {total:,} entradas catalogadas, {locked:,} bloqueadas y {total-locked:,} sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente; el número de funciones que usan código original sigue sin medir. No se deducen hooks eliminados del contador de locks.", "",
-             f"**Validación consolidada parcialmente:** {validation['documented']} funciones con evidencia aprobada vinculada, {validation['source_matches']} con fuentes registradas coincidentes y {validation['current']} con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md). Esta barra mide acreditación en el registro, no ausencia de pruebas previas ni cobertura exhaustiva.", "",
+             f"| Funciones validadas (de las reconstruidas) | `{'█' * round(20*validated_count/reversed_count)}{'░' * (20-round(20*validated_count/reversed_count))}` | {validated_count:,}/{reversed_count:,} · {validated_count/reversed_count:.2%} |", "",
+             "Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL.", "",
+             f"Hay {total:,} entradas catalogadas, {locked:,} bloqueadas y {total-locked:,} sin bloqueo. No constituyen un inventario exhaustivo del EXE. Desbloqueada no significa validada, activa ni independiente. No se deducen hooks eliminados del contador de locks."
+             + (f" Los extras NOTSA sin equivalente en el EXE ({notsa_count}, en [hooks_notsa.csv](hooks_notsa.csv)) quedan fuera de la cuenta." if notsa_count else ""), "",
+             "### Siguientes mediciones", "",
+             "Estas dimensiones todavía no tienen un porcentaje útil: indican el trabajo que falta para poder medirlas.", "",
+             "| Dimensión | Estado actual | Qué hay que hacer |",
+             "| --- | --- | --- |",
+             f"| Validaciones vigentes para el árbol actual | {validation['current']}/{validated_count:,} validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |",
+             "| Dependencias de funciones originales eliminadas | No medido | Auditar, para cada función reconstruida, las llamadas directas y transitivas que todavía saltan a código del EXE (`plugin::Call*`, direcciones fijas, hooks sin reconstruir) y contar las que ya no dependen de ninguna. |", "",
+             f"**Validación consolidada parcialmente:** {validation['documented']} funciones con evidencia aprobada vinculada, {validation['source_matches']} con fuentes registradas coincidentes y {validation['current']} con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).", "",
              "## Vista general", "",
-             "| Clases completas | Clases parciales | Sin revertir | Funciones revertidas | Funciones pendientes |",
+             "| Clases validadas | Completas por validar | Funciones validadas | Reconstruidas por validar | Funciones por reconstruir |",
              "| :---: | :---: | :---: | :---: | :---: |",
-             f"| **{len(full)} / {len(ordered)}** | **{len(partial)} / {len(ordered)}** | **{len(empty)} / {len(ordered)}** | **{reversed_count:,} / {total:,}** | **{total-reversed_count:,}** |",
-             f"| {len(full)/len(ordered):.2%} | {len(partial)/len(ordered):.2%} | {len(empty)/len(ordered):.2%} | {reversed_count/total:.2%} | {(total-reversed_count)/total:.2%} |", "",
+             f"| **{len(validated_classes)} / {len(full)}** | **{len(full)-len(validated_classes)} / {len(full)}** | **{validated_count:,} / {reversed_count:,}** | **{reversed_count-validated_count:,} / {reversed_count:,}** | **{total-reversed_count:,} / {total:,}** |",
+             f"| {len(validated_classes)/len(full):.2%} | {(len(full)-len(validated_classes))/len(full):.2%} | {validated_count/reversed_count:.2%} | {(reversed_count-validated_count)/reversed_count:.2%} | {(total-reversed_count)/total:.2%} |", "",
+             f"Reconstrucción por clases: {len(full)} completas, {len(partial)} parciales y {len(empty)} sin revertir de {len(ordered)}.", "",
              "**Ir a:** [Completas](#completas) · [Parciales](#parciales) · [Sin revertir](#sin-revertir) · [Cómo leer y actualizar](#metodo)", "",
-             "> [!NOTE]", "> Estos porcentajes miden entradas registradas como `reversed`, no cobertura de pruebas ni estabilidad del juego. Una clase completa puede conservar hooks bloqueados o funciones todavía no registradas.", ""]
+             "> [!NOTE]", "> Los porcentajes de reconstrucción miden entradas registradas como `reversed`; los de validación, entradas con evidencia aprobada (`validated=1`). Ninguno mide estabilidad del juego. Una clase completa puede conservar hooks bloqueados o funciones todavía no registradas.", ""]
     repo, sha = os.environ.get("GITHUB_REPO_URL"), os.environ.get("GITHUB_SHA")
     if repo and sha and sha != "unknown":
         lines += [f"Generación de CI: [{sha[:12]}]({repo}/commit/{sha}).", ""]

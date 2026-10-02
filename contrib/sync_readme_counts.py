@@ -23,17 +23,14 @@ def main():
     classes = {}
     for r in rows: classes.setdefault(r['class'], []).append(r)
     complete = sum(all(x['reversed'] == '1' for x in v) for v in classes.values())
-    vclasses = sum(all(x['validated'] == '1' for x in v) for v in classes.values())
+    vclasses = sum(all(x['validated'] == '1' and x['reversed'] == '1' for x in v) for v in classes.values())  # de las completas
+    locked = sum(r['locked'] == '1' for r in rows)
+    notsa = ROOT/'docs/hooks_notsa.csv'
+    notsa_count = len(list(csv.DictReader(notsa.open(encoding='utf-8-sig')))) if notsa.exists() else 0
     cases = json.loads((ROOT/'reversing/cases.json').read_text(encoding='utf-8'))
     isolated = sum('isolated' in c['id'] for c in cases)
     subs = {
-        'README.md': [
-            (r'\| Clases completas \| [\d.]+/[\d.]+ · [\d,]+% \|', f'| Clases completas | {fmt(complete)}/{fmt(len(classes))} · {pct(complete, len(classes))}% |'),
-            (r'\| Clases validadas \| [\d.]+/[\d.]+ · [\d,]+% \|', f'| Clases validadas | {fmt(vclasses)}/{fmt(len(classes))} · {pct(vclasses, len(classes))}% |'),
-            (r'\| Funciones reconstruidas \| [\d.]+/[\d.]+ · [\d,]+% \|', f'| Funciones reconstruidas | {fmt(rev)}/{fmt(total)} · {pct(rev, total)}% |'),
-            (r'\| Funciones con `validated=1` \| \*\*[\d.]+/[\d.]+ · [\d,]+%\*\*', f'| Funciones con `validated=1` | **{fmt(val)}/{fmt(total)} · {pct(val, total)}%**'),
-            (r'0/[\d.]+ · 0,00%; las [\d.]+ conservan', f'0/{fmt(total)} · 0,00%; las {fmt(val)} conservan'),
-        ],
+        'README.md': [],
         'reversing/README.md': [
             (r'ya vincula [\d.]+ funciones', f'ya vincula {fmt(val)} funciones'),
             (r'Las [\d.]+ conservan evidencia', f'Las {fmt(val)} conservan evidencia'),
@@ -52,6 +49,25 @@ def main():
             (r'registra actualmente \*\*[\d.]+ entradas con `validated=1`\*\*', f'registra actualmente **{fmt(val)} entradas con `validated=1`**'),
         ],
     }
+    block = chr(10).join([
+        '### Dimensiones de progreso', '',
+        '| Dimensión | Estado |', '| --- | --- |',
+        f'| Clases completas | {fmt(complete)}/{fmt(len(classes))} · {pct(complete, len(classes))}% |',
+        f'| Clases validadas (de las completas) | {fmt(vclasses)}/{fmt(complete)} · {pct(vclasses, complete)}% |',
+        f'| Funciones reconstruidas | {fmt(rev)}/{fmt(total)} · {pct(rev, total)}% |',
+        f'| Funciones validadas (de las reconstruidas) | **{fmt(val)}/{fmt(rev)} · {pct(val, rev)}%** · evidencia aprobada vinculada |', '',
+        'La validación se mide sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL.'
+        + (f' Los {notsa_count} extras NOTSA sin equivalente en el EXE (modo ventana, [hooks_notsa.csv](docs/hooks_notsa.csv)) quedan fuera de la cuenta.' if notsa_count else ''), '',
+        '#### Siguientes mediciones', '',
+        'Todavía no tienen un porcentaje útil; la tabla explica qué falta hacer para poder medirlas.', '',
+        '| Dimensión | Estado actual | Qué hay que hacer |', '| --- | --- | --- |',
+        f'| Validaciones vigentes para el árbol actual | 0/{fmt(val)} validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrar el resultado en el [registro de validaciones](reversing/ValidationRegistry/README.md). |',
+        '| Dependencias de funciones originales eliminadas | No medido | Auditar, por cada función reconstruida, las llamadas directas y transitivas que aún saltan al EXE (`plugin::Call*`, direcciones fijas, hooks sin reconstruir) y contar las que ya no dependen de ninguna. |', '',
+        f'Quedan {fmt(total - rev)} entradas pendientes, {fmt(len(classes) - complete)} clases incompletas y {fmt(locked)} locks.',
+    ])
+    readme = ROOT/'README.md'; t = readme.read_bytes().decode('utf-8')
+    a = t.index('### Dimensiones de progreso'); b = t.index('Quedan ', a); e = t.index('locks.', b) + len('locks.')
+    readme.write_bytes((t[:a] + block + t[e:]).encode('utf-8'))
     for f, pairs in subs.items():
         p = ROOT/f; s = p.read_bytes().decode('utf-8'); n = 0
         for a, b in pairs:

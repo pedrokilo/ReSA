@@ -14,14 +14,21 @@ Corte del 30 de septiembre de 2026. Clases y reconstrucciones se calculan sobre 
 
 | Dimensión | Progreso | Medición |
 | --- | --- | --- |
-| Clases completas en el catálogo | `█████████████████░░░` | 667/772 · 86,40% |
-| Clases validadas en el catálogo | `███████░░░░░░░░░░░░░` | 271/772 · 35,10% |
-| Funciones registradas como reconstruidas | `███████████████████░` | 7.860/8.443 · 93,09% |
-| Funciones con evidencia aprobada (`validated=1`) | `██░░░░░░░░░░░░░░░░░░` | **1.020/8.443 · 12,08%** |
-| Validaciones vigentes para el árbol actual | `░░░░░░░░░░░░░░░░░░░░` | 0/8.442 · 0,00% |
-| Dependencias de funciones originales eliminadas | Sin barra: no medido | Falta auditoría de llamadas directas, indirectas y transitivas |
+| Clases completas en el catálogo | `█████████████████░░░` | 666/771 · 86,38% |
+| Clases validadas de las completas | `████████░░░░░░░░░░░░` | 271/666 · 40,69% |
+| Funciones registradas como reconstruidas | `███████████████████░` | 7.857/8.440 · 93,09% |
+| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `███░░░░░░░░░░░░░░░░░` | **1.020/7.857 · 12,98%** |
 
-El catálogo contiene 8.442 entradas, no un inventario demostrado de todas las funciones del EXE. Hay 583 entradas pendientes y 105 clases incompletas. De las entradas registradas, 675 tienen `locked=1` y 7.768 tienen `locked=0`: estas últimas son **desbloqueadas**, no necesariamente validadas, activas o independientes. No se conoce todavía el total de funciones que usan el original. Tampoco puede calcularse cuántos hooks originales se han eliminado restando los locks.
+**Siguientes mediciones** (todavía sin porcentaje útil):
+
+| Dimensión | Estado actual | Qué hay que hacer |
+| --- | --- | --- |
+| Validaciones vigentes para el árbol actual | Ninguna validada confirmada como vigente | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrarlo en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
+| Dependencias de funciones originales eliminadas | No medido | Auditar las llamadas directas, indirectas y transitivas de cada función reconstruida que aún saltan al EXE y contar las que ya no dependen de ninguna. |
+
+Los extras NOTSA sin equivalente en el EXE (modo ventana) están en [hooks_notsa.csv](hooks_notsa.csv) y quedan fuera de la cuenta.
+
+El catálogo contiene 8.440 entradas, no un inventario demostrado de todas las funciones del EXE. Hay 583 entradas pendientes y 105 clases incompletas. De las entradas registradas, 675 tienen `locked=1` y 7.765 tienen `locked=0`: estas últimas son **desbloqueadas**, no necesariamente validadas, activas o independientes. No se conoce todavía el total de funciones que usan el original. Tampoco puede calcularse cuántos hooks originales se han eliminado restando los locks.
 
 `reversed`, `validated`, vigencia de validación, `locked` y dependencia del original son dimensiones distintas. `validated=1` conserva que la función pasó una evidencia aprobada; la vigencia se calcula aparte con hashes y revisión de dependencias. Un cuerpo C++ puede seguir pendiente de validación; una función validada puede llamar a otras implementaciones originales. Ya existe un [registro separado de validaciones](../reversing/ValidationRegistry/README.md), con 40 funciones vinculadas a evidencia. El constructor de animación por nombre, SetupBones y RpAnimBlendClumpUpdateAnimations obtuvieron acreditación en la versión anterior; los cambios locales de CustomBuilding requieren revisar la huella global de dependencias. Las 40 conservan evidencia histórica o coincidencia de fuentes. El [inventario completo](ValidationInventory.md) clasifica las 7.857 funciones reconstruidas. El panel calcula la acreditación desde evidencia y hashes, sin añadir columnas ni cambiar flags del CSV. Se mantiene el requisito de comparar contra el original dentro del motor antes de marcar nuevas entradas `reversed=1` o retirar locks.
 
