@@ -8215,3 +8215,7 @@ CTaskComplexWanderCriminal,Destructor,0x0048E720,1,0,0,S
 CTaskComplexWanderCriminal,GetWanderType,0x0048E6F0,1,0,0,V
 CTaskComplexWanderCriminal,LookForCarsToSteal,0x0066B4F0,0,1,0,S
 CTaskComplexWanderCriminal,ScanForStuff,0x00670350,0,1,0,V
+CTaskComplexWanderGang,Clone,0x00671470,1,0,0,V
+CTaskComplexWanderGang,Constructor,0x0066F5C0,1,0,0,S
+CTaskComplexWanderGang,GetWanderType,0x0066F630,1,0,0,V
+CTaskComplexWanderGang,ScanForStuff,0x0066F640,1,0,0,V
