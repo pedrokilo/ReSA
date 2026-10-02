@@ -8182,3 +8182,11 @@ CTaskComplexEvasiveStep,CreateNextSubTask,0x006534F0,1,0,0,V
 CTaskComplexEvasiveStep,CreateSubTask,0x006533E0,0,1,0,S
 CTaskComplexEvasiveStep,Destructor,0x00653350,1,0,0,S
 CTaskComplexEvasiveStep,GetTaskType,0x00653340,1,0,0,V
+CTaskComplexObserveTrafficLights,Clone,0x00636410,1,0,0,V
+CTaskComplexObserveTrafficLights,Constructor,0x00631790,1,0,0,S
+CTaskComplexObserveTrafficLights,ControlSubTask,0x006318E0,1,0,0,V
+CTaskComplexObserveTrafficLights,CreateFirstSubTask,0x006318D0,1,0,0,V
+CTaskComplexObserveTrafficLights,CreateNextSubTask,0x006317E0,1,0,0,V
+CTaskComplexObserveTrafficLights,Destructor,0x006317C0,1,0,0,S
+CTaskComplexObserveTrafficLights,GetTaskType,0x006317B0,1,0,0,V
+CTaskComplexObserveTrafficLights,MakeAbortable,0x006317D0,1,0,0,V

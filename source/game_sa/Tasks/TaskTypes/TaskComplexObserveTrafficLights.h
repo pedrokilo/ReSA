@@ -7,6 +7,8 @@ public:
     CTaskTimer m_Timer;
 
 public:
+    static void InjectHooks();
+
     static constexpr auto Type = TASK_COMPLEX_OBSERVE_TRAFFIC_LIGHTS;
 
     CTaskComplexObserveTrafficLights() = default; // 0x631790
@@ -18,5 +20,17 @@ public:
     CTask* CreateNextSubTask(CPed* ped) override;
     CTask* CreateFirstSubTask(CPed* ped) override { return CreateNextSubTask(ped); }    // 0x6318D0
     CTask* ControlSubTask(CPed* ped) override;
+
+private: // Wrappers for hooks
+    // 0x631790
+    CTaskComplexObserveTrafficLights* Constructor() {
+        this->CTaskComplexObserveTrafficLights::CTaskComplexObserveTrafficLights();
+        return this;
+    }
+    // 0x6317C0
+    CTaskComplexObserveTrafficLights* Destructor() {
+        this->CTaskComplexObserveTrafficLights::~CTaskComplexObserveTrafficLights();
+        return this;
+    }
 };
 VALIDATE_SIZE(CTaskComplexObserveTrafficLights, 0x18);

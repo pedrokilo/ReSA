@@ -5,6 +5,21 @@
 #include "TaskSimpleStandStill.h"
 #include "TrafficLights.h"
 
+void CTaskComplexObserveTrafficLights::InjectHooks() {
+    RH_ScopedVirtualClass(CTaskComplexObserveTrafficLights, 0x86DF98, 11);
+    RH_ScopedCategory("Tasks/TaskTypes");
+
+    RH_ScopedInstall(Constructor, 0x631790);
+    RH_ScopedInstall(Destructor, 0x6317C0);
+
+    RH_ScopedVMTInstall(Clone, 0x636410);
+    RH_ScopedVMTInstall(GetTaskType, 0x6317B0);
+    RH_ScopedVMTInstall(MakeAbortable, 0x6317D0);
+    RH_ScopedVMTInstall(CreateNextSubTask, 0x6317E0);
+    RH_ScopedVMTInstall(CreateFirstSubTask, 0x6318D0);
+    RH_ScopedVMTInstall(ControlSubTask, 0x6318E0);
+}
+
 // 0x6318E0
 CTask* CTaskComplexObserveTrafficLights::ControlSubTask(CPed* ped) {
     if (CTrafficLights::LightForPeds() || !m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr)) {
