@@ -167,6 +167,7 @@
 #include "Tasks/TaskComplexUseSequence.h"
 #include "Entity/Ped/PlayerSkin.h"
 #include "CoverPoint.h"
+#include "DecisionMakers/Decision.h"
 #include "CarFXRenderer.h"
 #include "Curves.h"
 #include "ProcObjectMan.h"
@@ -826,6 +827,7 @@ void InjectHooksMain() {
     CLoadMonitor::InjectHooks();
     CDecisionMakerTypes::InjectHooks();
     CDecisionMakerTypesFileLoader::InjectHooks();
+    CDecision::InjectHooks();
     CPedStats::InjectHooks();
     CCarGenerator::InjectHooks();
     CTheCarGenerators::InjectHooks();

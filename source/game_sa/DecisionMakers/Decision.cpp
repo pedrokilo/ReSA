@@ -1,3 +1,27 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CDecision
+ * Reconstrucción: INCOMPLETA — 1/3 funciones reconstruidas.
+ * Pendientes de reconstruir: 2.
+ * Funciones bloqueadas: 2.
+ * Validación registrada: 0/3 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   Set | 0x00600570 | S
+ *   SetDefault | 0x00600530 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   Set | 0x00600570 | S
+ *   SetDefault | 0x00600530 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 #include "StdInc.h"
 
 #include "Decision.h"
@@ -7,7 +31,7 @@ void CDecision::InjectHooks() {
     RH_ScopedCategory("DecisionMakers");
 
     RH_ScopedInstall(SetDefault, 0x600530, { .reversed = false });
-    RH_ScopedInstall(Set, 0x600570);
+    RH_ScopedInstall(Set, 0x600570, { .reversed = false }); // Stub plugin::Call: activarlo causaría recursión infinita
     //RH_ScopedInstall(Add, 0x600600, { .reversed = false });
     RH_ScopedInstall(From, 0x6006B0);
     //RH_ScopedInstall(HasResponse, 0x600710, { .reversed = false });

@@ -8397,3 +8397,6 @@ CPlayerSkin,Shutdown,0x006FF8D0,1,0,0,S
 CCoverPoint,CanAccommodateAnotherPed,0x00698E70,1,0,0,S
 CCoverPoint,ReleaseCoverPointForPed,0x00698EF0,1,0,0,S
 CCoverPoint,ReserveCoverPointForPed,0x00698EB0,1,0,0,S
+CDecision,From,0x006006B0,1,0,0,S
+CDecision,Set,0x00600570,0,1,0,S
+CDecision,SetDefault,0x00600530,0,1,0,S
