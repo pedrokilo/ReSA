@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -37,37 +37,36 @@ public:
 
     // 0x5F6B40
     void AllocateDefaultTasks(CPedGroup* pedGroup, CPed* ped) const override {
-        const auto leader = pedGroup->GetMembership().GetLeader();
-        for (auto&& [i, tp] : rngv::enumerate(pedGroup->GetIntelligence().GetDefaultPedTaskPairs())) {
-            if (!tp.Ped) {
+        auto& pairs = pedGroup->GetIntelligence().GetDefaultPedTaskPairs();
+
+        // Como el original: los seguidores (pares 0..6) siguen al líder en formación.
+        for (int32 i = 0; i < TOTAL_PED_GROUP_FOLLOWERS; ++i) {
+            auto& tp = pairs[i];
+            if (!tp.Ped || (ped && tp.Ped != ped)) {
                 continue;
             }
-            if (ped && tp.Ped != ped) {
-                continue;
-            }
-            assert(!tp.Task);
-            if (ped == leader) {
-                tp.Task = new CTaskComplexFollowLeaderAnyMeans{
-                    pedGroup,
-                    leader,
-                    CVector{CTaskComplexFollowLeaderInFormation::ms_offsets.Offsets[i]}
-                };
-            } else {
-                tp.Task = new CTaskComplexWanderGang{
-                    PEDMOVE_WALK,
-                    CGeneral::RandomNodeHeading(),
-                    5'000,
-                    true,
-                    0.5f
-                };
-            }
-            if (notsa::IsFixBugs()) {
-                if (ped) {
-                    break; // There are no duplicate entries in the array, so we can stop now
-                }
+            tp.Task = new CTaskComplexFollowLeaderAnyMeans{
+                pedGroup,
+                pedGroup->GetMembership().GetLeader(),
+                CVector{CTaskComplexFollowLeaderInFormation::ms_offsets.Offsets[i]} // Como el original salvo z: el EXE pasa un CVector cuya z queda sin escribir en la pila
+            };
+            if (notsa::IsFixBugs() && ped) {
+                return; // NOTSA: no hay pares repetidos, así que se puede parar (el EXE sigue recorriendo)
             }
         }
-    }
+
+        // Como el original: el par del líder (7) deambula en grupo.
+        auto& leaderPair = pairs[CPedGroupMembership::LEADER_MEM_ID];
+        if (leaderPair.Ped && (!ped || leaderPair.Ped == ped)) {
+            leaderPair.Task = new CTaskComplexWanderGang{
+                PEDMOVE_WALK,
+                (uint8)CGeneral::GetRandomIntInRange(0, 8), // Como el original: trunc(rand * (1/32768) * 8)
+                5'000,
+                true,
+                0.5f
+            };
+        }
+    };
 
 public:
     static inline void InjectHooks() {

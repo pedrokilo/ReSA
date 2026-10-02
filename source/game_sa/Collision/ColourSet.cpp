@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -102,7 +102,13 @@ CColourSet::CColourSet(int32 timeId, int32 weatherId) {
     m_nHighLightMinIntensity    = CTimeCycle::m_nHighLightMinIntensity[timeId][weatherId];
     m_nWaterFogAlpha            = CTimeCycle::m_nWaterFogAlpha[timeId][weatherId];
     m_fLodDistMult              = 1.0f;
-    m_fIllumination             = CTimeCycle::m_nDirectionalMult[timeId][weatherId] / 100.0f;
+    // Como el original: multiplica por 0.01f (0x858C58) en vez de dividir entre 100.
+    m_fIllumination             = (float)CTimeCycle::m_nDirectionalMult[timeId][weatherId] * 0.01f;
+}
+
+// Como el original: las conversiones a entero pasan por _ftol2 (0x821B40), truncación de 64 bits.
+static int64 Ftol(float value) {
+    return (int64)value;
 }
 
 /*!
@@ -121,31 +127,31 @@ CColourSet::CColourSet(int32 timeId, int32 weatherId) {
  */
 void CColourSet::Interpolate(CColourSet* A, CColourSet* B, float multA, float multB, bool ignoreSky) {
     if (!ignoreSky) {
-        m_nSkyTopRed   = (uint16)(A->m_nSkyTopRed   * multA + B->m_nSkyTopRed   * multB);
-        m_nSkyTopGreen = (uint16)(A->m_nSkyTopGreen * multA + B->m_nSkyTopGreen * multB);
-        m_nSkyTopBlue  = (uint16)(A->m_nSkyTopBlue  * multA + B->m_nSkyTopBlue  * multB);
+        m_nSkyTopRed   = (uint16)Ftol(A->m_nSkyTopRed   * multA + B->m_nSkyTopRed   * multB);
+        m_nSkyTopGreen = (uint16)Ftol(A->m_nSkyTopGreen * multA + B->m_nSkyTopGreen * multB);
+        m_nSkyTopBlue  = (uint16)Ftol(A->m_nSkyTopBlue  * multA + B->m_nSkyTopBlue  * multB);
 
-        m_nSkyBottomRed   = (uint16)(A->m_nSkyBottomRed   * multA + B->m_nSkyBottomRed   * multB);
-        m_nSkyBottomGreen = (uint16)(A->m_nSkyBottomGreen * multA + B->m_nSkyBottomGreen * multB);
-        m_nSkyBottomBlue  = (uint16)(A->m_nSkyBottomBlue  * multA + B->m_nSkyBottomBlue  * multB);
+        m_nSkyBottomRed   = (uint16)Ftol(A->m_nSkyBottomRed   * multA + B->m_nSkyBottomRed   * multB);
+        m_nSkyBottomGreen = (uint16)Ftol(A->m_nSkyBottomGreen * multA + B->m_nSkyBottomGreen * multB);
+        m_nSkyBottomBlue  = (uint16)Ftol(A->m_nSkyBottomBlue  * multA + B->m_nSkyBottomBlue  * multB);
 
-        m_nSunCoreRed   = (uint16)(A->m_nSunCoreRed   * multA + B->m_nSunCoreRed   * multB);
-        m_nSunCoreGreen = (uint16)(A->m_nSunCoreGreen * multA + B->m_nSunCoreGreen * multB);
-        m_nSunCoreBlue  = (uint16)(A->m_nSunCoreBlue  * multA + B->m_nSunCoreBlue  * multB);
+        m_nSunCoreRed   = (uint16)Ftol(A->m_nSunCoreRed   * multA + B->m_nSunCoreRed   * multB);
+        m_nSunCoreGreen = (uint16)Ftol(A->m_nSunCoreGreen * multA + B->m_nSunCoreGreen * multB);
+        m_nSunCoreBlue  = (uint16)Ftol(A->m_nSunCoreBlue  * multA + B->m_nSunCoreBlue  * multB);
 
-        m_nSunCoronaRed   = (uint16)(A->m_nSunCoronaRed   * multA + B->m_nSunCoronaRed   * multB);
-        m_nSunCoronaGreen = (uint16)(A->m_nSunCoronaGreen * multA + B->m_nSunCoronaGreen * multB);
-        m_nSunCoronaBlue  = (uint16)(A->m_nSunCoronaBlue  * multA + B->m_nSunCoronaBlue  * multB);
+        m_nSunCoronaRed   = (uint16)Ftol(A->m_nSunCoronaRed   * multA + B->m_nSunCoronaRed   * multB);
+        m_nSunCoronaGreen = (uint16)Ftol(A->m_nSunCoronaGreen * multA + B->m_nSunCoronaGreen * multB);
+        m_nSunCoronaBlue  = (uint16)Ftol(A->m_nSunCoronaBlue  * multA + B->m_nSunCoronaBlue  * multB);
 
         m_fSunSize = multA * A->m_fSunSize + multB * B->m_fSunSize;
 
-        m_nLowCloudsRed   = (uint16)(A->m_nLowCloudsRed   * multA + B->m_nLowCloudsRed   * multB);
-        m_nLowCloudsGreen = (uint16)(A->m_nLowCloudsGreen * multA + B->m_nLowCloudsGreen * multB);
-        m_nLowCloudsBlue  = (uint16)(A->m_nLowCloudsBlue  * multA + B->m_nLowCloudsBlue  * multB);
+        m_nLowCloudsRed   = (uint16)Ftol(A->m_nLowCloudsRed   * multA + B->m_nLowCloudsRed   * multB);
+        m_nLowCloudsGreen = (uint16)Ftol(A->m_nLowCloudsGreen * multA + B->m_nLowCloudsGreen * multB);
+        m_nLowCloudsBlue  = (uint16)Ftol(A->m_nLowCloudsBlue  * multA + B->m_nLowCloudsBlue  * multB);
 
-        m_nFluffyCloudsBottomRed   = (uint16)(A->m_nFluffyCloudsBottomRed   * multA + B->m_nFluffyCloudsBottomRed   * multB);
-        m_nFluffyCloudsBottomGreen = (uint16)(A->m_nFluffyCloudsBottomGreen * multA + B->m_nFluffyCloudsBottomGreen * multB);
-        m_nFluffyCloudsBottomBlue  = (uint16)(A->m_nFluffyCloudsBottomBlue  * multA + B->m_nFluffyCloudsBottomBlue  * multB);
+        m_nFluffyCloudsBottomRed   = (uint16)Ftol(A->m_nFluffyCloudsBottomRed   * multA + B->m_nFluffyCloudsBottomRed   * multB);
+        m_nFluffyCloudsBottomGreen = (uint16)Ftol(A->m_nFluffyCloudsBottomGreen * multA + B->m_nFluffyCloudsBottomGreen * multB);
+        m_nFluffyCloudsBottomBlue  = (uint16)Ftol(A->m_nFluffyCloudsBottomBlue  * multA + B->m_nFluffyCloudsBottomBlue  * multB);
     }
     m_fAmbientRed   = multA * A->m_fAmbientRed   + multB * B->m_fAmbientRed;
     m_fAmbientGreen = multA * A->m_fAmbientGreen + multB * B->m_fAmbientGreen;
@@ -158,9 +164,9 @@ void CColourSet::Interpolate(CColourSet* A, CColourSet* B, float multA, float mu
     m_fSpriteSize       = multA * A->m_fSpriteSize       + multB * B->m_fSpriteSize;
     m_fSpriteBrightness = multA * A->m_fSpriteBrightness + multB * B->m_fSpriteBrightness;
 
-    m_nShadowStrength      = (int16)(A->m_nShadowStrength      * multA + B->m_nShadowStrength      * multB);
-    m_nLightShadowStrength = (int16)(A->m_nLightShadowStrength * multA + B->m_nLightShadowStrength * multB);
-    m_nPoleShadowStrength  = (int16)(A->m_nPoleShadowStrength  * multA + B->m_nPoleShadowStrength  * multB);
+    m_nShadowStrength      = (int16)Ftol(A->m_nShadowStrength      * multA + B->m_nShadowStrength      * multB);
+    m_nLightShadowStrength = (int16)Ftol(A->m_nLightShadowStrength * multA + B->m_nLightShadowStrength * multB);
+    m_nPoleShadowStrength  = (int16)Ftol(A->m_nPoleShadowStrength  * multA + B->m_nPoleShadowStrength  * multB);
 
     m_fFarClip  = multA * A->m_fFarClip  + multB * B->m_fFarClip;
     m_fFogStart = multA * A->m_fFogStart + multB * B->m_fFogStart;
@@ -177,8 +183,9 @@ void CColourSet::Interpolate(CColourSet* A, CColourSet* B, float multA, float mu
 
     m_fLightsOnGroundBrightness = multA * A->m_fLightsOnGroundBrightness + multB * B->m_fLightsOnGroundBrightness;
     m_fCloudAlpha = multA * A->m_fCloudAlpha + multB * B->m_fCloudAlpha;
-    m_nHighLightMinIntensity = (uint16)(A->m_nHighLightMinIntensity * multA + B->m_nHighLightMinIntensity * multB);
-    m_nWaterFogAlpha = (uint16)(A->m_nWaterFogAlpha * multA + B->m_nWaterFogAlpha * multB);
+    // Como el original: guarda el resultado entero completo (dword), sin recortarlo a 16 bits.
+    m_nHighLightMinIntensity = (int32)Ftol(A->m_nHighLightMinIntensity * multA + B->m_nHighLightMinIntensity * multB);
+    m_nWaterFogAlpha = (uint16)Ftol(A->m_nWaterFogAlpha * multA + B->m_nWaterFogAlpha * multB);
     m_fIllumination = multA * A->m_fIllumination + multB * B->m_fIllumination;
     m_fLodDistMult = multA * A->m_fLodDistMult + multB * B->m_fLodDistMult;
 

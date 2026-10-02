@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -50,12 +50,14 @@ void CRegisteredMotionBlurStreak::Update()
 void CRegisteredMotionBlurStreak::Render()
 {
     for (int32 iInd = 0; iInd < 2; ++iInd) {
-        auto iAlpha = 255 - (iInd * 85);
-        if (!m_acRenderHistory[0] || !m_acRenderHistory[iInd + 1])
+        const auto iAlpha = 255 - (iInd * 85);
+        // Como el original: exige el historial del tramo actual (iInd), no siempre el [0].
+        if (!m_acRenderHistory[iInd] || !m_acRenderHistory[iInd + 1])
             continue;
 
-        auto ucAlpha1 = static_cast<RwUInt8>((static_cast<float>(m_color.a) * static_cast<float>(iAlpha) / 3.0F) / 255.0F);
-        auto ucAlpha2 = static_cast<RwUInt8>((static_cast<float>(m_color.a) * static_cast<float>(iAlpha-85) / 3.0F) / 255.0F);
+        // Como el original: (iAlpha / 3) entero por el alfa, a float, por 1/255 (0x859A3C) y truncado con _ftol2.
+        const auto ucAlpha1 = static_cast<RwUInt8>(static_cast<int64>(static_cast<float>(iAlpha / 3 * m_color.a) * (1.0f / 255.0f)));
+        const auto ucAlpha2 = static_cast<RwUInt8>(static_cast<int64>(static_cast<float>((iAlpha - 85) / 3 * m_color.a) * (1.0f / 255.0f)));
 
         auto rwColor1 = CRGBA(m_color.r, m_color.g, m_color.b, ucAlpha1).ToRwRGBA();
         auto rwColor2 = CRGBA(m_color.r, m_color.g, m_color.b, ucAlpha2).ToRwRGBA();

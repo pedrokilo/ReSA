@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -37,10 +37,12 @@ void CAEStreamingDecoder::operator delete(void* mem) {
 // 0x4f2830
 // La clase base es propietaria de m_dataStream y lo destruye al finalizar el decoder.
 CAEStreamingDecoder::~CAEStreamingDecoder() {
-    // The game checks if dataStream is nullptr, but
-    // deleting null pointer is perfectly safe.
-    delete m_dataStream;
-    m_dataStream = nullptr;
+    // Como el original (0x4F2830): destructor de CAEDataStream sin pasar por la vtable y operator delete escalar
+    if (m_dataStream) {
+        m_dataStream->CAEDataStream::~CAEDataStream();
+        ::operator delete(m_dataStream);
+        m_dataStream = nullptr;
+    }
 }
 
 /**

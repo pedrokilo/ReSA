@@ -908,3 +908,23 @@ Bancos nuevos, todos con pares exactos dentro de GTA (56 funciones, 23.872 pares
 **Lecciones:**
 - Los informes de los agentes pueden leer mal los registros (p. ej. `bl`/`al` en `CRegisteredCorona::Update`): el banco lo detecta; se corrige leyendo el desensamblado.
 - `TIME_MS` es una macro de Windows: no usarla como nombre en los bancos.
+
+## Continuidad vigente: lista de 70 clases de dos funciones (2026-10-02)
+
+Bancos nuevos, todos con pares exactos dentro de GTA (138 funciones, 51.824 pares; las otras 2 ya estaban validadas): [Events70](Events70/README.md), [Tasks70](Tasks70/README.md), [Core70](Core70/README.md) y [Misc70](Misc70/README.md).
+
+**Defectos de alcance general encontrados:**
+- `CDraw::CalculateAspectRatio` no devolvía el valor en ST0 y desbalanceaba la pila x87 de los 5 llamadores del EXE.
+- `CMatrix::Reorthogonalise` sumaba en otro orden y comprobaba cero; ahora es una transcripción exacta del EXE.
+- `CEventLeanOnVehicle::IsValid` se llamaba a sí misma sin fin con un peatón nulo.
+- `CTaskAllocatorKillThreatsBasicRandomGroup` tenía dos virtuales instaladas como funciones normales (el hook recursaba).
+- `CTaskComplexFollowLeaderAnyMeans` tenía un `DebugBreak()` en el constructor y registraba la referencia sobre el parámetro; `CTaskSimpleChat` no tenía destructor revertido.
+- `CSimpleVariablesSaveStructure` guardaba como `bool` un byte que vale 2.
+- `CPedGroupIntelligence::FlushTasks` está instalada como función cdecl, pero en el EXE termina en `ret 8` (pendiente, fuera de la lista).
+
+**Lecciones:**
+- El x87 silencia los NaN señalizadores al copiar con `fld`/`fstp`; la DLL los copia en crudo. Los fixtures aleatorios no deben generarlos (los datos reales nunca los tienen).
+- La asignación miembro a miembro no copia el relleno; el EXE copia estructuras con `rep movs`.
+- Cuando el EXE pasa memoria de pila sin inicializar (z de un `CVector`, argumento sin escribir), la diferencia se enmascara en el banco y se documenta.
+- Las cadenas leídas sin inicializar (p. ej. nombres opcionales de un `sscanf`) rompen el JSON del banco con UTF-8 inválido: el fixture debe incluirlas siempre.
+- Los stubs de `operator delete` no pueden escribir en el `json` de la traza (puede liberar su búfer con el propio stub).

@@ -14,35 +14,31 @@ CData::~CData() {
 
 // 0x69F640
 void CData::Unload() {
-    delete[] m_data;
-    m_data = nullptr;
+    // Como el original: solo se libera (y se anula) el buffer si existe.
+    if (m_data) {
+        delete[] m_data;
+        m_data = nullptr;
+    }
     m_size = 0;
 }
 
 // unknown always 0
 // 0x69F5D0
 bool CData::Load(uint32 length, FILESTREAM file, uint32* offset, uint8 unknown) {
-#if 0
-    uint32 temp = 0;
+    m_size = length;
+    m_data = new char[length];
 
-    if (!length)
-        return true;
-
-    for (uint32 i = 0; i < m_size; ++i) {
-        if (!unknown)
-            if (sizeof(GxtChar) != CFileMgr::Read(file, &temp, sizeof(GxtChar)))
-                return false;
-
-        m_data[i] = (GxtChar)temp;
+    // Como el original: se lee byte a byte sobre la ranura del parámetro length (solo cambia su byte bajo);
+    // con unknown != 0 no se lee y el "resultado" de la lectura es el propio unknown. Si una lectura
+    // falla se devuelve false dejando el buffer y el desplazamiento a medias.
+    uint32 temp = length;
+    for (uint32 i = 0; i < length; ++i) {
+        const size_t read = unknown ? size_t(unknown) : CFileMgr::Read(file, &temp, 1);
+        if (read != 1) {
+            return false;
+        }
+        m_data[i] = (char)temp;
         ++*offset;
     }
-#endif
-
-    m_size = length / sizeof(char);
-    m_data = new char[m_size];
-
-    CFileMgr::Read(file, m_data, length);
-    *offset += length;
-
     return true;
 }

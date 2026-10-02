@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -66,7 +66,7 @@ void CTaskAllocatorKillThreatsBasicRandomGroup::AllocateTasks(CPedGroupIntellige
                     mem,
                     CTaskComplexSequence{
                         new CTaskComplexKillPedOnFoot{ m_Threat },
-                        new CTaskSimpleLookAbout{ CGeneral::GetRandomNumberInRange(1000u, 2000u) },
+                        new CTaskSimpleLookAbout{ (uint32)CGeneral::GetRandomIntInRange(1000, 2000) }, // Como el original: 0x407180, [1000, 2000)
                     }
                 );
             } else {
@@ -81,6 +81,8 @@ void CTaskAllocatorKillThreatsBasicRandomGroup::InjectHooks() {
     RH_ScopedVirtualClass(CTaskAllocatorKillThreatsBasicRandomGroup, 0x86C80C, 6);
     RH_ScopedCategory("Tasks/Allocators");
 
-    RH_ScopedInstall(GetType, 0x5F68F0);
-    RH_ScopedInstall(AllocateTasks, 0x69D460);
+    // Como el original son funciones virtuales (huecos 5 y 1 de 0x86C80C): con RH_ScopedInstall el salto iría al
+    // thunk vcall, que vuelve a despachar por la vtable del EXE y entra en recursión infinita.
+    RH_ScopedVMTInstall(GetType, 0x5F68F0);
+    RH_ScopedVMTInstall(AllocateTasks, 0x69D460);
 }

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -62,11 +62,15 @@ CColTrianglePlane::CColTrianglePlane(const CStoredCollPoly& poly) :
  * en otras rutinas de colisión.
  */
 CColTrianglePlane::CColTrianglePlane(const CVector& vA, const CVector& vB, const CVector& vC) {
-    const auto normal = (vC - vA).Cross(vB - vA).Normalized();
+    const auto normalFull = (vC - vA).Cross(vB - vA).Normalized();
 
-    m_normal       = normal;
+    m_normal       = normalFull;
+
+    // Como el original: el desplazamiento y la orientación se calculan con la normal ya comprimida
+    // (0x4117F9: se descomprime m_normal antes del producto escalar y de las comparaciones).
+    const CVector normal = m_normal;
     m_normalOffset = vA.Dot(normal);
-    
+
     m_orientation = [&, this] {
         const auto nx = std::abs(normal.x);
         const auto ny = std::abs(normal.y);
@@ -90,5 +94,9 @@ void CColTrianglePlane::GetNormal(CVector& out) {
 
 // Recalcula por completo el plano reutilizando la misma lógica del constructor.
 void CColTrianglePlane::Set(const CompressedVector* vertices, const CColTriangle& triangle) {
-    *this = CColTrianglePlane{ triangle, vertices };
+    // Como el original: solo se escriben los campos; el byte de relleno (+9) queda intacto.
+    const CColTrianglePlane plane{ triangle, vertices };
+    m_normal       = plane.m_normal;
+    m_normalOffset = plane.m_normalOffset;
+    m_orientation  = plane.m_orientation;
 }

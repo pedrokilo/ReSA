@@ -287,19 +287,115 @@ void CMatrix::Rotate(CVector rotation)
     m_pos =     rotMat.TransformVector(m_pos);
 }
 
-void CMatrix::Reorthogonalise()
+// 0x59B6A0
+// Como el original: transcripción exacta del x87 del EXE (productos vectoriales en línea, normalización
+// sin comprobar cero con la suma z² + y² + x² y el recíproco 1/sqrt), para obtener los mismos bits.
+static const float s_ReorthogonaliseOne = 1.0f;
+__declspec(naked) void CMatrix::Reorthogonalise()
 {
-    auto vecCross = CrossProduct(m_right, m_forward);
-    vecCross.Normalise();
-
-    auto vecCross2 = CrossProduct(m_forward, vecCross);
-    vecCross2.Normalise();
-
-    auto vecCross3 = CrossProduct(vecCross, vecCross2);
-
-    m_right = vecCross2;
-    m_forward = vecCross3;
-    m_up = vecCross;
+    __asm {
+        sub esp,28h
+        fld dword ptr [ecx+4]
+        fmul dword ptr [ecx+18h]
+        fld dword ptr [ecx+14h]
+        fmul dword ptr [ecx+8]
+        fsubp st(1),st
+        fld dword ptr [ecx+10h]
+        fmul dword ptr [ecx+8]
+        fld dword ptr [ecx]
+        fmul dword ptr [ecx+18h]
+        fsubp st(1),st
+        fstp dword ptr [esp+8]
+        fld dword ptr [ecx+14h]
+        fmul dword ptr [ecx]
+        fld dword ptr [ecx+10h]
+        fmul dword ptr [ecx+4]
+        fsubp st(1),st
+        fst dword ptr [esp+0Ch]
+        fmul dword ptr [esp+0Ch]
+        fld dword ptr [esp+8]
+        fmul dword ptr [esp+8]
+        faddp st(1),st
+        fld st(1)
+        fmul st,st(2)
+        faddp st(1),st
+        fsqrt
+        fdivr s_ReorthogonaliseOne
+        fst dword ptr [esp]
+        fmulp st(1),st
+        fld dword ptr [esp]
+        fmul dword ptr [esp+8]
+        fld dword ptr [esp]
+        fmul dword ptr [esp+0Ch]
+        fst dword ptr [esp+0Ch]
+        fmul dword ptr [ecx+14h]
+        fld st(1)
+        fmul dword ptr [ecx+18h]
+        fsubp st(1),st
+        fld st(2)
+        fmul dword ptr [ecx+18h]
+        fld dword ptr [esp+0Ch]
+        fmul dword ptr [ecx+10h]
+        fsubp st(1),st
+        fstp dword ptr [esp+14h]
+        fld st(1)
+        fmul dword ptr [ecx+10h]
+        fld st(3)
+        fmul dword ptr [ecx+14h]
+        fsubp st(1),st
+        fst dword ptr [esp+18h]
+        fmul dword ptr [esp+18h]
+        fld dword ptr [esp+14h]
+        fmul dword ptr [esp+14h]
+        faddp st(1),st
+        fld st(1)
+        fmul st,st(2)
+        faddp st(1),st
+        fsqrt
+        fdivr s_ReorthogonaliseOne
+        fstp dword ptr [esp]
+        fmul dword ptr [esp]
+        fld dword ptr [esp+14h]
+        fmul dword ptr [esp]
+        fld dword ptr [esp+18h]
+        fmul dword ptr [esp]
+        fst dword ptr [esp+18h]
+        fmul st,st(3)
+        fld st(1)
+        fmul dword ptr [esp+0Ch]
+        fsubp st(1),st
+        fstp dword ptr [esp+1Ch]
+        fld st(1)
+        fmul dword ptr [esp+0Ch]
+        fld dword ptr [esp+18h]
+        fmul st,st(5)
+        fsubp st(1),st
+        mov eax,dword ptr [esp+18h]
+        fstp dword ptr [esp+20h]
+        mov edx,dword ptr [esp+1Ch]
+        fld st(0)
+        mov dword ptr [ecx+8],eax
+        mov eax,dword ptr [esp+20h]
+        fmul st,st(4)
+        fld st(2)
+        mov dword ptr [ecx+10h],edx
+        fmul st,st(4)
+        mov dword ptr [ecx+14h],eax
+        mov eax,dword ptr [esp+0Ch]
+        mov dword ptr [ecx+28h],eax
+        fsubp st(1),st
+        fstp dword ptr [esp+24h]
+        mov edx,dword ptr [esp+24h]
+        fxch st(1)
+        fstp dword ptr [ecx]
+        mov dword ptr [ecx+18h],edx
+        fstp dword ptr [ecx+4]
+        fxch st(1)
+        fstp dword ptr [ecx+20h]
+        fstp dword ptr [ecx+24h]
+        add esp,28h
+        ret
+    }
 }
 
 // similar to UpdateRW(RwMatrixTag *)

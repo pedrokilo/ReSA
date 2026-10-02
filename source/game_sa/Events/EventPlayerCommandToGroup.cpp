@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -52,13 +52,14 @@ CEventPlayerCommandToGroup* CEventPlayerCommandToGroup::Constructor(ePlayerGroup
 // 0x4B24D0
 bool CEventPlayerCommandToGroup::AffectsPedGroup(CPedGroup* pedGroup)
 {
+    // Como el original: sin lider o con lider que no es el jugador devuelve false
     CPed* leader = pedGroup->GetMembership().GetLeader();
-    if (leader && leader->IsPlayer()) {
-        for (int32 i = 0; i < TOTAL_PED_GROUP_FOLLOWERS; i++) {
-            CPed* member = pedGroup->GetMembership().GetMember(i);
-            if (member && member->GetAreaCode() != leader->GetAreaCode()) 
-                return false;
-        }
+    if (!leader || !leader->IsPlayer())
+        return false;
+    for (int32 i = 0; i < TOTAL_PED_GROUP_FOLLOWERS; i++) {
+        CPed* member = pedGroup->GetMembership().GetMember(i);
+        if (member && member->GetAreaCode() != leader->GetAreaCode())
+            return false;
     }
     return true;
 }

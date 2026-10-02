@@ -26,7 +26,7 @@ public:
 
 private: // NOTSA
     RwRGBA CalculateHiLightPolyColor();
-    RwRGBA CalculateShatterPolyColor();
+    RwRGBA CalculateShatterPolyColor(float camDist);
 };
 
 VALIDATE_SIZE(CFallingGlassPane, 0x70);

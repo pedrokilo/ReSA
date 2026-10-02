@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -49,9 +49,10 @@ bool CEventGunShotWhizzedBy::AffectsPed(CPed* ped)
         CVector direction = m_endPoint - m_startPoint;
         direction.Normalise();
         CVector distance = ped->GetPosition() - m_startPoint;
-        float squaredMagnitude = (distance * direction).SquaredMagnitude();
-        if (squaredMagnitude > 0.0f) {
-            CVector2D point = (direction * squaredMagnitude) + m_startPoint;
+        // Como el original: producto escalar (z + y + x), no la magnitud del producto por componentes
+        const float dot = DotProduct(distance, direction);
+        if (dot > 0.0f) {
+            CVector2D point = (direction * dot) + m_startPoint;
             return 2.0f * 2.0f > (ped->GetPosition() - point).SquaredMagnitude();
         }
     }

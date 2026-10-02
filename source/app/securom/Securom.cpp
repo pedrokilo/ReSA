@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -54,16 +54,17 @@ void SecuromStateDisplay() {
     char fmttmp[256];
     GxtChar gxt[256];
 
+    // Como el original: formatos "Trigger: %d" y "Trap: %d" (0x872ECC y 0x872EC0).
     float y = 140.f;
     for (int32 i = 0; i < 16; i++) {
         if (triggerDisplay[i]) {
-            notsa::format_to_sz(fmttmp, "Trigger {}", i);
+            notsa::format_to_sz(fmttmp, "Trigger: {}", i);
             AsciiToGxtChar(fmttmp, gxt);
             CFont::PrintString(30.f, y, gxt);
             --triggerDisplay[i];
         }
         if (triggerDisplay[i + 16]) {
-            notsa::format_to_sz(fmttmp, "Trigger {}", i + 16);
+            notsa::format_to_sz(fmttmp, "Trigger: {}", i + 16);
             AsciiToGxtChar(fmttmp, gxt);
             CFont::PrintString(160.f, y, gxt);
             --triggerDisplay[i + 16];
@@ -74,13 +75,13 @@ void SecuromStateDisplay() {
     y = 140.f;
     for (int32 i = 0; i < 16; i++) {
         if (trapDisplay[i]) {
-            notsa::format_to_sz(fmttmp, "Trap {}", i);
+            notsa::format_to_sz(fmttmp, "Trap: {}", i);
             AsciiToGxtChar(fmttmp, gxt);
             CFont::PrintString(350.f, y, gxt);
             --trapDisplay[i];
         }
         if (trapDisplay[i + 16]) {
-            notsa::format_to_sz(fmttmp, "Trap {}", i + 16);
+            notsa::format_to_sz(fmttmp, "Trap: {}", i + 16);
             AsciiToGxtChar(fmttmp, gxt);
             CFont::PrintString(450.f, y, gxt);
             --trapDisplay[i + 16];

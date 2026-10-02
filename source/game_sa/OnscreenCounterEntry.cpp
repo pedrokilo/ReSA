@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -46,16 +46,17 @@ void COnscreenCounterEntry::Clear() {
 
 // 0x44CA90
 void COnscreenCounterEntry::ProcessForDisplayCounter(eOnscreenCounter type) {
-    const auto t2 = *CTheScripts::GetPointerToScriptVariable(m_nVarId);
-    const auto t1 = std::max<int32>(0, t2);
+    const auto value = std::max<int32>(0, *CTheScripts::GetPointerToScriptVariable(m_nVarId));
 
+    // Como el original: sprintf sin límite (sprintf_s rellena con 0xFE en debug) y, en DOUBLE, el segundo
+    // número es la variable de m_nMaxVarValue sin recortar.
     switch (type) {
     case eOnscreenCounter::SIMPLE:
     case eOnscreenCounter::LINE:
-        sprintf_s(m_szDisplayedText, "%d", t1);
+        sprintf(m_szDisplayedText, "%d", value);
         break;
     case eOnscreenCounter::DOUBLE:
-        sprintf_s(m_szDisplayedText, "%d / %d", t1, t2);
+        sprintf(m_szDisplayedText, "%d / %d", value, *CTheScripts::GetPointerToScriptVariable(m_nMaxVarValue));
         break;
     }
 }

@@ -52,5 +52,5 @@ CTaskSimpleChat::CTaskSimpleChat(const CTaskSimpleChat& o) :
 
 // 0x5F7FD0
 CTaskSimpleChat::~CTaskSimpleChat() {
-    assert(false && "Destructor not reversed"); // TODO: Reverse destructor}
+    // Como el original: 0x5F7FD0 es solo `jmp 0x61A6F0` (destructor de la clase base)
 }

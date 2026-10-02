@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -46,7 +46,7 @@ CPlantColEntEntry* CPlantColEntEntry::AddEntry(CEntity* entity) {
     entity->RegisterReference(&m_Entity);
 
     auto cd = entity->GetColData();
-    if (!cd || cd->m_nNumTriangles < 1u) {
+    if (!cd || (int16)cd->m_nNumTriangles <= 0) { // Como el original: el número de triángulos se compara con signo (jle)
         return nullptr;
     }
     m_numTriangles = cd->m_nNumTriangles;

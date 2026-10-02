@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -50,10 +50,24 @@ FxPrimBP_c::~FxPrimBP_c() {
 // 0x4A9DC0
 // Expande la matriz compacta si existe; la ausencia de datos representa identidad.
 void FxPrimBP_c::GetRWMatrix(RwMatrix& outMatrix) {
+    auto* const out = reinterpret_cast<float*>(&outMatrix);
     if (m_pMatrixBuffered) {
-        m_pMatrixBuffered->CopyToRwMatrix(outMatrix);
+        // Como el original: cada componente se multiplica por el float 1/32767 (0x858C7C) en lugar de
+        // dividirse entre 32767; no se tocan los flags ni los rellenos de la RwMatrix.
+        constexpr float INV_32767 = std::bit_cast<float>(0x38000100u);
+        const auto* const src = reinterpret_cast<const int16*>(m_pMatrixBuffered);
+        for (auto row = 0; row < 4; row++) {
+            for (auto col = 0; col < 3; col++) {
+                out[row * 4 + col] = (float)src[row * 3 + col] * INV_32767;
+            }
+        }
     } else {
-        RwMatrixSetIdentity(&outMatrix);
+        // Como el original: identidad escrita a mano (sin RwMatrixSetIdentity, que también cambiaría los flags).
+        for (auto row = 0; row < 4; row++) {
+            for (auto col = 0; col < 3; col++) {
+                out[row * 4 + col] = row == col ? 1.0f : 0.0f;
+            }
+        }
     }
 }
 

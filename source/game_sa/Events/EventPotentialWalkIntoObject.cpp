@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -58,12 +58,15 @@ bool CEventPotentialWalkIntoObject::AffectsPed(CPed* ped) {
     ) {
         CColModel* colModel = m_object->GetModelInfo()->GetColModel();
         CVector length = colModel->GetBoundingBox().GetSize();
-        if (length.x >= 0.01f && length.y >= 0.01f && length.z >= 0.01f) {
+        // Como el original: solo se descarta si alguna medida es menor que 0.01 (NaN pasa)
+        if (!(length.x < 0.01f) && !(length.y < 0.01f) && !(length.z < 0.01f)) {
             CTask* activeTask = ped->GetTaskManager().GetActiveTask();
             if (!activeTask)
                 return true;
 
-            assert(activeTask->GetTaskType() != TASK_COMPLEX_AVOID_ENTITY); // unused task
+            // Como el original: CTaskComplexAvoidEntity guarda la entidad en +0xC
+            if (activeTask->GetTaskType() == TASK_COMPLEX_AVOID_ENTITY && *reinterpret_cast<CEntity**>(reinterpret_cast<uint8*>(activeTask) + 0xC) == m_object)
+                return false;
             if (activeTask->GetTaskType() == TASK_COMPLEX_WALK_ROUND_OBJECT) {
                 auto taskWalkRoundObject = reinterpret_cast<CTaskComplexWalkRoundObject*>(activeTask);
                 if (taskWalkRoundObject->m_object == m_object)

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -203,6 +203,10 @@ void InitModelIndices()
 
     using namespace ModelIndices;
 
+    // Como el original (0x5BCA10): solo se invalidan 116 índices. MI_FENCE, MI_FENCE2, MI_BUOY, MI_PARKTABLE,
+    // MI_SAMSITE..MI_HANGING_CARCASS (0x8CD6AC-0x8CD744) y MI_OFFROAD_WHEEL..MI_NITRO_BOTTLE_DOUBLE
+    // (0x8CD758-0x8CD768) conservan su valor anterior.
+
     MI_TRAFFICLIGHTS               = MODEL_INVALID;
     MI_TRAFFICLIGHTS_VERTICAL      = MODEL_INVALID;
     MI_TRAFFICLIGHTS_MIAMI         = MODEL_INVALID;
@@ -270,10 +274,6 @@ void InitModelIndices()
     MI_PICKUP_2P_KILLFRENZY        = MODEL_INVALID;
     MI_PICKUP_2P_COOP              = MODEL_INVALID;
     MI_BOLLARDLIGHT                = MODEL_INVALID;
-    MI_FENCE                       = MODEL_INVALID;
-    MI_FENCE2                      = MODEL_INVALID;
-    MI_BUOY                        = MODEL_INVALID;
-    MI_PARKTABLE                   = MODEL_INVALID;
     MI_LAMPPOST1                   = MODEL_INVALID;
     MI_MLAMPPOST                   = MODEL_INVALID;
     MI_BARRIER1                    = MODEL_INVALID;
@@ -313,54 +313,10 @@ void InitModelIndices()
     MI_BLIMP_DAY                   = MODEL_INVALID;
     MI_YT_MAIN_BODY                = MODEL_INVALID;
     MI_YT_MAIN_BODY2               = MODEL_INVALID;
-    MI_SAMSITE                     = MODEL_INVALID;
-    MI_SAMSITE2                    = MODEL_INVALID;
-    MI_TRAINCROSSING               = MODEL_INVALID;
-    MI_TRAINCROSSING1              = MODEL_INVALID;
-    MI_MAGNOCRANE                  = MODEL_INVALID;
-    MI_CRANETROLLEY                = MODEL_INVALID;
-    MI_QUARRYCRANE_ARM             = MODEL_INVALID;
-    MI_OBJECTFORMAGNOCRANE1        = MODEL_INVALID;
-    MI_OBJECTFORMAGNOCRANE2        = MODEL_INVALID;
-    MI_OBJECTFORMAGNOCRANE3        = MODEL_INVALID;
-    MI_OBJECTFORMAGNOCRANE4        = MODEL_INVALID;
-    MI_OBJECTFORMAGNOCRANE5        = MODEL_INVALID;
-    MI_OBJECTFORBUILDINGSITECRANE1 = MODEL_INVALID;
-    MI_MAGNOCRANE_HOOK             = MODEL_INVALID;
-    MI_HARVESTERBODYPART1          = MODEL_INVALID;
-    MI_HARVESTERBODYPART2          = MODEL_INVALID;
-    MI_HARVESTERBODYPART3          = MODEL_INVALID;
-    MI_HARVESTERBODYPART4          = MODEL_INVALID;
-    MI_GRASSHOUSE                  = MODEL_INVALID;
-    MI_GRASSPLANT                  = MODEL_INVALID;
-    MI_CRANE_HARNESS               = MODEL_INVALID;
-    MI_CRANE_MAGNET                = MODEL_INVALID;
-    MI_QUARY_ROCK1                 = MODEL_INVALID;
-    MI_QUARY_ROCK2                 = MODEL_INVALID;
-    MI_QUARY_ROCK3                 = MODEL_INVALID;
-    MI_ATM                         = MODEL_INVALID;
-    MI_DEAD_TIED_COP               = MODEL_INVALID;
-    MI_WINDSOCK                    = MODEL_INVALID;
-    MI_WRECKING_BALL               = MODEL_INVALID;
-    MI_FREEFALL_BOMB               = MODEL_INVALID;
-    MI_WONG_DISH                   = MODEL_INVALID;
-    MI_GANG_DRINK                  = MODEL_INVALID;
-    MI_GANG_SMOKE                  = MODEL_INVALID;
-    MI_RHYMESBOOK                  = MODEL_INVALID;
-    MI_KMB_ROCK                    = MODEL_INVALID;
-    MI_KMB_PLANK                   = MODEL_INVALID;
-    MI_KMB_BOMB                    = MODEL_INVALID;
-    MI_MINI_MAGNET                 = MODEL_INVALID;
-    MI_HANGING_CARCASS             = MODEL_INVALID;
     MI_IMY_SHASH_WALL              = MODEL_INVALID;
     MI_PARACHUTE_BACKPACK          = MODEL_INVALID;
     MI_OYSTER                      = MODEL_INVALID;
     MI_HORSESHOE                   = MODEL_INVALID;
-    MI_OFFROAD_WHEEL               = MODEL_INVALID;
-    MI_FLARE                       = MODEL_INVALID;
-    MI_NITRO_BOTTLE_SMALL          = MODEL_INVALID;
-    MI_NITRO_BOTTLE_LARGE          = MODEL_INVALID;
-    MI_NITRO_BOTTLE_DOUBLE         = MODEL_INVALID;
     MI_HYDRAULICS                  = MODEL_INVALID;
     MI_STEREO_UPGRADE              = MODEL_INVALID;
     MI_BASKETBALL                  = MODEL_INVALID;

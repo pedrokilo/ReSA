@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -58,9 +58,11 @@ bool CEventAcquaintancePedHateBadlyLit::AffectsPed(CPed* ped)
             return true;
         }
         auto theCurrentEvent = static_cast<CEventAcquaintancePedHateBadlyLit*>(currentEvent);
-        if (m_startTimeInMs - theCurrentEvent->m_startTimeInMs >= 2000) {
-            CVector distance = m_point - theCurrentEvent->m_point;
-            return distance.SquaredMagnitude() >= 1.0f;
+        // Como el original: diferencia de tiempos con signo (jl) y suma z*z + y*y + x*x; NaN cuenta como lejos (test ah,5 / jnp)
+        if (static_cast<int32>(m_startTimeInMs - theCurrentEvent->m_startTimeInMs) >= 2000) {
+            const CVector distance = m_point - theCurrentEvent->m_point;
+            const float distSq = distance.z * distance.z + distance.y * distance.y + distance.x * distance.x;
+            return !(distSq < 1.0f);
         }
     }
     return false;

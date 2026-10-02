@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -30,31 +30,36 @@ void CGamma::InjectHooks() {
 
 // 0x747180
 void CGamma::Init() {
-    m_IsEnabled    = true;
+    // Como el original: m_IsEnabled se escribe como dword (también pone a cero el relleno).
+    *reinterpret_cast<uint32*>(&m_IsEnabled) = 1;
     m_CurrentLevel = 0.5f;
     m_TargetLevel  = -1000.0f;
     m_PrevLevel    = 1000.0f;
 
-    auto* caps = (D3DCAPS9*)const_cast<void*>(RwD3D9GetCaps());
+    // Como el original: primero consulta las capacidades del dispositivo y después las de RW.
     auto* dev  = (IDirect3DDevice9*)RwD3D9GetCurrentD3DDevice();
-    D3DCAPS9 devCaps{}; // TODO: what's the difference with `caps`?
+    D3DCAPS9 devCaps;
     dev->GetDeviceCaps(&devCaps);
 
+    auto* caps = (D3DCAPS9*)const_cast<void*>(RwD3D9GetCaps());
     if (caps->DeclTypes & D3DDTCAPS_DEC3N) {
         caps->DeclTypes &= ~D3DDTCAPS_DEC3N;
     }
 
     if (!(devCaps.Caps2 & D3DCAPS2_FULLSCREENGAMMA) && !(devCaps.Caps2 & D3DCAPS2_CANCALIBRATEGAMMA)) {
-        m_IsEnabled = false; // No gamma support
+        *reinterpret_cast<uint32*>(&m_IsEnabled) = 0; // No gamma support
     }
 }
 
 // 0x747200
 void CGamma::SetGamma(float gammaLevel, bool fade) {
-    if (!m_IsEnabled) {
+    const float level = gammaLevel * 0.7f;
+    // Como el original: m_IsEnabled se lee como dword.
+    if (!*reinterpret_cast<const uint32*>(&m_IsEnabled)) {
         return;
     }
-    const auto level = gammaLevel * 0.7f;
+    // Como el original: m_PrevLevel recibe siempre el nivel nuevo, antes de compararlo.
+    m_PrevLevel = level;
     if (level != m_TargetLevel) {
         m_TargetLevel = level;
     } else if (!fade) {
@@ -66,16 +71,26 @@ void CGamma::SetGamma(float gammaLevel, bool fade) {
         return;
     }
 
+    const float power = 1.0f - level + 0.2f;
     if (!gbGammaChanged) {
         gbGammaChanged = true;
-        dev->GetGammaRamp(0, &ms_SavedGamma);
+        // Como el original: vuelve a pedir el dispositivo a RW.
+        ((IDirect3DDevice9*)RwD3D9GetCurrentD3DDevice())->GetGammaRamp(0, &ms_SavedGamma);
     }
 
-    const auto power = 1.0f - level + 0.2f;
-    // TODO: rngv::zip
+    // Como el original: pow de la CRT en doble precisión y el producto por 65535.0 redondeado por la x87
+    // a 24 bits; la conversión a entero es la truncación de 64 bits de _ftol2.
+    static const double k65535 = 65535.0;
     for (auto i = 0; i < 256; i++) {
-        const auto gamma = static_cast<int16>(std::pow(float(i + 1) / 256.0f, power) * 65535.0f);
-        ms_GammaTable.red[i] = ms_GammaTable.green[i] = ms_GammaTable.blue[i] = gamma;
+        const double p = std::pow((double)((float)(i + 1) * 0.00390625f), (double)power);
+        float scaled;
+        __asm {
+            fld   p
+            fmul  k65535
+            fstp  scaled
+        }
+        const auto gamma = (int16)(int64)scaled;
+        ms_GammaTable.blue[i] = ms_GammaTable.green[i] = ms_GammaTable.red[i] = gamma;
     }
     dev->SetGammaRamp(0, D3DSGR_CALIBRATE, &ms_GammaTable);
 }

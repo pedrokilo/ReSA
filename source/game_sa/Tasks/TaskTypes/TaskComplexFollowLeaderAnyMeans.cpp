@@ -45,8 +45,8 @@ CTaskComplexFollowLeaderAnyMeans::CTaskComplexFollowLeaderAnyMeans(CPedGroup* pe
     m_ped{ped},
     m_pos{pos}
 {
-    DebugBreak(); // Pirulax: Let me know if this is ever hit, cause this task is seemingly unused.
-    CEntity::SafeRegisterRef(ped);
+    // Como el original (0x694AA0): registra la referencia sobre el miembro (lea eax,[esi+10h]), no sobre el parámetro
+    CEntity::SafeRegisterRef(m_ped);
 }
 
 CTaskComplexFollowLeaderAnyMeans::CTaskComplexFollowLeaderAnyMeans(const CTaskComplexFollowLeaderAnyMeans& o) :

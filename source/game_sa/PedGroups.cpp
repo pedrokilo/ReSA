@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -46,11 +46,11 @@ int32 CPedGroups::AddGroup() {
 
 // 0x5FB870
 void CPedGroups::RemoveGroup(int32 groupId) {
-    auto* const group = &GetGroup(groupId);
+    // Como el original: sin comprobar (ni afirmar) que el grupo esté activo antes de mirar su bandera.
     if (!std::exchange(ms_activeGroups[groupId], false)) {
         return;
     }
-    group->Flush();
+    ms_groups[groupId].Flush();
 }
 
 // 0x5FB8A0
@@ -91,30 +91,40 @@ int32 CPedGroups::GetGroupId(const CPedGroup* pedGroup) {
 
 // 0x5FC800
 void CPedGroups::Process() {
-    for (auto&& [i, g] : GetActiveGroupsWithIDs()) {
+    for (auto i = 0; i < (int32)ms_groups.size(); i++) {
+        if (!ms_activeGroups[i]) {
+            continue;
+        }
+        auto& g = ms_groups[i];
         g.Process();
         if (!g.GetMembership().CountMembers()) {
             RemoveGroup(i);
         }
     }
 
+    // Como el original: el tipo de decisión solo se cambia en los grupos activos que no son de misión.
     const auto SetGroupsDecisionMakerType = [](eDecisionMakerType dm) {
-        for (auto&& [_, g] : GetActiveGroupsWithIDs()) {
-            g.GetIntelligence().SetGroupDecisionMakerType(dm);
+        for (auto i = 0; i < (int32)ms_groups.size(); i++) {
+            if (ms_activeGroups[i] && !ms_groups[i].m_bIsMissionGroup) {
+                ms_groups[i].GetIntelligence().SetGroupDecisionMakerType(dm);
+            }
         }
     };
     if (CTheScripts::IsPlayerOnAMission() && !ms_bIsPlayerOnAMission) { // 0x5FC897 - Player started a mission
         ms_iNoOfPlayerKills = 0;
         SetGroupsDecisionMakerType(eDecisionMakerType::GROUP_RANDOM_PASSIVE);
-    } else if (!CTheScripts::IsPlayerOnAMission() && ms_bIsPlayerOnAMission) { // 0x5FC8B2 - Player ended a mission (inverted)
+    } else if (!CTheScripts::IsPlayerOnAMission() && ms_bIsPlayerOnAMission) { // 0x5FC8B2 - Player ended a mission
+        ms_iNoOfPlayerKills = 0; // Como el original
         SetGroupsDecisionMakerType(eDecisionMakerType::UNKNOWN);
-    } else if (CTheScripts::IsPlayerOnAMission() && CPedGroups::ms_iNoOfPlayerKills == 8) { // 0x5FC8BF (inverted)
+    } else if (CTheScripts::IsPlayerOnAMission() && CPedGroups::ms_iNoOfPlayerKills == 8) { // 0x5FC8BF
         SetGroupsDecisionMakerType(eDecisionMakerType::UNKNOWN);
     } else if (CTheScripts::IsPlayerOnAMission()) {
         SetGroupsDecisionMakerType(eDecisionMakerType::GROUP_RANDOM_PASSIVE);
     }
 
-    if (!std::exchange(ms_bIsPlayerOnAMission, CTheScripts::IsPlayerOnAMission())) { // 0x5FC98D
+    // 0x5FC98D - Como el original: el contador se pone a cero mientras NO se está en misión (según el valor nuevo).
+    ms_bIsPlayerOnAMission = CTheScripts::IsPlayerOnAMission();
+    if (!ms_bIsPlayerOnAMission) {
         ms_iNoOfPlayerKills = 0;
     }
 }

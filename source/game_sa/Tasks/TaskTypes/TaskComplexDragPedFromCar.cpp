@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -21,7 +21,7 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexDragPedFromCar.h"
 
 void CTaskComplexDragPedFromCar__InjectHooks() {
-    RH_ScopedVirtualClass(CTaskComplexDragPedFromCar, 0x86EB6C, 11);
+    RH_ScopedVirtualClass(CTaskComplexDragPedFromCar, 0x86EB6C, 12); // 12 huecos, como CTaskComplexEnterCar
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedVMTInstall(ControlSubTask, 0x640530);

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -44,6 +44,7 @@ void CSimpleVariablesSaveStructure::Construct() {
 
     GxtChar dots[8];
     AsciiToGxtChar("...'", dots); // dot dot dot apostrophe
+    dots[3] = 0; // Como el original (0x5D1BE0): el apóstrofo se corta y solo se añade "..."
     TextCopy(m_szSaveName, gxtSaveName);
     uint32 strLen = GxtCharStrlen(m_szSaveName);
     if (strLen > SAVEGAME_MAX_NAME_LEN) {

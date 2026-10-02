@@ -51,4 +51,7 @@ public:
     CNodeRoute* New() {
         return NewLegacy();
     }
+
+    // Como el original (0x41B870): sin comprobación de nulo ni relleno 0xDD; solo libera la ranura y ajusta el cursor.
+    void Delete(CNodeRoute* route) { DeleteLegacy(route); }
 };

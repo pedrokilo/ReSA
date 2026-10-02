@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -69,5 +69,12 @@ bool IsBuildingPointerValid(CBuilding* building)
     if (!building)
         return false;
 
-    return GetBuildingPool()->IsObjectValid(building);
+    // Como el original (0x4040F2): índice = diferencia con signo de 32 bits / 0x38 (trunca hacia cero),
+    // así que un puntero hasta 0x37 bytes antes del almacenamiento cuenta como ranura 0.
+    const auto* const pool    = GetBuildingPool();
+    const auto* const storage = *reinterpret_cast<const uint8* const*>(pool);                          // CPool::m_pObjects (+0x0)
+    const auto* const flags   = *reinterpret_cast<const int8* const*>(reinterpret_cast<const uint8*>(pool) + 0x4); // CPool::m_byteMap (+0x4)
+    const int32 size          = *reinterpret_cast<const int32*>(reinterpret_cast<const uint8*>(pool) + 0x8);       // CPool::m_nSize (+0x8)
+    const int32 idx = int32(reinterpret_cast<uintptr_t>(building) - reinterpret_cast<uintptr_t>(storage)) / int32(sizeof(CBuilding));
+    return idx >= 0 && idx < size && flags[idx] >= 0;
 }

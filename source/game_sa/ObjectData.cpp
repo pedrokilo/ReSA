@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -47,20 +47,20 @@ void CObjectData::Initialise(const char* fileName) {
     default0.m_nCameraAvoidObject = eObjectCameraAvoidType::CAMERA_UNKNOWN;
 
     auto& default1 = CObjectData::GetAtIndex(1);
-    default1 = default0;
+    std::memcpy(&default1, &default0, sizeof(CObjectData)); // Como el original: rep movs de 0x50 bytes (relleno incluido)
     default1.m_nCameraAvoidObject = eObjectCameraAvoidType::CAMERA_IGNORE;
 
     auto& default2 = CObjectData::GetAtIndex(2);
-    default2 = default0;
+    std::memcpy(&default2, &default0, sizeof(CObjectData));
     default2.m_nSpecialColResponseCase = COL_SPECIAL_RESPONSE_FENCEPART;
 
     auto& default3 = CObjectData::GetAtIndex(3);
-    default3 = default0;
+    std::memcpy(&default3, &default0, sizeof(CObjectData));
     default3.m_nCameraAvoidObject = eObjectCameraAvoidType::CAMERA_IGNORE;
     default3.m_nSpecialColResponseCase = COL_SPECIAL_RESPONSE_FENCEPART;
 
     auto& default4 = CObjectData::GetAtIndex(4);
-    default4 = default0;
+    std::memcpy(&default4, &default0, sizeof(CObjectData));
     default4.m_nSpecialColResponseCase = COL_SPECIAL_RESPONSE_GRENADE;
 
     CFileMgr::SetDir("");
@@ -115,7 +115,8 @@ void CObjectData::Initialise(const char* fileName) {
         if (iFxType > 0)
             curInfo.m_pFxSystemBP = g_fxMan.FindFxSystemBP(effectName);
 
-        const auto fBuoyancy = (100.0F / fPercentSubmerged) * (curInfo.m_fMass / 125.0F);
+        // Como el original: ((100 / sumergido) * masa) * 0.008f (0x863984), no masa / 125.
+        const auto fBuoyancy = (100.0F / fPercentSubmerged) * curInfo.m_fMass * 0.008F;
         curInfo.m_nSpecialColResponseCase = iSpecialColResp;
         curInfo.m_nColDamageEffect = iColDamEffect;
         curInfo.m_nCameraAvoidObject = iCameraAvoid;
@@ -132,13 +133,15 @@ void CObjectData::Initialise(const char* fileName) {
         {
             if (curInfo.m_nSpecialColResponseCase == default0.m_nSpecialColResponseCase)
             {
-                mi->m_nObjectInfoIndex = curInfo.m_nCameraAvoidObject == 0 ? 0 : 1;
+                // Como el original (0x5B55C7): sin evitar cámara se usa la entrada 1 (CAMERA_IGNORE), si no la 0.
+                mi->m_nObjectInfoIndex = curInfo.m_nCameraAvoidObject == 0 ? 1 : 0;
                 continue;
             }
 
             if (curInfo.m_nSpecialColResponseCase == default2.m_nSpecialColResponseCase)
             {
-                mi->m_nObjectInfoIndex = curInfo.m_nCameraAvoidObject == 0 ? 2 : 3;
+                // Como el original (0x5B55DE): sin evitar cámara se usa la entrada 3, si no la 2.
+                mi->m_nObjectInfoIndex = curInfo.m_nCameraAvoidObject == 0 ? 3 : 2;
                 continue;
             }
         }
@@ -249,7 +252,7 @@ bool CObjectData::operator==(const CObjectData& right) const
         && m_vecBreakVelocity == right.m_vecBreakVelocity
         && m_fBreakVelocityRand == right.m_fBreakVelocityRand
         && m_nGunBreakMode == right.m_nGunBreakMode
-        && m_nSparksOnImpact == right.m_nSparksOnImpact;
+        && (uint8)m_nSparksOnImpact == (uint8)right.m_nSparksOnImpact; // Como el original: solo compara el byte bajo (0x5B5747)
 
 }
 

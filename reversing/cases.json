@@ -393,5 +393,25 @@
     "id": "misc56",
     "name": "Clases sueltas (lista de 56)",
     "runner": "Misc56/run_local.py"
+  },
+  {
+    "id": "events70",
+    "name": "Eventos (lista de 70)",
+    "runner": "Events70/run_local.py"
+  },
+  {
+    "id": "tasks70",
+    "name": "Tareas y grupos (lista de 70)",
+    "runner": "Tasks70/run_local.py"
+  },
+  {
+    "id": "core70",
+    "name": "Nucleo y datos (lista de 70)",
+    "runner": "Core70/run_local.py"
+  },
+  {
+    "id": "misc70",
+    "name": "Audio, interfaz y render (lista de 70)",
+    "runner": "Misc70/run_local.py"
   }
 ]

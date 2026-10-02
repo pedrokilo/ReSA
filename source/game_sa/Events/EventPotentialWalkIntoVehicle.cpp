@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -56,15 +56,19 @@ bool CEventPotentialWalkIntoVehicle::AffectsPed(CPed* ped) {
     if (!ped->IsAlive() || ped->bInVehicle || m_moveState == PEDMOVE_STILL)
         return false;
 
+    // Como el original: con CTaskComplexWalkRoundCar activa siempre devuelve false; si el vehiculo es su remolque o
+    // tractor se cambia, pasando el campo de 4 bits (con signo) de la direccion de rodeo del byte 0xD
     if (const auto task = ped->GetTaskManager().Find<CTaskComplexWalkRoundCar>()) {
         if (task->m_Veh != m_vehicle) {
             if ((m_vehicle->m_pVehicleBeingTowed && m_vehicle->m_pVehicleBeingTowed == task->m_Veh) ||
                 (m_vehicle->m_pTowingVehicle && m_vehicle->m_pTowingVehicle == task->m_Veh)
             ) {
-                task->SetNewVehicle(m_vehicle, 0);
+                // bits 2-5 del byte 0xD con signo: (int8)(b << 2) >> 4
+                const auto dir = static_cast<int8>(reinterpret_cast<const uint8*>(task)[0xD] << 2) >> 4;
+                task->SetNewVehicle(m_vehicle, static_cast<uint8>(dir));
             }
-            return false;
         }
+        return false;
     }
 
     if (!ped->m_pAttachedTo && m_vehicle && m_vehicle->IsSubVehicleTypeValid() && !m_vehicle->IsSubFakeAircraft()) {

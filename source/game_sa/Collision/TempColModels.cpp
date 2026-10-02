@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -76,8 +76,9 @@ void CTempColModels::Initialise() {
         ms_colModelPed1.AllocateData(3, 0, 2, 0, 0, false);
         auto* const cd = ms_colModelPed1.m_pColData;
 
-        cd->GetSpheres()[0].Set(0.35f, { 0.00f,  0.00f, -0.20f}, SURFACE_PED, PED_COL_SPHERE_LEG);
-        cd->GetSpheres()[1].Set(0.35f, { 0.00f,  0.00f,  0.20f}, SURFACE_PED, PED_COL_SPHERE_MID);
+        // Como el original: -0.2 y 0.2 no son los floats más cercanos (0xBE4CCCCC y 0x3E4CCCD0).
+        cd->GetSpheres()[0].Set(0.35f, { 0.00f,  0.00f, std::bit_cast<float>(0xBE4CCCCCu)}, SURFACE_PED, PED_COL_SPHERE_LEG);
+        cd->GetSpheres()[1].Set(0.35f, { 0.00f,  0.00f, std::bit_cast<float>(0x3E4CCCD0u)}, SURFACE_PED, PED_COL_SPHERE_MID);
         cd->GetSpheres()[2].Set(0.35f, { 0.00f,  0.00f,  0.60f}, SURFACE_PED, PED_COL_SPHERE_HEAD);
 
         cd->GetLines()[0].Set({0.f, 0.f, 0.f}, {0.f, 0.f, -1.f}); // Leg L (?)
@@ -96,15 +97,16 @@ void CTempColModels::Initialise() {
         ms_colModelPed2.AllocateData(9, 0, 2, 0, 0, false);
         auto* const cd = ms_colModelPed2.m_pColData;
 
-        cd->GetSpheres()[0].Set(0.35f, { 0.00f,  0.00f, -0.20f}, SURFACE_PED, PED_COL_SPHERE_LEG);
-        cd->GetSpheres()[1].Set(0.35f, { 0.00f,  0.00f,  0.20f}, SURFACE_PED, PED_COL_SPHERE_MID);
+        // Como el original: -0.2 y 0.2 no son los floats más cercanos (0xBE4CCCCC y 0x3E4CCCD0).
+        cd->GetSpheres()[0].Set(0.35f, { 0.00f,  0.00f, std::bit_cast<float>(0xBE4CCCCCu)}, SURFACE_PED, PED_COL_SPHERE_LEG);
+        cd->GetSpheres()[1].Set(0.35f, { 0.00f,  0.00f, std::bit_cast<float>(0x3E4CCCD0u)}, SURFACE_PED, PED_COL_SPHERE_MID);
         cd->GetSpheres()[2].Set(0.35f, { 0.00f,  0.00f,  0.60f}, SURFACE_PED, PED_COL_SPHERE_HEAD);
         cd->GetSpheres()[3].Set(0.13f, { 0.18f,  0.35f,  0.75f}, SURFACE_PED, PED_PIECE_RIGHT_ARM);
         cd->GetSpheres()[4].Set(0.13f, { 0.18f,  0.50f,  0.75f}, SURFACE_PED, PED_PIECE_RIGHT_ARM);
         cd->GetSpheres()[5].Set(0.13f, {-0.18f,  0.35f,  0.75f}, SURFACE_PED, PED_PIECE_LEFT_ARM);
         cd->GetSpheres()[6].Set(0.13f, {-0.18f,  0.50f,  0.75f}, SURFACE_PED, PED_PIECE_LEFT_ARM);
-        cd->GetSpheres()[7].Set(0.20f, { 0.00f,  0.50f,  0.45f}, SURFACE_PED, PED_PIECE_RIGHT_LEG);
-        cd->GetSpheres()[8].Set(0.35f, { 0.00f,  0.55f,  0.20f}, SURFACE_PED, PED_PIECE_ASS);
+        cd->GetSpheres()[7].Set(0.20f, { 0.00f,  0.50f, std::bit_cast<float>(0x3EE66668u)}, SURFACE_PED, PED_PIECE_RIGHT_LEG); // Como el original: 0.45000005
+        cd->GetSpheres()[8].Set(0.35f, { 0.00f,  0.55f, std::bit_cast<float>(0x3E4CCCD0u)}, SURFACE_PED, PED_PIECE_ASS);       // Como el original: 0.20000005
 
         cd->GetLines()[0].Set({0.f, 0.f, 0.f}, {0.f, 0.f, -1.f}); // Leg L (?)
         cd->GetLines()[1].Set({0.f, 0.f, 0.f}, {0.f, 0.f,  1.f}); // Leg R (?)
@@ -242,11 +244,9 @@ void CTempColModels::Initialise() {
 
     // 0x5BB82C
     {
-        InitializeColModel(
-            ms_colModelWeapon,
-            {-0.25f, -0.25f, -0.25f}, { 0.25f,  0.25f,  0.25f},
-            { 0.00f,  0.00f,  0.00f}, 0.25f
-        );
+        // Como el original: solo se escriben la caja y el radio; el centro de la esfera y m_nColSlot quedan intactos.
+        ms_colModelWeapon.GetBoundingBox().Set({-0.25f, -0.25f, -0.25f}, { 0.25f,  0.25f,  0.25f});
+        ms_colModelWeapon.GetBoundingSphere().m_fRadius = 0.25f;
     }
 }
 

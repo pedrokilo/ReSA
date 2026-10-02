@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -47,7 +47,8 @@ bool CEventLeanOnVehicle::IsValid(CPed* ped) {
     if (ped)
         return ped->IsAlive();
 
-    if (IsValid(ped))
+    // Como el original: CEvent::IsValid en linea (la llamada virtual sin calificar se llamaba a si misma sin fin)
+    if (CEvent::IsValid(ped))
         return true;
 
     return false;

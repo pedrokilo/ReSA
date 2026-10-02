@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -64,7 +64,8 @@ void CPlaceName::Process() {
         Init();
     }
 
-    if ((smallestZone == m_pZone || CGame::currArea == AREA_CODE_1) 
+    // Como el original: cualquier área distinta del mundo exterior (test edx,edx en 0x571FC4), no solo AREA_CODE_1.
+    if ((smallestZone == m_pZone || CGame::currArea != AREA_CODE_NORMAL_WORLD) 
             && m_pZone
             || smallestZone
             && m_pZone // yep, checked twice (Pirulax: gotta account for those cosmis bit flipping rays?)

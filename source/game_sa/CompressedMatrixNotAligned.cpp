@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -31,8 +31,13 @@ void CCompressedMatrixNotAligned::InjectHooks()
 
 void CCompressedMatrixNotAligned::DecompressIntoFullMatrix(CMatrix& matrix) const
 {
-    matrix.GetRight() = m_vecRight;
-    matrix.GetForward() = m_vecForward;
+    // Como el original: cada componente se multiplica por el float 1/127 (0x859BCC) en lugar de
+    // dividirse entre 127 (la división puede diferir en el último bit).
+    constexpr float INV_127 = std::bit_cast<float>(0x3C010204u);
+    const auto* right   = reinterpret_cast<const int8*>(&m_vecRight);
+    const auto* forward = reinterpret_cast<const int8*>(&m_vecForward);
+    matrix.GetRight()   = CVector{ (float)right[0] * INV_127, (float)right[1] * INV_127, (float)right[2] * INV_127 };
+    matrix.GetForward() = CVector{ (float)forward[0] * INV_127, (float)forward[1] * INV_127, (float)forward[2] * INV_127 };
     matrix.GetUp() = CrossProduct(matrix.GetRight(), matrix.GetForward());
     matrix.GetPosition() = m_vecPos;
     matrix.Reorthogonalise();

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -37,13 +37,16 @@ void CDraw::SetFOV(float fov) {
 }
 
 // 0x6FF420
-void CDraw::CalculateAspectRatio() {
+// Como el original: devuelve la relación calculada en ST0 (fst); los llamadores del EXE la desapilan
+// con fstp st(0) (0x53D699, 0x53E775...), así que una versión void desequilibraría la pila x87.
+float CDraw::CalculateAspectRatio() {
     if (FrontEndMenuManager.m_bWidescreenOn)
         ms_fAspectRatio = 16.f / 9.f;
     else if (TheCamera.m_bWideScreenOn)
         ms_fAspectRatio = 5.f / 4.f;
     else
         ms_fAspectRatio = 4.f / 3.f;
+    return ms_fAspectRatio;
 }
 
 // 0x53E600

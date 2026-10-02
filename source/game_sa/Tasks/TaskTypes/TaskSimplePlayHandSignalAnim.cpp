@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -72,7 +72,8 @@ bool CTaskSimplePlayHandSignalAnim::ProcessPed(CPed* ped) {
 
 // 0x61AF60
 void CTaskSimplePlayHandSignalAnim::StartAnim(CPed* ped) {
-    const auto animId = static_cast<AnimationId>(CGeneral::GetRandomNumberInRange((int32)ANIM_ID_GSIGN1, (int32)ANIM_ID_GSIGN5 + 1));
+    // Como el original: GSIGN1 - trunc(rand * (1/32768) * -5), es decir [GSIGN1, GSIGN5]
+    const auto animId = static_cast<AnimationId>(CGeneral::GetRandomIntInRange((int32)ANIM_ID_GSIGN1, (int32)ANIM_ID_GSIGN5 + 1));
 
     //
     // Pointing / weapon logic
@@ -113,7 +114,7 @@ void CTaskSimplePlayHandSignalAnim::StartAnim(CPed* ped) {
             CWorld::Add(handObj);
             CAnimManager::AddAnimation(
                 handObj->GetRpClump(),
-                CAnimManager::GetAnimAssociation(ANIM_GROUP_LHAND, m_PlayerIdlesAnimBlockId)->GetAnimHierarchy(),
+                CAnimManager::GetAnimAssociation(animGrpId, m_PlayerIdlesAnimBlockId)->GetAnimHierarchy(), // Como el original: LHAND (0x4F) o RHAND (0x50)
                 0
             );
             CObject::nNoTempObjects++;

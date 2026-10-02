@@ -37,7 +37,7 @@ public:
     static float GetAspectRatio() { return ms_fAspectRatio; }
     static void SetAspectRatio(float ratio) { ms_fAspectRatio = ratio; }
 
-    static void CalculateAspectRatio();
+    static float CalculateAspectRatio();
 
     // @notsa
     static bool IsFading() { return FadeValue != 0u; }
