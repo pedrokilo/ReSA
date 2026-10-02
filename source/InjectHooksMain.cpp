@@ -799,6 +799,7 @@ void InjectHooksMain() {
     CGeneral::InjectHooks();
     CGamma::InjectHooks();
     CHudColours::InjectHooks();
+    CHud::InjectHooks();
     CTxdStore::InjectHooks();
     CCarEnterExit::InjectHooks();
     CEntityScanner::InjectHooks();

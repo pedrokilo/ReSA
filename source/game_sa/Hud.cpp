@@ -1,3 +1,39 @@
+/* BEGIN GENERATED HOOK STATUS
+ * Generado desde docs/hooks.csv; no editar este bloque manualmente.
+ * Actualizar: python contrib/hooks2md.py --input docs/hooks.csv
+ *   --output docs/ReversedClasses.md --update-source-status
+ * Conteos por clase/grupo completo, no solo por este archivo.
+ * Pendientes y bloqueadas pueden coincidir; no se suman.
+ *
+ * ESTADO: CHud
+ * Reconstrucción: INCOMPLETA — 30/38 funciones reconstruidas.
+ * Pendientes de reconstruir: 8.
+ * Funciones bloqueadas: 8.
+ * Validación registrada: 0/38 entradas.
+ * Validación: consultar vigencia en docs/ValidationInventory.md y
+ *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
+ *   no significa nunca probada ni fallida. Reconstruida no implica validada.
+ * PENDIENTES (nombre | dirección | tipo):
+ *   DrawCrossHairs | 0x0058E020 | S
+ *   DrawHelpText | 0x0058B6E0 | S
+ *   DrawMissionTimers | 0x0058B180 | S
+ *   DrawPlayerInfo | 0x0058EAF0 | S
+ *   DrawSubtitles | 0x0058C250 | S
+ *   DrawSuccessFailedMessage | 0x0058C6A0 | S
+ *   DrawVitalStats | 0x00589650 | S
+ *   DrawWanted | 0x0058D9A0 | S
+ * BLOQUEADAS (nombre | dirección | tipo):
+ *   DrawCrossHairs | 0x0058E020 | S
+ *   DrawHelpText | 0x0058B6E0 | S
+ *   DrawMissionTimers | 0x0058B180 | S
+ *   DrawPlayerInfo | 0x0058EAF0 | S
+ *   DrawSubtitles | 0x0058C250 | S
+ *   DrawSuccessFailedMessage | 0x0058C6A0 | S
+ *   DrawVitalStats | 0x00589650 | S
+ *   DrawWanted | 0x0058D9A0 | S
+ * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
+END GENERATED HOOK STATUS */
+
 /*
     Plugin-SDK file
     Authors: GTA Community. See more here
