@@ -92,7 +92,7 @@ def main():
     runtime.probe_configuration = new_game
     try:
         code = runtime.run_case(PREFIX, manifest['asi'], analyze, 'Audio: Ambience, StaticChannel y Weather',
-                                timeout=240, unhook='', wait_for_exit=True)
+                                timeout=600, unhook='', wait_for_exit=True)
     finally:
         runtime.probe_configuration = configure
     reports = set((runtime.GAME / f'resultados-{PREFIX}').glob('*/summary.json')) - reports_before

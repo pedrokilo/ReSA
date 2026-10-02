@@ -1,36 +1,43 @@
-# CAEAmbienceTrackManager — 7/7
+# Lote de audio: Ambience, Weather y StaticChannel
 
 [Inicio](../../README.md) · [Registro de validaciones](../ValidationRegistry/README.md) · [Proceso y continuidad](../MEJORAS_DEL_PROCESO.md#continuidad-vigente)
 
-`UpdateAmbienceTrackAndVolume` (0x4D6E60) quedó reconstruida, habilitada y desbloqueada el 01/10/2026. Con ella, `CAEAmbienceTrackManager` llega a **7/7**. La entrada tiene `validated=1`, vinculada a **7.846 pares exactos dentro del motor**, y figura en el [registro](../validation-registry.json).
+El 01/10/2026 las tres funciones del lote quedaron reconstruidas, habilitadas, desbloqueadas y con `validated=1`, tras **10.086 pares exactos dentro del motor**:
+
+| Función | Dirección | Pares | Clase |
+| --- | --- | ---: | --- |
+| `CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume` | 0x4D6E60 | 7.846 | **7/7** |
+| `CAEWeatherAudioEntity::AddAudioEvent` | 0x506800 | 656 | **5/5** |
+| `CAEStaticChannel::SetAudioBuffer` | 0x4F0C40 | 1.584 | **8/8** |
+
+Las tres figuran en el [registro](../validation-registry.json), y los hashes de sus fuentes coinciden con el manifiesto de la compilación probada (`artifacts/20261001-220721-744302`).
 
 ## Qué se corrigió
 
-El C++ de esta función ya estaba escrito en el árbol, con las constantes x87 del original, pero seguía con `{ .reversed = false }`. El banco encontró una diferencia en el caso `water-fade-pitch`, al bajar la frecuencia cuando la cámara vuelve a estar bajo el agua.
+El C++ de las tres ya existía, pero ninguna estaba activa en el juego. El banco encontró un defecto real en cada una:
 
-- **Lo que hacía el C++:** suponía que el original, en 0x4D7486, leía el *volumen objetivo* en lugar de la frecuencia (una "sobrepasada" deliberada).
-- **Lo que hace el original:** en 0x4D7485 hay un `pop edi` **antes** del `fld [esp+14h]`. Al desplazarse la pila 4 bytes, ese operando apunta a la **frecuencia objetivo**, de modo que la "sobrepasada" no existe.
-- **Corrección:** `m_FreqFactor = next > target ? next : target`. La comparación es explícita porque, con NaN, el original también carga la frecuencia objetivo.
+- **`UpdateAmbienceTrackAndVolume`**, caso `water-fade-pitch`. El C++ suponía que el original, en 0x4D7486, leía el *volumen* al bajar la frecuencia bajo el agua (una "sobrepasada" deliberada). Pero en 0x4D7485 hay un `pop edi` **antes** del `fld [esp+14h]`, así que ese desplazamiento apunta a la **frecuencia objetivo**. Ahora la línea es `next > target ? next : target`; la comparación es explícita porque, con NaN, el original también carga la frecuencia objetivo.
+- **`AddAudioEvent`**, caso `thunder-gates`. La velocidad del trueno izquierdo difería en un ulp. La constante del original en 0x862E44 vale `0x3EB674D2` (0.35636002f), y el literal `0.35636f` del C++ redondea a `0x3EB674D1`. Ahora se usa `0.35636002f`.
+- **`SetAudioBuffer`**, caso `pcm-size-frequency`. Los flags del buffer de DirectSound no coincidían. El original calcula `lea ecx,[ecx*4+80B4h]` en 0x4F0D56, es decir `GLOBALFOCUS | CTRLVOLUME | CTRLFREQUENCY | CTRL3D | LOCHARDWARE/LOCSOFTWARE`. El C++ ponía `GETCURRENTPOSITION2` en lugar de `GLOBALFOCUS`.
 
 ## Banco
 
-Los archivos `Probe.hpp`, `LiveComparison.hpp` e `instrument.py` venían del 30/09 y no tenían forma de compilarse ni de ejecutarse. Se añadieron `build.py` y `run_local.py`, siguiendo el esquema de ConversationForPed, y el caso `audio-completion` en `cases.json` y `run_all.py`.
+Los archivos `Probe.hpp`, `LiveComparison.hpp` e `instrument.py` venían del 30/09 y no había forma de compilarlos ni de ejecutarlos. Se añadieron `build.py` y `run_local.py`, siguiendo el esquema de ConversationForPed, y el caso `audio-completion` en `cases.json` y `run_all.py`.
 
-Cada caso ejecuta el original y el candidato por separado. Se controlan los proveedores externos: zonas de audio activas, radio (encendida, emisora, inicio y parada), clima, lluvia por zona, cámara, distancia al agua, atenuación, disturbios y `StopAmbienceTrack`. Se comparan los 44 bytes del gestor y la traza completa de llamadas, se comprueba la entrada original de la función y se restaura el estado del motor. Las familias de casos cubren:
+Cada caso ejecuta el original y el candidato por separado, compara el estado completo y la traza de llamadas, comprueba la entrada original de la función y restaura el estado del motor. Proveedores controlados en cada función:
 
-| Familia | Qué cubre |
-| --- | --- |
-| `audio-zone` | Cada zona −2…69, esfera, caja y ambas, radio y estado |
-| `zone-track-transition` | Zonas con distancia, estados 0–8, pistas y volúmenes límite |
-| `radio-handoff` | Emisora anterior y actual, radio encendida, misión, zona 30 |
-| `weather-zone-priority` | Tormenta de arena, área, lluvia de jugador y cámara, misión |
-| `water-riot-stop` | Bajo el agua, atenuación límite, disturbios, radio del vehículo |
-| `water-fade-pitch` | Rampas de volumen y frecuencia (el caso corregido) |
-| `dam-height` | Zona 4 y la altura 1372 |
-| `water-distance` | Distancias y alturas respecto al agua |
-| `mission-track` | Pista de misión frente a estado y pista actual |
+- **Ambience:** zonas de audio activas, radio, clima, lluvia por zona, cámara, distancia al agua, atenuación, disturbios y `StopAmbienceTrack`.
+- **Weather:** área, lluvia del jugador y de la cámara, banco cargado, inicialización y petición de sonidos.
+- **StaticChannel:** dispositivo y buffers de DirectSound simulados (`Create`, `Lock`, `Unlock`, `Position`, `Query`, `Volume`, con fallos inyectados) y `ConvertFromBytesToMS`.
 
-**Resultado:** los 7.846 casos de `UpdateAmbienceTrackAndVolume` coinciden y el juego se cierra de forma natural con código 0. Partidas e INI quedan intactos. [Resumen](validation-summary.json), con el manifiesto de compilación `artifacts/20261001-212155-352577`.
+| Familia | Función | Qué cubre |
+| --- | --- | --- |
+| `audio-zone`, `zone-track-transition`, `radio-handoff` | Ambience | Cada zona −2…69, transiciones de estado y pista, traspaso de radio |
+| `weather-zone-priority`, `water-riot-stop`, `water-fade-pitch`, `dam-height`, `water-distance`, `mission-track` | Ambience | Tormenta de arena, agua, disturbios, rampas de volumen y frecuencia, presa, misiones |
+| `thunder-gates`, `thunder-voices` | Weather | Puertas de lluvia y área, banco cargado, contador de variación, duraciones límite, volúmenes, peticiones fallidas |
+| `pcm-size-frequency`, `pcm-loop-failures`, `pcm-loop-layout` | StaticChannel | Tamaños y frecuencias límite, bucles, siete puntos de fallo y buffers previos |
+
+**Resultado:** 10.086 de 10.086 pares iguales, cierre natural con código 0, partidas e INI intactos. [Resumen](validation-summary.json).
 
 Pasos para repetirlo:
 
@@ -39,10 +46,12 @@ python reversing/AudioCompletion/build.py
 python reversing/AudioCompletion/run_local.py
 ```
 
+La ejecución tarda unos ocho minutos, sobre todo por los casos PCM, y escribe un registro de unos 350 MB en la copia de pruebas. El límite del ejecutor es de 600 s. Cada compilación archiva unos 790 MB de ASI/PDB en `artifacts/`; los binarios de compilaciones superadas pueden borrarse.
+
 ## Límites
 
-- La sonda se detiene en la primera diferencia. Después de la ambientación prueba `CAEWeatherAudioEntity::AddAudioEvent`, y el caso `thunder-gates-7897` difiere en un ulp de la velocidad de un sonido (0x3EB6DBD2 frente a 0x3EB6DBD1). `SetAudioBuffer` no llegó a compararse. **Ninguna de las dos está validada aquí.**
-- No se escucha ni se valida la mezcla real del audio.
-- `dependency_review` es nulo: coinciden los hashes de las fuentes probadas, pero la vigencia global está pendiente, igual que en las demás acreditaciones.
+- No se escucha ni se valida la mezcla o reproducción real del audio.
+- `dependency_review` es nulo: las fuentes probadas coinciden, pero la vigencia global queda pendiente, igual que en las demás acreditaciones.
+- Una ejecución terminó con código 3 justo después de `Initialised SoundManager`, antes de llegar a los casos. Es el fallo intermitente al iniciar el audio que ya estaba documentado; al repetir se completó.
 
-**Instalación:** el ASI normal con el hook activo pasó 60 s dentro de partida con el audio activo. El `runtime-hooks.csv` muestra `UpdateAmbienceTrackAndVolume` con `reversed=1`. Al terminar se restauró el ASI instalado (`a0c5e7fb…`).
+**Instalación:** el ASI normal con los tres hooks activos pasó 60 s dentro de partida con el audio activo. `audit_hook_catalog.py --runtime` no encontró diferencias entre `hooks.csv` y el registro real. Al terminar se restauró el ASI instalado (`a0c5e7fb…`).

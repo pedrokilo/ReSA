@@ -16,11 +16,12 @@ public:
     int32                 m_nNumLockBytes;
     uint16                m_nNumLoops;
     uint16                field_82;
-    IDirectSound3DBuffer* m_pBuffer;
+    const void*           m_pBuffer;            //!< Source PCM bytes; this is not a COM interface.
     uint16                field_88;
     bool                  m_IsHardwareMixAvailable;
     char                  field_8B;
-    int32                 field_8C;
+    int16                 field_8C;
+    uint16                _pad8E;
 
 public:
     CAEStaticChannel(IDirectSound* pDirectSound, uint16 channelId, bool arg3, uint32 samplesPerSec, uint16 bitsPerSample);
@@ -33,7 +34,7 @@ public:
     void   SynchPlayback() override;
     void   Stop() override;
 
-    bool SetAudioBuffer(IDirectSound3DBuffer* buffer, uint16 size, int16 f88, int16 f8c, int16 loopOffset, uint16 frequency);
+    bool SetAudioBuffer(const void* buffer, uint32 size, int16 f88, int16 f8c, int16 loopOffset, uint16 frequency);
 
 private:
     friend void InjectHooksMain();

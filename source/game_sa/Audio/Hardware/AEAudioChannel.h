@@ -23,7 +23,8 @@ public:
     IDirectSound3DBuffer* m_pDirectSound3DBuffer;
 #endif
 
-    char                  _pad10[24];
+    char                  _pad10[20];
+    uint32                m_nBufferSize;        //!< Allocated DirectSound buffer bytes (may exceed sample length).
     uint32                m_nFlags;
     uint32                m_nLengthInBytes;
     uint32                m_dwStopTime; // unused
@@ -89,6 +90,7 @@ private:
 VALIDATE_SIZE(CAEAudioChannel, 0x60);
 VALIDATE_OFFSET(CAEAudioChannel, m_pDirectSound, 0x4);
 VALIDATE_OFFSET(CAEAudioChannel, m_nChannelId, 0x3A);
+VALIDATE_OFFSET(CAEAudioChannel, m_nBufferSize, 0x24);
 //VALIDATE_OFFSET(CAEAudioChannel, m_nBufferFrequency, 0x4B);
 //VALIDATE_OFFSET(CAEAudioChannel, m_wFrequencyMult, 0x49);
 

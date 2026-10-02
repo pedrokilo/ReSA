@@ -934,7 +934,7 @@
       },
       "evidence": {
         "path": "reversing/AudioCompletion/validation-summary.json",
-        "sha256": "d840ae752029d5e8a963ab6a368a5f419baa4027e6bdebf4d8a9832952192207",
+        "sha256": "2e0fbe1f3d63be98cc16ed8e72952c4b2617470d56eea5aea0d38b1f37fb7910",
         "passed_path": [
           "covered_functions",
           "UpdateAmbienceTrackAndVolume"
@@ -946,9 +946,61 @@
         "source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp": "f2c3ab6e589eccfe03063dbb031dead5df739fba19227e464ea0588659877bac",
         "source/game_sa/Audio/Managers/AEAmbienceTrackManager.h": "130489b3c18d3e9b9ac473ea13dc5e2d23beeaf402284660718b2aa32afc619f"
       },
-      "source_provenance": "Independent in-engine fixtures; exact source hashes from the archived build manifest (20261001-212155-352577), including generated status comments. No whole-tree dependency accreditation.",
+      "source_provenance": "Independent in-engine fixtures; exact source hashes from the archived build manifest (20261001-220721-744302), including generated status comments. No whole-tree dependency accreditation.",
       "dependency_review": null,
-      "scope": "7.846 casos con ejecuciones independientes original/candidato, proveedores externos controlados (zonas, radio, clima, cámara, atenuación, StopAmbienceTrack) y comparación exacta de estado y traza. El banco se detuvo después en AddAudioEvent (otra función). No acredita la reproducción de audio ni la estabilidad prolongada.",
+      "scope": "7.846 casos con ejecuciones independientes original/candidato, proveedores externos controlados (zonas, radio, clima, cámara, atenuación y StopAmbienceTrack) y comparación exacta de estado y traza. Banco completo: 10.086 pares del lote de audio. No acredita la reproducción de audio ni la estabilidad prolongada.",
+      "review_reference": "reversing/AudioCompletion/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAEWeatherAudioEntity",
+        "fn_name": "AddAudioEvent",
+        "address": "0x00506800",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/AudioCompletion/validation-summary.json",
+        "sha256": "2e0fbe1f3d63be98cc16ed8e72952c4b2617470d56eea5aea0d38b1f37fb7910",
+        "passed_path": [
+          "covered_functions",
+          "AddAudioEvent"
+        ],
+        "pairs": 656,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp": "d3b391f7cdc26cfe9af30654b7cb8fae9720df9bbcb04db19d617f260b9a587e",
+        "source/game_sa/Audio/Entities/AEWeatherAudioEntity.h": "b526036264d8e6d7d1fa12feac6ebfd2562ccabbab9733a138b93eec2082f63a"
+      },
+      "source_provenance": "Independent in-engine fixtures; exact source hashes from the archived build manifest (20261001-220721-744302), including generated status comments. No whole-tree dependency accreditation.",
+      "dependency_review": null,
+      "scope": "656 casos con ejecuciones independientes original/candidato, proveedores externos controlados (área, lluvia de jugador/cámara, banco cargado, inicialización y petición de sonidos) y comparación exacta de estado y traza. Banco completo: 10.086 pares del lote de audio. No acredita la reproducción de audio ni la estabilidad prolongada.",
+      "review_reference": "reversing/AudioCompletion/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAEStaticChannel",
+        "fn_name": "SetAudioBuffer",
+        "address": "0x004F0C40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/AudioCompletion/validation-summary.json",
+        "sha256": "2e0fbe1f3d63be98cc16ed8e72952c4b2617470d56eea5aea0d38b1f37fb7910",
+        "passed_path": [
+          "covered_functions",
+          "SetAudioBuffer"
+        ],
+        "pairs": 1584,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Audio/Hardware/AEStaticChannel.cpp": "929e02c7435a79de18513ced03c8fb4821d6eaaf45c455770c45e733c255ddeb",
+        "source/game_sa/Audio/Hardware/AEStaticChannel.h": "1ae3160579e78cdf99de6da5160356cbc4675d5c697b93635e8d8b393a4e84a5"
+      },
+      "source_provenance": "Independent in-engine fixtures; exact source hashes from the archived build manifest (20261001-220721-744302), including generated status comments. No whole-tree dependency accreditation.",
+      "dependency_review": null,
+      "scope": "1.584 casos con ejecuciones independientes original/candidato, proveedores externos controlados (dispositivo y buffers DirectSound simulados (Create/Lock/Unlock/Position/Query/Volume, fallos inyectados) y ConvertFromBytesToMS) y comparación exacta de estado y traza. Banco completo: 10.086 pares del lote de audio. No acredita la reproducción de audio ni la estabilidad prolongada.",
       "review_reference": "reversing/AudioCompletion/README.md"
     }
   ]

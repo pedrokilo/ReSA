@@ -6,17 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CAEWeatherAudioEntity
- * Reconstrucción: INCOMPLETA — 4/5 funciones reconstruidas.
- * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 1.
- * Evidencia aprobada vinculada: 0/5 entradas.
+ * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   AddAudioEvent | 0x00506800 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   AddAudioEvent | 0x00506800 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -65,9 +61,49 @@ void CAEWeatherAudioEntity::StaticReset() {
     }
 }
 
-// 0x506800, see discord gists channel
+// 0x506800
 void CAEWeatherAudioEntity::AddAudioEvent(eAudioEvents event) {
-    plugin::CallMethod<0x506800, CAEWeatherAudioEntity*, eAudioEvents>(this, event);
+    CAESound sound;
+    if (event != AE_THUNDER || CGame::currArea != AREA_CODE_NORMAL_WORLD || CCullZones::PlayerNoRain() || CCullZones::CamNoRain()) {
+        return;
+    }
+    if (!AEAudioHardware.IsSoundBankLoaded(SND_BANK_GENRL_EXPLOSIONS, SND_BANK_SLOT_EXPLOSIONS)) {
+        AEAudioHardware.LoadSoundBank(SND_BANK_GENRL_EXPLOSIONS, SND_BANK_SLOT_EXPLOSIONS);
+        return;
+    }
+    // The original evaluates the logarithm on the x87 stack, without first
+    // rounding the lightning-duration expression to float.
+    const auto duration = double(CWeather::LightningDuration);
+    const auto defaultVolume = GetDefaultVolume(AE_THUNDER);
+    const float durationScale = 0.0375f, decibels = 20.f;
+    const double base = 0.25;
+    float volume;
+    __asm {
+        fld duration
+        fmul durationScale
+        fadd base
+        fldlg2
+        fxch st(1)
+        fyl2x
+        fmul decibels
+        fadd defaultVolume
+        fstp volume
+    }
+    m_nThunderFrequencyVariationCounter = (m_nThunderFrequencyVariationCounter + 1) % 3;
+    const auto& frequencies = StaticRef<std::array<float, 3>>(0x8CC300);
+    const float pitch = frequencies[m_nThunderFrequencyVariationCounter];
+    constexpr CVector left{-0.906f, 0.423f, 0.f}, right{0.906f, 0.423f, 0.f};
+    // 0x862E44 vale 0x3EB674D2 (0.35636002f): un ulp por encima de lo que da el literal 0.35636f.
+    constexpr float leftSpeed = 0.35636002f;
+    const auto Play = [&](eSoundID id, const CVector& position, float level, float speed, uint16 flags, int32 weatherEvent) {
+        sound.Initialise(SND_BANK_SLOT_EXPLOSIONS, id, this, position, level, 1.f, speed, 1.f, 0, flags);
+        sound.m_Event = weatherEvent;
+        AESoundManager.RequestNewSound(&sound);
+    };
+    Play(4, left, -100.f, pitch * leftSpeed, SOUND_FRONT_END | SOUND_IS_CANCELLABLE | SOUND_REQUEST_UPDATES, 1);
+    Play(4, right, -100.f, pitch * 0.4f, SOUND_FRONT_END | SOUND_IS_CANCELLABLE | SOUND_REQUEST_UPDATES, 1);
+    Play(1, left, std::min(volume, 0.f), pitch * leftSpeed, SOUND_FRONT_END | SOUND_IS_CANCELLABLE | SOUND_REQUEST_UPDATES | SOUND_ROLLED_OFF, 2);
+    Play(1, right, std::min(volume, 0.f), pitch * 0.4f, SOUND_FRONT_END | SOUND_IS_CANCELLABLE | SOUND_REQUEST_UPDATES | SOUND_ROLLED_OFF, 2);
 }
 
 // 0x505A00
@@ -326,7 +362,7 @@ void CAEWeatherAudioEntity::InjectHooks() {
 
     RH_ScopedInstall(StaticInitialise, 0x5B9A70);
     RH_ScopedInstall(StaticReset, 0x5052B0);
-    RH_ScopedInstall(AddAudioEvent, 0x506800, { .reversed = false });
+    RH_ScopedInstall(AddAudioEvent, 0x506800);
     RH_ScopedVMTInstall(UpdateParameters, 0x505A00);
     RH_ScopedInstall(Service, 0x5052F0);
 }

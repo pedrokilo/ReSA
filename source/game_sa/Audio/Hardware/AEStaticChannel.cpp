@@ -6,17 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CAEStaticChannel
- * Reconstrucción: INCOMPLETA — 7/8 funciones reconstruidas.
- * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 1.
- * Evidencia aprobada vinculada: 0/8 entradas.
+ * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   SetAudioBuffer | 0x004F0C40 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   SetAudioBuffer | 0x004F0C40 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -38,7 +34,7 @@ void CAEStaticChannel::InjectHooks() {
     RH_ScopedVMTInstall(SynchPlayback, 0x4F1040);
     RH_ScopedVMTInstall(Stop, 0x4F0FB0);
 
-    RH_ScopedInstall(SetAudioBuffer, 0x4F0C40, {.reversed = false});
+    RH_ScopedInstall(SetAudioBuffer, 0x4F0C40);
 }
 
 CAEStaticChannel::CAEStaticChannel(IDirectSound* pDirectSound, uint16 channelId, bool hardwareMixAvailable, uint32 samplesPerSec, uint16 bitsPerSample) :
@@ -171,6 +167,90 @@ void CAEStaticChannel::Stop() {
     }
 }
 
-bool CAEStaticChannel::SetAudioBuffer(IDirectSound3DBuffer* buffer, uint16 size, int16 f88, int16 f8c, int16 loopOffset, uint16 frequency) {
-    return false;
+// 0x4F0C40
+bool CAEStaticChannel::SetAudioBuffer(const void* buffer, uint32 size, int16 f88, int16 f8c, int16 loopOffset, uint16 frequency) {
+    if (!size || !frequency) {
+        return false;
+    }
+    if (m_pDirectSoundBuffer) {
+        --g_numSoundChannelsUsed;
+        m_pDirectSoundBuffer->Release();
+    }
+    m_pDirectSoundBuffer = nullptr;
+    if (m_pDirectSound3DBuffer) {
+        m_pDirectSound3DBuffer->Release();
+    }
+    m_pDirectSound3DBuffer = nullptr;
+    m_pBuffer = buffer;
+    m_nCurrentBufferOffset = 0;
+    field_68 = 0;
+    m_bLooped = false;
+    m_bNeedData = false;
+    m_bPaused = false;
+    field_6C = 0;
+    m_nLengthInBytes = size;
+    field_88 = f88;
+    field_8C = f8c;
+    if (loopOffset != -1) {
+        m_bLooped = true;
+        m_nCurrentBufferOffset = int32(loopOffset) * 2;
+        field_68 = size;
+    }
+    if (m_bLooped && m_nCurrentBufferOffset && uint32(field_68) != uint32(m_nCurrentBufferOffset)) {
+        m_nNumLockBytes = uint32(field_68) - uint32(m_nCurrentBufferOffset);
+        field_6C = std::max(uint32(field_68), 24000u) / uint32(m_nNumLockBytes) + 1;
+        m_nBufferSize = uint32(field_6C) * uint32(m_nNumLockBytes);
+    } else {
+        m_nBufferSize = size;
+    }
+    m_WaveFormat = {WAVE_FORMAT_PCM, 1, frequency, uint32(frequency) * 2, 2, 16, 0};
+    m_nFrequency = frequency;
+    m_nOriginalFrequency = frequency;
+    DSBUFFERDESC desc{};
+    desc.dwSize = sizeof(desc);
+    // 0x4F0D56: lea ecx,[ecx*4+80B4h] -> GLOBALFOCUS (0x8000), no GETCURRENTPOSITION2.
+    desc.dwFlags = DSBCAPS_CTRL3D | DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLVOLUME | DSBCAPS_GLOBALFOCUS
+        | (m_IsHardwareMixAvailable ? DSBCAPS_LOCHARDWARE : DSBCAPS_LOCSOFTWARE);
+    desc.dwBufferBytes = m_nBufferSize;
+    desc.lpwfxFormat = &m_WaveFormat;
+    if (FAILED(m_pDirectSound->CreateSoundBuffer(&desc, &m_pDirectSoundBuffer, nullptr))) {
+        return false;
+    }
+    ++g_numSoundChannelsUsed;
+    void* audio{};
+    DWORD audioBytes{};
+    if (FAILED(m_pDirectSoundBuffer->Lock(0, m_nLengthInBytes, &audio, &audioBytes, nullptr, nullptr, DSBLOCK_ENTIREBUFFER))) {
+        if (m_pDirectSoundBuffer) {
+            m_pDirectSoundBuffer->Release();
+        }
+        m_pDirectSoundBuffer = nullptr;
+        // The original does not decrement the global channel count on this failure.
+        return false;
+    }
+    uint32 initialPosition{};
+    const auto* source = static_cast<const uint8*>(m_pBuffer);
+    auto* destination = static_cast<uint8*>(audio);
+    if (!m_nCurrentBufferOffset) {
+        std::memcpy(destination, source, size);
+        if (size < m_nLengthInBytes) {
+            std::memset(destination + size, 0, m_nLengthInBytes - size);
+        }
+        m_bNeedData = false;
+    } else {
+        initialPosition = m_nBufferSize - uint32(m_nCurrentBufferOffset);
+        std::memcpy(destination + initialPosition, source, m_nCurrentBufferOffset);
+        m_nNumLoops = uint32(m_nCurrentBufferOffset) / uint32(m_nNumLockBytes) + 1;
+        m_dwLockOffset = m_nBufferSize - uint32(m_nNumLoops) * uint32(m_nNumLockBytes);
+        for (uint16 i = 0; i < uint32(field_6C) - m_nNumLoops; ++i) {
+            std::memcpy(destination + uint32(i) * uint32(m_nNumLockBytes), source + m_nCurrentBufferOffset, m_nNumLockBytes);
+        }
+        field_74 = int16(ConvertFromBytesToMS(m_nCurrentBufferOffset));
+        m_bNeedData = true;
+    }
+    m_pDirectSoundBuffer->Unlock(audio, audioBytes, nullptr, 0);
+    m_pDirectSoundBuffer->SetCurrentPosition(initialPosition);
+    m_pDirectSoundBuffer->QueryInterface(IID_IDirectSound3DBuffer, reinterpret_cast<void**>(&m_pDirectSound3DBuffer));
+    m_Volume = -100.f;
+    m_pDirectSoundBuffer->SetVolume(-10000);
+    return true;
 }

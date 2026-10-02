@@ -10,7 +10,7 @@
 
 class NOTSA_EXPORT_VTABLE CAEWeatherAudioEntity : public CAEAudioEntity {
 public:
-    uint8 m_nThunderFrequencyVariationCounter;
+    int8 m_nThunderFrequencyVariationCounter;
 
     static inline auto& m_sfRainVolume = StaticRef<float>(0x8CC30C); // -100.0f
 
