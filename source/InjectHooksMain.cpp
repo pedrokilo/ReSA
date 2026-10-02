@@ -166,6 +166,7 @@
 #include "Credits.h"
 #include "Tasks/TaskComplexUseSequence.h"
 #include "Entity/Ped/PlayerSkin.h"
+#include "CoverPoint.h"
 #include "CarFXRenderer.h"
 #include "Curves.h"
 #include "ProcObjectMan.h"
@@ -730,6 +731,7 @@ void InjectHooksMain() {
     CMotionBlurStreaks::InjectHooks();
     CRegisteredMotionBlurStreak::InjectHooks();
     CCover::InjectHooks();
+    CCoverPoint::InjectHooks();
     CVehicleAnimGroup::InjectHooks();
     CVehicleAnimGroupData::InjectHooks();
     CPedDamageResponseCalculator::InjectHooks();

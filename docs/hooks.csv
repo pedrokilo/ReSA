@@ -8394,3 +8394,6 @@ CPlayerSkin,GetSkinTexture,0x006FFA10,1,0,0,S
 CPlayerSkin,Initialise,0x006FF8A0,1,0,0,S
 CPlayerSkin,RenderFrontendSkinEdit,0x006FF900,1,0,0,S
 CPlayerSkin,Shutdown,0x006FF8D0,1,0,0,S
+CCoverPoint,CanAccommodateAnotherPed,0x00698E70,1,0,0,S
+CCoverPoint,ReleaseCoverPointForPed,0x00698EF0,1,0,0,S
+CCoverPoint,ReserveCoverPointForPed,0x00698EB0,1,0,0,S
