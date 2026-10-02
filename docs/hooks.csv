@@ -8419,3 +8419,7 @@ CTaskComplexCrossRoadLookAndAchieveHeading,CreateSubTask,0x00631B60,1,0,0,S
 CTaskComplexCrossRoadLookAndAchieveHeading,Destructor,0x00631B50,1,0,0,S
 CTaskComplexCrossRoadLookAndAchieveHeading,GetTaskType,0x00631B10,1,0,0,V
 CTaskComplexCrossRoadLookAndAchieveHeading,MakeAbortable,0x00631B20,1,0,0,V
+CTaskSimpleNone,Clone,0x00463570,1,0,0,V
+CTaskSimpleNone,GetTaskType,0x004635C0,1,0,0,V
+CTaskSimpleNone,MakeAbortable,0x004635D0,1,0,0,V
+CTaskSimpleNone,ProcessPed,0x004635E0,1,0,0,V

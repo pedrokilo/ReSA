@@ -337,6 +337,7 @@
 #include "TaskSimpleCarShuffle.h"
 #include "TaskSimpleCarSlowBeDraggedOut.h"
 #include "TaskComplexReactToGunAimedAt.h"
+#include "Tasks/TaskTypes/TaskSimpleNone.h"
 #include "TaskSimpleNone.h"
 #include "TaskComplexKillPedOnFoot.h"
 #include "TaskSimpleThrowProjectile.h"
@@ -1292,7 +1293,7 @@ void InjectHooksMain() {
         CTaskSimplePause::InjectHooks();
         CTaskComplexEnterCarAsDriver::InjectHooks();
         CTaskComplexEnterCarAsPassenger::InjectHooks();
-        // CTaskSimpleNone::InjectHooks();
+        CTaskSimpleNone::InjectHooks();
         CTaskComplexKillPedOnFoot::InjectHooks();
         CTaskSimpleThrowProjectile::InjectHooks();
         CTaskSimpleGoToPoint::InjectHooks();
