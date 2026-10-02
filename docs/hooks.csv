@@ -2174,7 +2174,7 @@ CGame,ShutDownForRestart,0x0053C550,1,0,0,S
 CGame,Shutdown,0x0053C900,1,0,0,S
 CGame,ShutdownRenderWare,0x0053BB80,1,0,0,S
 CGame,TidyUpMemory,0x0053C500,1,0,0,S
-CGame,ValidateVersion,0x005BA0BC,1,0,0,S
+CGame,ValidateVersion,0x005BA060,1,0,0,S
 CFormation,DistributeDestinations,0x0069B240,0,1,0,S
 CFormation,DistributeDestinations_CoverPoints,0x0069B5B0,0,1,0,S
 CFormation,DistributeDestinations_PedsToAttack,0x0069B700,0,1,0,S
