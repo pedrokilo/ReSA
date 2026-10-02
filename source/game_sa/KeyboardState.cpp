@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/1 entradas.
+ * Validación registrada: 1/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -29,5 +29,7 @@ void CKeyboardState::InjectHooks() {
 
 // 0x53F090
 void CKeyboardState::Clear() {
+    const auto keepEnter = enter; // 0x53F090 clears every key except `enter` (offset 0x23C is skipped)
     *this = CKeyboardState{};
+    enter = keepEnter;
 }

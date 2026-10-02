@@ -90,8 +90,26 @@ void CAEAudioHardware::InjectHooks() {
 }
 
 // 0x4D83E0
+// Como el original: sólo estos campos se inicializan; el resto queda tal cual.
 CAEAudioHardware::CAEAudioHardware() {
-    rng::fill(m_afChannelVolumes, -1000.0f);
+    for (auto i = 0; i < MAX_NUM_AUDIO_CHANNELS; i++) {
+        m_anNumChannelsInSlot[i] = 0;
+        m_afChannelVolumes[i]    = -1000.0f;
+        m_awChannelFlags[i]      = 0;
+    }
+    // m_VirtualChannelSettings: su constructor pone BankSlotIDs/SoundIDs a -1.
+    m_fMusicMasterScalingFactor    = 1.0f;
+    m_fEffectMasterScalingFactor   = 1.0f;
+    m_fMusicFaderScalingFactor     = 1.0f;
+    m_fEffectsFaderScalingFactor   = 1.0f;
+    m_fNonStreamFaderScalingFactor = 1.0f;
+    m_fStreamFaderScalingFactor    = 1.0f;
+    m_nNumAvailableChannels        = 0;
+    m_n3dEffectsQueryResult        = 0;
+    m_bDisableEffectsLoading       = false;
+    m_bInitialised                 = false;
+    m_nReverbEnvironment           = (uint8)-1;
+    m_nReverbDepth                 = -10000;
 }
 
 // 0x4D9930
@@ -103,7 +121,7 @@ bool CAEAudioHardware::Initialise() {
         return false;
     }
 
-    VERIFY(SUCCEEDED(CoInitialize(nullptr)));
+    CoInitialize(nullptr); // Como el original: se ignora el resultado.
 
 #if 0 // No EAX
     if (FAILED(EAXDirectSoundCreate(
@@ -114,8 +132,8 @@ bool CAEAudioHardware::Initialise() {
         return false;
     }
 #else
-    // TODO: Use DirectSoundCreate.
-    if (FAILED(DirectSoundCreate8(&DSDEVID_DefaultPlayback, &m_pDSDevice, 0))) {
+    // Como el original: DirectSoundCreate8(NULL, ...) (dispositivo por defecto).
+    if (FAILED(DirectSoundCreate8(nullptr, &m_pDSDevice, 0))) {
         return false;
     }
 #endif
@@ -143,10 +161,10 @@ bool CAEAudioHardware::Initialise() {
         AESmoothFadeThread.m_nNumAvailableBuffers = 7;
     }
 
-    m_aChannels[0] = m_pStreamingChannel;
     for (auto i = 1u; i < m_nNumChannels; i++) {
         m_aChannels[i] = new CAEStaticChannel(m_pDSDevice, i, m_IsHardwareMixAvailable, 44'100, 16);
     }
+    m_aChannels[0] = m_pStreamingChannel; // Como el original: se escribe después del bucle.
 
     m_pStreamingChannel->SetVolume(-100.0f);
     m_awChannelFlags[0] = 55; // todo: flag
@@ -154,19 +172,17 @@ bool CAEAudioHardware::Initialise() {
     if (FrontEndMenuManager.m_bTracksAutoScan) {
         AEUserRadioTrackManager.ScanUserTracks();
 
-        // Wait other threads until scanning is done.
+        // Como el original: lee el estado una vez por iteración; COMPLETE/ERROR -> OFF y
+        // sale; IN_PROGRESS -> Sleep(100) y repite; cualquier otro valor sale.
         auto& state = AEUserRadioTrackManager.m_nUserTracksScanState;
-        while (state == USER_TRACK_SCAN_IN_PROGRESS) {
-            switch (state) {
-            case USER_TRACK_SCAN_COMPLETE:
-            case USER_TRACK_SCAN_ERROR:
-                // Set off after ended up complete or failed.
+        for (;;) {
+            const auto current = *static_cast<volatile eUserTrackScanState*>(&state);
+            if (current == USER_TRACK_SCAN_COMPLETE || current == USER_TRACK_SCAN_ERROR) {
                 state = USER_TRACK_SCAN_OFF;
-                break;
-            default:
+            }
+            if (current != USER_TRACK_SCAN_IN_PROGRESS) {
                 break;
             }
-
             Sleep(100);
         }
     }
@@ -200,13 +216,15 @@ bool CAEAudioHardware::InitDirectSoundListener(uint32 numChannels, uint32 sample
         return false;
     }
 
-    const auto nBlockAlign = numChannels * bitsPerSample / 8;
+    // Como el original: (WORD)bits >> 3, multiplicado por los canales y truncado a WORD;
+    // nAvgBytesPerSec usa ese nBlockAlign ya truncado.
+    const auto nBlockAlign = (WORD)((uint32)((WORD)bitsPerSample >> 3) * numChannels);
     WAVEFORMATEX wavFmt{
         .wFormatTag      = 1,
         .nChannels       = (WORD)numChannels,
         .nSamplesPerSec  = samplesPerSec,
-        .nAvgBytesPerSec = samplesPerSec * nBlockAlign,
-        .nBlockAlign     = (WORD)nBlockAlign,
+        .nAvgBytesPerSec = (uint32)nBlockAlign * samplesPerSec,
+        .nBlockAlign     = nBlockAlign,
         .wBitsPerSample  = (WORD)bitsPerSample,
         .cbSize          = 0
     };
@@ -249,11 +267,22 @@ void CAEAudioHardware::Terminate() {
     m_pStreamThread.Stop();
     AESmoothFadeThread.Stop();
     m_pStreamThread.WaitForExit();
-    for (const auto ch : GetChannels()) {
-        delete ch;
+    AESmoothFadeThread.WaitForExit(); // Como el original (0x4EEA40).
+    // Como el original: recorre los 64 slots (no m_nNumChannels) y los pone a nullptr.
+    for (auto& ch : m_aChannels) {
+        if (ch) {
+            delete ch;
+            ch = nullptr;
+        }
     }
-    delete std::exchange(m_pMP3BankLoader, nullptr);
-    delete std::exchange(m_pMP3TrackLoader, nullptr);
+    if (m_pMP3BankLoader) {
+        delete m_pMP3BankLoader;
+        m_pMP3BankLoader = nullptr;
+    }
+    if (m_pMP3TrackLoader) {
+        delete m_pMP3TrackLoader;
+        m_pMP3TrackLoader = nullptr;
+    }
     SAFE_RELEASE(m_pDirectSound3dListener);
     SAFE_RELEASE(m_pDSDevice);
 }
@@ -285,7 +314,7 @@ int16 CAEAudioHardware::AllocateChannels(uint16 numChannels) {
 
 // 0x4D94A0
 void CAEAudioHardware::SetBassSetting(eBassSetting bassSetting, float bassGain) {
-    m_BassSetting = bassSetting;
+    m_BassSetting = static_cast<int32>(static_cast<int8>(bassSetting)); // Como el original: movsx a dword.
     m_BassGain    = bassGain;
     m_pStreamingChannel->SetBassEQ(bassSetting, bassGain);
 }
@@ -297,11 +326,19 @@ uint16 CAEAudioHardware::GetNumAvailableChannels() const {
 
 // 0x4D8820
 void CAEAudioHardware::GetChannelPlayTimes(int16 channel, int16* playTimes) {
+    // Como el original: comparación sin signo de `channel` con `channel + n - 1`, de modo que
+    // sólo se copian n - 1 tiempos y en orden ascendente (con n == 0 y channel == 0 desborda igual).
+    const uint32 numInSlot = m_anNumChannelsInSlot[channel];
     if (!playTimes)
         return;
 
-    for (auto i = m_anNumChannelsInSlot[channel]; i-- > 0;) {
-        playTimes[i] = m_aChannels[channel + i]->GetPlayTime();
+    const uint32 first = (uint32)(int32)channel;
+    const uint32 last  = numInSlot + first - 1;
+    if (first >= last)
+        return;
+
+    for (uint32 k = 0; k < last - first; k++) {
+        playTimes[k] = m_aChannels[first + k]->GetPlayTime();
     }
 }
 
@@ -462,7 +499,8 @@ void CAEAudioHardware::RescaleChannelVolumes() {
         auto&      vol   = m_afChannelVolumes[i];
 
         if (flags & FLAG_CLAMP_VOL_TO_NEG) {
-            vol = std::min(vol, 0.0f);
+            // Como el original: sólo conserva vol si vol < 0 (NaN y -0.0 pasan a +0.0).
+            vol = vol < 0.0f ? vol : 0.0f;
         } else if (flags & FLAG_SECONDARY_GROUP) {
             vol -= maxVolumeSecondary;
         } else {
@@ -481,7 +519,9 @@ void CAEAudioHardware::RescaleChannelVolumes() {
             // NOTE: `static_cast<int16>` reproduces the original's MOVSX sign-extension (0x4D8BB2).
             const auto  length    = static_cast<int16>(ch->GetLength());
             const auto  playTime  = ch->GetPlayTime();
-            const float remaining = static_cast<float>(length - playTime) * m_ChannelGains[i] / static_cast<float>(length);
+            // Como el original: fild exacto de la diferencia, fmul y fidiv redondeados a float.
+            const float scaled    = static_cast<float>(static_cast<double>(length - playTime) * m_ChannelGains[i]);
+            const float remaining = static_cast<float>(static_cast<double>(scaled) / static_cast<double>(length));
             scaleSum += remaining < 0.0f ? 0.0f : std::min(remaining, m_ChannelGains[i]);
         } else {
             scaleSum += m_ChannelGains[i];
@@ -532,18 +572,20 @@ void CAEAudioHardware::UpdateReverbEnvironment() {
     int8 reverb;
     int32 depth;
     CAEAudioEnvironment::GetReverbEnvironmentAndDepth(&reverb, &depth);
-    if (reverb == m_nReverbEnvironment && depth == m_nReverbDepth) { // Nothing is changing?
+    // Como el original: comparación de bytes (cmp dl,al).
+    if ((uint8)reverb == m_nReverbEnvironment && depth == m_nReverbDepth) { // Nothing is changing?
         return;
     }
 
-    if (!rng::none_of(GetChannels(), [=](CAEAudioChannel* ch) { // Also covers the case of `m_nNumChannels == 0`
-        return ch && ch->SetReverbAndDepth(reverb, depth); }
-    )) {
-        return;
+    // Como el original: se guarda el nuevo entorno sólo cuando algún canal acepta el cambio
+    // (se detiene en el primero); sin canales o si ninguno lo acepta no se guarda nada.
+    for (const auto ch : GetChannels()) {
+        if (ch && ch->SetReverbAndDepth(reverb, depth)) {
+            m_nReverbEnvironment = reverb;
+            m_nReverbDepth       = depth;
+            return;
+        }
     }
-
-    m_nReverbEnvironment = reverb;
-    m_nReverbDepth       = depth;
 }
 
 // 0x4D8E30
@@ -563,7 +605,9 @@ void CAEAudioHardware::DisableEffectsLoading() {
 
 // 0x4D8E60
 void CAEAudioHardware::RequestVirtualChannelSoundInfo(uint16 vch, eSoundID sfx, eSoundBankSlot slot) {
-    assert(vch < MAX_NUM_SOUNDS);
+    if (vch >= MAX_NUM_SOUNDS) { // Como el original: índice fuera de rango -> no hace nada.
+        return;
+    }
 
     m_VirtualChannelSettings.BankSlotIDs[vch] = slot;
     m_VirtualChannelSettings.SoundIDs[vch]    = sfx;
@@ -616,68 +660,87 @@ int32 CAEAudioHardware::GetPlayingTrackID() const {
 }
 
 // 0x4D8FA0
+// Como el original: actualiza gBeatInfo, lo copia entero a `beatInfo` y libera el tTrackInfo
+// con operator delete. Los tiempos de la ventana son relativos al inicio de la ventana de
+// búsqueda (playTime, o playTime - 50 acotado a 0 si ya había un beat anterior), con
+// comparaciones con signo y sin comprobar límites al buscar.
 void CAEAudioHardware::GetBeatInfo(tBeatInfo* beatInfo) {
-    const auto bi = &gBeatInfo;
+    auto& bi = gBeatInfo;
 
     if (m_pStreamThread.GetActiveTrackID() == -1) {
-        bi->IsBeatInfoPresent = false;
-        rng::fill(bi->BeatWindow, tTrackInfo::tBeat{});
-        return;
+        bi.IsBeatInfoPresent = 0;
+        rng::fill(bi.BeatWindow, tTrackInfo::tBeat{});
+        return; // Como el original: no copia nada a `beatInfo`.
     }
 
-    const auto trkId       = m_pStreamThread.GetActiveTrackID();
-    const auto trkInfo     = std::unique_ptr<tTrackInfo>{ m_pMP3TrackLoader->GetTrackInfo(trkId) };
-    const auto trkPlayTime = m_pStreamThread.GetTrackPlayTime();
+    tTrackInfo* const trkInfo = m_pMP3TrackLoader->GetTrackInfo(m_pStreamThread.GetActiveTrackID());
+    int32             time    = m_pStreamThread.GetTrackPlayTime();
 
-    // Index of the first beat in the given time window
-    size_t i = 0;
-
-    if (trkPlayTime < 0 || trkInfo->m_aBeats[0].m_nTime < 0) {
-        if (trkPlayTime != -7) {
-            bi->IsBeatInfoPresent = false;
-            rng::fill(bi->BeatWindow, tTrackInfo::tBeat{});
-        }
-    } else {
-        const auto beatTimeWindowBegin = bi->BeatNumber
-            ? std::max(0u, (uint32)trkPlayTime - 50u)
-            : (uint32)trkPlayTime;
-
-        bi->IsBeatInfoPresent = true;
-        bi->BeatTypeThisFrame = 0;
-        bi->BeatNumber        = -1;
-        rng::fill(bi->BeatWindow, tTrackInfo::tBeat{});
-
-        //> 0x4D904C - Find first beat in the given time window
-        for (; trkInfo->m_aBeats[i].m_nKey && trkInfo->m_aBeats[i].m_nTime < beatTimeWindowBegin; i++);
-    }
-
-    // 0x4D9346 and 0x4D9088 combined - Copy beats at the beginning of the time window
-    for (auto k = 0u; k < std::min(10u, i); k++) {
-        auto& beat    = bi->BeatWindow[10 - i];
-        beat          = trkInfo->m_aBeats[i - k - 1];
-        beat.m_nTime -= trkPlayTime;
-    }
-
-    if (trkInfo->m_aBeats[i].m_nKey != 0) {
-        // 0x4D9078
-        if (i != bi->BeatNumber && i > 0) {
-            bi->BeatTypeThisFrame = trkInfo->m_aBeats[i - 1].m_nKey;
-        }
-
-        // 0x4D91A9
-        for (auto k = 0u; k < std::min(std::size(trkInfo->m_aBeats) - i, 10u); k++) { // Copy beats towards the end
-            auto& beat = bi->BeatWindow[10 + i];
-            if (beat.m_nKey) {
-                beat         =  trkInfo->m_aBeats[i + k];
-                beat.m_nTime -= trkPlayTime;
+    const tTrackInfo::tBeat* const beats = trkInfo->m_aBeats.data();
+    const auto beatTime = [&](int32 idx) { return static_cast<int32>(beats[idx].m_nTime); };
+    const auto beatKey  = [&](int32 idx) { return static_cast<int32>(beats[idx].m_nKey); };
+    const auto setWindow = [&](int32 slot, int32 idx) {
+        bi.BeatWindow[slot].m_nTime = static_cast<uint32>(beatTime(idx) - time);
+        bi.BeatWindow[slot].m_nKey  = beats[idx].m_nKey;
+    };
+    // 0x4D9088 / 0x4D933A - hasta 10 beats anteriores a `i`, en las posiciones 9..0
+    const auto copyPrevious = [&](int32 i) {
+        for (int32 k = 0; k < 10; k++) {
+            if (i - 1 - k >= 0) {
+                setWindow(9 - k, i - 1 - k);
             }
         }
+    };
+
+    if (time < 0 || beatTime(0) < 0) {
+        if (time != -7) {
+            bi.IsBeatInfoPresent = 0;
+            rng::fill(bi.BeatWindow, tTrackInfo::tBeat{});
+        }
+    } else {
+        const int32 prevBeatNumber = bi.BeatNumber;
+        if (prevBeatNumber >= 0) {
+            time = std::max(time - 50, 0);
+        }
+
+        bi.IsBeatInfoPresent = 1;
+        bi.BeatTypeThisFrame = 0;
+        bi.BeatNumber        = -1;
+        rng::fill(bi.BeatWindow, tTrackInfo::tBeat{});
+
+        //> 0x4D904C - Primer beat dentro de la ventana
+        int32 i = 0;
+        while (beatTime(i) < time && beatKey(i) > 0) {
+            i++;
+        }
+
+        if (beatKey(i) > 0) {
+            // 0x4D9074
+            if (i != prevBeatNumber && i > 0) {
+                bi.BeatTypeThisFrame = beatKey(i - 1);
+            }
+            copyPrevious(i);
+
+            // 0x4D91A1 - hasta 10 beats desde `i`, cada uno comprobado por separado
+            for (int32 k = 0; k < 10; k++) {
+                if (i + k < (int32)std::size(trkInfo->m_aBeats) && beatKey(i + k) > 0) {
+                    setWindow(10 + k, i + k);
+                }
+            }
+            bi.BeatNumber = i;
+        } else if (i > 0) {
+            copyPrevious(i); // 0x4D9332
+        }
     }
+
+    *beatInfo = bi;
+    operator delete(trkInfo); // Como el original: operator delete (0x8214BD) sin destructor.
 }
 
 // 0x4D94E0
 void CAEAudioHardware::EnableBassEq() {
-    m_pStreamingChannel->SetBassEQ(m_BassSetting, m_BassGain);
+    // Como el original: pasa el byte bajo extendido sin signo (movzx).
+    m_pStreamingChannel->SetBassEQ(static_cast<eBassSetting>(static_cast<uint8>(m_BassSetting)), m_BassGain);
 }
 
 // 0x4D94D0
@@ -769,53 +832,66 @@ void CAEAudioHardware::ResumeAllSounds() {
     RescaleChannelVolumes();
 }
 
-// 0x4D8490
-void CAEAudioHardware::Query3DSoundEffects() {
-    DSBUFFERDESC bufferDesc;
-    bufferDesc.guid3DAlgorithm = GUID_NULL;
-    bufferDesc.lpwfxFormat = nullptr;
-    bufferDesc.dwFlags = DSBCAPS_CTRL3D;
-    bufferDesc.dwReserved = 0;
-    bufferDesc.dwSize = sizeof(DSBUFFERDESC);
-    bufferDesc.dwBufferBytes = 1024;
+// GUID de propiedades EAX del EXE (la DLL no incluye las cabeceras EAX)
+static inline auto& s_EAXContextPropertySet = StaticRef<GUID>(0x85EFEC);
+static inline auto& s_EAXFXSlot0PropertySet = StaticRef<GUID>(0x85EFDC);
 
-    IDirectSoundBuffer* ppDSBuffer{};
-    if (FAILED(m_pDSDevice->CreateSoundBuffer(&bufferDesc, &ppDSBuffer, 0)) || !ppDSBuffer)
+// 0x4D8490
+// Como el original: crea un buffer 3D de prueba (PCM mono 44100 Hz 16 bits) y, si el
+// buffer 3D expone IKsPropertySet, intenta fijar las propiedades EAX (slot 0, entorno
+// ROOM y room -1000); si todo funciona m_n3dEffectsQueryResult = 1, si no 2.
+void CAEAudioHardware::Query3DSoundEffects() {
+    WAVEFORMATEX format;
+    format.wFormatTag      = 1; // WAVE_FORMAT_PCM
+    format.nChannels       = 1;
+    format.nSamplesPerSec  = 44'100;
+    format.nAvgBytesPerSec = 88'200;
+    format.nBlockAlign     = 2;
+    format.wBitsPerSample  = 16;
+    format.cbSize          = 0;
+
+    DSBUFFERDESC bufferDesc;
+    bufferDesc.dwSize          = sizeof(DSBUFFERDESC);
+    bufferDesc.dwFlags         = DSBCAPS_CTRL3D;
+    bufferDesc.dwBufferBytes   = 1024;
+    bufferDesc.dwReserved      = 0;
+    bufferDesc.lpwfxFormat     = &format; // Como el original: no es nullptr.
+    bufferDesc.guid3DAlgorithm = GUID_NULL; // 0x859150 (ceros)
+
+    IDirectSoundBuffer* buffer{};
+    if (FAILED(m_pDSDevice->CreateSoundBuffer(&bufferDesc, &buffer, nullptr)))
         return;
 
-    IDirectSound3DBuffer* ppDS3DBuffer{};
-    if (FAILED(ppDSBuffer->QueryInterface(IID_IDirectSound3DBuffer, (LPVOID*)&ppDS3DBuffer)) || !ppDS3DBuffer)
-        ppDSBuffer->Release();
+    IDirectSound3DBuffer* buffer3D{};
+    if (FAILED(buffer->QueryInterface(IID_IDirectSound3DBuffer, (LPVOID*)&buffer3D)))
+        return; // Como el original: sale sin liberar el buffer.
 
-    IKsPropertySet* ppIKsPropertySet{};
-    if (ppDS3DBuffer->QueryInterface(IID_IKsPropertySet, (LPVOID*)&ppIKsPropertySet) == S_OK) {
-#if 0 // No EAX
-        auto fxSlot0 = EAXPROPERTYID_EAX_FXSlot0;
-        auto envRoom = EAX_ENVIRONMENT_ROOM;
-        auto defRoom = EAXREVERB_DEFAULTROOM;
-        if (
-            SUCCEEDED(ppIKsPropertySet->Set(EAXPROPERTYID_EAX_Context, EAXCONTEXT_PRIMARYFXSLOTID, nullptr, 0, &fxSlot0, sizeof(fxSlot0))) &&
-            SUCCEEDED(ppIKsPropertySet->Set(EAXPROPERTYID_EAX_FXSlot0, EAXREVERB_ENVIRONMENT, nullptr, 0, &envRoom, sizeof(envRoom))) &&
-            SUCCEEDED(ppIKsPropertySet->Set(EAXPROPERTYID_EAX_FXSlot0, EAXREVERB_ROOM, nullptr, 0, &defRoom, sizeof(defRoom)))
-        ) {
-            NOTSA_LOG_DEBUG("EAX properties set successfully!");
-            m_n3dEffectsQueryResult = 1;
-        } else {
-            NOTSA_LOG_DEBUG("EAX properties couldn't be set!");
+    if (buffer && buffer3D) {
+        IKsPropertySet* propertySet{};
+        if (buffer3D->QueryInterface(IID_IKsPropertySet, (LPVOID*)&propertySet) == S_OK) {
+            GUID  fxSlot0     = s_EAXFXSlot0PropertySet;
+            int32 environment = 2;     // EAX_ENVIRONMENT_ROOM
+            int32 room        = -1000; // EAXREVERB_DEFAULTROOM
+            if (SUCCEEDED(propertySet->Set(s_EAXContextPropertySet, 2, nullptr, 0, &fxSlot0, sizeof(fxSlot0)))       // EAXCONTEXT_PRIMARYFXSLOTID
+                && SUCCEEDED(propertySet->Set(s_EAXFXSlot0PropertySet, 2, nullptr, 0, &environment, sizeof(environment))) // EAXREVERB_ENVIRONMENT
+                && SUCCEEDED(propertySet->Set(s_EAXFXSlot0PropertySet, 5, nullptr, 0, &room, sizeof(room)))               // EAXREVERB_ROOM
+            ) {
+                m_n3dEffectsQueryResult = 1;
+            }
+            SAFE_RELEASE(propertySet);
         }
-#endif
-        SAFE_RELEASE(ppIKsPropertySet);
+        if (!m_n3dEffectsQueryResult)
+            m_n3dEffectsQueryResult = 2;
     }
-    if (!m_n3dEffectsQueryResult)
-        m_n3dEffectsQueryResult = 2;
 
-    SAFE_RELEASE(ppDS3DBuffer);
-    SAFE_RELEASE(ppDSBuffer);
+    SAFE_RELEASE(buffer3D);
+    SAFE_RELEASE(buffer);
 }
 
 // 0x4D9870
 void CAEAudioHardware::Service() {
-    VERIFY(SUCCEEDED(m_pDirectSound3dListener->CommitDeferredSettings()));
+    IsForegroundApp(); // Como el original: se llama (0x746060) y se ignora el resultado.
+    m_pDirectSound3dListener->CommitDeferredSettings(); // Como el original: sin comprobar el HRESULT.
     RescaleChannelVolumes();
     if (m_n3dEffectsQueryResult) {
         UpdateReverbEnvironment();

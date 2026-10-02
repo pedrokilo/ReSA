@@ -64,7 +64,8 @@ void CAECutsceneTrackManager::PlayPreloadedCutsceneTrack() {
 
 // 0x4DBE80
 void CAECutsceneTrackManager::StopCutsceneTrack() {
-    if (m_nStatus <= STATE_PLAYING)
+    // Como el original: solo los estados 0..3 (un estado negativo no se toca).
+    if (m_nStatus == S0 || m_nStatus == S1 || m_nStatus == S2 || m_nStatus == STATE_PLAYING)
         m_nStatus = STATE_STOP_REQUESTED;
 
     m_bPlayRequest = false;
@@ -109,7 +110,8 @@ void CAECutsceneTrackManager::PauseTrack(bool pause) {
  * aquí a estados lógicos consumidos por CAudioEngine.
  */
 void CAECutsceneTrackManager::Service(int32 trackPlayTime) {
-    static int32 previousPlayTime = m_nTrackPlayTime;
+    // Como el original: guarda en cada llamada el play time anterior en la global 0x8AE588.
+    StaticRef<int32>(0x8AE588) = m_nTrackPlayTime;
     m_nTrackPlayTime = trackPlayTime;
     m_nTrackLengthMs = AEAudioHardware.GetTrackLengthMs();
     m_nPlayingTrackId = AEAudioHardware.GetPlayingTrackID();

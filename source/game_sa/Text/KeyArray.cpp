@@ -22,13 +22,24 @@ void CKeyArray::Unload() {
 // unknown always 0
 // 0x69F490
 bool CKeyArray::Load(uint32 length, FILESTREAM file, uint32* offset, uint8 unknown) {
-    // todo: add OG code
     m_size = length / sizeof(CKeyEntry);
     m_data = new CKeyEntry[m_size];
 
-    CFileMgr::Read(file, m_data, length);
-    *offset += length;
-
+    // 0x69F4C0: read byte by byte, advancing `offset` per byte and failing on a short read.
+    // A non-zero `unknown` (always 0 in practice) skips the read and stands in for its result.
+    auto* const bytes = reinterpret_cast<uint8*>(m_data);
+    uint32 readResult = unknown;
+    uint8  byte       = static_cast<uint8>(length);
+    for (uint32 i = 0; i < length; i++) {
+        if (!unknown) {
+            readResult = CFileMgr::Read(file, &byte, 1);
+        }
+        if (readResult != 1) {
+            return false;
+        }
+        bytes[i] = byte;
+        ++*offset;
+    }
     return true;
 }
 

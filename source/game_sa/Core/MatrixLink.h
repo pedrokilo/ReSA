@@ -19,7 +19,8 @@ class CPlaceable;
  */
 class CMatrixLink : public CMatrix {
 public:
-    CMatrixLink() : CMatrix() {}
+    // Como el original (0x54F0C0): sin inicialización por valor de CMatrix; solo los miembros con inicializador
+    CMatrixLink() {}
     CMatrixLink(float fScale) : CMatrix() { SetScale(fScale); }
 
 public:

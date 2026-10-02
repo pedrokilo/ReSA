@@ -2,28 +2,53 @@
 
 La [hoja de ruta de PGTASA](../docs/ProjectRoadmap.md) sitúa estas pruebas dentro del objetivo de reconstrucción funcionalmente equivalente e independencia del EXE. Reconstrucción, validación, desbloqueo e independencia son dimensiones separadas; el total de pares no es un total de funciones validadas.
 
-La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 40 funciones a sus pruebas; las tres acreditaciones de la versión anterior quedan pendientes por el cambio de huella global de source durante CustomBuilding. Las 40 conservan evidencia vinculada pendiente de revisión de dependencias. El [inventario de las 7.857 reconstruidas](../docs/ValidationInventory.md) identifica también las 7.817 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
+La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 582 funciones a sus pruebas; las tres acreditaciones de la versión anterior quedan pendientes por el cambio de huella global de source durante CustomBuilding. Las 582 conservan evidencia vinculada pendiente de revisión de dependencias. El [inventario de las 7.860 reconstruidas](../docs/ValidationInventory.md) identifica también las 7.278 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
 
 ## Estado actual del catálogo de hooks
 
-El corte vigente de `PGTASA` contiene **772 clases/grupos y 8.442 entradas**: 7.857 reconstruidas y 585 pendientes. De ellas, **40 tienen `validated=1`** porque cuentan con evidencia aprobada vinculada; 0 conservan vigencia acreditada para el árbol actual. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
+El corte vigente de `PGTASA` contiene **772 clases/grupos y 8.443 entradas**: 7.860 reconstruidas y 583 pendientes. De ellas, **582 tienen `validated=1`** porque cuentan con evidencia aprobada vinculada; 0 conservan vigencia acreditada para el árbol actual. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
 
 ```powershell
 python contrib/audit_hook_catalog.py --strict
 ```
 
-Con `--runtime "E:/JUEGOS/GTA San Andreas - CVehicle Test/scripts/runtime-hooks.csv"` compara además el catálogo con lo que el ASI registra de verdad al arrancar. El resultado actual es **OK** en las seis comprobaciones críticas y sin diferencias con el registro real, incluida la nueva detección de llamadas `X::InjectHooks()` que resuelven al `InjectHooks` heredado de una base. El modo `--verbose` lista además owners inactivos, aliases y registros indirectos; esos elementos informativos no se suman automáticamente al progreso.
+Con `--runtime "D:/JUEGOS/GTA San Andreas - CVehicle Test/scripts/runtime-hooks.csv"` compara además el catálogo con lo que el ASI registra de verdad al arrancar. El resultado actual es **OK** en las seis comprobaciones críticas y sin diferencias con el registro real, incluida la nueva detección de llamadas `X::InjectHooks()` que resuelven al `InjectHooks` heredado de una base. El modo `--verbose` lista además owners inactivos, aliases y registros indirectos; esos elementos informativos no se suman automáticamente al progreso.
 
 Esta carpeta sí se utiliza. Ejecutar `PROBAR.cmd` desde la raíz para elegir una prueba; `PROBAR.cmd --list` muestra los casos disponibles. No se necesita un CMD por función.
 
 `PROBAR.cmd --all` ejecuta en serie todos los bancos dentro de GTA. Para evitar la pausa del CMD, usar `python reversing/run.py --all`. Abre y cierra la copia de pruebas para cada banco, vuelve a analizar sus logs nuevos y comprueba la restauración del ASI/PDB y los hashes de las partidas antes de continuar. Los informes conjuntos quedan en `reversing/artifacts/suite-*/summary.json`, con salidas por caso y rutas/hashes de la evidencia. Se omite `pcsave-isolated` porque la misma función ya se prueba dentro del motor.
 
-El catálogo actual contiene **46 casos: 45 dentro del motor y uno aislado**.
+El catálogo actual contiene **76 casos: 75 dentro del motor y uno aislado**.
 
 Esta serie usa las sondas archivadas de cada trabajo. El caso `conversation-for-ped` comprueba además que fuentes e instrumentación coinciden con su manifiesto; si cambiaron, recompilar con `python reversing/ConversationForPed/build.py --probe` antes de ejecutarlo. La serie no es una prueba de integración de todos los cambios en una única compilación actual ni sustituye la campaña de estabilidad futura.
 
 - [AudioCompletion](AudioCompletion/README.md): `CAEAmbienceTrackManager` 7/7; `UpdateAmbienceTrackAndVolume` validada con 7.846 pares. Caso `audio-completion`.
 - [HooksActivados](HooksActivados/README.md): 39 clases registradas el 01/10/2026 (9 descomentadas, 30 con `InjectHooks()` nuevo y vtables verificados en el exe); 216 entradas nuevas. Solo compilación y arranque al menú, sin comparaciones contra el original. Incluye plantillas vacías de 21 clases sin código, fuera del catálogo.
+- [BreakBatch](BreakBatch/README.md): `BreakablePlugin` y `BreakManager_c`, 12 funciones y 3.232 pares. Caso `break`.
+- [AppBatch](AppBatch/README.md): `App`, `CIniFile` y `CIplDefPool`, 9 funciones y 3.008 pares (orquestación con dependencias interceptadas). Caso `app`.
+- [SmallBatch](SmallBatch/README.md): diez clases pequeñas (KeyGen, KeyArray, KeyboardState, LinkedUpgradeList, LoadedCarGroup, Acquaintance, AccidentManager, Localisation, ActiveOccluder, LodAtomicModelInfo), 52 funciones y 16.400 pares. Caso `small`.
+- [TasksBatch2](TasksBatch2/README.md): TurnToFace, UseEffectRunning/Sprinting y ScriptedAttractorRun/Sprint, 19 funciones y 7.488 pares. Caso `tasks2`.
+- [AudioChannel](AudioChannel/README.md): `CAEAudioChannel`, 12 de 12 funciones (EAX reactivado con los datos del EXE) y 5.184 pares. Caso `channel`.
+- [LoadMonitor](LoadMonitor/README.md): `CLoadMonitor`, 7 funciones y 4.864 pares exactos (x87 del juego a 24 bits). Caso `loadmon`.
+- [AmbienceTrack](AmbienceTrack/README.md): resto de `CAEAmbienceTrackManager` (6 funciones, 4.416 pares) y fórmula de `CAEAudioUtility::GetRandomNumberInRange<int>`. Caso `ambience`.
+- [TwoDEffect](TwoDEffect/README.md): `C2dEffect`, 14 funciones y 3.520 pares (cuatro diferencias corregidas en la lectura del plugin). Caso `twod`.
+- [PcSave](PcSave/README.md): `C_PcSave`, 5 funciones y 832 pares (`InitUserDirectories`, `DeleteFileA`, slot corrupto). Caso `pcsavebatch`.
+- [TasksBatch3](TasksBatch3/README.md): `UseGoggles`, `UseAttractor`, `UseAttractorPartner`, `UseEffect` y `UsePairedAttractor`, 38 funciones y 19.168 pares; corrige el orden de la vtable de `CPedAttractor` y el hook de 0x407180. Caso `tasks3`.
+- [Markers](Markers/README.md): `C3dMarker` (6) y `C3dMarkers` (20), 17.056 pares; `fsin` x87, constantes exactas y `CMatrix operator*` con el orden del EXE. Caso `markers`.
+- [IplStore](IplStore/README.md): 26 funciones de `CIplStore` y 6.240 pares (`IncludeEntity`, `SetIplsRequired` previo, `EnsureIplsAreInMemory`). Caso `ipl`.
+- [IplStore2](IplStore2/README.md): las 8 restantes de `CIplStore` (carga y borrado), 3.008 pares. Caso `ipl2`.
+- [Loading](Loading/README.md): `CLoadingScreen`, 20 funciones y 9.328 pares (reescrita fiel al EXE manteniendo las opciones del cargador rápido). Caso `loading`.
+- [BreakObj](BreakObj/README.md): `BreakObject_c`, 9 funciones y 10.752 pares (RNG en línea, `RwV3dNormalize`, `acos` del CRT del juego). Caso `breakobj`.
+- [Small2](Small2/README.md): 11 clases pequeñas (CMaths, CMatrixLink/List, CLodTimeModelInfo, CMissionTextOffsets, CAEAudioEntity, CAEAudioUtility, CAEAudioEnvironment, CAEExplosionAudioEntity, CAEDoorAudioEntity, CModelInfo), 74 funciones y 32.016 pares. Caso `small2`.
+- [Mirrors](Mirrors/README.md): `CMirrors`, 8 funciones y 6.272 pares (búferes globales del EXE, `TypeOfMirror` de 32 bits). Caso `mirrors`.
+- [Messages](Messages/README.md): `CMessages`, 28 funciones y 25.152 pares (`CutString`, `~a~`, colas como el original). Caso `messages`.
+- [TasksBatch4](TasksBatch4/README.md): `CTaskComplexUse*` (ScriptedAttractor, ScriptedBrain, Sequence, SwatRope, WaterCannon), 33 funciones y 15.872 pares. Caso `tasks4`.
+- [TasksBatch5](TasksBatch5/README.md): `WaitAtAttractor`, `WaitForBackup`, `WaitForBus`, `WaitForDryWeather` y `WalkAlongsidePed`, 38 funciones y 12.064 pares; corrige el envoltorio de 0x661DC0 de `CTaskComplexSeekEntity`. Caso `tasks5`.
+- [MenuSystem2](MenuSystem2/README.md): las 20 funciones restantes de `CMenuSystem`, 16.640 pares. Caso `menusys2`.
+- [InformQueues](InformQueues/README.md): colas de eventos de grupo, 11 funciones y 6.464 pares. Caso `inform`.
+- [BoneNodes](BoneNodes/README.md): `BoneNode_c` y `BoneNodeManager_c`, 25 funciones y 12.256 pares exactos bit a bit. Caso `bones`.
+- [TasksBatch](TasksBatch/README.md): cinco clases de tareas, 39 funciones y 20.480 pares. Caso `tasks`.
+- [GroupTasksCompletion](GroupTasksCompletion/README.md): `CPedGroupDefaultTaskAllocatorRandom` y `CPedGroupDefaultTaskAllocatorSitInLeaderCar` 2/2; sus `AllocateDefaultTasks` y `CTaskComplexGangFollower::SetCanEnterLeadersCar` validadas con 4.608 pares dentro del motor. Caso `group-alloc`.
 - [GangLeader](GangLeader/README.md): GetTaskType desbloqueado tras 24 pares; entrega normal aislada e instalada, diez segundos de menú y hook activo comprobados. Caso `gang-leader-type`; el lote aplazado documentado conserva 85 bloqueos.
 - `run.py` y `cases.json`: menú y catálogo común.
 - `CVehicle`, `C_PcSave`, `CPlayerPed`, `CPed`, `CWeaponEffects`: pruebas repetibles y evidencia de las funciones trabajadas.

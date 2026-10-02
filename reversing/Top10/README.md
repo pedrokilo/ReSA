@@ -38,7 +38,7 @@ Cada comando termina solo, audita sus logs y restaura los archivos. También se 
 
 ## Instalación de esta entrega y límites
 
-Al cerrar esta entrega se instaló el ASI normal sin instrumentación únicamente en `E:\JUEGOS\GTA San Andreas - CVehicle Test`. SHA-256: `4bfe388ecf97ee2ad8c7d4a296bdc2d720e69d29f7fda000312890f5276a9805`. Respaldo: `E:\JUEGOS\GTA San Andreas - CVehicle Test\_baseline\before-top10-sdl-20260923`. Instalación personal intacta; partidas y ambos INI conservados.
+Al cerrar esta entrega se instaló el ASI normal sin instrumentación únicamente en `D:\JUEGOS\GTA San Andreas - CVehicle Test`. SHA-256: `4bfe388ecf97ee2ad8c7d4a296bdc2d720e69d29f7fda000312890f5276a9805`. Respaldo: `D:\JUEGOS\GTA San Andreas - CVehicle Test\_baseline\before-top10-sdl-20260923`. Instalación personal intacta; partidas y ambos INI conservados.
 
 Los bancos excluyen Audio y SurfaceInfos y usan dependencias controladas donde se especifica. El original de la fábrica también falla si no puede reservar una moto/BMX: se comprobó y preservó esa peculiaridad, no se reparó. No se revalidaron todos los constructores ni animaciones, rutas, render completo o juego prolongado.
 

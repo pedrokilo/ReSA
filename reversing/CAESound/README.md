@@ -26,7 +26,7 @@ python reversing/run.py --case sound-copy
 
 [Resumen con hashes](validation-summary.json) · [Sonda](LiveComparison.hpp) · [Compilación](build_probe.py) · [Ejecutor](run_local.py).
 
-Evidencia final: `E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-sound-copy\20260923-004932-410885`. Reproducción defectuosa conservada en la ejecución `20260923-004623-831808`. Registro del cierre original: `../InicioNormal/artifacts/crash-20260923-003643.log`.
+Evidencia final: `D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-sound-copy\20260923-004932-410885`. Reproducción defectuosa conservada en la ejecución `20260923-004623-831808`. Registro del cierre original: `../InicioNormal/artifacts/crash-20260923-003643.log`.
 
 Al cerrar esta entrega se instaló este ASI normal solo en la copia de pruebas: `08ac3949fc40b466eac6d61c600a4df6987247e692a43d295824f9c473b7668d`. Respaldo `_baseline/before-sound-copy-20260923`. Partidas intactas. No se cambiaron los indicadores del CSV: la función ya estaba registrada como reconstruida y habilitada.
 

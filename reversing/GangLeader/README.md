@@ -18,7 +18,7 @@ Banco aprobado `20260924-203415-111032`: **24 pares exactos**, ocho valores del 
 
 En cada par se desactiva y activa el hook, se verifican los seis bytes originales y las entradas de ambas tablas, y se exige que el contador del candidato aumente **0** al ejecutar el original y **1** al ejecutar el candidato. Retorno 1201 en ambos, objetos sin cambios, demás hooks intactos y estado inicial restaurado. No hay exclusiones de hooks por argumentos. El estado inicial de esta sonda era deshabilitado/bloqueado; la integración normal verifica por lectura de memoria que la entrega está habilitada.
 
-Se omiten temporalmente los vídeos con FastLoader=true y **SaveGameToLoad=-2**. El ejecutor compartido restaura por hash ambos INI y ASI/PDB anteriores y comprueba las partidas. No se intenta cargar la ranura incompatible ni se escribe en la instalación personal. La copia exclusiva de pruebas es `E:/JUEGOS/GTA San Andreas - CVehicle Test`.
+Se omiten temporalmente los vídeos con FastLoader=true y **SaveGameToLoad=-2**. El ejecutor compartido restaura por hash ambos INI y ASI/PDB anteriores y comprueba las partidas. No se intenta cargar la ranura incompatible ni se escribe en la instalación personal. La copia exclusiva de pruebas es `D:/JUEGOS/GTA San Andreas - CVehicle Test`.
 
 Intentos descartados: una compilación falló por una cabecera faltante del banco. La primera ejecución (`20260924-202907-905162`) usaba por error el índice virtual 3, correspondiente a IsSimple: las rutas directas coincidieron pero el banco falló, restaurando todo. Se corrigió tras leer la tabla del EXE. Sus binarios y registros se conservan; no cuentan como aprobación. El estado 4 observado durante ese arranque correspondía al vídeo de introducción, no a un fallo atribuido a GetTaskType.
 

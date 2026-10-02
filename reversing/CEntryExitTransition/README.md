@@ -70,7 +70,7 @@ Desde la raíz del repositorio:
 ```powershell
 python reversing/CEntryExitTransition/build_probe.py
 # copiar artifacts/gta_reversed-enextransition-probe.{asi,pdb} a
-# "E:/JUEGOS/GTA San Andreas - CVehicle Test/_baseline/"
+# "D:/JUEGOS/GTA San Andreas - CVehicle Test/_baseline/"
 python reversing/run.py --case enextransition
 ```
 
@@ -80,16 +80,16 @@ Disponible también en `PROBAR.cmd --case enextransition` y en `--all`. [run_loc
 
 ## Evidencia
 
-**Fase 1 (sin fase 2, histórica):** log `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-enextransition/20261001-125022-681196/comparisons.jsonl` (SHA-256 `806c86bdcb96c59a1948136fbab27f6b1ac184ec503c9170c18a0882ae0c6519`); sonda de esa pasada SHA-256 `4d577377c2e2933ff41227b7aa8a15fa8e459813fbb9850d7212d9fe021b30d9` / PDB `0d3a4ffbb3c14169c623ca1e51f501752b2d34c001973bf469921fe39a433a17`.
+**Fase 1 (sin fase 2, histórica):** log `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-enextransition/20261001-125022-681196/comparisons.jsonl` (SHA-256 `806c86bdcb96c59a1948136fbab27f6b1ac184ec503c9170c18a0882ae0c6519`); sonda de esa pasada SHA-256 `4d577377c2e2933ff41227b7aa8a15fa8e459813fbb9850d7212d9fe021b30d9` / PDB `0d3a4ffbb3c14169c623ca1e51f501752b2d34c001973bf469921fe39a433a17`.
 
 **Fase 1+2 (pasada final, la que cuenta como evidencia vigente):**
 
-- Log completo: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-enextransition/20261001-132428-655341/comparisons.jsonl` (SHA-256 `909b67706f6d2457e89f16e5421decc6e2f6371206a03a7ba0fc3540d173d734`).
-- Resumen: [validation-summary.json](validation-summary.json) y `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-enextransition/20261001-132428-655341/summary.json` (`heavy_attempted: true`, `heavy_pairs: 9`, `heavy_player_restored: true`).
+- Log completo: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-enextransition/20261001-132428-655341/comparisons.jsonl` (SHA-256 `909b67706f6d2457e89f16e5421decc6e2f6371206a03a7ba0fc3540d173d734`).
+- Resumen: [validation-summary.json](validation-summary.json) y `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-enextransition/20261001-132428-655341/summary.json` (`heavy_attempted: true`, `heavy_pairs: 9`, `heavy_player_restored: true`).
 - Ejecutable de la copia de pruebas verificado: SHA-256 `72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b` (coincide con el original analizado).
 - Sonda archivada (fase 1+2): `artifacts/gta_reversed-enextransition-probe.asi` SHA-256 `48207c1f405c8448e41d28897a6bfbf44afd0e11f6257c3e09096a11acf7bbb3`; PDB SHA-256 `416fb6d0d7845300095f926c098ccab58751c91db94a133c5bfab825ccb5957a`. `PROBE_HASH` en `run_local.py` apunta a este hash.
 - ASI normal instalado (sin instrumentación), solo en la copia de pruebas: SHA-256 `34801e37752db66f73e01c8b79e7f5c1cf1d27b7a7866116c3557699287e36e5`; PDB SHA-256 `bb28eda79b1e2d8d17ec56522852b48a4d353450e30cba6861fd55f80668825e` (sin cambios respecto a la fase 1; se reinstaló tras la fase 2).
-- Respaldo del ASI/PDB anteriores a la fase 1: `E:/JUEGOS/GTA San Andreas - CVehicle Test/_baseline/before-enextransition-20261001-125342` (ASI SHA-256 `cfb7ccd82ed7b4a289574699fa3a736c195f346e6abde04cd19d9333482949b9`, PDB SHA-256 `876716f9244e88fa45b38442ba041e16412c3442049bf9fd5692c8e0cbab01d4`).
+- Respaldo del ASI/PDB anteriores a la fase 1: `D:/JUEGOS/GTA San Andreas - CVehicle Test/_baseline/before-enextransition-20261001-125342` (ASI SHA-256 `cfb7ccd82ed7b4a289574699fa3a736c195f346e6abde04cd19d9333482949b9`, PDB SHA-256 `876716f9244e88fa45b38442ba041e16412c3442049bf9fd5692c8e0cbab01d4`).
 - Partidas (`GTASAsf2.b` en `userfiles` y en `Documents\GTA San Andreas User Files`) verificadas sin cambios antes/después de ambas pasadas. Instalación personal (`E:\JUEGOS\GTA San Andreas`) no se tocó en ningún momento.
 
 El CSV y `docs/ReversedClasses.md` no cambiaron: `CEntryExit,TransitionFinished,0x004404A0,1,0,0,S` ya estaba así y sigue siéndolo; esta tarea solo aporta la comparación dentro del motor que faltaba para sostener ese indicador, dentro del alcance descrito arriba.

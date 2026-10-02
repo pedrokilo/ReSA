@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -123,6 +123,9 @@ CTask* CTaskComplexTreatAccident::CreateSubTask(eTaskType taskType, CPed* ped)
 
 // 0x658AF0
 float CTaskComplexTreatAccident::ComputeHeading(CPed* ped) {
-    const auto injuredPedPos = (m_pAccident->m_pPed->GetBonePosition(BONE_HEAD) + m_pAccident->m_pPed->GetBonePosition(BONE_PELVIS)) * 0.5f;
-    return (injuredPedPos - ped->GetPosition()).Heading(true);
+    // Head first, then pelvis (the bone queries may update the skeleton); only X/Y of the midpoint are used.
+    const auto head   = m_pAccident->m_pPed->GetBonePosition(BONE_HEAD);
+    const auto pelvis = m_pAccident->m_pPed->GetBonePosition(BONE_PELVIS);
+    const auto& pos   = ped->GetPosition();
+    return CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints((head.x + pelvis.x) * 0.5f, (head.y + pelvis.y) * 0.5f, pos.x, pos.y));
 }

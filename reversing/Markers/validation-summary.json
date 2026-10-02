@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 17056,
+  "pairs_per_function": {
+    "C3dMarker::AddMarker": 512,
+    "C3dMarker::DeleteMarkerObject": 128,
+    "C3dMarker::IsZCoordinateUpToDate": 1024,
+    "C3dMarker::SetZCoordinateIfNotUpToDate": 1024,
+    "C3dMarker::UpdateZCoordinate": 2048,
+    "C3dMarkers::DirectionArrowFindFirstFreeSlot": 256,
+    "C3dMarkers::DirectionArrowSet": 512,
+    "C3dMarkers::DirectionArrowsInit": 64,
+    "C3dMarkers::ForceRender": 32,
+    "C3dMarkers::User3dMarkerDelete": 256,
+    "C3dMarkers::User3dMarkerDeleteAll": 64,
+    "C3dMarkers::User3dMarkerFindFirstFreeSlot": 256,
+    "C3dMarkers::User3dMarkerSet": 512,
+    "C3dMarkers::LoadUser3dMarkers": 64,
+    "C3dMarkers::SaveUser3dMarkers": 64,
+    "C3dMarkers::User3dMarkerAtomicCB": 64,
+    "C3dMarkers::Update": 256,
+    "C3dMarkers::PlaceMarkerSet": 512,
+    "C3dMarkers::PlaceMarkerCone": 1024,
+    "C3dMarkers::PlaceMarker": 4096,
+    "C3dMarker::Render": 2048,
+    "C3dMarkers::User3dMarkersDraw": 512,
+    "C3dMarkers::DirectionArrowsDraw": 1024,
+    "C3dMarkers::Render": 512,
+    "C3dMarkers::Init": 64,
+    "C3dMarkers::Shutdown": 128
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "8b986dfeee6f22f2867edf18e281cf5a9a94c04243856d3feafbdeb0c4e86c73",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-markers\\20261002-092610-940197",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "C3dMarker::AddMarker": true,
+    "C3dMarker::DeleteMarkerObject": true,
+    "C3dMarker::IsZCoordinateUpToDate": true,
+    "C3dMarker::SetZCoordinateIfNotUpToDate": true,
+    "C3dMarker::UpdateZCoordinate": true,
+    "C3dMarkers::DirectionArrowFindFirstFreeSlot": true,
+    "C3dMarkers::DirectionArrowSet": true,
+    "C3dMarkers::DirectionArrowsInit": true,
+    "C3dMarkers::ForceRender": true,
+    "C3dMarkers::User3dMarkerDelete": true,
+    "C3dMarkers::User3dMarkerDeleteAll": true,
+    "C3dMarkers::User3dMarkerFindFirstFreeSlot": true,
+    "C3dMarkers::User3dMarkerSet": true,
+    "C3dMarkers::LoadUser3dMarkers": true,
+    "C3dMarkers::SaveUser3dMarkers": true,
+    "C3dMarkers::User3dMarkerAtomicCB": true,
+    "C3dMarkers::Update": true,
+    "C3dMarkers::PlaceMarkerSet": true,
+    "C3dMarkers::PlaceMarkerCone": true,
+    "C3dMarkers::PlaceMarker": true,
+    "C3dMarker::Render": true,
+    "C3dMarkers::User3dMarkersDraw": true,
+    "C3dMarkers::DirectionArrowsDraw": true,
+    "C3dMarkers::Render": true,
+    "C3dMarkers::Init": true,
+    "C3dMarkers::Shutdown": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "09ae127bad5f964b86bc8c621bbbb0c185ff874a686fe551c0163026e075925f",
+      "pdb": "c2f3666a4063ff9af3c000df733aa6ba6d739d660223f421bee42fcad666054c"
+    },
+    "sources": {
+      "source/game_sa/3dMarker.cpp": "48b8176bcf26ccc58de2ed397a009730fe40524c286ff132e78274e8c198519d",
+      "source/game_sa/3dMarker.h": "30815b06db158a28ce59053361a1a3069a658fc4edb613aecc3fd8bc334bd078",
+      "source/game_sa/3dMarkers.cpp": "67e62b579bcbbfd3f0740a497b37e4912e5b8924fddc003ab446a6644766e435",
+      "source/game_sa/3dMarkers.h": "40bc55d664dba15974062321294e6e0b0f1820aebf1260dd0f484248d37fc6bf"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "bf72bbfcbe02155f180d2c779668cae18ff8c60f6299c0ed6ec367088485ea6d",
+      "build_probe.py": "fa303c4b7417ed71ddb5729841f109822c829a18d3d6f862ce52d8f3581c78da",
+      "run_local.py": "243b119611e6b8e71a9ff1b49d7d893c05b260c24c469dc503d5deefe895f7dd"
+    }
+  },
+  "limitations": [
+    "RenderWare (atomics, frames, clumps, render callback, RwFrameUpdateObjects, RpClumpForAllAtomics), luces, cámara, carga de modelos y TXD, línea de visión, agua, suelo, colisión, centro del jugador y búfer de guardado simulados y trazados.",
+    "Fixtures coherentes con el juego: los marcadores con atomic tienen matriz adjunta, los clumps de dibujo no son nulos y las flechas tienen posición, tamaño y dirección realistas."
+  ]
+}

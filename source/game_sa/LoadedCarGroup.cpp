@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -76,7 +76,7 @@ eModelID CLoadedCarGroup::PickRandomCar(bool bNotTooManyInTheWorld, bool bOnlyPi
         for (auto tr{ 0 }; tr < 10; tr++) { // tr = tries
             // First, pick a model
             const auto pickedModel = [&] {
-                auto pickedWeight = CGeneral::GetRandomNumberInRange(0, weightSum);
+                auto pickedWeight = CGeneral::GetRandomIntInRange(0, weightSum); // 0x611D30
                 for (auto modelId : choices) {
                     const auto thisModelFrq = CModelInfo::GetVehicleModelInfo(modelId)->m_nFrq;
                     if (thisModelFrq >= pickedWeight) {

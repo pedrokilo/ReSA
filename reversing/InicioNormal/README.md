@@ -5,7 +5,7 @@
 ## Abrir la copia de pruebas desde el principio
 
 ```powershell
-Set-Location 'E:\JUEGOS\GTA San Andreas - CVehicle Test'
+Set-Location 'D:\JUEGOS\GTA San Andreas - CVehicle Test'
 & '.\gta_sa.exe'
 ```
 

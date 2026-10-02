@@ -29,11 +29,11 @@ El ejecutor confirmó restauración de hooks, ASI/PDB e INI después del banco y
 ## Evidencia e instalación
 
 - [Resumen de validación](validation-summary.json).
-- Informe local: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-bullet-hit/20260923-185138-856781/summary.json`.
+- Informe local: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-bullet-hit/20260923-185138-856781/summary.json`.
 - Comparaciones: mismo directorio, `comparisons.jsonl`; SHA-256 `734f3c553a9dfb3c93c8309cc615e90c6978dd5eafbc497823f15e8b816f4ec4`.
 - Sonda: SHA-256 `d4e6f27883ea2b759cd37c088f4cd0f177d66a4fe674e3ba22ab45b997f5ae21`.
 - ASI normal instalado: SHA-256 `d8b39a395abfed3acae54a480df9db7368dbdbbaff94caeed817dcc121f903ec`.
-- Respaldo anterior: `E:/JUEGOS/GTA San Andreas - CVehicle Test/_baseline/before-bullet-hit-fix-20260923-185319/`.
+- Respaldo anterior: `D:/JUEGOS/GTA San Andreas - CVehicle Test/_baseline/before-bullet-hit-fix-20260923-185319/`.
 - Configuración de inicio y partidas conservadas. El rechazo del guardado `v1 Modified` y los vehículos que atraviesan el mapa son problemas separados de este cambio.
 
 ## Repetir el banco

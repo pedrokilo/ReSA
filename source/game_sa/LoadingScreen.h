@@ -107,7 +107,8 @@ private: // NOTSA
     static void InjectHooks();
 
 public:
-    static CSprite2d& GetCurrentDisplayedSplash() { return m_aSplashes[+m_currDisplayedSplash]; }
+    // Sin comprobar límites, como el original: con NONE (-1) lee la entrada anterior a la tabla
+    static CSprite2d& GetCurrentDisplayedSplash() { return m_aSplashes.data()[+m_currDisplayedSplash]; }
 
     // Skips the copyright splash
     static void SkipCopyrightSplash();

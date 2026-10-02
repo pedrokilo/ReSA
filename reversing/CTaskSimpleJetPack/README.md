@@ -10,4 +10,4 @@ MakeAbortable se sustituye con una implementación virtual controlada. No se val
 
 El banco elimina objetos de pickups temporales, restaura su tabla, jugador, parches y hooks; el runner comprueba partidas y restaura ASI/PDB. `PROBAR.cmd --case jetpack` o `python reversing/run.py --case jetpack` termina sin supervisión. Integrado en --all con sonda archivada. build_probe.py restaura fuentes en finally; hashes y resultado en validation-summary.json.
 
-Evidencia: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-jetpack/20260922-211855-495635`. Sin commit/push.
+Evidencia: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-jetpack/20260922-211855-495635`. Sin commit/push.

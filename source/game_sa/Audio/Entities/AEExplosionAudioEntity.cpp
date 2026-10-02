@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -23,8 +23,9 @@ END GENERATED HOOK STATUS */
 #include "AEAudioEnvironment.h"
 #include "AEAudioUtility.h"
 
-float gfExplosionFrequencyVariations[] = { 1.12f, 1.0f, 0.88f }; // 0x8AE58C
-constexpr auto NUM_VARIATIONS = std::size(gfExplosionFrequencyVariations);
+// Tabla del EXE (1.12, 1.0, 0.88); el índice es un byte con signo como en el original
+static auto& gfExplosionFrequencyVariations = StaticRef<float[3]>(0x8AE58C);
+constexpr int32 NUM_VARIATIONS = 3;
 
 // 0x5074B0
 CAEExplosionAudioEntity::CAEExplosionAudioEntity() {
@@ -49,12 +50,13 @@ void CAEExplosionAudioEntity::AddAudioEvent(eAudioEvents audioEvent, CVector& po
         return;
     }
 
-    if (!AEAudioHardware.EnsureSoundBankIsLoaded(SND_BANK_GENRL_EXPLOSIONS, SND_BANK_SLOT_EXPLOSIONS)) {
+    if (!AEAudioHardware.IsSoundBankLoaded(SND_BANK_GENRL_EXPLOSIONS, SND_BANK_SLOT_EXPLOSIONS)) {
+        AEAudioHardware.LoadSoundBank(SND_BANK_GENRL_EXPLOSIONS, SND_BANK_SLOT_EXPLOSIONS);
         return;
     }
 
     { // 0x4DCC93
-        m_Speed = (m_Speed + 1) % NUM_VARIATIONS;
+        m_Speed = (int8)(((int32)m_Speed + 1) % NUM_VARIATIONS);
         const auto PlayExplosionSound = [&](eSoundID soundID, float rollOff) {
             AESoundManager.PlaySound({
                 .BankSlotID        = SND_BANK_SLOT_EXPLOSIONS,
@@ -73,26 +75,29 @@ void CAEExplosionAudioEntity::AddAudioEvent(eAudioEvents audioEvent, CVector& po
         PlayExplosionSound(2, 7.5f);
     }
     { // 0x4DCE79
-        const auto PlayExplosionSound = [&](CVector frontEndPos, bool variance) {
-            auto speed = gfExplosionFrequencyVariations[m_Speed];
-            if (variance) {
-                speed *= sqrt(sqrt(2.0f));
-            }
+        // Como el original: distancia = sqrt(z² + y² + x²) · (1/12), factor 0x85F0F8 (no exactamente 2^0.25)
+        // y sin variación de frecuencia en las dos capas frontend.
+        const auto rel      = CAEAudioEnvironment::GetPositionRelativeToCamera(posn);
+        const float dist    = std::sqrt(rel.z * rel.z + rel.y * rel.y + rel.x * rel.x) * std::bit_cast<float>(0x3DAAAAABu);
+        const float frontVolume = CAEAudioEnvironment::GetDistanceAttenuation(dist) + volume - 3.0f;
+        const float variationFactor = std::bit_cast<float>(0x3F983809u);
+        const auto PlayExplosionSound = [&](CVector frontEndPos, float speed) {
             AESoundManager.PlaySound({
                 .BankSlotID        = SND_BANK_SLOT_EXPLOSIONS,
                 .SoundID           = 1,
                 .AudioEntity       = this,
                 .Pos               = frontEndPos,
-                .Volume            = volume + CAEAudioEnvironment::GetDistanceAttenuation(CAEAudioEnvironment::GetPositionRelativeToCamera(posn).Magnitude() / 12.0f) - 3.0f,
+                .Volume            = frontVolume,
                 .RollOffFactor     = 12.f,
                 .Speed             = speed,
                 .Flags             = SOUND_FORCED_FRONT | SOUND_ROLLED_OFF | SOUND_REQUEST_UPDATES | SOUND_FRONT_END,
-                .FrequencyVariance = 0.06f,
+                .FrequencyVariance = 0.0f,
             });
         };
+        const auto base = gfExplosionFrequencyVariations[m_Speed];
         const auto variance = CAEAudioUtility::ResolveProbability(0.5f);
-        PlayExplosionSound({ -1.0f, 0.0f, 0.0f }, variance);
-        PlayExplosionSound({ 1.0f, 0.0f, 0.0f }, !variance);
+        PlayExplosionSound({ -1.0f, 0.0f, 0.0f }, variance ? base * variationFactor : base);
+        PlayExplosionSound({ 1.0f, 0.0f, 0.0f }, variance ? base : base * variationFactor);
     }
 }
 

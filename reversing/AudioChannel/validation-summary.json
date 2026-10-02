@@ -1,0 +1,66 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 5184,
+  "pairs_per_function": {
+    "CAEAudioChannel::ConvertFromBytesToMS": 512,
+    "CAEAudioChannel::ConvertFromMsToBytes": 512,
+    "CAEAudioChannel::GetCurrentPlaybackPosition": 256,
+    "CAEAudioChannel::Lost": 64,
+    "CAEAudioChannel::SetFrequency": 256,
+    "CAEAudioChannel::SetFrequencyScalingFactor": 1024,
+    "CAEAudioChannel::SetOriginalFrequency": 256,
+    "CAEAudioChannel::SetPosition": 256,
+    "CAEAudioChannel::SetVolume": 1024,
+    "CAEAudioChannel::UpdateStatus": 256,
+    "CAEAudioChannel::SetReverbAndDepth": 512,
+    "CAEAudioChannel::SetNotInRoom": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "778f66ecdaefc66f319295b575195ed3df82cd7ff5711573f01644e8db4a582f",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-channel\\20261002-091528-813420",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CAEAudioChannel::ConvertFromBytesToMS": true,
+    "CAEAudioChannel::ConvertFromMsToBytes": true,
+    "CAEAudioChannel::GetCurrentPlaybackPosition": true,
+    "CAEAudioChannel::Lost": true,
+    "CAEAudioChannel::SetFrequency": true,
+    "CAEAudioChannel::SetFrequencyScalingFactor": true,
+    "CAEAudioChannel::SetOriginalFrequency": true,
+    "CAEAudioChannel::SetPosition": true,
+    "CAEAudioChannel::SetVolume": true,
+    "CAEAudioChannel::UpdateStatus": true,
+    "CAEAudioChannel::SetReverbAndDepth": true,
+    "CAEAudioChannel::SetNotInRoom": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "27f66a933676dd7d5dcb1a980d5b6d3dbaf7e1c0b02a5a7d4b065590bb0b1043",
+      "pdb": "b0b56bf3f966311edaa0c230deb6ab0d22b7e01a06a5901f6276517a0a72ca0a"
+    },
+    "sources": {
+      "source/game_sa/Audio/Hardware/AEAudioChannel.cpp": "67ef38a18d83947b04a4a19841b06cff02a12530cab5f864bac0008e7a534786",
+      "source/game_sa/Audio/Hardware/AEAudioChannel.h": "038f91ac39fe03dbff67de14d1d86eff7d19c0499796e1d64db17ef61dfa7741"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "ce5330a8f83b0afab40bf71511bc91b6c8d682370b9f238d6db1b4bd1c44d921",
+      "build_probe.py": "84ad350043ef8e9b631dea2265a417a90b916306127b08edc31ef398c1077a65",
+      "run_local.py": "d775d6be68a52281dc6870307e32b0db87c9762c1e14154b175ed4775a6556c5"
+    }
+  },
+  "limitations": [
+    "Buffers DirectSound falsos (vtables COM con un stub por método), un IKsPropertySet falso para las propiedades EAX y AESmoothFadeThread controlados; el IID de QueryInterface se compara por contenido."
+  ]
+}

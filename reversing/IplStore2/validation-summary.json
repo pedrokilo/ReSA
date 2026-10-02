@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 3008,
+  "pairs_per_function": {
+    "CIplStore::RemoveIpl": 512,
+    "CIplStore::RemoveIplSlot": 256,
+    "CIplStore::LoadIplBoundingBox": 512,
+    "CIplStore::LoadIpl": 512,
+    "CIplStore::SetupRelatedIpls": 512,
+    "CIplStore::LoadIpls": 512,
+    "CIplStore::Initialise": 64,
+    "CIplStore::Shutdown": 128
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "6e1ece1d03d98bb4304b0ef988cfb7066482d13053c246fe1579c83707839620",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ipl2\\20261002-092410-215339",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CIplStore::RemoveIpl": true,
+    "CIplStore::RemoveIplSlot": true,
+    "CIplStore::LoadIplBoundingBox": true,
+    "CIplStore::LoadIpl": true,
+    "CIplStore::SetupRelatedIpls": true,
+    "CIplStore::LoadIpls": true,
+    "CIplStore::Initialise": true,
+    "CIplStore::Shutdown": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "8958cff80e557db31754b330a87367c546d231ac4e288ae2fc67efd7329802ae",
+      "pdb": "1321e617c4c0ddd1203280a9e3e03644abf4e7a4c72110db54fa190ea8eb0887"
+    },
+    "sources": {
+      "source/game_sa/IplStore.cpp": "11fed45a196a5e0d363915c7cd66dd73b9cf7277f85f2e69b16dc304b1b89baa",
+      "source/game_sa/IplStore.h": "34ab184fec855e145ca4b9fc4f4691c3b9f660f40c5f92188755bddcad09ca67"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "1193db1746096d7fef5058293576342443852ad4edb288776df8ee3cd2cf6113",
+      "build_probe.py": "ce6c0bfb01a57f564634688d76e4a80648e45955cdfc71c558742bd7d83f0026",
+      "run_local.py": "7f5b9605804e8a39a72c46cc9c3593906576b63240400f1c1a17067358c60720"
+    }
+  },
+  "limitations": [
+    "Pools de edificios/objetos/dummies propios con entidades falsas, stubs del quadtree (AddItem/DeleteItem), asignador lineal para operator new/delete y stubs trazados para LoadObjectInstance, LoadCarGenerator, CWorld::Add/Remove, RemoveCarGenerators, CColAccel y el streaming; el pool de IPL real se restaura tras cada ejecución.",
+    "Shutdown usa un nodo real del pool de nodos del quadtree y un pool de IPL propio."
+  ]
+}

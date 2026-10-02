@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 832,
+  "pairs_per_function": {
+    "C_PcSave::SetSaveDirectory": 128,
+    "C_PcSave::GenerateGameFilename": 256,
+    "C_PcSave::PopulateSlotInfo": 256,
+    "C_PcSave::SaveSlot": 64,
+    "C_PcSave::DeleteSlot": 128
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "7141bf96b2da97b8be9943c95941ec6f2c4a6139b397915510cb13a338984a9a",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-pcsavebatch\\20261002-045455-614950",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "C_PcSave::SetSaveDirectory": true,
+    "C_PcSave::GenerateGameFilename": true,
+    "C_PcSave::PopulateSlotInfo": true,
+    "C_PcSave::SaveSlot": true,
+    "C_PcSave::DeleteSlot": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "3003ac156dd0343d5f0fba184ff32bb6216648a81411330698d6d7958897b44e",
+      "pdb": "0886781f864f1b025d624f08a128847b98866b177c8e6a4dcaa6af185aad7af3"
+    },
+    "sources": {
+      "source/game_sa/C_PcSave.cpp": "3b199be2588c086819f4ffd6792dfbec92c5e8dd356d7d98bf3d32c310734f9f",
+      "source/game_sa/C_PcSave.h": "9ce5bfc6d6dcccef1cc786f6feaaedaf9e76671450786ccd543a5ecb3345f920"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "89c4f87a42a0b13807aff863ce36f8f7dd59761b68bae836138fa53dcbf9f1f5",
+      "build_probe.py": "274930655b3dac16a063042cde06b75464b97b9215c685aadaf33efa5f041413",
+      "run_local.py": "a62a68ae8421561b7068b7c269733576be07f52cdf420a8f40bf87ae6ca58eaf"
+    }
+  },
+  "limitations": [
+    "Los archivos de partida son falsos y viven en una carpeta temporal del juego; GenericSave, MakeValidSaveName, DoGameSpecificStuffBeforeSave, InitUserDirectories y CheckDataNotCorrupt se simulan y se trazan.",
+    "Los archivos truncados conservan siempre la fecha: leer más allá del final deja pila sin inicializar, distinta en cada lado."
+  ]
+}

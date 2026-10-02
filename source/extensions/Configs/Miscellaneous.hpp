@@ -14,6 +14,7 @@ inline struct MiscConfig {
 
     std::optional<std::string> SaveDirectoryPath{};
     bool LoadSavesWithMismatchingVersion{};
+    bool SkipDeviceSelection{}; //< NOTSA: with several GPUs, skip the device/video mode dialog and reuse gta_sa.set (or the defaults)
 
     void Load() {
         STORE_INI_CONFIG_VALUE_OPT(SaveDirectoryPath);
@@ -24,5 +25,6 @@ inline struct MiscConfig {
         }
 
         STORE_INI_CONFIG_VALUE(LoadSavesWithMismatchingVersion, false);
+        STORE_INI_CONFIG_VALUE(SkipDeviceSelection, false);
     }
 } g_MiscConfig{};

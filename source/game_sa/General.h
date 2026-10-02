@@ -126,6 +126,15 @@ namespace CGeneral { // More like `Math` (Or `Meth`, given how bad the code is, 
             : static_cast<T>(GetRandomNumberInRange<float>(static_cast<float>(min), static_cast<float>(max) - 1.f));
     }
 
+    /*!
+     * @brief 0x407180 (and its many inlined copies): `min + (int)(rand() * (1/32768) * (max - min))`, i.e. [min, max).
+     * @note The `GetRandomNumberInRange<integral>` template interpolates with 1/32767 over [min, max - 1] instead,
+     *       so for the same random number it can be one off; use this one where the exe does the above.
+     */
+    inline int32 GetRandomIntInRange(int32 min, int32 max) {
+        return min + static_cast<int32>(static_cast<float>(GetRandomNumber()) * (1.0f / 32768.0f) * static_cast<float>(max - min));
+    }
+
     /**
      * @notsa
      * @param max Maximum value. Must be greater than 0.

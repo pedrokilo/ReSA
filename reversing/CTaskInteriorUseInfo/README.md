@@ -60,4 +60,4 @@ Se compara: puntero devuelto (normalizado), **cada objeto asignado** (tamaño so
 
 ## Evidencia
 
-Ver `validation-summary.json`. Log aprobado: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-interioruseinfo/20261001-184046-436203/comparisons.jsonl` (SHA-256 `f0ba266caf453ed924a8fa1534bbf470f2c0b0d6c975284fc34320d0d6042e69`). Sonda: ASI `1486eeaf27dbaa12e66923b4f88f8c57f16826b8ef4702ec15520cd2f142f368` y PDB `0da752a69aecb6ee34900f644cc6b8138c71fb80bfa1d557c793af1c117a0f57`. Partidas sin cambios (`GTASAsf2.b` `b089c48d…`) e INI restaurados. Sin commit ni push.
+Ver `validation-summary.json`. Log aprobado: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-interioruseinfo/20261001-184046-436203/comparisons.jsonl` (SHA-256 `f0ba266caf453ed924a8fa1534bbf470f2c0b0d6c975284fc34320d0d6042e69`). Sonda: ASI `1486eeaf27dbaa12e66923b4f88f8c57f16826b8ef4702ec15520cd2f142f368` y PDB `0da752a69aecb6ee34900f644cc6b8138c71fb80bfa1d557c793af1c117a0f57`. Partidas sin cambios (`GTASAsf2.b` `b089c48d…`) e INI restaurados. Sin commit ni push.

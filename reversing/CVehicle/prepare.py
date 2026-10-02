@@ -1,6 +1,6 @@
 from pathlib import Path
 import shutil
-root = Path(r"E:\Original\gta-reversed-master")
+root = Path(__file__).resolve().parents[2]
 source = root / "source/game_sa/Entity/Vehicle/Vehicle.cpp"
 out = root / "reversing/CVehicle"
 out.mkdir(parents=True, exist_ok=True)

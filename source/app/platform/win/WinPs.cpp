@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 #include <dsound.h>
 #include "VideoMode.h"
 #include "VideoModeSelectDialog.h"
+#include "extensions/Configs/Miscellaneous.hpp"
 #include "LoadingScreen.h"
 #include "C_PcSave.h"
 #include <windows.h>
@@ -539,7 +540,17 @@ bool psSelectDevice() {
 
     // Select video mode to use
     if (MultipleSubSystems && !UseDefaultVM) {
-        if (!CreateVidModeSelectDialog(inst, wnd)) {
+        if (g_MiscConfig.SkipDeviceSelection) {
+            // NOTSA: Same choice the dialog would offer, without waiting for the user:
+            // the GPU and video mode saved in gta_sa.set when still valid, otherwise RW's current ones.
+            if (const auto ss = FrontEndMenuManager.m_nCurrentRwSubsystem; ss >= 0 && ss < GnumSubSystems) {
+                GcurSelSS = ss;
+            }
+            VERIFY(RwEngineSetSubSystem(GcurSelSS));
+            const auto vm = FrontEndMenuManager.m_nDisplayVideoMode;
+            GcurSelVM = vm > 0 && vm < RwEngineGetNumVideoModes() && GetVideoModeList()[vm] ? vm : RwEngineGetCurrentVideoMode();
+            NOTSA_LOG_DEBUG("Device selection skipped: GcurSelSS={} GcurSelVM={}", GcurSelSS, GcurSelVM);
+        } else if (!CreateVidModeSelectDialog(inst, wnd)) {
             return FALSE; // User failed to select video mode
         }
     }

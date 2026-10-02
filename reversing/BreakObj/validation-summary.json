@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 10752,
+  "pairs_per_function": {
+    "BreakObject_c::CalcGroupCenter": 1024,
+    "BreakObject_c::SetGroupData": 1024,
+    "BreakObject_c::SetBreakInfo": 1024,
+    "BreakObject_c::Exit": 512,
+    "BreakObject_c::DoCollisionResponse": 2048,
+    "BreakObject_c::DoCollision": 1024,
+    "BreakObject_c::Update": 2048,
+    "BreakObject_c::Init": 1024,
+    "BreakObject_c::Render": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "cfb98e7dd9103a0af5f7a88be02ff7d11c15190c1d954aad6e6d0694a582e1e3",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-breakobj\\20261002-091611-806008",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "BreakObject_c::CalcGroupCenter": true,
+    "BreakObject_c::SetGroupData": true,
+    "BreakObject_c::SetBreakInfo": true,
+    "BreakObject_c::Exit": true,
+    "BreakObject_c::DoCollisionResponse": true,
+    "BreakObject_c::DoCollision": true,
+    "BreakObject_c::Update": true,
+    "BreakObject_c::Init": true,
+    "BreakObject_c::Render": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "f2acf1391450a04f1babd627c967f7ef984a613ff2d52316d2c594c7f03c6344",
+      "pdb": "5ba0b198a987c7d799b84b639cf94abcfefd160ba381c24fb10601982f0fcc5a"
+    },
+    "sources": {
+      "source/game_sa/BreakObject_c.cpp": "f89a7865af95537a643d7db82cd5be38240e233ce36fc6dfc7e1536590588940",
+      "source/game_sa/BreakObject_c.h": "24d5a9e84ce71e319b7b05e503e7647a3ce23eaabf0cfb3032a1f84597b3325c"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "887605e99ad3ec750010d9857736508a3016393fb27d882b14da752aea9a3546",
+      "build_probe.py": "4ff9b63352d8da3d3f8bdfae8115eca15405736c416ca375dba54ff16a6175a0",
+      "run_local.py": "69c0d5e9bfbc890bcc2942ee0991d6eb239ebe660bd0ce298500a83729859e17"
+    }
+  },
+  "limitations": [
+    "operator new/delete del EXE se sustituyen solo durante la llamada por un asignador lineal; RwTextureDestroy, IsVisionFXActive, AddParticle, AddSparks, RenderBegin/End/AddTri, RwFrameGetLTM, ProcessVerticalLine y el RNG se simulan y se trazan; RwV3dTransformVector/RwV3dNormalize/RwV3dLength/RwMatrixRotate/RwV3dTransformPoints son los reales.",
+    "Se ignoran los bytes de relleno de RwMatrix (+0x1C/+0x2C/+0x3C). Los tipos de grupo se limitan a 0..2. Init usa un objeto, atomic, geometría y modelo falsos."
+  ]
+}

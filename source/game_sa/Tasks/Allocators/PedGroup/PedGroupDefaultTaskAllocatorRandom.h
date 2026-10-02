@@ -6,17 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPedGroupDefaultTaskAllocatorRandom
- * Reconstrucción: INCOMPLETA — 1/2 funciones reconstruidas.
- * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 1.
- * Validación registrada: 0/2 entradas.
+ * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   AllocateDefaultTasks | 0x00000000 | V
- * BLOQUEADAS (nombre | dirección | tipo):
- *   AllocateDefaultTasks | 0x00000000 | V
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -51,8 +47,7 @@ public:
                 10.f
             };
             pair.Task = task;
-            // CTaskComplexGangFollower::SetCanEnterLeadersCar (0x65EE90).
-            task->m_Flags = (task->m_Flags & ~4u) | (pedGroup->m_bMembersEnterLeadersVehicle ? 4u : 0u);
+            task->SetCanEnterLeadersCar(pedGroup->m_bMembersEnterLeadersVehicle);
         }
         auto& leaderPair = pairs[CPedGroupMembership::LEADER_MEM_ID];
         if (leaderPair.Ped && (!ped || leaderPair.Ped == ped)) {
@@ -66,7 +61,7 @@ public:
         RH_ScopedVirtualClass(CPedGroupDefaultTaskAllocatorRandom, 0x86C77C, 2);
         RH_ScopedCategory("Tasks/Allocators/PedGroup");
 
-        RH_ScopedVMTInstall(AllocateDefaultTasks, 0x5F6E90, { .reversed = false });
+        RH_ScopedVMTInstall(AllocateDefaultTasks, 0x5F6E90);
         RH_ScopedVMTInstall(GetType, 0x5F6530);
     }
 };

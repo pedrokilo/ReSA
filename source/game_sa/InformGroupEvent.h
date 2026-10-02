@@ -8,7 +8,7 @@ class CPedGroup;
 class CInformGroupEvent {
 public:
     CPed*      m_Ped{};
-    CPedGroup* m_PedGroup{};
+    CPedGroup* m_PedGroup;    // Not initialised by the constructor (0x4AC350); only meaningful while `m_Ped` is set
     CEvent*    m_Event{};
     int32      m_Time{-1};
 

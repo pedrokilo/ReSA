@@ -135,7 +135,7 @@ def generate(roots, output):
     lines += ['', 'reSA corresponde a `source/game_sa` del proyecto gta-reversed-master. Las otras columnas corresponden a las copias locales indicadas, sin inferir su versión o rama por el nombre de la carpeta.', '',
               '**Navegación:** [Carpetas](#carpetas) · [Nombres distintos](#funcionales) · [Coincidencias con reSA](#coincidencias) · [Otros archivos re3/reVC](#otros) · [Archivos solo por nombre en reSA](#resto-sa)', '',
               '## Cómo leer la correlación', '',
-              '- Cada ruta es un enlace al archivo o carpeta. Los enlaces relativos funcionan conservando los tres repositorios como carpetas hermanas dentro de `E:/Original`.',
+              '- Cada ruta es un enlace al archivo o carpeta. Los enlaces relativos solo funcionan si los tres repositorios son carpetas hermanas; hoy re3/reVC están en `E:/Original` y reSA en `D:/Original`, así que esos enlaces no resuelven y al regenerar hay que pasar `--re3`/`--revc`.',
               '- **Mapa de carpetas y relaciones funcionales:** orientación manual por responsabilidad. Puede ser uno a varios; no certifica equivalencia de clases, algoritmos, formatos ni comportamiento.',
               '- **Inventario por nombre:** agrupa nombres de archivo iguales, sin distinguir mayúsculas/minúsculas y conservando la extensión. No compara el contenido ni demuestra que sean equivalentes.',
               '- **Descripción:** explica el propósito del archivo o familia, distinguiendo declaraciones, implementaciones y recursos. Es orientación basada en nombre y ubicación, no una auditoría de cada función. En coincidencias nominales se toma reSA como referencia cuando está presente; las responsabilidades pueden diferir entre juegos.',

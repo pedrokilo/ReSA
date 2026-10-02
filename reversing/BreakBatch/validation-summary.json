@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 3232,
+  "pairs_per_function": {
+    "BreakablePlugin::BreakableConstructor": 256,
+    "BreakablePlugin::BreakableDestructor": 512,
+    "BreakablePlugin::BreakablePluginAttach": 64,
+    "BreakablePlugin::BreakableStreamGetSize": 32,
+    "BreakablePlugin::BreakableStreamRead": 512,
+    "BreakablePlugin::BreakableStreamWrite": 512,
+    "BreakManager_c::Add": 512,
+    "BreakManager_c::Exit": 32,
+    "BreakManager_c::Init": 32,
+    "BreakManager_c::Render": 256,
+    "BreakManager_c::ResetAll": 256,
+    "BreakManager_c::Update": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "e345dcb44c2b29f02c52307b58ffef756b79f958e05df51636379755c3763ef7",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-break\\20261002-022146-412405",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "BreakablePlugin::BreakableConstructor": true,
+    "BreakablePlugin::BreakableDestructor": true,
+    "BreakablePlugin::BreakablePluginAttach": true,
+    "BreakablePlugin::BreakableStreamGetSize": true,
+    "BreakablePlugin::BreakableStreamRead": true,
+    "BreakablePlugin::BreakableStreamWrite": true,
+    "BreakManager_c::Add": true,
+    "BreakManager_c::Exit": true,
+    "BreakManager_c::Init": true,
+    "BreakManager_c::Render": true,
+    "BreakManager_c::ResetAll": true,
+    "BreakManager_c::Update": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "15e25eb0ec9a106cf4d959e8ba6828118b1e497fc7963327e837878e05960306",
+      "pdb": "0f3b231dddacf016eab5ce43551e6ccb93a4f15bce719e289da0e40f648e5042"
+    },
+    "sources": {
+      "source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.cpp": "e24db404832f6f25ab920939af0c23189db50a894b2e64547bb0f5ab2d6c98d3",
+      "source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.h": "01d46253d757bd8543ad6899363948bbb91738bbf96e4e27c86afdbf16442471",
+      "source/game_sa/BreakManager_c.cpp": "8246815539731c3a632dcd421d38aa8070191d3baeb978b519970795b988f752",
+      "source/game_sa/BreakManager_c.h": "c91b7e0b75481ba8199f0786465ff9f3b0e92edac1cf3bf418c297dc28c069f2"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "b9bf77e76dcc459be2137e51852adead1f169e2ac907b4318a6524f7a539bb7f",
+      "build_probe.py": "4980bc981ab79e5bc2eda300c987d1f1d0ee36f87a106daa72044b6816ec7061",
+      "run_local.py": "47d8a56d36450925770764c7f22b139ec5fa4d867341f8346b142b5425ed3f93"
+    }
+  },
+  "limitations": [
+    "Registro de plugins, RwTextureRead/Destroy, operator new/delete del EXE (solo durante la llamada), BreakObject_c y estado de render controlados; streams de memoria reales de RenderWare."
+  ]
+}

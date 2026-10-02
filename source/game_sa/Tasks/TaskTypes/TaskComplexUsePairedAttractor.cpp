@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/11 entradas.
+ * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -66,48 +66,52 @@ CTask* CTaskComplexUsePairedAttractor::CreateSubTask(eTaskType taskType, CPed* p
         ClearPartnership();
         return new CTaskComplexUseScriptedAttractor{ *m_Attractor };
     }
-    case TASK_COMPLEX_ATTRACTOR_PARTNER_WAIT: { // 0x638E65
-        // ...some dead code here I won't bother with... //
+    case TASK_COMPLEX_ATTRACTOR_PARTNER_WAIT: { // 0x638D70
+        if (!m_IsLeader) {
+            m_Partner->GetTaskManager().FindActiveTaskByType(TASK_COMPLEX_USE_PAIRED_ATTRACTOR); // Resultado sin usar en el original
+        }
         return new CTaskComplexAttractorPartnerWait{ m_IsLeader, *m_CurrentFxPair };
     }
     case TASK_COMPLEX_USE_ATTRACTOR_PARTNER: { // 0x638DE7
-        // ...some dead code here I won't bother with... //
+        if (!m_IsLeader) {
+            m_Partner->GetTaskManager().FindActiveTaskByType(TASK_COMPLEX_USE_PAIRED_ATTRACTOR); // Resultado sin usar en el original
+        }
         return new CTaskComplexUseAttractorPartner{ m_IsLeader, *m_CurrentFxPair };
     }
     default:
-        NOTSA_UNREACHABLE("Unhandled task type ({})", taskType);
+        return nullptr;
     }
 }
 
 // 0x639E40
 CTask* CTaskComplexUsePairedAttractor::CreateNextSubTask(CPed* ped) {
-    switch (const auto tt = m_pSubTask->GetTaskType()) {
-    case TASK_COMPLEX_USE_ATTRACTOR_PARTNER: { // 0x639E53
+    switch (m_pSubTask->GetTaskType()) {
+    case TASK_COMPLEX_USE_ATTRACTOR_PARTNER: { // 0x639EE7
         if (m_IsLeader) {
             m_PartnerProgress = (m_PartnerProgress + 5) % CScriptedEffectPairs::MAX_NUM_EFFECT_PAIRS;
         }
-        CTask* ret;
+        CTask* ret = nullptr;
         switch (m_CurrentFxPair->Effects[m_IsLeader ? 0 : 1].PartnerUseMode) {
-        case CScriptedEffectPair::eMode::USE_PARTNER_ONCE:         ret = CreateSubTask(TASK_FINISHED, ped); break;                       // 0x639F24
-        case CScriptedEffectPair::eMode::LOOK_FOR_ANOTHER_PARTNER: ret = CreateSubTask(TASK_COMPLEX_USE_SCRIPTED_ATTRACTOR, ped); break; // 0x639F37
-        default: NOTSA_UNREACHABLE();
+        case CScriptedEffectPair::eMode::USE_PARTNER_ONCE:         ret = CreateSubTask(TASK_FINISHED, ped); break;
+        case CScriptedEffectPair::eMode::LOOK_FOR_ANOTHER_PARTNER: ret = CreateSubTask(TASK_COMPLEX_USE_SCRIPTED_ATTRACTOR, ped); break;
         }
         ClearPartnership();
         return ret;
     }
-    case TASK_COMPLEX_USE_SCRIPTED_ATTRACTOR: { // 0x639E5D
+    case TASK_COMPLEX_USE_SCRIPTED_ATTRACTOR: { // 0x639E63
         m_SoloProgress++;
         if (m_Partner) {
             return CreateSubTask(TASK_COMPLEX_ATTRACTOR_PARTNER_WAIT, ped);
         }
         return CreateSubTask(
-            CScripted2dEffects::ms_useAgainFlags[CScripted2dEffects::GetIndex(m_Attractor->m_Fx)]
+            // Acceso sin comprobar como el original (un índice -1 lee el byte anterior a la tabla).
+            CScripted2dEffects::ms_useAgainFlags.data()[CScripted2dEffects::GetIndex(m_Attractor->m_Fx)]
                 ? TASK_COMPLEX_USE_SCRIPTED_ATTRACTOR
                 : TASK_FINISHED,
             ped
         );
     }
-    case TASK_COMPLEX_ATTRACTOR_PARTNER_WAIT: {
+    case TASK_COMPLEX_ATTRACTOR_PARTNER_WAIT: { // 0x639EB6
         return CreateSubTask(
             m_Partner
                 ? TASK_COMPLEX_USE_ATTRACTOR_PARTNER
@@ -116,31 +120,36 @@ CTask* CTaskComplexUsePairedAttractor::CreateNextSubTask(CPed* ped) {
         );
     }
     default:
-        NOTSA_UNREACHABLE("Unhandled task type ({})", tt);
+        return nullptr;
     }
 }
 
 // 0x638BD0
 CTask* CTaskComplexUsePairedAttractor::ControlSubTask(CPed* ped) {
-    switch (const auto tt = m_pSubTask->GetTaskType()) {
-    case TASK_COMPLEX_USE_ATTRACTOR_PARTNER: { // 0x638BE4
-        if (!m_Partner || !m_Partner->GetTaskManager().Find<CTaskComplexUsePairedAttractor, CTaskComplexUseAttractorPartner, CTaskComplexAttractorPartnerWait>()) {
-            m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE);
+    const auto PartnerHas = [this](eTaskType tt) { return m_Partner->GetTaskManager().FindActiveTaskByType(tt) != nullptr; };
+
+    switch (m_pSubTask->GetTaskType()) {
+    case TASK_COMPLEX_USE_ATTRACTOR_PARTNER: { // 0x638CB8
+        // Se aborta salvo que el compañero siga con el atractor emparejado y además use o espere al compañero.
+        if (!m_Partner || !PartnerHas(TASK_COMPLEX_USE_PAIRED_ATTRACTOR)
+            || (!PartnerHas(TASK_COMPLEX_USE_ATTRACTOR_PARTNER) && !PartnerHas(TASK_COMPLEX_ATTRACTOR_PARTNER_WAIT))) {
+            m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr);
         }
         return m_pSubTask;
     }
     case TASK_COMPLEX_ATTRACTOR_PARTNER_WAIT: { // 0x638C35
-        if (m_Partner) {
-            if (m_Partner->GetTaskManager().Find<CTaskComplexUsePairedAttractor>()) {
-                if (m_IsLeader ? m_Partner->GetTaskManager().Has<CTaskComplexAttractorPartnerWait>() : m_Partner->GetTaskManager().Has<CTaskComplexUseAttractorPartner>()) {
-                    m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE);
-                }
-                return m_pSubTask;
-            }
+        if (!m_Partner) {
+            m_IsLeader      = false;
+            m_CurrentFxPair = nullptr;
+        } else if (!PartnerHas(TASK_COMPLEX_USE_PAIRED_ATTRACTOR)) {
+            ClearPartnership();
         } else {
-            m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE);
+            if (PartnerHas(m_IsLeader ? TASK_COMPLEX_ATTRACTOR_PARTNER_WAIT : TASK_COMPLEX_USE_ATTRACTOR_PARTNER)) {
+                m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr);
+            }
+            return m_pSubTask;
         }
-        ClearPartnership();
+        m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr);
         return m_pSubTask;
     }
     case TASK_COMPLEX_USE_SCRIPTED_ATTRACTOR: { // 0x638BF4
@@ -148,24 +157,30 @@ CTask* CTaskComplexUsePairedAttractor::ControlSubTask(CPed* ped) {
             SeekPartnership(ped);
         }
         if (m_Partner && m_CurrentFxPair->UsePartnerImmediately) {
-            m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE);
+            m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr);
         }
         return m_pSubTask;
     }
+    default:
+        return m_pSubTask;
     }
-    NOTSA_UNREACHABLE();
 }
 
 // 0x6331F0
+// El original no suelta la referencia anterior (solo se llama sin compañero).
 void CTaskComplexUsePairedAttractor::SetPartnership(CPed* partner, bool isLeader, const CScriptedEffectPair* pair) {
-    m_Partner       = partner;
+    m_Partner = partner;
+    partner->RegisterReference(reinterpret_cast<CEntity**>(&m_Partner));
     m_IsLeader      = isLeader;
     m_CurrentFxPair = pair;
 }
 
 // 0x633220
 void CTaskComplexUsePairedAttractor::ClearPartnership() {
-    m_Partner       = nullptr;
+    if (m_Partner) {
+        m_Partner->CleanUpOldReference(reinterpret_cast<CEntity**>(&m_Partner));
+        m_Partner = nullptr;
+    }
     m_IsLeader      = false;
     m_CurrentFxPair = nullptr;
 }
@@ -176,6 +191,7 @@ void CTaskComplexUsePairedAttractor::SeekPartnership(CPed* us) {
     if (pairs->NumPairs <= 0) {
         return;
     }
+    // El original recorre los 4 pares aunque ya haya encontrado compañero.
     for (auto k = 0; k < CScriptedEffectPairs::MAX_NUM_EFFECT_PAIRS; k++) {
         const auto        i    = (m_PartnerProgress + k + 4) % CScriptedEffectPairs::MAX_NUM_EFFECT_PAIRS;
         const auto* const pair = &pairs->Pairs[i];
@@ -186,18 +202,12 @@ void CTaskComplexUsePairedAttractor::SeekPartnership(CPed* us) {
         if (!partner) {
             continue;
         }
-        auto* const tPartnerUsePairedAttractor = partner->GetTaskManager().Find<CTaskComplexUsePairedAttractor>();
-        if (!tPartnerUsePairedAttractor || tPartnerUsePairedAttractor->m_Partner || m_Partner) {
+        auto* const tPartner = static_cast<CTaskComplexUsePairedAttractor*>(partner->GetTaskManager().FindActiveTaskByType(TASK_COMPLEX_USE_PAIRED_ATTRACTOR));
+        if (!tPartner || tPartner->m_Partner || m_Partner) {
             continue;
         }
         m_PartnerProgress = i;
         SetPartnership(partner, true, pair);
-        tPartnerUsePairedAttractor->SetPartnership(us, false, pair);
-
-    // NOTSA: 
-    // After SetPartnership call m_Partner becomes != nullptr, so 
-    // every next iteration would end up  with a `continue` above, thus, 
-    // no need to continue
-    return;
+        tPartner->SetPartnership(us, false, pair);
     }
 }

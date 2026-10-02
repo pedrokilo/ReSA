@@ -26,6 +26,6 @@ Son escenarios controlados ejecutados en el motor, no una revisión visual ni un
 
 Ejecutar `PROBAR.cmd --case rpanimblend`. El runner local instala la sonda archivada, ejecuta el banco y restaura el ASI anterior, sin depender de un agente activo. Requiere la instalación local de pruebas y la sonda con su hash verificado; los binarios no se incluyen en Git.
 
-Evidencia resumida: `validation-summary.json`. Registro completo local: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-rpanimblend/20260922-191537-770481`. SHA-256 del JSONL: `0bdb9f65285934aee34f1b797d857f44e35455e0109af2a0b96af4e2e7070a29`.
+Evidencia resumida: `validation-summary.json`. Registro completo local: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-rpanimblend/20260922-191537-770481`. SHA-256 del JSONL: `0bdb9f65285934aee34f1b797d857f44e35455e0109af2a0b96af4e2e7070a29`.
 
 La compilación normal excluye la instrumentación temporal. `Probe.hpp` y `LiveComparison.hpp` conservan la fuente del banco para futuras reconstrucciones de la sonda.

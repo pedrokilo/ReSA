@@ -32,11 +32,12 @@ public:
         float                  deltaHeading
     );
 
+    // Orden de la vtable del EXE (0x86C538): GetType (virtual pura) va antes que el destructor.
+    virtual ePedAttractorType GetType() const { return PED_ATTRACTOR_UNDEFINED; }
+
     virtual ~CPedAttractor() {}
 
     static void Shutdown();
-
-    virtual ePedAttractorType GetType() const { return PED_ATTRACTOR_UNDEFINED; }
 
     void SetTaskForPed(CPed* ped, CTask* task);
     bool RegisterPed(CPed* ped);

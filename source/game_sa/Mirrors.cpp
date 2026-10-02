@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -83,55 +83,55 @@ void CMirrors::ShutDown() {
 }
 
 // 0x7230A0
+// Como el original: con calidad media o superior intenta 1024x512 y, si falla cualquiera de los dos
+// rásteres, cae a 512x256 (sin comprobar el resultado).
 void CMirrors::CreateBuffer() {
     if (pBuffer)
         return;
 
     const auto depth = RwRasterGetDepth(RwCameraGetRaster(Scene.m_pRwCamera));
-
-    switch (g_fx.GetFxQuality()) {
-    case FX_QUALITY_LOW:
-        pBuffer = RwRasterCreate(512, 256, depth, rwRASTERTYPECAMERATEXTURE);
-        pZBuffer = RwRasterCreate(512, 256, depth, rwRASTERTYPEZBUFFER);
-        break;
-    case FX_QUALITY_MEDIUM:
-    case FX_QUALITY_HIGH:
-    case FX_QUALITY_VERY_HIGH:
+    if (g_fx.GetFxQuality() >= FX_QUALITY_MEDIUM) {
         pBuffer = RwRasterCreate(1024, 512, depth, rwRASTERTYPECAMERATEXTURE);
-        if (!pBuffer)
-            break;
-
-        pZBuffer = RwRasterCreate(1024, 512, depth, rwRASTERTYPEZBUFFER);
-        if (pZBuffer) {
-            return; // All needed buffers created
+        if (pBuffer) {
+            pZBuffer = RwRasterCreate(1024, 512, depth, rwRASTERTYPEZBUFFER);
+            if (pZBuffer) {
+                return; // All needed buffers created
+            }
+            RwRasterDestroy(pBuffer);
+            pBuffer = nullptr;
         }
-
-        RwRasterDestroy(pBuffer);
-        pBuffer = nullptr;
-        break;
-    default:
-        NOTSA_UNREACHABLE();
-        break;
     }
+    pBuffer  = RwRasterCreate(512, 256, depth, rwRASTERTYPECAMERATEXTURE);
+    pZBuffer = RwRasterCreate(512, 256, depth, rwRASTERTYPEZBUFFER);
 }
 
 // 0x723150
+// Como el original: escribe (0,0,1) en up, normaliza forward y también right.
 void CMirrors::BuildCamMatrix(CMatrix& mat, CVector pointA, CVector pointB) {
     mat.SetTranslateOnly(pointA);
-    mat.GetForward() = Normalized(pointB - pointA);
-    mat.GetRight() = CrossProduct({ 0.0f, 0.0f, 1.0f }, mat.GetForward());
+    mat.GetForward() = pointB - pointA;
+    mat.GetForward().Normalise();
+    mat.GetUp() = CVector{ 0.0f, 0.0f, 1.0f };
+    mat.GetRight() = CrossProduct(mat.GetUp(), mat.GetForward());
+    mat.GetRight().Normalise();
     mat.GetUp() = CrossProduct(mat.GetForward(), mat.GetRight());
 }
 
 // 0x726090
+// Como el original: los vértices van a los búferes globales del EXE (Im2D en 0xC7C5A8, TempBufferVertices
+// e índices copiados de 0x8D5E38), y el quad especial cambia la mezcla antes de dibujarse.
 void CMirrors::RenderMirrorBuffer() {
     ZoneScoped;
 
     if (TypeOfMirror == MIRROR_TYPE_NONE)
         return;
 
+    static auto& im2dVertices = StaticRef<std::array<RwIm2DVertex, 4>>(0xC7C5A8);
+    static auto& mirrorIndices = StaticRef<std::array<RwImVertexIndex, 6>>(0x8D5E38);
+    static auto& screens8Track = StaticRef<CVector[2][4]>(0x8D5DD8);
+
     RwRaster* raster = RwCameraGetRaster(Scene.m_pRwCamera);
-    const CVector2D rasterSize{ (float)RwRasterGetWidth(raster), (float)RwRasterGetHeight(raster) };
+    const float rasterWidth = (float)RwRasterGetWidth(raster), rasterHeight = (float)RwRasterGetHeight(raster);
 
     DefinedState();
 
@@ -144,94 +144,66 @@ void CMirrors::RenderMirrorBuffer() {
     RwRenderStateSet(rwRENDERSTATESRCBLEND,          RWRSTATE(rwBLENDONE));
     RwRenderStateSet(rwRENDERSTATEDESTBLEND,         RWRSTATE(rwBLENDZERO));
 
-    RwImVertexIndex indices[] = { 0, 1, 2, 0, 2, 3 };
+    // Rellena TempBufferVertices (posición, color y UV) y copia los 6 índices globales
+    const auto DrawQuad3D = [&](const CVector (&pos)[4]) {
+        constexpr float uvs[4][2]{ { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
+        for (auto i = 0u; i < 4; i++) {
+            auto& v = TempBufferVertices.m_3d[i];
+            RwV3dAssign(RwIm3DVertexGetPos(&v), &pos[i]);
+            RwIm3DVertexSetRGBA(&v, 255, 255, 255, 255);
+            RwIm3DVertexSetU(&v, uvs[i][0]);
+            RwIm3DVertexSetV(&v, uvs[i][1]);
+        }
+        for (auto i = 0u; i < 6; i++) {
+            aTempBufferIndices[i] = mirrorIndices[i];
+        }
+        *reinterpret_cast<uint32*>(&uiTempBufferIndicesStored)  = 6; // el original escribe la palabra completa
+        *reinterpret_cast<uint32*>(&uiTempBufferVerticesStored) = 4;
+        if (RwIm3DTransform(TempBufferVertices.m_3d, 4, nullptr, rwIM3D_VERTEXUV)) {
+            RwIm3DRenderIndexedPrimitive(rwPRIMTYPETRILIST, aTempBufferIndices, *reinterpret_cast<uint32*>(&uiTempBufferIndicesStored));
+            RwIm3DEnd();
+        }
+    };
 
-    if (MirrorFlags & eZoneAttributes::STAIRS || bFudgeNow) {
+    if ((MirrorFlags & eZoneAttributes::STAIRS) || bFudgeNow) {
         RwRenderStateSet(rwRENDERSTATEZWRITEENABLE,      RWRSTATE(TRUE));
         RwRenderStateSet(rwRENDERSTATEZTESTENABLE,       RWRSTATE(TRUE));
         RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(FALSE));
         RwRenderStateSet(rwRENDERSTATEFOGENABLE,         RWRSTATE(TRUE));
-
-        constexpr CVector2D uvs[4]{
-            { 0.0f, 0.0f },
-            { 1.0f, 0.0f },
-            { 1.0f, 1.0f },
-            { 0.0f, 1.0f },
-        };
-        for (auto x = 0u; x < std::size(Screens8Track); x++) {
-            RxObjSpace3DVertex vertices[4]{};
-            for (auto i = 0u; i < std::size(vertices); i++) {
-                RwIm3DVertexSetRGBA(&vertices[i], 255, 255, 255, 255);
-                RwV3dAssign(RwIm3DVertexGetPos(&vertices[i]), &Screens8Track[x][i]);
-                RwIm3DVertexSetU(&vertices[i], uvs[i].x);
-                RwIm3DVertexSetV(&vertices[i], uvs[i].y);
-            }
-
-            if (RwIm3DTransform(vertices, std::size(vertices), nullptr, rwIM3D_VERTEXUV)) {
-                RwIm3DRenderIndexedPrimitive(rwPRIMTYPETRILIST, indices, std::size(indices));
-                RwIm3DEnd();
-            }
+        for (auto x = 0u; x < 2; x++) {
+            DrawQuad3D(screens8Track[x]);
         }
     } else {
-        const CVector2D pos[] = {
-           { 0.0f,         0.0f,        },
-           { 0.0f,         rasterSize.y },
-           { rasterSize.x, rasterSize.y },
-           { rasterSize.x, 0.0f,        }
-        };
-
-        constexpr CVector2D uvs[] = {
-            { 1.0f, 0.0f },
-            { 1.0f, 1.0f },
-            { 0.0f, 1.0f },
-            { 0.0f, 0.0f }
-        };
-
-        RwIm2DVertex vertices[4]{};
-        for (auto i = 0u; i < std::size(vertices); i++) {
-            RwIm2DVertexSetRecipCameraZ(&vertices[i], 1.0f / RwCameraGetNearClipPlane(Scene.m_pRwCamera));
-            RwIm2DVertexSetIntRGBA(&vertices[i], 255, 255, 255, 255);
-
-            RwIm2DVertexSetScreenX(&vertices[i], pos[i].x);
-            RwIm2DVertexSetScreenY(&vertices[i], pos[i].y);
-            RwIm2DVertexSetScreenZ(&vertices[i], RwIm2DGetNearScreenZ());
-
-            RwIm3DVertexSetU(&vertices[i], uvs[i].x);
-            RwIm3DVertexSetV(&vertices[i], uvs[i].y);
+        const float pos[4][2]{ { 0.0f, 0.0f }, { 0.0f, rasterHeight }, { rasterWidth, rasterHeight }, { rasterWidth, 0.0f } };
+        constexpr float uvs[4][2]{ { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f }, { 0.0f, 0.0f } };
+        for (auto i = 0u; i < 4; i++) {
+            auto& v = im2dVertices[i];
+            RwIm2DVertexSetScreenX(&v, pos[i][0]);
+            RwIm2DVertexSetScreenY(&v, pos[i][1]);
+            RwIm2DVertexSetScreenZ(&v, RwIm2DGetNearScreenZ());
+            RwIm2DVertexSetRecipCameraZ(&v, 1.0f / RwCameraGetNearClipPlane(Scene.m_pRwCamera));
+            RwIm2DVertexSetIntRGBA(&v, 255, 255, 255, 255);
+            RwIm2DVertexSetU(&v, uvs[i][0], 0.0f);
+            RwIm2DVertexSetV(&v, uvs[i][1], 0.0f);
         }
-        RwIm2DRenderIndexedPrimitive(rwPRIMTYPETRILIST, vertices, std::size(vertices), indices, std::size(indices));
+        RwIm2DRenderIndexedPrimitive(rwPRIMTYPETRILIST, im2dVertices.data(), 4, mirrorIndices.data(), 6);
     }
 
-    if (DistanceBetweenPoints({ 1003.0f, -42.0f, 216.0f }, TheCamera.GetPosition()) < 50.0f) {
-        const CVector pos[]{
+    // Como el original: distancia a (216, -42, 1003) con la suma (z² + y²) + x²
+    const auto& cam = TheCamera.GetPosition();
+    const float dx = cam.x - 216.0f, dy = cam.y - -42.0f, dz = cam.z - 1003.0f;
+    if (std::sqrt(dz * dz + dy * dy + dx * dx) < 50.0f) {
+        RwRenderStateSet(rwRENDERSTATEZWRITEENABLE,      RWRSTATE(TRUE));
+        RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(FALSE));
+        RwRenderStateSet(rwRENDERSTATESRCBLEND,          RWRSTATE(rwBLENDZERO));
+        RwRenderStateSet(rwRENDERSTATEDESTBLEND,         RWRSTATE(rwBLENDONE));
+        const CVector pos[4]{
             { 216.0f, -45.0f, 1000.0f },
             { 216.0f, -45.0f, 1006.0f },
             { 216.0f, -39.0f, 1006.0f },
             { 216.0f, -39.0f, 1000.0f }
         };
-
-        constexpr CVector2D uvs[]{
-            { 0.0f, 0.0f },
-            { 1.0f, 0.0f },
-            { 1.0f, 1.0f },
-            { 0.0f, 1.0f },
-        };
-
-        // TODO: This is another very commonly used thing (constructing vertices from a set of pos, uvs)
-        // Make a function out of it.
-
-        RxObjSpace3DVertex vertices[4]{};
-        for (auto i = 0u; i < std::size(vertices); i++) {
-            RwIm3DVertexSetRGBA(&vertices[i], 255, 255, 255, 255);
-            RwV3dAssign(RwIm3DVertexGetPos(&vertices[i]), &pos[i]);
-            RwIm3DVertexSetU(&vertices[i], uvs[i].x);
-            RwIm3DVertexSetV(&vertices[i], uvs[i].y);
-        }
-
-        if (RwIm3DTransform(vertices, std::size(vertices), nullptr, rwIM3D_VERTEXUV)) {
-            RwIm3DRenderIndexedPrimitive(rwPRIMTYPETRILIST, indices, std::size(indices));
-            RwIm3DEnd();
-        }
+        DrawQuad3D(pos);
     }
 
     RwRenderStateSet(rwRENDERSTATEFOGENABLE,         RWRSTATE(FALSE));
@@ -254,6 +226,7 @@ void CMirrors::RenderReflections() {
 }
 
 // 0x7266B0
+// Como el original: milisegundos · 0.001 (no / 1000) y giro con la constante π/8192 del EXE.
 void CMirrors::BuildCameraMatrixForScreens(CMatrix & mat) {
     const uint32 timeSeconds = (CTimer::GetTimeInMS() / 1000) % 32; // Wrapped to (0, 32]
     const uint32 timeMsLeftInSecond = CTimer::GetTimeInMS() % 1000;
@@ -265,7 +238,7 @@ void CMirrors::BuildCameraMatrixForScreens(CMatrix & mat) {
     case 3: {
         BuildCamMatrix(
             mat,
-            { ((float)timeMsLeftInSecond / 1000.0f + (float)timeSeconds) * 6.0f - 1249.3f, -224.5f, 1064.2f },
+            { ((float)(int32)timeMsLeftInSecond * 0.001f + (float)(int32)timeSeconds) * 6.0f - 1249.3f, -224.5f, 1064.2f },
             { -1265.4f, -207.5f, 1053.2f }
         );
         break;
@@ -286,12 +259,12 @@ void CMirrors::BuildCameraMatrixForScreens(CMatrix & mat) {
     case 25: {
         BuildCamMatrix(mat,
             { -1479.0f, -290.5f, 1099.54f },
-            { -1428.0f, -256.7f, ((float)timeMsLeftInSecond / 1000.0f + (float)(timeSeconds - 22)) * 3.0f + 1057.3f }
+            { -1428.0f, -256.7f, ((float)(int32)timeMsLeftInSecond * 0.001f + (float)(int32)(timeSeconds - 22)) * 3.0f + 1057.3f }
         );
         break;
     }
     default: {
-        mat.SetRotateZOnly(float(CTimer::GetTimeInMS() % 16384) * PI / 8192.0f);
+        mat.SetRotateZOnly((float)(CTimer::GetTimeInMS() % 16384) * std::bit_cast<float>(0x39C90FDBu)); // 0x8729F8
         mat.SetTranslateOnly({ -1397.0f, -219.0f, 1054.0f });
         break;
     }
@@ -304,19 +277,21 @@ bool CMirrors::ShouldRenderPeds() {
 }
 
 // 0x726DF0
+// Como el original: recorre siempre las dos pantallas (centroide con el orden de sumas del EXE),
+// normal = componentes · 0.01, MirrorFlags con signo y matriz de pantallas sin inicializar por valor.
 void CMirrors::BeforeConstructRenderList() {
     if (d3dRestored) {
         d3dRestored = false;
         Init();
     }
 
+    static auto& screens8Track = StaticRef<CVector[2][4]>(0x8D5DD8);
     CMirrorAttributeZone* mirrorAttrs = nullptr;
 
     const auto mirrorActive = [&](){
         // Check player is in heli/plane
         if (auto* vehicle = FindPlayerVehicle()) {
             if (vehicle->IsSubHeli() || vehicle->IsSubPlane()) {
-                ShutDown();
                 return false;
             }
         }
@@ -330,10 +305,19 @@ void CMirrors::BeforeConstructRenderList() {
             return true;
         }
 
-        return rng::any_of(Screens8Track, [](const auto& track) {
+        bool visible = false;
+        for (const auto& t : screens8Track) {
+            const CVector centre{
+                (((t[0].x + t[1].x) + t[2].x) + t[3].x) * 0.25f,
+                (((t[0].y + t[1].y) + t[3].y) + t[2].y) * 0.25f,
+                (((t[0].z + t[1].z) + t[3].z) + t[2].z) * 0.25f,
+            };
             TheCamera.m_bMirrorActive = false;
-            return TheCamera.IsSphereVisible(CVector::Centroid(track), 8.0f);
-        });
+            if (TheCamera.IsSphereVisible(centre, 8.0f)) {
+                visible = true;
+            }
+        }
+        return visible;
     }();
 
     if (mirrorActive) {
@@ -341,8 +325,8 @@ void CMirrors::BeforeConstructRenderList() {
         assert(mirrorAttrs);
 
         MirrorV = mirrorAttrs->mirrorV;
-        MirrorNormal = CVector{ (float)mirrorAttrs->mirrorNormalX, (float)mirrorAttrs->mirrorNormalY, (float)mirrorAttrs->mirrorNormalZ } / 100.0f;
-        MirrorFlags = mirrorAttrs->flags;
+        MirrorNormal = CVector{ (float)mirrorAttrs->mirrorNormalX * 0.01f, (float)mirrorAttrs->mirrorNormalY * 0.01f, (float)mirrorAttrs->mirrorNormalZ * 0.01f };
+        MirrorFlags = (int8)mirrorAttrs->flags;
 
         TypeOfMirror = std::fabs(MirrorNormal.z) <= 0.7f ? MIRROR_TYPE_WALL : MIRROR_TYPE_FLOOR;
         CreateBuffer();
@@ -351,7 +335,7 @@ void CMirrors::BeforeConstructRenderList() {
     }
 
     if ((MirrorFlags & eZoneAttributes::STAIRS) != 0 || bFudgeNow) {
-        CMatrix mat{};
+        CMatrix mat;
         BuildCameraMatrixForScreens(mat);
         TheCamera.DealWithMirrorBeforeConstructRenderList(mirrorActive, MirrorNormal, MirrorV, &mat);
     } else {

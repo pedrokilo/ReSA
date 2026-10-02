@@ -369,7 +369,7 @@ public:
     [[nodiscard]] bool CheckFrontEndLeftInput() const;
     [[nodiscard]] bool CheckFrontEndRightInput() const;
     void CheckForMenuClosing();
-    [[nodiscard]] bool CheckHover(float left, float right, float top, float bottom) const;
+    [[nodiscard]] bool CheckHover(int32 left, int32 right, int32 top, int32 bottom) const;
     bool CheckMissionPackValidMenu();
     void CheckCodesForControls(eControllerType type);
 

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -30,32 +30,37 @@ END GENERATED HOOK STATUS */
 
 // 0x67BE50
 CTask* CTaskComplexStuckInAir::ControlSubTask(CPed* ped) {
-    auto* const intel = ped->GetIntelligence();
+    const auto& sc = ped->GetIntelligence()->GetStuckChecker();
+    const bool  isStuck = sc.GetState() != PED_STUCK_STATE_NONE;
 
+    CTask* newTask = m_pSubTask;
     switch (m_pSubTask->GetTaskType()) {
-    case TASK_COMPLEX_FLEE_POINT: { // 0x67C07A
-        if (intel->GetStuckChecker().GetState() != PED_STUCK_STATE_NONE) {
-            m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT);
-            return CreateSubTask(TASK_SIMPLE_STAND_STILL, ped);
-        }
-        return m_pSubTask;
-    }
-    case TASK_COMPLEX_FALL_AND_GET_UP: { // 0x67BE80
-        if (intel->GetStuckChecker().GetState() != PED_STUCK_STATE_NONE) {
-            if (auto* const tSubSubSimpleFall = notsa::dyn_cast_if_present<CTaskSimpleFall>(m_pSubTask->GetSubTask()))  {
-                if (tSubSubSimpleFall->IsFinished()) {
-                    ped->bIsStanding = true;
-                }
+    case TASK_COMPLEX_FALL_AND_GET_UP: { // 0x67BE86
+        if (const auto fall = notsa::dyn_cast_if_present<CTaskSimpleFall>(m_pSubTask->GetSubTask())) {
+            if (fall->IsFinished() && isStuck) {
+                ped->bIsStanding = true;
             }
         }
-        return m_pSubTask;
+        break;
     }
-    case TASK_SIMPLE_STAND_STILL: { // 0x67BEE9
-        if (intel->GetStuckChecker().GetState() == PED_STUCK_STATE_NONE) {
-            m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT);
-            return nullptr; // 0x67BEF3
+    case TASK_SIMPLE_STAND_STILL: { // 0x67BEE3
+        if (!isStuck) {
+            newTask = nullptr;
+            break;
         }
-        ped->bIsInTheAir = false; // 0x67BFC2
+        if (ped->GetPlayerData()) { // 0x67BEFA: player check through the player data, not the ped type
+            auto* const pad = ped->AsPlayer()->GetPadFromPlayer();
+            const float lr  = (float)pad->GetPedWalkLeftRight();
+            const float ud  = (float)pad->GetPedWalkUpDown();
+            if (std::abs(lr) > 0.f || std::abs(ud) > 0.f) {
+                ped->m_fAimingRotation = CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints(0.f, 0.f, -lr, ud) - TheCamera.m_fOrientation);
+            }
+            if (pad->JumpJustDown()) {
+                newTask = CreateSubTask(TASK_COMPLEX_JUMP, ped);
+            }
+        }
+        ped->bIsInTheAir = false;
+        ped->bIsStanding = true;
         for (int32 i = ANIM_ID_JUMP_LAUNCH; i <= ANIM_ID_FALL_GLIDE; i++) {
             if (auto* const a = RpAnimBlendClumpGetAssociation(ped->GetRpClump(), static_cast<AnimationId>(i))) {
                 if (a->GetBlendAmount() > 0.f && a->GetBlendDelta() >= 0.f) {
@@ -63,32 +68,31 @@ CTask* CTaskComplexStuckInAir::ControlSubTask(CPed* ped) {
                 }
             }
         }
-        if (ped->IsPlayer()) { // 0x67BEFA [moved down here due to the return]
-            auto* const player = ped->AsPlayer();
-            auto* const pad = player->GetPadFromPlayer();
-            if (std::abs(pad->GetPedWalkLeftRight()) > 0.f || std::abs(pad->GetPedWalkUpDown()) > 0.f) { // 0x67BF3E
-                ped->m_fAimingRotation = CGeneral::GetRadianAngleBetweenPoints({ 0.f, 0.f }, { (float)(-pad->GetPedWalkLeftRight()), (float)(pad->GetPedWalkUpDown()) });
-            }
-            if (pad->JumpJustDown()) { // 0x67BF9B
-                m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT);
-                return CreateSubTask(TASK_COMPLEX_JUMP, ped);
-            }
-        }
-        return m_pSubTask;
+        break;
     }
-    case TASK_COMPLEX_JUMP: {
-        if (intel->GetStuckChecker().GetState() != PED_STUCK_STATE_NONE) {
+    case TASK_COMPLEX_JUMP: { // 0x67C016
+        if (isStuck) {
             if (auto* const subSubTask = m_pSubTask->GetSubTask()) {
-                if (notsa::isa<CTaskSimpleInAir>(subSubTask) || notsa::isa_and_present<CTaskSimpleInAir>(subSubTask->GetSubTask())) { // check if 2nd or 3rd sub tasks (1st is `TASK_COMPLEX_JUMP`)
-                    m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT);
-                    return CreateSubTask(TASK_SIMPLE_STAND_STILL, ped);
+                if (notsa::isa<CTaskSimpleInAir>(subSubTask) || notsa::isa_and_present<CTaskSimpleInAir>(subSubTask->GetSubTask())) {
+                    newTask = CreateSubTask(TASK_SIMPLE_STAND_STILL, ped);
                 }
             }
         }
-        return m_pSubTask;
+        break;
+    }
+    case TASK_COMPLEX_FLEE_POINT: { // 0x67C07A
+        if (isStuck) {
+            newTask = CreateSubTask(TASK_SIMPLE_STAND_STILL, ped);
+        }
+        break;
     }
     }
-    NOTSA_UNREACHABLE("sub-task type was {}", m_pSubTask->GetTaskType());
+
+    // 0x67C0A0: abort the old sub-task only after the replacement was created
+    if (newTask != m_pSubTask) {
+        m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT);
+    }
+    return newTask;
 }
 
 // 0x67BE20
@@ -117,7 +121,7 @@ CTask* CTaskComplexStuckInAir::CreateNextSubTask(CPed* ped) {
         return CreateSubTask(
             ped->GetIntelligence()->GetStuckChecker().GetState() == PED_STUCK_STATE_NONE
                 ? TASK_FINISHED
-                : ped->IsPlayer() // inverted
+                : ped->GetPlayerData() // 0x67BD92: player check through the player data
                     ? TASK_SIMPLE_STAND_STILL
                     : TASK_COMPLEX_JUMP,
             ped
@@ -127,23 +131,24 @@ CTask* CTaskComplexStuckInAir::CreateNextSubTask(CPed* ped) {
         return CreateSubTask(
             ped->GetIntelligence()->GetStuckChecker().GetState() != PED_STUCK_STATE_NONE
                 ? TASK_SIMPLE_STAND_STILL
-                : ped->IsPlayer()
+                : ped->GetPlayerData() // 0x67BDC4
                     ? TASK_FINISHED
                     : TASK_COMPLEX_FLEE_POINT,
             ped
         );
     }
     }
-    NOTSA_UNREACHABLE("sub-task type was {}", m_pSubTask->GetTaskType());
+    return nullptr; // 0x67BE0B
 }
 
 // 0x67BA80
 CTask* CTaskComplexStuckInAir::CreateSubTask(eTaskType taskType, CPed* ped) {
     switch (taskType) {
     case TASK_COMPLEX_FLEE_POINT: { // 0x67BBDD
+        ped->bIsStanding = true;
         const CVector point = ped->GetPosition()
             - ped->GetForward() * 0.5f
-            + ped->GetRight() * (CGeneral::DoCoinFlip() ? 0.5f : -0.5f);
+            + ped->GetRight() * ((CGeneral::GetRandomNumber() & 1) ? 0.5f : -0.5f); // 0x67BC5D: low bit, not `DoCoinFlip`
         return new CTaskComplexFleePoint{ point, false, 5.f, 10'000 };
     }
     case TASK_FINISHED: { // 0x67BBE5
@@ -171,7 +176,7 @@ CTask* CTaskComplexStuckInAir::CreateSubTask(eTaskType taskType, CPed* ped) {
         return new CTaskComplexFallAndGetUp{ ANIM_ID_KO_SKID_BACK, ANIM_GROUP_DEFAULT, 1'000 };
     }
     }
-    NOTSA_UNREACHABLE("task type was {}", taskType);
+    return nullptr; // 0x67BBE9
 }
 
 void CTaskComplexStuckInAir::InjectHooks() {

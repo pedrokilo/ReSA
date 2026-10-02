@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -68,7 +68,7 @@ bool CInformFriendsEventQueue::Add(CPed* ped, CEvent* event) {
     freeField->m_Ped   = ped;
     CEntity::SafeRegisterRef(freeField->m_Ped);
     freeField->m_Event = event;
-    freeField->m_Time  = CTimer::GetTimeInMS() + CGeneral::GetRandomNumberInRange(300u, 800u);
+    freeField->m_Time  = CTimer::GetTimeInMS() + CGeneral::GetRandomIntInRange(300, 800); // 0x4AC235: [300, 799]
     return true;
 }
 

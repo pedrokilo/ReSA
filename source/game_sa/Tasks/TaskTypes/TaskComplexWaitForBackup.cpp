@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -45,8 +45,9 @@ CTaskComplexWaitForBackup::CTaskComplexWaitForBackup(CPed* aggressor, CPed* back
     m_aggressor{aggressor},
     m_waitDistance{waitDist}
 {
-    CEntity::SafeRegisterRef(m_backup);
+    // Como el original: registra primero al agresor (+0x10) y luego al refuerzo (+0x14)
     CEntity::SafeRegisterRef(m_aggressor);
+    CEntity::SafeRegisterRef(m_backup);
 }
 
 CTaskComplexWaitForBackup::CTaskComplexWaitForBackup(const CTaskComplexWaitForBackup& o) :
@@ -56,8 +57,9 @@ CTaskComplexWaitForBackup::CTaskComplexWaitForBackup(const CTaskComplexWaitForBa
 
 // 0x697330
 CTaskComplexWaitForBackup::~CTaskComplexWaitForBackup() {
-    CEntity::SafeCleanUpRef(m_backup);
+    // Como el original: limpia primero al agresor (+0x10) y luego al refuerzo (+0x14)
     CEntity::SafeCleanUpRef(m_aggressor);
+    CEntity::SafeCleanUpRef(m_backup);
 }
 
 // 0x6973B0
@@ -66,17 +68,22 @@ CTask* CTaskComplexWaitForBackup::CreateSubTask(eTaskType taskType, CPed* ped) {
     case TASK_SIMPLE_GUN_CTRL:
         return new CTaskSimpleGunControl{ m_aggressor, {}, {}, eGunCommand::AIM, 100, 2000 };
     case TASK_SIMPLE_ACHIEVE_HEADING: {
-        ped->m_fAimingRotation = (m_aggressor->GetPosition() - ped->GetPosition()).Heading();
-        return new CTaskSimpleAchieveHeading{ ped->m_fAimingRotation, 0.5f, 0.2f };
+        // Como el original: GetRadianAngleBetweenPoints(dx, dy, 0, 0) y luego LimitRadianAngle
+        const auto& aggressorPos = m_aggressor->GetPosition();
+        const auto& pedPos       = ped->GetPosition();
+        const float dx           = aggressorPos.x - pedPos.x;
+        const float dy           = aggressorPos.y - pedPos.y;
+        const float heading      = CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints(dx, dy, 0.0f, 0.0f));
+        ped->m_fAimingRotation   = heading;
+        return new CTaskSimpleAchieveHeading{ heading, 0.5f, 0.2f };
     }
     case TASK_SIMPLE_PAUSE:
-        return new CTaskSimplePause{ ped->IsInVehicle() ? CGeneral::GetRandomNumberInRange(1000, 2000) : 0 };
+        return new CTaskSimplePause{ ped->IsInVehicle() ? CGeneral::GetRandomIntInRange(1000, 2000) /* 0x407180: [1000, 2000) */ : 0 };
     case TASK_COMPLEX_LEAVE_CAR:
         return new CTaskComplexLeaveCar{ ped->m_pVehicle, TARGET_DOOR_FRONT_LEFT, 0, true, false };
     case TASK_FINISHED:
+    default: // Como el original: cualquier otro tipo devuelve nullptr
         return nullptr;
-    default:
-        NOTSA_UNREACHABLE();
     }
 }
 
@@ -85,7 +92,9 @@ CTask* CTaskComplexWaitForBackup::CreateNextSubTask(CPed* ped) {
     switch (m_pSubTask->GetTaskType()) {
     case TASK_SIMPLE_GUN_CTRL: {
         if (m_backup && m_backup->IsAlive() && !m_timer.IsOutOfTime()) {
-            if (CVector2D{ ped->GetPosition() - m_backup->GetPosition() }.SquaredMagnitude() <= sq(m_waitDistance)) {
+            // Como el original (0x69806A): sigue esperando mientras el refuerzo NO esté dentro
+            // de la distancia (dist² >= espera², NaN incluido); si ya llegó, termina.
+            if (!(CVector2D{ ped->GetPosition() - m_backup->GetPosition() }.SquaredMagnitude() < sq(m_waitDistance))) {
                 return CreateSubTask(TASK_SIMPLE_ACHIEVE_HEADING, ped);
             }
         }
@@ -109,8 +118,8 @@ CTask* CTaskComplexWaitForBackup::CreateNextSubTask(CPed* ped) {
                 : TASK_SIMPLE_ACHIEVE_HEADING,
             ped
         );
-    default:
-        NOTSA_UNREACHABLE();
+    default: // Como el original: devuelve nullptr
+        return nullptr;
     }
 }
 

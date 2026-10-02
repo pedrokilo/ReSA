@@ -60,57 +60,62 @@ enum eAudioChannelFlags : int16 {
 // sonido y pistas en streaming, y administra los niveles globales de audio.
 class CAEAudioHardware {
 public:
-    bool                    m_bInitialised{};
-    bool                    m_bDisableEffectsLoading{};
-    bool                    m_PrevMaxSecondarySlowFadeout{};
-    bool                    m_PrevMaxGlobalSlowFadeout{};
-    bool                    m_IsHardwareMixAvailable{};
-    uint8                   m_nReverbEnvironment{ (uint8)-1};
-    int16                   m_awChannelFlags[MAX_NUM_AUDIO_CHANNELS]{};
-    uint16                  field_86{};
-    int32                   m_nReverbDepth{ -10000 };
-    uint16                  m_nNumAvailableChannels{};
-    uint16                  m_nNumChannels{};
-    uint16                  m_anNumChannelsInSlot[MAX_NUM_AUDIO_CHANNELS]{};
-    float                   m_afChannelVolumes[MAX_NUM_AUDIO_CHANNELS]{}; // -1000.f
-    float                   m_ChannelGains[MAX_NUM_AUDIO_CHANNELS]{}; // linear volume gain (10 ^ (dB / 20))
-    float                   m_afChannelsFrqScalingFactor[MAX_NUM_AUDIO_CHANNELS]{};
+    // Como el original (0x4D83E0): el constructor sólo inicializa algunos campos; el resto
+    // queda sin inicializar, así que no hay inicializadores por defecto (ver el constructor).
+    bool                    m_bInitialised;
+    bool                    m_bDisableEffectsLoading;
+    bool                    m_PrevMaxSecondarySlowFadeout;
+    bool                    m_PrevMaxGlobalSlowFadeout;
+    bool                    m_IsHardwareMixAvailable;
+    uint8                   m_nReverbEnvironment;
+    int16                   m_awChannelFlags[MAX_NUM_AUDIO_CHANNELS];
+    uint16                  field_86;
+    int32                   m_nReverbDepth;
+    uint16                  m_nNumAvailableChannels;
+    uint16                  m_nNumChannels;
+    uint16                  m_anNumChannelsInSlot[MAX_NUM_AUDIO_CHANNELS];
+    float                   m_afChannelVolumes[MAX_NUM_AUDIO_CHANNELS]; // -1000.f
+    float                   m_ChannelGains[MAX_NUM_AUDIO_CHANNELS]; // linear volume gain (10 ^ (dB / 20))
+    float                   m_afChannelsFrqScalingFactor[MAX_NUM_AUDIO_CHANNELS];
 
-    float                   m_fMusicMasterScalingFactor{ 1.f };
-    float                   m_fEffectMasterScalingFactor{ 1.f };
+    float                   m_fMusicMasterScalingFactor;
+    float                   m_fEffectMasterScalingFactor;
 
-    float                   m_fMusicFaderScalingFactor{ 1.f };
-    float                   m_fEffectsFaderScalingFactor{ 1.f };
+    float                   m_fMusicFaderScalingFactor;
+    float                   m_fEffectsFaderScalingFactor;
 
-    float                   m_fNonStreamFaderScalingFactor{ 1.f };
-    float                   m_fStreamFaderScalingFactor{ 1.f };
+    float                   m_fNonStreamFaderScalingFactor;
+    float                   m_fStreamFaderScalingFactor;
 
-    float                   m_PrevMaxVolumeSecondary{};
-    float                   m_PrevMaxVolumeGlobal{};
-    tVirtualChannelSettings m_VirtualChannelSettings{};
+    float                   m_PrevMaxVolumeSecondary;
+    float                   m_PrevMaxVolumeGlobal;
+    tVirtualChannelSettings m_VirtualChannelSettings{}; // Su constructor rellena con -1, como el original.
     //union { // TODO: Get rid of the union, and use `m_VirtualChannelSettings` directly
     //    struct {
     //        int16 m_aBankSlotIds[MAX_NUM_SOUNDS];
     //        int16 m_aSoundIdsInSlots[MAX_NUM_SOUNDS];
     //    };
     //};
-    int16                   m_VirtualChannelLoopTimes[MAX_NUM_SOUNDS]{};
-    int16                   m_VirtualChannelSoundLengths[MAX_NUM_SOUNDS]{};
+    int16                   m_VirtualChannelLoopTimes[MAX_NUM_SOUNDS];
+    int16                   m_VirtualChannelSoundLengths[MAX_NUM_SOUNDS];
 
-    eBassSetting            m_BassSetting{};
-    float                   m_BassGain{};
-    CAEMP3BankLoader*       m_pMP3BankLoader{};
-    CAEMP3TrackLoader*      m_pMP3TrackLoader{};
-    IDirectSound8*          m_pDSDevice{};
-    uint32                  m_nSpeakerConfig{};
-    int32                   m_n3dEffectsQueryResult{}; // TODO: 1 - EAX available
-    DSCAPS                  m_dsCaps{};
-    IDirectSound3DListener* m_pDirectSound3dListener{};
-    CAEStreamingChannel*    m_pStreamingChannel{};
-    CAEStreamThread         m_pStreamThread{};
-    CAEAudioChannel*        m_aChannels[MAX_NUM_AUDIO_CHANNELS]{};
-    tBeatInfo               gBeatInfo{};
-    uint8                   m_PlayingTrackFlags{};
+    int32                   m_BassSetting; // Como el original: dword (SetBassSetting escribe movsx; EnableBassEq lee el byte bajo con movzx).
+    float                   m_BassGain;
+    CAEMP3BankLoader*       m_pMP3BankLoader;
+    CAEMP3TrackLoader*      m_pMP3TrackLoader;
+    IDirectSound8*          m_pDSDevice;
+    uint32                  m_nSpeakerConfig;
+    uint8                   m_n3dEffectsQueryResult; // 1 - EAX disponible, 2 - sin EAX. Como el original: siempre se accede como byte.
+    uint8                   _pad_DA9[3];
+    DSCAPS                  m_dsCaps;
+    IDirectSound3DListener* m_pDirectSound3dListener;
+    CAEStreamingChannel*    m_pStreamingChannel;
+    CAEStreamThread         m_pStreamThread; // Sin `{}`: el constructor original (0x4F11D0) no escribe nada.
+    CAEAudioChannel*        m_aChannels[MAX_NUM_AUDIO_CHANNELS];
+    union { // Como el original: el constructor no toca gBeatInfo (tTrackInfo::tBeat tiene inicializadores; la unión los evita).
+        tBeatInfo           gBeatInfo;
+    };
+    uint8                   m_PlayingTrackFlags;
 
 public:
     static void InjectHooks();

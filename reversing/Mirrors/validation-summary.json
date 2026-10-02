@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 6272,
+  "pairs_per_function": {
+    "CMirrors::Init": 64,
+    "CMirrors::ShutDown": 64,
+    "CMirrors::CreateBuffer": 512,
+    "CMirrors::BuildCamMatrix": 1024,
+    "CMirrors::RenderMirrorBuffer": 1024,
+    "CMirrors::BuildCameraMatrixForScreens": 1024,
+    "CMirrors::BeforeConstructRenderList": 2048,
+    "CMirrors::BeforeMainRender": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "d5005270164a0d58d63d4993820af1a787ce4831e0c8816302f10731f1c235eb",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-mirrors\\20261002-111056-996370",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CMirrors::Init": true,
+    "CMirrors::ShutDown": true,
+    "CMirrors::CreateBuffer": true,
+    "CMirrors::BuildCamMatrix": true,
+    "CMirrors::RenderMirrorBuffer": true,
+    "CMirrors::BuildCameraMatrixForScreens": true,
+    "CMirrors::BeforeConstructRenderList": true,
+    "CMirrors::BeforeMainRender": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "db4370c5e1a141017f2e137860250eb08c3832de42a9cc44fad3504c91efb1c4",
+      "pdb": "ae1fb191b9eb980e462d6b4c0e5824b28a4ca961909970db5ca50ad37b6c79ce"
+    },
+    "sources": {
+      "source/game_sa/Mirrors.cpp": "e94df8428c649538fdb4b136b58d56a4c178c04e0de290ef6bc113e5bb66aca6",
+      "source/game_sa/Mirrors.h": "cb552c163c5fb8ab0640670532eaa275171b13f28135ca79a8da0dbdd5433dca"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "92e1d10d1fc0b83f7eca7bde0fcbdec92e4c7808bd377b98812643e5da837b3e",
+      "build_probe.py": "091b4344c0685570d793e54d912b40fd37715ea1cf13190dbd0fc96ccc293899",
+      "run_local.py": "ad2571114bbf43be0ef85619d5f08457cf0d892acacdf7bfa0366be231abd8d2"
+    }
+  },
+  "limitations": [
+    "Estado de espejos aleatorizado por caso; rasteres, estados de render, Im2D/Im3D, camara RW falsa, posicion de TheCamera, zonas de espejo, IsSphereVisible, render de escena y funciones de camara simulados y trazados."
+  ]
+}

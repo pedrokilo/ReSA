@@ -1,0 +1,99 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 25152,
+  "pairs_per_function": {
+    "CMessages::GetStringLength": 256,
+    "CMessages::StringCopy": 1024,
+    "CMessages::StringCompare": 1024,
+    "CMessages::CutString": 2048,
+    "CMessages::ClearMessages": 256,
+    "CMessages::ClearSmallMessagesOnly": 128,
+    "CMessages::AddToPreviousBriefArray": 1024,
+    "CMessages::ClearPreviousBriefArray": 128,
+    "CMessages::InsertNumberInString": 2048,
+    "CMessages::InsertStringInString": 1024,
+    "CMessages::InsertPlayerControlKeysInString": 2048,
+    "CMessages::AddMessageWithNumberQ": 1024,
+    "CMessages::AddMessageJumpQWithNumber": 1024,
+    "CMessages::AddBigMessageWithNumber": 512,
+    "CMessages::AddBigMessageWithNumberQ": 512,
+    "CMessages::AddMessageWithStringQ": 1024,
+    "CMessages::AddMessageJumpQWithString": 1024,
+    "CMessages::ClearThisPrint": 1024,
+    "CMessages::ClearThisBigPrint": 1024,
+    "CMessages::ClearThisPrintBigNow": 512,
+    "CMessages::ClearAllMessagesDisplayedByGame": 256,
+    "CMessages::Init": 64,
+    "CMessages::Process": 1024,
+    "CMessages::Display": 2048,
+    "CMessages::AddMessageQ": 1024,
+    "CMessages::AddMessageJump": 1024,
+    "CMessages::AddBigMessage": 512,
+    "CMessages::AddBigMessageQ": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "1da2e14ec6dd2c8d5687fee66cb792f812ad727aff2aa066492b271a128050f3",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-messages\\20261002-111143-487458",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CMessages::GetStringLength": true,
+    "CMessages::StringCopy": true,
+    "CMessages::StringCompare": true,
+    "CMessages::CutString": true,
+    "CMessages::ClearMessages": true,
+    "CMessages::ClearSmallMessagesOnly": true,
+    "CMessages::AddToPreviousBriefArray": true,
+    "CMessages::ClearPreviousBriefArray": true,
+    "CMessages::InsertNumberInString": true,
+    "CMessages::InsertStringInString": true,
+    "CMessages::InsertPlayerControlKeysInString": true,
+    "CMessages::AddMessageWithNumberQ": true,
+    "CMessages::AddMessageJumpQWithNumber": true,
+    "CMessages::AddBigMessageWithNumber": true,
+    "CMessages::AddBigMessageWithNumberQ": true,
+    "CMessages::AddMessageWithStringQ": true,
+    "CMessages::AddMessageJumpQWithString": true,
+    "CMessages::ClearThisPrint": true,
+    "CMessages::ClearThisBigPrint": true,
+    "CMessages::ClearThisPrintBigNow": true,
+    "CMessages::ClearAllMessagesDisplayedByGame": true,
+    "CMessages::Init": true,
+    "CMessages::Process": true,
+    "CMessages::Display": true,
+    "CMessages::AddMessageQ": true,
+    "CMessages::AddMessageJump": true,
+    "CMessages::AddBigMessage": true,
+    "CMessages::AddBigMessageQ": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "7d865f037a68b6ff6dac4b19374e53566078e2bb9b03887509d213f042b04144",
+      "pdb": "1e91afb44bf552af1e3d3c55cddc4b46f0552be931b59ca5fd8373e036d255df"
+    },
+    "sources": {
+      "source/game_sa/Messages.cpp": "620f6fd2e3090684e251e8d550e0c5afc3b1cd0de1dd12fb39aa14a6f4df2182",
+      "source/game_sa/Messages.h": "45954753fb9ed893c4c91100abda7f8a426896eeef5c9079e250635bcf575ba3"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "f076c0b5d3d8610df3aea06524f61d3a251d27debe171eade7b0fd6c7b90c11e",
+      "build_probe.py": "1a6cf164586af330b030741d2a7ce774011bbd5be818d8e17975c4d969583abf",
+      "run_local.py": "8fe7c20269d9b4dcb6446f5ac783e8afc06239aecf0c6ac4a930c5757edaa36e"
+    }
+  },
+  "limitations": [
+    "Colas de mensajes y textos de CHud aleatorizados con un deposito de cadenas y restaurados; CHud y GetGxtStringOfCommandKeys simulados y trazados.",
+    "Sin punteros nulos donde ambos se caerian ni expansiones de mas de ~300 bytes."
+  ]
+}

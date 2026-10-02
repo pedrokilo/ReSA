@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 4864,
+  "pairs_per_function": {
+    "CLoadMonitor::Constructor": 64,
+    "CLoadMonitor::Destructor": 32,
+    "CLoadMonitor::BeginFrame": 128,
+    "CLoadMonitor::EndFrame": 4096,
+    "CLoadMonitor::StartTimer": 256,
+    "CLoadMonitor::EndTimer": 256,
+    "CLoadMonitor::Render": 32
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "f02b6487f0778dcd2f8bbda3fe16bdac876a3192bfdf9a666e1182a60b3ec9ce",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-loadmon\\20261002-024711-662048",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CLoadMonitor::Constructor": true,
+    "CLoadMonitor::Destructor": true,
+    "CLoadMonitor::BeginFrame": true,
+    "CLoadMonitor::EndFrame": true,
+    "CLoadMonitor::StartTimer": true,
+    "CLoadMonitor::EndTimer": true,
+    "CLoadMonitor::Render": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "acb85ea2ca97f2abed171830117e6bed4edcaba123a8ab9a691cee631d9ddf5a",
+      "pdb": "25aca181abe5ff444b551403f6094a7756bf5cde3e47c319e3988a904c4dcba8"
+    },
+    "sources": {
+      "source/game_sa/LoadMonitor.cpp": "45c22fe9b16e6fb0836246b830b9686558727a0832e174ead35be633173c7308",
+      "source/game_sa/LoadMonitor.h": "4cf398874b362c97ea391e57017ed3f210a630a283298cd6e185a5067b66fbe5"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "13474f3aafbc157ff806adf3db541913d60864519993386313cdc46f720c73da",
+      "build_probe.py": "669c7d967d8566ea74aa68117619c154dc2d132d1a57a1c14bc090fcd731ad6f",
+      "run_local.py": "8ffb8fd89ee5f90c0ac19d2477d3a59dadf82399a38b5f3fc188cbca44512c65"
+    }
+  },
+  "limitations": [
+    "Objeto propio; ciclos de CPU controlados y tiempo fijado; precision x87 del juego medida (24 bits). Ciclos aleatorios limitados a < 2^31 (valores realistas)."
+  ]
+}

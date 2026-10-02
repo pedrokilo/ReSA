@@ -532,13 +532,29 @@ CMatrix CMatrix::GetIdentity() {
     return m;
 }
 
+// 0x59BE30: mismo resultado que el original bit a bit. Cada elemento es tx + ty + tz (tx = a.right·b.x,
+// ty = a.forward·b.y, tz = a.up·b.z) pero el EXE agrupa las sumas de forma distinta en cada uno.
 CMatrix operator*(const CMatrix& a, const CMatrix& b)
 {
     auto result = CMatrix();
-    result.m_right =   a.m_right * b.m_right.x   + a.m_forward * b.m_right.y   + a.m_up * b.m_right.z;
-    result.m_forward = a.m_right * b.m_forward.x + a.m_forward * b.m_forward.y + a.m_up * b.m_forward.z;
-    result.m_up =      a.m_right * b.m_up.x      + a.m_forward * b.m_up.y      + a.m_up * b.m_up.z;
-    result.m_pos =     a.m_right * b.m_pos.x     + a.m_forward * b.m_pos.y     + a.m_up * b.m_pos.z + a.m_pos;
+    const auto T = [&](int i, const CVector& col, float& tx, float& ty, float& tz) {
+        tx = (&a.m_right.x)[i] * col.x;
+        ty = (&a.m_forward.x)[i] * col.y;
+        tz = (&a.m_up.x)[i] * col.z;
+    };
+    float tx, ty, tz;
+    T(0, b.m_right, tx, ty, tz);   result.m_right.x   = (ty + tx) + tz;
+    T(1, b.m_right, tx, ty, tz);   result.m_right.y   = (tz + tx) + ty;
+    T(2, b.m_right, tx, ty, tz);   result.m_right.z   = (ty + tz) + tx;
+    T(0, b.m_forward, tx, ty, tz); result.m_forward.x = (tz + ty) + tx;
+    T(1, b.m_forward, tx, ty, tz); result.m_forward.y = (tz + ty) + tx;
+    T(2, b.m_forward, tx, ty, tz); result.m_forward.z = (tx + tz) + ty;
+    T(0, b.m_up, tx, ty, tz);      result.m_up.x      = (ty + tz) + tx;
+    T(1, b.m_up, tx, ty, tz);      result.m_up.y      = (tz + ty) + tx;
+    T(2, b.m_up, tx, ty, tz);      result.m_up.z      = (tx + tz) + ty;
+    T(0, b.m_pos, tx, ty, tz);     result.m_pos.x     = ((ty + tz) + tx) + a.m_pos.x;
+    T(1, b.m_pos, tx, ty, tz);     result.m_pos.y     = ((tz + ty) + tx) + a.m_pos.y;
+    T(2, b.m_pos, tx, ty, tz);     result.m_pos.z     = ((tx + ty) + tz) + a.m_pos.z;
     return result;
 }
 

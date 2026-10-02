@@ -66,7 +66,7 @@ private:
 public:
     const auto& GetPosition() const { return *RwMatrixGetPos(&m_WorldMat); }
     const auto& GetMatrix() const { return m_WorldMat;  }
-    auto GetBoneTag() const { return m_BoneTag; }
+    auto GetBoneTag() const { return eBoneTag32{ static_cast<eBoneTag>(m_BoneTag) }; }
     auto GetParent() const { return m_Parent; }
     auto& GetOrientation() { return m_Orientation; }
 
@@ -74,7 +74,7 @@ public:
     BoneNode_c* Destructor() { this->BoneNode_c::~BoneNode_c(); return this; }
 
 private:
-    eBoneTag32               m_BoneTag;
+    int32                    m_BoneTag;    //!< eBoneTag. Raw on purpose: the constructor (0x616B30) leaves it untouched, `WEnum` would zero it
     RpHAnimBlendInterpFrame* m_InterpFrame; //!< Frame de animación externo que recibirá el blend IK.
     RtQuat                   m_Orientation; 
     CVector                  m_Pos;

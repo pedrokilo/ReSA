@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -66,9 +66,10 @@ bool DoRWStuffStartOfFrame(int16 TopRed, int16 TopGreen, int16 TopBlue, int16 Bo
     RwRGBA BottomColor{ (uint8)BottomRed, (uint8)BottomGreen, (uint8)BottomBlue, (uint8)Alpha };
 
     CDraw::CalculateAspectRatio();
+    CFont::SetAlphaFade(255.f); // 0x53D6A0
     CameraSize(Scene.m_pRwCamera, nullptr, SCREEN_VIEW_WINDOW, SCREEN_ASPECT_RATIO);
     CVisibilityPlugins::SetRenderWareCamera(Scene.m_pRwCamera);
-    RwCameraClear(Scene.m_pRwCamera, &TopColor, rwCAMERACLEARZ | rwCAMERACLEARSTENCIL);
+    RwCameraClear(Scene.m_pRwCamera, &TopColor, rwCAMERACLEARZ); // 0x53D71C: Z only (the horizon variant also clears stencil)
 
     if (!RsCameraBeginUpdate(Scene.m_pRwCamera))
         return false;
@@ -169,7 +170,7 @@ bool PluginAttach() {
         Attach("Rp UV Anim",               RpUVAnimPluginAttach) &&
         Attach("Custom Building Renderer", CCustomBuildingRenderer::PluginAttach) &&
         Attach("Car FX Renderer",          CCarFXRenderer::RegisterPlugins) &&
-        Attach("Rp Anisot",                RpAnisotPluginAttach) &&
+        (RpAnisotPluginAttach(), true) && // 0x53D8DF: result ignored by the original
         Attach("Breakable",                BreakablePluginAttach) &&
         Attach("Collision",                CCollisionPlugin::PluginAttach) &&
         Attach("2d Effect",                C2dEffect::PluginAttach) &&
@@ -179,7 +180,10 @@ bool PluginAttach() {
 
 // 0x734650
 void DefinedState() {
-    CRGBA rgbaFog((uint8)CTimeCycle::m_CurrentColours.m_nSkyBottomRed, (uint8)CTimeCycle::m_CurrentColours.m_nSkyBottomGreen, (uint8)CTimeCycle::m_CurrentColours.m_nSkyBottomBlue);
+    // 0x7346E1: ARGB built from the raw 16-bit sky colours with alpha 0xFF (no clamping to 8 bits)
+    uint32 fogColor = 0xFFFFFF00u | (uint32)(uint16)CTimeCycle::m_CurrentColours.m_nSkyBottomRed;
+    fogColor = (fogColor << 8) | (uint32)(uint16)CTimeCycle::m_CurrentColours.m_nSkyBottomGreen;
+    fogColor = (fogColor << 8) | (uint32)(uint16)CTimeCycle::m_CurrentColours.m_nSkyBottomBlue;
 
     RwRenderStateSet(rwRENDERSTATETEXTUREADDRESS, RWRSTATE(TRUE));
     RwRenderStateSet(rwRENDERSTATETEXTUREPERSPECTIVE, RWRSTATE(TRUE));
@@ -192,7 +196,7 @@ void DefinedState() {
     RwRenderStateSet(rwRENDERSTATEDESTBLEND, RWRSTATE(rwBLENDINVSRCALPHA));
     RwRenderStateSet(rwRENDERSTATEBORDERCOLOR, RWRSTATE((RWRGBALONG(0, 0, 0, 255))));
     RwRenderStateSet(rwRENDERSTATEFOGENABLE, RWRSTATE(FALSE));
-    RwRenderStateSet(rwRENDERSTATEFOGCOLOR, RWRSTATE(rgbaFog.ToIntARGB()));
+    RwRenderStateSet(rwRENDERSTATEFOGCOLOR, RWRSTATE(fogColor));
     RwRenderStateSet(rwRENDERSTATEFOGTYPE, RWRSTATE(rwFOGTYPELINEAR));
     RwRenderStateSet(rwRENDERSTATECULLMODE, RWRSTATE(rwCULLMODECULLNONE));
     RwRenderStateSet(rwRENDERSTATEALPHATESTFUNCTION, RWRSTATE(rwALPHATESTFUNCTIONGREATER));

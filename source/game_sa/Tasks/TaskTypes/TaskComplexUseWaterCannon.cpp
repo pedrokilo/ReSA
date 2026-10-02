@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -60,6 +60,8 @@ CTask* CTaskComplexUseWaterCannon::Clone() const {
 // 0x6597C0
 CTask* CTaskComplexUseWaterCannon::CreateNextSubTask(CPed* ped)
 {
+    // Como el original: llama a GetTaskType de la subtarea y descarta el resultado
+    (void)m_pSubTask->GetTaskType();
     return nullptr;
 }
 

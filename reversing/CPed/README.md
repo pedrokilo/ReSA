@@ -50,4 +50,4 @@ Se excluyen `Audio` y `Global/SurfaceInfos_c`, como en la infraestructura existe
 
 `PROBAR.cmd --case cped-completion` o `python reversing/run.py --case cped-completion`. Integrado en `--all`, conservando un solo PROBAR.cmd. El runner usa la sonda archivada y termina sin supervision; no es una prueba integrada de todas las clases en la compilacion actual. `build_completion_probe.py` recompila instrumentacion temporal y restaura los fuentes incluso si falla: revisar su manifiesto y renovar conscientemente el hash y los binarios archivados para repetir con otra revision.
 
-Solo se instala en `E:/JUEGOS/GTA San Andreas - CVehicle Test`. Instalacion personal y partidas conservadas. Sin commit ni push.
+Solo se instala en `D:/JUEGOS/GTA San Andreas - CVehicle Test`. Instalacion personal y partidas conservadas. Sin commit ni push.

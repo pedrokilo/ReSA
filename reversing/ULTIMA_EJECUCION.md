@@ -6,19 +6,19 @@ Fecha local: 2026-09-22. Rama: PGTASA. Resultado: **9/9 bancos aprobados, 76.319
 
 Entre las observaciones posteriores figura la [recuperación del ratón al arrancar](MouseRecovery/README.md), que no repitió esta suite. Después se entregaron la [corrección del cierre](ShutdownLists/README.md), [CPedToPlayerConversations](PedToPlayerConversations/README.md) y [CConversationForPed](ConversationForPed/README.md), cada una con su evidencia y alcance propios.
 
-Se abrió y cerró GTA para cada banco, utilizando exclusivamente `E:/JUEGOS/GTA San Andreas - CVehicle Test`. Después de cada ejecución se volvió a analizar su registro nuevo y se verificaron el hash de la evidencia, la restauración de ASI/PDB, el cierre del proceso y los hashes de las partidas. No se contaron informes históricos como ejecuciones nuevas.
+Se abrió y cerró GTA para cada banco, utilizando exclusivamente `D:/JUEGOS/GTA San Andreas - CVehicle Test`. Después de cada ejecución se volvió a analizar su registro nuevo y se verificaron el hash de la evidencia, la restauración de ASI/PDB, el cierre del proceso y los hashes de las partidas. No se contaron informes históricos como ejecuciones nuevas.
 
 | Banco | Comparaciones | Segundos | Evidencia nueva |
 |---|---:|---:|---|
-| CVehicle | 63 | 25.91 | [Registro](<E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-cvehicle/20260922-195331-311323/comparisons.jsonl>) |
-| C_PcSave | 2,088 | 22.93 | [Registro](<E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-pcsave/20260922-195358-005252/comparisons.jsonl>) |
-| CPlayerPed | 4,064 | 24.42 | [Registro](<E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-sprint/20260922-195421-741562/comparisons.jsonl>) |
-| CPed — PositionAttachedPed | 361 | 28.38 | [Registro](<E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-attached/20260922-195448-219364/comparisons.jsonl>) |
-| CPed — UpdatePosition | 2,534 | 21.99 | [Registro](<E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-updateposition/20260922-195512-664176/comparisons.jsonl>) |
-| CWeaponEffects | 301 | 51.59 | [Registro](<E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-weaponeffects/20260922-195536-839942/comparisons.jsonl>) |
-| FxManager_c | 720 | 22.68 | [Registro](<E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fxmanager/20260922-195627-053670/comparisons.jsonl>) |
-| CBaseModelInfo | 65,536 | 24.98 | [Registro](<E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-basemodelinfo/20260922-195650-434515/comparisons.jsonl>) |
-| RpAnimBlend | 652 | 28.87 | [Registro](<E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-rpanimblend/20260922-195716-322699/comparisons.jsonl>) |
+| CVehicle | 63 | 25.91 | [Registro](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-cvehicle/20260922-195331-311323/comparisons.jsonl>) |
+| C_PcSave | 2,088 | 22.93 | [Registro](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-pcsave/20260922-195358-005252/comparisons.jsonl>) |
+| CPlayerPed | 4,064 | 24.42 | [Registro](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-sprint/20260922-195421-741562/comparisons.jsonl>) |
+| CPed — PositionAttachedPed | 361 | 28.38 | [Registro](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-attached/20260922-195448-219364/comparisons.jsonl>) |
+| CPed — UpdatePosition | 2,534 | 21.99 | [Registro](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-updateposition/20260922-195512-664176/comparisons.jsonl>) |
+| CWeaponEffects | 301 | 51.59 | [Registro](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-weaponeffects/20260922-195536-839942/comparisons.jsonl>) |
+| FxManager_c | 720 | 22.68 | [Registro](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fxmanager/20260922-195627-053670/comparisons.jsonl>) |
+| CBaseModelInfo | 65,536 | 24.98 | [Registro](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-basemodelinfo/20260922-195650-434515/comparisons.jsonl>) |
+| RpAnimBlend | 652 | 28.87 | [Registro](<D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-rpanimblend/20260922-195716-322699/comparisons.jsonl>) |
 
 Tiempo acumulado de los ejecutores: 251.75 segundos. Todos finalizaron con código 0 y sus registros contienen el evento de finalización requerido. No hubo diferencias ni errores/aserciones rechazados por los analizadores.
 

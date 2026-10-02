@@ -44,4 +44,4 @@ Los artefactos locales archivados no se incluyen en Git. `build_probe.py` genera
 python reversing/run.py --case scanner-drag-fx
 ```
 
-Evidencia final local: `E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-scanner-drag-fx\20260923-015108-016690`. El resumen conserva el SHA-256 del log, sonda, fuentes y dependencias; los archivos extensos quedan fuera de Git.
+Evidencia final local: `D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-scanner-drag-fx\20260923-015108-016690`. El resumen conserva el SHA-256 del log, sonda, fuentes y dependencias; los archivos extensos quedan fuera de Git.

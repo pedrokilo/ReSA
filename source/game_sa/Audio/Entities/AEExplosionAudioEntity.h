@@ -13,7 +13,7 @@
  */
 class NOTSA_EXPORT_VTABLE CAEExplosionAudioEntity : public CAEAudioEntity {
 public:
-    uint32 m_Speed{}; //!< Índice cíclico dentro de gfExplosionFrequencyVariations.
+    int8 m_Speed{}; //!< Índice cíclico dentro de gfExplosionFrequencyVariations (un byte con signo en el original).
 
 public:
     static void InjectHooks();

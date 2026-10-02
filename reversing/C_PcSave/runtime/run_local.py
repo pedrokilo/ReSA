@@ -9,7 +9,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-GAME = Path(r'E:\JUEGOS\GTA San Andreas - CVehicle Test')
+GAME = Path(r'D:\JUEGOS\GTA San Andreas - CVehicle Test')
 EXE_HASH = '72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b'
 PROBE_HASH = '9d8ab5f6a2d21d1a441f00a9dbe7427afc6ecfc23c9b6f72551db5dae7f727af'
 

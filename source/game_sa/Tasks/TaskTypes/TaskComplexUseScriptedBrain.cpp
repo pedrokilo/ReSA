@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -38,12 +38,13 @@ void CTaskComplexUseScriptedBrain::InjectHooks() {
 
 // 0x6358B0
 CTaskComplexUseScriptedBrain::CTaskComplexUseScriptedBrain(char const* name) {
-    strcpy_s(m_name, name);
+    // Como el original: strcpy sin límite (strcpy_s rellena el resto del búfer en debug)
+    strcpy(m_name, name);
 }
 
-// NOTSA
+// Usado por `Clone` @ 0x6371F0: el original pasa el nombre de la tarea origen
 CTaskComplexUseScriptedBrain::CTaskComplexUseScriptedBrain(const CTaskComplexUseScriptedBrain& o) :
-    CTaskComplexUseScriptedBrain{ m_name }
+    CTaskComplexUseScriptedBrain{ o.m_name }
 {
 }
 
@@ -54,27 +55,27 @@ CTaskComplexUseScriptedBrain::~CTaskComplexUseScriptedBrain() {
 
 // 0x635970
 bool CTaskComplexUseScriptedBrain::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
-    if (!event || event->GetEventType() != EVENT_SCRIPT_COMMAND) {
-        return m_pSubTask->MakeAbortable(ped, priority, event);
+    // Como el original: comprueba que la tarea del comando no sea nula antes de pedir su tipo
+    if (event && event->GetEventType() == EVENT_SCRIPT_COMMAND) {
+        const auto* const task = static_cast<const CEventScriptCommand*>(event)->m_task;
+        if (task && task->GetTaskType() == TASK_COMPLEX_USE_EFFECT) {
+            m_aborting = true;
+            return false;
+        }
     }
-
-    if (auto* e = notsa::dyn_cast_if_present<const CEventScriptCommand>(event); !e || e->m_task->GetTaskType() != TASK_COMPLEX_USE_EFFECT) {
-        return m_pSubTask->MakeAbortable(ped, priority, event);
-    }
-
-    m_aborting = true;
-    return false;
+    return m_pSubTask->MakeAbortable(ped, priority, event);
 }
 
 // 0x6359C0
 CTask* CTaskComplexUseScriptedBrain::CreateNextSubTask(CPed* ped) {
     ClearCurrentTask();
 
-    if (const auto task = CreateFirstSubTask(ped)) {
-        return task;
+    // Como el original: si la subtarea es TASK_SIMPLE_FINISH_BRAIN, la tarea termina
+    if (m_pSubTask->GetTaskType() == TASK_SIMPLE_FINISH_BRAIN) {
+        return nullptr;
     }
 
-    return new CTaskSimplePause{ 2000 };
+    return CreateFirstSubTask(ped);
 }
 
 // 0x635A90
@@ -82,7 +83,8 @@ CTask* CTaskComplexUseScriptedBrain::CreateFirstSubTask(CPed* ped) {
     if (m_currTask = CScriptedBrainTaskStore::GetTask(ped)) {
         return m_currTask->Clone();
     }
-    return nullptr;
+    // Como el original: sin tarea en el cerebro se espera con una pausa de 2000 ms
+    return new CTaskSimplePause{ 2000 };
 }
 
 // 0x635B60
@@ -90,9 +92,13 @@ CTask* CTaskComplexUseScriptedBrain::ControlSubTask(CPed* ped) {
     const auto brainsTask = CScriptedBrainTaskStore::GetTask(ped);
 
     // Task is same, or can't abort it..
-    if (brainsTask == m_currTask || !m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr)) {
+    // Como el original: prioridad URGENT (push 1)
+    if (brainsTask == m_currTask || !m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr)) {
         return m_pSubTask;
     }
+
+    // Como el original: se guarda la nueva tarea actual antes de clonarla
+    m_currTask = brainsTask;
 
     // Return task cloned (if any)
     return brainsTask

@@ -6,7 +6,7 @@ RemoveObjectsCB-Object esta reconstruida y activada; su llamador RemoveReplaceme
 
 Las pruebas aisladas aprobaron 393.475 casos del callback y 12 del llamador. Dentro del motor real aprobaron 60 comparaciones de vehiculos y 3 casos adicionales contra las funciones originales, sin diferencias y con cero cambios residuales en referencias. El ejecutor independiente repitio satisfactoriamente las 63 comparaciones.
 
-La instalacion de pruebas es `E:\JUEGOS\GTA San Andreas - CVehicle Test`; conserva por separado el juego y las partidas originales. Se desactivan los hooks Audio y Global/SurfaceInfos_c para esta prueba debido a errores ajenos al objetivo observados durante las sesiones. No se certifica estabilidad general ni aspecto visual.
+La instalacion de pruebas es `D:\JUEGOS\GTA San Andreas - CVehicle Test`; conserva por separado el juego y las partidas originales. Se desactivan los hooks Audio y Global/SurfaceInfos_c para esta prueba debido a errores ajenos al objetivo observados durante las sesiones. No se certifica estabilidad general ni aspecto visual.
 
 Para repetir sin Codex ni consumo de tokens, ejecutar `PROBAR.cmd --case cvehicle` en la carpeta principal. Ver [instrucciones del ejecutor](runtime/README.md) y [resultados detallados](runtime/results.json).
 

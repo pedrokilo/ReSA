@@ -47,4 +47,4 @@ Los artefactos locales archivados no se incluyen en Git. `build_probe.py` genera
 python reversing/run.py --case shooting-resources
 ```
 
-Evidencia final local: `E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-shooting-resources\20260923-014724-555531`. El resumen conserva el SHA-256 del log, sonda, fuentes y dependencias; los archivos extensos quedan fuera de Git.
+Evidencia final local: `D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-shooting-resources\20260923-014724-555531`. El resumen conserva el SHA-256 del log, sonda, fuentes y dependencias; los archivos extensos quedan fuera de Git.

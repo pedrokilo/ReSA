@@ -32,7 +32,7 @@ bind(d,'SymSetOptions',[w.DWORD],w.DWORD)(0x10|0x2|0x4|0x200|0x2000)
 process=Open(0x1f0fff,False,pid);assert process
 path=c.create_unicode_buffer(32768);size=w.DWORD(len(path))
 Query=bind(k,'QueryFullProcessImageNameW',[w.HANDLE,w.DWORD,w.LPWSTR,c.POINTER(w.DWORD)],w.BOOL)
-assert Query(process,0,path,c.byref(size)) and Path(path.value).resolve()==Path(r'E:\JUEGOS\GTA San Andreas - CVehicle Test\gta_sa.exe').resolve()
+assert Query(process,0,path,c.byref(size)) and Path(path.value).resolve()==Path(r'D:\JUEGOS\GTA San Andreas - CVehicle Test\gta_sa.exe').resolve()
 points={};attached=False;initialized=False;events=[]
 def export32(module_name,function):
  class Module(c.Structure):
@@ -61,7 +61,7 @@ def patch(address,data):
  try:assert Write(process,address,data,len(data),None);Flush(process,address,len(data))
  finally:Protect(process,address,len(data),old.value,c.byref(ignored))
 try:
- assert Init(process,rb'E:\JUEGOS\GTA San Andreas - CVehicle Test\scripts',True);initialized=True
+ assert Init(process,rb'D:\JUEGOS\GTA San Andreas - CVehicle Test\scripts',True);initialized=True
  deadline=time.monotonic()+240
  while time.monotonic()<deadline:
   Refresh(process)

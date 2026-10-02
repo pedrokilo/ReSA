@@ -16,9 +16,9 @@ El ejecutable analizado y el de pruebas tienen SHA-256 `72ae59e44c761389e354a50d
 
 Se verificaron igualdad exacta del retorno, 0 llamadas al candidato durante la fase original, 1 durante cada caso candidato, ausencia de cambios en los 32 bytes de cada entrada y equilibrio de ESP. Al terminar se restauraron el estado y bloqueo del hook y se comprobó que el modelo real no cambió. El runner restauró el ASI anterior y verificó los hashes de las partidas.
 
-Registro: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-basemodelinfo/20260922-192751-463543/comparisons.jsonl`. SHA-256: `12eec0be12550c0f437b377e415901fe0ed874ca3fb503d6a38d1b1c29e4b447`. Resumen: [validation-summary.json](validation-summary.json).
+Registro: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-basemodelinfo/20260922-192751-463543/comparisons.jsonl`. SHA-256: `12eec0be12550c0f437b377e415901fe0ed874ca3fb503d6a38d1b1c29e4b447`. Resumen: [validation-summary.json](validation-summary.json).
 
-La compilación normal Debug x86 terminó sin la instrumentación y se instaló solo en la copia de pruebas. ASI: `5097bf9decd488a832e9ca3bcb6c533c37ab1e131b50de8815fc56919b777310`. Respaldo anterior: `E:/JUEGOS/GTA San Andreas - CVehicle Test/_baseline/before-basemodelinfo-20260922`.
+La compilación normal Debug x86 terminó sin la instrumentación y se instaló solo en la copia de pruebas. ASI: `5097bf9decd488a832e9ca3bcb6c533c37ab1e131b50de8815fc56919b777310`. Respaldo anterior: `D:/JUEGOS/GTA San Andreas - CVehicle Test/_baseline/before-basemodelinfo-20260922`.
 
 ## Repetición autónoma
 

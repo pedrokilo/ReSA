@@ -4,7 +4,7 @@
 
 Ejecuta PROBAR.cmd --case cvehicle en la carpeta principal. No necesita Codex abierto, conexion de red, API ni tokens. Mantiene el equipo encendido y cierra otras sesiones de GTA antes de iniciarla.
 
-El ejecutor usa exclusivamente E:\JUEGOS\GTA San Andreas - CVehicle Test. Comprueba los hashes del ejecutable y del ASI instrumentado, conserva el ASI normal, activa temporalmente la prueba y abre el juego. Compara 60 pares de vehiculos y 3 casos adicionales con las funciones originales. Rechaza diferencias, errores, referencias residuales y resultados incompletos. Cierra su proceso tras terminar o alcanzar 120 segundos y restaura el ASI normal.
+El ejecutor usa exclusivamente D:\JUEGOS\GTA San Andreas - CVehicle Test. Comprueba los hashes del ejecutable y del ASI instrumentado, conserva el ASI normal, activa temporalmente la prueba y abre el juego. Compara 60 pares de vehiculos y 3 casos adicionales con las funciones originales. Rechaza diferencias, errores, referencias residuales y resultados incompletos. Cierra su proceso tras terminar o alcanzar 120 segundos y restaura el ASI normal.
 
 Informes: carpeta resultados-cvehicle dentro de la instalacion de pruebas. Cada ejecucion genera RESULTADO.txt y summary.json, ademas del registro cuando existe. No reintenta ni modifica codigo automaticamente. Ante un fallo, comparte RESULTADO.txt y summary.json para diagnosticarlo.
 

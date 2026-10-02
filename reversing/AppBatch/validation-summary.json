@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 3008,
+  "pairs_per_function": {
+    "App::AppEventHandler": 512,
+    "App::DefinedState": 64,
+    "App::DefinedState2d": 64,
+    "App::DoRWStuffEndOfFrame": 64,
+    "App::DoRWStuffStartOfFrame": 512,
+    "App::DoRWStuffStartOfFrame_Horizon": 512,
+    "App::PluginAttach": 256,
+    "CIniFile::LoadIniFile": 512,
+    "CIplDefPool::New": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "b8c5d58700dedb293e31b3a7f2a3b9619df5c4e3d6fb50c11c27a072c17135d1",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-app\\20261002-022239-896213",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "App::AppEventHandler": true,
+    "App::DefinedState": true,
+    "App::DefinedState2d": true,
+    "App::DoRWStuffEndOfFrame": true,
+    "App::DoRWStuffStartOfFrame": true,
+    "App::DoRWStuffStartOfFrame_Horizon": true,
+    "App::PluginAttach": true,
+    "CIniFile::LoadIniFile": true,
+    "CIplDefPool::New": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "7f021866732d3ea6f51d951a423cd17c4e40762284c8932958c097b39b354c1c",
+      "pdb": "2b66aae9a48bf71e4595872d1875c44474ba42a073d4572ad00c1edf2403a273"
+    },
+    "sources": {
+      "source/app/app.cpp": "ef27bf46086d7f5d9262b317e8701d8ff1174a888cda143d298fd7ae36a593d8",
+      "source/app/app.h": "f996c14003fe805d6e9a0a5c8083bbe538d9a41dddd59ff27905fa1430a5d1c1",
+      "source/game_sa/IniFile.cpp": "30459558263580b4b34c806c81ec169940ec1ef34840d3a3de5c0d9ba0f6e8d9",
+      "source/game_sa/IniFile.h": "96af401307617cea831ee9d6459400d1a9b07edb9b107593b44057947ec0d004",
+      "source/game_sa/Pools/IplDefPool.h": "b60bc9c8f8e7cd90fec4d0cda912966d3ef9481b597dfb52f14c1afad2ce0f44"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "5f2a4cb0c1e78cf16b63525bb328334ae852f67b0c1a228ee848a433cbf81af2",
+      "build_probe.py": "f95aece237a2b6c38b36a4a020bc57044efe0d9df355dadb98daa7bc509c095a",
+      "run_local.py": "00efd81ee794325ecd10f3fb40788eb328ce37392dd58f5d45599af3570147bf"
+    }
+  },
+  "limitations": [
+    "Funciones de orquestacion: dependencias interceptadas (camara, sprites, nubes, depuracion, eventos, registro de plugins, estado de render, CFileMgr); se compara la secuencia exacta de llamadas y argumentos.",
+    "No se ejecutan render ni registro reales; CIplDefPool sobre un pool propio."
+  ]
+}

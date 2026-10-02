@@ -20,7 +20,7 @@ Los dos índices de jugador comparten temporalmente el jugador real para ejercer
 
 La prueba detectó y permitió corregir una diferencia real en la flecha cooperativa: el desplazamiento del vértice interior también se aplica a los otros dos vértices. runtime/regression-detected.json conserva esa evidencia. Los primeros intentos también corrigieron la restauración de estados del propio instrumento y las precondiciones de los objetivos; no se aceptaron como pruebas aprobadas.
 
-La compilación completa Debug x86 sin instrumentación pasó. El ASI normal se instaló en `E:\JUEGOS\GTA San Andreas - CVehicle Test`, con respaldo en `_baseline/gta_reversed-before-weaponeffects.*`. Los ejecutables del juego no cambiaron. Los hashes de las partidas originales y de pruebas se conservaron. Audio y Global/SurfaceInfos_c permanecieron desactivados por los fallos ajenos ya documentados.
+La compilación completa Debug x86 sin instrumentación pasó. El ASI normal se instaló en `D:\JUEGOS\GTA San Andreas - CVehicle Test`, con respaldo en `_baseline/gta_reversed-before-weaponeffects.*`. Los ejecutables del juego no cambiaron. Los hashes de las partidas originales y de pruebas se conservaron. Audio y Global/SurfaceInfos_c permanecieron desactivados por los fallos ajenos ya documentados.
 
 ## Repetir sin IA
 

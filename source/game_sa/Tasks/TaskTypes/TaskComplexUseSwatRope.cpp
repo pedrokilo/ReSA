@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -78,17 +78,18 @@ CTask* CTaskComplexUseSwatRope::Clone() const {
 
 // 0x659530
 bool CTaskComplexUseSwatRope::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
-    eEventType eventType = event->GetEventType();
-
+    // Como el original: con prioridad IMMEDIATE no se toca el evento (puede ser nulo);
+    // si no, se pide el tipo en cada comparación y la salud debe ser estrictamente
+    // menor que 20 (fcomp + test ah,5 + jp: igual o NaN no aborta)
     if ((priority == ABORT_PRIORITY_IMMEDIATE
-        || eventType == EVENT_DEATH
-        || eventType == EVENT_HEALTH_REALLY_LOW
-        || eventType == EVENT_ON_FIRE
-        || eventType == EVENT_IN_WATER
-        || eventType == EVENT_WATER_CANNON
-        || eventType == EVENT_VEHICLE_DAMAGE_WEAPON
-        || eventType == EVENT_VEHICLE_DAMAGE_COLLISION
-        || ped->m_fHealth <= 20.0F
+        || event->GetEventType() == EVENT_DEATH
+        || event->GetEventType() == EVENT_HEALTH_REALLY_LOW
+        || event->GetEventType() == EVENT_ON_FIRE
+        || event->GetEventType() == EVENT_IN_WATER
+        || event->GetEventType() == EVENT_WATER_CANNON
+        || event->GetEventType() == EVENT_VEHICLE_DAMAGE_COLLISION
+        || event->GetEventType() == EVENT_VEHICLE_DAMAGE_WEAPON
+        || ped->m_fHealth < 20.0F
         )
         && m_pSubTask->MakeAbortable(ped, priority, event)
     ) {
@@ -139,17 +140,23 @@ CTask* CTaskComplexUseSwatRope::ControlSubTask(CPed* ped) {
 
     if (subTaskType == TASK_SIMPLE_PAUSE || subTaskType == TASK_SIMPLE_ABSEIL) {
         CVector groundCoord = ped->GetPosition();
-        CPedPlacement::FindZCoorForPed(groundCoord);
-        if (ped->GetPosition().z - 2.0F < groundCoord.z && m_pSubTask->MakeAbortable(ped))
+        groundCoord = CPedPlacement::FindZCoorForPed(groundCoord).first; // Como el original: actualiza la posición en el sitio
+        // Como el original: si ya está cerca del suelo, o si no se encuentra el punto
+        // de la cuerda, se intenta abortar la subtarea; si no se puede, se devuelve
+        // la subtarea sin avanzar por la cuerda (NaN en la comparación sigue la cuerda)
+        if (!(ped->GetPosition().z - 2.0F < groundCoord.z)) {
+            m_fCoorAlongRope += CTimer::GetTimeStep() * 0.003F;
+            CVector posn;
+            if (CRopes::FindCoorsAlongRope(m_nRopeId, m_fCoorAlongRope, &posn, nullptr)) {
+                ped->SetPosn(posn);
+                ped->m_fAimingRotation = ped->m_fCurrentRotation + CTimer::GetTimeStep() * -0.05F;
+                ped->m_vecMoveSpeed.z = -0.03f;
+                ped->Say(CTX_GLOBAL_ROPE);
+                return m_pSubTask;
+            }
+        }
+        if (m_pSubTask->MakeAbortable(ped)) {
             return CreateSubTask(TASK_NONE, ped);
-
-        m_fCoorAlongRope += CTimer::GetTimeStep() * 0.003F;
-        CVector posn;
-        if (CRopes::FindCoorsAlongRope(m_nRopeId, m_fCoorAlongRope, &posn, nullptr)) {
-            ped->SetPosn(posn);
-            ped->m_fAimingRotation = ped->m_fCurrentRotation - CTimer::GetTimeStep() * 0.05F;
-            ped->m_vecMoveSpeed.z = -0.03f;
-            ped->Say(CTX_GLOBAL_ROPE);
         }
     }
 

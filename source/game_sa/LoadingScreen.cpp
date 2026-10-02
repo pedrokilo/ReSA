@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 20/20 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/20 entradas.
+ * Validación registrada: 20/20 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -56,6 +56,28 @@ void CLoadingScreen::InjectHooks() {
     RH_ScopedGlobalInstall(LoadingScreen, 0x53DED0);
 }
 
+// Reloj del original (inline en varias funciones): milisegundos como entero sin signo cargados con fild,
+// por 0.001 con la precisión del FPU del juego.
+static float ClockSeconds() {
+    const int32 ms = (int32)GetMillisecondTime();
+    static const float k2pow32 = 4294967296.0f, kMsToSec = 0.001f;
+    float secs;
+    __asm {
+        fild  ms
+        cmp   ms, 0
+        jge   L_positive
+        fadd  k2pow32
+    L_positive:
+        fmul  kMsToSec
+        fstp  secs
+    }
+    return secs;
+}
+
+// Escalado de pantalla del original: (ancho · 1/640) · valor y (alto · 1/448) · valor.
+static float LoadingStretchX(float a) { return ((float)RsGlobal.maximumWidth * 0.0015625f) * a; }
+static float LoadingStretchY(float a) { return ((float)RsGlobal.maximumHeight * 0.002232142857f) * a; }
+
 // 0x5902B0
 void CLoadingScreen::Init(bool isLegalScreen, bool isReloadDisabled) {
     if (IsActive()) {
@@ -84,7 +106,7 @@ void CLoadingScreen::Shutdown(bool isForce) {
         }
     }
 
-    if (const auto slot = CTxdStore::FindTxdSlot("loadsc0"); slot != -1) {
+    if (const auto slot = CTxdStore::FindTxdSlot("loadscs"); slot != -1) {
         CTxdStore::RemoveTxd(slot);
         CTxdStore::RemoveTxdSlot(slot);
     }
@@ -119,7 +141,7 @@ void CLoadingScreen::RenderSplash() {
             CSprite2d::DrawRect(screenRect, color);
         } else {
             color.a = 255 - m_FadeAlpha;
-            m_aSplashes[+m_currDisplayedSplash - 1].Draw(screenRect, color);
+            m_aSplashes.data()[+m_currDisplayedSplash - 1].Draw(screenRect, color);
         }
     } else if (!m_bReadyToDelete) {
         GetCurrentDisplayedSplash().Draw(screenRect, color);
@@ -131,43 +153,44 @@ void CLoadingScreen::RenderSplash() {
 void CLoadingScreen::LoadSplashes(bool useSplashId, eLoadingLogo id) {
     CFileMgr::SetDir("MODELS\\TXD\\");
 
-    auto slot = CTxdStore::AddTxdSlot("loadsc0");
+    auto slot = CTxdStore::AddTxdSlot("loadscs");
     CTxdStore::LoadTxd(slot, "loadscs.txd");
     CTxdStore::AddRef(slot);
     CTxdStore::PushCurrentTxd();
     CTxdStore::SetCurrentTxd(slot);
 
-    // Initialize RNG -- affects the global state, can not be omitted.
+    // Orden aleatorio como el original: permutación de las 15 pantallas loadsc0..14 sacando una al azar
+    // cada vez (la primera, la del título, siempre es la 0).
+    uint8 pool[15];
+    for (auto i = 0; i < 15; i++) {
+        pool[i] = (uint8)i;
+    }
+
     LARGE_INTEGER pc;
     QueryPerformanceCounter(&pc);
     srand(pc.u.LowPart);
 
-    // NOTSA
-    // Generate random splash order
-    std::array<uint8, +eDisplayedSplash::COUNT> indices{};
-    rng::iota(indices, 0);
+    uint8 order[15];
+    for (auto i = 0, remaining = 14; i < 15; i++, remaining--) {
+        const auto pick = i == 0 ? 0 : (int32)((float)(CGeneral::GetRandomNumber() & 0xFFFF) * (1.0f / 32768.0f) * (float)(remaining + 1));
+        order[i] = pool[pick];
+        if (pick < remaining) {
+            std::memmove(&pool[pick], &pool[pick + 1], remaining - pick);
+        }
+    }
 
-    // exclude 0, title_pcXX.
-    std::shuffle(indices.begin() + 1, indices.end(), std::mt19937{ std::random_device{}() });
-
-    for (auto i = +eDisplayedSplash::COPYRIGHT; i < +eDisplayedSplash::COUNT; i++) {
+    for (auto i = 0; i < +eDisplayedSplash::COUNT; i++) {
         char texName[20];
         if (useSplashId) {
-            const char* logoName;
-            switch (id) {
-            case eLoadingLogo::EAX:    logoName = "eax"; break;
-            case eLoadingLogo::NVIDIA: logoName = "nvidia"; break;
-            default:                   NOTSA_UNREACHABLE(); break;
-            }
-            notsa::format_to_sz(texName, "{}", logoName);
-        } else if (i != 0) {
-            notsa::format_to_sz(texName, "loadsc{}", indices[i]);
-        } else {
+            std::strcpy(texName, id == eLoadingLogo::NVIDIA ? "nvidia" : "eax");
+        } else if (i == 0) {
 #ifdef USE_EU_STUFF
-            strcpy_s(texName, "title_pc_EU");
+            std::strcpy(texName, "title_pc_EU");
 #else
-            strcpy_s(texName, "title_pc_US");
+            std::strcpy(texName, "title_pc_US");
 #endif
+        } else {
+            std::sprintf(texName, "loadsc%d", order[i]);
         }
         m_aSplashes[i].SetTexture(texName);
     }
@@ -198,7 +221,7 @@ void CLoadingScreen::SetLoadingBarMsg(const char* msg1, const char* msg2) {
 
 // 0x590280
 float CLoadingScreen::GetClockTime(bool isRealTime) {
-    const auto secs = (float)(GetMillisecondTime()) / 1000.0f;
+    const auto secs = ClockSeconds();
     return isRealTime ? secs : secs - m_PauseTime;
 }
 
@@ -224,43 +247,38 @@ void CLoadingScreen::Continue() {
 void CLoadingScreen::RenderLoadingBar() {
 #ifdef PRINT_LOADMSG
     // NOTSA
-    // TODO: Fix new-line not rendered when using fastload into a savegame
-
     char loadingMsg[1024];
     *std::format_to(loadingMsg, "{}\n{}", m_LoadingGxtMsg1, m_LoadingGxtMsg2) = 0;
     CFont::SetOrientation(eFontAlignment::ALIGN_LEFT);
     CFont::SetDropShadowPosition(2);
     CFont::SetJustify(false);
-    CFont::PrintString(
-        SCREEN_STRETCH_X(50.0f),
-        SCREEN_STRETCH_Y(40.0f),
-        loadingMsg
-    );
+    CFont::PrintString(SCREEN_STRETCH_X(50.0f), SCREEN_STRETCH_Y(40.0f), loadingMsg);
     CFont::RenderFontBuffer();
-#else
-    NOTSA_LOG_DEBUG("{} -> {}", AsciiFromGxtChar(m_LoadingGxtMsg1), AsciiFromGxtChar(m_LoadingGxtMsg2));
 #endif
 
-    if (m_TimeBarAppeared == 0.0f) {
-        m_TimeBarAppeared = GetClockTime();
-    }
+    // Como el original: el color se pide componente a componente y la geometría con su escalado
+    CRGBA color;
+    color.r = HudColour.GetRGB(HUD_COLOUR_LIGHT_GRAY).r;
+    color.g = HudColour.GetRGB(HUD_COLOUR_LIGHT_GRAY).g;
+    color.b = HudColour.GetRGB(HUD_COLOUR_LIGHT_GRAY).b;
+    color.a = 255;
 
-    if (m_bLegalScreen || m_PercentLoaded <= 0.0f || m_PercentLoaded >= 100.0f) {
+    const float x      = LoadingStretchX(50.0f);
+    const float hScale = (float)RsGlobal.maximumHeight * 0.002232142857f;
+    const float y      = (float)RsGlobal.maximumHeight - hScale * 40.0f;
+    const auto  width  = (int32)LoadingStretchX(180.0f);
+    const auto  height = (int32)(hScale * 10.0f);
+
+    if (m_bLegalScreen || !(m_PercentLoaded > 0.0f) || !(m_PercentLoaded < 100.0f)) {
         return;
     }
 
-    CSprite2d::DrawBarChart(
-        SCREEN_STRETCH_X(50.0f),
-        SCREEN_STRETCH_FROM_BOTTOM(40.0f),
-        (uint16)SCREEN_STRETCH_X(180.0f),
-        (uint8)SCREEN_STRETCH_Y(10.0f),
-        m_PercentLoaded,
-        0,
-        false,
-        true,
-        HudColour.GetRGBA(HUD_COLOUR_LIGHT_GRAY, 255),
-        CRGBA{ 0, 0, 0, 0 }
-    );
+    CSprite2d::DrawBarChart(x, y, (uint16)width, (uint8)height, m_PercentLoaded, 0, false, true, color, CRGBA{ 0, 0, 0, 0 });
+
+    // El original solo anota el momento en que aparece la barra después de dibujarla
+    if (m_TimeBarAppeared == 0.0f) {
+        m_TimeBarAppeared = GetClockTime(false);
+    }
 }
 
 // 0x5904D0
@@ -349,8 +367,9 @@ void CLoadingScreen::DoPCScreenChange(bool isLastOne) {
     if (isLastOne) {
         m_bFadeOutCurrSplashToBlack = true;
     } else {
-        if (notsa::IsFixBugs()) { // Fix incorrect looping behaviour
-            m_currDisplayedSplash = (eDisplayedSplash)(std::max((+m_currDisplayedSplash + 1) % std::size(m_aSplashes), 1u)); // 1u = skip copyright screen
+        // FIX_BUGS: el original se sale del array tras la última pantalla; solo entonces se vuelve a la 1
+        if (notsa::IsFixBugs() && +m_currDisplayedSplash + 1 >= +eDisplayedSplash::COUNT) {
+            m_currDisplayedSplash = eDisplayedSplash::SPLASH_1_NO_BAR;
         } else {
             m_currDisplayedSplash = (eDisplayedSplash)(+m_currDisplayedSplash + 1);
         }
@@ -364,14 +383,11 @@ void CLoadingScreen::DoPCScreenChange(bool isLastOne) {
     }
 
     for (auto i = 0u; i < 50u; i++) {
-        float alpha = (float)i * 5.0f;
-        m_FadeAlpha = (uint8)alpha;
+        m_FadeAlpha = (uint8)((float)i * 5.0f);
 
         if (isLastOne || m_bFadeInNextSplashFromBlack) {
-            float amp = (isLastOne && m_bFadeOutCurrSplashToBlack)
-                ? ((255.0f - alpha) / 25.0f)
-                : 1.0f;
-            AudioEngine.ServiceLoadingTune(amp);
+            // Volumen del tema: baja con el fundido a negro final (alpha ya truncado a byte)
+            AudioEngine.ServiceLoadingTune(m_bFadeOutCurrSplashToBlack ? (255.0f - (float)m_FadeAlpha) * (1.0f / 255.0f) : 1.0f);
         }
 
         DisplayPCScreen();
@@ -397,24 +413,19 @@ void CLoadingScreen::NewChunkLoaded() {
     ++m_numChunksLoaded;
 
     if (m_chunkBarAppeared != -1) {
-        auto loadedSinceAppeared = m_numChunksLoaded - m_chunkBarAppeared;
-        auto totalChunksRemaining = 140 - m_chunkBarAppeared;
-
-        m_PercentLoaded = (float)(loadedSinceAppeared * 100) / totalChunksRemaining;
+        m_PercentLoaded = ((float)(m_numChunksLoaded - m_chunkBarAppeared) * 100.0f) / (float)(140 - m_chunkBarAppeared);
     }
 
-    auto now = GetClockTime();
-    auto delta = now - m_timeSinceLastScreen;
+    const auto now   = ClockSeconds();
+    const auto delta = now - m_timeSinceLastScreen;
 
     if (m_numChunksLoaded == 140) {
         return DoPCScreenChange(true);
     }
 
-#ifdef FIX_BUGS // Fix copyright screen appearing instead of an actual loading screen splash
-    if (m_currDisplayedSplash > eDisplayedSplash::COPYRIGHT && delta < g_FastLoaderConfig.ScreenChangeTime) {
-#else
-    if ((m_currDisplayedSplash > eDisplayedSplash::COPYRIGHT && delta < 5.0f) || (m_currDisplayedSplash == eDisplayedSplash::COPYRIGHT && delta < 5.5f)) {
-#endif
+    // Como el original: 5.5 s en la pantalla de copyright y 5 s (ScreenChangeTime) en las demás, incluida NONE
+    const auto limit = m_currDisplayedSplash == eDisplayedSplash::COPYRIGHT ? 5.5f : g_FastLoaderConfig.ScreenChangeTime;
+    if (delta < limit) {
         if (!g_FastLoaderConfig.NoLoadScreen || !g_FastLoaderConfig.NoLoadBar) {
             DisplayPCScreen();
         }
@@ -429,72 +440,72 @@ void CLoadingScreen::NewChunkLoaded() {
 }
 
 // 0x5905E0
-// unused
+// unused. Transcrito del original (la reconstrucción anterior no coincidía).
 void CLoadingScreen::Update() {
-    // Timing constants, defines?
-    constexpr float LEGAL_SCREEN_TIMEOUT = 5.5f;
-    constexpr float FADE_TIME_STANDARD = 0.6f;
-    constexpr float FADE_TIME_LEGAL = 2.0f;
-
-    // Calculate progress
     if (m_TimeBarAppeared > 0.0f) {
-        float elapsed = GetClockTime(false) - m_TimeBarAppeared;
-        float total = m_TimeBarAppeared - m_TimeStartedLoading;
-        if (total > 0.0f) {
-            m_PercentLoaded = std::min(elapsed / total, 1.0f);
+        const auto elapsed = (GetClockTime(false) - m_TimeBarAppeared) * 100.0f;
+        m_PercentLoaded = elapsed / (36.0f - (m_TimeBarAppeared - m_TimeStartedLoading));
+        if (m_PercentLoaded > 100.0f) {
+            m_PercentLoaded = 100.0f;
         }
     }
 
-    // Handle deletion queue
-    if (!m_bReadyToDelete && m_bLegalScreen) {
-        if (GetClockTime(false) - m_TimeStartedLoading > LEGAL_SCREEN_TIMEOUT) {
+    bool fadeBlock = m_bFading;
+    if (!m_bReadyToDelete) {
+        if (m_bLegalScreen) {
+            if (GetClockTime(false) - m_TimeStartedLoading > 5.5f) {
+                DisplayNextSplash();
+            }
+        } else if ((float)+m_currDisplayedSplash * 16.666666f < m_PercentLoaded) {
             DisplayNextSplash();
         }
+
+        if (m_bSignalDelete) {
+            if (!m_bFading) {
+                if (!(m_PercentLoaded >= 100.0f)) { // por debajo de 100 (o NaN): alfa 255 y al audio
+                    m_FadeAlpha = 255;
+                    fadeBlock = false;
+                    goto audio;
+                }
+                m_bReadyToDelete            = true;
+                m_bFadeOutCurrSplashToBlack = true;
+                StartFading();
+            }
+        }
+        fadeBlock = m_bFading;
     }
 
-    if (!m_bReadyToDelete && m_bSignalDelete && !m_bFading && m_PercentLoaded >= 1.0f) {
-        // 0x5906ED
-        m_bReadyToDelete = true;
-        m_bFadeOutCurrSplashToBlack = true;
-        StartFading();
-    }
-
-    // 0x590706
-    // Update fade
-    if (m_bFading) {
-        float elapsed = GetClockTime(false) - m_StartFadeTime;
-        float duration = (m_currDisplayedSplash == eDisplayedSplash::NONE || m_bFadeInNextSplashFromBlack || m_bLegalScreen)
-            ? FADE_TIME_LEGAL
-            : FADE_TIME_STANDARD;
-
+    if (fadeBlock) {
+        const auto elapsed  = GetClockTime(false) - m_StartFadeTime;
+        const auto duration = (+m_currDisplayedSplash >= 0 && (m_bLegalScreen || m_bFadeInNextSplashFromBlack)) ? 0.6f : 2.0f;
         if (elapsed > duration) {
-            m_bFading = false;
+            m_bFading   = false;
             m_FadeAlpha = 255;
-
             if (m_bLegalScreen && m_bFadeOutCurrSplashToBlack) {
-                m_bFadeOutCurrSplashToBlack = false;
-                m_bLegalScreen = false;
+                m_bFadeOutCurrSplashToBlack  = false;
                 m_bFadeInNextSplashFromBlack = true;
+                m_bLegalScreen               = false;
                 DisplayNextSplash();
             } else {
                 m_bFadeInNextSplashFromBlack = false;
-                m_bFadeOutCurrSplashToBlack = false;
+                m_bFadeOutCurrSplashToBlack  = false;
             }
         } else {
-            m_FadeAlpha = static_cast<uint8>((elapsed / duration) * 255.0f);
+            m_FadeAlpha = (uint8)(int32)((elapsed / duration) * 255.0f);
         }
     } else {
         m_FadeAlpha = 255;
     }
 
-    // 0x5907D7
-    // Update audio
+audio:
     if (!m_bLegalScreen) {
-        float volume = 1.0f;
+        float volume;
         if (m_bFadeInNextSplashFromBlack) {
-            volume = (float)m_FadeAlpha / 255.0f;
+            volume = (float)m_FadeAlpha * (1.0f / 255.0f);
         } else if (m_bFadeOutCurrSplashToBlack) {
-            volume = (255.0f - (float)m_FadeAlpha) / 255.0f;
+            volume = (255.0f - (float)m_FadeAlpha) * (1.0f / 255.0f);
+        } else {
+            volume = 1.0f;
         }
         AudioEngine.ServiceLoadingTune(volume);
     }

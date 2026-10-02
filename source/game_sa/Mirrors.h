@@ -9,7 +9,7 @@
 #include "Matrix.h"
 #include "Vector.h"
 
-enum eMirrorType : uint8 {
+enum eMirrorType : int32 { // int32 en el original (TypeOfMirror se lee y escribe como palabra completa)
     MIRROR_TYPE_NONE = 0,
     MIRROR_TYPE_WALL = 1,
     MIRROR_TYPE_FLOOR = 2,
@@ -23,7 +23,7 @@ public:
     static inline auto& bRenderingReflection = StaticRef<bool>(0xC7C728);
     static inline auto& d3dRestored = StaticRef<bool>(0xC7C729);
     static inline auto& TypeOfMirror = StaticRef<eMirrorType>(0xC7C724);
-    static inline auto& MirrorFlags = StaticRef<uint8>(0xC7C618);
+    static inline auto& MirrorFlags = StaticRef<int32>(0xC7C618); // int32 con signo en el original (movsx de los flags de la zona)
     static inline auto& MirrorV = StaticRef<float>(0xC7C61C);
     static inline auto& MirrorNormal = StaticRef<CVector>(0xC803D8);
 

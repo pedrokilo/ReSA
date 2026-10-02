@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 20/20 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/20 entradas.
+ * Validación registrada: 20/20 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -20,6 +20,63 @@ END GENERATED HOOK STATUS */
 
 #include "3dMarkers.h"
 #include "PostEffects.h"
+
+// x87 como el original: fld ángulo; fmul k; fsin; fmul mult; fadd add (fsin con precisión interna completa)
+static float __declspec(naked) __cdecl SinMulAddX87(float angle, float k, float mult, float add) {
+    __asm {
+        fld  dword ptr [esp + 4]
+        fmul dword ptr [esp + 8]
+        fsin
+        fmul dword ptr [esp + 12]
+        fadd dword ptr [esp + 16]
+        ret
+    }
+}
+
+// Tamaño estándar según la distancia al jugador (0x725674 / 0x725A8F), con la aritmética del original.
+static float ComputeStdSize(float sz, float dist) {
+    if (!(dist < 25.f)) {
+        return sz;
+    }
+    // x87 explícito: los resultados deben coincidir bit a bit con el original (precisión del FPU del juego).
+    static const float k25 = 25.f, k03 = 0.3f, k0015 = std::bit_cast<float>(0x3C75C290u); // 0x8717A8: el float siguiente a 0.015 (no 0.015f)
+    float result;
+    if (dist <= 5.f) {
+        __asm {
+            fld   sz
+            fmul  k03
+            fsubr sz
+            fstp  result
+        }
+    } else {
+        __asm {
+            fld   k25
+            fsub  dist
+            fmul  sz
+            fmul  k0015
+            fsubr sz
+            fstp  result
+        }
+    }
+    return result;
+}
+
+// Matriz "con este eje arriba" como la construye el original (0x7224AF / 0x721392): unidad si el eje es
+// exactamente (0,0,1); si no, derecha = normalizar(Z x n), frente = normalizar(n x derecha), arriba = n.
+// (CMatrix::WithUp no normaliza los ejes.)
+static CMatrix MarkerWithUp(const CVector& up) {
+    CMatrix m = CMatrix::Unity();
+    if (!(up.x == 0.0f && up.y == 0.0f && up.z == 1.0f)) {
+        CVector right = CrossProduct(CVector{ 0.0f, 0.0f, 1.0f }, up);
+        right.Normalise();
+        CVector forward = CrossProduct(up, right);
+        forward.Normalise();
+        m.GetRight()   = right;
+        m.GetForward() = forward;
+        m.GetUp()      = up;
+    }
+    return m;
+}
 
 // RwIm3DVertex StreakVertices[4];
 auto& aRenderVertices = StaticRef<RxObjSpace3DVertex*>(0xC278F8);
@@ -52,7 +109,28 @@ void C3dMarkers::InjectHooks() {
 
 //> 0x724E40
 void C3dMarkers::Init() {
-    rng::fill(m_aMarkerArray, C3dMarker{});
+    // Como el original (0x724E63): solo estos campos; la matriz, el material, m_LastMapReadY,
+    // m_LastMapReadResultZ y m_OnScreenTestTime se dejan como estén. La normal queda en (0, 0, 1).
+    for (auto& m : m_aMarkerArray) {
+        m.m_Atomic        = nullptr;
+        m.m_Type          = MARKER3D_NA;
+        m.m_IsInUse       = false;
+        m.m_IsActive      = false;
+        m.m_ID            = 0;
+        m.m_Color         = CRGBA{ 255, 255, 255, 255 };
+        m.m_PulsePeriod   = 1'024;
+        m.m_RotateRate    = 5;
+        m.m_StartTime     = 0;
+        m.m_PulseFraction = 0.25f;
+        m.m_StdSize       = 1.0f;
+        m.m_Size          = 1.0f;
+        m.m_Brightness    = 1.0f;
+        m.m_DistToCam2D   = 0.0f;
+        m.m_Normal        = CVector{ 0.0f, 0.0f, 1.0f };
+        m.m_LastMapReadX  = 30'000;
+        m.m_RoofHeight    = 65535.0f;
+        m.m_LastPosition  = CVector{};
+    }
 
     NumActiveMarkers = 0;
     m_angleDiamondDeg = 0.0f;
@@ -97,11 +175,18 @@ void C3dMarkers::Shutdown() {
         marker.DeleteIfHasAtomic();
     }
 
-    // Original code is retarded, this does the same, but better.
-    for (auto& v : m_pRpClumpArray) {
-        if (auto* const clump = std::exchange(v, nullptr)) {
+    // Como el original (0x72275C): varios tipos comparten clump; tras destruirlo se anulan las demás
+    // entradas iguales para no destruirlo dos veces.
+    for (auto i = 0u; i < m_pRpClumpArray.size(); i++) {
+        if (auto* const clump = m_pRpClumpArray[i]) {
             RpClumpForAllAtomics(clump, RemoveRefsCB, nullptr);
             RpClumpDestroy(clump);
+            for (auto j = 0u; j < m_pRpClumpArray.size(); j++) {
+                if (j != i && m_pRpClumpArray[j] == clump) {
+                    m_pRpClumpArray[j] = nullptr;
+                }
+            }
+            m_pRpClumpArray[i] = nullptr;
         }
     }
 }
@@ -130,8 +215,9 @@ void C3dMarkers::Render3dMarkers() {
 
     for (auto& marker : m_aMarkerArray) {
         if (marker.m_IsActive) {
-            if (TheCamera.IsSphereVisible(marker.m_Mat.GetPosition(), 2.0f, reinterpret_cast<RwMatrix*>(&TheCamera.m_mMatInverse))) {
-                if (marker.m_DistToCam2D < 150.0f || IgnoreRenderLimit || marker.m_Type == MARKER3D_TORUS) {
+            // El original mira primero distancia/banderas y después la visibilidad
+            if (marker.m_DistToCam2D < 150.0f || IgnoreRenderLimit || marker.m_Type == MARKER3D_TORUS) {
+                if (TheCamera.IsSphereVisible(marker.m_Mat.GetPosition(), 2.0f, reinterpret_cast<RwMatrix*>(&TheCamera.m_mMatInverse))) {
                     marker.Render();
                 }
             }
@@ -252,17 +338,16 @@ RpClump* C3dMarkers::LoadMarker(const char* modelName) {
     CStreaming::RequestModel(modelId, STREAMING_GAME_REQUIRED);
     CStreaming::LoadAllRequestedModels(false);
 
-    // Create an instance of the model, reset it's rotation and return.
+    // Create an instance of the model, reset it's rotation and return (orden del original).
     const auto atomic = reinterpret_cast<RpAtomic*>(mi->CreateInstance());
-    const auto frame  = RpAtomicGetFrame(atomic);
+    mi->AddRef();
     const auto clump  = RpClumpCreate();
+    const auto frame  = RpAtomicGetFrame(atomic);
 
     RwFrameSetIdentity(frame);
 
     RpClumpAddAtomic(clump, atomic);
-    RpClumpSetFrame(clump, frame);
-
-    mi->AddRef();
+    clump->object.parent = frame; // El original asigna el frame directamente
 
     return clump;
 }
@@ -282,7 +367,21 @@ C3dMarker* C3dMarkers::PlaceMarker(
 ) {
     assert(id != 0);
 
-    auto markerToPlayerDist2D = (pos - FindPlayerCentreOfWorld(0)).Magnitude2D();
+    // x87 como el original: dx² + dy² y fsqrt con la precisión del FPU del juego.
+    float markerToPlayerDist2D;
+    const CVector centre = FindPlayerCentreOfWorld(0); // El original guarda una copia y la usa para UpdateZCoordinate de los cilindros
+    {
+        const float distX = pos.x - centre.x, distY = pos.y - centre.y;
+        __asm {
+            fld   distX
+            fmul  distX
+            fld   distY
+            fmul  distY
+            faddp st(1), st
+            fsqrt
+            fstp  markerToPlayerDist2D
+        }
+    }
 
     switch (type) {
     case MARKER3D_TUBE: {
@@ -387,7 +486,7 @@ C3dMarker* C3dMarkers::PlaceMarker(
         switch (type) {
         case MARKER3D_CONE:
         case MARKER3D_CONE_NO_COLLISION: {
-            pos.z += std::sin(DegreesToRadians(m_angleDiamondDeg)) * (m->m_RoofHeight < 65535.f ? 0.15f : 0.3f);
+            pos.z = SinMulAddX87(m_angleDiamondDeg, 0.017453292f, m->m_RoofHeight < 65535.f ? 0.15f : 0.3f, pos.z);
         }
         }
 
@@ -397,7 +496,7 @@ C3dMarker* C3dMarkers::PlaceMarker(
         case MARKER3D_ARROW2:
         case MARKER3D_CONE:
         case MARKER3D_CONE_NO_COLLISION: {
-            m->m_StdSize = size * (1.f - 0.3f * (25.f - std::clamp(markerToPlayerDist2D, 5.f, 25.f)) / 20.f);
+            m->m_StdSize = ComputeStdSize(size, markerToPlayerDist2D);
         }
         }
 
@@ -440,13 +539,15 @@ C3dMarker* C3dMarkers::PlaceMarker(
                     m->m_Mat.GetPosition().z = pos.z;
                 }
                 m->UpdateZCoordinate(pos, 10.f);
+            } else {
+                m->m_Mat.GetPosition().z = pos.z; // El original fija la Z sin comprobar
             }
             break;
         }
         case MARKER3D_CYLINDER: { //> 0x7258C2
             auto& markerZ = m->m_Mat.GetPosition().z;
             if (float waterZ; !CWaterLevel::GetWaterLevelNoWaves(m->m_Mat.GetPosition(), &waterZ, nullptr, nullptr) || waterZ < markerZ) {
-                m->UpdateZCoordinate(pos, size);
+                m->UpdateZCoordinate(centre, size); // El original pasa el centro del jugador, no la posición del marcador
             } else {
                 markerZ = waterZ;
             }
@@ -473,7 +574,7 @@ C3dMarker* C3dMarkers::PlaceMarker(
         switch (type) {
         case MARKER3D_CONE:
         case MARKER3D_CONE_NO_COLLISION: {
-            pos.z += std::sin(DegreesToRadians(m_angleDiamondDeg) * 0.3f); // NOTE/BUG: See code from the branch below, they aren't the same for some reason.
+            pos.z = SinMulAddX87(m_angleDiamondDeg, 0.017453292f, 0.3f, pos.z);
         }
         }
 
@@ -486,7 +587,7 @@ C3dMarker* C3dMarkers::PlaceMarker(
         case MARKER3D_CYLINDER: {
             auto& markerZ = m->m_Mat.GetPosition().z;
             if (float waterZ; !CWaterLevel::GetWaterLevelNoWaves(m->m_Mat.GetPosition(), &waterZ, nullptr, nullptr) || waterZ < markerZ) {
-                m->UpdateZCoordinate(pos, size);
+                m->UpdateZCoordinate(centre, size); // El original pasa el centro del jugador, no la posición del marcador
             } else {
                 markerZ = waterZ;
             }
@@ -502,7 +603,7 @@ C3dMarker* C3dMarkers::PlaceMarker(
         case MARKER3D_ARROW2:
         case MARKER3D_CONE:
         case MARKER3D_CONE_NO_COLLISION: {
-            m->m_StdSize = size * (1.f - 0.3f * (25.f - std::clamp(markerToPlayerDist2D, 5.f, 25.f)) / 20.f);
+            m->m_StdSize = ComputeStdSize(size, markerToPlayerDist2D);
         }
         }
     }
@@ -510,12 +611,13 @@ C3dMarker* C3dMarkers::PlaceMarker(
 
     //> 0x725AEC & 0x7256D1
     if (type != MARKER3D_ARROW2) {
-        if (size + 12.f <= markerToPlayerDist2D) {
+        const float farDist = size + 12.f;
+        if (!(markerToPlayerDist2D < farDist)) {
             m->m_Color.a = alpha;
         } else if (size + 1.f >= markerToPlayerDist2D) {
-            m->m_Color.a = (uint8)((float)alpha * 0.65f);
+            m->m_Color.a = (uint8)(int32)((float)alpha * 0.65f);
         } else {
-            m->m_Color.a = (uint8)((float)alpha * (1.f - ((size + 12.f - markerToPlayerDist2D) * 0.35f) / 11.f));
+            m->m_Color.a = (uint8)(int32)((1.f - (farDist - markerToPlayerDist2D) * 0.031818185f) * (float)alpha); // 0.35 / 11 en el original
         }
     }
 
@@ -527,7 +629,9 @@ C3dMarker* C3dMarkers::PlaceMarker(
 
 //> 0x726D40
 void C3dMarkers::PlaceMarkerCone(uint32 id, CVector& point, float size, uint8 red, uint8 green, uint8 blue, uint8 alpha, uint16 pulsePeriod, float pulseFraction, int16 rotateRate, bool bEnableCollision) {
-    if ((point - TheCamera.GetPosition()).SquaredMagnitude() >= sq(1.6f)) {
+    // El original compara la distancia (con raíz) y suma en el orden z² + x² + y².
+    const auto d = point - TheCamera.GetPosition();
+    if (std::sqrt(d.z * d.z + d.x * d.x + d.y * d.y) >= 1.6f) {
         PlaceMarker(
             id,
             bEnableCollision
@@ -552,7 +656,7 @@ void C3dMarkers::PlaceMarkerSet(uint32 id, e3dMarkerType type, CVector& posn, fl
         type,
         posn,
         size,
-        red, green, blue, static_cast<uint8>((float)alpha * 1.0f / 3.0f),
+        red, green, blue, static_cast<uint8>((int32)((float)alpha * (1.0f / 3.0f))), // El original multiplica por 1/3 (float)
         pulsePeriod,
         pulseFraction,
         1,
@@ -603,10 +707,10 @@ int32 C3dMarkers::User3dMarkerSet(float x, float y, float z, eHudColours color) 
 
         marker.m_vecPosition.Set(x, y, z);
     
-        const auto colour = HudColour.GetRGB(color);
-        marker.m_nRed = colour.r;
-        marker.m_nGreen = colour.g;
-        marker.m_nBlue = colour.b;
+        // El original pide el color tres veces, una por componente.
+        marker.m_nRed   = HudColour.GetRGB(color).r;
+        marker.m_nGreen = HudColour.GetRGB(color).g;
+        marker.m_nBlue  = HudColour.GetRGB(color).b;
 
         marker.m_bIsUsed = true;
     }
@@ -673,7 +777,7 @@ void tDirectionArrow::Render(RpClump* clump) {
 
     auto DoRender = [
         &,
-        transform = CMatrix{ RwFrameGetMatrix(frame) } * CMatrix::WithUp(m_normal) // Build transform matrix we'll use to render
+        transform = CMatrix{ RwFrameGetMatrix(frame) } * MarkerWithUp(m_normal) // Build transform matrix we'll use to render
     ](CRGBA color, float scale) mutable {
         transform.Scale(scale);
         transform.UpdateRwMatrix(RwFrameGetMatrix(frame)); // Push this matrix to the underlaying RW matrix
@@ -702,7 +806,7 @@ void tUser3dMarker::Render(RpClump* clump) const {
 
     // Update position
     CVector pos = m_vecPosition;
-    pos.z += std::sin(DegreesToRadians(C3dMarkers::m_angleDiamondDeg)) * 0.25f;
+    pos.z = SinMulAddX87(C3dMarkers::m_angleDiamondDeg, 0.017453292f, 0.25f, pos.z); // fsin x87 como el original (0x7232D2)
     RwFrameTranslate(frame, &pos, rwCOMBINEREPLACE);
 
     // Apply color to material of clump

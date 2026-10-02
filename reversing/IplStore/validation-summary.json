@@ -1,0 +1,95 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 6240,
+  "pairs_per_function": {
+    "CIplStore::SetIplsRequired": 512,
+    "CIplStore::EnsureIplsAreInMemory": 512,
+    "CIplStore::RemoveAllIpls": 64,
+    "CIplStore::LoadAllRemainingIpls": 128,
+    "CIplStore::AddIplsNeededAtPosn": 64,
+    "CIplStore::ClearIplsNeededAtPosn": 32,
+    "CIplStore::EnableDynamicStreaming": 128,
+    "CIplStore::FindIplSlot": 256,
+    "CIplStore::GetBoundingBox": 64,
+    "CIplStore::GetIplEntityIndexArray": 64,
+    "CIplStore::GetIplName": 64,
+    "CIplStore::GetNewIplEntityIndexArray": 64,
+    "CIplStore::HaveIplsLoaded": 512,
+    "CIplStore::IncludeEntity": 512,
+    "CIplStore::SetIsInterior": 128,
+    "CIplStore::RemoveIplAndIgnore": 128,
+    "CIplStore::RemoveIplWhenFarAway": 128,
+    "CIplStore::RequestIplAndIgnore": 128,
+    "CIplStore::RequestIpls": 512,
+    "CIplStore::RemoveRelatedIpls": 256,
+    "CIplStore::SetIfIplIsRequired": 512,
+    "CIplStore::SetIfIplIsRequiredReducedBB": 512,
+    "CIplStore::SetIfInteriorIplIsRequired": 512,
+    "CIplStore::Save": 64,
+    "CIplStore::Load": 256,
+    "CIplStore::AddIplSlot": 128
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "81d48044b5ac9c031f2ca74320951ddb39d949e81db80fabbc629f675c32a232",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ipl\\20261002-092022-359436",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CIplStore::SetIplsRequired": true,
+    "CIplStore::EnsureIplsAreInMemory": true,
+    "CIplStore::RemoveAllIpls": true,
+    "CIplStore::LoadAllRemainingIpls": true,
+    "CIplStore::AddIplsNeededAtPosn": true,
+    "CIplStore::ClearIplsNeededAtPosn": true,
+    "CIplStore::EnableDynamicStreaming": true,
+    "CIplStore::FindIplSlot": true,
+    "CIplStore::GetBoundingBox": true,
+    "CIplStore::GetIplEntityIndexArray": true,
+    "CIplStore::GetIplName": true,
+    "CIplStore::GetNewIplEntityIndexArray": true,
+    "CIplStore::HaveIplsLoaded": true,
+    "CIplStore::IncludeEntity": true,
+    "CIplStore::SetIsInterior": true,
+    "CIplStore::RemoveIplAndIgnore": true,
+    "CIplStore::RemoveIplWhenFarAway": true,
+    "CIplStore::RequestIplAndIgnore": true,
+    "CIplStore::RequestIpls": true,
+    "CIplStore::RemoveRelatedIpls": true,
+    "CIplStore::SetIfIplIsRequired": true,
+    "CIplStore::SetIfIplIsRequiredReducedBB": true,
+    "CIplStore::SetIfInteriorIplIsRequired": true,
+    "CIplStore::Save": true,
+    "CIplStore::Load": true,
+    "CIplStore::AddIplSlot": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "2bd149ba1d1b5ff33e30d8af87e9edee7f98a3ceb0de32b740ee3cef6e79b863",
+      "pdb": "e1c7c4c7ffc6ed90306b160086fee8a09d0962de0edb778d2daff40c0576c190"
+    },
+    "sources": {
+      "source/game_sa/IplStore.cpp": "11fed45a196a5e0d363915c7cd66dd73b9cf7277f85f2e69b16dc304b1b89baa",
+      "source/game_sa/IplStore.h": "34ab184fec855e145ca4b9fc4f4691c3b9f660f40c5f92188755bddcad09ca67"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "a6064227aa3606c98f0b3c9a0b3ad83b2bbbbf675503cdc9b2682989f5b85c1f",
+      "build_probe.py": "2c70155a7b2d854d0f69081b3ace43bac389369697b698fdc8c0792ae0bab14d",
+      "run_local.py": "dc4c7a23998c8942ff9baebe2e6ca90a1d3164d451022f750d28068ec0ccd7c0"
+    }
+  },
+  "limitations": [
+    "Subconjunto de 26 funciones sin carga de archivos ni borrado de entidades; CStreaming::RequestModel/RemoveModel/LoadAllRequestedModels, MessageScreen, CTimer::Suspend/Resume, CColAccel::isCacheLoading, el búfer de guardado y operator new[] se simulan y se trazan; el pool real de IPL se restaura tras cada ejecución.",
+    "En AddIplSlot se ignoran los bytes basura del nuevo IplDef (resto del nombre tras el NUL y relleno final): el pool de la DLL rellena con 0xCD y strcpy_s con 0xFE."
+  ]
+}

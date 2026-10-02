@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -65,79 +65,78 @@ CTask* CTaskComplexStealCar::CreateSubTask(eTaskType taskType, CPed* ped) {
     case TASK_SIMPLE_PAUSE:
         return new CTaskSimplePause{0};
     case TASK_COMPLEX_ENTER_CAR_AS_DRIVER: {
-        CEntity::SafeCleanUpRef(m_originalriver);
-
-        if (m_veh) {
-            m_originalriver = m_veh->m_pDriver;
-            CEntity::SafeRegisterRef(m_originalriver);
+        // 0x640F75: the old driver's reference is dropped but the pointer is only replaced if there's a new driver
+        if (m_originalriver) {
+            m_originalriver->CleanUpOldReference(reinterpret_cast<CEntity**>(&m_originalriver));
         }
-
+        if (m_veh && m_veh->m_pDriver) {
+            m_originalriver = m_veh->m_pDriver;
+            m_originalriver->RegisterReference(reinterpret_cast<CEntity**>(&m_originalriver));
+        }
         return new CTaskComplexEnterCarAsDriver{ m_veh };
     }
     case TASK_SIMPLE_SET_PED_AS_AUTO_DRIVER:
         return new CTaskSimpleSetPedAsAutoDriver{ m_veh };
     case TASK_FINISHED: {
-        if (!ped->bInVehicle) {
+        if (ped && !ped->bInVehicle) {
             ped->SetUsesCollision(true);
         }
         return nullptr;
     }
     default:
-        NOTSA_UNREACHABLE();
+        return nullptr;
     }
 }
 
 // 0x6440B0
+// NOTE: The original passes no ped to `CreateSubTask` here, so `TASK_FINISHED` never re-enables collision.
 CTask* CTaskComplexStealCar::CreateNextSubTask(CPed* ped) {
-    return CreateSubTask([this, ped] {
-        if (!m_veh) {
-            return TASK_FINISHED;
+    if (!m_veh) {
+        return CreateSubTask(TASK_FINISHED, nullptr);
+    }
+    switch (m_pSubTask->GetTaskType()) {
+    case TASK_COMPLEX_ENTER_CAR_AS_DRIVER: {
+        if (!ped->IsInVehicle()) {
+            return CreateSubTask(TASK_FINISHED, nullptr);
         }
-
-        switch (m_pSubTask->GetTaskType()) {
-        case TASK_COMPLEX_ENTER_CAR_AS_DRIVER: {
-            if (ped->IsInVehicle()) {
-                if (ped->m_nPedType == PED_TYPE_CRIMINAL) {
-                    ped->Say(CTX_GLOBAL_MUGGING);
-                }
-                if (m_originalriver && !m_originalriver->IsPlayer()) {
-                    m_originalriver->Say(CTX_GLOBAL_MUGGED);
-                }
-                return TASK_SIMPLE_SET_PED_AS_AUTO_DRIVER;
-            }
-            return TASK_FINISHED;
+        const auto task = CreateSubTask(TASK_SIMPLE_SET_PED_AS_AUTO_DRIVER, nullptr);
+        if (ped->m_nPedType == PED_TYPE_CRIMINAL) {
+            ped->Say(CTX_GLOBAL_MUGGING);
         }
-        case TASK_SIMPLE_SET_PED_AS_AUTO_DRIVER: {
-            if (ped->m_nPedType == PED_TYPE_CRIMINAL) {
-                ped->bWantedByPolice = true;
-                ped->m_pVehicle->vehicleFlags.bMadDriver = true;
-            }
-            return TASK_COMPLEX_CAR_DRIVE_MISSION_FLEE_SCENE;
+        if (m_originalriver && !m_originalriver->IsPlayer()) {
+            m_originalriver->Say(CTX_GLOBAL_MUGGED);
         }
-        case TASK_COMPLEX_CAR_DRIVE_MISSION_FLEE_SCENE: {
-            if (ped->bInVehicle) {
-                ped->m_pVehicle->m_autoPilot.SetCarMission(MISSION_CRUISE);
-                ped->m_pVehicle->m_autoPilot.SetCruiseSpeed(10);
-            }
-            return TASK_FINISHED;
+        return task;
+    }
+    case TASK_SIMPLE_SET_PED_AS_AUTO_DRIVER: {
+        const auto task = CreateSubTask(TASK_COMPLEX_CAR_DRIVE_MISSION_FLEE_SCENE, nullptr);
+        if (ped->m_nPedType == PED_TYPE_CRIMINAL) {
+            ped->m_pVehicle->vehicleFlags.bMadDriver = true;
+            ped->bWantedByPolice = true;
         }
-        case TASK_SIMPLE_PAUSE:
-            return TASK_FINISHED;
-        default:
-            NOTSA_UNREACHABLE();
+        return task;
+    }
+    case TASK_COMPLEX_CAR_DRIVE_MISSION_FLEE_SCENE: {
+        if (ped->bInVehicle) {
+            ped->m_pVehicle->m_autoPilot.SetCarMission(MISSION_CRUISE);
+            ped->m_pVehicle->m_autoPilot.SetCruiseSpeed(10);
         }
-    }(), ped);
+        return CreateSubTask(TASK_FINISHED, nullptr);
+    }
+    case TASK_SIMPLE_PAUSE:
+        return CreateSubTask(TASK_FINISHED, nullptr);
+    default:
+        return nullptr;
+    }
 }
 
 // 0x644210
 CTask* CTaskComplexStealCar::CreateFirstSubTask(CPed* ped) {
-    return CreateSubTask([this, ped] {
-        if (m_veh) { // Inverted
-            m_enterTimer.Start(10'000);
-            return TASK_COMPLEX_ENTER_CAR_AS_DRIVER;
-        }
-        return TASK_FINISHED;
-    }(), ped);
+    if (!m_veh) {
+        return CreateSubTask(TASK_SIMPLE_PAUSE, nullptr); // 0x644219: a pause, not `TASK_FINISHED`
+    }
+    m_enterTimer.Start(10'000);
+    return CreateSubTask(TASK_COMPLEX_ENTER_CAR_AS_DRIVER, nullptr);
 }
 
 // 0x644250

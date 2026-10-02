@@ -37,7 +37,7 @@ Integrado en --all y en el único PROBAR.cmd. [Runner](run_local.py), [sonda](Li
 
 El constructor de sonda guarda y restaura byte por byte los fuentes en finally. Los artefactos locales están en artifacts/. El runner espera el hash aprobado en _baseline/gta_reversed-clothes-scripted-sprint-probe.asi, cierra su propio proceso y verifica restauración de ASI/PDB y hashes de partidas.
 
-Evidencia final: `E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-clothes-scripted-sprint\20260923-001346-817023`. Logs completos, resumen y resultado conservados allí.
+Evidencia final: `D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-clothes-scripted-sprint\20260923-001346-817023`. Logs completos, resumen y resultado conservados allí.
 
 ## Límites
 

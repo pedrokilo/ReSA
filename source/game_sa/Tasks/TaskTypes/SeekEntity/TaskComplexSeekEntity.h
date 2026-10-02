@@ -441,7 +441,8 @@ protected: // Wrappers for hooks
         bool     flag0,
         bool     flag1
     ) {
-        this->CTaskComplexSeekEntity::CTaskComplexSeekEntity(entity, taskTimer1Interval, taskTimer2Interval, maxEntityDist2D, unk1, unk2, flag0, flag1);
+        // Como el original (0x661DC0): el 2.º argumento va a +0x10 (m_seekInterval) y el 3.º a +0x14; antes se intercambiaban
+        this->CTaskComplexSeekEntity::CTaskComplexSeekEntity(entity, taskTimer2Interval, taskTimer1Interval, maxEntityDist2D, unk1, unk2, flag0, flag1);
         return this;
     }
 

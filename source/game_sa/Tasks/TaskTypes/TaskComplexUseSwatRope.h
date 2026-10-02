@@ -7,7 +7,7 @@ class NOTSA_EXPORT_VTABLE CTaskComplexUseSwatRope : public CTaskComplex {
 public:
     uint32 m_nRopeId;
     float  m_fCoorAlongRope;
-    uint8  m_bIsOnHeli;
+    uint8  m_bIsOnHeli : 1; // Como el original: bit 0 del byte +0x14 (or/and/test byte ptr [+14h],1); el resto del byte no se toca
     CHeli* m_pHeli;
 
 public:

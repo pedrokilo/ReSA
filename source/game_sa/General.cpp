@@ -31,7 +31,7 @@ static std::mt19937 randomEngine(randomDevice());
 
 // 0x407180 - 2-arg wrapper to allow hooking the original function while the template has an extra `inclusive` arg
 static int32 GetRandomNumberInRange_int32(int32 min, int32 max) {
-    return CGeneral::GetRandomNumberInRange(min, max);
+    return CGeneral::GetRandomIntInRange(min, max); // La plantilla entera puede salir desfasada en uno
 }
 
 // 0x41BD90

@@ -1,0 +1,88 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 7488,
+  "pairs_per_function": {
+    "CTaskComplexTurnToFaceEntityOrCoord::Clone": 256,
+    "CTaskComplexTurnToFaceEntityOrCoord::ComputeTargetHeading": 2048,
+    "CTaskComplexTurnToFaceEntityOrCoord::Constructor-Coords": 256,
+    "CTaskComplexTurnToFaceEntityOrCoord::Constructor-Entity": 256,
+    "CTaskComplexTurnToFaceEntityOrCoord::ControlSubTask": 2048,
+    "CTaskComplexTurnToFaceEntityOrCoord::CreateFirstSubTask": 1024,
+    "CTaskComplexTurnToFaceEntityOrCoord::CreateNextSubTask": 64,
+    "CTaskComplexTurnToFaceEntityOrCoord::Destructor": 256,
+    "CTaskComplexTurnToFaceEntityOrCoord::GetTaskType": 32,
+    "CTaskComplexUseEffectRunning::Clone": 256,
+    "CTaskComplexUseEffectRunning::GetTaskType": 32,
+    "CTaskComplexUseEffectSprinting::Clone": 256,
+    "CTaskComplexUseEffectSprinting::GetTaskType": 32,
+    "CTaskComplexUseClosestFreeScriptedAttractorRun::Clone": 128,
+    "CTaskComplexUseClosestFreeScriptedAttractorRun::Constructor": 128,
+    "CTaskComplexUseClosestFreeScriptedAttractorRun::Destructor": 128,
+    "CTaskComplexUseClosestFreeScriptedAttractorRun::GetTaskType": 32,
+    "CTaskComplexUseClosestFreeScriptedAttractorSprint::Constructor": 128,
+    "CTaskComplexUseClosestFreeScriptedAttractorSprint::Destructor": 128
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "9da99c3e9cb9cccb9f2be728c57cb6506f4b700c2cfc8f6f99be20ba60f6db40",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-tasks2\\20261002-023649-648055",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTaskComplexTurnToFaceEntityOrCoord::Clone": true,
+    "CTaskComplexTurnToFaceEntityOrCoord::ComputeTargetHeading": true,
+    "CTaskComplexTurnToFaceEntityOrCoord::Constructor-Coords": true,
+    "CTaskComplexTurnToFaceEntityOrCoord::Constructor-Entity": true,
+    "CTaskComplexTurnToFaceEntityOrCoord::ControlSubTask": true,
+    "CTaskComplexTurnToFaceEntityOrCoord::CreateFirstSubTask": true,
+    "CTaskComplexTurnToFaceEntityOrCoord::CreateNextSubTask": true,
+    "CTaskComplexTurnToFaceEntityOrCoord::Destructor": true,
+    "CTaskComplexTurnToFaceEntityOrCoord::GetTaskType": true,
+    "CTaskComplexUseEffectRunning::Clone": true,
+    "CTaskComplexUseEffectRunning::GetTaskType": true,
+    "CTaskComplexUseEffectSprinting::Clone": true,
+    "CTaskComplexUseEffectSprinting::GetTaskType": true,
+    "CTaskComplexUseClosestFreeScriptedAttractorRun::Clone": true,
+    "CTaskComplexUseClosestFreeScriptedAttractorRun::Constructor": true,
+    "CTaskComplexUseClosestFreeScriptedAttractorRun::Destructor": true,
+    "CTaskComplexUseClosestFreeScriptedAttractorRun::GetTaskType": true,
+    "CTaskComplexUseClosestFreeScriptedAttractorSprint::Constructor": true,
+    "CTaskComplexUseClosestFreeScriptedAttractorSprint::Destructor": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "d24ab64c89fe721051dd6993cc163dbd124ccfad7d8949afecac2883101390bf",
+      "pdb": "9abd463a33d102a9329096660a5281ddae98d90aad4d7135b79fa1036d084629"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.cpp": "921d5f3f7fe35d7c4bc106ea20c88a25b50577a3296ee6a50937860b5a450a81",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.h": "c457da7020506df591768909a62af77e2ea43356744d84edb2b771de336ae71f",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp": "f0b376d56937c46f544b6ed430b69e9fbbb5bc1a54522cc1e1fe3a1d86333d1c",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.h": "786b504271ac76a8d7888da2b9eb53a11736d195480b8bbc018f90a154e1891a",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp": "6586f1e7bc327e59145dd93f855294dee861e5654bed07922ec3376af610e9b8",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.h": "907f12d691de5ef5c14c1ffdfad4c2feb9fcb243678521ff1d9cc0c92bd9a9bb",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractorRun.cpp": "d29d5ea7ac131d61abeafe027a6e94ad0d95e84a2269e9a7261ba2211aa7f85a",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractorRun.h": "e1c2dbb089411351b58a56c821a377ab6f76510629defd3cb592cf6ce2101ac5",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractorSprint.cpp": "6f7dffd7753751af497ebe56613abe9dab58db564d443a0db2c38542a59dc266",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractorSprint.h": "1bee954addaa34f21ec8c3073872e72996db0a5814ab9f53593df1dfbec2e208"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "95addf7dd272a98d7cdb1acaac707350bfa02fd71565cb24234d49d940ff84c5",
+      "build_probe.py": "7b67c5a9709004699c16b51e0d83d334040beffccb2ed8542dccf77c67ad7b5f",
+      "run_local.py": "d11a7965bc14a131dae0fdfd152313b422a8251a31195e1130ec546f106bf814"
+    }
+  },
+  "limitations": [
+    "Peaton/entidad con matriz y subtarea falsa en memoria propia; se comparan fixtures, tareas creadas y referencias. El vptr del objeto construido se compara por tipo (EXE o DLL)."
+  ]
+}

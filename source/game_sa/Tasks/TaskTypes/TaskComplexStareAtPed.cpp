@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -41,7 +41,7 @@ void CTaskComplexStareAtPed::InjectHooks() {
 // 0x660270
 CTaskComplexStareAtPed::CTaskComplexStareAtPed(CPedGroup* pedGroip, CPed* pedToStareAt, int32 timeout) :
     m_pPedGroup{pedGroip},
-    m_pPed{pedToStareAt},
+    m_pPed{IsEntityPointerValid(pedToStareAt) ? pedToStareAt : nullptr}, // 0x6602B8
     m_timeout{timeout}
 {
     CEntity::SafeRegisterRef(m_pPed);
@@ -69,8 +69,8 @@ CTaskComplexStareAtPed::~CTaskComplexStareAtPed() {
 
 // 0x660420
 CTask* CTaskComplexStareAtPed::CreateNextSubTask(CPed* ped) {
-    if (const auto turnToFace = notsa::dyn_cast_if_present<CTaskComplexTurnToFaceEntityOrCoord>(m_pSubTask)) {
-        return new CTaskSimpleStandStill{ CGeneral::GetRandomNumberInRange(500, 1000) };
+    if (notsa::isa<CTaskComplexTurnToFaceEntityOrCoord>(m_pSubTask)) {
+        return new CTaskSimpleStandStill{ CGeneral::GetRandomIntInRange(500, 1500) }; // 0x660448: [500, 1499]
     }
     return new CTaskComplexTurnToFaceEntityOrCoord{ m_pPed };
 }
@@ -78,15 +78,15 @@ CTask* CTaskComplexStareAtPed::CreateNextSubTask(CPed* ped) {
 // 0x660510
 CTask* CTaskComplexStareAtPed::CreateFirstSubTask(CPed* ped) {
     m_timer.Start(m_timeout);
-    return new CTaskSimpleStandStill{ CGeneral::GetRandomNumberInRange(500, 1000) };
+    return new CTaskSimpleStandStill{ CGeneral::GetRandomIntInRange(500, 1500) }; // 0x66053A: [500, 1499]
 }
 
 // 0x6605C0
 CTask* CTaskComplexStareAtPed::ControlSubTask(CPed* ped) {
+    const bool outOfTime = m_timer.IsOutOfTime();
 
-    // Below code copied from `CTaskComplexGangLeader::ControlSubTask`
-    // Make sure anmims are loaded (if they can/need to be)
-    if (m_animsReferenced) { // 0x66239B
+    // Make sure anims are loaded (if they can/need to be)
+    if (m_animsReferenced) {
         if (!CTaskComplexGangLeader::ShouldLoadGangAnims()) {
             UnrefAnimBlock();
         }
@@ -100,64 +100,38 @@ CTask* CTaskComplexStareAtPed::ControlSubTask(CPed* ped) {
         }
     }
 
+    const auto Abort = [&]() -> CTask* {
+        AbortIK(ped);
+        return nullptr;
+    };
+
+    if (!m_pPed || outOfTime) {
+        return Abort();
+    }
+
     CTaskComplexGangLeader::DoGangAbuseSpeech(ped, m_pPed);
 
-    if (m_lookInitialised) {
-        m_pPed = m_pPed;
-        if (g_ikChainMan.GetLookAtEntity(ped) != m_pPed) {
-            g_ikChainMan.LookAt(
-                "TaskStareAtPed",
-                ped,
-                m_pPed,
-                (int32)&gDefaultTaskTime,
-                BONE_HEAD,
-                nullptr,
-                true,
-                0.15f,
-                500,
-                3,
-                false
-            );
-        }
-    } else {
-        g_ikChainMan.LookAt(
-            "TaskStareAtPed",
-            ped,
-            m_pPed,
-            (int32)&gDefaultTaskTime,
-            BONE_HEAD,
-            nullptr,
-            true,
-            0.15f,
-            500,
-            3,
-            false
-        );
+    // 0x6606B2: look at the ped (again, if something else took over the look-at)
+    if (!m_lookInitialised || g_ikChainMan.GetLookAtEntity(ped) != m_pPed) {
+        g_ikChainMan.LookAt("TaskStareAtPed", ped, m_pPed, 9'999'999, BONE_HEAD, nullptr, true, 0.15f, 500, 3, false);
         m_lookInitialised = true;
     }
 
-    if ([this] {
-        if (m_animsReferenced && m_pPed && m_pPedGroup) {
-            if (const auto leader = m_pPedGroup->GetMembership().GetLeader()) {
-                if (sq(8.f) >= (leader->GetPosition() - m_pPed->GetPosition()).SquaredMagnitude()) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }()) {
-        if (!ped->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_PARTIAL_ANIM) && CGeneral::RandomBool(1.f)) {
-            ped->GetTaskManager().SetTaskSecondary(
-                new CTaskSimpleRunAnim{ ANIM_GROUP_GANGS, CAnimManager::GetRandomGangTalkAnim(), 4.f},
-                TASK_SECONDARY_PARTIAL_ANIM
-            );
-        }
-
-        return m_pSubTask;
-    } else {
-        AbortIK(ped);
-        return nullptr;
+    // Keep staring only while the anims are loaded and the ped is within 8 units of our group's leader
+    const auto leader = m_animsReferenced && m_pPedGroup ? m_pPedGroup->GetMembership().GetLeader() : nullptr;
+    if (!leader || !((m_pPed->GetPosition() - leader->GetPosition()).SquaredMagnitude() <= sq(8.f))) { // 0x660785
+        return Abort();
     }
+
+    // 1% chance (0x6607B6: exactly 50 out of [0, 100)) to start a gang talk anim
+    auto& tm = ped->GetTaskManager();
+    if (!tm.GetTaskSecondary(TASK_SECONDARY_PARTIAL_ANIM) && CGeneral::GetRandomIntInRange(0, 100) == 50) {
+        tm.SetTaskSecondary(
+            new CTaskSimpleRunAnim{ ANIM_GROUP_GANGS, static_cast<AnimationId>(CGeneral::GetRandomIntInRange(ANIM_ID_PRTIAL_GNGTLKA, ANIM_ID_PRTIAL_GNGTLKA + 8)), 4.f },
+            TASK_SECONDARY_PARTIAL_ANIM
+        );
+    }
+    return m_pSubTask;
 }
 
 void CTaskComplexStareAtPed::UnrefAnimBlock() {

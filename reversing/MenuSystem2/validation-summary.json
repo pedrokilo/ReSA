@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 16640,
+  "pairs_per_function": {
+    "CMenuSystem::ActivateItems": 1024,
+    "CMenuSystem::ActivateOneItem": 1024,
+    "CMenuSystem::CheckForAccept": 256,
+    "CMenuSystem::CheckForSelected": 256,
+    "CMenuSystem::CreateNewMenu": 1024,
+    "CMenuSystem::DisplayGridMenu": 512,
+    "CMenuSystem::DisplayStandardMenu": 2048,
+    "CMenuSystem::GetCarColourFromGrid": 256,
+    "CMenuSystem::HighlightOneItem": 512,
+    "CMenuSystem::Initialise": 256,
+    "CMenuSystem::Input": 1024,
+    "CMenuSystem::InputGridMenu": 1024,
+    "CMenuSystem::InputStandardMenu": 2048,
+    "CMenuSystem::InsertMenu": 1024,
+    "CMenuSystem::InsertOneMenuItemWithNumber": 1024,
+    "CMenuSystem::Process": 2048,
+    "CMenuSystem::SetActiveMenuItem": 256,
+    "CMenuSystem::SetColumnOrientation": 256,
+    "CMenuSystem::SetColumnWidth": 512,
+    "CMenuSystem::SwitchOffMenu": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "bcd17cee4deb51a91d7e340c120adf7205c83ffb74b24197162d5b983990c159",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-menusys2\\20261002-111638-705278",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CMenuSystem::ActivateItems": true,
+    "CMenuSystem::ActivateOneItem": true,
+    "CMenuSystem::CheckForAccept": true,
+    "CMenuSystem::CheckForSelected": true,
+    "CMenuSystem::CreateNewMenu": true,
+    "CMenuSystem::DisplayGridMenu": true,
+    "CMenuSystem::DisplayStandardMenu": true,
+    "CMenuSystem::GetCarColourFromGrid": true,
+    "CMenuSystem::HighlightOneItem": true,
+    "CMenuSystem::Initialise": true,
+    "CMenuSystem::Input": true,
+    "CMenuSystem::InputGridMenu": true,
+    "CMenuSystem::InputStandardMenu": true,
+    "CMenuSystem::InsertMenu": true,
+    "CMenuSystem::InsertOneMenuItemWithNumber": true,
+    "CMenuSystem::Process": true,
+    "CMenuSystem::SetActiveMenuItem": true,
+    "CMenuSystem::SetColumnOrientation": true,
+    "CMenuSystem::SetColumnWidth": true,
+    "CMenuSystem::SwitchOffMenu": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "26b48246b67bd017ce0714a877a46200c980aa03f13f2e18136862062034cf70",
+      "pdb": "71c7c95053be1505a41299d8ca3b69bab0e85117233e7b0abc1289ab676cfea2"
+    },
+    "sources": {
+      "source/game_sa/MenuSystem.cpp": "45e14d9a2f4dd24dd3a8befdfbd028d155c15ca96264e69d9a00bf88490c746e",
+      "source/game_sa/MenuSystem.h": "6feaa46e1169e99b08f0ad3bbac5d658edde521d185cc219d351d4b872709100"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "dc30ba5a8a2dd642935985f8bb5e26170f19277365f9580aa9257310c172800f",
+      "build_probe.py": "969f5ed6efbde980eaf9c4ca615a22544344deeef7fdca5e874efc3454adfa41",
+      "run_local.py": "983542e8d45027f5ed08203cb060cd3f301623d337810487e60eb060d994a4a8"
+    }
+  },
+  "limitations": [
+    "Menus falsos con guardas, estado de mando y teclado fijado por caso; DrawWindow, CFont, CText::Get, DrawRect y audio de interfaz simulados y trazados; operator new/delete solo durante la llamada."
+  ]
+}

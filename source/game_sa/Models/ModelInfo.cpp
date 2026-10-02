@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 28/28 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/28 entradas.
+ * Validación registrada: 28/28 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -85,8 +85,10 @@ void CModelInfo::InjectHooks()
 void CModelInfo::ReInit2dEffects()
 {
     ms_2dFXInfoStore.m_nCount = 0;
-    for (int32 i = 0; i < NUM_MODEL_INFOS; ++i)
-        GetModelInfo(i)->Init2dEffects();
+    for (int32 i = 0; i < NUM_MODEL_INFOS; ++i) {
+        if (auto* mi = GetModelInfo(i)) // Como el original: salta las entradas vacías
+            mi->Init2dEffects();
+    }
 }
 
 // 0x4C63E0

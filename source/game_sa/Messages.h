@@ -101,7 +101,7 @@ public:
 
     static void StringCopy(GxtChar* dest, const GxtChar* src, uint16 len);
     static bool StringCompare(const GxtChar* str1, const GxtChar* str2, uint16 len);
-    static void CutString(int32 count, const GxtChar* str, GxtChar** dest);
+    static int16 CutString(int32 count, GxtChar* str, GxtChar** dest); // Como el original: devuelve el número de trozos (ax) y escribe '\0' en `str`
 
     static void InsertNumberInString(const GxtChar* src, int32 n1 = -1, int32 n2 = -1, int32 n3 = -1, int32 n4 = -1, int32 n5 = -1, int32 n6 = -1, GxtChar* dst = nullptr);
     static void InsertStringInString(GxtChar* into, const GxtChar* str);

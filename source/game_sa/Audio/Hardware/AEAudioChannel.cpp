@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/12 entradas.
+ * Validación registrada: 12/12 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -125,7 +125,7 @@ void CAEAudioChannel::SetFrequencyScalingFactor(float factor) {
         return;
     }
 
-    const auto newFreq = static_cast<uint32>(float(m_nOriginalFrequency) * factor);
+    const auto newFreq = static_cast<uint16>(static_cast<int64>(float(m_nOriginalFrequency) * factor)); // 0x4D7D73: truncated to 16 bits
     SetFrequency(newFreq);
 
     if (m_bPaused) {
@@ -165,7 +165,7 @@ void CAEAudioChannel::SetVolume(float volume) {
     if (!m_pDirectSoundBuffer)
         return;
 
-    if (IsBufferPlaying() && fabs(volume - m_Volume) > 60.0F) {
+    if (IsBufferPlaying() && (float)std::abs((int32)(volume - m_Volume)) > 60.0F) { // 0x4D7C7E: difference truncated to int first
         if (volume <= m_Volume) {
             if (AESmoothFadeThread.RequestFade(m_pDirectSoundBuffer, volume, -1, false)) {
                 m_Volume = volume;
@@ -235,32 +235,43 @@ void CAEAudioChannel::UpdateStatus() {
 // 0x4D7A10
 bool CAEAudioChannel::Lost() const {
 #ifdef USE_DSOUND
-    while (m_pDirectSoundBuffer->Restore() == DSERR_BUFFERLOST) { // BUG: Infinite loop if we don't restore
-        OS_ThreadSleep(10);
-    }
+    // 0x4D7A20: two Restore() calls per iteration (BUG: infinite loop if it never restores)
+    do {
+        if (m_pDirectSoundBuffer->Restore() == DSERR_BUFFERLOST) {
+            OS_ThreadSleep(10);
+        }
+    } while (m_pDirectSoundBuffer->Restore() == DSERR_BUFFERLOST);
 #endif
 
     return true;
 }
 
+// GUID de propiedades EAX y tabla de entornos del EXE (la DLL no incluye las cabeceras EAX)
+static inline auto& s_EAXListenerPropertySet = StaticRef<GUID>(0x85EFDC);
+static inline auto& s_EAXBufferPropertySet   = StaticRef<GUID>(0x85EF9C);
+static inline auto& s_EAXEnvironments        = StaticRef<std::array<int32, 48>>(0x8AC198);
+
 // 0x4D7AA0
 bool CAEAudioChannel::SetReverbAndDepth(uint32 reverbEnv, uint32 depth) {
+    int32 room = 100 * depth;
+    bool result = false;
     if (!m_pDirectSoundBuffer || !m_pDirectSound3DBuffer || AEAudioHardware.m_n3dEffectsQueryResult != 1) {
         return false;
     }
 
-    IKsPropertySet* ppIKsPropertySet{};
-    if (SUCCEEDED(m_pDirectSound3DBuffer->QueryInterface(IID_IKsPropertySet, (LPVOID*)&ppIKsPropertySet))) {
-        notsa::ScopeGuard _([&ppIKsPropertySet] {
-            SAFE_RELEASE(ppIKsPropertySet);
-        });
-#if 0 // No EAX
-        int32 room = 100 * depth;
-        return SUCCEEDED(ppIKsPropertySet->Set(EAXPROPERTYID_EAX_FXSlot0, EAXREVERB_ENVIRONMENT, nullptr, 0, &s_EAXEnvironments[reverbEnv], sizeof(s_EAXEnvironments[reverbEnv])))
-            && SUCCEEDED(ppIKsPropertySet->Set(EAXPROPERTYID_EAX_FXSlot0, EAXREVERB_ROOM, nullptr, 0, &room, sizeof(room)));
-#endif
+    IKsPropertySet* propertySet{};
+    if (FAILED(m_pDirectSound3DBuffer->QueryInterface(IID_IKsPropertySet, (LPVOID*)&propertySet))) {
+        return false;
     }
-    return false;
+    // Entorno (propiedad 2) y sala (propiedad 5); el índice del entorno es int8 con signo como en el original.
+    if (SUCCEEDED(propertySet->Set(s_EAXListenerPropertySet, 2, nullptr, 0, &s_EAXEnvironments.data()[(int8)reverbEnv], sizeof(int32)))
+        && SUCCEEDED(propertySet->Set(s_EAXListenerPropertySet, 5, nullptr, 0, &room, sizeof(room)))) {
+        result = true;
+    }
+    if (propertySet) {
+        propertySet->Release();
+    }
+    return result;
 }
 
 // 0x4D7B50
@@ -269,15 +280,13 @@ void CAEAudioChannel::SetNotInRoom(bool onStreet) {
         return;
     }
 
-    IKsPropertySet* ppIKsPropertySet{};
-    if (SUCCEEDED(m_pDirectSound3DBuffer->QueryInterface(IID_IKsPropertySet, (LPVOID*)&ppIKsPropertySet))) {
-        notsa::ScopeGuard _([&ppIKsPropertySet] {
-            SAFE_RELEASE(ppIKsPropertySet);
-        });
-
-#if 0 // No EAX
-        int32 room = onStreet ? EAXREVERB_MAXROOM : EAXREVERB_MINROOM;
-        assert(ppIKsPropertySet->Set(EAXPROPERTYID_EAX_Source, EAXSOURCE_ROOM, nullptr, 0, &room, sizeof(room)));
-#endif
+    IKsPropertySet* propertySet{};
+    if (m_pDirectSound3DBuffer->QueryInterface(IID_IKsPropertySet, (LPVOID*)&propertySet) != S_OK) {
+        return;
+    }
+    int32 room = onStreet ? 0 : -10000; // Sala del buffer (propiedad 7): máxima en la calle, mínima dentro
+    propertySet->Set(s_EAXBufferPropertySet, 7, nullptr, 0, &room, sizeof(room));
+    if (propertySet) {
+        propertySet->Release();
     }
 }

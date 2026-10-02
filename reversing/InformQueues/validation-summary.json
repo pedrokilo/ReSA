@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 6464,
+  "pairs_per_function": {
+    "CInformFriendsEventQueue::Init": 256,
+    "CInformFriendsEventQueue::Flush": 256,
+    "CInformFriendsEventQueue::Add": 1024,
+    "CInformFriendsEventQueue::Process": 1024,
+    "CInformGroupEventQueue::Init": 256,
+    "CInformGroupEventQueue::Flush": 256,
+    "CInformGroupEventQueue::Add": 1024,
+    "CInformGroupEventQueue::Process": 1024,
+    "CInformGroupEvent::Constructor": 64,
+    "CInformGroupEvent::Destructor": 256,
+    "CInformGroupEvent::Process": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "b509f4b0c7df89cc81f83d3951f2ec54249c105eb37f8ac05e1c6900a3733920",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-inform\\20261002-021612-935194",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CInformFriendsEventQueue::Init": true,
+    "CInformFriendsEventQueue::Flush": true,
+    "CInformFriendsEventQueue::Add": true,
+    "CInformFriendsEventQueue::Process": true,
+    "CInformGroupEventQueue::Init": true,
+    "CInformGroupEventQueue::Flush": true,
+    "CInformGroupEventQueue::Add": true,
+    "CInformGroupEventQueue::Process": true,
+    "CInformGroupEvent::Constructor": true,
+    "CInformGroupEvent::Destructor": true,
+    "CInformGroupEvent::Process": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "bd72cc14ad07603f2e62a0d698409b47c895db97e9f09b87dc75c070b2b7599b",
+      "pdb": "95aadcf02f7e430cea130cc5a88713a2ee68ada6542c575491dc9f2835eb475a"
+    },
+    "sources": {
+      "source/game_sa/InformFriendsEventQueue.cpp": "dde98737075244df39d0207aa1c2803809ccbbe1c4135547f0fd5efd0f6c8283",
+      "source/game_sa/InformFriendsEventQueue.h": "f3bf63307c0b5b70e11e6504150c82d032f7a6e5b16f9987e97fc5f766ebef5a",
+      "source/game_sa/InformGroupEvent.cpp": "390e204a809183edf50b3a28b2ff52ca77273b28f05e5d1e6d75367fb80856ca",
+      "source/game_sa/InformGroupEvent.h": "91e20815da8912ef86f5b65c75114dd26bf5d0aebef4d92eb81d88732c82f0ff",
+      "source/game_sa/InformGroupEventQueue.cpp": "72227c08e73a67c090f3ca0695540fd3147b43b1866959b71bc4834aad0b2084",
+      "source/game_sa/InformGroupEventQueue.h": "9c71df27af8580f368592fb79b4c413cdc12590641761a748ae048ef4dc75786"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "3b25a59fabada2d3e7121992061657b83b928119714619d93f2457b9244f2790",
+      "build_probe.py": "71f0b3c5ac942423f457cd3d189b3e9068de68886905b1e54b423afcc5a5670e",
+      "run_local.py": "ab85f1e88e91f922b4555f3c0d6dc54d10406b72687cef65bd43aeb41b2af28a"
+    }
+  },
+  "limitations": [
+    "Eventos falsos con vtable propia; CEventGroup::Add, CPedGroupIntelligence::AddEvent, ComputeResponseTaskType, GetPedsGroup y RNG controlados; colas globales guardadas y restauradas."
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 4416,
+  "pairs_per_function": {
+    "CAEAmbienceTrackManager::Reset": 64,
+    "CAEAmbienceTrackManager::IsAmbienceTrackActive": 64,
+    "CAEAmbienceTrackManager::IsAmbienceRadioActive": 64,
+    "CAEAmbienceTrackManager::PlaySpecialMissionAmbienceTrack": 64,
+    "CAEAmbienceTrackManager::StopSpecialMissionAmbienceTrack": 64,
+    "CAEAmbienceTrackManager::Service": 4096
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "e3567f7b4280c593b5e9069dade5a721d89dfb4d6a13cff42ee2fd1a97a49f61",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ambience\\20261002-030240-169992",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CAEAmbienceTrackManager::Reset": true,
+    "CAEAmbienceTrackManager::IsAmbienceTrackActive": true,
+    "CAEAmbienceTrackManager::IsAmbienceRadioActive": true,
+    "CAEAmbienceTrackManager::PlaySpecialMissionAmbienceTrack": true,
+    "CAEAmbienceTrackManager::StopSpecialMissionAmbienceTrack": true,
+    "CAEAmbienceTrackManager::Service": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "8552b55e7814061987da2ce818719f62ba59c5a77b0784d0f0011f0761c6df20",
+      "pdb": "c28022226632bde9629f6ca02808ebd921b957908339be103a6d48e891b17dd6"
+    },
+    "sources": {
+      "source/game_sa/Audio/managers/AEAmbienceTrackManager.cpp": "14795d10607915bf610269b88b570ddace8b5f50bf4d1eb163387874449d6876",
+      "source/game_sa/Audio/managers/AEAmbienceTrackManager.h": "130489b3c18d3e9b9ac473ea13dc5e2d23beeaf402284660718b2aa32afc619f"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "e8baadc9299ad58f9bb104b58536617d0d14d869c2c54827659579424316b211",
+      "build_probe.py": "0159ee0a567741031050773df0ed905e22156033d4d8581ee4ee08def07c4285",
+      "run_local.py": "a7cc2eef09fd3f37034939779cc4ba5bbbe203e1ec8f308b0b4346fd7eca0498"
+    }
+  },
+  "limitations": [
+    "Gestor propio; AudioEngine/AEAudioHardware, UpdateAmbienceTrackAndVolume, StartTrackPlayback, CheckForPause y RNG base controlados; hook de CAEAudioUtility::GetRandomNumberInRange<int> desactivado en la fase original."
+  ]
+}

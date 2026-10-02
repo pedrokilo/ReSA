@@ -11,7 +11,7 @@ class NOTSA_EXPORT_VTABLE CTaskComplexUseScriptedBrain : public CTaskComplex {
 
 public:
     bool   m_aborting = {};
-    char   m_name[8] = {};
+    char   m_name[8]; // Como el original: el ctor solo copia la cadena, el resto queda sin inicializar
     CTask* m_currTask = {};
 
 public:

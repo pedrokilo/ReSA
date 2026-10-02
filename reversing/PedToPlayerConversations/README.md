@@ -38,7 +38,7 @@ El alcance acredita esas rutas y contratos con dependencias controladas; no repr
 
 ## Compilación y entrega
 
-[Resumen de instalación](installation-summary.json): tres arranques automáticos de partida nueva, **tres segundos** en estado de juego por ejecución, salto de `Update` al módulo instalado y cierre mediante WM_CLOSE con código 0. Binarios normales sin sondas en `bin/Debug` y exclusivamente en `E:\JUEGOS\GTA San Andreas - CVehicle Test\scripts`.
+[Resumen de instalación](installation-summary.json): tres arranques automáticos de partida nueva, **tres segundos** en estado de juego por ejecución, salto de `Update` al módulo instalado y cierre mediante WM_CLOSE con código 0. Binarios normales sin sondas en `bin/Debug` y exclusivamente en `D:\JUEGOS\GTA San Andreas - CVehicle Test\scripts`.
 
 **Incidencia de integración conservada:** las dos tandas iniciales de diez segundos tuvieron respectivamente dos y un cierres correctos, seguidos de timeout. La pila del segundo timeout muestra el hilo principal en `CAECutsceneTrackManager::PreloadCutsceneTrack`, durante la carga de `PROLOG1`, antes de atender el cierre. El control con el ASI anterior de ShutdownLists, que ejecuta `Update` original, reprodujo el timeout tras dos cierres correctos y mostró la misma ruta de precarga. [Intentos y pilas](integration-observations.json). Esto demuestra que el bloqueo también existe con el binario anterior; no identifica su causa raíz ni lo corrige. La prueba breve de entrega comprueba arranque, conexión del hook y cierre antes de esa fase; no sustituye ni convierte los intentos fallidos en aprobados.
 

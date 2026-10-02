@@ -37,6 +37,9 @@ public:
 
     CVector CalculateOffsetPosition();
 
+    // 0x65EE90
+    void SetCanEnterLeadersCar(bool canEnter) { m_Flags = (m_Flags & ~4u) | (canEnter ? 4u : 0u); }
+
 private:
     friend void InjectHooksMain();
     static void InjectHooks();

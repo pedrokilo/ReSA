@@ -66,7 +66,7 @@ public:
     void DoCollisionResponse(BreakGroup_t* group, float timeStep, const CVector* vecNormal, float groundZ) const;
     void DoCollision(BreakGroup_t* group, float timeStep);
     void Update(float timeStep);
-    void Render(bool isDrawLast) const;
+    void Render(uint8 drawLastState) const; // Raw byte compared against m_bDrawLast (BreakManager_c::Render passes its state through)
 
     auto GetBreakGroups() { return std::span{ m_BreakGroups, (size_t)m_NumBreakGroups }; }
     [[nodiscard]] auto GetBreakGroups() const { return std::span{ m_BreakGroups, (size_t)m_NumBreakGroups }; }

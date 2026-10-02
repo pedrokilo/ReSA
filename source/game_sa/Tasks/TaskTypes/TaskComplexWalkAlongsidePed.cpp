@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -78,8 +78,8 @@ CTask* CTaskComplexWalkAlongsidePed::CreateSubTask(eTaskType tt, CPed* ped) {
         t->SetIsTrackingEntity(true);
         return t;
     }
-    default:
-        NOTSA_UNREACHABLE("Invalid TaskType {}", tt);
+    default: // Como el original: cualquier otro tipo devuelve nullptr
+        return nullptr;
     }
 }
 
@@ -114,9 +114,6 @@ CTask* CTaskComplexWalkAlongsidePed::ControlSubTask(CPed* ped) {
             : m_pSubTask;
     }
 
-    const auto targetPedPos = m_TargetPed->GetPosition();
-    const auto pedPos       = ped->GetPosition();
-
     const auto pedWalkAnim       = RpAnimBlendClumpGetAssociation(ped->GetRpClump(), ANIM_ID_WALK);
     const auto targetPedWalkAnim = RpAnimBlendClumpGetAssociation(m_TargetPed->GetRpClump(), ANIM_ID_WALK);
 
@@ -125,9 +122,14 @@ CTask* CTaskComplexWalkAlongsidePed::ControlSubTask(CPed* ped) {
     const auto pedToTarget         = m_TargetPed->GetPosition2D() - ped->GetPosition2D();
     const auto targetToPedDist2DSq = pedToTarget.SquaredMagnitude();
 
-    if (targetToPedDist2DSq >= sq(m_GiveUpDist)) { // 0x68527B
+    // Como el original (0x685278): solo se rinde si dist² > giveUp² (con igualdad o NaN sigue)
+    if (targetToPedDist2DSq > sq(m_GiveUpDist)) {
         return nullptr;
     }
+
+    // Como el original: banderas separadas para el ped y el objetivo ([esp+4Ch] y [esp+0Dh])
+    bool bPedChangedAnimSpeed    = false;
+    bool bTargetChangedAnimSpeed = false;
 
     const auto tSubTaskSeekEntity = notsa::dyn_cast_if_present<CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>>(m_pSubTask);
     if (!tSubTaskSeekEntity) { // 0x68528B
@@ -136,47 +138,84 @@ CTask* CTaskComplexWalkAlongsidePed::ControlSubTask(CPed* ped) {
         return m_pSubTask;
     }
 
+    // Como el original: el contador se lee antes de tocar la subtarea y las animaciones
+    const bool bStaticForLong = ped->GetIntelligence()->m_AnotherStaticCounter > 8;
+
     tSubTaskSeekEntity->GetSeekPosCalculator().SetOffset(m_Offset);
     tSubTaskSeekEntity->SetEntityMinDist2D(3.f);
     
     const auto pedTaskFollowNodeRoute = ped->GetTaskManager().Find<CTaskComplexFollowNodeRoute>();
     const auto pedTaskGoToPoint       = ped->GetTaskManager().Find<CTaskSimpleGoToPoint>();
 
-    bool bChangedAnimSpeed = false;
     if (pedTaskGoToPoint && !pedTaskFollowNodeRoute) { // 0x685308 (Inverted)
-        auto targetPtForPed = m_TargetPed->GetMatrix().TransformPoint(m_Offset);
-        if (isTargetMoving) { // 0x68535C
-            if (m_TargetPed->GetPosition().Dot(m_TargetPed->GetForward()) - targetPtForPed.Dot(m_TargetPed->GetForward()) < 0.f) { // Target pt is behind target ped (I think?)
-                if (pedWalkAnim) { // 0x6853C6
-                    const auto pedToTargetPtDist2DSq = (ped->GetPosition2D() - CVector2D{targetPtForPed}).SquaredMagnitude();
+        const auto& tm = m_TargetPed->GetMatrix();
 
+        // Como el original (0x59C890): CMatrix * CVector con su orden de sumas
+        CVector targetPtForPed{
+            ((tm.GetUp().x * m_Offset.z + tm.GetForward().x * m_Offset.y) + tm.GetRight().x * m_Offset.x) + tm.GetPosition().x,
+            ((tm.GetUp().y * m_Offset.z + tm.GetRight().y * m_Offset.x) + tm.GetForward().y * m_Offset.y) + tm.GetPosition().y,
+            ((tm.GetUp().z * m_Offset.z + tm.GetRight().z * m_Offset.x) + tm.GetForward().z * m_Offset.y) + tm.GetPosition().z,
+        };
+        const auto& pedPos = ped->GetPosition();
+        const CVector2D pedToTargetPt{ targetPtForPed.x - pedPos.x, targetPtForPed.y - pedPos.y };
+
+        if (isTargetMoving) { // 0x68535C
+            const auto& fwd = tm.GetForward();
+
+            // Como el original: -(pt·fwd) con orden (y + z) + x, más DotProduct(posición del PED, fwd) (0x40FDB0: (z + y) + x)
+            const float negPtDotFwd  = -((targetPtForPed.y * fwd.y + targetPtForPed.z * fwd.z) + targetPtForPed.x * fwd.x);
+            const float pedPosDotFwd = (pedPos.z * fwd.z + pedPos.y * fwd.y) + pedPos.x * fwd.x;
+            if (pedPosDotFwd + negPtDotFwd < 0.f) {
+                const auto pedToTargetPtDist2DSq = pedToTargetPt.SquaredMagnitude();
+
+                if (pedWalkAnim) { // 0x6853C6
                     if (pedToTargetPtDist2DSq < 2.f) { // 0x6853DB
-                        targetPtForPed += m_TargetPed->GetForward() * 2.f;
+                        targetPtForPed += fwd * 2.f;
                     }
 
+                    // Como el original: 0x404330 / 0x420800 (con NaN devuelven el segundo argumento) y escritura directa de m_Speed
                     const auto IncreaseWalkAnimSpeed = [](CAnimBlendAssociation* walkAnim) {
-                        walkAnim->SetSpeed(std::min(1.25f, walkAnim->m_Speed + 0.0125f));
+                        const float s = walkAnim->m_Speed + 0.0125f;
+                        walkAnim->m_Speed = (1.25f < s) ? 1.25f : s;
                     };
                     const auto DecreaseWalkAnimSpeed = [](CAnimBlendAssociation* walkAnim) {
-                        walkAnim->SetSpeed(std::max(0.85f, walkAnim->m_Speed - 0.0125f));
+                        const float s = walkAnim->m_Speed - 0.0125f;
+                        walkAnim->m_Speed = (0.85f > s) ? 0.85f : s;
+                    };
+                    // Como el original (0x6854BC): se acerca a la velocidad de SetMoveAnimSpeed en pasos de 0.0125
+                    const auto ApproachMoveAnimSpeed = [](CPed* p, CAnimBlendAssociation* walkAnim) {
+                        const float oldSpeed = walkAnim->m_Speed;
+                        p->SetMoveAnimSpeed(walkAnim);
+                        const float newSpeed = walkAnim->m_Speed;
+                        if (approxEqual(oldSpeed, newSpeed, 0.013f)) {
+                            walkAnim->m_Speed = oldSpeed;
+                        } else {
+                            walkAnim->m_Speed = (oldSpeed > newSpeed) ? oldSpeed - 0.0125f : oldSpeed + 0.0125f;
+                        }
                     };
 
-                    if (pedToTargetPtDist2DSq >= sq(0.25f)) {
-                        if (pedToTargetPtDist2DSq <= sq(0.25f)) {
-                            NOTSA_UNREACHABLE("Never say never"); // 0x6854BF - I'm quite sure they fucked something up, cause this only runs if `pedToTargetPtDist2DSq == sq(0.25f)`
-                        }
-                        IncreaseWalkAnimSpeed(pedWalkAnim);
-                        if (targetPedWalkAnim) {
-                            DecreaseWalkAnimSpeed(targetPedWalkAnim);
-                        }
-                    } else {
+                    if (pedToTargetPtDist2DSq < sq(0.25f)) {
                         DecreaseWalkAnimSpeed(pedWalkAnim);
+                        bPedChangedAnimSpeed = true;
                         if (targetPedWalkAnim) {
                             IncreaseWalkAnimSpeed(targetPedWalkAnim);
+                            bTargetChangedAnimSpeed = true;
+                        }
+                    } else if (pedToTargetPtDist2DSq > sq(0.25f)) {
+                        IncreaseWalkAnimSpeed(pedWalkAnim);
+                        bPedChangedAnimSpeed = true;
+                        if (targetPedWalkAnim) {
+                            DecreaseWalkAnimSpeed(targetPedWalkAnim);
+                            bTargetChangedAnimSpeed = true;
+                        }
+                    } else { // Igualdad exacta o NaN
+                        ApproachMoveAnimSpeed(ped, pedWalkAnim);
+                        bPedChangedAnimSpeed = true;
+                        if (targetPedWalkAnim) {
+                            ApproachMoveAnimSpeed(m_TargetPed, targetPedWalkAnim);
+                            bTargetChangedAnimSpeed = true;
                         }
                     }
-
-                    bChangedAnimSpeed = true;
                 }
             }
         }
@@ -184,12 +223,14 @@ CTask* CTaskComplexWalkAlongsidePed::ControlSubTask(CPed* ped) {
         pedTaskGoToPoint->UpdatePoint(targetPtForPed); // 0x685586
     }
 
-    if (ped->GetIntelligence()->m_AnotherStaticCounter > 8 && targetToPedDist2DSq <= sq(2.f) && m_pSubTask->MakeAbortable(ped)) { // 0x6855C2
+    // Como el original (0x685598): dist² < 4 estricto
+    if (bStaticForLong && targetToPedDist2DSq < sq(2.f) && m_pSubTask->MakeAbortable(ped)) { // 0x6855C2
         m_Offset = CVector{CVector2D{pedToTarget}};
         return CreateSubTask(TASK_SIMPLE_STAND_STILL, ped);
     }
 
-    m_TargetPed->bMoveAnimSpeedHasBeenSetByTask = ped->bMoveAnimSpeedHasBeenSetByTask = bChangedAnimSpeed;
+    ped->bMoveAnimSpeedHasBeenSetByTask         = bPedChangedAnimSpeed;
+    m_TargetPed->bMoveAnimSpeedHasBeenSetByTask = bTargetChangedAnimSpeed;
 
     return m_pSubTask;
 }

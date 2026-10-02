@@ -29,7 +29,7 @@ Se registran y comparan coordenadas XYZ/UV, colores, índices, banderas de trans
 
 ## Evidencia y límites
 
-Consultar `validation-summary.json` para hashes, resultados y rutas. El log final está en `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-clouds/20260922-202449-837866/comparisons.jsonl`. Ensayos anteriores detectaron y permitieron corregir el color de los sprites y las diferencias de precisión; sus informes fallidos se conservan. El desensamblado local está en `artifacts/RenderBottomFromHeight.asm`.
+Consultar `validation-summary.json` para hashes, resultados y rutas. El log final está en `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-clouds/20260922-202449-837866/comparisons.jsonl`. Ensayos anteriores detectaron y permitieron corregir el color de los sprites y las diferencias de precisión; sus informes fallidos se conservan. El desensamblado local está en `artifacts/RenderBottomFromHeight.asm`.
 
 Se usa la matriz de vista real del momento: al variar la orientación inicial puede cambiar el número de sprites visibles entre ejecuciones. Ambas versiones usan la misma matriz dentro de cada comparación; el banco no recorre todas las orientaciones de cámara. La precisión x87 observada y comprobada es de 24 bits. No se ensayaron otros modos de precisión, fallos de asignación/transformación de RenderWare ni valores RGB fuera de 0–255.
 

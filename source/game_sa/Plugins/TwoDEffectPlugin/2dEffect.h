@@ -85,7 +85,7 @@ struct tEffectLight {
         };
     };
     e2dCoronaFlashType m_nCoronaFlashType;
-    bool               m_bCoronaEnableReflection;
+    uint8              m_bCoronaEnableReflection; // eCoronaReflType, copied raw from the stream (not a bool)
     uint8      m_nCoronaFlareType;
     uint8      m_nShadowColorMultiplier;
     char               m_nShadowZDistance;

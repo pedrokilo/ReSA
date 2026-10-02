@@ -20,13 +20,15 @@ public:
     */
     template<std::integral T>
     static T GetRandomNumberInRange(T min, T max) {
-        return CGeneral::GetRandomNumberInRange<T>(min, max + 1);
+        // 0x4D9C10: min + (int)(rand() / 32768.0f * (max - min + 1)), i.e. [min, max]
+        return static_cast<T>(CGeneral::GetRandomIntInRange(static_cast<int32>(min), static_cast<int32>(max) + 1));
     }
 
     template<typename T>
         requires std::is_floating_point_v<T>
     static T GetRandomNumberInRange(T min, T max) {
-        return CGeneral::GetRandomNumberInRange<T>(min, max);
+        // 0x4D9C50: rand · (1/32767) · (max - min) + min
+        return (T)((float)CGeneral::GetRandomNumber() * (1.0f / 32767.0f) * (float)(max - min) + (float)min);
     }
 
     static CVehicle* FindVehicleOfPlayer();

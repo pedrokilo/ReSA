@@ -44,43 +44,48 @@ void CMenuManager::UserInput() {
     oldOption = m_nCurrentScreenItem;
 
     // Check for mouse hover on menu options
-    bool mouseOverAnyItem = false;
-    for (auto rowToCheck = 0; rowToCheck < 12; ++rowToCheck) {
-        if (curScreen[rowToCheck].m_nActionType >= eMenuAction::MENU_ACTION_BACK) {
-            float itemPosY = curScreen[rowToCheck].m_Y;
-
-            bool mouseOverItem = (StretchY(itemPosY) <= m_nMousePosY) &&
-                                 (StretchY(itemPosY + 26) >= m_nMousePosY);
-
-            if (mouseOverItem) {
-                // 0x57FEEC
-                if (!bMouseHoverInitialised) {
-                    bMouseHoverInitialised = true;
-                    m_nMouseHoverScreen = m_nCurrentScreen;
-                }
-
-                m_CurrentMouseOption = rowToCheck;
-
-                if (m_nOldMousePosX != m_nMousePosX || m_nOldMousePosY != m_nMousePosY) {
-                    m_nCurrentScreenItem = rowToCheck;
-                    m_DisplayTheMouse = true;
-                }
-
-                // 0x57FF72 - Update mouse bounds based on action type
-                if (!notsa::contains(SLIDER_ACTIONS, curScreen[rowToCheck].m_nActionType)) {
-                    m_MouseInBounds = eMouseInBounds::MENU_ITEM;
-                }
-
-                mouseOverAnyItem = true;
-                break;
-            }
+    static auto& oldMouseOption = StaticRef<int8>(0x8CE004);
+    for (int8 rowToCheck = 0; rowToCheck < 12; ++rowToCheck) {
+        // Como el original (0x57FE0E): solo se saltan las entradas 0 y MENU_ACTION_TEXT
+        const auto actionType = curScreen[rowToCheck].m_nActionType;
+        if (actionType == eMenuAction::MENU_ACTION_NA || actionType == eMenuAction::MENU_ACTION_TEXT) {
+            continue;
         }
-    }
 
-    // 0x57FEBB - Reset selection only if mouse is not over any item
-    if (m_DisplayTheMouse && !mouseOverAnyItem) {
-        m_nCurrentScreenItem = oldOption;
-        m_CurrentMouseOption = oldOption;
+        // Como el original (0x57FE2F): se mide el texto aunque el resultado se descarta
+        CFont::GetStringWidth(TheText.Get(curScreen[rowToCheck].m_szName), true, false);
+
+        // Como el original: Y se lee con signo (movsx) y las comparaciones son estrictas
+        const auto itemPosY = (int32)(int16)curScreen[rowToCheck].m_Y;
+        if (!(StretchY((float)itemPosY) < (float)m_nMousePosY) || !(StretchY((float)(itemPosY + 26)) > (float)m_nMousePosY)) {
+            // 0x57FEBB - Como el original: el reset se hace por cada entrada no señalada
+            if (m_DisplayTheMouse) {
+                m_CurrentMouseOption = oldOption;
+                m_nCurrentScreenItem = oldOption;
+            }
+            continue;
+        }
+
+        // 0x57FEE5 - Como el original: 0xBA82BC/0xBA82B8 son de FrontEndMenuManager, no de this
+        if (!FrontEndMenuManager.bMouseHoverInitialised) {
+            FrontEndMenuManager.bMouseHoverInitialised = true;
+            FrontEndMenuManager.m_nMouseHoverScreen = m_nCurrentScreen;
+        }
+
+        oldMouseOption       = (int8)m_CurrentMouseOption; // Como el original (0x57FF19)
+        m_CurrentMouseOption = rowToCheck;
+
+        // Como el original (0x57FF0E): también exige posición anterior no nula
+        if (m_nOldMousePosX && m_nOldMousePosY && (m_nOldMousePosX != m_nMousePosX || m_nOldMousePosY != m_nMousePosY)) {
+            m_nCurrentScreenItem = rowToCheck;
+            m_DisplayTheMouse = true;
+        }
+
+        // 0x57FF72 - Update mouse bounds based on action type
+        if (!notsa::contains(SLIDER_ACTIONS, curScreen[rowToCheck].m_nActionType)) {
+            m_MouseInBounds = eMouseInBounds::MENU_ITEM;
+        }
+        break;
     }
 
     // 0x57FF83 - Process mouse and selection changes
@@ -194,16 +199,25 @@ void CMenuManager::UserInput() {
         }
 
         // Check for left/right slider movement
-        const bool isLeftPressed = CPad::IsLeftDown() || pad->GetPedWalkLeftRight() < 0 || pad->f0x57C380();
-        const bool isRightPressed = CPad::IsRightDown() || pad->GetPedWalkLeftRight() > 0 || pad->f0x57C390();
-        if (isLeftPressed || isRightPressed) {
-            auto& lastSliderMoveTime = isLeftPressed ? m_SlideLeftMoveTime : m_SlideRightMoveTime;
-            if (CTimer::GetTimeInMSPauseMode() - lastSliderMoveTime > 200) {
-                if (notsa::contains(SLIDER_ACTIONS, curScreen[m_nCurrentScreenItem].m_nActionType)
-                    || curScreen[m_nCurrentScreenItem].m_nActionType == MENU_ACTION_STAT) {
-                    sliderMove         = isLeftPressed ? -1 : 1;
-                    lastSliderMoveTime = CTimer::GetTimeInMSPauseMode();
+        // Como el original (0x5803CF): izquierda tiene prioridad (else-if, GetPedWalkLeftRight solo se evalúa si hace falta),
+        // los tiempos se leen/escriben en FrontEndMenuManager y se actualizan aunque la acción no sea un deslizador
+        const auto IsSliderAction = [&] {
+            const auto actionType = curScreen[m_nCurrentScreenItem].m_nActionType;
+            return notsa::contains(SLIDER_ACTIONS, actionType) || actionType == MENU_ACTION_STAT;
+        };
+        if (CPad::IsLeftDown() || pad->GetPedWalkLeftRight() < 0 || pad->f0x57C380()) {
+            if (CTimer::GetTimeInMSPauseMode() - FrontEndMenuManager.m_SlideLeftMoveTime > 200) {
+                if (IsSliderAction()) {
+                    sliderMove = -1;
                 }
+                FrontEndMenuManager.m_SlideLeftMoveTime = CTimer::GetTimeInMSPauseMode();
+            }
+        } else if (CPad::IsRightDown() || pad->GetPedWalkLeftRight() > 0 || pad->f0x57C390()) {
+            if (CTimer::GetTimeInMSPauseMode() - FrontEndMenuManager.m_SlideRightMoveTime > 200) {
+                if (IsSliderAction()) {
+                    sliderMove = 1;
+                }
+                FrontEndMenuManager.m_SlideRightMoveTime = CTimer::GetTimeInMSPauseMode();
             }
         }
 
@@ -369,7 +383,7 @@ void CMenuManager::AdditionalOptionInput(bool* upPressed, bool* downPressed) {
 
     const auto panDelayPassed = CTimer::GetTimeInMSPauseMode() - FrontEndMenuManager.m_LastActionTime > PAN_TICK_MS;
 
-    m_bDrawingMap                 = true;
+    FrontEndMenuManager.m_bDrawingMap = true; // Como el original: escribe en 0xBA67A1 (FrontEndMenuManager), no en this
 
     constexpr auto PAN_AXIS_SCALE = 1.0f / 128.0f; // 0.0078125f
     constexpr auto PAN_STRIDE     = PAN_AXIS_SCALE * 7.0f;
@@ -432,7 +446,7 @@ void CMenuManager::AdditionalOptionInput(bool* upPressed, bool* downPressed) {
             || CPad::IsMouseWheelUp()
             || CPad::IsPgUpDown()) {
             if (panDelayPassed) {
-                if (m_fMapZoom >= 1100.0f) {
+                if (!(m_fMapZoom < 1100.0f)) { // Como el original: un NaN también se fija a 1100
                     m_fMapZoom = 1100.0f;
                 } else {
                     if (notsa::bugfixes::GenericFrameRate) {
@@ -477,7 +491,7 @@ void CMenuManager::AdditionalOptionInput(bool* upPressed, bool* downPressed) {
             || CPad::IsMouseWheelDown()
             || CPad::IsPgDnDown()) {
             if (panDelayPassed) {
-                if (m_fMapZoom <= 300.0f) {
+                if (!(m_fMapZoom > 300.0f)) { // Como el original: un NaN también se fija a 300
                     m_fMapZoom = 300.0f;
                 } else {
                     if (notsa::bugfixes::GenericFrameRate) {
@@ -546,8 +560,9 @@ void CMenuManager::AdditionalOptionInput(bool* upPressed, bool* downPressed) {
             markerFreeFromEdge = true;
         } else {
             edgePanMultiplier = 50;
-            if (m_nMousePosX > StretchX(MAP_FRAME_LEFT) && m_nMousePosX < StretchX(MAP_FRAME_RIGHT)
-                && m_nMousePosY > StretchY(MAP_FRAME_TOP) && m_nMousePosY < StretchY(MAP_FRAME_BOTTOM)) {
+            // Como el original (0x577C65): primero Y y luego X (orden de llamadas a StretchY/StretchX)
+            if (StretchY(MAP_FRAME_TOP) < (float)m_nMousePosY && StretchY(MAP_FRAME_BOTTOM) > (float)m_nMousePosY
+                && StretchX(MAP_FRAME_LEFT) < (float)m_nMousePosX && StretchX(MAP_FRAME_RIGHT) > (float)m_nMousePosX) {
                 // 0x577CE4 - Cursor inside the map area
                 screen = GetMouseWorldPosScreenPos();
                 if (CPad::IsMouseLButton()) {
@@ -589,7 +604,8 @@ void CMenuManager::AdditionalOptionInput(bool* upPressed, bool* downPressed) {
         if (!markerTrackMouse) {
             // 0x577E10 - Move the map origin / marker
             if (panX > 0) {
-                if (mapRight > MAP_FRAME_RIGHT && screen.x >= MAP_CENTER_X && markerFreeFromEdge) {
+                // Como el original: comparaciones "!(a <= b)" / "!(a < b)" (con NaN se cumplen)
+                if (!(mapRight <= MAP_FRAME_RIGHT) && !(screen.x < MAP_CENTER_X) && markerFreeFromEdge) {
                     if (panDelayPassed) {
                         m_vMapOrigin.x -= float(panX) * PAN_STRIDE;
                     }
@@ -603,7 +619,7 @@ void CMenuManager::AdditionalOptionInput(bool* upPressed, bool* downPressed) {
                 }
             }
             if (panX < 0) {
-                if (mapLeft < MAP_FRAME_LEFT && screen.x <= MAP_CENTER_X && markerFreeFromEdge) {
+                if (!(mapLeft >= MAP_FRAME_LEFT) && !(screen.x > MAP_CENTER_X) && markerFreeFromEdge) {
                     if (panDelayPassed) {
                         m_vMapOrigin.x += float(-panX) * PAN_STRIDE;
                     }
@@ -617,7 +633,7 @@ void CMenuManager::AdditionalOptionInput(bool* upPressed, bool* downPressed) {
                 }
             }
             if (panY > 0) {
-                if (mapTop > MAP_FRAME_BOTTOM && screen.y >= MAP_CENTER_Y && markerFreeFromEdge) {
+                if (!(mapTop <= MAP_FRAME_BOTTOM) && !(screen.y < MAP_CENTER_Y) && markerFreeFromEdge) {
                     if (panDelayPassed) {
                         m_vMapOrigin.y -= float(panY) * PAN_STRIDE;
                     }
@@ -631,7 +647,7 @@ void CMenuManager::AdditionalOptionInput(bool* upPressed, bool* downPressed) {
                 }
             }
             if (panY < 0) {
-                if (mapBottom < MAP_FRAME_TOP && screen.y <= MAP_CENTER_Y && markerFreeFromEdge) {
+                if (!(mapBottom >= MAP_FRAME_TOP) && !(screen.y > MAP_CENTER_Y) && markerFreeFromEdge) {
                     if (panDelayPassed) {
                         m_vMapOrigin.y += float(-panY) * PAN_STRIDE;
                     }
@@ -699,8 +715,12 @@ void CMenuManager::AdditionalOptionInput(bool* upPressed, bool* downPressed) {
         if (item >= 0) {
             m_abPrefsMapBlips[item] = !m_abPrefsMapBlips[item];
             INSERT_BLIP_TOGGLE_ROWS();
-            const auto selected = CMenuSystem::CheckForSelected(m_nSysMenu);
-            CMenuSystem::SetActiveMenuItem(m_nSysMenu, selected == 4 ? 0 : selected + 1);
+            // Como el original (0x578B55): si no es la última fila se vuelve a llamar a CheckForSelected
+            if (CMenuSystem::CheckForSelected(m_nSysMenu) == 4) {
+                CMenuSystem::SetActiveMenuItem(m_nSysMenu, 0);
+            } else {
+                CMenuSystem::SetActiveMenuItem(m_nSysMenu, (int8)(CMenuSystem::CheckForSelected(m_nSysMenu) + 1));
+            }
         }
         // 0x578B8F - Close the menu once Space is fully released
         if (pad->IsStandardKeyUp(' ')) {
@@ -718,7 +738,7 @@ void CMenuManager::AdditionalOptionInput(bool* upPressed, bool* downPressed) {
     if (panDelayPassed) {
         FrontEndMenuManager.m_LastActionTime = CTimer::GetTimeInMSPauseMode();
     }
-    m_bDrawingMap = false;
+    FrontEndMenuManager.m_bDrawingMap = false; // Como el original (0x578C74)
 }
 
 // 0x57EF50
@@ -727,7 +747,8 @@ void CMenuManager::RedefineScreenUserInput(bool* accept, bool* cancel) {
         return; // 0x57EF53 - Invert
     }
 
-    const auto maxAction = m_nCurrentScreen == SCREEN_CONTROLS_DEFINITION ? GetMaxAction() : 0u;
+    // Como el original el máximo es un byte (movzx bl)
+    const auto maxAction = m_nCurrentScreen == SCREEN_CONTROLS_DEFINITION ? (uint8)GetMaxAction() : (uint8)0;
     const auto pad = CPad::GetPad();
 
     // 0x57EF97 - Handle enter key/button press
@@ -748,19 +769,29 @@ void CMenuManager::RedefineScreenUserInput(bool* accept, bool* cancel) {
     }
 
     // 0x57F058 - Reset key pressed state after a delay
-    if (CTimer::GetTimeInMSPauseMode() - m_LastTransitionTime > 200) {
+    // Como el original: el temporizador se lee y escribe en FrontEndMenuManager (0xBA82AC), no en this
+    if (CTimer::GetTimeInMSPauseMode() - FrontEndMenuManager.m_LastTransitionTime > 200) {
         rng::fill(m_KeyPressed, false);
-        m_LastTransitionTime = CTimer::GetTimeInMSPauseMode();
+        FrontEndMenuManager.m_LastTransitionTime = CTimer::GetTimeInMSPauseMode();
     }
 
+    const auto maxActionIdx = (int32)maxAction - 1;
+
     // 0x57F086 - Handle up navigation (keyboard, pad, or mouse wheel up)
-    if (CPad::IsUpDown() || CPad::GetAnaloguePadUp() || pad->IsDPadUpPressed() || CPad::IsMouseWheelUpPressed()) {
-        m_DisplayTheMouse = CPad::IsMouseWheelUpPressed();
+    // Como el original: si se cumple cualquiera de las tres primeras condiciones se oculta el ratón aunque la rueda también se mueva
+    const bool upByKeys = CPad::IsUpDown() || CPad::GetAnaloguePadUp() || pad->IsDPadUpPressed();
+    if (upByKeys || CPad::IsMouseWheelUpPressed()) {
+        m_DisplayTheMouse = !upByKeys;
         // Only trigger once per key press, not while held
         if (!m_KeyPressed[2]) {
             m_KeyPressed[2] = true;
-            m_LastTransitionTime = CTimer::GetTimeInMSPauseMode();
-            m_ListSelection = m_ListSelection > 0 ? m_ListSelection - 1 : maxAction - 1;
+            FrontEndMenuManager.m_LastTransitionTime = CTimer::GetTimeInMSPauseMode();
+            // Como el original (0x57F118): con selección negativa no se toca
+            if (m_ListSelection == 0) {
+                m_ListSelection = maxActionIdx;
+            } else if (m_ListSelection > 0) {
+                m_ListSelection--;
+            }
         }
     } else {
         // Reset when key released
@@ -768,13 +799,19 @@ void CMenuManager::RedefineScreenUserInput(bool* accept, bool* cancel) {
     }
 
     // 0x57F138 - Handle down navigation (keyboard, pad, or mouse wheel down)
-    if (CPad::IsDownDown() || CPad::GetAnaloguePadDown() || pad->IsDPadDownPressed() || CPad::IsMouseWheelDownPressed()) {
-        m_DisplayTheMouse = CPad::IsMouseWheelDownPressed();
+    const bool downByKeys = CPad::IsDownDown() || CPad::GetAnaloguePadDown() || pad->IsDPadDownPressed();
+    if (downByKeys || CPad::IsMouseWheelDownPressed()) {
+        m_DisplayTheMouse = !downByKeys;
         // Only trigger once per key press, not while held
         if (!m_KeyPressed[3]) {
             m_KeyPressed[3] = true;
-            m_LastTransitionTime = CTimer::GetTimeInMSPauseMode();
-            m_ListSelection = (m_ListSelection == maxAction - 1) ? 0 : m_ListSelection + 1;
+            FrontEndMenuManager.m_LastTransitionTime = CTimer::GetTimeInMSPauseMode();
+            // Como el original (0x57F1CE): comparación con signo, por encima del máximo no se toca
+            if (m_ListSelection == maxActionIdx) {
+                m_ListSelection = 0;
+            } else if (m_ListSelection < maxActionIdx) {
+                m_ListSelection++;
+            }
         }
     } else {
         // Reset when key released
@@ -849,11 +886,14 @@ bool CMenuManager::CheckRedefineControlInput() {
 
             // Android
             auto TypeOfControl = eControllerType::KEYBOARD;
+            // Como el original (0x57E61A): ifs independientes, el ratón tiene prioridad sobre el mando y el teclado sobre ambos
             if (m_nJustDownJoyButton != NO_JOYBUTTONS) {
                 TypeOfControl = eControllerType::JOY_STICK;
-            } else if (m_nPressedMouseButton) {
+            }
+            if (m_nPressedMouseButton) {
                 TypeOfControl = eControllerType::MOUSE;
-            } if (*m_pPressedKey != rsNULL) {
+            }
+            if (*m_pPressedKey != rsNULL) {
                 TypeOfControl = eControllerType::KEYBOARD;
             }
 
@@ -891,22 +931,26 @@ void CMenuManager::CheckSliderMovement(int32 LeftRight) {
 
     switch (item.m_nActionType) {
     case MENU_ACTION_BRIGHTNESS:
-        m_PrefsBrightness = std::clamp<int32>(LeftRight * int32(363.0f / 15.0f) + m_PrefsBrightness, 0, 384);
+        // Como el original: (float)(int8)LeftRight * 24.19f + brillo, truncado con _ftol2 y luego acotado a [0, 384]
+        // (no es un paso entero de 24: 48 - 24.19 = 23.81 -> 23)
+        m_PrefsBrightness = std::clamp<int32>(int32((float)(int8)LeftRight * 24.19f + (float)m_PrefsBrightness), 0, 384);
         SetBrightness((float)m_PrefsBrightness, false);
         break;
     case MENU_ACTION_RADIO_VOL: {
-        m_nRadioVolume = std::clamp<int8>(4 * LeftRight + m_nRadioVolume, 0, 64);
+        // Como el original: suma en byte (con desbordamiento) usando solo el byte bajo de LeftRight
+        m_nRadioVolume = std::clamp<int8>((int8)(4 * (int8)LeftRight + m_nRadioVolume), 0, 64);
         AudioEngine.SetMusicMasterVolume(m_nRadioVolume);
         break;
     }
     case MENU_ACTION_SFX_VOL: {
-        m_nSfxVolume = std::clamp<int8>(4 * LeftRight + m_nSfxVolume, 0, 64);
+        m_nSfxVolume = std::clamp<int8>((int8)(4 * (int8)LeftRight + m_nSfxVolume), 0, 64);
         AudioEngine.SetEffectsMasterVolume(m_nSfxVolume);
         break;
     }
     case MENU_ACTION_DRAW_DIST: {
-        constexpr auto step        = 7.0f / 128.0f;
-        float          newDist     = LeftRight <= 0 ? m_fDrawDistance - step : m_fDrawDistance + step;
+        // Como el original: la constante del exe (0x865250) es 0x3D5FFFFF, no exactamente 7/128; signo según (int8)LeftRight
+        const auto step            = std::bit_cast<float>(0x3D5FFFFFu); // 0.054687496f
+        float          newDist     = (int8)LeftRight <= 0 ? m_fDrawDistance - step : m_fDrawDistance + step;
         m_fDrawDistance            = std::clamp<float>(newDist, 0.925f, 1.8f);
         CRenderer::ms_lodDistScale = m_fDrawDistance;
         break;
@@ -914,7 +958,17 @@ void CMenuManager::CheckSliderMovement(int32 LeftRight) {
     case MENU_ACTION_MOUSE_SENS: {
         // 0xBA672C = minimum mouse sensitivity = 1.0f/3200.0f
         // BUG: when selecting on the 8 or 9 element, it randomly switches to the 9 or 8 element
-        TheCamera.m_fMouseAccelHorzntl = std::fminf(std::fmaxf(((LeftRight * (1.0f / 200.0f)) / 15.0f) + TheCamera.m_fMouseAccelHorzntl, 1.0f/3200.0f), (1.0f / 200.0f));
+        // Como el original: x * 0.005f * 0.06666667f (multiplica, no divide por 15); el mínimo se lee del global 0xBA672C
+        // y el máximo se aplica con "!(v < 0.005f)" (un NaN acaba en 0.005f).
+        static auto& minMouseAccel = StaticRef<float>(0xBA672C);
+        auto sens = (float)(int8)LeftRight * (1.0f / 200.0f) * std::bit_cast<float>(0x3D888889u) + TheCamera.m_fMouseAccelHorzntl;
+        if (minMouseAccel > sens) {
+            sens = minMouseAccel;
+        }
+        if (!(sens < (1.0f / 200.0f))) {
+            sens = 1.0f / 200.0f;
+        }
+        TheCamera.m_fMouseAccelHorzntl = sens;
 #ifdef FIX_BUGS
         TheCamera.m_fMouseAccelVertical = TheCamera.m_fMouseAccelHorzntl * 0.6f;
 #endif
@@ -1020,7 +1074,8 @@ void CMenuManager::CheckForMenuClosing() {
                     DoRWStuffEndOfFrame();
 
                     auto pad = CPad::GetPad(m_nPlayerNumber);
-                    m_StatusDisablePlayerControls = pad->DisablePlayerControls;
+                    FrontEndMenuManager.m_StatusDisablePlayerControls = pad->DisablePlayerControls; // Como el original: 0xBA827C
+                    pad->DisablePlayerControls = true; // Como el original (0x576E67): bloquea los controles mientras el menú está abierto
                     pad->Clear(false, true);
                     pad->ClearKeyBoardHistory();
                     pad->ClearMouseHistory();
@@ -1039,8 +1094,9 @@ void CMenuManager::CheckForMenuClosing() {
                 AudioEngine.StopRadio(nullptr, false);
                 AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_RADIO_RETUNE_STOP);
 
-                if (m_nSysMenu != CMenuSystem::MENU_UNDEFINED) {
-                    CMenuSystem::SwitchOffMenu(0);
+                // Como el original (0x576C6C): solo si el menú es válido (>= 0) y se apaga ese mismo menú, no el 0
+                if (m_nSysMenu >= 0) {
+                    CMenuSystem::SwitchOffMenu(m_nSysMenu);
                     m_nSysMenu = CMenuSystem::MENU_UNDEFINED;
                 }
 
@@ -1090,7 +1146,7 @@ void CMenuManager::CheckForMenuClosing() {
                     }
                 }
                 m_isPreInitialised = false;
-                pad->DisablePlayerControls = m_StatusDisablePlayerControls;
+                pad->DisablePlayerControls = FrontEndMenuManager.m_StatusDisablePlayerControls; // Como el original: 0xBA827C
             }
         }
     }
@@ -1109,7 +1165,7 @@ void CMenuManager::CheckForMenuClosing() {
         }
 
         auto pad = CPad::GetPad(m_nPlayerNumber);
-        m_StatusDisablePlayerControls = pad->DisablePlayerControls;
+        FrontEndMenuManager.m_StatusDisablePlayerControls = pad->DisablePlayerControls; // Como el original: 0xBA827C
         pad->DisablePlayerControls = true;
         m_bIsSaveDone = false;
         m_bMenuActive = true;
@@ -1133,13 +1189,14 @@ void CMenuManager::CheckForMenuClosing() {
 }
 
 // 0x57C4F0
-[[nodiscard]] bool CMenuManager::CheckHover(float left, float right, float top, float bottom) const {
+// Como el original: recibe límites enteros (los llamadores truncan con _ftol2) y compara con signo.
+[[nodiscard]] bool CMenuManager::CheckHover(int32 left, int32 right, int32 top, int32 bottom) const {
     // debug: CSprite2d::DrawRect(CRect(left, top, right, bottom), CRGBA(255, 0, 0, 255));
     return (
-        (float)m_nMousePosX > left  &&
-        (float)m_nMousePosX < right &&
-        (float)m_nMousePosY > top   &&
-        (float)m_nMousePosY < bottom
+        m_nMousePosX > left  &&
+        m_nMousePosX < right &&
+        m_nMousePosY > top   &&
+        m_nMousePosY < bottom
     );
 }
 
@@ -1170,7 +1227,7 @@ bool CMenuManager::CheckMissionPackValidMenu() {
             //          is installed correctly!
             //
             //   Press RETURN to start a new standard game.
-            MessageScreen("NO_PAK", true, false);
+            FrontEndMenuManager.MessageScreen("NO_PAK", true, false); // Como el original: ecx = 0xBA6748, no this
 
             DoRWStuffStartOfFrame(0, 0, 0, 0, 0, 0, 0);
             DoRWStuffEndOfFrame();
@@ -1182,13 +1239,16 @@ bool CMenuManager::CheckMissionPackValidMenu() {
         }
         CTimer::EndUserPause();
         CGame::bMissionPackGame = false;
-        DoSettingsBeforeStartingAGame();
+        FrontEndMenuManager.DoSettingsBeforeStartingAGame(); // Como el original: ecx = 0xBA6748, no this
         m_bActivateMenuNextFrame = false;
 
         return false;
     }
 
     CFileMgr::CloseFile(scr);
+    if (gxt) { // Como el original (0x57D791): también cierra TEXT.GXT si se abrió
+        CFileMgr::CloseFile(gxt);
+    }
     return true;
 }
 
@@ -1199,7 +1259,8 @@ void CMenuManager::CheckCodesForControls(eControllerType type) {
     bool escapePressed     = false;
     bool invalidKeyPressed = false;
     m_MenuIsAbleToQuit = false;
-    eControllerType controllerType = eControllerType::KEYBOARD;
+    // Como el original: el tipo de destino arranca con el tipo recibido (OPTIONAL_EXTRA_KEY se queda tal cual)
+    eControllerType controllerType = type;
 
     // Handle different input types
     switch (type) {
@@ -1210,11 +1271,12 @@ void CMenuManager::CheckCodesForControls(eControllerType type) {
         if (keyCode == rsESC) {
             AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_ERROR);
             escapePressed = true;
-        } else if (!keyCode || notsa::contains({ rsF1, rsF2, rsF3, rsLWIN, rsRWIN }, keyCode)) { // Fixed from v1.01
+        } else if (!keyCode || notsa::contains({ rsF1, rsF2, rsF3, rsF9, rsLWIN, rsPAD5, rsRWIN, rsRALT }, keyCode)) { // Como el original 1.0 (0x57DC21), no la lista de v1.01
             AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_ERROR);
             invalidKeyPressed = true;
         } else {
             AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_SELECT);
+            controllerType = eControllerType::KEYBOARD;
             if ((ControlsManager.GetControllerKeyAssociatedWithAction(actionId, eControllerType::KEYBOARD) != rsNULL) && (ControlsManager.GetControllerKeyAssociatedWithAction(actionId, eControllerType::KEYBOARD) != *m_pPressedKey)) {
                 controllerType = eControllerType::OPTIONAL_EXTRA_KEY;
             }
@@ -1223,20 +1285,25 @@ void CMenuManager::CheckCodesForControls(eControllerType type) {
     }
     case eControllerType::MOUSE: {
         // Mouse input
-        controllerType = eControllerType::MOUSE;
         AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_SELECT);
         break;
     }
     case eControllerType::JOY_STICK:
         // Joystick/controller input
-        controllerType = eControllerType::JOY_STICK;
         AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_SELECT);
         m_MenuIsAbleToQuit = (ControlsManager.GetIsActionAButtonCombo(actionId)) ? 1 : 0;
         break;
+    default:
+        break; // Como el original: OPTIONAL_EXTRA_KEY no reproduce sonido
     }
 
-    // Handle escape key or invalid key press
-    if (escapePressed || invalidKeyPressed || (m_MenuIsAbleToQuit && escapePressed)) {
+    // Como el original (0x57DB78): con una acción combo de mando solo se resetea si además se pulsó ESC; si no, se sale sin hacer nada
+    if (m_MenuIsAbleToQuit && !escapePressed) {
+        return;
+    }
+
+    // Handle escape key
+    if (escapePressed) {
         m_DeleteAllNextDefine = 0;
         m_pPressedKey = nullptr;
         m_EditingControlOptions = false;
@@ -1245,48 +1312,48 @@ void CMenuManager::CheckCodesForControls(eControllerType type) {
         return;
     }
 
-    if (!invalidKeyPressed) {
-        // Process delete all bound controls
-        if (m_DeleteAllNextDefine) {
-            for (const auto controlType : CONTROLLER_TYPES_ALL) {
-                ControlsManager.ClearSettingsAssociatedWithAction(actionId, controlType);
-            }
-            m_DeleteAllNextDefine = 0;
-        }
-
-        // Clear settings for the current controller type
-        ControlsManager.ClearSettingsAssociatedWithAction(actionId, controllerType);
-
-        // Set the new control based on input type
-        switch (type) {
-        case eControllerType::MOUSE: {
-            ControlsManager.DeleteMatchingActionInitiators(actionId, m_nPressedMouseButton, eControllerType::MOUSE);
-            ControlsManager.SetControllerKeyAssociatedWithAction(actionId, m_nPressedMouseButton, controllerType);
-            break;
-        }
-        case eControllerType::JOY_STICK: {
-            ControlsManager.DeleteMatchingActionInitiators(actionId, m_nJustDownJoyButton, eControllerType::JOY_STICK);
-            ControlsManager.SetControllerKeyAssociatedWithAction(actionId, m_nJustDownJoyButton, controllerType);
-            break;
-        }
-        // Keyboard + Optional Extra Key
-        case eControllerType::KEYBOARD:
-        case eControllerType::OPTIONAL_EXTRA_KEY: {
-            ControlsManager.DeleteMatchingActionInitiators(actionId, *m_pPressedKey, eControllerType::KEYBOARD);
-            ControlsManager.DeleteMatchingActionInitiators(actionId, *m_pPressedKey, eControllerType::OPTIONAL_EXTRA_KEY);
-            ControlsManager.SetControllerKeyAssociatedWithAction(actionId, *m_pPressedKey, controllerType);
-            break;
-        }
-        default:
-            NOTSA_UNREACHABLE();
-            break;
-        }
-
-        // Reset state
-        m_pPressedKey = nullptr;
-        m_EditingControlOptions = false;
-        m_KeyPressedCode = (RsKeyCodes)-1;
-        m_bJustOpenedControlRedefWindow = false;
-        SaveSettings();
+    // Como el original (0x57DB98): una tecla inválida sale sin resetear el estado de edición
+    if (invalidKeyPressed) {
+        return;
     }
+
+    // Process delete all bound controls
+    if (m_DeleteAllNextDefine) {
+        for (const auto controlType : CONTROLLER_TYPES_ALL) {
+            ControlsManager.ClearSettingsAssociatedWithAction(actionId, controlType);
+        }
+        m_DeleteAllNextDefine = 0;
+    }
+
+    // Clear settings for the current controller type
+    ControlsManager.ClearSettingsAssociatedWithAction(actionId, controllerType);
+
+    // Set the new control based on input type
+    switch (type) {
+    case eControllerType::MOUSE: {
+        ControlsManager.DeleteMatchingActionInitiators(actionId, m_nPressedMouseButton, eControllerType::MOUSE);
+        ControlsManager.SetControllerKeyAssociatedWithAction(actionId, m_nPressedMouseButton, controllerType);
+        break;
+    }
+    case eControllerType::JOY_STICK: {
+        ControlsManager.DeleteMatchingActionInitiators(actionId, m_nJustDownJoyButton, eControllerType::JOY_STICK);
+        ControlsManager.SetControllerKeyAssociatedWithAction(actionId, m_nJustDownJoyButton, controllerType);
+        break;
+    }
+    case eControllerType::KEYBOARD: {
+        ControlsManager.DeleteMatchingActionInitiators(actionId, *m_pPressedKey, eControllerType::KEYBOARD);
+        ControlsManager.DeleteMatchingActionInitiators(actionId, *m_pPressedKey, eControllerType::OPTIONAL_EXTRA_KEY);
+        ControlsManager.SetControllerKeyAssociatedWithAction(actionId, *m_pPressedKey, controllerType);
+        break;
+    }
+    default:
+        break; // Como el original: con OPTIONAL_EXTRA_KEY no se asigna nada, solo se resetea
+    }
+
+    // Reset state
+    m_pPressedKey = nullptr;
+    m_EditingControlOptions = false;
+    m_KeyPressedCode = (RsKeyCodes)-1;
+    m_bJustOpenedControlRedefWindow = false;
+    SaveSettings();
 }

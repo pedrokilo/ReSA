@@ -15,7 +15,7 @@ Desde la raíz:
 python reversing/run.py --case menusystem
 ```
 
-El runner Python termina sin pausa ni supervisión. Usa `runtime_runner.py`, abre únicamente la copia `E:/JUEGOS/GTA San Andreas - CVehicle Test`, compara dentro del motor, cierra su propio proceso y restaura ASI/PDB. Verifica los hashes del ejecutable y la sonda, y comprueba las partidas. Se mantiene un solo PROBAR.cmd y este caso también está incluido en `--all`.
+El runner Python termina sin pausa ni supervisión. Usa `runtime_runner.py`, abre únicamente la copia `D:/JUEGOS/GTA San Andreas - CVehicle Test`, compara dentro del motor, cierra su propio proceso y restaura ASI/PDB. Verifica los hashes del ejecutable y la sonda, y comprueba las partidas. Se mantiene un solo PROBAR.cmd y este caso también está incluido en `--all`.
 
 `build_probe.py` añade temporalmente contadores a la función y ejecuta `LiveComparison.hpp` desde CGame::Process. Comprueba los puntos de inserción y restaura las fuentes mediante `finally`. Archiva ASI/PDB y un manifiesto de hashes en `artifacts`. Recompilar una sonda exige revisar su nuevo hash y volver a validarla; `PROBE_HASH` identifica el binario aprobado en `_baseline/gta_reversed-menusystem-probe.asi`. La compilación normal no contiene instrumentación.
 
@@ -35,7 +35,7 @@ El banco observó cuadrículas con 64 colores distintos y 32.492 casillas con í
 
 ## Evidencia y límites
 
-Resumen y hashes: `validation-summary.json`. Log completo local: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-menusystem/20260922-203512-507016/comparisons.jsonl`. Desensamblado: `artifacts/FillGridWithCarColours.asm`. Las fuentes de la sonda se conservan en esta carpeta; los artefactos voluminosos están ignorados por Git.
+Resumen y hashes: `validation-summary.json`. Log completo local: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-menusystem/20260922-203512-507016/comparisons.jsonl`. Desensamblado: `artifacts/FillGridWithCarColours.asm`. Las fuentes de la sonda se conservan en esta carpeta; los artefactos voluminosos están ignorados por Git.
 
 Se prueban ambos IDs válidos con estructuras temporales; no se prueban punteros inválidos ni todos los menús de scripts. La función solo lee la tabla y escribe los índices: no se valida aquí el dibujo, navegación o aceptación de selecciones, ni las otras veinte funciones de CMenuSystem. Los hooks Audio y Global/SurfaceInfos_c siguen excluidos durante el banco. No hubo revisión visual ni se necesita para esta comparación de memoria.
 

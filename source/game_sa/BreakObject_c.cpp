@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -44,6 +44,15 @@ BreakObject_c::BreakObject_c() {
     m_BreakGroups = nullptr;
 }
 
+// 0x59C890 con su orden de sumas (CMatrix * CVector)
+static CVector MatrixTimesPoint59C890(const CMatrix& m, const CVector& v) {
+    return {
+        ((m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x) + m.GetPosition().x,
+        ((m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y) + m.GetPosition().y,
+        ((m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y) + m.GetPosition().z,
+    };
+}
+
 // 0x59E750
 bool BreakObject_c::Init(CObject* object, const CVector* velocity, float fVelocityRand, int32 bJustFaces) {
     if (!object->GetRwObject() || RwObjectGetType(object->GetRwObject()) != rpATOMIC)
@@ -57,21 +66,25 @@ bool BreakObject_c::Init(CObject* object, const CVector* velocity, float fVeloci
     auto ltm = RwFrameGetLTM(RpAtomicGetFrame(object->GetRpAtomic()));
     SetGroupData(ltm, velocity, fVelocityRand);
 
-    m_JustFaces = bJustFaces;
+    // El original copia bytes en crudo (sin normalizar a bool)
+    reinterpret_cast<uint8&>(m_JustFaces) = (uint8)bJustFaces;
     m_bActive = true;
     m_FramesActive = 0;
-    m_AddSparks = object->m_pObjectInfo->m_nSparksOnImpact;
+    reinterpret_cast<uint8&>(m_AddSparks) = (uint8)object->m_pObjectInfo->m_nSparksOnImpact;
     m_bDrawLast = object->m_bDrawLast;
 
     CVector vecOrigin;
-    auto* colModel = object->GetModelInfo()->GetColModel();
+    const auto& bb = object->GetModelInfo()->GetColModel()->GetBoundingBox();
     if (info->m_uiPosRule != eBreakablePluginPositionRule::OBJECT_ORIGIN) {
-        auto usedPoint = colModel->GetBoundingBox().GetCenter();
-        usedPoint.z += 0.25f;
-        vecOrigin = object->m_matrix->TransformPoint(usedPoint);
+        const CVector usedPoint{
+            (bb.m_vecMax.x - bb.m_vecMin.x) * 0.5f + bb.m_vecMin.x,
+            (bb.m_vecMax.y - bb.m_vecMin.y) * 0.5f + bb.m_vecMin.y,
+            ((bb.m_vecMax.z - bb.m_vecMin.z) * 0.5f + bb.m_vecMin.z) + 0.25f,
+        };
+        vecOrigin = MatrixTimesPoint59C890(*object->m_matrix, usedPoint);
     } else {
         vecOrigin = *RwMatrixGetPos(ltm);
-        vecOrigin.z += colModel->GetBoundingBox().m_vecMin.z + 0.25f;
+        vecOrigin.z = (vecOrigin.z + bb.m_vecMin.z) + 0.25f;
     }
 
     CColPoint colPoint;
@@ -95,14 +108,20 @@ bool BreakObject_c::Init(CObject* object, const CVector* velocity, float fVeloci
 
 // 0x59DDD0
 void BreakObject_c::Exit() {
-    for (auto& group : GetBreakGroups()) {
-        if (group.m_Texture) {
-            RwTextureDestroy(group.m_Texture);
-            group.m_Texture = nullptr;
+    // Como el original: sin grupos no se libera nada; operator delete (no delete[]) y solo punteros no nulos.
+    if (m_BreakGroups) {
+        for (auto i = 0; i < m_NumBreakGroups; ++i) {
+            auto& group = m_BreakGroups[i];
+            if (group.m_Texture) {
+                RwTextureDestroy(group.m_Texture);
+                group.m_Texture = nullptr;
+            }
+            if (group.m_RenderInfo) {
+                operator delete(group.m_RenderInfo);
+            }
         }
-        delete[] group.m_RenderInfo;
+        operator delete(m_BreakGroups);
     }
-    delete[] m_BreakGroups;
     m_bActive = false;
 }
 
@@ -158,7 +177,11 @@ void BreakObject_c::CalcGroupCenter(BreakGroup_t* group) {
 }
 
 // 0x59D570
+// Fórmulas en línea del original: unidad aleatoria rand * (1/32767), sumas en su orden y RwV3dNormalize.
 void BreakObject_c::SetGroupData(const RwMatrix* matrix, const CVector* vecVelocity, float fVelocityRand) {
+    const auto RandUnit = [] { return (float)CGeneral::GetRandomNumber() * (1.0f / 32767.0f); };
+    const float minVel = -fVelocityRand, rangeVel = fVelocityRand - minVel;
+
     for (auto& group : GetBreakGroups()) {
         group.m_Matrix = *matrix;
 
@@ -167,22 +190,22 @@ void BreakObject_c::SetGroupData(const RwMatrix* matrix, const CVector* vecVeloc
         if (vecVelocity) {
             group.m_Velocity = *vecVelocity;
             if (fVelocityRand != 0.0f) {
-                group.m_Velocity.x += CGeneral::GetRandomNumberInRange(-fVelocityRand, fVelocityRand);
-                group.m_Velocity.y += CGeneral::GetRandomNumberInRange(-fVelocityRand, fVelocityRand);
-                group.m_Velocity.z += CGeneral::GetRandomNumberInRange(-fVelocityRand, fVelocityRand);
+                group.m_Velocity.x = (rangeVel * RandUnit() + group.m_Velocity.x) + minVel;
+                group.m_Velocity.y = (rangeVel * RandUnit() + group.m_Velocity.y) + minVel;
+                group.m_Velocity.z = (rangeVel * RandUnit() + group.m_Velocity.z) + minVel;
             }
         } else {
-            group.m_Velocity.x = CGeneral::GetRandomNumberInRange(-fVelocityRand, fVelocityRand);
-            group.m_Velocity.y = CGeneral::GetRandomNumberInRange(-fVelocityRand, fVelocityRand);
-            group.m_Velocity.z = CGeneral::GetRandomNumberInRange(-fVelocityRand, fVelocityRand);
+            group.m_Velocity.x = rangeVel * RandUnit() + minVel;
+            group.m_Velocity.y = rangeVel * RandUnit() + minVel;
+            group.m_Velocity.z = rangeVel * RandUnit() + minVel;
         }
 
-        group.m_RotationSpeed = CGeneral::GetRandomNumberInRange(3.0f, 6.0f);
+        group.m_RotationSpeed = RandUnit() * 3.0f + 3.0f;
 
-        group.m_RotationAxis.x = CGeneral::GetRandomNumberInRange(-1.0f, 1.0f);
-        group.m_RotationAxis.y = CGeneral::GetRandomNumberInRange(-1.0f, 1.0f);
-        group.m_RotationAxis.z = CGeneral::GetRandomNumberInRange(-1.0f, 1.0f);
-        group.m_RotationAxis.Normalise();
+        group.m_RotationAxis.x = RandUnit() * 2.0f - 1.0f;
+        group.m_RotationAxis.y = RandUnit() * 2.0f - 1.0f;
+        group.m_RotationAxis.z = RandUnit() * 2.0f - 1.0f;
+        RwV3dNormalize(&group.m_RotationAxis, &group.m_RotationAxis);
 
         group.m_bStoppedMoving = false;
     }
@@ -194,8 +217,10 @@ void BreakObject_c::SetBreakInfo(BreakInfo_t* info, int32 bJustFaces) {
     static auto& ambientGreen = StaticRef<float>(0x8D0A08); // 32.0f
     static auto& ambientBlue = StaticRef<float>(0x8D0A04); // 32.0f
 
-    m_NumBreakGroups = bJustFaces ? info->m_usNumTriangles : info->m_usNumMaterials;
-    m_BreakGroups = new BreakGroup_t[m_NumBreakGroups];
+    // El original compara bJustFaces con 1 (no con distinto de cero) y reserva con operator new.
+    const bool justFaces = bJustFaces == 1;
+    m_NumBreakGroups = justFaces ? info->m_usNumTriangles : info->m_usNumMaterials;
+    m_BreakGroups = static_cast<BreakGroup_t*>(operator new(m_NumBreakGroups * sizeof(BreakGroup_t)));
 
     for (auto i = 0; i < m_NumBreakGroups; ++i) {
         auto& group = m_BreakGroups[i];
@@ -203,7 +228,7 @@ void BreakObject_c::SetBreakInfo(BreakInfo_t* info, int32 bJustFaces) {
         group.m_Texture = nullptr;
 
         auto numMaterials = 0u;
-        if (bJustFaces)
+        if (justFaces)
             numMaterials = 1u;
         else {
             auto* pIndex = info->m_pTrianglesMaterialIndices;
@@ -215,13 +240,13 @@ void BreakObject_c::SetBreakInfo(BreakInfo_t* info, int32 bJustFaces) {
             }
         }
 
-        group.m_RenderInfo = new BreakGroupRenderInfo_t[numMaterials];
-        group.m_FramesToLive = 256 + CGeneral::GetRandomNumberInRange(0, 32); // todo: magic numbers
+        group.m_RenderInfo = static_cast<BreakGroupRenderInfo_t*>(operator new(numMaterials * sizeof(BreakGroupRenderInfo_t)));
+        group.m_FramesToLive = 256 + CGeneral::GetRandomIntInRange(0, 32); // El original: 256 - (int)(rand * (1/32768) * -32)
     }
 
     for (auto i = 0; i < info->m_usNumTriangles; ++i) {
         auto curIndex = i;
-        if (!bJustFaces)
+        if (!justFaces)
             curIndex = info->m_pTrianglesMaterialIndices[curIndex];
 
         auto& triangle = info->m_pTriangles[i];
@@ -232,7 +257,7 @@ void BreakObject_c::SetBreakInfo(BreakInfo_t* info, int32 bJustFaces) {
             curRenderInfo.positions[ind] = info->m_pVertexPos[triangle.vertIndex[ind]];
         }
 
-        auto textureInd = bJustFaces ? info->m_pTrianglesMaterialIndices[i] : curIndex;
+        auto textureInd = justFaces ? info->m_pTrianglesMaterialIndices[i] : curIndex;
         group.m_Texture = info->m_pTextures[textureInd];
 
         if (!CPostEffects::IsVisionFXActive()) {
@@ -263,66 +288,73 @@ void BreakObject_c::SetBreakInfo(BreakInfo_t* info, int32 bJustFaces) {
 }
 
 // 0x59DE40
+// Transcrito del original: unidad aleatoria rand * (1/32767), RwV3dNormalize/RwV3dLength y sumas en su orden.
 void BreakObject_c::DoCollisionResponse(BreakGroup_t* group, float timeStep, const CVector* vecNormal, float groundZ) const {
     static auto& dotMultiplier = StaticRef<float>(0x8D0A18);   // 0.85f
     static auto& timestepScaling = StaticRef<float>(0x8D0A14); // 0.05f
     static auto& velocityScaling = StaticRef<float>(0x8D0A10); // 0.8f
 
-    auto dotProd = DotProduct(group->m_Velocity, *vecNormal) * dotMultiplier;
-    CVector velocityChange = *vecNormal;
-    velocityChange *= dotProd * 2;
+    const auto RandUnit = [] { return (float)CGeneral::GetRandomNumber() * (1.0f / 32767.0f); };
 
-    CVector newVelocity = group->m_Velocity;
-    newVelocity -= velocityChange;
+    const auto& vel = group->m_Velocity;
+    float d = (vel.x * vecNormal->x + vel.y * vecNormal->y + vel.z * vecNormal->z) * dotMultiplier;
+    d = d + d;
 
-    auto fTimeScale = timeStep * timestepScaling;
-    CVector vecRand{
-        CGeneral::GetRandomNumberInRange(-1.0f, 1.0f),
-        CGeneral::GetRandomNumberInRange(-1.0f, 1.0f),
-        CGeneral::GetRandomNumberInRange(-1.0f, 1.0f),
-    };
-    vecRand.Normalise();
-    vecRand *= fTimeScale;
+    CVector newVelocity{ vel.x - d * vecNormal->x, vel.y - d * vecNormal->y, vel.z - d * vecNormal->z };
 
-    auto fOriginalVelocityScale = newVelocity.Magnitude();
-    newVelocity += vecRand;
-    newVelocity.Normalise();
-    newVelocity *= fOriginalVelocityScale;
-    newVelocity *= velocityScaling;
+    CVector vecRand;
+    vecRand.x = RandUnit() * 2.0f - 1.0f;
+    vecRand.y = RandUnit() * 2.0f - 1.0f;
+    vecRand.z = RandUnit() * 2.0f - 1.0f;
+    RwV3dNormalize(&vecRand, &vecRand);
+
+    const float fTimeScale = timestepScaling * timeStep;
+    vecRand.x *= fTimeScale;
+    vecRand.y *= fTimeScale;
+    vecRand.z *= fTimeScale;
+
+    const float fOriginalVelocityScale = RwV3dLength(&newVelocity);
+    newVelocity.x = vecRand.x + newVelocity.x;
+    newVelocity.y = vecRand.y + newVelocity.y;
+    newVelocity.z = vecRand.z + newVelocity.z;
+    RwV3dNormalize(&newVelocity, &newVelocity);
+    newVelocity.x = fOriginalVelocityScale * newVelocity.x;
+    newVelocity.y = fOriginalVelocityScale * newVelocity.y;
+    newVelocity.z = fOriginalVelocityScale * newVelocity.z;
 
     group->m_RotationSpeed = 0.0f;
-    group->m_Velocity = newVelocity;
+    group->m_Velocity.x = velocityScaling * newVelocity.x;
+    group->m_Velocity.y = velocityScaling * newVelocity.y;
+    group->m_Velocity.z = velocityScaling * newVelocity.z;
     RwMatrixGetPos(&group->m_Matrix)->z = groundZ + group->m_BoundingSize;
 
-    if (fOriginalVelocityScale >= 0.05f) {
-        if (m_JustFaces)
-            return;
-    } else {
+    if (fOriginalVelocityScale < 0.05f) {
         group->m_bStoppedMoving = true;
         if (m_JustFaces) {
-            group->m_FramesToLive = 32 + CGeneral::GetRandomNumberInRange(0, 32); // todo: magic numbers
+            group->m_FramesToLive = 32 + CGeneral::GetRandomIntInRange(0, 32); // 32 - (int)(rand * (1/32768) * -32)
             return;
         }
+    } else if (m_JustFaces) {
+        return;
     }
 
-    const auto NUM_PARTICLES = 4;
-    CVector groupPos = *RwMatrixGetPos(&group->m_Matrix);
-    for (auto i = 0; i < NUM_PARTICLES; ++i) {
+    const FxPrtMult_c mult(1.0f, 1.0f, 1.0f, 0.1f, 0.3f, 0.0f, 0.15f);
+    for (auto i = 0; i < 4; ++i) {
+        const CVector& groupPos = *RwMatrixGetPos(&group->m_Matrix);
         CVector particlePos = groupPos;
-        particlePos.x += CGeneral::GetRandomNumberInRange(-0.5f, 0.5f);
-        particlePos.y += CGeneral::GetRandomNumberInRange(-0.5f, 0.5f);
-
-        g_fx.m_SmokeII3expand->AddParticle(
-            particlePos,
-            { CGeneral::GetRandomNumberInRange(-0.15f, 0.15f), CGeneral::GetRandomNumberInRange(-0.15f, 0.15f), 0.0f },
-            0.0f,
-            FxPrtMult_c(1.0f, 1.0f, 1.0f, 0.1f, 0.3f, 0.0f, 0.15f)
-        );
+        particlePos.x = (RandUnit() + particlePos.x) - 0.5f;
+        particlePos.y = (RandUnit() + particlePos.y) - 0.5f;
+        CVector particleVel;
+        particleVel.x = RandUnit() * 0.3f - 0.15f;
+        particleVel.y = RandUnit() * 0.3f - 0.15f;
+        particleVel.z = 0.0f;
+        g_fx.m_SmokeII3expand->AddParticle(particlePos, particleVel, 0.0f, mult);
     }
 
     if (m_AddSparks) {
-        CVector particleVelocity = { 0.0f, 0.0f, 1.0f };
-        auto amount = static_cast<int32>(group->m_Velocity.Magnitude() * 100.0f);
+        const CVector groupPos = *RwMatrixGetPos(&group->m_Matrix);
+        const CVector particleVelocity = { 0.0f, 0.0f, 1.0f };
+        const auto amount = static_cast<int32>(RwV3dLength(&group->m_Velocity) * 100.0f);
         g_fx.AddSparks(groupPos, particleVelocity, 2.0f, amount, CVector(0.0f, 0.0f, 0.0f), SPARK_PARTICLE_SPARK, 0.4f, 1.0f);
     }
 }
@@ -331,6 +363,32 @@ void BreakObject_c::DoCollisionResponse(BreakGroup_t* group, float timeStep, con
 void BreakObject_c::DoCollision(BreakGroup_t* group, float timeStep) {
     if (RwMatrixGetPos(&group->m_Matrix)->z - group->m_BoundingSize < m_GroundZ) {
         DoCollisionResponse(group, timeStep, &m_VecNormal, m_GroundZ);
+    }
+}
+
+// acos del CRT del juego (0x822394): fpatan(sqrt((1 + x)(1 - x)), x) conservando la precisión del FPU
+// (palabra de control (anterior & 0x300) | 0x7F, como 0x828F05).
+static double __declspec(naked) __cdecl AcosX87(double x) {
+    __asm {
+        sub    esp, 4
+        fnstcw word ptr [esp]
+        mov    ax, word ptr [esp]
+        and    ax, 300h
+        or     ax, 7Fh
+        mov    word ptr [esp + 2], ax
+        fldcw  word ptr [esp + 2]
+        fld    qword ptr [esp + 8]
+        fld1
+        fadd   st, st(1)
+        fld1
+        fsub   st, st(2)
+        fmulp  st(1), st
+        fsqrt
+        fxch   st(1)
+        fpatan
+        fldcw  word ptr [esp]
+        add    esp, 4
+        ret
     }
 }
 
@@ -345,12 +403,12 @@ void BreakObject_c::Update(float timeStep) {
     auto bToBeRemoved = true;
     for (auto& group : GetBreakGroups()) {
         if (!group.m_bStoppedMoving) {
-            group.m_Velocity.z -= timeStep / 125.0f;
-            CVector vecVelocity = group.m_Velocity;
-            vecVelocity *= timeStep;
+            group.m_Velocity.z -= timeStep * 0.008f; // El original multiplica por 0.008 (1/125)
 
             auto* pos = RwMatrixGetPos(&group.m_Matrix);
-            RwV3dAdd(pos, pos, &vecVelocity);
+            pos->x = timeStep * group.m_Velocity.x + pos->x;
+            pos->y = timeStep * group.m_Velocity.y + pos->y;
+            pos->z = timeStep * group.m_Velocity.z + pos->z;
 
             if (m_FramesActive >= 5) {
                 RwV3d* vecFacing = [&]{
@@ -362,19 +420,25 @@ void BreakObject_c::Update(float timeStep) {
                     }
                 }();
 
-                auto fAngleRad = std::acos(DotProduct(m_VecNormal, *vecFacing));
-                if (std::fabs(fAngleRad) > 0.01f) {
-                    CVector axis = CrossProduct(*vecFacing, m_VecNormal);
-                    axis.Normalise();
+                // acos en doble precisión (CRT del original); el ángulo se guarda como float
+                const float dot = m_VecNormal.x * vecFacing->x + m_VecNormal.y * vecFacing->y + m_VecNormal.z * vecFacing->z;
+                const double angle = AcosX87((double)dot);
+                const float fAngleRad = (float)angle;
+                if (std::fabs(angle) > 0.01f) {
+                    RwV3d axis{
+                        vecFacing->y * m_VecNormal.z - vecFacing->z * m_VecNormal.y,
+                        vecFacing->z * m_VecNormal.x - vecFacing->x * m_VecNormal.z,
+                        vecFacing->x * m_VecNormal.y - vecFacing->y * m_VecNormal.x,
+                    };
+                    RwV3dNormalize(&axis, &axis);
 
-                    auto fAngleDeg = RadiansToDegrees(fAngleRad) * timeStep / 20.0f;
-                    CVector savedPos = *pos;
+                    const float fAngleDeg = fAngleRad * 57.295776f * timeStep * 0.05f;
+                    const CVector savedPos = *pos;
                     RwMatrixRotate(&group.m_Matrix, &axis, fAngleDeg, RwOpCombineType::rwCOMBINEPOSTCONCAT);
                     *pos = savedPos;
                 }
             } else {
-                float angle = timeStep * group.m_RotationSpeed;
-                RwMatrixRotate(&group.m_Matrix, &group.m_RotationAxis, angle, RwOpCombineType::rwCOMBINEPRECONCAT);
+                RwMatrixRotate(&group.m_Matrix, &group.m_RotationAxis, timeStep * group.m_RotationSpeed, RwOpCombineType::rwCOMBINEPRECONCAT);
             }
 
             DoCollision(&group, timeStep);
@@ -394,8 +458,10 @@ void BreakObject_c::Update(float timeStep) {
 }
 
 // 0x59E480
-void BreakObject_c::Render(bool isDrawLast) const {
-    if (isDrawLast != m_bDrawLast)
+void BreakObject_c::Render(uint8 drawLastState) const {
+    if (drawLastState != static_cast<uint8>(m_bDrawLast))
+        return;
+    if (m_NumBreakGroups <= 0) // Sin grupos el original sale sin llamar a RenderEnd
         return;
 
     RwRaster* lastRaster = nullptr;

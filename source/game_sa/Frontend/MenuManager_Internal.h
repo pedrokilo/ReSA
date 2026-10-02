@@ -244,7 +244,10 @@ inline bool IsSaveSlot(eMenuEntryType slot) {
 }
 
 /// Screens data (From 0x8CE008)
-inline tMenuScreen aScreens[SCREEN_COUNT] = {
+/// Copia documental de la tabla del EXE (idéntica byte a byte). El código usa `aScreens`,
+/// que apunta a la tabla del EXE: el original escribe en ella (JumpToGenericMessageScreen,
+/// coordenadas de DrawStandardMenus) y las funciones sin enganchar la leen.
+inline tMenuScreen aScreensData[SCREEN_COUNT] = {
     // [0]: SCREEN_STATS
     {
         "FEP_STA",
@@ -628,6 +631,7 @@ inline tMenuScreen aScreens[SCREEN_COUNT] = {
         0,
         {
             { MENU_ACTION_TEXT, "FEC_SVU", TI_STRING, SCREEN_STATS, 0, 0, MENU_ALIGN_DEFAULT },
+            { MENU_ACTION_NA, "", TI_ENTER, SCREEN_STATS, 0, 0, MENU_ALIGN_DEFAULT }, // Como en el EXE (tipo 11 sin acción)
         },
     },
     // [32]: SCREEN_SAVE_FAILED_FILE_ERROR
@@ -756,6 +760,7 @@ inline tMenuScreen aScreens[SCREEN_COUNT] = {
         SCREEN_STATS,
         0,
         {
+            { MENU_ACTION_NA, "", TI_ENTER, SCREEN_STATS, 0, 0, MENU_ALIGN_DEFAULT }, // Como en el EXE (tipo 11 sin acción)
         },
     },
     // [43]: SCREEN_EMPTY
@@ -764,8 +769,11 @@ inline tMenuScreen aScreens[SCREEN_COUNT] = {
         SCREEN_STATS,
         0,
         {
+            { MENU_ACTION_NA, "", TI_ENTER, SCREEN_STATS, 0, 0, MENU_ALIGN_DEFAULT }, // Como en el EXE (tipo 11 sin acción)
         },
     },
 };
+inline auto& aScreens = StaticRef<tMenuScreen[SCREEN_COUNT]>(0x8CE008);
+
 extern SpriteFileName FrontEndFilenames[];
 extern tMenuScreen aScreensX[];

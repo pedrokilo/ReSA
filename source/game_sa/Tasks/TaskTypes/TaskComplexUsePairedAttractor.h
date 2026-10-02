@@ -47,7 +47,7 @@ private: // Wrappers for hooks
 
 public:
     CPedAttractor*             m_Attractor{};
-    notsa::EntityRef<CPed>     m_Partner{};
+    CPed*                      m_Partner{}; // Referencia registrada a mano: el destructor original no la limpia
     bool                       m_IsLeader{};
     const CScriptedEffectPair* m_CurrentFxPair{};
     int32                      m_PartnerProgress{}; //!< Index into `CScriptedEffectPairs::Pairs`

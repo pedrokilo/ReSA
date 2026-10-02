@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 28/28 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/28 entradas.
+ * Validación registrada: 28/28 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -58,13 +58,55 @@ void CMessages::InjectHooks() {
     RH_ScopedInstall(AddBigMessageQ, 0x69F370);
 }
 
+// Como el original: solo se ponen a cero `Text` y `StringToInsert` de cada entrada;
+// el resto de campos (números, tiempos, flags...) se conservan en memoria.
+template<size_t N>
+static void ClearMessagesTextAndString(std::array<tMessage, N>& msgs) {
+    for (auto& msg : msgs) {
+        msg.Text           = nullptr;
+        msg.StringToInsert = nullptr;
+    }
+}
+
+// Como el original: anula la entrada `i` y desplaza hacia delante las siguientes
+// (copia de 0x30 bytes con `rep movs`) solo hasta la primera entrada libre; la última
+// entrada movida queda solo con `Text = nullptr` (sus demás campos no se tocan).
+template<size_t N>
+static void RemoveMessageAt(std::array<tMessage, N>& msgs, int16 i) {
+    msgs[i].Text = nullptr;
+    int16 k = i;
+    if (k < (int16)N - 1) {
+        while (msgs[k + 1].Text) {
+            std::memcpy((void*)&msgs[k], (const void*)&msgs[k + 1], sizeof(tMessage));
+            if (++k >= (int16)N - 1) {
+                break;
+            }
+        }
+    }
+    msgs[k].Text = nullptr;
+}
+
+// Como el original: compara primero el carácter 0 y después el resto hasta que ambos terminan
+// (si ambos están vacíos sigue comparando desde el índice 1, igual que el EXE).
+static bool MessageTextEquals(const GxtChar* a, const GxtChar* b) {
+    return a[0] == b[0] && std::strcmp(AsciiFromGxtChar(a + 1), AsciiFromGxtChar(b + 1)) == 0;
+}
+
 // Initialises messages
 // 0x69EE00
 void CMessages::Init() {
     ZoneScoped;
 
-    ClearMessages(true);
-    rng::fill(PreviousBriefs, tPreviousBrief{});
+    // Como el original: limpia los 7 estilos de mensajes grandes (sin excepciones),
+    // los breves y el historial, poniendo a cero solo `Text` y `StringToInsert`.
+    for (auto& big : BIGMessages) {
+        ClearMessagesTextAndString(big.Stack);
+    }
+    ClearMessagesTextAndString(BriefMessages);
+    for (auto& prev : PreviousBriefs) {
+        prev.Text           = nullptr;
+        prev.StringToInsert = nullptr;
+    }
 }
 
 template<size_t N>
@@ -94,24 +136,28 @@ tMessage* FindUnusedMsgInArray(std::array<tMessage, N>& arr) {
 */
 void CMessages::AddMessage2(const GxtChar* text, uint32 time, uint16 flag, bool bPreviousBrief, bool showInstantly, GxtChar* str, std::optional<std::array<int32, 6>> numbers) {
     const auto CreateAt = [&](tMessage* p) {
-        new (p) tMessage{
-            text,
-            str,
-            flag,
-            time,
-            bPreviousBrief,
-            numbers
-        };
+        // Como el original: se escriben campo a campo (sin tocar el relleno de la estructura)
+        p->Text        = text;
+        p->Flags       = flag;
+        p->VisibleTime = time;
+        p->CreatedAtMS = CTimer::GetTimeInMS();
+        if (numbers) {
+            rng::copy(*numbers, rng::begin(p->NumbersToInsert));
+        } else {
+            rng::fill(p->NumbersToInsert, -1);
+        }
+        p->StringToInsert = str;
+        p->PreviousBrief  = bPreviousBrief;
         if (bPreviousBrief && (showInstantly || p == &BriefMessages.front())) {
-		    AddToPreviousBriefArray(
-			    p->Text,
-			    p->NumbersToInsert[0],
-			    p->NumbersToInsert[1],
-			    p->NumbersToInsert[2],
-			    p->NumbersToInsert[3],
-			    p->NumbersToInsert[4],
-			    p->NumbersToInsert[5],
-			    p->StringToInsert
+            AddToPreviousBriefArray(
+                p->Text,
+                p->NumbersToInsert[0],
+                p->NumbersToInsert[1],
+                p->NumbersToInsert[2],
+                p->NumbersToInsert[3],
+                p->NumbersToInsert[4],
+                p->NumbersToInsert[5],
+                p->StringToInsert
             );
         }
     };
@@ -127,7 +173,11 @@ void CMessages::AddMessage2(const GxtChar* text, uint32 time, uint16 flag, bool 
 * @addr 0x69F0B0
 */
 void CMessages::AddMessageQ(const GxtChar* text, uint32 time, uint16 flag, bool bPreviousBrief) { // Renamed from AddMessage
-    /* Some string copy code here */
+    // Como el original: prepara el texto en un búfer local de 0x320 bytes cuyo resultado no se usa
+    GxtChar buf[MSG_BUF_SZ * 2];
+    StringCopy(buf, text, MSG_BUF_SZ);
+    InsertPlayerControlKeysInString(buf);
+
     AddMessage2(text, time, flag, bPreviousBrief, false);
 }
 
@@ -136,7 +186,12 @@ void CMessages::AddMessageQ(const GxtChar* text, uint32 time, uint16 flag, bool 
 * @addr 0x69E800
 */
 void CMessages::AddMessageWithStringQ(const GxtChar* text, uint32 time, uint16 flag, GxtChar* string, bool bPreviousBrief) {
-    /* Some string copy code here */
+    // Como el original: prepara el texto en un búfer local de 0x320 bytes cuyo resultado no se usa
+    GxtChar buf[MSG_BUF_SZ * 2];
+    StringCopy(buf, text, MSG_BUF_SZ);
+    InsertStringInString(buf, string);
+    InsertPlayerControlKeysInString(buf);
+
     AddMessage2(text, time, flag, bPreviousBrief, false, string);
 }
 
@@ -145,7 +200,11 @@ void CMessages::AddMessageWithStringQ(const GxtChar* text, uint32 time, uint16 f
 * @addr 0x69F1E0
 */
 void CMessages::AddMessageJump(const GxtChar* text, uint32 time, uint16 flag, bool bPreviousBrief) { // Renamed from AddMessageJumpQ
-    /* unused string copy here */
+    // Como el original: prepara el texto en un búfer local de 0x320 bytes cuyo resultado no se usa
+    GxtChar buf[MSG_BUF_SZ * 2];
+    StringCopy(buf, text, MSG_BUF_SZ);
+    InsertPlayerControlKeysInString(buf);
+
     AddMessage2(text, time, flag, bPreviousBrief, true);
 }
 
@@ -154,7 +213,11 @@ void CMessages::AddMessageJump(const GxtChar* text, uint32 time, uint16 flag, bo
 * @addr 0x69E360
 */
 void CMessages::AddMessageWithNumberQ(const GxtChar* text, uint32 time, uint16 flag, int32 n1, int32 n2, int32 n3, int32 n4, int32 n5, int32 n6, bool bPreviousBrief) {
-    /* Some string copy code here */
+    // Como el original: prepara el texto en un búfer local de 0x320 bytes cuyo resultado no se usa
+    GxtChar buf[MSG_BUF_SZ * 2];
+    InsertNumberInString(text, n1, n2, n3, n4, n5, n6, buf);
+    InsertPlayerControlKeysInString(buf);
+
     AddMessage2(text, time, flag, bPreviousBrief, false, nullptr, { { n1, n2, n3, n4, n5, n6 } });
 }
 
@@ -163,6 +226,11 @@ void CMessages::AddMessageWithNumberQ(const GxtChar* text, uint32 time, uint16 f
 * @addr 0x69E4E0
 */
 void CMessages::AddMessageJumpQWithNumber(const GxtChar* text, uint32 time, uint16 flag, int32 n1, int32 n2, int32 n3, int32 n4, int32 n5, int32 n6, bool bPreviousBrief) {
+    // Como el original: prepara el texto en un búfer local de 0x320 bytes cuyo resultado no se usa
+    GxtChar buf[MSG_BUF_SZ * 2];
+    InsertNumberInString(text, n1, n2, n3, n4, n5, n6, buf);
+    InsertPlayerControlKeysInString(buf);
+
     AddMessage2(text, time, flag, bPreviousBrief, true, nullptr, { { n1, n2, n3, n4, n5, n6 } });
 }
 
@@ -171,6 +239,12 @@ void CMessages::AddMessageJumpQWithNumber(const GxtChar* text, uint32 time, uint
 * @addr 0x69E950
 */
 void CMessages::AddMessageJumpQWithString(const GxtChar* text, uint32 time, uint16 flag, GxtChar* string, bool bPreviousBrief) {
+    // Como el original: prepara el texto en un búfer local de 0x320 bytes cuyo resultado no se usa
+    GxtChar buf[MSG_BUF_SZ * 2];
+    StringCopy(buf, text, MSG_BUF_SZ);
+    InsertStringInString(buf, string);
+    InsertPlayerControlKeysInString(buf);
+
     AddMessage2(text, time, flag, bPreviousBrief, true, string);
 }
 
@@ -188,15 +262,18 @@ void CMessages::AddMessageJumpQWithString(const GxtChar* text, uint32 time, uint
 * @notsa
 */
 void CMessages::AddBigMessage2(const GxtChar* text, uint32 time, eMessageStyle style, bool showInstantly, GxtChar* str, std::optional<std::array<int32, 6>> numbers) {
-    const auto CreateAt = [&](auto* ptr) {
-        new (ptr) tMessage{
-            text,
-            str,
-            0,
-            time,
-            false,
-            numbers
-        };
+    const auto CreateAt = [&](tMessage* p) {
+        // Como el original: se escriben campo a campo y `PreviousBrief` no se toca
+        p->Text        = text;
+        p->Flags       = 0;
+        p->VisibleTime = time;
+        p->CreatedAtMS = CTimer::GetTimeInMS();
+        if (numbers) {
+            rng::copy(*numbers, rng::begin(p->NumbersToInsert));
+        } else {
+            rng::fill(p->NumbersToInsert, -1);
+        }
+        p->StringToInsert = str;
     };
     if (showInstantly) {
         CreateAt(&BIGMessages[style].Stack.front());
@@ -208,24 +285,44 @@ void CMessages::AddBigMessage2(const GxtChar* text, uint32 time, eMessageStyle s
 // Adds big message and shows it instantly
 // 0x69F2B0
 void CMessages::AddBigMessage(const GxtChar* text, uint32 time, eMessageStyle style) {
+    // Como el original: prepara el texto en un búfer local de 0x320 bytes cuyo resultado no se usa
+    GxtChar buf[MSG_BUF_SZ * 2];
+    StringCopy(buf, text, MSG_BUF_SZ);
+    InsertPlayerControlKeysInString(buf);
+
     AddBigMessage2(text, time, style, true);
 }
 
 // Adds big message to [Q]ueue
 // 0x69F370
 void CMessages::AddBigMessageQ(const GxtChar* text, uint32 time, eMessageStyle style) {
+    // Como el original: prepara el texto en un búfer local de 0x320 bytes cuyo resultado no se usa
+    GxtChar buf[MSG_BUF_SZ * 2];
+    StringCopy(buf, text, MSG_BUF_SZ);
+    InsertPlayerControlKeysInString(buf);
+
     AddBigMessage2(text, time, style, false);
 }
 
 // Adds big message with numbers and shows it instantly
 // 0x69E5F0
 void CMessages::AddBigMessageWithNumber(const GxtChar* text, uint32 time, eMessageStyle style, int32 n1, int32 n2, int32 n3, int32 n4, int32 n5, int32 n6) {
+    // Como el original: prepara el texto en un búfer local de 0x320 bytes cuyo resultado no se usa
+    GxtChar buf[MSG_BUF_SZ * 2];
+    InsertNumberInString(text, n1, n2, n3, n4, n5, n6, buf);
+    InsertPlayerControlKeysInString(buf);
+
     AddBigMessage2(text, time, style, true, nullptr, {{n1, n2, n3, n4, n5, n6}});
 }
 
 // Adds big message with numbers to [Q]ueue
 // 0x69E6E0
 void CMessages::AddBigMessageWithNumberQ(const GxtChar* text, uint32 time, eMessageStyle style, int32 n1, int32 n2, int32 n3, int32 n4, int32 n5, int32 n6) {
+    // Como el original: prepara el texto en un búfer local de 0x320 bytes cuyo resultado no se usa
+    GxtChar buf[MSG_BUF_SZ * 2];
+    InsertNumberInString(text, n1, n2, n3, n4, n5, n6, buf);
+    InsertPlayerControlKeysInString(buf);
+
     AddBigMessage2(text, time, style, false, nullptr, { {n1, n2, n3, n4, n5, n6} });
 }
 
@@ -246,7 +343,7 @@ void CMessages::AddToPreviousBriefArray(const GxtChar* text, int32 n1, int32 n2,
             continue;
         }
         if (numbers != prev.NumbersToInsert) {
-            continue; 
+            continue;
         }
         return; // Duplicate messages after each other, so skip
     }
@@ -256,11 +353,11 @@ void CMessages::AddToPreviousBriefArray(const GxtChar* text, int32 n1, int32 n2,
         i = PreviousBriefs.size() - 1;
     }
 
-    // Move entries so that we overwrite the unused entry at `i` and thus free up the 0th entry
-    // if `i == 0` this won't do anything.
+    // Como el original: copia [i-1] -> [i], ..., [0] -> [1] (la entrada `i` recibe la `i-1`),
+    // dejando libre la 0. Si `i == 0` no hace nada.
     std::shift_right(
         PreviousBriefs.begin(),
-        PreviousBriefs.begin() + i,
+        PreviousBriefs.begin() + i + 1,
         1
     );
 
@@ -281,90 +378,105 @@ void CMessages::ClearMessages(bool bIgnoreMissionTitle) {
         if (bIgnoreMissionTitle && (style == eMessageStyle::STYLE_BOTTOM_RIGHT || style == eMessageStyle::STYLE_MIDDLE_SMALLER_HIGHER)) {
             continue;
         }
-        rng::fill(BIGMessages[style].Stack, tMessage{});
+        ClearMessagesTextAndString(BIGMessages[style].Stack);
     }
 
-    // Clear brief messages
-    ClearSmallMessagesOnly();
+    // Clear brief messages (Como el original: en línea, sin llamar a ClearSmallMessagesOnly)
+    ClearMessagesTextAndString(BriefMessages);
 }
 
 // Removes messages in brief
 // 0x69DD30
 void CMessages::ClearSmallMessagesOnly() {
-    rng::fill(BriefMessages, tMessage{});
+    ClearMessagesTextAndString(BriefMessages);
 }
 
 // Remove messages from previous brief
 // 0x69DE70
 void CMessages::ClearPreviousBriefArray() {
-    rng::fill(PreviousBriefs, tPreviousBrief{});
-}
-
-template<size_t N>
-void ClearThisPrint_Impl(std::array<tMessage, N>& messages, const GxtChar* text, auto&& OnFirstMessageCleared) {
-    assert(text);
-    for (;;) {
-        size_t i = 0;
-        for (;;) {
-            const auto& msg = messages[i];
-            if (!msg.IsValid()) {
-                return; // Reached end of active texts
-            }
-            if (strcmp(AsciiFromGxtChar(msg.Text), AsciiFromGxtChar(text)) == 0) {
-                break; // Texts match, so clear this
-            }
-            if (++i >= messages.size()) {
-                return; // Reached end
-            }
-        }
-        
-        // Overwrite this element
-        std::shift_left(
-            messages.begin() + i,
-            messages.end(),
-            1
-        );
-
-        // Clear last (As it was left in an unspecified state)
-        messages.back() = {};
-
-        if (i == 0) {
-            auto& msg = messages[i];
-            msg.CreatedAtMS = CTimer::GetTimeInMS();
-            if (OnFirstMessageCleared) {
-                OnFirstMessageCleared(msg);
-            }
-        }
+    // Como el original: solo se ponen a cero `Text` y `StringToInsert`; los números se conservan
+    for (auto& prev : PreviousBriefs) {
+        prev.Text           = nullptr;
+        prev.StringToInsert = nullptr;
     }
 }
 
 // Removes small message with this text
 // 0x69EA30
 void CMessages::ClearThisPrint(const GxtChar* text) {
-    ClearThisPrint_Impl(BriefMessages, text, [](tMessage& msg) {
-        if (!msg.Text) {
-            return;
+    bool found;
+    do {
+        // Como el original: busca desde el principio hasta la primera entrada libre
+        found = false;
+        int16 i = 0;
+        for (; i < (int16)BriefMessages.size(); i++) {
+            const auto msgText = BriefMessages[i].Text;
+            if (!msgText) {
+                break;
+            }
+            if (MessageTextEquals(msgText, text)) {
+                found = true;
+                break;
+            }
         }
-        AddToPreviousBriefArray(
-            msg.Text,
-            msg.NumbersToInsert[0],
-            msg.NumbersToInsert[1],
-            msg.NumbersToInsert[2],
-            msg.NumbersToInsert[3],
-            msg.NumbersToInsert[4],
-            msg.NumbersToInsert[5],
-            msg.StringToInsert
-        );
-    });
+        if (!found) {
+            break;
+        }
+
+        RemoveMessageAt(BriefMessages, i);
+
+        if (i == 0) {
+            auto& msg = BriefMessages[0];
+            msg.CreatedAtMS = CTimer::GetTimeInMS();
+            // Como el original: solo si el nuevo primero existe y tiene `PreviousBrief`
+            if (msg.Text && msg.PreviousBrief) {
+                AddToPreviousBriefArray(
+                    msg.Text,
+                    msg.NumbersToInsert[0],
+                    msg.NumbersToInsert[1],
+                    msg.NumbersToInsert[2],
+                    msg.NumbersToInsert[3],
+                    msg.NumbersToInsert[4],
+                    msg.NumbersToInsert[5],
+                    msg.StringToInsert
+                );
+            }
+        }
+    } while (found);
 }
 
 // Removes big message with this text
 // 0x69EBE0
 void CMessages::ClearThisBigPrint(const GxtChar* text) {
-    assert(text);
-    for (size_t b = 0; b < NUM_MESSAGE_STYLES; b++) {
-        ClearThisPrint_Impl(BIGMessages[b].Stack, text, [](tMessage&) { /*nop*/ });
-    }
+    bool found;
+    do {
+        // Como el original: recorre los 4 huecos de cada estilo sin detenerse en los libres
+        found = false;
+        int16 style = 0, i = 0;
+        for (;;) {
+            const auto msgText = BIGMessages[style].Stack[i].Text;
+            if (msgText && MessageTextEquals(msgText, text)) {
+                found = true;
+                break;
+            }
+            if (++i == (int16)BIGMessages[style].Stack.size()) {
+                i = 0;
+                style++;
+            }
+            if (style >= NUM_MESSAGE_STYLES) {
+                break;
+            }
+        }
+        if (!found) {
+            break;
+        }
+
+        auto& stack = BIGMessages[style].Stack;
+        RemoveMessageAt(stack, i);
+        if (i == 0) {
+            stack[0].CreatedAtMS = CTimer::GetTimeInMS();
+        }
+    } while (found);
 }
 
 // Removes first big message in messages stack
@@ -396,14 +508,18 @@ uint32 CMessages::GetStringLength(const GxtChar* string) {
 // Copies string src to dest
 // 0x69DB70
 void CMessages::StringCopy(GxtChar* dest, const GxtChar* src, uint16 len) {
-    if (src && len) {
-        const auto copyLen = std::min<size_t>(GetStringLength(src), len - 1u);
-
-        std::memcpy(dest, AsciiFromGxtChar(src), copyLen);
-        dest[copyLen] = '\0';
+    uint16 i = 0;
+    if (src) {
+        for (; (int32)i < (int32)len - 1 && src[i]; i++) {
+            dest[i] = src[i];
+        }
     } else {
-        dest[0] = '\0';
+        // Como el original: sin origen, pone a cero `len` bytes (al menos 1)
+        for (; (int32)i < (int32)len - 1; i++) {
+            dest[i] = '\0';
+        }
     }
+    dest[i] = '\0';
 }
 
 /*!
@@ -415,35 +531,29 @@ bool CMessages::StringCompare(const GxtChar* str1, const GxtChar* str2, uint16 l
 }
 
 // 0x69DC50
-void CMessages::CutString(int32 count, const GxtChar* str, GxtChar** dest) {
-    NOTSA_UNREACHABLE(); // unused
-}
-
-template<size_t N>
-void StringReplace(const char* haystack, const char (&needle)[N], char* dst, auto&& Replace) {
-    // Based on https://stackoverflow.com/a/32413923
-    auto        pDst = dst;
-    const char* pHS  = haystack;
-    
-    for(;;) {
-        const char* pNeedle = strstr(pHS, needle);
-
-        // walked past last occurrence of needle; copy remaining part
-        if (!pNeedle) {
-            pDst = std::copy(pHS, pHS + strlen(pHS), pDst);
-            break;
-        }
-
-        // copy part before needle
-        pDst = std::copy(pHS, pNeedle, pDst);
-
-        // replace portion of string
-        pDst = Replace(pDst);
-
-        // adjust pointers, move on
-        pHS = pNeedle + (N - 1);
+int16 CMessages::CutString(int32 count, GxtChar* str, GxtChar** dest) {
+    // Como el original: trocea `str` en un máximo de 8 partes de unos `count` caracteres,
+    // cortando en el espacio anterior (que se sustituye por '\0'). Contadores de 16 bits con signo.
+    const auto len    = (int16)std::strlen(AsciiFromGxtChar(str));
+    int16      pieces = 0;
+    if (len > 0) {
+        int16 pos = 0;
+        do {
+            if (pieces >= 8) {
+                break;
+            }
+            dest[pieces++] = &str[pos];
+            if ((int32)(int16)count + (int32)pos >= (int32)len) {
+                break;
+            }
+            pos = (int16)(pos + count);
+            while (str[pos] != ' ') {
+                pos--;
+            }
+            str[pos++] = '\0';
+        } while (pos < len);
     }
-    *pDst = 0; // Null terminate
+    return pieces;
 }
 
 // Insert numbers into string
@@ -453,10 +563,38 @@ void CMessages::InsertNumberInString(const GxtChar* str, int32 n1, int32 n2, int
         *dst = 0; // Null terminate result anyways
         return;
     }
-    StringReplace(AsciiFromGxtChar(str), "~1~", (char*)dst, [n = 0, numbers = std::array{ n1, n2, n3, n4, n5, n6 }](char* where) mutable {
-        // Originally they used sprintf + AsciiToGxtChar, but this should work. We don't care about any substring except '~1~'.
-        return std::format_to(where, "{}", numbers[n++]);
-    });
+
+    // Como el original: cada número se formatea con sprintf("%d") y se pasa por AsciiToGxtChar.
+    // Tras el sexto `~1~` se reutiliza el último número formateado; el contador es de 8 bits.
+    const int32 numbers[] = { n1, n2, n3, n4, n5, n6 };
+    char        numAscii[12];
+    GxtChar     numGxt[12];
+    uint8       numIdx = 0;
+
+    std::sprintf(numAscii, "%d", numbers[0]);
+    auto numLen = (uint32)std::strlen(numAscii);
+    AsciiToGxtChar(numAscii, numGxt);
+
+    const auto len = (uint32)std::strlen(AsciiFromGxtChar(str));
+    uint32     d   = 0;
+    for (uint32 s = 0; s < len;) {
+        if (str[s] == '~' && str[s + 1] == '1' && str[s + 2] == '~') {
+            s += 3;
+            if (numLen) {
+                std::memcpy(&dst[d], numGxt, numLen);
+                d += numLen;
+            }
+            numIdx++;
+            if (numIdx >= 1 && numIdx <= 5) {
+                std::sprintf(numAscii, "%d", numbers[numIdx]);
+            }
+            numLen = (uint32)std::strlen(numAscii);
+            AsciiToGxtChar(numAscii, numGxt);
+        } else {
+            dst[d++] = str[s++];
+        }
+    }
+    dst[d] = 0;
 }
 
 // Inserts string into src
@@ -466,115 +604,112 @@ void CMessages::InsertStringInString(GxtChar* target, const GxtChar* replacement
         return;
     }
 
+    // Como el original: el marcador es `~a~`; el bucle avanza hasta que el índice de destino
+    // alcanza len(target) + len(replacement) (contadores de 16 bits), aunque eso copie bytes
+    // posteriores al terminador. Después se copia el resultado y se rellena con ceros hasta 400.
+    const auto replLen = (uint16)std::strlen(AsciiFromGxtChar(replacement));
+    const auto total   = (uint16)(std::strlen(AsciiFromGxtChar(target)) + std::strlen(AsciiFromGxtChar(replacement)));
+
     GxtChar buf[MSG_BUF_SZ];
-    notsa::string_copy((char*)buf, AsciiFromGxtChar(target), sizeof(buf));
-    StringReplace(AsciiFromGxtChar(buf), "~1~", (char*)target, [&, szrepl = strlen(AsciiFromGxtChar(replacement))](char* where) {
-        return std::copy(replacement, replacement + szrepl, where);
-    });
+    uint16  s = 0, d = 0;
+    while (d < total) {
+        const auto c = target[s];
+        if (c == '~' && target[s + 1] == 'a' && target[s + 2] == '~') {
+            s += 3;
+            for (uint16 i = 0; i < replLen; i++) {
+                buf[d++] = replacement[i];
+            }
+        } else {
+            buf[d++] = c;
+            s++;
+        }
+    }
+    buf[d] = 0;
+
+    std::memcpy(target, buf, total);
+    if (total < MSG_BUF_SZ) {
+        std::memset(&target[total], 0, MSG_BUF_SZ - total);
+    }
 }
 
 // Inserts key events into string
 // 0x69E160
 void CMessages::InsertPlayerControlKeysInString(GxtChar* string) {
-    GxtChar haystack[MSG_BUF_SZ];
-    GxtCharStrcpy(haystack, string);
-
-    // Based on https://stackoverflow.com/a/32413923
-    auto        pDst = string;
-    const auto* pHS  = haystack;
-
-    // Skip over a portion in the haystack and copy it into `dst`
-    const auto SkipTo = [&](const GxtChar* to) {
-        pDst = std::copy(pHS, to, pDst);
-        pHS  = to;
-    };
-
-    // An action is in the format of ~k~~ACTION_NAME_HERE~
-    // We tolerate errors because this function is called for all strings printed on the screen
-    // So in case it's a debug string that happens to contain ~k~ we don't want to `assert` and crash.
-    for(;;) {
-        const auto pNeedle = strstr(AsciiFromGxtChar(pHS), "~k~~");
-
-        // walked past last occurrence of needle; copy remaining part (up to the end)
-        if (!pNeedle) {
-            SkipTo(pHS + strlen(AsciiFromGxtChar(pHS)));
-            break;
-        }
-
-        // Now pneedle points at the beginning of ~k~~
-        // there should be another `~` after it, and in
-        // [pControlName, pend) should be the action name
-        const auto pControlName = pNeedle + 4; // + 4 to skip `~k~~`
-
-        const auto pNameEnd = strchr(pControlName, '~');  
-
-        // If not found, skip `~k`, as that for sure won't be a valid format string the next time. (This way ~k~k would still work)
-        if (!pNameEnd) {
-            NOTSA_LOG_WARN("Closing tag of ~k~ not found [String: {}]", AsciiFromGxtChar(haystack));
-            SkipTo(pHS + 2);
-            continue;
-        }
-        
-        // Okay, find this action's ID
-        const auto actionName = std::string_view{ pControlName, pNameEnd };
-        const auto actionId   = ControlsManager.GetActionIDByName(actionName);
-
-        // If not found we know the location of the next `~`, so skip to there
-        if (actionId == eControllerAction::CA_NONE) {
-            SkipTo((const GxtChar*)pNameEnd);
-            NOTSA_LOG_WARN("Invalid action name({}) [String: {}]", std::string_view{ pNeedle, pNameEnd }, AsciiFromGxtChar(haystack));
-            continue;
-        }
-
-        // Copy stuff from before the control name (Using SkipTo for ease of life)
-        SkipTo((const GxtChar*)pNeedle);
-
-        // Get action name....
-        GxtChar aname[400]{};
-        ControlsManager.GetGxtStringOfCommandKeys(actionId, aname, 400);
-
-        // ...and insert it into the string.
-        // This is kinda shit for now, as we  don't know the 
-        // size of the output (dst) buffer so we might as
-        // well just be writing over the stack :)
-        pDst = std::copy(aname, aname + strlen(AsciiFromGxtChar(aname)), pDst);
-
-        // We don't use SkipTo here, as we don't want to copy anything
-        pHS  = GxtCharFromAscii(pNameEnd) + 1; // Go past the `~` that's after the control name
+    if (!string) {
+        return;
     }
 
-    // null terminate
-    *pDst = 0;
+    // Como el original: detecta `~k~` y salta 4 caracteres (`~k~~`); busca por orden la primera
+    // acción cuyo nombre coincide (StringCompare) y va seguida de `~`. Si ninguna coincide, el
+    // `~k~~` se descarta y el resto se copia tal cual. Después se rellena con ceros hasta 400.
+    const auto len = (uint16)std::strlen(AsciiFromGxtChar(string));
+
+    GxtChar keys[MSG_BUF_SZ]{};
+    GxtChar buf[MSG_BUF_SZ];
+    uint16  d = 0;
+    for (uint16 s = 0; s < len;) {
+        const auto c = string[s];
+        if (c == '~' && string[s + 1] == 'k' && string[s + 2] == '~') {
+            s += 4;
+            bool found = false;
+            for (uint16 action = 0; !found && action < +eControllerAction::CONTROLLER_ACTION_COUNT; action++) {
+                const GxtChar* name    = ControlsManager.m_ControllerActionName[action];
+                const auto     nameLen = (uint16)std::strlen(AsciiFromGxtChar(name));
+                if (!nameLen) {
+                    continue;
+                }
+                if (!StringCompare(&string[s], name, nameLen) || string[s + nameLen] != '~') {
+                    continue;
+                }
+                found = true;
+                ControlsManager.GetGxtStringOfCommandKeys((eControllerAction)action, keys, MSG_BUF_SZ);
+                s = s + nameLen + 1;
+
+                // Como el original: se copia y a la vez se limpia el búfer de teclas
+                const auto keysLen = (uint16)std::strlen(AsciiFromGxtChar(keys));
+                for (uint16 i = 0; i < keysLen; i++) {
+                    buf[d++] = keys[i];
+                    keys[i]  = 0;
+                }
+            }
+        } else {
+            buf[d++] = c;
+            s++;
+        }
+    }
+    buf[d] = 0;
+
+    const auto outLen = (uint16)std::strlen(AsciiFromGxtChar(buf));
+    std::memcpy(string, buf, outLen);
+    if (outLen < MSG_BUF_SZ) {
+        std::memset(&string[outLen], 0, MSG_BUF_SZ - outLen);
+    }
 }
 
 // Processing messages. This is called from CWorld::Process
 // 0x69EE60
 void CMessages::Process() {
-    const auto ProcessMessagesArray = [](auto&& msgs) {
-        auto& f = msgs.front();
-        if (!f.IsValid()) { // Not even valid (Neither are the ones after it)
-            return;
-        }
-        if (CTimer::GetTimeInMS() <= f.GetTimeToDisappearAtMS()) { // Still visible
-            return;
-        }
-        std::destroy_at(&f); // First one disappeared, so we can delete it
-        std::shift_right(msgs.begin(), msgs.end(), 1);
-        std::destroy_at(&msgs.back()); // Last is def. unused now
-        if (f.IsValid()) { // front is now another object (because of the shift)
-            f.CreatedAtMS = CTimer::GetTimeInMS();
-        }
-    };
-
     // Process big messages
-    for (auto& omgVeryBig : BIGMessages) {
-        ProcessMessagesArray(omgVeryBig.Stack);
-	}
+    for (auto& big : BIGMessages) {
+        auto& f = big.Stack[0];
+        if (!f.Text || CTimer::GetTimeInMS() <= f.GetTimeToDisappearAtMS()) {
+            continue;
+        }
+        RemoveMessageAt(big.Stack, 0);
+        // Como el original: se reinicia el tiempo del primero aunque haya quedado vacío
+        f.CreatedAtMS = CTimer::GetTimeInMS();
+    }
 
     // Process briefs
-    ProcessMessagesArray(BriefMessages);
-    if (const auto f = BriefMessages.front(); f.IsValid()) {
-		AddToPreviousBriefArray(
+    auto& f = BriefMessages[0];
+    if (!f.Text || CTimer::GetTimeInMS() <= f.GetTimeToDisappearAtMS()) {
+        return;
+    }
+    RemoveMessageAt(BriefMessages, 0);
+    f.CreatedAtMS = CTimer::GetTimeInMS();
+    // Como el original: solo al avanzar la cola y si el nuevo primero tiene `PreviousBrief`
+    if (f.Text && f.PreviousBrief) {
+        AddToPreviousBriefArray(
             f.Text,
             f.NumbersToInsert[0],
             f.NumbersToInsert[1],

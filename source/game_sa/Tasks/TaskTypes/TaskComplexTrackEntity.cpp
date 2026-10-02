@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/11 entradas.
+ * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -49,14 +49,20 @@ CTaskComplexTrackEntity::CTaskComplexTrackEntity(CEntity* entity, CVector offset
     m_offsetPosn{offsetPos},
     a{a6},
     b{a7},
-    f{a10}
+    f{a10},
+    m_fMoveRatio{-1.f} // 0x65F438: negative = take it from the ped's move state in CreateFirstSubTask
 {
     CEntity::RegisterReference(m_toTrack);
 }
 
 // NOTSA
+// 0x65F4E0: 0x30..0x39 work as a timer; while it runs, the clone gets the time left instead of `b`
 CTaskComplexTrackEntity::CTaskComplexTrackEntity(const CTaskComplexTrackEntity& o) :
-    CTaskComplexTrackEntity{o.m_toTrack, o.m_offsetPosn, o.a, o.b, o.m_rangeMin, o.m_rangeMax, o.f}
+    CTaskComplexTrackEntity{
+        o.m_toTrack, o.m_offsetPosn, o.a,
+        o.gap2 ? static_cast<int32>(o.m_someStartTimeMs + o.m_expirationInterval - CTimer::GetTimeInMS()) : o.b,
+        o.m_rangeMin, o.m_rangeMax, o.f
+    }
 {
     m_fMoveRatio = o.m_fMoveRatio;
 }
@@ -119,7 +125,7 @@ CTask* CTaskComplexTrackEntity::CreateNextSubTask(CPed* ped) {
     }
 
     if (!m_pSubTask || m_pSubTask->GetTaskType() != TASK_SIMPLE_STAND_STILL) {
-        return new CTaskSimpleStandStill{ };
+        return new CTaskSimpleStandStill{ 50 }; // 0x65F6C7
     }
 
     if (m_distToTargetSq < sq(m_rangeMin)) {

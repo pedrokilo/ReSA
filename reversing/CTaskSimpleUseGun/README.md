@@ -15,7 +15,7 @@ Desde la raíz del repositorio:
 python reversing/run.py --case usegun
 ```
 
-El segundo comando termina sin pausa ni supervisión. Se utiliza el runner compartido y solo la copia `E:/JUEGOS/GTA San Andreas - CVehicle Test`, con verificación de hashes, exclusión de ejecuciones concurrentes, respaldo/restauración de ASI/PDB, cierre del proceso iniciado y comprobación de partidas. El caso también está incluido en `--all`; se conserva un solo PROBAR.cmd.
+El segundo comando termina sin pausa ni supervisión. Se utiliza el runner compartido y solo la copia `D:/JUEGOS/GTA San Andreas - CVehicle Test`, con verificación de hashes, exclusión de ejecuciones concurrentes, respaldo/restauración de ASI/PDB, cierre del proceso iniciado y comprobación de partidas. El caso también está incluido en `--all`; se conserva un solo PROBAR.cmd.
 
 `build_probe.py` instrumenta temporalmente TaskSimpleUseGun.cpp y Game.cpp y restaura ambas fuentes en `finally`. Archiva la sonda, sus símbolos y hashes de fuentes/instrumentación en `artifacts`. Para repetir se usa `_baseline/gta_reversed-usegun-probe.asi`, identificado por `PROBE_HASH`. Recompilar requiere revisar su nuevo hash y volver a validar. El ASI normal se compila posteriormente con las fuentes restauradas; no contiene la sonda.
 
@@ -46,6 +46,6 @@ Esto verifica el flujo y los estados de ProcessPed en los casos descritos. **No 
 
 ## Evidencia
 
-Consultar `validation-summary.json` para los hashes y resultados. Log final local: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-usegun/20260922-205940-939686/comparisons.jsonl`. Desensamblado original: `artifacts/ProcessPed.asm`; la función termina en `0x62AF42` y el volcado también incluye instrucciones posteriores. Se conservan los informes fallidos que permitieron corregir el límite del disparo y ajustar la comparación semántica del callback.
+Consultar `validation-summary.json` para los hashes y resultados. Log final local: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-usegun/20260922-205940-939686/comparisons.jsonl`. Desensamblado original: `artifacts/ProcessPed.asm`; la función termina en `0x62AF42` y el volcado también incluye instrucciones posteriores. Se conservan los informes fallidos que permitieron corregir el límite del disparo y ajustar la comparación semántica del callback.
 
 El ASI normal quedó instalado únicamente en la copia de pruebas, con respaldo en `_baseline/before-usegun-20260922`. Instalación personal y partidas conservadas. Sin commit ni push.

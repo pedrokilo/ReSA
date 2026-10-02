@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -47,6 +47,7 @@ CLoadMonitor::CLoadMonitor() {
     rng::fill(m_iMaxCycles, 0);
 
     rng::fill(m_fAveragedCyclesThisSecond, 0.f);
+    std::memset(&m_iCyclesHistory, 0, sizeof(m_iCyclesHistory)); // 0x53CFED
 
     m_fPeakLevels[+eLoadType::PED_AI]                 = 15.0f;
     m_fPeakLevels[+eLoadType::COLLISION]              = 20.0f;
@@ -70,13 +71,16 @@ void CLoadMonitor::EndFrame() {
             ? ped->GetVehicleIfInOne()->GetMoveSpeed()
             : ped->GetMoveSpeed();
 
-        m_iCyclesThisFrame[+eLoadType::MOVE_SPEED] = (uint32)(movevec.Magnitude() * 50.f);
+        // 0x53D0FD: magnitude of the scaled vector, summed as (z*z + y*y) + x*x
+        const float x = movevec.x * 50.f, y = movevec.y * 50.f, z = movevec.z * 50.f;
+        m_iCyclesThisFrame[+eLoadType::MOVE_SPEED] = (uint32)(int64)std::sqrt((z * z + y * y) + x * x);
     }
 
     // 0x53D143 - 0x53D1D3
     for (auto t = 0u; t < +eLoadType::NUM_LOAD_TYPES; t++) {
         m_iMaxCycles[t] = std::max(m_iMaxCycles[t], m_iCyclesThisFrame[t]);
-        m_fAveragedCyclesThisSecond[t] += (float)m_iCyclesThisFrame[t];
+        // The game runs the x87 at 24-bit precision: `fild` loads the integer exactly and only the sum is rounded.
+        m_fAveragedCyclesThisSecond[t] = (float)((double)m_fAveragedCyclesThisSecond[t] + (double)m_iCyclesThisFrame[t]);
     }
 
     auto mstime = CTimer::GetTimeInMS();
@@ -117,18 +121,20 @@ void CLoadMonitor::EndFrame() {
         };
 
         for (auto t = 0u; t < +eLoadType::NUM_LOAD_TYPES; t++) {
+            // 0x53D2C0: x87 at 24-bit precision; the integers are loaded exactly (`fild`) and every operation is
+            // rounded to float, so each step is computed exactly in double and then rounded.
             float smoothed{};
             if (m_iMaxCycles[t] != 0) {
-                float sum{};
-                for (auto a = 0u; a < 8u; a++) {
-                    sum += (float)m_iCyclesHistory[t][a];
+                float sum = (float)((double)m_iCyclesHistory[t][0] + (double)m_iCyclesHistory[t][1]);
+                for (auto a = 2u; a < 8u; a++) {
+                    sum = (float)((double)sum + (double)m_iCyclesHistory[t][a]);
                 }
-
-                smoothed = std::fminf(sum / 8.f, (float)m_iMaxCycles[t]);
+                const float maxCycles = (float)m_iMaxCycles[t];
+                smoothed = std::min(sum * 0.125f, maxCycles);
             }
             m_fSmoothedValues[t] = smoothed;
 
-            const float val = needsCyclesConversion(t) ? smoothed / (float)CTimer::GetCyclesPerMillisecond() : smoothed;
+            const float val        = needsCyclesConversion(t) ? (float)((double)smoothed / (double)CTimer::GetCyclesPerMillisecond()) : smoothed;
             const float normalized = val / m_fPeakLevels[t];
 
             if (normalized > (2.f / 3.f) && m_eProcLevel < eProcessingLevel::HIGH) {
@@ -138,7 +144,7 @@ void CLoadMonitor::EndFrame() {
             }
 
             m_fNormalizedPeakRangeValues[t] = normalized;
-            m_fSmoothedValues[t] = smoothed / (float)m_iMaxCycles[t];
+            m_fSmoothedValues[t] = (float)((double)smoothed / (double)m_iMaxCycles[t]);
         }
     } else {
         m_NumFramesThisSec++;

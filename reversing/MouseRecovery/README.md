@@ -4,7 +4,7 @@ El 23 de septiembre de 2026 se reprodujo el `Acquire` inicial con HRESULT `0x800
 
 ## Evidencia dentro del motor
 
-Proceso propio, únicamente en `E:\JUEGOS\GTA San Andreas - CVehicle Test`, sin exclusiones de hooks. Sonda temporal sobre las llamadas reales de DirectInput; no se sustituyó el dispositivo por un simulador, no se inyectó movimiento ni se pulsaron botones.
+Proceso propio, únicamente en `D:\JUEGOS\GTA San Andreas - CVehicle Test`, sin exclusiones de hooks. Sonda temporal sobre las llamadas reales de DirectInput; no se sustituyó el dispositivo por un simulador, no se inyectó movimiento ni se pulsaron botones.
 
 | Momento desde el primer intento | Observación |
 | --- | --- |

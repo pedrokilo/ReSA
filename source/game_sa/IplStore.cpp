@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 34/34 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/34 entradas.
+ * Validación registrada: 34/34 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -63,11 +63,25 @@ void CIplStore::Shutdown() {
     for (auto&& [i, _] : ms_pPool->GetAllValidWithIndex()) {
         RemoveIplSlot(i);
     }
-    delete ms_pPool;
+    // Como el original (0x405FE1): sin el destructor de CPool (que rellena y deja punteros); se ponen a cero
+    // almacenamiento, mapa, capacidad y primer libre, y solo se libera la memoria propia del pool.
+    if (auto* const pool = reinterpret_cast<uint8*>(ms_pPool)) {
+        if (*reinterpret_cast<int32*>(pool + 0x8) > 0) {
+            if (pool[0x10]) {
+                delete[] *reinterpret_cast<uint8**>(pool + 0x0);
+                delete[] *reinterpret_cast<uint8**>(pool + 0x4);
+            }
+            *reinterpret_cast<uint8**>(pool + 0x0) = nullptr;
+            *reinterpret_cast<uint8**>(pool + 0x4) = nullptr;
+            *reinterpret_cast<int32*>(pool + 0x8)  = 0;
+            *reinterpret_cast<int32*>(pool + 0xC)  = 0;
+        }
+        operator delete(pool);
+    }
     ms_pPool = nullptr;
 
     for (auto array : IplEntityIndexArrays | rng::views::take(NumIplEntityIndexArrays)) {
-        delete array;
+        delete[] array; // El original usa delete[] (0x8213AE)
     }
     NumIplEntityIndexArrays = 0;
 
@@ -187,23 +201,20 @@ void CIplStore::EnsureIplsAreInMemory(const CVector& posn) {
             continue;
         }
 
-        if (!def->bb.IsPointInside(posn, -190.f) || CStreaming::IsModelLoaded(IPLToModelId(slot))) {
-            continue;
+        if (def->bb.IsPointInside(posn, -190.f) && !CStreaming::IsModelLoaded(IPLToModelId(slot))) {
+            // Load IPL
+            CStreaming::RequestModel(IPLToModelId(slot), STREAMING_PRIORITY_REQUEST | STREAMING_KEEP_IN_MEMORY);
+
+            if (TheCamera.GetScreenFadeStatus() == 0) {
+                FrontEndMenuManager.MessageScreen("LOADCOL", false, false);
+            }
+
+            CTimer::Suspend();
+            CStreaming::LoadAllRequestedModels(true);
+            CTimer::Resume();
         }
 
-        // Load IPL
-
-        CStreaming::RequestModel(IPLToModelId(slot), STREAMING_PRIORITY_REQUEST | STREAMING_KEEP_IN_MEMORY);
-
-        if (TheCamera.GetScreenFadeStatus() == 0) {
-            FrontEndMenuManager.MessageScreen("LOADCOL", false, false);
-        }
-
-        CTimer::Suspend();
-        CStreaming::LoadAllRequestedModels(true);
-        CTimer::Resume();
-
-        def->loadRequested = false;
+        def->loadRequested = false; // El original la borra siempre, cargue o no
     }
 }
 
@@ -257,7 +268,9 @@ int32 CIplStore::GetNewIplEntityIndexArray(int32 entitiesCount) {
  * @addr 0x405600
  * @returns If all IPLs around `coords` in a 190 unit radius have loaded
  */
-bool CIplStore::HaveIplsLoaded(const CVector& coords, int32 /*playerNumber*/) {
+bool CIplStore::HaveIplsLoaded(const CVector& coords, int32 playerNumber) {
+    SetIplsRequired(coords, playerNumber); // El original marca primero los IPL requeridos
+
     // Can't use `ms_pPool->GetAllValid()` here, because we must ignore the first slot (whenever it's valid or not).
     bool ret = true;
     for (auto slot = 1; slot < TOTAL_IPL_MODEL_IDS; slot++) {
@@ -286,7 +299,7 @@ void CIplStore::IncludeEntity(int32 iplSlotIndex, CEntity* entity) {
     case ENTITY_TYPE_BUILDING: {
         const auto buildingId = GetBuildingPool()->GetIndex(entity->AsBuilding());
         ipldef->firstBuilding = std::min(ipldef->firstBuilding, (int16)buildingId);
-        ipldef->lastBuilding = std::max(ipldef->firstBuilding, (int16)buildingId);
+        ipldef->lastBuilding = std::max(ipldef->lastBuilding, (int16)buildingId);
         break;
     }
     case ENTITY_TYPE_DUMMY: {
@@ -338,13 +351,12 @@ void CIplStore::LoadAllRemainingIpls() {
  */
 bool CIplStore::LoadIpl(int32 iplSlotIndex, char* data, int32 dataSize) {
     auto& def = *GetInSlot(iplSlotIndex);
-    def.loaded = true; // We're setting this here, as it's set in all cases.
 
     // First of all, load bounding box (if not loaded already)
     if (def.bb.IsFlipped()) {
-        // def.field_2D = true; // Moved to top
-
+        // El original marca `loaded` al final: la copia que recibe CColAccel::setIplDef aún tiene el valor anterior
         if (!LoadIplBoundingBox(iplSlotIndex, data, dataSize)) {
+            def.loaded = true;
             return false;
         }
 
@@ -357,6 +369,7 @@ bool CIplStore::LoadIpl(int32 iplSlotIndex, char* data, int32 dataSize) {
         CColAccel::setIplDef(iplSlotIndex, def);
         ms_pQuadTree->AddItem(&def, def.bb);
 
+        def.loaded = true;
         return true;
     }
 
@@ -411,19 +424,27 @@ bool CIplStore::LoadIpl(int32 iplSlotIndex, char* data, int32 dataSize) {
             FinishLoadObjInst(CFileLoader::LoadObjectInstance(line));
         }
     } else { // Binary IPL
+        // Como el original: recuentos de 16 bits y desplazamientos reubicados en el propio buffer
         auto ipl = reinterpret_cast<tBinaryIplFile*>(data);
 
-        for (auto& inst : ipl->GetObjInstances()) {
-            FinishLoadObjInst(CFileLoader::LoadObjectInstance(&inst, nullptr));
+        const auto numInst = *reinterpret_cast<int16*>(&ipl->numInst);
+        if (numInst > 0) {
+            ipl->offsetInst += reinterpret_cast<uint32>(data);
+            for (auto i = 0; i < numInst; i++) {
+                FinishLoadObjInst(CFileLoader::LoadObjectInstance(&reinterpret_cast<CFileObjectInstance*>(ipl->offsetInst)[i], nullptr));
+            }
         }
 
-        for (auto& cargen : ipl->GetCarGens()) {
-            CFileLoader::LoadCarGenerator(&cargen, iplSlotIndex);
+        const auto numCarGens = *reinterpret_cast<int16*>(&ipl->numCarGens);
+        if (numCarGens > 0) {
+            ipl->offsetCarGens += reinterpret_cast<uint32>(data);
+            for (auto i = 0; i < numCarGens; i++) {
+                CFileLoader::LoadCarGenerator(&reinterpret_cast<CFileCarGenerator*>(ipl->offsetCarGens)[i], iplSlotIndex);
+            }
         }
     }
 
-    // def.field_2D = true; // Moved to top
-
+    def.loaded = true;
     return true;
 }
 
@@ -492,9 +513,14 @@ bool CIplStore::LoadIplBoundingBox(int32 iplSlotIndex, char* data, int32 dataSiz
             FinishLoadObjInst(CFileLoader::LoadObjectInstance(line));
         }
     } else { // Binary IPL
+        // Como el original: número de instancias de 16 bits y desplazamiento reubicado en el propio buffer
         auto ipl = reinterpret_cast<tBinaryIplFile*>(data);
-        for (auto& inst : ipl->GetObjInstances()) {
-            FinishLoadObjInst(CFileLoader::LoadObjectInstance(&inst, nullptr));
+        const auto numInst = *reinterpret_cast<int16*>(&ipl->numInst);
+        if (numInst > 0) {
+            ipl->offsetInst += reinterpret_cast<uint32>(data);
+            for (auto i = 0; i < numInst; i++) {
+                FinishLoadObjInst(CFileLoader::LoadObjectInstance(&reinterpret_cast<CFileObjectInstance*>(ipl->offsetInst)[i], nullptr));
+            }
         }
     }
 
@@ -534,8 +560,7 @@ void CIplStore::LoadIpls(CVector posn, bool bAvoidLoadInPlayerVehicleMovingDirec
         switch (mce.type) {
         case MISSION_CLEANUP_ENTITY_TYPE_PED: {
             const auto ped = GetPedPool()->GetAtRef(mce.handle);
-            assert(ped);
-            if (ped->IsStateDying()) {
+            if (!ped || ped->IsStateDying()) { // Handle inválido: el original lo salta
                 continue;
             }
             ProcessEntity(ped);
@@ -543,11 +568,16 @@ void CIplStore::LoadIpls(CVector posn, bool bAvoidLoadInPlayerVehicleMovingDirec
         }
         case MISSION_CLEANUP_ENTITY_TYPE_VEHICLE: {
             const auto veh = GetVehiclePool()->GetAtRef(mce.handle);
-            assert(veh);
+            if (!veh) {
+                continue;
+            }
+            // El original solo tiene en cuenta los vehículos SIMPLE, PHYSICS o ABANDONED
             switch (veh->GetStatus()) {
             case STATUS_PHYSICS:
             case STATUS_SIMPLE:
             case STATUS_ABANDONED:
+                break;
+            default:
                 continue;
             }
             ProcessEntity(veh);
@@ -556,7 +586,7 @@ void CIplStore::LoadIpls(CVector posn, bool bAvoidLoadInPlayerVehicleMovingDirec
         }
     }
 
-    for (auto slot = ms_pPool->GetSize(); slot-- > 1;) { // skips 1st
+    for (auto slot = 1; slot < (int32)ms_pPool->GetSize(); slot++) { // skips 1st; en orden ascendente como el original
         const auto def = ms_pPool->GetAt(slot);
         if (!def || def->disableDynamicStreaming) {
             continue;
@@ -603,8 +633,9 @@ void CIplStore::RemoveIpl(int32 iplSlotIndex) {
     auto def = ms_pPool->GetAt(iplSlotIndex);
     def->loaded = false;
 
+    // maxId incluido: el original recorre [first, last] (y el pool de objetos [0, tamaño - 1])
     const auto ProcessPool = [iplSlotIndex]<typename PoolT>(PoolT& pool, int32 minId, int32 maxId) {
-        for (auto i = minId; i < maxId; i++) {
+        for (auto i = minId; i <= maxId; i++) {
             const auto entity = pool.GetAt(i);
             if (!entity)
                 continue;
@@ -624,7 +655,7 @@ void CIplStore::RemoveIpl(int32 iplSlotIndex) {
 
     // In same order as originally
     ProcessPool(*GetBuildingPool(), def->firstBuilding, def->lastBuilding);
-    ProcessPool(*GetObjectPool(),   0,                     GetObjectPool()->GetSize());
+    ProcessPool(*GetObjectPool(),   0,                     GetObjectPool()->GetSize() - 1);
     ProcessPool(*GetDummyPool(),    def->firstDummy,    def->lastDummy);
 
     CTheCarGenerators::RemoveCarGenerators((uint8)iplSlotIndex);
@@ -688,6 +719,8 @@ void CIplStore::RequestIplAndIgnore(int32 iplSlotIndex) {
  * @addr 0x405520
  */
 void CIplStore::RequestIpls(const CVector& posn, int32 playerNumber) {
+    SetIplsRequired(posn, playerNumber); // El original marca primero los IPL requeridos
+
     for (auto slot = 1 /*skip first*/; slot < TOTAL_IPL_MODEL_IDS; slot++) {
         const auto def = GetInSlot(slot);
         if (!def) {

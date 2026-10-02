@@ -12,4 +12,4 @@ Las actualizaciones de ruta, CreateFirstSubTask, coordenadas, orientación y con
 
 Repetir: `PROBAR.cmd --case wander` o `python reversing/run.py --case wander`. Reutiliza el runner compartido y termina automáticamente. `build_probe.py` genera instrumentación temporal y restaura fuentes en finally. Sonda archivada y hashes en validation-summary.json; --all repite bancos archivados, no una compilación conjunta actualizada.
 
-Evidencia: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-wander/20260922-211400-323524`. No commit ni push.
+Evidencia: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-wander/20260922-211400-323524`. No commit ni push.

@@ -1,7 +1,7 @@
 # Plan de reversing asistido para GTA San Andreas
 
 Fecha: 22 de septiembre de 2026.
-Carpeta de trabajo: E:\Original\gta-reversed-master
+Carpeta de trabajo: D:\Original\gta-reversed-master
 Estado: **plan histórico del 22 de septiembre**. Las observaciones iniciales se conservan como historia; los recuadros de estado vigente están actualizados al 30/09/2026. El proyecto ya dispone de Git, compilación y bancos dentro del motor. Para el estado actual consulta [el README](README.md) y [la continuidad](reversing/MEJORAS_DEL_PROCESO.md#continuidad-vigente).
 
 ## 1. Objetivo y forma de trabajar

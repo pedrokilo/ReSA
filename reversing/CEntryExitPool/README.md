@@ -20,7 +20,7 @@ Se reprodujo esa secuencia de demanda con memoria independiente dentro del motor
 
 Direcciones contrastadas: `AddOne` 0x43FA00 y `DeleteOne` 0x43FD50; el original reserva 400 en `Init` 0x43F880. El ejecutable conserva SHA-256 `72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b`.
 
-Evidencia aprobada: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-entryexit-pool/20260923-141006-579167`. La pasada anterior se rechazó porque el banco todavía exigía igualdad en el retorno de error; no se cambió el código de producción para acomodar esa expectativa.
+Evidencia aprobada: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-entryexit-pool/20260923-141006-579167`. La pasada anterior se rechazó porque el banco todavía exigía igualdad en el retorno de error; no se cambió el código de producción para acomodar esa expectativa.
 
 ```powershell
 python reversing/run.py --case entryexit-pool

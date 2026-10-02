@@ -41,7 +41,7 @@ try:
         Dump=bind(d,'MiniDumpWriteDump',[w.HANDLE,w.DWORD,w.HANDLE,w.DWORD,c.c_void_p,c.c_void_p,c.c_void_p],w.BOOL)
         if not Dump(process,pid,msvcrt.get_osfhandle(f.fileno()),0x1000,None,None,None):
             print('Minidump error',c.get_last_error())
-    if not Init(process,rb'E:\JUEGOS\GTA San Andreas - CVehicle Test\scripts;E:\Original\gta-reversed-master\bin\Debug',True):
+    if not Init(process,rb'D:\JUEGOS\GTA San Andreas - CVehicle Test\scripts;'+str(Path(__file__).resolve().parents[1]/'bin'/'Debug').encode(),True):
         raise c.WinError(c.get_last_error())
     snapshot=Snapshot(4,0);entry=Thread();entry.size=c.sizeof(entry);threads=[]
     try:

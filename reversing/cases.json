@@ -253,5 +253,130 @@
     "id": "rpanimblend",
     "name": "RpAnimBlend: actualizacion de animaciones",
     "runner": "RpAnimBlend/run_local.py"
+  },
+  {
+    "id": "group-alloc",
+    "name": "Asignadores de grupo Random/SitInLeaderCar y SetCanEnterLeadersCar",
+    "runner": "GroupTasksCompletion/run_local.py"
+  },
+  {
+    "id": "inform",
+    "name": "Colas de eventos de grupo (Inform*)",
+    "runner": "InformQueues/run_local.py"
+  },
+  {
+    "id": "bones",
+    "name": "Huesos (BoneNode_c, BoneNodeManager_c)",
+    "runner": "BoneNodes/run_local.py"
+  },
+  {
+    "id": "tasks",
+    "name": "Tareas (StareAtPed, StealCar, StuckInAir, TrackEntity, TreatAccident)",
+    "runner": "TasksBatch/run_local.py"
+  },
+  {
+    "id": "break",
+    "name": "BreakablePlugin y BreakManager_c",
+    "runner": "BreakBatch/run_local.py"
+  },
+  {
+    "id": "app",
+    "name": "App, CIniFile y CIplDefPool",
+    "runner": "AppBatch/run_local.py"
+  },
+  {
+    "id": "small",
+    "name": "Clases pequenas (KeyGen ... LodAtomicModelInfo)",
+    "runner": "SmallBatch/run_local.py"
+  },
+  {
+    "id": "tasks2",
+    "name": "Tareas 2 (TurnToFace, UseEffect*, ScriptedAttractor*)",
+    "runner": "TasksBatch2/run_local.py"
+  },
+  {
+    "id": "channel",
+    "name": "CAEAudioChannel",
+    "runner": "AudioChannel/run_local.py"
+  },
+  {
+    "id": "loadmon",
+    "name": "CLoadMonitor",
+    "runner": "LoadMonitor/run_local.py"
+  },
+  {
+    "id": "ambience",
+    "name": "CAEAmbienceTrackManager (6)",
+    "runner": "AmbienceTrack/run_local.py"
+  },
+  {
+    "id": "twod",
+    "name": "C2dEffect",
+    "runner": "TwoDEffect/run_local.py"
+  },
+  {
+    "id": "pcsavebatch",
+    "name": "C_PcSave (5)",
+    "runner": "PcSave/run_local.py"
+  },
+  {
+    "id": "tasks3",
+    "name": "Tareas 3 (UseGoggles, UseAttractor*, UseEffect, UsePairedAttractor)",
+    "runner": "TasksBatch3/run_local.py"
+  },
+  {
+    "id": "markers",
+    "name": "C3dMarker y C3dMarkers",
+    "runner": "Markers/run_local.py"
+  },
+  {
+    "id": "ipl",
+    "name": "CIplStore (subconjunto)",
+    "runner": "IplStore/run_local.py"
+  },
+  {
+    "id": "breakobj",
+    "name": "BreakObject_c (9)",
+    "runner": "BreakObj/run_local.py"
+  },
+  {
+    "id": "ipl2",
+    "name": "CIplStore (carga y borrado)",
+    "runner": "IplStore2/run_local.py"
+  },
+  {
+    "id": "loading",
+    "name": "CLoadingScreen",
+    "runner": "Loading/run_local.py"
+  },
+  {
+    "id": "small2",
+    "name": "Clases pequenas lote 4 (CMaths ... CModelInfo)",
+    "runner": "Small2/run_local.py"
+  },
+  {
+    "id": "mirrors",
+    "name": "CMirrors",
+    "runner": "Mirrors/run_local.py"
+  },
+  {
+    "id": "tasks4",
+    "name": "CTaskComplexUse* (lote 4)",
+    "runner": "TasksBatch4/run_local.py"
+  },
+  {
+    "id": "tasks5",
+    "name": "CTaskComplexWait*/WalkAlongsidePed (lote 4)",
+    "runner": "TasksBatch5/run_local.py"
+  },
+  {
+    "id": "messages",
+    "name": "CMessages",
+    "runner": "Messages/run_local.py"
+  },
+  {
+    "id": "menusys2",
+    "name": "CMenuSystem (20)",
+    "runner": "MenuSystem2/run_local.py"
   }
 ]

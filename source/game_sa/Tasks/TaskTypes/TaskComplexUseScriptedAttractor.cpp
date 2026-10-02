@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -48,10 +48,11 @@ CTaskComplexUseScriptedAttractor::CTaskComplexUseScriptedAttractor(const CTaskCo
 
 // 0x6390C0
 CTask* CTaskComplexUseScriptedAttractor::CreateFirstSubTask(CPed* ped) {
-    if (const auto optEffectIdx = CScripted2dEffects::IndexOfEffect(m_attractor.m_Fx)) {
-        return new CTaskComplexUseSequence{
-            CScripted2dEffects::ms_effectSequenceTaskIDs[*optEffectIdx]
-        };
+    // Como el original: solo coincide un puntero exactamente igual al inicio de un efecto
+    for (auto i = 0u; i < std::size(CScripted2dEffects::ms_effects); i++) {
+        if (reinterpret_cast<const void*>(m_attractor.m_Fx) == &CScripted2dEffects::ms_effects[i]) {
+            return new CTaskComplexUseSequence{ CScripted2dEffects::ms_effectSequenceTaskIDs[i] };
+        }
     }
     return nullptr;
 }

@@ -18,6 +18,12 @@ struct EntryPatch {
     }
     ~EntryPatch() { Enable(false); }
 };
+// true si la entrada del EXE es un salto (hook instalado) hacia fuera de la imagen del EXE.
+inline bool JumpsToDll(uintptr_t at) {
+    if(*reinterpret_cast<const uint8*>(at)!=0xE9) return false;
+    const auto target=at+5+*reinterpret_cast<const int32*>(at+1);
+    return target<0x400000||target>=0x1000000;
+}
 inline std::vector<uint8> Bytes(const void* ptr,size_t n) {
     const auto* p=static_cast<const uint8*>(ptr); return {p,p+n};
 }

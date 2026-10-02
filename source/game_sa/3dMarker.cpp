@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -31,6 +31,23 @@ void C3dMarker::InjectHooks() {
     RH_ScopedInstall(Render, 0x7223D0);
     RH_ScopedInstall(SetZCoordinateIfNotUpToDate, 0x724E10);
     RH_ScopedInstall(UpdateZCoordinate, 0x724D40);
+}
+
+// Matriz "con este eje arriba" como la construye el original (0x7224AF / 0x721392): unidad si el eje es
+// exactamente (0,0,1); si no, derecha = normalizar(Z x n), frente = normalizar(n x derecha), arriba = n.
+// (CMatrix::WithUp no normaliza los ejes.)
+static CMatrix MarkerWithUp(const CVector& up) {
+    CMatrix m = CMatrix::Unity();
+    if (!(up.x == 0.0f && up.y == 0.0f && up.z == 1.0f)) {
+        CVector right = CrossProduct(CVector{ 0.0f, 0.0f, 1.0f }, up);
+        right.Normalise();
+        CVector forward = CrossProduct(up, right);
+        forward.Normalise();
+        m.GetRight()   = right;
+        m.GetForward() = forward;
+        m.GetUp()      = up;
+    }
+    return m;
 }
 
 RpAtomic* GetAtomicForMarkerType(e3dMarkerType type) {
@@ -118,15 +135,13 @@ void C3dMarker::Render() {
 
     auto transform = CMatrix{ m_Mat.m_pAttachMatrix };
     if (m_Type == MARKER3D_TORUS || m_Type == MARKER3D_ARROW2) {
-        if (m_Normal != CVector{ 0.0f, 0.0f, 1.0f }) {
-            transform *= CMatrix::WithUp(m_Normal);
-        }
+        transform *= MarkerWithUp(m_Normal); // El original multiplica siempre (por la unidad si la normal es Z)
     }
 
+    // Como el original: primero el tamaño y, en el tubo, después (1, 1, 20)
+    transform.Scale(m_Size);
     if (m_Type == MARKER3D_TUBE) {
-        transform.ScaleXYZ(m_Size, m_Size, m_Size * 20.0f);
-    } else {
-        transform.Scale(m_Size);
+        transform.ScaleXYZ(1.0f, 1.0f, 20.0f);
     }
 
     transform.UpdateRW();
@@ -192,7 +207,7 @@ void C3dMarker::UpdateZCoordinate(CVector point, float zDistance) {
     bool found{};
     auto height = CWorld::FindGroundZFor3DCoord({ pos.x, pos.y, pos.z + 1.0f }, &found, nullptr);
     if (found) {
-        pos.z = height - zDistance / 20.0f;
+        pos.z = height - zDistance * 0.05f; // El original multiplica por 0.05f (no divide entre 20)
     }
 
     m_LastMapReadX = static_cast<uint16>(pos.x);

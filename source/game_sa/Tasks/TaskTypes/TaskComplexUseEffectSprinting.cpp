@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 2/2 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/2 entradas.
+ * Validación registrada: 2/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -31,7 +31,7 @@ void CTaskComplexUseEffectSprinting::InjectHooks() {
 CTaskComplexUseEffectSprinting::CTaskComplexUseEffectSprinting(C2dEffectPedAttractor* fx, CEntity* e) :
     CTaskComplexUseEffect{ fx, e }
 {
-    m_MoveState = PEDMOVE_RUN;
+    m_MoveState = PEDMOVE_SPRINT;
 }
 
 // 0x6367C0

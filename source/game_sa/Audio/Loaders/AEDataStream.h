@@ -51,7 +51,7 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
-    CAEDataStream* Constructor(int32 trackID, char* filename, uint32 startPosition, uint32 length, int32 encrypted);
+    CAEDataStream* Constructor(int32 trackID, char* filename, uint32 startPosition, uint32 length, bool encrypted);
     void           Destructor();
 };
 

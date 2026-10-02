@@ -46,7 +46,8 @@ CAEDataStream::~CAEDataStream() {
     }
 
     if (m_pszFilename) {
-        delete[] m_pszFilename;
+        // Como el original: libera con operator delete escalar (0x8214BD), no delete[].
+        operator delete(m_pszFilename);
         m_pszFilename = nullptr;
     }
 }
@@ -57,8 +58,9 @@ HRESULT CAEDataStream::QueryInterface(REFIID riid, void** objout) {
     // I don't think CAEDataStream is meant to be QueryInterface'd.
     // See CAEDataStream::Release
     if (riid == IID_IUnknown || riid == IID_IStream) {
-        AddRef();
+        // Como el original: escribe *objout antes de llamar a AddRef por la vtable.
         *objout = this;
+        AddRef();
         return S_OK;
     }
 
@@ -67,12 +69,14 @@ HRESULT CAEDataStream::QueryInterface(REFIID riid, void** objout) {
 
 // 0x4dc460
 ULONG CAEDataStream::AddRef() {
-    return ++m_lRefCount;
+    // Como el original: InterlockedIncrement (IAT 0x8580CC).
+    return static_cast<ULONG>(InterlockedIncrement(reinterpret_cast<volatile LONG*>(&m_lRefCount)));
 }
 
 // 0x4dc5b0
 ULONG CAEDataStream::Release() {
-    if (--m_lRefCount == 0) {
+    // Como el original: InterlockedDecrement (IAT 0x8580D0).
+    if (InterlockedDecrement(reinterpret_cast<volatile LONG*>(&m_lRefCount)) == 0) {
         delete this;
         return 0;
     }
@@ -102,11 +106,8 @@ HRESULT CAEDataStream::Seek(LARGE_INTEGER offset, DWORD whence, ULARGE_INTEGER* 
     //
     // TODO: Implement 64-bit variants?
 
-    if (!m_bIsOpen)
-        return E_INVALIDARG;
-
-    assert(std::in_range<long>(offset.QuadPart));
-    unsigned long pos = Seek(static_cast<long>(offset.QuadPart), static_cast<int32>(whence));
+    // Como el original: no comprueba m_bIsOpen y sólo usa la parte baja del offset.
+    unsigned long pos = Seek(static_cast<long>(offset.LowPart), static_cast<int32>(whence));
     if (newOffset)
         newOffset->QuadPart = pos;
 
@@ -150,7 +151,11 @@ HRESULT CAEDataStream::Stat(STATSTG* statout, DWORD flags) {
 
     const auto fileSize = GetFileSize(m_pFileHandle, nullptr);
     if (fileSize == INVALID_FILE_SIZE) {
-        return HRESULT_FROM_WIN32(GetLastError());
+        // Como el original: macro HRESULT_FROM_WIN32 antigua, GetLastError se llama dos veces.
+        if (static_cast<HRESULT>(GetLastError()) <= 0) {
+            return static_cast<HRESULT>(GetLastError());
+        }
+        return static_cast<HRESULT>((GetLastError() & 0x0000FFFF) | 0x80070000);
     }
     memset(statout, 0, sizeof(STATSTG));
     statout->cbSize.LowPart = fileSize;
@@ -173,7 +178,8 @@ size_t CAEDataStream::FillBuffer(void* dest, size_t size) {
     if (size < sizeToRead)
         sizeToRead = size;
 
-    DWORD bytesRead{};
+    // Como el original: el contador de ReadFile ocupa la ranura del argumento size.
+    DWORD bytesRead = static_cast<DWORD>(size);
     if (!ReadFile(m_pFileHandle, dest, static_cast<DWORD>(sizeToRead), &bytesRead, nullptr)) {
         GetLastError();
     }
@@ -220,9 +226,8 @@ bool CAEDataStream::Initialise() {
     if (m_bIsOpen)
         return true;
 
-    // Preserve Unicode paths while returning the same handle type as CreateFileA.
-    const auto filename = UTF8ToUnicode(m_pszFilename);
-    m_pFileHandle = CreateFileW(filename.c_str(), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0, nullptr);
+    // Como el original: CreateFileA (IAT 0x8580A0) con el nombre ANSI tal cual.
+    m_pFileHandle = CreateFileA(m_pszFilename, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0, nullptr);
     const bool opened = m_pFileHandle != INVALID_HANDLE_VALUE;
     if (opened) {
         m_nCurrentPosition = SetFilePointer(m_pFileHandle, m_nStartPosition, nullptr, FILE_BEGIN);
@@ -269,7 +274,8 @@ void CAEDataStream::InjectHooks() {
     CAEStreamTransformer::InjectHooks();
 }
 
-CAEDataStream* CAEDataStream::Constructor(int32 trackID, char* filename, uint32 startPosition, uint32 length, int32 encrypted) {
+// Como el original: el flag se copia como byte (mov cl,[esp+14h]), sin normalizar a 0/1.
+CAEDataStream* CAEDataStream::Constructor(int32 trackID, char* filename, uint32 startPosition, uint32 length, bool encrypted) {
     this->CAEDataStream::CAEDataStream(trackID, filename, startPosition, length, encrypted);
     return this;
 }

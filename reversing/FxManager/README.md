@@ -22,7 +22,7 @@ Se comparan orden de destrucción, estados de los supervivientes, cabeza/cola/co
 
 Los sistemas, instancias de primitivas, matrices propias y partículas de cada fase tienen almacenamiento independiente. Los blueprints cargados comparten datos de definición de solo lectura durante las llamadas; sus listas mutables se intercambian temporalmente por las de cada fixture y se restauran antes de la otra fase. No se actualizan ni destruyen los efectos activos del jugador. Se verifican al final los bytes del manager global, los sistemas vivos y las primitivas/partículas conservadas de los blueprints utilizados. Las partidas originales y de prueba conservaron sus hashes.
 
-Registro final: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fxmanager/20260922-194518-413631/comparisons.jsonl`.
+Registro final: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fxmanager/20260922-194518-413631/comparisons.jsonl`.
 SHA-256: `e1522295f076aedef9534234a89f560298c0ef1ff0fa2b82e0f1e73f55bf3ac7`.
 Resumen: [validation-summary.json](validation-summary.json).
 
@@ -34,7 +34,7 @@ El ensayo anterior de 180 casos en `20260922-194123-298309` aprobó únicamente 
 
 La sonda archivada está en `_baseline/gta_reversed-fxmanager-probe.asi` dentro del juego de pruebas; hash fijado en `run_local.py`. `build_probe.py` conserva la instrumentación reproducible de `Probe.hpp` y `LiveComparison.hpp` y restaura las fuentes incluso si falla el build. El script genera la sonda en `artifacts`; no la instala. Una nueva compilación puede cambiar el hash: revisar el resultado y actualizar archivo/hash antes de repetir. Después de generar una sonda, recompilar el ASI normal antes de instalarlo.
 
-La compilación normal Debug x86 terminó sin instrumentación y se instaló solo en la copia de pruebas. SHA-256: `6999d5daf6a7e4a9051ed773dda66dcd0d66e8572b1211bcbf9059b58c8b5176`. Respaldo del ASI/PDB anteriores: `E:/JUEGOS/GTA San Andreas - CVehicle Test/_baseline/before-fxmanager-20260922`.
+La compilación normal Debug x86 terminó sin instrumentación y se instaló solo en la copia de pruebas. SHA-256: `6999d5daf6a7e4a9051ed773dda66dcd0d66e8572b1211bcbf9059b58c8b5176`. Respaldo del ASI/PDB anteriores: `D:/JUEGOS/GTA San Andreas - CVehicle Test/_baseline/before-fxmanager-20260922`.
 
 ## Límites
 

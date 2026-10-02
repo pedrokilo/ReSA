@@ -1,5 +1,5 @@
 from pathlib import Path
-root=Path(r"E:\Original\gta-reversed-master")
+root=Path(__file__).resolve().parents[3]
 out=root/"reversing/CVehicle/runtime"
 v=root/"source/game_sa/Entity/Vehicle/Vehicle.cpp"
 module=root/"source/toolsmenu/DebugModules/VehicleInfoDebugModule.cpp"

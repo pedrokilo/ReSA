@@ -20,7 +20,8 @@ public:
 
     CTask*    Clone() const override;
     eTaskType GetTaskType() const override;
-    bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return true; }
+    // Como el original: el VMT 0x86E18C usa en el slot 6 el MakeAbortable base de CTaskComplex (0x4211B0),
+    // que delega en la subtarea; no hay sobrescritura que devuelva siempre true.
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;
     CTask*    ControlSubTask(CPed* ped) override;

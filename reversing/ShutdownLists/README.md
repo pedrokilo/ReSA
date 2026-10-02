@@ -20,7 +20,7 @@ La petición del usuario levantó el aplazamiento de esta corrección. Se valida
 - Diagnóstico del trabajador de logs: `artifacts/normal-20260925-075910/debug/hit-3-ntdll32-NtTerminateProcess.txt`. Diagnóstico SDL/DXGI: `artifacts/normal-20260925-080751/debug/exception-4.txt`. Son capturas diagnósticas; el resultado aprobado procede de las tres ejecuciones posteriores sin depurador.
 - [Resumen de instalación y hashes de fuentes](installation-summary.json). ASI normal: `b132855e4c96c1a02824b91569de158848a723718059962d5b83f91e02c5f980`. PDB: `7fbdff7c8c62a74cdd266cb3898bf8f2160b41ff36fdc14687d8b4ba22751750`.
 
-Instalado en `bin/Debug` y exclusivamente en `E:/JUEGOS/GTA San Andreas - CVehicle Test/scripts`. El resumen identifica el respaldo anterior. Partidas y ambos INI conservados por hash; instalación personal intacta. Sin commit ni push.
+Instalado en `bin/Debug` y exclusivamente en `D:/JUEGOS/GTA San Andreas - CVehicle Test/scripts`. El resumen identifica el respaldo anterior. Partidas y ambos INI conservados por hash; instalación personal intacta. Sin commit ni push.
 
 La compilación incluye GangLeader::GetTaskType y esta corrección, pero **excluye CustomBuilding aplazado y el cambio local de Climb**. [build_isolated.py](build_isolated.py) conserva y restaura sus fuentes por bytes y registra las versiones compiladas; no equivale a compilar el árbol sin filtros. No se cambiaron locks, indicadores ni acreditaciones del catálogo por esta corrección.
 

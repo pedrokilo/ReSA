@@ -34,7 +34,9 @@ public:
 private: // Envoltorios para los hooks
     // 0x5DE9E0
     CAEAudioEntity* Destructor() {
-        this->CAEAudioEntity::~CAEAudioEntity();
+        // Como el original: restaura la vtable base del EXE (0x859988) y destruye m_tempSound.
+        *reinterpret_cast<uintptr_t*>(this) = 0x859988;
+        m_tempSound.~CAESound();
         return this;
     }
 };

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/11 entradas.
+ * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -81,9 +81,12 @@ void CAEAudioUtility::InjectHooks() {
 }
 
 // 0x4d9c80
-// Resuelve una probabilidad normalizada usando el RNG común del juego.
+// Como el original: cierto si p >= 1 (o NaN); si no, rand · (1/32767) < p.
 bool CAEAudioUtility::ResolveProbability(float p) {
-    return p >= 1.0f || CGeneral::RandomBool(100.0f * p);
+    if (!(p < 1.0f)) {
+        return true;
+    }
+    return (float)CGeneral::GetRandomNumber() * (1.0f / 32767.0f) < p;
 }
 
 // 0x4d9d90
@@ -93,7 +96,7 @@ bool CAEAudioUtility::ResolveProbability(float p) {
  */
 float CAEAudioUtility::GetPiecewiseLinear(float x, int16 dataCount, const float (*data)[2]) {
     assert(dataCount >= 1);
-    if (x >= data[dataCount - 1][0]) {
+    if (x > data[dataCount - 1][0]) { // El original solo satura por arriba si x es estrictamente mayor
         return data[dataCount - 1][1];
     }
     if (x <= data[0][0]) {
@@ -112,53 +115,122 @@ float CAEAudioUtility::GetPiecewiseLinear(float x, int16 dataCount, const float 
 }
 
 // 0x4d9e50
+// Como el original: log10 con fldlg2/fyl2x (precisión interna del FPU).
 float CAEAudioUtility::AudioLog10(float p) {
-    return p >= 0.00001f
-        ? std::log10f(p)
-        : -5.0f;
+    if (p < 0.00001f) {
+        return -5.0f;
+    }
+    float result;
+    __asm {
+        fldlg2
+        fld   p
+        fyl2x
+        fstp  result
+    }
+    return result;
 }
 
-// REFACTORED
 // 0x4d9e80
+// Como el original: (contador / frecuencia) · 1000 en x87 (con la precisión del juego) menos el inicio.
 uint64 CAEAudioUtility::GetCurrentTimeInMS() {
-    using namespace std::chrono;
-    const auto nowMs = time_point_cast<milliseconds>(high_resolution_clock::now());
-    const auto value = duration_cast<milliseconds>(nowMs.time_since_epoch());
-    return static_cast<uint64>(value.count()) - startTimeMs;
-
-    //For some reason this doesn't work (original code):
-    //LARGE_INTEGER counter;
-    //QueryPerformanceCounter(&counter);
-    //return counter.QuadPart / SampleFrequency.QuadPart * 1000 - startTimeMs;
+    LARGE_INTEGER counter;
+    QueryPerformanceCounter(&counter);
+    const LARGE_INTEGER* freq = &Frequency;
+    const uint64 start = startTimeMs;
+    const uint32 startHigh = (uint32)(start >> 32);
+    int32 startParts[2] = { (int32)(uint32)start, (int32)(startHigh & 0x7FFFFFFF) };
+    int32 signParts[2]  = { 0, (int32)(startHigh & 0x80000000) };
+    static const float kThousand = 1000.0f;
+    double value;
+    __asm {
+        fild  qword ptr counter
+        mov   eax, freq
+        fild  qword ptr [eax]
+        fdivp st(1), st
+        fmul  kThousand
+        fild  qword ptr startParts
+        fild  qword ptr signParts
+        fchs
+        faddp st(1), st
+        fsubp st(1), st
+        fstp  value
+    }
+    return (uint64)(int64)value; // _ftol2 (0x821B40): truncamiento a 64 bits
 }
 
 // 0x4d9ef0
+// Como el original: bytes enteros sin redondear entre (canales · frecuencia · 0.002), floor en double.
 uint32 CAEAudioUtility::ConvertFromBytesToMS(uint32 lengthInBytes, uint32 sampleRate, uint16 numChannels) {
-    return static_cast<uint32>(std::floorf(lengthInBytes / (float(sampleRate * numChannels) / 500.0f)));
+    const uint32 product = (uint32)numChannels * sampleRate;
+    static const float k2pow32 = 4294967296.0f, kScale = 0.002f;
+    double quotient;
+    __asm {
+        fild  dword ptr lengthInBytes
+        cmp   lengthInBytes, 0
+        jge   L_bytesPositive
+        fadd  k2pow32
+    L_bytesPositive:
+        fild  dword ptr product
+        cmp   product, 0
+        jge   L_productPositive
+        fadd  k2pow32
+    L_productPositive:
+        fmul  kScale
+        fdivp st(1), st
+        fstp  quotient
+    }
+    return (uint32)(int64)std::floor(quotient);
 }
 
 // 0x4d9f40
 uint32 CAEAudioUtility::ConvertFromMSToBytes(uint32 a, uint32 frequency, uint16 frequencyMult) {
-    const auto value = static_cast<uint32>(std::floorf(a * float(frequency * frequencyMult) / 500.0f));
-    return value + value % (2 * frequencyMult);
+    const uint32 product = (uint32)frequencyMult * frequency;
+    static const float k2pow32 = 4294967296.0f, kScale = 0.002f;
+    double bytes;
+    __asm {
+        fild  dword ptr product
+        cmp   product, 0
+        jge   L_productPositive
+        fadd  k2pow32
+    L_productPositive:
+        fmul  kScale
+        fild  dword ptr a
+        cmp   a, 0
+        jge   L_aPositive
+        fadd  k2pow32
+    L_aPositive:
+        fmulp st(1), st
+        fstp  bytes
+    }
+    const auto value = (int32)(int64)std::floor(bytes);
+    return (uint32)(value % (int32)(2 * frequencyMult) + value); // división con signo como el original
 }
 
-// CHANGED?
 // 0x5B97F0
+// Como el original: 10 / pow(1.2, n) en x87 y su log10 escrito siempre en [1][1] (error del original).
 void CAEAudioUtility::StaticInitialise() {
     constexpr size_t LOOKUP_SIZE = sizeof(m_sfLogLookup) / sizeof(float) / 2;
-
     m_sfLogLookup[0][0] = 0.0f;
     m_sfLogLookup[0][1] = -100.0f;
     m_sfLogLookup[1][0] = 0.00001f;
-
+    static const float kTen = 10.0f;
     for (size_t i = 2; i < LOOKUP_SIZE; i++) {
-        float v = 10.0f / std::powf(1.2f, static_cast<float>(LOOKUP_SIZE - i - 1));
+        const double denom = std::pow((double)1.2f, (double)(LOOKUP_SIZE - i - 1)); // base 0x86A438 = (double)1.2f
+        float v, logv;
+        __asm {
+            fld   denom
+            fdivr kTen
+            fst   v
+            fldlg2
+            fxch  st(1)
+            fyl2x
+            fstp  logv
+        }
         m_sfLogLookup[i][0] = v;
-        m_sfLogLookup[1][1] = log10f(v);
+        m_sfLogLookup[1][1] = logv;
     }
-
     VERIFY(QueryPerformanceFrequency(&Frequency));
+    startTimeMs = 0;
     startTimeMs = GetCurrentTimeInMS();
 }
 
@@ -172,16 +244,17 @@ bool CAEAudioUtility::GetBankAndSoundFromScriptSlotAudioEvent(const eAudioEvents
         return false;
     }
     if (scriptID < AE_SCRIPT_SLOT_FIRST) {
-        outBankID = gScriptBanksLookup[scriptID - AE_SCRIPT_BANK_FIRST];
+        // Tabla de bancos del propio EXE (0x8ABC70 indexada por el evento)
+        outBankID  = (eSoundBank)StaticRef<int32[0x7D0]>(0x8ABC70)[scriptID];
         outSoundID = -1;
     } else if (scriptID == AE_SCRIPT_SLOT_USE_CUSTOM) {
         outBankID  = SND_BANK_SCRIPT_NULL;
-        outSoundID = slot > 3
-            ? 0
-            : 2 * (slot % 2);
+        outSoundID = (slot >= 0 && slot < 4) ? 2 * (slot % 2) : 0;
     } else {
-        outSoundID = (scriptID - AE_SCRIPT_SLOT_FIRST) % 200;
-        outBankID  = (eSoundBank)(SND_BANK_SCRIPT_FIRST + (scriptID - AE_SCRIPT_SLOT_FIRST) / 200u); // Each sound bank contains 200 sounds
+        // floor((evento - 2000) · 0.005) en float (como el original), no división entera
+        const auto n = (int32)scriptID - AE_SCRIPT_SLOT_FIRST;
+        outBankID  = (eSoundBank)((int32)std::floor((double)((float)n * 0.005f)) + SND_BANK_SCRIPT_FIRST);
+        outSoundID = n % 200;
     }
     return true;
 }
@@ -189,17 +262,10 @@ bool CAEAudioUtility::GetBankAndSoundFromScriptSlotAudioEvent(const eAudioEvents
 // 0x4D9E10
 // Devuelve el vehículo conducido por el jugador o, como fallback, el vehículo al que está adherido.
 CVehicle* CAEAudioUtility::FindVehicleOfPlayer() {
-    auto* vehicle = FindPlayerVehicle(-1, true);
-    if (vehicle)
-        return vehicle;
-
-    auto* player = FindPlayerPed();
-    if (!player)
-        return vehicle;
-
-    auto* attach = player->m_pAttachedTo->AsAutomobile();
-    if (attach && attach->GetIsTypeVehicle())
-        return attach;
-
+    auto* vehicle = FindPlayerVehicle(CWorld::PlayerInFocus, true);
+    auto* player  = FindPlayerPed();
+    if (!vehicle && player && player->m_pAttachedTo && player->m_pAttachedTo->GetIsTypeVehicle()) {
+        return player->m_pAttachedTo->AsVehicle();
+    }
     return vehicle;
 }

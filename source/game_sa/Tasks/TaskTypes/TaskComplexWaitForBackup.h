@@ -12,7 +12,7 @@ public:
     float      m_waitDistance{};
     CPed*      m_aggressor{};
     CPed*      m_backup{};
-    CTaskTimer m_timer{};
+    CTaskTimer m_timer; // Como el original: sin inicialización por valor (el relleno tras los bool no se escribe)
 
 public:
     static void InjectHooks();

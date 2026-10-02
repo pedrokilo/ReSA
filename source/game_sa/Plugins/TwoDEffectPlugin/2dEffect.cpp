@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 14/14 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/14 entradas.
+ * Validación registrada: 14/14 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -316,7 +316,7 @@ RwStream* Rwt2dEffectPluginDataChunkReadCallBack(RwStream* stream, RwInt32 binar
             std::memcpy(enex->m_szInteriorName, d.InteriorName, sizeof(d.InteriorName));
 
             enex->m_nTimeOn  = sectionSize == sizeof(t2dEffectEnExStreamData) ? d.TimeOn : 0;
-            enex->m_nTimeOff = sectionSize == sizeof(t2dEffectEnExStreamData) ? d.TimeOn : 24;
+            enex->m_nTimeOff = sectionSize == sizeof(t2dEffectEnExStreamData) ? d.TimeOff : 24;
             enex->m_nFlags2  = d.Flags2; // TODO: ???
             continue;
         }
@@ -380,8 +380,11 @@ RwStream* Rwt2dEffectPluginDataChunkReadCallBack(RwStream* stream, RwInt32 binar
             pa->m_vecUseDir      = d.UseDir;
             pa->m_vecForwardDir  = d.ForwardDir;
             pa->m_nAttractorType = d.Type;
-
-            // TODO: unk/not_used fields assign to higher portion of m_nAttractorType, check.
+            // 0x6FA55E: the rest of the stream entry goes to the trailing fields
+            pa->m_nPedExistingProbability = static_cast<uint8>(d.PedExistingProbability);
+            pa->field_36                  = d.unk1;
+            pa->m_nFlags                  = d.unk2;
+            std::memcpy(pa->m_szScriptName, d.ExternalScriptName, sizeof(pa->m_szScriptName));
             continue;
         }
         case e2dEffectType::EFFECT_PARTICLE: {
@@ -394,7 +397,13 @@ RwStream* Rwt2dEffectPluginDataChunkReadCallBack(RwStream* stream, RwInt32 binar
 
             t2dEffectParticleStreamData d{};
             RwStreamRead(stream, &d, sizeof(t2dEffectParticleStreamData));
-            std::memcpy(p->m_szName, d, sizeof(t2dEffectParticleStreamData));
+            // 0x6FA250: strcpy - copies up to and including the terminator, the bytes after it are left untouched
+            for (size_t k = 0; k < sizeof(t2dEffectParticleStreamData); k++) {
+                p->m_szName[k] = d[k];
+                if (!d[k]) {
+                    break;
+                }
+            }
             continue;
         }
         default:

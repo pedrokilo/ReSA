@@ -28,7 +28,7 @@ python reversing/run.py --case general
 
 Disponible también mediante el único PROBAR.cmd y en --all. [Sonda](LiveComparison.hpp), [compilación temporal](build_probe.py), [runner](run_local.py), [resumen y hashes](validation-summary.json).
 
-Evidencia final: `E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-general\20260923-003344-869382`. Artefactos locales en artifacts/; la sonda aprobada está archivada en _baseline/gta_reversed-general-probe.asi.
+Evidencia final: `D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-general\20260923-003344-869382`. Artefactos locales en artifacts/; la sonda aprobada está archivada en _baseline/gta_reversed-general-probe.asi.
 
 Al cerrar esta entrega se instaló este ASI normal solo en la copia de pruebas: `e5b8d16815fb880a46fe0a23e012d825e3607304ef3429f7a248a3ad03192a67`. Respaldo _baseline/before-general-20260923. Partidas verificadas sin cambios; instalación personal intacta.
 

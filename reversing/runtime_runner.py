@@ -8,7 +8,7 @@ import subprocess
 import time
 from datetime import datetime
 from pathlib import Path
-GAME=Path(r'E:\JUEGOS\GTA San Andreas - CVehicle Test')
+GAME=Path(r'D:\JUEGOS\GTA San Andreas - CVehicle Test')
 EXE_HASH='72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b'
 def digest(path):
     with path.open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
@@ -38,6 +38,27 @@ def probe_configuration(data):
     else:
         text = replacement + text
     return text.encode('utf-8')
+
+def game_dialog(pid):
+    """Texto de un cuadro de dialogo (#32770) visible del proceso, o None. Asserts, errores de RW, seleccion de dispositivo..."""
+    import ctypes
+    from ctypes import wintypes as w
+    user=ctypes.windll.user32;found=[]
+    proc=ctypes.WINFUNCTYPE(w.BOOL,w.HWND,w.LPARAM)
+    def text(h):
+        buf=ctypes.create_unicode_buffer(1024);user.GetWindowTextW(h,buf,1024);return buf.value.strip()
+    def child(h,_):
+        t=text(h)
+        if t:found[-1].append(t)
+        return True
+    def top(h,_):
+        owner=w.DWORD();user.GetWindowThreadProcessId(h,ctypes.byref(owner))
+        cls=ctypes.create_unicode_buffer(64);user.GetClassNameW(h,cls,64)
+        if owner.value==pid and cls.value=='#32770' and user.IsWindowVisible(h):
+            found.append([text(h)]);user.EnumChildWindows(h,proc(child),0)
+        return True
+    user.EnumWindows(proc(top),0)
+    return ' | '.join(' / '.join(x for x in d if x) for d in found) or None
 
 def run_case(prefix,probe_hash,analyze,title,timeout=180,stop_before_analysis=False,unhook='Audio,Global/SurfaceInfos_c',wait_for_exit=False):
     exe=GAME/'gta_sa.exe';probe=GAME/f'_baseline/gta_reversed-{prefix}-probe.asi'
@@ -81,7 +102,12 @@ def run_case(prefix,probe_hash,analyze,title,timeout=180,stop_before_analysis=Fa
                     result.update(natural_exit=True,exit_code=code)
                 result.update(evidence,passed=True);break
             if process.poll() is not None:raise RuntimeError(f'GTA termino antes de completar ({process.returncode}).')
-            time.sleep(1)
+            # Cualquier cuadro de dialogo bloquea la prueba: se aborta en el acto y se guarda su texto.
+            dialog=game_dialog(process.pid)
+            if dialog:
+                result['dialog']=dialog
+                raise RuntimeError('Dialogo en GTA (abortado): '+dialog)
+            time.sleep(.5)
         else:raise RuntimeError('Tiempo agotado.')
     except Exception as error:result.update(passed=False,error=str(error))
     finally:

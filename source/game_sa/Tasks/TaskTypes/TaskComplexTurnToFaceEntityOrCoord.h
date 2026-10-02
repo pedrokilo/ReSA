@@ -10,7 +10,7 @@ class NOTSA_EXPORT_VTABLE CTaskComplexTurnToFaceEntityOrCoord : public CTaskComp
 public:
     CEntity* m_EntityToFace{};
     bool     m_bFaceEntity{};
-    CVector  m_CoordsToFace{};
+    CVector  m_CoordsToFace;   // Left uninitialised by the entity constructor (0x66B890), as in the original
     float    m_fChangeRateMult{};
     float    m_fMaxHeading{};
 

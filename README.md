@@ -34,10 +34,10 @@ La fuente del progreso es [docs/hooks.csv](docs/hooks.csv). El [informe generado
 
 | Dimensión | Estado |
 | --- | --- |
-| Clases completas | 665/772 · 86,14% |
-| Funciones reconstruidas | 7.857/8.442 · 93,07% |
-| Funciones con `validated=1` | **40/8.442 · 0,47%** · evidencia aprobada vinculada |
-| Validaciones vigentes para el árbol actual | 0/8.442 · 0,00%; las 40 conservan evidencia histórica o coincidencia de fuentes, pero requieren revisión de dependencias |
+| Clases completas | 667/772 · 86,40% |
+| Funciones reconstruidas | 7.860/8.443 · 93,09% |
+| Funciones con `validated=1` | **582/8.443 · 6,89%** · evidencia aprobada vinculada |
+| Validaciones vigentes para el árbol actual | 0/8.443 · 0,00%; las 582 conservan evidencia histórica o coincidencia de fuentes, pero requieren revisión de dependencias |
 | Dependencias de funciones originales eliminadas | No medido; requiere auditoría de llamadas y dependencias |
 
 Quedan 585 entradas pendientes, 107 clases incompletas y 677 locks. En `hooks.csv`, `type=S` significa **Simple hook** (función normal por dirección) y `type=V` significa **Virtual hook** (entrada de vtable). `validated=1` significa que existe evidencia aprobada vinculada; no significa por sí solo que esa evidencia siga vigente para el árbol actual. Las 7.765 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
@@ -296,7 +296,7 @@ El objetivo no es ganar una carrera de porcentajes. El objetivo es poder llegar 
 La copia de pruebas tiene `FastLoader.Enable = false` y `SaveGameToLoad = -2`. Muestra las pantallas de inicio y el menú; el usuario elige **Nueva partida** o **Cargar partida**.
 
 ```powershell
-Set-Location 'E:\JUEGOS\GTA San Andreas - CVehicle Test'
+Set-Location 'D:\JUEGOS\GTA San Andreas - CVehicle Test'
 & '.\gta_sa.exe'
 ```
 
@@ -335,8 +335,8 @@ El runner compartido comprueba el ejecutable, evita ejecuciones simultáneas, re
 
 | Uso | Ruta del entorno local |
 | --- | --- |
-| Repositorio | `E:\Original\gta-reversed-master` |
-| Copia de pruebas | `E:\JUEGOS\GTA San Andreas - CVehicle Test` |
+| Repositorio | `D:\Original\gta-reversed-master` |
+| Copia de pruebas | `D:\JUEGOS\GTA San Andreas - CVehicle Test` |
 | Instalación personal, conservar | `E:\JUEGOS\GTA San Andreas` |
 
 La instalación normal se actualiza únicamente en la copia de pruebas y conserva un respaldo. Los cambios no deben sobrescribir partidas personales. El runner actual tiene rutas locales configuradas; revisar [runtime_runner.py](reversing/runtime_runner.py) y el proceso antes de usarlo en otra máquina. `PROBAR.cmd` también apunta al Python instalado en este equipo.

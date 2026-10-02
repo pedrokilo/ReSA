@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 3520,
+  "pairs_per_function": {
+    "C2dEffect::Roadsign_GetNumLinesFromFlags": 256,
+    "C2dEffect::Roadsign_GetNumLettersFromFlags": 256,
+    "C2dEffect::Roadsign_GetPaletteIDFromFlags": 256,
+    "C2dEffect::Shutdown": 512,
+    "C2dEffect::DestroyAtomic": 64,
+    "C2dEffect::PluginAttach": 64,
+    "C2dEffect::RpGeometryGet2dFxCount": 128,
+    "C2dEffect::RpGeometryGet2dFxAtIndex": 256,
+    "C2dEffect::t2dEffectPluginConstructor": 64,
+    "C2dEffect::t2dEffectPluginDestructor": 512,
+    "C2dEffect::t2dEffectPluginCopyConstructor": 64,
+    "C2dEffect::Rwt2dEffectPluginDataChunkReadCallBack": 1024,
+    "C2dEffect::Rwt2dEffectPluginDataChunkWriteCallBack": 32,
+    "C2dEffect::Rwt2dEffectPluginDataChunkGetSizeCallBack": 32
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "5bcbaafcc5f67a44adf5f99c16651041db652f79b8c5d4ef291438e86c820a8e",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-twod\\20261002-030307-776697",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "C2dEffect::Roadsign_GetNumLinesFromFlags": true,
+    "C2dEffect::Roadsign_GetNumLettersFromFlags": true,
+    "C2dEffect::Roadsign_GetPaletteIDFromFlags": true,
+    "C2dEffect::Shutdown": true,
+    "C2dEffect::DestroyAtomic": true,
+    "C2dEffect::PluginAttach": true,
+    "C2dEffect::RpGeometryGet2dFxCount": true,
+    "C2dEffect::RpGeometryGet2dFxAtIndex": true,
+    "C2dEffect::t2dEffectPluginConstructor": true,
+    "C2dEffect::t2dEffectPluginDestructor": true,
+    "C2dEffect::t2dEffectPluginCopyConstructor": true,
+    "C2dEffect::Rwt2dEffectPluginDataChunkReadCallBack": true,
+    "C2dEffect::Rwt2dEffectPluginDataChunkWriteCallBack": true,
+    "C2dEffect::Rwt2dEffectPluginDataChunkGetSizeCallBack": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "e7eb31cc5b73743ae74c7fabc6a99ce377d0212d62125c6764fd9c9a7a6876e8",
+      "pdb": "f599c944cc5c20982d2cfeaa45e39b2ab65d3ed04e213837cf95eac96284bb91"
+    },
+    "sources": {
+      "source/game_sa/Plugins/TwoDEffectPlugin/2dEffect.cpp": "0d1409536b566762efc07c76dc324d777cadc72935d5be7de85ca8af82edd4cc",
+      "source/game_sa/Plugins/TwoDEffectPlugin/2dEffect.h": "43d83eb797d87fbe610c880fad592f9986452a84410e1cf80bd26d217bd9172d",
+      "source/game_sa/Plugins/TwoDEffectPlugin/2dEffectStream.h": "b636c0a3f8ec0b39677907c09f6f00e9e7bdefe39d077813ef842ef2ef996608"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "7618fccd7d37e7473186c2c6400fc6a95a5342397d204086546e6d1125ce8482",
+      "build_probe.py": "c587d5aa176ff95af390578c6ad2bddf0c3086745335496d784b6031f0dcbd46",
+      "run_local.py": "0960bdda942fc556d9d21284a9e8e9f7f74c93677cbfa7734b9983aa2bfdd9cf"
+    }
+  },
+  "limitations": [
+    "Geometria falsa y streams de memoria reales de RenderWare; registro de plugins, texturas, CMemoryMgr y atomics/frames controlados.",
+    "Solo secciones de tamano valido; ENEX completa (la corta deja m_nFlags2 indefinido en el original); nombres de particula terminados en NUL."
+  ]
+}

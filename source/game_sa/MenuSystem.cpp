@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 21/21 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/21 entradas.
+ * Validación registrada: 21/21 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -66,13 +66,13 @@ void CMenuSystem::SetActiveMenuItem(MenuId id, int8 item) {
 // 0x581C40
 void CMenuSystem::SetColumnHeader(MenuId id, uint8 column, Const char* header) {
     assert(column < MENU_COL_COUNT);
-    strcpy_s(MenuNumber[id]->m_aacColumnHeaders[column], header ? header : "\0");
+    strcpy(MenuNumber[id]->m_aacColumnHeaders[column], header ? header : "\0");
 }
 
 // NOTSA
 void CMenuSystem::SetRowTitle(MenuId id, uint8 column, uint8 row, Const char* title) {
     assert(column < MENU_COL_COUNT);
-    strcpy_s(MenuNumber[id]->m_aaacRowTitles[column][row], title ? title : "\0");
+    strcpy(MenuNumber[id]->m_aaacRowTitles[column][row], title ? title : "\0");
 }
 
 // 0x582080
@@ -139,24 +139,24 @@ void CMenuSystem::InputStandardMenu(MenuId id) {
         CurrentMenuInUse = 1;
     }
 
-    if (!MenuInUse[CurrentMenuInUse]) {
+    if (!MenuInUse.data()[CurrentMenuInUse] /* sin comprobar límites, como el original */) {
         do {
             if (CurrentMenuInUse <= 0)
                 break;
             --CurrentMenuInUse;
-        } while (!MenuInUse[CurrentMenuInUse]);
+        } while (!MenuInUse.data()[CurrentMenuInUse] /* sin comprobar límites, como el original */);
     }
 
     if (CurrentMenuInUse >= 2) {
         CurrentMenuInUse = 0;
     }
 
-    if (!MenuInUse[CurrentMenuInUse]) {
+    if (!MenuInUse.data()[CurrentMenuInUse] /* sin comprobar límites, como el original */) {
         do {
             if (CurrentMenuInUse >= 2)
                 break;
             ++CurrentMenuInUse;
-        } while (!MenuInUse[CurrentMenuInUse]);
+        } while (!MenuInUse.data()[CurrentMenuInUse] /* sin comprobar límites, como el original */);
     }
 
     auto pad = CPad::GetPad();
@@ -165,7 +165,8 @@ void CMenuSystem::InputStandardMenu(MenuId id) {
         AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_BACK);
     }
 
-    if (pad->IsCrossPressed() || CTimer::GetIsPaused() && pad->IsEnterJustPressed()) {
+    // Como el original: con pausa solo cuenta la tecla extenter (0xB733EA/0xB7317A), no ambas Enter.
+    if (pad->IsCrossPressed() || CTimer::GetIsPaused() && CPad::IsReturnJustPressed()) {
         if (!CTimer::GetIsPaused())
             AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_SELECT);
 
@@ -232,13 +233,15 @@ void CMenuSystem::InputGridMenu(MenuId id) {
     auto menu = MenuNumber[id];
     auto pad = CPad::GetPad();
 
-    if (pad->IsCrossPressed() || CTimer::GetIsPaused() && pad->IsEnterJustPressed()) {
+    // Como el original: con pausa solo cuenta la tecla extenter (0xB733EA/0xB7317A), no ambas Enter.
+    if (pad->IsCrossPressed() || CTimer::GetIsPaused() && CPad::IsReturnJustPressed()) {
         if (menu->m_abRowSelectable[menu->m_nSelectedRow])
             menu->m_nAcceptedRow = menu->m_nSelectedRow;
     }
 
+    // Como el original: escribe -99 (0x9D); UNDEFINED era eSection::UNDEFINED (0).
     if (menu->m_nAcceptedRow != menu->m_nSelectedRow)
-        menu->m_nAcceptedRow = UNDEFINED;
+        menu->m_nAcceptedRow = MENU_UNDEFINED;
 
     if (CPad::GetAnaloguePadUp() || menu->m_abColumnInteractive[INTERACTIVE_DPAD] && pad->IsDPadUpPressed()) {
         if (menu->m_nSelectedRow >= menu->m_nNumColumns)
@@ -271,29 +274,45 @@ void CMenuSystem::Display(MenuId id, uint8 unk) {
     }
 }
 
+// Como el original: (ancho * 0.0015625f (0x859520)) * x y (alto * 0.002232143f (0x859524)) * y,
+// no x * ancho / 640 como SCREEN_STRETCH_X/Y.
+static float MenuStretchX(float x) { return ((float)RsGlobal.maximumWidth * 0.0015625f) * x; }
+static float MenuStretchY(float y) { return ((float)RsGlobal.maximumHeight * 0.002232143f) * y; }
+
+// Como el original: los anchos acumulados se truncan con _ftol2 y se guardan en 16 bits.
+static uint16 MenuSumColumnWidths(const CMenuSystem::Menu* menu, int32 count) {
+    uint16 sum = 0;
+    for (auto i = 0; i < count; ++i) {
+        sum = (uint16)(int32)((float)sum + menu->m_afColumnWidth[i]);
+    }
+    return sum;
+}
+
 // 0x580E00
 void CMenuSystem::DisplayStandardMenu(MenuId id, bool bBrightFont) {
     auto menu = MenuNumber[id];
-    auto fBaseY = SCREEN_STRETCH_Y(20.0f);
+    // Como el original: la Y base es un entero (_ftol2) que luego se relee como uint16.
+    int32 baseY = (int32)MenuStretchY(20.0f);
     uint8 windowOpacity = bBrightFont ? 0 : 120;
 
     if (menu->m_bColumnBackground) {
-        float menuWidth = 0, menuHeight = 50;
+        uint8  menuHeight = 50;
+        uint16 menuWidth  = 0;
         for (auto i = 0; i < menu->m_nNumColumns; i++) {
-            menuWidth += menu->m_afColumnWidth[i];
+            menuWidth = (uint16)(int32)((float)menuWidth + menu->m_afColumnWidth[i]);
             if (menu->m_aacColumnHeaders[i][0]) {
                 menuHeight = 70;
-                fBaseY = SCREEN_STRETCH_Y(40.f);
+                baseY = (int32)MenuStretchY(40.0f);
             }
         }
-        menuWidth += SCREEN_STRETCH_X(20);
-        menuHeight = SCREEN_STRETCH_Y(menuHeight) + menu->m_nNumRows * SCREEN_STRETCH_Y(16.0f);
+        const auto top   = (float)menuHeight * MenuStretchY(1.0f) + (float)menu->m_nNumRows * MenuStretchY(16.0f) + menu->m_vPosn.y;
+        const auto right = MenuStretchX(20.0f) + (float)menuWidth + menu->m_vPosn.x;
 
-        CRect rect(menu->m_vPosn.x, menu->m_vPosn.y, menu->m_vPosn.x + menuWidth, menu->m_vPosn.y + menuHeight);
+        CRect rect(menu->m_vPosn.x, menu->m_vPosn.y, right, top);
         FrontEndMenuManager.DrawWindow(rect, menu->m_szTitle, windowOpacity, CRGBA(0, 0, 0, 190), false, true);
     }
     CFont::SetFontStyle(eFontStyle::FONT_SUBTITLES);
-    CFont::SetScale(SCREEN_STRETCH_X(0.52f), SCREEN_STRETCH_Y(1.0f));
+    CFont::SetScale(MenuStretchX(0.52f), MenuStretchY(1.0f));
     CFont::SetDropShadowPosition(2);
     CFont::SetDropColor(CRGBA(0, 0, 0, 255));
     CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
@@ -313,49 +332,52 @@ void CMenuSystem::DisplayStandardMenu(MenuId id, bool bBrightFont) {
         CFont::SetColor(CRGBA(225 - windowOpacity, 225 - windowOpacity, 225 - windowOpacity, 255));
 
         // add previous columns width
-        float xOffset = 0.f;
-        for (auto i = 0; i < column; ++i) {
-            xOffset += menu->m_afColumnWidth[i];
-        }
-
-        float textX = menu->m_vPosn.x + SCREEN_STRETCH_X(10.0f) + xOffset;
-        float textY = menu->m_vPosn.y + SCREEN_STRETCH_Y(20.0f);
-        switch (menu->m_anColumnAlignment[column]) {
-        case eFontAlignment::ALIGN_CENTER:
-            textX += menu->m_afColumnWidth[column] / 2.0f;
-            break;
-        case eFontAlignment::ALIGN_LEFT:
-            break;
-        case eFontAlignment::ALIGN_RIGHT:
-            textX += menu->m_afColumnWidth[column];
-            break;
-        default:
-            NOTSA_UNREACHABLE();
-        }
+        const auto xOffset = MenuSumColumnWidths(menu, column);
 
         const auto columnText = menu->m_aacColumnHeaders[column];
         const auto headerText = TheText.Get(columnText);
+
+        // Como el original: se decide con la alineación efectiva de la cabecera (como byte sin signo)
+        // y cualquier valor distinto de centro/derecha se trata como izquierda.
+        float textX;
+        switch (static_cast<uint8>(alignment)) {
+        case 0: // ALIGN_CENTER
+            textX = menu->m_afColumnWidth[column] * 0.5f + MenuStretchX(10.0f) + menu->m_vPosn.x + (float)xOffset;
+            break;
+        case 2: // ALIGN_RIGHT
+            textX = MenuStretchX(10.0f) + menu->m_afColumnWidth[column] + menu->m_vPosn.x + (float)xOffset;
+            break;
+        default:
+            textX = MenuStretchX(10.0f) + menu->m_vPosn.x + (float)xOffset;
+            break;
+        }
+        const auto textY = MenuStretchY(20.0f) + menu->m_vPosn.y;
         CFont::PrintString(textX, textY, headerText);
     }
 
+    // Como el original: componentes RGB de la tabla menos la opacidad (en byte) y alpha siempre 255.
     const auto GetColor = [=](auto row) -> CRGBA {
+        const auto Make = [=](eHudColours idx) {
+            const auto c = HudColour.GetRGB(idx);
+            return CRGBA(uint8(c.r - windowOpacity), uint8(c.g - windowOpacity), uint8(c.b - windowOpacity), 255);
+        };
         if (menu->m_abColumnInteractive[INTERACTIVE_DEFAULT]) {
             if (row == menu->m_nSelectedRow && menu->m_abRowSelectable[row]) {
-                return HudColour.GetRGB(HUD_COLOUR_LIGHT_BLUE);
+                return Make(HUD_COLOUR_LIGHT_BLUE);
             } else if (menu->m_abRowAlreadyBought[row]) {
-                return HudColour.GetRGB(HUD_COLOUR_GREEN);
+                return Make(HUD_COLOUR_GREEN);
             } else if (menu->m_abRowSelectable[row]) {
-                return HudColour.GetRGB(HUD_COLOUR_NIGHT_BLUE);
+                return Make(HUD_COLOUR_NIGHT_BLUE);
             }
-            return HudColour.GetRGB(HUD_COLOUR_DARK_GRAY);
+            return Make(HUD_COLOUR_DARK_GRAY);
         }
 
         if (menu->m_abRowAlreadyBought[row]) {
-            return HudColour.GetRGB(HUD_COLOUR_GREEN);
+            return Make(HUD_COLOUR_GREEN);
         } else if (menu->m_abRowSelectable[row]) {
-            return HudColour.GetRGB(HUD_COLOUR_LIGHT_BLUE);
+            return Make(HUD_COLOUR_LIGHT_BLUE);
         }
-        return HudColour.GetRGB(HUD_COLOUR_NIGHT_BLUE);
+        return Make(HUD_COLOUR_NIGHT_BLUE);
     };
 
     // 0x581216
@@ -377,35 +399,32 @@ void CMenuSystem::DisplayStandardMenu(MenuId id, bool bBrightFont) {
             CMessages::InsertPlayerControlKeysInString(buffer);
 
             auto _panelWidthTotal = 0.52f;
-            CFont::SetScale(SCREEN_STRETCH_X(_panelWidthTotal), SCREEN_STRETCH_Y(1.0f));
+            CFont::SetScale(MenuStretchX(_panelWidthTotal), MenuStretchY(1.0f));
             while (CFont::GetStringWidth(buffer, true, false) > menu->m_afColumnWidth[column]) {
                 _panelWidthTotal -= 0.05f;
-                CFont::SetScale(SCREEN_STRETCH_X(_panelWidthTotal), SCREEN_STRETCH_Y(1.0f)); // make text smaller :)
+                CFont::SetScale(MenuStretchX(_panelWidthTotal), MenuStretchY(1.0f)); // make text smaller :)
             }
 
             // add previous columns width
-            float xOffset = 0.f;
-            for (auto i = 0; i < column; ++i) {
-                xOffset += menu->m_afColumnWidth[i];
-            }
+            const auto xOffset = MenuSumColumnWidths(menu, column);
 
-            float textX = menu->m_vPosn.x + SCREEN_STRETCH_X(10.0f) + xOffset;
-            float textY = menu->m_vPosn.y + fBaseY;
-            switch (menu->m_anColumnAlignment[column]) {
-            case eFontAlignment::ALIGN_CENTER:
-                textX += menu->m_afColumnWidth[column] / 2.0f;
+            // Como el original: alineación de columna como byte sin signo; otros valores = izquierda.
+            float textX;
+            switch (static_cast<uint8>(menu->m_anColumnAlignment[column])) {
+            case 0: // ALIGN_CENTER
+                textX = MenuStretchX(10.0f) + menu->m_afColumnWidth[column] * 0.5f + menu->m_vPosn.x + (float)xOffset;
                 break;
-            case eFontAlignment::ALIGN_LEFT:
-                break;
-            case eFontAlignment::ALIGN_RIGHT:
-                textX += menu->m_afColumnWidth[column];
+            case 2: // ALIGN_RIGHT
+                textX = MenuStretchX(10.0f) + menu->m_afColumnWidth[column] + menu->m_vPosn.x + (float)xOffset;
                 break;
             default:
-                NOTSA_UNREACHABLE();
+                textX = MenuStretchX(10.0f) + menu->m_vPosn.x + (float)xOffset;
+                break;
             }
+            const auto textY = (float)(uint16)baseY + menu->m_vPosn.y;
             CFont::PrintString(textX, textY, buffer);
         }
-        fBaseY += SCREEN_STRETCH_Y(16.0f);
+        baseY = (int32)(MenuStretchY(16.0f) + (float)(uint16)baseY);
     }
 }
 
@@ -439,11 +458,13 @@ void CMenuSystem::DisplayGridMenu(MenuId id, bool bFade) {
             // color
             auto  colorIndex = GetCarColourFromGrid(id, index);
             auto& color = CVehicleModelInfo::ms_vehicleColourTable[colorIndex];
+            // Como el original: right/top = ((pos + ancho) - margen) + celda * ancho, con el margen
+            // calculado como (ancho/alto de pantalla * constante) * 3.0f.
             CRect rect;
-            rect.left   = (float)r * columnWidth + menu->m_vPosn.x + SCREEN_STRETCH_X(3.0f);
-            rect.bottom    = (float)c * columnWidth + menu->m_vPosn.y + SCREEN_STRETCH_Y(3.0f);
-            rect.right  = (float)r * columnWidth + menu->m_vPosn.x + columnWidth - SCREEN_STRETCH_X(3.0f);
-            rect.top = (float)c * columnWidth + menu->m_vPosn.y + columnWidth - SCREEN_STRETCH_Y(3.0f);
+            rect.left   = (float)r * columnWidth + menu->m_vPosn.x + MenuStretchX(3.0f);
+            rect.bottom    = (float)c * columnWidth + menu->m_vPosn.y + MenuStretchY(3.0f);
+            rect.right  = menu->m_vPosn.x + columnWidth - MenuStretchX(3.0f) + (float)r * columnWidth;
+            rect.top = menu->m_vPosn.y + columnWidth - MenuStretchY(3.0f) + (float)c * columnWidth;
             CSprite2d::DrawRect(rect, { color.r, color.g, color.b, 255 });
             index++;
         }
@@ -464,12 +485,13 @@ void CMenuSystem::Process(int8 id) {
     // 0x58263F :thinking
     for (auto i = 0; i < MENU_COUNT; i++) {
         if (i != CurrentMenuInUse && MenuInUse[i]) {
-            Display(id, false);
+            // Como el original: dibuja el menú i (no el id -99) sin resaltar.
+            Display(i, false);
         }
     }
 
     // 0x5826A4
-    if (MenuInUse[CurrentMenuInUse]) {
+    if (MenuInUse.data()[CurrentMenuInUse] /* sin comprobar límites, como el original */) {
         Display(CurrentMenuInUse, true);
 
         if (MenuNumber[CurrentMenuInUse]->m_abColumnInteractive[INTERACTIVE_DEFAULT]) {
@@ -510,7 +532,8 @@ MenuId CMenuSystem::CreateNewMenu(eMenuType type, const char* title, float x, fl
 
     MenuId menuId = GetNumMenusInUse();
     assert(!MenuInUse[menuId]);
-    MenuNumber[menuId] = new Menu();
+    // Como el original: operator new(0x418) sin inicializar la memoria a cero.
+    MenuNumber[menuId] = new Menu;
     MenuInUse[menuId] = true;
     Menu* menu = MenuNumber[menuId];
     menu->m_nType = type;
@@ -525,7 +548,7 @@ MenuId CMenuSystem::CreateNewMenu(eMenuType type, const char* title, float x, fl
         menu->m_vPosn = { x, y };
         menu->m_bColumnBackground = background != 0;
         if (title) {
-            strcpy_s(menu->m_szTitle, title);
+            strcpy(menu->m_szTitle, title); // Como el original: strcpy sin relleno (strcpy_s rellena con 0xFE en depuración)
         } else {
             menu->m_szTitle[0] = '\0';
         }
@@ -662,11 +685,10 @@ void CMenuSystem::InsertMenu(MenuId id, uint8 column, const char* colHeader, con
         SetRowTitle(id, column, rowId, rows[rowId]);
     }
 
-    for (auto i = 0; i < MENU_COL_COUNT; ++i) {
-        for (auto j = 0; j < MENU_ROW_COUNT; ++j) {
-            menu->m_aanNumberInRowTitle[i][j] = -1;
-            menu->m_aadw2ndNumberInRowTitle[i][j] = -1;
-        }
+    // Como el original: solo reinicia los números de la columna insertada, no los de las cuatro.
+    for (auto j = 0; j < MENU_ROW_COUNT; ++j) {
+        menu->m_aanNumberInRowTitle[column][j] = -1;
+        menu->m_aadw2ndNumberInRowTitle[column][j] = -1;
     }
 
     if (column)
@@ -696,10 +718,16 @@ void CMenuSystem::SwitchOffMenu(MenuId id) {
 // NOTSA
 void CMenuSystem::CalcNonEmptyRows(MenuId id) {
     auto* menu = MenuNumber[id];
+    // Como el original (inline en 0x581D70/0x581E00): acumula filas pendientes y las suma al
+    // encontrar un título no vacío, así que el resultado es el índice del último título no vacío + 1
+    // (los huecos intermedios cuentan), no el número de títulos no vacíos.
     menu->m_nNumRows = 0;
-    for (auto& row : menu->m_aaacRowTitles[0]) { // they used reverse loop from MENU_ROW_COUNT to 0
+    uint8 pending = 0;
+    for (auto& row : menu->m_aaacRowTitles[0]) {
+        ++pending;
         if (row[0]) {
-            menu->m_nNumRows += 1;
+            menu->m_nNumRows += pending;
+            pending = 0;
         }
     }
 }

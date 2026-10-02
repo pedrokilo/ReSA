@@ -15,7 +15,7 @@ SpriteFileName FrontEndFilenames[] = {
     { "radio_csr",          "" },              // 8
     { "radio_kjah",         "" },              // 9
     { "radio_mastersounds", "" },              // 10
-    { "radio_wctr",         "" },              // 11
+    { "radio_WCTR",         "" },              // 11 Como en el EXE (mayúsculas)
     { "radio_TPLAYER",      "" },              // 12
 # ifdef BUILD_XBOX
     { "CONTROLLER_XBOX",    "CONTROLLER_XBOXM" },

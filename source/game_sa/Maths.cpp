@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -20,15 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "Maths.h"
 
-// We're going to generate the lookup table here instead of using the one from the game
-// Original table is located at 0xBB3E00 (NOT `0xBB3DFC`) and is of size 256 (so don't change the size below)
-//
-// NOTE: This table is generated using `std::sin` from the C++23/MSVC standard library, which may
-// produce results differing by ~1-5 ULP (units in the last place) from the MSVC 2004 CRT `sin()`
-// used to generate the original game's table at runtime. This means individual entries may differ
-// by approximately 0.000001 to 0.000005. The differences are inherent to floating-point
-// implementation changes across compiler versions and are not actionable. Passes differential
-// tests with 1e-5 tolerance.
+// Tabla original en 0xBB3E00 (256 entradas). Se rellena en InitMathsTables como el original
+// (fild i · 2π/256 en float y fsin del x87); el inicializador estático solo deja valores
+// válidos hasta entonces.
 constexpr size_t SIN_LUT_SIZE = 256;
 constexpr float  SIN_LUT_STEP = TWO_PI / (float)(SIN_LUT_SIZE);
 const auto& SIN_LUT = StaticRef<std::array<float, SIN_LUT_SIZE>>(0xBB3E00) = []() {
@@ -39,20 +33,32 @@ const auto& SIN_LUT = StaticRef<std::array<float, SIN_LUT_SIZE>>(0xBB3E00) = [](
     return lut;
 }();
 
+// 0x4A1340: índice = trunc(rad · 40.743664) & 0xFF
 float CMaths::GetSinFast(float rad) {
-    return SIN_LUT[(uint32)(rad / SIN_LUT_STEP) % SIN_LUT_SIZE];
+    return SIN_LUT[(uint32)(int64)(rad * std::bit_cast<float>(0x4222F983u)) & 0xFF];
 }
 
+// 0x4A1360: índice = trunc(rad · 40.743664 + 64) & 0xFF
 float CMaths::GetCosFast(float rad) {
-    return GetSinFast(rad + PI / 2.f); // cos(x) == sin(x + PI/2)
+    return SIN_LUT[(uint32)(int64)(rad * std::bit_cast<float>(0x4222F983u) + 64.0f) & 0xFF];
 }
 
+// 0x59AC90
 void CMaths::InitMathsTables() {
     ZoneScoped;
 
-    /* No-op: The LUT is already populated by the static initializer above (originally it was
-     * populated here at runtime using the MSVC 2004 CRT sin(), which differs from std::sin by
-     * ~1-5 ULP per entry). See the SIN_LUT comment above for details. */
+    auto* lut = StaticRef<std::array<float, SIN_LUT_SIZE>>(0xBB3E00).data();
+    static const float kStep = std::bit_cast<float>(0x3CC90FDBu); // 0x859BBC
+    for (int32 i = 0; i < (int32)SIN_LUT_SIZE; i++) {
+        float v;
+        __asm {
+            fild  i
+            fmul  kStep
+            fsin
+            fstp  v
+        }
+        lut[i] = v;
+    }
 }
 
 void CMaths::InjectHooks() {

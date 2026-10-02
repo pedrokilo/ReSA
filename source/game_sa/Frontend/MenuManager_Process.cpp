@@ -41,40 +41,32 @@ void CMenuManager::ProcessStreaming(bool streamAll) {
         return;
     }
 
-    // Calculate tile sizes based on map zoom
-    const float tileSizeX = (m_fMapZoom * 2.0f) / float(MAX_RADAR_WIDTH_TILES);
-    const float tileSizeY = (m_fMapZoom * 2.0f) / float(MAX_RADAR_HEIGHT_TILES);
+    // Como el original: un único tamaño de tesela = zoom * (1/6) (fmul [0x85F0A0]),
+    // no (zoom * 2) / 12, que redondea distinto.
+    const float tileSize = m_fMapZoom * std::bit_cast<float>(0x3E2AAAABu); // 0.16666667f
 
     // Define map boundaries
-    const CVector2D mapArea(
-        m_vMapOrigin.x - m_fMapZoom,
-        m_vMapOrigin.y - m_fMapZoom
-    );
+    const float mapAreaX = m_vMapOrigin.x - m_fMapZoom;
+    const float mapAreaY = m_vMapOrigin.y - m_fMapZoom;
 
-    // Define screen boundaries with padding for visibility
-    const CRect screenArea(
-        60 - tileSizeX * 3,
-        60 - tileSizeY * 3,
-        DEFAULT_SCREEN_WIDTH - 60 + tileSizeX * 3,
-        DEFAULT_SCREEN_HEIGHT - 60 + tileSizeY * 3
-    );
+    // Margen de la pantalla (mismo para X e Y en el original)
+    const float padding = tileSize * 3.0f;
+    const float minEdge = 60.0f - padding;
 
     // Iterate over map tiles to determine which sections to load or remove
-    for (auto x = 0; x < MAX_RADAR_WIDTH_TILES; x++) {
-        for (auto y = 0; y < MAX_RADAR_HEIGHT_TILES; y++) {
-            // Calculate tile position
-            const CRect tileRect(
-                mapArea.x + x * tileSizeX,
-                mapArea.y + y * tileSizeY,
-                mapArea.x + x * tileSizeX + tileSizeX,
-                mapArea.y + y * tileSizeY + tileSizeY
-            );
-
-            // Check if tile overlaps with the visible screen area
-            if (!screenArea.OverlapsWith(tileRect)) {
-                CRadar::RemoveMapSection(x, y);
-            } else {
+    for (auto x = 0; x < (int32)MAX_RADAR_WIDTH_TILES; x++) {
+        const float tileLeft = (float)x * tileSize + mapAreaX;
+        for (auto y = 0; y < (int32)MAX_RADAR_HEIGHT_TILES; y++) {
+            // Como el original: la tesela debe quedar estrictamente dentro del área visible
+            // (no basta con solaparse) y el borde derecho/inferior se calcula como (i + 1) * tamaño + origen.
+            if (tileLeft > minEdge
+                && (float)y * tileSize + mapAreaY > minEdge
+                && padding + 580.0f > (float)(x + 1) * tileSize + mapAreaX
+                && padding + 388.0f > (float)(y + 1) * tileSize + mapAreaY
+            ) {
                 CRadar::RequestMapSection(x, y);
+            } else {
+                CRadar::RemoveMapSection(x, y);
             }
         }
     }
@@ -146,13 +138,19 @@ void CMenuManager::ProcessFileActions() {
                     // Save Game
                     //
                     // Save failed! The current Mission Pack is not available. Please recheck that the current Mission Pack is installed correctly.
-                    return JumpToGenericMessageScreen(SCREEN_GAME_LOADED, "FET_SG", "FES_NIM");
+                    JumpToGenericMessageScreen(SCREEN_GAME_LOADED, "FET_SG", "FES_NIM");
+                    m_CurrentlySaving = false; // Como el original: también se reinicia en este camino (0x578E5E)
+                    return;
                 } else {
                     CFileMgr::CloseFile(file);
                 }
             }
 
-            if (s_PcSaveHelper.SaveSlot(m_SelectedSlot)) {
+            // Como el original: SaveSlot y PopulateSlotInfo van antes de cambiar de pantalla (0x578DFA, 0x578E08)
+            const auto saveFailed = s_PcSaveHelper.SaveSlot(m_SelectedSlot);
+            s_PcSaveHelper.PopulateSlotInfo();
+
+            if (saveFailed) {
                 // Save Game
                 //
                 // Save failed! There was an error while saving the current game. Please check your savegame directory and try again.
@@ -163,7 +161,6 @@ void CMenuManager::ProcessFileActions() {
                 // Save Successful. Select OK to continue.
                 SwitchToNewScreen(SCREEN_SAVE_DONE_2);
             }
-            s_PcSaveHelper.PopulateSlotInfo();
 
             m_CurrentlySaving = false;
         } else {
@@ -219,13 +216,23 @@ void CMenuManager::ProcessMenuOptions(int8 pressedLR, bool& cancelPressed, bool 
         return;
     case MENU_ACTION_SAVE_SLOT: {
         if (item->m_nType >= eMenuEntryType::TI_SLOT1 && item->m_nType <= eMenuEntryType::TI_SLOT8) {
-            auto slotState = CGenericGameStorage::ms_Slots[m_nCurrentScreenItem - 1];
-            m_SelectedSlot = m_nCurrentScreenItem - 1;
+            m_SelectedSlot = (uint8)(m_nCurrentScreenItem - 1);
+            const auto slotState = CGenericGameStorage::ms_Slots[(int8)m_SelectedSlot];
 
-            if (m_nCurrentScreen == SCREEN_DELETE_GAME && slotState != eSlotState::SLOT_FREE) {
-                SwitchToNewScreen(SCREEN_DELETE_GAME_ASK);
-            } else if (slotState == eSlotState::SLOT_FILLED) {
-                SwitchToNewScreen(SCREEN_LOAD_GAME_ASK);
+            // Como el original: solo actúa en las pantallas de cargar/borrar (0x57729B)
+            switch (m_nCurrentScreen) {
+            case SCREEN_LOAD_GAME:
+                if (slotState != eSlotState::SLOT_FREE && slotState != eSlotState::SLOT_CORRUPTED) {
+                    SwitchToNewScreen(SCREEN_LOAD_GAME_ASK);
+                }
+                break;
+            case SCREEN_DELETE_GAME:
+                if (slotState != eSlotState::SLOT_FREE) {
+                    SwitchToNewScreen(SCREEN_DELETE_GAME_ASK);
+                }
+                break;
+            default:
+                break;
             }
         }
         return;
@@ -246,42 +253,33 @@ void CMenuManager::ProcessMenuOptions(int8 pressedLR, bool& cancelPressed, bool 
         return;
     }
     case MENU_ACTION_STAT: {
-        // todo: refactor
-        if (pressedLR != 1) {
+        // Como el original (0x577108): dirección 1 si pressedLR == 1, si no 0
+        const auto Cycle = [this] { // 0 -> 150 -> 20 (y se queda en 20)
+            if (m_fStatsScrollSpeed == 0.0f) {
+                m_fStatsScrollSpeed = 150.0f;
+            } else if (m_fStatsScrollSpeed == 150.0f) {
+                m_fStatsScrollSpeed = 20.0f;
+            }
+        };
+        const auto Toggle = [this] { // 0 -> 150, cualquier otro valor (o NaN) -> 0
+            m_fStatsScrollSpeed = (m_fStatsScrollSpeed == 0.0f) ? 150.0f : 0.0f;
+        };
+        if (pressedLR == 1) {
             if (m_nStatsScrollDirection) {
-                if (m_fStatsScrollSpeed != 0.0f) {
-                    m_fStatsScrollSpeed = 0.0f;
-                    m_nStatsScrollDirection = 0;
-                }
-            } else if (m_fStatsScrollSpeed != 0.0f) {
-                if (m_fStatsScrollSpeed == 150.0f) {
-                    m_fStatsScrollSpeed = 20.0f;
-                }
-                m_nStatsScrollDirection = 0;
+                Cycle();
             } else {
-                m_fStatsScrollSpeed = 150.0f;
-                m_nStatsScrollDirection = 0;
+                Toggle();
             }
-        } else if (m_nStatsScrollDirection) {
-            if (m_fStatsScrollSpeed == 0.0f) {
-                m_fStatsScrollSpeed = 150.0f;
-                m_nStatsScrollDirection = 1;
-            } else {
-                if (m_fStatsScrollSpeed == 150.0f) {
-                    m_fStatsScrollSpeed = 20.0f;
-                }
-                m_nStatsScrollDirection = 1;
-            }
+            m_nStatsScrollDirection = 1;
         } else {
-            if (m_fStatsScrollSpeed == 0.0f) {
-                m_fStatsScrollSpeed = 150.0f;
-                m_nStatsScrollDirection = 1;
+            if (m_nStatsScrollDirection) {
+                Toggle();
             } else {
-                m_fStatsScrollSpeed = 0.0f;
-                m_nStatsScrollDirection = 1;
+                Cycle();
             }
+            m_nStatsScrollDirection = 0;
         }
-        break;
+        return;
     }
     case MENU_ACTION_INVERT_PAD:
         CPad::bInvertLook4Pad ^= true;
@@ -314,7 +312,14 @@ void CMenuManager::ProcessMenuOptions(int8 pressedLR, bool& cancelPressed, bool 
         m_bMapLegend ^= true;
         return;
     case MENU_ACTION_RADAR_MODE:
-        m_nRadarMode = (eRadarMode)((m_nRadarMode + pressedLR) % eRadarMode::RADAR_MODE_COUNT);
+        // Como el original (0x57720C): suma con signo y salta al otro extremo, sin módulo
+        m_nRadarMode = (eRadarMode)((int32)m_nRadarMode + pressedLR);
+        if ((int32)m_nRadarMode < 0) {
+            m_nRadarMode = (eRadarMode)2;
+        }
+        if ((int32)m_nRadarMode > 2) {
+            m_nRadarMode = (eRadarMode)0;
+        }
         SaveSettings();
         return;
     case MENU_ACTION_HUD_MODE:
@@ -322,12 +327,12 @@ void CMenuManager::ProcessMenuOptions(int8 pressedLR, bool& cancelPressed, bool 
         SaveSettings();
         return;
     case MENU_ACTION_LANGUAGE: {
-        // todo: MORE_LANGUAGES; does this ever execute?
-        auto prevLanguage = m_nPrefsLanguage;
-        if (pressedLR <= 0 && prevLanguage == eLanguage::AMERICAN) {
-            m_nPrefsLanguage = eLanguage::SPANISH;
-        } else if (prevLanguage == eLanguage::SPANISH) {
-            m_nPrefsLanguage = eLanguage::AMERICAN;
+        // Como el original (0x5771B8): recorre los 5 idiomas (0..4) en ambos sentidos
+        const auto prevLanguage = (uint8)m_nPrefsLanguage;
+        if (pressedLR > 0) {
+            m_nPrefsLanguage = prevLanguage == 4 ? (eLanguage)0 : (eLanguage)(uint8)(prevLanguage + 1);
+        } else {
+            m_nPrefsLanguage = prevLanguage == 0 ? (eLanguage)4 : (eLanguage)(uint8)(prevLanguage - 1);
         }
 
         m_nPreviousLanguage = (eLanguage)-99; // what the fuck
@@ -405,15 +410,18 @@ bool CMenuManager::ProcessPCMenuOptions(int8 pressedLR, bool acceptPressed) {
         }
         return true;
     }
-    case MENU_ACTION_FX_QUALITY:
-        g_fx.SetFxQuality(FxQuality_e(g_fx.m_FxQuality + (notsa::IsFixBugs() ? (pressedLR == 0 ? 1 : pressedLR) : 1)));
-        if (g_fx.m_FxQuality < FX_QUALITY_LOW) {
-            g_fx.SetFxQuality(FxQuality_e(FX_QUALITY_COUNT - 1));
-        } else if (g_fx.m_FxQuality >= FX_QUALITY_COUNT) {
-            g_fx.SetFxQuality(FxQuality_e(FX_QUALITY_LOW));
+    case MENU_ACTION_FX_QUALITY: {
+        const auto quality = g_fx.GetFxQuality();
+        if (notsa::IsFixBugs() && pressedLR < 0) { // NOTSA: la flecha izquierda retrocede
+            g_fx.SetFxQuality(quality <= FX_QUALITY_LOW ? FxQuality_e(FX_QUALITY_COUNT - 1) : FxQuality_e(quality - 1));
+        } else if (quality >= FX_QUALITY_LOW && quality < FX_QUALITY_COUNT) {
+            // Como el original (0x57D185): 0 -> 1 -> 2 -> 3 -> 0 con una única llamada a SetFxQuality;
+            // un valor fuera de rango no se toca
+            g_fx.SetFxQuality(quality == FX_QUALITY_COUNT - 1 ? FX_QUALITY_LOW : FxQuality_e(quality + 1));
         }
         SaveSettings();
         return true;
+    }
     case MENU_ACTION_MIP_MAPPING:
         if (!m_bMainMenuSwitch) {
             return true;
@@ -434,11 +442,20 @@ bool CMenuManager::ProcessPCMenuOptions(int8 pressedLR, bool acceptPressed) {
         }
 
         // scroll loop
-        auto maxLevels = std::min(4u, RwD3D9EngineGetMaxMultiSamplingLevels());
+        // Como el original (0x57D0C6): el máximo se consulta solo cuando hace falta
+        // (comparación sin signo) y el tope fijo es 4
         if (pressedLR > 0) {
-            m_nDisplayAntialiasing = m_nDisplayAntialiasing == maxLevels ? 1 : m_nDisplayAntialiasing + 1;
+            ++m_nDisplayAntialiasing;
+            if (m_nDisplayAntialiasing > 4 || (uint32)m_nDisplayAntialiasing > RwD3D9EngineGetMaxMultiSamplingLevels()) {
+                m_nDisplayAntialiasing = 1;
+            }
         } else {
-            m_nDisplayAntialiasing = m_nDisplayAntialiasing > 1 ? m_nDisplayAntialiasing - 1 : maxLevels;
+            --m_nDisplayAntialiasing;
+            if (m_nDisplayAntialiasing < 1) {
+                m_nDisplayAntialiasing = RwD3D9EngineGetMaxMultiSamplingLevels() > 4u
+                    ? 4
+                    : (int32)RwD3D9EngineGetMaxMultiSamplingLevels(); // El original vuelve a llamarla
+            }
         }
         return true;
     }
@@ -487,18 +504,25 @@ bool CMenuManager::ProcessPCMenuOptions(int8 pressedLR, bool acceptPressed) {
         SwitchToNewScreen(SCREEN_GO_BACK);
         return true;
     case MENU_ACTION_RESOLUTION: {
-        if (acceptPressed && m_nDisplayVideoMode != m_nPrefsVideoMode) {
-            m_nPrefsVideoMode = m_nDisplayVideoMode;
-            SetVideoMode(m_nDisplayVideoMode);
-            CentreMousePointer();
-            m_DisplayTheMouse = true;
-            m_nCurrentScreenItem = 5;
-            SaveSettings();
-            CPostEffects::DoScreenModeDependentInitializations();
+        // Como el original (0x57CF9B): con Intro no se desplaza la lista, se aplique o no el modo
+        if (acceptPressed) {
+            if (m_nDisplayVideoMode != m_nPrefsVideoMode) {
+                m_nPrefsVideoMode = m_nDisplayVideoMode;
+                SetVideoMode(m_nDisplayVideoMode);
+                CentreMousePointer();
+                m_DisplayTheMouse = true;
+                m_nCurrentScreenItem = 5;
+                SaveSettings();
+                CPostEffects::DoScreenModeDependentInitializations();
+            }
+            return true;
         }
 
-        auto numVideoModes = RwEngineGetNumVideoModes();
+        // Como el original: primero la lista; el número de modos solo se pide al salirse del rango
         auto videoModes = GetVideoModeList();
+#ifdef FIX_BUGS
+        const auto numVideoModes = RwEngineGetNumVideoModes();
+#endif
 
         if (pressedLR > 0) {
             do {
@@ -510,7 +534,7 @@ bool CMenuManager::ProcessPCMenuOptions(int8 pressedLR, bool acceptPressed) {
             while (!videoModes[m_nDisplayVideoMode]);
 #endif
 
-            if (m_nDisplayVideoMode >= numVideoModes) {
+            if (m_nDisplayVideoMode >= RwEngineGetNumVideoModes()) {
                 m_nDisplayVideoMode = 0;
                 while (!videoModes[m_nDisplayVideoMode]) {
                     ++m_nDisplayVideoMode;
@@ -527,7 +551,7 @@ bool CMenuManager::ProcessPCMenuOptions(int8 pressedLR, bool acceptPressed) {
 #endif
 
             if (m_nDisplayVideoMode < 0) {
-                m_nDisplayVideoMode = numVideoModes - 1;
+                m_nDisplayVideoMode = RwEngineGetNumVideoModes() - 1;
                 while (!videoModes[m_nDisplayVideoMode]) {
                     --m_nDisplayVideoMode;
                 }
@@ -605,10 +629,11 @@ void CMenuManager::ProcessMissionPackNewGame() {
     }
 
     bool isAnyMissionPackAvailable = false;
-    CFileMgr::SetDirMyDocuments();
+    uint8 numMissionPacks = 0; // Como el original: los packs se guardan seguidos, no en la plaza de la carpeta
 
     // Scan for available mission packs
-    for (auto i = 0u; i < 25u; i++) {
+    for (auto i = 0; i < 25; i++) {
+        CFileMgr::SetDirMyDocuments(); // Como el original: en cada iteración (0x57D563)
         sprintf_s(gString, "MPACK//MPACK%d//MPACK.DAT", i);
         if (auto file = CFileMgr::OpenFile(gString, "rb")) {
             // MPACK.DAT file format:
@@ -618,8 +643,35 @@ void CMenuManager::ProcessMissionPackNewGame() {
 
             isAnyMissionPackAvailable = true;
 
-            // NOTSA
-            VERIFY(fscanf_s(file, "%" PRIu8 "#%[^\n\r#]#", &m_MissionPacks[i].m_Id, SCANF_S_STR(m_MissionPacks[i].m_Name)) == 2);
+            // Como el original: lectura byte a byte con CFileMgr::Read; cada campo termina en '#',
+            // se ignoran '\n' y '\r' y los campos vacíos; un fichero puede tener varios packs.
+            const auto fileSize = CFileMgr::GetTotalSize(file);
+            char   field[256];
+            uint8  fieldLen  = 0;
+            bool   readingId = true;
+#ifdef FIX_BUGS // El contador del original es de 8 bits: con ficheros de más de 255 bytes no termina nunca
+            for (int32 pos = 0; pos < fileSize; pos++) {
+#else
+            for (uint8 pos = 0; (int32)pos < fileSize; pos++) {
+#endif
+                char ch = 0;
+                CFileMgr::Read(file, &ch, 1);
+                if (ch == '#') {
+                    if (fieldLen > 0) {
+                        field[fieldLen] = '\0';
+                        if (readingId) {
+                            m_MissionPacks[numMissionPacks].m_Id = (uint8)atoi(field);
+                        } else {
+                            strcpy_s(m_MissionPacks[numMissionPacks].m_Name, field);
+                            numMissionPacks++;
+                        }
+                        readingId = !readingId;
+                        fieldLen  = 0;
+                    }
+                } else if (ch != '\n' && ch != '\r') {
+                    field[fieldLen++] = ch;
+                }
+            }
             CFileMgr::CloseFile(file);
         }
     }

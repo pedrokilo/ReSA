@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -20,6 +20,15 @@ END GENERATED HOOK STATUS */
 #include "AEAudioEnvironment.h"
 
 auto& gAudioZoneToReverbEnvironmentMap = StaticRef<sReverbEnvironment[NUM_AUDIO_ENVIRONMENTS]>(0x8AD670);
+
+// Variables globales del EXE que el original lee (no constantes)
+static auto& gMikeCutOff          = StaticRef<float>(0x8AC258); // 0.707
+static auto& gMikeCutOffLow       = StaticRef<float>(0x8AC25C); // -0.707
+static auto& gMikeAttenuation     = StaticRef<float>(0x8AC260); // -6
+static auto& gCameraOffsetMax     = StaticRef<float>(0x8AC264); // 0.5
+static auto& gCameraOffsetSub     = StaticRef<float>(0x8AC268); // 0.5
+static auto& gCameraOffset1stPers = StaticRef<float>(0x8AC26C); // 2
+static auto& gExeAttenuationTable = StaticRef<std::array<float, 1280>>(0x8AC270);
 
 #include "data/SoundAttenuationTable.h"
 
@@ -64,39 +73,29 @@ float CAEAudioEnvironment::GetDopplerRelativeFrequency(float prevDist, float cur
 }
 
 // 0x4D7F20
-// Consulta la tabla precalculada de atenuación y silencia distancias fuera de rango.
+// Consulta la tabla de atenuación del EXE (índice floor(dist · 10)) y silencia distancias fuera de rango.
 float CAEAudioEnvironment::GetDistanceAttenuation(float dist) {
-    assert(dist >= 0.f);
-    return dist < ATTENUATION_TABLE_MAX_DIST
-        ? gSoundDistAttenuationTable[(uint32)std::floor(dist / ATTENUATION_TABLE_RESOLUTION)]
-        : -100.f;
+    if (!(dist < ATTENUATION_TABLE_MAX_DIST)) {
+        return -100.f;
+    }
+    return gExeAttenuationTable.data()[(int32)(int64)std::floor((double)(dist * 10.0f))];
 }
 
 // 0x4D7F60
+// Como el original: normaliza una copia y usa solo su componente Y ((z + x) · 0 + y),
+// con el corte y la atenuación leídos de variables globales del EXE.
 float CAEAudioEnvironment::GetDirectionalMikeAttenuation(const CVector& soundDir) {
-    // https://en.wikipedia.org/wiki/Cutoff_frequency
-    static constexpr float CUT_OFF_FREQ = 0.70710678118F; // sqrt(0.5F);
-    static constexpr float ATTENUATION_FACTOR = -6.0F;
+    CVector dir = soundDir;
+    dir.Normalise();
+    const float freq = (dir.z + dir.x) * 0.0f + dir.y;
 
-    // BUG? Seems weird that it uses just single axis,
-    // seems like it should be normalized dot product
-    // with for example Camera direction,
-    // to work the same way regardless of direction
-    const auto freq = soundDir.Dot({ 0.f, 1.f, 0.f });
-
-    if (CUT_OFF_FREQ == -1.0F) {
-        return 0.0F;
+    if (gMikeCutOff == -1.0f || !(freq < gMikeCutOff)) {
+        return 0.0f;
     }
-
-    if (freq >= CUT_OFF_FREQ) {
-        return 0.f;
+    if (!(freq > gMikeCutOffLow) && !std::isnan(freq)) {
+        return gMikeAttenuation;
     }
-
-    if (freq <= -CUT_OFF_FREQ) {
-        return ATTENUATION_FACTOR;
-    }
-
-    return (1.0f - invLerp(-CUT_OFF_FREQ, CUT_OFF_FREQ, freq)) * ATTENUATION_FACTOR;
+    return (gMikeCutOff - freq) / (gMikeCutOff - gMikeCutOffLow) * gMikeAttenuation;
 }
 
 // 0x4D8010
@@ -110,27 +109,23 @@ void CAEAudioEnvironment::GetReverbEnvironmentAndDepth(int8* reverbEnv, int32* d
         return;
     }
 
-    int32 nZone;
+    // Como el original: una zona -1 (o ninguna activa) cae al área interior (zona 14) antes de "sin reverb".
+    int16 nZone = -1;
     if (CAudioZones::m_NumActiveSpheres > 0)
         nZone = CAudioZones::m_aSpheres[CAudioZones::m_aActiveSpheres[0]].m_nAudioZone;
     else if (CAudioZones::m_NumActiveBoxes > 0)
         nZone = CAudioZones::m_aBoxes[CAudioZones::m_aActiveBoxes[0]].m_nAudioZone;
-    else if (CGame::currArea)
+
+    if (nZone == -1) {
+        if (!CGame::currArea) {
+            *reverbEnv = 23; // todo: EAX_ENVIRONMENT_DRUGGED
+            *depth = -100;
+            return;
+        }
         nZone = 14;
-    else {
-        *reverbEnv = 23; // todo: EAX_ENVIRONMENT_DRUGGED
-        *depth = -100;
-        return;
     }
-
-    if (nZone != -1) {
-        *reverbEnv = gAudioZoneToReverbEnvironmentMap[nZone].m_nEnvironment;
-        *depth     = gAudioZoneToReverbEnvironmentMap[nZone].m_nDepth;
-        return;
-    }
-
-    *reverbEnv = 23; // todo: EAX_ENVIRONMENT_DRUGGED
-    *depth = -100;
+    *reverbEnv = gAudioZoneToReverbEnvironmentMap[nZone].m_nEnvironment;
+    *depth     = gAudioZoneToReverbEnvironmentMap[nZone].m_nDepth;
 }
 
 CVector CAEAudioEnvironment::GetPositionRelativeToCamera(const CVector& pos) {
@@ -154,12 +149,12 @@ void CAEAudioEnvironment::GetPositionRelativeToCamera_Vector(CVector* output, co
     const auto* matrix = &TheCamera.m_mCameraMatrix;
     const auto mode = CCamera::GetActiveCamera().m_nMode;
     const bool firstPerson = mode == eCamMode::MODE_SNIPER || mode == eCamMode::MODE_ROCKETLAUNCHER || mode == eCamMode::MODE_1STPERSON;
-    float cameraOffset = -2.f;
+    float cameraOffset = -gCameraOffset1stPers;
     if (!firstPerson) {
-        cameraOffset = 0.f;
+        const float half = gCameraOffsetSub;
+        cameraOffset = half - half;
         if (auto* player = FindPlayerPed()) {
             const auto* playerPos = &player->GetPosition();
-            const float half = .5f;
             uint8 deltaXExt[10], deltaYExt[10], deltaZValue[10];
             __asm {
                 mov eax, playerPos
@@ -185,8 +180,11 @@ void CAEAudioEnvironment::GetPositionRelativeToCamera_Vector(CVector* output, co
                 fsub half
                 fstp cameraOffset
             }
-            cameraOffset = std::clamp(cameraOffset, 0.f, .5f);
         }
+        // Recorte del original: 0 si min(v, máx) < 0; si no, min(v, máx) (NaN -> máx)
+        const float maxOffset = gCameraOffsetMax;
+        const float t = cameraOffset < maxOffset ? cameraOffset : maxOffset;
+        cameraOffset = 0.f > t ? 0.f : t;
     }
     // Preserve the original x87 intermediates: Y remains extended, Z is
     // rounded to float, and the lateral dot product adds Y+Z before X.

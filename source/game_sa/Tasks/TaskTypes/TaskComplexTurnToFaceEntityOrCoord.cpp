@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -72,7 +72,10 @@ CTask* CTaskComplexTurnToFaceEntityOrCoord::Clone() const {
 
 // 0x66B9D0
 float CTaskComplexTurnToFaceEntityOrCoord::ComputeTargetHeading(CPed* ped) const {
-    return (ComputeTargetPos() - ped->GetPosition()).Heading();
+    // 0x66BA2C: normalised direction, then the angle from it towards the origin (not `CVector::Heading`)
+    auto dir = ComputeTargetPos() - ped->GetPosition();
+    dir.Normalise();
+    return CGeneral::GetRadianAngleBetweenPoints(dir.x, dir.y, 0.f, 0.f);
 }
 
 CVector CTaskComplexTurnToFaceEntityOrCoord::ComputeTargetPos() const {

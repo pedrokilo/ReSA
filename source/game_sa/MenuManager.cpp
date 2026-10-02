@@ -118,7 +118,10 @@ void CMenuManager::InjectHooks() {
 
 // 0x574350
 CMenuManager::CMenuManager() {
-    m_apRadioSprites->Constructor();
+    // Como el original: `eh vector constructor iterator` sobre los 25 sprites (0x821D30), no solo el primero.
+    for (auto& sprite : m_aFrontEndSprites) {
+        sprite.Constructor();
+    }
     m_nPlayerNumber          = 0;
     m_bDoVideoModeUpdate     = false;
     m_DeleteAllNextDefine    = false;
@@ -184,6 +187,10 @@ CMenuManager* CMenuManager::Destructor() {
 // 0x579440
 CMenuManager::~CMenuManager() {
     UnloadTextures();
+    // Como el original: `eh vector destructor iterator` (0x821E02) destruye los 25 sprites, del último al primero.
+    for (auto i = std::size(m_aFrontEndSprites); i-- > 0;) {
+        m_aFrontEndSprites[i].Destructor();
+    }
 }
 
 // 0x5744D0
@@ -205,20 +212,27 @@ void CMenuManager::Initialise() {
 
     m_fMapZoom = FRONTEND_MAP_RANGE_MAX;
 
-    if (m_vMapOrigin.x - FRONTEND_MAP_RANGE_MAX > 0.0f) {
-        m_vMapOrigin.x = m_vMapOrigin.x - m_vMapOrigin.x - FRONTEND_MAP_RANGE_MAX;
+    // Como el original: los cuatro bordes se calculan antes de corregir nada,
+    // y cada corrección es origen - (origen - 1100) o (límite - (origen + 1100)) + origen.
+    const float top    = m_vMapOrigin.y - FRONTEND_MAP_RANGE_MAX;
+    const float bottom = m_vMapOrigin.y + FRONTEND_MAP_RANGE_MAX;
+    const float left   = m_vMapOrigin.x - FRONTEND_MAP_RANGE_MAX;
+    const float right  = m_vMapOrigin.x + FRONTEND_MAP_RANGE_MAX;
+
+    if (left > 0.0f) {
+        m_vMapOrigin.x = m_vMapOrigin.x - left;
     }
 
-    if (m_vMapOrigin.x + FRONTEND_MAP_RANGE_MAX < DEFAULT_SCREEN_WIDTH) {
-        m_vMapOrigin.x = DEFAULT_SCREEN_WIDTH - m_vMapOrigin.x + FRONTEND_MAP_RANGE_MAX + m_vMapOrigin.x;
+    if (right < 640.0f) {
+        m_vMapOrigin.x = (640.0f - right) + m_vMapOrigin.x;
     }
 
-    if (m_vMapOrigin.y - FRONTEND_MAP_RANGE_MAX > 0.0f) {
-        m_vMapOrigin.y = m_vMapOrigin.y - m_vMapOrigin.y - FRONTEND_MAP_RANGE_MAX;
+    if (top > 0.0f) {
+        m_vMapOrigin.y = m_vMapOrigin.y - top;
     }
 
-    if (m_vMapOrigin.y + FRONTEND_MAP_RANGE_MAX < DEFAULT_SCREEN_HEIGHT) {
-        m_vMapOrigin.y = DEFAULT_SCREEN_HEIGHT - m_vMapOrigin.y + FRONTEND_MAP_RANGE_MAX + m_vMapOrigin.y;
+    if (bottom < 448.0f) {
+        m_vMapOrigin.y = (448.0f - bottom) + m_vMapOrigin.y;
     }
 
     CRadar::SetMapCentreToPlayerCoords();
@@ -243,10 +257,14 @@ void CMenuManager::LoadAllTextures() {
 
     CTimer::Stop();
 
-    const auto LoadTexture = [=](unsigned memorySize, const char* slotName, const char* txdName, unsigned start, unsigned end) {
+    // Como el original: frontend1, frontend_pc y frontend2 (en ese orden y con esos tamaños);
+    // frontend3 no se carga aquí (solo SwapTexturesRound) y frontend2 no llama a TidyUpMemory.
+    const auto LoadTexture = [=](unsigned memorySize, bool tidyUp, const char* slotName, const char* txdName, unsigned start, unsigned end) {
         CStreaming::MakeSpaceFor(memorySize);
         CStreaming::ImGonnaUseStreamingMemory();
-        CGame::TidyUpMemory(false, true);
+        if (tidyUp) {
+            CGame::TidyUpMemory(false, true);
+        }
         CTxdStore::PushCurrentTxd();
         auto slot = CTxdStore::FindOrAddTxdSlot(slotName);
         CTxdStore::LoadTxd(slot, txdName);
@@ -263,10 +281,9 @@ void CMenuManager::LoadAllTextures() {
         CStreaming::IHaveUsedStreamingMemory();
     };
 
-    LoadTexture(0x21000, "frontend1",   "MODELS\\FRONTEN1.TXD",   FRONTEND1_START, FRONTEND2_START);
-    LoadTexture(0x3000,  "frontend2",   "MODELS\\FRONTEN2.TXD",   FRONTEND2_START, FRONTEND3_START);
-    LoadTexture(0x6800,  "frontend3",   "MODELS\\FRONTEN3.TXD",   FRONTEND3_START, FRONTEND4_START);       // NOTSA (for SwapTexturesRound)
-    LoadTexture(0x4C000, "frontend_pc", "MODELS\\FRONTEN_pc.TXD", FRONTEND4_START, FRONTEND_SPRITE_COUNT); // OG: "MODELS/FRONTEN_pc.TXD"
+    LoadTexture(0x21000, true,  "frontend1",   "MODELS\\FRONTEN1.TXD",  FRONTEND1_START, FRONTEND2_START);
+    LoadTexture(0x3000,  true,  "frontend_pc", "MODELS/FRONTEN_pc.TXD", FRONTEND4_START, FRONTEND_SPRITE_COUNT);
+    LoadTexture(0x4C000, false, "frontend2",   "MODELS\\FRONTEN2.TXD",  FRONTEND2_START, FRONTEND3_START);
 
     m_bTexturesLoaded = true;
     CTimer::Update();
@@ -323,14 +340,15 @@ void CMenuManager::UnloadTextures() {
         SwapTexturesRound(false);
 
         const auto Unload = [](const char* slot, auto& sprites) {
+            const auto txd = CTxdStore::FindTxdSlot(slot); // Como el original: se busca antes de borrar los sprites.
             std::ranges::for_each(sprites, [](auto& sprite) { sprite.Delete(); });
-            CTxdStore::RemoveTxd(CTxdStore::FindTxdSlot(slot));
+            CTxdStore::RemoveTxd(txd);
         };
 
+        // Como el original: frontend1, frontend_pc y frontend2; frontend3 ya lo retiró SwapTexturesRound(false).
         Unload("frontend1",   m_apRadioSprites);
-        Unload("frontend2",   m_apBackgroundTextures);
-        Unload("frontend3",   m_apAdditionalBackgroundTextures); // NOTSA
         Unload("frontend_pc", m_apMouseTextures);
+        Unload("frontend2",   m_apBackgroundTextures);
 
         m_bTexturesLoaded = false;
     }
@@ -415,12 +433,14 @@ void CMenuManager::DoSettingsBeforeStartingAGame() {
 
 // 0x5733E0
 float CMenuManager::StretchX(float x) {
-    return (SCREEN_WIDTH == DEFAULT_SCREEN_WIDTH) ? x : SCREEN_STRETCH_X(x);
+    // Como el original: (ancho * x) * 0.0015625f (0x859520), no x * ancho / 640.
+    return (RsGlobal.maximumWidth == DEFAULT_SCREEN_WIDTH) ? x : SCREEN_WIDTH * x * 0.0015625f;
 }
 
 // 0x573410
 float CMenuManager::StretchY(float y) {
-    return (SCREEN_HEIGHT == DEFAULT_SCREEN_HEIGHT) ? y : SCREEN_STRETCH_Y(y);
+    // Como el original: (alto * y) * 0.002232143f (0x859524), no y * alto / 448.
+    return (RsGlobal.maximumHeight == DEFAULT_SCREEN_HEIGHT) ? y : SCREEN_HEIGHT * y * 0.002232143f;
 }
 
 // 0x573680
@@ -462,8 +482,10 @@ void CMenuManager::SwitchToNewScreen(eMenuScreen screen) {
             m_nCurrentScreen     = screen;
         }
         else {
+            // Como el original: el destino se lee con la opción actual antes de ponerla a 0.
+            const auto target    = aScreens[m_nCurrentScreen].m_aItems[m_nCurrentScreenItem].m_nTargetMenu;
             m_nCurrentScreenItem = 0;
-            m_nCurrentScreen     = aScreens[m_nCurrentScreen].m_aItems[m_nCurrentScreenItem].m_nTargetMenu;
+            m_nCurrentScreen     = target;
         }
     }
 
@@ -567,7 +589,7 @@ void CMenuManager::SetDefaultPreferences(eMenuScreen screen) {
         m_ShowMissionBlips               = true;
         m_ShowOtherBlips                 = true;
         m_ShowGangAreaBlips              = true;
-        m_bShowSubtitles                 = true;
+        m_bShowSubtitles                 = false; // Como el original: mov byte ptr [esi+44h],0 (0x573BF1)
         break;
     case SCREEN_CONTROLLER_SETUP:
         m_ControlMethod                  = eController::MOUSE_PLUS_KEYS;
@@ -628,18 +650,20 @@ void CMenuManager::JumpToGenericMessageScreen(eMenuScreen screen, const char* ti
 
     auto& mscreen = aScreens[m_nCurrentScreen];
 
+    // Como el original: el destino se escribe en el segundo elemento (+0x26 = m_aItems[1].m_nTargetMenu).
     switch (screen) {
     case SCREEN_GAME_SAVED:
-        mscreen.m_aItems[0].m_nTargetMenu = SCREEN_START_GAME;
+        mscreen.m_aItems[1].m_nTargetMenu = SCREEN_START_GAME;
         break;
     case SCREEN_GAME_LOADED:
-        mscreen.m_aItems[0].m_nTargetMenu = SCREEN_GAME_SAVE;
+        mscreen.m_aItems[1].m_nTargetMenu = SCREEN_GAME_SAVE;
         break;
     default:
         break;
     }
-    std::snprintf(mscreen.m_szTitleName, sizeof(mscreen.m_szTitleName), "%s", titleKey);
-    std::snprintf(mscreen.m_aItems[0].m_szName, sizeof(mscreen.m_aItems[0].m_szName), "%s", textKey);
+    // Como el original: strncpy de 8 bytes (rellena con ceros y no fuerza el terminador).
+    strncpy(mscreen.m_szTitleName, titleKey, 8);
+    strncpy(mscreen.m_aItems[0].m_szName, textKey, 8);
 }
 
 // 0x57C520
@@ -651,9 +675,15 @@ void CMenuManager::CentreMousePointer() {
     }
 #endif
 
-    CVector2D pos{ SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f };
+    CVector2D pos{ SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f };
     if (pos.x != 0.0f && pos.y != 0.0f) {
-        RsMouseSetPos(&pos);
+        // Como el original: psMouseSetPos va en línea con mitades enteras (ancho / 2),
+        // y lastMousePos recibe esas mitades convertidas a float (no ancho * 0.5f).
+        POINT point = { .x = RsGlobal.maximumWidth / 2, .y = RsGlobal.maximumHeight / 2 };
+        ::ClientToScreen(PSGLOBAL(window), &point);
+        ::SetCursorPos(point.x, point.y);
+        PSGLOBAL(lastMousePos).x = (float)(RsGlobal.maximumWidth / 2);
+        PSGLOBAL(lastMousePos).y = (float)(RsGlobal.maximumHeight / 2);
     }
 }
 
@@ -667,13 +697,20 @@ void CMenuManager::LoadSettings() {
         return;
     }
 
+    // Como el original: el idioma previo se guarda antes de leer y se restaura si el fichero no vale.
+    const auto previousLang = m_nPrefsLanguage;
+
+    // Como el original: se pone a true antes de leer (0x57C933); la lectura o los valores por defecto lo sobrescriben.
+    bInvertMouseY = true;
+
     const auto SetToDefaultSettings = [&]() {
         SetDefaultPreferences(SCREEN_AUDIO_SETTINGS);
         SetDefaultPreferences(SCREEN_DISPLAY_SETTINGS);
         SetDefaultPreferences(SCREEN_DISPLAY_ADVANCED);
         SetDefaultPreferences(SCREEN_CONTROLLER_SETUP);
-        m_nPrefsVideoMode = 0;
-        m_nPrefsLanguage = eLanguage::AMERICAN;
+        // Como el original: pone a 0 el subsistema RW (+0xDC), no el modo de vídeo, y restaura el idioma previo.
+        m_nCurrentRwSubsystem = 0;
+        m_nPrefsLanguage = previousLang;
         m_nRadioStation = RADIO_CLASSIC_HIP_HOP;
 
         CFileMgr::CloseFile(file);
@@ -697,10 +734,10 @@ void CMenuManager::LoadSettings() {
     uint32 version = 0u;
     struct { uint8 m_unk; uint8 m_separator; uint8 m_underscore; uint8 _align; } constants;
     FxQuality_e fxQuality = FX_QUALITY_HIGH;
-    auto previousLang = m_nPrefsLanguage;
 
     ReadFromFile(version);
-    if (version < SETTINGS_FILE_VERSION || !ControlsManager.LoadSettings(file)) {
+    // Como el original: comparación con signo (jl).
+    if ((int32)version < (int32)SETTINGS_FILE_VERSION || !ControlsManager.LoadSettings(file)) {
         return SetToDefaultSettings();
     }
 
@@ -839,101 +876,114 @@ void CMenuManager::SaveStatsToFile() {
     char date[12]{};
     _strdate_s(date, 12u);
 
-    const GxtChar* lastMissionPassedKey = TheText.Get("ITBEG"); // In the beginning
-    if (CStats::LastMissionPassedName[0]) {
-        lastMissionPassedKey = TheText.Get(CStats::LastMissionPassedName);
-    }
+    // Como el original: un solo CText::Get (con el nombre de la última misión o "ITBEG").
+    const GxtChar* lastMissionPassedKey = CStats::LastMissionPassedName[0]
+        ? TheText.Get(CStats::LastMissionPassedName)
+        : TheText.Get("ITBEG"); // In the beginning
 
     auto file = CFileMgr::OpenFile("stats.html", "w");
-    const auto End = [&]() {
-        CFileMgr::SetDir("");
-        CFileMgr::CloseFile(file); // FIX_BUGS
-        m_HelperText = FET_STS;
-        m_nHelperTextFadingAlpha = 300;
-    };
-    if (!file) {
-        End();
-        return;
-    }
+    if (file) {
+        const auto ToUpperCase = [](const char* s) {
+            // HACK: This seems to be the cleanest way...
+            auto wide = UTF8ToUnicode(s);
+            rng::transform(wide, wide.begin(), towupper);
+            return UnicodeToUTF8(wide);
+        };
 
-    const auto ToUpperCase = [](const char* s) {
-        // HACK: This seems to be the cleanest way...
-        auto wide = UTF8ToUnicode(s);
-        rng::transform(wide, wide.begin(), towupper);
-        return UnicodeToUTF8(wide);
-    };
+#ifdef FIX_BUGS
+        // FIX_BUGS: Use UTF-8 instead of ANSI.
+        fprintf_s(file, "<meta charset=\"UTF-8\"/>\n");
+#endif
 
-    // FIX_BUGS: Use UTF-8 instead of ANSI.
-    fprintf_s(file, "<meta charset=\"UTF-8\"/>\n");
-
-    fprintf_s(file, "<title>Grand Theft Auto San Andreas Stats</title>\n");
-    fprintf_s(file, "<body bgcolor=\"#000000\" leftmargin=\"10\" topmargin=\"10\" marginwidth=\"10\" marginheight=\"10\">\n");
-    fprintf_s(file, "<table width=\"560\" align=\"center\" border=\"0\" cellpadding=\"5\" cellspacing=\"0\">\n"
-                  "<tr align=\"center\" valign=\"top\"> \n"
-                  "<td height=\"59\" colspan=\"2\" bgcolor=\"#000000\"><div align=\"center\"><font color=\"#FFFFFF\" size=\"5\" face=\"Arial, \n");
-    fprintf_s(file, "Helvetica, sans-serif\">-------------------------------------------------------------------</font><font \nsize=\"5\" face=\"Arial, Helvetica, sans-serif\"><br>\n");
-    fprintf_s(file, "<strong><font color=\"#FFFFFF\">GRAND THEFT AUTO SAN ANDREAS ");
-    fprintf_s(file, "%s</font></strong><br><font\n", ToUpperCase(GxtCharToUTF8(TheText.Get("FEH_STA"))).c_str()); // Stats
-    fprintf_s(file, "color=\"#FFFFFF\">-------------------------------------------------------------------</font></font></div></td> </tr>\n");
-    fprintf_s(file, "<tr align=\"center\" valign=\"top\" bgcolor=\"#000000\">     <td height=\"22\" colspan=\"2\">&nbsp;</td>  </tr>\n"
-                    "<tr align=\"center\" valign=\"top\" bgcolor=\"#000000\"> \n");
-    fprintf_s(file, R"(<td height="40" colspan="2"> <p><font color="#F0000C" size="2" face="Arial, Helvetica, sans-serif"><stro)");
-    fprintf_s(file, "ng><font color=\"#F0000C\" size=\"1\">%s: \n", GxtCharToUTF8(TheText.Get("FES_DAT"), 0u)); // DATE
-    fprintf_s(file, "%s</font><br>        %s: </strong>", date, GxtCharToUTF8(TheText.Get("FES_CMI"), 0u));     // LAST MISSION PASSED
-    fprintf_s(file, "%s<strong><br></strong> </font></p></td></tr>\n", ToUpperCase(GxtCharToUTF8(lastMissionPassedKey)).c_str());
-    fprintf_s(file, "<tr align=\"center\" valign=\"top\" bgcolor=\"#000000\"> <td height=\"5\" colspan=\"2\"></td> </tr> <tr align=\"center\" valign=\"top\" bgcolor=\"#000000\"> \n"
-                  "<td height=\"10\" colspan=\"2\"></td> </tr> <tr align=\"center\" valign=\"top\" bgcolor=\"#000000\"> \n");
-    fprintf_s(file, R"(<td height="20" colspan="2"><font color="#F0000C" size="2" face="Arial, Helvetica, sans-serif">)");
-    fprintf_s(file, "<strong> %s</strong>\n ", GxtCharToUTF8(TheText.Get("CRIMRA"), 0u)); // Criminal rating:
-    TextCopy(gGxtString, CStats::FindCriminalRatingString());
-    fprintf_s(file, "%s (%d)</font></td>  </tr>", GxtCharToUTF8(gGxtString, 0u), CStats::FindCriminalRatingNumber());
-    fprintf_s(file, "<tr align=\"left\" valign=\"top\" bgcolor=\"#000000\"><td height=\"10\" colspan=\"2\"></td>  </tr>\n");
-
-    static constexpr const char* strToPrint[] = {
-        "FES_PLA", "FES_MON", "FES_WEA", "FES_GAN",
-        "FES_CRI", "FES_ACH", "FES_MIS", "FES_MSC"
-    };
-    for (auto menuItem = 0u; menuItem < 8u; menuItem++) {
-        auto numStatLines = CStats::ConstructStatLine(99'999, menuItem);
-
-        fprintf_s(file, "</font></strong></div></td> </tr> <tr align=\"left\" valign=\"top\" bgcolor=\"#000000\">  <td height=\"25\" colspan=\"2\"></td> </tr>\n"
-                      "<tr align=\"left\" valign=\"top\"><td height=\"30\" bgcolor=\"#000000\"><font color=\"#009900\" size=\"4\" face=\"Arial, Helvetica, sans-serif\"><strong>\n");
-
-        fprintf_s(file, "%s", GxtCharToUTF8(TheText.Get(strToPrint[menuItem]), 0u));
-        fprintf_s(file, "</strong></font></td> <td width=\"500\" align=\"right\" valign=\"middle\" bgcolor=\"#000000\"> <div align=\"right\"><strong><font color=\"#FF0CCC\">\n");
-        if (numStatLines <= 0)
-            continue;
-
-        for (auto stat = 0; stat < numStatLines; stat++) {
-            CStats::ConstructStatLine(stat, menuItem);
-
-            auto str = GxtCharToUTF8(gGxtString, 0u);
-            if (*str) {
-                fprintf_s(file, "</font></strong></div></td> </tr> <tr align=\"left\" valign=\"top\" bgcolor=\"#000000\">  <td height=\"10\" colspan=\"2\"></td> </tr>\n");
-            }
-
-            fprintf_s(file, "<tr align=\"left\" valign=\"top\"><td width=\"500\" height=\"22\" bgcolor=\"#555555\"><font color=\"#FFFFFF\" size=\"2\" face=\"Arial, Helvetica, sans-serif\"><strong>\n");
-            fprintf_s(file, "%s", (*str) ? str : " ");
-            fprintf_s(file, "</strong></font></td> <td width=\"500\" align=\"right\" valign=\"middle\" bgcolor=\"#555555\"> <div align=\"right\"><strong><font color=\"#FFFFFF\">\n");
-            auto val = GxtCharToUTF8(gGxtString2, 0u);
-            auto valFormatted = (char*)val;
-
-            // todo. xref: CStats::ConstructStatLine, PrintStats
-            static auto& unk = StaticRef<uint16>(0xB794CC);
-            if (unk) { // stat line formatted in percents?
-                sprintf_s(valFormatted, 5u, "%0.0f%%", std::min(atoi(val) / 10.0f, 100.0f)); // max length: "100%\0"
-            }
-
-            for (auto v = valFormatted; *v; v++) {
-                if (*v == '|') {
-                    *v = -70; // double vertical bar
-                }
-            }
-            fprintf_s(file, "%s", valFormatted);
+        // Como el original: mismas cadenas y mismos cortes de fprintf que el EXE (0x86636C...0x865708).
+        fprintf_s(file, "<title>Grand Theft Auto San Andreas Stats</title>\n");
+        fprintf_s(file, "<body bgcolor=\"#000000\" leftmargin=\"10\" topmargin=\"10\" marginwidth=\"10\" marginheight=\"10\">\n");
+        fprintf_s(file, "<table width=\"560\" align=\"center\" border=\"0\" cellpadding=\"5\" cellspacing=\"0\">\n");
+        fprintf_s(file, "<tr align=\"center\" valign=\"top\"> \n");
+        fprintf_s(file, "<td height=\"59\" colspan=\"2\" bgcolor=\"#000000\"><div align=\"center\"><font color=\"#FFFFFF\" size=\"5\" face=\"Arial, \n");
+        fprintf_s(file, "Helvetica, sans-serif\">-------------------------------------------------------------------</font><font \n");
+        fprintf_s(file, "size=\"5\" face=\"Arial, Helvetica, sans-serif\"><br>\n");
+        fprintf_s(file, "<strong><font color=\"#FFFFFF\">GRAND THEFT AUTO SAN ANDREAS ");
+        fprintf_s(file, "%s</font></strong><br><font\n", ToUpperCase(GxtCharToUTF8(TheText.Get("FEH_STA"))).c_str()); // Stats
+        fprintf_s(file, "color=\"#FFFFFF\">-------------------------------------------------------------------</font></font></div></td> </tr>\n");
+        fprintf_s(file, "<tr align=\"center\" valign=\"top\" bgcolor=\"#000000\">     <td height=\"22\" colspan=\"2\">&nbsp;</td>  </tr>\n");
+        fprintf_s(file, "<tr align=\"center\" valign=\"top\" bgcolor=\"#000000\"> \n");
+        fprintf_s(file, "<td height=\"40\" colspan=\"2\"> <p><font color=\"#F0000C\" size=\"2\" face=\"Arial, Helvetica, sans-serif\"><strong><font color=\"#F0000C\" size=\"1\">%s: \n", GxtCharToUTF8(TheText.Get("FES_DAT"), 0u)); // DATE
+        fprintf_s(file, "%s</font><br>        %s: </strong>", date, GxtCharToUTF8(TheText.Get("FES_CMI"), 0u));     // LAST MISSION PASSED
+        fprintf_s(file, "%s<strong><br></strong> </font></p></td></tr>\n", ToUpperCase(GxtCharToUTF8(lastMissionPassedKey)).c_str());
+        fprintf_s(file, "<tr align=\"center\" valign=\"top\" bgcolor=\"#000000\"> <td height=\"5\" colspan=\"2\"></td> </tr> <tr align=\"center\" valign=\"top\" bgcolor=\"#000000\"> \n");
+        fprintf_s(file, "<td height=\"10\" colspan=\"2\"></td> </tr> <tr align=\"center\" valign=\"top\" bgcolor=\"#000000\"> \n");
+        fprintf_s(file, "<td height=\"20\" colspan=\"2\"><font color=\"#F0000C\" size=\"2\" face=\"Arial, Helvetica, sans-serif\"><strong>%s</strong>\n", GxtCharToUTF8(TheText.Get("CRIMRA"), 0u)); // Criminal rating:
+        TextCopy(gGxtString, CStats::FindCriminalRatingString());
+        {
+            const auto ratingStr = GxtCharToUTF8(gGxtString, 0u); // Como el original: se convierte antes de pedir el número
+            fprintf_s(file, "%s (%d)</font></td>  </tr>  <tr align=\"left\" valign=\"top\" bgcolor=\"#000000\"><td height=\"10\" colspan=\"2\"></td>  </tr>\n", ratingStr, CStats::FindCriminalRatingNumber());
         }
+
+        static constexpr const char* strToPrint[] = {
+            "FES_PLA", "FES_MON", "FES_WEA", "FES_GAN",
+            "FES_CRI", "FES_ACH", "FES_MIS", "FES_MSC"
+        };
+        for (auto menuItem = 0u; menuItem < 8u; menuItem++) {
+            auto numStatLines = CStats::ConstructStatLine(99'999, menuItem);
+
+            fprintf_s(file, "</font></strong></div></td> </tr> <tr align=\"left\" valign=\"top\" bgcolor=\"#000000\">  <td height=\"25\" colspan=\"2\"></td> </tr>\n");
+            fprintf_s(file, "<tr align=\"left\" valign=\"top\"><td height=\"30\" bgcolor=\"#000000\"><font color=\"#009900\" size=\"4\" face=\"Arial, Helvetica, sans-serif\"><strong>\n");
+
+            fprintf_s(file, "%s", GxtCharToUTF8(TheText.Get(strToPrint[menuItem]), 0u));
+            fprintf_s(file, "</strong></font></td> <td width=\"500\" align=\"right\" valign=\"middle\" bgcolor=\"#000000\"> <div align=\"right\"><strong><font color=\"#FF0CCC\">\n");
+
+            for (auto stat = 0; stat < numStatLines; stat++) {
+                CStats::ConstructStatLine(stat, menuItem);
+
+                auto str = GxtCharToUTF8(gGxtString, 0u);
+                if (*str) {
+                    fprintf_s(file, "</font></strong></div></td> </tr> <tr align=\"left\" valign=\"top\" bgcolor=\"#000000\">  <td height=\"10\" colspan=\"2\"></td> </tr>\n");
+                }
+
+                fprintf_s(file, "<tr align=\"left\" valign=\"top\"><td width=\"500\" height=\"22\" bgcolor=\"#555555\"><font color=\"#FFFFFF\" size=\"2\" face=\"Arial, Helvetica, sans-serif\"><strong>\n");
+                if (*str) {
+                    fprintf_s(file, "%s", str);
+                } else {
+                    fprintf_s(file, " ");
+                }
+                fprintf_s(file, "</strong></font></td> <td width=\"500\" align=\"right\" valign=\"middle\" bgcolor=\"#555555\"> <div align=\"right\"><strong><font color=\"#FFFFFF\">\n");
+                auto val = GxtCharToUTF8(gGxtString2, 0u);
+                auto valFormatted = (char*)val;
+
+                // todo. xref: CStats::ConstructStatLine, PrintStats
+                static auto& unk = StaticRef<uint16>(0xB794CC);
+                if (unk) { // stat line formatted in percents?
+                    // Como el original: atoi * 0.001f * 100.0f, y 100 si no es < 100 (NaN incluido); sprintf sin límite.
+                    float percent = (float)atoi(val) * 0.001f * 100.0f;
+                    if (!(percent < 100.0f)) {
+                        percent = 100.0f;
+                    }
+                    std::sprintf(valFormatted, "%0.0f%%", (double)percent);
+                }
+
+                for (auto v = valFormatted; *v; v++) {
+                    if (*v == '|') {
+                        *v = -70; // double vertical bar
+                    }
+                }
+                fprintf_s(file, "%s", valFormatted);
+            }
+        }
+
+        // Como el original: cierre de la tabla y pie con enlaces (0x865AC8, 0x865900...0x865708).
+        fprintf_s(file, "</font></strong></div></td> </tr> <tr align=\"left\" valign=\"top\" bgcolor=\"#000000\">  <td height=\"10\" colspan=\"2\"></td> </tr>\n");
+        fprintf_s(file, "</table><br><table width=\"560\" border=\"0\"  align=\"center\" cellspacing=\"0\" cellpadding=\"5\"><tr align=\"center\" valign=\"middle\" bgcolor=\"#000000\">");
+        fprintf_s(file, "<td><font color=\"#F0000C\" size=\"2\" face=\"Arial, Helvetica, sans-serif\"><a href=\"http://www.rockstargames.com/sanandreas\">rockstargames.com/sanandreas</a></font></td>\n");
+        fprintf_s(file, "<td><font color=\"#F0000C\" size=\"2\" face=\"Arial, Helvetica, sans-serif\"><a href=\"http://www.rockstargames.com\">rockstargames.com</a></font></td>\n");
+        fprintf_s(file, "<td><font color=\"#F0000C\" size=\"2\" face=\"Arial, Helvetica, sans-serif\">&nbsp;<a href=\"http://www.rockstarnorth.com\">rockstarnorth.com</a></font></td></tr>\n");
+        fprintf_s(file, "</table>\n</body>\n");
+        CFileMgr::CloseFile(file); // Como el original: fclose solo si se abrió
     }
 
-    End();
+    CFileMgr::SetDir("");
+    m_HelperText             = FET_STS;
+    m_nHelperTextFadingAlpha = 300;
 }
 
 // 0x57C490
@@ -971,7 +1021,7 @@ void CMenuManager::DisplayHelperText(const char* key) {
     CFont::SetEdge(0);
 
     const auto x = StretchX(610.0f);
-    auto y = SCREEN_STRETCH_FROM_BOTTOM(10.0f);
+    auto y = SCREEN_HEIGHT - StretchY(10.0f); // Como el original: alto - StretchY (0x573410), no SCREEN_STRETCH_FROM_BOTTOM.
     const GxtChar* text;
 
     // 0x57E29D
@@ -1012,7 +1062,7 @@ void CMenuManager::DisplayHelperText(const char* key) {
             default:
                 text = TheText.Get(m_nCurrentScreen ? "FET_MIG" : "FEH_SSA"); // CURSORS - MOVE~n~S - SAVE TO FILE
                 if (m_nCurrentScreen == SCREEN_MAP) {
-                    y = SCREEN_STRETCH_FROM_BOTTOM(2.0f);
+                    y = SCREEN_HEIGHT - StretchY(2.0f);
                 }
                 break;
             }
@@ -1074,25 +1124,35 @@ void CMenuManager::MessageScreen(const char* key, bool blackBackground, bool cam
     }
 
     SmallMessageScreen(key);
-    CFont::RenderFontBuffer();
+    CFont::DrawFonts(); // Como el original: llama a 0x71A210 (DrawFonts)
 }
 
 // 0x574010
 void CMenuManager::SmallMessageScreen(const char* key) {
+    // Como el original: StretchX/StretchY van en línea con la constante ya dividida (valor / 640 o / 448)
+    // que el compilador dejó en .rdata, sin pasar por CMenuManager::StretchX/StretchY.
+    const auto StretchXK = [](float x, uint32 kBits) {
+        return RsGlobal.maximumWidth == DEFAULT_SCREEN_WIDTH ? x : SCREEN_WIDTH * std::bit_cast<float>(kBits);
+    };
+    const auto StretchYK = [](float y, uint32 kBits) {
+        return RsGlobal.maximumHeight == DEFAULT_SCREEN_HEIGHT ? y : SCREEN_HEIGHT * std::bit_cast<float>(kBits);
+    };
+
     CFont::SetBackground(false, false);
     CFont::SetProportional(true);
     CFont::SetFontStyle(eFontStyle::FONT_SUBTITLES);
-    CFont::SetCentreSize(SCREEN_SCALE_X(430.0f));
+    CFont::SetCentreSize(SCREEN_WIDTH * 0.0015625f * 430.0f); // Como el original: (ancho * 0.0015625f) * 430 sin comprobar 640 ni corregir aspecto
     CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
     CFont::SetColor(HudColour.GetRGB(HUD_COLOUR_LIGHT_GRAY));
     CFont::SetDropShadowPosition(0);
-    CFont::SetScale(StretchX(0.56f), StretchY(1.0f));
+    CFont::SetScale(StretchXK(0.56f, 0x3A656042u), StretchYK(1.0f, 0x3B124925u));
 
+    // Como el original: los bordes derecho/inferior se restan del ancho/alto en float.
     DrawWindow({
-            StretchX(95.0f),
-            StretchY(125.0f),
-            SCREEN_STRETCH_FROM_RIGHT(95.0f),
-            SCREEN_STRETCH_FROM_BOTTOM(165.0f)
+            StretchXK(95.0f, 0x3E180000u),
+            StretchYK(125.0f, 0x3E8EDB6Eu),
+            SCREEN_WIDTH - StretchXK(95.0f, 0x3E180000u),
+            SCREEN_HEIGHT - StretchYK(165.0f, 0x3EBC9249u)
         },
         nullptr,
         0,
@@ -1101,24 +1161,31 @@ void CMenuManager::SmallMessageScreen(const char* key) {
         true
     );
 
-    float x = StretchX(320.0f);
-    float y = StretchY(190.0f);
-
-    const auto lines = CFont::GetNumberLines(StretchX(320.0f), StretchX(135.0f), TheText.Get(key));
+    // Como el original: GetNumberLines recibe (StretchX(320), StretchY(135)) y la Y final es entera (_ftol2).
+    const auto lines = CFont::GetNumberLines(StretchXK(320.0f, 0x3F000000u), StretchYK(135.0f, 0x3E9A4925u), TheText.Get(key));
+    int32 y;
     if (lines > 1) {
-        y = StretchY(float(200 - lines * 9));
+        y = (int32)(StretchYK(200.0f, 0x3EE49249u) - (float)lines * StretchYK(9.0f, 0x3CA49249u));
+    } else {
+        y = (int32)StretchYK(190.0f, 0x3ED92492u);
     }
 
     auto text = TheText.Get(key);
     if (!TheText.m_bCdErrorLoaded) {
         for (auto& k : { "NOCD", "OPENCD", "WRONGCD", "CDERROR" }) {
             if (!_stricmp(k, key)) {
+#ifdef FIX_BUGS
                 // FIX_BUGS: AsciiToGxtChar <-> GxtCharToAscii (then UTF-8)
                 GxtCharToUTF8(TheText.m_szCdErrorText, text);
+#else
+                // Como el original: copia el texto de error del CD sobre la cadena GXT devuelta (0x718600).
+                AsciiToGxtChar(TheText.m_szCdErrorText, const_cast<GxtChar*>(text));
+#endif
+                break; // Como el original: la cadena de || se detiene en la primera coincidencia
             }
         }
     }
-    CFont::PrintString(x, y, text);
+    CFont::PrintString(StretchXK(320.0f, 0x3F000000u), (float)y, text);
 }
 
 //! NOTSA

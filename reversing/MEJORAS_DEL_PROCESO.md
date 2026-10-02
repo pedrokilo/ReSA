@@ -62,10 +62,10 @@ No cambiar docs/hooks.csv ni completar una clase en docs/ReversedClasses.md ante
 
 ### Rutas y estado comprobado
 
-- Repositorio: E:\Original\gta-reversed-master.
+- Repositorio: D:\Original\gta-reversed-master.
 - Rama local comprobada: PGTASA. Destino indicado por el usuario: pedrokilo/RePorteoGTA-XBOXONESS. Verificar el remoto antes de cualquier publicación.
 - Al comenzar esta actualización documental, git status --short estaba limpio. No suponer que siguen pendientes los cambios mencionados en el chat anterior; consultar Git. Esta actualización del Markdown es un cambio nuevo. No se realizó commit ni push en esta tarea de traspaso.
-- Juego de pruebas: E:\JUEGOS\GTA San Andreas - CVehicle Test.
+- Juego de pruebas: D:\JUEGOS\GTA San Andreas - CVehicle Test.
 - Instalación personal: E:\JUEGOS\GTA San Andreas. Conservarla y conservar las partidas originales.
 - Ejecutable original analizado: D:\Grand Theft Auto San Andreas\gta-sa.exe. SHA-256 esperado: 72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b. Verificar también el ejecutable de la copia de pruebas antes de usar direcciones fijas.
 - Los cambios se cargan mediante scripts\gta_reversed.asi en la copia de pruebas. Los hooks modifican el proceso en memoria; no se necesita parchear el ejecutable en disco.
@@ -75,7 +75,7 @@ No cambiar docs/hooks.csv ni completar una clase en docs/ReversedClasses.md ante
 
 RpAnimBlendClumpUpdateAnimations, dirección 0x004D34F0, quedó habilitada tras 652 comparaciones aprobadas dentro del motor. RpAnimBlend figura completa con 43 funciones. Error máximo 2.9802322387695312e-08 frente a tolerancia 1e-05. Pose del jugador y partidas sin cambios.
 
-Leer RpAnimBlend/README.md, RpAnimBlend/validation-summary.json y RpAnimBlend/fixture-notes.md. El registro completo local está en E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-rpanimblend\20260922-191537-770481. Su hash se conserva en el resumen. No usar los ensayos descartados como evidencia de aprobación.
+Leer RpAnimBlend/README.md, RpAnimBlend/validation-summary.json y RpAnimBlend/fixture-notes.md. El registro completo local está en D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-rpanimblend\20260922-191537-770481. Su hash se conserva en el resumen. No usar los ensayos descartados como evidencia de aprobación.
 
 Lección importante: RpClumpClone podía dejar atomics apuntando a la jerarquía original. La sonda final reasigna la jerarquía clonada, crea su animación y exige almacenamiento de poses independiente entre original, candidato y jugador. La igualdad entre dos resultados no es suficiente si comparten memoria modificable.
 
@@ -98,7 +98,7 @@ El último comando evita la pausa interactiva del CMD. Consultar reversing/cases
 Compilación normal utilizada:
 
 ```powershell
-& 'E:\Original\gta-reversed-master\reversing\CVehicle\conan-cache\p\cmake20ac4e0137fee\p\bin\cmake.exe' --build build --config Debug
+& 'D:\Original\gta-reversed-master\reversing\CVehicle\conan-cache\p\cmake20ac4e0137fee\p\bin\cmake.exe' --build build --config Debug
 ```
 
 Salida: bin\Debug\gta_reversed.asi y .pdb. Compilador Visual Studio 18 Community, MSVC 14.51.36231, x86. dumpbin está bajo C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x86. Comprobar rutas si el entorno cambió.
@@ -163,7 +163,7 @@ La clase figura como completa por sus 21 funciones registradas; este banco valid
 
 El ASI normal más reciente, sin instrumentación, está instalado solo en la copia de pruebas y tiene SHA-256 `1500be85a8d953d1c8a8485eabc3e6439445c03b19671d36e25b881027ac78f0`. PDB: `3ca09924b8ea7694287e3fe66203445af22cacc3ad439c65c8179e3205b7bcce`. Respaldo en `_baseline/before-clouds-20260922`. Partidas verificadas sin cambios. La sonda final archivada tiene SHA-256 `548c54113a6673f7db9aee8ee55fe38582bf71b36d97c8dad859f6eefee99e50` y se repite mediante `PROBAR.cmd --case clouds` o `python reversing/run.py --case clouds`, que termina sin pausa. Está integrada también en --all, conservando un solo PROBAR.cmd.
 
-La ejecución conjunta documentada en ULTIMA_EJECUCION.md es anterior a CClouds: sus nueve bancos aprobaron 76.319 pares con sondas archivadas. No confundir ese informe histórico con una ejecución de los diez bancos actuales ni con una compilación integrada. La última ejecución de CClouds está en `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-clouds/20260922-202449-837866`.
+La ejecución conjunta documentada en ULTIMA_EJECUCION.md es anterior a CClouds: sus nueve bancos aprobaron 76.319 pares con sondas archivadas. No confundir ese informe histórico con una ejecución de los diez bancos actuales ni con una compilación integrada. La última ejecución de CClouds está en `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-clouds/20260922-202449-837866`.
 
 No hubo commit ni push. Conservar los cambios de las clases anteriores y de la infraestructura. No se ha elegido la siguiente clase después de CClouds.
 
@@ -175,7 +175,7 @@ La reconstrucción conserva los límites RGB estrictos de 15, la comparación ad
 
 ASI normal actual, sin instrumentación, instalado solo en la copia de pruebas: SHA-256 `ce812b18c0f2154af48dede876b863e68040d4e0fa3d85f6c0aa68f303f1feb3`. PDB: `d51c5b1332d30eb38f523f987feeb1d161143db926fc3f2795e79a56a4d8fa06`. Respaldo en `_baseline/before-menusystem-20260922`. Partidas verificadas sin cambios. Sonda archivada: `31f0abcaad1fd61e590e4aa26b3da26c01ae224f1d4883a18d26349b129dee00`. Ejecución: `PROBAR.cmd --case menusystem` o `python reversing/run.py --case menusystem`, sin pausa. Caso añadido a --all, conservando un solo CMD.
 
-Evidencia final: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-menusystem/20260922-203512-507016`. El informe ULTIMA_EJECUCION.md sigue siendo histórico y anterior a CClouds y CMenuSystem; no se volvió a ejecutar toda la serie en este trabajo. No hubo commit ni push. Conservar los cambios previos. No se ha elegido otra clase después de CMenuSystem.
+Evidencia final: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-menusystem/20260922-203512-507016`. El informe ULTIMA_EJECUCION.md sigue siendo histórico y anterior a CClouds y CMenuSystem; no se volvió a ejecutar toda la serie en este trabajo. No hubo commit ni push. Conservar los cambios previos. No se ha elegido otra clase después de CMenuSystem.
 
 ## Actualización de continuidad: CTaskSimpleUseGun (2026-09-22)
 
@@ -185,7 +185,7 @@ Límite esencial: los casos controlados registran y sustituyen efectos de AimGun
 
 ASI normal actual, sin instrumentación, instalado solo en la copia de pruebas: SHA-256 `05e7cbda3213066e8ae6452d8578a3e23b1c37a45631313303183fb3e2e571d5`. PDB: `1c20494da65b4b41a0cbd3957d0be7ada4ef4aee14148291dc307d0a80102c0c`. Respaldo en `_baseline/before-usegun-20260922`. Partidas y jugador real verificados sin cambios. Sonda archivada: `a10f00f4cb717fa3e556b9ea42f4f019036bbf997f6f4f6d0ab621029a8ba345`. Se repite mediante `PROBAR.cmd --case usegun` o `python reversing/run.py --case usegun` sin pausa. Integrada en --all, con un solo PROBAR.cmd.
 
-Evidencia final: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-usegun/20260922-205940-939686`. Se corrigió durante las comparaciones la exclusión exacta del final del bucle de disparo continuo. No se ejecutó toda la serie de sondas; ULTIMA_EJECUCION.md sigue siendo un informe histórico anterior. Se mantienen excluidos Audio y Global/SurfaceInfos_c durante las comparaciones. No hubo commit ni push. Conservar los trabajos anteriores y los cambios de esta clase. No se ha elegido la siguiente clase después de CTaskSimpleUseGun.
+Evidencia final: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-usegun/20260922-205940-939686`. Se corrigió durante las comparaciones la exclusión exacta del final del bucle de disparo continuo. No se ejecutó toda la serie de sondas; ULTIMA_EJECUCION.md sigue siendo un informe histórico anterior. Se mantienen excluidos Audio y Global/SurfaceInfos_c durante las comparaciones. No hubo commit ni push. Conservar los trabajos anteriores y los cambios de esta clase. No se ha elegido la siguiente clase después de CTaskSimpleUseGun.
 
 
 ## Cola autorizada por el usuario (2026-09-22)
@@ -239,7 +239,7 @@ El usuario dio prioridad a CPed sobre la cola anterior. CPed queda en 145/145 en
 
 PROBAR.cmd --case cped-completion, tambien integrado en --all. Una sola infraestructura y un solo CMD. El nuevo banco termina automaticamente, compara estados y argumentos de dependencias controladas, valida los contadores y restaura hooks/globals/jugador, ASI/PDB y partidas. Algunas fuerzas fisicas y constructores permanecen reales; no se validaron todas las cadenas de tareas, colisiones reales del mapa, trafico completo, dano real ni representacion audiovisual. DoFootLanded conserva dos helpers originales separados con ABI en registros. El 145/145 no incluye virtuales no registradas ni significa cobertura exhaustiva o estabilidad general. La campana integral sigue aplazada hasta completar todas las clases.
 
-ASI normal sin instrumentacion instalado SOLO en la copia de pruebas: `971e1d165ec8392b9c2301c2225988d708c4313292b8d745f04d2385bc26b5b6`. Respaldo `_baseline/before-cped-completion-20260922`. Partidas verificadas sin cambios; instalacion personal intacta. Evidencia final: `E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cped-completion\20260922-221131-711733`. La unica diferencia del fuente normal frente al de la sonda final es la inclusion explicita de PedPlacement.h; la implementacion es identica. Compilacion Debug x86 aprobada. No se ejecuto de nuevo toda la serie de sondas y ULTIMA_EJECUCION.md sigue siendo historico.
+ASI normal sin instrumentacion instalado SOLO en la copia de pruebas: `971e1d165ec8392b9c2301c2225988d708c4313292b8d745f04d2385bc26b5b6`. Respaldo `_baseline/before-cped-completion-20260922`. Partidas verificadas sin cambios; instalacion personal intacta. Evidencia final: `D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-cped-completion\20260922-221131-711733`. La unica diferencia del fuente normal frente al de la sonda final es la inclusion explicita de PedPlacement.h; la implementacion es identica. Compilacion Debug x86 aprobada. No se ejecuto de nuevo toda la serie de sondas y ULTIMA_EJECUCION.md sigue siendo historico.
 
 Sin commit/push. Conservar todos los trabajos previos. CQuadBike sigue pendiente de validacion y con hook deshabilitado (11/12), aunque su candidato ahora compila como parte del proyecto. La cola autorizada de 21 clases sigue conservada; tras Wander y JetPack quedan CQuadBike y las 18 posteriores. CPed fue la prioridad de esta peticion, no una anulacion de esa cola.
 
@@ -259,7 +259,7 @@ Sustituye la excepcion de constructor locked descrita en el cierre anterior. CPl
 
 4.224 pares originales/candidatos aprobados: 4.096 patrones completos de memoria con guardas/retorno/contador de una inicializacion y 128 regresiones de cuatro conjuntos de armas con entregas repetidas, inventario, municion, seleccion y referencias de modelos. Ultima prueba con hook activo y unlocked desde arranque; tres llamadas reales al candidato antes del banco. Streaming y representacion de armas controlados; SetInitialState y funciones de armas compartidas existentes. No prueba disparos ni estabilidad general, ni certifica todas las manifestaciones historicas del fallo.
 
-Evidencia: reversing/CPlayerInfo/constructor-validation-summary.json y README.md; logs en E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-playerinfo-constructor\20260922-233000-236046. PROBAR.cmd --case playerinfo-constructor, integrado en --all sin nuevos CMD. Constructor actualizado a reversed=1, locked=0 solo tras validar. Banco anterior de 16.896 pares conservado sin repetir: las tres funciones no cambiaron.
+Evidencia: reversing/CPlayerInfo/constructor-validation-summary.json y README.md; logs en D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-playerinfo-constructor\20260922-233000-236046. PROBAR.cmd --case playerinfo-constructor, integrado en --all sin nuevos CMD. Constructor actualizado a reversed=1, locked=0 solo tras validar. Banco anterior de 16.896 pares conservado sin repetir: las tres funciones no cambiaron.
 
 ASI normal sin instrumentacion instalado SOLO en copia de pruebas: dc6281acd032e459eb86eeab373be832c9d203a7d0c00cf38ab6ea4446195009. Respaldo _baseline/before-playerinfo-constructor-20260922. Fuentes restauradas; partidas sin cambios; instalacion personal intacta. Rama PGTASA; sin commit/push. Conservar los trabajos anteriores y cola pendiente. Campana integral sigue aplazada.
 
@@ -267,7 +267,7 @@ ASI normal sin instrumentacion instalado SOLO en copia de pruebas: dc6281acd032e
 
 Completada 3/3: AddFurniture 0x5C00C0, GetFurniture 0x590EE0 y GetRandomId 0x590FD0. 20.480 pares exactos dentro de GTA (4.096 + 8.192 + 8.192), banco final con los tres hooks habilitados y sin locked desde arranque. IDs no negativos ignoran riqueza; negativos seleccionan por intervalo inclusivo. Riqueza 255 no es comodin (comparacion original contra -1 inalcanzable). Se consume RNG incluso sin coincidencias. AddFurniture conserva low-word del contador, almacen 256, insercion al principio y umbral dimensional >=0.02.
 
-Fixtures de listas/cajas aisladas y RNG controlado; AddItem compartido existente. No colocacion/robo completos, representacion ni estabilidad general. README y validation-summary.json detallan evidencia: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-furniture\20260922-234110-237502. PROBAR.cmd --case furniture, incluido en --all sin nuevos CMD. hooks.csv actualizado reversed=1/locked=0 tras validar; ReversedClasses.md regenerado.
+Fixtures de listas/cajas aisladas y RNG controlado; AddItem compartido existente. No colocacion/robo completos, representacion ni estabilidad general. README y validation-summary.json detallan evidencia: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-furniture\20260922-234110-237502. PROBAR.cmd --case furniture, incluido en --all sin nuevos CMD. hooks.csv actualizado reversed=1/locked=0 tras validar; ReversedClasses.md regenerado.
 
 ASI normal sin instrumentacion instalado solo en copia de pruebas: 36910037caae88d3f125d9492f1987e4d025b78677133b37b25efd622ac24ca1. Respaldo _baseline/before-furniture-20260922. Fuentes restauradas, partidas sin cambios e instalacion personal intacta. Rama PGTASA, sin commit/push. Conservar trabajos anteriores y cola pendiente; CQuadBike sigue sin validar/deshabilitada. CPlayerInfo constructor sigue corregido y habilitado. No se repitio toda la suite ni se inicio la campana integral.
 
@@ -288,7 +288,7 @@ GetTextureDependency existente coincide. Init ahora conserva segundo PartnerTask
 
 Banco automático integrado en el único PROBAR.cmd: --case clothes-scripted-sprint y --all. Compara tablas completas con guardas, pool real y objetos; restaura globals/hooks/jugador y comprueba partidas. No se probaron interacción prolongada, ropa completa, agotamiento del pool, tareas reales de atractores ni estabilidad general. No se repitió toda la suite. Campaña integral sigue aplazada; ULTIMA_EJECUCION.md es histórico.
 
-Evidencia final: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-clothes-scripted-sprint\20260923-001346-817023. ASI normal instalado solo en copia de pruebas: d62c1071aadb1b459964a46efc4bfc3b9c6b3ea094521374408c14de7e9da034. Respaldo _baseline/before-clothes-scripted-sprint-20260923. Fuentes normales coinciden con el manifiesto; partidas sin cambios e instalación personal intacta.
+Evidencia final: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-clothes-scripted-sprint\20260923-001346-817023. ASI normal instalado solo en copia de pruebas: d62c1071aadb1b459964a46efc4bfc3b9c6b3ea094521374408c14de7e9da034. Respaldo _baseline/before-clothes-scripted-sprint-20260923. Fuentes normales coinciden con el manifiesto; partidas sin cambios e instalación personal intacta.
 
 hooks.csv actualizado solo para cuatro filas tras validar, ReversedClasses.md regenerado y README actualizado. Guía de prioridades conserva su corte inicial y ahora señala estos tres cierres; quedan 97 clases incompletas y 551 entradas pendientes. Rama PGTASA, sin commit/push. Conservar cambios anteriores, incluido CQuadBike sin validar/deshabilitado y el constructor CPlayerInfo ya corregido.
 
@@ -299,7 +299,7 @@ CGeneral sigue 9/9 y ahora tiene cero locked. GetRandomNumberInRange<float> 0x41
 
 65.536 pares exactos finales, cero diferencias float y retorno de 80 bits, una llamada RNG por lado. Banco con 16 intervalos y entradas RNG controladas; ver README/validation-summary.json en reversing/CGeneral. Hook habilitado y desbloqueado desde arranque, luego compilación normal sin instrumentación. No se revalidaron las otras ocho entradas ni todos los callers, incluido el template entero que usa el helper float. No prueba todos los modos FP, NaN/infinito, conducción prolongada ni estabilidad general.
 
-Evidencia: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-general\20260923-003344-869382. Caso --case general en el único PROBAR.cmd y en --all. Fuentes restauradas y comparadas con el manifiesto. ASI normal instalado solo en copia de pruebas: e5b8d16815fb880a46fe0a23e012d825e3607304ef3429f7a248a3ad03192a67; respaldo _baseline/before-general-20260923. Partidas sin cambios, instalación personal intacta.
+Evidencia: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-general\20260923-003344-869382. Caso --case general en el único PROBAR.cmd y en --all. Fuentes restauradas y comparadas con el manifiesto. ASI normal instalado solo en copia de pruebas: e5b8d16815fb880a46fe0a23e012d825e3607304ef3429f7a248a3ad03192a67; respaldo _baseline/before-general-20260923. Partidas sin cambios, instalación personal intacta.
 
 hooks.csv actualizado solo en locked de la fila float tras validar; ReversedClasses.md regenerado y eliminado el candado de CGeneral. README y hash de trazabilidad de ReversingPriorities actualizados. La guía conserva la actualización anterior completa: 97 clases pendientes, 551 funciones y Top 10 renovado, no volver a introducir clases ya cerradas. Sin commit/push. Campaña integral aplazada y ULTIMA_EJECUCION.md histórico.
 
@@ -314,7 +314,7 @@ runtime_runner.py ahora respalda y restaura ambos INI byte por byte: FastLoader 
 
 Cierre registrado a las 00:36:43: acceso inválido 0xC0000005 en CAESound::UpdateParameters:252, lectura 0xDDDDDE0D. El usuario indicó un choque previo. Reproducción dentro del motor confirmó que la asignación implícita de CAESound copia EntityRef sin registrar el destino ni retirar la referencia anterior; ResolveReferences deja el destino colgando. Se implementó operator= explícito, con referencia registrada, autoasignación y preservación de m_IsAudioHardwareAware/relleno como el original 0x4EF680. La reparación no modifica globalmente EntityRef.
 
-1.024 pares exactos aprobados con Audio activo desde arranque; solo SurfaceInfos excluido en este banco. Caso sound-copy integrado en el único PROBAR.cmd y --all. README y validation-summary.json en reversing/CAESound. Evidencia: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-sound-copy\20260923-004932-410885. La reproducción fallida quedó en 20260923-004623-831808. No se revalidó toda la clase ni se reprodujo exactamente el mismo choque. Los errores de asignación CEntryExit del log siguen como incidencia separada.
+1.024 pares exactos aprobados con Audio activo desde arranque; solo SurfaceInfos excluido en este banco. Caso sound-copy integrado en el único PROBAR.cmd y --all. README y validation-summary.json en reversing/CAESound. Evidencia: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-sound-copy\20260923-004932-410885. La reproducción fallida quedó en 20260923-004623-831808. No se revalidó toda la clase ni se reprodujo exactamente el mismo choque. Los errores de asignación CEntryExit del log siguen como incidencia separada.
 
 ASI normal instalado solo en copia de pruebas: 08ac3949fc40b466eac6d61c600a4df6987247e692a43d295824f9c473b7668d; respaldo _baseline/before-sound-copy-20260923. Después se abrió sin exclusiones y se comprobó por lectura de gGameState que llegó al menú en 27,32 s, permaneció allí diez segundos y no cargó partida. Estados observados 0,1,2,3,5,7; sin revisión visual de vídeos ni sesión prolongada. Evidencia en reversing/InicioNormal/validation-summary.json.
 
@@ -670,7 +670,7 @@ Se alternó el hook ya instalado (`hook->State(false/true)`) para llamar, en `0x
 
 **No se validaron:** el bloque final completo de teleporte/streaming/tienda/población/scripts; el peatón sosteniendo una entidad real (`SetAreaCode` del objeto sostenido); un grupo de peatones real (evento `CEventLeaderEntryExit`); `GetEntryExitToDisplayNameOf()` devolviendo un `CEntryExit` no nulo (`CHud::SetZoneName`); la sub-rama de `EXIT_ENTER_STATE_1` con tarea primaria `TASK_COMPLEX_GOTO_DOOR_AND_OPEN`; los valores exactos (duración, marca de tiempo) que escriben `Fade`/`SetFadeColour`. Detalles completos, hashes y evidencia en [reversing/CEntryExitTransition/README.md](CEntryExitTransition/README.md) y [validation-summary.json](CEntryExitTransition/validation-summary.json).
 
-ASI normal recompilado sin instrumentación e instalado solo en la copia de pruebas: SHA-256 `34801e37752db66f73e01c8b79e7f5c1cf1d27b7a7866116c3557699287e36e5`; PDB `bb28eda79b1e2d8d17ec56522852b48a4d353450e30cba6861fd55f80668825e`. Respaldo del ASI/PDB anteriores en `_baseline/before-enextransition-20261001-125342` (ASI `cfb7ccd82ed7b4a289574699fa3a736c195f346e6abde04cd19d9333482949b9`, PDB `876716f9244e88fa45b38442ba041e16412c3442049bf9fd5692c8e0cbab01d4`). Partidas (`GTASAsf2.b`) verificadas sin cambios; instalación personal `E:\JUEGOS\GTA San Andreas` no se tocó. Evidencia: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-enextransition/20261001-125022-681196/comparisons.jsonl` (SHA-256 `806c86bdcb96c59a1948136fbab27f6b1ac184ec503c9170c18a0882ae0c6519`).
+ASI normal recompilado sin instrumentación e instalado solo en la copia de pruebas: SHA-256 `34801e37752db66f73e01c8b79e7f5c1cf1d27b7a7866116c3557699287e36e5`; PDB `bb28eda79b1e2d8d17ec56522852b48a4d353450e30cba6861fd55f80668825e`. Respaldo del ASI/PDB anteriores en `_baseline/before-enextransition-20261001-125342` (ASI `cfb7ccd82ed7b4a289574699fa3a736c195f346e6abde04cd19d9333482949b9`, PDB `876716f9244e88fa45b38442ba041e16412c3442049bf9fd5692c8e0cbab01d4`). Partidas (`GTASAsf2.b`) verificadas sin cambios; instalación personal `E:\JUEGOS\GTA San Andreas` no se tocó. Evidencia: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-enextransition/20261001-125022-681196/comparisons.jsonl` (SHA-256 `806c86bdcb96c59a1948136fbab27f6b1ac184ec503c9170c18a0882ae0c6519`).
 
 Caso `enextransition` añadido a `reversing/cases.json`, disponible en `PROBAR.cmd --case enextransition`, `python reversing/run.py --case enextransition` y `--all`. Se siguió la cola autorizada: tras CEntryExit siguen `CCarFXRenderer` y el resto de las 14 clases pendientes de esa lista (ver tabla arriba). Sin commit, push ni apagado. Conservar los trabajos anteriores.
 
@@ -684,7 +684,7 @@ El `CEntryExit` sintético usado como destino usa `AREA_CODE_NORMAL_WORLD` y la 
 
 Nota de proceso: el primer intento de esta fase, delegado a un subagente, quedó bloqueado porque el clasificador de modo automático denegó por "Irreversible Local Destruction" la ejecución de `build_probe.py` (instrumentación temporal de fuente con restauración garantizada en `finally`, el mismo patrón ya usado sin incidentes en la fase 1). Se verificó el patrón, se ejecutó directamente con autorización expresa del usuario, y compiló/corrió sin problemas.
 
-ASI normal reinstalado sin instrumentación tras esta fase, mismo hash que la fase 1 (no cambió): SHA-256 `34801e37752db66f73e01c8b79e7f5c1cf1d27b7a7866116c3557699287e36e5` / PDB `bb28eda79b1e2d8d17ec56522852b48a4d353450e30cba6861fd55f80668825e`. Sonda de esta fase: ASI `48207c1f405c8448e41d28897a6bfbf44afd0e11f6257c3e09096a11acf7bbb3` / PDB `416fb6d0d7845300095f926c098ccab58751c91db94a133c5bfab825ccb5957a`; `run_local.py` actualizado con este `PROBE_HASH` y con la verificación automática de los eventos `heavy_*`. Partidas (`GTASAsf2.b`) verificadas sin cambios; instalación personal no se tocó. Evidencia: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-enextransition/20261001-132428-655341/comparisons.jsonl` (SHA-256 `909b67706f6d2457e89f16e5421decc6e2f6371206a03a7ba0fc3540d173d734`) y `summary.json` en la misma carpeta.
+ASI normal reinstalado sin instrumentación tras esta fase, mismo hash que la fase 1 (no cambió): SHA-256 `34801e37752db66f73e01c8b79e7f5c1cf1d27b7a7866116c3557699287e36e5` / PDB `bb28eda79b1e2d8d17ec56522852b48a4d353450e30cba6861fd55f80668825e`. Sonda de esta fase: ASI `48207c1f405c8448e41d28897a6bfbf44afd0e11f6257c3e09096a11acf7bbb3` / PDB `416fb6d0d7845300095f926c098ccab58751c91db94a133c5bfab825ccb5957a`; `run_local.py` actualizado con este `PROBE_HASH` y con la verificación automática de los eventos `heavy_*`. Partidas (`GTASAsf2.b`) verificadas sin cambios; instalación personal no se tocó. Evidencia: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-enextransition/20261001-132428-655341/comparisons.jsonl` (SHA-256 `909b67706f6d2457e89f16e5421decc6e2f6371206a03a7ba0fc3540d173d734`) y `summary.json` en la misma carpeta.
 
 Sin commit, push ni apagado. CEntryExit queda con su comparación dentro del motor ampliada al bloque invasivo; CCarFXRenderer y el resto de la cola siguen en el mismo estado que antes de esta tarea.
 
@@ -702,7 +702,7 @@ Sin commit, push ni apagado. CEntryExit queda con su comparación dentro del mot
 
 **Corrección real aplicada por la sesión principal, misma fecha:** se corrigió el defecto que bloqueaba `Interior()` — `CTaskInteriorLieInBed::InjectHooks` registraba `FinishAnimCB` (función `static`, no virtual) con `RH_ScopedVMTInstall` en vez de `RH_ScopedInstall`, abortando el proceso con *"Couldn't find function in vtable"*. Corregido a `RH_ScopedInstall` (idéntico al patrón ya correcto de `CTaskInteriorSitAtDesk::FinishAnimCB`) y activada la llamada `Interior();`. Se revisaron las seis clases hermanas restantes: todas registran únicamente virtuales genuinos, sin el mismo defecto. Compilación limpia y prueba de humo real: ASI normal nuevo (SHA-256 `4c2d1e55740713650ef25f38176e5fd7bfac277753b687e9b3785aecddfcf62f`) instalado en la copia de pruebas, el juego arrancó y permaneció vivo 25 s sin abortar, se cerró limpio y se restauraron partidas/respaldo sin cambios (`_baseline/before-interiorfix-smoketest-20261001-145916`, hash previo `c72f79320beae01a658cae2036a0c26f9a7713d39256d6a967f2a84a03367b40`). Con esto, las 8 clases `CTaskInterior*` ya instalan sus hooks en el ASI normal, no solo en el banco aislado — un alcance más amplio que el pedido originalmente para `CTaskInteriorSitAtDesk::ProcessPed`, pero necesario para que ese `reversed=1` tenga efecto real en el juego.
 
-Respaldo del ASI/PDB previos a la sub-tarea de `sitatdesk` (antes de esta corrección) en `_baseline/before-sitatdesk-20261001` (ASI `34801e37752db66f73e01c8b79e7f5c1cf1d27b7a7866116c3557699287e36e5`, PDB `bb28eda79b1e2d8d17ec56522852b48a4d353450e30cba6861fd55f80668825e`). Partidas (`GTASAsf2.b`) verificadas sin cambios en todos los pasos; instalación personal `E:\JUEGOS\GTA San Andreas` no se tocó. Evidencia del banco de `ProcessPed`: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-sitatdesk/20261001-145144-156757/comparisons.jsonl`.
+Respaldo del ASI/PDB previos a la sub-tarea de `sitatdesk` (antes de esta corrección) en `_baseline/before-sitatdesk-20261001` (ASI `34801e37752db66f73e01c8b79e7f5c1cf1d27b7a7866116c3557699287e36e5`, PDB `bb28eda79b1e2d8d17ec56522852b48a4d353450e30cba6861fd55f80668825e`). Partidas (`GTASAsf2.b`) verificadas sin cambios en todos los pasos; instalación personal `E:\JUEGOS\GTA San Andreas` no se tocó. Evidencia del banco de `ProcessPed`: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-sitatdesk/20261001-145144-156757/comparisons.jsonl`.
 
 Caso `sitatdesk` añadido a `reversing/cases.json`, disponible en `PROBAR.cmd --case sitatdesk`, `python reversing/run.py --case sitatdesk` y `--all`. Se mantienen excluidos los hooks Audio y Global/SurfaceInfos_c durante la prueba. Sin commit, push ni apagado. Conservar los trabajos anteriores; la cola autorizada de clases pendientes no se vio afectada por esta tarea (CTaskInteriorSitAtDesk no formaba parte de ella).
 
@@ -825,4 +825,71 @@ Resultado: **0 diferencias**, 60 s en partida sin asserts.
 
 **Catálogo:** 772 grupos, 8.442 entradas, 7.857 reconstruidas y 585 pendientes; 665 completas, 104 parciales y 3 sin revertir; 677 locks; 40 `validated=1`.
 
-**Disco y mudanza.** E: se llenó con artefactos de sondas (unos 790 MB por compilación); se borraron los binarios de compilaciones superadas. El repo y la copia de pruebas viven ahora en D:, y `E:\Original\gta-reversed-master` y `E:\JUEGOS\GTA San Andreas - CVehicle Test` son uniones hacia allí, así que las rutas `E:` de CMake, conan, `runtime_runner.py` y las evidencias siguen siendo válidas.
+**Disco y mudanza.** E: se llenó con artefactos de sondas (unos 790 MB por compilación); se borraron los binarios de compilaciones superadas. El repo y la copia de pruebas viven ahora en D:, y `D:\Original\gta-reversed-master` y `D:\JUEGOS\GTA San Andreas - CVehicle Test` son uniones hacia allí, así que las rutas `E:` de CMake, conan, `runtime_runner.py` y las evidencias siguen siendo válidas.
+
+## Continuidad vigente: segunda lista de clases (2026-10-02)
+
+Bancos nuevos, todos con pares exactos dentro de GTA:
+- [PcSave](PcSave/README.md): `C_PcSave`, 5 funciones, 832 pares.
+- [TasksBatch3](TasksBatch3/README.md): `UseGoggles`, `UseAttractor`, `UseAttractorPartner`, `UseEffect` y `UsePairedAttractor`, 38 funciones, 19.168 pares.
+- [Markers](Markers/README.md): `C3dMarker` (5) y `C3dMarkers` (15), 12.768 pares.
+- [IplStore](IplStore/README.md): 26 funciones de `CIplStore`, 6.240 pares.
+- [BreakObj](BreakObj/README.md): 7 funciones de `BreakObject_c`, 8.704 pares.
+
+**Defectos de alcance general encontrados:**
+- La vtable de `CPedAttractor` estaba desordenada: en el EXE, `GetType` (virtual pura) va antes del destructor.
+- El hook de 0x407180 (`GetRandomNumberInRange_int32`) usaba la plantilla entera de `GetRandomNumberInRange`, que puede salir desfasada en uno. Ahora usa `GetRandomIntInRange`.
+
+**Lecciones:**
+- **Constantes.** Hay que leerlas del EXE. 0x8717A8 es el float *siguiente* a 0,015, no `0.015f`; con el literal, `m_StdSize` salía desfasado en un ulp en el 3 % de los casos.
+- **`fsin` x87.** Trabaja con precisión interna completa aunque el control esté a 24 bits. Se replica con `__asm` (`fld; fmul; fsin; fmul; fadd`).
+- **Ensamblador en línea.** `size` (operador MASM), `dx` (registro) y `far` (macro de windows.h) no sirven como nombres de variable.
+- **Bancos grandes.** Las regiones enormes (arrays globales, peatones completos) se comparan por hash FNV, volcando solo lo que cambió; volcarlas enteras en JSON hacía que el banco no terminara a tiempo.
+- **Aserciones.** `InstallFailureCapture` añade ahora una pila simbolizada (dbghelp). Así se localizó el `cast<>` de depuración de `CScripted2dEffects::GetEffect`.
+- **`acos` del CRT.** La rutina del juego (0x822394) conserva la precisión del FPU (`(cw & 0x300) | 0x7F`), así que calcula a 24 bits. Se emula con `fpatan` y `naked`.
+- **Sin reservas en los stubs.** Si se sustituye `operator new`, la traza de los stubs no puede usar `json` (se recursa); se usa un array fijo.
+- **Bytes basura.** El pool de la DLL rellena con 0xCD los objetos nuevos y `strcpy_s` rellena con 0xFE en depuración. Eso solo afecta a bytes sin significado, que se enmascaran en la comparación.
+
+**Tercera tanda (02/10/2026, mañana):** se cierra lo pendiente.
+- `CAEAudioChannel` 12/12: EAX reactivado con los GUID y la tabla de entornos del propio EXE.
+- `BreakObject_c` 9/9 (`Init` y `Render`).
+- `CIplStore` 34/34: banco [IplStore2](IplStore2/README.md) con pools y quadtree falsos.
+- `C3dMarker`/`C3dMarkers` 26/26: dibujado, `Init` y `Shutdown`.
+- `CLoadingScreen` 20/20: reescrita fiel al EXE manteniendo el cargador rápido.
+
+**Hallazgos de alcance general:**
+- `CMatrix operator*` del EXE agrupa las sumas de cada elemento de forma distinta; ahora la DLL lo replica.
+- `CMatrix::WithUp` no normaliza (el original sí, donde construye esa matriz a mano).
+
+**Lecciones:**
+- Ante un acceso inválido sin pista, un manejador vectorizado (`FirstChanceAV`) registra la pila antes de que se deshaga. `InstallFailureCapture` lo instala ahora siempre.
+- Los fixtures deben ser coherentes con el juego (atomic ⇒ matriz adjunta, clumps de dibujo no nulos, normales realistas); si no, aparecen falsos fallos.
+- RenderWare: la DLL usa las macros de cámara (`[cam+0x18]`) en lugar de la función del EXE; una cámara falsa cubre los dos caminos.
+
+**Pendiente de la lista anterior (ya resuelto en la tercera tanda):**
+- `BreakObject_c`: `Init` y `Render`.
+- `CIplStore`: 8 funciones (carga de archivos, borrado de entidades y del quadtree; `SetupRelatedIpls` está incompleta en la DLL).
+- `C3dMarker::Render` y el render, la inicialización y el cierre de `C3dMarkers`.
+- `CLoadingScreen`: desviaciones NOTSA deliberadas.
+
+## Continuidad vigente: tercera lista de clases (2026-10-02)
+
+Bancos nuevos, todos con pares exactos dentro de GTA (201 funciones, 108.016 pares): [Small2](Small2/README.md), [Mirrors](Mirrors/README.md), [Messages](Messages/README.md), [TasksBatch4](TasksBatch4/README.md), [TasksBatch5](TasksBatch5/README.md) y [MenuSystem2](MenuSystem2/README.md).
+
+**Defectos de alcance general encontrados:**
+- El envoltorio del hook de `CTaskComplexSeekEntity` (0x661DC0) intercambiaba los dos intervalos: todas las llamadas del EXE los recibían al revés.
+- `CTaskComplexUseSwatRope::ControlSubTask` descartaba el resultado de `FindZCoorForPed`.
+- `CMirrors::TypeOfMirror`/`MirrorFlags` y `CAEExplosionAudioEntity::m_Speed` tenían otro tamaño que en el EXE.
+
+**Lecciones:**
+- Los inicializadores por valor (`: CMatrix()`, `CTaskTimer m_timer{}`) ponen a cero bytes que el EXE deja sin escribir (relleno, matriz): se usan constructores sin inicialización por valor.
+- El EXE a veces mete en línea funciones que la DLL llama (p. ej. `CScriptedBrainTaskStore::GetTask`): se rellena el estado real en vez de simular la función.
+- `std::array` aborta en depuración cuando el EXE lee fuera del array a propósito: `.data()[]`.
+- Algunas funciones de RW de la DLL no son envoltorios del EXE (`RwCameraClear`, `RwCameraEndUpdate`): hay que simular también el símbolo de la DLL.
+- Revisión EXE ↔ código y escritura de bancos repartidas entre agentes en paralelo; la compilación y las ejecuciones se mantienen en serie.
+
+**Pendiente (fuentes corregidas contra el EXE, sin banco todavía):**
+- `CAECollisionAudioEntity` (17), `CAECutsceneTrackManager` (8), `CAEBankLoader` (6).
+- `CAEDataStream` (20), `CAEAudioHardware` (54).
+- `CMenuManager` (61); el bloque de deslizadores de `DrawStandardMenus` no se revisó.
+- Fuera de la lista: el tiempo de reproducción de canales y de `CAEStreamThread` es de 16 bits en la DLL y de 32 en el EXE.

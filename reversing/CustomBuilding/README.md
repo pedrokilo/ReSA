@@ -6,7 +6,7 @@ El usuario pidió pausar el 2026-09-23. Se conserva la implementación local y e
 
 ## Resultado registrado
 
-La última prueba ya iniciada terminó automáticamente: **95.168 pares exactamente coincidentes**, con los cinco hooks habilitados y sin bloqueo desde el arranque. [Resumen y manifiesto](validation-summary.json). Ejecución: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-custom-building/20260923-173028-884697`.
+La última prueba ya iniciada terminó automáticamente: **95.168 pares exactamente coincidentes**, con los cinco hooks habilitados y sin bloqueo desde el arranque. [Resumen y manifiesto](validation-summary.json). Ejecución: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-custom-building/20260923-173028-884697`.
 
 | Función | Dirección | Pares |
 | --- | --- | ---: |
