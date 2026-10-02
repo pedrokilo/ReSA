@@ -23,7 +23,7 @@ public:
     static void InjectHooks();
 
     void Init();
-    void Find(int32 carGenId, char* outText);
+    int32 Find(int32 carGenId, char* outText);
     void Add(int32 carGenId, const char* plateText);
     void Remove(int32 plateTextId);
 };

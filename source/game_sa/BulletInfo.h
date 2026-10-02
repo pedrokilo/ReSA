@@ -34,7 +34,7 @@ public:
 
     static void Initialise();
     static void Shutdown();
-    static void AddBullet(CEntity* creator, eWeaponType weaponType, CVector position, CVector velocity);
+    static bool AddBullet(CEntity* creator, eWeaponType weaponType, CVector position, CVector velocity);
     static void Update();
 
     // NOTSA funcs:

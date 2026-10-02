@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -47,7 +47,8 @@ CEventDanger::~CEventDanger() {
 bool CEventDanger::AffectsPed(CPed* ped) {
     if (m_dangerFrom && m_dangerFrom != ped->m_pVehicle) {
         CVector2D distance = ped->GetPosition() - m_dangerFrom->GetPosition();
-        if (m_dangerRadius * m_dangerRadius >= distance.SquaredMagnitude())
+        // Como el original: con NaN la comparacion deja pasar (fcompp + test ah,5)
+        if (!(m_dangerRadius * m_dangerRadius < distance.SquaredMagnitude()))
             return ped->IsAlive();
     }
     return false;
@@ -59,7 +60,8 @@ bool CEventDanger::AffectsPedGroup(CPedGroup* pedGroup) {
         CPed* leader = pedGroup->GetMembership().GetLeader();
         if (leader) {
             CVector2D distance = leader->GetPosition() - m_dangerFrom->GetPosition();
-            return distance.SquaredMagnitude() <= m_dangerRadius * m_dangerRadius;
+            // Como el original: con NaN devuelve true (fcompp + test ah,5)
+            return !(m_dangerRadius * m_dangerRadius < distance.SquaredMagnitude());
         }
     }
     return false;

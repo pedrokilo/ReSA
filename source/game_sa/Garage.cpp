@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -45,9 +45,20 @@ void CGarage::InjectHooks() {
 
 // 0x4479F0
 void CGarage::BuildRotatedDoorMatrix(CEntity* entity, float fDoorPosition) {
-    const auto fAngle = fDoorPosition * -HALF_PI;
-    const auto fSin = sin(fAngle);
-    const auto fCos = cos(fAngle);
+    // Como el original: fsin/fcos del x87 (precisión completa) sobre el ángulo redondeado a float
+    // Como el original: constante 0x859998 = -π/2 exacto (el HALF_PI de common.h es impreciso)
+    const float fAngle = fDoorPosition * std::bit_cast<float>(0xBFC90FDBu);
+    float sinA, cosA; // nombres distintos de fsin/fcos: el ensamblador en línea no distingue mayúsculas
+    __asm {
+        fld   fAngle
+        fld   st(0)
+        fsin
+        fstp  sinA
+        fcos
+        fstp  cosA
+    }
+    const float fSin = sinA;
+    const float fCos = cosA;
     CMatrix& matrix = entity->GetMatrix();
 
     const auto& vecForward = matrix.GetForward();
@@ -73,11 +84,11 @@ void CGarage::StoreAndRemoveCarsForThisHideOut(CStoredCar* storedCars, int32 max
         storedCars[i].Clear();
 
     auto pool = GetVehiclePool();
-    auto storedCarIdx{0u};
+    int32 storedCarIdx{0}; // Como el original: comparación con signo contra maxSlot
     for (auto i = pool->GetSize(); i; i--) {
         if (auto vehicle = pool->GetAt(i - 1)) {
             if (IsPointInsideGarage(vehicle->GetPosition()) && vehicle->GetCreatedBy() != MISSION_VEHICLE) {
-                if (storedCarIdx < static_cast<uint32>(maxSlot) && !EntityHasASphereWayOutsideGarage(vehicle, 1.0f)) {
+                if (storedCarIdx < maxSlot && !EntityHasASphereWayOutsideGarage(vehicle, 1.0f)) {
                     storedCars[storedCarIdx++].StoreCar(vehicle);
                 }
 
@@ -89,7 +100,7 @@ void CGarage::StoreAndRemoveCarsForThisHideOut(CStoredCar* storedCars, int32 max
     }
 
     // Clear slots with no vehicles in it
-    for (auto i = storedCarIdx; i < NUM_GARAGE_STORED_CARS; i++)
+    for (auto i = storedCarIdx; i < (int32)NUM_GARAGE_STORED_CARS; i++)
         storedCars[i].Clear();
 }
 

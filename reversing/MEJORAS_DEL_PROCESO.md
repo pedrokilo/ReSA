@@ -947,3 +947,20 @@ Bancos nuevos, todos con pares exactos dentro de GTA (152 funciones, 55.248 pare
 - `small` es una macro de Windows (como `TIME_MS`): no usarla en los bancos.
 - Un comentario `//` en medio de una línea larga del fixture se come el resto del código: usar `/* */`.
 - Los fixtures de pilas (empujar/sacar) deben vaciarse antes del límite del array para no desbordar.
+
+## Continuidad vigente: lista de 23 clases de cuatro funciones (2026-10-02)
+
+Bancos nuevos, todos con pares exactos dentro de GTA (92 funciones, 34.448 pares): [Render23](Render23/README.md), [Events23](Events23/README.md) y [Data23](Data23/README.md).
+
+**Defectos de alcance general encontrados:**
+- `common.h` declara los contadores del búfer temporal (0xC4B950/0xC4B954) como `uint16`, pero el EXE los usa como dwords con signo; las clases de esta lista usan referencias locales `int32` y otras pueden tener el mismo problema.
+- `HALF_PI` (como `PI`) de `common.h` es impreciso: las constantes de ángulo se leen del EXE.
+- `CEventStuckInAir::GetEventPriority` tenía la condición de la cola invertida.
+- `CPlayerSkin::GetSkinTexture` usaba `GetAtRef` (referencia) con un índice de slot y siempre obtenía nulo.
+- `CPlaneTrails::Update` nunca mostraba las coronas (`ClockHoursInRange(22,7)` nunca es cierto).
+- Pendiente fuera de la lista: `CPlayerInfo::CancelPlayerEnteringCars` (0x56E860) está enganchada como cdecl estática, pero en el EXE es thiscall con `ret 4`.
+
+**Lecciones:**
+- El ensamblador en línea no distingue mayúsculas: variables como `fSin`/`fCos` chocan con las instrucciones `fsin`/`fcos`.
+- Revisar qué bit lee el EXE en las banderas de `CPed` (p. ej. bit 8 de 0x46C = `bInVehicle`), no fiarse del nombre que usa la DLL.
+- Los índices de modelo `int16` se guardan en dwords con `movsx`: extender con signo.

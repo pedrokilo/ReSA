@@ -298,7 +298,14 @@ inline void Update() {
                 };
                 auto run=[&](bool candidate)->Snap {
                 // el New del EXE busca desde m_LastFreeSlot+1: se restaura para que ambas ejecuciones reciban el mismo slot
-                { auto& lf=*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(GetTaskPool())+0xC); static const int32 lf0=lf; lf=lf0; }
+                { auto& lf=*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(GetTaskPool())+0xC); static const int32 lf0=lf; lf=lf0;
+                      // slots libres con 0xCD: el New del EXE no escribe en el objeto y los bytes sin usar quedarian con restos
+                      auto* pb=reinterpret_cast<uint8*>(GetTaskPool()); auto* stor=*reinterpret_cast<uint8**>(pb); auto* st=*reinterpret_cast<uint8**>(pb+4); const int32 cap=*reinterpret_cast<int32*>(pb+8);
+                      for(int32 k=0;k<cap;++k)if(st[k]&0x80)std::memset(stor+k*0x80,0xCD,0x80); }
+                { // pools de rutas: tambien se restaura m_LastFreeSlot para que ambas ejecuciones reciban los mismos slots
+                  auto& l1=*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(GetPointRoutePool())+0xC); static const int32 l10=l1; l1=l10;
+                  auto& l2=*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(GetPatrolRoutePool())+0xC); static const int32 l20=l2; l2=l20;
+                  auto& l3=*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(GetNodeRoutePool())+0xC); static const int32 l30=l3; l3=l30; }
                     setup();
                     if(fn.vtbl==VT_STUCK)Write({{"event","side"},{"candidate",candidate},{"sub",subType}});
                     for(auto* h:hooks)h->State(candidate);

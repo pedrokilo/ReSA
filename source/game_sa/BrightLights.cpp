@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -19,6 +19,35 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "BrightLights.h"
+
+namespace {
+// Como el original: los contadores del búfer temporal (0xC4B950/0xC4B954) se leen y escriben como dwords con signo.
+auto& BrightTempVerticesStored = StaticRef<int32>(0xC4B950);
+auto& BrightTempIndicesStored  = StaticRef<int32>(0xC4B954);
+
+// Como el original: fsin/fcos del x87 (precisión interna completa) y producto redondeado por la FPU.
+float __declspec(naked) __cdecl BrightSinMulX87(float angle, float k) {
+    __asm {
+        fld  dword ptr [esp + 4]
+        fsin
+        fmul dword ptr [esp + 8]
+        ret
+    }
+}
+float __declspec(naked) __cdecl BrightCosMulX87(float angle, float k) {
+    __asm {
+        fld  dword ptr [esp + 4]
+        fcos
+        fmul dword ptr [esp + 8]
+        ret
+    }
+}
+
+// Como el original: float a byte con _ftol2 (truncado a 64 bits, se queda el byte bajo).
+uint8 BrightFtolByte(float f) {
+    return static_cast<uint8>(static_cast<int64>(f));
+}
+} // namespace
 
 void CBrightLights::InjectHooks() {
     RH_ScopedClass(CBrightLights);
@@ -37,15 +66,15 @@ void CBrightLights::Init() {
 
 // 0x722150
 void CBrightLights::RenderOutGeometryBuffer() {
-    if (uiTempBufferIndicesStored) {
+    if (BrightTempIndicesStored) {
         LittleTest();
-        if (RwIm3DTransform(TempBufferVertices.m_3d, uiTempBufferVerticesStored, nullptr, rwIM3D_VERTEXUV))
+        if (RwIm3DTransform(TempBufferVertices.m_3d, BrightTempVerticesStored, nullptr, rwIM3D_VERTEXUV))
         {
-            RwIm3DRenderIndexedPrimitive(rwPRIMTYPETRILIST, aTempBufferIndices, uiTempBufferIndicesStored);
+            RwIm3DRenderIndexedPrimitive(rwPRIMTYPETRILIST, aTempBufferIndices, BrightTempIndicesStored);
             RwIm3DEnd();
         }
-        uiTempBufferVerticesStored = 0;
-        uiTempBufferIndicesStored = 0;
+        BrightTempVerticesStored = 0;
+        BrightTempIndicesStored = 0;
     }
 }
 
@@ -63,13 +92,14 @@ void CBrightLights::Render() {
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER,     RWRSTATE(NULL));
     RwRenderStateSet(rwRENDERSTATECULLMODE,          RWRSTATE(rwCULLMODECULLNONE));
 
-    uiTempBufferVerticesStored = 0;
-    uiTempBufferIndicesStored = 0;
+    BrightTempIndicesStored = 0;
+    BrightTempVerticesStored = 0;
 
-    for (unsigned i = 0; i < NumBrightLights; i++) {
+    // Como el original: contador y comparaciones con signo; el contador se relee en cada vuelta.
+    for (int32 i = 0; i < static_cast<int32>(NumBrightLights); i++) {
         // Maybe render vertex buffer if running low on free items...
-        if (uiTempBufferIndicesStored > TOTAL_TEMP_BUFFER_INDICES - 40u ||
-            uiTempBufferVerticesStored > TOTAL_TEMP_BUFFER_3DVERTICES - 40u
+        if (BrightTempIndicesStored > TOTAL_TEMP_BUFFER_INDICES - 40 ||
+            BrightTempVerticesStored > TOTAL_TEMP_BUFFER_3DVERTICES - 40
         ) {
             CBrightLights::RenderOutGeometryBuffer();
         }
@@ -78,7 +108,7 @@ void CBrightLights::Render() {
 
     RenderOutGeometryBuffer();
 
-    RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, (void*)FALSE);
+    RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(FALSE));
 
     NumBrightLights = 0;
 }
@@ -88,20 +118,27 @@ void CBrightLights::RegisterOne(CVector posn, CVector top, CVector right, CVecto
     if (color == eBrightLightColor::BRIGHTLIGHT_NONE)
         return;
 
-    if (NumBrightLights >= MAX_NUM_BRIGHTLIGHTS)
-        return;
-
-    const float distToCam = (TheCamera.GetPosition() - posn).Magnitude() / TheCamera.m_fLODDistMultiplier;
-    if (distToCam > 60.0f)
+    // Como el original: comparación con signo.
+    if (static_cast<int32>(NumBrightLights) >= static_cast<int32>(MAX_NUM_BRIGHTLIGHTS))
         return;
 
     auto& light = aBrightLights[NumBrightLights];
+
+    // Como el original: distancia con el orden de suma del EXE ((z*z + y*y) + x*x), dividida por el multiplicador
+    // de LOD y guardada en la entrada libre antes de comparar (aunque luego se descarte).
+    const CVector& camPos = TheCamera.GetPosition();
+    const float dx = posn.x - camPos.x, dy = posn.y - camPos.y, dz = posn.z - camPos.z;
+    const float distToCam = std::sqrt(dz * dz + dy * dy + dx * dx) / TheCamera.m_fLODDistMultiplier;
+    light.m_fDistanceToCamera = distToCam;
+
+    // Como el original: se descarta si la distancia es mayor que 60 o NaN.
+    if (!(distToCam <= 60.0f))
+        return;
 
     light.m_vecPosition       = posn;
     light.m_vecRight          = top;
     light.m_vecTop            = right;
     light.m_vecAt             = at;
-    light.m_fDistanceToCamera = distToCam;
     light.m_nColor            = color;
     light.field_35            = arg5;
     light.field_36            = arg6;
@@ -110,139 +147,104 @@ void CBrightLights::RegisterOne(CVector posn, CVector top, CVector right, CVecto
     NumBrightLights++;
 }
 
-// NOTSA, inlined
-CRGBA tBrightLight::GetColorRGBA() const {
-    // Return alpha value.
-    // _BIG has at most 127 alpha, while _SMALL has 255
-    const auto GetAlpha = [this]() -> uint8 {
+// NOTSA, inlined (0x724265 - 0x7246AC)
+void tBrightLight::Render() const {
+    // Como el original: rand() & 0xFF por 0.2 se calcula siempre, antes de mirar el color.
+    const float rnd = static_cast<float>(CGeneral::GetRandomNumber() & 0xFF) * 0.2f;
 
-        const auto UnadjAlpha = [this] {
-            if (m_fDistanceToCamera >= 45.0f)
-                return (uint8)((1.0f - invLerp(45.0f, 60.0f, m_fDistanceToCamera)) * 255.0f);
-            return (uint8)255;
-        };
-
-        switch (m_nColor) {
-        case BRIGHTLIGHT_GREEN_BIG:
-        case BRIGHTLIGHT_YELLOW_BIG:
-        case BRIGHTLIGHT_RED_BIG:
-            return UnadjAlpha() / 2;
-
-        case BRIGHTLIGHT_GREEN_SMALL:
-        case BRIGHTLIGHT_YELLOW_SMALL:
-        case BRIGHTLIGHT_RED_SMALL:
-            return UnadjAlpha();
-
-        default: { // NOTSA
-            assert(0);
-            return 0;
-        }
-        }
-    };
-
-    // Originally R* used:
-    //const auto rnd = (uint8)((float)(uint8)CGeneral::GetRandomNumber() / 5.0f);
-    const auto rnd = (uint8)CGeneral::GetRandomNumberInRange(0, 255 / 5);
+    // Como el original: componentes del color por la primera tabla de saltos (los colores no válidos no tocan nada).
+    uint8 red{}, green{}, blue{};
     switch (m_nColor) {
     case BRIGHTLIGHT_GREEN_BIG:
     case BRIGHTLIGHT_GREEN_SMALL:
-        return { rnd, 255, rnd, GetAlpha() };
-
+        red   = BrightFtolByte(rnd);
+        green = 255;
+        blue  = red;
+        break;
     case BRIGHTLIGHT_YELLOW_BIG:
     case BRIGHTLIGHT_YELLOW_SMALL:
-        return { 255, 128, rnd, GetAlpha() };
-
+        red   = 255;
+        green = 128;
+        blue  = BrightFtolByte(rnd);
+        break;
     case BRIGHTLIGHT_RED_BIG:
     case BRIGHTLIGHT_RED_SMALL:
-        return { 255, rnd, rnd, GetAlpha() };
-
-    default: { // NOTSA
-        NOTSA_UNREACHABLE();
-        return { 255, 255, 255, 255 }; // Shouldn't reach this point.. in theory that is..
+        red   = 255;
+        green = BrightFtolByte(rnd);
+        blue  = green;
+        break;
+    default:
+        break;
     }
+
+    // Como el original: alfa 255 por debajo de 45; si no (o NaN), (1 - (d - 45) * (1/15)) * 255 truncado.
+    uint8 alpha = 255;
+    if (!(m_fDistanceToCamera < 45.0f)) {
+        alpha = BrightFtolByte((1.0f - (m_fDistanceToCamera - 45.0f) * std::bit_cast<float>(0x3D888889u)) * 255.0f); // 0x863E0C
     }
-}
 
-// NOTSA, inlined
-void tBrightLight::Render() const {
-    // Get absolute vertex index in buffer (relative to the current number of vertices)
-    const auto GetVertexRealIdx = [](unsigned i) {
-        return (unsigned)uiTempBufferVerticesStored + i;
-    };
-
-    // Get vertex pointer, `i` is passed to `GetVertexRealIdx`
-    const auto GetVertex = [=](unsigned i) {
-        return &TempBufferVertices.m_3d[GetVertexRealIdx(i)];
-    };
-
-    // Set position of vertex, workaround for taking a temporary's address
-    const auto SetVertexPosition = [=](unsigned i, CVector posn) {
-        RxObjSpace3DVertexSetPos(GetVertex(i), &posn);
-    };
-
-    // Push a vertex index. `vertIdx` is passed to `GetVertexRealIdx`
-    auto PushVertexIndex = [=, idx = 0](unsigned vertIdx) mutable {
-        aTempBufferIndices[(unsigned)uiTempBufferIndicesStored + idx++] = GetVertexRealIdx(vertIdx);
-    };
-
-    const RwRGBA color = GetColorRGBA().ToRwRGBA();
+    const uint32 vertexBase = static_cast<uint32>(BrightTempVerticesStored);
     switch (m_nColor) {
     case BRIGHTLIGHT_GREEN_BIG:
     case BRIGHTLIGHT_YELLOW_BIG:
     case BRIGHTLIGHT_RED_BIG: {
-        static constexpr float TrafficLightsUp[]   = { 0.162f, 0.162f, 0.0f, -0.162f, -0.162f, 0.0f };  // 0x5C0A7C
-        static constexpr float TrafficLightsSide[] = { -0.09f, 0.09f, 0.162f, 0.09f, -0.09f, -0.162f }; // 0x5C0A94
+        // Como el original: el alfa se reduce a la mitad con (float)alfa * 0.5 truncado.
+        const uint8  bigAlpha = BrightFtolByte(static_cast<float>(alpha) * 0.5f);
+        const uint32 color    = (static_cast<uint32>(bigAlpha) << 24) | (static_cast<uint32>(red) << 16) | (static_cast<uint32>(green) << 8) | blue;
+
+        static constexpr float TrafficLightsRight[] = { 0.162f, 0.162f, 0.0f, -0.162f, -0.162f, 0.0f };  // 0x8D5DA4 (por m_vecRight)
+        static constexpr float TrafficLightsTop[]   = { -0.09f, 0.09f, 0.162f, 0.09f, -0.09f, -0.162f }; // 0x8D5D8C (por m_vecTop)
 
         for (unsigned i = 0; i < 6; i++) {
-            RxObjSpace3DVertexSetPreLitColor(GetVertex(i), &color);
-
-            SetVertexPosition(i,
-                  m_vecPosition
-                + m_vecRight * TrafficLightsUp[i]
-                + m_vecTop * TrafficLightsSide[i]
-            );
+            auto* vertex  = &TempBufferVertices.m_3d[vertexBase + i];
+            vertex->color = color;
+            // Como el original: (R * k1 + T * k2) + P.
+            vertex->objVertex.x = (m_vecRight.x * TrafficLightsRight[i] + m_vecTop.x * TrafficLightsTop[i]) + m_vecPosition.x;
+            vertex->objVertex.y = (m_vecRight.y * TrafficLightsRight[i] + m_vecTop.y * TrafficLightsTop[i]) + m_vecPosition.y;
+            vertex->objVertex.z = (m_vecRight.z * TrafficLightsRight[i] + m_vecTop.z * TrafficLightsTop[i]) + m_vecPosition.z;
         }
 
         // 0x8D5DBC
         static constexpr RxVertexIndex TrafficLightIndices[] = { 0, 1, 5, 1, 2, 3, 1, 3, 4, 1, 4, 5 };
-        for (auto& index : TrafficLightIndices) {
-            PushVertexIndex(index);
+        const int32 indexBase = BrightTempIndicesStored;
+        for (unsigned i = 0; i < std::size(TrafficLightIndices); i++) {
+            aTempBufferIndices[indexBase + i] = static_cast<RxVertexIndex>(TrafficLightIndices[i] + vertexBase);
         }
 
-        uiTempBufferIndicesStored += (uint16)std::size(TrafficLightIndices);
-        uiTempBufferVerticesStored += 6;
+        BrightTempIndicesStored  = indexBase + 12;
+        BrightTempVerticesStored = static_cast<int32>(vertexBase) + 6;
         break;
     }
     case BRIGHTLIGHT_GREEN_SMALL:
     case BRIGHTLIGHT_YELLOW_SMALL:
     case BRIGHTLIGHT_RED_SMALL: {
-        constexpr unsigned segCount = 8;
-        constexpr float    segAngleStep = 2 * PI / (float)(segCount);
-        constexpr float    segSize = 0.1f;
-        for (unsigned i = 0; i < segCount; i++) {
-            RxObjSpace3DVertexSetPreLitColor(GetVertex(i), &color);
+        const uint32 color = (static_cast<uint32>(alpha) << 24) | (static_cast<uint32>(red) << 16) | (static_cast<uint32>(green) << 8) | blue;
+        for (unsigned i = 0; i < 8; i++) {
+            auto* vertex  = &TempBufferVertices.m_3d[vertexBase + i];
+            vertex->color = color;
 
-            const float angle = segAngleStep * (float)(i);
-            SetVertexPosition(i,
-                  m_vecPosition
-                + m_vecRight * std::cos(angle) * segSize
-                + m_vecTop * std::sin(angle) * segSize
-            );
+            // Como el original: ángulo (float)i * (2pi/8) (0x859AB0) y fsin/fcos del x87 por 0.1 (0x8D5E48).
+            const float angle = static_cast<float>(static_cast<int32>(i)) * std::bit_cast<float>(0x3F490FDBu);
+            const float s     = BrightSinMulX87(angle, 0.1f);
+            const float c     = BrightCosMulX87(angle, 0.1f);
+            // Como el original: (R * c + T * s) + P.
+            vertex->objVertex.x = (c * m_vecRight.x + s * m_vecTop.x) + m_vecPosition.x;
+            vertex->objVertex.y = (c * m_vecRight.y + s * m_vecTop.y) + m_vecPosition.y;
+            vertex->objVertex.z = (c * m_vecRight.z + s * m_vecTop.z) + m_vecPosition.z;
         }
 
-        for (unsigned i = 1; i <= 6; i++) {
-            PushVertexIndex(0);
-            PushVertexIndex(i);
-            PushVertexIndex(i + 1);
+        const int32 indexBase = BrightTempIndicesStored;
+        for (unsigned i = 0; i < 6; i++) {
+            aTempBufferIndices[indexBase + i * 3 + 0] = static_cast<RxVertexIndex>(vertexBase);
+            aTempBufferIndices[indexBase + i * 3 + 1] = static_cast<RxVertexIndex>(vertexBase + i + 1);
+            aTempBufferIndices[indexBase + i * 3 + 2] = static_cast<RxVertexIndex>(vertexBase + i + 2);
         }
 
-        uiTempBufferIndicesStored += 18;
-        uiTempBufferVerticesStored += segCount;
+        BrightTempIndicesStored  = indexBase + 18;
+        BrightTempVerticesStored = static_cast<int32>(vertexBase) + 8;
         break;
     }
-    default: {
-        assert(0); // NOTSA
+    default: // Como el original: los colores no válidos no generan geometría.
         break;
-    }
     }
 }

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -72,7 +72,8 @@ bool CEventAcquaintancePed::AffectsPedGroup(CPedGroup* pedGroup)
             CPed* leader = membership.GetLeader();
             if (leader && leader->IsPlayer())
                 return false;
-            return FindPlayerPed()->GetPlayerGroup().GetMembership().IsMember(m_AcquaintancePed);
+            // Como el original: afecta al grupo cuando el conocido NO es miembro del grupo del jugador
+            return !FindPlayerPed()->GetPlayerGroup().GetMembership().IsMember(m_AcquaintancePed);
         }
     }
     return false;
@@ -83,8 +84,9 @@ bool CEventAcquaintancePed::TakesPriorityOver(const CEvent& refEvent)
 {
     if (refEvent.GetEventType() == GetEventType()) {
         const auto theRefEvent = static_cast<const CEventAcquaintancePed*>(&refEvent);
+        // Como el original: si el otro evento no tiene conocido tambien gana (devuelve !(otro && otro->IsPlayer()))
         if (m_AcquaintancePed && m_AcquaintancePed->IsPlayer())
-            return theRefEvent->m_AcquaintancePed && !theRefEvent->m_AcquaintancePed->IsPlayer();
+            return !(theRefEvent->m_AcquaintancePed && theRefEvent->m_AcquaintancePed->IsPlayer());
         return false;
     }
     return CEvent::TakesPriorityOver(refEvent);

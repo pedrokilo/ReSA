@@ -103,13 +103,15 @@ void CPlaneTrail::RegisterPoint(CVector pos) {
 }
 
 // From `CPlaneTrails::Update`
+// Como el original: `pos` ya es la posición final del avión (CPlaneTrails::Update la calcula con fsin/fcos del x87).
 void CPlaneTrail::Update(CVector pos, const CRGBA& color, uint32 coronaIdx, uint32 timeModifierMs, uint8 afterHour, uint8 beforeHour) {
-    const float fTimeProg = (float)(CTimer::GetTimeInMS() % 131072) / 20860.0f; // or * 0.000047936901.. Not sure where this comes from..
-    const CVector currPos = pos * CVector(std::sin(fTimeProg), std::cos(fTimeProg), 1.0f);
+    const CVector currPos = pos;
 
     RegisterPoint(currPos);
 
-    if (!CClock::ClockHoursInRange(afterHour, beforeHour)) {
+    // Como el original: la corona solo se muestra si la hora es mayor que `afterHour` o menor que `beforeHour`.
+    const uint8 hours = CClock::GetGameClockHours();
+    if (hours <= afterHour && hours >= beforeHour) {
         return;
     }
 

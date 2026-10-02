@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -58,25 +58,33 @@ CEventBuildingCollision* CEventBuildingCollision::Constructor(int16 pieceType, f
 // 0x4AD070
 bool CEventBuildingCollision::AffectsPed(CPed* ped)
 {
+    // Como el original: las comparaciones con NaN dejan pasar (fcomp + test ah,41h)
     if (!ped->IsPlayer()
         && ped->IsAlive()
         && m_moveState != PEDMOVE_STILL
-        && (m_impactNormal.z <= 0.707f || m_building->m_bIsTempBuilding)
+        && (!(m_impactNormal.z > 0.707f) || m_building->m_bIsTempBuilding)
         && !ped->m_pAttachedTo)
     {
         CVector direction(m_impactNormal.x, m_impactNormal.y, 0.0f);
         direction.Normalise();
-        float dotProduct = DotProduct(direction, ped->GetForward());
-        if (dotProduct <= -0.422f) {
-            if (ped->GetEventHandler().GetCurrentEventType() == EVENT_BUILDING_COLLISION) {
+        const CVector& fwd = ped->GetForward();
+        const float dotProduct = (direction.y * fwd.y + direction.z * fwd.z) + direction.x * fwd.x; // Como el original: orden de sumas del EXE
+        if (!(dotProduct > -0.422f)) {
+            auto& handler = ped->GetEventHandler();
+            if (handler.GetCurrentEventType() == EVENT_BUILDING_COLLISION) {
                 auto buildingColEvent = static_cast<CEventBuildingCollision*>(ped->GetEventHandlerHistory().GetCurrentEvent());
-                if (buildingColEvent->m_building == m_building && dotProduct > -0.5f) 
+                if (buildingColEvent->m_building == m_building && dotProduct > -0.5f)
                     return false;
             }
-            // CEventPotentialWalkIntoBuilding doesn't even exist on PC
-            assert (ped->GetEventHandler().GetCurrentEventType() != EVENT_POTENTIAL_WALK_INTO_BUILDING);
-            if (dotProduct <= -0.5f && !ped->GetTaskManager().Find<TASK_COMPLEX_CLIMB>())
-                return ped->GetEventHandler().GetCurrentEventType() != EVENT_GUN_AIMED_AT;
+            // Como el original: el mismo filtro para CEventPotentialWalkIntoBuilding (el evento no existe en PC; se lee +0x14)
+            if (handler.GetCurrentEventType() == EVENT_POTENTIAL_WALK_INTO_BUILDING) {
+                auto* currentEvent = ped->GetEventHandlerHistory().GetCurrentEvent();
+                if (*reinterpret_cast<CBuilding**>(reinterpret_cast<uint8*>(currentEvent) + 0x14) == m_building && dotProduct > -0.5f)
+                    return false;
+            }
+            // Como el original: no hay comprobacion de dotProduct <= -0.5 aqui
+            if (!ped->GetTaskManager().FindActiveTaskByType(TASK_COMPLEX_CLIMB))
+                return handler.GetCurrentEventType() != EVENT_GUN_AIMED_AT;
         }
     }
     return false;
@@ -88,7 +96,8 @@ bool CEventBuildingCollision::IsHeadOnCollision(CPed* ped)
     CVector velocity = m_impactNormal;
     velocity.z = 0.0f;
     velocity.Normalise();
-    return -DotProduct(velocity, ped->GetForward()) > 0.866f;
+    const CVector& fwd = ped->GetForward();
+    return -((velocity.y * fwd.y + velocity.z * fwd.z) + velocity.x * fwd.x) > 0.866f; // Como el original: orden de sumas del EXE
 }
 
 // 0x4B3120

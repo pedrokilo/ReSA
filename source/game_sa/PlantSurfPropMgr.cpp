@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -34,8 +34,23 @@ void CPlantSurfPropMgr::InjectHooks() {
 bool CPlantSurfPropMgr::Initialise() {
     m_countSurfPropsAllocated = 0;
     rng::fill(m_SurfPropPtrTab, nullptr);
+    // Como el original: pone m_SlotId a 0 y escribe campo a campo (el relleno no se toca)
     for (auto& props : m_SurfPropTab) {
-        rng::fill(props.m_Plants, CPlantSurfPropPlantData{});
+        props.m_SlotId = 0;
+        for (auto& plant : props.m_Plants) {
+            plant.model_id                = uint16(-1);
+            plant.uv_offset               = 0;
+            plant.color                   = CRGBA{ 255, 255, 255, 255 };
+            plant.intensity               = 255;
+            plant.intensity_variation     = 0;
+            plant.scale_xy                = 1.0f;
+            plant.scale_z                 = 1.0f;
+            plant.scale_variation_xy      = 0.0f;
+            plant.scale_variation_z       = 0.0f;
+            plant.wind_blending_scale     = 0.0f;
+            plant.wind_blending_variation = 0.0f;
+            plant.density                 = 0.0f;
+        }
     }
 
     return LoadPlantsDat("PLANTS.DAT");
@@ -92,7 +107,7 @@ bool CPlantSurfPropMgr::LoadPlantsDat(const char* filename) {
         do {
             switch (field) {
             case ePlantField::NAME:
-                surfaceId = g_surfaceInfos.GetSurfaceIdFromName(surfaceName);
+                surfaceId = (uint16)g_surfaceInfos.GetSurfaceIdFromName(surfaceName); // Como el original: solo se usan 16 bits (test bx,bx)
                 if (surfaceId != SURFACE_DEFAULT) {
                     surfProperties = GetSurfProperties(surfaceId);
                     if (surfProperties || (surfProperties = AllocSurfProperties(surfaceId, false))) {

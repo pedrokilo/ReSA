@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -45,7 +45,8 @@ CEventStuckInAir::~CEventStuckInAir()
 
 // 0x4B1600
 int32 CEventStuckInAir::GetEventPriority() const {
-    return m_ped && m_ped->GetIntelligence()->GetEventHandler().GetCurrentEventType() != EVENT_STUCK_IN_AIR && m_ped->GetIntelligence()->GetEventGroup().GetNumEventsInQueue() <= 1
+    // Como el original: 75 solo si hay mas de un evento en cola (comparacion con signo, jg)
+    return m_ped && m_ped->GetIntelligence()->GetEventHandler().GetCurrentEventType() != EVENT_STUCK_IN_AIR && (int32)m_ped->GetIntelligence()->GetEventGroup().GetNumEventsInQueue() > 1
         ? 75
         : 63;
 }

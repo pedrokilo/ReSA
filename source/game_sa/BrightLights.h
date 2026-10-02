@@ -30,7 +30,6 @@ struct tBrightLight {
     uint8             field_36;
     uint8             field_37;
 
-    CRGBA GetColorRGBA() const;
     void  Render() const;
 };
 VALIDATE_SIZE(tBrightLight, 0x38);

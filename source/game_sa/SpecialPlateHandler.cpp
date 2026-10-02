@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -42,18 +42,21 @@ void CSpecialPlateHandler::Init() {
 }
 
 // Writes plate text to outText if exists, "\0" otherwise.
+// Como el original: devuelve el índice de la entrada o -1.
 // 0x6F2D30
-void CSpecialPlateHandler::Find(int32 carGenId, char* outText) {
+int32 CSpecialPlateHandler::Find(int32 carGenId, char* outText) {
     outText[0] = '\0';
     if (m_nCount == 0)
-        return;
+        return -1;
 
-    for (auto &entry : m_plateTextEntries) {
+    for (auto i = 0; i < (int32)PLATES_COUNT; i++) {
+        auto& entry = m_plateTextEntries[i];
         if (entry.m_nCarGenId == carGenId) {
-            strcpy_s(outText, std::size(entry.m_szPlateText), entry.m_szPlateText);
-            return;
+            strcpy(outText, entry.m_szPlateText); // Como el original: strcpy (strcpy_s rellena con 0xFE en debug)
+            return i;
         }
     }
+    return -1;
 }
 
 // 0x6F2D90
@@ -61,9 +64,9 @@ void CSpecialPlateHandler::Add(int32 carGenId, const char* text) {
     if (m_nCount == PLATES_COUNT) {
         return;
     }
-    auto* const pe = &m_plateTextEntries[m_nCount++];
-    pe->m_nCarGenId = carGenId;
-    strcpy_s(pe->m_szPlateText, text);
+    m_plateTextEntries[m_nCount].m_nCarGenId = carGenId;
+    strcpy(m_plateTextEntries[m_nCount].m_szPlateText, text); // Como el original: strcpy sin límite
+    m_nCount++;
 }
 
 // unused
@@ -73,7 +76,7 @@ void CSpecialPlateHandler::Remove(int32 plateTextId) {
         tCarGenPlateText* plateText = &m_plateTextEntries[plateTextId];
         plateText->m_nCarGenId = -1;
         plateText->m_szPlateText[0] = 0;
-        if ((unsigned)plateTextId < m_nCount - 1) {
+        if (plateTextId < (int32)(m_nCount - 1)) { // Como el original: comparación con signo
             *plateText = m_plateTextEntries[m_nCount - 1];
         }
         --m_nCount;

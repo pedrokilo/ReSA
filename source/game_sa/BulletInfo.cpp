@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -60,80 +60,125 @@ CBulletInfo* CBulletInfo::GetFree() {
     return nullptr;
 }
 
+// Como el original: fild del tiempo (exacto) y, si es negativo como int32, se le suma 2^32
+// con el FPU a 24 bits; la comparación es contra el valor exacto, no contra un float redondeado.
 bool CBulletInfo::IsTimeToBeDestroyed() const noexcept {
-    return (float)CTimer::GetTimeInMS() > m_nDestroyTime;
+    const auto timeMs = (int32)CTimer::GetTimeInMS();
+    double now = (double)timeMs;
+    if (timeMs < 0) {
+        now = (double)(float)(now + 4294967296.0);
+    }
+    return now > (double)m_nDestroyTime;
+}
+
+// asin del CRT del juego (0x821E70): fpatan(x, sqrt((1 + x)(1 - x))) con la palabra de control
+// (anterior & 0x300) | 0x7F (0x828F05), así que fadd/fsub/fmul/fsqrt redondean como el juego; después
+// el llamador multiplica en el FPU por 57.29578f (0x859878 = 0x42652EE0, no es el float más cercano a 180/PI).
+static const float s_RadToDegBullet = std::bit_cast<float>(0x42652EE0u);
+static float __declspec(naked) __cdecl AsinDegreesX87(float x) {
+    __asm {
+        sub    esp, 4
+        fnstcw word ptr [esp]
+        mov    ax, word ptr [esp]
+        and    ax, 300h
+        or     ax, 7Fh
+        mov    word ptr [esp + 2], ax
+        fldcw  word ptr [esp + 2]
+        fld    dword ptr [esp + 8]
+        fld1
+        fadd   st, st(1)
+        fld1
+        fsub   st, st(2)
+        fmulp  st(1), st
+        fsqrt
+        fpatan
+        fldcw  word ptr [esp]
+        fmul   dword ptr [s_RadToDegBullet]
+        add    esp, 4
+        ret
+    }
 }
 
 // 0x736010
-void CBulletInfo::AddBullet(CEntity* creator, eWeaponType weaponType, CVector posn, CVector velocity) {
-    if (auto info = GetFree()) {
-        info->m_pCreator     = creator;
-        info->m_nWeaponType  = weaponType;
-        info->m_nDamage      = CWeaponInfo::GetWeaponInfo(weaponType, eWeaponSkill::STD)->m_nDamage;
-        info->m_vecPosition  = posn;
-        info->m_vecVelocity  = velocity;
-        info->m_nDestroyTime = (float)(CTimer::GetTimeInMS() + 1000);
-        info->m_bExists      = true;
+bool CBulletInfo::AddBullet(CEntity* creator, eWeaponType weaponType, CVector posn, CVector velocity) {
+    auto info = GetFree();
+    if (!info) {
+        return false;
     }
+    info->m_pCreator     = creator;
+    info->m_nWeaponType  = weaponType;
+    info->m_nDamage      = CWeaponInfo::GetWeaponInfo(weaponType, eWeaponSkill::STD)->m_nDamage;
+    info->m_vecPosition  = posn;
+    info->m_vecVelocity  = velocity;
+    // Como el original: fild de (tiempo + 1000) como int32 con signo
+    info->m_nDestroyTime = (float)(int32)(CTimer::GetTimeInMS() + 1000);
+    info->m_bExists      = true;
+    return true;
 }
 
 // 0x7360D0
 void CBulletInfo::Update() {
+    // Como el original: la entidad alcanzada vive fuera del bucle (ProcessLineOfSight la pone a nulo)
+    CEntity* hitEntity = nullptr;
     for (auto& info : aBulletInfos) {
-        if (info.IsTimeToBeDestroyed())
-            info.m_bExists = false; /* next line checks */
+        // Como el original: un creador peatón que ya no es válido se olvida
+        if (info.m_pCreator && info.m_pCreator->GetIsTypePed() && !info.m_pCreator->AsPed()->IsPointerValid()) {
+            info.m_pCreator = nullptr;
+        }
         if (!info.m_bExists)
             continue;
 
-        CVector newPosition = info.m_vecPosition + info.m_vecVelocity * (CTimer::GetTimeStep() / 2.0f);
+        // Como el original: al caducar se marca como inexistente pero se procesa este frame
+        if (info.IsTimeToBeDestroyed())
+            info.m_bExists = false;
+
+        CVector newPosition = info.m_vecPosition + info.m_vecVelocity * (CTimer::GetTimeStep() * 0.5f);
         if (!CWorld::IsInWorldBounds(newPosition)) {
             info.m_bExists = false;
             continue;
         }
+        const CVector origin = info.m_vecPosition;
 
+        CWorld::pIgnoreEntity    = info.m_pCreator;
         CWorld::bIncludeDeadPeds = true;
         CWorld::bIncludeCarTyres = true;
         CWorld::bIncludeBikers   = true;
-        CWorld::pIgnoreEntity    = info.m_pCreator;
 
         CColPoint colPoint;
-        CEntity* hitEntity;
-        if (CWorld::ProcessLineOfSight(info.m_vecPosition, newPosition, colPoint, hitEntity, true, true, true, true, true, false, false, true)) {
-            CWeapon::CheckForShootingVehicleOccupant(&hitEntity, &colPoint, info.m_nWeaponType, info.m_vecPosition, newPosition);
+        if (CWorld::ProcessLineOfSight(origin, newPosition, colPoint, hitEntity, true, true, true, true, true, false, false, true)) {
+            CWeapon::CheckForShootingVehicleOccupant(&hitEntity, &colPoint, info.m_nWeaponType, origin, newPosition);
 
             switch (hitEntity->GetType()) {
             case ENTITY_TYPE_PED: {
                 auto hitPed = hitEntity->AsPed();
 
-                if (hitEntity != info.m_pCreator) {
-                    if (hitPed->IsAlive()) {
-                        CWeapon::GenerateDamageEvent(
-                            hitPed,
-                            info.m_pCreator,
-                            info.m_nWeaponType,
-                            info.m_nDamage,
-                            (ePedPieceTypes)colPoint.m_nPieceTypeB,
-                            hitPed->GetLocalDirection(hitPed->GetPosition2D() - CVector2D{ colPoint.m_vecPoint })
-                        );
-                        CCrime::ReportCrime(
-                            (hitPed->m_nPedType == PED_TYPE_COP) ? eCrimeType::CRIME_DAMAGE_COP_CAR : eCrimeType::CRIME_DAMAGE_CAR,
-                            hitPed,
-                            info.m_pCreator->AsPed()
-                        );
-                        newPosition = colPoint.m_vecPoint;
-                    }
+                if (hitPed->m_nPedState != PEDSTATE_DIE && hitPed->m_nPedState != PEDSTATE_DEAD && hitEntity != info.m_pCreator) {
+                    CWeapon::GenerateDamageEvent(
+                        hitPed,
+                        info.m_pCreator,
+                        info.m_nWeaponType,
+                        info.m_nDamage,
+                        (ePedPieceTypes)colPoint.m_nPieceTypeB,
+                        hitPed->GetLocalDirection(CVector2D{ hitPed->GetPosition() - colPoint.m_vecPoint })
+                    );
+                    CCrime::ReportCrime(
+                        (hitPed->m_nPedType == PED_TYPE_COP) ? eCrimeType::CRIME_DAMAGE_COP_CAR : eCrimeType::CRIME_DAMAGE_CAR,
+                        hitPed,
+                        info.m_pCreator->AsPed()
+                    );
+                    newPosition = colPoint.m_vecPoint;
                 }
 
                 if (CLocalisation::Blood()) {
                     g_fx.AddBlood(colPoint.m_vecPoint, colPoint.m_vecNormal, 8, hitPed->m_fContactSurfaceBrightness);
-                    // std::cout << "Create blood\n";
                     if (hitPed->m_nPedState == PEDSTATE_DEAD) {
                         const auto anim = RpAnimBlendClumpGetFirstAssociation(hitPed->GetRpClump(), ANIMATION_IS_FRONT) ? ANIM_ID_FLOOR_HIT_F : ANIM_ID_FLOOR_HIT;
 
                         if (auto assoc = CAnimManager::BlendAnimation(hitPed->GetRpClump(), ANIM_GROUP_DEFAULT, anim, 8.0f)) {
                             assoc->SetCurrentTime(0.0f);
+                            // Como el original: quita FINISH_AUTO_REMOVE y activa IS_PLAYING
                             assoc->SetFlag(ANIMATION_IS_FINISH_AUTO_REMOVE, false);
-                            // std::cout << "Blood anim\n";
+                            assoc->SetFlag(ANIMATION_IS_PLAYING, true);
                         }
                     }
                     newPosition = colPoint.m_vecPoint;
@@ -141,7 +186,6 @@ void CBulletInfo::Update() {
                 break;
             }
             case ENTITY_TYPE_VEHICLE: {
-                // std::cout << "Hit vehicle\n";
                 auto hitVehicle = hitEntity->AsVehicle();
 
                 if (info.m_pCreator && info.m_pCreator->GetIsTypePed())
@@ -152,10 +196,10 @@ void CBulletInfo::Update() {
                 switch ((eCarPiece)colPoint.m_nPieceTypeB) {
                 default: /* originally `if` body */
                 {
-                    hitVehicle->InflictDamage(info.m_pCreator, info.m_nWeaponType, info.m_nDamage, colPoint.m_vecPoint);
+                    hitVehicle->InflictDamage(info.m_pCreator, info.m_nWeaponType, (float)info.m_nDamage, colPoint.m_vecPoint);
                     if (info.m_nWeaponType == eWeaponType::WEAPON_FLAMETHROWER) {
                         gFireManager.StartFire(hitVehicle, info.m_pCreator, 0.8f, true, 7000, 100);
-                    } else if (TheCamera.IsSphereVisible(colPoint.m_vecNormal, 1.0f)) {
+                    } else if (TheCamera.IsSphereVisible(colPoint.m_vecPoint, 1.0f)) { // Como el original: la esfera se centra en el punto
                         g_fx.AddBulletImpact(colPoint.m_vecPoint, colPoint.m_vecNormal, colPoint.m_nSurfaceTypeB, 8, colPoint.m_nLightingB.GetCurrentLighting());
                     }
                     break;
@@ -166,7 +210,6 @@ void CBulletInfo::Update() {
                 case eCarPiece::CAR_PIECE_WHEEL_RR: { /* originally `else` body */
                     hitVehicle->BurstTyre(colPoint.m_nPieceTypeB, true);
                     g_fx.AddTyreBurst(colPoint.m_vecPoint, colPoint.m_vecNormal);
-                    // std::cout << "Brust vehicle tyre " << (int)colPoint.m_nPieceTypeB << "\n";
                     break;
                 }
                 }
@@ -174,7 +217,7 @@ void CBulletInfo::Update() {
                 break;
             }
             default: {
-                if (TheCamera.IsSphereVisible(colPoint.m_vecNormal, 1.0f))
+                if (TheCamera.IsSphereVisible(colPoint.m_vecPoint, 1.0f)) // Como el original: la esfera se centra en el punto
                     g_fx.AddBulletImpact(colPoint.m_vecPoint, colPoint.m_vecNormal, colPoint.m_nSurfaceTypeB, 8, colPoint.m_nLightingB.GetCurrentLighting());
 
                 if (info.m_pCreator && info.m_pCreator->GetIsTypePed())
@@ -183,7 +226,6 @@ void CBulletInfo::Update() {
 
                 switch (hitEntity->GetType()) {
                 case ENTITY_TYPE_OBJECT: {
-                    // std::cout << "Hit object\n";
                     auto hitObject = hitEntity->AsObject();
 
                     const auto DoDamageToObject = [&](float dmg) {
@@ -191,7 +233,8 @@ void CBulletInfo::Update() {
                     };
 
                     if (hitObject->m_nColDamageEffect < 200u) {
-                        if (hitObject->physicalFlags.bDisableCollisionForce || hitObject->m_pObjectInfo->m_fColDamageMultiplier >= 99.9f) {
+                        // Como el original: un multiplicador NaN también se salta el empuje
+                        if (hitObject->physicalFlags.bDisableCollisionForce || !(hitObject->m_pObjectInfo->m_fColDamageMultiplier < 99.9f)) {
                             /* empty */
                         } else {
                             if (hitObject->GetIsStatic() && hitObject->m_pObjectInfo->m_fUprootLimit <= 0.0f) {
@@ -218,10 +261,10 @@ void CBulletInfo::Update() {
                     break;
                 }
                 case ENTITY_TYPE_BUILDING: {
-                    // std::cout << "Hit building\n";
                     if (info.m_pCreator && info.m_pCreator->GetIsTypePed()) {
                         if (auto playerData = info.m_pCreator->AsPed()->GetPlayerData()) {
-                            playerData->m_nModelIndexOfLastBuildingShot = hitEntity->GetModelIndex();
+                            // Como el original: el indice de modelo se extiende con signo (movsx)
+                            playerData->m_nModelIndexOfLastBuildingShot = (uint32)(int32)(int16)hitEntity->GetModelIndex();
                         }
                     }
                     break;
@@ -231,12 +274,14 @@ void CBulletInfo::Update() {
             }
 
             if (info.m_nWeaponType == eWeaponType::WEAPON_SNIPERRIFLE) {
-                // std::cout << "Register sniper bullet hit\n";
-                CVector dir = newPosition - info.m_vecPosition;
+                CVector dir = newPosition - origin;
                 dir.Normalise();
-                const float dirDotColPointNorm = DotProduct(dir, colPoint.m_vecNormal);
+                // Como el original: suma x + z + y
+                const auto& n = colPoint.m_vecNormal;
+                const float dirDotColPointNorm = n.x * dir.x + n.z * dir.z + n.y * dir.y;
                 if (dirDotColPointNorm < 0.0f) {
-                    AudioEngine.ReportBulletHit(hitEntity, colPoint.m_nSurfaceTypeB, colPoint.m_vecPoint, RadiansToDegrees(asin(-dirDotColPointNorm)));
+                    const float angle = AsinDegreesX87(-dirDotColPointNorm);
+                    AudioEngine.ReportBulletHit(hitEntity, colPoint.m_nSurfaceTypeB, colPoint.m_vecPoint, angle);
                 }
             }
             CGlass::WasGlassHitByBullet(hitEntity, colPoint.m_vecPoint);
@@ -254,5 +299,9 @@ void CBulletInfo::Update() {
         }
 
         info.m_vecPosition = newPosition;
+        // Como el original: la bala desaparece si alcanzó algo
+        if (hitEntity) {
+            info.m_bExists = false;
+        }
     }
 }

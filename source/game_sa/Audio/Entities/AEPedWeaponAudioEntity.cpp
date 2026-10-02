@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -60,9 +60,9 @@ void CAEPedWeaponAudioEntity::AddAudioEvent(eAudioEvents event) {
     if (!m_bInitialised || !m_Ped)
         return;
 
+    // Como el original: no descarta WEAPON_UNARMED; solo comprueba el puntero
+    // al arma activa (siempre válido) y despacha por el evento.
     const auto& weapon = m_Ped->GetActiveWeapon();
-    if (weapon.m_Type == WEAPON_UNARMED)
-        return;
 
     switch (event) {
     case AE_WEAPON_FIRE:
@@ -90,7 +90,7 @@ void CAEPedWeaponAudioEntity::AddAudioEvent(eAudioEvents event) {
 // 0x4E6AE0
 void CAEPedWeaponAudioEntity::Service() {
     if (  !m_Ped
-        || m_Ped->bCollidedWithMyVehicle
+        || m_Ped->bInVehicle // Como el original: bit 8 de 0x46C
         || m_Ped->GetIntelligence()->GetTaskSwim()
         || m_Ped->GetActiveWeapon().m_Type != WEAPON_FLAMETHROWER
     ) {

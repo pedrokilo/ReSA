@@ -101,7 +101,10 @@ inline void Update() {
             auto uni=[&](float a,float b){return a+(b-a)*float(next()%100000)/100000.f;};
             auto run=[&](bool candidate)->json {
                     // el New del EXE busca desde m_LastFreeSlot+1: se restaura para que ambas ejecuciones reciban el mismo slot
-                    { auto& lf=*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(GetTaskPool())+0xC); static const int32 lf0=lf; lf=lf0; }
+                    { auto& lf=*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(GetTaskPool())+0xC); static const int32 lf0=lf; lf=lf0;
+                      // slots libres con 0xCD: el New del EXE no escribe en el objeto y los bytes sin usar quedarian con restos
+                      auto* pb=reinterpret_cast<uint8*>(GetTaskPool()); auto* stor=*reinterpret_cast<uint8**>(pb); auto* st=*reinterpret_cast<uint8**>(pb+4); const int32 cap=*reinterpret_cast<int32*>(pb+8);
+                      for(int32 k=0;k<cap;++k)if(st[k]&0x80)std::memset(stor+k*0x80,0xCD,0x80); }
                 st=uint32(i)*2654435761u^uint32(f*0x9E3779B9u)^0x7777u; trace=json::array();
                 for(int n=0;n<PEDS;++n)while(auto* r=Ped(n)->m_pReferences)Ped(n)->CleanUpOldReference(r->m_ppEntity);
                 for(int n=0;n<PEDS;++n){ std::memset(peds[n].data(),0,peds[n].size()); auto* p=Ped(n); p->SetType(ENTITY_TYPE_PED);

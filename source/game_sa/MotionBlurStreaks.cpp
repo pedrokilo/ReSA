@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -60,7 +60,10 @@ void CMotionBlurStreaks::Render() {
                 RwRenderStateSet(rwRENDERSTATEZWRITEENABLE,      RWRSTATE(FALSE));
                 RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(TRUE));
                 RwRenderStateSet(rwRENDERSTATEFOGENABLE,         RWRSTATE(TRUE));
-                RwRenderStateSet(rwRENDERSTATEFOGCOLOR,          RWRSTATE(CTimeCycle::GetCurrentSkyBottomColor().ToIntARGB()));
+                // Como el original: las componentes uint16 se combinan sin truncar a byte, con alfa 0xFF.
+                const auto& cc = CTimeCycle::m_CurrentColours;
+                const uint32 fogColor = ((((uint32)cc.m_nSkyBottomRed | 0xFFFFFF00u) << 8 | (uint32)cc.m_nSkyBottomGreen) << 8) | (uint32)cc.m_nSkyBottomBlue;
+                RwRenderStateSet(rwRENDERSTATEFOGCOLOR,          RWRSTATE(fogColor));
                 RwRenderStateSet(rwRENDERSTATESRCBLEND,          RWRSTATE(rwBLENDSRCALPHA));
                 RwRenderStateSet(rwRENDERSTATEDESTBLEND,         RWRSTATE(rwBLENDINVSRCALPHA));
                 RwRenderStateSet(rwRENDERSTATETEXTURERASTER,     RWRSTATE(NULL));
@@ -99,7 +102,9 @@ void CMotionBlurStreaks::RegisterStreak(uint32 id, uint8 red, uint8 green, uint8
         streak.m_avecLeftPoints[0] = leftPoint;
         streak.m_avecRightPoints[0] = rightPoint;
         streak.m_acRenderHistory[0] = true;
+        // Como el original: escribe un word a 0 que limpia los historiales [1] y [2].
         streak.m_acRenderHistory[1] = false;
+        streak.m_acRenderHistory[2] = false;
         return;
     }
 }

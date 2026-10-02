@@ -433,5 +433,20 @@
     "id": "world52",
     "name": "Mundo, render y plugins (lista de 52)",
     "runner": "World52/run_local.py"
+  },
+  {
+    "id": "events23",
+    "name": "Eventos, escaner y referencias (lista de 23)",
+    "runner": "Events23/run_local.py"
+  },
+  {
+    "id": "render23",
+    "name": "Render, escaleras, puente y piel (lista de 23)",
+    "runner": "Render23/run_local.py"
+  },
+  {
+    "id": "data23",
+    "name": "Audio, balas, modelos, garajes y datos (lista de 23)",
+    "runner": "Data23/run_local.py"
   }
 ]

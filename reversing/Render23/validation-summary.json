@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 9216,
+  "pairs_per_function": {
+    "CBrightLights::Init": 64,
+    "CBrightLights::RegisterOne": 1024,
+    "CBrightLights::Render": 512,
+    "CBrightLights::RenderOutGeometryBuffer": 256,
+    "CMotionBlurStreaks::Init": 64,
+    "CMotionBlurStreaks::RegisterStreak": 1024,
+    "CMotionBlurStreaks::Render": 256,
+    "CMotionBlurStreaks::Update": 256,
+    "CPlaneTrails::Init": 64,
+    "CPlaneTrails::RegisterPoint": 256,
+    "CPlaneTrails::Render": 512,
+    "CPlaneTrails::Update": 1024,
+    "CShinyTexts::Init": 64,
+    "CShinyTexts::RegisterOne": 1024,
+    "CShinyTexts::Render": 512,
+    "CShinyTexts::RenderOutGeometryBuffer": 256,
+    "CEscalators::AddOne": 256,
+    "CEscalators::Init": 64,
+    "CEscalators::Shutdown": 64,
+    "CEscalators::Update": 256,
+    "CBridge::FindBridgeEntities": 64,
+    "CBridge::Init": 64,
+    "CBridge::ShouldLightsBeFlashing": 64,
+    "CBridge::Update": 64,
+    "CPlayerSkin::GetSkinTexture": 512,
+    "CPlayerSkin::Initialise": 64,
+    "CPlayerSkin::RenderFrontendSkinEdit": 512,
+    "CPlayerSkin::Shutdown": 64
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "1cfa251aded4b2324d0ee7ffd745f60e5605c2253750715a8aca4709d27ce718",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-render23\\20261002-160156-441396",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CBrightLights::Init": true,
+    "CBrightLights::RegisterOne": true,
+    "CBrightLights::Render": true,
+    "CBrightLights::RenderOutGeometryBuffer": true,
+    "CMotionBlurStreaks::Init": true,
+    "CMotionBlurStreaks::RegisterStreak": true,
+    "CMotionBlurStreaks::Render": true,
+    "CMotionBlurStreaks::Update": true,
+    "CPlaneTrails::Init": true,
+    "CPlaneTrails::RegisterPoint": true,
+    "CPlaneTrails::Render": true,
+    "CPlaneTrails::Update": true,
+    "CShinyTexts::Init": true,
+    "CShinyTexts::RegisterOne": true,
+    "CShinyTexts::Render": true,
+    "CShinyTexts::RenderOutGeometryBuffer": true,
+    "CEscalators::AddOne": true,
+    "CEscalators::Init": true,
+    "CEscalators::Shutdown": true,
+    "CEscalators::Update": true,
+    "CBridge::FindBridgeEntities": true,
+    "CBridge::Init": true,
+    "CBridge::ShouldLightsBeFlashing": true,
+    "CBridge::Update": true,
+    "CPlayerSkin::GetSkinTexture": true,
+    "CPlayerSkin::Initialise": true,
+    "CPlayerSkin::RenderFrontendSkinEdit": true,
+    "CPlayerSkin::Shutdown": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "9b4c12cfe27deb96c946cad82c0c7a6eaef04758a37c491c6bf89d6c4461cc3c",
+      "pdb": "e259569153a226026c98e8853e53a11d8a5d23e44c3d7f56a2d5a59dc8c9ade5"
+    },
+    "sources": {
+      "source/game_sa/BrightLights.cpp": "4a7e3f49f6c6540e9a388f75b64180f2a3cf1017f8c8dfd589f12792ffca84e1",
+      "source/game_sa/BrightLights.h": "5d505f44fc806bee1c3f5834108c739fe7450a8e0c62b9e5c891972ffe453e56",
+      "source/game_sa/MotionBlurStreaks.cpp": "57e3fa6d185636d4d7e26c61380e473d94685bfa26eeb8511b848e6b79f32b44",
+      "source/game_sa/PlaneTrails.cpp": "9015efbb47712dcde583e9c92b8c5658f8475d0f4cb9b89b535a690820a61c63",
+      "source/game_sa/PlaneTrail.cpp": "ebc80dd55c6c5ea113582791712bba4c40b19b1326c49ee0444178fbe7642687",
+      "source/game_sa/ShinyTexts.cpp": "d69a281a70d5b1c8dc8f9f6584e79d38dcf0c72c9ac170045eefe4679a71bd0f",
+      "source/game_sa/Escalators.cpp": "8835dd4660318bec322180a2f67c36ba23e738cad8be28ade454378137f21480",
+      "source/game_sa/Bridge.cpp": "2d7b226da205b6ec53599a3c21a840d5695f33f040d823b2d5ea2fc01322c2c4",
+      "source/game_sa/Entity/Ped/PlayerSkin.cpp": "b725e853ad0ac44d3c936722f693b77d30c58420091c43584dc9ac38a63b1cae"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "5d1220f5c2f1b1b16b49022ea0c83f4ce2e41a6122743d44bb5e080b72baf659",
+      "build_probe.py": "286a0281be3d03a621471e03f5d1f2e1ddda53896c14f3b7686dcdb1cdfa04c4",
+      "run_local.py": "430104a84a5942e385a1df5c27aadd315f0f3ec861f4ab422f533ab06196e223"
+    }
+  },
+  "limitations": [
+    "Camara, pool de TXD, Scene.m_pRwCamera y gpPlayerClump falsos; render, Im3D, rand, coronas, escaleras, estelas y RW/TXD/BMP simulados; estado global restaurado.",
+    "Sin el vaciado interno de CShinyTexts::Render (requiere mas de 670 textos) ni el slot libre de GetSkinTexture (el EXE se cae); sin NaN."
+  ]
+}

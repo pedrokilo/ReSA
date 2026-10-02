@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -36,7 +36,7 @@ void CPedStats::InjectHooks() {
 
 // 0x5BF9D0
 void CPedStats::Initialise() {
-    ms_apPedStats = new CPedStat[PED_STATS_COUNT]();
+    ms_apPedStats = new CPedStat[PED_STATS_COUNT]; // Como el original: sin inicializar por valor (el nombre queda tal cual)
     for (uint16 statIndex = 0; statIndex < PED_STATS_COUNT; statIndex++) {
         ms_apPedStats[statIndex].m_nId = 0;
         ms_apPedStats[statIndex].m_fFleeDistance = 20.0f;
@@ -97,7 +97,7 @@ void CPedStats::LoadPedStats() {
         ) == 11);
 
         ms_apPedStats[statIndex].m_nId = statIndex;
-        rng::copy(name, ms_apPedStats[statIndex].m_acName);
+        strcpy(ms_apPedStats[statIndex].m_acName, name); // Como el original: copia hasta el terminador
         ms_apPedStats[statIndex].m_fFleeDistance = fleeDistance;
         ms_apPedStats[statIndex].m_fHeadingChangeRate = headingChangeRate;
         ms_apPedStats[statIndex].m_nFear = fear;

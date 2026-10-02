@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -45,13 +45,15 @@ void CPlayerSkin::Shutdown() {
 // unused
 // 0x6FF900
 void CPlayerSkin::RenderFrontendSkinEdit() {
-    static uint32 s_LastFlash; // 0xC3F04C
-    static float  s_Angle;     // 0xC3F048
+    // Como el original: las variables estáticas son las del EXE.
+    static auto& s_LastFlash = StaticRef<uint32>(0xC3F04C);
+    static auto& s_Angle     = StaticRef<float>(0xC3F048);
 
-    RwRGBAReal color{ 255, 255, 255, 1.0f };
+    // Como el original: luz ambiente gris 0.65 (0x3F266666), no 255.
+    RwRGBAReal color{ 0.65f, 0.65f, 0.65f, 1.0f };
     if (CTimer::GetTimeInMSPauseMode() - s_LastFlash > 7) {
         s_Angle = s_Angle + 2.0f;
-        if (s_Angle > 360.0) {
+        if (s_Angle > 360.0f) {
             s_Angle -= 360.0f;
         }
         s_LastFlash = CTimer::GetTimeInMSPauseMode();
@@ -83,7 +85,7 @@ RwTexture* CPlayerSkin::GetSkinTexture(const char* name) {
     } else {
         imagePath = "skins\\%s.bmp";
     }
-    sprintf_s(gString, imagePath, name);
+    std::sprintf(gString, imagePath, name); // Como el original: sprintf (sprintf_s rellena el resto del búfer en depuración)
 
     RwImage* image = RtBMPImageRead(gString);
     if (!image) {
@@ -97,7 +99,8 @@ RwTexture* CPlayerSkin::GetSkinTexture(const char* name) {
     RwTexture* texture = RwTextureCreate(raster);
     RwTextureSetName(texture, name);
     RwTextureSetFilterMode(texture, rwFILTERLINEAR);
-    RwTexDictionaryAddTexture(CTxdStore::ms_pTxdPool->GetAtRef(m_txdSlot)->m_pRwDictionary, texture);
+    // Como el original: el slot se usa como índice del pool (GetAt), no como referencia.
+    RwTexDictionaryAddTexture(CTxdStore::ms_pTxdPool->GetAt(m_txdSlot)->m_pRwDictionary, texture);
     RwImageDestroy(image);
     return texture;
 }

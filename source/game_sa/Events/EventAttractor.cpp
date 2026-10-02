@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -59,25 +59,30 @@ bool CEventAttractor::AffectsPed(CPed* ped) {
             && m_2dEffect->m_nAttractorType == PED_ATTRACTOR_TRIGGER_SCRIPT
             && CPopulation::PedMICanBeCreatedAtThisAttractor(ped->GetModelId(), m_2dEffect->m_szScriptName))
         {
+            // Como el original: la comprobacion del refugio con lluvia se hace siempre, haya tarea activa o no
             CTask* activeTask = ped->GetTaskManager().GetActiveTask();
-            if (!activeTask
-                || m_bAvoidLookingAtAttractor
-                ||
-                activeTask->GetTaskType() != TASK_COMPLEX_USE_EFFECT
-                && (m_2dEffect->m_nAttractorType != PED_ATTRACTOR_SHELTER || CWeather::IsRainy()))
-            {
-                if (m_bAvoidLookingAtAttractor)
-                    return true;
-                if (CGeneral::GetRandomNumberInRange(0, 100) >= m_2dEffect->m_nPedExistingProbability)
-                    return false;
-                if (CGeneral::GetRandomNumberInRange(0, 100) >= m_2dEffect->field_36)
-                    return true;
-                if (!g_ikChainMan.IsLooking(ped)) {
-                    uint32 time = CGeneral::GetRandomNumberInRange(2000, 4000);
-                    CVector point = m_entity->GetMatrix().TransformPoint(m_2dEffect->m_Pos);
-                    g_ikChainMan.LookAt("CEventAttractor", ped, 0, time, BONE_UNKNOWN, &point, false, 0.25f, 500, 3, false);
-                }
-            }     
+            if (activeTask && !m_bAvoidLookingAtAttractor && activeTask->GetTaskType() == TASK_COMPLEX_USE_EFFECT)
+                return false;
+            if (m_2dEffect->m_nAttractorType == PED_ATTRACTOR_SHELTER && !CWeather::IsRainy())
+                return false;
+            if (m_bAvoidLookingAtAttractor)
+                return true;
+            if (CGeneral::GetRandomIntInRange(0, 100) >= m_2dEffect->m_nPedExistingProbability)
+                return false;
+            if (CGeneral::GetRandomIntInRange(0, 100) >= m_2dEffect->field_36)
+                return true;
+            if (!g_ikChainMan.IsLooking(ped)) {
+                uint32 time = CGeneral::GetRandomIntInRange(2000, 4000); // Como el original: 0x407180
+                // Como el original: MultiplyMatrixWithVector (0x59C890) con su orden de sumas
+                const CMatrix& m = m_entity->GetMatrix();
+                const CVector& v = m_2dEffect->m_Pos;
+                CVector point{
+                    ((m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x) + m.GetPosition().x,
+                    ((m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y) + m.GetPosition().y,
+                    ((m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y) + m.GetPosition().z,
+                };
+                g_ikChainMan.LookAt("CEventAttractor", ped, 0, time, BONE_UNKNOWN, &point, false, 0.25f, 500, 3, false);
+            }
         }
     }
     return false;

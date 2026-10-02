@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -36,15 +36,17 @@ void CReferences::Init() {
 
     pEmptyList = aRefs;
 
-    // todo: do better
     for (int32 i = 0; i < MAX_NUM_REFERENCES - 1; ++i) {
         (&aRefs[i])->m_pNext = &aRefs[i + 1];
         (&aRefs[i])->m_ppEntity = nullptr;
     }
 
+    // Como el original: el ultimo nodo tambien queda con m_ppEntity a null (el bucle del EXE da 3000 vueltas)
+    (&aRefs[MAX_NUM_REFERENCES - 1])->m_ppEntity = nullptr;
     (&aRefs[MAX_NUM_REFERENCES - 1])->m_pNext = nullptr;
 }
 
+// 0x5719E0
 uint32 CReferences::ListSize(CReference* ref) {
     uint32 count = 0;
     while (ref) {
@@ -55,22 +57,31 @@ uint32 CReferences::ListSize(CReference* ref) {
     return count;
 }
 
+// 0x571AD0
 void CReferences::RemoveReferencesToPlayer() {
-    auto vehicle = FindPlayerVehicle();
-    if (vehicle)
-        vehicle->ResolveReferences();
+    // Como el original: FindPlayerVehicle/FindPlayerPed se vuelven a llamar en cada uso
+    if (FindPlayerVehicle())
+        FindPlayerVehicle()->ResolveReferences();
 
-    auto player = FindPlayerPed();
-    if (player) {
-        player->ResolveReferences();
-        auto& group = CPedGroups::GetGroup(player->GetPlayerData()->m_nPlayerGroup);
-        group.GetMembership().SetLeader(player);
-        group.Process();
+    if (FindPlayerPed()) {
+        FindPlayerPed()->ResolveReferences();
+        auto& group = CPedGroups::GetGroup(FindPlayerPed()->GetPlayerData()->m_nPlayerGroup);
+        group.GetMembership().SetLeader(FindPlayerPed());
+        CPedGroups::GetGroup(FindPlayerPed()->GetPlayerData()->m_nPlayerGroup).Process();
     }
 }
 
+// 0x571CC0
 void CReferences::PruneAllReferencesInWorld() {
-    rng::for_each(GetPedPool()->GetAllValid(), &CEntity::PruneReferences);
-    rng::for_each(GetVehiclePool()->GetAllValid(), &CEntity::PruneReferences);
-    rng::for_each(GetObjectPool()->GetAllValid(), &CEntity::PruneReferences);
+    // Como el original: cada pool se recorre desde el ultimo hueco hacia el primero
+    const auto prune = [](auto* pool) {
+        for (auto i = (int32)pool->GetSize(); i > 0; --i) {
+            if (auto* entity = pool->GetAt((size_t)(i - 1))) {
+                entity->PruneReferences();
+            }
+        }
+    };
+    prune(GetPedPool());
+    prune(GetVehiclePool());
+    prune(GetObjectPool());
 }
