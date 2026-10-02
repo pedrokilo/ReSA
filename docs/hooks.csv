@@ -8190,3 +8190,7 @@ CTaskComplexObserveTrafficLights,CreateNextSubTask,0x006317E0,1,0,0,V
 CTaskComplexObserveTrafficLights,Destructor,0x006317C0,1,0,0,S
 CTaskComplexObserveTrafficLights,GetTaskType,0x006317B0,1,0,0,V
 CTaskComplexObserveTrafficLights,MakeAbortable,0x006317D0,1,0,0,V
+CTaskComplexOpenDriverDoor,Clone,0x00643870,1,0,0,V
+CTaskComplexOpenDriverDoor,Constructor,0x00640390,1,0,0,S
+CTaskComplexOpenDriverDoor,Destructor,0x006403D0,1,0,0,S
+CTaskComplexOpenDriverDoor,GetTaskType,0x006403C0,1,0,0,V
