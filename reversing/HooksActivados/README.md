@@ -158,7 +158,7 @@ Se comparó el exe con el código y el catálogo en las dos direcciones. Detecta
 | `CConversations::EnableConversation` | 0x43A7F0 | dentro de un bucle de otra función |
 | `CConversationNode::ClearRecursively` | 0x43A7A0 | dentro de una instrucción `mov` |
 
-Un salto de 5 bytes escrito ahí altera la función que lo contiene cuando el juego la ejecuta. `CPedDamageResponseCalculator::IsBleedingWeapon` (0x4B5C2A) también cae a mitad de función, pero está con `reversed=0`. **Pendiente:** localizar la dirección real de cada una.
+Un salto de 5 bytes escrito ahí altera la función que lo contiene cuando el juego la ejecuta. **Corregidas:** ver [Direcciones corregidas](#direcciones-corregidas-2026-10-01).
 
 **Lo que hay en el exe y no tenemos.**
 
@@ -166,3 +166,21 @@ Un salto de 5 bytes escrito ahí altera la función que lo contiene cuando el ju
 - **Vtables:** se detectan 570, cargados mediante `mov [reg], vtable`. 430 tienen `RH_ScopedVirtualClass` y **140 no aparecen en el código**; quedan por clasificar. Las 10 `RH_ScopedVirtualClass` que la heurística no encontró son vtables de audio con N=1 cargados de otra forma, y son correctas.
 - **Tareas:** ninguna tarea con vtable en el exe queda sin clase.
 - **Eventos:** el método no sirve, porque los tipos de evento son números pequeños y el patrón coincide con funciones ajenas. Están sin revisar.
+
+## Direcciones corregidas (2026-10-01)
+
+Se corrigieron los siete hooks heredados del upstream cuya dirección caía a mitad de función. La dirección real se buscó en el EXE y se comprobó contra lo que hace el C++.
+
+| Hook | Antes | Ahora | Cómo se identificó |
+| --- | --- | --- | --- |
+| `CVisibilityPlugins::SetClumpForAllAtomicsFlag` | 0x732307 | **0x7322F0** | Llama a `RpClumpForAllAtomics` con `setClumpForAllAtomicsFlagCB` (0x7322D0); 0x732307 era su `ret`. |
+| `CLoadingScreen::IsActive` | 0x744DB5 | **0x744DB0** | `mov al,[0xBAB318]; ret`; la copia independiente no tiene llamadores (en el original está inlineada). |
+| `CGame::ValidateVersion` | 0x5BA0BC | **0x5BA060** | Abre `models\coll\peds.col` en modo `rb`, igual que el C++. |
+| `CVehicleModelInfo::SetRenderPipelinesCB` | 0x4C88F4 | **0x4C88F0** | `mov eax,[esp+4]; ret`: devuelve el atómico, como el C++. |
+| `CTaskSimpleGiveCPR::FinishGiveCPRAnimCB` | 0x658910 | **0x658990** | Es el callback que `ProcessPed` pasa a `SetFinishCallback`: pone `m_pAnim` a nulo y activa `bAnimationFinished`. La dirección anterior caía dentro de `ReviveDeadPed`. |
+| `CConversationNode::ClearRecursively` | 0x43A7A0 | **0x43A710** | Recorre recursivamente las ramas del pool de nodos (0x969570, 0x18 bytes por nodo). |
+| `CConversations::EnableConversation` | 0x43A7F0 | **retirado** | No existe como función propia en el EXE (inlineada, igual que `FindConversationForPed`). 0x43A7F0 caía dentro del bucle de `CConversations::Clear`. Se quitó la instalación y su fila de `hooks.csv`, así que `CConversations` pasa a **10/10**. |
+
+`CPedDamageResponseCalculator::IsBleedingWeapon` (0x4B5C2A) también cae a mitad de función, pero está con `reversed=0` y no se activa. Se deja como estaba.
+
+**Comprobaciones.** No hay direcciones duplicadas entre todas las instalaciones del código. La compilación Debug termina sin errores. `smoke_test.py --seconds 60`: **60 s dentro de partida** sin diálogos y con las partidas intactas ([resumen](../CAEWeaponAudioEntity/artifacts/smoke-20261001-210532/summary.json)). El `runtime-hooks.csv` del juego muestra las seis direcciones nuevas y ya no registra `EnableConversation`. Al terminar se restauró el ASI instalado (`a0c5e7fb…`). Hay un commit por hook.
