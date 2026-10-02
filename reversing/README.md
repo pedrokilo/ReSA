@@ -2,11 +2,11 @@
 
 La [hoja de ruta de PGTASA](../docs/ProjectRoadmap.md) sitúa estas pruebas dentro del objetivo de reconstrucción funcionalmente equivalente e independencia del EXE. Reconstrucción, validación, desbloqueo e independencia son dimensiones separadas; el total de pares no es un total de funciones validadas.
 
-La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 776 funciones a sus pruebas; las tres acreditaciones de la versión anterior quedan pendientes por el cambio de huella global de source durante CustomBuilding. Las 776 conservan evidencia vinculada pendiente de revisión de dependencias. El [inventario de las 7.860 reconstruidas](../docs/ValidationInventory.md) identifica también las 7.084 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
+La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 928 funciones a sus pruebas; las tres acreditaciones de la versión anterior quedan pendientes por el cambio de huella global de source durante CustomBuilding. Las 928 conservan evidencia vinculada pendiente de revisión de dependencias. El [inventario de las 7.860 reconstruidas](../docs/ValidationInventory.md) identifica también las 6.932 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
 
 ## Estado actual del catálogo de hooks
 
-El corte vigente de `PGTASA` contiene **772 clases/grupos y 8.443 entradas**: 7.860 reconstruidas y 583 pendientes. De ellas, **776 tienen `validated=1`** porque cuentan con evidencia aprobada vinculada; 0 conservan vigencia acreditada para el árbol actual. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
+El corte vigente de `PGTASA` contiene **772 clases/grupos y 8.443 entradas**: 7.860 reconstruidas y 583 pendientes. De ellas, **928 tienen `validated=1`** porque cuentan con evidencia aprobada vinculada; 0 conservan vigencia acreditada para el árbol actual. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
 
 ```powershell
 python contrib/audit_hook_catalog.py --strict
@@ -18,7 +18,7 @@ Esta carpeta sí se utiliza. Ejecutar `PROBAR.cmd` desde la raíz para elegir un
 
 `PROBAR.cmd --all` ejecuta en serie todos los bancos dentro de GTA. Para evitar la pausa del CMD, usar `python reversing/run.py --all`. Abre y cierra la copia de pruebas para cada banco, vuelve a analizar sus logs nuevos y comprueba la restauración del ASI/PDB y los hashes de las partidas antes de continuar. Los informes conjuntos quedan en `reversing/artifacts/suite-*/summary.json`, con salidas por caso y rutas/hashes de la evidencia. Se omite `pcsave-isolated` porque la misma función ya se prueba dentro del motor.
 
-El catálogo actual contiene **83 casos: 82 dentro del motor y uno aislado**.
+El catálogo actual contiene **87 casos: 86 dentro del motor y uno aislado**.
 
 Esta serie usa las sondas archivadas de cada trabajo. El caso `conversation-for-ped` comprueba además que fuentes e instrumentación coinciden con su manifiesto; si cambiaron, recompilar con `python reversing/ConversationForPed/build.py --probe` antes de ejecutarlo. La serie no es una prueba de integración de todos los cambios en una única compilación actual ni sustituye la campaña de estabilidad futura.
 
@@ -52,6 +52,10 @@ Esta serie usa las sondas archivadas de cada trabajo. El caso `conversation-for-
 - [Tasks70](Tasks70/README.md): repartidores de tareas de grupo, `CPedGroups`, `CTaskSequences`, tareas sueltas y `CTimeModelInfo`, 28 funciones y 11.296 pares. Caso `tasks70`.
 - [Core70](Core70/README.md): cajas, colisiones, pools de objetos y peatones, estructuras de guardado, `CTempColModels`, `ModelIndices`, viento y más, 44 funciones y 14.992 pares; `Reorthogonalise` exacto y `CalculateAspectRatio` en ST0. Caso `core70`.
 - [Misc70](Misc70/README.md): streams de audio, `CColourSet`, `CCrime`, interfaz, cristales, gamma, estelas y Securom, 24 funciones y 12.416 pares. Caso `misc70`.
+- [Events52](Events52/README.md): `CEvent` y 9 clases de eventos (lista de 52), 30 funciones y 13.888 pares; corrige la desvirtualización de `CEventSoundQuiet::AffectsPed`. Caso `events52`.
+- [SimpleTasks52](SimpleTasks52/README.md): 16 tareas simples (golpes, mirar, soltar, quieto, cansado, charla, arrestar), 48 funciones y 11.904 pares. Caso `stasks52`.
+- [PedTasks52](PedTasks52/README.md): subir/bajar de coches, ir disparando, repartidores, `CCivilianPed`, cobertura, `CPedPlacement` y `CSetPiece`, 32 funciones y 11.072 pares. Caso `ptasks52`.
+- [World52](World52/README.md): edificios animados, paneles, fuego, objeto en la mano, temblor de cámara, ratón, oclusores, estelas, plantas, sombras, plugins de RW y criaturas del agua, 42 funciones y 18.384 pares; `CMatrix::SetRotate` exacto. Caso `world52`.
 - [InformQueues](InformQueues/README.md): colas de eventos de grupo, 11 funciones y 6.464 pares. Caso `inform`.
 - [BoneNodes](BoneNodes/README.md): `BoneNode_c` y `BoneNodeManager_c`, 25 funciones y 12.256 pares exactos bit a bit. Caso `bones`.
 - [TasksBatch](TasksBatch/README.md): cinco clases de tareas, 39 funciones y 20.480 pares. Caso `tasks`.

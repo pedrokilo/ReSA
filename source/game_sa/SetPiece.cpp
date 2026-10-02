@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -64,7 +64,8 @@ CCopPed* CSetPiece::TryToGenerateCopPed(CVector2D posn) {
         false
     );
 
-    if (!numCollidingObjects) {
+    // Como el original (0x49971C `jne`): si hay algo en el sitio no se genera el poli.
+    if (numCollidingObjects) {
         return nullptr;
     }
 
@@ -102,17 +103,19 @@ CVehicle* CSetPiece::TryToGenerateCopCar(CVector2D posn, CVector2D target) {
         point.z = car->GetHeightAboveRoad() + cp.m_vecPoint.z;
     }
 
-    const CVector dir{ (target - posn).Normalized() };
-    // TODO: matrix assign shit
-    car->GetForward()  = dir;
+    // Como el original: CVector{dx, dy, 0} normalizado con CVector::Normalise (0x59C910).
+    CVector dir{ target.x - posn.x, target.y - posn.y, 0.0f };
+    dir.Normalise();
+    car->GetForward()  = CVector{ dir.x, dir.y, 0.0f };
     car->GetRight()    = CVector{ dir.y, -dir.x, 0.0f };
     car->GetUp()       = CVector::ZAxisVector();
     car->GetPosition() = point;
 
+    // Como el original: radio de la esfera del modelo de colision del model info (sin modelos especiales).
     int16 numCollidingObjects{};
     CWorld::FindObjectsKindaColliding(
         point,
-        car->GetColModel()->GetBoundRadius(),
+        CModelInfo::GetModelInfo(car->m_nModelIndex)->GetColModel()->GetBoundRadius(),
         false,
         &numCollidingObjects,
         16,
@@ -136,178 +139,166 @@ CVehicle* CSetPiece::TryToGenerateCopCar(CVector2D posn, CVector2D target) {
 }
 
 // 0x499A80
+// Como el original: el nivel de busqueda se compara con signo (`cmp eax,N` + `jl`).
 void CSetPiece::Update() {
-    if (m_nLastGenerationTime != 0 && CTimer::GetTimeInMS() <= m_nLastGenerationTime + 4'000u) {
+    // Como el original: 40 s (0x9C40) entre generaciones, comparacion sin signo.
+    if (m_nLastGenerationTime != 0 && CTimer::GetTimeInMS() <= (uint32)m_nLastGenerationTime + 40'000u) {
         return;
     }
 
-    const auto playerPos = FindPlayerCoors();
-    if (!CRect{ m_AreaRect }.IsPointInside(playerPos)) {
+    // Como el original: comparaciones x87 en el orden x1, x2, y1, y2 (un NaN deja continuar).
+    const auto playerPos = FindPlayerCoors(-1);
+    if ((float)m_AreaRect.x1 > playerPos.x || (float)m_AreaRect.x2 < playerPos.x
+        || (float)m_AreaRect.y1 > playerPos.y || (float)m_AreaRect.y2 < playerPos.y) {
         return;
     }
 
-    const auto SetupCop = [this](const CVector2D& spawn, const CVector2D& target) -> CCopPed* {
-        if (auto* cop = TryToGenerateCopPed(spawn)) {
-            cop->bCullExtraFarAway = true;
-            cop->m_nTimeTillWeNeedThisPed = CTimer::GetTimeInMS() + 10'000;
-
-            cop->GetTaskManager().SetTask(new CTaskComplexBeCop{
-                PEDMOVE_WALK,
-                false,
-                new CTaskComplexGoToPointAndStandStill{
-                    PEDMOVE_RUN,
-                    CWorld::AddGroundZToCoord(target),
-                    0.5f
-                }
-            }, TASK_PRIMARY_PRIMARY);
-            m_nLastGenerationTime = CTimer::GetTimeInMS();
-
-            return cop;
-        }
-        return nullptr;
+    // Como el original: (jugador - salida).x * vel.x + (jugador - salida).y * vel.y sin componente z, con las
+    // mismas llamadas a FindPlayerCoors/FindPlayerSpeed; solo se genera si es negativo (un NaN no genera).
+    const auto IsPlayerApproaching = [](CVector2D spawn) {
+        const auto  coorsA = FindPlayerCoors(-1);
+        const auto& speedA = FindPlayerSpeed(-1);
+        const auto  coorsB = FindPlayerCoors(-1);
+        const float dy     = coorsB.y - spawn.y;
+        const auto& speedB = FindPlayerSpeed(-1);
+        return dy * speedB.y + (coorsA.x - spawn.x) * speedA.x < 0.0f;
     };
 
-    const auto SetupCar = [this](const CVector2D& spawn, const CVector2D& target, eCarDrivingStyle style, eCarMission mission, uint8 speed, uint32 timeNeeded, bool tempAction = false, bool addSpeed = false) -> CVehicle* {
-        if (auto* car = TryToGenerateCopCar(spawn, target)) {
-            car->SetStatus(STATUS_SIMPLE);
-            car->m_autoPilot.m_nCruiseSpeed        = speed;
-            car->m_autoPilot.m_nCarDrivingStyle    = style;
-            car->m_autoPilot.m_nCarMission         = mission;
-            car->m_autoPilot.m_speed               = car->m_autoPilot.m_nCruiseSpeed;
-            car->m_autoPilot.m_vecDestinationCoors = CVector{ target };
-            car->m_nTimeTillWeNeedThisCar          = CTimer::GetTimeInMS() + timeNeeded;
-            if (tempAction) {
-                car->m_autoPilot.SetTempAction(TEMPACT_GOFORWARD, 100);
-            }
-            if (addSpeed) {
-                car->GetMoveSpeed() = car->GetForward() * 2.0f / 3.0f;
-            }
-            CCarAI::AddPoliceCarOccupants(car, false);
-
-            return car;
-        }
-        return nullptr;
+    // Como el original: coches lentos (estado fisico, velocidad 4/24, destino con z = 0, 25 s).
+    const auto SetupSlowCar = [this](CVehicle* car, CVector2D target) {
+        car->SetStatus(STATUS_PHYSICS);
+        car->m_autoPilot.m_nCruiseSpeed        = (uint8)(m_nType == SETPIECE_2CARS_MEDIUM_SPEED ? 24 : 4);
+        car->m_autoPilot.m_nCarDrivingStyle    = DRIVING_STYLE_SLOW_DOWN_FOR_CARS;
+        car->m_autoPilot.m_nCarMission         = MISSION_SLOWLY_DRIVE_TOWARDS_PLAYER_1;
+        car->m_autoPilot.m_speed               = (float)car->m_autoPilot.m_nCruiseSpeed;
+        car->m_autoPilot.m_vecDestinationCoors = CVector{ target.x, target.y, 0.0f };
+        car->m_nTimeTillWeNeedThisCar          = CTimer::GetTimeInMS() + 25'000;
+        CCarAI::AddPoliceCarOccupants(car, false);
     };
 
-    const auto SetupQuickCar = [&](const CVector2D& spawn, const CVector2D& target, eCarDrivingStyle style, eCarMission mission) {
-        if ((FindPlayerCoors() - spawn).Dot(FindPlayerSpeed()) >= 0.0f) {
-            return;
-        }
+    // Como el original: coches rapidos (sin m_speed ni destino), accion temporal hacia delante 100 ms,
+    // velocidad = adelante * 0.6666667f y nueva marca de generacion.
+    const auto SetupQuickCar = [this](CVehicle* car, eCarDrivingStyle style, eCarMission mission) {
+        car->SetStatus(STATUS_PHYSICS);
+        car->m_autoPilot.m_nCruiseSpeed     = 16;
+        car->m_autoPilot.m_nCarDrivingStyle = style;
+        car->m_autoPilot.m_nCarMission      = mission;
+        car->m_autoPilot.m_nTempAction      = TEMPACT_GOFORWARD;
+        car->m_autoPilot.m_nTempActionTime  = CTimer::GetTimeInMS() + 100;
+        car->m_nTimeTillWeNeedThisCar       = CTimer::GetTimeInMS() + 10'000;
+        car->GetMoveSpeed()                 = car->GetForward() * (2.0f / 3.0f);
+        CCarAI::AddPoliceCarOccupants(car, false);
+        m_nLastGenerationTime = CTimer::GetTimeInMS();
+    };
 
-        if (SetupCar(
-            spawn,
-            target,
-            style,
-            mission,
-            16,
-            10'000,
-            true,
-            true
-        )) {
-            m_nLastGenerationTime = CTimer::GetTimeInMS();
-        }
+    // Como el original: la z del suelo se calcula antes de tocar el poli y de crear las tareas.
+    const auto SetupCop = [](CCopPed* cop, CVector2D target, float groundZ) {
+        cop->m_nTimeTillWeNeedThisPed = CTimer::GetTimeInMS() + 10'000;
+        cop->bCullExtraFarAway        = true;
+        auto* const goTo  = new CTaskComplexGoToPointAndStandStill{ PEDMOVE_RUN, CVector{ target.x, target.y, groundZ }, 0.5f, 2.0f, false, false };
+        auto* const beCop = new CTaskComplexBeCop{ PEDMOVE_WALK, false, goTo };
+        cop->GetTaskManager().SetTask(beCop, TASK_PRIMARY_PRIMARY);
     };
 
     switch (m_nType) {
     case SETPIECE_2CARS_SLOW_SPEED:
     case SETPIECE_2CARS_MEDIUM_SPEED: {
-        if (FindPlayerPed()->GetWantedLevel() < eWantedLevel::WANTED_LEVEL_1 || FindPlayerVehicle()) {
-            break;
+        if ((int32)FindPlayerPed(-1)->GetWantedLevel() < 1 || FindPlayerVehicle(-1, false)) {
+            return;
         }
-
-        auto* car1 = SetupCar(
-            GetSpawnCoord1(),
-            GetTargetCoord1(),
-            DRIVING_STYLE_SLOW_DOWN_FOR_CARS,
-            MISSION_SLOWLY_DRIVE_TOWARDS_PLAYER_1,
-            (m_nType == SETPIECE_2CARS_SLOW_SPEED) ? 4 : 24,
-            25'000
-        );
+        auto* const car1 = TryToGenerateCopCar(GetSpawnCoord1(), GetTargetCoord1());
         if (!car1) {
-            break;
+            return;
         }
-
-        if (!SetupCar(
-            GetSpawnCoord2(),
-            GetTargetCoord2(),
-            DRIVING_STYLE_SLOW_DOWN_FOR_CARS,
-            MISSION_SLOWLY_DRIVE_TOWARDS_PLAYER_1,
-            (m_nType == SETPIECE_2CARS_SLOW_SPEED) ? 4 : 24,
-            25'000
-        )) {
+        auto* const car2 = TryToGenerateCopCar(GetSpawnCoord2(), GetTargetCoord2());
+        if (!car2) {
             CWorld::Remove(car1);
             delete car1;
-            break;
+            return;
         }
-
+        // Como el original: los dos coches se configuran despues de generar ambos.
+        SetupSlowCar(car1, GetTargetCoord1());
+        SetupSlowCar(car2, GetTargetCoord2());
         m_nLastGenerationTime = CTimer::GetTimeInMS();
-        break;
+        return;
     }
-    case SETPIECE_1CAR_QUICK_SPEED: {
-        if (FindPlayerPed()->GetWantedLevel() < eWantedLevel::WANTED_LEVEL_2 || !FindPlayerVehicle()) {
-            break;
-        }
-
-        SetupQuickCar(GetSpawnCoord1(), GetTargetCoord1(), DRIVING_STYLE_PLOUGH_THROUGH, MISSION_BLOCKPLAYER_FORWARDANDBACK);
-        break;
-    }
+    case SETPIECE_1CAR_QUICK_SPEED:
     case SETPIECE_1CAR_MEDIUM_SPEED: {
-        if (const auto* p = FindPlayerPed(); p->GetWantedLevel() < eWantedLevel::WANTED_LEVEL_2 || !FindPlayerVehicle()) {
-            break;
+        if ((int32)FindPlayerPed(-1)->GetWantedLevel() < 2 || !FindPlayerVehicle(-1, false)) {
+            return;
         }
-
-        SetupQuickCar(GetSpawnCoord1(), GetTargetCoord1(), DRIVING_STYLE_AVOID_CARS, MISSION_RAMPLAYER_CLOSE);
-        break;
+        if (!IsPlayerApproaching(GetSpawnCoord1())) {
+            return;
+        }
+        if (auto* const car = TryToGenerateCopCar(GetSpawnCoord1(), GetTargetCoord1())) {
+            if (m_nType == SETPIECE_1CAR_QUICK_SPEED) {
+                SetupQuickCar(car, DRIVING_STYLE_PLOUGH_THROUGH, MISSION_BLOCKPLAYER_FORWARDANDBACK);
+            } else {
+                SetupQuickCar(car, DRIVING_STYLE_AVOID_CARS, MISSION_RAMPLAYER_CLOSE);
+            }
+        }
+        return;
     }
-    case SETPIECE_1PED:
-        if (FindPlayerPed()->GetWantedLevel() < eWantedLevel::WANTED_LEVEL_1 && FindPlayerVehicle()) {
-            break;
+    case SETPIECE_1PED: {
+        // Como el original: sale si no hay nivel de busqueda o si el jugador va en vehiculo.
+        if ((int32)FindPlayerPed(-1)->GetWantedLevel() < 1 || FindPlayerVehicle(-1, false)) {
+            return;
         }
-
-        if (!SetupCop(GetSpawnCoord1(), GetTargetCoord1())) {
-            break;
+        auto* const cop = TryToGenerateCopPed(GetSpawnCoord1());
+        if (!cop) {
+            return;
         }
+        const auto target = GetTargetCoord1();
+        SetupCop(cop, target, CWorld::FindGroundZForCoord(target.x, target.y));
         m_nLastGenerationTime = CTimer::GetTimeInMS();
-        break;
+        return;
+    }
     case SETPIECE_2PEDS: {
-        if (FindPlayerPed()->GetWantedLevel() < eWantedLevel::WANTED_LEVEL_1 && FindPlayerVehicle()) {
-            break;
+        if ((int32)FindPlayerPed(-1)->GetWantedLevel() < 1 || FindPlayerVehicle(-1, false)) {
+            return;
         }
-
-        auto* cop1 = SetupCop(GetSpawnCoord1(), GetTargetCoord1());
+        auto* const cop1 = TryToGenerateCopPed(GetSpawnCoord1());
         if (!cop1) {
-            break;
+            return;
         }
-
-        if (!SetupCop(GetSpawnCoord2(), GetTargetCoord2())) {
+        const auto target1 = GetTargetCoord1();
+        SetupCop(cop1, target1, CWorld::FindGroundZForCoord(target1.x, target1.y));
+        auto* const cop2 = TryToGenerateCopPed(GetSpawnCoord2());
+        if (!cop2) {
             CWorld::Remove(cop1);
             delete cop1;
-            break;
+            return;
         }
+        // Como el original: el segundo poli va a la x/y del destino 1 con la z del suelo del destino 2.
+        const auto  target2  = GetTargetCoord2();
+        const float groundZ2 = CWorld::FindGroundZForCoord(target2.x, target2.y);
+        SetupCop(cop2, GetTargetCoord1(), groundZ2);
         m_nLastGenerationTime = CTimer::GetTimeInMS();
-        break;
+        return;
     }
-    case SETPIECE_2CARS_QUICK_SPEED_BEFORE_HIT: {
-        if (FindPlayerPed()->GetWantedLevel() < eWantedLevel::WANTED_LEVEL_2 && FindPlayerVehicle()) {
-            break;
-        }
-
-        // NOTE: No check of the first car
-        SetupQuickCar(GetSpawnCoord1(), GetTargetCoord1(), DRIVING_STYLE_PLOUGH_THROUGH, MISSION_BLOCKPLAYER_FORWARDANDBACK);
-        SetupQuickCar(GetSpawnCoord2(), GetTargetCoord2(), DRIVING_STYLE_PLOUGH_THROUGH, MISSION_BLOCKPLAYER_FORWARDANDBACK);
-        break;
-    }
+    case SETPIECE_2CARS_QUICK_SPEED_BEFORE_HIT:
     case SETPIECE_2CARS_QUICK_SPEED: {
-        if (FindPlayerPed()->GetWantedLevel() < eWantedLevel::WANTED_LEVEL_2 && FindPlayerVehicle()) {
-            break;
+        // Como el original: sale si el nivel de busqueda es menor que 2 o si el jugador no va en vehiculo.
+        if ((int32)FindPlayerPed(-1)->GetWantedLevel() < 2 || !FindPlayerVehicle(-1, false)) {
+            return;
         }
-
+        const auto style   = m_nType == SETPIECE_2CARS_QUICK_SPEED ? DRIVING_STYLE_AVOID_CARS : DRIVING_STYLE_PLOUGH_THROUGH;
+        const auto mission = m_nType == SETPIECE_2CARS_QUICK_SPEED ? MISSION_RAMPLAYER_CLOSE : MISSION_BLOCKPLAYER_FORWARDANDBACK;
         // NOTE: No check of the first car
-        SetupQuickCar(GetSpawnCoord1(), GetTargetCoord1(), DRIVING_STYLE_AVOID_CARS, MISSION_RAMPLAYER_CLOSE);
-        SetupQuickCar(GetSpawnCoord2(), GetTargetCoord2(), DRIVING_STYLE_AVOID_CARS, MISSION_RAMPLAYER_CLOSE);
-        break;
+        if (IsPlayerApproaching(GetSpawnCoord1())) {
+            if (auto* const car = TryToGenerateCopCar(GetSpawnCoord1(), GetTargetCoord1())) {
+                SetupQuickCar(car, style, mission);
+            }
+        }
+        if (!IsPlayerApproaching(GetSpawnCoord2())) {
+            return;
+        }
+        if (auto* const car = TryToGenerateCopCar(GetSpawnCoord2(), GetTargetCoord2())) {
+            SetupQuickCar(car, style, mission);
+        }
+        return;
     }
     default:
-        break;
+        return;
     }
 }

@@ -15,9 +15,9 @@ Corte del 30 de septiembre de 2026. Clases y reconstrucciones se calculan sobre 
 | Dimensión | Progreso | Medición |
 | --- | --- | --- |
 | Clases completas en el catálogo | `█████████████████░░░` | 667/772 · 86,40% |
-| Clases validadas en el catálogo | `█████░░░░░░░░░░░░░░░` | 197/772 · 25,52% |
+| Clases validadas en el catálogo | `██████░░░░░░░░░░░░░░` | 248/772 · 32,12% |
 | Funciones registradas como reconstruidas | `███████████████████░` | 7.860/8.443 · 93,09% |
-| Funciones con evidencia aprobada (`validated=1`) | `██░░░░░░░░░░░░░░░░░░` | **776/8.443 · 9,19%** |
+| Funciones con evidencia aprobada (`validated=1`) | `██░░░░░░░░░░░░░░░░░░` | **928/8.443 · 10,99%** |
 | Validaciones vigentes para el árbol actual | `░░░░░░░░░░░░░░░░░░░░` | 0/8.442 · 0,00% |
 | Dependencias de funciones originales eliminadas | Sin barra: no medido | Falta auditoría de llamadas directas, indirectas y transitivas |
 

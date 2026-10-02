@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -326,6 +326,9 @@ void CPedToPlayerConversations::Update() {
  * ambos participantes.
  */
 void CPedToPlayerConversations::EndConversation() {
+    // Como el original: FindPlayerPed se llama antes de tocar el estado (0x43AB13).
+    const auto player = FindPlayerPed(-1);
+
     // Hace que el subsistema pase inmediatamente a considerarse inactivo.
     m_State = eP2pState::INACTIVE;
 
@@ -340,7 +343,6 @@ void CPedToPlayerConversations::EndConversation() {
 
     // Durante la conversación puede forzarse al jugador a mirar al peatón.
     // Si esa mirada sigue activa, se cancela suavemente durante 250 ms.
-    const auto player = FindPlayerPed(-1);
     if (g_ikChainMan.IsLooking(player)) {
         g_ikChainMan.AbortLookAt(player, 250);
     }

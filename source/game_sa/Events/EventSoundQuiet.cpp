@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -65,11 +65,16 @@ bool CEventSoundQuiet::AffectsPed(CPed* ped)
     if (soundLevel < 30.0f)
         return false;
 
-    auto currentEvent = static_cast<CEventSoundQuiet*>(ped->GetEventHandlerHistory().GetCurrentEvent());
-    if (currentEvent &&
-        currentEvent->GetEventType() == EVENT_SOUND_QUIET && currentEvent->GetSourceEntity() == GetSourceEntity()) {
+    // Como el original: el tipo y la entidad origen del evento actual se piden por su vtable. Con un puntero a
+    // CEventSoundQuiet (clase final) el compilador desvirtualizaba GetEventType (siempre 62) y GetSourceEntity
+    // (lectura directa de +0x14) aunque el evento actual fuese de otra clase.
+    CEvent* const current = ped->GetEventHandlerHistory().GetCurrentEvent();
+    if (current &&
+        current->GetEventType() == EVENT_SOUND_QUIET && current->GetSourceEntity() == GetSourceEntity()) {
+        const auto currentEvent = static_cast<CEventSoundQuiet*>(current);
         CVector distance = m_position - currentEvent->m_position;
-        if (m_startTimeInMs - currentEvent->m_startTimeInMs >= 2000 && distance.SquaredMagnitude() >= 1.0f)
+        // Como el original: diferencia de tiempo con signo y un NaN en la distancia cuenta como "lejos".
+        if ((int32)(m_startTimeInMs - currentEvent->m_startTimeInMs) >= 2000 && !(distance.SquaredMagnitude() < 1.0f))
             return true;
         if (soundLevel - currentEvent->GetSoundLevel(nullptr, ped->GetPosition()) < 3.0f)
             return false;

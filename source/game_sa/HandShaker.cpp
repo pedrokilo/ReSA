@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -45,36 +45,76 @@ void CHandShaker::SetDefaults() {
 
 // 0x50D860
 void CHandShaker::Reset() {
-    m_ang = CVector();
-    m_vel = CVector::Random({0.f, 0.f, 0.f}, m_motion);
+    m_ang = CVector{0.f, 0.f, 0.f};
+    // Como el original: tres rand() directos; el primero va a Z y el ultimo a X (min = 0, sin suma final)
+    const float rz = (float)CGeneral::GetRandomNumber() * RAND_MAX_FLOAT_RECIPROCAL;
+    const float ry = (float)CGeneral::GetRandomNumber() * RAND_MAX_FLOAT_RECIPROCAL;
+    const float rx = (float)CGeneral::GetRandomNumber() * RAND_MAX_FLOAT_RECIPROCAL;
+    m_vel.x = rx * m_motion.x;
+    m_vel.y = ry * m_motion.y;
+    m_vel.z = rz * m_motion.z;
 }
 
 // 0x50D930
 void CHandShaker::Process(float degree) {
-    // Process velocity on each axis
+    // Como el original: escala = |ang / lim| * (max - min) + min, para los tres ejes antes de nada
+    const float range = m_scaleReactionMax - m_scaleReactionMin;
+    float scale[3];
     for (auto i = 0; i < 3; i++) {
-        //> 0x50D951 - Calculate scale [of motion]
-        auto scale = std::lerp(m_scaleReactionMin, m_scaleReactionMax, std::abs(m_ang[i] / m_lim[i]));
-        if (std::signbit(m_ang[i]) == std::signbit(m_vel[i])) {
-            scale *= m_slow[i];
+        scale[i] = std::abs(m_ang[i] / m_lim[i]) * range + m_scaleReactionMin;
+    }
+    // Como el original: solo si ambos son estrictamente positivos o estrictamente negativos (los ceros no cuentan)
+    for (auto i = 0; i < 3; i++) {
+        if ((m_ang[i] > 0.f && m_vel[i] > 0.f) || (m_ang[i] < 0.f && m_vel[i] < 0.f)) {
+            scale[i] *= m_slow[i];
         }
-
-        //> 0x50DA61 - Calculate random motion using it
-        float motion = CGeneral::GetRandomNumberInRange(0.f, 1.f) * m_motion[i] * scale;
-        if (m_ang[i] > 0.f) {
-            motion = -motion;
-        }
-
-        //> 0x50DB29
-        m_vel[i] += motion;
     }
 
-    const auto twitchT = (float)(size_t)CTimer::GetTimeStepNonClippedInMS() * 0.03f;
-    if (CGeneral::GetRandomNumberInRange((size_t)((float)m_twitchFreq * twitchT)) == 1) { //> 0x50DB97
-        m_vel += CVector::Random(-m_twitchVel, m_twitchVel);
+    //> 0x50DA61 - Como el original: el primer rand() es para Z y el ultimo para X
+    const float rz = (float)CGeneral::GetRandomNumber() * RAND_MAX_FLOAT_RECIPROCAL;
+    const float ry = (float)CGeneral::GetRandomNumber() * RAND_MAX_FLOAT_RECIPROCAL;
+    const float rx = (float)CGeneral::GetRandomNumber() * RAND_MAX_FLOAT_RECIPROCAL;
+    float motion[3]{ rx * m_motion.x * scale[0], ry * m_motion.y * scale[1], rz * m_motion.z * scale[2] };
+    for (auto i = 0; i < 3; i++) {
+        if (m_ang[i] > 0.f) {
+            motion[i] *= -1.f;
+        }
+    }
+    //> 0x50DB20
+    m_vel.x += motion[0];
+    m_vel.y += motion[1];
+    m_vel.z += motion[2];
+
+    // Como el original: timestep * 0.02 * 1000 truncado (64 bits) e interpretado sin signo, por 0.03
+    // (fild es exacto y el x87 a 24 bits solo redondea en cada operacion: se emula con double -> float)
+    const auto stepMs = (int32)(int64)(CTimer::ms_fTimeStepNonClipped * 0.02f * 1000.f);
+    const float k003 = std::bit_cast<float>(0x3CF5C290u); // 0x85A6EC: el float siguiente a 0.03, no 0.03f
+    const float twitchT = stepMs >= 0
+        ? (float)((double)stepMs * (double)k003)
+        : (float)((double)(float)((double)stepMs + 4294967296.0) * (double)k003);
+    const auto range2 = (int32)(int64)(float)((double)m_twitchFreq * (double)twitchT);
+    const float rnd01 = (float)CGeneral::GetRandomNumber() * (1.f / 32768.f);
+    const auto rnd = (int32)(int64)(float)((double)rnd01 * (double)(range2 - 1));
+    if (rnd + 1 == 2) { //> 0x50DB9D
+        const float lo = -m_twitchVel, hi = m_twitchVel;
+        const float r1 = (float)CGeneral::GetRandomNumber() * RAND_MAX_FLOAT_RECIPROCAL;
+        const float r2 = (float)CGeneral::GetRandomNumber() * RAND_MAX_FLOAT_RECIPROCAL;
+        const float r3 = (float)CGeneral::GetRandomNumber() * RAND_MAX_FLOAT_RECIPROCAL;
+        m_vel.x += r3 * (hi - lo) + lo;
+        m_vel.y += (hi - lo) * r2 + lo;
+        m_vel.z += (hi - lo) * r1 + lo;
     }
     m_ang += twitchT * m_vel; //> 0x50DC74
-    m_ang  = Clamp(m_ang, -m_lim, m_lim); //> 0x50DCAF
 
-    m_resultMat.SetRotate(m_ang * degree); //> 0x50DD40
+    //> 0x50DCAF - Como el original: primero el limite superior, luego el inferior
+    for (auto i = 0; i < 3; i++) {
+        const float a = m_ang[i];
+        if (a > m_lim[i]) {
+            m_ang[i] = m_lim[i];
+        } else if (a < -m_lim[i]) {
+            m_ang[i] = -m_lim[i];
+        }
+    }
+
+    m_resultMat.SetRotate(m_ang.x * degree, m_ang.y * degree, m_ang.z * degree); //> 0x50DD40
 }

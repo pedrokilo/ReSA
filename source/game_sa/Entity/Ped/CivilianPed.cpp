@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -54,7 +54,13 @@ CCivilianPed* CCivilianPed::Constructor(ePedType pedType, uint32 modelIndex) {
     return this;
 }
 
-CCivilianPed* CCivilianPed::Destructor() {
+// 0x5DDC30
+// Como el original: 0x5DDC30 es el destructor con borrado (`ret 4`): recibe las banderas, destruye el objeto
+// (0x5DDBE0 -> CPed::~CPed) y, si el bit 0 esta activo, libera la memoria con CPed::operator delete (0x5E4760).
+CCivilianPed* CCivilianPed::Destructor(uint8 flags) {
     this->CCivilianPed::~CCivilianPed();
+    if (flags & 1) {
+        CPed::operator delete(this);
+    }
     return this;
 }

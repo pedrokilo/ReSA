@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -46,12 +46,57 @@ float CBouncingPanel::GetAngleChange(float velocity) const {
     return std::clamp(velocity, -BOUNCE_VEL_CHANGE_LIMIT, BOUNCE_VEL_CHANGE_LIMIT) * m_fAngleLimit;
 }
 
+namespace {
+// Como el original: Multiply3x3 (0x59C790), con el orden de sumas del EXE
+CVector Multiply3x3_MV_59C790(const CMatrix& m, const CVector& v) {
+    return {
+        m.GetUp().x * v.z + m.GetForward().x * v.y + m.GetRight().x * v.x,
+        m.GetUp().y * v.z + m.GetRight().y * v.x + m.GetForward().y * v.y,
+        m.GetUp().z * v.z + m.GetRight().z * v.x + m.GetForward().z * v.y,
+    };
+}
+
+// Como el original: Multiply3x3 (0x59C810), vector por matriz, con el orden de sumas del EXE
+CVector Multiply3x3_VM_59C810(const CVector& v, const CMatrix& m) {
+    return {
+        m.GetRight().y * v.y + m.GetRight().z * v.z + v.x * m.GetRight().x,
+        m.GetForward().y * v.y + m.GetForward().x * v.x + m.GetForward().z * v.z,
+        m.GetUp().y * v.y + m.GetUp().x * v.x + m.GetUp().z * v.z,
+    };
+}
+
+// Como el original: pos *= pow(damp, timestep) con el _CIpow del EXE (0x822130); el resultado se usa
+// con la precision completa de ST0 en las tres multiplicaciones
+void MultiplyByPow(CVector& pos, float damp, float step) {
+    float* const p = &pos.x;
+    __asm {
+        fld damp
+        fld step
+        mov eax, 0x822130
+        call eax
+        mov edx, p
+        fld st(0)
+        fmul dword ptr [edx]
+        fstp dword ptr [edx]
+        fld st(0)
+        fmul dword ptr [edx+4]
+        fstp dword ptr [edx+4]
+        fmul dword ptr [edx+8]
+        fstp dword ptr [edx+8]
+    }
+}
+} // namespace
+
 // 0x6F49A0
 void CBouncingPanel::ProcessPanel(CVehicle* vehicle, RwFrame* frame, CVector moveForce, CVector turnForce, float fReturnMultiplier, float fDampMultiplier) {
     CMatrix  frameMat{RwFrameGetMatrix(frame)};
-    CMatrix& vehMat = vehicle->GetMatrix();
-    CVector  compPos = vehMat.TransformVector(frameMat.GetPosition());
-    CVector  angularVelocity = vehMat.InverseTransformVector(vehicle->GetSpeed(compPos) - moveForce + CrossProduct(compPos, turnForce));
+    const CMatrix& vehMat = *vehicle->m_matrix; // Como el original: lee el puntero de la matriz sin reservarla
+    CVector  compPos = Multiply3x3_MV_59C790(vehMat, frameMat.GetPosition());
+    const CVector speed = vehicle->GetSpeed(compPos);
+    // Como el original: speed - (moveForce + turnForce x compPos)
+    const CVector cross = CrossProduct(turnForce, compPos);
+    const CVector sum{ moveForce.x + cross.x, moveForce.y + cross.y, moveForce.z + cross.z };
+    CVector  angularVelocity = Multiply3x3_VM_59C810(CVector{ speed.x - sum.x, speed.y - sum.y, speed.z - sum.z }, vehMat);
 
     switch (m_nAxis) {
     case 0: {
@@ -84,7 +129,7 @@ void CBouncingPanel::ProcessPanel(CVehicle* vehicle, RwFrame* frame, CVector mov
             ? fDampMultiplier
             : m_nAxis == 2 ? BOUNCE_HANGING_DAMP_MULT : BOUNCE_SPRING_DAMP_MULT;
 
-        m_vecPos *= pow(dampMult, CTimer::ms_fTimeStep);
+        MultiplyByPow(m_vecPos, dampMult, CTimer::ms_fTimeStep);
     }
     m_vecRotation += m_vecPos * CTimer::ms_fTimeStep;
 

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -38,20 +38,23 @@ void CPlaneTrail::Init() {
 
 // 0x717180
 void CPlaneTrail::Render(float intensity) {
-    const auto maxAlpha = (int32)(intensity * 110.0f);
+    const auto maxAlpha = (int32)(int64)(intensity * 110.0f); // Como el original: _ftol2
     if (!maxAlpha) {
         return;
     }
 
+    // Como el original: los vertices se compactan en el bufer temporal global (0xC4D958); solo se escriben
+    // la posicion y el color
     auto nvert{0u}; // num of vertices stored
-    RxObjSpace3DVertex vertBuff[PLANE_TRAIL_BUF_SIZE];
+    auto* const vertBuff = TempBufferVertices.m_3d;
     for (auto i = 0u; i < PLANE_TRAIL_BUF_SIZE; i++) {
         const uint32 timeDelta = CTimer::GetTimeInMS() - m_Timepoints[i];
         if (IsPointInUse(i) && timeDelta <= POINT_EXPIRATION_TIME) {
-            RxObjSpace3DVertex& vert = vertBuff[i];
+            RxObjSpace3DVertex& vert = vertBuff[nvert];
 
-            const float fAlphaMult = std::min(1.0f, ((float)POINT_EXPIRATION_TIME - (float)timeDelta) / 10'000.0f); // Clamped to 1.0f
-            RwIm3DVertexSetRGBA(&vert, 255, 255, 255, (uint8)((float)maxAlpha * fAlphaMult));
+            // Como el original: (30000 - delta) * 0.0001f, limitado a 1
+            const float fAlphaMult = std::min(1.0f, ((float)POINT_EXPIRATION_TIME - (float)timeDelta) * 0.0001f); // Clamped to 1.0f
+            RwIm3DVertexSetRGBA(&vert, 255, 255, 255, (uint8)(int64)((float)maxAlpha * fAlphaMult));
 
             RwV3dAssign(RwIm3DVertexGetPos(&vert), &m_Positions[i]);
 
@@ -61,7 +64,7 @@ void CPlaneTrail::Render(float intensity) {
         }
     }
 
-    if (nvert) {
+    if (nvert > 1) { // Como el original: hace falta al menos una linea
         RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(TRUE));
         RwRenderStateSet(rwRENDERSTATESRCBLEND,          RWRSTATE(rwBLENDSRCALPHA));
         RwRenderStateSet(rwRENDERSTATEDESTBLEND,         RWRSTATE(rwBLENDINVSRCALPHA));

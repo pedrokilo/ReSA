@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -60,15 +60,38 @@ float CEvent::GetSoundLevel(const CEntity* entity, CVector& position) {
     if ((entity && entity != GetSourceEntity()) || GetLocalSoundLevel() == 0.0f)
         return 0.0f;
 
-    float level = 1000.0f;
+    float distance = 1000.0f;
+    const CVector* sourcePos = nullptr;
     if (GetEventType() == EVENT_SOUND_QUIET) {
-        CVector& sourcePos = static_cast<CEventSoundQuiet*>(this)->m_position;
-        level = std::min((position - sourcePos).Magnitude(), 1.0f);
+        sourcePos = &static_cast<CEventSoundQuiet*>(this)->m_position;
     } else if (GetSourceEntity()) {
-        CVector& sourcePos = GetSourceEntity()->GetPosition();
-        level = std::min((position - sourcePos).Magnitude(), 1.0f);
+        sourcePos = &GetSourceEntity()->GetPosition();
     }
-    return (GetLocalSoundLevel() - (std::log10f(level * level) * 10.0f)) - (level / 100.0f);
+    if (sourcePos) {
+        // Como el original: distancia con la suma (z² + y²) + x² y mínimo de 1 (un NaN se conserva).
+        const float dx = position.x - sourcePos->x;
+        const float dy = position.y - sourcePos->y;
+        const float dz = position.z - sourcePos->z;
+        distance = std::sqrt(dz * dz + dy * dy + dx * dx);
+        if (distance < 1.0f) {
+            distance = 1.0f;
+        }
+    }
+
+    // Como el original: log10 con fldlg2/fyl2x a precisión interna del FPU, producto por 10 redondeado
+    // una sola vez y distancia multiplicada por 0.01f (0x858C58), no dividida entre 100.
+    const float localSoundLevel = GetLocalSoundLevel();
+    const float distanceSq      = distance * distance;
+    float       k10             = 10.0f; // 0x85862C
+    float       log10Times10;
+    __asm {
+        fldlg2
+        fld   distanceSq
+        fyl2x
+        fmul  k10
+        fstp  log10Times10
+    }
+    return (localSoundLevel - log10Times10) - distance * 0.01f;
 }
 
 // 0x4AC050
@@ -79,8 +102,21 @@ float CEvent::CalcSoundLevelIncrement(float level1, float level2) {
     if (level1 == 0.0f)
         return level2;
 
-    level1 = std::powf(10.0f, level1 * 0.1f);
-    level2 = std::powf(10.0f, level2 * 0.1f);
-    return std::log10f((level1 + level2) / level1) * 10.0f;
+    // Como el original: pow del CRT en doble precisión; la primera potencia se guarda como float, la suma y
+    // el cociente se redondean a float en el x87 y el log10 usa fldlg2/fyl2x a precisión interna.
+    const float  power1 = (float)std::pow(10.0, (double)(level1 * 0.1f));
+    const double power2 = std::pow(10.0, (double)(level2 * 0.1f));
+    float        k10    = 10.0f; // 0x85862C
+    float        result;
+    __asm {
+        fld   power2
+        fadd  power1
+        fdiv  power1
+        fldlg2
+        fxch  st(1)
+        fyl2x
+        fmul  k10
+        fstp  result
+    }
+    return result;
 }
-

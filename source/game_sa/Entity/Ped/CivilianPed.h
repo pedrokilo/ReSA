@@ -20,7 +20,7 @@ private:
     static void InjectHooks();
 
     CCivilianPed* Constructor(ePedType pedType, uint32 modelIndex);
-    CCivilianPed* Destructor();
+    CCivilianPed* Destructor(uint8 flags);
 };
 
 VALIDATE_SIZE(CCivilianPed, 0x79C);

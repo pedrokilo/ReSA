@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -112,7 +112,9 @@ bool CEventVehicleCollision::AffectsPed(CPed* ped)
             if ((m_vehicle->m_pVehicleBeingTowed && m_vehicle->m_pVehicleBeingTowed == walkRoundVehicle) ||
                 (m_vehicle->m_pTowingVehicle && m_vehicle->m_pTowingVehicle == walkRoundVehicle))
             {
-                pTaskWalkRoundCar->SetNewVehicle(m_vehicle, 0);
+                // Como el original: pasa los bits 2-5 del byte 0xD con signo ((int8)(b << 2) >> 4) y devuelve verdadero.
+                const auto dir = static_cast<int8>(reinterpret_cast<const uint8*>(pTaskWalkRoundCar)[0xD] << 2) >> 4;
+                pTaskWalkRoundCar->SetNewVehicle(m_vehicle, static_cast<uint8>(dir));
             }
         }
         else {

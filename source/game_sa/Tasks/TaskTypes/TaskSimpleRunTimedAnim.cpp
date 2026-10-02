@@ -42,7 +42,8 @@ CTaskSimpleRunTimedAnim::CTaskSimpleRunTimedAnim(AssocGroupId groupId, Animation
     m_unused1{unused1},
     m_durationMs{durationMs},
     m_animId{animId},
-    m_animGrpId{groupId}
+    m_animGrpId{groupId},
+    m_taskId{ static_cast<uint16>(TASK_SIMPLE_TIMED_ANIM) } // Como el original: mov word ptr [esi+30h],192h
 {
 }
 
@@ -54,7 +55,7 @@ CTaskSimpleRunTimedAnim::CTaskSimpleRunTimedAnim(AssocGroupId groupId, Animation
     m_durationMs{ durationMs },
     m_animId{ animId },
     m_animGrpId{ groupId },
-    m_taskId{ taskType }
+    m_taskId{ static_cast<uint16>(taskType) }
 {
 }
 

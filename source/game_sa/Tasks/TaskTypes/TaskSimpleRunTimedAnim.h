@@ -9,13 +9,14 @@ class CPed;
 
 class NOTSA_EXPORT_VTABLE CTaskSimpleRunTimedAnim : public CTaskSimpleAnim {
 public:
-    AssocGroupId m_animGrpId = {};
-    AnimationId m_animId = {};
-    float m_blendDelta = {};
-    float m_unused1 = {};
-    uint32 m_durationMs = {};
-    CTaskTimer m_timer = {};
-    eTaskType m_taskId = {};
+    // Como el original: los constructores no escriben el relleno de m_timer (+0x2E) ni el que sigue a m_taskId (+0x32)
+    AssocGroupId m_animGrpId;
+    AnimationId m_animId;
+    float m_blendDelta;
+    float m_unused1;
+    uint32 m_durationMs;
+    CTaskTimer m_timer;
+    uint16 m_taskId; // Como el original: 16 bits (mov word ptr [esi+30h] / movzx eax,word ptr [ecx+30h])
 
 public:
     static void InjectHooks();
@@ -28,7 +29,7 @@ public:
     void StartAnim(CPed* ped);
 
     CTask*    Clone() const override { return new CTaskSimpleRunTimedAnim{ *this }; }
-    eTaskType GetTaskType() const override { return m_taskId; }
+    eTaskType GetTaskType() const override { return static_cast<eTaskType>(m_taskId); }
     bool      ProcessPed(CPed* ped) override;
 private: // Wrappers for hooks
     // 0x61AB70

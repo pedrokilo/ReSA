@@ -928,3 +928,22 @@ Bancos nuevos, todos con pares exactos dentro de GTA (138 funciones, 51.824 pare
 - Cuando el EXE pasa memoria de pila sin inicializar (z de un `CVector`, argumento sin escribir), la diferencia se enmascara en el banco y se documenta.
 - Las cadenas leídas sin inicializar (p. ej. nombres opcionales de un `sscanf`) rompen el JSON del banco con UTF-8 inválido: el fixture debe incluirlas siempre.
 - Los stubs de `operator delete` no pueden escribir en el `json` de la traza (puede liberar su búfer con el propio stub).
+
+## Continuidad vigente: lista de 52 clases de tres funciones (2026-10-02)
+
+Bancos nuevos, todos con pares exactos dentro de GTA (152 funciones, 55.248 pares): [Events52](Events52/README.md), [SimpleTasks52](SimpleTasks52/README.md), [PedTasks52](PedTasks52/README.md) y [World52](World52/README.md). `CPedToPlayerConversations::Update` ya estaba validada; los 3 `WindowedModeHooks` (NOTSA, modo ventana sobre D3D9) quedan fuera.
+
+**Defectos de alcance general encontrados:**
+- `CMatrix::SetRotate` redondeaba senos y cosenos antes de los productos; ahora es una transcripción exacta del EXE.
+- `CEventSoundQuiet` es `final`: la DLL desvirtualizaba las llamadas sobre el evento actual del historial (cualquier evento pasaba por uno de sonido).
+- El destructor con borrado de `CCivilianPed` no recibía su argumento (pila desbalanceada) ni liberaba el peatón.
+- `CPlantLocTri::GetPlantDensity` recibe el triángulo en EAX; el hook era cdecl.
+- `CTaskSimpleRunTimedAnim` escribía el tipo de tarea en 32 bits (pisaba el relleno) y no ponía el tipo en el constructor-1.
+- `CSetPiece::Update` esperaba 4 s en vez de 40 entre generaciones de policías.
+- Pendientes fuera de la lista: `CTaskAllocatorAttack::ProcessGroup` despacha `AllocateTasks` por la vtable en vez de llamar directamente; `PI`/`TWO_PI` de `common.h` son imprecisos.
+
+**Lecciones:**
+- En clases `final`, la DLL resuelve en compilación las virtuales sobre punteros de ese tipo: si el EXE despacha por la vtable de otro objeto (p. ej. un evento del historial), hay que llamar a través del tipo base.
+- `small` es una macro de Windows (como `TIME_MS`): no usarla en los bancos.
+- Un comentario `//` en medio de una línea larga del fixture se come el resto del código: usar `/* */`.
+- Los fixtures de pilas (empujar/sacar) deben vaciarse antes del límite del array para no desbordar.

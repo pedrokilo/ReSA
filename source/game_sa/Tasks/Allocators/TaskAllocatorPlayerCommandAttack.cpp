@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -33,7 +33,9 @@ CTaskAllocatorPlayerCommandAttack::CTaskAllocatorPlayerCommandAttack(CPed* targe
 
 // 0x69C4D0
 void CTaskAllocatorPlayerCommandAttack::AllocateTasks(CPedGroupIntelligence* intel) {
-    if (IsPedTypePlayer(m_PedTypeToAttack)) {
+    // Como el original: 0x69C4FA compara con signo (`jl`) el tipo de peaton contra 0; solo un tipo negativo
+    // ataca al objetivo concreto (no se comprueba PED_TYPE_PLAYER1/PLAYER2).
+    if ((int32)m_PedTypeToAttack < 0) {
         if (m_Target) {
             CTaskAllocatorAttack::AllocateTasks(intel);
         }
@@ -46,8 +48,9 @@ void CTaskAllocatorPlayerCommandAttack::AllocateTasks(CPedGroupIntelligence* int
 
     CPedList attackers{};
     attackers.BuildListFromGroup_NoLeader(group->GetMembership()); // 0x69C52C
-    if (auto* const leader = group->GetMembership().GetLeader()) { // 0x69C537
-        if (leader->IsPlayer()) {
+    // Como el original: GetLeader se llama dos veces (0x69C537 y 0x69C546).
+    if (group->GetMembership().GetLeader()) { // 0x69C537
+        if (group->GetMembership().GetLeader()->IsPlayer()) {
             attackers.RemovePedsThatDontListenToPlayer();
         }
     }
@@ -73,13 +76,18 @@ void CTaskAllocatorPlayerCommandAttack::AllocateTasks(CPedGroupIntelligence* int
         tseq.AddTask(new CTaskSimpleStandStill{ 999'999, true });
 
         // 0x69C6A8
-        intel->SetEventResponseTask(p, tseq);
+        // Como el original: llama directamente a SetTask (0x5F7540) con los pares principales, slot -1 y sin forzar.
+        intel->SetTask(p, tseq, intel->GetPedTaskPairs(), TASK_SECONDARY_INVALID, false);
     }
 }
 
 // 0x69D110
 CTaskAllocator* CTaskAllocatorPlayerCommandAttack::ProcessGroup(CPedGroupIntelligence* intel) {
-    CTaskAllocatorAttack::ProcessGroup(intel);
+    // Como el original: CTaskAllocatorAttack::ProcessGroup esta en linea y llama a CTaskAllocatorAttack::AllocateTasks
+    // (0x69C3F0) de forma directa, no a la version virtual de esta clase.
+    if (!m_NextUpdateTimer.IsStarted() || m_NextUpdateTimer.IsOutOfTime()) {
+        CTaskAllocatorAttack::AllocateTasks(intel);
+    }
     return IsFinished(intel)
         ? nullptr
         : this;

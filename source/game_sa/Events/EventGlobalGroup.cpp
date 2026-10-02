@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -31,8 +31,10 @@ void CEventGlobalGroup::InjectHooks() {
 
 // 0x4AB900
 float CEventGlobalGroup::GetSoundLevel(CEntity* entity, CVector& position) {
+    // Como el original: el número de eventos se relee (con signo) en cada vuelta.
     float soundLevel = 0.0f;
-    for (auto& event : GetEvents()) {
+    for (int32 i = 0; i < (int32)m_count; i++) {
+        CEvent* event = m_events.data()[i];
         if (event->GetSourceEntity() == entity || !entity) {
             float eventSoundLevel = event->GetSoundLevel(entity, position);
             if (eventSoundLevel > 0.0f) {
@@ -45,8 +47,9 @@ float CEventGlobalGroup::GetSoundLevel(CEntity* entity, CVector& position) {
 
 // 0x4AB9C0
 void CEventGlobalGroup::AddEventsToPed(CPed* ped) {
-    for (auto& event : GetEvents()) {
-        CEvent* clonedEvent = event->Clone();
+    // Como el original: el número de eventos se relee (con signo) en cada vuelta.
+    for (int32 i = 0; i < (int32)m_count; i++) {
+        CEvent* clonedEvent = m_events.data()[i]->Clone();
         ped->GetEventGroup().Add(clonedEvent, false);
         delete clonedEvent;
     }
@@ -54,10 +57,10 @@ void CEventGlobalGroup::AddEventsToPed(CPed* ped) {
 
 // 0x4AB8A0
 void CEventGlobalGroup::AddEventsToGroup(CPedGroup* pedGroup) {
-    for (auto& event : GetEvents()) {
-        CEvent* clonedEvent = event->Clone();
+    // Como el original: el número de eventos se relee (con signo) en cada vuelta.
+    for (int32 i = 0; i < (int32)m_count; i++) {
+        CEvent* clonedEvent = m_events.data()[i]->Clone();
         pedGroup->GetIntelligence().AddEvent(clonedEvent);
         delete clonedEvent;
     }
 }
-

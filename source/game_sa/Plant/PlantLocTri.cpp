@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -28,7 +28,19 @@ END GENERATED HOOK STATUS */
 // configuradas para su superficie.
 float GetPlantDensity(CPlantLocTri* plant) {
     // The magnitude of the cross product of 2 vectors give the area of a paralellogram they span.
-    return (plant->m_V2 - plant->m_V1).Cross(plant->m_V3 - plant->m_V1).Magnitude() / 2.f;
+    // Como el original: suma z*z + y*y + x*x y multiplica por 0.5
+    const auto c = (plant->m_V2 - plant->m_V1).Cross(plant->m_V3 - plant->m_V1);
+    return std::sqrt(c.z * c.z + c.y * c.y + c.x * c.x) * 0.5f;
+}
+
+// Como el original: 0x5DC210 recibe el triángulo en EAX y devuelve el resultado en ST0
+static __declspec(naked) float GetPlantDensity_EaxWrapper() {
+    __asm {
+        push eax
+        call GetPlantDensity
+        add esp, 4
+        ret
+    }
 }
 
 /**
@@ -41,7 +53,7 @@ void CPlantLocTri::InjectHooks() {
     RH_ScopedInstall(Add, 0x5DC290);
     RH_ScopedInstall(Release, 0x5DB6D0);
 
-    RH_ScopedGlobalInstall(GetPlantDensity, 0x5DC210);
+    RH_ScopedNamedGlobalInstall(GetPlantDensity_EaxWrapper, "GetPlantDensity", 0x5DC210); // Como el original: argumento en EAX
 }
 
 // 0x5DC290
@@ -63,9 +75,12 @@ CPlantLocTri* CPlantLocTri::Add(const CVector& p1, const CVector& p2, const CVec
     m_createsPlants = createsPlants;
     m_createdObjects = false;
 
-    m_Center = (p1 + p2 + p3) / 3.0f;
+    // Como el original: (p2 + p1) + p3 multiplicado por 0.33333334f
+    m_Center = (p2 + p1 + p3) * 0.33333334f;
 
-    m_SphereRadius = DistanceBetweenPoints(m_Center, m_V1) * 1.75f;
+    // Como el original: distancia con la suma z*z + y*y + x*x
+    const auto d = m_Center - m_V1;
+    m_SphereRadius = std::sqrt(d.z * d.z + d.y * d.y + d.x * d.x) * 1.75f;
     if (m_createsObjects && !m_createsPlants) {
         CPlantMgr::MoveLocTriToList(CPlantMgr::m_UnusedLocTriListHead, CPlantMgr::m_CloseLocTriListHead[3], this);
         return this;
@@ -73,9 +88,10 @@ CPlantLocTri* CPlantLocTri::Add(const CVector& p1, const CVector& p2, const CVec
 
     auto properties = CPlantSurfPropMgr::GetSurfProperties(surface);
     auto densityMult = GetPlantDensity(this);
-    auto density1 = (uint16)(densityMult * properties->m_Plants[0].density);
-    auto density2 = (uint16)(densityMult * properties->m_Plants[1].density);
-    auto density3 = (uint16)(densityMult * properties->m_Plants[2].density);
+    // Como el original: _ftol2 (truncado de 64 bits) y se queda la palabra baja
+    auto density1 = (uint16)(int64)(densityMult * properties->m_Plants[0].density);
+    auto density2 = (uint16)(int64)(densityMult * properties->m_Plants[1].density);
+    auto density3 = (uint16)(int64)(densityMult * properties->m_Plants[2].density);
     if (density1 + density2 + density3 > 0) {
         rng::generate(m_Seed, [] { return CGeneral::GetRandomNumberInRange(0.0f, 1.0f); });
         m_nMaxNumPlants[0] = density1;

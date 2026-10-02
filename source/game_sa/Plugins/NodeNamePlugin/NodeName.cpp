@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -65,7 +65,8 @@ static void* NodeNameDestructor(void* object, RwInt32 offsetInObject, RwInt32 si
 // 0x72F9F0
 // Copia el nombre almacenado en el payload manteniendo el límite fijo del plugin.
 static void* NodeNameCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) {
-    strncpy_s(RWPLUGINOFFSET(NodeNamePluginInstance, dstObject, gNodeNamePluginOffset)->name, RWPLUGINOFFSET(NodeNamePluginInstance, srcObject, gNodeNamePluginOffset)->name, NAME_LENGTH);
+    // Como el original: strncpy de 23 caracteres (rellena con ceros y no toca el ultimo byte)
+    strncpy(RWPLUGINOFFSET(NodeNamePluginInstance, dstObject, gNodeNamePluginOffset)->name, RWPLUGINOFFSET(NodeNamePluginInstance, srcObject, gNodeNamePluginOffset)->name, NAME_LENGTH);
     return dstObject;
 }
 
@@ -117,7 +118,8 @@ const RwChar* GetFrameNodeName(RwFrame* frame) {
 // Copia como máximo NAME_LENGTH caracteres y fuerza terminación nula.
 void SetFrameNodeName(RwFrame* frame, const RwChar* name) {
     if (gNodeNamePluginOffset > 0) {
-        strncpy_s(RWPLUGINOFFSET(NodeNamePluginInstance, frame, gNodeNamePluginOffset)->name, name, NAME_LENGTH);
+        // Como el original: strncpy (strncpy_s rellena con 0xFE en depuracion)
+        strncpy(RWPLUGINOFFSET(NodeNamePluginInstance, frame, gNodeNamePluginOffset)->name, name, NAME_LENGTH);
         RWPLUGINOFFSET(NodeNamePluginInstance, frame, gNodeNamePluginOffset)->name[NAME_LENGTH] = '\0';
     }
 }

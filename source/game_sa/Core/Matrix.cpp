@@ -225,19 +225,78 @@ void CMatrix::SetRotateZ(float angle)
 }
 
 // set rotate on 3 axes
-void CMatrix::SetRotate(float x, float y, float z)
+// 0x59B120
+// Como el original: transcripción exacta del x87 del EXE (fsin/fcos a precisión interna completa, sin
+// redondear a float antes de los productos), para obtener los mismos bits.
+__declspec(naked) void CMatrix::SetRotate(float x, float y, float z)
 {
-    auto fSinX = sin(x);
-    auto fCosX = cos(x);
-    auto fSinY = sin(y);
-    auto fCosY = cos(y);
-    auto fSinZ = sin(z);
-    auto fCosZ = cos(z);
-
-    m_right.Set  ( fCosZ*fCosY-(fSinZ*fSinX)*fSinY,  fCosZ*fSinX*fSinY+fSinZ*fCosY,  -(fSinY*fCosX));
-    m_forward.Set(-(fSinZ*fCosX),                    fCosZ*fCosX,                     fSinX);
-    m_up.Set     ( fCosZ*fSinY+fSinZ*fSinX*fCosY,    fSinZ*fSinY-fCosZ*fSinX*fCosY,   fCosY*fCosX);
-    m_pos.Set(0.0F, 0.0F, 0.0F);
+    __asm {
+        fld dword ptr [esp+4]
+        xor eax,eax
+        fcos
+        mov dword ptr [ecx+30h],eax
+        mov dword ptr [ecx+34h],eax
+        mov dword ptr [ecx+38h],eax
+        fld dword ptr [esp+4]
+        fsin
+        fld dword ptr [esp+8]
+        fcos
+        fstp dword ptr [esp+4]
+        fld dword ptr [esp+8]
+        fsin
+        fld dword ptr [esp+0Ch]
+        fcos
+        fld dword ptr [esp+0Ch]
+        fsin
+        fst dword ptr [esp+8]
+        fmul st,st(3)
+        fld st(1)
+        fmul st,st(4)
+        fstp dword ptr [esp+0Ch]
+        fld st(1)
+        fmul dword ptr [esp+4]
+        fld st(1)
+        fmul st,st(4)
+        fsubp st(1),st
+        fstp dword ptr [ecx]
+        fld dword ptr [esp+0Ch]
+        fmul st,st(3)
+        fld dword ptr [esp+8]
+        fmul dword ptr [esp+4]
+        faddp st(1),st
+        fstp dword ptr [ecx+4]
+        fld st(2)
+        fmul st,st(5)
+        fchs
+        fstp dword ptr [ecx+8]
+        fld dword ptr [esp+8]
+        fmul st,st(5)
+        fchs
+        fstp dword ptr [ecx+10h]
+        fld st(1)
+        fmul st,st(5)
+        fstp dword ptr [ecx+14h]
+        fxch st(3)
+        fstp dword ptr [ecx+18h]
+        fmul st,st(1)
+        fxch st(2)
+        fmul dword ptr [esp+4]
+        faddp st(2),st
+        fxch st(1)
+        fstp dword ptr [ecx+20h]
+        fld dword ptr [esp+8]
+        fmul st,st(1)
+        fld dword ptr [esp+0Ch]
+        fmul dword ptr [esp+4]
+        fsubp st(1),st
+        fstp dword ptr [ecx+24h]
+        fstp st(0)
+        fld dword ptr [esp+4]
+        fmul st,st(1)
+        fstp dword ptr [ecx+28h]
+        fstp st(0)
+        ret 0Ch
+    }
 }
 
 void CMatrix::RotateX(float angle, bool bKeepPos)

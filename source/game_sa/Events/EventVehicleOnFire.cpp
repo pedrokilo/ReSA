@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -61,8 +61,10 @@ bool CEventVehicleOnFire::AffectsPed(CPed* ped)
                 }
                 if (ped->bInVehicle)
                     return true;
+                // Como el original: suma (x² + z²) + y² y un NaN cuenta como "cerca".
                 CVector distance = ped->GetPosition() - m_vehicle->GetPosition();
-                return distance.SquaredMagnitude() <= 100.0f;
+                const float distanceSq = distance.x * distance.x + distance.z * distance.z + distance.y * distance.y;
+                return !(distanceSq > 100.0f);
             }
         }
     }

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -52,10 +52,15 @@ CEventVehicleDied* CEventVehicleDied::Constructor(CVehicle* vehicle)
 // 0x4B0E00
 bool CEventVehicleDied::AffectsPed(CPed* ped)
 {
-    if (ped->IsAlive() && !m_IsOccupantLeavingCar) {
+    if (!ped->IsAlive())
+        return false;
+
+    // Como el original: si la bandera ya estaba puesta no se vuelve a buscar la tarea y se pasa directamente a
+    // comparar el vehículo.
+    if (!m_IsOccupantLeavingCar) {
         m_IsOccupantLeavingCar = ped->GetTaskManager().Has<TASK_COMPLEX_LEAVE_CAR>();
-        if ((m_IsOccupantLeavingCar || ped->bInVehicle) && m_vehicle)
-            return ped->m_pVehicle == m_vehicle;
+        if (!m_IsOccupantLeavingCar && !ped->bInVehicle)
+            return false;
     }
-    return false;
+    return m_vehicle && ped->m_pVehicle == m_vehicle;
 }

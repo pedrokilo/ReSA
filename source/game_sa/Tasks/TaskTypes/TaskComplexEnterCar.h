@@ -56,13 +56,13 @@ protected:
     eMoveState                    m_MoveState{ PEDMOVE_RUN };         //< How to approach the vehicle
     uint8                         m_NumGettingInSet{};                //< Not sure
     uint8                         m_CamMovementChoice{};              //< Not sure
-    CVector                       m_TargetDoorPos{};                  //< Target door's position (Persumeably calculated using `CCarEnterExit::GetPositionToOpenCarDoor`)
+    CVector                       m_TargetDoorPos;                    //< Como el original: el constructor (0x63A220) no lo escribe. Target door's position (Persumeably calculated using `CCarEnterExit::GetPositionToOpenCarDoor`)
     CTaskUtilityLineUpPedWithCar* m_LineUpUtility{};                  //< Line up utility
     bool                          m_bAborting{};                      //< Whenever `MakeAbortable` was called (?)
     CPed*                         m_DraggedPed{};                     //< The ped we're dragging out rn (that was at targetSeat)
     uint8                         m_DoorFlagsSet{};                   //< used for CVehicle::SetGettingInFlags
     float                         m_CruiseSpeed{-1.f};                //< How fast to go after we've entered. Only used when `m_bAsDriver` is set
-    int32                         m_EnterCarStartTime{};              //< When we started entering the vehicle (`CTimer::GetTimeMs()`)
+    int32                         m_EnterCarStartTime;                //< Como el original: el constructor (0x63A220) no lo escribe. When we started entering the vehicle (`CTimer::GetTimeMs()`)
 
 private:
     // 0x63A220

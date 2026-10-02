@@ -18,7 +18,7 @@ public:
     virtual bool IsInterruptable(CPed const* ped) { return false; }
 
 private: // Wrappers for hooks
-    // 0x62F080
+    // 0x62EE70
     CTaskSimpleHitByGunFromFront* Constructor() {
         this->CTaskSimpleHitByGunFromFront::CTaskSimpleHitByGunFromFront();
         return this;

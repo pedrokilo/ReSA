@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -37,7 +37,8 @@ CEventPotentialWalkIntoPed::CEventPotentialWalkIntoPed(CPed* ped, const CVector&
     m_ped{ped},
     m_moveState{moveState}
 {
-    CEntity::SafeRegisterRef(m_ped);
+    // Como el original: registra la referencia sin comprobar si el peatón es nulo.
+    m_ped->RegisterReference(reinterpret_cast<CEntity**>(&m_ped));
 }
 
 CEventPotentialWalkIntoPed::~CEventPotentialWalkIntoPed() {
@@ -60,7 +61,8 @@ bool CEventPotentialWalkIntoPed::AffectsPed(CPed* ped) {
         }
     }
 
-    if (const auto task = ped->GetTaskManager().Find<CTaskComplexKillPedOnFoot>()) {
+    // Como el original: CPedIntelligence::FindTaskByType (0x600EE0, solo tareas primarias), no FindActiveTaskByType.
+    if (const auto task = static_cast<CTaskComplexKillPedOnFoot*>(ped->GetIntelligence()->FindTaskByType(TASK_COMPLEX_KILL_PED_ON_FOOT))) {
         if (task->m_target == m_ped) {
             return false;
         }

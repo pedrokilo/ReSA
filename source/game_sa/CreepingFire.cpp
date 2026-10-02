@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -53,8 +53,10 @@ void CCreepingFire::Update() {
 
 // 0x53A450
 bool CCreepingFire::TryToStartFireAtCoors(CVector pos, uint8 nGenerations, bool a5, bool bScriptFire, float fDistance) {
-    uint8& status = m_aFireStatus[(size_t)pos.x % 32][(size_t)pos.y % 32];
-    if (status == 0)
+    // Como el original: _ftol2 (truncado de 64 bits) y "and 1Fh", tambien con coordenadas negativas
+    uint8& status = m_aFireStatus[(int32)(int64)pos.x & 31][(int32)(int64)pos.y & 31];
+    // Como el original: solo se intenta si la celda esta lista para arder (estado 0)
+    if (status != 0)
         return false;
 
     if (!gFireManager.PlentyFiresAvailable())

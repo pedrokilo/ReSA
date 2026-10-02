@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -111,19 +111,24 @@ CVehicle* CPedPlacement::IsPositionClearOfCars(const CPed* ped) {
     if (!vehHit)
         return nullptr;
 
-    if (vehHit->IsAutomobile() || vehHit->vehicleFlags.bIsBig) {
-        std::array<CColPoint, 32> unused{}; // 0xC102A0 - Originally static, but this is fine too.
-        if (CCollision::ProcessColModels(
-            *ped->m_matrix,
-            *CModelInfo::GetModelInfo(ped->m_nModelIndex)->GetColModel(),
+    // Como el original: un automovil (subtipo, [veh+0x594]) que no sea grande se devuelve sin comprobar colision;
+    // cualquier otro vehiculo se devuelve solo si colisiona con el modelo del peaton.
+    if (vehHit->IsSubAutomobile() && !vehHit->vehicleFlags.bIsBig) {
+        return vehHit;
+    }
+    // Como el original: puntos de colision en el array estatico 0xC102A0 y modelo de colision leido directamente
+    // del model info (m_pColModel).
+    auto& colPoints = StaticRef<std::array<CColPoint, 32>>(0xC102A0);
+    if (CCollision::ProcessColModels(
+        *ped->m_matrix,
+        *CModelInfo::GetModelInfo(ped->m_nModelIndex)->GetColModel(),
 
-            *vehHit->m_matrix,
-            *CModelInfo::GetModelInfo(vehHit->m_nModelIndex)->GetColModel(),
+        *vehHit->m_matrix,
+        *CModelInfo::GetModelInfo(vehHit->m_nModelIndex)->GetColModel(),
 
-            unused, nullptr, nullptr, false
-        )) {
-            return vehHit;
-        }
+        colPoints, nullptr, nullptr, false
+    )) {
+        return vehHit;
     }
     return nullptr;
 }

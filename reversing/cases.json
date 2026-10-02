@@ -413,5 +413,25 @@
     "id": "misc70",
     "name": "Audio, interfaz y render (lista de 70)",
     "runner": "Misc70/run_local.py"
+  },
+  {
+    "id": "events52",
+    "name": "Eventos (lista de 52)",
+    "runner": "Events52/run_local.py"
+  },
+  {
+    "id": "stasks52",
+    "name": "Tareas simples (lista de 52)",
+    "runner": "SimpleTasks52/run_local.py"
+  },
+  {
+    "id": "ptasks52",
+    "name": "Tareas complejas, repartidores y peatones (lista de 52)",
+    "runner": "PedTasks52/run_local.py"
+  },
+  {
+    "id": "world52",
+    "name": "Mundo, render y plugins (lista de 52)",
+    "runner": "World52/run_local.py"
   }
 ]

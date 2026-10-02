@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -53,14 +53,26 @@ bool CCoverPoint::CanAccommodateAnotherPed() const noexcept {
 
 // 0x698EF0
 void CCoverPoint::ReleaseCoverPointForPed(CPed* ped) {
-    rng::fill(m_CoveredPeds, nullptr);
+    // Como el original: solo se liberan (CleanUpOldReference y puesta a cero) los huecos que apuntan a `ped`.
+    for (auto& covered : m_CoveredPeds) {
+        if (covered.Get() == ped) {
+            covered = nullptr;
+        }
+    }
 }
 
 // 0x698EB0
 void CCoverPoint::ReserveCoverPointForPed(CPed* ped) {
-    const auto it = rng::find(m_CoveredPeds, nullptr);
-    if (it != m_CoveredPeds.end()) {
-        *it = ped;
+    // Como el original: se recorre cada hueco; si ya contiene a `ped` no se hace nada, y el primero vacio
+    // recibe a `ped` y registra la referencia.
+    for (auto& covered : m_CoveredPeds) {
+        if (covered.Get() == ped) {
+            return;
+        }
+        if (!covered.Get()) {
+            covered = ped;
+            return;
+        }
     }
 }
 

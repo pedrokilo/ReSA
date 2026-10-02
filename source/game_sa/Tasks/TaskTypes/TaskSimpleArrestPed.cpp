@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -53,8 +53,6 @@ CTaskSimpleArrestPed::~CTaskSimpleArrestPed() {
 }
 
 // 0x68B740
-
-
 bool CTaskSimpleArrestPed::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
     if (priority == ABORT_PRIORITY_IMMEDIATE) {
         if (m_Assoc) {
@@ -80,16 +78,16 @@ bool CTaskSimpleArrestPed::MakeAbortable(CPed* ped, eAbortPriority priority, con
 }
 
 // 0x68B8A0
-
-// 0x0
 bool CTaskSimpleArrestPed::ProcessPed(CPed* ped) {
     if (m_bFinished)
         return false;
 
     if (m_Assoc) {
-        const auto point = m_Ped
-            ? m_Ped->GetBonePosition(BONE_SPINE1, false)
-            : CVector{};
+        // Como el original: GetBonePosition(CVector*, eBoneTag, bool) en 0x5E4280; sin m_Ped el EXE deja el punto sin inicializar
+        CVector point{};
+        if (m_Ped) {
+            m_Ped->GetBonePosition(&point, BONE_SPINE1, false);
+        }
         const auto& pedPos = ped->GetPosition();
         auto angle = CGeneral::GetRadianAngleBetweenPoints(point.x, point.y, pedPos.x, pedPos.y);
         ped->m_fAimingRotation = angle;

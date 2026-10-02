@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -70,22 +70,18 @@ bool CEventPedCollisionWithPed::AffectsPed(CPed* ped) {
         return false;
     }
 
-    if (!m_victim || m_victim->bInVehicle || ped->GetIntelligence()->IsThreatenedBy(*m_victim) || m_victim->GetIntelligence()->m_AnotherStaticCounter > 30) {
+    // Como el original: el contador estático de la víctima se mira antes que IsThreatenedBy.
+    if (!m_victim || m_victim->bInVehicle || m_victim->GetIntelligence()->m_AnotherStaticCounter > 30 || ped->GetIntelligence()->IsThreatenedBy(*m_victim)) {
         return false;
     }
 
-    switch (m_movestate) {
-    case PEDMOVE_NONE:
-    case PEDMOVE_STILL:
-    case PEDMOVE_TURN_L:
-    case PEDMOVE_TURN_R:
-        break;
-    default:
-        return false;
-    }
-
-    if (const auto victimsGroup = CPedGroups::GetPedsGroup(m_victim); !victimsGroup || victimsGroup->GetMembership().IsLeader(m_victim)) {
-        return false;
+    // Como el original: con un estado de movimiento menor que PEDMOVE_WALK (comparación de 16 bits con signo)
+    // la víctima tiene que estar en un grupo y ser su líder; con los demás estados no se mira el grupo.
+    if ((int32)(int16)(eMoveState)m_movestate < (int32)PEDMOVE_WALK) { // con signo: eMoveState es uint32 y la comparación sería sin signo
+        const auto victimsGroup = CPedGroups::GetPedsGroup(m_victim);
+        if (!victimsGroup || !victimsGroup->GetMembership().IsLeader(m_victim)) {
+            return false;
+        }
     }
 
     if (DotProduct(m_collisionImpactVelocity, ped->GetForward()) > -0.5f) { // If collision's velocity is not in [-120, 120] - So basically, if coming from behind
@@ -97,7 +93,8 @@ bool CEventPedCollisionWithPed::AffectsPed(CPed* ped) {
     }
                 
     if (const auto task = ped->GetTaskManager().GetActiveTaskAs<CTaskComplexAvoidOtherPedWhileWandering>()) {
-        if (task->GetPedToAvoid() == m_victim) {
+        // Como el original: lee el puntero crudo de +0xC (GetPedToAvoid copiaría la referencia y la registraría).
+        if (*reinterpret_cast<CPed* const*>(reinterpret_cast<const uint8*>(task) + 0xC) == m_victim) {
             return false;
         }
     }

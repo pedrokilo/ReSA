@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -49,7 +49,7 @@ VALIDATE_SIZE(tPipelinePlugin, 0x4);
 // 0x72FB50
 static void* PipelineConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
     if (gPipelinePluginOffset > 0) {
-        RWPLUGINOFFSET(tPipelinePlugin, object, offsetInObject)->pipelineId = 0;
+        RWPLUGINOFFSET(tPipelinePlugin, object, gPipelinePluginOffset)->pipelineId = 0; // Como el original: desplazamiento global
     }
     return object;
 }
@@ -57,7 +57,8 @@ static void* PipelineConstructor(void* object, RwInt32 offsetInObject, RwInt32 s
 // internal
 // 0x72FB70
 static void* PipelineCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) {
-    RWPLUGINOFFSET(tPipelinePlugin, dstObject, offsetInObject)->pipelineId = RWPLUGINOFFSET(tPipelinePlugin, srcObject, offsetInObject)->pipelineId;
+    // Como el original: usa el desplazamiento global
+    RWPLUGINOFFSET(tPipelinePlugin, dstObject, gPipelinePluginOffset)->pipelineId = RWPLUGINOFFSET(tPipelinePlugin, srcObject, gPipelinePluginOffset)->pipelineId;
     return dstObject;
 }
 
@@ -74,12 +75,6 @@ static RwInt32 PipelineGetSize(const void* object, RwInt32 offsetInObject, RwInt
     return sizeof(tPipelinePlugin);
 }
 
-// internal
-// RenderWare exige un callback de escritura aunque este plugin no emita payload por esa ruta.
-static RwStream* PipelineStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
-    return stream;
-}
-
 // 0x72FBD0
 // Registra el campo pipelineId y sus callbacks de copia/lectura en RpAtomic.
 RwBool PipelinePluginAttach() {
@@ -87,7 +82,8 @@ RwBool PipelinePluginAttach() {
     if (gPipelinePluginOffset == -1) {
         return FALSE;
     }
-    if (RpAtomicRegisterPluginStream(rwID_PIPELINEPLUGIN, PipelineStreamRead, PipelineStreamWrite, PipelineGetSize) == -1) {
+    // Como el original: sin callback de escritura y cualquier resultado negativo es fallo
+    if (RpAtomicRegisterPluginStream(rwID_PIPELINEPLUGIN, PipelineStreamRead, nullptr, PipelineGetSize) < 0) {
         gPipelinePluginOffset = -1;
         return FALSE;
     }

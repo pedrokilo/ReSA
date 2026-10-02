@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/3 entradas.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -29,7 +29,7 @@ void CTaskSimpleHitWall::InjectHooks() {
     RH_ScopedVMTInstall(IsInterruptable, 0x653030);
 }
 
-// 0x48E0A0
+// 0x652F90
 CTaskSimpleHitWall::CTaskSimpleHitWall() :
     CTaskSimpleRunAnim{
         ANIM_GROUP_DEFAULT,
