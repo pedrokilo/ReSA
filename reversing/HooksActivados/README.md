@@ -101,3 +101,68 @@ Las plantillas no se registran en `InjectHooksMain` ni añaden filas a `hooks.cs
 En las ocho sin localizar, el patrón no aparece o el tipo no figura en `eTaskType`. En el caso de `UntilCollision`, el único vtable extra que comparte ese `GetTaskType`, 0x86FDD4, pertenece a `CTaskComplexGoToPointAndStandStillTimed`.
 
 CMake usa `GLOB` sin `CONFIGURE_DEPENDS`, así que hay que reconfigurar (`cmake .` en `build/`) para que entren los archivos nuevos. Compilación Debug sin errores y auditoría estricta OK. Un commit por plantilla.
+
+## Segunda tanda: `InjectHooks` sin llamar y tareas con vtable (2026-10-01)
+
+**15 clases cuyo `InjectHooks()` estaba escrito pero nunca se invocaba.** Venían así desde la importación del upstream (`c41108e`) y ningún commit las había llamado: `CHud`, `CPedAttractor`, `CIdleCam`, `CTaskComplexChat`, `CCredits`, `CTaskComplexUseSequence`, `CPedShelterAttractor`, `CPlayerSkin`, `CCoverPoint`, `CDecision`, `CMaths`, `CTaskSequences`, `CLodTimeModelInfo`, `CVehicleSaveStructure` y `CTaskTimer`. Suman 115 hooks. `CVector`, `CVector2D`, `CQuaternion` y `CMatrix` siguen sin llamar a propósito, por rendimiento, según el comentario de `InjectHooksMain`.
+
+Antes de registrarlas se revisaron y se corrigieron dos defectos que habrían roto el arranque:
+
+- `CDecision::Set` (0x600570) era un stub `plugin::CallMethod<0x600570>` instalado como reconstruido. Activarlo habría causado recursión infinita, así que ahora va con `reversed=false`.
+- `CLodTimeModelInfo` instalaba `GetModelType`/`GetTimeInfo` en 0x4C5660/0x4C5670, que son las de `CTimeModelInfo` y no están en su vtable 0x85BCF0. El registro habría abortado con "Couldn't find function in vtable". Las propias son 0x4C56C0 (`mov al,3; ret`) y 0x4C56D0 (`lea eax,[ecx+24h]`; `m_lodTimeInfo` está en +0x24).
+
+Además se comprobaron los vtables de las cinco clases virtuales contra el exe y que ninguna dirección estuviera ya enganchada por otra clase.
+
+**Tareas con vtable localizado en el exe que no tenían hooks.** Se buscó el `GetTaskType` de cada `eTaskType` en el exe y se cruzó con los `RH_ScopedVirtualClass` del código.
+
+- Registradas, con instalaciones: `CTaskComplexCrossRoadLookAndAchieveHeading` (0x86DFF0), `CTaskSimpleCarDriveTimed` (0x859E50), `CTaskComplexCarDriveMissionFleeScene` (0x85B95C), `CTaskComplexCarDriveMissionKillPed` (0x85B994), `CTaskComplexBeCop` (0x85A428, N=15) y `CTaskSimpleNone` (0x859CFC).
+- Con `InjectHooks()` escrito pero **sin registrar**, porque no tienen ninguna función implementada que instalar: `CTaskComplexWaitForPed`, `CTaskComplexUseMobilePhone`, `CTaskSimpleTriggerLookAt` y `CTaskComplexGoPickUpEntity`.
+- Plantilla nueva: `CTaskComplexAvoidEntity` (0x86FF00). No existía en el código y ningún código del exe referencia su vtable.
+
+**Fallo encontrado al probar y corregido.** El primer arranque abrió un assert de ReversibleHooks: "hooked to an address that is already hooked" (`ReversibleHooks.cpp:188`). La causa era `CTaskSimpleNone::Destructor` (0x463560). El enlazador del juego fusionó en una sola función dos destructores idénticos, y esa función ya la instala `CTaskSimpleLeaveGroup`. Se retiró la instalación duplicada.
+
+La comprobación de duplicados recorre ahora todas las instalaciones `RH_Scoped*Install` del código, porque muchas filas `V` de `hooks.csv` tienen dirección 0 y no sirven para detectarlos.
+
+**Catálogo:** 145 entradas nuevas, 144 tras retirar el destructor duplicado. Quedan 8 clases parciales con 17 pendientes, listadas en [Prioridades](../../docs/ReversingPriorities.md#incorporadas-2026-10-01).
+
+**Evidencia:**
+
+- Compilación Debug sin errores.
+- 60 s sin diálogos tras arrancar.
+- `CAEWeaponAudioEntity/smoke_test.py --seconds 35 --label hooksactivados`: **35 s dentro de partida**, con HUD y tareas de peatones ejecutándose, sin diálogos de assert y con las partidas sin cambios ([resumen](../CAEWeaponAudioEntity/artifacts/smoke-20261001-205508/summary.json)).
+- El `runtime-hooks.csv` generado por el juego confirma el registro: `CHud` 38, `CPedAttractor` 20, `CIdleCam` 14, `CLodTimeModelInfo` 2 con las direcciones corregidas, etc.
+- Al terminar se restauró el ASI instalado (`a0c5e7fb…`).
+- Como en la primera tanda, no hay comparaciones función por función contra el original.
+
+## Exe contra código: qué hay en uno y no en el otro
+
+Se comparó el exe con el código y el catálogo en las dos direcciones. Detectar funciones y vtables por patrones de bytes es una aproximación: puede omitir algunos y contar otros de más.
+
+**Lo que se engancha de verdad frente a lo que dice el catálogo.** `runtime-hooks.csv`, que genera el juego, tiene 8.443 hooks y `docs/hooks.csv` 8.440. Diferencias:
+
+- 3 hooks del grupo `WindowedModeHooks` (modo ventana, código propio NOTSA) se registran pero no están en el catálogo. La auditoría no los ve porque se registran desde `notsa::InjectWindowedModeHooks()` y no desde `X::InjectHooks()`.
+- 7 hooks tienen un `reversed` distinto en el catálogo y en el código:
+  - `CAEStaticChannel::SetAudioBuffer`, `CCarFXRenderer::InitialiseDirtTexture` y `CConversations::DoneSettingUpConversation` figuran como reconstruidas en el CSV, pero el código sigue con `{ .reversed = false }` y en el juego corre el original.
+  - Las cuatro de `CCustomBuildingRenderer` (`AtomicSetup`, `IsCBPCPipelineAttached`, `Update`, `UpdateDayNightBalanceParam`) figuran como pendientes en el CSV, pero el código del árbol actual las instala como reconstruidas y **se ejecutan en el juego** pese a estar documentadas como aplazadas.
+  - No se tocaron: son trabajo en curso de otras entregas.
+
+**Direcciones del catálogo que no son inicio de función.** De 6.919 direcciones no nulas, 16 no parecen un inicio de función. Nueve son falsas alarmas: funciones que empiezan justo después de una tabla de saltos o de un `jmp`. Las otras siete, todas heredadas del upstream y activas, apuntan al **medio** de otra función o de una instrucción:
+
+| Hook | Dirección | Qué hay ahí |
+| --- | --- | --- |
+| `CVisibilityPlugins::SetClumpForAllAtomicsFlag` | 0x732307 | el `ret` final de otra función |
+| `CLoadingScreen::IsActive` | 0x744DB5 | el `ret` final de otra función |
+| `CVehicleModelInfo::SetRenderPipelinesCB` | 0x4C88F4 | el `ret` de la función que empieza en 0x4C88F0 |
+| `CGame::ValidateVersion` | 0x5BA0BC | dentro de un salto condicional |
+| `CTaskSimpleGiveCPR::FinishGiveCPRAnimCB` | 0x658910 | dentro de `mov fs:[0], esp` |
+| `CConversations::EnableConversation` | 0x43A7F0 | dentro de un bucle de otra función |
+| `CConversationNode::ClearRecursively` | 0x43A7A0 | dentro de una instrucción `mov` |
+
+Un salto de 5 bytes escrito ahí altera la función que lo contiene cuando el juego la ejecuta. `CPedDamageResponseCalculator::IsBleedingWeapon` (0x4B5C2A) también cae a mitad de función, pero está con `reversed=0`. **Pendiente:** localizar la dirección real de cada una.
+
+**Lo que hay en el exe y no tenemos.**
+
+- **Funciones:** se detectan unas 14.100 en el código del juego (0x401000–0x7C0000), como destinos de `call` o punteros desde datos; 5.833 están en `hooks.csv`. Otras 6.875 detectadas en el rango de RenderWare/CRT (0x7C0000+) están casi todas fuera del catálogo, como es de esperar. El catálogo no pretende ser un inventario completo del exe.
+- **Vtables:** se detectan 570, cargados mediante `mov [reg], vtable`. 430 tienen `RH_ScopedVirtualClass` y **140 no aparecen en el código**; quedan por clasificar. Las 10 `RH_ScopedVirtualClass` que la heurística no encontró son vtables de audio con N=1 cargados de otra forma, y son correctas.
+- **Tareas:** ninguna tarea con vtable en el exe queda sin clase.
+- **Eventos:** el método no sirve, porque los tipos de evento son números pequeños y el patrón coincide con funciones ajenas. Están sin revisar.
