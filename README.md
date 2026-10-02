@@ -35,6 +35,7 @@ La fuente del progreso es [docs/hooks.csv](docs/hooks.csv). El [informe generado
 | Dimensión | Estado |
 | --- | --- |
 | Clases completas | 667/772 · 86,40% |
+| Clases validadas | 197/772 · 25,52% |
 | Funciones reconstruidas | 7.860/8.443 · 93,09% |
 | Funciones con `validated=1` | **776/8.443 · 9,19%** · evidencia aprobada vinculada |
 | Validaciones vigentes para el árbol actual | 0/8.443 · 0,00%; las 776 conservan evidencia histórica o coincidencia de fuentes, pero requieren revisión de dependencias |

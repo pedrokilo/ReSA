@@ -58,6 +58,7 @@ def generate(input_path, output_path, update_source_status=False):
     reversed_count = sum(c.reversed for c in ordered)
     locked = sum(c.locked for c in ordered)
     validated_count = sum(c.validated for c in ordered)
+    validated_classes = [c for c in ordered if c.total and c.validated == c.total]  # todas sus funciones con validated=1
     if validated_count != validation['documented']:
         raise ValueError(
             f"hooks.csv validated=1 ({validated_count}) no coincide con evidencia aprobada "
@@ -72,6 +73,7 @@ def generate(input_path, output_path, update_source_status=False):
              "| Dimensión | Progreso | Medición |",
              "| --- | --- | --- |",
              f"| Clases completas | `{'█' * round(20*len(full)/len(ordered))}{'░' * (20-round(20*len(full)/len(ordered)))}` | {len(full)}/{len(ordered)} · {len(full)/len(ordered):.2%} |",
+             f"| Clases validadas (todas sus funciones) | `{'█' * round(20*len(validated_classes)/len(ordered))}{'░' * (20-round(20*len(validated_classes)/len(ordered)))}` | {len(validated_classes)}/{len(ordered)} · {len(validated_classes)/len(ordered):.2%} |",
              f"| Funciones reconstruidas | `{'█' * round(20*reversed_count/total)}{'░' * (20-round(20*reversed_count/total))}` | {reversed_count:,}/{total:,} · {reversed_count/total:.2%} |",
              f"| Funciones validadas (evidencia aprobada) | `{'█' * round(20*validated_count/total)}{'░' * (20-round(20*validated_count/total))}` | {validated_count:,}/{total:,} · {validated_count/total:.2%} |",
              f"| Validaciones vigentes para el árbol actual | `{'█' * round(20*validation['current']/total)}{'░' * (20-round(20*validation['current']/total))}` | {validation['current']}/{total:,} · {validation['current']/total:.2%}; inventario parcial |",

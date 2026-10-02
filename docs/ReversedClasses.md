@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-02 19:48 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-02 19:56 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -11,6 +11,7 @@ La [hoja de ruta de PGTASA](ProjectRoadmap.md) define una reconstrucción funcio
 | Dimensión | Progreso | Medición |
 | --- | --- | --- |
 | Clases completas | `█████████████████░░░` | 667/772 · 86.40% |
+| Clases validadas (todas sus funciones) | `█████░░░░░░░░░░░░░░░` | 197/772 · 25.52% |
 | Funciones reconstruidas | `███████████████████░` | 7,860/8,443 · 93.09% |
 | Funciones validadas (evidencia aprobada) | `██░░░░░░░░░░░░░░░░░░` | 776/8,443 · 9.19% |
 | Validaciones vigentes para el árbol actual | `░░░░░░░░░░░░░░░░░░░░` | 0/8,443 · 0.00%; inventario parcial |

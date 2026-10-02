@@ -23,11 +23,13 @@ def main():
     classes = {}
     for r in rows: classes.setdefault(r['class'], []).append(r)
     complete = sum(all(x['reversed'] == '1' for x in v) for v in classes.values())
+    vclasses = sum(all(x['validated'] == '1' for x in v) for v in classes.values())
     cases = json.loads((ROOT/'reversing/cases.json').read_text(encoding='utf-8'))
     isolated = sum('isolated' in c['id'] for c in cases)
     subs = {
         'README.md': [
             (r'\| Clases completas \| [\d.]+/[\d.]+ · [\d,]+% \|', f'| Clases completas | {fmt(complete)}/{fmt(len(classes))} · {pct(complete, len(classes))}% |'),
+            (r'\| Clases validadas \| [\d.]+/[\d.]+ · [\d,]+% \|', f'| Clases validadas | {fmt(vclasses)}/{fmt(len(classes))} · {pct(vclasses, len(classes))}% |'),
             (r'\| Funciones reconstruidas \| [\d.]+/[\d.]+ · [\d,]+% \|', f'| Funciones reconstruidas | {fmt(rev)}/{fmt(total)} · {pct(rev, total)}% |'),
             (r'\| Funciones con `validated=1` \| \*\*[\d.]+/[\d.]+ · [\d,]+%\*\*', f'| Funciones con `validated=1` | **{fmt(val)}/{fmt(total)} · {pct(val, total)}%**'),
             (r'0/[\d.]+ · 0,00%; las [\d.]+ conservan', f'0/{fmt(total)} · 0,00%; las {fmt(val)} conservan'),
