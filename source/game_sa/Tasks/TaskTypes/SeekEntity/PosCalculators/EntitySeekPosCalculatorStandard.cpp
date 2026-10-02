@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/1 entradas.
+ * Validación registrada: 1/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -21,7 +21,7 @@ END GENERATED HOOK STATUS */
 #include "EntitySeekPosCalculatorStandard.h"
 
 void CEntitySeekPosCalculatorStandard::InjectHooks() {
-    RH_ScopedVirtualClass(CEntitySeekPosCalculatorStandard, 0x859DC4, 2);
+    RH_ScopedVirtualClass(CEntitySeekPosCalculatorStandard, 0x859DC8, 1); // Como el original: vtable de una sola entrada (0x46A602 escribe 0x859DC8)
     RH_ScopedCategory("Tasks/TaskTypes/SeekPosCalculators");
 
     RH_ScopedVMTInstall(ComputeEntitySeekPos, 0x46af20);
@@ -34,6 +34,7 @@ CEntitySeekPosCalculatorStandard::CEntitySeekPosCalculatorStandard(CEntity* enti
 }
 */
 
+// 0x46AF20
 void CEntitySeekPosCalculatorStandard::ComputeEntitySeekPos(const CPed& seeker, const CEntity& target, CVector& outPos) {
     outPos = target.GetPosition();
 }

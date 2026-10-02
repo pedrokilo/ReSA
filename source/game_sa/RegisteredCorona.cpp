@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/1 entradas.
+ * Validación registrada: 1/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -39,24 +39,45 @@ void CRegisteredCorona::Update() {
         return;
     }
 
-    const auto fadeStep = CTimer::GetTimeStep() * m_fFadeSpeed;
+    // Como el original: intensidad - paso, sin bajar de 0 (con NaN se conserva el valor); _ftol trunca a 64 bits
+    const auto FadeOut = [this] {
+        const float v = (float)m_FadedIntensity - CTimer::GetTimeStep() * m_fFadeSpeed;
+        m_FadedIntensity = (uint8)(int64)(v < 0.0f ? 0.0f : v);
+    };
+
     const auto& camPos = TheCamera.GetPosition();
     if (!m_bCheckObstacles || ((!CCoronas::SunBlockedByClouds || m_dwId != 2)
         && CWorld::GetIsLineOfSightClear(m_vPosn, camPos, true, false, false, false, false, false, false))) {
         if (m_bOffScreen || (m_bOnlyFromBelow && camPos.z > m_vPosn.z)) {
-            m_FadedIntensity = (uint8)(std::max(0.f, (float)(m_FadedIntensity)-fadeStep));
+            FadeOut();
         } else {
-            m_FadedIntensity = (uint8)(notsa::step_to((float)(m_FadedIntensity), (float)(m_Color.a), fadeStep));
-            if (CCoronas::bChangeBrightnessImmediately) {
-                m_FadedIntensity = m_Color.a;
+            // Como el original (0x6FACC1): se acerca al alfa un paso por fotograma sin pasarse;
+            // con bChangeBrightnessImmediately salta directamente al alfa. Si son iguales no se toca.
+            const uint8 faded = m_FadedIntensity;
+            const uint8 alpha = m_Color.a;
+            if (alpha != faded) {
+                float v;
+                if (alpha > faded) {
+                    const float t = CTimer::GetTimeStep() * m_fFadeSpeed + (float)faded;
+                    v = (float)alpha < t ? (float)alpha : t;
+                } else {
+                    const float t = (float)faded - CTimer::GetTimeStep() * m_fFadeSpeed;
+                    v = (float)alpha > t ? (float)alpha : t;
+                }
+                m_FadedIntensity = (uint8)(int64)v;
+                if (CCoronas::bChangeBrightnessImmediately) {
+                    m_FadedIntensity = alpha;
+                }
             }
 
             if (m_dwId == 2) {
-                CCoronas::LightsMult = std::max(0.6f, CCoronas::LightsMult - CTimer::GetTimeStep() * 0.06f);
+                // Como el original: sin bajar de 0.6 (con NaN se guarda el NaN)
+                const float mult = CCoronas::LightsMult - CTimer::GetTimeStep() * 0.06f;
+                CCoronas::LightsMult = mult < 0.6f ? 0.6f : mult;
             }
         }
     } else {
-        m_FadedIntensity = (uint8)(std::max(0.f, (float)(m_FadedIntensity)-fadeStep));
+        FadeOut();
     }
 
     if (!m_FadedIntensity && !m_bJustCreated) {

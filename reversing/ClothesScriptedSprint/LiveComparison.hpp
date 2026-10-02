@@ -48,6 +48,8 @@ inline void Update(){
             std::vector<uint8> seed(length);
             for(size_t j=0;j<length;++j)seed[j]=uint8(i==0?0:i==1?255:(uint32(i)*2654435761u+uint32(j)*2246822519u)>>(j%4*8));
             const auto run=[&]{
+                // el New del EXE busca desde m_LastFreeSlot+1: se restaura para que ambas ejecuciones reciban el mismo slot
+                { auto& lf=*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(GetTaskPool())+0xC); static const int32 lf0=lf; lf=lf0; }
                 json out;
                 if(fn==0){
                     const int32 input=i<2048?i-1024:std::bit_cast<int32>(uint32(i)*2654435761u);

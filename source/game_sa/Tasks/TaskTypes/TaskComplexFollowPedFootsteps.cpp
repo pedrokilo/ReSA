@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/1 entradas.
+ * Validación registrada: 1/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -39,7 +39,16 @@ CTaskComplexFollowPedFootsteps::CTaskComplexFollowPedFootsteps(CPed* ped) : CTas
 
     CEntity::SafeRegisterRef(m_targetPed);
 
-    m_pointRoute = new CPointRoute();
+    // Como el original: CPointRoute::operator new (0x41B7C0) y solo se pone a cero el contador (dos veces, constructor
+    // en línea y limpieza explícita); `new CPointRoute()` inicializaba por valor los 0x60 bytes de puntos
+    auto* route = static_cast<CPointRoute*>(CPointRoute::operator new(sizeof(CPointRoute)));
+    if (route) {
+        route->m_NumEntries = 0;
+    }
+    m_pointRoute = route;
+    if (m_pointRoute) {
+        m_pointRoute->m_NumEntries = 0;
+    }
 }
 
 CTaskComplexFollowPedFootsteps* CTaskComplexFollowPedFootsteps::Constructor(CPed* ped) {

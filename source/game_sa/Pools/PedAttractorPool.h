@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/1 entradas.
+ * Validación registrada: 1/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -29,7 +29,11 @@ END GENERATED HOOK STATUS */
  * Los objetos obtenidos continúan perteneciendo al pool hasta que se liberan mediante
  * la interfaz correspondiente de CPool.
  */
-class CPedAttractorPool : public CPool<CPedAttractor> {
+// Como el original: el pool del EXE (0x5EA9F0 y CPools::Initialise) usa slots de 0xC4 bytes,
+// mayores que sizeof(CPedAttractor) (0x8C); con 0x8C la DLL indexaba mal el pool real.
+struct CPedAttractorPoolSlot { uint8 data[0xC4]; };
+
+class CPedAttractorPool : public CPool<CPedAttractor, CPedAttractorPoolSlot> {
 public:
     /**
      * Registra las operaciones específicas de CPedAttractorPool en sus direcciones originales.
@@ -44,4 +48,12 @@ public:
 
 public:
     using CPool::CPool;
+
+    // 0x5EA9F0
+    // Como el original: busca a partir de m_nFirstFree+1 (con una sola vuelta; si el pool está lleno deja
+    // m_nFirstFree = 0 y devuelve nullptr), marca el slot como ocupado, incrementa su ID de 7 bits y no
+    // toca el almacenamiento del objeto (sin el relleno 0xCD de CPool::New).
+    CPedAttractor* New() {
+        return NewLegacy();
+    }
 };

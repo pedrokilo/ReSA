@@ -45,6 +45,8 @@ inline void Update(){
         for(int i=0;i<total&&passed;++i){
             Raw<CTaskComplexGoToPointShooting> source;alignas(4) std::array<uint8,0x384+32> table{};
             const auto run=[&]{
+                // el New del EXE busca desde m_LastFreeSlot+1: se restaura para que ambas ejecuciones reciban el mismo slot
+                { auto& lf=*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(GetTaskPool())+0xC); static const int32 lf0=lf; lf=lf0; }
                 for(int j=0;j<16;++j)refs[j]={j==15?nullptr:&refs[j+1],nullptr};
                 CReferences::pEmptyList=refs.data();entity.b.fill(0);entity.get()->SetTypeObject();json out;
                 if(fn<2||fn==6){

@@ -378,5 +378,20 @@
     "id": "menusys2",
     "name": "CMenuSystem (20)",
     "runner": "MenuSystem2/run_local.py"
+  },
+  {
+    "id": "pools56",
+    "name": "Pools y clases sueltas (lista de 56)",
+    "runner": "Pools56/run_local.py"
+  },
+  {
+    "id": "evtask56",
+    "name": "Eventos y tareas (lista de 56)",
+    "runner": "EventsTasks56/run_local.py"
+  },
+  {
+    "id": "misc56",
+    "name": "Clases sueltas (lista de 56)",
+    "runner": "Misc56/run_local.py"
   }
 ]

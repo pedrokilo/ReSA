@@ -154,6 +154,8 @@ inline void Update() {
                 const auto pedsBefore=pedStorage; const auto vehBefore=vehStorage; const auto groupBefore=groupStorage;
                 const auto occupancy=Occupancy();
                 auto run=[&](bool candidate)->json {
+                    // el New del EXE busca desde m_LastFreeSlot+1: se restaura para que ambas ejecuciones reciban el mismo slot
+                    { auto& lf=*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(GetTaskPool())+0xC); static const int32 lf0=lf; lf=lf0; }
                     hooks[f]->State(candidate); hooks[2]->State(candidate); // original: tambien 0x65EE90 del EXE
                     if((vt[0]==originals[f])==candidate)switching=false;
                     doorTrace=json::array();

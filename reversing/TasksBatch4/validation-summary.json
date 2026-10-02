@@ -49,7 +49,7 @@
   "log_sha256": "85ab8756bd8374d8f09ca176ca8e0b9a25f5368483e72d0275d28a9f020a4142",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-tasks4\\20261002-111243-412232",
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-tasks4\\20261002-124225-899039",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexUseScriptedAttractor::Constructor": true,
@@ -88,8 +88,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "f5f094fc17dcf330d8db607fc495c02bf5cb05ef2ef419e36f14f5330da5c7af",
-      "pdb": "2e63eb090a647d1ebf90e146818bd49bf7a152040cd7cc6634532d015ea341b9"
+      "asi": "13ceb06f7348e535b94944a048b43aa325c0726f9e65431652232a1b2582f3e6",
+      "pdb": "84ba069548366de1baf90f246e979ac979c1696609ebd7478f68057b988181c9"
     },
     "sources": {
       "source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp": "5950cd86b4c18aba6d448b65d3699e4f31eb48cab669a8892361e8ee2685a5db",
@@ -105,13 +105,13 @@
     },
     "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
     "instrumentation": {
-      "LiveComparison.hpp": "12270bd75b5f4569601928274f65e3c81ae65a7fce45ff8e3c7f198d868b7e2e",
+      "LiveComparison.hpp": "b16467e0d9a05fdf0f3883273ab8901dfb7435486cba912b72b16619dce46260",
       "build_probe.py": "b6c6b74561a2488524ed91c53cce2b1e596cf7c50e1a0a30a713f0c8d7fc14da",
       "run_local.py": "e3cd77ba24f3acd430bec7112a4f08ba6afc5bdd0559cd6c04592c77a085277c"
     }
   },
   "limitations": [
-    "Peaton, helicoptero, vehiculo e incendio falsos; tareas falsas con vtable trazada; secuencias globales y almacen de cerebros restaurados por ejecucion.",
+    "Peaton, helicoptero, vehiculo e incendio falsos; tareas falsas con vtable trazada; secuencias globales, almacen de cerebros y slot libre del pool de tareas restaurados por ejecucion.",
     "FindZCoorForPed, FindCoorsAlongRope, CPed::Say, FireTruckControl, CScriptedBrainTaskStore::Clear y RNG simulados."
   ]
 }

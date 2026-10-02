@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/1 entradas.
+ * Validación registrada: 1/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -22,7 +22,7 @@ END GENERATED HOOK STATUS */
 #include "PedGeometryAnalyser.h"
 
 void CEntitySeekPosCalculatorFixedPos::InjectHooks() {
-    RH_ScopedVirtualClass(CEntitySeekPosCalculatorFixedPos, 0x0086FD18, 2);
+    RH_ScopedVirtualClass(CEntitySeekPosCalculatorFixedPos, 0x86FD18, 1); // Como el original: vtable de una sola entrada
     RH_ScopedCategory("Tasks/TaskTypes/SeekPosCalculators");
 
     RH_ScopedVMTInstall(ComputeEntitySeekPos, 0x694830);
@@ -33,6 +33,7 @@ CEntitySeekPosCalculatorFixedPos::CEntitySeekPosCalculatorFixedPos(const CVector
 {
 }
 
+// 0x694830
 void CEntitySeekPosCalculatorFixedPos::ComputeEntitySeekPos(const CPed& seeker, const CEntity& target, CVector& outPos) {
     CPedGeometryAnalyser::ComputeClearTarget(seeker, m_fixedPos, outPos);
 }

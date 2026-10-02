@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 6464,
+  "pairs_per_function": {
+    "CEntitySeekPosCalculatorFixedPos::ComputeEntitySeekPos": 512,
+    "CEntitySeekPosCalculatorRadiusAngleOffset::ComputeEntitySeekPos": 1024,
+    "CEntitySeekPosCalculatorStandard::ComputeEntitySeekPos": 256,
+    "CEntitySeekPosCalculatorXYOffset::ComputeEntitySeekPos": 512,
+    "CPedAttractorPedPlacer::PlacePedAtEffect": 1024,
+    "CRegisteredCorona::Update": 1024,
+    "CCheckpoint::Render": 1024,
+    "CDebug::DebugDisplayTextBuffer": 64,
+    "CAETrackLoader::GetDataStream": 512,
+    "RtAnim::RtAnimInterpolatorSetCurrentAnim": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "2601b3958d6d7d7a93c9c30039d82a1533c8b9581da499d1eea76ea3f3d9315b",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc56\\20261002-123228-809292",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CEntitySeekPosCalculatorFixedPos::ComputeEntitySeekPos": true,
+    "CEntitySeekPosCalculatorRadiusAngleOffset::ComputeEntitySeekPos": true,
+    "CEntitySeekPosCalculatorStandard::ComputeEntitySeekPos": true,
+    "CEntitySeekPosCalculatorXYOffset::ComputeEntitySeekPos": true,
+    "CPedAttractorPedPlacer::PlacePedAtEffect": true,
+    "CRegisteredCorona::Update": true,
+    "CCheckpoint::Render": true,
+    "CDebug::DebugDisplayTextBuffer": true,
+    "CAETrackLoader::GetDataStream": true,
+    "RtAnim::RtAnimInterpolatorSetCurrentAnim": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "c43b040598799e05c50edfdd1bcc29577a1aa05ff642002645e7c973c5d50bbd",
+      "pdb": "40c50d24907ddd4c167e54467aa109968d23f194e066f09f401fcdd1390e1bd9"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.h": "161664f770b336fe2e46a2f5147c6729ce1a8d1bfcf5db0d5fc951d0c169d66f",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp": "27e6079e8cbddc7bee3cb6b20dedbdddd6654dae5749d00dcaf80c4ec33f7ffa",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp": "9e145b7330535ea2e2c4eea4edc95322f8dcffe8305464964b2446a5032a6129",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorStandard.cpp": "3f6ac336b33b83b38e68200850dc3c15118dba77c1929c4eeecabdb517d98999",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp": "0dac42bfc4ac61cea1dcbbd98cd7cd590063c3c98de37465c69a42e035dac47a",
+      "source/game_sa/Attractors/PedAttractorPedPlacer.cpp": "258ea1c4dadc021abbcf7d0c41330d3a3f295d9d992e665998b25e0c2b9674e9",
+      "source/game_sa/RegisteredCorona.cpp": "48815a1942ffe707199fba6e3230ba908703eb3955b19b59a14a8ed3841d6546",
+      "source/game_sa/Checkpoint.cpp": "b0a4664bbde0df334ed183d68106ee3db72df6f2785661109511d9ce8a1aa04d",
+      "source/game_sa/Debug.cpp": "78337ba95092d00ac82d8778572b34a7bcf634a683f84b16a7c9e22ae3ec2a61",
+      "source/game_sa/Audio/Loaders/AETrackLoader.cpp": "ef6569bfb6f013399a72114c44851e8d375c037ddfb145f27aae6fffc4c0ea5d",
+      "source/game_sa/RenderWare/rw/rtanim.cpp": "595ee1d2775e6975c5ff88d8125a012f2b8d91f815df3038bc0c16b272ed4fa2"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "72e975324dbb6687f67dd6c2f4e051f25d578d29a43c0e13e3f672eb94776bc7",
+      "build_probe.py": "e722b4ef3edaa4b28f34e91c93b3cd616abcdf774a531a4095c568bebf0c1280",
+      "run_local.py": "5f7cb639902ffa8b0861da3a4ce5f8a68dc111ce3c9835d9cb5757b4cf69c3f6"
+    }
+  },
+  "limitations": [
+    "Fixtures en buferes estaticos; simulaciones solo durante cada llamada; coronas, bandera, CFont y estados de render restaurados.",
+    "Sin casos dependientes de FIX_BUGS (alfa < 48 en TORUSTHROUGH, rwID_RPANIMBLENDPLUGIN en RtAnim)."
+  ]
+}

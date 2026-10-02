@@ -79,6 +79,8 @@ inline void Update(){
         for(int i=0;i<count&&passed;++i){
             if(fn==1&&i==512)for(auto[h,e,l]:deps)h->State(true);
             const auto run=[&]{
+                // el New del EXE busca desde m_LastFreeSlot+1: se restaura para que ambas ejecuciones reciban el mismo slot
+                { auto& lf=*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(GetTaskPool())+0xC); static const int32 lf0=lf; lf=lf0; }
                 for(int j=0;j<64;++j)refs[j]={j==63?nullptr:&refs[j+1],nullptr};CReferences::pEmptyList=refs.data();
                 car.b.fill(0);ped.b.fill(0);intel.b.fill(0);armed.b.fill(0);control.b.fill(0);projectile.b.fill(0);carMat.b.fill(0);pedMat.b.fill(0);wrong.aborted=0;
                 car.get()->SetTypeVehicle();ped.get()->SetTypePed();ped.get()->m_nPedType=PED_TYPE_CIVMALE;

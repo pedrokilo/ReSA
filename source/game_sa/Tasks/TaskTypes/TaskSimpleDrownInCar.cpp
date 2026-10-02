@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/1 entradas.
+ * Validación registrada: 1/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -27,14 +27,15 @@ void CTaskSimpleDrownInCar::InjectHooks() {
 }
 
 // 0x62FF70
-
-// 0x0
 bool CTaskSimpleDrownInCar::ProcessPed(CPed* ped) {
     ped->SetPedState(PEDSTATE_DIE);
     ped->bIsInTheAir = false;
 
     if (ped == FindPlayerPed()) {
         CStats::IncrementStat(STAT_TIMES_DROWNED, 1.0f);
+    }
+    // Como el original: segunda llamada a FindPlayerPed antes de forzar la parada del vehículo (0x62FFC8)
+    if (ped == FindPlayerPed()) {
         ped->m_pVehicle->SetStatus(STATUS_FORCED_STOP);
     }
 

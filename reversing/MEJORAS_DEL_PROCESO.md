@@ -893,3 +893,18 @@ Bancos nuevos, todos con pares exactos dentro de GTA (201 funciones, 108.016 par
 - `CAEDataStream` (20), `CAEAudioHardware` (54).
 - `CMenuManager` (61); el bloque de deslizadores de `DrawStandardMenus` no se revisó.
 - Fuera de la lista: el tiempo de reproducción de canales y de `CAEStreamThread` es de 16 bits en la DLL y de 32 en el EXE.
+
+## Continuidad vigente: lista de 56 clases de una función (2026-10-02)
+
+Bancos nuevos, todos con pares exactos dentro de GTA (56 funciones, 23.872 pares): [Pools56](Pools56/README.md), [EventsTasks56](EventsTasks56/README.md) y [Misc56](Misc56/README.md).
+
+**Defectos de alcance general encontrados:**
+- `CPool::New` de la DLL buscaba con otra política y rellenaba con 0xCD; los 14 pools usan ahora la del EXE (`NewLegacy`).
+- El pool de atractores del EXE tiene slots de 0xC4 bytes y la DLL usaba 0x8C: indexaba mal el pool real.
+- Los calculadores de posición de `SeekEntity` declaraban un destructor virtual que el EXE no tiene; tres hooks redirigían `ComputeEntitySeekPos` al destructor.
+- La envoltura del constructor de `CEventScriptedAttractor` recibía un argumento de más (pila desbalanceada para el EXE).
+- `CTaskComplexPartner` registraba la referencia sobre el parámetro, no sobre el miembro.
+
+**Lecciones:**
+- Los informes de los agentes pueden leer mal los registros (p. ej. `bl`/`al` en `CRegisteredCorona::Update`): el banco lo detecta; se corrige leyendo el desensamblado.
+- `TIME_MS` es una macro de Windows: no usarla como nombre en los bancos.

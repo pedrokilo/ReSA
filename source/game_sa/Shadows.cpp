@@ -40,7 +40,7 @@
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/1 entradas.
+ * Validación registrada: 1/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -116,10 +116,10 @@ void CStaticShadow::Free() {
             it = static_cast<CPolyBunch*>(it->m_pNext);
         }
         it->m_pNext = prevHead;
-
-        m_pPolyBunch = nullptr;
-        m_nId = 0;
     }
+    // Como el original: el puntero y el ID se ponen a cero siempre, también cuando no había poly bunch.
+    m_pPolyBunch = nullptr;
+    m_nId = 0;
 }
 
 // 0x706CD0

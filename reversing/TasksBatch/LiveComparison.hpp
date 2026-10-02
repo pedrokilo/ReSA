@@ -297,6 +297,8 @@ inline void Update() {
                     argType=int(next()); argInt=int(next()%30000); for(auto& x:argF)x=uni(-5.f,40.f); argV=CVector{uni(-5.f,5.f),uni(-5.f,5.f),uni(-2.f,2.f)};
                 };
                 auto run=[&](bool candidate)->Snap {
+                // el New del EXE busca desde m_LastFreeSlot+1: se restaura para que ambas ejecuciones reciban el mismo slot
+                { auto& lf=*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(GetTaskPool())+0xC); static const int32 lf0=lf; lf=lf0; }
                     setup();
                     if(fn.vtbl==VT_STUCK)Write({{"event","side"},{"candidate",candidate},{"sub",subType}});
                     for(auto* h:hooks)h->State(candidate);

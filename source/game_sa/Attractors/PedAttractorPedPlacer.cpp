@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/1 entradas.
+ * Validación registrada: 1/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -30,21 +30,54 @@ void CPedAttractorPedPlacer::InjectHooks() {
     RH_ScopedGlobalInstall(PlacePedAtEffect, 0x5EA390);
 }
 
+// Como el original: CVector::FromMultiply (0x59C670), con el orden de sumas del EXE
+static CVector TransformPointOG(const CMatrix& m, const CVector& v) {
+    return {
+        m.GetUp().x * v.z + m.GetForward().x * v.y + m.GetRight().x * v.x + m.GetPosition().x,
+        m.GetUp().y * v.z + m.GetRight().y * v.x + m.GetForward().y * v.y + m.GetPosition().y,
+        m.GetUp().z * v.z + m.GetRight().z * v.x + m.GetForward().z * v.y + m.GetPosition().z,
+    };
+}
+
+// Como el original: Multiply3x3 (0x59C790), con el orden de sumas del EXE
+static CVector TransformVectorOG(const CMatrix& m, const CVector& v) {
+    return {
+        m.GetUp().x * v.z + m.GetForward().x * v.y + m.GetRight().x * v.x,
+        m.GetUp().y * v.z + m.GetRight().y * v.x + m.GetForward().y * v.y,
+        m.GetUp().z * v.z + m.GetRight().z * v.x + m.GetForward().z * v.y,
+    };
+}
+
 // 0x5EA390
 void CPedAttractorPedPlacer::PlacePedAtEffect(C2dEffectPedAttractor const& fx, CEntity* entity, CPed* ped, float forwardOffsetMultiplier) {
-    const auto mat = entity
-        ? entity->GetMatrix()
-        : CMatrix::Unity();
+    // Como el original: matriz local construida por defecto; identidad (0x59AE70) o copia (0x59BBC0) de la del entity
+    CMatrix mat;
+    if (entity) {
+        mat = entity->GetMatrix();
+    } else {
+        mat.SetUnity();
+    }
 
-    const auto fxPos      = CPedAttractorManager::ComputeEffectPos(&fx, mat);
-    const auto fxUseDir   = CPedAttractorManager::ComputeEffectUseDir(&fx, mat);
-    const auto fxFwdDir   = CPedAttractorManager::ComputeEffectForwardDir(&fx, mat);
-    //const auto fxQueueDir = CPedAttractorManager::ComputeEffectQueueDir(&fx, mat); // NOTSA: Actually unused
+    const auto fxPos    = TransformPointOG(mat, fx.m_Pos);
+    const auto fxUseDir = TransformVectorOG(mat, fx.m_vecUseDir);
+    const auto fxFwdDir = TransformVectorOG(mat, fx.m_vecForwardDir);
+    // (El original también calcula la dirección de cola con Multiply3x3, sin usarla.)
 
-    ped->SetPosn(std::get<CVector>(CPedPlacement::FindZCoorForPed(fxPos + fxFwdDir * forwardOffsetMultiplier)));
+    const CVector offset{ fxFwdDir.x * forwardOffsetMultiplier, fxFwdDir.y * forwardOffsetMultiplier, fxFwdDir.z * forwardOffsetMultiplier };
+    ped->SetPosn(std::get<CVector>(CPedPlacement::FindZCoorForPed(CVector{ fxPos.x + offset.x, fxPos.y + offset.y, fxPos.z + offset.z })));
 
-    const auto angle = CVector2D{ fxUseDir }.Heading();
-    ped->GetMatrix().SetRotateZOnly(angle);
-    ped->m_fAimingRotation = angle;
-    ped->m_fCurrentRotation = angle;
+    // Como el original: SetHeading en línea; las rotaciones se escriben antes de girar la matriz (sin crearla si no existe)
+    const float heading = CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints(fxUseDir.x, fxUseDir.y, 0.0f, 0.0f));
+    ped->m_fAimingRotation  = heading;
+    ped->m_fCurrentRotation = heading;
+    if (ped->m_matrix) {
+        ped->m_matrix->SetRotateZOnly(heading);
+    } else {
+        ped->m_placement.m_fHeading = heading;
+    }
+
+    // Como el original: el ángulo se calcula de nuevo y se vuelve a escribir en ambas rotaciones
+    const float heading2 = CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints(fxUseDir.x, fxUseDir.y, 0.0f, 0.0f));
+    ped->m_fAimingRotation  = heading2;
+    ped->m_fCurrentRotation = heading2;
 }

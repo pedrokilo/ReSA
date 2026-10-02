@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/1 entradas.
+ * Validación registrada: 1/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -46,7 +46,15 @@ CDummy::CDummy() : CEntity() {
     SetTypeDummy();
 }
 
-// Comprueba que el puntero corresponda a un slot actualmente válido del pool.
+// 0x532730
+// Como el original: no mira si el slot está ocupado; sólo calcula el índice con división con signo
+// (truncada hacia cero) sobre la diferencia de bytes y acepta 0 <= índice <= m_nSize (el `<=` es del EXE).
 bool IsDummyPointerValid(CDummy* dummy) {
-    return GetDummyPool()->IsObjectValid(dummy);
+    if (!dummy) {
+        return false;
+    }
+    const auto* const pool    = GetDummyPool();
+    const auto* const storage = *reinterpret_cast<const uint8* const*>(pool); // CPool::m_pObjects (+0x0)
+    const int32 idx = int32(reinterpret_cast<uintptr_t>(dummy) - reinterpret_cast<uintptr_t>(storage)) / int32(sizeof(CDummy));
+    return idx >= 0 && idx <= *reinterpret_cast<const int32*>(reinterpret_cast<const uint8*>(pool) + 0x8); // CPool::m_nSize
 }

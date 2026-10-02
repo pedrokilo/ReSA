@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/1 entradas.
+ * Validación registrada: 1/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -31,7 +31,8 @@ CTaskComplexPartnerDeal::CTaskComplexPartnerDeal(const char* commandName, CPed* 
     CTaskComplexPartner(commandName, partner, leadSpeaker, distanceMultiplier, true, 1, point)
 {
     m_taskId = TASK_COMPLEX_PARTNER_DEAL;
-    strcpy_s(m_animBlockName, "gangs");
+    // Como el original: copia los 6 bytes de "gangs" (dword + word desde 0x86F92C) sin tocar el resto del búfer
+    strcpy(m_animBlockName, "gangs");
 }
 
 CTaskComplexPartnerDeal* CTaskComplexPartnerDeal::Constructor(const char* commandName, CPed* partner, bool leadSpeaker, float distanceMultiplier, CVector point)

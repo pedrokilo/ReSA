@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/1 entradas.
+ * Validación registrada: 1/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -29,15 +29,16 @@ void CEventScriptedAttractor::InjectHooks()
 }
 
 // 0x5FEF40
-CEventScriptedAttractor::CEventScriptedAttractor(C2dEffectPedAttractor* the2dEffect, CEntity* entity, bool bAvoidLookingAtAttractor) :
+CEventScriptedAttractor::CEventScriptedAttractor(C2dEffectPedAttractor* the2dEffect, CEntity* entity) :
     CEventAttractor(the2dEffect, entity, false)
 {
 }
 
 // 0x5FEF40
-CEventScriptedAttractor* CEventScriptedAttractor::Constructor(C2dEffectPedAttractor* the2dEffect, CEntity* entity, bool bAvoidLookingAtAttractor)
+// Como el original: dos argumentos (ret 8); con el tercero la DLL desequilibraba la pila de los llamadores del EXE
+CEventScriptedAttractor* CEventScriptedAttractor::Constructor(C2dEffectPedAttractor* the2dEffect, CEntity* entity)
 {
-    this->CEventScriptedAttractor::CEventScriptedAttractor(the2dEffect, entity, bAvoidLookingAtAttractor);
+    this->CEventScriptedAttractor::CEventScriptedAttractor(the2dEffect, entity);
     return this;
 }
 

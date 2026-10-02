@@ -73,6 +73,8 @@ inline void Update(){
         Write({{"event","hook_state"},{"function",fn},{"enabled",enabled},{"locked",locked},{"startup_calls",startup[fn]}});
         for(int i=0;i<512&&passed;++i){
             auto run=[&]{
+                // el New del EXE busca desde m_LastFreeSlot+1: se restaura para que ambas ejecuciones reciban el mismo slot
+                { auto& lf=*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(GetTaskPool())+0xC); static const int32 lf0=lf; lf=lf0; }
                 trace=json::array();for(int j=0;j<32;++j)refs[j]={j==31?nullptr:&refs[j+1],nullptr};CReferences::pEmptyList=refs.data();
                 car.b.fill(0);car.get()->SetTypeVehicle();ped.b.fill(0);player.b.fill(0);data.b.fill(0);intel.b.fill(0);leave.b.fill(0);bus.b.fill(0);wait.b.fill(0);
                 auto* vehicle=i%7?car.get():nullptr;

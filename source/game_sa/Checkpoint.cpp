@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/1 entradas.
+ * Validación registrada: 1/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -36,7 +36,8 @@ void CCheckpoint::Render() {
     case eCheckpointType::EMPTYTUBE: {
         //> 0x725C1C - Make sure it's above the water
         float waterZ;
-        const auto wasUnderwater = CWaterLevel::GetWaterLevelNoWaves(m_Pos, &waterZ) && waterZ >= m_Pos.z;
+        // Como el original: solo se descarta si el agua queda por debajo (fcomp + test ah,1; con NaN también se sube)
+        const auto wasUnderwater = CWaterLevel::GetWaterLevelNoWaves(m_Pos, &waterZ) && !(waterZ < m_Pos.z);
         if (wasUnderwater) {
             m_Pos.z = waterZ;
         }
@@ -44,7 +45,7 @@ void CCheckpoint::Render() {
         //> 0x725CB4 - Render flag for finish checkpoint
         if (m_Type == eCheckpointType::ENDTUBE) {
             RwRenderStateSet(rwRENDERSTATETEXTURERASTER,     RWRSTATE(RwTextureGetRaster(gpFinishFlagTex)));
-            RwRenderStateSet(rwRENDERSTATEZWRITEENABLE,      RWRSTATE(TRUE));
+            RwRenderStateSet(rwRENDERSTATEZWRITEENABLE,      RWRSTATE(FALSE)); // Como el original: 0x725CBD escribe 0
             RwRenderStateSet(rwRENDERSTATEZTESTENABLE,       RWRSTATE(TRUE));
             RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(TRUE));
             RwRenderStateSet(rwRENDERSTATETEXTUREADDRESS,    RWRSTATE(rwTEXTUREADDRESSWRAP));
@@ -54,7 +55,7 @@ void CCheckpoint::Render() {
             if (CSprite::CalcScreenCoors(m_Pos + CVector{ 0.f, 0.f, 3.f }, &flagPos, &flagSz.x, &flagSz.y, false, true)) {
                 CSprite::RenderOneXLUSprite(
                     flagPos,
-                    flagSz * (m_Size / 2.f),
+                    CVector2D{ flagSz.x * m_Size * 0.5f, flagSz.y * m_Size * 0.5f }, // Como el original: (w * tamaño) * 0.5
                     m_Colour.r,
                     m_Colour.g,
                     m_Colour.b,
@@ -69,7 +70,7 @@ void CCheckpoint::Render() {
             RwRenderStateSet(rwRENDERSTATETEXTURERASTER,     RWRSTATE(0));
             RwRenderStateSet(rwRENDERSTATEZWRITEENABLE,      RWRSTATE(TRUE));
             RwRenderStateSet(rwRENDERSTATEZTESTENABLE,       RWRSTATE(TRUE));
-            RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(TRUE));
+            RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(FALSE)); // Como el original: 0x725DA4 escribe 0
         }
 
         //> 0x725DEE - Render the marker (Checkpoints are basically just markers with some extra stuff)
@@ -107,7 +108,11 @@ void CCheckpoint::Render() {
         break;
     }
     case eCheckpointType::TORUS: { // 0x725E6D
-        if (sq(m_Size * 2.f) >= CVector::DistSqr(m_Pos, FindPlayerCoors())) { // Inverted
+        // Como el original: distancia con fsqrt de (dz² + dy²) + dx²; se coloca solo si 2 * tamaño <= distancia (NaN no coloca)
+        const auto playerPos = FindPlayerCoors();
+        const float dx = playerPos.x - m_Pos.x, dy = playerPos.y - m_Pos.y, dz = playerPos.z - m_Pos.z;
+        const float dist = std::sqrt(dz * dz + dy * dy + dx * dx);
+        if (!(m_Size + m_Size <= dist)) {
             break;
         }
         [[fallthrough]];
@@ -142,11 +147,13 @@ void CCheckpoint::Render() {
                     return;
                 }
             }
-            CVector p = m_Pos + m_Fwd * ((float)i * m_MultiSize);
+            // Como el original: (fwd * i) * multiplicador + pos; con i == 0 se pasa m_Pos directamente
+            const float fi = (float)i;
+            CVector p{ m_Fwd.x * fi * m_MultiSize + m_Pos.x, m_Fwd.y * fi * m_MultiSize + m_Pos.y, m_Fwd.z * fi * m_MultiSize + m_Pos.z };
             C3dMarkers::PlaceMarker(
                 m_ID,
                 MARKER3D_TORUS,
-                p,
+                i ? p : m_Pos,
                 m_Size,
                 m_Colour.r,
                 m_Colour.g,
@@ -168,7 +175,7 @@ void CCheckpoint::Render() {
     case eCheckpointType::NA:
         break; // See `CCheckpoint::Update` - This type is used for something (Perhaps to make a checkpoint invisible? Not sure.)
     default:
-        NOTSA_UNREACHABLE("Unknown checkpoint type ({})", m_Type.get_underlying());
+        break; // Como el original: cualquier tipo > 8 no dibuja nada (ja 0x72602F)
     }
 }
 

@@ -54,7 +54,7 @@
   "log_sha256": "9921a7394834130dad0e8125e51540e77d0192df16f3800fefeb75b083b22387",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-tasks5\\20261002-111441-982738",
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-tasks5\\20261002-124413-478593",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexWaitAtAttractor::Constructor": true,
@@ -98,8 +98,8 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "c2252fd4b264f69bb2faf99edad55e9f34babc01aa9e500b6c2aab8c0dd30306",
-      "pdb": "e424909e26a0f597c938e18c1e850ded640e6a91f12bc7f3a278109236343480"
+      "asi": "dfb84208db735137aa65c4db2599ff4b46816597ee2328aaacd930d5e25f6988",
+      "pdb": "7e8ad9c344d4e7e8b63715f71f145eddcb0e408e0f5b048b5ebb7c9e65d69c7f"
     },
     "sources": {
       "source/game_sa/Tasks/TaskTypes/TaskComplexWaitAtAttractor.cpp": "636ef09a4ed8f09fda763145c0cae7b6cfc9af9a3f979fdb0777efcaf0ce87fa",
@@ -115,13 +115,13 @@
     },
     "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
     "instrumentation": {
-      "LiveComparison.hpp": "9d3e0eb072f5a332fc456344752fe7ef437e1ed23e95fd77ac23077c64ed7b6a",
+      "LiveComparison.hpp": "3d7faf6d96f060cbbb2f83992439afe8727ea0b180e580440d9d5d78f0d2aef2",
       "build_probe.py": "a80129a2c3db14ecc345f9043bef97bd7a257ed802060a9632fce8ee8c817178",
       "run_local.py": "b291713a4a2137497b4baf1121bd5ba1a378f8582cf2bee6c35005f84831c0b5"
     }
   },
   "limitations": [
     "Peatones con matriz, inteligencia, datos de jugador y clump falsos; FindActiveTaskByType, GetMoveStateFromGoToTask, RpAnimBlendClumpGetAssociation, SetMoveAnimSpeed, UpdatePoint, FindPlayerPed y RNG simulados.",
-    "Reloj y lluvia fijados por caso y restaurados."
+    "Reloj, lluvia y slot libre del pool de tareas restaurados por ejecucion."
   ]
 }

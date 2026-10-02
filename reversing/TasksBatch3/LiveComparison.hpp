@@ -211,6 +211,8 @@ inline void Update() {
                 uint32 st{}; auto next=[&]{st^=st<<13;st^=st>>17;st^=st<<5;return st;};
                 auto uni=[&](float a,float b){return a+(b-a)*float(next()%100000)/100000.f;};
                 auto run=[&](bool candidate)->json {
+                    // el New del EXE busca desde m_LastFreeSlot+1: se restaura para que ambas ejecuciones reciban el mismo slot
+                    { auto& lf=*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(GetTaskPool())+0xC); static const int32 lf0=lf; lf=lf0; }
                     st=uint32(i)*2654435761u^uint32(f*0x9E3779B9u)^0x3333u; trace=json::array(); seed=i; rngCalls=0;
                     CleanRefs();
                     // peatones

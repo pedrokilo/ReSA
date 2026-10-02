@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/1 entradas.
+ * Validación registrada: 1/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -52,8 +52,15 @@ void CDebug::DebugAddText(const char* str, float x, float y)
     m_debugStrings.push_back({ str, x, y });
 }
 
+// 0x532260
 void CDebug::DebugDisplayTextBuffer() {
     ZoneScoped;
+
+    // Como el original: en el EXE esta función es solo `ret` (no toca el estado de CFont).
+    // El dibujado de abajo es NOTSA y solo se usa si alguien añadió textos con DebugAddText.
+    if (m_debugStrings.empty()) {
+        return;
+    }
 
     CFont::SetBackground(0, 0);
     CFont::SetBackgroundColor(CRGBA(0, 0, 0, 128));

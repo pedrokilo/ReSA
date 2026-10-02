@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/1 entradas.
+ * Validación registrada: 1/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -51,10 +51,7 @@ CTaskSimpleAnim::~CTaskSimpleAnim() {
 }
 
 // 0x61A790
-
-// 0x0
 bool CTaskSimpleAnim::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
-    bool bSkipBlend = false;
     auto fBlend = -4.0F;
     if (priority == eAbortPriority::ABORT_PRIORITY_IMMEDIATE) {
         fBlend = -1000.0F;
@@ -62,17 +59,18 @@ bool CTaskSimpleAnim::MakeAbortable(CPed* ped, eAbortPriority priority, const CE
     } else if (m_bDontInterrupt) {
         if (event && event->GetEventType() != eEventType::EVENT_SCRIPT_COMMAND)
             return false;
-    } else if (event) {
-        if (event->GetEventType() == eEventType::EVENT_SCRIPT_COMMAND) {
-            const auto* scriptCommand = static_cast<const CEventScriptCommand*>(event);
-            if (scriptCommand->m_task) {
-                if (scriptCommand->m_task->GetTaskType() == TASK_SIMPLE_NAMED_ANIM) {
-                    if (m_pAnim)
-                        m_pAnim->m_Flags |= ANIMATION_IS_BLEND_AUTO_REMOVE;
+    }
 
-                    bSkipBlend = true;
-                }
-            }
+    // Como el original: la comprobación del comando de script (tarea TASK_SIMPLE_NAMED_ANIM) se hace en todos los
+    // casos que llegan aquí, también con prioridad IMMEDIATE y con m_bDontInterrupt (0x61A7DB), no solo en el último else
+    bool bSkipBlend = false;
+    if (event && event->GetEventType() == eEventType::EVENT_SCRIPT_COMMAND) {
+        const auto* scriptCommand = static_cast<const CEventScriptCommand*>(event);
+        if (scriptCommand->m_task && scriptCommand->m_task->GetTaskType() == TASK_SIMPLE_NAMED_ANIM) {
+            if (m_pAnim)
+                m_pAnim->m_Flags |= ANIMATION_IS_BLEND_AUTO_REMOVE;
+
+            bSkipBlend = true;
         }
     }
 

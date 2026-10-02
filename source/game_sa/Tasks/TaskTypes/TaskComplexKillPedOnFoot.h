@@ -12,8 +12,9 @@
 
 class NOTSA_EXPORT_VTABLE CTaskComplexKillPedOnFoot : public CTaskComplex {
 public:
-    bool       m_bShotFiredByPlayerFlag : 1 = true;
-    bool       m_bNewTarget : 1 = true;
+    // Como el original: 0x620E30 no escribe los bits 0, 1 y 7 del byte 0xC (and 8Fh / or 4 / and F7h)
+    bool       m_bShotFiredByPlayerFlag : 1;
+    bool       m_bNewTarget : 1;
     bool       m_bRoomToDragPedOutOfCar : 1 = true;
     bool       m_bTargetKilled : 1 = false;
     bool       m_bAimImmediate : 1 = false;

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/1 entradas.
+ * Validación registrada: 1/1 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -37,7 +37,8 @@ CTaskComplexPartnerChat::CTaskComplexPartnerChat(const char* commandName, CPed* 
         m_updateDirectionCount = 4;
     }
     field_75 = a8;
-    strcpy_s(m_commandName, commandName);
+    // Como el original: copia byte a byte hasta el terminador (strcpy); strcpy_s rellena el resto con 0xFE en depuración
+    strcpy(m_commandName, commandName);
 }
 
 // 0x684320
