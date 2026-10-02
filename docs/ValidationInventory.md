@@ -2,27 +2,32 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **7,545 entradas reversed=1**, de 8,080 registradas. Las 535 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **7,857 entradas reversed=1**, de 8,442 registradas. Las 585 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | **34** |
+| `validated=1` · evidencia aprobada vinculada | 40 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 34 |
-| Sin evidencia aprobada vinculada en este registro | 7511 |
+| Evidencia histórica vinculada; revisión pendiente | 40 |
+| Sin evidencia aprobada vinculada en este registro | 7817 |
 
-`validated=1` significa que existe evidencia aprobada vinculada al menos una vez; la vigencia actual se calcula por separado con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. La integridad del universo catalogado se comprueba por separado con `python contrib/audit_hook_catalog.py --strict`; en el corte actual la auditoría crítica devuelve OK. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
+`validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
 ## Siguiente tanda con evidencia disponible
 
-Revisar fuentes, versión, configuración y dependencias; repetir el banco cuando no se pueda confirmar su vigencia. Esta lista no autoriza desbloquear los 86 bloqueos aplazados documentados en la campaña correspondiente. No se marca toda una clase por validar una de sus funciones.
+Revisar fuentes, versión, configuración y dependencias; repetir el banco cuando no se pueda confirmar su vigencia. Esta lista no autoriza desbloquear el lote aplazado descrito en la [continuidad vigente](../reversing/MEJORAS_DEL_PROCESO.md#continuidad-vigente). No se marca toda una clase por validar una de sus funciones.
 
 | Clase | Función registrada | Evidencia |
 | --- | --- | --- |
+| CAEAmbienceTrackManager | `UpdateAmbienceTrackAndVolume` | [Resumen](../reversing/AudioCompletion/validation-summary.json) |
 | CAESound | `operator=` | [Resumen](../reversing/CAESound/validation-summary.json) |
+| CAEStaticChannel | `SetAudioBuffer` | [Resumen](../reversing/AudioCompletion/validation-summary.json) |
+| CAEWeatherAudioEntity | `AddAudioEvent` | [Resumen](../reversing/AudioCompletion/validation-summary.json) |
 | CBaseModelInfo | `SwaysInWind` | [Resumen](../reversing/CBaseModelInfo/validation-summary.json) |
 | CClothes | `GetTextureDependency` | [Resumen](../reversing/CClothes/validation-summary.json) |
 | CClouds | `RenderBottomFromHeight` | [Resumen](../reversing/CClouds/validation-summary.json) |
+| CConversationForPed | `IsPlayerInPositionForConversation` | [Resumen](../reversing/ConversationForPed/validation-summary.json) |
+| CConversationForPed | `Update` | [Resumen](../reversing/ConversationForPed/validation-summary.json) |
 | CConversations | `DoneSettingUpConversation` | [Resumen](../reversing/CConversations/validation-summary.json) |
 | CMenuSystem | `FillGridWithCarColours` | [Resumen](../reversing/CMenuSystem/validation-summary.json) |
 | CPed | `CalculateNewVelocity` | [Resumen](../reversing/CPed/validation-summary.json) |
@@ -35,6 +40,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedList | `BuildListOfPedsOfPedType` | [Resumen](../reversing/CPedList/validation-summary.json) |
 | CPedList | `RemovePedsAttackingPedType` | [Resumen](../reversing/CPedList/validation-summary.json) |
 | CPedList | `RemovePedsThatDontListenToPlayer` | [Resumen](../reversing/CPedList/validation-summary.json) |
+| CPedToPlayerConversations | `Update` | [Resumen](../reversing/PedToPlayerConversations/validation-summary.json) |
 | CPlayerInfo | `FindClosestCarSectorList` | [Resumen](../reversing/CPlayerInfo/validation-summary.json) |
 | CPlayerInfo | `FindObjectToSteal` | [Resumen](../reversing/CPlayerInfo/validation-summary.json) |
 | CPlayerInfo | `Process` | [Resumen](../reversing/CPlayerInfo/validation-summary.json) |
@@ -60,14 +66,6 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 <summary>Entradas reconstruidas de todas las clases registradas</summary>
 
 | Clase | Reconstruidas | Vigentes | Históricas por revisar | Sin vincular |
-| `CTaskInteriorUseInfo` | 6 | 0 | 0 | 6 |
-| `CTaskInteriorSitAtDesk` | 8 | 0 | 0 | 8 |
-| `CTaskInteriorShopKeeper` | 7 | 0 | 0 | 7 |
-| `CTaskInteriorLieInBed` | 7 | 0 | 0 | 7 |
-| `CTaskInteriorGoToInfo` | 7 | 0 | 0 | 7 |
-| `CTaskInteriorBeInShop` | 6 | 0 | 0 | 6 |
-| `CTaskInteriorBeInOffice` | 8 | 0 | 0 | 8 |
-| `CTaskInteriorBeInHouse` | 8 | 0 | 0 | 8 |
 | --- | ---: | ---: | ---: | ---: |
 | `App` | 7 | 0 | 0 | 7 |
 | `BoneNodeManager_c` | 8 | 0 | 0 | 8 |
@@ -78,8 +76,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `C2dEffect` | 14 | 0 | 0 | 14 |
 | `C3dMarker` | 6 | 0 | 0 | 6 |
 | `C3dMarkers` | 20 | 0 | 0 | 20 |
-| `CAEAmbienceTrackManager` | 6 | 0 | 0 | 6 |
+| `CAEAmbienceTrackManager` | 7 | 0 | 1 | 6 |
 | `CAEAudioChannel` | 12 | 0 | 0 | 12 |
+| `CAEAudioEntity` | 2 | 0 | 0 | 2 |
 | `CAEAudioEnvironment` | 6 | 0 | 0 | 6 |
 | `CAEAudioHardware` | 54 | 0 | 0 | 54 |
 | `CAEAudioUtility` | 11 | 0 | 0 | 11 |
@@ -97,6 +96,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAEMP3TrackLoader` | 7 | 0 | 0 | 7 |
 | `CAEPedAudioEntity` | 16 | 0 | 0 | 16 |
 | `CAEPedSpeechAudioEntity` | 58 | 0 | 0 | 58 |
+| `CAEPedWeaponAudioEntity` | 4 | 0 | 0 | 4 |
 | `CAEPedlessSpeechAudioEntity` | 11 | 0 | 0 | 11 |
 | `CAEPoliceScannerAudioEntity` | 13 | 0 | 0 | 13 |
 | `CAERadioTrackManager` | 29 | 0 | 0 | 29 |
@@ -104,7 +104,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAESmoothFadeThread` | 10 | 0 | 0 | 10 |
 | `CAESound` | 18 | 0 | 1 | 17 |
 | `CAESoundManager` | 14 | 0 | 0 | 14 |
-| `CAEStaticChannel` | 7 | 0 | 0 | 7 |
+| `CAEStaticChannel` | 8 | 0 | 1 | 7 |
 | `CAEStreamThread` | 14 | 0 | 0 | 14 |
 | `CAEStreamTransformer` | 2 | 0 | 0 | 2 |
 | `CAEStreamingChannel` | 21 | 0 | 0 | 21 |
@@ -118,7 +118,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAEWaterCannonAudioEntity` | 7 | 0 | 0 | 7 |
 | `CAEWaveDecoder` | 9 | 0 | 0 | 9 |
 | `CAEWeaponAudioEntity` | 20 | 0 | 0 | 20 |
-| `CAEWeatherAudioEntity` | 4 | 0 | 0 | 4 |
+| `CAEWeatherAudioEntity` | 5 | 0 | 1 | 4 |
 | `CAccidentManager` | 5 | 0 | 0 | 5 |
 | `CAcquaintance` | 5 | 0 | 0 | 5 |
 | `CActiveOccluder` | 2 | 0 | 0 | 2 |
@@ -178,12 +178,15 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCompressedMatrixNotAligned` | 2 | 0 | 0 | 2 |
 | `CControllerConfigManager` | 58 | 0 | 0 | 58 |
 | `CControllerState` | 2 | 0 | 0 | 2 |
-| `CConversations` | 11 | 0 | 1 | 10 |
+| `CConversationForPed` | 2 | 0 | 2 | 0 |
 | `CConversationNode` | 1 | 0 | 0 | 1 |
+| `CConversations` | 10 | 0 | 1 | 9 |
 | `CCopPed` | 7 | 0 | 0 | 7 |
 | `CCoronas` | 11 | 0 | 0 | 11 |
 | `CCover` | 16 | 0 | 0 | 16 |
+| `CCoverPoint` | 3 | 0 | 0 | 3 |
 | `CCranes` | 5 | 0 | 0 | 5 |
+| `CCredits` | 6 | 0 | 0 | 6 |
 | `CCreepingFire` | 3 | 0 | 0 | 3 |
 | `CCrime` | 2 | 0 | 0 | 2 |
 | `CCullZones` | 21 | 0 | 0 | 21 |
@@ -202,6 +205,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CDarkel` | 19 | 0 | 0 | 19 |
 | `CData` | 2 | 0 | 0 | 2 |
 | `CDebug` | 1 | 0 | 0 | 1 |
+| `CDecision` | 1 | 0 | 0 | 1 |
 | `CDecisionMakerTypesFileLoader` | 7 | 0 | 0 | 7 |
 | `CDirectory` | 10 | 0 | 0 | 10 |
 | `CDoor` | 6 | 0 | 0 | 6 |
@@ -215,7 +219,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CEntitySeekPosCalculatorRadiusAngleOffset` | 1 | 0 | 0 | 1 |
 | `CEntitySeekPosCalculatorStandard` | 1 | 0 | 0 | 1 |
 | `CEntitySeekPosCalculatorXYOffset` | 1 | 0 | 0 | 1 |
-| `CEntryExit` | 10 | 0 | 0 | 10 |
+| `CEntryExit` | 11 | 0 | 0 | 11 |
 | `CEntryExitManager` | 18 | 0 | 0 | 18 |
 | `CEntryInfoList` | 1 | 0 | 0 | 1 |
 | `CEntryInfoNode` | 2 | 0 | 0 | 2 |
@@ -303,7 +307,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CHandObject` | 3 | 0 | 0 | 3 |
 | `CHandShaker` | 3 | 0 | 0 | 3 |
 | `CHeli` | 11 | 0 | 0 | 11 |
+| `CHud` | 30 | 0 | 0 | 30 |
 | `CHudColours` | 5 | 0 | 0 | 5 |
+| `CIdleCam` | 13 | 0 | 0 | 13 |
 | `CInformFriendsEventQueue` | 4 | 0 | 0 | 4 |
 | `CInformGroupEvent` | 3 | 0 | 0 | 3 |
 | `CInformGroupEventQueue` | 4 | 0 | 0 | 4 |
@@ -320,6 +326,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CLoadingScreen` | 20 | 0 | 0 | 20 |
 | `CLocalisation` | 18 | 0 | 0 | 18 |
 | `CLodAtomicModelInfo` | 3 | 0 | 0 | 3 |
+| `CLodTimeModelInfo` | 2 | 0 | 0 | 2 |
+| `CMaths` | 3 | 0 | 0 | 3 |
 | `CMatrixLink` | 2 | 0 | 0 | 2 |
 | `CMatrixLinkList` | 10 | 0 | 0 | 10 |
 | `CMenuManager` | 61 | 0 | 0 | 61 |
@@ -347,6 +355,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPathFind` | 54 | 0 | 0 | 54 |
 | `CPathNode` | 1 | 0 | 0 | 1 |
 | `CPed` | 145 | 0 | 6 | 139 |
+| `CPedAttractor` | 19 | 0 | 0 | 19 |
 | `CPedAttractorManager` | 14 | 0 | 0 | 14 |
 | `CPedAttractorPedPlacer` | 1 | 0 | 0 | 1 |
 | `CPedAttractorPool` | 1 | 0 | 0 | 1 |
@@ -367,15 +376,16 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedIK` | 9 | 0 | 0 | 9 |
 | `CPedIntelligence` | 52 | 0 | 0 | 52 |
 | `CPedIntelligencePool` | 1 | 0 | 0 | 1 |
-| `CPedToPlayerConversations` | 2 | 0 | 0 | 2 |
 | `CPedList` | 7 | 0 | 4 | 3 |
 | `CPedModelInfo` | 9 | 0 | 0 | 9 |
 | `CPedPlacement` | 3 | 0 | 0 | 3 |
 | `CPedPool` | 2 | 0 | 0 | 2 |
 | `CPedScriptedTaskRecord` | 5 | 0 | 0 | 5 |
 | `CPedScriptedTaskRecordData` | 8 | 0 | 0 | 8 |
+| `CPedShelterAttractor` | 2 | 0 | 0 | 2 |
 | `CPedStats` | 4 | 0 | 0 | 4 |
 | `CPedTaskPair` | 1 | 0 | 0 | 1 |
+| `CPedToPlayerConversations` | 3 | 0 | 1 | 2 |
 | `CPedType` | 13 | 0 | 0 | 13 |
 | `CPhysical` | 56 | 0 | 0 | 56 |
 | `CPickup` | 12 | 0 | 0 | 12 |
@@ -392,6 +402,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPlayerInfo` | 28 | 0 | 3 | 25 |
 | `CPlayerPed` | 51 | 0 | 0 | 51 |
 | `CPlayerPedData` | 5 | 0 | 0 | 5 |
+| `CPlayerSkin` | 4 | 0 | 0 | 4 |
 | `CPointRoutePool` | 1 | 0 | 0 | 1 |
 | `CPools` | 16 | 0 | 0 | 16 |
 | `CPopCycle` | 15 | 0 | 0 | 15 |
@@ -456,12 +467,21 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexArrestPed` | 4 | 0 | 0 | 4 |
 | `CTaskComplexAttractorPartnerWait` | 5 | 0 | 0 | 5 |
 | `CTaskComplexAvoidOtherPedWhileWandering` | 15 | 0 | 0 | 15 |
+| `CTaskComplexBeCop` | 2 | 0 | 0 | 2 |
+| `CTaskComplexBeInCouple` | 7 | 0 | 0 | 7 |
 | `CTaskComplexBeInGroup` | 10 | 0 | 0 | 10 |
+| `CTaskComplexBeStill` | 6 | 0 | 0 | 6 |
 | `CTaskComplexCarDrive` | 11 | 0 | 0 | 11 |
 | `CTaskComplexCarDriveMission` | 5 | 0 | 0 | 5 |
+| `CTaskComplexCarDriveMissionFleeScene` | 4 | 0 | 0 | 4 |
+| `CTaskComplexCarDriveMissionKillPed` | 4 | 0 | 0 | 4 |
+| `CTaskComplexCarDriveWander` | 5 | 0 | 0 | 5 |
 | `CTaskComplexCarSlowBeDraggedOut` | 11 | 0 | 0 | 11 |
 | `CTaskComplexCarSlowBeDraggedOutAndStandUp` | 3 | 0 | 0 | 3 |
+| `CTaskComplexChat` | 7 | 0 | 0 | 7 |
+| `CTaskComplexClimb` | 4 | 0 | 0 | 4 |
 | `CTaskComplexCopInCar` | 9 | 0 | 0 | 9 |
+| `CTaskComplexCrossRoadLookAndAchieveHeading` | 8 | 0 | 0 | 8 |
 | `CTaskComplexDestroyCar` | 8 | 0 | 0 | 8 |
 | `CTaskComplexDestroyCarArmed` | 10 | 0 | 0 | 10 |
 | `CTaskComplexDestroyCarMelee` | 10 | 0 | 0 | 10 |
@@ -471,12 +491,18 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexDragPedFromCar` | 2 | 0 | 0 | 2 |
 | `CTaskComplexDriveFireTruck` | 6 | 0 | 0 | 6 |
 | `CTaskComplexDrivePointRoute` | 7 | 0 | 0 | 7 |
+| `CTaskComplexDriveToPoint` | 5 | 0 | 0 | 5 |
 | `CTaskComplexEnterAnyCarAsDriver` | 5 | 0 | 0 | 5 |
 | `CTaskComplexEnterBoatAsDriver` | 8 | 0 | 0 | 8 |
 | `CTaskComplexEnterCar` | 14 | 0 | 0 | 14 |
+| `CTaskComplexEnterCarAsDriver` | 3 | 0 | 0 | 3 |
 | `CTaskComplexEnterCarAsDriverTimed` | 9 | 0 | 0 | 9 |
+| `CTaskComplexEnterCarAsPassenger` | 3 | 0 | 0 | 3 |
 | `CTaskComplexEnterCarAsPassengerTimed` | 9 | 0 | 0 | 9 |
+| `CTaskComplexEnterCarAsPassengerWait` | 4 | 0 | 0 | 4 |
+| `CTaskComplexEvasiveCower` | 7 | 0 | 0 | 7 |
 | `CTaskComplexEvasiveDiveAndGetUp` | 9 | 0 | 0 | 9 |
+| `CTaskComplexEvasiveStep` | 7 | 0 | 0 | 7 |
 | `CTaskComplexExtinguishFires` | 8 | 0 | 0 | 8 |
 | `CTaskComplexFacial` | 9 | 0 | 0 | 9 |
 | `CTaskComplexFallAndGetUp` | 9 | 0 | 0 | 9 |
@@ -505,6 +531,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexGoToPointShooting` | 3 | 0 | 0 | 3 |
 | `CTaskComplexGotoDoorAndOpen` | 3 | 0 | 0 | 3 |
 | `CTaskComplexHitByGunResponse` | 8 | 0 | 0 | 8 |
+| `CTaskComplexHitPedWithCar` | 2 | 0 | 0 | 2 |
 | `CTaskComplexHitResponse` | 7 | 0 | 0 | 7 |
 | `CTaskComplexInAirAndLand` | 4 | 0 | 0 | 4 |
 | `CTaskComplexInWater` | 7 | 0 | 0 | 7 |
@@ -526,17 +553,23 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexLeaveCarAsPassengerWait` | 10 | 0 | 0 | 10 |
 | `CTaskComplexMedicTreatInjuredPed` | 9 | 0 | 0 | 9 |
 | `CTaskComplexMoveBackAndJump` | 8 | 0 | 0 | 8 |
+| `CTaskComplexObserveTrafficLights` | 8 | 0 | 0 | 8 |
 | `CTaskComplexObserveTrafficLightsAndAchieveHeading` | 5 | 0 | 0 | 5 |
 | `CTaskComplexOnFire` | 9 | 0 | 0 | 9 |
+| `CTaskComplexOpenDriverDoor` | 4 | 0 | 0 | 4 |
+| `CTaskComplexOpenPassengerDoor` | 3 | 0 | 0 | 3 |
 | `CTaskComplexPartner` | 1 | 0 | 0 | 1 |
 | `CTaskComplexPartnerChat` | 1 | 0 | 0 | 1 |
+| `CTaskComplexPartnerDeal` | 1 | 0 | 0 | 1 |
 | `CTaskComplexPartnerGreet` | 7 | 0 | 0 | 7 |
 | `CTaskComplexPartnerShove` | 1 | 0 | 0 | 1 |
 | `CTaskComplexPassObject` | 9 | 0 | 0 | 9 |
 | `CTaskComplexPlayHandSignalAnim` | 3 | 0 | 0 | 3 |
 | `CTaskComplexPolicePursuit` | 13 | 0 | 0 | 13 |
+| `CTaskComplexProstituteSolicit` | 7 | 0 | 0 | 7 |
 | `CTaskComplexReactToGunAimedAt` | 8 | 0 | 0 | 8 |
 | `CTaskComplexRoadRage` | 9 | 0 | 0 | 9 |
+| `CTaskComplexScreamInCarThenLeave` | 9 | 0 | 0 | 9 |
 | `CTaskComplexSeekCoverUntilTargetDead` | 10 | 0 | 0 | 10 |
 | `CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>` | 9 | 0 | 0 | 9 |
 | `CTaskComplexSeekEntityAiming` | 7 | 0 | 0 | 7 |
@@ -565,8 +598,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexUseEffectRunning` | 2 | 0 | 0 | 2 |
 | `CTaskComplexUseEffectSprinting` | 2 | 0 | 0 | 2 |
 | `CTaskComplexUseGoggles` | 5 | 0 | 0 | 5 |
+| `CTaskComplexUsePairedAttractor` | 11 | 0 | 0 | 11 |
 | `CTaskComplexUseScriptedAttractor` | 7 | 0 | 0 | 7 |
 | `CTaskComplexUseScriptedBrain` | 8 | 0 | 0 | 8 |
+| `CTaskComplexUseSequence` | 6 | 0 | 0 | 6 |
 | `CTaskComplexUseSwatRope` | 7 | 0 | 0 | 7 |
 | `CTaskComplexUseWaterCannon` | 5 | 0 | 0 | 5 |
 | `CTaskComplexWaitAtAttractor` | 7 | 0 | 0 | 7 |
@@ -580,13 +615,27 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexWalkRoundObject` | 1 | 0 | 0 | 1 |
 | `CTaskComplexWander` | 14 | 0 | 1 | 13 |
 | `CTaskComplexWanderCop` | 9 | 0 | 0 | 9 |
+| `CTaskComplexWanderCriminal` | 3 | 0 | 0 | 3 |
 | `CTaskComplexWanderFlee` | 6 | 0 | 0 | 6 |
+| `CTaskComplexWanderGang` | 4 | 0 | 0 | 4 |
+| `CTaskComplexWanderMedic` | 4 | 0 | 0 | 4 |
+| `CTaskComplexWanderProstitute` | 4 | 0 | 0 | 4 |
+| `CTaskComplexWanderStandard` | 3 | 0 | 0 | 3 |
 | `CTaskGangHasslePed` | 2 | 0 | 0 | 2 |
 | `CTaskGangHassleVehicle` | 2 | 0 | 0 | 2 |
 | `CTaskGoToVehicleAndLean` | 2 | 0 | 0 | 2 |
+| `CTaskInteriorBeInHouse` | 8 | 0 | 0 | 8 |
+| `CTaskInteriorBeInOffice` | 8 | 0 | 0 | 8 |
+| `CTaskInteriorBeInShop` | 6 | 0 | 0 | 6 |
+| `CTaskInteriorGoToInfo` | 7 | 0 | 0 | 7 |
+| `CTaskInteriorLieInBed` | 7 | 0 | 0 | 7 |
+| `CTaskInteriorShopKeeper` | 7 | 0 | 0 | 7 |
+| `CTaskInteriorSitAtDesk` | 9 | 0 | 0 | 9 |
+| `CTaskInteriorUseInfo` | 8 | 0 | 0 | 8 |
 | `CTaskLeanOnVehicle` | 3 | 0 | 0 | 3 |
 | `CTaskManager` | 18 | 0 | 0 | 18 |
 | `CTaskPool` | 1 | 0 | 0 | 1 |
+| `CTaskSequences` | 2 | 0 | 0 | 2 |
 | `CTaskSimpleAchieveHeading` | 5 | 0 | 0 | 5 |
 | `CTaskSimpleAffectSecondaryBehaviour` | 5 | 0 | 0 | 5 |
 | `CTaskSimpleAnim` | 1 | 0 | 0 | 1 |
@@ -597,6 +646,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleCarCloseDoorFromInside` | 10 | 0 | 0 | 10 |
 | `CTaskSimpleCarCloseDoorFromOutside` | 10 | 0 | 0 | 10 |
 | `CTaskSimpleCarDrive` | 7 | 0 | 0 | 7 |
+| `CTaskSimpleCarDriveTimed` | 4 | 0 | 0 | 4 |
 | `CTaskSimpleCarFallOut` | 9 | 0 | 0 | 9 |
 | `CTaskSimpleCarGetIn` | 9 | 0 | 0 | 9 |
 | `CTaskSimpleCarGetOut` | 10 | 0 | 0 | 10 |
@@ -604,6 +654,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleCarJumpOut` | 10 | 0 | 0 | 10 |
 | `CTaskSimpleCarOpenDoorFromOutside` | 10 | 0 | 0 | 10 |
 | `CTaskSimpleCarOpenLockedDoorFromOutside` | 9 | 0 | 0 | 9 |
+| `CTaskSimpleCarSetPedInAsDriver` | 4 | 0 | 0 | 4 |
+| `CTaskSimpleCarSetPedInAsPassenger` | 4 | 0 | 0 | 4 |
+| `CTaskSimpleCarSetPedOut` | 2 | 0 | 0 | 2 |
 | `CTaskSimpleCarSetPedSlowDraggedOut` | 6 | 0 | 0 | 6 |
 | `CTaskSimpleCarSetTempAction` | 6 | 0 | 0 | 6 |
 | `CTaskSimpleCarShuffle` | 9 | 0 | 0 | 9 |
@@ -611,20 +664,26 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleCarSlowDragPedOut` | 10 | 0 | 0 | 10 |
 | `CTaskSimpleCarWaitForDoorNotToBeInUse` | 7 | 0 | 0 | 7 |
 | `CTaskSimpleCarWaitToSlowDown` | 6 | 0 | 0 | 6 |
+| `CTaskSimpleChat` | 3 | 0 | 0 | 3 |
 | `CTaskSimpleChoking` | 5 | 0 | 0 | 5 |
 | `CTaskSimpleClearLookAt` | 6 | 0 | 0 | 6 |
 | `CTaskSimpleClimb` | 15 | 0 | 0 | 15 |
 | `CTaskSimpleCower` | 4 | 0 | 0 | 4 |
 | `CTaskSimpleCreateCarAndGetIn` | 6 | 0 | 0 | 6 |
 | `CTaskSimpleDie` | 7 | 0 | 0 | 7 |
+| `CTaskSimpleDieInCar` | 5 | 0 | 0 | 5 |
+| `CTaskSimpleDoHandSignal` | 6 | 0 | 0 | 6 |
 | `CTaskSimpleDrown` | 1 | 0 | 0 | 1 |
 | `CTaskSimpleDrownInCar` | 1 | 0 | 0 | 1 |
 | `CTaskSimpleDuck` | 15 | 0 | 0 | 15 |
 | `CTaskSimpleDuckToggle` | 6 | 0 | 0 | 6 |
+| `CTaskSimpleEvasiveDive` | 8 | 0 | 0 | 8 |
+| `CTaskSimpleEvasiveStep` | 8 | 0 | 0 | 8 |
 | `CTaskSimpleFacial` | 5 | 0 | 0 | 5 |
 | `CTaskSimpleFall` | 6 | 0 | 0 | 6 |
 | `CTaskSimpleFightingControl` | 6 | 0 | 0 | 6 |
 | `CTaskSimpleFinishBrain` | 2 | 0 | 0 | 2 |
+| `CTaskSimpleGangDriveBy` | 1 | 0 | 0 | 1 |
 | `CTaskSimpleGetUp` | 5 | 0 | 0 | 5 |
 | `CTaskSimpleGiveCPR` | 6 | 0 | 0 | 6 |
 | `CTaskSimpleGoTo` | 4 | 0 | 0 | 4 |
@@ -656,6 +715,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleLand` | 6 | 0 | 0 | 6 |
 | `CTaskSimpleLeaveGroup` | 2 | 0 | 0 | 2 |
 | `CTaskSimpleLookAbout` | 3 | 0 | 0 | 3 |
+| `CTaskSimpleNone` | 4 | 0 | 0 | 4 |
 | `CTaskSimplePause` | 4 | 0 | 0 | 4 |
 | `CTaskSimplePickUpBike` | 9 | 0 | 0 | 9 |
 | `CTaskSimplePickUpEntity` | 4 | 0 | 0 | 4 |
@@ -667,10 +727,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleRunNamedAnim` | 4 | 0 | 1 | 3 |
 | `CTaskSimpleRunTimedAnim` | 7 | 0 | 0 | 7 |
 | `CTaskSimpleSay` | 6 | 0 | 0 | 6 |
+| `CTaskSimpleScratchHead` | 2 | 0 | 0 | 2 |
 | `CTaskSimpleSetCharDecisionMaker` | 6 | 0 | 0 | 6 |
 | `CTaskSimpleSetCharIgnoreWeaponRangeFlag` | 6 | 0 | 0 | 6 |
 | `CTaskSimpleSetKindaStayInSamePlace` | 6 | 0 | 0 | 6 |
 | `CTaskSimpleSetPedAsAutoDriver` | 6 | 0 | 0 | 6 |
+| `CTaskSimpleSetStayInSamePlace` | 5 | 0 | 0 | 5 |
 | `CTaskSimpleShakeFist` | 8 | 0 | 0 | 8 |
 | `CTaskSimpleSitDown` | 8 | 0 | 0 | 8 |
 | `CTaskSimpleSitIdle` | 7 | 0 | 0 | 7 |
@@ -681,6 +743,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleThrowControl` | 6 | 0 | 0 | 6 |
 | `CTaskSimpleThrowProjectile` | 9 | 0 | 0 | 9 |
 | `CTaskSimpleTired` | 3 | 0 | 0 | 3 |
+| `CTaskSimpleTogglePedThreatScanner` | 5 | 0 | 0 | 5 |
 | `CTaskSimpleTurn180` | 6 | 0 | 0 | 6 |
 | `CTaskSimpleUninterruptable` | 1 | 0 | 0 | 1 |
 | `CTaskSimpleUseAtm` | 4 | 0 | 0 | 4 |
@@ -690,6 +753,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskSimpleWaitUntilLeaderAreaCodesMatch` | 4 | 0 | 0 | 4 |
 | `CTaskSimpleWaitUntilPedIsInCar` | 6 | 0 | 0 | 6 |
 | `CTaskSimpleWaitUntilPedIsOutCar` | 6 | 0 | 0 | 6 |
+| `CTaskTimer` | 1 | 0 | 0 | 1 |
 | `CTaskUtilityLineUpPedWithCar` | 2 | 0 | 0 | 2 |
 | `CTempColModels` | 2 | 0 | 0 | 2 |
 | `CText` | 9 | 0 | 0 | 9 |
@@ -712,6 +776,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CVehicleModelInfo` | 75 | 0 | 0 | 75 |
 | `CVehiclePool` | 1 | 0 | 0 | 1 |
 | `CVehicleRecording` | 29 | 0 | 0 | 29 |
+| `CVehicleSaveStructure` | 2 | 0 | 0 | 2 |
 | `CVisibilityPlugins` | 84 | 0 | 0 | 84 |
 | `CWanted` | 33 | 0 | 0 | 33 |
 | `CWaterCannon` | 5 | 0 | 0 | 5 |
@@ -767,6 +832,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `WaterCreatureManager_c` | 7 | 0 | 0 | 7 |
 | `WaterCreature_c` | 3 | 0 | 0 | 3 |
 | `Win` | 6 | 0 | 0 | 6 |
+| `WindowedModeHooks` | 3 | 0 | 0 | 3 |
 | `cBuoyancy` | 9 | 0 | 0 | 9 |
 | `cHandlingDataMgr` | 11 | 0 | 0 | 11 |
 | `cTransmission` | 4 | 0 | 0 | 4 |

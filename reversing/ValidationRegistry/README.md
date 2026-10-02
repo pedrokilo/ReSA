@@ -4,17 +4,21 @@ La lista separa **haber pasado una prueba** de **tener confirmada su vigencia pa
 
 Datos: [validation-registry.json](../validation-registry.json). Auditor de solo lectura: [validation_registry.py](../../contrib/validation_registry.py). El [generador del panel](../../contrib/hooks2md.py) lo consulta automáticamente; no ejecuta GTA ni necesita los binarios locales de las sondas.
 
-## Primeras funciones con vigencia acreditada
+## Primeras acreditaciones: resultado histórico
 
-| Función | Evidencia vinculada | Fuentes registradas coincidentes | Vigencia completa |
+La tabla conserva lo acreditado en aquellas revalidaciones. El estado actual se calcula debajo y en el inventario; las coincidencias históricas no se trasladan automáticamente a las fuentes de hoy.
+
+| Función | Evidencia vinculada | Fuentes coincidentes en aquella prueba | Acreditación en aquella versión |
 | --- | --- | --- | --- |
-| CTaskSimpleRunNamedAnim::Constructor-Anim | 8.192 pares del constructor, repetidos con fuentes actuales | Sí | Acreditada para el alcance del banco |
-| IKChain_c::SetupBones | 131 pares únicos, repetidos con fuentes actuales | Sí | Acreditada para el alcance del banco |
-| RpAnimBlendClumpUpdateAnimations | 652 pares, repetidos con fuentes actuales | Sí | Acreditada para el alcance del banco |
+| CTaskSimpleRunNamedAnim::Constructor-Anim | 8.192 pares del constructor | Sí | Acreditada para el alcance del banco |
+| IKChain_c::SetupBones | 131 pares únicos | Sí | Acreditada para el alcance del banco |
+| RpAnimBlendClumpUpdateAnimations | 652 pares | Sí | Acreditada para el alcance del banco |
 
-Hay **34 funciones con `validated=1`** y **0 con vigencia confirmada para el árbol modificado**. Las tres acreditaciones anteriores quedan pendientes por el cambio de huella global de source durante CustomBuilding; no significa que hayan fallado sus bancos. La barra es **0/8.080 · 0,00%**. CustomBuilding sigue aplazada y todavía no se incorpora al registro.
+Hay **40 funciones con `validated=1`** y **0 con vigencia confirmada para el árbol modificado**. Las tres acreditaciones anteriores quedan pendientes por el cambio de huella global de source durante CustomBuilding; no significa que hayan fallado sus bancos. La barra es **0/8.442 · 0,00%**. CustomBuilding sigue aplazada y todavía no se incorpora al registro.
 
-El [inventario de todas las funciones reconstruidas](../../docs/ValidationInventory.md) clasifica las 7.545 entradas: 0 vigentes, 34 históricas por revisar y 7.511 sin evidencia vinculada todavía. Incluye las clases y la siguiente tanda de funciones concretas. No significa que las 7.511 nunca se probaran: faltan bancos por incorporar. Las 535 entradas sin reconstruir se contabilizan aparte.
+**Cinco funciones conservan coincidencia de fuentes registradas:** `CConversationForPed::Update` e `IsPlayerInPositionForConversation`, con el banco final de 4.702 pares, y las tres del [lote de audio](../AudioCompletion/README.md) (`UpdateAmbienceTrackAndVolume`, `AddAudioEvent` y `SetAudioBuffer`), con 10.086 pares. La revisión de dependencias sigue pendiente y por eso no suman acreditaciones vigentes.
+
+El [inventario de todas las funciones reconstruidas](../../docs/ValidationInventory.md) clasifica las 7.857 entradas: 0 vigentes, 40 históricas por revisar y 7.817 sin evidencia vinculada todavía. Incluye las clases y la siguiente tanda de funciones concretas. No significa que las 7.817 nunca se probaran: faltan bancos por incorporar. Las 585 entradas sin reconstruir se contabilizan aparte.
 
 ### Integridad del universo catalogado
 
@@ -41,12 +45,13 @@ En el corte actual el auditor devuelve **OK**: no hay hooks activos ni registros
 
 ```powershell
 python contrib/validation_registry.py
+python contrib/sync_validated_flags.py
 python contrib/hooks2md.py --input docs/hooks.csv --output docs/ReversedClasses.md
 python contrib/validation_inventory.py
 python -m unittest discover -s contrib/tests -p test_validation_registry.py
 ```
 
-La primera orden muestra las comprobaciones; la segunda sincroniza `validated` en `hooks.csv`; la tercera actualiza el panel y la cuarta la lista completa de trabajo. El siguiente paso es revisar la vigencia de las 30 entradas históricas e incorporar los bancos restantes. No exige repetir automáticamente toda la suite. No se modifica `validated` manualmente en el CSV: lo mantiene `sync_validated_flags.py`. Los 86 bloqueos aplazados y las reglas de protección permanecen vigentes.
+La primera orden muestra las comprobaciones; la segunda sincroniza `validated` en `hooks.csv`; la tercera actualiza el panel y la cuarta la lista completa de trabajo; la quinta ejecuta las pruebas del registro. El siguiente paso es revisar la vigencia de las 30 entradas históricas e incorporar los bancos restantes. No exige repetir automáticamente toda la suite. No se modifica `validated` manualmente en el CSV: lo mantiene `sync_validated_flags.py`. Los 85 bloqueos aplazados y las reglas de protección permanecen vigentes.
 
 Para repetir la comprobación actual del constructor, `python reversing/ValidationRegistry/revalidate_namedanim.py` recompila el banco existente, conserva la sonda anterior, ejecuta la copia de pruebas y verifica la restauración. Sus resultados nuevos requieren revisión antes de actualizar el registro; no acredita funciones automáticamente. Reutiliza el banco y runner existentes, sin añadir otro CMD.
 
@@ -56,4 +61,12 @@ También acepta `--case rpanimblend`: utiliza el nuevo build_probe.py y el anali
 
 ### GetTaskType de GangLeader (2026-09-24)
 
-Vinculada su [evidencia de 24 pares](../GangLeader/validation-summary.json), sin nueva acreditaci?n vigente. Se probaron entrada directa y rutas virtuales dentro del men? del motor, con contadores y conmutaci?n. La entrega usa fuentes aisladas para excluir los trabajos aplazados; no acredita toda la clase ni sus dependencias. Totales actuales: 34 evidencias hist?ricas, 0 vigentes, 7.511 reconstruidas sin evidencia vinculada.
+Vinculada su [evidencia de 24 pares](../GangLeader/validation-summary.json), sin nueva acreditación vigente. Se probaron entrada directa y rutas virtuales dentro del menú del motor, con contadores y conmutación. La entrega usa fuentes aisladas para excluir los trabajos aplazados; no acredita toda la clase ni sus dependencias. Totales de aquella entrega: 34 evidencias históricas, 0 vigentes, 7.511 reconstruidas sin evidencia vinculada.
+
+### CConversationForPed (2026-09-30)
+
+Vinculadas las dos funciones a su [comparación de 4.702 pares](../ConversationForPed/validation-summary.json): `Update`, 2.288; `IsPlayerInPositionForConversation`, 2.414. Original y candidato coinciden dentro del alcance probado, con cierre natural y restauración. Se registran los hashes de las fuentes probadas; la revisión global de dependencias continúa pendiente. Son 37 evidencias aprobadas, 0 acreditaciones vigentes y 7.511 reconstruidas sin evidencia vinculada. [Alcance y procedimiento](../ConversationForPed/README.md).
+
+### CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume (2026-10-01)
+
+Vinculada a su [comparación de 7.846 pares](../AudioCompletion/validation-summary.json), con `passed_path = covered_functions.UpdateAmbienceTrackAndVolume`. El banco ejecuta original y candidato por separado con proveedores de zonas, radio, clima, cámara y atenuación controlados, y compara el estado del gestor (44 bytes) y la traza de llamadas. Los hashes de `AEAmbienceTrackManager.cpp/.h` coinciden con el manifiesto de compilación `20261001-212155-352577`. `dependency_review` es nulo, así que la vigencia queda pendiente. La sonda se detuvo después en `AddAudioEvent`, una función distinta que no queda validada. [Detalle y corrección aplicada](../AudioCompletion/README.md).

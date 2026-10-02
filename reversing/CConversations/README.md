@@ -2,7 +2,7 @@
 
 > Los resultados siguientes corresponden al alcance de este informe. El ASI instalado, los diagnósticos posteriores y el trabajo aplazado figuran en la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente).
 
-`CConversations` conserva **11/11** entradas reconstruidas. `DoneSettingUpConversation` (0x43ADB0) fue validada con 2.048 pares original/candidato dentro de GTA. Coincidencia exacta de tablas, nodos temporales, referencias, estados y contadores. Partidas y estado del jugador restaurados. Hook habilitado despues de validar.
+`CConversations` conserva **10/10** entradas reconstruidas (eran 11/11 hasta el 01/10/2026: se retiró `EnableConversation`, que no existe como función propia en el EXE y cuya dirección caía dentro de `Clear`; ver [HooksActivados](../HooksActivados/README.md#direcciones-corregidas-2026-10-01)). `DoneSettingUpConversation` (0x43ADB0) fue validada con 2.048 pares original/candidato dentro de GTA. Coincidencia exacta de tablas, nodos temporales, referencias, estados y contadores. Partidas y estado del jugador restaurados. Hook habilitado despues de validar.
 
 Ejecutar desde el unico PROBAR.cmd: PROBAR.cmd --case conversations; tambien incluido en --all. Sonda archivada, no una prueba conjunta de estabilidad del ASI actual.
 
@@ -17,12 +17,12 @@ La auditoría de hooks mostró que el directorio `Conversations` contiene owners
 
 | Owner | Reconstruidas / total | Pendientes |
 | --- | ---: | --- |
-| `CConversations` | 11/11 | 0 |
-| `CConversationNode` | 1/1 | 0 |
-| `CPedToPlayerConversations` | 2/3 | `Update` |
-| `CConversationForPed` | 0/2 | `Update`, `IsPlayerInPositionForConversation` |
+| `CConversations` | 10/10 | 0 |
+| `CConversationNode` | 1/1 | 0 (dirección de `ClearRecursively` corregida a 0x43A710 el 01/10/2026) |
+| `CPedToPlayerConversations` | 3/3 | Ninguna |
+| `CConversationForPed` | 2/2 | Ninguna |
 
-Por tanto, **11/11 describe únicamente a `CConversations` y no a todo el subsistema Conversations**. Las dos funciones de `CConversationForPed` y `CPedToPlayerConversations::Update` siguen delegando al ejecutable original y se contabilizan como pendientes en `docs/hooks.csv`.
+Por tanto, **10/10 describe únicamente a `CConversations` y no a todo el subsistema Conversations**. Las dos funciones de `CConversationForPed` se completaron el 30 de septiembre de 2026: [4.702 pares y alcance](../ConversationForPed/README.md). `CPedToPlayerConversations::Update` también cuenta con su banco propio: [6.266 pares y alcance](../PedToPlayerConversations/README.md). Las cuatro clases suman 17/17 entradas reconstruidas; sus bancos separados no constituyen una prueba conjunta de todo el subsistema.
 
 La integridad de este registro se comprueba con:
 

@@ -18,23 +18,29 @@ El objetivo es preservar el comportamiento original. Cada reconstrucción se con
 
 ## Estado del trabajo
 
-**Corregido e instalado en la copia de pruebas (25/09/2026):** [cierre del juego: Cover, logs e interfaz](reversing/ShutdownLists/README.md). Tres cierres normales sin depurador con código 0 y 16 casos de limpieza aprobados. Arranque de pruebas automático en partida nueva; partidas e INI conservados. CustomBuilding continúa aplazado.
+**Entrega vigente (01/10/2026):** [lote de audio](reversing/AudioCompletion/README.md): `UpdateAmbienceTrackAndVolume`, `AddAudioEvent` y `SetAudioBuffer` reconstruidas, habilitadas y validadas con **10.086 pares exactos** dentro del motor. Antes hubo que corregir un defecto real en cada una: el original lee la frecuencia objetivo y no el volumen, una constante difería en un ulp y el buffer de DirectSound llevaba un flag equivocado. Además, el catálogo cuadra ahora con lo que el juego registra de verdad: se activó `DoneSettingUpConversation` (ya validada), `InitialiseDirtTexture` vuelve a pendiente, los 4 hooks aplazados de CustomBuilding dejan de ejecutarse y se catalogan los 3 hooks del modo ventana. `audit_hook_catalog.py --runtime` da 0 diferencias. ASI probado 60 s en partida.
+
+**Entrega anterior (01/10/2026):** [hooks de 39 clases activados](reversing/HooksActivados/README.md). Nueve tareas con `InjectHooks()` ya escrito pero comentado en `InjectHooksMain` quedaron registradas; otras 30 clases (28 tareas y 2 entidades de audio) recibieron un `InjectHooks()` nuevo, con cada vtable verificado contra `gta_sa.exe`. 216 entradas nuevas en `hooks.csv`; los stubs `plugin::Call` y tres `Clone` no fieles quedan con `reversed=0`. Compilación Debug y arranque al menú sin errores; sin comparaciones función a función todavía. La auditoría detecta ahora llamadas que resuelven a un `InjectHooks` heredado. Además se añadieron plantillas sin reconstruir para 21 clases que no existían en el código; no cambian el catálogo. **Segunda tanda:** 15 clases con `InjectHooks()` escrito pero nunca invocado desde la importación del upstream (`CHud`, `CPedAttractor`, `CIdleCam`, …) y 6 tareas con vtable localizado en el EXE; 144 entradas nuevas. Antes de activarlas se corrigieron un stub instalado como reconstruido (`CDecision::Set`), un vtable equivocado (`CLodTimeModelInfo`) y un destructor duplicado (`CTaskSimpleNone`). Probado 35 s dentro de partida sin asserts. La [comparación EXE ↔ código](reversing/HooksActivados/README.md#exe-contra-código-qué-hay-en-uno-y-no-en-el-otro) encontró siete hooks heredados del upstream con direcciones a mitad de función, ya [corregidos](reversing/HooksActivados/README.md#direcciones-corregidas-2026-10-01) (seis con su dirección real y `EnableConversation` retirado por no existir en el EXE; probado 60 s en partida), y siete diferencias de `reversed` entre catálogo y código, pendientes.
+
+**Entrega anterior (30/09/2026):** [CConversationForPed, 2/2](reversing/ConversationForPed/README.md): `Update` y `IsPlayerInPositionForConversation` reconstruidas y contrastadas con 4.702 pares exactos dentro del motor (2.288 y 2.414, respectivamente). Cierre natural con código 0 y restauración comprobada. Binario normal instalado en la copia de pruebas tras tres arranques de tres segundos en estado de juego, con los dos hooks conectados y tres cierres con código 0. Partidas y configuración conservadas.
+
+**Entrega previa (27/09/2026):** [CPedToPlayerConversations, 3/3](reversing/PedToPlayerConversations/README.md): Update reconstruido y habilitado tras 6.266 pares exactos; binario normal instalado en la copia de pruebas. Tres arranques breves de tres segundos y cierres con código 0. Las pruebas de diez segundos detectaron un bloqueo intermitente de precarga de audio de PROLOG1, reproducido también con el ASI anterior; queda documentado y sin corregir. Partidas e INI conservados. Incluye la [corrección de cierre anterior](reversing/ShutdownLists/README.md); CustomBuilding continúa aplazado.
 
 La fuente del progreso es [docs/hooks.csv](docs/hooks.csv). El [informe generado](docs/ReversedClasses.md) muestra totales, pendientes y bloqueos; la [guía técnica de prioridades](docs/ReversingPriorities.md) ordena el trabajo por esfuerzo estimado, dependencias y facilidad de validación.
 
-**Corte documental vigente (26 de septiembre de 2026, hora de México):** 621 clases completas, 88 parciales y 3 sin revertir; 7.545 de 8.080 entradas registradas como reconstruidas. La auditoría bidireccional del catálogo pasa en modo estricto: no hay hooks activos fuera de `hooks.csv`, registros indirectos sin catalogar, clases del CSV sin scope fuente ni owners activos sin catálogo. Estos números miden el catálogo registrado, no líneas de código ni porcentaje de comportamiento probado.
+**Corte documental vigente (1 de octubre de 2026, hora de México):** 665 clases completas, 104 parciales y 3 sin revertir; 7.857 de 8.442 entradas registradas como reconstruidas. La auditoría bidireccional del catálogo pasa en modo estricto: no hay hooks activos fuera de `hooks.csv`, registros indirectos sin catalogar, clases del CSV sin scope fuente, owners activos sin catálogo ni llamadas `X::InjectHooks()` que resuelvan al `InjectHooks` heredado de una base. Estos números miden el catálogo registrado, no líneas de código ni porcentaje de comportamiento probado.
 
 ### Dimensiones de progreso
 
 | Dimensión | Estado |
 | --- | --- |
-| Clases completas | 621/712 · 87,22% |
-| Funciones reconstruidas | 7.545/8.080 · 93,38% |
-| Funciones con `validated=1` | **34/8.080 · 0,42%** · evidencia aprobada vinculada |
-| Validaciones vigentes para el árbol actual | 0/8.080 · 0,00%; las 34 conservan evidencia histórica pero requieren revisión de vigencia |
+| Clases completas | 665/772 · 86,14% |
+| Funciones reconstruidas | 7.857/8.442 · 93,07% |
+| Funciones con `validated=1` | **40/8.442 · 0,47%** · evidencia aprobada vinculada |
+| Validaciones vigentes para el árbol actual | 0/8.442 · 0,00%; las 40 conservan evidencia histórica o coincidencia de fuentes, pero requieren revisión de dependencias |
 | Dependencias de funciones originales eliminadas | No medido; requiere auditoría de llamadas y dependencias |
 
-Quedan 535 entradas pendientes, 91 clases incompletas y 625 locks. En `hooks.csv`, `type=S` significa **Simple hook** (función normal por dirección) y `type=V` significa **Virtual hook** (entrada de vtable). `validated=1` significa que existe evidencia aprobada vinculada; no significa por sí solo que esa evidencia siga vigente para el árbol actual. Las 7.455 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
+Quedan 585 entradas pendientes, 107 clases incompletas y 677 locks. En `hooks.csv`, `type=S` significa **Simple hook** (función normal por dirección) y `type=V` significa **Virtual hook** (entrada de vtable). `validated=1` significa que existe evidencia aprobada vinculada; no significa por sí solo que esa evidencia siga vigente para el árbol actual. Las 7.765 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
 
 ### Auditoría del catálogo de hooks
 
@@ -67,7 +73,9 @@ Las comparaciones corresponden al alcance descrito en cada README, no necesariam
 | `CTaskComplexWander` | 14/14 | 10.240 | [Alcance y resultados](reversing/CTaskComplexWander/README.md) |
 | `CTaskSimpleJetPack` | 14/14 | 128 | [Alcance y resultados](reversing/CTaskSimpleJetPack/README.md) |
 | `CPed` | 145/145 | 28.672 | [Alcance y resultados](reversing/CPed/README.md) |
-| `CConversations` | 11/11 | 2.048 | [Alcance y resultados](reversing/CConversations/README.md) |
+| `CPedToPlayerConversations` | 3/3 | 6.266 | [Alcance y resultados](reversing/PedToPlayerConversations/README.md) |
+| `CConversationForPed` | 2/2 | 4.702 | [Alcance y resultados](reversing/ConversationForPed/README.md) |
+| `CConversations` | 10/10 | 2.048 | [Alcance y resultados](reversing/CConversations/README.md) |
 | `CPedList` | 7/7 | 4.096 | [Alcance y resultados](reversing/CPedList/README.md) |
 | `CPlayerInfo` | 28/28 | 16.896 + 4.224 del constructor | [Alcance y resultados](reversing/CPlayerInfo/README.md) |
 | `FurnitureSubGroup_c` | 3/3 | 20.480 | [Alcance y resultados](reversing/FurnitureSubGroup_c/README.md) |
@@ -76,11 +84,11 @@ Las comparaciones corresponden al alcance descrito en cada README, no necesariam
 | `CScripted2dEffects` | 5/5 | 256 | [Alcance y resultados](reversing/CScripted2dEffects/README.md) |
 | `CTaskComplexUseClosestFreeScriptedAttractorSprint` | 4/4 | 4,096 | [Alcance y resultados](reversing/CTaskComplexUseClosestFreeScriptedAttractorSprint/README.md) |
 
-**Últimos desbloqueos:** [DataStream y TrackEntity](reversing/UnlockBatch2/README.md), diez candados retirados tras 15.360 pares y 64 combinaciones de DataStream. CSV y catálogos sincronizados. Tras ampliar el catálogo con los owners activos que faltaban, quedan **625 candados** en el registro vigente. Los 86 restantes del lote solicitado se aplazan; sus borradores se conservan fuera de la compilación. ASI normal instalado en la copia de pruebas: inicio al menú y 30 segundos de integración sin exclusiones comprobados; los avisos históricos y los límites constan en el informe.
+**Desbloqueos anteriores:** [DataStream y TrackEntity](reversing/UnlockBatch2/README.md), diez candados retirados tras 15.360 pares y 64 combinaciones de DataStream. CSV y catálogos sincronizados. Tras ampliar el catálogo con los owners activos que faltaban, quedan **622 candados** en el registro vigente. Los 85 restantes del lote solicitado se aplazan; sus borradores se conservan fuera de la compilación. ASI normal instalado en la copia de pruebas: inicio al menú y 30 segundos de integración sin exclusiones comprobados; los avisos históricos y los límites constan en el informe.
 
-**Última corrección:** [aviso de pivote IK y datos incompletos](reversing/IKDataWarnings/README.md): 131 pares de cadenas contra el original, tablas de clima y grupos de coches coincidentes con los datos reparados. Integración normal: 121,16 s y 3.605 fotogramas sin los avisos comprobados. Se conserva la reparación de [peatones](reversing/FallenPeds/README.md), la reserva de [CEntryExit](reversing/CEntryExitPool/README.md) de 512 plazas, las partidas, el inicio normal y los 86 bloqueos aplazados.
+**Corrección anterior:** [aviso de pivote IK y datos incompletos](reversing/IKDataWarnings/README.md): 131 pares de cadenas contra el original, tablas de clima y grupos de coches coincidentes con los datos reparados. Integración de aquella entrega: 121,16 s y 3.605 fotogramas sin los avisos comprobados. Se conserva la reparación de [peatones](reversing/FallenPeds/README.md), la reserva de [CEntryExit](reversing/CEntryExitPool/README.md) de 512 plazas, las partidas, el inicio normal y los 85 bloqueos aplazados.
 
-**Última comprobación:** [recuperación natural del ratón](reversing/MouseRecovery/README.md). Tras fallar con la ventana oculta y sin foco, Acquire y la lectura tienen éxito a los 1,485 segundos; 120 actualizaciones válidas. Sin cambio del ASI normal. Revisados los Markdown propios y actualizadas las referencias vigentes, manteniendo la evidencia histórica.
+**Comprobación anterior:** [recuperación natural del ratón](reversing/MouseRecovery/README.md). Tras fallar con la ventana oculta y sin foco, Acquire y la lectura tienen éxito a los 1,485 segundos; 120 actualizaciones válidas. Aquella observación no cambió el ASI normal. Sus resultados se conservan como evidencia histórica.
 
 **Tanda anterior:** [24 bloqueos retirados y plataforma conmutable](reversing/Unlocks/README.md). 50.432 pares de función, más 324 pares repetidos en nueve arranques y 18 comprobaciones de entrada SDL/ImGui. CGeneral ya estaba desbloqueado. Se repararon contratos ABI, memoria, entrada y dimensiones de cámara; el CSV mantiene los mismos totales de progreso.
 
@@ -101,19 +109,19 @@ Ese número no está ligado a un procedimiento reproducible visible en el reposi
 
 | Métrica | gta-reversed upstream | PGTASA |
 | --- | ---: | ---: |
-| Clases/grupos catalogados | 701 | **712** |
-| Entradas catalogadas | 8.014 | **8.080** |
-| Marcadas como reconstruidas | 7.428 | **7.545** |
-| Pendientes | 586 | **535** |
-| Clases completas | 584 | **621** |
-| Clases parciales | 114 | **88** |
+| Clases/grupos catalogados | 701 | **772** |
+| Entradas catalogadas | 8.014 | **8.442** |
+| Marcadas como reconstruidas | 7.428 | **7.857** |
+| Pendientes | 586 | **585** |
+| Clases completas | 584 | **665** |
+| Clases parciales | 114 | **104** |
 | Sin revertir | 3 | **3** |
-| Locks registrados | 713 | **625** |
-| Evidencia aprobada por función (`validated=1`) | sin columna equivalente | **34** |
+| Locks registrados | 713 | **677** |
+| Evidencia aprobada por función (`validated=1`) | sin columna equivalente | **40** |
 
 Por tanto, hay dos métricas distintas en upstream que no deben mezclarse: una estimación informal del “50-60% del código” y un catálogo de hooks que marca aproximadamente **92,69%** de sus entradas como `reversed=1`. Ninguna de las dos, por sí sola, significa “porcentaje del juego terminado”, pero el README no ofrece una metodología que conecte ambas cifras.
 
-PGTASA tampoco interpreta su **93,38%** como “93,38% del juego terminado”. Aquí ese porcentaje significa solamente: **7.545 de 8.080 entradas actualmente catalogadas tienen `reversed=1`**.
+PGTASA tampoco interpreta su **93,07%** como “93,07% del juego terminado”. Aquí ese porcentaje significa solamente: **7.857 de 8.442 entradas actualmente catalogadas tienen `reversed=1`**.
 
 ### El segundo problema: el catálogo upstream no es bidireccional
 
@@ -155,14 +163,18 @@ PGTASA corrigió este caso de dos formas:
 1. registra los owners faltantes en el flujo global;
 2. marca explícitamente como pendientes las funciones que todavía llaman al EXE.
 
+El 30 de septiembre se completaron además las dos reconstrucciones de `CConversationForPed`, con [4.702 pares dentro del motor](reversing/ConversationForPed/README.md). El ejemplo anterior describe el código upstream observado; PGTASA ya sustituye esas dos funciones.
+
 El estado real del subsistema queda así:
 
 | Owner | upstream en hooks.csv | PGTASA |
 | --- | ---: | ---: |
-| `CConversations` | 10/11 | **11/11** |
+| `CConversations` | 10/11 | **10/10** ¹ |
 | `CConversationNode` | no catalogada | **1/1** |
-| `CPedToPlayerConversations` | no catalogada | **2/3** |
-| `CConversationForPed` | no catalogada | **0/2** |
+| `CPedToPlayerConversations` | no catalogada | **3/3** |
+| `CConversationForPed` | no catalogada | **2/2** |
+
+¹ El 01/10/2026 se retiró `EnableConversation`: no existe como función propia en el EXE y su dirección (0x43A7F0) caía dentro de `CConversations::Clear`. Ver [HooksActivados](reversing/HooksActivados/README.md#direcciones-corregidas-2026-10-01).
 
 Y `CConversations::DoneSettingUpConversation`, que en upstream todavía es:
 
@@ -249,7 +261,7 @@ No basta con “revertir más funciones”. Para que su porcentaje pueda interpr
 
 ### Lo que sí sabemos y lo que todavía no sabemos
 
-**Sabemos** que PGTASA tiene actualmente 8.080 entradas auditadas, frente a 8.014 en el catálogo upstream. Sabemos exactamente cuáles están marcadas como reconstruidas, cuáles pendientes y cuáles bloqueadas. Sabemos también que el catálogo upstream omite al menos owners del subsistema Conversations que sí existen en su fuente.
+**Sabemos** que PGTASA tiene actualmente 8.442 entradas auditadas, frente a 8.014 en el catálogo upstream. Sabemos exactamente cuáles están marcadas como reconstruidas, cuáles pendientes y cuáles bloqueadas. Sabemos también que el catálogo upstream omite al menos owners del subsistema Conversations que sí existen en su fuente.
 
 **Sabemos** que PGTASA ha encontrado candidatos aparentemente correctos que no coincidían con el original hasta compararlos dentro del motor. Por eso aquí “el código compila” o “la clase aparece completa” no se considera evidencia suficiente.
 

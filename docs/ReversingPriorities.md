@@ -3,24 +3,24 @@
 [Inicio](../README.md) · [Progreso registrado](ReversedClasses.md) · [Proceso y continuidad](../reversing/MEJORAS_DEL_PROCESO.md)
 
 > [!NOTE]
-> **Completadas y retiradas de pendientes:** CClothes **11/11**, CScripted2dEffects **5/5** y CTaskComplexUseClosestFreeScriptedAttractorSprint **4/4**, tras 8.448 pares dentro del motor. [Evidencia y límites](../reversing/ClothesScriptedSprint/README.md). También se cerraron las diez clases del anterior Top 10 tras 51.712 pares: [resultados y límites](../reversing/Top10/README.md). Las tablas y el nuevo Top 10 reflejan **91 clases incompletas / 535 pendientes**.
+> **Completadas y retiradas de pendientes:** CAEWeatherAudioEntity **5/5**, tras [656 pares de `AddAudioEvent`](../reversing/AudioCompletion/README.md) y la corrección de la constante 0x862E44. CAEAmbienceTrackManager **7/7**, tras [7.846 pares dentro del motor](../reversing/AudioCompletion/README.md) y la corrección de la rama de frecuencia bajo el agua. CConversationForPed **2/2**, tras [4.702 pares dentro del motor](../reversing/ConversationForPed/README.md). CPedToPlayerConversations **3/3**, tras [6.266 pares dentro del motor](../reversing/PedToPlayerConversations/README.md). CClothes **11/11**, CScripted2dEffects **5/5** y CTaskComplexUseClosestFreeScriptedAttractorSprint **4/4**, tras 8.448 pares dentro del motor. [Evidencia y límites](../reversing/ClothesScriptedSprint/README.md). También se cerraron las diez clases del anterior Top 10 tras 51.712 pares: [resultados y límites](../reversing/Top10/README.md). CTaskInteriorUseInfo **8/8**: `CreateFirstSubTask`/`CreateNextSubTask` reconstruidas y validadas con 412 pares dentro del motor, más 203 pares de `InteriorManager_c::AreAnimsLoaded`, cuya convención de llamada (`__thiscall`) e índice de bloque se corrigieron ([informe](../reversing/CTaskInteriorUseInfo/README.md)). CTaskInteriorSitAtDesk **9/9** (312 pares dentro del motor, incluidas ya las ramas `m_bTaskAborting`/`!m_Anim` de `ProcessPed`, ver [informe](../reversing/CTaskInteriorSitAtDesk/README.md)), CAEStaticChannel **8/8** (validada el 01/10/2026 con [1.584 pares de `SetAudioBuffer`](../reversing/AudioCompletion/README.md) tras corregir `GLOBALFOCUS`; CCarFXRenderer se marcó entonces 10/10 sólo con compilación verificada y vuelve a **9/10**, ver la [sección de reabiertas](#reabiertas-2026-10-01); `CEntryExit::TransitionFinished` validada con 969 pares, ver [informe](../reversing/CEntryExitTransition/README.md)) se retiran también de las tablas. Las tablas y el nuevo Top 10 reflejan **107 clases incompletas / 585 pendientes**.
 
 
-> **Rama inspeccionada:** `PGTASA` · **Corte:** 26 de septiembre de 2026 · **Alcance:** las 91 clases actualmente incompletas del catálogo auditado.
+> **Rama inspeccionada:** `PGTASA` · **Corte:** 1 de octubre de 2026 · **Alcance:** las 107 clases actualmente incompletas del catálogo auditado.
 
-**Objetivo:** contribuir a una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del ejecutable original, conforme a la [hoja de ruta](ProjectRoadmap.md). El catálogo registra actualmente **34 entradas con `validated=1`**; esa marca indica evidencia aprobada vinculada y no cambia por sí sola la prioridad de una función pendiente ni acredita vigencia actual. Esta guía estima el esfuerzo para completar las 535 entradas y 91 clases pendientes; cerrar clases es un hito intermedio. La estrategia incluye retirar los 625 locks con evidencia y eliminar dependencias originales por subsistema. No reabre automáticamente los 86 bloqueos aplazados ni reemplaza la cola autorizada.
+**Objetivo:** contribuir a una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del ejecutable original, conforme a la [hoja de ruta](ProjectRoadmap.md). El catálogo registra actualmente **37 entradas con `validated=1`**; esa marca indica evidencia aprobada vinculada y no cambia por sí sola la prioridad de una función pendiente ni acredita vigencia actual. Esta guía estima el esfuerzo para completar las 585 entradas y 107 clases pendientes; cerrar clases es un hito intermedio. La estrategia incluye retirar los 677 locks con evidencia y eliminar dependencias originales por subsistema. No reabre automáticamente los 85 bloqueos aplazados ni reemplaza la cola autorizada.
 
 | Clases evaluadas | Funciones pendientes | Parciales | Sin revertir |
 | :---: | :---: | :---: | :---: |
-| **91** | **535** | **88** | **3** |
+| **107** | **585** | **104** | **3** |
 
 **Navegación:** [🟢 Fáciles](#faciles) · [🟡 Intermedia](#intermedia) · [🟠 Difíciles](#dificiles) · [🔴 Final](#final) · [Evidencia](#evidencia) · [Top 10](#top-10)
 
-Los 24 bloqueos solicitados se retiraron tras comparación dentro del motor: [bancos de desbloqueo](../reversing/Unlocks/README.md). CGeneral ya estaba desbloqueado. No cambia el número de funciones pendientes ni la clasificación de esta guía. La entrega posterior de [DataStream y TrackEntity](../reversing/UnlockBatch2/README.md) retira otros diez candados validados; no altera las clases históricas de esa entrega ni el Top 10. En el catálogo vigente quedan 625 candados globales, de los cuales 86 pertenecen al lote aplazado.
+Los 24 bloqueos solicitados se retiraron tras comparación dentro del motor: [bancos de desbloqueo](../reversing/Unlocks/README.md). CGeneral ya estaba desbloqueado. No cambia el número de funciones pendientes ni la clasificación de esta guía. La entrega posterior de [DataStream y TrackEntity](../reversing/UnlockBatch2/README.md) retira otros diez candados validados; no altera las clases históricas de esa entrega ni el Top 10. En el catálogo vigente quedan 677 candados globales, de los cuales 85 pertenecen al lote aplazado.
 
 La [ampliación de la reserva de CEntryExit](../reversing/CEntryExitPool/README.md) corrige la saturación observada, sin completar funciones pendientes ni retirar candados; no modifica estas prioridades ni sus totales.
 
-Las reparaciones posteriores de [peatones](../reversing/FallenPeds/README.md) e [IK/datos](../reversing/IKDataWarnings/README.md), y la [recuperación comprobada del ratón](../reversing/MouseRecovery/README.md), tampoco cambian estos indicadores. Siguen aplazados CCollision 59, CFileMgr 13, GangLeader 11 y Game 3: 86 bloqueos. RpAnimBlend conserva 43/43.
+Las reparaciones posteriores de [peatones](../reversing/FallenPeds/README.md) e [IK/datos](../reversing/IKDataWarnings/README.md), y la [recuperación comprobada del ratón](../reversing/MouseRecovery/README.md), tampoco cambian estos indicadores. Siguen aplazados CCollision 59, CFileMgr 13, GangLeader 10 y Game 3: 85 bloqueos. RpAnimBlend conserva 43/43.
 
 ## Cómo se estimó el esfuerzo
 
@@ -29,7 +29,7 @@ Se cruzó `hooks.csv` con registros de hooks, cuerpos C++ y headers de la rama. 
 El orden es editorial, no una fórmula de porcentajes. Pesa la combinación de cantidad pendiente, lógica efectiva, acoplamiento, código comparable, incertidumbre del cuerpo nativo y coste de preparar una comparación reproducible dentro de GTA. Un candidato escrito reduce trabajo, pero todavía puede estar equivocado.
 
 > [!IMPORTANT]
-> **Estimación, no certificación.** La inspección inicial abarcó 100 clases y 555 pendientes; después se cerraron trece clases y 26 funciones, en dos entregas. No se reconstruyeron ni desensamblaron exhaustivamente las 535 funciones pendientes actuales. El catálogo creció después de aquella inspección al incorporar owners activos omitidos en la documentación. Se profundizó en candidatos inmediatos y se consultó ensamblador local para los clones Sprint/Shooting, el gestor de recursos, selección de amenazas y textura de suciedad. Un passthrough de tres líneas no informa del tamaño nativo. Las posiciones apoyadas principalmente en passthroughs tienen menor confianza y deben revisarse antes de empezar.
+> **Estimación, no certificación.** La inspección inicial abarcó 100 clases y 555 pendientes; después se cerraron trece clases y 26 funciones, en dos entregas. No se reconstruyeron ni desensamblaron exhaustivamente las 532 funciones pendientes actuales. El catálogo creció después de aquella inspección al incorporar owners activos omitidos en la documentación. Se profundizó en candidatos inmediatos y se consultó ensamblador local para los clones Sprint/Shooting, el gestor de recursos, selección de amenazas y textura de suciedad. Un passthrough de tres líneas no informa del tamaño nativo. Las posiciones apoyadas principalmente en passthroughs tienen menor confianza y deben revisarse antes de empezar.
 
 Las cifras de líneas son aproximaciones del C++ visible, incluyendo borradores cuando se indica; no tamaños de código máquina. No se prometen horas ni fechas. Los tests sugeridos son trabajo futuro, no pruebas aprobadas.
 
@@ -48,7 +48,7 @@ El corte actual devuelve **OK**: cero hooks activos fuera del CSV, cero registro
 | Grupo | Clases | Pendientes | Enfoque |
 | --- | ---: | ---: | --- |
 | [🟢 Más fáciles / buenos candidatos para terminar primero](#faciles) | 0 | 0 | Los diez candidatos de este grupo ya están cerrados; consultar su evidencia. |
-| [🟡 Dificultad intermedia](#intermedia) | 35 | 98 | Máquinas de estados o recursos con dependencias manejables; preparar fixtures específicos. |
+| [🟡 Dificultad intermedia](#intermedia) | 33 | 95 | Máquinas de estados o recursos con dependencias manejables; preparar fixtures específicos. |
 | [🟠 Difíciles](#dificiles) | 39 | 173 | Funciones extensas, física, render o audio; el banco de validación pesa mucho. |
 | [🔴 Dejar para el final](#final) | 17 | 264 | Sistemas centrales o grandes bloques desconocidos; dividir antes en hitos internos. |
 
@@ -66,10 +66,6 @@ Máquinas de estados o recursos con dependencias manejables; preparar fixtures e
 
 | Clase — revertidas/total — porcentaje | Faltan | Función del sistema y motivo |
 | --- | ---: | --- |
-| [CPedToPlayerConversations](../source/game_sa/Conversations/PedToPlayerConversations.cpp) — **2/3 — 66.67%** | 1 | **Conversación ambiental peatón-jugador.** Sólo `Update` continúa delegado al ejecutable original; el estado global, audio y cierre ya están reconstruidos. Requiere comparar la máquina de estados y temporizadores con escenarios de apertura/cierre. |
-| [CTaskInteriorSitAtDesk](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp) — **8/9 — 88.89%** | 1 | **Comportamiento de sentarse en escritorio.** Sólo `ProcessPed` sigue original; animaciones auxiliares y aborto ya están reconstruidos. Buen candidato para un fixture de animación/interior. |
-| [CTaskInteriorUseInfo](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorUseInfo.cpp) — **6/8 — 75.00%** | 2 | **Uso de puntos de información en interiores.** Faltan `CreateFirstSubTask` y `CreateNextSubTask`; el resto de la máquina de estados ya está disponible para comparar transiciones. |
-| [CConversationForPed](../source/game_sa/Conversations/ConversationForPed.cpp) — **0/2 — 0.00%** | 2 | **Máquina de conversación guionizada por peatón.** `Update` y la comprobación de posición todavía delegan al EXE. Aunque son sólo dos entradas, concentran la lógica temporal y espacial del subsistema. |
 | [CCustomBuildingRenderer](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp) — **3/7 — 42.86%** | 4 | **Preparar edificios para render.** Cuatro pendientes; reloj/balance tienen borradores cortos, pero AtomicSetup y pipelines requieren fixtures RenderWare y globals. |
 | [CPedGroup](../source/game_sa/PedGroup.cpp) — **10/12 — 83.33%** | 2 | **Órdenes y medidas del grupo.** Distancia al miembro más lejano ya es breve; Gather sigue nativa. Membresía de CPedList ayuda a probar órdenes y eventos. |
 | [CPedGroupDefaultTaskAllocatorRandom](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.h) — **1/2 — 50.00%** | 1 | **Asignar tareas por defecto.** Una nativa y allocators hermanos como referencia; comprobar RNG, elección y propiedad de tareas. |
@@ -91,8 +87,6 @@ Máquinas de estados o recursos con dependencias manejables; preparar fixtures e
 | [CTaskComplexDestroyCar](../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp) — **8/9 — 88.89%** | 1 | **Elegir cómo atacar un coche.** Solo ControlSubTask nativa; factories existentes ayudan, pero hay decisiones de armas, aborto y estado del vehículo. |
 | [CTaskComplexUseClosestFreeScriptedAttractor](../source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractor.cpp) — **6/8 — 75.00%** | 2 | **Buscar un atractor libre.** Búsqueda y primer subtask nativos; comparar distancias, ocupación y rechazo de efectos, apoyándose en clases vecinas. |
 | [CRealTimeShadowManager](../source/game_sa/RealTimeShadowManager.cpp) — **5/7 — 71.43%** | 2 | **Asignar sombras dinámicas.** GetRealTimeShadow tiene candidato parcial; ReInit nativa requiere ciclo de vida de cámaras, texturas y render targets. |
-| [CCarFXRenderer](../source/game_sa/Fx/CarFXRenderer.cpp) — **9/10 — 90.00%** | 1 | **Texturas de suciedad.** InitialiseDirtTexture nativa contiene bucles de píxeles y llamadas raster/TXD. No es una inicialización de tres líneas; validar buffers y recursos. |
-| [CAEWeatherAudioEntity](../source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp) — **4/5 — 80.00%** | 1 | **Audio del clima.** AddAudioEvent nativa; clases sonoras vecinas ayudan. Hace falta contexto Audio habilitado y trazas de solicitudes de sonido. |
 | [CScriptsForBrains](../source/game_sa/ScriptsForBrains.cpp) — **3/6 — 50.00%** | 3 | **Scripts vinculados a entidades.** Init breve; alcance y petición de script nativos conectan streaming y ciclo de vida del objeto. |
 | [CInterestingEvents](../source/game_sa/InterestingEvents.cpp) — **2/7 — 28.57%** | 5 | **Elegir sucesos cercanos.** Cinco pendientes con bastante código: scan de 104 líneas, referencias y visibilidad. Mayor banco espacial que un scanner simple. |
 | [CPedDamageResponseCalculator](../source/game_sa/PedDamageResponseCalculator.cpp) — **2/7 — 28.57%** | 5 | **Calcular daño y muerte.** Cinco pendientes; armadura y armas sangrantes tienen código. Estadísticas, límites de salud y muerte requieren matriz de casos. |
@@ -107,10 +101,6 @@ Máquinas de estados o recursos con dependencias manejables; preparar fixtures e
 
 | Clase | Entradas pendientes en hooks.csv |
 | --- | --- |
-| `CPedToPlayerConversations` | `Update` en [PedToPlayerConversations.cpp](../source/game_sa/Conversations/PedToPlayerConversations.cpp) |
-| `CTaskInteriorSitAtDesk` | `ProcessPed` en [TaskInteriorSitAtDesk.cpp](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp) |
-| `CTaskInteriorUseInfo` | `CreateFirstSubTask`, `CreateNextSubTask` en [TaskInteriorUseInfo.cpp](../source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorUseInfo.cpp) |
-| `CConversationForPed` | `IsPlayerInPositionForConversation`, `Update` en [ConversationForPed.cpp](../source/game_sa/Conversations/ConversationForPed.cpp) |
 | `CCustomBuildingRenderer` | [AtomicSetup](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp#L42), [IsCBPCPipelineAttached](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp#L47), [Update](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp#L84), [UpdateDayNightBalanceParam](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp#L52) |
 | `CPedGroup` | [FindDistanceToFurthestMember](../source/game_sa/PedGroup.cpp#L9), [PlayerGaveCommand_Gather](../source/game_sa/PedGroup.cpp#L78) |
 | `CPedGroupDefaultTaskAllocatorRandom` | [AllocateDefaultTasks](../source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorRandom.h#L13) |
@@ -132,8 +122,6 @@ Máquinas de estados o recursos con dependencias manejables; preparar fixtures e
 | `CTaskComplexDestroyCar` | [ControlSubTask](../source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp#L96) |
 | `CTaskComplexUseClosestFreeScriptedAttractor` | [ComputeClosestFreeScriptedEffect](../source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractor.cpp#L31), [CreateFirstSubTask](../source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractor.cpp#L36) |
 | `CRealTimeShadowManager` | [GetRealTimeShadow](../source/game_sa/RealTimeShadowManager.cpp#L123), [ReInit](../source/game_sa/RealTimeShadowManager.cpp#L69) |
-| `CCarFXRenderer` | [InitialiseDirtTexture](../source/game_sa/Fx/CarFXRenderer.cpp#L33) |
-| `CAEWeatherAudioEntity` | [AddAudioEvent](../source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp#L47) |
 | `CScriptsForBrains` | [Init](../source/game_sa/ScriptsForBrains.cpp#L24), [IsObjectWithinBrainActivationRange](../source/game_sa/ScriptsForBrains.cpp#L57), [StartOrRequestNewStreamedScriptBrain](../source/game_sa/ScriptsForBrains.cpp#L46) |
 | `CInterestingEvents` | [Add](../source/game_sa/InterestingEvents.cpp#L88), [Constructor](../source/game_sa/InterestingEvents.cpp#L70), [Destructor](../source/game_sa/InterestingEvents.cpp#L82), [GetInterestingEvent](../source/game_sa/InterestingEvents.cpp#L254), [ScanForNearbyEntities](../source/game_sa/InterestingEvents.cpp#L148) |
 | `CPedDamageResponseCalculator` | [AccountForPedArmour](../source/game_sa/PedDamageResponseCalculator.cpp#L49), [AccountForPedDamageStats](../source/game_sa/PedDamageResponseCalculator.cpp#L39), [ComputeDamageResponse](../source/game_sa/PedDamageResponseCalculator.cpp#L193), [ComputeWillForceDeath](../source/game_sa/PedDamageResponseCalculator.cpp#L111), [IsBleedingWeapon](../source/game_sa/PedDamageResponseCalculator.cpp#L176) |
@@ -166,7 +154,6 @@ Funciones extensas, física, render o audio; el banco de validación pesa mucho.
 | [CTaskSimpleCarDrive](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp) — **7/13 — 53.85%** | 6 | **Conductor y sus animaciones.** Seis pendientes incluyendo ProcessPed, posición y movimientos de cabeza/brazos; mucha interacción con vehículo, entradas y callbacks. |
 | [CCarEnterExit](../source/game_sa/CarEnterExit.cpp) — **27/32 — 84.38%** | 5 | **Puertas, asientos y salida del coche.** Cinco pendientes geométricas y de pasajeros; casos por tipo de vehículo, colisiones y órdenes a otros ocupantes. |
 | [CRoadBlocks](../source/game_sa/RoadBlocks.cpp) — **7/8 — 87.50%** | 1 | **Crear bloqueos policiales.** Una nativa concentra colocación de coches y policías; requiere geometría, modelos y efectos secundarios en el mundo. |
-| [CEntryExit](../source/game_sa/EntryExit.cpp) — **10/11 — 90.91%** | 1 | **Finalizar el cambio de interior.** TransitionFinished ronda 201 líneas y cruza streaming, cámara, scripts, población y ropa. El 10/11 oculta una integración amplia. |
 | [CFormation](../source/game_sa/Formation.cpp) — **1/9 — 11.11%** | 8 | **Destinos y cobertura del grupo.** Ocho funciones nativas; falta la mayor parte de distribución, cobertura y objetivos compartidos. Allocators ayudan parcialmente. |
 | [CPedGroupPlacer](../source/game_sa/PedGroupPlacer.cpp) — **1/4 — 25.00%** | 3 | **Colocar grupos en el mundo.** Tres nativas de charla, formación y aleatoriedad; necesitan posiciones válidas, colisiones y creación de entidades. |
 | [CWeather](../source/game_sa/Weather.cpp) — **10/13 — 76.92%** | 3 | **Clima, pronóstico y lluvia.** Tres actualizaciones amplias conectadas a tiempo, zonas y partículas; requieren estados globales y secuencias reproducibles. |
@@ -182,10 +169,8 @@ Funciones extensas, física, render o audio; el banco de validación pesa mucho.
 | [CProjectileInfo](../source/game_sa/ProjectileInfo.cpp) — **1/12 — 8.33%** | 11 | **Ciclo de vida de proyectiles.** Once pendientes casi todas nativas; inicializadores fáciles no bastan para cerrar AddProjectile/Update y explosiones. |
 | [FxSystem_c](../source/game_sa/Fx/FxSystem.cpp) — **31/35 — 88.57%** | 4 | **Actualizar instancias de efectos.** Cuatro pendientes; AddParticle reutiliza primitivas, pero Update y bounding box nativos controlan emisión, vida y culling. |
 | [FxEmitterBP_c](../source/game_sa/Fx/FxEmitterBP.cpp) — **2/9 — 22.22%** | 7 | **Emitir, simular y dibujar partículas.** Siete pendientes con Render parcial; UpdateParticle/HeatHaze y formatos necesitan simulación y recursos gráficos. |
-| [CAEStaticChannel](../source/game_sa/Audio/Hardware/AEStaticChannel.cpp) — **7/8 — 87.50%** | 1 | **Buffers de audio estático.** SetAudioBuffer solo devuelve false; reconstruir formato, buffers y fallos DirectSound. Audio está excluido en los bancos habituales. |
 | [CAEStreamingChannel](../source/game_sa/Audio/Hardware/AEStreamingChannel.cpp) — **21/24 — 87.50%** | 3 | **Audio continuo.** Constructor/Service pendientes y PrepareStream con locks/llenado; hilos, hardware y errores requieren un banco específico. |
 | [CAEFrontendAudioEntity](../source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp) — **4/6 — 66.67%** | 2 | **Audio de interfaz y eventos.** AddAudioEvent ronda 709 líneas y UpdateParameters 49; dos funciones con muchas familias de eventos, bancos y estados. |
-| [CAEAmbienceTrackManager](../source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp) — **6/7 — 85.71%** | 1 | **Pistas ambientales.** Una pendiente de unas 279 líneas cruza zonas, clima, radio y pausas; validar prioridades y transiciones, no solo volumen final. |
 | [CAEPedAudioEntity](../source/game_sa/Audio/Entities/AEPedAudioEntity.cpp) — **16/20 — 80.00%** | 4 | **Audio de peatones.** Cuatro nativas de golpes, expulsión, ataques y Service; temporizadores y bancos exigen un contexto Audio propio. |
 | [CAEPoliceScannerAudioEntity](../source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.cpp) — **13/17 — 76.47%** | 4 | **Radio policial.** Carga, reproducción y Service tienen código; AddAudioEvent nativa y slots asíncronos dificultan validar toda la secuencia. |
 | [CAEVehicleAudioEntity](../source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp) — **102/106 — 96.23%** | 4 | **Audio específico de vehículos.** Cuatro nativas para bicicleta, hovercraft y jet; 102 vecinas ayudan, pero señales físicas y hardware amplían los casos. |
@@ -211,7 +196,6 @@ Funciones extensas, física, render o audio; el banco de validación pesa mucho.
 | `CTaskSimpleCarDrive` | [MakeAbortable](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp#L166), [ProcessArmBopping](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp#L126), [ProcessHeadBopping](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp#L121), [ProcessPed](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp#L173), [SetPedPosition](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp#L180), [StartBopping](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp#L116) |
 | `CCarEnterExit` | [GetNearestCarPassengerDoor](../source/game_sa/CarEnterExit.cpp#L381), [GetPositionToOpenCarDoor](../source/game_sa/CarEnterExit.cpp#L387), [IsPlayerToQuitCarEnter](../source/game_sa/CarEnterExit.cpp#L508), [IsRoomForPedToLeaveCar](../source/game_sa/CarEnterExit.cpp#L513), [MakeUndraggedPassengerPedsLeaveCar](../source/game_sa/CarEnterExit.cpp#L603) |
 | `CRoadBlocks` | [CreateRoadBlockBetween2Points](../source/game_sa/RoadBlocks.cpp#L104) |
-| `CEntryExit` | [TransitionFinished](../source/game_sa/EntryExit.cpp#L320) |
 | `CFormation` | [DistributeDestinations](../source/game_sa/Formation.cpp#L78), [DistributeDestinations_CoverPoints](../source/game_sa/Formation.cpp#L83), [DistributeDestinations_PedsToAttack](../source/game_sa/Formation.cpp#L88), [FindCoverPoints](../source/game_sa/Formation.cpp#L93), [GenerateGatherDestinations](../source/game_sa/Formation.cpp#L68), [GenerateGatherDestinations_AroundCar](../source/game_sa/Formation.cpp#L73), [ReturnDestinationForPed](../source/game_sa/Formation.cpp#L10), [ReturnTargetPedForPed](../source/game_sa/Formation.cpp#L5) |
 | `CPedGroupPlacer` | [PlaceChatGroup](../source/game_sa/PedGroupPlacer.cpp#L19), [PlaceFormationGroup](../source/game_sa/PedGroupPlacer.cpp#L14), [PlaceRandomGroup](../source/game_sa/PedGroupPlacer.cpp#L24) |
 | `CWeather` | [AddRain](../source/game_sa/Weather.cpp#L62), [ForecastWeather](../source/game_sa/Weather.cpp#L103), [Update](../source/game_sa/Weather.cpp#L261) |
@@ -227,10 +211,8 @@ Funciones extensas, física, render o audio; el banco de validación pesa mucho.
 | `CProjectileInfo` | [AddProjectile](../source/game_sa/ProjectileInfo.cpp#L51), [GetProjectileInfo](../source/game_sa/ProjectileInfo.cpp#L41), [Initialise](../source/game_sa/ProjectileInfo.cpp#L31), [RemoveAllProjectiles](../source/game_sa/ProjectileInfo.cpp#L103), [RemoveDetonatorProjectiles](../source/game_sa/ProjectileInfo.cpp#L56), [RemoveFXSystem](../source/game_sa/ProjectileInfo.cpp#L113), [RemoveIfThisIsAProjectile](../source/game_sa/ProjectileInfo.cpp#L108), [RemoveNotAdd](../source/game_sa/ProjectileInfo.cpp#L46), [RemoveProjectile](../source/game_sa/ProjectileInfo.cpp#L61), [Shutdown](../source/game_sa/ProjectileInfo.cpp#L36), [Update](../source/game_sa/ProjectileInfo.cpp#L66) |
 | `FxSystem_c` | [AddParticle-mat](../source/game_sa/Fx/FxSystem.cpp#L184), [AddParticle-v3d](../source/game_sa/Fx/FxSystem.cpp#L184), [Update](../source/game_sa/Fx/FxSystem.cpp#L417), [UpdateBoundingBoxCB](../source/game_sa/Fx/FxSystem.cpp#L306) |
 | `FxEmitterBP_c` | [CreateInstance](../source/game_sa/Fx/FxEmitterBP.cpp#L46), [FreePrtFromPrim](../source/game_sa/Fx/FxEmitterBP.cpp#L181), [Load](../source/game_sa/Fx/FxEmitterBP.cpp#L70), [Render](../source/game_sa/Fx/FxEmitterBP.cpp#L112), [RenderHeatHaze](../source/game_sa/Fx/FxEmitterBP.cpp#L34), [Update](../source/game_sa/Fx/FxEmitterBP.cpp#L53), [UpdateParticle](../source/game_sa/Fx/FxEmitterBP.cpp#L39) |
-| `CAEStaticChannel` | [SetAudioBuffer](../source/game_sa/Audio/Hardware/AEStaticChannel.cpp#L152) |
 | `CAEStreamingChannel` | [Constructor](../source/game_sa/Audio/Hardware/AEStreamingChannel.h#L77), [PrepareStream](../source/game_sa/Audio/Hardware/AEStreamingChannel.cpp#L212), [Service](../source/game_sa/Audio/Hardware/AEStreamingChannel.cpp#L494) |
 | `CAEFrontendAudioEntity` | [AddAudioEvent](../source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp#L36), [UpdateParameters](../source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp#L759) |
-| `CAEAmbienceTrackManager` | [UpdateAmbienceTrackAndVolume](../source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp#L64) |
 | `CAEPedAudioEntity` | [HandlePedHit](../source/game_sa/Audio/Entities/AEPedAudioEntity.cpp#L502), [HandlePedJacked](../source/game_sa/Audio/Entities/AEPedAudioEntity.cpp#L507), [HandlePedSwing](../source/game_sa/Audio/Entities/AEPedAudioEntity.cpp#L497), [Service](../source/game_sa/Audio/Entities/AEPedAudioEntity.cpp#L564) |
 | `CAEPoliceScannerAudioEntity` | [AddAudioEvent](../source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.cpp#L36), [LoadSlots](../source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.cpp#L48), [PlayLoadedDialogue](../source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.cpp#L130), [Service](../source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.cpp#L263) |
 | `CAEVehicleAudioEntity` | [ProcessDummyBicycle](../source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp#L4323), [ProcessDummyHovercraft](../source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp#L3817), [ProcessGenericJet](../source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp#L3764), [ProcessPlayerBicycle](../source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp#L4328) |
@@ -292,6 +274,58 @@ Sistemas centrales o grandes bloques desconocidos; dividir antes en hitos intern
 </details>
 
 <a id="evidencia"></a>
+<a id="incorporadas-2026-10-01"></a>
+## Clases incorporadas al catálogo el 01/10/2026
+
+Al activar los hooks de 39 clases (ver [informe](../reversing/HooksActivados/README.md)) entraron en `hooks.csv` 16 clases que todavía tienen funciones con `reversed=0`: los stubs `plugin::Call` hacia su propia dirección y tres `Clone` no fieles. Suman **43 pendientes** y ya cuentan en el resumen superior. No se han clasificado aún por dificultad; las notas son orientativas.
+
+| Clase — revertidas/total | Faltan | Pendientes | Nota |
+| --- | ---: | --- | --- |
+| [CTaskComplexBeInCouple](../source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp) — **7/9 — 77.78%** | 2 | ControlSubTask, CreateNextSubTask | Pareja que pasea de la mano; los dos pendientes son la máquina de subtareas. |
+| [CTaskComplexDriveToPoint](../source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp) — **5/8 — 62.50%** | 3 | Drive, IsTargetBlocked (×2) | Conducir hasta un punto; bloqueo por entidades y lógica de conducción. |
+| [CTaskComplexEnterCarAsPassengerWait](../source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.cpp) — **4/8 — 50.00%** | 4 | CreateSubTask, CreateFirst/Next, ControlSubTask | Esperar al conductor antes de subir como pasajero. |
+| [CTaskComplexEvasiveCower](../source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp) — **7/8 — 87.50%** | 1 | CreateSubTask | Encogerse ante un vehículo; solo falta la fábrica de subtareas. |
+| [CTaskComplexEvasiveStep](../source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp) — **7/8 — 87.50%** | 1 | CreateSubTask | Paso evasivo; solo falta la fábrica de subtareas. |
+| [CTaskComplexHitPedWithCar](../source/game_sa/Tasks/TaskTypes/TaskComplexHitPedWithCar.cpp) — **2/10 — 20.00%** | 8 | Clone, GetTaskType, HitHurtsPed, ComputeEvasiveStepMoveDir, CreateSubTask, CreateFirst/Next, ControlSubTask | Atropello; casi todo sigue en el original. |
+| [CTaskComplexOpenPassengerDoor](../source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.cpp) — **3/4 — 75.00%** | 1 | Clone | El `Clone` inline no copia `m_MoveState` como el original. |
+| [CTaskComplexProstituteSolicit](../source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp) — **7/11 — 63.64%** | 4 | CreateSubTask, CreateFirst/Next, ControlSubTask | Solicitud de prostituta; máquina de subtareas pendiente. |
+| [CTaskComplexWanderCriminal](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp) — **3/6 — 50.00%** | 3 | Clone, LookForCarsToSteal, ScanForStuff | El `Clone` omite `m_bWanderSensibly`; búsqueda de coches pendiente. |
+| [CTaskComplexWanderProstitute](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.cpp) — **4/5 — 80.00%** | 1 | ScanForStuff | Escaneo de clientes pendiente. |
+| [CTaskComplexWanderStandard](../source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp) — **3/9 — 33.33%** | 6 | Clone, WillChat, SetNextMinScanTime, LookForSexyCars, LookForChatPartners, LookForGangMembers | Paseo estándar; el `Clone` omite `m_bWanderSensibly` y las búsquedas siguen nativas. |
+| [CTaskSimpleCarSetPedInAsDriver](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.cpp) — **4/5 — 80.00%** | 1 | ProcessPed | Colocar al conductor en el coche. |
+| [CTaskSimpleCarSetPedInAsPassenger](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp) — **4/5 — 80.00%** | 1 | ProcessPed | Colocar al pasajero; el constructor original no está instalado por un argumento NOTSA. |
+| [CTaskSimpleCarSetPedOut](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp) — **2/5 — 40.00%** | 3 | Clone, ProcessPed, PositionPedOutOfCollision | Sacar al peatón del coche. |
+| [CTaskSimpleDead](../source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp) — **0/1 — 0.00%** | 1 | ProcessPed | Único hook registrado; sin revertir. |
+| [CTaskSimpleGangDriveBy](../source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp) — **1/4 — 25.00%** | 3 | Clone, MakeAbortable, ProcessPed | Tiroteo desde vehículo; solo GetTaskType es propio. |
+
+#### Segunda tanda: clases con `InjectHooks()` sin llamar y tareas con vtable localizado
+
+Al registrar 15 clases cuyo `InjectHooks()` existía pero nunca se invocaba y 6 tareas con vtable localizado en el EXE ([informe](../reversing/HooksActivados/README.md#segunda-tanda-injecthooks-sin-llamar-y-tareas-con-vtable-2026-10-01)), quedaron 8 clases parciales con **17 pendientes**.
+
+| Clase — revertidas/total | Faltan | Pendientes | Nota |
+| --- | ---: | --- | --- |
+| [CHud](../source/game_sa/Hud.cpp) — **30/38 — 78.95%** | 8 | DrawCrossHairs, DrawHelpText, DrawMissionTimers, DrawPlayerInfo, DrawSubtitles, DrawSuccessFailedMessage, DrawVitalStats, DrawWanted | HUD completo; ocho funciones de dibujo siguen en el original (mira, ayuda, temporizadores, subtítulos, éxito/fracaso, estadísticas, jugador, nivel de búsqueda). |
+| [CPedAttractor](../source/game_sa/Attractors/PedAttractor.cpp) — **19/20 — 95.00%** | 1 | AbortPedTasks | Cola de atractores; `AbortPedTasks` pendiente. |
+| [CIdleCam](../source/game_sa/IdleCam.cpp) — **13/14 — 92.86%** | 1 | ProcessFOVZoom | Cámara inactiva; `ProcessFOVZoom` pendiente. |
+| [CPedShelterAttractor](../source/game_sa/Attractors/PedShelterAttractor.cpp) — **2/4 — 50.00%** | 2 | BroadcastDeparture, GetDisplacement | Refugio; `GetDisplacement` y `BroadcastDeparture` pendientes. |
+| [CDecision](../source/game_sa/DecisionMakers/Decision.cpp) — **1/3 — 33.33%** | 2 | Set, SetDefault | `Set` era un stub instalado como reconstruido; ahora `reversed=0`. `SetDefault` pendiente. |
+| [CTaskComplexCrossRoadLookAndAchieveHeading](../source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp) — **8/9 — 88.89%** | 1 | Constructor | Constructor stub pendiente. |
+| [CTaskSimpleCarDriveTimed](../source/game_sa/Tasks/TaskTypes/TaskSimpleCarDriveTimed.cpp) — **4/5 — 80.00%** | 1 | ProcessPed | `ProcessPed` stub pendiente. |
+| [CTaskComplexBeCop](../source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.cpp) — **2/3 — 66.67%** | 1 | Clone | `Clone` no fiel (no comprueba nulo, `dir` como bool); constructor sin instalar. |
+
+<a id="reabiertas-2026-10-01"></a>
+#### Reabiertas: el catálogo decía reconstruida pero el juego usaba el original
+
+La comparación de `hooks.csv` con el `runtime-hooks.csv` del juego (`audit_hook_catalog.py --runtime`) mostró que `InitialiseDirtTexture` figuraba como reconstruida sin banco y con `{ .reversed = false }` en el código. Se devuelve a pendiente hasta tener evidencia.
+
+| Clase — revertidas/total | Faltan | Pendientes | Nota |
+| --- | ---: | --- | --- |
+| [CCarFXRenderer](../source/game_sa/Fx/CarFXRenderer.cpp) — **9/10 — 90.00%** | 1 | InitialiseDirtTexture | Crea las texturas de suciedad a partir de rásteres RenderWare; requiere comparar píxeles y estado de los rásteres. |
+
+### Plantillas fuera del catálogo
+
+Hay 21 clases con plantilla vacía (`InjectHooks()` sin instalaciones; [lista y vtables](../reversing/HooksActivados/README.md#plantillas-de-clases-sin-código-2026-10-01-posterior)). No figuran en `hooks.csv` ni cuentan en el resumen: entrarán al catálogo cuando se reconstruya su primera función con dirección verificada. Las 13 con vtable localizado son el punto de partida más barato.
+
 ## Evidencia que cambia la prioridad
 
 - **Tablas frente a sistemas completos.** [GetTextureDependency](../source/game_sa/Clothes.cpp) es un switch usado desde Clothes, PedClothesDesc y Shopping. [Scripted2dEffects::Init](../source/game_sa/Scripts/Scripted2dEffects.cpp), llamado desde TheScripts, inicializa arrays. Ambos ya pasaron comparación exacta y restauración sin escena completa. Init requirió conservar campos y relleno que el original no reinicia; el clon Sprint también necesitó corregir su movimiento. Un candidato breve no equivale a un candidato correcto.
@@ -317,7 +351,7 @@ Los bancos habituales excluyen Audio y SurfaceInfos; validar audio exige activar
 
 El catálogo vigente es `docs/hooks.csv`; su coherencia con la fuente se comprueba con `python contrib/audit_hook_catalog.py --strict`. El hash anterior correspondía al corte histórico del 23 de septiembre y no debe usarse para identificar el catálogo actual.
 
-La lista coincide con 88 clases parciales y tres 0/N: cada clase aparece una vez en la clasificación y suma 535 pendientes. Los enlaces apuntan al árbol inspeccionado, con enlaces a la evidencia de las clases completadas. La guía es una evaluación manual fechada: si cambian flags, cuerpos o dependencias, revisar cifras y orden. No se regenera automáticamente con ReversedClasses.md.
+La clasificación por dificultad cubre las clases evaluadas inicialmente; las incorporadas y reabiertas el 01/10/2026 figuran aparte en [su sección](#incorporadas-2026-10-01). Entre todas suman las 585 pendientes del catálogo que muestra el resumen superior. Los enlaces apuntan al árbol inspeccionado, con enlaces a la evidencia de las clases completadas. La guía es una evaluación manual fechada: si cambian flags, cuerpos o dependencias, revisar cifras y orden. No se regenera automáticamente con ReversedClasses.md.
 
 <a id="top-10"></a>
 ## Top 10 para atacar ahora

@@ -17,7 +17,17 @@ PREFIXES = {'entryexit-pool': 'entryexit-pool', 'shooting-resources': 'shooting-
 PREFIXES.update({name: name for name in ['unlock-data-stream', 'unlock-track-entity', 'unlock-audio', 'unlock-core', 'unlock-driving', 'unlock-input', 'unlock-physical', 'unlock-platform', 'unlock-radio', 'unlock-tasks']})
 PREFIXES['namedanim-init'] = 'namedanim-init'
 PREFIXES['ik-data'] = 'ik-data'
+PREFIXES['conversation-for-ped'] = 'conversation-for-ped'
 PREFIXES['audio-completion'] = 'audio-completion'
+PREFIXES.update({
+    'ped-to-player': 'ped-to-player',
+    'gang-leader-type': 'gang-leader',
+    'shutdown-lists': 'shutdown-lists',
+    'bullet-hit': 'bullet-hit',
+    'sitatdesk': 'sitatdesk',
+    'interioruseinfo': 'interioruseinfo',
+    'weaponaudio': 'weaponaudio',
+})
 
 
 def game_running():

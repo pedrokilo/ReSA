@@ -1,5 +1,7 @@
 # Corrección del cierre: Cover, logs e interfaz
 
+> Informe de la entrega del 25/09/2026. La corrección se conserva en las entregas posteriores; consultar la [continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente) para los hashes del ASI instalado actualmente. Los binarios y pruebas de este informe describen aquella entrega.
+
 ## Estado: corregido e instalado en la copia de pruebas (25/09/2026)
 
 La petición del usuario levantó el aplazamiento de esta corrección. Se validaron **tres arranques automáticos y cierres normales sin depurador, todos con código 0**, y los **16 casos de limpieza de Cover** con un cierre instrumentado también con código 0. Cada ejecución normal permaneció diez segundos en el estado de juego antes de enviar `WM_CLOSE`. Es una prueba de cierre durante el inicio de una partida nueva, no de una sesión prolongada ni de carga/guardado.

@@ -50,18 +50,22 @@ También distingue entre:
 - **Owner inactivo con instalaciones:** código existente pero no registrado globalmente; se informa para revisión, sin añadirlo automáticamente al catálogo.
 - **Llamada activa sin nombre propio en el CSV:** puede ser válida si el método sólo agrupa/encamina registros. Por ejemplo, `RpAnimBlendPlugin::InjectHooks()` registra bajo el namespace `RpAnimBlend`, que es el owner que aparece en `hooks.csv`.
 - **Scope sin `RH_Scoped*Install`:** no crea una entrada de función y no debe inflar el catálogo.
+- **Llamada `X::InjectHooks()` sin `InjectHooks` propio en `X`:** inconsistencia real; `--strict` falla. Compila igualmente porque resuelve al `InjectHooks` heredado de una base, que entonces se ejecuta dos veces (assert por nombres duplicados en `HookCategory.h`) o registra hooks bajo el owner equivocado. Caso histórico: `CAEPedWeaponAudioEntity` llamaba al de `CAEWeaponAudioEntity`.
 
 
 ### Estado comprobado del corte actual
 
 En `PGTASA`, el modo estricto devuelve **OK** con:
 
-- 712 clases/grupos catalogados.
-- 8.080 entradas en `hooks.csv`.
+- 772 clases/grupos catalogados.
+- 8.442 entradas en `hooks.csv`.
 - 0 hooks activos ausentes del CSV.
 - 0 registros indirectos activos ausentes del CSV.
 - 0 entradas del CSV sin scope fuente.
 - 0 llamadas directas con instalaciones propias sin owner catalogado.
+- 0 owners catalogados cuya función de registro nunca se invoca.
+- 0 llamadas `X::InjectHooks()` que resuelven al `InjectHooks` heredado de una base.
+- 0 diferencias con el registro real del juego, comprobado con `--runtime "<copia de pruebas>/scripts/runtime-hooks.csv"`. Esa opción compara `hooks.csv` con el `runtime-hooks.csv` que escribe el ASI al arrancar: hooks registrados sin catalogar, entradas catalogadas sin registrar, `reversed` distinto y dirección distinta.
 
 Los owners inactivos se mantienen fuera del catálogo activo mientras no se registren globalmente. No deben añadirse sólo porque exista código de hook en sus archivos.
 

@@ -2,7 +2,7 @@
 
 Fecha: 22 de septiembre de 2026.
 Carpeta de trabajo: E:\Original\gta-reversed-master
-Estado: **plan histórico del 22 de septiembre**. Las observaciones y cifras siguientes pertenecen a la inspección inicial; el proyecto ya dispone de Git, compilación y bancos dentro del motor. Para el estado actual consulta [el README](README.md) y [la continuidad](reversing/MEJORAS_DEL_PROCESO.md).
+Estado: **plan histórico del 22 de septiembre**. Las observaciones iniciales se conservan como historia; los recuadros de estado vigente están actualizados al 30/09/2026. El proyecto ya dispone de Git, compilación y bancos dentro del motor. Para el estado actual consulta [el README](README.md) y [la continuidad](reversing/MEJORAS_DEL_PROCESO.md#continuidad-vigente).
 
 ## 1. Objetivo y forma de trabajar
 
@@ -21,9 +21,9 @@ La ejecución ocurre durante sesiones de trabajo y procesos que dejemos configur
 ## 2. Lo comprobado en esta copia
 
 - El README describe una DLL/ASI que sustituye funciones del juego por implementaciones reconstruidas.
-- En la inspección inicial, `docs/hooks.csv` contenía 8.014 registros. **Estado vigente:** 8.080 entradas, 7.545 con `reversed=1` y 535 pendientes. Son registros del catálogo, no un inventario exhaustivo del ejecutable ni necesariamente direcciones únicas.
-- Sus columnas son class, fn_name, address, reversed, locked y type. Interpretaré locked y type leyendo su implementación antes de usarlos como filtros.
-- En la inspección inicial, `docs/ReversedClasses.md` enumeraba 701 clases. **Estado vigente:** 712 clases/grupos, 621 completas, 88 parciales y 3 sin revertir. El porcentaje del catálogo no equivale al porcentaje del juego probado ni a independencia del EXE.
+- En la inspección inicial, `docs/hooks.csv` contenía 8.014 registros. **Estado vigente:** 8.442 entradas, 7.857 con `reversed=1` y 585 pendientes. Son registros del catálogo, no un inventario exhaustivo del ejecutable ni necesariamente direcciones únicas.
+- Las columnas actuales son `class`, `fn_name`, `address`, `reversed`, `locked`, `validated` y `type`. Su significado y la sincronización de evidencia se describen en [HookRegistration.md](docs/HookRegistration.md#columnas-de-hookscsv).
+- En la inspección inicial, `docs/ReversedClasses.md` enumeraba 701 clases. **Estado vigente:** 772 clases/grupos, 665 completas, 104 parciales y 3 sin revertir. El porcentaje del catálogo no equivale al porcentaje del juego probado ni a independencia del EXE.
 - docs/HookRegistration.md exige marcar reversed=false en funciones que todavía redirigen al código original.
 - El README exige GTA SA Compact exe de 5.189.632 bytes y distingue esta versión de otros ejecutables 1.0 US. El tamaño será un filtro preliminar; también comprobaré hash, cabeceras PE y bytes en direcciones relevantes.
 - El README pide Visual Studio 2026, Python, Conan 2 y CMake 4.2 o superior. La compilación prevista es x86.
@@ -152,4 +152,4 @@ El sistema completo se considerará demostrado cuando una función haya recorrid
 
 ## Objetivo concreto elegido posteriormente
 
-El usuario eligió CVehicle (141/142). La entrada pendiente es RemoveObjectsCB-Object, 0x6D33B0. El trabajo se concentra en ese callback y su llamador directamente afectado; no hace falta construir el pipeline general antes de resolver este caso. Evidencia, pruebas y estado de validación en reversing/CVehicle/README.md.
+El usuario eligió inicialmente CVehicle (141/142), cuya entrada pendiente era RemoveObjectsCB-Object, 0x6D33B0. Ese trabajo ya se completó; CVehicle conserva 142/142 en el catálogo. [Evidencia y alcance](reversing/CVehicle/README.md). La entrega más reciente es [HooksActivados](reversing/HooksActivados/README.md) (39 clases registradas, sin comparaciones todavía); la anterior es [CConversationForPed, 2/2](reversing/ConversationForPed/README.md), con 4.702 pares contra el original y ASI normal comprobado en la copia de pruebas.

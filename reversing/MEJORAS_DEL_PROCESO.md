@@ -200,7 +200,7 @@ Continuar en este orden sin volver a preguntar la siguiente clase entre entradas
 | 4 | CTaskSimplePlayerOnFoot | 11/12 | PlayerControlFighter | En cola |
 | 5 | CClothes | 11/11 | GetTextureDependency | Validada: 4.096 pares |
 | 6 | CConversations | 11/11 | DoneSettingUpConversation | Validada: 2.048 pares |
-| 7 | CEntryExit | 10/11 | TransitionFinished | En cola |
+| 7 | CEntryExit | 10/11 | TransitionFinished | Completada: 11/11 (sin cambio de CSV, ya estaba reversed=1), 960 pares dentro del motor + 9 pares de fase 2 con jugador real y bloque invasivo completo |
 | 8 | CCarFXRenderer | 9/10 | InitialiseDirtTexture | En cola |
 | 9 | CTaskComplexDestroyCar | 8/9 | ControlSubTask | En cola |
 | 10 | CRoadBlocks | 7/8 | CreateRoadBlockBetween2Points | En cola |
@@ -587,9 +587,7 @@ ASI normal en bin/Debug y copia de pruebas: b132855e4c96c1a02824b91569de158848a7
 Se conservan 619 locks y los 85 aplazados de clases completas; no se alteraron CSV, catálogo ni acreditaciones en esta corrección. Rama PGTASA, HEAD aef6bcbf051d0370cc6ed68e8d9809e0b7bb8d51, cambios anteriores preservados. Sin commit, push ni apagado.
 
 
-<a id="continuidad-vigente"></a>
-
-## Continuidad vigente: auditoría y sincronización del catálogo (2026-09-26)
+## Continuidad histórica: auditoría y sincronización del catálogo (2026-09-26)
 
 Se auditó de forma bidireccional el registro de hooks de `PGTASA` para detectar owners activos presentes en fuente pero ausentes de `docs/hooks.csv`, registros indirectos, scopes sin instalaciones y código de hooks deliberadamente inactivo. La primera comparación sobreestimó candidatos porque incluía llamadas comentadas; el auditor se corrigió para eliminar comentarios antes del análisis y distinguir registro directo, indirecto, inactivo y aliases/namespaces.
 
@@ -623,3 +621,208 @@ También se añadió `contrib/audit_hook_catalog.py`, se documentó en `docs/Hoo
 Documentación sincronizada en este corte: README principal, hoja de ruta, panel de progreso, prioridades, inventario y registro de validación, guía de hooks, índice de pruebas, plan histórico contextualizado y README del subsistema Conversations. Los informes de bancos anteriores conservan sus cifras originales como evidencia histórica y enlazan al estado vigente cuando procede; no se reescriben resultados, hashes ni conteos pertenecientes a una entrega pasada.
 
 No se afirma independencia del EXE ni estabilidad general. El crecimiento del catálogo cambia denominadores de progreso, no invalida pruebas anteriores. Los 86 bloqueos aplazados de la campaña documentada siguen siendo una cola histórica concreta y no deben confundirse con los 625 locks globales del catálogo vigente.
+
+
+## Entrega anterior: CPedToPlayerConversations completada (2026-09-27)
+
+Esta sección conserva el estado y los hashes de aquella entrega. La [continuidad vigente](#continuidad-vigente) incluye la finalización posterior de CConversationForPed.
+
+Petición expresa de completar esta clase, en PGTASA sobre HEAD `143b5e73b51cf4ae2a642401f0045213c05bab4e`. `Update` (0x43B0F0) reconstruido, conectado y sin lock; clase **3/3**. [Informe y procedimiento](PedToPlayerConversations/README.md), [evidencia](PedToPlayerConversations/validation-summary.json), [instalación](PedToPlayerConversations/installation-summary.json).
+
+Banco aprobado: **6.266 pares exactos** dentro del motor, con estados independientes, conmutación original/candidato, contadores 0/1, objetos intactos y restauración. Audio, entrada, estadísticas, azar e IK usan proveedores controlados; geometría, referencias y tareas utilizan el motor real. No acredita reproducción de audio, combate, todo el subsistema ni independencia. El banco inicial de 5.910 pares es un subconjunto, no cobertura adicional.
+
+**Entrega normal instalada solamente en la copia de pruebas**, también conservada en bin/Debug. Tres arranques breves de partida nueva, **tres segundos** en estado de juego, hook activo y cierre WM_CLOSE con código 0. ASI `e3e81bf86239ed4bded6ab1783b760c411dcdbfe080131a2a6e0c9569472b358`; PDB `65dab3022f7c838c51b80d69abbe1585c64bc844402898f5432b78c0f1992467`. Sustituyen la entrega ShutdownLists b132855e/7fbdff7c; respaldos y manifiesto exactos en installation-summary.json.
+
+**Incidencia abierta de audio:** dos tandas de diez segundos con el candidato terminaron con timeout después de dos y un cierres correctos. La pila capturada está en la precarga de PROLOG1, dentro de CAECutsceneTrackManager::PreloadCutsceneTrack. La prueba de control con el ASI anterior de ShutdownLists y Update original reprodujo el bloqueo después de dos cierres correctos, con la misma ruta en la pila. [Intentos y trazas](PedToPlayerConversations/integration-observations.json). No se identifica su causa raíz ni se declara corregido. La prueba breve de entrega cubre arranque, hook y cierre antes de esa fase; no acredita la introducción completa ni estabilidad general.
+
+Se reutilizan exactamente las exclusiones de ShutdownLists: dos fuentes CustomBuilding desde `11fd6912f759d3bc93208a9def001b6dd751dbdf` y TaskSimpleClimb desde `aef6bcbf051d0370cc6ed68e8d9809e0b7bb8d51`. Fuentes restauradas tras compilar; sin sondas en el ASI entregado. Se corrigió únicamente texto que había quedado fuera de un comentario en ColModel.cpp para permitir la compilación.
+
+Catálogo actual: **712 grupos, 8.080 entradas, 7.546 reconstruidas, 534 pendientes; 622 completas, 87 parciales y 3 sin revertir; 624 locks y 7.456 sin lock**. Registro: **35 evidencias aprobadas vinculadas, 0 acreditaciones vigentes del árbol completo y 7.511 reconstruidas sin evidencia vinculada**. Auditoría estricta ejecutada con Python 3.14: OK; cuatro comprobaciones críticas en cero. `validated` sincronizado desde el registro. CConversations sigue 11/11 y CConversationNode 1/1; CConversationForPed continúa 0/2.
+
+Caso `ped-to-player` añadido al único PROBAR.cmd. Reproducir con `python reversing/PedToPlayerConversations/build.py --probe`, `PROBAR.cmd --case ped-to-player`, compilación normal sin --probe y `python reversing/PedToPlayerConversations/check_normal.py --startup-only --install`. Conservar los intentos fallidos al repetir; sin --startup-only se comprueban diez segundos y se captura pila al agotar el plazo. El informe explica el alcance de cada prueba.
+
+INI normales restaurados (FastLoader desactivado, SaveGameToLoad=-2), partidas comprobadas por SHA-256 e instalación personal intacta. Pruebas temporales con partida nueva=0, nunca ranura 2. No se repitió toda la suite. Siguen aplazados **CCollision 59, CFileMgr 13, GangLeader 10 y Game 3: 85 locks**, además de la integración CustomBuilding. No aplicar deferred-filemgr-game.patch. Esta entrega no autoriza otra clase ni una campaña de audio. Sin commit, push ni apagado.
+
+
+<a id="continuidad-vigente"></a>
+
+## Continuidad vigente: CConversationForPed completada (2026-09-30)
+
+Petición de completar las dos entradas de `CConversationForPed`. `IsPlayerInPositionForConversation` (0x43AC40) y `Update` (0x43C190) quedan reconstruidas y habilitadas: **2/2, cero pendientes y cero bloqueos**. [Informe y reproducción](ConversationForPed/README.md), [evidencia diferencial](ConversationForPed/validation-summary.json), [entrega normal](ConversationForPed/installation-summary.json).
+
+Banco de **4.702 pares exactos**: 2.414 de posición y 2.288 de Update, con original/candidato separados, contadores 0/1, entradas independientes, comparación del orden de efectos y restauración. Incluye límites geométricos, daño reciente, seguidores, disponibilidad, ramas sí/no, subtítulos, voz normal/de misión y aritmética temporal unsigned con desbordamiento. Se conservan las operaciones x87; 18 casos específicos contrastan precisión 24/53/64. Entrada, disponibilidad, traducción, mensajes y audio son dependencias controladas: no se reproduce audio ni se dibujan subtítulos. Los límites completos están en el informe. Se repitió el banco tras regenerar únicamente el encabezado de estado de esta clase, con idéntico log; no se duplican los pares únicos.
+
+Entrega normal instalada solamente en la copia de pruebas y conservada en bin/Debug, sin sondas. Tres arranques de partida nueva, tres segundos en estado 9, ambos hooks apuntando al módulo instalado y tres cierres normales con código 0. ASI `cfb7ccd82ed7b4a289574699fa3a736c195f346e6abde04cd19d9333482949b9`; PDB `876716f9244e88fa45b38442ba041e16412c3442049bf9fd5692c8e0cbab01d4`. El informe de instalación conserva las rutas y hashes de respaldo. Se mantienen las exclusiones de CustomBuilding/TaskSimpleClimb de la entrega anterior; las fuentes se restauran por bytes después de compilar. La incidencia anterior de precarga PROLOG1 sigue abierta y fuera del alcance.
+
+Catálogo: **712 grupos, 8.080 entradas, 7.548 reconstruidas y 532 pendientes; 623 completas, 87 parciales y 2 sin revertir; 622 locks y 7.458 sin lock**. Registro: **37 evidencias aprobadas vinculadas, dos con fuentes registradas coincidentes, cero acreditaciones de dependencias para el árbol completo y 7.511 reconstruidas sin evidencia vinculada**. Catálogo estricto y revisión de integridad: OK. El subsistema Conversations registra ahora 17/17 entradas entre sus cuatro owners; esto no acredita integración exhaustiva ni independencia del EXE.
+
+Caso `conversation-for-ped` añadido al único PROBAR.cmd y a `--all`. También se completan cuatro prefijos de informes que faltaban para casos ya catalogados; ver [run_all.py](run_all.py). Catálogo de pruebas: 46 casos, 45 de motor y uno aislado. No se ejecutó toda la suite. Para repetir este banco, compilar la sonda con `python reversing/ConversationForPed/build.py --probe` y ejecutar `PROBAR.cmd --case conversation-for-ped`; el runner rechaza fuentes distintas del manifiesto. Después compilar sin --probe y usar `python reversing/ConversationForPed/check_normal.py --install` para comprobar/promover el ASI normal.
+
+INI restaurados a FastLoader=false y SaveGameToLoad=-2; pruebas temporales con partida nueva=0, nunca ranura 2. Partidas verificadas por SHA-256. Se conservaron los cambios previos del árbol. Permanecen aplazados los 85 locks de CCollision/CFileMgr/GangLeader/Game y CustomBuilding. Sin commit, push ni apagado.
+
+## Continuidad vigente: CEntryExit::TransitionFinished validada dentro del motor (2026-10-01)
+
+`CEntryExit::TransitionFinished` (`0x004404A0`) ya figuraba `reversed=1,locked=0` en `docs/hooks.csv` y CEntryExit ya mostraba 11/11 **antes** de esta tarea, sin que existiera la comparación dentro del motor exigida por la sección "Cómo se reconstruye una función" de este mismo archivo. Esta entrega aporta esa comparación; no cambia ningún indicador del CSV ni de `docs/ReversedClasses.md` porque ya estaban correctos, y no fue necesario corregir `source/game_sa/EntryExit.cpp` porque no se encontraron diferencias en el alcance probado.
+
+**Alcance:** la función es una máquina de estados (`EXIT_ENTER_STATE_0..3`) cuyo bloque final (streaming de escena, teleporte de peatón/vehículo, tienda, población, scripts, `CGame::TidyUpMemory`) solo se alcanza cuando `EXIT_ENTER_STATE_2` pasa a `EXIT_ENTER_STATE_3` (`TheCamera.GetFading() == false`). El banco fuerza `GetFading()` a devolver siempre `true`, por lo que esa transición final y todo el bloque posterior **no se validaron**. Se cubrieron los cinco escenarios que devuelven `false` sin llegar a él (ambas ramas del condicional `bFoodDateFlag||bUnknownPairing||ped->bInVehicle`, con sus estados 0/1/2 alcanzables), con 3 variantes de bandera disparadora, 2 valores de `ms_bWarping`, 8 códigos de área y 4 posiciones: **960 pares originales/candidatos, 192 por escenario, 0 diferencias**.
+
+Se alternó el hook ya instalado (`hook->State(false/true)`) para llamar, en `0x4404A0`, primero al código máquina original y después a la reconstrucción, con un peatón y un `CEntryExit` sintéticos e independientes por cada lado del par (memoria propia, nunca en los pools reales). Dependencias reales alcanzadas sin interceptar: `CPedGroups::GetPedsGroup` (siempre `nullptr` para el peatón sintético), las colas de streaming (`CColStore`, `CIplStore`, `CStreaming::AddModelsToRequestList`, `ThePaths`, `CRenderer::RequestObjectsInDirection`) y `TheCamera.Fade`/`SetFadeColour` (solo campos de estado, sin streaming ni audio). La única dependencia que toca entidades reales, `CEntryExitManager::SetAreaCodeForVisibleObjects`, se dejó ejecutar de verdad: el banco reinicia `ms_numVisibleEntities` antes de cada llamada y restaura `SetAreaCode(AREA_CODE_NORMAL_WORLD)` en cada entidad tocada inmediatamente después (la propia condición de coincidencia de la función garantiza ese valor previo); se tocaron y restauraron 7 entidades reales por llamada en el escenario correspondiente. Globales reales (`ms_exitEnterState`, `CGame::currArea`, `ms_spawnPoint`, `ms_bWarping`, `m_loadingPriority`, `m_bFading`, `ms_numVisibleEntities`, `ms_oldAreaCode`, `ms_visibleEntityList`) se guardaron antes y se restauraron verbatim al final.
+
+**No se validaron:** el bloque final completo de teleporte/streaming/tienda/población/scripts; el peatón sosteniendo una entidad real (`SetAreaCode` del objeto sostenido); un grupo de peatones real (evento `CEventLeaderEntryExit`); `GetEntryExitToDisplayNameOf()` devolviendo un `CEntryExit` no nulo (`CHud::SetZoneName`); la sub-rama de `EXIT_ENTER_STATE_1` con tarea primaria `TASK_COMPLEX_GOTO_DOOR_AND_OPEN`; los valores exactos (duración, marca de tiempo) que escriben `Fade`/`SetFadeColour`. Detalles completos, hashes y evidencia en [reversing/CEntryExitTransition/README.md](CEntryExitTransition/README.md) y [validation-summary.json](CEntryExitTransition/validation-summary.json).
+
+ASI normal recompilado sin instrumentación e instalado solo en la copia de pruebas: SHA-256 `34801e37752db66f73e01c8b79e7f5c1cf1d27b7a7866116c3557699287e36e5`; PDB `bb28eda79b1e2d8d17ec56522852b48a4d353450e30cba6861fd55f80668825e`. Respaldo del ASI/PDB anteriores en `_baseline/before-enextransition-20261001-125342` (ASI `cfb7ccd82ed7b4a289574699fa3a736c195f346e6abde04cd19d9333482949b9`, PDB `876716f9244e88fa45b38442ba041e16412c3442049bf9fd5692c8e0cbab01d4`). Partidas (`GTASAsf2.b`) verificadas sin cambios; instalación personal `E:\JUEGOS\GTA San Andreas` no se tocó. Evidencia: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-enextransition/20261001-125022-681196/comparisons.jsonl` (SHA-256 `806c86bdcb96c59a1948136fbab27f6b1ac184ec503c9170c18a0882ae0c6519`).
+
+Caso `enextransition` añadido a `reversing/cases.json`, disponible en `PROBAR.cmd --case enextransition`, `python reversing/run.py --case enextransition` y `--all`. Se siguió la cola autorizada: tras CEntryExit siguen `CCarFXRenderer` y el resto de las 14 clases pendientes de esa lista (ver tabla arriba). Sin commit, push ni apagado. Conservar los trabajos anteriores.
+
+## Continuidad vigente: fase 2 de CEntryExit::TransitionFinished — bloque invasivo (2026-10-01)
+
+El usuario pidió explícitamente ampliar la validación anterior para cubrir también la parte que se dejó fuera a propósito: la transición `EXIT_ENTER_STATE_2`→`EXIT_ENTER_STATE_3` y el bloque final completo ("validalo aunque sea invasivo"). Se amplió la misma sonda (`reversing/CEntryExitTransition/LiveComparison.hpp`), tras restaurar todos los globales de la fase 1, para alcanzar ese bloque con el **jugador real** (`FindPlayerPed()`), ya que `ped->AsPlayer()->m_pEnex` exige un `CPlayerPed` auténtico.
+
+El `CEntryExit` sintético usado como destino usa `AREA_CODE_NORMAL_WORLD` y la posición/orientación actuales del propio jugador, de forma que `Teleport()`/`SetHeading()` lo devuelven exactamente a donde ya estaba. Solo se ejecuta si el jugador está a pie, en el mundo normal, sin nada sostenido y sin `m_pEnex` previo (se cumplió: `heavy_precondition.safe_to_run=true`). Dos subcasos alternando `hook->State(false/true)`: **ligero** (`bFoodDateFlag=true`, prefijo común hasta el retorno temprano, 8 pares) y **completo** (`bFoodDateFlag=false`, el bloque entero de verdad —streaming de escena, `ped->Teleport` vía `FindValidTeleportPoint`, `CAudioZones`, `CWaterLevel`, `CGarages`, `g_interiorMan`, `CPopulation`, `CTheScripts::Process`, `TheCamera.Fade(..,FADE_OUT)`, `CGame::TidyUpMemory`—, 1 par). Tras cada llamada se restauran posición/cabeceo/área/`m_pEnex`/`bCanExitCar`/flag de `CPad`/pila de entry-exits por las rutas normales del motor (`Teleport`, `SetHeading`, `SetAreaCode`), nunca con escritura cruda de memoria.
+
+**Resultado: 9/9 pares iguales** (8+1), cero diferencias; contador de llamadas 0/1 original/candidata en los 9. `heavy_complete.player_restored=true`: posición, área, `m_pEnex`, `bInVehicle` y la pila de entry/exits del jugador real coinciden con los valores previos tras ambas pasadas. Tampoco hizo falta corregir `source/game_sa/EntryExit.cpp`. Lo que sigue sin validarse (detalle completo en el README): `GetEntityThatThisPedIsHolding()` real, un grupo de peatones real, `GetEntryExitToDisplayNameOf()` no nulo, la sub-rama de `TASK_COMPLEX_GOTO_DOOR_AND_OPEN`, y vehículos/guardado/misiones/estabilidad general.
+
+Nota de proceso: el primer intento de esta fase, delegado a un subagente, quedó bloqueado porque el clasificador de modo automático denegó por "Irreversible Local Destruction" la ejecución de `build_probe.py` (instrumentación temporal de fuente con restauración garantizada en `finally`, el mismo patrón ya usado sin incidentes en la fase 1). Se verificó el patrón, se ejecutó directamente con autorización expresa del usuario, y compiló/corrió sin problemas.
+
+ASI normal reinstalado sin instrumentación tras esta fase, mismo hash que la fase 1 (no cambió): SHA-256 `34801e37752db66f73e01c8b79e7f5c1cf1d27b7a7866116c3557699287e36e5` / PDB `bb28eda79b1e2d8d17ec56522852b48a4d353450e30cba6861fd55f80668825e`. Sonda de esta fase: ASI `48207c1f405c8448e41d28897a6bfbf44afd0e11f6257c3e09096a11acf7bbb3` / PDB `416fb6d0d7845300095f926c098ccab58751c91db94a133c5bfab825ccb5957a`; `run_local.py` actualizado con este `PROBE_HASH` y con la verificación automática de los eventos `heavy_*`. Partidas (`GTASAsf2.b`) verificadas sin cambios; instalación personal no se tocó. Evidencia: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-enextransition/20261001-132428-655341/comparisons.jsonl` (SHA-256 `909b67706f6d2457e89f16e5421decc6e2f6371206a03a7ba0fc3540d173d734`) y `summary.json` en la misma carpeta.
+
+Sin commit, push ni apagado. CEntryExit queda con su comparación dentro del motor ampliada al bloque invasivo; CCarFXRenderer y el resto de la cola siguen en el mismo estado que antes de esta tarea.
+
+## Continuidad vigente: CTaskInteriorSitAtDesk::ProcessPed validada dentro del motor (2026-10-01)
+
+`CTaskInteriorSitAtDesk::ProcessPed` (`0x00677920`, virtual) ya figuraba `reversed=1,locked=0` en `docs/hooks.csv` y la clase ya mostraba 9/9 **antes** de esta tarea, con el proyecto compilando limpio, sin que existiera todavía la comparación dentro del motor exigida por la sección "Cómo se reconstruye una función" de este mismo archivo. Esta entrega aporta esa comparación; no cambia ningún indicador del CSV ni de `docs/ReversedClasses.md` porque ya estaban correctos, y no fue necesario corregir `ProcessPed` porque no se encontraron diferencias en el alcance probado.
+
+**Alcance validado: 144 pares, 0 diferencias discretas, error máximo 2.86e-06 (tolerancia 1e-5).** Seis categorías de `m_Anim->m_AnimId` × `m_bUpdatePedPos` × `m_bTaskFinished` × estado de `m_TaskTimer`/`m_AnimTimer` × dos valores de RNG controlado, siempre con `m_Anim` ya asociado y `m_bTaskAborting=false`. Cubre el retorno anticipado de `m_bTaskFinished` (contra el clump real del jugador), el reposicionamiento `m_bUpdatePedPos`, el vencimiento de ambos temporizadores (incluida la elección RNG entre `StartRandomOneOffAnim`/`StartRandomLoopAnim`) y la rama final `OFF_SIT_IN` con matemática real de posición/rotación. Se usa el jugador real (clump real) clonado en memoria independiente por cada lado del par, igual que `CTaskSimpleUseGun`.
+
+**Hallazgo de RNG real vs. reconstruido:** el ASM original de `ProcessPed`, para decidir entre animación suelta y en bucle, llama directamente al generador interno `0x821B1E` (el LCG que usa el resto del EXE), mientras que la reconstrucción llama a `CGeneral::GetRandomNumber()`, que delega en `rand()` de la CRT — dos secuencias independientes incluso en partida real sin modificar, limitación ya documentada en `General.cpp:200` y ajena a esta función. El banco controla ambos puntos (mismo parche usado por `reversing/CGeneral/LiveComparison.hpp`) para comparar la misma decisión de rama.
+
+**No se validó `m_bTaskAborting` ni `!m_Anim`:** ambas ramas llaman primero a `InteriorManager_c::AreAnimsLoaded(2)`, cuya resolución de índice (`GetAnimationBlockIndex` por nombre, reutilizado como `AssocGroupId`) depende del orden real de streaming de una partida normal. Tres mitigaciones distintas (forzar streaming+`CreateAnimAssocGroups`, parchear la función, enlazar manualmente la tabla de grupos) permitieron que una llamada aislada a `AreAnimsLoaded` funcionara, pero la misma llamada dentro del ASM **original** sin hook de `ProcessPed` seguía abortando con acceso a memoria inválido (`0xC0000005`, confirmado con `__try`/`__except` que el fallo es específico de ese lado). No se identificó la causa exacta; no se afirma que `ProcessPed` tenga un error, solo que esta rama no se pudo validar con seguridad en un banco aislado. Detalle completo de los tres intentos en [reversing/CTaskInteriorSitAtDesk/README.md](CTaskInteriorSitAtDesk/README.md) y `validation-summary.json`.
+
+**Hallazgo fuera de `ProcessPed` (y corrección real, ver nota más abajo):** `InjectHooksMain.cpp` define, dentro de `Tasks()`, un lambda local `Interior` con las llamadas `InjectHooks()` de toda la familia `CTaskInterior*` (incluida `CTaskInteriorSitAtDesk`), pero nunca lo invocaba — otro lambda homónimo de ámbito distinto (`Interior_c`/`InteriorManager_c`) se llamaba en su lugar, ocultándolo. Ninguna de las ocho clases `CTaskInteriorBeInHouse/BeInOffice/BeInShop/GoToInfo/LieInBed/ShopKeeper/SitAtDesk/UseInfo` tenía sus hooks instalados en tiempo de ejecución, sin importar `hooks.csv`. El informe original de esta sub-tarea afirmó haber añadido la llamada `Interior();`, pero el diff real la dejaba sin invocar (solo un comentario explicando el motivo); el banco de `CTaskInteriorSitAtDesk` instaló su propio `InjectHooks()` de forma aislada para no depender de ella.
+
+**Corrección real aplicada por la sesión principal, misma fecha:** se corrigió el defecto que bloqueaba `Interior()` — `CTaskInteriorLieInBed::InjectHooks` registraba `FinishAnimCB` (función `static`, no virtual) con `RH_ScopedVMTInstall` en vez de `RH_ScopedInstall`, abortando el proceso con *"Couldn't find function in vtable"*. Corregido a `RH_ScopedInstall` (idéntico al patrón ya correcto de `CTaskInteriorSitAtDesk::FinishAnimCB`) y activada la llamada `Interior();`. Se revisaron las seis clases hermanas restantes: todas registran únicamente virtuales genuinos, sin el mismo defecto. Compilación limpia y prueba de humo real: ASI normal nuevo (SHA-256 `4c2d1e55740713650ef25f38176e5fd7bfac277753b687e9b3785aecddfcf62f`) instalado en la copia de pruebas, el juego arrancó y permaneció vivo 25 s sin abortar, se cerró limpio y se restauraron partidas/respaldo sin cambios (`_baseline/before-interiorfix-smoketest-20261001-145916`, hash previo `c72f79320beae01a658cae2036a0c26f9a7713d39256d6a967f2a84a03367b40`). Con esto, las 8 clases `CTaskInterior*` ya instalan sus hooks en el ASI normal, no solo en el banco aislado — un alcance más amplio que el pedido originalmente para `CTaskInteriorSitAtDesk::ProcessPed`, pero necesario para que ese `reversed=1` tenga efecto real en el juego.
+
+Respaldo del ASI/PDB previos a la sub-tarea de `sitatdesk` (antes de esta corrección) en `_baseline/before-sitatdesk-20261001` (ASI `34801e37752db66f73e01c8b79e7f5c1cf1d27b7a7866116c3557699287e36e5`, PDB `bb28eda79b1e2d8d17ec56522852b48a4d353450e30cba6861fd55f80668825e`). Partidas (`GTASAsf2.b`) verificadas sin cambios en todos los pasos; instalación personal `E:\JUEGOS\GTA San Andreas` no se tocó. Evidencia del banco de `ProcessPed`: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-sitatdesk/20261001-145144-156757/comparisons.jsonl`.
+
+Caso `sitatdesk` añadido a `reversing/cases.json`, disponible en `PROBAR.cmd --case sitatdesk`, `python reversing/run.py --case sitatdesk` y `--all`. Se mantienen excluidos los hooks Audio y Global/SurfaceInfos_c durante la prueba. Sin commit, push ni apagado. Conservar los trabajos anteriores; la cola autorizada de clases pendientes no se vio afectada por esta tarea (CTaskInteriorSitAtDesk no formaba parte de ella).
+
+## Continuidad vigente: cuarto intento interrumpido sobre `m_bTaskAborting`/`!m_Anim` (2026-10-01, sesión posterior)
+
+El usuario pidió explícitamente intentar validar también `m_bTaskAborting` y `!m_Anim` ("validalo bien y haz que funcione"). Hipótesis nueva: `CPed::Initialise` (`0x5DEBB0`) → `CCarEnterExit::SetAnimOffsetForEnterOrExitVehicle` (`0x64F860`) ya carga `"int_house"`/`"int_office"` por el streaming normal durante el arranque del juego, antes de que exista cualquier jugador; para cuando la sonda llega a `"player_ready"` (tras cargar una partida real), `InteriorManager_c::AreAnimsLoaded(2)` debería resolver sin parches. Se añadió un diagnóstico de solo lectura (sin tocar memoria del motor) para comprobarlo.
+
+En 6 ejecuciones vía el runner compartido más una observada en vivo, el juego **nunca llegó a escribir `"player_ready"`** — se quedó indefinidamente en `"waiting_for_player"`, antes de que el diagnóstico pudiera ejecutarse. Ese tramo es idéntico byte a byte al ya validado con 144 pares; el Visor de sucesos de Windows mostraba en paralelo un servicio de terceros (Daemon Tools) reiniciándose en bucle cada ~10 min, lo que apunta a contención de recursos del sistema, sin confirmación.
+
+Durante los reintentos aparecieron dos diálogos de aserción de la Runtime de Visual C++ (vistos directamente por el usuario en pantalla):
+
+1. **`HookCategory.h:60`, `!FindItem(item->Name())`** — causa identificada: nombre de hook duplicado. El `InjectHooks()` aislado propio de esta sonda (diseñado cuando el camino normal del juego todavía no registraba estos hooks) ahora choca con el camino normal ya corregido (ver sección anterior), que también los registra.
+2. **`app_debug.h:14`, `Expression: result`** (macro `VERIFY`) — causa no identificada con certeza; no se confirmó que viniera del diagnóstico de esta tarea (que según los registros nunca se ejecutó) ni se descarta la misma contención de recursos.
+
+El usuario pidió detener el trabajo ("ya para we") antes de aislar ninguna de las dos causas. Se detuvo el agente (`TaskStop`), se forzó el cierre del proceso de GTA, y se verificó manualmente: sin candados (`reversed-tests.lock`) ni marcadores (`*-runtime.start`) colgados, ASI instalado = el normal correcto con las correcciones de `InjectHooksMain.cpp`/`TaskInteriorLieInBed.cpp` (`4c2d1e55740713650ef25f38176e5fd7bfac277753b687e9b3785aecddfcf62f`), `gta-reversed.ini` restaurado a modo normal (`FastLoader=false`), partidas sin cambios. El diagnóstico de solo lectura se revirtió de `LiveComparison.hpp` sin dejar cambios sin probar en el banco; **los 144 pares ya aprobados no se tocaron ni se repitieron**, y `docs/hooks.csv` no se modificó en este intento (sigue en `reversed=1` desde antes).
+
+`m_bTaskAborting` y `!m_Anim` siguen sin validar, en el mismo estado que al cierre de la sección anterior. La hipótesis del cuarto intento sigue sin refutarse, solo sin confirmarse en vivo por la inestabilidad observada del entorno. No se descarta repetirlo en una sesión con el sistema en reposo. Detalle completo (incluidos los dos diálogos de aserción) en [reversing/CTaskInteriorSitAtDesk/README.md](CTaskInteriorSitAtDesk/README.md#cuarto-intento-sesión-posterior-interrumpido-por-el-usuario) y `validation-summary.json` (clave `fourth_attempt_interrupted`). Sin commit, push ni apagado.
+
+## Continuidad vigente: CTaskInteriorUseInfo completada y causa raíz de SitAtDesk (2026-10-01)
+
+La sesión principal reconstruyó `CTaskInteriorUseInfo::CreateFirstSubTask` (`0x675B60`) y `CreateNextSubTask` (`0x676880`) a partir de `dumpbin`. También corrigió `InteriorManager_c::AreAnimsLoaded` (`0x5980F0`) para que leyera `ms_aAnimBlocks[idx].IsLoaded`, como el original, en lugar de pasar por la tabla de grupos. Esta entrega revisó de nuevo el ASM y validó las tres funciones dentro del motor. [Informe](CTaskInteriorUseInfo/README.md), [evidencia](CTaskInteriorUseInfo/validation-summary.json).
+
+**Defecto nuevo encontrado y corregido: convención de llamada.** `AreAnimsLoaded` (`ret 4`) y `AddSameGroupEffectInfos` (`ret 8`) son `__thiscall` en el original: el llamador carga `ecx=0xBAF670` (`g_interiorMan`). En C++ estaban declaradas `static` (cdecl). Cuando un código **original** llamaba a cualquiera de ellas a través del hook, la pila del llamador quedaba desplazada. Pasan a ser miembros no estáticos (`RH_ScopedInstall`), y los llamadores (`TaskInteriorLieInBed.cpp`, `TaskInteriorSitAtDesk.cpp`, `TaskInteriorUseInfo.cpp`) usan `g_interiorMan.AreAnimsLoaded(...)`. **Esta, junto con el defecto del índice, era la causa raíz de los cinco intentos fallidos de `CTaskInteriorSitAtDesk`.** La afirmación anterior de que el original hacía lo mismo era falsa y se corrigió en su informe. Además, en el caso 9 se cambió `new CTaskComplexSequence{}` por `new CTaskComplexSequence;`, porque la inicialización por valor ponía a cero el relleno que el original no toca. Solo el relleno era distinto, pero el banco lo detectó (primera ejecución fallida, conservada).
+
+**Resultados dentro del motor (los tres aprobados, cero diferencias):**
+
+- Fase A, `AreAnimsLoaded`: **203 pares**. Argumentos 0..154 sobre el estado real (155 bloques; `int_house`=77, `int_shop`=79 e `int_office`=78) y las 8 combinaciones de `IsLoaded` de los tres bloques, restauradas tras cada una. Se mide `esp` alrededor de la llamada `__thiscall`: delta 0 en ambos lados.
+- Fase B, `CreateFirstSubTask`/`CreateNextSubTask`: **412 pares** con fixtures sintéticos independientes por lado y una copia del jugador. Cubren `Type` 0..11, `m_IntInfo` nulo, subtarea `GOTO_INFO` u otra, `m_bDoInstantly`, `EntityIgnoredCollision`, `AreAnimsLoaded` verdadero/falso y tendero `SHOPKEEPER` u otro. `new`/`delete` de tareas usan una arena propia por lado rellenada con `0xCD` (comparación byte a byte, incluido el relleno); `Say` se registra sin audio.
+- Fase C, `CTaskInteriorSitAtDesk::ProcessPed`: **312 pares** (los 144 previos, idénticos a la ejecución aprobada anterior, más 168 nuevos). Quedan validadas `m_bTaskAborting` (72) y `!m_Anim` (96). `IsLoaded` de `int_office` se controla por caso y el lado original deshabilita también el hook de `AreAnimsLoaded`. [Informe actualizado](CTaskInteriorSitAtDesk/README.md).
+
+Catálogo: `CTaskInteriorUseInfo` pasa a **8/8** (`CreateFirstSubTask`/`CreateNextSubTask` con `reversed=1,locked=0`). `validated` no se tocó. Se ejecutó `contrib/sync_docs.py --update-source-status`: 7.554/8.080 entradas, 628/712 clases completas, 616 locks; la clase se retiró de las prioridades y se añadió la nota correspondiente.
+
+ASI normal, recompilado desde el árbol actual sin instrumentación (se comprobó que no contiene cadenas de las sondas), instalado solo en la copia de pruebas: SHA-256 `a77c61c4e55fee47307ea17d78bea9f0a253911fd9d2555b90e19d0458c56090`; PDB `cd41d09711b6d1944c6b62b9214bfddbb0ffd5c27d94114b43e077a6a0aa59e1`. Prueba de humo: 25 s vivo, respondiendo y sin diálogo de aserción; cierre forzado por el script. Respaldo previo en `_baseline/before-interioruseinfo-20261001` (ASI `4c2d1e55740713650ef25f38176e5fd7bfac277753b687e9b3785aecddfcf62f`, PDB `a5196d705276aeb878a1742c8f9b73aea6974d2b9827e3c942b6106b04bd1af5`). Sondas en `_baseline`: `interioruseinfo` `1486eeaf…` y `sitatdesk` `ee06d242…` (se conserva copia de la anterior, `065ace24…`, en `CTaskInteriorSitAtDesk/artifacts`). Partidas (`GTASAsf2.b`) sin cambios e INI restaurados; la instalación personal no se tocó.
+
+Casos `interioruseinfo` y `sitatdesk` registrados en `cases.json` y en `run_all.py`. Recordatorio: `run_local.py` no reconstruye la sonda; después de cambiar un `.hpp` hay que ejecutar `build_probe.py`, copiar a `_baseline` y actualizar `PROBE_HASH`. **Límites:** la corrección de ABI de `AddSameGroupEffectInfos` no tiene banco propio. No se probaron un tendero sin tarea primaria, un grupo o interior nulo en el tipo 9, ni `GetAnimationBlockIndex` = -1. Tampoco hubo NPC real en un interior real ni revisión visual. Sin commit ni push.
+
+## Continuidad vigente: CAEWeaponAudioEntity — registro real, 11 correcciones y banco de audio (2026-10-01)
+
+La auditoría estricta mejorada marcaba `CAEWeaponAudioEntity` como owner que nunca registra sus hooks: su llamada estaba comentada en `InjectHooksMain.cpp`. **En tiempo de ejecución sí se registraban:** `CAEPedWeaponAudioEntity` no declara `InjectHooks`, así que `CAEPedWeaponAudioEntity::InjectHooks()` llamaba al heredado. El `runtime-hooks.csv` del ASI anterior ya listaba las 20 entradas. Descomentar sin más habría duplicado nombres (assert `HookCategory.h:60`). Ahora se llama a `CAEWeaponAudioEntity::InjectHooks()` y la heredada queda comentada con su explicación; el registro sigue siendo único. Lección: **la auditoría textual no resuelve `Derivada::InjectHooks()` heredado**. Antes de "activar" un owner, mirar el `runtime-hooks.csv` real.
+
+La revisión con dumpbin encontró defectos reales en código que **ya se ejecutaba en el juego**. Se corrigieron en C++:
+
+- Sonidos de recarga A/B intercambiados en ocho armas.
+- `PlayGunSounds`: doppler 0, orden de sonidos, interpolación de distancia media que daba volumen NaN, cola con volumen ajustado y sin tope.
+- `ReportStealthKill` con sonido 471 en vez de 47.
+- `PlayCameraSound` sin `audability` y con evento.
+- Velocidad/atenuación de la minigun en aviones intercambiadas.
+- `Reset` reasignando el objeto entero.
+- Límites de `UpdateParameters`.
+- `WeaponFire` abortando con `NOTSA_UNREACHABLE` para tipos sin sonido.
+- `m_ClientVariable` 0 en vez de -1 y atenuación 2/3 en vez de 0.66.
+
+`Constructor` (0x5DE990, en realidad constructor de `CAEPedWeaponAudioEntity`) y `Destructor` (0x507560, en realidad constructor de `CAEWeaponAudioEntity`) no tienen llamadores en el EXE. Pasan a `{ .enabled = false, .locked = true }` y `locked=1` en `hooks.csv`, manteniendo `reversed=1`. [Informe](CAEWeaponAudioEntity/README.md), [evidencia](CAEWeaponAudioEntity/validation-summary.json).
+
+Banco con **Audio activo** (solo `--unhook=Global/SurfaceInfos_c`): **3.178/3.178 pares**, 12 dentro de la tolerancia por log10 x87 y diferencia máxima 9,5e-7. Se comparan los **3.632 sonidos pedidos** al gestor (banco, id, volumen, atenuación, velocidad, doppler, flags, evento, variable cliente, posición...) en vez de oírlos. Los gestores, bancos, aleatoriedad, reloj y área están controlados; Initialise/referencias/cámara/atenuación son reales. El contraste con el C++ anterior diverge en 15 de las 18 funciones y aborta en `WeaponFire:301`. Una primera ejecución con el C++ nuevo falló solo por el sonido 471 y se conserva. Caso `weaponaudio` en `cases.json` y `run_all.py`; sonda archivada `f7065c02…`.
+
+Prueba de humo (`CAEWeaponAudioEntity/smoke_test.py`): 35 s en partida con Audio activo, sin diálogos de assert, 20 hooks registrados una vez. ASI normal final instalado solo en la copia de pruebas, compilado del árbol actual tras `sync_docs`: `a0c5e7fb049292646cccad293cc175302e54e78270605d48f575c14d330914bd`; PDB `3ded71739c3bbbd78d0005fdf6c173cdd62515c13e1f9641f65dadfac3a652e1`. Respaldo en `_baseline/before-weaponaudio-20261001` (`a77c61c4…`/`cd41d097…`). Partidas e INI sin cambios; instalación personal intacta. Auditoría estricta: OK. Se ejecutó `contrib/sync_docs.py --update-source-status`; las cifras están en `docs/`.
+
+**Límites:** no se oye ni se valida la mezcla o reproducción real. Constructor/Destructor siguen bloqueados (C++ no corresponde a esas direcciones). Un intento de contraste con el C++ anterior terminó con código 3 al iniciar el audio sin causa identificada. Coincidió además otra sesión usando la copia de pruebas (`InicioNormal`); se esperó a que liberara el candado. Sin commit ni push.
+
+## Continuidad vigente: hooks activados en 39 clases y auditoría de `InjectHooks` heredado (2026-10-01)
+
+Se registraron 39 clases cuyos hooks no se instalaban: nueve con `InjectHooks()` comentado en `InjectHooksMain.cpp` y treinta con `InjectHooks()` nuevo, con cada vtable verificado contra `gta_sa.exe`. Son 216 entradas nuevas en `hooks.csv`. Los stubs `plugin::Call` y tres `Clone` no fieles quedan con `reversed=0`, así que 16 clases quedan parciales con 43 pendientes. Diez clases se descartaron con motivo. [Informe](HooksActivados/README.md).
+
+La lección anterior ("la auditoría textual no resuelve `Derivada::InjectHooks()` heredado") queda automatizada. `audit_hook_catalog.py` tiene una sexta comprobación crítica, la de llamadas `X::InjectHooks()` sin `InjectHooks` propio en `X`, con pruebas en `contrib/tests/test_audit_hook_catalog.py`. Sobre `143b5e7` detecta `CAEPedWeaponAudioEntity`. Hoy da 0, porque esa clase tiene ya su propio `InjectHooks()` (cuatro métodos sin duplicar el constructor bloqueado de `CAEWeaponAudioEntity`).
+
+Catálogo: **750 grupos, 8.296 entradas, 7.727 reconstruidas y 569 pendientes; 650 completas, 97 parciales y 3 sin revertir; 661 locks y 7.635 sin lock**. Registro de validación sin cambios: 37 `validated=1`, 0 vigentes. Se ejecutó `contrib/sync_docs.py --update-source-status`; `ReversingPriorities.md` incluye las 16 clases nuevas en una sección propia que el sincronizador ya reconoce.
+
+Compilación Debug y arranque al menú sin errores con el ASI de este árbol; el primer intento superó los 180 s por un estado 0 de 132 s. **Sin comparaciones contra el original.** El ASI instalado en la copia de pruebas sigue siendo `a0c5e7fb…`, restaurado tras cada prueba. Commits: un commit por clase en `PGTASA`, sin push. Los cambios de `InjectHooksMain.cpp` y `hooks.csv` se commitearon solo con las líneas propias. Los documentos y la auditoría quedan sin commit porque comparten archivos con trabajo previo pendiente.
+
+## Continuidad vigente: plantillas de 21 clases sin código (2026-10-01)
+
+Se crearon plantillas, **sin reconstrucción**, para 21 clases que solo aparecían comentadas en `InjectHooksMain.cpp`. Cada una tiene un `.h` con su `Type` y la declaración de `InjectHooks`, y un `.cpp` con `InjectHooks()` vacío. No se registran ni entran en `hooks.csv`, así que el catálogo no cambia: **750 grupos, 8.296 entradas, 7.727 reconstruidas y 569 pendientes**. De 13 se localizó y verificó el vtable en `gta_sa.exe` a partir de su `GetTaskType`; 8 quedan con el vtable por localizar. `CTaskComplexDriveWander` no se duplicó: es `CTaskComplexCarDriveWander`. Detalle en [HooksActivados](HooksActivados/README.md#plantillas-de-clases-sin-código-2026-10-01-posterior).
+
+Lección: `source/CMakeLists.txt` usa `GLOB_RECURSE` sin `CONFIGURE_DEPENDS`. Al añadir archivos `.h` o `.cpp` hay que reconfigurar (`cmake .` en `build/`) o no se compilan. Un commit por plantilla, sin push.
+
+## Continuidad vigente: segunda tanda de hooks y comparación EXE ↔ código (2026-10-01)
+
+Se registraron 15 clases cuyo `InjectHooks()` nunca se llamaba (`CHud` 38 hooks, `CPedAttractor` 20, `CIdleCam` 14…) y 6 tareas con vtable localizado en el EXE: 144 entradas nuevas. Antes de activarlas se corrigieron dos defectos. `CDecision::Set` era un stub instalado como reconstruido y habría entrado en recursión infinita. `CLodTimeModelInfo` usaba las direcciones de `CTimeModelInfo` y habría abortado el arranque. La prueba descubrió además una dirección enganchada dos veces (`CTaskSimpleNone::Destructor` = `CTaskSimpleLeaveGroup::Destructor`, por funciones plegadas en el EXE). Resultado: 35 s en partida sin asserts y `runtime-hooks.csv` coherente. Catálogo: **771 grupos, 8.440 entradas, 7.854 reconstruidas y 586 pendientes; 663 completas, 105 parciales y 3 sin revertir; 678 locks**. [Informe](HooksActivados/README.md#segunda-tanda-injecthooks-sin-llamar-y-tareas-con-vtable-2026-10-01).
+
+Lecciones:
+
+1. **`runtime-hooks.csv` es la fuente de verdad del registro**: compararlo con `docs/hooks.csv` destapó 3 hooks sin catalogar y 7 diferencias de `reversed`.
+2. **Las direcciones duplicadas se buscan en el código**, porque las filas `V` de `hooks.csv` con dirección 0 las esconden.
+3. **Antes de activar un `InjectHooks` antiguo** hay que cotejar sus vtables con el EXE y buscar stubs `plugin::Call` instalados como reconstruidos.
+
+Siete hooks heredados del upstream apuntan a mitad de función; quedan pendientes de corregir.
+
+## Continuidad vigente: siete direcciones de hooks corregidas (2026-10-01)
+
+Se corrigieron los siete hooks heredados del upstream que apuntaban a mitad de función. Seis tienen ahora su dirección real, comprobada en el EXE contra el C++: `SetClumpForAllAtomicsFlag` 0x7322F0, `CLoadingScreen::IsActive` 0x744DB0, `ValidateVersion` 0x5BA060, `SetRenderPipelinesCB` 0x4C88F0, `FinishGiveCPRAnimCB` 0x658990 y `CConversationNode::ClearRecursively` 0x43A710. `CConversations::EnableConversation` se retiró: no existe como función propia en el EXE, así que `CConversations` pasa a 10/10. Catálogo: **771 grupos, 8.439 entradas, 7.853 reconstruidas y 586 pendientes**. 60 s en partida sin asserts; `runtime-hooks.csv` confirma las direcciones. [Detalle](HooksActivados/README.md#direcciones-corregidas-2026-10-01).
+
+Lección: un hook en mitad de una función no produce error al registrarse; corrompe en silencio la función que lo contiene. Hay que comprobar, para cada dirección del catálogo, que es un inicio de función: que sea destino de un `call`, que la preceda un relleno o un `ret`, o que esté referenciada desde datos. Esta comprobación todavía no está en la auditoría.
+
+## Continuidad vigente: CAEAmbienceTrackManager completada (2026-10-01)
+
+`UpdateAmbienceTrackAndVolume` (0x4D6E60) quedó reconstruida, habilitada y desbloqueada con `validated=1`, y `CAEAmbienceTrackManager` pasa a **7/7**. El C++ ya estaba escrito en el árbol, pero el banco de `AudioCompletion` encontró una diferencia en `water-fade-pitch`. La supuesta "sobrepasada" del original al bajar la frecuencia no existía: en 0x4D7485 un `pop edi` desplaza la pila antes de leer `[esp+14h]`, y ese operando es la frecuencia objetivo. Corregido, los **7.846 pares** coinciden. Se añadieron `build.py`, `run_local.py`, el caso `audio-completion` en `cases.json`/`run_all.py` y la entrada del registro. El ASI normal pasó 60 s en partida con el audio activo, y se restauró el ASI instalado (`a0c5e7fb…`). Catálogo: **771 grupos, 8.439 entradas, 7.854 reconstruidas y 585 pendientes; 664 completas, 104 parciales y 3 sin revertir; 677 locks; 38 `validated=1`**. [Informe](AudioCompletion/README.md).
+
+Lección: un desplazamiento `[esp+N]` hay que leerlo con la pila **en esa instrucción**. Un `pop` intercalado cambia a qué variable apunta.
+
+Pendiente del mismo lote: `CAEWeatherAudioEntity::AddAudioEvent` difiere en un ulp (`thunder-gates-7897`) y `SetAudioBuffer` no se comparó.
+
+## Continuidad vigente: lote de audio completo y catálogo igual al registro real (2026-10-01)
+
+**Audio.** `AddAudioEvent` y `SetAudioBuffer` se suman a `UpdateAmbienceTrackAndVolume`: el banco `AudioCompletion` compara **10.086/10.086 pares** y las tres quedan con `validated=1` y fuentes coincidentes. Los defectos corregidos fueron dos:
+
+- La constante 0x862E44 vale `0x3EB674D2`, un ulp más que el literal `0.35636f`.
+- El buffer de DirectSound usa `GLOBALFOCUS` (`lea ecx,[ecx*4+80B4h]`), no `GETCURRENTPOSITION2`.
+
+`CAEWeatherAudioEntity` pasa a 5/5 y `CAEStaticChannel` a 8/8, esta última ya con evidencia. [Informe](AudioCompletion/README.md).
+
+**Catálogo frente a juego.** `audit_hook_catalog.py --runtime` compara `hooks.csv` con el `runtime-hooks.csv` real. Para que cuadren se hicieron cuatro cambios:
+
+- `DoneSettingUpConversation` se activa en el código, porque ya estaba validada con 2.048 pares y nunca había corrido en el juego normal.
+- `InitialiseDirtTexture` vuelve a pendiente, porque no tiene banco y el código la tenía desactivada; `CCarFXRenderer` queda en 9/10.
+- Los 4 hooks aplazados de `CCustomBuildingRenderer` pasan a `{ .reversed = false }`, porque no tienen banco.
+- Se catalogan los 3 hooks del modo ventana.
+
+Resultado: **0 diferencias**, 60 s en partida sin asserts.
+
+**Catálogo:** 772 grupos, 8.442 entradas, 7.857 reconstruidas y 585 pendientes; 665 completas, 104 parciales y 3 sin revertir; 677 locks; 40 `validated=1`.
+
+**Disco y mudanza.** E: se llenó con artefactos de sondas (unos 790 MB por compilación); se borraron los binarios de compilaciones superadas. El repo y la copia de pruebas viven ahora en D:, y `E:\Original\gta-reversed-master` y `E:\JUEGOS\GTA San Andreas - CVehicle Test` son uniones hacia allí, así que las rutas `E:` de CMake, conan, `runtime_runner.py` y las evidencias siguen siendo válidas.

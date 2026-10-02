@@ -6,23 +6,23 @@
 
 Recrear GTA San Andreas PC de forma funcionalmente equivalente mediante código fuente reconstruido, reduciendo hasta eliminar la dependencia de funciones originales del ejecutable. Completar `ReversedClasses.md` es un paso intermedio: el objetivo es una reconstrucción completa, validada y ejecutable, seguida de un ejecutable propio.
 
-El contador técnico decisivo será **cuántas funciones siguen necesitando código original**, incluidas sus dependencias transitivas. El 93,38% registrado como reconstruido no representa el porcentaje recorrido hacia un GTA SA independiente.
+El contador técnico decisivo será **cuántas funciones siguen necesitando código original**, incluidas sus dependencias transitivas. El 93,07% registrado como reconstruido no representa el porcentaje recorrido hacia un GTA SA independiente.
 
 ## Cuatro dimensiones de progreso
 
-Corte del 26 de septiembre de 2026. Clases y reconstrucciones se calculan sobre `hooks.csv`; la validación procede del registro parcial de evidencia y versiones. La independencia aún no tiene medición y no se rellena con estimaciones.
+Corte del 30 de septiembre de 2026. Clases y reconstrucciones se calculan sobre `hooks.csv`; la validación procede del registro parcial de evidencia y versiones. La independencia aún no tiene medición y no se rellena con estimaciones.
 
 | Dimensión | Progreso | Medición |
 | --- | --- | --- |
-| Clases completas en el catálogo | `█████████████████░░░` | 621/712 · 87,22% |
-| Funciones registradas como reconstruidas | `███████████████████░` | 7.545/8.080 · 93,38% |
-| Funciones con evidencia aprobada (`validated=1`) | `░░░░░░░░░░░░░░░░░░░░` | **34/8.080 · 0,42%** |
-| Validaciones vigentes para el árbol actual | `░░░░░░░░░░░░░░░░░░░░` | 0/8.080 · 0,00% |
+| Clases completas en el catálogo | `█████████████████░░░` | 665/772 · 86,14% |
+| Funciones registradas como reconstruidas | `███████████████████░` | 7.857/8.442 · 93,07% |
+| Funciones con evidencia aprobada (`validated=1`) | `░░░░░░░░░░░░░░░░░░░░` | **40/8.442 · 0,47%** |
+| Validaciones vigentes para el árbol actual | `░░░░░░░░░░░░░░░░░░░░` | 0/8.442 · 0,00% |
 | Dependencias de funciones originales eliminadas | Sin barra: no medido | Falta auditoría de llamadas directas, indirectas y transitivas |
 
-El catálogo contiene 8.080 entradas, no un inventario demostrado de todas las funciones del EXE. Hay 535 entradas pendientes y 91 clases incompletas. De las entradas registradas, 625 tienen `locked=1` y 7.455 tienen `locked=0`: estas últimas son **desbloqueadas**, no necesariamente validadas, activas o independientes. No se conoce todavía el total de funciones que usan el original. Tampoco puede calcularse cuántos hooks originales se han eliminado restando los locks.
+El catálogo contiene 8.442 entradas, no un inventario demostrado de todas las funciones del EXE. Hay 585 entradas pendientes y 107 clases incompletas. De las entradas registradas, 677 tienen `locked=1` y 7.765 tienen `locked=0`: estas últimas son **desbloqueadas**, no necesariamente validadas, activas o independientes. No se conoce todavía el total de funciones que usan el original. Tampoco puede calcularse cuántos hooks originales se han eliminado restando los locks.
 
-`reversed`, `validated`, vigencia de validación, `locked` y dependencia del original son dimensiones distintas. `validated=1` conserva que la función pasó una evidencia aprobada; la vigencia se calcula aparte con hashes y revisión de dependencias. Un cuerpo C++ puede seguir pendiente de validación; una función validada puede llamar a otras implementaciones originales. Ya existe un [registro separado de validaciones](../reversing/ValidationRegistry/README.md), con 34 funciones vinculadas a evidencia. El constructor de animación por nombre, SetupBones y RpAnimBlendClumpUpdateAnimations obtuvieron acreditación en la versión anterior; los cambios locales de CustomBuilding requieren revisar la huella global de dependencias. Las 34 conservan evidencia histórica. El [inventario completo](ValidationInventory.md) clasifica las 7.545 funciones reconstruidas. El panel calcula la acreditación desde evidencia y hashes, sin añadir columnas ni cambiar flags del CSV. Se mantiene el requisito de comparar contra el original dentro del motor antes de marcar nuevas entradas `reversed=1` o retirar locks.
+`reversed`, `validated`, vigencia de validación, `locked` y dependencia del original son dimensiones distintas. `validated=1` conserva que la función pasó una evidencia aprobada; la vigencia se calcula aparte con hashes y revisión de dependencias. Un cuerpo C++ puede seguir pendiente de validación; una función validada puede llamar a otras implementaciones originales. Ya existe un [registro separado de validaciones](../reversing/ValidationRegistry/README.md), con 40 funciones vinculadas a evidencia. El constructor de animación por nombre, SetupBones y RpAnimBlendClumpUpdateAnimations obtuvieron acreditación en la versión anterior; los cambios locales de CustomBuilding requieren revisar la huella global de dependencias. Las 40 conservan evidencia histórica o coincidencia de fuentes. El [inventario completo](ValidationInventory.md) clasifica las 7.857 funciones reconstruidas. El panel calcula la acreditación desde evidencia y hashes, sin añadir columnas ni cambiar flags del CSV. Se mantiene el requisito de comparar contra el original dentro del motor antes de marcar nuevas entradas `reversed=1` o retirar locks.
 
 ## Integridad del catálogo
 
@@ -32,13 +32,13 @@ Además del generador del panel, la rama mantiene una auditoría bidireccional e
 python contrib/audit_hook_catalog.py --strict
 ```
 
-En el corte actual las cuatro comprobaciones críticas están en cero: hooks activos fuera del CSV, registros indirectos ausentes, entradas del CSV sin scope fuente y llamadas activas con instalaciones propias sin owner catalogado. Los owners inactivos se reportan aparte y no alteran el denominador mientras no formen parte del registro global.
+En el corte actual las seis comprobaciones críticas están en cero, y la opción `--runtime` no encuentra diferencias entre `hooks.csv` y el `runtime-hooks.csv` del juego: hooks activos fuera del CSV, registros indirectos ausentes, entradas del CSV sin scope fuente, llamadas activas con instalaciones propias sin owner catalogado, owners catalogados cuyo registro nunca se invoca y llamadas `X::InjectHooks()` que resuelven al `InjectHooks` heredado de una base. Los owners inactivos se reportan aparte y no alteran el denominador mientras no formen parte del registro global.
 
 ## Orden de trabajo y criterios de cierre
 
-1. **Completar las 535 entradas pendientes.** Reconstruir contratos, ABI y efectos, y contrastar con el original antes de actualizar progreso. Registrar por separado mejoras deliberadas y diferencias esperadas.
-2. **Reducir los 625 locks a cero.** Retirar cada bloqueo tras demostrar que la implementación sustituye al original en los escenarios documentados y supera las regresiones pertinentes. Quitar un flag por sí solo no acredita estabilidad.
-3. **Alcanzar 712/712 clases completas.** Es un resultado del cierre de funciones registradas, no una tercera carga de trabajo independiente ni una certificación de todo el juego.
+1. **Completar las 585 entradas pendientes.** Reconstruir contratos, ABI y efectos, y contrastar con el original antes de actualizar progreso. Registrar por separado mejoras deliberadas y diferencias esperadas.
+2. **Reducir los 677 locks a cero.** Retirar cada bloqueo tras demostrar que la implementación sustituye al original en los escenarios documentados y supera las regresiones pertinentes. Quitar un flag por sí solo no acredita estabilidad.
+3. **Alcanzar 772/772 clases completas.** Es un resultado del cierre de funciones registradas, no una tercera carga de trabajo independiente ni una certificación de todo el juego.
 4. **Medir la independencia del EXE.** Crear un inventario por función, identidad inequívoca, versión de fuentes y configuración: reconstrucción, validación y evidencia, bloqueo, uso directo del original y dependencias transitivas. Resolver alias, virtuales, callbacks y trampolines; conservar como desconocidas las llamadas sin resolver. Informar por separado entradas catalogadas y funciones únicas, así como accesos a datos o servicios del host.
 5. **Consolidar la suite reproducible de equivalencia.** Para original y candidato, usar el mismo input y estados independientes; comparar retornos, estructuras, efectos secundarios y llamadas relevantes. Registrar tolerancias, diferencias previstas, dependencias controladas, hashes y restauración. No sumar repeticiones como funciones nuevas validadas. Adaptar progresivamente los bancos a la misma compilación vigente; las sondas archivadas solo prueban sus versiones.
 6. **Validar el juego integrado.** Tras completar las clases, ejecutar regresiones de nueva partida, guardar/cargar con partidas desechables, misiones, vehículos, muerte/arresto, interiores, clima, nivel de búsqueda, combate, streaming, audio y cinemáticas, además de sesiones prolongadas. Registrar escenarios, duración y configuración; las pruebas finitas no garantizan estabilidad general.
@@ -55,6 +55,6 @@ Después se evaluará y construirá **un ejecutable propio**: punto de entrada, 
 
 ## Alcance autorizado ahora
 
-Esta petición actualiza documentación y seguimiento, sin iniciar la reconstrucción ni la campaña integral. Permanecen aplazados CCollision 59, CFileMgr 13, CTaskComplexGangLeader 10 y Game 3: **85 bloqueos**. No aplicar `reversing/UnlockBatch2/deferred-filemgr-game.patch` sin petición expresa.
+La petición de completar `CConversationForPed` queda implementada: 2/2, con 4.702 pares exactos original/candidato y cierre natural. Binario normal instalado en la copia de pruebas tras tres arranques de tres segundos, ambos hooks comprobados y cierres con código 0; partidas y configuración conservadas. [Alcance y evidencia](../reversing/ConversationForPed/README.md). La entrega anterior de `CPedToPlayerConversations` conserva su 3/3 y sus 6.266 pares: [alcance, entrega e incidencia de audio](../reversing/PedToPlayerConversations/README.md). Permanecen aplazados CCollision 59, CFileMgr 13, CTaskComplexGangLeader 10 y Game 3: **85 bloqueos**. No aplicar `reversing/UnlockBatch2/deferred-filemgr-game.patch` sin petición expresa.
 
 Mantener un solo `PROBAR.cmd`, reutilizar `reversing` y realizar pruebas automáticas locales con plazo y restauración exclusivamente en `E:\JUEGOS\GTA San Andreas - CVehicle Test`. Conservar instalación personal y partidas; para uso normal, `FastLoader=false` y `SaveGameToLoad=-2`. No forzar la ranura 2 incompatible. Sin commit, push ni apagado.

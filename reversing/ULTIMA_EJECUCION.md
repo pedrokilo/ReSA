@@ -1,10 +1,10 @@
 # Ejecución conjunta de los bancos de reversing
 
-> Informe histórico del 22 de septiembre: no describe el último ASI instalado ni los cierres posteriores. La última corrección es la de [IK y datos incompletos](IKDataWarnings/README.md), posterior a [peatones](FallenPeds/README.md), [CEntryExit](CEntryExitPool/README.md) y [DataStream y TrackEntity](UnlockBatch2/README.md); también puede consultarse [el proceso y la continuidad](MEJORAS_DEL_PROCESO.md#continuidad-vigente). Este archivo conserva el resultado histórico de la suite, que no se ha vuelto a ejecutar completa.
+> Informe histórico de la ejecución conjunta del 22 de septiembre. La entrega más reciente es [HooksActivados, 01/10/2026](HooksActivados/README.md): 39 clases registradas, compilación y arranque al menú, sin comparaciones contra el original. La última validación diferencial completa sigue siendo [CConversationForPed, 30/09/2026](ConversationForPed/README.md), con 4.702 pares exactos. Consultar [la continuidad vigente](MEJORAS_DEL_PROCESO.md#continuidad-vigente) para el estado instalado. Esa validación individual no repite ni amplía los resultados de la suite histórica conservados aquí.
 
 Fecha local: 2026-09-22. Rama: PGTASA. Resultado: **9/9 bancos aprobados, 76.319 comparaciones dentro de GTA**.
 
-La observación posterior más reciente es la [recuperación del ratón al arrancar](MouseRecovery/README.md): no cambia el ASI normal de IK/datos ni repite esta suite histórica.
+Entre las observaciones posteriores figura la [recuperación del ratón al arrancar](MouseRecovery/README.md), que no repitió esta suite. Después se entregaron la [corrección del cierre](ShutdownLists/README.md), [CPedToPlayerConversations](PedToPlayerConversations/README.md) y [CConversationForPed](ConversationForPed/README.md), cada una con su evidencia y alcance propios.
 
 Se abrió y cerró GTA para cada banco, utilizando exclusivamente `E:/JUEGOS/GTA San Andreas - CVehicle Test`. Después de cada ejecución se volvió a analizar su registro nuevo y se verificaron el hash de la evidencia, la restauración de ASI/PDB, el cierre del proceso y los hashes de las partidas. No se contaron informes históricos como ejecuciones nuevas.
 
@@ -32,4 +32,4 @@ Se repitieron las sondas archivadas de cada trabajo. Esto valida otra vez los ca
 
 La campaña integral sigue prevista para cuando todas las clases están completas. Esta ejecución fue solicitada expresamente por el usuario para repetir los bancos existentes.
 
-Repetir: `PROBAR.cmd --all`, o `python reversing/run.py --all` para evitar la pausa interactiva. Se mantiene un solo PROBAR.cmd. No se modificaron hooks.csv, ReversedClasses.md ni código del juego en esta repetición. Sin commit ni push.
+Para ejecutar el catálogo vigente: `PROBAR.cmd --all`, o `python reversing/run.py --all` para evitar la pausa interactiva. Actualmente incluye 45 casos de motor, por lo que ya no equivale a repetir sólo estos nueve bancos; el caso aislado se omite en `--all`. Se mantiene un solo PROBAR.cmd. En la repetición histórica documentada aquí no se modificaron hooks.csv, ReversedClasses.md ni código del juego. Sin commit ni push.

@@ -5,6 +5,16 @@
     "runner": "AudioCompletion/run_local.py"
   },
   {
+    "id": "conversation-for-ped",
+    "name": "CConversationForPed: posicion, ramas, tiempos y subtitulos",
+    "runner": "ConversationForPed/run_local.py"
+  },
+  {
+    "id": "ped-to-player",
+    "name": "CPedToPlayerConversations: estados, temas y respuestas",
+    "runner": "PedToPlayerConversations/run_local.py"
+  },
+  {
     "id": "gang-leader-type",
     "name": "GangLeader: GetTaskType y conmutacion virtual",
     "runner": "GangLeader/run_local.py"
@@ -33,6 +43,11 @@
     "id": "entryexit-pool",
     "name": "CEntryExit: saturaciÃ³n, reserva y reutilizaciÃ³n",
     "runner": "CEntryExitPool/run_local.py"
+  },
+  {
+    "id": "enextransition",
+    "name": "CEntryExit: TransitionFinished dentro del motor",
+    "runner": "CEntryExitTransition/run_local.py"
   },
   {
     "id": "unlock-data-stream",
@@ -163,6 +178,21 @@
     "id": "usegun",
     "name": "CTaskSimpleUseGun: ProcessPed",
     "runner": "CTaskSimpleUseGun/run_local.py"
+  },
+  {
+    "id": "sitatdesk",
+    "name": "CTaskInteriorSitAtDesk: ProcessPed",
+    "runner": "CTaskInteriorSitAtDesk/run_local.py"
+  },
+  {
+    "id": "interioruseinfo",
+    "name": "CTaskInteriorUseInfo: CreateFirstSubTask/CreateNextSubTask + AreAnimsLoaded",
+    "runner": "CTaskInteriorUseInfo/run_local.py"
+  },
+  {
+    "id": "weaponaudio",
+    "name": "CAEWeaponAudioEntity: 20 entradas (sonidos pedidos comparados, Audio activo)",
+    "runner": "CAEWeaponAudioEntity/run_local.py"
   },
   {
     "id": "menusystem",
