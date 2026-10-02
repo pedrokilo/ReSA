@@ -891,7 +891,6 @@ void InjectHooksMain() {
 
         // Entities
         CAEAudioEntity::InjectHooks();
-        // CAEAudioEntity::InjectHooks(); -- inlined
         CAECollisionAudioEntity::InjectHooks();
         CAEDoorAudioEntity::InjectHooks();
         CAEExplosionAudioEntity::InjectHooks();
@@ -1242,7 +1241,6 @@ void InjectHooksMain() {
         CTaskSimpleLand::InjectHooks();
         CTaskSimpleJetPack::InjectHooks();
         CTaskSimpleSetStayInSamePlace::InjectHooks();
-        // + CTaskSimpleSetStayInSamePlace::InjectHooks();
         CTaskSimpleJump::InjectHooks();
         CTaskSimpleFall::InjectHooks();
         CTaskSimpleClimb::InjectHooks();
@@ -1265,7 +1263,6 @@ void InjectHooksMain() {
         CTaskSimplePause::InjectHooks();
         CTaskComplexEnterCarAsDriver::InjectHooks();
         CTaskComplexEnterCarAsPassenger::InjectHooks();
-        // + CTaskComplexEnterCarAsDriver::InjectHooks();
         // CTaskSimpleNone::InjectHooks();
         CTaskComplexKillPedOnFoot::InjectHooks();
         CTaskSimpleThrowProjectile::InjectHooks();
@@ -1273,7 +1270,6 @@ void InjectHooksMain() {
         CTaskComplexWanderMedic::InjectHooks();
         // CTaskSimpleCarDriveTimed::InjectHooks();
         CTaskComplexCarDriveWander::InjectHooks();
-        // CTaskComplexDriveWander::InjectHooks();
         CTaskSimpleStealthKill::InjectHooks();
         CTaskSimpleCarSetPedOut::InjectHooks();
         CTaskSimpleAnim::InjectHooks();
