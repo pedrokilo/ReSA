@@ -8405,3 +8405,5 @@ CMaths,GetSinFast,0x004A1340,1,0,0,S
 CMaths,InitMathsTables,0x0059AC90,1,0,0,S
 CTaskSequences,CleanUpForShutdown,0x00632DD0,1,0,0,S
 CTaskSequences,Init,0x00632D90,1,0,0,S
+CLodTimeModelInfo,GetModelType,0x004C56C0,1,0,0,V
+CLodTimeModelInfo,GetTimeInfo,0x004C56D0,1,0,0,V

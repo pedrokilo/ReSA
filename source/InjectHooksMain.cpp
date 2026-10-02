@@ -170,6 +170,7 @@
 #include "DecisionMakers/Decision.h"
 #include "Maths.h"
 #include "Tasks/TaskSequences.h"
+#include "Models/LodTimeModelInfo.h"
 #include "CarFXRenderer.h"
 #include "Curves.h"
 #include "ProcObjectMan.h"
@@ -695,6 +696,7 @@ void InjectHooksMain() {
     CVehicleModelInfo::InjectHooks();
     CClumpModelInfo::InjectHooks();
     CTimeModelInfo::InjectHooks();
+    CLodTimeModelInfo::InjectHooks();
     CDamageAtomicModelInfo::InjectHooks();
     CWeaponModelInfo::InjectHooks();
     CShotInfo::InjectHooks();
