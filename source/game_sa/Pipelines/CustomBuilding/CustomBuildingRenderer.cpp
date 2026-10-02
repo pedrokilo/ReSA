@@ -40,10 +40,12 @@ void CCustomBuildingRenderer::InjectHooks() {
     RH_ScopedInstall(Initialise, 0x5D7EC0);
     RH_ScopedInstall(Shutdown, 0x5D7EE0);
     RH_ScopedInstall(PluginAttach, 0x5D7EF0);
-    RH_ScopedInstall(AtomicSetup, 0x5D7F00);
-    RH_ScopedInstall(IsCBPCPipelineAttached, 0x5D7F40);
-    RH_ScopedInstall(UpdateDayNightBalanceParam, 0x5D7F80);
-    RH_ScopedInstall(Update, 0x5D8050);
+    // CustomBuilding sigue aplazado y estas cuatro no tienen banco contra el original: se
+    // registran sin activar (el juego usa el original), como indica hooks.csv.
+    RH_ScopedInstall(AtomicSetup, 0x5D7F00, { .reversed = false });
+    RH_ScopedInstall(IsCBPCPipelineAttached, 0x5D7F40, { .reversed = false });
+    RH_ScopedInstall(UpdateDayNightBalanceParam, 0x5D7F80, { .reversed = false });
+    RH_ScopedInstall(Update, 0x5D8050, { .reversed = false });
 }
 
 // 0x5D7EC0
