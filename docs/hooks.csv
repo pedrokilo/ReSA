@@ -7917,7 +7917,6 @@ CDecisionMakerTypesFileLoader,UnloadDecisionMaker,0x00607A70,1,0,0,S
 CConversations,AwkwardSay,0x0043A810,1,0,0,S
 CConversations,Clear,0x0043A7B0,1,0,0,S
 CConversations,DoneSettingUpConversation,0x0043ADB0,1,0,1,S
-CConversations,EnableConversation,0x0043A7F0,1,0,0,S
 CConversations,IsConversationAtNode,0x0043B000,1,0,0,S
 CConversations,IsConversationGoingOn,0x0043AAC0,1,0,0,S
 CConversations,IsPlayerInPositionForConversation,0x0043B0B0,1,0,0,S
