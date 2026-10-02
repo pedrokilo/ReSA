@@ -239,6 +239,7 @@
 #include "Interior/TaskInteriorGoToInfo.h"
 #include "TaskSimpleInAir.h"
 #include "TaskComplexHitPedWithCar.h"
+#include "TaskSimpleEvasiveStep.h"
 #include "TaskSimpleEvasiveDive.h"
 #include "TaskComplexWanderGang.h"
 #include "TaskComplexOpenPassengerDoor.h"
@@ -1144,7 +1145,7 @@ void InjectHooksMain() {
         CTaskSimpleDuckToggle::InjectHooks();
         // CTaskSimpleDuckWhileShotsWhizzing::InjectHooks();
         CTaskSimpleEvasiveDive::InjectHooks();
-        // CTaskSimpleEvasiveStep::InjectHooks();
+        CTaskSimpleEvasiveStep::InjectHooks();
         CTaskSimpleFightingControl::InjectHooks();
         CTaskSimpleFinishBrain::InjectHooks();
         CTaskSimpleGunControl::InjectHooks();

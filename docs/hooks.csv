@@ -8265,3 +8265,11 @@ CTaskSimpleEvasiveDive,GetTaskType,0x006535C0,1,0,0,V
 CTaskSimpleEvasiveDive,MakeAbortable,0x00653640,1,0,0,V
 CTaskSimpleEvasiveDive,ProcessPed,0x00657AC0,1,0,0,V
 CTaskSimpleEvasiveDive,StartAnim,0x00655F20,1,0,0,S
+CTaskSimpleEvasiveStep,Clone,0x00655810,1,0,0,V
+CTaskSimpleEvasiveStep,Constructor,0x00653160,1,0,0,S
+CTaskSimpleEvasiveStep,Destructor,0x006531D0,1,0,0,S
+CTaskSimpleEvasiveStep,FinishAnimEvasiveStepCB,0x00653290,1,0,0,S
+CTaskSimpleEvasiveStep,GetTaskType,0x006531C0,1,0,0,V
+CTaskSimpleEvasiveStep,MakeAbortable,0x00653240,1,0,0,V
+CTaskSimpleEvasiveStep,ProcessPed,0x00657A60,1,0,0,V
+CTaskSimpleEvasiveStep,StartAnim,0x00655EA0,1,0,0,S

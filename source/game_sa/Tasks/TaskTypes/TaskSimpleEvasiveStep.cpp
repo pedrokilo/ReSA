@@ -2,6 +2,21 @@
 
 #include "TaskSimpleEvasiveStep.h"
 
+void CTaskSimpleEvasiveStep::InjectHooks() {
+    RH_ScopedVirtualClass(CTaskSimpleEvasiveStep, 0x86F1F4, 9);
+    RH_ScopedCategory("Tasks/TaskTypes");
+
+    RH_ScopedInstall(Constructor, 0x653160);
+    RH_ScopedInstall(Destructor, 0x6531D0);
+    RH_ScopedInstall(StartAnim, 0x655EA0);
+    RH_ScopedInstall(FinishAnimEvasiveStepCB, 0x653290);
+
+    RH_ScopedVMTInstall(Clone, 0x655810);
+    RH_ScopedVMTInstall(GetTaskType, 0x6531C0);
+    RH_ScopedVMTInstall(MakeAbortable, 0x653240);
+    RH_ScopedVMTInstall(ProcessPed, 0x657A60);
+}
+
 // 0x653160
 CTaskSimpleEvasiveStep::CTaskSimpleEvasiveStep(CEntity* entity) : CTaskSimple() {
     m_Entity = entity;
