@@ -1,0 +1,154 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00677C49: 8A 46 30           mov         al,byte ptr [esi+30h]
+  00677C4C: 84 C0              test        al,al
+  00677C4E: 74 31              je          00677C81
+  00677C50: 8D 4E 28           lea         ecx,[esi+28h]
+  00677C53: E8 D8 91 DA FF     call        00420E30
+  00677C58: 84 C0              test        al,al
+  00677C5A: 74 25              je          00677C81
+  00677C5C: C6 46 30 00        mov         byte ptr [esi+30h],0
+  00677C60: E8 B9 9E 1A 00     call        00821B1E
+  00677C65: 3D FF 3F 00 00     cmp         eax,3FFFh
+  00677C6A: 8B CE              mov         ecx,esi
+  00677C6C: 7D 08              jge         00677C76
+  00677C6E: 57                 push        edi
+  00677C6F: E8 0C FC FF FF     call        00677880
+  00677C74: EB 0B              jmp         00677C81
+  00677C76: 68 00 00 80 40     push        40800000h
+  00677C7B: 57                 push        edi
+  00677C7C: E8 FF FA FF FF     call        00677780
+  00677C81: 8B 4E 14           mov         ecx,dword ptr [esi+14h]
+  00677C84: 66 81 79 2C 48 01  cmp         word ptr [ecx+2Ch],148h
+  00677C8A: 0F 85 4B 01 00 00  jne         00677DDB
+  00677C90: 8B 46 0C           mov         eax,dword ptr [esi+0Ch]
+  00677C93: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  00677C96: 8B 50 04           mov         edx,dword ptr [eax+4]
+  00677C99: 83 C0 04           add         eax,4
+  00677C9C: 89 4C 24 20        mov         dword ptr [esp+20h],ecx
+  00677CA0: 8B 4F 14           mov         ecx,dword ptr [edi+14h]
+  00677CA3: 85 C9              test        ecx,ecx
+  00677CA5: 89 54 24 1C        mov         dword ptr [esp+1Ch],edx
+  00677CA9: 8B 50 08           mov         edx,dword ptr [eax+8]
+  00677CAC: 89 54 24 24        mov         dword ptr [esp+24h],edx
+  00677CB0: 8D 41 30           lea         eax,[ecx+30h]
+  00677CB3: 75 03              jne         00677CB8
+  00677CB5: 8D 47 04           lea         eax,[edi+4]
+  00677CB8: D9 44 24 1C        fld         dword ptr [esp+1Ch]
+  00677CBC: D8 20              fsub        dword ptr [eax]
+  00677CBE: D9 5C 24 10        fstp        dword ptr [esp+10h]
+  00677CC2: D9 44 24 20        fld         dword ptr [esp+20h]
+  00677CC6: D8 60 04           fsub        dword ptr [eax+4]
+  00677CC9: D9 5C 24 14        fstp        dword ptr [esp+14h]
+  00677CCD: D9 44 24 24        fld         dword ptr [esp+24h]
+  00677CD1: D8 60 08           fsub        dword ptr [eax+8]
+  00677CD4: D9 54 24 18        fst         dword ptr [esp+18h]
+  00677CD8: D8 4C 24 18        fmul        dword ptr [esp+18h]
+  00677CDC: D9 44 24 14        fld         dword ptr [esp+14h]
+  00677CE0: D8 4C 24 14        fmul        dword ptr [esp+14h]
+  00677CE4: DE C1              faddp       st(1),st
+  00677CE6: D9 44 24 10        fld         dword ptr [esp+10h]
+  00677CEA: D8 4C 24 10        fmul        dword ptr [esp+10h]
+  00677CEE: DE C1              faddp       st(1),st
+  00677CF0: D9 FA              fsqrt
+  00677CF2: D9 54 24 38        fst         dword ptr [esp+38h]
+  00677CF6: D8 1D 38 8B 85 00  fcomp       dword ptr ds:[00858B38h]
+  00677CFC: DF E0              fnstsw      ax
+  00677CFE: F6 C4 05           test        ah,5
+  00677D01: 7A 06              jp          00677D09
+  00677D03: D9 44 24 38        fld         dword ptr [esp+38h]
+  00677D07: EB 06              jmp         00677D0F
+  00677D09: D9 05 38 8B 85 00  fld         dword ptr ds:[00858B38h]
+  00677D0F: D9 05 24 86 85 00  fld         dword ptr ds:[00858624h]
+  00677D15: 8B C1              mov         eax,ecx
+  00677D17: D8 74 24 38        fdiv        dword ptr [esp+38h]
+  00677D1B: 8B 10              mov         edx,dword ptr [eax]
+  00677D1D: 89 54 24 1C        mov         dword ptr [esp+1Ch],edx
+  00677D21: 8B 50 04           mov         edx,dword ptr [eax+4]
+  00677D24: 8B 40 08           mov         eax,dword ptr [eax+8]
+  00677D27: 83 C1 10           add         ecx,10h
+  00677D2A: 6A 00              push        0
+  00677D2C: 6A 00              push        0
+  00677D2E: D9 44 24 18        fld         dword ptr [esp+18h]
+  00677D32: D8 C9              fmul        st,st(1)
+  00677D34: D9 44 24 1C        fld         dword ptr [esp+1Ch]
+  00677D38: D8 CA              fmul        st,st(2)
+  00677D3A: D9 5C 24 28        fstp        dword ptr [esp+28h]
+  00677D3E: D9 44 24 20        fld         dword ptr [esp+20h]
+  00677D42: D8 CA              fmul        st,st(2)
+  00677D44: D9 5C 24 2C        fstp        dword ptr [esp+2Ch]
+  00677D48: D8 CA              fmul        st,st(2)
+  00677D4A: DD D9              fstp        st(1)
+  00677D4C: D9 44 24 28        fld         dword ptr [esp+28h]
+  00677D50: 89 54 24 28        mov         dword ptr [esp+28h],edx
+  00677D54: D8 CA              fmul        st,st(2)
+  00677D56: 8B 11              mov         edx,dword ptr [ecx]
+  00677D58: D9 44 24 2C        fld         dword ptr [esp+2Ch]
+  00677D5C: 89 44 24 2C        mov         dword ptr [esp+2Ch],eax
+  00677D60: D8 CB              fmul        st,st(3)
+  00677D62: 8B 41 04           mov         eax,dword ptr [ecx+4]
+  00677D65: D9 44 24 2C        fld         dword ptr [esp+2Ch]
+  00677D69: 8B 49 08           mov         ecx,dword ptr [ecx+8]
+  00677D6C: D8 C9              fmul        st,st(1)
+  00677D6E: 89 4C 24 20        mov         dword ptr [esp+20h],ecx
+  00677D72: D9 44 24 28        fld         dword ptr [esp+28h]
+  00677D76: 89 44 24 1C        mov         dword ptr [esp+1Ch],eax
+  00677D7A: D8 CB              fmul        st,st(3)
+  00677D7C: 89 54 24 18        mov         dword ptr [esp+18h],edx
+  00677D80: DE C1              faddp       st(1),st
+  00677D82: D9 C3              fld         st(3)
+  00677D84: D8 4C 24 24        fmul        dword ptr [esp+24h]
+  00677D88: DE C1              faddp       st(1),st
+  00677D8A: D9 9F D8 04 00 00  fstp        dword ptr [edi+000004D8h]
+  00677D90: D9 44 24 20        fld         dword ptr [esp+20h]
+  00677D94: D8 C9              fmul        st,st(1)
+  00677D96: D9 44 24 1C        fld         dword ptr [esp+1Ch]
+  00677D9A: D8 CB              fmul        st,st(3)
+  00677D9C: DE C1              faddp       st(1),st
+  00677D9E: D9 CB              fxch        st(3)
+  00677DA0: D8 4C 24 18        fmul        dword ptr [esp+18h]
+  00677DA4: DE C3              faddp       st(3),st
+  00677DA6: D9 CA              fxch        st(2)
+  00677DA8: D9 9F DC 04 00 00  fstp        dword ptr [edi+000004DCh]
+  00677DAE: 8B 76 0C           mov         esi,dword ptr [esi+0Ch]
+  00677DB1: 8B 56 14           mov         edx,dword ptr [esi+14h]
+  00677DB4: DD D9              fstp        st(1)
+  00677DB6: 8B 46 10           mov         eax,dword ptr [esi+10h]
+  00677DB9: DD D8              fstp        st(0)
+  00677DBB: 52                 push        edx
+  00677DBC: DD D8              fstp        st(0)
+  00677DBE: 50                 push        eax
+  00677DBF: E8 1C 4E EC FF     call        0053CBE0
+  00677DC4: D9 5C 24 48        fstp        dword ptr [esp+48h]
+  00677DC8: 8B 4C 24 48        mov         ecx,dword ptr [esp+48h]
+  00677DCC: 51                 push        ecx
+  00677DCD: E8 7E 4D EC FF     call        0053CB50
+  00677DD2: D9 9F 5C 05 00 00  fstp        dword ptr [edi+0000055Ch]
+  00677DD8: 83 C4 14           add         esp,14h
+  00677DDB: 5F                 pop         edi
+  00677DDC: 5E                 pop         esi
+  00677DDD: 5D                 pop         ebp
+  00677DDE: 32 C0              xor         al,al
+  00677DE0: 5B                 pop         ebx
+  00677DE1: 83 C4 24           add         esp,24h
+  00677DE4: C2 04 00           ret         4
+  00677DE7: 90                 nop
+  00677DE8: 90                 nop
+  00677DE9: 90                 nop
+  00677DEA: 90                 nop
+  00677DEB: 90                 nop
+  00677DEC: 90                 nop
+  00677DED: 90                 nop
+  00677DEE: 90                 nop
+  00677DEF: 90                 nop
+  00677DF0: 8B
+
+  Summary
+
+      456000 .text

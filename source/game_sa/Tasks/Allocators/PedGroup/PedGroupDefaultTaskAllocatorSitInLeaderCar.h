@@ -9,7 +9,7 @@
  * Reconstrucción: INCOMPLETA — 1/2 funciones reconstruidas.
  * Pendientes de reconstruir: 1.
  * Funciones bloqueadas: 1.
- * Evidencia aprobada vinculada: 0/2 entradas.
+ * Validación registrada: 0/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -49,27 +49,30 @@ public:
         if (!veh) {
             return;
         }
-        const auto SetPedDefaultTask = [&](CPed* p, int32 i, CTask* task) {
+        const auto SetPedDefaultTask = [&](int32 i, CTask* task) {
             auto* const tp = &pedGroup->GetIntelligence().GetDefaultPedTaskPairs()[i];
             if (tp->Ped && (!ped || tp->Ped == ped)) {
-                VERIFY(std::exchange(tp->Task, task) == nullptr);
+                tp->Task = task;
             } else {
                 delete task;
             }
         };
-        SetPedDefaultTask(leader, CPedGroupMembership::LEADER_MEM_ID, new CTaskComplexSequence{
-            new CTaskComplexEnterCarAsDriver{veh}, // 0x5F703E
-            new CTaskSimpleCarDrive{veh} // 0x5F7074
-        });
-        size_t seat{};
-        for (auto&& [i, mem] : rngv::enumerate(pedGroup->GetMembership().GetFollowers())) {
-            if (seat >= veh->m_nMaxPassengers) {
-                break;
+        auto* leaderTask = new CTaskComplexSequence{};
+        leaderTask->AddTask(new CTaskComplexEnterCarAsDriver{veh});
+        leaderTask->AddTask(new CTaskSimpleCarDrive{veh});
+        SetPedDefaultTask(CPedGroupMembership::LEADER_MEM_ID, leaderTask);
+        int32 seat{};
+        const auto maxPassengers = veh->m_nMaxPassengers;
+        for (int32 i = 0; i < TOTAL_PED_GROUP_FOLLOWERS; ++i) {
+            if (!pedGroup->GetMembership().GetMember(i) || seat >= maxPassengers) {
+                continue;
             }
-            SetPedDefaultTask(leader, CPedGroupMembership::LEADER_MEM_ID, new CTaskComplexSequence{
-                new CTaskComplexEnterCarAsPassenger{veh, CCarEnterExit::ComputeTargetDoorToEnterAsPassenger(veh, seat++)}, // 0x5F714B
-                new CTaskSimpleCarDrive{veh} // 0x5F7184
-            });
+            const auto door = CCarEnterExit::ComputeTargetDoorToEnterAsPassenger(veh, seat);
+            auto* followerTask = new CTaskComplexSequence{};
+            followerTask->AddTask(new CTaskComplexEnterCarAsPassenger{veh, door});
+            followerTask->AddTask(new CTaskSimpleCarDrive{veh});
+            SetPedDefaultTask(i, followerTask);
+            ++seat;
         }
     };
 

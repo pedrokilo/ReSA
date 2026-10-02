@@ -9,7 +9,7 @@
  * Reconstrucción: INCOMPLETA — 8/9 funciones reconstruidas.
  * Pendientes de reconstruir: 1.
  * Funciones bloqueadas: 1.
- * Evidencia aprobada vinculada: 0/9 entradas.
+ * Validación registrada: 0/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -116,5 +116,39 @@ CTask* CTaskComplexDestroyCar::CreateSubTask(eTaskType taskType, CPed* ped) {
 
 // 0x6288C0
 CTask* CTaskComplexDestroyCar::ControlSubTask(CPed* ped) {
-    return plugin::CallMethodAndReturn<CTask*, 0x6288C0, CTaskComplexDestroyCar*, CPed*>(this, ped);
+    if (!m_VehicleToDestroy || m_VehicleToDestroy->m_fHealth <= 0.f) {
+        return nullptr;
+    }
+    if (m_arg0) {
+        return CreateFirstSubTask(ped);
+    }
+
+    eTaskType nextType;
+    switch (m_pSubTask->GetTaskType()) {
+    case TASK_COMPLEX_DESTROY_CAR_ARMED:
+        if (ped->GetActiveWeapon().m_TotalAmmo != 0 || ped->IsPlayer()) {
+            return m_pSubTask;
+        }
+        for (int32 slot = 0; slot < NUM_WEAPON_SLOTS; ++slot) {
+            // The original uses a signed comparison on this unsigned field.
+            if (static_cast<int32>(ped->m_aWeapons[slot].m_TotalAmmo) > 0) {
+                ped->SetCurrentWeapon(slot);
+                return m_pSubTask;
+            }
+        }
+        ped->SetCurrentWeapon(0);
+        nextType = TASK_COMPLEX_DESTROY_CAR_MELEE;
+        break;
+    case TASK_COMPLEX_DESTROY_CAR_MELEE:
+        if (ped->GetActiveWeapon().IsTypeMelee()) {
+            return m_pSubTask;
+        }
+        nextType = TASK_COMPLEX_DESTROY_CAR_ARMED;
+        break;
+    default:
+        return m_pSubTask;
+    }
+    return m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr)
+        ? CreateSubTask(nextType, ped)
+        : m_pSubTask;
 }

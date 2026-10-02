@@ -1,0 +1,314 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  005F6E90: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  005F6E96: 6A FF              push        0FFFFFFFFh
+  005F6E98: 68 86 DF 83 00     push        83DF86h
+  005F6E9D: 50                 push        eax
+  005F6E9E: 64 89 25 00 00 00  mov         dword ptr fs:[00000000h],esp
+            00
+  005F6EA5: 83 EC 0C           sub         esp,0Ch
+  005F6EA8: 53                 push        ebx
+  005F6EA9: 8B 5C 24 24        mov         ebx,dword ptr [esp+24h]
+  005F6EAD: 55                 push        ebp
+  005F6EAE: 56                 push        esi
+  005F6EAF: 57                 push        edi
+  005F6EB0: 8B 7C 24 2C        mov         edi,dword ptr [esp+2Ch]
+  005F6EB4: 33 F6              xor         esi,esi
+  005F6EB6: 8D AF 1C 02 00 00  lea         ebp,[edi+0000021Ch]
+  005F6EBC: 8D 64 24 00        lea         esp,[esp]
+  005F6EC0: 8B 45 00           mov         eax,dword ptr [ebp]
+  005F6EC3: 85 C0              test        eax,eax
+  005F6EC5: 0F 84 8C 00 00 00  je          005F6F57
+  005F6ECB: 85 DB              test        ebx,ebx
+  005F6ECD: 74 08              je          005F6ED7
+  005F6ECF: 3B C3              cmp         eax,ebx
+  005F6ED1: 0F 85 80 00 00 00  jne         005F6F57
+  005F6ED7: 6A 4C              push        4Ch
+  005F6ED9: E8 C2 36 02 00     call        0061A5A0
+  005F6EDE: 83 C4 04           add         esp,4
+  005F6EE1: 89 44 24 2C        mov         dword ptr [esp+2Ch],eax
+  005F6EE5: 33 C9              xor         ecx,ecx
+  005F6EE7: 3B C1              cmp         eax,ecx
+  005F6EE9: 89 4C 24 24        mov         dword ptr [esp+24h],ecx
+  005F6EED: 74 4B              je          005F6F3A
+  005F6EEF: D9 04 F5 EC 96 C1  fld         dword ptr [esi*8+00C196ECh]
+            00
+  005F6EF6: 8B 57 28           mov         edx,dword ptr [edi+28h]
+  005F6EF9: D9 04 F5 E8 96 C1  fld         dword ptr [esi*8+00C196E8h]
+            00
+  005F6F00: 68 00 00 20 41     push        41200000h
+  005F6F05: 89 4C 24 1C        mov         dword ptr [esp+1Ch],ecx
+  005F6F09: D9 5C 24 14        fstp        dword ptr [esp+14h]
+  005F6F0D: 8B 5C 24 14        mov         ebx,dword ptr [esp+14h]
+  005F6F11: 83 EC 0C           sub         esp,0Ch
+  005F6F14: D9 5C 24 24        fstp        dword ptr [esp+24h]
+  005F6F18: 8B CC              mov         ecx,esp
+  005F6F1A: 89 19              mov         dword ptr [ecx],ebx
+  005F6F1C: 8B 5C 24 24        mov         ebx,dword ptr [esp+24h]
+  005F6F20: 89 59 04           mov         dword ptr [ecx+4],ebx
+  005F6F23: 8B 5C 24 28        mov         ebx,dword ptr [esp+28h]
+  005F6F27: 56                 push        esi
+  005F6F28: 52                 push        edx
+  005F6F29: 89 59 08           mov         dword ptr [ecx+8],ebx
+  005F6F2C: 57                 push        edi
+  005F6F2D: 8B C8              mov         ecx,eax
+  005F6F2F: E8 6C 7B 06 00     call        0065EAA0
+  005F6F34: 8B 5C 24 30        mov         ebx,dword ptr [esp+30h]
+  005F6F38: 8B C8              mov         ecx,eax
+  005F6F3A: 89 4D 04           mov         dword ptr [ebp+4],ecx
+  005F6F3D: 8A 47 04           mov         al,byte ptr [edi+4]
+  005F6F40: 84 C0              test        al,al
+  005F6F42: C7 44 24 24 FF FF  mov         dword ptr [esp+24h],0FFFFFFFFh
+            FF FF
+  005F6F4A: 74 04              je          005F6F50
+  005F6F4C: 6A 01              push        1
+  005F6F4E: EB 02              jmp         005F6F52
+  005F6F50: 6A 00              push        0
+  005F6F52: E8 39 7F 06 00     call        0065EE90
+  005F6F57: 46                 inc         esi
+  005F6F58: 83 C5 14           add         ebp,14h
+  005F6F5B: 83 FE 07           cmp         esi,7
+  005F6F5E: 0F 8C 5C FF FF FF  jl          005F6EC0
+  005F6F64: 8B 87 A8 02 00 00  mov         eax,dword ptr [edi+000002A8h]
+  005F6F6A: 85 C0              test        eax,eax
+  005F6F6C: 74 34              je          005F6FA2
+  005F6F6E: 85 DB              test        ebx,ebx
+  005F6F70: 74 04              je          005F6F76
+  005F6F72: 3B C3              cmp         eax,ebx
+  005F6F74: 75 2C              jne         005F6FA2
+  005F6F76: 6A 38              push        38h
+  005F6F78: E8 23 36 02 00     call        0061A5A0
+  005F6F7D: 83 C4 04           add         esp,4
+  005F6F80: 89 44 24 30        mov         dword ptr [esp+30h],eax
+  005F6F84: 85 C0              test        eax,eax
+  005F6F86: C7 44 24 24 01 00  mov         dword ptr [esp+24h],1
+            00 00
+  005F6F8E: 74 0A              je          005F6F9A
+  005F6F90: 57                 push        edi
+  005F6F91: 8B C8              mov         ecx,eax
+  005F6F93: E8 38 6F 06 00     call        0065DED0
+  005F6F98: EB 02              jmp         005F6F9C
+  005F6F9A: 33 C0              xor         eax,eax
+  005F6F9C: 89 87 AC 02 00 00  mov         dword ptr [edi+000002ACh],eax
+  005F6FA2: 8B 4C 24 1C        mov         ecx,dword ptr [esp+1Ch]
+  005F6FA6: 5F                 pop         edi
+  005F6FA7: 5E                 pop         esi
+  005F6FA8: 5D                 pop         ebp
+  005F6FA9: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  005F6FB0: 5B                 pop         ebx
+  005F6FB1: 83 C4 18           add         esp,18h
+  005F6FB4: C2 08 00           ret         8
+  005F6FB7: 90                 nop
+  005F6FB8: 90                 nop
+  005F6FB9: 90                 nop
+  005F6FBA: 90                 nop
+  005F6FBB: 90                 nop
+  005F6FBC: 90                 nop
+  005F6FBD: 90                 nop
+  005F6FBE: 90                 nop
+  005F6FBF: 90                 nop
+  005F6FC0: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  005F6FC6: 6A FF              push        0FFFFFFFFh
+  005F6FC8: 68 D2 DF 83 00     push        83DFD2h
+  005F6FCD: 50                 push        eax
+  005F6FCE: 64 89 25 00 00 00  mov         dword ptr fs:[00000000h],esp
+            00
+  005F6FD5: 83 EC 10           sub         esp,10h
+  005F6FD8: 56                 push        esi
+  005F6FD9: 57                 push        edi
+  005F6FDA: 8B 7C 24 28        mov         edi,dword ptr [esp+28h]
+  005F6FDE: 8B 47 28           mov         eax,dword ptr [edi+28h]
+  005F6FE1: 33 F6              xor         esi,esi
+  005F6FE3: 3B C6              cmp         eax,esi
+  005F6FE5: 0F 84 FA 01 00 00  je          005F71E5
+  005F6FEB: 53                 push        ebx
+  005F6FEC: 8B 98 8C 05 00 00  mov         ebx,dword ptr [eax+0000058Ch]
+  005F6FF2: 3B DE              cmp         ebx,esi
+  005F6FF4: 0F 84 EA 01 00 00  je          005F71E4
+  005F6FFA: 6A 40              push        40h
+  005F6FFC: E8 9F 35 02 00     call        0061A5A0
+  005F7001: 83 C4 04           add         esp,4
+  005F7004: 89 44 24 2C        mov         dword ptr [esp+2Ch],eax
+  005F7008: 3B C6              cmp         eax,esi
+  005F700A: 89 74 24 24        mov         dword ptr [esp+24h],esi
+  005F700E: 74 09              je          005F7019
+  005F7010: 8B C8              mov         ecx,eax
+  005F7012: E8 B9 BB 03 00     call        00632BD0
+  005F7017: 8B F0              mov         esi,eax
+  005F7019: 55                 push        ebp
+  005F701A: 83 CD FF           or          ebp,0FFFFFFFFh
+  005F701D: 6A 50              push        50h
+  005F701F: 89 6C 24 2C        mov         dword ptr [esp+2Ch],ebp
+  005F7023: E8 78 35 02 00     call        0061A5A0
+  005F7028: 83 C4 04           add         esp,4
+  005F702B: 89 44 24 30        mov         dword ptr [esp+30h],eax
+  005F702F: 85 C0              test        eax,eax
+  005F7031: C7 44 24 28 01 00  mov         dword ptr [esp+28h],1
+            00 00
+  005F7039: 74 0A              je          005F7045
+  005F703B: 53                 push        ebx
+  005F703C: 8B C8              mov         ecx,eax
+  005F703E: E8 AD 92 04 00     call        006402F0
+  005F7043: EB 02              jmp         005F7047
+  005F7045: 33 C0              xor         eax,eax
+  005F7047: 50                 push        eax
+  005F7048: 8B CE              mov         ecx,esi
+  005F704A: 89 6C 24 2C        mov         dword ptr [esp+2Ch],ebp
+  005F704E: E8 BD BC 03 00     call        00632D10
+  005F7053: 6A 60              push        60h
+  005F7055: E8 46 35 02 00     call        0061A5A0
+  005F705A: 83 C4 04           add         esp,4
+  005F705D: 89 44 24 30        mov         dword ptr [esp+30h],eax
+  005F7061: 85 C0              test        eax,eax
+  005F7063: C7 44 24 28 02 00  mov         dword ptr [esp+28h],2
+            00 00
+  005F706B: 74 0E              je          005F707B
+  005F706D: 6A 00              push        0
+  005F706F: 6A 00              push        0
+  005F7071: 53                 push        ebx
+  005F7072: 8B C8              mov         ecx,eax
+  005F7074: E8 C7 52 04 00     call        0063C340
+  005F7079: EB 02              jmp         005F707D
+  005F707B: 33 C0              xor         eax,eax
+  005F707D: 50                 push        eax
+  005F707E: 8B CE              mov         ecx,esi
+  005F7080: 89 6C 24 2C        mov         dword ptr [esp+2Ch],ebp
+  005F7084: E8 87 BC 03 00     call        00632D10
+  005F7089: 8B 87 A8 02 00 00  mov         eax,dword ptr [edi+000002A8h]
+  005F708F: 85 C0              test        eax,eax
+  005F7091: 74 14              je          005F70A7
+  005F7093: 8B 4C 24 34        mov         ecx,dword ptr [esp+34h]
+  005F7097: 85 C9              test        ecx,ecx
+  005F7099: 74 04              je          005F709F
+  005F709B: 3B C1              cmp         eax,ecx
+  005F709D: 75 08              jne         005F70A7
+  005F709F: 89 B7 AC 02 00 00  mov         dword ptr [edi+000002ACh],esi
+  005F70A5: EB 0C              jmp         005F70B3
+  005F70A7: 85 F6              test        esi,esi
+  005F70A9: 74 08              je          005F70B3
+  005F70AB: 8B 06              mov         eax,dword ptr [esi]
+  005F70AD: 6A 01              push        1
+  005F70AF: 8B CE              mov         ecx,esi
+  005F70B1: FF 10              call        dword ptr [eax]
+  005F70B3: 0F B6 8B 88 04 00  movzx       ecx,byte ptr [ebx+00000488h]
+            00
+  005F70BA: 33 C0              xor         eax,eax
+  005F70BC: 8D AF 1C 02 00 00  lea         ebp,[edi+0000021Ch]
+  005F70C2: 83 C7 0C           add         edi,0Ch
+  005F70C5: 89 4C 24 18        mov         dword ptr [esp+18h],ecx
+  005F70C9: 89 44 24 30        mov         dword ptr [esp+30h],eax
+  005F70CD: 89 7C 24 10        mov         dword ptr [esp+10h],edi
+  005F70D1: C7 44 24 14 07 00  mov         dword ptr [esp+14h],7
+            00 00
+  005F70D9: 8D A4 24 00 00 00  lea         esp,[esp+00000000h]
+            00
+  005F70E0: 83 3F 00           cmp         dword ptr [edi],0
+  005F70E3: 0F 84 DD 00 00 00  je          005F71C6
+  005F70E9: 3B 44 24 18        cmp         eax,dword ptr [esp+18h]
+  005F70ED: 0F 8D D3 00 00 00  jge         005F71C6
+  005F70F3: 50                 push        eax
+  005F70F4: 53                 push        ebx
+  005F70F5: E8 96 80 05 00     call        0064F190
+  005F70FA: 6A 40              push        40h
+  005F70FC: 8B F8              mov         edi,eax
+  005F70FE: E8 9D 34 02 00     call        0061A5A0
+  005F7103: 83 C4 0C           add         esp,0Ch
+  005F7106: 89 44 24 1C        mov         dword ptr [esp+1Ch],eax
+  005F710A: 85 C0              test        eax,eax
+  005F710C: C7 44 24 28 03 00  mov         dword ptr [esp+28h],3
+            00 00
+  005F7114: 74 0B              je          005F7121
+  005F7116: 8B C8              mov         ecx,eax
+  005F7118: E8 B3 BA 03 00     call        00632BD0
+  005F711D: 8B F0              mov         esi,eax
+  005F711F: EB 02              jmp         005F7123
+  005F7121: 33 F6              xor         esi,esi
+  005F7123: 6A 50              push        50h
+  005F7125: C7 44 24 2C FF FF  mov         dword ptr [esp+2Ch],0FFFFFFFFh
+            FF FF
+  005F712D: E8 6E 34 02 00     call        0061A5A0
+  005F7132: 83 C4 04           add         esp,4
+  005F7135: 89 44 24 1C        mov         dword ptr [esp+1Ch],eax
+  005F7139: 85 C0              test        eax,eax
+  005F713B: C7 44 24 28 04 00  mov         dword ptr [esp+28h],4
+            00 00
+  005F7143: 74 0D              je          005F7152
+  005F7145: 6A 00              push        0
+  005F7147: 57                 push        edi
+  005F7148: 53                 push        ebx
+  005F7149: 8B C8              mov         ecx,eax
+  005F714B: E8 F0 91 04 00     call        00640340
+  005F7150: EB 02              jmp         005F7154
+  005F7152: 33 C0              xor         eax,eax
+  005F7154: 83 CF FF           or          edi,0FFFFFFFFh
+  005F7157: 50                 push        eax
+  005F7158: 8B CE              mov         ecx,esi
+  005F715A: 89 7C 24 2C        mov         dword ptr [esp+2Ch],edi
+  005F715E: E8 AD BB 03 00     call        00632D10
+  005F7163: 6A 60              push        60h
+  005F7165: E8 36 34 02 00     call        0061A5A0
+  005F716A: 83 C4 04           add         esp,4
+  005F716D: 89 44 24 1C        mov         dword ptr [esp+1Ch],eax
+  005F7171: 85 C0              test        eax,eax
+  005F7173: C7 44 24 28 05 00  mov         dword ptr [esp+28h],5
+            00 00
+  005F717B: 74 0E              je          005F718B
+  005F717D: 6A 00              push        0
+  005F717F: 6A 00              push        0
+  005F7181: 53                 push        ebx
+  005F7182: 8B C8              mov         ecx,eax
+  005F7184: E8 B7 51 04 00     call        0063C340
+  005F7189: EB 02              jmp         005F718D
+  005F718B: 33 C0              xor         eax,eax
+  005F718D: 50                 push        eax
+  005F718E: 8B CE              mov         ecx,esi
+  005F7190: 89 7C 24 2C        mov         dword ptr [esp+2Ch],edi
+  005F7194: E8 77 BB 03 00     call        00632D10
+  005F7199: 8B 45 00           mov         eax,dword ptr [ebp]
+  005F719C: 85 C0              test        eax,eax
+  005F719E: 74 11              je          005F71B1
+  005F71A0: 8B 4C 24 34        mov         ecx,dword ptr [esp+34h]
+  005F71A4: 85 C9              test        ecx,ecx
+  005F71A6: 74 04              je          005F71AC
+  005F71A8: 3B C1              cmp         eax,ecx
+  005F71AA: 75 05              jne         005F71B1
+  005F71AC: 89 75 04           mov         dword ptr [ebp+4],esi
+  005F71AF: EB 0C              jmp         005F71BD
+  005F71B1: 85 F6              test        esi,esi
+  005F71B3: 74 08              je          005F71BD
+  005F71B5: 8B 16              mov         edx,dword ptr [esi]
+  005F71B7: 6A 01              push        1
+  005F71B9: 8B CE              mov         ecx,esi
+  005F71BB: FF 12              call        dword ptr [edx]
+  005F71BD: 8B 44 24 30        mov         eax,dword ptr [esp+30h]
+  005F71C1: 40                 inc         eax
+  005F71C2: 89 44 24 30        mov         dword ptr [esp+30h],eax
+  005F71C6: 8B 7C 24 10        mov         edi,dword ptr [esp+10h]
+  005F71CA: 8B 4C 24 14        mov         ecx,dword ptr [esp+14h]
+  005F71CE: 83 C7 04           add         edi,4
+  005F71D1: 83 C5 14           add         ebp,14h
+  005F71D4: 49                 dec         ecx
+  005F71D5: 89 7C 24 10        mov         dword ptr [esp+10h],edi
+  005F71D9: 89 4C 24 14        mov         dword ptr [esp+14h],ecx
+  005F71DD: 0F 85 FD FE FF FF  jne         005F70E0
+  005F71E3: 5D                 pop         ebp
+  005F71E4: 5B                 pop         ebx
+  005F71E5: 8B 4C 24 18        mov         ecx,dword ptr [esp+18h]
+  005F71E9: 5F                 pop         edi
+  005F71EA: 5E                 pop         esi
+  005F71EB: 64
+  005F71EC: 89
+  005F71ED: 0D
+  005F71EE: 00 00              add         byte ptr [eax],al
+  005F71F0: 00
+
+  Summary
+
+      456000 .text

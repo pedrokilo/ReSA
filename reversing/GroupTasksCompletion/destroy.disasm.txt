@@ -1,0 +1,152 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  006288C0: 53                 push        ebx
+  006288C1: 8B D9              mov         ebx,ecx
+  006288C3: 8B 43 10           mov         eax,dword ptr [ebx+10h]
+  006288C6: 85 C0              test        eax,eax
+  006288C8: 56                 push        esi
+  006288C9: 57                 push        edi
+  006288CA: 0F 84 EF 00 00 00  je          006289BF
+  006288D0: D9 80 C0 04 00 00  fld         dword ptr [eax+000004C0h]
+  006288D6: D8 1D 50 8B 85 00  fcomp       dword ptr ds:[00858B50h]
+  006288DC: DF E0              fnstsw      ax
+  006288DE: F6 C4 41           test        ah,41h
+  006288E1: 0F 8B D8 00 00 00  jnp         006289BF
+  006288E7: 8A 43 0C           mov         al,byte ptr [ebx+0Ch]
+  006288EA: 84 C0              test        al,al
+  006288EC: 74 12              je          00628900
+  006288EE: 8B 4C 24 10        mov         ecx,dword ptr [esp+10h]
+  006288F2: 8B 03              mov         eax,dword ptr [ebx]
+  006288F4: 51                 push        ecx
+  006288F5: 8B CB              mov         ecx,ebx
+  006288F7: FF 50 24           call        dword ptr [eax+24h]
+  006288FA: 5F                 pop         edi
+  006288FB: 5E                 pop         esi
+  006288FC: 5B                 pop         ebx
+  006288FD: C2 04 00           ret         4
+  00628900: 8B 4B 08           mov         ecx,dword ptr [ebx+8]
+  00628903: 8B 11              mov         edx,dword ptr [ecx]
+  00628905: FF 52 10           call        dword ptr [edx+10h]
+  00628908: 2D EC 03 00 00     sub         eax,3ECh
+  0062890D: 74 64              je          00628973
+  0062890F: 48                 dec         eax
+  00628910: 0F 85 A0 00 00 00  jne         006289B6
+  00628916: 8B 7C 24 10        mov         edi,dword ptr [esp+10h]
+  0062891A: 0F BE 87 18 07 00  movsx       eax,byte ptr [edi+00000718h]
+            00
+  00628921: 6B C0 1C           imul        eax,eax,1Ch
+  00628924: 8B 8C 38 AC 05 00  mov         ecx,dword ptr [eax+edi+000005ACh]
+            00
+  0062892B: 85 C9              test        ecx,ecx
+  0062892D: 0F 85 83 00 00 00  jne         006289B6
+  00628933: 8B CF              mov         ecx,edi
+  00628935: E8 B6 6F FB FF     call        005DF8F0
+  0062893A: 84 C0              test        al,al
+  0062893C: 75 78              jne         006289B6
+  0062893E: 33 F6              xor         esi,esi
+  00628940: 8D 87 AC 05 00 00  lea         eax,[edi+000005ACh]
+  00628946: 83 38 00           cmp         dword ptr [eax],0
+  00628949: 7F 0B              jg          00628956
+  0062894B: 46                 inc         esi
+  0062894C: 83 C0 1C           add         eax,1Ch
+  0062894F: 83 FE 0D           cmp         esi,0Dh
+  00628952: 7C F2              jl          00628946
+  00628954: EB 08              jmp         0062895E
+  00628956: 56                 push        esi
+  00628957: 8B CF              mov         ecx,edi
+  00628959: E8 92 D8 FB FF     call        005E61F0
+  0062895E: 83 FE 0D           cmp         esi,0Dh
+  00628961: 75 53              jne         006289B6
+  00628963: 6A 00              push        0
+  00628965: 8B CF              mov         ecx,edi
+  00628967: E8 84 D8 FB FF     call        005E61F0
+  0062896C: BE EC 03 00 00     mov         esi,3ECh
+  00628971: EB 23              jmp         00628996
+  00628973: 8B 7C 24 10        mov         edi,dword ptr [esp+10h]
+  00628977: 0F BE 8F 18 07 00  movsx       ecx,byte ptr [edi+00000718h]
+            00
+  0062897E: 6B C9 1C           imul        ecx,ecx,1Ch
+  00628981: 8D 8C 39 A0 05 00  lea         ecx,[ecx+edi+000005A0h]
+            00
+  00628988: E8 33 28 11 00     call        0073B1C0
+  0062898D: 84 C0              test        al,al
+  0062898F: 75 25              jne         006289B6
+  00628991: BE ED 03 00 00     mov         esi,3EDh
+  00628996: 8B 4B 08           mov         ecx,dword ptr [ebx+8]
+  00628999: 8B 11              mov         edx,dword ptr [ecx]
+  0062899B: 6A 00              push        0
+  0062899D: 6A 01              push        1
+  0062899F: 57                 push        edi
+  006289A0: FF 52 18           call        dword ptr [edx+18h]
+  006289A3: 84 C0              test        al,al
+  006289A5: 74 0F              je          006289B6
+  006289A7: 57                 push        edi
+  006289A8: 56                 push        esi
+  006289A9: 8B CB              mov         ecx,ebx
+  006289AB: E8 F0 FD FF FF     call        006287A0
+  006289B0: 5F                 pop         edi
+  006289B1: 5E                 pop         esi
+  006289B2: 5B                 pop         ebx
+  006289B3: C2 04 00           ret         4
+  006289B6: 8B 43 08           mov         eax,dword ptr [ebx+8]
+  006289B9: 5F                 pop         edi
+  006289BA: 5E                 pop         esi
+  006289BB: 5B                 pop         ebx
+  006289BC: C2 04 00           ret         4
+  006289BF: 5F                 pop         edi
+  006289C0: 5E                 pop         esi
+  006289C1: 33 C0              xor         eax,eax
+  006289C3: 5B                 pop         ebx
+  006289C4: C2 04 00           ret         4
+  006289C7: 90                 nop
+  006289C8: 90                 nop
+  006289C9: 90                 nop
+  006289CA: 90                 nop
+  006289CB: 90                 nop
+  006289CC: 90                 nop
+  006289CD: 90                 nop
+  006289CE: 90                 nop
+  006289CF: 90                 nop
+  006289D0: 56                 push        esi
+  006289D1: 8B F1              mov         esi,ecx
+  006289D3: E8 C8 93 FF FF     call        00621DA0
+  006289D8: F6 44 24 08 01     test        byte ptr [esp+8],1
+  006289DD: 74 09              je          006289E8
+  006289DF: 56                 push        esi
+  006289E0: E8 CB 1B FF FF     call        0061A5B0
+  006289E5: 83 C4 04           add         esp,4
+  006289E8: 8B C6              mov         eax,esi
+  006289EA: 5E                 pop         esi
+  006289EB: C2 04 00           ret         4
+  006289EE: 90                 nop
+  006289EF: 90                 nop
+  006289F0: 53                 push        ebx
+  006289F1: 56                 push        esi
+  006289F2: 57                 push        edi
+  006289F3: 8B 79 10           mov         edi,dword ptr [ecx+10h]
+  006289F6: 8B 47 14           mov         eax,dword ptr [edi+14h]
+  006289F9: 85 C0              test        eax,eax
+  006289FB: 74 05              je          00628A02
+  006289FD: 83 C0 30           add         eax,30h
+  00628A00: EB 03              jmp         00628A05
+  00628A02: 8D 47 04           lea         eax,[edi+4]
+  00628A05: 8B 18              mov         ebx,dword ptr [eax]
+  00628A07: 8D 51 14           lea         edx,[ecx+14h]
+  00628A0A: 8B F2              mov         esi,edx
+  00628A0C: 89 1E              mov         dword ptr [esi],ebx
+  00628A0E: 8B 58 04           mov         ebx,dword ptr [eax+4]
+  00628A11: 89 5E 04           mov         dword ptr [esi+4],ebx
+  00628A14: 8B 40 08           mov         eax,dword ptr [eax+8]
+  00628A17: 89 46 08           mov         dword ptr [esi+8],eax
+  00628A1A: 8B 74 24 10        mov         esi,dword ptr [esp+10h]
+  00628A1E: 8B 46 14           mov         eax,dword ptr [esi+14h]
+
+  Summary
+
+      456000 .text

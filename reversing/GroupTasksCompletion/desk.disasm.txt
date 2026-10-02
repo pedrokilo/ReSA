@@ -1,0 +1,281 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Grand Theft Auto San Andreas\gta-sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00677920: 83 EC 24           sub         esp,24h
+  00677923: 53                 push        ebx
+  00677924: 55                 push        ebp
+  00677925: 56                 push        esi
+  00677926: 8B F1              mov         esi,ecx
+  00677928: 8B 46 14           mov         eax,dword ptr [esi+14h]
+  0067792B: 83 CD FF           or          ebp,0FFFFFFFFh
+  0067792E: 85 C0              test        eax,eax
+  00677930: 57                 push        edi
+  00677931: 74 04              je          00677937
+  00677933: 0F BF 68 2C        movsx       ebp,word ptr [eax+2Ch]
+  00677937: 8B 7C 24 38        mov         edi,dword ptr [esp+38h]
+  0067793B: BB 01 00 00 00     mov         ebx,1
+  00677940: 53                 push        ebx
+  00677941: 8B CF              mov         ecx,edi
+  00677943: E8 B8 72 F6 FF     call        005DEC00
+  00677948: 8A 46 35           mov         al,byte ptr [esi+35h]
+  0067794B: 84 C0              test        al,al
+  0067794D: 74 71              je          006779C0
+  0067794F: 8B 47 18           mov         eax,dword ptr [edi+18h]
+  00677952: 68 49 01 00 00     push        149h
+  00677957: 50                 push        eax
+  00677958: E8 53 EF E5 FF     call        004D68B0
+  0067795D: 83 C4 08           add         esp,8
+  00677960: 85 C0              test        eax,eax
+  00677962: 75 5C              jne         006779C0
+  00677964: D9 87 58 05 00 00  fld         dword ptr [edi+00000558h]
+  0067796A: 51                 push        ecx
+  0067796B: D8 05 B8 8C 85 00  fadd        dword ptr ds:[00858CB8h]
+  00677971: D9 1C 24           fstp        dword ptr [esp]
+  00677974: E8 D7 51 EC FF     call        0053CB50
+  00677979: D9 5C 24 3C        fstp        dword ptr [esp+3Ch]
+  0067797D: 83 C4 04           add         esp,4
+  00677980: 8B 4C 24 38        mov         ecx,dword ptr [esp+38h]
+  00677984: 8B D1              mov         edx,ecx
+  00677986: 89 8F 5C 05 00 00  mov         dword ptr [edi+0000055Ch],ecx
+  0067798C: 8B 4F 14           mov         ecx,dword ptr [edi+14h]
+  0067798F: 85 C9              test        ecx,ecx
+  00677991: 89 97 58 05 00 00  mov         dword ptr [edi+00000558h],edx
+  00677997: 74 14              je          006779AD
+  00677999: 8B C2              mov         eax,edx
+  0067799B: 50                 push        eax
+  0067799C: E8 7F 36 F2 FF     call        0059B020
+  006779A1: 5F                 pop         edi
+  006779A2: 5E                 pop         esi
+  006779A3: 5D                 pop         ebp
+  006779A4: 8A C3              mov         al,bl
+  006779A6: 5B                 pop         ebx
+  006779A7: 83 C4 24           add         esp,24h
+  006779AA: C2 04 00           ret         4
+  006779AD: 8B 4C 24 38        mov         ecx,dword ptr [esp+38h]
+  006779B1: 89 4F 10           mov         dword ptr [edi+10h],ecx
+  006779B4: 5F                 pop         edi
+  006779B5: 5E                 pop         esi
+  006779B6: 5D                 pop         ebp
+  006779B7: 8A C3              mov         al,bl
+  006779B9: 5B                 pop         ebx
+  006779BA: 83 C4 24           add         esp,24h
+  006779BD: C2 04 00           ret         4
+  006779C0: 8A 46 36           mov         al,byte ptr [esi+36h]
+  006779C3: 84 C0              test        al,al
+  006779C5: 0F 84 93 00 00 00  je          00677A5E
+  006779CB: 6A 02              push        2
+  006779CD: B9 70 F6 BA 00     mov         ecx,0BAF670h
+  006779D2: E8 19 07 F2 FF     call        005980F0
+  006779D7: 84 C0              test        al,al
+  006779D9: 74 D9              je          006779B4
+  006779DB: 81 FD 48 01 00 00  cmp         ebp,148h
+  006779E1: 75 0C              jne         006779EF
+  006779E3: 8B 56 14           mov         edx,dword ptr [esi+14h]
+  006779E6: C7 42 1C 00 00 00  mov         dword ptr [edx+1Ch],0C1000000h
+            C1
+  006779ED: EB 6F              jmp         00677A5E
+  006779EF: 81 FD 4A 01 00 00  cmp         ebp,14Ah
+  006779F5: 7C 55              jl          00677A4C
+  006779F7: 81 FD 50 01 00 00  cmp         ebp,150h
+  006779FD: 7F 4D              jg          00677A4C
+  006779FF: 8A 46 34           mov         al,byte ptr [esi+34h]
+  00677A02: 84 C0              test        al,al
+  00677A04: 75 58              jne         00677A5E
+  00677A06: 8B 4E 14           mov         ecx,dword ptr [esi+14h]
+  00677A09: 6A 00              push        0
+  00677A0B: 68 90 13 4D 00     push        4D1390h
+  00677A10: E8 AB 71 E5 FF     call        004CEBC0
+  00677A15: 8B 47 18           mov         eax,dword ptr [edi+18h]
+  00677A18: 68 00 00 7A 44     push        447A0000h
+  00677A1D: 68 49 01 00 00     push        149h
+  00677A22: 6A 55              push        55h
+  00677A24: 50                 push        eax
+  00677A25: E8 E6 CB E5 FF     call        004D4610
+  00677A2A: 83 C4 10           add         esp,10h
+  00677A2D: 56                 push        esi
+  00677A2E: 68 90 61 67 00     push        676190h
+  00677A33: 8B C8              mov         ecx,eax
+  00677A35: 89 46 14           mov         dword ptr [esi+14h],eax
+  00677A38: E8 A3 71 E5 FF     call        004CEBE0
+  00677A3D: 5F                 pop         edi
+  00677A3E: 88 5E 34           mov         byte ptr [esi+34h],bl
+  00677A41: 5E                 pop         esi
+  00677A42: 5D                 pop         ebp
+  00677A43: 32 C0              xor         al,al
+  00677A45: 5B                 pop         ebx
+  00677A46: 83 C4 24           add         esp,24h
+  00677A49: C2 04 00           ret         4
+  00677A4C: 81 FD 49 01 00 00  cmp         ebp,149h
+  00677A52: 75 0A              jne         00677A5E
+  00677A54: 8B 4E 14           mov         ecx,dword ptr [esi+14h]
+  00677A57: C7 41 24 00 00 00  mov         dword ptr [ecx+24h],40000000h
+            40
+  00677A5E: 8B 46 14           mov         eax,dword ptr [esi+14h]
+  00677A61: 85 C0              test        eax,eax
+  00677A63: 0F 85 D1 00 00 00  jne         00677B3A
+  00677A69: 6A 02              push        2
+  00677A6B: B9 70 F6 BA 00     mov         ecx,0BAF670h
+  00677A70: E8 7B 06 F2 FF     call        005980F0
+  00677A75: 84 C0              test        al,al
+  00677A77: 0F 84 5E 03 00 00  je          00677DDB
+  00677A7D: 8B 46 18           mov         eax,dword ptr [esi+18h]
+  00677A80: 83 F8 FF           cmp         eax,0FFFFFFFFh
+  00677A83: 75 4D              jne         00677AD2
+  00677A85: 8A 46 10           mov         al,byte ptr [esi+10h]
+  00677A88: 84 C0              test        al,al
+  00677A8A: 74 12              je          00677A9E
+  00677A8C: 8B 46 08           mov         eax,dword ptr [esi+8]
+  00677A8F: 85 C0              test        eax,eax
+  00677A91: 7C 5C              jl          00677AEF
+  00677A93: 8B 15 84 CB B7 00  mov         edx,dword ptr ds:[00B7CB84h]
+  00677A99: 89 56 1C           mov         dword ptr [esi+1Ch],edx
+  00677A9C: EB 4B              jmp         00677AE9
+  00677A9E: 8B 47 18           mov         eax,dword ptr [edi+18h]
+  00677AA1: 68 00 00 80 40     push        40800000h
+  00677AA6: 68 48 01 00 00     push        148h
+  00677AAB: 6A 55              push        55h
+  00677AAD: 50                 push        eax
+  00677AAE: E8 5D CB E5 FF     call        004D4610
+  00677AB3: 83 C4 10           add         esp,10h
+  00677AB6: 56                 push        esi
+  00677AB7: 68 90 61 67 00     push        676190h
+  00677ABC: 8B C8              mov         ecx,eax
+  00677ABE: 89 46 14           mov         dword ptr [esi+14h],eax
+  00677AC1: E8 1A 71 E5 FF     call        004CEBE0
+  00677AC6: 5F                 pop         edi
+  00677AC7: 5E                 pop         esi
+  00677AC8: 5D                 pop         ebp
+  00677AC9: 32 C0              xor         al,al
+  00677ACB: 5B                 pop         ebx
+  00677ACC: 83 C4 24           add         esp,24h
+  00677ACF: C2 04 00           ret         4
+  00677AD2: 3D 48 01 00 00     cmp         eax,148h
+  00677AD7: 75 32              jne         00677B0B
+  00677AD9: 8B 46 08           mov         eax,dword ptr [esi+8]
+  00677ADC: 85 C0              test        eax,eax
+  00677ADE: 7C 0F              jl          00677AEF
+  00677AE0: 8B 0D 84 CB B7 00  mov         ecx,dword ptr ds:[00B7CB84h]
+  00677AE6: 89 4E 1C           mov         dword ptr [esi+1Ch],ecx
+  00677AE9: 89 46 20           mov         dword ptr [esi+20h],eax
+  00677AEC: 88 5E 24           mov         byte ptr [esi+24h],bl
+  00677AEF: 68 00 00 7A 44     push        447A0000h
+  00677AF4: 57                 push        edi
+  00677AF5: 8B CE              mov         ecx,esi
+  00677AF7: E8 84 FC FF FF     call        00677780
+  00677AFC: 5F                 pop         edi
+  00677AFD: 88 5E 34           mov         byte ptr [esi+34h],bl
+  00677B00: 5E                 pop         esi
+  00677B01: 5D                 pop         ebp
+  00677B02: 32 C0              xor         al,al
+  00677B04: 5B                 pop         ebx
+  00677B05: 83 C4 24           add         esp,24h
+  00677B08: C2 04 00           ret         4
+  00677B0B: 3D 4D 01 00 00     cmp         eax,14Dh
+  00677B10: 0F 8C C5 02 00 00  jl          00677DDB
+  00677B16: 3D 50 01 00 00     cmp         eax,150h
+  00677B1B: 0F 8F BA 02 00 00  jg          00677DDB
+  00677B21: 68 00 00 80 40     push        40800000h
+  00677B26: 57                 push        edi
+  00677B27: 8B CE              mov         ecx,esi
+  00677B29: E8 52 FC FF FF     call        00677780
+  00677B2E: 5F                 pop         edi
+  00677B2F: 5E                 pop         esi
+  00677B30: 5D                 pop         ebp
+  00677B31: 32 C0              xor         al,al
+  00677B33: 5B                 pop         ebx
+  00677B34: 83 C4 24           add         esp,24h
+  00677B37: C2 04 00           ret         4
+  00677B3A: 8A 46 34           mov         al,byte ptr [esi+34h]
+  00677B3D: 84 C0              test        al,al
+  00677B3F: 0F 84 AD 00 00 00  je          00677BF2
+  00677B45: 8B 4F 14           mov         ecx,dword ptr [edi+14h]
+  00677B48: 85 C9              test        ecx,ecx
+  00677B4A: 8D 41 30           lea         eax,[ecx+30h]
+  00677B4D: 75 03              jne         00677B52
+  00677B4F: 8D 47 04           lea         eax,[edi+4]
+  00677B52: 81 FD 4A 01 00 00  cmp         ebp,14Ah
+  00677B58: 8B 10              mov         edx,dword ptr [eax]
+  00677B5A: 89 54 24 10        mov         dword ptr [esp+10h],edx
+  00677B5E: 8B 50 04           mov         edx,dword ptr [eax+4]
+  00677B61: 8B 40 08           mov         eax,dword ptr [eax+8]
+  00677B64: 89 54 24 14        mov         dword ptr [esp+14h],edx
+  00677B68: 8B D0              mov         edx,eax
+  00677B6A: 89 44 24 18        mov         dword ptr [esp+18h],eax
+  00677B6E: 89 54 24 38        mov         dword ptr [esp+38h],edx
+  00677B72: 7C 13              jl          00677B87
+  00677B74: 81 FD 4C 01 00 00  cmp         ebp,14Ch
+  00677B7A: 7F 0B              jg          00677B87
+  00677B7C: 68 6C 8C C1 00     push        0C18C6Ch
+  00677B81: 8D 44 24 20        lea         eax,[esp+20h]
+  00677B85: EB 35              jmp         00677BBC
+  00677B87: 81 FD 49 01 00 00  cmp         ebp,149h
+  00677B8D: 75 4B              jne         00677BDA
+  00677B8F: D9 05 6C 8C C1 00  fld         dword ptr ds:[00C18C6Ch]
+  00677B95: 8D 54 24 1C        lea         edx,[esp+1Ch]
+  00677B99: D9 E0              fchs
+  00677B9B: 52                 push        edx
+  00677B9C: D9 5C 24 20        fstp        dword ptr [esp+20h]
+  00677BA0: 8D 44 24 2C        lea         eax,[esp+2Ch]
+  00677BA4: D9 05 70 8C C1 00  fld         dword ptr ds:[00C18C70h]
+  00677BAA: D9 E0              fchs
+  00677BAC: D9 5C 24 24        fstp        dword ptr [esp+24h]
+  00677BB0: D9 05 74 8C C1 00  fld         dword ptr ds:[00C18C74h]
+  00677BB6: D9 E0              fchs
+  00677BB8: D9 5C 24 28        fstp        dword ptr [esp+28h]
+  00677BBC: 51                 push        ecx
+  00677BBD: 50                 push        eax
+  00677BBE: E8 CD 4C F2 FF     call        0059C890
+  00677BC3: 8B 50 04           mov         edx,dword ptr [eax+4]
+  00677BC6: 8B 08              mov         ecx,dword ptr [eax]
+  00677BC8: 8B 40 08           mov         eax,dword ptr [eax+8]
+  00677BCB: 83 C4 0C           add         esp,0Ch
+  00677BCE: 89 4C 24 10        mov         dword ptr [esp+10h],ecx
+  00677BD2: 89 54 24 14        mov         dword ptr [esp+14h],edx
+  00677BD6: 89 44 24 18        mov         dword ptr [esp+18h],eax
+  00677BDA: 8B 4C 24 38        mov         ecx,dword ptr [esp+38h]
+  00677BDE: 8D 54 24 10        lea         edx,[esp+10h]
+  00677BE2: 89 4C 24 18        mov         dword ptr [esp+18h],ecx
+  00677BE6: 52                 push        edx
+  00677BE7: 8B CF              mov         ecx,edi
+  00677BE9: E8 D2 C5 DA FF     call        004241C0
+  00677BEE: C6 46 34 00        mov         byte ptr [esi+34h],0
+  00677BF2: 8A 46 24           mov         al,byte ptr [esi+24h]
+  00677BF5: 84 C0              test        al,al
+  00677BF7: 74 50              je          00677C49
+  00677BF9: 8D 4E 1C           lea         ecx,[esi+1Ch]
+  00677BFC: E8 2F 92 DA FF     call        00420E30
+  00677C01: 84 C0              test        al,al
+  00677C03: 74 44              je          00677C49
+  00677C05: 8B 4E 14           mov         ecx,dword ptr [esi+14h]
+  00677C08: 66 81 79 2C 49 01  cmp         word ptr [ecx+2Ch],149h
+  00677C0E: 74 71              je          00677C81
+  00677C10: 6A 00              push        0
+  00677C12: 68 90 13 4D 00     push        4D1390h
+  00677C17: E8 A4 6F E5 FF     call        004CEBC0
+  00677C1C: 8B 47 18           mov         eax,dword ptr [edi+18h]
+  00677C1F: 68 00 00 7A 44     push        447A0000h
+  00677C24: 68 49 01 00 00     push        149h
+  00677C29: 6A 55              push        55h
+  00677C2B: 50                 push        eax
+  00677C2C: E8 DF C9 E5 FF     call        004D4610
+  00677C31: 83 C4 10           add         esp,10h
+  00677C34: 56                 push        esi
+  00677C35: 68 90 61 67 00     push        676190h
+  00677C3A: 8B C8              mov         ecx,eax
+  00677C3C: 89 46 14           mov         dword ptr [esi+14h],eax
+  00677C3F: E8 9C 6F E5 FF     call        004CEBE0
+  00677C44: 88 5E 34           mov         byte ptr [esi+34h],bl
+  00677C47: EB 38              jmp         00677C81
+  00677C49: 8A 46 30           mov         al,byte ptr [esi+30h]
+  00677C4C: 84 C0              test        al,al
+  00677C4E: 74 31              je          00677C81
+  00677C50: 8D
+
+  Summary
+
+      456000 .text

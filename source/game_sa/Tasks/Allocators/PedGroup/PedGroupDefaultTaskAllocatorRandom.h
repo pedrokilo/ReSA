@@ -9,7 +9,7 @@
  * Reconstrucción: INCOMPLETA — 1/2 funciones reconstruidas.
  * Pendientes de reconstruir: 1.
  * Funciones bloqueadas: 1.
- * Evidencia aprobada vinculada: 0/2 entradas.
+ * Validación registrada: 0/2 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -27,12 +27,38 @@ END GENERATED HOOK STATUS */
 #include <reversiblehooks/ReversibleHooks.h>
 
 #include "./PedGroupDefaultTaskAllocator.h"
+#include "TaskComplexGangFollower.h"
+#include "TaskComplexGangLeader.h"
+#include "TaskComplexFollowLeaderInFormation.h"
 
 class NOTSA_EXPORT_VTABLE CPedGroupDefaultTaskAllocatorRandom final : public CPedGroupDefaultTaskAllocator {
 public:
     /* no virtual destructor */
 
-    void                              AllocateDefaultTasks(CPedGroup* pedGroup, CPed* ped) const override { plugin::CallMethod<0x5F6E90>(this, pedGroup, ped); };
+    // 0x5F6E90
+    void AllocateDefaultTasks(CPedGroup* pedGroup, CPed* ped) const override {
+        auto& pairs = pedGroup->GetIntelligence().GetDefaultPedTaskPairs();
+        for (int32 i = 0; i < TOTAL_PED_GROUP_FOLLOWERS; ++i) {
+            auto& pair = pairs[i];
+            if (!pair.Ped || (ped && pair.Ped != ped)) {
+                continue;
+            }
+            auto* task = new CTaskComplexGangFollower{
+                pedGroup,
+                pedGroup->GetMembership().GetLeader(),
+                static_cast<uint8>(i),
+                CVector{CTaskComplexFollowLeaderInFormation::ms_offsets.Offsets[i]},
+                10.f
+            };
+            pair.Task = task;
+            // CTaskComplexGangFollower::SetCanEnterLeadersCar (0x65EE90).
+            task->m_Flags = (task->m_Flags & ~4u) | (pedGroup->m_bMembersEnterLeadersVehicle ? 4u : 0u);
+        }
+        auto& leaderPair = pairs[CPedGroupMembership::LEADER_MEM_ID];
+        if (leaderPair.Ped && (!ped || leaderPair.Ped == ped)) {
+            leaderPair.Task = new CTaskComplexGangLeader{pedGroup};
+        }
+    }
     ePedGroupDefaultTaskAllocatorType GetType() const override { return ePedGroupDefaultTaskAllocatorType::RANDOM; }; // 0x5F6530
 
 public:
