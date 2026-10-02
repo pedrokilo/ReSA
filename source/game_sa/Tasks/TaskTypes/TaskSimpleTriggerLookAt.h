@@ -25,6 +25,8 @@ public:
 public:
     static constexpr auto Type = TASK_SIMPLE_TRIGGER_LOOK_AT;
 
+    static void InjectHooks();
+
     CTaskSimpleTriggerLookAt(CEntity* entity,
                              int32 time,
                              int32 offsetBoneTag,

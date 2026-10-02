@@ -1,3 +1,5 @@
+#pragma once
+
 #include "TaskComplex.h"
 #include "TaskTimer.h"
 
@@ -14,6 +16,9 @@ private:
     char padding[3];
     CTaskTimer m_timer;
     int32 m_framesToWaitForSettingRotation;
+
+public:
+    static void InjectHooks();
 };
 
 VALIDATE_SIZE(CTaskComplexWaitForPed, 0x2C);

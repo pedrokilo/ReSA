@@ -19,6 +19,8 @@ public:
 public:
     static constexpr auto Type = TASK_COMPLEX_USE_MOBILE_PHONE;
 
+    static void InjectHooks();
+
     CTaskComplexUseMobilePhone(int32 nDuration);
 };
 
