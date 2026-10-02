@@ -8143,3 +8143,7 @@ CTaskComplexBeStill,CreateFirstSubTask,0x0062F910,1,0,0,V
 CTaskComplexBeStill,CreateNextSubTask,0x0062F8D0,1,0,0,V
 CTaskComplexBeStill,Destructor,0x005F6700,1,0,0,S
 CTaskComplexBeStill,GetTaskType,0x005F66D0,1,0,0,V
+CTaskComplexClimb,Clone,0x0046A650,1,0,0,V
+CTaskComplexClimb,Constructor,0x0046A630,1,0,0,S
+CTaskComplexClimb,Destructor,0x0046A6E0,1,0,0,S
+CTaskComplexClimb,GetTaskType,0x0046A6B0,1,0,0,V
