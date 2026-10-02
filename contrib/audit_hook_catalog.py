@@ -32,6 +32,26 @@ INJECT_DEF = re.compile(
 
 COMMENT = re.compile(r'/\*.*?\*/|//[^\n]*', re.DOTALL)
 
+# Cabecera de función que puede contener los RH_Scoped* de un owner
+# (Owner::InjectHooks, InjectXxxHooks libres, lambdas no incluidas).
+FUNC_HEAD = re.compile(
+    r'^[ \t]*(?:static\s+|inline\s+|template\s*<[^>]*>\s*)*'
+    r'(?:void|auto|bool)\s+([A-Za-z_][\w:<>]*)\s*\([^;{)]*\)\s*(?:const\s*)?\{',
+    re.MULTILINE,
+)
+
+# Llamada sin argumentos `Nombre();` o `A::B();`, sin `.`/`->`/`::` delante.
+CALL_NO_ARGS = re.compile(r'(?<![\w.>:])([A-Za-z_]\w*(?:::[A-Za-z_]\w*)*)\s*\(\s*\)\s*;')
+
+# Cabecera de clase/struct/namespace con cuerpo; el cuerpo se delimita después
+# contando llaves. Se omiten declaraciones adelantadas (`class X;`).
+TYPE_HEAD = re.compile(
+    r'\b(class|struct|namespace)\s+(?:NOTSA_EXPORT_VTABLE\s+|alignas\s*\([^)]*\)\s+)*'
+    r'([A-Za-z_]\w*)\s*(?:final\s*)?(?::[^;{]*)?\{'
+)
+
+OWN_INJECT = re.compile(r'\bInjectHooks\s*\(')
+
 
 def strip_comments(text: str) -> str:
     return COMMENT.sub('', text)
@@ -79,6 +99,115 @@ def scan_source(root: Path):
     return owner_files, owners_with_installs, owner_calls
 
 
+def find_never_registered(root: Path, owners: set[str]) -> list[tuple[str, list[str]]]:
+    """Owners cuya función de registro (la que contiene su RH_Scoped*) no se llama nunca.
+
+    Un owner catalogado puede registrarse de forma indirecta (CText::InjectHooks
+    registra CData/CKeyArray; funciones libres como InjectCommonHooks registran
+    namespaces). Lo que importa es si la función que contiene su scope se invoca
+    desde algún sitio; si no, sus hooks no se instalan nunca en tiempo de
+    ejecución aunque hooks.csv los marque reversed=1.
+    """
+    texts = {}
+    for path in sorted((root / 'source').rglob('*')):
+        if path.suffix in ('.cpp', '.h', '.hpp'):
+            texts[path] = strip_comments(path.read_text(encoding='utf-8-sig', errors='replace'))
+    called_names = set()
+    for data in texts.values():
+        called_names.update(CALL_NO_ARGS.findall(data))
+
+    enclosing = defaultdict(set)
+    for path, data in texts.items():
+        heads = list(FUNC_HEAD.finditer(data))
+        for scope in SCOPE.finditer(data):
+            owner = scope.group(1).strip()
+            if owner not in owners:
+                continue
+            before = [h for h in heads if h.start() < scope.start()]
+            if before:
+                enclosing[owner].add((before[-1].group(1), path.relative_to(root).as_posix()))
+
+    result = []
+    for owner, funcs in enclosing.items():
+        if not any(func in called_names for func, _ in funcs):
+            result.append((owner, sorted(f'{path} ({func})' for func, path in funcs)))
+    return sorted(result)
+
+
+def find_inherited_calls(root: Path, main_calls: set[str]) -> list[tuple[str, list[str]]]:
+    """Llamadas X::InjectHooks() cuyo X no declara InjectHooks propio.
+
+    En C++ la llamada compila igualmente y resuelve al InjectHooks heredado de
+    una base, que entonces se ejecuta dos veces (assert por nombres duplicados)
+    o registra los hooks bajo el owner equivocado. Antes de este control se
+    detectaba solo al arrancar; ejemplo histórico: CAEPedWeaponAudioEntity
+    llamaba al InjectHooks de CAEWeaponAudioEntity.
+    """
+    own = set()
+    bases = {}
+    for path in sorted((root / 'source').rglob('*')):
+        if path.suffix not in ('.cpp', '.h', '.hpp'):
+            continue
+        data = strip_comments(path.read_text(encoding='utf-8-sig', errors='replace'))
+        for name in INJECT_DEF.findall(data):
+            own.add(name.split('::')[-1].split('<')[0])
+        for head in TYPE_HEAD.finditer(data):
+            name = head.group(2)
+            depth, end = 1, head.end()
+            while depth and end < len(data):
+                char = data[end]
+                depth += char == '{'
+                depth -= char == '}'
+                end += 1
+            if OWN_INJECT.search(data, head.end(), end):
+                own.add(name)
+            inherit = re.search(r':\s*(?:public|protected|private)?\s*([A-Za-z_]\w*)', head.group(0))
+            if inherit and head.group(1) != 'namespace':
+                bases.setdefault(name, inherit.group(1))
+
+    result = []
+    for call in sorted(main_calls):
+        name = call.split('::')[-1].split('<')[0]
+        # Solo clases con base conocida: sin base, una llamada sin InjectHooks
+        # propio no compilaría, así que no es este caso.
+        if name in own or name not in bases:
+            continue
+        base, chain = bases[name], []
+        while base and base not in own and base not in chain:
+            chain.append(base)
+            base = bases.get(base)
+        if base in own:
+            result.append((call, [f'resuelve a {base}::InjectHooks heredado']))
+    return result
+
+
+def compare_runtime(catalog_path: Path, runtime_path: Path) -> list[tuple[str, list[str]]]:
+    """Compara docs/hooks.csv con el runtime-hooks.csv que escribe el juego al arrancar.
+
+    El registro real puede diferir del catálogo aunque las demás comprobaciones pasen:
+    hooks registrados por funciones que no se llaman X::InjectHooks() (p. ej.
+    notsa::InjectWindowedModeHooks), un reversed distinto en el código y en el CSV, o
+    una dirección cambiada. Las filas V con dirección 0 en el CSV no se comparan por
+    dirección.
+    """
+    def load(path):
+        with path.open(encoding='utf-8-sig', newline='') as stream:
+            return {(r['class'], r['fn_name']): r for r in csv.DictReader(stream)}
+    catalog, runtime = load(catalog_path), load(runtime_path)
+    result = []
+    for key in sorted(set(runtime) - set(catalog)):
+        result.append(('/'.join(key), ['registrado en el juego, ausente de hooks.csv']))
+    for key in sorted(set(catalog) - set(runtime)):
+        result.append(('/'.join(key), ['en hooks.csv, no registrado en el juego']))
+    for key in sorted(set(catalog) & set(runtime)):
+        c, r = catalog[key], runtime[key]
+        if c['reversed'] != r['reversed']:
+            result.append(('/'.join(key), [f"reversed: hooks.csv={c['reversed']}, juego={r['reversed']}"]))
+        if int(c['address'], 16) and c['address'].upper() != r['address'].upper():
+            result.append(('/'.join(key), [f"dirección: hooks.csv={c['address']}, juego={r['address']}"]))
+    return result
+
+
 def print_group(title: str, entries: list[tuple[str, list[str]]]):
     print(f'\n{title}: {len(entries)}')
     for owner, paths in entries:
@@ -99,6 +228,11 @@ def main():
         '--verbose',
         action='store_true',
         help='Mostrar también owners inactivos, registros indirectos y aliases informativos',
+    )
+    parser.add_argument(
+        '--runtime',
+        default=None,
+        help='runtime-hooks.csv generado por el juego (scripts/runtime-hooks.csv); compara el registro real con el catálogo',
     )
     args = parser.parse_args()
 
@@ -168,11 +302,21 @@ def main():
         if owner not in catalog and owner in owners_with_installs
     )
 
+    never_registered = find_never_registered(
+        root, {owner for owner in owners_with_installs if owner in catalog}
+    )
+
+    inherited_calls = find_inherited_calls(root, main_calls)
+    runtime_mismatches = compare_runtime(root / args.csv, Path(args.runtime)) if args.runtime else []
+
     inconsistent = (
         active_missing_catalog
         or direct_with_own_installs_missing_catalog
         or indirect_missing_catalog
         or missing_source
+        or never_registered
+        or inherited_calls
+        or runtime_mismatches
     )
 
     print('Auditoría de catálogo de hooks')
@@ -185,8 +329,18 @@ def main():
     print(f'  registros indirectos ausentes de hooks.csv: {len(indirect_missing_catalog)}')
     print(f'  clases/grupos del CSV sin scope fuente: {len(missing_source)}')
     print(f'  llamadas directas con instalaciones propias sin owner catalogado: {len(direct_with_own_installs_missing_catalog)}')
+    print(f'  owners catalogados cuya función de registro nunca se invoca: {len(never_registered)}')
+    print(f'  llamadas que resuelven a un InjectHooks heredado: {len(inherited_calls)}')
+    if args.runtime:
+        print(f'  diferencias con el registro real (runtime-hooks.csv): {len(runtime_mismatches)}')
     print()
     print('Resultado: ' + ('ERROR' if inconsistent else 'OK'))
+    if never_registered:
+        print_group('Owners catalogados que NUNCA instalan sus hooks (su registro no se llama)', never_registered)
+    if inherited_calls:
+        print_group('Llamadas X::InjectHooks() sin InjectHooks propio en X (usan el heredado)', inherited_calls)
+    if runtime_mismatches:
+        print_group('Diferencias entre hooks.csv y el registro real del juego', runtime_mismatches)
 
     if args.verbose:
         print_group(
