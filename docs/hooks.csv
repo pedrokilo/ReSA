@@ -8428,3 +8428,6 @@ CTaskSimpleCarDriveTimed,Constructor,0x005FF940,1,0,0,S
 CTaskSimpleCarDriveTimed,Destructor,0x0046F690,1,0,0,S
 CTaskSimpleCarDriveTimed,GetTaskType,0x0046F600,1,0,0,V
 CTaskSimpleCarDriveTimed,ProcessPed,0x0046F610,0,1,0,V
+CTaskComplexBeCop,Clone,0x00499440,0,1,0,V
+CTaskComplexBeCop,Destructor,0x004994E0,1,0,0,S
+CTaskComplexBeCop,GetTaskType,0x00499430,1,0,0,V
