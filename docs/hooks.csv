@@ -8163,3 +8163,6 @@ CTaskComplexCarDriveWander,SetUpCar,0x0063CB60,1,0,0,V
 CTaskComplexEnterCarAsDriver,Clone,0x00643780,1,0,0,V
 CTaskComplexEnterCarAsDriver,Constructor,0x006402F0,1,0,0,S
 CTaskComplexEnterCarAsDriver,GetTaskType,0x00640320,1,0,0,V
+CTaskComplexEnterCarAsPassenger,Clone,0x006437F0,1,0,0,V
+CTaskComplexEnterCarAsPassenger,Constructor,0x00640340,1,0,0,S
+CTaskComplexEnterCarAsPassenger,GetTaskType,0x00640370,1,0,0,V

@@ -1249,7 +1249,7 @@ void InjectHooksMain() {
         CTaskComplexWalkRoundObject::InjectHooks();
         CTaskSimplePause::InjectHooks();
         CTaskComplexEnterCarAsDriver::InjectHooks();
-        // CTaskComplexEnterCarAsPassenger::InjectHooks();
+        CTaskComplexEnterCarAsPassenger::InjectHooks();
         // + CTaskComplexEnterCarAsDriver::InjectHooks();
         // CTaskSimpleNone::InjectHooks();
         CTaskComplexKillPedOnFoot::InjectHooks();

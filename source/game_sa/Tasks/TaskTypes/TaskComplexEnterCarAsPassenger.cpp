@@ -2,6 +2,16 @@
 
 #include "TaskComplexEnterCarAsPassenger.h"
 
+void CTaskComplexEnterCarAsPassenger::InjectHooks() {
+    RH_ScopedVirtualClass(CTaskComplexEnterCarAsPassenger, 0x86EADC, 12);
+    RH_ScopedCategory("Tasks/TaskTypes");
+
+    RH_ScopedInstall(Constructor, 0x640340);
+
+    RH_ScopedVMTInstall(Clone, 0x6437F0);
+    RH_ScopedVMTInstall(GetTaskType, 0x640370);
+}
+
 // 0x640340
 CTaskComplexEnterCarAsPassenger::CTaskComplexEnterCarAsPassenger(CVehicle* targetVehicle, int32 nTargetSeat, bool bCarryOnAfterFallingOff)
     : CTaskComplexEnterCar(targetVehicle, false, false, false, bCarryOnAfterFallingOff)
