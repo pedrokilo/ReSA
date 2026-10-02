@@ -8155,3 +8155,8 @@ CTaskComplexDriveToPoint,GetTaskType,0x0063CE60,1,0,0,V
 CTaskComplexDriveToPoint,IsTargetBlocked-,0x006452C0,0,1,0,S
 CTaskComplexDriveToPoint,IsTargetBlocked-entities,0x006432A0,0,1,0,S
 CTaskComplexDriveToPoint,SetUpCar,0x0063CF00,1,0,0,V
+CTaskComplexCarDriveWander,Clone,0x0063DD00,1,0,0,V
+CTaskComplexCarDriveWander,Constructor,0x0063CB10,1,0,0,S
+CTaskComplexCarDriveWander,CreateSubTaskCannotGetInCar,0x00643240,1,0,0,V
+CTaskComplexCarDriveWander,GetTaskType,0x0063CB40,1,0,0,V
+CTaskComplexCarDriveWander,SetUpCar,0x0063CB60,1,0,0,V

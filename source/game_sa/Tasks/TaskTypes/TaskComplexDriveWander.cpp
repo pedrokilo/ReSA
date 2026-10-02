@@ -3,6 +3,18 @@
 #include "TaskComplexDriveWander.h"
 #include "CarCtrl.h"
 
+void CTaskComplexCarDriveWander::InjectHooks() {
+    RH_ScopedVirtualClass(CTaskComplexCarDriveWander, 0x86E96C, 14);
+    RH_ScopedCategory("Tasks/TaskTypes");
+
+    RH_ScopedInstall(Constructor, 0x63CB10);
+
+    RH_ScopedVMTInstall(Clone, 0x63DD00);
+    RH_ScopedVMTInstall(GetTaskType, 0x63CB40);
+    RH_ScopedVMTInstall(SetUpCar, 0x63CB60);
+    RH_ScopedVMTInstall(CreateSubTaskCannotGetInCar, 0x643240);
+}
+
 // 0x63CB10
 CTaskComplexCarDriveWander::CTaskComplexCarDriveWander(CVehicle* vehicle, eCarDrivingStyle carDrivingStyle, float fSpeed)
     : CTaskComplexCarDrive(vehicle, fSpeed, MODEL_INVALID, carDrivingStyle)
