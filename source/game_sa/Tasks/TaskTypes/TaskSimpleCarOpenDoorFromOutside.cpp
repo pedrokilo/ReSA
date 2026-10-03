@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/10 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -45,7 +45,7 @@ CTaskSimpleCarOpenDoorFromOutside::CTaskSimpleCarOpenDoorFromOutside(CVehicle* v
     m_disallowPlayerDriverToExitCar{ disallowPlayerDriverToExitCar },
     m_lineUpTask{lineUpTask}
 {
-    CEntity::SafeRegisterRef(veh);
+    CEntity::SafeRegisterRef(m_veh); // Como el original: registra el miembro, no el parámetro
 }
 
 // NOTSA
@@ -81,28 +81,24 @@ void CTaskSimpleCarOpenDoorFromOutside::FinishAnimCarOpenDoorFromOutsideCB(CAnim
     self->m_veh->ProcessOpenDoor(nullptr, self->m_door, groupId, animId, 1.0f);
 }
 
-// Originally @ 0x645FA0, but we've modified it a little
+// NOTSA: firma con valor de retorno
 auto CTaskSimpleCarOpenDoorFromOutside::ComputeAnimID() -> std::pair<AssocGroupId, AnimationId> {
-    const auto animId = [this] {
-        switch (m_door) {
-        case TARGET_DOOR_FRONT_RIGHT:
-            return ANIM_ID_CAR_OPEN_RHS;
-        case TARGET_DOOR_REAR_RIGHT:
-            return ANIM_ID_CAR_OPEN_RHS_1;
-        case TARGET_DOOR_DRIVER:
-            return ANIM_ID_CAR_OPEN_LHS;
-        case TARGET_DOOR_REAR_LEFT:
-            return ANIM_ID_CAR_OPEN_LHS_1;
-        default:
-            NOTSA_UNREACHABLE();
-        }
-    }();
-    return { m_veh->GetAnimGroup().GetGroup(animId), animId };
+    AssocGroupId grp;
+    AnimationId  id;
+    ComputeAnimID_ToHook(grp, id);
+    return { grp, id };
 }
 
 // 0x645FA0
 void CTaskSimpleCarOpenDoorFromOutside::ComputeAnimID_ToHook(AssocGroupId& grp, AnimationId& id) {
-    std::tie(grp, id) = ComputeAnimID();
+    // Como el original: con otra puerta no se escribe la animación y se usa el valor que ya tenga
+    switch (m_door) {
+    case TARGET_DOOR_FRONT_RIGHT: id = ANIM_ID_CAR_OPEN_RHS;   break;
+    case TARGET_DOOR_REAR_RIGHT:  id = ANIM_ID_CAR_OPEN_RHS_1; break;
+    case TARGET_DOOR_DRIVER:      id = ANIM_ID_CAR_OPEN_LHS;   break;
+    case TARGET_DOOR_REAR_LEFT:   id = ANIM_ID_CAR_OPEN_LHS_1; break;
+    }
+    grp = m_veh->GetAnimGroup().GetGroup(id);
 }
 
 // 0x64AD90
@@ -164,9 +160,11 @@ bool CTaskSimpleCarOpenDoorFromOutside::ProcessPed(CPed* ped) {
     }
 
     const auto doorOpenTiming = m_veh->GetAnimGroup().GetInOutTiming(TIMING_START)[OPEN_START];
-    if (m_veh->IsAutomobile() || m_anim->m_CurrentTime >= doorOpenTiming) {
-        const auto [groupId, animId] = ComputeAnimID();
-        m_veh->ProcessOpenDoor(ped, m_door, groupId, m_anim->m_AnimId, m_anim->m_CurrentTime);        
+    // Como el original: la puerta se abre a mano solo en automóviles antes del tiempo de apertura
+    if (!(m_anim->m_CurrentTime < doorOpenTiming) || !m_veh->IsAutomobile()) {
+        // Como el original: el grupo sale del id de la animación en curso (sin ComputeAnimID)
+        const auto groupId = m_veh->GetAnimGroup().GetGroup(m_anim->GetAnimId());
+        m_veh->ProcessOpenDoor(ped, m_door, groupId, m_anim->m_AnimId, m_anim->m_CurrentTime);
     } else {
         // Open the door visually
         const auto doorId = [this] {

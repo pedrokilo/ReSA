@@ -55,7 +55,7 @@ public:
     void PlayTrack(uint32 iTrackId, int32 iNextTrackId, uint32 a3, int32 a4, bool bIsUserTrack, bool bNextIsUserTrack);
     void StopTrack();
 
-    int16 GetTrackPlayTime() const;
+    int32 GetTrackPlayTime() const; // Como el original: devuelve eax entero (CAEAudioHardware::GetTrackPlayTime es int32)
     int32 GetTrackLengthMs() const;
     int32 GetActiveTrackID() const;
     int32 GetPlayingTrackID() const;

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/12 entradas.
+ * Validación registrada: 12/12 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -26,6 +26,7 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleHitWall.h"
 #include "TaskSimpleScratchHead.h"
 #include "TaskSimpleLookAbout.h"
+#include "PedGeometryAnalyser.h"
 
 void CTaskComplexWalkRoundBuildingAttempt::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexWalkRoundBuildingAttempt, 0x86f334, 11);
@@ -47,16 +48,66 @@ void CTaskComplexWalkRoundBuildingAttempt::InjectHooks() {
     RH_ScopedVMTInstall(ControlSubTask, 0x658020);
 }
 
+namespace {
+constexpr float WRBA_RAND_RECIPROCAL = 3.0518509e-05f; // 0x858C7C (1/32767)
+
+// Como el original: CPointRoute::operator new (0x41B7C0) y solo se pone a cero el contador
+CPointRoute* NewEmptyPointRoute() {
+    auto* route = static_cast<CPointRoute*>(CPointRoute::operator new(sizeof(CPointRoute)));
+    if (route) {
+        route->m_NumEntries = 0;
+    }
+    return route;
+}
+
+// Como el original: añade un punto si el contador (con signo) es < 8
+void AddPointUnlessFull(CPointRoute& route, const CVector& pt) {
+    if ((int32)route.m_NumEntries < 8) {
+        route.m_Entries.data()[route.m_NumEntries] = pt;
+        route.m_NumEntries++;
+    }
+}
+
+// Como el original (0x63A040): copia el contador y solo los puntos usados
+void CopyPointRoute(CPointRoute& dst, const CPointRoute& src) {
+    dst.m_NumEntries = src.m_NumEntries;
+    for (int32 i = 0; i < (int32)dst.m_NumEntries; i++) {
+        dst.m_Entries.data()[i] = src.m_Entries.data()[i];
+    }
+}
+
+// Como el original (0x59C670): matriz * punto con el orden de sumas del EXE
+CVector MulMatrixPoint(const CMatrix& m, const CVector& v) {
+    CVector out;
+    out.x = ((m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x) + m.GetPosition().x;
+    out.y = ((m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y) + m.GetPosition().y;
+    out.z = ((m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y) + m.GetPosition().z;
+    return out;
+}
+} // namespace
+
 // 0x654740
 CTaskComplexWalkRoundBuildingAttempt::CTaskComplexWalkRoundBuildingAttempt(eMoveState moveState, CVector const& targetPos, CVector const& pos, CVector const& normal, bool flag_0x1) :
     m_targetPos{targetPos},
     m_pos{pos},
     m_normal{normal},
-    m_bIsHeadOnCollision{flag_0x1},
-    m_moveState{(int8)moveState}
+    m_targetEntity{nullptr},
+    m_moveState{(int8)moveState},
+    m_nAttempts{0}
 {
+    // Como el original: solo se escriben los bits 0-5 (los bits 6-7 del byte 0x49 se conservan) y m_offset no se toca
+    m_bIsHeadOnCollision    = flag_0x1;
+    m_routeHasPoints        = false;
+    m_isWalkingAroundEntity = false;
+    m_crapRouteHasPoints    = false;
+    m_justAbort             = false;
+    m_isFollowingRouteNow   = false;
+
     m_normal.z = 0.f;
     m_normal.Normalise();
+
+    m_route     = NewEmptyPointRoute();
+    m_crapRoute = NewEmptyPointRoute();
 }
 
 // 0x654840
@@ -66,15 +117,26 @@ CTaskComplexWalkRoundBuildingAttempt::CTaskComplexWalkRoundBuildingAttempt(eMove
     m_targetEntity{target},
     m_offset{offset},
     m_moveState{(int8)moveState},
-    m_bIsHeadOnCollision{bIsHeadOnCollision},
-    m_isWalkingAroundEntity{true}
+    m_nAttempts{0}
 {
+    // Como el original: m_targetPos no se toca
+    m_bIsHeadOnCollision    = bIsHeadOnCollision;
+    m_routeHasPoints        = false;
+    m_isWalkingAroundEntity = true;
+    m_crapRouteHasPoints    = false;
+    m_justAbort             = false;
+    m_isFollowingRouteNow   = false;
+
     m_normal.z = 0.f;
     m_normal.Normalise();
+
+    m_route     = NewEmptyPointRoute();
+    m_crapRoute = NewEmptyPointRoute();
 
     CEntity::RegisterReference(m_targetEntity);
 }
 
+// 0x655B90 (Clone)
 CTaskComplexWalkRoundBuildingAttempt::CTaskComplexWalkRoundBuildingAttempt(const CTaskComplexWalkRoundBuildingAttempt& o) :
     CTaskComplexWalkRoundBuildingAttempt{(eMoveState)o.m_moveState, o.m_targetPos, o.m_pos, o.m_normal, o.m_bIsHeadOnCollision}
 {
@@ -82,36 +144,56 @@ CTaskComplexWalkRoundBuildingAttempt::CTaskComplexWalkRoundBuildingAttempt(const
 
 // 0x654950
 CTaskComplexWalkRoundBuildingAttempt::~CTaskComplexWalkRoundBuildingAttempt() {
-    for (auto route : { m_crapRoute, m_route }) {
-        delete route;
+    // Como el original: primero m_route y luego m_crapRoute
+    if (m_route) {
+        delete m_route;
+    }
+    if (m_crapRoute) {
+        delete m_crapRoute;
     }
     CEntity::SafeCleanUpRef(m_targetEntity);
 }
 
 // 0x654B80
 void CTaskComplexWalkRoundBuildingAttempt::ComputeMoveDir(CPed const& ped, CVector& outDir) {
-    const CVector2D normal{ m_normal };
-    const CVector2D targetToPos = m_targetPos - m_pos;
-    outDir = CVector{ targetToPos - targetToPos.ProjectOnToNormal(normal), 0.f };
+    // Como el original: se proyecta (destino - posición del ped) en 2D sobre el plano de la normal;
+    // si queda casi nulo se usa el vector derecho de la matriz del ped
+    const auto& pedPos = ped.GetPosition();
+    const float dx  = m_targetPos.x - pedPos.x;
+    const float dy  = m_targetPos.y - pedPos.y;
+    const float nx  = m_normal.x;
+    const float ny  = m_normal.y;
+    const float nz  = m_normal.z;
+    const float dot = (dy * ny + dx * nx) + nz * 0.0f; // 0x858B50
+
+    outDir.z = 0.f;
+    const float x = dx - dot * nx;
+    const float y = dy - dot * ny;
+    outDir.x = x;
+    outDir.y = y;
+    if (y * y + x * x < 1.0e-8f) { // 0x86F360; NaN normaliza
+        outDir = ped.m_matrix->GetRight();
+    } else {
+        outDir.Normalise();
+    }
 }
 
 // 0x654C80
 CTask* CTaskComplexWalkRoundBuildingAttempt::CreateSubTask(eTaskType taskType, CPed* ped) {
     switch (taskType) {
-    case TASK_SIMPLE_ACHIEVE_HEADING:
-        /*
-        * Achieve heading to the first point of the point route
-        */
-        assert(approxEqual(
-            (m_route->m_Entries[0] - ped->GetPosition()).Heading(),
-            CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints({ m_route->m_Entries[0] - ped->GetPosition() }, {})),
-            0.001f
-        )); // TODO: Remove if doesn't assert
+    case TASK_SIMPLE_ACHIEVE_HEADING: {
+        // Como el original: dirección normalizada (0x59C910), GetRadianAngleBetweenPoints(x, y, 0, 0) y LimitRadianAngle
+        const auto& pedPos = ped->GetPosition();
+        const auto& first  = m_route->m_Entries.data()[0];
+        CVector dir{ first.x - pedPos.x, first.y - pedPos.y, first.z - pedPos.z };
+        dir.Normalise();
+        const float angle = CGeneral::GetRadianAngleBetweenPoints(dir.x, dir.y, 0.f, 0.f);
         return new CTaskSimpleAchieveHeading{
-            (m_route->m_Entries[0] - ped->GetPosition()).Heading(),
+            CGeneral::LimitRadianAngle(angle),
             1.f,
             0.1f
         };
+    }
     case TASK_COMPLEX_FOLLOW_POINT_ROUTE:
         return new CTaskComplexFollowPointRoute{
             (eMoveState)m_moveState,
@@ -132,7 +214,7 @@ CTask* CTaskComplexWalkRoundBuildingAttempt::CreateSubTask(eTaskType taskType, C
             false
         };
     case TASK_SIMPLE_STAND_STILL:
-        return new CTaskSimpleStandStill{1000};
+        return new CTaskSimpleStandStill{1000, false, false, 8.f};
     case TASK_SIMPLE_HIT_WALL:
         return new CTaskSimpleHitWall{};
     case TASK_SIMPLE_SCRATCH_HEAD:
@@ -140,103 +222,139 @@ CTask* CTaskComplexWalkRoundBuildingAttempt::CreateSubTask(eTaskType taskType, C
     case TASK_SIMPLE_LOOK_ABOUT:
         return new CTaskSimpleLookAbout{1000};
     case TASK_FINISHED:
+    default: // Como el original: cualquier otro tipo devuelve nullptr
         return nullptr;
-    default:
-        NOTSA_UNREACHABLE();
     }
 }
 
 // 0x656F80
 void CTaskComplexWalkRoundBuildingAttempt::ComputeCrapRoute(CPed const& ped) {
-    // Added pre-condition to skip all of the calculation, instead of testing it at the very end.
-    if (!m_crapRoute->IsFull()) {
-        const auto& pedPos = ped.GetPosition() - CVector{ 0.f, 0.f, 0.5f }; // Ped's position is it's center, so adjust it to be on the ground
-        const auto  right = CrossProduct(m_normal, CVector::ZAxisVector());
-        const auto  target =
-              pedPos 
-            + right * CGeneral::GetRandomNumberInRange(-1.f, 1.f)  // => right or left
-            + m_normal * CGeneral::GetRandomNumberInRange(1.f, 2.f);
-        // ^^^ Original order of addition was: m_normal, right, pedPos
+    // Como el original: siempre se calcula (dos rand y la línea de visión) aunque la ruta esté llena;
+    // aleatorios en línea: normal * [1, 2) y derecha * [-1, 1)
+    const float f1  = (float)CGeneral::GetRandomNumber() * WRBA_RAND_RECIPROCAL + 1.0f;
+    const float nmx = f1 * m_normal.x;
+    const float nmy = f1 * m_normal.y;
+    const float nmz = f1 * m_normal.z;
 
-        CColPoint cp{};
-        CEntity* hitEntity{};
-        if (CWorld::ProcessLineOfSight(pedPos, target, cp, hitEntity, true, false, false, false, false, false, false, false)) {
-            auto cpToPedDir = cp.m_vecPoint - pedPos;
-            if (cpToPedDir.NormaliseAndMag() < 0.35f) {
-                return;
-            }
-            m_crapRoute->Add(cp.m_vecPoint - cpToPedDir * 0.35f);
-        } else {
-            m_crapRoute->Add(target);
+    CVector zAxis{ 0.f, 0.f, 1.f };
+    CVector right;
+    CrossProduct(&right, &m_normal, &zAxis);
+
+    float f2 = (float)CGeneral::GetRandomNumber() * WRBA_RAND_RECIPROCAL;
+    f2 = f2 + f2;
+    f2 = f2 - 1.0f;
+    const float tx = nmx + right.x * f2;
+    const float ty = nmy + right.y * f2;
+    const float tz = nmz + right.z * f2;
+
+    const auto&   pp = ped.GetPosition();
+    const CVector pedPos{ pp.x, pp.y, pp.z - 0.5f }; // Ped's position is its center, so adjust it to be on the ground
+    CVector target{ pedPos.x + tx, pedPos.y + ty, pedPos.z + tz };
+
+    CColPoint cp;
+    CEntity*  hitEntity{};
+    if (CWorld::ProcessLineOfSight(pedPos, target, cp, hitEntity, true, false, false, false, false, false, false, false)) {
+        CVector cpToPedDir{ cp.m_vecPoint.x - pedPos.x, cp.m_vecPoint.y - pedPos.y, cp.m_vecPoint.z - pedPos.z };
+        if (!(cpToPedDir.NormaliseAndMag() >= 0.35f)) { // Como el original: < 0.35 o NaN sale sin marcar la ruta
+            return;
         }
+        target.x = cp.m_vecPoint.x - cpToPedDir.x * 0.35f;
+        target.y = cp.m_vecPoint.y - cpToPedDir.y * 0.35f;
+        target.z = cp.m_vecPoint.z - cpToPedDir.z * 0.35f;
     }
+    AddPointUnlessFull(*m_crapRoute, target);
 
     m_crapRouteHasPoints = true;
 }
 
 // 0x657BA0
 void CTaskComplexWalkRoundBuildingAttempt::ComputeRoute(CPed const& ped) {
-    ++m_nAttempts;
+    const int32 expectedBlocked = m_bIsHeadOnCollision ? 2 : 1;
+    m_route->m_NumEntries = 0; // Como el original: la ruta se vacía siempre
+    int32 numBlocked = 0;      // Como el original: solo cuenta los intentos con la vista ped -> punto bloqueada
 
     // If there were too many attempts just use crap route
-    if (m_nAttempts + 1 >= 20) {
+    if (++m_nAttempts >= 20) {
         if (!m_crapRouteHasPoints) {
             ComputeCrapRoute(ped);
         }
-        *m_route = *m_crapRoute;
+        CopyPointRoute(*m_route, *m_crapRoute);
         m_routeHasPoints = true;
         return;
     }
 
-    const auto normal2x = m_normal * 2.f;
+    const CVector normal2x{ m_normal.x + m_normal.x, m_normal.y + m_normal.y, m_normal.z + m_normal.z };
 
-    size_t numPointsGenerated{};
-    for (int32 num{1}; num >= -1; numPointsGenerated++, num -= m_bIsHeadOnCollision ? 2 : 3) {
-        CVector moveDir{};
-        ComputeMoveDir(ped, moveDir);
-        moveDir *= CGeneral::GetRandomNumberInRange(-0.2f, 0.2f) + (float)m_nAttempts; // Apply some semi-random spread
-        moveDir *= (float)num;
-        moveDir += m_normal * 0.35f;
+    int32 num = 1;
+    do {
+        CVector md;
+        ComputeMoveDir(ped, md);
 
-        const auto  pedPos = ped.GetPosition() - CVector{ 0.f, 0.f, 0.5f }; // Ped's position is it's center, so adjust it to be on the ground
-        const auto& target = moveDir + pedPos;
-        const auto  origin = target - Normalized(moveDir) * 0.7f;
+        // Como el original: ((rand * 1/32767) * 0.4 - 0.2) + intentos
+        float spread = (float)CGeneral::GetRandomNumber() * WRBA_RAND_RECIPROCAL;
+        spread = spread * 0.4f;
+        spread = spread - 0.2f;
+        spread = spread + (float)m_nAttempts;
 
-        if (!CWorld::GetIsLineOfSightClear(pedPos, target, true, false, false, false, false, false, true)) {
+        const float numf = (float)num;
+        CVector moveDir{ md.x * spread * numf, md.y * spread * numf, md.z * spread * numf };
+        moveDir.x = moveDir.x + m_normal.x * 0.35f;
+        moveDir.y = moveDir.y + m_normal.y * 0.35f;
+        moveDir.z = moveDir.z + m_normal.z * 0.35f;
+
+        CVector dir = moveDir;
+        dir.Normalise();
+        dir.x = dir.x * 0.7f;
+        dir.y = dir.y * 0.7f;
+        dir.z = dir.z * 0.7f;
+
+        num -= m_bIsHeadOnCollision ? 2 : 3;
+
+        // Como el original: el punto parte de m_pos (no de la posición del ped)
+        const CVector target{ moveDir.x + m_pos.x, moveDir.y + m_pos.y, (moveDir.z + m_pos.z) - 0.5f };
+        const CVector origin{ target.x - dir.x, target.y - dir.y, target.z - dir.z };
+
+        const auto&   pp = ped.GetPosition();
+        const CVector pedPos{ pp.x, pp.y, pp.z - 0.5f };
+
+        if (!CWorld::GetIsLineOfSightClear(pedPos, target, true, false, false, false, false, false, false)) {
+            numBlocked++;
             continue;
         }
 
         if (CWorld::GetIsLineOfSightClear(target, m_targetPos, true, false, false, false, false, false, false)) {
-            m_route->Add(target);
+            AddPointUnlessFull(*m_route, target);
             m_routeHasPoints = true;
             return;
         }
 
-        const auto targetOffseted = target - normal2x;
+        const CVector targetOffseted{ target.x - normal2x.x, target.y - normal2x.y, target.z - normal2x.z };
+        const CVector originOffseted{ origin.x - normal2x.x, origin.y - normal2x.y, origin.z - normal2x.z };
 
         if (!CWorld::GetIsLineOfSightClear(target, targetOffseted, true, false, false, false, false, false, false)) {
             continue;
         }
 
-        if (!CWorld::GetIsLineOfSightClear(origin, origin - normal2x, true, false, false, false, false, false, false)) {
+        if (!CWorld::GetIsLineOfSightClear(origin, originOffseted, true, false, false, false, false, false, false)) {
             continue;
         }
 
         if (!m_crapRouteHasPoints) {
-            m_crapRoute->AddMultipleUnlessFull(target, targetOffseted);
+            m_crapRoute->m_NumEntries = 0; // Como el original: se vacía antes de añadir
+            AddPointUnlessFull(*m_crapRoute, target);
+            AddPointUnlessFull(*m_crapRoute, targetOffseted);
             m_crapRouteHasPoints = true;
         }
 
         if (CWorld::GetIsLineOfSightClear(targetOffseted, m_targetPos, true, false, false, false, false, false, false)) {
-            m_route->AddMultipleUnlessFull(target, targetOffseted);
+            AddPointUnlessFull(*m_route, target);
+            AddPointUnlessFull(*m_route, targetOffseted);
             m_routeHasPoints = true;
         }
-    }
+    } while (num >= -1);
 
-    if (m_nAttempts == 1) { // Current is the first attempt
-        if (numPointsGenerated == (m_bIsHeadOnCollision ? 2 : 1)) {
-            m_nAttempts = 20;
-        }
+    if (m_nAttempts == 1 && numBlocked == expectedBlocked) { // Current is the first attempt
+        m_nAttempts = 20;
     }
 }
 
@@ -251,13 +369,10 @@ bool CTaskComplexWalkRoundBuildingAttempt::MakeAbortable(CPed* ped, eAbortPriori
 
 // 0x656E70
 CTask* CTaskComplexWalkRoundBuildingAttempt::CreateNextSubTask(CPed* ped) {
-    const auto TaskFinished = [ped, this] {
-        ped->bIgnoreHeightCheckOnGotoPointTask = false;
-        return CreateSubTask(TASK_FINISHED, ped);
-    };
-
     if (m_justAbort) {
-        return TaskFinished();
+        const auto task = CreateSubTask(TASK_FINISHED, nullptr);
+        ped->bIgnoreHeightCheckOnGotoPointTask = false;
+        return task;
     }
 
     switch (m_pSubTask->GetTaskType()) {
@@ -267,12 +382,17 @@ CTask* CTaskComplexWalkRoundBuildingAttempt::CreateNextSubTask(CPed* ped) {
     case TASK_SIMPLE_SCRATCH_HEAD:
     case TASK_SIMPLE_LOOK_ABOUT:
     case TASK_SIMPLE_HIT_WALL:
-        return CreateSubTask(m_routeHasPoints ? TASK_SIMPLE_ACHIEVE_HEADING : TASK_SIMPLE_LOOK_ABOUT, ped);
+        // Como el original: LOOK_ABOUT se crea con ped nulo
+        return m_routeHasPoints ? CreateSubTask(TASK_SIMPLE_ACHIEVE_HEADING, ped) : CreateSubTask(TASK_SIMPLE_LOOK_ABOUT, nullptr);
     case TASK_SIMPLE_STAND_STILL:
+        ped->bIgnoreHeightCheckOnGotoPointTask = false;
+        return CreateSubTask(TASK_FINISHED, nullptr);
     case TASK_COMPLEX_FOLLOW_POINT_ROUTE:
-        return TaskFinished();
+        return CreateSubTask(TASK_FINISHED, nullptr); // Como el original: no limpia el flag del ped
     default:
-        NOTSA_UNREACHABLE();
+        // Como el original: cualquier otra subtarea limpia el flag y devuelve nullptr
+        ped->bIgnoreHeightCheckOnGotoPointTask = false;
+        return nullptr;
     }
 }
 
@@ -283,7 +403,7 @@ CTask* CTaskComplexWalkRoundBuildingAttempt::CreateFirstSubTask(CPed* ped) {
             ped->bIgnoreHeightCheckOnGotoPointTask = false;
             return nullptr;
         }
-        m_targetPos = m_targetEntity->GetMatrix().TransformPoint(m_offset);
+        m_targetPos = MulMatrixPoint(m_targetEntity->GetMatrix(), m_offset);
     }
 
     ped->bIgnoreHeightCheckOnGotoPointTask = true;
@@ -310,33 +430,41 @@ CTask* CTaskComplexWalkRoundBuildingAttempt::ControlSubTask(CPed* ped) {
     }
 
     if (m_isWalkingAroundEntity) {
-        if (!m_targetEntity || (m_targetEntity->GetMatrix().TransformPoint(m_offset - m_targetPos)).SquaredMagnitude() >= sq(4.f)) {
+        if (!m_targetEntity) {
             m_justAbort = true;
-            return CreateSubTask(TASK_SIMPLE_STAND_STILL, ped);
+            return CreateSubTask(TASK_SIMPLE_STAND_STILL, nullptr);
+        }
+        // Como el original: (matriz * offset) - destino, magnitud (z*z + y*y) + x*x > 16 (NaN no aborta)
+        const auto  p  = MulMatrixPoint(m_targetEntity->GetMatrix(), m_offset);
+        const float dx = p.x - m_targetPos.x;
+        const float dy = p.y - m_targetPos.y;
+        const float dz = p.z - m_targetPos.z;
+        if ((dz * dz + dy * dy) + dx * dx > 16.f) {
+            m_justAbort = true;
+            return CreateSubTask(TASK_SIMPLE_STAND_STILL, nullptr);
         }
     }
 
-    if (!m_routeHasPoints
-     || m_isFollowingRouteNow
-     || !m_pSubTask->MakeAbortable(ped)
-    ) {
-        if (!m_routeHasPoints) {
-            ComputeRoute(*ped);
-        }
-
-        if (m_pSubTask->GetTaskType() != TASK_COMPLEX_FOLLOW_POINT_ROUTE
-         || ped->GetIntelligence()->m_AnotherStaticCounter <= 30
-         || !m_pSubTask->MakeAbortable(ped)
-        ) {
-            return m_pSubTask;
-        }
-    } else {
+    if (m_routeHasPoints && !m_isFollowingRouteNow && m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr)) {
         m_isFollowingRouteNow = true;
-        if (!m_route->IsEmpty()) {
-            return CreateSubTask(TASK_COMPLEX_FOLLOW_POINT_ROUTE, ped);
+        if (m_route->m_NumEntries != 0) {
+            return CreateSubTask(TASK_COMPLEX_FOLLOW_POINT_ROUTE, nullptr);
         }
+        m_justAbort = true;
+        return CreateSubTask(TASK_SIMPLE_HIT_WALL, nullptr);
     }
 
-    m_justAbort = true;
-    return CreateSubTask(TASK_SIMPLE_HIT_WALL, ped);
+    if (!m_routeHasPoints) {
+        ComputeRoute(*ped);
+    }
+
+    const auto subTask = m_pSubTask;
+    if (subTask->GetTaskType() == TASK_COMPLEX_FOLLOW_POINT_ROUTE
+     && ped->GetIntelligence()->m_AnotherStaticCounter > 30 // 0x86C938
+     && m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr)
+    ) {
+        m_justAbort = true;
+        return CreateSubTask(TASK_SIMPLE_HIT_WALL, ped);
+    }
+    return subTask;
 }

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -44,7 +44,9 @@ void CTaskComplexInvestigateDeadPed::InjectHooks() {
 }
 
 // 0x696DF0
-CTaskComplexInvestigateDeadPed::CTaskComplexInvestigateDeadPed(CPed* deadPed) {
+CTaskComplexInvestigateDeadPed::CTaskComplexInvestigateDeadPed(CPed* deadPed) :
+    m_deadPed{ deadPed } // Como el original: guarda el peatón muerto (antes se quedaba nulo)
+{
     CEntity::SafeRegisterRef(m_deadPed);
 }
 
@@ -60,14 +62,20 @@ CTaskComplexInvestigateDeadPed::~CTaskComplexInvestigateDeadPed() {
 
 // 0x696EE0
 void CTaskComplexInvestigateDeadPed::ComputeTargetPos(CPed* ped, CVector& targetPos) {
+    // Como el original: dirección solo en XY (z = 0), CVector::Normalise y suma componente a componente
     const auto& deadPedPos = m_deadPed->GetPosition();
-    targetPos = deadPedPos + Normalized(ped->GetPosition() - deadPedPos) * 2.f;
+    const auto& pedPos     = ped->GetPosition();
+    CVector dir{ pedPos.x - deadPedPos.x, pedPos.y - deadPedPos.y, 0.f };
+    dir.Normalise();
+    const auto& pos = m_deadPed->GetPosition();
+    targetPos = CVector{ dir.x + dir.x + pos.x, dir.y + dir.y + pos.y, dir.z + dir.z + pos.z };
 }
 
 // 0x696F90
 CTask* CTaskComplexInvestigateDeadPed::CreateSubTask(eTaskType taskType, CPed* ped) {
     switch (taskType) {
     case TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL:
+        ComputeTargetPos(ped, m_targetPos); // Como el original: calcula el destino antes de crear la tarea
         return new CTaskComplexGoToPointAndStandStill{ PEDMOVE_RUN, m_targetPos, 0.5f, 2.f, false, false };
     case TASK_COMPLEX_SIGNAL_AT_PED:
         return new CTaskComplexSignalAtPed{ m_deadPed, -1, false };
@@ -75,14 +83,18 @@ CTask* CTaskComplexInvestigateDeadPed::CreateSubTask(eTaskType taskType, CPed* p
         return nullptr;
     case TASK_SIMPLE_ACHIEVE_HEADING:
         return new CTaskSimpleAchieveHeading{ m_targetHeading, 0.5f, 0.2f };
-    case TASK_SIMPLE_STAND_STILL:
-        return new CTaskSimpleStandStill{ 1000 };
+    case TASK_SIMPLE_STAND_STILL: {
+        // Como el original: mira al peatón muerto durante 1000 ms al crear la pausa
+        auto* const task = new CTaskSimpleStandStill{ 1000 };
+        g_ikChainMan.LookAt("TaskInvDeadPed", ped, m_deadPed, 1000, BONE_HEAD, nullptr, false, 0.25f, 500, 3, false);
+        return task;
+    }
     case TASK_SIMPLE_ANIM:
         return new CTaskSimpleRunAnim{ ped->m_nAnimGroup, ANIM_ID_ROADCROSS, 4.0f, false };
     case TASK_SIMPLE_GO_TO_POINT:
         return new CTaskSimpleGoToPoint{ PEDMOVE_WALK, m_pedInitalPos, 0.5f, false, false };
     default:
-        NOTSA_UNREACHABLE();
+        return nullptr; // Como el original
     }
 }
 
@@ -106,14 +118,14 @@ CTask* CTaskComplexInvestigateDeadPed::CreateNextSubTask(CPed* ped) {
         return CreateSubTask(TASK_SIMPLE_ACHIEVE_HEADING, ped);
     }
     default:
-        NOTSA_UNREACHABLE();
+        return nullptr; // Como el original
     }
 }
 
 // 0x697990
 CTask* CTaskComplexInvestigateDeadPed::CreateFirstSubTask(CPed* ped) {
     m_pedInitalPos = ped->GetPosition();
-    m_lookDurMs = CGeneral::GetRandomNumberInRange(5000, 7000);
+    m_lookDurMs = CGeneral::GetRandomIntInRange(5000, 7000); // Como el original: rand() * (1/32768) en [5000, 7000)
     return CreateSubTask(TASK_SIMPLE_STAND_STILL, ped);
 }
 
@@ -123,26 +135,23 @@ CTask* CTaskComplexInvestigateDeadPed::ControlSubTask(CPed* ped) {
         return CreateSubTask(TASK_FINISHED, ped);
     }
 
-    switch (m_pSubTask->GetTaskType()) {
-    case TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL: {
+    if (m_pSubTask->GetTaskType() == TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL) {
         if (m_timer.IsOutOfTime()) { // NOTE: Timer is never started so this will never be true
             return nullptr;
         }
-        
-        // Set new target position if the distance between the last one is greater than 1
-        CVector targetPos{};
-        ComputeTargetPos(ped, targetPos);
-        if ((targetPos - m_targetPos).SquaredMagnitude() > 1.f) {
-            m_targetPos = targetPos;
-            static_cast<CTaskComplexGoToPointAndStandStill*>(m_pSubTask)->GoToPoint(m_targetPos, 0.5f, 2.f);
-        }
 
-        break;
-    }
-    case TASK_SIMPLE_ANIM: {
+        // Set new target position if the distance between the last one is greater than 1
+        // Como el original: distancia (z·z + y·y) + x·x y NaN no actualiza
+        const CVector oldTargetPos = m_targetPos;
+        CVector targetPos;
+        ComputeTargetPos(ped, targetPos);
+        const float dx = targetPos.x - oldTargetPos.x, dy = targetPos.y - oldTargetPos.y, dz = targetPos.z - oldTargetPos.z;
+        if (dz * dz + dy * dy + dx * dx > 1.f) {
+            m_targetPos = targetPos;
+            static_cast<CTaskComplexGoToPointAndStandStill*>(m_pSubTask)->GoToPoint(m_targetPos, 0.5f, 2.f, false);
+        }
+    } else if (m_pSubTask->GetTaskType() == TASK_SIMPLE_ANIM) { // Como el original: consulta el tipo otra vez
         ped->Say(CTX_GLOBAL_SHOCKED);
-        break;
-    }
     }
     return m_pSubTask;
 }

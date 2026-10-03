@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 14/14 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/14 entradas.
+ * Validación registrada: 14/14 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -23,6 +23,18 @@ END GENERATED HOOK STATUS */
 #include "AEMP3TrackLoader.h"
 #include "AEUserRadioTrackManager.h"
 #include "AEVorbisDecoder.h"
+
+namespace {
+// Como el original: el EXE guarda y compara el eax entero de CAEAudioChannel::GetPlayTime (+0xC) y GetLength (+0x10)
+// (en el canal de streaming son valores de 32 bits); la DLL los declara int16/uint16 en CAEAudioChannel.
+int32 ChannelPlayTime(CAEStreamingChannel* channel) {
+    return reinterpret_cast<int32(__thiscall*)(CAEStreamingChannel*)>((*reinterpret_cast<void***>(channel))[3])(channel);
+}
+
+int32 ChannelLength(CAEStreamingChannel* channel) {
+    return reinterpret_cast<int32(__thiscall*)(CAEStreamingChannel*)>((*reinterpret_cast<void***>(channel))[4])(channel);
+}
+} // namespace
 
 /**
  * Registra el worker que prepara decoders y alimenta el canal de streaming.
@@ -64,9 +76,9 @@ bool CAEStreamThread::Initialise(CAEStreamingChannel* streamingChannel) {
     m_bPreparingStream = 0;
     m_bStopRequest     = false;
     m_nPlayingTrackId  = streamingChannel->GetPlayingTrackID();
-    m_nPlayTime        = streamingChannel->GetPlayTime();
+    m_nPlayTime        = ChannelPlayTime(streamingChannel);
     m_nActiveTrackId   = streamingChannel->GetActiveTrackID();
-    m_nTrackLengthMs   = streamingChannel->GetLength();
+    m_nTrackLengthMs   = ChannelLength(streamingChannel);
 
     m_nHandle = CreateThread(nullptr, 0, &CAEStreamThread::MainLoop, this, CREATE_SUSPENDED, (LPDWORD)(&m_lpThreadId));
     assert(m_nHandle);
@@ -112,11 +124,11 @@ void CAEStreamThread::WaitForExit() const {
 }
 
 // 0x4F1530
-int16 CAEStreamThread::GetTrackPlayTime() const {
+int32 CAEStreamThread::GetTrackPlayTime() const {
     if (m_bPreparingStream)
         return -8;
     else
-        return m_pStreamingChannel->GetPlayTime();
+        return ChannelPlayTime(m_pStreamingChannel);
 }
 
 // 0x4F1550
@@ -139,7 +151,7 @@ int32 CAEStreamThread::GetPlayingTrackID() const {
 void CAEStreamThread::PlayTrack(uint32 iTrackId, int32 iNextTrackId, uint32 a3, int32 a4, bool bIsUserTrack, bool bNextIsUserTrack) {
     EnterCriticalSection(&m_criticalSection);
 
-    if (m_pStreamingChannel->GetPlayTime() == -2) {
+    if (ChannelPlayTime(m_pStreamingChannel) == -2) {
         m_pStreamingChannel->Stop();
     }
 
@@ -183,12 +195,13 @@ DWORD WINAPI CAEStreamThread::MainLoop(LPVOID data) {
                 self->m_pStreamingChannel->Play(0, 0, 1.0f);
             }
 
-            auto start = CAEAudioUtility::GetCurrentTimeInMS();
+            // Como el original: solo los 32 bits bajos del tiempo (eax de _ftol2), resta sin signo
+            const auto start = static_cast<uint32>(CAEAudioUtility::GetCurrentTimeInMS());
             self->Service();
             self->m_pStreamingChannel->Service();
-            auto end = CAEAudioUtility::GetCurrentTimeInMS();
+            const auto end = static_cast<uint32>(CAEAudioUtility::GetCurrentTimeInMS());
             if (end - start < 5) {
-                OS_ThreadSleep(uint32(start - end + 5));
+                OS_ThreadSleep(start - end + 5);
             }
         } else if (wasForeground) {
             if (self->m_pStreamingChannel->IsBufferPlaying()) {
@@ -215,8 +228,8 @@ DWORD WINAPI CAEStreamThread::MainLoop(LPVOID data) {
 void CAEStreamThread::Service() {
     m_pStreamingChannel->UpdatePlayTime();
     if (m_bStopRequest) {
+        m_bStopRequest = false; // Como el original: se baja antes de llamar a Stop
         m_pStreamingChannel->Stop();
-        m_bStopRequest = false;
     }
 
     const auto SaveStreamingState = [&] {
@@ -224,9 +237,9 @@ void CAEStreamThread::Service() {
             return;
 
         m_nPlayingTrackId = m_pStreamingChannel->GetPlayingTrackID();
-        m_nPlayTime = m_pStreamingChannel->GetPlayTime();
+        m_nPlayTime = ChannelPlayTime(m_pStreamingChannel);
         m_nActiveTrackId = m_pStreamingChannel->GetActiveTrackID();
-        m_nTrackLengthMs = m_pStreamingChannel->GetLength();
+        m_nTrackLengthMs = ChannelLength(m_pStreamingChannel);
     };
 
     if (!m_bNeedsService) {
@@ -261,7 +274,8 @@ void CAEStreamThread::Service() {
     if (m_iNextTrackId == -1 || m_pStreamingChannel->GetPlayingTrackID() != m_iTrackId) {
         auto* currDecoder = LoadDecoder(m_bIsUserTrack, m_iTrackId);
         if (currDecoder) {
-            currDecoder->SetCursor(m_iNextTrackId % currDecoder->GetStreamLengthMs());
+            // Como el original: posición pedida (field_1C) módulo la duración, división sin signo
+            currDecoder->SetCursor(field_1C % static_cast<uint32>(currDecoder->GetStreamLengthMs()));
 
             m_pStreamingChannel->SetNextStream(nextDecoder);
             m_pStreamingChannel->PrepareStream(currDecoder, m_TrackFlags, 1u);

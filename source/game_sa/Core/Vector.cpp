@@ -166,7 +166,10 @@ void CVector::FromMultiply(const CMatrix& matrix, const CVector& vector) {
 }
 
 void CVector::FromMultiply3x3(const CMatrix& matrix, const CVector& vector) {
-    *this = matrix.TransformVector(vector);
+    // Como el original (0x59C6D0): orden de sumas del EXE
+    x = (matrix.GetUp().x * vector.z + matrix.GetForward().x * vector.y) + matrix.GetRight().x * vector.x;
+    y = (matrix.GetUp().y * vector.z + matrix.GetRight().y * vector.x) + matrix.GetForward().y * vector.y;
+    z = (matrix.GetUp().z * vector.z + matrix.GetRight().z * vector.x) + matrix.GetForward().z * vector.y;
 }
 
 float CVector::Heading(bool limitAngle) const {

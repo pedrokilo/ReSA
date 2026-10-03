@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/11 entradas.
+ * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -33,13 +33,11 @@ CAEWMADecoder::CAEWMADecoder(CAEDataStream* dataStream) : CAEStreamingDecoder(da
 
 // 0x502760
 CAEWMADecoder::~CAEWMADecoder() {
+    // Como el original: cierra y libera el lector sin poner m_bInitialized a falso ni llamar a CoUninitialize.
     if (m_bInitialized) {
         syncReader->Close();
         syncReader->Release();
-        m_bInitialized = false;
     }
-
-    CoUninitialize();
 }
 
 // 0x502c60
@@ -48,47 +46,56 @@ CAEWMADecoder::~CAEWMADecoder() {
  * salida PCM estéreo de 16 bits antes de aceptar el decoder.
  */
 bool CAEWMADecoder::Initialise() {
+    // Como el original: el resultado se guarda en m_bInitialized en todas las salidas.
+    bool                 result         = false;
+    IWMProfile*          profile        = nullptr;
     WMT_STREAM_SELECTION activateStream = WMT_ON;
+    DWORD                dummyBufLen    = 4;
+    const auto Finish = [&] {
+        m_bInitialized = result;
+        return result;
+    };
 
-    VERIFY(SUCCEEDED(CoInitialize(nullptr)));
+    CoInitialize(nullptr); // Como el original: sin comprobar el resultado
 
-    if (!WMCreateSyncReader)
-        return m_bInitialized;
-
-    if (!SUCCEEDED(WMCreateSyncReader(nullptr, 0, &syncReader)))
-        return m_bInitialized;
-
-    if (SUCCEEDED(syncReader->OpenStream(m_dataStream))) {
-        IWMProfile* profile;
-
-        if (!SUCCEEDED(syncReader->QueryInterface(IID_IWMProfile, (void**)&profile)))
-            return m_bInitialized;
-
-        HRESULT selectResult = SelectStreamIndex(profile);
-
-        if (profile) {
-            profile->Release();
-            profile = nullptr;
+    if (!WMCreateSyncReader) {
+        return Finish();
+    }
+    if (FAILED(WMCreateSyncReader(nullptr, 0, &syncReader))) {
+        return Finish();
+    }
+    if (FAILED(syncReader->OpenStream(m_dataStream))) {
+        if (syncReader) {
+            syncReader->Release();
         }
+        syncReader = nullptr;
+        return Finish();
+    }
+    if (FAILED(syncReader->QueryInterface(IID_IWMProfile, (void**)&profile))) {
+        return Finish();
+    }
+    const HRESULT selectResult = SelectStreamIndex(profile);
+    if (profile) {
+        profile->Release();
+    }
+    profile = nullptr;
+    if (FAILED(selectResult)) {
+        return Finish();
+    }
 
-        if (!SUCCEEDED(selectResult))
-            return m_bInitialized;
+    DWORD                outputNumber = 0;
+    IWMOutputMediaProps* mediaProps   = nullptr;
 
-        DWORD                outputNumber;
-        IWMOutputMediaProps* mediaProps;
+    syncReader->SetStreamsSelected(1, &m_wStreamNumber, &activateStream);
+    syncReader->SetReadStreamSamples(m_wStreamNumber, FALSE);
+    syncReader->SetRange(0ULL, 0LL);
+    syncReader->GetOutputNumberForStream(m_wStreamNumber, &outputNumber);
 
-        syncReader->SetStreamsSelected(1, &m_wStreamNumber, &activateStream);
-        syncReader->SetReadStreamSamples(m_wStreamNumber, FALSE);
-        syncReader->SetRange(0ULL, 0LL);
-        syncReader->GetOutputNumberForStream(m_wStreamNumber, &outputNumber);
-
-        if (!SUCCEEDED(syncReader->GetOutputProps(outputNumber, &mediaProps)))
-            return m_bInitialized;
-
+    if (SUCCEEDED(syncReader->GetOutputProps(outputNumber, &mediaProps))) {
         DWORD mediaTypeSize = 0;
         mediaProps->GetMediaType(nullptr, &mediaTypeSize);
 
-        WM_MEDIA_TYPE* mediaTypeBase = (WM_MEDIA_TYPE*)CMemoryMgr::Malloc(mediaTypeSize);
+        WM_MEDIA_TYPE* mediaTypeBase = (WM_MEDIA_TYPE*)CMemoryMgr::Malloc(mediaTypeSize, 0);
         mediaProps->GetMediaType(mediaTypeBase, &mediaTypeSize);
         WAVEFORMATEX* mediaMetadata = (WAVEFORMATEX*)mediaTypeBase->pbFormat;
 
@@ -97,34 +104,34 @@ bool CAEWMADecoder::Initialise() {
             m_nSampleRate = mediaMetadata->nSamplesPerSec;
 
             if (SUCCEEDED(syncReader->QueryInterface(IID_IWMHeaderInfo3, (void**)&headerInfo))) {
-                WORD count;
+                WORD count = 0;
+                dummyBufLen = 8;
                 headerInfo->GetAttributeIndices(0, L"Duration", nullptr, nullptr, &count);
 
-                WORD* indices = new WORD[count];
+                // Como el original: operator new/delete escalares (no new[]/delete[]).
+                WORD* indices = (WORD*)::operator new((uint32)count * 2u);
                 headerInfo->GetAttributeIndices(0, L"Duration", nullptr, indices, &count);
 
                 WORD              dummyNameLen;
-                DWORD             dummyBufLen = 8;
                 QWORD             duration;
                 WMT_ATTR_DATATYPE dataType;
                 headerInfo->GetAttributeByIndexEx(0, indices[0], nullptr, &dummyNameLen, &dataType, nullptr, (BYTE*)&duration, &dummyBufLen);
 
                 m_nLengthMs = (long)(duration / 10000ULL);
-                m_bInitialized = m_nLengthMs >= 7000;
-
-                delete[] indices;
+                ::operator delete(indices);
                 headerInfo->Release();
+
+                // Como el original: marca el decoder inicializado y pregunta la duración por la vtable.
+                m_bInitialized = true;
+                result = GetStreamLengthMs() >= 7000;
             }
         }
 
         CMemoryMgr::Free(mediaTypeBase);
-        mediaProps->Release();
-    } else if (syncReader) {
-        syncReader->Release();
-        syncReader = nullptr;
     }
-
-    return m_bInitialized;
+    // Como el original: libera las propiedades también cuando GetOutputProps falla.
+    mediaProps->Release();
+    return Finish();
 }
 
 // 0x5027d0
@@ -133,57 +140,50 @@ bool CAEWMADecoder::Initialise() {
  * siguiente petición cuando una muestra excede el espacio disponible.
  */
 size_t CAEWMADecoder::FillBuffer(void* dest, size_t size) {
-    char*  buf = (char*)dest;
-    size_t written = 0;
+    auto* const out = (uint8*)dest;
+    // Como el original: las variables de la muestra se inicializan una sola vez, fuera del bucle.
+    INSSBuffer* nssBuffer  = nullptr;
+    DWORD       flags      = 0, outputNum = 0;
+    WORD        stream     = 0;
+    DWORD       bufferLen  = 0;
+    BYTE*       byteBuffer = nullptr;
+    size_t      written    = 0;
 
     if (m_nTempBufferUsed > 0) {
-        size_t sizeToCopy = m_nTempBufferUsed > size ? size : m_nTempBufferUsed;
-        memcpy(buf, m_szBuffer, sizeToCopy);
-
-        m_nTempBufferUsed -= sizeToCopy;
-        size -= sizeToCopy;
-        buf += sizeToCopy;
-        written += sizeToCopy;
-
-        if (m_nTempBufferUsed > 0)
-            // Push buffer
-            memmove(m_szBuffer, m_szBuffer + sizeToCopy, m_nTempBufferUsed);
+        if (m_nTempBufferUsed < size) {
+            memcpy(out, m_szBuffer, m_nTempBufferUsed);
+            written           = m_nTempBufferUsed;
+            m_nTempBufferUsed = 0;
+        } else {
+            memcpy(out, m_szBuffer, size);
+            memmove(m_szBuffer, m_szBuffer + size, m_nTempBufferUsed - size);
+            written            = size;
+            m_nTempBufferUsed -= size;
+        }
     }
 
-    while (size > 0) {
-        INSSBuffer* nssBuffer = nullptr;
-        DWORD       dummy1 = 0, dummy2 = 0;
-        WORD        stream = 0;
-
-        if (FAILED(syncReader->GetNextSample(m_wStreamNumber, &nssBuffer, &m_nSampleTime, &m_nSampleDuration, &dummy1, &dummy2, &stream)))
-            return written;
-
-        if (stream == m_wStreamNumber) {
-            BYTE* byteBuffer;
-            DWORD bufferLen = 0;
-
-            if (FAILED(nssBuffer->GetBufferAndLength(&byteBuffer, &bufferLen))) {
-                nssBuffer->Release();
-                return written;
-            }
-
-            size_t sizeToCopy = size > bufferLen ? bufferLen : size;
-            memcpy(buf, byteBuffer, sizeToCopy);
-            bufferLen -= sizeToCopy;
-            size -= sizeToCopy;
-            written += sizeToCopy;
-            buf += sizeToCopy;
-
-            if (size == 0) {
-                // Store into temporary buffer
-                size_t freeTempBufSize = TEMPBUFSIZE - m_nTempBufferUsed;
-                byteBuffer += sizeToCopy;
-                sizeToCopy = bufferLen > freeTempBufSize ? freeTempBufSize : bufferLen;
-                memcpy(m_szBuffer + m_nTempBufferUsed, byteBuffer, sizeToCopy);
-                m_nTempBufferUsed += sizeToCopy;
-            }
+    while (written < size) {
+        if (FAILED(syncReader->GetNextSample(m_wStreamNumber, &nssBuffer, &m_nSampleTime, &m_nSampleDuration, &flags, &outputNum, &stream))) {
+            break;
         }
+        if (stream != m_wStreamNumber) {
+            continue; // Como el original: la muestra de otro stream no se libera
+        }
+        const size_t remaining = size - written;
+        nssBuffer->GetBufferAndLength(&byteBuffer, &bufferLen); // Como el original: sin comprobar el resultado
 
+        memcpy(out + written, byteBuffer, bufferLen < remaining ? bufferLen : remaining);
+        if (bufferLen > remaining) {
+            // Como el original: el sobrante se guarda desde el inicio del buffer temporal, hasta 0x20000 bytes.
+            m_nTempBufferUsed = bufferLen - remaining;
+            if (m_nTempBufferUsed > TEMPBUFSIZE) {
+                m_nTempBufferUsed = TEMPBUFSIZE;
+            }
+            memcpy(m_szBuffer, byteBuffer + remaining, m_nTempBufferUsed);
+        } else {
+            m_nTempBufferUsed = 0;
+        }
+        written += bufferLen < remaining ? bufferLen : remaining;
         nssBuffer->Release();
     }
 
@@ -200,16 +200,32 @@ long CAEWMADecoder::GetStreamLengthMs() {
 
 // 0x502af0
 long CAEWMADecoder::GetStreamPlayTimeMs() {
-    if (m_bInitialized)
-        return (long)((m_nSampleTime + m_nSampleDuration) / 10000.0f);
-
-    return -1;
+    if (!m_bInitialized) {
+        return -1;
+    }
+    // Como el original: la suma de 64 bits sin signo se carga en x87 (63 bits bajos + bit alto con fchs),
+    // se multiplica por 0.0001 (0x858FC4) con la precisión del FPU y se trunca con _ftol2.
+    const uint64 sum   = m_nSampleTime + m_nSampleDuration;
+    int64        low63 = (int64)(sum & 0x7FFFFFFFFFFFFFFFull);
+    int64        top   = (int64)(sum & 0x8000000000000000ull);
+    float        scale = 0.0001f;
+    float        ms;
+    __asm {
+        fild  qword ptr low63
+        fild  qword ptr top
+        fchs
+        faddp st(1), st
+        fmul  dword ptr scale
+        fstp  dword ptr ms
+    }
+    return (long)(int64)ms;
 }
 
 // 0x502b50
 void CAEWMADecoder::SetCursor(unsigned long pos) {
+    // Como el original: pos * 10000 en 32 bits (imul), extendido sin signo.
     if (m_bInitialized)
-        syncReader->SetRange(pos * 10000ULL, 0LL);
+        syncReader->SetRange((QWORD)(uint32)(pos * 10000u), 0LL);
 }
 
 // 0x502ab0
@@ -231,28 +247,26 @@ bool CAEWMADecoder::InitLibrary() {
     if (WMCreateSyncReader != nullptr)
         return true;
 
+    // Como el original: compara el módulo con -1 (no con nulo) y no lo pone a nulo al fallar.
     wmvCoreModule = LoadLibraryA("wmvcore.dll");
-    if (wmvCoreModule != nullptr) {
-        using WMCreateSyncReaderFunc = HRESULT(__stdcall*)(IUnknown*, DWORD, IWMSyncReader**);
-        WMCreateSyncReader = (WMCreateSyncReaderFunc)GetProcAddress(wmvCoreModule, "WMCreateSyncReader");
-
-        if (WMCreateSyncReader) {
-            IWMSyncReader* reader = nullptr;
-
-            // MikuAuahDark: GTASA tests if WMCreateSyncReader actually works
-            if (SUCCEEDED(WMCreateSyncReader(nullptr, 0, &reader))) {
-                reader->Release();
-                return true;
-            }
-
-            WMCreateSyncReader = nullptr;
-        }
-
+    if (wmvCoreModule == (HMODULE)(-1)) {
+        return false;
+    }
+    using WMCreateSyncReaderFunc = HRESULT(__stdcall*)(IUnknown*, DWORD, IWMSyncReader**);
+    WMCreateSyncReader = (WMCreateSyncReaderFunc)GetProcAddress(wmvCoreModule, "WMCreateSyncReader");
+    if (!WMCreateSyncReader) {
         FreeLibrary(wmvCoreModule);
-        wmvCoreModule = nullptr;
+        return false;
     }
 
-    return false;
+    // MikuAuahDark: GTASA tests if WMCreateSyncReader actually works
+    IWMSyncReader* reader;
+    if (FAILED(WMCreateSyncReader(nullptr, 0, &reader))) {
+        WMCreateSyncReader = nullptr; // Como el original: sin FreeLibrary
+        return false;
+    }
+    reader->Release();
+    return true;
 }
 
 void CAEWMADecoder::Shutdown() {
@@ -270,64 +284,64 @@ HRESULT CAEWMADecoder::SelectStreamIndex(IWMProfile* profile) {
     if (profile == nullptr)
         return E_INVALIDARG;
 
-    DWORD streams = 0;
-    if (SUCCEEDED(profile->GetStreamCount(&streams))) {
-        IWMStreamConfig* streamConfig = nullptr;
-        GUID             streamGUID;
+    DWORD   streams = 0;
+    HRESULT hr      = profile->GetStreamCount(&streams);
+    if (FAILED(hr)) {
+        return hr; // Como el original: devuelve el error sin mirar m_wStreamNumber
+    }
 
-        m_wStreamNumber = 0;
+    IWMStreamConfig* streamConfig = nullptr;
+    m_wStreamNumber = 0;
+    for (DWORD i = 0; i < streams; i++) {
+        if (FAILED(hr = profile->GetStream(i, &streamConfig)))
+            break;
 
-        for (DWORD i = 0; i < streams; i++) {
-            WORD index;
+        DWORD index = 0; // Como el original: se pone a cero la palabra doble entera
+        if (FAILED(hr = streamConfig->GetStreamNumber((WORD*)&index)))
+            break; // Como el original: sin liberar streamConfig
 
-            if (FAILED(profile->GetStream(i, &streamConfig)))
-                break;
+        GUID streamGUID;
+        if (FAILED(hr = streamConfig->GetStreamType(&streamGUID)))
+            break;
 
-            if (FAILED(streamConfig->GetStreamNumber(&index)))
-                break;
-
-            if (FAILED(streamConfig->GetStreamType(&streamGUID)))
-                break;
-
-            streamConfig->Release();
-            streamConfig = nullptr;
-
-            if (streamGUID == WMMEDIATYPE_Audio) {
-                m_wStreamNumber = index;
-                break;
-            }
+        if (streamGUID == WMMEDIATYPE_Audio) {
+            m_wStreamNumber = (WORD)index; // Como el original: el stream de audio no se libera
+            break;
         }
 
         if (streamConfig) {
             streamConfig->Release();
-            streamConfig = nullptr;
         }
+        streamConfig = nullptr;
     }
 
     if (m_wStreamNumber == 0)
         return E_INVALIDARG;
 
-    return S_OK;
+    return hr; // Como el original: el último HRESULT (puede ser positivo)
 }
 
 /**
  * Registra el decoder Windows Media Audio.
  */
 void CAEWMADecoder::InjectHooks() {
-    RH_ScopedClass(CAEWMADecoder);
+    // Como el original: vtable 0x862D90 con 8 entradas (Initialise, FillBuffer, GetStreamLengthMs,
+    // GetStreamPlayTimeMs, SetCursor, GetSampleRate, destructor con borrado, GetStreamID). Las virtuales se
+    // instalan en su hueco: un hook plano saltaría al thunk virtual de la DLL y volvería al EXE (bucle).
+    RH_ScopedVirtualClass(CAEWMADecoder, 0x862D90, 8);
     RH_ScopedCategory("Audio/Loaders");
 
     RH_ScopedInstall(Constructor, 0x502720);
     RH_ScopedInstall(Destructor, 0x502760);
-    RH_ScopedInstall(Initialise, 0x502c60);
     RH_ScopedInstall(InitLibrary, 0x502b80);
-    RH_ScopedInstall(FillBuffer, 0x5027d0);
-    RH_ScopedInstall(GetStreamLengthMs, 0x502ad0);
-    RH_ScopedInstall(GetStreamPlayTimeMs, 0x502af0);
-    RH_ScopedInstall(SetCursor, 0x502b50);
-    RH_ScopedInstall(GetSampleRate, 0x502ab0);
-    RH_ScopedInstall(GetStreamID, 0x502750);
     RH_ScopedInstall(SelectStreamIndex, 0x502990);
+    RH_ScopedVMTInstall(Initialise, 0x502c60);
+    RH_ScopedVMTInstall(FillBuffer, 0x5027d0);
+    RH_ScopedVMTInstall(GetStreamLengthMs, 0x502ad0);
+    RH_ScopedVMTInstall(GetStreamPlayTimeMs, 0x502af0);
+    RH_ScopedVMTInstall(SetCursor, 0x502b50);
+    RH_ScopedVMTInstall(GetSampleRate, 0x502ab0);
+    RH_ScopedVMTInstall(GetStreamID, 0x502750);
 }
 
 CAEWMADecoder* CAEWMADecoder::Constructor(CAEDataStream* dataStream) {

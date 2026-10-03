@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -76,7 +76,7 @@ bool CTaskSimpleEvasiveStep::ProcessPed(CPed* ped) {
         return true;
 
     if (!m_Assoc) {
-        if (m_Entity->GetStatus() == STATUS_SIMPLE) {
+        if (m_Entity->GetIsTypeVehicle()) { // Como el original: comprueba el tipo de entidad (byte 0x36 & 7 == 2), no el estado
             ped->Say(CTX_GLOBAL_DODGE);
         }
         StartAnim(ped);

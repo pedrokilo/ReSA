@@ -48,7 +48,7 @@ public:
     bool IsTaskInUseByOtherTasks() const;
     void AbortBecauseOfOtherDuck(CPed* ped); // May've been returning bool originally, unsure.
     void RestartTask(CPed* ped);
-    void ControlDuckMove(CVector2D moveSpeed = {});
+    bool ControlDuckMove(CVector2D moveSpeed = {}); // Como el original: devuelve siempre true
     void SetMoveAnim(CPed*);
     void ForceStopMove();
     bool StopFireGun() const;

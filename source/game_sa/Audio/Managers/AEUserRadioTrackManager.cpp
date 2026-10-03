@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 15/15 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/15 entradas.
+ * Validación registrada: 15/15 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -37,8 +37,12 @@ END GENERATED HOOK STATUS */
 #include "FileMgr.h"
 #include "MenuManager.h"
 
+#include <reversiblebugfixes/Bugs.hpp>
+
 auto& AEUserRadioTrackManager = StaticRef<CAEUserRadioTrackManager>(0xB6B970);
 
+#ifdef USERTRACK_FLAC_SUPPORT
+// NOTSA: copia propia de la tabla del EXE con FLAC al final.
 static auto audioExtensionTypes = std::to_array<tAudioExtensionType>({
     {".ogg", AUDIO_FILE_TYPE_VORBIS},
     {".mp3", AUDIO_FILE_TYPE_QUICKTIME}, // replaced to AUDIO_FILE_TYPE_WMA if QuickTime is not installed
@@ -47,10 +51,14 @@ static auto audioExtensionTypes = std::to_array<tAudioExtensionType>({
     {".wmv", AUDIO_FILE_TYPE_WMA},
     {".aac", AUDIO_FILE_TYPE_QUICKTIME},
     {".m4a", AUDIO_FILE_TYPE_QUICKTIME},
-#ifdef USERTRACK_FLAC_SUPPORT
+    {".mov", AUDIO_FILE_TYPE_QUICKTIME},
     {".flac", AUDIO_FILE_TYPE_FLAC},
-#endif
 });
+#else
+// Como el original: la tabla del EXE (0x8CBB28, 8 entradas de 12 bytes, también ".mov"). Initialise reescribe el
+// tipo de ".mp3" (0x8CBB3C) cuando falta el decoder QuickTime/MediaFoundation.
+static auto& audioExtensionTypes = StaticRef<std::array<tAudioExtensionType, 8>>(0x8CBB28);
+#endif
 
 // 0x4f35b0
 /**
@@ -58,9 +66,10 @@ static auto audioExtensionTypes = std::to_array<tAudioExtensionType>({
  * Si Media Foundation no está disponible, reasigna MP3 al decoder WMA compatible.
  */
 bool CAEUserRadioTrackManager::Initialise() {
-    m_bUserTracksLoaded = ReadUserTracks();
-    m_bUserTracksLoadedCopy = m_bUserTracksLoaded;
-    rng::fill(m_baDecodersSupported, 0);
+    m_bUserTracksLoadedCopy = m_bUserTracksLoaded = ReadUserTracks();
+
+    // Como el original: solo se escriben los decoders 0..4 (dword en +8 y byte en +0xC); 5..7 no se tocan.
+    std::fill_n(m_baDecodersSupported, AUDIO_FILE_TYPE_QUICKTIME + 1, false);
 
     m_baDecodersSupported[AUDIO_FILE_TYPE_VORBIS] = true;
     m_baDecodersSupported[AUDIO_FILE_TYPE_WAV] = true;
@@ -68,15 +77,8 @@ bool CAEUserRadioTrackManager::Initialise() {
     m_baDecodersSupported[AUDIO_FILE_TYPE_QUICKTIME] = CAEMFDecoder::InitLibrary();
 
     if (!m_baDecodersSupported[AUDIO_FILE_TYPE_QUICKTIME]) {
-        // change MP3 decoder from QuickTime to WMA
-        const auto typeMP3 = rng::find_if(audioExtensionTypes, [](const auto& type) {
-            return std::string_view{type.extension} == ".mp3";
-        });
-
-        if (typeMP3 != audioExtensionTypes.end()) {
-            typeMP3->type = AUDIO_FILE_TYPE_WMA;
-            NOTSA_LOG_DEBUG("Assigned MP3 decoder to be WMA because MediaFoundation decoder failed to load.");
-        }
+        // change MP3 decoder from QuickTime to WMA (sin registro: spdlog reserva memoria)
+        audioExtensionTypes[1].type = AUDIO_FILE_TYPE_WMA; // ".mp3"
     }
     return true;
 }
@@ -85,7 +87,10 @@ bool CAEUserRadioTrackManager::Initialise() {
 void CAEUserRadioTrackManager::Shutdown() {
     if (m_bUserTracksLoaded && m_pUserTracksInfo) {
         CMemoryMgr::Free(m_pUserTracksInfo);
-        m_pUserTracksInfo = nullptr;
+        // Como el original no se pone a nulo; NOTSA: con el arreglo se evita la doble liberación en ReadUserTracks.
+        if (notsa::bugfixes::GenericUB) {
+            m_pUserTracksInfo = nullptr;
+        }
     }
 
     CAEWMADecoder::Shutdown();
@@ -105,18 +110,18 @@ char* CAEUserRadioTrackManager::GetTrackPath(int32 trackID) const {
     FILESTREAM ufiles = CFileMgr::OpenFile("sa-ufiles.dat", "rb");
     CFileMgr::SetDir("");
 
-    if (ufiles == nullptr)
+    // Como el original solo falla con un handle negativo (jge); NOTSA: con el arreglo también falla con nulo.
+    if (notsa::bugfixes::GenericCrashing ? ufiles == nullptr : static_cast<int32>(reinterpret_cast<intptr_t>(ufiles)) < 0)
         return nullptr;
 
-    tUserTracksInfo& targetOffset = m_pUserTracksInfo[trackID];
-    char*            dest = new char[targetOffset.pathLength + 1];
+    char* dest = new char[m_pUserTracksInfo[trackID].pathLength + 1];
 
-    CFileMgr::Seek(ufiles, targetOffset.startUfilesPath, SEEK_SET);
-    CFileMgr::Read(ufiles, dest, targetOffset.pathLength);
+    CFileMgr::Seek(ufiles, m_pUserTracksInfo[trackID].startUfilesPath, SEEK_SET);
+    CFileMgr::Read(ufiles, dest, m_pUserTracksInfo[trackID].pathLength);
     CFileMgr::CloseFile(ufiles);
 
     // NULL-terminate the path
-    dest[targetOffset.pathLength] = 0;
+    dest[m_pUserTracksInfo[trackID].pathLength] = 0;
     return dest;
 }
 
@@ -134,50 +139,42 @@ CAEStreamingDecoder* CAEUserRadioTrackManager::LoadUserTrack(int32 trackID) {
     if (trackID < 0 || trackID >= m_nUserTracksCount)
         return nullptr;
 
-    tUserTracksInfo& targetOffset = m_pUserTracksInfo[trackID];
-    if (!m_baDecodersSupported[targetOffset.fileType])
+    if (!m_baDecodersSupported[m_pUserTracksInfo[trackID].fileType])
         return nullptr;
 
     char* filename = GetTrackPath(trackID);
     if (filename == nullptr)
         return nullptr;
 
-    CAEStreamingDecoder* decoder = nullptr;
-
     // QuickTime decoder doesn't need the data stream
-    if (targetOffset.fileType == AUDIO_FILE_TYPE_QUICKTIME)
+    if (m_pUserTracksInfo[trackID].fileType == AUDIO_FILE_TYPE_QUICKTIME) {
         // MikuAuahDark: We've agreed to replace QuickTime with MediaFoundation
-        decoder = new CAEMFDecoder(filename, trackID);
-    else {
-        CAEDataStream* dataStream = new CAEDataStream(trackID, filename, 0, 0, false);
-
-        CFileMgr::SetDirMyDocuments();
-        bool dataStreamInitialized = dataStream->Initialise();
-        CFileMgr::SetDir("");
-
-        if (!dataStreamInitialized) {
-            delete dataStream;
-            return nullptr;
-        }
-
-        switch (targetOffset.fileType) {
-        case AUDIO_FILE_TYPE_UNKNOWN:
-        case AUDIO_FILE_TYPE_VORBIS:
-            decoder = new CAEVorbisDecoder(dataStream, true);
-            break;
-        case AUDIO_FILE_TYPE_WAV:
-            decoder = new CAEWaveDecoder(dataStream);
-            break;
-        case AUDIO_FILE_TYPE_WMA:
-            decoder = new CAEWMADecoder(dataStream);
-            break;
-        default:
-            delete dataStream;
-            return nullptr;
-        }
+        return new CAEMFDecoder(filename, trackID);
     }
 
-    return decoder;
+    CAEDataStream* dataStream = new CAEDataStream(trackID, filename, 0, 0, false);
+
+    CFileMgr::SetDirMyDocuments();
+    const bool dataStreamInitialized = dataStream->Initialise();
+    CFileMgr::SetDir("");
+
+    if (!dataStreamInitialized) {
+        delete dataStream;
+        return nullptr;
+    }
+
+    switch (m_pUserTracksInfo[trackID].fileType) {
+    case AUDIO_FILE_TYPE_VORBIS:
+        return new CAEVorbisDecoder(dataStream, true);
+    case AUDIO_FILE_TYPE_WAV:
+        return new CAEWaveDecoder(dataStream);
+    case AUDIO_FILE_TYPE_WMA:
+        return new CAEWMADecoder(dataStream);
+    default:
+        // Como el original: AUDIO_FILE_TYPE_UNKNOWN (0) y los tipos desconocidos liberan el stream.
+        delete dataStream;
+        return nullptr;
+    }
 }
 
 // 0x4f2fd0
@@ -187,7 +184,8 @@ bool CAEUserRadioTrackManager::ReadUserTracks() {
     auto file = CFileMgr::OpenFile("sa-utrax.dat", "rb");
     CFileMgr::SetDir("");
 
-    if (!file)
+    // Como el original: el handle tiene que ser positivo (jg); si no, sale sin cerrar.
+    if (static_cast<int32>(reinterpret_cast<intptr_t>(file)) <= 0)
         return false;
 
     const auto size = CFileMgr::GetTotalSize(file);
@@ -197,12 +195,12 @@ bool CAEUserRadioTrackManager::ReadUserTracks() {
     }
 
     // NOTSA: Don't leak memory in case of multiple calls.
-    if (m_pUserTracksInfo) {
+    if (notsa::bugfixes::GenericUB && m_pUserTracksInfo) {
         CMemoryMgr::Free(m_pUserTracksInfo);
     }
 
-    m_nUserTracksCount = size / sizeof(tUserTracksInfo);
-    m_pUserTracksInfo = (tUserTracksInfo*)CMemoryMgr::Malloc(size);
+    m_nUserTracksCount = static_cast<uint16>(static_cast<uint32>(size) / sizeof(tUserTracksInfo));
+    m_pUserTracksInfo = (tUserTracksInfo*)CMemoryMgr::Malloc(size, 0);
 
     CFileMgr::Read(file, m_pUserTracksInfo, size);
     CFileMgr::CloseFile(file);
@@ -231,10 +229,11 @@ bool CAEUserRadioTrackManager::ScanUserTracks() {
 
 // 0x4f32f0
 void CAEUserRadioTrackManager::DeleteUserTracksInfo() {
+    // Como el original: DeleteFileA relativo al directorio de Mis documentos.
     TerminateThread(m_hwndUserTracksScanThreadHandle, 0);
     CFileMgr::SetDirMyDocuments();
-    fs::remove("sa-ufiles.dat");
-    fs::remove("sa-utrax.dat");
+    DeleteFileA("sa-ufiles.dat");
+    DeleteFileA("sa-utrax.dat");
     CFileMgr::SetDir("");
 
     m_nUserTracksScanState = USER_TRACK_SCAN_OFF;
@@ -249,29 +248,28 @@ void CAEUserRadioTrackManager::SetUserTrackIndex(int32 index) {
 // 0x4f3250
 // Aplica el modo secuencial/aleatorio evitando repetir inmediatamente la pista anterior.
 int32 CAEUserRadioTrackManager::SelectUserTrackIndex() const {
-    if (m_nUserTracksCount > 0 && FrontEndMenuManager.m_RadioMode >= 0) {
-        switch (FrontEndMenuManager.m_RadioMode) {
-        case USER_TRACK_PLAY_RADIO:
-        case USER_TRACK_PLAY_RANDOM: {
-            if (m_nUserTracksCount == 1)
-                return FrontEndMenuManager.m_UserTrackIndex = 1;
-            else {
-                int32 index;
+    if (m_nUserTracksCount == 0 || FrontEndMenuManager.m_RadioMode < 0)
+        return -1;
 
-                do
-                    index = static_cast<int32>(CAEAudioUtility::GetRandomNumberInRange(0, m_nUserTracksCount - 1));
-                while (index == FrontEndMenuManager.m_UserTrackIndex);
+    switch (FrontEndMenuManager.m_RadioMode) {
+    case RADIO_MODE_RADIO:
+    case RADIO_MODE_RANDOM: {
+        // Como el original: siempre pide al menos un número (con una sola pista sale 0) y solo repite mientras
+        // haya más de una pista y salga el índice actual.
+        int32 index;
+        do {
+            index = CAEAudioUtility::GetRandomNumberInRange<int32>(0, m_nUserTracksCount - 1);
+        } while (m_nUserTracksCount > 1 && index == static_cast<int32>(FrontEndMenuManager.m_UserTrackIndex));
 
-                return FrontEndMenuManager.m_UserTrackIndex = index;
-            }
-        }
-        case USER_TRACK_PLAY_SEQUENTAL: {
-            return FrontEndMenuManager.m_UserTrackIndex = (FrontEndMenuManager.m_UserTrackIndex + 1) % m_nUserTracksCount;
-        }
-        }
+        FrontEndMenuManager.m_UserTrackIndex = index;
+        return index;
     }
-
-    return -1;
+    case RADIO_MODE_SEQUENTIAL:
+        // Como el original: división sin signo
+        return FrontEndMenuManager.m_UserTrackIndex = (FrontEndMenuManager.m_UserTrackIndex + 1) % static_cast<uint32>(m_nUserTracksCount);
+    default:
+        return -1;
+    }
 }
 
 // 0x4f31f0
@@ -308,19 +306,69 @@ uint8 CAEUserRadioTrackManager::GetUserTrackPlayMode() {
  * para los registros que cruzan esa frontera ABI.
  */
 DWORD __stdcall CAEUserRadioTrackManager::WriteUserTracksThread(CAEUserRadioTrackManager* self) {
+    if (notsa::bugfixes::CAEUserRadioTrackManager_UnicodeUserTracks) {
+        self->WriteUserTracksThread_Unicode();
+        return 0;
+    }
+
+    CoInitialize(nullptr);
+
+    UserTracksLegacyVector offsets;
+    uint32 length = 0;
+
+    CFileMgr::SetDirMyDocuments();
+    const auto ufiles = CFileMgr::OpenFile("sa-ufiles.dat", "wb");
+    if (!ufiles) {
+        // Como el original: sale sin volver al directorio raíz ni llamar a CoUninitialize.
+        self->m_nUserTracksScanState = USER_TRACK_SCAN_ERROR;
+        return 0;
+    }
+
+    char* dir = new char[lstrlenA(CFileMgr::ms_dirName) + 15];
+    lstrcpyA(dir, CFileMgr::ms_dirName);
+    lstrcatA(dir, "\\User Tracks\\");
+    const auto amountOfTracks = self->WriteUserTracksFile(dir, offsets, ufiles, length, 0);
+    delete[] dir;
+    CFileMgr::CloseFile(ufiles);
+
+    // Como el original: no comprueba que sa-utrax.dat se abra, escribe dos veces el registro cuando solo hay uno
+    // y libera cada registro justo después de escribirlo.
+    const auto utrax = CFileMgr::OpenFile("sa-utrax.dat", "wb");
+    if (amountOfTracks == 1) {
+        CFileMgr::Write(utrax, offsets.first[0], sizeof(tUserTracksInfo));
+    }
+    for (uint32 i = 0; offsets.first && i < static_cast<uint32>(offsets.last - offsets.first); i++) {
+        CFileMgr::Write(utrax, offsets.first[i], sizeof(tUserTracksInfo));
+        operator delete(offsets.first[i]);
+    }
+    CFileMgr::CloseFile(utrax);
+    CFileMgr::SetDir("");
+
+    FrontEndMenuManager.m_UserTrackIndex = 0;
+    self->m_nUserTracksScanState = USER_TRACK_SCAN_COMPLETE;
+    CoUninitialize();
+
+    if (offsets.first) {
+        operator delete(offsets.first);
+    }
+    return 0;
+}
+
+// NOTSA: variante UTF-8 del hilo (bugfix CAEUserRadioTrackManager_UnicodeUserTracks).
+void CAEUserRadioTrackManager::WriteUserTracksThread_Unicode() {
     VERIFY(SUCCEEDED(CoInitialize(nullptr)));
 
     // Open sa-ufiles.dat
     CFileMgr::SetDirMyDocuments();
 
     if (const auto ufiles = CFileMgr::OpenFile("sa-ufiles.dat", "wb")) {
-        size_t dummy{};
+        uint32 dummy{};
         UserTracksLegacyVector offsets;
 
         // Use the executable's ABI so the worker and scanner can be switched
         // independently. Each record and the vector storage use its CRT.
         const auto directory = UnicodeToUTF8((fs::path(CFileMgr::ms_dirName) / "User Tracks").wstring());
-        const auto amountOfTracks = self->WriteUserTracksFile_Legacy(directory.c_str(), offsets, ufiles, dummy, 0);
+        const auto amountOfTracks = WriteUserTracksFile(directory.c_str(), offsets, ufiles, dummy, 0);
         CFileMgr::CloseFile(ufiles);
 
         // Open sa-utrax.dat containing the offsets
@@ -335,34 +383,132 @@ DWORD __stdcall CAEUserRadioTrackManager::WriteUserTracksThread(CAEUserRadioTrac
             CFileMgr::CloseFile(utrax);
 
             FrontEndMenuManager.m_UserTrackIndex = 0;
-            self->m_nUserTracksScanState = USER_TRACK_SCAN_COMPLETE;
+            m_nUserTracksScanState = USER_TRACK_SCAN_COMPLETE;
 
         } else {
             // NOTSA(MikuAuahDark): GTASA doesn't check if sa-utrax.dat fails to open
-            self->m_nUserTracksScanState = USER_TRACK_SCAN_ERROR;
+            m_nUserTracksScanState = USER_TRACK_SCAN_ERROR;
         }
         for (auto** entry = offsets.first; entry != offsets.last; ++entry) {
             plugin::Call<0x8214BD>(*entry);
         }
         plugin::Call<0x8214BD>(offsets.first);
     } else {
-        self->m_nUserTracksScanState = USER_TRACK_SCAN_ERROR;
+        m_nUserTracksScanState = USER_TRACK_SCAN_ERROR;
     }
 
-    // Read user tracks back
-    self->m_bUserTracksLoaded = self->ReadUserTracks();
-    self->m_bUserTracksLoadedCopy = self->m_bUserTracksLoaded;
+    // NOTSA: Read user tracks back
+    m_bUserTracksLoaded = ReadUserTracks();
+    m_bUserTracksLoadedCopy = m_bUserTracksLoaded;
 
     CFileMgr::SetDir("");
     CoUninitialize();
-    return 0;
 }
 
-// 0x4F4690. Mantiene la ABI del vector VC6 y traduce internamente desde std::vector.
-// El orden original de argumentos es (directory, vector, FILE, length, depth).
-int32 CAEUserRadioTrackManager::WriteUserTracksFile_Legacy(const char* dir, UserTracksLegacyVector& offsets, FILE* file, size_t& currentLength, int32 depth) {
+// 0x4f4690
+/**
+ * Recorre `dir` (FindFirstFileA "\*.*") y añade a sa-ufiles.dat cada archivo de audio reconocido.
+ *
+ * Como el original: se salta todo lo que empieza por '.', baja a las carpetas con profundidad + 1 (hasta 15) y, solo
+ * en el primer nivel, resuelve los .lnk (si apuntan a una carpeta la recorre con profundidad 1). La longitud de cada
+ * ruta se guarda en 16 bits (movzx) y cada registro se reserva con el operator new del EXE y se añade con el
+ * push_back del vector VC6 (0x4F4620).
+ */
+int32 CAEUserRadioTrackManager::WriteUserTracksFile(const char* dir, UserTracksLegacyVector& offsets, FILE* file, uint32& currentLength, int32 depth) {
+    if (notsa::bugfixes::CAEUserRadioTrackManager_UnicodeUserTracks) {
+        return WriteUserTracksFile_Unicode(dir, offsets, file, currentLength, depth);
+    }
+
+    if (depth >= 15)
+        return 0;
+
+    int32 numTracks = 0;
+
+    // Builds `dir` + separator + `name` with the original's buffer size.
+    const auto JoinPath = [dir](const char* name) {
+        char* path = new char[lstrlenA(dir) + lstrlenA(name) + 2];
+        lstrcpyA(path, dir);
+        lstrcatA(path, "\\");
+        lstrcatA(path, name);
+        return path;
+    };
+    // Records the track: start offset, 16-bit length and type, the path bytes and the vector entry.
+    const auto AddTrack = [&](const char* path) {
+        const uint32 pathLen = static_cast<uint16>(lstrlenA(path));
+        auto* record = static_cast<tUserTracksInfo*>(operator new(sizeof(tUserTracksInfo)));
+        record->startUfilesPath = currentLength;
+        record->pathLength      = pathLen;
+        record->fileType        = GetAudioFileType(path);
+        CFileMgr::Write(file, path, pathLen);
+        return std::pair{ record, pathLen };
+    };
+    const auto PushBack = [&offsets](tUserTracksInfo* record) {
+        plugin::CallMethod<0x4F4620, UserTracksLegacyVector*, tUserTracksInfo**>(&offsets, &record);
+    };
+
+    char* pattern = new char[lstrlenA(dir) + 6];
+    lstrcpyA(pattern, dir);
+    lstrcatA(pattern, "\\*.*");
+    WIN32_FIND_DATAA findData;
+    const HANDLE find = FindFirstFileA(pattern, &findData);
+    delete[] pattern;
+    if (find == INVALID_HANDLE_VALUE)
+        return 0;
+
+    do {
+        if (findData.cFileName[0] == '.')
+            continue;
+
+        if (findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+            char* path = JoinPath(findData.cFileName);
+            numTracks += WriteUserTracksFile(path, offsets, file, currentLength, depth + 1);
+            delete[] path;
+            continue;
+        }
+
+        const char* dot = depth == 0 ? strrchr(findData.cFileName, '.') : nullptr;
+        if (dot && _stricmp(dot, ".lnk") == 0) {
+            char* link = JoinPath(findData.cFileName);
+            char* target = ResolveShortcut(link);
+            delete[] link;
+            if (!target)
+                continue;
+
+            const DWORD attributes = GetFileAttributesA(target);
+            if (attributes != INVALID_FILE_ATTRIBUTES) {
+                if (attributes & FILE_ATTRIBUTE_DIRECTORY) {
+                    numTracks += WriteUserTracksFile(target, offsets, file, currentLength, 1);
+                } else if (GetAudioFileType(target) != AUDIO_FILE_TYPE_UNKNOWN) {
+                    const auto [record, pathLen] = AddTrack(target);
+                    PushBack(record);
+                    numTracks++;
+                    currentLength += pathLen;
+                }
+            }
+            delete[] target;
+            continue;
+        }
+
+        if (GetAudioFileType(findData.cFileName) != AUDIO_FILE_TYPE_UNKNOWN) {
+            char* path = JoinPath(findData.cFileName);
+            const auto [record, pathLen] = AddTrack(path);
+            delete[] path;
+            PushBack(record);
+            numTracks++;
+            currentLength += pathLen;
+        }
+    } while (FindNextFileA(find, &findData));
+
+    FindClose(find);
+    return numTracks;
+}
+
+// NOTSA: variante UTF-8 de 0x4F4690. Mantiene la ABI del vector VC6 y traduce internamente desde std::vector.
+int32 CAEUserRadioTrackManager::WriteUserTracksFile_Unicode(const char* dir, UserTracksLegacyVector& offsets, FILE* file, uint32& currentLength, int32 depth) {
     std::vector<tUserTracksInfo> found;
-    const auto count = WriteUserTracksFile(dir, currentLength, file, found, depth);
+    size_t length = currentLength;
+    const auto count = WriteUserTracksFile(UTF8ToUnicode(dir), length, file, found, depth);
+    currentLength = static_cast<uint32>(length);
     for (const auto& track : found) {
         if (offsets.last == offsets.end) {
             const auto size = offsets.first ? offsets.last - offsets.first : 0;
@@ -383,12 +529,6 @@ int32 CAEUserRadioTrackManager::WriteUserTracksFile_Legacy(const char* dir, User
         *offsets.last++ = record;
     }
     return count;
-}
-
-// 0x4f4690
-int32 CAEUserRadioTrackManager::WriteUserTracksFile(const char* dir, size_t& currentLength, auto file, std::vector<tUserTracksInfo>& offsets, int32 depth) {
-    // todo: FIX_BUGS
-    return WriteUserTracksFile(UTF8ToUnicode(dir), currentLength, file, offsets, depth);
 }
 
 int32 CAEUserRadioTrackManager::WriteUserTracksFile(const std::wstring& dir, size_t& currentLength, auto file, std::vector<tUserTracksInfo>& offsets, int32 depth) {
@@ -438,9 +578,47 @@ int32 CAEUserRadioTrackManager::WriteUserTracksFile(const std::wstring& dir, siz
     return numTracks;
 }
 
-// todo: FIX_BUGS
 // 0x4f30f0
+/**
+ * Resuelve un .lnk con IShellLinkA/IPersistFile.
+ *
+ * Como el original: la ruta se pasa a ancho con MultiByteToWideChar (CP_ACP), GetPath pide la ruta corta
+ * (SLGP_SHORTPATH) en un buffer de MAX_PATH reservado con el new[] del EXE, y si GetPath falla devuelve nulo
+ * sin liberar ese buffer.
+ */
 char* CAEUserRadioTrackManager::ResolveShortcut(const char* path) {
+    if (notsa::bugfixes::CAEUserRadioTrackManager_UnicodeUserTracks) {
+        return ResolveShortcut_Unicode(path);
+    }
+
+    IShellLinkA* shellLink;
+    if (FAILED(CoCreateInstance(CLSID_ShellLink, nullptr, CLSCTX_INPROC_SERVER, IID_IShellLinkA, (void**)&shellLink)))
+        return nullptr;
+
+    IPersistFile* persistFile;
+    if (FAILED(shellLink->QueryInterface(IID_IPersistFile, (void**)&persistFile))) {
+        shellLink->Release();
+        return nullptr;
+    }
+
+    WCHAR widePath[MAX_PATH];
+    MultiByteToWideChar(CP_ACP, 0, path, -1, widePath, MAX_PATH);
+    if (FAILED(persistFile->Load(widePath, STGM_READ))) {
+        persistFile->Release();
+        shellLink->Release();
+        return nullptr;
+    }
+
+    char* target = new char[MAX_PATH];
+    WIN32_FIND_DATAA findData;
+    const HRESULT result = shellLink->GetPath(target, MAX_PATH, &findData, SLGP_SHORTPATH);
+    persistFile->Release();
+    shellLink->Release();
+    return FAILED(result) ? nullptr : target;
+}
+
+// NOTSA: variante UTF-8 de 0x4F30F0 (bugfix CAEUserRadioTrackManager_UnicodeUserTracks).
+char* CAEUserRadioTrackManager::ResolveShortcut_Unicode(const char* path) {
     std::string str = UnicodeToUTF8(ResolveShortcut(UTF8ToUnicode(path)));
     char*       result = plugin::CallAndReturn<char*, 0x821195>(str.length() + 1);
 
@@ -493,7 +671,7 @@ void CAEUserRadioTrackManager::InjectHooks() {
     RH_ScopedInstall(LoadUserTrack, 0x4f35f0);
     RH_ScopedInstall(GetUserTrackPlayMode, 0x4f3330);
     RH_ScopedInstall(SetUserTrackIndex, 0x4f3340);
-    RH_ScopedNamedInstall(WriteUserTracksFile_Legacy, "WriteUserTracksFile-", 0x4f4690);
+    RH_ScopedOverloadedInstall(WriteUserTracksFile, "", 0x4f4690, int32 (CAEUserRadioTrackManager::*)(const char*, UserTracksLegacyVector&, FILE*, uint32&, int32));
     RH_ScopedInstall(WriteUserTracksThread, 0x4f4a20);
     RH_ScopedInstall(ScanUserTracks, 0x4f4ba0);
 }

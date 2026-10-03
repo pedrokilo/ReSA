@@ -12,11 +12,11 @@ class CTaskComplexPassObject;
 class NOTSA_EXPORT_VTABLE CTaskComplexPassObject : public CTaskComplex {
 
 public:
-    CPed*      m_ped{};             
-    bool       m_isPasser{};        
-    CVector    m_targetPos{};     
-    CTaskTimer m_timer{};      
-    CEntity*   m_entityToPass{}; 
+    CPed*      m_ped{};          // 0xC
+    bool       m_isPasser{};     // 0x10
+    CVector    m_targetPos;      // 0x14 - Como el original: el constructor no lo escribe
+    CTaskTimer m_timer;          // 0x20 - Como el original: sin {} (no se escribe el relleno 0x2A..0x2B)
+    CEntity*   m_entityToPass;   // 0x2C - Como el original: el constructor no lo escribe
 
 public:
     static void InjectHooks();
@@ -48,3 +48,4 @@ private: // Wrappers for hooks
         return this;
     }
 };
+VALIDATE_SIZE(CTaskComplexPassObject, 0x30);

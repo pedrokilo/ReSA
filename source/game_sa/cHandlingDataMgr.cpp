@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/11 entradas.
+ * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -191,58 +191,182 @@ int32 tBikeHandlingData::InitFromData(int32 id, const char* line) {
     return n == 15 ? -1 : n;
 }
 
+// Como el original: atof devuelve un double y el EXE lo multiplica por 0.4 (double, 0x86A950) en la FPU
+// antes de guardarlo como float (un solo redondeo)
+static const double s_EngineAccelFileMult = 0.4;
+
+// Como el original: helpers del bucle de LoadHandlingData (registros por desplazamiento crudo, como el EXE)
+namespace {
+template<typename T>
+T& HandlingField(void* record, size_t offset) {
+    return *reinterpret_cast<T*>(static_cast<uint8*>(record) + offset);
+}
+
+float AtofTimes04X87(const char* token) {
+    const double value = atof(token);
+    float result;
+    __asm {
+        fld    value
+        fmul   s_EngineAccelFileMult
+        fstp   result
+    }
+    return result;
+}
+} // namespace
+
 // 0x5BD830
 void cHandlingDataMgr::LoadHandlingData() {
     CFileMgr::SetDir("DATA");
     const auto file = CFileMgr::OpenFile("HANDLING.CFG", "rb");
     CFileMgr::SetDir("");
 
-    // Automatically closes file on function return
-    const notsa::ScopeGuard closeFile{ [&] { CFileMgr::CloseFile(file); } };
+    // Como el original: el registro actual de cada tipo persiste entre lineas (empieza nulo)
+    uint8* vehicle = nullptr;
+    uint8* boat    = nullptr;
+    uint8* bike    = nullptr;
+    uint8* flying  = nullptr;
+    auto* const self  = reinterpret_cast<uint8*>(this);
+    const auto  names = &VehicleNames[0][0];
 
-    auto nLoadedHandlings{ 0u };
-
-    // Get handling by scanning name from `line` using `scanNameFormat`, then calls `GetHandlingFn` to get the handling ptr
-    const auto DoLoadHandling = [&, this](const char* line, auto GetHandlingFn) -> int32 {
-        char name[32]{};
-        if (sscanf_s(line, "%31s", name, std::size(name)) != 1) { // FIX_BUGS: Sized string read
-            return 0;
+    for (auto line = CFileLoader::LoadLine(file); line; line = CFileLoader::LoadLine(file)) {
+        if (!memcmp(line, ";the end", 9)) { // Como el original: repe cmpsb de 9 bytes
+            break;
         }
-        const auto id = FindExactWord(name, &VehicleNames[0][0], std::size(VehicleNames[0]), std::size(VehicleNames));
-        if (id == -1) {
-            return -1; // Issue logged by `FindExactWord`, so no need to care about it here
-        }
-        const auto ret = std::invoke(GetHandlingFn, this, id)->InitFromData(id, line);
-        if (ret == -1) {
-            nLoadedHandlings++;
-        }
-        return ret;
-    };
-
-    auto nline{1u}, nLoadedVehHandlings{0u};
-    for (auto l = CFileLoader::LoadLine(file); l; l = CFileLoader::LoadLine(file), nline++) {
-        if (!strcmp(l, ";the end")) { // End of data
-            return;
+        if (line[0] == ';') {
+            continue;
         }
 
-        // Each function returns the number of tokens read on error otherwise -1
-        const auto ret = [&] {
-            switch (l[0]) {
-            case ';': return -1; // Comment
-            case '!': return DoLoadHandling(l + 1, &cHandlingDataMgr::GetBikeHandlingPointer);
-            case '$': return DoLoadHandling(l + 1, &cHandlingDataMgr::GetFlyingPointer);
-            case '%': return DoLoadHandling(l + 1, &cHandlingDataMgr::GetBoatPointer);
-            case '^': return CVehicleAnimGroupData::LoadAGroupFromData(l);
-            default:  break;
+        uint8 field = 0;
+        switch (line[0]) {
+        case '!': { // Moto: el primer token es "!", despues el nombre y 15 floats
+            for (auto token = strtok(line, " \t"); token; token = strtok(nullptr, " \t"), field++) {
+                if (field == 1) {
+                    const auto id = FindExactWord(token, names, 14, 210);
+                    bike = self + 0x8F54 + id * 0x40; // Como el original: sin restar VT_BIKE ni acotar
+                    HandlingField<int32>(bike, 0) = id;
+                } else if (field >= 2 && field <= 16) {
+                    HandlingField<float>(bike, 4 * (field - 1)) = (float)atof(token);
+                }
             }
-            nLoadedVehHandlings++;
-            return DoLoadHandling(l, &cHandlingDataMgr::GetVehiclePointer);
-        }();
-        if (ret != -1) {
-            NOTSA_UNREACHABLE("Failed to process handling. [Line: {}; #Tokens Read: {}]", nline, ret);
+            ConvertBikeDataToGameUnits(reinterpret_cast<tBikeHandlingData*>(bike));
+            break;
+        }
+        case '$': { // Aviones/helicopteros: "$", nombre y 21 floats (sin conversion)
+            for (auto token = strtok(line, " \t"); token; token = strtok(nullptr, " \t"), field++) {
+                if (field == 1) {
+                    const auto id = FindExactWord(token, names, 14, 210);
+                    flying = self + 0x7B24 + id * 0x58;
+                    HandlingField<int32>(flying, 0) = id;
+                } else if (field >= 2 && field <= 22) {
+                    HandlingField<float>(flying, 4 * (field - 1)) = (float)atof(token);
+                }
+            }
+            break;
+        }
+        case '%': { // Barcos: "%", nombre y 14 floats; los campos 9 a 14 van a +0x24..+0x38 y el 15 a +0x20
+            for (auto token = strtok(line, " \t"); token; token = strtok(nullptr, " \t"), field++) {
+                if (field == 1) {
+                    const auto id = FindExactWord(token, names, 14, 210);
+                    boat = reinterpret_cast<uint8*>(GetBoatPointer((uint8)id));
+                    HandlingField<int32>(boat, 0) = id;
+                } else if (field >= 2 && field <= 8) {
+                    HandlingField<float>(boat, 4 * (field - 1)) = (float)atof(token);
+                } else if (field >= 9 && field <= 14) {
+                    HandlingField<float>(boat, 4 * field) = (float)atof(token);
+                } else if (field == 15) {
+                    HandlingField<float>(boat, 0x20) = (float)atof(token);
+                }
+            }
+            break;
+        }
+        case '^': { // Grupo de animaciones: se monta en locales y se copia a CVehicleAnimGroupData::m_vehicleAnimGroups
+            int32 groupId = 0, firstGroup = 0, secondGroup = 0; // En el EXE quedan sin inicializar si faltan campos
+            int32 animFlags = 0, specialFlags = 0;
+            sVehAnimGroupGeneralTiming generalTiming;
+            sVehAnimGroupInOutTiming   startTiming, endTiming;
+            float* const general = reinterpret_cast<float*>(&generalTiming);
+            float* const start   = reinterpret_cast<float*>(&startTiming);
+            float* const end     = reinterpret_cast<float*>(&endTiming);
+            for (auto token = strtok(line, " \t"); token; token = strtok(nullptr, " \t"), field++) {
+                if (field == 1) {
+                    groupId = atoi(token);
+                } else if (field == 2) {
+                    firstGroup = atoi(token);
+                } else if (field == 3) {
+                    secondGroup = atoi(token);
+                } else if (field >= 4 && field <= 21) {
+                    if (atoi(token)) {
+                        animFlags |= 1 << (field - 4); // Como el original: (int)pow(2, field - 4)
+                    }
+                } else if (field >= 22 && field <= 26) {
+                    general[field - 22] = (float)atof(token);
+                } else if (field >= 27 && field <= 34) { // Como el original: alternan inicio y fin
+                    ((field - 27) % 2 ? end : start)[(field - 27) / 2] = (float)atof(token);
+                } else if (field == 35) {
+                    specialFlags = atoi(token);
+                }
+            }
+            CVehicleAnimGroup group;
+            group.InitAnimGroup((uint8)(firstGroup + 0x58), (uint8)(secondGroup + 0x58), animFlags, specialFlags, &generalTiming, &startTiming, &endTiming);
+            CVehicleAnimGroupData::m_vehicleAnimGroups[groupId].CopyAnimGroup(&group);
+            break;
+        }
+        default: { // Coche: el primer token es el nombre
+            for (auto token = strtok(line, " \t"); token; token = strtok(nullptr, " \t"), field++) {
+                switch (field) {
+                case 0: {
+                    const auto id = FindExactWord(token, names, 14, 210);
+                    vehicle = self + 0x14 + id * 0xE0;
+                    HandlingField<int32>(vehicle, 0) = id;
+                    break;
+                }
+                case 1:  HandlingField<float>(vehicle, 0x04) = (float)atof(token); break;
+                case 2:  HandlingField<float>(vehicle, 0x0C) = (float)atof(token); break;
+                case 3:  HandlingField<float>(vehicle, 0x10) = (float)atof(token); break;
+                case 4:  HandlingField<float>(vehicle, 0x14) = (float)atof(token); break;
+                case 5:  HandlingField<float>(vehicle, 0x18) = (float)atof(token); break;
+                case 6:  HandlingField<float>(vehicle, 0x1C) = (float)atof(token); break;
+                case 7:  HandlingField<uint8>(vehicle, 0x20) = (uint8)atoi(token); break;
+                case 8:  HandlingField<float>(vehicle, 0x28) = (float)atof(token); break;
+                case 9:  HandlingField<float>(vehicle, 0xA4) = (float)atof(token); break;
+                case 10: HandlingField<float>(vehicle, 0xA8) = (float)atof(token); break;
+                case 11: HandlingField<uint8>(vehicle, 0x76) = (uint8)atoi(token); break;
+                case 12: HandlingField<float>(vehicle, 0x84) = (float)atof(token); break;
+                case 13: HandlingField<float>(vehicle, 0x7C) = AtofTimes04X87(token); break;
+                case 14: HandlingField<float>(vehicle, 0x80) = (float)atof(token); break;
+                case 15: HandlingField<char>(vehicle, 0x74) = token[0]; break;
+                case 16: HandlingField<char>(vehicle, 0x75) = token[0]; break;
+                case 17: HandlingField<float>(vehicle, 0x94) = (float)atof(token); break;
+                case 18: HandlingField<float>(vehicle, 0x98) = (float)atof(token); break;
+                case 19: HandlingField<uint8>(vehicle, 0x9C) = atoi(token) != 0; break;
+                case 20: HandlingField<float>(vehicle, 0xA0) = (float)atof(token); break;
+                case 21: HandlingField<float>(vehicle, 0xAC) = (float)atof(token); break;
+                case 22: HandlingField<float>(vehicle, 0xB0) = (float)atof(token); break;
+                case 23: HandlingField<float>(vehicle, 0xB4) = (float)atof(token); break;
+                case 24: HandlingField<float>(vehicle, 0xB8) = (float)atof(token); break;
+                case 25: HandlingField<float>(vehicle, 0xBC) = (float)atof(token); break;
+                case 26: HandlingField<float>(vehicle, 0xC0) = (float)atof(token); break;
+                case 27: HandlingField<float>(vehicle, 0xC4) = (float)atof(token); break;
+                case 28: HandlingField<float>(vehicle, 0xD4) = (float)atof(token); break;
+                case 29: HandlingField<float>(vehicle, 0xC8) = (float)atof(token); break;
+                case 30: HandlingField<int32>(vehicle, 0xD8) = atoi(token); break;
+                case 31: sscanf(token, "%x", &HandlingField<uint32>(vehicle, 0xCC)); break;
+                case 32:
+                    sscanf(token, "%x", &HandlingField<uint32>(vehicle, 0xD0));
+                    HandlingField<uint32>(vehicle, 0x78) = HandlingField<uint32>(vehicle, 0xD0);
+                    break;
+                case 33: HandlingField<uint8>(vehicle, 0xDC) = (uint8)atoi(token); break;
+                case 34: HandlingField<uint8>(vehicle, 0xDD) = (uint8)atoi(token); break;
+                case 35: HandlingField<uint8>(vehicle, 0xDE) = (uint8)atoi(token); break;
+                default: break;
+                }
+            }
+            ConvertDataToGameUnits(reinterpret_cast<tHandlingData*>(vehicle));
+            break;
+        }
         }
     }
-    NOTSA_LOG_DEBUG("Successfully loaded {}x handlings for {}x vehicles!", nLoadedHandlings, nLoadedVehHandlings);
+    CFileMgr::CloseFile(file);
 }
 
 // 0x005BF3D0
@@ -273,7 +397,7 @@ tBoatHandlingData* cHandlingDataMgr::GetBoatPointer(uint8 handlingId) {
 }
 
 tHandlingData* cHandlingDataMgr::GetVehiclePointer(uint32 handlingId) {
-    return &m_aVehicleHandling[handlingId];
+    return &m_aVehicleHandling.data()[handlingId]; // Como el original: sin comprobar el indice (0x6A0480 acepta 0..255)
 }
 
 tBikeHandlingData* cHandlingDataMgr::GetBikeHandlingPointer(uint32 handlingId) {
@@ -293,23 +417,104 @@ bool cHandlingDataMgr::HasRearWheelDrive(uint8 handlingId) {
 // get handling id by name
 // 0x6F4FD0
 int32 cHandlingDataMgr::GetHandlingId(const char* nameToFind) {
-    for (auto [id, name] : rngv::enumerate(VehicleNames)) {
-        if (!strcmp(name, nameToFind)) {
-            return id;
+    // Como el original: strncmp de 14 caracteres y, si no se encuentra, devuelve 210
+    int32 id = 0;
+    for (; id < (int32)std::size(VehicleNames); id++) {
+        if (!strncmp(nameToFind, VehicleNames[id], 14)) {
+            break;
         }
     }
-    NOTSA_UNREACHABLE("Can't find {}", nameToFind);
+    return id;
 }
+
+// Como el original: constantes globales del EXE calculadas al arrancar (0x854350 y 0x854390)
+static inline auto& s_HandlingAccelConst    = StaticRef<float>(0xC2B9B4); // 1 / (50 * 50)
+static inline auto& s_HandlingVelocityConst = StaticRef<float>(0xC2B9BC); // 0.277778 / 50
+
+// Como el original: el bucle de ConvertDataToGameUnits resta 0.01 en double (0x85A308) y divide la aceleracion
+// entre 6 multiplicando por 1/6 en double (0x872350 = 0x3FC5555555555554): un solo redondeo a 24 bits en la FPU
+static const double s_HandlingVelocityStep = 0.01;
+static const double s_HandlingOneSixth     = std::bit_cast<double>(0x3FC5555555555554ull);
+// Como el original: 0x859878 = 57.29578f (0x42652EE0)
+static const float s_HandlingRadToDeg = std::bit_cast<float>(0x42652EE0u);
+
+namespace {
+
+float SubtractVelocityStepX87(float value) {
+    float result;
+    __asm {
+        fld    value
+        fsub   s_HandlingVelocityStep
+        fstp   result
+    }
+    return result;
+}
+
+float TimesOneSixthX87(float value) {
+    float result;
+    __asm {
+        fld    value
+        fmul   s_HandlingOneSixth
+        fstp   result
+    }
+    return result;
+}
+
+// Como el original: fsin a precision completa (0x6F529D)
+float SinX87(float value) {
+    float result;
+    __asm {
+        fld    value
+        fsin
+        fstp   result
+    }
+    return result;
+}
+
+// Como el original: 0x8595EC = 0.017453292f
+constexpr float HANDLING_DEG_TO_RAD = 0.01745329238474369f;
+
+// asin del CRT del juego (0x821E70): fpatan(x, sqrt((1 + x)(1 - x))) con la palabra de control
+// (anterior & 0x300) | 0x7F, como en BulletInfo.cpp; el llamador multiplica en la FPU por 57.29578f
+// antes de redondear (un solo redondeo)
+float __declspec(naked) __cdecl AsinDegreesHandlingX87(float x) {
+    __asm {
+        sub    esp, 4
+        fnstcw word ptr [esp]
+        mov    ax, word ptr [esp]
+        and    ax, 300h
+        or     ax, 7Fh
+        mov    word ptr [esp + 2], ax
+        fldcw  word ptr [esp + 2]
+        fld    dword ptr [esp + 8]
+        fld1
+        fadd   st, st(1)
+        fld1
+        fsub   st, st(2)
+        fmulp  st(1), st
+        fsqrt
+        fpatan
+        fldcw  word ptr [esp]
+        fmul   dword ptr [s_HandlingRadToDeg]
+        add    esp, 4
+        ret
+    }
+}
+} // namespace
 
 // 0x6F5010
 // update some handling variables with some world-specific multipliers
 void cHandlingDataMgr::ConvertDataToWorldUnits(tHandlingData* h) {
     const auto t = &h->GetTransmission();
 
-    t->m_MaxVelocity /= VELOCITY_CONST;
-    h->m_fBrakeDeceleration /= ACCEL_CONST;
-    t->m_EngineAcceleration *= (t->m_nDriveType == '4' ? 4.f : 2.f) / ACCEL_CONST;
-    h->m_fCollisionDamageMultiplier *= h->m_fMass / 2000.f;
+    // Como el original: se multiplica por el inverso (1 / ACCEL), primero la aceleracion y despues el freno
+    const float invAccel = 1.0f / s_HandlingAccelConst;
+    const float accel    = invAccel * t->m_EngineAcceleration;
+    t->m_EngineAcceleration  = accel;
+    t->m_MaxVelocity         = t->m_MaxVelocity / s_HandlingVelocityConst;
+    h->m_fBrakeDeceleration  = invAccel * h->m_fBrakeDeceleration;
+    t->m_EngineAcceleration  = t->m_nDriveType == '4' ? accel * 4.0f : accel + accel;
+    h->m_fCollisionDamageMultiplier = h->m_fMass * h->m_fCollisionDamageMultiplier * 0.0005f;
 }
 
 // update some handling variables with some game-specific multipliers
@@ -317,75 +522,79 @@ void cHandlingDataMgr::ConvertDataToWorldUnits(tHandlingData* h) {
 void cHandlingDataMgr::ConvertDataToGameUnits(tHandlingData* h) {
     const auto t = &h->GetTransmission();
 
-    t->m_EngineAcceleration *= ACCEL_CONST;
-    t->m_MaxVelocity *= VELOCITY_CONST;
-    h->m_fBrakeDeceleration *= ACCEL_CONST;
-    h->m_fMassRecpr = 1.f / h->m_fMass;
+    const float accel = s_HandlingAccelConst * t->m_EngineAcceleration;
+    t->m_EngineAcceleration = accel;
+    const float velocity = s_HandlingVelocityConst * t->m_MaxVelocity; // Como el original: se guarda aparte (0x6F50A5)
+    t->m_MaxVelocity = velocity;
+    h->m_fBrakeDeceleration = s_HandlingAccelConst * h->m_fBrakeDeceleration;
+    const float massRecpr = 1.0f / h->m_fMass;
+    h->m_fMassRecpr = massRecpr;
     h->m_fBuoyancyConstant = h->m_fMass * 0.8f / (float)h->m_nPercentSubmerged;
-    h->m_fCollisionDamageMultiplier *= h->m_fMassRecpr * 2000.f;
+    h->m_fCollisionDamageMultiplier = massRecpr * h->m_fCollisionDamageMultiplier * 2000.0f;
 
-    auto engineAccelLimit = t->m_EngineAcceleration / 6.f;
-    auto maxVelocity      = t->m_MaxVelocity;
-    while (maxVelocity > 0.f) {
-        maxVelocity -= 0.01f;
-        if (h->m_fDragMult >= 0.01f) {
-            if ((sq(maxVelocity) * (h->m_fDragMult / 2.f) / 1000.f) <= engineAccelLimit) {
-                break;
-            }
-            continue;
+    auto maxVelocity = velocity;
+    while (maxVelocity > 0.0f) {
+        maxVelocity = SubtractVelocityStepX87(maxVelocity);
+        const float engineAccelLimit = TimesOneSixthX87(accel);
+        float resistance;
+        if (h->m_fDragMult < 0.01f) {
+            resistance = -((1.0f / (maxVelocity * maxVelocity * h->m_fDragMult + 1.0f) - 1.0f) * maxVelocity);
+        } else { // Como el original: tambien con NaN
+            resistance = h->m_fDragMult / 1000.0f * 0.5f * maxVelocity * maxVelocity;
         }
-
-        auto fRecip = 1.f / (sq(maxVelocity) * h->m_fDragMult + 1.f);
-        if ((fRecip - 1.f) * -maxVelocity <= engineAccelLimit) {
+        // Como el original: solo se sigue si el limite es estrictamente menor (NaN sale)
+        if (!(engineAccelLimit < resistance)) {
             break;
         }
     }
 
-    if (h->m_nVehicleId == VT_RCBANDIT) {
+    if (h->m_nVehicleId == VT_RCBANDIT) { // Como el original: usa la velocidad sin reducir
+        t->m_MaxFlatVelocity    = velocity;
+        t->m_MaxReverseVelocity = -velocity;
+    } else if (h->m_bUseMaxspLimit) { // Como el original: velocidad sin reducir por 0.8333333f (0x863278)
+        t->m_MaxFlatVelocity    = velocity * 0.8333333134651184f;
+        t->m_MaxReverseVelocity = std::min(t->m_MaxFlatVelocity * -0.25f, -0.2f);
+    } else if (h->m_nVehicleId >= VT_BIKE && h->m_nVehicleId <= VT_FREEWAY) { // 2 wheelers
         t->m_MaxFlatVelocity    = maxVelocity;
-        t->m_MaxReverseVelocity = -maxVelocity;
-    } else if (h->m_bUseMaxspLimit) {
-        t->m_MaxFlatVelocity    = maxVelocity / 1.2f;
-        t->m_MaxReverseVelocity = std::min(-t->m_MaxFlatVelocity / 4.f, -0.2f);
+        t->m_MaxReverseVelocity = -0.05f;
+        t->m_MaxVelocity        = maxVelocity * 1.2f;
     } else {
-        t->m_MaxVelocity     = maxVelocity * 1.2f;
-        t->m_MaxFlatVelocity = maxVelocity;
-        if (h->m_nVehicleId >= VT_BIKE && h->m_nVehicleId <= VT_FREEWAY) { 
-            // 2 wheelers
-            t->m_MaxReverseVelocity = -0.05f;
-        } else {
-            t->m_MaxReverseVelocity = std::min(-maxVelocity * 0.3f, -0.2f);
-        }
+        t->m_MaxFlatVelocity    = maxVelocity;
+        t->m_MaxVelocity        = maxVelocity * 1.2f;
+        t->m_MaxReverseVelocity = std::min(t->m_MaxFlatVelocity * -0.3f, -0.2f);
     }
 
-    t->m_EngineAcceleration /= (t->m_nDriveType == '4') ? 4.f : 2.f;
+    t->m_EngineAcceleration = accel * (t->m_nDriveType == '4' ? 0.25f : 0.5f);
     t->InitGearRatios();
 }
 
 // 0x6F5240
 void cHandlingDataMgr::ConvertBikeDataToWorldUnits(tBikeHandlingData* bikeHandling) {
-    bikeHandling->m_fMaxLean = RadiansToDegrees(asin(bikeHandling->m_fMaxLean));
-    bikeHandling->m_fFullAnimLean = RadiansToDegrees(bikeHandling->m_fFullAnimLean);
-    bikeHandling->m_fWheelieAng = RadiansToDegrees(asin(bikeHandling->m_fWheelieAng));
-    bikeHandling->m_fStoppieAng = RadiansToDegrees(asin(bikeHandling->m_fStoppieAng));
+    bikeHandling->m_fMaxLean      = AsinDegreesHandlingX87(bikeHandling->m_fMaxLean);
+    bikeHandling->m_fFullAnimLean = bikeHandling->m_fFullAnimLean * s_HandlingRadToDeg;
+    bikeHandling->m_fWheelieAng   = AsinDegreesHandlingX87(bikeHandling->m_fWheelieAng);
+    bikeHandling->m_fStoppieAng   = AsinDegreesHandlingX87(bikeHandling->m_fStoppieAng);
 }
 
 // 0x6F5290
 void cHandlingDataMgr::ConvertBikeDataToGameUnits(tBikeHandlingData* bikeHandling) {
-    bikeHandling->m_fMaxLean = sin(DegreesToRadians(bikeHandling->m_fMaxLean));
-    bikeHandling->m_fFullAnimLean = DegreesToRadians(bikeHandling->m_fFullAnimLean);
-    bikeHandling->m_fWheelieAng = sin(DegreesToRadians(bikeHandling->m_fWheelieAng));
-    bikeHandling->m_fStoppieAng = sin(DegreesToRadians(bikeHandling->m_fStoppieAng));
+    bikeHandling->m_fMaxLean      = SinX87(bikeHandling->m_fMaxLean * HANDLING_DEG_TO_RAD);
+    bikeHandling->m_fFullAnimLean = bikeHandling->m_fFullAnimLean * HANDLING_DEG_TO_RAD;
+    bikeHandling->m_fWheelieAng   = SinX87(bikeHandling->m_fWheelieAng * HANDLING_DEG_TO_RAD);
+    bikeHandling->m_fStoppieAng   = SinX87(bikeHandling->m_fStoppieAng * HANDLING_DEG_TO_RAD);
 }
 
 // 0x006F4F30
 int32 cHandlingDataMgr::FindExactWord(const char* name, const char* nameTable, uint32 entrySize, uint32 entryCount) {
-    for (auto i = 0u; i < entryCount; i++) {
+    // Como el original: do-while con contador con signo (siempre mira la primera entrada) y, si no se encuentra,
+    // devuelve entryCount
+    int32 i = 0;
+    do {
         const auto entry = &nameTable[entrySize * i];
         if (!strncmp(name, entry, strlen(entry))) {
             return i;
         }
-    }
-    NOTSA_LOG_DEBUG("Vehicle name not found in table: {}", name);
-    return -1;
+        i++;
+    } while (i < (int32)entryCount);
+    return (int32)entryCount;
 }

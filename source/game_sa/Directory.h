@@ -19,13 +19,14 @@ public:
         char        Name[24];      //!< Name of the file with extension (null terminated).
     };
 
-    DirectoryInfo* m_pEntries{};
-    uint32         m_nCapacity{};
-    uint32         m_nNumEntries{};
-    bool           m_bOwnsEntries{};
+    DirectoryInfo* m_pEntries;
+    uint32         m_nCapacity;
+    uint32         m_nNumEntries;
+    bool           m_bOwnsEntries;
 
 public:
-    CDirectory() = default; // 0x532290
+    // 0x532290 - Como el original: m_bOwnsEntries queda sin escribir (el destructor sólo lo mira con m_pEntries no nulo).
+    CDirectory() : m_pEntries(nullptr), m_nCapacity(0), m_nNumEntries(0) {}
     explicit CDirectory(size_t capacity);
     ~CDirectory();
 

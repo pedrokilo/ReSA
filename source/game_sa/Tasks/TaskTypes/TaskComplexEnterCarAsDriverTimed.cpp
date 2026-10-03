@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -65,17 +65,21 @@ void CTaskComplexEnterCarAsDriverTimed::StopTimer(CEvent const* event) {
 
 // 0x63AE60
 bool CTaskComplexEnterCarAsDriverTimed::MakeAbortable(CPed* ped, eAbortPriority priority, CEvent const* event) {
-    if (m_pSubTask->MakeAbortable(ped, priority, event)) {
-        if (!event || !CEventHandler::IsTemporaryEvent(*event)) {
-            switch (priority) {
-            case ABORT_PRIORITY_URGENT:
-            case ABORT_PRIORITY_IMMEDIATE:
-                m_enterBeganTimer.Pause();
-            }
-        }
-        return true;
+    if (!m_pSubTask->MakeAbortable(ped, priority, event)) {
+        return false;
     }
-    return false;
+    // Como el original: primero la prioridad y después IsTemporaryEvent
+    switch (priority) {
+    case ABORT_PRIORITY_URGENT:
+    case ABORT_PRIORITY_IMMEDIATE:
+        if (!event || !CEventHandler::IsTemporaryEvent(*event)) {
+            m_enterBeganTimer.Pause();
+        }
+        break;
+    default:
+        break;
+    }
+    return true;
 }
 
 // 0x6405B0

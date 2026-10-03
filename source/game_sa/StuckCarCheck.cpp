@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -19,6 +19,18 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "StuckCarCheck.h"
+
+namespace {
+// Como el original: CPool::GetAtRef inlinado sin comprobar los límites del índice (el manejador se desplaza con signo)
+CVehicle* GetVehicleNoBoundsCheck(int32 handle) {
+    auto* const pool = reinterpret_cast<uint8* const*>(GetVehiclePool());
+    const auto idx = handle >> 8;
+    if (pool[1][idx] != static_cast<uint8>(handle)) {
+        return nullptr;
+    }
+    return reinterpret_cast<CVehicle*>(reinterpret_cast<uintptr_t>(pool[0]) + static_cast<uint32>(idx) * 0xA18u);
+}
+} // namespace
 
 void CStuckCarCheck::InjectHooks() {
     RH_ScopedClass(CStuckCarCheck);
@@ -43,15 +55,15 @@ void CStuckCarCheck::Init() {
 
 // 0x465970
 void CStuckCarCheck::AddCarToCheck(int32 carHandle, float stuckRadius, uint32 time, bool warpCar, bool stuck, bool flipped, bool inWater, int8 numberOfNodesToCheck) {
-    const auto vehicle = CPools::GetVehicle(carHandle);
+    const auto vehicle = GetVehicleNoBoundsCheck(carHandle);
 
     if (!vehicle) {
         return;
     }
 
     for (auto& car : m_aStuckCars) {
-        // NOTSA optimization
-        if (car.CarHandle == -1) {
+        // Como el original: ocupa el primer hueco con manejador negativo
+        if (car.CarHandle < 0) {
             car.CarHandle            = carHandle;
             car.LastPos              = vehicle->GetPosition();
             car.LastChecked          = CTimer::m_snTimeInMilliseconds;
@@ -98,9 +110,10 @@ void CStuckCarCheck::ClearStuckFlagForCar(int32 carHandle) {
 
 // 0x463C00
 bool CStuckCarCheck::HasCarBeenStuckForAWhile(int32 carHandle) {
+    // Como el original: solo cuenta el primer hueco con ese manejador
     for (auto& car : m_aStuckCars) {
-        if (car.CarHandle == carHandle && car.CarStuck) {
-            return true;
+        if (car.CarHandle == carHandle) {
+            return car.CarStuck;
         }
     }
     return false;
@@ -125,7 +138,7 @@ void CStuckCarCheck::Process() {
             continue;
         }
 
-        auto vehicle = CPools::GetVehicle(car.CarHandle);
+        auto vehicle = GetVehicleNoBoundsCheck(car.CarHandle);
 
         if (!vehicle) {
             ResetArrayElement(car);
@@ -142,7 +155,8 @@ void CStuckCarCheck::Process() {
             CVector curPos    = vehicle->GetPosition();
             CVector distMoved = curPos - car.LastPos;
 
-            car.CarStuck    = distMoved.Magnitude() < car.StuckRadius;
+            // Como el original: (z² + y²) + x²
+            car.CarStuck    = std::sqrt(distMoved.z * distMoved.z + distMoved.y * distMoved.y + distMoved.x * distMoved.x) < car.StuckRadius;
             car.LastPos     = curPos;
             car.LastChecked = CTimer::m_snTimeInMilliseconds;
         }
@@ -182,7 +196,8 @@ void CStuckCarCheck::Process() {
 
         for (int32 i = 0; i < car.NumberOfNodesToCheck; i++) { // m_nNumberOfNodesToCheck 0 is ignored
             CVector newCoords{};
-            auto    node = ThePaths.FindNthNodeClosestToCoors(car.LastPos, PATH_TYPE_VEH, 999999.88f, false, true, i, false, false, nullptr);
+            // Como el original: se busca alrededor de la posición actual del vehículo, no de LastPos
+            auto    node = ThePaths.FindNthNodeClosestToCoors(vehicle->GetPosition(), PATH_TYPE_VEH, 999999.88f, false, true, i, false, false, nullptr);
             if (ThePaths.FindNodeCoorsForScript(newCoords, node)) {
                 auto newHeading = ThePaths.FindNodeOrientationForCarPlacement(node);
                 if (CStuckCarCheck::AttemptToWarpVehicle(vehicle, &newCoords, newHeading)) {

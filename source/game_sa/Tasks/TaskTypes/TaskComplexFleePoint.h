@@ -20,9 +20,9 @@ class CPed;
 class NOTSA_EXPORT_VTABLE CTaskComplexFleePoint : public CTaskComplex {
 public:
     CVector m_fleeFromPos{};    ///< Position to flee from
-    CVector m_fleeToPos{};      ///< The position the ped should go(flee) to
+    CVector m_fleeToPos;        ///< The position the ped should go(flee) to (Como el original: el constructor no lo escribe)
     int32 m_durationMs{};       ///< The duration (todo)
-    CTaskTimer m_timer{};       ///< Task timer: Started in `ControlSubTask`, if out of time skips to `TASK_COMPLEX_SEQUENCE`
+    CTaskTimer m_timer;         ///< (Como el original: sin inicializacion por valor, el relleno no se escribe) Task timer: Started in `ControlSubTask`, if out of time skips to `TASK_COMPLEX_SEQUENCE`
     float m_safeDist{};         ///< The safe distance, once the ped is further away than this, the task is considerd done
     bool m_bScream{};           ///< If peds should scream while sprinting away
     bool m_newFleePosWasSet{};  ///< New `m_fleeFromPos` was set using `SetFleePosition`

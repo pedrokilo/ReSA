@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -36,6 +36,13 @@ void CTaskSimpleIKChain::InjectHooks() {
     RH_ScopedVMTInstall(CreateIKChain, 0x633BD0);
 }
 
+// Como el original: el EXE guarda y pasa el hueso de desplazamiento como dword (la palabra alta tambien cuenta)
+static eBoneTag32 RawBoneTag32(const eBoneTag16& bone) {
+    eBoneTag32 r;
+    r.m_Value = *reinterpret_cast<const int32*>(&bone);
+    return r;
+}
+
 // 0x6339C0
 CTaskSimpleIKChain::CTaskSimpleIKChain(
     const char* name,
@@ -59,6 +66,7 @@ CTaskSimpleIKChain::CTaskSimpleIKChain(
     m_TargetEntityExisted{ !!entity },
     m_Speed{ speed }
 {
+    *reinterpret_cast<int32*>(&m_OffsetBone) = offsetBone.get_underlying(); // Como el original: se escribe como dword
 }
 
 // 0x633A90
@@ -70,7 +78,7 @@ CTaskSimpleIKChain::~CTaskSimpleIKChain() {
 
 // 0x633B00
 CTask* CTaskSimpleIKChain::Clone() const {
-    auto* task = new CTaskSimpleIKChain("", m_EffectorBone, m_EffectorOffset, m_PivotBone, m_TargetEntity, m_OffsetBone, m_OffsetPos, m_Speed, m_Duration, m_BlendDuration);
+    auto* task = new CTaskSimpleIKChain("", m_EffectorBone, m_EffectorOffset, m_PivotBone, m_TargetEntity, RawBoneTag32(m_OffsetBone), m_OffsetPos, m_Speed, m_Duration, m_BlendDuration);
     if (m_IKChain) {
         task->m_Blend       = m_Blend;
         task->m_EndTime     = m_EndTime;
@@ -108,6 +116,10 @@ bool CTaskSimpleIKChain::MakeAbortable(CPed* ped, eAbortPriority priority, CEven
 
 // 0x633C80
 bool CTaskSimpleIKChain::ProcessPed(CPed* ped) {
+    // Como el original: el paso en ms se trunca a entero (_ftol2) y la hora se lee al entrar
+    const auto timeStepMs = static_cast<int32>(static_cast<int64>(CTimer::GetTimeStep() * 0.02f * 1000.0f));
+    const auto now        = (int32)CTimer::GetTimeInMS();
+
     if (!m_IKChain) {
         if (m_TargetEntityExisted && !m_TargetEntity) {
             return true;
@@ -127,7 +139,8 @@ bool CTaskSimpleIKChain::ProcessPed(CPed* ped) {
     }
 
     // 0x633D2B
-    if (m_Duration == -1 && (int32)CTimer::GetTimeInMS() > m_EndTime) {
+    // Como el original: solo caduca si tiene duración (m_Duration != -1)
+    if (m_Duration != -1 && now > m_EndTime) {
         g_ikChainMan.RemoveIKChain(m_IKChain);
         m_IKChain = nullptr;
         return true;
@@ -146,17 +159,28 @@ bool CTaskSimpleIKChain::ProcessPed(CPed* ped) {
 
     // 0x633D75
     if (m_Duration != -1) {
-        if ((int32)CTimer::GetTimeInMS() >= m_EndTime - m_BlendDuration) {
+        if (now >= m_EndTime - m_BlendDuration) {
             m_TargetBlend = 0.f;
             m_TargetTime = m_EndTime;
         }
     }
 
     // 0x633D98
-    if ((int32)CTimer::GetTimeInMS() <= m_TargetTime) { // BUG: This is literally the how not to guide for lerp. There should be a separate "m_BlendFrom" variable, so we can do a proper `lerp(m_BlendFrom, m_BlendTarget, t)`
-        m_Blend += (m_TargetBlend - m_Blend) * std::min(1.0f, CTimer::GetTimeStepInMS() / (float)(m_TargetTime - CTimer::GetTimeStepInMS() - CTimer::GetTimeInMS()));
-    } else {
+    if (now > m_TargetTime) {
         m_Blend = m_TargetBlend;
+    } else {
+        // Como el original: fild/fidiv con enteros exactos y tope solo si supera 1 (un NaN se conserva)
+        const int32 denom = m_TargetTime - timeStepMs - now;
+        float t;
+        __asm {
+            fild  timeStepMs
+            fidiv denom
+            fstp  t
+        }
+        if (t > 1.0f) {
+            t = 1.0f;
+        }
+        m_Blend = (m_TargetBlend - m_Blend) * t + m_Blend;
     }
 
     m_IKChain->SetBlend(m_Blend);
@@ -165,6 +189,6 @@ bool CTaskSimpleIKChain::ProcessPed(CPed* ped) {
 
 // 0x633BD0
 bool CTaskSimpleIKChain::CreateIKChain(CPed* ped) {
-    m_IKChain = g_ikChainMan.AddIKChain("", eIKChainSlot::CUSTOM, ped, m_EffectorBone, m_EffectorOffset, m_PivotBone, m_TargetEntity, m_OffsetBone, m_OffsetPos, m_Speed);
+    m_IKChain = g_ikChainMan.AddIKChain("", eIKChainSlot::CUSTOM, ped, m_EffectorBone, m_EffectorOffset, m_PivotBone, m_TargetEntity, RawBoneTag32(m_OffsetBone), m_OffsetPos, m_Speed, 3);
     return !!m_IKChain;
 }

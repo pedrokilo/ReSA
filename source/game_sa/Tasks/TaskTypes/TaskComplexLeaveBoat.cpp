@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -25,7 +25,8 @@ void CTaskComplexLeaveBoat::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x63BB60);
-    RH_ScopedInstall(Destructor, 0x642250);
+    // Como el original: 0x642250 es el destructor con borrado (slot 0, ret 4); el destructor es 0x63BBD0
+    RH_ScopedInstall(Destructor, 0x63BBD0);
     
     RH_ScopedInstall(CreateSubTask, 0x63BC50);
 
@@ -49,6 +50,7 @@ CTaskComplexLeaveBoat::CTaskComplexLeaveBoat(const CTaskComplexLeaveBoat& o) :
 {
 }
 
+// 0x63BBD0
 CTaskComplexLeaveBoat::~CTaskComplexLeaveBoat() {
     CEntity::SafeCleanUpRef(m_veh);
 }

@@ -19,7 +19,7 @@ public:
     eEventType GetEventType() const override { return Type; }
     int32 GetEventPriority() const override;
     int32 GetLifeTime() override { return 0; }
-    CEvent* Clone() const noexcept override { return new CEventScriptCommand(m_primaryTaskIndex, CloneScriptTask(), m_affectsDeadPeds); } // 0x4B6490
+    CEvent* Clone() const noexcept override { auto* task = CloneScriptTask(); return new CEventScriptCommand(m_primaryTaskIndex, task, m_affectsDeadPeds); } // 0x4B6490 - Como el original: la tarea se clona antes de reservar el evento
     bool AffectsPed(CPed* ped) override;
     bool TakesPriorityOver(const CEvent& refEvent) override;
     bool IsValid(CPed* ped) override;

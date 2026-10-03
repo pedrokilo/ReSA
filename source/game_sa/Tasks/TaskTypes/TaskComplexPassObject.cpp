@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -76,7 +76,7 @@ bool CTaskComplexPassObject::MakeAbortable(CPed* ped, eAbortPriority priority, C
 
 // 0x6612C0
 CTask* CTaskComplexPassObject::CreateNextSubTask(CPed* ped) {
-    if (m_ped && notsa::isa<CTaskComplexTurnToFaceEntityOrCoord>(m_pSubTask)) {
+    if (m_ped && m_pSubTask->GetTaskType() == TASK_COMPLEX_TURN_TO_FACE_ENTITY) {
         g_ikChainMan.PointArm("CTaskComplexPassObject", eIKArm::IK_ARM_RIGHT, ped, nullptr, eBoneTag::BONE_UNKNOWN, &m_targetPos, 0.25f, 250, 30.f);
         return new CTaskSimpleStandStill{ 999'999 };
     }
@@ -86,17 +86,23 @@ CTask* CTaskComplexPassObject::CreateNextSubTask(CPed* ped) {
 
 // 0x6613A0
 CTask* CTaskComplexPassObject::CreateFirstSubTask(CPed* ped) {
-    if (m_ped && !m_ped->IsPlayer() && !ped->IsPlayer()) {
+    // Como el original: primero se comprueba `ped` y despues `m_ped`
+    if (m_ped && !ped->IsPlayer() && !m_ped->IsPlayer()) {
         // Find entity to pass
         {
             const auto passer = m_isPasser ? ped : m_ped;
             m_entityToPass = passer->GetEntityThatThisPedIsHolding();
-            assert(m_entityToPass);
-            CEntity::RegisterReference(m_entityToPass);
+            CEntity::SafeRegisterRef(m_entityToPass); // Como el original: puede ser nulo
         }
-        if (const auto pedToOther = (m_ped->GetPosition() - ped->GetPosition()); sq(1.5f) >= pedToOther.SquaredMagnitude()) {
-            m_targetPos = m_ped->GetPosition() + pedToOther / 2.f; // Position intbetween the 2 peds
-            return new CTaskComplexTurnToFaceEntityOrCoord{ m_targetPos }; 
+        // Como el original: (m_ped - ped), suma (x*x + y*y) + z*z comparada con 1.5^2 (NaN no pasa)
+        const auto& pedPos = ped->GetPosition();
+        const auto& otherPos = m_ped->GetPosition();
+        const float dz = otherPos.z - pedPos.z, dy = otherPos.y - pedPos.y, dx = otherPos.x - pedPos.x;
+        if (dx * dx + dy * dy + dz * dz <= sq(1.5f)) {
+            m_timer.Start(1'000); // Como el original: arranca el temporizador de 1 s
+            const auto& pos = m_ped->GetPosition();
+            m_targetPos = CVector{ dx * 0.5f + pos.x, dy * 0.5f + pos.y, dz * 0.5f + pos.z }; // Position inbetween the 2 peds
+            return new CTaskComplexTurnToFaceEntityOrCoord{ m_ped }; // Como el original: mira al otro peaton (0.5, 0.2)
         }
     }
     AbortIK(ped);
@@ -111,11 +117,12 @@ CTask* CTaskComplexPassObject::ControlSubTask(CPed* ped) {
         }
 
         if (!m_isPasser && m_entityToPass) {
-            if (const auto holdTask = m_ped->GetTaskManager().Find<CTaskSimpleHoldEntity>()) {
+            if (const auto holdTask = static_cast<CTaskSimpleHoldEntity*>(m_ped->GetTaskManager().FindActiveTaskByType(TASK_SIMPLE_HOLD_ENTITY))) {
                 auto heldEntity = holdTask->m_pEntityToHold;
                 holdTask->DropEntity(m_ped, false);
+                const CVector offset{ 0.f, 0.f, 0.f };
                 ped->GetTaskManager().SetTaskSecondary(
-                    new CTaskSimpleHoldEntity{ heldEntity, CVector{}, (uint8)BONE_L_BROW },
+                    new CTaskSimpleHoldEntity{ heldEntity, &offset, (uint8)BONE_L_BROW, HOLD_ENTITY_UPDATE_TRANSLATION_ONLY, ANIM_ID_NO_ANIMATION_SET, ANIM_GROUP_DEFAULT, true },
                     TASK_SECONDARY_PARTIAL_ANIM
                 );
             }

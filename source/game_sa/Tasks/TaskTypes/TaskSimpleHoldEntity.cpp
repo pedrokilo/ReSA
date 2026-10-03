@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 14/14 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/14 entradas.
+ * Validación registrada: 14/14 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -22,6 +22,131 @@ END GENERATED HOOK STATUS */
 
 #include "TaskSimplePickUpEntity.h"
 #include "TaskSimplePutDownEntity.h"
+
+namespace {
+// Como el original: constantes exactas del EXE
+constexpr float HOLD_RAND_RECIP      = std::bit_cast<float>(0x38000100u); // 0x858C7C (1/32767)
+constexpr float HOLD_PUTDOWN_CARRY105 = std::bit_cast<float>(0x3EDDDDDEu); // 0x870A70 (0.43333334)
+constexpr float HOLD_PUTDOWN_CARRY05  = std::bit_cast<float>(0x3EBBBBBCu); // 0x870A6C (0.36666667)
+constexpr float HOLD_PUTDOWN_CARRY    = std::bit_cast<float>(0x3F19999Au); // 0x870A68 (0.6)
+
+// Como el original: atan2(y, x) con fpatan del x87 (precisión completa, se redondea al guardar)
+float __declspec(naked) __cdecl HoldAtan2X87(float y, float x) {
+    __asm {
+        fld   dword ptr [esp+4]
+        fld   dword ptr [esp+8]
+        fpatan
+        ret
+    }
+}
+
+// Como el original: atan2(-fx, fy) - rot sin redondear el ángulo intermedio (fpatan y fsub en la pila)
+float __declspec(naked) __cdecl HoldHeadingMinusX87(float fx, float fy, float rot) {
+    __asm {
+        fld   dword ptr [esp+8]
+        fld   dword ptr [esp+4]
+        fchs
+        fxch  st(1)
+        fpatan
+        fsub  dword ptr [esp+0Ch]
+        ret
+    }
+}
+
+// Como el original: MultiplyMatrixWithVector (0x59C890) con el orden de sumas del EXE
+CVector HoldMatrixTimesPoint59C890(const CMatrix& m, const CVector& v) {
+    return {
+        m.GetUp().x * v.z + m.GetForward().x * v.y + m.GetRight().x * v.x + m.GetPosition().x,
+        m.GetUp().y * v.z + m.GetRight().y * v.x + m.GetForward().y * v.y + m.GetPosition().y,
+        m.GetUp().z * v.z + m.GetRight().z * v.x + m.GetForward().z * v.y + m.GetPosition().z
+    };
+}
+
+// Como el original: Multiply3x3 (0x59C790) con el orden de sumas del EXE
+CVector HoldMultiply3x3_59C790(const CMatrix& m, const CVector& v) {
+    return {
+        m.GetUp().x * v.z + m.GetForward().x * v.y + m.GetRight().x * v.x,
+        m.GetUp().y * v.z + m.GetRight().y * v.x + m.GetForward().y * v.y,
+        m.GetUp().z * v.z + m.GetRight().z * v.x + m.GetForward().z * v.y
+    };
+}
+
+// Como el original: transcripción de CMatrix::RotateZ (0x59B390): fcos queda en la pila sin redondear y fsin se
+// guarda como float; mismo orden de productos y de escrituras (thiscall: ecx = matriz, ángulo en la pila, ret 4)
+void __declspec(naked) __fastcall HoldRotateZ_59B390(CMatrix* m, int, float angle) {
+    __asm {
+        sub   esp, 20h
+        fld   dword ptr [esp+24h]
+        fcos
+        fld   dword ptr [esp+24h]
+        fsin
+        fstp  dword ptr [esp+24h]
+        fld   st(0)
+        fmul  dword ptr [ecx]
+        fld   dword ptr [esp+24h]
+        fmul  dword ptr [ecx+4]
+        fsubp st(1), st
+        fld   st(1)
+        fmul  dword ptr [ecx+4]
+        fld   dword ptr [esp+24h]
+        fmul  dword ptr [ecx]
+        faddp st(1), st
+        fld   st(2)
+        fmul  dword ptr [ecx+10h]
+        fld   dword ptr [esp+24h]
+        fmul  dword ptr [ecx+14h]
+        fsubp st(1), st
+        fstp  dword ptr [esp+8]
+        fld   dword ptr [esp+24h]
+        mov   eax, dword ptr [esp+8]
+        fmul  dword ptr [ecx+10h]
+        mov   dword ptr [ecx+10h], eax
+        fld   st(3)
+        fmul  dword ptr [ecx+14h]
+        faddp st(1), st
+        fstp  dword ptr [esp+0Ch]
+        fld   st(2)
+        mov   edx, dword ptr [esp+0Ch]
+        fmul  dword ptr [ecx+20h]
+        mov   dword ptr [ecx+14h], edx
+        fld   dword ptr [esp+24h]
+        fmul  dword ptr [ecx+24h]
+        fsubp st(1), st
+        fstp  dword ptr [esp+10h]
+        fld   dword ptr [esp+24h]
+        mov   eax, dword ptr [esp+10h]
+        fmul  dword ptr [ecx+20h]
+        mov   dword ptr [ecx+20h], eax
+        fld   st(3)
+        fmul  dword ptr [ecx+24h]
+        faddp st(1), st
+        fstp  dword ptr [esp+14h]
+        mov   edx, dword ptr [esp+14h]
+        fld   st(2)
+        fmul  dword ptr [ecx+30h]
+        mov   dword ptr [ecx+24h], edx
+        fld   dword ptr [esp+24h]
+        fmul  dword ptr [ecx+34h]
+        fsubp st(1), st
+        fstp  dword ptr [esp+18h]
+        fld   dword ptr [esp+24h]
+        mov   eax, dword ptr [esp+18h]
+        fmul  dword ptr [ecx+30h]
+        mov   dword ptr [ecx+30h], eax
+        fxch  st(3)
+        fmul  dword ptr [ecx+34h]
+        faddp st(3), st
+        fxch  st(2)
+        fstp  dword ptr [esp+1Ch]
+        mov   edx, dword ptr [esp+1Ch]
+        fstp  dword ptr [ecx]
+        mov   dword ptr [ecx+34h], edx
+        fstp  dword ptr [ecx+4]
+        add   esp, 20h
+        ret   4
+    }
+}
+} // namespace
 
 void CTaskSimpleHoldEntity::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleHoldEntity, 0x870B2C, 9);
@@ -238,7 +363,12 @@ bool CTaskSimpleHoldEntity::ProcessPed(CPed* ped) {
                 objectToHold->m_nFakePhysics = 0;
             }
 
-            m_fRotation = entityToHold->GetHeading() - ped->m_fCurrentRotation;
+            // Como el original: GetHeading en línea con fpatan; la resta se hace sobre el ángulo sin redondear
+            if (const CMatrix* m = entityToHold->m_matrix) {
+                m_fRotation = HoldHeadingMinusX87(m->GetForward().x, m->GetForward().y, ped->m_fCurrentRotation);
+            } else {
+                m_fRotation = entityToHold->m_placement.m_fHeading - ped->m_fCurrentRotation;
+            }
         }
     }
 
@@ -259,24 +389,33 @@ bool CTaskSimpleHoldEntity::ProcessPed(CPed* ped) {
         CEntity* entityToHold = m_pEntityToHold;
         eTaskType taskId = GetTaskType();
         if (taskId != TASK_SIMPLE_HOLD_ENTITY) {
-            if (taskId != TASK_SIMPLE_PICKUP_ENTITY) {
+            if (taskId == TASK_SIMPLE_PUTDOWN_ENTITY) { // Como el original: solo PUTDOWN (antes cualquier otro tipo)
                 auto* taskHoldEntity = static_cast<CTaskSimpleHoldEntity*>(taskManager->GetTaskSecondary(TASK_SECONDARY_PARTIAL_ANIM));
                 if (taskHoldEntity && taskHoldEntity->GetTaskType() == TASK_SIMPLE_HOLD_ENTITY)
                     taskHoldEntity->MakeAbortable(ped);
             }
-            else
+            else if (taskId == TASK_SIMPLE_PICKUP_ENTITY)
             {
                 auto* taskPickUpEntity = static_cast<CTaskSimplePickUpEntity*>(this);
                 CAnimBlendAssociation* animAssoc = taskPickUpEntity->m_pAnimBlendAssociation;
                 if ((!animAssoc || taskPickUpEntity->m_fMovePedUntilAnimProgress > animAssoc->m_CurrentTime)
                     && (taskPickUpEntity->m_vecPickuposn.x != 0.0f || taskPickUpEntity->m_vecPickuposn.y != 0.0f))
                 {
-                    CVector outPoint = entityToHold->GetMatrix().TransformPoint(taskPickUpEntity->m_vecPickuposn);
-                    outPoint -= ped->GetPosition();
-                    ped->m_vecAnimMovingShiftLocal.x += DotProduct(&outPoint, &ped->GetRight()) / CTimer::GetTimeStep() * 0.1f;
-                    ped->m_vecAnimMovingShiftLocal.y += DotProduct(&outPoint, &ped->GetForward()) / CTimer::GetTimeStep() * 0.1f ;
-                    CVector direction = entityToHold->GetPosition() - ped->GetPosition();
-                    ped->m_fAimingRotation = atan2(-direction.x, direction.y);
+                    // Como el original: operator*(CMatrix, CVector) (0x59C890) y productos escalares (z + y) + x
+                    CVector outPoint = HoldMatrixTimesPoint59C890(entityToHold->GetMatrix(), taskPickUpEntity->m_vecPickuposn);
+                    const CVector& pedPos = ped->GetPosition();
+                    outPoint.x -= pedPos.x;
+                    outPoint.y -= pedPos.y;
+                    outPoint.z -= pedPos.z;
+                    const CMatrix& pedMat = *ped->m_matrix;
+                    const float dotRight = outPoint.z * pedMat.GetRight().z + outPoint.y * pedMat.GetRight().y + outPoint.x * pedMat.GetRight().x;
+                    ped->m_vecAnimMovingShiftLocal.x = dotRight / CTimer::GetTimeStep() * 0.1f + ped->m_vecAnimMovingShiftLocal.x;
+                    const float dotFwd = outPoint.z * pedMat.GetForward().z + outPoint.y * pedMat.GetForward().y + outPoint.x * pedMat.GetForward().x;
+                    ped->m_vecAnimMovingShiftLocal.y = dotFwd / CTimer::GetTimeStep() * 0.1f + ped->m_vecAnimMovingShiftLocal.y;
+                    const CVector& entPos = entityToHold->GetPosition();
+                    const CVector& pedPos2 = ped->GetPosition();
+                    const CVector direction{ entPos.x - pedPos2.x, entPos.y - pedPos2.y, entPos.z - pedPos2.z };
+                    ped->m_fAimingRotation = HoldAtan2X87(-direction.x, direction.y); // Como el original: fpatan
                 }
             }
         }
@@ -306,9 +445,10 @@ bool CTaskSimpleHoldEntity::SetPedPosition(CPed* ped) {
     }
     else {
         auto pPutDownEntityTask = static_cast<CTaskSimplePutDownEntity*>(this);
+        // Como el original: con NaN también se actualiza (test ah,5 / jp)
         if (GetTaskType() != TASK_SIMPLE_PUTDOWN_ENTITY || m_bEntityRequiresProcessing
             || m_pAnimBlendAssociation
-            && pPutDownEntityTask->m_fPutDownHeightZ >= m_pAnimBlendAssociation->m_CurrentTime
+            && !(pPutDownEntityTask->m_fPutDownHeightZ < m_pAnimBlendAssociation->m_CurrentTime)
         ) {
             bUpdateEntityToHoldPosition = true;
         }
@@ -321,20 +461,25 @@ bool CTaskSimpleHoldEntity::SetPedPosition(CPed* ped) {
                 if (m_bBoneFlags & HOLD_ENTITY_UPDATE_TRANSLATION_ONLY) {
                     CVector entityToHoldPos = m_vecPosition;
                     RpHAnimHierarchy* pHAnimHierarchy = GetAnimHierarchyFromSkinClump(ped->GetRpClump());
-                    int32 animIndex = RpHAnimIDGetIndex(pHAnimHierarchy, ped->m_apBones[m_nBoneFrameId]->BoneTag);
+                    int32 animIndex = RpHAnimIDGetIndex(pHAnimHierarchy, ped->m_apBones.data()[m_nBoneFrameId]->BoneTag);
                     RwMatrix* pBoneMatrix = &RpHAnimHierarchyGetMatrixArray(pHAnimHierarchy)[animIndex];
                     RwV3dTransformPoints((RwV3d*)&entityToHoldPos, (RwV3d*)&entityToHoldPos, 1, pBoneMatrix);
                     m_pEntityToHold->GetMatrix().UpdateMatrix(pBoneMatrix);
                     m_pEntityToHold->SetPosn(entityToHoldPos);
                 }
                 else {
-                    CVector entityToHoldPos = ped->GetMatrix().TransformVector(m_vecPosition);
+                    // Como el original: Multiply3x3 (0x59C790) con la matriz del peatón leída sin reservarla
+                    const CMatrix& pedMat = *ped->m_matrix;
+                    CVector entityToHoldPos = HoldMultiply3x3_59C790(pedMat, m_vecPosition);
                     RpHAnimHierarchy* pHAnimHierarchy = GetAnimHierarchyFromSkinClump(ped->GetRpClump());
-                    int32 animIndex = RpHAnimIDGetIndex(pHAnimHierarchy, ped->m_apBones[m_nBoneFrameId]->BoneTag);
+                    int32 animIndex = RpHAnimIDGetIndex(pHAnimHierarchy, ped->m_apBones.data()[m_nBoneFrameId]->BoneTag);
                     RwMatrix* pBoneMatrix = RpHAnimHierarchyGetMatrixArray(pHAnimHierarchy);
-                    entityToHoldPos += *RwMatrixGetPos(&pBoneMatrix[animIndex]);
-                    CMatrix rotationMatrix(ped->GetMatrix());
-                    rotationMatrix.RotateZ(m_fRotation);
+                    const RwV3d& bonePos = *RwMatrixGetPos(&pBoneMatrix[animIndex]);
+                    entityToHoldPos.x = bonePos.x + entityToHoldPos.x;
+                    entityToHoldPos.y = bonePos.y + entityToHoldPos.y;
+                    entityToHoldPos.z = bonePos.z + entityToHoldPos.z;
+                    CMatrix rotationMatrix(pedMat);
+                    HoldRotateZ_59B390(&rotationMatrix, 0, m_fRotation); // Como el original: RotateZ del EXE (fcos sin redondear)
                     *static_cast<CMatrix*>(&m_pEntityToHold->GetMatrix()) = rotationMatrix;
                     m_pEntityToHold->SetPosn(entityToHoldPos);
                 }
@@ -430,70 +575,77 @@ void CTaskSimpleHoldEntity::StartAnim(CPed* ped) {
 
 // 0x6930F0
 void CTaskSimpleHoldEntity::DropEntity(CPed* ped, bool bAddEventSoundQuiet) {
-    bool bUpdateEntityPosition = true;
-    CObject* objectToHold = nullptr;
-    if (m_pEntityToHold) {
-        m_pEntityToHold->SetUsesCollision(true);
-        if (!m_pEntityToHold->GetIsTypeObject()) {
-            CEntity::ClearReference(m_pEntityToHold);
-            return;
-        }
-        objectToHold = m_pEntityToHold->AsObject();
-        objectToHold->m_pEntityIgnoredCollision = ped;
-        if (objectToHold->physicalFlags.bDisableCollisionForce && bAddEventSoundQuiet) {
-            if (!objectToHold->objectFlags.bIsLiftable) {
-                uint8 objectType = objectToHold->m_nObjectType;
-                if (objectType != OBJECT_MISSION && objectType != OBJECT_MISSION2) {
-                    if (objectType != OBJECT_TEMPORARY) {
-                        ++CObject::nNoTempObjects;
-                    }
-                    objectToHold->m_nObjectType = OBJECT_TEMPORARY;
-                    objectToHold->m_nRemovalTime = 0;
-                    objectToHold->SetUsesCollision(false);
-                    objectToHold->SetIsVisible(false);
-                    bUpdateEntityPosition = false;
-                }
-            }
-        }
-        else {
-            objectToHold->physicalFlags.bAttachedToEntity = false;
-            if (!bAddEventSoundQuiet) {
-                bUpdateEntityPosition = false;
-            }
-            else {
-                if (objectToHold->GetIsStatic()) {
-                    objectToHold->SetIsStatic(false);
-                    objectToHold->AddToMovingList();
-                }
-                auto* entity = m_pEntityToHold->AsPhysical();
-                entity->m_vecMoveSpeed += CGeneral::GetRandomNumberInRange(+0.03f, 0.06f) * ped->GetForward();
-                entity->m_vecMoveSpeed += CGeneral::GetRandomNumberInRange(-0.03f, 0.03f) * ped->GetRight();
-                entity->m_vecMoveSpeed += 0.01f * ped->GetUp();
-                if (!objectToHold->TestCollision(false)) {
-                    bUpdateEntityPosition = false;
-                }
-            }
-        }
-
-        CVector objectToHoldPosition(0.0f, 0.0f, 0.0f);
-        if (objectToHold->objectFlags.bIsLiftable && ped->GetPlayerData() && bAddEventSoundQuiet) {
-            CEventSoundQuiet eventSoundQuiet(ped, 60.0f, -1, objectToHoldPosition);
-            GetEventGlobalGroup()->Add(&eventSoundQuiet, false);
-        }
-
-        if (bUpdateEntityPosition) {
-            objectToHold->ResetMoveSpeed();
-            objectToHold->SetIsStatic(true);
-            objectToHold->RemoveFromMovingList();
-            objectToHoldPosition = ped->GetPosition();
-            objectToHoldPosition.z = objectToHoldPosition.z - 1.0f - objectToHold->GetColModel()->m_boundBox.m_vecMin.z;
-            objectToHold->SetPosn(objectToHoldPosition);
-            objectToHold->UpdateRwMatrix();
-            objectToHold->UpdateRwFrame();
-        }
+    if (!m_pEntityToHold) {
+        return;
+    }
+    m_pEntityToHold->SetUsesCollision(true);
+    if (!m_pEntityToHold->GetIsTypeObject()) {
         CEntity::ClearReference(m_pEntityToHold);
         return;
     }
+    // Como el original: solo se coloca en el suelo si se pide (por defecto no)
+    bool bPlaceOnGround = false;
+    auto* objectToHold = m_pEntityToHold->AsObject();
+    objectToHold->m_pEntityIgnoredCollision = ped;
+    if (objectToHold->physicalFlags.bDisableCollisionForce && bAddEventSoundQuiet) {
+        if (objectToHold->objectFlags.bIsLiftable || objectToHold->IsMissionObject()) {
+            bPlaceOnGround = true;
+        } else {
+            if (objectToHold->m_nObjectType != OBJECT_TEMPORARY) {
+                ++CObject::nNoTempObjects;
+            }
+            objectToHold->SetUsesCollision(false);
+            objectToHold->SetIsVisible(false);
+            objectToHold->m_nObjectType = OBJECT_TEMPORARY;
+            objectToHold->m_nRemovalTime = 0;
+        }
+    } else {
+        objectToHold->physicalFlags.bAttachedToEntity = false;
+        if (!bAddEventSoundQuiet) {
+            objectToHold->m_vecMoveSpeed = CVector(0.0f, 0.0f, 0.0f); // Como el original: se detiene
+        } else {
+            if (objectToHold->GetIsStatic()) {
+                objectToHold->SetIsStatic(false);
+                objectToHold->AddToMovingList();
+            }
+            // Como el original: parte de la velocidad del peatón; rand() · (1/32767) · rango + mínimo con la matriz leída
+            // sin reservarla (delante, derecha y arriba en ese orden)
+            CVector& speed = objectToHold->m_vecMoveSpeed;
+            speed = ped->m_vecMoveSpeed;
+            const CMatrix* pedMat = ped->m_matrix;
+            const float fwdMult = (float)CGeneral::GetRandomNumber() * HOLD_RAND_RECIP * 0.03f + 0.03f;
+            speed.x = fwdMult * pedMat->GetForward().x + speed.x;
+            speed.y = fwdMult * pedMat->GetForward().y + speed.y;
+            speed.z = fwdMult * pedMat->GetForward().z + speed.z;
+            const float rightMult = (float)CGeneral::GetRandomNumber() * HOLD_RAND_RECIP * 0.06f - 0.03f;
+            speed.x = rightMult * pedMat->GetRight().x + speed.x;
+            speed.y = rightMult * pedMat->GetRight().y + speed.y;
+            speed.z = rightMult * pedMat->GetRight().z + speed.z;
+            speed.x = pedMat->GetUp().x * 0.01f + speed.x;
+            speed.y = pedMat->GetUp().y * 0.01f + speed.y;
+            speed.z = pedMat->GetUp().z * 0.01f + speed.z;
+            if (objectToHold->TestCollision(false)) {
+                bPlaceOnGround = true;
+            }
+        }
+    }
+
+    if (objectToHold->objectFlags.bIsLiftable && ped->GetPlayerData() && bAddEventSoundQuiet) {
+        CEventSoundQuiet eventSoundQuiet(ped, 60.0f, -1, CVector(0.0f, 0.0f, 0.0f));
+        GetEventGlobalGroup()->Add(&eventSoundQuiet, false);
+    }
+
+    if (bPlaceOnGround) {
+        objectToHold->ResetMoveSpeed();
+        objectToHold->SetIsStatic(true);
+        objectToHold->RemoveFromMovingList();
+        CVector objectToHoldPosition = ped->GetPosition();
+        objectToHoldPosition.z = objectToHoldPosition.z - 1.0f - objectToHold->GetColModel()->m_boundBox.m_vecMin.z;
+        objectToHold->SetPosn(objectToHoldPosition);
+        objectToHold->UpdateRwMatrix();
+        objectToHold->UpdateRwFrame();
+    }
+    CEntity::ClearReference(m_pEntityToHold);
 }
 
 // 0x693440
@@ -519,11 +671,12 @@ void CTaskSimpleHoldEntity::ChoosePutDownHeight(CPed* ped) {
     }
     if (GetTaskType() == TASK_SIMPLE_PUTDOWN_ENTITY) {
         auto taskPutDownEntity = static_cast<CTaskSimplePutDownEntity*>(this);
+        // Como el original: valores exactos del EXE (0x870A70, 0x870A6C y 0x870A68)
         if (m_nAnimGroupId == ANIM_GROUP_CARRY105)
-            taskPutDownEntity->m_fPutDownHeightZ = 0.433333f; // todo: math
+            taskPutDownEntity->m_fPutDownHeightZ = HOLD_PUTDOWN_CARRY105;
         else if (m_nAnimGroupId == ANIM_GROUP_CARRY05)
-            taskPutDownEntity->m_fPutDownHeightZ = 0.366667f;
+            taskPutDownEntity->m_fPutDownHeightZ = HOLD_PUTDOWN_CARRY05;
         else
-            taskPutDownEntity->m_fPutDownHeightZ = 0.6f;
+            taskPutDownEntity->m_fPutDownHeightZ = HOLD_PUTDOWN_CARRY;
     }
 }

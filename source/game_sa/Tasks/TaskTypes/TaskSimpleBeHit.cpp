@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -20,6 +20,16 @@ END GENERATED HOOK STATUS */
 
 #include "TaskSimpleBeHit.h"
 #include "TaskSimpleFight.h"
+
+// atan2(x, y) con fpatan (precisión interna completa, redondeo a float al guardar)
+static __declspec(naked) float __cdecl BeHitAtan2(float x, float y) {
+    __asm {
+        fld    dword ptr [esp + 4]
+        fld    dword ptr [esp + 8]
+        fpatan
+        ret
+    }
+}
 
 void CTaskSimpleBeHit::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleBeHit, 0x86D844, 9);
@@ -54,7 +64,7 @@ CTaskSimpleBeHit::CTaskSimpleBeHit(CPed* attacker, ePedPieceTypes pieceType, int
       m_nDirn{ direction },
       m_Anim{ nullptr }
 {
-    CEntity::SafeRegisterRef(attacker);
+    CEntity::SafeRegisterRef(m_Attacker); // Como el original: registra &this->m_Attacker (+8), no el parámetro
 }
 
 // 0x620810
@@ -116,7 +126,7 @@ void CTaskSimpleBeHit::StartAnim(CPed* ped) {
                     case 1: return ANIM_ID_HIT_L;
                     case 2: return ANIM_ID_HIT_BACK;
                     case 3: return ANIM_ID_HIT_R;
-                    default: return m_nDirn <= 5 ? ANIM_ID_HIT_FRONT : ANIM_ID_HIT_WALK;
+                    default: return m_nHitPower <= 5 ? ANIM_ID_HIT_FRONT : ANIM_ID_HIT_WALK; // Como el original: compara el daño (+0x1C), no la dirección
                     }
                 }()
             };
@@ -174,8 +184,13 @@ bool CTaskSimpleBeHit::MakeAbortable(CPed* ped, eAbortPriority priority, const C
 
         return true;
     }
-    default:
-        NOTSA_UNREACHABLE();
+    default: // Como el original: cualquier otra prioridad sigue el camino de ABORT_PRIORITY_LEISURE
+        if (m_Anim) {
+            if ((m_Anim->m_Flags & ANIMATION_IS_PLAYING) == 0) {
+                m_Anim->m_Flags |= ANIMATION_IS_BLEND_AUTO_REMOVE;
+                m_Anim->m_BlendDelta = -4.f;
+            }
+        }
         return false;
     }
 }
@@ -191,8 +206,13 @@ bool CTaskSimpleBeHit::ProcessPed(CPed* ped) {
         return true;
     }
 
-    if (m_nDirn == 0 && m_Attacker && !m_Attacker->IsPlayer()) { // todo: m_nDirn == 0
-        ped->m_fAimingRotation = (m_Attacker->GetPosition() - ped->GetPosition()).Heading();
+    if (m_nDirn == 0 && m_Attacker && !ped->IsPlayer()) { // Como el original: IsPlayer del peatón golpeado
+        // Como el original: restas en float y fpatan con precisión completa
+        const auto& attackerPos = m_Attacker->GetPosition();
+        const auto& pedPos      = ped->GetPosition();
+        const float dx = attackerPos.x - pedPos.x;
+        const float dy = attackerPos.y - pedPos.y;
+        ped->m_fAimingRotation = BeHitAtan2(-dx, dy);
     }
 
     if (m_Anim) {
@@ -201,7 +221,7 @@ bool CTaskSimpleBeHit::ProcessPed(CPed* ped) {
 
     if (   !m_Attacker
         || !m_Attacker->IsPlayer()
-        || m_Attacker->m_nPedType != PED_TYPE_GANG2
+        || ped->m_nPedType != PED_TYPE_GANG2 // Como el original: tipo del peatón golpeado
         || (ped->DisablePedSpeech(true), ped->EnablePedSpeech(), ped->Say(CTX_GLOBAL_ATTACK_BY_PLAYER_LIKE, 1000) < 0)
     ) {
         ped->Say(CTX_GLOBAL_PAIN_LOW);

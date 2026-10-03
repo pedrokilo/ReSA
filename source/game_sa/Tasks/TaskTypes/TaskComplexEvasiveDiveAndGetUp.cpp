@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -46,6 +46,14 @@ CTaskComplexEvasiveDiveAndGetUp::CTaskComplexEvasiveDiveAndGetUp(CVehicle* evade
     m_DiveDir{diveDir},
     m_EvadeVeh{evadeVeh}
 {
+    // Como el original: registra la referencia al vehículo a esquivar
+    CEntity::SafeRegisterRef(m_EvadeVeh);
+}
+
+// 0x653740
+CTaskComplexEvasiveDiveAndGetUp::~CTaskComplexEvasiveDiveAndGetUp() {
+    // Como el original: limpia la referencia al vehículo
+    CEntity::SafeCleanUpRef(m_EvadeVeh);
 }
 
 // 0x655940
@@ -64,11 +72,10 @@ CTask* CTaskComplexEvasiveDiveAndGetUp::CreateSubTask(eTaskType taskType) {
     case TASK_SIMPLE_GET_UP:
         return new CTaskSimpleGetUp{};
     case TASK_SIMPLE_ACHIEVE_HEADING:
-        return new CTaskSimpleAchieveHeading{ m_DiveDir.Heading(), 2.f };
-    case TASK_FINISHED:
+        // Como el original: GetRadianAngleBetweenPoints(x, y, 0, 0) y tolerancia leída de 0x86FC80
+        return new CTaskSimpleAchieveHeading{ CGeneral::GetRadianAngleBetweenPoints(m_DiveDir.x, m_DiveDir.y, 0.f, 0.f), 2.f, 0.2f };
+    default: // Como el original: TASK_FINISHED y tipos desconocidos devuelven nullptr
         return nullptr;
-    default:
-        NOTSA_UNREACHABLE("Invalid TaskType: {}", taskType);
     }
 }
 
@@ -91,13 +98,16 @@ CTask* CTaskComplexEvasiveDiveAndGetUp::CreateNextSubTask(CPed* ped) {
     case TASK_SIMPLE_EVASIVE_DIVE:
         return CreateSubTask(TASK_SIMPLE_PAUSE);
     case TASK_SIMPLE_PAUSE: {
-        ped->m_fCurrentRotation = ped->m_fAimingRotation = CGeneral::LimitRadianAngle(ped->m_fCurrentRotation - HALF_PI);
+        // Como el original: LimitRadianAngle(actual) - HALF_PI (double exacto en 0x86F418); escribe 0x558 y después 0x55C
+        const float rot = CGeneral::LimitRadianAngle(ped->m_fCurrentRotation) - std::bit_cast<float>(0x3FC90FDBu);
+        ped->m_fCurrentRotation = rot;
+        ped->m_fAimingRotation = rot;
         return CreateSubTask(TASK_SIMPLE_GET_UP);
     }
     case TASK_SIMPLE_GET_UP:
         return CreateSubTask(TASK_FINISHED);
-    default:
-        NOTSA_UNREACHABLE("Invalid SubTask: {}", subtt);
+    default: // Como el original: subtareas desconocidas devuelven nullptr
+        return nullptr;
     }
 }
 

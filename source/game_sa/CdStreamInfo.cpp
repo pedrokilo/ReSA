@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -103,7 +103,7 @@ CdStreamHandle CdStreamOpen(const char* lpFileName) {
     if (file == INVALID_HANDLE_VALUE) {
         return 0;
     }
-    strncpy_s(gCdImageNames[idx], lpFileName, MAX_CD_STREAM_IMAGE_NAME_SIZE);
+    strcpy(gCdImageNames[idx], lpFileName); // Como el original: strcpy sin límite (strncpy_s rellena con 0xFE en debug)
     return (CdStreamHandle)(idx << CD_STREAM_HANDLE_BITS);
 }
 
@@ -265,9 +265,9 @@ bool CdStreamRead(int32 streamId, void* lpBuffer, CdStreamPos pos, int32 sectorC
 // 0x4068F0
 void CdStreamInitThread() {
     SetLastError(NO_ERROR);
-    for (auto& stream : std::span{ gCdStreams, (size_t)gStreamCount }) {
+    for (int32 i = 0; i < gStreamCount; i++) { // Como el original: contador con signo (no recorre nada si es <= 0)
         HANDLE hSemaphore = OS_SemaphoreCreate(2, nullptr);
-        stream.sync.hSemaphore = hSemaphore;
+        gCdStreams[i].sync.hSemaphore = hSemaphore;
         if (!hSemaphore) {
             NOTSA_LOG_DEBUG("cdvd_stream: failed to create sync semaphore");
             return;
@@ -309,7 +309,7 @@ void CdStreamInit(int32 streamCount) {
 
     gOverlappedIO = 1;
     gStreamingInitialized = 0;
-    auto* pAllocatedMemory = CMemoryMgr::MallocAlign(STREAMING_SECTOR_SIZE, bytesPerSector);
+    auto* pAllocatedMemory = CMemoryMgr::MallocAlign(STREAMING_SECTOR_SIZE, bytesPerSector, 0); // Como el original: 0x72F4C0 con pista 0 (3 argumentos)
     SetLastError(NO_ERROR);
     gOpenStreamCount = 0;
     gStreamCount = streamCount;
@@ -345,11 +345,11 @@ void CdStreamRemoveImages() {
 // 0x406370
 void CdStreamShutdown() {
     if (gStreamingInitialized) {
-        FinalizeQueue(&gStreamQueue);
+        LocalFree(gStreamQueue.m_queue); // Como el original: sólo libera el búfer (no pone a cero cabeza, cola ni tamaño)
         CloseHandle(gStreamSemaphore);
         CloseHandle(gStreamingThread);
-        for (auto& stream : std::span{ gCdStreams, (size_t)gStreamCount }) {
-            CloseHandle(stream.sync.hSemaphore);
+        for (int32 i = 0; i < gStreamCount; i++) { // Como el original: contador con signo
+            CloseHandle(gCdStreams[i].sync.hSemaphore);
         }
     }
     LocalFree(gCdStreams);

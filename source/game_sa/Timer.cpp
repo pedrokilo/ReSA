@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 13/13 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/13 entradas.
+ * Validación registrada: 13/13 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -54,6 +54,90 @@ uint64 GetMillisecondTime() {
     // return RsTimer();
 }
 
+// Como el original: el EXE comprueba el BOOL de QueryPerformanceFrequency (no la frecuencia) y solo usa la parte baja.
+bool QueryTimerFrequency(uint32& frequencyLow) {
+    LARGE_INTEGER frequency;
+    if (!::QueryPerformanceFrequency(&frequency)) {
+        return false;
+    }
+    frequencyLow = frequency.LowPart;
+    return true;
+}
+
+namespace {
+// Las funciones del reloj del EXE cargan los enteros con fild (exactos, con +2^32 si son negativos como int32)
+// y convierten con _ftol2 (0x821B40, truncado a 64 bits; se llama al del EXE). Se replican con el x87 para redondear igual.
+// fild den (+2^32) ; fdivr num
+float X87DivByU32(float num, uint32 den) {
+    const float twoPow32 = 4294967296.0f;
+    float result;
+    __asm {
+        fild dword ptr [den]
+        mov eax, den
+        test eax, eax
+        jge den_positive
+        fadd dword ptr [twoPow32]
+    den_positive:
+        fdivr dword ptr [num]
+        fstp dword ptr [result]
+    }
+    return result;
+}
+
+// fild base (+2^32) ; fadd q ; _ftol2
+uint32 X87AddU32Ftol(uint32 base, float q) {
+    const float twoPow32 = 4294967296.0f;
+    uint32 result;
+    __asm {
+        fild dword ptr [base]
+        mov eax, base
+        test eax, eax
+        jge base_positive
+        fadd dword ptr [twoPow32]
+    base_positive:
+        fadd dword ptr [q]
+        mov ecx, 0x821B40
+        call ecx
+        mov result, eax
+    }
+    return result;
+}
+
+// fild value (+2^32) ; fmul factor ; _ftol2
+uint32 X87MulU32Ftol(uint32 value, float factor) {
+    const float twoPow32 = 4294967296.0f;
+    uint32 result;
+    __asm {
+        fild dword ptr [value]
+        mov eax, value
+        test eax, eax
+        jge value_positive
+        fadd dword ptr [twoPow32]
+    value_positive:
+        fmul dword ptr [factor]
+        mov ecx, 0x821B40
+        call ecx
+        mov result, eax
+    }
+    return result;
+}
+
+// uint64 -> float como en 0x561BA2: (v & 0x7FFF...) + 2^63 con un solo redondeo
+float X87U64ToFloat(uint64 value) {
+    const uint32 lo = (uint32)value, hi = (uint32)(value >> 32);
+    uint32 lowPart[2]{ lo, hi & 0x7FFFFFFFu }, signPart[2]{ 0u, hi & 0x80000000u };
+    float result;
+    __asm {
+        fild qword ptr [lowPart]
+        fild qword ptr [signPart]
+        fchs
+        faddp st(1), st
+        fstp dword ptr [result]
+    }
+    return result;
+}
+} // namespace
+
 // 0x5617E0
 void CTimer::Initialise()
 {
@@ -83,10 +167,10 @@ void CTimer::Initialise()
     ms_fOldTimeStep = 1.0f;
 
     TimerFunction_t timerFunc;
-    auto frequency = GetOSWPerformanceFrequency();
-    if (frequency) {
+    uint32 frequency;
+    if (QueryTimerFrequency(frequency)) { // Como el original: BOOL de QueryPerformanceFrequency, parte baja / 1000
         timerFunc = GetOSWPerformanceTime;
-        m_snTimerDivider = (uint32)(frequency / 1000);
+        m_snTimerDivider = frequency / 1000;
     } else {
         timerFunc = GetMillisecondTime;
         m_snTimerDivider = 1;
@@ -154,7 +238,7 @@ uint32 CTimer::GetCyclesPerMillisecond()
 // 0x561A50
 uint32 CTimer::GetCyclesPerFrame()
 {
-    return (uint32)((float)m_snTimerDivider * 20.0f);
+    return X87MulU32Ftol(m_snTimerDivider, 20.0f); // Como el original: fild + fmul 20 + _ftol2
 }
 
 // 0x561A80
@@ -201,20 +285,57 @@ void CTimer::UpdateVariables(float timeElapsed)
     }
     */
 
-    // Pirulax: Shorter code, same functionality.
-    const float frameDelta = (float)timeElapsed / (float)m_snTimerDivider;
-    m_snTimeInMillisecondsNonClipped += (uint32)frameDelta;
-    ms_fTimeStepNonClipped = frameDelta / TIMESTEP_LEN_IN_MS;
+    // Como el original (transcrito del EXE): divisor y contadores cargados con fild, suma en float y _ftol2;
+    // el paso no recortado es q * 0,05 (no q / 20) y los ms se truncan antes de limitar a 300 (sin signo).
+    // Como el original (0x5618D0..0x56191A): q queda en la pila del x87 (exponente extendido) para la suma, el
+    // producto por 0,05 (un denormal se guarda como denormal, no se anula como con SSE) y el truncado de los ms.
+    uint32 elapsedMs;
+    {
+        const uint32 divider = m_snTimerDivider, nonClipped = m_snTimeInMillisecondsNonClipped;
+        const float twoPow32 = 4294967296.0f, stepScale = std::bit_cast<float>(0x3D4CCCCDu); // 0x858C28
+        uint32 newNonClipped;
+        float stepNonClipped;
+        __asm {
+            fild dword ptr [divider]
+            mov eax, divider
+            test eax, eax
+            jge div_positive
+            fadd dword ptr [twoPow32]
+        div_positive:
+            fdivr dword ptr [timeElapsed]
+            fild dword ptr [nonClipped]
+            mov eax, nonClipped
+            test eax, eax
+            jge nc_positive
+            fadd dword ptr [twoPow32]
+        nc_positive:
+            fadd st, st(1)
+            mov ecx, 0x821B40
+            call ecx
+            mov newNonClipped, eax
+            fld dword ptr [stepScale]
+            fmul st, st(1)
+            fstp dword ptr [stepNonClipped]
+            mov ecx, 0x821B40
+            call ecx
+            mov elapsedMs, eax
+        }
+        m_snTimeInMillisecondsNonClipped = newNonClipped;
+        ms_fTimeStepNonClipped = stepNonClipped;
+    }
+    if (elapsedMs > 300) {
+        elapsedMs = 300;
+    }
+    m_snTimeInMilliseconds += elapsedMs;
 
-    m_snTimeInMilliseconds += (uint32)std::min<float>(frameDelta, 300.0f);
-
-    if (!m_UserPause && !m_CodePause && !CSpecialFX::bSnapShotActive) {
-        // Make it be something at least, to avoid division by 0
-        ms_fTimeStepNonClipped = std::max(ms_fTimeStepNonClipped, 0.01f); 
+    if (ms_fTimeStepNonClipped < 0.01f && !m_UserPause && !m_CodePause && !CSpecialFX::bSnapShotActive) {
+        ms_fTimeStepNonClipped = 0.01f;
     }
 
     ms_fOldTimeStep = ms_fTimeStep;
-    SetTimeStep(std::clamp(ms_fTimeStepNonClipped, 0.00001f, 3.0f));
+    // Como el original: un NaN acaba en 3.0 (solo se copia si es < 3) y el mínimo es 0.00001
+    const float clipped = ms_fTimeStepNonClipped < 3.0f ? ms_fTimeStepNonClipped : 3.0f;
+    ms_fTimeStep = clipped > 0.00001f ? clipped : 0.00001f;
 }
 
 // 0x561B10
@@ -225,7 +346,7 @@ void CTimer::Update() {
         return;
 
     m_sbEnableTimeDebug = true;
-    game_FPS = float(1000.0f / float(m_snTimeInMillisecondsNonClipped - m_snPreviousTimeInMillisecondsNonClipped));
+    game_FPS = X87DivByU32(1000.0f, m_snTimeInMillisecondsNonClipped - m_snPreviousTimeInMillisecondsNonClipped);
 
     // Update history
     m_snPPPPreviousTimeInMilliseconds = m_snPPPreviousTimeInMilliseconds;
@@ -235,13 +356,14 @@ void CTimer::Update() {
 
     m_snPreviousTimeInMillisecondsNonClipped = m_snTimeInMillisecondsNonClipped;
 
-    const uint64 nRenderTimeBefore = m_snRenderStartTime;
-    m_snRenderStartTime = ms_fnTimerFunction();
-    auto fTimeDelta = float(m_snRenderStartTime - nRenderTimeBefore);
+    // Como el original: diferencia de 64 bits convertida a float sin signo con un solo redondeo
+    const uint64 nRenderTimeNow = ms_fnTimerFunction();
+    auto fTimeDelta = X87U64ToFloat(nRenderTimeNow - m_snRenderStartTime);
     if (!GetIsPaused())
-        fTimeDelta *= ms_fTimeScale;
+        fTimeDelta = ms_fTimeScale * fTimeDelta;
+    m_snRenderStartTime = nRenderTimeNow;
 
-    m_snTimeInMillisecondsPauseMode += (uint32)(fTimeDelta / float(m_snTimerDivider));
+    m_snTimeInMillisecondsPauseMode = X87AddU32Ftol(m_snTimeInMillisecondsPauseMode, X87DivByU32(fTimeDelta, m_snTimerDivider));
     if (GetIsPaused())
         fTimeDelta = 0.0f;
 

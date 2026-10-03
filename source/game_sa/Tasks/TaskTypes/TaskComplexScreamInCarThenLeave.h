@@ -19,7 +19,7 @@ class NOTSA_EXPORT_VTABLE CTaskComplexScreamInCarThenLeave : public CTaskComplex
 public:
     CVehicle*   m_veh{};   /// The vehicle :D
     eTargetDoor m_door{};  /// Not used
-    CTaskTimer  m_timer{}; /// Started when `TASK_SIMPLE_CAR_DRIVE` is created, upon expiration (of 5000ms) `TASK_COMPLEX_LEAVE_CAR_AND_FLEE` is created.
+    CTaskTimer  m_timer;   /// Como el original: sin {} (no se escribe el relleno 0x1E..0x1F). Started when `TASK_SIMPLE_CAR_DRIVE` is created, upon expiration (of 5000ms) `TASK_COMPLEX_LEAVE_CAR_AND_FLEE` is created.
 
 public:
     static void InjectHooks();
@@ -51,3 +51,4 @@ private: // Wrappers for hooks
         return this;
     }
 };
+VALIDATE_SIZE(CTaskComplexScreamInCarThenLeave, 0x20);

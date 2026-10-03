@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -25,12 +25,21 @@ CTaskSimpleCarSlowBeDraggedOut::CTaskSimpleCarSlowBeDraggedOut(CVehicle* target,
     m_Door{ door },
     m_LineUpUtility{ lineUpUtility },
     m_IsDraggedBySelf{ isDraggedBySelf }
-{ }
+{
+    CEntity::SafeRegisterRef(m_Vehicle);
+}
+
+// 0x64A040 (Clone)
+CTaskSimpleCarSlowBeDraggedOut::CTaskSimpleCarSlowBeDraggedOut(const CTaskSimpleCarSlowBeDraggedOut& o) :
+    CTaskSimpleCarSlowBeDraggedOut{ o.m_Vehicle, o.m_Door, o.m_LineUpUtility, false } // Como el original: el clon no se arrastra solo
+{
+}
 
 // 0x6482C0
 CTaskSimpleCarSlowBeDraggedOut::~CTaskSimpleCarSlowBeDraggedOut() {
-    if (const auto a = std::exchange(m_Anim, nullptr)) {
-        a->SetDefaultFinishCallback();
+    CEntity::SafeCleanUpRef(m_Vehicle); // Como el original: primero la referencia y luego la animación (sin anular m_Anim)
+    if (m_Anim) {
+        m_Anim->SetDefaultFinishCallback();
     }
 }
 
@@ -57,9 +66,9 @@ auto CTaskSimpleCarSlowBeDraggedOut::ComputeAnimID() {
 }
 
 // notsa
-void CTaskSimpleCarSlowBeDraggedOut::DoOpenCarDoor(CPed* ped) {
+void CTaskSimpleCarSlowBeDraggedOut::DoOpenCarDoor(CPed* ped, float time) {
     const auto [animGrp, animId] = ComputeAnimID();
-    m_Vehicle->ProcessOpenDoor(ped, m_Door, animGrp, animId, 1.f);
+    m_Vehicle->ProcessOpenDoor(ped, m_Door, animGrp, animId, time);
 }
 
 // 0x64C190
@@ -81,7 +90,7 @@ bool CTaskSimpleCarSlowBeDraggedOut::MakeAbortable(CPed* ped, eAbortPriority pri
         m_Anim->SetBlendDelta(-1000.f);
     }
     if (m_Vehicle) {
-        DoOpenCarDoor(ped);
+        DoOpenCarDoor(ped, 1.f);
     }
     return true;
 }
@@ -116,7 +125,7 @@ bool CTaskSimpleCarSlowBeDraggedOut::ProcessPed(CPed* ped) {
         m_LineUpUtility->m_nDoorOpenPosType = 2;
     }
     if (m_IsDraggedBySelf) {
-        DoOpenCarDoor(ped);
+        DoOpenCarDoor(ped, m_Anim->GetCurrentTime()); // Como el original: la puerta sigue el tiempo de la animación
     }
     return false;
 }
@@ -128,11 +137,14 @@ bool CTaskSimpleCarSlowBeDraggedOut::SetPedPosition(CPed* ped) {
             ped->SetPedPositionInCar();
         } else if (m_Anim) {
             m_LineUpUtility->ProcessPed(ped, m_Vehicle, m_Anim);
-        } else { // NOTE: I removed some weird assignment to `m_Anim` that was nulled afterwards... Maybe it was important.
+        } else {
+            // Como el original: la asociación se guarda en m_Anim durante la llamada y luego se anula
             const auto [animGrp, animId] = ComputeAnimID();
-            if (const auto anim = RpAnimBlendClumpGetAssociation(ped->GetRpClump(), animId)) {
-                m_LineUpUtility->ProcessPed(ped, m_Vehicle, anim);
+            m_Anim = RpAnimBlendClumpGetAssociation(ped->GetRpClump(), animId);
+            if (m_Anim) {
+                m_LineUpUtility->ProcessPed(ped, m_Vehicle, m_Anim);
             }
+            m_Anim = nullptr;
         }
     }
     return true;

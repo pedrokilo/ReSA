@@ -113,7 +113,7 @@ void CPedAttractor::Shutdown() {
 void CPedAttractor::SetTaskForPed(CPed* ped, CTask* task) {
     if (const auto pair = rng::find(m_PedTaskPairs, ped, &CPedTaskPair::Ped); pair != m_PedTaskPairs.end()) {
         if (!pair->UsedTask) { // 0x5EED79
-            ms_tasks.erase(rng::find(ms_tasks, pair->Task)); // 0x5EEDA0, 0x5EEDAD
+            if (const auto erased = rng::find(ms_tasks, pair->Task); erased != ms_tasks.end()) { ms_tasks.erase(erased); } // Como el original: no borra si no está // 0x5EEDA0, 0x5EEDAD
             delete pair->Task; // 0x5EEDD1
         }
         pair->Task     = task;
@@ -147,7 +147,7 @@ bool CPedAttractor::RegisterPed(CPed* ped) {
 
 // 0x5EC5B0
 bool CPedAttractor::DeRegisterPed(CPed* ped) {
-    m_PedTaskPairs.erase(rng::find(m_PedTaskPairs, ped, &CPedTaskPair::Ped));
+    if (const auto erased = rng::find(m_PedTaskPairs, ped, &CPedTaskPair::Ped); erased != m_PedTaskPairs.end()) { m_PedTaskPairs.erase(erased); } // Como el original: no borra si no está
     if (const auto it = rng::find(m_ArrivedPeds, ped); it != m_ArrivedPeds.end()) { // inverted (!)
         m_AttractPeds.erase(it);
         return true;
@@ -173,7 +173,10 @@ CTask* CPedAttractor::GetTaskForPed(CPed* ped) {
         return nullptr;
     }
     if (!it->UsedTask) {
-        ms_tasks.erase(rng::find(ms_tasks, it->Task));
+        // Como el original (0x5EC55D): solo se quita si está en la lista; si no, no se borra nada
+        if (const auto t = rng::find(ms_tasks, it->Task); t != ms_tasks.end()) {
+            ms_tasks.erase(t);
+        }
     }
     it->UsedTask = true;
     return it->Task;
@@ -261,7 +264,7 @@ bool CPedAttractor::BroadcastDeparture(CPed* ped) {
             new CTaskComplexGoToAttractor{ this, ComputeAttractPos(i), ComputeAttractHeading(i), m_AchieveQueueShuffleTime, i, PEDMOVE_WALK },
         });
     }
-    m_PedTaskPairs.erase(rng::find(m_PedTaskPairs, ped, &CPedTaskPair::Ped)); // 0x5EF2F6
+    if (const auto erased = rng::find(m_PedTaskPairs, ped, &CPedTaskPair::Ped); erased != m_PedTaskPairs.end()) { m_PedTaskPairs.erase(erased); } // Como el original: no borra si no está // 0x5EF2F6
     m_ArrivedPeds.erase(it); // 0x5EF334
     for (auto* const attractedPed : m_AttractPeds) { // 0x5EF371
         const auto n = (int32)(m_ArrivedPeds.size());
@@ -281,7 +284,7 @@ bool CPedAttractor::BroadcastDeparture(CPed* ped) {
 bool CPedAttractor::BroadcastArrival(CPed* ped) {
     if (!rng::contains(m_ArrivedPeds, ped)) {
         m_ArrivedPeds.emplace_back(ped); // 0x5EEFCB
-        m_AttractPeds.erase(rng::find(m_AttractPeds, ped)); // 0x5EF002
+        if (const auto erased = rng::find(m_AttractPeds, ped); erased != m_AttractPeds.end()) { m_AttractPeds.erase(erased); } // Como el original: no borra si no está // 0x5EF002
         for (auto* const attractedPed : m_AttractPeds) { // 0x5EF098
             const auto idx = (int32)(m_ArrivedPeds.size());
             SetTaskForPed(attractedPed, new CTaskComplexGoToAttractor{ // 0x5EF090

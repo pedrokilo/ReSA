@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -77,78 +77,100 @@ CTask* CTaskComplexKillPedGroupOnFoot::CreateSubTask(eTaskType taskType, CPed* p
     case TASK_NONE:
         return new CTaskSimpleNone{};
     case TASK_SIMPLE_LOOK_ABOUT:
-        return new CTaskSimpleLookAbout{ CGeneral::GetRandomNumberInRange(3000u, 4000u) };
+        // Como el original: CGeneral::GetRandomNumberInRange(int, int) (0x407180), [3000, 4000)
+        return new CTaskSimpleLookAbout{ (uint32)CGeneral::GetRandomIntInRange(3000, 4000) };
     default:
-        NOTSA_UNREACHABLE();
+        return nullptr; // Como el original
     }
 }
 
 // 0x622450
 CPed* CTaskComplexKillPedGroupOnFoot::ComputeNearestLivingGroupPed(CPed& ped, bool flag) {
-    const auto pedToIgnore = [&]() -> CPed* {
-        if (!flag) {
-            if (const auto grp = ped.GetGroup()) {
-                if (const auto leader = grp->GetMembership().GetLeader()) {
-                    return leader->m_pTargetedObject && leader->m_pTargetedObject->GetIsTypePed()
-                        ? leader->m_pTargetedObject->AsPed()
-                        : ComputeNearestLivingGroupPed(ped, true);
-                }
-            }
-        }
-        return nullptr;
-    }();
-    const auto [closest, distSq] = CPedGroups::GetGroup(m_grpId).GetMembership().GetMemberClosestToIf(&ped, [&, this](CPed& mem) -> bool {
-        if (   &mem == pedToIgnore
-            || !mem.IsAlive()
-            || mem.m_fHealth <= 0.f
-            || CPedGroups::AreInSameGroup(&mem, &ped)
-        ) {
-            return false;
-        }
-        if (mem.IsPlayer()) {
-            if (const auto wanted = mem.AsPlayer()->GetWanted()) {
-                if (wanted->m_NumCopsInPursuit && ped.m_nPedType != PED_TYPE_COP && ped.IsCreatedBy(PED_GAME)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    });
-    return closest;
-}
+    auto& membership = CPedGroups::ms_groups.data()[m_grpId].GetMembership(); // Como el original: sin comprobar si el grupo está activo
 
-eTaskType CTaskComplexKillPedGroupOnFoot::ComputeNewTargetAndTaskType(CPed* ped) {
-    CEntity::ChangeEntityReference(m_currPedToKill, ComputeNearestLivingGroupPed(*ped)); // Find new target
-    return m_currPedToKill
-        ? TASK_COMPLEX_KILL_PED_ON_FOOT
-        : TASK_SIMPLE_LOOK_ABOUT;
+    // Como el original: se ignora el objetivo del líder del grupo del peatón (si no es él mismo); si el líder no apunta
+    // a un peatón, se ignora el miembro más cercano al líder
+    CPed* pedToIgnore = nullptr;
+    if (!flag) {
+        if (const auto grp = CPedGroups::GetPedsGroup(&ped)) {
+            if (const auto leader = grp->GetMembership().GetLeader(); leader && leader != &ped) {
+                const auto target = leader->m_pTargetedObject;
+                pedToIgnore = target && target->GetIsTypePed()
+                    ? target->AsPed()
+                    : ComputeNearestLivingGroupPed(*leader, true);
+            }
+        }
+    }
+
+    CPed* closest       = nullptr;
+    float closestDistSq = FLT_MAX;
+    for (auto i = 0; i < 8; i++) {
+        const auto mem = membership.GetMember(i);
+        if (!mem || mem == pedToIgnore || !mem->IsAlive()) {
+            continue;
+        }
+        if (!(mem->m_fHealth > 0.f)) { // Como el original: NaN tampoco cuenta como vivo
+            continue;
+        }
+        if (mem == &ped || CPedGroups::AreInSameGroup(mem, &ped)) {
+            continue;
+        }
+
+        // Como el original: distancia (z·z + y·y) + x·x, estrictamente menor (NaN no cuenta)
+        const auto& memPos = mem->GetPosition();
+        const auto& pedPos = ped.GetPosition();
+        const float dx = memPos.x - pedPos.x, dy = memPos.y - pedPos.y, dz = memPos.z - pedPos.z;
+        const float distSq = dz * dz + dy * dy + dx * dx;
+        if (!(distSq < closestDistSq)) {
+            continue;
+        }
+
+        if (mem->IsPlayer()) {
+            if (const auto wanted = mem->AsPlayer()->GetWanted()) { // NOTSA: el EXE no comprueba los datos de jugador nulos
+                if (wanted->m_NumCopsInPursuit && ped.m_nPedType != PED_TYPE_COP && ped.IsCreatedBy(PED_GAME)) {
+                    continue;
+                }
+            }
+        }
+
+        closestDistSq = distSq;
+        closest       = mem;
+    }
+
+    return closest ? closest : pedToIgnore; // Como el original: sin miembro válido devuelve el peatón ignorado
 }
 
 // 0x629570
 CTask* CTaskComplexKillPedGroupOnFoot::CreateNextSubTask(CPed* ped) {
-    // CEntity::ClearReference(m_currPedToKill); // Not necessary, destructor will clear it
-    return CreateSubTask([this, ped] {
-        switch (m_pSubTask->GetTaskType()) {
-        case TASK_NONE:
-        case TASK_SIMPLE_LOOK_ABOUT:
-            return TASK_FINISHED;
-        case TASK_COMPLEX_KILL_PED_ON_FOOT:
-            return ComputeNewTargetAndTaskType(ped); // Kill next or finish
-        default:
-            NOTSA_UNREACHABLE();
+    CEntity::ClearReference(m_currPedToKill); // Como el original: se suelta el objetivo antes de mirar la subtarea
+
+    switch (m_pSubTask->GetTaskType()) {
+    case TASK_NONE:
+    case TASK_SIMPLE_LOOK_ABOUT:
+        return CreateSubTask(TASK_FINISHED, ped);
+    case TASK_COMPLEX_KILL_PED_ON_FOOT: { // Kill next or finish
+        m_currPedToKill = ComputeNearestLivingGroupPed(*ped);
+        if (!m_currPedToKill) {
+            return CreateSubTask(TASK_SIMPLE_LOOK_ABOUT, ped);
         }
-    }(), ped);
+        m_currPedToKill->RegisterReference(reinterpret_cast<CEntity**>(&m_currPedToKill));
+        return CreateSubTask(TASK_COMPLEX_KILL_PED_ON_FOOT, ped);
+    }
+    default:
+        return nullptr; // Como el original
+    }
 }
 
 // 0x629630
 CTask* CTaskComplexKillPedGroupOnFoot::CreateFirstSubTask(CPed* ped) {
-    return CreateSubTask([&, this] {
-        if (m_currPedToKill) {
-            return CPedGroups::AreInSameGroup(ped, m_currPedToKill)
-                ? TASK_NONE
-                : TASK_COMPLEX_KILL_PED_ON_FOOT;
-        } else {
-            return ComputeNewTargetAndTaskType(ped);
-        }
-    }(), ped);
+    if (m_currPedToKill) {
+        return CreateSubTask(CPedGroups::AreInSameGroup(ped, m_currPedToKill) ? TASK_NONE : TASK_COMPLEX_KILL_PED_ON_FOOT, ped);
+    }
+    // Como el original: sin objetivo cercano crea TASK_NONE (no LOOK_ABOUT)
+    m_currPedToKill = ComputeNearestLivingGroupPed(*ped);
+    if (!m_currPedToKill) {
+        return CreateSubTask(TASK_NONE, ped);
+    }
+    m_currPedToKill->RegisterReference(reinterpret_cast<CEntity**>(&m_currPedToKill));
+    return CreateSubTask(TASK_COMPLEX_KILL_PED_ON_FOOT, ped);
 }

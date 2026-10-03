@@ -92,7 +92,7 @@ public:
 
     //! @addr 0x4D37A0
     //! @unused
-    auto IsCreated() const { return m_NumAnims != 0; }
+    auto IsCreated() const { return m_Anims != nullptr; } // Como el original: mira m_Anims (+4), no m_NumAnims
 
     //! @addr 0x45B050
     //! @unused
@@ -103,8 +103,6 @@ public:
     auto GetAnimBlock() const { return m_AnimBlock; }
 
 private:
-    CAnimBlock* AllocateForBlock(const char* blockName, int32 numAnims);
-
     auto GetAssociations() const { return std::span{m_Anims, m_NumAnims}; }
 
     CAnimBlendAssociation* CopyAnimation(CAnimBlendStaticAssociation* def);
@@ -121,7 +119,8 @@ private: // Wrappers for hooks
     }
 
     //! @addr 0x4CE1D0
-    CAnimBlendAssocGroup* Destructor(uint32 flags) {
+    //! Como el original: destructor no virtual sin argumentos (`ret` sin pila), no un destructor con borrado.
+    CAnimBlendAssocGroup* Destructor() {
         std::destroy_at(this);
         return this;
     }

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 15/15 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/15 entradas.
+ * Validación registrada: 15/15 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -74,14 +74,74 @@ struct SpriteQuadCoeffs {
 };
 
 // NOTSA
+// Como el original: fsin/fcos a precision completa de la FPU; solo las sumas se redondean a float.
 static SpriteQuadCoeffs CalcSpriteQuadCoeffs(float rotation) {
-    const float fSin = std::sin(rotation);
-    const float fCos = std::cos(rotation);
+    float c0, c1, c2, c3;
+    __asm {
+        fld    rotation
+        fsin
+        fld    rotation
+        fcos
+        fld    st(0)
+        fchs
+        fsub   st, st(2)
+        fstp   c0
+        fld    st(1)
+        fsub   st, st(1)
+        fstp   c1
+        fld    st(0)
+        fadd   st, st(2)
+        fstp   c2
+        fsubrp st(1), st
+        fstp   c3
+    }
+    // c0 = -cos - sin, c1 = sin - cos, c2 = cos + sin, c3 = cos - sin
     return {
-        .xs = { -fCos - fSin, fSin - fCos, fCos + fSin, fCos - fSin },
-        .ys = { fSin - fCos, fCos + fSin, fCos - fSin, -fCos - fSin },
+        .xs = { c0, c1, c2, c3 },
+        .ys = { c1, c2, c3, c0 },
     };
 }
+
+// NOTSA
+// Como el original (0x70EAB0): w*cos, sin*h, cos*h y sin*w con fsin/fcos a precision completa
+static void CalcSpriteDimensionTerms(float rotation, float sprW, float sprH, float& outWCos, float& outHSin, float& outHCos, float& outWSin) {
+    float wc, hs, hc, ws;
+    __asm {
+        fld    rotation
+        fsin
+        fld    rotation
+        fcos
+        fld    st(0)
+        fmul   sprW
+        fstp   wc
+        fld    st(1)
+        fmul   sprH
+        fstp   hs
+        fmul   sprH
+        fstp   hc
+        fmul   sprW
+        fstp   ws
+    }
+    outWCos = wc;
+    outHSin = hs;
+    outHCos = hc;
+    outWSin = ws;
+}
+
+// NOTSA
+// Como el original (0x59C890, operator*(CMatrix, CVector)): mismo orden de productos y sumas que el EXE
+static CVector SpriteMatrixTimesPoint(const CMatrix& mat, const CVector& v) {
+    const auto* m = reinterpret_cast<const float*>(&mat);
+    return {
+        m[8] * v.z + m[4] * v.y + m[0] * v.x + m[12],
+        m[9] * v.z + m[1] * v.x + m[5] * v.y + m[13],
+        m[10] * v.z + m[2] * v.x + m[6] * v.y + m[14],
+    };
+}
+
+// NOTSA
+// Como el original: los sprites no bufferizados escriben en este array global de 4 vertices (0xC4B8E0)
+static inline auto& aSpriteVertices = StaticRef<RwIm2DVertex[4]>(0xC4B8E0);
 
 // NOTSA
 // Clamp the quad's corners to the screen, remapping UVs using the sprite's full size
@@ -225,12 +285,17 @@ void CSprite::Draw3DSprite(float, float, float, float, float, float, float, floa
 
 // 0x70CE30
 bool CSprite::CalcScreenCoors(const RwV3d& posn, RwV3d* out, float* w, float* h, bool checkMaxVisible, bool checkMinVisible) {
-    *out = TheCamera.GetViewMatrix().TransformPoint(posn);
+    // Como el original: el punto se transforma con el orden de sumas del EXE y se copia entero a `out`
+    const auto viewPoint = SpriteMatrixTimesPoint(TheCamera.GetViewMatrix(), CVector{ posn.x, posn.y, posn.z });
+    out->x = viewPoint.x;
+    out->y = viewPoint.y;
+    out->z = viewPoint.z;
 
-    if (out->z <= CDraw::GetNearClipZ() + 1.0f && checkMinVisible)
+    // Como el original: comparaciones con NaN como el EXE (fcomp + test ah,5)
+    if (!(CDraw::GetNearClipZ() + 1.0f < out->z) && checkMinVisible)
         return false;
 
-    if (out->z >= CDraw::GetFarClipZ() && checkMaxVisible)
+    if (!(out->z < CDraw::GetFarClipZ()) && checkMaxVisible)
         return false;
 
     const float rd = 1.0f / out->z; // reciprocal of depth
@@ -247,13 +312,14 @@ bool CSprite::CalcScreenCoors(const RwV3d& posn, RwV3d* out, float* w, float* h,
 // 0x70E3E0
 float CSprite::CalcHorizonCoors() {
     const auto& cameraPosn = TheCamera.GetPosition();
-    CVector point{
-        cameraPosn.x + TheCamera.m_fCamFrontXNorm * 3000.0f,
-        cameraPosn.y + TheCamera.m_fCamFrontYNorm * 3000.0f,
+    const CVector point{
+        TheCamera.m_fCamFrontXNorm * 3000.0f + cameraPosn.x,
+        TheCamera.m_fCamFrontYNorm * 3000.0f + cameraPosn.y,
         0.0f,
     };
 
-    const auto viewPoint = TheCamera.GetViewMatrix().TransformPoint(point);
+    // Como el original: operator*(CMatrix, CVector) del EXE (0x59C890)
+    const auto viewPoint = SpriteMatrixTimesPoint(TheCamera.GetViewMatrix(), point);
     return 1.0f / viewPoint.z * SCREEN_HEIGHT * viewPoint.y;
 }
 
@@ -301,9 +367,9 @@ void CSprite::RenderOneXLUSprite(CVector pos, CVector2D halfSize, uint8 r, uint8
 
     ClampSpriteQuadToScreen(x, y, u, v, halfSize);
 
-    std::array<RwIm2DVertex, 4> vertices;
+    // Como el original: los vertices van al array global 0xC4B8E0
     SetSpriteVertices(
-        vertices.data(),
+        aSpriteVertices,
         x,
         y,
         u,
@@ -312,56 +378,45 @@ void CSprite::RenderOneXLUSprite(CVector pos, CVector2D halfSize, uint8 r, uint8
         rhw,
         CalcSpriteColor(r, g, b, a, intensity)
     );
-    RwIm2DRenderPrimitive(rwPRIMTYPETRIFAN, vertices.data(), 4);
+    RwIm2DRenderPrimitive(rwPRIMTYPETRIFAN, aSpriteVertices, 4);
 }
 
 // 0x70D320
 void CSprite::RenderOneXLUSprite_Triangle(CVector2D screen1, CVector2D screen2, CVector2D screen3, float screenZ, uint8 r, uint8 g, uint8 b, int16 intensity, float recipZ, uint8 alpha) {
-    if (screenZ < 1.3f) {
-        return;
+    // Como el original: solo se atenua por debajo de z = 2.3 (y se descarta por debajo de 1.3); por encima el
+    // color y la intensidad pasan tal cual
+    int32 R = r, G = g, B = b, I = intensity;
+    if (screenZ < 2.3f) {
+        if (screenZ < 1.3f) {
+            return;
+        }
+        const auto factor = (int32)((screenZ - 1.3f) * 255.0f);
+        R = (int32(r) * factor) >> 8;
+        G = (int32(g) * factor) >> 8;
+        B = (int32(b) * factor) >> 8;
+        I = (int32(intensity) * factor) >> 8;
     }
-    const uint32 factor = static_cast<uint32>(std::min(255.0f * (screenZ - 1.3f), 255.0f));
-    const uint32 R      = (factor * r) >> 8;
-    const uint32 G      = (factor * g) >> 8;
-    const uint32 B      = (factor * b) >> 8;
-    const uint32 depthI = (factor * intensity) >> 8;
-
+    const auto depthI = (int32)(int16)I;
     const auto emissiveColor = CRGBA{
-        static_cast<uint8>(((R & 0xff) * depthI) >> 8),
-        static_cast<uint8>(((G & 0xff) * depthI) >> 8),
-        static_cast<uint8>(((B & 0xff) * depthI) >> 8),
+        static_cast<uint8>((int32((uint8)R) * depthI) >> 8),
+        static_cast<uint8>((int32((uint8)G) * depthI) >> 8),
+        static_cast<uint8>((int32((uint8)B) * depthI) >> 8),
         alpha
     }.ToIntARGB();
 
-    const auto z  = (RwIm2DGetFarScreenZ() - RwIm2DGetNearScreenZ())
-        * (screenZ - CDraw::ms_fNearClipZ)
-        * CDraw::ms_fFarClipZ
-        / ((CDraw::ms_fFarClipZ - CDraw::ms_fNearClipZ) * screenZ)
-        + RwIm2DGetNearScreenZ();
+    const auto z = CalcSpriteScreenZ(screenZ, RwIm2DGetNearScreenZ(), RwIm2DGetFarScreenZ());
 
-    std::array<RwIm2DVertex, 3> vertices;
-    vertices[0] = {
-        .x = screen1.x,
-        .y = screen1.y,
-        .z = z,
-        .rhw = recipZ,
-        .emissiveColor = emissiveColor
-    };
-    vertices[1] = {
-        .x = screen2.x,
-        .y = screen2.y,
-        .z = z,
-        .rhw = recipZ,
-        .emissiveColor = emissiveColor
-    };
-    vertices[2] = {
-        .x = screen3.x,
-        .y = screen3.y,
-        .z = z,
-        .rhw = recipZ,
-        .emissiveColor = emissiveColor
-    };
-    RwIm2DRenderPrimitive(rwPRIMTYPETRILIST, vertices.data(), 3);
+    // Como el original: solo se escriben x, y, z, rhw y color de 3 vertices del array global (u/v quedan como estaban)
+    const CVector2D screens[]{ screen1, screen2, screen3 };
+    for (auto i = 0; i < 3; i++) {
+        auto& vertex = aSpriteVertices[i];
+        vertex.x             = screens[i].x;
+        vertex.y             = screens[i].y;
+        vertex.z             = z;
+        vertex.rhw           = recipZ;
+        vertex.emissiveColor = emissiveColor;
+    }
+    RwIm2DRenderPrimitive(rwPRIMTYPETRILIST, aSpriteVertices, 3);
 }
 
 // 0x70D490
@@ -388,16 +443,16 @@ void CSprite::RenderOneXLUSprite_Rotate_Aspect(CVector pos, CVector2D size, uint
         return;
     }
 
-    std::array<RwIm2DVertex, 4> vertices;
+    // Como el original: los vertices van al array global 0xC4B8E0
     SetSpriteVertices(
-        vertices.data(),
+        aSpriteVertices,
         xs,
         ys,
         CalcSpriteScreenZ(pos.z, RWSRCGLOBAL(dOpenDevice).zBufferNear, RWSRCGLOBAL(dOpenDevice).zBufferFar),
         rz,
         CalcSpriteColor(r, g, b, alpha, intensity)
     );
-    RwIm2DRenderPrimitive(rwPRIMTYPETRIFAN, vertices.data(), 4);
+    RwIm2DRenderPrimitive(rwPRIMTYPETRIFAN, aSpriteVertices, 4);
 }
 
 // Android
@@ -412,24 +467,27 @@ void CSprite::RenderOneXLUSprite_Rotate_2Colours(float, float, float, float, flo
 
 // 0x70F540
 void CSprite::RenderOneXLUSprite2D(CVector2D screen, CVector2D size, const CRGBA& color, int16 intensity, uint8 alpha) {
-    CRGBA vertsColor{};
-    for (auto i = 0; i < 4; i++) {
-        vertsColor[i] = static_cast<uint8>((intensity * color[i]) >> 8);
-    }
+    // Como el original: el alfa de los vertices es el argumento `alpha` (no el alfa del color escalado)
+    const CRGBA vertsColor{
+        static_cast<uint8>((intensity * color.r) >> 8),
+        static_cast<uint8>((intensity * color.g) >> 8),
+        static_cast<uint8>((intensity * color.b) >> 8),
+        alpha
+    };
 
-    std::array<RwIm2DVertex, 4> vertices;
-    Set4Vertices2D(
-        vertices.data(),
-        { screen.x - size.x, screen.y - size.y, screen.x + size.x, screen.y + size.y },
-        vertsColor,
-        vertsColor,
-        vertsColor,
-        vertsColor
-    );
+    // Como el original: el rectangulo se rellena sin comprobar si esta invertido
+    CRect rect;
+    rect.left   = screen.x - size.x;
+    rect.top    = screen.y + size.y;
+    rect.right  = screen.x + size.x;
+    rect.bottom = screen.y - size.y;
 
-    RwRenderStateSet(rwRENDERSTATEZTESTENABLE, RWRSTATE(false));
-    RwIm2DRenderPrimitive(rwPRIMTYPETRIFAN, vertices.data(), 4);
-    RwRenderStateSet(rwRENDERSTATEZTESTENABLE, RWRSTATE(true));
+    // Como el original: los vertices van al array global 0xC4B8E0
+    Set4Vertices2D(aSpriteVertices, rect, vertsColor, vertsColor, vertsColor, vertsColor);
+
+    RwRenderStateSet(rwRENDERSTATEZTESTENABLE, RWRSTATE(FALSE));
+    RwIm2DRenderPrimitive(rwPRIMTYPETRIFAN, aSpriteVertices, 4);
+    RwRenderStateSet(rwRENDERSTATEZTESTENABLE, RWRSTATE(TRUE));
 }
 
 // unused
@@ -442,7 +500,7 @@ void CSprite::RenderOneXLUSprite2D_Rotate_Dimension(float, float, float, float, 
 
 // 0x70E4A0
 void CSprite::RenderBufferedOneXLUSprite(CVector pos, CVector2D size, uint8 r, uint8 g, uint8 b, int16 intensity, float recipNearZ, uint8 alpha) {
-    m_bFlushSpriteBufferSwitchZTest = false;
+    m_bFlushSpriteBufferSwitchZTest = 0;
 
     CornerCoords1D x{ pos.x - size.x, pos.x - size.x, pos.x + size.x, pos.x + size.x };
     CornerCoords1D y{ pos.y - size.y, pos.y + size.y, pos.y + size.y, pos.y - size.y };
@@ -465,7 +523,7 @@ void CSprite::RenderBufferedOneXLUSprite(CVector pos, CVector2D size, uint8 r, u
 
 // 0x70E780
 void CSprite::RenderBufferedOneXLUSprite_Rotate_Aspect(float x, float y, float z, float w, float h, uint8 r, uint8 g, uint8 b, int16 intensity, float recipNearZ, float angle, uint8 alpha) {
-    m_bFlushSpriteBufferSwitchZTest = false;
+    m_bFlushSpriteBufferSwitchZTest = 0;
 
     auto [xs, ys] = CalcSpriteQuadCoeffs(angle);
     for (auto&& [cx, cy] : rngv::zip(xs, ys)) {
@@ -489,14 +547,11 @@ void CSprite::RenderBufferedOneXLUSprite_Rotate_Aspect(float x, float y, float z
 
 // 0x70EAB0
 void CSprite::RenderBufferedOneXLUSprite_Rotate_Dimension(CVector pos, CVector2D size, uint8 r, uint8 g, uint8 b, int16 intensity, float rz, float rotation, uint8 a) {
-    m_bFlushSpriteBufferSwitchZTest = false;
+    m_bFlushSpriteBufferSwitchZTest = 0;
 
-    const float fSin = std::sin(rotation);
-    const float fCos = std::cos(rotation);
-    const float wCos = size.x * fCos;
-    const float hSin = fSin * size.y;
-    const float hCos = size.y * fCos;
-    const float wSin = fSin * size.x;
+    // Como el original: productos con fsin/fcos a precision completa
+    float wCos, hSin, hCos, wSin;
+    CalcSpriteDimensionTerms(rotation, size.x, size.y, wCos, hSin, hCos, wSin);
 
     const CornerCoords1D xs{
         (pos.x - wCos) - hSin,
@@ -527,7 +582,7 @@ void CSprite::RenderBufferedOneXLUSprite_Rotate_Dimension(CVector pos, CVector2D
 
 // 0x70EDE0
 void CSprite::RenderBufferedOneXLUSprite_Rotate_2Colours(float x, float y, float z, float w, float h, uint8 r1, uint8 g1, uint8 b1, uint8 r2, uint8 g2, uint8 b2, float rotFactorX, float rotFactorY, float rz, float rotation, uint8 alpha) {
-    m_bFlushSpriteBufferSwitchZTest = false;
+    m_bFlushSpriteBufferSwitchZTest = 0;
 
     const auto coeffs = CalcSpriteQuadCoeffs(rotation);
     CornerCoords1D        xs, ys;
@@ -536,7 +591,9 @@ void CSprite::RenderBufferedOneXLUSprite_Rotate_2Colours(float x, float y, float
         xs[i] = cx * w + x;
         ys[i] = coeffs.ys[i] * h + y;
 
-        const auto t = std::clamp((coeffs.ys[i] * rotFactorY + cx * rotFactorX + 1.0f) * 0.5f, 0.0f, 1.0f);
+        // Como el original: t <= 0 (o NaN) pasa a +0.0 y t > 1 a 1.0
+        const auto tRaw = (coeffs.ys[i] * rotFactorY + cx * rotFactorX + 1.0f) * 0.5f;
+        const auto t    = !(tRaw > 0.0f) ? 0.0f : (1.0f < tRaw ? 1.0f : tRaw);
         colors[i] = CRGBA{
             static_cast<uint8>(r2 * (1.0f - t) + r1 * t),
             static_cast<uint8>(g2 * (1.0f - t) + g1 * t),
@@ -563,8 +620,15 @@ void CSprite::RenderBufferedOneXLUSprite_Rotate_2Colours(float x, float y, float
 
 // 0x70F440
 void CSprite::RenderBufferedOneXLUSprite2D(CVector2D pos, CVector2D size, const RwRGBA& color, int16 intensity, uint8 alpha) {
-    m_bFlushSpriteBufferSwitchZTest = true;
-    const CRect rect(pos, size.x);
+    m_bFlushSpriteBufferSwitchZTest = 1;
+
+    // Como el original: el alto del rectangulo usa size.y (no size.x) y no se comprueba si esta invertido
+    CRect rect;
+    rect.left   = pos.x - size.x;
+    rect.top    = pos.y + size.y;
+    rect.right  = pos.x + size.x;
+    rect.bottom = pos.y - size.y;
+
     const CRGBA scaledColor(
         (color.red * intensity) >> 8,
         (color.green * intensity) >> 8,

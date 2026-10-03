@@ -13,7 +13,7 @@ class NOTSA_EXPORT_VTABLE CTaskSimpleIKManager final : public CTaskSimple {
 public:
     static constexpr auto Type = TASK_SIMPLE_IK_MANAGER;
 
-    CTaskSimpleIKManager() = default;
+    CTaskSimpleIKManager() {} // Como el original: constructor propio (sin inicializacion por valor que toque el relleno)
     CTaskSimpleIKManager(const CTaskSimpleIKManager&);
     ~CTaskSimpleIKManager() override;
 
@@ -32,7 +32,7 @@ public:
     /*!
      * @addr 0x6339B0
     */
-    CTaskSimpleIKChain* GetTaskAtSlot(eIKChainSlot slot) { return m_IKChainTasks[(size_t)slot]; }
+    CTaskSimpleIKChain* GetTaskAtSlot(eIKChainSlot slot) { return m_IKChainTasks.data()[(size_t)slot]; }
 
 private:
     friend void InjectHooksMain();

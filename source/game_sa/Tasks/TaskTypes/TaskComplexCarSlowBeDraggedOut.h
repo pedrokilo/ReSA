@@ -13,7 +13,7 @@ public:
     static constexpr auto Type = TASK_COMPLEX_CAR_SLOW_BE_DRAGGED_OUT;
 
     CTaskComplexCarSlowBeDraggedOut(CVehicle* vehicle, eTargetDoor door, bool isDraggedBySelf);
-    ~CTaskComplexCarSlowBeDraggedOut() override = default;
+    ~CTaskComplexCarSlowBeDraggedOut() override;
 
     CTask*    Clone() const override { return new CTaskComplexCarSlowBeDraggedOut(m_Vehicle, m_Door, m_IsDraggedBySelf); } // 0x64A120
     eTaskType GetTaskType() const override { return Type; }
@@ -33,7 +33,7 @@ private:
     CVehicle::Ref                                 m_Vehicle{};
     eTargetDoor                                   m_Door{};
     bool                                          m_IsDraggedBySelf{};
-    std::unique_ptr<CTaskUtilityLineUpPedWithCar> m_LineUpUtility{};
+    CTaskUtilityLineUpPedWithCar*                 m_LineUpUtility{}; // Como el original: puntero crudo (el destructor la borra sin anular el campo)
 
 private:
     friend void InjectHooksMain();

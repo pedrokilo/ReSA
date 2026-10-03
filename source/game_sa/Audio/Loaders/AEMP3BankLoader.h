@@ -48,13 +48,15 @@ public:
     // notsa
     CAEBankSlot& GetBankSlot(eSoundBankSlot slot) const;
 private:
-    // Inserta una solicitud de banco completo (nullopt) o de un único sample.
-    void AddRequest(eSoundBank bank, eSoundBankSlot slot, std::optional<eSoundID> sound);
+    // Inserta en la cola circular una solicitud de banco completo (sound == -1) o de un único sample.
+    void AddRequest(eSoundBank bank, eSoundBankSlot slot, eSoundID sound);
 
 private:
-    // NOTSA
+    // 0x4DFB10
+    // Como el original: el constructor solo escribe m_IsInitialised y m_StreamingChannel (el resto queda sin tocar).
     CAEMP3BankLoader* Constructor() {
-        this->CAEMP3BankLoader::CAEMP3BankLoader();
+        m_IsInitialised    = false;
+        m_StreamingChannel = 4;
         return this;
     }
 };

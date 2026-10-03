@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/10 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -77,34 +77,44 @@ FxSystemBP_c* FxSystemBP_c::Destructor() {
  * Primero recoge nombres de textura y configuración; las texturas se cargan al final
  * una vez conocidas todas las primitivas del sistema.
  */
-void FxSystemBP_c::Load(Const char* filename, FILESTREAM file, int32 version) {
-    assert(file);
+bool FxSystemBP_c::Load(Const char* filename, FILESTREAM file, int32 version) {
+    // Como el original: cada campo se lee con ReadLine + sscanf sin comprobar el resultado ni el nombre
+    // del campo, y los valores en coma flotante se escriben directamente en los miembros.
+    char line[256], field[128], text[128];
+    int32 intValue;
+    float floatValue;
 
-    char line[256], field[32];
-
-    ReadField<void>(file);
+    ReadLine(file, line, sizeof(line));
 
     if (version > 100) {
-        char fname[128];
-        ReadFieldImpl(file, fname, "FILENAME:");
+        ReadLine(file, line, sizeof(line));
+        RET_IGNORED(sscanf(line, "%s %s", field, text)); // FILENAME:
     }
 
-    char name[32];
-    ReadFieldImpl(file, name, "NAME:");
-    m_nNameKey = CKeyGen::GetUppercaseKey(name);
+    ReadLine(file, line, sizeof(line));
+    RET_IGNORED(sscanf(line, "%s %s", field, text)); // NAME:
+    m_nNameKey = CKeyGen::GetUppercaseKey(text);
 
-    m_fLength = ReadField<float>(file, "LENGTH:");
+    ReadLine(file, line, sizeof(line));
+    RET_IGNORED(sscanf(line, "%s %f", field, &m_fLength));
 
     if (version < 106) {
         m_fLoopIntervalMin = 0.0f;
         m_fLoopLength      = 0.0f;
     } else {
-        m_fLoopIntervalMin = ReadField<float>(file);
-        m_fLoopLength      = ReadField<float>(file);
+        ReadLine(file, line, sizeof(line));
+        RET_IGNORED(sscanf(line, "%s %f", field, &m_fLoopIntervalMin));
+        ReadLine(file, line, sizeof(line));
+        RET_IGNORED(sscanf(line, "%s %f", field, &m_fLoopLength));
     }
 
-    m_nPlayMode = ReadField<uint8_t>(file, "PLAYMODE:");
-    m_nCullDist = uint16(ReadField<float>(file, "CULLDIST:") * 256.0f);
+    ReadLine(file, line, sizeof(line));
+    RET_IGNORED(sscanf(line, "%s %d", field, &intValue)); // PLAYMODE:
+    m_nPlayMode = (uint8)intValue;
+
+    ReadLine(file, line, sizeof(line));
+    RET_IGNORED(sscanf(line, "%s %f", field, &floatValue)); // CULLDIST:
+    m_nCullDist = (uint16)(int64)(floatValue * 256.0f); // Como el original: _ftol2
 
     if (version > 103) {
         CVector vecCenter;
@@ -115,44 +125,52 @@ void FxSystemBP_c::Load(Const char* filename, FILESTREAM file, int32 version) {
         SetBoundingSphere(vecCenter, fRadius);
     }
 
-    m_nNumPrims = ReadField<uint8>(file, "NUM_PRIMS:");
-    m_Prims = g_fxMan.Allocate<FxPrimBP_c*>(m_nNumPrims);
+    ReadLine(file, line, sizeof(line));
+    RET_IGNORED(sscanf(line, "%s %d", field, &intValue)); // NUM_PRIMS:
+    m_nNumPrims = (uint8)intValue;
+    // Como el original: el contador se trata con signo (movsx) y la reserva se hace en la arena FX
+    m_Prims = static_cast<FxPrimBP_c**>(g_fxMan.GetMemPool().GetMem((int32)(int8)m_nNumPrims * (int32)sizeof(FxPrimBP_c*), 4));
 
     FxName32_t aTextureNames[8][4];
-    assert(m_nNumPrims < std::size(aTextureNames));
 
-    for (auto i = 0; i < m_nNumPrims; i++) {
+    for (auto i = 0; i < (int8)m_nNumPrims; i++) {
         ReadLine(file, line, sizeof(line));
         RET_IGNORED(sscanf(line, "%s", field));
         if (strcmp(field, "FX_PRIM_EMITTER_DATA:") != 0)
             continue;
 
-        auto* emitter = new FxEmitterBP_c();
-        assert(emitter);
+        // Como el original: el emisor se reserva en la arena FX (0x4A1900) con el tamano del EXE (0x40; el
+        // constructor no escribe los campos NOTSA de FxEmitterBP_c a partir de 0x40), no en el heap
+        auto* const mem = g_fxMan.GetMemPool().GetMem(0x40, 4);
+        auto* const emitter = mem ? new (mem) FxEmitterBP_c() : nullptr;
+        m_Prims[i] = emitter;
 
-        emitter->m_bHasInfoFlatData = false;
-        emitter->m_bHasInfoHeatHazeData = false;
+        // Como el original: los indicadores son los de FxInfoManager_c (+0x3C/+0x3D), no m_bHasInfo*Data (+0x44/+0x45)
+        auto& infos = emitter->m_FxInfoManager;
+        infos.m_bHasFlatParticleEmitter = false;
+        infos.m_bHasHeatHazeParticleEmitter = false;
 
-        ReadField<void>(file);
+        ReadLine(file, line, sizeof(line));
 
         emitter->Load(file, version, aTextureNames[i]);
-        emitter->m_bHasInfoFlatData = emitter->IsFxInfoPresent(FX_INFO_FLAT_DATA);
-        emitter->m_bHasInfoHeatHazeData = emitter->IsFxInfoPresent(FX_INFO_HEATHAZE_DATA);
-        m_Prims[i] = emitter;
+        infos.m_bHasFlatParticleEmitter = emitter->IsFxInfoPresent(FX_INFO_FLAT_DATA);
+        infos.m_bHasHeatHazeParticleEmitter = emitter->IsFxInfoPresent(FX_INFO_HEATHAZE_DATA);
     }
 
     if (version >= 108) {
-        ReadField<bool>(file, "OMITTEXTURES:"); // unused
+        ReadLine(file, line, sizeof(line));
+        RET_IGNORED(sscanf(line, "%s %d", field, &intValue)); // OMITTEXTURES: (sin uso)
     }
 
     if (version >= 109) {
-        char txd[128];
-        ReadFieldImpl(file, txd, "TXDNAME:"); // unused
+        ReadLine(file, line, sizeof(line));
+        RET_IGNORED(sscanf(line, "%s %s", field, text)); // TXDNAME: (sin uso)
     }
 
-    for (auto i = 0; i < m_nNumPrims; i++) {
+    for (auto i = 0; i < (int8)m_nNumPrims; i++) {
         m_Prims[i]->LoadTextures(&aTextureNames[i][0], version);
     }
+    return false; // Como el original: xor al,al
 }
 
 // 0x4AA120
@@ -162,26 +180,24 @@ void FxSystemBP_c::Unload() {
 
 // 0x4AA130
 void FxSystemBP_c::Update(float arg0) {
-    for (auto& prim : GetPrims()) {
-        prim->Update(arg0);
+    // Como el original: contador con signo (movsx) releido en cada vuelta
+    for (auto i = 0; i < (int8)m_nNumPrims; i++) {
+        m_Prims[i]->Update(arg0);
     }
 }
 
 // 0x4AA160
 void FxSystemBP_c::Render(RwCamera* camera, float dayNightBalance, bool bHeatHaze) {
-    for (auto& prim : GetPrims()) {
-        prim->Render(camera, 0, dayNightBalance, bHeatHaze);
+    for (auto i = 0; i < (int8)m_nNumPrims; i++) {
+        m_Prims[i]->Render(camera, 0, dayNightBalance, bHeatHaze);
     }
 }
 
 // 0x4AA1B0
 // Solicita a cada primitiva liberar la partícula indicada y se detiene al encontrarla.
 bool FxSystemBP_c::FreePrtFromSystem(FxSystem_c* system) {
-    if (m_nNumPrims <= 0)
-        return false;
-
-    for (auto& prim : GetPrims()) {
-        if (prim->FreePrtFromPrim(system)) {
+    for (auto i = 0; i < (int8)m_nNumPrims; i++) {
+        if (m_Prims[i]->FreePrtFromPrim(system)) {
             return true;
         }
     }

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -25,6 +25,66 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "WeaponEffects.h"
+
+namespace {
+// Como el original: fsin/fcos a precisión completa multiplicados con un solo redondeo (FPU a 24 bits)
+float SinMulX87(float angle, float k) {
+    float result;
+    __asm {
+        fld    angle
+        fsin
+        fmul   k
+        fstp   result
+    }
+    return result;
+}
+
+float CosMulX87(float angle, float k) {
+    float result;
+    __asm {
+        fld    angle
+        fcos
+        fmul   k
+        fstp   result
+    }
+    return result;
+}
+
+// Como el original: a * k (double) + b, redondeando cada paso a float en la FPU
+float MulDoubleAddX87(float a, double k, float b) {
+    float result;
+    __asm {
+        fld    a
+        fmul   k
+        fadd   b
+        fstp   result
+    }
+    return result;
+}
+
+// Como el original: el ángulo de fpatan no se redondea antes de fsin/fcos; 1 - cos tampoco
+void AngleSinCosX87(float y, float x, float& outSin, float& outCos, float& outOneMinusCos) {
+    float ls, lc, lo;
+    __asm {
+        fld    y
+        fld    x
+        fpatan
+        fld    st(0)
+        fsin
+        fstp   ls
+        fcos
+        fld    st(0)
+        fstp   lc
+        fld1
+        fsub   st, st(1)
+        fstp   lo
+        fstp   st(0)
+    }
+    outSin = ls;
+    outCos = lc;
+    outOneMinusCos = lo;
+}
+} // namespace
 
 void CWeaponEffects::InjectHooks() {
     RH_ScopedClass(CWeaponEffects);
@@ -64,18 +124,19 @@ void CWeaponEffects::Init() {
 
 // 0x742B80
 void CWeaponEffects::Shutdown() {
-    for (auto& crossHair : gpCrossHairTexFlight) {
-        RwTextureDestroy(crossHair);
-        crossHair = nullptr;
-    }
-
+    // Como el original: primero lockonFire, después lockon y por último target256
+    RwTextureDestroy(gpCrossHairTexFlight[1]);
+    gpCrossHairTexFlight[1] = nullptr;
+    RwTextureDestroy(gpCrossHairTexFlight[0]);
+    gpCrossHairTexFlight[0] = nullptr;
     RwTextureDestroy(gpCrossHairTex);
     gpCrossHairTex = nullptr;
 }
 
 // 0x742BD0
 bool CWeaponEffects::IsLockedOn(CrossHairId id) {
-    return gCrossHair[id].m_fRotation;
+    // Como el original: _ftol2 del float y se devuelve el byte bajo (0.5f no cuenta como fijado)
+    return static_cast<uint8>(static_cast<int64>(gCrossHair[id].m_fRotation)) != 0;
 }
 
 // 0x742BF0
@@ -112,8 +173,10 @@ void CWeaponEffects::ClearCrossHairImmediately(CrossHairId id) {
 
 // 0x742CC0
 void CWeaponEffects::ClearCrossHairsImmediately() {
-    for (auto i = 0u; i < gCrossHair.size(); i++) {
-        ClearCrossHair(i);
+    // Como el original: igual que ClearCrossHairImmediately para cada mira (hora - 100 y desactivada)
+    for (auto& crossHair : gCrossHair) {
+        crossHair.m_nTimeWhenToDeactivate = static_cast<int32>(CTimer::GetTimeInMS() - 100);
+        crossHair.m_bActive = false;
     }
 }
 
@@ -174,7 +237,8 @@ void CWeaponEffects::Render() {
         }
         RwV3d screen{};
         float w{}, h{};
-        if (ch.m_bClearImmediately) {
+        // Como el original: se compara el byte con 1
+        if (*reinterpret_cast<const uint8*>(&ch.m_bClearImmediately) == 1) {
             if (CSprite::CalcScreenCoors(ch.m_vecPosn, &screen, &w, &h, true, true)) {
                 minimumHeight(w, h);
                 begin();
@@ -188,8 +252,8 @@ void CWeaponEffects::Render() {
                 RwRenderStateSet(rwRENDERSTATETEXTURERASTER, gpCrossHairTexFlight[1]->raster);
                 ch.field_20 = std::max(ch.field_20 - 20.f * spin, 0.f);
                 ch.m_fRotation = ch.field_20 == 0.f ? 1.f : 0.f;
-                flightX = std::sin(spin) * ch.field_20;
-                flightY = std::cos(spin) * ch.field_20;
+                flightX = SinMulX87(spin, ch.field_20);
+                flightY = CosMulX87(spin, ch.field_20);
                 screen.x -= flightX;
                 screen.y -= flightY;
                 for (const float scale : {0.95f, 1.05f}) {
@@ -203,8 +267,11 @@ void CWeaponEffects::Render() {
         begin();
         RwRenderStateSet(rwRENDERSTATETEXTURERASTER, nullptr);
         CSprite::CalcScreenCoors(ch.m_vecPosn, &screen, &w, &h, false, false);
-        if (screen.x > 0.f && screen.x < float(RsGlobal.maximumWidth) && screen.y > 0.f && screen.y < float(RsGlobal.maximumHeight)) {
-            ch.m_fSize = std::max(std::min(ch.m_fSize, 1.2f), 0.3f);
+        // Como el original: los bordes cuentan como dentro y un NaN también pasa
+        if (!(double(RsGlobal.maximumWidth) < double(screen.x)) && !(screen.x < 0.f) && !(double(RsGlobal.maximumHeight) < double(screen.y)) && !(screen.y < 0.f)) {
+            // Como el original: min (0x404330) y max (0x420800) devuelven el segundo valor con NaN
+            const float clampedSize = ch.m_fSize < 1.2f ? ch.m_fSize : 1.2f;
+            ch.m_fSize = clampedSize > 0.3f ? clampedSize : 0.3f;
             float inner = 5.f * ch.m_fSize, outer = 25.f * ch.m_fSize;
             screen.z = std::max(screen.z, 2.5f);
             const auto weaponRadius = player->GetWeaponRadiusOnScreen();
@@ -217,14 +284,15 @@ void CWeaponEffects::Render() {
             for (int triangle = 0; triangle < 3; ++triangle) {
                 const auto point = [&](float degrees, float radius) {
                     const auto angle = degrees * 0.01745329238474369f + ch.field_1C;
-                    return CVector2D{screen.x - std::sin(angle) * radius, screen.y - std::cos(angle) * radius};
+                    return CVector2D{screen.x - SinMulX87(angle, radius), screen.y - CosMulX87(angle, radius)};
                 };
                 const float degrees = float(triangle) * 120.f;
                 auto a = point(degrees, inner + pulse[i]);
                 auto b = point(degrees + 15.f, outer + pulse[i]);
                 auto c = point(degrees - 15.f, outer + pulse[i]);
                 CSprite::RenderOneXLUSprite_Triangle(a, b, c, screen.z, 0, 0, 0, 255, 1.f, ch.m_color.a);
-                const auto center = (a + b + c) * 0.3333333432674408f;
+                // Como el original: (c + b) + a
+                const CVector2D center{ (c.x + b.x + a.x) * 0.3333333432674408f, (c.y + b.y + a.y) * 0.3333333432674408f };
                 a = center + (a - center) * 0.75f;
                 b = center + (b - center) * 0.75f;
                 c = center + (c - center) * 0.75f;
@@ -258,20 +326,34 @@ void CWeaponEffects::Render() {
             }
         } else if (CGameLogic::IsCoopGameGoingOn()) {
             const auto& camera = TheCamera.m_mCameraMatrix;
-            const auto angleTo = [&](CVector origin) {
-                const auto d = ch.m_vecPosn - origin;
-                return std::atan2(DotProduct(d, camera.GetUp()), DotProduct(d, camera.GetRight()));
+            // Como el original: productos escalares sumados como (x + z) + y y ángulo sin redondear
+            const auto angleTo = [&](const CVector& origin, float& outSin, float& outCos, float& outOneMinusCos) {
+                const float dx = ch.m_vecPosn.x - origin.x, dy = ch.m_vecPosn.y - origin.y, dz = ch.m_vecPosn.z - origin.z;
+                const auto& up = camera.GetUp();
+                const auto& right = camera.GetRight();
+                const float u = up.x * dx + up.z * dz + up.y * dy;
+                const float r = right.x * dx + right.z * dz + right.y * dy;
+                AngleSinCosX87(u, r, outSin, outCos, outOneMinusCos);
             };
-            const auto cameraAngle = angleTo(camera.GetPosition());
-            const auto playerAngle = angleTo(player->GetPosition());
-            const float s = std::sin(playerAngle), c = std::cos(playerAngle);
-            const CVector2D base{(1.f - std::cos(cameraAngle)) * float(RsGlobal.maximumWidth) * 0.5f, (1.f - std::sin(cameraAngle)) * float(RsGlobal.maximumHeight) * 0.5f};
+            float camSin, camCos, camOneMinusCos;
+            angleTo(camera.GetPosition(), camSin, camCos, camOneMinusCos);
+            float s, c, unusedOneMinusCos;
+            angleTo(player->GetPosition(), s, c, unusedOneMinusCos);
+            CVector2D base{ camOneMinusCos * float(RsGlobal.maximumWidth) * 0.5f, (1.f - camSin) * float(RsGlobal.maximumHeight) * 0.5f };
             const float radius = StaticRef<float>(0x8D6140);
-            const CVector2D left{(c + s * 0.5f) * radius, (s - c * 0.5f) * radius};
-            const CVector2D right{(c - s * 0.5f) * radius, (s + c * 0.5f) * radius};
-            CSprite::RenderOneXLUSprite_Triangle(base, base + left, base + right, 2.5f, 0, 0, 0, 255, 1.f, 255);
-            const auto insetBase = base + CVector2D{float(double(c * radius) * 0.1), s * radius * 0.1f};
-            CSprite::RenderOneXLUSprite_Triangle(insetBase, insetBase + left * 0.8f, insetBase + right * 0.8f, 2.5f, ch.m_color.r, ch.m_color.g, ch.m_color.b, 255, 1.f, 255);
+            const float t1 = s * 0.5f + c;
+            const float t2 = c * 0.5f + s;
+            const float rs = radius * s;
+            const float rc = c * radius;
+            // Como el original: los vértices laterales se forman como (r*s + y) - r*c*0.5 y (r*c + x) - r*s*0.5
+            const CVector2D v2{ t1 * radius + base.x, (rs + base.y) - rc * 0.5f };
+            const CVector2D v3{ (rc + base.x) - rs * 0.5f, t2 * radius + base.y };
+            CSprite::RenderOneXLUSprite_Triangle(base, v2, v3, 2.5f, 0, 0, 0, 255, 1.f, 255);
+            // Como el original: desplazamiento en X con la constante double 0.1 (0x86EEE0) y en Y con 0.1f
+            const CVector2D insetBase{ MulDoubleAddX87(rc, 0.1, base.x), 0.1f * rs + base.y };
+            const CVector2D iv2{ t1 * radius * 0.8f + insetBase.x, (rs - 0.5f * rc) * 0.8f + insetBase.y };
+            const CVector2D iv3{ (rc - 0.5f * rs) * 0.8f + insetBase.x, t2 * radius * 0.8f + insetBase.y };
+            CSprite::RenderOneXLUSprite_Triangle(insetBase, iv2, iv3, 2.5f, ch.m_color.r, ch.m_color.g, ch.m_color.b, 255, 1.f, 255);
         }
         state(rwRENDERSTATEVERTEXALPHAENABLE, false);
         end();
@@ -302,7 +384,7 @@ void CWeaponEffects::Render() {
             if (CSprite::CalcScreenCoors(target->GetPosition(), &screen, &w, &h, true, true)) {
                 minimumHeight(w, h);
                 const auto elapsed = int32(now - targetSince);
-                const auto scale = std::max(3.f - float(elapsed) * 0.001953125f, 1.f);
+                const auto scale = std::max(float(3.0 - double(elapsed) * 0.001953125), 1.f); // Como el original: fild exacto y un solo redondeo
                 const auto red = uint8(std::min(elapsed / 4 + 70, 255));
                 CSprite::RenderOneXLUSprite_Rotate_Aspect(screen, {w * scale, h * scale}, red, 0, 0, red, 0.01f, spin, 255);
             }

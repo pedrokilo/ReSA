@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -56,51 +56,76 @@ CTaskInteriorBeInHouse::CTaskInteriorBeInHouse(const CTaskInteriorBeInHouse& o) 
 void CTaskInteriorBeInHouse::GetInfoForPedToUse(CPed* ped, int32* outDuration) {
     using enum eInteriorInfoType;
 
-    const auto chanceA = ped->IsGangster() ? 0 : 90,
-               chanceB = ped->IsGangster() ? 100 : 10;
+    // Como el original: tipos de banda 7..16 comparados con signo.
+    const auto pedType = (int32)ped->m_nPedType;
+    const bool isGang  = pedType >= (int32)PED_TYPE_GANG1 && pedType <= (int32)PED_TYPE_GANG10;
+    const int32 chanceA = isGang ? 0 : 90;
+    const int32 chanceB = isGang ? 100 : 10;
 
-    const auto FindInterior = [this](std::initializer_list<eInteriorInfoType> types) {
-        for (auto type : types) {
-            if (m_IntGrp->FindInteriorInfo(type, &m_IntInfo, &m_Int)) {
-                return true;
-            }
-        }
-        return false;
+    // Como el original: el EXE borra la info antes de buscar y solo escribe la duración en cada rama.
+    m_IntInfo = nullptr;
+
+    const auto Find = [this](eInteriorInfoType type) {
+        return m_IntGrp->FindInteriorInfo(type, &m_IntInfo, &m_Int);
     };
 
-    *outDuration = -1;
-
-    const auto rndChance0To100 = CGeneral::GetRandomNumberInRange(0, 100);
-    if (rndChance0To100 < chanceA) {
-        if (CGeneral::DoCoinFlip()) {
-            FindInterior({ UNK_4, UNK_3 });
+    // Como el original: (rand() & 0xFFFF) * (1/32768) * 100 truncado.
+    const int32 rnd = (int32)((float)CGeneral::GetRandomNumber() * (1.0f / 32768.0f) * 100.0f);
+    if (rnd < chanceA) {
+        if (CGeneral::GetRandomNumber() < 0x3FFF) {
+            if (!Find(UNK_3)) {
+                Find(UNK_4);
+            }
         } else {
-            FindInterior({ UNK_3, UNK_4 });
+            if (!Find(UNK_4)) {
+                Find(UNK_3);
+            }
         }
+        *outDuration = -1;
     }
     if (m_IntInfo) {
         return;
     }
-    if (rndChance0To100 < chanceA + chanceB) {
-        FindInterior({ UNK_1 });
-        if (m_IntInfo) {
-            return;
-        }
 
-        FindInterior({ UNK_5 });
-        if (m_IntInfo) {
-            *outDuration = CGeneral::GetRandomNumberInRange(5'000, 30'000);
-            return;
-        }
+    if (rnd < chanceA + chanceB) {
+        Find(UNK_1);
+        *outDuration = -1;
     }
-    if (!m_IntInfo) {
-        FindInterior({ UNK_1, UNK_2 });
+    if (m_IntInfo) {
+        return;
     }
+
+    if (rnd < chanceA + chanceB) {
+        Find(UNK_5);
+        // Como el original: la duración (y su aleatorio) se calcula aunque no se encuentre la info.
+        *outDuration = 5000 - (int32)((float)CGeneral::GetRandomNumber() * (1.0f / 32768.0f) * -25000.0f);
+    }
+    if (m_IntInfo) {
+        return;
+    }
+
+    Find(UNK_1);
+    *outDuration = -1;
+    if (m_IntInfo) {
+        return;
+    }
+
+    Find(UNK_2);
+    *outDuration = -1;
+}
+
+// 0x676200
+CTask* CTaskInteriorBeInHouse::CreateNextSubTask(CPed* ped) {
+    // Como el original: marca el flag 0x474 bit 7 del peatón y la siguiente info no es instantánea.
+    ped->bHasJustSoughtCover = true;
+    int32 duration;
+    GetInfoForPedToUse(ped, &duration);
+    return new CTaskInteriorUseInfo{ m_IntInfo, m_Int, duration, false };
 }
 
 // 0x6762B0
 CTask* CTaskInteriorBeInHouse::CreateFirstSubTask(CPed* ped) {
-    int32 duration{};
+    int32 duration;
     GetInfoForPedToUse(ped, &duration);
     return new CTaskInteriorUseInfo{ m_IntInfo, m_Int, duration, true };
 }

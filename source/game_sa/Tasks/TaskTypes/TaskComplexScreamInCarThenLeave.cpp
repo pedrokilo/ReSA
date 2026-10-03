@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -61,12 +61,15 @@ CTaskComplexScreamInCarThenLeave::~CTaskComplexScreamInCarThenLeave() {
 CTask* CTaskComplexScreamInCarThenLeave::CreateSubTask(eTaskType taskType, CPed* ped) {
     switch (taskType) {
     case TASK_COMPLEX_LEAVE_CAR_AND_FLEE: {
+        // Como el original: fuera de mision espera a que el coche frene si (rand() & 0x3FF) <= 0x200,
+        // y se decide antes de reservar la tarea
+        const bool waitForCarToSlowDown = !CTheScripts::IsPlayerOnAMission() && (CGeneral::GetRandomNumber() & 0x3FF) <= 0x200;
         return new CTaskComplexLeaveCarAndFlee{
             m_veh,
             m_veh->GetPosition(),
             TARGET_DOOR_FRONT_LEFT,
             0,
-            !CTheScripts::IsPlayerOnAMission() && !CGeneral::DoCoinFlip()
+            waitForCarToSlowDown
         };
     }
     case TASK_SIMPLE_CAR_DRIVE: {
@@ -77,8 +80,8 @@ CTask* CTaskComplexScreamInCarThenLeave::CreateSubTask(eTaskType taskType, CPed*
         ped->GetTaskManager().SetTask(CTaskComplexWander::GetWanderTaskByPedType(ped), TASK_PRIMARY_DEFAULT);
         return nullptr;
     }
-    default: {
-        NOTSA_UNREACHABLE();
+    default: { // Como el original
+        return nullptr;
     }
     }
 }
@@ -90,16 +93,14 @@ bool CTaskComplexScreamInCarThenLeave::MakeAbortable(CPed* ped, eAbortPriority p
 
 // 0x6442D0
 CTask* CTaskComplexScreamInCarThenLeave::CreateNextSubTask(CPed* ped) {
-    return CreateSubTask([this, ped] {
-        switch (m_pSubTask->GetTaskType()) {
-        case TASK_COMPLEX_LEAVE_CAR_AND_FLEE:
-            return TASK_FINISHED;
-        case TASK_SIMPLE_CAR_DRIVE:
-            return TASK_COMPLEX_LEAVE_CAR_AND_FLEE;
-        default:
-            NOTSA_UNREACHABLE();
-        }
-    }(), ped);
+    switch (m_pSubTask->GetTaskType()) {
+    case TASK_COMPLEX_LEAVE_CAR_AND_FLEE:
+        return CreateSubTask(TASK_FINISHED, ped);
+    case TASK_SIMPLE_CAR_DRIVE:
+        return CreateSubTask(TASK_COMPLEX_LEAVE_CAR_AND_FLEE, ped);
+    default: // Como el original
+        return nullptr;
+    }
 }
 
 // 0x644320
@@ -114,15 +115,19 @@ CTask* CTaskComplexScreamInCarThenLeave::CreateFirstSubTask(CPed* ped) {
 
 // 0x644360
 CTask* CTaskComplexScreamInCarThenLeave::ControlSubTask(CPed* ped) {
-    if (m_pSubTask->GetTaskType() == TASK_SIMPLE_CAR_DRIVE) { // Moved this here
-        if (m_veh && m_timer.IsOutOfTime()) {
-            if (!m_veh->m_pDriver || m_veh->CanPedStepOutCar() || m_veh->CanPedJumpOutCar(ped)) {
-                return CreateSubTask(TASK_COMPLEX_LEAVE_CAR_AND_FLEE, ped);
-            }
-            ped->Say(CTX_GLOBAL_PAIN_PANIC);
-        } else {
-            ped->Say(CTX_GLOBAL_TRAPPED);
+    // Como el original: primero el temporizador (reanuda si estaba parado), despues el tipo de la subtarea y el vehiculo
+    if (m_timer.IsOutOfTime() && m_pSubTask->GetTaskType() == TASK_SIMPLE_CAR_DRIVE && m_veh) {
+        if (!m_veh->m_pDriver || m_veh->CanPedStepOutCar(false) || m_veh->CanPedJumpOutCar(ped)) {
+            return CreateSubTask(TASK_COMPLEX_LEAVE_CAR_AND_FLEE, ped);
         }
+        const auto subTask = m_pSubTask;
+        ped->Say(CTX_GLOBAL_PAIN_PANIC);
+        return subTask;
+    }
+    if (m_pSubTask->GetTaskType() == TASK_SIMPLE_CAR_DRIVE) {
+        const auto subTask = m_pSubTask;
+        ped->Say(CTX_GLOBAL_TRAPPED);
+        return subTask;
     }
     return m_pSubTask;
 }

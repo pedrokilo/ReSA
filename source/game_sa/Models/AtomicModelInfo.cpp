@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -91,9 +91,9 @@ void CAtomicModelInfo::DeleteRwObject()
     m_pRwObject = nullptr;
 
     CBaseModelInfo::RemoveTexDictionaryRef();
-    auto iAnimIndex = GetAnimFileIndex();
-    if (iAnimIndex != -1)
-        CAnimManager::RemoveAnimBlockRef(iAnimIndex);
+    // Como el original: consulta GetAnimFileIndex por la vtable dos veces.
+    if (GetAnimFileIndex() != -1)
+        CAnimManager::RemoveAnimBlockRef(GetAnimFileIndex());
 }
 
 /**
@@ -151,9 +151,9 @@ void CAtomicModelInfo::SetAtomic(RpAtomic* atomic)
     m_n2dfxCount += uiNewEffectsCount;
 
     CBaseModelInfo::AddTexDictionaryRef();
-    auto iAnimIndex = GetAnimFileIndex();
-    if (iAnimIndex != -1)
-        CAnimManager::AddAnimBlockRef(iAnimIndex);
+    // Como el original: consulta GetAnimFileIndex por la vtable dos veces.
+    if (GetAnimFileIndex() != -1)
+        CAnimManager::AddAnimBlockRef(GetAnimFileIndex());
 
     if (CCustomBuildingRenderer::IsCBPCPipelineAttached(GetRpAtomic()))
         CCustomBuildingRenderer::AtomicSetup(GetRpAtomic());
@@ -169,7 +169,8 @@ void CAtomicModelInfo::SetAtomic(RpAtomic* atomic)
 // Aplica el multiplicador LOD de la cámara antes de decidir si la plantilla debe renderizarse.
 RpAtomic* CAtomicModelInfo::GetAtomicFromDistance(float distance)
 {
-    if (TheCamera.m_fLODDistMultiplier * m_fDrawDistance <= distance)
+    // Como el original: fcomp + test ah,41h; un NaN también devuelve nulo.
+    if (!(TheCamera.m_fLODDistMultiplier * m_fDrawDistance > distance))
         return nullptr;
 
     return GetRpAtomic();
@@ -185,6 +186,10 @@ void CAtomicModelInfo::SetupVehicleUpgradeFlags(const char* name)
 {
     if (bUseCommonVehicleDictionary)
         return;
+
+    // Como el original: limpia el byte alto de los flags (bUsesVehDummy, CarMod...) antes de buscar,
+    // aunque ningún prefijo coincida.
+    m_nFlags &= 0xFF;
 
     const tVehicleComponentFlag aDummyComps[] = {
         { "chss_",   0x1  },
@@ -204,7 +209,7 @@ void CAtomicModelInfo::SetupVehicleUpgradeFlags(const char* name)
         { "bntr_",     0x2  },
         { "spl_",      0x6  },
         { "wg_l_",     0x8  },
-        { "wg_r",      0x9  },
+        { "wg_r_",     0x9  }, // Como el original: "wg_r_" (0x85BB58)
         { "fbb_",      0xA  },
         { "bbb_",      0xB  },
         { "lgt_",      0xC  },
@@ -261,14 +266,15 @@ void SetAtomicModelInfoFlags(CAtomicModelInfo* modelInfo, uint32 dwFlags)
     if (flagsStruct.bIsPalm)
         modelInfo->nSpecialType = eModelInfoSpecialType::PALM;
 
-    if (flagsStruct.bIsUnknown)
-        modelInfo->nSpecialType = eModelInfoSpecialType::UNKNOWN;
-
+    // Como el original: etiqueta, estatua rompible y por último el tipo desconocido (gana si hay varios).
     if (flagsStruct.bIsTag)
         modelInfo->nSpecialType = eModelInfoSpecialType::TAG;
 
     if (flagsStruct.bisBreakableStatue)
         modelInfo->nSpecialType = eModelInfoSpecialType::BREAKABLE_STATUE;
+
+    if (flagsStruct.bIsUnknown)
+        modelInfo->nSpecialType = eModelInfoSpecialType::UNKNOWN;
 
 
     modelInfo->bIsRoad = flagsStruct.bIsRoad;

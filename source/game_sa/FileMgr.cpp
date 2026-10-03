@@ -119,21 +119,21 @@ char* InitUserDirectories()
 
     std::string temp = UnicodeToUTF8(gtaUserDirWide.data());
     if (temp.length() >= PATH_SIZE)
-        strcpy_s(gta_user_dir_path, ".");
+        strcpy(gta_user_dir_path, ".");
     else
-        strcpy_s(gta_user_dir_path, temp.c_str());
+        strcpy(gta_user_dir_path, temp.c_str()); // Como el original: strcpy (strcpy_s rellena con 0xFE en depuración)
 
     temp = UnicodeToUTF8(userGalleryDirWide.data());
     if (temp.length() >= PATH_SIZE)
-        strcpy_s(user_gallery_dir_path, ".\\Gallery");
+        strcpy(user_gallery_dir_path, ".\\Gallery");
     else
-        strcpy_s(user_gallery_dir_path, temp.c_str());
+        strcpy(user_gallery_dir_path, temp.c_str());
 
     temp = UnicodeToUTF8(userTracksDirWide.data());
     if (temp.length() >= PATH_SIZE)
-        strcpy_s(user_tracks_dir_path, ".\\User Tracks");
+        strcpy(user_tracks_dir_path, ".\\User Tracks");
     else
-        strcpy_s(user_tracks_dir_path, temp.c_str());
+        strcpy(user_tracks_dir_path, temp.c_str());
 
     return gta_user_dir_path;
 }
@@ -141,7 +141,7 @@ char* InitUserDirectories()
 // 0x5386f0
 void CFileMgr::Initialise()
 {
-    memset(ms_rootDirName, 0, DIRNAMELENGTH);
+    // Como el original: no limpia ms_rootDirName; solo escribe la ruta (con su terminador) y añade "\\"
 
     if (WindowsCharset != CP_UTF8)
     {
@@ -164,32 +164,33 @@ void CFileMgr::Initialise()
     else
         VERIFY(_getcwd(ms_rootDirName, DIRNAMELENGTH));
 
-    ms_rootDirName[strlen(ms_rootDirName)] = '\\';
+    // Como el original: strcat(ms_rootDirName, "\\") escribe la barra y el terminador
+    strcat(ms_rootDirName, "\\");
 }
 
 // 0x538730
 int32 CFileMgr::ChangeDir(const char *path)
 {
-    memset(ms_dirName, 0, DIRNAMELENGTH);
-
+    // Como el original: no limpia ms_dirName; una ruta relativa se añade a la carpeta que ya tenga
     if (*path == '\\')
     {
-        memcpy(ms_dirName, ms_rootDirName, strlen(ms_rootDirName));
+        strcpy(ms_dirName, ms_rootDirName);
         path++;
     }
 
     if (*path)
     {
+        // NOTSA: el EXE no comprueba la longitud y desborda sobre ms_rootDirName
         if ((strlen(ms_dirName) + strlen(path) + 1) > DIRNAMELENGTH)
         {
             errno = EINVAL;
             return -1;
         }
-        strcat_s(ms_dirName, path);
+        strcat(ms_dirName, path); // Como el original: strcat (strcat_s rellena con 0xFE en depuración)
 
-        char *lastPos = strchr(ms_dirName, 0) - 1;
-        if (*lastPos != '\\')
-            lastPos[1] = '\\';
+        // Como el original: mira el último carácter de la ruta pasada y añade "\\" con su terminador
+        if (path[strlen(path) - 1] != '\\')
+            strcat(ms_dirName, "\\");
     }
 
     int32 r;
@@ -207,22 +208,23 @@ int32 CFileMgr::ChangeDir(const char *path)
 // 0x5387D0
 int32 CFileMgr::SetDir(const char *path)
 {
-    memset(ms_dirName, 0, DIRNAMELENGTH);
-    memcpy(ms_dirName, ms_rootDirName, strlen(ms_rootDirName));
+    // Como el original: strcpy de la raíz, sin limpiar el resto de ms_dirName
+    strcpy(ms_dirName, ms_rootDirName);
 
     if (*path)
     {
+        // NOTSA: el EXE no comprueba la longitud y desborda sobre ms_rootDirName
         const auto destSizeAfterConcat = strlen(ms_dirName) + strlen(path) + 1;
         if (destSizeAfterConcat > DIRNAMELENGTH)
         {
             errno = EINVAL;
             return -1;
         }
-        strcat_s(ms_dirName, destSizeAfterConcat, path);
+        strcat(ms_dirName, path);
 
-        char *lastPos = strchr(ms_dirName, 0) - 1;
-        if (*lastPos != '\\')
-            lastPos[1] = '\\';
+        // Como el original: mira el último carácter de la ruta pasada y añade "\\" con su terminador
+        if (path[strlen(path) - 1] != '\\')
+            strcat(ms_dirName, "\\");
     }
 
     int32 r;
@@ -241,13 +243,14 @@ int32 CFileMgr::SetDir(const char *path)
 int32 CFileMgr::SetDirMyDocuments()
 {
     char *userDir = InitUserDirectories();
+    // NOTSA: el EXE no comprueba la longitud
     if (strlen(userDir) >= DIRNAMELENGTH)
     {
         errno = ENOMEM;
         return -1;
     }
 
-    strcpy_s(ms_dirName, userDir);
+    strcpy(ms_dirName, userDir); // Como el original: strcpy (strcpy_s rellena el resto con 0xFE en depuración)
 
     int32 r;
     if (WindowsCharset != CP_UTF8)
@@ -268,30 +271,38 @@ size_t CFileMgr::LoadFile(const char *path, uint8 *buf, size_t size, const char 
     if (f == nullptr)
         return -1;
 
-    // MikuAuahDark: The original implementation actually ignore
-    // "size" parameter and adds NUL terminator at the end of the
-    // buffer, but that behavior causes buffer overflow
-    size_t readed = fread(buf, 1, size, f);
+    // Como el original: ignora `size`, lee en bloques de 0x4000 hasta un bloque incompleto y termina el búfer con
+    // un 0 (los llamadores del EXE reservan sitio para él). Un resultado negativo de fread (no ocurre) devuelve -1
+    // sin cerrar el fichero.
+    UNUSED(size);
+    size_t total = 0;
+    int32  readed;
+    do {
+        readed = (int32)fread(buf + total, 1, 0x4000, f);
+        if (readed < 0)
+            return -1;
+        total += readed;
+    } while (readed == 0x4000);
+    buf[total] = 0;
     fclose(f);
 
-    return readed;
+    return total;
 }
 
 // 0x538900
 FILESTREAM CFileMgr::OpenFile(const char *path, const char *mode) {
     ZoneScoped;
 
-    FILESTREAM fs{nullptr};
+    // Como el original: fopen (compartido, _SH_DENYNO); fopen_s abre en exclusiva y falla al abrir dos veces
     if (WindowsCharset == CP_UTF8) {
-        fopen_s(&fs, path, mode);
+        return fopen(path, mode);
     } else {
         // MikuAuahDark: Let's improve it to allow opening non-ANSI names
         // Convert to wide char
         std::wstring pathWide = UTF8ToUnicode(path);
         std::wstring modeWide = UTF8ToUnicode(mode);
-        _wfopen_s(&fs, pathWide.c_str(), modeWide.c_str());
+        return _wfopen(pathWide.c_str(), modeWide.c_str());
     }
-    return fs;
 }
 
 // 0x538910
@@ -372,9 +383,11 @@ int32 CFileMgr::Tell(FILESTREAM file)
 }
 
 // 0x538a50
-bool CFileMgr::GetErrorReadWrite(FILESTREAM file)
+int32 CFileMgr::GetErrorReadWrite(FILESTREAM file)
 {
-    return (bool) ferror(file);
+    // Como el original: devuelve file->_flag & _IOERR (0x20 en el CRT del EXE) en EAX completo; los llamadores del
+    // EXE hacen test eax,eax (un bool deja basura en los bytes altos)
+    return ferror(file) ? 0x20 : 0;
 }
 
 // notsa

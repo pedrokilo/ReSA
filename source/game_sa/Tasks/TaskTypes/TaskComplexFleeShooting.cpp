@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -51,7 +51,8 @@ CTaskComplexFleeShooting::CTaskComplexFleeShooting(
     m_shootRecoverTime{shootRecoverTime},
     m_shootTime{shootTime}
 {
-    /* Entity ref already registered in SmartFlee */
+    // Como el original: la entidad se registra otra vez (ya la registra SmartFlee; el segundo registro no hace nada)
+    CEntity::SafeRegisterRef(m_fleeFrom);
 }
 
 CTaskComplexFleeShooting::CTaskComplexFleeShooting(const CTaskComplexFleeShooting& o) :
@@ -61,7 +62,8 @@ CTaskComplexFleeShooting::CTaskComplexFleeShooting(const CTaskComplexFleeShootin
 
 // 0x65C9A0
 CTaskComplexFleeShooting::~CTaskComplexFleeShooting() {
-    /* Entity ref already cleaned up in SmartFlee */
+    // Como el original: la entidad se limpia aquí y otra vez en el destructor de SmartFlee
+    CEntity::SafeCleanUpRef(m_fleeFrom);
 }
 
 // 0x65CA00
@@ -81,10 +83,14 @@ CTask* CTaskComplexFleeShooting::CreateFirstSubTask(CPed* ped) {
 // 0x65CA90
 CTask* CTaskComplexFleeShooting::ControlSubTask(CPed* ped) {
     if (const auto attack = ped->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_ATTACK)) {
+        m_moveState = PEDMOVE_RUN; // Como el original: con tarea de ataque se huye corriendo
         if (const auto useGun = notsa::dyn_cast_if_present<CTaskSimpleUseGun>(attack)) {
             if (m_gunTimer.IsOutOfTime()) {
                 if (useGun->GetLastGunCommand() == eGunCommand::FIREBURST) {
-                    m_gunTimer.Start(m_shootRecoverTime);
+                    // Como el original: el temporizador se arranca sin comprobar el periodo
+                    m_gunTimer.m_nStartTime = CTimer::GetTimeInMS();
+                    m_gunTimer.m_nInterval = m_shootRecoverTime;
+                    m_gunTimer.m_bStarted = true;
 
                     useGun->ControlGun(ped, m_fleeFrom, eGunCommand::END_LEISURE);
                 }
@@ -95,8 +101,13 @@ CTask* CTaskComplexFleeShooting::ControlSubTask(CPed* ped) {
     } else {
         m_moveState = PEDMOVE_SPRINT;
         if (m_gunTimer.IsOutOfTime()) {
-            if (ped->GetActiveWeapon().GetWeaponInfo(ped).flags.bAimWithArm) {
-                m_gunTimer.Start(m_shootTime);
+            // Como el original: arma activa con índice con signo y CPed::GetWeaponSkill() sin argumentos
+            const auto weaponType = ped->m_aWeapons.data()[(int8)ped->m_nActiveWeaponSlot].m_Type;
+            if (CWeaponInfo::GetWeaponInfo(weaponType, ped->GetWeaponSkill())->flags.bAimWithArm) {
+                // Como el original: el temporizador se arranca sin comprobar el periodo
+                m_gunTimer.m_nStartTime = CTimer::GetTimeInMS();
+                m_gunTimer.m_nInterval = m_shootTime;
+                m_gunTimer.m_bStarted = true;
 
                 ped->GetTaskManager().SetTaskSecondary(
                     new CTaskSimpleUseGun{ m_fleeFrom, {}, eGunCommand::FIREBURST, 3 },

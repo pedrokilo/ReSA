@@ -24,7 +24,10 @@ public:
 
     void Init();
 
-    void CalcTheta(float angle);
+    //! @addr 0x4D00E0
+    //! Como el original: función libre (cdecl) que recibe los dos quaternions y devuelve theta y 1/sin(theta)
+    //! por referencia; no es un miembro con el coseno como argumento.
+    static void CalcTheta(const CQuaternion& prev, const CQuaternion& curr, float& theta, float& invSinTheta);
 
     //! @addr 0x4D0190
     void CalcDeltas();
@@ -40,7 +43,7 @@ public:
     void GetCurrentTranslationCompressed(CVector& trans, float weight) { return I_GetCurrentTranslation<true>(trans, weight); }
 
 
-    //! @addr 0x4CFD90 
+    //! @addr 0x4CFD90
     void GetEndTranslation(CVector& trans, float weight) { return I_GetEndTranslation<false>(trans, weight); }
 
     //! @addr 0x4D0000
@@ -51,7 +54,7 @@ public:
     bool NextKeyFrame() { return I_NextKeyFrame<false>(); }
 
     //! @addr 0x4D0570
-    bool NextKeyFrameCompressed() { return I_NextKeyFrame<true>(); } 
+    bool NextKeyFrameCompressed() { return I_NextKeyFrame<true>(); }
 
     //! @addr 0x4CFB90
     bool NextKeyFrameNoCalc();
@@ -71,55 +74,124 @@ public:
     auto GetSeq() const { return m_Seq; }
     auto GetRootKF() const { return &m_Seq[0]; }
 
+    // Como el original: acceso crudo a los keyframes. El EXE no mira el flag de compresión (el formato lo decide
+    // la función llamada), calcula el paso solo con el bit de traslación y usa índices con signo (movsx).
+    // Los comprimidos se expanden con las constantes del EXE: 1/4096 (rotación), 1/1024 (traslación) y
+    // 0x3C888889 (tiempo: multiplica por 1/60 en vez de dividir por 60).
+    template<bool IsCompressed>
+    static uint8* KeyFrameAt(const CAnimBlendSequence* seq, int32 n) {
+        const int32 stride = IsCompressed
+            ? (seq->m_bHasTranslation ? 16 : 10)
+            : (seq->m_bHasTranslation ? 32 : 20);
+        return static_cast<uint8*>(seq->m_Frames) + n * stride;
+    }
+
+    template<bool IsCompressed>
+    static float KeyFrameDeltaTime(const uint8* kf) {
+        if constexpr (IsCompressed) {
+            return static_cast<float>(*reinterpret_cast<const int16*>(kf + 8)) * std::bit_cast<float>(0x3C888889u);
+        } else {
+            return *reinterpret_cast<const float*>(kf + 16);
+        }
+    }
+
+    template<bool IsCompressed>
+    static CQuaternion KeyFrameRot(const uint8* kf) {
+        if constexpr (IsCompressed) {
+            const auto* r = reinterpret_cast<const int16*>(kf);
+            return CQuaternion{
+                static_cast<float>(r[0]) * 0.000244140625f,
+                static_cast<float>(r[1]) * 0.000244140625f,
+                static_cast<float>(r[2]) * 0.000244140625f,
+                static_cast<float>(r[3]) * 0.000244140625f
+            };
+        } else {
+            const auto* r = reinterpret_cast<const float*>(kf);
+            return CQuaternion{ r[0], r[1], r[2], r[3] };
+        }
+    }
+
+    template<bool IsCompressed>
+    static CVector KeyFrameTrans(const uint8* kf) {
+        if constexpr (IsCompressed) {
+            const auto* v = reinterpret_cast<const int16*>(kf + 10);
+            return CVector{
+                static_cast<float>(v[0]) * 0.0009765625f,
+                static_cast<float>(v[1]) * 0.0009765625f,
+                static_cast<float>(v[2]) * 0.0009765625f
+            };
+        } else {
+            const auto* v = reinterpret_cast<const float*>(kf + 20);
+            return CVector{ v[0], v[1], v[2] };
+        }
+    }
+
     //! @notsa
     //! @brief Devuelve el progreso normalizado dentro del intervalo actual.
     template<bool IsCompressed>
     NOTSA_FORCEINLINE float GetTimeRemainingProgress() const {
-        const auto kf = m_Seq->GetKeyFrame<IsCompressed>(m_KFCurr);
-        return kf->DeltaTime == 0.0f
+        // Como el original: t = (dt - restante) / dt, o 0 si dt == 0 (en comprimido equivale a comparar el int16).
+        const float dt = KeyFrameDeltaTime<IsCompressed>(KeyFrameAt<IsCompressed>(m_Seq, m_KFCurr));
+        return dt == 0.0f
             ? 0.0f
-            : (kf->DeltaTime - m_KFRemainingTime) / kf->DeltaTime;
+            : (dt - m_KFRemainingTime) / dt;
+    }
+
+    // Como el original: (actual - anterior) * t + anterior, por componente (no to*t + from*(1-t)).
+    static CVector LerpTranslation(const CVector& prev, const CVector& curr, float t) {
+        const float dx = curr.x - prev.x;
+        const float dy = curr.y - prev.y;
+        const float dz = curr.z - prev.z;
+        return CVector{ dx * t + prev.x, dy * t + prev.y, dz * t + prev.z };
     }
 
     template<bool IsCompressed>
     NOTSA_FORCEINLINE void I_GetCurrentTranslation(CVector& trans, float weight) {
         trans = CVector{0.0f, 0.0f, 0.0f};
 
-        if (!m_Seq->m_bHasTranslation) { // Moved up here
-            return;
-        }
-
         const auto blend = m_BlendAssoc->GetBlendAmount(weight);
         if (blend <= 0.0f) {
             return;
         }
 
-        const auto kfA = m_Seq->GetKeyFrame<IsCompressed>(m_KFCurr),
-                   kfB = m_Seq->GetKeyFrame<IsCompressed>(m_KFPrev);
-        trans = lerp<CVector>(kfB->Trans, kfA->Trans, GetTimeRemainingProgress<IsCompressed>()) * blend;
+        const float t = GetTimeRemainingProgress<IsCompressed>();
+        if (!m_Seq->m_bHasTranslation) {
+            return;
+        }
+
+        const auto* kfCurr = KeyFrameAt<IsCompressed>(m_Seq, m_KFCurr);
+        const auto* kfPrev = KeyFrameAt<IsCompressed>(m_Seq, m_KFPrev);
+        trans = LerpTranslation(KeyFrameTrans<IsCompressed>(kfPrev), KeyFrameTrans<IsCompressed>(kfCurr), t);
+        trans.x *= blend;
+        trans.y *= blend;
+        trans.z *= blend;
     }
 
     template<bool IsCompressed>
     NOTSA_FORCEINLINE void I_GetEndTranslation(CVector& trans, float weight) {
         trans = CVector{ 0.0f, 0.0f, 0.0f };
 
-        if (!m_Seq->m_bHasTranslation) { // Moved up here
-            return;
-        }
-
         const auto blend = m_BlendAssoc->GetBlendAmount(weight);
         if (blend <= 0.0f) {
             return;
         }
 
-        const auto kf = m_Seq->GetKeyFrame<IsCompressed>(m_Seq->m_FramesNum - 1);
-        trans = kf->Trans;
-        trans *= blend;
+        if (!m_Seq->m_bHasTranslation) {
+            return;
+        }
+
+        // Como el original: último frame con el contador con signo, sin comprobar que haya frames.
+        const auto end = KeyFrameTrans<IsCompressed>(KeyFrameAt<IsCompressed>(m_Seq, static_cast<int16>(m_Seq->m_FramesNum) - 1));
+        trans.x = end.x * blend;
+        trans.y = end.y * blend;
+        trans.z = end.z * blend;
     }
 
     template<bool IsCompressed>
     NOTSA_FORCEINLINE bool I_NextKeyFrame() {
-        if (m_Seq->m_FramesNum <= 1) {
+        // Como el original: contador con signo (movsx).
+        const int32 numFrames = static_cast<int16>(m_Seq->m_FramesNum);
+        if (numFrames <= 1) {
             return false;
         }
 
@@ -132,7 +204,7 @@ public:
         while (m_KFRemainingTime <= 0.0f) {
             m_KFCurr++;
 
-            if (m_KFCurr >= m_Seq->m_FramesNum) {
+            if (m_KFCurr >= numFrames) {
                 // reached end of animation
                 if (!m_BlendAssoc->IsLooped()) {
                     m_KFCurr--;
@@ -143,12 +215,15 @@ public:
                 m_KFCurr = 0;
             }
 
-            m_KFRemainingTime += m_Seq->GetKeyFrame<IsCompressed>(m_KFCurr)->DeltaTime;
+            m_KFRemainingTime = KeyFrameDeltaTime<IsCompressed>(KeyFrameAt<IsCompressed>(m_Seq, m_KFCurr)) + m_KFRemainingTime;
         }
 
-        m_KFPrev = m_KFCurr == 0
-            ? m_Seq->m_FramesNum - 1 // Previous frame was the last in the sequence
-            : m_KFCurr - 1;
+        // Como el original: anterior = actual - 1 en 16 bits y, si queda negativo, se le suma el número de frames
+        // (no solo cuando el actual es 0).
+        m_KFPrev = static_cast<int16>(m_KFCurr - 1);
+        if (m_KFPrev < 0) {
+            m_KFPrev = static_cast<int16>(m_KFPrev + numFrames);
+        }
 
         if constexpr (IsCompressed) {
             CalcDeltasCompressed();
@@ -172,26 +247,30 @@ public:
                 looped = I_NextKeyFrame<IsCompressed>();
             }
         }
-        
+
         const auto blend = m_BlendAssoc->GetBlendAmount(weight);
         if (blend > 0.0f) {
-            const auto kfA = m_Seq->GetKeyFrame<IsCompressed>(m_KFCurr);
-            const auto kfB = m_Seq->GetKeyFrame<IsCompressed>(m_KFPrev);
+            const auto* kfCurr = KeyFrameAt<IsCompressed>(m_Seq, m_KFCurr);
+            const auto* kfPrev = KeyFrameAt<IsCompressed>(m_Seq, m_KFPrev);
 
             // Calculate interpolation t
             const float t = GetTimeRemainingProgress<IsCompressed>();
 
-            // Sanity check
-            assert(m_Seq->m_bHasTranslation || m_Seq->m_bHasRotation);
+            // Como el original: no exige traslación ni rotación (antes había un assert).
 
             // Update translation
             if (m_Seq->m_bHasTranslation) {
-                trans = lerp<CVector>(kfB->Trans, kfA->Trans, t) * blend;
+                trans = LerpTranslation(KeyFrameTrans<IsCompressed>(kfPrev), KeyFrameTrans<IsCompressed>(kfCurr), t);
+                trans.x *= blend;
+                trans.y *= blend;
+                trans.z *= blend;
             }
 
-            // Update rotation
+            // Update rotation (Slerp llama al del EXE, 0x59C300)
             if (m_Seq->m_bHasRotation) {
-                rot.Slerp(kfB->Rot, kfA->Rot, m_Theta, m_InvSinTheta, t);
+                const CQuaternion rotPrev = KeyFrameRot<IsCompressed>(kfPrev);
+                const CQuaternion rotCurr = KeyFrameRot<IsCompressed>(kfCurr);
+                rot.Slerp(rotPrev, rotCurr, m_Theta, m_InvSinTheta, t);
                 rot *= blend;
             }
         }

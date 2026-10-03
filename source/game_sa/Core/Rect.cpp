@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -76,20 +76,22 @@ inline void CRect::Resize(float resizeX, float resizeY)
 // Comprueba inclusión usando límites cerrados: los puntos sobre el borde cuentan.
 inline bool CRect::IsPointInside(const CVector2D& point) const
 {
-    return point.x >= left
-        && point.x <= right
-        && point.y >= bottom
-        && point.y <= top;
+    // Como el original: comparaciones negadas, un NaN cuenta como dentro.
+    return !(point.x < left)
+        && !(point.x > right)
+        && !(point.y < bottom)
+        && !(point.y > top);
 }
 
 // 0x4042D0
 // Igual que IsPointInside(), pero extiende virtualmente cada borde por tolerance.
 inline bool CRect::IsPointInside(const CVector2D& point, float tolerance) const
 {
-    return left   - tolerance <= point.x
-        && right  + tolerance >= point.x
-        && bottom - tolerance <= point.y
-        && top    + tolerance >= point.y;
+    // Como el original: comparaciones negadas, un NaN cuenta como dentro.
+    return !(left   - tolerance > point.x)
+        && !(tolerance + right  < point.x)
+        && !(bottom - tolerance > point.y)
+        && !(tolerance + top    < point.y);
 }
 
 // Comprueba si existe intersección entre ambos rangos según la convención de ejes

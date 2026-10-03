@@ -67,7 +67,13 @@ public:
 public:
     static void InjectHooks();
 
-    void SetPosn(CVector posn) { m_vecPos = posn; } // 0x454960
+    // 0x454960 - Como el original: cada componente por 8 truncado con _ftol2 (64 bits) y guardado como int16
+    void SetPosn(CVector posn) {
+        auto* raw = reinterpret_cast<int16*>(&m_vecPos);
+        raw[0] = (int16)(int64)(posn.x * 8.0f);
+        raw[1] = (int16)(int64)(posn.y * 8.0f);
+        raw[2] = (int16)(int64)(posn.z * 8.0f);
+    }
     [[nodiscard]] CVector GetPosn() const { return m_vecPos; } // 0x4549A0
     [[nodiscard]] CVector2D GetPosn2D() const { return GetPosn(); };    // NOTSA
     [[nodiscard]] float GetXCoord() const { return m_vecPos.x; } // 0x4549F0

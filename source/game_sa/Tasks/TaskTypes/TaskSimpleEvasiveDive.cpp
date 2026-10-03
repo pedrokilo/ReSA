@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -37,13 +37,17 @@ void CTaskSimpleEvasiveDive::InjectHooks() {
 }
 
 // 0x653560
-CTaskSimpleEvasiveDive::CTaskSimpleEvasiveDive(CVehicle* vehicle) :
-    m_EvadeVeh{vehicle}
-{
+CTaskSimpleEvasiveDive::CTaskSimpleEvasiveDive(CVehicle* vehicle) {
+    m_EvadeVeh  = vehicle;
+    m_bFinished = false;
+    m_DiveAnim  = nullptr;
+    CEntity::SafeRegisterRef(m_EvadeVeh);
 }
 
 // 0x6535D0
 CTaskSimpleEvasiveDive::~CTaskSimpleEvasiveDive() {
+    // Como el original: la referencia al vehiculo se limpia antes de quitar el callback de la animacion
+    CEntity::SafeCleanUpRef(m_EvadeVeh);
     if (m_DiveAnim) {
         m_DiveAnim->SetFinishCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
     }
@@ -89,16 +93,16 @@ void CTaskSimpleEvasiveDive::StartAnim(CPed* ped) {
 
     if (m_EvadeVeh && ped->IsCop()) {
         if (m_EvadeVeh->m_pDriver && m_EvadeVeh->m_pDriver->IsPlayer()) {
-            const auto wanted = FindPlayerWanted();
-            wanted->RegisterCrime_Immediately(CRIME_VEHICLE_DAMAGE, ped->GetPosition(), (uint32)ped, false);
-            wanted->RegisterCrime_Immediately(CRIME_SPEEDING, ped->GetPosition(), (uint32)ped, false);
+            // Como el original: FindPlayerWanted se llama antes de cada delito
+            FindPlayerWanted()->RegisterCrime_Immediately(CRIME_VEHICLE_DAMAGE, ped->GetPosition(), (uint32)ped, false);
+            FindPlayerWanted()->RegisterCrime_Immediately(CRIME_SPEEDING, ped->GetPosition(), (uint32)ped, false);
         }
     }
 }
 
 // 0x6536A0
 void CTaskSimpleEvasiveDive::FinishAnimEvasiveDiveCB(CAnimBlendAssociation* assoc, void* data) {
-    const auto self = notsa::cast<CTaskSimpleEvasiveDive>(static_cast<CTask*>(data));
+    const auto self = static_cast<CTaskSimpleEvasiveDive*>(data); // Como el original: sin comprobar el tipo
 
     self->m_bFinished = true;
     self->m_DiveAnim  = nullptr;

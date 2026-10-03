@@ -17,7 +17,7 @@ public:
 
     CTaskComplexEvasiveDiveAndGetUp(CVehicle* evadeVeh, int32 unconsciousTime, const CVector& diveDir, bool bAchieveHeadingFirst);
     CTaskComplexEvasiveDiveAndGetUp(const CTaskComplexEvasiveDiveAndGetUp&);
-    ~CTaskComplexEvasiveDiveAndGetUp() override = default;
+    ~CTaskComplexEvasiveDiveAndGetUp() override;
 
     CTask* CreateSubTask(eTaskType taskType);
 

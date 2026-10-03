@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -62,6 +62,7 @@ CTaskSimpleJump::~CTaskSimpleJump() {
 };// 0x67C510
 CTask* CTaskSimpleJump::Clone() const {
     auto newTask = new CTaskSimpleJump(m_bCanClimb);
+    newTask->m_bCanClimb = this->m_bCanClimb; // Como el original: se copia el byte crudo (el parametro bool lo normaliza)
     newTask->m_bHighJump = this->m_bHighJump;
     return newTask;
 }
@@ -98,10 +99,21 @@ bool CTaskSimpleJump::ProcessPed(CPed* ped) {
     if (!m_bIsJumpBlocked) {
         Launch(ped);
     } else if (ped->IsPlayer()) {
-        GetEventGlobalGroup()->Add(CEventSoundQuiet{ ped, 45.f, (uint32)(-1), CVector{}});
+        // Como el original: el evento vive en la pila y se pasa su direccion (sin copia)
+        CEventSoundQuiet event{ ped, 45.f, (uint32)(-1), CVector{} };
+        GetEventGlobalGroup()->Add(&event, false);
     }
 
     return true;
+}
+
+// 0x59C890 con su orden de sumas (CMatrix * CVector)
+static CVector JumpMatrixTimesPoint59C890(const CMatrix& m, const CVector& v) {
+    return {
+        ((m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x) + m.GetPosition().x,
+        ((m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y) + m.GetPosition().y,
+        ((m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y) + m.GetPosition().z,
+    };
 }
 
 // 0x67D590
@@ -111,14 +123,22 @@ bool CTaskSimpleJump::CheckIfJumpBlocked(CPed* ped) {
 
     auto pedColData = CModelInfo::GetModelInfo(ped->m_nModelIndex)->m_pColModel->m_pColData;
 
-    CVector posn = ped->GetPosition() + ped->GetForward() * 0.25F + CVector(0.0F, 0.0F, pedColData->m_pSpheres[2].m_vecCenter.z + 0.25F);
+    // Como el original: la matriz se lee sin comprobar y la z se suma como ((fwd.z*0,25 + pos.z) + centro.z) + 0,25
+    const CMatrix& mat = *ped->m_matrix;
+    const CVector& pos = ped->GetPosition();
+    const CVector posn{
+        mat.GetForward().x * 0.25F + pos.x,
+        mat.GetForward().y * 0.25F + pos.y,
+        ((mat.GetForward().z * 0.25F + pos.z) + pedColData->m_pSpheres[2].m_vecCenter.z) + 0.25F,
+    };
 
-    m_bClimbJump = CWorld::TestSphereAgainstWorld(posn, 0.25F, 0, true, true, false, true, false, false) != 0;
+    m_bClimbJump = CWorld::TestSphereAgainstWorld(posn, 0.25F, nullptr, true, true, false, true, false, false) != nullptr;
 
-    CVector savedPedPosition = ped->GetPosition();
-    ped->SetPosn((*ped->m_matrix).TransformPoint(CVector(0.0F, 0.0F, 0.75F)));
+    const CVector savedPedPosition = ped->GetPosition();
+    ped->SetPosn(JumpMatrixTimesPoint59C890(*ped->m_matrix, CVector(0.0F, 0.0F, 0.75F)));
 
-    for (uint32 i = 0; i < pedColData->m_nNumSpheres; i++)
+    // Como el original: el numero de esferas se lee con signo (movsx)
+    for (int32 i = 0; i < (int16)pedColData->m_nNumSpheres; i++)
         pedColData->m_pSpheres[i].m_fRadius = 0.3F;
 
     if (ped->TestCollision(false))
@@ -126,7 +146,7 @@ bool CTaskSimpleJump::CheckIfJumpBlocked(CPed* ped) {
 
     ped->SetPosn(savedPedPosition);
 
-    for (uint32 i = 0; i < pedColData->m_nNumSpheres; i++)
+    for (int32 i = 0; i < (int16)pedColData->m_nNumSpheres; i++)
         pedColData->m_pSpheres[i].m_fRadius = 0.35F;
 
     return m_bIsJumpBlocked;
@@ -134,40 +154,54 @@ bool CTaskSimpleJump::CheckIfJumpBlocked(CPed* ped) {
 
 // 0x679B80
 void CTaskSimpleJump::Launch(CPed* ped) {
+    // Como el original: interpolacion (b - a) * t + a
     float fHorizontalJumpSpeed = 0.1F;
-
-    auto pSprintAnim = RpAnimBlendClumpGetAssociation(ped->GetRpClump(), ANIM_ID_SPRINT);
-    if (pSprintAnim)
-        fHorizontalJumpSpeed = lerp(0.17F, 0.22F, pSprintAnim->m_BlendAmount);
-    else {
-        auto pRunAnim = RpAnimBlendClumpGetAssociation(ped->GetRpClump(), ANIM_ID_RUN);
-        if (pRunAnim)
-            fHorizontalJumpSpeed = lerp(0.1F, 0.17F, pRunAnim->m_BlendAmount);
+    if (const auto sprintAnim = RpAnimBlendClumpGetAssociation(ped->GetRpClump(), ANIM_ID_SPRINT)) {
+        fHorizontalJumpSpeed = (0.22F - 0.17F) * sprintAnim->m_BlendAmount + 0.17F;
+    } else if (const auto runAnim = RpAnimBlendClumpGetAssociation(ped->GetRpClump(), ANIM_ID_RUN)) {
+        fHorizontalJumpSpeed = (0.17F - 0.1F) * runAnim->m_BlendAmount + 0.1F;
     }
 
     float fJumpForce = (ped->IsPlayer() || m_bHighJump) ? 8.5F : 4.5F;
 
+    // Como el original: el modificador se pide dos veces
     if (ped->GetPlayerData()) {
-        float modifier = CStats::GetFatAndMuscleModifier(STAT_MOD_2);
-        fHorizontalJumpSpeed *= modifier;
-        fJumpForce *= modifier;
+        fHorizontalJumpSpeed = CStats::GetFatAndMuscleModifier(STAT_MOD_2) * fHorizontalJumpSpeed;
+        fJumpForce = CStats::GetFatAndMuscleModifier(STAT_MOD_2) * fJumpForce;
     }
 
-    if (ped->IsPlayer() && CCheat::IsActive(CHEAT_MEGAJUMP))
+    if (CCheat::IsActive(CHEAT_MEGAJUMP) && ped->IsPlayer())
         fJumpForce *= 10.0F;
 
-    ped->ApplyMoveForce(0.0F, 0.0F, fJumpForce);
+    ped->ApplyMoveForce(CVector(0.0F, 0.0F, fJumpForce));
 
     if (m_bClimbJump) {
         ped->m_vecMoveSpeed.x = 0.0F;
         ped->m_vecMoveSpeed.y = 0.0F;
-    } else if (!m_pClimbEntity && (ped->m_standingOnEntity || ped->m_vecMoveSpeed.SquaredMagnitude2D() < fHorizontalJumpSpeed)) {
-        ped->m_vecMoveSpeed.x = -fHorizontalJumpSpeed * sin(ped->m_fCurrentRotation);
-        ped->m_vecMoveSpeed.y = fHorizontalJumpSpeed * cos(ped->m_fCurrentRotation);
-
-        if (ped->m_standingOnEntity) {
-            ped->m_vecMoveSpeed.x += ped->m_standingOnEntity->AsPhysical()->m_vecMoveSpeed.x;
-            ped->m_vecMoveSpeed.y += ped->m_standingOnEntity->AsPhysical()->m_vecMoveSpeed.y;
+    } else {
+        // Como el original: se compara con la velocidad al cuadrado (x*x + y*y < v*v) o se exige estar sobre algo
+        const float speedX = ped->m_vecMoveSpeed.x, speedY = ped->m_vecMoveSpeed.y;
+        if ((fHorizontalJumpSpeed * fHorizontalJumpSpeed > speedX * speedX + speedY * speedY || ped->m_standingOnEntity) && !m_pClimbEntity) {
+            // Como el original: fsin/fcos con precision interna completa, multiplicados por la velocidad
+            const float rotation = ped->m_fCurrentRotation, speed = fHorizontalJumpSpeed;
+            float sinSpeed, cosSpeed;
+            __asm {
+                fld  rotation
+                fsin
+                fmul speed
+                fstp sinSpeed
+                fld  rotation
+                fcos
+                fmul speed
+                fstp cosSpeed
+            }
+            if (const auto standingOn = ped->m_standingOnEntity) {
+                ped->m_vecMoveSpeed.x = standingOn->AsPhysical()->m_vecMoveSpeed.x - sinSpeed;
+                ped->m_vecMoveSpeed.y = cosSpeed + standingOn->AsPhysical()->m_vecMoveSpeed.y;
+            } else {
+                ped->m_vecMoveSpeed.x = -sinSpeed;
+                ped->m_vecMoveSpeed.y = cosSpeed;
+            }
         }
     }
 
@@ -183,22 +217,28 @@ void CTaskSimpleJump::Launch(CPed* ped) {
     }
 
     if (ped->bDoBloodyFootprints && CLocalisation::Blood()) {
-        auto hier = GetAnimHierarchyFromSkinClump(ped->GetRpClump());
-        CVector v;
-        RwV3dTransformPoints(&v, &v, 1, &RpHAnimHierarchyGetMatrixArray(hier)[RpHAnimIDGetIndex(hier, ped->m_apBones[PED_NODE_LEFT_FOOT]->BoneTag)]);
+        // Como el original: el tamano usa forward*0,26 y el lado right*0,14 de la matriz; la z es (v.z - 0,1) + fwd.z*0,2
+        const auto FootPosition = [ped](ePedNode node) {
+            CVector v{ 0.0F, 0.0F, 0.0F };
+            const auto hier = GetAnimHierarchyFromSkinClump(ped->GetRpClump());
+            const auto index = RpHAnimIDGetIndex(hier, ped->m_apBones[node]->BoneTag);
+            RwV3dTransformPoints(&v, &v, 1, &RpHAnimHierarchyGetMatrixArray(hier)[index]);
+            return v;
+        };
+        const CMatrix& mat = *ped->m_matrix;
+        const CVector fwd = mat.GetForward();
+        const CVector v1{ fwd.x * 0.2F, fwd.y * 0.2F, fwd.z * 0.2F };
+        const float topX = fwd.x * 0.26F, topY = fwd.y * 0.26F, rightX = mat.GetRight().x * 0.14F, rightY = mat.GetRight().y * 0.14F;
+        for (const auto node : { PED_NODE_LEFT_FOOT, PED_NODE_RIGHT_FOOT }) {
+            CVector v = FootPosition(node);
+            v.x = v1.x + v.x;
+            v.y = v1.y + v.y;
+            v.z = v1.z + (v.z - 0.1F);
+            CShadows::AddPermanentShadow(SHADOW_DEFAULT, gpBloodPoolTex, &v, topX, topY, rightX, rightY, 255, 255, 0, 0, 4.0F, 3000, 1.0F);
+        }
 
-        CVector v1 = ped->GetForward() * 0.2F;
-        v += v1 + CVector(0.0F, 0.0F, -0.1F);
-        CShadows::AddPermanentShadow(SHADOW_DEFAULT, gpBloodPoolTex, &v, v1.x * 0.26F, v1.y * 0.26F, ped->GetForward().x * 0.14F, ped->GetForward().y * 0.14F, 255, 255, 0, 0, 4.0F,
-                                     3000, 1.0F);
-
-        v.Set(0.0F, 0.0F, 0.0F);
-        RwV3dTransformPoints(&v, &v, 1, &RpHAnimHierarchyGetMatrixArray(hier)[RpHAnimIDGetIndex(hier, ped->m_apBones[PED_NODE_RIGHT_FOOT]->BoneTag)]);
-        v += v1 + CVector(0.0F, 0.0F, -0.1F);
-        CShadows::AddPermanentShadow(SHADOW_DEFAULT, gpBloodPoolTex, &v, v1.x * 0.26F, v1.y * 0.26F, ped->GetForward().x * 0.14F, ped->GetForward().y * 0.14F, 255, 255, 0, 0, 4.0F,
-                                     3000, 1.0F);
-
-        if (ped->m_nDeathTimeMS <= 40) {
+        // Como el original: comparacion sin signo (jbe)
+        if ((uint32)ped->m_nDeathTimeMS <= 40) {
             ped->m_nDeathTimeMS = 0;
             ped->bDoBloodyFootprints = false;
         } else
@@ -214,8 +254,16 @@ bool CTaskSimpleJump::StartLaunchAnim(CPed* ped) {
     if (m_pAnim)
         return false;
 
-    if (g_surfaceInfos.IsSteepSlope(ped->m_nContactSurface) && DotProduct(ped->GetForward(), ped->field_578) < 0.0F ||
-        ped->IsPlayer() && !CGameLogic::IsPlayerAllowedToGoInThisDirection(ped, ped->GetForward(), 5.0F)) {
+    // Como el original: en pendiente pronunciada solo cuenta el producto escalar ((z + y) + x); la direccion permitida
+    // del jugador se mira solo fuera de ella
+    const CVector& fwd = ped->m_matrix->GetForward();
+    bool blocked;
+    if (g_surfaceInfos.IsSteepSlope(ped->m_nContactSurface)) {
+        blocked = (fwd.z * ped->field_578.z + fwd.y * ped->field_578.y) + fwd.x * ped->field_578.x < 0.0F;
+    } else {
+        blocked = ped->IsPlayer() && !CGameLogic::IsPlayerAllowedToGoInThisDirection(ped, fwd, 5.0F);
+    }
+    if (blocked) {
         ped->m_pedIK.bSlopePitch = true;
         return false;
     }
@@ -233,7 +281,8 @@ bool CTaskSimpleJump::StartLaunchAnim(CPed* ped) {
             fMoveAnimBlendAmount -= 1.0F;
     }
 
-    m_pAnim = CAnimManager::BlendAnimation(ped->GetRpClump(), ANIM_GROUP_DEFAULT, fMoveAnimBlendAmount >= 0.5F ? ANIM_ID_JUMP_LAUNCH_R : ANIM_ID_JUMP_LAUNCH, 8.0F);
+    // Como el original: NaN elige la animacion derecha (solo < 0,5 elige la normal)
+    m_pAnim = CAnimManager::BlendAnimation(ped->GetRpClump(), ANIM_GROUP_DEFAULT, !(fMoveAnimBlendAmount < 0.5F) ? ANIM_ID_JUMP_LAUNCH_R : ANIM_ID_JUMP_LAUNCH, 8.0F);
 
     if (ped->GetPlayerData())
         m_pAnim->m_Speed = CStats::GetFatAndMuscleModifier(STAT_MOD_2);

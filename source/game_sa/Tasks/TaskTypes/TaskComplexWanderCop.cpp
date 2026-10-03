@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -39,7 +39,7 @@ void CTaskComplexWanderCop::InjectHooks() {
 }
 CTaskComplexWanderCop* CTaskComplexWanderCop::Constructor(eMoveState moveState, uint8 dir) { this->CTaskComplexWanderCop::CTaskComplexWanderCop(moveState, dir); return this; }
 
-// 0x460D80
+// 0x460C80
 CTaskComplexWanderCop::CTaskComplexWanderCop(eMoveState moveState, uint8 dir) : CTaskComplexWander(moveState, dir, true, 0.5f) {
     m_pGoToPointAndStandStillTask = nullptr;
     m_nTimePassedSinceLastLookedForCriminals = 0;
@@ -71,8 +71,12 @@ CTask* CTaskComplexWanderCop::CreateNextSubTask(CPed* ped) {
         }
     }
 
-    if (m_pGoToPointAndStandStillTask && m_pSubTask->GetTaskType() == m_pGoToPointAndStandStillTask->GetTaskType()) {
-        return nullptr;
+    if (m_pGoToPointAndStandStillTask) {
+        // Como el original: primero el tipo de la subtarea y despues el de la tarea guardada
+        const auto subTaskType = m_pSubTask->GetTaskType();
+        if (subTaskType == m_pGoToPointAndStandStillTask->GetTaskType()) {
+            return nullptr;
+        }
     }
 
     if (m_pGoToPointAndStandStillTask) {
@@ -98,7 +102,7 @@ CTask* CTaskComplexWanderCop::CreateFirstSubTask(CPed* ped) {
         return CTaskComplexWander::CreateFirstSubTask(ped);
     }
 
-    return new CTaskComplexPolicePursuit();
+    return new CTaskComplexPolicePursuit; // Como el original: sin () (no se pone a cero el relleno 0xD..0xF)
 }
 
 // 0x674D80
@@ -117,7 +121,7 @@ CTask* CTaskComplexWanderCop::ControlSubTask(CPed* ped) {
         return m_pSubTask;
     }
 
-    return new CTaskComplexPolicePursuit();
+    return new CTaskComplexPolicePursuit; // Como el original: sin () (no se pone a cero el relleno 0xD..0xF)
 }
 
 // 0x6702B0
@@ -128,7 +132,8 @@ void CTaskComplexWanderCop::ScanForStuff(CPed* ped) {
         m_nScanForStuffTimer.m_bStarted = true;
     }
 
-    if (GetTaskType() == TASK_COMPLEX_POLICE_PURSUIT || !m_nScanForStuffTimer.m_bStarted)
+    // Como el original: se mira el tipo de la subtarea, no el de esta tarea
+    if (m_pSubTask->GetTaskType() == TASK_COMPLEX_POLICE_PURSUIT || !m_nScanForStuffTimer.m_bStarted)
         return;
 
     if (m_nScanForStuffTimer.m_bStopped) {
@@ -154,21 +159,26 @@ void CTaskComplexWanderCop::ScanForStuff(CPed* ped) {
 
 // 0x66B1B0
 void CTaskComplexWanderCop::LookForCarAlarms(CPed* ped) {
+    // Como el original: FindPlayerVehicle se llama en cada comprobacion
+    if (!FindPlayerVehicle() || !FindPlayerVehicle()->IsAutomobile())
+        return;
+
     CVehicle* vehicle = FindPlayerVehicle();
-    if (!vehicle || !vehicle->IsAutomobile())
+    if (!vehicle->m_nAlarmState || vehicle->m_nAlarmState == 0xFFFF || vehicle->GetStatus() == STATUS_WRECKED)
         return;
 
-    if (!vehicle->m_nAlarmState || vehicle->m_nAlarmState == -1 || vehicle->GetStatus() == STATUS_WRECKED)
-        return;
-
-    float distance = DistanceBetweenPointsSquared(ped->GetPosition(), vehicle->GetPosition());
-    if (distance < sq(20.0f)) {
+    // Como el original: (vehiculo - ped), suma (z*z + x*x) + y*y comparada con 20^2 (NaN no pasa)
+    const auto& pedPos = ped->GetPosition();
+    const auto& vehPos = FindPlayerVehicle()->GetPosition();
+    const float dx = vehPos.x - pedPos.x, dy = vehPos.y - pedPos.y, dz = vehPos.z - pedPos.z;
+    if (dz * dz + dx * dx + dy * dy < sq(20.0f)) {
         FindPlayerPed()->SetWantedLevelNoDrop(eWantedLevel::WANTED_LEVEL_1);
     }
 }
 
 // 0x66B290
 void CTaskComplexWanderCop::LookForStolenCopCars(CPed* ped) {
+    // Como el original: FindPlayerPed se llama en cada comprobacion
     CPlayerPed* player = FindPlayerPed();
 
     CWanted* wanted = nullptr;
@@ -176,15 +186,17 @@ void CTaskComplexWanderCop::LookForStolenCopCars(CPed* ped) {
         wanted = player->GetPlayerWanted();
     }
 
-    if (wanted && wanted->GetWantedLevel() == eWantedLevel::WANTED_CLEAN && player->m_pVehicle) {
-        if (player->m_pVehicle->vehicleFlags.bIsLawEnforcer) {
-            player->SetWantedLevelNoDrop(eWantedLevel::WANTED_LEVEL_1);
+    // NOTSA: el original lee el nivel de busqueda sin comprobar `wanted` (falla sin datos de jugador)
+    if (wanted && wanted->GetWantedLevel() == eWantedLevel::WANTED_CLEAN && FindPlayerPed()->m_pVehicle) {
+        if (FindPlayerPed()->m_pVehicle->vehicleFlags.bIsLawEnforcer) {
+            FindPlayerPed()->SetWantedLevelNoDrop(eWantedLevel::WANTED_LEVEL_1);
         }
     }
 }
 
 // notsa, code from `LookForCriminals`
 CPed* CTaskComplexWanderCop::FindFirstCriminalInSight(CPed* ped) const {
+    const auto& pedPos = ped->GetPosition();
     for (auto& candidate : ped->GetIntelligence()->m_pedScanner.GetEntities<CPed>()) {
         if (!candidate.IsGangster()) {
             if (candidate.m_nPedType != PED_TYPE_CRIMINAL || &candidate == m_pLastCriminalPedLookedFor) {
@@ -192,18 +204,24 @@ CPed* CTaskComplexWanderCop::FindFirstCriminalInSight(CPed* ped) const {
             }
         }
 
-        if (auto* const tActive = candidate.GetTaskManager().GetActiveTask(); !tActive || tActive->GetTaskType() != GetTaskType()) {
+        // Como el original: GetActiveTask se llama dos veces
+        if (!candidate.GetTaskManager().GetActiveTask()) {
+            continue;
+        }
+        if (candidate.GetTaskManager().GetActiveTask()->GetTaskType() != GetTaskType()) {
             continue;
         }
 
+        // Como el original: (candidato - ped), suma (z*z + y*y) + x*x; solo pasa si es menor que 10^2 (NaN no pasa)
         const auto& candidatePos = candidate.GetPosition();
-        const auto& pedPos       = ped->GetPosition();
-        const auto  distance     = candidatePos - pedPos;
-        if (distance.SquaredMagnitude() >= sq(10.0f)) {
+        const float dx = candidatePos.x - pedPos.x, dy = candidatePos.y - pedPos.y, dz = candidatePos.z - pedPos.z;
+        if (!(dz * dz + dy * dy + dx * dx < sq(10.0f))) {
             continue;
         }
 
-        if (distance.Dot(ped->GetForward()) <= 0.f) {
+        // Como el original: producto con el eje Y de la matriz en orden (z + y) + x; solo pasa si es mayor que 0 (NaN no pasa)
+        const auto& fwd = ped->GetForward(); // Como el original: sin comprobar la matriz
+        if (!(dz * fwd.z + dy * fwd.y + dx * fwd.x > 0.f)) {
             continue;
         }
 
@@ -236,15 +254,13 @@ void CTaskComplexWanderCop::LookForCriminals(CPed* ped) {
 
 // 0x66B160
 bool CTaskComplexWanderCop::ShouldPursuePlayer(CPed* ped) {
-    CWanted* wanted = FindPlayerWanted();
-    if (wanted->GetWantedLevel() == eWantedLevel::WANTED_CLEAN)
+    // Como el original: comparacion con signo (nivel <= 0)
+    if (static_cast<int32>(FindPlayerWanted()->GetWantedLevel()) <= 0)
         return false;
 
     if (m_pSubTask && m_pSubTask->GetTaskType() == TASK_COMPLEX_POLICE_PURSUIT)
         return false;
 
-    if (wanted->CanCopJoinPursuit(ped->AsCop())) {
-        return true;
-    }
-    return false;
+    // Como el original: FindPlayerWanted se vuelve a llamar
+    return FindPlayerWanted()->CanCopJoinPursuit(ped->AsCop());
 }

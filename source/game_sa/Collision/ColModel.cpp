@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -62,10 +62,17 @@ CColModel::CColModel() : m_boundBox() {
  * m_IsActive permite representar modelos que no deben apropiarse/liberar sus datos.
  */
 CColModel::~CColModel() {
-    if (!m_IsActive) {
+    // Como el original (0x40F700): libera como RemoveCollisionVolumes pero sin anular m_pColData.
+    if (!m_IsActive || !m_pColData) {
         return;
     }
-    RemoveCollisionVolumes();
+    if (m_bIsSingleColDataAlloc) {
+        CCollision::RemoveTrianglePlanes(m_pColData);
+        CMemoryMgr::Free(m_pColData);
+    } else {
+        m_pColData->RemoveCollisionVolumes();
+        delete m_pColData;
+    }
 }
 
 // 0x40F7C0
@@ -82,10 +89,9 @@ CColModel& CColModel::operator=(const CColModel& colModel) {
     m_boundSphere = colModel.m_boundSphere;
     m_boundBox    = colModel.m_boundBox;
 
+    // Como el original: sin m_pColData en destino no se copia nada (ni se detiene).
     if (m_pColData) {
         m_pColData->Copy(*colModel.m_pColData);
-    } else {
-        NOTSA_DEBUG_BREAK(); // ???? What now? We don't copy the stuff ????
     }
 
     return *this;
@@ -105,7 +111,7 @@ void CColModel::MakeMultipleAlloc() {
     assert(colData);
 
     colData->Copy(*m_pColData);
-    delete m_pColData;
+    CMemoryMgr::Free(m_pColData); // Como el original: el bloque único se libera con CMemoryMgr::Free.
 
     m_bIsSingleColDataAlloc = false;
     m_pColData = colData;
@@ -174,7 +180,7 @@ void CColModel::AllocateData(int32 size) {
     DEV_LOG_COL("AllocateData[Size]: {} [ColSlot: {}; Size: {}]", LOG_PTR(this), m_nColSlot, size);
 
     m_bIsSingleColDataAlloc = true;
-    m_pColData = static_cast<CCollisionData*>(CMemoryMgr::Malloc(size));
+    m_pColData = static_cast<CCollisionData*>(CMemoryMgr::Malloc(size, 0));
     assert(m_pColData);
 }
 

@@ -54,7 +54,7 @@ public:
 
     CAESmoothFadeThread();
 
-    void Initialise();
+    bool Initialise();
     void InitialiseRequestSlots();
     void Start();
     void Stop();

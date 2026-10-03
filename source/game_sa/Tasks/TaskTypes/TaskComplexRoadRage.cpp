@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -63,6 +63,9 @@ CTaskComplexRoadRage::~CTaskComplexRoadRage() {
 
 // 0x629080
 CTask* CTaskComplexRoadRage::CreateSubTask(eTaskType taskType, CPed* ped) {
+    if (!m_rageWith) { // Como el original: sin objetivo no se crea nada
+        return nullptr;
+    }
     switch (taskType) {
     case TASK_COMPLEX_TURN_TO_FACE_ENTITY:
         return new CTaskComplexTurnToFaceEntityOrCoord{ m_rageWith };
@@ -72,25 +75,33 @@ CTask* CTaskComplexRoadRage::CreateSubTask(eTaskType taskType, CPed* ped) {
         return new CTaskSimpleShakeFist{};
     case TASK_COMPLEX_ENTER_CAR_AS_DRIVER:
         return new CTaskComplexEnterCarAsDriver{ ped->m_pVehicle };
-    case TASK_COMPLEX_SEEK_ENTITY:
+    case TASK_COMPLEX_SEEK_ENTITY: {
+        // Como el original: se persigue el vehiculo del objetivo; sin vehiculo se le ataca a pie
+        const auto targetVeh = m_rageWith->m_pVehicle;
+        if (!targetVeh) {
+            return new CTaskComplexKillPedOnFoot{ m_rageWith, -1, 0, 0, 0, true };
+        }
+        const float radius = targetVeh->GetModelInfo()->GetColModel()->GetBoundRadius();
         return new CTaskComplexSeekEntityStandard{
-            ped->m_pVehicle,
+            targetVeh,
             20'000,
             1'000,
-            m_rageWith->m_pVehicle->GetModelInfo()->GetColModel()->GetBoundRadius() + 1.f,
+            radius + 1.f,
             2.f,
             2.f,
             true,
             true
         };
+    }
     case TASK_COMPLEX_DESTROY_CAR:
+        if (!m_rageWith->m_pVehicle) { // Como el original: sin vehiculo se ataca a pie
+            return new CTaskComplexKillPedOnFoot{ m_rageWith, -1, 0, 0, 0, true };
+        }
         return new CTaskComplexDestroyCar{ m_rageWith->m_pVehicle };
     case TASK_COMPLEX_KILL_PED_ON_FOOT:
         return new CTaskComplexKillPedOnFoot{ m_rageWith, -1, 0, 0, 0, true };
-    case TASK_FINISHED:
+    default: // Como el original: TASK_FINISHED y cualquier otro tipo devuelven nullptr
         return nullptr;
-    default:
-        NOTSA_UNREACHABLE();
     }
 }
 
@@ -128,19 +139,19 @@ CTask* CTaskComplexRoadRage::CreateNextSubTask(CPed* ped) {
     }
     case TASK_COMPLEX_SEEK_ENTITY:
         return CreateSubTask(
-            m_rageWith->IsInVehicle() && !ped->IsCurrentlyUnarmed()
+            m_rageWith->bInVehicle && m_rageWith->m_pVehicle && !ped->IsCurrentlyUnarmed()
                 ? TASK_COMPLEX_DESTROY_CAR
                 : TASK_COMPLEX_KILL_PED_ON_FOOT,
             ped
         );
-    default:
-        NOTSA_UNREACHABLE_CASE(tt);
+    default: // Como el original
+        return nullptr;
     }
 }
 
 // 0x62E170
 CTask* CTaskComplexRoadRage::CreateFirstSubTask(CPed* ped) {
-    if (!m_rageWith || m_rageWith->IsCop() || !ped->IsInVehicle()) {
+    if (!m_rageWith || !ped->m_pVehicle || !ped->bInVehicle || m_rageWith->IsCop()) {
         return nullptr;
     }
 
@@ -148,10 +159,12 @@ CTask* CTaskComplexRoadRage::CreateFirstSubTask(CPed* ped) {
     if (ped->IsGangster()) { // 0x62E1C6 (Inverted)
         ped->GiveDelayedWeapon(WEAPON_PISTOL, 2000u);
         ped->SetCurrentWeapon(WEAPON_PISTOL);
-    } else if (CGeneral::DoCoinFlip()) { // 0x62E1DA
-        const auto wtype = CGeneral::RandomChoice(std::array{ WEAPON_BASEBALLBAT, WEAPON_GOLFCLUB, WEAPON_SHOVEL });
+    } else if (CGeneral::GetRandomIntInRange(0, 100) < 50) { // 0x62E1DA - Como el original: 0x407180
+        // Como el original: segundo numero de 0x407180, <= 33 bate, <= 66 palo de golf, si no pala
+        const auto r = CGeneral::GetRandomIntInRange(0, 100);
+        const auto wtype = r <= 33 ? WEAPON_BASEBALLBAT : r > 66 ? WEAPON_SHOVEL : WEAPON_GOLFCLUB;
         ped->GiveDelayedWeapon(wtype, 1);
-        ped->SetCurrentWeapon(wtype);     
+        ped->SetCurrentWeapon(wtype);
     }
 
     g_InterestingEvents.Add(CInterestingEvents::INTERESTING_EVENT_18, ped);
@@ -161,25 +174,41 @@ CTask* CTaskComplexRoadRage::CreateFirstSubTask(CPed* ped) {
 
 // 0x62E3F0
 CTask* CTaskComplexRoadRage::ControlSubTask(CPed* ped) {
+    const auto subTask = m_pSubTask;
     if (!m_rageWith) {
-        m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr);
-        return m_pSubTask;
+        subTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr);
+        return subTask;
     }
 
-    switch (m_pSubTask->GetTaskType()) {
-    case TASK_COMPLEX_DESTROY_CAR: { // Case positions swapped (to allow fallthru)
+    switch (subTask->GetTaskType()) {
+    case TASK_COMPLEX_KILL_PED_ON_FOOT: {
+        if (ped->m_pVehicle) {
+            // Como el original: (objetivo - ped), suma (z*z + y*y) + x*x; vuelve al coche si esta a mas de 20 m
+            const auto& a = m_rageWith->GetPosition();
+            const auto& b = ped->GetPosition();
+            const float dx = a.x - b.x, dy = a.y - b.y, dz = a.z - b.z;
+            if (dz * dz + dy * dy + dx * dx > sq(20.f)) {
+                return CreateSubTask(TASK_COMPLEX_ENTER_CAR_AS_DRIVER, ped);
+            }
+        }
+        break;
+    }
+    case TASK_COMPLEX_DESTROY_CAR: {
         if (!m_rageWith->bInVehicle) {
             return CreateSubTask(TASK_COMPLEX_KILL_PED_ON_FOOT, ped);
         }
-        [[fallthrough]];
-    }
-    case TASK_COMPLEX_KILL_PED_ON_FOOT: {
-        if (ped->m_pVehicle && (ped->GetPosition() - m_rageWith->GetPosition()).SquaredMagnitude() <= sq(20.f)) {
-            return CreateSubTask(TASK_COMPLEX_ENTER_CAR_AS_DRIVER, ped);
+        if (ped->m_pVehicle) {
+            // Como el original: suma (x*x + z*z) + y*y; vuelve al coche si esta a mas de 20 m
+            const auto& a = m_rageWith->GetPosition();
+            const auto& b = ped->GetPosition();
+            const float dx = a.x - b.x, dy = a.y - b.y, dz = a.z - b.z;
+            if (dx * dx + dz * dz + dy * dy > sq(20.f)) {
+                return CreateSubTask(TASK_COMPLEX_ENTER_CAR_AS_DRIVER, ped);
+            }
         }
         break;
     }
     }
 
-    return m_pSubTask;
+    return subTask;
 }

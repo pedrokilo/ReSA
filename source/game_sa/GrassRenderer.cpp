@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/12 entradas.
+ * Validación registrada: 12/12 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -57,92 +57,96 @@ void CGrassRenderer::Shutdown() {
 void CGrassRenderer::AddTriPlant(PPTriPlant* srcPlant, uint32 plantModelSet) {
     gTriPlantBuf.ChangeCurrentPlantModelsSet(plantModelSet);
 
-    if (gTriPlantBuf.m_CurrentIndex + 1 > MAX_PLANTS)
+    // Como el original: comparación con signo
+    if (gTriPlantBuf.m_CurrentIndex + 1 > (int32)MAX_PLANTS)
         gTriPlantBuf.Flush();
 
-    gTriPlantBuf.CopyToActive(srcPlant);
+    memcpy(gTriPlantBuf.m_Buffer.data() + gTriPlantBuf.m_CurrentIndex, srcPlant, sizeof(PPTriPlant)); // Como el original: rep movs sin comprobar el índice
     gTriPlantBuf.IncreaseBufferIndex(plantModelSet, 1);
+}
+
+// Como el original: distancia sqrt((z*z + y*y) + x*x) de (a - b)
+static float GrassDistance(const CVector& a, const CVector& b) {
+    const float dx = a.x - b.x;
+    const float dy = a.y - b.y;
+    const float dz = a.z - b.z;
+    return std::sqrt((dz * dz + dy * dy) + dx * dx);
 }
 
 // 0x5DAD00
 void CGrassRenderer::DrawTriPlants(PPTriPlant* triPlants, int32 numTriPlants, RpAtomic** plantModelsTab) {
-    const auto farDist = [] { // OG: located in loop
-        switch (g_fx.GetFxQuality()) {
-        case FX_QUALITY_LOW:
-        case FX_QUALITY_MEDIUM:
-        default:
-            return m_farDist / 2.0f;
-        case FX_QUALITY_HIGH:
-        case FX_QUALITY_VERY_HIGH:
-            return m_farDist;
-        }
-    }();
-    for (const auto& plant : std::span{triPlants, (size_t)numTriPlants}) {
-        const auto camDist = DistanceBetweenPoints(m_vecCameraPos, plant.Center);
-        if (camDist > farDist + 20.0f) {
+    constexpr float RAND_RECIPROCAL = 3.0518509e-05f; // 0x858C7C (1/32767)
+
+    for (int32 i = 0; i < numTriPlants; i++) { // Como el original: contador con signo
+        const auto& plant = triPlants[i];
+
+        const auto camDist = GrassDistance(plant.Center, m_vecCameraPos);
+        // Como el original: la calidad se consulta en cada planta y cualquier valor >= 2 usa la distancia completa
+        const float farDist   = g_fx.GetFxQuality() >= FX_QUALITY_HIGH ? m_farDist : m_farDist * 0.5f;
+        const float farDist20 = farDist + 20.0f;
+        if (camDist > farDist20) {
             continue;
         }
 
         const auto atomic = plantModelsTab[plant.model_id];
         auto frame = RpAtomicGetFrame(atomic);
 
+        // Como el original: srand con la semilla truncada (_ftol2) y rand() en vez de un generador propio
 #if FIX_BUGS
-        std::mt19937 randomGen(*(uint32*)&plant.seed);
+        srand(std::bit_cast<uint32>(plant.seed));
 #else
-        // Due to how this is set up, the random seed is always 0. the seed is betwee [0:1), so after the cast to int, we can't have any other result.
-        std::mt19937 randomGen(static_cast<uint32>(plant.seed));
+        srand(static_cast<uint32>(static_cast<int32>(plant.seed))); // La semilla está en [0, 1): siempre 0
 #endif
-        std::uniform_real_distribution<float> randomDistribution(0, 1.f);
 
-        // Original implementation used srand(), which is absolutely not thread safe, and caused all the plants to just jump randomly all over the screen.
-        //srand(static_cast<uint32>(plant.seed));
-
-        RwRGBA newColorIntensity{};
-        if (camDist >= farDist) {
-            const auto alpha = std::floor((farDist + 20.0f - camDist) * (float)plant.color.a / 20.0f);
-            newColorIntensity.alpha = (uint8)std::clamp(alpha, 0.0f, 255.0f);
-        } else {
+        RwRGBA newColorIntensity;
+        if (camDist < farDist) {
             newColorIntensity.alpha = plant.color.a;
+        } else {
+            // Como el original: ((lejos + 20 - dist) * a) * 0.05, floor en double y recorte a [0, 255] tras truncar
+            float alpha = (farDist20 - camDist) * (float)plant.color.a;
+            alpha = alpha * 0.05f;
+            int32 ialpha = (int32)std::floor((double)alpha);
+            ialpha = std::min(ialpha, 255);
+            ialpha = std::max(ialpha, 0);
+            newColorIntensity.alpha = (uint8)ialpha;
         }
 
         // 0x5DAE61
-        auto mult = std::min(float(plant.intensity), 255.0f);
-        newColorIntensity.red   = uint16(mult * (float)plant.color.r) / 256;
-        newColorIntensity.green = uint16(mult * (float)plant.color.g) / 256;
-        newColorIntensity.blue  = uint16(mult * (float)plant.color.b) / 256;
+        const auto mult = (uint16)(int32)std::min((float)plant.intensity, 255.0f);
+        newColorIntensity.red   = (uint8)(((int32)plant.color.r * mult) >> 8);
+        newColorIntensity.green = (uint8)(((int32)plant.color.g * mult) >> 8);
+        newColorIntensity.blue  = (uint8)(((int32)plant.color.b * mult) >> 8);
 
         // 0x5DAC40
         RenderGrassTexture = plant.texture;
         RpGeometryForAllMaterials(RpAtomicGetGeometry(atomic), CPPTriPlantBuffer::SetGrassMaterialCB, &newColorIntensity);
 
         for (auto j = 0; j < plant.num_plants; j++) {
-            auto randX = randomDistribution(randomGen); //CGeneral::GetRandomNumberInRange(0.0f, 1.0f);
-            auto randY = randomDistribution(randomGen); //CGeneral::GetRandomNumberInRange(0.0f, 1.0f);
-            CVector posn = GenPointInTriangle(
-                posn,
-                plant.V1,
-                plant.V2,
-                plant.V3,
-                randX,
-                randY
-            );
+            const float randX = (float)CGeneral::GetRandomNumber() * RAND_RECIPROCAL;
+            const float randY = (float)CGeneral::GetRandomNumber() * RAND_RECIPROCAL;
+            CVector posn;
+            GenPointInTriangle(posn, plant.V1, plant.V2, plant.V3, randX, randY);
 
-            //Intentally placed here, need to keep them before the if check below so that the PRNG stays consistent
-            auto rand1 = randomDistribution(randomGen); //CGeneral::GetRandomNumberInRange(0.0f, 1.0f);
-            auto rand2 = randomDistribution(randomGen);
-            auto rand3 = randomDistribution(randomGen);
-            if (DistanceBetweenPoints(m_vecCameraPos, posn) < m_closeDist - 2.0f) {
+            if (GrassDistance(posn, m_vecCameraPos) < m_closeDist - 2.0f) {
+                // Como el original: se consumen los tres números aleatorios aunque no se dibuje
+                CGeneral::GetRandomNumber();
+                CGeneral::GetRandomNumber();
+                CGeneral::GetRandomNumber();
                 continue;
             }
 
             RwFrameTranslate(frame, &posn, rwCOMBINEREPLACE);
 
-            const auto xy = rand1 * plant.scale_var_xy + plant.scale.x;
+            const float scaleVarXY = plant.scale_var_xy;
+            const float xy = (float)CGeneral::GetRandomNumber() * RAND_RECIPROCAL * scaleVarXY + plant.scale.x;
             RwFrameGetMatrix(frame)->right.x *= xy;
             RwFrameGetMatrix(frame)->up.y *= xy;
-            RwFrameGetMatrix(frame)->at.z *= (rand2 * plant.scale_var_z + plant.scale.y) ;
 
-            const auto xy1 = (rand3 * plant.wind_bend_var + 1.0f) * (m_windBending * plant.wind_bend_scale);
+            const float scaleVarZ = plant.scale_var_z;
+            RwFrameGetMatrix(frame)->at.z *= (float)CGeneral::GetRandomNumber() * RAND_RECIPROCAL * scaleVarZ + plant.scale.y;
+
+            const float windBendVar = plant.wind_bend_var;
+            const float xy1 = ((float)CGeneral::GetRandomNumber() * RAND_RECIPROCAL * windBendVar + 1.0f) * (m_windBending * plant.wind_bend_scale);
             RwFrameGetMatrix(frame)->at.x = xy1;
             RwFrameGetMatrix(frame)->at.y = xy1;
 
@@ -163,8 +167,8 @@ RpAtomic** CGrassRenderer::GetPlantModelsTab(uint32 type) {
 }
 
 // 0x5DACC0
-void CGrassRenderer::SetPlantModelsTab(uint32 type, RpAtomic** atomics) {
-    gTriPlantBuf.SetPlantModelsTab(type, atomics);
+bool CGrassRenderer::SetPlantModelsTab(uint32 type, RpAtomic** atomics) {
+    return gTriPlantBuf.SetPlantModelsTab(type, atomics); // Como el original: devuelve si el índice era válido (al)
 }
 
 // 0x5DABE0

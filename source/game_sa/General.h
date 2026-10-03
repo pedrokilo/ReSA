@@ -132,7 +132,11 @@ namespace CGeneral { // More like `Math` (Or `Meth`, given how bad the code is, 
      *       so for the same random number it can be one off; use this one where the exe does the above.
      */
     inline int32 GetRandomIntInRange(int32 min, int32 max) {
-        return min + static_cast<int32>(static_cast<float>(GetRandomNumber()) * (1.0f / 32768.0f) * static_cast<float>(max - min));
+        // Como el original: (max - min) entra entero en fimul (sin redondear antes a float) y el producto exacto se
+        // redondea una sola vez a float; restas y sumas enteras con desbordamiento modular.
+        const auto range = static_cast<int32>(static_cast<uint32>(max) - static_cast<uint32>(min));
+        const auto offset = static_cast<int32>(static_cast<float>(static_cast<double>(GetRandomNumber()) * (1.0 / 32768.0) * static_cast<double>(range)));
+        return static_cast<int32>(static_cast<uint32>(min) + static_cast<uint32>(offset));
     }
 
     /**

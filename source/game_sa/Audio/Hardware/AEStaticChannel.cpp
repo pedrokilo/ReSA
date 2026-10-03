@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -52,7 +52,8 @@ void CAEStaticChannel::Service() {
         return;
     }
 
-    if (m_bNeedData && (int32)(CTimer::GetTimeInMS() - m_nSyncTime) > field_74) {
+    // Como el original: comparación sin signo (jbe) del tiempo transcurrido.
+    if (m_bNeedData && CTimer::GetTimeInMS() - m_nSyncTime > uint32(field_74)) {
         uint8* ppvAudioPtr1{};
         DWORD pdwAudioBytes{};
 
@@ -80,10 +81,12 @@ void CAEStaticChannel::Service() {
     UpdateStatus();
 
     if (!m_bPaused && !bufferStatus.Bit0x1) {
-        if (const auto buf = std::exchange(m_pDirectSoundBuffer, nullptr)) {
+        // Como el original: se libera antes de anular el puntero.
+        if (m_pDirectSoundBuffer) {
             --g_numSoundChannelsUsed;
-            buf->Release();
+            m_pDirectSoundBuffer->Release();
         }
+        m_pDirectSoundBuffer = nullptr;
     }
 }
 
@@ -165,6 +168,7 @@ void CAEStaticChannel::Stop() {
         m_pDirectSound3DBuffer = nullptr;
     }
     }
+    m_bPaused = false; // Como el original: 0x4F100F
 }
 
 // 0x4F0C40

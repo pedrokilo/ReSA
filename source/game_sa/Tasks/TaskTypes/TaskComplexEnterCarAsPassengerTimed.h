@@ -44,5 +44,5 @@ private:
     uint32        m_TargetSeat{};
     bool          m_ShouldCarryOnAfterFallingOff{};
     eMoveState    m_MoveState{eMoveState::PEDMOVE_RUN};
-    CTaskTimer    m_Timer{};
+    CTaskTimer    m_Timer; // Como el original: sin {} para no poner a cero el relleno 0x2A-0x2B
 };

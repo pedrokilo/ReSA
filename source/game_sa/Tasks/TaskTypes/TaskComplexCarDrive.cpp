@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/11 entradas.
+ * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -37,7 +37,7 @@ void CTaskComplexCarDrive::InjectHooks() {
 
     RH_ScopedInstall(CreateSubTask, 0x642FA0);
 
-    RH_ScopedInstall(CreateSubTaskCannotGetInCar, 0x643200);
+    RH_ScopedVMTInstall(CreateSubTaskCannotGetInCar, 0x643200); // Como el original: virtual (slot 12 de 0x86E934)
     RH_ScopedVMTInstall(SetUpCar, 0x63CAE0);
     RH_ScopedVMTInstall(Drive, 0x63CAD0);
     RH_ScopedVMTInstall(Clone, 0x63DC90);
@@ -112,19 +112,23 @@ CTask* CTaskComplexCarDrive::CreateNextSubTask(CPed* ped) {
             CEntity::ChangeEntityReference(m_Veh, ped->m_pVehicle);
             return Create(TASK_SIMPLE_CAR_DRIVE);
         }
-        return m_DesiredCarModel == MODEL_INVALID
+        // Como el original: cualquier modelo negativo (jl), no solo MODEL_INVALID
+        return (int32)m_DesiredCarModel < 0
             ? CreateSubTaskCannotGetInCar(ped)
             : Create(TASK_SIMPLE_CREATE_CAR_AND_GET_IN);
     }
     case TASK_SIMPLE_CREATE_CAR_AND_GET_IN: { // 0x644FA3
         if (ped->IsInVehicle()) {
-            CEntity::ChangeEntityReference(m_Veh, ped->m_pVehicle);
+            // Como el original: se registra el vehiculo del peaton sin limpiar la referencia anterior
+            CEntity::SetEntityReference(m_Veh, ped->m_pVehicle);
             return Create(TASK_SIMPLE_CAR_DRIVE);
         }
         return CreateSubTaskCannotGetInCar(ped);
     }
+    case TASK_COMPLEX_GO_TO_POINT_ANY_MEANS: // 0x644FE8
+        return Create(TASK_FINISHED);
     default:
-        NOTSA_UNREACHABLE();
+        return nullptr; // Como el original: tipos desconocidos devuelven nullptr
     }
 }
 
@@ -133,7 +137,7 @@ CTask* CTaskComplexCarDrive::CreateFirstSubTask(CPed* ped) {
     return CreateSubTask([this, ped] {
         if (!m_Veh) {
             if (ped->IsInVehicle()) {
-                CEntity::ChangeEntityReference(m_Veh, ped->m_pVehicle);
+                CEntity::SetEntityReference(m_Veh, ped->m_pVehicle); // Como el original: m_Veh es nulo aqui
                 return TASK_SIMPLE_CAR_DRIVE;
             }
             return m_bAsDriver
@@ -166,7 +170,8 @@ CTask* CTaskComplexCarDrive::ControlSubTask(CPed* ped) {
             return Drive(ped);
         case TASK_COMPLEX_GO_TO_POINT_ANY_MEANS:
             if (ped->IsInVehicle()) {
-                CEntity::ChangeEntityReference(m_Veh, ped->m_pVehicle);
+                // Como el original: se registra el vehiculo del peaton sin limpiar la referencia anterior
+                CEntity::SetEntityReference(m_Veh, ped->m_pVehicle);
                 return CreateSubTask(TASK_SIMPLE_CAR_DRIVE, ped);
             }
         }
@@ -195,7 +200,7 @@ CTask* CTaskComplexCarDrive::CreateSubTask(eTaskType taskType, CPed* ped) {
     case TASK_COMPLEX_LEAVE_ANY_CAR:
         return new CTaskComplexLeaveAnyCar{ 0, true, false };
     case TASK_COMPLEX_ENTER_ANY_CAR_AS_DRIVER:
-        return new CTaskComplexEnterAnyCarAsDriver{};
+        return new CTaskComplexEnterAnyCarAsDriver; // Como el original: sin inicializacion por valor
     case TASK_SIMPLE_CREATE_CAR_AND_GET_IN:
         return new CTaskSimpleCreateCarAndGetIn{ ped->GetPosition(), m_DesiredCarModel };
     case TASK_COMPLEX_WANDER:
@@ -203,6 +208,6 @@ CTask* CTaskComplexCarDrive::CreateSubTask(eTaskType taskType, CPed* ped) {
     case TASK_FINISHED:
         return nullptr;
     default:
-        NOTSA_UNREACHABLE();
+        return nullptr; // Como el original: tipos desconocidos devuelven nullptr
     }
 }

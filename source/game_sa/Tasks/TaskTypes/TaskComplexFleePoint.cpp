@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/11 entradas.
+ * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -52,7 +52,12 @@ CTaskComplexFleePoint::CTaskComplexFleePoint(CVector const& fleeFromPos, bool pe
     m_safeDist{safeDist},
     m_durationMs{durationMs}
 {
-    m_timer.Start(durationMs);
+    // Como el original: el temporizador arranca con cualquier duracion distinta de -1 (no solo >= 0)
+    if (m_durationMs != -1) {
+        m_timer.m_nStartTime = CTimer::GetTimeInMS();
+        m_timer.m_nInterval  = m_durationMs;
+        m_timer.m_bStarted   = true;
+    }
 }
 
 CTaskComplexFleePoint::CTaskComplexFleePoint(const CTaskComplexFleePoint& o) :
@@ -70,7 +75,7 @@ CTask * CTaskComplexFleePoint::CreateSubTask(eTaskType taskType) {
     case TASK_COMPLEX_LEAVE_ANY_CAR:
         return new CTaskComplexLeaveAnyCar{ 0, true, false };
     case TASK_COMPLEX_SEQUENCE: {
-        const auto seq = new CTaskComplexSequence{};
+        const auto seq = new CTaskComplexSequence; // Como el original: sin inicializacion por valor (relleno 0x39-0x3B sin escribir)
         seq->AddTask(new CTaskSimpleRunAnim{ ANIM_GROUP_DEFAULT, ANIM_ID_FLEE_LKAROUND_01, 4.0f, false });
         seq->AddTask(new CTaskSimpleTired{ 2000u });
         return seq;
@@ -78,7 +83,7 @@ CTask * CTaskComplexFleePoint::CreateSubTask(eTaskType taskType) {
     case TASK_FINISHED:
         return nullptr;
     default:
-        NOTSA_UNREACHABLE("Invalid taskType: {}", (int)taskType);
+        return nullptr; // Como el original: tipos desconocidos devuelven nullptr
     }
 }
 
@@ -87,7 +92,8 @@ CTask * CTaskComplexFleePoint::CreateSubTask(eTaskType taskType) {
 * @brief Set a new flee position
 */
 void CTaskComplexFleePoint::SetFleePosition(CVector const& fleePos, float safeDistance, bool scream) {
-    if (m_fleeFromPos != fleePos) {
+    // Como el original: tambien cambia si solo cambia la distancia segura (comparaciones con NaN cuentan como distintas)
+    if (m_fleeFromPos.x != fleePos.x || m_fleeFromPos.y != fleePos.y || m_fleeFromPos.z != fleePos.z || m_safeDist != safeDistance) {
         m_fleeFromPos = fleePos;
         m_safeDist = safeDistance;
         m_newFleePosWasSet = true;
@@ -100,17 +106,34 @@ void CTaskComplexFleePoint::SetFleePosition(CVector const& fleePos, float safeDi
 * @brief Compute random `m_fleeToPos`
 */
 void CTaskComplexFleePoint::ComputeTargetPoint(CPed const* ped) {
-    // https://www.desmos.com/calculator/o793zwzy5f
+    // Como el original: direccion 3D con z = 0 normalizada con CVector::Normalise, angulo y separacion con la version
+    // float de GetRandomNumberInRange (en este orden), fcos/fsin x87 a precision completa y desplazamientos
+    // ((x*cos + y*sin) * sep, (x*cos - y*sin) * sep)
+    const auto& pedPos = ped->GetPosition();
+    CVector dir{ pedPos.x - m_fleeFromPos.x, pedPos.y - m_fleeFromPos.y, 0.f };
+    dir.Normalise();
 
-    const auto& pedPos   = ped->GetPosition();
-    const auto  angleRad = CGeneral::GetRandomNumberInRange(-0.33f, 0.33f); // TODO: Seemingly magic numbers?
-    const auto  dir      = Normalized2D(CVector2D{ pedPos - m_fleeFromPos }) * CVector2D{ std::cos(angleRad), std::sin(angleRad) };
-    const auto  spread   = CGeneral::GetRandomNumberInRange(3, 6);
+    const float angle = CGeneral::GetRandomNumberInRange<float>(-0.33f, 0.33f);
+    float cosAng, sinAng;
+    __asm {
+        fld angle
+        fld st(0)
+        fcos
+        fstp cosAng
+        fsin
+        fstp sinAng
+    }
+    const float spread = CGeneral::GetRandomNumberInRange<float>(3.f, 6.f);
 
-    m_fleeToPos = pedPos;
+    const float ySin = dir.y * sinAng;
+    const float xCos = dir.x * cosAng;
+    const float offX = (xCos + ySin) * spread;
+    const float offY = (xCos - ySin) * spread;
 
-    m_fleeToPos.x += (dir.x + dir.y) * spread;
-    m_fleeToPos.y += (dir.x - dir.y) * spread;
+    const auto& pos = ped->GetPosition();
+    m_fleeToPos.x = offX + pos.x;
+    m_fleeToPos.y = offY + pos.y;
+    m_fleeToPos.z = pos.z;
 }
 
  // 0x65B420
@@ -129,19 +152,27 @@ bool CTaskComplexFleePoint::MakeAbortable(CPed* ped, eAbortPriority priority, CE
 
 // 0x65D150
 CTask* CTaskComplexFleePoint::CreateNextSubTask(CPed* ped) {
+    (void)m_pSubTask->GetTaskType(); // Como el original: GetTaskType se consulta dos veces
     switch (m_pSubTask->GetTaskType()) {
     case TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL:
         return CreateSubTask(TASK_COMPLEX_SEQUENCE);
     case TASK_COMPLEX_SEQUENCE:
         return CreateSubTask(TASK_FINISHED);
     case TASK_COMPLEX_LEAVE_ANY_CAR:
+        ComputeTargetPoint(ped); // Como el original: se calcula el destino antes de ir al punto
         return CreateSubTask(TASK_SIMPLE_GO_TO_POINT);
     case TASK_SIMPLE_GO_TO_POINT: {
         ComputeTargetPoint(ped);
+        // Como el original: distancia del destino al punto del que se huye, (z*z + y*y) + x*x; solo si supera
+        // estrictamente la distancia segura se para (empate y NaN siguen huyendo)
+        const float dx     = m_fleeToPos.x - m_fleeFromPos.x;
+        const float dy     = m_fleeToPos.y - m_fleeFromPos.y;
+        const float dz     = m_fleeToPos.z - m_fleeFromPos.z;
+        const float distSq = dz * dz + dy * dy + dx * dx;
         return CreateSubTask(
-            IsPointInSphere(ped->GetPosition(), m_fleeToPos, m_safeDist) // Still in danger zone?
-                ? TASK_SIMPLE_GO_TO_POINT                  // Go to `m_fleeToPos`
-                : TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL // This will eventually create a `TASK_COMPLEX_SEQUENCE` which then leads to `TASK_FINISHED`
+            m_safeDist * m_safeDist < distSq
+                ? TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL // This will eventually create a `TASK_COMPLEX_SEQUENCE` which then leads to `TASK_FINISHED`
+                : TASK_SIMPLE_GO_TO_POINT                  // Go to `m_fleeToPos`
         );
     }
     default:
@@ -161,35 +192,38 @@ CTask* CTaskComplexFleePoint::CreateFirstSubTask(CPed* ped) {
 
 // 0x65B660
 CTask* CTaskComplexFleePoint::ControlSubTask(CPed* ped) {
-    switch (m_pSubTask->GetTaskType()) {
-    case TASK_SIMPLE_GO_TO_POINT:
-    case TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL:
-        break;
-    default: {
-        g_ikChainMan.AbortLookAt(ped); // Dropped redudant `IsLooking` check (As task existance is checked by `AbortLookAt` as well.
+    CTask* subTask = m_pSubTask;
+    // Como el original: GetTaskType se consulta dos veces y solo se aborta la mirada si el peaton esta mirando
+    if (m_pSubTask->GetTaskType() != TASK_SIMPLE_GO_TO_POINT && m_pSubTask->GetTaskType() != TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL) {
+        if (g_ikChainMan.IsLooking(ped)) {
+            g_ikChainMan.AbortLookAt(ped, 250);
+        }
         return m_pSubTask;
-    }
     }
 
     if (m_bScream) {
         ped->Say(CTX_GLOBAL_PAIN_PANIC, 0, 0.1f);
     }
 
-    // Moved this here for simplicity, logic unchanged
+    // Como el original: primero el posible cambio de subtarea y despues la mirada (el orden de rand importa)
+    if (m_newFleePosWasSet) {
+        m_newFleePosWasSet = false;
+        // Como el original: el temporizador arranca sin comprobar la duracion
+        m_timer.m_nStartTime = CTimer::GetTimeInMS();
+        m_timer.m_nInterval  = m_durationMs;
+        m_timer.m_bStarted   = true;
+        subTask = CreateFirstSubTask(ped); // Do it all over again :D
+    } else if (m_timer.IsOutOfTime()) {
+        subTask = CreateSubTask(TASK_COMPLEX_SEQUENCE);
+    }
+
     if (!g_ikChainMan.IsLooking(ped)) {
-        if (CGeneral::GetRandomNumberInRange(0, 100) <= 5) { // TODO: CGeneral::DoCoinFlip()
+        // Como el original: (int)(rand() * (1/32768) * 100) <= 5
+        const auto chance = (int32)((float)CGeneral::GetRandomNumber() * (1.f / 32768.f) * 100.f);
+        if (chance <= 5) {
             g_ikChainMan.LookAt("TaskFleePoint", ped, nullptr, 2000, eBoneTag::BONE_UNKNOWN, &m_fleeFromPos, false, 0.25f, 500, 3, false);
         }
     }
 
-    if (m_newFleePosWasSet) {
-        m_newFleePosWasSet = false;
-        m_timer.Start(m_durationMs);
-        return CreateFirstSubTask(ped); // Do it all over again :D
-    } else if (m_timer.IsOutOfTime()) {
-        return CreateSubTask(TASK_COMPLEX_SEQUENCE);
-    }
-
-    return m_pSubTask;
+    return subTask;
 }
-

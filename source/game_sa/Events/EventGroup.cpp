@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/12 entradas.
+ * Validación registrada: 12/12 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -53,43 +53,54 @@ CEventGroup::~CEventGroup() {
 // 0x4AB420
 CEvent* CEventGroup::Add(CEvent* event, bool bValid) {
     if (m_pPed) {
+        // Como el original: los flags se inicializan antes y HasEditableResponse se consulta dos veces
+        bool bAddToEventGroup        = true;
+        bool bInformGroup            = false;
+        bool bInformRespectedFriends = false;
+        bool bTriggerLookAt          = false;
         if (event->HasEditableResponse()) {
             const auto eventResp = static_cast<CEventEditableResponse*>(event);
 
-            const auto bIsEventDamage          = event->GetEventType() == EVENT_DAMAGE;
-            const auto bInformGroup            = eventResp->ComputeResponseTaskOfType(m_pPed, TASK_SIMPLE_INFORM_GROUP);
-            const auto bInformRespectedFriends = eventResp->ComputeResponseTaskOfType(m_pPed, TASK_SIMPLE_INFORM_RESPECTED_FRIENDS);
-            const auto bTriggerLookAt          = eventResp->ComputeResponseTaskOfType(m_pPed, TASK_SIMPLE_LOOK_AT_ENTITY_OR_COORD);
+            bInformGroup            = eventResp->ComputeResponseTaskOfType(m_pPed, TASK_SIMPLE_INFORM_GROUP);
+            bInformRespectedFriends = eventResp->ComputeResponseTaskOfType(m_pPed, TASK_SIMPLE_INFORM_RESPECTED_FRIENDS);
+            bTriggerLookAt          = eventResp->ComputeResponseTaskOfType(m_pPed, TASK_SIMPLE_LOOK_AT_ENTITY_OR_COORD);
 
             eventResp->ComputeResponseTaskType(m_pPed, false);
 
-            const auto bAddToEventGroup        = eventResp->WillRespond() || (bIsEventDamage && eventResp->m_bAddToEventGroup);
-
-            if (!event->AffectsPed(m_pPed)) {
-                return nullptr;
+            // Como el original: GetEventType solo se consulta si no va a responder
+            if (!eventResp->WillRespond()) {
+                if (event->GetEventType() != EVENT_DAMAGE || !eventResp->m_bAddToEventGroup) {
+                    bAddToEventGroup = false;
+                }
             }
+        }
+        if (!event->AffectsPed(m_pPed)) {
+            return nullptr;
+        }
+        if (event->HasEditableResponse()) {
+            const auto eventResp = static_cast<CEventEditableResponse*>(event);
             if (bInformGroup) {
                 eventResp->InformGroup(m_pPed);
             }
-            if (bInformRespectedFriends && (!bIsEventDamage || !static_cast<CEventDamage*>(event)->m_bStealthMode)) {
+            if (bInformRespectedFriends && (event->GetEventType() != EVENT_DAMAGE || !static_cast<CEventDamage*>(event)->m_bStealthMode)) {
                 eventResp->InformRespectedFriends(m_pPed);
             }
             if (bTriggerLookAt) {
                 eventResp->TriggerLookAt(m_pPed);
             }
             eventResp->InformVehicleOccupants(m_pPed);
-            if (!bAddToEventGroup) {
-                return nullptr;
-            }
-        } else {
-            if (!event->AffectsPed(m_pPed)) {
-                return nullptr;
-            }
         }
-        m_pPed->GetIntelligence()->RecordEventForScript(event->GetEventType(), event->GetEventPriority());
+        // Como el original: la prioridad se pide antes que el tipo
+        const auto intel    = m_pPed->GetIntelligence();
+        const auto priority = event->GetEventPriority();
+        const auto type     = event->GetEventType();
+        intel->RecordEventForScript(type, priority);
+        if (!bAddToEventGroup) {
+            return nullptr;
+        }
     }
 
-    if (m_count >= TOTAL_EVENTS_PER_EVENTGROUP) {
+    if ((int32)m_count >= TOTAL_EVENTS_PER_EVENTGROUP) {
         return nullptr;
     }
 
@@ -98,7 +109,7 @@ CEvent* CEventGroup::Add(CEvent* event, bool bValid) {
     if (m_pPed) {
         clonedEvent->ReportCriminalEvent(m_pPed);
     }
-    m_events[m_count++] = clonedEvent;
+    m_events.data()[m_count++] = clonedEvent;
     
     return clonedEvent;
 }
@@ -106,7 +117,9 @@ CEvent* CEventGroup::Add(CEvent* event, bool bValid) {
 // 0x4AB840
 bool CEventGroup::HasScriptCommandOfTaskType(eTaskType taskId) {
     for (auto& event : GetEvents()) {
-        if (const auto eScriptCmd = notsa::dyn_cast<CEventScriptCommand>(event)) {
+        // Como el original: salta los huecos nulos
+        if (event && event->GetEventType() == EVENT_SCRIPT_COMMAND) {
+            const auto eScriptCmd = static_cast<CEventScriptCommand*>(event);
             if (eScriptCmd->m_task && eScriptCmd->m_task->GetTaskType() == taskId) {
                 return true;
             }
@@ -117,7 +130,18 @@ bool CEventGroup::HasScriptCommandOfTaskType(eTaskType taskId) {
 
 // 0x4AB5E0
 bool CEventGroup::HasEventOfType(CEvent* eventOfType) const {
-    return GetEventOfType(eventOfType->GetEventType()) != nullptr;
+    // Como el original: un evento nulo cuenta como encontrado
+    if (!eventOfType) {
+        return true;
+    }
+    // Como el original: el tipo del evento buscado se vuelve a pedir en cada iteración, después del de la lista
+    for (auto& event : GetEvents()) {
+        const auto type = event->GetEventType();
+        if (eventOfType->GetEventType() == type) {
+            return true;
+        }
+    }
+    return false;
 }
 
 // 0x4AB7C0
@@ -176,13 +200,18 @@ void CEventGroup::RemoveInvalidEvents(bool bEverythingButScriptEvents) {
 
 // 0x4AB700
 void CEventGroup::Reorganise() {
-    const auto   old{m_events}; // Copy old event array
-    const size_t cnt{m_count};  // And count
-    m_count = 0;
-    for (size_t i = 0; i < cnt; i++) { // Make array contiguous and re-count number of events
-        if (const auto e = old[i]) {
-            m_events[m_count++] = e;
+    // Como el original: los eventos no nulos se mueven a un temporal y su hueco queda a cero
+    CEvent* old[TOTAL_EVENTS_PER_EVENTGROUP];
+    int32   cnt = 0;
+    for (int32 i = 0; i < (int32)m_count; i++) {
+        if (const auto e = m_events.data()[i]) {
+            old[cnt++]           = e;
+            m_events.data()[i]   = nullptr;
         }
+    }
+    m_count = (size_t)cnt;
+    for (int32 i = 0; i < (int32)m_count; i++) {
+        m_events.data()[i] = old[i];
     }
 }
 

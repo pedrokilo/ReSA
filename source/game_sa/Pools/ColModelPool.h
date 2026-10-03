@@ -51,4 +51,8 @@ public:
     CColModel* New() {
         return NewLegacy();
     }
+
+    // 0x40FC40 (inlined en CColModel::operator delete)
+    // Como el original: marca el slot libre y baja el cursor, sin rellenar el almacenamiento ni comprobar nulos.
+    void Delete(CColModel* colModel) { DeleteLegacy(colModel); }
 };

@@ -43,9 +43,9 @@ protected:
     CTask*    CreateSubTask(eTaskType taskType, CPed* ped);
     bool      IsVehicleInRange(const CPed& ped);
     void      ComputeRouteToDoor(const CPed& ped);
-    bool      CalculateTargetDoor(CPed* ped, bool& bCanWaitForDoorToBeFree);
 private:
     friend void InjectHooksMain();
+    friend bool __fastcall GoToCarDoorIsVehicleInRange(CTaskComplexGoToCarDoorAndStandStill* task, void*, const CPed* ped);
     static void InjectHooks();
 
     CTaskComplexGoToCarDoorAndStandStill* Constructor(CVehicle* vehicle, eMoveState a3, bool a4, int32 a5, float a6, float a7, float a8, int32 a9) { this->CTaskComplexGoToCarDoorAndStandStill::CTaskComplexGoToCarDoorAndStandStill(vehicle, a3, a4, a5, a6, a7, a8, a9); return this; }
@@ -59,7 +59,7 @@ public:
     float        m_SlowDownDist{};
     float        m_MaxSeekDist{};
     int32        m_MaxSeekTime{};
-    CTaskTimer   m_SeekTimer{};
+    CTaskTimer   m_SeekTimer; // Como el original: sin {} (no pone a cero los bytes de relleno)
     int32        m_TargetDoor{};
     CVector      m_TargetPt{};
     int32        m_TargetSeat{};

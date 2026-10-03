@@ -15,6 +15,7 @@ public:
     static void InjectHooks();
 
     CTaskSimpleCarSlowBeDraggedOut(CVehicle* target, eTargetDoor door, CTaskUtilityLineUpPedWithCar* lineUpUtility, bool isDraggedBySelf);
+    CTaskSimpleCarSlowBeDraggedOut(const CTaskSimpleCarSlowBeDraggedOut&); // Como el original (0x64A040): Clone llama al constructor
     ~CTaskSimpleCarSlowBeDraggedOut();
 
     CTask*    Clone() const override { return new CTaskSimpleCarSlowBeDraggedOut{ *this }; }
@@ -24,7 +25,7 @@ public:
     bool      SetPedPosition(CPed * ped) override; 
 
 private:
-    void DoOpenCarDoor(CPed* ped);
+    void DoOpenCarDoor(CPed* ped, float time);
     auto ComputeAnimID();
     void StartAnim(CPed* ped);
     static void FinishAnimCarSlowBeDraggedOutCB(CAnimBlendAssociation* anim, void* data);
@@ -32,7 +33,7 @@ private:
 private:
     bool                          m_HasAnimFinished{};
     CAnimBlendAssociation*        m_Anim{};
-    CVehicle::Ref                 m_Vehicle{};
+    CVehicle*                     m_Vehicle{}; // Como el original: referencia registrada a mano (orden del EXE)
     eTargetDoor                   m_Door{};
     bool                          m_IsDraggedBySelf{};
     bool                          m_FrontAnim{};

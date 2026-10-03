@@ -56,7 +56,7 @@ protected:
     CVector            m_OffsetPos{};
     float              m_Speed{};
     bool               m_TargetEntityExisted{};
-    float              m_Blend{};
+    float              m_Blend;          // Como el original: el constructor no lo escribe
     int32              m_EndTime;        // Como el original: los constructores no lo escriben
     float              m_TargetBlend;    // Como el original: los constructores no lo escriben
     int32              m_TargetTime;     // Como el original: los constructores no lo escriben

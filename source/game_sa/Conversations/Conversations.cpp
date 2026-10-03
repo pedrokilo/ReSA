@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/10 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -115,6 +115,7 @@ void CConversations::Update() {
         break;
 
     case eAwkwardSayStatus::INACTIVE:
+    default: // Como el original: cualquier estado distinto de 1 y 2 también actualiza las conversaciones
         // Ninguna locución especial está bloqueando al gestor de conversaciones.
         updateConversations();
         break;
@@ -159,11 +160,13 @@ void CConversations::SetUpConversationNode(
     node.m_SpeechN = answerNoWAV;
 
     // La ausencia de una clave de rama representa una rama terminal.
+    // Como el original: la clave "sí" no se pasa a mayúsculas cuando existe; MakeUpperCase sólo se llama sobre la
+    // cadena vacía de la rama terminal.
     if (answerYesKey) {
         strncpy(node.m_NameNodeYes, answerYesKey, 6u);
-        MakeUpperCase(node.m_NameNodeYes);
     } else {
         node.m_NameNodeYes[0] = '\0';
+        MakeUpperCase(node.m_NameNodeYes);
     }
 
     if (answerNoKey) {
@@ -243,10 +246,11 @@ bool CConversations::IsConversationAtNode(const char* pName, CPed* pPed) {
         return false;
     }
 
-    // NOTSA: La implementación de estilo original puede normalizar una copia con
-    // MakeUpperCase() y después usar strcmp(); stricmp() consigue la misma
-    // comparación sin distinguir mayúsculas/minúsculas y sin modificar la entrada.
-    return !stricmp(pName, CConversations::m_Nodes[conversation->m_CurrentNode].m_Name);
+    // Como el original: pasa a mayúsculas la cadena del llamador en su sitio y compara con strcmp() (un nombre de
+    // nodo con minúsculas nunca coincide). Los comandos de script pasan un buffer temporal escribible.
+    char* name = const_cast<char*>(pName);
+    MakeUpperCase(name);
+    return !strcmp(name, CConversations::m_Nodes[conversation->m_CurrentNode].m_Name);
 }
 
 // 0x43A810

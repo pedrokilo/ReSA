@@ -1,0 +1,107 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 8896,
+  "pairs_per_function": {
+    "CWeaponInfo::FindWeaponFireType": 256,
+    "CWeaponInfo::FindWeaponType": 256,
+    "CWeaponInfo::GetCrouchReloadAnimationID": 256,
+    "CWeaponInfo::GetSkillStatIndex": 128,
+    "CWeaponInfo::GetTargetHeadRange": 512,
+    "CWeaponInfo::GetWeaponInfo-original": 512,
+    "CWeaponInfo::GetWeaponReloadTime": 512,
+    "CWeaponInfo::Initialise": 32,
+    "CWeaponInfo::LoadWeaponData": 512,
+    "CWeaponInfo::Shutdown": 16,
+    "FxSystemBP_c::Constructor": 64,
+    "FxSystemBP_c::Destructor": 64,
+    "FxSystemBP_c::FreePrtFromSystem": 256,
+    "FxSystemBP_c::GetBoundingSphere": 64,
+    "FxSystemBP_c::Load": 512,
+    "FxSystemBP_c::Render": 256,
+    "FxSystemBP_c::SetBoundingSphere": 256,
+    "FxSystemBP_c::Unload": 16,
+    "FxSystemBP_c::Update": 256,
+    "FxSystemBP_c::operator new": 128,
+    "CTaskComplexBeInGroup::Clone": 128,
+    "CTaskComplexBeInGroup::Constructor": 128,
+    "CTaskComplexBeInGroup::ControlSubTask": 1024,
+    "CTaskComplexBeInGroup::CreateFirstSubTask": 256,
+    "CTaskComplexBeInGroup::CreateNextSubTask": 256,
+    "CTaskComplexBeInGroup::Destructor": 128,
+    "CTaskComplexBeInGroup::GetTaskType": 64,
+    "CTaskComplexBeInGroup::MakeAbortable": 512,
+    "CTaskComplexBeInGroup::MonitorMainGroupTask": 512,
+    "CTaskComplexBeInGroup::MonitorSecondaryGroupTask": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "07f53cdc073a9511fe75476560f7200891bae1d9a5638c085622b0625ad71bdd",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-data10\\20261003-045936-534438",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CWeaponInfo::FindWeaponFireType": true,
+    "CWeaponInfo::FindWeaponType": true,
+    "CWeaponInfo::GetCrouchReloadAnimationID": true,
+    "CWeaponInfo::GetSkillStatIndex": true,
+    "CWeaponInfo::GetTargetHeadRange": true,
+    "CWeaponInfo::GetWeaponInfo-original": true,
+    "CWeaponInfo::GetWeaponReloadTime": true,
+    "CWeaponInfo::Initialise": true,
+    "CWeaponInfo::LoadWeaponData": true,
+    "CWeaponInfo::Shutdown": true,
+    "FxSystemBP_c::Constructor": true,
+    "FxSystemBP_c::Destructor": true,
+    "FxSystemBP_c::FreePrtFromSystem": true,
+    "FxSystemBP_c::GetBoundingSphere": true,
+    "FxSystemBP_c::Load": true,
+    "FxSystemBP_c::Render": true,
+    "FxSystemBP_c::SetBoundingSphere": true,
+    "FxSystemBP_c::Unload": true,
+    "FxSystemBP_c::Update": true,
+    "FxSystemBP_c::operator new": true,
+    "CTaskComplexBeInGroup::Clone": true,
+    "CTaskComplexBeInGroup::Constructor": true,
+    "CTaskComplexBeInGroup::ControlSubTask": true,
+    "CTaskComplexBeInGroup::CreateFirstSubTask": true,
+    "CTaskComplexBeInGroup::CreateNextSubTask": true,
+    "CTaskComplexBeInGroup::Destructor": true,
+    "CTaskComplexBeInGroup::GetTaskType": true,
+    "CTaskComplexBeInGroup::MakeAbortable": true,
+    "CTaskComplexBeInGroup::MonitorMainGroupTask": true,
+    "CTaskComplexBeInGroup::MonitorSecondaryGroupTask": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "fefaace555e81bb6feea89f414b0ea8b6b569e472643b4c4df289a232309a628",
+      "pdb": "0920a3806945e7543519b96ab426e5276100554c78fbccead6d1634245cd28bd"
+    },
+    "sources": {
+      "source/game_sa/WeaponInfo.cpp": "725df7fe9c64df9292e323515be032e7aebced93ea2e719339ac8eb411d89988",
+      "source/game_sa/WeaponInfo.h": "fe843e4192ec6ed6da8be6d5843ae6d4ed69ecf7558422dd099d30c9c201d00b",
+      "source/game_sa/Fx/FxSystemBP.cpp": "2f171a8885c4065882be6e7aa91558d4b1b0eee9178fed26447690a00ba6e854",
+      "source/game_sa/Fx/FxSystemBP.h": "91fc2f5259df7f1deaf1a77e52dd312507e25b9bbc996a7d54a39888dde423a9",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexBeInGroup.cpp": "f25198da25d802d3bec07d02a0327d828bd9b91683b1781f4ece71186ed7c3a3",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexBeInGroup.h": "46c442b3641e723e46e0511a657f9081adde3734247745164c82cd4f8a2c70ce"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "0f24c9bdb2d08137ffa3cc61508880966dedfbba0212111067d7da85413f0a95",
+      "build_probe.py": "810a32017a43fa5698cdb21d2fe9ad665b52d06306fd44c299718bf04546b74c",
+      "run_local.py": "1d1fc0b61e73a6e6bcf95d662bd9ffb9f4b7648248029d2aed533123a0e3e846"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

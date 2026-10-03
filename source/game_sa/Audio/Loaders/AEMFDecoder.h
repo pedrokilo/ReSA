@@ -11,11 +11,12 @@
  * Mantiene compatibilidad binaria con la clase original de QuickTime y produce
  * PCM estéreo de 16 bits para el resto del subsistema de audio.
  */
-class CAEMFDecoder : public CAEStreamingDecoder {
+class NOTSA_EXPORT_VTABLE CAEMFDecoder : public CAEStreamingDecoder {
 private:
     static constexpr size_t TEMPBUFFRAME = 65536;
     static inline auto& quickTimeInitialized = StaticRef<bool>(0xb61d70); // QuickTime is replaced with MediaFoundation
-    static HMODULE mfPlatModule, mfReadWriteModule;
+    static HMODULE mfPlatModule;
+    static HMODULE mfReadWriteModule;
     static HRESULT(__stdcall* MFCreateSourceReaderFromURL)(LPCWSTR pwszURL, IMFAttributes* pAttributes, IMFSourceReader** ppSourceReader);
     static HRESULT(__stdcall* MFCreateMediaType)(IMFMediaType** ppMFType);
 
@@ -28,6 +29,7 @@ private:
             IMFMediaType*    m_pPcmAudio;       //!< Tipo PCM negociado con Media Foundation.
             int16*           m_wpTempBuffer;    //!< Frames sobrantes entre llamadas FillBuffer().
             size_t           m_nTempBufferUsed; //!< Número de frames válidos en el buffer temporal.
+            long             m_nSyncedPlayTime; //!< Último m_nPlayTime alineado con el reader; si difiere, FillBuffer() hace el seek pendiente.
         };
     };
     long m_nPlayTime; // index 160

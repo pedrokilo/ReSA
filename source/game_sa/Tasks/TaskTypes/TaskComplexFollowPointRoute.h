@@ -19,28 +19,29 @@ public:
     };
 
 public:
-    Mode         m_mode{};
-    int32        m_nRouteTraversals{};
-    eMoveState   m_moveState{};
-    float        m_targetRadius{};
-    float        m_slowDownDistance{};
-    CPointRoute* m_route{};
-    uint32       m_currPointIdx{};
+    // Como el original: sin inicializadores; el constructor solo escribe lo que escribe el EXE
+    Mode         m_mode;
+    int32        m_nRouteTraversals;
+    eMoveState   m_moveState;
+    float        m_targetRadius;
+    float        m_slowDownDistance;
+    CPointRoute* m_route;
+    uint32       m_currPointIdx;
 
-    bool         m_bMustOvershootTarget : 1{};
-    bool         m_bNewRoute : 1{true};
-    bool         m_bStandStillAfterMove : 1{};
-    bool         m_bUseBlending : 1{};
-    bool         m_bWillSlowDown : 1{};
-    bool         m_bSlowingDown : 1{};
-    bool         m_bSpeedingUp : 1{};
+    bool         m_bMustOvershootTarget : 1;
+    bool         m_bNewRoute : 1;
+    bool         m_bStandStillAfterMove : 1;
+    bool         m_bUseBlending : 1;
+    bool         m_bWillSlowDown : 1;
+    bool         m_bSlowingDown : 1;
+    bool         m_bSpeedingUp : 1;
 
     // For the below values see `CalcBlendRatio`
-    float        m_speedDecreaseDist{};
-    float        m_speedIncreaseDist{};
+    float        m_speedDecreaseDist;
+    float        m_speedIncreaseDist;
 
-    float        m_speedDecreaseAmt{};
-    float        m_speedIncreaseAmt{};
+    float        m_speedDecreaseAmt;
+    float        m_speedIncreaseAmt;
 
 public:
     static void InjectHooks();

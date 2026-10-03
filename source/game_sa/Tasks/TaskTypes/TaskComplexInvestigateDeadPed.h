@@ -12,7 +12,7 @@ class NOTSA_EXPORT_VTABLE CTaskComplexInvestigateDeadPed : public CTaskComplex {
 
 public:
     CPed* m_deadPed = {};       ///< The ped that we have to investigate
-    CTaskTimer m_timer = {};    ///< Unused timer, as it's never started
+    CTaskTimer m_timer;         ///< Unused timer, as it's never started (Como el original: relleno 0x1A..0x1B sin escribir)
     CVector m_targetPos = {};   ///< The position we shuld go to, it is updated in `ControlSubTask`
     float m_targetHeading = {}; ///< The heading that should be achieved, used for `CTaskSimpleAchieveHeading`
     CVector m_pedInitalPos = {};///< The ped's inital position (Set in `CreateFirstSubTask`)

@@ -15,6 +15,7 @@ public:
     static void InjectHooks();
 
     CTaskSimpleCarFallOut(CVehicle* target, eTargetDoor door, CTaskUtilityLineUpPedWithCar* lineUpUtility);
+    CTaskSimpleCarFallOut(const CTaskSimpleCarFallOut&); // Como el original (0x64A280): Clone llama al constructor
     ~CTaskSimpleCarFallOut() override;
 
     auto ComputeAnimID();
@@ -27,7 +28,7 @@ public:
     bool      SetPedPosition(CPed * ped) override; 
 
 private:
-    void DoOpenCarDoor(CPed* ped);
+    void DoOpenCarDoor(CPed* ped, float time);
     static void FinishAnimFallOutCB(CAnimBlendAssociation* anim, void* data);
 
 private:

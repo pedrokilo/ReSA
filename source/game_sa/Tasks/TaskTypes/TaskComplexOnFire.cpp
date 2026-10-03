@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -46,7 +46,7 @@ void CTaskComplexOnFire::ComputeFireDamage(CPed* ped, CPedDamageResponse& outRes
 
     CPedDamageResponseCalculator calc{
         ped->m_pFire ? ped->m_pFire->GetEntityStartedFire() : nullptr,
-        CTimer::GetTimeStep() * ped->m_fireDmgMult * 500.f / 1000.f, // TODO: Magic numberz
+        CTimer::GetTimeStep() * ped->m_fireDmgMult * 500.f * 0.001f, // Como el original: multiplica por 0.001 (no divide entre 1000)
         WEAPON_FLAMETHROWER,
         PED_PIECE_TORSO,
         false
@@ -73,9 +73,8 @@ CTask* CTaskComplexOnFire::CreateSubTask(eTaskType taskType) {
             1.f
         };
     case TASK_FINISHED:
-        return nullptr;
     default:
-        NOTSA_UNREACHABLE();
+        return nullptr; // Como el original
     }
 }
 
@@ -97,17 +96,21 @@ CTask* CTaskComplexOnFire::CreateFirstSubTask(CPed* ped) {
 
 // 0x639200
 CTask* CTaskComplexOnFire::ControlSubTask(CPed* ped) {
+    const auto subTask = m_pSubTask; // Como el original: se devuelve la subtarea leída al entrar
+
     if (ped->physicalFlags.bSubmergedInWater) {
         if (ped->m_pFire) {
             ped->m_pFire->Extinguish();
         }
     }
 
-    switch (m_pSubTask->GetTaskType()) {
-    case TASK_COMPLEX_SMART_FLEE_ENTITY: {
+    if (m_pSubTask->GetTaskType() == TASK_COMPLEX_SMART_FLEE_ENTITY) {
         if (!ped->m_pFire) {
-            MakeAbortable(ped);
-            return nullptr;
+            // Como el original: solo termina si la subtarea acepta abortar
+            if (m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr)) {
+                return nullptr;
+            }
+            return subTask;
         }
 
         if (CLocalisation::PedsOnFire()) {
@@ -116,13 +119,13 @@ CTask* CTaskComplexOnFire::ControlSubTask(CPed* ped) {
 
         CPedDamageResponse resp{};
         ComputeFireDamage(ped, resp);
-        if (resp.m_bHealthZero && MakeAbortable(ped)) {
+        if (resp.m_bHealthZero && m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr)) {
+            // Como el original: crea la tarea de morir antes de registrar la muerte
+            auto* const task = CreateSubTask(TASK_COMPLEX_DIE);
             CEventHandler::RegisterKill(ped, ped->m_pFire->GetEntityStartedFire(), WEAPON_MOLOTOV, false);
-            return CreateSubTask(TASK_COMPLEX_DIE);
+            return task;
         }
-        break;
-    }
     }
 
-    return m_pSubTask;
+    return subTask;
 }

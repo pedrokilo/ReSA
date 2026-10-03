@@ -32,6 +32,20 @@ END GENERATED HOOK STATUS */
 /**
  * Registra el ciclo de vida, clonación y utilidades de jerarquía de CClumpModelInfo.
  */
+// Como el original: 0x5B3C30 es cdecl (modelInfo, flags); el hook se resolvía al método thiscall (ret 4) y
+// descuadraba la pila. Esta envoltura recibe los argumentos cdecl y conserva EDX como la función del EXE.
+static void __declspec(naked) SetClumpModelInfoFlags_KeepEdx() {
+    __asm {
+        push edx
+        push dword ptr [esp + 0Ch]
+        push dword ptr [esp + 0Ch]
+        call SetClumpModelInfoFlags
+        add  esp, 8
+        pop  edx
+        ret
+    }
+}
+
 void CClumpModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CClumpModelInfo, 0x85BD30, 17);
@@ -61,7 +75,7 @@ void CClumpModelInfo::InjectHooks()
     RH_ScopedInstall(GetFrameFromName, 0x4C5400);
     RH_ScopedInstall(FillFrameArray, 0x4C5440);
 
-    RH_ScopedInstall(SetClumpModelInfoFlags, 0x5B3C30);
+    RH_ScopedNamedGlobalInstall(SetClumpModelInfoFlags_KeepEdx, "SetClumpModelInfoFlags", 0x5B3C30);
 }
 
 // 0x4C5720

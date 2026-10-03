@@ -2,11 +2,11 @@
 
 La [hoja de ruta de PGTASA](../docs/ProjectRoadmap.md) sitúa estas pruebas dentro del objetivo de reconstrucción funcionalmente equivalente e independencia del EXE. Reconstrucción, validación, desbloqueo e independencia son dimensiones separadas; el total de pares no es un total de funciones validadas.
 
-La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 1.901 funciones a sus pruebas; las tres acreditaciones de la versión anterior quedan pendientes por el cambio de huella global de source durante CustomBuilding. Las 1.901 conservan evidencia vinculada pendiente de revisión de dependencias. El [inventario de las 7.857 reconstruidas](../docs/ValidationInventory.md) identifica también las 5.956 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
+La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 3.470 funciones a sus pruebas; las tres acreditaciones de la versión anterior quedan pendientes por el cambio de huella global de source durante CustomBuilding. Las 3.470 conservan evidencia vinculada pendiente de revisión de dependencias. El [inventario de las 7.857 reconstruidas](../docs/ValidationInventory.md) identifica también las 4.387 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
 
 ## Estado actual del catálogo de hooks
 
-El corte vigente de `PGTASA` contiene **771 clases/grupos y 8.440 entradas**: 7.857 reconstruidas y 583 pendientes. De ellas, **1.901 tienen `validated=1`** porque cuentan con evidencia aprobada vinculada; 0 conservan vigencia acreditada para el árbol actual. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
+El corte vigente de `PGTASA` contiene **771 clases/grupos y 8.440 entradas**: 7.857 reconstruidas y 583 pendientes. De ellas, **3.470 tienen `validated=1`** porque cuentan con evidencia aprobada vinculada; 0 conservan vigencia acreditada para el árbol actual. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
 
 ```powershell
 python contrib/audit_hook_catalog.py --strict
@@ -18,7 +18,7 @@ Esta carpeta sí se utiliza. Ejecutar `PROBAR.cmd` desde la raíz para elegir un
 
 `PROBAR.cmd --all` ejecuta en serie todos los bancos dentro de GTA. Para evitar la pausa del CMD, usar `python reversing/run.py --all`. Abre y cierra la copia de pruebas para cada banco, vuelve a analizar sus logs nuevos y comprueba la restauración del ASI/PDB y los hashes de las partidas antes de continuar. Los informes conjuntos quedan en `reversing/artifacts/suite-*/summary.json`, con salidas por caso y rutas/hashes de la evidencia. Se omite `pcsave-isolated` porque la misma función ya se prueba dentro del motor.
 
-El catálogo actual contiene **112 casos: 111 dentro del motor y uno aislado**.
+El catálogo actual contiene **152 casos: 151 dentro del motor y uno aislado**.
 
 Esta serie usa las sondas archivadas de cada trabajo. El caso `conversation-for-ped` comprueba además que fuentes e instrumentación coinciden con su manifiesto; si cambiaron, recompilar con `python reversing/ConversationForPed/build.py --probe` antes de ejecutarlo. La serie no es una prueba de integración de todos los cambios en una única compilación actual ni sustituye la campaña de estabilidad futura.
 
@@ -81,6 +81,46 @@ Esta serie usa las sondas archivadas de cada trabajo. El caso `conversation-for-
 - [Data7](Data7/README.md): policía, ropa, listas de peatones, plantas, marcas de derrape, efectos especiales y streaming (lista de 7), 45 funciones y 13.760 pares. Caso `data7`.
 - [Audio7](Audio7/README.md): audio del fuego, cargador de pistas MP3, sonidos dobles, cañón de agua, pipeline de edificios y cargador de decisiones (lista de 7), 42 funciones y 11.776 pares. Caso `audio7`.
 - [Mgr7](Mgr7/README.md): saltos acrobáticos, generadores de coches, muebles, criaturas del agua y tareas de interior (lista de 7), 49 funciones y 15.488 pares. Caso `mgr7`.
+- [Data8a](Data8a/README.md): pistas de cinemática. canal estático. generador de coches. checkpoints. colisión y bandas (lista de 8). 47 funciones y 18.176 pares. Caso `data8a`.
+- [Data8b](Data8b/README.md): eventos de bici y script. tareas de script. sombras. rectángulos y coches atascados (lista de 8). 48 funciones y 17.024 pares. Caso `data8b`.
+- [Fx8](Fx8/README.md): efectos. objetos procedurales y tareas de interior (lista de 8). 40 funciones y 15.552 pares. Caso `fx8`.
+- [CTasks8a](CTasks8a/README.md): tareas complejas A (lista de 8). 48 funciones y 14.144 pares. Caso `ctasks8a`.
+- [CTasks8b](CTasks8b/README.md): tareas complejas B (lista de 8). 48 funciones y 12.736 pares. Caso `ctasks8b`.
+- [CTasks8c](CTasks8c/README.md): tareas complejas C y golpes (lista de 8). 48 funciones y 16.896 pares. Caso `ctasks8c`.
+- [STasks8a](STasks8a/README.md): tareas simples A (lista de 8). 40 funciones y 12.224 pares. Caso `stasks8a`.
+- [STasks8b](STasks8b/README.md): tareas simples B (lista de 8). 32 funciones y 12.608 pares. Caso `stasks8b`.
+- [Core9](Core9/README.md): decodificador WAV. reloj. CdStream. CGeneral y comunes (lista de 9). 45 funciones y 19.968 pares. Caso `core9`.
+- [Models9](Models9/README.md): modelos atómicos y de peatón. colisión. carteles y textos (lista de 9). 45 funciones y 14.400 pares. Caso `models9`.
+- [Ped9](Ped9/README.md): iK del peatón. efectos de armas. cadena IK. lanzar y recoger bici (lista de 9). 45 funciones y 14.720 pares. Caso `ped9`.
+- [CTasks9a](CTasks9a/README.md): tareas complejas A (lista de 9). 45 funciones y 14.592 pares. Caso `ctasks9a`.
+- [CTasks9b](CTasks9b/README.md): tareas complejas B (lista de 9). 45 funciones y 13.696 pares. Caso `ctasks9b`.
+- [CTasks9c](CTasks9c/README.md): tareas complejas C (lista de 9). 45 funciones y 19.840 pares. Caso `ctasks9c`.
+- [CTasks9d](CTasks9d/README.md): búsqueda de entidad y sentarse en escritorio (lista de 9). 36 funciones y 13.568 pares. Caso `ctasks9d`.
+- [STasks9](STasks9/README.md): tareas simples de coche (lista de 9). 45 funciones y 16.448 pares. Caso `stasks9`.
+- [Sys10](Sys10/README.md): decodificador MF. fundido de audio. conversaciones. directorio e historial de eventos (lista de 10). 46 funciones y 17.088 pares. Caso `sys10`.
+- [Data10](Data10/README.md): datos de armas. plantillas de efectos y estar en grupo (lista de 10). 30 funciones y 8.896 pares. Caso `data10`.
+- [CTasks10a](CTasks10a/README.md): tareas complejas A (lista de 10). 40 funciones y 15.488 pares. Caso `ctasks10a`.
+- [CTasks10b](CTasks10b/README.md): tareas de cobertura. cambio de asiento y coche (lista de 10). 40 funciones y 16.256 pares. Caso `ctasks10b`.
+- [STasks10](STasks10/README.md): tareas simples de coche (lista de 10). 50 funciones y 19.136 pares. Caso `stasks10`.
+- [CTasks11](CTasks11/README.md): respuesta editable, conducir, ser arrastrado y huir a un punto (lista de 11). 44 funciones y 12.672 pares. Caso `ctasks11`.
+- [Audio11](Audio11/README.md): voz sin peatón, decodificador WMA, ropa y aceleración de colisiones (lista de 11). 43 funciones y 13.632 pares. Caso `audio11`.
+- [World11](World11/README.md): coronas, entradas/salidas, reaparición y manejo de vehículos (lista de 11). 44 funciones y 16.704 pares. Caso `world11`.
+- [Mix11](Mix11/README.md): helicóptero, ir a la puerta del coche y nadar (lista de 11). 33 funciones y 19.520 pares. Caso `mix11`.
+- [Sys12](Sys12/README.md): scripts en streaming, `Game` y árbol cuaternario (lista de 12). 34 funciones y 12.320 pares. Caso `sys12`.
+- [World12](World12/README.md): semáforos, pickups y explosiones (lista de 12). 36 funciones y 11.392 pares. Caso `world12`.
+- [Mix12](Mix12/README.md): grupo de eventos, rodear edificio y hierba (lista de 12). 36 funciones y 15.488 pares. Caso `mix12`.
+- [Audio13](Audio13/README.md): banco MP3 y decodificador Vorbis (lista de 13). 26 funciones y 11.520 pares. Caso `audio13`.
+- [CTasks13](CTasks13/README.md): seguir ruta, líder de banda, persecución policial y secuencia (lista de 13). 51 funciones y 16.384 pares. Caso `ctasks13`.
+- [Sys13](Sys13/README.md): tipos de peatón, temporizador y remolque (lista de 13). 39 funciones y 15.872 pares. Caso `sys13`.
+- [Audio14](Audio14/README.md): gestor de sonidos e hilo de streaming de audio (lista de 14). 28 funciones y 10.240 pares. Caso `audio14`.
+- [Render14](Render14/README.md): secuencias de animación y pipeline día/noche de edificios (lista de 14). 28 funciones y 6.784 pares. Caso `render14`.
+- [Mix14](Mix14/README.md): gestor de atractores y matrículas (lista de 14). 28 funciones y 11.904 pares. Caso `mix14`.
+- [CTasks14a](CTasks14a/README.md): entrar en el coche y deambular (lista de 14). 27 funciones y 11.776 pares. Caso `ctasks14a`.
+- [CTasks14b](CTasks14b/README.md): sostener objeto y jetpack (lista de 14). 27 funciones y 12.352 pares. Caso `ctasks14b`.
+- [Audio15](Audio15/README.md): radio de usuario y grupos de animaciones (lista de 15). 30 funciones y 11.008 pares. Caso `audio15`.
+- [World15](World15/README.md): ciclo de población y sprites (lista de 15). 30 funciones y 17.312 pares. Caso `world15`.
+- [CTasks15](CTasks15/README.md): evitar peatones al deambular, trepar y agacharse (lista de 15). 45 funciones y 19.712 pares. Caso `ctasks15`.
+- [Anim16](Anim16/README.md): jerarquías y nodos de animación (lista de 16). 32 funciones y 14.080 pares. Caso `anim16`.
 - [InformQueues](InformQueues/README.md): colas de eventos de grupo, 11 funciones y 6.464 pares. Caso `inform`.
 - [BoneNodes](BoneNodes/README.md): `BoneNode_c` y `BoneNodeManager_c`, 25 funciones y 12.256 pares exactos bit a bit. Caso `bones`.
 - [TasksBatch](TasksBatch/README.md): cinco clases de tareas, 39 funciones y 20.480 pares. Caso `tasks`.

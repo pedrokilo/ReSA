@@ -10,7 +10,7 @@ class CEvent;
 
 class NOTSA_EXPORT_VTABLE CTaskComplexDestroyCarArmed : public CTaskComplex {
 public:
-    bool      m_bNeedsToCreatefirstSubTask{};
+    bool      m_bNeedsToCreatefirstSubTask; // Como el original: el constructor (0x621F50) no escribe 0xC
     CVehicle* m_VehToDestroy{};
     CVector   m_PedPos{};
     CVector   m_VehiclePos{};

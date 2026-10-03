@@ -41,7 +41,7 @@ public:
     static void* operator new(unsigned size);
     static void  operator delete(void* data);
 
-    void Load(Const char* filename, FILESTREAM file, int32 version);
+    bool Load(Const char* filename, FILESTREAM file, int32 version); // Como el original: devuelve false
 
     void Unload();
     void Update(float arg0);

@@ -11,7 +11,7 @@ public:
     bool                      m_IsRoadBlockCop : 1 {};
     bool                      m_IsPlayerInCullZone : 1 {};
     bool                      m_CouldJoinPursuit : 1 { true };
-    notsa::EntityRef<CCopPed> m_Pursuer{};
+    CCopPed*                  m_Pursuer{}; // Como el original: sin referencia registrada (0x6908E9)
     notsa::EntityRef<CPed>    m_Pursued{};
 
 public:
@@ -19,7 +19,7 @@ public:
 
     static void InjectHooks();
 
-    CTaskComplexPolicePursuit() = default;
+    CTaskComplexPolicePursuit();
     CTaskComplexPolicePursuit(const CTaskComplexPolicePursuit&);
     ~CTaskComplexPolicePursuit() override;
 

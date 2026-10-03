@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -24,10 +24,19 @@ CTaskSimpleCarFallOut::CTaskSimpleCarFallOut(CVehicle* target, eTargetDoor door,
     m_Vehicle{ target },
     m_Door{ door },
     m_LineUpUtility{ lineUpUtility }
-{ }
+{
+    CEntity::SafeRegisterRef(m_Vehicle); // Como el original: registra la referencia al vehículo
+}
+
+// 0x64A280 (Clone)
+CTaskSimpleCarFallOut::CTaskSimpleCarFallOut(const CTaskSimpleCarFallOut& o) :
+    CTaskSimpleCarFallOut{ o.m_Vehicle, o.m_Door, o.m_LineUpUtility }
+{
+}
 
 // 0x648DE0
 CTaskSimpleCarFallOut::~CTaskSimpleCarFallOut() {
+    CEntity::SafeCleanUpRef(m_Vehicle); // Como el original
     if (notsa::IsFixBugs()) {
         if (const auto a = std::exchange(m_Anim, nullptr)) {
             a->SetDefaultFinishCallback();
@@ -37,14 +46,19 @@ CTaskSimpleCarFallOut::~CTaskSimpleCarFallOut() {
 
 // 0x648EE0
 void CTaskSimpleCarFallOut::FinishAnimFallOutCB(CAnimBlendAssociation* anim, void* data) {
-    auto* const self = notsa::cast<CTaskSimpleCarFallOut>(static_cast<CTask*>(data));
-    assert(self->m_Anim == anim);
+    auto* const self = static_cast<CTaskSimpleCarFallOut*>(data);
 
     self->m_HasFinished = true;
     self->m_Anim        = nullptr;
 
     if (self->m_Vehicle && self->m_Vehicle->IsAutomobile()) {
-        self->m_Vehicle->AsAutomobile()->GetDamageManager().SetDoorClosed_Component((tComponent)(self->m_Door));
+        // Como el original: abre la puerta (cerrada -> abierta, dañada -> abierta y dañada), pidiendo el estado dos veces
+        auto& dm = self->m_Vehicle->AsAutomobile()->GetDamageManager();
+        const auto comp = (tComponent)(self->m_Door);
+        // Como el original: Get == OK; si no, otro Get == DAMAGED; y un último Get para el +1 (2 o 3 lecturas)
+        if (dm.GetDoorStatus_Component(comp) == DAMSTATE_OK || dm.GetDoorStatus_Component(comp) == DAMSTATE_DAMAGED) {
+            dm.SetDoorStatus_Component(comp, (eDoorStatus)(dm.GetDoorStatus_Component(comp) + 1));
+        }
     }
 }
 
@@ -66,9 +80,9 @@ void CTaskSimpleCarFallOut::StartAnim(const CPed* ped) {
 }
 
 // notsa
-void CTaskSimpleCarFallOut::DoOpenCarDoor(CPed* ped) {
+void CTaskSimpleCarFallOut::DoOpenCarDoor(CPed* ped, float time) {
     const auto [animGrp, animId] = ComputeAnimID();
-    m_Vehicle->ProcessOpenDoor(ped, m_Door, animGrp, animId, 1.f);
+    m_Vehicle->ProcessOpenDoor(ped, m_Door, animGrp, animId, time);
 }
 
 // 0x64CC60
@@ -76,12 +90,13 @@ bool CTaskSimpleCarFallOut::MakeAbortable(CPed* ped, eAbortPriority priority, co
     if (priority != ABORT_PRIORITY_IMMEDIATE) {
         return false;
     }
-    if (const auto a = std::exchange(m_Anim, nullptr)) {
-        a->SetBlendDelta(-1000.f);
-        a->SetDefaultFinishCallback();
+    if (m_Anim) {
+        m_Anim->SetBlendDelta(-1000.f);
+        m_Anim->SetDefaultFinishCallback();
+        m_Anim = nullptr;
     }
     if (m_Vehicle) {
-        DoOpenCarDoor(ped);
+        DoOpenCarDoor(ped, 1.f);
     }
     return true;
 }
@@ -95,10 +110,11 @@ bool CTaskSimpleCarFallOut::ProcessPed(CPed* ped) {
         StartAnim(ped);
         return false;
     }
-    if (ped->bInVehicle) {
-        DoOpenCarDoor(ped);
+    if (!ped->bInVehicle) {
+        return true;
     }
-    return !ped->bInVehicle;
+    DoOpenCarDoor(ped, m_Anim->GetCurrentTime()); // Como el original: la puerta sigue el tiempo de la animación
+    return false;
 }
 
 // 0x648E40

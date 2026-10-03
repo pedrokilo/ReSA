@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -139,7 +139,12 @@ void Fx_c::InitEntitySystems() {
 // NOTSA
 // Evita crear sistemas efímeros lejanos; los aceptados se reproducen una vez y se autodestruyen.
 static void CreateFxWithinCameraRange(const char* name, const CVector& pos, float range) {
-    if (DistanceBetweenPointsSquared(TheCamera.GetPosition(), pos) <= range) {
+    // Como el original: (cámara - pos), suma x² + z² + y² y se descarta solo si es > rango (NaN crea el efecto).
+    const auto& cam = TheCamera.GetPosition();
+    const float dx = cam.x - pos.x;
+    const float dy = cam.y - pos.y;
+    const float dz = cam.z - pos.z;
+    if (!(dx * dx + dz * dz + dy * dy > range)) {
         if (auto* fxSystem = g_fxMan.CreateFxSystem(name, pos, nullptr, false)) {
             fxSystem->PlayAndKill();
         }
@@ -393,17 +398,42 @@ void RenderAddTri_(
     int32 r2, int32 g2, int32 b2, int32 a2,
     int32 r3, int32 g3, int32 b3, int32 a3
 ) {
-    RenderAddTri(
-        { x1, y1, z1 },
-        { x2, y2, z2 },
-        { x3, y3, z3 },
-        { u1, v1 },
-        { u2, v2 },
-        { u3, v3 },
-        CRGBA().FromInt32(r1, g1, b1, a1),
-        CRGBA().FromInt32(r2, g2, b2, a2),
-        CRGBA().FromInt32(r3, g3, b3, a3)
-    );
+    // Como el original: el color se compone con los enteros completos, sin enmascarar ((((a << 8 | r) << 8 | g) << 8) | b).
+    const auto Pack = [](int32 r, int32 g, int32 b, int32 a) -> uint32 {
+        return (((((uint32)a << 8) | (uint32)r) << 8 | (uint32)g) << 8) | (uint32)b;
+    };
+
+    auto* verts = g_fx.m_pVerts;
+    verts[0].objVertex = { x1, y1, z1 };
+    verts[0].color     = Pack(r1, g1, b1, a1);
+    verts[1].objVertex = { x2, y2, z2 };
+    verts[1].color     = Pack(r2, g2, b2, a2);
+    verts[2].objVertex = { x3, y3, z3 };
+    verts[2].color     = Pack(r3, g3, b3, a3);
+    g_fx.m_pVerts += 3;
+    g_fx.m_nVerticesCount2 += 3;
+
+    if (g_fx.m_pRasterToRender) {
+        verts[0].u = u1;
+        verts[0].v = v1;
+        verts[1].u = u2;
+        verts[1].v = v2;
+        verts[2].u = u3;
+        verts[2].v = v3;
+    }
+
+    g_fx.m_nVerticesCount++;
+
+    // Como el original: comparaciones con signo y vaciado en línea (sin comprobar que haya triángulos).
+    if ((int32)g_fx.m_nVerticesCount2 >= TOTAL_TEMP_BUFFER_3DVERTICES - 3 || (int32)g_fx.m_nVerticesCount >= TOTAL_TEMP_BUFFER_INDICES - 1) {
+        if (RwIm3DTransform(TempBufferVertices.m_3d, 3 * g_fx.m_nVerticesCount, g_fx.m_pTransformLTM, g_fx.m_nTransformRenderFlags)) {
+            RwIm3DRenderPrimitive(rwPRIMTYPETRILIST);
+            RwIm3DEnd();
+        }
+        g_fx.m_nVerticesCount = 0;
+        g_fx.m_nVerticesCount2 = 0;
+        g_fx.m_pVerts = TempBufferVertices.m_3d;
+    }
 }
 
 // TODO: I honestly think this should be a class method...
@@ -460,19 +490,25 @@ void RenderEnd() {
 
 // 0x4A1660
 void RotateVecIntoVec(RwV3d& vecRes, const RwV3d& vec, const RwV3d& vecAlign) {
-    const CVector up = vecAlign;
-    const auto ref = CVector{ 3.f, 4.f, 5.f }.Normalized();
+    // Como el original: la referencia son las constantes del EXE (0,4243; 0,5657; 0,7071), no (3,4,5) normalizado.
+    const float refX = std::bit_cast<float>(0x3ED93DD9u); // 0x85A77C
+    const float refY = std::bit_cast<float>(0x3F10D1B7u); // 0x85A780
+    const float refZ = std::bit_cast<float>(0x3F350481u); // 0x85A784
 
     RwV3d right;
-    RwV3dCrossProduct(&right, &up, &ref);
+    right.x = vecAlign.y * refZ - vecAlign.z * refY;
+    right.y = vecAlign.z * refX - vecAlign.x * refZ;
+    right.z = vecAlign.x * refY - vecAlign.y * refX;
     RwV3dNormalize(&right, &right);
 
     RwV3d at;
-    RwV3dCrossProduct(&at, &up, &right);
+    at.x = right.z * vecAlign.y - right.y * vecAlign.z;
+    at.y = right.x * vecAlign.z - right.z * vecAlign.x;
+    at.z = right.y * vecAlign.x - right.x * vecAlign.y;
 
     auto* m = g_fxMan.FxRwMatrixCreate();
     m->right = right;
-    m->up    = up;
+    m->up    = vecAlign;
     m->at    = at;
     m->pos   = { 0.0f, 0.0f, 0.0f };
 
@@ -484,13 +520,22 @@ void RotateVecIntoVec(RwV3d& vecRes, const RwV3d& vec, const RwV3d& vecAlign) {
 // 0x4A1780
 // Aplica la fórmula de Rodrigues para rotar vec alrededor de axis.
 void RotateVecAboutVec(RwV3d& vecRes, const RwV3d& vec, const RwV3d& axis, float angle) {
-    const float x = axis.x, y = axis.y, z = axis.z;
-
-    const float s = CMaths::GetSinFast(angle);
+    // Como el original: coseno y seno de la tabla, productos y sumas en el orden del EXE.
     const float c = CMaths::GetCosFast(angle);
+    const float s = CMaths::GetSinFast(angle);
     const float t = 1.0f - c;
 
-    vecRes.x = (t*x*x + c)   * vec.x + (t*x*y - s*z) * vec.y + (t*x*z + s*y) * vec.z;
-    vecRes.y = (t*x*y + s*z) * vec.x + (t*y*y + c)   * vec.y + (t*y*z - s*x) * vec.z;
-    vecRes.z = (t*x*z - s*y) * vec.x + (t*y*z + s*x) * vec.y + (t*z*z + c)   * vec.z;
+    const float txy = t * axis.x * axis.y;
+    const float zxt = axis.z * axis.x * t;
+    const float tzy = t * axis.z * axis.y;
+    const float sx  = s * axis.x;
+    const float sy  = s * axis.y;
+    const float sz  = s * axis.z;
+    const float yyt = axis.y * axis.y * t + c;
+    const float zzt = axis.z * axis.z * t + c;
+    const float xxt = axis.x * axis.x * t + c;
+
+    vecRes.x = xxt * vec.x + (txy - sz) * vec.y + (sy + zxt) * vec.z;
+    vecRes.y = (sz + txy) * vec.x + (tzy - sx) * vec.z + yyt * vec.y;
+    vecRes.z = (zxt - sy) * vec.x + (sx + tzy) * vec.y + zzt * vec.z;
 }

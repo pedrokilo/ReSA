@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -99,7 +99,7 @@ CTask* CTaskComplexEnterCarAsPassengerTimed::ControlSubTask(CPed* ped) {
         if (m_pSubTask->MakeAbortable(ped)) {
             if (!ped->bInVehicle) {
                 if (   m_TargetSeat == 0 && m_TargetCar->m_nNumPassengers < m_TargetCar->m_nMaxPassengers
-                    || !m_TargetCar->GetPassengers()[CCarEnterExit::ComputePassengerIndexFromCarDoor(m_TargetCar, m_TargetSeat)]
+                    || !m_TargetCar->m_apPassengers.data()[CCarEnterExit::ComputePassengerIndexFromCarDoor(m_TargetCar, m_TargetSeat)] // Como el original: lectura cruda sin límite de m_nMaxPassengers
                 ) {
                     return new CTaskSimpleCarSetPedInAsPassenger{m_TargetCar, (eTargetDoor)m_TargetSeat, true};
                 }

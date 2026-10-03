@@ -43,10 +43,12 @@ private: // Wrappers for hooks
     }
 
 private:
-    CVehicle::Ref                 m_Veh{};
-    int32                         m_OriginDoor{};
-    int32                         m_TargetDoor{};
-    CVector                       m_TargetDoorPos{};
+    // Como el original: el constructor solo escribe vehiculo (+0xC), utilidad (+0x24) y abortar (+0x28);
+    // la referencia al vehiculo se gestiona a mano (el destructor la limpia antes de borrar la utilidad)
+    CVehicle*                     m_Veh;
+    int32                         m_OriginDoor;
+    int32                         m_TargetDoor;
+    CVector                       m_TargetDoorPos;
     CTaskUtilityLineUpPedWithCar* m_TaskUtilityLineUpPedWithCar{};
     bool                          m_bAbort{};
 };

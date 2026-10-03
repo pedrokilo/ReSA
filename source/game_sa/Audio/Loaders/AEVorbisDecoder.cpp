@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 13/13 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/13 entradas.
+ * Validación registrada: 13/13 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -27,12 +27,27 @@ ov_callbacks CAEVorbisDecoder::staticCallbacks = {
     &CAEVorbisDecoder::TellCallback
 };
 
+namespace {
+// Como el original: segundos (double) * 1000.0 (0x85A318) en x87 a la precisión vigente, truncado con _ftol2
+// (0x821B40, 64 bits; se usa la parte baja).
+long SecondsToMs(double seconds) {
+    static const double k1000 = 1000.0;
+    double ms;
+    __asm {
+        fld   seconds
+        fmul  k1000
+        fstp  ms
+    }
+    return (long)(int64)ms;
+}
+} // namespace
+
 // 0x5026b0
 CAEVorbisDecoder::CAEVorbisDecoder(CAEDataStream* dataStream, int32 userTrack) : CAEStreamingDecoder(dataStream) {
     m_sCallbacks        = staticCallbacks;
     m_pVorbisFileHandle = nullptr;
     m_bInitialized      = false;
-    m_bIsUserTrack      = static_cast<bool>(userTrack);
+    reinterpret_cast<uint8&>(m_bIsUserTrack) = (uint8)(userTrack); // Como el original: se guarda el byte bajo tal cual
     m_pDataStreamCopy   = dataStream;
     m_pVorbisInfo       = nullptr;
 }
@@ -41,29 +56,32 @@ CAEVorbisDecoder::CAEVorbisDecoder(CAEDataStream* dataStream, int32 userTrack) :
 CAEVorbisDecoder::~CAEVorbisDecoder() {
     if (m_pVorbisFileHandle) {
         ov_clear(m_pVorbisFileHandle);
-        delete m_pVorbisFileHandle;
-        m_pVorbisFileHandle = nullptr;
+        delete m_pVorbisFileHandle; // Como el original: el puntero no se pone a nullptr
     }
 }
 
 // 0x5024d0
-// Conecta libvorbis a CAEDataStream mediante callbacks y valida un máximo de dos canales.
+// Conecta libvorbis a CAEDataStream mediante callbacks.
 bool CAEVorbisDecoder::Initialise() {
-    m_pVorbisFileHandle = new OggVorbis_File();
-    if (ov_open_callbacks(m_dataStream, m_pVorbisFileHandle, nullptr, 0, m_sCallbacks) != 0)
+    m_pVorbisFileHandle = new OggVorbis_File; // Como el original: 0x2D0 bytes sin inicializar
+    // Como el original: la fuente de los callbacks es la copia del stream (+0x20).
+    if (ov_open_callbacks(m_pDataStreamCopy, m_pVorbisFileHandle, nullptr, 0, m_sCallbacks) != 0)
         return false;
 
     m_pVorbisInfo = ov_info(m_pVorbisFileHandle, -1);
 
-    // Not support channels > 2
-    if (m_pVorbisInfo->channels > 2)
+#ifdef FIX_BUGS
+    // NOTSA: no se admiten más de dos canales (el original no lo comprueba).
+    if (m_pVorbisInfo && m_pVorbisInfo->channels > 2)
         return false;
+#endif
 
     m_bInitialized = true;
 
-    if (m_bIsUserTrack) {
-        if (GetStreamLengthMs() < 7000)
-            return !m_bInitialized;
+    // Como el original: las pistas de usuario de menos de 7 s se rechazan y el decoder queda sin inicializar.
+    if (m_bIsUserTrack && GetStreamLengthMs() < 7000) { // llamada por la vtable
+        m_bInitialized = false;
+        return false;
     }
 
     return true;
@@ -71,66 +89,78 @@ bool CAEVorbisDecoder::Initialise() {
 
 // 0x502470
 /**
- * Decodifica Ogg Vorbis a PCM de 16 bits; si la fuente es mono duplica cada sample
- * para entregar siempre salida estéreo.
+ * Decodifica Ogg Vorbis a PCM de 16 bits con signo (little endian).
  */
 size_t CAEVorbisDecoder::FillBuffer(void* dest, size_t size) {
-    size_t readedTotal = 0;
-    char*  buffer = reinterpret_cast<char*>(dest);
+    size_t readTotal = 0;
+    char*  buffer    = static_cast<char*>(dest);
 
-    // In case of mono stream, only read half of it
-    if (m_pVorbisInfo->channels == 1)
+#ifdef FIX_BUGS
+    // NOTSA: con una fuente mono se lee la mitad y luego se duplica cada sample para entregar estéreo
+    // (el original no mira los canales).
+    const bool mono = m_pVorbisInfo && m_pVorbisInfo->channels == 1;
+    if (mono)
         size /= 2;
+#endif
 
-    if (size > 0) {
-        int32 dummy;
+    int32 bitstream = -1; // Como el original: se inicializa a -1
+    while (readTotal < size) {
+        const long read = ov_read(m_pVorbisFileHandle, buffer + readTotal, (int)(size - readTotal), 0, sizeof(int16), 1, &bitstream);
+        if (read <= 0)
+            break;
 
-        while (readedTotal < size) {
-            long readed = ov_read(m_pVorbisFileHandle, buffer + readedTotal, size - readedTotal, 0, sizeof(int16), 1, &dummy);
-            if (readed <= 0)
-                break;
-
-            readedTotal += static_cast<size_t>(readed);
-        }
+        readTotal += static_cast<size_t>(read);
     }
 
-    if (m_pVorbisInfo->channels == 1) {
+#ifdef FIX_BUGS
+    if (mono) {
         // Duplicate channel data
         int16* bufShort = reinterpret_cast<int16*>(buffer);
 
-        for (int32 i = static_cast<int32>(readedTotal / sizeof(int16)) - 1; i >= 0; i--)
+        for (int32 i = static_cast<int32>(readTotal / sizeof(int16)) - 1; i >= 0; i--)
             bufShort[i * 2] = bufShort[i * 2 + 1] = bufShort[i];
 
-        readedTotal *= 2;
+        readTotal *= 2;
     }
+#endif
 
-    return readedTotal;
+    return readTotal;
 }
 
 // 0x502610
 long CAEVorbisDecoder::GetStreamLengthMs() {
-    if (m_bInitialized) {
-        double length = ov_time_total(m_pVorbisFileHandle, -1);
-        return (long)(length * 1000.0f);
-    }
+    if (!m_bInitialized)
+        return -1;
 
-    return -1;
+    return SecondsToMs(ov_time_total(m_pVorbisFileHandle, -1));
 }
 
 // 0x502640
 long CAEVorbisDecoder::GetStreamPlayTimeMs() {
-    if (m_bInitialized) {
-        double length = ov_time_tell(m_pVorbisFileHandle);
-        return (long)(length * 1000.0f);
-    }
+    if (!m_bInitialized)
+        return -1;
 
-    return -1;
+    return SecondsToMs(ov_time_tell(m_pVorbisFileHandle));
 }
 
 // 0x502670
+// Como el original: pos (fild; +2^32 si el bit alto está puesto) * 0.001f (0x858CDC) en x87, no / 1000.
 void CAEVorbisDecoder::SetCursor(unsigned long pos) {
-    if (m_bInitialized)
-        ov_time_seek(m_pVorbisFileHandle, static_cast<float>(pos) / 1000.0f);
+    if (!m_bInitialized)
+        return;
+
+    static const float k2pow32 = 4294967296.0f, k0001 = 0.001f;
+    double seconds;
+    __asm {
+        fild  dword ptr pos
+        cmp   pos, 0
+        jge   L_posPositive
+        fadd  k2pow32
+    L_posPositive:
+        fmul  k0001
+        fstp  seconds
+    }
+    ov_time_seek(m_pVorbisFileHandle, seconds);
 }
 
 // 0x502560
@@ -140,7 +170,7 @@ int32 CAEVorbisDecoder::GetSampleRate() {
 
 // 0x502460
 int32 CAEVorbisDecoder::GetStreamID() {
-    return m_dataStream->m_nTrackId;
+    return m_pDataStreamCopy->m_nTrackId; // Como el original: usa la copia del stream (+0x20)
 }
 
 // 0x502580
@@ -187,22 +217,24 @@ long CAEVorbisDecoder::TellCallback(void* opaque) {
  * Registra el decoder Ogg Vorbis y sus callbacks de IO.
  */
 void CAEVorbisDecoder::InjectHooks() {
-    RH_ScopedClass(CAEVorbisDecoder);
+    // Como el original: vtable 0x862D70 con 8 entradas (Initialise, FillBuffer, GetStreamLengthMs,
+    // GetStreamPlayTimeMs, SetCursor, GetSampleRate, destructor con borrado, GetStreamID).
+    RH_ScopedVirtualClass(CAEVorbisDecoder, 0x862D70, 8);
     RH_ScopedCategory("Audio/Loaders");
 
-    RH_ScopedInstall(Constructor, 0x5026b0);
-    RH_ScopedInstall(Destructor, 0x5023f0);
-    RH_ScopedInstall(Initialise, 0x5024d0);
-    RH_ScopedInstall(GetStreamID, 0x502460);
-    RH_ScopedInstall(FillBuffer, 0x502470);
-    RH_ScopedInstall(GetSampleRate, 0x502560);
+    RH_ScopedInstall(Constructor, 0x5026B0);
+    RH_ScopedInstall(Destructor, 0x5023F0);
+    RH_ScopedVMTInstall(Initialise, 0x5024D0);
+    RH_ScopedVMTInstall(FillBuffer, 0x502470);
+    RH_ScopedVMTInstall(GetStreamLengthMs, 0x502610);
+    RH_ScopedVMTInstall(GetStreamPlayTimeMs, 0x502640);
+    RH_ScopedVMTInstall(SetCursor, 0x502670);
+    RH_ScopedVMTInstall(GetSampleRate, 0x502560);
+    RH_ScopedVMTInstall(GetStreamID, 0x502460);
     RH_ScopedInstall(ReadCallback, 0x502580);
-    RH_ScopedInstall(CloseCallback, 0x5025d0);
-    RH_ScopedInstall(SeekCallback, 0x5025b0);
-    RH_ScopedInstall(TellCallback, 0x5025f0);
-    RH_ScopedInstall(GetStreamLengthMs, 0x502610);
-    RH_ScopedInstall(GetStreamPlayTimeMs, 0x502640);
-    RH_ScopedInstall(SetCursor, 0x502670);
+    RH_ScopedInstall(CloseCallback, 0x5025D0);
+    RH_ScopedInstall(SeekCallback, 0x5025B0);
+    RH_ScopedInstall(TellCallback, 0x5025F0);
 }
 
 CAEVorbisDecoder* CAEVorbisDecoder::Constructor(CAEDataStream* dataStream, int32 unknown) {

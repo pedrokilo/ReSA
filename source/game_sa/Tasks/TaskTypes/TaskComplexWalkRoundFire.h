@@ -14,7 +14,7 @@ public:
     eMoveState m_moveState{};          ///< How the ped should move when going around the fire
     CSphere    m_fireBoundSphere{};    ///< Bounding sphere of the fire
     CVector    m_targetPos{};          ///< The current position the ped is "going to" (using the GoToPoint task)
-    CVector    m_initialPedPos{};      ///< Ped's initial position (when the task was created)
+    CVector    m_initialPedPos;        ///< Ped's initial position (when the task was created). Como el original: el constructor no lo escribe
 
 public:
     static void InjectHooks();

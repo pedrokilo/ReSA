@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/10 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -71,65 +71,62 @@ void CTaskSimpleCarGetOut::FinishAnimCarGetOutCB(CAnimBlendAssociation* anim, vo
     self->m_anim = nullptr;
 }
 
-// Wrapper for `0x647330`
-void CTaskSimpleCarGetOut::ComputeAnimID_ToHook(AssocGroupId& animGroup, AnimationId& animId) {
-    std::tie(animGroup, animId) = ComputeAnimID();
-}
-
-// Signature changed, `ComputeAnimID_Wrapper` is hooked instead.
 // 0x647330
-auto CTaskSimpleCarGetOut::ComputeAnimID() -> std::pair<AssocGroupId, AnimationId> {
-    if (m_veh->IsAutomobile() && CUpsideDownCarCheck{}.IsCarUpsideDown(m_veh)) {
-        m_isUpsideDown = true;
+void CTaskSimpleCarGetOut::ComputeAnimID_ToHook(AssocGroupId& animGroup, AnimationId& animId) {
+    // Como el original: en automóviles el resultado de IsCarUpsideDown sobrescribe la bandera (también a false)
+    if (m_veh->IsAutomobile()) {
+        m_isUpsideDown = CUpsideDownCarCheck{}.IsCarUpsideDown(m_veh);
     }
-    
+
     if (m_isUpsideDown) {
-        m_isUpsideDown = [this] {
-            const auto& right = m_veh->GetRight();
-            switch (m_door) {
-            case TARGET_DOOR_DRIVER:
-            case TARGET_DOOR_REAR_LEFT:
-                return right.z >= -0.5f;
-            default:
-                return right.z <= 0.5f;
+        const auto& right = m_veh->GetRight();
+        switch (m_door) {
+        case TARGET_DOOR_DRIVER:
+        case TARGET_DOOR_REAR_LEFT:
+            if (right.z < -0.5f) { // Como el original: en -0,5 exacto (o NaN) la mantiene
+                m_isUpsideDown = false;
             }
-        }();
+            break;
+        default:
+            if (right.z > 0.5f) {
+                m_isUpsideDown = false;
+            }
+            break;
+        }
     }
 
     if (m_isUpsideDown) {
-        return {
-            ANIM_GROUP_DEFAULT,
-            [this] {
-                switch (m_door) {
-                case TARGET_DOOR_FRONT_RIGHT:
-                case TARGET_DOOR_REAR_RIGHT:
-                    return ANIM_ID_DEFAULT_CAR_CRAWLOUTRHS_1;
-
-                case TARGET_DOOR_DRIVER:
-                case TARGET_DOOR_REAR_LEFT:
-                    return ANIM_ID_DEFAULT_CAR_CRAWLOUTRHS_0;
-                default:
-                    NOTSA_UNREACHABLE();
-                }
-            }()
-        };
-    }
-
-    const auto animId = [this] {
+        // Como el original: con otra puerta solo se escribe el grupo
         switch (m_door) {
         case TARGET_DOOR_FRONT_RIGHT:
-            return ANIM_ID_CAR_GETOUT_RHS_0;
         case TARGET_DOOR_REAR_RIGHT:
-            return ANIM_ID_CAR_GETOUT_RHS_1;
+            animId = ANIM_ID_DEFAULT_CAR_CRAWLOUTRHS_1;
+            break;
         case TARGET_DOOR_DRIVER:
-            return ANIM_ID_CAR_GETOUT_LHS_0;
         case TARGET_DOOR_REAR_LEFT:
-            return ANIM_ID_CAR_GETOUT_LHS_1;
-        default:
-            NOTSA_UNREACHABLE();
+            animId = ANIM_ID_DEFAULT_CAR_CRAWLOUTRHS_0;
+            break;
         }
-    }();
-    return { m_veh->GetAnimGroup().GetGroup(animId), animId };
+        animGroup = ANIM_GROUP_DEFAULT;
+        return;
+    }
+
+    // Como el original: con otra puerta no se escribe la animación y se usa el valor que ya tenga
+    switch (m_door) {
+    case TARGET_DOOR_FRONT_RIGHT: animId = ANIM_ID_CAR_GETOUT_RHS_0; break;
+    case TARGET_DOOR_REAR_RIGHT:  animId = ANIM_ID_CAR_GETOUT_RHS_1; break;
+    case TARGET_DOOR_DRIVER:      animId = ANIM_ID_CAR_GETOUT_LHS_0; break;
+    case TARGET_DOOR_REAR_LEFT:   animId = ANIM_ID_CAR_GETOUT_LHS_1; break;
+    }
+    animGroup = m_veh->GetAnimGroup().GetGroup(animId);
+}
+
+// NOTSA: firma con valor de retorno
+auto CTaskSimpleCarGetOut::ComputeAnimID() -> std::pair<AssocGroupId, AnimationId> {
+    AssocGroupId animGroup;
+    AnimationId  animId;
+    ComputeAnimID_ToHook(animGroup, animId);
+    return { animGroup, animId };
 }
 
 // 0x64BDE0
@@ -158,11 +155,11 @@ bool CTaskSimpleCarGetOut::MakeAbortable(CPed* ped, eAbortPriority priority, CEv
 // 0x64DC70
 bool CTaskSimpleCarGetOut::ProcessPed(CPed* ped) {
     if (!m_veh) {
-        return false;
+        return true; // Como el original: sin vehículo termina
     }
 
     if (m_finished) {
-        if (CCheat::IsActive(CHEAT_SMASH_N_BOOM)) {
+        if (CCheat::IsActive(CHEAT_SMASH_N_BOOM) && ped->IsPlayer()) { // Como el original: solo para el jugador
             m_veh->physicalFlags.bExplosionProof = m_veh->physicalFlags.bBulletProof = false;
             m_veh->vehicleFlags.bCanBeDamaged = true;
         }

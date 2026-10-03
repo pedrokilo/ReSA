@@ -19,11 +19,27 @@ END GENERATED HOOK STATUS */
 #include "ConversationNode.h"
 #include "Conversations.h"
 
+static void __fastcall ConversationNodeClearRecursively(CConversationNode* node) {
+    node->ClearRecursively();
+}
+
+// Como el original: 0x43A710 solo toca eax, ecx y esi; sus llamadores del EXE (CConversations::RemoveConversationForPed
+// 0x43A960, CConversationForPed::Clear 0x43A770) conservan el puntero del slot en edx a través de la llamada.
+static __declspec(naked) void ConversationNodeClearRecursivelyKeepEdx() {
+    __asm {
+        push edx
+        call ConversationNodeClearRecursively
+        pop  edx
+        ret
+    }
+}
+
 /** Registra la rutina reconstruida que limpia nodos de forma recursiva. */
 void CConversationNode::InjectHooks() {
     RH_ScopedClass(CConversationNode);
     RH_ScopedCategory("Conversations");
-    RH_ScopedInstall(ClearRecursively, 0x43A710); // Antes 0x43A7A0: caía dentro de una instrucción de esta misma función
+    // Antes 0x43A7A0: caía dentro de una instrucción de esta misma función. Envoltorio que conserva edx.
+    RH_ScopedNamedGlobalInstall(ConversationNodeClearRecursivelyKeepEdx, "ClearRecursively", 0x43A710);
 }
 
 /**

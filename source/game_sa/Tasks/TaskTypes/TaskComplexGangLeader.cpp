@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 13/13 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 10.
- * Validación registrada: 1/13 entradas.
+ * Validación registrada: 13/13 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -85,6 +85,9 @@ void CTaskComplexGangLeader::InjectHooks() {
     RH_ScopedVMTInstall(ScanForStuff, 0x65E200, { .enabled = false, .locked = true });
 }
 
+// Como el original: rand() * (1 / 32768) (0x858B14)
+static constexpr float GANG_LEADER_RAND_RECIP = 3.0517578125e-05f;
+
 // 0x65DED0
 CTaskComplexGangLeader::CTaskComplexGangLeader(CPedGroup* gang) :
     m_gang{gang}
@@ -105,35 +108,39 @@ CTaskComplexGangLeader::~CTaskComplexGangLeader() {
 
 // 0x65E730
 AnimationId CTaskComplexGangLeader::GetRandomGangAmbientAnim(CPed* ped, CEntity* entity) {
-    if (!entity) {
-        return CGeneral::RandomChoice(s_gangTalkAnims);
-    }
-
-    if (entity->m_nModelIndex == ModelIndices::MI_GANG_DRINK) {
-        if (CGeneral::DoCoinFlip()) {
-            return CGeneral::RandomChoice(s_gangTalkAnims | rng::views::take(4));
+    if (entity) {
+        // Como el original: el modelo de la entidad con signo contra el indice (word) sin signo
+        const auto entityModel = (int32)(int16)entity->m_nModelIndex;
+        const auto isFemaleAnimModel = [ped] { return ped->m_nModelIndex == MODEL_BALLAS2 || ped->m_nModelIndex == MODEL_FAM1; };
+        if (entityModel == (int32)(uint16)eModelID(ModelIndices::MI_GANG_DRINK)) {
+            if (CGeneral::GetRandomNumber() < 0x3FFF) {
+                return isFemaleAnimModel() ? ANIM_ID_DRNKBR_PRTL_F : ANIM_ID_DRNKBR_PRTL;
+            }
+            return (AnimationId)(ANIM_ID_PRTIAL_GNGTLKA + CGeneral::GetRandomIntInRange(0, 4));
         }
-    } else if (entity->m_nModelIndex != ModelIndices::MI_GANG_SMOKE || CGeneral::DoCoinFlip()) {
-        return CGeneral::RandomChoice(s_gangTalkAnims);
+        if (entityModel == (int32)(uint16)eModelID(ModelIndices::MI_GANG_SMOKE)) {
+            // Como el original: con el porro se usa la animacion de fumar (0x65E710)
+            if (CGeneral::GetRandomNumber() < 0x3FFF) {
+                return isFemaleAnimModel() ? ANIM_ID_SMKCIG_PRTL_F : ANIM_ID_SMKCIG_PRTL;
+            }
+            return (AnimationId)(ANIM_ID_PRTIAL_GNGTLKA + CGeneral::GetRandomIntInRange(0, 8));
+        }
     }
-
-    switch (ped->m_nModelIndex) {
-    case MODEL_BALLAS2:
-    case MODEL_FAM1:
-        return ANIM_ID_DRNKBR_PRTL_F;
-    default:
-        return ANIM_ID_DRNKBR_PRTL;
-    }    
+    // Como el original: 279 - (int)(rand * (1/32768) * -8)
+    return (AnimationId)(ANIM_ID_PRTIAL_GNGTLKA - (int32)((float)CGeneral::GetRandomNumber() * GANG_LEADER_RAND_RECIP * -8.f));
 }
 
 // 0x65E7F0
 bool CTaskComplexGangLeader::ShouldLoadGangAnims() {
-    if (CStreaming::IsVeryBusy()) {
-        return false;
-    }
-
+    // Como el original: primero la velocidad del vehiculo del jugador (contra 0.04, tambien con NaN se sigue) y despues el streaming
     const auto player = FindPlayerPed();
-    return !player->IsInVehicle() || player->m_pVehicle->m_vecMoveSpeed.SquaredMagnitude() <= sq(0.02f);
+    if (player->bInVehicle && player->m_pVehicle) {
+        const auto& speed = player->m_pVehicle->m_vecMoveSpeed;
+        if (speed.x * speed.x + speed.y * speed.y + speed.z * speed.z > 0.04f) { // 0x863244
+            return false;
+        }
+    }
+    return !CStreaming::IsVeryBusy();
 }
 
 // 0x65E860
@@ -149,8 +156,8 @@ void CTaskComplexGangLeader::DoGangAbuseSpeech(CPed* talker, CPed* sayTo) {
     if (const auto phrase = [&] {
         switch (sayTo->m_nPedType) {
         case PED_TYPE_GANG1:   return CTX_GLOBAL_ABUSE_GANG_BALLAS;
-        case PED_TYPE_GANG2:   
-        case PED_TYPE_PLAYER1: 
+        case PED_TYPE_GANG2:
+        case PED_TYPE_PLAYER1:
         case PED_TYPE_PLAYER2: return CTX_GLOBAL_ABUSE_GANG_FAMILIES;
         case PED_TYPE_GANG4:   return CTX_GLOBAL_ABUSE_RIFA;
         case PED_TYPE_GANG5:   return CTX_GLOBAL_ABUSE_DA_NANG;
@@ -166,27 +173,17 @@ void CTaskComplexGangLeader::DoGangAbuseSpeech(CPed* talker, CPed* sayTo) {
 
 // 0x65EA50
 CPed* CTaskComplexGangLeader::TryToPassObject(CPed* ped, CPedGroup* group) {
-    const auto [closestPed, distSq] = group->GetMembership().GetMemberClosestTo(ped);
-    if (closestPed && sq(4.f) >= distSq) {
-        if (!closestPed->GetIsTypePed()) {
-            return closestPed;
-        }
-    }
-
-    return nullptr;
-    /*
-    * Using this code causes a crash for some reason (probably some register gets fucked, idk)
-    * Crash always on the same offset: 0xebf328
-    float distSq{};
-    if (const auto closestPed = group->GetClosestGroupPed(ped, &distSq)) {
-        if (distSq < sq(4.f)) {
-            if (!closestPed->GetIsTypePed()) {
-                return closestPed;
+    // Como el original: funcion cdecl (estatica); el miembro mas cercano del grupo a menos de 4 (estricto)
+    // y solo si quien pasa el objeto no es un jugador
+    float dist;
+    if (const auto closest = group->GetClosestGroupPed(ped, &dist)) {
+        if (dist < 4.f) { // 0x858B90
+            if (!ped->IsPlayer()) {
+                return closest;
             }
         }
     }
     return nullptr;
-    */
 }
 
 // 0x65DFA0
@@ -200,23 +197,30 @@ bool CTaskComplexGangLeader::MakeAbortable(CPed* ped, eAbortPriority priority, C
 
 // 0x65DFF0
 CTask* CTaskComplexGangLeader::CreateNextSubTask(CPed* ped) {
+    // Como el original: se cuentan los miembros antes de mirar la subtarea
+    const auto numMembers = (int32)m_gang->GetMembership().CountMembers();
     if (m_pSubTask) {
-        switch (m_pSubTask->GetTaskType()) {
-        case TASK_SIMPLE_STAND_STILL:
-        case TASK_COMPLEX_HANDSIGNAL_ANIM: {
-            if (const auto mem = m_gang->GetMembership().GetRandom()) {
-                return new CTaskComplexTurnToFaceEntityOrCoord{ mem };
+        if (m_pSubTask->GetTaskType() == TASK_SIMPLE_STAND_STILL || m_pSubTask->GetTaskType() == TASK_COMPLEX_HANDSIGNAL_ANIM) {
+            // Como el original: miembro (int)(numMembers * rand / 32768), que puede ser un hueco vacio
+            const float rnd = (float)CGeneral::GetRandomNumber() * GANG_LEADER_RAND_RECIP;
+            if (const auto mem = m_gang->GetMembership().GetMember((int32)((float)numMembers * rnd))) {
+                return new CTaskComplexTurnToFaceEntityOrCoord{ mem, 0.5f, 0.2f };
             }
         }
-        }
     }
 
-    if (CGeneral::RandomBool(5.f) || 3 > m_gang->GetMembership().CountMembers()) {
-        m_wanderTimer.Start(CGeneral::GetRandomNumberInRange(0, 15'000));
-        return new CTaskComplexWanderGang{ PEDMOVE_WALK, (uint8)CGeneral::GetRandomNumberInRange(0, 8), 5000, true, 0.05f };
+    // Como el original: se queda quieto si hay al menos 3 miembros y (int)(rand * 100 / 32768) <= 95
+    const auto chance = (int32)((float)CGeneral::GetRandomNumber() * GANG_LEADER_RAND_RECIP * 100.f);
+    if (numMembers >= 3 && chance <= 95) {
+        return new CTaskSimpleStandStill{ 5000 };
     }
 
-    return new CTaskSimpleStandStill{ 5000 };
+    // Como el original: intervalo 15000 - (int)(rand * -15000 / 32768), es decir [15000, 30000)
+    const auto rndInterval = (int32)((float)CGeneral::GetRandomNumber() * GANG_LEADER_RAND_RECIP * -15000.f); // 0x86F934
+    m_wanderTimer.m_nStartTime = CTimer::GetTimeInMS();
+    m_wanderTimer.m_nInterval  = 15'000 - rndInterval;
+    m_wanderTimer.m_bStarted   = true;
+    return new CTaskComplexWanderGang{ PEDMOVE_WALK, (uint8)(int32)((float)CGeneral::GetRandomNumber() * GANG_LEADER_RAND_RECIP * 8.f), 5000, true, 0.05f };
 }
 
 // 0x65E1F0
@@ -226,6 +230,9 @@ CTask* CTaskComplexGangLeader::CreateFirstSubTask(CPed* ped) {
 
 // 0x662370
 CTask* CTaskComplexGangLeader::ControlSubTask(CPed* ped) {
+    // Como el original: se vuelven a aceptar las miradas IK en cada control
+    ped->bDontAcceptIKLookAts = false;
+
     // Make sure anmims are loaded (if they can/need to be)
     if (m_animsReferenced) { // 0x66239B
         if (!ShouldLoadGangAnims()) {
@@ -242,14 +249,16 @@ CTask* CTaskComplexGangLeader::ControlSubTask(CPed* ped) {
     }
 
     // If we're wandering and the wander time is out of time...
-    if (const auto tWander = notsa::dyn_cast_if_present<CTaskComplexWander>(m_pSubTask)) { // 0x66241F
+    // Como el original: el tipo de la subtarea se pide dos veces (la primera se descarta) y sin comprobar el puntero
+    (void)m_pSubTask->GetTaskType();
+    if (m_pSubTask->GetTaskType() == TASK_COMPLEX_WANDER) { // 0x66241F
         if (m_wanderTimer.IsOutOfTime()) {
-            if (tWander->GetDistSqOfClosestPathNodeToPed(ped) <= 2.f) {
+            if (static_cast<CTaskComplexWander*>(m_pSubTask)->GetDistSqOfClosestPathNodeToPed(ped) < 2.f) { // Como el original: estricto
                 m_gang->GetIntelligence().SetDefaultTaskAllocatorType(ePedGroupDefaultTaskAllocatorType::RANDOM);
                 // Above call causes this task to be flushed (deleted), and changes our vfptr to `CTaskComplex`'s.
                 // If we return non-null here, `CTaskManager::ParentsControlChildren` will be called, and calls our
                 // `ControlSubTask` causing an assert (as CTaskComplex defines it as `pure` (`= 0`))
-                // This is an OG bug, and we can't even wrap it into `FIX_BUGS` because it literally aborts the process, 
+                // This is an OG bug, and we can't even wrap it into `FIX_BUGS` because it literally aborts the process,
                 // makes no sense keeping it.
                 return nullptr; //return new CTaskSimpleStandStill{ 500 };
             }
@@ -274,18 +283,18 @@ CTask* CTaskComplexGangLeader::ControlSubTask(CPed* ped) {
         return m_pSubTask;
     }
 
-    // If ped isn't already looking at someone, find a random meber to look at them
-    if (!g_ikChainMan.IsLooking(ped) && CGeneral::RandomBool(5.f)) { // 0x662574
-        // The random logic has changed a little here for the sole reason
-        // that I want to use `GetRandom()`.
-        // This code path is very infrequent anyways (5% chance)...
-        if (const auto mem = m_gang->GetMembership().GetRandom()) { 
-            if (mem != ped) {
+    // If ped isn't already looking at someone, find a random member to look at them
+    if (!g_ikChainMan.IsLooking(ped)) { // 0x662574
+        // Como el original: (int)(rand * 100 / 32768) > 95; el tiempo se sortea antes que el miembro (que puede ser un hueco vacio)
+        if ((int32)((float)CGeneral::GetRandomNumber() * GANG_LEADER_RAND_RECIP * 100.f) > 95) {
+            const auto lookTime = (float)CGeneral::GetRandomIntInRange(3000, 5000);
+            const auto mem      = m_gang->GetMembership().GetMember(CGeneral::GetRandomIntInRange(0, 8));
+            if (mem && mem != ped) {
                 g_ikChainMan.LookAt(
                     "TaskGangLeader",
                     ped,
                     mem,
-                    CGeneral::GetRandomNumberInRange(3000, 5000),
+                    (int32)lookTime,
                     BONE_HEAD,
                     nullptr,
                     true,
@@ -298,7 +307,7 @@ CTask* CTaskComplexGangLeader::ControlSubTask(CPed* ped) {
         }
     }
 
-    if (!m_animsReferenced || ped->IsRunningOrSprinting()) { // 0x66261A
+    if (!m_animsReferenced || (int32)ped->m_nMoveState >= PEDMOVE_RUN) { // 0x66261A
         return m_pSubTask;
     }
 
@@ -310,21 +319,14 @@ CTask* CTaskComplexGangLeader::ControlSubTask(CPed* ped) {
             return m_pSubTask;
         }
 
-        // Otherwise create a new partial anim task
-        ped->GetTaskManager().SetTaskSecondary([this, ped]() -> CTask* {
-            const auto rnd = CGeneral::GetRandomNumberInRange(0, 500);
-            if (50 >= rnd || rnd >= 56) { // 5%
-                if (rnd != 100) { // 99.8%
-                    return m_pSubTask;
-                }
-
-                // Overall chance to reach this point... 0.02% * 5% = 0.1%
-                return new CTaskComplexPlayHandSignalAnim{};
-            } else { // 95%
-                return new CTaskSimpleRunAnim{ ANIM_GROUP_GANGS, CGeneral::RandomChoice(s_gangTalkAnims) };
-            }
-        }(), TASK_SECONDARY_PARTIAL_ANIM);
-
+        // Como el original: 51..55 -> animacion de charla, 100 -> senal con la mano, otro valor -> nada
+        const auto rnd = CGeneral::GetRandomIntInRange(0, 500);
+        if (rnd > 50 && rnd < 56) {
+            const auto task = new CTaskSimpleRunAnim{ ANIM_GROUP_GANGS, (AnimationId)(ANIM_ID_PRTIAL_GNGTLKA + (int32)((float)CGeneral::GetRandomNumber() * GANG_LEADER_RAND_RECIP * 8.f)), 4.f, false };
+            ped->GetTaskManager().SetTaskSecondary(task, TASK_SECONDARY_PARTIAL_ANIM);
+        } else if (rnd == 100) {
+            ped->GetTaskManager().SetTaskSecondary(new CTaskComplexPlayHandSignalAnim{ ANIM_ID_UNDEFINED, 4.f }, TASK_SECONDARY_PARTIAL_ANIM);
+        }
         return m_pSubTask;
     }
 
@@ -347,40 +349,38 @@ CTask* CTaskComplexGangLeader::ControlSubTask(CPed* ped) {
     // If any of the anims are playing, stop looking, start exhale timer of smkcig anims
     if (anyOfTheAnimsPlaying) { // 0x662696
         if (g_ikChainMan.IsLooking(ped)) {
-            g_ikChainMan.AbortLookAt(ped);
+            g_ikChainMan.AbortLookAt(ped, 250);
         }
 
         ped->bDontAcceptIKLookAts = true;
 
         // Start exhale timer (for smkcig anims)
-        if (!m_exhaleTimer.IsStarted()) {
-            if (rng::any_of(
-                std::array{ SMKCIG_PRTL, SMKCIG_PRTL_F },
-                [&](auto idx) {
-                    const auto anim = anims[idx];
-                    return anim && anim->m_CurrentTime < 0.5f;
-                })
-            ) {
-                m_exhaleTimer.Start(2700);
-            }
+        const auto smoking = (anims[SMKCIG_PRTL] && anims[SMKCIG_PRTL]->m_CurrentTime < 0.5f)
+                          || (anims[SMKCIG_PRTL_F] && anims[SMKCIG_PRTL_F]->m_CurrentTime < 0.5f);
+        if (smoking && !m_exhaleTimer.m_bStarted) {
+            m_exhaleTimer.m_nStartTime = CTimer::GetTimeInMS();
+            m_exhaleTimer.m_nInterval  = 2700;
+            m_exhaleTimer.m_bStarted   = true;
         }
     }
 
-    if (pedHeldEntity->m_nModelIndex == ModelIndices::MI_GANG_DRINK) { // 0x662729
+    // Como el original: modelo con signo contra el indice (word) sin signo
+    if ((int32)(int16)pedHeldEntity->m_nModelIndex == (int32)(uint16)eModelID(ModelIndices::MI_GANG_DRINK)) { // 0x662729
         ped->Say(CTX_GLOBAL_BOOZE_RECEIVE, 0, 0.2f);
-    } else if (pedHeldEntity->m_nModelIndex == ModelIndices::MI_GANG_SMOKE) {
+    } else if ((int32)(int16)pedHeldEntity->m_nModelIndex == (int32)(uint16)eModelID(ModelIndices::MI_GANG_SMOKE)) {
         ped->Say(CTX_GLOBAL_SPLIFF_RECEIVE, 0, 0.2f);
     }
 
     // Now, pass on the entity held in hand (if not already)
 
-    if (ped->GetTaskManager().Find<TASK_COMPLEX_PASS_OBJECT>()) { // 0x662766
+    if (ped->GetTaskManager().FindActiveTaskByType(TASK_COMPLEX_PASS_OBJECT)) { // 0x662766
         return m_pSubTask;
     }
 
-    if (CGeneral::GetRandomNumberInRange(0, 500) != 200) { // 99.8%
-        if (CGeneral::DoCoinFlip()) {
-            if (const auto task = ped->GetTaskManager().Find<CTaskSimpleHoldEntity>()) {
+    if (CGeneral::GetRandomIntInRange(0, 500) != 200) { // 99.8%
+        // Como el original: una vez de cada 100 ((int)(rand * 100 / 32768) == 50)
+        if (CGeneral::GetRandomIntInRange(0, 100) == 50) {
+            if (const auto task = static_cast<CTaskSimpleHoldEntity*>(ped->GetTaskManager().FindActiveTaskByType(TASK_SIMPLE_HOLD_ENTITY))) {
                 task->PlayAnim(GetRandomGangAmbientAnim(ped, pedHeldEntity), ANIM_GROUP_GANGS);
             }
         }
@@ -392,15 +392,17 @@ CTask* CTaskComplexGangLeader::ControlSubTask(CPed* ped) {
     }
 
     if (const auto passObjTo = TryToPassObject(ped, m_gang)) { // 0x6627CD
-        if (!passObjTo->GetEntityThatThisPedIsHolding() && passObjTo->IsCurrentlyUnarmed()) {    
+        if (!passObjTo->GetEntityThatThisPedIsHolding() && passObjTo->IsCurrentlyUnarmed()) {
             // Very similar to code above, but not quite the same!
-            if (pedHeldEntity->m_nModelIndex == ModelIndices::MI_GANG_DRINK) {
+            if ((int32)(int16)pedHeldEntity->m_nModelIndex == (int32)(uint16)eModelID(ModelIndices::MI_GANG_DRINK)) {
                 passObjTo->Say(CTX_GLOBAL_BOOZE_REQUEST);
-            } else if (pedHeldEntity->m_nModelIndex == ModelIndices::MI_GANG_SMOKE) {
+            } else if ((int32)(int16)pedHeldEntity->m_nModelIndex == (int32)(uint16)eModelID(ModelIndices::MI_GANG_SMOKE)) {
                 passObjTo->Say(CTX_GLOBAL_SPLIFF_REQUEST);
             }
-            passObjTo->GetEventGroup().Add(CEventPassObject{ ped });
-            return new CTaskComplexPassObject{ passObjTo, true };           
+            // Como el original: el evento vive hasta despues de crear la tarea
+            CEventPassObject passEvent{ ped, false };
+            passObjTo->GetEventGroup().Add(&passEvent, false);
+            return new CTaskComplexPassObject{ passObjTo, true };
         }
     }
 
@@ -409,45 +411,39 @@ CTask* CTaskComplexGangLeader::ControlSubTask(CPed* ped) {
 
 // 0x65E200
 void CTaskComplexGangLeader::ScanForStuff(CPed* ped) {
-    if (!m_scanTimer.IsOutOfTime()) {
+    // Como el original: con el temporizador sin arrancar se explora siempre
+    if (m_scanTimer.m_bStarted && !m_scanTimer.IsOutOfTime()) {
         return;
     }
 
-    const auto& pedPos = ped->GetPosition();
-
-    const auto rndChance = CGeneral::GetRandomNumberInRange(0, 100);
+    const auto rndChance = (int32)((float)CGeneral::GetRandomNumber() * GANG_LEADER_RAND_RECIP * 100.f);
     if (rndChance < 5) { // 5% chance
         // Find a nearby vehicle to lean onto
-        for (auto& veh : ped->GetIntelligence()->GetVehicleScanner().GetEntities<CVehicle>()) {
+        const auto intel = ped->GetIntelligence();
+        for (auto i = 0; i < 16; i++) {
+            const auto veh = static_cast<CVehicle*>(intel->GetVehicleEntities()[i]);
             // 0x65E2C1
-            if (!veh.IsAutomobile()) {
+            // Como el original: se mira el subtipo del vehiculo (+0x594), no el tipo
+            if (!veh || !veh->IsSubAutomobile() || veh->GetStatus() != STATUS_ABANDONED || veh->vehicleFlags.bHasGangLeaningOn || veh->IsMissionVehicle()) {
                 continue;
             }
 
-            if (veh.GetStatus() != STATUS_ABANDONED) {
+            // 0x65E304 y 0x65E351 (en ese orden; con NaN tampoco se acepta)
+            const auto& vehPos = veh->GetPosition();
+            const auto& pedPos = ped->GetPosition();
+            const float dx = vehPos.x - pedPos.x, dy = vehPos.y - pedPos.y, dz = vehPos.z - pedPos.z;
+            if (!(dx * dx + dy * dy + dz * dz < 300.f)) {
+                continue;
+            }
+            if (!(std::abs(vehPos.z - pedPos.z) < 5.f)) {
                 continue;
             }
 
-            if (veh.vehicleFlags.bHasGangLeaningOn) {
-                continue;
-            }
-
-            if (veh.IsMissionVehicle()) {
-                continue;
-            }
-
-            // 0x65E351 || 0x65E330 (in that order)
-            if (const auto vehToPed = pedPos - veh.GetPosition(); std::abs(vehToPed.z) >= 5.f || vehToPed.SquaredMagnitude() >= 300.f) {
-                continue;
-            }
-
-            m_gang->GetIntelligence().AddEvent(
-                CEventGroupEvent{
-                    ped,
-                    new CEventLeanOnVehicle{&veh, CGeneral::GetRandomNumberInRange(10'000, 25'000)}
-                }
-            );
-
+            // Como el original: el tiempo se sortea antes de reservar el evento; el evento de grupo se destruye
+            // despues de arrancar el temporizador
+            const auto leanTime = CGeneral::GetRandomIntInRange(10'000, 25'000);
+            CEventGroupEvent groupEvent{ ped, new CEventLeanOnVehicle{ veh, leanTime } };
+            m_gang->GetIntelligence().AddEvent(&groupEvent);
             m_scanTimer.Start(60'000);
 
             // 0x65E3E8
@@ -457,28 +453,31 @@ void CTaskComplexGangLeader::ScanForStuff(CPed* ped) {
         }
     } else if (rndChance == 20) { // 1% chance
         // Try recruiting one nearby ped to the gang
-        for (auto& scannedPed : ped->GetIntelligence()->GetPedScanner().GetEntities<CPed>()) {
-            if (!scannedPed.IsCreatedBy(PED_GAME) || scannedPed.m_nPedType != ped->m_nPedType || scannedPed.bInVehicle) {
+        const auto intel = ped->GetIntelligence();
+        for (auto i = 0; i < 16; i++) {
+            const auto scannedPed = static_cast<CPed*>(intel->GetPedEntities()[i]);
+            if (!scannedPed || !scannedPed->IsCreatedBy(PED_GAME) || ped->m_nPedType != scannedPed->m_nPedType) {
                 continue;
             }
 
-            const auto scannedPedGrp = scannedPed.GetGroup();
+            // Como el original: el grupo se consulta antes de mirar si va en vehiculo
+            const auto scannedPedGrp = CPedGroups::GetPedsGroup(scannedPed);
 
             // Already in the gang
-            if (scannedPedGrp == m_gang) {
+            if (scannedPedGrp == m_gang || scannedPed->bInVehicle) {
                 continue;
             }
 
             // In the player's gang
-            if (FindPlayerPed()->GetPlayerGroup().GetMembership().IsMember(&scannedPed)) { // 0x65E494
+            if (FindPlayerPed()->GetPlayerGroup().GetMembership().IsMember(scannedPed)) { // 0x65E494
                 continue;
             }
 
             // Can it join a gang at all?
 #ifdef FIX_BUGS
-            if (const auto wander = scannedPed.GetTaskManager().Find<CTaskComplexWander>()) { // 0x65E4BE
+            if (const auto wander = static_cast<CTaskComplexWander*>(scannedPed->GetTaskManager().FindActiveTaskByType(TASK_COMPLEX_WANDER))) { // 0x65E4BE
 #else
-            if (const auto wander = ped->GetTaskManager().Find<CTaskComplexWander>()) {
+            if (const auto wander = static_cast<CTaskComplexWander*>(ped->GetTaskManager().FindActiveTaskByType(TASK_COMPLEX_WANDER))) {
 #endif
                 if (wander->GetWanderType() == WANDER_TYPE_GANG) {
                     if (!static_cast<CTaskComplexWanderGang*>(wander)->CanJoinGang()) {
@@ -488,23 +487,39 @@ void CTaskComplexGangLeader::ScanForStuff(CPed* ped) {
             }
 
             // If scanned ped has no group try to add them to this gang
-            if (!scannedPedGrp && m_gang->GetMembership().CanAddFollower()) { // 0x65E4EA
-                m_gang->GetIntelligence().AddEvent(
-                    CEventScriptCommand{
-                        TASK_PRIMARY_PRIMARY,
-                        new CTaskComplexBeInGroup{m_gang->GetId()}
-                    }
-                );
-                m_gang->GetMembership().AddFollower(&scannedPed);
+            if (!scannedPedGrp) { // 0x65E4EA
+                // Como el original: el id del grupo se pide antes de contar los miembros sin el lider (< 7);
+                // el comando se anade al grupo de eventos del peaton explorado y despues se procesa la banda
+                const auto gangId = CPedGroups::GetGroupId(m_gang);
+                if (m_gang->GetMembership().CountMembersExcludingLeader() < 7) {
+                    CEventScriptCommand scriptCommand{ TASK_PRIMARY_PRIMARY, new CTaskComplexBeInGroup{ gangId, false }, false };
+                    scannedPed->GetEventGroup().Add(&scriptCommand, false);
+                    m_gang->GetMembership().AddFollower(scannedPed);
+                    m_gang->Process();
+                }
             }
 
             // Find a member close enough to the scanned ped, and make them partners
-            if (const auto [closestMem, distSq] = m_gang->GetMembership().GetMemberClosestTo(&scannedPed); // 0x65E61F
-                closestMem && sq(10.f) >= distSq && distSq >= sq(4.f)
-            ) {           
-                const auto partnerType = CGeneral::GetRandomNumberInRange(0, 7);
-                scannedPed.GetEventGroup().Add(CEventCreatePartnerTask{ partnerType, closestMem, true, 0.5f });
-                closestMem->GetEventGroup().Add(CEventCreatePartnerTask{ partnerType, &scannedPed, false, 0.5f });
+            // Como el original: distancia al cuadrado (0x406DA0) aceptada en [16, 100]
+            CPed* closestMem  = nullptr;
+            float closestDist = std::bit_cast<float>(0x4E6E6B28u); // 1e9
+            for (auto m = 0; m < 8; m++) {
+                const auto mem = m_gang->GetMembership().GetMember(m);
+                if (!mem || mem == scannedPed) {
+                    continue;
+                }
+                const auto dist = (scannedPed->GetPosition() - mem->GetPosition()).SquaredMagnitude();
+                if (dist < closestDist) {
+                    closestDist = dist;
+                    closestMem  = mem;
+                }
+            }
+            if (closestDist <= 100.f && closestDist >= 16.f) { // 0x65E61F
+                const auto partnerType = CGeneral::GetRandomIntInRange(0, 7);
+                CEventCreatePartnerTask scannedEvent{ partnerType, closestMem, true, 0.5f };
+                scannedPed->GetEventGroup().Add(&scannedEvent, false);
+                CEventCreatePartnerTask memberEvent{ partnerType, scannedPed, false, 0.5f };
+                closestMem->GetEventGroup().Add(&memberEvent, false);
             }
 
             m_scanTimer.Start(10'000);

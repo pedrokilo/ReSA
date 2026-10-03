@@ -12,10 +12,9 @@ public:
     static constexpr auto Type = TASK_COMPLEX_AVOID_OTHER_PED_WHILE_WANDERING;
 
     CTaskComplexAvoidOtherPedWhileWandering(CPed* ped, const CVector& targetPoint, eMoveState moveState, /*NOTSA=>*/ bool bMovingTarget = false);
-    CTaskComplexAvoidOtherPedWhileWandering(const CTaskComplexAvoidOtherPedWhileWandering&);
     ~CTaskComplexAvoidOtherPedWhileWandering() override = default; // 0x66A1D0
 
-    CTask*    Clone() const override { return new CTaskComplexAvoidOtherPedWhileWandering{ *this }; }
+    CTask*    Clone() const override; // 0x66D050
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority, CEvent const* event) override;
     CTask*    CreateNextSubTask(CPed* ped) override;
@@ -36,10 +35,11 @@ public:
 
     /*!
      * @brief Calculate minimum bounding sphere of all peds in `accountedPeds`
+     * @param out           Sphere to fill (Como el original: retorno por puntero oculto; `Set` no toca el último byte de la superficie)
      * @param accountedPeds Peds to calculate the minimum bounding sphere for
-     * @return The minimum bounding sphere
+     * @return `out`
     */
-    CColSphere ComputeSphere(PedsToAvoidArray& accountedPeds);
+    CColSphere* ComputeSphere(CColSphere* out, PedsToAvoidArray& accountedPeds);
     void       ComputeAvoidSphere(CPed* ped, CColSphere& colSphere);
     bool       ComputeRouteRoundSphere(CPed* ped, CColSphere& spToAvoid);
     bool       ComputeDetourTarget(CPed* ped);
@@ -63,14 +63,16 @@ private:
     }
 
 private:
+    // Como el original: el constructor (0x66A100) no escribe m_StartPt ni m_NewTargetPt, y los temporizadores
+    // van sin {} para no poner a cero su relleno (0x4A-0x4B y 0x56-0x57)
     CPed::Ref  m_PedToAvoid{};
-    CVector    m_StartPt{};
-    CVector    m_TargetPt{};
-    CVector    m_DetourTargetPt{};
-    CVector    m_NewTargetPt{};
-    CTaskTimer m_Timer{};
-    CTaskTimer m_DontQuitYetTimer{};
-    eMoveState m_MoveState{};
+    CVector    m_StartPt;
+    CVector    m_TargetPt;
+    CVector    m_DetourTargetPt;
+    CVector    m_NewTargetPt;
+    CTaskTimer m_Timer;
+    CTaskTimer m_DontQuitYetTimer;
+    eMoveState m_MoveState;
     bool       m_IsDoingIK : 1{};
     bool       m_WantsToQuit : 1{};
     bool       m_IsMovingTarget : 1{};

@@ -38,7 +38,7 @@ public:
     int16           GetProperIndexFromIndexUsedByScript(int16 scmIndex);
     const char*     GetStreamedScriptFilename(uint16 index);
     uint32          GetStreamedScriptWithThisStartAddress(uint8* dataPtr);
-    void            LoadStreamedScript(RwStream* stream, int32 index);
+    bool            LoadStreamedScript(RwStream* stream, int32 index);
     void            ReadStreamedScriptData();
     int32           RegisterScript(const char* scriptName);
     void            RemoveStreamedScriptFromMemory(int32 index);

@@ -35,7 +35,7 @@ public:
 
     static CCoverPoint* AddCoverPoint(CCoverPoint::eType type, CEntity* coverEntity, const CVector* position, CCoverPoint::eUsage usage, CCoverPoint::Dir dir);
     static float CalculateHorizontalSize(CColTriangle* triangle, CVector* vertPositions);
-    static bool DoLineCheckWithinObject(CColTriangle* triangle, int32 a2, CVector* a3, CVector* a4, CVector a5, CVector a6);
+    static bool DoLineCheckWithinObject(CColTriangle* triangles, int32 numTriangles, CVector* vertPositions, CVector* normals, CVector start, CVector end);
     static bool DoesCoverPointStillProvideCover(CCoverPoint* point, CVector position);
     static void Find2HighestPoints(CColTriangle* triangle, CVector* vertPositions, int32& outPoint1, int32& outPoint2);
     static CCoverPoint* FindAndReserveCoverPoint(CPed* ped, const CVector& position, bool isForAttack);
@@ -43,7 +43,7 @@ public:
     static void FindCoverPointsForThisBuilding(CBuilding* building);
     static CCoverPoint::Dir FindDirFromVector(CVector dir);
     static CVector FindVectorFromDir(CCoverPoint::Dir direction);
-    static uint8 FindDirFromVector_Reversed(CVector dir);
+    static int32 FindDirFromVector_Reversed(CVector dir); // Como el original: entero completo de _ftol2
     static CVector FindVectorFromDir_Reversed(uint8 direction);
     static CVector FindVectorFromFirstToMissingVertex(CColTriangle* triangle, int32* a3, CVector* vertPositions);
 

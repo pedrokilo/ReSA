@@ -25,7 +25,7 @@ public:
     static void FlushTriPlantBuffer();
 
     static RpAtomic** GetPlantModelsTab(uint32 type);
-    static void SetPlantModelsTab(uint32 type, RpAtomic** atomics);
+    static bool SetPlantModelsTab(uint32 type, RpAtomic** atomics);
 
     static void SetCloseFarAlphaDist(float fCloseDist, float fFarDist);
     static void SetCurrentScanCode(uint16 scanCode);

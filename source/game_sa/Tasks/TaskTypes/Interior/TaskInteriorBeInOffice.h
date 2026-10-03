@@ -19,13 +19,12 @@ public:
 
     CTask*    Clone() const override { return new CTaskInteriorBeInOffice{ *this }; }
     eTaskType GetTaskType() const override { return Type; }
-    CTask*    CreateNextSubTask(CPed* ped) override { return CreateUseInfoTask(ped, false); }
-    CTask*    CreateFirstSubTask(CPed* ped) override { return CreateUseInfoTask(ped, true); }
+    CTask*    CreateNextSubTask(CPed* ped) override;
+    CTask*    CreateFirstSubTask(CPed* ped) override;
     CTask*    ControlSubTask(CPed* ped) override { return m_pSubTask; }
 
 private:
-    void   GetInfoForPedToUse(CPed* ped, int32* outDur);
-    CTask* CreateUseInfoTask(CPed* ped, bool bDoInstantly); // notsa
+    void   GetInfoForPedToUse(int32* outDur); // Como el original: __thiscall con un solo argumento (ret 4)
 
 private: // Wrappers for hooks
     // 0x675220

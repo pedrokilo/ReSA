@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/11 entradas.
+ * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
 #include <Tasks/TaskTypes/TaskSimpleCarSlowBeDraggedOut.h>
 #include <Tasks/TaskTypes/TaskSimpleCarSetPedOut.h>
 #include <Tasks/TaskTypes/TaskSimpleCarFallOut.h>
+#include <Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h>
 
 void CTaskComplexCarSlowBeDraggedOut::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexCarSlowBeDraggedOut, 0x86EF54, 11);
@@ -50,18 +51,31 @@ CTaskComplexCarSlowBeDraggedOut::CTaskComplexCarSlowBeDraggedOut(CVehicle* vehic
     m_IsDraggedBySelf{ isDraggedBySelf }
 { }
 
+// 0x64C580
+CTaskComplexCarSlowBeDraggedOut::~CTaskComplexCarSlowBeDraggedOut() {
+    // Como el original: primero se limpia la referencia del vehiculo y despues se borra la utilidad de alineacion
+    // Como el original: CleanUpOldReference sin anular el campo (la limpieza posterior de EntityRef no encuentra nada)
+    if (CVehicle* veh = m_Vehicle) {
+        veh->CleanUpOldReference(reinterpret_cast<CEntity**>(std::addressof(m_Vehicle)));
+    }
+    if (m_LineUpUtility) { // Como el original: test edi,edi antes del destructor y operator delete (0x64C5BF)
+        delete m_LineUpUtility; // sin anular el campo
+    }
+}
+
 // 0x648520
 void CTaskComplexCarSlowBeDraggedOut::CreateTaskUtilityLineUpPedWithCar(CPed* ped) {
     UNUSED(ped);
 
-    m_LineUpUtility = std::make_unique<CTaskUtilityLineUpPedWithCar>(CVector{}, 0, 0, m_Door);
+    // Como el original: la utilidad anterior (si la hay) no se libera, se sobrescribe el puntero
+    m_LineUpUtility = new CTaskUtilityLineUpPedWithCar(CVector{}, 0, 0, m_Door);
 }
 
 // 0x64C6A0
 CTask* CTaskComplexCarSlowBeDraggedOut::CreateSubTask(eTaskType taskType) {
     switch (taskType) {
     case TASK_SIMPLE_CAR_FALL_OUT: { // 0x64C7A9
-        return new CTaskSimpleCarFallOut{m_Vehicle, m_Door, m_LineUpUtility.get()};
+        return new CTaskSimpleCarFallOut{m_Vehicle, m_Door, m_LineUpUtility};
     }
     case TASK_FINISHED: { // 0x64C718
         return nullptr;
@@ -70,21 +84,23 @@ CTask* CTaskComplexCarSlowBeDraggedOut::CreateSubTask(eTaskType taskType) {
         return new CTaskSimpleCarSetPedSlowDraggedOut{ m_Vehicle, m_Door };
     }
     case TASK_SIMPLE_CAR_SET_PED_OUT: { // 0x64C72C
-        return new CTaskSimpleCarSetPedOut{ m_Vehicle, m_Door, m_IsDraggedBySelf };
+        return new CTaskSimpleCarSetPedOut{ m_Vehicle, m_Door, !m_IsDraggedBySelf }; // Como el original: sete (invertido)
     }
     case TASK_SIMPLE_CAR_SLOW_BE_DRAGGED_OUT: { // 0x64C6E3
-        return new CTaskSimpleCarSlowBeDraggedOut{ m_Vehicle, m_Door, m_LineUpUtility.get(), m_IsDraggedBySelf };
+        return new CTaskSimpleCarSlowBeDraggedOut{ m_Vehicle, m_Door, m_LineUpUtility, m_IsDraggedBySelf };
     }
-    default: NOTSA_UNREACHABLE();
+    default:
+        return nullptr; // Como el original: tipos desconocidos devuelven nullptr
     }
 }
 
 // 0x64C600
 bool CTaskComplexCarSlowBeDraggedOut::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
-    if (priority == ABORT_PRIORITY_IMMEDIATE) {
+    // Como el original: solo con prioridad inmediata se aborta la subtarea, se saca al peaton y se devuelve true
+    if (priority != ABORT_PRIORITY_IMMEDIATE) {
         return false;
     }
-    m_pSubTask->MakeAbortable(ped, priority, event);
+    m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_IMMEDIATE, event);
     CTaskSimpleCarSetPedSlowDraggedOut{ m_Vehicle, m_Door }.ProcessPed(ped);
     return true;
 }
@@ -97,10 +113,10 @@ CTask* CTaskComplexCarSlowBeDraggedOut::CreateNextSubTask(CPed* ped) {
     return CreateSubTask([this, ped] {
         switch (m_pSubTask->GetTaskType()) {
         case TASK_SIMPLE_CAR_FALL_OUT:                 return TASK_SIMPLE_CAR_SET_PED_OUT;
-        case TASK_SIMPLE_CAR_SET_PED_OUT:
         case TASK_SIMPLE_CAR_SLOW_BE_DRAGGED_OUT:      return TASK_SIMPLE_CAR_SET_PED_SLOW_DRAGGED_OUT;
+        case TASK_SIMPLE_CAR_SET_PED_OUT:              // Como el original: SET_PED_OUT termina
         case TASK_SIMPLE_CAR_SET_PED_SLOW_DRAGGED_OUT: return TASK_FINISHED;
-        default:                                       NOTSA_UNREACHABLE();
+        default:                                       return TASK_NONE; // Como el original: nullptr (CreateSubTask devuelve nullptr)
         }
     }());
 }
@@ -120,6 +136,10 @@ void CTaskComplexCarSlowBeDraggedOut::PreparePedForVehicleExit(CPed* ped) {
 
 // 0x64C8B0
 CTask* CTaskComplexCarSlowBeDraggedOut::CreateFirstSubTask(CPed* ped) {
+    // Como el original: fuera del vehiculo no hace nada y devuelve nullptr
+    if (!ped->IsInVehicle()) {
+        return nullptr;
+    }
     PrepareVehicleForPedExit(ped);
     PreparePedForVehicleExit(ped);
 

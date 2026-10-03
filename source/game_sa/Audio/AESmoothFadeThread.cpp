@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/10 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -23,6 +23,26 @@ END GENERATED HOOK STATUS */
 #include "AEAudioUtility.h"
 
 auto& AESmoothFadeThread = StaticRef<CAESmoothFadeThread>(0xB608D0);
+
+namespace {
+// Como el original: volumen DirectSound (centésimas de dB, cargado con fild) · 0.01f (0x858C58) en x87 a la
+// precisión vigente, redondeado a float.
+float DsVolumeToDb(int32 dsVolume) {
+    static const float kToDb = 0.01f;
+    float volume;
+    __asm {
+        fild  dword ptr dsVolume
+        fmul  kToDb
+        fstp  volume
+    }
+    return volume;
+}
+
+// Como el original: volumen · 100 (0x858628) truncado con _ftol2 (0x821B40, 64 bits; se usa la parte baja).
+LONG DbToDsVolume(float volume) {
+    return (LONG)(int64)(volume * 100.0f);
+}
+} // namespace
 
 /**
  * Registra la cola y el hilo encargado de transiciones suaves de volumen DirectSound.
@@ -57,16 +77,17 @@ CAESmoothFadeThread::CAESmoothFadeThread() {
 /**
  * Reinicia los slots y crea el thread suspendido; Start() controla cuándo comienza a servirlos.
  */
-void CAESmoothFadeThread::Initialise() {
+bool CAESmoothFadeThread::Initialise() {
     InitialiseRequestSlots();
     m_threadHandle = CreateThread(nullptr, 0, &CAESmoothFadeThread::SmoothFadeProc, this, CREATE_SUSPENDED, &m_dwThreadId);
     if (m_threadHandle == INVALID_HANDLE_VALUE || !m_threadHandle) { // NOTSA: nullptr check
         m_bInitialized = false;
-    } else {
-        SetThreadPriority(m_threadHandle, 0);
-        m_bInitialized = true;
-        m_bSmoothFadesDisabled = false;
+        return false;
     }
+    SetThreadPriority(m_threadHandle, 0);
+    m_bSmoothFadesDisabled = false;
+    m_bInitialized = true;
+    return true; // Como el original: devuelve si se creó el hilo
 }
 
 void CAESmoothFadeThread::InitialiseRequestSlots() {
@@ -96,44 +117,60 @@ void CAESmoothFadeThread::WaitForExit() {
 void CAESmoothFadeThread::Service() {
     m_currentTime = (uint32)CAEAudioUtility::GetCurrentTimeInMS();
     for (auto& entry : m_aEntries) {
-        if (entry.m_nStatus == eSmoothFadeEntryStatus::STATE_IDLE)
+        if (entry.m_nStatus == eSmoothFadeEntryStatus::STATE_ACTIVE) { // Como el original: sólo el estado 1 avanza
+            if (!entry.m_pSoundBuffer)
+                continue;
+
+            if (m_currentTime < entry.m_nStartTime)
+                continue;
+
+            const uint32 elapsed = m_currentTime - entry.m_nStartTime;
+            if (elapsed < entry.m_wFadeTime) {
+                // Como el original: todo en la pila x87. Paso lineal pow(10, diff · 0.05) - 1 con el _CIpow del EXE
+                // (0x822130), progreso = transcurrido (sin signo) / duración, y
+                // volumen = inicio + 20 · log10(1 + paso · progreso) con fyl2x.
+                static const double kTen = 10.0;
+                static const float  kToLinear = std::bit_cast<float>(0x3D4CCCCDu), kOne = 1.0f, k2pow32 = 4294967296.0f, kDecibels = 20.0f;
+                const float  diff = entry.m_fVolumeDiff, start = entry.m_fStartVolume;
+                const int32  fadeTime = entry.m_wFadeTime;
+                float        volume;
+                __asm {
+                    fld   kTen
+                    fld   diff
+                    fmul  kToLinear
+                    mov   eax, 0x822130
+                    call  eax
+                    fsub  kOne
+                    fild  dword ptr elapsed
+                    cmp   elapsed, 0
+                    jge   L_elapsedPositive
+                    fadd  k2pow32
+                L_elapsedPositive:
+                    fidiv dword ptr fadeTime
+                    fmulp st(1), st
+                    fadd  kOne
+                    fldlg2
+                    fxch  st(1)
+                    fyl2x
+                    fmul  kDecibels
+                    fadd  start
+                    fstp  volume
+                }
+                entry.m_fCurVolume = volume;
+                entry.m_pSoundBuffer->SetVolume(DbToDsVolume(volume));
+                continue;
+            }
+
+            int32 curVolume;
+            entry.m_pSoundBuffer->GetVolume((LPLONG)&curVolume);
+            const auto fCurVolume = DsVolumeToDb(curVolume);
+            if (entry.m_bStopBufferAfterFade || approxEqual2(fCurVolume, entry.m_fCurVolume, 0.01F)) {
+                entry.m_pSoundBuffer->SetVolume(DbToDsVolume(entry.m_fTargetVolume));
+                if (entry.m_bStopBufferAfterFade)
+                    entry.m_pSoundBuffer->Stop();
+            }
+        } else if (entry.m_nStatus != eSmoothFadeEntryStatus::STATE_CANCELLED) {
             continue;
-
-        if (entry.m_nStatus == eSmoothFadeEntryStatus::STATE_CANCELLED) {
-            --g_numSoundChannelsUsed;
-            if (entry.m_pSoundBuffer)
-                entry.m_pSoundBuffer->Release();
-
-            entry.m_pSoundBuffer = nullptr;
-            entry.m_nStatus = eSmoothFadeEntryStatus::STATE_IDLE;
-            continue;
-        }
-
-        if (!entry.m_pSoundBuffer)
-            continue;
-
-        if (m_currentTime < entry.m_nStartTime)
-            continue;
-
-        const auto elapsed = m_currentTime - entry.m_nStartTime;
-        if (elapsed < entry.m_wFadeTime) {
-            const auto fStep = pow(10.0F, entry.m_fVolumeDiff / 20.0F) - 1.0F;
-            const auto fProgress = static_cast<float>(elapsed) / static_cast<float>(entry.m_wFadeTime);
-            entry.m_fCurVolume = entry.m_fStartVolume + LOG10_2 * log2(fStep * fProgress) * 20.0F;
-
-            const auto dwVolume = static_cast<LONG>(entry.m_fCurVolume * 100.0F);
-            entry.m_pSoundBuffer->SetVolume(dwVolume);
-            continue;
-        }
-
-        int32 curVolume;
-        entry.m_pSoundBuffer->GetVolume((LPLONG)&curVolume);
-        const auto fCurVolume = static_cast<float>(curVolume) / 100.0F;
-        if (entry.m_bStopBufferAfterFade || approxEqual2(fCurVolume, entry.m_fCurVolume, 0.01F)) {
-            const auto dwTargetVolume = static_cast<LONG>(entry.m_fTargetVolume * 100.0F);
-            entry.m_pSoundBuffer->SetVolume(dwTargetVolume);
-            if (entry.m_bStopBufferAfterFade)
-                entry.m_pSoundBuffer->Stop();
         }
 
         --g_numSoundChannelsUsed;
@@ -171,7 +208,7 @@ bool CAESmoothFadeThread::RequestFade(IDirectSoundBuffer* buffer, float fTargetV
 
     int32 curVolume;
     buffer->GetVolume((LPLONG)&curVolume);
-    const auto fCurVolume = static_cast<float>(curVolume) / 100.0F;
+    const auto fCurVolume = DsVolumeToDb(curVolume);
 
     if (approxEqual2(fCurVolume, fTargetVolume, 0.01F)) {
         if (bStopBufferAfterFade)
@@ -182,8 +219,8 @@ bool CAESmoothFadeThread::RequestFade(IDirectSoundBuffer* buffer, float fTargetV
 
     bool bFound = false;
     int32  iFreeInd = -1;
-    for (uint32 i = 0; i < m_nNumAvailableBuffers; ++i) {
-        auto& sound = m_aEntries[i];
+    for (int32 i = 0; i < (int32)m_nNumAvailableBuffers; ++i) { // Como el original: comparación con signo
+        auto& sound = m_aEntries.data()[i];
         if (sound.m_nStatus == eSmoothFadeEntryStatus::STATE_IDLE && !bFound) {
             bFound = true;
             iFreeInd = i;
@@ -207,7 +244,7 @@ bool CAESmoothFadeThread::RequestFade(IDirectSoundBuffer* buffer, float fTargetV
     if (!bFound)
         return false;
 
-    auto& sound = m_aEntries[iFreeInd];
+    auto& sound = m_aEntries.data()[iFreeInd];
     if (sound.m_nStatus == eSmoothFadeEntryStatus::STATE_ACTIVE) {
         if (sound.m_bStopBufferAfterFade)
             return true;
@@ -238,7 +275,7 @@ bool CAESmoothFadeThread::RequestFade(IDirectSoundBuffer* buffer, float fTargetV
 
 // Escribe directamente el volumen salvo que exista un fade activo incompatible, que se cancela.
 void CAESmoothFadeThread::SetBufferVolume(IDirectSoundBuffer* buffer, float volume) {
-    const auto newVolume = static_cast<LONG>(volume * 100.0F);
+    const auto newVolume = DbToDsVolume(volume);
     if (m_bSmoothFadesDisabled) {
         buffer->SetVolume(newVolume);
         return;

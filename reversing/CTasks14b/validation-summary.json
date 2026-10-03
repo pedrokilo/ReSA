@@ -1,0 +1,99 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 12352,
+  "pairs_per_function": {
+    "CTaskSimpleHoldEntity::CanThrowEntity": 128,
+    "CTaskSimpleHoldEntity::ChoosePutDownHeight": 512,
+    "CTaskSimpleHoldEntity::Clone": 256,
+    "CTaskSimpleHoldEntity::Constructor-1": 256,
+    "CTaskSimpleHoldEntity::Constructor-2": 256,
+    "CTaskSimpleHoldEntity::Constructor-3": 256,
+    "CTaskSimpleHoldEntity::DropEntity": 1024,
+    "CTaskSimpleHoldEntity::FinishAnimHoldEntityCB": 256,
+    "CTaskSimpleHoldEntity::MakeAbortable": 512,
+    "CTaskSimpleHoldEntity::PlayAnim": 128,
+    "CTaskSimpleHoldEntity::ProcessPed": 1024,
+    "CTaskSimpleHoldEntity::ReleaseEntity": 128,
+    "CTaskSimpleHoldEntity::SetPedPosition": 1024,
+    "CTaskSimpleHoldEntity::StartAnim": 512,
+    "CTaskSimpleJetPack::ApplyRollAndPitch": 256,
+    "CTaskSimpleJetPack::Clone": 128,
+    "CTaskSimpleJetPack::Constructor": 128,
+    "CTaskSimpleJetPack::Destructor": 256,
+    "CTaskSimpleJetPack::DoJetPackEffect": 512,
+    "CTaskSimpleJetPack::GetTaskType": 64,
+    "CTaskSimpleJetPack::MakeAbortable": 512,
+    "CTaskSimpleJetPack::ProcessAnims": 512,
+    "CTaskSimpleJetPack::ProcessControlInput": 1024,
+    "CTaskSimpleJetPack::ProcessPed": 1024,
+    "CTaskSimpleJetPack::ProcessThrust": 1024,
+    "CTaskSimpleJetPack::RenderJetPack": 512,
+    "CTaskSimpleJetPack::StopJetPackEffect": 128
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "b8afca26adf2b2b38d6293fa276bfa23c73e68805bcf8112170b8435a1e2534f",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks14b\\20261003-104845-800697",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTaskSimpleHoldEntity::CanThrowEntity": true,
+    "CTaskSimpleHoldEntity::ChoosePutDownHeight": true,
+    "CTaskSimpleHoldEntity::Clone": true,
+    "CTaskSimpleHoldEntity::Constructor-1": true,
+    "CTaskSimpleHoldEntity::Constructor-2": true,
+    "CTaskSimpleHoldEntity::Constructor-3": true,
+    "CTaskSimpleHoldEntity::DropEntity": true,
+    "CTaskSimpleHoldEntity::FinishAnimHoldEntityCB": true,
+    "CTaskSimpleHoldEntity::MakeAbortable": true,
+    "CTaskSimpleHoldEntity::PlayAnim": true,
+    "CTaskSimpleHoldEntity::ProcessPed": true,
+    "CTaskSimpleHoldEntity::ReleaseEntity": true,
+    "CTaskSimpleHoldEntity::SetPedPosition": true,
+    "CTaskSimpleHoldEntity::StartAnim": true,
+    "CTaskSimpleJetPack::ApplyRollAndPitch": true,
+    "CTaskSimpleJetPack::Clone": true,
+    "CTaskSimpleJetPack::Constructor": true,
+    "CTaskSimpleJetPack::Destructor": true,
+    "CTaskSimpleJetPack::DoJetPackEffect": true,
+    "CTaskSimpleJetPack::GetTaskType": true,
+    "CTaskSimpleJetPack::MakeAbortable": true,
+    "CTaskSimpleJetPack::ProcessAnims": true,
+    "CTaskSimpleJetPack::ProcessControlInput": true,
+    "CTaskSimpleJetPack::ProcessPed": true,
+    "CTaskSimpleJetPack::ProcessThrust": true,
+    "CTaskSimpleJetPack::RenderJetPack": true,
+    "CTaskSimpleJetPack::StopJetPackEffect": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "c125adab24e8465af65bd68584e28777f746cc17b405f990905f889bf4573449",
+      "pdb": "d2d13916775eb9a0826383d0ac17f525934f4cbed8e4d1c4ee781b6babfa783c"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp": "4af19d518901ab19c11701d7e9af97ad7336b471f6091b90e4f97ea8f203ca32",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.h": "57dbeccf436c4225e915497aaa41dc356c4463bded9cf0cfd65b4127611fff36",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp": "380c6a9fd5e73c0eba4144aa622e69b37b68168f2449b6d7fc77bc16322b028c",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.h": "c5d43cfdca8a3e59a518fb0a0fa35616ca79fb8dcfda0e38f217229af27e4e92"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "8233fb25adc68cb9be2715db715736e3fe124c3ea74fa44aca0b813804e29b80",
+      "build_probe.py": "250b3895d392c1288b7090617e6bffe1029f22f3a187b85eabd278795a7b0694",
+      "run_local.py": "f87ff186c0466cf80500c1ece184fd1019d29428bc08633dcfbd93cc8022ab6d"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

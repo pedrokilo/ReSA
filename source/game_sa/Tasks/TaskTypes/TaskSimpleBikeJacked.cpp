@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -41,6 +41,7 @@ CTaskSimpleBikeJacked::CTaskSimpleBikeJacked(CVehicle* vehicle, uint32 door, uin
     m_vehicle{vehicle},
     m_door{door},
     m_time{time},
+    m_jacker{carJacker}, // Como el original: se guarda el secuestrador (+0x20) y se registra su referencia
     m_isVictimDriver{isVictimDriver}
 {
     CEntity::SafeRegisterRef(m_vehicle);
@@ -101,28 +102,36 @@ bool CTaskSimpleBikeJacked::ProcessPed(CPed* ped) {
     }
 
     if (!m_animWasPlayed) {
-        // Inverted + refactored a little
-        if (ped->IsPlayer()) {
-            m_vehicle->m_vehicleAudio.PlayerAboutToExitVehicleAsDriver();
-        } else if (m_vehicle->IsDriver(ped)) {
+        // Como el original: dos comprobaciones independientes; la del jugador usa ped->m_pVehicle
+        if (!ped->IsPlayer() && m_vehicle->IsDriver(ped)) {
             ped->SetRadioStation();
         }
-        
+        if (ped->IsPlayer() && ped->m_pVehicle) {
+            ped->m_pVehicle->m_vehicleAudio.PlayerAboutToExitVehicleAsDriver();
+        }
+
         if (!m_firstAnim &&
             [this, ped] {
                 if (m_jacker) {
-                    if (const auto anim = RpAnimBlendClumpGetAssociation(ped->GetRpClump(), { ANIM_ID_CAR_PULLOUT_RHS, ANIM_ID_CAR_PULLOUT_LHS, ANIM_ID_CAR_GETIN_BIKE_FRONT })) {
-                        if (anim->m_CurrentTime <= 0.3f) {
-                            return false;
-                        }
+                    // Como el original: animaciones del secuestrador (su clump), en este orden
+                    auto* const clump = m_jacker->GetRpClump();
+                    auto* anim = RpAnimBlendClumpGetAssociation(clump, ANIM_ID_CAR_PULLOUT_RHS);
+                    if (!anim) {
+                        anim = RpAnimBlendClumpGetAssociation(clump, ANIM_ID_CAR_PULLOUT_LHS);
+                    }
+                    if (!anim) {
+                        anim = RpAnimBlendClumpGetAssociation(clump, ANIM_ID_CAR_GETIN_BIKE_FRONT);
+                    }
+                    if (anim && !(anim->m_CurrentTime > 0.3f)) { // Como el original: NaN también espera
+                        return false;
                     }
 
-                    if (CGeneral::DoCoinFlip()) { // Originally: rand() % 1024 <= 512
-                        if (!SayJacking(m_jacker, ped, m_vehicle)) {
-                            SayJacked(ped, m_vehicle);
+                    if ((CGeneral::GetRandomNumber() & 0x3FF) > 0x200) { // Como el original: rand() & 0x3FF > 512
+                        if (!SayJacked(ped, m_vehicle)) {
+                            SayJacking(m_jacker, ped, m_vehicle);
                         }
-                    } else if (!SayJacked(ped, m_vehicle)) {
-                        SayJacking(m_jacker, ped, m_vehicle);
+                    } else if (!SayJacking(m_jacker, ped, m_vehicle)) {
+                        SayJacked(ped, m_vehicle);
                     }
                 }
                 return true;
@@ -145,7 +154,7 @@ bool CTaskSimpleBikeJacked::ProcessPed(CPed* ped) {
         return true;
     }
 
-    CAnimManager::BlendAnimation(ped->GetRpClump(), ANIM_GROUP_DEFAULT, m_secondAnimId);
+    CAnimManager::BlendAnimation(ped->GetRpClump(), ANIM_GROUP_DEFAULT, m_secondAnimId, 100.f); // Como el original: delta 100
 
     // event.m_flags |= 2; => event.m_forceKnockOff = true => Already set by ctor
     ped->GetEventGroup().Add(CEventKnockOffBike{ m_vehicle, m_vehicle->GetMoveSpeed(), m_vehicle->m_vecLastCollisionImpactVelocity, 0.f, 0.f, 55u, 0u, (int32)m_time, m_jacker, m_isVictimDriver, true }, true);

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/10 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -57,7 +57,7 @@ CTaskSimpleCarCloseDoorFromInside::CTaskSimpleCarCloseDoorFromInside(const CTask
 CTaskSimpleCarCloseDoorFromInside::~CTaskSimpleCarCloseDoorFromInside() {
     CEntity::SafeCleanUpRef(m_veh);
     if (m_anim) {
-        m_anim->SetDeleteCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+        m_anim->SetFinishCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr); // Como el original: callback de fin (0x4CEBE0)
     }
 }
 
@@ -80,13 +80,13 @@ void CTaskSimpleCarCloseDoorFromInside::FinishAnimCarCloseDoorFromInsideCB(CAnim
 
 // 0x646410
 void CTaskSimpleCarCloseDoorFromInside::ComputeAnimID(AssocGroupId& outGroup, AnimationId& outAnimId) {
-    outAnimId = [this] {
+    outAnimId = [this, &outAnimId]() -> AnimationId {
         switch (m_door) {
         case 8u:  return ANIM_ID_CAR_CLOSEDOOR_RHS_0;
         case 9u:  return ANIM_ID_CAR_CLOSEDOOR_RHS_1;
         case 10u: return ANIM_ID_CAR_CLOSEDOOR_LHS_0;
         case 11u: return ANIM_ID_CAR_CLOSEDOOR_LHS_1;
-        default:  NOTSA_UNREACHABLE();
+        default:  return outAnimId; // Como el original: con otra puerta no se escribe la animacion
         }
     }();
     outGroup = m_veh->GetAnimGroup().GetGroup(outAnimId);
@@ -111,7 +111,7 @@ void CTaskSimpleCarCloseDoorFromInside::StartAnim(CPed const* ped) {
 void CTaskSimpleCarCloseDoorFromInside::ProcessDoorOpen(CPed const* ped) {
     const auto [grpId, animId] = ComputeAnimID_Helper();
     m_veh->ProcessOpenDoor(
-        nullptr,
+        const_cast<CPed*>(ped), // Como el original: el peaton recibido (nulo desde el callback de fin)
         m_door,
         grpId,
         animId,
@@ -129,7 +129,7 @@ bool CTaskSimpleCarCloseDoorFromInside::MakeAbortable(CPed* ped, eAbortPriority 
         if (m_veh) {
             ProcessDoorOpen(ped);
         }
-        return true;
+        return false; // Como el original: devuelve falso siempre
     }
     default:
         return false;

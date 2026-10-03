@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 15/15 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/15 entradas.
+ * Validación registrada: 15/15 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -29,6 +29,9 @@ END GENERATED HOOK STATUS */
 #include "RenderWare.h"
 #include "AnimBlock.h"
 #include "AnimBlendAssocGroup.h"
+
+// Como el original: CAnimManager::ms_aAnimations (0xB4EA40) indexado sin comprobar el rango.
+static auto& s_AnimationsRaw = StaticRef<CAnimBlendHierarchy[2500]>(0xB4EA40);
 
 /**
  * Registra las operaciones de los grupos de asociaciones de animación.
@@ -110,21 +113,22 @@ void CAnimBlendAssocGroup::CreateAssociation(CAnimBlendStaticAssociation* assoc,
 void CAnimBlendAssocGroup::CreateAssociations(const char* blockName) {
     ZoneScoped;
 
-    const auto ablock = AllocateForBlock(blockName, -1);
+    // Como el original: DestroyAssociations en línea, m_AnimBlock se guarda antes de reservar, m_NumAnims arranca
+    // en 0 y cuenta cada vuelta (también las que no tienen modelo) y al final se fija a NumAnims. El bucle es con
+    // signo y relee el bloque en cada vuelta. Sin registro (spdlog reserva memoria).
+    DestroyAssociations();
+    m_AnimBlock = CAnimManager::GetAnimationBlock(blockName);
+    m_Anims     = new CAnimBlendStaticAssociation[m_AnimBlock->NumAnims];
+    m_NumAnims  = 0;
 
-    for (size_t i = 0; i < ablock->NumAnims; i++) {
-        const auto id    = (AnimationId)(ablock->FirstAnimIdx + i);
-        const auto anim  = &CAnimManager::GetAnimation(id);
-        const auto assoc = &GetAssociations()[i];
-        const auto mi    = CModelInfo::GetModelInfoFromHashKey(anim->m_hashKey);
-        if (!mi) {
-            NOTSA_LOG_WARN("ModelInfo (Key={}) for animation(Block={}; ID={}) not found", anim->m_hashKey, blockName, (int)id);
-            continue;
+    for (int32 i = 0; i < (int32)m_AnimBlock->NumAnims; i++) {
+        const auto anim = &s_AnimationsRaw[m_AnimBlock->FirstAnimIdx + i];
+        if (const auto mi = CModelInfo::GetModelInfoFromHashKey(anim->m_hashKey)) {
+            CreateAssociation(&m_Anims[i], anim, mi, i);
         }
-        CreateAssociation(assoc, anim, mi, i);
+        m_NumAnims++;
     }
-
-    NOTSA_LOG_DEBUG("Created #{} associations for block ({})", m_NumAnims, blockName);
+    m_NumAnims = m_AnimBlock->NumAnims;
 }
 
 // 0x4CE3B0
@@ -139,47 +143,41 @@ void CAnimBlendAssocGroup::CreateAssociations(const char* blockName, const char*
         return CreateAssociations(blockName);
     }
 
-    const auto ab = AllocateForBlock(blockName, -1);
+    if (m_Anims) {
+        DestroyAssociations();
+    }
+    m_AnimBlock = CAnimManager::GetAnimationBlock(blockName);
+    m_Anims     = new CAnimBlendStaticAssociation[m_AnimBlock->NumAnims];
 
     // Se reinicia el contador porque algunas animaciones pueden no encontrarse;
     // incrementarlo sólo al crear una asociación mantiene el array compacto.
     m_NumAnims = 0;
 
-    for (size_t i = 0; i < ab->NumAnims; i++) {
-        const auto id    = (AnimationId)(ab->FirstAnimIdx + i);
-        const auto anim  = &CAnimManager::GetAnimation(id);
-        const auto assoc = &m_Anims[m_NumAnims]; // Can't use GetAssociations() helper method, as m_NumAnims will always be (no. of elements + 1)
+    for (int32 i = 0; i < (int32)m_AnimBlock->NumAnims; i++) {
+        const auto anim = &s_AnimationsRaw[m_AnimBlock->FirstAnimIdx + i];
 
-        const auto* animName = animNames;
-        const auto* modelName = modelNames;
-
-        // Busca la pareja nombre de animación/modelo. Ambos buffers son paralelos:
-        // la entrada k de animNames corresponde a la entrada k de modelNames.
-        bool found;
-        for (size_t k = 0; found = k < ab->NumAnims;k++, animName += buffStride, modelName += buffStride) {
-            if (CKeyGen::GetUppercaseKey(animName) == anim->GetHashKey()) {
-                break;
+        // Como el original: recorre todos los nombres sin cortar, así que gana la última coincidencia.
+        int32 found = -1;
+        const char* animName = animNames;
+        for (int32 k = 0; k < (int32)m_AnimBlock->NumAnims; k++, animName += buffStride) {
+            if (CKeyGen::GetUppercaseKey(animName) == anim->m_hashKey) {
+                found = k;
             }
         }
-        if (!found) {
-            NOTSA_LOG_WARN("Name of Animation(Block={}; ID={}) not found", modelName, blockName, (int)id);
+        if (found == -1) {
             continue;
         }
 
+        const char* modelName = modelNames + found * (int32)buffStride;
         CModelInfo::ms_lastPositionSearched = 0; // Why?
-        const auto mi = CModelInfo::GetModelInfo(modelName);
+        const auto mi = CModelInfo::GetModelInfo(modelName, nullptr);
         if (!mi) {
-            NOTSA_LOG_WARN("ModelInfo ({}) for Animation (Name={}; Block={}; ID={}) not found", modelName, animName, blockName, (int)id);
             continue;
         }
 
-        CreateAssociation(assoc, anim, mi, i);
+        CreateAssociation(&m_Anims[m_NumAnims], anim, mi, i);
         ++m_NumAnims;
-
-        NOTSA_LOG_TRACE("Created Animation(Name={}; Block={}; ID={}) from model ({})", animName, blockName, (int)id, modelName);
     }
-
-    NOTSA_LOG_TRACE("Created #{} associations for block ({})", m_NumAnims, blockName);
 }
 
 // 0x4CE6E0
@@ -190,30 +188,46 @@ void CAnimBlendAssocGroup::CreateAssociations(const char* blockName, const char*
 void CAnimBlendAssocGroup::CreateAssociations(const char* blockName, RpClump* clump, const char** names, uint32 cnt) {
     ZoneScoped;
 
-    AllocateForBlock(blockName, cnt);
+    // Como el original: DestroyAssociations en línea, m_NumAnims cuenta cada vuelta y al final vale cnt.
+    DestroyAssociations();
+    m_AnimBlock = CAnimManager::GetAnimationBlock(blockName);
+    m_Anims     = new CAnimBlendStaticAssociation[cnt];
+    m_NumAnims  = 0;
 
-    for (size_t i = 0; i < cnt; i++) {
+    for (int32 i = 0; i < (int32)cnt; i++) {
         const auto name  = names[i];
-        const auto assoc = &GetAssociations()[i];
+        const auto assoc = &m_Anims[i];
 
         if (name[0]) { // Check is empty string
             assoc->Init(clump, CAnimManager::GetAnimation(name, m_AnimBlock));
             assoc->m_AnimId = (AnimationId)(m_IdOffset + i);
-            assert(assoc->m_AnimId < ANIM_ID_MAX);
         } else {
             assoc->m_AnimId = ANIM_ID_UNDEFINED;
         }
 
         assoc->m_AnimGroupId = m_GroupID;
+        m_NumAnims++;
     }
-
-    NOTSA_LOG_DEBUG("Created #{} associations for block ({})", m_NumAnims, blockName);
+    m_NumAnims = cnt;
 }
 
 // 0x4CDFF0
 // Destruye el array propiedad del grupo y restablece su tamaño a cero.
 void CAnimBlendAssocGroup::DestroyAssociations() {
-    delete[] std::exchange(m_Anims, nullptr);
+    // Como el original: solo si hay array (si no, m_NumAnims no se toca). Con contador 0 libera el bloque
+    // (cookie incluida) con operator delete; si no, llama al destructor vectorial por el hueco 0 de la vtable
+    // del primer elemento con flags 3.
+    if (!m_Anims) {
+        return;
+    }
+    auto* const block = reinterpret_cast<uint32*>(m_Anims) - 1;
+    if (*block) {
+        using VectorDeletingDtor = void*(__thiscall*)(void*, uint32);
+        (*reinterpret_cast<VectorDeletingDtor**>(m_Anims))[0](m_Anims, 3);
+    } else {
+        ::operator delete(block);
+    }
+    m_Anims    = nullptr;
     m_NumAnims = 0;
 }
 
@@ -221,9 +235,9 @@ void CAnimBlendAssocGroup::DestroyAssociations() {
 // Busca por la misma clave uppercase utilizada al cargar las animaciones.
 CAnimBlendStaticAssociation* CAnimBlendAssocGroup::GetAnimation(const char* name) {
     const auto key = CKeyGen::GetUppercaseKey(name);
-    for (auto& a : GetAssociations()) {
-        if (a.GetHashKey() == key) {
-            return &a;
+    for (int32 i = 0; i < (int32)m_NumAnims; i++) { // Como el original: contador con signo
+        if (m_Anims[i].m_BlendHier->m_hashKey == key) {
+            return &m_Anims[i];
         }
     }
     return nullptr;
@@ -231,7 +245,7 @@ CAnimBlendStaticAssociation* CAnimBlendAssocGroup::GetAnimation(const char* name
 
 // 0x4CE090
 CAnimBlendStaticAssociation* CAnimBlendAssocGroup::GetAnimation(AnimationId id) {
-    return &GetAssociations()[id - m_IdOffset];
+    return &m_Anims[id - m_IdOffset]; // Como el original: sin comprobar el rango
 }
 
 // 0x4CE1B0
@@ -244,35 +258,13 @@ AnimationId CAnimBlendAssocGroup::GetAnimationId(const char* AnimName) {
 
 // 0x4CDFB0
 void CAnimBlendAssocGroup::InitEmptyAssociations(RpClump* clump) {
-    for (size_t i = m_NumAnims; i-- > 0;) {
-        const auto anim = &GetAssociations()[i];
+    // Como el original: de delante hacia atrás, con signo y releyendo m_NumAnims en cada vuelta.
+    for (int32 i = 0; i < (int32)m_NumAnims; i++) {
+        const auto anim = &m_Anims[i];
         if (!anim->IsValid()) {
             anim->Init(clump, anim->GetAnimHierarchy());
         }
     }
-}
-
-// NOTSA
-/**
- * Reemplaza cualquier array anterior y reserva asociaciones para el bloque solicitado.
- * @return El CAnimBlock global; el grupo no es propietario del bloque.
- */
-CAnimBlock* CAnimBlendAssocGroup::AllocateForBlock(const char* blockName, int32 numAnims) {
-    if (m_Anims) {
-        DestroyAssociations();
-    }
-
-    const auto ablock = CAnimManager::GetAnimationBlock(blockName);
-
-    if (numAnims == -1) {
-        numAnims = (int32)ablock->NumAnims;
-    }
-
-    m_AnimBlock = ablock;
-    m_Anims     = new CAnimBlendStaticAssociation[numAnims];
-    m_NumAnims  = numAnims;
-
-    return ablock;
 }
 
 // 0x4CE1D0

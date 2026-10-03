@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -89,18 +89,26 @@ void TransformPoints(RwV3d* pointOut, int count, const CMatrix& transformMatrix,
 }
 
 // 0x7186E0
+// Como el original: sólo 'a'..'z' (comparación sin signo, sin locale) y devuelve el inicio de `dest`.
 char* MakeUpperCase(char* dest, const char* src) {
-    for (; *src; src++, dest++)
-        *dest = std::toupper(*src);
-    *dest = '\0';
+    char* out = dest;
+    for (; *src; src++, out++) {
+        const auto c = (uint8)*src;
+        *out = (char)(c >= 'a' && c <= 'z' ? c - 0x20 : c);
+    }
+    *out = '\0';
     return dest;
 }
 
 // 0x718710
 // in-place version
+// Como el original: sólo 'a'..'z' y sólo escribe los caracteres que cambia (el EXE no fija el valor devuelto).
 char* MakeUpperCase(char* dest) {
     for (char* p = dest; *p; p++) {
-        *p = std::toupper(*p);
+        const auto c = (uint8)*p;
+        if (c >= 'a' && c <= 'z') {
+            *p = (char)(c - 0x20);
+        }
     }
     return dest;
 }
@@ -133,15 +141,30 @@ void WriteRaster(RwRaster* raster, const char* filename) {
     RwImageDestroy(img);
 }
 
+// Como el original: MultiplyMatrixWithVector (0x59C890) con el orden de sumas del EXE
+static CVector MatrixTimesPoint59C890(const CMatrix& m, const CVector& v) {
+    return {
+        m.GetUp().x * v.z + m.GetForward().x * v.y + m.GetRight().x * v.x + m.GetPosition().x,
+        m.GetUp().y * v.z + m.GetRight().y * v.x + m.GetForward().y * v.y + m.GetPosition().y,
+        m.GetUp().z * v.z + m.GetRight().z * v.x + m.GetForward().z * v.y + m.GetPosition().z
+    };
+}
+
 // 0x71DA00
+// Como el original: repite la proyección (no llama a la versión corta); escala = (ancho · 1/z) / FOV · 70.
 bool CalcScreenCoors(const CVector& in, CVector& out, float& scaleX, float& scaleY) {
-    if (!CalcScreenCoors(in, out)) {
+    out = MatrixTimesPoint59C890(TheCamera.GetViewMatrix(), in);
+    if (!(out.z > 1.0f)) {
         return false;
     }
 
-    const float r = 1.f / out.z / CDraw::ms_fFOV * 70.0f;
-    scaleX = SCREEN_WIDTH * r;
-    scaleY = SCREEN_HEIGHT * r;
+    const auto recpZ = 1.0f / out.z;
+    out.x = SCREEN_WIDTH * recpZ * out.x;
+    out.y = SCREEN_HEIGHT * recpZ * out.y;
+    scaleX = SCREEN_WIDTH * recpZ;
+    scaleY = SCREEN_HEIGHT * recpZ;
+    scaleX = scaleX / CDraw::ms_fFOV * 70.0f;
+    scaleY = scaleY / CDraw::ms_fFOV * 70.0f;
 
     return true;
 }
@@ -154,14 +177,14 @@ bool CalcScreenCoors(const CVector& in, CVector& out, float& scaleX, float& scal
 * @returns False if the depth was <= 1 (in which case the `x, y` positions are not not calculated, but `z` is)
 */
 bool CalcScreenCoors(const CVector& in, CVector& out) {
-    out = TheCamera.GetViewMatrix().TransformPoint(in);
-    if (out.z <= 1.0f) {
+    out = MatrixTimesPoint59C890(TheCamera.GetViewMatrix(), in); // Como el original: orden de sumas de 0x59C890
+    if (!(out.z > 1.0f)) { // Como el original: z NaN también devuelve false
         return false;
     }
 
     const auto recpZ = 1.0f / out.z;
-    out.x *= SCREEN_WIDTH * recpZ;
-    out.y *= SCREEN_HEIGHT * recpZ;
+    out.x = SCREEN_WIDTH * recpZ * out.x;
+    out.y = SCREEN_HEIGHT * recpZ * out.y;
 
     return true;
 }
@@ -199,7 +222,8 @@ bool DoesInfiniteLineTouchScreen(
     CVector2D dir
 ) {
     // Point is on screen
-    if (IsPointInRect2D(origin, { 0.f, 0.f }, { SCREEN_WIDTH, SCREEN_HEIGHT })) {
+    // Como el original: desigualdades estrictas (un punto en el borde pasa a las pruebas de las líneas)
+    if (origin.x > 0.f && origin.y > 0.f && SCREEN_WIDTH > origin.x && SCREEN_HEIGHT > origin.y) {
         return true;
     }
 
@@ -218,7 +242,7 @@ bool IsPointInsideLine(
     CVector2D pt,
     float     radius
 ) {
-    return DistAlongPerpRightLine2D(origin, dir, pt) >= radius;
+    return !(DistAlongPerpRightLine2D(origin, dir, pt) < radius); // Como el original: NaN devuelve true
 }
 
 // Convert UTF-8 string to Windows Unicode. Free pointer using delete[]

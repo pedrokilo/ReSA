@@ -135,8 +135,9 @@ bool CPedGroups::IsInPlayersGroup(CPed* ped) {
 }
 
 CPedGroup& CPedGroups::GetGroup(int32 groupId) {
-    assert(ms_activeGroups[groupId]);
-    return ms_groups[groupId];
+    // Como el original: el EXE indexa ms_groups sin comprobar que el grupo esté activo (el assert NOTSA
+    // saltaba en juego con grupos inactivos que el EXE acepta). Sin comprobación de rango de std::array.
+    return ms_groups.data()[groupId];
 }
 
 // 0x5F7F40

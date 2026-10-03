@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -52,7 +52,9 @@ CTask* CTaskComplexObserveTrafficLights::CreateNextSubTask(CPed* ped) {
     if (!m_pSubTask || m_pSubTask->GetTaskType() == TASK_SIMPLE_STAND_STILL) {
         return new CTaskSimpleRunAnim(ped->m_nAnimGroup, ANIM_ID_ROADCROSS, 4.0f, false);
     } else if (m_pSubTask->GetTaskType() == TASK_SIMPLE_ANIM) {
-        return new CTaskSimpleStandStill(CGeneral::GetRandomNumberInRange(3000, 5000));
+        // Como el original: 0x407180 ([3000, 5000) con 1/32768) antes de reservar la tarea
+        const auto time = CGeneral::GetRandomIntInRange(3000, 5000);
+        return new CTaskSimpleStandStill(time);
     }
     return nullptr;
 }

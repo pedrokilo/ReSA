@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -42,16 +42,18 @@ CTaskSimpleCarShuffle::CTaskSimpleCarShuffle(CVehicle* car, int32 targetDoor, CT
     m_TargetDoor{ targetDoor },
     m_LineUpUtility{ lineUpTask }
 {
+    CEntity::SafeRegisterRef(m_Car);
 }
 
-// 0x649C40
-CTaskSimpleCarShuffle::CTaskSimpleCarShuffle(const CTaskSimpleCarShuffle&) :
-    CTaskSimpleCarShuffle{ m_Car, m_TargetDoor, m_LineUpUtility }
+// 0x649C40 (Clone)
+CTaskSimpleCarShuffle::CTaskSimpleCarShuffle(const CTaskSimpleCarShuffle& o) :
+    CTaskSimpleCarShuffle{ o.m_Car, o.m_TargetDoor, o.m_LineUpUtility } // Como el original: los datos del original, no los del objeto nuevo
 {
 }
 
 // 0x646890
 CTaskSimpleCarShuffle::~CTaskSimpleCarShuffle() {
+    CEntity::SafeCleanUpRef(m_Car); // Como el original: primero la referencia y luego la animación
     if (m_Anim) {
         m_Anim->SetDefaultFinishCallback();
     }
@@ -59,11 +61,11 @@ CTaskSimpleCarShuffle::~CTaskSimpleCarShuffle() {
 
 // 0x646970
 void CTaskSimpleCarShuffle::FinishAnimCarShuffleCB(CAnimBlendAssociation* anim, void* data) {
-    const auto self = notsa::cast<CTaskSimpleCarShuffle>(static_cast<CTask*>(data));
+    const auto self = static_cast<CTaskSimpleCarShuffle*>(data);
 
-    assert(self->m_Anim == anim);
-
-    self->m_Anim->SetBlendDelta(-1000.f);
+    if (self->m_Anim) { // Como el original: se comprueba la animación de la tarea
+        self->m_Anim->SetBlendDelta(-1000.f);
+    }
     self->m_Anim = nullptr;
 
     self->m_IsFinished = true;
@@ -71,7 +73,6 @@ void CTaskSimpleCarShuffle::FinishAnimCarShuffleCB(CAnimBlendAssociation* anim, 
 
 // 0x64B3E0
 void CTaskSimpleCarShuffle::StartAnim(const CPed* target) {
-    assert(!m_Anim);
     m_Anim = CAnimManager::BlendAnimation(
         target->GetRpClump(),
         m_Car->GetAnimGroup().GetGroup(ANIM_ID_CAR_SHUFFLE_RHS_1),
@@ -105,7 +106,7 @@ bool CTaskSimpleCarShuffle::ProcessPed(CPed* ped) {
 
 // 0x646920
 bool CTaskSimpleCarShuffle::SetPedPosition(CPed* ped) {
-    if (!ped->bInVehicle || m_Anim && m_Anim->GetBlendAmount() >= 0.9f) {
+    if (!ped->bInVehicle || m_Anim && m_Anim->GetBlendAmount() > 0.9f) { // Como el original: estrictamente mayor
         m_LineUpUtility->ProcessPed(ped, m_Car, m_Anim);
     } else {
         ped->SetPedPositionInCar();

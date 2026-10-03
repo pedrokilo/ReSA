@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 14/14 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/14 entradas.
+ * Validación registrada: 14/14 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -156,7 +156,9 @@ CTask* CTaskComplexWander::ControlSubTask(CPed* ped) {
         return m_pSubTask;
     }
 
-    if (m_bNewDir && m_pSubTask->GetTaskType() == TASK_SIMPLE_GO_TO_POINT) {
+    // Como el original: guarda m_pSubTask antes de comprobar los flags y lo devuelve aunque ScanForStuff lo cambie
+    CTask* subTask = m_pSubTask;
+    if (m_bNewDir && subTask->GetTaskType() == TASK_SIMPLE_GO_TO_POINT) {
         m_bNewDir = false;
         m_NextNode.ResetAreaId();
         m_LastNode.ResetAreaId();
@@ -167,6 +169,7 @@ CTask* CTaskComplexWander::ControlSubTask(CPed* ped) {
             CVector outTargetPos;
             ComputeTargetPos(ped, outTargetPos, m_NextNode);
             static_cast<CTaskSimpleGoToPoint*>(m_pSubTask)->UpdatePoint(outTargetPos, 0.5f, false);
+            subTask = m_pSubTask; // Como el original: aquí sí vuelve a leer la subtarea
         } else {
             ScanForBlockedNodes(ped);
             ScanForStuff(ped);
@@ -185,7 +188,7 @@ CTask* CTaskComplexWander::ControlSubTask(CPed* ped) {
             }
         }
     }
-    return m_pSubTask;
+    return subTask;
 }
 
 // 0x669DA0
@@ -214,8 +217,12 @@ void CTaskComplexWander::UpdateDir(CPed* ped) {
     }
 
     if (newDir != m_nDir) {
-        uint8 outDir;
-        UpdatePathNodes(ped, newDir, m_LastNode, m_NextNode, outDir);
+        // Como el original: trabaja sobre copias locales de los nodos (los miembros no cambian) y outDir
+        // reutiliza la ranura del argumento ped en la pila, donde 0x669DDE guarda m_NextNode al leer el nodo
+        // (solo se llega aquí por esa rama): si UpdatePathNodes no lo escribe vale el byte bajo de m_wAreaId
+        CNodeAddress originNode = m_LastNode, targetNode = m_NextNode;
+        uint8 outDir = (uint8)m_NextNode.m_wAreaId;
+        UpdatePathNodes(ped, newDir, originNode, targetNode, outDir);
 
         uint8 currentDir = m_nDir;
         uint8 theDir = outDir;
@@ -291,18 +298,23 @@ void CTaskComplexWander::ComputeTargetPos(const CPed* ped, CVector& outTargetPos
 
 // 0x669F30
 bool CTaskComplexWander::ValidNodes() const {
-    return m_NextNode.IsValid() && m_LastNode.IsValid() && m_NextNode != m_LastNode;
+    // Como el original: solo comprueba m_wAreaId != 0xFFFF (no m_wNodeId)
+    return m_NextNode.IsAreaValid() && m_LastNode.IsAreaValid() && m_NextNode != m_LastNode;
 }
 
 // 0x674560
 void CTaskComplexWander::ScanForBlockedNodes(CPed* ped) {
-    if (m_pSubTask->GetTaskType() == TASK_SIMPLE_GO_TO_POINT && m_NextNode.IsValid()) {
+    // Como el original: solo comprueba m_wAreaId
+    if (m_pSubTask->GetTaskType() == TASK_SIMPLE_GO_TO_POINT && m_NextNode.IsAreaValid()) {
         if (ScanForBlockedNode(ped, m_NextNode)) {
             m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr);
 
-            uint8 outDir = 0;
-            UpdatePathNodes(ped, m_nDir, m_LastNode, m_NextNode, outDir);
-            if (ScanForBlockedNode(ped, m_NextNode) || &m_NextNode == &m_LastNode) {
+            // Como el original: UpdatePathNodes trabaja sobre copias locales (los miembros no cambian),
+            // outDir empieza con m_nDir y el nodo resultante se compara con m_LastNode
+            CNodeAddress originNode = m_LastNode, targetNode = m_NextNode;
+            uint8 outDir = m_nDir;
+            UpdatePathNodes(ped, m_nDir, originNode, targetNode, outDir);
+            if (ScanForBlockedNode(ped, targetNode) || targetNode == m_LastNode) {
                 m_bAllNodesBlocked = true;
             }
         }
@@ -312,7 +324,9 @@ void CTaskComplexWander::ScanForBlockedNodes(CPed* ped) {
 // 0x671EF0
 bool CTaskComplexWander::ScanForBlockedNode(CPed* ped, const CNodeAddress& targetNodeAddress) {
     auto outVec = ThePaths.TakeWidthIntoAccountForWandering(targetNodeAddress, ped->m_nRandomSeed);
-    if (DistanceBetweenPointsSquared2D(outVec, ped->GetPosition()) <= sq(3.0f)) {
+    outVec.z += 1.0f; // Como el original: suma 1.0 a z (no afecta al resultado 2D)
+    // Como el original: fcompp + test ah,5/jnp -> NaN sigue adelante
+    if (!(DistanceBetweenPointsSquared2D(outVec, ped->GetPosition()) > sq(3.0f))) {
         CPed* closestPed = ped->GetIntelligence()->GetPedScanner().GetClosestPedInRange();
         if (ScanForBlockedNode(outVec, closestPed)) {
             return true;
@@ -340,13 +354,14 @@ bool CTaskComplexWander::ScanForBlockedNode(const CVector& position, CEntity* en
 
 // 0x673D00
 CTaskComplexWander* CTaskComplexWander::GetWanderTaskByPedType(CPed* ped) {
-    uint8 randomDir = CGeneral::GetRandomNumberInRange(0, 8);
+    // Como el original: la dirección aleatoria se pide después de reservar la tarea (0x407180 o su copia
+    // en línea rand() * (1/32768) * 8, truncada), no con la interpolación 1/32767 de GetRandomNumberInRange<int>
     switch (ped->m_nPedType) {
-    case PED_TYPE_COP:        return new CTaskComplexWanderCop(PEDMOVE_WALK, randomDir);
-    case PED_TYPE_MEDIC:      return new CTaskComplexWanderMedic(PEDMOVE_WALK, randomDir);
-    case PED_TYPE_CRIMINAL:   return new CTaskComplexWanderCriminal(PEDMOVE_WALK, randomDir);
-    case PED_TYPE_PROSTITUTE: return new CTaskComplexWanderProstitute(PEDMOVE_WALK, randomDir);
-    default:                  return new CTaskComplexWanderStandard(PEDMOVE_WALK, randomDir);
+    case PED_TYPE_COP:        return new CTaskComplexWanderCop(PEDMOVE_WALK, (uint8)CGeneral::GetRandomIntInRange(0, 8));
+    case PED_TYPE_MEDIC:      return new CTaskComplexWanderMedic(PEDMOVE_WALK, (uint8)CGeneral::GetRandomIntInRange(0, 8));
+    case PED_TYPE_CRIMINAL:   return new CTaskComplexWanderCriminal(PEDMOVE_WALK, (uint8)CGeneral::GetRandomIntInRange(0, 8));
+    case PED_TYPE_PROSTITUTE: return new CTaskComplexWanderProstitute(PEDMOVE_WALK, (uint8)CGeneral::GetRandomIntInRange(0, 8));
+    default:                  return new CTaskComplexWanderStandard(PEDMOVE_WALK, (uint8)CGeneral::GetRandomIntInRange(0, 8));
     }
 }
 

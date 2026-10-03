@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -103,19 +103,21 @@ CTask* CTaskComplexFallAndGetUp::ControlSubTask(CPed* ped) {
 // 0x6787F0
 bool CTaskComplexFallAndGetUp::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
     if (priority == ABORT_PRIORITY_IMMEDIATE)
-        return m_pSubTask->MakeAbortable(ped, priority, event);
+        return m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_IMMEDIATE, event);
 
     if (ped->m_nPedState == PEDSTATE_ARRESTED || ped->bIsBeingArrested)
         return false;
 
-    if (priority == ABORT_PRIORITY_LEISURE) {
-        if (IsFalling())
-            return false;
-        else
-            m_nFallDownTime = 0;
-    }
+    if (priority == ABORT_PRIORITY_URGENT)
+        return m_pSubTask->MakeAbortable(ped, priority, event);
 
-    return m_pSubTask->MakeAbortable(ped, priority, event);
+    // Como el original: cualquier otra prioridad mira el tipo de la subtarea sin comprobar si es nula,
+    // pone el tiempo de caída a 0, aborta la subtarea y devuelve false sin mirar su resultado
+    if (m_pSubTask->GetTaskType() != TASK_SIMPLE_FALL) {
+        m_nFallDownTime = 0;
+        m_pSubTask->MakeAbortable(ped, priority, event);
+    }
+    return false;
 }
 
 // 0x678900
@@ -133,13 +135,15 @@ CTask* CTaskComplexFallAndGetUp::CreateSubTask(eTaskType taskType) {
 
 // 0x6787D0
 bool CTaskComplexFallAndGetUp::IsFalling() {
-    return m_pSubTask->GetTaskType() == TASK_SIMPLE_FALL;
+    // Como el original: sin subtarea no está cayendo
+    return m_pSubTask && m_pSubTask->GetTaskType() == TASK_SIMPLE_FALL;
 }
 
 // 0x6787A0
 void CTaskComplexFallAndGetUp::SetDownTime(int32 nTime) {
     m_nFallDownTime = nTime;
-    if (IsFalling()) {
+    // Como el original: consulta el tipo de la subtarea sin comprobar si es nula
+    if (m_pSubTask->GetTaskType() == TASK_SIMPLE_FALL) {
         auto pFallTask = reinterpret_cast<CTaskSimpleFall*>(m_pSubTask);
         pFallTask->m_nTotalDownTime = nTime;
         pFallTask->m_nCurrentDownTime = nTime;

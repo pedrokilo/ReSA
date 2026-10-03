@@ -29,6 +29,21 @@ END GENERATED HOOK STATUS */
 /**
  * Registra las operaciones comunes compartidas por todos los tipos de model info.
  */
+// Como el original: 0x5B3AD0 es cdecl (modelInfo, flags) y solo usa EAX/ECX; sus llamadores del EXE (p. ej.
+// SetClumpModelInfoFlags 0x5B3C30) siguen usando EDX después de la llamada. El hook se resolvía al método
+// thiscall (ret 4) y descuadraba la pila: esta envoltura recibe los argumentos cdecl y conserva EDX.
+static void __declspec(naked) SetBaseModelInfoFlags_KeepEdx() {
+    __asm {
+        push edx
+        push dword ptr [esp + 0Ch]
+        push dword ptr [esp + 0Ch]
+        call SetBaseModelInfoFlags
+        add  esp, 8
+        pop  edx
+        ret
+    }
+}
+
 void CBaseModelInfo::InjectHooks() {
     RH_ScopedVirtualClass(CBaseModelInfo, 0x85BB9C, 15);
     RH_ScopedCategory("Models");
@@ -68,7 +83,7 @@ void CBaseModelInfo::InjectHooks() {
     RH_ScopedInstall(IsTagModel, 0x49CC20);
     RH_ScopedInstall(SwaysInWind, 0x4212C0);
 
-    RH_ScopedInstall(SetBaseModelInfoFlags, 0x5B3AD0);
+    RH_ScopedNamedGlobalInstall(SetBaseModelInfoFlags_KeepEdx, "SetBaseModelInfoFlags", 0x5B3AD0);
 }
 
 
@@ -257,7 +272,7 @@ void CBaseModelInfo::Add2dEffect(C2dEffect* effect) {
 // 0x5B3AD0
 void SetBaseModelInfoFlags(CBaseModelInfo* modelInfo, uint32 flags) {
     auto flagsStruct = sItemDefinitionFlags(flags);
-    modelInfo->bDrawLast          = flagsStruct.bDrawLast;
+    modelInfo->bDrawLast          = (flags & 0xC) != 0; // Como el original (0x5B3AD0): test cl,0Ch (draw last o aditivo)
     modelInfo->bAdditiveRender    = flagsStruct.bAdditive;
     modelInfo->bDontWriteZBuffer  = flagsStruct.bNoZBufferWrite;
     modelInfo->bDontCastShadowsOn = flagsStruct.bDontReceiveShadows;

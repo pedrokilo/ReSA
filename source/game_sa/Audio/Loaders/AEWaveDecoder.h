@@ -10,10 +10,10 @@
 /**
  * Decoder ligero de WAV PCM de 16 bits.
  *
- * Conserva los campos principales de la cabecera RIFF y normaliza audio mono a
- * estéreo durante FillBuffer() para entregar el formato esperado por el mixer.
+ * Como el original: lee la cabecera RIFF canónica de 44 bytes y sólo acepta PCM
+ * estéreo de 16 bits; FillBuffer() copia directamente desde el stream.
  */
-class CAEWaveDecoder : public CAEStreamingDecoder {
+class NOTSA_EXPORT_VTABLE CAEWaveDecoder : public CAEStreamingDecoder {
 public:
     CAEWaveDecoder(CAEDataStream* dataStream);
     virtual ~CAEWaveDecoder() = default; // 0x503290
@@ -44,8 +44,8 @@ private:
             uint32 bytesPerSecond;
             uint16 blockAlign;
             uint16 bitsPerSample;
-            uint32 dataPosition;  //!< Offset del primer byte PCM dentro del stream lógico.
-            uint32 dataChunkSize; //!< Longitud del chunk PCM.
+            char   dataFourCC[4];  //!< Como el original: la cabecera del chunk data se lee junto con la cabecera RIFF.
+            uint32 dataChunkSize;  //!< Longitud del chunk PCM.
         };
         char fileHeaderArray[44];
     };

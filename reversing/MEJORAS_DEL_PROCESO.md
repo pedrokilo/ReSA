@@ -1046,3 +1046,159 @@ Bancos aprobados (255 funciones, 84.160 pares exactos): [CTasks7a](CTasks7a/READ
 - **Detección de cuelgues reales:** `runtime_runner.py` aborta si la ventana sigue "No responde" y además el registro lleva 30 s sin crecer, o si el registro no crece 120 s (240 s antes del primer resultado), además de los cuadros de diálogo; cierra GTA y restaura la copia como siempre.
 - **Bancos antiguos y "Device Selection":** los 40 bancos de estilo antiguo (sin `probe_case`) ejecutan una sonda congelada en `_baseline` con hash fijo, anterior a `SkipDeviceSelection`. Con más de un subsistema de vídeo visible (situación de esta máquina desde el 02/10 23:56) esa sonda muestra el cuadro "Device Selection" y el banco se aborta. No prueban el código actual, así que la regresión amplia (`reversing/_handoff/regress.sh`) corre solo los 60 bancos modernos, que compilan e instalan la sonda del árbol actual. Su evidencia histórica no cambia.
 - **Detener una regresión sin restos:** parar el script no mata los `python` hijos. Cerrar GTA y esperar a que `run_local.py`/`build_probe.py` terminen solos (restauran la copia y las fuentes); cortar una compilación a la mitad dejó instrumentación en `Game.cpp` y `app_debug.cpp`.
+
+## Continuidad vigente: clases de 8 funciones (2026-10-03)
+
+Bancos nuevos, todos con pares exactos dentro de GTA (351 funciones, 119,360 pares): [Data8a](Data8a/README.md), [Data8b](Data8b/README.md), [Fx8](Fx8/README.md), [CTasks8a](CTasks8a/README.md), [CTasks8b](CTasks8b/README.md), [CTasks8c](CTasks8c/README.md), [STasks8a](STasks8a/README.md), [STasks8b](STasks8b/README.md).
+
+**Defectos de alcance general encontrados:**
+- **Dos patrones de bucle infinito entre hooks** (cuelgues reales en los bancos):
+  - una función virtual enganchada con `RH_ScopedInstall` (hook normal): el símbolo de la DLL es un trampolín que vuelve a llamar por la vtable del EXE al punto enganchado (`CEventScriptCommand`, como antes `UpdateParameters`); deben usar `RH_ScopedVMTInstall`;
+  - dos hooks del EXE que apuntan a la misma función heredada de la DLL (`CTaskComplexFleeShooting`/`CTaskComplexSmartFleeEntity::CreateNextSubTask`): si se desactiva uno, rebotan sin fin; cada clase necesita su propia función mínima que llame a la base, como el EXE.
+- `CTaskSimpleBeHit` registraba la referencia al atacante sobre la copia del parámetro en la pila (referencia colgante que corrompe la pila cuando el atacante desaparece).
+- `CTaskComplexLeaveBoat`: el destructor estaba enganchado en el destructor con borrado (0x642250); el real es 0x63BBD0.
+- Convenciones de llamada distintas al EXE (pila descuadrada): `CTaskInteriorBeInOffice::GetInfoForPedToUse`, `CTaskComplexMoveBackAndJump::CreateSubTask`; `CCheckpoints::PlaceMarker` recibe el color como 4 bytes sueltos (12 argumentos cdecl).
+- `CRect::IsPointInside` trataba distinto un NaN (afecta a todo el juego); `CCarGenerator` nunca detectaba la noche (`ClockHoursInRange(21,7)`); `CTaskSimpleBikeJacked` no guardaba al atacante; `CCollisionData` liberaba punteros nulos.
+- Pendiente fuera de las listas: `CColBox::operator=` no copia `m_nPiece` (el EXE copia 27 bytes).
+
+**Lecciones:**
+- Un `bool` de retorno de la DLL frente al byte crudo del EXE (p. ej. 0x80): los llamadores solo comprueban distinto de cero; los bancos comparan esos retornos como verdadero/falso.
+- Hilos de audio del juego pueden llamar a los stubs de un banco: no simular funciones que otros hilos usan sobre objetos reales.
+
+## Continuidad vigente: clases de 9 funciones (2026-10-03)
+
+Bancos nuevos, todos con pares exactos dentro de GTA (351 funciones, 127.232 pares): [Core9](Core9/README.md), [Models9](Models9/README.md), [Ped9](Ped9/README.md), [CTasks9a](CTasks9a/README.md), [CTasks9b](CTasks9b/README.md), [CTasks9c](CTasks9c/README.md), [CTasks9d](CTasks9d/README.md), [STasks9](STasks9/README.md).
+
+**Defectos de alcance general encontrados:**
+- **`SetBaseModelInfoFlags` (0x5B3AD0) y `SetClumpModelInfoFlags` (0x5B3C30)** estaban enganchadas como métodos `thiscall` cuando en el EXE son `cdecl` de dos argumentos: cada llamada del EXE descuadraba la pila 4 bytes, también en juego normal. Además `SetClumpModelInfoFlags` del EXE sigue usando EDX tras llamar a `SetBaseModelInfoFlags`. Ahora se enganchan con envolturas `naked` cdecl que conservan EDX. `SetBaseModelInfoFlags` también activaba `bDrawLast` solo con el bit 2 (el EXE usa la máscara 0xC).
+- **`CMemoryMgr::MallocAlign(size, align)`** llamaba al `MallocAlign` del EXE (3 argumentos) con 2: el EXE leía basura de la pila como hint en toda reserva alineada.
+- Hooks en direcciones equivocadas o virtuales mal enganchadas: `CTaskComplexSeekEntity<XYOffset>::CreateSubTask` (0x496DC0 era otra función; la real es 0x665270) y las virtuales de `CAEWaveDecoder` (hook normal en vez de vtable: bucle infinito).
+- `CAEWaveDecoder` era una versión distinta del decodificador (búsqueda de chunk `data`, conversión mono); ahora sigue al EXE.
+- Constructores con inicialización por valor que ponían a cero relleno que el EXE no toca: `CTaskComplexSequence` creada con llaves vacías, el temporizador de `CTaskSimpleCarDriveTimed` y varias tareas de esta lista.
+- Referencias sin registrar o mal limpiadas: `CTaskSimpleCarFallOut`, `CTaskComplexEvasiveDiveAndGetUp`, `CTaskComplexCopInCar::Clone`; `CTaskComplexInvestigateDeadPed` nunca guardaba el peatón muerto.
+- Pendiente fuera de las listas: `CWeaponInfo::m_nAimOffsetIndex` es `uint16` en la DLL y el EXE lo lee con signo; `CDamageManager::GetDoorStatus` devuelve un byte y el EXE prueba EAX completo.
+
+**Lecciones:**
+- Comprobar siempre cuántos argumentos y qué registros usa la función del EXE antes de enganchar un método: un método `thiscall` no sustituye a una función `cdecl` aunque haga lo mismo.
+- Los asserts NOTSA de la DLL (grupos activos, raster de caracteres, habilidad de armas) saltan con fixtures que el EXE acepta: se quita el assert si no existe en el EXE, o el fixture se queda dentro.
+- El registro (`spdlog`) reserva memoria: un banco que sustituye `operator new` no debe hacerlo durante funciones que escriben en el log.
+
+## Continuidad vigente: clases de 10 funciones (2026-10-03)
+
+Bancos nuevos, todos con pares exactos dentro de GTA (206 funciones, 76.864 pares): [Sys10](Sys10/README.md), [Data10](Data10/README.md), [CTasks10a](CTasks10a/README.md), [CTasks10b](CTasks10b/README.md), [STasks10](STasks10/README.md).
+
+**Defectos de alcance general encontrados:**
+- `CPedGroups::GetGroup` tenía un assert NOTSA (grupo activo) que el EXE no tiene; saltó en tres oleadas y podía cerrar el juego. Ahora indexa como el EXE.
+- `CConversationNode::ClearRecursively` (0x43A710): los llamadores del EXE conservan un puntero en EDX a través de la llamada; la versión C++ de la DLL lo estropeaba y en juego se limpiaban conversaciones equivocadas. Se engancha con una envoltura que conserva EDX (mismo patrón que `SetBaseModelInfoFlags`).
+- `CAEMFDecoder` y `CAEWaveDecoder` enganchaban sus virtuales como funciones normales (bucle infinito); ahora son hooks de vtable con la vtable exportada.
+- Referencias registradas sobre la copia del parámetro en la pila (referencia colgante): `CTaskSimpleCarOpenDoorFromOutside` (la DLL), y `CTaskComplexDestroyCarArmed` (**el propio EXE**: se conserva la versión correcta bajo `FIX_BUGS` y la del EXE en el `#else`).
+- `CWeaponInfo::m_nAimOffsetIndex` pasa a `int16` (el EXE lo lee con signo); `GetWeaponReloadTime` calculaba otra cosa; `FxSystemBP_c::Load` reservaba los emisores en el montón general en vez del pool de efectos.
+- `CAESmoothFadeThread::Service` olvidaba el `+1` del logaritmo del fundido.
+
+**Lecciones:**
+- Hay funciones del EXE que respetan EDX y sus llamadores lo usan después: al sustituirlas por C++ hay que comprobar los llamadores y, si dependen de EDX, usar una envoltura `naked` que lo conserve.
+- Cuando el propio EXE tiene un bug (p. ej. referencia sobre la pila) y la DLL lo corrige bajo `FIX_BUGS`, el banco normaliza esa diferencia concreta y el README del banco la documenta.
+
+## Continuidad vigente: clases de 11 funciones (2026-10-03)
+
+Bancos nuevos, todos con pares exactos dentro de GTA (164 funciones, 62.528 pares): [CTasks11](CTasks11/README.md), [Audio11](Audio11/README.md), [World11](World11/README.md), [Mix11](Mix11/README.md).
+
+**Defectos de alcance general encontrados:**
+- `CAEWMADecoder` enganchaba sus virtuales como funciones normales (bucle infinito del thunk); ahora usa `RH_ScopedVirtualClass` con la vtable exportada.
+- `CClothes::GetTextureDependency` (0x5A7EA0): `Init`, `SetTextureAndModel` y 0x5A8626 del EXE conservan ECX/EDX a través de la llamada; era la causa del comentario "crashes when enabled". Ahora se engancha con una envoltura `naked` que conserva ambos registros.
+- `CEntryExit::GetPositionRelativeToOutsideWorld` y `CTaskComplexGoToCarDoorAndStandStill::IsVehicleInRange`: llamadores del EXE que dependen de EDX (y ECX); también con envoltura `naked`.
+- `cHandlingDataMgr::GetVehiclePointer` usaba indexado comprobado (`0xC0000409` con ids fuera de rango); ahora indexa sin comprobar como el EXE. `LoadHandlingData` se reescribió como el `switch` de `strtok`/`atof` del EXE.
+- `CRestart::FindClosestHospitalRestartPoint` leía el índice −1 si no había punto válido (`closestIdx >= 0u` siempre cierto).
+- `CTaskComplexCarSlowBeDraggedOut`: el EXE borra la utilidad de alineación sin poner el campo a nulo y solo si existe; un `std::unique_ptr` no reproduce eso.
+- `CTaskSimpleSwim::ProcessControlInput` tenía la dirección de marcha permutada (`(0,-sin,cos)` en vez de `(-sin,cos,0)`).
+
+**Lecciones:**
+- Los falsos del banco deben escribir parámetros de salida con el tamaño exacto del tipo de la DLL: un `int32` escrito sobre un `int16` local disparó un fallo RTC de pila.
+- Las trazas JSON no deben reservar memoria mientras `operator new/delete` están sustituidos por una arena falsa (se liberan después con el `free` real).
+- Una bugfix reversible NOTSA activa por defecto (`PS2CoronaRendering`) se desactiva durante el banco en lugar de tocar el fuente.
+- Los datos de relleno con denormales producen diferencias de doble redondeo x87 ajenas a la función; en `LoadHandlingData` el relleno usa flotantes normales.
+- `CTaskSimpleSwim::ApplyRollAndPitch` llama a `CMatrix::RotateX/RotateY` del EXE (0x59B1E0/0x59B2C0), que la DLL no engancha y cuya versión propia redondea distinto: pendiente transcribirlas exactas.
+
+## Continuidad vigente: clases de 12 funciones (2026-10-03)
+
+Bancos nuevos, todos con pares exactos dentro de GTA (106 funciones, 39.200 pares): [Sys12](Sys12/README.md), [World12](World12/README.md), [Mix12](Mix12/README.md). Sin cubrir: `Game::Idle` y `Game::FrontendIdle` (alojan el propio banco y contienen código NOTSA de ImGui y carga rápida).
+
+**Defectos de alcance general encontrados:**
+- `CPickup::IsVisible`: el llamador del EXE en 0x458E42 reutiliza EDX tras la llamada (la nota "something broken" del hook); ahora con envoltura `naked`.
+- `CPickup::Update`: la regeneración en `ON_STREET_SLOW` era 10 veces más corta (30000/36000 ms en vez de 300000/360000), la propiedad en venta no se compraba y `StaticCamCoors` solo reasignaba el puntero de la DLL.
+- `CExplosion`: `SetCreator`/`SetVictim` registraban la referencia sobre el parámetro y no sobre el miembro; la caducidad usaba una resta sin signo (`<= 0` roto); el byte de sonido se guarda tal cual.
+- `CTrafficLights::ShouldCarStopForBridge` tenía invertida la comprobación de zona cargada; `LightForPeds` terminaba el verde un milisegundo antes.
+- `CTaskComplexWalkRoundBuildingAttempt::ComputeMoveDir` proyectaba desde la posición equivocada y `ControlSubTask` transformaba `offset − objetivo` en vez de `(matriz·offset) − objetivo`.
+- `CStreamedScripts::ReadStreamedScriptData` y `CQuadTreeNode<T>` (pool y NaN) reescritos según el EXE; `Game::RenderDebugShit` queda vacío como en el EXE (se pierde el dibujo NOTSA de líneas de depuración de scripts).
+
+**Lecciones:**
+- Una función con un `HookInstall` permanente además del hook reversible (`Render2dStuff`, por ImGui) no se puede apagar para la pasada original: se cuelga en bucle. El banco restaura temporalmente los 5 bytes originales de la entrada del EXE solo durante la llamada.
+- Las escrituras en `validation-registry.json` pueden fallar por un bloqueo pasajero del fichero (`OSError 22`); basta con repetir el registro.
+
+## Continuidad vigente: clases de 13 funciones (2026-10-03)
+
+Bancos nuevos, todos con pares exactos dentro de GTA (116 funciones, 43.776 pares): [Audio13](Audio13/README.md), [CTasks13](CTasks13/README.md), [Sys13](Sys13/README.md).
+
+**Defectos de alcance general encontrados:**
+- `CAEVorbisDecoder` enganchaba sus virtuales como funciones normales (bucle infinito); ahora hooks de vtable con la vtable exportada. Quedan bajo `FIX_BUGS` el rechazo de más de 2 canales y el tratamiento mono, que el EXE no tiene (pendiente de decisión del usuario).
+- `CTaskComplexGangLeader`: `TryToPassObject` es cdecl estática en el EXE y la DLL la tenía como thiscall (descuadraba la pila de los llamadores); `ControlSubTask` ponía la subtarea como tarea secundaria casi siempre; `ScanForStuff` borraba su evento dos veces. Son causas probables del crash por el que sus hooks siguen desactivados y bloqueados.
+- `CTimer::UpdateVariables`: la DLL calculaba el paso sin recortar con SSE y aplanaba los denormales a 0; ahora es asm copiado del EXE.
+- `CTrailer::ProcessAI` comprobaba el estado 8 en vez de 10 (remolcado); `SetTowLink` usaba un `clamp` con los límites invertidos; `SetupSuspensionLines` escribía 2 de las 4 ruedas.
+- `CTaskComplexFollowPointRoute::CalcGoToTaskType` borraba el bit equivocado; `CTaskComplexSequence::Contains` desreferenciaba huecos nulos y su `MakeAbortable` compartía destino con otro hook.
+- `CPedType::LoadPedData` comparaba palabras clave por prefijo.
+
+**Lecciones:**
+- Un constructor `= default` usado como `T{}` inicializa a cero todo el objeto (incluidos bits que el EXE conserva); se declara en la cabecera y se define `= default` en el `.cpp`.
+- Para el hilo de streaming de audio: el banco lo aparca durante toda la corrida (al apagar un hook de vtable la vtable de la DLL apunta al EXE) y los parches viven solo durante cada pasada.
+- `0x406DA0` es `SquaredMagnitude`, no `Magnitude`: comprobar si hay `fsqrt` antes de suponer distancias.
+
+## Continuidad vigente: clases de 14 funciones (2026-10-03)
+
+Bancos nuevos, todos con pares exactos dentro de GTA (138 funciones, 53.056 pares): [Audio14](Audio14/README.md), [Render14](Render14/README.md), [Mix14](Mix14/README.md), [CTasks14a](CTasks14a/README.md), [CTasks14b](CTasks14b/README.md).
+
+**Defectos de alcance general encontrados:**
+- `SArray` (cabecera compartida): `erase` usaba `move_backward` y escribía delante del elemento borrado; el crecimiento y la reserva siguen ahora al EXE (capacidad + capacidad/2, `operator new`/`delete`, sin borrar nulos).
+- `CDamageManager::GetDoorStatus` / `GetDoorStatus_Component`: el EXE devuelve el byte extendido a 32 bits y sus llamadores comparan EAX completo; la DLL dejaba basura en los bits altos (puertas que no se abrían al caer del coche, etc.). Ahora se enganchan envoltorios que extienden el resultado y comparan el argumento completo, como el EXE.
+- `CPedPizzaAttractor`: máximo de peatones 5 y rango de llegada 0,2 (la DLL tenía 1 y 0,125).
+- `CAnimBlendSequence::Uncompress` desbordaba el montón (reservaba el tamaño comprimido y escribía el descomprimido); `SetBoneTag` comparaba solo 16 bits con -1.
+- `CAEStreamThread`: tiempos y duraciones de pista recortados a 16 bits (pistas de más de 65 s).
+- `CAESoundManager::PauseManually` y `CExplosion` (lista 12): bytes que el EXE guarda tal cual y la DLL convertía a `bool`.
+- `CTaskComplexWander::UpdateDir`: dirección inicial tomada del byte bajo de `m_NextNode` (reutilización de pila del EXE).
+- `CTaskSimpleJetPack::ProcessPed`: un error de precedencia dejaba la deriva de la IA en ±1.
+
+**Lecciones:**
+- spdlog con `enable_backtrace` reserva memoria aunque el nivel esté apagado: ningún log de la DLL puede ejecutarse mientras `operator new` está sustituido (se usa el `printf` del EXE como el original).
+- Los falsos instalados durante toda una función reciben llamadas de otros hilos (p. ej. `GetCurrentTimeInMS`); deben registrar solo en el hilo principal y vivir solo en las funciones que los usan.
+- Un stub que responde distinto en dos llamadas seguidas que en el juego dan lo mismo (`GetTaskDuck`) puede hacer que el EXE desreferencie nulo.
+- Las bugfixes reversibles activas por defecto (`GeneratePlateText`, `PS2CoronaRendering`) se desactivan durante el banco.
+
+## Continuidad vigente: clases de 15 funciones (2026-10-03)
+
+Bancos nuevos, todos con pares exactos dentro de GTA (105 funciones, 48.032 pares): [Audio15](Audio15/README.md), [World15](World15/README.md), [CTasks15](CTasks15/README.md).
+
+**Defectos de alcance general encontrados:**
+- `CPopCycle`: `UpdateDealerStrengths` tenía la comprobación de minutos invertida y recorría las 380 zonas; `UpdatePercentages` tomaba el máximo en vez del mínimo para los camellos; `IsPedAppropriateForCurrentZone` comprobaba un puntero (siempre cierto).
+- `CSprite::RenderBufferedOneXLUSprite2D` usaba el ancho como alto; los sprites no almacenados escriben en el array global de vértices del EXE.
+- `CAnimBlendAssocGroup`: el envoltorio del destructor tomaba un argumento que el EXE no tiene (`ret 4`); `IsCreated` miraba el contador.
+- `CAEUserRadioTrackManager`: tabla de extensiones del EXE (faltaba `.mov`); el escaneo ANSI del EXE queda tras la nueva bugfix reversible `CAEUserRadioTrackManager_UnicodeUserTracks` (activa por defecto, conserva el UTF-8).
+- `CTask::IsGoToTask` (base compartida): el EXE consulta el tipo una vez por comparación; ahora la DLL también.
+- `CTaskSimpleClimb::GetCameraTargetPos` mezclaba desplazamientos horizontales y verticales; `CTaskSimpleDuck::AbortBecauseOfOtherDuck` desreferenciaba la animación ya anulada; `CTaskComplexAvoidOtherPedWhileWandering::Clone` leía los campos del objeto nuevo.
+
+**Lecciones:**
+- Los bytes que `CMemoryMgr::Malloc` deja sin escribir (bits altos de las banderas y 0x20..0x2F de `CCollisionData`) se enmascaran: son basura en ambos lados.
+- Las entidades falsas sin matriz hacen que `GetMatrix` reserve del pool real en cada pasada (direcciones distintas y fugas): darles una matriz preasignada.
+- Los recorridos de listas de la DLL validan nodos y entidades contra los pools; con listas falsas se recorre como el EXE (sin validar).
+- Una función que pasa con pocos casos alcanzando una rama (p. ej. `GetTaskUseGun` casi siempre nulo) puede esconder una llamada duplicada del EXE.
+
+## Continuidad vigente: clases de 16 y 17 funciones (2026-10-03, en pausa)
+
+Banco nuevo con pares exactos dentro de GTA: [Anim16](Anim16/README.md) (32 funciones, 14.080 pares).
+
+**Defectos de alcance general encontrados:**
+- `CAnimBlendNode::CalcTheta` es cdecl con 4 argumentos en el EXE (la DLL lo enganchaba como método con un float); `FindKeyFrame` comparaba siempre con el fotograma 1; `CalcDeltasCompressed` negaba el fotograma equivocado; la interpolación de traslación seguía otra fórmula.
+- `CAnimBlendHierarchy::MoveMemory` y `CAnimBlendNode::NextKeyFrameNoCalc` no estaban implementadas.
+
+**Lección:** el propio ayudante de parches del banco libera memoria al desmontarse; el `delete` falso solo debe registrar punteros de la arena del banco y reenviar el resto al `free` real.
+
+**Pausa a petición del usuario:** World16 (`CCover`, `CPlaceable`), Audio17 (`CAECollisionAudioEntity`) y Sys17 (`CFileMgr`, `IKChainManager_c`) quedan con cambios de fuente sin validar.
+

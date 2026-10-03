@@ -36,7 +36,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -81,6 +81,38 @@ static constexpr uint8 FrenchUpperCaseTable[] = {
     0xF0, 0xF1, 0xF2, 0xF3, 0xF4, 0xF5, 0xF6, 0xF7, 0xF8, 0xF9, 0xFA, 0xFB, 0xFC, 0xFD, 0xFE, 0xFF,
 };
 
+// 0x69F7E0 (GxtCharToAscii)
+// Como el original: convierte al buffer estático del EXE (0xC1BDD0) con la tabla de acentos de un byte;
+// los códigos >= 0xD0 (salvo 0xCF) pasan a '#'. Como máximo 255 caracteres.
+static const char* GxtCharToAsciiOriginal(const GxtChar* src, uint8 start) {
+    auto& buffer = StaticRef<char[256]>(0xC1BDD0);
+    auto* str = reinterpret_cast<const uint8*>(src);
+    if (start) {
+        str += start;
+    }
+    int32 i = 0;
+    if (str) {
+        for (; i < 255 && *str; ++i, ++str) {
+            auto c = *str;
+            if (c < 0x80)       {}
+            else if (c <= 0x83) { c += 0x40; }
+            else if (c <= 0x8D) { c += 0x42; }
+            else if (c <= 0x91) { c += 0x44; }
+            else if (c <= 0x95) { c += 0x47; }
+            else if (c <= 0x9A) { c += 0x49; }
+            else if (c <= 0xA4) { c += 0x4B; }
+            else if (c <= 0xA8) { c += 0x4D; }
+            else if (c <= 0xCC) { c += 0x50; }
+            else if (c == 0xCD) { c = 0xD1; }
+            else if (c == 0xCE) { c = 0xF1; }
+            else                { c = c == 0xCF ? 0xBF : 0x23; }
+            buffer[i] = static_cast<char>(c);
+        }
+    }
+    buffer[i] = '\0';
+    return buffer;
+}
+
 void CText::InjectHooks() {
     RH_ScopedClass(CText);
     RH_ScopedCategory("Text");
@@ -117,19 +149,16 @@ void CText::InjectHooks() {
 }
 
 // 0x6A00F0
+// Como el original: los constructores de los miembros ponen a cero los cuatro arrays y el contador de
+// misiones; no se llama a Unload, no se toca m_bCdErrorLoaded ni m_szCdErrorText, se limpian los 8 bytes
+// del nombre de misión y los 25 primeros bytes de GxtErrorString.
 CText::CText() {
-    m_MissionText.Unload();
-    m_MissionKeyArray.Unload();
-    m_MainText.Unload();
-    m_MainKeyArray.Unload();
-
     m_bIsMissionPackLoaded = false;
     m_bIsMissionTextOffsetsLoaded = false;
     m_nLangCode = eTextLangCode::ENGLISH;
 
-    m_szCdErrorText[0] = '\0';
-    m_szMissionName[0] = '\0';
-    GxtErrorString[0] = '\0';
+    std::memset(m_szMissionName, 0, sizeof(m_szMissionName));
+    std::memset(GxtErrorString, 0, 25);
 }
 
 // 0x6A0140
@@ -153,7 +182,7 @@ void CText::Unload(bool unloadMissionData) {
         m_MissionText.Unload();
 
         m_bIsMissionPackLoaded = false;
-        m_szMissionName[0] = '\0';
+        std::memset(m_szMissionName, 0, sizeof(m_szMissionName)); // Como el original: los 8 bytes
     }
 }
 
@@ -242,15 +271,19 @@ void CText::Load(bool keepMissionPack) {
             continue;
         }
 
-        CFileMgr::Seek(file, header.size, SEEK_CUR);
-        offset += header.size;
+        // Como el original: salta el bloque leyendo byte a byte (contador de 16 bits, sin comprobar errores).
+        for (uint16 i = 0; i < static_cast<uint32>(header.size); ++i) {
+            uint8 tmp;
+            CFileMgr::Read(file, &tmp, sizeof(tmp));
+            ++offset;
+        }
     }
 
     m_MainKeyArray.Update(m_MainText.m_data);
     CFileMgr::CloseFile(file);
 
-    static char gxtErrText[255]{};
-    strcpy_s(m_szCdErrorText, GxtCharToUTF8(gxtErrText, Get("CDERROR")));
+    // Como el original: consulta TheText (no `this`) y convierte con GxtCharToAscii (0x69F7E0).
+    strcpy(m_szCdErrorText, GxtCharToAsciiOriginal(TheText.Get("CDERROR"), 0));
     m_bCdErrorLoaded = true;
 
     CFileMgr::SetDir("");
@@ -281,36 +314,40 @@ void CText::LoadMissionText(const char* mission) {
     m_bIsMissionPackLoaded = false;
     rng::fill(m_szMissionName, '\0');
 
-    if (m_MissionTextOffsets.GetSize() == 0) {
-        return;
-    }
-
-    // SA GXT's have a table for every mission, table offset can be found with CMTO::GetTextOffset(offsetId);
-    auto missionIdxFound = false;
-    auto offsetId = 0u;
-    for (; offsetId < m_MissionTextOffsets.GetSize(); offsetId++) {
-        if (!strcmp(m_MissionTextOffsets.GetTextOffset(offsetId).szMissionName, mission)) {
+    // Como el original: el contador de tablas se lee como uint16 y se compara la longitud (16 bits)
+    // antes del strncmp; si la misión no está, simplemente vuelve.
+    const auto numOffsets = static_cast<uint16>(m_MissionTextOffsets.GetSize());
+    const auto missionLen = static_cast<uint16>(strlen(mission));
+    uint16 offsetId = 0;
+    bool missionIdxFound = false;
+    for (; offsetId < numOffsets; offsetId++) {
+        const auto& entry = reinterpret_cast<const tMissionTextOffset*>(&m_MissionTextOffsets)[offsetId];
+        if (static_cast<uint16>(strlen(entry.szMissionName)) == missionLen && !strncmp(entry.szMissionName, mission, missionLen)) {
             missionIdxFound = true;
             break;
         }
     }
     if (!missionIdxFound) {
-        NOTSA_UNREACHABLE("Index of the mission {} is not defined.", mission);
+        return;
     }
 
     CFileMgr::SetDir("TEXT");
+    char fileName[32];
+    strcpy(fileName, GetGxtName());
     CTimer::Suspend();
 
-    auto textOffset = m_MissionTextOffsets.GetTextOffset(offsetId);
-    auto file = CFileMgr::OpenFile(GetGxtName(), "rb");
-    CFileMgr::Seek(file, textOffset.offset, 0);
+    const auto textOffset = reinterpret_cast<const tMissionTextOffset*>(&m_MissionTextOffsets)[static_cast<int16>(offsetId)].offset;
+    auto file = CFileMgr::OpenFile(fileName, "rb");
+    CFileMgr::Seek(file, textOffset, 0);
 
-    char tablName[8]{0};
-    CFileMgr::Read(file, tablName, sizeof(tablName));
-    // NOTSA_LOG_DEBUG("[CText]: Loaded a text table for mission: '{}'", tablName);
-    // RET_IGNORED(strncmp(tablName, mission, sizeof(tablName))); // ?
+    // Como el original: el nombre de la tabla se lee byte a byte (sin comprobar) y el contador empieza en 8.
+    char tablName[8];
+    for (auto& c : tablName) {
+        CFileMgr::Read(file, &c, 1);
+    }
+    // (el EXE compara aquí tablName con la misión con strncmp y descarta el resultado)
 
-    uint32 offset = sizeof(uint16) * 2; // skip version and encoding
+    uint32 offset = sizeof(tablName);
     auto missionKeyArrayLoaded = false;
     auto missionTextLoaded = false;
     ChunkHeader header{};
@@ -332,8 +369,12 @@ void CText::LoadMissionText(const char* mission) {
             continue;
         }
 
-        CFileMgr::Seek(file, header.size, SEEK_CUR);
-        offset += header.size;
+        // Como el original: salta el bloque leyendo byte a byte (contador de 16 bits, sin comprobar errores).
+        for (uint16 i = 0; i < static_cast<uint32>(header.size); ++i) {
+            uint8 tmp;
+            CFileMgr::Read(file, &tmp, sizeof(tmp));
+            ++offset;
+        }
     }
 
     m_MissionKeyArray.Update(m_MissionText.m_data);
@@ -342,7 +383,7 @@ void CText::LoadMissionText(const char* mission) {
     CTimer::Resume();
     CFileMgr::SetDir("");
 
-    strncpy_s(m_szMissionName, mission, sizeof(m_szMissionName));
+    strcpy(m_szMissionName, mission); // Como el original: strcpy sin límite
     m_bIsMissionPackLoaded = true;
 }
 
@@ -360,28 +401,37 @@ void CText::LoadMissionPackText() {
 
     CFileMgr::SetDirMyDocuments();
     char fileName[64];
-    sprintf_s(fileName, "MPACK//MPACK%d//TEXT.GXT", CGame::bMissionPackGame);
+    sprintf(fileName, "MPACK//MPACK%d//TEXT.GXT", CGame::bMissionPackGame);
 
+    // Como el original: el handle se compara con signo y, en los fallos posteriores, no se cierra el fichero.
     auto file = CFileMgr::OpenFile(fileName, "rb");
-    if (!file) {
+    if (reinterpret_cast<int32>(file) <= 0) {
+        m_bIsMissionPackLoaded = false;
         return;
     }
 
     uint16 version = 0, encoding = 0;
-    CFileMgr::Read(file, &version, sizeof(version));
-    CFileMgr::Read(file, &encoding, sizeof(encoding));
-    CheckFileEncoding(fileName, version, encoding);
+    if (CFileMgr::Read(file, &version, sizeof(version)) != sizeof(version)) {
+        m_bIsMissionPackLoaded = false;
+        return;
+    }
+    if (CFileMgr::Read(file, &encoding, sizeof(encoding)) != sizeof(encoding)) {
+        m_bIsMissionPackLoaded = false;
+        return;
+    }
+    CheckFileEncoding(fileName, version, encoding); // NOTSA
 
     uint32 offset = sizeof(uint16) * 2;
     ChunkHeader header{};
 
     bool bKey = false, bText = false;
-    while (!bKey && !bText) {
+    while (!bKey || !bText) { // Como el original: hasta tener las dos tablas
         if (!ReadChunkHeader(&header, file, &offset, false)) {
             m_bIsMissionPackLoaded = false;
-            CFileMgr::CloseFile(file);
             return;
         }
+        if (header.size == 0)
+            continue;
 
         if (!strncmp(header.magic, CHUNK_TKEY, sizeof(header.magic))) {
             m_MissionKeyArray.Load(header.size, file, &offset, false);
@@ -395,20 +445,20 @@ void CText::LoadMissionPackText() {
             continue;
         }
 
-        // Skip any other data
-        int8 tmp;
-        for (auto i = 0; i < header.size; ++i) {
-            if (!CFileMgr::Read(file, &tmp, sizeof(int8))) {
+        // Skip any other data (como el original: byte a byte, contador de 16 bits, avanzando offset)
+        for (uint16 i = 0; i < static_cast<uint32>(header.size); ++i) {
+            uint8 tmp;
+            if (CFileMgr::Read(file, &tmp, sizeof(tmp)) != 1) {
                 m_bIsMissionPackLoaded = false;
-                CFileMgr::CloseFile(file);
                 return;
             }
+            ++offset;
         }
     }
-    m_MainKeyArray.Update(m_MissionText.m_data);
+    m_MissionKeyArray.Update(m_MissionText.m_data); // Como el original: las claves de misión
+    std::memcpy(m_szMissionName, "MPNAME", sizeof("MPNAME"));
     m_bIsMissionPackLoaded = true;
-    strcpy_s(m_szMissionName, "MPNAME");
-    CFileMgr::CloseFile(file);
+    // Como el original: no se cierra el fichero.
 }
 
 // 0x6A0050
@@ -438,16 +488,26 @@ const GxtChar* CText::Get(const char* key) {
 // Writes loaded mission text into outStr
 // 0x69FBD0
 void CText::GetNameOfLoadedMissionText(char* outStr) {
-    notsa::string_copy(outStr, m_szMissionName, std::size(m_szMissionName));
+    strcpy(outStr, m_szMissionName); // Como el original: strcpy sin límite
 }
 
 // 0x69F940
 bool CText::ReadChunkHeader(ChunkHeader* header, FILESTREAM file, uint32* offset, uint8 unknown) {
-    // Same as in Android 2.0
-    if (!CFileMgr::Read(file, header, sizeof(ChunkHeader))) {
-        return false;
+    // Como el original: lee byte a byte sobre la ranura del parámetro offset (byte temporal inicial = byte bajo
+    // del puntero), avanza *offset por byte y falla en una lectura corta. Con unknown != 0 no se lee y el
+    // "resultado" es el propio unknown.
+    uint32 readResult = unknown;
+    auto byte = static_cast<uint8>(reinterpret_cast<uintptr_t>(offset));
+    for (uint16 i = 0; i < sizeof(ChunkHeader); ++i) {
+        if (!unknown) {
+            readResult = CFileMgr::Read(file, &byte, 1);
+        }
+        if (readResult != 1) {
+            return false;
+        }
+        reinterpret_cast<uint8*>(header)[i] = byte;
+        ++*offset;
     }
-    *offset += sizeof(ChunkHeader);
     return true;
 }
 

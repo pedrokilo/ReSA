@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 14/14 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/14 entradas.
+ * Validación registrada: 14/14 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
 #include "AEAudioEnvironment.h"
 #include "AEAudioHardware.h"
 
+#include <reversiblebugfixes/Bugs.hpp>
 #include <DebugModules/Audio/SoundManagerDebugModule.hpp>
 #include <UIRenderer.h>
 
@@ -70,10 +71,16 @@ bool CAESoundManager::Initialise() {
         return false;
     }
 
-    // BUG? There's some int16 weird logic in the original code, I simplified it to what's actually used i think
-    m_PhysicallyPlayingSoundList = new tSoundReference[m_NumAllocatedPhysicalChannels];
-    m_ChannelPosition            = new int16[m_NumAllocatedPhysicalChannels];
-    m_PrioritisedSoundList       = new tSoundReference[m_NumAllocatedPhysicalChannels];
+    // Como el original: la lista física es un new[] (0x821195) de un tipo con constructor/destructor declarados,
+    // con el número de elementos en un dword delante (cookie); las otras dos son new[] sin cookie.
+    if (auto* const cookie = static_cast<uint32*>(::operator new[](m_NumAllocatedPhysicalChannels * sizeof(tSoundReference) + sizeof(uint32)))) {
+        *cookie                      = m_NumAllocatedPhysicalChannels;
+        m_PhysicallyPlayingSoundList = reinterpret_cast<tSoundReference*>(cookie + 1);
+    } else {
+        m_PhysicallyPlayingSoundList = nullptr;
+    }
+    m_ChannelPosition      = static_cast<int16*>(::operator new[](m_NumAllocatedPhysicalChannels * sizeof(int16)));
+    m_PrioritisedSoundList = static_cast<tSoundReference*>(::operator new[](m_NumAllocatedPhysicalChannels * sizeof(tSoundReference)));
 
     for (CAESound& sound : m_VirtuallyPlayingSoundList) {
         sound.m_IsInUse             = false;
@@ -87,15 +94,21 @@ bool CAESoundManager::Initialise() {
     m_TimeLastCalledUnpaused = 0;
     m_IsManuallyPaused       = false;
 
-    NOTSA_LOG_DEBUG("Initialised SoundManager");
+    // Como el original: printf del CRT del juego (0x821982), sin reservas (spdlog guarda el mensaje en su backtrace
+    // aunque el nivel esté apagado y reservaría/liberaría memoria)
+    reinterpret_cast<int(__cdecl*)(const char*, ...)>(0x821982)("Initialised SoundManager\n");
     return true;
 }
 
 // 0x4EFAA0
 void CAESoundManager::Terminate() {
-    delete[] m_PhysicallyPlayingSoundList;
-    delete[] m_ChannelPosition;
-    delete[] m_PrioritisedSoundList;
+    // Como el original: operator delete escalar (0x8214BD); la lista física se libera desde su cookie y solo si
+    // existe, las otras dos siempre (aunque sean nulas).
+    if (m_PhysicallyPlayingSoundList) {
+        ::operator delete(reinterpret_cast<uint32*>(m_PhysicallyPlayingSoundList) - 1);
+    }
+    ::operator delete(m_ChannelPosition);
+    ::operator delete(m_PrioritisedSoundList);
 
     m_PhysicallyPlayingSoundList = nullptr;
     m_ChannelPosition            = nullptr;
@@ -115,7 +128,7 @@ void CAESoundManager::Reset() {
 
 // 0x4EF510
 void CAESoundManager::PauseManually(uint8 bPause) {
-    m_IsManuallyPaused = bPause;
+    reinterpret_cast<uint8&>(m_IsManuallyPaused) = bPause; // Como el original: se guarda el byte tal cual (sin normalizar a bool)
 }
 
 // 0x4F0000
@@ -165,8 +178,16 @@ void CAESoundManager::Service() {
             continue;
         }
 
-        //sound.m_PlayTime *= uint16(static_cast<float>(m_aSoundLengths[i]) / 100.0F);
-        sound.m_PlayTime = static_cast<uint16>((float)(sound.m_PlayTime * m_VirtualChannelSoundLengths[i]) / 100.0f);
+        // Como el original: fild del producto entero, fmul por 0,01f (0x858C58) en x87 y _ftol2
+        int32       product = sound.m_PlayTime * m_VirtualChannelSoundLengths[i];
+        const float percent = 0.01f;
+        float       scaled;
+        __asm {
+            fild  product
+            fmul  percent
+            fstp  scaled
+        }
+        sound.m_PlayTime = static_cast<int16>(static_cast<int64>(scaled));
     }
 
     // 0x4F016D - Stop sounds that turned inactive
@@ -182,12 +203,37 @@ void CAESoundManager::Service() {
     }
 
     // 0x4F01E4 - Update sounds playtime
+    // Como el original: CAESound::UpdatePlayTime va en línea; el avance se suma en float al play time antes de
+    // truncar con _ftol2 (16 bits bajos) y el módulo es con signo.
     for (auto&& [i, sound] : rngv::enumerate(m_VirtuallyPlayingSoundList)) {
         if (!sound.IsActive() || !sound.IsAudioHardwareAware() || sound.m_FrameDelay) {
             continue;
         }
-        auto usedProgress = CAESoundManager::IsSoundPaused(sound) ? 0 : timeSinceLastUpdate;
-        sound.UpdatePlayTime(m_VirtualChannelSoundLengths[i], m_VirtualChannelSoundLoopStartTimes[i], usedProgress);
+        const int16 progress  = CAESoundManager::IsSoundPaused(sound) ? int16(0) : static_cast<int16>(timeSinceLastUpdate);
+        const int16 length    = m_VirtualChannelSoundLengths[i];
+        const int16 loopStart = m_VirtualChannelSoundLoopStartTimes[i];
+        sound.m_Length = length;
+        if (sound.m_IsPhysicallyPlaying) {
+            continue;
+        }
+        if (sound.m_HasRequestedStopped) {
+            sound.m_PlayTime = -1;
+            continue;
+        }
+        const auto playTime = static_cast<int16>(static_cast<int64>(static_cast<float>(progress) * sound.m_ListenerSpeed + static_cast<float>(sound.m_PlayTime)));
+        sound.m_PlayTime = playTime;
+        if (playTime < length) {
+            continue;
+        }
+        if (loopStart == -1) {
+            sound.m_PlayTime = -1;
+            continue;
+        }
+        if (length == 0 && notsa::bugfixes::AESound_UpdatePlayTime_DivisionByZero) { // NOTSA: el EXE divide por cero
+            sound.m_PlayTime = loopStart;
+            continue;
+        }
+        sound.m_PlayTime = static_cast<int16>(int32(playTime) % int32(length) + loopStart);
     }
 
     // 0x4F02FB - Remove sounds that ended from sounds table
@@ -198,19 +244,26 @@ void CAESoundManager::Service() {
     }
 
     // 0x4F0329 - Mark sounds that ended as finished
+    // Como el original: mira el retardo de frames (0x54), no m_IsAudioHardwareAware
     for (CAESound& sound : m_VirtuallyPlayingSoundList) {
-        if (!sound.IsActive() || !sound.IsAudioHardwareAware() || sound.m_PlayTime != -1) {
+        if (!sound.IsActive() || sound.m_FrameDelay || sound.m_PlayTime != -1) {
             continue;
         }
         sound.SoundHasFinished();
     }
 
     // 0x4F03E5, 0x4F040D - Update sounds positions and volumes
+    // Como el original: dos pasadas, primero todos los UpdateParameters y después todos los CalculateVolume
     for (CAESound& sound : m_VirtuallyPlayingSoundList) {
         if (!sound.IsActive()) {
             continue;
         }
         sound.UpdateParameters(sound.m_PlayTime);
+    }
+    for (CAESound& sound : m_VirtuallyPlayingSoundList) {
+        if (!sound.IsActive()) {
+            continue;
+        }
         sound.CalculateVolume();
     }
 
@@ -241,19 +294,20 @@ void CAESoundManager::Service() {
         int16 chN = m_NumAllocatedPhysicalChannels - 1;
 
         // 0x4F04CE - Find last slot in use
-        for (; chN > numPrioritisedSounds; chN--) {
-            if (GetPrioritisedSoundList()[chN] != -1) {
-                break;
-            }
+        // Como el original: también mira el hueco numPrioritisedSounds (puede acabar en numPrioritisedSounds - 1)
+        while (chN >= numPrioritisedSounds && m_PrioritisedSoundList[chN] == -1) {
+            chN--;
         }
 
         // 0x4F04EB - Find where to insert
+        // Como el original: sigue buscando si no es más bajo (NaN incluido) o si lo pide más físicamente;
+        // se inserta detrás del primero más alto con PlayPhysically menor o igual.
         for (; chN >= numPrioritisedSounds; chN--) {
             const auto& soundB = m_VirtuallyPlayingSoundList[m_PrioritisedSoundList[chN]];
-            if (sound.m_ListenerVolume >= soundB.m_ListenerVolume) {
+            if (!(sound.m_ListenerVolume < soundB.m_ListenerVolume)) {
                 continue;
             }
-            if (sound.GetPlayPhysically() <= soundB.GetPlayPhysically()) {
+            if (sound.GetPlayPhysically() > soundB.GetPlayPhysically()) {
                 continue;
             }
             break;
@@ -358,7 +412,7 @@ void CAESoundManager::Service() {
         }
 
         sound.m_IsAudioHardwareAware = true;
-        if (sound.m_FrameDelay > 0 && !CAESoundManager::IsSoundPaused(sound)) {
+        if (static_cast<int8>(sound.m_FrameDelay) > 0 && !CAESoundManager::IsSoundPaused(sound)) { // Como el original: byte con signo (jle)
             --sound.m_FrameDelay;
         }
     }
@@ -380,9 +434,11 @@ CAESound* CAESoundManager::RequestNewSound(CAESound* pSound) {
     }
 
 #ifdef NOTSA_DEBUG
-    notsa::ui::UIRenderer::GetSingleton().GetDebugModules().GetModule<notsa::debugmodules::SoundManagerDebugModule>()->SetSoundInfo(sidx, {
-        .StackTrace = std::stacktrace::current()
-    });
+    if (s) { // NOTSA: sin voz libre sidx queda sin inicializar
+        notsa::ui::UIRenderer::GetSingleton().GetDebugModules().GetModule<notsa::debugmodules::SoundManagerDebugModule>()->SetSoundInfo(sidx, {
+            .StackTrace = std::stacktrace::current()
+        });
+    }
 #endif
 
     return s;
@@ -516,7 +572,7 @@ void CAESoundManager::CancelSoundsOwnedByAudioEntity(CAEAudioEntity* audioEntity
 
 // 0x4EF630, unused
 int16 CAESoundManager::GetVirtualChannelForPhysicalChannel(int16 physicalChannel) const {
-    const auto chIdx = physicalChannel - m_AudioHardwareHandle;
+    const auto chIdx = static_cast<int16>(physicalChannel - m_AudioHardwareHandle); // Como el original: resta de 16 bits
     if (chIdx < 0 || chIdx >= m_NumAllocatedPhysicalChannels) {
         return -1;
     }

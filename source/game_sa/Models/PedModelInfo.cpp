@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -65,7 +65,7 @@ void CPedModelInfo::SetClump(RpClump* clump) {
         CPedModelInfo::CreateHitColModelSkinned(clump);
 
     RpClumpForAllAtomics(GetRpClump(), CClumpModelInfo::SetAtomicRendererCB, CVisibilityPlugins::RenderPedCB);
-    GetAnimHierarchyFromClump(GetRpClump()); // Unused? Or indirectly passes through EAX somehow?
+    GetAnimHierarchyFromClump(clump); // Como el original: recibe el clump del parámetro (resultado sin usar).
 }
 
 // 0x4C6D40

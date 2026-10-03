@@ -33,7 +33,7 @@ private: // Wrappers for hooks
     }
 
 private:
-    CVehicle::Ref          m_EvadeVeh{};  //< The vehicle to evade
+    CVehicle*              m_EvadeVeh;    //< The vehicle to evade (Como el original: referencia manual, se limpia antes de soltar la animacion)
     bool                   m_bFinished{}; //< Has the task finished (Set when the anim has finished)
     CAnimBlendAssociation* m_DiveAnim{};  //> The dive animation
 };

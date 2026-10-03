@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -62,11 +62,22 @@ bool CGangs::Save() {
 
 // 0x5DE550
 void CGangs::SetGangWeapons(int16 gangId, eWeaponType weapId1, eWeaponType weapId2, eWeaponType weapId3) {
-    Gang[gangId].SetWeapons({ weapId1, weapId2, weapId3 });
+    // Como el original: solo se escriben las armas no negativas (test/jl).
+    auto& weapons = Gang[gangId].m_nGangWeapons;
+    if ((int32)weapId1 >= 0) {
+        weapons[0] = weapId1;
+    }
+    if ((int32)weapId2 >= 0) {
+        weapons[1] = weapId2;
+    }
+    if ((int32)weapId3 >= 0) {
+        weapons[2] = weapId3;
+    }
 }
 
 // 0x5DE5A0
-eModelID CGangs::ChooseGangPedModel(eGangID gangId) {
+eModelID CGangs::ChooseGangPedModel(eGangID gangIdArg) {
+    const auto gangId = (eGangID)(int16)gangIdArg; // Como el original: movsx de la palabra baja
     const auto pedGroup = CPopulation::GetGangGroupId(gangId, CPopulation::CurrentWorldZone);
 
     // A gang with a forced ped model simply uses the first model of its group
@@ -75,9 +86,10 @@ eModelID CGangs::ChooseGangPedModel(eGangID gangId) {
     }
 
     // NOTE: The original sizes the random sequence using world zone 0, but looks the model up using the current world zone
-    const auto numPeds = CPopulation::m_nNumPedsInGroup[CPopulation::GetGangGroupId(gangId, 0)];
+    // Como el original: el contador se lee con signo (movsx).
+    const int32 numPeds = (int16)CPopulation::m_nNumPedsInGroup[CPopulation::GetGangGroupId(gangId, 0)];
     CCarCtrl::InitSequence(numPeds);
-    if (numPeds == 0) {
+    if (numPeds <= 0) {
         return MODEL_INVALID;
     }
 
@@ -92,13 +104,19 @@ eModelID CGangs::ChooseGangPedModel(eGangID gangId) {
 
 // unused (0x5DE500)
 bool CGangs::GetWillAttackPlayerWithCops(ePedType pedType) {
-    assert(IsPedTypeGang(pedType));
+    // Como el original: fuera de PED_TYPE_GANG1..GANG10 devuelve falso.
+    if (pedType < PED_TYPE_GANG1 || pedType > PED_TYPE_GANG10) {
+        return false;
+    }
     return GangAttackWithCops[pedType - PED_TYPE_GANG1];
 }
 
 // unused (0x5DE4E0)
 void CGangs::SetWillAttackPlayerWithCops(ePedType pedType, bool attackPlayerWithCops) {
-    assert(IsPedTypeGang(pedType));
+    // Como el original: fuera de PED_TYPE_GANG1..GANG10 no hace nada.
+    if (pedType < PED_TYPE_GANG1 || pedType > PED_TYPE_GANG10) {
+        return;
+    }
     GangAttackWithCops[pedType - PED_TYPE_GANG1] = attackPlayerWithCops;
 }
 

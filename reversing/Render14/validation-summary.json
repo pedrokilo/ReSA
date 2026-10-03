@@ -1,0 +1,101 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 6784,
+  "pairs_per_function": {
+    "CAnimBlendSequence::Constructor": 64,
+    "CAnimBlendSequence::Destructor": 128,
+    "CAnimBlendSequence::SetName": 128,
+    "CAnimBlendSequence::SetBoneTag": 128,
+    "CAnimBlendSequence::GetDataSize": 256,
+    "CAnimBlendSequence::SetNumFrames": 512,
+    "CAnimBlendSequence::Uncompress": 512,
+    "CAnimBlendSequence::CompressKeyframes": 512,
+    "CAnimBlendSequence::MoveMemory": 128,
+    "CAnimBlendSequence::Print": 64,
+    "CAnimBlendSequence::RemoveQuaternionFlips": 512,
+    "CAnimBlendSequence::RemoveUncompressedData": 256,
+    "CAnimBlendSequence::GetUKeyFrame": 128,
+    "CAnimBlendSequence::GetCKeyFrame": 128,
+    "CCustomBuildingDNPipeline::ExtraVertColourPluginAttach": 64,
+    "CCustomBuildingDNPipeline::pluginExtraVertColourConstructorCB": 64,
+    "CCustomBuildingDNPipeline::pluginExtraVertColourDestructorCB": 128,
+    "CCustomBuildingDNPipeline::pluginExtraVertColourStreamReadCB": 256,
+    "CCustomBuildingDNPipeline::pluginExtraVertColourStreamWriteCB": 128,
+    "CCustomBuildingDNPipeline::pluginExtraVertColourStreamGetSizeCB": 128,
+    "CCustomBuildingDNPipeline::PreRenderUpdate-Atomic": 1024,
+    "CCustomBuildingDNPipeline::PreRenderUpdate-Clump": 256,
+    "CCustomBuildingDNPipeline::NVCPipelineProcess": 512,
+    "CCustomBuildingDNPipeline::CreatePipe": 64,
+    "CCustomBuildingDNPipeline::DestroyPipe": 64,
+    "CCustomBuildingDNPipeline::CreateCustomObjPipe": 256,
+    "CCustomBuildingDNPipeline::CustomPipeAtomicSetup": 128,
+    "CCustomBuildingDNPipeline::SetFxEnvTexture": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "0494d727c241b2b8c65fa293c5cb408f6432fc4251e9cc9024ee910c1462f9e3",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-render14\\20261003-102415-377577",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CAnimBlendSequence::Constructor": true,
+    "CAnimBlendSequence::Destructor": true,
+    "CAnimBlendSequence::SetName": true,
+    "CAnimBlendSequence::SetBoneTag": true,
+    "CAnimBlendSequence::GetDataSize": true,
+    "CAnimBlendSequence::SetNumFrames": true,
+    "CAnimBlendSequence::Uncompress": true,
+    "CAnimBlendSequence::CompressKeyframes": true,
+    "CAnimBlendSequence::MoveMemory": true,
+    "CAnimBlendSequence::Print": true,
+    "CAnimBlendSequence::RemoveQuaternionFlips": true,
+    "CAnimBlendSequence::RemoveUncompressedData": true,
+    "CAnimBlendSequence::GetUKeyFrame": true,
+    "CAnimBlendSequence::GetCKeyFrame": true,
+    "CCustomBuildingDNPipeline::ExtraVertColourPluginAttach": true,
+    "CCustomBuildingDNPipeline::pluginExtraVertColourConstructorCB": true,
+    "CCustomBuildingDNPipeline::pluginExtraVertColourDestructorCB": true,
+    "CCustomBuildingDNPipeline::pluginExtraVertColourStreamReadCB": true,
+    "CCustomBuildingDNPipeline::pluginExtraVertColourStreamWriteCB": true,
+    "CCustomBuildingDNPipeline::pluginExtraVertColourStreamGetSizeCB": true,
+    "CCustomBuildingDNPipeline::PreRenderUpdate-Atomic": true,
+    "CCustomBuildingDNPipeline::PreRenderUpdate-Clump": true,
+    "CCustomBuildingDNPipeline::NVCPipelineProcess": true,
+    "CCustomBuildingDNPipeline::CreatePipe": true,
+    "CCustomBuildingDNPipeline::DestroyPipe": true,
+    "CCustomBuildingDNPipeline::CreateCustomObjPipe": true,
+    "CCustomBuildingDNPipeline::CustomPipeAtomicSetup": true,
+    "CCustomBuildingDNPipeline::SetFxEnvTexture": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "565b82d36291208fd0673aa749a1a19acfc6b97707fdef5eb4a3d0b776d8668e",
+      "pdb": "1cad165733d22e7ce10d99639ddc094b239b3a881bd6c9432a684f90aabfd663"
+    },
+    "sources": {
+      "source/game_sa/Animation/AnimBlendSequence.cpp": "6268790288f959cdf3e758828e77eaeff9b24363ae14cbb04477cae45687cab0",
+      "source/game_sa/Animation/AnimBlendSequence.h": "292ff1c4e8b0f7bc141563b5e1d229ee04ec7a5ae7c4c3c2f6fd265658d942a9",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "47e4c9acf70ba8e83f3c78d1b6a863ad19b40c67379d78edf16908d2574026ac",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "f2e8c6f7fbec255ff728caba2f40c37371af6e4fde7bbf2bb7567020c9268e8c",
+      "build_probe.py": "77fffb40ed3119f9588b9d035c550b2c0f9aa4e94dcfef9520b7f57c0e8562f8",
+      "run_local.py": "d445c582588372c37c13718262e096b91938d207d7f0ef87dadf5732195142f6"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

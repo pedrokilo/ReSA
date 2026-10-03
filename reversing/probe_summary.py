@@ -27,10 +27,12 @@ def main(here, prefix, limitations):
     registry_path = ROOT/'reversing/validation-registry.json'
     registry = json.loads(registry_path.read_text(encoding='utf-8'))
     keys = {tuple(k.split('::')) for k in functions}
-    registry['functions'] = [r for r in registry['functions'] if (r['hook']['class'], r['hook']['fn_name']) not in keys]
+    registry['functions'] = [r for r in registry['functions'] if (r['hook']['class'].removesuffix('<T>'), r['hook']['fn_name']) not in keys]
     rel = str(out.relative_to(ROOT)).replace('\\', '/')
     for label, pairs in functions.items():
         cls, fn = label.split('::')
+        if (cls, fn) not in rows and (cls + '<T>', fn) in rows:
+            cls += '<T>'  # plantillas: el banco usa el nombre sin <T> (las etiquetas solo admiten \w+)
         row = rows[(cls, fn)]
         registry['functions'].append({
             'hook': {'class': cls, 'fn_name': fn, 'address': row['address'], 'type': row['type']},

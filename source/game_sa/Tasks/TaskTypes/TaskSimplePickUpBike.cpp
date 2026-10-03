@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -70,12 +70,13 @@ void CTaskSimplePickUpBike::FinishAnimPickUpBikeCB(CAnimBlendAssociation* anim, 
 void CTaskSimplePickUpBike::StartAnim(CPed const* ped) {
     const auto animationId = [this] {
         const auto rightZ = m_veh->GetRight().z;
+        // Como el original: un rightZ NaN elige la animación "HI"
         switch ((eTargetDoor)m_targetDoor) {
         case TARGET_DOOR_DRIVER:
         case TARGET_DOOR_REAR_LEFT:
-            return rightZ <= 0.f ? ANIM_ID_CAR_ALIGNHI_LHS : ANIM_ID_CAR_ALIGN_LHS;
+            return rightZ > 0.f ? ANIM_ID_CAR_ALIGN_LHS : ANIM_ID_CAR_ALIGNHI_LHS;
         default:
-            return rightZ >= 0.f ? ANIM_ID_CAR_ALIGNHI_RHS : ANIM_ID_CAR_ALIGN_RHS;
+            return rightZ < 0.f ? ANIM_ID_CAR_ALIGN_RHS : ANIM_ID_CAR_ALIGNHI_RHS;
         }
     }();
     m_anim = CAnimManager::BlendAnimation(ped->GetRpClump(), m_veh->GetAnimGroup().GetGroup(animationId), animationId);
@@ -97,7 +98,8 @@ bool CTaskSimplePickUpBike::MakeAbortable(CPed* ped, eAbortPriority priority, CE
 
 // 0x64D910
 bool CTaskSimplePickUpBike::ProcessPed(CPed* ped) {
-    if (m_hasAnimFinished) {
+    // Como el original: sin vehículo la tarea termina
+    if (m_hasAnimFinished || !m_veh) {
         return true;
     }
 
@@ -107,10 +109,18 @@ bool CTaskSimplePickUpBike::ProcessPed(CPed* ped) {
 
     if (const auto bike = m_veh->AsBike(); !bike->bikeFlags.bGettingPickedUp) {
         if (m_anim) {
-            if (m_anim->m_CurrentTime > 0.47f) { // Simplified...
-                bike->bikeFlags.bGettingPickedUp = true;
-            }        
-        }        
+            // Como el original: solo con las cuatro animaciones de alinear y a partir de 0.4667f (0x86F0DC)
+            switch (m_anim->m_AnimId) {
+            case ANIM_ID_CAR_ALIGN_LHS:
+            case ANIM_ID_CAR_ALIGN_RHS:
+            case ANIM_ID_CAR_ALIGNHI_LHS:
+            case ANIM_ID_CAR_ALIGNHI_RHS:
+                if (m_anim->m_CurrentTime > 0.4667f) {
+                    bike->bikeFlags.bGettingPickedUp = true;
+                }
+                break;
+            }
+        }
     }
 
     return false;

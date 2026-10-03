@@ -32,7 +32,7 @@ private:
 protected:
     bool                          m_IsFinished{};
     CAnimBlendAssociation*        m_Anim{};
-    CVehicle::Ref                 m_Car{};
+    CVehicle*                     m_Car{}; // Como el original: referencia registrada a mano (orden del EXE)
     int32                         m_TargetDoor{};
     CTaskUtilityLineUpPedWithCar* m_LineUpUtility{};
 

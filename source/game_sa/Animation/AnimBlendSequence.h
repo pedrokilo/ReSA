@@ -22,7 +22,7 @@ class CAnimBlendSequence {
 public:
     static void InjectHooks();
 
-    CAnimBlendSequence() = default; // 0x4D0C10
+    CAnimBlendSequence(); // 0x4D0C10
     ~CAnimBlendSequence();
 
     void CompressKeyframes(uint8* frameData);
@@ -93,16 +93,6 @@ public:
     CAnimBlendSequence* Destructor() { this->CAnimBlendSequence::~CAnimBlendSequence(); return this; }
 
 private:
-    /*!
-     * @brief Implementación común de compresión/descompresión del array completo.
-     * @tparam From Tipo de keyframe de origen.
-     * @tparam To Tipo de keyframe de destino.
-     * @param pDataBlock Buffer externo opcional donde escribir la conversión.
-    */
-    template<typename From, typename To>
-    bool ConvertKeyFrames(byte* pDataBlock);
-
-private:
     //! Identificador del bone/frame asociado; la interpretación depende de m_IsUsingBoneTag.
     union {
         eBoneTag16 m_BoneTag{BONE_UNKNOWN};  // IF m_IsUsingBoneTag == TRUE
@@ -110,13 +100,14 @@ private:
     };
 
 public:
-    uint16 m_bHasRotation : 1{};
-    uint16 m_bHasTranslation : 1{};      // La secuencia almacena traslación además de rotación.
-    uint16 m_bIsCompressed : 1{};        // m_Frames usa el formato comprimido.
-    uint16 m_bUsingExternalMemory : 1{}; // El buffer fue proporcionado externamente y no debe liberarse aquí.
-    uint16 m_IsUsingBoneTag : 1{};
-    uint16 m_FramesNum{};
-    void*  m_Frames{};
+    // Como el original: el constructor (0x4D0C10) escribe la palabra de flags completa, sin inicializadores por miembro.
+    uint16 m_bHasRotation : 1;
+    uint16 m_bHasTranslation : 1;      // La secuencia almacena traslación además de rotación.
+    uint16 m_bIsCompressed : 1;        // m_Frames usa el formato comprimido.
+    uint16 m_bUsingExternalMemory : 1; // El buffer fue proporcionado externamente y no debe liberarse aquí.
+    uint16 m_IsUsingBoneTag : 1;
+    uint16 m_FramesNum;
+    void*  m_Frames;
 
 };
 VALIDATE_SIZE(CAnimBlendSequence, 0xC);

@@ -25,11 +25,14 @@ public:
     CTask*    CreateNextSubTask(CPed* ped) override { return nullptr; }
     CTask*    CreateFirstSubTask(CPed* ped) override;
     CTask*    ControlSubTask(CPed* ped) override { return m_pSubTask; }
+    bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
 
 private: // Wrappers for hooks
     // 0x631DD0
-    CTaskComplexHitByGunResponse* Constructor(eDirection hs) {
-        this->CTaskComplexHitByGunResponse::CTaskComplexHitByGunResponse(hs);
+    // Como el original: guarda el dword completo del argumento
+    CTaskComplexHitByGunResponse* Constructor(int32 hs) {
+        this->CTaskComplexHitByGunResponse::CTaskComplexHitByGunResponse(eDirection::FORWARD);
+        m_HitSide.get_underlying_ref() = hs;
         return this;
     }
 

@@ -45,7 +45,7 @@ class NOTSA_EXPORT_VTABLE CTrailer : public CAutomobile {
 
 public:
     // Contactos de colisión y ratios de compresión de las dos patas de apoyo.
-    std::array<CColPoint, NUM_TRAILER_SUPPORTS> m_supportCPs{}; // m_aSupportColPoints
+    std::array<CColPoint, NUM_TRAILER_SUPPORTS> m_supportCPs; // m_aSupportColPoints - Como el original: el constructor no los escribe
     std::array<float, NUM_TRAILER_SUPPORTS> m_supportRatios{ 1.f, 1.f }; // m_aSupportRatios
     float m_fHeight; // m_fSupportStartZ, 0x6CF3DC, 0x6CFC11
     // Extensión usada para animar los apoyos al enganchar o estacionar el

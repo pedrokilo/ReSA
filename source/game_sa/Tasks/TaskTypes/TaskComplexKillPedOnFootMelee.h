@@ -31,10 +31,10 @@ public:
 
     void   CalculateSearchPositionAndRanges(CPed* ped);
     CTask* CreateSubTask(eTaskType taskType, CPed * ped);
-    bool   IsTargetInRange(CPed* ped, float range); // NOTSA
 
     CTask*    Clone() const override { return new CTaskComplexKillPedOnFootMelee{ *this }; }
     eTaskType GetTaskType() const override { return Type; }
+    bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override; // 0x6210F0
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;
     CTask*    ControlSubTask(CPed* ped) override;

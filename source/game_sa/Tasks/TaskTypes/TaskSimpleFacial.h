@@ -44,7 +44,11 @@ public:
     bool ProcessPed(CPed* ped) override;
 
     auto GetFacialType() const { return m_Type; }
-    void StartTimer(int32 dur) { m_Timer.Start(dur); }
+    void StartTimer(int32 dur) { // Como el original (inline en 0x690FC0): sin comprobar el signo, sin tocar m_bStopped
+        m_Timer.m_bStarted = true;
+        m_Timer.m_nStartTime = CTimer::GetTimeInMS();
+        m_Timer.m_nInterval = dur;
+    }
 
     static AnimationId GetAnimId(eFacialExpression expression);
 

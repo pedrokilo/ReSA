@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 13/13 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/13 entradas.
+ * Validación registrada: 13/13 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -46,6 +46,10 @@ void CTaskComplexPolicePursuit::InjectHooks() {
 }
 
 
+// 0x68BA70 - Como el original: constructor proporcionado por el usuario (sin `{}` no hay puesta a cero previa
+// del objeto; el EXE conserva los bits 3..7 del byte de banderas)
+CTaskComplexPolicePursuit::CTaskComplexPolicePursuit() = default;
+
 CTaskComplexPolicePursuit::CTaskComplexPolicePursuit(const CTaskComplexPolicePursuit& o) :
     CTaskComplexPolicePursuit{}
 {
@@ -53,6 +57,7 @@ CTaskComplexPolicePursuit::CTaskComplexPolicePursuit(const CTaskComplexPolicePur
 
 // 0x68D880
 CTaskComplexPolicePursuit::~CTaskComplexPolicePursuit() {
+    // Como el original: el perseguidor no tiene referencia registrada; solo se limpia la del perseguido (miembro)
     if (m_Pursuer) {
         ClearPursuit(m_Pursuer);
     }
@@ -61,28 +66,24 @@ CTaskComplexPolicePursuit::~CTaskComplexPolicePursuit() {
 // 0x68BAD0
 // Make sure cop has a weapon on them
 void CTaskComplexPolicePursuit::SetWeapon(CPed* ped) { // `ped` is the pursuer
-    const auto wantedLevel = FindPlayerWanted()->GetWantedLevel();
+    // Como el original: comparaciones con signo del nivel de busqueda
+    const auto wantedLevel = (int32)FindPlayerWanted()->GetWantedLevel();
 
-    // At level 0 we don't do anything (I don't think this is possible anyways)
-    if (wantedLevel == eWantedLevel::WANTED_CLEAN) {
-        return;
-    }
-
-    if (wantedLevel > eWantedLevel::WANTED_LEVEL_1) {
+    if (wantedLevel > 1) {
         if (ped->GetActiveWeapon().GetType() != WEAPON_UNARMED) { // Already has a weapon
             return;
         }
-    } else /*wantedLevel == 1*/ {
-        const auto player = FindPlayerPed();
-        if (player->m_standingOnEntity || ped->m_nPedState == PEDSTATE_ARREST_PLAYER) {
+    } else {
+        if (wantedLevel != 1) {
+            return;
+        }
+        if (FindPlayerPed()->m_standingOnEntity || ped->m_nPedState == PEDSTATE_ARREST_PLAYER) {
             return;
         }
         if (ped->DoWeHaveWeaponAvailable(WEAPON_NIGHTSTICK)) {
-            switch (player->GetActiveWeapon().GetWeaponInfo(player).m_nWeaponFire) {
-            case WEAPON_FIRE_INSTANT_HIT:
-            case WEAPON_FIRE_PROJECTILE:
-                break;
-            default:
+            // Como el original: datos del arma con habilidad estandar (1), pedidos dos veces
+            if (CWeaponInfo::GetWeaponInfo(FindPlayerPed()->GetActiveWeapon().GetType(), eWeaponSkill::STD)->m_nWeaponFire != WEAPON_FIRE_INSTANT_HIT
+                && CWeaponInfo::GetWeaponInfo(FindPlayerPed()->GetActiveWeapon().GetType(), eWeaponSkill::STD)->m_nWeaponFire != WEAPON_FIRE_PROJECTILE) {
                 ped->SetCurrentWeapon(WEAPON_NIGHTSTICK);
                 return;
             }
@@ -109,20 +110,31 @@ bool CTaskComplexPolicePursuit::SetPursuit(CPed* ped) {
         if (!plyr) {
             continue;
         }
-        const auto distSq = (plyr->GetPosition() - ped->GetPosition()).SquaredMagnitude();
-        if (distSq >= minDistSq) {
+        const auto& plyrPos = plyr->GetPosition();
+        const auto& pedPos  = ped->GetPosition();
+        const float dx = plyrPos.x - pedPos.x, dy = plyrPos.y - pedPos.y, dz = plyrPos.z - pedPos.z;
+        const float distSq = dz * dz + dx * dx + dy * dy; // Como el original: orden z, x, y
+        if (!(distSq < minDistSq)) { // Como el original: tambien con NaN
             continue;
         }
         if (plyr->bInVehicle) {
-            if (distSq * plyr->m_pVehicle->GetMoveSpeed().SquaredMagnitude() >= sq(4.f)) { // TODO/BUG: Why `*`?
+            if (!(distSq * plyr->m_pVehicle->GetMoveSpeed().SquaredMagnitude() < sq(4.f))) { // TODO/BUG: Why `*`?
                 continue;
             }
         }
         closestPlayer = plyr;
         minDistSq     = distSq;
     }
-    m_Pursued = closestPlayer;
-    return closestPlayer && FindPlayerWanted()->SetPursuitCop(ped->AsCop());
+
+    // Como el original: se suelta la referencia anterior, se pide CWanted antes de comprobar y el perseguido
+    // solo se guarda (con referencia) si SetPursuitCop acepta al policia
+    m_Pursued = nullptr;
+    const auto wanted = FindPlayerWanted();
+    if (closestPlayer && wanted->SetPursuitCop(ped->AsCop())) {
+        m_Pursued = closestPlayer;
+        return true;
+    }
+    return false;
 }
 
 // 0x68BDC0
@@ -136,10 +148,10 @@ bool CTaskComplexPolicePursuit::PersistPursuit(CCopPed* pursuer) {
             m_IsPlayerInCullZone = m_IsRoadBlockCop = true;
             ClearPursuit(pursuer);
         }
-    } else if (!CCullZones::NoPolice() && m_IsPlayerInCullZone) { // 0x68BE16
+    } else if (m_IsPlayerInCullZone && !CCullZones::NoPolice()) { // 0x68BE07 (Como el original: primero la bandera)
         m_IsPlayerInCullZone = m_IsRoadBlockCop = false;
         ClearPursuit(pursuer);
-    } else if (wanted->GetWantedLevel() == eWantedLevel::WANTED_CLEAN) { // 0x68BE43
+    } else if (wanted->GetWantedLevel() == eWantedLevel::WANTED_CLEAN) { // 0x68BE3C
         if (m_IsRoadBlockCop && !m_IsPlayerInCullZone) {
             m_IsPlayerInCullZone = m_IsRoadBlockCop = false;
             ClearPursuit(pursuer);
@@ -154,13 +166,18 @@ bool CTaskComplexPolicePursuit::PersistPursuit(CCopPed* pursuer) {
 CTask* CTaskComplexPolicePursuit::CreateSubTask(eTaskType taskType, CPed* ped) {
     switch (taskType) {
     case TASK_COMPLEX_ARREST_PED:
+        // Como el original: sin perseguido no se crea nada
+        if (!m_Pursued) {
+            return nullptr;
+        }
         return new CTaskComplexArrestPed{m_Pursued};
     case TASK_COMPLEX_SEEK_ENTITY:
+        // Como el original: radio de la colision del modelo (CModelInfo) + 1
         return new CTaskComplexSeekEntity<CEntitySeekPosCalculatorStandard>{
             ped->m_pVehicle,
             50'000,
             1'000,
-            ped->m_pVehicle->GetColModel()->GetBoundRadius() + 1.f,
+            CModelInfo::GetModelInfo(ped->m_pVehicle->m_nModelIndex)->GetColModel()->GetBoundRadius() + 1.f,
             2.f,
             2.f,
             true,
@@ -170,16 +187,16 @@ CTask* CTaskComplexPolicePursuit::CreateSubTask(eTaskType taskType, CPed* ped) {
         return new CTaskSimpleStandStill{};
     case TASK_SIMPLE_SCRATCH_HEAD:
         return new CTaskSimpleScratchHead{};
-    case TASK_FINISHED:
+    default: // Como el original: cualquier otro tipo (incluido TASK_FINISHED) no crea nada
         return nullptr;
-    default:
-        NOTSA_UNREACHABLE("Invalid TaskType({})", taskType);
     }
 }
 
 // 0x6908E0
 CTask* CTaskComplexPolicePursuit::CreateFirstSubTask(CPed* ped) {
-    if (SetPursuit(ped->AsCop())) {
+    // Como el original: se guarda el perseguidor (sin registrar referencia)
+    m_Pursuer = ped->AsCop();
+    if (SetPursuit(ped)) {
         return CreateSubTask(TASK_COMPLEX_ARREST_PED, ped);
     }
     m_CouldJoinPursuit = false;
@@ -202,7 +219,9 @@ CTask* CTaskComplexPolicePursuit::ControlSubTask(CPed* ped) {
         return CreateSubTask(nextSubTaskType, ped);
     }
 
-    ped->GetEventGroup().Add(CEventVehicleToSteal{ ped->m_pVehicle });
+    // Como el original: el evento vive hasta despues de crear la tarea
+    CEventVehicleToSteal vehicleToSteal{ ped->m_pVehicle };
+    ped->GetEventGroup().Add(&vehicleToSteal, false);
     return new CTaskSimpleScratchHead{};
 }
 
@@ -233,9 +252,11 @@ eTaskType CTaskComplexPolicePursuit::GetNextSubTaskType(CCopPed* pursuer) { // p
             return TASK_COMPLEX_ENTER_CAR_AS_DRIVER;
         }
 
-        if ((pursuer->m_pVehicle->GetPosition() - pursuer->GetPosition()).SquaredMagnitude() <= sq(5.f)) {
+        // Como el original: distancia al cuadrado (0x406DA0) estrictamente menor que 25 (0x858FE8); si no, quedarse quieto
+        if ((pursuer->m_pVehicle->GetPosition() - pursuer->GetPosition()).SquaredMagnitude() < 25.f) {
             return TASK_COMPLEX_SEEK_ENTITY;
         }
+        return TASK_SIMPLE_STAND_STILL;
     }
 
     return TASK_NONE;

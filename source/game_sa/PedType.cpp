@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 13/13 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/13 entradas.
+ * Validación registrada: 13/13 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -19,7 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "PedType.h"
-CAcquaintance* CPedType::ms_apPedTypesOld = {}; // NOTSA
+CAcquaintance* CPedType::ms_apPedTypesOld = {}; // NOTSA (ver s_PedTypesOldStorage)
 
 void CPedType::InjectHooks() {
     RH_ScopedClass(CPedType);
@@ -40,134 +40,144 @@ void CPedType::InjectHooks() {
     RH_ScopedInstall(PoliceDontCareAboutCrimesAgainstPedType, 0x608A40);
 }
 
+// NOTSA: copia de seguridad que usa MayhemCheat (Cheat.cpp). Vive en almacenamiento propio para no añadir
+// reservas que el EXE no hace en Initialise.
+static std::array<CAcquaintance, PED_TYPE_COUNT> s_PedTypesOldStorage{};
+
 // 0x608E40
 void CPedType::Initialise() {
-    ms_apPedTypes = new CAcquaintance[PED_TYPE_COUNT]();
-    ms_apPedTypesOld = new CAcquaintance[PED_TYPE_COUNT](); // NOTSA
+    // Como el original: new[] de 32 entradas con su cookie (0x284 bytes, la cuenta delante), constructor de cada
+    // entrada y después otra pasada que las vuelve a poner a cero.
+    auto* const block = static_cast<uint32*>(operator new[](sizeof(uint32) + sizeof(CAcquaintance) * PED_TYPE_COUNT));
+    CAcquaintance* types = nullptr;
+    if (block) {
+        block[0] = PED_TYPE_COUNT;
+        types = reinterpret_cast<CAcquaintance*>(block + 1);
+        for (uint32 i = 0; i < PED_TYPE_COUNT; i++) {
+            new (&types[i]) CAcquaintance();
+        }
+    }
+    ms_apPedTypes = types;
+    for (uint32 i = 0; i < PED_TYPE_COUNT; i++) {
+        auto& acquaintance = ms_apPedTypes[i];
+        acquaintance.m_nRespect = 0;
+        acquaintance.m_nLike    = 0;
+        acquaintance.m_nIgnore  = 0;
+        acquaintance.m_nDislike = 0;
+        acquaintance.m_nHate    = 0;
+    }
+
+    // NOTSA
+    s_PedTypesOldStorage.fill(CAcquaintance{});
+    ms_apPedTypesOld = s_PedTypesOldStorage.data();
+
     LoadPedData();
 }
 
 // 0x608B00
 void CPedType::Shutdown() {
-    delete[] ms_apPedTypes;
-    delete[] ms_apPedTypesOld; // NOTSA
+    if (ms_apPedTypes == s_PedTypesOldStorage.data()) { // NOTSA: MayhemCheat activo, recupera el bloque reservado
+        std::swap(ms_apPedTypes, ms_apPedTypesOld);
+    }
+    // Como el original: delete[] del bloque con cookie (el puntero no se pone a nulo)
+    if (ms_apPedTypes) {
+        operator delete[](reinterpret_cast<uint32*>(ms_apPedTypes) - 1);
+    }
 }
 
 // 0x608B30
 void CPedType::LoadPedData() {
-    ePedType pedType = PED_TYPE_MISSION8;
+    // Como el original: hasta la primera línea de tipo se escribe en la entrada 32 (fuera de la tabla)
+    auto pedType = PED_TYPE_COUNT;
     auto file = CFileMgr::OpenFile("DATA\\PED.DAT", "r");
     for (char* line = CFileLoader::LoadLine(file); line; line = CFileLoader::LoadLine(file)) {
         if (*line == '#' || !*line)
             continue;
 
-        char buf[32];
-        VERIFY(sscanf_s(line, "%s", SCANF_S_STR(buf)) == 1);
+        char word[32];
+        sscanf(line, "%s", word);
 
-        char* nextToken{};
-        const auto GetAcquaintance = [=, &nextToken]() -> uint32 {
-            uint32 value = 0;
-            RET_IGNORED(strtok_s(line, " ,\t", &nextToken));
-            for (const char* pedTypeName = strtok_s(nullptr, " ,\t", &nextToken); pedTypeName; pedTypeName = strtok_s(nullptr, " ,\t", &nextToken)) {
-                value |= GetPedFlag(FindPedType(pedTypeName));
+        // Como el original: strtok sobre la línea; el primer token es la palabra clave
+        const auto ReadFlags = [line]() -> uint32 {
+            uint32 flags = 0;
+            strtok(line, " ,\t");
+            for (const char* pedTypeName = strtok(nullptr, " ,\t"); pedTypeName; pedTypeName = strtok(nullptr, " ,\t")) {
+                flags |= GetPedFlag(FindPedType(pedTypeName));
             }
-            return value;
+            return flags;
         };
 
-        using namespace std::string_view_literals;
-        if (std::string_view{buf, 4u} == "Hate")
-        {
-            GetPedTypeAcquaintances(pedType).m_nHate = GetAcquaintance();
-        }
-        else if (std::string_view{buf, 7u} == "Dislike")
-        {
-            GetPedTypeAcquaintances(pedType).m_nDislike = GetAcquaintance();
-        }
-        else if (std::string_view{buf, 4u} == "Like")
-        {
-            GetPedTypeAcquaintances(pedType).m_nLike = GetAcquaintance();
-        }
-        else if (std::string_view{buf, 7u} == "Respect")
-        {
-            GetPedTypeAcquaintances(pedType).m_nRespect = GetAcquaintance();
-        }
-        else
-        {
-            pedType = FindPedType(buf);
+        // Como el original: comparación exacta (no por prefijo)
+        if (!strcmp(word, "Hate")) {
+            const auto flags = ReadFlags();
+            GetPedTypeAcquaintances(pedType).m_nHate = flags;
+        } else if (!strcmp(word, "Dislike")) {
+            const auto flags = ReadFlags();
+            GetPedTypeAcquaintances(pedType).m_nDislike = flags;
+        } else if (!strcmp(word, "Like")) {
+            const auto flags = ReadFlags();
+            GetPedTypeAcquaintances(pedType).m_nLike = flags;
+        } else if (!strcmp(word, "Respect")) {
+            const auto flags = ReadFlags();
+            GetPedTypeAcquaintances(pedType).m_nRespect = flags;
+        } else {
+            pedType = FindPedType(word);
         }
     }
     CFileMgr::CloseFile(file);
 }
 
 // 0x5D3D10
-void CPedType::Load() {
+bool CPedType::Load() {
     for (uint32 i = 0; i < PED_TYPE_COUNT; ++i ) {
         for (auto id = 0; id < ACQUAINTANCE_NUM; ++id) {
             auto value = CGenericGameStorage::LoadDataFromWorkBuffer<uint32>();
             GetPedTypeAcquaintances(static_cast<ePedType>(i)).SetAcquaintances(id, value);
         }
     }
+    return true; // Como el original: devuelve true en al
 }
 
 // 0x5D3CD0
-void CPedType::Save() {
+bool CPedType::Save() {
     for (uint32 i = 0; i < PED_TYPE_COUNT; ++i ) {
         for (auto id = 0; id < ACQUAINTANCE_NUM; ++id) {
             uint32 value = GetPedTypeAcquaintances(static_cast<ePedType>(i)).GetAcquaintances(id);
             CGenericGameStorage::SaveDataToWorkBuffer(value);
         }
     }
+    return true; // Como el original: devuelve true en al
 }
 
 // 0x608790
 ePedType CPedType::FindPedType(const char* pedTypeName) {
-    static const auto s_PedTypeByNameMapping = notsa::make_mapping<std::string_view, ePedType>({
-        { "PLAYER1",        PED_TYPE_PLAYER1        },
-        { "PLAYER2",        PED_TYPE_PLAYER2        },
-        { "PLAYER_NETWORK", PED_TYPE_PLAYER_NETWORK },
-        { "PLAYER_UNUSED",  PED_TYPE_PLAYER_UNUSED  },
-        { "CIVMALE",        PED_TYPE_CIVMALE        },
-        { "CIVFEMALE",      PED_TYPE_CIVFEMALE      },
-        { "COP",            PED_TYPE_COP            },
-        { "GANG1",          PED_TYPE_GANG1          },
-        { "GANG2",          PED_TYPE_GANG2          },
-        { "GANG3",          PED_TYPE_GANG3          },
-        { "GANG4",          PED_TYPE_GANG4          },
-        { "GANG5",          PED_TYPE_GANG5          },
-        { "GANG6",          PED_TYPE_GANG6          },
-        { "GANG7",          PED_TYPE_GANG7          },
-        { "GANG8",          PED_TYPE_GANG8          },
-        { "GANG9",          PED_TYPE_GANG9          },
-        { "GANG10",         PED_TYPE_GANG10         },
-        { "DEALER",         PED_TYPE_DEALER         },
-        { "MEDIC",          PED_TYPE_MEDIC          },
-        { "FIREMAN",        PED_TYPE_FIREMAN        },
-        { "CRIMINAL",       PED_TYPE_CRIMINAL       },
-        { "BUM",            PED_TYPE_BUM            },
-        { "PROSTITUTE",     PED_TYPE_PROSTITUTE     },
-        { "SPECIAL",        PED_TYPE_SPECIAL        },
-        { "MISSION1",       PED_TYPE_MISSION1       },
-        { "MISSION2",       PED_TYPE_MISSION2       },
-        { "MISSION3",       PED_TYPE_MISSION3       },
-        { "MISSION4",       PED_TYPE_MISSION4       },
-        { "MISSION5",       PED_TYPE_MISSION5       },
-        { "MISSION6",       PED_TYPE_MISSION6       },
-        { "MISSION7",       PED_TYPE_MISSION7       },
-        { "MISSION8",       PED_TYPE_MISSION8       },
-    });
-    /* NOTE(pirulax): Original code returned `PED_TYPE_COUNT` as an `invalid value` sentinel, but we don't want to have quiet errors */
-    return notsa::find_value(s_PedTypeByNameMapping, pedTypeName); 
-    /* NOTE(pirulax): There are 2 extra `strcmp`'s after this, but they both check values already present in the mapping above, so they're ok to omit */
+    // Como el original: tabla de nombres 0x8D23B8 recorrida con strcmp
+    static constexpr const char* s_PedTypeNames[PED_TYPE_COUNT] = {
+        "PLAYER1", "PLAYER2", "PLAYER_NETWORK", "PLAYER_UNUSED", "CIVMALE", "CIVFEMALE", "COP", "GANG1",
+        "GANG2", "GANG3", "GANG4", "GANG5", "GANG6", "GANG7", "GANG8", "GANG9",
+        "GANG10", "DEALER", "MEDIC", "FIREMAN", "CRIMINAL", "BUM", "PROSTITUTE", "SPECIAL",
+        "MISSION1", "MISSION2", "MISSION3", "MISSION4", "MISSION5", "MISSION6", "MISSION7", "MISSION8",
+    };
+    for (uint32 i = 0; i < PED_TYPE_COUNT; i++) {
+        if (!strcmp(pedTypeName, s_PedTypeNames[i])) {
+            return static_cast<ePedType>(i);
+        }
+    }
+    // Como el original: dos comparaciones más (redundantes) y PED_TYPE_COUNT si el nombre no existe
+    if (!strcmp(pedTypeName, "PLAYER_NETWORK")) {
+        return PED_TYPE_PLAYER_NETWORK;
+    }
+    return !strcmp(pedTypeName, "PLAYER_UNUSED") ? PED_TYPE_PLAYER_UNUSED : PED_TYPE_COUNT;
 }
 
 // 0x608830
-// TODO: Stuff related to this should use `size_t`'s
 uint32 CPedType::GetPedFlag(ePedType pedType) {
-    if ((size_t)pedType < (sizeof(uint32) * 8)) { // Make sure we aren't shifting more than 31 bits, otherwise it's U.B.
-        return 1 << (size_t)pedType;
-    } else {
-        return 0;
+    // Como el original: comparación con signo (jge 32) y shl, que solo usa los 5 bits bajos
+    const auto type = static_cast<int32>(pedType);
+    if (type < 32) {
+        return 1u << (type & 31);
     }
+    return 0;
 }
 
 // 0x6089B0

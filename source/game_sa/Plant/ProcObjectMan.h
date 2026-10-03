@@ -34,7 +34,7 @@ public:
     ProcObjectMan_c() = default;  // 0x5A3E20
     ~ProcObjectMan_c() = default; // 0x5A3090
 
-    void Init();
+    bool Init();
     void Update();
     void Exit();
     void LoadDataFile();
@@ -42,7 +42,7 @@ public:
     ProcObjectListItem* GetEntityFromPool();
     void ReturnEntityToPool(ProcObjectListItem* item);
 
-    int32 ProcessTriangleAdded(CPlantLocTri* plant);
+    uint8 ProcessTriangleAdded(CPlantLocTri* plant);
     void ProcessTriangleRemoved(CPlantLocTri* plant);
 };
 VALIDATE_SIZE(ProcObjectMan_c, 0x4C14);

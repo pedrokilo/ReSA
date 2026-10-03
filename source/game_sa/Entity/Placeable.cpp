@@ -51,6 +51,21 @@ void CPlaceable::InjectHooks() {
     RH_ScopedInstall(FreeStaticMatrix, 0x54F010);
 }
 
+static const float s_PlaceableMinusOne = -1.0f; // Como el original: constante 0x858C1C
+
+namespace {
+
+// Como el original: atan2(-forward.x, forward.y) con fpatan del x87 (precisión completa); el llamador lo guarda a float.
+__declspec(naked) float __cdecl PlaceableHeadingFromForward(float negForwardX, float forwardY) {
+    __asm {
+        fld dword ptr [esp+4]
+        fld dword ptr [esp+8]
+        fpatan
+        ret
+    }
+}
+} // namespace
+
 // Comienza con la representación compacta CSimpleTransform y sin CMatrixLink asignada.
 CPlaceable::CPlaceable() : m_placement() {
     m_matrix = nullptr;
@@ -120,21 +135,58 @@ void CPlaceable::SetHeading(float heading) {
         m_placement.m_fHeading = heading;
 }
 
-float CPlaceable::GetHeading() const {
-    return m_matrix
-        ? m_matrix->GetForward().Heading()
-        : m_placement.m_fHeading;
+// 0x441DB0
+// Como el original: atan2(-forward.x, forward.y) con fpatan; el resultado se devuelve en ST0 sin redondear a float.
+__declspec(naked) float CPlaceable::GetHeading() const {
+    __asm {
+        mov eax, dword ptr [ecx+14h]
+        test eax, eax
+        je no_matrix
+        fld dword ptr [eax+10h]
+        fchs
+        fld dword ptr [eax+14h]
+        fpatan
+        ret
+    no_matrix:
+        fld dword ptr [ecx+10h]
+        ret
+    }
 }
 
 // 0x420B30
-float CPlaceable::GetRoll() const {
-    if (!m_matrix) {
-        return 0.f;
+// Como el original: atan2(right.z, ±|right.xy|) con fsqrt (no la magnitud al cuadrado) y fpatan; el signo
+// se invierte solo si up.z < 0 (NaN no) y el resultado se devuelve en ST0 sin redondear a float.
+__declspec(naked) float CPlaceable::GetRoll() const {
+    __asm {
+        mov ecx, dword ptr [ecx+14h]
+        test ecx, ecx
+        je no_matrix
+        fld dword ptr [ecx+4]
+        fld dword ptr [ecx]
+        fld st(0)
+        fmul st, st(1)
+        fld st(2)
+        fmul st, st(3)
+        faddp st(1), st
+        fsqrt
+        fstp st(2)
+        fstp st(0)
+        fldz
+        fld dword ptr [ecx+28h]
+        fcompp
+        fnstsw ax
+        test ah, 5
+        jp not_negative
+        fmul dword ptr [s_PlaceableMinusOne]
+    not_negative:
+        fld dword ptr [ecx+8]
+        fxch st(1)
+        fpatan
+        ret
+    no_matrix:
+        fldz
+        ret
     }
-
-    const auto& right = m_matrix->GetRight();
-    const auto  xymag = CVector2D{ right }.SquaredMagnitude(); // NOTE: We're using sqmag here because it doesn't matter, and we save a sqrt this way.
-    return std::atan2(right.z, m_matrix->GetUp().z < 0.f ? -xymag : xymag);
 }
 
 bool CPlaceable::IsWithinArea(float x1, float y1, float x2, float y2) const {
@@ -174,7 +226,7 @@ bool CPlaceable::IsWithinArea(float x1, float y1, float z1, float x2, float y2, 
  */
 void CPlaceable::RemoveMatrix() {
     const auto& vecForward = m_matrix->GetForward();
-    auto fHeading = std::atan2(-vecForward.x, vecForward.y);
+    const float fHeading = PlaceableHeadingFromForward(-vecForward.x, vecForward.y); // Como el original: fpatan
 
     m_placement.m_vPosn = m_matrix->GetPosition();
     m_placement.m_fHeading = fHeading;
@@ -212,7 +264,7 @@ void CPlaceable::SetMatrix(CMatrix& matrix) {
     if (!m_matrix) {
         if (matrix.GetUp().z == 1.0F) {
             auto& vecForward = matrix.GetForward();
-            auto fHeading = std::atan2(-vecForward.x, vecForward.y);
+            const float fHeading = PlaceableHeadingFromForward(-vecForward.x, vecForward.y); // Como el original: fpatan
 
             m_placement.m_vPosn = matrix.GetPosition();
             m_placement.m_fHeading = fHeading;

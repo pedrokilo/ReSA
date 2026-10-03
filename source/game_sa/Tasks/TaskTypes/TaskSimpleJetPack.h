@@ -73,7 +73,7 @@ private:
     CEntity* m_TargetEntity{};
 
     FxSystem_c* m_ThrusterFX[2]{}; // left and right thruster FX
-    float       m_FxKeyTime{};
+    float       m_FxKeyTime; // Como el original: el constructor no lo escribe (se pone a 0 al crear los efectos)
 
 private: // Wrappers for hooks
     // 0x67B4E0

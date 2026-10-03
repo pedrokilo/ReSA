@@ -94,7 +94,7 @@ public:
     // Libera la geometría asignada por separado y deja esta instancia vacía.
     void RemoveCollisionVolumes();
     // Copia profundamente geometría principal y de sombras; no conserva face groups.
-    void Copy(const CCollisionData& src);
+    CCollisionData& Copy(const CCollisionData& src); // Como el original: devuelve this (eax)
     // Genera la caché de planos y reserva al final espacio para el enlace de caché.
     void CalculateTrianglePlanes();
     // Elimina únicamente la caché derivada de planos.

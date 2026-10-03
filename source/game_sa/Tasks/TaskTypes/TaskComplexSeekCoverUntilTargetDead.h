@@ -35,7 +35,12 @@ public:
     CPed* GetCoverPed(CPed* ped);
     CPed* GetTargetPed() const;
 
-    CTask*    Clone() const override { return new CTaskComplexSeekCoverUntilTargetDead{ *this }; }
+    // 0x623900 - Como el original: con grupo (>= 0) usa el constructor de grupo, si no el de peaton (grupo = -1)
+    CTask*    Clone() const override {
+        return m_groupId >= 0
+            ? new CTaskComplexSeekCoverUntilTargetDead{ m_groupId }
+            : new CTaskComplexSeekCoverUntilTargetDead{ m_targetPed };
+    }
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;

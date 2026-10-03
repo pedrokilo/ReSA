@@ -116,4 +116,5 @@ public:
 };
 
 uint64 GetMillisecondTime();
+bool QueryTimerFrequency(uint32& frequencyLow); // NOTSA: envoltorio de QueryPerformanceFrequency para Initialise
 bool EachFrames(auto count) { return (CTimer::GetFrameCounter() & count) == 0; }

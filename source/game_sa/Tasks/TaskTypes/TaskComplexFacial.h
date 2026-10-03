@@ -14,7 +14,7 @@ class NOTSA_EXPORT_VTABLE CTaskComplexFacial : public CTaskComplex {
 public:
     static constexpr auto Type = TASK_COMPLEX_FACIAL;
 
-    CTaskComplexFacial() = default;
+    CTaskComplexFacial(); // 0x690D20
     ~CTaskComplexFacial() override = default; // 0x690D90
 
     eTaskType GetTaskType() const override { return Type; }
@@ -47,14 +47,15 @@ private:
     CTaskComplexFacial* Constructor() { this->CTaskComplexFacial::CTaskComplexFacial(); return this; }
 
 private:
-    bool              m_IsChewing{CGeneral::RandomBool(30.f)};
-    bool              m_TalkingLastFrame{};
-    bool              m_IsAborting{};
+    // Como el original: el constructor (0x690D20) no escribe las duraciones ni el byte 0xF
+    bool              m_IsChewing;
+    bool              m_TalkingLastFrame;
+    bool              m_IsAborting;
 
-    eFacialExpression m_RequestA{eFacialExpression::NONE};
-    int32             m_DurationA{};
+    eFacialExpression m_RequestA;
+    int32             m_DurationA;
 
-    eFacialExpression m_RequestB{eFacialExpression::NONE};
-    int32             m_DurationB{};
+    eFacialExpression m_RequestB;
+    int32             m_DurationB;
 };
 VALIDATE_SIZE(CTaskComplexFacial, 0x20);

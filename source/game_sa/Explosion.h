@@ -41,8 +41,9 @@ public:
     CEntity*       m_pVictim;
     float          m_nExpireTime;
     float          m_fDamagePercentage;
-    uint8          m_nActiveCounter;
-    bool           m_bMakeSound;
+    uint8          m_nIteration;     // 0x28 (activa mientras sea != 0)
+    uint8          m_nActiveCounter; // 0x29 (GetExplosionActiveCounter)
+    uint8          m_bMakeSound;     // 0x2A (Como el original: byte crudo, se guarda tal cual el argumento)
     float          m_nCreatedTime;
     uint32         m_nParticlesExpireTime;
     float          m_fVisibleDistance;
@@ -64,7 +65,7 @@ public:
 
     static uint8 GetExplosionActiveCounter(uint8 id);
     static void ResetExplosionActiveCounter(uint8 id);
-    static bool DoesExplosionMakeSound(uint8 id);
+    static uint8 DoesExplosionMakeSound(uint8 id); // Como el original: devuelve el byte sin normalizar
     static int32 GetExplosionType(uint8 id);
     static const CVector& GetExplosionPosition(uint8 id);
 

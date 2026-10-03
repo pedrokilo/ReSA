@@ -66,8 +66,8 @@ public:
 
 private:
     static DWORD __stdcall WriteUserTracksThread(CAEUserRadioTrackManager* self);
-    int32 WriteUserTracksFile_Legacy(const char* dir, UserTracksLegacyVector& offsets, FILE* file, size_t& currentLength, int32 depth);
-    int32 WriteUserTracksFile(const char* dir, size_t& currentLength, auto file, std::vector<tUserTracksInfo>& offsets, int32 depth);
+    // Como el original (0x4F4690): (directorio, vector VC6, FILE, longitud acumulada, profundidad), `ret 14h`.
+    int32 WriteUserTracksFile(const char* dir, UserTracksLegacyVector& offsets, FILE* file, uint32& currentLength, int32 depth);
     char* ResolveShortcut(const char* path);
 
     // Private functions which aren't part of GTASA itself
@@ -75,7 +75,11 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    // NOTSA: variantes con rutas UTF-8 (bugfix CAEUserRadioTrackManager_UnicodeUserTracks).
+    void  WriteUserTracksThread_Unicode();
+    int32 WriteUserTracksFile_Unicode(const char* dir, UserTracksLegacyVector& offsets, FILE* file, uint32& currentLength, int32 depth);
     int32 WriteUserTracksFile(const std::wstring& dir, size_t& currentLength, auto file, std::vector<tUserTracksInfo>& offsets, int32 depth);
+    char* ResolveShortcut_Unicode(const char* path);
 
     static std::wstring ResolveShortcut(const std::wstring& path);
 };

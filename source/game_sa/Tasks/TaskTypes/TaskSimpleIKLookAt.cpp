@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -35,37 +35,56 @@ void CTaskSimpleIKLookAt::InjectHooks() {
     RH_ScopedVMTInstall(CreateIKChain, 0x633FC0);
 }
 
+// Como el original: el EXE guarda y pasa el hueso de desplazamiento como dword (la palabra alta tambien cuenta)
+static eBoneTag32 RawBoneTag32(const eBoneTag16& bone) {
+    eBoneTag32 r;
+    r.m_Value = *reinterpret_cast<const int32*>(&bone);
+    return r;
+}
+
 // 0x633E00
-CTaskSimpleIKLookAt::CTaskSimpleIKLookAt(Const char* name, CEntity* lookAtEntity, int32 time, eBoneTag pedBoneID, CVector lookAtOffset, bool useTorso, float speed,
+CTaskSimpleIKLookAt::CTaskSimpleIKLookAt(Const char* name, CEntity* lookAtEntity, int32 time, eBoneTag32 pedBoneID, CVector lookAtOffset, bool useTorso, float speed,
                                          int32 blendTime, int8 priority
-)
-    : CTaskSimpleIKChain{name, BONE_HEAD, { 0.f, 0.05f, 0.f }, BONE_ROOT, lookAtEntity, pedBoneID, lookAtOffset, speed, time, blendTime}
+) :
+    // Como el original: el constructor de CTaskSimpleIKChain va en linea y no escribe 0x14, 0x16, 0x48, 0x4C ni 0x50
+    CTaskSimpleIKChain{ UninitTag{ *reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(this) + 0x16) } }
 {
-    m_nPriority = priority;
-    m_bUseTorso = useTorso;
+    m_OffsetPos       = lookAtOffset;
+    *reinterpret_cast<int32*>(&m_OffsetBone) = pedBoneID.get_underlying(); // Como el original: se escribe como dword
+    m_Duration        = time;
+    m_BlendDuration   = blendTime;
+    m_EffectorOffset  = CVector{ 0.f, 0.05f, 0.f };
+    m_bUseTorso       = useTorso;
+    m_IKChain         = nullptr;
+    m_EffectorBone    = BONE_HEAD;
+    m_Speed           = speed;
+    m_Blend           = 0.f;
+    m_nPriority       = priority;
+    m_IsBlendingOut   = 0;
+    m_TargetEntity    = lookAtEntity;
+    m_TargetEntityExisted = lookAtEntity != nullptr;
 }
 
 // 0x633F00
-
-
 CTaskSimpleIKLookAt* CTaskSimpleIKLookAt::Clone() const {
-    auto* task = new CTaskSimpleIKLookAt("", m_TargetEntity, m_Duration, m_OffsetBone, m_OffsetPos, m_bUseTorso, m_Speed, m_BlendDuration, m_nPriority);
+    // Como el original: el hueso de desplazamiento se pasa como dword
+    auto* task = new CTaskSimpleIKLookAt("", m_TargetEntity, m_Duration, RawBoneTag32(m_OffsetBone), m_OffsetPos, m_bUseTorso, m_Speed, m_BlendDuration, m_nPriority);
     if (m_IKChain) {
         task->m_Blend        = m_Blend;
         task->m_EndTime      = m_EndTime;
         task->m_TargetBlend  = m_TargetBlend;
         task->m_TargetTime   = m_TargetTime;
-        task->m_PivotBone = m_PivotBone;
+        task->m_PivotBone    = m_PivotBone;
     }
     return task;
 }
 
 // 0x634050
-void CTaskSimpleIKLookAt::UpdateLookAtInfo(const char* strPurpose, CPed* ped, CEntity* targetPed, int32 time, eBoneTag pedBoneID, RwV3d lookAtOffset, bool useTorso, float fSpeed,
+void CTaskSimpleIKLookAt::UpdateLookAtInfo(const char* strPurpose, CPed* ped, CEntity* targetPed, int32 time, eBoneTag32 pedBoneID, RwV3d lookAtOffset, bool useTorso, float fSpeed,
                                            int32 blendTime, int32 unused) {
-    m_TargetEntityExisted = !!targetPed;
     m_TargetEntity        = targetPed;
-    m_OffsetBone          = pedBoneID;
+    m_TargetEntityExisted = !!targetPed;
+    *reinterpret_cast<int32*>(&m_OffsetBone) = pedBoneID.get_underlying(); // Como el original: se escribe como dword
     m_OffsetPos           = lookAtOffset;
     m_bUseTorso           = useTorso;
     m_Duration            = time;
@@ -78,7 +97,7 @@ void CTaskSimpleIKLookAt::UpdateLookAtInfo(const char* strPurpose, CPed* ped, CE
 
     if (m_IKChain) {
         m_IKChain->UpdateEntity(m_TargetEntity);
-        m_IKChain->UpdateOffset(m_OffsetBone, m_OffsetPos);
+        m_IKChain->UpdateOffset(RawBoneTag32(m_OffsetBone), m_OffsetPos);
         m_IKChain->UpdateTarget(true);
     }
 }
@@ -106,7 +125,7 @@ bool CTaskSimpleIKLookAt::CreateIKChain(CPed* ped) {
         m_EffectorOffset,
         BONE_NECK,
         m_TargetEntity,
-        m_OffsetBone,
+        RawBoneTag32(m_OffsetBone), // Como el original: se pasa como dword
         m_OffsetPos,
         m_Speed,
         m_nPriority)

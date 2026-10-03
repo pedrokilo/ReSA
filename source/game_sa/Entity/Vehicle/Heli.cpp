@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/11 entradas.
+ * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -110,8 +110,9 @@ CHeli::~CHeli() {
 // 0x6C4560
 void CHeli::InitHelis() {
     std::ranges::fill(pHelis, nullptr);
-    for (auto& light : HeliSearchLights) {
-        light.Init();
+    // Como el original: el bucle del EXE termina en 0xC1CA30, así que solo inicializa los dos primeros focos
+    for (auto i = 0u; i < 2u; i++) {
+        HeliSearchLights[i].Init();
     }
     NumberOfSearchLights = 0;
     bPoliceHelisAllowed = true;
@@ -119,7 +120,7 @@ void CHeli::InitHelis() {
 
 // 0x6C45B0
 void CHeli::AddHeliSearchLight(const CVector& origin, const CVector& target, float targetRadius, float power, uint32 coronaIndex, uint8 unknownFlag, uint8 drawShadow) {
-    auto& light = HeliSearchLights[NumberOfSearchLights];
+    auto& light = HeliSearchLights.data()[NumberOfSearchLights]; // Como el original: sin comprobar el límite
 
     light.m_vecOrigin     = origin;
     light.m_vecTarget     = target;
@@ -223,23 +224,35 @@ CHeli* CHeli::GenerateHeli(CPed* target, bool newsHeli) {
 }
 
 // 0x6C6890
-void CHeli::TestSniperCollision(CVector* origin, CVector* target) {
-    CVector point = *target - *origin;
+bool CHeli::TestSniperCollision(CVector* origin, CVector* target) {
+    const CVector point = *target - *origin;
 
-    if (point.z >= point.Magnitude() / 2.0f)
-        return;
+    // Como el original: (z·z + x·x) + y·y y solo sigue si z < mitad estricto (NaN termina)
+    if (!(point.z < std::sqrt(point.z * point.z + point.x * point.x + point.y * point.y) * 0.5f)) {
+        return false;
+    }
 
+    bool hit = false;
     for (auto& heli : pHelis) {
         if (!heli || heli->physicalFlags.bBulletProof)
             continue;
 
-        const auto mat = (CMatrix*)heli->m_matrix;
-        if (CCollision::DistToLine(*origin, *target, mat->TransformPoint({ -0.43f, 1.49f, 1.5f })) < 0.8f) {
-            heli->m_fRotationBalance = (float)(CGeneral::GetRandomNumber() < pow(2, 14) - 1) * 0.1f - 0.05f; // 2^14 - 1 = 16383 [-0.05, 0.05]
+        // Como el original: MultiplyMatrixWithVector (0x59C890) con su orden de sumas
+        const CMatrix& m = *heli->m_matrix;
+        const CVector v{ -0.43f, 1.49f, 1.5f };
+        const CVector rotorPos{
+            m.GetUp().x * v.z + m.GetForward().x * v.y + m.GetRight().x * v.x + m.GetPosition().x,
+            m.GetUp().y * v.z + m.GetRight().y * v.x + m.GetForward().y * v.y + m.GetPosition().y,
+            m.GetUp().z * v.z + m.GetRight().z * v.x + m.GetForward().z * v.y + m.GetPosition().z
+        };
+        if (CCollision::DistToLine(*origin, *target, rotorPos) < 0.8f) {
+            heli->m_fRotationBalance = (float)(CGeneral::GetRandomNumber() < 16383) * 0.1f - 0.05f; // [-0.05, 0.05]
             heli->BlowUpCar(FindPlayerPed(), false);
             heli->m_nNumSwatOccupants = 0;
-        };
+            hit = true;
+        }
     }
+    return hit;
 }
 
 // 0x6C69C0
@@ -258,7 +271,9 @@ void CHeli::UpdateHelis() {
 void CHeli::RenderAllHeliSearchLights() {
     ZoneScoped;
 
-    for (auto& light : HeliSearchLights) {
+    // Como el original: solo los focos añadidos este fotograma (contador de 8 bits)
+    for (uint8 i = 0; i < NumberOfSearchLights; i++) {
+        auto& light = HeliSearchLights.data()[i];
         SearchLightCone(
             light.m_nCoronaIndex,
             light.m_vecOrigin,
@@ -288,7 +303,7 @@ void CHeli::BlowUpCar(CEntity* damager, bool bHideExplosion) {
 // 0x6C4530
 void CHeli::Fix() {
     m_damageManager.ResetDamageStatus();
-    SetupDamageAfterLoad();
+    CHeli::SetupDamageAfterLoad(); // Como el original: en línea, sin pasar por la vtable
 }
 
 // 0x6C4330

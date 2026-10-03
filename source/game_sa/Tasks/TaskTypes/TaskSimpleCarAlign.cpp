@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/10 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -76,36 +76,52 @@ void CTaskSimpleCarAlign::FixHeading(CPed* ped) {
         return;
     }
 
-    const auto carLeftOrRight = [this] {
-        switch (m_door) {
-        case CAR_DOOR_LF:
-        case CAR_DOOR_LR:
-            return m_veh->GetRight() * -1.f; // Left
-        default:
-            return m_veh->GetRight();
-        }
-    }();
+    // Como el original: copia del vector derecho de la matriz del vehiculo, por -1 en las puertas izquierdas
+    CVector carLeftOrRight = m_veh->GetRight();
+    switch (m_door) {
+    case CAR_DOOR_LF:
+    case CAR_DOOR_LR:
+        carLeftOrRight.x *= -1.f;
+        carLeftOrRight.y *= -1.f;
+        carLeftOrRight.z *= -1.f;
+        break;
+    }
 
-    const auto pedFwd = ped->GetForwardVector();
-    const auto dot = DotProduct(carLeftOrRight, pedFwd);
-    if (dot <= 0.f || dot >= 0.1f) {
+    // Como el original: producto (z*z' + y*y') + x*x'; solo sigue si 0 < dot < 0,1 (NaN termina)
+    const auto Dot = [&](const CVector& f) {
+        return (carLeftOrRight.z * f.z + carLeftOrRight.y * f.y) + carLeftOrRight.x * f.x;
+    };
+    const float dot = Dot(ped->GetForwardVector());
+    if (!(dot > 0.f) || !(dot < 0.1f)) {
         return;
     }
 
-    ped->m_fAimingRotation = ped->m_fCurrentRotation = CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints(pedFwd - carLeftOrRight * dot, {}));
+    // Como el original: x e y se escalan por el producto y se restan dos veces del forward (z sin escalar no se usa)
+    const float dot2 = Dot(ped->GetForwardVector());
+    const float xd   = carLeftOrRight.x * dot2;
+    const float yd   = carLeftOrRight.y * dot2;
+    const auto  fwd  = ped->GetForwardVector();
+    const float x    = (fwd.x - xd) - xd;
+    const float y    = (fwd.y - yd) - yd;
+
+    ped->m_fAimingRotation = ped->m_fCurrentRotation = CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints(x, y, 0.f, 0.f));
 }
 
 // 0x64AC00
 void CTaskSimpleCarAlign::StartAnim(CPed* ped) {
     const auto animId = [this, ped] {
         const auto doorOpenPos = CCarEnterExit::GetPositionToOpenCarDoor(m_veh, m_door);
-        const auto z = doorOpenPos.z - ped->GetPosition().z;
+        float z = doorOpenPos.z - ped->GetPosition().z;
+        if (z < 0.f) { // Como el original: negativo se limita a 0 (NaN se conserva)
+            z = 0.f;
+        }
+        // Como el original: alto solo si z > 4,4 (NaN usa la animacion baja)
         switch (m_door) {
         case CAR_DOOR_LF:
         case CAR_DOOR_LR:
-            return (z <= 4.4f) ? ANIM_ID_CAR_ALIGN_LHS : ANIM_ID_CAR_ALIGNHI_LHS;
+            return (z > 4.4f) ? ANIM_ID_CAR_ALIGNHI_LHS : ANIM_ID_CAR_ALIGN_LHS;
         default:
-            return (z <= 4.4f) ? ANIM_ID_CAR_ALIGN_RHS : ANIM_ID_CAR_ALIGNHI_RHS;
+            return (z > 4.4f) ? ANIM_ID_CAR_ALIGNHI_RHS : ANIM_ID_CAR_ALIGN_RHS;
         }
     }();
     m_anim = CAnimManager::BlendAnimation(
@@ -145,7 +161,7 @@ bool CTaskSimpleCarAlign::ProcessPed(CPed* ped) {
 
 // 0x645C70
 bool CTaskSimpleCarAlign::SetPedPosition(CPed* ped) {
-    //const auto doorOpenPos = CCarEnterExit::GetPositionToOpenCarDoor(m_veh, m_door); // Result unused
+    std::ignore = CCarEnterExit::GetPositionToOpenCarDoor(m_veh, m_door); // Como el original: se calcula y no se usa
     m_lineUpTask->ProcessPed(ped, m_veh, m_anim);
     return true;
 }

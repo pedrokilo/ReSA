@@ -10,7 +10,7 @@
  * libvorbis accede al stream exclusivamente mediante callbacks estáticos que
  * redirigen lectura/seek/tell/close al objeto fuente adoptado por la clase base.
  */
-class CAEVorbisDecoder : public CAEStreamingDecoder {
+class NOTSA_EXPORT_VTABLE CAEVorbisDecoder : public CAEStreamingDecoder {
 public:
     CAEVorbisDecoder(CAEDataStream* dataStream, int32 userTrack);
     ~CAEVorbisDecoder() override;

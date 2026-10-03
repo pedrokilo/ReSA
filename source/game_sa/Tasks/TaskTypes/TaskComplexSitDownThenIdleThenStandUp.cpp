@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -72,8 +72,8 @@ CTask* CTaskComplexSitDownThenIdleThenStandUp::CreateSubTask(eTaskType taskType)
         return new CTaskSimpleSitIdle{ m_durationMs, m_sitOnStep };
     case TASK_SIMPLE_STAND_UP:
         return new CTaskSimpleStandUp{ m_sitOnStep };
-    default:
-        NOTSA_UNREACHABLE();
+    default: // Como el original
+        return nullptr;
     }
 }
 
@@ -84,7 +84,7 @@ bool CTaskComplexSitDownThenIdleThenStandUp::MakeAbortable(CPed* ped, eAbortPrio
     }
 
     m_durationMs = 0;
-    m_pSubTask->MakeAbortable(ped, priority, event);
+    m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, event); // Como el original: la subtarea se aborta con prioridad LEISURE
 
     return false;
 }
@@ -108,8 +108,8 @@ CTask* CTaskComplexSitDownThenIdleThenStandUp::CreateNextSubTask(CPed* ped) {
         return CreateSubTask(TASK_SIMPLE_STAND_UP);
     case TASK_SIMPLE_STAND_UP:
         return nullptr;
-    default:
-        NOTSA_UNREACHABLE();
+    default: // Como el original
+        return nullptr;
     }
 }
 
@@ -122,7 +122,7 @@ CTask* CTaskComplexSitDownThenIdleThenStandUp::CreateFirstSubTask(CPed* ped) {
 CTask* CTaskComplexSitDownThenIdleThenStandUp::ControlSubTask(CPed* ped) {
     if (!m_animBlockRefAdded && m_sitOnStep) {
         const auto idx = CAnimManager::GetAnimationBlockIndex("attractors");
-        if (CAnimManager::GetAnimBlocks()[idx].IsLoaded) {
+        if (*reinterpret_cast<const uint8*>(&CAnimManager::GetAnimBlocks()[idx].IsLoaded) == 1) { // Como el original: cmp byte, 1
             CAnimManager::AddAnimBlockRef(idx);
             m_animBlockRefAdded = true;
         } else {

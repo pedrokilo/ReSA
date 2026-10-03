@@ -1,0 +1,105 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 17312,
+  "pairs_per_function": {
+    "CPopCycle::Initialise": 32,
+    "CPopCycle::PickGangToCreateMembersOf": 512,
+    "CPopCycle::FindNewPedType": 1024,
+    "CPopCycle::PickPedMIToStreamInForCurrentZone": 512,
+    "CPopCycle::IsPedAppropriateForCurrentZone": 512,
+    "CPopCycle::IsPedInGroup": 512,
+    "CPopCycle::GetCurrentPercOther_Peds": 512,
+    "CPopCycle::PickARandomGroupOfOtherPeds": 512,
+    "CPopCycle::PlayerKilledADealer": 128,
+    "CPopCycle::UpdateDealerStrengths": 256,
+    "CPopCycle::UpdateAreaDodgyness": 256,
+    "CPopCycle::UpdateIsGangArea": 128,
+    "CPopCycle::PedIsAcceptableInCurrentZone": 256,
+    "CPopCycle::UpdatePercentages": 1024,
+    "CPopCycle::Update": 512,
+    "CSprite::Initialise": 64,
+    "CSprite::CalcScreenCoors": 1024,
+    "CSprite::FlushSpriteBuffer": 256,
+    "CSprite::InitSpriteBuffer": 64,
+    "CSprite::RenderOneXLUSprite": 1024,
+    "CSprite::RenderOneXLUSprite_Triangle": 1024,
+    "CSprite::RenderOneXLUSprite_Rotate_Aspect": 1024,
+    "CSprite::Set4Vertices2D-CRect": 512,
+    "CSprite::CalcHorizonCoors": 512,
+    "CSprite::RenderBufferedOneXLUSprite": 1024,
+    "CSprite::RenderBufferedOneXLUSprite_Rotate_Aspect": 1024,
+    "CSprite::RenderBufferedOneXLUSprite_Rotate_Dimension": 1024,
+    "CSprite::RenderBufferedOneXLUSprite_Rotate_2Colours": 1024,
+    "CSprite::RenderBufferedOneXLUSprite2D": 512,
+    "CSprite::RenderOneXLUSprite2D": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "29feb4d3bb0a9a5875d938bbb680a762a40f9ddd687f26ed9b85d5549884b075",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-world15\\20261003-113222-770747",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CPopCycle::Initialise": true,
+    "CPopCycle::PickGangToCreateMembersOf": true,
+    "CPopCycle::FindNewPedType": true,
+    "CPopCycle::PickPedMIToStreamInForCurrentZone": true,
+    "CPopCycle::IsPedAppropriateForCurrentZone": true,
+    "CPopCycle::IsPedInGroup": true,
+    "CPopCycle::GetCurrentPercOther_Peds": true,
+    "CPopCycle::PickARandomGroupOfOtherPeds": true,
+    "CPopCycle::PlayerKilledADealer": true,
+    "CPopCycle::UpdateDealerStrengths": true,
+    "CPopCycle::UpdateAreaDodgyness": true,
+    "CPopCycle::UpdateIsGangArea": true,
+    "CPopCycle::PedIsAcceptableInCurrentZone": true,
+    "CPopCycle::UpdatePercentages": true,
+    "CPopCycle::Update": true,
+    "CSprite::Initialise": true,
+    "CSprite::CalcScreenCoors": true,
+    "CSprite::FlushSpriteBuffer": true,
+    "CSprite::InitSpriteBuffer": true,
+    "CSprite::RenderOneXLUSprite": true,
+    "CSprite::RenderOneXLUSprite_Triangle": true,
+    "CSprite::RenderOneXLUSprite_Rotate_Aspect": true,
+    "CSprite::Set4Vertices2D-CRect": true,
+    "CSprite::CalcHorizonCoors": true,
+    "CSprite::RenderBufferedOneXLUSprite": true,
+    "CSprite::RenderBufferedOneXLUSprite_Rotate_Aspect": true,
+    "CSprite::RenderBufferedOneXLUSprite_Rotate_Dimension": true,
+    "CSprite::RenderBufferedOneXLUSprite_Rotate_2Colours": true,
+    "CSprite::RenderBufferedOneXLUSprite2D": true,
+    "CSprite::RenderOneXLUSprite2D": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "379e4a997f55516fe6510c8d68279f3e13ef13488ae3f3c22aaba99a65d859f4",
+      "pdb": "aa6166afb363184aaebd6f4cecf6ebd0aa6680a8eb556420f1421f7458800c15"
+    },
+    "sources": {
+      "source/game_sa/PopCycle.cpp": "86d0cf5c3ebd6bf95575204a1eb60ca480d543b279aecbf7460785ef93d89b0e",
+      "source/game_sa/PopCycle.h": "e8728983efd6d4242b9e8e52c4fe38e52b7dcc0e4c7f70a80a305fdeeceeb227",
+      "source/game_sa/Sprite.cpp": "e50a1d99a46468abf7ae1e40466a86d95a38348b29fb0a211d53c1745ed5f8e5",
+      "source/game_sa/Sprite.h": "09e56f6ca566219c85fe6ee4d983584bd0a8f5b415cc172c35589ad2c09e538d"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "484deded30579eb6f8057a11da7f412fe27b78e7359c14c9965ab1f04fcd4f67",
+      "build_probe.py": "47ea9c5d1a65befeea6ce5f62f7dda299b788e4d1636cd6522b3a1580b592189",
+      "run_local.py": "307785221c756cd6c66fad63c3f9f01aefca8b30cee750f7dca88d6f6e92498f"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

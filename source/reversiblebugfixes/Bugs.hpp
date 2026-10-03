@@ -91,4 +91,10 @@ inline const ReversibleBugFix CAECollisionAudioEntity_PlayLoopingCollisionSound_
                    "The fix ensures the surface type is valid before accessing `g_surfaceInfos`.",
     .Credit      = "Pirulax"
 };
+inline const ReversibleBugFix CAEUserRadioTrackManager_UnicodeUserTracks{
+    .Name        = "User Tracks - Unicode paths and immediate reload",
+    .Description = "Scan User Tracks with UTF-8 paths (std::filesystem and Unicode shortcuts) and reload the track index as soon as the scan ends. "
+                   "The original game scans with ANSI paths and only reloads the index when the menu calls Initialise.",
+    .Credit      = "MikuAuahDark"
+};
 };

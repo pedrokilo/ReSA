@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 1.
- * Validación registrada: 0/11 entradas.
+ * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -34,6 +34,22 @@ END GENERATED HOOK STATUS */
 #include "Events/EventLeaderEntryExit.h"
 #include "Rubbish.h"
 
+static void __fastcall EntryExitGetPositionRelativeToOutsideWorld(CEntryExit* enex, void*, CVector* outPos) {
+    enex->GetPositionRelativeToOutsideWorld(*outPos);
+}
+
+// Como el original: 0x43EA00 no toca edx y CEntryExitManager::GetPositionRelativeToOutsideWorld (0x43F150)
+// usa edx como contador del bucle a través de la llamada; envoltorio thiscall (ret 4) que conserva edx.
+static __declspec(naked) void EntryExitGetPositionRelativeToOutsideWorldKeepEdx() {
+    __asm {
+        push edx
+        push dword ptr [esp+8]
+        call EntryExitGetPositionRelativeToOutsideWorld
+        pop  edx
+        ret  4
+    }
+}
+
 void CEntryExit::InjectHooks() {
     RH_ScopedClass(CEntryExit);
     RH_ScopedCategoryGlobal();
@@ -42,7 +58,7 @@ void CEntryExit::InjectHooks() {
     RH_ScopedInstall(GetEntryExitToDisplayNameOf, 0x43E650);
     RH_ScopedInstall(FindValidTeleportPoint, 0x43EAF0);
     RH_ScopedInstall(IsInArea, 0x43E460);
-    RH_ScopedInstall(GetPositionRelativeToOutsideWorld, 0x43EA00, {.locked = true});
+    RH_ScopedNamedGlobalInstall(EntryExitGetPositionRelativeToOutsideWorldKeepEdx, "GetPositionRelativeToOutsideWorld", 0x43EA00, {.locked = true});
     RH_ScopedInstall(TransitionStarted, 0x43FFD0);
     RH_ScopedInstall(TransitionFinished, 0x4404A0);
     RH_ScopedInstall(RequestObjectsInFrustum, 0x43E690);
@@ -117,7 +133,8 @@ void CEntryExit::GenerateAmbientPeds(const CVector& posn) {
     } else {
         constexpr const char* PoliceStationEnExNames[]{ "POLICE1", "POLICE2", "POLICE3", "POLICE4" };
         CPopulation::bInPoliceStation = rng::any_of(PoliceStationEnExNames, [this](auto&& n) { return _stricmp(m_szName, n) == 0; });
-        auto numPedsToSpawn = m_pLink ? m_pLink->m_nNumberOfPeds : m_nNumberOfPeds;
+        // Como el original: movsx, el número de peds se extiende con signo
+        const int32 numPedsToSpawn = (int8)(m_pLink ? m_pLink->m_nNumberOfPeds : m_nNumberOfPeds);
         CPopulation::NumberOfPedsInUseInterior = numPedsToSpawn;
         CPopulation::PopulateInterior(numPedsToSpawn, posn);
     }
@@ -129,29 +146,27 @@ CEntryExit* CEntryExit::GetEntryExitToDisplayNameOf() {
         return nullptr;
     }
     if (m_nArea == eAreaCodes::AREA_CODE_NORMAL_WORLD) {
-        return nullptr;
+        return this; // Como el original: devuelve `this` (eax = this), no nullptr
     }
     // TODO: Probably inlined from `CEntryExitManager`
-    if (   CEntryExitManager::ms_entryExitStackPosn > 1
-        && CEntryExitManager::ms_entryExitStack[CEntryExitManager::ms_entryExitStackPosn - 1] == ms_spawnPoint
-    ) {
-        return CEntryExitManager::ms_entryExitStack[CEntryExitManager::ms_entryExitStackPosn];
+    // Como el original: comparación con signo (jle) y devuelve la entrada anterior a la cima (posn - 2)
+    const auto posn = (int32)CEntryExitManager::ms_entryExitStackPosn;
+    if (posn > 1 && CEntryExitManager::ms_entryExitStack[posn - 1] == ms_spawnPoint) {
+        return CEntryExitManager::ms_entryExitStack[posn - 2];
     }
     return this;
 }
 
 // 0x43EA00
-// TODO: `_asm` shouldn't be removed, because the caller `EntryExitManager::GetPositionRelativeToOutsideWorld`
-// uses it as well (and without reserving `edx` it is going to crash)
+// El hook del EXE pasa por EntryExitGetPositionRelativeToOutsideWorldKeepEdx (conserva edx).
 void CEntryExit::GetPositionRelativeToOutsideWorld(CVector& outPos) {
-    _asm { push edx };
-
+    const auto pos = GetPosition(); // Como el original: centro de la entrada de `this`, antes de sustituir por el enlace
     const auto enex = GetLinkedOrThis(); // this = GetLinkedOrThis();
     if (enex->m_nArea != eAreaCodes::AREA_CODE_NORMAL_WORLD) {
-        outPos += GetPosition() - enex->m_vecExitPos;
+        // Como el original: primero suma la posición y después resta la salida, (out + pos) - exit
+        outPos += pos;
+        outPos -= enex->m_vecExitPos;
     }
-
-    _asm { pop edx };
 }
 
 // Return center of entrance rect
@@ -190,15 +205,38 @@ void CEntryExit::FindValidTeleportPoint(CVector& outTeleportPoint) {
     
     // Test 2 * 8 spheres around the spawn point, and return whichever
     // doesn't collide with the world and the line of sight between it and `outPoint` is clear
-    for (auto r : { 1.25f, 2.f }) { // Test with 2 ranges
-        constexpr auto NumTestPoints{ 8 };
-        for (auto i = 0; i < NumTestPoints; i++) {
-            const auto rot{ (float)i * TWO_PI / (float)NumTestPoints };
-            const auto point = outTeleportPoint + CVector{
-                std::cos(rot) * r,
-                std::sin(rot) * r,
-                0.f
-            };
+    // Como el original: ángulo = i * 6.2831855 (flt_858CBC) * 0.125 (flt_858C48); fcos/fsin a precisión completa,
+    // multiplicados (radio 1.25, flt_8595F0) o duplicados (radio 2, fadd st,st) antes de redondear; luego + out.
+    constexpr auto NumTestPoints{ 8 };
+    for (auto ring = 0; ring < 2; ring++) { // Test with 2 ranges
+        for (int32 i = 0; i < NumTestPoints; i++) {
+            const float rot = (float)i * std::bit_cast<float>(0x40C90FDBu) * 0.125f;
+            float offX, offY;
+            if (ring == 0) {
+                float ringRadius = 1.25f;
+                __asm {
+                    fld   rot
+                    fld   st(0)
+                    fcos
+                    fmul  ringRadius
+                    fstp  offX
+                    fsin
+                    fmul  ringRadius
+                    fstp  offY
+                }
+            } else {
+                __asm {
+                    fld   rot
+                    fld   st(0)
+                    fcos
+                    fadd  st, st(0)
+                    fstp  offX
+                    fsin
+                    fadd  st, st(0)
+                    fstp  offY
+                }
+            }
+            const CVector point{ offX + outTeleportPoint.x, offY + outTeleportPoint.y, outTeleportPoint.z };
             if (IsTeleportPointValid(outTeleportPoint, point)) {
                 outTeleportPoint = point;
                 return;
@@ -221,18 +259,44 @@ uint8 CEntryExit::GetMyOrLinkedArea() const {
 
 // 0x43E460
 bool CEntryExit::IsInArea(const CVector& position) {
-
-    const auto CheckPointInEntranceRect = [this](const CVector& point) {
-        if (m_recEntrance.IsPointInside(point)) {
-            if (std::abs(point.z - m_fEntranceZ) < 1.0f) {
-                return true;
-            }
-        }
-        return false;
-    };
-
+    float x, y;
     // It's quite common `m_fEntranceAngle` is 0, so I guess this is some kind of an optimization?
-    return CheckPointInEntranceRect(m_fEntranceAngleRad == 0.f ? position : TransformEntrancePoint(position));
+    if (m_fEntranceAngleRad == 0.f) { // Como el original: NaN va por la rama rotada (test ah,44h)
+        x = position.x;
+        y = position.y;
+    } else {
+        // Como el original: centro = (max - min) * 0.5 + min; d = (p.x - cx, p.y - cy, p.z) sin restar la z;
+        // CMatrix::SetRotateZ (0x59B0E0, fcos/fsin de precisión completa) y MultiplyMatrixWithVector
+        // (0x59C890) con su orden de sumas; después se suma el centro 2D.
+        const float cy = (m_recEntrance.top - m_recEntrance.bottom) * 0.5f + m_recEntrance.bottom;
+        const float cx = (m_recEntrance.right - m_recEntrance.left) * 0.5f + m_recEntrance.left;
+        const float dz = position.z;
+        const float dy = position.y - cy;
+        const float dx = position.x - cx;
+        const float rot = m_fEntranceAngleRad;
+        float rotCos, rotSin;
+        __asm {
+            fld   rot
+            fcos
+            fstp  rotCos
+            fld   rot
+            fsin
+            fstp  rotSin
+        }
+        const float zero = 0.0f;
+        x = ((zero * dz + -rotSin * dy) + rotCos * dx) + zero;
+        y = ((zero * dz + rotSin * dx) + rotCos * dy) + zero;
+        x = x + cx;
+        y = y + cy;
+    }
+    // Como el original: cada comparación falla sólo si es ordenada (NaN en x/y pasa), y |dz| < 1 estricto
+    if (x < m_recEntrance.left || x > m_recEntrance.right) {
+        return false;
+    }
+    if (y < m_recEntrance.bottom || y > m_recEntrance.top) {
+        return false;
+    }
+    return std::abs(position.z - m_fEntranceZ) < 1.0f;
 }
 
 // 0x43FFD0
@@ -296,12 +360,13 @@ bool CEntryExit::TransitionStarted(CPed* ped) {
         });
     };
 
+    // Como el original: CVector::Magnitude (0x4082C0, fsqrt) comparado con 10.0 (flt_85862C), no la magnitud al cuadrado
     if (bUnknownPairing || bFoodDateFlag || ped->bInVehicle) {
-        if (spawnPointExitToUs.SquaredMagnitude() > sq(10.f)) {
+        if (spawnPointExitToUs.Magnitude() > 10.f) {
             ms_bWarping = true;
         }
     } else {
-        ms_bWarping = spawnPointExitToUs.SquaredMagnitude() > sq(10.f);
+        ms_bWarping = spawnPointExitToUs.Magnitude() > 10.f;
 
         const auto spawnPointExitToUsDir = Normalized(spawnPointExitToUs);
 
@@ -328,6 +393,9 @@ bool CEntryExit::TransitionStarted(CPed* ped) {
                 return true;
             }
             AddPedScriptCommand(new CTaskComplexGotoDoorAndOpen(GetPosition(), GetPosition() + spawnPointExitToUsDir * 4.f));
+
+            // Como el original: sin puerta también se fija la cámara (0x440309), mirando hacia la salida
+            SetupFixedCamera(spawnPointExitToUsDir);
         }
     }
 
@@ -368,7 +436,7 @@ bool CEntryExit::TransitionFinished(CPed* ped) {
             return false;
         }
         default: { // 0x44068F
-            CGame::currArea = CEntryExit::ms_spawnPoint->m_nArea;
+            CGame::currArea = (eAreaCodes)(uint8)CEntryExit::ms_spawnPoint->m_nArea.get_underlying(); // Como el original: movzx
             CEntryExitManager::ms_numVisibleEntities = 0;
             break;
         }
@@ -394,7 +462,7 @@ bool CEntryExit::TransitionFinished(CPed* ped) {
         case 0: { // 0x4405E8
             CEntryExitManager::SetAreaCodeForVisibleObjects();
             CEntryExitManager::ms_exitEnterState = EXIT_ENTER_STATE_1;
-            CGame::currArea = ms_spawnPoint->m_nArea;
+            CGame::currArea = (eAreaCodes)(uint8)ms_spawnPoint->m_nArea.get_underlying(); // Como el original: movzx
 
             if (const auto pedsGroup = CPedGroups::GetPedsGroup(ped)) {
                 CEventGroupEvent groupEvent{ ped, new CEventLeaderEntryExit(ped) };
@@ -534,7 +602,8 @@ bool CEntryExit::TransitionFinished(CPed* ped) {
 
 // 0x43E6D0
 void CEntryExit::RequestAmbientPeds() {
-    if (!CGame::CanSeeOutSideFromCurrArea()) {
+    // Como el original: lee CGame::currArea directamente; en el mundo exterior (área 0) quita los peds dudosos
+    if (CGame::currArea == AREA_CODE_NORMAL_WORLD) {
         CStreaming::RemoveDodgyPedsFromRandomSlots();
         return;
     }
@@ -562,55 +631,70 @@ void CEntryExit::RequestAmbientPeds() {
         },
     };
 
+    // Como el original: compara todos los nombres en orden (_stricmp(nombre, m_szName) == 0), sin salir antes
     for (auto&& [name, models] : mapping) {
-        if (_stricmp(name, m_szName)) {
+        if (_stricmp(name, m_szName) == 0) {
             CStreaming::StreamPedsIntoRandomSlots(models);
-            return;
         }
     }
 }
 // 0x43E690
 void CEntryExit::RequestObjectsInFrustum() const {
-    CRenderer::RequestObjectsInDirection(ms_spawnPoint->m_vecExitPos, m_fExitAngle, 0);
+    CRenderer::RequestObjectsInDirection(ms_spawnPoint->m_vecExitPos, m_fExitAngle, STREAMING_LOADING_SCENE); // Como el original: push 20h
 }
 
 // 0x43F1F0
 void CEntryExit::WarpGangWithPlayer(CPlayerPed* player) {
-    auto& grp = player->GetPlayerGroup();
-    
-    if (!grp.IsActive()) {
+    // Como el original: índice del grupo leído de m_pPlayerData->m_nPlayerGroup, activo = ms_activeGroups[id]
+    const auto groupId = player->GetPlayerData()->m_nPlayerGroup;
+    if (!CPedGroups::ms_activeGroups.data()[groupId]) {
         return;
     }
 
-    auto& ms = grp.GetMembership();
-
+    auto& ms = CPedGroups::ms_groups.data()[groupId].GetMembership();
     if (!ms.IsLeader(player)) {
         return;
     }
 
-    const auto& plyrPos = player->GetPosition();
     const auto& offsets = CTaskComplexFollowLeaderInFormation::ms_offsets.Offsets;
+    constexpr int32 NumOffsets = TOTAL_PED_GROUP_MEMBERS; // Como el original: cmp esi, 40h (8 desplazamientos de 8 bytes)
 
-    size_t offsetIdx = 0;
-    for (auto* const mem : ms.GetMembers()) {
-        if (mem == player) {
+    // Como el original: sólo los 7 seguidores (GetMember 0..6). Cada uno prueba como mucho 3 desplazamientos
+    // consecutivos alrededor del JUGADOR; si los 3 fallan (o se acaban los desplazamientos) termina la función.
+    int32 offsetIdx = 0;
+    for (int32 i = 0; i < TOTAL_PED_GROUP_FOLLOWERS; i++) {
+        const auto mem = ms.GetMember(i);
+        if (!mem || mem == player || offsetIdx >= NumOffsets) {
             continue;
         }
-        const auto& memPos = mem->GetPosition();
 
-        // Find position to teleport member to
-        // Original code tried only twice, but we'll try all offsets
-        // (Probably won't make a lot of difference)
-        CVector memTeleportTo;
-        do {
-            if (offsetIdx >= offsets.size()) {
-                return; // No more offsets
+        const auto& plyrPos = player->GetPosition();
+        CVector memTeleportTo{ offsets[offsetIdx].x + plyrPos.x, offsets[offsetIdx].y + plyrPos.y, plyrPos.z };
+        offsetIdx++;
+        if (!IsTeleportPointValid(plyrPos, memTeleportTo)) {
+            if (offsetIdx >= NumOffsets) {
+                return;
             }
-            memTeleportTo = memPos + CVector{ offsets[offsetIdx++], 0.f };
-        } while (!IsTeleportPointValid(plyrPos, memTeleportTo));
+            memTeleportTo = CVector{ offsets[offsetIdx].x + plyrPos.x, offsets[offsetIdx].y + plyrPos.y, plyrPos.z };
+            offsetIdx++;
+            if (!IsTeleportPointValid(plyrPos, memTeleportTo)) {
+                if (offsetIdx >= NumOffsets) {
+                    return;
+                }
+                // Como el original: el tercer intento usa operator+ (0x40FE30) con z = 0
+                memTeleportTo = plyrPos + CVector{ offsets[offsetIdx].x, offsets[offsetIdx].y, 0.f };
+                offsetIdx++;
+                if (!IsTeleportPointValid(plyrPos, memTeleportTo)) {
+                    return;
+                }
+            }
+        }
 
-        // Calculate member heading (So that they'll face the player)
-        const auto memHeading = (plyrPos - memPos).Heading();
+        // Como el original: dirección 2D normalizada (0x59C910) y GetRadianAngleBetweenPoints(x, y, 0, 0) + LimitRadianAngle
+        const auto& memPos = mem->GetPosition();
+        CVector dir{ plyrPos.x - memPos.x, plyrPos.y - memPos.y, 0.f };
+        dir.Normalise();
+        const auto memHeading = CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints(dir.x, dir.y, 0.f, 0.f));
 
         // Teleport them
         mem->Teleport(memTeleportTo, false);

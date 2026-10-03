@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -97,23 +97,33 @@ void CTaskSimpleThrowProjectile::FinishAnimThrowProjectileCB(CAnimBlendAssociati
 
 // 0x6259E0
 void CTaskSimpleThrowProjectile::StartAnim(CPed* ped) {
+    // Como el original: la info del arma activa con la habilidad estándar
+    const auto& wi = *CWeaponInfo::GetWeaponInfo(ped->GetActiveWeapon().GetType(), eWeaponSkill::STD);
     const auto StartAnim = [&, this](AnimationId animId, float blendDelta) {
-        VERIFY(m_Anim = CAnimManager::BlendAnimation(ped->GetRpClump(), ped->GetActiveWeapon().GetWeaponInfo().m_eAnimGroup, animId, blendDelta));
+        m_Anim = CAnimManager::BlendAnimation(ped->GetRpClump(), wi.m_eAnimGroup, animId, blendDelta);
         m_Anim->SetFinishCallback(FinishAnimThrowProjectileCB, this);
     };
 
     if (!m_bStartThrowFinished) {
         StartAnim(ANIM_ID_GRENADE_WEAPON_START_THROW, 16.f);
+        return;
+    }
+
+    // Como el original: distancia al cuadrado sumada como (z*z + y*y) + x*x
+    const auto IsFarFromPed = [ped](const CVector& pos) {
+        const auto& pedPos = ped->GetPosition();
+        const float dx = pos.x - pedPos.x, dy = pos.y - pedPos.y, dz = pos.z - pedPos.z;
+        return dz * dz + dy * dy + dx * dx > 100.0f;
+    };
+    // Como el original: lanzamiento normal si el objetivo está lejos; "U" solo de cerca con el botón soltado o con la carga satchel
+    if (m_TargetEntity && IsFarFromPed(m_TargetEntity->GetPosition())) {
+        StartAnim(ANIM_ID_GRENADE_WEAPON_THROW, 1000.f);
+    } else if (m_TargetPos != CVector{ 0.0f, 0.0f, 0.0f } && IsFarFromPed(m_TargetPos)) {
+        StartAnim(ANIM_ID_GRENADE_WEAPON_THROW, 1000.f);
+    } else if (m_bButtonReleased || ped->GetActiveWeapon().GetType() == WEAPON_REMOTE_SATCHEL_CHARGE) {
+        StartAnim(ANIM_ID_GRENADE_WEAPON_THROWU, 1000.f);
     } else {
-        const auto IsPtCloseToPed = [ped](CVector pos) { return (pos - ped->GetPosition()).SquaredMagnitude() <= sq(10.f); };
-        if (   (!m_TargetEntity || IsPtCloseToPed(m_TargetEntity->GetPosition()))
-            || (m_TargetPos.IsZero() || IsPtCloseToPed(m_TargetPos))
-            || (m_bButtonReleased || ped->GetActiveWeapon().GetType() == WEAPON_REMOTE_SATCHEL_CHARGE)
-        ) {
-            StartAnim(ANIM_ID_GRENADE_WEAPON_THROW, 1000.f);
-        } else {
-            StartAnim(ANIM_ID_GRENADE_WEAPON_THROWU, 1000.f); // "U" as in "UP?
-        }
+        StartAnim(ANIM_ID_GRENADE_WEAPON_THROW, 1000.f);
     }
 }
 
@@ -140,13 +150,10 @@ bool CTaskSimpleThrowProjectile::MakeAbortable(CPed* ped, eAbortPriority priorit
 
 // 0x62AF50
 bool CTaskSimpleThrowProjectile::ProcessPed(CPed* ped) {
-    if (m_bIsFinished) {
-        return true;
-    }
+    // Como el original: info del arma activa con la habilidad estándar (no la del peatón)
+    const auto wi = CWeaponInfo::GetWeaponInfo(ped->GetActiveWeapon().GetType(), eWeaponSkill::STD);
 
-    const auto wi = &ped->GetActiveWeapon().GetWeaponInfo(ped);
-
-    if (!wi->flags.bThrow) {
+    if (m_bIsFinished || !wi->flags.bThrow) {
         return true;
     }
 
@@ -157,7 +164,7 @@ bool CTaskSimpleThrowProjectile::ProcessPed(CPed* ped) {
 
     switch (m_Anim->m_AnimId) {
     case ANIM_ID_GRENADE_WEAPON_THROW:
-    case ANIM_ID_GRENADE_WEAPON_THROWU:
+    case ANIM_ID_GRENADE_WEAPON_THROWU: {
         const auto animFireTime = m_Anim->m_AnimId == ANIM_ID_GRENADE_WEAPON_THROW
             ? wi->m_fAnimLoop2Fire
             : wi->m_fAnimLoopFire;
@@ -166,18 +173,35 @@ bool CTaskSimpleThrowProjectile::ProcessPed(CPed* ped) {
                 if (!m_bButtonReleased) {
                     m_ButtonCounter = CTimer::GetTimeInMS() - m_ButtonCounter;
                 }
-                m_ButtonCounter = std::min(m_ButtonCounter, 533u);
-                ped->GetPlayerData()->m_fAttackButtonCounter = (float)m_ButtonCounter / 20.f;
+                // Como el original: tope con signo y fild * 0.05f
+                if ((int32)m_ButtonCounter > 533) {
+                    m_ButtonCounter = 533;
+                }
+                const int32 counter = (int32)m_ButtonCounter;
+                const float attackScale = 0.05f; // 0x858C28
+                float attackCounter;
+                __asm {
+                    fild  counter
+                    fmul  attackScale
+                    fstp  attackCounter
+                }
+                ped->GetPlayerData()->m_fAttackButtonCounter = attackCounter;
             }
 
             if (m_TargetEntity) {
                 m_TargetPos = m_TargetEntity->GetPosition();
             }
 
-            CVector firePos;
-            RwV3dTransformPoint(&firePos, &wi->m_vecFireOffset, ped->GetBoneMatrix((eBoneTag)ped->m_apBones[PED_NODE_RIGHT_HAND]->BoneTag));
-            ped->GetActiveWeapon().Fire(ped, &firePos, &firePos, nullptr, m_TargetPos.IsZero() ? nullptr : &m_TargetPos, nullptr);
+            // Como el original: se copia el desplazamiento y se transforma en el sitio con la matriz del hueso de la mano
+            CVector firePos = wi->m_vecFireOffset;
+            const auto hier = GetAnimHierarchyFromSkinClump(ped->GetRpClump());
+            const auto index = RpHAnimIDGetIndex(hier, ped->m_apBones[PED_NODE_RIGHT_HAND]->BoneTag);
+            RwV3dTransformPoints(&firePos, &firePos, 1, &RpHAnimHierarchyGetMatrixArray(hier)[index]);
+            const bool hasTarget = m_TargetPos != CVector{ 0.0f, 0.0f, 0.0f };
+            ped->GetActiveWeapon().Fire(ped, &firePos, &firePos, nullptr, hasTarget ? &m_TargetPos : nullptr, nullptr);
         }
+        break;
+    }
     }
 
     return false;

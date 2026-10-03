@@ -34,7 +34,7 @@ public:
     static int32 CloseFile(FILESTREAM file);
     static int32 GetTotalSize(FILESTREAM file);
     static int32 Tell(FILESTREAM file);
-    static bool GetErrorReadWrite(FILESTREAM file);
+    static int32 GetErrorReadWrite(FILESTREAM file); // Como el original: devuelve _flag & _IOERR (0x20), no un bool
 
     //! Increment the file's seek pointer until after the next new line (`\n`) (make sure file is open in non-binary mode!)
     static void SeekNextLine(FILESTREAM file);

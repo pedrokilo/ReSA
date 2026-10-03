@@ -1,0 +1,103 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 11904,
+  "pairs_per_function": {
+    "CPedAttractorManager::BroadcastArrival-": 512,
+    "CPedAttractorManager::BroadcastDeparture-": 512,
+    "CPedAttractorManager::DeRegisterPed-": 512,
+    "CPedAttractorManager::GetPedAttractorManager": 64,
+    "CPedAttractorManager::GetPedUsingEffect-": 512,
+    "CPedAttractorManager::GetRelevantAttractor-": 512,
+    "CPedAttractorManager::HasEmptySlot": 512,
+    "CPedAttractorManager::HasQueueTailArrivedAtSlot": 512,
+    "CPedAttractorManager::IsApproachable": 1024,
+    "CPedAttractorManager::IsPedRegisteredWithEffect-Effect": 512,
+    "CPedAttractorManager::IsPedRegisteredWithEffect-Ped": 512,
+    "CPedAttractorManager::RegisterPedWithAttractor": 512,
+    "CPedAttractorManager::RemoveEffect-": 512,
+    "CPedAttractorManager::RestoreStuffFromMem": 256,
+    "CCustomCarPlateMgr::AtomicSetCarplateTextureCB": 256,
+    "CCustomCarPlateMgr::AtomicUpgradeSetCarplateTextureCB": 256,
+    "CCustomCarPlateMgr::CreatePlateTexture": 512,
+    "CCustomCarPlateMgr::GeneratePlateText": 1024,
+    "CCustomCarPlateMgr::GetMapRegionPlateDesign": 64,
+    "CCustomCarPlateMgr::Initialise": 128,
+    "CCustomCarPlateMgr::MaterialSetCarplateTextureCB": 512,
+    "CCustomCarPlateMgr::MaterialUpgradeSetCarplateTextureCB": 512,
+    "CCustomCarPlateMgr::RenderLicenseplateTextToRaster": 512,
+    "CCustomCarPlateMgr::SetupClump": 256,
+    "CCustomCarPlateMgr::SetupClumpAfterVehicleUpgrade": 256,
+    "CCustomCarPlateMgr::SetupMaterialPlateTexture": 256,
+    "CCustomCarPlateMgr::SetupMaterialPlatebackTexture": 256,
+    "CCustomCarPlateMgr::Shutdown": 128
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "32fcf4db413ef7611c025402fa4d3b77c51db68c7707189d368f050c9680c385",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-mix14\\20261003-104300-823451",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CPedAttractorManager::BroadcastArrival-": true,
+    "CPedAttractorManager::BroadcastDeparture-": true,
+    "CPedAttractorManager::DeRegisterPed-": true,
+    "CPedAttractorManager::GetPedAttractorManager": true,
+    "CPedAttractorManager::GetPedUsingEffect-": true,
+    "CPedAttractorManager::GetRelevantAttractor-": true,
+    "CPedAttractorManager::HasEmptySlot": true,
+    "CPedAttractorManager::HasQueueTailArrivedAtSlot": true,
+    "CPedAttractorManager::IsApproachable": true,
+    "CPedAttractorManager::IsPedRegisteredWithEffect-Effect": true,
+    "CPedAttractorManager::IsPedRegisteredWithEffect-Ped": true,
+    "CPedAttractorManager::RegisterPedWithAttractor": true,
+    "CPedAttractorManager::RemoveEffect-": true,
+    "CPedAttractorManager::RestoreStuffFromMem": true,
+    "CCustomCarPlateMgr::AtomicSetCarplateTextureCB": true,
+    "CCustomCarPlateMgr::AtomicUpgradeSetCarplateTextureCB": true,
+    "CCustomCarPlateMgr::CreatePlateTexture": true,
+    "CCustomCarPlateMgr::GeneratePlateText": true,
+    "CCustomCarPlateMgr::GetMapRegionPlateDesign": true,
+    "CCustomCarPlateMgr::Initialise": true,
+    "CCustomCarPlateMgr::MaterialSetCarplateTextureCB": true,
+    "CCustomCarPlateMgr::MaterialUpgradeSetCarplateTextureCB": true,
+    "CCustomCarPlateMgr::RenderLicenseplateTextToRaster": true,
+    "CCustomCarPlateMgr::SetupClump": true,
+    "CCustomCarPlateMgr::SetupClumpAfterVehicleUpgrade": true,
+    "CCustomCarPlateMgr::SetupMaterialPlateTexture": true,
+    "CCustomCarPlateMgr::SetupMaterialPlatebackTexture": true,
+    "CCustomCarPlateMgr::Shutdown": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "d4951a46e84f6956e260e2ac8d7b82e7bd2c80ab2df184f0e8f242748b767c68",
+      "pdb": "763a8d14499d11067591a60884f4359e52bdc4eb403258dcab24a8a56bcc8d3b"
+    },
+    "sources": {
+      "source/game_sa/PedAttractorManager.cpp": "58ce852be0553a5cc2cd569b8a9a3a277816e75360cee2cdfc28e33835c85593",
+      "source/game_sa/PedAttractorManager.h": "86b53ac80455b039202a767a357d91f9ee6fe6ae8ab8275c96d4a320cc880081",
+      "source/game_sa/Core/SArray.h": "a43b4bf385f0178ae4d156672d093078be76194867de7d88ea3f344f7419b44a",
+      "source/game_sa/CustomCarPlateMgr.cpp": "369bcd2f0e4611ec5d1933b3724ad35af25cbac011cfb986c375ca3691a55d2b",
+      "source/game_sa/CustomCarPlateMgr.h": "2ca53a8ac511186ad2bec83360397f6136c0f8be606c32dbc2142e95ecf80494",
+      "source/game_sa/Attractors/PedPizzaAttractor.h": "b137c8c97bdb5b1cdd7645788776fce87a39dff9f0bc813c24835ec06f3e4e36"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "c3c717f03ffc4ce22bc0a1bce7a843ed0883d7d365ed83d0ff7845aebf5682df",
+      "build_probe.py": "b268b0f7eb8d2bce74ac8b871c292fb29dcdf241c821fdd1425fe30dae0a59f7",
+      "run_local.py": "e1303461e63392ae33b1d58898e5c7dd26fb680eaaed1ac003d1e8281bf19b06"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

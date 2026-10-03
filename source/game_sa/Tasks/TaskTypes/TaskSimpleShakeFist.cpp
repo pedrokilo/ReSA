@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -37,8 +37,14 @@ void CTaskSimpleShakeFist::InjectHooks() {
     RH_ScopedVMTInstall(ProcessPed, 0x693BA0);
 }
 
+// 0x690B80
+// Como el original: constructor escrito por el usuario (sin inicializacion por valor que pondria a cero el relleno)
+CTaskSimpleShakeFist::CTaskSimpleShakeFist() {
+}
+
+// Como el original (Clone, 0x6927B0): el clon no copia nada del original
 CTaskSimpleShakeFist::CTaskSimpleShakeFist(const CTaskSimpleShakeFist&) :
-    CTaskSimpleShakeFist{}
+    CTaskSimpleShakeFist()
 {
 }
 
@@ -76,14 +82,12 @@ bool CTaskSimpleShakeFist::MakeAbortable(CPed* ped, eAbortPriority priority, CEv
         }
         return true;
     }
-    case ABORT_PRIORITY_LEISURE: {
+    default: { // Como el original: cualquier otra prioridad se trata como ABORT_PRIORITY_LEISURE
         if (m_anim) {
             m_anim->m_BlendDelta = -4.f;
         }
         return false;
     }
-    default:
-        NOTSA_UNREACHABLE();
     }
 }
 

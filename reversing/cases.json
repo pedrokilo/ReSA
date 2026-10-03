@@ -558,5 +558,205 @@
     "id": "mgr7",
     "name": "Saltos, generadores de coches, muebles, criaturas y tareas de interior (lista de 7)",
     "runner": "Mgr7/run_local.py"
+  },
+  {
+    "id": "data8a",
+    "name": "Pistas de cinemática, canal estático, generador de coches, checkpoints, colisión y bandas (lista de 8)",
+    "runner": "Data8a/run_local.py"
+  },
+  {
+    "id": "data8b",
+    "name": "Eventos de bici y script, tareas de script, sombras, rectángulos y coches atascados (lista de 8)",
+    "runner": "Data8b/run_local.py"
+  },
+  {
+    "id": "fx8",
+    "name": "Efectos, objetos procedurales y tareas de interior (lista de 8)",
+    "runner": "Fx8/run_local.py"
+  },
+  {
+    "id": "ctasks8a",
+    "name": "Tareas complejas A (lista de 8)",
+    "runner": "CTasks8a/run_local.py"
+  },
+  {
+    "id": "ctasks8b",
+    "name": "Tareas complejas B (lista de 8)",
+    "runner": "CTasks8b/run_local.py"
+  },
+  {
+    "id": "ctasks8c",
+    "name": "Tareas complejas C y golpes (lista de 8)",
+    "runner": "CTasks8c/run_local.py"
+  },
+  {
+    "id": "stasks8a",
+    "name": "Tareas simples A (lista de 8)",
+    "runner": "STasks8a/run_local.py"
+  },
+  {
+    "id": "stasks8b",
+    "name": "Tareas simples B (lista de 8)",
+    "runner": "STasks8b/run_local.py"
+  },
+  {
+    "id": "core9",
+    "name": "Decodificador WAV, reloj, CdStream, CGeneral y comunes (lista de 9)",
+    "runner": "Core9/run_local.py"
+  },
+  {
+    "id": "models9",
+    "name": "Modelos atómicos y de peatón, colisión, carteles y textos (lista de 9)",
+    "runner": "Models9/run_local.py"
+  },
+  {
+    "id": "ped9",
+    "name": "IK del peatón, efectos de armas, cadena IK, lanzar y recoger bici (lista de 9)",
+    "runner": "Ped9/run_local.py"
+  },
+  {
+    "id": "ctasks9a",
+    "name": "Tareas complejas A (lista de 9)",
+    "runner": "CTasks9a/run_local.py"
+  },
+  {
+    "id": "ctasks9b",
+    "name": "Tareas complejas B (lista de 9)",
+    "runner": "CTasks9b/run_local.py"
+  },
+  {
+    "id": "ctasks9c",
+    "name": "Tareas complejas C (lista de 9)",
+    "runner": "CTasks9c/run_local.py"
+  },
+  {
+    "id": "ctasks9d",
+    "name": "Búsqueda de entidad y sentarse en escritorio (lista de 9)",
+    "runner": "CTasks9d/run_local.py"
+  },
+  {
+    "id": "stasks9",
+    "name": "Tareas simples de coche (lista de 9)",
+    "runner": "STasks9/run_local.py"
+  },
+  {
+    "id": "sys10",
+    "name": "Decodificador MF, fundido de audio, conversaciones, directorio e historial de eventos (lista de 10)",
+    "runner": "Sys10/run_local.py"
+  },
+  {
+    "id": "data10",
+    "name": "Datos de armas, plantillas de efectos y estar en grupo (lista de 10)",
+    "runner": "Data10/run_local.py"
+  },
+  {
+    "id": "ctasks10a",
+    "name": "Tareas complejas A (lista de 10)",
+    "runner": "CTasks10a/run_local.py"
+  },
+  {
+    "id": "ctasks10b",
+    "name": "Tareas de cobertura, cambio de asiento y coche (lista de 10)",
+    "runner": "CTasks10b/run_local.py"
+  },
+  {
+    "id": "stasks10",
+    "name": "Tareas simples de coche (lista de 10)",
+    "runner": "STasks10/run_local.py"
+  },
+  {
+    "id": "audio11",
+    "name": "Voz sin peatón, decodificador WMA, ropa y aceleración de colisiones (lista de 11)",
+    "runner": "Audio11/run_local.py"
+  },
+  {
+    "id": "world11",
+    "name": "Coronas, entradas/salidas, reaparición y manejo de vehículos (lista de 11)",
+    "runner": "World11/run_local.py"
+  },
+  {
+    "id": "ctasks11",
+    "name": "Respuesta editable, conducir, ser arrastrado y huir a un punto (lista de 11)",
+    "runner": "CTasks11/run_local.py"
+  },
+  {
+    "id": "mix11",
+    "name": "Helicóptero, ir a la puerta del coche y nadar (lista de 11)",
+    "runner": "Mix11/run_local.py"
+  },
+  {
+    "id": "sys12",
+    "name": "Scripts en streaming, Game y árbol cuaternario (lista de 12)",
+    "runner": "Sys12/run_local.py"
+  },
+  {
+    "id": "world12",
+    "name": "Semáforos, pickups y explosiones (lista de 12)",
+    "runner": "World12/run_local.py"
+  },
+  {
+    "id": "mix12",
+    "name": "Grupo de eventos, rodear edificio y hierba (lista de 12)",
+    "runner": "Mix12/run_local.py"
+  },
+  {
+    "id": "audio13",
+    "name": "Banco MP3 y decodificador Vorbis (lista de 13)",
+    "runner": "Audio13/run_local.py"
+  },
+  {
+    "id": "ctasks13",
+    "name": "Seguir ruta, líder de banda, persecución policial y secuencia (lista de 13)",
+    "runner": "CTasks13/run_local.py"
+  },
+  {
+    "id": "sys13",
+    "name": "Tipos de peatón, temporizador y remolque (lista de 13)",
+    "runner": "Sys13/run_local.py"
+  },
+  {
+    "id": "audio14",
+    "name": "Gestor de sonidos e hilo de streaming de audio (lista de 14)",
+    "runner": "Audio14/run_local.py"
+  },
+  {
+    "id": "render14",
+    "name": "Secuencias de animación y pipeline día/noche de edificios (lista de 14)",
+    "runner": "Render14/run_local.py"
+  },
+  {
+    "id": "mix14",
+    "name": "Gestor de atractores y matrículas (lista de 14)",
+    "runner": "Mix14/run_local.py"
+  },
+  {
+    "id": "ctasks14a",
+    "name": "Entrar en el coche y deambular (lista de 14)",
+    "runner": "CTasks14a/run_local.py"
+  },
+  {
+    "id": "ctasks14b",
+    "name": "Sostener objeto y jetpack (lista de 14)",
+    "runner": "CTasks14b/run_local.py"
+  },
+  {
+    "id": "audio15",
+    "name": "Radio de usuario y grupos de animaciones (lista de 15)",
+    "runner": "Audio15/run_local.py"
+  },
+  {
+    "id": "world15",
+    "name": "Ciclo de población y sprites (lista de 15)",
+    "runner": "World15/run_local.py"
+  },
+  {
+    "id": "ctasks15",
+    "name": "Evitar peatones al deambular, trepar y agacharse (lista de 15)",
+    "runner": "CTasks15/run_local.py"
+  },
+  {
+    "id": "anim16",
+    "name": "Jerarquías y nodos de animación (lista de 16)",
+    "runner": "Anim16/run_local.py"
   }
 ]

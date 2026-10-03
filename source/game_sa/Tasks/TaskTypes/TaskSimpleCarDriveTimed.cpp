@@ -43,7 +43,7 @@ CTaskSimpleCarDriveTimed* CTaskSimpleCarDriveTimed::Constructor(CVehicle* vehicl
 }
 
 // 0x5FF940
-CTaskSimpleCarDriveTimed::CTaskSimpleCarDriveTimed(CVehicle* vehicle, int32 nTime) : CTaskSimpleCarDrive(vehicle, nullptr, false), m_nTimer() {
+CTaskSimpleCarDriveTimed::CTaskSimpleCarDriveTimed(CVehicle* vehicle, int32 nTime) : CTaskSimpleCarDrive(vehicle, nullptr, false) { // Como el original (0x46F3CF): el temporizador sin value-init (no se escribe el relleno +0x6E..+0x6F)
     m_nTime = nTime;
 }
 

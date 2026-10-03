@@ -17,7 +17,7 @@ public:
 
     static constexpr auto Type = eTaskType::TASK_SIMPLE_SHAKE_FIST;
 
-    CTaskSimpleShakeFist() = default;
+    CTaskSimpleShakeFist();
     CTaskSimpleShakeFist(const CTaskSimpleShakeFist&);
     ~CTaskSimpleShakeFist();
 

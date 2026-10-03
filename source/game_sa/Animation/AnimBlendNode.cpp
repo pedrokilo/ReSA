@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 16/16 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/16 entradas.
+ * Validación registrada: 16/16 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -48,7 +48,12 @@ void CAnimBlendNode::InjectHooks() {
 // 0x4CFB70
 // Restablece índices, tiempos y referencias al estado inicial por defecto.
 void CAnimBlendNode::Init() {
-    *this = CAnimBlendNode{};
+    // Como el original: no toca m_Theta ni m_InvSinTheta (antes se reasignaba el nodo entero a cero).
+    m_BlendAssoc      = nullptr;
+    m_Seq             = nullptr;
+    m_KFRemainingTime = 0.0f;
+    m_KFPrev          = -1;
+    m_KFCurr          = -1;
 }
 
 // 0x4D0240
@@ -59,46 +64,118 @@ void CAnimBlendNode::Init() {
  * después los parámetros de interpolación de rotación para el par seleccionado.
  */
 bool CAnimBlendNode::FindKeyFrame(float time) {
-    if (m_Seq->m_FramesNum == 0) {
+    // Como el original: contador con signo (movsx) y el keyframe se vuelve a leer en cada vuelta (antes se
+    // comparaba siempre con el DeltaTime del keyframe 1).
+    const int32 numFrames = static_cast<int16>(m_Seq->m_FramesNum);
+    if (numFrames < 1) {
         return false;
     }
 
     m_KFCurr = 0;
     m_KFPrev = 0;
 
-    if (m_Seq->m_FramesNum == 1) {
+    if (numFrames == 1) {
         m_KFRemainingTime = 0.0f;
-    } else {
-        // Find kf that spans over the specified `time`
-        for (auto kf = m_Seq->GetUKeyFrame(++m_KFCurr); time > kf->DeltaTime; m_KFPrev = m_KFCurr++) {
-            time -= m_Seq->GetUKeyFrame(m_KFCurr)->DeltaTime;
-
-            if (m_KFCurr + 1 >= m_Seq->m_FramesNum) {
-                // reached end of animation
-                if (!m_BlendAssoc->IsLooped()) {
-                    CalcDeltas();
-                    m_KFRemainingTime = 0.0f;
-                    return false;
-                }
-                m_KFCurr = 0;
-            }
-        }
-
-        // Now calculate how much we have remaining from this frame
-        m_KFRemainingTime = m_Seq->GetUKeyFrame(m_KFCurr)->DeltaTime - time;
+        CalcDeltas();
+        return true;
     }
+
+    // Find kf that spans over the specified `time`
+    m_KFCurr = 1;
+    while (time > KeyFrameDeltaTime<false>(KeyFrameAt<false>(m_Seq, m_KFCurr))) {
+        time -= KeyFrameDeltaTime<false>(KeyFrameAt<false>(m_Seq, m_KFCurr));
+
+        if (m_KFCurr + 1 >= numFrames) {
+            // reached end of animation
+            if (!m_BlendAssoc->IsLooped()) {
+                CalcDeltas();
+                m_KFRemainingTime = 0.0f;
+                return false;
+            }
+            m_KFCurr = 0;
+        }
+        m_KFPrev = m_KFCurr;
+        m_KFCurr = static_cast<int16>(m_KFCurr + 1);
+    }
+
+    // Now calculate how much we have remaining from this frame
+    m_KFRemainingTime = KeyFrameDeltaTime<false>(KeyFrameAt<false>(m_Seq, m_KFCurr)) - time;
 
     CalcDeltas();
     return true;
 }
 
+static float s_CalcThetaOne  = 1.0f;
+static float s_CalcThetaZero = 0.0f;
+
+// Como el original (0x4D00E0): producto escalar en x87 ((pw·cw + pz·cz) + py·cy) + px·cx guardado como float,
+// recorte a 1 con fcomp (NaN pasa), acos del CRT del juego (0x822380: fpatan(sqrt((1 + x)(1 - x)), x) con la
+// palabra de control (anterior & 0x300) | 0x7F), theta guardado como float y 1/fsin calculado con el resultado
+// completo del acos (sin redondear) salvo si es exactamente 0.
+static void __declspec(naked) __cdecl CalcThetaX87(const CQuaternion* prev, const CQuaternion* curr, float* theta, float* invSinTheta) {
+    __asm {
+        mov    eax, dword ptr [esp + 4]
+        mov    ecx, dword ptr [esp + 8]
+        fld    dword ptr [eax + 0Ch]
+        fmul   dword ptr [ecx + 0Ch]
+        fld    dword ptr [eax + 8]
+        fmul   dword ptr [ecx + 8]
+        faddp  st(1), st
+        fld    dword ptr [eax + 4]
+        fmul   dword ptr [ecx + 4]
+        faddp  st(1), st
+        fld    dword ptr [eax]
+        fmul   dword ptr [ecx]
+        faddp  st(1), st
+        fst    dword ptr [esp + 4]
+        fcomp  dword ptr [s_CalcThetaOne]
+        fnstsw ax
+        test   ah, 41h
+        jne    ct_noclamp
+        mov    dword ptr [esp + 4], 3F800000h
+    ct_noclamp:
+        fld    dword ptr [esp + 4]
+        sub    esp, 4
+        fnstcw word ptr [esp]
+        mov    ax, word ptr [esp]
+        and    ax, 300h
+        or     ax, 7Fh
+        mov    word ptr [esp + 2], ax
+        fldcw  word ptr [esp + 2]
+        fld1
+        fadd   st, st(1)
+        fld1
+        fsub   st, st(2)
+        fmulp  st(1), st
+        fsqrt
+        fxch   st(1)
+        fpatan
+        fldcw  word ptr [esp]
+        add    esp, 4
+        fld    st(0)
+        mov    eax, dword ptr [esp + 0Ch]
+        fstp   dword ptr [eax]
+        fcom   dword ptr [s_CalcThetaZero]
+        fnstsw ax
+        test   ah, 44h
+        jnp    ct_zero
+        fsin
+        mov    ecx, dword ptr [esp + 10h]
+        fdivr  dword ptr [s_CalcThetaOne]
+        fstp   dword ptr [ecx]
+        ret
+    ct_zero:
+        mov    edx, dword ptr [esp + 10h]
+        fstp   st(0)
+        mov    dword ptr [edx], 0
+        ret
+    }
+}
+
 // 0x4D00E0
 // Precalcula el ángulo y 1/sin(theta) usados por Slerp entre los dos keyframes.
-void CAnimBlendNode::CalcTheta(float angleCos) {
-    m_Theta       = std::acos(std::min(angleCos, 1.0f));
-    m_InvSinTheta = m_Theta == 0.0f
-        ? 0.0f
-        : 1.0f / std::sin(m_Theta);
+void CAnimBlendNode::CalcTheta(const CQuaternion& prev, const CQuaternion& curr, float& theta, float& invSinTheta) {
+    CalcThetaX87(&prev, &curr, &theta, &invSinTheta);
 }
 
 // 0x4D0190
@@ -108,47 +185,87 @@ void CAnimBlendNode::CalcDeltas() {
         return;
     }
 
-    CalcTheta(
-        DotProduct(
-            m_Seq->GetUKeyFrame(m_KFCurr)->Rot,
-            m_Seq->GetUKeyFrame(m_KFPrev)->Rot
-        )
-    );
+    // Como el original: copia los dos quaternions (anterior y actual) y llama a CalcTheta(anterior, actual).
+    const CQuaternion rotPrev = KeyFrameRot<false>(KeyFrameAt<false>(m_Seq, m_KFPrev));
+    const CQuaternion rotCurr = KeyFrameRot<false>(KeyFrameAt<false>(m_Seq, m_KFCurr));
+    CalcTheta(rotPrev, rotCurr, m_Theta, m_InvSinTheta);
 }
 
 // 0x4D0350
 /**
  * Prepara la interpolación de rotación comprimida.
  *
- * Si los quaternions caen en hemisferios opuestos invierte el anterior para que
- * Slerp recorra el arco corto y evita una rotación visualmente innecesaria.
+ * Si los quaternions caen en hemisferios opuestos invierte uno para que Slerp
+ * recorra el arco corto y evita una rotación visualmente innecesaria.
  */
 void CAnimBlendNode::CalcDeltasCompressed() {
     if (!m_Seq->m_bHasRotation) {
         return;
     }
 
-    KeyFrameCompressed* kfA = m_Seq->GetCKeyFrame(m_KFCurr);
-    KeyFrameCompressed* kfB = m_Seq->GetCKeyFrame(m_KFPrev);
+    uint8* const kfPrev = KeyFrameAt<true>(m_Seq, m_KFPrev);
+    uint8* const kfCurr = KeyFrameAt<true>(m_Seq, m_KFCurr);
 
-    CQuaternion rotA = kfA->Rot, rotB = kfB->Rot;
-    const auto angleCos = DotProduct(rotA, rotB); // What kind of retarded hack is this
+    const CQuaternion rotPrev = KeyFrameRot<true>(kfPrev);
+    CQuaternion       rotCurr = KeyFrameRot<true>(kfCurr);
+
+    // Como el original: producto escalar ((pw·cw + pz·cz) + py·cy) + px·cx; si es negativo se invierte el keyframe
+    // ACTUAL (no el anterior), se vuelve a comprimir (·4096 truncado con _ftol2) y CalcTheta recibe el quaternion ya
+    // invertido (antes se le pasaba el coseno negativo previo a la inversión).
+    const float angleCos = ((rotPrev.w * rotCurr.w + rotPrev.z * rotCurr.z) + rotPrev.y * rotCurr.y) + rotPrev.x * rotCurr.x;
     if (angleCos < 0.0f) {
-        rotB     = -rotB;
-        kfB->Rot = rotB;
+        rotCurr.x = -rotCurr.x;
+        rotCurr.y = -rotCurr.y;
+        rotCurr.z = -rotCurr.z;
+        rotCurr.w = -rotCurr.w;
+        auto* const r = reinterpret_cast<int16*>(kfCurr);
+        r[0] = static_cast<int16>(static_cast<int64>(rotCurr.x * 4096.0f));
+        r[1] = static_cast<int16>(static_cast<int64>(rotCurr.y * 4096.0f));
+        r[2] = static_cast<int16>(static_cast<int64>(rotCurr.z * 4096.0f));
+        r[3] = static_cast<int16>(static_cast<int64>(rotCurr.w * 4096.0f));
     }
-    CalcTheta(angleCos);
+    CalcTheta(rotPrev, rotCurr, m_Theta, m_InvSinTheta);
 }
 
 // 0x4CFB90 - Unused
+// Como el original: igual que NextKeyFrame pero sin recalcular los deltas de rotación (antes no estaba implementada).
 bool CAnimBlendNode::NextKeyFrameNoCalc() {
-    NOTSA_UNREACHABLE("Unused Function");
+    const int32 numFrames = static_cast<int16>(m_Seq->m_FramesNum);
+    if (numFrames <= 1) {
+        return false;
+    }
+
+    m_KFPrev = m_KFCurr;
+
+    bool looped = false;
+    while (m_KFRemainingTime <= 0.0f) {
+        m_KFCurr++;
+
+        if (m_KFCurr >= numFrames) {
+            if (!m_BlendAssoc->IsLooped()) {
+                m_KFCurr--;
+                m_KFRemainingTime = 0.0f;
+                return false;
+            }
+            looped   = true;
+            m_KFCurr = 0;
+        }
+
+        m_KFRemainingTime = KeyFrameDeltaTime<false>(KeyFrameAt<false>(m_Seq, m_KFCurr)) + m_KFRemainingTime;
+    }
+
+    m_KFPrev = static_cast<int16>(m_KFCurr - 1);
+    if (m_KFPrev < 0) {
+        m_KFPrev = static_cast<int16>(m_KFPrev + numFrames);
+    }
+    return looped;
 }
 
 // 0x4D0650
 // Inicializa el primer intervalo de una secuencia comprimida y sus deltas de rotación.
 bool CAnimBlendNode::SetupKeyFrameCompressed() {
-    if (m_Seq->m_FramesNum < 1) {
+    // Como el original: contador con signo (movsx).
+    if (static_cast<int16>(m_Seq->m_FramesNum) < 1) {
         return false;
     }
 
@@ -156,10 +273,11 @@ bool CAnimBlendNode::SetupKeyFrameCompressed() {
     m_KFPrev = 0;
 
     if (m_Seq->m_FramesNum == 1) {
-        m_KFCurr    = 0;
+        m_KFCurr          = 0;
         m_KFRemainingTime = 0.0f;
     } else {
-        m_KFRemainingTime = m_Seq->GetCKeyFrame(m_KFCurr)->DeltaTime;
+        // Como el original: tiempo del keyframe 1 ·0x3C888889 (1/60 del EXE).
+        m_KFRemainingTime = KeyFrameDeltaTime<true>(KeyFrameAt<true>(m_Seq, 1));
     }
 
     CalcDeltasCompressed();

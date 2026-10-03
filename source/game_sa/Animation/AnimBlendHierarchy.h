@@ -40,10 +40,10 @@ public:
     uint8* AllocSequenceBlock(bool compressed) const;
 
     //! @addr 0x4CF2F0
-    void CalcTotalTime() { ICalcTotalTime<false>(); }
+    void CalcTotalTime();
 
     //! @addr 0x4CF3E0
-    void CalcTotalTimeCompressed() { ICalcTotalTime<true>(); }
+    void CalcTotalTimeCompressed();
 
     // Destruye secuencias, libera su bloque compartido y retira esta jerarquía de la caché.
     void RemoveAnimSequences();
@@ -58,7 +58,7 @@ public:
     void* GetSequenceBlock() const;
     void CompressKeyframes() const;
 
-    void MoveMemory();
+    bool MoveMemory();
     void Print();
 
     auto GetSequences() const { return std::span{ m_pSequences, (size_t)m_nSeqCount }; }
@@ -69,23 +69,6 @@ public:
     void SetNumSequences(size_t n);
 
     uint32 GetIndex() const;
-
-private: // Function implementations
-    template<bool Compressed>
-    void ICalcTotalTime() {
-        m_fTotalTime = 0.0f;
-        for (auto& seq : GetSequences()) {
-            if (seq.m_FramesNum == 0) { // FIX_BUGS by Mitchell Tobass
-                continue;
-            }
-            m_fTotalTime = std::max<float>(m_fTotalTime, seq.GetKeyFrame<Compressed>(seq.m_FramesNum - 1)->DeltaTime);
-            for (auto j = seq.m_FramesNum; j --> 1;) {
-                const auto kfA = seq.GetKeyFrame<Compressed>(j - 1);
-                const auto kfB = seq.GetKeyFrame<Compressed>(j);
-                kfB->DeltaTime = kfB->DeltaTime - kfA->DeltaTime; // TODO/NOTE: With `FixedFloat` this has unnecessary conversions float <=> int
-            }
-        }
-    }
 
 private:
     friend void InjectHooksMain();

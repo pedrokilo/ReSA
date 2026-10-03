@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/10 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -51,7 +51,15 @@ CTaskComplexDestroyCarArmed::CTaskComplexDestroyCarArmed(CVehicle* vehicleToDest
     m_VehToDestroy{vehicleToDestroy},
     m_bGotoPointAndStandStill{false}
 {
+#ifdef FIX_BUGS
     CEntity::SafeRegisterRef(m_VehToDestroy);
+#else
+    // Como el original: el EXE registra la direccion del parametro en la pila (lea eax,[esp+18h]), no la del campo;
+    // la referencia queda colgando y el destructor no la encuentra
+    if (vehicleToDestroy) {
+        vehicleToDestroy->RegisterReference(reinterpret_cast<CEntity**>(&vehicleToDestroy));
+    }
+#endif
 }
 
 CTaskComplexDestroyCarArmed::CTaskComplexDestroyCarArmed(const CTaskComplexDestroyCarArmed& o) :
@@ -101,7 +109,8 @@ void CTaskComplexDestroyCarArmed::CalculateSearchPositionAndRanges(CPed* ped) {
         fmul outer
         fstp outerRange
     }
-    m_fWeaponRangeClamped = std::max(.8f, innerRange);
+    // Como el original: fcomp + test ah,41h -> un rango NaN se conserva
+    m_fWeaponRangeClamped = (.8f > innerRange) ? .8f : innerRange;
     m_fWeaponRange = outerRange;
 }
 
@@ -164,8 +173,11 @@ CTask* CTaskComplexDestroyCarArmed::CreateNextSubTask(CPed* ped) {
             return CreateSubTask(TASK_COMPLEX_SEEK_ENTITY, ped);
         }
 
+        // Como el original: distancia al cuadrado (0x406DA0) frente al rango al cuadrado; NaN o empate -> pausa
         const auto& winfo = ped->GetActiveWeapon().GetWeaponInfo(ped);
-        if (DistanceBetweenPointsSquared(m_VehToDestroy->GetPosition(), ped->GetPosition()) >= sq(winfo.m_fTargetRange)) {
+        const CVector delta = m_VehToDestroy->GetPosition() - ped->GetPosition();
+        const float range = winfo.m_fTargetRange;
+        if (!(range * range > delta.SquaredMagnitude())) {
             return CreateSubTask(TASK_SIMPLE_PAUSE, ped);
         }
         return CreateSubTask(TASK_SIMPLE_GUN_CTRL, ped);
@@ -187,7 +199,7 @@ CTask* CTaskComplexDestroyCarArmed::CreateFirstSubTask(CPed* ped) {
     // const auto& winfo = ped->GetActiveWeapon().GetWeaponInfo(ped);
     CalculateSearchPositionAndRanges(ped);
 
-    if (m_PedVehDist <= m_fWeaponRangeClamped) {
+    if (!(m_PedVehDist > m_fWeaponRangeClamped)) { // Como el original: NaN tambien dispara
         ped->m_fAimingRotation = CGeneral::GetRadianAngleBetweenPoints(m_VehiclePos, m_PedPos);
         return CreateSubTask(TASK_SIMPLE_GUN_CTRL, ped);
     } else if (ped->bStayInSamePlace) {
@@ -217,7 +229,7 @@ CTask* CTaskComplexDestroyCarArmed::ControlSubTask(CPed* ped) {
     switch (m_pSubTask->GetTaskType()) {
     case TASK_COMPLEX_SEEK_ENTITY: {
         CalculateSearchPositionAndRanges(ped);
-        if (m_PedVehDist >= m_fWeaponRange && !ped->bKindaStayInSamePlace) {
+        if (!(m_PedVehDist < m_fWeaponRange) && !ped->bStayInSamePlace) { // Como el original: bit 21 (0x200000) y NaN sigue
             return m_pSubTask;
         }
         ped->SetMoveState(PEDMOVE_STILL);
@@ -229,7 +241,7 @@ CTask* CTaskComplexDestroyCarArmed::ControlSubTask(CPed* ped) {
             ped->SetMoveState(PEDMOVE_STILL);
             return CreateSubTask(TASK_SIMPLE_GUN_CTRL, ped);
         }
-        if (m_PedVehDist >= m_fWeaponRange && !ped->bKindaStayInSamePlace) {
+        if (!(m_PedVehDist < m_fWeaponRange) && !ped->bStayInSamePlace) { // Como el original: bit 21 (0x200000) y NaN sigue
             return m_pSubTask;
         }
         ped->SetMoveState(PEDMOVE_STILL);

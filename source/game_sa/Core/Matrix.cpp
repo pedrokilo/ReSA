@@ -196,14 +196,30 @@ void CMatrix::SetRotateYOnly(float angle)
     m_up.Set     (fSin,  0.0F,  fCos);
 }
 
-void CMatrix::SetRotateZOnly(float angle)
+// 0x59B020
+// Como el original: fsin/fcos del x87 (precisión interna completa) guardados a float con fstp,
+// y los mismos campos escritos (sin tocar el relleno ni la posición).
+__declspec(naked) void CMatrix::SetRotateZOnly(float angle)
 {
-    auto fSin = sin(angle);
-    auto fCos = cos(angle);
-
-    m_right.Set  ( fCos, fSin, 0.0F);
-    m_forward.Set(-fSin, fCos, 0.0F);
-    m_up.Set     ( 0.0F, 0.0F, 1.0F);
+    __asm {
+        fld dword ptr [esp+4]
+        xor eax,eax
+        fcos
+        mov dword ptr [ecx+8],eax
+        mov dword ptr [ecx+18h],eax
+        mov dword ptr [ecx+20h],eax
+        mov dword ptr [ecx+24h],eax
+        mov dword ptr [ecx+28h],3F800000h
+        fld dword ptr [esp+4]
+        fsin
+        fld st(1)
+        fstp dword ptr [ecx]
+        fst dword ptr [ecx+4]
+        fchs
+        fstp dword ptr [ecx+10h]
+        fstp dword ptr [ecx+14h]
+        ret 4
+    }
 }
 
 void CMatrix::SetRotateX(float angle)

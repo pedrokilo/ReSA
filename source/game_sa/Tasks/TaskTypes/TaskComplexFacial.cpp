@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -35,6 +35,16 @@ void CTaskComplexFacial::InjectHooks() {
     RH_ScopedVMTInstall(CreateNextSubTask, 0x690DC0);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x690F30);
     RH_ScopedVMTInstall(ControlSubTask, 0x690FC0);
+}
+
+// 0x690D20
+CTaskComplexFacial::CTaskComplexFacial() : CTaskComplex() {
+    m_RequestA = eFacialExpression::NONE;
+    m_RequestB = eFacialExpression::NONE;
+    // Como el original: (int)((rand() & 0xFFFF) * (1/32768) * 100) > 70 (0x858B14, 0x858628)
+    m_IsChewing = (int32)((float)CGeneral::GetRandomNumber() * (1.0f / 32768.0f) * 100.0f) > 70;
+    m_TalkingLastFrame = false;
+    m_IsAborting = false;
 }
 
 // 0x691250

@@ -101,7 +101,7 @@ public:
     float        m_fRadius;         // radius affected
     float        m_fLifespan;       // time taken for shot to dissipate
     float        m_fSpread;         // angle inside which shots are created
-    uint16       m_nAimOffsetIndex; // index into array of aiming offsets
+    int16        m_nAimOffsetIndex; // index into array of aiming offsets (Como el original: se lee con movsx)
     uint8        m_nBaseCombo;      // base combo for this melee weapon
     uint8        m_nNumCombos;      // how many further combos are available
 
@@ -146,6 +146,6 @@ public:
         return GetWeaponInfo(ped->GetActiveWeapon().m_Type, skill.value_or(ped->GetWeaponSkill()));
     }
 
-    const auto& GetAimingOffset() const { return CWeaponInfo::ms_WeaponAimOffsets[m_nAimOffsetIndex]; }
+    const auto& GetAimingOffset() const { return CWeaponInfo::ms_WeaponAimOffsets.data()[m_nAimOffsetIndex]; }
 };
 VALIDATE_SIZE(CWeaponInfo, 0x70);

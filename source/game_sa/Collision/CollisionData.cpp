@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -79,13 +79,19 @@ CCollisionData::CCollisionData() {
  * y punteros principales en estado vacío para impedir reutilizar memoria liberada.
  */
 void CCollisionData::RemoveCollisionVolumes() {
-    CMemoryMgr::Free(m_pSpheres);
-    CMemoryMgr::Free(m_pLines);
-    CMemoryMgr::Free(m_pBoxes);
-    CMemoryMgr::Free(m_pVertices);
-    CMemoryMgr::Free(m_pTriangles);
-    CMemoryMgr::Free(m_pShadowTriangles);
-    CMemoryMgr::Free(m_pShadowVertices);
+    // Como el original: solo se llama a Free con punteros no nulos.
+    const auto FreeIfSet = [](void* p) {
+        if (p) {
+            CMemoryMgr::Free(p);
+        }
+    };
+    FreeIfSet(m_pSpheres);
+    FreeIfSet(m_pLines);
+    FreeIfSet(m_pBoxes);
+    FreeIfSet(m_pVertices);
+    FreeIfSet(m_pTriangles);
+    FreeIfSet(m_pShadowTriangles);
+    FreeIfSet(m_pShadowVertices);
 
     CCollision::RemoveTrianglePlanes(this);
 
@@ -106,120 +112,150 @@ void CCollisionData::RemoveCollisionVolumes() {
 /**
  * Realiza una copia profunda de los volúmenes y mallas de @p src.
  *
- * Cada array se redimensiona sólo cuando cambia su forma. Para triángulos se deduce
- * el número de vértices a partir del índice máximo referenciado, ya que el formato
- * no almacena explícitamente ese contador para la malla principal.
- *
- * Los face groups no se copian por esta ruta; la precondición se protege con assert.
+ * Como el original: cada bloque se libera si el origen está vacío y se reserva
+ * de nuevo sólo cuando cambia el contador; los vértices (principales y de sombra)
+ * se reservan siempre que haya triángulos, con tantos elementos como el índice
+ * máximo + 1. Los face groups no se copian.
  */
-void CCollisionData::Copy(const CCollisionData& src) {
-    assert(!bHasFaceGroups); // Avoid possible random bugs - See header for more info.
+CCollisionData& CCollisionData::Copy(const CCollisionData& src) {
+    const auto FreeIfSet = [](void* p) {
+        if (p) {
+            CMemoryMgr::Free(p);
+        }
+    };
 
-    // ----- SPHERES -----
-    if (m_nNumSpheres != src.m_nNumSpheres || !src.m_nNumSpheres) {
-        m_nNumSpheres = src.m_nNumSpheres;
-        CMemoryMgr::Free(m_pSpheres);
+    // ----- SPHERES ----- 0x40F125
+    if (!src.m_nNumSpheres) {
+        m_nNumSpheres = 0;
+        FreeIfSet(m_pSpheres);
         m_pSpheres = nullptr;
-
-        if (src.m_nNumSpheres)
-            m_pSpheres = static_cast<CColSphere*>(CMemoryMgr::Malloc(m_nNumSpheres * sizeof(CColSphere)));
+    } else {
+        if (m_nNumSpheres != src.m_nNumSpheres) {
+            m_nNumSpheres = src.m_nNumSpheres;
+            FreeIfSet(m_pSpheres);
+            m_pSpheres = static_cast<CColSphere*>(CMemoryMgr::Malloc((int16)m_nNumSpheres * sizeof(CColSphere), 0));
+        }
+        for (uint32 i = 0; i < (uint32)(int16)m_nNumSpheres; ++i) {
+            std::memcpy(&m_pSpheres[i], &src.m_pSpheres[i], sizeof(CColSphere)); // rep movs
+        }
     }
-    for (auto i = 0; i < m_nNumSpheres; ++i) {
-        m_pSpheres[i] = src.m_pSpheres[i];
-    }
 
-    // ----- LINES / DISKS -----
-    if (m_nNumLines != src.m_nNumLines || !src.m_nNumLines || bUsesDisks != src.bUsesDisks) {
-        bUsesDisks = src.bUsesDisks;
-        m_nNumLines = src.m_nNumLines;
-        CMemoryMgr::Free(m_pLines);
+    // ----- LINES / DISKS ----- 0x40F1A8
+    if (!src.m_nNumLines) {
+        m_nNumLines = 0;
+        FreeIfSet(m_pLines);
         m_pLines = nullptr;
-
-        if (src.m_nNumLines) {
-            if (src.bUsesDisks)
-                m_pDisks = static_cast<CColDisk*>(CMemoryMgr::Malloc(m_nNumLines * sizeof(CColDisk)));
-            else
-                m_pLines = static_cast<CColLine*>(CMemoryMgr::Malloc(m_nNumLines * sizeof(CColLine)));
+    } else if (src.bUsesDisks) {
+        if (m_nNumLines != src.m_nNumLines || !bUsesDisks) {
+            m_nNumLines = src.m_nNumLines;
+            FreeIfSet(m_pLines);
+            m_pDisks = static_cast<CColDisk*>(CMemoryMgr::Malloc((int8)m_nNumLines * sizeof(CColDisk), 0));
+        }
+        for (uint32 i = 0; i < (uint32)(int8)m_nNumLines; ++i) {
+            std::memcpy(&m_pDisks[i], &src.m_pDisks[i], sizeof(CColDisk));
+        }
+    } else {
+        if (m_nNumLines != src.m_nNumLines || bUsesDisks) {
+            m_nNumLines = src.m_nNumLines;
+            FreeIfSet(m_pLines);
+            m_pLines = static_cast<CColLine*>(CMemoryMgr::Malloc((int8)m_nNumLines * sizeof(CColLine), 0));
+        }
+        for (uint32 i = 0; i < (uint32)(int8)m_nNumLines; ++i) {
+            std::memcpy(&m_pLines[i], &src.m_pLines[i], sizeof(CColLine));
         }
     }
-    for (auto i = 0; i < m_nNumLines; ++i) {
-        if (bUsesDisks)
-            m_pDisks[i] = src.m_pDisks[i];
-        else
-            m_pLines[i] = src.m_pLines[i];
-    }
 
-    // ----- BOXES -----
-    if (m_nNumBoxes != src.m_nNumBoxes || !src.m_nNumBoxes) {
-        m_nNumBoxes = src.m_nNumBoxes;
-        CMemoryMgr::Free(m_pBoxes);
+    // 0x40F297 - Como el original: se copian siempre los bits de discos y de sombras
+    bUsesDisks     = src.bUsesDisks;
+    bHasShadowInfo = src.bHasShadowInfo;
+
+    // ----- BOXES ----- 0x40F2B4
+    if (!src.m_nNumBoxes) {
+        m_nNumBoxes = 0;
+        FreeIfSet(m_pBoxes);
         m_pBoxes = nullptr;
-
-        if (src.m_nNumBoxes) {
-            m_pBoxes = static_cast<CColBox*>(CMemoryMgr::Malloc(m_nNumBoxes * sizeof(CColBox)));
+    } else {
+        if (m_nNumBoxes != src.m_nNumBoxes) {
+            m_nNumBoxes = src.m_nNumBoxes;
+            FreeIfSet(m_pBoxes);
+            m_pBoxes = static_cast<CColBox*>(CMemoryMgr::Malloc((int16)m_nNumBoxes * sizeof(CColBox), 0));
+        }
+        for (uint32 i = 0; i < (uint32)(int16)m_nNumBoxes; ++i) {
+            // Como el original: CColBox::operator= (0x40EEC0) copia 0x1B bytes (no el último byte de la superficie)
+            std::memcpy(&m_pBoxes[i], &src.m_pBoxes[i], 0x1B);
         }
     }
-    for (auto i = 0; i < m_nNumBoxes; ++i) {
-        m_pBoxes[i] = src.m_pBoxes[i];
-    }
 
-    // ----- TRIANGLES & VERTICES -----
-    if (m_nNumTriangles != src.m_nNumTriangles || !src.m_nNumTriangles) {
-        m_nNumTriangles = src.m_nNumTriangles;
-        CMemoryMgr::Free(m_pTriangles);
-        CMemoryMgr::Free(m_pVertices);
-        m_pTriangles = nullptr;
-        m_pVertices = nullptr;
-
-        if (src.m_nNumTriangles) {
-            // Get number of vertices
-            uint16 iHighestVertInd = 0;
-            for (auto i = 0; i < src.m_nNumTriangles; ++i)
-                iHighestVertInd = std::max({iHighestVertInd, src.m_pTriangles[i].vA, src.m_pTriangles[i].vB, src.m_pTriangles[i].vC});
-
-            if (iHighestVertInd) {
-                iHighestVertInd++; // allocated space needs to be 1 bigger to compensate for index 0
-                m_pVertices = static_cast<decltype(m_pVertices)>(CMemoryMgr::Malloc(iHighestVertInd * sizeof(*m_pVertices)));
-                for (auto i = 0; i < iHighestVertInd; ++i) {
-                    m_pVertices[i] = src.m_pVertices[i];
+    // Índice de vértice máximo (comparación sin signo de 16 bits) + 1, en 32 bits
+    const auto GetNumVerts = [](const CColTriangle* tris, uint32 numTris) -> uint32 {
+        uint32 highest = 0;
+        for (uint32 i = 0; i < numTris; ++i) {
+            for (const uint16 v : { tris[i].vA, tris[i].vB, tris[i].vC }) {
+                if (v > (uint16)highest) {
+                    highest = v;
                 }
             }
-
-            m_pTriangles = static_cast<CColTriangle*>(CMemoryMgr::Malloc(m_nNumTriangles * sizeof(CColTriangle)));
         }
-    }
-    for (auto i = 0; i < m_nNumTriangles; ++i)
-        m_pTriangles[i] = src.m_pTriangles[i];
+        return highest + 1;
+    };
 
-    // ----- SHADOW TRIANGLES & SHADOW VERTICES -----
-    if (m_nNumShadowTriangles != src.m_nNumShadowTriangles || !src.m_nNumShadowTriangles || bHasShadowInfo != src.bHasShadowInfo) {
-        bHasShadowInfo = src.bHasShadowInfo;
-        m_nNumShadowTriangles = src.m_nNumShadowTriangles;
-        m_nNumShadowVertices = src.m_nNumShadowVertices;
-        CMemoryMgr::Free(m_pShadowTriangles);
-        CMemoryMgr::Free(m_pShadowVertices);
-        m_pShadowTriangles = nullptr;
-        m_pShadowVertices = nullptr;
-
-        if (src.m_nNumShadowTriangles) {
-            // Get number of vertices
-            uint16 iHighestVertInd = 0;
-            for (uint32 i = 0; i < src.m_nNumShadowTriangles; ++i)
-                iHighestVertInd = std::max({iHighestVertInd, src.m_pShadowTriangles[i].vA, src.m_pShadowTriangles[i].vB, src.m_pShadowTriangles[i].vC});
-
-            if (iHighestVertInd) {
-                iHighestVertInd++; // allocated space needs to be 1 bigger to compensate for index 0
-                m_pShadowVertices = static_cast<decltype(m_pShadowVertices)>(CMemoryMgr::Malloc(iHighestVertInd * sizeof(*m_pShadowVertices)));
-                for (auto i = 0; i < iHighestVertInd; ++i)
-                    m_pShadowVertices[i] = src.m_pShadowVertices[i];
+    // ----- TRIANGLES & VERTICES ----- 0x40F32C
+    if (!src.m_nNumTriangles) {
+        m_nNumTriangles = 0;
+        FreeIfSet(m_pTriangles);
+        m_pTriangles = nullptr;
+        FreeIfSet(m_pVertices);
+        m_pVertices = nullptr;
+    } else {
+        const auto numVerts = GetNumVerts(src.m_pTriangles, (uint32)(int16)src.m_nNumTriangles);
+        FreeIfSet(m_pVertices);
+        if ((uint16)numVerts) { // Como el original: con 0x10000 vértices no se reserva (y el puntero queda como estaba)
+            m_pVertices = static_cast<CompressedVector*>(CMemoryMgr::Malloc((uint16)numVerts * sizeof(CompressedVector), 0));
+            for (uint32 i = 0; i < (uint16)numVerts; ++i) {
+                m_pVertices[i] = src.m_pVertices[i];
             }
+        }
 
-            m_pShadowTriangles = static_cast<CColTriangle*>(CMemoryMgr::Malloc(m_nNumShadowTriangles * sizeof(CColTriangle)));
+        if (m_nNumTriangles != src.m_nNumTriangles) {
+            m_nNumTriangles = src.m_nNumTriangles;
+            FreeIfSet(m_pTriangles);
+            m_pTriangles = static_cast<CColTriangle*>(CMemoryMgr::Malloc((int16)m_nNumTriangles * sizeof(CColTriangle), 0));
+        }
+        for (uint32 i = 0; i < (uint32)(int16)m_nNumTriangles; ++i) {
+            std::memcpy(&m_pTriangles[i], &src.m_pTriangles[i], sizeof(CColTriangle));
         }
     }
-    for (uint32 i = 0; i < m_nNumShadowTriangles; ++i) {
-        m_pShadowTriangles[i] = src.m_pShadowTriangles[i];
+
+    // ----- SHADOW TRIANGLES & SHADOW VERTICES ----- 0x40F444
+    if (src.m_nNumShadowTriangles && src.bHasShadowInfo) {
+        const auto numVerts = GetNumVerts(src.m_pShadowTriangles, src.m_nNumShadowTriangles);
+        FreeIfSet(m_pShadowVertices);
+        if ((uint16)numVerts) {
+            m_pShadowVertices = static_cast<CompressedVector*>(CMemoryMgr::Malloc((uint16)numVerts * sizeof(CompressedVector), 0));
+            for (uint32 i = 0; i < (uint16)numVerts; ++i) {
+                m_pShadowVertices[i] = src.m_pShadowVertices[i];
+            }
+        }
+
+        if (m_nNumShadowTriangles != src.m_nNumShadowTriangles) {
+            m_nNumShadowTriangles = src.m_nNumShadowTriangles;
+            FreeIfSet(m_pShadowTriangles);
+            m_pShadowTriangles = static_cast<CColTriangle*>(CMemoryMgr::Malloc(m_nNumShadowTriangles * sizeof(CColTriangle), 0));
+        }
+        for (uint32 i = 0; i < m_nNumShadowTriangles; ++i) {
+            std::memcpy(&m_pShadowTriangles[i], &src.m_pShadowTriangles[i], sizeof(CColTriangle));
+        }
+        m_nNumShadowVertices = src.m_nNumShadowVertices;
+    } else { // 0x40F543
+        m_nNumShadowTriangles = 0;
+        m_nNumShadowVertices = 0;
+        FreeIfSet(m_pShadowTriangles);
+        m_pShadowTriangles = nullptr;
+        FreeIfSet(m_pShadowVertices);
+        m_pShadowVertices = nullptr;
     }
+
+    return *this;
 }
 
 // Disposición: | CColTrianglePlane[] | CLink<CCollisionData*>* alineado a 4 bytes |
@@ -231,8 +267,9 @@ void CCollisionData::Copy(const CCollisionData& src) {
  * array también se reutiliza para almacenar el puntero de enlace de la caché.
  */
 void CCollisionData::CalculateTrianglePlanes() {
-    m_pTrianglePlanes = static_cast<CColTrianglePlane*>(CMemoryMgr::Malloc((m_nNumTriangles + 1) * sizeof(CColTrianglePlane)));
-    for (auto i = 0; i < m_nNumTriangles; ++i) {
+    // Como el original: el contador se lee con signo (movsx).
+    m_pTrianglePlanes = static_cast<CColTrianglePlane*>(CMemoryMgr::Malloc(((int16)m_nNumTriangles + 1) * sizeof(CColTrianglePlane), 0));
+    for (int32 i = 0; i < (int16)m_nNumTriangles; ++i) {
         m_pTrianglePlanes[i].Set(m_pVertices, m_pTriangles[i]);
     }
 }
@@ -240,7 +277,9 @@ void CCollisionData::CalculateTrianglePlanes() {
 // 0x40F6A0
 // Libera exclusivamente la caché de planos; la malla de triángulos permanece intacta.
 void CCollisionData::RemoveTrianglePlanes() {
-    CMemoryMgr::Free(m_pTrianglePlanes);
+    if (m_pTrianglePlanes) { // Como el original: Free solo con puntero no nulo
+        CMemoryMgr::Free(m_pTrianglePlanes);
+    }
     m_pTrianglePlanes = nullptr;
 }
 

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -45,19 +45,33 @@ CTaskComplexHitByGunResponse::CTaskComplexHitByGunResponse(eDirection hs) :
 {
 }
 
-//! @notsa
+// 0x636640 (Clone): como el original, copia el dword completo del lado
 CTaskComplexHitByGunResponse::CTaskComplexHitByGunResponse(const CTaskComplexHitByGunResponse& o) :
-    CTaskComplexHitByGunResponse{ o.m_HitSide }
+    CTaskComplex{},
+    m_HitSide{ o.m_HitSide }
 {
+}
+
+// 0x631E00
+bool CTaskComplexHitByGunResponse::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
+    // Como el original: solo se aborta con prioridad urgente o inmediata
+    switch (priority) {
+    case ABORT_PRIORITY_URGENT:
+    case ABORT_PRIORITY_IMMEDIATE:
+        return m_pSubTask->MakeAbortable(ped, priority, event);
+    default:
+        return false;
+    }
 }
 
 // 0x631E50
 CTask* CTaskComplexHitByGunResponse::CreateFirstSubTask(CPed* ped) {
-    switch (m_HitSide) {
-    case eDirection::FORWARD:  return new CTaskSimpleHitByGunFromFront{};
-    case eDirection::LEFT:     return new CTaskSimpleHitByGunFromLeft{};
-    case eDirection::BACKWARD: return new CTaskSimpleHitByGunFromRear{};
-    case eDirection::RIGHT:    return new CTaskSimpleHitByGunFromRight{};
-    default:                   NOTSA_UNREACHABLE();
+    // Como el original: compara el dword completo sin signo (fuera de 0..3 devuelve nullptr)
+    switch (static_cast<uint32>(m_HitSide.get_underlying())) {
+    case 0:  return new CTaskSimpleHitByGunFromFront{};
+    case 1:  return new CTaskSimpleHitByGunFromLeft{};
+    case 2:  return new CTaskSimpleHitByGunFromRear{};
+    case 3:  return new CTaskSimpleHitByGunFromRight{};
+    default: return nullptr;
     }
 }

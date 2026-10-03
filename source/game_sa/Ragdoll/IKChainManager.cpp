@@ -131,7 +131,8 @@ void IKChainManager_c::RemoveIKChain(IKChain_c* chain) {
 inline bool IKChainManager_c::CanAccept(CPed* ped, float range) const {
     static auto& s_MaxRange = StaticRef<float>(0x866BEC); // 999.0f
 
-    if (!ped->GetRwMatrix()) {
+    // Como el original: comprueba m_pRwObject antes de leer la matriz RW de su marco
+    if (!ped->GetRwObject() || !ped->GetRwMatrix()) {
         return false;
     }
 
@@ -143,40 +144,46 @@ inline bool IKChainManager_c::CanAccept(CPed* ped, float range) const {
         return false;
     }
 
-    if (range >= s_MaxRange) {
-        return true;
-    }
-
+    // Como el original: el modo francotirador se mira antes que el alcance
     if (TheCamera.m_PlayerWeaponMode.m_nMode == MODE_SNIPER) {
         return true;
     }
 
-    if ((ped->GetPosition() - TheCamera.GetPosition()).SquaredMagnitude() <= sq(range)) {
+    // Como el original: fcomp + test ah,5 + jp -> un NaN también acepta
+    if (!(range < s_MaxRange)) {
+        return true;
+    }
+
+    // Como el original: range*range (redondeado a float) frente a la distancia al cuadrado; un NaN también acepta
+    const float rangeSq = range * range;
+    if (!(rangeSq < (ped->GetPosition() - TheCamera.GetPosition()).SquaredMagnitude())) {
         return true;
     }
 
     return false;
 }
 
-// NOTSA
-CTaskSimpleIKManager* GetPedIKManagerTask(CPed* ped, bool createIfNotExists = false) {
-    if (const auto mgr = notsa::dyn_cast_if_present<CTaskSimpleIKManager>(ped->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_IK))) {
+// NOTSA (ayudante)
+// Como el original: la tarea secundaria IK se usa sin comprobar su tipo (sin llamadas virtuales a GetTaskType)
+static CTaskSimpleIKManager* GetPedIKManagerTask(CPed* ped, bool createIfNotExists = false) {
+    if (const auto mgr = static_cast<CTaskSimpleIKManager*>(ped->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_IK))) {
         return mgr;
     }
 
     if (createIfNotExists) {
-        auto taskIKMgr = new CTaskSimpleIKManager{};
-        ped->GetTaskManager().SetTaskSecondary(taskIKMgr, TASK_SECONDARY_IK);
-        return taskIKMgr;
+        ped->GetTaskManager().SetTaskSecondary(new CTaskSimpleIKManager{}, TASK_SECONDARY_IK);
+        // Como el original: se vuelve a leer la tarea del hueco después de SetTaskSecondary
+        return static_cast<CTaskSimpleIKManager*>(ped->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_IK));
     }
 
     return nullptr;
 }
 
-// NOTSA
-CTaskSimpleIKLookAt* GetPedIKLookAtTask(CPed* ped) {
+// NOTSA (ayudante)
+// Como el original: la tarea del hueco LOOK_AT se usa como CTaskSimpleIKLookAt sin comprobar su tipo
+static CTaskSimpleIKLookAt* GetPedIKLookAtTask(CPed* ped) {
     if (const auto mgr = GetPedIKManagerTask(ped)) {
-        return notsa::cast_if_present<CTaskSimpleIKLookAt>(mgr->GetTaskAtSlot(eIKChainSlot::LOOK_AT));
+        return static_cast<CTaskSimpleIKLookAt*>(mgr->GetTaskAtSlot(eIKChainSlot::LOOK_AT));
     }
     return nullptr;
 }
@@ -205,6 +212,7 @@ void IKChainManager_c::GetLookAtOffset(CPed* ped, CVector& offset) {
 
 // 0x618280
 void IKChainManager_c::AbortLookAt(CPed* ped, uint32 blendOutTime) {
+    // NOTSA: el EXE no comprueba que exista la tarea gestora IK (fallaría con un puntero nulo)
     if (const auto task = GetPedIKLookAtTask(ped)) {
         task->BlendOut(blendOutTime);
     }
@@ -256,8 +264,16 @@ void IKChainManager_c::LookAt(
     int32       priority,
     bool        bForceLooking
 ) {
-    if (!bForceLooking && !CanAcceptLookAt(ped)) { // byte_C1542C
-        return;
+    static auto& s_bDisableLookAts = StaticRef<bool>(0xC1542C); // Como el original: solo se lee aquí
+
+    if (!bForceLooking) {
+        if (!CanAcceptLookAt(ped)) {
+            return;
+        }
+        // Como el original: tras aceptar se mira byte_C1542C
+        if (s_bDisableLookAts) {
+            return;
+        }
     }
 
     auto& taskIKMgr = *GetPedIKManagerTask(ped, true);
@@ -267,7 +283,8 @@ void IKChainManager_c::LookAt(
         : CVector{};
 
     // Now, either update existing task or createIfNotExists one
-    if (const auto tLookAt = notsa::dyn_cast_if_present<CTaskSimpleIKLookAt>(taskIKMgr.GetTaskAtSlot(eIKChainSlot::LOOK_AT))) {
+    // Como el original: sin comprobar el tipo de la tarea del hueco
+    if (const auto tLookAt = static_cast<CTaskSimpleIKLookAt*>(taskIKMgr.GetTaskAtSlot(eIKChainSlot::LOOK_AT))) {
         if (priority < tLookAt->m_nPriority) {
             return;
         }
@@ -304,7 +321,8 @@ bool __stdcall IKChainManager_c::IsArmPointing(eIKArm arm, CPed* ped) {
 // 0x6182F0
 void __stdcall IKChainManager_c::AbortPointArm(eIKArm arm, CPed* ped, int32 blendOutTime) {
     const auto mgr = GetPedIKManagerTask(ped);
-    if (const auto lookAt = notsa::dyn_cast_if_present<CTaskSimpleIKChain>(mgr->GetTaskAtSlot(IKArmToIKSlot(arm)))) {
+    // Como el original: no comprueba que exista la tarea gestora IK
+    if (const auto lookAt = mgr->GetTaskAtSlot(IKArmToIKSlot(arm))) {
         lookAt->BlendOut(blendOutTime);
     }
 }
@@ -336,7 +354,8 @@ void IKChainManager_c::PointArm(const char* purpose, eIKArm pedArmId, CPed* ped,
     const auto tIKMgr = GetPedIKManagerTask(ped, true);
 
     // Now, either createIfNotExists or update existing
-    if (const auto pointArm = notsa::dyn_cast_if_present<CTaskSimpleIKPointArm>(tIKMgr->GetTaskAtSlot(IKArmToIKSlot(pedArmId)))) {
+    // Como el original: sin comprobar el tipo de la tarea del hueco
+    if (const auto pointArm = static_cast<CTaskSimpleIKPointArm*>(tIKMgr->GetTaskAtSlot(IKArmToIKSlot(pedArmId)))) {
         pointArm->UpdatePointArmInfo(purpose, lookAtEntity, offsetBoneTag, offsetPos, speed, blendTime);
     } else { // Create task
         tIKMgr->AddIKChainTask(new CTaskSimpleIKPointArm{purpose, pedArmId, lookAtEntity, offsetBoneTag, offsetPos, speed, blendTime}, IKArmToIKSlot(pedArmId));

@@ -38,7 +38,7 @@ public:
     static bool IsMITrafficLight(int32 modelIndex);
     static uint8 LightForPeds();
 
-private:
+public: // Como el original no hay control de acceso: se usan desde los ayudantes de TrafficLights.cpp
     static uint8 LightForCars1();
     static uint8 LightForCars2();
     static uint8 LightForCars1_Visual();

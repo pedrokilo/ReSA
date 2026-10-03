@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -40,8 +40,10 @@ void CCustomRoadsignMgr::InjectHooks()
 bool CCustomRoadsignMgr::Initialise() {
     ZoneScoped;
 
+    // Como el original: busca el slot antes de guardar el TXD actual.
+    const auto slot = CTxdStore::FindTxdSlot("particle");
     CTxdStore::PushCurrentTxd();
-    CTxdStore::SetCurrentTxd(CTxdStore::FindTxdSlot("particle"));
+    CTxdStore::SetCurrentTxd(slot);
 
     auto* texture = RwTextureRead("roadsignfont", nullptr);
     RwTextureSetFilterMode(texture, rwFILTERNEAREST);
@@ -60,16 +62,17 @@ void CCustomRoadsignMgr::Shutdown()
 
     auto* raster = RwTextureGetRaster(CCustomRoadsignMgr::pCharsetTex);
 
+    // Como el original: anula el puntero antes de desbloquear.
     if (CCustomRoadsignMgr::pCharsetLockedPallete)
     {
-        RwRasterUnlockPalette(raster);
         CCustomRoadsignMgr::pCharsetLockedPallete = nullptr;
+        RwRasterUnlockPalette(raster);
     }
 
     if (CCustomRoadsignMgr::pCharsetLockedRaster)
     {
-        RwRasterUnlock(raster);
         CCustomRoadsignMgr::pCharsetLockedRaster = nullptr;
+        RwRasterUnlock(raster);
     }
 
     RwTextureDestroy(CCustomRoadsignMgr::pCharsetTex);
@@ -80,12 +83,10 @@ void CCustomRoadsignMgr::Shutdown()
 RwTexture* CCustomRoadsignMgr::CreateRoadsignTexture(char* name, int32 numOfChars)
 {
     auto* raster = RwRasterCreate(SIGN_CHAR_WIDTH * numOfChars, SIGN_CHAR_HEIGHT, 32, rwRASTERFORMAT8888 | rwRASTERPIXELLOCKEDWRITE);
-    assert(raster); //TODO: Remove if crash cause is found
     if (!raster)
         return nullptr;
 
     auto* pCharsetRaster = RwTextureGetRaster(CCustomRoadsignMgr::pCharsetTex);
-    assert(pCharsetRaster); //TODO: Remove if crash cause is found
     if (!pCharsetRaster)
     {
         RwRasterDestroy(raster);
@@ -93,7 +94,6 @@ RwTexture* CCustomRoadsignMgr::CreateRoadsignTexture(char* name, int32 numOfChar
     }
 
     const auto bGenerated = RoadsignGenerateTextRaster(name, numOfChars, pCharsetRaster, 0, raster);
-    assert(bGenerated); //TODO: Remove if crash cause is found
     if (!bGenerated)
     {
         RwRasterDestroy(raster);
@@ -101,7 +101,6 @@ RwTexture* CCustomRoadsignMgr::CreateRoadsignTexture(char* name, int32 numOfChar
     }
 
     auto* texture = RwTextureCreate(raster);
-    assert(texture); //TODO: Remove if crash cause is found
     if (!texture)
     {
         RwRasterDestroy(raster);
@@ -109,7 +108,7 @@ RwTexture* CCustomRoadsignMgr::CreateRoadsignTexture(char* name, int32 numOfChar
     }
 
     char nameCopy[12] {};
-    strncpy_s(nameCopy, name, 10);
+    strncpy(nameCopy, name, 10); // Como el original: strncpy (0x821F40) sobre un buffer a cero.
     RwTextureSetName(texture, nameCopy);
     RwTextureSetFilterMode(texture, rwFILTERLINEAR);
     return texture;
@@ -140,7 +139,6 @@ RpAtomic* CCustomRoadsignMgr::CreateRoadsignAtomicA(float fWidth, float fHeight,
     for (auto ind = 0; ind < numLines; ++ind)
     {
         auto* material = RpMaterialCreate();
-        assert(material); //TODO: Remove if crash cause is found
         if (!material)
         {
             bFailed = true;
@@ -162,7 +160,6 @@ RpAtomic* CCustomRoadsignMgr::CreateRoadsignAtomicA(float fWidth, float fHeight,
         RpMaterialSetColor(material, &rwColor);
 
         auto* texture = CCustomRoadsignMgr::CreateRoadsignTexture(apLines[ind], lettersPerLine);
-        assert(texture); //TODO: Remove if crash cause is found
         if (!texture)
         {
             bFailed = true;
@@ -182,13 +179,17 @@ RpAtomic* CCustomRoadsignMgr::CreateRoadsignAtomicA(float fWidth, float fHeight,
         do
         {
             auto* geometry = RpGeometryCreate(4 * numLines, 2 * numLines, rpGEOMETRYMODULATEMATERIALCOLOR | rpGEOMETRYPRELIT | rpGEOMETRYTEXTURED | rpGEOMETRYPOSITIONS);
-            assert(geometry); //TODO: Remove if crash cause is found
             if (!geometry)
                 break; // Go to cleanup
 
             auto* morphTarget = RpGeometryGetMorphTarget(geometry, 0);
             const auto fLineHeight = fHeight / static_cast<float>(numLines);
             const auto fUsedLineHeight = fLineHeight * 0.95F;
+            // Como el original: los valores de la inicialización base (multiplicados por 0,0 del EXE en 0x858B50)
+            // se suman a los finales, así que los ceros con signo y los NaN se propagan como en el EXE.
+            const auto fZero = std::bit_cast<float>(0x0u);
+            const auto fBaseY = fUsedLineHeight * fZero;
+            const auto fBaseX = fWidth * fZero;
             const auto fNegHalfWidth = fWidth * -0.5F;
             for (auto iLine = 0 ; iLine < numLines; ++iLine)
             {
@@ -208,7 +209,7 @@ RpAtomic* CCustomRoadsignMgr::CreateRoadsignAtomicA(float fWidth, float fHeight,
 
                 case 2:
                     if (iLine == 0)
-                        fNewY = 0.0F;
+                        fNewY = fLineHeight * fZero; // Como el original: lh * 0,0
                     else if (iLine == 1)
                         fNewY = fLineHeight * -1.0F;
                     break;
@@ -226,7 +227,7 @@ RpAtomic* CCustomRoadsignMgr::CreateRoadsignAtomicA(float fWidth, float fHeight,
                     if (iLine == 0)
                         fNewY = fLineHeight;
                     else if (iLine == 1)
-                        fNewY = 0.0F;
+                        fNewY = fLineHeight * fZero; // Como el original: lh * 0,0
                     else if (iLine == 2)
                         fNewY = fLineHeight * -1.0F;
                     else if (iLine == 3)
@@ -235,10 +236,10 @@ RpAtomic* CCustomRoadsignMgr::CreateRoadsignAtomicA(float fWidth, float fHeight,
                 }
 
                 // Adjust the verts based on the above calculations
-                pVerts[0] = { fNegHalfWidth, fNewY, 0.0F };
-                pVerts[1] = { fNegHalfWidth + fWidth, fNewY, 0.0F };
-                pVerts[2] = { fNegHalfWidth + fWidth, fNewY + fUsedLineHeight, 0.0F };
-                pVerts[3] = { fNegHalfWidth, fNewY + fUsedLineHeight, 0.0F };
+                pVerts[0] = { fBaseX + fNegHalfWidth, fBaseY + fNewY, 0.0F };
+                pVerts[1] = { fNegHalfWidth + fWidth, fBaseY + fNewY, 0.0F };
+                pVerts[2] = { fNegHalfWidth + fWidth, fUsedLineHeight + fNewY, 0.0F };
+                pVerts[3] = { fBaseX + fNegHalfWidth, fNewY + fUsedLineHeight, 0.0F };
             }
 
             for (auto iLine = 0; iLine < numLines; ++iLine)
@@ -277,7 +278,6 @@ RpAtomic* CCustomRoadsignMgr::CreateRoadsignAtomicA(float fWidth, float fHeight,
             RpMorphTargetSetBoundingSphere(morphTarget, &bndSphere);
             RpGeometryUnlock(geometry);
             auto* atomic = RpAtomicCreate();
-            assert(atomic); //TODO: Remove if crash cause is found
             if (!atomic)
             {
                 RpGeometryDestroy(geometry);
@@ -286,7 +286,6 @@ RpAtomic* CCustomRoadsignMgr::CreateRoadsignAtomicA(float fWidth, float fHeight,
 
             if (!RpAtomicSetGeometry(atomic, geometry, 0))
             {
-                assert(false); //TODO: Remove if crash cause is found
                 RpGeometryDestroy(geometry);
                 RpAtomicDestroy(atomic);
                 break; // Go to cleanup
@@ -312,14 +311,13 @@ RpAtomic* CCustomRoadsignMgr::CreateRoadsignAtomicA(float fWidth, float fHeight,
 
 RpAtomic* CCustomRoadsignMgr::CreateRoadsignAtomic(float xScale, float yScale, int32 numLines, char* line1, char* line2, char* line3, char* line4, int32 lettersPerLine, uint8 ucPallete)
 {
-    char dummy = ' ';
-    auto* usedLine1 = line1 ? line1 : &dummy;
-    auto* usedLine2 = line2 ? line2 : &dummy;
-    auto* usedLine3 = line3 ? line3 : &dummy;
-    auto* usedLine4 = line4 ? line4 : &dummy;
+    char dummy[16]{ ' ' }; // Como el original: " " seguido de ceros (16 bytes en la pila).
+    auto* usedLine1 = line1 ? line1 : dummy;
+    auto* usedLine2 = line2 ? line2 : dummy;
+    auto* usedLine3 = line3 ? line3 : dummy;
+    auto* usedLine4 = line4 ? line4 : dummy;
 
     auto* atomic = CCustomRoadsignMgr::CreateRoadsignAtomicA(xScale, yScale, numLines, usedLine1, usedLine2, usedLine3, usedLine4, lettersPerLine, ucPallete);
-    assert(atomic); //TODO: Remove if crash cause is found
     return atomic;
 }
 
@@ -327,13 +325,14 @@ RpAtomic* CCustomRoadsignMgr::RenderRoadsignAtomic(RpAtomic* atomic, const CVect
 {
     auto* frame = RpAtomicGetFrame(atomic);
     auto vecDist = vecPos - *RwMatrixGetPos(RwFrameGetMatrix(frame));
-    const auto fDistSquared = vecDist.SquaredMagnitude();
+    // Como el original: (z*z + y*y) + x*x.
+    const auto fDistSquared = vecDist.z * vecDist.z + vecDist.y * vecDist.y + vecDist.x * vecDist.x;
     if (fDistSquared > 250000.0F) // 500 units away
         return atomic;
 
-    if (fDistSquared >= 1600.0F) { // Fade out above 40 units away
-        const auto fFade =  1.0F - invLerp(1600, 250000, fDistSquared);
-        const auto ucAlpha = static_cast<RwUInt8>(lerp(0.0F, 254.0F, fFade));
+    if (fDistSquared >= 1600.0F) { // Fade out above 40 units away (NaN va al camino cercano, como test ah,1)
+        // Como el original: (250000 - d²) * (1/248400) * 254 truncado con _ftol2.
+        const auto ucAlpha = static_cast<RwUInt8>(static_cast<int64>((250000.0F - fDistSquared) * std::bit_cast<float>(0x3687150Fu) * 254.0F));
         CCustomRoadsignMgr::SetAtomicAlpha(atomic, ucAlpha);
         RpAtomicRender(atomic);
         return atomic;
@@ -375,23 +374,21 @@ bool RoadsignGenerateTextRaster(char* roadName, int32 numLetters, RwRaster* char
     if (!signStride)
         return false;
 
-    const auto usedCharStride = charStride / SIGN_PIXEL_BYTES; // Those 3 are used to make pointer math easier
-    const auto usedSignStride = signStride / SIGN_PIXEL_BYTES;
-    auto* pCharsetLock = reinterpret_cast<RwRGBA*>(CCustomRoadsignMgr::pCharsetLockedRaster);
-
     for (auto ind = 0; ind < numLetters; ++ind)
     {
         int32 col = 1, row = 1;
         RoadsignGetLineAndRow(roadName[ind], &col, &row);
-        auto* pCharsetPixels = &pCharsetLock[usedCharStride * SIGN_CHAR_HEIGHT * row + SIGN_CHAR_WIDTH * col];
-        auto* pSignPixels = &signLock[ind * SIGN_CHAR_WIDTH];
+        // Como el original: el origen del carácter es (row * 64 + col) * 32 bytes (fuente de 128 bytes por fila,
+        // sin usar el stride real) y los dos strides avanzan en bytes.
+        auto* pCharsetPixels = CCustomRoadsignMgr::pCharsetLockedRaster + ((row << 6) + col) * 32;
+        auto* pSignPixels = reinterpret_cast<uint8*>(signLock) + ind * SIGN_CHAR_WIDTH * SIGN_PIXEL_BYTES;
         for (auto iRow = 0; iRow < SIGN_CHAR_HEIGHT; ++iRow)
         {
             for (auto iCol = 0; iCol < SIGN_CHAR_WIDTH; ++iCol)
-                pSignPixels[iCol] = pCharsetPixels[iCol]; // Copy pixels one by one
+                reinterpret_cast<uint32*>(pSignPixels)[iCol] = reinterpret_cast<const uint32*>(pCharsetPixels)[iCol]; // Copy pixels one by one
 
-            pSignPixels += usedSignStride;
-            pCharsetPixels += usedCharStride;
+            pSignPixels += signStride;
+            pCharsetPixels += charStride;
         }
     }
 

@@ -12,7 +12,7 @@
  * Mantiene un buffer grande de sobrantes para adaptar muestras del codec a los
  * tamaños de lectura solicitados por el sistema de streaming.
  */
-class CAEWMADecoder : public CAEStreamingDecoder {
+class NOTSA_EXPORT_VTABLE CAEWMADecoder : public CAEStreamingDecoder {
 private:
     static constexpr size_t TEMPBUFSIZE = 131072;
 

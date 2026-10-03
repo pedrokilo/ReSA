@@ -3,7 +3,7 @@
 #include "MissionTextOffsets.h"
 
 CMissionTextOffsets::CMissionTextOffsets() {
-    m_size = 0;
+    *reinterpret_cast<uint16*>(&m_size) = 0; // Como el original (inlined en CText::CText 0x6A00F0): solo la palabra baja
 }
 
 // 0x69F670

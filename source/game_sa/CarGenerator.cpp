@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -95,7 +95,8 @@ bool CCarGenerator::CheckIfWithinRangeOfAnyPlayers()
         }
     }
 
-    if (relPosn.Magnitude2D() >= TheCamera.m_fGenerationDistMultiplier * 160.0f && !bVisible)
+    // Como el original: !(d < umbral), así que una distancia NaN también sale (jnp).
+    if (!(relPosn.Magnitude2D() < TheCamera.m_fGenerationDistMultiplier * 160.0f) && !bVisible)
     {
         bWaitUntilFarFromPlayer = false;
         return false;
@@ -107,15 +108,16 @@ bool CCarGenerator::CheckIfWithinRangeOfAnyPlayers()
     if (bWaitUntilFarFromPlayer)
         return false;
 
+    // Como el original: comparaciones sensibles a NaN (fcom + test ah,1/5/41h).
     float posnZ = m_vecPosn.z;
-    if ((CGame::CanSeeOutSideFromCurrArea() && posnZ < 950.0f || !CGame::CanSeeOutSideFromCurrArea() && posnZ >= 950.0f)
-        && (relPosn.Magnitude2D() >= TheCamera.m_fGenerationDistMultiplier * 160.0f - 20.0f || bHighPriority)
-        && DotProduct2D(FindPlayerSpeed(-1), relPosn) <= 0.0f
-    ) {
-        return true;
-    }
+    if (CGame::CanSeeOutSideFromCurrArea() ? !(posnZ < 950.0f) : posnZ < 950.0f)
+        return false;
 
-    return false;
+    if (TheCamera.m_fGenerationDistMultiplier * 160.0f - 20.0f > relPosn.Magnitude2D() && !bHighPriority)
+        return false;
+
+    const auto& speed = FindPlayerSpeed(-1);
+    return !(relPosn.y * speed.y + relPosn.x * speed.x > 0.0f);
 }
 
 // 0x6F34D0
@@ -129,9 +131,10 @@ void CCarGenerator::DoInternalProcessing()
     tCarGenPlateText plate{};
     int32 tractorDriverPedType;
 
-    bool nightTime = CClock::ClockHoursInRange(21, 7);
+    // Como el original: de noche si la hora es > 21 o < 7 (ClockHoursInRange(21, 7) nunca es cierto).
+    const bool nightTime = CClock::ms_nGameClockHours > 21 || CClock::ms_nGameClockHours < 7;
     if (!bIgnorePopulationLimit
-        && (nightTime && CCarCtrl::NumParkedCars >= 10 || !nightTime && CCarCtrl::NumParkedCars >= 5)
+        && (int32)CCarCtrl::NumParkedCars >= (nightTime ? 10 : 5) // Como el original: comparación con signo (jge)
     )
         return;
 
@@ -159,10 +162,12 @@ void CCarGenerator::DoInternalProcessing()
                 return;
 
             auto mi = CModelInfo::GetModelInfo(actualModelId)->AsVehicleModelInfoPtr();
-            if (mi->IsBoat())
+            // Como el original: descarta la clase BIG (byte 0x4D), no los barcos.
+            if (mi->m_nVehicleClass == VEHICLE_CLASS_BIG)
                 return;
 
-            if (mi->GetBoundingBox()->GetLength() > 8.0f)
+            // Como el original: sin modelo de colisión no se mira la longitud.
+            if (const auto cm = mi->GetColModel(); cm && cm->GetBoundingBox().GetLength() > 8.0f)
                 return;
 
             m_nModelId = -actualModelId;
@@ -277,7 +282,8 @@ void CCarGenerator::DoInternalProcessing()
     CVector posn = m_vecPosn;
     posn.z = vehicle->GetDistanceFromCentreOfMassToBaseOfModel() + baseZ;
     vehicle->SetPosn(posn);
-    vehicle->SetOrientation(0.0f, 0.0f, m_nAngle * (TWO_PI / 256));
+    // Como el original: ángulo sin signo (movzx) por la constante 0x859BBC.
+    vehicle->SetOrientation(0.0f, 0.0f, (float)(uint8)m_nAngle * std::bit_cast<float>(0x3CC90FDBu));
     vehicle->SetStatus(STATUS_ABANDONED);
     vehicle->m_nDoorLock = eCarLock::CARLOCK_UNLOCKED;
     vehicle->vehicleFlags.bHasBeenOwnedByPlayer = bPlayerHasAlreadyOwnedCar;
@@ -307,6 +313,7 @@ void CCarGenerator::DoInternalProcessing()
                     vehicle->m_autoPilot.m_startingRouteNode = baseLink;
                     vehicle->SetStatus(STATUS_PHYSICS);
                     vehicle->vehicleFlags.bNeverUseSmallerRemovalRange = true;
+                    vehicle->m_nExtendedRemovalRange = 255; // Como el original: 0x6F3C71
                     bWaitUntilFarFromPlayer = true;
                     tractorDriverPedType = PED_TYPE_CIVMALE;
                 }
@@ -402,7 +409,7 @@ void CCarGenerator::Setup(CVector posn, float angle, int32 modelId, int16 color1
                           uint8 alarmChance, uint8 doorLockChance, uint16 minDelay, uint16 maxDelay,
                           uint8 iplId, bool ignorePopulationLimit)
 {
-    constexpr float magic = 256.0f / 360.0f; // 0x8722E8 original expression 128.0f / 180.0f
+    const float magic = std::bit_cast<float>(0x3F360B60u); // Como el original: 0x8722E8 (no es el float más cercano a 256/360)
 
     m_vecPosn = posn;
     m_nAngle = (char)(angle * magic);

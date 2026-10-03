@@ -18,9 +18,9 @@ class CPed;
 class NOTSA_EXPORT_VTABLE CTaskComplexFleeEntity : public CTaskComplex {
 public:
     CEntity*   m_entity = {};                   /// @copydoc CTaskComplexSmartFleeEntity::m_entity
-    CVector    m_pos = {};                      /// @copydoc CTaskComplexSmartFleeEntity::m_pos
+    CVector    m_pos;                           /// @copydoc CTaskComplexSmartFleeEntity::m_pos (Como el original: el constructor no lo escribe)
     int32      m_time = {};                     /// @copydoc CTaskComplexSmartFleeEntity::m_time
-    CTaskTimer m_posCheckTimer{};               /// @copydoc CTaskComplexSmartFleeEntity::m_posCheckTimer
+    CTaskTimer m_posCheckTimer;                 /// @copydoc CTaskComplexSmartFleeEntity::m_posCheckTimer (Como el original: relleno 0x2A..0x2B sin escribir)
     float      m_safeDistance = {};             /// @copydoc CTaskComplexSmartFleeEntity::m_safeDistance
     bool       m_pedScream = {};                /// @copydoc CTaskComplexSmartFleeEntity::m_pedScream
     int32      m_posCheckPeriod = {};           /// @copydoc CTaskComplexSmartFleeEntity::m_posCheckPeriod

@@ -20,6 +20,19 @@ END GENERATED HOOK STATUS */
 
 #include "DamageManager.h"
 
+// Como el original (0x6C2230 / 0x6C2250): devuelven el estado extendido a 32 bits (movzx eax, byte).
+// Los llamadores del EXE comparan EAX completo; la versión C++ devuelve un uint8 y deja basura en los
+// bits altos, así que se enganchan estos envoltorios con el mismo nombre de hook.
+static uint32 __fastcall GetDoorStatus_Zx(const CDamageManager* self, void*, int32 door) {
+    // El EXE compara el dword completo del argumento (0 <= door < 6)
+    return door >= 0 && door < 6 ? (uint32)self->GetDoorStatus((eDoors)door) : 4u;
+}
+
+static uint32 __fastcall GetDoorStatus_Component_Zx(const CDamageManager* self, void*, uint32 comp) {
+    // El EXE compara el dword completo del argumento (comp - 8 <= 3 sin signo)
+    return comp - 8u <= 3u ? (uint32)self->GetDoorStatus_Component((tComponent)comp) : 4u;
+}
+
 void CDamageManager::InjectHooks() {
     RH_ScopedClass(CDamageManager);
     RH_ScopedCategoryGlobal();
@@ -38,8 +51,8 @@ void CDamageManager::InjectHooks() {
     RH_ScopedInstall(GetEngineStatus, 0x6C22C0); 
     RH_ScopedInstall(SetEngineStatus, 0x6C22A0); 
     RH_ScopedInstall(GetCarNodeIndexFromPanel, 0x6C26A0); 
-    RH_ScopedInstall(GetDoorStatus_Component, 0x6C2250); 
-    RH_ScopedInstall(GetDoorStatus, 0x6C2230); 
+    RH_ScopedNamedGlobalInstall(GetDoorStatus_Component_Zx, "GetDoorStatus_Component", 0x6C2250);
+    RH_ScopedNamedGlobalInstall(GetDoorStatus_Zx, "GetDoorStatus", 0x6C2230);
     RH_ScopedInstall(SetDoorStatus_Component, 0x6C21E0); 
     RH_ScopedOverloadedInstall(SetDoorStatus, "", 0x6C21C0, void(CDamageManager::*)(eDoors, eDoorStatus));
     RH_ScopedInstall(SetWheelStatus, 0x6C21A0); 

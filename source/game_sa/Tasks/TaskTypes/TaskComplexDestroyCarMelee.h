@@ -13,7 +13,7 @@ public:
     CVehicle* m_VehToDestroy{};
     CVector   m_VehPos{};
     float     m_MaxAtkRange{};
-    float     m_MaxAtkAngleRad{};
+    float     m_MaxAtkAngleRad; // Como el original: el constructor (0x621D10) no escribe 0x24
     float     m_MaxArriveRange{};
     uint32    m_LastAtkTime{};
     int32     m_PauseTimer{ -1 };

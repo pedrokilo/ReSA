@@ -19,6 +19,8 @@ public:
     static void SetHeading(uint32 id, float angle);
     static void Update();
     static CCheckpoint* PlaceMarker(uint32 id, eCheckpointTypeU16 type, const CVector& posn, const CVector& direction, float size, CRGBA color, uint16 pulsePeriod, float pulseFraction, int16 rotateRate);
+    //! Como el original (0x722C40): el color llega como 4 argumentos sueltos (r, g, b, a), 12 argumentos cdecl en total.
+    static CCheckpoint* PlaceMarker_OG(uint32 id, uint16 type, const CVector& posn, const CVector& direction, float size, uint8 r, uint8 g, uint8 b, uint8 a, uint16 pulsePeriod, float pulseFraction, int16 rotateRate);
     /*!
      * @brief Set the position of a checkpoint with the given `id`
      * @param id ID of the checkpoint

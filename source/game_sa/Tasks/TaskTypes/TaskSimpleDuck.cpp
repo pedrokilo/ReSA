@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 15/15 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/15 entradas.
+ * Validación registrada: 15/15 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -80,8 +80,10 @@ CTaskSimpleDuck::~CTaskSimpleDuck() {
 void CTaskSimpleDuck::DeleteDuckAnimCB(CAnimBlendAssociation* assoc, void* data) {
     const auto self = static_cast<CTaskSimpleDuck*>(data); // aka `this`
 
-    assert(self);
-    assert(assoc);
+    // Como el original: sin tarea o sin animación no hace nada
+    if (!self || !assoc) {
+        return;
+    }
 
     switch (assoc->m_AnimId) {
     case ANIM_ID_WEAPON_CROUCH:
@@ -110,16 +112,14 @@ void CTaskSimpleDuck::DeleteDuckAnimCB(CAnimBlendAssociation* assoc, void* data)
 
 // 0x692610
 bool CTaskSimpleDuck::CanPedDuck(CPed* ped) {
-    if (ped->IsPlayer()) {
-        switch (ped->m_nMoveState) {
-        case PEDMOVE_RUN:
-        case PEDMOVE_SPRINT:
-            return false;
-        }
+    if (ped->IsPlayer() && ped->m_nMoveState >= PEDMOVE_RUN) { // Como el original: comparación con signo >= 6
+        return false;
     }
 
+    // Como el original: tipo del arma activa, GetWeaponSkill() (0x5E6580) y GetWeaponInfo(tipo, habilidad) (0x743C60)
     const auto& activeWep = ped->GetActiveWeapon();
-    const auto& pedActiveWepWI = activeWep.GetWeaponInfo(ped);
+    const auto  wepType = activeWep.GetType();
+    const auto& pedActiveWepWI = *CWeaponInfo::GetWeaponInfo(wepType, ped->GetWeaponSkill());
 
     switch (pedActiveWepWI.m_nWeaponFire) {
     case eWeaponFire::WEAPON_FIRE_MELEE:
@@ -127,7 +127,7 @@ bool CTaskSimpleDuck::CanPedDuck(CPed* ped) {
         return true;
     }
 
-    if (activeWep.GetType() == WEAPON_SPRAYCAN) {
+    if (ped->GetActiveWeapon().GetType() == WEAPON_SPRAYCAN) {
         return true;
     }
 
@@ -142,7 +142,7 @@ bool CTaskSimpleDuck::CanPedDuck(CPed* ped) {
 bool CTaskSimpleDuck::IsTaskInUseByOtherTasks() const {
     if (m_MoveCmd.IsZero()) {
         if (m_DuckAnim) {
-            if (m_DuckAnim->m_BlendAmount >= 1.f && !m_bIsAborting && m_ShotWhizzingCounter <= 0) {
+            if (!(m_DuckAnim->m_BlendAmount < 1.f) && !m_bIsAborting && m_ShotWhizzingCounter <= 0) { // Como el original: NaN cuenta como mezclada
                 return false;
             }
         }
@@ -159,7 +159,7 @@ void CTaskSimpleDuck::AbortBecauseOfOtherDuck(CPed* ped) {
 
     if (m_MoveAnim) {
         m_MoveAnim->m_BlendDelta = -8.0;
-        m_DuckAnim->SetDefaultFinishCallback();
+        m_MoveAnim->SetDefaultFinishCallback(); // Como el original (0x692340): la de movimiento
         m_MoveAnim = nullptr;
     }
 
@@ -174,38 +174,41 @@ void CTaskSimpleDuck::RestartTask(CPed* ped) {
         m_bNeedToSetDuckFlag = false;
     }
 
+    m_StartTime = CTimer::GetTimeInMS(); // Como el original: siempre reinicia la hora de inicio
+
     if (m_ShotWhizzingCounter >= 0) {
-        m_ShotWhizzingCounter = CGeneral::GetRandomNumberInRange(1000, 2500);
+        // Como el original: 1000 - (int)((rand() & 0xFFFF) * (1 / 32768) * -1500), truncado con _ftol2
+        const float r = (float)(CGeneral::GetRandomNumber() & 0xFFFF) * (1.f / 32768.f) * -1500.f;
+        m_ShotWhizzingCounter = (int16)(1000 - (int32)(int64)r);
     }
 }
 
 // 0x6923F0
 // @arg moveDir The desired move direction. The `y` axis being fwd/bwd, and `x` being left/right.
-void CTaskSimpleDuck::ControlDuckMove(CVector2D moveDir) {
+bool CTaskSimpleDuck::ControlDuckMove(CVector2D moveDir) {
     m_bIsInControl = true;
 
     // If going full fwd/bwd ignore left/right commands
     if (std::abs(m_MoveCmd.x) == 1.f) { // Originally checked if either -1 or 1 (this achieves the same thing)
-        return;
+        return true;
     }
 
     // Change direction, but limit maximum change to `maxUnits`
     const auto maxUnits = CTimer::GetTimeStep() * 0.07f;
-    const auto moveDeltaY = moveDir.y - m_MoveCmd.y; 
-    if (moveDeltaY <= maxUnits) {
-        if (moveDeltaY >= -maxUnits) {
-            m_MoveCmd.y = moveDir.y;
-        } else {
-            m_MoveCmd.y -= maxUnits;
-        }
-    } else {
+    const auto moveDeltaY = moveDir.y - m_MoveCmd.y;
+    if (moveDeltaY > maxUnits) {
         m_MoveCmd.y += maxUnits;
+    } else if (moveDeltaY < -maxUnits) {
+        m_MoveCmd.y -= maxUnits;
+    } else { // Como el original: NaN copia la dirección pedida
+        m_MoveCmd.y = moveDir.y;
     }
 
-    if (std::abs(moveDir.y) < 0.1f && std::abs(moveDir.x) >= 0.9f) {
+    if (std::abs(moveDir.y) < 0.1f && std::abs(moveDir.x) > 0.9f) { // Como el original: 0.9 exacto no cuenta
         m_MoveCmd.y = 0.f;
         m_MoveCmd.x = moveDir.x <= 0.f ? -1.f : 1.f;
     }
+    return true; // Como el original: devuelve siempre 1
 }
 
 // 0x6939F0
@@ -220,7 +223,7 @@ void CTaskSimpleDuck::SetMoveAnim(CPed* ped) {
     };
 
     const auto SetMoveAnimSpeed = [this](float spd) {
-        m_MoveAnim->SetSpeed(std::max(0.6f, spd));
+        m_MoveAnim->m_Speed = 0.6f > spd ? 0.6f : spd; // Como el original: NaN se conserva
     };
 
     const auto IsCurrentMoveAnimGunCrouch = [this] {
@@ -241,7 +244,7 @@ void CTaskSimpleDuck::SetMoveAnim(CPed* ped) {
         if (m_MoveCmd.y > 0.f) { //> 0x693A79 - Crouch backwards (???)
             ChangeAnimToIfIts(ANIM_ID_GUNCROUCHBWD, ANIM_ID_GUNCROUCHFWD);
             SetMoveAnimSpeed(m_MoveCmd.y);
-        }else if (m_MoveCmd.y == 0.f) { //> 0x693AF4 - Blend out the animation out if no more movement
+        } else if (!(m_MoveCmd.y < 0.f)) { //> 0x693AF4 - Blend out the animation out if no more movement (Como el original: también con NaN)
             if (m_MoveAnim) {
                 if (IsCurrentMoveAnimGunCrouch()) {
                     m_MoveAnim->SetFlag(ANIMATION_IS_PLAYING, false);
@@ -277,6 +280,7 @@ bool CTaskSimpleDuck::StopFireGun() const {
 // 0x692530
 void CTaskSimpleDuck::SetDuckTimer(uint16 time) {
     if (m_DuckControlType != DUCK_SCRIPT_CONTROLLED) {
+        m_StartTime    = CTimer::GetTimeInMS(); // Como el original: también reinicia la hora de inicio
         m_LengthOfDuck = time;
     }
 }
@@ -321,7 +325,7 @@ bool CTaskSimpleDuck::MakeAbortable(CPed* ped, eAbortPriority priority, CEvent c
         return true;
     }
     case ABORT_PRIORITY_URGENT: { // 0x69219B
-        if (m_ShotWhizzingCounter <= 0) {
+        if (m_ShotWhizzingCounter < 0) { // Como el original: 0 también sigue
             break;
         }
         if (const auto eShotFired = notsa::dyn_cast_if_present<const CEventGunShotWhizzedBy>(event)) {
@@ -373,8 +377,8 @@ bool CTaskSimpleDuck::MakeAbortable(CPed* ped, eAbortPriority priority, CEvent c
         }
     }
 
-    if (const auto tUseGun = ped->GetIntelligence()->GetTaskUseGun()) {
-        tUseGun->ClearAnim(ped);
+    if (ped->GetIntelligence()->GetTaskUseGun()) { // Como el original: se pide dos veces (0x6922FF / 0x694422)
+        ped->GetIntelligence()->GetTaskUseGun()->ClearAnim(ped);
     }
 
     if (priority == ABORT_PRIORITY_URGENT) {
@@ -412,8 +416,8 @@ bool CTaskSimpleDuck::ProcessPed(CPed* ped) {
             return false;
         }
 
-        if (const auto tUseGun = ped->GetIntelligence()->GetTaskUseGun()) {
-            tUseGun->ClearAnim(ped);
+        if (ped->GetIntelligence()->GetTaskUseGun()) { // Como el original: se pide dos veces (0x6922FF / 0x694422)
+            ped->GetIntelligence()->GetTaskUseGun()->ClearAnim(ped);
         }
 
         SetPedIsDucking(ped, true);
@@ -428,12 +432,13 @@ bool CTaskSimpleDuck::ProcessPed(CPed* ped) {
     if (m_bIsInControl) { // 0x69448C
         m_CountDownFrames = 4;
 
-        if (m_LengthOfDuck && CTimer::GetTimeInMS() >= m_StartTime + m_LengthOfDuck) { // 0x6944A2
-            MakeAbortable(ped);
+        if (m_LengthOfDuck && CTimer::GetTimeInMS() > m_StartTime + m_LengthOfDuck) { // 0x6944A2 (Como el original: estrictamente mayor, prioridad LEISURE)
+            MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr);
         }
 
         if (m_ShotWhizzingCounter > 0) { // 0x6944C1
-            m_ShotWhizzingCounter = (int16)(m_LengthOfDuck - (uint16)CTimer::GetTimeStepInMS());
+            // Como el original: duración - (int)(paso * 0.02 * 1000) truncado con _ftol2
+            m_ShotWhizzingCounter = (int16)(m_LengthOfDuck - (uint16)(int32)(int64)(CTimer::GetTimeStep() * 0.02f * 1000.f));
         }
 
         if (m_DuckAnim) {
@@ -445,15 +450,23 @@ bool CTaskSimpleDuck::ProcessPed(CPed* ped) {
                 }
             }
         } else {
+            // Como el original: la animación de cansancio se desvanece antes de agacharse
+            if (const auto tiredAnim = RpAnimBlendClumpGetAssociation(ped->GetRpClump(), ANIM_ID_IDLE_TIRED)) {
+                tiredAnim->m_BlendDelta = -2.f;
+            }
+
+            const auto duckAnimId  = m_DuckControlType == DUCK_STANDALONE ? ANIM_ID_DUCK_COWER : ANIM_ID_WEAPON_CROUCH;
+            const auto otherAnimId = m_DuckControlType == DUCK_STANDALONE ? ANIM_ID_WEAPON_CROUCH : ANIM_ID_DUCK_COWER;
             m_DuckAnim = CAnimManager::BlendAnimation(
                 ped->GetRpClump(),
                 ANIM_GROUP_DEFAULT,
-                m_DuckControlType == DUCK_STANDALONE ? ANIM_ID_DUCK_COWER : ANIM_ID_WEAPON_CROUCH,
+                duckAnimId,
                 4.f
             );
-            m_DuckAnim->SetFinishCallback(DeleteDuckAnimCB, this);
+            m_DuckAnim->SetDeleteCallback(DeleteDuckAnimCB, this); // Como el original: SetDeleteCallback (0x4CEBC0)
 
-            if (const auto weaponCruchAnim = RpAnimBlendClumpGetAssociation(ped->GetRpClump(), ANIM_ID_WEAPON_CROUCH)) { // 0x69454F
+            // Como el original: se desvanece la otra animación de agacharse
+            if (const auto weaponCruchAnim = RpAnimBlendClumpGetAssociation(ped->GetRpClump(), otherAnimId)) { // 0x69454F
                 if (weaponCruchAnim->m_BlendAmount > 0 && weaponCruchAnim->m_BlendDelta >= 0.f) {
                     if (weaponCruchAnim->m_Flags & ANIMATION_IS_PARTIAL) {
                         weaponCruchAnim->m_BlendDelta = -4.f;
@@ -471,8 +484,8 @@ bool CTaskSimpleDuck::ProcessPed(CPed* ped) {
         return false;
     }
 
-    m_CountDownFrames--;
-    if (m_CountDownFrames || !MakeAbortable(ped) ) { // 0x6945EA
+    // Como el original: se comprueba el valor anterior a la resta
+    if (m_CountDownFrames-- != 0 || !MakeAbortable(ped)) { // 0x6945EA
         return false;
     }
 

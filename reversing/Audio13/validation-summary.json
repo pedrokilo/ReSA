@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 11520,
+  "pairs_per_function": {
+    "CAEMP3BankLoader::Constructor": 64,
+    "CAEMP3BankLoader::GetBankSlotBuffer": 512,
+    "CAEMP3BankLoader::GetSoundBankLoadingStatus": 256,
+    "CAEMP3BankLoader::GetSoundBuffer": 1024,
+    "CAEMP3BankLoader::GetSoundHeadroom": 512,
+    "CAEMP3BankLoader::GetSoundLoadingStatus": 256,
+    "CAEMP3BankLoader::Initialise": 128,
+    "CAEMP3BankLoader::IsSoundBankLoaded": 256,
+    "CAEMP3BankLoader::IsSoundLoaded": 512,
+    "CAEMP3BankLoader::LoadSound": 1024,
+    "CAEMP3BankLoader::LoadSoundBank": 1024,
+    "CAEMP3BankLoader::Service": 1024,
+    "CAEMP3BankLoader::UpdateVirtualChannels": 256,
+    "CAEVorbisDecoder::CloseCallback": 128,
+    "CAEVorbisDecoder::Constructor": 128,
+    "CAEVorbisDecoder::Destructor": 256,
+    "CAEVorbisDecoder::FillBuffer": 1024,
+    "CAEVorbisDecoder::GetSampleRate": 128,
+    "CAEVorbisDecoder::GetStreamID": 64,
+    "CAEVorbisDecoder::GetStreamLengthMs": 512,
+    "CAEVorbisDecoder::GetStreamPlayTimeMs": 512,
+    "CAEVorbisDecoder::Initialise": 512,
+    "CAEVorbisDecoder::ReadCallback": 512,
+    "CAEVorbisDecoder::SeekCallback": 256,
+    "CAEVorbisDecoder::SetCursor": 512,
+    "CAEVorbisDecoder::TellCallback": 128
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "f22e8494fc5149c18f155680122f9ba196fd382831f956c0150bb3ff4c78b7c1",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio13\\20261003-094601-386816",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CAEMP3BankLoader::Constructor": true,
+    "CAEMP3BankLoader::GetBankSlotBuffer": true,
+    "CAEMP3BankLoader::GetSoundBankLoadingStatus": true,
+    "CAEMP3BankLoader::GetSoundBuffer": true,
+    "CAEMP3BankLoader::GetSoundHeadroom": true,
+    "CAEMP3BankLoader::GetSoundLoadingStatus": true,
+    "CAEMP3BankLoader::Initialise": true,
+    "CAEMP3BankLoader::IsSoundBankLoaded": true,
+    "CAEMP3BankLoader::IsSoundLoaded": true,
+    "CAEMP3BankLoader::LoadSound": true,
+    "CAEMP3BankLoader::LoadSoundBank": true,
+    "CAEMP3BankLoader::Service": true,
+    "CAEMP3BankLoader::UpdateVirtualChannels": true,
+    "CAEVorbisDecoder::CloseCallback": true,
+    "CAEVorbisDecoder::Constructor": true,
+    "CAEVorbisDecoder::Destructor": true,
+    "CAEVorbisDecoder::FillBuffer": true,
+    "CAEVorbisDecoder::GetSampleRate": true,
+    "CAEVorbisDecoder::GetStreamID": true,
+    "CAEVorbisDecoder::GetStreamLengthMs": true,
+    "CAEVorbisDecoder::GetStreamPlayTimeMs": true,
+    "CAEVorbisDecoder::Initialise": true,
+    "CAEVorbisDecoder::ReadCallback": true,
+    "CAEVorbisDecoder::SeekCallback": true,
+    "CAEVorbisDecoder::SetCursor": true,
+    "CAEVorbisDecoder::TellCallback": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "75791b20ed2d4623a6c63cf8dd50af74107ec6dd9cad6a6503877f1afe7dc21f",
+      "pdb": "d027a065722273084b69287cd6842e695c06c18ee109aaa647119ee0190f1983"
+    },
+    "sources": {
+      "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "2e1e55752555288989b95cdbd249a8a674afd080f3fbe5e6740efc4250fee160",
+      "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "f5f14465bbf23d1896152dfb1aef67d5e79a9c27500a5edde6c736c22b8cc3d1",
+      "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "a7fe6e492bcc7e6bd51ac754c6c6de9fbadc4ac8e99938faf9b019ffe4d1f3e6",
+      "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "5d7ccae2a256371c024420d51464f071055c14b7d9db33417fe02f8073116c9e",
+      "build_probe.py": "9bb6ced4c30f309343aacfcc965ac379147dc44a23760e15face6f39be827841",
+      "run_local.py": "82f059bc80d463fe66600d52a9632fb8e725383554111fa1cca9fbf6b1042915"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

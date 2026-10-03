@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 13/13 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/13 entradas.
+ * Validación registrada: 13/13 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -33,6 +33,122 @@ const float TRAILER_TOWBAR_OFFSET_Y = -0.05f; // 0x871C20
 
 const float RELINK_TRAILER_DIFF_LIMIT_XY = 0.4f; // 0x8D3470
 const float RELINK_TRAILER_DIFF_LIMIT_Z = 1.0f; // 0x8D3474
+
+const float TWO_PI_EXE = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
+
+namespace {
+// Como el original: MultiplyMatrixWithVector (0x59C890) con el orden de sumas del EXE
+CVector TransformPoint59C890(const CMatrix& m, const CVector& v) {
+    return {
+        m.GetUp().x * v.z + m.GetForward().x * v.y + m.GetRight().x * v.x + m.GetPosition().x,
+        m.GetUp().y * v.z + m.GetRight().y * v.x + m.GetForward().y * v.y + m.GetPosition().y,
+        m.GetUp().z * v.z + m.GetRight().z * v.x + m.GetForward().z * v.y + m.GetPosition().z
+    };
+}
+
+// Como el original: CColPoint::operator= del EXE (0x40FC80) no copia field_C, field_1C ni el relleno 0x26
+void CopyColPoint(CColPoint& dst, const CColPoint& src) {
+    dst.m_vecPoint       = src.m_vecPoint;
+    dst.m_vecNormal      = src.m_vecNormal;
+    dst.m_nSurfaceTypeA  = src.m_nSurfaceTypeA;
+    dst.m_nPieceTypeA    = src.m_nPieceTypeA;
+    dst.m_nLightingA     = src.m_nLightingA;
+    dst.m_nSurfaceTypeB  = src.m_nSurfaceTypeB;
+    dst.m_nPieceTypeB    = src.m_nPieceTypeB;
+    dst.m_nLightingB     = src.m_nLightingB;
+    dst.m_fDepth         = src.m_fDepth;
+}
+
+// Como el original: rumbo de CPlaceable con fpatan (atan2(-forward.x, forward.y)) o el de m_placement sin matriz,
+// guardado a float.
+float HeadingX87(const CPlaceable* placeable) {
+    float heading;
+    __asm {
+        mov eax, placeable
+        mov ecx, [eax + 14h]
+        test ecx, ecx
+        je no_matrix
+        fld dword ptr [ecx + 10h]
+        fchs
+        fld dword ptr [ecx + 14h]
+        fpatan
+        jmp heading_store
+    no_matrix:
+        fld dword ptr [eax + 10h]
+    heading_store:
+        fstp dword ptr [heading]
+    }
+    return heading;
+}
+
+// Como el original (0x6CF5FC): ángulo de giro de los remolques de equipaje hacia el rumbo del tractor. Los dos
+// rumbos quedan en la pila del x87 a precisión completa (fpatan) y se comparan con rumbo propio ± π antes de restar.
+float SteerTowardsTractor(const CPlaceable* tractor, const CPlaceable* self) {
+    const float pi    = std::bit_cast<float>(0x40490FDBu); // 0x858CB8
+    const float twoPi = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
+    float steer;
+    __asm {
+        mov eax, tractor
+        mov ecx, [eax + 14h]
+        test ecx, ecx
+        je tractor_no_matrix
+        fld dword ptr [ecx + 10h]
+        fchs
+        fld dword ptr [ecx + 14h]
+        fpatan
+        jmp tractor_done
+    tractor_no_matrix:
+        fld dword ptr [eax + 10h]
+    tractor_done:
+        mov eax, self
+        mov ecx, [eax + 14h]
+        test ecx, ecx
+        je self_no_matrix
+        fld dword ptr [ecx + 10h]
+        fchs
+        fld dword ptr [ecx + 14h]
+        fpatan
+        jmp self_done
+    self_no_matrix:
+        fld dword ptr [eax + 10h]
+    self_done:
+        fld dword ptr [pi]
+        fadd st, st(1)
+        fld st(2)
+        fcompp
+        fnstsw ax
+        test ah, 41h
+        jne not_above
+        fxch st(1)
+        fsub dword ptr [twoPi]
+        fxch st(1)
+        fxch st(1)
+        fsub st, st(1)
+        fstp dword ptr [steer]
+        fstp st(0)
+        jmp finished
+    not_above:
+        fld dword ptr [pi]
+        fsubr st, st(1)
+        fld st(2)
+        fcompp
+        fnstsw ax
+        test ah, 5
+        jp no_wrap
+        fxch st(1)
+        fadd dword ptr [twoPi]
+        fxch st(1)
+    no_wrap:
+        fxch st(1)
+        fsub st, st(1)
+        fstp dword ptr [steer]
+        fstp st(0)
+    finished:
+        nop
+    }
+    return steer;
+}
+} // namespace
 
 void CTrailer::InjectHooks() {
     RH_ScopedVirtualClass(CTrailer, 0x871c28, 71);
@@ -102,9 +218,12 @@ void CTrailer::SetupSuspensionLines() {
 
     cl->m_boundBox.m_vecMin.z = std::min(cl->m_boundBox.m_vecMin.z, colData->m_pLines[0].m_vecEnd.z);
 
-    // 0x6CF313
-    const float maxDistSq = std::max(cl->m_boundBox.m_vecMin.Magnitude(), cl->m_boundBox.m_vecMax.Magnitude());
-    cl->m_boundSphere.m_fRadius = std::max(cl->m_boundSphere.m_fRadius, maxDistSq);
+    // 0x6CF313 - Como el original: se queda con |min| solo si es estrictamente mayor (NaN -> |max|)
+    const float minDist = cl->m_boundBox.m_vecMin.Magnitude();
+    const float maxDist = minDist > cl->m_boundBox.m_vecMax.Magnitude() ? minDist : cl->m_boundBox.m_vecMax.Magnitude();
+    if (maxDist > cl->m_boundSphere.m_fRadius) {
+        cl->m_boundSphere.m_fRadius = maxDist;
+    }
 
     if (m_aCarNodes[TRAILER_MISC_A]) {
         RwMatrix matrix;
@@ -134,12 +253,14 @@ void CTrailer::SetupSuspensionLines() {
     }
 
     const float supportLegY = fabs(supportLines[0].m_vecStart.y);
-    const float avgWheelY = (fabs(colData->m_pLines[0].m_vecStart.y) + fabs(colData->m_pLines[1].m_vecStart.y)) * 0.5f;
+    // Como el original: valor absoluto de la suma (y1 + y0), no suma de valores absolutos
+    const float avgWheelY = fabs(colData->m_pLines[1].m_vecStart.y + colData->m_pLines[0].m_vecStart.y) * 0.5f;
     const float weightRatio = supportLegY / (avgWheelY + supportLegY);
 
     const float suspensionForceFactor = m_pHandlingData->m_fSuspensionForceLevel * 4.0f;
+    // Como el original: P + (rueda / 2 - inicio.z)
     const float heightAboveRoad = m_aSuspensionSpringLength[0] * (1.0f - weightRatio / suspensionForceFactor)
-                                + mi->m_fWheelSizeFront / 2 - colData->m_pLines[0].m_vecStart.z;
+                                + (mi->m_fWheelSizeFront * 0.5f - colData->m_pLines[0].m_vecStart.z);
 
     m_fFrontHeightAboveRoad = heightAboveRoad;
     m_fRearHeightAboveRoad  = heightAboveRoad;
@@ -150,7 +271,10 @@ void CTrailer::SetupSuspensionLines() {
 
     for (int i = 0; i < NUM_TRAILER_SUPPORTS; ++i) {
         supportLines[i].m_vecEnd.z = newEndZ;
-        m_wheelPosition[i] = mi->m_fWheelSizeFront / 2 - m_fFrontHeightAboveRoad;
+    }
+    // Como el original: las cuatro posiciones de rueda (la DLL solo escribía dos)
+    for (int i = 0; i < NUM_TRAILER_WHEELS; ++i) {
+        m_wheelPosition[i] = mi->m_fWheelSizeFront * 0.5f - m_fFrontHeightAboveRoad;
     }
 }
 
@@ -182,14 +306,17 @@ bool CTrailer::SetTowLink(CVehicle* vehicle, bool setMyPosToTowBar) {
     vehicle->AddToMovingList();
 
     if (!setMyPosToTowBar) {
-        UpdateTractorLink(true, false);
+        vehicle->UpdateTractorLink(true, false); // Como el original: sobre el tractor (ecx = vehículo)
         vehicle->m_vehicleAudio.AddAudioEvent(AE_TRAILER_ATTACH, 0.0f);
         return true;
     }
 
-    m_fTrailerTowedRatio = std::clamp(m_fTrailerTowedRatio, 0.0f, BAGGAGE_TRAILER_TOWED_RATIO);
+    // Como el original: solo se recoge si es mayor que el valor de equipaje (la DLL hacía un clamp con límites invertidos)
+    if (m_fTrailerTowedRatio > BAGGAGE_TRAILER_TOWED_RATIO) {
+        m_fTrailerTowedRatio = 0.0f;
+    }
 
-    SetHeading(GetHeading());
+    SetHeading(HeadingX87(vehicle)); // Como el original: rumbo del tractor (fpatan), no el propio
 
     CVector towBarPos{}, towHitchPos{};
     if (!GetTowHitchPos(towHitchPos, true, this) || !vehicle->GetTowBarPos(towBarPos, true, this)) {
@@ -214,7 +341,7 @@ void CTrailer::ScanForTowLink() {
         return;
     }
 
-    CVector towHitchPos;
+    CVector towHitchPos{}, towBarPos{}; // Como el original: ambos a cero una sola vez (towBarPos se reutiliza en el bucle)
     if (!GetTowHitchPos(towHitchPos, false, this)) {
         return;
     }
@@ -229,7 +356,6 @@ void CTrailer::ScanForTowLink() {
                 continue;
             }
 
-            CVector towBarPos;
             if (!vehicle->GetTowBarPos(towBarPos, false, this)) {
                 continue;
             }
@@ -264,24 +390,38 @@ void CTrailer::ProcessSuspension() {
     CVector contactSpeeds[NUM_TRAILER_SUPPORTS]{};
     float impulseMagnitudes[NUM_TRAILER_SUPPORTS]{};
 
+    // Como el original: la condición se evalúa con comparaciones directas (un NaN la hace falsa)
+    const auto IsSupportTouching = [this](int32 i) {
+        return m_supportRatios[i] < m_fTrailerTowedRatio2 && m_fTrailerTowedRatio2 > 0.1f;
+    };
+
+    // Como el original: tres pasadas separadas (muelles de las dos patas, luego velocidades, luego amortiguación),
+    // no las tres cosas por pata.
     for (int32 i = 0; i < NUM_TRAILER_SUPPORTS; ++i) {
-        if (m_supportRatios[i] < m_fTrailerTowedRatio2 && m_fTrailerTowedRatio2 > 0.1f) {
-            CVector forceDir = m_matrix->GetDown();
-
-            contactPoints[i] = m_supportCPs[i].m_vecPoint - GetPosition();
-
-            const float compression = m_supportRatios[i] / m_fTrailerTowedRatio2;
-
-            CPhysical::ApplySpringCollisionAlt(m_fTrailerSuspensionForce, forceDir, contactPoints[i], compression, 1.0f, m_supportCPs[i].m_vecNormal, impulseMagnitudes[i]);
-
-            contactSpeeds[i] = GetSpeed(contactPoints[i]);
-
-            CVector dampeningDir = m_supportCPs[i].m_vecNormal.z > 0.35f
-                ? -m_supportCPs[i].m_vecNormal
-                : m_matrix->GetDown();
-
-            CPhysical::ApplySpringDampening(m_fTrailerDampingForce, impulseMagnitudes[i], dampeningDir, contactPoints[i], contactSpeeds[i]);
+        if (!IsSupportTouching(i)) {
+            continue;
         }
+        const float compression = m_supportRatios[i] / m_fTrailerTowedRatio2;
+        CVector forceDir = m_matrix->GetDown();
+        contactPoints[i] = m_supportCPs[i].m_vecPoint - GetPosition();
+        CPhysical::ApplySpringCollisionAlt(m_fTrailerSuspensionForce, forceDir, contactPoints[i], compression, 1.0f, m_supportCPs[i].m_vecNormal, impulseMagnitudes[i]);
+    }
+
+    for (int32 i = 0; i < NUM_TRAILER_SUPPORTS; ++i) {
+        if (IsSupportTouching(i)) {
+            contactSpeeds[i] = GetSpeed(contactPoints[i]);
+        }
+    }
+
+    for (int32 i = 0; i < NUM_TRAILER_SUPPORTS; ++i) {
+        if (!IsSupportTouching(i)) {
+            continue;
+        }
+        CVector dampeningDir = m_matrix->GetDown();
+        if (m_supportCPs[i].m_vecNormal.z > 0.35f) {
+            dampeningDir = -m_supportCPs[i].m_vecNormal;
+        }
+        CPhysical::ApplySpringDampening(m_fTrailerDampingForce, impulseMagnitudes[i], dampeningDir, contactPoints[i], contactSpeeds[i]);
     }
 
     const auto status = GetStatus();
@@ -290,15 +430,16 @@ void CTrailer::ProcessSuspension() {
         for (int32 i = 0; i < NUM_TRAILER_SUPPORTS; ++i) {
             originalWheelStatus[i] = m_damageManager.GetWheelStatus((eCarWheel)i);
 
-            if (m_supportRatios[i] >= m_fTrailerTowedRatio2 || m_fTrailerTowedRatio2 <= 0.1f) {
-                m_damageManager.SetWheelStatus((eCarWheel)i, eCarWheelStatus::WHEEL_STATUS_BURST);
-            } else {
+            if (IsSupportTouching(i)) {
                 contactSpeeds[i] = GetSpeed(contactPoints[i]);
                 m_damageManager.SetWheelStatus((eCarWheel)i, eCarWheelStatus::WHEEL_STATUS_OK);
+            } else {
+                m_damageManager.SetWheelStatus((eCarWheel)i, eCarWheelStatus::WHEEL_STATUS_MISSING); // Como el original: 2 (la DLL ponía BURST = 1)
             }
         }
 
-        const float traction = m_pHandlingData->m_fTractionMultiplier * 0.004f * 0.25f;
+        // Como el original: escala global 0xC1CB28 (1 / (50 · 50) · 10, calculada en float al iniciar; no es 0.004f exacto)
+        const float traction = StaticRef<float>(0xC1CB28) * m_pHandlingData->m_fTractionMultiplier * 0.25f;
         CAutomobile::ProcessCarWheelPair(CAR_WHEEL_FRONT_LEFT, CAR_WHEEL_REAR_LEFT, 0.0f, contactSpeeds, contactPoints, traction, 0.0f, 1000.0f, true);
 
         m_damageManager.SetWheelStatus(CAR_WHEEL_FRONT_LEFT, originalWheelStatus[0]);
@@ -316,11 +457,10 @@ int32 CTrailer::ProcessEntityCollision(CEntity* entity, CColPoint* outColPoints)
         vehicleFlags.bVehicleColProcessed = true;
     }
 
-    const auto tcd = GetColData(),
-               ocd = entity->GetColData();
+    const auto tcd = GetColData();
 
 #ifdef FIX_BUGS // Text search for `FIX_BUGS@CAutomobile::ProcessEntityCollision:1`
-    if (!tcd || !ocd) {
+    if (!tcd || !entity->GetColData()) {
         return 0;
     }
 #endif
@@ -329,16 +469,18 @@ int32 CTrailer::ProcessEntityCollision(CEntity* entity, CColPoint* outColPoints)
         tcd->m_nNumLines = 0; // Later reset back to original value
     }
 
-    // Hide triangles in some cases
-    const auto shouldHideTriangles = m_pTowingVehicle == entity || m_pVehicleBeingTowed == entity;
-    const auto originalTNumTri = tcd->m_nNumTriangles, // Saving my sanity here, and unconditionally assigning
-               originalONumTri = ocd->m_nNumTriangles;
-    if (shouldHideTriangles) {
-        tcd->m_nNumTriangles = ocd->m_nNumTriangles = 0;
+    // Como el original: con el tractor o el remolque se ocultan los triángulos de ambos; se guardan con signo
+    // (movsx) y solo se reponen si el valor guardado es >= 0
+    int32 savedThisNumTriangles = -1, savedEntityNumTriangles = -1;
+    if (m_pTowingVehicle == entity || m_pVehicleBeingTowed == entity) {
+        savedThisNumTriangles = (int16)tcd->m_nNumTriangles;
+        tcd->m_nNumTriangles = 0;
+        savedEntityNumTriangles = (int16)entity->GetColData()->m_nNumTriangles;
+        entity->GetColData()->m_nNumTriangles = 0;
     }
 
-    std::array<CColPoint, NUM_TRAILER_SUSP_LINES> suspLineCPs{};
-    std::array<float, NUM_TRAILER_SUSP_LINES> suspLineTouchDists{};
+    std::array<CColPoint, NUM_TRAILER_SUSP_LINES> suspLineCPs;
+    std::array<float, NUM_TRAILER_SUSP_LINES> suspLineTouchDists;
 
     rng::copy(m_fWheelsSuspensionCompression, suspLineTouchDists.begin());
     rng::copy(m_supportRatios, suspLineTouchDists.begin() + m_fWheelsSuspensionCompression.size());
@@ -353,58 +495,61 @@ int32 CTrailer::ProcessEntityCollision(CEntity* entity, CColPoint* outColPoints)
     );
 
     // Restore hidden triangles
-    if (shouldHideTriangles) {
-        tcd->m_nNumTriangles = originalTNumTri;
-        ocd->m_nNumTriangles = originalONumTri;
+    if (savedThisNumTriangles >= 0) {
+        tcd->m_nNumTriangles = (uint16)savedThisNumTriangles;
+    }
+    if (savedEntityNumTriangles >= 0) {
+        entity->GetColData()->m_nNumTriangles = (uint16)savedEntityNumTriangles;
     }
 
-    size_t numProcessedLines{};
+    int32 numProcessedLines{};
     if (tcd->m_nNumLines) {
         // Process the real wheel's susp lines
         for (auto i = 0; i < NUM_TRAILER_WHEELS; i++) {
             // 0x6AD0D4
-            const auto& cp = suspLineCPs[i];
             const auto touchDist = suspLineTouchDists[i];
-            if (touchDist < BILLS_EXTENSION_LIMIT && touchDist < m_fWheelsSuspensionCompression[i]) {
-                numProcessedLines++;
-                m_fWheelsSuspensionCompression[i] = touchDist;
-                m_wheelColPoint[i] = cp;
-                m_anCollisionLighting[i] = cp.m_nLightingB;
-                m_nContactSurface = cp.m_nSurfaceTypeB;
+            if (touchDist >= BILLS_EXTENSION_LIMIT || touchDist >= m_fWheelsSuspensionCompression[i]) {
+                continue;
+            }
+            numProcessedLines++;
+            m_fWheelsSuspensionCompression[i] = touchDist;
+            CopyColPoint(m_wheelColPoint[i], suspLineCPs[i]);
+            m_anCollisionLighting[i] = m_wheelColPoint[i].m_nLightingB;
 
-                switch (entity->GetType()) {
-                case ENTITY_TYPE_VEHICLE:
-                case ENTITY_TYPE_OBJECT: {
-                    CEntity::ChangeEntityReference(m_apWheelCollisionEntity[i], entity->AsPhysical());
-
-                    m_vWheelCollisionPos[i] = cp.m_vecPoint - entity->GetPosition();
-                    if (entity->GetIsTypeVehicle()) {
-                        m_anCollisionLighting[i] = entity->AsVehicle()->m_anCollisionLighting[i];
-                    }
-                    break;
-                }
-                case ENTITY_TYPE_BUILDING: {
-                    m_pEntityWeAreOn = entity;
-                    m_bTunnel = entity->m_bTunnel;
-                    m_bTunnelTransition = entity->m_bTunnelTransition;
-                    break;
-                }
-                }
+            switch (entity->GetType()) {
+            case ENTITY_TYPE_VEHICLE:
+            case ENTITY_TYPE_OBJECT: {
+                // Como el original: se asigna y se registra la referencia sin limpiar la anterior; no copia la
+                // iluminación del vehículo
+                m_apWheelCollisionEntity[i] = entity->AsPhysical();
+                m_apWheelCollisionEntity[i]->RegisterReference(reinterpret_cast<CEntity**>(&m_apWheelCollisionEntity[i]));
+                m_vWheelCollisionPos[i] = m_wheelColPoint[i].m_vecPoint - entity->GetPosition();
+                break;
+            }
+            default:
+                break;
             }
 
-            // Process trailer support lines
-            for (auto i = 0; i < NUM_TRAILER_SUPPORTS; i++) {
-                const auto suspLineIdx = NUM_TRAILER_WHEELS + i;
-
-                const auto touchDist = suspLineTouchDists[suspLineIdx];
-                if (touchDist >= BILLS_EXTENSION_LIMIT || touchDist >= m_supportRatios[i]) {
-                    continue;
-                }
-
-                numProcessedLines++;
-                m_supportRatios[i] = touchDist;
-                m_supportCPs[i] = suspLineCPs[suspLineIdx];
+            m_nContactSurface = m_wheelColPoint[i].m_nSurfaceTypeB;
+            if (entity->GetIsTypeBuilding()) {
+                m_pEntityWeAreOn = entity;
+                m_bTunnel = entity->m_bTunnel;
+                m_bTunnelTransition = entity->m_bTunnelTransition;
             }
+        }
+
+        // Process trailer support lines (Como el original: después del bucle de ruedas, no dentro)
+        for (auto i = 0; i < NUM_TRAILER_SUPPORTS; i++) {
+            const auto suspLineIdx = NUM_TRAILER_WHEELS + i;
+
+            const auto touchDist = suspLineTouchDists[suspLineIdx];
+            if (touchDist >= BILLS_EXTENSION_LIMIT || touchDist >= m_supportRatios[i]) {
+                continue;
+            }
+
+            numProcessedLines++;
+            m_supportRatios[i] = touchDist;
+            CopyColPoint(m_supportCPs[i], suspLineCPs[suspLineIdx]);
         }
     } else {
         tcd->m_nNumLines = NUM_TRAILER_SUSP_LINES;
@@ -415,8 +560,9 @@ int32 CTrailer::ProcessEntityCollision(CEntity* entity, CColPoint* outColPoints)
         if (!entity->GetIsTypeBuilding()) {
             entity->AsPhysical()->AddCollisionRecord(this);
         }
-        if (numColPts > 0 && entity->GetIsTypeBuilding()
-            || (entity->GetIsTypeObject() && entity->AsPhysical()->physicalFlags.bDisableCollisionForce)) {
+        // Como el original: ambos casos exigen puntos de colisión
+        if (numColPts > 0 && (entity->GetIsTypeBuilding()
+            || (entity->GetIsTypeObject() && entity->AsPhysical()->physicalFlags.bDisableCollisionForce))) {
             SetHasHitWall(true);
         }
     }
@@ -438,10 +584,12 @@ void CTrailer::ProcessControl() {
             currentExtension = std::max(currentExtension - timeStep * TRAILER_SUPPORT_RETRACTION_RATE, 0.0f);
         } else if (!m_pTowingVehicle && currentExtension < 1.0f) {
             // down
-            const float growthRate = (currentExtension <= 0.1f)
-                ? timeStep * TRAILER_SUPPORT_WAIT_EXTENSION_RATE
-                : timeStep * TRAILER_SUPPORT_EXTENSION_RATE;
-            currentExtension = std::min(currentExtension + growthRate, 1.0f);
+            // Como el original: el tramo lento (<= 0.1) no se limita a 1
+            if (currentExtension > 0.1f) {
+                currentExtension = std::min(timeStep * TRAILER_SUPPORT_EXTENSION_RATE + currentExtension, 1.0f);
+            } else {
+                currentExtension = timeStep * TRAILER_SUPPORT_WAIT_EXTENSION_RATE + currentExtension;
+            }
             m_nFakePhysics = 0;
         }
 
@@ -467,7 +615,7 @@ bool CTrailer::ProcessAI(uint32& extraHandlingFlags) {
         return returnValue;
     }
 
-    if (GetStatus() != STATUS_REMOTE_CONTROLLED || !m_pTowingVehicle) {
+    if (GetStatus() != STATUS_IS_TOWED || !m_pTowingVehicle) { // Como el original: estado 10 (remolcado)
         return returnValue;
     }
 
@@ -477,18 +625,7 @@ bool CTrailer::ProcessAI(uint32& extraHandlingFlags) {
     }
 
     // Wheel turning for luggage trailers
-    float headingTow = m_pTowingVehicle->GetHeading();
-
-    float headingSelf = GetHeading();
-
-    // Calculation of the shortest angle difference
-    float angleDiff = headingTow - headingSelf;
-    if (angleDiff > PI) {
-        angleDiff -= TWO_PI;
-    } else if (angleDiff < -PI) {
-        angleDiff += TWO_PI;
-    }
-    m_fSteerAngle = angleDiff;
+    m_fSteerAngle = SteerTowardsTractor(m_pTowingVehicle, this);
 
     return returnValue;
 }
@@ -500,7 +637,7 @@ void CTrailer::PreRender() {
     // Support animation
     if (m_aCarNodes[TRAILER_MISC_A]) {
         auto* colData = CModelInfo::GetModelInfo(m_nModelIndex)->m_pColModel->m_pColData;
-        if (colData->m_nNumLines > NUM_TRAILER_WHEELS && (!m_vecMoveSpeed.IsZero() || !m_vecTurnSpeed.IsZero() || !m_nFakePhysics)) {
+        if ((int8)colData->m_nNumLines > NUM_TRAILER_WHEELS && (!m_vecMoveSpeed.IsZero() || !m_vecTurnSpeed.IsZero() || !m_nFakePhysics)) {
             CMatrix mat;
             mat.Attach(&m_aCarNodes[TRAILER_MISC_A]->modelling, false);
 
@@ -524,8 +661,13 @@ void CTrailer::PreRender() {
 
     // Animation for FARMTR1
     if (m_nModelIndex == MODEL_FARMTR1) {
-        m_fPropRotate = fmod(m_fPropRotate, TWO_PI);
-        const float forwardSpeed = m_vecMoveSpeed.Dot(m_matrix->GetForward());
+        // Como el original: resta 2π una sola vez si lo supera (no fmod)
+        if (m_fPropRotate > TWO_PI_EXE) {
+            m_fPropRotate = m_fPropRotate - TWO_PI_EXE;
+        }
+        // Como el original: (z·fz + y·fy) + x·fx
+        const auto& forward = m_matrix->GetForward();
+        const float forwardSpeed = m_vecMoveSpeed.z * forward.z + m_vecMoveSpeed.y * forward.y + m_vecMoveSpeed.x * forward.x;
         const float rotationSpeedFactor = std::clamp(forwardSpeed, 0.0f, 0.1f);
         m_fPropRotate -= rotationSpeedFactor * CTimer::GetTimeStep();
         CVehicle::SetComponentRotation(m_aCarNodes[TRAILER_MISC_B], AXIS_X, m_fPropRotate, true);
@@ -548,10 +690,10 @@ bool CTrailer::GetTowHitchPos(CVector& outPos, bool bCheckModelInfo, CVehicle* v
         outPos.x = 0.0f;
         outPos.y = mi->GetColModel()->GetBoundingBox().m_vecMax.y + 1.0f;
         outPos.z = 0.5f - m_fFrontHeightAboveRoad;
-        outPos = m_matrix->TransformPoint(outPos);
+        outPos = TransformPoint59C890(*m_matrix, outPos);
         return true;
     }
-    outPos = m_matrix->TransformPoint(outPos);
+    outPos = TransformPoint59C890(*m_matrix, outPos);
     return true;
 }
 
@@ -567,7 +709,7 @@ bool CTrailer::GetTowBarPos(CVector& outPos, bool bCheckModelInfo, CVehicle* veh
     outPos.x = 0.0f;
     outPos.y = mi->GetColModel()->GetBoundingBox().m_vecMin.y - TRAILER_TOWBAR_OFFSET_Y;
     outPos.z = 0.5f - m_fFrontHeightAboveRoad;
-    outPos = m_matrix->TransformPoint(outPos);
+    outPos = TransformPoint59C890(*m_matrix, outPos);
     return true;
 }
 

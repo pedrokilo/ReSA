@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/10 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -61,44 +61,32 @@ bool CTaskComplexDestroyCarMelee::MakeAbortable(CPed* ped, eAbortPriority priori
 
     case ABORT_PRIORITY_URGENT: {
         if (event) {
-            switch (event->GetEventType()) {
-            case EVENT_VEHICLE_COLLISION: {
-                if (!m_VehToDestroy || static_cast<const CEventVehicleCollision*>(event)->m_vehicle != m_VehToDestroy) {
-                    break;
-                }
-
-                const auto vehVelocitySq = m_VehToDestroy->m_vecMoveSpeed.SquaredMagnitude();
-                if (vehVelocitySq == 0.f) {
+            // Como el original: GetEventType se consulta para la colision y otra vez para el aviso de choque
+            if (event->GetEventType() == EVENT_VEHICLE_COLLISION && m_VehToDestroy && static_cast<const CEventVehicleCollision*>(event)->m_vehicle == m_VehToDestroy) {
+                // Como el original: velocidad al cuadrado (0x406DA0) frente a 0.0225 (0x86D9C0)
+                CVector moveDir = m_VehToDestroy->m_vecMoveSpeed;
+                const float speedSq = moveDir.SquaredMagnitude();
+                if (speedSq == 0.f) {
                     return false;
                 }
-
-                if (vehVelocitySq >= sq(0.15f)) {
-                    break;
+                if (speedSq < std::bit_cast<float>(0x3CB851ECu)) {
+                    moveDir.Normalise();
+                    const CVector delta = ped->GetPosition() - m_VehToDestroy->GetPosition();
+                    if (delta.z * moveDir.z + delta.y * moveDir.y + delta.x * moveDir.x > 0.f) { // Como el original: orden z, y, x
+                        return false;
+                    }
                 }
-
-                if ((ped->GetPosition() - m_VehToDestroy->GetPosition()).Dot(m_VehToDestroy->m_vecMoveSpeed) > 0.f) {
-                    return false;
-                }
-
-                break;
             }
-            case EVENT_POTENTIAL_WALK_INTO_VEHICLE: {
-                if (m_VehToDestroy && static_cast<const CEventPotentialWalkIntoVehicle*>(event)->m_vehicle == m_VehToDestroy) {
-                    return false;
-                }
-                break;
-            }
+            if (event->GetEventType() == EVENT_POTENTIAL_WALK_INTO_VEHICLE && m_VehToDestroy && static_cast<const CEventPotentialWalkIntoVehicle*>(event)->m_vehicle == m_VehToDestroy) {
+                return false;
             }
         }
-
-        return m_pSubTask->MakeAbortable(ped);
+        return m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, event); // Como el original: se pasa el evento
     }
-    case ABORT_PRIORITY_LEISURE: {
+    default: { // Como el original: cualquier otra prioridad
         m_AbortAtLeisure = true;
         return false;
     }
-    default:
-        NOTSA_UNREACHABLE("Invalid priority: {}", (int)priority);
     }
 }
 
@@ -107,33 +95,35 @@ CTask* CTaskComplexDestroyCarMelee::CreateNextSubTask(CPed* ped) {
     if (m_AbortAtLeisure) {
         return nullptr;
     }
-    return CreateSubTask([this, ped] {
-        switch (m_pSubTask->GetTaskType()) {
-        case TASK_SIMPLE_PAUSE:
-        case TASK_SIMPLE_FIGHT_CTRL: {
-            if (ped->bStayInSamePlace) { // Inverted
-                return m_PauseTimer != -1 && CTimer::GetTimeInMS() - m_PauseTimer > 3000
-                    ? TASK_FINISHED
-                    : TASK_SIMPLE_PAUSE;
-            }
+    switch (m_pSubTask->GetTaskType()) {
+    case TASK_SIMPLE_PAUSE:
+    case TASK_SIMPLE_FIGHT_CTRL: {
+        if (!ped->bStayInSamePlace) {
             CalculateSearchPositionAndRanges(ped);
-            return TASK_COMPLEX_SEEK_ENTITY;
+            return CreateSubTask(TASK_COMPLEX_SEEK_ENTITY, ped);
         }
-        case TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL: { // 0x62DC70
-            CalculateSearchPositionAndRanges(ped);
-            return IsPointInSphere(ped->GetPosition(), m_VehToDestroy->GetPosition(), m_MaxAtkRange)
-                ? TASK_SIMPLE_FIGHT_CTRL
-                : ped->bStayInSamePlace
-                    ? TASK_SIMPLE_PAUSE
-                    : TASK_COMPLEX_SEEK_ENTITY;
+        return CreateSubTask(
+            m_PauseTimer != -1 && CTimer::GetTimeInMS() - (uint32)m_PauseTimer > 3000
+                ? TASK_FINISHED
+                : TASK_SIMPLE_PAUSE,
+            ped
+        );
+    }
+    case TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL: { // 0x62DC70
+        CalculateSearchPositionAndRanges(ped);
+        // Como el original: distancia al cuadrado (0x406DA0) frente al rango al cuadrado
+        const float range = m_MaxAtkRange;
+        if (range * range > (m_VehToDestroy->GetPosition() - ped->GetPosition()).SquaredMagnitude()) {
+            return CreateSubTask(TASK_SIMPLE_FIGHT_CTRL, ped);
         }
-        case TASK_COMPLEX_SEEK_ENTITY: { // 0x62DD11
-            return TASK_SIMPLE_FIGHT_CTRL;
-        }
-        default:
-            NOTSA_UNREACHABLE();
-        }
-    }(), ped);
+        return CreateSubTask(ped->bStayInSamePlace ? TASK_SIMPLE_PAUSE : TASK_COMPLEX_SEEK_ENTITY, ped);
+    }
+    case TASK_COMPLEX_SEEK_ENTITY: { // 0x62DD11
+        return CreateSubTask(TASK_SIMPLE_FIGHT_CTRL, ped);
+    }
+    default: // Como el original: TASK_FINISHED y tipos desconocidos devuelven nullptr sin llamar a CreateSubTask
+        return nullptr;
+    }
 }
 
 // 0x62DB20
@@ -141,9 +131,11 @@ CTask* CTaskComplexDestroyCarMelee::CreateFirstSubTask(CPed* ped) {
     m_HasNewTarget = false;
     // CWeaponInfo::GetWeaponInfo(ped->GetActiveWeapon().m_nType); // unused
     CalculateSearchPositionAndRanges(ped);
-    const auto& pedPos = ped->GetPosition();
-    if (IsPointInSphere(pedPos, m_VehToDestroy->GetPosition(), m_MaxArriveRange)) {
-        ped->m_fAimingRotation = CGeneral::GetRadianAngleBetweenPoints(m_VehPos, pedPos);
+    const CVector delta = m_VehToDestroy->GetPosition() - ped->GetPosition();
+    const float   range = m_MaxArriveRange;
+    // Como el original: suma z, x, y; NaN cuenta como dentro del radio
+    if (!(range * range < delta.z * delta.z + delta.x * delta.x + delta.y * delta.y)) {
+        ped->m_fAimingRotation = CGeneral::GetRadianAngleBetweenPoints(m_VehPos, ped->GetPosition());
         return CreateSubTask(TASK_SIMPLE_FIGHT_CTRL, ped);
     }
     return CreateSubTask(ped->bStayInSamePlace ? TASK_SIMPLE_PAUSE : TASK_COMPLEX_SEEK_ENTITY, ped);
@@ -151,6 +143,7 @@ CTask* CTaskComplexDestroyCarMelee::CreateFirstSubTask(CPed* ped) {
 
 // 0x62DDB0
 CTask* CTaskComplexDestroyCarMelee::ControlSubTask(CPed* ped) {
+    CTask* const subTask = m_pSubTask;
     if (m_HasNewTarget) {
         return CreateFirstSubTask(ped);
     }
@@ -158,34 +151,52 @@ CTask* CTaskComplexDestroyCarMelee::ControlSubTask(CPed* ped) {
     if (m_VehToDestroy->m_fHealth <= 0.0f)
         return nullptr;
 
-    switch (m_pSubTask->GetTaskType()) {
+    switch (subTask->GetTaskType()) {
     case TASK_COMPLEX_SEEK_ENTITY:
     case TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL: { // 0x62DEAB
         CalculateSearchPositionAndRanges(ped);
-        return IsPointInSphere(ped->GetPosition(), m_VehToDestroy->GetPosition(), m_MaxAtkRange)
-            ? CreateSubTask(TASK_SIMPLE_FIGHT_CTRL, ped)
-            : m_pSubTask;
+        const CVector delta = m_VehToDestroy->GetPosition() - ped->GetPosition();
+        const float   range = m_MaxAtkRange;
+        // Como el original: suma z, x, y y comparacion estricta
+        if (range * range > delta.z * delta.z + delta.x * delta.x + delta.y * delta.y) {
+            return CreateSubTask(TASK_SIMPLE_FIGHT_CTRL, ped);
+        }
+        return subTask;
     }
     case TASK_SIMPLE_FIGHT_CTRL: { // 0x62DE1A
         CalculateSearchPositionAndRanges(ped);
-        if (!IsPointInSphere(ped->GetPosition(), m_VehToDestroy->GetPosition(), m_MaxAtkRange + 0.6f)) {
+        const CVector delta = m_VehToDestroy->GetPosition() - ped->GetPosition();
+        const float   dist  = std::sqrt(delta.z * delta.z + delta.y * delta.y + delta.x * delta.x); // Como el original: orden z, y, x
+        if (m_MaxAtkRange + 0.6f < dist) {
             return CreateSubTask(TASK_COMPLEX_SEEK_ENTITY, ped);
         }
-        const auto tFightCtrl = notsa::cast<CTaskSimpleFightingControl>(m_pSubTask);
+        const auto tFightCtrl = static_cast<CTaskSimpleFightingControl*>(subTask);
         tFightCtrl->m_angleRad = m_MaxAtkAngleRad;
         tFightCtrl->m_maxAttackRange = m_MaxAtkRange;
-        return m_pSubTask;
+        return subTask;
     }
-    default:
-        return nullptr;
+    default: // Como el original: devuelve la subtarea actual
+        return subTask;
     }
 }
 
 // 0x6289F0
 void CTaskComplexDestroyCarMelee::CalculateSearchPositionAndRanges(CPed* ped) {
+    m_VehPos = m_VehToDestroy->GetPosition();
+    const CVector& pedPos = ped->GetPosition();
+    const float deltaX = pedPos.x - m_VehPos.x;
+    const float deltaY = pedPos.y - m_VehPos.y;
     m_MaxAtkRange = m_MaxArriveRange = m_VehToDestroy->GetModelInfo()->GetColModel()->GetBoundRadius() + 0.35f;
-    m_VehPos                         = m_VehToDestroy->GetPosition();
-    m_MaxAtkAngleRad                 = (CVector2D{ m_VehPos } - ped->GetPosition2D()).Heading(); // veh - ped, because heading uses atan(-x, y), 180deg offset
+    // Como el original: atan2(dx, -dy) con fpatan (precision completa del FPU, redondeo al guardar)
+    float angle;
+    __asm {
+        fld deltaX
+        fld deltaY
+        fchs
+        fpatan
+        fstp angle
+    }
+    m_MaxAtkAngleRad = angle;
 }
 
 // 0x628A70
@@ -232,7 +243,7 @@ CTask* CTaskComplexDestroyCarMelee::CreateSubTask(eTaskType taskType, CPed* ped)
         m_PauseTimer = -1;
         return nullptr;
     }
-    default:
-        NOTSA_UNREACHABLE();
+    default: // Como el original: tipos desconocidos devuelven nullptr
+        return nullptr;
     }
 }

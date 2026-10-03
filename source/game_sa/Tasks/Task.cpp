@@ -49,13 +49,9 @@ void CTask::StopTimer(const CEvent* event) {
 
 // 0x61A360
 bool CTask::IsGoToTask(CTask* task) {
-    switch (task->GetTaskType()) {
-    case TASK_SIMPLE_GO_TO_POINT:
-    case TASK_SIMPLE_GO_TO_POINT_FINE:
-        return true;
-    default:
-        return false;
-    }
+    // Como el original: el tipo se pide una vez por comparación (dos llamadas virtuales)
+    return task->GetTaskType() == TASK_SIMPLE_GO_TO_POINT
+        || task->GetTaskType() == TASK_SIMPLE_GO_TO_POINT_FINE;
 }
 
 // 0x61A4B0

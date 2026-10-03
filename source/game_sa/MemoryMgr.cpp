@@ -370,7 +370,8 @@ void* CMemoryMgr::Malloc(uint32 size) {
 }
 
 void* CMemoryMgr::MallocAlign(uint32 size, uint32 align) {
-    return plugin::CallAndReturn<void*, 0x72F4C0, uint32, uint32>(size, align);
+    // Como el original: 0x72F4C0 recibe 3 argumentos (size, align, hint); con 2 el EXE leía basura como hint
+    return plugin::CallAndReturn<void*, 0x72F4C0, uint32, uint32, uint32>(size, align, 0);
 
     void* memory = MallocAlign(size, align, 0);
 #if defined MEMORY_MGR_USE_HEAP_FLAGS

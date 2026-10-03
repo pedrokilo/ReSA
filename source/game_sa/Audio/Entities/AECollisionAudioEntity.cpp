@@ -68,6 +68,12 @@ float GetLoopingCollisionMagnitude(const CVector& v, const CVector& t, bool zFir
     };
     return std::sqrt(SqMag(SqMag(t) < SqMag(v) ? v : t));
 }
+
+// Como el original: el modelo de la entidad se extiende con signo (movsx) y el índice de ModelIndices
+// sin signo (movzx), así que un índice no válido (0xFFFF) nunca coincide.
+bool IsEntityModel(const CEntity* entity, ModelIndex mi) {
+    return (int32)(int16)(entity->GetModelIndex()) == (int32)(mi.get_underlying());
+}
 } // namespace
 
 void CAECollisionAudioEntity::InjectHooks() {
@@ -95,10 +101,17 @@ void CAECollisionAudioEntity::InjectHooks() {
 
 // 0x5B9BD0
 void CAECollisionAudioEntity::Initialise() {
-    // Como el original: no toca los campos de CAEAudioEntity y deja todo el historial a -1.
+    // Como el original: no toca los campos de CAEAudioEntity, escribe las entradas campo a campo (sin el
+    // byte de relleno +0x13, que la asignación de un temporal pisaba) y deja todo el historial a -1.
     m_NumActiveCollisionSounds = 0;
     for (auto& entry : m_CollisionSoundList) {
-        entry = {};
+        entry.EntityA        = nullptr;
+        entry.EntityB        = nullptr;
+        entry.SurfaceA       = TOTAL_NUM_COLLISION_SURFACE_TYPES;
+        entry.SurfaceB       = TOTAL_NUM_COLLISION_SURFACE_TYPES;
+        entry.Sound          = nullptr;
+        entry.Status         = COLLISION_SOUND_INACTIVE;
+        entry.LoopStopTimeMs = 0;
     }
     rng::fill(m_CollisionSoundIDHistory, (int16)(-1));
     m_LastBulletHitSoundID = -1;
@@ -468,42 +481,27 @@ void CAECollisionAudioEntity::PlayBulletHitCollisionSound(eSurfaceType surface, 
 
 // 0x4DA070
 void CAECollisionAudioEntity::ReportGlassCollisionEvent(eAudioEvents event, const CVector& posn, uint32 time) {
-    const auto PlayCollisionSound = [&](eSoundID soundID, float speed) {
-        if (time) {
-            AESoundManager.PlaySound({
-                .BankSlotID     = SND_BANK_SLOT_COLLISIONS,
-                .SoundID        = soundID,
-                .AudioEntity    = this,
-                .Pos            = posn,
-                .Volume         = GetDefaultVolume(event),
-                .RollOffFactor  = 1.5f,
-                .Speed          = 0.f,
-                .Flags          = SOUND_REQUEST_UPDATES,
-                .EventID        = event,
-                .ClientVariable = (float)(time + CTimer::GetTimeInMS()),
-            });
-        } else {
-            AESoundManager.PlaySound({
-                .BankSlotID     = SND_BANK_SLOT_COLLISIONS,
-                .SoundID        = soundID,
-                .AudioEntity    = this,
-                .Pos            = posn,
-                .Volume         = GetDefaultVolume(event),
-                .RollOffFactor  = 1.5f,
-                .Speed          = speed,
-                .ClientVariable = NO_CLIENT_VARIABLE,
-            });
-        }
-    };
+    eSoundID soundID;
+    float    speed = 1.f;
     switch (event) {
-    case AE_GLASS_HIT:             PlayCollisionSound(51, 1.f);                                                break;
-    case AE_GLASS_CRACK:           PlayCollisionSound(68, 1.f);                                                break;
-    case AE_GLASS_BREAK_SLOW:      PlayCollisionSound(56, 0.75f);                                              break;
-    case AE_GLASS_BREAK_FAST:      PlayCollisionSound(56, 1.f);                                                break;
-    case AE_GLASS_HIT_GROUND:      PlayCollisionSound(CAEAudioUtility::GetRandomNumberInRange(15, 18), 1.f);   break;
-    case AE_GLASS_HIT_GROUND_SLOW: PlayCollisionSound(CAEAudioUtility::GetRandomNumberInRange(15, 18), 0.56f); break;
-    default:                       break; // Como el original: otros eventos no hacen nada
+    case AE_GLASS_HIT:             soundID = 51; break;
+    case AE_GLASS_CRACK:           soundID = 68; break;
+    case AE_GLASS_BREAK_SLOW:      soundID = 56; speed = 0.75f; break;
+    case AE_GLASS_BREAK_FAST:      soundID = 56; break;
+    case AE_GLASS_HIT_GROUND:      soundID = (eSoundID)(CAEAudioUtility::GetRandomNumberInRange(15, 18)); break;
+    case AE_GLASS_HIT_GROUND_SLOW: soundID = (eSoundID)(CAEAudioUtility::GetRandomNumberInRange(15, 18)); speed = 0.56f; break;
+    default:                       return; // Como el original: otros eventos no hacen nada
     }
+    // Como el original: prepara m_tempSound (no una CAESound local); con tiempo, después de
+    // Initialise pone velocidad 0, la hora de arranque, el evento y solo el flag de actualizaciones.
+    m_tempSound.Initialise(SND_BANK_SLOT_COLLISIONS, soundID, this, posn, GetDefaultVolume(event), 1.5f, speed, 1.f, 0, SOUND_DEFAULT, 0.f, 0);
+    if (time) {
+        m_tempSound.m_Speed          = 0.f;
+        m_tempSound.m_ClientVariable = (float)(CTimer::GetTimeInMS() + time);
+        m_tempSound.m_Event          = event;
+        m_tempSound.m_Flags          = SOUND_REQUEST_UPDATES;
+    }
+    AESoundManager.RequestNewSound(&m_tempSound);
 }
 
 // 0x4DA190
@@ -511,30 +509,16 @@ void CAECollisionAudioEntity::ReportWaterSplash(CVector posn, float volume) {
     if (!AEAudioHardware.EnsureSoundBankIsLoaded(SND_BANK_GENRL_COLLISIONS, SND_BANK_SLOT_COLLISIONS, true)) {
         return;
     }
-    AESoundManager.PlaySound({
-        .BankSlotID     = SND_BANK_SLOT_COLLISIONS,
-        .SoundID        = 67,
-        .AudioEntity    = this,
-        .Pos            = posn,
-        .Volume         = GetDefaultVolume(AE_WATER_SPLASH) + volume,
-        .RollOffFactor  = 2.5f,
-        .Speed          = 1.26f,
-        .Flags          = SOUND_REQUEST_UPDATES,
-        .EventID        = 1,
-        .ClientVariable = NO_CLIENT_VARIABLE,
-    });
-    AESoundManager.PlaySound({
-        .BankSlotID     = SND_BANK_SLOT_COLLISIONS,
-        .SoundID        = 66,
-        .AudioEntity    = this,
-        .Pos            = posn,
-        .Volume         = GetDefaultVolume(AE_WATER_SPLASH) + volume,
-        .RollOffFactor  = 2.5f,
-        .Speed          = 0.f,
-        .Flags          = SOUND_REQUEST_UPDATES,
-        .EventID        = 2,
-        .ClientVariable = (float)(CTimer::GetTimeInMS() + 166)
-    });
+    // Como el original: los dos sonidos se preparan en m_tempSound (no en una CAESound local).
+    const auto splashVolume = GetDefaultVolume(AE_WATER_SPLASH) + volume;
+    m_tempSound.Initialise(SND_BANK_SLOT_COLLISIONS, 67, this, posn, splashVolume, 2.5f, 1.26f, 1.f, 0, SOUND_REQUEST_UPDATES, 0.f, 0);
+    m_tempSound.m_Event = 1;
+    AESoundManager.RequestNewSound(&m_tempSound);
+
+    m_tempSound.Initialise(SND_BANK_SLOT_COLLISIONS, 66, this, posn, splashVolume, 2.5f, 0.f, 1.f, 0, SOUND_REQUEST_UPDATES, 0.f, 0);
+    m_tempSound.m_Event          = 2;
+    m_tempSound.m_ClientVariable = (float)(CTimer::GetTimeInMS() + 166);
+    AESoundManager.RequestNewSound(&m_tempSound);
 }
 
 // 0x4DAE40
@@ -554,52 +538,44 @@ void CAECollisionAudioEntity::ReportWaterSplash(CPhysical* physical, float volum
     if (!AEAudioHardware.EnsureSoundBankIsLoaded(SND_BANK_GENRL_COLLISIONS, SND_BANK_SLOT_COLLISIONS, true)) { // 0x4DAED2
         return;
     }
-    const auto PlaySound = [&](int32 eventID, float speed, float volumeOffset, uint32 interval) {
-        if (!(volume > -100.f)) { // 0x4DAF90 - Como el original: también con NaN
-            // Como el original: log10(min(|v|, 0.6) * 1.6666666) * 20 en línea, sin el umbral de AudioLog10.
-            const auto mag      = physical->GetMoveSpeed().Magnitude();
-            const auto speedLog = Log10Times20((mag < 0.6f ? mag : 0.6f) * 1.6666666f);
-            volume = speedLog > -18.f ? speedLog : -18.f;
+    const auto time       = CTimer::GetTimeInMS();
+    auto       baseVolume = GetDefaultVolume(AE_WATER_SPLASH);
+    int32      eventID    = 2;
+    float      speed      = 1.26f;
+    uint32     interval   = 166;
+    if (physical->GetIsTypePed()) { // 0x4DAF2B
+        if (!isForceSplash || physical->AsPed()->GetIntelligence()->GetTaskSwim()) {
+            return;
         }
-        volume += GetDefaultVolume(AE_WATER_SPLASH) + volumeOffset;
-
-        // Como el original: los dos sonidos se registran con la entidad (flags 0x84) y el segundo arranca con velocidad 0.
-        AESoundManager.PlaySound({
-            .BankSlotID         = SND_BANK_SLOT_COLLISIONS,
-            .SoundID            = 67,
-            .AudioEntity        = this,
-            .Pos                = physical->GetPosition(),
-            .Volume             = volume,
-            .RollOffFactor      = 2.5f,
-            .Speed              = speed,
-            .Flags              = SOUND_REQUEST_UPDATES | SOUND_LIFESPAN_TIED_TO_PHYSICAL_ENTITY,
-            .RegisterWithEntity = physical,
-            .EventID            = 1,
-            .ClientVariable     = NO_CLIENT_VARIABLE,
-        });
-        AESoundManager.PlaySound({
-            .BankSlotID         = SND_BANK_SLOT_COLLISIONS,
-            .SoundID            = 66,
-            .AudioEntity        = this,
-            .Pos                = physical->GetPosition(),
-            .Volume             = volume,
-            .RollOffFactor      = 2.5f,
-            .Speed              = 0.f,
-            .Flags              = SOUND_REQUEST_UPDATES | SOUND_LIFESPAN_TIED_TO_PHYSICAL_ENTITY,
-            .RegisterWithEntity = physical,
-            .EventID            = eventID,
-            .ClientVariable     = (float)(CTimer::GetTimeInMS() + interval),
-        });
-    };
-    if (physical->GetIsTypePed()) { // 0x4DAF2B - Inverted
-        if (isForceSplash && !physical->AsPed()->GetIntelligence()->GetTaskSwim()) {
-            PlaySound(2, 1.26f, -6.f, 166);
-        }
+        baseVolume -= 6.f;
     } else if (physical->GetIsTypeVehicle()) { // 0x4DAF52
-        PlaySound(3, 0.94f, 0.f, 248);
+        eventID  = 3;
+        speed    = 0.94f;
+        interval = 248;
     } else { // 0x4DAF70
-        PlaySound(2, 1.26f, -12.f, 166);
+        baseVolume -= 12.f;
     }
+    if (volume > -100.f) { // 0x4DAF90 - Como el original: con NaN también se calcula a partir de la velocidad
+        volume = baseVolume + volume;
+    } else {
+        // Como el original: log10(min(|v|, 0.6) * 1.6666666) * 20 en línea, sin el umbral de AudioLog10.
+        const auto mag      = physical->GetMoveSpeed().Magnitude();
+        const auto speedLog = Log10Times20((mag < 0.6f ? mag : 0.6f) * 1.6666666f);
+        volume = (speedLog > -18.f ? speedLog : -18.f) + baseVolume;
+    }
+
+    // Como el original: los dos sonidos se preparan en m_tempSound (no en una CAESound local), se
+    // registran con la entidad (flags 0x84) y el segundo arranca con velocidad 0.
+    m_tempSound.Initialise(SND_BANK_SLOT_COLLISIONS, 67, this, physical->GetPosition(), volume, 2.5f, speed, 1.f, 0, (uint16)(SOUND_REQUEST_UPDATES | SOUND_LIFESPAN_TIED_TO_PHYSICAL_ENTITY), 0.f, 0);
+    m_tempSound.RegisterWithPhysicalEntity(physical);
+    m_tempSound.m_Event = 1;
+    AESoundManager.RequestNewSound(&m_tempSound);
+
+    m_tempSound.Initialise(SND_BANK_SLOT_COLLISIONS, 66, this, physical->GetPosition(), volume, 2.5f, 0.f, 1.f, 0, (uint16)(SOUND_REQUEST_UPDATES | SOUND_LIFESPAN_TIED_TO_PHYSICAL_ENTITY), 0.f, 0);
+    m_tempSound.RegisterWithPhysicalEntity(physical);
+    m_tempSound.m_Event          = eventID;
+    m_tempSound.m_ClientVariable = (float)(time + interval);
+    AESoundManager.RequestNewSound(&m_tempSound);
 }
 
 // 0x4DAB60
@@ -609,56 +585,46 @@ void CAECollisionAudioEntity::ReportObjectDestruction(CEntity* entity) {
     }
 
     const auto PlaySoundForSurface = [&](eSurfaceType surface) {
-        const auto PlaySound = [&](eSoundID soundID) {
-            AESoundManager.PlaySound({
-                .BankSlotID        = SND_BANK_SLOT_COLLISIONS,
-                .SoundID           = soundID,
-                .AudioEntity       = this,
-                .Pos               = entity->GetPosition(),
-                .Volume            = GetDefaultVolume(AE_GENERAL_COLLISION),
-                .RollOffFactor     = 2.f,
-                .FrequencyVariance = 0.0588f,
-                .ClientVariable    = NO_CLIENT_VARIABLE,
-            });
-        };
+        eSoundID soundID;
         switch (surface) {
         case SURFACE_WOOD_CRATES:
         case SURFACE_WOOD_BENCH:
         case SURFACE_WOOD_PICKET_FENCE:
         case SURFACE_WOOD_SLATTED_FENCE:
-        case SURFACE_WOOD_RANCH_FENCE:   PlaySound(CAEAudioUtility::GetRandomNumberInRange(41, 44)); break; // 0x4DAD14
-        case SURFACE_GLASS:              PlaySound(11); break;                                              // 0x4DAD43
-        default:                         break;
+        case SURFACE_WOOD_RANCH_FENCE: // 0x4DAD10
+            soundID = (eSoundID)(CAEAudioUtility::GetRandomNumberInRange(41, 44));
+            if (soundID < 0) { // Como el original: test ax,ax / jl
+                return;
+            }
+            break;
+        case SURFACE_GLASS: // 0x4DAD43
+            soundID = 11;
+            break;
+        default:
+            return;
         }
+        // Como el original: prepara m_tempSound (no una CAESound local).
+        m_tempSound.Initialise(SND_BANK_SLOT_COLLISIONS, soundID, this, entity->GetPosition(), GetDefaultVolume(AE_GENERAL_COLLISION), 2.f, 1.f, 1.f, 0, SOUND_DEFAULT, 0.0588f, 0);
+        AESoundManager.RequestNewSound(&m_tempSound);
     };
     if (entity->GetModelId() == MODEL_MOLOTOV) { // 0x4DAB7B - Como el original: se comprueba antes que MI_GRASSHOUSE
         PlaySoundForSurface(SURFACE_GLASS);
         return;
     }
 
-    if (entity->GetModelId() == ModelIndices::MI_GRASSHOUSE) { // 0x4DAB94
-        AESoundManager.PlaySound({ // 0x4DABEF
-            .BankSlotID     = SND_BANK_SLOT_COLLISIONS,
-            .SoundID        = (eSoundID)(56),
-            .AudioEntity    = this,
-            .Pos            = entity->GetPosition(),
-            .Volume         = GetDefaultVolume(AE_GLASS_BREAK_SLOW),
-            .RollOffFactor  = 1.5f,
-            .Speed          = 0.75f,
-            .ClientVariable = NO_CLIENT_VARIABLE,
-        });
-        AESoundManager.PlaySound({ // 0x4DAC65
-            .BankSlotID     = SND_BANK_SLOT_COLLISIONS,
-            .SoundID        = (eSoundID)(CAEAudioUtility::GetRandomNumberInRange(15, 18)),
-            .AudioEntity    = this,
-            .Pos            = entity->GetPosition(),
-            .Volume         = GetDefaultVolume(AE_GLASS_HIT_GROUND_SLOW),
-            .RollOffFactor  = 1.5f,
-            .Speed          = 0.0f,
-            .Flags          = SOUND_REQUEST_UPDATES,
-            .EventID        = AE_GLASS_HIT_GROUND_SLOW,
-            .ClientVariable = (float)(CTimer::GetTimeInMS() + 600),
-        });
+    if (IsEntityModel(entity, ModelIndices::MI_GRASSHOUSE)) { // 0x4DAB94
+        // Como el original: los dos sonidos se preparan en m_tempSound (no en una CAESound local);
+        // el segundo se inicializa con velocidad 0.56 y después se pone a 0 junto a hora, evento y flags.
+        m_tempSound.Initialise(SND_BANK_SLOT_COLLISIONS, 56, this, entity->GetPosition(), GetDefaultVolume(AE_GLASS_BREAK_SLOW), 1.5f, 0.75f, 1.f, 0, SOUND_DEFAULT, 0.f, 0); // 0x4DABEF
+        AESoundManager.RequestNewSound(&m_tempSound);
+
+        const auto soundID = (eSoundID)(CAEAudioUtility::GetRandomNumberInRange(15, 18));
+        m_tempSound.Initialise(SND_BANK_SLOT_COLLISIONS, soundID, this, entity->GetPosition(), GetDefaultVolume(AE_GLASS_HIT_GROUND_SLOW), 1.5f, 0.56f, 1.f, 0, SOUND_DEFAULT, 0.f, 0); // 0x4DAC65
+        m_tempSound.m_Speed          = 0.f;
+        m_tempSound.m_ClientVariable = (float)(CTimer::GetTimeInMS() + 600);
+        m_tempSound.m_Event          = AE_GLASS_HIT_GROUND_SLOW;
+        m_tempSound.m_Flags          = SOUND_REQUEST_UPDATES;
+        AESoundManager.RequestNewSound(&m_tempSound);
         return;
     }
 
@@ -713,17 +679,16 @@ void CAECollisionAudioEntity::ReportCollision(
             case MODEL_TEARGAS:
                 return AE_SURFACE_TYPE_GRENADE;
             }
-            const auto eAModelId = eA->GetModelId();
-            if (eAModelId == ModelIndices::MI_BASKETBALL) {
+            if (IsEntityModel(eA, ModelIndices::MI_BASKETBALL)) {
                 return AE_SURFACE_TYPE_BASKETBALL;
             }
-            if (eAModelId == ModelIndices::MI_PUNCHBAG) {
+            if (IsEntityModel(eA, ModelIndices::MI_PUNCHBAG)) {
                 return AE_SURFACE_TYPE_PUNCHBAG;
             }
-            if (eAModelId == ModelIndices::MI_GRASSHOUSE) {
+            if (IsEntityModel(eA, ModelIndices::MI_GRASSHOUSE)) {
                 return SURFACE_UNBREAKABLE_GLASS;
             }
-            if (eAModelId == ModelIndices::MI_IMY_GRAY_CRATE) {
+            if (IsEntityModel(eA, ModelIndices::MI_IMY_GRAY_CRATE)) {
                 return SURFACE_WOOD_SOLID;
             }
             // Como el original: prueba el bit 7 del byte +0x40 (test al,al / jns), no el bit 0.

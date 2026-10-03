@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/10 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -49,6 +49,7 @@ CTaskComplexBeInGroup::CTaskComplexBeInGroup(int32 groupId, bool isLeader) : CTa
 
 // 0x633010
 CTask* CTaskComplexBeInGroup::MonitorMainGroupTask(CPed* ped) {
+    const auto subTask = m_pSubTask; // Como el original: se lee al principio y es lo que se devuelve al final
     if (const auto groupMainTask = CPedGroups::GetGroup(m_nGroupId).GetIntelligence().GetTaskMain(ped)) {
         if (groupMainTask != m_MainTask || groupMainTask->GetTaskType() != m_nMainTaskId) {
             if (m_pSubTask->MakeAbortable(ped)) {
@@ -62,7 +63,7 @@ CTask* CTaskComplexBeInGroup::MonitorMainGroupTask(CPed* ped) {
         m_nMainTaskId = TASK_NONE;
         return nullptr;
     }
-    return m_pSubTask;
+    return subTask;
 }
 
 // 0x6330B0
@@ -109,8 +110,11 @@ bool CTaskComplexBeInGroup::MakeAbortable(CPed* ped, eAbortPriority priority, co
     if (priority == ABORT_PRIORITY_IMMEDIATE) {
         auto& groupIntel = GetGroup().GetIntelligence();
         for (auto task : { &m_MainTask, &m_SecondaryTask }) {
-            if (*task && CTask::IsTaskPtr(*task)) {
-                groupIntel.ReportFinishedTask(ped, *task);
+            // Como el original: solo se informa si es una tarea valida, pero se anula siempre que no sea nula
+            if (*task) {
+                if (CTask::IsTaskPtr(*task)) {
+                    groupIntel.ReportFinishedTask(ped, *task);
+                }
                 *task = nullptr;
             }
         }

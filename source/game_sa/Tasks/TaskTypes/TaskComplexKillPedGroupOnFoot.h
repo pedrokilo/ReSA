@@ -30,7 +30,6 @@ public:
 
     CTask*    CreateSubTask(eTaskType taskType, CPed* ped);
     CPed*     ComputeNearestLivingGroupPed(CPed& ped, bool flag = false);
-    eTaskType ComputeNewTargetAndTaskType(CPed* ped); // NOTSA
 
     CTask*    Clone() const override { return new CTaskComplexKillPedGroupOnFoot{ *this }; } // 0x6237C0
     eTaskType GetTaskType() const override { return Type; }

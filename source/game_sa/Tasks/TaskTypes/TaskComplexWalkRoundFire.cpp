@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -49,11 +49,15 @@ CTaskComplexWalkRoundFire::CTaskComplexWalkRoundFire(const CTaskComplexWalkRound
 {
 }
 
+// 0x6581B0
 bool CTaskComplexWalkRoundFire::ComputeDetourTarget(const CPed& ped, CVector& outTarget) const {
-    CVector unused{};
+    // Como el original: CColSphere en la pila con Set(radio, centro, 0, 0, 0xFF) (0x40FD10)
+    CColSphere sphere;
+    sphere.Set(m_fireBoundSphere.m_fRadius, m_fireBoundSphere.m_vecCenter, SURFACE_DEFAULT, 0, tColLighting(0xFF));
+    CVector unused;
     return CPedGeometryAnalyser::ComputeRouteRoundSphere(
         ped,
-        m_fireBoundSphere,
+        sphere,
         m_initialPedPos,
         m_targetPos,
         unused,
@@ -64,7 +68,8 @@ bool CTaskComplexWalkRoundFire::ComputeDetourTarget(const CPed& ped, CVector& ou
 // 0x6584E0
 CTask* CTaskComplexWalkRoundFire::CreateFirstSubTask(CPed* ped) {
     m_initialPedPos = ped->GetPosition();
-    return new CTaskSimpleGoToPoint{ m_moveState, GetDetourTarget(*ped) };
+    const auto target = GetDetourTarget(*ped); // Como el original: la ruta se calcula antes de reservar la tarea
+    return new CTaskSimpleGoToPoint{ m_moveState, target };
 }
 
 // 0x6585C0

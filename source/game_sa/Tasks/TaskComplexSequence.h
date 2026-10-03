@@ -39,8 +39,9 @@ public:
     CTask* CreateNextSubTask(CPed* ped) override;
     CTask* CreateFirstSubTask(CPed* ped) override;
     CTask* ControlSubTask(CPed* ped) override;
+    bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
 
-    void AddTask(CTask* task);
+    bool AddTask(CTask* task);
 
     //! @brief Add multiple tasks at once
     template<Task... Ts>

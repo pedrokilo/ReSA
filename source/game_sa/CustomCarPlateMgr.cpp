@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 14/14 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/14 entradas.
+ * Validación registrada: 14/14 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -88,7 +88,10 @@ void CCustomCarPlateMgr::Shutdown() {
         }
     }
 
-    CTxdStore::SafeRemoveTxdSlot("vehicle");
+    // Como el original: CTxdStore::RemoveTxd (0x731E90), no RemoveTxdSlot
+    if (const auto slot = CTxdStore::FindTxdSlot("vehicle"); slot != -1) {
+        CTxdStore::RemoveTxd(slot);
+    }
 }
 
 // Returns texture index in pPlatebackTexTab. See texture names in ::Initialise.
@@ -100,12 +103,8 @@ int8 CCustomCarPlateMgr::GetMapRegionPlateDesign() {
     case eWeatherRegion::WEATHER_REGION_LV:
     case eWeatherRegion::WEATHER_REGION_DESERT:
         return 1;
-    case eWeatherRegion::WEATHER_REGION_DEFAULT:
-    case eWeatherRegion::WEATHER_REGION_SF:
+    default: // Como el original: cualquier otra región (también fuera de rango) usa el diseño 0
         return 0;
-    default:
-        assert(false);
-        return -1;
     }
 }
 
@@ -248,12 +247,13 @@ bool CCustomCarPlateMgr::RenderLicenseplateTextToRaster(const char* text, RwRast
     if (!pCharsetLockedData)
         return false;
 
-    const auto plateRasterStride = RwRasterGetStride(plateRaster);
-    if (!plateRasterStride)
-        return false;
-
+    // Como el original: primero el stride del juego de caracteres y luego el de la matrícula
     const auto charsRasterStride = RwRasterGetStride(charsRaster);
     if (!charsRasterStride)
+        return false;
+
+    const auto plateRasterStride = RwRasterGetStride(plateRaster);
+    if (!plateRasterStride)
         return false;
 
     // Copy each character from charset raster to plate raster
@@ -296,7 +296,7 @@ bool CCustomCarPlateMgr::RenderLicenseplateTextToRaster(const char* text, RwRast
 RwTexture* CCustomCarPlateMgr::CreatePlateTexture(const char* text, uint8 plateType) {
     assert(text);
 
-    const auto plateRaster = RwRasterCreate(64, 16, 32, rwRASTERFORMAT888 | rwRASTERPIXELLOCKEDWRITE);
+    const auto plateRaster = RwRasterCreate(64, 16, 32, rwRASTERFORMAT888 | rwRASTERTYPETEXTURE); // 0x604
     if (!plateRaster)
         return nullptr;
 
@@ -328,7 +328,7 @@ RpMaterial* CCustomCarPlateMgr::MaterialUpgradeSetCarplateTextureCB(RpMaterial* 
 
     if (const auto tex = RpMaterialGetTexture(material)) {
         if (const auto name{ RwTextureGetName(tex) }) { // Can this ever be null?
-            if (_stricmp(name, "careplate") == 0) {
+            if (_stricmp(name, "carplate") == 0) { // Como el original: "carplate" (0x872584), no "careplate"
                 RpGeometryReplaceOldMaterialWithNewMaterial((RpGeometry*)geometry, material, CurrentLicensePlateMaterial);
             } else if (_stricmp(name, "carpback") == 0) {
                 SetupMaterialPlatebackTexture(material, CurrentLicensePlateType);
@@ -349,11 +349,11 @@ RpAtomic* CCustomCarPlateMgr::AtomicUpgradeSetCarplateTextureCB(RpAtomic* atomic
 
 // 0x6FDFE0
 int8 CCustomCarPlateMgr::SetupClumpAfterVehicleUpgrade(RpClump* clump, RpMaterial* plateMaterial, uint8 plateType) {
-    assert(plateMaterial); // NOTSA: Don't think this should happen?
-    assert(clump);
-
+    // Como el original: sin material de matrícula devuelve false (sin assert)
     if (!plateMaterial)
         return false;
+
+    assert(clump);
 
     NOTSA_LOG_DEBUG("[Debug - Trace]: SetupClumpAfterVehicleUpgrade");
 
@@ -366,10 +366,8 @@ int8 CCustomCarPlateMgr::SetupClumpAfterVehicleUpgrade(RpClump* clump, RpMateria
 
 // 0x6FE020
 void CCustomCarPlateMgr::SetupMaterialPlateTexture(RpMaterial* material, const char* plateText, uint8 plateType) {
-    assert(material);
-    assert(plateText);
-
-    if (material) {
+    if (material) { // Como el original: con material nulo no hace nada (sin assert)
+        assert(plateText);
         if (const auto plateTex = CreatePlateTexture(plateText, plateType)) {
             RpMaterialSetTexture(material, plateTex);
             RwTextureDestroy(plateTex);
@@ -414,17 +412,25 @@ RpMaterial* CCustomCarPlateMgr::SetupClump(RpClump* clump, char* plateText, uint
 
 // 0x6FD5B0
 bool CCustomCarPlateMgr::GeneratePlateText(char* out, uint32 length) {
-    if (length < 4)
+    if (static_cast<int32>(length) < 4) // Como el original: comparación con signo (jge)
         return false;
 
-    constexpr auto RandomAlphanumeric = [] {
-        return notsa::bugfixes::CCustomCarPlateMgr_GeneratePlateText_MissingLettersAndDigits
-            ? CGeneral::GetRandomNumberInRange('A', 'Z', true)
-            : CGeneral::GetRandomNumberInRange('A', 'X');
+    // Como el original: base - (int)((rand() & 0xFFFF) * (1 / 32768) * -rango), con -23 (letras A..W) y -9 (cifras 0..8)
+    const auto RandomCharOG = [](char base, float negRange) {
+        const float r = static_cast<float>(CGeneral::GetRandomNumber() & 0xFFFF) * (1.0f / 32768.0f);
+        return static_cast<char>(base - static_cast<int32>(r * negRange));
     };
 
-    constexpr auto RandomNumeric = [] {
-        return CGeneral::GetRandomNumberInRange('0', '9', notsa::bugfixes::CCustomCarPlateMgr_GeneratePlateText_MissingLettersAndDigits);
+    const auto RandomAlphanumeric = [&] {
+        return notsa::bugfixes::CCustomCarPlateMgr_GeneratePlateText_MissingLettersAndDigits
+            ? CGeneral::GetRandomNumberInRange('A', 'Z', true)
+            : RandomCharOG('A', -23.0f);
+    };
+
+    const auto RandomNumeric = [&] {
+        return notsa::bugfixes::CCustomCarPlateMgr_GeneratePlateText_MissingLettersAndDigits
+            ? CGeneral::GetRandomNumberInRange('0', '9', true)
+            : RandomCharOG('0', -9.0f);
     };
 
     uint32 charIdx{};

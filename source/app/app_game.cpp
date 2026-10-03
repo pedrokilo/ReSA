@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 3.
- * Validación registrada: 0/12 entradas.
+ * Validación registrada: 10/12 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -72,8 +72,25 @@ void AppGameInjectHooks() {
 
 // 0x5BF3B0
 void GameInit() {
-    VERIFY(RwInitialize(nullptr));
+    // Como el original: RwInitialize va en línea y su resultado se ignora (sin VERIFY).
+    if (RsRwInitialize(nullptr)) {
+        CGame::InitialiseRenderWare();
+    }
     srand(RsTimer());
+}
+
+// Como el original: la ventana de vista que Idle y FrontendIdle pasan a CameraSize es tan(FOV · π/360)
+// calculada con fptan del x87 (precisión completa) sobre el producto en float.
+static float ExeViewWindow() {
+    const float angle = CDraw::ms_fFOV * std::bit_cast<float>(0x3C0EFA35u); // 0x8631D4
+    float       result;
+    __asm {
+        fld     angle
+        fptan
+        fstp    st(0)
+        fstp    result
+    }
+    return result;
 }
 
 // 0x53E580
@@ -151,7 +168,8 @@ void RenderEffects() {
 void RenderScene() {
     ZoneScoped;
 
-    const auto underWater = CWeather::UnderWaterness <= 0.0f;
+    // Como el original: el agua se dibuja pronto salvo con UnderWaterness > 0 (con NaN también pronto).
+    const auto aboveWater = !(CWeather::UnderWaterness > 0.0f);
 
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(NULL));
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE, RWRSTATE(FALSE));
@@ -177,7 +195,7 @@ void RenderScene() {
 
     // If under water render this immediately, otherwise
     // only after rendering the stuff below.
-    if (underWater) {
+    if (aboveWater) {
         RwRenderStateSet(rwRENDERSTATECULLMODE, RWRSTATE(rwCULLMODECULLNONE));
         CWaterLevel::RenderWater();
         RwRenderStateSet(rwRENDERSTATECULLMODE, RWRSTATE(rwCULLMODECULLBACK));
@@ -188,9 +206,10 @@ void RenderScene() {
         float nearClipPlaneOld = RwCameraGetNearClipPlane(Scene.m_pRwCamera);
         float farPlane = RwCameraGetFarClipPlane(Scene.m_pRwCamera);
 
+        // Como el original: con Z NaN se usa -Z (fcom + test ah,41h).
         float v3;
         float z = CCamera::GetActiveCamera().m_vecFront.z;
-        if (z <= 0.0f)
+        if (!(z > 0.0f))
             v3 = -z;
         else
             v3 = 0.0f;
@@ -224,7 +243,7 @@ void RenderScene() {
         CCoronas::RenderSunReflection();
     }
 
-    if (!underWater) {
+    if (!aboveWater) {
         RwRenderStateSet(rwRENDERSTATECULLMODE, RWRSTATE(rwCULLMODECULLNONE));
         CWaterLevel::RenderWater();
         RwRenderStateSet(rwRENDERSTATECULLMODE, RWRSTATE(rwCULLMODECULLBACK));
@@ -246,8 +265,10 @@ void RenderMenus() {
 void Render2dStuff() {
     ZoneScoped;
 
-    RenderDebugShit(); // NOTSA, temp
-
+    // Como el original: el EXE no llama aquí a RenderDebugShit (vacía en el EXE).
+    // Como el original: el marco del zoom usa mitades enteras de la resolución (ancho / 2), los factores
+    // 1/448 (0x859524) y 1/640 (0x859520) del EXE en su orden de productos y sin corrección de aspecto.
+    // Sin jugador el EXE usa un valor sin inicializar de la pila como arma; aquí se mantiene WEAPON_UNARMED.
     const auto DrawOuterZoomBox = []() {
         CPed* player = FindPlayerPed();
         eWeaponType weaponType = WEAPON_UNARMED;
@@ -261,16 +282,18 @@ void Render2dStuff() {
         }
 
         if ((weaponType == WEAPON_SNIPERRIFLE || weaponType == WEAPON_ROCKET) && firstPersonWeapon) {
-            CRGBA black(0, 0, 0, 255);
-            if (weaponType == WEAPON_ROCKET) {
-                CSprite2d::DrawRect(CRect(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT / 2 - SCREEN_SCALE_Y(180.0f)), black);
-                CSprite2d::DrawRect(CRect(0.0f, SCREEN_HEIGHT / 2 + SCREEN_SCALE_Y(170.0f), SCREEN_WIDTH, SCREEN_HEIGHT), black);
-            } else {
-                CSprite2d::DrawRect(CRect(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT / 2 - SCREEN_SCALE_Y(210.0f)), black);
-                CSprite2d::DrawRect(CRect(0.0f, SCREEN_HEIGHT / 2 + SCREEN_SCALE_Y(210.0f), SCREEN_WIDTH, SCREEN_HEIGHT), black);
-            }
-            CSprite2d::DrawRect(CRect(0.0f, 0.0f, SCREEN_WIDTH / 2 - SCREEN_SCALE_X(210.0f), SCREEN_HEIGHT), black);
-            CSprite2d::DrawRect(CRect(SCREEN_WIDTH / 2 + SCREEN_SCALE_X(210.0f), 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT), black);
+            const float k448 = std::bit_cast<float>(0x3B124925u); // 0x859524
+            const float k640 = std::bit_cast<float>(0x3ACCCCCDu); // 0x859520
+            const int32 w = RsGlobal.maximumWidth, h = RsGlobal.maximumHeight;
+            const float W = (float)w, H = (float)h;
+            const float halfW = (float)(w / 2), halfH = (float)(h / 2);
+            const float top    = weaponType == WEAPON_ROCKET ? 180.0f : 210.0f;
+            const float bottom = weaponType == WEAPON_ROCKET ? 170.0f : 210.0f;
+            const CRGBA black(0, 0, 0, 255);
+            CSprite2d::DrawRect(CRect(0.0f, 0.0f, W, halfH - H * k448 * top), black);
+            CSprite2d::DrawRect(CRect(0.0f, halfH + k448 * H * bottom, W, H), black);
+            CSprite2d::DrawRect(CRect(0.0f, 0.0f, halfW - W * k640 * 210.0f, H), black);
+            CSprite2d::DrawRect(CRect(halfW + k640 * W * 210.0f, 0.0f, W, H), black);
         }
     };
 
@@ -283,6 +306,7 @@ void Render2dStuff() {
     RwRenderStateSet(rwRENDERSTATECULLMODE, RWRSTATE(rwCULLMODECULLNONE));
 
     CReplay::Display();
+    // Como el original: aquí el EXE llama a una función vacía (0x60F8C0).
     CPickups::RenderPickUpText();
     if (TheCamera.m_bWideScreenOn && !FrontEndMenuManager.m_bWidescreenOn)
         TheCamera.DrawBordersForWideScreen();
@@ -299,15 +323,8 @@ void Render2dStuff() {
 
 // 0x53E160
 void RenderDebugShit() {
-    PUSH_RENDERGROUP("RenderDebugShit");
-    CTheScripts::RenderTheScriptDebugLines();
-#ifndef FINAL
-    // if(gbShowCollisionLines) CRenderer::RenderCollisionLines();
-    // ThePaths.DisplayPathData();
-    // CDebug::DrawLines();
-    DefinedState();
-#endif
-    POP_RENDERGROUP();
+    // Como el original: vacía en el EXE (solo `ret`). La versión de depuración NOTSA dibujaba las líneas de
+    // depuración de los scripts (CTheScripts::RenderTheScriptDebugLines) y llamaba a DefinedState.
 }
 
 // 0x53E920
@@ -337,7 +354,7 @@ void Idle(void* param) {
 
     if (FrontEndMenuManager.m_bMenuActive || TheCamera.GetScreenFadeStatus() == eNameState::NAME_FADE_IN) {
         CDraw::CalculateAspectRatio();
-        CameraSize(Scene.m_pRwCamera, nullptr, SCREEN_VIEW_WINDOW, SCREEN_ASPECT_RATIO);
+        CameraSize(Scene.m_pRwCamera, nullptr, ExeViewWindow(), SCREEN_ASPECT_RATIO);
         CVisibilityPlugins::SetRenderWareCamera(Scene.m_pRwCamera);
         RwCameraClear(Scene.m_pRwCamera, &gColourTop, rwCAMERACLEARZ);
         if (!RsCameraBeginUpdate(Scene.m_pRwCamera)) {
@@ -399,6 +416,8 @@ void Idle(void* param) {
     CHud::DrawAfterFade();
     CMessages::Display(false);
     CFont::DrawFonts();
+    // Como el original: la comprobación y el dibujo de los créditos aparecen dos veces seguidas en el EXE.
+    CCredits::Render();
     CCredits::Render();
     CDebug::DebugDisplayTextBuffer();
     FlushObrsPrintfs();
@@ -431,7 +450,7 @@ void FrontendIdle() {
     }
 
     AudioEngine.Service();
-    CameraSize(Scene.m_pRwCamera, nullptr, SCREEN_VIEW_WINDOW, SCREEN_ASPECT_RATIO);
+    CameraSize(Scene.m_pRwCamera, nullptr, ExeViewWindow(), SCREEN_ASPECT_RATIO);
     CVisibilityPlugins::SetRenderWareCamera(Scene.m_pRwCamera);
 
     if (g_FastLoaderConfig.ShouldLoadSaveGame()) {

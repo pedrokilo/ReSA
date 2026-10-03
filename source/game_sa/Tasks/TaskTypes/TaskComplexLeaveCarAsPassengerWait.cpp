@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/10 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -65,11 +65,15 @@ CTaskComplexLeaveCarAsPassengerWait::~CTaskComplexLeaveCarAsPassengerWait(){
 * @brief Get the very next passanger (any of the occupants excluding the driver) to leave the vehicle
 */
 CPed* CTaskComplexLeaveCarAsPassengerWait::GetNextPassengerToLeave() {
-    const auto passengers = m_veh->GetPassengers();
-    const auto it = rng::find_if(passengers, notsa::NotIsNull{});
-    return it != passengers.end()
-        ? *it
-        : nullptr;
+    // Como el original: recorre m_nMaxPassengers asientos sin limitarse a los 8 del array
+    CPed* const* const passengers = m_veh->m_apPassengers.data();
+    const int32 numSeats = m_veh->m_nMaxPassengers;
+    for (int32 i = 0; i < numSeats; i++) {
+        if (passengers[i]) {
+            return passengers[i];
+        }
+    }
+    return nullptr;
 }
 
 // 0x63B540
@@ -81,14 +85,26 @@ void CTaskComplexLeaveCarAsPassengerWait::SetPedInZerothPassengerSeat(CPed* ped)
 // 0x640BE0
 CTask* CTaskComplexLeaveCarAsPassengerWait::CreateSubTask(eTaskType taskType, CPed* ped) {
     switch (taskType) {
-    case TASK_SIMPLE_GO_TO_POINT:
+    case TASK_SIMPLE_GO_TO_POINT: {
+        // Como el original: tres rand() en este orden: distancia hacia delante (1..2), signo (> 0.5 -> +1) y distancia lateral (1..2);
+        // desplazamiento = derecha * lateral + delante * frontal, despues se suma la posicion del peaton
+        const CVector right   = m_veh->GetRight();
+        const CVector forward = m_veh->GetForward();
+        float fwdMult = (float)CGeneral::GetRandomNumber() * RAND_MAX_FLOAT_RECIPROCAL + 1.f;
+        fwdMult = ((float)CGeneral::GetRandomNumber() * RAND_MAX_FLOAT_RECIPROCAL > 0.5f ? 1.f : -1.f) * fwdMult;
+        const float rightMult = (float)CGeneral::GetRandomNumber() * RAND_MAX_FLOAT_RECIPROCAL + 1.f;
+        const CVector offset{
+            right.x * rightMult + forward.x * fwdMult,
+            right.y * rightMult + forward.y * fwdMult,
+            right.z * rightMult + forward.z * fwdMult
+        };
+        const CVector& pedPos = ped->GetPosition();
         return new CTaskSimpleGoToPoint{
             PEDMOVE_WALK,
-            ped->GetPosition()
-                + m_veh->GetRight() * CGeneral::GetRandomNumberInRange(1.f, 2.f)
-                + m_veh->GetForward() * (CGeneral::GetRandomNumberInRange(1.f, 2.f) * (CGeneral::DoCoinFlip() ? -1.f : 1.f)),
+            CVector{ offset.x + pedPos.x, offset.y + pedPos.y, offset.z + pedPos.z },
             1.5f
         };
+    }
     case TASK_COMPLEX_LEAVE_CAR: {
         SetPedInZerothPassengerSeat(ped);
         return new CTaskComplexLeaveCar{
@@ -103,14 +119,14 @@ CTask* CTaskComplexLeaveCarAsPassengerWait::CreateSubTask(eTaskType taskType, CP
         return new CTaskSimpleCarDrive{ m_veh };
     case TASK_FINISHED:
         return nullptr;
-    default:
-        NOTSA_UNREACHABLE();
+    default: // Como el original: tipos desconocidos devuelven nullptr
+        return nullptr;
     }
 }
 
 // 0x643F90
 CTask* CTaskComplexLeaveCarAsPassengerWait::CreateNextSubTask(CPed* ped) {
-    return CreateSubTask([this, ped] {
+    const auto nextType = [this] {
         switch (m_pSubTask->GetTaskType()) {
         case TASK_COMPLEX_LEAVE_CAR:
             return m_veh
@@ -119,22 +135,24 @@ CTask* CTaskComplexLeaveCarAsPassengerWait::CreateNextSubTask(CPed* ped) {
         case TASK_SIMPLE_CAR_DRIVE:
         case TASK_SIMPLE_GO_TO_POINT:
             return TASK_FINISHED;
-        default:
-            NOTSA_UNREACHABLE();
+        default: // Como el original: subtarea desconocida -> nullptr sin llamar a CreateSubTask
+            return TASK_NONE;
         }
-    }(), ped);
+    }();
+    return nextType == TASK_NONE ? nullptr : CreateSubTask(nextType, ped);
 }
 
 // 0x644010
 CTask* CTaskComplexLeaveCarAsPassengerWait::CreateFirstSubTask(CPed* ped) {
-    return CreateSubTask([this, ped] {
-        if (!m_veh) {
-            return TASK_FINISHED;
-        }
-        return GetNextPassengerToLeave() == ped
+    if (!m_veh) {
+        return nullptr; // Como el original: sin llamar a CreateSubTask
+    }
+    return CreateSubTask(
+        GetNextPassengerToLeave() == ped
             ? TASK_COMPLEX_LEAVE_CAR
-            : TASK_SIMPLE_CAR_DRIVE;
-    }(), ped);
+            : TASK_SIMPLE_CAR_DRIVE,
+        ped
+    );
 }
 
 // 0x644050

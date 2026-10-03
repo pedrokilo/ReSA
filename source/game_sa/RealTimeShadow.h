@@ -17,7 +17,8 @@ class CRealTimeShadow { // AKA `CCutsceneShadow`
 public:
     static void InjectHooks();
 
-    CRealTimeShadow() = default;
+    // 0x706410 - Como el original: no escribe las esferas ni el relleno
+    CRealTimeShadow() {}
     ~CRealTimeShadow();
 
     /*!
@@ -60,11 +61,11 @@ public: // Eventually make this private
     bool          m_bBlurred{};
     CShadowCamera m_blurCamera{};
     uint32        m_nBlurPasses{};
-    bool          m_bDrawMoreBlur;
+    bool          m_bDrawMoreBlur{};
     uint32        m_nRwObjectType{(uint32)-1};
     RpLight*      m_pLight{};
-    CSphere       m_boundingSphere{};
-    CSphere       m_baseSphere{};
+    union { CSphere m_boundingSphere; }; // Como el original: el constructor no las inicializa
+    union { CSphere m_baseSphere; };
 
 private:
     // 0x706410

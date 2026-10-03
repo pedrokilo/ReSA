@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/10 entradas.
+ * Validación registrada: 7/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -65,30 +65,34 @@ HRESULT(__stdcall* CAEMFDecoder::MFCreateSourceReaderFromURL)(LPCWSTR, IMFAttrib
 HRESULT(__stdcall* CAEMFDecoder::MFCreateMediaType)(IMFMediaType**) = nullptr;
 
 // 0x4e7770
+// Como el original: sólo escribe el nombre, el flag, los dos punteros de +0x10/+0x14 y la pista; el resto del
+// objeto queda sin escribir hasta Initialise().
 CAEMFDecoder::CAEMFDecoder(char* filename, int32 trackID)
-    : CAEStreamingDecoder(nullptr), m_pFilename(filename), m_bInitialized(false), m_pSourceReader(nullptr), m_pPcmAudio(nullptr), m_wpTempBuffer(nullptr), m_nTempBufferUsed(0), m_nPlayTime(0),
-      m_nLength(0), m_nTrackID(trackID), m_nLengthMs(0), m_nSampleRate(0), m_fTimeDivider(0.0f) {}
+    : CAEStreamingDecoder(nullptr), m_pFilename(filename), m_bInitialized(false), m_pSourceReader(nullptr), m_pPcmAudio(nullptr), m_nTrackID(trackID) {}
 
 // 0x4e77c0
+// Como el original: borra el nombre (operator delete escalar, sin anular el puntero) y sólo libera los recursos
+// del decoder si llegó a inicializarse.
 CAEMFDecoder::~CAEMFDecoder() {
-    if (m_pPcmAudio) {
-        m_pPcmAudio->Release();
-        m_pPcmAudio = nullptr;
-    }
-
-    if (m_pSourceReader) {
-        m_pSourceReader->Release();
-        m_pSourceReader = nullptr;
-    }
-
-    if (m_wpTempBuffer) {
-        delete[] m_wpTempBuffer;
-        m_wpTempBuffer = nullptr;
-    }
-
     if (m_pFilename) {
-        delete[] m_pFilename;
-        m_pFilename = nullptr;
+        operator delete(m_pFilename);
+    }
+
+    if (m_bInitialized) {
+        if (m_pPcmAudio) {
+            m_pPcmAudio->Release();
+            m_pPcmAudio = nullptr;
+        }
+
+        if (m_pSourceReader) {
+            m_pSourceReader->Release();
+            m_pSourceReader = nullptr;
+        }
+
+        if (m_wpTempBuffer) {
+            delete[] m_wpTempBuffer;
+            m_wpTempBuffer = nullptr;
+        }
     }
 }
 
@@ -185,6 +189,11 @@ bool CAEMFDecoder::Initialise() {
     }
 
     m_wpTempBuffer = new int16[TEMPBUFFRAME * 2];
+    m_nTempBufferUsed = 0;
+    // NOTSA: el constructor ya no inicializa estos campos (como el original); el tiempo se guarda en ms (divisor 1).
+    m_nPlayTime = 0;
+    m_nSyncedPlayTime = 0;
+    m_fTimeDivider = 1.0f;
     m_bInitialized = true;
     return true;
 }
@@ -196,6 +205,20 @@ bool CAEMFDecoder::Initialise() {
  */
 size_t CAEMFDecoder::FillBuffer(void* dest, size_t size) {
     constexpr size_t PCM_DIVIDER = sizeof(int16) * 2;
+
+    // Como el original: sin inicializar devuelve -1.
+    if (!m_bInitialized)
+        return (size_t)-1;
+
+    // NOTSA: SetCursor() sólo guarda el tiempo (como el original); el seek real de Media Foundation se hace aquí.
+    if (m_nPlayTime != m_nSyncedPlayTime) {
+        PROPVARIANT seekDest;
+        InitPropVariantFromInt64((LONGLONG)((uint32)m_nPlayTime * 10000ULL), &seekDest);
+        m_pSourceReader->Flush(MF_SOURCE_READER_FIRST_AUDIO_STREAM);
+        m_pSourceReader->SetCurrentPosition(GUID_NULL, seekDest);
+        m_nTempBufferUsed = 0;
+        m_nSyncedPlayTime = m_nPlayTime;
+    }
 
     bool   playTimeSet = false;
     char*  buf = (char*)dest;
@@ -265,6 +288,7 @@ size_t CAEMFDecoder::FillBuffer(void* dest, size_t size) {
 
         if (playTimeSet == false) {
             m_nPlayTime = (long)(timestamp / 10000);
+            m_nSyncedPlayTime = m_nPlayTime;
             playTimeSet = true;
         }
     }
@@ -281,22 +305,43 @@ long CAEMFDecoder::GetStreamLengthMs() {
 }
 
 // 0x4e7940
+// Como el original: tiempo de reproducción (fild, con signo) / divisor en x87 a la precisión vigente, truncado
+// con _ftol2 (0x821B40).
 long CAEMFDecoder::GetStreamPlayTimeMs() {
-    if (m_bInitialized)
-        return m_nPlayTime;
+    if (!m_bInitialized)
+        return -1;
 
-    return -1;
+    const long  playTime = m_nPlayTime;
+    const float divider = m_fTimeDivider;
+    double      ms;
+    __asm {
+        fild  dword ptr playTime
+        fdiv  dword ptr divider
+        fstp  ms
+    }
+    return (long)(int64)ms;
 }
 
 // 0x4e78e0
-// Convierte milisegundos a unidades de 100 ns y reposiciona el IMFSourceReader.
+// Como el original: sólo guarda pos (sin signo: +2^32 si el bit alto está puesto) · divisor, truncado con _ftol2.
+// NOTSA: el seek de Media Foundation queda pendiente hasta el siguiente FillBuffer().
 void CAEMFDecoder::SetCursor(unsigned long pos) {
-    if (m_bInitialized) {
-        PROPVARIANT seekDest;
-        InitPropVariantFromInt64(pos * 10000ULL, &seekDest);
-        m_pSourceReader->Flush(MF_SOURCE_READER_FIRST_AUDIO_STREAM);
-        m_pSourceReader->SetCurrentPosition(GUID_NULL, seekDest);
+    if (!m_bInitialized)
+        return;
+
+    static const float k2pow32 = 4294967296.0f;
+    const float multiplier = m_fTimeDivider;
+    double      playTime;
+    __asm {
+        fild  dword ptr pos
+        cmp   pos, 0
+        jge   L_posPositive
+        fadd  k2pow32
+    L_posPositive:
+        fmul  dword ptr multiplier
+        fstp  playTime
     }
+    m_nPlayTime = (long)(int64)playTime;
 }
 
 // 0x4e78c0
@@ -402,19 +447,22 @@ void CAEMFDecoder::Shutdown() {
  * Registra el decoder compatible con la antigua interfaz QuickTime.
  */
 void CAEMFDecoder::InjectHooks() {
-    RH_ScopedClass(CAEMFDecoder);
+    // Como el original: vtable 0x85F370 con 8 entradas (Initialise, FillBuffer, GetStreamLengthMs,
+    // GetStreamPlayTimeMs, SetCursor, GetSampleRate, destructor con borrado, GetStreamID). Las virtuales se
+    // instalan en su hueco: un hook plano saltaría al thunk virtual de la DLL y volvería al EXE (bucle).
+    RH_ScopedVirtualClass(CAEMFDecoder, 0x85F370, 8);
     RH_ScopedCategory("Audio/Loaders");
 
     RH_ScopedInstall(Constructor, 0x4e7770);
     RH_ScopedInstall(Destructor, 0x4e77c0);
     RH_ScopedInstall(InitLibrary, 0x4e7c70);
-    RH_ScopedInstall(Initialise, 0x4e7cb0);
-    RH_ScopedInstall(FillBuffer, 0x4e7860);
-    RH_ScopedInstall(GetStreamLengthMs, 0x4e7920);
-    RH_ScopedInstall(GetStreamPlayTimeMs, 0x4e7940);
-    RH_ScopedInstall(SetCursor, 0x4e78e0);
-    RH_ScopedInstall(GetSampleRate, 0x4e78c0);
-    RH_ScopedInstall(GetStreamID, 0x4e77b0);
+    RH_ScopedVMTInstall(Initialise, 0x4e7cb0);
+    RH_ScopedVMTInstall(FillBuffer, 0x4e7860);
+    RH_ScopedVMTInstall(GetStreamLengthMs, 0x4e7920);
+    RH_ScopedVMTInstall(GetStreamPlayTimeMs, 0x4e7940);
+    RH_ScopedVMTInstall(SetCursor, 0x4e78e0);
+    RH_ScopedVMTInstall(GetSampleRate, 0x4e78c0);
+    RH_ScopedVMTInstall(GetStreamID, 0x4e77b0);
 }
 
 CAEMFDecoder* CAEMFDecoder::Constructor(char* filename, int32 trackID) {

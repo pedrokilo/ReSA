@@ -13,7 +13,7 @@ class NOTSA_EXPORT_VTABLE CTaskComplexFleeShooting : public CTaskComplexSmartFle
 public:
     int32       m_shootTime{};
     int32       m_shootRecoverTime{};
-    CTaskTimer  m_gunTimer{};
+    CTaskTimer  m_gunTimer; // Como el original: relleno 0x52..0x53 sin escribir
 
 public:
     static void InjectHooks();
@@ -27,6 +27,9 @@ public:
     CTask*    Clone() const override { return new CTaskComplexFleeShooting{ *this }; }
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
+    // 0x65CA60 - Como el original: salta a CTaskComplexSmartFleeEntity::CreateNextSubTask (0x65C680). Función propia para que su hook
+    // no comparta dirección del DLL con el de SmartFlee (si no, al desactivar uno el DLL salta al EXE y el EXE vuelve al DLL sin fin)
+    CTask*    CreateNextSubTask(CPed* ped) override { return CTaskComplexSmartFleeEntity::CreateNextSubTask(ped); }
     CTask*    CreateFirstSubTask(CPed* ped) override;
     CTask*    ControlSubTask(CPed* ped) override; 
 private: // Wrappers for hooks

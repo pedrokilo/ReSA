@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -54,11 +54,18 @@ CTaskSimpleCarGetIn::CTaskSimpleCarGetIn(const CTaskSimpleCarGetIn& o) :
 // 0x646710
 CTaskSimpleCarGetIn::~CTaskSimpleCarGetIn() {
     CEntity::SafeCleanUpRef(m_veh);
+    if (m_anim) {
+        m_anim->SetDefaultFinishCallback(); // Como el original
+    }
 }
 
+// 0x6467F0
 void CTaskSimpleCarGetIn::FinishAnimCarGetInCB(CAnimBlendAssociation* anim, void* data) {
     const auto self = static_cast<CTaskSimpleCarGetIn*>(data);
     self->m_finished = true;
+    if (self->m_anim) {
+        self->m_anim->m_BlendDelta = -1000.f; // Como el original: corta la mezcla de la animación de la tarea
+    }
     self->m_anim = nullptr;
 }
 
@@ -148,10 +155,12 @@ bool CTaskSimpleCarGetIn::ProcessPed(CPed* ped) {
         case ANIM_ID_CAR_GETIN_RHS_0:
         case ANIM_ID_CAR_GETIN_LHS_1:
         case ANIM_ID_CAR_GETIN_RHS_1: {
-            const auto& flt_8D2ED4 = StaticRef<float>(0x8D2ED4); // 30.f
-            if (flt_8D2ED4 / 30.f < m_anim->m_CurrentTime) { 
-                const auto& flt_8D2ED0 = StaticRef<float>(0x8D2ED0); // 0.001f
-                m_veh->ApplyMoveForce(m_veh->GetForward() * CTimer::GetTimeStep() * m_veh->m_fMass * flt_8D2ED0);
+            const auto& flt_8D2ED4 = StaticRef<float>(0x8D2ED4); // 10.f
+            // Como el original: se multiplica por 1/30 (0x858F10) en vez de dividir por 30
+            if (flt_8D2ED4 * std::bit_cast<float>(0x3D088889u) < m_anim->m_CurrentTime) {
+                const auto& flt_8D2ED0 = StaticRef<float>(0x8D2ED0); // 0.01f
+                // Como el original: primero el escalar (paso * masa * k) y luego el vector
+                m_veh->ApplyMoveForce(m_veh->GetForward() * (CTimer::GetTimeStep() * m_veh->m_fMass * flt_8D2ED0));
             }
             break;
         }

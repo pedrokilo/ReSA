@@ -42,7 +42,8 @@ public:
     // 0x5EF920
     template<std::derived_from<CPedAttractor> T>
     bool BroadcastArrival(CPed* ped, CPedAttractor* attractor, SArray<T*>& attractors) {
-        T* const a = notsa::cast_if_present<T>(attractor);
+        // Como el original: sin comprobar el tipo (ya se eligió la lista por GetType)
+        T* const a = static_cast<T*>(attractor);
         return a
             && rng::contains(attractors, a)
             && a->BroadcastArrival(ped);
@@ -52,17 +53,18 @@ public:
     // 0x5EC660
     template<std::derived_from<CPedAttractor> T>
     bool BroadcastDeparture(CPed* ped, CPedAttractor* attractor, SArray<T*>& attractors) {
-        T* const a = notsa::cast_if_present<T>(attractor);
-        if (!a) {
+        T* const a = static_cast<T*>(attractor);
+        if (!a || !rng::contains(attractors, a)) {
             return false;
         }
-        const auto it = rng::find(attractors, a);
-        if (it == attractors.end()) {
-            return false;
-        }
-        a->BroadcastDeparture(ped);
+        // Como el original: llamada por la vtable (slot 5) a través de la base; T es `final` y la DLL la desvirtualizaría
+        attractor->BroadcastDeparture(ped);
         if (!a->GetNoOfRegisteredPeds()) {
-            attractors.erase(it);
+            // Como el original: se vuelve a buscar, se quita si está y se borra el atractor (destructor virtual)
+            if (const auto it = rng::find(attractors, a); it != attractors.end()) {
+                attractors.erase(it);
+            }
+            delete attractor;
         }
         return true;
     }
@@ -71,17 +73,17 @@ public:
     // 0x5EC740
     template<std::derived_from<CPedAttractor> T>
     bool DeRegisterPed(CPed* ped, CPedAttractor* attractor, SArray<T*>& attractors) {
-        T* const a = notsa::cast_if_present<T>(attractor);
-        if (!a) {
-            return false;
-        }
-        const auto it = rng::find(attractors, a);
-        if (it == attractors.end()) {
+        T* const a = static_cast<T*>(attractor);
+        if (!a || !rng::contains(attractors, a)) {
             return false;
         }
         a->DeRegisterPed(ped);
         if (!a->GetNoOfRegisteredPeds()) {
-            attractors.erase(it);
+            // Como el original: se vuelve a buscar, se quita si está y se borra el atractor (destructor virtual)
+            if (const auto it = rng::find(attractors, a); it != attractors.end()) {
+                attractors.erase(it);
+            }
+            delete attractor;
         }
         return true;
     }
@@ -159,12 +161,15 @@ public:
     T* RegisterPed(CPed* ped, C2dEffectPedAttractor* fx, CEntity* entity, eMoveState moveState, SArray<T*>& attractors) {
         T* a = FindAssociatedAttractor(fx, entity, attractors);
         if (!a) {
-            a = new T{fx, entity, moveState};
+            // Como el original: si el pool está lleno se añade un nulo a la lista y no se registra nada
+            void* const mem = CPedAttractor::operator new(sizeof(T));
+            a = mem ? std::construct_at(static_cast<T*>(mem), fx, entity, moveState) : nullptr;
             attractors.emplace_back(a);
         }
-        a->RegisterPed(ped);
+        if (a) {
+            a->RegisterPed(ped);
+        }
         return a;
-        
     }
     CPedAttractor* RegisterPedWithAttractor(CPed* ped, C2dEffectPedAttractor* fx, CEntity* entity, eMoveState ms);
 

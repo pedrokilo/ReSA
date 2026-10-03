@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -28,13 +28,15 @@ void CEventScriptCommand::InjectHooks()
     RH_ScopedCategory("Events");
 
     RH_ScopedInstall(Constructor, 0x4B0A00);
-    RH_ScopedInstall(GetEventType, 0x4B0A30);
-    RH_ScopedInstall(GetEventPriority, 0x4B0B20);
-    RH_ScopedInstall(Clone, 0x4B6490);
-    RH_ScopedInstall(AffectsPed, 0x4B0AF0);
-    RH_ScopedInstall(TakesPriorityOver, 0x4B0BA0);
-    RH_ScopedInstall(IsValid, 0x4B0AB0);
-    RH_ScopedInstall(CloneScriptTask, 0x4B0AA0);
+    // Como el original se llaman por la vtable: con RH_ScopedInstall el destino era el thunk virtual de la DLL, que
+    // vuelve a saltar por la vtable del EXE (entrada enganchada) y se queda en un bucle infinito
+    RH_ScopedVMTInstall(GetEventType, 0x4B0A30);
+    RH_ScopedVMTInstall(GetEventPriority, 0x4B0B20);
+    RH_ScopedVMTInstall(Clone, 0x4B6490);
+    RH_ScopedVMTInstall(AffectsPed, 0x4B0AF0);
+    RH_ScopedVMTInstall(TakesPriorityOver, 0x4B0BA0);
+    RH_ScopedVMTInstall(IsValid, 0x4B0AB0);
+    RH_ScopedVMTInstall(CloneScriptTask, 0x4B0AA0);
 }
 
 // 0x4B0A00
@@ -63,17 +65,12 @@ int32 CEventScriptCommand::GetEventPriority() const
         return 75;
     if (!m_task)
         return 53;
-    const int32 taskId = m_task->GetTaskType();
-    if (taskId == TASK_SIMPLE_NAMED_ANIM) {
-        CTaskSimpleRunAnim* pTaskRunAnim = static_cast<CTaskSimpleRunAnim*>(m_task);
-        if (pTaskRunAnim->m_nFlags & ANIMATION_IS_LOOPED)
-            return 71;
-    }
-    if (taskId == TASK_SIMPLE_DIE || taskId == TASK_SIMPLE_SWIM || taskId == TASK_COMPLEX_USE_MOBILE_PHONE)
+    // Como el original: GetTaskType se vuelve a llamar por la vtable en cada comparación.
+    if (m_task->GetTaskType() == TASK_SIMPLE_NAMED_ANIM && (static_cast<CTaskSimpleRunAnim*>(m_task)->m_nFlags & ANIMATION_IS_LOOPED))
         return 71;
-    if (taskId != TASK_COMPLEX_DIE)
-        return 53;
-    return 71;
+    if (m_task->GetTaskType() == TASK_SIMPLE_DIE || m_task->GetTaskType() == TASK_SIMPLE_SWIM || m_task->GetTaskType() == TASK_COMPLEX_USE_MOBILE_PHONE)
+        return 71;
+    return m_task->GetTaskType() == TASK_COMPLEX_DIE ? 71 : 53;
 }
 
 // 0x4B0AF0
@@ -85,10 +82,11 @@ bool CEventScriptCommand::AffectsPed(CPed* ped)
 // 0x4B0BA0
 bool CEventScriptCommand::TakesPriorityOver(const CEvent& refEvent)
 {
-    eEventType refEventType = refEvent.GetEventType();
-    if (m_affectsDeadPeds && (refEventType == EVENT_DEATH || m_affectsDeadPeds && refEventType == EVENT_DAMAGE))
+    // Como el original: el tipo del evento de referencia se pide una vez por comparación y su prioridad antes que la propia.
+    if (m_affectsDeadPeds && (refEvent.GetEventType() == EVENT_DEATH || m_affectsDeadPeds && refEvent.GetEventType() == EVENT_DAMAGE))
         return true;
-    return GetEventPriority() >= refEvent.GetEventPriority();
+    const int32 refPriority = refEvent.GetEventPriority();
+    return GetEventPriority() >= refPriority;
 }
 
 // 0x4B0AB0

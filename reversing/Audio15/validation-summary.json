@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 11008,
+  "pairs_per_function": {
+    "CAEUserRadioTrackManager::DeleteUserTracksInfo": 128,
+    "CAEUserRadioTrackManager::GetAudioFileType": 512,
+    "CAEUserRadioTrackManager::GetTrackPath": 512,
+    "CAEUserRadioTrackManager::GetUserTrackPlayMode": 64,
+    "CAEUserRadioTrackManager::Initialise": 256,
+    "CAEUserRadioTrackManager::IsShortcut": 256,
+    "CAEUserRadioTrackManager::LoadUserTrack": 1024,
+    "CAEUserRadioTrackManager::ReadUserTracks": 512,
+    "CAEUserRadioTrackManager::ResolveShortcut-": 512,
+    "CAEUserRadioTrackManager::ScanUserTracks": 128,
+    "CAEUserRadioTrackManager::SelectUserTrackIndex": 1024,
+    "CAEUserRadioTrackManager::SetUserTrackIndex": 64,
+    "CAEUserRadioTrackManager::Shutdown": 128,
+    "CAEUserRadioTrackManager::WriteUserTracksFile-": 1024,
+    "CAEUserRadioTrackManager::WriteUserTracksThread": 512,
+    "CAnimBlendAssocGroup::Constructor": 64,
+    "CAnimBlendAssocGroup::CopyAnimation-AnimationId": 256,
+    "CAnimBlendAssocGroup::CopyAnimation-Name": 256,
+    "CAnimBlendAssocGroup::CreateAssociations-1": 512,
+    "CAnimBlendAssocGroup::CreateAssociations-2": 512,
+    "CAnimBlendAssocGroup::CreateAssociations-3": 512,
+    "CAnimBlendAssocGroup::DestroyAssociations": 256,
+    "CAnimBlendAssocGroup::Destructor": 256,
+    "CAnimBlendAssocGroup::GetAnimBlock": 64,
+    "CAnimBlendAssocGroup::GetAnimation-AnimationId": 256,
+    "CAnimBlendAssocGroup::GetAnimation-Name": 512,
+    "CAnimBlendAssocGroup::GetAnimationId": 512,
+    "CAnimBlendAssocGroup::GetNumAnimations": 64,
+    "CAnimBlendAssocGroup::InitEmptyAssociations": 256,
+    "CAnimBlendAssocGroup::IsCreated": 64
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "b87bf2a97603ea23970ca886b0dc1904e743df57fa9b4953ea714cdc63283a34",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio15\\20261003-113334-481980",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CAEUserRadioTrackManager::DeleteUserTracksInfo": true,
+    "CAEUserRadioTrackManager::GetAudioFileType": true,
+    "CAEUserRadioTrackManager::GetTrackPath": true,
+    "CAEUserRadioTrackManager::GetUserTrackPlayMode": true,
+    "CAEUserRadioTrackManager::Initialise": true,
+    "CAEUserRadioTrackManager::IsShortcut": true,
+    "CAEUserRadioTrackManager::LoadUserTrack": true,
+    "CAEUserRadioTrackManager::ReadUserTracks": true,
+    "CAEUserRadioTrackManager::ResolveShortcut-": true,
+    "CAEUserRadioTrackManager::ScanUserTracks": true,
+    "CAEUserRadioTrackManager::SelectUserTrackIndex": true,
+    "CAEUserRadioTrackManager::SetUserTrackIndex": true,
+    "CAEUserRadioTrackManager::Shutdown": true,
+    "CAEUserRadioTrackManager::WriteUserTracksFile-": true,
+    "CAEUserRadioTrackManager::WriteUserTracksThread": true,
+    "CAnimBlendAssocGroup::Constructor": true,
+    "CAnimBlendAssocGroup::CopyAnimation-AnimationId": true,
+    "CAnimBlendAssocGroup::CopyAnimation-Name": true,
+    "CAnimBlendAssocGroup::CreateAssociations-1": true,
+    "CAnimBlendAssocGroup::CreateAssociations-2": true,
+    "CAnimBlendAssocGroup::CreateAssociations-3": true,
+    "CAnimBlendAssocGroup::DestroyAssociations": true,
+    "CAnimBlendAssocGroup::Destructor": true,
+    "CAnimBlendAssocGroup::GetAnimBlock": true,
+    "CAnimBlendAssocGroup::GetAnimation-AnimationId": true,
+    "CAnimBlendAssocGroup::GetAnimation-Name": true,
+    "CAnimBlendAssocGroup::GetAnimationId": true,
+    "CAnimBlendAssocGroup::GetNumAnimations": true,
+    "CAnimBlendAssocGroup::InitEmptyAssociations": true,
+    "CAnimBlendAssocGroup::IsCreated": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "df16fad16b13f5f3e5ff70a63d65ed6f046effc7410c2dd0835aa318707ffde3",
+      "pdb": "f700a05e3dc7c9491bb21419c8052fca98757e253a59f3ff286a372b8c2d046a"
+    },
+    "sources": {
+      "source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp": "28f7eae1e98c4cc4aaa4d8c6930d918e2cae75bf6c8d27da39050f9b3406a76a",
+      "source/game_sa/Audio/Managers/AEUserRadioTrackManager.h": "1c9905c7cd9f225dbf3ebb59471b64583b785ba91a845d7f3ae82ca89862ee13",
+      "source/game_sa/Animation/AnimBlendAssocGroup.cpp": "405d769c959ff59c6231e99d8ccad554b4b8d6db22a28d0f3ccdeff2ad2c672a",
+      "source/game_sa/Animation/AnimBlendAssocGroup.h": "c44e746e1902cb88ae850d59714a5f597e7b958a788f2386edce3f3c26ae67f5",
+      "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "dc6874ec8f4233e7e58ff0b3ecc42c089686e3c7bccece268f5780212b8dc647",
+      "build_probe.py": "66c08d4bf5f554c87d5e056cb8bf2cf5914055ce83f6789830b3ea3666f06b11",
+      "run_local.py": "6ec6a78bb888bdc3ed87766e4059b1efdcdccc5a468e303fe2816f742e102169"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

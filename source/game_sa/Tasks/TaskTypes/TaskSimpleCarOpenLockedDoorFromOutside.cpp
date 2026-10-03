@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -72,8 +72,9 @@ void CTaskSimpleCarOpenLockedDoorFromOutside::StartAnim(CPed* ped) {
     const auto animationId = [this] {
         switch ((eTargetDoor)m_door) {
         case TARGET_DOOR_DRIVER:
+        case TARGET_DOOR_REAR_LEFT: // Como el original: las dos puertas izquierdas usan la animación LHS
             return ANIM_ID_CAR_DOORLOCKED_LHS;
-        default: // TODO: Perhaps add more cases so R/L handside anims are used properly?
+        default:
             return ANIM_ID_CAR_DOORLOCKED_RHS;
         }
     }();
@@ -96,7 +97,7 @@ bool CTaskSimpleCarOpenLockedDoorFromOutside::MakeAbortable(CPed* ped, eAbortPri
 
 // 0x64D8E0
 bool CTaskSimpleCarOpenLockedDoorFromOutside::ProcessPed(CPed* ped) {
-    if (m_hasAnimFinished) {
+    if (m_hasAnimFinished || !m_veh) { // Como el original: sin vehículo la tarea termina
         return true;
     }
 

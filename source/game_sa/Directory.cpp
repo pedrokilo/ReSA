@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/10 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -41,18 +41,19 @@ CDirectory* CDirectory::Constructor(size_t capacity) { this->CDirectory::CDirect
 CDirectory* CDirectory::Destructor() { this->CDirectory::~CDirectory(); return this; }
 
 // 0x5322A0
-CDirectory::CDirectory(size_t capacity) :
-    m_nCapacity(capacity),
-    m_pEntries(new DirectoryInfo[capacity]), // todo: Cppcheck: (warning) noCopyConstructor: Class 'CDirectory' does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s).
-    m_bOwnsEntries(true)
-{
-    /* rest done by the compiler */
+// Como el original: operator new escalar de capacidad · 32 bytes (multiplicación de 32 bits), sin construir entradas.
+CDirectory::CDirectory(size_t capacity) {
+    m_nCapacity    = capacity;
+    m_nNumEntries  = 0;
+    m_pEntries     = static_cast<DirectoryInfo*>(operator new(capacity * sizeof(DirectoryInfo)));
+    m_bOwnsEntries = true;
 }
 
 // 0x5322D0
+// Como el original: operator delete escalar.
 CDirectory::~CDirectory() {
     if (m_pEntries && m_bOwnsEntries) {
-        delete[] m_pEntries;
+        operator delete(m_pEntries);
     }
 }
 
@@ -66,7 +67,7 @@ void CDirectory::Init(int32 capacity, DirectoryInfo* entries) {
 
 // 0x532310
 void CDirectory::AddItem(const DirectoryInfo& dirInfo) {
-    if (m_nNumEntries < m_nCapacity) {
+    if ((int32)m_nNumEntries < (int32)m_nCapacity) { // Como el original: comparación con signo
 #ifdef FIX_BUGS
         // don't add if already exists
         uint32 size;
@@ -75,7 +76,8 @@ void CDirectory::AddItem(const DirectoryInfo& dirInfo) {
             return;
         }
 #endif
-        m_pEntries[m_nNumEntries++] = dirInfo;
+        std::memcpy(&m_pEntries[m_nNumEntries], &dirInfo, sizeof(DirectoryInfo)); // Como el original: rep movs de 32 bytes
+        m_nNumEntries++;
     } else {
         NOTSA_LOG_DEBUG("Too many objects without modelinfo structures");
     }
@@ -96,11 +98,11 @@ void CDirectory::ReadDirFile(const char* filename) {
         byte unused[4];
         CFileMgr::Read(file, &unused, sizeof(unused));
     }
-    uint32 numEntries{};
+    uint32 numEntries; // Como el original: ni el contador ni la entrada se inicializan antes de leerlos
     CFileMgr::Read(file, &numEntries, sizeof(numEntries));
 
     for (size_t i = 0; i < numEntries; i++) {
-        DirectoryInfo info{};
+        DirectoryInfo info;
         CFileMgr::Read(file, &info, sizeof(info));
         AddItem(info);
         /* Possible optimization: Read directly into m_pEntries */
@@ -118,13 +120,11 @@ bool CDirectory::WriteDirFile(const char* fileName) {
 }
 
 // 0x532450
+// Como el original: el número de entradas se compara con signo.
 CDirectory::DirectoryInfo* CDirectory::FindItem(const char* itemName) const {
-    if (m_nNumEntries <= 0) {
-        return nullptr;
-    }
-    for (DirectoryInfo* it = m_pEntries; it != m_pEntries + m_nNumEntries; it++) {
-        if (_stricmp(it->Name, itemName) == 0) {
-            return it;
+    for (int32 i = 0; i < (int32)m_nNumEntries; i++) {
+        if (_stricmp(m_pEntries[i].Name, itemName) == 0) {
+            return &m_pEntries[i];
         }
     }
     return nullptr;
@@ -133,22 +133,21 @@ CDirectory::DirectoryInfo* CDirectory::FindItem(const char* itemName) const {
 // 0x5324A0
 bool CDirectory::FindItem(const char* name, CdStreamPos& pos, uint32& outSize) const {
     if (DirectoryInfo* info = FindItem(name)) {
-        pos     = info->Pos;
         outSize = info->Size;
+        pos     = info->Pos;
         return true;
     }
     return false;
 }
 
 // 0x5324D0
+// Como el original: el número de entradas se compara con signo.
 bool CDirectory::FindItem(uint32 hashKey, CdStreamPos& pos, uint32& outSize) const {
-    if (m_nNumEntries <= 0) {
-        return false;
-    }
-    for (DirectoryInfo* it = m_pEntries; it != m_pEntries + m_nNumEntries; it++) {
-        if (CKeyGen::GetUppercaseKey(it->Name) == hashKey) {
-            pos     = it->Pos;
-            outSize = it->Size;
+    for (int32 i = 0; i < (int32)m_nNumEntries; i++) {
+        const DirectoryInfo& info = m_pEntries[i];
+        if (CKeyGen::GetUppercaseKey(info.Name) == hashKey) {
+            outSize = info.Size;
+            pos     = info.Pos;
             return true;
         }
     }

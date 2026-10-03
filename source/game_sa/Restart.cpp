@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/11 entradas.
+ * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -41,6 +41,14 @@ void CRestart::InjectHooks() {
     RH_ScopedInstall(FindClosestPoliceRestartPoint, 0x460A50);
     RH_ScopedInstall(Load, 0x5D3770);
     RH_ScopedInstall(Save, 0x5D3620);
+}
+
+// Como el original: distancia 3D sumando z, y, x (orden del EXE en 0x4609AB/0x460BAB)
+static float RestartDistance(const CVector& restartPos, const CVector& point) {
+    const float dx = point.x - restartPos.x;
+    const float dy = point.y - restartPos.y;
+    const float dz = point.z - restartPos.z;
+    return std::sqrt(dz * dz + dy * dy + dx * dx);
 }
 
 // 0x460630
@@ -122,31 +130,36 @@ void CRestart::FindClosestHospitalRestartPoint(CVector point, CVector& outPos, f
         bOverrideRespawnBasePointForMission = false;
     }
 
-    if (ExtraHospitalRestartRadius <= 0.0f || DistanceBetweenPoints2D(ExtraHospitalRestartCoors, point) >= ExtraHospitalRestartRadius) {
-        const auto pointLevel = CTheZones::GetLevelFromPosition(point);
-        float closestDist = 10'000'000.0f; // todo: FLT_MAX
-        int32 closestIdx = -1;
-        for (auto i = 0u; i < NumberOfHospitalRestarts; i++) {
-            if (CStats::GetStatValue(STAT_CITY_UNLOCKED) >= (float)HospitalRestartWhenToUse[i]) {
-                const auto& restartPos = HospitalRestartPoints[i];
-                auto dist = DistanceBetweenPoints(restartPos, point);
-                if (pointLevel != eLevelName::LEVEL_NAME_COUNTRY_SIDE && pointLevel != CTheZones::GetLevelFromPosition(restartPos)) {
-                    dist *= 6.0f;
-                }
-                if (dist < closestDist) {
-                    closestDist = dist;
-                    closestIdx = (int32)i;
-                }
-            }
-        }
-
-        if (closestIdx >= 0u) {
-            outPos = HospitalRestartPoints[closestIdx];
-            outAngle = HospitalRestartHeadings[closestIdx];
-        }
-    } else {
+    // Como el original: el radio extra solo cuenta si es estrictamente positivo (NaN no) y la distancia 2D es estrictamente menor
+    if (ExtraHospitalRestartRadius > 0.0f && DistanceBetweenPoints2D(ExtraHospitalRestartCoors, point) < ExtraHospitalRestartRadius) {
         outPos = ExtraHospitalRestartCoors;
         outAngle = ExtraHospitalRestartHeading;
+        return;
+    }
+
+    const auto pointLevel = CTheZones::GetLevelFromPosition(point);
+    float closestDist = 10'000'000.0f; // todo: FLT_MAX
+    int32 closestIdx = -1;
+    for (auto i = 0u; i < NumberOfHospitalRestarts; i++) {
+        // Como el original: solo se descarta si la estadistica es estrictamente menor (NaN pasa)
+        if (CStats::GetStatValue(STAT_CITY_UNLOCKED) < (float)HospitalRestartWhenToUse[i]) {
+            continue;
+        }
+        const auto& restartPos = HospitalRestartPoints[i];
+        auto dist = RestartDistance(restartPos, point);
+        if (pointLevel != eLevelName::LEVEL_NAME_COUNTRY_SIDE && pointLevel != CTheZones::GetLevelFromPosition(restartPos)) {
+            dist *= 6.0f;
+        }
+        if (dist < closestDist) {
+            closestDist = dist;
+            closestIdx = (int32)i;
+        }
+    }
+
+    // Como el original: sin punto valido no se escribe nada (el indice es con signo)
+    if (closestIdx >= 0) {
+        outPos = HospitalRestartPoints[closestIdx];
+        outAngle = HospitalRestartHeadings[closestIdx];
     }
 }
 
@@ -178,7 +191,7 @@ void CRestart::FindClosestPoliceRestartPoint(CVector point, CVector& outPos, flo
             continue;
         }
 
-        auto dist = DistanceBetweenPoints(pos, point);
+        auto dist = RestartDistance(pos, point);
         if (pointLevel != eLevelName::LEVEL_NAME_COUNTRY_SIDE && pointLevel != CTheZones::GetLevelFromPosition(pos)) {
             dist *= 6.0f;
         }
@@ -188,11 +201,10 @@ void CRestart::FindClosestPoliceRestartPoint(CVector point, CVector& outPos, flo
         }
     }
 
+    // Como el original: sin punto valido no se escribe nada
     if (closestIdx >= 0) {
         outPos   = PoliceRestartPoints[closestIdx];
         outAngle = PoliceRestartHeadings[closestIdx];
-    } else {
-        NOTSA_UNREACHABLE(); /* Variables would've been left uninitialized */
     }
 }
 

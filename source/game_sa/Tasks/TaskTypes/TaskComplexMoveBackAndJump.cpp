@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -28,7 +28,7 @@ void CTaskComplexMoveBackAndJump::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x655340);
     RH_ScopedInstall(Destructor, 0x655370);
 
-    RH_ScopedGlobalInstall(CreateSubTask, 0x655390);
+    RH_ScopedInstall(CreateSubTask, 0x655390);
 
     RH_ScopedVMTInstall(Clone, 0x655C80);
     RH_ScopedVMTInstall(GetTaskType, 0x655360);
@@ -44,10 +44,8 @@ CTask* CTaskComplexMoveBackAndJump::CreateSubTask(eTaskType taskType) {
         return new CTaskComplexJump{};
     case TASK_SIMPLE_HIT_WALL:
         return new CTaskSimpleHitWall{};
-    case TASK_FINISHED:
+    default: // Como el original: TASK_FINISHED y cualquier otro tipo devuelven nullptr
         return nullptr;
-    default:
-        NOTSA_UNREACHABLE();
     }
 }
 
@@ -59,8 +57,8 @@ CTask* CTaskComplexMoveBackAndJump::CreateNextSubTask(CPed* ped) {
             return TASK_COMPLEX_JUMP;
         case TASK_COMPLEX_JUMP:
             return TASK_FINISHED;
-        default:
-            NOTSA_UNREACHABLE();
+        default: // Como el original: subtarea desconocida -> nullptr
+            return TASK_NONE;
         }
     }());
 }

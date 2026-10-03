@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -67,10 +67,8 @@ CTask* CTaskComplexEnterBoatAsDriver::CreateSubTask(eTaskType tt) {
         return new CTaskSimpleCarSetPedInAsDriver{ m_EnterInto };
     case TASK_COMPLEX_GO_TO_BOAT_STEERING_WHEEL:
         return new CTaskComplexGoToBoatSteeringWheel{ m_EnterInto };
-    case TASK_FINISHED:
+    default: // Como el original: TASK_FINISHED y cualquier otro tipo devuelven nullptr
         return nullptr;
-    default:
-        NOTSA_UNREACHABLE();
     }
 }
 
@@ -87,9 +85,9 @@ CTask* CTaskComplexEnterBoatAsDriver::CreateNextSubTask(CPed* ped) {
             return TASK_SIMPLE_CAR_SET_PED_IN_AS_DRIVER;
         case TASK_SIMPLE_CAR_SET_PED_IN_AS_DRIVER:
             return TASK_FINISHED;
-        default:
-            NOTSA_UNREACHABLE();
-    }
+        default: // Como el original: una subtarea desconocida devuelve nullptr
+            return TASK_NONE;
+        }
     }());
 }
 

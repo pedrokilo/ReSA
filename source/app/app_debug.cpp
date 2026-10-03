@@ -201,6 +201,68 @@ LONG WINAPI WindowsExceptionHandler(PEXCEPTION_POINTERS pExceptionInfo) {
     return EXCEPTION_CONTINUE_SEARCH;
 }
 
+// NOTSA: los asserts de depuración mostraban un cuadro "Assertion failed" y, al cerrarlo o pulsar
+// Abortar, el juego salía sin dejar nada en el log. Ahora se registran (mensaje + pila) y el juego sigue.
+static void LogCurrentStack() {
+    void* frames[32]{};
+    const auto n = CaptureStackBackTrace(2, 32, frames, nullptr);
+    const auto process = GetCurrentProcess();
+    static const bool symInit = SymInitialize(process, nullptr, TRUE);
+    for (USHORT i = 0; i < n; i++) {
+        char buffer[sizeof(SYMBOL_INFO) + MAX_SYM_NAME]{};
+        auto* sym = reinterpret_cast<PSYMBOL_INFO>(buffer);
+        sym->SizeOfStruct = sizeof(SYMBOL_INFO);
+        sym->MaxNameLen = MAX_SYM_NAME;
+        DWORD displacement = 0;
+        IMAGEHLP_LINE line{ sizeof(IMAGEHLP_LINE) };
+        const auto addr = reinterpret_cast<DWORD64>(frames[i]);
+        const bool hasSym = symInit && SymFromAddr(process, addr, nullptr, sym);
+        const bool hasLine = symInit && SymGetLineFromAddr(process, (DWORD)addr, &displacement, &line);
+        SPDLOG_ERROR("\t{:#010x}: {}:{}", (uint32)addr, hasSym ? sym->Name : "<unknown>", hasLine ? line.LineNumber : 0);
+    }
+    spdlog::apply_all([](auto&& logger) { logger->flush(); });
+}
+
+static void __cdecl ContinueOnAssert(const wchar_t* expression, const wchar_t* file, unsigned line) {
+    static thread_local bool inside{};
+    if (std::exchange(inside, true)) {
+        return;
+    }
+    char e[1024]{}, f[1024]{};
+    WideCharToMultiByte(CP_UTF8, 0, expression, -1, e, sizeof(e), nullptr, nullptr);
+    WideCharToMultiByte(CP_UTF8, 0, file, -1, f, sizeof(f), nullptr, nullptr);
+    SPDLOG_ERROR("ASSERT FALLIDO (se continua): `{}` en {}:{}", e, f, line);
+    LogCurrentStack();
+    inside = false;
+}
+
+static int __cdecl ContinueOnCrtReport(int reportType, wchar_t* message, int* returnValue) {
+    if (reportType == _CRT_WARN) {
+        return FALSE; // comportamiento normal
+    }
+    char m[2048]{};
+    WideCharToMultiByte(CP_UTF8, 0, message ? message : L"", -1, m, sizeof(m), nullptr, nullptr);
+    SPDLOG_ERROR("CRT {} (sin cuadro, se continua): {}", reportType == _CRT_ASSERT ? "ASSERT" : "ERROR", m);
+    LogCurrentStack();
+    if (returnValue) {
+        *returnValue = 0; // sin __debugbreak
+    }
+    return TRUE; // gestionado: no se muestra el cuadro
+}
+
+static void InstallContinueOnAssert() {
+    // Salto de 5 bytes al principio de _wassert (como los bancos de validación).
+    const auto target = reinterpret_cast<uint8*>(&_wassert);
+    DWORD old{};
+    if (VirtualProtect(target, 5, PAGE_EXECUTE_READWRITE, &old)) {
+        target[0] = 0xE9;
+        *reinterpret_cast<int32*>(target + 1) = int32(reinterpret_cast<uintptr_t>(&ContinueOnAssert) - reinterpret_cast<uintptr_t>(target) - 5);
+        VirtualProtect(target, 5, old, &old);
+        FlushInstructionCache(GetCurrentProcess(), target, 5);
+    }
+    _CrtSetReportHookW2(_CRT_RPTHOOK_INSTALL, ContinueOnCrtReport);
+}
+
 notsa::Logging::Logging() {
     using namespace std::chrono_literals;
 #if 0
@@ -222,6 +284,7 @@ notsa::Logging::Logging() {
     spdlog::flush_every(100ms);
     
     m_exceptionHandler = AddVectoredExceptionHandler(1, WindowsExceptionHandler);
+    InstallContinueOnAssert();
 }
 
 notsa::Logging::~Logging() {

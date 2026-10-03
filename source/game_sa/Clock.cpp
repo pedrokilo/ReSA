@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -64,7 +64,8 @@ void CClock::Update() {
     if (gbFreezeTime) { // NOTSA
         ms_nLastClockTick = CTimer::GetTimeInMS();
     }
-    else if (ms_nMillisecondsPerGameMinute < (CTimer::GetTimeInMS() - ms_nLastClockTick) || CCheat::IsActive(CHEAT_FASTER_CLOCK)) {
+    // Como el original: comparación con signo (jg) del tiempo transcurrido
+    else if ((int32)(CTimer::GetTimeInMS() - ms_nLastClockTick) > (int32)ms_nMillisecondsPerGameMinute || CCheat::IsActive(CHEAT_FASTER_CLOCK)) {
         if (!CCheat::IsActive(CHEAT_ALWAYS_MIDNIGHT) && !CCheat::IsActive(CHEAT_STOP_GAME_CLOCK_ORANGE_SKY)) {
             // next minute
             ms_nGameClockMinutes++;

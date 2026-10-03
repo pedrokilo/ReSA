@@ -14,8 +14,8 @@ public:
     static void Initialise();
     static void Shutdown();
     static void LoadPedData();
-    static void Load();
-    static void Save();
+    static bool Load();
+    static bool Save();
 
     static ePedType FindPedType(const char* pedTypeName);
     static uint32 GetPedFlag(ePedType pedType);

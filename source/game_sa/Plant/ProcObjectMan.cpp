@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -38,13 +38,14 @@ void ProcObjectMan_c::InjectHooks() {
 }
 
 // 0x5A3EA0
-void ProcObjectMan_c::Init() {
+bool ProcObjectMan_c::Init() {
     for (auto& obj : m_Objects) {
         m_ObjectsList.AddItem(&obj);
     }
     m_numProcSurfaceInfos = 0;
     LoadDataFile();
     m_numAllocatedMatrices = 0;
+    return true; // Como el original: devuelve true (mov al, 1).
 }
 
 // 0x5A3110
@@ -56,8 +57,9 @@ void ProcObjectMan_c::Update() {
 
 // 0x5A3EE0
 void ProcObjectMan_c::Exit() {
-    for (auto& info : std::span{ m_ProcObjSurfaceInfos, (size_t)m_numProcSurfaceInfos}) {
-        info.Exit();
+    // Como el original: contador con signo releído en cada vuelta.
+    for (int32 i = 0; i < m_numProcSurfaceInfos; i++) {
+        m_ProcObjSurfaceInfos[i].Exit();
     }
     m_ObjectsList.RemoveAll();
 }
@@ -71,8 +73,9 @@ void ProcObjectMan_c::LoadDataFile() {
         if (line[0] == '\0' || line[0] == '#')
             continue;
 
-        char surfaceType[64]{};
-        char objectName[64]{};
+        // Como el original: buffers sin inicializar y sscanf del CRT sin comprobar el número de campos.
+        char surfaceType[64];
+        char objectName[64];
         float spacing;
         float minDist;
         int32 minRot, maxRot;
@@ -82,10 +85,10 @@ void ProcObjectMan_c::LoadDataFile() {
         int32 align;
         int32 useGrid;
 
-        VERIFY(sscanf_s(
+        RET_IGNORED(sscanf(
             line, "%s %s %f %f %d %d %f %f %f %f %f %f %d %d",
-            SCANF_S_STR(surfaceType),
-            SCANF_S_STR(objectName),
+            surfaceType,
+            objectName,
             &spacing,
             &minDist,
             &minRot, &maxRot,
@@ -93,7 +96,7 @@ void ProcObjectMan_c::LoadDataFile() {
             &minScaleZ, &maxScaleZ,
             &zOffsetMin, &zOffsetMax,
             &align, &useGrid
-        ) == 14);
+        ));
         m_ProcObjSurfaceInfos[m_numProcSurfaceInfos].Init(
             surfaceType,
             objectName,
@@ -103,7 +106,8 @@ void ProcObjectMan_c::LoadDataFile() {
             minScale, maxScale,
             minScaleZ, maxScaleZ,
             zOffsetMin, zOffsetMax,
-            align, useGrid
+            std::bit_cast<bool>(static_cast<uint8>(align)), // Como el original: se pasa el byte bajo tal cual (sin normalizar a 0/1)
+            static_cast<uint8>(useGrid)
         );
         m_numProcSurfaceInfos++;
     }
@@ -121,14 +125,15 @@ void ProcObjectMan_c::ReturnEntityToPool(ProcObjectListItem* item) {
 }
 
 // 0x5A3F20
-int32 ProcObjectMan_c::ProcessTriangleAdded(CPlantLocTri* plant) {
-    auto count = 0;
-    for (auto& info : std::span{ m_ProcObjSurfaceInfos, (size_t)m_numProcSurfaceInfos}) {
+uint8 ProcObjectMan_c::ProcessTriangleAdded(CPlantLocTri* plant) {
+    int32 count = 0;
+    for (int32 i = 0; i < m_numProcSurfaceInfos; i++) {
+        auto& info = m_ProcObjSurfaceInfos[i];
         if (info.m_SurfaceId == plant->m_SurfaceId) {
             count += info.AddObjects(plant);
         }
     }
-    return count;
+    return (uint8)count; // Como el original: solo se devuelve el byte bajo (mov al, [esp+10h]); los llamadores prueban al.
 }
 
 // 0x5A3F70
@@ -136,7 +141,8 @@ void ProcObjectMan_c::ProcessTriangleRemoved(CPlantLocTri* triangle) {
     if (m_numProcSurfaceInfos <= 0)
         return;
 
-    for (auto& info : std::span{m_ProcObjSurfaceInfos, (size_t)m_numProcSurfaceInfos}) {
+    for (int32 i = 0; i < m_numProcSurfaceInfos; i++) {
+        auto& info = m_ProcObjSurfaceInfos[i];
         if (info.m_SurfaceId != triangle->m_SurfaceId)
             continue;
 

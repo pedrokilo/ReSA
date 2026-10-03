@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/11 entradas.
+ * Validación registrada: 11/11 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -31,6 +31,25 @@ END GENERATED HOOK STATUS */
 
 auto& PlayerClothes = StaticRef<CPedClothesDesc>(0xBC1C78);
 
+static eClothesModelPart __cdecl ClothesGetTextureDependency(eClothesTexturePart texturePart) {
+    return CClothes::GetTextureDependency(texturePart);
+}
+
+// Como el original: 0x5A7EA0 solo toca eax; sus llamadores del EXE (CClothes::Init 0x5A80D0,
+// CPedClothesDesc::SetTextureAndModel 0x5A8050/0x5A8080, 0x5A8626) conservan ecx y edx a través de la llamada.
+static __declspec(naked) void ClothesGetTextureDependencyKeepRegs() {
+    __asm {
+        push ecx
+        push edx
+        push dword ptr [esp+12]
+        call ClothesGetTextureDependency
+        add  esp, 4
+        pop  edx
+        pop  ecx
+        ret
+    }
+}
+
 void CClothes::InjectHooks() {
     RH_ScopedClass(CClothes);
     RH_ScopedCategoryGlobal();
@@ -42,7 +61,7 @@ void CClothes::InjectHooks() {
     RH_ScopedInstall(RebuildPlayerIfNeeded, 0x5A8390);
     RH_ScopedInstall(RebuildPlayer, 0x5A82C0);
     RH_ScopedInstall(RebuildCutscenePlayer, 0x5A8270);
-    RH_ScopedInstall(GetTextureDependency, 0x5A7EA0); // Crashes when enabled - function looks simple and should be correct
+    RH_ScopedNamedGlobalInstall(ClothesGetTextureDependencyKeepRegs, "GetTextureDependency", 0x5A7EA0); // Envoltorio que conserva ecx y edx
     RH_ScopedInstall(GetDependentTexture, 0x5A7F30);
     RH_ScopedInstall(GetPlayerMotionGroupToLoad, 0x5A7FB0);
     RH_ScopedInstall(GetDefaultPlayerMotionGroup, 0x5A81B0);
@@ -52,9 +71,10 @@ void CClothes::InjectHooks() {
 void CClothes::Init() {
     for (int32 part = 0; part < CLOTHES_TEXTURE_TOTAL; part++) {
         eClothesModelPart modelPart = GetTextureDependency(static_cast<eClothesTexturePart>(part));
-        PlayerClothes.m_anTextureKeys[part] = 0;
+        // Como el original: las claves quedan a -1 (edx = 0xFFFFFFFF), no a 0.
+        PlayerClothes.m_anTextureKeys[part] = (uint32)(-1);
         if (modelPart != CLOTHES_MODEL_UNAVAILABLE)
-            PlayerClothes.m_anModelKeys[modelPart] = 0;
+            PlayerClothes.m_anModelKeys[modelPart] = (uint32)(-1);
     }
     ms_numRuleTags = 0;
     ms_clothesImageId = CStreaming::AddImageToList("MODELS\\PLAYER.IMG", false);
@@ -79,16 +99,24 @@ int32 GetClothesModelFromName(const char* name) {
 
 // 0x5A7B30
 void CClothes::LoadClothesFile() {
-    bool isRuleStarted = false;
+    char delimiters[] = " \t,"; // Como el original: cadena local para strtok
+    // Como el original: si la etiqueta no se reconoce se reutiliza la de la línea anterior
+    // (en el EXE el primer valor es basura de la pila).
+    uint32 ruleTag       = 0;
+    bool   isRuleStarted = false;
+
+    ms_numRuleTags = 0; // Como el original: también se reinicia aquí
     auto* file = CFileMgr::OpenFile("DATA\\CLOTHES.DAT", "r");
 
     for (auto line = CFileLoader::LoadLine(file); line; line = CFileLoader::LoadLine(file)) {
-        if (line[0] == '\0' || line[0] == '#') {
+        if (line[0] == '#' || line[0] == '\0') {
             continue;
         }
 
         if (!isRuleStarted) {
-            isRuleStarted = !strncmp("rule", line, 4);
+            if (!strncmp("rule", line, 4)) {
+                isRuleStarted = true;
+            }
             continue;
         }
         if (!strncmp("end", line, 3)) {
@@ -96,62 +124,61 @@ void CClothes::LoadClothesFile() {
             continue;
         }
 
-        char* nextToken{};
-        char* strTag = strtok_s(line, " \t,", &nextToken);
+        char* const strTag = strtok(line, delimiters);
         if (strTag == nullptr) {
             continue;
         }
 
-        const eClothRule ruleTag = [&](){
-            constexpr struct {const char* name; eClothRule rule;} map[]{
-                {"CUTS", eClothRule::TAG_CUTS},
-                {"SETC", eClothRule::TAG_SETC},
-                {"TEX", eClothRule::TAG_TEX},
-                {"HIDE", eClothRule::TAG_HIDE},
-                {"ENDIGNORE", eClothRule::TAG_END_IGNORE},
-                {"IGNORE", eClothRule::TAG_IGNORE},
-                {"ENDEXCLUSIVE", eClothRule::TAG_END_EXCLUSIVE},
-                {"EXCLUSIVE", eClothRule::TAG_EXCLUSIVE}
-            };
-            for (const auto& [name, rule] : map) {
-                if (!strcmp(strTag, name)) {
-                    return rule;
-                }
-            }
-            NOTSA_UNREACHABLE("Invalid rule tag: {}", strTag);
-        }();
-        AddRule(static_cast<uint32>(ruleTag));
-
-        const auto GetNextArg = [&nextToken]{
-            return strtok_s(NULL, " \t,", &nextToken);
+        // Como el original: comparación sin distinguir mayúsculas (_stricmp), en este orden.
+        constexpr struct { const char* name; eClothRule rule; } map[]{
+            {"cuts",         eClothRule::TAG_CUTS},
+            {"setc",         eClothRule::TAG_SETC},
+            {"tex",          eClothRule::TAG_TEX},
+            {"hide",         eClothRule::TAG_HIDE},
+            {"ignore",       eClothRule::TAG_IGNORE},
+            {"endignore",    eClothRule::TAG_END_IGNORE},
+            {"exclusive",    eClothRule::TAG_EXCLUSIVE},
+            {"endexclusive", eClothRule::TAG_END_EXCLUSIVE},
         };
-        switch (ruleTag) {
+        for (const auto& [name, rule] : map) {
+            if (!_stricmp(strTag, name)) {
+                ruleTag = static_cast<uint32>(rule);
+                break;
+            }
+        }
+        AddRule(ruleTag);
+
+        // Como el original: siempre se leen los dos argumentos siguientes antes de mirar la etiqueta.
+        char* const arg1 = strtok(nullptr, delimiters);
+        char* const arg2 = strtok(nullptr, delimiters);
+        switch (static_cast<eClothRule>(ruleTag)) {
         case eClothRule::TAG_CUTS:
         case eClothRule::TAG_TEX: {
-            for (auto i = 0u; i < 2u; i++) {
-                AddRule(CKeyGen::GetUppercaseKey(GetNextArg()));
-            }
+            AddRule(CKeyGen::GetUppercaseKey(arg1));
+            AddRule(CKeyGen::GetUppercaseKey(arg2));
             break;
         }
         case eClothRule::TAG_SETC: {
-            AddRule(CKeyGen::GetUppercaseKey(GetNextArg()));
-            AddRule(GetClothesModelFromName(GetNextArg()));
-            for (auto i = 0u; i < 2u; i++) {
-                const auto rule = GetNextArg();
-                AddRule(!strcmp("-", rule) ? 0 : CKeyGen::GetUppercaseKey(rule));
-            }
+            char* const arg3 = strtok(nullptr, delimiters);
+            char* const arg4 = strtok(nullptr, delimiters);
+            AddRule(CKeyGen::GetUppercaseKey(arg1));
+            AddRule(GetClothesModelFromName(arg2));
+            AddRule(!strcmp(arg3, "-") ? 0 : CKeyGen::GetUppercaseKey(arg3));
+            AddRule(!strcmp(arg4, "-") ? 0 : CKeyGen::GetUppercaseKey(arg4));
             break;
         }
         case eClothRule::TAG_HIDE: {
-            AddRule(CKeyGen::GetUppercaseKey(GetNextArg()));
-            AddRule(GetClothesModelFromName(GetNextArg()));
+            AddRule(CKeyGen::GetUppercaseKey(arg1));
+            AddRule(GetClothesModelFromName(arg2));
             break;
         }
         case eClothRule::TAG_END_IGNORE:
         case eClothRule::TAG_IGNORE:
         case eClothRule::TAG_END_EXCLUSIVE:
-        case eClothRule::TAG_EXCLUSIVE: 
-            AddRule(CKeyGen::GetUppercaseKey(GetNextArg()));
+        case eClothRule::TAG_EXCLUSIVE:
+            AddRule(CKeyGen::GetUppercaseKey(arg1));
+            break;
+        default:
             break;
         }
     }
@@ -270,16 +297,17 @@ eClothesTexturePart CClothes::GetDependentTexture(eClothesModelPart modelPart) {
 
 // 0x5A7FB0
 AssocGroupId CClothes::GetPlayerMotionGroupToLoad() {
-    const auto fat = CStats::GetStatValue(STAT_FAT);
-    const auto muscle = CStats::GetStatValue(STAT_MUSCLE);
+    // Como el original: vuelve a leer las estadísticas en cada comparación; con NaN no se cumple ninguna.
+    if (CStats::GetStatValue(STAT_FAT) > 500.0f) {
+        const auto muscle = CStats::GetStatValue(STAT_MUSCLE);
+        if (CStats::GetStatValue(STAT_FAT) > muscle)
+            return ANIM_GROUP_FAT;
+    }
 
-    if (fat > 500.0f && fat > muscle)
-        return ANIM_GROUP_FAT;
+    if (CStats::GetStatValue(STAT_MUSCLE) > 500.0f)
+        return ANIM_GROUP_MUSCULAR;
 
-    if (muscle <= 500.0f)
-        return ANIM_GROUP_PLAYER;
-
-    return ANIM_GROUP_MUSCULAR;
+    return ANIM_GROUP_PLAYER;
 }
 
 // 0x5A81B0
@@ -288,7 +316,8 @@ AssocGroupId CClothes::GetDefaultPlayerMotionGroup() {
     if (group == ANIM_GROUP_PLAYER)
         return ANIM_GROUP_PLAYER;
 
-    CAnimBlock* animBlock = CAnimManager::GetAnimationBlock(group);
+    // Como el original: CAnimManager::ms_aAnimAssocGroups (0xB4EA34) indexado sin comprobar el rango.
+    CAnimBlock* animBlock = StaticRef<CAnimBlendAssocGroup*>(0xB4EA34)[group].m_AnimBlock;
     if (!animBlock || !animBlock->IsLoaded)
         return ANIM_GROUP_PLAYER;
 

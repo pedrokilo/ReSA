@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -65,40 +65,34 @@ CTask* CTaskComplexFollowLeaderAnyMeans::CreateSubTask(eTaskType taskType, CPed 
     case TASK_COMPLEX_FOLLOW_LEADER_IN_FORMATION:
         return new CTaskComplexFollowLeaderInFormation{ m_group, m_ped, m_pos, -1.f };
     case TASK_SIMPLE_STAND_STILL:
-        return new CTaskSimpleStandStill{ 2000 };
+        return new CTaskSimpleStandStill{ 2000, false, false, 8.f };
     case TASK_SIMPLE_CAR_DRIVE_TIMED:
         return new CTaskSimpleCarDriveTimed{ ped->m_pVehicle, 2000 };
-    case TASK_COMPLEX_SEEK_ENTITY_ANY_MEANS:
-        // NOTE: There's also some weird `mov [pXYOffsetTask + 0x50], 7`
-        // even though only 0x34 bytes are allocated...
-        return new CTaskComplexSeekEntityAnyMeansXYOffset{ m_ped, m_pos };
-    case TASK_FINISHED:
+    case TASK_COMPLEX_SEEK_ENTITY_ANY_MEANS: {
+        const auto task = new CTaskComplexSeekEntityAnyMeansXYOffset{ m_ped, m_pos };
+        // Como el original: escribe 7 en +0x50 aunque la tarea solo ocupa 0x34 bytes (cae dentro del slot de 0x80 del pool)
+        *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(task) + 0x50) = 7;
+        return task;
+    }
+    default: // Como el original: TASK_FINISHED y cualquier otro tipo devuelven nullptr
         return nullptr;
-    default:
-        NOTSA_UNREACHABLE();
     }
 }
 
 // 0x696CC0
 CTask* CTaskComplexFollowLeaderAnyMeans::CreateNextSubTask(CPed* ped) {
-    return CreateSubTask([ped, this] {
-        // Cases ordered in the same way they're created
-        switch (m_pSubTask->GetTaskType()) {
-        case TASK_COMPLEX_FOLLOW_LEADER_IN_FORMATION:
-            return TASK_FINISHED;
-        case TASK_COMPLEX_SEEK_ENTITY_ANY_MEANS: // May be created by `ControlSubTask`
-            return ped->bInVehicle
-                ? TASK_SIMPLE_CAR_DRIVE_TIMED
-                : TASK_SIMPLE_STAND_STILL;
-        case TASK_SIMPLE_STAND_STILL:
-        case TASK_SIMPLE_CAR_DRIVE_TIMED:
-            return ped->bInVehicle
-                ? TASK_COMPLEX_SEEK_ENTITY_ANY_MEANS
-                : TASK_COMPLEX_FOLLOW_LEADER_IN_FORMATION;
-        default:
-            NOTSA_UNREACHABLE();
-        }
-    }(), ped);
+    switch (m_pSubTask->GetTaskType()) {
+    case TASK_COMPLEX_FOLLOW_LEADER_IN_FORMATION:
+        return CreateSubTask(TASK_FINISHED, ped);
+    case TASK_COMPLEX_SEEK_ENTITY_ANY_MEANS: // May be created by `ControlSubTask`
+        return CreateSubTask(ped->bInVehicle ? TASK_SIMPLE_CAR_DRIVE_TIMED : TASK_SIMPLE_STAND_STILL, ped);
+    case TASK_SIMPLE_STAND_STILL:
+    case TASK_SIMPLE_CAR_DRIVE_TIMED:
+        // Como el original: se mira si el líder (m_ped) va en un vehículo, no el peatón
+        return CreateSubTask(m_ped->bInVehicle ? TASK_COMPLEX_SEEK_ENTITY_ANY_MEANS : TASK_COMPLEX_FOLLOW_LEADER_IN_FORMATION, ped);
+    default: // Como el original: una subtarea desconocida devuelve nullptr
+        return nullptr;
+    }
 }
 
 // 0x696D80
@@ -111,10 +105,9 @@ CTask* CTaskComplexFollowLeaderAnyMeans::ControlSubTask(CPed* ped) {
     if (!m_ped) {
         return nullptr;
     }
-    if (m_pSubTask->GetTaskType() == TASK_COMPLEX_FOLLOW_LEADER_IN_FORMATION) {
-        if (ped->bInVehicle) {
-            return CreateSubTask(TASK_COMPLEX_SEEK_ENTITY_ANY_MEANS, ped);
-        }
+    // Como el original: se mira si el líder (m_ped) va en un vehículo, no el peatón
+    if (m_pSubTask->GetTaskType() == TASK_COMPLEX_FOLLOW_LEADER_IN_FORMATION && m_ped->bInVehicle) {
+        return CreateSubTask(TASK_COMPLEX_SEEK_ENTITY_ANY_MEANS, ped);
     }
     return m_pSubTask;
 }

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -85,34 +85,39 @@ CTask* CTaskComplexLeaveCarAndFlee::CreateSubTask(eTaskType taskType) {
         };
     case TASK_SIMPLE_GO_TO_POINT: // 0x63C0E6
         return new CTaskSimpleGoToPoint{ PEDMOVE_RUN, m_fleePoint };
-    case TASK_FINISHED:
+    default: // Como el original: TASK_FINISHED y tipos desconocidos devuelven nullptr
         return nullptr;
-    default:
-        NOTSA_UNREACHABLE();
     }
 }
 
 // 0x642390
 CTask* CTaskComplexLeaveCarAndFlee::CreateNextSubTask(CPed* ped) {
-    return CreateSubTask([ped, this] {
-        switch (m_pSubTask->GetTaskType()) { // Tasks in same order as they're created
-        case TASK_COMPLEX_LEAVE_CAR: {
-            if (!m_veh || !m_veh->IsBoat()) {
-                return TASK_COMPLEX_SMART_FLEE_POINT;
-            }
-            m_fleePoint = m_veh->GetPosition() - m_veh->GetForward() * m_veh->GetModelInfo()->GetColModel()->GetBoundRadius() * 2.f;
-            return TASK_SIMPLE_GO_TO_POINT;
+    switch (m_pSubTask->GetTaskType()) { // Tasks in same order as they're created
+    case TASK_COMPLEX_LEAVE_CAR: {
+        // Como el original: se usa el vehículo del peatón (m_pVehicle), no m_veh
+        const auto veh = ped->m_pVehicle;
+        if (!veh || !veh->IsBoat()) {
+            return CreateSubTask(TASK_COMPLEX_SMART_FLEE_POINT);
         }
-        case TASK_SIMPLE_GO_TO_POINT:
-            return TASK_COMPLEX_SMART_FLEE_POINT;
-        case TASK_COMPLEX_SMART_FLEE_POINT: {
-            ped->GetTaskManager().SetTask(CTaskComplexWander::GetWanderTaskByPedType(ped), TASK_PRIMARY_DEFAULT);
-            return TASK_FINISHED;
-        }
-        default:
-            NOTSA_UNREACHABLE();
-        }
-    }());
+        // Como el original: punto = posición + adelante * (radio * -2.0)
+        const float k = veh->GetModelInfo()->GetColModel()->GetBoundRadius() * -2.f;
+        const auto& fwd = veh->GetForward();
+        const auto& pos = veh->GetPosition();
+        m_fleePoint.x = fwd.x * k + pos.x;
+        m_fleePoint.y = fwd.y * k + pos.y;
+        m_fleePoint.z = fwd.z * k + pos.z;
+        return CreateSubTask(TASK_SIMPLE_GO_TO_POINT);
+    }
+    case TASK_SIMPLE_GO_TO_POINT:
+        return CreateSubTask(TASK_COMPLEX_SMART_FLEE_POINT);
+    case TASK_COMPLEX_SMART_FLEE_POINT: {
+        const auto task = CreateSubTask(TASK_FINISHED);
+        ped->GetTaskManager().SetTask(CTaskComplexWander::GetWanderTaskByPedType(ped), TASK_PRIMARY_DEFAULT);
+        return task;
+    }
+    default: // Como el original: subtareas desconocidas devuelven nullptr
+        return nullptr;
+    }
 }
 
 // 0x6424C0

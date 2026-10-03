@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -64,33 +64,37 @@ CTaskComplexReactToGunAimedAt::~CTaskComplexReactToGunAimedAt() {
 // 0x697B70
 CTask* CTaskComplexReactToGunAimedAt::CreateSubTask(eTaskType taskType, CPed* ped) {
     switch (taskType) {
-    case TASK_SIMPLE_ACHIEVE_HEADING:
-        return new CTaskSimpleAchieveHeading{ (m_aimedBy->GetPosition() - ped->GetPosition()).Heading() };
+    case TASK_SIMPLE_ACHIEVE_HEADING: {
+        // Como el original: GetRadianAngleBetweenPoints + LimitRadianAngle, guardado también en m_fAimingRotation
+        const auto& pedPos = ped->GetPosition();
+        const auto& aimPos = m_aimedBy->GetPosition();
+        const float dx = aimPos.x - pedPos.x;
+        const float dy = aimPos.y - pedPos.y;
+        const float heading = CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints(dx, dy, 0.0f, 0.0f));
+        ped->m_fAimingRotation = heading;
+        return new CTaskSimpleAchieveHeading{ heading };
+    }
     case TASK_COMPLEX_LEAVE_CAR:
         return new CTaskComplexLeaveCar{ ped->m_pVehicle, TARGET_DOOR_FRONT_LEFT, 0, true, false };
-    case TASK_SIMPLE_HANDS_UP:
-        return new CTaskSimpleHandsUp{ (uint32)CGeneral::GetRandomNumberInRange(3000, 5000) };
-    case TASK_SIMPLE_PAUSE:
-        return new CTaskSimplePause{
-            ped->bInVehicle
-                ? CGeneral::GetRandomNumberInRange(1000, 2000)
-                : 0
-        };
+    case TASK_SIMPLE_HANDS_UP: // Como el original: 0x407180 tras reservar la tarea
+        return new CTaskSimpleHandsUp{ (uint32)CGeneral::GetRandomIntInRange(3000, 5000) };
+    case TASK_SIMPLE_PAUSE: {
+        // Como el original: 0x407180 ([1000, 2000)) antes de reservar la tarea
+        const int32 time = ped->IsInVehicle() ? CGeneral::GetRandomIntInRange(1000, 2000) : 0;
+        return new CTaskSimplePause{ time };
+    }
     case TASK_SIMPLE_COWER:
         return new CTaskSimpleCower{};
     case TASK_COMPLEX_SMART_FLEE_ENTITY:
         return new CTaskComplexSmartFleeEntity{ m_aimedBy, false, 60.f, 1000000, 1000, 1.f };
     case TASK_COMPLEX_WANDER: {
-        m_wanderBeginTimer.Start(10'000);
-        return new CTaskComplexWanderStandard{
-            PEDMOVE_WALK,
-            (uint8)CVector2D{ped->GetPosition() - m_aimedBy->GetPosition()}.NodeHeading()
-        };
+        const auto heading = (uint8)CVector2D{ped->GetPosition() - m_aimedBy->GetPosition()}.NodeHeading();
+        auto* const task = new CTaskComplexWanderStandard{ PEDMOVE_WALK, heading };
+        m_wanderBeginTimer.Start(10'000); // Como el original: después de crear la tarea
+        return task;
     }
-    case TASK_FINISHED:
+    default: // Como el original: TASK_FINISHED y cualquier otro tipo devuelven nullptr
         return nullptr;
-    default:
-        NOTSA_UNREACHABLE();
     }
 }
 
@@ -115,14 +119,15 @@ CTask* CTaskComplexReactToGunAimedAt::CreateNextSubTask(CPed* ped) {
             }
         }
         case TASK_SIMPLE_COWER:
+            ped->Say(CTX_GLOBAL_GUN_RUN); // Como el original: 0x73 antes de huir
             return TASK_COMPLEX_SMART_FLEE_ENTITY;
         case TASK_SIMPLE_HANDS_UP:
             return TASK_COMPLEX_WANDER;
         case TASK_COMPLEX_SMART_FLEE_ENTITY:
         case TASK_COMPLEX_WANDER:
             return TASK_FINISHED;
-        default:
-            NOTSA_UNREACHABLE();
+        default: // Como el original: subtarea desconocida -> nullptr
+            return TASK_NONE;
         }
     }(), ped);
 }
@@ -139,7 +144,7 @@ CTask* CTaskComplexReactToGunAimedAt::ControlSubTask(CPed* ped) {
     }
     if (m_pSubTask->GetTaskType() == TASK_COMPLEX_WANDER) {
         if (m_wanderBeginTimer.IsOutOfTime()) {
-            if (m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr)) {
+            if (m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr)) { // Como el original: prioridad 1
                 return nullptr;
             }
         }

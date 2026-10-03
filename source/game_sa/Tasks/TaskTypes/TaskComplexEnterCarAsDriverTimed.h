@@ -19,7 +19,7 @@ public:
     CVehicle*  m_veh{};                     /// The vehicle to enter
     int32      m_enterMaxInterval{};        /// The maximum interval [in ms] in which the ped has to be in the car.
     eMoveState m_moveState{ PEDMOVE_RUN };  /// The move state (forwarded to `CTaskComplexEnterCarAsDriver`)
-    CTaskTimer m_enterBeganTimer{};         /// Timer started once ped has entered the vehicle, it's interval is `m_enterMaxInterval`
+    CTaskTimer m_enterBeganTimer;           /// Timer started once ped has entered the vehicle, it's interval is `m_enterMaxInterval` (Como el original: sin {} para no poner a cero el relleno 0x22-0x23)
 
 public:
     static void InjectHooks();

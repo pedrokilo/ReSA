@@ -41,8 +41,8 @@ struct tHeliLight {
     float   m_fTargetRadius;
     float   m_fPower;
     uint32  m_nCoronaIndex;
-    bool    field_24; // unknown flag
-    bool    m_bDrawShadow;
+    uint8   field_24; // unknown flag. Como el original: byte crudo (no bool normalizado)
+    uint8   m_bDrawShadow; // Como el original: byte crudo
     std::array<CVector, 3> m_vecUseless; // m_aSearchLightHistory
 
     void Init() {
@@ -146,7 +146,7 @@ public:
                                 float a14,
                                 float a15);
     static CHeli* GenerateHeli(CPed* target, bool newsHeli);
-    static void TestSniperCollision(CVector* origin, CVector* target);
+    static bool TestSniperCollision(CVector* origin, CVector* target);
     static void UpdateHelis();
     static void RenderAllHeliSearchLights();
 

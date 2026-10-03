@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 13/13 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/13 entradas.
+ * Validación registrada: 13/13 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -33,7 +33,7 @@ void CTaskComplexSequence::InjectHooks() {
     RH_ScopedVMTInstall(ControlSubTask, 0x632D00);
 
     RH_ScopedOverloadedInstall(CreateNextSubTask, "Internal", 0x632C70, CTask*(CTaskComplexSequence::*)(CPed*, int32&, int32&) const);
-    RH_ScopedOverloadedInstall(AddTask, "0", 0x632D10, void(CTaskComplexSequence::*)(CTask*));
+    RH_ScopedOverloadedInstall(AddTask, "0", 0x632D10, bool(CTaskComplexSequence::*)(CTask*));
     RH_ScopedOverloadedInstall(AddTask, "1", 0x632D50, void(CTaskComplexSequence::*)(int32, CTask*));
 
     RH_ScopedInstall(Flush, 0x632C10);
@@ -59,8 +59,12 @@ CTaskComplexSequence::~CTaskComplexSequence() {
 
 // 0x632C10
 void CTaskComplexSequence::Flush() {
+    // Como el original: borra la tarea (si hay) y despues pone el hueco a nulo
     for (auto& task : m_Tasks) {
-        delete std::exchange(task, nullptr);
+        if (task) {
+            delete task;
+        }
+        task = nullptr;
     }
     m_CurrTaskIdx = 0;
     m_RepeatMode  = eRepeatMode::DONT_REPEAT;
@@ -90,30 +94,42 @@ CTask* CTaskComplexSequence::ControlSubTask(CPed* ped) {
     return m_pSubTask;
 }
 
-// 0x632D10
-void CTaskComplexSequence::AddTask(CTask* task) {
-    assert(task);
+// 0x632C00
+bool CTaskComplexSequence::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
+    // Como el original: delega en la subtarea (override propio para no compartir CTaskComplex::MakeAbortable con otros hooks)
+    return m_pSubTask->MakeAbortable(ped, priority, event);
+}
 
+// 0x632D10
+bool CTaskComplexSequence::AddTask(CTask* task) {
+    // Como el original: sin comprobar la tarea; devuelve si se pudo anadir
     for (auto& t : m_Tasks) {
         if (!t) {
             t = task;
-            return;
+            return true;
         }
     }
 
-    delete task;
+    if (task) {
+        delete task;
+    }
     NOTSA_LOG_DEBUG("Failed to add task to sequence");
+    return false;
 }
 
 // 0x632D50
 void CTaskComplexSequence::AddTask(int32 sequenceIdx, CTask* task) {
-    assert(task);
+    // Como el original: sin comprobar la tarea; indice con signo (jge)
     if (sequenceIdx >= (int32)std::size(m_Tasks)) {
-        delete task;
+        if (task) {
+            delete task;
+        }
         NOTSA_LOG_DEBUG("Failed to add task to sequence");
     } else {
-        delete m_Tasks[sequenceIdx];
-        m_Tasks[sequenceIdx] = task;
+        if (const auto old = m_Tasks.data()[sequenceIdx]) {
+            delete old;
+        }
+        m_Tasks.data()[sequenceIdx] = task;
     }
 }
 
@@ -121,39 +137,31 @@ void CTaskComplexSequence::AddTask(int32 sequenceIdx, CTask* task) {
 CTask* CTaskComplexSequence::CreateNextSubTask(CPed* ped, int32& taskIndex, int32& repeatCount) const {
     UNUSED(ped);
 
-    taskIndex++;
-    const auto bSeqEnd = taskIndex == std::size(m_Tasks) || !m_Tasks[taskIndex];
-
-    switch (m_RepeatMode) {
-    case eRepeatMode::FOREVER: {
-        if (bSeqEnd) {
-            taskIndex = 0;
-            repeatCount++;
+    const auto idx = ++taskIndex;
+    const auto mode = (uint32)m_RepeatMode;
+    if (mode == 0) { // DONT_REPEAT
+        if (idx == 8 || !m_Tasks.data()[idx]) {
+            return nullptr;
         }
-        // NOTE: The `if` statement here (in the original code) is useless: `m_RepeatMode` will always be `FOREVER` (1) here
-        //       Though, the original code was reachable if `m_RepeatMode != 0`, not only if `m_RepeatMode == 1` (like in our case)
-        //       For more info see the `default` case.
-        return m_Tasks[taskIndex]->Clone();
+        return m_Tasks.data()[idx]->Clone();
     }
-    case eRepeatMode::DONT_REPEAT: {
-        return bSeqEnd
-            ? nullptr
-            : m_Tasks[taskIndex]->Clone();
+    // Como el original: al terminar la secuencia vuelve al principio y cuenta la repeticion
+    if (idx == 8 || !m_Tasks.data()[idx]) {
+        taskIndex = 0;
+        repeatCount++;
     }
-    default: {
-        // The code is really weird, I can't decide if used `m_RepeatMode` to also
-        // store a variable amount of repeats or not.
-        // If this is ever reached, that means that `m_RepeatMode` is not **just** a simple enum
-        // but rather the number of times to repeat the sequence [for values > 1]
-        NOTSA_UNREACHABLE();
+    // Como el original: un modo distinto de 0 y 1 es el numero de repeticiones (se para al alcanzarlo)
+    if (mode != 1 && (uint32)repeatCount == mode) {
+        return nullptr;
     }
-    }
+    return m_Tasks.data()[taskIndex]->Clone();
 }
 
 // 0x41BF10
 bool CTaskComplexSequence::Contains(eTaskType taskType) const {
+    // Como el original: se saltan los huecos vacios
     for (const auto& task : m_Tasks) {
-        if (task->GetTaskType() == taskType) {
+        if (task && task->GetTaskType() == taskType) {
             return true;
         }
     }

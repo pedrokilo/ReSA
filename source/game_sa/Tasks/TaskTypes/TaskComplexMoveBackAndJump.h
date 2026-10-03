@@ -16,7 +16,7 @@ public:
     CTaskComplexMoveBackAndJump() = default;
     CTaskComplexMoveBackAndJump(const CTaskComplexMoveBackAndJump&) : CTaskComplexMoveBackAndJump{} {}
     ~CTaskComplexMoveBackAndJump() = default;
-    static CTask* CreateSubTask(eTaskType taskType);
+    CTask* CreateSubTask(eTaskType taskType); // Como el original: __thiscall (ret 4), no estática
 
     CTask*    Clone() const override { return new CTaskComplexMoveBackAndJump{ *this }; }
     eTaskType GetTaskType() const override { return Type; }

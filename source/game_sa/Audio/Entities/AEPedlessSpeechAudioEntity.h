@@ -33,5 +33,8 @@ private:
 
     CAEPedlessSpeechAudioEntity* Constructor();
     CAEPedlessSpeechAudioEntity* Destructor();
+
+    static void ResetSpeechSlot(CAEPedSpeechSlot& speech);
+    CEntity*& AttachedRaw() { return *reinterpret_cast<CEntity**>(reinterpret_cast<uint8*>(this) + 0x114); } // m_AttachedTo sin CleanUpOldReference
 };
 VALIDATE_SIZE(CAEPedlessSpeechAudioEntity, 0x118);

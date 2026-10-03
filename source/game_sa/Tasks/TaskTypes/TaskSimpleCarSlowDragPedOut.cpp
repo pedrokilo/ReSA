@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/10 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -38,7 +38,7 @@ void CTaskSimpleCarSlowDragPedOut::InjectHooks() {
 }
 
 // 0x647FE0
-CTaskSimpleCarSlowDragPedOut::CTaskSimpleCarSlowDragPedOut(CVehicle* vehicle, eTargetDoor targetDoor, CTaskUtilityLineUpPedWithCar* lineUpPedWithCarTask, bool isPedStatic) : CTaskSimple() {
+CTaskSimpleCarSlowDragPedOut::CTaskSimpleCarSlowDragPedOut(CVehicle* vehicle, eTargetDoor targetDoor, CTaskUtilityLineUpPedWithCar* lineUpPedWithCarTask, bool isPedStatic) { // Como el original: sin inicialización por valor de la base
     m_bAnimFinished        = false;
     m_AnimAssoc            = nullptr;
     m_Vehicle              = vehicle;
@@ -67,40 +67,43 @@ void CTaskSimpleCarSlowDragPedOut::FinishAnimCarSlowDragPedOutCB(CAnimBlendAssoc
         const auto [groupId, animId] = self->ComputeAnimID();
         self->m_Vehicle->ProcessOpenDoor(nullptr, self->m_TargetDoor, groupId, animId, 1.f);
 
-        // Mark door as opened (Not sure why it's done here, not in `ProcessOpenDoor`...)
-        if (self->m_Vehicle->IsAutomobile()) {
-            self->m_Vehicle->AsAutomobile()->m_damageManager.SetDoorOpen((eDoors)self->m_TargetDoor);
+    }
+    // Mark door as opened (Not sure why it's done here, not in `ProcessOpenDoor`...)
+    if (self->m_Vehicle && self->m_Vehicle->IsAutomobile()) {
+        // Como el original: abre la puerta por componente (cerrada -> abierta, dañada -> abierta y dañada), pidiendo el estado 2 o 3 veces
+        auto& dm = self->m_Vehicle->AsAutomobile()->m_damageManager;
+        const auto comp = (tComponent)self->m_TargetDoor;
+        if (dm.GetDoorStatus_Component(comp) == DAMSTATE_OK || dm.GetDoorStatus_Component(comp) == DAMSTATE_DAMAGED) {
+            dm.SetDoorStatus_Component(comp, (eDoorStatus)(dm.GetDoorStatus_Component(comp) + 1));
         }
     }
 }
 
 // 0x648100
 void CTaskSimpleCarSlowDragPedOut::ComputeAnimID_Wrapper(AssocGroupId& animGroup, AnimationId& animId) {
-    std::tie(animGroup, animId) = ComputeAnimID();
+    // Como el original: con otra puerta no se escribe la animación y se usa el valor que ya tenga
+    switch (m_TargetDoor) {
+    case TARGET_DOOR_FRONT_RIGHT:
+    case TARGET_DOOR_REAR_RIGHT:
+        animId = ANIM_ID_CAR_PULLOUT_RHS;
+        break;
+    case TARGET_DOOR_DRIVER:
+    case TARGET_DOOR_REAR_LEFT:
+        animId = ANIM_ID_CAR_PULLOUT_LHS;
+        break;
+    case TARGET_DOOR_UNK: // TODO: Figure this out, see CVehicleAnimGroup::GetGroup
+        animId = ANIM_ID_UNKNOWN_15;
+        break;
+    }
+    animGroup = m_Vehicle->GetAnimGroup().GetGroup(animId);
 }
 
-// Signature changed
-// 0x648100
+// NOTSA: firma con valor de retorno
 std::pair<AssocGroupId, AnimationId> CTaskSimpleCarSlowDragPedOut::ComputeAnimID() {
-    const auto animationId = [this] {
-        switch (m_TargetDoor) {
-        case TARGET_DOOR_FRONT_RIGHT:
-        case TARGET_DOOR_REAR_RIGHT:
-            return ANIM_ID_CAR_PULLOUT_RHS;
-
-        case TARGET_DOOR_DRIVER:
-        case TARGET_DOOR_REAR_LEFT:
-            return ANIM_ID_CAR_PULLOUT_LHS;
-
-        case TARGET_DOOR_UNK: // TODO: Figure this out, see CVehicleAnimGroup::GetGroup
-            return ANIM_ID_UNKNOWN_15;
-
-        default:
-            assert(0); // Not reachable
-            return ANIM_ID_UNDEFINED;
-        }
-    }();
-    return { m_Vehicle->GetAnimGroup().GetGroup(animationId), animationId};
+    AssocGroupId animGroup;
+    AnimationId  animId;
+    ComputeAnimID_Wrapper(animGroup, animId);
+    return { animGroup, animId };
 }
 
 // 0x64C010
@@ -167,15 +170,15 @@ bool CTaskSimpleCarSlowDragPedOut::ProcessPed(CPed* ped) {
         // Make peds say something
         if (m_Vehicle) { // Redundant check, maybe inlined?
             if (const auto jackedPed = GetJackedPed()) {
-                const auto DoTalk = [this](auto ped1, auto ped2) {
-                    if (!SayJacked(ped1, m_Vehicle)) {
-                        SayJacking(ped2, ped1, m_Vehicle);
-                    }
-                };
+                // Como el original: el sacado o el que saca habla primero; si no dice nada, habla el otro
                 if (CGeneral::GetRandomNumber() % 1024 <= 512) {
-                    DoTalk(jackedPed, ped);
+                    if (!SayJacked(jackedPed, m_Vehicle)) {
+                        SayJacking(ped, jackedPed, m_Vehicle);
+                    }
                 } else {
-                    DoTalk(ped, jackedPed);
+                    if (!SayJacking(ped, jackedPed, m_Vehicle)) {
+                        SayJacked(jackedPed, m_Vehicle);
+                    }
                 }
             }
         }

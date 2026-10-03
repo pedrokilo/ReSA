@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/12 entradas.
+ * Validación registrada: 12/12 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -48,6 +48,9 @@ node level 2
 */
 
 template<typename T>
+struct CQuadTreeNodeLegacyPool;
+
+template<typename T>
 class CQuadTreeNode {
 public:
     using ListType                   = CPtrListSingleLink<T>;
@@ -59,14 +62,15 @@ protected:
     static inline auto& ms_pQuadTreeNodePool = StaticRef<CQuadTreeNodePool*>(0xB745BC);
 
 public:
+    // Como el original (0x552B50 / 0x552C90): política original del pool (ver CQuadTreeNodeLegacyPool).
     static void* operator new(size_t sz) {
         assert(sz == sizeof(CQuadTreeNode<void*>));
-        return ms_pQuadTreeNodePool->New();
+        return static_cast<CQuadTreeNodeLegacyPool<T>*>(ms_pQuadTreeNodePool)->New();
     }
 
     static void operator delete(void* data, size_t sz) {
         assert(sz == sizeof(CQuadTreeNode<void*>));
-        ms_pQuadTreeNodePool->Delete(static_cast<CQuadTreeNode<void*>*>(data));
+        static_cast<CQuadTreeNodeLegacyPool<T>*>(ms_pQuadTreeNodePool)->Delete(static_cast<CQuadTreeNode<void*>*>(data));
     }
 
 public:
@@ -95,7 +99,23 @@ public:
         if (ms_pQuadTreeNodePool) {
             return;
         }
-        ms_pQuadTreeNodePool = new CQuadTreeNodePool(400, "QuadTreeNodes");
+        // Como el original: operator new de 0x14 bytes y el constructor del pool en línea (0x552AF0): objetos y
+        // mapa con operator new (no new[]) y sin relleno del almacenamiento; cada byte del mapa queda en 0x80,
+        // el byte +0x11 no se escribe y el nombre no se usa. Si la primera reserva falla el puntero queda nulo.
+        constexpr int32 SIZE = 400;
+        auto* const pool = static_cast<uint8*>(::operator new(sizeof(CQuadTreeNodePool)));
+        if (pool) {
+            *reinterpret_cast<void**>(pool + 0x0) = ::operator new(SIZE * sizeof(CQuadTreeNode<void*>));
+            auto* const flags = static_cast<uint8*>(::operator new(SIZE));
+            *reinterpret_cast<uint8**>(pool + 0x4) = flags;
+            pool[0x10]                             = 1;
+            *reinterpret_cast<int32*>(pool + 0x8)  = SIZE;
+            *reinterpret_cast<int32*>(pool + 0xC)  = -1;
+            for (int32 i = 0; i < SIZE; i++) {
+                flags[i] = 0x80;
+            }
+        }
+        ms_pQuadTreeNodePool = reinterpret_cast<CQuadTreeNodePool*>(pool);
     }
 
     static CQuadTreeNodePool* GetPool() {
@@ -153,9 +173,10 @@ public:
     void DeleteItem(T item, const CRect& rect) {
         m_ItemList.DeleteItem(item);
 
+        // Como el original: primero InSector, sin comprobar que el hijo exista, y recursión con el mismo rectángulo.
         for (auto sector = 0; sector < 4; ++sector) {
-            if (m_apChildren[sector] && InSector(rect, sector)) {
-                m_apChildren[sector]->DeleteItem(item);
+            if (InSector(rect, sector)) {
+                m_apChildren[sector]->DeleteItem(item, rect);
             }
         }
     }
@@ -168,27 +189,23 @@ public:
             return -1;
         }
 
-        // This stuff for sure can be simplified, but my attempts break the logic
-        if (center.y > rect.top) {
-            if (center.x > rect.right) {
-                return 2;
-            }
-            if (center.x >= rect.left) {
+        // Como el original: comparaciones del EXE con NaN (un rectángulo con NaN cae en -1).
+        bool lowerHalf;
+        if (rect.top < center.y) {
+            lowerHalf = false;
+        } else {
+            if (!(rect.bottom > center.y)) {
                 return -1;
             }
-            return 3;
+            lowerHalf = true;
         }
-        if (center.y >= rect.bottom) {
+        if (rect.right < center.x) {
+            return lowerHalf ? 0 : 2;
+        }
+        if (!(rect.left > center.x)) {
             return -1;
         }
-        if (center.x > rect.right) {
-            return 0;
-        }
-        if (center.x >= rect.left) {
-            return -1;
-        }
-
-        return 1;
+        return lowerHalf ? 1 : 3;
     }
 
     // Returns -1 if not found
@@ -199,19 +216,12 @@ public:
             return -1;
         }
 
-        // This stuff for sure can be simplified, but my attempts break the logic
-        const bool bLeftHalf = center.x > posn.x;
-        if (bLeftHalf) {
-            if (center.y <= posn.y) {
-                return 0;
-            } else {
-                return 2;
-            }
-        } else if (center.y <= posn.y) {
-            return 1;
-        } else {
-            return 3;
+        // Como el original: un NaN en Y cuenta como mitad inferior (0/1) y en X como mitad derecha.
+        const bool lowerHalf = !(center.y > posn.y);
+        if (center.x > posn.x) {
+            return lowerHalf ? 0 : 2;
         }
+        return lowerHalf ? 1 : 3;
     }
 
     void ForAllMatching(const CRect& rect, CQuadTreeNodeRectCallBack callback) {
@@ -283,16 +293,12 @@ public:
             return false;
         }
 
+        // Como el original: las comparaciones se niegan, así que un NaN no descarta el sector.
         const CRect sectorRect = GetSectorRect(sector);
-        if (   sectorRect.left <= rect.right // LinesInside???
-            && sectorRect.right >= rect.left
-            && sectorRect.bottom <= rect.top
-            && sectorRect.top >= rect.bottom
-        ) {
-            return true;
-        }
-
-        return false;
+        return !(sectorRect.left > rect.right)
+            && !(sectorRect.right < rect.left)
+            && !(sectorRect.bottom > rect.top)
+            && !(sectorRect.top < rect.bottom);
     }
 
     CRect GetSectorRect(int32 sector) const {
@@ -335,3 +341,11 @@ public:
     uint32         m_nLevel; // 0 - last level
 };
 VALIDATE_SIZE(CQuadTreeNode<void*>, 0x28);
+
+// Como el original (0x552B50 / 0x552C90): el pool de nodos busca a partir del hueco siguiente al último y no
+// rellena la memoria al reservar ni al liberar (ver CPool::NewLegacy).
+template<typename T>
+struct CQuadTreeNodeLegacyPool : CPool<CQuadTreeNode<void*>> {
+    CQuadTreeNode<void*>* New() { return NewLegacy(); }
+    void Delete(CQuadTreeNode<void*>* node) { DeleteLegacy(node); }
+};

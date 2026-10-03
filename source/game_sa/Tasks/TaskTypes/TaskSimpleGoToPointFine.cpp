@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -133,51 +133,9 @@ void CTaskSimpleGoToPointFine::SetBlendedMoveAnim(CPed* ped) {
         delete pIdleTiredAnimAssoc;
     }
 
-    eMoveState moveState = PEDMOVE_WALK;
-    if (m_fMoveRatio > 1.0f) {
-        if (m_fMoveRatio > 2.0f) {
-            if (m_fMoveRatio > 3.0f)
-                return;
-
-            delete walkAnimAssoc;
-            if (!runAnimAssoc) {
-                runAnimAssoc = CAnimManager::AddAnimation(ped->GetRpClump(), ped->m_nAnimGroup, ANIM_ID_RUN);
-                runAnimAssoc->m_BlendAmount = 0.0f;
-                runAnimAssoc->m_Speed = 1.0f;
-            }
-            runAnimAssoc->m_Flags |= ANIMATION_IS_PLAYING;
-            runAnimAssoc->m_BlendDelta = 0.0f;
-            runAnimAssoc->m_BlendAmount = 3.0f - m_fMoveRatio;
-            if (!sprintAnimAssoc) {
-                sprintAnimAssoc = CAnimManager::AddAnimation(ped->GetRpClump(), ped->m_nAnimGroup, ANIM_ID_SPRINT);
-                sprintAnimAssoc->m_BlendAmount = 0.0f;
-                sprintAnimAssoc->m_Speed = 1.0f;
-            }
-            sprintAnimAssoc->m_Flags |= ANIMATION_IS_PLAYING;
-            sprintAnimAssoc->m_BlendDelta = 0.0f;
-            moveState = PEDMOVE_SPRINT;
-            sprintAnimAssoc->m_BlendAmount = m_fMoveRatio - 2.0f;
-        } else {
-            if (!walkAnimAssoc) {
-                walkAnimAssoc = CAnimManager::AddAnimation(ped->GetRpClump(), ped->m_nAnimGroup, ANIM_ID_WALK);
-                walkAnimAssoc->m_BlendAmount = 0.0f;
-                walkAnimAssoc->m_Speed = 1.0f;
-            }
-            walkAnimAssoc->m_Flags |= ANIMATION_IS_PLAYING;
-            walkAnimAssoc->m_BlendDelta = 0.0f;
-            walkAnimAssoc->m_BlendAmount = 2.0f - m_fMoveRatio;
-            if (!runAnimAssoc) {
-                runAnimAssoc = CAnimManager::AddAnimation(ped->GetRpClump(), ped->m_nAnimGroup, ANIM_ID_RUN);
-                runAnimAssoc->m_BlendAmount = 0.0f;
-                runAnimAssoc->m_Speed = 1.0f;
-            }
-            runAnimAssoc->m_Flags |= ANIMATION_IS_PLAYING;
-            runAnimAssoc->m_BlendDelta = 0.0f;
-            runAnimAssoc->m_BlendAmount = m_fMoveRatio - 1.0f;
-            delete sprintAnimAssoc;
-            moveState = PEDMOVE_RUN;
-        }
-    } else {
+    // Como el original: las comparaciones son "<= 1", "<= 2" y "<= 3" (con NaN se sale sin tocar el estado)
+    eMoveState moveState;
+    if (m_fMoveRatio <= 1.0f) {
         if (!walkAnimAssoc) {
             walkAnimAssoc = CAnimManager::AddAnimation(ped->GetRpClump(), ped->m_nAnimGroup, ANIM_ID_WALK);
             walkAnimAssoc->m_BlendAmount = 0.0f;
@@ -188,6 +146,47 @@ void CTaskSimpleGoToPointFine::SetBlendedMoveAnim(CPed* ped) {
         walkAnimAssoc->m_BlendDelta = 0.0f;
         delete runAnimAssoc;
         delete sprintAnimAssoc;
+        moveState = PEDMOVE_WALK;
+    } else if (m_fMoveRatio <= 2.0f) {
+        if (!walkAnimAssoc) {
+            walkAnimAssoc = CAnimManager::AddAnimation(ped->GetRpClump(), ped->m_nAnimGroup, ANIM_ID_WALK);
+            walkAnimAssoc->m_BlendAmount = 0.0f;
+            walkAnimAssoc->m_Speed = 1.0f;
+        }
+        walkAnimAssoc->m_Flags |= ANIMATION_IS_PLAYING;
+        walkAnimAssoc->m_BlendDelta = 0.0f;
+        walkAnimAssoc->m_BlendAmount = 2.0f - m_fMoveRatio;
+        if (!runAnimAssoc) {
+            runAnimAssoc = CAnimManager::AddAnimation(ped->GetRpClump(), ped->m_nAnimGroup, ANIM_ID_RUN);
+            runAnimAssoc->m_BlendAmount = 0.0f;
+            runAnimAssoc->m_Speed = 1.0f;
+        }
+        runAnimAssoc->m_Flags |= ANIMATION_IS_PLAYING;
+        runAnimAssoc->m_BlendDelta = 0.0f;
+        runAnimAssoc->m_BlendAmount = m_fMoveRatio - 1.0f;
+        delete sprintAnimAssoc;
+        moveState = PEDMOVE_RUN;
+    } else if (m_fMoveRatio <= 3.0f) {
+        delete walkAnimAssoc;
+        if (!runAnimAssoc) {
+            runAnimAssoc = CAnimManager::AddAnimation(ped->GetRpClump(), ped->m_nAnimGroup, ANIM_ID_RUN);
+            runAnimAssoc->m_BlendAmount = 0.0f;
+            runAnimAssoc->m_Speed = 1.0f;
+        }
+        runAnimAssoc->m_Flags |= ANIMATION_IS_PLAYING;
+        runAnimAssoc->m_BlendDelta = 0.0f;
+        runAnimAssoc->m_BlendAmount = 3.0f - m_fMoveRatio;
+        if (!sprintAnimAssoc) {
+            sprintAnimAssoc = CAnimManager::AddAnimation(ped->GetRpClump(), ped->m_nAnimGroup, ANIM_ID_SPRINT);
+            sprintAnimAssoc->m_BlendAmount = 0.0f;
+            sprintAnimAssoc->m_Speed = 1.0f;
+        }
+        sprintAnimAssoc->m_Flags |= ANIMATION_IS_PLAYING;
+        sprintAnimAssoc->m_BlendDelta = 0.0f;
+        sprintAnimAssoc->m_BlendAmount = m_fMoveRatio - 2.0f;
+        moveState = PEDMOVE_SPRINT;
+    } else {
+        return;
     }
     ped->SetMoveState(moveState);
     ped->m_nSwimmingMoveState = moveState;

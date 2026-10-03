@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -36,10 +36,13 @@ void CTaskSimpleIKManager::InjectHooks() {
 
 // For 0x639350
 CTaskSimpleIKManager::CTaskSimpleIKManager(const CTaskSimpleIKManager& o) :
-    CTaskSimpleIKManager{}
+    CTaskSimpleIKManager()
 {
-    for (auto&& [slot, t] : rngv::enumerate(o.m_IKChainTasks)) {
-        m_IKChainTasks[slot] = notsa::cast<CTaskSimpleIKChain>(t->Clone());
+    // Como el original: solo se clonan los huecos ocupados (AddIKChainTask en linea con el mismo hueco)
+    for (size_t slot = 0; slot < m_IKChainTasks.size(); slot++) {
+        if (const auto t = o.m_IKChainTasks[slot]) {
+            m_IKChainTasks[slot] = static_cast<CTaskSimpleIKChain*>(t->Clone());
+        }
     }
 }
 
@@ -52,14 +55,13 @@ CTaskSimpleIKManager::~CTaskSimpleIKManager() {
 
 // 0x633940
 void CTaskSimpleIKManager::AddIKChainTask(CTaskSimpleIKChain* task, eIKChainSlot slot) {
-    if (slot == eIKChainSlot::UNKNOWN) { // Find free slot, and store `task` there.
+    if ((int32)slot < 0) { // Find free slot, and store `task` there. (Como el original: cualquier hueco negativo)
         const auto it = rng::find(m_IKChainTasks, nullptr);
         if (it != m_IKChainTasks.end()) {
             *it = task;
         }
-    } else { // Store `task` in the given `slot`
-        assert(!m_IKChainTasks[(size_t)slot]); // Otherwise memory leak
-        m_IKChainTasks[(size_t)slot] = task;
+    } else { // Store `task` in the given `slot` (Como el original: sobrescribe sin comprobar)
+        m_IKChainTasks.data()[(size_t)slot] = task;
     }
 }
 

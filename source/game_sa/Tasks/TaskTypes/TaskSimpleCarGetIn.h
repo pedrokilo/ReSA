@@ -15,8 +15,8 @@ class NOTSA_EXPORT_VTABLE CTaskSimpleCarGetIn : public CTaskSimple {
 public:
     bool m_finished{};                            ///< Has the anim finished (=> meaning task has finished)
     CAnimBlendAssociation* m_anim{};              ///< The animation playing
-    int32 m_unk{};                                ///< Unused
-    int32 m_unk2{};                               ///< Unused
+    int32 m_unk;                                  ///< Unused (Como el original: el constructor no lo escribe)
+    int32 m_unk2;                                 ///< Unused (Como el original: el constructor no lo escribe)
     CVehicle* m_veh{};                            ///< The vehicle we're getting into
     uint32 m_door{};                              ///< The door we want to enter at
     CTaskUtilityLineUpPedWithCar* m_lineUpTask{}; ///< Utility lineup task

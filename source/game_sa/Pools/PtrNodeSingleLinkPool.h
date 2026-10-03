@@ -49,4 +49,10 @@ public:
     CPtrNodeSingleLink<void*>* New() {
         return NewLegacy();
     }
+
+    // 0x552390
+    // Como el original: marca el slot libre y baja m_nFirstFree si procede, sin rellenar el nodo con 0xDD.
+    void Delete(CPtrNodeSingleLink<void*>* node) {
+        DeleteLegacy(node);
+    }
 };

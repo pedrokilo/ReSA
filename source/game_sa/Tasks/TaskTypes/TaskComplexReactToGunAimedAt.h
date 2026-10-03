@@ -10,7 +10,7 @@ class CPed;
 class NOTSA_EXPORT_VTABLE CTaskComplexReactToGunAimedAt : public CTaskComplex {
 public:
     CPed* m_aimedBy{};               /// The ped that is aiming the gun at us
-    CTaskTimer m_wanderBeginTimer{}; /// Started once the `ComplexWander` subtask has been created, it's interval is 10'000
+    CTaskTimer m_wanderBeginTimer;   /// Como el original: sin {} (el relleno 0x1A..0x1B no se escribe); Started once the `ComplexWander` subtask has been created, it's interval is 10'000
 
 public:
     static void InjectHooks();

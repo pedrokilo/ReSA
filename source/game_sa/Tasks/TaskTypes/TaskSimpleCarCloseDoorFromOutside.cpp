@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/10 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -59,7 +59,7 @@ CTaskSimpleCarCloseDoorFromOutside::CTaskSimpleCarCloseDoorFromOutside(const CTa
 CTaskSimpleCarCloseDoorFromOutside::~CTaskSimpleCarCloseDoorFromOutside() {
     CEntity::SafeCleanUpRef(m_veh);
     if (m_anim) {
-        m_anim->SetDeleteCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+        m_anim->SetFinishCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr); // Como el original: callback de fin, no de borrado
     }
 }
 
@@ -73,15 +73,13 @@ void CTaskSimpleCarCloseDoorFromOutside::FinishAnimCarCloseDoorFromOutsideCB(CAn
 
 // 0x646600
 void CTaskSimpleCarCloseDoorFromOutside::ComputeAnimID(AssocGroupId& outGroup, AnimationId& outAnimId) {
-    outAnimId = [this] {
-        switch (m_door) {
-        case 8u:  return ANIM_ID_CAR_CLOSE_RHS_0;
-        case 9u:  return ANIM_ID_CAR_CLOSE_RHS_1;
-        case 10u: return ANIM_ID_CAR_CLOSE_LHS_0;
-        case 11u: return ANIM_ID_CAR_CLOSE_LHS_1;
-        default:  NOTSA_UNREACHABLE();
-        }
-    }();
+    // Como el original: con otra puerta no se escribe la animación y se usa el valor que ya tenga
+    switch (m_door) {
+    case 8u:  outAnimId = ANIM_ID_CAR_CLOSE_RHS_0; break;
+    case 9u:  outAnimId = ANIM_ID_CAR_CLOSE_RHS_1; break;
+    case 10u: outAnimId = ANIM_ID_CAR_CLOSE_LHS_0; break;
+    case 11u: outAnimId = ANIM_ID_CAR_CLOSE_LHS_1; break;
+    }
     outGroup = m_veh->GetAnimGroup().GetGroup(outAnimId);
 }
 
@@ -95,12 +93,11 @@ auto CTaskSimpleCarCloseDoorFromOutside::ComputeAnimID_Helper() -> std::tuple<As
 
 // 0x64B080
 void CTaskSimpleCarCloseDoorFromOutside::StartAnim(CPed const* ped) {
-    const auto& pedPos = ped->GetPosition();
+    // Como el original: FindZCoorForPed (0x616920) corrige la copia de la posición en el sitio
+    const auto pedAdjustedPos = CPedPlacement::FindZCoorForPed(ped->GetPosition()).first;
 
-    auto pedAdjustedPos{pedPos};
-    CPedPlacement::FindZCoorForPed(pedAdjustedPos);
-    
-    if (pedPos.z - 1.f >= pedAdjustedPos.z) {
+    // Como el original: solo termina si está estrictamente más de 1 m por encima del suelo
+    if (ped->GetPosition().z - 1.f > pedAdjustedPos.z) {
         m_animHasFinished = true;
         return;
     }
@@ -109,35 +106,40 @@ void CTaskSimpleCarCloseDoorFromOutside::StartAnim(CPed const* ped) {
     m_veh->m_vecMoveSpeed += CVector{ 0.001f, 0.001f, 0.001f };
     m_veh->m_vecTurnSpeed += CVector{ 0.001f, 0.001f, 0.001f };
 
+    const auto ShouldAbort = [this, ped] {
+        if (!ped->IsPlayer()) {
+            return false;
+        }
+        const auto pad = static_cast<const CPlayerPed*>(ped)->GetPadFromPlayer();
 
-    if ([this, ped] {
-        if (ped->IsPlayer()) {
-            const auto player = static_cast<const CPlayerPed*>(ped);
-            const auto pad    = player->GetPadFromPlayer();
+        // Como el original: el estado del motor (solo automóviles) se consulta antes que el mando
+        const bool engineDamaged = m_veh->IsAutomobile() && m_veh->AsAutomobile()->m_damageManager.GetEngineStatus() >= 225;
 
-            if (!pad->DisablePlayerControls && m_veh->m_nDoorLock != CARLOCK_FORCE_SHUT_DOORS) {
-                if (   pad->GetTarget()
-                    || pad->GetLeftStickX() || pad->GetLeftStickY()
-                    || pad->NewState.DPadUp || pad->NewState.DPadDown
-                    || pad->NewState.DPadLeft || pad->NewState.DPadRight
-                ) {
-                    return true;
-                }
-            }
-
-            if (m_veh->m_pFire || m_veh->IsAutomobile() && m_veh->AsAutomobile()->m_damageManager.GetEngineStatus() >= 225) {
+        if (!pad->DisablePlayerControls && m_veh->m_nDoorLock != CARLOCK_FORCE_SHUT_DOORS) {
+            if (   pad->GetTarget()
+                || pad->GetLeftStickX() || pad->GetLeftStickY()
+                || pad->NewState.DPadUp || pad->NewState.DPadDown
+                || pad->NewState.DPadLeft || pad->NewState.DPadRight
+            ) {
                 return true;
             }
         }
-        return false;
-    }()) {
+        return m_veh->m_pFire || engineDamaged;
+    };
+
+    if (ShouldAbort()) {
         if (m_veh->IsAutomobile()) {
-            m_veh->AsAutomobile()->m_damageManager.SetDoorOpen((eDoors)m_door);
+            // Como el original: abre la puerta por componente (cerrada -> abierta, dañada -> abierta y dañada), pidiendo el estado 2 o 3 veces
+            auto& dm = m_veh->AsAutomobile()->m_damageManager;
+            const auto comp = (tComponent)m_door;
+            if (dm.GetDoorStatus_Component(comp) == DAMSTATE_OK || dm.GetDoorStatus_Component(comp) == DAMSTATE_DAMAGED) {
+                dm.SetDoorStatus_Component(comp, (eDoorStatus)(dm.GetDoorStatus_Component(comp) + 1));
+            }
         }
         m_animHasFinished = true;
     } else {
         const auto [grpId, animId] = ComputeAnimID_Helper();
-        m_anim = CAnimManager::BlendAnimation(ped->GetRpClump(), grpId, animId, 1000.f);
+        m_anim = CAnimManager::AddAnimation(ped->GetRpClump(), grpId, animId); // Como el original: AddAnimation, sin mezcla
         m_anim->SetFinishCallback(FinishAnimCarCloseDoorFromOutsideCB, this);
     }
 }
@@ -146,7 +148,7 @@ void CTaskSimpleCarCloseDoorFromOutside::StartAnim(CPed const* ped) {
 void CTaskSimpleCarCloseDoorFromOutside::ProcessDoorOpen(CPed const* ped) {
     const auto [grpId, animId] = ComputeAnimID_Helper();
     m_veh->ProcessOpenDoor(
-        nullptr,
+        const_cast<CPed*>(ped), // Como el original: se pasa el peatón
         m_door,
         grpId,
         animId,

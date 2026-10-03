@@ -11,9 +11,10 @@ class CEntity;
 class NOTSA_EXPORT_VTABLE CTaskComplexGangLeader : public CTaskComplex {
 public:
     CPedGroup* m_gang{};
-    CTaskTimer m_wanderTimer{};
-    CTaskTimer m_scanTimer{};
-    CTaskTimer m_exhaleTimer{};     // Creates exahle FX when smoking cigs
+    // Como el original: sin {} (el constructor no pone a cero el relleno de los temporizadores)
+    CTaskTimer m_wanderTimer;
+    CTaskTimer m_scanTimer;
+    CTaskTimer m_exhaleTimer;     // Creates exahle FX when smoking cigs
     bool       m_animsReferenced{};
 
 public:
@@ -29,7 +30,7 @@ public:
     static auto ShouldLoadGangAnims() -> bool;
     static auto DoGangAbuseSpeech(CPed* talker, CPed* sayTo) -> void;
 
-    CPed* TryToPassObject(CPed* ped, CPedGroup* group);
+    static CPed* TryToPassObject(CPed* ped, CPedGroup* group); // Como el original: cdecl (0x65EA50)
     void  UnrefAnimBlock(); // NOTSA
 
     CTask*    Clone() const override { return new CTaskComplexGangLeader{ *this }; }

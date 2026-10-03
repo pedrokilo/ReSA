@@ -1,0 +1,101 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 10240,
+  "pairs_per_function": {
+    "CAESoundManager::AreSoundsOfThisEventPlayingForThisEntity": 512,
+    "CAESoundManager::AreSoundsOfThisEventPlayingForThisEntityAndPhysical": 512,
+    "CAESoundManager::AreSoundsPlayingInBankSlot": 512,
+    "CAESoundManager::CancelSoundsInBankSlot": 512,
+    "CAESoundManager::CancelSoundsOfThisEventPlayingForThisEntity": 512,
+    "CAESoundManager::CancelSoundsOfThisEventPlayingForThisEntityAndPhysical": 512,
+    "CAESoundManager::CancelSoundsOwnedByAudioEntity": 512,
+    "CAESoundManager::GetVirtualChannelForPhysicalChannel": 1024,
+    "CAESoundManager::Initialise": 256,
+    "CAESoundManager::PauseManually": 128,
+    "CAESoundManager::RequestNewSound": 512,
+    "CAESoundManager::Reset": 256,
+    "CAESoundManager::Service": 1024,
+    "CAESoundManager::Terminate": 128,
+    "CAEStreamThread::GetActiveTrackID": 64,
+    "CAEStreamThread::GetPlayingTrackID": 64,
+    "CAEStreamThread::GetTrackLengthMs": 64,
+    "CAEStreamThread::GetTrackPlayTime": 256,
+    "CAEStreamThread::Initialise": 256,
+    "CAEStreamThread::MainLoop": 512,
+    "CAEStreamThread::Pause": 64,
+    "CAEStreamThread::PlayTrack": 512,
+    "CAEStreamThread::Resume": 64,
+    "CAEStreamThread::Service": 1024,
+    "CAEStreamThread::Start": 64,
+    "CAEStreamThread::Stop": 256,
+    "CAEStreamThread::StopTrack": 64,
+    "CAEStreamThread::WaitForExit": 64
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "e69f2d41ba5d5b6313d1443753e89de5de6c7716e6135fd1e265ff8431f543a8",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio14\\20261003-103948-402870",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CAESoundManager::AreSoundsOfThisEventPlayingForThisEntity": true,
+    "CAESoundManager::AreSoundsOfThisEventPlayingForThisEntityAndPhysical": true,
+    "CAESoundManager::AreSoundsPlayingInBankSlot": true,
+    "CAESoundManager::CancelSoundsInBankSlot": true,
+    "CAESoundManager::CancelSoundsOfThisEventPlayingForThisEntity": true,
+    "CAESoundManager::CancelSoundsOfThisEventPlayingForThisEntityAndPhysical": true,
+    "CAESoundManager::CancelSoundsOwnedByAudioEntity": true,
+    "CAESoundManager::GetVirtualChannelForPhysicalChannel": true,
+    "CAESoundManager::Initialise": true,
+    "CAESoundManager::PauseManually": true,
+    "CAESoundManager::RequestNewSound": true,
+    "CAESoundManager::Reset": true,
+    "CAESoundManager::Service": true,
+    "CAESoundManager::Terminate": true,
+    "CAEStreamThread::GetActiveTrackID": true,
+    "CAEStreamThread::GetPlayingTrackID": true,
+    "CAEStreamThread::GetTrackLengthMs": true,
+    "CAEStreamThread::GetTrackPlayTime": true,
+    "CAEStreamThread::Initialise": true,
+    "CAEStreamThread::MainLoop": true,
+    "CAEStreamThread::Pause": true,
+    "CAEStreamThread::PlayTrack": true,
+    "CAEStreamThread::Resume": true,
+    "CAEStreamThread::Service": true,
+    "CAEStreamThread::Start": true,
+    "CAEStreamThread::Stop": true,
+    "CAEStreamThread::StopTrack": true,
+    "CAEStreamThread::WaitForExit": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "520dcb760a217fefa96b1f20db5d6f4ab909e3506bfa387d021d22cabca40b76",
+      "pdb": "e976ae2961e94847a21626412612bc6ead1be53b89beb600d554c61be0b6d84c"
+    },
+    "sources": {
+      "source/game_sa/Audio/Managers/AESoundManager.cpp": "fa25720da27741916e32d4e0eb3bb08898efb990076f9c637e7ae17eb7e69c4b",
+      "source/game_sa/Audio/Managers/AESoundManager.h": "b2403444aef581c21788c4da2bfed2f2b97e81c3f673f7aac1105b7cd2ede3a4",
+      "source/game_sa/Audio/AEStreamThread.cpp": "d472f3e2d16256c02b82cf34d3a6979db9c32ecaee84de1bc70f1b3507d4ccdd",
+      "source/game_sa/Audio/AEStreamThread.h": "a76b8c796a5039b294f0bc94c998a03e18cbd66deee0d3ae170e48bd76c5948b"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "70e246b6f7c624f2a51172499aaaa8a7a1d7b73c5d7ae1f6cf8681f524e18efb",
+      "build_probe.py": "596d76d21cdd843076b4386baaf557ff0461761915d57949948fed840d7f8ab7",
+      "run_local.py": "16453a7b0e27cdfa8ecbab55c1eeab928dc64d39c5c87f43c45cc441f64ecf35"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -58,7 +58,8 @@ CTaskComplexFleeAnyMeans::CTaskComplexFleeAnyMeans(
     m_shootRecoverTime{shootRecoverTime},
     m_shootTime{shootTime}
 {
-    /* Fleed entity is registered in SmartFlee already */
+    // Como el original: la entidad se registra otra vez (ya la registra SmartFlee; el segundo registro no hace nada)
+    CEntity::SafeRegisterRef(m_fleeFrom);
 }
 
 CTaskComplexFleeAnyMeans::CTaskComplexFleeAnyMeans(const CTaskComplexFleeAnyMeans& o) :
@@ -78,10 +79,11 @@ CTaskComplexFleeAnyMeans::CTaskComplexFleeAnyMeans(const CTaskComplexFleeAnyMean
 
 // 0x65CD10
 CTaskComplexFleeAnyMeans::~CTaskComplexFleeAnyMeans() {
+    // Como el original: la entidad se limpia aquí y otra vez en el destructor de SmartFlee
+    CEntity::SafeCleanUpRef(m_fleeFrom);
 #ifdef FIX_BUGS
     CEntity::SafeCleanUpRef(m_stealVeh);
 #endif
-    /* Fleed entity is claned up in SmartFlee already */
 }
 
 // 0x65D2E0
@@ -101,7 +103,7 @@ CTask* CTaskComplexFleeAnyMeans::CreateSubTask(eTaskType taskType, CPed* ped) {
     case TASK_COMPLEX_WANDER:
         return new CTaskComplexWanderFlee{
             PEDMOVE_SPRINT,
-            CGeneral::RandomNodeHeading()
+            (uint8)CGeneral::GetRandomIntInRange(0, 8) // Como el original: 0x407180 con 1/32768
         };
     case TASK_COMPLEX_STEAL_CAR:
         return new CTaskComplexStealCar{ m_stealVeh };
@@ -122,10 +124,8 @@ CTask* CTaskComplexFleeAnyMeans::CreateSubTask(eTaskType taskType, CPed* ped) {
             m_stealVeh->GetModelInfo()->GetColModel()->GetBoundRadius() + 0.35f,
             4.f
         };
-    case TASK_FINISHED:
+    default: // Como el original: TASK_FINISHED y cualquier otro tipo devuelven nullptr
         return nullptr;
-    default:
-        NOTSA_UNREACHABLE();
     }
 }
 
@@ -133,8 +133,12 @@ CTask* CTaskComplexFleeAnyMeans::CreateSubTask(eTaskType taskType, CPed* ped) {
 CTask* CTaskComplexFleeAnyMeans::CreateNextSubTask(CPed* ped) {
     switch (m_pSubTask->GetTaskType()) {
     case TASK_COMPLEX_STEAL_CAR: {
+        // Como el original: m_stealVeh se pone a nulo después de crear la tarea (sin limpiar la referencia)
+        const auto task = ped->IsInVehicle()
+            ? CreateSubTask(TASK_COMPLEX_CAR_DRIVE_MISSION, ped)
+            : CreateFirstSubTask(ped);
         m_stealVeh = nullptr;
-        [[fallthrough]];
+        return task;
     }
     case TASK_COMPLEX_CAR_DRIVE_MISSION:
         return ped->IsInVehicle()
@@ -147,8 +151,8 @@ CTask* CTaskComplexFleeAnyMeans::CreateNextSubTask(CPed* ped) {
     case TASK_COMPLEX_WANDER:
     case TASK_COMPLEX_FLEE_SHOOTING:
         return CreateSubTask(TASK_FINISHED, ped);
-    default:
-        NOTSA_UNREACHABLE();
+    default: // Como el original: una subtarea desconocida devuelve nullptr
+        return nullptr;
     }
 }
 
@@ -171,32 +175,38 @@ CTask* CTaskComplexFleeAnyMeans::ControlSubTask(CPed* ped) {
             : m_pSubTask;
     }
 
-    // Moved here from below
-    switch (m_pSubTask->GetTaskType()) {
-    case TASK_COMPLEX_FLEE_SHOOTING:
-    case TASK_COMPLEX_WANDER:
-        break;
-    default:
-        return m_pSubTask;
-    }
-
-    // Now, try stealing a car
-    
-    // Check if there's anything nearby
+    // Como el original: primero se busca el vehículo más cercano y después se mira el tipo de la subtarea (dos llamadas)
     const auto closestVeh = ped->GetIntelligence()->GetVehicleScanner().GetClosestVehicleInRange();
     if (!closestVeh) {
         return m_pSubTask;
     }
-
-    const auto& pedPos = ped->GetPosition();
-
-    // Check if we're far enough from the entity we're fleeing from to enter a car
-    if (sq(m_minDistFromFleeEntityToStealCar) >= (pedPos - m_fleeFrom->GetPosition()).SquaredMagnitude()) {
+    if (m_pSubTask->GetTaskType() != TASK_COMPLEX_FLEE_SHOOTING && m_pSubTask->GetTaskType() != TASK_COMPLEX_WANDER) {
         return m_pSubTask;
     }
 
+    // Check if we're far enough from the entity we're fleeing from to enter a car
+    // Como el original: (z*z + y*y) + x*x y solo se sigue si la distancia es estrictamente mayor (NaN no sigue)
+    {
+        const CVector d = ped->GetPosition() - m_fleeFrom->GetPosition();
+        const float distSq = d.z * d.z + d.y * d.y + d.x * d.x;
+        if (!(m_minDistFromFleeEntityToStealCar * m_minDistFromFleeEntityToStealCar < distSq)) {
+            return m_pSubTask;
+        }
+    }
+
     // Check if vehicle is in front of the ped ([-90, 90] deg)
-    if (const auto pedToVeh = closestVeh->GetPosition() - pedPos; 0.f >= pedToVeh.Normalized().Dot(ped->GetForward())) {
+    // Como el original: CVector::Normalise (0x59C910), producto (z + y) + x con el forward de la matriz; NaN no sigue
+    {
+        CVector pedToVeh = closestVeh->GetPosition() - ped->GetPosition();
+        pedToVeh.Normalise();
+        const auto& fwd = ped->GetForward();
+        if (!(pedToVeh.z * fwd.z + pedToVeh.y * fwd.y + pedToVeh.x * fwd.x > 0.f)) {
+            return m_pSubTask;
+        }
+    }
+
+    // Como el original: el vehículo tiene que poder robarse
+    if (!CCarEnterExit::IsVehicleStealable(closestVeh, ped)) {
         return m_pSubTask;
     }
 
@@ -204,28 +214,32 @@ CTask* CTaskComplexFleeAnyMeans::ControlSubTask(CPed* ped) {
     CEntity::ChangeEntityReference(m_stealVeh, closestVeh);
 
     // Add `VehicleDamageWeapon` all occupants of the stolen vehicle (if we're attacking)
+    eTaskType taskType;
     if (m_shootWhileFleeing) {
+        taskType = TASK_COMPLEX_GO_TO_POINT_SHOOTING;
         const auto AddEventForVehicleOccupant = [&](CPed* occupant) {
             if (occupant && !occupant->IsPlayer()) {
-                occupant->GetIntelligence()->m_eventGroup.Add(
-                    CEventVehicleDamageWeapon{ closestVeh, ped, WEAPON_PISTOL }
-                );
+                // Como el original: la respuesta del evento se fija a TASK_COMPLEX_LEAVE_CAR_AND_FLEE
+                CEventVehicleDamageWeapon event{ m_stealVeh, ped, WEAPON_PISTOL };
+                event.m_TaskId = TASK_COMPLEX_LEAVE_CAR_AND_FLEE;
+                occupant->GetIntelligence()->m_eventGroup.Add(&event, false);
             }
         };
-        AddEventForVehicleOccupant(closestVeh->m_pDriver);
-        rng::for_each(closestVeh->GetPassengers(), AddEventForVehicleOccupant);
-    } else if (!closestVeh->CanPedStepOutCar()) {
-        return m_pSubTask;
+        AddEventForVehicleOccupant(m_stealVeh->m_pDriver);
+        // Como el original: se recorre hasta m_nMaxPassengers (releído en cada vuelta)
+        for (int32 i = 0; i < (int32)m_stealVeh->m_nMaxPassengers; i++) {
+            AddEventForVehicleOccupant(m_stealVeh->m_apPassengers.data()[i]);
+        }
+    } else {
+        if (!closestVeh->CanPedStepOutCar(false)) {
+            return m_pSubTask;
+        }
+        taskType = TASK_COMPLEX_STEAL_CAR;
     }
 
     // Finally, try aborting the current task (`COMPLEX_FLEE_SHOOTING` or `COMPLEX_WANDER`)
     if (m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr)) {
-        return CreateSubTask(
-            m_shootWhileFleeing
-                ? TASK_COMPLEX_GO_TO_POINT_SHOOTING
-                : TASK_COMPLEX_STEAL_CAR,
-            ped
-        );
+        return CreateSubTask(taskType, ped);
     }
 
     return m_pSubTask;

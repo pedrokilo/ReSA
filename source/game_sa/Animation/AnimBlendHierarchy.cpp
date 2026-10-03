@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 16/16 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/16 entradas.
+ * Validación registrada: 16/16 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -48,6 +48,7 @@ void CAnimBlendHierarchy::InjectHooks() {
 // 0x4CF270
 // Inicializa una jerarquía sin secuencias ni bloque de animación asociado.
 CAnimBlendHierarchy::CAnimBlendHierarchy() {
+    // Como el original: m_hashKey queda sin escribir.
     m_pSequences = nullptr;
     m_nSeqCount = 0;
     m_bIsCompressed = false;
@@ -55,7 +56,6 @@ CAnimBlendHierarchy::CAnimBlendHierarchy() {
     m_nAnimBlockId = -1;
     m_fTotalTime = 0.0f;
     m_Link = nullptr;
-    m_hashKey = 0; // NOTSA
 }
 
 // 0x4CF970
@@ -94,27 +94,25 @@ void CAnimBlendHierarchy::RemoveAnimSequences() {
 // 0x4CF510
 // Reserva un bloque contiguo capaz de almacenar todas las secuencias en el formato elegido.
 uint8* CAnimBlendHierarchy::AllocSequenceBlock(bool compressed) const {
+    // Como el original: contador con signo (movsx).
     size_t size = 0;
-    for (auto& sequence : GetSequences()) {
-        size += sequence.GetDataSize(compressed);
+    for (int32 i = 0; i < static_cast<int16>(m_nSeqCount); i++) {
+        size += m_pSequences[i].GetDataSize(compressed);
     }
-    return static_cast<uint8*>(CMemoryMgr::Malloc(size));
+    return static_cast<uint8*>(CMemoryMgr::Malloc(size, 0));
 }
 
 // 0x4CF290
 // Busca una secuencia por hash uppercase de nombre; devuelve nullptr si no existe.
 CAnimBlendSequence* CAnimBlendHierarchy::FindSequence(const char* name) const {
-    if (!m_nSeqCount) {
-        return nullptr;
-    }
-
+    // Como el original: calcula el hash antes de mirar el contador (con signo) y compara la palabra
+    // identificadora completa sin mirar si la secuencia usa bone tag.
     const auto hash = CKeyGen::GetUppercaseKey(name);
-    for (auto& seq : GetSequences()) {
-        if (seq.GetNameHashKey() == hash) {
-            return &seq;
+    for (int32 i = 0; i < static_cast<int16>(m_nSeqCount); i++) {
+        if (*reinterpret_cast<const uint32*>(&m_pSequences[i]) == hash) {
+            return &m_pSequences[i];
         }
     }
-
     return nullptr;
 }
 
@@ -123,10 +121,58 @@ void CAnimBlendHierarchy::SetName(const char* name) {
     m_hashKey = CKeyGen::GetUppercaseKey(name);
 }
 
+// 0x4CF2F0
+void CAnimBlendHierarchy::CalcTotalTime() {
+    // Como el original: contadores con signo, paso según el bit de traslación (sin mirar el de compresión),
+    // máximo con "dt > total" y deltas restados del último al segundo keyframe.
+    m_fTotalTime = 0.0f;
+    for (int32 i = 0; i < static_cast<int16>(m_nSeqCount); i++) {
+        auto& seq = m_pSequences[i];
+        if (seq.m_FramesNum == 0) { // FIX_BUGS by Mitchell Tobass (el EXE lee el keyframe -1)
+            continue;
+        }
+        const int32 numFrames = static_cast<int16>(seq.m_FramesNum);
+        const int32 stride    = seq.m_bHasTranslation ? 32 : 20;
+        auto* const frames    = static_cast<uint8*>(seq.m_Frames);
+        const float last      = *reinterpret_cast<const float*>(frames + (numFrames - 1) * stride + 16);
+        if (last > m_fTotalTime) {
+            m_fTotalTime = last;
+        }
+        for (int32 j = numFrames - 1; j >= 1; j--) {
+            auto& dt = *reinterpret_cast<float*>(frames + j * stride + 16);
+            dt = dt - *reinterpret_cast<const float*>(frames + (j - 1) * stride + 16);
+        }
+    }
+}
+
+// 0x4CF3E0
+void CAnimBlendHierarchy::CalcTotalTimeCompressed() {
+    // Como el original: el tiempo del último keyframe es int16 ·0x3C888889 (1/60 del EXE) y los deltas se restan
+    // en enteros de 16 bits (antes se convertían a float y se volvían a redondear con +0,5).
+    m_fTotalTime = 0.0f;
+    for (int32 i = 0; i < static_cast<int16>(m_nSeqCount); i++) {
+        auto& seq = m_pSequences[i];
+        if (seq.m_FramesNum == 0) { // FIX_BUGS by Mitchell Tobass (el EXE lee el keyframe -1)
+            continue;
+        }
+        const int32 numFrames = static_cast<int16>(seq.m_FramesNum);
+        const int32 stride    = seq.m_bHasTranslation ? 16 : 10;
+        auto* const frames    = static_cast<uint8*>(seq.m_Frames);
+        const float last      = static_cast<float>(*reinterpret_cast<const int16*>(frames + (numFrames - 1) * stride + 8)) * std::bit_cast<float>(0x3C888889u);
+        if (last > m_fTotalTime) {
+            m_fTotalTime = last;
+        }
+        for (int32 j = numFrames - 1; j >= 1; j--) {
+            auto& dt = *reinterpret_cast<int16*>(frames + j * stride + 8);
+            dt = static_cast<int16>(dt - *reinterpret_cast<const int16*>(frames + (j - 1) * stride + 8));
+        }
+    }
+}
+
 // 0x4CF4E0
 void CAnimBlendHierarchy::RemoveQuaternionFlips() const {
-    for (auto& sequence : GetSequences()) {
-        sequence.RemoveQuaternionFlips();
+    for (int32 i = 0; i < static_cast<int16>(m_nSeqCount); i++) {
+        m_pSequences[i].RemoveQuaternionFlips();
     }
 }
 
@@ -143,18 +189,15 @@ void* CAnimBlendHierarchy::GetSequenceBlock() const {
  * La primera expansión también normaliza quaternions y calcula la duración total.
  */
 void CAnimBlendHierarchy::Uncompress() {
-    assert(m_nSeqCount > 0);
-    assert(m_bIsCompressed);
-
-    //NOTSA_LOG_TRACE("Uncompress(this={:#x})", LOG_PTR(this));
-
+    // Como el original: sin asserts; reserva el bloque nuevo antes de leer el antiguo y recorre con contador
+    // con signo.
+    auto uSeqData = AllocSequenceBlock(false);
     const auto cSeqData = GetSequenceBlock();
 
     // Now uncompress sequence data
-    auto uSeqData = AllocSequenceBlock(false);
-    for (auto& s : GetSequences()) {
-        s.Uncompress(uSeqData);
-        uSeqData += s.GetDataSize(false);
+    for (int32 i = 0; i < static_cast<int16>(m_nSeqCount); i++) {
+        m_pSequences[i].Uncompress(uSeqData);
+        uSeqData += m_pSequences[i].GetDataSize(false);
     }
 
     // Now we no longer need the old compressed data
@@ -172,17 +215,13 @@ void CAnimBlendHierarchy::Uncompress() {
 // 0x4CF6C0
 // Convierte todas las secuencias a un único bloque comprimido contiguo.
 void CAnimBlendHierarchy::CompressKeyframes() const {
-    assert(!m_bIsCompressed);
-
-    //NOTSA_LOG_TRACE("CompressKeyframes(this={:#x})", LOG_PTR(this));
-
+    auto cSeqData = AllocSequenceBlock(true);
     const auto uSeqData = GetSequenceBlock();
 
     // Compress current data
-    auto cSeqData = AllocSequenceBlock(true);
-    for (auto& sequence : GetSequences()) {
-        sequence.CompressKeyframes(cSeqData);
-        cSeqData += sequence.GetDataSize(true);
+    for (int32 i = 0; i < static_cast<int16>(m_nSeqCount); i++) {
+        m_pSequences[i].CompressKeyframes(cSeqData);
+        cSeqData += m_pSequences[i].GetDataSize(true);
     }
 
     // Now we no longer need the old uncompressed data
@@ -193,26 +232,60 @@ void CAnimBlendHierarchy::CompressKeyframes() const {
 
 // 0x4CF760
 void CAnimBlendHierarchy::RemoveUncompressedData() {
-    assert(m_nSeqCount > 0);
-    assert(!m_bIsCompressed);
+    // Como el original: CompressKeyframes en línea, pero llamando a CAnimBlendSequence::RemoveUncompressedData
+    // (que salta las secuencias sin frames) en vez de a CompressKeyframes; sin asserts.
+    auto cSeqData = AllocSequenceBlock(true);
+    const auto uSeqData = GetSequenceBlock();
 
-    //NOTSA_LOG_TRACE("RemoveUncompressedData(this={:#x})", LOG_PTR(this));
+    for (int32 i = 0; i < static_cast<int16>(m_nSeqCount); i++) {
+        m_pSequences[i].RemoveUncompressedData(cSeqData);
+        cSeqData += m_pSequences[i].GetDataSize(true);
+    }
 
-    CompressKeyframes();
+    if (uSeqData) {
+        CMemoryMgr::Free(uSeqData);
+    }
 
     m_bIsCompressed = true;
 }
 
 // 0x4CF800
-void CAnimBlendHierarchy::MoveMemory() {
-    NOTSA_UNREACHABLE("Unused Function"); //plugin::CallMethod<0x4CF800, CAnimBlendHierarchy*>(this);
+// Como el original (antes no estaba implementada): si el bloque es compartido lo mueve una vez y desplaza el
+// puntero de todas las secuencias; si no, mueve cada secuencia. Devuelve si algo cambió de sitio.
+bool CAnimBlendHierarchy::MoveMemory() {
+    if (!m_pSequences) {
+        return false;
+    }
+
+    bool moved = false;
+    if (m_pSequences->m_bUsingExternalMemory) {
+        auto* const oldData = static_cast<uint8*>(m_pSequences->m_Frames);
+        if (!oldData) {
+            return false;
+        }
+        auto* const newData = static_cast<uint8*>(CMemoryMgr::MoveMemory(oldData));
+        if (newData == oldData) {
+            return false;
+        }
+        for (int32 i = 0; i < static_cast<int16>(m_nSeqCount); i++) {
+            m_pSequences[i].m_Frames = static_cast<uint8*>(m_pSequences[i].m_Frames) + (newData - oldData);
+        }
+        return true;
+    }
+
+    for (int32 i = 0; i < static_cast<int16>(m_nSeqCount); i++) {
+        if (m_pSequences[i].MoveMemory()) {
+            moved = true;
+        }
+    }
+    return moved;
 }
 
 // 0x4CF8A0
 void CAnimBlendHierarchy::Print() {
     CAnimManager::UncompressAnimation(this);
-    for (auto& sequence : GetSequences()) {
-        sequence.Print();
+    for (int32 i = 0; i < static_cast<int16>(m_nSeqCount); i++) {
+        m_pSequences[i].Print();
     }
 }
 

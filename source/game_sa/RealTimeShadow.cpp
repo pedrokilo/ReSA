@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -66,6 +66,9 @@ RwTexture* CRealTimeShadow::GetShadowRwTexture() {
 
 // 0x705990
 void CRealTimeShadow::Destroy() {
+    // Como el original: también destruye las dos cámaras
+    m_camera.Destroy();
+    m_blurCamera.Destroy();
     m_pOwner = nullptr;
     m_nRwObjectType = (uint32)-1;
     if (m_pLight) {
@@ -117,11 +120,12 @@ RwTexture* CRealTimeShadow::Update() {
     switch (m_nRwObjectType) {
     case rpATOMIC:
     case rpCLUMP: {
+        // Como el original: el marco padre del objeto RW se lee igual para átomos y clumps
         RwV3dTransformPoints(
             &m_baseSphere.m_vecCenter,
             &m_boundingSphere.m_vecCenter,
             1,
-            RwFrameGetMatrix(RpClumpGetFrame(m_pOwner->GetRpClump()))
+            RwFrameGetMatrix(static_cast<RwFrame*>(rwObjectGetParent(m_pOwner->GetRwObject())))
         );
         break;
     }

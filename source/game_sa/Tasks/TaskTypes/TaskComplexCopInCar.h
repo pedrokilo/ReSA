@@ -30,7 +30,7 @@ public:
 
 
 
-CTask* Clone() const override { return new CTaskComplexCopInCar{ *this }; }
+CTask* Clone() const override { return new CTaskComplexCopInCar(m_Vehicle, m_Cop, m_Suspect, m_IsDriver); } // Como el original (0x68CEC0): constructor con referencias
 
 
 

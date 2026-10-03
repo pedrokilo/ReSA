@@ -8,7 +8,8 @@ public:
     static inline auto& m_f2DNearScreenZ = StaticRef<float>(0xC4B8D8);
     static inline auto& m_f2DFarScreenZ = StaticRef<float>(0xC4B8D4);
     static inline auto& m_fRecipNearClipPlane = StaticRef<float>(0xC4B8D0);
-    static inline auto& m_bFlushSpriteBufferSwitchZTest = StaticRef<bool>(0xC6A15C);
+    // Como el original: el EXE lo escribe y lo comprueba como dword (no como byte)
+    static inline auto& m_bFlushSpriteBufferSwitchZTest = StaticRef<int32>(0xC6A15C);
 
 public:
     static void InjectHooks();

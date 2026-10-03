@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/10 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -65,11 +65,17 @@ CTaskComplexKillPedOnFootMelee::~CTaskComplexKillPedOnFootMelee() {
     CEntity::SafeCleanUpRef(m_target);
 }
 
+// 0x6210F0
+bool CTaskComplexKillPedOnFootMelee::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
+    return m_pSubTask->MakeAbortable(ped, priority, event);
+}
+
 // 0x621100
 void CTaskComplexKillPedOnFootMelee::CalculateSearchPositionAndRanges(CPed* ped) {
     m_attackRange = 8.f;
     const auto fight = ped->GetIntelligence()->GetTaskFighting();
-    m_arriveRange = CTaskSimpleFight::m_aComboData[fight ? std::max(0, fight->m_nComboSet - 4) : 0].m_fRanges;
+    // Como el original: indice max(0, combo - 4) sin limite superior (.data() evita la asercion de std::array)
+    m_arriveRange = CTaskSimpleFight::m_aComboData.data()[fight ? std::max(0, fight->m_nComboSet - 4) : 0].m_fRanges;
     if (m_target) {
         m_targetPos = m_target->GetPosition();
     }
@@ -87,6 +93,7 @@ CTask* CTaskComplexKillPedOnFootMelee::CreateSubTask(eTaskType taskType, CPed* p
         };
     }
     case TASK_COMPLEX_SEEK_ENTITY:
+        m_pauseTimer = -1; // Como el original
         return new CTaskComplexSeekEntity<CEntitySeekPosCalculatorStandard>{
             m_target,
             50'000,
@@ -98,29 +105,40 @@ CTask* CTaskComplexKillPedOnFootMelee::CreateSubTask(eTaskType taskType, CPed* p
             true
         };
     case TASK_SIMPLE_PAUSE: {
-        VERIFY(CTaskSimpleStandStill{}.ProcessPed(ped));
+        CTaskSimpleStandStill{}.ProcessPed(ped); // Como el original: se ignora el resultado
         if (m_pauseTimer == -1) {
             m_pauseTimer = (int32)CTimer::GetTimeInMS();
         }
-        return new CTaskSimplePause{};
+        return new CTaskSimplePause{ 100 }; // Como el original: 100 ms
     }
     case TASK_SIMPLE_STAND_STILL:
+        m_pauseTimer = -1; // Como el original
         return new CTaskSimpleStandStill{2000};
-    case TASK_COMPLEX_SEQUENCE:
-        return new CTaskComplexSequence{
-            new CTaskComplexTurnToFaceEntityOrCoord{m_target},
-            new CTaskSimpleShakeFist{}
-        };
+    case TASK_COMPLEX_SEQUENCE: {
+        m_pauseTimer = -1; // Como el original
+        // Como el original: secuencia sin inicializacion por valor; girarse y agitar el puno se crean y se anaden en orden
+        auto* const sequence = new CTaskComplexSequence;
+        sequence->AddTask(new CTaskComplexTurnToFaceEntityOrCoord{m_target});
+        sequence->AddTask(new CTaskSimpleShakeFist{});
+        return sequence;
+    }
     case TASK_FINISHED:
+        m_pauseTimer = -1; // Como el original
         return nullptr;
-    default:
-        NOTSA_UNREACHABLE();
+    default: // Como el original: tipos desconocidos devuelven nullptr
+        return nullptr;
     }
 }
 
-bool CTaskComplexKillPedOnFootMelee::IsTargetInRange(CPed* ped, float range) {
-    CalculateSearchPositionAndRanges(ped);
-    return sq(range) <= (ped->GetPosition() - m_targetPos).SquaredMagnitude();
+// Como el original: distancia al cuadrado (0x406DA0, suma x, y, z) de m_targetPos al peaton
+static float KillMeleeTargetDistance(CPed* ped, const CVector& targetPos) {
+    return (targetPos - ped->GetPosition()).SquaredMagnitude();
+}
+
+// Como el original: distancia al cuadrado de m_targetPos al peaton sumando z, x, y
+static float KillMeleeTargetDistanceSq(CPed* ped, const CVector& targetPos) {
+    const CVector delta = targetPos - ped->GetPosition();
+    return delta.z * delta.z + delta.x * delta.x + delta.y * delta.y;
 }
 
 // 0x62BC10
@@ -134,11 +152,15 @@ CTask* CTaskComplexKillPedOnFootMelee::CreateNextSubTask(CPed* ped) {
         return Create(TASK_SIMPLE_FIGHT_CTRL);
     case TASK_SIMPLE_STAND_STILL:
     case TASK_COMPLEX_SEQUENCE: // 0x62BC4A
+        // Como el original: bajo el agua se queda quieto; si no, vuelve a empezar
         return m_target->physicalFlags.bSubmergedInWater
-            ? CreateFirstSubTask(ped)
-            : Create(TASK_SIMPLE_STAND_STILL);
+            ? Create(TASK_SIMPLE_STAND_STILL)
+            : CreateFirstSubTask(ped);
     case TASK_SIMPLE_PAUSE: { // 0x62BC98
-        if (!IsTargetInRange(ped, m_arriveRange)) {
+        CalculateSearchPositionAndRanges(ped);
+        // Como el original: distancia al cuadrado (0x406DA0) frente al rango al cuadrado; NaN pelea
+        const float range = m_arriveRange;
+        if (!(range * range < KillMeleeTargetDistance(ped, m_targetPos))) {
             return Create(TASK_SIMPLE_FIGHT_CTRL);
         }
         if (!ped->bStayInSamePlace) {
@@ -157,14 +179,16 @@ CTask* CTaskComplexKillPedOnFootMelee::CreateNextSubTask(CPed* ped) {
         if (ped->bStayInSamePlace) {
             return Create(TASK_SIMPLE_PAUSE);
         }
+        CalculateSearchPositionAndRanges(ped);
+        const float range = m_arriveRange;
         return Create(
-            IsTargetInRange(ped, m_arriveRange)
+            range * range < KillMeleeTargetDistanceSq(ped, m_targetPos)
                 ? TASK_COMPLEX_SEEK_ENTITY
                 : TASK_SIMPLE_PAUSE
         );
     }
-    default:
-        NOTSA_UNREACHABLE();
+    default: // Como el original: tipos desconocidos devuelven nullptr
+        return nullptr;
     }
 }
 
@@ -175,18 +199,18 @@ CTask* CTaskComplexKillPedOnFootMelee::CreateFirstSubTask(CPed* ped) {
     if (!m_target) {
         return nullptr;
     }
-    return CreateSubTask([this, ped] {
-        if (!IsTargetInRange(ped, m_arriveRange)) {
-            return TASK_SIMPLE_FIGHT_CTRL;
-        }
-        return ped->bStayInSamePlace
-            ? TASK_SIMPLE_PAUSE
-            : TASK_COMPLEX_SEEK_ENTITY;
-    }(), ped);
+    CalculateSearchPositionAndRanges(ped);
+    // Como el original: suma z, x, y; NaN pelea
+    const float range = m_arriveRange;
+    if (!(range * range < KillMeleeTargetDistanceSq(ped, m_targetPos))) {
+        return CreateSubTask(TASK_SIMPLE_FIGHT_CTRL, ped);
+    }
+    return CreateSubTask(ped->bStayInSamePlace ? TASK_SIMPLE_PAUSE : TASK_COMPLEX_SEEK_ENTITY, ped);
 }
 
 // 0x626D90
 CTask* CTaskComplexKillPedOnFootMelee::ControlSubTask(CPed* ped) {
+    CTask* const subTask = m_pSubTask;
     ped->Say(CTX_GLOBAL_FIGHT);
 
     if (m_bNewTarget) {
@@ -198,15 +222,16 @@ CTask* CTaskComplexKillPedOnFootMelee::ControlSubTask(CPed* ped) {
     }
 
     const auto TryAbortAndCreate = [&, this](eTaskType taskToCreate) {
-        return m_pSubTask->MakeAbortable(ped)
+        return subTask->MakeAbortable(ped)
             ? CreateSubTask(taskToCreate, ped)
-            : m_pSubTask;
+            : subTask;
     };
 
-    switch (m_pSubTask->GetTaskType()) {
+    switch (subTask->GetTaskType()) {
+    case TASK_SIMPLE_STAND_STILL: // Como el original: igual que la secuencia
     case TASK_COMPLEX_SEQUENCE: { // 0x626dfe
         return m_target->physicalFlags.bSubmergedInWater
-            ? m_pSubTask
+            ? subTask
             : TryAbortAndCreate(TASK_SIMPLE_FIGHT_CTRL);
     }
     case TASK_SIMPLE_PAUSE: // 0x626e05
@@ -214,8 +239,11 @@ CTask* CTaskComplexKillPedOnFootMelee::ControlSubTask(CPed* ped) {
         if (m_target->physicalFlags.bSubmergedInWater) {
             return TryAbortAndCreate(TASK_COMPLEX_SEQUENCE);
         }
-        if (IsTargetInRange(ped, m_arriveRange)) {
-            return m_pSubTask;
+        CalculateSearchPositionAndRanges(ped);
+        // Como el original: distancia al cuadrado (0x406DA0) frente al rango al cuadrado; NaN sigue
+        const float range = m_arriveRange;
+        if (!(range * range > KillMeleeTargetDistance(ped, m_targetPos))) {
+            return subTask;
         }
         return TryAbortAndCreate(TASK_SIMPLE_FIGHT_CTRL);
     }
@@ -223,8 +251,11 @@ CTask* CTaskComplexKillPedOnFootMelee::ControlSubTask(CPed* ped) {
         if (m_target->physicalFlags.bSubmergedInWater) {
             return TryAbortAndCreate(TASK_COMPLEX_SEQUENCE);
         }
-        if (!IsTargetInRange(ped, m_attackRange)) {
-            return m_pSubTask;
+        CalculateSearchPositionAndRanges(ped);
+        // Como el original: distancia al cuadrado (0x406DA0) frente al rango al cuadrado; NaN sigue
+        const float range = m_attackRange;
+        if (!(range * range < KillMeleeTargetDistance(ped, m_targetPos))) {
+            return subTask;
         }
         return TryAbortAndCreate(
             ped->bStayInSamePlace
@@ -233,6 +264,6 @@ CTask* CTaskComplexKillPedOnFootMelee::ControlSubTask(CPed* ped) {
         );
     }
     default:
-        return m_pSubTask;
+        return subTask;
     }
 }

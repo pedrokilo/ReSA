@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 15/15 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/15 entradas.
+ * Validación registrada: 15/15 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -59,19 +59,24 @@ CTaskComplexAvoidOtherPedWhileWandering::CTaskComplexAvoidOtherPedWhileWandering
     m_PedToAvoid{ pedToAvoid },
     m_TargetPt{ targetPoint },
     m_DetourTargetPt{ targetPoint },
-    m_IsMovingTarget{ isMovingTarget },
-    m_MoveState{ moveState }
+    m_MoveState{ moveState },
+    m_IsMovingTarget{ isMovingTarget } // Como el original: el EXE limpia los tres bits; el argumento es NOTSA (por defecto false)
 {
 }
 
-CTaskComplexAvoidOtherPedWhileWandering::CTaskComplexAvoidOtherPedWhileWandering(const CTaskComplexAvoidOtherPedWhileWandering& o) :
-    CTaskComplexAvoidOtherPedWhileWandering{m_PedToAvoid, m_TargetPt, m_MoveState, o.m_IsMovingTarget}
-{
+// 0x66D050
+CTask* CTaskComplexAvoidOtherPedWhileWandering::Clone() const {
+    // Como el original: constructor con (peatón, objetivo, estado de movimiento) y después copia el bit de objetivo móvil
+    const auto task = new CTaskComplexAvoidOtherPedWhileWandering{ m_PedToAvoid, m_TargetPt, m_MoveState };
+    if (m_IsMovingTarget) {
+        task->m_IsMovingTarget = true;
+    }
+    return task;
 }
 
 // 0x6721B0
 CTask* CTaskComplexAvoidOtherPedWhileWandering::ControlSubTask(CPed* ped) {
-    const auto DoQuit = [&](bool stopIK = true) {
+    const auto DoQuit = [&](bool stopIK = true) -> CTask* {
         if (stopIK) {
             QuitIK(ped);
         }
@@ -83,65 +88,76 @@ CTask* CTaskComplexAvoidOtherPedWhileWandering::ControlSubTask(CPed* ped) {
         return DoQuit();
     }
 
+    // Como el original: si la subtarea se deja abortar sale sin QuitIK
     if (m_WantsToQuit && m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr)) {
-        return DoQuit(); // did they forget to do `QuitIK` here?
+        return DoQuit(false);
     }
-    
+
     m_Timer.StartIfNotAlready(200);
-    
+
     SetUpIK(ped);
-    
+
     if (m_pSubTask->GetTaskType() == TASK_SIMPLE_STAND_STILL) {
         return m_pSubTask;
     }
 
     if (ped->GetIntelligence()->m_AnotherStaticCounter > 30) {
         QuitIK(ped);
-        return new CTaskSimpleStandStill{ CGeneral::GetRandomNumberInRange(500, 2500) };
+        // Como el original: GetRandomNumberInRange(0, 2000) (0x407180) + 500
+        return new CTaskSimpleStandStill{ CGeneral::GetRandomIntInRange(0, 2000) + 500 };
     }
-    
+
     const auto &pedPos        = ped->GetPosition(),
                &pedToAvoidPos = m_PedToAvoid->GetPosition();
-    if (std::abs(pedToAvoidPos.z - pedPos.z) >= 3.f) {
+    if (std::abs(pedPos.z - pedToAvoidPos.z) > 3.f) { // Como el original: NaN y 3 exacto siguen
         return DoQuit();
     }
-    
-    const auto pedToAvoidDist2DSq = (pedPos - pedToAvoidPos).SquaredMagnitude2D();
-    const auto pedSimplestTask = ped->GetTaskManager().GetSimplestActiveTask();
-    if (   pedSimplestTask
-        && CTask::IsGoToTask(pedSimplestTask)
-        && m_DontQuitYetTimer.IsOutOfTime()
-        && ped->GetForward().Dot(m_PedToAvoid->GetForward()) >= 0.923 // 22 and change degrees
-        && (ped->GetMoveSpeed() * CTimer::TIMESTEP_PER_SECOND).SquaredMagnitude2D() <= (m_PedToAvoid->GetMoveSpeed() * CTimer::TIMESTEP_PER_SECOND).SquaredMagnitude2D() + sq(0.5f)
-        && pedToAvoidDist2DSq >= sq(1.f)
-    ) {
+
+    // Como el original: dy*dy + dx*dx
+    const float dx = pedPos.x - pedToAvoidPos.x, dy = pedPos.y - pedToAvoidPos.y;
+    const float pedToAvoidDist2DSq = dy * dy + dx * dx;
+    // Como el original: la tarea más simple es la del peatón a evitar, y el temporizador se consulta antes que IsGoToTask
+    if (const auto pedSimplestTask = m_PedToAvoid->GetTaskManager().GetSimplestActiveTask()) {
+        if (m_DontQuitYetTimer.IsOutOfTime() && CTask::IsGoToTask(pedSimplestTask)) {
+            // Como el original: DotProduct (0x40FDB0, orden (z + y) + x) contra 0.923f
+            const auto &fwd = ped->GetMatrix().GetForward(), &avoidFwd = m_PedToAvoid->GetMatrix().GetForward();
+            const float dot = fwd.z * avoidFwd.z + fwd.y * avoidFwd.y + fwd.x * avoidFwd.x;
+            if (dot >= 0.923f) {
+                CVector pedSpeed   = ped->GetMoveSpeed() * 50.f;
+                CVector avoidSpeed = m_PedToAvoid->GetMoveSpeed() * 50.f;
+                pedSpeed.z = avoidSpeed.z = 0.f;
+                if (pedSpeed.SquaredMagnitude() <= avoidSpeed.SquaredMagnitude() + 0.25f && pedToAvoidDist2DSq > 1.f) {
+                    return DoQuit();
+                }
+            }
+        }
+    }
+
+    static const float s_QuitDistSq = 2.5f * 2.5f + 1.f; // Como el original: estático inicializado en la primera llamada
+    if (pedToAvoidDist2DSq > s_QuitDistSq) {
         return DoQuit();
     }
-    
-    if (pedToAvoidDist2DSq >= sq(2.5f) + 1.f) {
-        return DoQuit();
-    }
-    
+
     if (!m_Timer.IsOutOfTime()) {
         return m_pSubTask;
     }
     m_Timer.Start(200);
-    
-    if (!m_IsMovingTarget) {
-        return DoQuit();
-    }
-    
-    if (const auto tGangFollower = notsa::dyn_cast_if_present<CTaskComplexGangFollower>(ped->GetIntelligence()->FindTaskByType(TASK_COMPLEX_GANG_FOLLOWER))) {
-        if (tGangFollower->m_Leader) {
-            m_TargetPt = tGangFollower->m_Leader->GetPosition() + tGangFollower->CalculateOffsetPosition();
+
+    // Como el original: sin objetivo móvil no se sale; se recalcula el desvío igualmente
+    if (m_IsMovingTarget) {
+        if (const auto tGangFollower = static_cast<CTaskComplexGangFollower*>(ped->GetIntelligence()->FindTaskByType(TASK_COMPLEX_GANG_FOLLOWER))) {
+            if (tGangFollower->m_Leader) {
+                m_TargetPt = tGangFollower->m_Leader->GetPosition() + tGangFollower->CalculateOffsetPosition();
+            }
         }
     }
-    
+
     if (ComputeDetourTarget(ped)) {
-        notsa::cast<CTaskSimpleGoToPoint>(m_pSubTask)->UpdatePoint(m_TargetPt);
+        // Como el original: UpdatePoint(m_DetourTargetPt, 0.5f, false) sobre la subtarea sin comprobar el tipo
+        static_cast<CTaskSimpleGoToPoint*>(m_pSubTask)->UpdatePoint(m_DetourTargetPt, 0.5f, false);
         return m_pSubTask;
     }
-    
+
     return DoQuit();
 }
 
@@ -169,10 +185,14 @@ CTask* CTaskComplexAvoidOtherPedWhileWandering::CreateNextSubTask(CPed* ped) {
 CTask* CTaskComplexAvoidOtherPedWhileWandering::CreateFirstSubTask(CPed* ped) {
     if (m_PedToAvoid) {
         m_StartPt = ped->GetPosition();
-        if (ComputeDetourTarget(ped)) {
+        // Como el original: ComputeDetourTarget en línea (ComputeAvoidSphere + ComputeRouteRoundSphere)
+        CColSphere sp;
+        ComputeAvoidSphere(ped, sp);
+        if (ComputeRouteRoundSphere(ped, sp)) {
             ped->bIgnoreHeightCheckOnGotoPointTask = true;
+            const auto task = new CTaskSimpleGoToPoint{ m_MoveState, m_DetourTargetPt };
             m_DontQuitYetTimer.Start(2000);
-            return new CTaskSimpleGoToPoint{ m_MoveState, m_DetourTargetPt };
+            return task;
         } else {
             QuitIK(ped);
         }
@@ -181,6 +201,7 @@ CTask* CTaskComplexAvoidOtherPedWhileWandering::CreateFirstSubTask(CPed* ped) {
     return nullptr;
 }
 
+// 0x66A230
 void CTaskComplexAvoidOtherPedWhileWandering::QuitIK(CPed* ped) {
     if (m_IsDoingIK && g_ikChainMan.IsLooking(ped)) {
         g_ikChainMan.AbortLookAt(ped);
@@ -188,73 +209,92 @@ void CTaskComplexAvoidOtherPedWhileWandering::QuitIK(CPed* ped) {
 }
 
 // 0x66A320
-CColSphere CTaskComplexAvoidOtherPedWhileWandering::ComputeSphere(PedsToAvoidArray& accountedPeds) {
+CColSphere* CTaskComplexAvoidOtherPedWhileWandering::ComputeSphere(CColSphere* out, PedsToAvoidArray& accountedPeds) {
     // Step 1: Find center
     CVector center{};
-    size_t numPeds{};
+    int32 numPeds{};
     for (CPed* ped : accountedPeds) {
         if (!ped) {
             continue;
         }
         numPeds++;
-        center += ped->GetPosition();
+        const auto& pos = ped->GetPosition();
+        center.x += pos.x;
+        center.y += pos.y;
+        center.z += pos.z;
     }
-    center /= (float)numPeds;
+    // Como el original: se multiplica por 1 / n
+    const float invNum = 1.f / (float)numPeds;
+    center.x *= invNum;
+    center.y *= invNum;
+    center.z *= invNum;
 
     // Step 2: Find max 2D[!] distance [this is going to be the radius]
-    float maxDist2DSq{FLT_MIN};
+    float maxDist2DSq{ 0.f };
     for (CPed* ped : accountedPeds) {
         if (!ped) {
             continue;
         }
-        const auto dist2DSq = (center - ped->GetPosition()).SquaredMagnitude2D();
-        if (dist2DSq <= maxDist2DSq) {
+        const auto& pos = ped->GetPosition();
+        const float dx = pos.x - center.x, dy = pos.y - center.y;
+        const float dist2DSq = dy * dy + dx * dx;
+        if (!(dist2DSq > maxDist2DSq)) { // Como el original: NaN no cuenta
             continue;
         }
         maxDist2DSq = dist2DSq;
     }
 
-    // Step 3: Construct sphere from it
-    return CSphere{ center, std::sqrt(maxDist2DSq) };
+    // Step 3: Construct sphere from it (Como el original: radio = sqrt + 1.05)
+    out->Set(std::sqrt(maxDist2DSq) + 1.05f, center, SURFACE_DEFAULT, 0, tColLighting(0xFF));
+    return out;
 }
 
 // 0x66A850
 void CTaskComplexAvoidOtherPedWhileWandering::SetUpIK(CPed* ped) {
-    assert(ped);
-    if (ped == FindPlayerPed() && !CPad::GetPad()->DisablePlayerControls) {
+    const auto pad = CPad::GetPad(0);
+    if (ped == FindPlayerPed() && !pad->DisablePlayerControls) {
+        return;
+    }
+    // Como el original: GetIsOnScreen antes de mirar m_IsDoingIK
+    if (!ped->GetIsOnScreen()) {
         return;
     }
     if (m_IsDoingIK) {
         return;
     }
-    if (!ped->GetIsOnScreen()) {
+    // Como el original: sale si ya mira a una entidad o si ya hay tarea secundaria de IK
+    if (g_ikChainMan.GetLookAtEntity(ped)) {
         return;
     }
-    if (!g_ikChainMan.GetLookAtEntity(ped)) {
+    if (ped->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_IK)) {
         return;
     }
-    if (!ped->GetTaskManager().GetTaskSecondary(TASK_SECONDARY_IK)) {
+    // Como el original: sin padre sigue; el tipo del padre se pide dos veces (una por comparación)
+    if (m_Parent) {
+        if (m_Parent->GetTaskType() == TASK_COMPLEX_AVOID_OTHER_PED_WHILE_WANDERING) {
+            return;
+        }
+        if (m_Parent->GetTaskType() == TASK_COMPLEX_AVOID_ENTITY) {
+            return;
+        }
+    }
+    const auto& pedPos = ped->GetPosition();
+    CVector pedToTarget = m_TargetPt - pedPos;
+    if (!(pedToTarget.SquaredMagnitude() > 9.f)) { // Como el original: NaN también sale
         return;
     }
-    if (!m_Parent) {
+    pedToTarget.Normalise(); // Como el original: CVector::Normalise (0x59C910)
+    const auto& fwd = ped->GetMatrix().GetForward();
+    // Como el original: orden (z + y) + x; NaN también sale
+    if (!(pedToTarget.z * fwd.z + pedToTarget.y * fwd.y + pedToTarget.x * fwd.x < CTaskSimpleGoTo::ms_fLookAtThresholdDotProduct)) {
         return;
     }
-    switch (m_Parent->GetTaskType()) {
-    case TASK_COMPLEX_AVOID_OTHER_PED_WHILE_WANDERING:
-    case TASK_COMPLEX_AVOID_ENTITY:
-        return;
-    }
-    const auto pedToTarget = m_TargetPt - ped->GetPosition();
-    const auto pedToTargetDistSq = pedToTarget.SquaredMagnitude();
-    if (pedToTargetDistSq <= sq(3.f)) {
-        return;
-    }
-    const auto pedToTargetDir = pedToTarget / std::sqrt(pedToTargetDistSq); // Normalize
-    if (ped->GetForward().Dot(pedToTargetDir) >= CTaskSimpleGoTo::ms_fLookAtThresholdDotProduct) {
-        return;
-    }
-    CVector lookAt = m_TargetPt + pedToTargetDir * 2.f;
-    lookAt.z += 0.61f;
+    // Como el original: z = (2 * dir.z + z del peatón) + 0.61
+    CVector lookAt{
+        pedToTarget.x * 2.f + m_TargetPt.x,
+        pedToTarget.y * 2.f + m_TargetPt.y,
+        pedToTarget.z * 2.f + pedPos.z + 0.61f
+    };
     g_ikChainMan.LookAt("TaskAvoidOthPed", ped, 0, 5000, BONE_UNKNOWN, &lookAt, false, 0.25f, 500, 3, false);
     m_IsDoingIK = true;
 }
@@ -262,24 +302,25 @@ void CTaskComplexAvoidOtherPedWhileWandering::SetUpIK(CPed* ped) {
 // 0x671FE0
 bool CTaskComplexAvoidOtherPedWhileWandering::NearbyPedsInSphere(CPed* ped, const CColSphere& colSphere, PedsToAvoidArray& pedsToCheck, PedsToAvoidArray& pedsInSphere) {
     bool anyInSphere = false;
-    for (auto&& [i, pedToCheck] : rngv::enumerate(pedsToCheck)) {
+    for (auto& pedToCheck : pedsToCheck) {
         if (!pedToCheck) {
             continue;
         }
 
-        if (!colSphere.IntersectSphere(CSphere{ pedToCheck->GetPosition(), 1.05f })) {
+        CColSphere pedSphere;
+        pedSphere.Set(1.05f, pedToCheck->GetPosition(), SURFACE_DEFAULT, 0, tColLighting(0xFF));
+        if (!colSphere.IntersectSphere(pedSphere)) {
             continue;
         }
 
-        // Find where to insert - NOTE: I don't think this can ever fail
+        // Como el original: sin hueco libre se pasa al siguiente peatón
         const auto insertAt = rng::find(pedsInSphere, nullptr);
         if (insertAt == pedsInSphere.end()) {
-            return anyInSphere; // No space
+            continue;
         }
 
-        // Insert it
-        pedToCheck  = nullptr;    // Null out array entry
-        *insertAt   = pedToCheck; 
+        *insertAt   = pedToCheck; // Como el original: se guarda el peatón y después se anula la entrada
+        pedToCheck  = nullptr;
         anyInSphere = true;
     }
     return anyInSphere;
@@ -287,18 +328,22 @@ bool CTaskComplexAvoidOtherPedWhileWandering::NearbyPedsInSphere(CPed* ped, cons
 
 // 0x672080
 void CTaskComplexAvoidOtherPedWhileWandering::ComputeAvoidSphere(CPed* ped, CColSphere& outSp) {
-    PedsToAvoidArray pedsToCheck{};
-    for (auto&& [i, entityToCheck] : rngv::enumerate(ped->GetIntelligence()->GetPedScanner().m_apEntities)) { // Can't use GetEntities<CPed>() because it filters null entries
-        const auto pedToCheck = entityToCheck->AsPed();
+    // Como el original: la esfera inicial se escribe antes de recorrer el escáner
+    outSp.Set(1.05f, m_PedToAvoid->GetPosition(), SURFACE_DEFAULT, 0, tColLighting(0xFF));
+
+    PedsToAvoidArray pedsInSphere{};
+    PedsToAvoidArray pedsToCheck;
+    const auto& entities = ped->GetIntelligence()->GetPedScanner().m_apEntities; // Can't use GetEntities<CPed>() because it filters null entries
+    for (size_t i = 0; i < pedsToCheck.size(); i++) {
+        const auto pedToCheck = static_cast<CPed*>(entities[i]);
         pedsToCheck[i] = pedToCheck != m_PedToAvoid && !CPedGroups::AreInSameGroup(ped, pedToCheck) // Inverted
             ? pedToCheck
             : nullptr;
     }
 
-    PedsToAvoidArray pedsInSphere{m_PedToAvoid};
-    outSp = CColSphere{ m_PedToAvoid->GetPosition(), 1.05f };
+    pedsInSphere[0] = m_PedToAvoid;
     while (NearbyPedsInSphere(ped, outSp, pedsToCheck, pedsInSphere)) {
-        outSp = ComputeSphere(pedsInSphere);
+        ComputeSphere(&outSp, pedsInSphere);
     }
 }
 

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/10 entradas.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -45,9 +45,12 @@ CTaskSimpleCarJumpOut::CTaskSimpleCarJumpOut(CVehicle* veh, uint32 door, CTaskUt
     m_veh{veh},
     m_door{door},
     m_lineUpTask{lineUpTask},
-    m_initialVehSpeed{ veh ? veh->GetMoveSpeed().Magnitude() : 0.f }
+    m_initialVehSpeed{ 0.f }
 {
-    CEntity::SafeCleanUpRef(m_veh);
+    if (m_veh) {
+        m_veh->RegisterReference(reinterpret_cast<CEntity**>(&m_veh)); // Como el original: registra la referencia (la DLL la limpiaba)
+        m_initialVehSpeed = m_veh->GetMoveSpeed().Magnitude();
+    }
 }
 
 CTaskSimpleCarJumpOut::CTaskSimpleCarJumpOut(const CTaskSimpleCarJumpOut& o) :
@@ -81,19 +84,26 @@ void CTaskSimpleCarJumpOut::StartAnim(const CPed* ped) {
 // Signature changed, `ComputeAnimID_Wrapper` is hooked instead.
 // 0X647690
 auto CTaskSimpleCarJumpOut::ComputeAnimID() -> std::pair<AssocGroupId, AnimationId> {
-    const auto animId = [this] {
-        switch (m_door) {
-        case TARGET_DOOR_FRONT_RIGHT:
-        case TARGET_DOOR_REAR_RIGHT:
-            return ANIM_ID_CAR_ROLLOUT_RHS;;
-        case TARGET_DOOR_DRIVER:
-        case TARGET_DOOR_REAR_LEFT:
-            return ANIM_ID_CAR_ROLLOUT_LHS;
-        default:
-            NOTSA_UNREACHABLE();
-        }
-    }();
-    return { m_veh->GetAnimGroup().GetGroup(animId), animId };
+    AssocGroupId animGroup;
+    AnimationId  animId;
+    ComputeAnimID_ToHook(animGroup, animId);
+    return { animGroup, animId };
+}
+
+// 0x647690
+void CTaskSimpleCarJumpOut::ComputeAnimID_ToHook(AssocGroupId& animGroup, AnimationId& animId) {
+    // Como el original: con otra puerta no se escribe la animación y se usa el valor que ya tenga
+    switch (m_door) {
+    case TARGET_DOOR_FRONT_RIGHT:
+    case TARGET_DOOR_REAR_RIGHT:
+        animId = ANIM_ID_CAR_ROLLOUT_RHS;
+        break;
+    case TARGET_DOOR_DRIVER:
+    case TARGET_DOOR_REAR_LEFT:
+        animId = ANIM_ID_CAR_ROLLOUT_LHS;
+        break;
+    }
+    animGroup = m_veh->GetAnimGroup().GetGroup(animId);
 }
 
 // 0x647510
@@ -106,15 +116,11 @@ bool CTaskSimpleCarJumpOut::MakeAbortable(CPed* ped, eAbortPriority priority, CE
         return true;
     }
     case ABORT_PRIORITY_URGENT: {
-        if (event && m_anim && !ped->bInVehicle) {
-            switch (event->GetEventType()) {
-            case EVENT_IN_AIR:
-            case EVENT_IN_WATER: {
-                m_anim->m_BlendDelta = -2.f;
-                m_finishedAnim = true;
-                return true;
-            }
-            }
+        // Como el original: el tipo del evento se pide antes de mirar la animación (dos veces si no es EVENT_IN_AIR)
+        if (event && (event->GetEventType() == EVENT_IN_AIR || event->GetEventType() == EVENT_IN_WATER) && m_anim && !ped->bInVehicle) {
+            m_anim->m_BlendDelta = -2.f;
+            m_finishedAnim = true;
+            return true;
         }
         break;
     }
@@ -139,21 +145,37 @@ bool CTaskSimpleCarJumpOut::ProcessPed(CPed* ped) {
         }
 
         if (m_veh->IsBike() || m_veh->IsSubQuad()) {
-            return m_anim->m_CurrentTime < 0.7333333f; // TODO: Magic?
+            return m_anim->m_CurrentTime < std::bit_cast<float>(0x3F3BBBBCu); // Como el original: 0x86F0E8 (0,7333333)
         } else if (m_veh->IsAutomobile()) {
             return m_anim->m_CurrentTime < 0.45f;
         }
 
         return false;    
     }()) {
-        m_initialVehSpeed *= std::pow(0.96f, CTimer::GetTimeStep());
-        ped->m_vecAnimMovingShiftLocal.y += m_initialVehSpeed * CTimer::GetTimeStep();
+        // Como el original: pow(0.96, paso) con el _CIpow del EXE (0x822130) y el producto en ST0
+        const double base  = 0.9599999785423279;
+        const float  step  = CTimer::GetTimeStep();
+        float* const speed = &m_initialVehSpeed;
+        float* const shift = &ped->m_vecAnimMovingShiftLocal.y;
+        __asm {
+            fld base
+            fld step
+            mov eax, 0x822130
+            call eax
+            mov edx, speed
+            fmul dword ptr [edx]
+            fst dword ptr [edx]
+            fmul step
+            mov edx, shift
+            fadd dword ptr [edx]
+            fstp dword ptr [edx]
+        }
     }
 
     // Not in vehicle anymore?
     if (!ped->bInVehicle) { // Inverted
         if (m_veh && m_veh->IsAutomobile()) { // 0x64DE0E
-            ped->m_pedIK.bUseArm = true;
+            ped->m_pedIK.bSlopePitch = true; // Como el original: bit 0x8 de las banderas del IK
             ped->bFallenDown = true;
         }
         return !m_anim;
@@ -169,12 +191,12 @@ bool CTaskSimpleCarJumpOut::ProcessPed(CPed* ped) {
     const auto GetDoorOpenTimeThreshold = [this] {
         if (m_veh->IsBike() || m_veh->IsSubQuad()) {
             return 0.35f;
-        } else if (m_veh->IsPlane()) {
+        } else if (m_veh->IsSubPlane()) { // Como el original: subtipo avión
             return 0.15f;
         }
         return 0.07f;
     };
-    if (GetDoorOpenTimeThreshold() >= m_anim->m_CurrentTime) {
+    if (!(GetDoorOpenTimeThreshold() < m_anim->m_CurrentTime)) { // Como el original: NaN también abre la puerta
         if (m_veh->IsAutomobile()) {
             const auto [grpId, animId] = ComputeAnimID(); // 0x64E00D
             m_veh->ProcessOpenDoor(ped, m_door, grpId, animId, m_anim->m_CurrentTime);
@@ -182,29 +204,34 @@ bool CTaskSimpleCarJumpOut::ProcessPed(CPed* ped) {
         return false;
     }
 
-    // 0x64DEC0
-    {
-        CTaskSimpleCarSetPedOut getOutTask{ m_veh, (eTargetDoor)m_door, true };
-        getOutTask.m_nDoorFlagsToClear = m_doorFlagsToClear;
-        getOutTask.m_nNumGettingInToClear = m_numGettingInToClear;
-        getOutTask.ProcessPed(ped);
-    }
+    // 0x64DEC0 - Como el original: la tarea local vive hasta el final (su destructor va después de abrir la puerta)
+    CTaskSimpleCarSetPedOut getOutTask{ m_veh, (eTargetDoor)m_door, true };
+    getOutTask.m_nDoorFlagsToClear = m_doorFlagsToClear;
+    getOutTask.m_nNumGettingInToClear = m_numGettingInToClear;
+    getOutTask.ProcessPed(ped);
 
     CCarEnterExit::RemoveCarSitAnim(ped);
 
     // Change rotation of ped
     {
-        const auto rot = m_veh->GetHeading();
-        ped->m_fAimingRotation = ped->m_fCurrentRotation = m_veh->IsTotallyUpsideDown() ? CGeneral::LimitRadianAngle(rot + PI) : rot;
+        // Como el original: GetHeading después de mirar la orientación y PI exacto del EXE (0x858CB8)
+        ped->m_fAimingRotation = ped->m_fCurrentRotation = m_veh->IsTotallyUpsideDown()
+            ? CGeneral::LimitRadianAngle(m_veh->GetHeading() + std::bit_cast<float>(0x40490FDBu))
+            : m_veh->GetHeading();
         ped->SetHeading(ped->m_fCurrentRotation);
     }
     ped->GetMoveSpeed() = m_veh->GetMoveSpeed();
     ped->m_pEntityIgnoredCollision = m_veh;
     ped->bKnockedOffBike = true;
     if (m_veh->IsAutomobile()) {
-        m_veh->AsAutomobile()->m_damageManager.SetDoorOpen((eDoors)m_door);
+        // Como el original: abre la puerta por componente (cerrada -> abierta, dañada -> abierta y dañada), pidiendo el estado 2 o 3 veces
+        auto& dm = m_veh->AsAutomobile()->m_damageManager;
+        const auto comp = (tComponent)m_door;
+        if (dm.GetDoorStatus_Component(comp) == DAMSTATE_OK || dm.GetDoorStatus_Component(comp) == DAMSTATE_DAMAGED) {
+            dm.SetDoorStatus_Component(comp, (eDoorStatus)(dm.GetDoorStatus_Component(comp) + 1));
+        }
     }
-    
+
     return false;
 }
 
@@ -218,23 +245,19 @@ bool CTaskSimpleCarJumpOut::SetPedPosition(CPed* ped) {
 
     // Do some Z position interpolation for ped for specific anim types
     if (m_anim) {
+        // Como el original: FindZCoorForPed se llama con cualquier animación; el id solo decide si se ajusta la altura
+        const auto& pedPos = ped->GetPosition();
+        auto pedPosAdj{ pedPos };
+
+        CWorld::pIgnoreEntity = m_veh;
+        pedPosAdj = CPedPlacement::FindZCoorForPed(pedPosAdj).first; // Como el original: corrige la copia en el sitio
+        CWorld::pIgnoreEntity = nullptr;
+
+        const auto timeDivier = (m_veh->IsBike() || m_veh->IsSubQuad()) ? 0.27f : 0.07f;
         switch (m_anim->m_AnimId) {
         case ANIM_ID_CAR_ROLLOUT_RHS:
         case ANIM_ID_CAR_ROLLOUT_LHS: {
-            const auto& pedPos = ped->GetPosition();
-            auto pedPosAdj{ pedPos };
-
-            CWorld::pIgnoreEntity = m_veh;
-            CPedPlacement::FindZCoorForPed(pedPosAdj);
-            CWorld::pIgnoreEntity = nullptr;
-
             if (pedPosAdj.z > pedPos.z) {
-                const auto timeDivier = [this] {
-                    if (m_veh->IsBike() || m_veh->IsSubQuad()) {
-                        return 0.27f;
-                    }
-                    return 0.07f;
-                }();
                 ped->GetMatrix().GetPosition().z += m_anim->m_CurrentTime / timeDivier * (pedPosAdj.z - pedPos.z);
             }
             break;

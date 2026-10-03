@@ -22,8 +22,8 @@ struct CColAccelColEntry {
 VALIDATE_SIZE(CColAccelColEntry, 0x30);
 
 struct CColAccelIPLEntry {
-    int32 m_nLodIndex;
-    int32 m_nEntityIndex;
+    int32 m_nEntityIndex; // Como el original: addIPLEntity guarda aquí el índice de la entidad
+    int32 m_nLodIndex;    // y aquí el de su LOD (-1 si no está en la sección); cacheIPLSection marca esta entidad
     int32 m_nModelId;
     int32 m_nLodModelId;
     union {
@@ -85,6 +85,7 @@ public:
     static void   getColDef(ColDef& colDef);
     static void   setIplDef(int32 iplIndex, IplDef iplDef);
     static IplDef getIplDef(int32 iplIndex);
+    static IplDef* getIplDefRaw(IplDef* out, int32 iplIndex); // 0x5B2EF0: copia de 0x34 bytes como el EXE
     static void   cacheIPLSection(CEntity** ppEntities, int32 entitiesCount);
     static void   addIPLEntity(CEntity** ppEntities, int32 entitiesCount, int32 entityIndex);
 };

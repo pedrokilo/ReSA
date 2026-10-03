@@ -1,0 +1,99 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 11776,
+  "pairs_per_function": {
+    "CTaskComplexEnterCar::Constructor": 256,
+    "CTaskComplexEnterCar::ControlSubTask": 1024,
+    "CTaskComplexEnterCar::CreateFirstSubTask": 512,
+    "CTaskComplexEnterCar::CreateNextSubTask": 1024,
+    "CTaskComplexEnterCar::CreateNextSubTask_AfterSimpleCarAlign": 1024,
+    "CTaskComplexEnterCar::CreateSubTask": 512,
+    "CTaskComplexEnterCar::CreateTaskUtilityLineUpPedWithCar": 128,
+    "CTaskComplexEnterCar::Destructor": 256,
+    "CTaskComplexEnterCar::GetCameraAvoidVehicle": 256,
+    "CTaskComplexEnterCar::GetTargetPos": 256,
+    "CTaskComplexEnterCar::MakeAbortable": 512,
+    "CTaskComplexEnterCar::PreparePedForVehicleEnter": 128,
+    "CTaskComplexEnterCar::PrepareVehicleForPedEnter": 256,
+    "CTaskComplexEnterCar::SetVehicleFlags": 256,
+    "CTaskComplexWander::ComputeTargetHeading": 256,
+    "CTaskComplexWander::ComputeTargetPos": 128,
+    "CTaskComplexWander::Constructor": 128,
+    "CTaskComplexWander::ControlSubTask": 1024,
+    "CTaskComplexWander::CreateFirstSubTask": 256,
+    "CTaskComplexWander::CreateSubTask": 256,
+    "CTaskComplexWander::GetWanderTaskByPedType": 256,
+    "CTaskComplexWander::ScanForBlockedNode-": 512,
+    "CTaskComplexWander::ScanForBlockedNode-1": 512,
+    "CTaskComplexWander::ScanForBlockedNodes": 512,
+    "CTaskComplexWander::UpdateDir": 1024,
+    "CTaskComplexWander::UpdatePathNodes": 256,
+    "CTaskComplexWander::ValidNodes": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "309af879dcabf57d14ee1dcb46d895ea858e51886e118f8d1e543dda47afbd70",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks14a\\20261003-105143-576192",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTaskComplexEnterCar::Constructor": true,
+    "CTaskComplexEnterCar::ControlSubTask": true,
+    "CTaskComplexEnterCar::CreateFirstSubTask": true,
+    "CTaskComplexEnterCar::CreateNextSubTask": true,
+    "CTaskComplexEnterCar::CreateNextSubTask_AfterSimpleCarAlign": true,
+    "CTaskComplexEnterCar::CreateSubTask": true,
+    "CTaskComplexEnterCar::CreateTaskUtilityLineUpPedWithCar": true,
+    "CTaskComplexEnterCar::Destructor": true,
+    "CTaskComplexEnterCar::GetCameraAvoidVehicle": true,
+    "CTaskComplexEnterCar::GetTargetPos": true,
+    "CTaskComplexEnterCar::MakeAbortable": true,
+    "CTaskComplexEnterCar::PreparePedForVehicleEnter": true,
+    "CTaskComplexEnterCar::PrepareVehicleForPedEnter": true,
+    "CTaskComplexEnterCar::SetVehicleFlags": true,
+    "CTaskComplexWander::ComputeTargetHeading": true,
+    "CTaskComplexWander::ComputeTargetPos": true,
+    "CTaskComplexWander::Constructor": true,
+    "CTaskComplexWander::ControlSubTask": true,
+    "CTaskComplexWander::CreateFirstSubTask": true,
+    "CTaskComplexWander::CreateSubTask": true,
+    "CTaskComplexWander::GetWanderTaskByPedType": true,
+    "CTaskComplexWander::ScanForBlockedNode-": true,
+    "CTaskComplexWander::ScanForBlockedNode-1": true,
+    "CTaskComplexWander::ScanForBlockedNodes": true,
+    "CTaskComplexWander::UpdateDir": true,
+    "CTaskComplexWander::UpdatePathNodes": true,
+    "CTaskComplexWander::ValidNodes": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "de33c34da90977b0f6dc68f4f4a3916f33139126c9031a8a5815e1821da4a20a",
+      "pdb": "c96a3b2e394f0e04daebbc30771cd7b299c04cfa3aff9f5d850a1bb4ce706891"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "738a30fa15f3dad1e492dab0842047ebff074fdd12754c192d1b6b1afe90e7c3",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.h": "90511816d9859bfb2d2b0dbf445d279a17f3207aa0bdc571e97e353484225d3c",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "7867c003320e2af6e4f51ef487c837266cf849fdcb3275730f6b5e444b97fa63",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "40a2db44b471d8168bd9fadb98a85dd876fc5800e09ec784981aaf75f7d02360"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "7246213d3baa24122957502847e603d8da3d701294bf01a25160781b97eeede4",
+      "build_probe.py": "996744eca21b8a9b4c5b199f940a91575975f7cce26326b4876785407105406a",
+      "run_local.py": "49065dfd98f9d540e122fcdc9d4783287328a585699c87260e77edba4ff2d452"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

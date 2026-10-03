@@ -1,0 +1,109 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 14080,
+  "pairs_per_function": {
+    "CAnimBlendHierarchy::Constructor": 64,
+    "CAnimBlendHierarchy::Destructor": 256,
+    "CAnimBlendHierarchy::Shutdown": 256,
+    "CAnimBlendHierarchy::RemoveAnimSequences": 256,
+    "CAnimBlendHierarchy::AllocSequenceBlock": 256,
+    "CAnimBlendHierarchy::FindSequence": 512,
+    "CAnimBlendHierarchy::SetName": 128,
+    "CAnimBlendHierarchy::CalcTotalTime": 512,
+    "CAnimBlendHierarchy::CalcTotalTimeCompressed": 512,
+    "CAnimBlendHierarchy::RemoveQuaternionFlips": 256,
+    "CAnimBlendHierarchy::GetSequenceBlock": 128,
+    "CAnimBlendHierarchy::Uncompress": 512,
+    "CAnimBlendHierarchy::CompressKeyframes": 512,
+    "CAnimBlendHierarchy::RemoveUncompressedData": 512,
+    "CAnimBlendHierarchy::MoveMemory": 256,
+    "CAnimBlendHierarchy::Print": 64,
+    "CAnimBlendNode::Init": 128,
+    "CAnimBlendNode::NextKeyFrameNoCalc": 512,
+    "CAnimBlendNode::NextKeyFrame": 512,
+    "CAnimBlendNode::NextKeyFrameCompressed": 512,
+    "CAnimBlendNode::CalcTheta": 1024,
+    "CAnimBlendNode::CalcDeltas": 512,
+    "CAnimBlendNode::CalcDeltasCompressed": 512,
+    "CAnimBlendNode::FindKeyFrame": 1024,
+    "CAnimBlendNode::SetupKeyFrameCompressed": 256,
+    "CAnimBlendNode::UpdateTime": 512,
+    "CAnimBlendNode::GetCurrentTranslation": 512,
+    "CAnimBlendNode::GetCurrentTranslationCompressed": 512,
+    "CAnimBlendNode::GetEndTranslation": 256,
+    "CAnimBlendNode::GetEndTranslationCompressed": 256,
+    "CAnimBlendNode::Update": 1024,
+    "CAnimBlendNode::UpdateCompressed": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "9a61d111565fec048c3e112290f2623b9d9c42ed811eeb3609de52e9d7aaf7d4",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-anim16\\20261003-122116-297730",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CAnimBlendHierarchy::Constructor": true,
+    "CAnimBlendHierarchy::Destructor": true,
+    "CAnimBlendHierarchy::Shutdown": true,
+    "CAnimBlendHierarchy::RemoveAnimSequences": true,
+    "CAnimBlendHierarchy::AllocSequenceBlock": true,
+    "CAnimBlendHierarchy::FindSequence": true,
+    "CAnimBlendHierarchy::SetName": true,
+    "CAnimBlendHierarchy::CalcTotalTime": true,
+    "CAnimBlendHierarchy::CalcTotalTimeCompressed": true,
+    "CAnimBlendHierarchy::RemoveQuaternionFlips": true,
+    "CAnimBlendHierarchy::GetSequenceBlock": true,
+    "CAnimBlendHierarchy::Uncompress": true,
+    "CAnimBlendHierarchy::CompressKeyframes": true,
+    "CAnimBlendHierarchy::RemoveUncompressedData": true,
+    "CAnimBlendHierarchy::MoveMemory": true,
+    "CAnimBlendHierarchy::Print": true,
+    "CAnimBlendNode::Init": true,
+    "CAnimBlendNode::NextKeyFrameNoCalc": true,
+    "CAnimBlendNode::NextKeyFrame": true,
+    "CAnimBlendNode::NextKeyFrameCompressed": true,
+    "CAnimBlendNode::CalcTheta": true,
+    "CAnimBlendNode::CalcDeltas": true,
+    "CAnimBlendNode::CalcDeltasCompressed": true,
+    "CAnimBlendNode::FindKeyFrame": true,
+    "CAnimBlendNode::SetupKeyFrameCompressed": true,
+    "CAnimBlendNode::UpdateTime": true,
+    "CAnimBlendNode::GetCurrentTranslation": true,
+    "CAnimBlendNode::GetCurrentTranslationCompressed": true,
+    "CAnimBlendNode::GetEndTranslation": true,
+    "CAnimBlendNode::GetEndTranslationCompressed": true,
+    "CAnimBlendNode::Update": true,
+    "CAnimBlendNode::UpdateCompressed": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "36cfae3d8772b0fca602c26f6d3c6f2301447b9f2d56e76b762a3dd88a789ba2",
+      "pdb": "23926ae8a0ebab6a4095d82328a2da1430dbcaad3ba8719bfeac13906cf23fab"
+    },
+    "sources": {
+      "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c039a6a91ea07c7e5634dadf87bc6698a93a15db46f80858be73ac90c12a8602",
+      "source/game_sa/Animation/AnimBlendHierarchy.h": "08e00476eeec2269a691c5e867555fe9acb2088cb61bb5b2ead9b50c95ee507c",
+      "source/game_sa/Animation/AnimBlendNode.cpp": "d184f69a0758afb2f3a86da8c8e3594db8bf768cf60dff0986d1b3e597bf6ce6",
+      "source/game_sa/Animation/AnimBlendNode.h": "d7a70511ca249c8babb68dfda86ccf6ff7c322797f976c34199eb46dd6bf1028"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "e1fc94d413bb11b0682ca6ad54d340fe3822ce1ad1c5e3df82615f30a93a8f41",
+      "build_probe.py": "0d928cfa1abc31fd73fe743d80822f88a4830fc299f3648315bf216560384aab",
+      "run_local.py": "94de6cebbe24fdecc0552884650fc17199f18b8c0ec005081f6875fef5fe1355"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

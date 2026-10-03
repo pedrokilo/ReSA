@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/8 entradas.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -52,27 +52,37 @@ CTaskInteriorBeInOffice::CTaskInteriorBeInOffice(const CTaskInteriorBeInOffice& 
 }
 
 // 0x675300
-void CTaskInteriorBeInOffice::GetInfoForPedToUse(CPed* ped, int32* outDur) {
+void CTaskInteriorBeInOffice::GetInfoForPedToUse(int32* outDur) {
     using enum eInteriorInfoType;
 
-    // How this isn't an infinite loop is beyond me
-    eInteriorInfoType type;
+    // Como el original: la duración se calcula dentro del bucle (con sus aleatorios) en cada intento.
     do {
-        type = !m_CurrIntInfo || m_CurrIntInfo->Type != UNK_6 ? UNK_6 : UNK_7;
+        const auto type = m_CurrIntInfo && m_CurrIntInfo->Type == UNK_6 ? UNK_7 : UNK_6;
         m_IntGrp->FindInteriorInfo(type, &m_CurrIntInfo, &m_CurrInt);
+        if (type == UNK_6) {
+            if ((int32)((float)CGeneral::GetRandomNumber() * (1.0f / 32768.0f) * 100.0f) > 20) {
+                *outDur = -1;
+            } else {
+                *outDur = 5000 - (int32)((float)CGeneral::GetRandomNumber() * (1.0f / 32768.0f) * -25000.0f);
+            }
+        } else if (type == UNK_7) {
+            *outDur = 5000 - (int32)((float)CGeneral::GetRandomNumber() * (1.0f / 32768.0f) * -5000.0f);
+        }
     } while (!m_CurrIntInfo);
-
-    // Figure out duration now
-    *outDur = type == UNK_6 // NOTSA: Moved this outside the loop, no need for it to be there
-        ? CGeneral::RandomBool(20.f)
-            ? CGeneral::GetRandomNumberInRange(5'000, 30'000)
-            : -1
-        : CGeneral::GetRandomNumberInRange(5'000, 10'000);
 }
 
-// notsa (code is sa)
-CTask* CTaskInteriorBeInOffice::CreateUseInfoTask(CPed* ped, bool bDoInstantly) {
+// 0x676350
+CTask* CTaskInteriorBeInOffice::CreateNextSubTask(CPed* ped) {
+    // Como el original: marca el flag 0x474 bit 7 del peatón y la siguiente info no es instantánea.
+    ped->bHasJustSoughtCover = true;
     int32 dur;
-    GetInfoForPedToUse(ped, &dur);
+    GetInfoForPedToUse(&dur);
+    return new CTaskInteriorUseInfo{ m_CurrIntInfo, m_CurrInt, dur, false };
+}
+
+// 0x676400
+CTask* CTaskInteriorBeInOffice::CreateFirstSubTask(CPed* ped) {
+    int32 dur;
+    GetInfoForPedToUse(&dur);
     return new CTaskInteriorUseInfo{ m_CurrIntInfo, m_CurrInt, dur, true };
 }

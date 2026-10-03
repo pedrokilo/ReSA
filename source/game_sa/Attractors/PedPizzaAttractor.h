@@ -12,11 +12,11 @@ public:
             effect,
             entity,
             moveState,
-            1,
+            5,      // Como el original (0x5EE71D): 5 peatones como máximo
             1.0f,
             30000.0f,
             3000.0f,
-            0.125f,
+            0.2f,   // Como el original (0x86C458)
             0.1f,
             0.1f,
             0.1f

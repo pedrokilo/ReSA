@@ -1,0 +1,113 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 12608,
+  "pairs_per_function": {
+    "CTaskSimpleJump::CheckIfJumpBlocked": 1024,
+    "CTaskSimpleJump::Clone": 256,
+    "CTaskSimpleJump::Constructor": 256,
+    "CTaskSimpleJump::JumpAnimFinishCB": 128,
+    "CTaskSimpleJump::Launch": 2048,
+    "CTaskSimpleJump::MakeAbortable": 256,
+    "CTaskSimpleJump::ProcessPed": 2048,
+    "CTaskSimpleJump::StartLaunchAnim": 1024,
+    "CTaskSimpleShakeFist::Clone": 256,
+    "CTaskSimpleShakeFist::Constructor": 256,
+    "CTaskSimpleShakeFist::Destructor": 128,
+    "CTaskSimpleShakeFist::FinishAnimShakeFistCB": 128,
+    "CTaskSimpleShakeFist::GetTaskType": 64,
+    "CTaskSimpleShakeFist::MakeAbortable": 256,
+    "CTaskSimpleShakeFist::ProcessPed": 512,
+    "CTaskSimpleShakeFist::StartAnim": 256,
+    "CTaskSimpleSitDown::Clone": 256,
+    "CTaskSimpleSitDown::Constructor": 256,
+    "CTaskSimpleSitDown::Destructor": 128,
+    "CTaskSimpleSitDown::FinishAnimSitDownCB": 128,
+    "CTaskSimpleSitDown::GetTaskType": 64,
+    "CTaskSimpleSitDown::MakeAbortable": 256,
+    "CTaskSimpleSitDown::ProcessPed": 512,
+    "CTaskSimpleSitDown::StartAnim": 256,
+    "CTaskSimpleStandUp::Clone": 256,
+    "CTaskSimpleStandUp::Constructor": 256,
+    "CTaskSimpleStandUp::Destructor": 128,
+    "CTaskSimpleStandUp::FinishAnimStandUpCB": 128,
+    "CTaskSimpleStandUp::GetTaskType": 64,
+    "CTaskSimpleStandUp::MakeAbortable": 256,
+    "CTaskSimpleStandUp::ProcessPed": 512,
+    "CTaskSimpleStandUp::StartAnim": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "e81d6b652e8c801c8de8f847f02181ad0115278c9cbdf2aafa5aafb21fa30487",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-stasks8b\\20261003-014101-384260",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTaskSimpleJump::CheckIfJumpBlocked": true,
+    "CTaskSimpleJump::Clone": true,
+    "CTaskSimpleJump::Constructor": true,
+    "CTaskSimpleJump::JumpAnimFinishCB": true,
+    "CTaskSimpleJump::Launch": true,
+    "CTaskSimpleJump::MakeAbortable": true,
+    "CTaskSimpleJump::ProcessPed": true,
+    "CTaskSimpleJump::StartLaunchAnim": true,
+    "CTaskSimpleShakeFist::Clone": true,
+    "CTaskSimpleShakeFist::Constructor": true,
+    "CTaskSimpleShakeFist::Destructor": true,
+    "CTaskSimpleShakeFist::FinishAnimShakeFistCB": true,
+    "CTaskSimpleShakeFist::GetTaskType": true,
+    "CTaskSimpleShakeFist::MakeAbortable": true,
+    "CTaskSimpleShakeFist::ProcessPed": true,
+    "CTaskSimpleShakeFist::StartAnim": true,
+    "CTaskSimpleSitDown::Clone": true,
+    "CTaskSimpleSitDown::Constructor": true,
+    "CTaskSimpleSitDown::Destructor": true,
+    "CTaskSimpleSitDown::FinishAnimSitDownCB": true,
+    "CTaskSimpleSitDown::GetTaskType": true,
+    "CTaskSimpleSitDown::MakeAbortable": true,
+    "CTaskSimpleSitDown::ProcessPed": true,
+    "CTaskSimpleSitDown::StartAnim": true,
+    "CTaskSimpleStandUp::Clone": true,
+    "CTaskSimpleStandUp::Constructor": true,
+    "CTaskSimpleStandUp::Destructor": true,
+    "CTaskSimpleStandUp::FinishAnimStandUpCB": true,
+    "CTaskSimpleStandUp::GetTaskType": true,
+    "CTaskSimpleStandUp::MakeAbortable": true,
+    "CTaskSimpleStandUp::ProcessPed": true,
+    "CTaskSimpleStandUp::StartAnim": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "784264c91d733988f7ec951f8fe6a7aa43462705048c6db0bca436855e3dd43b",
+      "pdb": "e8b4602f37be1761859ed1fde031feec50d956e250fffb600ef03aac6b19221a"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleJump.cpp": "a2d184216424376cfa2b4ae6c591b7f8e18af6bedf70c618eaacb7dccea0ddde",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleJump.h": "026eaaed9f12173c59cf6054c2aa52291ef85e1f653a0636fa74fca9116ff582",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleShakeFist.cpp": "5d2e1648141705e6c0c78bcc9ee37895a6af45353a377067452c1e907cf1902d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleShakeFist.h": "cad3500d6d8d04ae8445ced45b7ceeb3e6852f6a773fc5c756727c39d4beb31a",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSitDown.cpp": "f32feb34589d8237c1c4f766c0e89fc0bfe2ef4ce04c84d1a78ebf497fd43bb8",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSitDown.h": "eda3946d5c7ea4ee406f1a3b0a9c9fea0066bf8eaf94d30bec353c47ca89015a",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandUp.cpp": "03bfbb789cc3bcc8040606f546d7a67f5fc28a40737c2caa82db05c3d69dee75",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandUp.h": "670948217ed68070f1f426591467102b5c73db03f8621e34876566d1f31f8bfe"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "dca4279440c92873f5499c01a4f0cd5084b36b3ce7230aa8b34863cf48163bdb",
+      "build_probe.py": "38d5bda21a8aff47b5f5aab87631e86e0f78a836b292d7dae3c39796f8e4fc54",
+      "run_local.py": "9a2dc02e41f8257dc59839a754ff66c9a38f72116e8e5b9d638b434d355fc7b2"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}
