@@ -8,7 +8,7 @@
 namespace MenuLive {
 inline bool done{};
 inline std::ofstream log;
-inline void Write(const json& value) { log << value.dump() << '\n'; log.flush(); }
+inline void Write(const json& value) { { static DWORD pumpLast=0; const DWORD pumpNow=GetTickCount(); if(pumpNow-pumpLast>=250){ pumpLast=pumpNow; MSG pumpMsg; PeekMessageA(&pumpMsg,nullptr,0,0,PM_NOREMOVE); } } log << value.dump() << '\n'; log.flush(); }
 inline int Report(int type, char* message, int*) {
     if (type != _CRT_ASSERT) return FALSE;
     Write({{"event", "assertion"}, {"message", message ? message : ""}}); ExitProcess(91);

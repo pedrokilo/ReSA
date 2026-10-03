@@ -34,7 +34,7 @@ def main():
                         body = 'if (GunProbe::startCreates) { m_Anim = GunProbe::nextAnim; m_LastCmd = m_NextCmd; } ' if name == 'StartAnim' else ''
                         extra += '\n    if (GunProbe::recording && GunProbe::controlled) { '+body+'return; }'
                     content = content.replace(signature, signature+extra)
-            p.write_text(content, encoding='utf-8')
+            p.write_bytes(content.encode('utf-8'))
         with (artifacts/'probe-build.log').open('w') as log:
             subprocess.run([str(CMAKE),'--build',str(ROOT/'build'),'--config','Debug'],stdout=log,stderr=subprocess.STDOUT,check=True)
         hashes = {}

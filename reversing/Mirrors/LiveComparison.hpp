@@ -19,7 +19,7 @@
 
 namespace MirrorsLive {
 inline bool done{}; inline std::ofstream log; inline json trace;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 inline uint32 F(float f) { return std::bit_cast<uint32>(f); }
 inline uint32 rasterMask{}, rasterCalls{}; inline int32 fxQuality{}; inline bool transformOk{}, sphereMask{}, beginOk{}, highQuality{};
 inline uint32 sphereBits{}, sphereCalls{}; inline void* vehicleResult{}; inline void* zoneResult{};

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -78,27 +78,40 @@ bool CTaskSimpleGiveCPR::ProcessPed(CPed* ped) {
 
 // 0x6589B0
 bool CTaskSimpleGiveCPR::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
-    eEventType eventType = event->GetEventType();
-
-    if (priority == ABORT_PRIORITY_IMMEDIATE
-        || eventType == EVENT_DEATH
-        || eventType == EVENT_HEALTH_REALLY_LOW
-        || eventType == EVENT_ON_FIRE
-        || eventType == EVENT_IN_WATER
-        || eventType == EVENT_WATER_CANNON
-        || eventType == EVENT_VEHICLE_DAMAGE_WEAPON
-        || eventType == EVENT_VEHICLE_DAMAGE_COLLISION
-        || eventType == EVENT_DAMAGE && (ped->m_fHealth <= 10.0F || m_fInitialHealth - ped->m_fHealth >= 40.0F)
-    ) {
-        if (m_pAnim) {
-            m_pAnim->SetFinishCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
-            m_pAnim->m_BlendDelta = -1000.0F;
-            m_pAnim = nullptr;
+    // Como el original: la prioridad se comprueba antes de leer el evento y, si ningun evento obliga,
+    // tambien se aborta con la salud del peaton <= 0
+    const auto ShouldAbort = [&] {
+        if (priority == ABORT_PRIORITY_IMMEDIATE) {
+            return true;
         }
-        return true;
-    } else {
+        switch (event->GetEventType()) {
+        case EVENT_DEATH:
+        case EVENT_HEALTH_REALLY_LOW:
+        case EVENT_ON_FIRE:
+        case EVENT_IN_WATER:
+        case EVENT_WATER_CANNON:
+        case EVENT_VEHICLE_DAMAGE_WEAPON:
+        case EVENT_VEHICLE_DAMAGE_COLLISION:
+            return true;
+        case EVENT_DAMAGE:
+            if (ped->m_fHealth <= 10.0F || m_fInitialHealth - ped->m_fHealth >= 40.0F) {
+                return true;
+            }
+            break;
+        default:
+            break;
+        }
+        return ped->m_fHealth <= 0.0F;
+    };
+    if (!ShouldAbort()) {
         return false;
     }
+    if (m_pAnim) {
+        m_pAnim->SetFinishCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+        m_pAnim->m_BlendDelta = -1000.0F;
+        m_pAnim = nullptr;
+    }
+    return true;
 }
 
 // 0x658900

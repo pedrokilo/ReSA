@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -42,7 +42,7 @@ void CTaskSimpleGoToPoint::InjectHooks() {
 CTaskSimpleGoToPoint::CTaskSimpleGoToPoint(eMoveState moveState, const CVector& targetPoint, float fRadius, bool bMoveTowardsTargetPoint, bool a6) :
     CTaskSimpleGoTo(moveState, targetPoint, fRadius)
 {
-    m_GoToPointFlags = 0;
+    m_GoToPointFlags &= 0xE0; // Como el original: and dl,0E0h (conserva los bits 5-7)
     gotoPointFlags.m_bMoveTowardsTargetPoint = bMoveTowardsTargetPoint;
     gotoPointFlags.m_b04 = a6;
 }
@@ -87,6 +87,14 @@ bool CTaskSimpleGoToPoint::ProcessPed(CPed* ped) {
         ped->bHasJustSoughtCover = false;
     }
     else {
+        // Como el original: la distancia, la diferencia de altura y la direccion se calculan antes de mover al peaton
+        const CVector& pedPos = ped->GetPosition();
+        const CVector2D vecDistance = m_vecTargetPoint - pedPos;
+        const float fHeightDiff = std::fabs(pedPos.z - m_vecTargetPoint.z);
+        const float fDistSq = vecDistance.SquaredMagnitude();
+        CVector2D vecDirection(vecDistance);
+        vecDirection.Normalise();
+
         CTaskSimpleDuck* pDuckTask = ped->GetIntelligence()->GetTaskDuck(false);
         if (pDuckTask) {
             float fMoveSpeedY = 1.1f;
@@ -132,33 +140,34 @@ bool CTaskSimpleGoToPoint::ProcessPed(CPed* ped) {
                 ped->SetMoveAnim();
             }
         }
-        bool bAimingRotationSet = false;
-        const CVector& pedPos = ped->GetPosition();
-        CVector2D vecDistance = m_vecTargetPoint - pedPos;
-        CVector2D vecDirection(vecDistance);
-        vecDirection.Normalise();
-        CVector2D vecDistanceToTargetFromLastPoint = m_vecTargetPoint - m_vecLastPedPos;
-        CVector2D vecDistanceToTargetFromPoint = m_vecTargetPoint - (CTimer::GetTimeStep() * ped->m_vecMoveSpeed + pedPos);
+        // Como el original: cada comparacion conserva la semantica NaN del EXE (fcomp + test ah)
+        const bool bInsideRadius = fDistSq < m_fRadius * m_fRadius;
+        const CVector2D vecDistanceToTargetFromLastPoint = m_vecTargetPoint - m_vecLastPedPos;
+        const bool bPassedFromLastPoint = DotProduct2D(vecDistance, vecDistanceToTargetFromLastPoint) < 0.0f;
         m_vecLastPedPos = pedPos;
-        if ((vecDistance.SquaredMagnitude() >= m_fRadius * m_fRadius
-            || gotoPointFlags.m_b05
-            || !ped->bIgnoreHeightCheckOnGotoPointTask && fabs(pedPos.z - m_vecTargetPoint.z) >= 2.0f
-            || gotoPointFlags.m_b04 && DotProduct2D(vecDistance, vecDistanceToTargetFromLastPoint) >= 0.0f)
-            && (gotoPointFlags.m_b04 || DotProduct2D(vecDistance, vecDistanceToTargetFromPoint) > 0.0f || gotoPointFlags.m_b05))
-        {
-            if (!gotoPointFlags.m_b02) {
-                float fAngleInRadians = CGeneral::GetRadianAngleBetweenPoints(vecDirection.x, vecDirection.y, 0.0f, 0.0f);
-                ped->m_fAimingRotation = CGeneral::LimitRadianAngle(fAngleInRadians);
-                bAimingRotationSet = true;
+
+        bool bReached = false;
+        if (bInsideRadius && !gotoPointFlags.m_b05
+            && (ped->bIgnoreHeightCheckOnGotoPointTask || fHeightDiff < 2.0f)
+            && (!gotoPointFlags.m_b04 || bPassedFromLastPoint)) {
+            bReached = true;
+        } else if (!gotoPointFlags.m_b04) {
+            const CVector2D vecDistanceToTargetFromPoint = m_vecTargetPoint - (CTimer::GetTimeStep() * ped->m_vecMoveSpeed + pedPos);
+            if (DotProduct2D(vecDistance, vecDistanceToTargetFromPoint) <= 0.0f && !gotoPointFlags.m_b05) {
+                bReached = true;
             }
         }
-        else {
+        if (bReached) {
             gotoPointFlags.m_b03 = true;
-        }
-        if (!bAimingRotationSet) {
             QuitIK(ped);
             return true;
         }
+        if (gotoPointFlags.m_b02) {
+            QuitIK(ped);
+            return true;
+        }
+        const float fAngleInRadians = CGeneral::GetRadianAngleBetweenPoints(vecDirection.x, vecDirection.y, 0.0f, 0.0f);
+        ped->m_fAimingRotation = CGeneral::LimitRadianAngle(fAngleInRadians);
     }
     if (gotoFlags.m_bTargetPointUpdated) {
         if (gotoFlags.m_bIsIKChainSet && g_ikChainMan.IsLooking(ped))

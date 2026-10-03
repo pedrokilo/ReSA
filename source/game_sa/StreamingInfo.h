@@ -54,6 +54,7 @@ public:
 
     void Init();
     [[nodiscard]] CdStreamPos GetCdPosn() const;
+    uint32 GetCdPosn_Hook() const; // 0x407570 (ABI del EXE)
     void SetCdPosnAndSize(uint32 offset, size_t CdSize);
     bool GetCdPosnAndSize(CdStreamPos& CdPosn, size_t& CdSize);
     [[nodiscard]] bool HasCdPosnAndSize() const noexcept { return m_CDSize != 0; }

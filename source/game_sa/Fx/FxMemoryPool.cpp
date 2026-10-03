@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -36,18 +36,23 @@ void FxMemoryPool_c::InjectHooks() {
 
 // 0x4A9C30
 // Reserva inicialmente un megabyte y comienza a entregar memoria desde el offset cero.
-void FxMemoryPool_c::Init() {
+// Como el original: devuelve si la reserva tuvo exito (al = 0/1).
+bool FxMemoryPool_c::Init() {
     m_nSize     = 1024 * 1024; // 1 megabyte
     m_nPosition = 0;
-    m_pData     = static_cast<uint8*>(CMemoryMgr::Malloc(m_nSize));
+    m_pData     = static_cast<uint8*>(CMemoryMgr::Malloc(1024 * 1024, 0));
+    if (!m_pData)
+        return false;
 
-    if (m_pData)
-        memset(m_pData, 0, m_nSize);
+    memset(m_pData, 0, m_nSize);
+    return true;
 }
 
 // 0x4A9C80
 void FxMemoryPool_c::Exit() {
-    CMemoryMgr::Free(this);
+    // Como el original: libera el bloque de datos (si existe), no el propio pool.
+    if (m_pData)
+        CMemoryMgr::Free(m_pData);
 }
 
 // 0x4A9C90
@@ -62,8 +67,10 @@ void FxMemoryPool_c::Reset() {
  * No mantiene free-list: la memoria individual no se devuelve hasta Reset/Exit.
  */
 void* FxMemoryPool_c::GetMem(int32 size, int32 align) {
-    if (m_nPosition % align > 0)
-        m_nPosition = align + m_nPosition - m_nPosition % align;
+    // Como el original: division sin signo y comparacion con signo del resto (div; test edx,edx; jle).
+    const auto rem = m_nPosition % uint32(align);
+    if (int32(rem) > 0)
+        m_nPosition = m_nPosition - rem + align;
 
     auto result = m_pData + m_nPosition;
     m_nPosition = size + m_nPosition;
@@ -73,6 +80,6 @@ void* FxMemoryPool_c::GetMem(int32 size, int32 align) {
 // 0x4A9CD0
 // Reduce el bloque al número de bytes efectivamente consumidos durante la carga.
 void FxMemoryPool_c::Optimise() {
-    m_pData = static_cast<uint8*>(CMemoryMgr::Realloc(m_pData, m_nPosition));
+    m_pData = static_cast<uint8*>(CMemoryMgr::Realloc(m_pData, m_nPosition, 0));
     m_nSize = m_nPosition;
 }

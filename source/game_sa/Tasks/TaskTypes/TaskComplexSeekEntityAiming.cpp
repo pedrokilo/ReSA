@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -47,8 +47,9 @@ CTaskComplexSeekEntityAiming::CTaskComplexSeekEntityAiming(CEntity* toSeek, floa
 }
 
 // 0x695820
+// Como el original: la copia recibe el radio de búsqueda (+0x10) y el de apuntado (+0x14)
 CTaskComplexSeekEntityAiming::CTaskComplexSeekEntityAiming(const CTaskComplexSeekEntityAiming& o) :
-    CTaskComplexSeekEntityAiming{o.m_ToSeek, o.m_AimRadius, o.m_AimRadius}
+    CTaskComplexSeekEntityAiming{o.m_ToSeek, o.m_SeekRadius, o.m_AimRadius}
 {
 }
 
@@ -59,11 +60,12 @@ CTaskComplexSeekEntityAiming::~CTaskComplexSeekEntityAiming() {
 
 // 0x695C20
 CTask* CTaskComplexSeekEntityAiming::CreateNextSubTask(CPed* ped) {
-    if (!m_ToSeek) {
-        return nullptr;
-    }
+    // Como el original: primero el tipo de la subtarea; tipos desconocidos devuelven nullptr
     switch (m_pSubTask->GetTaskType()) {
     case TASK_SIMPLE_STAND_STILL:
+        if (!m_ToSeek) {
+            return nullptr;
+        }
         return new CTaskComplexSeekEntity<>{
             m_ToSeek,
             50'000,
@@ -75,9 +77,12 @@ CTask* CTaskComplexSeekEntityAiming::CreateNextSubTask(CPed* ped) {
             true
         };
     case TASK_COMPLEX_SEEK_ENTITY:
+        if (!m_ToSeek) {
+            return nullptr;
+        }
         return new CTaskSimpleStandStill{2'000};
     default:
-        NOTSA_UNREACHABLE();
+        return nullptr;
     }
 }
 
@@ -101,38 +106,46 @@ CTask* CTaskComplexSeekEntityAiming::CreateFirstSubTask(CPed* ped) {
 // 0x694C70
 CTask* CTaskComplexSeekEntityAiming::ControlSubTask(CPed* ped) {
     const auto pedToSoughtDist2DSq = (ped->GetPosition() - m_ToSeek->GetPosition()).SquaredMagnitude2D();
-    const auto pedUseGun           = ped->GetIntelligence()->GetTaskUseGun();
+    // Como el original: la tarea secundaria de ataque se usa solo si es TASK_SIMPLE_USE_GUN; si hay otra no se crea ninguna
+    auto& taskMgr = ped->GetTaskManager();
+    CTask* const attackTask = taskMgr.GetTaskSecondary(TASK_SECONDARY_ATTACK);
+    const auto UseGun = [&]() -> CTaskSimpleUseGun* {
+        return attackTask && attackTask->GetTaskType() == TASK_SIMPLE_USE_GUN ? static_cast<CTaskSimpleUseGun*>(attackTask) : nullptr;
+    };
     switch (m_pSubTask->GetTaskType()) {
     case TASK_SIMPLE_STAND_STILL: {
-        if (pedUseGun) {
+        if (const auto pedUseGun = UseGun()) {
             pedUseGun->ControlGun(ped, m_ToSeek, eGunCommand::AIM);
         }
         if (pedToSoughtDist2DSq >= sq(m_SeekRadius)) {
-            m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE);
+            m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr);
         }
         break;
     }
     case TASK_COMPLEX_SEEK_ENTITY: {
-        if (pedToSoughtDist2DSq >= sq(m_AimRadius)) {
-            if (pedUseGun) {
+        // Como el original: con NaN también se termina el apuntado
+        if (!(pedToSoughtDist2DSq < sq(m_AimRadius))) {
+            if (const auto pedUseGun = UseGun()) {
                 pedUseGun->ControlGun(ped, m_ToSeek, eGunCommand::END_LEISURE);
             }
-        } else if (pedUseGun) {
-            pedUseGun->ControlGun(ped, m_ToSeek, eGunCommand::AIM);
-        } else {
-            ped->GetTaskManager().SetTaskSecondary(
+        } else if (!attackTask) {
+            taskMgr.SetTaskSecondary(
                 new CTaskSimpleUseGun{
                     m_ToSeek,
                     {},
-                    eGunCommand::AIM
+                    eGunCommand::AIM,
+                    1,
+                    false
                 },
                 TASK_SECONDARY_ATTACK
             );
+        } else if (const auto pedUseGun = UseGun()) {
+            pedUseGun->ControlGun(ped, m_ToSeek, eGunCommand::AIM);
         }
         break;
     }
     default:
-        NOTSA_UNREACHABLE();
+        break; // Como el original: otros tipos no hacen nada
     }
     return m_pSubTask;
 }

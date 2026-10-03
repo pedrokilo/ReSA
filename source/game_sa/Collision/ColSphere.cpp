@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -52,9 +52,12 @@ void CColSphere::Set(float radius, const CVector& center, eSurfaceType material,
  * @return true cuando existen soluciones reales; ambos puntos de corte se devuelven.
  */
 bool CColSphere::IntersectRay(const CVector& rayOrigin, const CVector& direction, CVector& intersectPoint1, CVector& intersectPoint2) {
-    CVector distance = rayOrigin - m_vecCenter;
-    float b = 2.0f * DotProduct(direction, distance);
-    float c = DotProduct(distance, distance) - m_fRadius * m_fRadius;
+    // Como el original: d = origen - centro; b = (dx*Dx + dz*Dz + dy*Dy) * 2 y c = (dz*dz + dx*dx + dy*dy) - r*r, en ese orden.
+    const float dx = rayOrigin.x - m_vecCenter.x;
+    const float dy = rayOrigin.y - m_vecCenter.y;
+    const float dz = rayOrigin.z - m_vecCenter.z;
+    const float b = (dx * direction.x + dz * direction.z + dy * direction.y) * 2.0f;
+    const float c = dz * dz + dx * dx + dy * dy - m_fRadius * m_fRadius;
     float t0 = 0.0f, t1 = 0.0f;
     if (CGeneral::SolveQuadratic(1.0f, b, c, t0, t1)) {
         intersectPoint1 = (t0 * direction) + rayOrigin;
@@ -72,22 +75,23 @@ bool CColSphere::IntersectRay(const CVector& rayOrigin, const CVector& direction
  * uno de los cortes matemáticos queda fuera de su longitud finita.
  */
 bool CColSphere::IntersectEdge(const CVector& startPoint, const CVector& endPoint, CVector& intersectPoint1, CVector& intersectPoint2) {
-    CVector originCenterDistance = startPoint - m_vecCenter;
+    // Como el original: todas las sumas siguen el orden z, x, y (o z, y, x para la longitud) del EXE.
+    const CVector originCenterDistance = startPoint - m_vecCenter;
     CVector rayDirection = endPoint - startPoint;
-    float rayLength = rayDirection.Magnitude();
+    const float rayLength = std::sqrt(rayDirection.z * rayDirection.z + rayDirection.y * rayDirection.y + rayDirection.x * rayDirection.x);
     rayDirection.Normalise();
-    float a = DotProduct(rayDirection, rayDirection);
-    float b = 2.0f * DotProduct(originCenterDistance, rayDirection);
-    float c = DotProduct(originCenterDistance, originCenterDistance) - m_fRadius * m_fRadius;
-    float discriminant = b * b - 4.0f * a * c; // discriminante = b^2 - 4ac
+    const float b = (rayDirection.z * originCenterDistance.z + rayDirection.x * originCenterDistance.x + rayDirection.y * originCenterDistance.y) * 2.0f;
+    const float c = originCenterDistance.z * originCenterDistance.z + originCenterDistance.x * originCenterDistance.x + originCenterDistance.y * originCenterDistance.y - m_fRadius * m_fRadius;
+    // Como el original: el termino a (|dir|^2 tras normalizar) no se usa: b^2 - c*4.
+    const float discriminant = b * b - c * 4.0f;
     // discriminante == 0: hay un punto tangente; > 0: hay dos cortes.
     if (discriminant < 0.0f) {
         return false;
     }
 
-    float discriminantSquareRoot = sqrt(discriminant);
-    float numerator1 = (-b - discriminantSquareRoot) * 0.5f;
-    float numerator2 = (discriminantSquareRoot - b) * 0.5f;
+    const float discriminantSquareRoot = std::sqrt(discriminant);
+    const float numerator2 = (discriminantSquareRoot - b) * 0.5f;
+    const float numerator1 = (-b - discriminantSquareRoot) * 0.5f;
     if (numerator1 > rayLength || numerator2 < 0.0f) {
         return false;
     }
@@ -107,15 +111,18 @@ bool CColSphere::IntersectEdge(const CVector& startPoint, const CVector& endPoin
 // 0x410040
 // Utiliza distancia al cuadrado y una comparación estricta: el borde exacto no cuenta.
 bool CColSphere::IntersectPoint(const CVector& point) {
-    CVector distance = m_vecCenter - point;
-    return m_fRadius * m_fRadius > distance.SquaredMagnitude();
+    // Como el original: d = centro - punto y r*r > (dz*dz + dx*dx + dy*dy), estricto.
+    const CVector distance = m_vecCenter - point;
+    return m_fRadius * m_fRadius > distance.z * distance.z + distance.x * distance.x + distance.y * distance.y;
 }
 
 // 0x410090
 // Dos esferas se solapan cuando la distancia entre centros es menor que la suma de radios.
 bool CColSphere::IntersectSphere(const CColSphere& right) const {
-    CVector distance = m_vecCenter - right.m_vecCenter;
-    return std::powf(m_fRadius + right.m_fRadius, 2.0f) > distance.SquaredMagnitude();
+    // Como el original: (r2 + r1)^2 > (dz*dz + dx*dx + dy*dy), estricto.
+    const CVector distance = m_vecCenter - right.m_vecCenter;
+    const float radii = right.m_fRadius + m_fRadius;
+    return radii * radii > distance.z * distance.z + distance.x * distance.x + distance.y * distance.y;
 }
 
 // Conserva los metadatos de superficie mientras transforma la esfera geométrica.

@@ -16,8 +16,8 @@ class Furniture_c;
  */
 class FurnitureManager_c {
 private:
-    static inline auto& g_currSubGroupId  = StaticRef<uint32>(0xBAB37C);
-    static inline auto& g_currFurnitureId = StaticRef<uint32>(0xBAB378);
+    static inline auto& g_currSubGroupId  = StaticRef<uint16>(0xBAB37C); // Como el original: word
+    static inline auto& g_currFurnitureId = StaticRef<uint16>(0xBAB378); // Como el original: word
     static inline auto& g_subGroupStore   = StaticRef<std::array<FurnitureSubGroup_c, 128>>(0xBAD3F8);
 
 public:
@@ -26,8 +26,8 @@ public:
     FurnitureManager_c() = default;  // 0x591260
     ~FurnitureManager_c() = default; // 0x5912E0
 
-    static int32 GetGroupId(const char* name);
-    static int32 GetSubGroupId(const char* name);
+    int32 GetGroupId(const char* name);    // Como el original: __thiscall (ret 4)
+    int32 GetSubGroupId(const char* name); // Como el original: __thiscall (ret 4)
     static FurnitureSubGroup_c* NewSubGroup();
 
     bool Init();

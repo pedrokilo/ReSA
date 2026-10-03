@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -62,12 +62,13 @@ void CSpecialFX::Init() {
     bSnapShotActive = false;
     SnapShotFrames  = 0;
 
-    {
-        CTxdStore::ScopedTXDSlot _("particle");
-        if (!gpFinishFlagTex) {
-            gpFinishFlagTex = RwTextureRead("finishFlag", nullptr);
-        }
+    // Como el original: Push, Find, Set (sin el assert de ScopedTXDSlot)
+    CTxdStore::PushCurrentTxd();
+    CTxdStore::SetCurrentTxd(CTxdStore::FindTxdSlot("particle"));
+    if (!gpFinishFlagTex) {
+        gpFinishFlagTex = RwTextureRead("finishFlag", nullptr);
     }
+    CTxdStore::PopCurrentTxd();
 
     CMirrors::Init();
 }
@@ -95,38 +96,46 @@ void CSpecialFX::Shutdown() {
     CMirrors::ShutDown();
 }
 
+// Como el original: CMatrix * CVector (0x59C890) con su orden de sumas
+static CVector MultiplyPointLikeExe(const CMatrix& m, const CVector& v) {
+    return {
+        ((m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x) + m.GetPosition().x,
+        ((m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y) + m.GetPosition().y,
+        ((m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y) + m.GetPosition().z,
+    };
+}
+
 // unused function
 // 0x7233F0
 void CSpecialFX::AddWeaponStreak(eWeaponType weaponType) {
-    const auto plyr = FindPlayerPed();
-    static CMatrix attachMat;
-    RwMatrix* LTM;
-    CVector end;
-    if (!plyr || !plyr->m_pWeaponObject) {
+    // Como el original: la matriz es la estática del EXE (0xC803E8) con su guarda de inicialización
+    auto& guard     = StaticRef<uint32>(0xC80430);
+    auto& attachMat = StaticRef<CMatrix>(0xC803E8);
+    if (!(guard & 1)) {
+        guard |= 1;
+        StaticRef<uint32>(0xC80428) = 0; // m_pAttachMatrix
+        StaticRef<uint32>(0xC8042C) = 0; // m_bOwnsAttachedMatrix
+        reinterpret_cast<int32(__cdecl*)(void(__cdecl*)())>(0x821D1E)(reinterpret_cast<void(__cdecl*)()>(0x856BC0)); // atexit(~attachMat)
+    }
+
+    if (!FindPlayerPed() || !FindPlayerPed()->m_pWeaponObject) {
         return;
     }
+    const auto weaponObject = FindPlayerPed()->m_pWeaponObject;
 
-    const auto DoStreak = [plyr, LTM, end](CVector endO) {
-        *LTM      = *RwFrameGetLTM(RpAtomicGetFrame(plyr->m_pWeaponObject));
-        attachMat = CMatrix(LTM, false);
-        CMotionBlurStreaks::RegisterStreak(
-            reinterpret_cast<uint32>(plyr->m_pWeaponObject),
-            100,
-            100,
-            100,
-            255,
-            attachMat.TransformPoint({ 0.02f, 0.05f, 0.07f }),
-            attachMat.TransformVector(endO)
-        );
-    };
-
-
+    CVector endO;
     switch (weaponType) {
-    case WEAPON_BASEBALLBAT: DoStreak({ 0.246f,  0.0325f,  0.796f }); break;
-    case WEAPON_GOLFCLUB:    DoStreak({ -0.054f, 0.0325f,  0.796f }); break;
-    case WEAPON_KATANA:      DoStreak({ 0.096f,  -0.0175f, 1.096f }); break;
-    default:                 break; // OG: No streak is created
+    case WEAPON_BASEBALLBAT: endO = CVector{ std::bit_cast<float>(0x3E7BE76Du), std::bit_cast<float>(0x3D051EB8u), std::bit_cast<float>(0x3F4BC6A8u) }; break; // 0.246, 0.0325, 0.796
+    case WEAPON_GOLFCLUB:    endO = CVector{ std::bit_cast<float>(0xBD5D2F1Bu), std::bit_cast<float>(0x3D051EB8u), std::bit_cast<float>(0x3F4BC6A8u) }; break; // -0.054, 0.0325, 0.796
+    case WEAPON_KATANA:      endO = CVector{ std::bit_cast<float>(0x3DC49BA6u), std::bit_cast<float>(0xBC8F5C29u), std::bit_cast<float>(0x3F8C49BAu) }; break; // 0.096, -0.0175, 1.096
+    default:                 return; // OG: No streak is created
     }
+
+    // Como el original: ambos extremos se transforman como puntos (con traslación)
+    attachMat = CMatrix(RwFrameGetLTM(RpAtomicGetFrame(weaponObject)), false);
+    const CVector start = MultiplyPointLikeExe(attachMat, CVector{ std::bit_cast<float>(0x3CA3D70Au), std::bit_cast<float>(0x3D4CCCCDu), std::bit_cast<float>(0x3D8F5C29u) }); // 0.02, 0.05, 0.07
+    const CVector end   = MultiplyPointLikeExe(attachMat, endO);
+    CMotionBlurStreaks::RegisterStreak(reinterpret_cast<uint32>(weaponObject), 100, 100, 100, 255, start, end);
 }
 
 // 0x726AD0
@@ -144,7 +153,8 @@ void CSpecialFX::Render() {
 // 0x721660
 void CSpecialFX::Render2DFXs() {
     if (bVideoCam) {
-        CFont::SetScale(SCREEN_STRETCH_X(1.5f), SCREEN_STRETCH_Y(1.5f));
+        // Como el original: ancho * (1/640) * 1,5 y alto * (1/448) * 1,5
+        CFont::SetScale(SCREEN_WIDTH * (1.0f / 640.0f) * 1.5f, SCREEN_HEIGHT * (1.0f / 448.0f) * 1.5f);
         CFont::SetBackground(false, false);
         CFont::SetProportional(true);
         CFont::SetOrientation(eFontAlignment::ALIGN_LEFT);
@@ -152,7 +162,8 @@ void CSpecialFX::Render2DFXs() {
         CFont::SetFontStyle(FONT_SUBTITLES);
         notsa::format_to_sz(gString, "{}", CTimer::GetFrameCounter() % 64);
         AsciiToGxtChar(gString, gGxtString);
-        CFont::PrintString(0.8f * SCREEN_WIDTH, 0.8f * SCREEN_HEIGHT, gGxtString);
+        // Como el original: posición entera (ancho * 8 / 10, alto * 8 / 10)
+        CFont::PrintString((float)(RsGlobal.maximumWidth * 8 / 10), (float)(RsGlobal.maximumHeight * 8 / 10), gGxtString);
 
         for (auto y = 3.0f; y - 3.0f < SCREEN_HEIGHT; y += 4.0f) {
             RwRenderStateSet(rwRENDERSTATESRCBLEND, RWRSTATE(rwBLENDONE));
@@ -177,7 +188,9 @@ void CSpecialFX::Render2DFXs() {
         RwRenderStateSet(rwRENDERSTATESRCBLEND, RWRSTATE(rwBLENDSRCALPHA));
         RwRenderStateSet(rwRENDERSTATEDESTBLEND, RWRSTATE(rwBLENDINVSRCALPHA));
 
-        const auto yt = std::trunc((SCREEN_HEIGHT + 70.0f) / 2048.0f * float(CTimer::GetTimeInMS() % 2'048) - 70.0f);
+        // Como el original: se trunca el producto y luego se resta 70
+        const auto ytBase = (int32)((SCREEN_HEIGHT + 70.0f) * (1.0f / 2048.0f) * float(CTimer::GetTimeInMS() % 2'048));
+        const auto yt = (float)(int32)((float)ytBase - 70.0f);
         CSprite2d::Draw2DPolygon(
             0.0f,         yt,
             SCREEN_WIDTH, yt,
@@ -188,10 +201,10 @@ void CSpecialFX::Render2DFXs() {
     }
 
     if (bLiftCam) {
-        CFont::SetScale(SCREEN_STRETCH_X(1.5f), SCREEN_STRETCH_Y(1.5f));
+        CFont::SetScale(SCREEN_WIDTH * (1.0f / 640.0f) * 1.5f, SCREEN_HEIGHT * (1.0f / 448.0f) * 1.5f);
         CFont::SetBackground(false, false);
+        CFont::SetOrientation(eFontAlignment::ALIGN_LEFT); // Como el original: orientación antes que proporcional
         CFont::SetProportional(true);
-        CFont::SetOrientation(eFontAlignment::ALIGN_LEFT);
         CFont::SetColor({ 100, 100, 100, 200 });
         CFont::SetFontStyle(FONT_SUBTITLES);
         // ...nothing to print?
@@ -217,7 +230,11 @@ void CSpecialFX::Render2DFXs() {
             );
         }
 
-        const auto yt = std::trunc((SCREEN_HEIGHT + 70.0f) / 2048.0f * float(CTimer::GetTimeInMS() % 2'048) - 70.0f);
+        // Como el original: se trunca el producto y luego se resta 70
+        const auto ytBase = (int32)((SCREEN_HEIGHT + 70.0f) * (1.0f / 2048.0f) * float(CTimer::GetTimeInMS() % 2'048));
+        const auto yt = (float)(int32)((float)ytBase - 70.0f);
+        RwRenderStateSet(rwRENDERSTATESRCBLEND, RWRSTATE(rwBLENDSRCALPHA)); // Como el original: también aquí
+        RwRenderStateSet(rwRENDERSTATEDESTBLEND, RWRSTATE(rwBLENDINVSRCALPHA));
         CSprite2d::Draw2DPolygon(
             0.0f,         yt,
             SCREEN_WIDTH, yt,
@@ -227,8 +244,9 @@ void CSpecialFX::Render2DFXs() {
         );
 
         for (auto i = 0; i < 200; i++) {
-            const auto x = CGeneral::GetRandomNumberInRange<uint32>(RsGlobal.maximumWidth);
-            const auto y = CGeneral::GetRandomNumberInRange<uint32>(RsGlobal.maximumHeight);
+            // Como el original: rand() % ancho y rand() % alto (división con signo)
+            const int32 x = (int32)CGeneral::GetRandomNumber() % RsGlobal.maximumWidth;
+            const int32 y = (int32)CGeneral::GetRandomNumber() % RsGlobal.maximumHeight;
             CSprite2d::DrawRect(
                 CRect{
                     float(x),
@@ -251,7 +269,8 @@ void CSpecialFX::Render2DFXs() {
                 RwRenderStateSet(rwRENDERSTATESRCBLEND, RWRSTATE(rwBLENDONE));
                 RwRenderStateSet(rwRENDERSTATEDESTBLEND, RWRSTATE(rwBLENDONE));
 
-                const uint8 shade = 255 - 255 * SnapShotFrames / 10;
+                // Como el original: (255 - 255 * frames / 10) * 0,65, truncado
+                const uint8 shade = (uint8)(int32)((float)(255 - 255 * SnapShotFrames / 10) * std::bit_cast<float>(0x3F266666u));
                 CSprite2d::Draw2DPolygon(
                     0.0f,         0.0f,
                     SCREEN_WIDTH, 0.0f,

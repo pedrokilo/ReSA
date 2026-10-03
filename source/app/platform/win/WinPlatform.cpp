@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 5/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -48,27 +48,32 @@ void ResetGammaWhenExiting() {
 * Unless Win98, in which case `GTATranslateKey` should handle it.
 * @addr 0x747CD0
 */
-BOOL GTATranslateShiftKey(RsKeyCodes*) { // The in keycode is ignored, so we won't bother
+BOOL GTATranslateShiftKey(RsKeyCodes* keyCode) {
     if (s_OSStatus.OSVer == WinVer::WIN_98) {
         return false; // Already handled by `GTATranslateKey`
     }
 
-    RsKeyCodes keyCode = rsNULL;
+    // Como el original: usa *keyCode como almacenamiento (rsNULL antes de cada consulta) y le pasa ese
+    // puntero al manejador. El EXE no fija el valor de retorno (EAX queda con basura).
+    *keyCode = rsNULL;
     if (KEY_DOWN(GetKeyState(VK_LSHIFT))) {
-        keyCode = rsLSHIFT;
-        RsKeyboardEventHandler(rsKEYDOWN, &keyCode);
+        *keyCode = rsLSHIFT;
+        RsKeyboardEventHandler(rsKEYDOWN, keyCode);
     }
+    *keyCode = rsNULL;
     if (KEY_DOWN(GetKeyState(VK_RSHIFT))) {
-        keyCode = rsRSHIFT;
-        RsKeyboardEventHandler(rsKEYDOWN, &keyCode);
+        *keyCode = rsRSHIFT;
+        RsKeyboardEventHandler(rsKEYDOWN, keyCode);
     }
+    *keyCode = rsNULL;
     if (KEY_UP(GetKeyState(VK_LSHIFT))) {
-        keyCode = rsLSHIFT;
-        RsKeyboardEventHandler(rsKEYUP, &keyCode);
+        *keyCode = rsLSHIFT;
+        RsKeyboardEventHandler(rsKEYUP, keyCode);
     }
+    *keyCode = rsNULL;
     if (KEY_UP(GetKeyState(VK_RSHIFT))) {
-        keyCode = rsRSHIFT;
-        RsKeyboardEventHandler(rsKEYUP, &keyCode);
+        *keyCode = rsRSHIFT;
+        RsKeyboardEventHandler(rsKEYUP, keyCode);
     }
 
     return true;
@@ -139,8 +144,9 @@ BOOL GTATranslateKey(RsKeyCodes* ck, LPARAM lParam, UINT vk) {
                 : rsNULL;
         }
         default: { // Try mapping to regular ASCII char
-            const auto chr = MapVirtualKey(vk, MAPVK_VK_TO_CHAR);
-            if (chr <= 0xFF) {
+            // Como el original: solo los 16 bits bajos y estrictamente menor que 0xFF
+            const auto chr = MapVirtualKey(vk, MAPVK_VK_TO_CHAR) & 0xFFFF;
+            if (chr < 0xFF) {
                 return (RsKeyCodes)(chr);
             }
             break;

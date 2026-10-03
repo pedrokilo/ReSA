@@ -9,7 +9,7 @@
 #include "../ProbeSupport.hpp"
 namespace URLive {
 inline bool done{};inline std::ofstream log;inline int currentCase=-1,currentFunction=-1;inline std::filesystem::path fixture,docs;
-inline void Write(const json& r){log<<r.dump()<<'\n';}
+inline void Write(const json& r){ ReversingProbe::PumpMessages();log<<r.dump()<<'\n';}
 inline int __cdecl Error(int,const wchar_t*,int,const wchar_t*,const wchar_t*,...){Write({{"event","error"},{"reason","runtime check"},{"case",currentCase},{"function",currentFunction}});log.flush();ExitProcess(92);}
 inline void __cdecl Assertion(const wchar_t* expression,const wchar_t* file,unsigned line){char expr[1024]{},path[1024]{};WideCharToMultiByte(CP_UTF8,0,expression,-1,expr,1024,nullptr,nullptr);WideCharToMultiByte(CP_UTF8,0,file,-1,path,1024,nullptr,nullptr);Write({{"event","assertion"},{"expression",expr},{"file",path},{"line",line},{"case",currentCase},{"function",currentFunction}});log.flush();ExitProcess(93);}
 inline int Documents(){const auto s=docs.string();assert(s.size()<128);strcpy_s(CFileMgr::ms_dirName,s.c_str());return SetCurrentDirectoryW(docs.c_str())?0:-1;}

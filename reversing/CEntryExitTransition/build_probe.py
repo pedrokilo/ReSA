@@ -27,7 +27,7 @@ def main():
             if content.count(anchor) != 1 or content.count('#include "StdInc.h"') != 1:
                 raise RuntimeError('Instrumentation anchor missing or duplicated: '+str(p))
             content = content.replace('#include "StdInc.h"', '#include "StdInc.h"\n#include "../../reversing/CEntryExitTransition/'+header+'"').replace(anchor, anchor+injected)
-            p.write_text(content, encoding='utf-8')
+            p.write_bytes(content.encode('utf-8'))
         with (artifacts/'probe-build.log').open('w') as log:
             subprocess.run([str(CMAKE),'--build',str(ROOT/'build'),'--config','Debug'],stdout=log,stderr=subprocess.STDOUT,check=True)
         hashes = {}

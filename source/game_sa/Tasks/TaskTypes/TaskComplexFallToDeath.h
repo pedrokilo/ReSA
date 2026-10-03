@@ -20,6 +20,10 @@ public:
         uint8 m_nFlags;
     };
 
+    static inline auto& ms_FallCheckOffset          = StaticRef<float>(0x8D2F00); // 1.5f
+    static inline auto& ms_FallCheckDepth           = StaticRef<float>(0x8D2F04); // 4.0f
+    static inline auto& ms_FallCheckHeight          = StaticRef<float>(0x8D2F08); // 0.375f
+    static inline auto& ms_RailingCheckDrop         = StaticRef<float>(0x8D2F0C); // 0.5f
     static inline auto& ms_NoRailingVerticalForce   = StaticRef<float>(0x8D2F10); // 4.5f
     static inline auto& ms_OverRailingVerticalForce = StaticRef<float>(0x8D2F14); // 9.0f
     static inline auto& ms_LateralForceMagnitude    = StaticRef<float>(0x8D2F18); // 6.0f

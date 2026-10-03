@@ -8,7 +8,7 @@
 #include "../ProbeSupport.hpp"
 namespace ConversationsLive {
 inline bool done{}; inline std::ofstream log;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 inline int Report(int type,char* msg,int*) { if(type!=_CRT_ASSERT)return FALSE; Write({{"event","assertion"},{"message",msg ? msg:""}}); ExitProcess(91); }
 inline void Update() {
     if(done)return;

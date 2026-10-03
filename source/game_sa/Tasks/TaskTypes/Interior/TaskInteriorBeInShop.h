@@ -8,6 +8,9 @@ struct InteriorInfo_t;
 
 class NOTSA_EXPORT_VTABLE CTaskInteriorBeInShop : public CTaskComplexWander {
 public:
+    // Como el original: GetTaskType devuelve TASK_INTERIOR_BE_IN_SHOP (0x57C); sin esto heredaba el Type de CTaskComplexWander
+    static constexpr auto Type = TASK_INTERIOR_BE_IN_SHOP;
+
     static void InjectHooks();
 
     CTaskInteriorBeInShop(InteriorGroup_c* interiorGroup);

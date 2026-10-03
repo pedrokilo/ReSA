@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -56,65 +56,79 @@ CBulletTrace* CBulletTraces::GetFree() {
     return nullptr;
 }
 
-void PlayFrontEndSoundForTrace(CVector fromWorldSpace, CVector toWorldSpace) {
-    CMatrix camMat = TheCamera.GetMatrix();
-    const CVector& camPos = camMat.GetPosition();
+// Como el original (inline en 0x7238F7): coordenadas en la matriz de camara (0xB6F99C) relativas a la posicion de
+// TheCamera, con el orden de sumas del EXE; el volumen es log10 * 20 con fyl2x.
+void PlayFrontEndSoundForTrace(const CVector& fromWorldSpace, const CVector& toWorldSpace) {
+    const auto& camMat = StaticRef<CMatrix>(0xB6F99C);
+    const CVector& right = camMat.GetRight();
+    const CVector& fwd = camMat.GetForward();
+    const CVector& up = camMat.GetUp();
+    const CVector camPos = TheCamera.GetPosition();
 
-    // Make their position relative to the camera's
-    const auto fromRelToCam = fromWorldSpace - camPos;
-    const auto toRelToCam = toWorldSpace - camPos;
+    const CVector f{ fromWorldSpace.x - camPos.x, fromWorldSpace.y - camPos.y, fromWorldSpace.z - camPos.z };
+    const CVector t{ toWorldSpace.x - camPos.x, toWorldSpace.y - camPos.y, toWorldSpace.z - camPos.z };
+    const float fromX = f.z * right.z + f.y * right.y + f.x * right.x;
+    const float fromZ = up.x * f.x + up.z * f.z + up.y * f.y;
+    const float fromY = f.x * fwd.x + fwd.z * f.z + fwd.y * f.y;
+    const float toX   = t.y * right.y + t.z * right.z + t.x * right.x;
+    const float toZ   = up.z * t.z + up.y * t.y + up.x * t.x;
+    const float toY   = fwd.z * t.z + fwd.y * t.y + fwd.x * t.x;
 
-    // Transform both points into the camera's space ((C)cam (S)pace - CS)
-    const float fromCSY = DotProduct(fromRelToCam, camMat.GetForward());
-
-    const float toCSY = DotProduct(toRelToCam, camMat.GetForward());
-
-    if (std::signbit(toCSY) == std::signbit(fromCSY)) { // Originally: toCSY * fromCSY < 0.0f - Check if signs differ
-        return; // Both points are either in front or behind us
+    if (!(toY * fromY < 0.f)) {
+        return; // Ambos puntos delante o detras de la camara
+    }
+    // Como el original: valor absoluto con fchs condicional (el -0 se conserva).
+    const float absFrom = fromY < 0.f ? -fromY : fromY;
+    const float absTo   = toY < 0.f ? -toY : toY;
+    const float interp  = absFrom / (absTo + absFrom);
+    const float pointX  = (toX - fromX) * interp + fromX;
+    const float pointZ  = (toZ - fromZ) * interp + fromZ;
+    const float camToLineDist = std::sqrt(pointZ * pointZ + pointX * pointX);
+    if (!(camToLineDist < 2.f)) {
+        return;
     }
 
-    // They do, in this case points are on opposite sides (one behind, one in front of the camera)
-
-    // Now calculate the remaining coordinates
-    const float fromCSX = DotProduct(fromRelToCam, camMat.GetRight());
-    const float fromCSZ = DotProduct(fromRelToCam, camMat.GetUp());
-
-    const float toCSX = DotProduct(toRelToCam, camMat.GetRight());
-    const float toCSZ = DotProduct(toRelToCam, camMat.GetUp());
-
-    // Calculate distance to point on line that is on the same Y axis as the camera
-    // (This point on line is basically the bullet when passing by the camera)
-        
-    // Interpolation on line
-    const float t = fabs(fromCSY) / (fabs(fromCSY) + fabs(toCSY));
-
-    const float pointOnLineZ = fromCSZ + (toCSZ - fromCSZ) * t;
-    const float pointOnLineX = fromCSX + (toCSX - fromCSX) * t;
-
-    // Calculate distance from camera to point on line
-    const float camToLineDist = std::hypotf(pointOnLineZ, pointOnLineX);
-
-    if (camToLineDist >= 2.0f) {
-        return; // Point too far from camera
+    const float factor = 1.f - camToLineDist * 0.5f;
+    float volume = -100.f;
+    if (factor != 0.f) {
+        const float decibels = 20.f;
+        __asm {
+            fld factor
+            fldlg2
+            fxch st(1)
+            fyl2x
+            fmul decibels
+            fstp volume
+        }
     }
-
-    const auto ReportBulletAudio = [&](auto event) {
-        const float volDistFactor = 1.0f - camToLineDist * 0.5f;
-        const float volumeChange  = volDistFactor == 0.0f ? -100.0f : std::log10(volDistFactor);
-        AudioEngine.ReportFrontendAudioEvent(event, volumeChange, 1.0f);
-    };
-
-    const bool isComingFromBehind = fromCSY <= 0.0f; // Is the bullet coming from behind us?
-    if (0.f <= pointOnLineX) { // Is bullet passing on the right of the camera?
-        ReportBulletAudio(isComingFromBehind ? AE_FRONTEND_BULLET_PASS_RIGHT_REAR : AE_FRONTEND_BULLET_PASS_RIGHT_FRONT);
-    } else { // Bullet passing on left of the camera.
-        ReportBulletAudio(isComingFromBehind ? AE_FRONTEND_BULLET_PASS_LEFT_REAR : AE_FRONTEND_BULLET_PASS_LEFT_FRONT);
+    eAudioEvents event;
+    if (!(pointX < 0.f)) {
+        event = fromY > 0.f ? AE_FRONTEND_BULLET_PASS_LEFT_FRONT : AE_FRONTEND_BULLET_PASS_LEFT_REAR;
+    } else {
+        event = fromY > 0.f ? AE_FRONTEND_BULLET_PASS_RIGHT_FRONT : AE_FRONTEND_BULLET_PASS_RIGHT_REAR;
     }
+    AudioEngine.ReportFrontendAudioEvent(event, volume, 1.0f);
 }
 
 // 0x723750
 void CBulletTraces::AddTrace(const CVector& from, const CVector& to, float radius, uint32 disappearTime, uint8 alpha)
 {
+    // Como el original: la vida depende de cuantas trazas existen ya (no del indice del hueco libre).
+    int32 numExisting = 0;
+    for (CBulletTrace& trace : aTraces) {
+        if (trace.m_bExists) {
+            ++numExisting;
+        }
+    }
+    uint32 lifeTime;
+    if (numExisting >= 10) {
+        lifeTime = (uint32)(int64)((float)disappearTime * 0.25f);
+    } else if (numExisting >= 5) {
+        lifeTime = (uint32)(int64)((float)disappearTime * 0.5f);
+    } else {
+        lifeTime = disappearTime;
+    }
+
     if (CBulletTrace* pTrace = GetFree()) {
         pTrace->m_vecStart = from;
         pTrace->m_vecEnd = to;
@@ -122,15 +136,7 @@ void CBulletTraces::AddTrace(const CVector& from, const CVector& to, float radiu
         pTrace->m_nTransparency = alpha;
         pTrace->m_bExists = true;
         pTrace->m_fRadius = radius;
-
-        // Determinate lifetime based on index in aTraces array
-        // This way we can kinda make sure all traces will be visible (even if for only a brief amount of time)
-        const auto traceIdx = GetTraceIndex(pTrace);
-        if (traceIdx < 10) {
-            pTrace->m_nLifeTime = (uint32)(traceIdx < 5 ? disappearTime : disappearTime / 2.0f);
-        } else {
-            pTrace->m_nLifeTime = (uint32)(disappearTime / 4.0f);
-        }
+        pTrace->m_nLifeTime = lifeTime;
     }
     PlayFrontEndSoundForTrace(from, to);
 }
@@ -150,22 +156,35 @@ void CBulletTraces::AddTrace(const CVector& posMuzzle, const CVector& posBulletH
         case MODE_ROCKETLAUNCHER_RUNABOUT:
         case MODE_ROCKETLAUNCHER_RUNABOUT_HS:
         case MODE_HELICANNON_1STPERSON: {
-            if (FindPlayerEntity()->AsPhysical()->m_vecMoveSpeed.Magnitude() < 0.05f) {
+            CPhysical* const player = FindPlayerVehicle() ? static_cast<CPhysical*>(FindPlayerVehicle()) : static_cast<CPhysical*>(FindPlayerPed());
+            const CVector& speed = player->m_vecMoveSpeed;
+            // Como el original: suma z + y + x
+            if (std::sqrt(speed.z * speed.z + speed.y * speed.y + speed.x * speed.x) < 0.05f) {
                 return;
             }
+            break;
         }
+        default:
+            break;
         }
     }
 
-    CVector dir = posBulletHit - posMuzzle;
-    const float traceLengthOriginal = dir.Magnitude();
+    CVector dir{ posBulletHit.x - posMuzzle.x, posBulletHit.y - posMuzzle.y, posBulletHit.z - posMuzzle.z };
+    const float traceLengthOriginal = std::sqrt(dir.z * dir.z + dir.y * dir.y + dir.x * dir.x);
     dir.Normalise();
 
-    const float traceLengthNew = CGeneral::GetRandomNumberInRange(0.0f, traceLengthOriginal);
-    const float fRadius = std::min(CGeneral::GetRandomNumberInRange(2.0f, 5.0f), traceLengthOriginal - traceLengthNew);
-
-    CVector from = posMuzzle + dir * traceLengthNew;
-    CVector to = from + dir * fRadius;
+    // Como el original: rand() * (1 / 32767) en linea; std::min evaluado como macro (segundo rand si gana el aleatorio).
+    const float recip = std::bit_cast<float>(0x38000100u);
+    const float traceLengthNew = (float)CGeneral::GetRandomNumber() * recip * traceLengthOriginal;
+    const CVector from{ dir.x * traceLengthNew + posMuzzle.x, dir.y * traceLengthNew + posMuzzle.y, dir.z * traceLengthNew + posMuzzle.z };
+    const float remaining = traceLengthOriginal - traceLengthNew;
+    float fRadius = (float)CGeneral::GetRandomNumber() * recip * 3.f + 2.f;
+    if (fRadius < remaining) {
+        fRadius = (float)CGeneral::GetRandomNumber() * recip * 3.f + 2.f;
+    } else {
+        fRadius = remaining;
+    }
+    const CVector to{ dir.x * fRadius + from.x, dir.y * fRadius + from.y, dir.z * fRadius + from.z };
 
     AddTrace(
         from,
@@ -193,44 +212,64 @@ void CBulletTraces::Render() {
             continue;
         }
 
+        // Como el original: direcciones normalizadas con 0x59C910 y la traza reconstruida como dir * longitud * t.
+        const CVector camPos = TheCamera.GetPosition();
+        CVector camToOriginDir{ trace.m_vecStart.x - camPos.x, trace.m_vecStart.y - camPos.y, trace.m_vecStart.z - camPos.z };
+        camToOriginDir.Normalise();
+        CVector dir{ trace.m_vecEnd.x - trace.m_vecStart.x, trace.m_vecEnd.y - trace.m_vecStart.y, trace.m_vecEnd.z - trace.m_vecStart.z };
+        const float length = std::sqrt(dir.z * dir.z + dir.y * dir.y + dir.x * dir.x);
+        dir.Normalise();
+        CVector up = camToOriginDir.Cross(dir);
+        up.Normalise();
+
         // Time progress 1 => 0 as time passes
-        const float t = 1.0f - (float)trace.GetRemainingLifetime() / (float)trace.m_nLifeTime;
+        // Como el original: enteros sin signo cargados con fild (+2^32) y una sola division redondeada.
+        const uint32 elapsed = trace.GetRemainingLifetime(), lifeTime = trace.m_nLifeTime;
+        const float twoPow32 = 4294967296.f, one = 1.f;
+        float t;
+        __asm {
+            mov eax, elapsed
+            fild elapsed
+            test eax, eax
+            jge trace_elapsed_ok
+            fadd twoPow32
+        trace_elapsed_ok:
+            mov ecx, lifeTime
+            fild lifeTime
+            test ecx, ecx
+            jge trace_life_ok
+            fadd twoPow32
+        trace_life_ok:
+            fdivp st(1), st
+            fsubr one
+            fstp t
+        }
+        const auto alpha = (uint8)(int32)((float)trace.m_nTransparency * t);
 
-        // Set vertex positions
-        {
-            // Direction from camera to trace's origin (aka `start`)
-            const auto camToOriginDir = (trace.m_vecStart - TheCamera.GetPosition()).Normalized();
-
-            // Upward direction relative to the camera's position
-            const auto up = camToOriginDir.Cross(trace.GetDirection().Normalized()).Normalized();
-
-            // Size vector
-            const auto sizeVec = up * (trace.m_fRadius * t);
-
-            // Current position on the trace's line segment (Inverted because `t` is going 1 => 0 not 0 => 1)
-            const CVector currPosOnTrace = trace.m_vecEnd - trace.GetDirection() * t;
-
-            // Finally, calculate the position for each vertex
-            const CVector vertPositions[std::size(verts)] = {
-                currPosOnTrace,
-                currPosOnTrace + sizeVec,
-                currPosOnTrace - sizeVec,
-
-                trace.m_vecEnd,
-                trace.m_vecEnd + sizeVec,
-                trace.m_vecEnd - sizeVec,
-            };
-
-            for (const auto& [idx, pos] : rngv::enumerate(vertPositions)) {
-                RwV3dAssign(RwIm3DVertexGetPos(&verts[idx]), &pos);
-            }
+        const float size = t * trace.m_fRadius;
+        const CVector sizeVec{ up.x * size, up.y * size, up.z * size };
+        const CVector currPosOnTrace{
+            trace.m_vecEnd.x - dir.x * length * t,
+            trace.m_vecEnd.y - dir.y * length * t,
+            trace.m_vecEnd.z - dir.z * length * t,
+        };
+        const CVector vertPositions[std::size(verts)] = {
+            currPosOnTrace,
+            CVector{ sizeVec.x + currPosOnTrace.x, sizeVec.y + currPosOnTrace.y, sizeVec.z + currPosOnTrace.z },
+            CVector{ currPosOnTrace.x - sizeVec.x, currPosOnTrace.y - sizeVec.y, currPosOnTrace.z - sizeVec.z },
+            trace.m_vecEnd,
+            CVector{ sizeVec.x + trace.m_vecEnd.x, sizeVec.y + trace.m_vecEnd.y, sizeVec.z + trace.m_vecEnd.z },
+            CVector{ trace.m_vecEnd.x - sizeVec.x, trace.m_vecEnd.y - sizeVec.y, trace.m_vecEnd.z - sizeVec.z },
+        };
+        for (size_t idx = 0; idx < std::size(verts); ++idx) {
+            RwV3dAssign(RwIm3DVertexGetPos(&verts[idx]), &vertPositions[idx]);
         }
 
         // Set colors
         for (auto& vert : verts) {
             RwIm3DVertexSetRGBA(&vert, 255, 255, 128, 0);
         }
-        RwIm3DVertexSetRGBA(&verts[3], 255, 255, 128, (char)((float)trace.m_nTransparency * t)); // Only vertex 3 has non-zero alpha
+        RwIm3DVertexSetRGBA(&verts[3], 255, 255, 128, alpha); // Only vertex 3 has non-zero alpha
 
         if (RwIm3DTransform(verts, std::size(verts), nullptr, rwIM3D_VERTEXRGBA)) {
             RwImVertexIndex indices[] = {

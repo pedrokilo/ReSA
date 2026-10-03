@@ -9,14 +9,14 @@ class CEntity;
 class NOTSA_EXPORT_VTABLE CTaskComplexSmartFleeEntity : public CTaskComplex {
 public:
     CEntity*   m_fleeFrom{};                    /// Entity to flee from
-    CVector    m_pos{};                         /// The current position to flee from (It's the entity's position with some tolerance, see `m_posCheckTimer`)
+    CVector    m_pos;                           /// The current position to flee from (It's the entity's position with some tolerance, see `m_posCheckTimer`) // Como el original: el constructor no lo escribe
     int32      m_time{};                        /// The time in which we have to flee
     float      m_safeDistance{};                /// Distance from entity in which we're safe (thus task ends)
     bool       m_pedScream{};                   /// Should the ped scream (Using `CPed::Say`)
     int32      m_posCheckPeriod{};              /// How often the entity's position should be checked
     float      m_posChangeTolerance{};          /// How much of a tolerance there is for the entity's position (presumeably in distance from the prev. pos) (eg.: anything less than this will be ignored)
     eMoveState m_moveState{ PEDMOVE_SPRINT };   /// The ped's move state when fleeing
-    CTaskTimer m_posCheckTimer{};               /// Entity's position check timer (Period is `m_posCheckPeriod`)
+    CTaskTimer m_posCheckTimer;                 /// (Como el original: sin inicializar por valor, relleno 0x3E..0x3F sin escribir) Entity's position check timer (Period is `m_posCheckPeriod`)
 
 public:
     static constexpr auto Type = TASK_COMPLEX_SMART_FLEE_ENTITY;

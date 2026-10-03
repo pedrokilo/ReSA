@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -63,8 +63,9 @@ CTaskComplexSmartFleeEntity::CTaskComplexSmartFleeEntity(
     CEntity::SafeRegisterRef(m_fleeFrom);
 }
 
+// 0x65CF40: Como el original, Clone copia también el estado de movimiento (+0x30)
 CTaskComplexSmartFleeEntity::CTaskComplexSmartFleeEntity(const CTaskComplexSmartFleeEntity& o) :
-    CTaskComplexSmartFleeEntity{ o.m_fleeFrom, o.m_pedScream, o.m_safeDistance, o.m_time, o.m_posCheckPeriod, o.m_posChangeTolerance }
+    CTaskComplexSmartFleeEntity{ o.m_fleeFrom, o.m_pedScream, o.m_safeDistance, o.m_time, o.m_posCheckPeriod, o.m_posChangeTolerance, o.m_moveState }
 {
 }
 
@@ -75,20 +76,16 @@ CTaskComplexSmartFleeEntity::~CTaskComplexSmartFleeEntity() {
 
 // 0x65C680
 CTask* CTaskComplexSmartFleeEntity::CreateNextSubTask(CPed* ped) {
-     return CreateSubTask([this] {
-         switch (m_pSubTask->GetTaskType()) {
-         /* Dead code (A subtask of this type is never created)
-         case TASK_SIMPLE_STAND_STILL:
-             return m_entity
-                    ? TASK_COMPLEX_SMART_FLEE_POINT
-                    : TASK_FINISHED;
-         */
-         case TASK_COMPLEX_SMART_FLEE_POINT:
-             return TASK_FINISHED;
-         default:
-             NOTSA_UNREACHABLE();
-         }
-    }());   
+    // Como el original: GetTaskType se llama dos veces (la primera se descarta); STAND_STILL con entidad vuelve a huir
+    (void)m_pSubTask->GetTaskType();
+    switch (m_pSubTask->GetTaskType()) {
+    case TASK_SIMPLE_STAND_STILL:
+        return CreateSubTask(m_fleeFrom ? TASK_COMPLEX_SMART_FLEE_POINT : TASK_FINISHED);
+    case TASK_COMPLEX_SMART_FLEE_POINT:
+        return CreateSubTask(TASK_FINISHED);
+    default:
+        return nullptr;
+    }
 }
 
 // 0x65C6F0
@@ -105,7 +102,7 @@ CTask* CTaskComplexSmartFleeEntity::CreateFirstSubTask(CPed* ped) {
             ped,
             m_fleeFrom,
             3000,
-            m_fleeFrom->GetStatus() == STATUS_PHYSICS
+            m_fleeFrom->GetIsTypePed() // Como el original: tipo de entidad (byte 0x36 & 7) == peatón, no el estado
                 ? BONE_HEAD
                 : BONE_UNKNOWN,
             nullptr,
@@ -122,31 +119,45 @@ CTask* CTaskComplexSmartFleeEntity::CreateFirstSubTask(CPed* ped) {
 
 // 0x65C780
 CTask* CTaskComplexSmartFleeEntity::ControlSubTask(CPed* ped) {
-    if (m_fleeFrom) {
-        if (const auto fleePointTask = notsa::dyn_cast_if_present<CTaskComplexSmartFleePoint>(m_pSubTask)) {
-            fleePointTask->m_moveState = m_moveState;
-
-            // Check if position update timer is out of time, if so, update position (if still outside tolerance)
-            if (m_posCheckTimer.IsOutOfTime()) {
-                m_posCheckTimer.Start(m_posCheckPeriod);
-
-                const auto& currPos = m_fleeFrom->GetPosition();
-                if ((currPos - m_pos).SquaredMagnitude() >= sq(m_posChangeTolerance)) {
-                    m_pos = currPos;
-                    fleePointTask->SetFleePosition(m_pos, m_safeDistance, m_pedScream);
-
-                    switch (m_moveState) {
-                    case PEDMOVE_JOG:
-                    case PEDMOVE_RUN:
-                    case PEDMOVE_SPRINT: {
-                        GetEventGlobalGroup()->Add(CEventSeenPanickedPed{ ped });
-                    }
-                    }
-                }
-            }
-        }
-    } else {
+    if (!m_fleeFrom) {
         m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr);
+        return m_pSubTask;
+    }
+    if (m_pSubTask->GetTaskType() != TASK_COMPLEX_SMART_FLEE_POINT) {
+        return m_pSubTask;
+    }
+    const auto fleePointTask = static_cast<CTaskComplexSmartFleePoint*>(m_pSubTask);
+    fleePointTask->m_moveState = m_moveState;
+
+    // Como el original: el temporizador solo se reinicia cuando la entidad se ha alejado más que la tolerancia
+    if (!m_posCheckTimer.m_bStarted) {
+        return m_pSubTask;
+    }
+    if (m_posCheckTimer.m_bStopped) {
+        m_posCheckTimer.m_nStartTime = CTimer::GetTimeInMS();
+        m_posCheckTimer.m_bStopped   = false;
+    }
+    const uint32 now = CTimer::GetTimeInMS();
+    if (now < m_posCheckTimer.m_nStartTime + (uint32)m_posCheckTimer.m_nInterval) {
+        return m_pSubTask;
+    }
+
+    // Como el original: (dz² + dy²) + dx² frente a tolerancia² con comparación estricta
+    const auto& currPos = m_fleeFrom->GetPosition();
+    const float dx = m_pos.x - currPos.x, dy = m_pos.y - currPos.y, dz = m_pos.z - currPos.z;
+    const float distSq = dz * dz + dy * dy + dx * dx;
+    if (!(m_posChangeTolerance * m_posChangeTolerance < distSq)) {
+        return m_pSubTask;
+    }
+    m_posCheckTimer.m_nStartTime = now;
+    m_posCheckTimer.m_nInterval  = m_posCheckPeriod;
+    m_posCheckTimer.m_bStarted   = true;
+    m_pos = m_fleeFrom->GetPosition();
+    fleePointTask->SetFleePosition(m_pos, m_safeDistance, m_pedScream);
+
+    if ((int32)m_moveState > 4) { // Como el original: jle con 4 (PEDMOVE_WALK), con signo
+        CEventSeenPanickedPed event{ ped };
+        GetEventGlobalGroup()->Add(&event, false);
     }
 
     return m_pSubTask;
@@ -155,12 +166,13 @@ CTask* CTaskComplexSmartFleeEntity::ControlSubTask(CPed* ped) {
 // 0x65C530
 CTask* CTaskComplexSmartFleeEntity::CreateSubTask(eTaskType taskType) {
     switch (taskType) {
-    /* Dead code - The function is never called with this type
-    case TASK_SIMPLE_STAND_STILL:
-        return new CTaskSimpleStandStill{ CGeneral::GetRandomNumberInRange(0, 50) };
-    */
+    case TASK_SIMPLE_STAND_STILL: // Como el original: (int)(rand * (1/32768) * 50)
+        return new CTaskSimpleStandStill{ (int32)((float)(CGeneral::GetRandomNumber() & 0xFFFF) * 3.0517578125e-05f * 50.f), false, false, 8.f };
     case TASK_COMPLEX_SMART_FLEE_POINT: {
-        m_posCheckTimer.Start(m_posCheckPeriod);
+        // Como el original: el temporizador se arranca sin comprobar el intervalo y sin tocar el byte de parada
+        m_posCheckTimer.m_nStartTime = CTimer::GetTimeInMS();
+        m_posCheckTimer.m_nInterval  = m_posCheckPeriod;
+        m_posCheckTimer.m_bStarted   = true;
         m_pos = m_fleeFrom->GetPosition();
         return new CTaskComplexSmartFleePoint{
             m_pos,
@@ -169,9 +181,7 @@ CTask* CTaskComplexSmartFleeEntity::CreateSubTask(eTaskType taskType) {
             m_time
         };
     }
-    case TASK_FINISHED:
-        return nullptr;
     default:
-        NOTSA_UNREACHABLE();
+        return nullptr;
     }
 }

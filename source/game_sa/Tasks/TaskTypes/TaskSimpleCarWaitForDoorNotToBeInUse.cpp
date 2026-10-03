@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -68,7 +68,7 @@ bool CTaskSimpleCarWaitForDoorNotToBeInUse::ProcessPed(CPed* ped) {
 
 // 0x646CC0
 bool CTaskSimpleCarWaitForDoorNotToBeInUse::SetPedPosition(CPed* ped) {
-    if (ped->IsInVehicle(m_veh)) {
+    if (m_veh && ped->IsInVehicle(m_veh)) { // Como el original: sin vehiculo no se toca al peaton (test eax,eax / je)
         ped->SetPedPositionInCar();
     }
     return true;

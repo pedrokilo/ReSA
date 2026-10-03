@@ -38,10 +38,16 @@ private:
     CTaskSimpleIKChain* Destructor() { this->CTaskSimpleIKChain::~CTaskSimpleIKChain(); return this; }
 
 protected:
+    //! NOTSA: constructor sin inicializar para CTaskSimpleIKPointArm, que en el EXE escribe los campos en linea.
+    //! Como el original: 0x16 (m_PivotBone) queda sin escribir; el derivado pasa el valor previo para conservarlo
+    struct UninitTag { int16 rawPivotBone; };
+    explicit CTaskSimpleIKChain(UninitTag tag) { static_cast<int16&>(m_PivotBone) = tag.rawPivotBone; }
+
+protected:
     int32              m_Duration{};
     int32              m_BlendDuration{};
     IKChain_c*         m_IKChain{};
-    int16              m_SlotId{};
+    int16              m_SlotId;         // Como el original: los constructores no lo escriben
     eBoneTag16         m_PivotBone{};    //! Bone we're moving bones up to
     eBoneTag16         m_EffectorBone{}; //! Bone we're moving
     CVector            m_EffectorOffset{};
@@ -51,9 +57,9 @@ protected:
     float              m_Speed{};
     bool               m_TargetEntityExisted{};
     float              m_Blend{};
-    int32              m_EndTime{};
-    float              m_TargetBlend{};
-    int32              m_TargetTime{};
+    int32              m_EndTime;        // Como el original: los constructores no lo escriben
+    float              m_TargetBlend;    // Como el original: los constructores no lo escriben
+    int32              m_TargetTime;     // Como el original: los constructores no lo escriben
     int32              m_IsBlendingOut{};
 };
 VALIDATE_SIZE(CTaskSimpleIKChain, 0x58);

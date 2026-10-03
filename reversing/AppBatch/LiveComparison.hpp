@@ -22,7 +22,7 @@
 
 namespace AppLive {
 inline bool done{}; inline std::ofstream log; inline json trace;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 alignas(16) inline std::array<uint8,64> param{};
 inline json Arg(uint32 v) {
     if(v&&v==uintptr_t(Scene.m_pRwCamera))return "camera";

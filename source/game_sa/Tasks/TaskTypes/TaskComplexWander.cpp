@@ -61,7 +61,9 @@ CTaskComplexWander::CTaskComplexWander(eMoveState moveState, uint8 dir, bool bWa
     m_nMoveState = moveState;
     m_nDir = dir;
     m_fTargetRadius = fTargetRadius;
-    m_bWanderSensibly = bWanderSensibly;
+    m_LastNode.m_wAreaId = (uint16)-1; // Como el original: mov word ptr [esi+18h],0FFFFh (m_wNodeId sin escribir)
+    m_NextNode.m_wAreaId = (uint16)-1; // Como el original: mov word ptr [esi+1Ch],0FFFFh
+    m_nFlags = (uint8)((m_nFlags & 0xF0) | ((uint8)bWanderSensibly & 1)); // Como el original: borra los bits 0-3 y pone el 0
     m_nLastUpdateDirFrameCount = 0;
 }
 
@@ -149,18 +151,18 @@ CTask* CTaskComplexWander::CreateFirstSubTask(CPed* ped) {
 
 
 CTask* CTaskComplexWander::ControlSubTask(CPed* ped) {
-    auto subTaskId = m_pSubTask->GetTaskType();
-    if (subTaskId == TASK_COMPLEX_LEAVE_CAR || subTaskId == TASK_SIMPLE_CAR_DRIVE_TIMED) {
+    // Como el original: el tipo de la subtarea se vuelve a pedir en cada comprobacion (llamada virtual)
+    if (m_pSubTask->GetTaskType() == TASK_COMPLEX_LEAVE_CAR || m_pSubTask->GetTaskType() == TASK_SIMPLE_CAR_DRIVE_TIMED) {
         return m_pSubTask;
     }
 
-    if (m_bNewDir && subTaskId == TASK_SIMPLE_GO_TO_POINT) {
+    if (m_bNewDir && m_pSubTask->GetTaskType() == TASK_SIMPLE_GO_TO_POINT) {
         m_bNewDir = false;
         m_NextNode.ResetAreaId();
         m_LastNode.ResetAreaId();
         return CreateFirstSubTask(ped);
     } else {
-        if (m_bNewNodes && subTaskId == TASK_SIMPLE_GO_TO_POINT) {
+        if (m_bNewNodes && m_pSubTask->GetTaskType() == TASK_SIMPLE_GO_TO_POINT) {
             m_bNewNodes = false;
             CVector outTargetPos;
             ComputeTargetPos(ped, outTargetPos, m_NextNode);
@@ -170,10 +172,10 @@ CTask* CTaskComplexWander::ControlSubTask(CPed* ped) {
             ScanForStuff(ped);
         }
 
-        if (subTaskId == TASK_SIMPLE_GO_TO_POINT) {
+        if (m_pSubTask->GetTaskType() == TASK_SIMPLE_GO_TO_POINT) {
             static_cast<CTaskSimpleGoToPoint*>(m_pSubTask)->m_moveState = m_nMoveState;
             if (m_nMoveState <= PEDMOVE_WALK) {
-                ped->Say(CTX_GLOBAL_CHAT);
+                ped->Say(CTX_GLOBAL_CHAT, 0, 0.1f); // Como el original: probabilidad 0.1
             }
         }
 

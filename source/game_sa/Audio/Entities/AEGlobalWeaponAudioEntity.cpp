@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -25,8 +25,41 @@ END GENERATED HOOK STATUS */
 auto& pWaterfall = StaticRef<CAESound*[3]>(0xB612F0);
 auto& pFogHorn = StaticRef<CAESound*>(0xB612FC);
 
+namespace {
+// Como el original: v += fcos(a) * r con fcos a precisión interna completa (producto y suma redondeados por la FPU)
+void AddCosMulX87(float& v, float a, float r) {
+    float* const p = &v;
+    __asm {
+        fld r
+        fld a
+        fcos
+        fmul st, st(1)
+        mov eax, p
+        fadd dword ptr [eax]
+        fstp dword ptr [eax]
+        fstp st(0)
+    }
+}
+
+// Como el original: v += fsin(a) * r
+void AddSinMulX87(float& v, float a, float r) {
+    float* const p = &v;
+    __asm {
+        fld r
+        fld a
+        fsin
+        fmul st, st(1)
+        mov eax, p
+        fadd dword ptr [eax]
+        fstp dword ptr [eax]
+        fstp st(0)
+    }
+}
+} // namespace
+
 // 0x5075B0
 CAEGlobalWeaponAudioEntity::CAEGlobalWeaponAudioEntity() : CAEWeaponAudioEntity() {
+    m_FrequencyVariation = 0; // Como el original: el constructor pone a cero el índice de variación
     m_Physical = new CPhysical();
 }
 
@@ -47,10 +80,10 @@ void CAEGlobalWeaponAudioEntity::UpdateParameters(CAESound* sound, int16 curPlay
         for (auto& waterfall : pWaterfall) {
             if (sound == waterfall) {
                 waterfall = nullptr;
+                break; // Como el original: solo se anula la primera coincidencia
             }
         }
     }
-
 }
 
 // 0x4DFAA0
@@ -71,6 +104,8 @@ void CAEGlobalWeaponAudioEntity::AddAudioEvent(eAudioEvents audioId, eWeaponType
 
 // 0x4DF060
 void CAEGlobalWeaponAudioEntity::ProjectileFire(eWeaponType weaponType, CPhysical* physical, eAudioEvents event) {
+    const float volume = GetDefaultVolume(event);
+
     switch (weaponType) {
     case WEAPON_ROCKET:
     case WEAPON_ROCKET_HS:
@@ -79,36 +114,56 @@ void CAEGlobalWeaponAudioEntity::ProjectileFire(eWeaponType weaponType, CPhysica
         return;
     }
 
-    constexpr float gfRocketFrequencyVariations[] = { 1.08f, 1.0f, 0.92f, 3.3f };// 0x8AE5AC
-    m_FrequencyVariation = (m_FrequencyVariation + 1) % (std::size(gfRocketFrequencyVariations) - 1);
+    // Como el original: tabla del EXE (0x8AE5AC), índice con signo y módulo entero (idiv) entre 3
+    static const auto& gfRocketFrequencyVariations = StaticRef<std::array<float, 4>>(0x8AE5AC);
+    m_FrequencyVariation = static_cast<int8>((m_FrequencyVariation + 1) % 3);
 
-    const auto PlayRocketSound = [&](eSoundBankSlot bankSlotID, eSoundID soundID, float speedMult, float volumeOffsetdB) {
-        AESoundManager.PlaySound({
-            .BankSlotID         = bankSlotID,
-            .SoundID            = soundID,
-            .AudioEntity        = this,
-            .Pos                = physical->GetPosition(),
-            .Volume             = GetDefaultVolume(event) + volumeOffsetdB,
-            .RollOffFactor      = 3.0f,
-            .Speed              = gfRocketFrequencyVariations[m_FrequencyVariation] * speedMult,
-            .Doppler            = 1.0f,
-            .FrameDelay         = 0,
-            .Flags              = SOUND_LIFESPAN_TIED_TO_PHYSICAL_ENTITY,
-            .FrequencyVariance  = 0.02f,
-            .PlayTime           = 0,
-            .RegisterWithEntity = physical
-        });
-    };
-
-    if (!AEAudioHardware.EnsureSoundBankIsLoaded(SND_BANK_GENRL_WEAPONS, SND_BANK_SLOT_WEAPON_GEN, true)) {
+    // Como el original: si el banco no está, lo pide (salvo con la melodía de carga) y sale
+    if (!AEAudioHardware.IsSoundBankLoaded(SND_BANK_GENRL_WEAPONS, SND_BANK_SLOT_WEAPON_GEN)) {
+        if (!AudioEngine.IsLoadingTuneActive()) {
+            AEAudioHardware.LoadSoundBank(SND_BANK_GENRL_WEAPONS, SND_BANK_SLOT_WEAPON_GEN);
+        }
         return;
     }
-    PlayRocketSound(SND_BANK_SLOT_WEAPON_GEN, SND_GENRL_WEAPONS_ROCKET_LAUNCH, 1.f, -8.f);
+    // Como el original: usa m_tempSound, no una voz local
+    m_tempSound.Initialise(
+        SND_BANK_SLOT_WEAPON_GEN,
+        SND_GENRL_WEAPONS_ROCKET_LAUNCH,
+        this,
+        physical->GetPosition(),
+        volume - 8.f,
+        3.f,
+        gfRocketFrequencyVariations.data()[m_FrequencyVariation],
+        1.f,
+        0,
+        SOUND_LIFESPAN_TIED_TO_PHYSICAL_ENTITY,
+        0.02f,
+        0
+    );
+    m_tempSound.RegisterWithPhysicalEntity(physical);
+    AESoundManager.RequestNewSound(&m_tempSound);
 
-    if (!AEAudioHardware.EnsureSoundBankIsLoaded(SND_BANK_GENRL_WEAPONS, SND_BANK_SLOT_WEAPON_GEN)) {
+    // Como el original: segundo sonido del banco general de vehículos (0x8A) en el slot 19, sin mirar la melodía de carga
+    if (!AEAudioHardware.IsSoundBankLoaded(SND_BANK_GENRL_VEHICLE_GEN, SND_BANK_SLOT_VEHICLE_GEN)) {
+        AEAudioHardware.LoadSoundBank(SND_BANK_GENRL_VEHICLE_GEN, SND_BANK_SLOT_VEHICLE_GEN);
         return;
     }
-    PlayRocketSound(SND_BANK_SLOT_VEHICLE_GEN, SND_GENRL_WEAPONS_SNIPER_SHOT_L, 1.25f, 0.f);
+    m_tempSound.Initialise(
+        SND_BANK_SLOT_VEHICLE_GEN,
+        SND_GENRL_WEAPONS_SNIPER_SHOT_L,
+        this,
+        physical->GetPosition(),
+        volume,
+        3.f,
+        gfRocketFrequencyVariations.data()[m_FrequencyVariation] * 1.25f,
+        1.f,
+        0,
+        SOUND_LIFESPAN_TIED_TO_PHYSICAL_ENTITY,
+        0.02f,
+        0
+    );
+    m_tempSound.RegisterWithPhysicalEntity(physical);
+    AESoundManager.RequestNewSound(&m_tempSound);
 }
 
 // 0x4DF210
@@ -117,8 +172,9 @@ void CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire() {
         {-2683.f, 1445.f, 37.f}, // 0x4DF271
         {-2683.f, 1804.f, 69.f}, // 0x4DF29F
     };
-    constexpr int32 FOGHORN_FADE_OUT_DELAY = 5000;
-    constexpr int32 FOGHORN_STOP_DELAY     = 5000; // time to live
+    constexpr uint32 FOGHORN_FADE_OUT_DELAY = 5000; // 0x8AE5BC
+    constexpr uint32 FOGHORN_STOP_DELAY     = 5000; // 0x8AE5C8
+    constexpr uint32 FOGHORN_RESTART_DELAY  = 6500; // 0x8AE5C4
 
     constexpr CVector s_WaterfallPositions[]{
         {2075.3f, 1925.9f, 13.0f}, // 0x4DF2C9
@@ -139,7 +195,18 @@ void CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire() {
     static auto& s_GunShots   = StaticRef<int32>(0xB61318);
     static auto& s_WeaponType = StaticRef<eWeaponType>(0xB6131C);
     static auto& s_Delay      = StaticRef<uint32>(0xB61320);
-    static auto& s_LastTime   = ScopedStaticRef<uint32>(0xB61364, 0xB61368, 0x1, CTimer::GetTimeInMS());
+    // Como el original: la guarda del static se comprueba en cada llamada
+    auto& s_LastTime = ScopedStaticRef<uint32>(0xB61364, 0xB61368, 0x1, CTimer::GetTimeInMS());
+
+    // Como el original: voz local inicializada a mano; solo se fijan los campos que escribe el EXE
+    const auto PlayLocalSound = [this](eSoundBankSlot slot, eSoundID sfx, const CVector& pos, float volume, float rollOff, float speed) {
+        CAESound sound;
+        sound.Initialise(slot, sfx, this, pos, volume, 1.f, 1.f, 1.f, 0, 0, 0.f, 0);
+        sound.m_RollOffFactor = rollOff;
+        sound.m_Speed         = speed;
+        sound.m_Flags         = SOUND_REQUEST_UPDATES;
+        return AESoundManager.RequestNewSound(&sound);
+    };
 
     switch (s_State) {
     case eState::INITIAL: {
@@ -149,99 +216,84 @@ void CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire() {
                 return;
             }
 
-            const auto a = CGeneral::GetRandomNumberInRange(0.f, TWO_PI);
-            const auto r = CGeneral::GetRandomNumberInRange(40.f, 80.f);
-            CVector pos = TheCamera.GetPosition() + CVector{ std::cos(a) * r, std::sin(a) * r, 0.f };
-            pos.z = std::min(pos.z, 20.f);
-            m_Physical->SetPosn(pos);
-
-            PickAmbientGunFire(s_GunShots, s_WeaponType, s_Delay);
+            // Como el original: coloca la entidad en la cámara y suma el desplazamiento en su sitio
+            m_Physical->SetPosn(TheCamera.GetPosition());
+            const float a = CGeneral::GetRandomNumberInRange(0.f, std::bit_cast<float>(0x40C90FDBu)); // 2PI del EXE
+            const float r = CGeneral::GetRandomNumberInRange(40.f, 80.f);
+            AddCosMulX87(m_Physical->GetPosition().x, a, r);
+            AddSinMulX87(m_Physical->GetPosition().y, a, r);
+            auto& z = m_Physical->GetPosition().z;
+            z = z < 20.f ? z : 20.f; // Como el original: min (0x404330) devuelve el segundo si el primero no es menor
 
             s_State = eState::GUNSHOTS;
-
+            PickAmbientGunFire(s_GunShots, s_WeaponType, s_Delay);
             break;
         }
         case WEATHER_REGION_LV: { // 0x4DF580
+            // Como el original: distancia, banco y punteros, en este orden
+            if (!(CVector::DistSqr(TheCamera.GetPosition(), s_WaterfallPositions[1]) < sq(100.f))) {
+                return;
+            }
             if (!AEAudioHardware.IsSoundBankLoaded(SND_BANK_GENRL_COLLISIONS, SND_BANK_SLOT_COLLISIONS)) {
                 return;
             }
             if (!rng::all_of(pWaterfall, notsa::IsNull{})) {
                 return;
             }
-            if (CVector::DistSqr(s_WaterfallPositions[1], TheCamera.GetPosition()) >= sq(100.f)) {
-                return;
-            }
-            const auto PlayWaterfallSound = [&](int32 i, float speed) {
-                pWaterfall[i] = AESoundManager.PlaySound({
-                    .BankSlotID    = SND_BANK_SLOT_COLLISIONS,
-                    .SoundID       = 3,
-                    .AudioEntity   = this,
-                    .Pos           = s_WaterfallPositions[i],
-                    .Volume        = -3.f,
-                    .RollOffFactor = 2.5f,
-                    .Speed         = speed,
-                    .Flags         = SOUND_REQUEST_UPDATES
-                });
-            };
             constexpr auto SPEED_BASE = 1.f;
             constexpr auto SPEED_VAR  = 0.01f;
-            PlayWaterfallSound(0, SPEED_BASE);
-            PlayWaterfallSound(1, SPEED_BASE + SPEED_VAR);
-            PlayWaterfallSound(2, SPEED_BASE - SPEED_VAR);
+            pWaterfall[0] = PlayLocalSound(SND_BANK_SLOT_COLLISIONS, 3, s_WaterfallPositions[0], -3.f, 2.5f, SPEED_BASE);
+            pWaterfall[1] = PlayLocalSound(SND_BANK_SLOT_COLLISIONS, 3, s_WaterfallPositions[1], -3.f, 2.5f, SPEED_VAR + SPEED_BASE);
+            pWaterfall[2] = PlayLocalSound(SND_BANK_SLOT_COLLISIONS, 3, s_WaterfallPositions[2], -3.f, 2.5f, SPEED_BASE - SPEED_VAR);
 
             s_State = eState::WATERFALL_LV;
-
             break;
         }
-        case WEATHER_CLOUDY_LA: {
+        case WEATHER_REGION_DESERT: {
             break;
         }
         default: { // 0x4DF490
-            if (CWeather::Foggyness_SF < 0.5) {
+            if (!(CWeather::Foggyness_SF >= 0.5f)) { // Como el original: NaN también sale
                 return;
             }
             if (CTimer::GetFrameCounter() % 1024) { // TODO: Maybe use a timer or something?
                 return;
             }
-            if (CVector::DistSqr(TheCamera.GetPosition(), s_FogHornPositions[0]) > sq(2000.f)) {
+            if (!(CVector::DistSqr(TheCamera.GetPosition(), s_FogHornPositions[0]) < sq(2000.f))) {
+                return;
+            }
+            if (!AEAudioHardware.IsSoundBankLoaded(SND_BANK_GENRL_FRONTEND_GAME, SND_BANK_SLOT_FRONTEND_GAME)) { // Como el original
                 return;
             }
             if (pFogHorn) {
                 return;
             }
 
-            pFogHorn = AESoundManager.PlaySound({
-                .BankSlotID    = SND_BANK_SLOT_HORN_AND_SIREN,
-                .SoundID       = 13,
-                .AudioEntity   = this,
-                .Pos           = s_FogHornPositions[0],
-                .RollOffFactor = 60.f,
-                .Flags         = SOUND_REQUEST_UPDATES
-            });
-
-            s_State = eState::FOGHORN_0;
+            pFogHorn   = PlayLocalSound(SND_BANK_SLOT_HORN_AND_SIREN, 13, s_FogHornPositions[0], 12.f, 60.f, 1.f);
             s_LastTime = CTimer::GetTimeInMS();
-
+            s_State    = eState::FOGHORN_0;
             break;
         }
         }
         break;
     }
     case eState::GUNSHOTS: { // 0x4DF769
-        if (s_LastTime + s_Delay >= CTimer::GetTimeInMS()) {
+        if (s_LastTime + s_Delay > CTimer::GetTimeInMS()) { // Como el original: sigue cuando son iguales
             return;
         }
 
-        if (CVector::DistSqr(FindPlayerCoors(), m_Physical->GetPosition()) <= sq(24.f)) {
+        // Como el original: dispara cuando el jugador está a más de 24 unidades (o la distancia es NaN)
+        if (!((FindPlayerCoors() - m_Physical->GetPosition()).Magnitude() <= 24.f)) {
             m_Physical->SetType(ENTITY_TYPE_NOTINPOOLS);
             AudioEngine.ReportWeaponEvent(AE_WEAPON_FIRE, s_WeaponType, m_Physical);
 
             if (--s_GunShots) { // 0x4DF862
-                assert(s_WeaponType == WEAPON_PISTOL || s_WeaponType == WEAPON_AK47); // See `PickAmbientGunFire`
-                s_Delay = s_WeaponType == WEAPON_PISTOL
-                    ? CAEAudioUtility::GetRandomNumberInRange(500, 1200)
-                    : CAEAudioUtility::GetRandomNumberInRange(90, 450);
-            } else if (CGeneral::RandomBool(60.f)) { // 0x4DF7E9
+                if (s_WeaponType == WEAPON_PISTOL) {
+                    s_Delay = CAEAudioUtility::GetRandomNumberInRange(500, 1200);
+                } else if (s_WeaponType == WEAPON_AK47) {
+                    s_Delay = CAEAudioUtility::GetRandomNumberInRange(90, 450);
+                }
+            } else if (CGeneral::GetRandomIntInRange(0, 100) >= 40) { // 0x4DF7E9
                 s_State = eState::INITIAL;
             } else { // 0x4DF849
                 PickAmbientGunFire(s_GunShots, s_WeaponType, s_Delay);
@@ -270,33 +322,24 @@ void CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire() {
         break;
     }
     case eState::STATE_3: { // 0x4DF8D1
-        if (s_LastTime + 6500 < CTimer::GetTimeInMS()) {
+        if (CTimer::GetTimeInMS() <= s_LastTime + FOGHORN_RESTART_DELAY) { // Como el original: espera 6,5 s
             return;
         }
         if (!AEAudioHardware.IsSoundBankLoaded(SND_BANK_GENRL_FRONTEND_GAME, SND_BANK_SLOT_FRONTEND_GAME)) { // NB (Bug?): Why check this sound bank, when it's not even used below?
             return;
         }
         if (!pFogHorn) {
-            pFogHorn = AESoundManager.PlaySound({
-                .BankSlotID      = SND_BANK_SLOT_HORN_AND_SIREN,
-                .SoundID       = 13,
-                .AudioEntity   = this,
-                .Pos           = s_FogHornPositions[1],
-                .RollOffFactor = 60.f,
-                .Speed         = 1.2f,
-                .Flags         = SOUND_REQUEST_UPDATES
-            });
-
-            s_State    = eState::FOGHORN_1;
+            pFogHorn   = PlayLocalSound(SND_BANK_SLOT_HORN_AND_SIREN, 13, s_FogHornPositions[1], 12.f, 60.f, 1.2f);
             s_LastTime = CTimer::GetTimeInMS();
+            s_State    = eState::FOGHORN_1;
         }
         break;
     }
     case eState::WATERFALL_LV: { // 0x4DF9D8
         if (CWeather::WeatherRegion != eWeatherRegion::WEATHER_REGION_LV || CVector::DistSqr(TheCamera.GetPosition(), s_WaterfallPositions[1]) > sq(100.f)) {
-            for (auto& s : pWaterfall) {
+            for (auto* s : pWaterfall) {
                 if (s) {
-                    std::exchange(s, nullptr)->StopSound();
+                    s->StopSound(); // Como el original: no anula los punteros
                 }
             }
             s_State = eState::INITIAL;
@@ -304,16 +347,25 @@ void CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire() {
         break;
     }
     default:
-        NOTSA_UNREACHABLE();
+        break; // Como el original: estados fuera de rango no hacen nada
     }
 }
 
+// 0x4DEFE0
 void CAEGlobalWeaponAudioEntity::PickAmbientGunFire(int32& gunShots, eWeaponType& weaponType, uint32& delay) {
-    const auto b = CGeneral::DoCoinFlip();
-    gunShots     = b ? CAEAudioUtility::GetRandomNumberInRange(2, 4)       : CAEAudioUtility::GetRandomNumberInRange(4, 14);
-    weaponType   = b ? WEAPON_PISTOL                                               : WEAPON_AK47;
-    delay        = b ? CAEAudioUtility::GetRandomNumberInRange(500, 1'200) : CAEAudioUtility::GetRandomNumberInRange(90, 350);
-    
+    // Como el original: CAEAudioUtility::GetRandomNumberInRange(0, 1); cualquier otro valor no toca nada
+    switch (CAEAudioUtility::GetRandomNumberInRange(0, 1)) {
+    case 0:
+        gunShots   = CAEAudioUtility::GetRandomNumberInRange(4, 14);
+        weaponType = WEAPON_AK47;
+        delay      = CAEAudioUtility::GetRandomNumberInRange(90, 350);
+        break;
+    case 1:
+        gunShots   = CAEAudioUtility::GetRandomNumberInRange(2, 4);
+        weaponType = WEAPON_PISTOL;
+        delay      = CAEAudioUtility::GetRandomNumberInRange(500, 1'200);
+        break;
+    }
 }
 
 void CAEGlobalWeaponAudioEntity::InjectHooks() {
@@ -322,7 +374,7 @@ void CAEGlobalWeaponAudioEntity::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x5075B0);
     RH_ScopedInstall(Destructor, 0x506C50);
-    RH_ScopedInstall(UpdateParameters, 0x4DEF90);
+    RH_ScopedVMTInstall(UpdateParameters, 0x4DEF90); // Como el original: entrada 0 de la vtable 0x862E5C (virtual)
     RH_ScopedInstall(AddAudioEvent, 0x4DFAA0);
     RH_ScopedInstall(ProjectileFire, 0x4DF060);
     RH_ScopedInstall(ServiceAmbientGunFire, 0x4DF210);

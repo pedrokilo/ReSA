@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -73,7 +73,8 @@ bool CTaskSimpleFacial::ProcessPed(CPed* ped) {
 
     if (RpAnimBlendClumpGetAssociation(ped->GetRpClump(), ANIM_ID_FACTALK)) {
         if (animId == ANIM_ID_FACTALK) {
-            if (CGeneral::GetRandomNumberInRange(0, 100) < 40) {
+            // Como el original: (int)((rand() & 0xFFFF) * (1/32768) * 100) < 40
+            if (CGeneral::GetRandomIntInRange(0, 100) < 40) {
                 anim->SetSpeed(CGeneral::GetRandomNumberInRange(0.5f, 3.0f));
             }
             return false;
@@ -88,7 +89,10 @@ bool CTaskSimpleFacial::ProcessPed(CPed* ped) {
     if (!m_Timer.IsStarted()) {
         if (!anim) {
             CAnimManager::BlendAnimation(ped->GetRpClump(), ANIM_GROUP_DEFAULT, animId, 4.0f);
-            m_Timer.Start(m_Duration);
+            // Como el original: el temporizador se arranca sin comprobar que la duración sea >= 0
+            m_Timer.m_nInterval  = m_Duration;
+            m_Timer.m_nStartTime = CTimer::GetTimeInMS();
+            m_Timer.m_bStarted   = true;
             return false;
         }
         return true;

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -18,7 +18,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -27,7 +27,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -92,7 +92,7 @@ void CTaskComplexCarDriveMission::SetUpCar() {
     m_Veh->SetStatus(STATUS_PHYSICS);
 
     auto& autopilot = m_Veh->m_autoPilot;
-    autopilot.m_nCruiseSpeed        = (uint32)m_CruiseSpeed;
+    autopilot.m_nCruiseSpeed        = (uint8)(int64)m_CruiseSpeed; // Como el original: _ftol2 (truncado a 64 bits), byte bajo
     autopilot.m_speed               = (float)autopilot.m_nCruiseSpeed;
     autopilot.m_nCarDrivingStyle    = (eCarDrivingStyle)m_CarDrivingStyle;
     autopilot.m_TargetEntity          = m_pTargetVehicle;

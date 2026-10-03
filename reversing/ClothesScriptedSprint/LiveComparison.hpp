@@ -10,7 +10,7 @@
 #include "../ProbeSupport.hpp"
 namespace QuickLive {
 inline bool done{}; inline std::ofstream log;
-inline void Write(const json& r){log<<r.dump()<<'\n';log.flush();}
+inline void Write(const json& r){ ReversingProbe::PumpMessages();log<<r.dump()<<'\n';log.flush();}
 inline int Report(int t,char* msg,int*){if(t!=_CRT_ASSERT)return FALSE;Write({{"event","assertion"},{"message",msg?msg:""}});ExitProcess(91);}
 inline void Update(){
     if(done)return;char exe[MAX_PATH]{};GetModuleFileNameA(nullptr,exe,MAX_PATH);auto dir=std::filesystem::path(exe).parent_path();

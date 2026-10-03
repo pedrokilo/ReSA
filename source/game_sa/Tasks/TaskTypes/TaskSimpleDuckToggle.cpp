@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -56,7 +56,7 @@ bool CTaskSimpleDuckToggle::ProcessPed(CPed* ped) {
 
     // Try to toggle on
     if (notsa::contains({ eMode::ON, eMode::AUTO }, m_ToggleMode)) {
-        auto* const tSimplestDuck  = notsa::dyn_cast<CTaskSimpleDuck>(intel->GetTaskManager().GetSimplestActiveTask());
+        auto* const tSimplestDuck  = notsa::dyn_cast_if_present<CTaskSimpleDuck>(intel->GetTaskManager().GetSimplestActiveTask()); // Como el original: la tarea mas simple puede no existir
         auto* const tSecondaryDuck = intel->GetTaskDuck(true);
 
         const auto SetScriptControlledDuckTask = [intel] {

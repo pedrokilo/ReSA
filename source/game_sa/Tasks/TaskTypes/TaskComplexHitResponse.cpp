@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -47,15 +47,16 @@ CTaskComplexHitResponse::CTaskComplexHitResponse(eDirection hs) :
 CTaskComplexHitResponse::CTaskComplexHitResponse(const CTaskComplexHitResponse& o) :
     CTaskComplexHitResponse{ o.m_HitSide }
 {
+    m_HitSide.get_underlying_ref() = o.m_HitSide.get_underlying(); // Como el original: copia el dword completo
 }
 
 // 0x638040
 CTask* CTaskComplexHitResponse::CreateFirstSubTask(CPed* ped) {
-    switch (m_HitSide) {
-    case eDirection::FORWARD:  return new CTaskSimpleHitFromFront{};
-    case eDirection::LEFT:     return new CTaskSimpleHitFromLeft{};
-    case eDirection::BACKWARD: return new CTaskSimpleHitFromBack{};
-    case eDirection::RIGHT:    return new CTaskSimpleHitFromRight{};
-    default:                   NOTSA_UNREACHABLE();
+    switch (m_HitSide.get_underlying()) { // Como el original: `cmp ecx, 3; ja` sobre el dword completo
+    case (int32)eDirection::FORWARD:  return new CTaskSimpleHitFromFront{};
+    case (int32)eDirection::LEFT:     return new CTaskSimpleHitFromLeft{};
+    case (int32)eDirection::BACKWARD: return new CTaskSimpleHitFromBack{};
+    case (int32)eDirection::RIGHT:    return new CTaskSimpleHitFromRight{};
+    default:                   return nullptr; // Como el original: `cmp ecx, 3; ja` devuelve nullptr
     }
 }

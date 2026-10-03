@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -65,7 +65,8 @@ bool CTaskSimpleFall::ProcessPed(CPed* ped)
 
     if (m_bIsFinished && (ped->bIsStanding || ped->bIsDrowning))
     {
-        auto nTimeStep = (uint32)CTimer::GetTimeStepInMS();
+        // Como el original: ms_fTimeStep * 0.02f * 1000.0f truncado con _ftol2 (GetTimeStepInMS divide entre 50)
+        const auto nTimeStep = (uint32)(int64)(CTimer::GetTimeStep() * 0.02f * 1000.0f);
         if (m_nCurrentDownTime <= nTimeStep)
         {
             m_nCurrentDownTime = 0;

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -228,7 +228,9 @@ auto CFire::GetFireParticleNameForStrength() const {
 // 0x539360
 void CFire::CreateFxSysForStrength(const CVector& point, RwMatrix* matrix) {
     DestroyFx();
-    m_FxSystem = g_fxMan.CreateFxSystem(GetFireParticleNameForStrength(), point, matrix, true);
+    // Como el original: comparaciones x87 (un NaN elige "fire_large").
+    const char* name = !(m_Strength <= 1.0f) ? (!(m_Strength <= 2.0f) ? "fire_large" : "fire_med") : "fire";
+    m_FxSystem = g_fxMan.CreateFxSystem(name, point, matrix, true);
     if (m_FxSystem)
         m_FxSystem->Play();
 }
@@ -262,12 +264,33 @@ void CFire::Extinguish() {
     }
 }
 
+// 0x59C890 con su orden de sumas (CMatrix * CVector)
+static CVector FireMatrixTimesPoint(const CMatrix& m, const CVector& v) {
+    return {
+        ((m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x) + m.GetPosition().x,
+        ((m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y) + m.GetPosition().y,
+        ((m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y) + m.GetPosition().z,
+    };
+}
+
+// Como el original: distancia con la suma z + y + x (fld st0 = z; ...; fsqrt).
+static float FireDistanceZYX(const CVector& a, const CVector& b) {
+    const float dx = a.x - b.x, dy = a.y - b.y, dz = a.z - b.z;
+    return std::sqrt(dz * dz + dy * dy + dx * dx);
+}
+
 // 0x53A570
 void CFire::ProcessFire() {
     {
-        const float newStrength = std::min(3.0f, m_Strength + CTimer::GetTimeStep() / 500.0f);
-        if ((uint32)(m_Strength) != (uint32)(newStrength)) {
-            m_Strength = newStrength; // Not sure why they do this, probably just some hack
+        // Como el original: guarda la nueva fuerza y la revierte si cambia su parte entera.
+        const float oldStrength = m_Strength;
+        float newStrength = CTimer::GetTimeStep() * 0.002f + oldStrength;
+        if (3.0f < newStrength) {
+            newStrength = 3.0f;
+        }
+        m_Strength = newStrength;
+        if ((int32)(int64)newStrength != (int32)(int64)oldStrength) {
+            m_Strength = oldStrength;
         }
     }
 
@@ -291,8 +314,9 @@ void CFire::ProcessFire() {
             }
             }
 
-            if (auto vehicle = targetPed->GetVehicleIfInOne()) {
-                if (!ModelIndices::IsFireTruck(vehicle->m_nModelIndex) && vehicle->IsAutomobile()) {
+            if (targetPed->bInVehicle && targetPed->m_pVehicle) {
+                auto vehicle = targetPed->m_pVehicle;
+                if (vehicle->m_nModelIndex != MODEL_FIRETRUK && vehicle->IsAutomobile()) {
                     vehicle->m_fHealth = 75.0f;
                 }
             } else if (!targetPed->IsPlayer() && !targetPed->IsAlive()) {
@@ -310,91 +334,147 @@ void CFire::ProcessFire() {
             }
 
             if (!m_IsCreatedByScript) {
-                targetVehicle->InflictDamage(m_EntityStartedFire, eWeaponType::WEAPON_FLAMETHROWER, CTimer::GetTimeStep() * 1.2f, CVector{});
+                targetVehicle->InflictDamage(m_EntityStartedFire, eWeaponType::WEAPON_FLAMETHROWER, CTimer::GetTimeStep() * 1.2f, CVector{ 0.0f, 0.0f, 0.0f });
             }
 
-            if (targetVehicle->IsAutomobile()) {
-                m_Position = targetVehicle->GetDummyPosition(eVehicleDummy::DUMMY_LIGHT_FRONT_MAIN) + CVector{0.0f, 0.0f, 0.15f};
+            auto onFire = m_EntityOnFire->AsVehicle();
+            if (onFire->IsAutomobile()) {
+                // Como el original: la matriz se aplica al dummy ya desplazado 0.15 en z (0x59C890).
+                CVector dummy = onFire->GetVehicleModelInfo()->GetModelDummyPosition(eVehicleDummy::DUMMY_LIGHT_FRONT_MAIN);
+                dummy.z = dummy.z + 0.15f;
+                m_Position = FireMatrixTimesPoint(onFire->GetMatrix(), dummy);
             }
             break;
         }
         }
 
         if (m_FxSystem) {
-            auto targetPhysical = m_EntityOnFire->AsPhysical();
-            m_FxSystem->SetOffsetPos(m_Position + CTimer::GetTimeStep() * 2.0f * targetPhysical->m_vecMoveSpeed);
+            const float step = CTimer::GetTimeStep() + CTimer::GetTimeStep();
+            const CVector& moveSpeed = m_EntityOnFire->AsPhysical()->m_vecMoveSpeed;
+            m_FxSystem->SetOffsetPos(CVector{ step * moveSpeed.x + m_Position.x, step * moveSpeed.y + m_Position.y, step * moveSpeed.z + m_Position.z });
         }
     }
 
-    CPlayerPed* player = FindPlayerPed();
     if (!m_EntityOnFire || !m_EntityOnFire->GetIsTypeVehicle()) {
         // Check if we can set player's ped on fire
         if (!FindPlayerVehicle()
-         && !player->m_pFire /* not already on fire */
-         && !player->physicalFlags.bFireProof
-         && !player->m_pAttachedTo
+         && !FindPlayerPed()->m_pFire /* not already on fire */
+         && !FindPlayerPed()->physicalFlags.bFireProof
+         && !FindPlayerPed()->m_pAttachedTo
          ) {
-            if ((player->GetPosition() - m_Position).SquaredMagnitude() < 1.2f) { /* Note: Squared distance */
-                player->DoStuffToGoOnFire();
-                gFireManager.StartFire(player, m_EntityStartedFire, 0.8f, true, 7000, 100);
+            const CVector& playerPos = FindPlayerPed()->GetPosition();
+            const CVector d{ playerPos.x - m_Position.x, playerPos.y - m_Position.y, playerPos.z - m_Position.z };
+            if (d.x * d.x + d.z * d.z + d.y * d.y < 1.2f) { /* Note: Squared distance; como el original: x + z + y */
+                FindPlayerPed()->DoStuffToGoOnFire();
+                gFireManager.StartFire(FindPlayerPed(), m_EntityStartedFire, 0.8f, true, 7000, 100);
             }
         }
     }
 
-    if (CGeneral::GetRandomNumber() % 32 == 0) {
-        for (auto& veh : GetVehiclePool()->GetAllValid()) { // NOTSA: Original loop was backwards [not that it matters]
-            if (DistanceBetweenPoints(m_Position, veh.GetPosition()) >= 2.0f)
+    if ((CGeneral::GetRandomNumber() & 0x1F) == 0) {
+        // Como el original: recorre el pool hacia atras y salta coches ya ardiendo y camiones de bomberos.
+        auto* const pool = GetVehiclePool();
+        for (auto idx = (int32)pool->GetSize() - 1; idx >= 0; --idx) {
+            auto* const veh = pool->GetAt(idx);
+            if (!veh || veh->m_pFire || veh->m_nModelIndex == MODEL_FIRETRUK) {
                 continue;
-
-            if (veh.IsSubBMX()) {
-                player->DoStuffToGoOnFire();
-                gFireManager.StartFire(player, m_EntityStartedFire, 0.8f, true, 7000, 100);
-                veh.BurstTyre(CAR_PIECE_FIRST_WHEEL + +veh.FindTyreNearestPoint(m_Position), false);
+            }
+            if (!(FireDistanceZYX(veh->GetPosition(), m_Position) < 2.0f)) {
+                continue;
+            }
+            if (veh->IsSubBMX()) {
+                FindPlayerPed()->DoStuffToGoOnFire();
+                gFireManager.StartFire(FindPlayerPed(), m_EntityStartedFire, 0.8f, true, 7000, 100);
+                veh->BurstTyre((uint8)(CAR_PIECE_FIRST_WHEEL + +veh->FindTyreNearestPoint(CVector2D{ m_Position.x, m_Position.y })), false);
             } else {
-                gFireManager.StartFire(&veh, m_EntityStartedFire, 0.8f, true, 7000, 100);
+                gFireManager.StartFire(veh, m_EntityStartedFire, 0.8f, true, 7000, 0);
             }
         }
     }
 
-    if (CGeneral::GetRandomNumber() % 4 == 0) {
-        for (auto& obj : GetObjectPool()->GetAllValid()) { // NOTSA: Original loop was backwards [not that it matters]
-            if (DistanceBetweenPoints(m_Position, obj.GetPosition()) >= 3.0f)
+    if ((CGeneral::GetRandomNumber() & 3) == 0) {
+        auto* const pool = GetObjectPool();
+        for (auto idx = (int32)pool->GetSize() - 1; idx >= 0; --idx) {
+            auto* const obj = pool->GetAt(idx);
+            if (!obj || !(FireDistanceZYX(obj->GetPosition(), m_Position) < 3.0f)) {
                 continue;
-
-            obj.ObjectFireDamage(CTimer::GetTimeStep() * 8.0f, m_EntityStartedFire);
+            }
+            obj->ObjectFireDamage(CTimer::GetTimeStep() * 8.0f, m_EntityStartedFire);
         }
     }
 
-    if (m_NumGenerationsAllowed > 0 && CGeneral::GetRandomNumber() % 128 == 0) {
+    if ((int8)m_NumGenerationsAllowed > 0 && (CGeneral::GetRandomNumber() & 0x7F) == 0) {
         if (gFireManager.GetNumOfFires() < 25) {
-            const CVector dir{ CGeneral::GetRandomNumberInRange(-1.0f, 1.0f), CGeneral::GetRandomNumberInRange(-1.0f, 1.0f), 0.0f };
-            CCreepingFire::TryToStartFireAtCoors(m_Position + dir * CGeneral::GetRandomNumberInRange(2.0f, 3.0f), m_NumGenerationsAllowed, false, IsScript(), 10.0f);
+            // Como el original: rand() * (1/32767) en linea; x usa el segundo aleatorio, se normaliza y z sube 2.
+            const float recip = std::bit_cast<float>(0x38000100u);
+            const float randY = (float)CGeneral::GetRandomNumber() * recip;
+            const float randX = (float)CGeneral::GetRandomNumber() * recip;
+            CVector dir{ randX + randX - 1.0f, randY + randY - 1.0f, 0.0f };
+            dir.Normalise();
+            const float dist = (float)CGeneral::GetRandomNumber() * recip + 2.0f;
+            const CVector pos{ dir.x * dist + m_Position.x, dir.y * dist + m_Position.y, dir.z * dist + m_Position.z + 2.0f };
+            CCreepingFire::TryToStartFireAtCoors(pos, (uint8)(m_NumGenerationsAllowed - 1), false, IsScript(), 10.0f);
         }
     }
 
-    if (m_Strength <= 2.0f && m_NumGenerationsAllowed && CGeneral::GetRandomNumber() % 16 == 0) {
-        CFire& nearby = gFireManager.GetRandomFire();
+    if (m_Strength <= 2.0f && m_NumGenerationsAllowed && (CGeneral::GetRandomNumber() & 0xF) == 0) {
+        // Como el original: indice = (rand & 0xFFFF) / 32768 * 60, truncado.
+        const auto rnd = (int32)(CGeneral::GetRandomNumber() & 0xFFFF);
+        const auto idx = (int32)(int64)((float)rnd * std::bit_cast<float>(0x38000000u) * 60.0f);
+        CFire& nearby = gFireManager.m_aFires.data()[idx]; // Como el original: sin comprobar si esta activo
         if (&nearby != this && nearby.m_IsActive && !nearby.m_IsCreatedByScript && nearby.m_Strength <= 1.0f) {
-            if (DistanceBetweenPoints(nearby.m_Position, m_Position) < 3.5f) {
-                nearby.m_Position = nearby.m_Position * 0.3f + m_Position * 0.7f;
+            if ((m_Position - nearby.m_Position).Magnitude() < 3.5f) {
+                // Como el original: se desplaza este fuego (no el cercano) hacia el cercano.
+                const CVector nearbyPart{ 0.3f * nearby.m_Position.x, 0.3f * nearby.m_Position.y, 0.3f * nearby.m_Position.z };
+                const CVector thisPart{ 0.7f * m_Position.x, 0.7f * m_Position.y, 0.7f * m_Position.z };
                 m_Strength += 1.0f;
+                m_Position = CVector{ thisPart.x + nearbyPart.x, thisPart.y + nearbyPart.y, thisPart.z + nearbyPart.z };
                 m_TimeToBurn = std::max(m_TimeToBurn, CTimer::GetTimeInMS() + 7000);
                 CreateFxSysForStrength(m_Position, nullptr);
-                m_NumGenerationsAllowed = std::max(m_NumGenerationsAllowed, nearby.m_NumGenerationsAllowed);
+                // Como el original: se queda con el menor numero de generaciones (comparacion con signo).
+                if (!((int8)m_NumGenerationsAllowed < (int8)nearby.m_NumGenerationsAllowed)) {
+                    m_NumGenerationsAllowed = nearby.m_NumGenerationsAllowed;
+                }
                 nearby.Extinguish();
             }
         }
     }
 
     if (m_FxSystem) {
-        float unused;
-        const float fFractPart = std::modf(m_Strength, &unused); // R* way: m_fStrength - (float)(int)m_fStrength
-        m_FxSystem->SetConstTime(true, std::min((float)CTimer::GetTimeInMS() / 3500.0f, fFractPart));
+        // Como el original: parte fraccionaria s - (int)s y tiempo restante (m_TimeToBurn - ahora) / 3500.
+        const float strength = m_Strength;
+        const int32 whole = (int32)(int64)strength;
+        const uint32 remaining = m_TimeToBurn - CTimer::GetTimeInMS();
+        const float twoPow32 = 4294967296.f, invTime = std::bit_cast<float>(0x3995CBECu);
+        float fract, timeLeft;
+        __asm {
+            fld strength
+            fisub whole
+            fstp fract
+            mov eax, remaining
+            fild remaining
+            test eax, eax
+            jge fire_remaining_ok
+            fadd twoPow32
+        fire_remaining_ok:
+            fmul invTime
+            fstp timeLeft
+        }
+        m_FxSystem->SetConstTime(true, fract < timeLeft ? fract : timeLeft);
     }
 
-    if (m_IsCreatedByScript || (HasTimeToBurn() && IsNotInRemovalDistance())) {
-        const float fColorRG = (float)(CGeneral::GetRandomNumber() % 128) / 512.0f; // todo: GetRandomNumberInRange
-        CPointLights::AddLight(ePointLightType::PLTYPE_POINTLIGHT, m_Position, CVector{}, 8.0f, fColorRG, fColorRG, 0.0f, 0, false, nullptr);
+    bool keepBurning;
+    if (CTimer::GetTimeInMS() < m_TimeToBurn) {
+        // Como el original: distancia 2D a la camara comparada con la distancia de borrado.
+        const CVector& camPos = TheCamera.GetPosition();
+        const float dx = camPos.x - m_Position.x, dy = camPos.y - m_Position.y;
+        keepBurning = (float)m_RemovalDist > std::sqrt(dy * dy + dx * dx) || m_IsCreatedByScript;
+    } else {
+        keepBurning = m_IsCreatedByScript;
+    }
+    if (keepBurning) {
+        const float fColorRG = (float)(int16)(CGeneral::GetRandomNumber() & 0x7F) * 0.001953125f;
+        CPointLights::AddLight(ePointLightType::PLTYPE_POINTLIGHT, m_Position, CVector{ 0.0f, 0.0f, 0.0f }, 8.0f, fColorRG, fColorRG, 0.0f, 0, false, nullptr);
     } else {
         if (m_Strength <= 1.0f) {
             Extinguish();

@@ -10,7 +10,7 @@ namespace ShutdownLive {
 inline bool armed{},passed=true;
 inline int count{};
 inline std::ofstream log;
-inline void Write(const json& r) { log<<r.dump()<<'\n';log.flush(); }
+inline void Write(const json& r) { { static DWORD pumpLast=0; const DWORD pumpNow=GetTickCount(); if(pumpNow-pumpLast>=250){ pumpLast=pumpNow; MSG pumpMsg; PeekMessageA(&pumpMsg,nullptr,0,0,PM_NOREMOVE); } } log<<r.dump()<<'\n';log.flush(); }
 inline void InvalidParameter(const wchar_t*,const wchar_t*,const wchar_t*,unsigned,uintptr_t) {
     void* addresses[32]{};const auto n=CaptureStackBackTrace(0,32,addresses,nullptr);
     json frames=json::array();auto process=GetCurrentProcess();SymInitialize(process,nullptr,TRUE);

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -38,8 +38,7 @@ CTaskSimpleThrowControl::CTaskSimpleThrowControl(CEntity* targetEntity, CVector 
     m_entity{targetEntity},
     m_pos{pos ? *pos : CVector{}}
 {
-    assert(m_entity);
-
+    // Como el original: se acepta una entidad nula (Clone y ProcessPed la contemplan)
     CEntity::SafeRegisterRef(m_entity);
 }
 
@@ -69,15 +68,15 @@ bool CTaskSimpleThrowControl::ProcessPed(CPed* ped) {
     }
     ped->SetMoveState(PEDMOVE_STILL);
     auto& manager = ped->GetTaskManager();
-    auto* secondary = manager.GetTaskSecondary(TASK_SECONDARY_ATTACK);
-    if (!secondary) {
+    // Como el original: GetTaskSecondary se vuelve a llamar en cada uso
+    if (!manager.GetTaskSecondary(TASK_SECONDARY_ATTACK)) {
         if (m_isAttacking) {
             return true;
         }
         manager.SetTaskSecondary(new CTaskSimpleThrowProjectile{m_entity, m_pos}, TASK_SECONDARY_ATTACK);
         m_isAttacking = true;
-    } else if (secondary->GetTaskType() != TASK_SIMPLE_THROW_PROJECTILE) {
-        secondary->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr);
+    } else if (manager.GetTaskSecondary(TASK_SECONDARY_ATTACK)->GetTaskType() != TASK_SIMPLE_THROW_PROJECTILE) {
+        manager.GetTaskSecondary(TASK_SECONDARY_ATTACK)->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr);
         return false;
     }
     auto* throwing = ped->GetIntelligence()->GetTaskThrow();

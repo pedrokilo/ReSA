@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -19,9 +19,6 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "FurnitureManager_c.h"
 
-// Contadores globales que avanzan sobre los almacenes fijos de subgrupos y muebles.
-auto& g_currSubGroupId = StaticRef<uint32>(0xBAB37C);
-auto& g_currFurnitureId = StaticRef<uint32>(0xBAB378);
 
 /**
  * Registra el ciclo de vida, carga y consultas del catálogo global de mobiliario.
@@ -30,8 +27,8 @@ void FurnitureManager_c::InjectHooks() {
     RH_ScopedClass(FurnitureManager_c);
     RH_ScopedCategory("Interior");
 
-    RH_ScopedGlobalInstall(GetGroupId, 0x5BFB40);
-    RH_ScopedGlobalInstall(GetSubGroupId, 0x5BFBF0);
+    RH_ScopedInstall(GetGroupId, 0x5BFB40);
+    RH_ScopedInstall(GetSubGroupId, 0x5BFBF0);
     RH_ScopedInstall(Exit, 0x5911A0);
     RH_ScopedInstall(GetFurniture, 0x5911E0);
     RH_ScopedInstall(GetRandomId, 0x591220);
@@ -45,6 +42,7 @@ void FurnitureManager_c::InjectHooks() {
  * Después carga data\\furnitur.dat para poblar la jerarquía grupo/subgrupo/item.
  */
 bool FurnitureManager_c::Init() {
+    // Como el original: los contadores son words (mov word ptr)
     g_currSubGroupId = 0;
     g_currFurnitureId = 0;
 
@@ -62,7 +60,7 @@ bool FurnitureManager_c::Init() {
 // 0x5911A0
 void FurnitureManager_c::Exit() {
     m_FurnitureList.RemoveAll();
-    rng::for_each(m_Groups, &FurnitureGroup_c::Exit);
+    rng::for_each(m_Groups, &FurnitureGroup_c::Exit); // Como el original: Exit de cada grupo en línea
 }
 
 // NOTSA
@@ -94,41 +92,37 @@ void FurnitureManager_c::LoadFurniture() {
     * A group can't direcly have items, only a subgroup can.
     **/
 
-    // La reconstrucción conserva punteros al grupo/subgrupo actual para evitar repetir
-    // búsquedas por ID en cada línea, sin alterar el contenido cargado.
-    FurnitureGroup_c* grp{};
-    FurnitureSubGroup_c* subGrp{};
+    // Como el original: guarda solo los IDs del grupo (-1 al inicio) y del subgrupo actuales, no valida
+    // los resultados de sscanf ni de las búsquedas, ignora etiquetas desconocidas y añade los ITEM
+    // a través del grupo (todos los subgrupos con ese ID).
+    int32 grpId = -1;
+    int32 subGrpId = 0; // El EXE lo deja sin inicializar (solo importa con un ITEM antes de un SUBGROUP); evita el aviso /RTCu de Debug
     while (const auto l = CFileLoader::LoadLine(file)) {
-        if (*l == 0 || *l == '#') { // Skip empty and comment lines
+        if (*l == '#' || *l == 0) { // Skip empty and comment lines
             continue;
         }
 
-        char tag[32];
-        VERIFY(sscanf_s(l, "%s", SCANF_S_STR(tag)) == 1);
+        char tag[96];
+        sscanf(l, "%s", tag);
 
         if (!strcmp(tag, "GROUP:")) {
-            int32 grpId;
-            char groupName[128];
-            VERIFY(sscanf(l, "%s %s", tag, groupName) == 2);
-            VERIFY((grpId = FurnitureManager_c::GetGroupId(groupName)) != -1);
-            grp = &m_Groups[grpId];
+            char groupName[64];
+            sscanf(l, "%s %s", tag, groupName);
+            grpId = GetGroupId(groupName);
         } else if (!strcmp(tag, "SUBGROUP:")) {
-            char  subGroupName[128];
-            int32 subGrpId;
+            char  subGroupName[64];
             int32 minWidth, minDepth, maxWidth, maxDepth, canPlaceInFrontOfWindow, isTall, canSteal;
-            VERIFY(sscanf_s(l, "%s %s %d %d %d %d %d %d %d", SCANF_S_STR(tag), SCANF_S_STR(subGroupName), &minWidth, &minDepth, &maxWidth, &maxDepth, &canPlaceInFrontOfWindow, &isTall, &canSteal) == 9);
-            VERIFY((subGrpId = FurnitureManager_c::GetSubGroupId(subGroupName)) != -1);
-            VERIFY(grp->AddSubGroup(subGrpId, minWidth, minDepth, maxWidth, maxDepth, canPlaceInFrontOfWindow, isTall == 1, canSteal == 1));
-            VERIFY(subGrp = grp->GetSubGroup(subGrpId));
+            sscanf(l, "%s %s %d %d %d %d %d %d %d", tag, subGroupName, &minWidth, &minDepth, &maxWidth, &maxDepth, &canPlaceInFrontOfWindow, &isTall, &canSteal);
+            subGrpId = GetSubGroupId(subGroupName);
+            m_Groups.data()[grpId].AddSubGroup(subGrpId, minWidth, minDepth, maxWidth, maxDepth, (uint8)canPlaceInFrontOfWindow, isTall != 0, canSteal != 0);
         } else if (!strcmp(tag, "ITEM:")) {
-            char modelName[64];
+            char  modelName[64];
             int32 id, wealthMin, wealthMax, maxAng;
-            uint16 modelIndex = -1;
-            VERIFY(sscanf_s(l, "%s %s %d %d %d %d", SCANF_S_STR(tag), SCANF_S_STR(modelName), &id, &wealthMin, &wealthMax, &maxAng) == 6);
-            VERIFY(CModelInfo::GetModelInfoUInt16(modelName, &modelIndex) != nullptr);
-            VERIFY(subGrp->AddFurniture(modelIndex, id, wealthMin, wealthMax, maxAng));
-        } else {
-            NOTSA_UNREACHABLE("Unknown tag {}", tag);
+            int32 modelIndex;
+            sscanf(l, "%s %s %d %d %d %d", tag, modelName, &id, &wealthMin, &wealthMax, &maxAng);
+            if (CModelInfo::GetModelInfo(modelName, &modelIndex)) {
+                m_Groups.data()[grpId].AddFurniture(subGrpId, (uint16)modelIndex, (int16)id, (uint8)wealthMin, (uint8)wealthMax, (uint8)maxAng);
+            }
         }
     }
     CFileMgr::CloseFile(file);
@@ -218,10 +212,11 @@ int32 FurnitureManager_c::GetSubGroupId(const char* name) {
 
 // 0x5911E0
 Furniture_c* FurnitureManager_c::GetFurniture(int32 groupId, int32 subGroupId, int16 id, uint8 wealth) {
-    return m_Groups[groupId].GetFurniture(subGroupId, id, wealth);
+    // Como el original: sin comprobar el rango de groupId
+    return m_Groups.data()[groupId].GetFurniture(subGroupId, id, wealth);
 }
 
 // 0x591220
 int32 FurnitureManager_c::GetRandomId(int32 groupId, int32 subGroupId, uint8 wealth) {
-    return m_Groups[groupId].GetRandomId(subGroupId, wealth);
+    return m_Groups.data()[groupId].GetRandomId(subGroupId, wealth);
 }

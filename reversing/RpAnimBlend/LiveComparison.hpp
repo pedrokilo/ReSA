@@ -6,7 +6,7 @@
 #include "Probe.hpp"
 namespace RpAnimBlendLive {
 inline bool done{};inline std::ofstream log;
-inline void Write(const json& r){log<<r.dump()<<'\n';log.flush();}
+inline void Write(const json& r){ { static DWORD pumpLast=0; const DWORD pumpNow=GetTickCount(); if(pumpNow-pumpLast>=250){ pumpLast=pumpNow; MSG pumpMsg; PeekMessageA(&pumpMsg,nullptr,0,0,PM_NOREMOVE); } }log<<r.dump()<<'\n';log.flush();}
 inline int Report(int type,char* msg,int*){if(type!=_CRT_ASSERT)return FALSE;Write({{"event","assertion"},{"message",msg?msg:""}});ExitProcess(91);}
 inline bool Select(bool enabled){bool found{};ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& c){if(c.Name()!="RpAnimBlend")return;for(auto& h:c.Items())if(h->Name()=="RpAnimBlendClumpUpdateAnimations"){c.SetItemEnabled(h,enabled);found=h->Hooked()==enabled;}});return found;}
 struct Fixture {

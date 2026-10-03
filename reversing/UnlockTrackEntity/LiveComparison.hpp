@@ -10,7 +10,7 @@ namespace TELive {
 inline bool done{};inline std::ofstream log;
 inline constexpr std::array names{"SetOffsetPos","CalcTargetPos","CalcMoveRatio","ControlSubTask","SetTargetPos"};
 inline constexpr std::array counts{512,2048,4096,2048,512};
-inline void Write(const json& row){log<<row.dump()<<'\n';log.flush();}
+inline void Write(const json& row){ ReversingProbe::PumpMessages();log<<row.dump()<<'\n';log.flush();}
 template<class T>struct Raw{alignas(T)std::array<uint8,sizeof(T)> bytes{};T* get(){return reinterpret_cast<T*>(bytes.data());}};
 inline json Bytes(const void* p,size_t n){return ReversingProbe::Bytes(p,n);}
 struct Child:CTaskSimpleGoToPointFine {

@@ -7,7 +7,7 @@
 #include "Probe.hpp"
 namespace AttachedLive {
 inline bool done{}; inline std::ofstream log;
-inline void Write(const json& r){log<<r.dump()<<'\n';log.flush();}
+inline void Write(const json& r){ { static DWORD pumpLast=0; const DWORD pumpNow=GetTickCount(); if(pumpNow-pumpLast>=250){ pumpLast=pumpNow; MSG pumpMsg; PeekMessageA(&pumpMsg,nullptr,0,0,PM_NOREMOVE); } }log<<r.dump()<<'\n';log.flush();}
 inline int Report(int type,char* message,int*){if(type!=_CRT_ASSERT)return FALSE;Write({{"event","assertion"},{"message",message?message:""}});ExitProcess(91);}
 inline bool Select(bool enabled){bool found{};ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& category){if(category.Name()!="CPed")return;for(auto& h:category.Items())if(h->Name()=="PositionAttachedPed"){category.SetItemEnabled(h,enabled);found=h->Hooked()==enabled;}});return found;}
 struct State {

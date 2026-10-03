@@ -57,8 +57,9 @@ CTaskSimpleUseGun::CTaskSimpleUseGun(CEntity* targetEntity, CVector vecTarget, e
     m_NextCmd{ firstCmd },
     m_TargetPos{ vecTarget },
     m_TargetEntity{ targetEntity },
-    m_BurstShots{ burstLength },
+    m_BurstLength{ burstLength }, // Como el original: el EXE guarda la rafaga en 0x34 y pone 0x36 a cero
     m_IsAimImmediate{ isAimImmediate } {
+    reinterpret_cast<uint8*>(this)[0xD] = 0; // Como el original: el byte de los bits de disparo se escribe entero
 }
 
 // 0x61DF30

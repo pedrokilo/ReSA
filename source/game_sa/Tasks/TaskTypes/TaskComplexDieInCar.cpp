@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 
 #include "TaskComplexDieInCar.h"
 #include "TaskComplexLeaveCar.h"
+#include "TaskComplexLeaveCarAndDie.h"
 #include "TaskSimpleCarDrive.h"
 #include "TaskSimpleDieInCar.h"
 #include "CarCtrl.h"
@@ -70,7 +71,7 @@ CTask* CTaskComplexDieInCar::ControlSubTask(CPed* ped) {
 CTask* CTaskComplexDieInCar::CreateSubTask(eTaskType taskType, CPed* ped) {
     switch (taskType) {
     case TASK_COMPLEX_LEAVE_CAR_AND_DIE:
-        return new CTaskComplexLeaveCar(ped->m_pVehicle, 0, 0);
+        return new CTaskComplexLeaveCarAndDie(ped->m_pVehicle, 0, 0); // Como el original: 0x62F1A0 (vtable de CTaskComplexLeaveCarAndDie)
     case TASK_SIMPLE_CAR_DRIVE:
         return new CTaskSimpleCarDrive(ped->m_pVehicle, nullptr, false);
     case TASK_SIMPLE_DIE_IN_CAR:

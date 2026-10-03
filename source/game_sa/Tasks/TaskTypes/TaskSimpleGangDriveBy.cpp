@@ -62,6 +62,7 @@ CTaskSimpleGangDriveBy::CTaskSimpleGangDriveBy(CEntity* target, const CVector* t
     m_nRequiredAnimID      = ANIM_ID_NO_ANIMATION_SET;
     m_nRequiredAnimGroup   = ANIM_GROUP_DEFAULT;
     m_pWeaponInfo          = nullptr;
+    m_vecCoords            = CVector{ 0.0f, 0.0f, 0.0f }; // Como el original (0x621836): +0x38..+0x40 a cero antes de copiar la posición
     CEntity::SafeRegisterRef(m_pTargetEntity);
     if (targetPos) {
         m_vecCoords = *targetPos;

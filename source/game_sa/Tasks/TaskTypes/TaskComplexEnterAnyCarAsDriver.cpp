@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -41,14 +41,24 @@ CTask* CTaskComplexEnterAnyCarAsDriver::CreateFirstSubTask(CPed* ped) {
         }
     }
 
-    // Otherwise just enter the closest vehicle (Not sure why they didn't use `GetClosestVehicleInRange`?)
+    // Como el original: recorre las 16 entradas del escáner y solo acepta vehículos robables;
+    // la distancia es (ped - veh) con la suma (z*z + y*y) + x*x del exe.
     auto closestDistSq = FLT_MAX;
     CVehicle* closest{};
-    for (auto& vehicle : ped->GetIntelligence()->GetVehicleScanner().GetEntities<CVehicle>()) {
-        const auto distSq = (vehicle.GetPosition() - ped->GetPosition()).SquaredMagnitude();
-        if (distSq < closestDistSq) {
+    for (auto* const entity : ped->GetIntelligence()->GetVehicleScanner().m_apEntities) {
+        if (!entity) {
+            continue;
+        }
+        auto* const vehicle = entity->AsVehicle();
+        const CVector& vehPos = vehicle->GetPosition();
+        const CVector& pedPos = ped->GetPosition();
+        const float dx = pedPos.x - vehPos.x;
+        const float dy = pedPos.y - vehPos.y;
+        const float dz = pedPos.z - vehPos.z;
+        const float distSq = dz * dz + dy * dy + dx * dx;
+        if (distSq < closestDistSq && CCarEnterExit::IsVehicleStealable(vehicle, ped)) {
             closestDistSq = distSq;
-            closest = vehicle.AsVehicle();
+            closest = vehicle;
         }
     }
 

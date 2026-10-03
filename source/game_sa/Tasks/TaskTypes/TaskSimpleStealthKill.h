@@ -32,6 +32,7 @@ public:
 
     CTaskSimpleStealthKill(bool keepTargetAlive, CPed* target, AssocGroupId groupId);
     CTaskSimpleStealthKill(const CTaskSimpleStealthKill&);
+    ~CTaskSimpleStealthKill() override;
 
     static void FinishAnimStealthKillCB(CAnimBlendAssociation* pAnimAssoc, void* vpTaskSimpleStealthKill);
 

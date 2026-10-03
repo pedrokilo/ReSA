@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -56,13 +56,24 @@ CTask* CTaskComplexGoToBoatSteeringWheel::CreateNextSubTask(CPed* ped) {
         m_bAchievedPoint = true;
         return CreateSubTask(TASK_FINISHED);
     default:
-        NOTSA_UNREACHABLE();
+        return nullptr; // Como el original
     }
 }
 
 // 0x649160
 void CTaskComplexGoToBoatSteeringWheel::ComputeTargetPos() {
-    m_TargetPos = m_Vehicle->GetDummyPosition(m_Vehicle->IsBoat() ? DUMMY_LIGHT_FRONT_MAIN : DUMMY_SEAT_FRONT);
+    // Como el original: tipo de vehiculo del model info, Multiply3x3 (0x59C790) con la matriz del vehiculo y el orden
+    // de sumas del EXE, y despues la posicion
+    const auto* const mi = CModelInfo::GetModelInfo(m_Vehicle->m_nModelIndex)->AsVehicleModelInfoPtr();
+    const CVector d = mi->m_pVehicleStruct->m_avDummyPos[mi->m_nVehicleType == VEHICLE_TYPE_BOAT ? DUMMY_LIGHT_FRONT_MAIN : DUMMY_SEAT_FRONT];
+    const CMatrix& m = *m_Vehicle->m_matrix;
+    const CVector r{
+        m.GetUp().x * d.z + m.GetForward().x * d.y + m.GetRight().x * d.x,
+        m.GetUp().y * d.z + m.GetRight().y * d.x + m.GetForward().y * d.y,
+        m.GetUp().z * d.z + m.GetRight().z * d.x + m.GetForward().z * d.y,
+    };
+    const CVector& pos = m_Vehicle->GetPosition();
+    m_TargetPos = CVector{ r.x + pos.x, r.y + pos.y, r.z + pos.z };
 }
 
 // 0x64CDA0
@@ -73,10 +84,8 @@ CTask* CTaskComplexGoToBoatSteeringWheel::CreateSubTask(eTaskType taskType) {
     case TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL:
         ComputeTargetPos();
         return new CTaskComplexGoToPointAndStandStill(PEDMOVE_WALK, m_TargetPos, 0.5f, 2.0f, false, false);
-    case TASK_FINISHED:
+    default: // Como el original: TASK_FINISHED y cualquier otro tipo
         return nullptr;
-    default:
-        NOTSA_UNREACHABLE();
     }
 }
 
@@ -99,15 +108,13 @@ CTask* CTaskComplexGoToBoatSteeringWheel::ControlSubTask(CPed* ped) {
     // Possibly adjust goto point (if it has changed significantly)
     if (const auto subSubTask = m_pSubTask->GetSubTask()) {
         if (subSubTask->GetTaskType() != TASK_SIMPLE_STAND_STILL) {
-            assert(m_pSubTask->GetTaskType() == TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL);
             const auto subTaskGoTo = static_cast<CTaskComplexGoToPointAndStandStill*>(m_pSubTask);
             ComputeTargetPos();
-            if ((m_TargetPos - subTaskGoTo->m_vecTargetPoint).SquaredMagnitude() > sq(0.2f)) {
-                if (subTaskGoTo->m_fMoveStateRadius != 2.f || m_TargetPos != subTaskGoTo->m_vecTargetPoint) {
-                    subTaskGoTo->GoToPoint(m_TargetPos, 0.5f, 2.f);
-                }
+            // Como el original: (dz*dz + dy*dy) + dx*dx frente a 0.2*0.2 (0x863244) y GoToPoint sin mas condiciones
+            const CVector delta = subTaskGoTo->m_vecTargetPoint - m_TargetPos;
+            if (delta.z * delta.z + delta.y * delta.y + delta.x * delta.x > std::bit_cast<float>(0x3D23D70Bu)) {
+                subTaskGoTo->GoToPoint(m_TargetPos, 0.5f, 2.f);
             }
-                
         }
     }
 

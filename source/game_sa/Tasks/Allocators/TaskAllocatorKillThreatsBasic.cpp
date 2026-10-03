@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -41,7 +41,9 @@ void CTaskAllocatorKillThreatsBasic::AllocateTasks(CPedGroupIntelligence* intel)
 
     auto* const group = &intel->GetPedGroup();
     if (auto* const threatsGroup = m_Threat->GetGroup()) {
-        if (threatsGroup == group) {
+        // Como el original: un solo GetGroupId y la comparacion con &ms_groups[id]
+        const auto threatsGroupId = CPedGroups::GetGroupId(threatsGroup);
+        if (CPedGroups::ms_groups.data() + threatsGroupId == group) {
             NOTSA_LOG_DEBUG("ComputeKillThreatsBasicResponse() - threat ped already in group"); // vanilla
         } else {
             CPed* closest[TOTAL_PED_GROUP_MEMBERS]{};
@@ -53,7 +55,7 @@ void CTaskAllocatorKillThreatsBasic::AllocateTasks(CPedGroupIntelligence* intel)
                 }
                 intel->SetEventResponseTask(
                     mem,
-                    CTaskComplexKillPedGroupOnFoot{ CPedGroups::GetGroupId(threatsGroup), closest[i] }
+                    CTaskComplexKillPedGroupOnFoot{ threatsGroupId, closest[i] }
                 );
             }
             g_InterestingEvents.Add(CInterestingEvents::GANG_FIGHT, group->GetMembership().GetLeader()); // 0x69D436
@@ -67,7 +69,7 @@ void CTaskAllocatorKillThreatsBasic::AllocateTasks(CPedGroupIntelligence* intel)
                 mem,
                 CTaskComplexSequence{
                     new CTaskComplexKillPedOnFoot{ m_Threat },
-                    new CTaskSimpleLookAbout{ CGeneral::GetRandomNumberInRange(1'000u, 2'000u) },
+                    new CTaskSimpleLookAbout{ (uint32)CGeneral::GetRandomIntInRange(1000, 2000) }, // Como el original: 0x407180, [1000, 2000)
                 }
             );
         }

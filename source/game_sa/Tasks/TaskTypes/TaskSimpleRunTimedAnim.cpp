@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -76,7 +76,10 @@ bool CTaskSimpleRunTimedAnim::ProcessPed(CPed* ped) {
     }
 
     if (!m_pAnim && !RpAnimBlendClumpGetAssociation(ped->GetRpClump(), (uint32)m_animId)) {
-        m_timer.Start((int32)m_durationMs);
+        // Como el original: el temporizador se arranca sin comprobar que la duracion sea >= 0 (no CTaskTimer::Start)
+        m_timer.m_nStartTime = CTimer::GetTimeInMS();
+        m_timer.m_nInterval  = (int32)m_durationMs;
+        m_timer.m_bStarted   = true;
         StartAnim(ped);
     }
 

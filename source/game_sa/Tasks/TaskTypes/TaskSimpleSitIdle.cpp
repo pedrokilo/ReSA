@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -49,7 +49,10 @@ CTaskSimpleSitIdle::CTaskSimpleSitIdle(const CTaskSimpleSitIdle& o) :
 
 // 0x631260
 void CTaskSimpleSitIdle::StartAnim(CPed* ped) {
-    m_animStartedTimer.Start(m_durationMs);
+    // Como el original: el temporizador se arranca sin comprobar que la duracion sea >= 0 (no CTaskTimer::Start)
+    m_animStartedTimer.m_nStartTime = CTimer::GetTimeInMS();
+    m_animStartedTimer.m_nInterval  = m_durationMs;
+    m_animStartedTimer.m_bStarted   = true;
 
     const auto StartAnim = [this, ped](auto grpId, auto animId) { m_anim = CAnimManager::BlendAnimation(ped->GetRpClump(), grpId, animId, 256.f); };
     if (m_bSitAfterStep) {
@@ -70,11 +73,16 @@ bool CTaskSimpleSitIdle::MakeAbortable(CPed* ped, eAbortPriority priority, CEven
         if (m_anim) {
             m_anim->m_BlendDelta = -1000.f;
             m_anim->SetDefaultFinishCallback();
+            m_anim = nullptr; // Como el original: mov dword ptr [esi+10h],0
         }
-        g_ikChainMan.AbortLookAt(ped, 750); // Omitted redudant `IsLooking` check.
+        if (g_ikChainMan.IsLooking(ped)) { // Como el original: se comprueba antes de abortar
+            g_ikChainMan.AbortLookAt(ped, 750);
+        }
         return true;
     }
     default: {
+        // Como el original: tambien la duracion pasa a -1 (or eax,0FFFFFFFFh / mov [esi+0Ch],eax)
+        m_durationMs = -1;
         m_animStartedTimer.SetOutOfTime(); // Eventually leads to `ProcessPed` returning `true` that finishes the task
         return false;
     }
@@ -88,19 +96,21 @@ bool CTaskSimpleSitIdle::ProcessPed(CPed* ped) {
     }
 
     // Do look at somewhere/another ped with random chance
-    if (!g_ikChainMan.IsLooking(ped) && CGeneral::RandomBool(5.f)) {
-        const auto lookTime = CGeneral::GetRandomNumberInRange(3000, 5000);
+    // Como el original: (int)(rand() * (1/32768) * 100) < 5, no RandomBool
+    if (!g_ikChainMan.IsLooking(ped) && static_cast<int32>(static_cast<float>(CGeneral::GetRandomNumber()) * (1.f / 32768.f) * 100.f) < 5) {
+        const auto closestPed = ped->GetIntelligence()->GetPedScanner().GetClosestPedInRange();
+        // Como el original: 3000 - (int)(rand() * (1/32768) * -5000), en [3000, 8000)
+        const auto lookTime = 3000 - static_cast<int32>(static_cast<float>(CGeneral::GetRandomNumber()) * (1.f / 32768.f) * -5000.f);
 
         // First try looking at the closest ped (if any)
-        const auto hasLookedAtClosestPed = [this, ped, lookTime] {
-            const auto closestPed = ped->GetIntelligence()->GetPedScanner().GetClosestPedInRange();
+        const auto hasLookedAtClosestPed = [&] {
             if (!closestPed) {
                 return false;
             }
-            if (!CGeneral::RandomBool(25.f)) { // Moved this early out here to optimize
+            if (DotProduct(closestPed->GetPosition() - ped->GetPosition(), ped->GetForwardVector()) <= 0.2f) { // Must be in cone of [-78, 78] deg in front of `ped`
                 return false;
             }
-            if (DotProduct(closestPed->GetPosition() - ped->GetPosition(), ped->GetForwardVector()) <= 0.2f) { // Must be in cone of [-78, 78] deg in front of `ped`
+            if (CGeneral::GetRandomIntInRange(0, 100) >= 25) { // Como el original: 0x407180 despues del producto escalar
                 return false;
             }
 
@@ -123,9 +133,12 @@ bool CTaskSimpleSitIdle::ProcessPed(CPed* ped) {
 
         // If that failed, look at a random point somewhere in front of the ped
         if (!hasLookedAtClosestPed) {
-            CVector pos = ped->GetPosition()
-                        + ped->GetForwardVector() * CGeneral::GetRandomNumberInRange(1.f, 5.f)
-                        + ped->GetRightVector() * CGeneral::GetRandomNumberInRange(-4.f, 4.f);
+            // Como el original: (pos + forward * [1, 5]) + right * [-4, 4], en ese orden
+            CVector pos = ped->GetPosition();
+            const auto fwdScale = CGeneral::GetRandomNumberInRange(1.f, 5.f);
+            pos += ped->GetForwardVector() * fwdScale;
+            const auto rightScale = CGeneral::GetRandomNumberInRange(-4.f, 4.f);
+            pos += ped->GetRightVector() * rightScale;
             g_ikChainMan.LookAt(
                 "TaskSitIdle",
                 ped,
@@ -143,7 +156,9 @@ bool CTaskSimpleSitIdle::ProcessPed(CPed* ped) {
     }
 
     if (m_animStartedTimer.IsOutOfTime()) {
-        g_ikChainMan.AbortLookAt(ped, 750u); // Omitted redudant `IsLooking` check
+        if (g_ikChainMan.IsLooking(ped)) { // Como el original: se comprueba antes de abortar
+            g_ikChainMan.AbortLookAt(ped, 750u);
+        }
         return true;
     }
 

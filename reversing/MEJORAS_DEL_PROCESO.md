@@ -964,3 +964,85 @@ Bancos nuevos, todos con pares exactos dentro de GTA (92 funciones, 34.448 pares
 - El ensamblador en línea no distingue mayúsculas: variables como `fSin`/`fCos` chocan con las instrucciones `fsin`/`fcos`.
 - Revisar qué bit lee el EXE en las banderas de `CPed` (p. ej. bit 8 de 0x46C = `bInVehicle`), no fiarse del nombre que usa la DLL.
 - Los índices de modelo `int16` se guardan en dwords con `movsx`: extender con signo.
+
+## Continuidad vigente: lista de 19 clases de tareas (2026-10-02)
+
+Bancos nuevos, todos con pares exactos dentro de GTA (76 funciones, 30.976 pares): [STasks19](STasks19/README.md) y [CTasks19](CTasks19/README.md).
+
+**Defectos de alcance general encontrados:**
+- `CTask::operator delete` rellenaba el slot con 0xDD y comprobaba nulo; el EXE solo marca el slot libre y baja `m_LastFreeSlot` (`CTaskPool::Delete` → `DeleteLegacy`; la comprobación de nulo queda bajo `FIX_BUGS`).
+- `CTask::IsTaskPtr` aceptaba punteros al interior de un slot.
+- Los constructores de `CTaskComplexCarDrive` y `CTaskComplexWander` escribían campos que el EXE no toca (y no escribían otros), lo que afecta a todas sus derivadas.
+- `CTaskSimpleUseAtm` tenía el tipo de tarea de otra clase.
+- `CTaskSimpleInAir::MakeAbortable` no quitaba `bIsInTheAir`.
+
+**Lecciones:**
+- Los constructores de las clases base se inlinean en los de las derivadas: validar una derivada obliga a revisar la base.
+- Los miembros con inicializador por defecto (`CNodeAddress`) se pueden envolver en uniones anónimas para no escribir lo que el EXE deja sin tocar.
+
+## Continuidad vigente: listas de 8 y 43 clases (2026-10-02)
+
+Bancos nuevos, todos con pares exactos dentro de GTA (201 funciones, 77.312 pares): [Misc8](Misc8/README.md), [RenderVideo8](RenderVideo8/README.md), [STasks43](STasks43/README.md), [CTasks43](CTasks43/README.md), [Events43](Events43/README.md) y [World43](World43/README.md). Después se completó [Fx43](Fx43/README.md) (44 funciones, 15.552 pares).
+
+**Defectos de alcance general encontrados:**
+- `RwGlobals` no tenía `fileFuncs` (11 punteros): `stringFuncs` y `memoryFuncs` quedaban 0x2C bytes desplazados, así que `rwsprintf`/`rwfree` de la DLL llamaban a otras funciones.
+- `GetVideoModeList` compara la proporción exactamente con 0,8/0,75/0,6/0,625 (sin 16:9) y resta de la VRAM **total** (0xC8CF80), como el EXE.
+- `CTaskAllocatorKillThreatsDriveby` medía 0x24 bytes en vez de 0x14 y leía la amenaza de un desplazamiento equivocado.
+- `CTaskSimpleDie` (base de varias tareas) escribía las banderas completas y borraba bits de más en `StartAnim`.
+- `CPlayerPedData` llamaba a `operator delete` con punteros nulos; `CTaskSimpleGangDriveBy` no ponía a cero `m_vecCoords`.
+- Pendientes fuera de las listas: `CPlayerInfo::CancelPlayerEnteringCars` y `CPedGroupIntelligence::FlushTasks` están enganchadas como cdecl pero en el EXE limpian la pila; `IsPointInsideLine` de `common.cpp` difiere con NaN; los constructores de `FxInfo_c` derivados ponen a cero campos que el EXE no escribe.
+
+**Lecciones:**
+- El x87 conserva denormales (exponente extendido) que SSE vacía a cero: los productos que pueden caer en ese rango se hacen con ensamblador x87.
+- El ensamblador en línea no se admite dentro de lambdas: usar funciones estáticas.
+- Algunos `build_probe.py` antiguos reescribían las fuentes en modo texto y duplicaban los CR (aviso C4335 "formato Mac"): ahora escriben bytes.
+- No ejecutar dos bancos a la vez: el segundo se niega a arrancar con GTA abierto y su "APROBADO" sería del ASI anterior.
+- Los resúmenes de bancos antiguos tienen el hash de su versión CRLF: al restaurarlos con git hay que conservar esos finales de línea.
+
+## Continuidad vigente: clases de 6 funciones (2026-10-02)
+
+Bancos nuevos, todos con pares exactos dentro de GTA (305 funciones, 116.992 pares): [AnimAudio6](AnimAudio6/README.md), [Misc6](Misc6/README.md), [CTasks6a](CTasks6a/README.md), [CTasks6b](CTasks6b/README.md), [STasks6a](STasks6a/README.md), [STasks6b](STasks6b/README.md) y [STasks6c](STasks6c/README.md). `NOTSA_WinMain` queda fuera (punto de entrada del juego).
+
+**Defectos de alcance general encontrados:**
+- `CAnimBlendClumpData` liberaba la dirección del campo en vez del puntero de los frames.
+- El "destructor" enganchado de `CAnimBlendStaticAssociation` (0x4CDF50) es un destructor con borrado (`ret 4`): la envoltura sin argumento desbalanceaba la pila.
+- `CAEGlobalWeaponAudioEntity::UpdateParameters` estaba enganchada como función normal siendo virtual (podía entrar en bucle con la vtable del EXE); ahora es un hook de vtable. El mismo patrón aparece en `AESound.cpp` y `AEPedAudioEntity.cpp` (pendiente).
+- `CPedPlacement::FindZCoorForPed` probaba los puntos en otro orden y aceptaba el suelo en -99 (el EXE exige `> -99`).
+- `CTaskSimpleUseGun` (constructor) intercambiaba `m_BurstLength`/`m_BurstShots` y no escribía el byte de banderas +0x0D completo.
+- `CTaskComplexWander::ControlSubTask` decía la frase con probabilidad 1,0 en vez de 0,1.
+- `CTaskSimpleSetPedAsAutoDriver` encendía el motor al revés; `CTaskSimpleWaitUntilPedIsOutCar` usaba grados en vez de radianes; `CCredits` dibujaba la sombra en azul transparente en vez de negro.
+- Pendientes fuera de las listas: `CPedGroupIntelligence::FlushTasks` (cdecl contra `ret 8`); `FurnitureManager_c` guarda contadores de 16 bits como `uint32`.
+
+**Lecciones:**
+- Un tamaño que se desborda (`n*4` con n = 0x40000000) tira por igual al EXE y a la DLL: los fixtures deben quedarse en rangos que el EXE soporta.
+- Varios constructores de copia de la DLL delegaban en el constructor por defecto con `{}` y ponían a cero el relleno; el EXE solo escribe los campos.
+- Un `bool` de la DLL normaliza a 0/1 un byte que el EXE copia tal cual.
+
+## Continuidad vigente: clases de 7 funciones (2026-10-02)
+
+Bancos aprobados (255 funciones, 84.160 pares exactos): [CTasks7a](CTasks7a/README.md), [CTasks7b](CTasks7b/README.md), [STasks7](STasks7/README.md), [Data7](Data7/README.md), [Audio7](Audio7/README.md) y [Mgr7](Mgr7/README.md).
+
+**Defectos de alcance general encontrados:**
+- `CStreamingInfo::GetCdPosn` devolvía `CdStreamPos` por un puntero oculto; el EXE lo espera en EAX (llamadas desde el EXE leían basura).
+- `CTaskSimpleDie` usa el bit 5 de +0x478 (`bIsDyingStuck`), no el 4, en `MakeAbortable` y `ProcessPed`.
+- `CTaskComplexDrivePointRoute` indexaba la ruta con una vista con comprobación de límites que aborta en depuración donde el EXE no comprueba.
+- `CTaskSimpleStealthKill` no tenía destructor (la referencia al objetivo quedaba registrada).
+- `CTaskSimpleKillPedWithCar` usaba el arma 49 en vez de 50 (atropello) y la velocidad del capó en vez de la del peatón.
+- `CTaskInteriorUseInfo` (destructor) no comprobaba el puntero de la información antes de escribir (0x675A93).
+- `CAEFireAudioEntity` cargaba otro banco en otra ranura; la constante 0,06 del EXE no es el float más cercano (0x3D75C290).
+- `FurnitureManager_c::GetGroupId`/`GetSubGroupId` son `thiscall` en el EXE y estaban enganchadas como `cdecl` estáticas.
+
+**Mejora del proceso:**
+- El ejecutor común (`runtime_runner.py`) aborta ahora cuando la ventana de GTA queda en "No responde" y además el registro lleva 30 s sin crecer, o cuando el registro deja de crecer 120 s (240 s antes del primer resultado), además de los cuadros de diálogo. Como los bancos corren dentro de un solo fotograma, Windows marca la ventana "No responde" aunque avancen: la ventana colgada sola no basta. Antes un cuelgue esperaba hasta el tiempo límite completo.
+
+**Lecciones:**
+- Construir json o cualquier objeto con memoria dinámica mientras `operator new` está sustituido corrompe el montón (cuelgues o 0xC0000409): guardar resultados en locales y serializar después de quitar los parches.
+- Un comentario `//` dentro de una línea larga de stub puede tragarse el código que escribe la salida: los dos lados leen basura distinta.
+- Las direcciones de búferes en la pila deben registrarse como "stack".
+
+## Mejora del proceso: bancos que no parecen colgados (2026-10-03)
+
+- **Ceder el control a Windows:** los bancos ejecutan todos sus casos dentro de un solo fotograma y Windows marcaba la ventana "No responde" a los ~5 s, aunque avanzaran. `ProbeSupport.hpp` tiene ahora `ReversingProbe::PumpMessages()`: como mucho cada 250 ms llama a `PeekMessageA(..., PM_NOREMOVE)`, que basta para que el hilo cuente como atendido sin sacar ni despachar mensajes (sin reentradas ni efectos en el juego). Se llama al principio del `Write` de los 89 bancos que usan `ReversingProbe`; los 15 antiguos que no lo incluyen llevan la misma lógica en línea. Los bancos nuevos deben hacerlo igual (regla en el encargo para agentes).
+- **Detección de cuelgues reales:** `runtime_runner.py` aborta si la ventana sigue "No responde" y además el registro lleva 30 s sin crecer, o si el registro no crece 120 s (240 s antes del primer resultado), además de los cuadros de diálogo; cierra GTA y restaura la copia como siempre.
+- **Bancos antiguos y "Device Selection":** los 40 bancos de estilo antiguo (sin `probe_case`) ejecutan una sonda congelada en `_baseline` con hash fijo, anterior a `SkipDeviceSelection`. Con más de un subsistema de vídeo visible (situación de esta máquina desde el 02/10 23:56) esa sonda muestra el cuadro "Device Selection" y el banco se aborta. No prueban el código actual, así que la regresión amplia (`reversing/_handoff/regress.sh`) corre solo los 60 bancos modernos, que compilan e instalan la sonda del árbol actual. Su evidencia histórica no cambia.
+- **Detener una regresión sin restos:** parar el script no mata los `python` hijos. Cerrar GTA y esperar a que `run_local.py`/`build_probe.py` terminen solos (restauran la copia y las fuentes); cortar una compilación a la mitad dejó instrumentación en `Game.cpp` y `app_debug.cpp`.

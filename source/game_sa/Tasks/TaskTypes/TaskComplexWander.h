@@ -29,8 +29,10 @@ public:
     eMoveState   m_nMoveState;
     uint8        m_nDir;
     float        m_fTargetRadius;
-    CNodeAddress m_LastNode;
-    CNodeAddress m_NextNode;
+    // Como el original: el constructor (0x66F450) solo escribe m_wAreaId; las uniones anónimas evitan
+    // el inicializador por defecto de CNodeAddress (que también escribiría m_wNodeId)
+    union { CNodeAddress m_LastNode; };
+    union { CNodeAddress m_NextNode; };
     uint32       m_nLastUpdateDirFrameCount;
     union
     {

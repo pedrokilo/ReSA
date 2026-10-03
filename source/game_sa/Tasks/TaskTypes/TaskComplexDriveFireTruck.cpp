@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -85,7 +85,8 @@ CTask* CTaskComplexDriveFireTruck::CreateNextSubTask(CPed* ped) {
 
 // 0x65B140
 CTask* CTaskComplexDriveFireTruck::CreateFirstSubTask(CPed* ped) {
-    if (!m_pVehicle || !ped->bInVehicle)
+    // Como el original: comprueba el vehiculo del peaton (no m_pVehicle)
+    if (!ped->bInVehicle || !ped->m_pVehicle)
         return CreateSubTask(TASK_FINISHED, ped);
 
     if (!m_bIsDriver)
@@ -97,10 +98,11 @@ CTask* CTaskComplexDriveFireTruck::CreateFirstSubTask(CPed* ped) {
 
 // 0x65B1E0
 CTask* CTaskComplexDriveFireTruck::ControlSubTask(CPed* ped) {
-    eTaskType subTaskId = m_pSubTask->GetTaskType();
-
-    if (!m_pVehicle || !ped->bInVehicle)
+    // Como el original: comprueba el vehiculo del peaton (no m_pVehicle) antes de leer el tipo de la subtarea
+    if (!ped->bInVehicle || !ped->m_pVehicle)
         return CreateFirstSubTask(ped);
+
+    eTaskType subTaskId = m_pSubTask->GetTaskType();
 
     if (subTaskId == TASK_COMPLEX_CAR_DRIVE_TO_POINT) {
         if (m_bIsDriver && m_pFire->IsBeingExtinguished()) {

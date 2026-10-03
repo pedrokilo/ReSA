@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -33,9 +33,9 @@ void CTaskSimpleTurn180::InjectHooks() {
 }
 
 // NOTSA
-CTaskSimpleTurn180::CTaskSimpleTurn180(const CTaskSimpleTurn180& o) :
-    CTaskSimpleTurn180{}
-{
+// 0x636570 - Como el original: sin inicialización por valor (delegar en `CTaskSimpleTurn180{}` ponía a cero el objeto
+// entero, relleno incluido); solo se escriben el byte +8 y el puntero +0xC
+CTaskSimpleTurn180::CTaskSimpleTurn180(const CTaskSimpleTurn180& o) {
 }
 
 // 0x631D00

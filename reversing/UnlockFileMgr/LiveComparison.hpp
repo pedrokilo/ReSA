@@ -9,7 +9,7 @@ namespace FMLive {
 inline bool done{};inline std::ofstream log;
 inline constexpr std::array names{"SetDirMyDocuments","LoadFile","OpenFile","OpenFileForWriting","OpenFileForAppending","Read","Write","Seek","ReadLine","CloseFile","GetTotalSize","Tell","GetErrorReadWrite"};
 inline constexpr std::array<uintptr_t,13> addresses{0x538860,0x538890,0x538900,0x538910,0x538930,0x538950,0x538970,0x538990,0x5389B0,0x5389D0,0x5389E0,0x538A20,0x538A50};
-inline void Write(const json& r){log<<r.dump()<<'\n';log.flush();}
+inline void Write(const json& r){ ReversingProbe::PumpMessages();log<<r.dump()<<'\n';log.flush();}
 inline void Fixture(const std::filesystem::path& p){std::ofstream f(p,std::ios::binary|std::ios::trunc);for(int i=0;i<256;++i)f.put(char(i%29==0?'\n':i%29==28?'\r':32+i%91));}
 inline json Disk(const std::filesystem::path& p){std::ifstream f(p,std::ios::binary);return std::vector<uint8>(std::istreambuf_iterator<char>(f),{});}
 inline json State(FILESTREAM f){const auto* d=reinterpret_cast<const uint32*>(f);return json{{"position",CFileMgr::Tell(f)},{"count",d[1]},{"flags",d[3]},{"buffer_size",d[6]}};}

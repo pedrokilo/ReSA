@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -33,20 +33,35 @@ void CSetPieces::InjectHooks() {
 
 // 0x499500
 void CSetPieces::AddOne(eSetPieceType type, CVector2D cornerA, CVector2D cornerB, CVector2D spawnCoord1, CVector2D targetCoord1, CVector2D spawnCoord2, CVector2D targetCoord2) {
-    if (NumSetPieces >= MAX_SET_PIECES) {
+    // Como el original: contador con signo y escritura en el sitio; el campo m_nLastGenerationTime no se toca.
+    const int32 index = (int32)NumSetPieces;
+    if (index >= MAX_SET_PIECES) {
         return;
     }
 
-    const auto [left, right] = std::minmax(cornerA.x, cornerB.x);
-    const auto [bottom, top] = std::minmax(cornerA.y, cornerB.y);
+    // Como el original: min = a < b ? a : b y max = a > b ? a : b (con NaN o empate gana b); _ftol2(v * 4).
+    const auto Pack = [](float v) { return (int16)(int64)(v * 4.0f); };
+    const float minX = cornerA.x < cornerB.x ? cornerA.x : cornerB.x;
+    const float minY = cornerA.y < cornerB.y ? cornerA.y : cornerB.y;
+    const float maxX = cornerA.x > cornerB.x ? cornerA.x : cornerB.x;
+    const float maxY = cornerA.y > cornerB.y ? cornerA.y : cornerB.y;
 
-    auto& sp = aSetPieces[NumSetPieces++];
-    sp.m_nType        = type;
-    sp.m_AreaRect     = CRect{ left, bottom, right, top };
-    sp.m_SpawnCoord1  = spawnCoord1;
-    sp.m_SpawnCoord2  = spawnCoord2;
-    sp.m_TargetCoord1 = targetCoord1;
-    sp.m_TargetCoord2 = targetCoord2;
+    auto& sp = aSetPieces.data()[index];
+    sp.m_nType = type;
+    auto* packed = reinterpret_cast<int16*>(reinterpret_cast<uint8*>(&sp) + 4);
+    packed[0]  = Pack(minX);
+    packed[1]  = Pack(minY);
+    packed[2]  = Pack(maxX);
+    packed[3]  = Pack(maxY);
+    packed[4]  = Pack(spawnCoord1.x);
+    packed[5]  = Pack(spawnCoord1.y);
+    packed[8]  = Pack(targetCoord1.x);
+    packed[9]  = Pack(targetCoord1.y);
+    packed[6]  = Pack(spawnCoord2.x);
+    packed[7]  = Pack(spawnCoord2.y);
+    packed[10] = Pack(targetCoord2.x);
+    packed[11] = Pack(targetCoord2.y);
+    NumSetPieces = index + 1;
 }
 
 // 0x4994F0
@@ -73,11 +88,10 @@ bool CSetPieces::Save() {
 void CSetPieces::Update() {
     ZoneScoped;
 
-    const auto f = CTimer::GetFrameCounter() % 8;
-    const auto beg = f * NumSetPieces / 8;
-    const auto end = (f + 1) * NumSetPieces / 8;
-
-    for (auto i = beg; i < end; i++) {
-        aSetPieces[i].Update();
+    // Como el original: divisiones con signo y el final se recalcula con NumSetPieces en cada vuelta.
+    const int32 f   = (int32)(CTimer::GetFrameCounter() & 7);
+    const auto  End = [f] { return (int32)((uint32)(f + 1) * NumSetPieces) / 8; };
+    for (int32 i = (int32)((uint32)f * NumSetPieces) / 8; i < End(); i++) {
+        aSetPieces.data()[i].Update();
     }
 }

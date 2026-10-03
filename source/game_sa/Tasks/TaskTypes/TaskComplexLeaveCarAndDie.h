@@ -11,6 +11,7 @@ public:
 
     static constexpr auto Type = eTaskType::TASK_COMPLEX_LEAVE_CAR_AND_DIE;
 
+    CTaskComplexLeaveCarAndDie(CVehicle* targetVehicle, int32 nTargetDoor, int32 nDelayTime); // 0x62F1A0
     CTaskComplexLeaveCarAndDie(const CTaskComplexLeaveCarAndDie&);
 
     CTask*    Clone() const override { return new CTaskComplexLeaveCarAndDie{ *this }; }

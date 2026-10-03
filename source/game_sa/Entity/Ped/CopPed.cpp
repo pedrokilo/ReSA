@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -153,7 +153,8 @@ CCopPed* CCopPed::Constructor(uint32_t copTypeOrModelID) {
 CCopPed::~CCopPed() {
     if (FindPlayerPed())
         FindPlayerWanted()->RemovePursuitCop(this);
-    SetPartner(nullptr);
+    // Como el original: suelta la referencia al compañero sin anular el puntero
+    CEntity::SafeCleanUpRef(m_pCopPartner);
     ClearCriminalsToKill();
 }
 
@@ -209,7 +210,21 @@ int32 CCopPed::AddCriminalToKill(CPed* criminal) {
     if (!criminal)
         return -1;
 
-    if (!criminal->CanBeCriminal()) {
+    // Como el original: IsPlayer, tipos COP/MEDIC/FIREMAN y >= MISSION1 (sin tope), y luego creado por misión
+    if (criminal->IsPlayer()) {
+        return -1;
+    }
+    switch (criminal->m_nPedType) {
+    case PED_TYPE_COP:
+    case PED_TYPE_MEDIC:
+    case PED_TYPE_FIREMAN:
+        return -1;
+    default:
+        if ((int32)criminal->m_nPedType >= (int32)PED_TYPE_MISSION1)
+            return -1;
+        break;
+    }
+    if (criminal->IsCreatedBy(PED_MISSION)) {
         return -1;
     }
 
@@ -218,16 +233,22 @@ int32 CCopPed::AddCriminalToKill(CPed* criminal) {
     if (criminal->m_fHealth <= 0.0f)
         return -1;
 
-    if (IsCriminalInList(criminal))
-        return -1;
-
-    /* Find slot, put criminal in there */
-    size_t slot = GetEmptySlotForCriminalToKill();
+    // Como el original: un solo recorrido; guarda el primer hueco libre visto y, si encuentra al criminal,
+    // devuelve su índice (no -1)
+    int32 slot = -1;
+    for (int32 i = 0; i < (int32)std::size(m_apCriminalsToKill); i++) {
+        if (!m_apCriminalsToKill[i] && slot == -1) {
+            slot = i;
+            continue;
+        }
+        if (m_apCriminalsToKill[i] == criminal)
+            return i;
+    }
     if (slot == -1)
         return -1; /* no free slot, return */
 
-    criminal->RegisterReference(reinterpret_cast<CEntity**>(&m_apCriminalsToKill[slot]));
     m_apCriminalsToKill[slot] = criminal;
+    criminal->RegisterReference(reinterpret_cast<CEntity**>(&m_apCriminalsToKill[slot]));
 
     criminal->bWantedByPolice = true;
     criminal->bCullExtraFarAway = true;
@@ -246,10 +267,8 @@ int32 CCopPed::AddCriminalToKill(CPed* criminal) {
 
 // 0x5DE040
 void CCopPed::RemoveCriminalToKill(int32 unk, int32 nCriminalLocalIdx) {
-    CPed*& criminal = m_apCriminalsToKill[nCriminalLocalIdx];
-    assert(criminal);
-    criminal->RegisterReference(reinterpret_cast<CEntity**>(&criminal));
-    m_apCriminalsToKill[nCriminalLocalIdx] = nullptr;
+    // Como el original: si el hueco está ocupado, suelta la referencia y lo anula
+    CEntity::ClearReference(m_apCriminalsToKill[nCriminalLocalIdx]);
 }
 
 // 0x5DE070

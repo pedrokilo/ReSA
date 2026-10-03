@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -52,12 +52,15 @@ bool CUpsideDownCarCheck::IsCarUpsideDown(const CVehicle* vehicle) {
         }
     };
 
-    if (!vehicle->CanPedStepOutCar(false)) {
-        const auto& up = vehicle->GetUp();
-        return up.z < 0.3f && GetNumContactWheels() < 4  // Not totally up-side down
-            || up.z < 0.f;                               // Literally up-side down
+    // Como el original: primero la orientación y solo entonces CanPedStepOutCar(false), cuyo resultado se devuelve
+    // (antes se llamaba primero y se invertía)
+    const auto numContactWheels = GetNumContactWheels();
+    const float upZ = vehicle->GetUp().z;
+    if (upZ < 0.3f && numContactWheels < 4 // Not totally up-side down
+        || upZ < 0.f                       // Literally up-side down
+    ) {
+        return vehicle->CanPedStepOutCar(false);
     }
-
     return false;
 }
 
@@ -66,18 +69,27 @@ bool CUpsideDownCarCheck::IsCarUpsideDown(const CVehicle* vehicle) {
 void CUpsideDownCarCheck::UpdateTimers() {
     ZoneScoped;
 
+    // Como el original: ms_fTimeStep * 0.02f * 1000.0f truncado con _ftol2, calculado una vez antes del bucle
+    const auto timeStepMs = static_cast<uint32>(static_cast<int64>(CTimer::GetTimeStep() * 0.02f * 1000.0f));
+    auto* const vehiclePool = reinterpret_cast<uint8* const*>(GetVehiclePool());
     for (auto& car : m_aUpsideDownCars) {
-        if (!car.m_nHandle)
-            continue;
-
-        if (const auto vehicle = CPools::GetVehicle(car.m_nHandle)) {
+        // Como el original: CPool::GetAtRef inlinado sin comprobar los límites del índice (también con el manejador -1
+        // de los huecos vacíos) y sin saltarse el manejador 0
+        const auto idx = car.m_nHandle >> 8;
+        CVehicle* vehicle = nullptr;
+        if (vehiclePool[1][idx] == static_cast<uint8>(car.m_nHandle)) {
+            vehicle = reinterpret_cast<CVehicle*>(reinterpret_cast<uintptr_t>(vehiclePool[0]) + static_cast<uint32>(idx) * 0xA18u);
+        }
+        if (vehicle) {
             if (IsCarUpsideDown(vehicle)) {
-                car.m_nTime += (uint32)CTimer::GetTimeStepInMS();
+                car.m_nTime += timeStepMs;
             } else {
                 car.m_nTime = 0;
             }
         } else {
-            car.m_nHandle = 0;
+            // Como el original: manejador -1 (no 0) y tiempo a cero
+            car.m_nHandle = -1;
+            car.m_nTime = 0;
         }
     }
 }
@@ -86,7 +98,7 @@ void CUpsideDownCarCheck::UpdateTimers() {
 // never used
 bool CUpsideDownCarCheck::AreAnyCarsUpsideDown() {
     for (auto& car : m_aUpsideDownCars) {
-        if (car.m_nHandle >= 0 && car.m_nTime >= UPSIDE_DOWN_CAR_MIN_TIME) {
+        if (car.m_nHandle >= 0 && car.m_nTime > UPSIDE_DOWN_CAR_MIN_TIME) { // Como el original: ja (estrictamente mayor)
             return true;
         }
     }
@@ -97,8 +109,10 @@ bool CUpsideDownCarCheck::AreAnyCarsUpsideDown() {
 void CUpsideDownCarCheck::AddCarToCheck(int32 carHandle) {
     for (auto& car : m_aUpsideDownCars) {
         if (car.m_nHandle < 0) {
+            // Como el original: solo se ocupa el primer hueco libre
             car.m_nHandle = carHandle;
             car.m_nTime = 0;
+            break;
         }
     }
 }

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -36,41 +36,120 @@ void CStuntJumpManager::InjectHooks() {
     RH_ScopedInstall(Update, 0x49C490);
 }
 
+namespace {
+// Como el original: el EXE manipula el pool de saltos con su propia instancia de CPool<CStuntJump>
+// (ctor 0x49C8F0, Flush inline, Clear 0x49C9A0, New 0x49C9E0, GetAt 0x49C3B0), sin rellenos de depuración.
+struct StuntJumpPoolRaw {
+    CStuntJump* storage;
+    uint8*      states;
+    int32       size;
+    int32       lastFree;
+    bool        owns;
+    bool        dealWithNoMemory;
+};
+VALIDATE_SIZE(StuntJumpPoolRaw, sizeof(CStuntJumpsPool));
+
+StuntJumpPoolRaw* RawPool() {
+    return reinterpret_cast<StuntJumpPoolRaw*>(CStuntJumpManager::mp_poolStuntJumps);
+}
+
+// 0x49C9E0
+CStuntJump* StuntJumpPoolNew(StuntJumpPoolRaw* pool) {
+    bool wrapped = false;
+    for (;;) {
+        pool->lastFree++;
+        if (pool->lastFree == pool->size) {
+            pool->lastFree = 0;
+            if (wrapped) {
+                return nullptr;
+            }
+            wrapped = true;
+        }
+        if (pool->states[pool->lastFree] & 0x80) {
+            break;
+        }
+    }
+    auto& state = pool->states[pool->lastFree];
+    state &= 0x7F;
+    state = (uint8)((state & 0x80) | ((state + 1) & 0x7F));
+    return &pool->storage[pool->lastFree];
+}
+
+// Como el original: tiempo de paso en ms = ftol(ms_fTimeStep * 0.02f * 1000.0f)
+int32 StuntJumpTimeStepInMS() {
+    const float ms = CTimer::ms_fTimeStep * 0.02f * 1000.0f;
+    return (int32)ms;
+}
+
+void SetJumpState(eJumpState state) {
+    // Como el original: m_jumpState se escribe como dword
+    *reinterpret_cast<uint32*>(&CStuntJumpManager::m_jumpState) = (uint32)state;
+}
+} // namespace
+
 // 0x49CA50
 void CStuntJumpManager::Init() {
     ZoneScoped;
 
-    mp_poolStuntJumps = new CStuntJumpsPool(STUNT_JUMP_COUNT, "Stunt Jumps");
+    // Como el original: operator new(0x14) + ctor del pool 0x49C8F0 (sin rellenar el almacenamiento ni tocar el byte +0x11)
+    auto* pool = static_cast<StuntJumpPoolRaw*>(::operator new(sizeof(StuntJumpPoolRaw)));
+    if (pool) {
+        pool->storage  = static_cast<CStuntJump*>(::operator new[](STUNT_JUMP_COUNT * sizeof(CStuntJump)));
+        pool->states   = static_cast<uint8*>(::operator new[](STUNT_JUMP_COUNT));
+        pool->owns     = true;
+        pool->size     = STUNT_JUMP_COUNT;
+        pool->lastFree = -1;
+        for (auto i = 0; i < STUNT_JUMP_COUNT; i++) {
+            pool->states[i] |= 0x80;
+            pool->states[i] &= 0x80;
+        }
+    }
+    mp_poolStuntJumps = reinterpret_cast<CStuntJumpsPool*>(pool);
     m_bActive         = true;
 }
 
 // 0x49CBC0
 void CStuntJumpManager::Shutdown() {
-    if (mp_poolStuntJumps) {
-        mp_poolStuntJumps->Flush();
+    // Como el original: Flush inline del pool y operator delete del propio pool
+    if (auto* pool = RawPool()) {
+        if (pool->size > 0) {
+            if (pool->owns) {
+                ::operator delete[](pool->storage);
+                ::operator delete[](pool->states);
+            }
+            pool->storage  = nullptr;
+            pool->states   = nullptr;
+            pool->size     = 0;
+            pool->lastFree = 0;
+        }
+        ::operator delete(pool);
     }
-
     mp_poolStuntJumps = nullptr;
 }
 
 // 0x49CB10
 void CStuntJumpManager::ShutdownForRestart() {
-    mp_poolStuntJumps->Clear(); // 0x49C9A0
+    // Como el original: Clear 0x49C9A0 marca todos los slots libres y pone a cero su contador de referencia
+    auto* pool = RawPool();
+    for (auto i = 0; i < pool->size; i++) {
+        pool->states[i] |= 0x80;
+        pool->states[i] &= 0x80;
+    }
     mp_Active       = nullptr;
     m_bHitReward    = false;
     m_iTimer        = 0;
-    m_jumpState     = eJumpState::START_POINT_INTERSECTED;
+    SetJumpState(eJumpState::START_POINT_INTERSECTED);
     m_iNumJumps     = 0;
     m_iNumCompleted = 0;
 }
 
 // 0x5D5570
 bool CStuntJumpManager::Save() {
-    CGenericGameStorage::SaveDataToWorkBuffer(m_iNumJumps);
+    CGenericGameStorage::SaveDataToWorkBuffer(&m_iNumJumps, sizeof(int32));
     for (auto i = 0; i < STUNT_JUMP_COUNT; i++) {
-        auto* jump = mp_poolStuntJumps->GetAt(i);
-        if (jump) {
-            CGenericGameStorage::SaveDataToWorkBuffer(*jump);
+        auto* pool = RawPool();
+        if ((pool->states[i] & 0x80) == 0) {
+            CGenericGameStorage::SaveDataToWorkBuffer(&pool->storage[i], sizeof(CStuntJump));
         }
     }
     return true;
@@ -78,29 +157,32 @@ bool CStuntJumpManager::Save() {
 
 // 0x5D5920
 bool CStuntJumpManager::Load() {
-    CGenericGameStorage::LoadDataFromWorkBuffer(m_iNumJumps);
-    for (auto i = m_iNumJumps; i --> 0;) {
-        CGenericGameStorage::LoadDataFromWorkBuffer(*mp_poolStuntJumps->New());
+    int32 numJumps;
+    CGenericGameStorage::LoadDataFromWorkBuffer(&numJumps, sizeof(int32));
+    for (auto i = 0; i < numJumps; i++) {
+        CGenericGameStorage::LoadDataFromWorkBuffer(StuntJumpPoolNew(RawPool()), sizeof(CStuntJump));
     }
+    m_iNumJumps = numJumps;
     return true;
 }
 
 // 0x49CB40
-void CStuntJumpManager::AddOne(const CBoundingBox& start, const CBoundingBox& end, const CVector& camPos, int32 reward) {
-    if (!mp_poolStuntJumps) {
-        return;
+int32 CStuntJumpManager::AddOne(const CBoundingBox& start, const CBoundingBox& end, const CVector& camPos, int32 reward) {
+    if (!RawPool()) {
+        return -1;
     }
-    const auto jump = new (mp_poolStuntJumps->New()) CStuntJump{
-        .start  = start,
-        .end    = end,
-        .camera = camPos,
-        .reward = reward,
-        .done   = false,
-        .found  = false,
-    };
-    if (jump) {
-        ++m_iNumJumps;
+    auto* const jump = StuntJumpPoolNew(RawPool());
+    if (!jump) {
+        return -1;
     }
+    std::memcpy(&jump->start, &start, sizeof(CBoundingBox)); // Como el original: rep movs
+    std::memcpy(&jump->end, &end, sizeof(CBoundingBox));
+    jump->camera = camPos;
+    jump->reward = reward;
+    jump->done   = false;
+    jump->found  = false;
+    ++m_iNumJumps;
+    return (int32)(jump - RawPool()->storage);
 }
 
 // 0x49C490
@@ -109,26 +191,23 @@ void CStuntJumpManager::Update() {
         return;
     }
 
-    const auto plyr = FindPlayerPed(-1);
-    if (!plyr) {
-        return;
-    }
-
-    const auto plyrInfo = plyr->GetPlayerInfoForThisPlayerPed();
+    // Como el original: sin comprobar nulos; la info es la del jugador en foco y el vehículo es m_pVehicle
+    const auto plyr     = FindPlayerPed(-1);
+    auto&      plyrInfo = CWorld::Players[CWorld::PlayerInFocus];
     const auto plyrVeh  = plyr->m_pVehicle;
-    if (!plyrVeh || !plyrInfo) {
-        return;
-    }
 
     switch (m_jumpState) {
     case eJumpState::START_POINT_INTERSECTED: { // 0x49C77A
         if (!m_bActive) {
             return;
         }
-        if (plyrInfo->m_nPlayerState != PLAYERSTATE_PLAYING || !plyr->IsInVehicle()) {
+        if (plyrInfo.m_nPlayerState != PLAYERSTATE_PLAYING || !plyr->bInVehicle || !plyrVeh) {
             return;
         }
-        if (notsa::contains({ VEHICLE_APPEARANCE_BOAT, VEHICLE_APPEARANCE_PLANE, VEHICLE_APPEARANCE_HELI }, plyrVeh->GetVehicleAppearance())) {
+        if (plyrVeh->GetVehicleAppearance() == VEHICLE_APPEARANCE_BOAT || plyrVeh->m_pDriver != plyr) {
+            return;
+        }
+        if (plyrVeh->GetVehicleAppearance() == VEHICLE_APPEARANCE_PLANE || plyrVeh->GetVehicleAppearance() == VEHICLE_APPEARANCE_HELI) {
             return;
         }
         // 0x49C7DB:
@@ -137,73 +216,85 @@ void CStuntJumpManager::Update() {
         //
         // lordmau5 added a grace period allowing the vehicle to be airborne if any wheel
         // touched ground on his MTA script to fix.
-        if (plyrVeh->m_nNumEntitiesCollided > 0) { 
+        if (plyrVeh->m_nNumEntitiesCollided != 0) {
             return;
         }
-        if (!plyrVeh->IsDriver(plyr) || plyrVeh->m_vecMoveSpeed.Magnitude() * 50.f < 20.f) {
+        if (plyrVeh->m_vecMoveSpeed.Magnitude() * 50.f < 20.f) {
             return;
         }
 
-        // Find a jump to activate
-        for (auto& j : mp_poolStuntJumps->GetAllValid()) {
-            if (!j.start.IsPointWithin(plyrVeh->GetPosition())) {
+        // Como el original: recorre los 256 slots sin salir del bucle; si hay varias coincidencias gana la última
+        for (auto i = 0; i < STUNT_JUMP_COUNT; i++) {
+            if (RawPool()->states[i] & 0x80) {
+                continue;
+            }
+            auto* const j = &RawPool()->storage[i];
+            if (!j->start.IsPointWithin(plyrVeh->GetPosition())) {
                 continue;
             }
 
-            m_jumpState  = eJumpState::IN_FLIGHT;
-            mp_Active    = &j;
+            SetJumpState(eJumpState::IN_FLIGHT);
+            mp_Active    = j;
             m_iTimer     = 0;
             m_bHitReward = false;
 
-            if (!mp_Active->found) {
-                mp_Active->found = true;
+            if (!j->found) {
+                j->found = true;
                 CStats::IncrementStat(STAT_UNIQUE_JUMPS_FOUND, 1.0f);
             }
 
             CTimer::SetTimeScale(0.3f);
             TheCamera.SetCamPositionForFixedMode(mp_Active->camera, CVector{ 0.f, 0.f, 0.f });
             TheCamera.TakeControl(plyrVeh, MODE_FIXED, eSwitchType::JUMPCUT, 1);
-
-            break;
         }
         break;
     }
     case eJumpState::IN_FLIGHT: { // 0x49C4E6
         if (!mp_Active) {
-            m_jumpState = eJumpState::START_POINT_INTERSECTED;
-            break;
+            SetJumpState(eJumpState::START_POINT_INTERSECTED);
+            return;
         }
 
-        const auto failed = plyrVeh->m_nNumEntitiesCollided != 0 && m_iTimer >= 100;
-        if (!failed && mp_Active->end.IsPointWithin(plyrVeh->GetPosition())) {
-            m_bHitReward = true;
-        }
-
-        const auto ended = failed
-            || plyrInfo->m_nPlayerState != PLAYERSTATE_PLAYING
-            || !plyr->bInVehicle
-            || plyrVeh->GetStatus() == STATUS_WRECKED
-            || plyrVeh->vehicleFlags.bIsDrowning
-            || plyrVeh->physicalFlags.bSubmergedInWater;
-        if (ended) {
-            m_jumpState = eJumpState::END_POINT_INTERSECTED;
-        }
-
-        const auto time = ended ? 0 : m_iTimer;
-        m_iTimer        = (uint32)CTimer::GetTimeStepInMS() + time;
-        if (m_iTimer <= 1'000 || time > 1'000) {
-            if (const auto plyrVeh = FindPlayerVehicle(-1, 0)) {
-                if (const auto psgr = plyrVeh->PickRandomPassenger()) {
-                    psgr->Say(CTX_GLOBAL_CAR_JUMP, 0, 1.0, 0, 0, 0);
-                }
+        bool ended = false;
+        if (plyrVeh->m_nNumEntitiesCollided != 0 && (int32)m_iTimer >= 100) {
+            ended = true; // Como el original: salta directamente sin comprobar la caja final
+        } else {
+            if (plyrInfo.m_nPlayerState != PLAYERSTATE_PLAYING) {
+                ended = true;
+            }
+            if (!plyr->bInVehicle) {
+                ended = true;
+            }
+            if (plyrVeh->GetStatus() == STATUS_WRECKED || plyrVeh->vehicleFlags.bIsDrowning || plyrVeh->physicalFlags.bSubmergedInWater) {
+                ended = true;
+            }
+            if (mp_Active->end.IsPointWithin(plyrVeh->GetPosition())) {
+                m_bHitReward = true;
             }
         }
 
+        int32 time;
+        if (ended) {
+            SetJumpState(eJumpState::END_POINT_INTERSECTED);
+            time = 0;
+        } else {
+            time = (int32)m_iTimer;
+        }
+        const auto newTime = time + StuntJumpTimeStepInMS();
+        m_iTimer = (uint32)newTime;
+        // Como el original: solo al cruzar el segundo de vuelo (comparaciones con signo)
+        if (newTime > 1'000 && time <= 1'000) {
+            if (FindPlayerVehicle(-1, false)) {
+                if (const auto psgr = FindPlayerVehicle(-1, false)->PickRandomPassenger()) {
+                    psgr->Say(CTX_GLOBAL_CAR_JUMP, 0, 1.0f, 0, 0, 0);
+                }
+            }
+        }
         break;
     }
     case eJumpState::END_POINT_INTERSECTED: { // 0x49C4ED
-        m_iTimer += (uint32)CTimer::GetTimeStepInMS();
-        if (m_iTimer < 300) {
+        m_iTimer += (uint32)StuntJumpTimeStepInMS();
+        if ((int32)m_iTimer < 300) {
             return;
         }
 
@@ -216,28 +307,29 @@ void CStuntJumpManager::Update() {
             ++m_iNumCompleted;
 
             CStats::IncrementStat(STAT_UNIQUE_JUMPS_DONE, 1.f);
-            AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_PART_MISSION_COMPLETE);
 
-            const auto all    = m_iNumCompleted == m_iNumJumps;
-            const auto reward = all
+            const auto reward = m_iNumCompleted == (uint32)m_iNumJumps
                 ? 10'000
                 : mp_Active->reward;
-            plyrInfo->m_nMoney += reward;
-            if (all) {
+            plyrInfo.m_nMoney += reward;
+            AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_PART_MISSION_COMPLETE, 0.0f, 1.0f);
+
+            // Como el original: USJ, luego USJ_ALL (ayuda) y por último REWARD
+            if (const auto txt = TheText.Get("USJ")) { // UNIQUE STUNT BONUS!
+                CMessages::AddBigMessageQ(txt, 5'000, STYLE_MIDDLE_SMALLER_HIGHER);
+            }
+            if (m_iNumCompleted == (uint32)m_iNumJumps) {
                 if (const auto txt = TheText.Get("USJ_ALL")) { // ALL UNIQUE STUNTS COMPLETED!
                     CHud::SetHelpMessage(txt, false, false, false);
                 }
-            }
-            if (const auto txt = TheText.Get("USJ")) { // UNIQUE STUNT BONUS!
-                CMessages::AddBigMessageQ(txt, 5'000, STYLE_MIDDLE_SMALLER_HIGHER);
             }
             if (const auto txt = TheText.Get("REWARD")) { // REWARD
                 CMessages::AddBigMessageWithNumber(txt, 6'000, STYLE_WHITE_MIDDLE_SMALLER, reward);
             }
         }
 
-        m_jumpState = eJumpState::START_POINT_INTERSECTED;
-        mp_Active   = nullptr;
+        SetJumpState(eJumpState::START_POINT_INTERSECTED);
+        mp_Active = nullptr;
 
         break;
     }

@@ -14,7 +14,7 @@
 
 namespace TwoDLive {
 inline bool done{}; inline std::ofstream log; inline json trace;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 alignas(16) inline std::array<uint8,0x400> geometry{};
 alignas(16) inline std::array<uint8,0x4000> arena{}; inline size_t arenaUsed{};
 alignas(16) inline std::array<uint8,0x2000> streamIn{};

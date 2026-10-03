@@ -25,10 +25,10 @@ public:
     static int32 CreateCarGenerator(CVector posn, float angle, int32 modelId, int16 color1, int16 color2, uint8 forceSpawn, uint8 alarmChances, uint8 doorLockChances,
                                          uint16 minDelay, uint16 maxDelay, uint8 iplId, bool ignorePopulationLimit);
     static void Init();
-    static void Load();
+    static bool Load();
     static void Process();
     static void RemoveCarGenerators(uint8 IplID);
-    static void Save();
+    static bool Save();
 
     static CCarGenerator* Get(uint16 index);
     static int32 GetIndex(CCarGenerator* pCarGen);

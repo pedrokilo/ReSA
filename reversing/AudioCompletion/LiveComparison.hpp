@@ -9,7 +9,7 @@ namespace AudioCompletionLive {
 using namespace AudioCompletionProbe;
 inline bool done{};
 inline std::ofstream log;
-inline void Write(const json& row) { log<<row.dump()<<'\n';log.flush(); }
+inline void Write(const json& row) { ReversingProbe::PumpMessages(); log<<row.dump()<<'\n';log.flush(); }
 inline int Report(int type,char* message,int*) { if(type!=_CRT_ASSERT)return FALSE;Write({{"event","assertion"},{"message",message ? message : ""}});ExitProcess(91); }
 inline std::vector<Spec> Cases() {
     std::vector<Spec> cases;

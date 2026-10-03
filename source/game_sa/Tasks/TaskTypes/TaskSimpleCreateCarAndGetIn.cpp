@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -50,7 +50,7 @@ CTaskSimpleCreateCarAndGetIn::CTaskSimpleCreateCarAndGetIn(const CVector& pos, i
 // 0x64CEA0
 CTaskSimpleCreateCarAndGetIn::~CTaskSimpleCreateCarAndGetIn() {
     if (m_CreatedVeh) {
-        CleanupCreatedVehicle();
+        CleanupCreatedVehicle(); // Como el original: el destructor no pone m_CreatedVeh a nulo
     }
 }
 
@@ -112,16 +112,19 @@ bool CTaskSimpleCreateCarAndGetIn::ProcessPed(CPed* ped) {
     if (!m_CreatedVeh) {
         m_CreatedVeh = CCarCtrl::CreateCarForScript(m_nModel, m_VehCreationPos, true);
 
-        CTaskSimpleCarSetPedInAsDriver task{ m_CreatedVeh, nullptr };
+        // Como el original: la tarea se construye sin utilidad y luego se marca m_bWarpingInToCar = true
+        CTaskSimpleCarSetPedInAsDriver task{ m_CreatedVeh, true, nullptr };
         task.ProcessPed(ped);
     }
- 
-    if (!m_CreatedVeh->GetIsStatic()) {
+
+    // Como el original: mientras el vehiculo siga estatico (esperando colision) se sigue esperando
+    if (m_CreatedVeh->GetIsStatic()) {
         return false;
     }
 
-    // Veh is static now, so remove it, and signal task finish
+    // El vehiculo ya no es estatico: se libera y la tarea termina
     CleanupCreatedVehicle();
+    m_CreatedVeh = nullptr;
     return true;
 }
 
@@ -129,5 +132,4 @@ bool CTaskSimpleCreateCarAndGetIn::ProcessPed(CPed* ped) {
 void CTaskSimpleCreateCarAndGetIn::CleanupCreatedVehicle() {
     CTheScripts::CleanUpThisVehicle(m_CreatedVeh);
     CTheScripts::MissionCleanUp.RemoveEntityFromList(GetVehiclePool()->GetRef(m_CreatedVeh), MISSION_CLEANUP_ENTITY_TYPE_VEHICLE);
-    m_CreatedVeh = nullptr;
 }

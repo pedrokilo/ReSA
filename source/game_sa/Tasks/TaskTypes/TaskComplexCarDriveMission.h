@@ -9,7 +9,7 @@ class CVehicle;
 class NOTSA_EXPORT_VTABLE CTaskComplexCarDriveMission : public CTaskComplexCarDrive {
 public:
     CVehicle*   m_pTargetVehicle;
-    eCarMission m_nCarMission;
+    notsa::WEnumS32<eCarMission> m_nCarMission; // Como el original: el constructor (0x63CC30) escribe un dword en +0x28
 
 public:
     static constexpr auto Type = TASK_COMPLEX_CAR_DRIVE_MISSION;

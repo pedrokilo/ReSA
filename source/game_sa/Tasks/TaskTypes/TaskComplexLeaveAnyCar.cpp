@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -36,8 +36,8 @@ void CTaskComplexLeaveAnyCar::InjectHooks() {
 }
 
 // 0x421150
+// Como el original: sin inicializar por valor la base; los bytes 0x12..0x13 quedan sin escribir
 CTaskComplexLeaveAnyCar::CTaskComplexLeaveAnyCar(int32 delayTime, bool sensibleLeaveCar, bool forceGetOut) :
-    CTaskComplex(),
     m_sensibleLeaveCar{ sensibleLeaveCar },
     m_nDelayTime{ delayTime },
     m_forceGetOut{ forceGetOut }

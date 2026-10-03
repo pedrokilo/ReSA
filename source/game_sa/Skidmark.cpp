@@ -31,18 +31,19 @@ void CSkidmark::Update() {
         if (m_bActive)
             break;
 
+        // Como el original: asigna los tiempos (no los acumula)
         const auto UpdateTime = [this, timeMS](uint32 low, uint32 high) {
-            m_fadeBeginMs += timeMS + low;
-            m_disappearAtMs += timeMS + high;
+            m_fadeBeginMs = timeMS + low;
+            m_disappearAtMs = timeMS + high;
         };
 
         m_nState = eSkidmarkState::DISAPPEARING;
-        if (m_nNumParts < 4)
+        if ((int16)m_nNumParts < 4) // Como el original: con signo
             UpdateTime(2500, 5000);
-        else if (m_nNumParts >= 9)
-            UpdateTime(10'000, 20'000);
-        else // 4 - 8 parts
+        else if ((int16)m_nNumParts < 9)
             UpdateTime(5'000, 10'000);
+        else
+            UpdateTime(10'000, 20'000);
         break;
     }
     case eSkidmarkState::DISAPPEARING: {
@@ -93,6 +94,10 @@ void CSkidmark::Render() const {
     if (!m_nNumParts)
         return;
 
+    // Como el original: el alfa de la marca es el cociente de 32 bits y se usa como int16 (no se recorta a un byte)
+    const auto markAlpha = (int16)(m_nState == eSkidmarkState::JUST_UPDATED || CTimer::GetTimeInMS() < m_fadeBeginMs
+        ? 255u
+        : (255u * (m_disappearAtMs - CTimer::GetTimeInMS())) / (m_disappearAtMs - m_fadeBeginMs));
     const auto GetColorForPart = [&, baseColor = GetColor()](unsigned part) {
         const auto GetAlpha = [&]() -> uint8 {
             if (part == 0)
@@ -101,7 +106,7 @@ void CSkidmark::Render() const {
             if (m_nNumParts == part && m_nState == eSkidmarkState::DISAPPEARING)
                 return 0u; // Last part
 
-            return (uint8)(baseColor.a * 128u / 256u); // Again, they avoided fp division.. This is just a division by 2.
+            return (uint8)(((int32)markAlpha * 128) >> 8); // Como el original: (int16)alfa * 128 >> 8, byte bajo
         };
         RwRGBA partColor = baseColor.ToRwRGBA();
         partColor.alpha = GetAlpha();
@@ -111,9 +116,10 @@ void CSkidmark::Render() const {
     for (unsigned part = 0; part <= m_nNumParts; part++) {
         const CVector posn = m_vPosn[part];
         const CVector dir = { m_partDirX[part], m_partDirY[part], 0.0f };
+        // Como el original: x/y = pos ± dir y z = pos.z + 0,1 (sin sumar un 0 a x/y)
         const CVector pos[] = {
-            posn + dir + CVector{ {}, {}, 0.1f },
-            posn - dir + CVector{ {}, {}, 0.1f },
+            CVector{ dir.x + posn.x, dir.y + posn.y, posn.z + 0.1f },
+            CVector{ posn.x - dir.x, posn.y - dir.y, posn.z + 0.1f },
         };
         const     float coordU    = (float)(part) * 5.01f;
         constexpr float coordsV[] = { 0.0f, 1.0f };

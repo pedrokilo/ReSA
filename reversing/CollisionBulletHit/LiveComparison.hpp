@@ -8,7 +8,7 @@
 namespace BulletLive {
 inline bool done{};
 inline std::ofstream log;
-inline void Write(const json& r) { log << r.dump() << '\n'; log.flush(); }
+inline void Write(const json& r) { { static DWORD pumpLast=0; const DWORD pumpNow=GetTickCount(); if(pumpNow-pumpLast>=250){ pumpLast=pumpNow; MSG pumpMsg; PeekMessageA(&pumpMsg,nullptr,0,0,PM_NOREMOVE); } } log << r.dump() << '\n'; log.flush(); }
 inline json Signature(json r) { for (auto& sound : r) sound.erase("id"); return r; }
 inline void Update() {
     if (done) return;

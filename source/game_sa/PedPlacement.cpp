@@ -38,18 +38,19 @@ void CPedPlacement::InjectHooks() {
 
 // 0x616920 - Refactored
 std::pair<CVector, bool> CPedPlacement::FindZCoorForPed(CVector pos) {
-    const auto FindZ = [&](CVector offset) {
+    const auto FindZ = [&](const CVector& origin) {
         CEntity*  hit{};
         CColPoint cp{};
-        return CWorld::ProcessVerticalLine(pos + offset, pos.z - 100.0f, cp, hit, true, true, false, false, true, false, nullptr)
+        return CWorld::ProcessVerticalLine(origin, pos.z - 100.0f, cp, hit, true, true, false, false, true, false, nullptr)
             ? cp.m_vecPoint.z
             : MAP_Z_LOW_LIMIT;
     };
-    const auto highestZ = std::max(
-        FindZ({ 0.f, 0.f, 0.5f }),
-        FindZ({ 0.1f, 0.1f, 0.5f })
-    );
-    if (highestZ >= MAP_Z_LOW_LIMIT + 1.0f) {
+    // Como el original: primero el punto exacto y despues el desplazado 0.1; gana el segundo salvo que el primero sea mayor,
+    // y solo vale si supera -99 estrictamente (0x616A15)
+    const float z1 = FindZ(CVector{ pos.x, pos.y, pos.z + 0.5f });
+    const float z2 = FindZ(CVector{ pos.x + 0.1f, pos.y + 0.1f, pos.z + 0.5f });
+    const float highestZ = z1 > z2 ? z1 : z2;
+    if (highestZ > MAP_Z_LOW_LIMIT + 1.0f) {
         return {CVector{pos, highestZ + 1.f}, true};
     }
     return {pos, false};

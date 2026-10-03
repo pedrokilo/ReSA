@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -62,11 +62,17 @@ void FxSphere_c::operator delete(void* data, bool32 bUseGlobalHeep) {
 // 0x4A9FC0
 // Comprueba solapamiento estricto comparando distancia al cuadrado y suma de radios.
 bool FxSphere_c::IsCollision(const FxSphere_c& sphere) const {
-    return sq(m_fRadius + sphere.m_fRadius) > (sphere.m_vecCenter - m_vecCenter).SquaredMagnitude();
+    // Como el original: la distancia al cuadrado se suma en el orden z, y, x.
+    const float dx = sphere.m_vecCenter.x - m_vecCenter.x;
+    const float dy = sphere.m_vecCenter.y - m_vecCenter.y;
+    const float dz = sphere.m_vecCenter.z - m_vecCenter.z;
+    const float radii = sphere.m_fRadius + m_fRadius;
+    return radii * radii > dz * dz + dy * dy + dx * dx;
 }
 
 // 0x4AA010
 // Devuelve la distancia firmada del centro al plano; el radio se evalúa externamente.
 float FxSphere_c::GetDistToPlane(const FxPlane_c& plane) const {
-    return DotProduct(plane.normal, m_vecCenter) - plane.distance;
+    // Como el original: (y + x) + z, luego resta la distancia
+    return (plane.normal.y * m_vecCenter.y + plane.normal.x * m_vecCenter.x) + plane.normal.z * m_vecCenter.z - plane.distance;
 }

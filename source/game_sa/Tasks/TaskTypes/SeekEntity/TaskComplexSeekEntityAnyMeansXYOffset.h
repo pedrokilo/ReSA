@@ -12,4 +12,7 @@ public:
         CTaskComplexSeekEntityAnyMeans{ entity, period, radius, { offsetXY } }
     {
     }
+
+    // 0x696030 - Como el original: el clon es un CTaskComplexSeekEntityAnyMeansXYOffset (vtable 0x870CF0) con periodo 1000, radio 8 y el mismo desplazamiento
+    CTask* Clone() const override { return new CTaskComplexSeekEntityAnyMeansXYOffset{ *this }; }
 };

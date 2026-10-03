@@ -40,7 +40,7 @@ def main():
                     signature='bool CPathFind::'+name+'(CNodeAddress startNodeAddress, CNodeAddress targetNodeAddress) {'
                     assert content.count(signature)==1
                     content=content.replace(signature,signature+'\n    if(WanderProbe::recording) { WanderProbe::events.push_back({"'+name+'",startNodeAddress.m_wAreaId,startNodeAddress.m_wNodeId,targetNodeAddress.m_wAreaId,targetNodeAddress.m_wNodeId}); return WanderProbe::'+value+'; }')
-            p.write_text(content, encoding='utf-8')
+            p.write_bytes(content.encode('utf-8'))
         with (artifacts/'probe-build.log').open('w') as log:
             subprocess.run([str(CMAKE),'--build',str(ROOT/'build'),'--config','Debug'],stdout=log,stderr=subprocess.STDOUT,check=True)
         hashes = {}

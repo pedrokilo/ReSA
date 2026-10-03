@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -29,7 +29,7 @@ CTaskSimpleDie::CTaskSimpleDie(AssocGroupId animGroupId, AnimationId animId, flo
     m_animHierarchy   = nullptr;
     m_animAssociation = nullptr;
     m_animFlags       = ANIMATION_DEFAULT;
-    m_nFlags          = 0; // here and below should be &= ~3
+    m_nFlags         &= ~3; // Como el original: and byte ptr [esi+20h],0FCh (solo se limpian los dos bits)
 }
 
 // 0x62FA60
@@ -41,7 +41,7 @@ CTaskSimpleDie::CTaskSimpleDie(const char* animName, const char* animBlock, eAni
     m_animHierarchy   = CAnimManager::GetAnimation(animName, CAnimManager::GetAnimationBlock(animBlock));
     m_animAssociation = nullptr;
     m_animFlags       = animFlags;
-    m_nFlags          = 0;
+    m_nFlags         &= ~3; // Como el original: and byte ptr [esi+20h],0FCh
 }
 
 // 0x62FAF0
@@ -53,7 +53,7 @@ CTaskSimpleDie::CTaskSimpleDie(CAnimBlendHierarchy* animHierarchy, eAnimationFla
     m_animFlags       = animFlags;
     m_animHierarchy   = animHierarchy;
     m_animAssociation = nullptr;
-    m_nFlags          = 0;
+    m_nFlags         &= ~3; // Como el original: and byte ptr [esi+20h],0FCh
 }
 
 // 0x62FB40
@@ -71,12 +71,7 @@ void CTaskSimpleDie::StartAnim(CPed* ped) {
         m_animAssociation = CAnimManager::BlendAnimation(ped->GetRpClump(), m_animGroupId, m_animId, m_blendDelta);
 
     m_animAssociation->SetFinishCallback(FinishAnimDieCB, this);
-    m_animAssociation->m_Flags &=   ANIMATION_CAN_EXTRACT_X_VELOCITY | ANIMATION_CAN_EXTRACT_VELOCITY
-                                   | ANIMATION_IS_SYNCRONISED
-                                   | ANIMATION_IS_PARTIAL
-                                   | ANIMATION_IS_BLEND_AUTO_REMOVE
-                                   | ANIMATION_IS_LOOPED
-                                   | ANIMATION_IS_PLAYING;
+    m_animAssociation->m_Flags &= ~ANIMATION_IS_FINISH_AUTO_REMOVE; // Como el original: and byte ptr [eax+2Eh],0F7h (no toca el byte alto)
 
     if (m_animSpeed > 0.0f)
         m_animAssociation->m_Speed = m_animSpeed;
@@ -107,10 +102,10 @@ bool CTaskSimpleDie::MakeAbortable(CPed* ped, eAbortPriority priority, const CEv
         ped->SetPedState(PEDSTATE_IDLE);
         ped->SetMoveState(PEDMOVE_STILL);
         ped->SetMoveAnim();
-        ped->bKeepTasksAfterCleanUp = false;
+        ped->bIsDyingStuck = false; // Como el original: and dword ptr [esi+478h],0FFFFFFDFh (bit 5)
         return true;
     } else if (event && event->GetEventType() == EVENT_DEATH) {
-        ped->bKeepTasksAfterCleanUp = false;
+        ped->bIsDyingStuck = false; // Como el original: bit 5 de +0x478
         return true;
     }
 
@@ -122,7 +117,7 @@ bool CTaskSimpleDie::ProcessPed(CPed* ped) {
     ped->m_pedIK.bSlopePitch = true;
 
     if (m_dieAnimFinished || m_animId == ANIM_ID_NO_ANIMATION_SET) {
-        ped->bKeepTasksAfterCleanUp = true;
+        ped->bIsDyingStuck = true; // Como el original: or dword ptr [esi+478h],20h (bit 5)
         if (!m_alreadyDead) {
             if (
                 ped->physicalFlags.bSubmergedInWater
@@ -137,7 +132,7 @@ bool CTaskSimpleDie::ProcessPed(CPed* ped) {
                 CEventDeath event(m_animId == ANIM_ID_DROWN);
                 ped->GetEventGroup().Add(&event, false);
                 m_alreadyDead = true;
-                ped->bKeepTasksAfterCleanUp = false;
+                ped->bIsDyingStuck = false; // Como el original: and eax,0FFFFFFDFh (bit 5)
             }
         }
     } else if (!m_animAssociation) {

@@ -27,7 +27,7 @@ def main():
             else:
                 content = content.replace('#include "StdInc.h"', '#include "StdInc.h"\n#include "../../reversing/FxManager/LiveComparison.hpp"')
                 content = content.replace('void CGame::Process() {', 'void CGame::Process() {\n    FxManagerLive::Update();')
-            p.write_text(content, encoding='utf-8')
+            p.write_bytes(content.encode('utf-8'))
         with (artifacts / 'probe-build.log').open('w') as log:
             subprocess.run([str(CMAKE), '--build', str(ROOT / 'build'), '--config', 'Debug'], stdout=log, stderr=subprocess.STDOUT, check=True)
         import shutil

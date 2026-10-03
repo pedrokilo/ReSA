@@ -18,7 +18,8 @@ public:
     CTaskSimpleWaitUntilPedIsInCar(CPed* pedToWaitFor);
     ~CTaskSimpleWaitUntilPedIsInCar();
 
-    CTask*    Clone() const override { return new CTaskSimpleWaitUntilPedIsInCar{ *this }; }
+    // 0x64A520 - Como el original: solo se copia el peatón (registra la referencia y m_bIsWalkingToDoor vuelve a false)
+    CTask*    Clone() const override { return new CTaskSimpleWaitUntilPedIsInCar{ m_pedToWaitFor }; }
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return true; }
     bool      ProcessPed(CPed* ped) override;

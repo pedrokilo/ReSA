@@ -9,7 +9,7 @@ public:
     static constexpr auto SECTIONS_COUNT = 32;
 
     uint32                    m_nId;
-    int32                     m_nSectionsCount;
+    int16                     m_nSectionsCount; // Como el original: word en +4 (movsx); +6 es relleno
     uint32                    m_nCreationTime;
     CVector                   m_sectionPoint[SECTIONS_COUNT];
     CVector                   m_sectionMoveSpeed[SECTIONS_COUNT];

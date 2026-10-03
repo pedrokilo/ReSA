@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -60,22 +60,23 @@ void CCredits::PrintCreditText(float scaleX, float scaleY, const GxtChar* text, 
     if (pos > minPosY && pos < SCREEN_HEIGHT - minPosY) {
         CFont::SetScale(scaleX, scaleY);
         CFont::SetColor({0, 0, 0, 255});
-        CFont::PrintString((SCREEN_WIDTH / 2.0f), pos, text);
+        CFont::PrintString((float)(RsGlobal.maximumWidth / 2), pos, text); // Como el original: división entera del ancho
 
         if (highlighted)
             CFont::SetColor({255, 255, 255, 255});
         else
             CFont::SetColor({210, 210, 210, 210});
 
-        CFont::PrintString((SCREEN_WIDTH / 2.0f - 1), pos - 1.0f, text);
+        CFont::PrintString((float)(RsGlobal.maximumWidth / 2 - 1), pos - 1.0f, text);
     }
 
-    position += (uint32)scaleY * minPosY;
+    // Como el original: trunc(scaleY · 20 + position) con _ftol2 (la DLL truncaba scaleY antes de multiplicar)
+    position = (uint32)(int64)(scaleY * (float)minPosY + (float)position);
 }
 
 // 0x5A87C0
 void CCredits::PrintCreditSpace(float spaceSize, uint32& position) {
-    position += (uint32)(spaceSize * 25.0f);
+    position = (uint32)(int64)(spaceSize * 25.0f + (float)position); // Como el original: trunc(espacio · 25 + position)
 }
 
 // 0x5A87F0
@@ -90,7 +91,8 @@ void CCredits::RenderCredits() {
     DefinedState2d();
 
     uint32 lineOffset = 0;
-    float  scrollOffset = float(CTimer::GetTimeInMS() - CreditsStartTime) / 23.0f; // magic number
+    // Como el original: · (1/23) (0x8684DC), no / 23
+    float  scrollOffset = float(CTimer::GetTimeInMS() - CreditsStartTime) * std::bit_cast<float>(0x3D321643u); // magic number
     
     CFont::SetBackground(false, false);
     CFont::SetCentreSize(SCREEN_WIDTH * 0.92f);
@@ -98,7 +100,7 @@ void CCredits::RenderCredits() {
     CFont::SetProportional(true);
     CFont::SetFontStyle(eFontStyle::FONT_SUBTITLES);
     CFont::SetEdge(0);
-    CFont::SetDropColor(CRGBA(0, 0, 255));
+    CFont::SetDropColor(CRGBA(0, 0, 0, 255)); // Como el original: negro opaco (CRGBA(0, 0, 255) era azul con alfa 0)
 
     const auto PrintCreditText_ = [&](const char* textKey, float scale, bool highlighted = false) {
         auto text = TheText.Get(textKey);
@@ -922,7 +924,8 @@ void CCredits::RenderCredits() {
         TheCamera.DrawBordersForWideScreen();
     }
 
-    if ((float)lineOffset + SCREEN_HEIGHT - scrollOffset < -10.0f) {
+    // Como el original: suma entera sin signo antes de convertir a float
+    if ((float)(uint32)(lineOffset + RsGlobal.maximumHeight) - scrollOffset < -10.0f) {
         bCreditsGoing = false;
     }
 }

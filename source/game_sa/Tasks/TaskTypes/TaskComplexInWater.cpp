@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -67,7 +67,7 @@ CTask* CTaskComplexInWater::CreateFirstSubTask(CPed* ped) {
         return new CTaskSimpleSwim{ nullptr, nullptr };
     }
 
-    if (!ped->bDrownsInWater) {
+    if (ped->bDrownsInWater) { // Como el original: `test [esi+470h], 100000h; je` (bit 20 = bDrownsInWater) -> muere ahogado
         return new CTaskComplexDie{
             WEAPON_DROWNING,
             ANIM_GROUP_DEFAULT,
@@ -77,16 +77,19 @@ CTask* CTaskComplexInWater::CreateFirstSubTask(CPed* ped) {
 
     if (const auto pedsGrp = ped->GetGroup()) {
         if (const auto leader = pedsGrp->GetMembership().GetLeader()) {
-            assert(!!leader->GetPlayerData() == leader->IsPlayer()); // Make sure this way is the same as the old
-            if (leader->IsPlayer()) {
+            if (leader->GetPlayerData()) { // Como el original: se comprueba m_pPlayerData (0x480), no el tipo de ped
                 return new CTaskSimpleSwim{ nullptr, leader };
             }
         }
     }
 
     if (ped->IsCreatedByMission()) {
-        if (const auto goTo = ped->GetTaskManager().Find<CTaskSimpleGoToPoint>()) {
-            return new CTaskSimpleSwim{ &goTo->m_vecTargetPoint, nullptr };
+        // Como el original: CPedIntelligence::FindTaskByType (0x600EE0, solo tareas primarias), no FindActiveTaskByType.
+        if (ped->GetIntelligence()->FindTaskByType(TASK_SIMPLE_GO_TO_POINT)) {
+            // Como el original: se vuelve a llamar a FindTaskByType para leer el punto (0x635336)
+            const auto goTo = static_cast<CTaskSimpleGoToPoint*>(ped->GetIntelligence()->FindTaskByType(TASK_SIMPLE_GO_TO_POINT));
+            const CVector target = goTo->m_vecTargetPoint;
+            return new CTaskSimpleSwim{ &target, nullptr };
         }
     }
 

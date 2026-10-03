@@ -12,7 +12,7 @@
 
 namespace BoneLive {
 inline bool done{}; inline std::ofstream log;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 
 constexpr int NODES=8;
 alignas(16) inline std::array<std::array<uint8,sizeof(BoneNode_c)>,NODES> nodes{};

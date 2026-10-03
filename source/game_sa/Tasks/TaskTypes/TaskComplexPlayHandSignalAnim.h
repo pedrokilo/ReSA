@@ -21,7 +21,7 @@ public:
     bool        m_bLeftHandLoaded : 1{};
     bool        m_bRightHandLoaded : 1{};
     bool        m_bAnimationLoaded : 1{};
-    bool        m_DoUseFatHands : 1{};
+    bool        m_DoUseFatHands : 1; // Como el original: el constructor (0x61B2B0) solo limpia los bits 0-2 (and 0F8h)
 
 public:
     static constexpr auto Type = TASK_COMPLEX_HANDSIGNAL_ANIM;

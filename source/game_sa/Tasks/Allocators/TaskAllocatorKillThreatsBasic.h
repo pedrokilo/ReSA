@@ -20,7 +20,7 @@ protected:
 
 protected:
     CPed::Ref  m_Threat{};
-    CTaskTimer m_Timer{};
+    CTaskTimer m_Timer; // Como el original: sin inicializacion por valor (los bytes de relleno 0x12..0x13 no se escriben)
 
 private: // Wrappers for hooks
     // 0x69C710

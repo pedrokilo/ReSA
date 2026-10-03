@@ -10,7 +10,7 @@ class CTaskSimplePlayerOnFire;
 class NOTSA_EXPORT_VTABLE CTaskSimplePlayerOnFire : public CTaskSimple {
 
 public:
-    CTaskTimer m_timer = {};       // 0x8
+    CTaskTimer m_timer;            // 0x8 (Como el original: sin inicializacion por valor, el relleno queda sin escribir)
     bool m_bAddedDamageEvent = {}; // 0x14
 
 public:
@@ -18,7 +18,7 @@ public:
 
     constexpr static auto Type = eTaskType::TASK_SIMPLE_PLAYER_ON_FIRE;
 
-    CTaskSimplePlayerOnFire() = default;
+    CTaskSimplePlayerOnFire() {} // Como el original: constructor propio para que la inicializacion por valor no ponga a cero el relleno
     CTaskSimplePlayerOnFire(const CTaskSimplePlayerOnFire&) : CTaskSimplePlayerOnFire{} {} // NOTSA
     ~CTaskSimplePlayerOnFire() = default;
 

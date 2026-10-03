@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -46,6 +46,28 @@ CAnimBlendStaticAssociation::~CAnimBlendStaticAssociation() {
     FreeSequenceArray();
 }
 
+// 0x4CDF50
+// Como el original: destructor virtual con borrado (`ret 4`). Con el bit 1 destruye el array (contador en
+// this-4, de atrás hacia delante, como `eh vector destructor iterator`) y devuelve el bloque; con el bit 0
+// libera la memoria con operator delete.
+CAnimBlendStaticAssociation* CAnimBlendStaticAssociation::Destructor(uint8 flags) {
+    if (flags & 2) {
+        auto* const block = reinterpret_cast<uint32*>(this) - 1;
+        for (uint32 i = *block; i-- > 0;) {
+            (this + i)->CAnimBlendStaticAssociation::~CAnimBlendStaticAssociation();
+        }
+        if (flags & 1) {
+            ::operator delete(block);
+        }
+        return reinterpret_cast<CAnimBlendStaticAssociation*>(block);
+    }
+    this->CAnimBlendStaticAssociation::~CAnimBlendStaticAssociation();
+    if (flags & 1) {
+        ::operator delete(this);
+    }
+    return this;
+}
+
 // 0x4CEC20
 /**
  * Construye el mapa frame-del-clump -> CAnimBlendSequence.
@@ -65,21 +87,20 @@ void CAnimBlendStaticAssociation::Init(RpClump* clump, CAnimBlendHierarchy* h) {
     assert(clumpAnimData);
 
     m_NumBlendNodes = clumpAnimData->m_NumFrameData;
-    AllocateSequenceArray(m_NumBlendNodes);
+    AllocateSequenceArray(static_cast<int16>(m_NumBlendNodes)); // Como el original: movsx del número de nodos
 
     // Initialize sequences from the data in the clump
-    for (auto& seq : m_BlendHier->GetSequences()) {
-        if (!seq.m_FramesNum) {
-            continue;
-        }
+    // Como el original: contador con signo (movsx de m_nSeqCount), la búsqueda del frame se hace antes de
+    // mirar el número de frames y este se compara con signo
+    for (int32 i = 0; i < static_cast<int16>(m_BlendHier->m_nSeqCount); ++i) {
+        auto& seq = m_BlendHier->m_pSequences[i];
         const auto frameData = seq.IsUsingBoneTag()
             ? RpAnimBlendClumpFindBone(clump, seq.GetBoneTag())
             : RpAnimBlendClumpFindFrameFromHashKey(clump, seq.GetNameHashKey());
-        if (!frameData) {
+        if (!frameData || static_cast<int16>(seq.m_FramesNum) <= 0) {
             continue;
         }
         const auto nodeIdx = frameData - clumpAnimData->m_FrameDatas;
-        assert(nodeIdx >= 0 && nodeIdx < m_NumBlendNodes);
         m_BlendSeqs[nodeIdx] = &seq;
     }
 }
@@ -88,8 +109,8 @@ void CAnimBlendStaticAssociation::Init(RpClump* clump, CAnimBlendHierarchy* h) {
 // Reserva el array de punteros por nodo y lo inicializa a nullptr.
 void CAnimBlendStaticAssociation::AllocateSequenceArray(int32 count) {
     m_BlendSeqs = (CAnimBlendSequence**)CMemoryMgr::Malloc(sizeof(CAnimBlendSequence*) * count);
-    for (auto& array : std::span{ m_BlendSeqs, (size_t)count }) {
-        array = nullptr;
+    for (int32 i = 0; i < count; ++i) { // Como el original: contador con signo, sin vueltas si count <= 0
+        m_BlendSeqs[i] = nullptr;
     }
 }
 

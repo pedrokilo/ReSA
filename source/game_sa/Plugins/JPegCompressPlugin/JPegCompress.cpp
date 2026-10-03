@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -43,7 +43,7 @@ void JPegPlugin::InjectHooks() {
     RH_ScopedGlobalInstall(JPegCompressScreenToFile, 0x5D0820);
     RH_ScopedGlobalInstall(JPegCompressScreenToBuffer, 0x5D0740);
     RH_ScopedGlobalInstall(JPegDecompressToRaster, 0x5D05F0);
-    RH_ScopedGlobalInstall(JPegDecompressToVramFromBuffer, 0x5D0320);
+    RH_ScopedGlobalInstall(JPegDecompressToVramFromBuffer, 0x5D07A0); // Como el original: 0x5D0320 es su callback fill_input_buffer
 }
 
 // 0x5D0470
@@ -53,28 +53,30 @@ void JPegPlugin::InjectHooks() {
  * compresión tanto con archivo como con otros buffers.
  */
 void JPegCompressScreen(RwCamera* camera, jpeg_destination_mgr& dst) {
+    // Como el original: primero se captura la pantalla y despues se prepara libjpeg.
+    const auto image = RsGrabScreen(camera);
+
     jpeg_error_mgr       jerr{};
-    jpeg_compress_struct cinfo{
-        .err = jpeg_std_error(&jerr)
-    };
+    jpeg_compress_struct cinfo{};
+    cinfo.err = jpeg_std_error(&jerr);
     jerr.error_exit = JPegErrorExit;
 
-    const auto image = RsGrabScreen(camera);
     jpeg_CreateCompress(&cinfo, JPEG_LIB_VERSION, sizeof(cinfo));
 
     // It was JCS_RGB originally, but libjpeg errors with 'bogus colorspace'.
     cinfo.in_color_space = JCS_EXT_RGBA;
     jpeg_set_defaults(&cinfo);
 
-    cinfo.image_width      = RwRasterGetWidth(image);
-    cinfo.image_height     = RwRasterGetHeight(image);
+    cinfo.image_width      = RwImageGetWidth(image);
+    cinfo.image_height     = RwImageGetHeight(image);
     cinfo.dest             = &dst;
     cinfo.dct_method       = JDCT_FLOAT;
     cinfo.input_components = 4;
     jpeg_start_compress(&cinfo, true);
 
-    for (auto i = 0u; i < cinfo.image_height; i++) {
-        const auto* line = &RwImageGetPixels(image)[sizeof(RwRGBA) * i * cinfo.image_width];
+    // Como el original: el bucle se controla con next_scanline (no con el contador de filas).
+    for (auto row = 0u; cinfo.next_scanline < cinfo.image_height; row++) {
+        const auto* line = &RwImageGetPixels(image)[sizeof(RwRGBA) * row * cinfo.image_width];
         if (jpeg_write_scanlines(&cinfo, const_cast<uint8**>(&line), 1) != 1) {
             break;
         }
@@ -91,9 +93,11 @@ void JPegCompressScreen(RwCamera* camera, jpeg_destination_mgr& dst) {
  * archivo cada vez que libjpeg agota el espacio, incluyendo el remanente final.
  */
 void JPegCompressScreenToFile(RwCamera* camera, const char* path) {
-    static FILESTREAM g_ScreenshotFileHandle{};
+    // Como el original: el handle vive en 0xBD0B74 y se acepta solo si es positivo (jle).
+    static auto& g_ScreenshotFileHandle = StaticRef<FILESTREAM>(0xBD0B74);
 
-    if (g_ScreenshotFileHandle = CFileMgr::OpenFile(path, "wb")) {
+    g_ScreenshotFileHandle = CFileMgr::OpenFile(path, "wb");
+    if ((int32)(intptr_t)g_ScreenshotFileHandle > 0) {
         jpeg_destination_mgr dst{};
 
         // InitDestination (0x5D03E0)
@@ -112,8 +116,8 @@ void JPegCompressScreenToFile(RwCamera* camera, const char* path) {
 
         // HDTermDestination (0x5D0440)
         dst.term_destination = [](j_compress_ptr c) {
-            // NOTSA: signed -> unsigned
-            const auto totalProcessed = (uintptr)c->dest->next_output_byte - (uintptr)g_ScreenshotFileBuf.data();
+            // Como el original: resta con signo (test eax, eax; jle)
+            const auto totalProcessed = (int32)((uintptr)c->dest->next_output_byte - (uintptr)g_ScreenshotFileBuf.data());
             if (totalProcessed > 0) {
                 CFileMgr::Write(g_ScreenshotFileHandle, g_ScreenshotFileBuf.data(), totalProcessed);
             }
@@ -160,69 +164,82 @@ void JPegCompressScreenToBuffer(RwCamera* cam, uint8** buffer, size_t& bufferSiz
 
     // 0x5D02D0
     dst.term_destination = [](j_compress_ptr c) {
-        if (static_cast<size_t>(c->dest->next_output_byte + TotalProcessed - g_ScreenshotFileBuf.data()) < BufferSize) {
+        // Como el original: copia solo el remanente pero suma el tamano completo del buffer.
+        const auto remaining = static_cast<size_t>(c->dest->next_output_byte - g_ScreenshotFileBuf.data());
+        if (TotalProcessed + remaining < BufferSize) {
             std::memcpy(
                 *Buffer + TotalProcessed,
                 g_ScreenshotFileBuf.data(),
-                g_ScreenshotFileBuf.size()
+                remaining
             );
             TotalProcessed += g_ScreenshotFileBuf.size();
         }
     };
 
+    JPegCompressScreen(cam, dst); // Como el original: comprime con este destino
     bufferSizeInOut = TotalProcessed;
 }
 
 // 0x5D05F0 -- PS2 leftover
 // Decodifica scanlines JPEG y las convierte al formato de píxel del RwRaster bloqueado.
-void JPegDecompressToRaster(RwRaster* raster, jpeg_source_mgr& src) {
-    static auto& g_JpegScan = StaticRef<uint8*>(0xBD0170);
+bool JPegDecompressToRaster(RwRaster* raster, jpeg_source_mgr& src) {
+    // Como el original: 0xBD0170 es el propio buffer de la scanline (no un puntero).
+    auto* const scan = reinterpret_cast<uint8*>(0xBD0170);
 
     jpeg_error_mgr         jerr{};
-    jpeg_decompress_struct cinfo{
-        .err = jpeg_std_error(&jerr)
-    };
+    jpeg_decompress_struct cinfo{};
+    cinfo.err = jpeg_std_error(&jerr);
     jerr.error_exit = JPegErrorExit;
 
     jpeg_CreateDecompress(&cinfo, JPEG_LIB_VERSION, sizeof(cinfo));
     cinfo.src = &src;
 
-    if (jpeg_read_header(&cinfo, true) == 1 && jpeg_start_decompress(&cinfo)) {
-        cinfo.dct_method       = JDCT_FLOAT;
-        g_JpegDecodingToRaster = reinterpret_cast<CRGBA*>(RwRasterLock(raster, 0, rwRASTERLOCKWRITE));
-
-        bool success{ true };
-        while (cinfo.output_scanline < cinfo.output_height) {
-            auto* scanlines = g_JpegScan;
-            if (jpeg_read_scanlines(&cinfo, &scanlines, 1) != 1) {
-                success = false;
-                break;
-            }
-
-            for (auto i = 0; i < 2'048; i += 4) {
-                RwRGBA color{ g_JpegScan[i + 256], g_JpegScan[i + 257], g_JpegScan[i + 258], 255 };
-                *g_JpegDecodingToRaster++ = RwRGBAToPixel(&color, RwRasterGetFormat(raster));
-            }
-        }
-
-        if (success) {
-            jpeg_finish_decompress(&cinfo);
-        } else {
-            NOTSA_LOG_ERR("Couldn't decode JPEG image.");
-        }
+    if (jpeg_read_header(&cinfo, true) != 1) {
         jpeg_destroy_decompress(&cinfo);
+        return false;
+    }
+    cinfo.dct_method = JDCT_FLOAT; // Como el original: antes de jpeg_start_decompress
+    if (!jpeg_start_decompress(&cinfo)) {
+        jpeg_destroy_decompress(&cinfo);
+        return false;
+    }
+
+    bool success{ false };
+    g_JpegDecodingToRaster = reinterpret_cast<CRGBA*>(RwRasterLock(raster, 0, rwRASTERLOCKWRITE));
+    while (cinfo.output_scanline < cinfo.output_height) {
+        auto* scanlines = scan;
+        if (jpeg_read_scanlines(&cinfo, &scanlines, 1) != 1) {
+            success = false;
+            break;
+        }
+        success = true;
+
+        // 0x5D0570: pixeles 0x40..0x23F de la scanline
+        for (auto i = 0x40; i < 0x240; i++) {
+            RwRGBA color{ scan[i * 4 + 0], scan[i * 4 + 1], scan[i * 4 + 2], 255 };
+            // Como el original: se escribe el dword del pixel tal cual (CRGBA(uint32) reordenaria los bytes)
+            *reinterpret_cast<RwUInt32*>(g_JpegDecodingToRaster) = RwRGBAToPixel(&color, RwRasterGetFormat(raster));
+            g_JpegDecodingToRaster++;
+        }
     }
     RwRasterUnlock(raster);
+    g_JpegDecodingToRaster = nullptr;
+
+    if (success) {
+        jpeg_finish_decompress(&cinfo);
+    }
+    jpeg_destroy_decompress(&cinfo);
+    return success;
 }
 
-// 0x5D0320 -- PS2 leftover
+// 0x5D07A0 -- PS2 leftover
 // Adapta el buffer de galería del frontend como jpeg_source_mgr y reutiliza el
 // decodificador común hacia RwRaster.
-void JPegDecompressToVramFromBuffer(RwRaster* raster, bool enable) {
+bool JPegDecompressToVramFromBuffer(RwRaster* raster, bool enable) {
     static auto& g_ScreenshotFilePointer = StaticRef<size_t>(0xBD0B70);
 
     if (!enable) {
-        return;
+        return false;
     }
 
     std::memcpy(g_ScreenshotFileBuf.data(), FrontEndMenuManager.m_GalleryImgBuffer, g_ScreenshotFileBuf.size());
@@ -249,4 +266,5 @@ void JPegDecompressToVramFromBuffer(RwRaster* raster, bool enable) {
 
     src.next_input_byte = g_ScreenshotFileBuf.data();
     JPegDecompressToRaster(raster, src);
+    return true; // Como el original: devuelve 1 aunque falle la decodificacion
 }

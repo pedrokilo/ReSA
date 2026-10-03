@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -45,19 +45,34 @@ CTaskSimpleAffectSecondaryBehaviour::CTaskSimpleAffectSecondaryBehaviour(const C
 {
 }
 
+// 0x6912C0
+CTaskSimpleAffectSecondaryBehaviour::~CTaskSimpleAffectSecondaryBehaviour() {
+    delete m_task; // Como el original: la tarea guardada se borra con su destructor virtual
+}
+
+// 0x692910
+CTask* CTaskSimpleAffectSecondaryBehaviour::Clone() const {
+    // Como el original: la tarea guardada se clona antes de reservar la nueva tarea en el pool
+    const auto task = m_task ? m_task->Clone() : nullptr;
+    return new CTaskSimpleAffectSecondaryBehaviour(m_bAdd, m_secTaskType, task);
+}
+
 // 0x691320
 bool CTaskSimpleAffectSecondaryBehaviour::ProcessPed(CPed* ped) {
     const auto currSecTask = ped->GetTaskManager().GetTaskSecondary(m_secTaskType);
-    
+
     if (m_bAdd) {
         if (!currSecTask || currSecTask->MakeAbortable(ped)) {
             ped->GetTaskManager().SetTaskSecondary(m_task->Clone(), m_secTaskType);
             return true;
-        }    
-    } else if (currSecTask) {
-        currSecTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr);
-        return true;
+        }
+        return false;
     }
 
-    return false;
+    // Como el original: sin tarea secundaria termina; si la hay se pide abortar (LEISURE) y se sigue esperando
+    if (currSecTask) {
+        currSecTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr);
+        return false;
+    }
+    return true;
 }

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -54,38 +54,55 @@ bool CEventGunShot::AffectsPed(CPed* ped) {
     if (m_firedBy->GetIsTypePed() && CPedGroups::AreInSameGroup(ped, m_firedBy->AsPed()))
         return false;
 
-    if (!ped->IsInVehicleThatHasADriver()) {
-        CWanted* playerWanted = FindPlayerWanted();
-        if (ped->m_nPedType == PED_TYPE_COP && playerWanted->GetWantedLevel() > eWantedLevel::WANTED_CLEAN) {
-            CCopPed* cop = static_cast<CCopPed*>(ped);
-            if (playerWanted->IsInPursuit(cop) || playerWanted->CanCopJoinPursuit(cop)) {
-                if (m_firedBy != FindPlayerPed())
-                    return false;
-            }
-        }
-        if (ped->IsAlive() && ped != m_firedBy && !ped->IsPlayer()) {
-            float fGunShotRange = 45.0f;
-            if (CEventGunShot::ms_fGunShotSenseRangeForRiot2 <= 0.0f) {
-                if (ped->IsCreatedByMission()) {
-                    fGunShotRange = ped->GetIntelligence()->GetPedFOVRange();
-                }
-            } else if (ped->IsCreatedByMission()) {
-                fGunShotRange = CEventGunShot::ms_fGunShotSenseRangeForRiot2;
-            }
+    if (ped->IsInVehicleThatHasADriver())
+        return false;
 
-            const auto& pedPos = ped->GetPosition();
-            if (DistanceBetweenPointsSquared(m_firedBy->GetPosition(), pedPos) <= sq(fGunShotRange)) {
-                if (!m_bHasNoSound)
-                    return true;
-
-                if (DotProduct(m_startPoint - pedPos, ped->GetForward()) > 0.0f) {
-                    if (CWorld::GetIsLineOfSightClear(m_startPoint, pedPos, true, true, true, true, true, false, false))
-                        return true;
-                }
-            }
+    // Como el original: FindPlayerWanted solo se llama para policías y se vuelve a llamar en cada uso;
+    // el nivel de búsqueda se compara con signo (jle).
+    if (ped->m_nPedType == PED_TYPE_COP && static_cast<int32>(FindPlayerWanted()->GetWantedLevel()) > 0) {
+        CCopPed* cop = static_cast<CCopPed*>(ped);
+        if (FindPlayerWanted()->IsInPursuit(cop) || FindPlayerWanted()->CanCopJoinPursuit(cop)) {
+            if (m_firedBy != FindPlayerPed())
+                return false;
         }
     }
-    return false;
+
+    if (!ped->IsAlive() || ped == m_firedBy || ped->IsPlayer())
+        return false;
+
+    // Como el original: distancia al cuadrado de (peatón - tirador) con el orden de suma del EXE ((z*z + y*y) + x*x)
+    const CVector& firedByPos = m_firedBy->GetPosition();
+    const CVector& pedPos     = ped->GetPosition();
+    const float    dx         = pedPos.x - firedByPos.x;
+    const float    dy         = pedPos.y - firedByPos.y;
+    const float    dz         = pedPos.z - firedByPos.z;
+    const float    distSq     = dz * dz + dy * dy + dx * dx;
+
+    // Como el original: un rango de disturbios NaN toma la rama de "<= 0"
+    float fGunShotRange = 45.0f;
+    if (!(CEventGunShot::ms_fGunShotSenseRangeForRiot2 > 0.0f)) {
+        if (ped->IsCreatedByMission()) {
+            fGunShotRange = ped->GetIntelligence()->GetPedFOVRange();
+        }
+    } else if (ped->IsCreatedByMission()) {
+        fGunShotRange = CEventGunShot::ms_fGunShotSenseRangeForRiot2;
+    }
+
+    // Como el original: solo se descarta si la distancia es mayor (una comparación con NaN sigue adelante)
+    if (distSq > fGunShotRange * fGunShotRange)
+        return false;
+
+    if (!m_bHasNoSound)
+        return true;
+
+    // Como el original: producto escalar con el orden del EXE ((y*fy + z*fz) + x*fx); NaN cuenta como positivo
+    const CVector  dir = m_startPoint - pedPos;
+    const CVector& fwd = ped->GetForward();
+    const float    dot = dir.y * fwd.y + dir.z * fwd.z + dir.x * fwd.x;
+    if (dot <= 0.0f)
+        return false;
+
+    return CWorld::GetIsLineOfSightClear(m_startPoint, pedPos, true, true, true, true, true, false, false);
 }
 
 // 0x4AC810

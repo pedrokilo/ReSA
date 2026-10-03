@@ -10,8 +10,8 @@ void InjectHooks();
 
 void Shutdown();
 void WaitState(int32 state);
-void OnGraphNotify();
-void UpdateWindow();
+long OnGraphNotify(); // HRESULT
+long UpdateWindow(); // HRESULT
 void Release();
 void Play(int32 nCmdShow, const char* path);
 auto GetMediaControl() -> IMediaControl*;

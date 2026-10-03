@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -73,13 +73,14 @@ void CTheCarGenerators::Init() {
 }
 
 // 0x5D39B0
-void CTheCarGenerators::Load() {
+bool CTheCarGenerators::Load() {
     Init();
 
     CGenericGameStorage::LoadDataFromWorkBuffer(NumOfCarGenerators);
     CGenericGameStorage::LoadDataFromWorkBuffer(ProcessCounter);
     CGenericGameStorage::LoadDataFromWorkBuffer(GenerateEvenIfPlayerIsCloseCounter);
-    for (uint32 i = 0; i < NumOfCarGenerators; i++) {
+    // Como el original: contador de 16 bits comparado con signo contra NumOfCarGenerators
+    for (uint16 i = 0; (int32)i < (int32)NumOfCarGenerators; i++) {
         auto carGenIndex = CGenericGameStorage::LoadDataFromWorkBuffer<uint16>();
         if (carGenIndex < NUM_CAR_GENERATORS) {
             CGenericGameStorage::LoadDataFromWorkBuffer(CarGeneratorArray[carGenIndex]);
@@ -90,6 +91,7 @@ void CTheCarGenerators::Load() {
     for (int32 i = 0; i < 15; i++) {
         CGenericGameStorage::LoadDataFromWorkBuffer(m_SpecialPlateHandler.m_plateTextEntries[i]);
     }
+    return true;
 }
 
 // 0x6F3F40
@@ -127,7 +129,7 @@ void CTheCarGenerators::RemoveCarGenerators(uint8 IplID) {
 }
 
 // 0x5D38C0
-void CTheCarGenerators::Save() {
+bool CTheCarGenerators::Save() {
     uint32 numOfCarGeneratorsToSave = 0;
 
     for (auto& carGen : CarGeneratorArray) {
@@ -151,8 +153,10 @@ void CTheCarGenerators::Save() {
     for (int32 i = 0; i < 15; i++) {
         CGenericGameStorage::SaveDataToWorkBuffer(m_SpecialPlateHandler.m_plateTextEntries[i]);
     }
+    return true;
 }
 
+// 0x479D60
 CCarGenerator* CTheCarGenerators::Get(uint16 index) {
     return &CarGeneratorArray[index];
 }

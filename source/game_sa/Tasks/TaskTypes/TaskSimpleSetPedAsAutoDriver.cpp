@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -55,6 +55,7 @@ bool CTaskSimpleSetPedAsAutoDriver::ProcessPed(CPed* ped) {
     m_veh->SetStatus(STATUS_PHYSICS);
     m_veh->m_autoPilot.SetCarMission(MISSION_CRUISE);
     m_veh->m_autoPilot.SetCruiseSpeed(10);
-    m_veh->vehicleFlags.bEngineOn = m_veh->vehicleFlags.bEngineBroken != 0;
+    // Como el original: el motor queda encendido salvo que esté averiado
+    m_veh->vehicleFlags.bEngineOn = !m_veh->vehicleFlags.bEngineBroken;
     return true;
 }

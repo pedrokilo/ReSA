@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -44,12 +44,12 @@ void CTimeInfo::InjectHooks() {
  */
 CTimeInfo* CTimeInfo::FindOtherTimeModel(const char* modelName) {
     char timeSwitchModelName[24];
-    strcpy_s(timeSwitchModelName, modelName);
+    strcpy(timeSwitchModelName, modelName); // Como el original: strcpy sin comprobación (strcpy_s rellena con 0xFE en debug)
 
     char* nightSuffix = strstr(timeSwitchModelName, "_nt");
 
     if (nightSuffix) {
-        strncpy_s(nightSuffix, 4, "_dy", 4);
+        strncpy(nightSuffix, "_dy", 4);
     }
     else {
         char* daySuffix = strstr(timeSwitchModelName, "_dy");
@@ -57,17 +57,25 @@ CTimeInfo* CTimeInfo::FindOtherTimeModel(const char* modelName) {
         if (!daySuffix)
             return nullptr;
 
-        strncpy_s(daySuffix, 4, "_nt", 4);
+        strncpy(daySuffix, "_nt", 4);
     }
 
-    int32 index = 0;
-    CBaseModelInfo* modelInfo = CModelInfo::GetModelInfoFromHashKey(CKeyGen::GetUppercaseKey(timeSwitchModelName), &index);
-    CTimeInfo* timeInfo = modelInfo ? modelInfo->GetTimeInfo() : nullptr;
-
-    if (timeInfo) {
-        m_nOtherTimeModel = index;
-        return timeInfo;
+    // Como el original: bucle en línea que busca el primer modelo con información horaria (vtable +0x14)
+    // y la misma clave; no usa GetModelInfoFromHashKey.
+    const uint32 key = CKeyGen::GetUppercaseKey(timeSwitchModelName);
+    CTimeInfo* timeInfo = nullptr;
+    int32 index;
+    for (index = 0; index < CModelInfo::NUM_MODEL_INFOS; index++) {
+        CBaseModelInfo* modelInfo = CModelInfo::GetModelInfo(index);
+        if (modelInfo && (timeInfo = modelInfo->GetTimeInfo()) != nullptr && modelInfo->m_nKey == key) {
+            break;
+        }
     }
 
-    return nullptr;
+    if (index == CModelInfo::NUM_MODEL_INFOS) {
+        return nullptr;
+    }
+
+    m_nOtherTimeModel = static_cast<int16>(index);
+    return timeInfo;
 }

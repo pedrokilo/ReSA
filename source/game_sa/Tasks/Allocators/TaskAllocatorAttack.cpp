@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -28,6 +28,15 @@ CTaskAllocatorAttack::CTaskAllocatorAttack(CPed* target, int32 groupTargetID, CP
     m_Originator{originator}
 { }
 
+// 0x69C2D0
+CTaskAllocatorAttack::~CTaskAllocatorAttack() {
+    // Como el original: primero se limpia la referencia del objetivo y después la del originador (los miembros se
+    // destruyen en orden inverso). El puntero no se pone a cero: la limpieza posterior de m_Target no encuentra nada.
+    if (CPed* const target = m_Target) {
+        target->CleanUpOldReference(reinterpret_cast<CEntity**>(std::addressof(m_Target)));
+    }
+}
+
 // 0x69C3F0
 void CTaskAllocatorAttack::AllocateTasks(CPedGroupIntelligence* intel) {
     m_NextUpdateTimer.Start(3'000);
@@ -37,7 +46,7 @@ void CTaskAllocatorAttack::AllocateTasks(CPedGroupIntelligence* intel) {
 // 0x69D0C0
 CTaskAllocator* CTaskAllocatorAttack::ProcessGroup(CPedGroupIntelligence* intel) {
     if (!m_NextUpdateTimer.IsStarted() || m_NextUpdateTimer.IsOutOfTime()) {
-        AllocateTasks(intel);
+        CTaskAllocatorAttack::AllocateTasks(intel); // Como el original: llamada directa (0x69C3F0), sin pasar por la vtable
     }
     return this;
 }

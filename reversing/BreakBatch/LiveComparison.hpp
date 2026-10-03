@@ -14,7 +14,7 @@
 
 namespace BreakLive {
 inline bool done{}; inline std::ofstream log; inline json trace; inline int seed{};
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 
 alignas(16) inline std::array<uint8,0x800> object{};    // RpGeometry falsa (el plugin vive en g_BreakablePlugin)
 alignas(16) inline std::array<uint8,0x4000> arena{};    // operator new del EXE

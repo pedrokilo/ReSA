@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -44,15 +44,18 @@ void CTaskAllocatorKillOnFoot::AllocateTasks(CPedGroupIntelligence* intel) {
     }
 
     const auto ProcessList = [&](CPedList& list, bool withGuns) {
-        for (auto* const mem : list.GetPeds()) {
+        for (auto i = 0u; i < list.m_count; i++) {
+            auto* const mem = list.m_peds[i];
             if (auto* const task = intel->GetTask(mem, intel->GetPedTaskPairs())) { // 0x69BE1B and 0x69C097
+                // Como el original: la tabla de saltos tambien excluye TASK_COMPLEX_KILL_PED_ON_FOOT_STEALTH (0x404)
                 switch (task->GetTaskType()) {
                 case TASK_SIMPLE_GUN_CTRL:
                 case TASK_SIMPLE_GANG_DRIVEBY:
                 case TASK_COMPLEX_KILL_PED_ON_FOOT_TIMED:
                 case TASK_COMPLEX_KILL_PED_ON_FOOT_STAND_STILL:
-                case TASK_COMPLEX_KILL_PED_ON_FOOT_KINDA_STAND_STILL:
                 case TASK_KILL_PED_ON_FOOT_WHILE_DUCKING:
+                case TASK_COMPLEX_KILL_PED_ON_FOOT_STEALTH:
+                case TASK_COMPLEX_KILL_PED_ON_FOOT_KINDA_STAND_STILL:
                 case TASK_COMPLEX_ARREST_PED:
                 case TASK_GROUP_KILL_THREATS_BASIC:
                     continue;
@@ -68,20 +71,27 @@ void CTaskAllocatorKillOnFoot::AllocateTasks(CPedGroupIntelligence* intel) {
             if (m_GroupTargetID == -1) { // 0x69BEC9 and 0x69C185
                 tseq.AddTask(new CTaskComplexKillPedOnFoot{ m_Target, -1, 0, 0, 0, withGuns ? 2u : 1u });
                 if (withGuns) {
-                    tseq.AddTask(new CTaskSimpleLookAbout{ CGeneral::GetRandomNumberInRange(0u, 1000u) });
+                    // Como el original: 1000 - (int)(rand() * (1/32768) * -1000), es decir [1000, 2000)
+                    tseq.AddTask(new CTaskSimpleLookAbout{ (uint32)CGeneral::GetRandomIntInRange(1000, 2000) });
                 }
             } else { // 0x69BED5 and 0x69C17C
-                tseq.AddTasks(
-                    new CTaskComplexKillPedGroupOnFoot{ m_GroupTargetID, m_Target }
-                );
+                tseq.AddTask(new CTaskComplexKillPedGroupOnFoot{ m_GroupTargetID, m_Target });
             }
 
-            intel->SetEventResponseTask(mem, tseq); // 0x69C01E and 0x69C1DA (Yes, the former is just inlined `SetEventResponseTask`)
+            if (withGuns) {
+                // Como el original: SetEventResponseTask (0x5F8510) con una CTaskSimpleNone sin usar en la pila
+                CTaskSimpleNone none{};
+                intel->SetEventResponseTask(mem, true, tseq, false, none, TASK_SECONDARY_INVALID); // 0x69C01E
+            } else {
+                // Como el original: SetTask (0x5F7540) directo con los pares principales, slot -1 y sin forzar
+                intel->SetTask(mem, tseq, intel->GetPedTaskPairs(), TASK_SECONDARY_INVALID, false); // 0x69C1DA
+            }
         }
     };
 
-    // 0x69BD58
-    if (m_Target && !m_Target->GetActiveWeapon().IsTypeMelee()) { // NOTE: Left out the check of some static variable that's always false
+    // 0x69BD31
+    // Como el original: el global 0xC1A554 fuerza la rama de armas de fuego (sin comprobar el objetivo)
+    if (StaticRef<bool>(0xC1A554) || (m_Target && !m_Target->GetActiveWeapon().IsTypeMelee())) {
         CPedList membersWithGuns{};
         membersWithGuns.ExtractPedsWithGuns(members);
 
@@ -91,7 +101,7 @@ void CTaskAllocatorKillOnFoot::AllocateTasks(CPedGroupIntelligence* intel) {
         ProcessList(membersWithGuns, true);
     }
 
-    // 0x69C075
+    // 0x69C06A
     ProcessList(members, false);
 }
 

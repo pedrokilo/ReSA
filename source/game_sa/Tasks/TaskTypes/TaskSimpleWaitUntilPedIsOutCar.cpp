@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -60,7 +60,8 @@ bool CTaskSimpleWaitUntilPedIsOutCar::ProcessPed(CPed* ped) {
         CTaskSimpleStandStill standStillTask;
         standStillTask.ProcessPed(ped);
 
-        ped->m_fAimingRotation = CGeneral::LimitRadianAngle(CGeneral::GetAngleBetweenPoints(m_Pos.x, m_Pos.y, 0.f, 0.f));
+        // Como el original: ángulo en radianes (0x53CBE0), no en grados
+        ped->m_fAimingRotation = CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints(m_Pos.x, m_Pos.y, 0.f, 0.f));
     }
 
     return !m_PedToWaitFor->bInVehicle;

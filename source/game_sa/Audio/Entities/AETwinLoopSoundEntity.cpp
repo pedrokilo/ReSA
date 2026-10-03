@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -64,18 +64,22 @@ void CAETwinLoopSoundEntity::Initialise(
     int16           playPercentageA,
     int16           playPercentageB
 ) {
-    assert(!m_IsInUse);
-
-    *this = CAETwinLoopSoundEntity{
-        bank,
-        soundA,
-        soundB,
-        parent,
-        swapTimeMin,
-        swapTimeMax,
-        playPercentageA,
-        playPercentageB,
-    };
+    // Como el original: solo escribe los campos propios; no toca la base, la vtable
+    // ni m_TimeToSwapSoundsMs (la DLL asignaba un temporal completo).
+    m_BankSlot                = bank;
+    m_SoundIDs[0]             = soundA;
+    m_SoundIDs[1]             = soundB;
+    m_SwapTimeMin             = swapTimeMin;
+    m_SoundsLengths[0]        = -1;
+    m_SoundsLengths[1]        = -1;
+    m_AudioEntity             = parent;
+    m_Sounds[0]               = nullptr;
+    m_Sounds[1]               = nullptr;
+    m_SwapTimeMax             = swapTimeMax;
+    m_SoundPlayPercentages[0] = playPercentageA;
+    m_IsPlayingFirstSound     = true;
+    m_SoundPlayPercentages[1] = playPercentageB;
+    m_IsInUse                 = true;
 }
 
 // 0x4F29A0
@@ -121,7 +125,9 @@ void CAETwinLoopSoundEntity::SwapSounds() {
     if (!curr || !next) {
         return;
     }
-    next->m_Volume = std::exchange(curr->m_Volume, -100.f);
+    // Como el original: copia y luego pone -100 (si ambas voces son la misma, queda -100).
+    next->m_Volume = curr->m_Volume;
+    curr->m_Volume = -100.f;
     m_IsPlayingFirstSound = !m_IsPlayingFirstSound;
     ReCalculateSwapTime();
 }
@@ -180,11 +186,13 @@ bool CAETwinLoopSoundEntity::DoSoundsSwitchThisFrame() const {
  * que la entidad pueda mantener el intercambio temporal sin reiniciar los loops.
  */
 void CAETwinLoopSoundEntity::PlayTwinLoopSound(CVector pos, float volume, float speed, float rollOffFactor, float doppler, eSoundEnvironment flags) {
-    assert(m_IsInUse && "Must initialize sound first using `Initialise()`");
-
-    StopSoundAndForget();
+    // Como el original: detiene las voces previas sin poner los punteros a nulo ni tocar m_IsInUse.
+    for (auto* const s : m_Sounds) {
+        if (s) {
+            s->StopSoundAndForget();
+        }
+    }
     for (int32 i = 0; i < NUM_SOUNDS; i++) {
-        assert(!m_Sounds[i]);
         m_Sounds[i] = AESoundManager.PlaySound({
             .BankSlotID    = m_BankSlot,
             .SoundID       = m_SoundIDs[i],
@@ -198,11 +206,11 @@ void CAETwinLoopSoundEntity::PlayTwinLoopSound(CVector pos, float volume, float 
             .PlayTime      = m_SoundPlayPercentages[i] != -1
                 ? m_SoundPlayPercentages[i]
                 : CAEAudioUtility::GetRandomNumberInRange<int16>(0, 99),
+            .ClientVariable = -1.0f, // Como el original: el valor que deja CAESound::Initialise.
         });
     }
-    m_IsInUse             = true;
-    m_IsPlayingFirstSound = true;
     ReCalculateSwapTime();
+    m_IsPlayingFirstSound = true;
 }
 
 // El siguiente intercambio usa reloj de pausa y un intervalo aleatorio configurado.

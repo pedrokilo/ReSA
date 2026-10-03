@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -42,7 +42,11 @@ void CWaterCannons::Init() {
 void CWaterCannons::UpdateOne(uint32 vehicle, CVector* start, CVector* end) {
     for (auto& cannon : aCannons) {
         if (cannon.m_nId == vehicle) {
-            cannon.Update_NewInput(start, end);
+            // Como el original: Update_NewInput está en línea y lee el número de secciones como int16.
+            const auto section = static_cast<int16>(cannon.m_nSectionsCount);
+            cannon.m_sectionPoint[section]     = *start;
+            cannon.m_sectionMoveSpeed[section] = *end;
+            cannon.m_abUsed[section]           = true;
             return;
         }
     }
@@ -79,6 +83,9 @@ void CWaterCannons::Render() {
     ZoneScoped;
 
     for (auto& cannon : aCannons) {
-        cannon.Render();
+        // Como el original: solo se dibujan los cañones activos.
+        if (cannon.m_nId) {
+            cannon.Render();
+        }
     }
 }

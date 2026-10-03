@@ -13,7 +13,7 @@
 #include "../ProbeSupport.hpp"
 namespace PlayerInfoLive {
 inline bool done{}; inline std::ofstream log; inline int seed{}; inline json trace;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 inline int Report(int type,char* msg,int*) { if(type!=_CRT_ASSERT)return FALSE; Write({{"event","assertion"},{"message",msg ? msg:""}}); ExitProcess(91); }
 template<class T> struct Raw {
     alignas(T) std::array<uint8,sizeof(T)> data{};

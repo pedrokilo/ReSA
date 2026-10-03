@@ -90,7 +90,10 @@ public:
     template<typename... Args>
     void emplace_back(Args&&... args) {
         if (_Last == _End) {
-            reserve(size() * 150 / 100); // Geometric growth with K=1.5
+            // Geometric growth with K=1.5, but always at least one more slot: with size 0 or 1,
+            // size*150/100 doesn't grow and the item was constructed at nullptr / past the end
+            // (crash in CPedAttractorManager::RegisterPed with an empty attractor list).
+            reserve(std::max<size_t>(size() + 1, size() * 150 / 100));
         }
         std::construct_at(_Last++, std::forward<Args>(args)...);
     }

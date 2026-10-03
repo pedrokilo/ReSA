@@ -52,4 +52,10 @@ public:
     CTask* New() {
         return NewLegacy();
     }
+
+    // 0x61A570 (en línea en CTask::operator delete 0x61A5B0)
+    // Como el original: marca el slot como libre y baja m_nFirstFree si el índice es menor (con signo); no rellena con 0xDD.
+    void Delete(CTask* task) {
+        DeleteLegacy(task);
+    }
 };

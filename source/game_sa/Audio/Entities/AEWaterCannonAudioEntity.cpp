@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -98,16 +98,14 @@ void CAEWaterCannonAudioEntity::UpdateGenericWaterCannonSound(bool splashInfoEna
             sound->m_Speed = speed;
             sound->SetPosition(pos);
         } else {
-            sound = AESoundManager.PlaySound({
-                .BankSlotID      = bankSlotId,
-                .SoundID         = sfxId,
-                .AudioEntity     = this,
-                .Pos             = pos,
-                .Volume          = volume,
-                .RollOffFactor   = rollOff,
-                .Speed           = speed,
-                .Flags           = SOUND_REQUEST_UPDATES,
-            });
+            // Como el original: prepara m_tempSound (no una CAESound local) con rolloff, velocidad
+            // y flags a 1/1/0, los sobrescribe después y la pide al gestor.
+            m_tempSound.Initialise(bankSlotId, (eSoundID)sfxId, this, pos, volume, 1.0f, 1.0f, 1.0f, 0, 0, 0.0f, 0);
+            m_tempSound.m_Volume        = volume;
+            m_tempSound.m_RollOffFactor = rollOff;
+            m_tempSound.m_Speed         = speed;
+            m_tempSound.m_Flags         = SOUND_REQUEST_UPDATES;
+            sound = AESoundManager.RequestNewSound(&m_tempSound);
         }
 
         return;
@@ -168,6 +166,10 @@ void CAEWaterCannonAudioEntity::InjectHooks() {
 }
 
 CAEWaterCannonAudioEntity* CAEWaterCannonAudioEntity::Constructor() {
-    this->CAEWaterCannonAudioEntity::CAEWaterCannonAudioEntity();
+    // Como el original (0x728A90): solo escribe la vtable del EXE, m_tempSound.m_PhysicalEntity (+0x10)
+    // y m_bInitialized; el constructor C++ inicializaría por valor toda m_tempSound.
+    *reinterpret_cast<uintptr_t*>(this) = 0x872A60;
+    *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(this) + 0x10) = 0;
+    m_bInitialized = false;
     return this;
 }

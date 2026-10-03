@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -55,8 +55,14 @@ bool CTaskSimplePause::MakeAbortable(CPed* ped, eAbortPriority priority, const C
 
 // 0x48E830
 bool CTaskSimplePause::ProcessPed(CPed* ped) {
-    if (!m_Timer.IsStarted() && !m_Timer.Start(m_PauseIntervalMs)) {
-        return false;
+    if (!m_Timer.m_bStarted) {
+        // Como el original: arranca el temporizador sin comprobar que el intervalo sea >= 0
+        m_Timer.m_nStartTime = CTimer::GetTimeInMS();
+        m_Timer.m_nInterval  = m_PauseIntervalMs;
+        m_Timer.m_bStarted   = true;
+        if (!m_Timer.m_bStarted) {
+            return false;
+        }
     }
     m_Timer.Reset();
     return m_Timer.IsOutOfTime();

@@ -16,7 +16,7 @@
 
 namespace BreakObjLive {
 inline bool done{}; inline std::ofstream log; inline json trace;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 alignas(16) inline std::array<uint8,0x40> object{};
 alignas(16) inline std::array<uint8,0x10000> arena{}; inline size_t arenaTop{};
 alignas(16) inline std::array<std::array<uint8,0x60>,6> textures{};

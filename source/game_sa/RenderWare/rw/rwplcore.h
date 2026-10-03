@@ -6303,6 +6303,11 @@ struct RwGlobals
         /* All of the frames which have been updated */
         RwLinkList          dirtyFrameList;
 
+        /* The file access functions */
+        // Como el original: RwFileFunctions (11 punteros: rwfexist..rwftell) en +0xC4 (RwOsGetFileInterface 0x804130);
+        // sin este campo stringFuncs/memoryFuncs quedaban desplazados (el EXE usa rwsprintf en +0xF0 y rwfree en +0x138).
+        void*               fileFuncs[11];
+
         /* The string functions */
         RwStringFunctions   stringFuncs;
 

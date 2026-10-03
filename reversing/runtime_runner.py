@@ -60,6 +60,24 @@ def game_dialog(pid):
     user.EnumWindows(proc(top),0)
     return ' | '.join(' / '.join(x for x in d if x) for d in found) or None
 
+def game_hung(pid):
+    """True si alguna ventana visible del proceso esta marcada por Windows como "No responde" (IsHungAppWindow)."""
+    import ctypes
+    from ctypes import wintypes as w
+    user=ctypes.windll.user32;hung=[]
+    proc=ctypes.WINFUNCTYPE(w.BOOL,w.HWND,w.LPARAM)
+    def top(h,_):
+        owner=w.DWORD();user.GetWindowThreadProcessId(h,ctypes.byref(owner))
+        if owner.value==pid and user.IsWindowVisible(h) and user.IsHungAppWindow(h):hung.append(h)
+        return True
+    user.EnumWindows(proc(top),0)
+    return bool(hung)
+
+HUNG_SECONDS=15          # ventana "No responde" seguida durante este tiempo...
+HUNG_STALL_SECONDS=30    # ...y sin que el registro crezca este tiempo -> abortar
+STALL_SECONDS=120        # el registro del banco no crece durante este tiempo -> abortar
+STARTUP_STALL_SECONDS=240  # margen antes del primer resultado (carga del juego)
+
 def run_case(prefix,probe_hash,analyze,title,timeout=180,stop_before_analysis=False,unhook='Audio,Global/SurfaceInfos_c',wait_for_exit=False):
     exe=GAME/'gta_sa.exe';probe=GAME/f'_baseline/gta_reversed-{prefix}-probe.asi'
     if digest(exe)!=EXE_HASH or digest(probe)!=probe_hash:raise RuntimeError('Ejecutable o sonda no coincide con el hash aprobado.')
@@ -89,6 +107,7 @@ def run_case(prefix,probe_hash,analyze,title,timeout=180,stop_before_analysis=Fa
         if unhook:args.append('--unhook='+unhook)
         process=subprocess.Popen(args,cwd=GAME)
         deadline=time.monotonic()+timeout
+        started=time.monotonic();hung_since=None;last_size=-1;last_growth=started
         while time.monotonic()<deadline:
             if stop_before_analysis and process.poll() is None and terminal_event(log):
                 process.terminate()
@@ -107,6 +126,21 @@ def run_case(prefix,probe_hash,analyze,title,timeout=180,stop_before_analysis=Fa
             if dialog:
                 result['dialog']=dialog
                 raise RuntimeError('Dialogo en GTA (abortado): '+dialog)
+            # Los bancos corren dentro de un solo fotograma: Windows marca la ventana "No responde" aunque
+            # avancen. Solo es un cuelgue si ademas el registro deja de crecer.
+            now=time.monotonic()
+            size=log.stat().st_size if log.exists() else 0
+            if size!=last_size:last_size=size;last_growth=now
+            if game_hung(process.pid):
+                hung_since=hung_since or now
+                if now-hung_since>=HUNG_SECONDS and now-last_growth>=HUNG_STALL_SECONDS:
+                    result['hung']=True
+                    raise RuntimeError(f'GTA no responde (ventana colgada y sin progreso {int(now-last_growth)} s; abortado).')
+            else:hung_since=None
+            # Sin progreso: el registro del banco deja de crecer.
+            if now-last_growth>=(STALL_SECONDS if size else STARTUP_STALL_SECONDS):
+                result['stalled']=True
+                raise RuntimeError(f'GTA sin progreso: el registro no crece desde hace {int(now-last_growth)} s (abortado).')
             time.sleep(.5)
         else:raise RuntimeError('Tiempo agotado.')
     except Exception as error:result.update(passed=False,error=str(error))

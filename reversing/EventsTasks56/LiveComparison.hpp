@@ -55,7 +55,7 @@
 
 namespace EvTask56Live {
 inline bool done{}; inline std::ofstream log; inline json trace;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 inline uint32 F(float f) { return std::bit_cast<uint32>(f); }
 constexpr int FAKES=8;                 // 0-4 tareas primarias, 5 tarea secundaria, 6 tarea del comando de script, 7 libre
 constexpr size_t FK_TYPE=0x38;         // tipo devuelto por GetTaskType, por objeto

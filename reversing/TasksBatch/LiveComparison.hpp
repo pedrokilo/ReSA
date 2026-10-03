@@ -26,7 +26,7 @@
 namespace TasksLive {
 inline bool done{}; inline std::ofstream log;
 inline json trace; inline int seed{}; inline int rngCalls{}; inline bool trapped{};
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 
 // ---------------------------------------------------------------- fixtures
 constexpr int PEDS=4, FAKES=6, ASSOCS=6;

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -55,6 +55,52 @@ void CDoor::InjectHooks() {
     RH_ScopedGlobalInstall(IsFullyOpen, 0x6F4820);
 }
 
+namespace {
+// Como el original: fsin/fcos del x87 a precisión interna completa, redondeados a float al guardarlos
+float DoorSinX87(float a) {
+    float r;
+    __asm {
+        fld a
+        fsin
+        fstp r
+    }
+    return r;
+}
+
+float DoorCosX87(float a) {
+    float r;
+    __asm {
+        fld a
+        fcos
+        fstp r
+    }
+    return r;
+}
+
+// Como el original: Multiply3x3 (0x59C810), vector por matriz, con el orden de sumas del EXE
+CVector DoorMultiply3x3_VM(const CVector& v, const CMatrix& m) {
+    return {
+        m.GetRight().y * v.y + m.GetRight().z * v.z + v.x * m.GetRight().x,
+        m.GetForward().y * v.y + m.GetForward().x * v.x + m.GetForward().z * v.z,
+        m.GetUp().y * v.y + m.GetUp().x * v.x + m.GetUp().z * v.z,
+    };
+}
+
+// Como el original: angVel = pow(rate, timestep) * angVel con el _CIpow del EXE (0x822130)
+void DoorMultiplyByPow(float& angVel, float rate, float step) {
+    float* const p = &angVel;
+    __asm {
+        fld rate
+        fld step
+        mov eax, 0x822130
+        call eax
+        mov edx, p
+        fmul dword ptr [edx]
+        fstp dword ptr [edx]
+    }
+}
+} // namespace
+
 // 0x6F4040
 bool CDoor::Process(CVehicle* vehicle, Const CVector& oldMoveSpeed, Const CVector& oldTurnSpeed, Const CVector& offset) {
     CVector velocity = vehicle->GetSpeed(offset);
@@ -62,10 +108,10 @@ bool CDoor::Process(CVehicle* vehicle, Const CVector& oldMoveSpeed, Const CVecto
 
     CVector acceleration = velocity - oldVelocity;
 
-    acceleration.z += CTimer::GetTimeStep() * ((m_dirn & DOOR_EXTRA_LOW_GRAVITY) ? 0.0016f : 0.008f); // TODO: Gravity
+    acceleration.z += CTimer::GetTimeStep() * ((m_dirn & DOOR_EXTRA_LOW_GRAVITY) ? std::bit_cast<float>(0x3AD1B718u) : 0.008f); // TODO: Gravity. Como el original: 0x87149C es el float siguiente a 0.0016
 
-    CMatrix mat(vehicle->GetMatrix());
-    acceleration = mat.InverseTransformVector(acceleration);
+    CMatrix mat(*vehicle->m_matrix); // Como el original: copia la matriz sin reservarla
+    acceleration = DoorMultiply3x3_VM(acceleration, mat);
 
     CVector vecDirn{};
     switch (m_dirn & DOOR_EXTRA_DIRN_MASK) {
@@ -75,24 +121,28 @@ bool CDoor::Process(CVehicle* vehicle, Const CVector& oldMoveSpeed, Const CVecto
     case DOOR_AXIS_NEG_X: vecDirn.x = -1.0f; break;
     case DOOR_AXIS_NEG_Y: vecDirn.y = -1.0f; break;
     case DOOR_AXIS_NEG_Z: vecDirn.z = -1.0f; break;
-    default:              NOTSA_UNREACHABLE(); break;
+    default:              break; // Como el original: el vector queda a cero
     }
 
     // 0x6F41B2
-    float sin = std::sin(m_angle);
-    float cos = std::cos(m_angle);
+    const float sin = DoorSinX87(m_angle);
+    const float cos = DoorCosX87(m_angle);
 
-    assert(m_axis != DOOR_AXIS_Y); // Test
+    // Como el original: solo se rota en los ejes X y Z; con cualquier otro eje se usa el seno
+    float ang;
+    if (m_axis == DOOR_AXIS_X || m_axis == DOOR_AXIS_Z) {
+        const auto a = (m_axis + 1) % 3;
+        const auto b = (m_axis + 2) % 3;
 
-    const auto a = (m_axis + 1) % 3;
-    const auto b = (m_axis + 2) % 3;
+        const float newA = cos * vecDirn[a] - sin * vecDirn[b];
+        const float newB = cos * vecDirn[b] + sin * vecDirn[a];
+        vecDirn[a] = newA;
+        vecDirn[b] = newB;
 
-    const float newA = sin * vecDirn[b] - cos * vecDirn[a];
-    const float newB = sin * vecDirn[a] + cos * vecDirn[b];
-    vecDirn[a] = newA;
-    vecDirn[b] = newB;
-
-    float ang = acceleration.Cross(vecDirn)[m_axis];
+        ang = acceleration.Cross(vecDirn)[m_axis];
+    } else {
+        ang = sin;
+    }
 
     // 0x6F42A8
     // Angular velocity update
@@ -112,8 +162,8 @@ bool CDoor::Process(CVehicle* vehicle, Const CVector& oldMoveSpeed, Const CVecto
         const float rate = (TheCamera.m_bWideScreenOn || (vehicle->IsAutomobile() && !vehicle->AsAutomobile()->m_nNumContactWheels))
             ? DOOR_DAMP_RATE_CHASSIS_CUTSCENE
             : DOOR_DAMP_RATE_CHASSIS;
-        m_angVel = std::pow(rate, CTimer::GetTimeStep()) * m_angVel
-            - CTimer::GetTimeStep() * m_angle * DOOR_SPRING_RATE_CHASSIS;
+        DoorMultiplyByPow(m_angVel, rate, CTimer::GetTimeStep());
+        m_angVel = m_angVel - CTimer::GetTimeStep() * m_angle * DOOR_SPRING_RATE_CHASSIS;
     } else if (vehicle->IsBoat()) {
         m_angVel *= DOOR_DAMP_RATE_BOAT;
     } else if (vehicle->GetModelIndex() == MODEL_FIRELA) {
@@ -140,7 +190,7 @@ bool CDoor::Process(CVehicle* vehicle, Const CVector& oldMoveSpeed, Const CVecto
     }
 
     // Checking corner angles
-    const bool posOpenRotation = m_openAngle >= m_closedAngle;
+    const bool posOpenRotation = !(m_openAngle < m_closedAngle); // Como el original: NaN cuenta como apertura positiva
     const bool hitOpen = posOpenRotation ? (m_angle > m_openAngle) : (m_angle < m_openAngle);
     const bool hitClosed = posOpenRotation ? (m_angle < m_closedAngle) : (m_angle > m_closedAngle);
 
@@ -177,7 +227,7 @@ bool CDoor::ProcessImpact(CVehicle* vehicle, Const CVector& oldMoveSpeed, Const 
     CVector oldVelocity = oldTurnSpeed.Cross(offset) + oldMoveSpeed;
     CVector acceleration = velocity - oldVelocity;
 
-    CMatrix mat(vehicle->GetMatrix());
+    CMatrix mat(*vehicle->m_matrix); // Como el original: copia la matriz sin reservarla
 
     CVector direction;
     switch (m_dirn & DOOR_EXTRA_DIRN_MASK) {
@@ -191,14 +241,17 @@ bool CDoor::ProcessImpact(CVehicle* vehicle, Const CVector& oldMoveSpeed, Const 
     }
 
     // Angular velocity along the desired axis
-    assert(m_axis != DOOR_AXIS_Y); // Test
-    const auto cross = acceleration.Cross(direction);
-    float ang = cross[m_axis];
+    // Como el original: solo los ejes X y Z usan el producto vectorial; con cualquier otro eje se compara
+    // la componente Y de la velocidad anterior (el hueco de pila que el EXE reutiliza)
+    float ang = oldVelocity.y;
+    if (m_axis == DOOR_AXIS_X || m_axis == DOOR_AXIS_Z) {
+        ang = acceleration.Cross(direction)[m_axis];
+    }
 
     const float limit = CGeneral::GetRandomNumberInRange(0.75f, 1.5f) * POP_OPEN_DOOR_ACCEL_LIMIT;
 
     // Is there enough acceleration to open the door?
-    const bool posOpenRotation = m_openAngle >= m_closedAngle;
+    const bool posOpenRotation = !(m_openAngle < m_closedAngle); // Como el original: NaN cuenta como apertura positiva
     if (posOpenRotation) {
         return ang > limit;
     } else {
@@ -209,7 +262,7 @@ bool CDoor::ProcessImpact(CVehicle* vehicle, Const CVector& oldMoveSpeed, Const 
 // 0x6F4790
 void CDoor::Open(float angRatio) {
     m_prevAngle = m_angle;
-    if (angRatio >= 1.0f) {
+    if (!(angRatio < 1.0f)) { // Como el original: NaN abre del todo
         m_angle = m_openAngle;
         if (!(m_dirn & DOOR_EXTRA_FIXEDSTATE)) {
             m_doorState = DOOR_HIT_MAX_END;
@@ -238,7 +291,7 @@ bool CDoor::IsClosed() const {
 
 // 0x6F4820
 bool CDoor::IsFullyOpen() const {
-    return std::fabsf(GetAngleWhenOpen()) - 0.5f <= std::fabsf(GetDoorAngle());
+    return !(std::fabsf(GetAngleWhenOpen()) - 0.5f > std::fabsf(GetDoorAngle())); // Como el original: NaN devuelve true
 }
 
 // NOTSA

@@ -26,6 +26,7 @@ private: // Wrappers for hooks
     // 0x6757D0
     CTaskInteriorGoToInfo* Constructor(InteriorInfo_t* interiorInfo, Interior_c* interior, uint8 unk) {
         this->CTaskInteriorGoToInfo::CTaskInteriorGoToInfo(interiorInfo, interior, unk);
+        reinterpret_cast<uint8&>(m_bDoInstantly) = unk; // Como el original: guarda el byte tal cual
         return this;
     }
 

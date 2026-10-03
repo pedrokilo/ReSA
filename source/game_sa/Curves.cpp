@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -40,9 +40,9 @@ float CCurves::DistForLineToCrossOtherLine(float lineBaseX, float lineBaseY, flo
     }
 
     float dist = (lineBaseX - otherLineBaseX) * otherLineDirY - (lineBaseY - otherLineBaseY) * otherLineDirX;
-    float distOfCrossing = -dist / dir;
 
-    return distOfCrossing;
+    // Como el original: dist * (-1 / dir), no -dist / dir (redondeo distinto)
+    return dist * (-1.0f / dir);
 }
 
 // 0x43C660
@@ -54,12 +54,15 @@ float CCurves::CalcSpeedVariationInBend(
     float          endDirX,
     float          endDirY
 ) {
+    // Como el original: 1/3 es 0x8594EC (0x3EAAAAAA, no el float más cercano) y 1/0,7 es 0x8594E8
+    const float ONE_THIRD = std::bit_cast<float>(0x3EAAAAAAu), INV_0_7 = std::bit_cast<float>(0x3FB6DB6Eu);
+
     float returnVal = 0.0f;
     float dotProduct = startDirX * endDirX + startDirY * endDirY;
 
     if (dotProduct <= 0.0f) {
         // If the dot product is <= 0, return a constant value (1/3)
-        returnVal = 1.0f / 3.0f;
+        returnVal = ONE_THIRD;
         return returnVal;
     }
 
@@ -71,12 +74,13 @@ float CCurves::CalcSpeedVariationInBend(
         float straightDist = (startCoors - endCoors).Magnitude2D();
 
         // Normalize the distance to the line by the straight-line distance
-        returnVal = (distToLine / straightDist) * (1.0f / 3.0f);
+        returnVal = (distToLine / straightDist) * ONE_THIRD;
         return returnVal;
     }
 
     // If the dot product is <= 0.7, interpolate the return value
-    returnVal = (1.0f - (dotProduct / 0.7f)) * (1.0f / 3.0f);
+    // Como el original: dot * (1/0,7), no dot / 0,7
+    returnVal = (1.0f - dotProduct * INV_0_7) * ONE_THIRD;
 
     return returnVal;
 }
@@ -122,28 +126,69 @@ float CCurves::CalcSpeedScaleFactor(
         totalDist_Time = bendDist / bendDist_Time;
     }
 
-    return totalDist_Time + straightDist1 + straightDist2;
+    // Como el original: (2·m + s2) + s1 en el tramo curvo (en el recto se suman ceros)
+    return totalDist_Time + straightDist2 + straightDist1;
 }
+
+namespace {
+// Constantes del EXE: 1e-5 (0x858C14), 0,5 (0x858B8C), pi (0x858CB8), 2pi (0x858CBC), 1/(2pi) (0x8594F0), 1 y 0
+const float s_CurvesEps = std::bit_cast<float>(0x3727C5ACu), s_CurvesHalf = 0.5f, s_CurvesPi = std::bit_cast<float>(0x40490FDBu),
+            s_CurvesTwoPi = std::bit_cast<float>(0x40C90FDBu), s_CurvesInvTwoPi = std::bit_cast<float>(0x3E22F983u), s_CurvesOne = 1.0f, s_CurvesZero = 0.0f;
+
+// Como el original (0x43C880): transcripción del x87; fcos/fsin con precisión interna completa y el producto
+// del seno redondeado por la FPU.
+__declspec(naked) float __cdecl CalcCorrectedDistX87(float current, float total, float speedVariation, float* outT) {
+    __asm {
+        fld     dword ptr [esp + 8]
+        fcomp   dword ptr [s_CurvesEps]
+        fnstsw  ax
+        test    ah, 5
+        jp      compute
+        mov     eax, dword ptr [esp + 10h]
+        fld     dword ptr [s_CurvesZero]
+        mov     dword ptr [eax], 3F000000h
+        ret
+    compute:
+        fld     dword ptr [esp + 4]
+        mov     ecx, dword ptr [esp + 10h]
+        fdiv    dword ptr [esp + 8]
+        fld     dword ptr [s_CurvesPi]
+        fmul    st, st(1)
+        fcos
+        fmul    dword ptr [s_CurvesHalf]
+        fsubr   dword ptr [s_CurvesHalf]
+        fstp    dword ptr [ecx]
+        fmul    dword ptr [s_CurvesTwoPi]
+        fsin
+        fld     dword ptr [esp + 8]
+        fmul    dword ptr [s_CurvesInvTwoPi]
+        fmulp   st(1), st
+        fmul    dword ptr [esp + 0Ch]
+        fld     dword ptr [esp + 0Ch]
+        fadd    st(0), st
+        fsubr   dword ptr [s_CurvesOne]
+        fadd    dword ptr [s_CurvesOne]
+        fmul    dword ptr [s_CurvesHalf]
+        fmul    dword ptr [esp + 4]
+        faddp   st(1), st
+        ret
+    }
+}
+} // namespace
 
 // 0x43C880
 float CCurves::CalcCorrectedDist(float current, float total, float speedVariation, float* outT) {
-    // Epsilon to avoid division by zero
-    if (total < 0.00001f) {
-        *outT = 0.5f;
-        return 0.0f;
-    }
-
-    *outT = 0.5f - (std::cos(PI * (current / total)) * 0.5f);
-
-    float averageSpeed = std::sin((current / total) * TWO_PI);
-    float correctedDist = averageSpeed * (total * (1.0f / TWO_PI)) * speedVariation + ((1.0f - (speedVariation + speedVariation) + 1.0f) * 0.5f) * current;
-
-    return correctedDist;
+    return CalcCorrectedDistX87(current, total, speedVariation, outT);
 }
 
 // 0x43C900
 void CCurves::CalcCurvePoint(const CVector& startCoors, const CVector& endCoors, const CVector& startDir, const CVector& endDir, float time, int32 traversalTimeInMS, CVector& resultCoor, CVector& resultSpeed) {
-    time = std::max(0.0f, std::min(1.0f, time));
+    // Como el original: NaN o <= 0 -> 0; >= 1 -> 1
+    if (!(time > 0.0f)) {
+        time = 0.0f;
+    } else if (!(time < 1.0f)) {
+        time = 1.0f;
+    }
 
     float bendDist, bendDist_Time, currentDist_Time, interpol, straightDist2, straightDist1, totalDist_Time, ourTime;
     float bendDistOneSegment;
@@ -161,7 +206,7 @@ void CCurves::CalcCurvePoint(const CVector& startCoors, const CVector& endCoors,
         endCoors.x, endCoors.y, -endDir.x, -endDir.y, startCoors.x, startCoors.y, startDir.x, startDir.y
     );
 
-    if (distToPoint1 <= 0.0f || distToPoint2 <= 0.0f) {
+    if (!(distToPoint1 > 0.0f) || !(distToPoint2 > 0.0f)) { // Como el original: NaN va al tramo recto
         straightDist1 = (startCoors - endCoors).Magnitude2D();
 
         interpol = straightDist1 / (1.0f - speedVariation);
@@ -180,28 +225,32 @@ void CCurves::CalcCurvePoint(const CVector& startCoors, const CVector& endCoors,
 
         bendDist = distToPoint1 - straightDist2;
         bendDistOneSegment = distToPoint2 - straightDist2;
-        totalDist_Time = bendDist + (straightDist2 + straightDist2) + bendDistOneSegment;
+        const float bendLen = straightDist2 + straightDist2;
+        totalDist_Time = bendLen + bendDistOneSegment + bendDist; // Como el original: (2·m + s2) + s1
         bendDist_Time = time * totalDist_Time;
 
         if (bendDist > bendDist_Time) {
             resultCoor = startCoors + startDir * bendDist_Time;
-        } else if (bendDist + (straightDist2 + straightDist2) <= bendDist_Time) {
+        } else if (!(bendLen + bendDist > bendDist_Time)) { // Como el original: NaN va al tramo final
             bendDist_Time = bendDist_Time - totalDist_Time;
             resultCoor = endCoors + endDir * bendDist_Time;
         } else {
-            float bendInter = (bendDist_Time - bendDist) / (straightDist2 + straightDist2);
+            float bendInter = (bendDist_Time - bendDist) / bendLen;
 
-            CVector bendStartCoors = startCoors + startDir * bendDist + startDir * (straightDist2 * bendInter);
-            CVector bendEndCoors = endCoors - endDir * bendDistOneSegment - endDir * (straightDist2 * (1.0f - bendInter));
+            // Como el original: (dir · t) · m, no dir · (m · t)
+            CVector bendStartCoors = startCoors + startDir * bendDist + (startDir * bendInter) * straightDist2;
+            CVector bendEndCoors = endCoors - endDir * bendDistOneSegment - (endDir * (1.0f - bendInter)) * straightDist2;
 
             resultCoor = Lerp(bendStartCoors, bendEndCoors, bendInter);
         }
     }
 
-    float speedFactor = (1.0f - time) * totalDist_Time;
-    float speedMillisFactor = static_cast<float>(traversalTimeInMS) / 1000.0f;
+    // Como el original: velocidad = lerp(dirs, t) · total / (ms · 0,001); sin el factor (1 - t)
+    const float speedMillisFactor = static_cast<float>(traversalTimeInMS) * 0.001f;
+    const CVector lerpDir = Lerp(startDir, endDir, time);
 
-    resultSpeed = Lerp(startDir, endDir, time) * (speedFactor / speedMillisFactor);
+    resultSpeed.x = lerpDir.x * totalDist_Time / speedMillisFactor;
+    resultSpeed.y = lerpDir.y * totalDist_Time / speedMillisFactor;
     resultSpeed.z = 0.0f;
 }
 

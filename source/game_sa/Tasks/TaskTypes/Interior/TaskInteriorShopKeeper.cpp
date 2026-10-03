@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -51,6 +51,9 @@ CTaskInteriorShopKeeper::CTaskInteriorShopKeeper(InteriorGroup_c* intGrp, bool b
 CTaskInteriorShopKeeper::CTaskInteriorShopKeeper(const CTaskInteriorShopKeeper& o) :
     CTaskInteriorShopKeeper{o.m_IntGrp, o.m_bIsSetup}
 {
+    // Como el original: Clone también copia la info y el interior ya encontrados
+    m_IntInfo = o.m_IntInfo;
+    m_Int     = o.m_Int;
 }
 
 // 0x6756A0
@@ -68,16 +71,22 @@ CTask* CTaskInteriorShopKeeper::CreateNextSubTask(CPed* ped) {
 // 0x676550
 CTask* CTaskInteriorShopKeeper::CreateFirstSubTask(CPed* ped) {
     if (!m_IntInfo) {
-        VERIFY(m_IntGrp->FindInteriorInfo(eInteriorInfoType::UNK_10, &m_IntInfo, &m_Int));
+        m_IntGrp->FindInteriorInfo(eInteriorInfoType::UNK_10, &m_IntInfo, &m_Int); // Como el original: sin comprobar el resultado
     }
     m_IntInfo->IsInUse = true;
-    return new CTaskInteriorUseInfo{ m_IntInfo, m_Int, 0, m_bIsSetup };
+    // Como el original: la primera vez marca m_bIsSetup y crea la subtarea con el flag a true; después con false
+    if (m_bIsSetup) {
+        return new CTaskInteriorUseInfo{ m_IntInfo, m_Int, 0, false };
+    }
+    m_bIsSetup = true;
+    return new CTaskInteriorUseInfo{ m_IntInfo, m_Int, 0, true };
 }
 
 // 0x675740
 CTask* CTaskInteriorShopKeeper::ControlSubTask(CPed* ped) {
     if (m_bStartServeAnim) {
-        return new CTaskSimpleRunAnim{ ANIM_GROUP_INT_SHOP, ANIM_ID_SHOP_CASHIER, 4.f, 0 };
+        m_bStartServeAnim = false; // Como el original: consume el aviso
+        return new CTaskSimpleRunAnim{ ANIM_GROUP_INT_SHOP, ANIM_ID_SHOP_CASHIER, 4.f, false };
     }
     return m_pSubTask;
 }

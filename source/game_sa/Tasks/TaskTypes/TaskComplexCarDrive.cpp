@@ -60,7 +60,8 @@ CTaskComplexCarDrive::CTaskComplexCarDrive(CVehicle* vehicle, float speed, eMode
     m_CruiseSpeed{speed},
     m_DesiredCarModel{carModelIndexToCreate},
     m_Veh{vehicle},
-    m_CarDrivingStyle{carDrivingStyle}
+    m_CarDrivingStyle{carDrivingStyle},
+    m_bAsDriver{true} // Como el original: mov byte ptr [esi+1Ch],1
 {
     CEntity::SafeRegisterRef(m_Veh);
 }

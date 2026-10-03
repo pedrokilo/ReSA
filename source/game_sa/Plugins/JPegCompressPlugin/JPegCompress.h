@@ -36,11 +36,11 @@ void JPegCompressScreenToBuffer(RwCamera* cam, uint8** buffer, size_t& bufferSiz
  *
  * @addr  0x5D05F0
  */
-void JPegDecompressToRaster(RwRaster* raster, struct jpeg_source_mgr& src);
+bool JPegDecompressToRaster(RwRaster* raster, struct jpeg_source_mgr& src);
 
 /**
  * Usa el buffer de galería como fuente JPEG y vuelca el resultado al raster indicado.
  *
  * @addr  0x5D05F0
  */
-void JPegDecompressToVramFromBuffer(RwRaster* raster, bool enable);
+bool JPegDecompressToVramFromBuffer(RwRaster* raster, bool enable);

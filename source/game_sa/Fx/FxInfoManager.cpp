@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -76,45 +76,59 @@ void FxInfoManager_c::InjectHooks() {
     RH_ScopedInstall(ProcessRenderInfo, 0x4A4A80);
 }
 
+namespace {
+// Como el original: cada FxInfo ocupa 0x18 bytes de la arena FX (g_fxMan, alineación 4) y, si la
+// reserva devuelve nullptr, no se ejecuta el constructor.
+template<typename T>
+FxInfo_c* NewFxInfoInPool() {
+    static_assert(sizeof(T) <= 0x18);
+    void* mem = g_fxMan.GetMemPool().GetMem(0x18, 4);
+    if (!mem) {
+        return nullptr;
+    }
+    return new (mem) T;
+}
+} // namespace
+
 // 0x4A7B00
 // Instancia la subclase correspondiente al identificador de bloque del archivo FX.
 FxInfo_c* FxInfoManager_c::AddFxInfo(int32 info) {
     switch (info) {
-    case FX_INFO_EMRATE_DATA:        return new FxInfoEmRate_c();
-    case FX_INFO_EMSIZE_DATA:        return new FxInfoEmSize_c();
-    case FX_INFO_EMSPEED_DATA:       return new FxInfoEmSpeed_c();
-    case FX_INFO_EMDIR_DATA:         return new FxInfoEmDir_c();
-    case FX_INFO_EMANGLE_DATA:       return new FxInfoEmAngle_c();
-    case FX_INFO_EMLIFE_DATA:        return new FxInfoEmLife_c();
-    case FX_INFO_EMPOS_DATA:         return new FxInfoEmPos_c();
-    case FX_INFO_EMWEATHER_DATA:     return new FxInfoEmWeather_c();
-    case FX_INFO_EMROTATION_DATA:    return new FxInfoEmRotation_c();
-    case FX_INFO_NOISE_DATA:         return new FxInfoNoise_c();
-    case FX_INFO_FORCE_DATA:         return new FxInfoForce_c();
-    case FX_INFO_FRICTION_DATA:      return new FxInfoFriction_c();
-    case FX_INFO_ATTRACTPT_DATA:     return new FxInfoAttractPt_c();
-    case FX_INFO_ATTRACTLINE_DATA:   return new FxInfoAttractLine_c();
-    case FX_INFO_GROUNDCOLLIDE_DATA: return new FxInfoGroundCollide_c();
-    case FX_INFO_WIND_DATA:          return new FxInfoWind_c();
-    case FX_INFO_JITTER_DATA:        return new FxInfoJitter_c();
-    case FX_INFO_ROTSPEED_DATA:      return new FxInfoRotSpeed_c();
-    case FX_INFO_FLOAT_DATA:         return new FxInfoFloat_c();
-    case FX_INFO_UNDERWATER_DATA:    return new FxInfoUnderwater_c();
-    case FX_INFO_COLOUR_DATA:        return new FxInfoColour_c();
-    case FX_INFO_SIZE_DATA:          return new FxInfoSize_c();
-    case FX_INFO_SPRITERECT_DATA:    return new FxInfoSpriteRect_c();
-    case FX_INFO_HEATHAZE_DATA:      return new FxInfoHeatHaze_c();
-    case FX_INFO_TRAIL_DATA:         return new FxInfoTrail_c();
-    case FX_INFO_FLAT_DATA:          return new FxInfoFlat_c();
-    case FX_INFO_DIR_DATA:           return new FxInfoDir_c();
-    case FX_INFO_ANIMTEX_DATA:       return new FxInfoAnimTexture_c();
-    case FX_INFO_COLOURRANGE_DATA:   return new FxInfoColourRange_c();
-    case FX_INFO_SELFLIT_DATA:       return new FxInfoSelfLit_c();
-    case FX_INFO_COLOURBRIGHT_DATA:  return new FxInfoColourBright_c();
-    case FX_INFO_SMOKE_DATA:         return new FxInfoSmoke_c();
-    // NOTSA case FX_INFO_ROTATE_DATA:        return new FxInfoRotate_c();
-    // NOTSA case FX_INFO_TEXCOORDS_DATA:     return new FxInfoTexCoords_c();
-    // NOTSA case FX_INFO_ROTATEOFFSET_DATA:  return new FxInfoRotateOffset_c();
+    case FX_INFO_EMRATE_DATA:        return NewFxInfoInPool<FxInfoEmRate_c>();
+    case FX_INFO_EMSIZE_DATA:        return NewFxInfoInPool<FxInfoEmSize_c>();
+    case FX_INFO_EMSPEED_DATA:       return NewFxInfoInPool<FxInfoEmSpeed_c>();
+    case FX_INFO_EMDIR_DATA:         return NewFxInfoInPool<FxInfoEmDir_c>();
+    case FX_INFO_EMANGLE_DATA:       return NewFxInfoInPool<FxInfoEmAngle_c>();
+    case FX_INFO_EMLIFE_DATA:        return NewFxInfoInPool<FxInfoEmLife_c>();
+    case FX_INFO_EMPOS_DATA:         return NewFxInfoInPool<FxInfoEmPos_c>();
+    case FX_INFO_EMWEATHER_DATA:     return NewFxInfoInPool<FxInfoEmWeather_c>();
+    case FX_INFO_EMROTATION_DATA:    return NewFxInfoInPool<FxInfoEmRotation_c>();
+    case FX_INFO_NOISE_DATA:         return NewFxInfoInPool<FxInfoNoise_c>();
+    case FX_INFO_FORCE_DATA:         return NewFxInfoInPool<FxInfoForce_c>();
+    case FX_INFO_FRICTION_DATA:      return NewFxInfoInPool<FxInfoFriction_c>();
+    case FX_INFO_ATTRACTPT_DATA:     return NewFxInfoInPool<FxInfoAttractPt_c>();
+    case FX_INFO_ATTRACTLINE_DATA:   return NewFxInfoInPool<FxInfoAttractLine_c>();
+    case FX_INFO_GROUNDCOLLIDE_DATA: return NewFxInfoInPool<FxInfoGroundCollide_c>();
+    case FX_INFO_WIND_DATA:          return NewFxInfoInPool<FxInfoWind_c>();
+    case FX_INFO_JITTER_DATA:        return NewFxInfoInPool<FxInfoJitter_c>();
+    case FX_INFO_ROTSPEED_DATA:      return NewFxInfoInPool<FxInfoRotSpeed_c>();
+    case FX_INFO_FLOAT_DATA:         return NewFxInfoInPool<FxInfoFloat_c>();
+    case FX_INFO_UNDERWATER_DATA:    return NewFxInfoInPool<FxInfoUnderwater_c>();
+    case FX_INFO_COLOUR_DATA:        return NewFxInfoInPool<FxInfoColour_c>();
+    case FX_INFO_SIZE_DATA:          return NewFxInfoInPool<FxInfoSize_c>();
+    case FX_INFO_SPRITERECT_DATA:    return NewFxInfoInPool<FxInfoSpriteRect_c>();
+    case FX_INFO_HEATHAZE_DATA:      return NewFxInfoInPool<FxInfoHeatHaze_c>();
+    case FX_INFO_TRAIL_DATA:         return NewFxInfoInPool<FxInfoTrail_c>();
+    case FX_INFO_FLAT_DATA:          return NewFxInfoInPool<FxInfoFlat_c>();
+    case FX_INFO_DIR_DATA:           return NewFxInfoInPool<FxInfoDir_c>();
+    case FX_INFO_ANIMTEX_DATA:       return NewFxInfoInPool<FxInfoAnimTexture_c>();
+    case FX_INFO_COLOURRANGE_DATA:   return NewFxInfoInPool<FxInfoColourRange_c>();
+    case FX_INFO_SELFLIT_DATA:       return NewFxInfoInPool<FxInfoSelfLit_c>();
+    case FX_INFO_COLOURBRIGHT_DATA:  return NewFxInfoInPool<FxInfoColourBright_c>();
+    case FX_INFO_SMOKE_DATA:         return NewFxInfoInPool<FxInfoSmoke_c>();
+    // NOTSA case FX_INFO_ROTATE_DATA:        return NewFxInfoInPool<FxInfoRotate_c>();
+    // NOTSA case FX_INFO_TEXCOORDS_DATA:     return NewFxInfoInPool<FxInfoTexCoords_c>();
+    // NOTSA case FX_INFO_ROTATEOFFSET_DATA:  return NewFxInfoInPool<FxInfoRotateOffset_c>();
     default:                         return nullptr;
     };
 }

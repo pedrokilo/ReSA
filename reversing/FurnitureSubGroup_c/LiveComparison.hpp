@@ -9,7 +9,7 @@
 #include "../ProbeSupport.hpp"
 namespace FurnitureLive {
 inline bool done{};inline std::ofstream log;inline uint32 randomValue{},randomCalls{};
-inline void Write(const json& r){log<<r.dump()<<'\n';log.flush();}
+inline void Write(const json& r){ ReversingProbe::PumpMessages();log<<r.dump()<<'\n';log.flush();}
 inline int Report(int t,char* msg,int*){if(t!=_CRT_ASSERT)return FALSE;Write({{"event","assertion"},{"message",msg?msg:""}});ExitProcess(91);}
 inline int __cdecl Random(){++randomCalls;return int(randomValue);}
 template<class T> struct Raw{alignas(T) std::array<uint8,sizeof(T)> bytes{};T* get(){return reinterpret_cast<T*>(bytes.data());}};

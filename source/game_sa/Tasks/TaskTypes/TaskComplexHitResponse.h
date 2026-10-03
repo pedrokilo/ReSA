@@ -28,8 +28,9 @@ public:
 
 private: // Wrappers for hooks
     // 0x631D70
-    CTaskComplexHitResponse* Constructor(eDirection hs) {
-        this->CTaskComplexHitResponse::CTaskComplexHitResponse(hs);
+    CTaskComplexHitResponse* Constructor(int32 hs) {
+        this->CTaskComplexHitResponse::CTaskComplexHitResponse((eDirection)hs);
+        m_HitSide.get_underlying_ref() = hs; // Como el original: se guarda el dword completo del argumento
         return this;
     }
 

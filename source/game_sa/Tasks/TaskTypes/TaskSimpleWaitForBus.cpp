@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -39,18 +39,20 @@ CTaskSimpleWaitForBus::CTaskSimpleWaitForBus(const CTaskSimpleWaitForBus& o) :
 
 // 0x632AA0
 bool CTaskSimpleWaitForBus::ProcessPed(CPed* ped) {
-    m_bus = [this, ped]() -> CVehicle* {
-        for (auto& veh : ped->GetIntelligence()->GetVehicleScanner().GetEntities<CVehicle>()) {
-            if (veh.vehicleFlags.bIsBus) {
-                if (veh.HasSpaceForAPassenger()) {
-                    if (sq(0.005f) >= veh.m_vecMoveSpeed.SquaredMagnitude()) {
-                        return &veh;
-                    }
-                }
-            }
+    // Como el original: m_bus solo se escribe al encontrar un autobús; si no hay ninguno devuelve false
+    for (auto* const entity : ped->GetIntelligence()->GetVehicleScanner().m_apEntities) {
+        const auto veh = static_cast<CVehicle*>(entity);
+        if (!veh || !veh->vehicleFlags.bIsBus) {
+            continue;
         }
-        return nullptr;
-    }();
-
-    return true;
+        // Como el original: primero la velocidad (comparación estricta) y después las plazas libres
+        if (!(sq(0.005f) > veh->m_vecMoveSpeed.SquaredMagnitude())) {
+            continue;
+        }
+        if (veh->HasSpaceForAPassenger()) {
+            m_bus = veh;
+            return true;
+        }
+    }
+    return false;
 }

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -47,6 +47,7 @@ CTaskSimpleHurtPedWithCar::CTaskSimpleHurtPedWithCar(const CTaskSimpleHurtPedWit
 
 // 0x653F90
 bool CTaskSimpleHurtPedWithCar::ProcessPed(CPed* ped) {
+    const auto hitSide = (uint8)CPedGeometryAnalyser::ComputePedHitSide(*ped, *m_Car); // Como el original: se calcula antes que nada
     CPedDamageResponseCalculator dmgRespCalc{
         m_Car,
         30.f,
@@ -59,12 +60,15 @@ bool CTaskSimpleHurtPedWithCar::ProcessPed(CPed* ped) {
         CTimer::GetTimeInMS(),
         WEAPON_RAMMEDBYCAR,
         PED_PIECE_TORSO,
-        (uint8)CPedGeometryAnalyser::ComputePedHitSide(*ped, *m_Car),
+        hitSide,
         false,
         ped->bInVehicle
     };
 
-    dmgEvent.ComputeDamageResponseIfAffectsPed(ped, dmgRespCalc, true);
+    // Como el original: sin marcar la respuesta como calculada si el evento no afecta al peaton
+    if (dmgEvent.AffectsPed(ped)) {
+        dmgRespCalc.ComputeDamageResponse(ped, dmgEvent.m_damageResponse, true);
+    }
     m_bWillKillPed = dmgEvent.GetDamageResponse().m_bHealthZero;
     if (m_bWillKillPed) {
         ped->GetEventGroup().Add(&dmgEvent);
@@ -74,7 +78,8 @@ bool CTaskSimpleHurtPedWithCar::ProcessPed(CPed* ped) {
     ped->bIsStanding       = false;
     ped->m_vecMoveSpeed    = CVector{ CVector2D{ m_Car->GetMoveSpeed() } * 0.75f };
 
-    m_Car->ApplyMoveForce((ped->GetPosition() - m_Car->GetPosition()).Normalized() * (std::min(m_Car->m_fMass / 1400.f, 1.f) * -60.f)); // TODO: 1400.f? I've seen it used a few times...
+    // Como el original: multiplica por la constante 1/1400 del EXE (0x864F98) en vez de dividir
+    m_Car->ApplyMoveForce((ped->GetPosition() - m_Car->GetPosition()).Normalized() * (std::min(m_Car->m_fMass * std::bit_cast<float>(0x3A3B3EE7u), 1.f) * -60.f));
 
     return true;
 }

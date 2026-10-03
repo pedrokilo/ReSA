@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -46,20 +46,17 @@ bool CTaskSimplePlayerOnFire::ProcessPed(CPed* ped) {
         return true;
     }
 
-    if (FindPlayerPed(0) == ped && FindPlayerInfo().m_bFireProof) {
+    // Como el original: lee CWorld::Players[0] directamente (FindPlayerPed/FindPlayerInfo en linea)
+    if (CWorld::Players[0].m_pPed == ped && CWorld::Players[0].m_bFireProof) {
         return false;
     }
 
-    // TODO: Add stubs
     CPedDamageResponse dmgResp;
     CTaskComplexOnFire::ComputeFireDamage(ped, dmgResp);
-    if (!dmgResp.m_bHealthZero || m_bAddedDamageEvent) {
-        if (CLocalisation::PedsOnFire()) { // Moved code a little to avoid dup
+    if (!dmgResp.m_bHealthZero) {
+        if (CLocalisation::PedsOnFire()) {
             ped->Say(CTX_GLOBAL_PAIN_ON_FIRE, 0, 0.1f); // Screaming
         }
-    }
-
-    if (!dmgResp.m_bHealthZero) {
         return false;
     }
 
@@ -67,8 +64,15 @@ bool CTaskSimplePlayerOnFire::ProcessPed(CPed* ped) {
         return true;
     }
 
+    // Como el original: tambien grita la primera vez que el dano es mortal
+    if (CLocalisation::PedsOnFire()) {
+        ped->Say(CTX_GLOBAL_PAIN_ON_FIRE, 0, 0.1f);
+    }
+
     CEventDamage dmgEvent{ nullptr, CTimer::GetTimeInMS(), WEAPON_FLAMETHROWER, PED_PIECE_TORSO, 0u, false, !!ped->bInVehicle };
+    dmgEvent.m_damageResponse = dmgResp; // Como el original: copia la respuesta calculada al evento
     ped->GetEventGroup().Add(&dmgEvent);
+    m_bAddedDamageEvent = true; // Como el original: solo se anade una vez
 
     return false;
 }

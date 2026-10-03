@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
 #include "RealTimeShadowManager.h"
 #include "Shadows.h"
 #include "CarFXRenderer.h"
+#include "CustomBuildingDNPipeline.h"
 
 void CCutsceneObject::InjectHooks() {
     RH_ScopedVirtualClass(CCutsceneObject, 0x868A60, 23);
@@ -63,7 +64,7 @@ void CCutsceneObject::SetModelIndex(unsigned index) {
         animData->m_FrameDatas->HasZVelocity = true;
         CCutsceneObject::SetupCarPipeAtomicsForClump(index, GetRpClump());
     }
-    GetModelInfo()->m_nAlpha = 0xFF;
+    CModelInfo::GetModelInfo(index)->m_nAlpha = 0xFF; // Como el original: usa el índice recibido
 }
 
 // 0x5B1B90
@@ -76,17 +77,19 @@ void CCutsceneObject::ProcessControl() {
     CPhysical::ProcessControl(); // exactly CPhysical
     if (m_pAttachToFrame) {
         if (m_pAttachmentObject) {
+            m_pAttachmentObject->UpdateRpHAnim(); // Como el original: actualiza la jerarquía del objeto antes de leer sus matrices
             auto* hierarchy = GetAnimHierarchyFromClump(m_pAttachmentObject->GetRpClump());
             auto* matArr = RpHAnimHierarchyGetMatrixArray(hierarchy);
             const auto boneMat = CMatrix(&matArr[m_nAttachBone], false);
             *static_cast<CMatrix*>(m_matrix) = boneMat;
+            SetWasPostponed(false); // Como el original: limpia el aplazamiento tras copiar la matriz del bone
         } else {
             auto* pLtm = RwFrameGetLTM(m_pAttachToFrame);
             const auto attachMat = CMatrix(pLtm, false);
             *static_cast<CMatrix*>(m_matrix) = attachMat;
         }
     } else {
-        if (CTimer::GetTimeStep() >= 0.01F)
+        if (!(CTimer::GetTimeStep() < 0.01F)) // Como el original: con NaN también divide
             m_vecMoveSpeed *= 1.0F / CTimer::GetTimeStep();
         else
             m_vecMoveSpeed *= 100.0F;
@@ -118,10 +121,13 @@ void CCutsceneObject::PreRender() {
             const auto* firstAtomic = GetFirstAtomic(GetRpClump());
             if (firstAtomic) {
                 if (RpSkinGeometryGetSkin(RpAtomicGetGeometry(firstAtomic))) {
+                    // Como el original: vuelve a pedir el primer atomic y copia la traslación del keyframe
+                    // del primer frame (no BonePos) al centro de la esfera del morph target 0
+                    const auto* atomic = GetFirstAtomic(GetRpClump());
                     auto* animData = RpAnimBlendClumpGetData(GetRpClump());
-                    auto* morphTarget = RpGeometryGetMorphTarget(RpAtomicGetGeometry(firstAtomic), 0);
+                    auto* morphTarget = RpGeometryGetMorphTarget(RpAtomicGetGeometry(atomic), 0);
                     auto* sphere = RpMorphTargetGetBoundingSphere(morphTarget);
-                    sphere->center = animData->m_FrameDatas[0].BonePos;
+                    sphere->center = animData->m_FrameDatas[0].KeyFrame->t;
                 }
             }
         }
@@ -154,8 +160,13 @@ void CCutsceneObject::PreRender() {
     CColPoint colPoint{};
     CEntity* entity = nullptr;
     if (CWorld::ProcessVerticalLine(vecPos, fHeight, colPoint, entity, true)) {
-        const auto fDayNight = colPoint.m_nLightingB.GetCurrentLighting();
-        m_fContactSurfaceBrightness = lerp(m_fContactSurfaceBrightness, fDayNight, CTimer::GetTimeStep() / 10.0F);
+        // Como el original: día/noche multiplicados por 1/30 (0x858F10) y mezcla con timestep * 0.1
+        const auto  lighting = colPoint.m_nLightingB;
+        const float balance  = CCustomBuildingDNPipeline::m_fDNBalanceParam;
+        const float t        = CTimer::GetTimeStep() * 0.1F;
+        constexpr float k    = std::bit_cast<float>(0x3D088889u); // 1/30
+        const float fDayNight = static_cast<float>(lighting.day) * k * (1.0F - balance) + static_cast<float>(lighting.night) * k * balance;
+        m_fContactSurfaceBrightness = fDayNight * t + (1.0F - t) * m_fContactSurfaceBrightness;
     }
 }
 

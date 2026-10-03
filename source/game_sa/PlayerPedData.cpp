@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -67,7 +67,14 @@ CPlayerPedData *CPlayerPedData::Destructor() {
 // 0x571880
 void CPlayerPedData::AllocateData() {
     if (!m_pWanted) {
-      m_pWanted = new CWanted();
+        // Como el original: constructor de CWanted inlinado; solo escribe la vtable de CAEPoliceScannerAudioEntity (+0x21C)
+        // y el puntero de entidad física de su sonido temporal (+0x22C). `new CWanted()` pondría a cero los 0x29C bytes.
+        auto* const wanted = static_cast<uint8*>(::operator new(sizeof(CWanted)));
+        if (wanted) {
+            *reinterpret_cast<uint32*>(wanted + 0x22C) = 0;
+            *reinterpret_cast<uint32*>(wanted + 0x21C) = 0x85F368;
+        }
+        m_pWanted = reinterpret_cast<CWanted*>(wanted);
     }
     m_pWanted->Initialise();
 
@@ -79,10 +86,15 @@ void CPlayerPedData::AllocateData() {
 
 //  0x56F890
 void CPlayerPedData::DeAllocateData() {
-    delete m_pWanted;
+    // Como el original: operator delete solo se llama con punteros no nulos (la expresión delete de MSVC lo llamaría con null)
+    if (m_pWanted) {
+        delete m_pWanted;
+    }
     m_pWanted = nullptr;
 
-    delete m_pPedClothesDesc;
+    if (m_pPedClothesDesc) {
+        delete m_pPedClothesDesc;
+    }
     m_pPedClothesDesc = nullptr;
 }
 
@@ -128,8 +140,11 @@ void CPlayerPedData::SetInitialState() {
     m_pCurrentProstitutePed = nullptr;
     m_pLastProstituteShagged = nullptr;
 
-    m_bCanBeDamaged = true;
-    m_bRenderWeapon = true;
+    // Como el original: (flags & 0xFFFFF7B0) | 0x1010 y después & ~0x80: limpia bStoppedMoving, bAdrenaline,
+    // bHaveTargetSelected, bFreeAiming, bJustBeenSnacking, bRequireHandleBreath y bInVehicleDontAllowWeaponChange,
+    // y activa bCanBeDamaged y bRenderWeapon
+    m_nPlayerFlags = (m_nPlayerFlags & 0xFFFFF7B0u) | 0x1010u;
+    m_nPlayerFlags &= ~0x80u;
 
     m_nLastHSMissileLOSTime = 0;
     m_bLastHSMissileLOS = true;

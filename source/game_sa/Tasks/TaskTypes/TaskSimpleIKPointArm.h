@@ -15,7 +15,7 @@ class NOTSA_EXPORT_VTABLE CTaskSimpleIKPointArm final : public CTaskSimpleIKChai
 public:
     static constexpr auto Type = TASK_SIMPLE_IK_POINT_R_ARM; // Weird.. L_ARM never used?
 
-    CTaskSimpleIKPointArm(const char* purpose, eIKArm arm, CEntity* targetEntity, eBoneTag offsetBoneTag, CVector offsetPos, float speed, int32 blendTime);
+    CTaskSimpleIKPointArm(const char* purpose, eIKArm arm, CEntity* targetEntity, eBoneTag32 offsetBoneTag, CVector offsetPos, float speed, int32 blendTime);
     ~CTaskSimpleIKPointArm() override = default; // 0x634240
 
     eTaskType GetTaskType() const override { return Type; }

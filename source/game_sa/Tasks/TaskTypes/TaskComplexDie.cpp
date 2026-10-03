@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -38,7 +38,12 @@ void CTaskComplexDie::InjectHooks() {
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x6302D0);
 }
 
-CTaskComplexDie* CTaskComplexDie::Constructor(eWeaponType nWeaponType, AssocGroupId animGroup, AnimationId animID, float fBlendDelta, float fAnimSpeed, bool bBeingKilledByStealth, bool bFallingToDeath, eDirection nFallToDeathDir, bool bFallToDeathOverRailing) { this->CTaskComplexDie::CTaskComplexDie(nWeaponType, animGroup, animID, fBlendDelta, fAnimSpeed, bBeingKilledByStealth, bFallingToDeath, nFallToDeathDir, bFallToDeathOverRailing); return this; }
+// Como el original: el hook recibe la dirección como dword completo y la guarda entera en +0x24
+CTaskComplexDie* CTaskComplexDie::Constructor(eWeaponType nWeaponType, AssocGroupId animGroup, AnimationId animID, float fBlendDelta, float fAnimSpeed, bool bBeingKilledByStealth, bool bFallingToDeath, int32 nFallToDeathDir, bool bFallToDeathOverRailing) {
+    this->CTaskComplexDie::CTaskComplexDie(nWeaponType, animGroup, animID, fBlendDelta, fAnimSpeed, bBeingKilledByStealth, bFallingToDeath, static_cast<eDirection>(nFallToDeathDir), bFallToDeathOverRailing);
+    m_nFallToDeathDir.m_Value = nFallToDeathDir;
+    return this;
+}
 
 // 0x630040
 CTaskComplexDie::CTaskComplexDie(
@@ -123,10 +128,10 @@ CTask* CTaskComplexDie::CreateNextSubTask(CPed* ped) {
 CTask* CTaskComplexDie::CreateFirstSubTask(CPed* ped) {
     SayDeathSample(ped);
 
-    if (m_nWeaponType == WEAPON_DROWNING && ped->bInVehicle && !ped->bForceDieInCar) {
-        if (ped->m_pVehicle && (ped->m_pVehicle->IsSubPlane() || ped->m_pVehicle->IsSubHeli())) {
-            return nullptr;
-        }
+    // Como el original: en aviones/helicópteros no sale del coche, pero tampoco devuelve nullptr;
+    // continúa por el camino general (0x630329/0x63032E saltan a 0x630371).
+    if (m_nWeaponType == WEAPON_DROWNING && ped->bInVehicle && !ped->bForceDieInCar
+        && (!ped->m_pVehicle || (!ped->m_pVehicle->IsSubPlane() && !ped->m_pVehicle->IsSubHeli()))) {
         return new CTaskComplexLeaveCar(ped->m_pVehicle, 0, 0, false, true);
     }
 
@@ -135,7 +140,7 @@ CTask* CTaskComplexDie::CreateFirstSubTask(CPed* ped) {
 
     if (ped->bInVehicle) // repeated branch
     {
-        return new CTaskComplexDieInCar(WEAPON_UNARMED);
+        return new CTaskComplexDieInCar(m_nWeaponType); // Como el original: mov edi,[edi+0Ch] -> [esi+0Ch]
     }
     else if (m_nWeaponType == WEAPON_DROWNING)
     {
@@ -154,7 +159,7 @@ CTask* CTaskComplexDie::CreateFirstSubTask(CPed* ped) {
                 return {};
             }
         }();
-        return new CTaskComplexFallToDeath(static_cast<int32>(m_nFallToDeathDir), fallDirection, m_bFallToDeathOverRailing, false);
+        return new CTaskComplexFallToDeath(m_nFallToDeathDir.m_Value, fallDirection, m_bFallToDeathOverRailing, false);
     }
 
     return new CTaskSimpleDie(m_nAnimGroup, m_nAnimID, m_fBlendDelta, m_fAnimSpeed);

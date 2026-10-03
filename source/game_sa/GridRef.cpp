@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -36,21 +36,20 @@ void CGridRef::InjectHooks() {
 
 // 0x71D4E0
 void CGridRef::Init() {
+    // Como el original: x/y se inicializan una sola vez y conservan el último valor leído entre líneas;
+    // sscanf/_strlwr/strcpy sin comprobaciones (índice plano (x - 'A') * 10 + y - 1 con x sin signo).
     char str[32];
+    char x_ch = 0;
+    int32 y = 0;
     CFileMgr::SetDir("");
     auto* file = CFileMgr::OpenFile("DATA\\GRIDREF.DAT", "rb");
     for (auto line = CFileLoader::LoadLine(file); line; line = CFileLoader::LoadLine(file)) {
         if (*line == '#' || !*line)
             continue;
 
-        char x_ch = 0;
-        int32 y = 0;
-        VERIFY(sscanf_s(line, "%c%d %s", &x_ch, 1u, &y, SCANF_S_STR(str)) == 3);
-        _strlwr_s(str);
-        int8 x = x_ch - 'A'; // Get alphabetical index
-        y -= 1;
-        assert(x >= 0 && y >= 0);
-        strcpy_s(GridRefList[x][y], str);
+        sscanf(line, "%c%d %s", &x_ch, &y, str);
+        const char* lower = _strlwr(str);
+        strcpy(reinterpret_cast<char(*)[32]>(&GridRefList[0][0][0])[(int32)(uint8)x_ch * 10 + y - ('A' * 10 + 1)], lower);
     }
     CFileMgr::CloseFile(file);
 }
@@ -68,17 +67,23 @@ char* CGridRef::GetArtistBugstarID(uint8 x, uint8 y) {
     if (x >= 10 || y >= 10)
         return nullptr;
     else
-        return {};
+        return &StaticRef<char>(0x858B54); // Como el original: cadena vacía del EXE
 }
 
 // 0x71D5A0
 void CGridRef::GetGridRefPositions(CVector pos, uint8* x, uint8* y) {
-    *x =     (uint32)((pos.x + 3000.0) / 600.0f);
-    *y = 9 - (uint32)((pos.y + 3000.0) / 600.0f);
+    // Como el original: (p + 3000) * (1/600 en float, 0x3ADA740E) en float y truncado con _ftol2.
+    const float inv600 = std::bit_cast<float>(0x3ADA740Eu);
+    *x =     (uint8)(int64)((pos.x + 3000.0f) * inv600);
+    *y = 9 - (uint8)(int64)((pos.y + 3000.0f) * inv600);
 }
 
 // 0x71D5E0
 void CGridRef::GetGridRefPositions(uint8* x, uint8* y) {
-    const auto& coors = FindPlayerCoors();
-    GetGridRefPositions(coors, x, y);
+    // Como el original: FindPlayerCoors se llama dos veces y se usa la segunda; el cálculo va en línea.
+    FindPlayerCoors();
+    const CVector coors = FindPlayerCoors();
+    const float inv600 = std::bit_cast<float>(0x3ADA740Eu);
+    *x =     (uint8)(int64)((coors.x + 3000.0f) * inv600);
+    *y = 9 - (uint8)(int64)((coors.y + 3000.0f) * inv600);
 }

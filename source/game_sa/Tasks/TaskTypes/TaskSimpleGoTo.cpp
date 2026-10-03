@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -37,14 +37,15 @@ CTaskSimpleGoTo::CTaskSimpleGoTo(eMoveState moveState, const CVector& targetPoin
     m_moveState = moveState;
     m_vecTargetPoint = targetPoint;
     m_fRadius = fRadius;
-    m_GoToFlags = 0;
+    m_GoToFlags &= 0xC0; // Como el original: and byte ptr [esi+1Ch],0C0h (conserva los bits 6 y 7)
 }
 
 // 0x667A10
 bool CTaskSimpleGoTo::HasCircledTarget(CPed* ped) 
 {
     const CVector& pedPos = ped->GetPosition();
-    if (!ped->bIgnoreHeightCheckOnGotoPointTask && fabs(pedPos.z - m_vecTargetPoint.z) >= 2.0f)
+    // Como el original: fcomp + test ah,5 / jp (un NaN también devuelve false)
+    if (!ped->bIgnoreHeightCheckOnGotoPointTask && !(std::fabs(pedPos.z - m_vecTargetPoint.z) < 2.0f))
         return false;
 
     if (m_vecTargetPoint.x > pedPos.x)
@@ -72,11 +73,15 @@ void CTaskSimpleGoTo::SetUpIK(CPed* ped)
             if (vecDistance.SquaredMagnitude() > 9.0f) {
                 CVector direction(vecDistance);
                 direction.Normalise();
-                if (DotProduct(&direction, &ped->GetForward()) < ms_fLookAtThresholdDotProduct) {
+                // Como el original: el producto escalar se suma en orden z, y, x
+                const CVector& fwd = ped->GetForward();
+                if (direction.z * fwd.z + direction.y * fwd.y + direction.x * fwd.x < ms_fLookAtThresholdDotProduct) {
                     CVector position = direction + direction;
                     position.x += m_vecTargetPoint.x;
                     position.y += m_vecTargetPoint.y;
-                    position.z += ped->GetPosition().z + 0.61f;
+                    // Como el original: (2*dir.z + ped.z) + 0.61
+                    position.z = position.z + ped->GetPosition().z;
+                    position.z = position.z + 0.61f;
                     g_ikChainMan.LookAt("TaskGoTo", ped, nullptr, 5000, BONE_UNKNOWN, &position, false, 0.25f, 500, 3, false);
                     gotoFlags.m_bIsIKChainSet = true;
                 }

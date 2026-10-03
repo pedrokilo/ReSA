@@ -2,23 +2,24 @@
 
 #include "TaskAllocatorKillThreatsBasic.h"
 
-// Originally didn't inherit from `CTaskAllocatorKillThreatsBasic`,
-// but they share a few things, so why not
-class NOTSA_EXPORT_VTABLE CTaskAllocatorKillThreatsDriveby final : public CTaskAllocatorKillThreatsBasic {
+// Como el original: no hereda de `CTaskAllocatorKillThreatsBasic` (0x14 bytes: vtable, amenaza y temporizador).
+// Antes heredaba y volvía a declarar m_Threat/m_Timer: el objeto medía 0x24 y AllocateTasks leía la amenaza de +0x14.
+class NOTSA_EXPORT_VTABLE CTaskAllocatorKillThreatsDriveby final : public CTaskAllocator {
 public:
     constexpr static inline auto Type = eTaskAllocatorType::KILL_THREATS_DRIVEBY;
 
     static void InjectHooks();
 
-    using CTaskAllocatorKillThreatsBasic::CTaskAllocatorKillThreatsBasic;
+    explicit CTaskAllocatorKillThreatsDriveby(CPed* threat);
     ~CTaskAllocatorKillThreatsDriveby() override = default;
 
     eTaskAllocatorType GetType() override { return eTaskAllocatorType::KILL_THREATS_DRIVEBY; }; // 0x69CB50
     void               AllocateTasks(CPedGroupIntelligence* intel) override;
+    CTaskAllocator*    ProcessGroup(CPedGroupIntelligence* intel) override;
 
 public:
-    CPed::Ref  m_Threat{};
-    CTaskTimer m_Timer{};
+    CPed::Ref  m_Threat;
+    CTaskTimer m_Timer; // Como el original: sin `{}` (la inicialización por valor pondría a cero el relleno 0x12..0x13)
 
 private: // Wrappers for hooks
     // 0x69CAF0
@@ -33,3 +34,4 @@ private: // Wrappers for hooks
         return this;
     }
 };
+VALIDATE_SIZE(CTaskAllocatorKillThreatsDriveby, 0x14);

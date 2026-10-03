@@ -1,0 +1,87 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 11712,
+  "pairs_per_function": {
+    "cTransmission::InitGearRatios": 512,
+    "cTransmission::CalculateGearForSimpleCar": 1024,
+    "cTransmission::DisplayGearRatios": 256,
+    "cTransmission::CalculateDriveAcceleration": 1024,
+    "CWaterCannons::Init": 64,
+    "CWaterCannons::UpdateOne": 1024,
+    "CWaterCannons::Update": 256,
+    "CWaterCannons::Render": 256,
+    "FxInfoManager_c::AddFxInfo": 512,
+    "FxInfoManager_c::ProcessEmissionInfo": 512,
+    "FxInfoManager_c::ProcessMovementInfo": 512,
+    "FxInfoManager_c::ProcessRenderInfo": 512,
+    "FxSphere_c::operator new": 256,
+    "FxSphere_c::operator delete-": 128,
+    "FxSphere_c::IsCollision": 1024,
+    "FxSphere_c::GetDistToPlane": 1024,
+    "ProcSurfaceInfo_c::Init": 512,
+    "ProcSurfaceInfo_c::Exit": 256,
+    "ProcSurfaceInfo_c::AddObject": 1024,
+    "ProcSurfaceInfo_c::AddObjects": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "7e6abdd8774094e6dfd0c91eedbecdc04ee7162aacc336929ad987d9b8c559e3",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-misc8\\20261002-182644-454625",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "cTransmission::InitGearRatios": true,
+    "cTransmission::CalculateGearForSimpleCar": true,
+    "cTransmission::DisplayGearRatios": true,
+    "cTransmission::CalculateDriveAcceleration": true,
+    "CWaterCannons::Init": true,
+    "CWaterCannons::UpdateOne": true,
+    "CWaterCannons::Update": true,
+    "CWaterCannons::Render": true,
+    "FxInfoManager_c::AddFxInfo": true,
+    "FxInfoManager_c::ProcessEmissionInfo": true,
+    "FxInfoManager_c::ProcessMovementInfo": true,
+    "FxInfoManager_c::ProcessRenderInfo": true,
+    "FxSphere_c::operator new": true,
+    "FxSphere_c::operator delete-": true,
+    "FxSphere_c::IsCollision": true,
+    "FxSphere_c::GetDistToPlane": true,
+    "ProcSurfaceInfo_c::Init": true,
+    "ProcSurfaceInfo_c::Exit": true,
+    "ProcSurfaceInfo_c::AddObject": true,
+    "ProcSurfaceInfo_c::AddObjects": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "c14a4177695d3ebcdbc400edd2e606551dc22434f30cfccbf143dc3844d7f888",
+      "pdb": "5a89a7c0598dbe40b6bc7eea397f18ed14dd7004a3b34e20b253665f5d9d8516"
+    },
+    "sources": {
+      "source/game_sa/cTransmission.cpp": "6d4ab27e36e28ff51d9686005f32489ea26e7d4e2d63a10915fcb3227da298fe",
+      "source/game_sa/WaterCannons.cpp": "6ff7d540bd94465f08737460a6a59896900444b9e7810d8c82518f3174d75f33",
+      "source/game_sa/Fx/FxInfoManager.cpp": "11d26e192b39f1b70220f475dd0d99631ad8def3ece36e59e2a361e4a6869ee1",
+      "source/game_sa/Fx/FxSphere.cpp": "5d39a03f7a4498e2a902e7c96199acc17e0bbbce4ff5902530f7a892874d5ae9",
+      "source/game_sa/Plant/ProcSurfaceInfo.cpp": "35a26f33c908dc3a0f2b92da9ec29841235583e2d3d44d21a3884acb93c735a7",
+      "source/game_sa/Plant/ProcSurfaceInfo.h": "0d9b20b0ffeaf0f3c8991ca0a6ff602e221629a5523885e6f5f26e863b0b928a"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "d3c29b24168eff5fcf45a479be3e83b7abfb699b56cf0e94f9b293012ee6f59c",
+      "build_probe.py": "6e6e5a0c1c59503b3e89f0078f1782f3e058c87cd1bf31ef187437ed06f61ebe",
+      "run_local.py": "b88ff741461c180913ecac74ffbed1ea598d69bfab7cce0c2fc0760dd9995e9b"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "AddFxInfo compara retorno, tipo y la traza de GetMem, no los bytes del objeto construido; sin rand real del EXE en AddObjects."
+  ]
+}

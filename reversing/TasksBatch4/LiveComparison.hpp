@@ -32,7 +32,7 @@
 
 namespace Tasks4Live {
 inline bool done{}; inline std::ofstream log; inline json trace;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 inline uint32 F(float f) { return std::bit_cast<uint32>(f); }
 constexpr int FAKES=8;                 // 0 subtarea, 1-2 tareas del cerebro/evento, 3 resultado de Clone, 4-7 tareas de secuencia
 constexpr size_t FK_CLONE=0x34, FK_TYPE=0x38, FK_ABORT=0x3C;   // configuracion por objeto dentro de cada tarea falsa

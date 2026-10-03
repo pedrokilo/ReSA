@@ -27,7 +27,7 @@ def main():
             content = content.replace('#include "StdInc.h"', '#include "StdInc.h"\n#include "../../reversing/CTaskSimpleJetPack/'+header+'"').replace(anchor, anchor+injected)
             if p.name == 'TaskSimpleJetPack.cpp':
                 content = content.replace('../../reversing/CTaskSimpleJetPack/Probe.hpp', '../../../../reversing/CTaskSimpleJetPack/Probe.hpp')
-            p.write_text(content, encoding='utf-8')
+            p.write_bytes(content.encode('utf-8'))
         with (artifacts/'probe-build.log').open('w') as log:
             subprocess.run([str(CMAKE),'--build',str(ROOT/'build'),'--config','Debug'],stdout=log,stderr=subprocess.STDOUT,check=True)
         hashes = {}

@@ -14,7 +14,7 @@ inline std::ofstream output;
 inline bool done{};
 inline int step{};
 inline std::filesystem::path directory;
-inline void Write(const json& row) { output << row.dump() << '\n'; output.flush(); }
+inline void Write(const json& row) { { static DWORD pumpLast=0; const DWORD pumpNow=GetTickCount(); if(pumpNow-pumpLast>=250){ pumpLast=pumpNow; MSG pumpMsg; PeekMessageA(&pumpMsg,nullptr,0,0,PM_NOREMOVE); } } output << row.dump() << '\n'; output.flush(); }
 inline int ReportHook(int type, char* message, int*) {
     if (type != _CRT_ASSERT) return FALSE;
     Write({{"event", "assertion"}, {"message", message ? message : ""},

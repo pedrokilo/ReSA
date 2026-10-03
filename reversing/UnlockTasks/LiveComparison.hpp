@@ -16,7 +16,7 @@
 namespace UTLive {
 inline bool done{}; inline std::ofstream log;
 inline int currentFunction=-1,currentCase=-1;inline bool candidatePhase{};
-inline void Write(const json& r){log<<r.dump()<<'\n';}
+inline void Write(const json& r){ ReversingProbe::PumpMessages();log<<r.dump()<<'\n';}
 inline int __cdecl RuntimeError(int type,const wchar_t*,int line,const wchar_t*,const wchar_t*,...) {
     void* frames[32]{};const auto n=CaptureStackBackTrace(0,32,frames,nullptr);json stack=json::array();
     HMODULE module{};GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS|GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,reinterpret_cast<LPCSTR>(&RuntimeError),&module);

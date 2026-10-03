@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -55,13 +55,16 @@ void FurnitureGroup_c::Exit() {
  * el almacén fijo del que procede y esta lista sólo mantiene el enlace.
  */
 bool FurnitureGroup_c::AddSubGroup(int32 subGroupId, int32 minWidth, int32 minDepth, int32 maxWidth, int32 maxDepth, uint8 canPlaceInFrontOfWindow, bool isTall, bool canSteal) {
-    const auto sg = FurnitureManager_c::NewSubGroup();
-    if (!sg) {
+    // Como el original: NewSubGroup en línea con el contador de 16 bits de 0xBAB37C (la DLL lo declara uint32)
+    auto& numSubGroups  = StaticRef<uint16>(0xBAB37C);
+    auto& subGroupStore = StaticRef<std::array<FurnitureSubGroup_c, 128>>(0xBAD3F8);
+    if (numSubGroups >= subGroupStore.size()) {
         return false;
     }
+    const auto sg = &subGroupStore.data()[numSubGroups++];
 
     sg->m_SubGroupId = subGroupId;
-    sg->m_bCanPlaceInFrontOfWindow = canPlaceInFrontOfWindow;
+    reinterpret_cast<uint8&>(sg->m_bCanPlaceInFrontOfWindow) = canPlaceInFrontOfWindow; // Como el original: copia el byte tal cual (asignar a bool lo normalizaba a 0/1)
     sg->m_bIsTall = isTall;
     sg->m_bCanSteal = canSteal;
 
@@ -88,10 +91,13 @@ int32 FurnitureGroup_c::GetRandomId(int32 subGroupId, uint8 rating) {
 
 // 0x5C0230
 bool FurnitureGroup_c::AddFurniture(int32 subGroupId, uint16 modelId, int16 id, uint8 wealthMin, uint8 wealthMax, uint8 maxAng) {
-    if (const auto sg = GetSubGroup(subGroupId)) {
-        return sg->AddFurniture(modelId, id, wealthMin, wealthMax, maxAng);
+    // Como el original: añade a todos los subgrupos con ese ID (no para en el primero) y siempre devuelve true
+    for (auto& sg : m_subGroupsList) {
+        if (sg.m_SubGroupId == subGroupId) {
+            sg.AddFurniture(modelId, id, wealthMin, wealthMax, maxAng);
+        }
     }
-    return false;
+    return true;
 }
 
 // NOTSA

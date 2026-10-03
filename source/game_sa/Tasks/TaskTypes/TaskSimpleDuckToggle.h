@@ -22,7 +22,7 @@ public:
     CTaskSimpleDuckToggle(eMode mode);
     ~CTaskSimpleDuckToggle() override = default; // 0x62F6D0
 
-    CTask*    Clone() const override { return new CTaskSimpleDuckToggle{ *this }; } // 0x635C90
+    CTask*    Clone() const override { return new CTaskSimpleDuckToggle{ m_ToggleMode }; } // 0x635C90 - Como el original: solo pasa el modo (el padre no se copia)
     eTaskType GetTaskType() const override { return Type; } // 0x62F6B0
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, CEvent const* event = nullptr) override { return true; } // 0x62F6C0
     bool      ProcessPed(CPed* ped) override;

@@ -64,7 +64,9 @@ CTaskInteriorUseInfo::CTaskInteriorUseInfo(const CTaskInteriorUseInfo& o) :
 
 // 0x675A90
 CTaskInteriorUseInfo::~CTaskInteriorUseInfo() {
-    m_IntInfo->IsInUse = false;
+    if (m_IntInfo) { // Como el original (0x675A93): comprueba el puntero antes de escribir
+        m_IntInfo->IsInUse = false;
+    }
 }
 
 // 0x675B30

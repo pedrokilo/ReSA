@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -135,16 +135,20 @@ CTask* CTaskComplexFallToDeath::CreateFirstSubTask(CPed* ped) {
 CTask* CTaskComplexFallToDeath::CreateNextSubTask(CPed* ped) {
     // return plugin::CallMethodAndReturn<CTask*, 0x679270, CTaskComplexFallToDeath*, CPed*>(this, ped);
 
-    const auto& z = ped->GetMoveSpeed().z;
     switch (m_pSubTask->GetTaskType()) {
     case TASK_SIMPLE_IN_AIR: {
-        b0x4 = z < 0.0f ? z > -0.1f : z < 0.1f;
+        // Como el original: |z| (fchs si z < 0); caida rapida (|z| >= 0.1 o NaN) => b0x4 y animacion KO_SKID_FRONT
+        const float z = ped->GetMoveSpeed().z;
+        const float absZ = z < 0.0f ? -z : z;
+        b0x4 = !(absZ < 0.1f);
         return new CTaskSimpleLand(b0x4 ? ANIM_ID_KO_SKID_FRONT : ANIM_ID_UNDEFINED);
     }
     case TASK_SIMPLE_LAND: {
         if (!b0x1) {
-            bool v11 = z < 0.0f ? z > -0.01f : z < 0.01f;
-            if (v11 && (!ped->m_pContactEntity || ped->m_pContactEntity->GetIsTypeBuilding())) {
+            // Como el original: si aun se mueve en vertical (|z| >= 0.01 o NaN) vuelve al aire
+            const float z = ped->GetMoveSpeed().z;
+            const float absZ = z < 0.0f ? -z : z;
+            if (!(absZ < 0.01f) && (!ped->m_pContactEntity || ped->m_pContactEntity->GetIsTypeBuilding())) {
                 b0x1 = true;
                 return new CTaskSimpleInAir(false, true, false);
             }
@@ -174,46 +178,54 @@ bool CTaskComplexFallToDeath::CalcFall(CPed* ped, int32& outFallDir, bool& outFa
         return false;
     }
 
+    // Como el original: rand() & 3 dos veces por intercambio, 8 intercambios
     eDirection rndFallDirs[4]{eDirection::FORWARD, eDirection::LEFT, eDirection::BACKWARD, eDirection::RIGHT};
     for (auto i = 8; i-- > 0;) {
-        const auto GetRandomEntry = [&]() -> eDirection& {
-            return CGeneral::RandomChoice(rndFallDirs);
-        };
-        std::swap(GetRandomEntry(), GetRandomEntry());
+        const auto a = CGeneral::GetRandomNumber() & 3;
+        const auto b = CGeneral::GetRandomNumber() & 3;
+        std::swap(rndFallDirs[a], rndFallDirs[b]);
     }
 
-    const CVector pedPos{ped->GetPosition()};
-    for (auto i = 0;i < 2;i++) {
-        const auto vecFallDir = [&]{
-            outFallDir = (int32)rndFallDirs[i];
-            switch (rndFallDirs[i]) {
-            case eDirection::FORWARD:
-                return ped->GetForward();
-            case eDirection::LEFT:
-                return -ped->GetRight();
-            case eDirection::BACKWARD:
-                return -ped->GetForward();
-            case eDirection::RIGHT:
-                return ped->GetRight();
-            default:
-                NOTSA_UNREACHABLE();
-            }
-        }();
-        const auto IsLOSClear = [](CVector origin, CVector target) {
-            return !CWorld::GetIsLineOfSightClear(origin, target, true, true, false, true, false, false, false);
-        };
-        constexpr auto FALL_OFFSET_Z = CVector{0.f, 0.f, 0.375f};
-        auto fallPos = pedPos + vecFallDir * 1.5f + FALL_OFFSET_Z;
-        if (!IsLOSClear(fallPos, fallPos - CVector{0.f, 0.f, 4.f})) {
+    const auto IsLOSClear = [](const CVector& origin, const CVector& target) {
+        return CWorld::GetIsLineOfSightClear(origin, target, true, true, false, true, false, false, false);
+    };
+
+    // Como el original: los vectores salen directamente de la matriz y cada suma sigue el orden del EXE
+    const CMatrix& mat = *ped->m_matrix;
+    for (auto i = 0; i < 2; i++) {
+        outFallDir = (int32)rndFallDirs[i];
+        CVector dir{};
+        switch (rndFallDirs[i]) {
+        case eDirection::FORWARD:  dir = mat.GetForward(); break;
+        case eDirection::LEFT:     dir = mat.GetRight() * -1.0f; break;
+        case eDirection::BACKWARD: dir = mat.GetForward() * -1.0f; break;
+        case eDirection::RIGHT:    dir = mat.GetRight(); break;
+        default:                   NOTSA_UNREACHABLE();
+        }
+        const CVector offset = dir * ms_FallCheckOffset;
+        const CVector offsetFar = dir * 0.7f;
+
+        // 1. Hay vacio bajo el punto de caida
+        CVector pedPos = ped->GetPosition();
+        const CVector fallPos{ pedPos.x + offset.x, pedPos.y + offset.y, (ms_FallCheckHeight + pedPos.z) + offset.z };
+        if (!IsLOSClear(fallPos, CVector{ fallPos.x, fallPos.y, fallPos.z - ms_FallCheckDepth })) {
             continue;
         }
-        fallPos += vecFallDir * 0.7f;
-        if (!IsLOSClear(fallPos, pedPos + CVector{0.f, 0.f, 0.375f})) {
+
+        // 2. El punto mas alejado se ve desde el peaton
+        pedPos = ped->GetPosition();
+        const CVector farPos{ fallPos.x + offsetFar.x, fallPos.y + offsetFar.y, fallPos.z + offsetFar.z };
+        if (!IsLOSClear(farPos, CVector{ pedPos.x, pedPos.y, ms_FallCheckHeight + pedPos.z })) {
             continue;
         }
-        fallPos -= FALL_OFFSET_Z;
-        constexpr auto FALL_OVER_RAILING_OFFSET_Z = CVector{0.f, 0.f, -0.5f};
-        outFallToDeathOverRailing = !IsLOSClear(pedPos, fallPos + FALL_OVER_RAILING_OFFSET_Z);
+
+        // 3. Barandilla: algo entre la cintura del peaton y el punto de caida
+        pedPos = ped->GetPosition();
+        const float lowZ = pedPos.z - ms_RailingCheckDrop;
+        outFallToDeathOverRailing = !IsLOSClear(
+            CVector{ pedPos.x, pedPos.y, lowZ },
+            CVector{ (pedPos.x + offset.x) + offsetFar.x, (pedPos.y + offset.y) + offsetFar.y, (lowZ + offset.z) + offsetFar.z }
+        );
         return true;
     }
     return false;

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -53,16 +53,17 @@ CTaskInteriorLieInBed::CTaskInteriorLieInBed(
 #ifdef FIX_BUGS
     m_bRghtHandSide{rightHandSide}
 #endif
-{   
+{
 }
 
 // For `0x675EF0`
+// Como el original: Clone construye con los campos del original (duración, info, lado derecho, instantáneo)
 CTaskInteriorLieInBed::CTaskInteriorLieInBed(const CTaskInteriorLieInBed& o) :
     CTaskInteriorLieInBed{
-        m_GetOutAfterInterval,
-        m_IntInfo,
-        m_bRghtHandSide,
-        m_bDoInstantly
+        o.m_GetOutAfterInterval,
+        o.m_IntInfo,
+        o.m_bRghtHandSide,
+        o.m_bDoInstantly
     }
 {
 }
@@ -70,19 +71,22 @@ CTaskInteriorLieInBed::CTaskInteriorLieInBed(const CTaskInteriorLieInBed& o) :
 // 0x675E90
 CTaskInteriorLieInBed::~CTaskInteriorLieInBed() {
     if (m_Anim) {
-        m_Anim->SetDefaultFinishCallback();
+        m_Anim->SetDeleteCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr); // Como el original: callback de borrado
     }
 }
 
 // 0x675FC0
 void CTaskInteriorLieInBed::FinishAnimCB(CAnimBlendAssociation* anim, void* data) {
-    const auto self = notsa::cast<CTaskInteriorLieInBed>(static_cast<CTask*>(data));
+    // Como el original: sin comprobar el tipo de la tarea; dos comprobaciones independientes
+    const auto self = static_cast<CTaskInteriorLieInBed*>(static_cast<CTask*>(data));
 
     self->m_PrevAnimId = anim->GetAnimId();
 
-    if (self->m_PrevAnimId == self->GetAnimIdInSeq(AnimSeqIdx::GET_OUT) // Last animation in the sequence
-     || self->m_TaskAborting && self->m_PrevAnimId == (AnimationId)self->m_BaseAnimId
-    ) { 
+    if ((int32)self->m_PrevAnimId == (int32)self->m_BaseAnimId + 2) { // Last animation in the sequence
+        anim->SetBlendDelta(-1000.f);
+        self->m_LastAnimFinished = true;
+    }
+    if (self->m_TaskAborting && (int32)self->m_PrevAnimId == (int32)self->m_BaseAnimId) {
         anim->SetBlendDelta(-1000.f);
         self->m_LastAnimFinished = true;
     }
@@ -95,7 +99,7 @@ bool CTaskInteriorLieInBed::MakeAbortable(CPed* ped, eAbortPriority priority, CE
     if (priority == ABORT_PRIORITY_IMMEDIATE) {
         if (m_Anim) {
             m_Anim->SetBlendDelta(-1000.f);
-            m_Anim->SetDefaultFinishCallback();
+            m_Anim->SetDeleteCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr); // Como el original: callback de borrado
             m_Anim = nullptr;
         }
         ped->GetIntelligence()->GetEventScanner().GetAcquaintanceScanner().SetOnlyScriptPedAllowed();
@@ -106,28 +110,36 @@ bool CTaskInteriorLieInBed::MakeAbortable(CPed* ped, eAbortPriority priority, CE
     }
 }
 
+namespace {
+// Como el original: operator*(CMatrix, CVector) 0x59C890 con su orden de sumas (solo x e y)
+CVector2D LieInBedTransformPointXY(const CMatrix& m, const CVector& v) {
+    return {
+        ((m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x) + m.GetPosition().x,
+        ((m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y) + m.GetPosition().y,
+    };
+}
+} // namespace
+
 // 0x6772E0
 bool CTaskInteriorLieInBed::ProcessPed(CPed* ped) {
     const auto currAnimId = m_Anim
-        ? (AnimationId)m_Anim->GetAnimId()
-        : ANIM_ID_UNDEFINED;
+        ? (int32)m_Anim->GetAnimId()
+        : (int32)ANIM_ID_UNDEFINED;
+    const auto baseAnimId = (int32)m_BaseAnimId;
 
     ped->SetMoveState(PEDMOVE_STILL);
 
     if (m_LastAnimFinished) {
-        if (!RpAnimBlendClumpGetAssociation(ped->GetRpClump(), GetAnimIdInSeq(AnimSeqIdx::GET_OUT))) { // Check if last anim has really finished
+        if (!RpAnimBlendClumpGetAssociation(ped->GetRpClump(), (AnimationId)(baseAnimId + 2))) { // Check if last anim has really finished
             ped->GetIntelligence()->GetEventScanner().GetAcquaintanceScanner().SetOnlyScriptPedAllowed();
             return true;
         }
     }
 
-    const auto CreateNextAnim = [&, this](AnimSeqIdx seqIdx, float blendDelta = 1000.f) {
-        m_Anim->SetDefaultFinishCallback();
-        
-        m_Anim = CAnimManager::BlendAnimation(ped->GetRpClump(), ANIM_GROUP_INT_HOUSE, GetAnimIdInSeq(seqIdx), blendDelta);
+    // Como el original: la nueva animación siempre es del grupo INT_HOUSE y lleva FinishAnimCB
+    const auto BlendNextAnim = [&, this](int32 animId, float blendDelta) {
+        m_Anim = CAnimManager::BlendAnimation(ped->GetRpClump(), ANIM_GROUP_INT_HOUSE, (AnimationId)animId, blendDelta);
         m_Anim->SetFinishCallback(FinishAnimCB, this);
-
-        m_UpdatePedPos = true;
     };
 
     if (m_TaskAborting) {
@@ -136,83 +148,99 @@ bool CTaskInteriorLieInBed::ProcessPed(CPed* ped) {
             return true;
         }
 
-        assert(m_Anim);
-
-        if (currAnimId == GetAnimIdInSeq(AnimSeqIdx::GET_IN)) {
+        if (currAnimId == baseAnimId) {
             m_Anim->SetBlendDelta(-8.f);
-        } else if (currAnimId == GetAnimIdInSeq(AnimSeqIdx::LOOP)) {
+        } else if (currAnimId == baseAnimId + 1) {
             if (!m_UpdatePedPos) {
-                CreateNextAnim(AnimSeqIdx::GET_OUT);
+                m_Anim->SetDeleteCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+                BlendNextAnim(baseAnimId + 2, 1000.f);
+                m_UpdatePedPos = true;
                 return false;
             }
-        } else if (currAnimId == GetAnimIdInSeq(AnimSeqIdx::GET_OUT)) {
-            m_Anim->SetBlendDelta(3.f);
+        } else if (currAnimId == baseAnimId + 2) {
+            m_Anim->SetSpeed(3.f); // Como el original: cambia la velocidad, no el delta de mezcla
         }
     }
 
-    if (m_Anim) {
-        if (m_UpdatePedPos) {
-            const auto animOffsetOS = [&, this] {
-                switch (currAnimId) {
-                case ANIM_ID_BED_LOOP_L:
-                case ANIM_ID_BED_OUT_L:
-                    return CCarEnterExit::ms_vecPedBedLAnimOffset;
-                case ANIM_ID_BED_LOOP_R:
-                case ANIM_ID_BED_OUT_R:
-                    return CCarEnterExit::ms_vecPedBedRAnimOffset;
-                default:
-                    NOTSA_UNREACHABLE();
-                }
-            }();
-            const auto animOffsetWS = ped->m_matrix->TransformPoint(animOffsetOS); // Transform to world space
-            ped->SetPosn({ animOffsetWS.x, animOffsetWS.y, ped->GetPosition().z });
-            if (currAnimId == GetAnimIdInSeq(AnimSeqIdx::LOOP)) {
-                ped->m_fAimingRotation = ped->m_fCurrentRotation = CGeneral::LimitRadianAngle(ped->m_fCurrentRotation + PI);
-                ped->SetHeading(ped->m_fCurrentRotation);
-            }
+    if (!m_Anim) { // Create animation
+        if (!g_interiorMan.AreAnimsLoaded(ANIM_GROUP_DEFAULT)) {
+            return false;
         }
-
-        if (m_GetOutTimer.IsOutOfTime()) {
-            if (currAnimId != GetAnimIdInSeq(AnimSeqIdx::GET_OUT)) {
-                CreateNextAnim(AnimSeqIdx::GET_OUT);
-            }
-        }
-
-        // Update ped's anim shift and rotation
-        if (currAnimId != GetAnimIdInSeq(AnimSeqIdx::GET_OUT)) {
-            auto pedToIntDir           = m_IntInfo->Pos - ped->GetPosition();
-            const auto pedToIntMag     = pedToIntDir.NormaliseAndMag();
-            const auto pedToIntShiftWS = pedToIntDir * std::min(pedToIntMag, 0.2f);
-
-            // Now transform the point into ped's object space from world space
-            // in quite a convoluted way.
-            ped->m_vecAnimMovingShiftLocal = {
-                pedToIntShiftWS.Dot(ped->GetRight()),
-                pedToIntShiftWS.Dot(ped->GetForward()),
-            };
-
-            ped->m_fAimingRotation = m_IntInfo->Dir.Heading();
-        }
-    } else if (g_interiorMan.AreAnimsLoaded(ANIM_GROUP_DEFAULT)) { // Create animation
-        const auto CreateNextAnimAndStartTimer = [&, this](AnimSeqIdx offset, float blendDelta = 1000.f) {
-            m_GetOutTimer.Start(m_GetOutAfterInterval);
-            CreateNextAnim(offset, blendDelta);
-        };
-
-        if (m_PrevAnimId != ANIM_ID_UNDEFINED) {
-            if (m_PrevAnimId == GetAnimIdInSeq(AnimSeqIdx::GET_IN)) {
-                CreateNextAnimAndStartTimer(AnimSeqIdx::LOOP);
-            }
-        } else {
+        if (m_PrevAnimId == ANIM_ID_UNDEFINED) {
             ped->GetIntelligence()->GetEventScanner().GetAcquaintanceScanner().TurnOffAllScanners();
-            CreateNextAnimAndStartTimer(
-                m_bDoInstantly
-                    ? AnimSeqIdx::LOOP
-                    : AnimSeqIdx::GET_IN,
-                4.f
-            );
+            if (m_bDoInstantly) {
+                m_GetOutTimer.Start(m_GetOutAfterInterval);
+                BlendNextAnim(baseAnimId + 1, 1000.f);
+                m_UpdatePedPos = true;
+            } else {
+                // Como el original: sin temporizador ni actualización de posición al entrar en la cama
+                BlendNextAnim(baseAnimId, 4.f);
+            }
+        } else if ((int32)m_PrevAnimId == baseAnimId) {
+            m_GetOutTimer.Start(m_GetOutAfterInterval);
+            BlendNextAnim(baseAnimId + 1, 1000.f);
+            m_UpdatePedPos = true;
+        }
+        return false;
+    }
+
+    if (m_UpdatePedPos) {
+        const auto& pedPos = ped->GetPosition();
+        CVector2D   posXY{ pedPos.x, pedPos.y };
+        const float posZ = pedPos.z;
+        switch (currAnimId) {
+        case ANIM_ID_BED_LOOP_L:
+        case ANIM_ID_BED_OUT_L:
+            posXY = LieInBedTransformPointXY(*ped->m_matrix, CCarEnterExit::ms_vecPedBedLAnimOffset);
+            break;
+        case ANIM_ID_BED_LOOP_R:
+        case ANIM_ID_BED_OUT_R:
+            posXY = LieInBedTransformPointXY(*ped->m_matrix, CCarEnterExit::ms_vecPedBedRAnimOffset);
+            break;
+        default: // Como el original: conserva la posición
+            break;
+        }
+        ped->SetPosn(CVector{ posXY.x, posXY.y, posZ });
+        m_UpdatePedPos = false; // Como el original: solo una vez por animación
+        if (currAnimId == baseAnimId + 1) {
+            const float heading = CGeneral::LimitRadianAngle(ped->m_fCurrentRotation + 3.1415927f);
+            ped->m_fCurrentRotation = heading;
+            ped->m_fAimingRotation  = heading;
+            ped->SetHeading(heading);
         }
     }
+
+    if (m_GetOutTimer.IsOutOfTime()) {
+        if ((int32)m_Anim->GetAnimId() != baseAnimId + 2) {
+            m_Anim->SetDeleteCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+            BlendNextAnim(baseAnimId + 2, 1000.f);
+            m_UpdatePedPos = true;
+        }
+    }
+
+    // Como el original: el desplazamiento solo se aplica durante la animación de entrada
+    if ((int32)m_Anim->GetAnimId() != baseAnimId) {
+        return false;
+    }
+
+    const CVector intPos = m_IntInfo->Pos;
+    const auto&   pedPos = ped->GetPosition();
+    const float   dx     = intPos.x - pedPos.x;
+    const float   dy     = intPos.y - pedPos.y;
+    const float   dz     = intPos.z - pedPos.z;
+    const float   mag    = std::sqrt(dz * dz + dy * dy + dx * dx);
+    const float   shift  = mag < 0.02f ? mag : 0.02f; // Como el original: NaN usa 0.02
+    const float   inv    = 1.0f / mag;
+    const float   sx     = dx * inv * shift;
+    const float   sy     = dy * inv * shift;
+    const float   sz     = dz * inv * shift;
+
+    // Now transform the point into ped's object space from world space
+    const auto& mat = *ped->m_matrix;
+    ped->m_vecAnimMovingShiftLocal.x = (mat.GetRight().z * sz + mat.GetRight().y * sy) + sx * mat.GetRight().x;
+    ped->m_vecAnimMovingShiftLocal.y = (mat.GetForward().z * sz + mat.GetForward().y * sy) + sx * mat.GetForward().x;
+
+    ped->m_fAimingRotation = CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints(m_IntInfo->Dir.x, m_IntInfo->Dir.y, 0.f, 0.f));
 
     return false;
 }

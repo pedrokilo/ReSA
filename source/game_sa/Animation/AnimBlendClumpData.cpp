@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -53,7 +53,7 @@ CAnimBlendClumpData::CAnimBlendClumpData() {
 CAnimBlendClumpData::~CAnimBlendClumpData() {
     m_AnimList.Remove();
     if (m_FrameDatas) {
-        CMemoryMgr::FreeAlign(&m_FrameDatas);
+        CMemoryMgr::FreeAlign(m_FrameDatas); // Como el original: libera el bloque (no la dirección del campo) y no anula el puntero
     }
 }
 
@@ -64,17 +64,20 @@ CAnimBlendClumpData::~CAnimBlendClumpData() {
  */
 void CAnimBlendClumpData::SetNumberOfBones(uint32 numBones) {
     if (m_FrameDatas) {
-        CMemoryMgr::FreeAlign(&m_FrameDatas);
+        CMemoryMgr::FreeAlign(m_FrameDatas); // Como el original: libera el bloque, no la dirección del campo
     }
+    // Como el original: el tamaño se redondea hacia arriba a múltiplos de 64 bytes (aritmética sin signo de 32 bits)
+    const uint32 size = (((sizeof(AnimBlendFrameData) * numBones - 1) >> 6) + 1) << 6;
     m_NumFrameData = numBones;
-    m_FrameDatas = static_cast<AnimBlendFrameData*>(CMemoryMgr::MallocAlign(sizeof(AnimBlendFrameData) * numBones, 64));
+    m_FrameDatas = static_cast<AnimBlendFrameData*>(CMemoryMgr::MallocAlign(size, 64));
 }
 
 // 0x4CF190
 // Invoca el callback para cada frame conservando el mismo contexto data.
 void CAnimBlendClumpData::ForAllFrames(void (*callback)(AnimBlendFrameData*, void*), void* data) {
-    for (auto& frame : std::span{ m_FrameDatas, m_NumFrameData }) {
-        callback(&frame, data);
+    // Como el original: contador con signo y relectura del número y del array en cada vuelta
+    for (int32 i = 0; i < static_cast<int32>(m_NumFrameData); ++i) {
+        callback(&m_FrameDatas[i], data);
     }
 }
 

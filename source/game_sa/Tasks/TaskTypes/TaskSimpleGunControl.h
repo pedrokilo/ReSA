@@ -37,9 +37,9 @@ public:
     eGunCommand m_firingTask{};
     float       m_attackIntervalMult{};
     uint32      m_nextAtkTimeMs{};
-    bool        m_isFirstTime{};
-    bool        m_isLOSBlocked{true};
-    bool        m_aimImmidiately{};
+    bool        m_isFirstTime{true};  // Como el original: el constructor escribe 1 en 0x38
+    bool        m_isLOSBlocked{};     // Como el original: 0 en 0x39
+    bool        m_aimImmidiately;     // Como el original: el constructor no escribe 0x3A
 
 public:
     static void InjectHooks();

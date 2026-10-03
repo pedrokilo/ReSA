@@ -5,7 +5,7 @@
 
 class NOTSA_EXPORT_VTABLE CTaskComplexGoToBoatSteeringWheel : public CTaskComplex {
 public:
-    CVector   m_TargetPos{};
+    CVector   m_TargetPos; // Como el original: el constructor no lo escribe
     CVehicle* m_Vehicle{};
     bool      m_bAchievedPoint{};
     uint32    m_FirstSubTaskStartTime{};

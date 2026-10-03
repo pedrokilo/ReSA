@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -55,22 +55,31 @@ CTaskInteriorGoToInfo::CTaskInteriorGoToInfo(const CTaskInteriorGoToInfo& o) :
 {
 }   
 
+namespace {
+// Como el original: CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints(dir.x, dir.y, 0, 0))
+float InteriorInfoHeading(const InteriorInfo_t* info) {
+    return CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints(info->Dir.x, info->Dir.y, 0.f, 0.f));
+}
+} // namespace
+
 // 0x675890
 CTask* CTaskInteriorGoToInfo::CreateNextSubTask(CPed* ped) {
     if (!m_IntInfo) {
         return nullptr;
     }
-    switch (m_pSubTask->GetTaskType()) {
-    case TASK_COMPLEX_FOLLOW_NODE_ROUTE:
-    case TASK_SIMPLE_GO_TO_POINT: {
-        if ((m_IntInfo->Pos - ped->GetPosition()).SquaredMagnitude2D() > sq(0.2f)) {
-            return new CTaskComplexFollowNodeRoute{ PEDMOVE_WALK, m_IntInfo->Pos, 0.2f };
-        }
-        return new CTaskSimpleAchieveHeading{ m_IntInfo->Dir.Heading(true) };
-    }
-    default:
+    // Como el original: dos llamadas virtuales a GetTaskType
+    if (m_pSubTask->GetTaskType() != TASK_COMPLEX_FOLLOW_NODE_ROUTE && m_pSubTask->GetTaskType() != TASK_SIMPLE_GO_TO_POINT) {
         return nullptr;
     }
+    const CVector intPos = m_IntInfo->Pos;
+    const auto&   pedPos = ped->GetPosition();
+    const float   dy     = pedPos.y - intPos.y;
+    const float   dx     = pedPos.x - intPos.x;
+    // Como el original: NaN también crea la ruta (constante 0x863244)
+    if (!(dx * dx + dy * dy <= std::bit_cast<float>(0x3D23D70Bu))) {
+        return new CTaskComplexFollowNodeRoute{ PEDMOVE_WALK, intPos, 0.2f, 3.f, 2.f, false, -1, true };
+    }
+    return new CTaskSimpleAchieveHeading{ InteriorInfoHeading(m_IntInfo), 0.5f, 0.2f };
 }
 
 // 0x676640
@@ -82,20 +91,24 @@ CTask* CTaskInteriorGoToInfo::CreateFirstSubTask(CPed* ped) {
     if (m_bDoInstantly) {
         ped->SetPosn(m_IntInfo->Pos);
 
-        const auto rz = m_IntInfo->Dir.Heading(true);
+        const auto rz = InteriorInfoHeading(m_IntInfo);
+        ped->m_fAimingRotation = rz; // Como el original: primero 0x55C y luego 0x558
         ped->m_fCurrentRotation = rz;
-        ped->m_fAimingRotation = rz;
         ped->SetHeading(rz);
 
         return nullptr;
     }
 
-    if (g_interiorMan.GetPedsInterior(ped) == m_Int) {
-        return new CTaskSimpleGoToPoint{ PEDMOVE_WALK,  m_IntInfo->Pos, 0.2f };
+    const auto pedsInterior = g_interiorMan.GetPedsInterior(ped);
+    if (pedsInterior == m_Int) {
+        return new CTaskSimpleGoToPoint{ PEDMOVE_WALK, m_IntInfo->Pos, 0.2f, false, false };
     }
 
-    const auto tFollowNodeRoute = new CTaskComplexFollowNodeRoute{ PEDMOVE_WALK, ThePaths.GetPathNode(m_Int->GetNodeAddress())->GetPosition(), 0.2f};
-    tFollowNodeRoute->SetStartNode(m_Int->GetNodeAddress());
+    // Como el original: acceso directo al nodo, sin comprobar que el área esté cargada
+    const auto nodeAddr = m_Int->GetNodeAddress();
+    const CVector nodePos = ThePaths.m_pPathNodes[nodeAddr.m_wAreaId][nodeAddr.m_wNodeId].GetPosition();
+    const auto tFollowNodeRoute = new CTaskComplexFollowNodeRoute{ PEDMOVE_WALK, nodePos, 0.2f, 3.f, 2.f, false, -1, true };
+    tFollowNodeRoute->SetStartNode(pedsInterior->GetNodeAddress()); // Como el original: el nodo inicial es el del interior del peatón (sin comprobar nulo)
     return tFollowNodeRoute;
 }
 

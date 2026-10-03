@@ -23,7 +23,7 @@
 
 namespace MarkersLive {
 inline bool done{}; inline std::ofstream log; inline json trace;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 constexpr int N=32;
 alignas(16) inline std::array<uint8,sizeof(C3dMarker)> marker{};
 alignas(16) inline std::array<std::array<uint8,0x80>,N+2> atomics{};   // atomics falsos (+4 frame, +0x18 geometria)

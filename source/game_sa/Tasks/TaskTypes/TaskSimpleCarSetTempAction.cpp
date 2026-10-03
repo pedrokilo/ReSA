@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -50,7 +50,8 @@ CTaskSimpleCarSetTempAction::CTaskSimpleCarSetTempAction(const CTaskSimpleCarSet
 bool CTaskSimpleCarSetTempAction::MakeAbortable(CPed* ped, eAbortPriority priority, CEvent const* event) {
     if (CTaskSimpleCarDrive::MakeAbortable(ped, priority, event)) {
         if (m_pVehicle) {
-            m_pVehicle->m_autoPilot.ClearTempAct();
+            // Como el original: tambien reinicia el tiempo de la accion (SetTempAction(NONE, 0) en linea)
+            m_pVehicle->m_autoPilot.SetTempAction(TEMPACT_NONE, 0);
         }
         return true;
     }
@@ -59,8 +60,7 @@ bool CTaskSimpleCarSetTempAction::MakeAbortable(CPed* ped, eAbortPriority priori
 
 // 0x645370
 bool CTaskSimpleCarSetTempAction::ProcessPed(CPed* ped) {
-    const auto ap = &m_pVehicle->m_autoPilot;
-
+    // Como el original: el autopiloto se lee del vehiculo despues de asignarlo (antes se calculaba con m_pVehicle nulo)
     if (!m_pVehicle) {
         m_pVehicle = ped->m_pVehicle;
         CEntity::SafeRegisterRef(m_pVehicle);
@@ -68,18 +68,18 @@ bool CTaskSimpleCarSetTempAction::ProcessPed(CPed* ped) {
 
     if (CTaskSimpleCarDrive::ProcessPed(ped)) {
         if (m_pVehicle) {
-            ap->SetTempAction(TEMPACT_NONE, 0);
+            m_pVehicle->m_autoPilot.SetTempAction(TEMPACT_NONE, 0);
             return true;
         }
     }
 
     if (m_pVehicle) {
         if (m_TempAct != TEMPACT_NONE) {
-            ap->SetTempAction(m_TempAct, m_DurMs);
+            m_pVehicle->m_autoPilot.SetTempAction(m_TempAct, m_DurMs);
             m_TempAct = TEMPACT_NONE;
             return false;
         }
-        if (ap->m_nTempAction == TEMPACT_NONE) {
+        if (m_pVehicle->m_autoPilot.m_nTempAction == TEMPACT_NONE) {
             return true;
         }
     }

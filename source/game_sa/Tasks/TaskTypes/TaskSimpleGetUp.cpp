@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -79,8 +79,18 @@ bool CTaskSimpleGetUp::MakeAbortable(CPed* ped, eAbortPriority priority, const C
                 const auto eventDamage = static_cast<const CEventDamage*>(event);
                 if (eventDamage->m_damageResponse.m_bHealthZero && eventDamage->m_bAddToEventGroup)
                     bFatalDamage = true;
-                else if (CTimer::GetTimeInMS() - eventDamage->m_nStartTime > uint32(CTimer::GetTimeStepInMS() * 3.0F))
-                    bTooMuchTimePassed = true;
+                else {
+                    // Como el original: (uint32)(int)(ms_fTimeStep * 0.02f * 1000.0f) pasado a float y * 3.0f, comparado
+                    // con el tiempo transcurrido como entero sin signo (exacto si cabe en int32, redondeado a float si no)
+                    const uint32 elapsed  = CTimer::GetTimeInMS() - eventDamage->m_nStartTime;
+                    const uint32 stepMs   = static_cast<uint32>(static_cast<int32>(CTimer::GetTimeStep() * 0.02f * 1000.0f));
+                    const float  maxDelay = static_cast<float>(stepMs) * 3.0f;
+                    const double elapsedF = static_cast<int32>(elapsed) >= 0
+                        ? static_cast<double>(elapsed)
+                        : static_cast<double>(static_cast<float>(static_cast<double>(static_cast<int32>(elapsed)) + 4294967296.0));
+                    if (elapsedF > static_cast<double>(maxDelay))
+                        bTooMuchTimePassed = true;
+                }
             } else if (event->GetEventPriority() < 61)
                 return false;
         }
@@ -123,8 +133,9 @@ bool CTaskSimpleGetUp::StartAnim(CPed* ped) {
             || entity->AsVehicle()->IsBike()
             || entity->AsVehicle()->IsSubQuad()
             || !IsVehiclePointerValid(entity->AsVehicle())
-            || (ped->m_nRandomSeed + CTimer::GetFrameCounter() - 3) % 8 == 0
-            || CCollision::ProcessColModels(
+            // Como el original: la colisión solo se vuelve a probar uno de cada 8 fotogramas; los demás sigue atascado
+            || ((ped->m_nRandomSeed + CTimer::GetFrameCounter() - 3) % 8 == 0
+            && CCollision::ProcessColModels(
                 ped->GetMatrix(),
                 *CModelInfo::GetModelInfo(ped->m_nModelIndex)->GetColModel(),
                 entity->GetMatrix(),
@@ -133,7 +144,7 @@ bool CTaskSimpleGetUp::StartAnim(CPed* ped) {
                 nullptr,
                 nullptr,
                 false
-            ) <= 0
+            ) <= 0)
         ) {
             ped->m_pEntityIgnoredCollision = nullptr;
 

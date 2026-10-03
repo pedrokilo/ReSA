@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -105,16 +105,19 @@ void CSkidmarks::RegisterOne(uint32 index, const CVector& posn, float dirX, floa
         markById->RegisterNewPart(posn, { dirX, dirY }, length, bloodState);
     } else if (CSkidmark* mark = GetNextFree(true)) {
         mark->Init(index, posn, type, bloodState);
+    } else {
+        *bloodState = false; // Como el original: sin hueco libre se apaga el rastro de sangre
     }
 }
 
 // 0x720EC0
 // unused
 void CSkidmarks::RegisterOne(uint32 index, const CVector& posn, float dirX, float dirY, bool* isSandy, bool* bloodState, float length) {
-    if (bloodState)
+    // Como el original: se leen los valores apuntados, no los punteros
+    if (*bloodState)
         RegisterOne(index, posn, dirX, dirY, eSkidmarkType::BLOODY, bloodState, length);
     else
-        RegisterOne(index, posn, dirX, dirY, isSandy ? eSkidmarkType::SANDY : eSkidmarkType::DEFAULT, bloodState, length);
+        RegisterOne(index, posn, dirX, dirY, *isSandy ? eSkidmarkType::SANDY : eSkidmarkType::DEFAULT, bloodState, length);
 }
 
 // NOTSA
@@ -140,7 +143,12 @@ CSkidmark* CSkidmarks::GetNextFree(bool forceFree) {
                 continue;
             if (mark.m_lastDisappearTimeUpdateMs >= mostRecentlyUpdatedMs)
                 continue;
-            if (!TheCamera.IsSphereVisible(mark.GetBoundingSphere())) {
+            // Como el original: centro = (última + primera) * 0,5 y radio = |primera - centro| sumando z² + y² + x²
+            const CVector first = mark.GetFirstPartPosn(), last = mark.GetLastPartPosn();
+            const CVector center{ (last.x + first.x) * 0.5f, (last.y + first.y) * 0.5f, (last.z + first.z) * 0.5f };
+            const CVector d = first - center;
+            const float radius = std::sqrt(d.z * d.z + d.y * d.y + d.x * d.x);
+            if (!TheCamera.IsSphereVisible(center, radius)) {
                 mostRecentlyUpdatedMs = mark.m_lastDisappearTimeUpdateMs;
                 mostRecentlyUpdatedMark = &mark;
             }

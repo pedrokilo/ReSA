@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -84,7 +84,8 @@ bool CTaskSimpleLand::ProcessPed(CPed* ped) {
 
             if (ped->IsPlayer()) {
                 assert(m_pAnim); // NOTSA
-                if (ped->m_nMoveState == PEDMOVE_SPRINT && ped->AsPlayer()->GetPadFromPlayer()->GetSprint())
+                const auto pad = ped->AsPlayer()->GetPadFromPlayer(); // Como el original: el pad se pide antes de mirar el estado
+                if (ped->m_nMoveState == PEDMOVE_SPRINT && pad->GetSprint())
                     m_pAnim->m_Speed = 2.0F; // possible bug, m_anim can be null here
 
                 if (m_nAnimId != ANIM_ID_IDLE_TIRED)

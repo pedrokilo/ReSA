@@ -18,7 +18,7 @@
 
 namespace MessagesLive {
 inline bool done{}; inline std::ofstream log; inline json trace;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 inline uint64 Fnv(const void* p,size_t n,uint64 h=1469598103934665603ull){ auto* b=static_cast<const uint8*>(p); for(size_t i=0;i<n;++i){h^=b[i];h*=1099511628211ull;} return h; }
 inline std::string Hex(const uint8* p,size_t n){ static const char* d="0123456789ABCDEF"; std::string s; s.reserve(n*2); for(size_t i=0;i<n;++i){s+=d[p[i]>>4];s+=d[p[i]&15];} return s; }
 // texto legible (los bytes no imprimibles se escapan para que json::dump no falle)

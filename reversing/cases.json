@@ -448,5 +448,115 @@
     "id": "data23",
     "name": "Audio, balas, modelos, garajes y datos (lista de 23)",
     "runner": "Data23/run_local.py"
+  },
+  {
+    "id": "stasks19",
+    "name": "Tareas simples (lista de 19)",
+    "runner": "STasks19/run_local.py"
+  },
+  {
+    "id": "ctasks19",
+    "name": "Tareas complejas y repartidor (lista de 19)",
+    "runner": "CTasks19/run_local.py"
+  },
+  {
+    "id": "misc8",
+    "name": "Transmisión, cañones de agua, FX y superficies (lista de 8)",
+    "runner": "Misc8/run_local.py"
+  },
+  {
+    "id": "rendervideo8",
+    "name": "Búfer de render, cámara RW y modos de vídeo (lista de 8)",
+    "runner": "RenderVideo8/run_local.py"
+  },
+  {
+    "id": "stasks43",
+    "name": "Tareas simples (lista de 43)",
+    "runner": "STasks43/run_local.py"
+  },
+  {
+    "id": "ctasks43",
+    "name": "Tareas complejas (lista de 43)",
+    "runner": "CTasks43/run_local.py"
+  },
+  {
+    "id": "events43",
+    "name": "Eventos, asignadores y datos de peatón/vehículo (lista de 43)",
+    "runner": "Events43/run_local.py"
+  },
+  {
+    "id": "world43",
+    "name": "Mundo, colisión, grúas y oclusión (lista de 43)",
+    "runner": "World43/run_local.py"
+  },
+  {
+    "id": "fx43",
+    "name": "Audio del clima, efectos, fuego, entrada y JPEG (lista de 43)",
+    "runner": "Fx43/run_local.py"
+  },
+  {
+    "id": "stasks6c",
+    "name": "Tareas simples C (lista de 6)",
+    "runner": "STasks6c/run_local.py"
+  },
+  {
+    "id": "ctasks6b",
+    "name": "Tareas de salto, huida, tienda y coche (lista de 6)",
+    "runner": "CTasks6b/run_local.py"
+  },
+  {
+    "id": "stasks6a",
+    "name": "Tareas simples A (lista de 6)",
+    "runner": "STasks6a/run_local.py"
+  },
+  {
+    "id": "stasks6b",
+    "name": "Tareas simples B (lista de 6)",
+    "runner": "STasks6b/run_local.py"
+  },
+  {
+    "id": "misc6",
+    "name": "Pájaros, créditos, curvas, cronómetros, horarios, muebles y ventana (lista de 6)",
+    "runner": "Misc6/run_local.py"
+  },
+  {
+    "id": "ctasks6a",
+    "name": "Tareas complejas A (lista de 6)",
+    "runner": "CTasks6a/run_local.py"
+  },
+  {
+    "id": "animaudio6",
+    "name": "Audio, animación, objetos de cinemática, puertas y vídeo (lista de 6)",
+    "runner": "AnimAudio6/run_local.py"
+  },
+  {
+    "id": "ctasks7b",
+    "name": "Tareas complejas B (lista de 7)",
+    "runner": "CTasks7b/run_local.py"
+  },
+  {
+    "id": "data7",
+    "name": "Policía, ropa, listas, plantas, marcas, efectos y streaming (lista de 7)",
+    "runner": "Data7/run_local.py"
+  },
+  {
+    "id": "ctasks7a",
+    "name": "Tareas complejas A (lista de 7)",
+    "runner": "CTasks7a/run_local.py"
+  },
+  {
+    "id": "stasks7",
+    "name": "Tareas simples (lista de 7)",
+    "runner": "STasks7/run_local.py"
+  },
+  {
+    "id": "audio7",
+    "name": "Audio, pipeline de edificios y decisiones (lista de 7)",
+    "runner": "Audio7/run_local.py"
+  },
+  {
+    "id": "mgr7",
+    "name": "Saltos, generadores de coches, muebles, criaturas y tareas de interior (lista de 7)",
+    "runner": "Mgr7/run_local.py"
   }
 ]

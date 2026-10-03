@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -74,12 +74,14 @@ void WaitState(int32 state) {
 }
 
 // 0x745FB0
-void OnGraphNotify() {
+// Como el original: devuelve el HRESULT del último FreeEventParams (0 si no hubo eventos)
+long OnGraphNotify() {
     LONG code = 0;
     LONG_PTR param1 = 0, param2 = 0;
+    HRESULT hr = 0;
 
     while (!FAILED(pvMediaEvent->GetEvent(&code, &param1, &param2, 0))) {
-        pvMediaEvent->FreeEventParams(code, param1, param2);
+        hr = pvMediaEvent->FreeEventParams(code, param1, param2);
         if (code != EC_COMPLETE) {
             continue;
         }
@@ -93,25 +95,28 @@ void OnGraphNotify() {
         }());
         pvMediaEvent->SetNotifyWindow(NULL, 0, 0);
     }
+    return hr;
 }
 
 // 0x7466D0
-void UpdateWindow() {
+// Como el original: devuelve el HRESULT de la última llamada a IVideoWindow
+long UpdateWindow() {
     RECT rect;
     GetClientRect(PSGLOBAL(window), &rect);
     HRESULT hr;
 
     if (FAILED(hr = pvVideoWindow->SetWindowPosition(rect.left, rect.top, rect.right, rect.bottom))) {
         NOTSA_LOG_DEBUG("FAILED(hr=0x{:x}) in pvVideoWindow->SetWindowPosition() failed/n", hr);
-        return;
+        return hr;
     }
 
+    // Como el original: SetFocus se llama aunque put_MessageDrain falle
     if (FAILED(hr = pvVideoWindow->put_MessageDrain((OAHWND) PSGLOBAL(window)))) {
         NOTSA_LOG_DEBUG("FAILED(hr=0x{:x}) in (pvVideoWindow->put_MessageDrain((OAHWND) PSGLOBAL(window)))\n", hr);
-        return;
     }
 
     SetFocus(PSGLOBAL(window));
+    return hr;
 }
 
 // 0x747660
@@ -124,8 +129,9 @@ void Play(int32 nCmdShow, const char* path) {
     MultiByteToWideChar(0, 0, path, -1, fileName, size);
 #else
     // Buffer overflow may happen in MultiByteToWideChar.
-    WCHAR fileName[256] = { 0 };
-    MultiByteToWideChar(0, 0, path, -1, fileName, sizeof(fileName) - 1);
+    // Como el original: búfer sin inicializar y 255 caracteres como máximo
+    WCHAR fileName[256];
+    MultiByteToWideChar(0, 0, path, -1, fileName, 255);
 #endif
     HRESULT hr;
 

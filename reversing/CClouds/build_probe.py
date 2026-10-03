@@ -31,7 +31,7 @@ def main():
             else:
                 content = content.replace('        CClouds::RenderBottomFromHeight();', '        CloudsLive::Update();\n        CClouds::RenderBottomFromHeight();')
             if content == data.decode('utf-8'): raise RuntimeError('Instrumentation anchor missing: '+str(p))
-            p.write_text(content, encoding='utf-8')
+            p.write_bytes(content.encode('utf-8'))
         with (artifacts/'probe-build.log').open('w') as log:
             subprocess.run([str(CMAKE),'--build',str(ROOT/'build'),'--config','Debug'],stdout=log,stderr=subprocess.STDOUT,check=True)
         hashes={}

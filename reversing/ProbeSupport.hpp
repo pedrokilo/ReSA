@@ -27,4 +27,15 @@ inline bool JumpsToDll(uintptr_t at) {
 inline std::vector<uint8> Bytes(const void* ptr,size_t n) {
     const auto* p=static_cast<const uint8*>(ptr); return {p,p+n};
 }
+// Los bancos corren todos sus casos dentro de un solo fotograma: sin esto Windows marca la ventana
+// "No responde" a los ~5 s. PeekMessage con PM_NOREMOVE basta para que el hilo cuente como atendido;
+// no saca ni despacha mensajes (sin reentradas ni efectos en el juego). Como mucho cada 250 ms.
+inline void PumpMessages() {
+    static DWORD last=0;
+    const DWORD now=GetTickCount();
+    if(now-last<250) return;
+    last=now;
+    MSG msg;
+    PeekMessageA(&msg,nullptr,0,0,PM_NOREMOVE);
+}
 }

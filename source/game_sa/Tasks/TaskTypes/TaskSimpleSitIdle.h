@@ -12,10 +12,10 @@ class NOTSA_EXPORT_VTABLE CTaskSimpleSitIdle : public CTaskSimple {
 
 public:
     bool m_bSitAfterStep = {};          //< If `true` animation used will include a "step" (step with a leg) before sitting down
-    bool m_unused1 = {};                //< Unknown and unused
+    bool m_unused1;                     //< Unknown and unused (Como el original: el constructor no lo escribe)
     int32 m_durationMs = {};            //< Duration of animation
     CAnimBlendAssociation* m_anim = {}; //< The animation
-    CTaskTimer m_animStartedTimer = {}; //< Timer started in the same time as the anim
+    CTaskTimer m_animStartedTimer;      //< Timer started in the same time as the anim (Como el original: sin rellenar el padding)
 
 public:
     static void InjectHooks();

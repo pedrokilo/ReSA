@@ -9,7 +9,7 @@
 #include "../ProbeSupport.hpp"
 namespace UALive {
 inline bool done{};inline std::ofstream log;inline CPlayerPed* fakePlayer{};
-inline void Write(const json& r){log<<r.dump()<<'\n';}
+inline void Write(const json& r){ ReversingProbe::PumpMessages();log<<r.dump()<<'\n';}
 inline CPlayerPed* Player(int32){return fakePlayer;}
 template<class T>struct Raw{alignas(T) std::array<uint8,sizeof(T)> b{};T* get(){return reinterpret_cast<T*>(b.data());}};
 inline int __cdecl Error(int,const wchar_t*,int,const wchar_t*,const wchar_t*,...){Write({{"event","error"},{"reason","runtime check"}});log.flush();ExitProcess(92);}

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -24,6 +24,14 @@ END GENERATED HOOK STATUS */
 #include <PipelinesCommon.hpp>
 
 constexpr auto PLUGIN_ID = 0x53F2009C;
+
+// 0xC02C70 - matriz de textura del mapa de entorno (solo se escriben la diagonal)
+static inline auto& EnvMapTexMatrix = StaticRef<D3DMATRIX>(0xC02C70);
+
+// 0x7FE0A0 - función interna del driver D3D9 que activa/desactiva el alfa por vértice
+static void _rwD3D9RenderStateVertexAlphaEnable(RwBool enable) {
+    ((void(__cdecl*)(RwBool))0x7FE0A0)(enable);
+}
 
 void CCustomBuildingPipeline::InjectHooks() {
     RH_ScopedClass(CCustomBuildingPipeline);
@@ -61,18 +69,20 @@ RpAtomic* CCustomBuildingPipeline::CustomPipeAtomicSetup(RpAtomic* atomic) {
 
 // 0x5D7AA0
 RxPipeline* CCustomBuildingPipeline::CreateCustomObjPipe() {
-    auto* const pipe = RxPipelineCreate();
+    // Como el original: la definición del nodo se pide una sola vez, justo después de crear la pipeline.
+    auto* const pipe    = RxPipelineCreate();
+    auto* const nodeDef = RxNodeDefinitionGetD3D9AtomicAllInOne();
     if (!pipe) {
         return nullptr;
     }
 
     auto* const lockedPipe = RxPipelineLock(pipe);
-    if (!lockedPipe || !RxLockedPipeAddFragment(lockedPipe, 0, RxNodeDefinitionGetD3D9AtomicAllInOne(), 0) || !RxLockedPipeUnlock(lockedPipe)) {
+    if (!lockedPipe || !RxLockedPipeAddFragment(lockedPipe, 0, nodeDef, 0) || !RxLockedPipeUnlock(lockedPipe)) {
         RxPipelineDestroy(pipe);
         return nullptr;
     }
 
-    auto* const node = RxPipelineFindNodeByName(pipe, RxNodeDefinitionGetD3D9AtomicAllInOne()->name, nullptr, nullptr);
+    auto* const node = RxPipelineFindNodeByName(pipe, nodeDef->name, nullptr, nullptr);
     RxD3D9AllInOneSetInstanceCallBack(node, RxD3D9AllInOneGetInstanceCallBack(node));
     RxD3D9AllInOneSetReinstanceCallBack(node, CustomPipeReinstanceCB);
     RxD3D9AllInOneSetRenderCallBack(node, CustomPipeRenderCB);
@@ -137,7 +147,8 @@ void CCustomBuildingPipeline::CustomPipeRenderCB(RwResEntry* resEntry, void* obj
     _rwD3D9SetStreams(header->vertexStream, header->useOffsets);
     RwD3D9SetVertexDeclaration(header->vertexDeclaration);
 
-    for (RwUInt32 i = 0; i < header->numMeshes; i++) { // 0x5D78A0
+    // Como el original: el número de mallas se compara con signo (jle).
+    for (int32 i = 0, numMeshes = (int32)header->numMeshes; i < numMeshes; i++) { // 0x5D78A0
         auto* const mesh       = &meshes[i];
         auto* const mat        = mesh->material;
         const auto  matFlags   = CCustomCarEnvMapPipeline::GetMaterialFlags(mat);
@@ -151,8 +162,23 @@ void CCustomBuildingPipeline::CustomPipeRenderCB(RwResEntry* resEntry, void* obj
         if (matFlags & CCustomCarEnvMapPipeline::MF_HAS_SHINE_CAM) {
             RwRenderStateSet(rwRENDERSTATETEXTUREADDRESS, RWRSTATE(rwTEXTUREADDRESSWRAP));
 
+            // Como el original: guarda la escala en la diagonal de la matriz de textura global.
+            const auto* const raw = reinterpret_cast<const uint8*>(envMapData);
+            EnvMapTexMatrix._11 = (float)(int8)raw[0] * 0.125f;
+            EnvMapTexMatrix._44 = 1.0f;
+            EnvMapTexMatrix._33 = 1.0f;
+            EnvMapTexMatrix._22 = (float)(int8)raw[1] * 0.125f;
+
             RwD3D9SetTexture(envMapData->Texture, 1);
-            RwD3D9SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB((byte)(std::min<float>(envMapData->Shininess, 1.f) * 255.f), 0xFF, 0xFF, 0xFF));
+
+            // Como el original: brillo (byte sin signo) · (1/255) · 254, truncado y saturado a 255;
+            // el factor es opaco y repite el brillo en R, G y B.
+            int32 shininess = (int32)((float)raw[4] * std::bit_cast<float>(0x3B808081u) * 254.0f);
+            if (shininess > 255) {
+                shininess = 255;
+            }
+            const uint32 shine = (uint8)shininess;
+            RwD3D9SetRenderState(D3DRS_TEXTUREFACTOR, 0xFF000000u | (shine << 16) | (shine << 8) | shine);
 
             RwD3D9SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_MULTIPLYADD);
             RwD3D9SetTextureStageState(1, D3DTSS_COLORARG0, D3DTA_CURRENT);
@@ -170,7 +196,8 @@ void CCustomBuildingPipeline::CustomPipeRenderCB(RwResEntry* resEntry, void* obj
         }
 
         // 0x5D79EE
-        RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(mesh->vertexAlpha || mesh->material->color.alpha != 0xFF));
+        // Como el original: llama directamente a la función interna del driver (0x7FE0A0).
+        _rwD3D9RenderStateVertexAlphaEnable(mesh->vertexAlpha || mesh->material->color.alpha != 0xFF);
 
         if (geoHasNoLighting) { // 0x5D7A12 - Render without lighting
             RxD3D9InstanceDataRender(header, mesh);
@@ -191,5 +218,6 @@ void CCustomBuildingPipeline::CustomPipeRenderCB(RwResEntry* resEntry, void* obj
 // 0x5D77A0
 RwBool CCustomBuildingPipeline::CustomPipeReinstanceCB(void* object, RwResEntry* resEntry, RxD3D9AllInOneInstanceCallBack instanceCallback) {
     auto* const header = (RxD3D9ResEntryHeader*)(resEntry + 1);
-    return instanceCallback && instanceCallback(object, header, true);
+    // Como el original: sin callback devuelve TRUE.
+    return !instanceCallback || instanceCallback(object, header, true);
 }

@@ -30,7 +30,7 @@ struct LS {
     static inline auto& m_numChunksLoaded = StaticRef<int32>(0x8D0940); static inline auto& m_chunkBarAppeared = StaticRef<int32>(0x8D0944); static inline auto& m_timeSinceLastScreen = StaticRef<float>(0xBAB340);
 };
 inline bool done{}; inline std::ofstream log; inline json trace;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 inline uint32 clockMs{}; inline int clockStep{}; inline int seed{}, rngCalls{}; inline bool cameraOk{};
 inline uint32 F(float f) { return std::bit_cast<uint32>(f); }
 inline json Rect(const CRect& r) { return json::array({F(r.left),F(r.top),F(r.right),F(r.bottom)}); }

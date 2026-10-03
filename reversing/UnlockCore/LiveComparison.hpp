@@ -16,7 +16,7 @@
 namespace UCLive {
 inline std::ofstream log;
 inline bool done{};
-inline void Write(const json& row) { log << row.dump() << '\n'; }
+inline void Write(const json& row) { ReversingProbe::PumpMessages(); log << row.dump() << '\n'; }
 inline int Report(int type, char* msg, int*) {
     if (type != _CRT_ASSERT) return FALSE;
     Write({{"event","assertion"},{"message",msg ? msg : ""}});

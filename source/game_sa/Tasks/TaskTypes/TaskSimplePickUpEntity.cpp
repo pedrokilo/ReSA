@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -31,6 +31,7 @@ void CTaskSimplePickUpEntity::InjectHooks() {
     RH_ScopedVMTInstall(GetTaskType, 0x691810);
 }
 
+// 0x691870
 CTaskSimplePickUpEntity::CTaskSimplePickUpEntity(
     CEntity* entityToHold,
     const CVector* posn,
@@ -44,8 +45,10 @@ CTaskSimplePickUpEntity::CTaskSimplePickUpEntity(
     : CTaskSimpleHoldEntity(entityToHold, posn, boneFrameId, boneFlags, pAnimBlock, animHierarchy, animFlags)
 {
     m_fMovePedUntilAnimProgress = fMovePedUntilAnimProgress;
+    m_vecPickuposn = CVector{ 0.0f, 0.0f, 0.0f }; // Como el original: escribe ceros en +0x40..+0x48
 }
 
+// 0x6917B0
 CTaskSimplePickUpEntity::CTaskSimplePickUpEntity(
     CEntity* entityToHold,
     const CVector* posn,
@@ -58,6 +61,7 @@ CTaskSimplePickUpEntity::CTaskSimplePickUpEntity(
     : CTaskSimpleHoldEntity(entityToHold, posn, boneFrameId, boneFlags, animId, groupId, false)
 {
     m_fMovePedUntilAnimProgress = fMovePedUntilAnimProgress;
+    m_vecPickuposn = CVector{ 0.0f, 0.0f, 0.0f }; // Como el original: escribe ceros en +0x40..+0x48
 }
 
 // 0x692A90

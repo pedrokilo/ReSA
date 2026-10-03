@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -62,7 +62,7 @@ void COnscreenTimer::AddClock(uint32 varId, char* gxt, eTimerDirection nTimerDir
     m_Clock.m_nVarId = varId;
     m_Clock.m_nTimerDirection = nTimerDirection;
     if (gxt)
-        strncpy_s(m_Clock.m_szDescriptionTextKey, gxt, sizeof(m_Clock.m_szDescriptionTextKey));
+        strncpy(m_Clock.m_szDescriptionTextKey, gxt, sizeof(m_Clock.m_szDescriptionTextKey)); // Como el original: strncpy (rellena con ceros, sin terminador si llena)
     else
         m_Clock.m_szDescriptionTextKey[0] = '\0';
 }
@@ -79,9 +79,12 @@ void COnscreenTimer::ClearClock(uint32 varId) {
 
 // 0x44CEE0
 void COnscreenTimer::SetClockBeepCountdownSecs(uint32 varId, uint32 time) {
-    for (COnscreenCounterEntry& counter : m_aCounters) {
-        if (m_Clock.m_nVarId == varId) {
-            m_Clock.m_nClockBeepCountdownSecs = time;
+    // Como el original: recorre 4 entradas de reloj de 0x40 bytes desde m_Clock (error del original: las tres
+    // últimas caen sobre los contadores y escriben en su desplazamiento +0x3C)
+    for (auto i = 0u; i < NUM_COUNTERS; i++) {
+        auto* entry = reinterpret_cast<COnscreenTimerEntry*>(reinterpret_cast<uint8*>(this) + i * sizeof(COnscreenTimerEntry));
+        if (entry->m_nVarId == varId) {
+            entry->m_nClockBeepCountdownSecs = time;
         }
     }
 }
@@ -97,7 +100,7 @@ void COnscreenTimer::AddCounter(uint32 varId, eOnscreenCounter type, char* gxt, 
 
     counter->m_nVarId = varId;
     if (gxt)
-        strncpy_s(counter->m_szDescriptionTextKey, gxt, sizeof(counter->m_szDescriptionTextKey));
+        strncpy(counter->m_szDescriptionTextKey, gxt, sizeof(counter->m_szDescriptionTextKey)); // Como el original: strncpy
     else
         counter->m_szDescriptionTextKey[0] = '\0';
 
@@ -129,7 +132,12 @@ void COnscreenTimer::AddCounterCounter(uint32 varId, uint32 maxValue, char* gxt,
 void COnscreenTimer::ClearCounter(uint32 varId) {
     for (COnscreenCounterEntry& counter : m_aCounters) {
         if (counter.m_nVarId == varId) {
-            counter.Clear();
+            // Como el original: solo el primer byte del texto (COnscreenCounterEntry::Clear borra los 10)
+            counter.m_nVarId                  = 0;
+            counter.m_nMaxVarValue            = 0;
+            counter.m_szDescriptionTextKey[0] = '\0';
+            counter.m_nType                   = eOnscreenCounter::SIMPLE;
+            counter.m_bEnabled                = false;
         }
     }
 }

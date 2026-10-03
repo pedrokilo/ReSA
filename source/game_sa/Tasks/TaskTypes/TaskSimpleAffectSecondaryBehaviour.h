@@ -25,8 +25,9 @@ public:
 
     CTaskSimpleAffectSecondaryBehaviour(bool add, eSecondaryTask secondaryTaskType, CTask* task);
     CTaskSimpleAffectSecondaryBehaviour(const CTaskSimpleAffectSecondaryBehaviour&); // NOTSA
+    ~CTaskSimpleAffectSecondaryBehaviour() override; // 0x6912C0
 
-    CTask*    Clone() const override { return new CTaskSimpleAffectSecondaryBehaviour(*this); }
+    CTask*    Clone() const override; // 0x692910
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return false; }
     bool      ProcessPed(CPed* ped) override;

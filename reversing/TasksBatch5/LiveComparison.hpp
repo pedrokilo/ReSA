@@ -36,7 +36,7 @@
 
 namespace Tasks5Live {
 inline bool done{}; inline std::ofstream log; inline json trace;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 inline uint32 F(float f) { return std::bit_cast<uint32>(f); }
 constexpr int PEDS=3;
 using SeekXY=CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>;

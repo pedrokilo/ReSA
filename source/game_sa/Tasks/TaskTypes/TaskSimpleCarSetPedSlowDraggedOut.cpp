@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -48,8 +48,10 @@ bool CTaskSimpleCarSetPedSlowDraggedOut::ProcessPed(CPed* ped) {
         return true;
     }
 
+    // Como el original: se calcula el flag de la puerta y el resultado se descarta (0x64C266, sin efectos)
+
     // Remove ped as passenger/driver from the vehicle
-    if (m_Vehicle->IsDriver(ped)) { // 0x64C27C
+    if (m_Vehicle->m_pDriver == ped) { // 0x64C27C
         m_Vehicle->RemoveDriver(true);
         if (m_Vehicle->m_nDoorLock == CARLOCK_COP_CAR) {
             m_Vehicle->m_nDoorLock = CARLOCK_UNLOCKED;
@@ -58,9 +60,10 @@ bool CTaskSimpleCarSetPedSlowDraggedOut::ProcessPed(CPed* ped) {
             m_Vehicle->ChangeLawEnforcerState(false);
         }
     } else { // 0x64C2B4
-        for (const auto p : m_Vehicle->GetPassengers()) {
-            if (p == ped) {
-                m_Vehicle->RemovePassenger(ped); // Why not break anywhere? I mean, a ped shouldn't be in multiple seats at the same time
+        // Como el original: recorre m_nMaxPassengers (+0x488, releido en cada vuelta) y sigue tras quitarlo
+        for (auto i = 0; i < (int32)m_Vehicle->m_nMaxPassengers; i++) {
+            if (m_Vehicle->m_apPassengers.data()[i] == ped) {
+                m_Vehicle->RemovePassenger(ped);
             }
         }
     }
@@ -73,7 +76,7 @@ bool CTaskSimpleCarSetPedSlowDraggedOut::ProcessPed(CPed* ped) {
         CTask* task;
         if (ped->IsPlayer()) {
             task = new CTaskSimplePlayerOnFoot{}; // 0x64C320
-        } else if (ped->m_nPedType == PED_MISSION) {
+        } else if (ped->IsCreatedBy(PED_MISSION)) { // Como el original: m_nCreatedBy (+0x484), no m_nPedType
             task = new CTaskSimpleStandStill{999'999, true}; // 0x64C355
         } else {
             task = CTaskComplexWander::GetWanderTaskByPedType(ped); // 0x64C378
@@ -86,21 +89,38 @@ bool CTaskSimpleCarSetPedSlowDraggedOut::ProcessPed(CPed* ped) {
     ped->SetUsesCollision(true);
     ped->UpdateStatLeavingVehicle();
     ped->ReplaceWeaponWhenExitingVehicle();
-    ped->ResetMoveSpeed();
-    
+
     // 0x64C3D0 - Position ped out of the vehicle
+    const auto getUpOffset = CCarEnterExit::ms_vecPedGetUpAnimOffset;
     const auto doorOffset = m_Vehicle->GetAnimGroup().ComputeAnimDoorOffsets(
-        notsa::contains({TARGET_DOOR_FRONT_RIGHT, TARGET_DOOR_REAR_RIGHT}, m_Door)
+        (m_Door == TARGET_DOOR_FRONT_RIGHT || m_Door == TARGET_DOOR_REAR_RIGHT)
             ? JACK_PED_RIGHT
             : JACK_PED_LEFT
     );
-    const auto offset = CVector{doorOffset - CCarEnterExit::ms_vecPedGetUpAnimOffset, 0.f};
-    ped->SetPosn(std::get<CVector>(CPedPlacement::FindZCoorForPed(ped->GetMatrix().TransformPoint(offset))));
+    const auto offset = CVector{doorOffset.x - getUpOffset.x, doorOffset.y - getUpOffset.y, 0.f};
+    auto pos = ped->GetMatrix().TransformPoint(offset);
+    pos = CPedPlacement::FindZCoorForPed(pos).first; // Como el original: la Z se corrige en el mismo vector (0x616920)
+
+    // Como el original: la velocidad se anula despues de buscar la Z y antes de colocar al peaton
+    ped->ResetMoveSpeed();
+    ped->SetPosn(pos);
 
     // 0x64C50B - Reset rotation
-    ped->m_fCurrentRotation
-        = ped->m_fAimingRotation
-        = ped->GetHeading();
+    // Como el original: se usa el rumbo del vehiculo (fpatan del x87), no el del peaton
+    float heading;
+    if (const auto mat = m_Vehicle->m_matrix) {
+        const float fx = mat->GetForward().x, fy = mat->GetForward().y;
+        __asm {
+            fld fx
+            fchs
+            fld fy
+            fpatan
+            fstp heading
+        }
+    } else {
+        heading = m_Vehicle->m_placement.m_fHeading;
+    }
+    ped->m_fCurrentRotation = ped->m_fAimingRotation = heading;
     ped->CalculateNewOrientation();
 
     // 0x64C52B - Make sure ped's not in a collision

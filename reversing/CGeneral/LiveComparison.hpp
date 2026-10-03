@@ -8,7 +8,7 @@
 namespace GeneralLive {
 inline bool done{};inline std::ofstream log;inline unsigned randomValue{},randomCalls{};
 inline int __cdecl Random(){++randomCalls;return int(randomValue);}
-inline void Write(const json& r){log<<r.dump()<<'\n';}
+inline void Write(const json& r){ ReversingProbe::PumpMessages();log<<r.dump()<<'\n';}
 inline int Report(int t,char* msg,int*){if(t!=_CRT_ASSERT)return FALSE;Write({{"event","assertion"},{"message",msg?msg:""}});log.flush();ExitProcess(91);}
 inline uint32 Run(float lo,float hi,std::array<uint8,10>& extended){
     randomCalls=0;float value;uint8 raw[10];

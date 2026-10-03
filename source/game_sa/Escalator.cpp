@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -34,22 +34,25 @@ void CEscalator::InjectHooks() {
 
 // 0x717860
 void CEscalator::SwitchOff() {
-    // debug leftover
-    // static auto& deletingEscalator = StaticRef<bool>(0xC6E98C);
+    // Como el original: bandera de depuración del EXE alrededor de cada borrado.
+    auto& deletingEscalator = StaticRef<bool>(0xC6E98C);
 
     if (!m_StepObjectsCreated) {
         return;
     }
 
-    for (auto* object : m_StepObjects | rngv::take(m_NumTopPlanes + m_NumBottomPlanes + m_NumIntermediatePlanes)) {
+    // Como el original: total con signo releído en cada vuelta; solo los peldaños no nulos se quitan y se anulan.
+    for (int32 i = 0; i < (int32)(m_NumIntermediatePlanes + m_NumBottomPlanes + m_NumTopPlanes); i++) {
+        auto*& object = m_StepObjects.data()[i];
         if (!object) {
             continue;
         }
 
         CWorld::Remove(object);
-        // deletingEscalator = true;
-        delete std::exchange(object, nullptr);
-        // deletingEscalator = false;
+        deletingEscalator = true;
+        delete object;
+        deletingEscalator = false;
+        object = nullptr;
     }
     m_StepObjectsCreated = 0;
 }
@@ -58,47 +61,86 @@ void CEscalator::SwitchOff() {
 void CEscalator::AddThisOne(const CVector& vecStart, const CVector& vecBottom, const CVector& vecTop, const CVector& vecEnd, bool moveDown, CEntity* entity) {
     m_Exist = true;
 
-    const CVector z = { 0.0f, 0.0f, CModelInfo::GetModelInfo(ModelIndices::MI_ESCALATORSTEP)->GetColModel()->GetBoundingBox().m_vecMax.z };
-    m_Start  = vecStart - z;
-    m_Bottom = vecBottom - z;
-    m_Top    = vecTop - z;
-    m_End    = vecEnd - z;
+    m_Start  = vecStart;
+    m_Bottom = vecBottom;
+    m_Top    = vecTop;
+    m_End    = vecEnd;
 
-    // 0x717A14
-    m_NumIntermediatePlanes = 1 + static_cast<int32>(DistanceBetweenPoints(m_Bottom, m_Top) * 2.5f);
-    m_NumBottomPlanes       = 1 + static_cast<int32>(DistanceBetweenPoints(m_Bottom, m_Start) / 3.2f);
-    m_NumTopPlanes          = 1 + static_cast<int32>(DistanceBetweenPoints(m_End, m_Top) / 3.2f);
+    // Como el original: solo se rebaja la z con la altura máxima de la caja del peldaño.
+    const float stepHeight = CModelInfo::GetModelInfo(ModelIndices::MI_ESCALATORSTEP)->GetColModel()->GetBoundingBox().m_vecMax.z;
+    m_Start.z  -= stepHeight;
+    m_Bottom.z -= stepHeight;
+    m_Top.z    -= stepHeight;
+    m_End.z    -= stepHeight;
 
-    const auto dir = CVector2D{vecStart - vecBottom}.Normalized();
+    // 0x717A14 - Como el original: (int)(d * 2.5 + 1.0) y 1 - (int)(d * -0.3125), con _ftol2 y sumas z, y, x.
+    const CVector startBottom = m_Start - m_Bottom;
+    const CVector bottomTop   = m_Bottom - m_Top;
+    const CVector topEnd      = m_Top - m_End;
+    const float distBottomTop = std::sqrt(bottomTop.z * bottomTop.z + bottomTop.y * bottomTop.y + bottomTop.x * bottomTop.x);
+    m_NumIntermediatePlanes   = (int32)(int64)(distBottomTop * 2.5f + 1.0f);
+    const float distStart     = std::sqrt(startBottom.z * startBottom.z + startBottom.y * startBottom.y + startBottom.x * startBottom.x);
+    m_NumBottomPlanes         = 1 - (int32)(int64)(distStart * -0.3125f);
+    const float distEnd       = std::sqrt(topEnd.z * topEnd.z + topEnd.y * topEnd.y + topEnd.x * topEnd.x);
+    m_NumTopPlanes            = 1 - (int32)(int64)(distEnd * -0.3125f);
+
+    // Como el original: dirección con los argumentos sin rebajar, CVector{dx, dy, 0} y CVector::Normalise.
+    CVector dir{ vecStart.x - vecBottom.x, vecStart.y - vecBottom.y, 0.0f };
+    dir.Normalise();
     m_Rotation.GetRight().Set(dir.y, -dir.x, 0.0f);
     m_Rotation.GetForward().Set(dir.x, dir.y, 0.0f);
     m_Rotation.GetUp().Set(0.0f, 0.0f, 1.0f);
-    m_Rotation.GetPosition().Reset();
+    m_Rotation.GetPosition().Set(0.0f, 0.0f, 0.0f);
     m_MoveDown = moveDown;
-    m_Entity   = entity;
 
-    m_Bounding.m_vecCenter = CVector::Centroid({ m_Start, m_End });
-    m_Bounding.m_fRadius   = DistanceBetweenPoints(m_Bounding.m_vecCenter, m_Start);
+    m_Bounding.m_vecCenter = CVector{ (m_End.x + m_Start.x) * 0.5f, (m_End.y + m_Start.y) * 0.5f, (m_End.z + m_Start.z) * 0.5f };
+    // Como el original: puntero crudo y RegisterReference sin limpiar la referencia anterior ni comprobar nulo.
+    m_Entity = entity;
+    const CVector d = m_Start - m_Bounding.m_vecCenter;
+    m_Bounding.m_fRadius = std::sqrt(d.z * d.z + d.y * d.y + d.x * d.x);
+    entity->RegisterReference(&m_Entity);
 }
 
 // 0x717D30
 void CEscalator::Update() {
     ZoneScoped;
 
-    constexpr float EXTRA_DIST_TO_RENDER = 20.0f; // 0x858BA4
-
     if (!m_StepObjectsCreated) {
-        if (m_Bounding.m_fRadius + EXTRA_DIST_TO_RENDER > DistanceBetweenPoints(m_Bounding.m_vecCenter, TheCamera.GetPosition())) {
-            if (GetObjectPool()->GetNoOfFreeSpaces() > m_NumIntermediatePlanes + m_NumBottomPlanes + m_NumTopPlanes + 10) {
-                m_StepObjectsCreated  = true;
-                m_CurrentPosition = 0.0f;
+        // Como el original: distancia a la cámara con suma (dx*dx + dy*dy) + dz*dz y radio + 20 estricto.
+        const CVector& camPos = TheCamera.GetPosition();
+        const float dz = camPos.z - m_Bounding.m_vecCenter.z;
+        const float dy = camPos.y - m_Bounding.m_vecCenter.y;
+        const float dx = camPos.x - m_Bounding.m_vecCenter.x;
+        const float dist = std::sqrt(dx * dx + dy * dy + dz * dz);
+        if (m_Bounding.m_fRadius + 20.0f > dist) {
+            // Como el original: huecos libres = tamaño - usados (bit 0x80 del estado), comparación con signo.
+            auto* pool = reinterpret_cast<uint8*>(GetObjectPool());
+            const auto* states = *reinterpret_cast<int8* const*>(pool + 4);
+            const auto size = *reinterpret_cast<const int32*>(pool + 8);
+            int32 used = 0;
+            for (int32 i = 0; i < size; i++) {
+                if (states[i] >= 0) {
+                    used++;
+                }
+            }
+            if (size - used > (int32)(m_NumBottomPlanes + m_NumIntermediatePlanes + m_NumTopPlanes) + 10) {
+                m_StepObjectsCreated = true;
+                m_CurrentPosition    = 0.0f;
 
-                for (auto i = 0u; i < m_NumIntermediatePlanes + m_NumBottomPlanes + m_NumTopPlanes; i++) {
-                    auto& obj = m_StepObjects[i];
-                    obj       = new CObject((i < m_NumIntermediatePlanes) ? ModelIndices::MI_ESCALATORSTEP : ModelIndices::MI_ESCALATORSTEP8, true);
-                    obj->SetPosn(m_Bottom);
-                    CWorld::Add(obj);
-                    obj->m_nObjectType = OBJECT_TYPE_DECORATION;
+                const auto CreateStep = [&](int32 index, ModelIndex model) {
+                    auto*& obj = m_StepObjects.data()[index];
+                    obj = new CObject(model, true);
+                    if (obj) {
+                        obj->SetPosn(m_Bottom);
+                        CWorld::Add(obj);
+                        obj->m_nObjectType = OBJECT_TYPE_DECORATION;
+                    }
+                };
+                for (int32 i = 0; i < (int32)m_NumIntermediatePlanes; i++) {
+                    CreateStep(i, ModelIndices::MI_ESCALATORSTEP);
+                }
+                for (int32 i = 0; i < (int32)(m_NumBottomPlanes + m_NumTopPlanes); i++) {
+                    CreateStep((int32)m_NumIntermediatePlanes + i, ModelIndices::MI_ESCALATORSTEP8);
                 }
             } else {
                 NOTSA_LOG_WARN("Too many shit in the object pool now we can't create escalators!");
@@ -111,41 +153,67 @@ void CEscalator::Update() {
         return; // 0x717F70 - Invert
     }
 
-    const auto posStep = m_MoveDown
-        ? m_CurrentPosition - CTimer::GetTimeStep() / 25.0f + 1.0f
-        : m_CurrentPosition + CTimer::GetTimeStep() / 25.0f;
+    // Como el original: paso = ts * 0.04 y la fracción se obtiene restando el valor truncado (_ftol2), no floor.
+    const float step    = CTimer::GetTimeStep() * 0.04f;
+    const float posStep = m_MoveDown ? m_CurrentPosition - step + 1.0f : step + m_CurrentPosition;
+    m_CurrentPosition   = posStep - (float)(int32)(int64)posStep;
 
-    m_CurrentPosition = posStep - std::floor(posStep);
-
-    for (auto i = 0u; i < m_NumIntermediatePlanes + m_NumBottomPlanes + m_NumTopPlanes; i++) {
-        auto* obj = m_StepObjects[i];
-        if (!obj) {
-            continue;
-        }
-
-        const auto [t, dir, beg] = [&] {
-            if (i < m_NumIntermediatePlanes) {
-                // intermediate
-                return std::make_tuple(((float)i - m_CurrentPosition + 1.0f) / 2.5f, (m_Bottom - m_Top).Normalized(), m_Top);
-            } else if (i < m_NumIntermediatePlanes + m_NumBottomPlanes) {
-                // bottom
-                return std::make_tuple(((float)(8 * (i - m_NumIntermediatePlanes) + 4) + m_CurrentPosition) / 2.5f, (m_Bottom - m_Start).Normalized(), m_Start);
-            } else {
-                // top
-                return std::make_tuple(((float)(8 * (i - m_NumIntermediatePlanes - m_NumBottomPlanes) + 4) + m_CurrentPosition) / 2.5f, (m_End - m_Top).Normalized(), m_Top);
-            }
-        }();
-
-        obj->GetMatrix() = m_Rotation;
-        obj->SetPosn(beg + dir * t);
-        obj->GetMoveSpeed() = (i < m_NumIntermediatePlanes ? -dir : dir) * 0.016f * (m_MoveDown ? -1.0f : 1.0f);
+    // Como el original: matriz copiada sobre m_matrix (sin asignarla), posición y velocidad escritas directamente.
+    const auto PlaceStep = [&](CObject* obj, const CVector& pos, const CVector& speed) {
+        *static_cast<CMatrix*>(obj->m_matrix) = m_Rotation;
+        obj->m_matrix->GetPosition() = pos;
+        obj->GetMoveSpeed() = speed;
         obj->UpdateRwMatrix();
         obj->UpdateRwFrame();
         obj->RemoveAndAdd();
+    };
+    const auto StepSpeed = [&](const CVector& dir) {
+        CVector speed{ dir.x * 0.016f, dir.y * 0.016f, dir.z * 0.016f };
+        if (m_MoveDown) {
+            speed = CVector{ -speed.x, -speed.y, -speed.z };
+        }
+        return speed;
+    };
+
+    // Intermedios: pos = top - dir * ((i - cur + 1) * 0.4), dir = normalizada(top - bottom).
+    for (int32 i = 0; i < (int32)m_NumIntermediatePlanes; i++) {
+        CVector dir = m_Top - m_Bottom;
+        dir.Normalise();
+        const CVector speed = StepSpeed(dir);
+        if (auto* obj = m_StepObjects.data()[i]) {
+            const float t = ((float)i - m_CurrentPosition + 1.0f) * 0.4f;
+            PlaceStep(obj, CVector{ m_Top.x - dir.x * t, m_Top.y - dir.y * t, m_Top.z - dir.z * t }, speed);
+        }
     }
 
-    // Out of sight
-    if (m_Bounding.m_fRadius + EXTRA_DIST_TO_RENDER + 3.0f < DistanceBetweenPoints(m_Bounding.m_vecCenter, TheCamera.GetPosition())) {
+    // Inferiores: pos = dir * ((8j + 4 + cur) * 0.4) + start, dir = normalizada(bottom - start).
+    for (int32 j = 0, k = 4; j < (int32)m_NumBottomPlanes; j++, k += 8) {
+        CVector dir = m_Bottom - m_Start;
+        dir.Normalise();
+        const CVector speed = StepSpeed(dir);
+        if (auto* obj = m_StepObjects.data()[(int32)m_NumIntermediatePlanes + j]) {
+            const float t = ((float)k + m_CurrentPosition) * 0.4f;
+            PlaceStep(obj, CVector{ dir.x * t + m_Start.x, dir.y * t + m_Start.y, dir.z * t + m_Start.z }, speed);
+        }
+    }
+
+    // Superiores: pos = dir * ((8j + 4 + cur) * 0.4) + top, dir = normalizada(end - top).
+    for (int32 j = 0, k = 4; j < (int32)m_NumTopPlanes; j++, k += 8) {
+        CVector dir = m_End - m_Top;
+        dir.Normalise();
+        const CVector speed = StepSpeed(dir);
+        if (auto* obj = m_StepObjects.data()[(int32)(m_NumIntermediatePlanes + m_NumBottomPlanes) + j]) {
+            const float t = ((float)k + m_CurrentPosition) * 0.4f;
+            PlaceStep(obj, CVector{ dir.x * t + m_Top.x, dir.y * t + m_Top.y, dir.z * t + m_Top.z }, speed);
+        }
+    }
+
+    // Out of sight - Como el original: (dz*dz + dy*dy) + dx*dx y radio + 23 estricto.
+    const CVector& camPos = TheCamera.GetPosition();
+    const float dx = camPos.x - m_Bounding.m_vecCenter.x;
+    const float dy = camPos.y - m_Bounding.m_vecCenter.y;
+    const float dz = camPos.z - m_Bounding.m_vecCenter.z;
+    if (m_Bounding.m_fRadius + 23.0f < std::sqrt(dz * dz + dy * dy + dx * dx)) {
         SwitchOff();
     }
 }

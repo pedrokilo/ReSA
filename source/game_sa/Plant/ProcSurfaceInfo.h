@@ -35,7 +35,7 @@ public:
     ProcSurfaceInfo_c() = default;  // 0x5A2E90
     ~ProcSurfaceInfo_c() = default; // 0x5A2EA0
 
-    void Init(const char* surfaceType, const char* modelName,
+    bool Init(const char* surfaceType, const char* modelName,
               float spacing, float minDist,
               int32 minRot, int32 maxRot,
               float minScale, float maxScale,

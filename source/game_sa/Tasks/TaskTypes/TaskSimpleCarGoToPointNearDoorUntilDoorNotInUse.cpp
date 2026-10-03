@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -49,12 +49,13 @@ CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse::CTaskSimpleCarGoToPointNearDoo
 }
 
 // 0x646EC0
-CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse::CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse(const CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse&) :
+// Como el original: los datos salen de las subtareas del objeto copiado (antes se leian las del objeto nuevo, sin inicializar)
+CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse::CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse(const CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse& o) :
     CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse{
-        m_TaskWaitForDoor->m_veh,
-        static_cast<int32>(m_TaskWaitForDoor->m_doorsToWaitFor[0]),
-        m_TaskGoToPoint->m_vecTargetPoint,
-        m_TaskGoToPoint->m_moveState
+        o.m_TaskWaitForDoor->m_veh,
+        static_cast<int32>(o.m_TaskWaitForDoor->m_doorsToWaitFor[0]),
+        o.m_TaskGoToPoint->m_vecTargetPoint,
+        o.m_TaskGoToPoint->m_moveState
     }
 {
 }

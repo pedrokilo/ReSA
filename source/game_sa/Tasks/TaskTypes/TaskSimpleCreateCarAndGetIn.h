@@ -19,7 +19,7 @@ public:
     CTaskSimpleCreateCarAndGetIn(CVector const& pos, int32 model);
     ~CTaskSimpleCreateCarAndGetIn() override;
 
-    CTask* Clone() const override { return new CTaskSimpleCreateCarAndGetIn{ *this }; }
+    CTask* Clone() const override { return new CTaskSimpleCreateCarAndGetIn{ m_Pos, m_nModel }; } // Como el original (0x64A410): solo copia la posicion y el modelo
     eTaskType GetTaskType() const override { return Type; }
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;

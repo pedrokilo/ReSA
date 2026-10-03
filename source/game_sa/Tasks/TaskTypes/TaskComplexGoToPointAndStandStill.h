@@ -14,7 +14,7 @@ public:
     struct {
         bool m_bMustOverShootTarget : 1 {}; // 0x1
         bool m_bStopExactly : 1 {};         // 0x2
-        bool m_bNewTarget : 1 {};           // 0x4
+        bool m_bNewTarget : 1;              // 0x4 - Como el original: el constructor no lo inicializa (GoToPoint solo lo pone a 1)
         bool m_bTrackingEntity : 1 {};      // 0x8
         bool m_bWasSuccessful : 1 {};       // 0x10
     };

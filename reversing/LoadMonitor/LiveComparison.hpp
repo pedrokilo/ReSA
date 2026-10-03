@@ -11,7 +11,7 @@
 
 namespace LoadMonLive {
 inline bool done{}; inline std::ofstream log; inline json trace;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 alignas(16) inline std::array<uint8,sizeof(CLoadMonitor)+16> object{};
 inline uint32 cycles{}, cyclesPerMs{}; inline int cycleCalls{};
 inline uint32 __cdecl Cycles() { ++cycleCalls; return cycles+=uint32(cycleCalls)*977u; }

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -83,7 +83,7 @@ bool CTaskSimpleAchieveHeading::MakeAbortable(CPed* ped, eAbortPriority priority
         ped->RestoreHeadingRate();
         return true;
     default:
-        m_HeadingToleranceRad  = TWO_PI;
+        m_HeadingToleranceRad  = std::bit_cast<float>(0x40C90FDBu); // Como el original: 2*pi exacto (TWO_PI de common.h es impreciso)
         ped->m_fAimingRotation = ped->m_fCurrentRotation;
         return false;
     }
@@ -110,11 +110,28 @@ void CTaskSimpleAchieveHeading::SetUpIK(CPed* ped) {
         return;
     }
 
-    if (m_Parent && notsa::contains({ TASK_COMPLEX_AVOID_ENTITY, TASK_COMPLEX_AVOID_OTHER_PED_WHILE_WANDERING }, m_Parent->GetTaskType())) { // That's kinda hacky :D
+    // Como el original: GetTaskType del padre se llama dos veces (primero contra AVOID_OTHER_PED_WHILE_WANDERING)
+    if (m_Parent && (m_Parent->GetTaskType() == TASK_COMPLEX_AVOID_OTHER_PED_WHILE_WANDERING || m_Parent->GetTaskType() == TASK_COMPLEX_AVOID_ENTITY)) {
         return;
     }
 
-    CVector lookAt = ped->GetPosition() + CVector{ 2.f * std::sin(m_DesiredHeadingRad), 2.f * std::cos(m_DesiredHeadingRad), 0.61f };
+    // Como el original: fld h; fsin/fcos (precisión interna completa); fadd st,st; fadd pos (redondeo de la FPU)
+    const CVector& pos = ped->GetPosition();
+    const float heading = m_DesiredHeadingRad, posX = pos.x, posY = pos.y;
+    float lookX, lookY;
+    __asm {
+        fld  heading
+        fsin
+        fadd st(0), st(0)
+        fadd posX
+        fstp lookX
+        fld  heading
+        fcos
+        fadd st(0), st(0)
+        fadd posY
+        fstp lookY
+    }
+    CVector lookAt{ lookX, lookY, pos.z + 0.61f };
     g_ikChainMan.LookAt("TaskAchvHeading", ped, nullptr, 5'000, BONE_UNKNOWN, &lookAt, false, 0.25f, 500, 3, false);
     m_IsDoingIK = true;
 }

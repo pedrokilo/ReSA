@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -216,9 +216,13 @@ void CPedScriptedTaskRecord::Process()
                 }
                 else {
                     CTaskManager& taskManager = taskRecordData.m_ped->GetTaskManager();
+                    // Como el original: HasTaskPrimary inlinado (0x6086BF) solo compara la primera tarea no nula de los
+                    // huecos 0..2 (o el hueco 2 si los tres son nulos) y los huecos 3 y 4
+                    const auto& primary = taskManager.m_aPrimaryTasks;
+                    CTask* const firstOfThree = primary[0] ? primary[0] : primary[1] ? primary[1] : primary[2];
                     if (taskManager.GetActiveTask() == taskRecordData.m_task)
                         taskRecordData.m_status = eScriptedTaskStatus::TASK_ASSOCIATED;
-                    else if (taskManager.HasTaskPrimary(taskRecordData.m_task))
+                    else if (firstOfThree == taskRecordData.m_task || primary[3] == taskRecordData.m_task || primary[4] == taskRecordData.m_task)
                         taskRecordData.m_status = eScriptedTaskStatus::PRIMARY;
                     else if (taskManager.HasTaskSecondary(taskRecordData.m_task))
                         taskRecordData.m_status = eScriptedTaskStatus::SECONDARY;

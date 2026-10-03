@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -60,24 +60,26 @@ CHudColours* CHudColours::Constructor() {
 // Setup the color in color table. "color" parameter - index of color in the table.
 // 0x58FD20
 void CHudColours::SetRGBAValue(eHudColours colorIndex, uint8 red, uint8 green, uint8 blue, uint8 alpha) {
-    m_aColours[colorIndex] = CRGBA(red, green, blue, alpha);
+    m_aColours.data()[colorIndex] = CRGBA(red, green, blue, alpha); // Como el original: sin comprobar el índice
 }
 
 // Get color from color table as integer value. "color" parameter - index of color in the table.
 // 0x58FD50
 uint32 CHudColours::GetIntColour(eHudColours colorIndex) const {
-    return m_aColours[colorIndex].ToInt();
+    // Como el original: (g << 16 | 0xFF) + (b << 8 | 0xFF) + (r << 24 | 0xFF); el alfa guardado no se usa.
+    const auto& color = m_aColours.data()[colorIndex];
+    return ((uint32)color.g << 16 | 0xFF) + ((uint32)color.b << 8 | 0xFF) + ((uint32)color.r << 24 | 0xFF);
 }
 
 // Get color RGB and set alpha manually. "color" parameter - index of color in the table.
 // 0x58FEA0
 CRGBA CHudColours::GetRGB(eHudColours colorIndex) const {
-    return m_aColours[colorIndex];
+    return m_aColours.data()[colorIndex];
 }
 
 // Get color RGBA. "color" parameter - index of color in the table.
 // 0x58FEE0
 CRGBA CHudColours::GetRGBA(eHudColours index, uint8 alpha) const {
-    auto& color = m_aColours[index];
+    auto& color = m_aColours.data()[index];
     return CRGBA(color.r, color.g, color.b, alpha);
 }

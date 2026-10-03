@@ -28,6 +28,14 @@ void CTaskComplexLeaveCarAndDie::InjectHooks() {
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x642280);
 }
 
+// 0x62F1A0
+// Como el original: constructor de CTaskComplexLeaveCar (sin salir sensato, forzando la salida) con la vtable de esta clase
+CTaskComplexLeaveCarAndDie::CTaskComplexLeaveCarAndDie(CVehicle* targetVehicle, int32 nTargetDoor, int32 nDelayTime) :
+    CTaskComplexLeaveCar{targetVehicle, nTargetDoor, nDelayTime, false, true}
+{
+    m_bDie = true;
+}
+
 // NOTSA
 CTaskComplexLeaveCarAndDie::CTaskComplexLeaveCarAndDie(const CTaskComplexLeaveCarAndDie& o) :
     CTaskComplexLeaveCar{o.m_pTargetVehicle, o.m_nTargetDoor, o.m_nDelayTime, false, true}

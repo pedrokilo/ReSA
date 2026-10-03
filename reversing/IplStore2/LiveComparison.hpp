@@ -23,7 +23,7 @@
 
 namespace Ipl2Live {
 inline bool done{}; inline std::ofstream log; inline json trace;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 using IplNode = CQuadTreeNode<IplDef*>;
 inline uint8*& IplPoolPtr() { return *reinterpret_cast<uint8**>(0x8E3FB0); }
 inline void*& QuadTree() { return *reinterpret_cast<void**>(0x8E3FAC); }

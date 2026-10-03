@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -60,7 +60,11 @@ CTaskComplexGoToPointAndStandStill::CTaskComplexGoToPointAndStandStill(
     if (m_bStopExactly) {
         m_bMustOverShootTarget = false;
         m_fMoveStateRadius     = 0.0f;
-        m_fRadius              = std::max(moveState <= PEDMOVE_WALK ? 0.5f : 1.f, m_fRadius);
+        // Como el original: `c > r ? c : r` (con NaN se queda r; std::max devolvía c) y comparación con signo (`jle`)
+        const float minRadius  = (int32)moveState <= (int32)PEDMOVE_WALK ? 0.5f : 1.f;
+        if (minRadius > m_fRadius) {
+            m_fRadius = minRadius;
+        }
     }
 }
 
@@ -86,7 +90,7 @@ CTask* CTaskComplexGoToPointAndStandStill::CreateNextSubTask(CPed* ped) {
         return CreateSubTask(TASK_SIMPLE_STAND_STILL, ped);
     }
     default:
-        NOTSA_UNREACHABLE("Invalid Sub-Task Type ({})", subtt);
+        return nullptr; // Como el original: cualquier otra subtarea devuelve nullptr
     }
 }
 
@@ -116,7 +120,8 @@ CTask* CTaskComplexGoToPointAndStandStill::ControlSubTask(CPed* ped) {
 
 // 0x46FE60
 void CTaskComplexGoToPointAndStandStill::GoToPoint(const CVector& targetPoint, float fRadius, float fMoveStateRadius, bool bUpdateTargetEvenIfItsTheSame) {
-    if (bUpdateTargetEvenIfItsTheSame || m_vecTargetPoint != targetPoint || m_fMoveStateRadius != fMoveStateRadius) {
+    // Como el original: también se compara m_fRadius consigo mismo (`fcomp st(0)`), así que un radio NaN fuerza la actualización
+    if (bUpdateTargetEvenIfItsTheSame || m_vecTargetPoint != targetPoint || m_fRadius != m_fRadius || m_fMoveStateRadius != fMoveStateRadius) {
         m_vecTargetPoint = targetPoint;
         m_fRadius = fRadius;
         m_fMoveStateRadius = fMoveStateRadius;

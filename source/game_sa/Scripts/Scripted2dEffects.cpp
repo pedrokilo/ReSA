@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -60,39 +60,61 @@ void CScripted2dEffects::Init() {
 
 // 0x6FA840
 CScriptedEffectPairs* CScripted2dEffects::GetEffectPairs(const C2dEffectPedAttractor* effect) {
-    return &ms_effectPairs[GetIndex(effect)];
+    // Como el original: sin comprobar el índice (con -1 queda justo antes del array).
+    return &ms_effectPairs.data()[GetIndex(effect)];
 }
 
 // 0x6F9F60
 int32 CScripted2dEffects::GetIndex(const C2dEffectPedAttractor* effect) {
-    if (const auto idx = IndexOfEffect(effect)) {
-        return (int32)*idx;
+    // Como el original: solo cuenta la dirección exacta de cada efecto (un puntero interior devuelve -1).
+    for (int32 i = 0; i < NUM_SCRIPTED_2D_EFFECTS; i++) {
+        if (reinterpret_cast<const C2dEffect*>(effect) == &ms_effects.data()[i]) {
+            return i;
+        }
     }
     return -1;
 }
 
 // 0x6FA7C0
 int32 CScripted2dEffects::AddScripted2DEffect(float radius) {
-    const auto slot = FindFreeSlot();
-    if (slot == -1) {
-        return NUM_SCRIPTED_2D_EFFECTS;
-    }
+    // Como el original: sin hueco libre devuelve -1; los pares se reinician como 0x6F9EB0 (conserva el
+    // PartnerTask del segundo efecto y el relleno) y el resto de campos se escriben en el sitio.
+    for (int32 slot = 0; slot < NUM_SCRIPTED_2D_EFFECTS; slot++) {
+        if (ms_activated[slot]) {
+            continue;
+        }
 
-    ms_activated[slot]             = true;
-    ms_effectSequenceTaskIDs[slot] = -1;
-    ms_userLists[slot].m_bUseList  = false;
-    ms_useAgainFlags[slot]         = false;
-    ms_radii[slot]                 = radius;
-    rng::fill(ms_userLists[slot].m_UserTypes, -1);
-    rng::fill(ms_userLists[slot].m_UserTypesByPedType, -1);
-    ms_effectPairs[slot] = CScriptedEffectPairs{};
-    return slot;
+        ms_activated[slot]             = true;
+        ms_effectSequenceTaskIDs[slot] = -1;
+        auto& list = ms_userLists[slot];
+        for (auto i = 0; i < 4; i++) {
+            list.m_UserTypes[i]          = -1;
+            list.m_UserTypesByPedType[i] = -1;
+        }
+        list.m_bUseList = false;
+        auto& pairs = ms_effectPairs[slot];
+        for (auto& pair : pairs.Pairs) {
+            for (auto& e : pair.Effects) {
+                e.Effect         = -1;
+                e.WaitingTask    = -1;
+                e.PartnerUseMode = CScriptedEffectPair::eMode::NONE;
+            }
+            pair.Effects[0].PartnerTask = -1;
+            pair.UsePartnerImmediately  = false;
+        }
+        pairs.NumPairs         = 0;
+        ms_useAgainFlags[slot] = false;
+        ms_radii[slot]         = radius;
+        return slot;
+    }
+    return -1;
 }
 
 // 0x6F9E80
 void CScripted2dEffects::ReturnScripted2DEffect(int32 index) {
-    ms_activated[index] = false;
-    GetPedAttractorManager()->RemoveEffect(notsa::cast<C2dEffectPedAttractor>(&ms_effects[index]));
+    // Como el original: sin comprobar índice ni tipo del efecto.
+    ms_activated.data()[index] = false;
+    GetPedAttractorManager()->RemoveEffect(reinterpret_cast<C2dEffectPedAttractor*>(&ms_effects.data()[index]));
 }
 
 // notsa

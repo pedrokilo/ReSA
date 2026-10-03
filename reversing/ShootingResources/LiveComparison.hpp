@@ -11,7 +11,7 @@
 #include "../ProbeSupport.hpp"
 namespace SRLive {
 inline bool done{};inline std::ofstream log;
-inline void Write(const json& r){log<<r.dump()<<'\n';}
+inline void Write(const json& r){ ReversingProbe::PumpMessages();log<<r.dump()<<'\n';}
 inline int Report(int t,char* msg,int*){if(t!=_CRT_ASSERT)return FALSE;Write({{"event","assertion"},{"message",msg?msg:""}});log.flush();ExitProcess(91);}
 template<class T>struct Raw{alignas(T) std::array<uint8,sizeof(T)> b{};T* get(){return reinterpret_cast<T*>(b.data());}};
 inline std::array<uint8,0x38> allocationImage{};

@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -97,11 +97,13 @@ CTask* CTaskComplexInAirAndLand::CreateNextSubTask(CPed* ped) {
 
             if (!ped->IsPlayer())
                 landAnimId = ANIM_ID_FALL_LAND;
-            else if (subTask->m_pAnim && subTask->m_pAnim->m_AnimId == ANIM_ID_IDLE_HBHB_1)
-                landAnimId = ANIM_ID_IDLE_TIRED;
             else {
+                // Como el original: GetPadFromPlayer (0x609560) se llama antes de comprobar la animación
                 auto pad = ped->AsPlayer()->GetPadFromPlayer();
-                if (ped->GetPlayerData()->m_fMoveBlendRatio > 1.5F && pad && (pad->GetPedWalkUpDown() != 0.0F || pad->GetPedWalkLeftRight() != 0.0F))
+                if (subTask->m_pAnim && subTask->m_pAnim->m_AnimId == ANIM_ID_IDLE_HBHB_1)
+                    landAnimId = ANIM_ID_IDLE_TIRED;
+                // Como el original: 0x53FC90 (izquierda/derecha) antes que 0x53FD30 (arriba/abajo)
+                else if (ped->GetPlayerData()->m_fMoveBlendRatio > 1.5F && pad && (pad->GetPedWalkLeftRight() != 0.0F || pad->GetPedWalkUpDown() != 0.0F))
                     landAnimId = ANIM_ID_JUMP_LAND;
                 else
                     landAnimId = ANIM_ID_FALL_LAND;

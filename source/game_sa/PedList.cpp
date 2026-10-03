@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 4/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -122,7 +122,12 @@ void CPedList::ClearUnused() {
     rng::fill(m_peds | std::views::drop(m_count), nullptr);
 }
 
+// 0x699EE0
 void CPedList::AddMember(CPed* ped) {
+    // Como el original: con la lista llena (30) no añade nada (ExtractPedsWithGuns la usa en línea)
+    if ((int32)m_count >= (int32)m_peds.size()) {
+        return;
+    }
     m_peds[m_count++] = ped;
 }
 

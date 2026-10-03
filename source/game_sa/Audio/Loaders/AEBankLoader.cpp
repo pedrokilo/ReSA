@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -39,10 +39,11 @@ void CAEBankLoader::InjectHooks() {
 CAEBankLoader::~CAEBankLoader() {
     if (m_IsInitialised) {
         // Como el original: borra primero los slots y después libera el buffer.
-        delete m_BankSlots;
+        // Como el original: operator delete (0x8214BD) incondicional, también con punteros nulos.
+        ::operator delete(m_BankSlots);
         CMemoryMgr::Free(m_Buffer);
-        delete m_BankLkups;
-        delete m_StreamHandles;
+        ::operator delete(m_BankLkups);
+        ::operator delete(m_StreamHandles);
     }
 }
 
@@ -50,7 +51,7 @@ CAEBankLoader::~CAEBankLoader() {
 // Carga BANKLKUP.DAT como array contiguo de AEBankLookup.
 bool CAEBankLoader::LoadBankLookupFile() {
     const auto file = CFileMgr::OpenFile("AUDIO\\CONFIG\\BANKLKUP.DAT", "rb");
-    if (!file) {
+    if (reinterpret_cast<int32>(file) <= 0) { // Como el original: handle comparado con signo (jg)
         return false;
     }
 
@@ -60,11 +61,13 @@ bool CAEBankLoader::LoadBankLookupFile() {
         m_BankLkups   = static_cast<AEBankLookup*>(::operator new((int16)(m_BankLkupCnt) * sizeof(AEBankLookup)));
 
         if (CFileMgr::Read(file, m_BankLkups, size) != size) {
-            delete std::exchange(m_BankLkups, nullptr);
+            ::operator delete(std::exchange(m_BankLkups, nullptr));
+            CFileMgr::CloseFile(file);
+            return false;
         }
 
         CFileMgr::CloseFile(file);
-        return m_BankLkups != nullptr;
+        return true; // Como el original: devuelve true sin mirar el puntero
     } else {
         CFileMgr::CloseFile(file);
     }
@@ -79,7 +82,7 @@ bool CAEBankLoader::LoadBankLookupFile() {
  */
 bool CAEBankLoader::LoadBankSlotFile() {
     const auto file = CFileMgr::OpenFile("AUDIO\\CONFIG\\BANKSLOT.DAT", "rb");
-    if (!file) {
+    if (reinterpret_cast<int32>(file) <= 0) { // Como el original: handle comparado con signo (jg)
         return false;
     }
 
@@ -98,7 +101,7 @@ bool CAEBankLoader::LoadBankSlotFile() {
     }
     if (CFileMgr::Read(file, m_BankSlots, size - 2) != size - 2) {
         CFileMgr::CloseFile(file); // Como el original: cierra antes de borrar los slots
-        delete std::exchange(m_BankSlots, nullptr);
+        ::operator delete(std::exchange(m_BankSlots, nullptr));
         return false;
     }
     CFileMgr::CloseFile(file); // Como el original: cierra antes de calcular offsets y reservar
@@ -114,8 +117,8 @@ bool CAEBankLoader::LoadBankSlotFile() {
 // Lee PAKFILES.DAT y abre cada paquete SFX mediante CdStream, conservando sus handles.
 bool CAEBankLoader::LoadSFXPakLookupFile() {
     const auto file = CFileMgr::OpenFile("AUDIO\\CONFIG\\PAKFILES.DAT", "rb");
-    if (!file) {
-        return false; // Como el original: sin fichero devuelve false
+    if (reinterpret_cast<int32>(file) <= 0) {
+        return false; // Como el original: sin fichero (handle <= 0 con signo) devuelve false
     }
 
     const auto totalSize = (size_t)(CFileMgr::GetTotalSize(file));
@@ -129,7 +132,7 @@ bool CAEBankLoader::LoadSFXPakLookupFile() {
     const auto readSize = CFileMgr::Read(file, m_PakLkups, totalSize);
     CFileMgr::CloseFile(file); // Como el original: cierra antes de comprobar la lectura
     if (readSize != totalSize) {
-        delete std::exchange(m_PakLkups, nullptr);
+        ::operator delete(std::exchange(m_PakLkups, nullptr));
         return false;
     }
 
@@ -137,12 +140,12 @@ bool CAEBankLoader::LoadSFXPakLookupFile() {
     for (auto i = 0; i < (int16)(m_PakLkupCount); i++) {
         // Como el original: strcpy("AUDIO\\SFX\\") + strcat(BaseFilename) en un buffer local.
         char path[128];
-        strcpy_s(path, "AUDIO\\SFX\\");
-        strcat_s(path, m_PakLkups[i].BaseFilename);
+        strcpy(path, "AUDIO\\SFX\\");
+        strcat(path, m_PakLkups[i].BaseFilename);
         m_StreamHandles[i] = CdStreamOpen(path);
     }
 
-    delete std::exchange(m_PakLkups, nullptr);
+    ::operator delete(std::exchange(m_PakLkups, nullptr));
     return true;
 }
 

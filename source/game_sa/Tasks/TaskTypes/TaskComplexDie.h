@@ -3,6 +3,7 @@
 #include "TaskComplex.h"
 #include "eWeaponType.h"
 #include "eDirection.h"
+#include <extensions/WEnum.hpp>
 
 class CVehicle;
 
@@ -22,7 +23,7 @@ public:
             uint32 m_bFallToDeathOverRailing : 1;
         };
     };
-    eDirection m_nFallToDeathDir;
+    notsa::WEnumS32<eDirection> m_nFallToDeathDir; // Como el original: dword en +0x24 (el constructor 0x630040 copia el argumento entero)
 
 public:
     static constexpr auto Type = TASK_COMPLEX_DIE;
@@ -56,7 +57,7 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
-    CTaskComplexDie* Constructor(eWeaponType nWeaponType, AssocGroupId animGroup, AnimationId animID, float fBlendDelta, float fAnimSpeed, bool bBeingKilledByStealth, bool bFallingToDeath, eDirection nFallToDeathDir, bool bFallToDeathOverRailing);
+    CTaskComplexDie* Constructor(eWeaponType nWeaponType, AssocGroupId animGroup, AnimationId animID, float fBlendDelta, float fAnimSpeed, bool bBeingKilledByStealth, bool bFallingToDeath, int32 nFallToDeathDir, bool bFallToDeathOverRailing);
 };
 
 VALIDATE_SIZE(CTaskComplexDie, 0x28);

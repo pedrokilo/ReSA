@@ -10,7 +10,7 @@ public:
     static void InjectHooks();
 
     CTaskAllocatorAttack(CPed* target, int32 groupTargetID, CPed* originator);
-    ~CTaskAllocatorAttack() override = default;
+    ~CTaskAllocatorAttack() override;
 
     eTaskAllocatorType GetType() override { return eTaskAllocatorType::ATTACK; } // 0x69C2C0
     void               AllocateTasks(CPedGroupIntelligence* intel) override;

@@ -14,7 +14,7 @@ inline int seed{}; inline json trace;
 inline std::array<CTask*,64> tasks{};
 inline bool __fastcall InCar(CPedIntelligence* p,void*) { auto id=uintptr_t(p)-1; trace.push_back({"car",id}); return (id+seed)%3==0; }
 inline CTask* __fastcall Task(CPedIntelligence* p,void*,eTaskType type) { auto id=uintptr_t(p)-1; trace.push_back({"task",id,int(type)}); return tasks[id]; }
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 inline int Report(int type,char* msg,int*) { if(type!=_CRT_ASSERT)return FALSE; Write({{"event","assertion"},{"message",msg ? msg:""}}); ExitProcess(91); }
 inline void Update() {
     if(done)return;

@@ -38,7 +38,7 @@ public:
     auto GetAnimHierarchy() const { return m_BlendHier; }
 
 public:
-    uint16                        m_NumBlendNodes{}; //!< Tamaño de m_BlendSeqs y número de nodos del clump usado al crearla.
+    uint16                        m_NumBlendNodes; //!< Como el original: los constructores no lo escriben. Tamaño de m_BlendSeqs y número de nodos del clump usado al crearla.
     notsa::WEnumS16<AnimationId>  m_AnimId{ANIM_ID_UNDEFINED};
     notsa::WEnumS16<AssocGroupId> m_AnimGroupId{ANIM_GROUP_NONE};
     uint16                        m_Flags{};
@@ -59,9 +59,6 @@ private:
     }
 
     // 0x4CDF50
-    auto Destructor() {
-        this->~CAnimBlendStaticAssociation();
-        return this;
-    }
+    CAnimBlendStaticAssociation* Destructor(uint8 flags);
 };
 VALIDATE_SIZE(CAnimBlendStaticAssociation, 0x14);

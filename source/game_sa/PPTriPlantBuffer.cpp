@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -58,10 +58,11 @@ void CPPTriPlantBuffer::Flush() {
 
 // 0x5DB140
 PPTriPlant* CPPTriPlantBuffer::GetPPTriPlantPtr(int32 amountToAdd) {
-    if (m_CurrentIndex + amountToAdd > MAX_PLANTS)
+    // Como el original: comparación con signo
+    if (m_CurrentIndex + amountToAdd > (int32)MAX_PLANTS)
         Flush();
 
-    return &m_Buffer[m_CurrentIndex];
+    return m_Buffer.data() + m_CurrentIndex; // Como el original: sin comprobar el índice
 }
 
 // 0x5DB170
@@ -77,7 +78,7 @@ void CPPTriPlantBuffer::ChangeCurrentPlantModelsSet(int32 newSet) {
 void CPPTriPlantBuffer::IncreaseBufferIndex(int32 pipeMode, int32 amount) {
     if (m_PlantModelsSet == pipeMode) {
         m_CurrentIndex += amount;
-        if (m_CurrentIndex >= MAX_PLANTS) {
+        if (m_CurrentIndex >= (int32)MAX_PLANTS) { // Como el original: con signo
             Flush();
         }
     }
@@ -89,10 +90,13 @@ RpAtomic** CPPTriPlantBuffer::GetPlantModelsTab(uint32 index) {
 }
 
 // 0x5DAC80
-void CPPTriPlantBuffer::SetPlantModelsTab(uint32 index, RpAtomic** pPlantModels) {
+bool CPPTriPlantBuffer::SetPlantModelsTab(uint32 index, RpAtomic** pPlantModels) {
+    // Como el original: devuelve si el índice era válido
     if (index < std::size(m_pPlantModelsTab)) {
         m_pPlantModelsTab[index] = pPlantModels;
+        return true;
     }
+    return false;
 }
 
 // 'data' is a pointer to RwRGBA

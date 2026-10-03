@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -18,7 +18,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -80,88 +80,59 @@ void CVehicleAnimGroup::CopyAnimGroup(CVehicleAnimGroup* src) {
     GetInOutTiming(eInOutTiming::TIMING_END) = src->GetInOutTiming(eInOutTiming::TIMING_END);
 }
 
+// 0x6E3B00
 AssocGroupId CVehicleAnimGroup::GetGroup(AnimationId animId) const {
+    int32 bit;
     switch (animId) {
     case ANIM_ID_CAR_ALIGN_LHS:
     case ANIM_ID_CAR_ALIGN_RHS:
     case ANIM_ID_CAR_ALIGNHI_LHS:
-    case ANIM_ID_CAR_ALIGNHI_RHS:
-        return m_animFlags.bAlign ? GetSecondGroup() : GetFirstGroup();
-
+    case ANIM_ID_CAR_ALIGNHI_RHS:     bit = 0;  break; // bAlign
     case ANIM_ID_CAR_OPEN_LHS:
-    case ANIM_ID_CAR_OPEN_RHS:
-        return m_animFlags.bOpenFrontDoorsOnExit ? GetSecondGroup() : GetFirstGroup();
-
+    case ANIM_ID_CAR_OPEN_RHS:        bit = 1;  break; // bOpenFrontDoorsOnExit
     case ANIM_ID_CAR_OPEN_LHS_1:
-    case ANIM_ID_CAR_OPEN_RHS_1:
-        return m_animFlags.bOpenRearDoorsOnExit ? GetSecondGroup() : GetFirstGroup();
-
+    case ANIM_ID_CAR_OPEN_RHS_1:      bit = 2;  break; // bOpenRearDoorsOnExit
     case ANIM_ID_CAR_GETIN_LHS_0:
     case ANIM_ID_CAR_GETIN_RHS_0:
-    case ANIM_ID_CAR_GETIN_BIKE_FRONT:
-        return m_animFlags.bCanEnterFrontDoors ? GetSecondGroup() : GetFirstGroup();
-
+    case ANIM_ID_CAR_GETIN_BIKE_FRONT: bit = 3; break; // bCanEnterFrontDoors
     case ANIM_ID_CAR_GETIN_LHS_1:
-    case ANIM_ID_CAR_GETIN_RHS_1:
-        return m_animFlags.bCanEnterRearDoors ? GetSecondGroup() : GetFirstGroup();
-
+    case ANIM_ID_CAR_GETIN_RHS_1:     bit = 4;  break; // bCanEnterRearDoors
     case ANIM_ID_CAR_PULLOUT_LHS:
     case ANIM_ID_CAR_PULLOUT_RHS:
-    case ANIM_ID_UNKNOWN_15:
-        return m_animFlags.bCanPulloutPed ? GetSecondGroup() : GetFirstGroup();
-
+    case ANIM_ID_UNKNOWN_15:          bit = 5;  break; // bCanPulloutPed
     case ANIM_ID_CAR_CLOSEDOOR_LHS_0:
-    case ANIM_ID_CAR_CLOSEDOOR_RHS_0:
-        return m_animFlags.bCloseFrontDoorWhenInside ? GetSecondGroup() : GetFirstGroup();
-
+    case ANIM_ID_CAR_CLOSEDOOR_RHS_0: bit = 6;  break; // bCloseFrontDoorWhenInside
     case ANIM_ID_CAR_CLOSEDOOR_LHS_1:
-    case ANIM_ID_CAR_CLOSEDOOR_RHS_1:
-        return m_animFlags.bCloseRearDoorWhenInside ? GetSecondGroup() : GetFirstGroup();
-
+    case ANIM_ID_CAR_CLOSEDOOR_RHS_1: bit = 7;  break; // bCloseRearDoorWhenInside
     case ANIM_ID_CAR_SHUFFLE_RHS_0:
-    case ANIM_ID_CAR_SHUFFLE_RHS_1:
-        return m_animFlags.bShuffle ? GetSecondGroup() : GetFirstGroup();
-
+    case ANIM_ID_CAR_SHUFFLE_RHS_1:   bit = 8;  break; // bShuffle
     case ANIM_ID_CAR_GETOUT_LHS_0:
-    case ANIM_ID_CAR_GETOUT_RHS_0:
-        return m_animFlags.bCanExitFrontDoors ? GetSecondGroup() : GetFirstGroup();
-
+    case ANIM_ID_CAR_GETOUT_RHS_0:    bit = 9;  break; // bCanExitFrontDoors
     case ANIM_ID_CAR_GETOUT_LHS_1:
-    case ANIM_ID_CAR_GETOUT_RHS_1:
-        return m_animFlags.bCanExitRearDoors ? GetSecondGroup() : GetFirstGroup();
-
+    case ANIM_ID_CAR_GETOUT_RHS_1:    bit = 10; break; // bCanExitRearDoors
     case ANIM_ID_CAR_JACKEDLHS:
-    case ANIM_ID_CAR_JACKEDRHS:
-        return m_animFlags.bPlayerCanBeJacked ? GetSecondGroup() : GetFirstGroup();
-
+    case ANIM_ID_CAR_JACKEDRHS:       bit = 11; break; // bPlayerCanBeJacked
     case ANIM_ID_CAR_CLOSE_LHS_0:
-    case ANIM_ID_CAR_CLOSE_RHS_0:
-        return m_animFlags.bCloseFrontDoorWhenOutside ? GetSecondGroup() : GetFirstGroup();
-
+    case ANIM_ID_CAR_CLOSE_RHS_0:     bit = 12; break; // bCloseFrontDoorWhenOutside
     case ANIM_ID_CAR_CLOSE_LHS_1:
-    case ANIM_ID_CAR_CLOSE_RHS_1:
-        return m_animFlags.bCloseRearDoorWhenOutside ? GetSecondGroup() : GetFirstGroup();
-
+    case ANIM_ID_CAR_CLOSE_RHS_1:     bit = 13; break; // bCloseRearDoorWhenOutside
     case ANIM_ID_CAR_ROLLOUT_LHS:
-    case ANIM_ID_CAR_ROLLOUT_RHS:
-        return m_animFlags.bCanJumpOutOfVehicle ? GetSecondGroup() : GetFirstGroup();
-
-    case ANIM_ID_CAR_ROLLDOOR:
-        return m_animFlags.bRollDownWindowOnDoorClose ? GetSecondGroup() : GetFirstGroup();
-
+    case ANIM_ID_CAR_ROLLOUT_RHS:     bit = 14; break; // bCanJumpOutOfVehicle
+    case ANIM_ID_CAR_ROLLDOOR:        bit = 15; break; // bRollDownWindowOnDoorClose
     case ANIM_ID_CAR_FALLOUT_LHS:
-    case ANIM_ID_CAR_FALLOUT_RHS:
-        return m_animFlags.bPlayerCanFallOut ? GetSecondGroup() : GetFirstGroup();
-
+    case ANIM_ID_CAR_FALLOUT_RHS:     bit = 16; break; // bPlayerCanFallOut
     case ANIM_ID_CAR_DOORLOCKED_LHS:
-    case ANIM_ID_CAR_DOORLOCKED_RHS:
-        return m_animFlags.bDoorLocked ? GetSecondGroup() : GetFirstGroup();
+    case ANIM_ID_CAR_DOORLOCKED_RHS:  bit = 17; break; // bDoorLocked
+    default:                          bit = (int32)animId; break; // Como el original: el propio id como bit (p. ej. ANIM_ID_UNKNOWN_26)
     }
 
-    NOTSA_UNREACHABLE(); // Shouldn't ever get to this point
-    //return (m_animFlags.intValue & (1 << animId)) != 0 ? GetSecondGroup() : GetFirstGroup();
+    // Como el original: máscara = _ftol2(pow(2.0, bit)); fuera de [0, 31] la parte baja es 0 (se usa el primer grupo).
+    // El grupo se extiende con signo (movsx).
+    const uint32 mask = bit >= 0 && bit < 32 ? 1u << bit : 0u;
+    return (AssocGroupId)(int8)((m_animFlags.intValue & mask) ? m_ucSecondGroup : m_ucFirstGroup);
 }
 
+// 0x6E3C80
 float CVehicleAnimGroup::ComputeCriticalBlendTime(AnimationId animId) {
     switch (animId) {
     case ANIM_ID_CAR_ALIGN_LHS:
@@ -204,7 +175,9 @@ float CVehicleAnimGroup::ComputeCriticalBlendTime(AnimationId animId) {
 
 CVector CVehicleAnimGroup::ComputeAnimDoorOffsets(eVehAnimDoorOffset doorId) {
     // Memoize door offset if it's not set yet
-    if (GetDoorOffset(doorId).SquaredMagnitude() != 0.0F) {
+    // Como el original: x*x + y*y + z*z se compara con 0 en el x87 (exponente extendido, sin subdesbordamiento): solo
+    // es 0 si las tres componentes son ±0; con NaN se devuelve el valor guardado.
+    if (const auto& offset = GetDoorOffset(doorId); !(offset.x == 0.0F && offset.y == 0.0F && offset.z == 0.0F)) {
         return GetDoorOffset(doorId);
     }
 
@@ -217,7 +190,7 @@ CVector CVehicleAnimGroup::ComputeAnimDoorOffsets(eVehAnimDoorOffset doorId) {
         case EXIT_REAR:        return ANIM_ID_CAR_GETOUT_LHS_1;
         case JACK_PED_LEFT:    return ANIM_ID_CAR_JACKEDLHS;
         case JACK_PED_RIGHT:   return ANIM_ID_CAR_JACKEDRHS;
-        default:               NOTSA_UNREACHABLE();
+        default:               return (AnimationId)doorId; // Como el original: el propio índice de puerta como animación
         }
     }();
 
@@ -225,8 +198,8 @@ CVector CVehicleAnimGroup::ComputeAnimDoorOffsets(eVehAnimDoorOffset doorId) {
     auto* animAssoc = CAnimManager::GetAnimAssociation(groupId, animId);
     auto* sequences = animAssoc->m_BlendHier->m_pSequences;
     CAnimManager::UncompressAnimation(animAssoc->m_BlendHier);
-    if (sequences->m_FramesNum > 0) {
-        auto* frame = sequences->GetUKeyFrame(sequences->m_FramesNum - 1);
+    if (const auto numFrames = static_cast<int16>(sequences->m_FramesNum); numFrames > 0) { // Como el original: con signo (jle)
+        auto* frame = sequences->GetUKeyFrame(numFrames - 1);
         GetDoorOffset(doorId) = frame->Trans;
     }
 

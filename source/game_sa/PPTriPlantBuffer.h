@@ -50,7 +50,7 @@ public:
     void IncreaseBufferIndex(int32 pipeMode, int32 amount);
 
     RpAtomic** GetPlantModelsTab(uint32 index);
-    void SetPlantModelsTab(uint32 index, RpAtomic** pPlantModels);
+    bool SetPlantModelsTab(uint32 index, RpAtomic** pPlantModels);
 
     static RpMaterial* SetGrassMaterialCB(RpMaterial* material, void* data);
 

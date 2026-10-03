@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -38,12 +38,21 @@ void CTaskComplexDrivePointRoute::InjectHooks() {
 CTaskComplexDrivePointRoute::CTaskComplexDrivePointRoute(CVehicle* vehicle, CPointRoute const& route, float cruiseSpeed, uint32 mode, eModelID carModelIdx, float targetRadius, eCarDrivingStyle drivingStyle) :
     m_mode{mode},
     m_veh{vehicle},
-    m_route{new CPointRoute{route}},
     m_cruiseSpeed{cruiseSpeed},
     m_desiredCarModel{carModelIdx},
     m_targetRadius{targetRadius},
     m_drivingStyle{drivingStyle}
 {
+    // Como el original: CPointRoute::operator new (0x41B7C0) y el constructor copia en línea 0x63A040, que solo copia
+    // las entradas usadas (bucle con signo); `new CPointRoute{route}` copiaba los 8 puntos
+    auto* const newRoute = static_cast<CPointRoute*>(CPointRoute::operator new(sizeof(CPointRoute)));
+    if (newRoute) {
+        newRoute->m_NumEntries = route.m_NumEntries;
+        for (int32 i = 0; i < (int32)newRoute->m_NumEntries; i++) {
+            newRoute->m_Entries.data()[i] = route.m_Entries.data()[i];
+        }
+    }
+    m_route = newRoute;
     // CEntity::SafeRegisterRef(m_veh); // NOTE: Missing from OG code
 }
 
@@ -67,12 +76,13 @@ CTaskComplexDrivePointRoute::~CTaskComplexDrivePointRoute() {
 }
 
 CTask* CTaskComplexDrivePointRoute::CreateTaskForCurrentPoint() const {
-    return new CTaskComplexDriveToPoint{ m_veh, (*m_route)[m_currPtIdx], m_cruiseSpeed, (int32)m_mode, m_desiredCarModel, m_targetRadius, m_drivingStyle };
+    // Como el original: se indexa el array crudo (el índice puede superar m_NumEntries; la vista `take` abortaba en debug)
+    return new CTaskComplexDriveToPoint{ m_veh, m_route->m_Entries.data()[m_currPtIdx], m_cruiseSpeed, (int32)m_mode, m_desiredCarModel, m_targetRadius, m_drivingStyle };
 }
 
 // 0x63CF90
 CTask* CTaskComplexDrivePointRoute::CreateNextSubTask(CPed* ped) {
-    if (m_currPtIdx++ == m_route->m_NumEntries) {
+    if (++m_currPtIdx == m_route->m_NumEntries) { // Como el original: se compara el índice ya incrementado
         return nullptr;
     }
 

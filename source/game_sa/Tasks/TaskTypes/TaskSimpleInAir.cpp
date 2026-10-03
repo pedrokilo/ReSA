@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -41,7 +41,8 @@ CTaskSimpleInAir* CTaskSimpleInAir::Constructor(bool bUsingJumpGlide, bool bUsin
 }
 
 // 0x678CD0
-CTaskSimpleInAir::CTaskSimpleInAir(bool bUsingJumpGlide, bool bUsingFallGlide, bool bUsingClimbJump) : m_timer()
+// Como el original: no escribe m_vecPosn/m_fAngle/m_nSurfaceType, los bits 3..7 de las banderas ni el relleno del temporizador
+CTaskSimpleInAir::CTaskSimpleInAir(bool bUsingJumpGlide, bool bUsingFallGlide, bool bUsingClimbJump)
 {
     m_bUsingJumpGlide = bUsingJumpGlide;
     m_bUsingFallGlide = bUsingFallGlide;
@@ -120,7 +121,7 @@ bool CTaskSimpleInAir::ProcessPed(CPed* ped)
     {
         ped->ApplyMoveForce(0.0F, 0.0F, CTimer::GetTimeStep() * ped->m_fMass * 0.35F * GAME_GRAVITY);
     }
-    else if (ped->m_vecMoveSpeed.z > 0.0F && !ped->m_vecMoveSpeed.IsZero()
+    else if (!(ped->m_vecMoveSpeed.z <= 0.0F) && !ped->m_vecMoveSpeed.IsZero() // Como el original: un NaN en z cuenta como subida
         || !m_bUsingFallGlide && (ped->m_nPedState == PEDSTATE_DIE || ped->m_nPedState == PEDSTATE_DEAD)
         )
     {
@@ -128,19 +129,23 @@ bool CTaskSimpleInAir::ProcessPed(CPed* ped)
         {
             if (GetParent() && GetParent()->GetParent() && GetParent()->GetParent()->GetTaskType() == TASK_COMPLEX_JUMP) // God bless you
             {
-                float moveSpeedForward = DotProduct(ped->GetForward(), ped->m_vecMoveSpeed);
+                // Como el original: producto escalar sumado en orden z, y, x
+                const CVector& fwd = ped->GetForward();
+                float moveSpeedForward = ped->m_vecMoveSpeed.z * fwd.z + ped->m_vecMoveSpeed.y * fwd.y + ped->m_vecMoveSpeed.x * fwd.x;
                 float maxMoveSpeedForward = 0.1F * 0.5F;
-                if (moveSpeedForward < maxMoveSpeedForward && m_nProcessCounter < 1000)
+                if (moveSpeedForward < maxMoveSpeedForward && (int32)m_nProcessCounter < 1000) // Como el original: comparación con signo (jge)
                 {
                     ped->ApplyMoveForce(ped->GetForward() * ((maxMoveSpeedForward - moveSpeedForward) * ped->m_fMass));
-                    m_nProcessCounter += (uint32)CTimer::GetTimeStepInMS();
+                    m_nProcessCounter += (uint32)(int32)(CTimer::GetTimeStep() * 0.02f * 1000.0f); // Como el original: ms_fTimeStep * 0.02f * 1000.0f con _ftol2
                 }
             }
         }
     }
     else
     {
-        m_fMinZSpeed = std::min(ped->m_vecMoveSpeed.z, m_fMinZSpeed);
+        if (ped->m_vecMoveSpeed.z < m_fMinZSpeed) { // Como el original: un NaN no actualiza
+            m_fMinZSpeed = ped->m_vecMoveSpeed.z;
+        }
 
         bool bStopFalling = ped->bIsStanding;
         if (!bStopFalling)
@@ -150,7 +155,7 @@ bool CTaskSimpleInAir::ProcessPed(CPed* ped)
         {
             if (ms_fSlowFallThreshold < ped->m_vecMoveSpeed.z && ped->m_vecMoveSpeed.z <= 0.0F)
             {
-                if (++m_nProcessCounter > ms_nMaxSlowFallFrames)
+                if ((int32)++m_nProcessCounter > (int32)ms_nMaxSlowFallFrames) // Como el original: comparación con signo (jle)
                 {
                     ped->bIsStanding = true;
                     bStopFalling = true;
@@ -200,7 +205,7 @@ bool CTaskSimpleInAir::ProcessPed(CPed* ped)
         && ped->m_vecMoveSpeed.z > -0.2F
         && ped->m_vecMoveSpeed.Magnitude2D() > 0.05F)
     {
-        const auto tInAirLand = notsa::dyn_cast<CTaskComplexInAirAndLand>(m_Parent);
+        const auto tInAirLand = notsa::dyn_cast_if_present<CTaskComplexInAirAndLand>(m_Parent); // Como el original: el padre puede ser nulo
         if (!tInAirLand || !tInAirLand->m_bInvalidClimb) {
             m_pClimbEntity = CTaskSimpleClimb::TestForClimb(ped, m_vecPosn, m_fAngle, m_nSurfaceType, false);
             if (m_pClimbEntity) {
@@ -231,6 +236,7 @@ bool CTaskSimpleInAir::MakeAbortable(CPed* ped, eAbortPriority priority, const C
             m_pAnim->SetFinishCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
             m_pAnim = nullptr;
         }
+        ped->bIsInTheAir = false; // Como el original: and dword ptr [ebx+46Ch],0FFFFFDFFh
         return true;
     }
     else

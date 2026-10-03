@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -24,7 +24,7 @@ void CStreamingInfo::InjectHooks() {
 
     RH_ScopedInstall(Init, 0x407460);
     RH_ScopedInstall(AddToList, 0x407480);
-    RH_ScopedInstall(GetCdPosn, 0x407570);
+    RH_ScopedNamedInstall(GetCdPosn_Hook, "GetCdPosn", 0x407570); // Como el original: devuelve el valor en EAX
     RH_ScopedInstall(SetCdPosnAndSize, 0x4075E0);
     RH_ScopedInstall(GetCdPosnAndSize, 0x4075A0);
     RH_ScopedInstall(InList, 0x407560);
@@ -33,15 +33,26 @@ void CStreamingInfo::InjectHooks() {
 
 // 0x407460
 void CStreamingInfo::Init() {
-    *this = {};
+    // Como el original: no toca m_Flags ni el relleno
+    m_NextIndex     = -1;
+    m_PrevIndex     = -1;
+    m_NextIndexOnCd = -1;
+    m_ImgID         = 0;
+    m_CDOffset      = 0;
+    m_CDSize        = 0;
+    m_LoadState     = LOADSTATE_NOT_LOADED;
 }
 
 // 0x407570
 CdStreamPos CStreamingInfo::GetCdPosn() const {
-    return CdStreamPos{
-        .Offset = m_CDOffset,
-        .FileID = CdStreamHandleToFileID(CStreaming::ms_files[m_ImgID].StreamHandle)
-    };
+    // Como el original: suma de 32 bits del handle del archivo y el desplazamiento
+    return std::bit_cast<CdStreamPos>((uint32)CStreaming::ms_files[m_ImgID].StreamHandle + m_CDOffset);
+}
+
+// 0x407570 - envoltorio del hook: una función miembro de MSVC devuelve las estructuras por puntero oculto,
+// pero el EXE espera el valor en EAX sin argumentos (ret sin pila)
+uint32 CStreamingInfo::GetCdPosn_Hook() const {
+    return std::bit_cast<uint32>(GetCdPosn());
 }
 
 // 0x4075E0
@@ -62,20 +73,12 @@ bool CStreamingInfo::GetCdPosnAndSize(CdStreamPos& pos, size_t& size) {
 
 // 0x407560
 bool CStreamingInfo::InList() const {
-    if (m_NextIndex != -1) {
-        assert(m_PrevIndex != -1);
-    }
-
-    // Yeah, that's partially true
-    // Because the way these lists work, items actually always have both `next` and `prev` defined
-    // So, I guess here they just assume that, and "optimize" the check :D
-    return m_NextIndex != -1 /*notsa => */ && m_PrevIndex != -1;
+    // Como el original: solo mira el siguiente
+    return m_NextIndex != -1;
 }
 
 // 0x407480
 void CStreamingInfo::AddToList(CStreamingInfo* after) {
-    assert(!InList()); // May not be in a list (As that would corrupt the list)
-
     m_NextIndex = after->m_NextIndex;
     m_PrevIndex = static_cast<int16>(after - ms_pArrayBase);
 
@@ -85,8 +88,6 @@ void CStreamingInfo::AddToList(CStreamingInfo* after) {
 
 // 0x4074E0
 void CStreamingInfo::RemoveFromList() {
-    assert(InList()); // Must be in a list (Otherwise array access is UB)
-
     ms_pArrayBase[m_NextIndex].m_PrevIndex = m_PrevIndex;
     ms_pArrayBase[m_PrevIndex].m_NextIndex = m_NextIndex;
     m_NextIndex = -1;

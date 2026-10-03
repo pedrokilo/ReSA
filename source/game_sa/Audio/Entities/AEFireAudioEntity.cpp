@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -33,7 +33,8 @@ void CAEFireAudioEntity::Initialise(FxSystem_c* system) {
 
 // 0x5B9A90
 void CAEFireAudioEntity::StaticInitialise() {
-    AEAudioHardware.LoadSoundBank(SND_BANK_GENRL_RAIN, SND_BANK_SLOT_WEATHER);
+    // Como el original: carga el banco de explosiones (0x34) en el slot 4, no el de lluvia.
+    AEAudioHardware.LoadSoundBank(SND_BANK_GENRL_EXPLOSIONS, SND_BANK_SLOT_EXPLOSIONS);
 }
 
 // 0x4DCF40
@@ -57,7 +58,9 @@ void CAEFireAudioEntity::AddAudioEvent(eAudioEvents audioId, CVector& posn) {
 // 0x4DD0D0
 // Crea dos capas de fuego con distinto banco, pitch y envolvente de volumen.
 void CAEFireAudioEntity::PlayFireSounds(eAudioEvents audioId, CVector& posn) {
-    m_snLastFireFrequencyIndex = (m_snLastFireFrequencyIndex + 1) % 5;
+    // Como el original: el índice es un byte con signo (movsx + idiv) y se usa con signo.
+    m_snLastFireFrequencyIndex = (uint8)(((int32)(int8)m_snLastFireFrequencyIndex + 1) % 5);
+    const int32 freqIdx = (int8)m_snLastFireFrequencyIndex;
     const float volume = GetDefaultVolume(audioId);
 
     m_SoundLeft = AESoundManager.PlaySound({
@@ -67,8 +70,9 @@ void CAEFireAudioEntity::PlayFireSounds(eAudioEvents audioId, CVector& posn) {
         .Pos             = posn,
         .Volume          = volume,
         .RollOffFactor   = 2.0f,
-        .Speed           = gfFireFrequencyVariations[m_snLastFireFrequencyIndex],
+        .Speed           = gfFireFrequencyVariations.data()[freqIdx],
         .Flags           = SOUND_REQUEST_UPDATES,
+        .ClientVariable  = -1.0f, // Como el original: el valor que deja CAESound::Initialise.
     });
 
     if (!AEAudioHardware.EnsureSoundBankIsLoaded(SND_BANK_GENRL_VEHICLE_GEN, SND_BANK_SLOT_VEHICLE_GEN)) {
@@ -82,7 +86,7 @@ void CAEFireAudioEntity::PlayFireSounds(eAudioEvents audioId, CVector& posn) {
         .Pos             = posn,
         .Volume          = volume - 17.0f,
         .RollOffFactor   = 2.0f,
-        .Speed           = gfFireFrequencyVariations[m_snLastFireFrequencyIndex] * 0.6f,
+        .Speed           = gfFireFrequencyVariations.data()[freqIdx] * 0.6f,
         .Doppler         = 1.0f,
         .FrameDelay      = 0,
         .Flags           = SOUND_REQUEST_UPDATES,
@@ -107,9 +111,10 @@ void CAEFireAudioEntity::PlayWaterSounds(eAudioEvents audioId, CVector& posn) {
          .Doppler           = 0.6f,
          .FrameDelay        = 0,
          .Flags             = SOUND_REQUEST_UPDATES,
-         .FrequencyVariance = 0.06f,
+         .FrequencyVariance = std::bit_cast<float>(0x3D75C290u), // Como el original: 0x3D75C290, no el float más cercano a 0,06
          .PlayTime          = 0,
          .EventID           = AE_FRONTEND_HIGHLIGHT,
+         .ClientVariable    = -1.0f, // Como el original: el valor que deja CAESound::Initialise.
     });
     m_SoundRight = AESoundManager.PlaySound({
         .BankSlotID        = SND_BANK_SLOT_FRONTEND_GAME,
@@ -122,9 +127,10 @@ void CAEFireAudioEntity::PlayWaterSounds(eAudioEvents audioId, CVector& posn) {
         .Doppler           = 0.6f,
         .FrameDelay        = 0,
         .Flags             = SOUND_REQUEST_UPDATES,
-        .FrequencyVariance = 0.06f,
+        .FrequencyVariance = std::bit_cast<float>(0x3D75C290u), // Como el original: 0x3D75C290, no el float más cercano a 0,06
         .PlayTime          = 0,
         .EventID           = AE_FRONTEND_ERROR,
+        .ClientVariable    = -1.0f, // Como el original: el valor que deja CAESound::Initialise.
     });
 }
 
@@ -153,14 +159,16 @@ void CAEFireAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) {
 
     switch (sound->m_Event) {
     case AE_FRONTEND_SELECT:
-        if (sound->m_Volume >= sound->m_ClientVariable) {
+        // Como el original: NaN cuenta como "alcanzado" (test ah,5 / jp) y satura con NaN.
+        if (!(sound->m_Volume < sound->m_ClientVariable)) {
             sound->m_Event = AE_FRONTEND_BACK;
         } else {
-            sound->m_Volume = std::min(sound->m_Volume + 2.0f, sound->m_ClientVariable);
+            const float volume = sound->m_Volume + 2.0f;
+            sound->m_Volume = volume < sound->m_ClientVariable ? volume : sound->m_ClientVariable;
         }
         break;
     case AE_FRONTEND_BACK:
-        if (sound->m_Volume <= -30.0f)
+        if (!(sound->m_Volume > -30.0f)) // Como el original: NaN también detiene (test ah,41h).
             sound->StopSoundAndForget();
         else
             sound->m_Volume -= 0.75f;

@@ -15,7 +15,7 @@
 
 namespace AmbienceLive {
 inline bool done{}; inline std::ofstream log; inline json trace; inline int seed{}, rngCalls{};
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 alignas(16) inline std::array<uint8,sizeof(CAEAmbienceTrackManager)+16> manager{};
 inline bool cutscene{};
 inline json Self(const void* p) { return p==manager.data() ? json("manager") : p==&AEAudioHardware ? json("hardware") : json(uintptr_t(p)); }

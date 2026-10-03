@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/7 entradas.
+ * Validación registrada: 7/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -26,7 +26,7 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleStandStill.h"
 
 void CTaskComplexChat::InjectHooks() {
-    RH_ScopedVirtualClass(CTaskComplexChat, 0x8706A0, 14);
+    RH_ScopedVirtualClass(CTaskComplexChat, 0x8706A0, 11); // Como el original: 11 entradas, en 0x8706CC empieza la de CTaskComplexWalkAlongsidePed
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x682CB0);
@@ -79,7 +79,8 @@ CTask* CTaskComplexChat::CreateFirstSubTask(CPed* ped) {
         return new CTaskSimpleStandStill(999'999);
     }
 
-    if (m_GlobalSpeechContext != eGlobalSpeechContext::CTX_GLOBAL_UNK) {
+    // Como el original: comparación con signo de 16 bits (`cmp ax, 0FFFFh; jle`), no solo != -1
+    if ((int16)m_GlobalSpeechContext > -1) {
         ped->Say(m_GlobalSpeechContext);
     }
 
@@ -107,7 +108,8 @@ CTask* CTaskComplexChat::ControlSubTask(CPed* ped) {
         return nullptr;
     }
 
-    const auto partnerChatTask = m_ChatPartner->GetTaskManager().Find<CTaskComplexChat>();
+    // Como el original: CPedIntelligence::FindTaskByType (0x600EE0, solo tareas primarias), no FindActiveTaskByType.
+    const auto partnerChatTask = static_cast<CTaskComplexChat*>(m_ChatPartner->GetIntelligence()->FindTaskByType(TASK_COMPLEX_CHAT));
     if (partnerChatTask) {
         if (partnerChatTask->m_Stage < m_Stage || !partnerChatTask->m_TaskFinished && m_IsChatter == partnerChatTask->m_IsChatter) {
             m_TaskFinished = true;

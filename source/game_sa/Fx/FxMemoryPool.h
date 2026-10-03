@@ -27,7 +27,7 @@ public:
     FxMemoryPool_c() = default; // 0x4A9C10
     ~FxMemoryPool_c() = default; // 0x4A9C20
 
-    void  Init();
+    bool  Init();
     void  Exit();
     void  Reset();
     void* GetMem(int32 size, int32 align = sizeof(void*));

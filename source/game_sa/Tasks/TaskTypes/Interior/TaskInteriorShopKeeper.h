@@ -29,6 +29,7 @@ private: // Wrappers for hooks
     // 0x675660
     CTaskInteriorShopKeeper* Constructor(InteriorGroup_c* a, uint8 b) {
         this->CTaskInteriorShopKeeper::CTaskInteriorShopKeeper(a, b);
+        reinterpret_cast<uint8&>(m_bIsSetup) = b; // Como el original: guarda el byte tal cual
         return this;
     }
 

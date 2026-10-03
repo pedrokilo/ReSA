@@ -15,7 +15,7 @@
 namespace WanderLive {
 inline bool done{};
 inline std::ofstream log;
-inline void Write(const json& r) { log << r.dump() << '\n'; log.flush(); }
+inline void Write(const json& r) { { static DWORD pumpLast=0; const DWORD pumpNow=GetTickCount(); if(pumpNow-pumpLast>=250){ pumpLast=pumpNow; MSG pumpMsg; PeekMessageA(&pumpMsg,nullptr,0,0,PM_NOREMOVE); } } log << r.dump() << '\n'; log.flush(); }
 inline int Report(int type, char* msg, int*) {
     if (type != _CRT_ASSERT) return FALSE;
     Write({{"event","assertion"},{"message",msg ? msg : ""}}); ExitProcess(91);

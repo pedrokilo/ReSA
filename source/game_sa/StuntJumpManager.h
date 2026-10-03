@@ -42,7 +42,7 @@ public:
     static void ShutdownForRestart();
     static bool Save();
     static bool Load();
-    static void AddOne(const CBoundingBox& start, const CBoundingBox& end, const CVector& cameraPosn, int32 reward);
+    static int32 AddOne(const CBoundingBox& start, const CBoundingBox& end, const CVector& cameraPosn, int32 reward);
     static void Update();
 
     static void SetActive(bool active);

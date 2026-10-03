@@ -13,7 +13,7 @@
 
 namespace ChannelLive {
 inline bool done{}; inline std::ofstream log; inline json trace;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 alignas(16) inline std::array<uint8,0x80> channel{};
 struct FakeCom { void* vptr; int id; };
 inline FakeCom buffer{nullptr,1}, buffer3d{nullptr,2}, propset{nullptr,3};

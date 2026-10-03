@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -30,6 +30,30 @@ END GENERATED HOOK STATUS */
 
 #include <InterestingEvents.h>
 
+namespace {
+// Solo para acceder a la función estática protegida de CTaskAllocatorKillThreatsBasic (0x69C850)
+struct KillThreatsBasicAccess : CTaskAllocatorKillThreatsBasic {
+    using CTaskAllocatorKillThreatsBasic::ComputeClosestPeds;
+};
+} // namespace
+
+// 0x69CAF0
+CTaskAllocatorKillThreatsDriveby::CTaskAllocatorKillThreatsDriveby(CPed* threat) :
+    m_Threat{threat}
+{
+}
+
+// 0x69CBC0
+CTaskAllocator* CTaskAllocatorKillThreatsDriveby::ProcessGroup(CPedGroupIntelligence* intel) {
+    m_Timer.StartIfNotAlready(0);
+    if (m_Timer.IsOutOfTime()) {
+        m_Timer.Start(5'000);
+        // Como el original: llamada por la vtable (la clase es `final` y se desvirtualizaría)
+        static_cast<CTaskAllocator*>(this)->AllocateTasks(intel);
+    }
+    return this;
+}
+
 // 0x69CC30
 void CTaskAllocatorKillThreatsDriveby::AllocateTasks(CPedGroupIntelligence* intel) {
     intel->FlushTasks(intel->GetPedTaskPairs(), nullptr);
@@ -41,35 +65,39 @@ void CTaskAllocatorKillThreatsDriveby::AllocateTasks(CPedGroupIntelligence* inte
 
     auto* const group = &intel->GetPedGroup();
     if (auto* const tPrimaryBeInGroup = notsa::cast_if_present<CTaskComplexBeInGroup>(m_Threat->GetTaskManager().FindTaskByType(TASK_PRIMARY_PRIMARY, TASK_COMPLEX_BE_IN_GROUP))) {
-        const auto threatGroup = &tPrimaryBeInGroup->GetGroup();
+        // Como el original: el grupo sale directamente del id de la tarea (ms_groups + id * 0x2D4, sin comprobar si
+        // está activo) y ese mismo id se pasa a CTaskComplexKillPedGroupOnFoot
+        const auto threatGroupId = tPrimaryBeInGroup->GetGroupID();
+        auto* const threatGroup  = &CPedGroups::ms_groups.data()[threatGroupId];
         if (group == threatGroup) { // 0x69CCB2
             NOTSA_LOG_DEBUG("ComputeKillThreatsDriveby() - threat ped already in group"); // vanilla
         } else { // 0x69CCEC
             CPed* closest[TOTAL_PED_GROUP_MEMBERS]{};
-            ComputeClosestPeds(*group, *threatGroup, closest);
+            KillThreatsBasicAccess::ComputeClosestPeds(*group, *threatGroup, closest);
             for (int32 i = 0; i < TOTAL_PED_GROUP_MEMBERS; i++) {
                 auto* mem = group->GetMembership().GetMember(i);
                 if (!mem || mem->IsPlayer()) { // 0x69CD04
                     continue;
                 }
-                if (mem->bInVehicle && mem->m_pVehicle->IsDriver(mem)) { // 0x69CD19
+                if (mem->bInVehicle && mem->m_pVehicle->m_pDriver == mem) { // 0x69CD19
                     continue;
                 }
                 auto* const target = closest[i];
                 if (mem->bInVehicle) {
                     intel->SetEventResponseTask(mem, CTaskSimpleGangDriveBy{ target, nullptr, 60.f, 90, eDrivebyStyle::AI_ALL_DIRN, false }); // 0x69CD5A
                 } else {
-                    intel->SetEventResponseTask(mem, CTaskComplexKillPedGroupOnFoot{ threatGroup->GetId(), target }); // 0x69CDD4
+                    intel->SetEventResponseTask(mem, CTaskComplexKillPedGroupOnFoot{ threatGroupId, target }); // 0x69CDD4
                 }
             }
             g_InterestingEvents.Add(CInterestingEvents::GANG_FIGHT, group->GetMembership().GetLeader()); // 0x69D070
         }
     } else {
-        for (auto* const mem : group->GetMembership().GetMembers()) {
-            if (mem->IsPlayer()) {
+        for (int32 i = 0; i < TOTAL_PED_GROUP_MEMBERS; i++) {
+            auto* const mem = group->GetMembership().GetMember(i);
+            if (!mem || mem->IsPlayer()) { // 0x69CE77
                 continue;
             }
-            if (mem->bInVehicle && mem->m_pVehicle->IsDriver(mem)) { // 0x69CD19
+            if (mem->bInVehicle && mem->m_pVehicle->m_pDriver == mem) { // 0x69CE8C
                 continue;
             }
             if (mem->bInVehicle) {
@@ -77,7 +105,7 @@ void CTaskAllocatorKillThreatsDriveby::AllocateTasks(CPedGroupIntelligence* inte
             } else {
                 intel->SetEventResponseTask(mem, CTaskComplexSequence{
                     new CTaskComplexKillPedOnFoot{ m_Threat }, // 0x69CF80
-                    new CTaskSimpleLookAbout{ CGeneral::GetRandomNumberInRange(1'000u, 2'000u) } // 0x69CFCD
+                    new CTaskSimpleLookAbout{ (uint32)CGeneral::GetRandomIntInRange(1'000, 2'000) } // 0x69CFCD - Como el original: 0x407180, [1000, 2000)
                 });
             }
         }

@@ -47,7 +47,7 @@ CTask* CTaskComplexObserveTrafficLightsAndAchieveHeading::CreateNextSubTask(CPed
 CTask* CTaskComplexObserveTrafficLightsAndAchieveHeading::CreateSubTask(eTaskType taskType) const {
     switch (taskType) {
     case TASK_COMPLEX_OBSERVE_TRAFFIC_LIGHTS:
-        return new CTaskComplexObserveTrafficLights();
+        return new CTaskComplexObserveTrafficLights; // Como el original: sin value-init, no escribe el relleno +0x16..+0x17
     case TASK_SIMPLE_ACHIEVE_HEADING:
         return new CTaskSimpleAchieveHeading(m_fTargetHeading, 0.5f, 0.2f);
     case TASK_FINISHED:

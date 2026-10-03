@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 5/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -140,14 +140,14 @@ bool IsAlreadyRunning() {
     }
 
     const auto fgwnd = FindWindow(APP_CLASS, RsGlobal.appName);
-    SetForegroundWindow(fgwnd != INVALID_HANDLE_VALUE ? fgwnd : PSGLOBAL(window));
+    SetForegroundWindow(fgwnd ? fgwnd : PSGLOBAL(window)); // Como el original: compara con NULL, no con INVALID_HANDLE_VALUE
     
     return true;
 };
 
 // 0x746060
 bool IsForegroundApp() {
-    return ForegroundApp;
+    return StaticRef<uint32>(0x8D621C) != 0; // Como el original: ForegroundApp es un dword en el EXE
 }
 
 // Code from winmain, 0x748DCF

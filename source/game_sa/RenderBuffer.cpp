@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -22,6 +22,11 @@ END GENERATED HOOK STATUS */
 namespace RenderBuffer {
 auto& s_IndicesToBeStored{ StaticRef<int32>(0xC40410) };
 auto& s_VerticesToBeStored{ StaticRef<int32>(0xC40414) };
+
+// Como el original: los contadores del búfer temporal (0xC4B950/0xC4B954) son dwords con signo
+// (common.h los declara uint16; aquí se leen y escriben enteros).
+auto& s_TempIdxStored{ StaticRef<int32>(0xC4B954) };
+auto& s_TempVtxStored{ StaticRef<int32>(0xC4B950) };
 
 const auto IdxBufferSize = (int32)std::size(aTempBufferIndices);
 const auto VtxBufferSize = (int32)std::size(TempBufferVertices.m_3d);
@@ -46,16 +51,16 @@ void StartStoring(
     assert(nIndicesNeeded > 0 && nIndicesNeeded <= IdxBufferSize);
     assert(nVerticesNeeded > 0 && nVerticesNeeded <= VtxBufferSize);
 
-    if (uiTempBufferIndicesStored + nIndicesNeeded >= IdxBufferSize) {
+    if (s_TempIdxStored + nIndicesNeeded >= IdxBufferSize) {
         RenderBuffer::RenderStuffInBuffer();
     }
 
-    if (uiTempBufferVerticesStored + nVerticesNeeded >= VtxBufferSize) {
+    if (s_TempVtxStored + nVerticesNeeded >= VtxBufferSize) {
         RenderBuffer::RenderStuffInBuffer();
     }
 
-    outPtrFirstIndex = &aTempBufferIndices[uiTempBufferIndicesStored];
-    outPtrFirstVertex = &TempBufferVertices.m_3d[uiTempBufferVerticesStored];
+    outPtrFirstIndex = &aTempBufferIndices[s_TempIdxStored];
+    outPtrFirstVertex = &TempBufferVertices.m_3d[s_TempVtxStored];
 
     s_IndicesToBeStored = nIndicesNeeded;
     s_VerticesToBeStored = nVerticesNeeded;
@@ -63,26 +68,28 @@ void StartStoring(
 
 // 0x7077A0
 void StopStoring() {
-    const auto totalNumIdx = uiTempBufferIndicesStored + s_IndicesToBeStored;
-    if (uiTempBufferIndicesStored >= totalNumIdx) { // Doesn't make a lot of sense, as it will only be true if `s_IndicesToBeStored` is negative, which isn't allowed.
-        uiTempBufferVerticesStored += s_VerticesToBeStored;
-        uiTempBufferIndicesStored  += s_IndicesToBeStored;
+    const int32 totalNumIdx = s_TempIdxStored + s_IndicesToBeStored;
+    if (s_TempIdxStored >= totalNumIdx) { // Doesn't make a lot of sense, as it will only be true if `s_IndicesToBeStored` is negative (or 0), which isn't allowed.
+        s_TempVtxStored += s_VerticesToBeStored;
+        s_TempIdxStored  = totalNumIdx;
     } else {
-        for (auto n = uiTempBufferIndicesStored; n <= totalNumIdx; n++) {
-            aTempBufferIndices[n] += uiTempBufferVerticesStored;
+        // Como el original: bucle hasta totalNumIdx exclusivo, sumando la palabra baja del contador de vértices
+        const int32 baseVtx = s_TempVtxStored;
+        for (int32 n = s_TempIdxStored; n < totalNumIdx; n++) {
+            aTempBufferIndices[n] += (RxVertexIndex)baseVtx;
         }
-        uiTempBufferVerticesStored += s_VerticesToBeStored;
-        uiTempBufferIndicesStored   = totalNumIdx;
+        s_TempVtxStored = baseVtx + s_VerticesToBeStored;
+        s_TempIdxStored = totalNumIdx;
     }
 }
 
 // NOTSA
 void Render(RwPrimitiveType primType, RwMatrix* ltm, RwUInt32 /*RwIm3DTransformFlags*/ flags, bool isIndexed) {
-    if (uiTempBufferVerticesStored) {
-        if (RwIm3DTransform(TempBufferVertices.m_3d, uiTempBufferVerticesStored, ltm, flags)) {
+    if (s_TempVtxStored) {
+        if (RwIm3DTransform(TempBufferVertices.m_3d, s_TempVtxStored, ltm, flags)) {
             if (isIndexed) {
                 assert(aTempBufferIndices);
-                RwIm3DRenderIndexedPrimitive(primType, aTempBufferIndices, uiTempBufferIndicesStored);
+                RwIm3DRenderIndexedPrimitive(primType, aTempBufferIndices, s_TempIdxStored);
             } else {
                 RwIm3DRenderPrimitive(primType);
             }
@@ -99,20 +106,20 @@ void RenderStuffInBuffer() {
 
 // 0x707790
 void ClearRenderBuffer() {
-    uiTempBufferIndicesStored  = 0;
-    uiTempBufferVerticesStored = 0;
+    s_TempIdxStored  = 0;
+    s_TempVtxStored = 0;
 }
 
 // 0x6E7680 - I know, `LittlTest()` is missing, but nobody cares.
 void RenderIfDoesntFit(int32 nIdxNeeded, int32 nVtxNeeded) {
-    if (uiTempBufferIndicesStored + nIdxNeeded > IdxBufferSize || uiTempBufferVerticesStored + nVtxNeeded > VtxBufferSize) {
+    if (s_TempIdxStored + nIdxNeeded > IdxBufferSize || s_TempVtxStored + nVtxNeeded > VtxBufferSize) {
         RenderStuffInBuffer();
     }
 }
 
 // notsa
 RwIm3DVertex* PushVertex(CVector pos, CRGBA color) {
-    const auto vtx = &TempBufferVertices.m_3d[uiTempBufferVerticesStored++];
+    const auto vtx = &TempBufferVertices.m_3d[s_TempVtxStored++];
 
     RwIm3DVertexSetPos(vtx, pos.x, pos.y, pos.z);
     RwIm3DVertexSetRGBA(vtx, color.r, color.g, color.b, color.a);
@@ -133,10 +140,10 @@ RwIm3DVertex* PushVertex(CVector pos, CVector2D uv, CRGBA color) {
 // notsa
 void PushIndex(int32 idx, bool useCurrentVtxAsBase) {
     idx = useCurrentVtxAsBase
-        ? (int32)uiTempBufferVerticesStored + idx
+        ? (int32)s_TempVtxStored + idx
         : idx;
     assert(idx >= 0);
-    aTempBufferIndices[uiTempBufferIndicesStored++] = idx;
+    aTempBufferIndices[s_TempIdxStored++] = idx;
 }
 
 // notsa
@@ -147,7 +154,7 @@ void PushIndices(std::initializer_list<int32> idxs, bool useCurrentVtxAsBase) {
 }
 
 bool CanFitVertices(int32 nVtxNeeded) {
-    return uiTempBufferVerticesStored + nVtxNeeded <= VtxBufferSize;
+    return s_TempVtxStored + nVtxNeeded <= VtxBufferSize;
 }
 
 }; // namespace RenderBuffer 

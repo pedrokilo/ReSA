@@ -7,7 +7,7 @@
 #include "../ProbeSupport.hpp"
 namespace PFLive {
 inline bool done{};inline std::ofstream log;
-inline void Write(const json& r){log<<r.dump()<<'\n';}
+inline void Write(const json& r){ ReversingProbe::PumpMessages();log<<r.dump()<<'\n';}
 inline int Report(int t,char* s,int*){if(t!=_CRT_ASSERT)return FALSE;Write({{"event","assertion"},{"message",s?s:""}});log.flush();ExitProcess(91);}
 template<class T>struct Raw{alignas(T) std::array<uint8,sizeof(T)> b{};T* get(){return reinterpret_cast<T*>(b.data());}};
 struct Saved {void* p;std::vector<uint8> bytes;template<class T>Saved(T& v):p(&v),bytes(ReversingProbe::Bytes(&v,sizeof(v))){}void Restore(){std::memcpy(p,bytes.data(),bytes.size());}bool Same(){return bytes==ReversingProbe::Bytes(p,bytes.size());}~Saved(){Restore();}};

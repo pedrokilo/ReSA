@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/5 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -111,7 +111,7 @@ RsEventStatus HandleKeyEvent(bool isDown, RsKeyStatus* ks) {
         case rsLWIN:     return &tks.lwin;
         case rsRWIN:     return &tks.rwin;
         case rsAPPS:     return &tks.apps;
-        default:         return (ks->keyScanCode < 255) ? &tks.standardKeys[ks->keyScanCode] : nullptr;
+        default:         return (ks->keyScanCode < 255) ? &tks.standardKeys.data()[ks->keyScanCode] : nullptr; // Como el original: comparacion con signo, sin comprobar el limite inferior
         }
     }();
     if (pKBKeyState) {
@@ -191,31 +191,22 @@ RsEventStatus KeyboardHandler(RsEvent event, void* param) {
 
 // 0x7448B0
 RsEventStatus HandlePadButtonDown(RsPadButtonStatus* padButtonStatus) {
-    bool  bPadTwo   = false;
-    int32 padNumber = padButtonStatus->padID;
+    (void)CPad::GetPad(padButtonStatus->padID); // Como el original: se pide el pad pero no se usa
 
-    CPad* pad = CPad::GetPad(padNumber);
-
-    if (CPad::padNumber != 0) {
-        padNumber = 1;
-    }
-
-    if (padNumber == 1) {
-        bPadTwo = true;
-    }
+    // Como el original: el numero de pad sale solo de CPad::padNumber (no del padID del evento).
+    const bool  bPadTwo   = CPad::padNumber != 0;
+    const int32 padNumber = bPadTwo ? 1 : 0;
 
     ControlsManager.UpdateJoyButtonState(padNumber);
 
+    const auto* const states = reinterpret_cast<const uint8*>(ControlsManager.m_ButtonStates);
     for (int32 i = 1; i < JOYBUTTON_COUNT; i++) {
-        RsPadButtons btn = RsPadButtons(0);
-        if (ControlsManager.m_ButtonStates[i - 1] == true) {
-            btn = RsPadButtons(i);
-
-            if (FrontEndMenuManager.m_bMenuActive || bPadTwo) {
-                ControlsManager.UpdateJoyInConfigMenus_ButtonDown(btn, padNumber);
-            } else {
-                ControlsManager.UpdateJoy_ButtonDown(btn, eControllerType::JOY_STICK);
-            }
+        // Como el original: se llama en cada vuelta, con boton 0 si no esta pulsado (cmp byte, 1).
+        const auto btn = RsPadButtons(states[i - 1] == 1 ? i : 0);
+        if (FrontEndMenuManager.m_bMenuActive || bPadTwo) {
+            ControlsManager.UpdateJoyInConfigMenus_ButtonDown(btn, padNumber);
+        } else {
+            ControlsManager.UpdateJoy_ButtonDown(btn, eControllerType::JOY_STICK);
         }
     }
     return rsEVENTPROCESSED;
@@ -223,18 +214,10 @@ RsEventStatus HandlePadButtonDown(RsPadButtonStatus* padButtonStatus) {
 
 // 0x744930
 RsEventStatus HandlePadButtonUp(RsPadButtonStatus* padButtonStatus) {
-    bool  bPadTwo   = false;
-    int32 padNumber = padButtonStatus->padID;
+    (void)CPad::GetPad(padButtonStatus->padID); // Como el original: se pide el pad pero no se usa
 
-    CPad* pad = CPad::GetPad(padNumber);
-
-    if (CPad::padNumber != 0) {
-        padNumber = 1;
-    }
-
-    if (padNumber == 1) {
-        bPadTwo = true;
-    }
+    const bool  bPadTwo   = CPad::padNumber != 0;
+    const int32 padNumber = bPadTwo ? 1 : 0;
 
     bool  bCam = false;
     int16 mode = TheCamera.m_aCams[TheCamera.m_nActiveCam].m_nMode;
@@ -245,16 +228,14 @@ RsEventStatus HandlePadButtonUp(RsPadButtonStatus* padButtonStatus) {
     ControlsManager.UpdateJoyButtonState(padNumber);
 
     // NOTE: Why 2?
+    const auto* const states = reinterpret_cast<const uint8*>(ControlsManager.m_ButtonStates);
     for (int32 i = 2; i < JOYBUTTON_COUNT; i++) {
-        RsPadButtons btn = RsPadButtons(0);
-        if (ControlsManager.m_ButtonStates[i - 1] == false) {
-            btn = RsPadButtons(i);
-
-            if (FrontEndMenuManager.m_bMenuActive || bPadTwo || bCam) {
-                ControlsManager.UpdateJoyInConfigMenus_ButtonUp(btn, padNumber);
-            } else {
-                ControlsManager.AffectControllerStateOn_ButtonUp((KeyCode)btn, eControllerType::JOY_STICK);
-            }
+        // Como el original: se llama en cada vuelta, con boton 0 si sigue pulsado.
+        const auto btn = RsPadButtons(states[i - 1] == 0 ? i : 0);
+        if (FrontEndMenuManager.m_bMenuActive || bPadTwo || bCam) {
+            ControlsManager.UpdateJoyInConfigMenus_ButtonUp(btn, padNumber);
+        } else {
+            ControlsManager.AffectControllerStateOn_ButtonUp((KeyCode)btn, eControllerType::JOY_STICK);
         }
     }
     return rsEVENTPROCESSED;

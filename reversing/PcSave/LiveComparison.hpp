@@ -15,7 +15,7 @@
 
 namespace PcSaveLive {
 inline bool done{}; inline std::ofstream log; inline json trace;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 inline bool genericSaveRet{}; inline uint32 corruptMask{};
 inline void __cdecl MakeValid(int32 slot) { trace.push_back({"make_valid_save_name",slot}); }
 inline void __cdecl BeforeSave() { trace.push_back({"before_save"}); }

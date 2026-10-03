@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/4 entradas.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -33,6 +33,12 @@ void* CTask::operator new(size_t size) {
 
 // 0x61A5B0
 void CTask::operator delete(void* object) {
+#ifdef FIX_BUGS // El original no comprueba nullptr
+    if (!object) {
+        return;
+    }
+#endif
+    // Como el original: marca el slot libre y baja m_LastFreeSlot (comparación con signo), sin rellenar con 0xDD
     GetTaskPool()->Delete(static_cast<CTask*>(object));
 }
 
@@ -54,12 +60,20 @@ bool CTask::IsGoToTask(CTask* task) {
 
 // 0x61A4B0
 bool CTask::IsTaskPtr(CTask* task) {
-    return task && GetTaskPool()->IsObjectValid(task);
+    // Como el original: recorre los slots ocupados de mayor a menor y compara con la dirección exacta del slot
+    // (un puntero dentro de un slot pero no a su inicio no cuenta)
+    auto* const pool = GetTaskPool();
+    for (auto i = (int32)pool->GetSize(); i-- > 0;) {
+        if (!pool->IsFreeSlotAtIndex(i) && pool->GetAt(i) == task) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void CTask::InjectHooks() {
     RH_ScopedCategory("Tasks");
-    RH_ScopedVirtualClass(CTask, 0x86D48C, 6);
+    RH_ScopedVirtualClass(CTask, 0x86D48C, 7);
 
     RH_ScopedInstall(IsTaskPtr, 0x61A4B0);
     RH_ScopedInstall(operator new, 0x61A5A0);

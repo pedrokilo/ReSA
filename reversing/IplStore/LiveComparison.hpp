@@ -18,7 +18,7 @@
 
 namespace IplLive {
 inline bool done{}; inline std::ofstream log; inline json trace;
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 inline uint8* Pool() { return *reinterpret_cast<uint8**>(0x8E3FB0); }
 inline uint8* Objects() { return *reinterpret_cast<uint8**>(Pool()); }
 inline uint8* Map() { return *reinterpret_cast<uint8**>(Pool()+4); }

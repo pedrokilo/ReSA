@@ -23,8 +23,8 @@ private:
     CTaskSimplePause* Constructor(int32 time);
 
 private:
-    CTaskTimer m_Timer{};
-    int32      m_PauseIntervalMs{};
+    CTaskTimer m_Timer; // Como el original: el constructor no escribe el relleno +0x12..+0x13
+    int32      m_PauseIntervalMs;
 };
 
 VALIDATE_SIZE(CTaskSimplePause, 0x18);

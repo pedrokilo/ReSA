@@ -12,7 +12,7 @@ inline bool done{};
 inline std::ofstream log;
 inline constexpr std::array names{"Constructor", "Destructor", "Initialise", "FillBuffer", "GetCurrentPosition", "Seek-OG", "Stat"};
 inline constexpr std::array counts{256,256,512,2048,512,2048,512};
-inline void Write(const json& row) { log << row.dump() << '\n'; log.flush(); }
+inline void Write(const json& row) { ReversingProbe::PumpMessages(); log << row.dump() << '\n'; log.flush(); }
 using Constructor = CAEDataStream*(__thiscall*)(CAEDataStream*,int,char*,uint32,uint32,int);
 using Destructor = void(__thiscall*)(CAEDataStream*);
 using Initialise = bool(__thiscall*)(CAEDataStream*);

@@ -22,7 +22,7 @@
 
 namespace SmallLive {
 inline bool done{}; inline std::ofstream log; inline json trace; inline int seed{}, rngCalls{};
-inline void Write(const json& r) { log<<r.dump()<<'\n'; log.flush(); }
+inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 alignas(16) inline std::array<uint8,0x2000> object{};
 alignas(16) inline std::array<uint8,0x2000> arena{}; inline size_t arenaUsed{};
 alignas(16) inline std::array<uint8,0x400> fileData{}; inline size_t fileUsed{};

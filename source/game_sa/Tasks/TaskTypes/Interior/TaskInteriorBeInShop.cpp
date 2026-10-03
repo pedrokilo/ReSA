@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 6/6 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -43,7 +43,8 @@ void CTaskInteriorBeInShop::InjectHooks() {
 
 // 0x6753E0
 CTaskInteriorBeInShop::CTaskInteriorBeInShop(InteriorGroup_c* interiorGroup) :
-    CTaskComplexWander{PEDMOVE_WALK, CGeneral::RandomNodeHeading(), true, 0.2f},
+    // Como el original: (rand() & 0xFFFF) * (1/32768) * 8 truncado (0x407180 en linea), no RandomNodeHeading
+    CTaskComplexWander{PEDMOVE_WALK, (uint8)CGeneral::GetRandomIntInRange(0, 8), true, 0.2f},
     m_CurrIntGrp{interiorGroup}
 {
 }
@@ -80,7 +81,8 @@ void CTaskInteriorBeInShop::ScanForStuff(CPed* ped) {
     };
     switch (closestIntInfo->Type) {
     case eInteriorInfoType::UNK_8: {
-        if (CGeneral::DoCoinFlip()) {
+        // Como el original: GetRandomNumberInRange(0, 100) > 50 añade el evento; si no, mira el punto
+        if (CGeneral::GetRandomIntInRange(0, 100) <= 50) {
             g_ikChainMan.LookAt(
                 "TaskBeInShop",
                 ped,
@@ -100,7 +102,8 @@ void CTaskInteriorBeInShop::ScanForStuff(CPed* ped) {
         break;
     }
     case eInteriorInfoType::UNK_9: {
-        if (!CGeneral::DoCoinFlip()) {
+        // Como el original: solo con GetRandomNumberInRange(0, 100) > 80
+        if (CGeneral::GetRandomIntInRange(0, 100) > 80) {
             m_bScanForStuff = false;
             PedAddUseInfoEvent();
         }
