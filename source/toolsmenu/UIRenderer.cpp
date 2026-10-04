@@ -118,7 +118,7 @@ void UIRenderer::PreRenderUpdate() {
     m_ImIO->DisplaySize = ImVec2(SCREEN_WIDTH, SCREEN_HEIGHT); // Update display size, in case of window resize after ImGui was already initialized
 
     m_DebugModules.PreRenderUpdate();
-    DebugCode();
+    // Como el original: sin las teclas de depuración (2/3/5/6/8/9/J/T); el EXE no tiene nada así. DebugCode() queda sin usar.
     ReversibleHooks::CheckAll();
 
     if (ImGui::IsKeyChordPressed(ImGuiKey_F7, ImGuiInputFlags_RouteAlways) || CPad::GetPad()->IsFKeyJustDown(FKEY7)) {
