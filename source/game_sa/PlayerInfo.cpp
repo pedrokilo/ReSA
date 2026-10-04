@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 28/28 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 4/28 entradas.
+ * Validación registrada: 28/28 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -147,14 +147,37 @@ void CPlayerInfo::EvaluateCarPosition(CEntity* car, CPed* ped, float pedToVehDis
     const auto angleFront = CGeneral::GetATanOfXY(forward.x, forward.y);
 
     // Find car angle, not relative to our rotation
-    const auto carAngle = CGeneral::GetATanOfXY(carPosn.x - pedPosn.x, carPosn.y - pedPosn.y);
+    // Como el original: el segundo GetATanOfXY se queda en ST0 sin redondear a float (fpatan a precisión completa)
+    // y se resta directamente (fsubr): un solo redondeo de angleFront - carAngle.
+    const float diffX = carPosn.x - pedPosn.x;
+    const float diffY = carPosn.y - pedPosn.y;
+    float (*const getATanOfXY)(float, float) = &CGeneral::GetATanOfXY;
+    float carAngleFromFront;
+    __asm {
+        push  diffY
+        push  diffX
+        call  getATanOfXY
+        add   esp, 8
+        fsubr angleFront
+        fstp  carAngleFromFront
+    }
 
-    // Make car's angle relative to our rotation (notice: it's an abs value)
-    // Basically, we calculate how much the car is in our FOV.
-    const auto carAngleFromFront = std::abs(CGeneral::LimitRadianAngle(angleFront - carAngle));
+    // Como el original: LimitRadianAngle inlinado sin el clamp a +-25 (while > PI: -= 2PI; while < -PI: += 2PI)
+    // y la división por 2PI es una multiplicación por 1/(2PI) (0x8594F0).
+    const float kPi    = std::bit_cast<float>(0x40490FDBu); // 0x858CB8
+    const float kTwoPi = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
+    while (carAngleFromFront > kPi) {
+        carAngleFromFront -= kTwoPi;
+    }
+    while (carAngleFromFront < -kPi) {
+        carAngleFromFront += kTwoPi;
+    }
+    if (carAngleFromFront < 0.0f) {
+        carAngleFromFront = -carAngleFromFront;
+    }
 
     // Calculate imaginary distance based on the car's angle: The higher the angle the greater the distance
-    const auto distance = (1.0f - carAngleFromFront / TWO_PI) * (10.0f - pedToVehDist);
+    const auto distance = (1.0f - carAngleFromFront * std::bit_cast<float>(0x3E22F983u)) * (10.0f - pedToVehDist);
     if (distance >= *outDistance) {
         *outDistance = distance;
         *outVehicle = car->AsVehicle();
@@ -177,7 +200,8 @@ void CPlayerInfo::DeletePlayerSkin() {
 
 // 0x5717F0
 void CPlayerInfo::SetPlayerSkin(const char* name) {
-    strcpy_s(m_szSkinName, name); // NOTSA: They used `strcpy`, we use `_s` for safety
+    // Como el original: strncpy de 32 bytes (0x821F40) y LoadPlayerSkin inlinado
+    strncpy(m_szSkinName, name, sizeof(m_szSkinName));
     LoadPlayerSkin();
 }
 
@@ -417,7 +441,7 @@ void CPlayerInfo::Clear() {
     m_nLastBustMessageNumber = 1;
     m_fCurrentChaseValue = 0.0f;
     m_nBustedAudioStatus = 0;
-    m_nCrosshairActivated = 0;
+    *reinterpret_cast<uint8*>(&m_nCrosshairActivated) = 0; // Como el original: solo escribe el byte bajo (0x158)
 
     m_nRequireParachuteTimer = 0;
 
@@ -455,22 +479,28 @@ void CPlayerInfo::StreamParachuteWeapon(bool unk) {
         return;
     }
 
-    if (m_pPed && m_pPed->IsInVehicle()) {
-        if (m_pPed->m_pVehicle->IsSubPlane() || m_pPed->m_pVehicle->IsSubHeli()) {
-            if (m_nRequireParachuteTimer <= (uint32)CTimer::GetTimeStepInMS()) {
-                const auto groundHeight = TheCamera.CalculateGroundHeight(eGroundHeightType::ENTITY_BB_BOTTOM);
-                const auto vehToGroundZDist = m_pPed->m_pVehicle->GetPosition().z - groundHeight;
-                m_nRequireParachuteTimer = (vehToGroundZDist <= 50.f) ? 0 : 5000;
-            } else {
-                m_nRequireParachuteTimer -= (uint32)CTimer::GetTimeStepInMS();
+    // Como el original: fuera del modo cooperativo, con el argumento a false solo libera el paracaídas
+    if (unk) {
+        if (m_pPed && m_pPed->IsInVehicle()) {
+            if (m_pPed->m_pVehicle->IsSubPlane() || m_pPed->m_pVehicle->IsSubHeli()) {
+                // Como el original: ms_fTimeStep * 0.02f * 1000.0f truncado con _ftol2 (64 bits)
+                const auto timeStepMS = (uint32)(int64)(CTimer::GetTimeStep() * 0.02f * 1000.0f);
+                if (m_nRequireParachuteTimer <= timeStepMS) {
+                    const auto groundHeight = TheCamera.CalculateGroundHeight(eGroundHeightType::ENTITY_BB_BOTTOM);
+                    const auto vehToGroundZDist = m_pPed->m_pVehicle->GetPosition().z - groundHeight;
+                    // Como el original: NaN -> 0
+                    m_nRequireParachuteTimer = (vehToGroundZDist > 50.f) ? 5000 : 0;
+                } else {
+                    m_nRequireParachuteTimer -= timeStepMS;
+                }
             }
         }
-    }
 
-    if (m_nRequireParachuteTimer) {
-        CStreaming::RequestModel(MODEL_GUN_PARA, STREAMING_MISSION_REQUIRED);
-        m_bParachuteReferenced = true;
-        return;
+        if (m_nRequireParachuteTimer) {
+            CStreaming::RequestModel(MODEL_GUN_PARA, STREAMING_MISSION_REQUIRED);
+            m_bParachuteReferenced = true;
+            return;
+        }
     }
 
     if (m_bParachuteReferenced) {
@@ -482,7 +512,15 @@ void CPlayerInfo::StreamParachuteWeapon(bool unk) {
 
 // 0x56EAB0
 void CPlayerInfo::AddHealth(int32 amount) const {
-    const auto newValue = std::min((float)m_nMaxHealth, m_pPed->m_fHealth + (float)amount); // Clamp to m_nMaxHealth
+    // Como el original: fild + fadd, el entero se suma sin redondearlo antes a float
+    const float health = m_pPed->m_fHealth;
+    float sum;
+    __asm {
+        fild amount
+        fadd health
+        fstp sum
+    }
+    const auto newValue = std::min((float)m_nMaxHealth, sum); // Clamp to m_nMaxHealth
     m_pPed->m_fHealth = std::max(newValue, m_pPed->m_fHealth); // Don't change health to a lower value
 }
 
@@ -491,40 +529,56 @@ void CPlayerInfo::BlowUpRCBuggy(bool bExplode) const {
     if (m_pRemoteVehicle && !m_pRemoteVehicle->m_bRemoveFromWorld) {
         CRemote::TakeRemoteControlledCarFromPlayer(bExplode);
         if (bExplode)
-            m_pRemoteVehicle->BlowUpCar(FindPlayerPed(), false);
+            m_pRemoteVehicle->BlowUpCar(CWorld::Players[CWorld::PlayerInFocus].m_pPed, false); // Como el original: FindPlayerPed inlinado
     }
 }
 
 // 0x56E870
 void CPlayerInfo::MakePlayerSafe(bool enable, float radius) {
-    // Not quite SA, but this is the way to do it (instead of copy pasting it twice)
-    auto& flags = m_pPed->physicalFlags;
-    flags.bInvulnerable = enable;
-    flags.bBulletProof = enable;
-    flags.bFireProof = enable;
-    flags.bExplosionProof = enable;
-    flags.bCollisionProof = enable;
-    flags.bMeleeProof = enable;
-    m_PlayerData.m_bCanBeDamaged = !enable;
-    m_PlayerData.m_pWanted->m_bEverybodyBackOff = enable;
-    m_pPed->GetPadFromPlayer()->bPlayerSafe = enable;
-    CWorld::SetAllCarsCanBeDamaged(!enable);
-
+    // Como el original: mismo orden de escrituras y llamadas; m_bCanBeDamaged se escribe en los
+    // CPlayerPedData del ped (m_pPed->m_pPlayerData), no en los de este CPlayerInfo.
+    auto* const pad = m_pPed->GetPadFromPlayer();
+    auto* const wanted = m_PlayerData.m_pWanted;
     if (enable) {
+        wanted->m_bEverybodyBackOff = true;
         CWorld::StopAllLawEnforcersInTheirTracks();
+        pad->bPlayerSafe = true;
         CPad::StopPadsShaking();
 
+        m_pPed->physicalFlags.bInvulnerable = true;
+        m_pPed->physicalFlags.bBulletProof = true;
+        m_pPed->physicalFlags.bFireProof = true;
+        m_pPed->physicalFlags.bExplosionProof = true;
+        m_pPed->physicalFlags.bCollisionProof = true;
+        m_pPed->physicalFlags.bMeleeProof = true;
+        m_pPed->GetPlayerData()->m_bCanBeDamaged = false;
+
         m_pPed->ClearAdrenaline();
-        m_PlayerData.m_fTimeCanRun = std::max(m_PlayerData.m_fTimeCanRun, 0.f);
+        if (m_PlayerData.m_fTimeCanRun < 0.0f) {
+            m_PlayerData.m_fTimeCanRun = 0.0f;
+        }
         m_pPed->GetIntelligence()->ClearTasks(true, false);
 
         gFireManager.ExtinguishPoint(GetPos(), radius);
         CExplosion::RemoveAllExplosionsInArea(GetPos(), 4000.f);
         CProjectileInfo::RemoveAllProjectiles();
+        CWorld::SetAllCarsCanBeDamaged(false);
         CWorld::ExtinguishAllCarFiresInArea(GetPos(), radius);
         CReplay::DisableReplays();
         m_pPed->ClearWeaponTarget();
     } else {
+        wanted->m_bEverybodyBackOff = false;
+        pad->bPlayerSafe = false;
+
+        m_pPed->physicalFlags.bInvulnerable = false;
+        m_pPed->physicalFlags.bBulletProof = false;
+        m_pPed->physicalFlags.bFireProof = false;
+        m_pPed->physicalFlags.bExplosionProof = false;
+        m_pPed->physicalFlags.bCollisionProof = false;
+        m_pPed->physicalFlags.bMeleeProof = false;
+        m_pPed->GetPlayerData()->m_bCanBeDamaged = true;
+
+        CWorld::SetAllCarsCanBeDamaged(true);
         CReplay::EnableReplays();
     }
 }
@@ -540,23 +594,22 @@ void CPlayerInfo::PlayerFailedCriticalMission() {
 
 // 0x56E610
 void CPlayerInfo::WorkOutEnergyFromHunger() {
-
-    static auto& s_lastTimeHungryStateProcessedInitialized = StaticRef<bool>(0xB9B8F4); // false
+    // Como el original: la guarda del static es el bit 0 del dword 0xB9B8F4 y el último estado de hambre es un byte sin signo
+    static auto& s_lastTimeHungryStateProcessedGuard = StaticRef<uint32>(0xB9B8F4);
     static auto& s_lastTimeHungryStateProcessed = StaticRef<uint8>(0xB9B8F2);
-    static auto& s_LastHungryState = StaticRef<int8>(0xB9B8F1);
+    static auto& s_LastHungryState = StaticRef<uint8>(0xB9B8F1);
     static auto& s_bHungryMessageShown = StaticRef<bool>(0xB9B8F0);
 
     if (CCheat::IsActive(CHEAT_NEVER_GET_HUNGRY)) {
         return;
     }
 
-    if (!s_lastTimeHungryStateProcessedInitialized) {
-        s_lastTimeHungryStateProcessedInitialized = true;
+    if (!(s_lastTimeHungryStateProcessedGuard & 1)) {
+        s_lastTimeHungryStateProcessedGuard |= 1;
         s_lastTimeHungryStateProcessed = CClock::GetGameClockHours();
     }
 
-    auto pad = CPad::GetPad();
-    if (   pad->ArePlayerControlsDisabled()
+    if (   CPad::GetPad(0)->ArePlayerControlsDisabled()
         || CMenuSystem::num_menus_in_use
         || TheCamera.m_bWideScreenOn
         || CCutsceneMgr::ms_running
@@ -572,20 +625,23 @@ void CPlayerInfo::WorkOutEnergyFromHunger() {
     if (m_pPed->m_pAttachedTo)
         return;
 
-    if (CClock::GetGameClockHours() != s_lastTimeHungryStateProcessed) {
+    // Como el original: la hora procesada se lee una vez aquí (dl) y se reutiliza en la segunda comparación
+    const auto lastProcessed = s_lastTimeHungryStateProcessed;
+    if (CClock::GetGameClockHours() != lastProcessed) {
         if (!m_nNumHoursDidntEat)
             s_LastHungryState = 0;
         m_nNumHoursDidntEat += 1;
     }
 
-    if (m_nNumHoursDidntEat <= 48) {
+    // Como el original: comparación con signo de 16 bits (jle)
+    if ((int16)m_nNumHoursDidntEat <= 48) {
         s_bHungryMessageShown = false;
     } else {
-        if (CClock::GetGameClockHours() == s_lastTimeHungryStateProcessed)
+        if (CClock::GetGameClockHours() == lastProcessed)
             return;
 
         m_pPed->Say(CTX_GLOBAL_STOMACH_RUMBLE);
-        pad->StartShake(400, 110u, 0);
+        CPad::GetPad(0)->StartShake(400, 110u, 0);
 
         if (s_bHungryMessageShown) {
             bool bDecreaseHealth{};
@@ -594,17 +650,16 @@ void CPlayerInfo::WorkOutEnergyFromHunger() {
                 CStats::DisplayScriptStatUpdateMessage(STAT_UPDATE_DECREASE, STAT_FAT, 25.0f);
                 bDecreaseHealth = true;
                 if (!s_LastHungryState) {
-                    s_LastHungryState = m_nNumHoursDidntEat + 24;
+                    s_LastHungryState = (uint8)((uint8)m_nNumHoursDidntEat + 24);
                 }
             }
 
-            if (CStats::GetStatValue(STAT_MUSCLE) <= 0.0f || m_nNumHoursDidntEat <= s_LastHungryState && s_LastHungryState) {
-                if (!bDecreaseHealth) {
-                    m_pPed->m_fHealth -= 2.0f;
-                }
-            } else {
-                CStats::DecrementStat(STAT_MUSCLE, 25.0);
+            // Como el original: (int16)horas > estado (byte sin signo) con jg; NaN en el músculo va a la rama de salud
+            if (CStats::GetStatValue(STAT_MUSCLE) > 0.0f && ((int16)m_nNumHoursDidntEat > (int32)s_LastHungryState || !s_LastHungryState)) {
+                CStats::DecrementStat(STAT_MUSCLE, 25.0f);
                 CStats::DisplayScriptStatUpdateMessage(STAT_UPDATE_DECREASE, STAT_MUSCLE, 25.0f);
+            } else if (!bDecreaseHealth) {
+                m_pPed->m_fHealth -= 2.0f;
             }
         } else {
             CHud::SetHelpMessage(TheText.Get("NOTEAT"), true, false, true);

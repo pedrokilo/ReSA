@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 32/32 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/32 entradas.
+ * Validación registrada: 32/32 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -28,6 +28,51 @@ END GENERATED HOOK STATUS */
 #include "Stats.h"
 #include "MenuSystem.h"
 #include "Hud.h"
+#include "World.h"
+#include "FileMgr.h"
+#include "FileLoader.h"
+
+namespace {
+// Como el original: _ftol2 (0x821B40) trunca a 64 bits y se queda con la palabra baja.
+int32 StatsFtol(float v) { return static_cast<int32>(static_cast<int64>(v)); }
+
+// Como el original: las estadísticas enteras se indexan con 0xB78E20 + stat*4 sin comprobar el rango
+// (stat 82..119 lee memoria anterior a StatTypesInt).
+int32& IntStat(eStats stat) { return CStats::StatTypesInt.data()[static_cast<int32>(stat) - static_cast<int32>(CStats::FIRST_INT_STAT)]; }
+
+// Como el original: un contador sin signo cargado con fild (+2^32 si el bit alto está puesto, sumado en x87
+// a 24 bits); exacto mientras el valor cabe en 31 bits.
+double CounterAsX87(uint32 c) {
+    return static_cast<int32>(c) >= 0 ? static_cast<double>(c) : static_cast<double>(static_cast<float>(static_cast<double>(c)));
+}
+
+// Como el original: ftol(CTimer::ms_fTimeStep * 0.02f (0x858B38) * 1000.0f) en milisegundos enteros.
+int32 TimeStepMsInt() { return StatsFtol(CTimer::GetTimeStep() * 0.02f * 1000.0f); }
+
+// Como el original: RegisterFastestTime (0x55A0B0) y RegisterBestPosition (0x55A160) tienen el mismo cuerpo:
+// si la estadística vale 0 se pone el valor; si no, se queda el menor (NaN -> el nuevo valor). Las enteras se
+// guardan como int16 con signo (ftol + movsx).
+void RegisterLowerStat(eStats stat, int32 value) {
+    if (CStats::IsStatFloat(stat)) {
+        float& s = CStats::StatTypesFloat[stat];
+        if (s == 0.0f) {
+            s = static_cast<float>(value);
+        } else {
+            const float t = static_cast<float>(value);
+            s = (s < t) ? s : t;
+        }
+    } else {
+        int32& s = IntStat(stat);
+        if (s == 0) {
+            s = static_cast<int16>(value);
+        } else {
+            const float t = static_cast<float>(value);
+            s = (static_cast<double>(s) < static_cast<double>(t)) ? static_cast<int16>(s) : static_cast<int16>(StatsFtol(t));
+        }
+    }
+    CStats::CheckForStatsMessage();
+}
+} // namespace
 
 void CStats::InjectHooks() {
     RH_ScopedClass(CStats);
@@ -73,14 +118,25 @@ void CStats::InjectHooks() {
 
 // 0x55C0C0
 void CStats::Init() {
+    // Como el original: mismo orden de escrituras y llamadas que el EXE.
     std::ranges::fill(StatTypesFloat, 0.0f);
+    bStatUpdateMessageDisplayed = false;
+    CTimer::m_snTimeInMilliseconds = 0;
     std::ranges::fill(StatTypesInt, 0);
+
+    StatTypesFloat[STAT_MAX_HEALTH] = 569.0f;
+    CheckForStatsMessage();
+    StatTypesFloat[STAT_STAMINA] = 100.0f;
+    CheckForStatsMessage();
+
     std::ranges::fill(PedsKilledOfThisType, 0);
     std::ranges::fill(TimesMissionAttempted, 0);
-
-    bStatUpdateMessageDisplayed = false;
-    CTimer::SetTimeInMS(0);
     std::ranges::fill(LastMissionPassedName, 0);
+
+    PopulateFavoriteRadioStationList();
+    LoadActionReactionStats();
+    LoadStatUpdateConditions();
+
     m_SprintStaminaCounter = 0;
     m_CycleStaminaCounter = 0;
     m_SwimStaminaCounter = 0;
@@ -90,23 +146,13 @@ void CStats::Init() {
     m_BikeCounter = 0;
     m_FatCounter = 0;
     m_RunningCounter = 0;
-
-    StatTypesFloat[STAT_MAX_HEALTH] = 569.0f;
-    CheckForStatsMessage();
-    StatTypesFloat[STAT_STAMINA] = 100.0f;
-    CheckForStatsMessage();
-
-    PopulateFavoriteRadioStationList();
-    LoadActionReactionStats();
-    LoadStatUpdateConditions();
 }
 
 // 0x558E40
 float CStats::GetStatValue(eStats stat) {
     if (!IsStatFloat(stat)) { // int32
-        assert(stat >= FIRST_INT_STAT);
-
-        return static_cast<float>(StatTypesInt[stat - FIRST_INT_STAT]);
+        // Como el original: sin comprobar stat >= FIRST_INT_STAT (fild de 0xB78E20 + stat*4).
+        return static_cast<float>(IntStat(stat));
     }
 
     return StatTypesFloat[stat];
@@ -117,9 +163,8 @@ void CStats::SetStatValue(eStats stat, float value) {
     if (IsStatFloat(stat)) {
         StatTypesFloat[stat] = value;
     } else { // int32
-        assert(stat >= FIRST_INT_STAT);
-
-        StatTypesInt[stat - FIRST_INT_STAT] = static_cast<int32>(value);
+        // Como el original: ftol y movsx ax -> solo se guardan 16 bits con signo.
+        IntStat(stat) = static_cast<int16>(StatsFtol(value));
     }
     CheckForStatsMessage();
 }
@@ -146,39 +191,107 @@ int32 CStats::FindLeastFavoriteRadioStation() {
 
 // 0x559080
 int32 CStats::FindCriminalRatingNumber() {
-    CPlayerInfo* playerInfo = FindPlayerPed()->GetPlayerInfoForThisPlayerPed();
+    // Como el original: todo en x87 (enteros cargados con fild sin redondear, cada operación a la precisión
+    // vigente), dinero de CWorld::Players[PlayerInFocus] dividido entre 5000 como entero, y
+    // kills - busted*3 - hospital*3 (las visitas al hospital restan).
+    int32 kills    = IntStat(STAT_TOTAL_LEGITIMATE_KILLS);
+    int32 busted   = IntStat(STAT_TIMES_BUSTED);
+    int32 hospital = IntStat(STAT_NUMBER_OF_HOSPITAL_VISITS);
+    int32 fireLvl  = IntStat(STAT_HIGHEST_FIREFIGHTER_MISSION_LEVEL);
+    int32 paraLvl  = IntStat(STAT_HIGHEST_PARAMEDIC_MISSION_LEVEL);
+    int32 money    = CWorld::Players[CWorld::PlayerInFocus].m_nMoney / 5000;
+    int32 planes   = IntStat(STAT_PLANES_HELICOPTERS_DESTROYED);
+    int32 firesOut = IntStat(STAT_TOTAL_FIRES_EXTINGUISHED);
+    int32 vigilant = IntStat(STAT_CRIMINALS_KILLED_ON_VIGILANTE_MISSION);
+    int32 savedAmb = IntStat(STAT_PEOPLE_SAVED_IN_AN_AMBULANCE);
+    float k3 = 3.0f, k10 = 10.0f, k30 = 30.0f, k500 = 500.0f, k1000 = 1000.0f;
+    float sum;
+    __asm {
+        fild  kills
+        fild  busted
+        fmul  k3
+        fsubp st(1), st
+        fild  hospital
+        fmul  k3
+        fsubp st(1), st
+        fild  fireLvl
+        fild  paraLvl
+        faddp st(1), st
+        fmul  k10
+        faddp st(1), st
+        fiadd money
+        fild  planes
+        fmul  k30
+        faddp st(1), st
+        fild  firesOut
+        faddp st(1), st
+        fild  vigilant
+        faddp st(1), st
+        fild  savedAmb
+        faddp st(1), st
+        fstp  sum
+    }
+    int32 value = StatsFtol(sum);
 
-    auto value = (int32)(
-        GetStatValue(STAT_TOTAL_LEGITIMATE_KILLS)
-        - (GetStatValue(STAT_TIMES_BUSTED) - GetStatValue(STAT_NUMBER_OF_HOSPITAL_VISITS)) * 3.0f
-        + (GetStatValue(STAT_HIGHEST_FIREFIGHTER_MISSION_LEVEL) + GetStatValue(STAT_HIGHEST_PARAMEDIC_MISSION_LEVEL)) * 10.0f
-        + int32((float)playerInfo->m_nMoney / 5000.0f)
-        + GetStatValue(STAT_PLANES_HELICOPTERS_DESTROYED) * 30.0f
-        + GetStatValue(STAT_TOTAL_FIRES_EXTINGUISHED)
-        + GetStatValue(STAT_CRIMINALS_KILLED_ON_VIGILANTE_MISSION)
-        + GetStatValue(STAT_PEOPLE_SAVED_IN_AN_AMBULANCE)
-    );
-
-    if (CCheat::m_bHasPlayerCheated || GetStatValue(STAT_TIMES_CHEATED) > 0.0f) {
-        value -= 10 * (int32)GetStatValue(STAT_TIMES_CHEATED);
-
-        value = std::max(value, -10000);
-    } else {
+    int32 cheated = IntStat(STAT_TIMES_CHEATED);
+    if (!CCheat::m_bHasPlayerCheated && cheated <= 0) {
         value = std::max(value, 0);
+    } else {
+        float tmpCheat;
+        __asm {
+            fild  value
+            fild  cheated
+            fmul  k10
+            fsubp st(1), st
+            fstp  tmpCheat
+        }
+        value = StatsFtol(tmpCheat);
+        if (value <= -10000) {
+            value = -10000;
+        }
     }
 
-    float bulletsFired = GetStatValue(STAT_BULLETS_FIRED);
-
-    if (bulletsFired >= 100.0f) {
-        value += (int32)(500 * (GetStatValue(STAT_BULLETS_THAT_HIT) / bulletsFired));
+    // Como el original: solo con más de 100 balas (estricto); hits/balas*500 + valor en x87 y luego ftol.
+    int32 bullets = IntStat(STAT_BULLETS_FIRED);
+    if (bullets > 100) {
+        int32 hits = IntStat(STAT_BULLETS_THAT_HIT);
+        float tmpBullets;
+        __asm {
+            fild  bullets
+            fild  hits
+            fdiv  st, st(1)
+            fmul  k500
+            fiadd value
+            fstp  tmpBullets
+            fstp  st(0)
+        }
+        value = StatsFtol(tmpBullets);
     }
 
-    return value + (int32)(10 * GetPercentageProgress());
+    // Como el original: GetPercentageProgress en línea: hecho/total*1000 + valor (nada si el total es 0).
+    float made = StatTypesFloat[STAT_PROGRESS_MADE], total = StatTypesFloat[STAT_TOTAL_PROGRESS];
+    if (total == 0.0f) {
+        return value;
+    }
+    float tmpProgress;
+    __asm {
+        fld   made
+        fdiv  total
+        fmul  k1000
+        fiadd value
+        fstp  tmpProgress
+    }
+    return StatsFtol(tmpProgress);
 }
 
 // 0x5591E0
 float CStats::GetPercentageProgress() {
-    return std::min(StatTypesFloat[STAT_PROGRESS_MADE] / 187.0f * 100.0f, 100.0f);
+    // Como el original: STAT_PROGRESS_MADE / STAT_TOTAL_PROGRESS * 100, 0 si el total es 0, máximo 100.
+    if (StatTypesFloat[STAT_TOTAL_PROGRESS] == 0.0f) {
+        return 0.0f;
+    }
+    const float progress = StatTypesFloat[STAT_PROGRESS_MADE] / StatTypesFloat[STAT_TOTAL_PROGRESS] * 100.0f;
+    return (100.0f < progress) ? 100.0f : progress;
 }
 
 // 0x559230
@@ -209,7 +322,8 @@ bool CStats::SafeToShowThisStat(eStats stat) {
         return true;
     }
 
-    switch (stat) {
+    // Como el original: la tabla de saltos usa solo el byte bajo de la estadística.
+    switch (static_cast<uint8>(stat)) {
     case STAT_RAMPAGES_ATTEMPTED:
     case STAT_RAMPAGES_PASSED:
     case STAT_TOTAL_LEGITIMATE_KILLS:
@@ -226,11 +340,12 @@ bool CStats::SafeToShowThisStat(eStats stat) {
 
 // 0x5595F0
 bool CStats::CheckForThreshold(float* pValue, float range) {
-    if (*pValue + 40.0f >= range && *pValue - 40.0f <= range) {
-        return false;
+    // Como el original: comparaciones estrictas; con NaN no se cambia nada y devuelve false.
+    if (*pValue + 40.0f < range || *pValue - 40.0f > range) {
+        *pValue = range;
+        return true;
     }
-    *pValue = range;
-    return true;
+    return false;
 }
 
 // 0x559630
@@ -285,18 +400,21 @@ void CStats::LoadStatUpdateConditions() {
 
 // 0x5599B0
 void CStats::LoadActionReactionStats() {
+    // Como el original: id y valor se inicializan a 0 una sola vez y conservan el valor anterior si
+    // sscanf("%d %s %f") no los lee; no se comprueba el resultado ni el rango del id.
+    float reactValue = 0.0f;
+    int32 reactId = 0;
+    char  name[80];
+
     CFileMgr::SetDir("");
 
     auto* file = CFileMgr::OpenFile("DATA\\AR_STATS.DAT", "rb");
 
     for (char* line = CFileLoader::LoadLine(file); line != nullptr; line = CFileLoader::LoadLine(file)) {
-        int32 reactId;
-        float reactValue;
+        if (line[0] != '#' && line[0] != '\0') {
+            (void)sscanf(line, "%d %s %f", &reactId, name, &reactValue);
 
-        if (line[0] != '#' && line[0] != NULL) {
-            VERIFY(sscanf_s(line, "%d %*s %f", &reactId, &reactValue) == 2);
-
-            StatReactionValue[reactId] = reactValue;
+            StatReactionValue.data()[reactId] = reactValue;
         }
     }
 
@@ -330,18 +448,27 @@ float CStats::GetFatAndMuscleModifier(eStatModAbilities statMod) {
 
 // 0x559730
 void CStats::ProcessReactionStatsOnDecrement(eStats stat) {
-    if (stat == STAT_ENERGY && GetStatValue(STAT_ENERGY) < 0.0f)
+    // Como el original: compara solo el byte bajo de la estadística.
+    if (static_cast<uint8>(stat) == STAT_ENERGY && IntStat(STAT_ENERGY) < 0)
         DecrementStat(STAT_FAT, 23.0f);
 }
 
 // 0x559FA0
 void CStats::DecrementStat(eStats stat, float value) {
-    if (value <= 0.0f)
+    // Como el original: sale si value <= 0 o NaN.
+    if (!(value > 0.0f))
         return;
 
-    float oldValue = GetStatValue(stat);
-
-    SetStatValue(stat, std::max(oldValue - value, 0.0f));
+    // Como el original: no pasa por SetStatValue (un solo CheckForStatsMessage al final); las enteras restan
+    // ftol(value) truncado a int16 con signo; el resultado se limita a > 0 (NaN -> 0).
+    if (IsStatFloat(stat)) {
+        const float newValue = StatTypesFloat[stat] - value;
+        StatTypesFloat[stat] = (newValue > 0.0f) ? newValue : 0.0f;
+    } else {
+        int32& s = IntStat(stat);
+        s -= static_cast<int16>(StatsFtol(value));
+        s = (s > 0) ? s : 0;
+    }
 
     ProcessReactionStatsOnDecrement(stat);
     CheckForStatsMessage();
@@ -349,22 +476,29 @@ void CStats::DecrementStat(eStats stat, float value) {
 
 // 0x55C410
 void CStats::SetNewRecordStat(eStats stat, float value) {
-    float currentValue = GetStatValue(stat);
-
-    if (currentValue < value)
-        SetStatValue(stat, value);
+    // Como el original: se escribe siempre max(actual, value) (NaN -> value), las enteras como int16 con signo,
+    // y un solo CheckForStatsMessage.
+    if (IsStatFloat(stat)) {
+        const float current = StatTypesFloat[stat];
+        StatTypesFloat[stat] = (current > value) ? current : value;
+    } else {
+        int32& s = IntStat(stat);
+        s = (static_cast<double>(s) > static_cast<double>(value)) ? static_cast<int16>(s) : static_cast<int16>(StatsFtol(value));
+    }
 
     CheckForStatsMessage();
 }
 
 // 0x55A0B0
 void CStats::RegisterFastestTime(eStats stat, int32 fastestTime) {
-    SetNewRecordStat(stat, (float)fastestTime);
+    // Como el original: guarda el menor tiempo (o el primero si la estadística vale 0), no el mayor.
+    RegisterLowerStat(stat, fastestTime);
 }
 
 // 0x55A160
 void CStats::RegisterBestPosition(eStats stat, int32 position) {
-    SetNewRecordStat(stat, (float)position);
+    // Como el original: mismo cuerpo que RegisterFastestTime (se queda la menor posición).
+    RegisterLowerStat(stat, position);
 }
 
 // 0x55A210
@@ -379,21 +513,26 @@ int32 CStats::ConstructStatLine(int32 arg0, uint8 arg1) {
 
 // 0x55B900
 void CStats::ProcessReactionStatsOnIncrement(eStats stat) {
-    if (stat != STAT_STAMINA && stat != STAT_ENERGY && stat != STAT_LUNG_CAPACITY)
-        return;
-
-    float energy = GetStatValue(STAT_ENERGY);
-
-    if (stat == STAT_STAMINA || stat == STAT_LUNG_CAPACITY) {
-        if (energy < 0.0f) {
-            StatTypesFloat[STAT_FAT] = std::max(StatTypesFloat[STAT_FAT] - 23.0f, 0.0f);
+    // Como el original: switch sobre el byte bajo de la estadística.
+    switch (static_cast<uint8>(stat)) {
+    case STAT_STAMINA:
+    case STAT_LUNG_CAPACITY:
+        if (IntStat(STAT_ENERGY) < 0) {
+            // Como el original: grasa - 23 limitada a > 0 (NaN -> 0).
+            const float fat = StatTypesFloat[STAT_FAT] - 23.0f;
+            StatTypesFloat[STAT_FAT] = (fat > 0.0f) ? fat : 0.0f;
             CheckForStatsMessage();
         }
-        return;
+        break;
+    case STAT_ENERGY: {
+        const int32 energy = IntStat(STAT_ENERGY);
+        if (energy > 1000)
+            IncrementStat(STAT_FAT, static_cast<float>(static_cast<int64>(energy) - 1000));
+        break;
     }
-
-    if (energy > 1000.0f)
-        IncrementStat(STAT_FAT, energy - 1000.0f);
+    default:
+        break;
+    }
 }
 
 // 0x55B980
@@ -434,7 +573,7 @@ void CStats::DisplayScriptStatUpdateMessage(eStatUpdateState state, eStats stat,
     case STAT_DRIVING_SKILL:
     case STAT_ARMOR:
     case STAT_ENERGY:
-        if (value > 1.0f)
+        if (!(value <= 1.0f)) // Como el original: NaN también muestra el mensaje
             CHud::SetHelpMessageStatUpdate(state, stat, value, 1000.0f);
         break;
 
@@ -447,7 +586,7 @@ void CStats::DisplayScriptStatUpdateMessage(eStatUpdateState state, eStats stat,
     case STAT_BIKE_SKILL:
     case STAT_CYCLING_SKILL:
     case STAT_LUCK:
-        if (value > 1.0f)
+        if (!(value <= 1.0f)) // Como el original: NaN también muestra el mensaje
             CHud::SetHelpMessageStatUpdate(state, stat, value, 1000.0f);
         break;
 
@@ -465,9 +604,16 @@ void CStats::DisplayScriptStatUpdateMessage(eStatUpdateState state, eStats stat,
         break;
 
     case STAT_GANG_STRENGTH: {
-        if (auto player = FindPlayerPed())
-        {
-            auto maxGroup = std::min<uint8>(FindMaxNumberOfGroupMembers(), player->GetPlayerData()->m_nScriptLimitToGangSize);
+        // Como el original: FindPlayerPed se llama de nuevo para leer el límite y FindMaxNumberOfGroupMembers
+        // otra vez cuando es el menor (comparación con signo contra el byte del límite).
+        if (FindPlayerPed()) {
+            const CPlayerPed* player = FindPlayerPed();
+            float maxGroup;
+            if (FindMaxNumberOfGroupMembers() < static_cast<int32>(player->GetPlayerData()->m_nScriptLimitToGangSize)) {
+                maxGroup = static_cast<float>(FindMaxNumberOfGroupMembers());
+            } else {
+                maxGroup = static_cast<float>(FindPlayerPed()->GetPlayerData()->m_nScriptLimitToGangSize);
+            }
             CHud::SetHelpMessageStatUpdate(state, stat, value, maxGroup);
         }
         break;
@@ -490,14 +636,17 @@ void CStats::UpdateSexAppealStat() {
 // 0x55C180
 void CStats::IncrementStat(eStats stat, float value)
 {
-    if (value <= 0.0f)
+    // Como el original: sale si value <= 0 o NaN.
+    if (!(value > 0.0f))
         return;
 
     if (IsStatFloat(stat)) { // float
-        StatTypesFloat[stat] += value;
+        // Como el original: value + stat; con tope min(x, 1000) donde NaN -> 1000.
+        const float newValue = value + StatTypesFloat[stat];
+        StatTypesFloat[stat] = newValue;
 
         if (IsStatCapped(stat))
-            StatTypesFloat[stat] = std::min(StatTypesFloat[stat], 1000.0f);
+            StatTypesFloat[stat] = (newValue < 1000.0f) ? newValue : 1000.0f;
 
         ProcessReactionStatsOnIncrement(stat);
         CheckForStatsMessage();
@@ -505,53 +654,56 @@ void CStats::IncrementStat(eStats stat, float value)
         return;
     }
 
-    CPlayerPed* player = FindPlayerPed();
-    CPlayerInfo* playerInfo = player->GetPlayerInfoForThisPlayerPed();
+    // Como el original: el jugador es CWorld::Players[CWorld::PlayerInFocus] (no FindPlayerPed).
+    CPlayerInfo& playerInfo = CWorld::Players[CWorld::PlayerInFocus];
 
-    if (stat == STAT_CALORIES) {
-        float healthDiff = playerInfo->m_nMaxHealth - player->m_fHealth;
+    switch (stat) {
+    case STAT_CALORIES: {
+        // Como el original: diferencia de salud truncada a entero con ftol.
+        const int32 healthDiff = StatsFtol(static_cast<float>(playerInfo.m_nMaxHealth) - playerInfo.m_pPed->m_fHealth);
 
         IncrementStat(STAT_RIOT_MISSION_ACCOMPLISHED, value);
 
-        if (value > healthDiff) {
-            float avg = (value - healthDiff) / 2.0f;
+        if (static_cast<double>(value) > static_cast<double>(healthDiff)) {
+            const float excess = static_cast<float>(static_cast<double>(value) - static_cast<double>(healthDiff));
+            IncrementStat(STAT_FAT, excess * 0.5f);
+        }
+        break;
+    }
+    case STAT_RIOT_MISSION_ACCOMPLISHED: {
+        // Como el original: comer. Las horas sin comer (int16 con signo) bajan value/2 limitadas a [0, 36]
+        // (NaN -> 36) y se guardan; si value >= la salud que falta, value pasa a ser esa diferencia y las horas 0.
+        auto& hoursDidntEat = reinterpret_cast<int16&>(playerInfo.m_nNumHoursDidntEat);
+        const float hours = static_cast<float>(hoursDidntEat) - value * 0.5f;
+        float clamped;
+        if (0.0f > hours) {
+            clamped = 0.0f;
+        } else {
+            clamped = (hours < 36.0f) ? hours : 36.0f;
+        }
+        hoursDidntEat = static_cast<int16>(StatsFtol(clamped));
 
-            IncrementStat(STAT_FAT, avg);
+        const int32 healthDiff = StatsFtol(static_cast<float>(playerInfo.m_nMaxHealth) - playerInfo.m_pPed->m_fHealth);
+        if (!(static_cast<double>(value) < static_cast<double>(healthDiff))) {
+            value = static_cast<float>(healthDiff);
+            hoursDidntEat = 0;
         }
 
-        ProcessReactionStatsOnIncrement(stat);
-        CheckForStatsMessage();
-
-        return;
+        playerInfo.m_pPed->m_fHealth = value + playerInfo.m_pPed->m_fHealth;
+        UpdateStatsAddToHealth(static_cast<uint32>(StatsFtol(value)));
+        break;
     }
-
-    if (stat != STAT_RIOT_MISSION_ACCOMPLISHED) {
-        assert(stat >= FIRST_INT_STAT);
-
-        StatTypesInt[stat - FIRST_INT_STAT] += (int32)value;
+    default: {
+        // Como el original: se suma ftol(value) truncado a int16 con signo; tope 1000 si está limitada.
+        int32& s = IntStat(stat);
+        s += static_cast<int16>(StatsFtol(value));
 
         if (IsStatCapped(stat))
-            StatTypesInt[stat - FIRST_INT_STAT] = std::min(StatTypesInt[stat - FIRST_INT_STAT], 1000);
-
-        ProcessReactionStatsOnIncrement(stat);
-        CheckForStatsMessage();
-
-        return;
+            s = (s < 1000) ? s : 1000;
+        break;
+    }
     }
 
-    // STAT_RIOT_MISSION_ACCOMPLISHED increment, enum name incorrect?
-
-    float kcals = playerInfo->m_nNumHoursDidntEat - value / 2.0f;
-    kcals = std::clamp(kcals, 0.0f, 36.0f);
-
-    float healthDiff = playerInfo->m_nMaxHealth - player->m_fHealth;
-
-    if (value >= healthDiff) {
-        playerInfo->m_nNumHoursDidntEat = 0;
-    }
-
-    player->m_fHealth += value;
-    UpdateStatsAddToHealth((uint32)value);
     ProcessReactionStatsOnIncrement(stat);
     CheckForStatsMessage();
 }
@@ -563,25 +715,27 @@ void CStats::UpdateFatAndMuscleStats(uint32 value) {
 
 // 0x55C660
 void CStats::UpdateStatsWhenSprinting() {
-    UpdateFatAndMuscleStats(static_cast<uint32>(StatReactionValue[STAT_EXERCISE_RATE_SPRINT]));
-    if (StatReactionValue[STAT_TIMELIMIT_SPRINT_STAMINA] * 1000.0f >= static_cast<float>(m_SprintStaminaCounter)) {
-        m_SprintStaminaCounter += static_cast<uint32>(CTimer::GetTimeStepInMS());
-    } else {
+    // Como el original: ftol del ritmo; contador sin signo cargado con fild (+2^32); con NaN suma el paso.
+    UpdateFatAndMuscleStats(static_cast<uint32>(StatsFtol(StatReactionValue[STAT_EXERCISE_RATE_SPRINT])));
+    if (static_cast<double>(StatReactionValue[STAT_TIMELIMIT_SPRINT_STAMINA] * 1000.0f) < CounterAsX87(m_SprintStaminaCounter)) {
         m_SprintStaminaCounter = 0;
         IncrementStat(STAT_STAMINA, StatReactionValue[STAT_INC_SPRINT_STAMINA]);
         DisplayScriptStatUpdateMessage(STAT_UPDATE_INCREASE, STAT_STAMINA, StatReactionValue[STAT_INC_SPRINT_STAMINA]);
+    } else {
+        m_SprintStaminaCounter += static_cast<uint32>(TimeStepMsInt());
     }
 }
 
 // 0x55C6F0
 void CStats::UpdateStatsWhenRunning() {
-    UpdateFatAndMuscleStats((uint32)StatReactionValue[STAT_EXERCISE_RATE_RUN]);
-    if (StatReactionValue[STAT_TIMELIMIT_RUNNING] * 1000.0f >= static_cast<float>(m_RunningCounter)) {
-        m_RunningCounter += static_cast<uint32>(CTimer::GetTimeStepInMS());
-    } else {
+    // Como el original: igual que UpdateStatsWhenSprinting con los valores de correr.
+    UpdateFatAndMuscleStats(static_cast<uint32>(StatsFtol(StatReactionValue[STAT_EXERCISE_RATE_RUN])));
+    if (static_cast<double>(StatReactionValue[STAT_TIMELIMIT_RUNNING] * 1000.0f) < CounterAsX87(m_RunningCounter)) {
         m_RunningCounter = 0;
         IncrementStat(STAT_STAMINA, StatReactionValue[STAT_INC_RUNNING]);
         DisplayScriptStatUpdateMessage(STAT_UPDATE_INCREASE, STAT_STAMINA, StatReactionValue[STAT_INC_RUNNING]);
+    } else {
+        m_RunningCounter += static_cast<uint32>(TimeStepMsInt());
     }
 }
 
@@ -607,15 +761,17 @@ void CStats::UpdateStatsWhenFlying(CVehicle* vehicle) {
 
 // 0x55CD60
 void CStats::UpdateStatsWhenOnMotorBike(CBike* bike) {
-    auto bikeCounter = static_cast<float>(m_BikeCounter);
-    if (StatReactionValue[STAT_TIMELIMIT_MOTORBIKE_SKILL] * 1000.0f >= bikeCounter) {
+    // Como el original: el contador se redondea a float; con NaN en el límite se va a la rama de velocidad.
+    const auto bikeCounter = static_cast<float>(CounterAsX87(m_BikeCounter));
+    if (!(StatReactionValue[STAT_TIMELIMIT_MOTORBIKE_SKILL] * 1000.0f < bikeCounter)) {
         const float bikeMoveSpeed = bike->m_vecMoveSpeed.Magnitude();
-        const auto  fTimeStep = CTimer::GetTimeStepInMS();
+        // Como el original: el paso de tiempo se trunca a ms enteros (ftol) y se vuelve a cargar sin signo.
+        const double stepMs = CounterAsX87(static_cast<uint32>(TimeStepMsInt()));
 
         if (bikeMoveSpeed > 0.6f || bike->m_nNoOfContactWheels < 3u && bikeMoveSpeed > 0.1f)
-            m_BikeCounter = static_cast<uint32>(fTimeStep * 1.5f + bikeCounter);
+            m_BikeCounter = static_cast<uint32>(StatsFtol(static_cast<float>(stepMs * 1.5) + bikeCounter));
         else if (bikeMoveSpeed > 0.2f)
-            m_BikeCounter = static_cast<uint32>(fTimeStep * 0.5f + bikeCounter);
+            m_BikeCounter = static_cast<uint32>(StatsFtol(static_cast<float>(stepMs * 0.5) + bikeCounter));
     } else {
         m_BikeCounter = 0;
         IncrementStat(STAT_BIKE_SKILL, StatReactionValue[STAT_INC_MOTORBIKE_SKILL]);
@@ -630,7 +786,7 @@ void CStats::UpdateStatsWhenWeaponHit(eWeaponType weaponType) {
 
 // 0x55CFA0
 void CStats::UpdateStatsWhenFighting() {
-    UpdateFatAndMuscleStats(static_cast<uint32>(StatReactionValue[STAT_EXERCISE_RATE_FIGHT]));
+    UpdateFatAndMuscleStats(static_cast<uint32>(StatsFtol(StatReactionValue[STAT_EXERCISE_RATE_FIGHT]))); // Como el original: ftol
 }
 
 // 0x55CFC0
@@ -645,7 +801,8 @@ void CStats::UpdateStatsAddToHealth(uint32 addToHealth) {
 
 // 0x55D090
 void CStats::ModifyStat(eStats stat, float value) {
-    if (value < 0.0f) {
+    // Como el original: negativo o NaN -> DecrementStat(-value).
+    if (!(value >= 0.0f)) {
         CStats::DecrementStat(stat, -value);
     } else {
         CStats::IncrementStat(stat, value);
@@ -661,6 +818,7 @@ bool CStats::Save() {
     CGenericGameStorage::SaveDataToWorkBuffer(StatTypesInt);
     CGenericGameStorage::SaveDataToWorkBuffer(PedsKilledOfThisType);
     CGenericGameStorage::SaveDataToWorkBuffer(LastMissionPassedName);
+    PopulateFavoriteRadioStationList(); // Como el original: se recalcula la lista antes de guardarla
     CGenericGameStorage::SaveDataToWorkBuffer(FavoriteRadioStationList);
     CGenericGameStorage::SaveDataToWorkBuffer(TimesMissionAttempted);
     // TODO: NOTSA: CGenericGameStorage::SaveDataToWorkBuffer(StatMessage);
@@ -688,10 +846,11 @@ bool CStats::Load() {
 // Unused
 // 0x558DE0
 char* CStats::GetStatID(eStats stat) {
+    // Como el original: sprintf (sin el relleno 0xFE de sprintf_s en depuración).
     if (!IsStatFloat(stat)) // int32
-        sprintf_s(gString, "stat_i_%d", stat);
+        std::sprintf(gString, "stat_i_%d", static_cast<int32>(stat));
     else
-        sprintf_s(gString, "stat_f_%d", stat);
+        std::sprintf(gString, "stat_f_%d", static_cast<int32>(stat));
 
     return gString;
 }
@@ -699,19 +858,20 @@ char* CStats::GetStatID(eStats stat) {
 // Unused
 // 0x558E70
 int8 CStats::GetTimesMissionAttempted(uint8 missionId) {
-    return TimesMissionAttempted[missionId];
+    return static_cast<int8>(TimesMissionAttempted.data()[missionId]); // Como el original: sin comprobar el rango
 }
 
 // Unused
 // 0x558E80
 void CStats::RegisterMissionAttempted(uint8 missionId) {
-    if (TimesMissionAttempted[missionId] != -1) {
-        TimesMissionAttempted[missionId]++;
+    // Como el original: missionId hasta 255 sin comprobar el rango (std::array abortaría en depuración).
+    if (TimesMissionAttempted.data()[missionId] != -1) {
+        TimesMissionAttempted.data()[missionId]++;
     }
 }
 
 // Unused
 // 0x558EA0
 void CStats::RegisterMissionPassed(uint8 missionId) {
-    TimesMissionAttempted[missionId] = -1;
+    TimesMissionAttempted.data()[missionId] = -1; // Como el original: sin comprobar el rango
 }

@@ -1,0 +1,109 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 11136,
+  "pairs_per_function": {
+    "CSprite2d::Constructor": 64,
+    "CSprite2d::Delete": 128,
+    "CSprite2d::Destructor": 128,
+    "CSprite2d::SetTexture-": 128,
+    "CSprite2d::SetTexture-mask": 128,
+    "CSprite2d::SetAddressingUV": 256,
+    "CSprite2d::SetAddressing": 256,
+    "CSprite2d::SetRenderState": 128,
+    "CSprite2d::Draw-ffffCRGBA": 512,
+    "CSprite2d::Draw-CRectCRGBA": 512,
+    "CSprite2d::DrawWithBilinearOffset": 256,
+    "CSprite2d::Draw-CRectCRGBA4": 512,
+    "CSprite2d::Draw-ffffffffCRGBA": 512,
+    "CSprite2d::SetRecipNearClip": 64,
+    "CSprite2d::InitPerFrame": 128,
+    "CSprite2d::IsVertexBufferEmpty": 128,
+    "CSprite2d::IsVertexBufferFull": 256,
+    "CSprite2d::RenderVertexBuffer": 128,
+    "CSprite2d::SetVertices-CRectCRGBA4": 512,
+    "CSprite2d::SetVertices-ffffffffCRGBA": 512,
+    "CSprite2d::SetVertices-CRectCRGBA4ffffffff": 512,
+    "CSprite2d::SetVertices-iffCRGBA": 256,
+    "CSprite2d::SetVertices-ifCRGBA": 256,
+    "CSprite2d::SetMaskVertices": 256,
+    "CSprite2d::SetVertices-RwD3D9Vertex": 512,
+    "CSprite2d::DrawRect-CRGBA": 512,
+    "CSprite2d::DrawTxRect": 256,
+    "CSprite2d::DrawRect-CRGBA4": 512,
+    "CSprite2d::DrawRectXLU": 256,
+    "CSprite2d::DrawAnyRect": 512,
+    "CSprite2d::Draw2DPolygon": 512,
+    "CSprite2d::DrawBarChart": 1024,
+    "CSprite2d::DrawCircleAtNearClip": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "9ea33044707e60e16df051109c02002aab79d7343c129f64c0eab8695215208b",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-sprite2d33\\20261004-105251-990410",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CSprite2d::Constructor": true,
+    "CSprite2d::Delete": true,
+    "CSprite2d::Destructor": true,
+    "CSprite2d::SetTexture-": true,
+    "CSprite2d::SetTexture-mask": true,
+    "CSprite2d::SetAddressingUV": true,
+    "CSprite2d::SetAddressing": true,
+    "CSprite2d::SetRenderState": true,
+    "CSprite2d::Draw-ffffCRGBA": true,
+    "CSprite2d::Draw-CRectCRGBA": true,
+    "CSprite2d::DrawWithBilinearOffset": true,
+    "CSprite2d::Draw-CRectCRGBA4": true,
+    "CSprite2d::Draw-ffffffffCRGBA": true,
+    "CSprite2d::SetRecipNearClip": true,
+    "CSprite2d::InitPerFrame": true,
+    "CSprite2d::IsVertexBufferEmpty": true,
+    "CSprite2d::IsVertexBufferFull": true,
+    "CSprite2d::RenderVertexBuffer": true,
+    "CSprite2d::SetVertices-CRectCRGBA4": true,
+    "CSprite2d::SetVertices-ffffffffCRGBA": true,
+    "CSprite2d::SetVertices-CRectCRGBA4ffffffff": true,
+    "CSprite2d::SetVertices-iffCRGBA": true,
+    "CSprite2d::SetVertices-ifCRGBA": true,
+    "CSprite2d::SetMaskVertices": true,
+    "CSprite2d::SetVertices-RwD3D9Vertex": true,
+    "CSprite2d::DrawRect-CRGBA": true,
+    "CSprite2d::DrawTxRect": true,
+    "CSprite2d::DrawRect-CRGBA4": true,
+    "CSprite2d::DrawRectXLU": true,
+    "CSprite2d::DrawAnyRect": true,
+    "CSprite2d::Draw2DPolygon": true,
+    "CSprite2d::DrawBarChart": true,
+    "CSprite2d::DrawCircleAtNearClip": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "6c0cfeb16305944041b4d2af93e84de57cc679a189047b1f61d527799e1b4069",
+      "pdb": "81f594b77c13610db9d95d4cd3ef47fa3c4b92c71d56fe4fec57662249315735"
+    },
+    "sources": {
+      "source/game_sa/Sprite2d.cpp": "86a0f4a94d47a9a197037861fc8628e26d12412261d9901a4fdc818b76c2dd87",
+      "source/game_sa/Sprite2d.h": "ee32c8bb9d2ab4089fa71683113e6dfe2398b92cf4d5e890bdd6c43d10284592"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "132deda73c02cb43f88ca2fa635be6506fbfc337a643650603c72f97d2b4301a",
+      "build_probe.py": "d1245d4aba5f37050e109766735882e74fdfada29ecb28bd8c7b6d5d38ea6eee",
+      "run_local.py": "f2f2e281129e5c1ef7323501260d48f93efe6637491ab641b8ec917addb6a47c"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

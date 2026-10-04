@@ -37,7 +37,7 @@
   "log_sha256": "ce4886245360e8c11e58334b16365f40bdcfbd89681f3284accb37a2a769c7ef",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fixpeds\\20261003-180419-619553",
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fixpeds\\20261004-105632-994427",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPedAttractor::Constructor": true,
@@ -64,18 +64,18 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "8b6f5cb75dc5cec927478ce76ea3e960bed1207cfc56319c0d9b49663df4300a",
-      "pdb": "28e0870c5776872e07833213da4a110bc4d21fbe5f94c0d18a18b6976c21221a"
+      "asi": "49a88777a7d5007d1dba3d48eabeb33ca7d1df008c710024c87ac256694ec802",
+      "pdb": "2e7766a9e51eb48d361438d88c58974ab0332ab7470417378c6e509d73c30a8d"
     },
     "sources": {
-      "source/game_sa/Attractors/PedAttractor.cpp": "586e3d2d600d57124bfce82816b0b028cda4f6fd70a647d56dbbd6d2c9c4ca97",
+      "source/game_sa/Attractors/PedAttractor.cpp": "10984d293087d09a1e30d86f1cb9d9fe095e52f0312a501ed2bf551a52e101df",
       "source/game_sa/Attractors/PedAttractor.h": "12450ea6e5c248f03ee8c9d4f7381be81923cfcaf799aad790fe3bd9edca593f",
-      "source/game_sa/PedGroupIntelligence.cpp": "45c0d1e3d07f75c29660d7a5959149c0b2dab0155fe3d334844d53651d04ffbe",
-      "source/game_sa/PedGroupIntelligence.h": "01c0384264dd981ecc72c9bd91b4dcd83e2dbe4ef431769495d7bdca422f988f",
-      "source/game_sa/PlayerInfo.cpp": "a77e60354d829288af71fb7a52d9780402b16c5d1abb78e16b596ffd2dda1e73",
+      "source/game_sa/PedGroupIntelligence.cpp": "237ad4d03244f44672bb677db568be9f49963c71d24feee95c80f634c3ee19df",
+      "source/game_sa/PedGroupIntelligence.h": "62b1361e3650e31df8442b1b576ba6547802ca946da292c43f18964d3087701f",
+      "source/game_sa/PlayerInfo.cpp": "3700137de43de3eb57a49b8a331df96d17008a6e37b4aa0dc4dc794fd407ff68",
       "source/game_sa/PlayerInfo.h": "1860550e07f2c88c924f5f072d7859e09bcb6f50feab0d01c1ec5103875ce77c"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
       "LiveComparison.hpp": "7a563ddfbaa6568458ae53586a2bba239e5a97139b13bee73c7311947b5454e5",
       "build_probe.py": "bcf6e5c1c809e005c1537d5ae009c133c7fe6cde82da51f90a02d41d4cb6b8e5",

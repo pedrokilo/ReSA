@@ -8,7 +8,7 @@
 // FindPlayerPed, Load/SaveDataToWorkBuffer (nunca se tocan partidas), CCamera::IsSphereVisible,
 // CClock::GetIsTimeInRange, C3dMarkers::PlaceMarkerCone, CGameLogic::IsCoopGameGoingOn,
 // CEntryExit::TransitionStarted/TransitionFinished, CRenderer::GetObjectsInFrustum, CWorld::FindObjectsInRange y
-// operator delete/delete[] (solo durante Shutdown, sin liberar). Init queda fuera: reserva 512 entradas (NOTSA).
+// operator delete/delete[] (solo durante Shutdown, sin liberar). Init se valida en EnExInit.
 #include <fstream>
 #include <reversiblehooks/RootHookCategory.h>
 #include <reversiblehooks/ReversibleHook/Base.h>

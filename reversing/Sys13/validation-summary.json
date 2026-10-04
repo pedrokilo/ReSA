@@ -55,7 +55,7 @@
   "log_sha256": "7814d2a1d954dd49445ebf53df01df4d9c7adfab0438900b7bd95cd02f70de30",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-sys13\\20261003-095114-082958",
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-sys13\\20261004-100510-756121",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPedType::ClearPedTypeAcquaintances": true,
@@ -100,18 +100,18 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "24b87c94410392c86a544fd07dc03da1506b56dadee74f75bdaf041d55ba4af7",
-      "pdb": "cae664f31728c310c13586c7cf6090748589d52e3626e59d3c7820ab495855c2"
+      "asi": "cebecffe70aa33cecae0b205e10aaf5a61c633c1e92cc2aae2ab6ec2e5defeac",
+      "pdb": "df138c140b62567b8ca7af5d19cde4730402f37048621a36a105fce80bbf60db"
     },
     "sources": {
-      "source/game_sa/PedType.cpp": "ce6037d8550b5544a23013980da6702d1d4e0f8f763a34f936894861af7140c5",
+      "source/game_sa/PedType.cpp": "ac4d1aac618291eecae1204807d809f69b26925c5edb929388f55fbee1c7bbbf",
       "source/game_sa/PedType.h": "8890af1097ac3269769f0895247ce414f0eebdff7ea489177a41431b44e5eea1",
-      "source/game_sa/Timer.cpp": "585383267e74f01dd2f407eef659f0d85c83d0a833c860c8904e7533e625e6c7",
+      "source/game_sa/Timer.cpp": "b78d6cc3da32af05334e109f01853c5c29b9be5774e552f832d6213f9d518e3c",
       "source/game_sa/Timer.h": "259c974ea4dac07cb099515cee12d4746609e3001962f540cf51e300bbb50bc0",
-      "source/game_sa/Entity/Vehicle/Trailer.cpp": "606c1880cbe9404c27b1da1f73d6b475407479ad67e5589a9baccd3466aeaf48",
+      "source/game_sa/Entity/Vehicle/Trailer.cpp": "2967140182ef705c00ce6d58268a69055423fc4b295f86372935237ffb547ad9",
       "source/game_sa/Entity/Vehicle/Trailer.h": "63fe52f48bce8fc44e351af32a6e96844ab5ed6543443010b14b12456b8bbadb"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
       "LiveComparison.hpp": "1587ea945899e2230b47ace010ba47ab78a1c5b6a211e688c52bf677518b6147",
       "build_probe.py": "7e0fb7ebf0f5f73c80a4667bf091b6d3a00901eef6e5f3c35ad806aa570be938",

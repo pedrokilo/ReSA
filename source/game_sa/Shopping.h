@@ -101,7 +101,7 @@ public:
     static void SetPlayerHasBought(uint32 itemKey);
     static bool HasPlayerBought(uint32 itemKey);
     static void IncrementStat(uint32 statIndex, int32 change);
-    static void IncrementStat2(eStats stat, int32 change);
+    static void IncrementStat2(int32 stat, int32 change);
     static void LoadPrices(const char* sectionName);
     static void LoadShop(const char* sectionName);
     static void LoadStats();
@@ -117,8 +117,8 @@ public:
     static void RestoreVehicleMods();
     static void SetCurrentProperty(CMultiBuilding* property);
     static void UpdateStats(size_t index, bool increment);
-    static void Load();
-    static void Save();
+    static bool Load();
+    static bool Save();
 
     // NOTSA
     static int32 GetPriceMultipliedByLevel(int32 price, eLevelName level = NUM_LEVELS) {
@@ -131,6 +131,6 @@ static constexpr auto NUM_COMPONENTS = 20u; // ?
 
 static inline auto& gClothesHaveBeenStored = StaticRef<char>(0xA97298);
 static inline auto& gStoredClothesState = StaticRef<CPedClothesDesc>(0xA9A810);
-static inline auto& gComponentDamageState = StaticRef<std::array<eDamageState, 20u>>(0xA97258);
+static inline auto& gComponentDamageState = StaticRef<std::array<eDamageState, 25u>>(0xA97258); // Como el original: 25 bytes (uno por nodo del coche)
 static inline auto& gStoredVehicleMods = StaticRef<std::array<int16, 15u>>(0xA97274);
-static inline CMultiBuilding* gpCurrentProperty = (CMultiBuilding*)0xA97294;
+static inline auto& gpCurrentProperty = StaticRef<CMultiBuilding*>(0xA97294); // Como el original: la global del EXE (antes era un puntero propio de la DLL)

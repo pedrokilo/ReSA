@@ -1,0 +1,103 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 9024,
+  "pairs_per_function": {
+    "CShopping::Buy": 1024,
+    "CShopping::FindItem": 256,
+    "CShopping::FindSection": 512,
+    "CShopping::FindSectionInSection": 256,
+    "CShopping::GetExtraInfo": 256,
+    "CShopping::GetItemIndex": 256,
+    "CShopping::GetKey": 512,
+    "CShopping::GetNameTag": 256,
+    "CShopping::GetNextSection": 512,
+    "CShopping::GetPrice": 512,
+    "CShopping::GetPriceSectionFromName": 256,
+    "CShopping::HasPlayerBought": 256,
+    "CShopping::IncrementStat": 256,
+    "CShopping::IncrementStat2": 512,
+    "CShopping::Init": 128,
+    "CShopping::Load": 128,
+    "CShopping::LoadPrices": 512,
+    "CShopping::LoadShop": 512,
+    "CShopping::LoadStats": 256,
+    "CShopping::RemoveLoadedPrices": 128,
+    "CShopping::RemoveLoadedShop": 128,
+    "CShopping::RestoreClothesState": 128,
+    "CShopping::RestoreVehicleMods": 256,
+    "CShopping::Save": 128,
+    "CShopping::SetCurrentProperty": 64,
+    "CShopping::SetPlayerHasBought": 256,
+    "CShopping::ShutdownForRestart": 128,
+    "CShopping::StoreClothesState": 128,
+    "CShopping::StoreVehicleMods": 256,
+    "CShopping::UpdateStats": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "19864c2dd0447feab62a15ffe654732493ff33c331ef0016cbdc990e857ff26a",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shop30\\20261004-112645-312087",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CShopping::Buy": true,
+    "CShopping::FindItem": true,
+    "CShopping::FindSection": true,
+    "CShopping::FindSectionInSection": true,
+    "CShopping::GetExtraInfo": true,
+    "CShopping::GetItemIndex": true,
+    "CShopping::GetKey": true,
+    "CShopping::GetNameTag": true,
+    "CShopping::GetNextSection": true,
+    "CShopping::GetPrice": true,
+    "CShopping::GetPriceSectionFromName": true,
+    "CShopping::HasPlayerBought": true,
+    "CShopping::IncrementStat": true,
+    "CShopping::IncrementStat2": true,
+    "CShopping::Init": true,
+    "CShopping::Load": true,
+    "CShopping::LoadPrices": true,
+    "CShopping::LoadShop": true,
+    "CShopping::LoadStats": true,
+    "CShopping::RemoveLoadedPrices": true,
+    "CShopping::RemoveLoadedShop": true,
+    "CShopping::RestoreClothesState": true,
+    "CShopping::RestoreVehicleMods": true,
+    "CShopping::Save": true,
+    "CShopping::SetCurrentProperty": true,
+    "CShopping::SetPlayerHasBought": true,
+    "CShopping::ShutdownForRestart": true,
+    "CShopping::StoreClothesState": true,
+    "CShopping::StoreVehicleMods": true,
+    "CShopping::UpdateStats": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "b0d61beed7ba51525dc17ef9979191fdc1c026d429bed7083204472183e598ad",
+      "pdb": "e96fa595cb520aa5467d44bc54df57cdc3e4009a78f1042f967d2ef67f200fae"
+    },
+    "sources": {
+      "source/game_sa/Shopping.cpp": "106a543954b836b749416942145af1bdea1c858e4eb419dad5aefa7fb23573ea",
+      "source/game_sa/Shopping.h": "71ffe3576dc9daf46802a3200584888aabdd457155262b6d16c237b3e5143b1d"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "33c38f4e0d173c40fa68d507582da46795d74934d85875a4cb4543bd41e21e87",
+      "build_probe.py": "5ca22c405116c22c021464b29cd7bbd529142137be2e266e25bfad51c4d45881",
+      "run_local.py": "5faaf54f7c3cabc2ac4003c980e69eb429065810ed6af28487b2688b5559e2d5"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

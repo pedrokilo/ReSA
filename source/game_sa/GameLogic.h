@@ -17,7 +17,8 @@ enum eSkipState {
     SKIP_WAITING_SCRIPT
 };
 
-enum eGameLogicState {
+// Como el original: GameState es un byte (0x96A8B0); 0x96A8B1 es ActivePlayers
+enum eGameLogicState : uint8 {
     GAMELOGIC_STATE_PLAYING,
     GAMELOGIC_STATE_WASTED,
     GAMELOGIC_STATE_BUSTED,
@@ -61,7 +62,7 @@ public:
     static inline auto& bScriptCoopGameGoingOn = StaticRef<bool>(0x96A8A8);
     static inline auto& TimeOfLastEvent = StaticRef<int32>(0x96A8AC);
     static inline auto& GameState = StaticRef<eGameLogicState>(0x96A8B0);
-    static inline auto& ActivePlayers = StaticRef<int32>(0x96A8B1);
+    static inline auto& ActivePlayers = StaticRef<uint8>(0x96A8B1); // Como el original: byte
 
     static inline auto& bPenaltyForDeathApplies = StaticRef<bool>(0x8A5E48);
     static inline auto& bPenaltyForArrestApplies = StaticRef<bool>(0x8A5E49);
@@ -81,8 +82,8 @@ public:
      * @param ignoreMoveSpeed If true, the `moveSpeed` parameter is ignored in the calculation.
      * @param outDistance Output parameter that is updated only when a forbidden crossing is found
      *        (that is, when the returned distance is less than the no-crossing sentinel value).
-     *        It contains the 2D displacement vector from `point` to the chosen forbidden crossing,
-     *        computed in the XY plane with `z` set to `0`.
+     *        Como el original: contiene el vector desde `point` hasta el cruce elegido (cuya z es 0),
+     *        es decir (cx - x, cy - y, -z); el producto escalar con `moveSpeed` es 3D.
      *
      * @return The scalar distance to the forbidden train crossing, or the no-crossing sentinel
      *         value if none was found. `outDistance` is only valid when the returned distance is
@@ -92,7 +93,8 @@ public:
     static void ClearSkip(bool afterMission);
     static void DoWeaponStuffAtStartOf2PlayerGame(bool shareWeapons);
     static void StorePedsWeapons(CPed* ped);
-    static eLevelName FindCityClosestToPoint(CVector2D point);
+    // Como el original: devuelve el eLevelName en los 32 bits de EAX (mov eax,1/2/3), no en un byte
+    static int32 FindCityClosestToPoint(CVector2D point);
     static void ForceDeathRestart();
     static void InitAtStartOfGame();
     static bool IsCoopGameGoingOn();
@@ -101,8 +103,8 @@ public:
     static bool IsPointWithinLineArea(const CVector* points, uint32 numPoints, float x, float y);
     static bool IsSkipWaitingForScriptToFadeIn();
     static bool LaRiotsActiveHere();
-    static void Save();
-    static void Load();
+    static bool Save();
+    static bool Load();
     static void PassTime(uint32 minutes);
     static void Remove2ndPlayerIfPresent();
     static void ResetStuffUponResurrection();

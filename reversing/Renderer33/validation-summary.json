@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 18112,
+  "pairs_per_function": {
+    "CRenderer::RenderFadingInEntities": 64,
+    "CRenderer::RenderFadingInUnderwaterEntities": 64,
+    "CRenderer::RenderOneRoad": 256,
+    "CRenderer::RenderOneNonRoad": 1024,
+    "CRenderer::RemoveVehiclePedLights": 128,
+    "CRenderer::AddEntityToRenderList": 1024,
+    "CRenderer::GetLodRenderListBase": 64,
+    "CRenderer::GetLodDontRenderListBase": 64,
+    "CRenderer::ResetLodRenderLists": 64,
+    "CRenderer::AddToLodRenderList": 256,
+    "CRenderer::AddToLodDontRenderList": 256,
+    "CRenderer::ProcessLodRenderLists": 1024,
+    "CRenderer::PreRender": 512,
+    "CRenderer::RenderRoads": 512,
+    "CRenderer::RenderEverythingBarRoads": 1024,
+    "CRenderer::RenderFirstPersonVehicle": 256,
+    "CRenderer::SetupLightingForEntity": 256,
+    "CRenderer::SetupMapEntityVisibility": 1024,
+    "CRenderer::SetupEntityVisibility": 1024,
+    "CRenderer::SetupBigBuildingVisibility": 1024,
+    "CRenderer::SetupScanLists": 512,
+    "CRenderer::ScanSectorList_ListModels": 512,
+    "CRenderer::ScanSectorList_ListModelsVisible": 512,
+    "CRenderer::ScanSectorList": 1024,
+    "CRenderer::ScanBigBuildingList": 1024,
+    "CRenderer::ShouldModelBeStreamed": 1024,
+    "CRenderer::ScanPtrList_RequestModels<CPtrListSingleLink<CPhysical*>>": 512,
+    "CRenderer::ConstructRenderList": 512,
+    "CRenderer::ScanSectorList_RequestModels": 512,
+    "CRenderer::ScanWorld": 512,
+    "CRenderer::GetObjectsInFrustum": 512,
+    "CRenderer::RequestObjectsInFrustum": 512,
+    "CRenderer::RequestObjectsInDirection": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "12abd6d2f3599b779eb7ee4c059c344cbb4d5dd0a38b7973e302d8ed32ccc5d7",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-renderer33\\20261004-112809-666492",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CRenderer::RenderFadingInEntities": true,
+    "CRenderer::RenderFadingInUnderwaterEntities": true,
+    "CRenderer::RenderOneRoad": true,
+    "CRenderer::RenderOneNonRoad": true,
+    "CRenderer::RemoveVehiclePedLights": true,
+    "CRenderer::AddEntityToRenderList": true,
+    "CRenderer::GetLodRenderListBase": true,
+    "CRenderer::GetLodDontRenderListBase": true,
+    "CRenderer::ResetLodRenderLists": true,
+    "CRenderer::AddToLodRenderList": true,
+    "CRenderer::AddToLodDontRenderList": true,
+    "CRenderer::ProcessLodRenderLists": true,
+    "CRenderer::PreRender": true,
+    "CRenderer::RenderRoads": true,
+    "CRenderer::RenderEverythingBarRoads": true,
+    "CRenderer::RenderFirstPersonVehicle": true,
+    "CRenderer::SetupLightingForEntity": true,
+    "CRenderer::SetupMapEntityVisibility": true,
+    "CRenderer::SetupEntityVisibility": true,
+    "CRenderer::SetupBigBuildingVisibility": true,
+    "CRenderer::SetupScanLists": true,
+    "CRenderer::ScanSectorList_ListModels": true,
+    "CRenderer::ScanSectorList_ListModelsVisible": true,
+    "CRenderer::ScanSectorList": true,
+    "CRenderer::ScanBigBuildingList": true,
+    "CRenderer::ShouldModelBeStreamed": true,
+    "CRenderer::ScanPtrList_RequestModels<CPtrListSingleLink<CPhysical*>>": true,
+    "CRenderer::ConstructRenderList": true,
+    "CRenderer::ScanSectorList_RequestModels": true,
+    "CRenderer::ScanWorld": true,
+    "CRenderer::GetObjectsInFrustum": true,
+    "CRenderer::RequestObjectsInFrustum": true,
+    "CRenderer::RequestObjectsInDirection": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "a602b43378b9371e3e110506d880aa2ea5bf93325cde465975701ac22ee75aff",
+      "pdb": "680cd03a815c32110d2eadfe15f9872e02af8fa4e539ce08d7955c22e1b16428"
+    },
+    "sources": {
+      "source/game_sa/Renderer.cpp": "76221517a897779e37fb5599a328b9387e2d8faa9e3d4c18cb7587f997f611b6",
+      "source/game_sa/Renderer.h": "e9c8f0150cc156a91a3284dec78840231fab1acc19527164c869968754e2f0ab",
+      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "1fa6b4888644aa5892148ce87fae2195325f13cd63b3dfedce9f4b82b74a341a",
+      "build_probe.py": "6b6112d0b7addc77ec470218950b1b22dfb2430ca00eb25e64ed80fa4a1982ec",
+      "run_local.py": "1bd157896948f095fbe73a2288e127fb379f2f4ad592d035157dacba4adaefa5"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

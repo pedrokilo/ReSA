@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 18/18 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 17/18 entradas.
+ * Validación registrada: 18/18 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -24,6 +24,9 @@ using EntryExitTreeNode = CQuadTreeNode<CEntryExit*>;
 auto& mp_QuadTree       = StaticRef<EntryExitTreeNode*>(0x96A7D0);
 
 auto& mp_poolEntryExits = StaticRef<CEntryExitsPool*>(0x96A7D8);
+
+// Como el original: el pool tiene 400 entradas (0x43F927) y Save recorre 400 slots fijos (0x5D5A5F).
+constexpr int32 ENTRY_EXITS_POOL_SIZE = 400;
 
 void CEntryExitManager::InjectHooks() {
     RH_ScopedClass(CEntryExitManager);
@@ -53,18 +56,32 @@ void CEntryExitManager::InjectHooks() {
 void CEntryExitManager::Init() {
     ZoneScoped;
 
-    mp_QuadTree = new EntryExitTreeNode(WORLD_BOUNDS, 4);
+    // Como el original: el nodo sale del pool de nodos (0x552C80) y solo se construye si la reserva no falla.
+    void* const node = EntryExitTreeNode::operator new(sizeof(EntryExitTreeNode));
+    mp_QuadTree      = node ? ::new (node) EntryExitTreeNode(WORLD_BOUNDS, 4) : nullptr;
 
     ms_exitEnterState = 0;
     ms_bDisabled = false;
     ms_entryExitStackPosn = 0;
     ms_bBurglaryHousesEnabled = false;
 
-    // NOTSA: the intro's streaming can exceed the original 400 entries (419 in
-    // the recorded trace). Reserve headroom up front: growing a live pool would
-    // invalidate links, the quadtree and entry/exit stack pointers.
-    mp_poolEntryExits = new CEntryExitsPool(512u, "Entry exits");
-    mp_poolEntryExits->SetDealWithNoMemory(true);
+    // Como el original: operator new de 0x14 bytes y el constructor del pool (0x43F720) con 400 entradas:
+    // objetos y mapa con new[] sin relleno del almacenamiento, cada byte del mapa en 0x80 y el nombre sin usar;
+    // después Init pone el byte +0x11 (m_bDealWithNoMemory) a 1, también si la reserva falló.
+    auto* const pool = static_cast<uint8*>(::operator new(sizeof(CEntryExitsPool)));
+    if (pool) {
+        *reinterpret_cast<void**>(pool + 0x0) = ::operator new[](ENTRY_EXITS_POOL_SIZE * sizeof(CEntryExit));
+        auto* const flags                     = static_cast<uint8*>(::operator new[](ENTRY_EXITS_POOL_SIZE));
+        *reinterpret_cast<uint8**>(pool + 0x4) = flags;
+        pool[0x10]                             = 1;
+        *reinterpret_cast<int32*>(pool + 0x8)  = ENTRY_EXITS_POOL_SIZE;
+        *reinterpret_cast<int32*>(pool + 0xC)  = -1;
+        for (auto i = 0; i < ENTRY_EXITS_POOL_SIZE; i++) {
+            flags[i] = 0x80;
+        }
+    }
+    mp_poolEntryExits = reinterpret_cast<CEntryExitsPool*>(pool);
+    pool[0x11]        = 1;
 }
 
 // Como el original: lee el byte del área sin signo (movzx).
@@ -86,7 +103,21 @@ void CEntryExitManager::Shutdown() {
         }
     }
 
-    delete mp_poolEntryExits; // Flush() called in destructor
+    // Como el original: sin el destructor de CPool (que rellena y deja otros valores); si la capacidad es positiva
+    // se liberan los arrays propios y se ponen a cero almacenamiento, mapa, capacidad y primer libre.
+    if (auto* const pool = reinterpret_cast<uint8*>(mp_poolEntryExits)) {
+        if (*reinterpret_cast<int32*>(pool + 0x8) > 0) {
+            if (pool[0x10]) {
+                delete[] *reinterpret_cast<uint8**>(pool + 0x0);
+                delete[] *reinterpret_cast<uint8**>(pool + 0x4);
+            }
+            *reinterpret_cast<uint8**>(pool + 0x0) = nullptr;
+            *reinterpret_cast<uint8**>(pool + 0x4) = nullptr;
+            *reinterpret_cast<int32*>(pool + 0x8)  = 0;
+            *reinterpret_cast<int32*>(pool + 0xC)  = 0;
+        }
+        operator delete(pool);
+    }
     mp_poolEntryExits = nullptr;
 
     delete mp_QuadTree;
@@ -558,27 +589,53 @@ bool CEntryExitManager::Load() {
 
 // 0x5D5970
 bool CEntryExitManager::Save() {
+    // Como el original: los índices se calculan sobre el almacenamiento crudo del pool ((p - base) / 0x3C con
+    // división con signo), sin las comprobaciones de CPool::GetIndex.
+    const auto RawIndex = [](const CEntryExit* enex, const uint8* base) {
+        return (int32)(reinterpret_cast<const uint8*>(enex) - base) / (int32)sizeof(CEntryExit);
+    };
+
     // Save entry exit stack
     CGenericGameStorage::SaveDataToWorkBuffer(ms_entryExitStackPosn);
     for (auto i = 0; i < (int32)ms_entryExitStackPosn; i++) { // Como el original: comparación con signo
-        CGenericGameStorage::SaveDataToWorkBuffer<uint16>((uint16)mp_poolEntryExits->GetIndex(ms_entryExitStack[i]));
+        const auto* const base = *reinterpret_cast<uint8* const*>(mp_poolEntryExits);
+        int32 idx = RawIndex(ms_entryExitStack[i], base); // Como el original: se guardan los 2 bytes bajos
+        CGenericGameStorage::SaveDataToWorkBuffer(&idx, 2);
     }
 
     // Save entry exits
-    // NOTSA: el original recorre 400 slots fijos; aquí todo el pool (Init reserva 512)
-    for (auto&& [i, enex] : mp_poolEntryExits->GetAllValidWithIndex()) {
-        // Como el original: el enlace solo se guarda si apunta a un slot ocupado del pool
-        int16 data = -1;
-        if (enex.m_pLink && mp_poolEntryExits->IsObjectValid(enex.m_pLink)) {
-            data = (int16)mp_poolEntryExits->GetIndex(enex.m_pLink);
+    // Como el original: recorre 400 slots fijos (no la capacidad del pool) y relee el puntero del pool tras cada
+    // entrada guardada; un slot cuyo puntero de objeto sea nulo se salta.
+    auto* pool = reinterpret_cast<uint8*>(mp_poolEntryExits);
+    for (int32 i = 0; i < ENTRY_EXITS_POOL_SIZE; i++) {
+        const auto* const states = *reinterpret_cast<int8* const*>(pool + 0x4);
+        if (states[i] < 0) { // Como el original: slot libre (bit 0x80, js)
+            continue;
         }
-        CGenericGameStorage::SaveDataToWorkBuffer<int16>(i); // Enex idx in pool
-        CGenericGameStorage::SaveDataToWorkBuffer(enex.m_nFlags);
-        CGenericGameStorage::SaveDataToWorkBuffer(data); // Linked enex idx in pool
+        const auto* const base = *reinterpret_cast<uint8* const*>(pool + 0x0);
+        auto* const enex       = reinterpret_cast<CEntryExit*>(const_cast<uint8*>(base) + i * sizeof(CEntryExit));
+        if (!enex) {
+            continue;
+        }
+
+        // Como el original: el enlace solo se guarda si su índice está en [0, capacidad) y el slot está ocupado
+        int32 data = -1;
+        if (enex->m_pLink) {
+            const auto idx = RawIndex(enex->m_pLink, base);
+            if (idx >= 0 && idx < *reinterpret_cast<int32*>(pool + 0x8) && states[idx] >= 0) {
+                data = idx;
+            }
+        }
+        int32 enexIdx = i;
+        CGenericGameStorage::SaveDataToWorkBuffer(&enexIdx, 2); // Enex idx in pool
+        CGenericGameStorage::SaveDataToWorkBuffer(&enex->m_nFlags, 2);
+        CGenericGameStorage::SaveDataToWorkBuffer(&data, 2); // Linked enex idx in pool
+        pool = reinterpret_cast<uint8*>(mp_poolEntryExits);
     }
 
     // Mark the end of ENEX table
-    CGenericGameStorage::SaveDataToWorkBuffer((int16)-1);
+    int32 end = -1;
+    CGenericGameStorage::SaveDataToWorkBuffer(&end, 2);
     return true;
 }
 

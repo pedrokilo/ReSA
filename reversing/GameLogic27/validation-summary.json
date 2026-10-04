@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 13888,
+  "pairs_per_function": {
+    "CGameLogic::CalcDistanceToForbiddenTrainCrossing": 1024,
+    "CGameLogic::ClearSkip": 128,
+    "CGameLogic::DoWeaponStuffAtStartOf2PlayerGame": 256,
+    "CGameLogic::FindCityClosestToPoint": 1024,
+    "CGameLogic::ForceDeathRestart": 64,
+    "CGameLogic::InitAtStartOfGame": 64,
+    "CGameLogic::IsCoopGameGoingOn": 128,
+    "CGameLogic::IsPlayerAllowedToGoInThisDirection": 1024,
+    "CGameLogic::IsPlayerUse2PlayerControls": 256,
+    "CGameLogic::IsPointWithinLineArea": 1024,
+    "CGameLogic::IsSkipWaitingForScriptToFadeIn": 64,
+    "CGameLogic::LaRiotsActiveHere": 1024,
+    "CGameLogic::Load": 128,
+    "CGameLogic::PassTime": 1024,
+    "CGameLogic::Remove2ndPlayerIfPresent": 128,
+    "CGameLogic::ResetStuffUponResurrection": 256,
+    "CGameLogic::RestorePedsWeapons": 512,
+    "CGameLogic::RestorePlayerStuffDuringResurrection": 512,
+    "CGameLogic::Save": 128,
+    "CGameLogic::SetPlayerWantedLevelForForbiddenTerritories": 1024,
+    "CGameLogic::SetUpSkip": 256,
+    "CGameLogic::SkipCanBeActivated": 512,
+    "CGameLogic::SortOutStreamingAndMemory": 128,
+    "CGameLogic::StopPlayerMovingFromDirection": 1024,
+    "CGameLogic::StorePedsWeapons": 128,
+    "CGameLogic::Update": 1024,
+    "CGameLogic::UpdateSkip": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "0229f147ceb9ed26e076167302107bdb1e05ec10a7c258968e6ae805914b6466",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gamelogic27\\20261004-104108-272335",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CGameLogic::CalcDistanceToForbiddenTrainCrossing": true,
+    "CGameLogic::ClearSkip": true,
+    "CGameLogic::DoWeaponStuffAtStartOf2PlayerGame": true,
+    "CGameLogic::FindCityClosestToPoint": true,
+    "CGameLogic::ForceDeathRestart": true,
+    "CGameLogic::InitAtStartOfGame": true,
+    "CGameLogic::IsCoopGameGoingOn": true,
+    "CGameLogic::IsPlayerAllowedToGoInThisDirection": true,
+    "CGameLogic::IsPlayerUse2PlayerControls": true,
+    "CGameLogic::IsPointWithinLineArea": true,
+    "CGameLogic::IsSkipWaitingForScriptToFadeIn": true,
+    "CGameLogic::LaRiotsActiveHere": true,
+    "CGameLogic::Load": true,
+    "CGameLogic::PassTime": true,
+    "CGameLogic::Remove2ndPlayerIfPresent": true,
+    "CGameLogic::ResetStuffUponResurrection": true,
+    "CGameLogic::RestorePedsWeapons": true,
+    "CGameLogic::RestorePlayerStuffDuringResurrection": true,
+    "CGameLogic::Save": true,
+    "CGameLogic::SetPlayerWantedLevelForForbiddenTerritories": true,
+    "CGameLogic::SetUpSkip": true,
+    "CGameLogic::SkipCanBeActivated": true,
+    "CGameLogic::SortOutStreamingAndMemory": true,
+    "CGameLogic::StopPlayerMovingFromDirection": true,
+    "CGameLogic::StorePedsWeapons": true,
+    "CGameLogic::Update": true,
+    "CGameLogic::UpdateSkip": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "ab60c346f9de68c598b3bd9343506aef43c77249fe18ecf871bc9bd900fb7daf",
+      "pdb": "9a5cbd08c9c1ff749f1c9f2e6fccdad170cdbff1d9d66249666584327ba0cbe1"
+    },
+    "sources": {
+      "source/game_sa/GameLogic.cpp": "b5e4957c6308b5b885ed911796fd773f4f48132b74da72302ffcf1b6c82b3d2a",
+      "source/game_sa/GameLogic.h": "e615c702306154b8d0ce8c544c06def27bbff416a8f2ba9278ff7dcc47121af3"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "7c67f8eb3b2972ce4e44941d7d2f7de74df82a66480f0f43865967b3c04275c4",
+      "build_probe.py": "9c99404dfdf26eddbc2bce95f2772930410ec471a1e0deb5a2e6298f67f83abe",
+      "run_local.py": "5cdc314ca4e045a6afdd54d036e0d709ec8c86d4805702cfb23153525c1f9227"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

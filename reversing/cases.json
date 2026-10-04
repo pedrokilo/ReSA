@@ -938,5 +938,90 @@
     "id": "boat23",
     "name": "Barcos (lista de 23)",
     "runner": "Boat23/run_local.py"
+  },
+  {
+    "id": "enexinit",
+    "name": "CEntryExitManager::Init como el EXE",
+    "runner": "EnExInit/run_local.py"
+  },
+  {
+    "id": "pgi26",
+    "name": "Inteligencia de grupos de peatones (lista de 26)",
+    "runner": "PGI26/run_local.py"
+  },
+  {
+    "id": "txd26",
+    "name": "Almacén de TXD (lista de 26)",
+    "runner": "Txd26/run_local.py"
+  },
+  {
+    "id": "fx25",
+    "name": "Gestor de efectos FxManager_c (lista de 25)",
+    "runner": "Fx25/run_local.py"
+  },
+  {
+    "id": "carai25",
+    "name": "IA de coches (lista de 25)",
+    "runner": "CarAI25/run_local.py"
+  },
+  {
+    "id": "light27",
+    "name": "Luces RW Light (lista de 27)",
+    "runner": "Light27/run_local.py"
+  },
+  {
+    "id": "rs27",
+    "name": "Capa Rs (lista de 27)",
+    "runner": "Rs27/run_local.py"
+  },
+  {
+    "id": "damage27",
+    "name": "Gestor de daños (lista de 27)",
+    "runner": "Damage27/run_local.py"
+  },
+  {
+    "id": "gamelogic27",
+    "name": "Lógica de juego (lista de 27)",
+    "runner": "GameLogic27/run_local.py"
+  },
+  {
+    "id": "wanted33",
+    "name": "Nivel de búsqueda (lista de 33)",
+    "runner": "Wanted33/run_local.py"
+  },
+  {
+    "id": "sprite2d33",
+    "name": "Sprites 2D (lista de 33)",
+    "runner": "Sprite2d33/run_local.py"
+  },
+  {
+    "id": "stats32",
+    "name": "Estadísticas (lista de 32)",
+    "runner": "Stats32/run_local.py"
+  },
+  {
+    "id": "player28",
+    "name": "Información del jugador (lista de 28)",
+    "runner": "Player28/run_local.py"
+  },
+  {
+    "id": "vehrec29",
+    "name": "Grabaciones de vehículos (lista de 29)",
+    "runner": "VehRec29/run_local.py"
+  },
+  {
+    "id": "animmgr31",
+    "name": "Gestor de animaciones (lista de 31)",
+    "runner": "AnimMgr31/run_local.py"
+  },
+  {
+    "id": "shop30",
+    "name": "Tiendas (lista de 30)",
+    "runner": "Shop30/run_local.py"
+  },
+  {
+    "id": "renderer33",
+    "name": "Renderizador (lista de 33)",
+    "runner": "Renderer33/run_local.py"
   }
 ]

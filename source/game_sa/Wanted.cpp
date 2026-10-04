@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 33/33 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/33 entradas.
+ * Validación registrada: 33/33 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -65,6 +65,21 @@ void CWanted::InjectHooks() {
     RH_ScopedInstall(SetPursuitCop, 0x563060);
 }
 
+// Como el original: los niveles de búsqueda y el caos se comparan con signo (jl/jg/jle).
+static int32 WantedAsInt(eWantedLevel level) {
+    return static_cast<int32>(level);
+}
+
+// Como el original: distancia al cuadrado de jugador menos punto, sumando (dz² + dy²) + dx².
+static float WantedDistSqZYX(const CVector& from, const CVector& to) {
+    const float dx = from.x - to.x;
+    const float dy = from.y - to.y;
+    const float dz = from.z - to.z;
+    float sum = dz * dz + dy * dy;
+    sum = sum + dx * dx;
+    return sum;
+}
+
 // 0x562390
 void CWanted::Initialise() {
     m_bPoliceBackOff = false;
@@ -110,53 +125,58 @@ void CWanted::InitialiseStaticVariables() {
 
 // 0x561C90
 void CWanted::UpdateWantedLevel() {
-    m_ChaosLevel         = std::min(m_ChaosLevel, MaximumChaosLevel);
+    // Como el original: tope y umbrales con signo; el valor de la estadística es un entero con signo (fild)
+    if ((int32)m_ChaosLevel > (int32)MaximumChaosLevel) {
+        m_ChaosLevel = MaximumChaosLevel;
+    }
     const auto oldWanted = m_WantedLevel;
+    const auto chaos     = (int32)m_ChaosLevel;
+    const auto StarsGained = [oldWanted](int32 level) { return (float)(level - WantedAsInt(oldWanted)); };
 
-    if (m_ChaosLevel >= 4600) {
-        CStats::IncrementStat(eStats::STAT_TOTAL_NUMBER_OF_WANTED_STARS_ATTAINED, (float)(+eWantedLevel::WANTED_LEVEL_6 - +oldWanted));
+    if (chaos >= 4600) {
+        CStats::IncrementStat(eStats::STAT_TOTAL_NUMBER_OF_WANTED_STARS_ATTAINED, StarsGained(6));
         m_WantedLevel         = eWantedLevel::WANTED_LEVEL_6;
-        m_ChanceOnRoadBlock   = 30;
+        m_MaxCopCarsInPursuit = 3;
         m_MaxCopsInPursuit    = 10;
-        m_MaxCopCarsInPursuit = 3;
-    } else if (m_ChaosLevel >= 2400) {
-        CStats::IncrementStat(eStats::STAT_TOTAL_NUMBER_OF_WANTED_STARS_ATTAINED, (float)(+eWantedLevel::WANTED_LEVEL_5 - +oldWanted));
+        m_ChanceOnRoadBlock   = 30;
+    } else if (chaos >= 2400) {
+        CStats::IncrementStat(eStats::STAT_TOTAL_NUMBER_OF_WANTED_STARS_ATTAINED, StarsGained(5));
         m_WantedLevel         = eWantedLevel::WANTED_LEVEL_5;
-        m_ChanceOnRoadBlock   = 24;
-        m_MaxCopsInPursuit    = 8;
         m_MaxCopCarsInPursuit = 3;
-    } else if (m_ChaosLevel >= 1200) {
-        CStats::IncrementStat(eStats::STAT_TOTAL_NUMBER_OF_WANTED_STARS_ATTAINED, (float)(+eWantedLevel::WANTED_LEVEL_4 - +oldWanted));
+        m_MaxCopsInPursuit    = 8;
+        m_ChanceOnRoadBlock   = 24;
+    } else if (chaos >= 1200) {
+        CStats::IncrementStat(eStats::STAT_TOTAL_NUMBER_OF_WANTED_STARS_ATTAINED, StarsGained(4));
         m_WantedLevel         = eWantedLevel::WANTED_LEVEL_4;
-        m_ChanceOnRoadBlock   = 18;
+        m_MaxCopCarsInPursuit = 2;
         m_MaxCopsInPursuit    = 6;
-        m_MaxCopCarsInPursuit = 2;
-    } else if (m_ChaosLevel >= 550) {
-        CStats::IncrementStat(eStats::STAT_TOTAL_NUMBER_OF_WANTED_STARS_ATTAINED, (float)(+eWantedLevel::WANTED_LEVEL_3 - +oldWanted));
+        m_ChanceOnRoadBlock   = 18;
+    } else if (chaos >= 550) {
+        CStats::IncrementStat(eStats::STAT_TOTAL_NUMBER_OF_WANTED_STARS_ATTAINED, StarsGained(3));
         m_WantedLevel         = eWantedLevel::WANTED_LEVEL_3;
-        m_ChanceOnRoadBlock   = 12;
+        m_MaxCopCarsInPursuit = 2;
         m_MaxCopsInPursuit    = 4;
-        m_MaxCopCarsInPursuit = 2;
-    } else if (m_ChaosLevel >= 180) {
-        CStats::IncrementStat(eStats::STAT_TOTAL_NUMBER_OF_WANTED_STARS_ATTAINED, (float)(+eWantedLevel::WANTED_LEVEL_2 - +oldWanted));
+        m_ChanceOnRoadBlock   = 12;
+    } else if (chaos >= 180) {
+        CStats::IncrementStat(eStats::STAT_TOTAL_NUMBER_OF_WANTED_STARS_ATTAINED, StarsGained(2));
         m_WantedLevel         = eWantedLevel::WANTED_LEVEL_2;
-        m_ChanceOnRoadBlock   = 0;
-        m_MaxCopsInPursuit    = 3;
         m_MaxCopCarsInPursuit = 2;
-    } else if (m_ChaosLevel >= 50) {
-        CStats::IncrementStat(eStats::STAT_TOTAL_NUMBER_OF_WANTED_STARS_ATTAINED, (float)(+eWantedLevel::WANTED_LEVEL_1 - +oldWanted));
-        m_WantedLevel         = eWantedLevel::WANTED_LEVEL_1;
+        m_MaxCopsInPursuit    = 3;
         m_ChanceOnRoadBlock   = 0;
-        m_MaxCopsInPursuit    = 1;
+    } else if (chaos >= 50) {
+        CStats::IncrementStat(eStats::STAT_TOTAL_NUMBER_OF_WANTED_STARS_ATTAINED, StarsGained(1));
+        m_WantedLevel         = eWantedLevel::WANTED_LEVEL_1;
         m_MaxCopCarsInPursuit = 1;
+        m_MaxCopsInPursuit    = 1;
+        m_ChanceOnRoadBlock   = 0;
     } else {
-        if (m_WantedLevel == eWantedLevel::WANTED_LEVEL_1) {
+        if (oldWanted == eWantedLevel::WANTED_LEVEL_1) {
             CStats::IncrementStat(STAT_TOTAL_NUMBER_OF_WANTED_STARS_EVADED);
         }
         m_WantedLevel         = eWantedLevel::WANTED_CLEAN;
-        m_ChanceOnRoadBlock   = 0;
-        m_MaxCopsInPursuit    = 0;
         m_MaxCopCarsInPursuit = 0;
+        m_MaxCopsInPursuit    = 0;
+        m_ChanceOnRoadBlock   = 0;
     }
 
     if (oldWanted != m_WantedLevel) {
@@ -164,8 +184,8 @@ void CWanted::UpdateWantedLevel() {
     }
 
     if (PoliceBackOff()) {
-        m_MaxCopsInPursuit    = 0;
         m_MaxCopCarsInPursuit = 0;
+        m_MaxCopsInPursuit    = 0;
         m_ChanceOnRoadBlock   = 0;
     }
 }
@@ -173,24 +193,22 @@ void CWanted::UpdateWantedLevel() {
 // Set Maximum Wanted Level
 // 0x561E70
 void CWanted::SetMaximumWantedLevel(eWantedLevel level) {
-    assert(level <= eWantedLevel::WANTED_LEVEL_6);
-
-    MaximumWantedLevel = level;
+    // Como el original: un nivel fuera de 0..6 (comparación sin signo) no cambia nada
     switch (level) {
-    case eWantedLevel::WANTED_CLEAN:   MaximumChaosLevel = 0; break;
-    case eWantedLevel::WANTED_LEVEL_1: MaximumChaosLevel = 115; break;
-    case eWantedLevel::WANTED_LEVEL_2: MaximumChaosLevel = 365; break;
-    case eWantedLevel::WANTED_LEVEL_3: MaximumChaosLevel = 875; break;
-    case eWantedLevel::WANTED_LEVEL_4: MaximumChaosLevel = 1800; break;
-    case eWantedLevel::WANTED_LEVEL_5: MaximumChaosLevel = 3500; break;
-    case eWantedLevel::WANTED_LEVEL_6: MaximumChaosLevel = 6900; break;
-    default:                           NOTSA_UNREACHABLE(); break;
+    case eWantedLevel::WANTED_CLEAN:   MaximumWantedLevel = level; MaximumChaosLevel = 0; break;
+    case eWantedLevel::WANTED_LEVEL_1: MaximumWantedLevel = level; MaximumChaosLevel = 115; break;
+    case eWantedLevel::WANTED_LEVEL_2: MaximumWantedLevel = level; MaximumChaosLevel = 365; break;
+    case eWantedLevel::WANTED_LEVEL_3: MaximumWantedLevel = level; MaximumChaosLevel = 875; break;
+    case eWantedLevel::WANTED_LEVEL_4: MaximumWantedLevel = level; MaximumChaosLevel = 1800; break;
+    case eWantedLevel::WANTED_LEVEL_5: MaximumWantedLevel = level; MaximumChaosLevel = 3500; break;
+    case eWantedLevel::WANTED_LEVEL_6: MaximumWantedLevel = level; MaximumChaosLevel = 6900; break;
+    default:                           break;
     }
 }
 
 // 0x561F30, Leftover from VC
 bool CWanted::AreMiamiViceRequired() const {
-    return m_WantedLevel > eWantedLevel::WANTED_LEVEL_2;
+    return WantedAsInt(m_WantedLevel) >= 3; // Como el original: setge (con signo)
 }
 
 // Checks if SWAT is needed after four wanted level stars
@@ -217,16 +235,15 @@ int32 CWanted::NumOfHelisRequired() const {
         return 0;
     }
 
-    switch (m_WantedLevel) {
-    case eWantedLevel::WANTED_CLEAN:
-    case eWantedLevel::WANTED_LEVEL_1:
-    case eWantedLevel::WANTED_LEVEL_2: return 0;
-    case eWantedLevel::WANTED_LEVEL_3: return 1;
-    case eWantedLevel::WANTED_LEVEL_4:
-    case eWantedLevel::WANTED_LEVEL_5:
-    case eWantedLevel::WANTED_LEVEL_6: return 2;
-    default:      NOTSA_UNREACHABLE(); return 0;
+    // Como el original: 3 -> 1, 4..6 -> 2 y cualquier otro valor (con signo) -> 0
+    const auto level = WantedAsInt(m_WantedLevel);
+    if (level == 3) {
+        return 1;
     }
+    if (level <= 3 || level > 6) {
+        return 0;
+    }
+    return 2;
 }
 
 // In III
@@ -242,7 +259,8 @@ void CWanted::UpdateCrimesQ() {
             continue;
         }
 
-        if (CTimer::GetTimeInMS() - crime.m_nStartTime > 500 && !crime.m_bAlreadyReported) {
+        // Como el original: tiempo > inicio + 500 (sin signo, la suma puede desbordar)
+        if (CTimer::GetTimeInMS() > crime.m_nStartTime + 500 && !crime.m_bAlreadyReported) {
             ReportCrimeNow(crime.m_nCrimeType, crime.m_vecCoors, crime.m_bPoliceDontReallyCare);
 
             crime.m_bAlreadyReported = true;
@@ -263,34 +281,32 @@ void CWanted::ClearQdCrimes() {
 
 // 0x562000
 bool CWanted::AddCrimeToQ(eCrimeType crimeType, uint32 crimeId, const CVector& posn, bool alreadyReported, bool policeDontReallyCare) {
-    assert(crimeType != eCrimeType::CRIME_NONE); // IV
-
-    const auto ReportCrimeIfPossible = [alreadyReported](CCrimeBeingQd& c) {
-        const auto old       = c.m_bAlreadyReported;
-
-        NOTSA_LOG_DEBUG("New crime! Type: {}, made by: {}, reported already?: {}", c.m_nCrimeType, c.m_nCrimeId, old ? "yes" : "no");
-
-        c.m_bAlreadyReported = notsa::coalesce(c.m_bAlreadyReported, alreadyReported);
-        return old;
-    };
-
-    if (auto c = rng::find_if(m_CrimesBeingQd, [&](const auto& c) { return c.m_nCrimeType == crimeType && c.m_nCrimeId == crimeId; }); c != std::end(m_CrimesBeingQd)) {
-        // If already queued, early return
-        return ReportCrimeIfPossible(*c);
+    // Como el original: sin assert; un crimen ya en cola devuelve si ya estaba denunciado
+    for (auto& c : m_CrimesBeingQd) {
+        if (c.m_nCrimeType == crimeType && c.m_nCrimeId == crimeId) {
+            if (c.m_bAlreadyReported) {
+                return true;
+            }
+            if (alreadyReported) {
+                c.m_bAlreadyReported = alreadyReported;
+            }
+            return false;
+        }
     }
 
-    auto free = rng::find_if(m_CrimesBeingQd, [](const auto& c) { return c.m_nCrimeType == eCrimeType::CRIME_NONE; });
-    if (free == std::end(m_CrimesBeingQd)) {
-        return false;
+    for (auto& c : m_CrimesBeingQd) {
+        if (c.m_nCrimeType != eCrimeType::CRIME_NONE) {
+            continue;
+        }
+        c.m_nCrimeId              = crimeId;
+        c.m_nCrimeType            = crimeType;
+        c.m_vecCoors              = posn;
+        c.m_nStartTime            = CTimer::GetTimeInMS();
+        c.m_bAlreadyReported      = alreadyReported;
+        c.m_bPoliceDontReallyCare = policeDontReallyCare;
+        break;
     }
-
-    free->m_nCrimeType            = crimeType;
-    free->m_nCrimeId              = crimeId;
-    free->m_nStartTime            = CTimer::GetTimeInMS();
-    free->m_vecCoors              = posn;
-    free->m_bAlreadyReported      = alreadyReported;
-    free->m_bPoliceDontReallyCare = policeDontReallyCare;
-    return ReportCrimeIfPossible(*free);
+    return false; // Como el original: un crimen nuevo siempre devuelve falso
 }
 
 // 0x562120
@@ -299,90 +315,103 @@ void CWanted::ReportCrimeNow(eCrimeType crimeType, const CVector& posn, bool bPo
         return;
     }
 
-    auto wantedLevel = m_WantedLevel;
-    auto mul = m_Multiplier;
+    const auto wantedLevel = m_WantedLevel;
+    float crimeMult = m_Multiplier;
 
     if (CDarkel::ReadStatus() == eDarkelStatus::FRENZY_ON_GOING) {
-        mul *= 0.3f;
+        crimeMult *= 0.3f;
     }
 
-    mul = std::max(mul, 0.0f);
+    if (crimeMult < 0.0f) {
+        crimeMult = 0.0f;
+    }
 
     if (CGangWars::GangWarFightingGoingOn()) {
-        mul = 0.0f;
+        crimeMult = 0.0f;
     }
 
     if (bPoliceDontReallyCare) {
-        mul /= 3.0f;
+        crimeMult *= 0.333f; // Como el original: multiplica por 0.333f (0x864E30), no divide entre 3
     }
 
     if (CGangWars::GangWarFightingGoingOn()) {
-        mul = 0.0f;
+        crimeMult = 0.0f;
     }
 
+    bool addChaos = true;
     switch (crimeType) {
     case CRIME_DAMAGED_PED:
     case CRIME_VEHICLE_DAMAGE:
     case CRIME_SPEEDING:
-        mul *= 5.0f;
+        crimeMult *= 5.0f;
         break;
     case CRIME_DAMAGED_COP:
-        mul *= 45.0f;
+        crimeMult *= 45.0f;
         break;
     case CRIME_DAMAGE_CAR:
-        mul *= 30.0f;
+        crimeMult *= 30.0f;
         break;
     case CRIME_DAMAGE_COP_CAR:
     case CRIME_KILL_COP_PED_WITH_CAR:
     case CRIME_SET_COP_PED_ON_FIRE:
-        mul *= 80.0f;
+        crimeMult *= 80.0f;
         break;
     case CRIME_CAR_STEAL:
-        mul *= 15.0f;
+        crimeMult *= 15.0f;
         break;
     case CRIME_RUN_REDLIGHT:
-        mul *= 10.0f;
+        crimeMult *= 10.0f;
         break;
     case CRIME_KILL_PED_WITH_CAR:
-        mul *= 18.0f;
+        crimeMult *= 18.0f;
         break;
     case CRIME_DESTROY_HELI:
     case CRIME_DESTROY_PLANE:
-        mul *= 400.0f;
+        crimeMult *= 400.0f;
         break;
     case CRIME_SET_PED_ON_FIRE:
     case CRIME_SET_CAR_ON_FIRE:
-        mul *= 20.0f;
+        crimeMult *= 20.0f;
         break;
     case CRIME_EXPLOSION:
-        mul *= 25.0f;
+        crimeMult *= 25.0f;
         break;
     case CRIME_STAB_PED:
-        mul *= 35.0f;
+        crimeMult *= 35.0f;
         break;
     case CRIME_STAB_COP:
-        mul *= 100.0f;
+        crimeMult *= 100.0f;
         break;
     case CRIME_DESTROY_VEHICLE:
-        mul *= 70.0f;
+        crimeMult *= 70.0f;
         break;
     case CRIME_HIT_CAR:
     case CRIME_AIM_GUN:
-        mul *= 2.0f;
+        crimeMult += crimeMult;
         break;
     default:
+        addChaos = false; // Como el original: solo los tipos 2..22 suman caos
         break;
     }
 
-    NOTSA_LOG_DEBUG("{} : {} (Mult:{})", crimeType, m_WantedLevel, mul); // IV
-
-    if (crimeType != CRIME_NONE && crimeType != CRIME_FIRE_WEAPON) {
-        m_ChaosLevel += static_cast<uint32>(mul);
+    if (addChaos) {
+        // Como el original: fiadd del caos (entero con signo) al float y truncado con _ftol2 (64 bits)
+        int32 chaosInt = (int32)m_ChaosLevel;
+        float chaosSum;
+        __asm {
+            fld   crimeMult
+            fiadd chaosInt
+            fstp  chaosSum
+        }
+        m_ChaosLevel = (uint32)(int32)(int64)chaosSum;
     }
 
-    m_ChaosLevel = std::max(m_ChaosLevel, m_ChaosLevelBeforeParole);
+    // Como el original: máximo con signo frente al caos previo a la condicional
+    if ((int32)m_ChaosLevel <= (int32)m_ChaosLevelBeforeParole) {
+        m_ChaosLevel = m_ChaosLevelBeforeParole;
+    }
     UpdateWantedLevel();
-    if (m_WantedLevel > wantedLevel) {
+    if (WantedAsInt(m_WantedLevel) > WantedAsInt(wantedLevel)) {
         m_PoliceScannerAudioEntity.AddAudioEvent(AE_CRIME_COMMITTED, crimeType, posn);
     }
 }
@@ -403,9 +432,10 @@ void CWanted::UpdateEachFrame() {
     ZoneScoped;
 
     auto playerWanted = FindPlayerWanted();
-    auto wantedLevel = playerWanted->GetWantedLevel();
+    const auto wantedLevel = WantedAsInt(playerWanted->GetWantedLevel());
 
-    if (playerWanted->PoliceBackOff() || (wantedLevel != eWantedLevel::WANTED_LEVEL_3) && (wantedLevel <= eWantedLevel::WANTED_LEVEL_3 || wantedLevel > eWantedLevel::WANTED_LEVEL_6)) { // wantedLevel condition looks inlined or common, see NumOfHelisRequired
+    // Como el original: comparaciones con signo
+    if (playerWanted->PoliceBackOff() || (wantedLevel != 3) && (wantedLevel <= 3 || wantedLevel > 6)) {
         UseNewsHeliInAdditionToPolice = true;
     }
 }
@@ -424,15 +454,12 @@ void CWanted::RegisterCrime_Immediately(eCrimeType crimeType, const CVector& pos
 
 // 0x562470
 void CWanted::SetWantedLevel(eWantedLevel level) {
-    NOTSA_LOG_DEBUG("New:{}", level); // IV
-
     if (CCheat::IsActive(CHEAT_I_DO_AS_I_PLEASE)) {
         return;
     }
 
-    assert(level <= eWantedLevel::WANTED_LEVEL_6);
-
-    eWantedLevel newLevel = std::min(level, MaximumWantedLevel);
+    // Como el original: mínimo con signo; un nivel fuera de 0..6 (sin signo) no toca el caos
+    eWantedLevel newLevel = WantedAsInt(level) > WantedAsInt(MaximumWantedLevel) ? MaximumWantedLevel : level;
     ClearQdCrimes();
 
     switch (newLevel) {
@@ -443,15 +470,14 @@ void CWanted::SetWantedLevel(eWantedLevel level) {
     case eWantedLevel::WANTED_LEVEL_4: m_ChaosLevel = 1220; break;
     case eWantedLevel::WANTED_LEVEL_5: m_ChaosLevel = 2420; break;
     case eWantedLevel::WANTED_LEVEL_6: m_ChaosLevel = 4620; break;
-    default:                           NOTSA_UNREACHABLE(); break;
+    default:                           break;
     }
     UpdateWantedLevel();
 }
 
 // 0x562540
 void CWanted::CheatWantedLevel(eWantedLevel level) {
-    assert(level <= eWantedLevel::WANTED_LEVEL_6);
-    if (level > MaximumWantedLevel) {
+    if (WantedAsInt(level) > WantedAsInt(MaximumWantedLevel)) { // Como el original: con signo
         SetMaximumWantedLevel(level);
     }
 
@@ -461,33 +487,36 @@ void CWanted::CheatWantedLevel(eWantedLevel level) {
 
 // 0x562570
 void CWanted::SetWantedLevelNoDrop(eWantedLevel level) {
-    NOTSA_LOG_DEBUG("Wanted: SetWantedLevelNoDrop: {}", level); // IV
-    assert(level <= eWantedLevel::WANTED_LEVEL_6);
-    if (m_WantedLevel < m_WantedLevelBeforeParole) {
+    // Como el original: comparaciones con signo
+    if (WantedAsInt(m_WantedLevel) < WantedAsInt(m_WantedLevelBeforeParole)) {
         SetWantedLevel(m_WantedLevelBeforeParole);
     }
 
-    if (level > m_WantedLevel) {
+    if (WantedAsInt(level) > WantedAsInt(m_WantedLevel)) {
         SetWantedLevel(level);
     }
 }
 
 // 0x5625A0
 void CWanted::ClearWantedLevelAndGoOnParole() {
-    CStats::IncrementStat(STAT_TOTAL_NUMBER_OF_WANTED_STARS_EVADED, static_cast<float>(m_WantedLevel));
+    CStats::IncrementStat(STAT_TOTAL_NUMBER_OF_WANTED_STARS_EVADED, static_cast<float>(WantedAsInt(m_WantedLevel)));
 
-    auto playerWanted = FindPlayerWanted();
-    m_ChaosLevelBeforeParole = playerWanted->m_ChaosLevel;
-    m_WantedLevelBeforeParole = playerWanted->m_WantedLevel;
+    // Como el original: FindPlayerWanted se llama una vez por campo
+    m_ChaosLevelBeforeParole = FindPlayerWanted()->m_ChaosLevel;
+    m_WantedLevelBeforeParole = FindPlayerWanted()->m_WantedLevel;
     m_TimeOfParole = CTimer::GetTimeInMS();
     m_ChaosLevel = 0;
     m_WantedLevel = eWantedLevel::WANTED_CLEAN;
-    ResetPolicePursuit();
 }
 
 // 0x5625F0
 int32 CWanted::WorkOutPolicePresence(CVector posn, float radius) {
     auto numCops = 0;
+
+    // Como el original: distancia = sqrt((dz² + dy²) + dx²) con d = punto - entidad; cuenta si dist < radio
+    const auto InRange = [&](const CVector& entityPos) {
+        return std::sqrt(WantedDistSqZYX(posn, entityPos)) < radius;
+    };
 
     auto pedPool = GetPedPool();
     for (auto i = pedPool->GetSize(); i; i--) {
@@ -495,7 +524,7 @@ int32 CWanted::WorkOutPolicePresence(CVector posn, float radius) {
             if (ped->m_nPedType != PED_TYPE_COP || !ped->IsAlive())
                 continue;
 
-            if (DistanceBetweenPoints(ped->GetPosition(), posn) < radius)
+            if (InRange(ped->GetPosition()))
                 numCops++;
         }
     }
@@ -513,7 +542,7 @@ int32 CWanted::WorkOutPolicePresence(CVector posn, float radius) {
                 continue;
             }
 
-            if (DistanceBetweenPoints(veh->GetPosition(), posn) < radius) {
+            if (InRange(veh->GetPosition())) {
                 numCops++;
             }
         }
@@ -525,17 +554,52 @@ int32 CWanted::WorkOutPolicePresence(CVector posn, float radius) {
 // 0x5627D0
 // Returns true if the specified ped is one of the closest to the player.
 bool CWanted::IsClosestCop(CPed* ped, const int32 numCopsToCheck) const {
-    // NOTSA: A bit different but should have the same behavior.
-    std::pair<CCopPed*, float /* distance */> closestCops[MAX_COPS_IN_PURSUIT];
-
-    for (const auto&& [i, cop] : rngv::enumerate(m_CopsInPursuit)) {
-        closestCops[i].first = cop;
-        closestCops[i].second = cop ? DistanceBetweenPointsSquared(FindPlayerCoors(), cop->GetPosition()) : FLT_MAX;
+    // Como el original: compacta los policías, elige numCopsToCheck veces el más cercano (estrictamente menor,
+    // primer índice en empate) y compara el peatón con los elegidos (huecos sin elegir quedan a nulo).
+    CCopPed* cops[MAX_COPS_IN_PURSUIT];
+    int32 numCops = 0;
+    for (auto* cop : m_CopsInPursuit) {
+        if (cop) {
+            cops[numCops++] = cop;
+        }
     }
-    rng::sort(closestCops, [](const auto& a, const auto& b) { return a.second < b.second; });
 
-    for (const auto& [cop, _] : closestCops | rngv::take(numCopsToCheck)) {
-        if (cop == ped->AsCop()) {
+    float dists[MAX_COPS_IN_PURSUIT];
+    CCopPed* closest[MAX_COPS_IN_PURSUIT];
+    for (auto i = 0u; i < MAX_COPS_IN_PURSUIT; i++) {
+        dists[i] = FLT_MAX;
+        closest[i] = nullptr;
+    }
+
+    const auto& playerPos = FindPlayerPed()->GetPosition();
+    for (auto i = 0; i < numCops; i++) {
+        // Como el original: d = jugador - policía, (dz² + dx²) + dy²
+        const auto& copPos = cops[i]->GetPosition();
+        const float dx = playerPos.x - copPos.x;
+        const float dy = playerPos.y - copPos.y;
+        const float dz = playerPos.z - copPos.z;
+        float sum = dz * dz + dx * dx;
+        dists[i] = sum + dy * dy;
+    }
+
+    for (auto k = 0; k < numCopsToCheck; k++) {
+        float best = FLT_MAX;
+        int32 bestIdx = -1;
+        for (auto i = 0; i < numCops; i++) {
+            if (best > dists[i]) {
+                bestIdx = i;
+                best = dists[i];
+            }
+        }
+        if (bestIdx != -1) {
+            closest[k] = cops[bestIdx];
+            cops[bestIdx] = nullptr;
+            dists[bestIdx] = FLT_MAX;
+        }
+    }
+
+    for (auto k = 0; k < numCopsToCheck; k++) {
+        if (static_cast<void*>(closest[k]) == static_cast<void*>(ped)) {
             return true;
         }
     }
@@ -544,12 +608,16 @@ bool CWanted::IsClosestCop(CPed* ped, const int32 numCopsToCheck) const {
 
 // 0x562B00
 CCopPed* CWanted::ComputePursuitCopToDisplace(CCopPed* cop, CCopPed** copsArray) {
-    const auto& playerPos = FindPlayerPed()->GetPosition();
     CCopPed* displacedCop = nullptr;
     auto distTargetCop = 1.0f;
 
+    // Como el original: FindPlayerPed se llama para el policía objetivo y para cada policía vivo
     if (cop) {
-        distTargetCop = std::max(DistanceBetweenPointsSquared(playerPos, cop->GetPosition()), 1.0f);
+        const auto& copPos = cop->GetPosition();
+        distTargetCop = WantedDistSqZYX(FindPlayerPed()->GetPosition(), copPos);
+        if (distTargetCop < 1.0f) {
+            distTargetCop = 1.0f;
+        }
     }
 
     for (auto i = 0u; i < MAX_COPS_IN_PURSUIT; i++) {
@@ -563,7 +631,8 @@ CCopPed* CWanted::ComputePursuitCopToDisplace(CCopPed* cop, CCopPed** copsArray)
             return copInPursuit;
         }
 
-        const auto distPursuitCop = DistanceBetweenPointsSquared(playerPos, copInPursuit->GetPosition());
+        const auto& copPos = copInPursuit->GetPosition();
+        const auto distPursuitCop = WantedDistSqZYX(FindPlayerPed()->GetPosition(), copPos);
 
         if (distPursuitCop > distTargetCop) {
             displacedCop  = copInPursuit;
@@ -610,11 +679,11 @@ void CWanted::RemoveExcessPursuitCops() {
 
 // 0x562C90
 void CWanted::Update() {
-    if (m_WantedLevel < eWantedLevel::WANTED_LEVEL_5) {
+    if (WantedAsInt(m_WantedLevel) < 5) { // Como el original: con signo
         if (m_TimeCounting) {
-            auto newStatValue = m_CurrentChaseTime;
-            CStats::SetNewRecordStat(STAT_LONGEST_CHASE_TIME_WITH_5_OR_MORE_STARS, static_cast<float>(newStatValue));
-            CStats::SetStatValue(STAT_LONGEST_CHASE_TIME_WITH_5_OR_MORE_STARS, static_cast<float>(newStatValue));
+            // Como el original: récord en la estadística 51 y valor de la última persecución en la 52
+            CStats::SetNewRecordStat(STAT_LONGEST_CHASE_TIME_WITH_5_OR_MORE_STARS, static_cast<float>(m_CurrentChaseTime));
+            CStats::SetStatValue(STAT_LAST_CHASE_TIME_WITH_5_OR_MORE_STARS, static_cast<float>(m_CurrentChaseTime));
             m_TimeCounting = false;
         }
     } else {
@@ -629,31 +698,40 @@ void CWanted::Update() {
         }
     }
 
-    if (CTimer::GetTimeInMS() - m_TimeOfParole > 20000) {
+    // Como el original: tiempo > condicional + 20000 (sin signo, la suma puede desbordar)
+    if (CTimer::GetTimeInMS() > m_TimeOfParole + 20000) {
         m_ChaosLevelBeforeParole = 0;
         m_WantedLevelBeforeParole = eWantedLevel::WANTED_CLEAN;
     }
 
     if (CTimer::GetTimeInMS() - m_LastTimeWantedDecreased > 1000) {
-        bool inElusiveZone = CWeather::WeatherRegion == WEATHER_REGION_DEFAULT
-                          || CWeather::WeatherRegion == WEATHER_REGION_DESERT
-                          || !CGame::CanSeeOutSideFromCurrArea();
+        // Como el original: solo la región del tiempo (campo o desierto) cuenta como zona rural
+        const bool inCountryside = CWeather::WeatherRegion == WEATHER_REGION_DEFAULT
+                                || CWeather::WeatherRegion == WEATHER_REGION_DESERT;
 
-        auto vehicle = FindPlayerVehicle();
-        bool hasElusiveVehicle = vehicle && (vehicle->IsLawEnforcementVehicle() || vehicle->IsSubHeli() || vehicle->IsSubPlane());
-
-        if (m_WantedLevel > eWantedLevel::WANTED_LEVEL_1 && inElusiveZone && hasElusiveVehicle) {
-            m_LastTimeWantedDecreased = CTimer::GetTimeInMS();
+        // Como el original: con más de una estrella no baja en ciudad ni en interiores, y nunca en un vehículo
+        // policial, avión o helicóptero (FindPlayerVehicle se llama en cada comprobación)
+        bool keepWanted;
+        if (WantedAsInt(m_WantedLevel) > 1 && (!inCountryside || CGame::currArea != AREA_CODE_NORMAL_WORLD)) {
+            keepWanted = true;
+        } else if (!FindPlayerVehicle()) {
+            keepWanted = false;
+        } else {
+            keepWanted = FindPlayerVehicle()->IsLawEnforcementVehicle()
+                      || FindPlayerVehicle()->m_nVehicleSubType == VEHICLE_TYPE_PLANE
+                      || FindPlayerVehicle()->m_nVehicleSubType == VEHICLE_TYPE_HELI;
         }
-        else {
-            auto playerCoors = FindPlayerCoors();
+
+        if (keepWanted) {
+            m_LastTimeWantedDecreased = CTimer::GetTimeInMS();
+        } else {
+            const auto playerCoors = FindPlayerCoors();
 
             if (!WorkOutPolicePresence(playerCoors, 18.0f)) {
-                int32 chaosLevel = m_ChaosLevel;
                 m_LastTimeWantedDecreased = CTimer::GetTimeInMS();
 
-                chaosLevel -= (inElusiveZone) ? 2 : 1;
-                m_ChaosLevel = std::max(chaosLevel, 0);
+                int32 chaosLevel = (int32)m_ChaosLevel - (inCountryside ? 2 : 1);
+                m_ChaosLevel = (uint32)std::max(chaosLevel, 0);
 
                 UpdateWantedLevel();
                 CGameLogic::SetPlayerWantedLevelForForbiddenTerritories(true);
@@ -662,7 +740,7 @@ void CWanted::Update() {
 
         UpdateCrimesQ();
 
-        int cops = 0;
+        uint8 cops = 0;
         bool nilEncountered = false;
         bool listMessedUp = false;
 

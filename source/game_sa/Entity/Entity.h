@@ -292,8 +292,8 @@ public:
     void ResetLodChildrenRendered() { m_NumLodChildrenRendered = 0; } // orig ResetLodRenderedCounter
     bool HasLodChildrenRendered() { return m_NumLodChildrenRendered > 0; } // orig HasLodChildBeenRendered
     int32 GetNumLodChildrenRendered() { return m_NumLodChildrenRendered; }
-    void SetCannotLodChildrenRender() { m_NumLodChildrenRendered = 128; } // orig SetLodChildCannotRender
-    bool CanLodChildrenRender() { return m_NumLodChildrenRendered != 128; } // orig CanLodChildRender
+    void SetCannotLodChildrenRender() { m_NumLodChildrenRendered = (int8)0x80; } // orig SetLodChildCannotRender
+    bool CanLodChildrenRender() { return m_NumLodChildrenRendered != (int8)0x80; } // orig CanLodChildRender. Como el original: compara el byte con 0x80 (con int8 != 128 siempre era cierto)
 
     // 128 = displaySuperLowLodFlag, yes, this is very hacky. Blame R*
 

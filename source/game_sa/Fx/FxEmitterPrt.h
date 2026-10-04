@@ -14,7 +14,9 @@ class FxSystem_c;
  * Extiende Particle_c con multiplicadores visuales compactos, variación aleatoria y
  * estado de rotación; las colecciones se reservan desde FxMemoryPool_c.
  */
-class FxEmitterPrt_c : public Particle_c, ListItem_c<FxEmitterPrt_c> {
+// Como el original: sólo hereda de Particle_c (enlaces en 0x0/0x4); m_MultColor en 0x2C y tamaño 0x3C
+// (FxManager_c::Init 0x4A992D reserva 1000 * 0x3C + 4 bytes y FxEmitter_c::CreateParticle escribe en 0x2C..0x38).
+class FxEmitterPrt_c : public Particle_c {
 public:
     CRGBA m_MultColor;
     FixedFloat<uint8, 255.0f> m_MultSize;
@@ -35,4 +37,4 @@ public:
 
     static void* operator new[](size_t size);
 };
-VALIDATE_SIZE(FxEmitterPrt_c, 0x44);
+VALIDATE_SIZE(FxEmitterPrt_c, 0x3C);

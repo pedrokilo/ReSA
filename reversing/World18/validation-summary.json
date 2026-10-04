@@ -33,7 +33,7 @@
   "log_sha256": "db042c6056a27fea582a642ad6a1d3e10a01184d71501775d893c7ee1d2e6072",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-world18\\20261003-204523-360641",
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-world18\\20261004-092756-262993",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CEntryExitManager::AddEntryExitToStack": true,
@@ -56,16 +56,16 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "443cfef3fd0d8a1ab57854be92bdfc566172986cab9411daae7a61b17f02e4bf",
-      "pdb": "4578d7ce2631861ea0badbd8c4c5ada325305ca2ae16ce644f84947e247ed710"
+      "asi": "b2a791361d34aec862e76885cdfba09e93227919be31344fb964b52e7adc11bd",
+      "pdb": "6b5c8cc702ce5da893efab9eddc570b644681ade888543aaef96b797d949eda5"
     },
     "sources": {
-      "source/game_sa/EntryExitManager.cpp": "f74fed152b281221da671947cbb56ca953828fab7c394f0821c786692099f127",
+      "source/game_sa/EntryExitManager.cpp": "aa49cdae39785559d1b6f8061d3c6fd619fe622564601e609de3a67e4b7b8315",
       "source/game_sa/EntryExitManager.h": "f9a1d78f6113d00af5b7ccee113a3def6b173a037e9ce030f44093a4c51503ab"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "43e068d0b2f2f99eba8d64dc56fa112b9e87b790c157211e2c7cd31465e45a3f",
+      "LiveComparison.hpp": "df8fe0832c1e432a6518edfb46d922c4485d426fb8a429aadd5310ecdb13c20f",
       "build_probe.py": "d78574d53c95ca6d8c7a959bc0b27052f0037087f00eeeef44bb4f53830ec494",
       "run_local.py": "d589c5e533706c5b4e781f252a1e72194dfb7d44bc596ed34cda494793c716f8"
     }

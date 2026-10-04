@@ -12,18 +12,18 @@ uint8 RsKeyFromScanCode(uint8 scan, int32 shiftKeyDown);
 uint32 RsTimer();
 void RsWindowSetText(const RwChar* str);
 char RsPathGetSeparator();
-bool RsAlwaysOnTop(bool alwaysOnTop);
-bool RsRegisterImageLoader();
-void RsSetDebug();
+RwBool RsAlwaysOnTop(RwBool alwaysOnTop);
+RwBool RsRegisterImageLoader();
+RwBool RsSetDebug();
 
-void RsMouseSetVisibility(bool visibility);
+void RsMouseSetVisibility(RwBool visibility);
 void RsMouseSetPos(RwV2d* pos);
 
-bool RsSelectDevice();
+RwBool RsSelectDevice();
 int32 RsInputDeviceAttach(RsInputDeviceType deviceType, RsInputEventHandler handler);
 
-bool rsCommandLine(void* param);
-bool rsPreInitCommandLine(RwChar* arg);
+RwBool rsCommandLine(void* param);
+RwBool rsPreInitCommandLine(RwChar* arg);
 
 RsEventStatus RsEventHandler(RsEvent event, void* param);
 RsEventStatus RsKeyboardEventHandler(RsEvent event, void* param);
@@ -34,8 +34,8 @@ RwChar* RsPathnameCreate(const RwChar* buffer);
 void RsPathnameDestroy(RwChar* buffer);
 void RsRwTerminate();
 void RsTerminate();
-bool RsInitialize();
-bool RsRwInitialize(void* param);
+RwBool RsInitialize();
+RwBool RsRwInitialize(void* param);
 
 bool RsSetPresetView(RwCamera* camera, int32 viewNum);
 void RsSetNextPresetView(RwCamera* camera);
@@ -50,7 +50,7 @@ RwImage* RsGrabScreen(RwCamera* camera);
 void RsErrorMessage(const RwChar* msg);
 void RsWarningMessage(const RwChar* msg);
 
-bool RsCameraBeginUpdate(RwCamera* camera);
+RwBool RsCameraBeginUpdate(RwCamera* camera); // Como el original: RwBool (eax completo)
 RwCamera* RsCameraShowRaster(RwCamera* camera);
 
 /**

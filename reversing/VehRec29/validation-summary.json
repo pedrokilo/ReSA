@@ -1,0 +1,101 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 11136,
+  "pairs_per_function": {
+    "CVehicleRecording::ChangeCarPlaybackToUseAI": 512,
+    "CVehicleRecording::FindIndexWithFileNameNumber": 256,
+    "CVehicleRecording::HasRecordingFileBeenLoaded": 256,
+    "CVehicleRecording::Init": 64,
+    "CVehicleRecording::InitAtStartOfGame": 64,
+    "CVehicleRecording::InterpolateInfoForCar": 1024,
+    "CVehicleRecording::IsPlaybackGoingOnForCar": 256,
+    "CVehicleRecording::IsPlaybackPausedForCar": 64,
+    "CVehicleRecording::Load": 512,
+    "CVehicleRecording::PausePlaybackRecordedCar": 256,
+    "CVehicleRecording::RegisterRecordingFile": 256,
+    "CVehicleRecording::RemoveAllRecordingsThatArentUsed": 256,
+    "CVehicleRecording::RemoveRecordingFile": 256,
+    "CVehicleRecording::Render": 64,
+    "CVehicleRecording::RenderLineSegment": 256,
+    "CVehicleRecording::RequestRecordingFile": 256,
+    "CVehicleRecording::RestoreInfoForCar": 1024,
+    "CVehicleRecording::RestoreInfoForMatrix": 512,
+    "CVehicleRecording::SaveOrRetrieveDataForThisFrame": 1024,
+    "CVehicleRecording::SetPlaybackSpeed": 256,
+    "CVehicleRecording::SetRecordingToPointClosestToCoors": 512,
+    "CVehicleRecording::ShutDown": 128,
+    "CVehicleRecording::SkipForwardInRecording": 512,
+    "CVehicleRecording::SkipToEndAndStopPlaybackRecordedCar": 256,
+    "CVehicleRecording::SmoothRecording": 512,
+    "CVehicleRecording::StartPlaybackRecordedCar": 512,
+    "CVehicleRecording::StopPlaybackRecordedCar": 512,
+    "CVehicleRecording::StopPlaybackWithIndex": 512,
+    "CVehicleRecording::UnpausePlaybackRecordedCar": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "524c9ae002a40fdc1311a861af4408bfd6e0ae0aa5b368645125c114074a3aad",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-vehrec29\\20261004-112130-391867",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CVehicleRecording::ChangeCarPlaybackToUseAI": true,
+    "CVehicleRecording::FindIndexWithFileNameNumber": true,
+    "CVehicleRecording::HasRecordingFileBeenLoaded": true,
+    "CVehicleRecording::Init": true,
+    "CVehicleRecording::InitAtStartOfGame": true,
+    "CVehicleRecording::InterpolateInfoForCar": true,
+    "CVehicleRecording::IsPlaybackGoingOnForCar": true,
+    "CVehicleRecording::IsPlaybackPausedForCar": true,
+    "CVehicleRecording::Load": true,
+    "CVehicleRecording::PausePlaybackRecordedCar": true,
+    "CVehicleRecording::RegisterRecordingFile": true,
+    "CVehicleRecording::RemoveAllRecordingsThatArentUsed": true,
+    "CVehicleRecording::RemoveRecordingFile": true,
+    "CVehicleRecording::Render": true,
+    "CVehicleRecording::RenderLineSegment": true,
+    "CVehicleRecording::RequestRecordingFile": true,
+    "CVehicleRecording::RestoreInfoForCar": true,
+    "CVehicleRecording::RestoreInfoForMatrix": true,
+    "CVehicleRecording::SaveOrRetrieveDataForThisFrame": true,
+    "CVehicleRecording::SetPlaybackSpeed": true,
+    "CVehicleRecording::SetRecordingToPointClosestToCoors": true,
+    "CVehicleRecording::ShutDown": true,
+    "CVehicleRecording::SkipForwardInRecording": true,
+    "CVehicleRecording::SkipToEndAndStopPlaybackRecordedCar": true,
+    "CVehicleRecording::SmoothRecording": true,
+    "CVehicleRecording::StartPlaybackRecordedCar": true,
+    "CVehicleRecording::StopPlaybackRecordedCar": true,
+    "CVehicleRecording::StopPlaybackWithIndex": true,
+    "CVehicleRecording::UnpausePlaybackRecordedCar": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "39d268e49ce059cbd4bcdd5c13e55f9dcdb99f5304846d53070948fe04bc5ce9",
+      "pdb": "2012c2293def6569ec61fd5b48980aa50413da38130f2126888aaeb732c725a3"
+    },
+    "sources": {
+      "source/game_sa/VehicleRecording.cpp": "b05a1f50509bbc152f4c39140ac470fe9fc79d8425ea8140eddc662502c20ff9",
+      "source/game_sa/VehicleRecording.h": "8115943bef0359d40cea5db8adfb683ca5483205c140e51dba71caa858147eca"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "84cb34e57a865729e80927a164062db37ff28021c074878fa50f0123a9fbd16b",
+      "build_probe.py": "55b537e83703cade9c26c25ab85281b699d81297224d827e7daf385cf4e8fddc",
+      "run_local.py": "23ad59c7238cc96334f41f14a0ede4502643e1bf21a8c787199c8212688a07c7"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

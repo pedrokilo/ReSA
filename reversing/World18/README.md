@@ -27,7 +27,7 @@ Validadas el 03/10/2026 con **7.808 pares original/candidato dentro de GTA**, to
   - `IsInArea` antes que el flag de acceso.
 - `ResetAreaCodeForVisibleObjects` deja el contador en -1 (post-decremento del EXE).
 - `SetAreaCodeForVisibleObjects` compara el área con `movzx`.
-- `Load`: índices con signo y un slot libre se ignora (antes `NOTSA_UNREACHABLE`). `Save` guarda -1 si el enlace apunta a un slot libre.
+- `Load`: índices con signo y un slot libre se ignora (antes `NOTSA_UNREACHABLE`). `Save` guarda -1 si el enlace apunta a un slot libre; desde el 04/10/2026 recorre 400 slots fijos con índices crudos como el EXE (ver [EnExInit](../EnExInit/README.md)).
 
 **Método:**
 - Pool falso de 400 entradas (tamaño del EXE) con todos los campos finitos; los punteros globales del pool, el árbol, la pila, la entrada activa y la lista de visibles se sustituyen y se restauran en cada ejecución.
@@ -35,9 +35,9 @@ Validadas el 03/10/2026 con **7.808 pares original/candidato dentro de GTA**, to
 - Se simulan y trazan `rand`, `FindPlayerPed`, `Load/SaveDataToWorkBuffer` (sin partidas), `IsSphereVisible`, `GetIsTimeInRange`, `PlaceMarkerCone`, `IsCoopGameGoingOn`, `TransitionStarted/Finished`, `GetObjectsInFrustum`, `FindObjectsInRange` y `operator delete/delete[]` (solo en `Shutdown`, sin liberar).
 - Se guardan y restauran la cámara (posición, frente, espejo), `currArea`, el modo de repetición, la escena, `DisablePlayerControls` y `PC_Scratch`.
 - Fuera de los fixtures:
-  - `Init` (reserva 512 entradas, ampliación NOTSA; el EXE 400);
+  - `Init`: se valida aparte en [EnExInit](../EnExInit/README.md) (desde el 04/10/2026 crea el pool de 400 entradas como el EXE);
   - pool lleno en `AddOne` (`FIX_BUGS` devuelve -1);
-  - el contenido del pool liberado en `Shutdown` (el `~CPool` del DLL lo rellena); se comparan las liberaciones;
+  - el contenido del pool liberado en `Shutdown`; se comparan las liberaciones (desde el 04/10/2026 el pool se destruye en línea como el EXE, sin `~CPool`; la cabecera se compara en EnExInit);
   - pila con más de 4 entradas y contador de visibles negativo (el EXE escribe fuera de los arrays).
 
 Repetir: `python reversing/World18/build_probe.py` y `python reversing/run.py --case world18`. Evidencia: [validation-summary.json](validation-summary.json).

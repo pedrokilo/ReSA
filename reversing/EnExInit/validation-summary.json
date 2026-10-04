@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 2048,
+  "pairs_per_function": {
+    "CEntryExitManager::Init": 1024,
+    "CEntryExitManager::Save": 768,
+    "CEntryExitManager::Shutdown": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "cb800c48e39b327e3eaba5d545543fdec2ec1c0389407271efdb817ff4e94d70",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-enexinit\\20261004-092707-231636",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CEntryExitManager::Init": true,
+    "CEntryExitManager::Save": true,
+    "CEntryExitManager::Shutdown": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "3a8ec707afcfc4eefce6360d164f93e7ba48dd975c0e040d2486699bc0b22573",
+      "pdb": "1afa7925788213a61bb658b9c1db703a192cdab3ef3dc15eb57af2c36e15e6b8"
+    },
+    "sources": {
+      "source/game_sa/EntryExitManager.cpp": "aa49cdae39785559d1b6f8061d3c6fd619fe622564601e609de3a67e4b7b8315",
+      "source/game_sa/EntryExitManager.h": "f9a1d78f6113d00af5b7ccee113a3def6b173a037e9ce030f44093a4c51503ab"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "e6ad22498d7514f7b05aa15d3368621e5c73fc09644ea62b9b4b392d340834a4",
+      "build_probe.py": "7915c332e6c0ddadf7fa59dce4d51e3752c515bb5e0213403e3b652756874f8d",
+      "run_local.py": "3bbe6673923deda07bb955524aa28ef9e0a377781aa7b426b5db439d78b235be"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

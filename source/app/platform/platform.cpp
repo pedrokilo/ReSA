@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 27/27 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/27 entradas.
+ * Validación registrada: 27/27 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -21,6 +21,28 @@ END GENERATED HOOK STATUS */
 #include "platform.h"
 #include "VideoMode.h"
 #include "app/app.h"
+
+// Como el original: el EXE recibe `param` en eax (sin llamadores en el EXE)
+static void __declspec(naked) rsCommandLine_Eax() {
+    __asm {
+        push eax
+        call rsCommandLine
+        add esp, 4
+        ret
+    }
+}
+
+// Como el original: el EXE recibe `arg` en eax y conserva edx, esi y edi (sin llamadores en el EXE)
+static void __declspec(naked) rsPreInitCommandLine_Eax() {
+    __asm {
+        push edx
+        push eax
+        call rsPreInitCommandLine
+        add esp, 4
+        pop edx
+        ret
+    }
+}
 
 void RsInjectHooks() {
     RH_ScopedNamespaceName("Rs");
@@ -38,8 +60,8 @@ void RsInjectHooks() {
     RH_ScopedGlobalInstall(RsMouseSetPos, 0x6194A0);
     RH_ScopedGlobalInstall(RsSelectDevice, 0x6194B0);
     RH_ScopedGlobalInstall(RsInputDeviceAttach, 0x6194C0);
-    RH_ScopedGlobalInstall(rsCommandLine, 0x619510);
-    RH_ScopedGlobalInstall(rsPreInitCommandLine, 0x619530);
+    RH_ScopedNamedGlobalInstall(rsCommandLine_Eax, "rsCommandLine", 0x619510);               // Como el original: argumento en eax
+    RH_ScopedNamedGlobalInstall(rsPreInitCommandLine_Eax, "rsPreInitCommandLine", 0x619530); // Como el original: argumento en eax
     RH_ScopedGlobalInstall(RsKeyboardEventHandler, 0x619560);
     RH_ScopedGlobalInstall(RsMouseEventHandler, 0x619580);
     RH_ScopedGlobalInstall(RsPadEventHandler, 0x6195A0);
@@ -79,8 +101,8 @@ char RsPathGetSeparator() {
 }
 
 // 0x619450
-bool RsCameraBeginUpdate(RwCamera* camera) {
-    return psCameraBeginUpdate(nullptr);
+RwBool RsCameraBeginUpdate(RwCamera* camera) {
+    return psCameraBeginUpdate(camera); // Como el original: salto directo con la misma cámara, eax completo
 }
 
 // 0x619440
@@ -91,22 +113,22 @@ RwCamera* RsCameraShowRaster(RwCamera* camera) {
 }
 
 // 0x619460
-bool RsAlwaysOnTop(bool alwaysOnTop) {
+RwBool RsAlwaysOnTop(RwBool alwaysOnTop) { // Como el original: RwBool (eax completo)
     return psAlwaysOnTop(alwaysOnTop);
 }
 
 // 0x619470
-bool RsRegisterImageLoader() {
-    return true; // always true
+RwBool RsRegisterImageLoader() {
+    return TRUE; // always true
 }
 
 // 0x619480
-void RsSetDebug() {
-    // return true;
+RwBool RsSetDebug() {
+    return TRUE; // Como el original: devuelve 1 en eax
 }
 
 // 0x619490
-void RsMouseSetVisibility(bool visibility) {
+void RsMouseSetVisibility(RwBool visibility) { // Como el original: el dword se pasa tal cual
     psMouseSetVisibility(visibility);
 }
 
@@ -116,7 +138,7 @@ void RsMouseSetPos(RwV2d* pos) {
 }
 
 // 0x6194B0
-bool RsSelectDevice() {
+RwBool RsSelectDevice() {
     return psSelectDevice();
 }
 
@@ -143,18 +165,18 @@ int32 RsInputDeviceAttach(RsInputDeviceType type, RsInputEventHandler eventHandl
 }
 
 // 0x619510
-bool rsCommandLine(void* param) {
+RwBool rsCommandLine(void* param) {
     RsEventHandler(rsFILELOAD, param);
-    return true;
+    return TRUE;
 }
 
 // 0x619530
-bool rsPreInitCommandLine(RwChar* arg) {
+RwBool rsPreInitCommandLine(RwChar* arg) {
     if (strcmp(arg, RWSTRING("-vms")) == 0) {
         DefaultVM = FALSE;
-        return true;
+        return TRUE;
     }
-    return false;
+    return FALSE;
 }
 
 // 0x619560
@@ -204,10 +226,10 @@ void RsTerminate() {
 }
 
 // 0x619600
-bool RsInitialize() {
-    RsGlobal.appName        = "GTA: San Andreas";
-    RsGlobal.maximumWidth   = DEFAULT_SCREEN_WIDTH;
-    RsGlobal.maximumHeight  = DEFAULT_SCREEN_HEIGHT;
+RwBool RsInitialize() {
+    RsGlobal.appName        = reinterpret_cast<const RwChar*>(0x86D388); // Como el original: la cadena "GTA: San Andreas" del EXE
+    RsGlobal.maximumWidth   = 640;
+    RsGlobal.maximumHeight  = 480; // Como el original: 480 (no DEFAULT_SCREEN_HEIGHT = 448)
     RsGlobal.frameLimit     = APP_MAX_FPS;
     RsGlobal.quit           = false;
 
@@ -233,7 +255,7 @@ RwImage* RsGrabScreen(RwCamera* camera) {
 
 // 0x619B00
 void RsErrorMessage(const RwChar* msg) {
-    RsKeyStatus ks;
+    RsKeyCodes ks = rsNULL; // Como el original: un solo dword con rsNULL (0x420)
     if (RsGlobal.keyboard.used) {
         RsKeyboardEventHandler(rsKEYUP, &ks);
     }
@@ -242,7 +264,7 @@ void RsErrorMessage(const RwChar* msg) {
 
 // 0x619B30
 void RsWarningMessage(const RwChar* msg) {
-    RsKeyStatus ks;
+    RsKeyCodes ks = rsNULL; // Como el original: un solo dword con rsNULL (0x420)
     if (RsGlobal.keyboard.used) {
         RsKeyboardEventHandler(rsKEYUP, &ks);
     }
@@ -265,9 +287,9 @@ RwMemoryFunctions* psGetMemoryFunctions() {
 }
 
 // 0x619C90
-bool RsRwInitialize(void* param) { // Win32: Param is HWND
-    if (!RwEngineInit(psGetMemoryFunctions(), 0, rsRESOURCESDEFAULTARENASIZE))
-        return false;
+RwBool RsRwInitialize(void* param) { // Win32: Param is HWND. Como el original: RwBool (eax completo)
+    if (!RwEngineInit(psGetMemoryFunctions(), 0, 4 << 20)) // Como el original: arena de 4 MB (0x400000)
+        return FALSE;
 
     AppEventHandler(rsINITDEBUG, nullptr);
     psInstallFileSystem();

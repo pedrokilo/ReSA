@@ -101,15 +101,9 @@ public:
 
     auto&& GetPedGroup(this auto&& self) { return *self.m_pPedGroup; }
 
-private:
-    bool ShouldSetHighestPriorityEventAsCurrent();
-
 private: // Wrappers for hooks
-    // 0x5F7250
-    CPedGroupIntelligence* Constructor() {
-        this->CPedGroupIntelligence::CPedGroupIntelligence(nullptr);
-        return this;
-    }
+    // 0x5F7250 (definido en el .cpp: no escribe los tres primeros punteros)
+    CPedGroupIntelligence* Constructor();
 
 private:
     CPedGroup*                           m_pPedGroup{};

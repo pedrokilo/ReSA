@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 33/33 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/33 entradas.
+ * Validación registrada: 33/33 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -141,9 +141,15 @@ void CSprite2d::SetRenderState()
 }
 
 // Draw this sprite
+// 0x7282C0
 void CSprite2d::Draw(float x, float y, float width, float height, const CRGBA& color)
 {
-    CRect posn(x, y, x + width, y + height);
+    // Como el original: se rellenan los campos sin el assert de rectángulo invertido del constructor
+    CRect posn;
+    posn.left   = x;
+    posn.top    = y + height;
+    posn.right  = x + width;
+    posn.bottom = y;
     Draw(posn, color);
 }
 
@@ -206,9 +212,11 @@ bool CSprite2d::IsVertexBufferEmpty()
     return nextBufferVertex == 0;
 }
 
+// 0x7273A0
 bool CSprite2d::IsVertexBufferFull()
 {
-    return nextBufferVertex > TOTAL_RADIOSITY_VERTEX_BUFFER || nextBufferIndex > TOTAL_TEMP_BUFFER_INDICES;
+    // Como el original: límite de índices 0xFFA (4090), no TOTAL_TEMP_BUFFER_INDICES
+    return nextBufferVertex > TOTAL_RADIOSITY_VERTEX_BUFFER || nextBufferIndex > 0xFFA;
 }
 
 void CSprite2d::RenderVertexBuffer()
@@ -274,40 +282,48 @@ void CSprite2d::SetVertices(const CRect& posn, const CRGBA& color1, const CRGBA&
     SetVertices(maVertices.data(), posn, color1, color2, color3, color4, u1, v1, u2, v2, u3, v3, u4, v4);
 }
 
+// 0x727890
 void CSprite2d::SetVertices(int32 numVerts, const CVector2D* posn, const CVector2D* texCoors, const CRGBA& color)
 {
+    auto* const verts = maVertices.data(); // Como el original: sin comprobar el tamaño del búfer
     for (int32 i = 0; i < numVerts; ++i) {
-        RwIm2DVertexSetScreenX(&maVertices[i], posn[i].x);
-        RwIm2DVertexSetScreenY(&maVertices[i], posn[i].y);
-        RwIm2DVertexSetScreenZ(&maVertices[i], NearScreenZ + 0.0001f);
-        RwIm2DVertexSetRecipCameraZ(&maVertices[i], RecipNearClip);
-        RwIm2DVertexSetU(&maVertices[i], texCoors[i].x, RecipNearClip);
-        RwIm2DVertexSetV(&maVertices[i], texCoors[i].y, RecipNearClip);
-        RwIm2DVertexSetIntRGBA(&maVertices[i], color.r, color.g, color.b, color.a);
+        RwIm2DVertexSetScreenX(&verts[i], posn[i].x);
+        RwIm2DVertexSetScreenY(&verts[i], posn[i].y);
+        RwIm2DVertexSetScreenZ(&verts[i], NearScreenZ + 0.0001f);
+        RwIm2DVertexSetRecipCameraZ(&verts[i], RecipNearClip);
+        RwIm2DVertexSetU(&verts[i], texCoors[i].x, RecipNearClip);
+        RwIm2DVertexSetV(&verts[i], texCoors[i].y, RecipNearClip);
+        RwIm2DVertexSetIntRGBA(&verts[i], color.r, color.g, color.b, color.a);
     }
 }
 
+// 0x727920
 void CSprite2d::SetVertices(int32 numVerts, const CVector2D* posn, const CRGBA& color)
 {
+    auto* const verts = maVertices.data();
     for (int32 i = 0; i < numVerts; ++i) {
-        RwIm2DVertexSetScreenX(&maVertices[i], posn[i].x);
-        RwIm2DVertexSetScreenY(&maVertices[i], posn[i].y);
-        RwIm2DVertexSetScreenZ(&maVertices[i], NearScreenZ);
-        RwIm2DVertexSetRecipCameraZ(&maVertices[i], RecipNearClip);
-        RwIm2DVertexSetU(&maVertices[i], 1.f, RecipNearClip);
-        RwIm2DVertexSetV(&maVertices[i], 1.f, RecipNearClip);
-        RwIm2DVertexSetIntRGBA(&maVertices[i], color.r, color.g, color.b, color.a);
+        // Como el original: el color avanza 4 bytes por vértice (se lee como un array de CRGBA)
+        const CRGBA& c = (&color)[i];
+        RwIm2DVertexSetScreenX(&verts[i], posn[i].x);
+        RwIm2DVertexSetScreenY(&verts[i], posn[i].y);
+        RwIm2DVertexSetScreenZ(&verts[i], NearScreenZ);
+        RwIm2DVertexSetRecipCameraZ(&verts[i], RecipNearClip);
+        RwIm2DVertexSetU(&verts[i], 1.f, RecipNearClip);
+        RwIm2DVertexSetV(&verts[i], 1.f, RecipNearClip);
+        RwIm2DVertexSetIntRGBA(&verts[i], c.r, c.g, c.b, c.a);
     }
 }
 
+// 0x7279B0
 void CSprite2d::SetMaskVertices(int32 numVerts, const CVector2D* posn, float depth)
 {
+    auto* const verts = maVertices.data();
     for (int32 i = 0; i < numVerts; ++i) {
-        RwIm2DVertexSetScreenX(&maVertices[i], posn[i].x);
-        RwIm2DVertexSetScreenY(&maVertices[i], posn[i].y);
-        RwIm2DVertexSetScreenZ(&maVertices[i], depth);
-        RwIm2DVertexSetRecipCameraZ(&maVertices[i], RecipNearClip);
-        RwIm2DVertexSetIntRGBA(&maVertices[i], 0, 0, 0, 0);
+        RwIm2DVertexSetScreenX(&verts[i], posn[i].x);
+        RwIm2DVertexSetScreenY(&verts[i], posn[i].y);
+        RwIm2DVertexSetScreenZ(&verts[i], depth);
+        RwIm2DVertexSetRecipCameraZ(&verts[i], RecipNearClip);
+        RwIm2DVertexSetIntRGBA(&verts[i], 0, 0, 0, 0);
     }
 }
 
@@ -370,11 +386,15 @@ void CSprite2d::DrawRect(const CRect& posn, const CRGBA& color1, const CRGBA& co
 }
 
 // draws non-textured rectangle with default blending states
+// 0x727C50
 void CSprite2d::DrawRectXLU(const CRect& posn, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3, const CRGBA& color4) {
+    // Como el original: vértices primero y después raster nulo, alfa y mezcla
+    SetVertices(posn, color1, color2, color3, color4);
+    RwRenderStateSet(rwRENDERSTATETEXTURERASTER,     RWRSTATE(NULL));
     RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(TRUE));
     RwRenderStateSet(rwRENDERSTATESRCBLEND,          RWRSTATE(rwBLENDSRCALPHA));
     RwRenderStateSet(rwRENDERSTATEDESTBLEND,         RWRSTATE(rwBLENDINVSRCALPHA));
-    DrawRect(posn, color1, color2, color3, color4);
+    RwIm2DRenderPrimitive(rwPRIMTYPETRIFAN, maVertices.data(), 4);
 }
 
 // draws rectangle, texture could be set with SetRenderState().
@@ -388,36 +408,46 @@ void CSprite2d::DrawAnyRect(float x1, float y1, float x2, float y2, float x3, fl
 }
 
 // draws a triangle with rotation (degrees)
+// 0x727D60
 void CSprite2d::DrawCircleAtNearClip(const CVector2D& posn, float size, const CRGBA& color, int32 angle)
 {
-    RwIm2DVertexSetScreenX(&maVertices[0], posn.x);
-    RwIm2DVertexSetScreenY(&maVertices[0], posn.y);
-    RwIm2DVertexSetScreenZ(&maVertices[0], NearScreenZ);
-    RwIm2DVertexSetRecipCameraZ(&maVertices[0], RecipNearClip);
-    RwIm2DVertexSetU(&maVertices[0], 0.5f, RecipNearClip);
-    RwIm2DVertexSetV(&maVertices[0], 0.5f, RecipNearClip);
-    RwIm2DVertexSetIntRGBA(&maVertices[0], color.r, color.g, color.b, color.a);
+    auto* const verts = maVertices.data();
+    RwIm2DVertexSetScreenX(&verts[0], posn.x);
+    RwIm2DVertexSetScreenY(&verts[0], posn.y);
+    RwIm2DVertexSetScreenZ(&verts[0], NearScreenZ);
+    RwIm2DVertexSetRecipCameraZ(&verts[0], RecipNearClip);
+    RwIm2DVertexSetU(&verts[0], 0.5f, RecipNearClip);
+    RwIm2DVertexSetV(&verts[0], 0.5f, RecipNearClip);
+    RwIm2DVertexSetIntRGBA(&verts[0], color.r, color.g, color.b, color.a);
+
+    // Como el original: paso entero 360 / angle (idiv) convertido a float
+    const float step = (float)(360 / angle);
 
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER,     RWRSTATE(NULL));
     RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(TRUE));
 
-    // #1
-    float step = DegreesToRadians(360.f / static_cast<float>(angle));
+    // Como el original: ángulo en unidades de la tabla de senos (grados · 0x3C8EFA35 · 0x4222F983);
+    // el segundo vértice suma el paso escalado al primero.
+    const float kDegToRad = std::bit_cast<float>(0x3C8EFA35u); // 0x8595EC
+    const float kRadToLut = std::bit_cast<float>(0x4222F983u); // 0x85A778
+    const float stepLut   = step * kDegToRad * kRadToLut;
+    const auto* const lut = reinterpret_cast<const float*>(0xBB3E00);
     for (int32 i = 0; i < angle; ++i) {
+        float t = (float)i * step * kDegToRad * kRadToLut;
         for (int32 l = 1; l <= 2; ++l) {
-            float rad = static_cast<float>(i + l - 1) * step;
-            float c   = CMaths::GetCosFast(rad);
-            float s   = CMaths::GetSinFast(rad);
+            const float c = lut[(uint32)(int64)(64.0f + t) & 0xFF];
+            const float s = lut[(uint32)(int64)t & 0xFF];
 
-            RwIm2DVertexSetScreenX(&maVertices[l], size * c + posn.x);
-            RwIm2DVertexSetScreenY(&maVertices[l], size * s + posn.y);
-            RwIm2DVertexSetScreenZ(&maVertices[l], NearScreenZ);
-            RwIm2DVertexSetRecipCameraZ(&maVertices[l], RecipNearClip);
-            RwIm2DVertexSetIntRGBA(&maVertices[l], color.r, color.g, color.b, color.a);
-            RwIm2DVertexSetU(&maVertices[l], (c + 1.f) * 0.5f, RecipNearClip);
-            RwIm2DVertexSetV(&maVertices[l], (s + 1.f) * 0.5f, RecipNearClip);
+            RwIm2DVertexSetScreenX(&verts[l], size * c + posn.x);
+            RwIm2DVertexSetScreenY(&verts[l], size * s + posn.y);
+            RwIm2DVertexSetScreenZ(&verts[l], NearScreenZ);
+            RwIm2DVertexSetRecipCameraZ(&verts[l], RecipNearClip);
+            RwIm2DVertexSetIntRGBA(&verts[l], color.r, color.g, color.b, color.a);
+            RwIm2DVertexSetU(&verts[l], (c + 1.f) * 0.5f, RecipNearClip);
+            RwIm2DVertexSetV(&verts[l], (s + 1.f) * 0.5f, RecipNearClip);
+            t = t + stepLut;
         }
-        RwIm2DRenderTriangle(maVertices.data(), 3, 2, 1, 0);
+        RwIm2DRenderTriangle(verts, 3, 2, 1, 0);
     }
 }
 
@@ -444,7 +474,7 @@ void CSprite2d::Draw2DPolygon(float x1, float y1, float x2, float y2, float x3, 
 {
     SetVertices(x1, y1, x2, y2, x3, y3, x4, y4, color, color, color, color);
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(NULL));
-    RwRenderStateSet(rwRENDERSTATESHADEMODE,     RWRSTATE(rwSHADEMODENASHADEMODE));
+    RwRenderStateSet(rwRENDERSTATESHADEMODE,     RWRSTATE(rwSHADEMODEFLAT)); // Como el original: 1 (plano)
 
     if (color.a == 255)
         RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(FALSE));
@@ -466,48 +496,56 @@ void CSprite2d::DrawBarChart(float x, float y, uint16 width, uint8 height, float
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(NULL));
     RwRenderStateSet(rwRENDERSTATESHADEMODE,     RWRSTATE(rwSHADEMODEFLAT));
 
-    progress = std::clamp(progress, 0.0f, 100.0f);
+    // Como el original: solo se recorta por debajo (sin tope en 100; NaN se conserva)
+    if (progress < 0.0f) {
+        progress = 0.0f;
+    }
 
-    const float endX = x + (float)width;
-    const float unclampedCurrX = x + (float)width * progress / 100.0f;
-    const float currX = std::min(unclampedCurrX, endX);
-    const auto fheight = (float)height;
+    const float endX           = x + (float)width;
+    const float unclampedCurrX = (float)width * (progress * 0.01f) + x;
+    const float currX          = unclampedCurrX < endX ? unclampedCurrX : endX; // NaN -> endX
+    const float fheight        = (float)height;
+    const float topY           = fheight + y;
+
+    // Como el original: los rectángulos se rellenan campo a campo (sin el assert del constructor)
+    CRect rect;
+    const auto Draw4 = [&rect](float left, float top, float right, float bottom, const CRGBA& c) {
+        rect.left   = left;
+        rect.top    = top;
+        rect.right  = right;
+        rect.bottom = bottom;
+        DrawRect(rect, c);
+    };
 
     // Progress rect
-    DrawRect({ x, y, currX, y + fheight }, color);
+    Draw4(x, topY, currX, y, color);
     // Background (from currX to endX)
-    DrawRect({ currX, y, endX, y + fheight }, { uint8(color.r / 2.0f), uint8(color.g / 2.0f), uint8(color.b / 2.0f), color.a });
+    Draw4(currX, topY, endX, y, CRGBA((uint8)(color.r / 2), (uint8)(color.g / 2), (uint8)(color.b / 2), color.a));
 
     if (progressAdd) {
-        addColor.a = color.a;
-        DrawRect({
-            std::max<float>(x - 1.0f, currX - progressAdd < 0 ? 127.0f : progressAdd), // FIX_BUGS: Because of the progressAdd overflow, the green bar is out of bounds.
-            y,
-            currX,
-            y + fheight
-        }, addColor);
+        // Como el original: izquierda = max(currX - progressAdd, x - 1) con comparación estricta
+        const float minX = x - 1.0f;
+        const float addX = currX - (float)progressAdd;
+        Draw4(addX > minX ? addX : minX, topY, currX, y, CRGBA(addColor.r, addColor.g, addColor.b, color.a));
     }
 
     if (drawBlackBorder) {
-        const float w = SCREEN_STRETCH_X(2.0f), h = SCREEN_SCALE_Y(2.0f);
-        const CRect rects[] = {
-            //left,     top,              right,    bottom
-            { x,        y,                endX,     y + h       },       // Top
-            { x,        y + fheight - h,  endX,     y + fheight },       // Bottom
-            { x,        y,                x + w,    y + fheight },       // Left
-            { endX - w, y,                endX,     y + fheight }        // Right
-        };
-
-        const auto black = CRGBA{ 0, 0, 0, color.a };
-        for (const CRect& rect : rects) {
-            DrawRect(rect, black);
-        }
+        // Como el original: 2 · alto · (1/448) y 2 · ancho · (1/640) como st + st
+        float h = SCREEN_HEIGHT * std::bit_cast<float>(0x3B124925u); // 0x859524
+        h = h + h;
+        float w = SCREEN_WIDTH * std::bit_cast<float>(0x3ACCCCCDu);  // 0x859520
+        w = w + w;
+        const CRGBA black(0, 0, 0, color.a);
+        Draw4(x,    h + y,    endX,     y,    black); // Top
+        Draw4(x,    topY - h, endX,     topY, black); // Bottom
+        Draw4(x,    topY,     w + x,    y,    black); // Left
+        Draw4(endX, topY,     endX - w, y,    black); // Right (izquierda y derecha invertidas como el original)
     }
 
     // unused
     if (drawPercentage) {
         char text[12];
-        sprintf_s(text, "%d%%", (int)progress);
+        sprintf_s(text, "%d%%", (int32)(int64)progress);
 
         GxtChar gxtText[12];
         AsciiToGxtChar(text, gxtText);
@@ -517,15 +555,14 @@ void CSprite2d::DrawBarChart(float x, float y, uint16 width, uint8 height, float
         CFont::SetColor({ 0, 0, 0, color.a });
         CFont::SetEdge(0);
         CFont::SetFontStyle(eFontStyle::FONT_SUBTITLES);
-        CFont::SetScale(fheight * 0.03f, fheight / 0.04f);
+        CFont::SetScale(fheight * 0.03f, fheight * 0.04f); // Como el original: · 0,04 (no / 0,04)
 
-        auto textX = (uint16)unclampedCurrX;
-        if (x + 50.0f <= (float)textX) {
-            CFont::SetOrientation(eFontAlignment::ALIGN_RIGHT);
-        }
-        else {
+        auto textX = (uint16)(int64)unclampedCurrX;
+        if (x + 50.0f > (float)textX) {
             CFont::SetOrientation(eFontAlignment::ALIGN_LEFT);
             textX += 5;
+        } else { // Como el original: NaN alinea a la derecha
+            CFont::SetOrientation(eFontAlignment::ALIGN_RIGHT);
         }
         CFont::PrintString((float)textX, y + 2.0f, gxtText);
     }

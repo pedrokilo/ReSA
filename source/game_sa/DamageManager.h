@@ -166,11 +166,11 @@ public:
     bool ProgressAeroplaneDamage(uint8 nFrameId);
     bool ProgressWheelDamage(eCarWheel wheel);
     bool ProgressPanelDamage(ePanels panel);
-    void ProgressEngineDamage();
+    bool ProgressEngineDamage(int32 unused); // Como el original (0x6C23B0): un argumento (ret 4) y devuelve false
     bool ProgressDoorDamage(eDoors door, CAutomobile* pAuto);
 
-    uint8 GetAeroplaneCompStatus(uint8 frame);
-    void SetAeroplaneCompStatus(uint8 frame, ePanelDamageState status);
+    uint32 GetAeroplaneCompStatus(uint8 frame); // Como el original: EAX completo (and eax,3)
+    void SetAeroplaneCompStatus(uint8 frame, uint32 status); // Como el original: estado de 32 bits
 
     uint32 GetEngineStatus();
     void SetEngineStatus(uint32 status);

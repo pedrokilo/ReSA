@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 26/26 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 2/26 entradas.
+ * Validación registrada: 26/26 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -63,11 +63,33 @@ void CTxdStore::InjectHooks() {
 // initialise txd store
 // 0x731F20
 void CTxdStore::Initialise() {
-    if (!ms_pTxdPool)
-        ms_pTxdPool = new CTxdPool(TOTAL_TXD_MODEL_IDS, "TexDictionary");
+    if (!ms_pTxdPool) {
+        // Como el original: operator new de 0x14 bytes y el constructor del pool (0x731AD0): objetos y mapa con
+        // operator new sin relleno del almacenamiento, cada byte del mapa en 0x80; el byte +0x11 no se escribe.
+        auto* const pool = static_cast<uint8*>(::operator new(sizeof(CTxdPool)));
+        if (pool) {
+            *reinterpret_cast<void**>(pool + 0x0) = ::operator new(TOTAL_TXD_MODEL_IDS * sizeof(TxdDef));
+            auto* const flags                     = static_cast<uint8*>(::operator new(TOTAL_TXD_MODEL_IDS));
+            *reinterpret_cast<uint8**>(pool + 0x4) = flags;
+            pool[0x10]                             = 1;
+            *reinterpret_cast<int32*>(pool + 0x8)  = TOTAL_TXD_MODEL_IDS;
+            *reinterpret_cast<int32*>(pool + 0xC)  = -1;
+            for (auto i = 0u; i < TOTAL_TXD_MODEL_IDS; i++) {
+                flags[i] = 0x80;
+            }
+        }
+        ms_pTxdPool = reinterpret_cast<CTxdPool*>(pool);
+    }
 
-    for (auto& txd : defaultTxds)
-        txd = static_cast<int16>(AddTxdSlot("*"));
+    // Como el original: AddTxdSlot en línea (sin el registro de la DLL, que reserva memoria en el backtracer de spdlog)
+    for (auto& slot : defaultTxds) {
+        TxdDef* txd          = ms_pTxdPool->New();
+        txd->m_pRwDictionary = nullptr;
+        txd->m_wRefsCount    = 0;
+        txd->m_wParentIndex  = -1;
+        txd->m_hash          = CKeyGen::GetUppercaseKey("*");
+        slot                 = static_cast<int16>(ms_pTxdPool->GetIndex(txd));
+    }
 
     RwTextureSetFindCallBack(TxdStoreFindCB);
     RwTextureSetReadCallBack(TxdStoreLoadCB);
@@ -76,7 +98,22 @@ void CTxdStore::Initialise() {
 // shutdown txd store
 // 0x732000
 void CTxdStore::Shutdown() {
-    delete ms_pTxdPool;
+    // Como el original: sin el destructor de CPool (que rellena y deja otros valores); se ponen a cero
+    // almacenamiento, mapa, capacidad y primer libre, y solo se libera la memoria propia del pool.
+    // El puntero global no se borra.
+    if (auto* const pool = reinterpret_cast<uint8*>(ms_pTxdPool)) {
+        if (*reinterpret_cast<int32*>(pool + 0x8) > 0) {
+            if (pool[0x10]) {
+                ::operator delete(*reinterpret_cast<void**>(pool + 0x0));
+                ::operator delete(*reinterpret_cast<void**>(pool + 0x4));
+            }
+            *reinterpret_cast<void**>(pool + 0x0) = nullptr;
+            *reinterpret_cast<void**>(pool + 0x4) = nullptr;
+            *reinterpret_cast<int32*>(pool + 0x8) = 0;
+            *reinterpret_cast<int32*>(pool + 0xC) = 0;
+        }
+        ::operator delete(pool);
+    }
 }
 
 // 0x732060
@@ -91,8 +128,9 @@ void CTxdStore::GameShutdown() {
 
 // 0x731930
 bool CTxdStore::StartLoadTxd(int32 index, RwStream* stream) {
+    // Como el original: sin comprobar el slot (uno libre da nullptr y el EXE escribe en él igualmente)
     TxdDef* txd = ms_pTxdPool->GetAt(index);
-    if (!txd || !RwStreamFindChunk(stream, rwID_TEXDICTIONARY, nullptr, nullptr))
+    if (!RwStreamFindChunk(stream, rwID_TEXDICTIONARY, nullptr, nullptr))
         return false;
 
     RwTexDictionary* texdic = RwTexDictionaryGtaStreamRead1(stream);
@@ -102,10 +140,8 @@ bool CTxdStore::StartLoadTxd(int32 index, RwStream* stream) {
 
 // 0x731E40
 bool CTxdStore::FinishLoadTxd(int32 index, RwStream* stream) {
+    // Como el original: sin comprobar el slot
     TxdDef* txd = ms_pTxdPool->GetAt(index);
-    if (!txd)
-        return false;
-
     txd->m_pRwDictionary = RwTexDictionaryGtaStreamRead2(stream, txd->m_pRwDictionary);
     if (txd->m_pRwDictionary)
         SetupTxdParent(index);
@@ -115,8 +151,9 @@ bool CTxdStore::FinishLoadTxd(int32 index, RwStream* stream) {
 // load txd from stream
 // 0x731DD0
 bool CTxdStore::LoadTxd(int32 index, RwStream* stream) {
+    // Como el original: sin comprobar el slot; el chunk se busca siempre
     TxdDef* txd = ms_pTxdPool->GetAt(index);
-    if (!txd || !RwStreamFindChunk(stream, rwID_TEXDICTIONARY, nullptr, nullptr))
+    if (!RwStreamFindChunk(stream, rwID_TEXDICTIONARY, nullptr, nullptr))
         return false;
     txd->m_pRwDictionary = RwTexDictionaryGtaStreamRead(stream);
     if (txd->m_pRwDictionary)
@@ -131,7 +168,7 @@ bool CTxdStore::LoadTxd(int32 index, const char* filename) {
 
     char data[260];
     RwStream* stream;
-    sprintf_s(data, "%s", filename);
+    std::sprintf(data, "%s", filename); // Como el original: sprintf (0x821BB5), sin el relleno de sprintf_s
     do {
         stream = RwStreamOpen(rwSTREAMFILENAME, rwSTREAMREAD, data);
     } while (!stream);
@@ -156,9 +193,8 @@ void CTxdStore::PopCurrentTxd() {
 // set the txd to work with
 // 0x7319C0
 void CTxdStore::SetCurrentTxd(int32 index) {
-    TxdDef* txd = ms_pTxdPool->GetAt(index);
-    if (txd)
-        RwTexDictionarySetCurrent(txd->m_pRwDictionary);
+    // Como el original: sin comprobar el slot
+    RwTexDictionarySetCurrent(ms_pTxdPool->GetAt(index)->m_pRwDictionary);
 }
 
 // find txd by name. Returning value is txd index
@@ -202,24 +238,24 @@ int32 CTxdStore::FindTxdSlot(uint32 hash) {
 // plugin-sdk has named it to getTexDictionary
 // 0x408340
 RwTexDictionary* CTxdStore::GetTxd(int32 index) {
-    TxdDef* txd = ms_pTxdPool->GetAt(index);
-    return txd ? txd->m_pRwDictionary : nullptr;
+    // Como el original: sin comprobar el slot
+    return ms_pTxdPool->GetAt(index)->m_pRwDictionary;
 }
 
 // plugin-sdk has named it to getTXDEntryParentIndex
 // 0x408370
 int32 CTxdStore::GetParentTxdSlot(int32 index) {
-    TxdDef* txd = ms_pTxdPool->GetAt(index);
-    return txd ? txd->m_wParentIndex : -1;
+    // Como el original: sin comprobar el slot
+    return ms_pTxdPool->GetAt(index)->m_wParentIndex;
 }
 
 // create rw tex dictionary for txd slot
 // 0x731990
 void CTxdStore::Create(int32 index) {
     NOTSA_LOG_DEBUG("CTxdStore::Create({})", index);
+    // Como el original: sin comprobar el slot (RwTexDictionaryCreate se llama siempre)
     TxdDef* txd = ms_pTxdPool->GetAt(index);
-    if (txd)
-        txd->m_pRwDictionary = RwTexDictionaryCreate();
+    txd->m_pRwDictionary = RwTexDictionaryCreate();
 }
 
 // allocate new slot for this txd
@@ -253,10 +289,8 @@ void CTxdStore::RemoveTxdSlot(int32 index) {
 // 0x731E90
 void CTxdStore::RemoveTxd(int32 index) {
     NOTSA_LOG_TRACE("CTxdStore::RemoveTxd({})", index);
+    // Como el original: sin comprobar el slot
     TxdDef* txd = ms_pTxdPool->GetAt(index);
-    if (!txd)
-        return;
-
     if (txd->m_pRwDictionary) {
         RwTexDictionaryForAllTextures(txd->m_pRwDictionary, RemoveIfRefCountIsGreaterThanOne, nullptr);
         RwTexDictionaryDestroy(txd->m_pRwDictionary);
@@ -270,18 +304,15 @@ void CTxdStore::RemoveTxd(int32 index) {
 // add reference for txd
 // 0x731A00
 void CTxdStore::AddRef(int32 index) {
-    TxdDef* txd = ms_pTxdPool->GetAt(index);
-    if (txd)
-        txd->m_wRefsCount++;
+    // Como el original: sin comprobar el slot
+    ms_pTxdPool->GetAt(index)->m_wRefsCount++;
 }
 
 // remove reference, if references count is 0, then delete txd
 // 0x731A30
 void CTxdStore::RemoveRef(int32 index) {
+    // Como el original: sin comprobar el slot
     TxdDef* txd = ms_pTxdPool->GetAt(index);
-    if (!txd)
-        return;
-
     if (--txd->m_wRefsCount <= 0)
         CStreaming::RemoveModel(TXDToModelId(index));
 }
@@ -289,26 +320,24 @@ void CTxdStore::RemoveRef(int32 index) {
 // remove reference without deleting
 // 0x731A70
 void CTxdStore::RemoveRefWithoutDelete(int32 index) {
-    TxdDef* txd = ms_pTxdPool->GetAt(index);
-    if (txd)
-        txd->m_wRefsCount--;
+    // Como el original: sin comprobar el slot
+    ms_pTxdPool->GetAt(index)->m_wRefsCount--;
 }
 
 // get references count
 // 0x731AA0
 int32 CTxdStore::GetNumRefs(int32 index) {
-    TxdDef* txd = ms_pTxdPool->GetAt(index);
-    return txd ? txd->m_wRefsCount : 0;
+    // Como el original: sin comprobar el slot
+    return ms_pTxdPool->GetAt(index)->m_wRefsCount;
 }
 
 // 0x731D50
 void CTxdStore::SetupTxdParent(int32 index) {
+    // Como el original: sin comprobar ninguno de los dos slots
     TxdDef* txdcur = ms_pTxdPool->GetAt(index);
-    if (!txdcur || txdcur->m_wParentIndex == -1)
+    if (txdcur->m_wParentIndex == -1)
         return;
     TxdDef* txdpar = ms_pTxdPool->GetAt(txdcur->m_wParentIndex);
-    if (!txdpar)
-        return;
 
     SetTxdParent(txdcur->m_pRwDictionary, txdpar->m_pRwDictionary);
     AddRef(txdcur->m_wParentIndex);

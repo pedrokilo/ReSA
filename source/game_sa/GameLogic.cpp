@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 27/27 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/27 entradas.
+ * Validación registrada: 27/27 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -56,30 +56,65 @@ void CGameLogic::InjectHooks() {
     RH_ScopedInstall(UpdateSkip, 0x442480);
 }
 
+// Como el original: constantes del EXE (0x8595EC grados->radianes, 0x859878 radianes->grados, 0x858FE4 pi/2)
+static constexpr float GAMELOGIC_DEG_TO_RAD = std::bit_cast<float>(0x3C8EFA35u);
+static constexpr float GAMELOGIC_RAD_TO_DEG = std::bit_cast<float>(0x42652EE0u);
+static constexpr float GAMELOGIC_HALF_PI    = std::bit_cast<float>(0x3FC90FDBu);
+
+// Como el original: GetHeading (0x441DB0) deja atan2(-forward.x, forward.y) en ST0 sin redondear (fpatan)
+// y el llamador le resta pi/2 en x87 antes de guardarlo como float.
+static float GetHeadingMinusHalfPi(const CPlaceable& placeable) {
+    float halfPi = GAMELOGIC_HALF_PI;
+    float result;
+    if (const auto* const matrix = placeable.m_matrix) {
+        float forwardX = matrix->GetForward().x;
+        float forwardY = matrix->GetForward().y;
+        __asm {
+            fld forwardX
+            fchs
+            fld forwardY
+            fpatan
+            fsub halfPi
+            fstp result
+        }
+    } else {
+        result = placeable.m_placement.m_fHeading - halfPi;
+    }
+    return result;
+}
+
 // 0x4418E0
 float CGameLogic::CalcDistanceToForbiddenTrainCrossing(CVector point, CVector moveSpeed, bool ignoreMoveSpeed, CVector& outDistance) {
-    auto closest         = 100'000.0f; // FLT_MAX
+    auto closest = 100'000.0f;
 
-    const auto Calculate = [&closest, &point, &moveSpeed, &outDistance, ignoreMoveSpeed](CVector2D crossing) {
-        const CVector2D dir2D  = crossing - CVector2D{ point };
-        const auto      dist2D = dir2D.Magnitude();
-
-        // In vanilla code both `crossing` and `moveSpeed` were 3D, with the crossing's position `z` being assigned `0` ...
-        // But that affects the whole logic, because the dot product will more likely than not be negative (because of `dir` always having negative Z).
-        // So, instead of doing a 3D dot-product with a `moveSpeed` that has a `z` component of `0`, we just do a 2D dot product.
-        if (dist2D < closest && (ignoreMoveSpeed || dir2D.Dot(CVector2D{ moveSpeed }) > 0.0f)) {
-            outDistance = CVector{ dir2D, 0.f }; // Original code here used `z = -point.z` but that doesn't make much sense, so we're just going to set it to 0
-            closest     = dist2D;
+    // Como el original: el cruce tiene z = 0, así que la dirección es (cx - x, cy - y, -z); el producto escalar
+    // con la velocidad es 3D en el orden z, y, x y la distancia es 2D.
+    const auto Calculate = [&](float crossingX, float crossingY) {
+        const float dirX = crossingX - point.x;
+        const float dirY = crossingY - point.y;
+        const float dirZ = -point.z;
+        const float dot  = dirZ * moveSpeed.z + dirY * moveSpeed.y + dirX * moveSpeed.x;
+        if (!(dot > 0.0f) && !ignoreMoveSpeed) {
+            return;
+        }
+        const float dx   = point.x - crossingX;
+        const float dy   = point.y - crossingY;
+        const float dist = std::sqrt(dy * dy + dx * dx);
+        if (dist < closest) {
+            outDistance = CVector{ dirX, dirY, dirZ };
+            closest     = dist;
         }
     };
 
-    const auto cityUnlocked = CStats::GetStatValue(STAT_CITY_UNLOCKED);
-    if (cityUnlocked == 0.0f) {
-        Calculate({ 82.0f, -1021.0f }); // LS-SF; Flint Country
-    } else if (cityUnlocked == 1.0f) {
-        Calculate({ -1568.0f, 537.0f }); // SF-LV; Downtown
-    } else if (cityUnlocked < 1.0f) {
-        Calculate({ 2270.0f, 277.0f }); // Not a train crossing; top left side of Palomino Creek, LS
+    // Como el original: tres comprobaciones independientes (== 0, == 1 y <= 1), cada una con su GetStatValue
+    if (CStats::GetStatValue(STAT_CITY_UNLOCKED) == 0.0f) {
+        Calculate(82.0f, -1021.0f); // LS-SF; Flint Country
+    }
+    if (CStats::GetStatValue(STAT_CITY_UNLOCKED) == 1.0f) {
+        Calculate(-1568.0f, 537.0f); // SF-LV; Downtown
+    }
+    if (CStats::GetStatValue(STAT_CITY_UNLOCKED) <= 1.0f) {
+        Calculate(2770.0f, 277.0f); // Como el original: (2770, 277), Palomino Creek
     }
 
     return closest;
@@ -95,51 +130,46 @@ void CGameLogic::ClearSkip(bool afterMission) {
         TheCamera.Fade(0.5f, eFadeFlag::FADE_OUT);
     }
     SkipState = SKIP_NONE;
-    CPad::GetPad(PED_TYPE_PLAYER1)->bCamera = false;
+    CPad::GetPad(PED_TYPE_PLAYER1)->bPlayerSkipsToDestination = false; // Como el original: bit 0 del byte 0x10F
 }
 
 // 0x4428B0
 void CGameLogic::DoWeaponStuffAtStartOf2PlayerGame(bool shareWeapons) {
-    auto player1 = FindPlayerPed(PED_TYPE_PLAYER1);
-    auto player2 = FindPlayerPed(PED_TYPE_PLAYER2);
-    RestorePedsWeapons(player1);
+    // Como el original: guarda las armas del jugador 1 (StorePedsWeapons en línea), no las restaura
+    StorePedsWeapons(FindPlayerPed(PED_TYPE_PLAYER1));
 
     if (shareWeapons) {
-        for (auto& weapon : player1->m_aWeapons) {
+        for (auto& weapon : FindPlayerPed(PED_TYPE_PLAYER1)->m_aWeapons) {
             if (weapon.m_Type == WEAPON_UNARMED)
                 continue;
 
-            player2->GiveWeapon(weapon, true);
+            FindPlayerPed(PED_TYPE_PLAYER2)->GiveWeapon(weapon.m_Type, weapon.m_TotalAmmo, true);
         }
-        player1->PickWeaponAllowedFor2Player();
-        player1->GetPlayerData()->m_nChosenWeapon = player1->GetPlayerData()->m_nChosenWeapon;
+        FindPlayerPed(PED_TYPE_PLAYER1)->PickWeaponAllowedFor2Player();
+        FindPlayerPed(PED_TYPE_PLAYER2)->GetPlayerData()->m_nChosenWeapon = FindPlayerPed(PED_TYPE_PLAYER1)->GetPlayerData()->m_nChosenWeapon;
     }
 }
 
 // 0x441B70
 // 1 - Los Santos, 2 - San Fierro, 3 - Las Venturas
-eLevelName CGameLogic::FindCityClosestToPoint(CVector2D point) {
-    constexpr struct {
-        eLevelName level;
-        CVector2D coords;
-    } CITIES[] = {
-        {LEVEL_NAME_LOS_SANTOS,   { 1670.0f, -1137.0f}},
-        {LEVEL_NAME_SAN_FIERRO,   {-1810.0f,   884.0f}},
-        {LEVEL_NAME_LAS_VENTURAS, { 2161.0f,  2140.0f}},
+int32 CGameLogic::FindCityClosestToPoint(CVector2D point) {
+    const auto Distance = [&](float x, float y) {
+        const float dx = point.x - x;
+        const float dy = point.y - y;
+        return std::sqrt(dy * dy + dx * dx);
     };
 
-    std::pair<float, eLevelName> closest{FLT_MAX, NUM_LEVELS}; // NOTSA
-    for (const auto& city : CITIES) {
-        if (const auto d = DistanceBetweenPoints2D(city.coords, point); d < closest.first) {
-            closest = {d, city.level};
-        }
+    // Como el original: orden LS, LV, SF con comparación estricta (empates y NaN se quedan con el anterior)
+    float      closest = Distance(1670.0f, -1137.0f);
+    eLevelName level   = LEVEL_NAME_LOS_SANTOS;
+    if (const auto d = Distance(2161.0f, 2140.0f); d < closest) {
+        closest = d;
+        level   = LEVEL_NAME_LAS_VENTURAS;
     }
-
-    if (closest.second == NUM_LEVELS) {
-        NOTSA_UNREACHABLE();
+    if (Distance(-1810.0f, 884.0f) < closest) {
+        return LEVEL_NAME_SAN_FIERRO;
     }
-
-    return closest.second;
+    return level;
 }
 
 // 0x441240
@@ -155,7 +185,7 @@ void CGameLogic::ForceDeathRestart() {
 void CGameLogic::InitAtStartOfGame() {
     ZoneScoped;
 
-    ActivePlayers            = true;
+    ActivePlayers            = 1;
     SkipState                = SKIP_NONE;
     NumAfterDeathStartPoints = 0;
     GameState                = GAMELOGIC_STATE_PLAYING;
@@ -168,19 +198,21 @@ void CGameLogic::InitAtStartOfGame() {
 // 2 players are playing
 // 0x441390
 bool CGameLogic::IsCoopGameGoingOn() {
-    return FindPlayerPed(PED_TYPE_PLAYER1) && FindPlayerPed(PED_TYPE_PLAYER2);
+    // Como el original: lee CWorld::Players directamente
+    return CWorld::Players[PED_TYPE_PLAYER1].m_pPed && CWorld::Players[PED_TYPE_PLAYER2].m_pPed;
 }
 
 // 0x441E10
 bool CGameLogic::IsPlayerAllowedToGoInThisDirection(CPed* ped, CVector moveDirection, float distanceLimit) {
-    const auto player1 = FindPlayerPed(PED_TYPE_PLAYER1);
-    const auto player2 = FindPlayerPed(PED_TYPE_PLAYER2);
+    const auto player1 = CWorld::Players[PED_TYPE_PLAYER1].m_pPed;
+    const auto player2 = CWorld::Players[PED_TYPE_PLAYER2].m_pPed;
 
     if (!player1 || !player2 || !bLimitPlayerDistance)
         return true;
 
-    if (IsAPlayerInFocusOn2PlayerGame()) {
-        if (ped == GetFocusedPlayerPed()) {
+    // Como el original: comparación sin signo (< 2) y el jugador en foco se lee de CWorld::Players
+    if (static_cast<uint32>(n2PlayerPedInFocus) < 2) {
+        if (ped == CWorld::Players[static_cast<uint32>(n2PlayerPedInFocus)].m_pPed) {
             return true;
         }
 
@@ -196,38 +228,48 @@ bool CGameLogic::IsPlayerAllowedToGoInThisDirection(CPed* ped, CVector moveDirec
         }
     }
 
-    if (DistanceBetweenPoints2D(player1->GetPosition(), player2->GetPosition()) < MaxPlayerDistance + distanceLimit) {
+    const auto& pos1 = player1->GetPosition();
+    const auto& pos2 = player2->GetPosition();
+    const float dx = pos1.x - pos2.x;
+    const float dy = pos1.y - pos2.y;
+    if (MaxPlayerDistance + distanceLimit > std::sqrt(dy * dy + dx * dx)) {
         return true;
     }
 
-    const auto dirDist = ((player1->GetPosition() - player2->GetPosition()) * moveDirection).ComponentwiseSum();
-    if (ped == player1 && dirDist >= 0.0f || dirDist <= 0.0f) {
-        return false;
+    // Como el original: producto escalar en el orden z, y, x; el jugador 1 solo puede acercarse (< 0)
+    // y el resto solo alejarse en sentido contrario (> 0)
+    const float dirDist = (pos1.z - pos2.z) * moveDirection.z + dy * moveDirection.y + dx * moveDirection.x;
+    if (ped == player1) {
+        return dirDist < 0.0f;
     }
-    
-    return true;
+    return dirDist > 0.0f;
 }
 
 // 0x442020
 bool CGameLogic::IsPlayerUse2PlayerControls(CPed* ped) {
-    if (!IsCoopGameGoingOn())
+    if (!CWorld::Players[PED_TYPE_PLAYER1].m_pPed || !CWorld::Players[PED_TYPE_PLAYER2].m_pPed)
         return false;
 
-    if (n2PlayerPedInFocus == eFocusedPlayer::PLAYER2)
+    // Como el original: sin jugador en foco se usan los controles de 2 jugadores
+    if (n2PlayerPedInFocus == eFocusedPlayer::NONE)
         return true;
 
-    return ped != GetFocusedPlayerPed();
+    return ped != CWorld::Players[static_cast<int32>(n2PlayerPedInFocus)].m_pPed;
 }
 
 // 0x4416E0
 bool CGameLogic::IsPointWithinLineArea(const CVector* points, uint32 numPoints, float x, float y) {
-    for (auto&& [i, point] : rngv::enumerate(std::span{points, numPoints})) {
-        const auto nextPoint = (i != numPoints - 1) ? points[i + 1] : points[0];
-        if (CCollision::Test2DLineAgainst2DLine(x, y, 1'000'000.0f, 0.0f, point.x, point.y, nextPoint.x - point.x, nextPoint.y - point.y))
-            return true;
+    // Como el original: cuenta los cruces del rayo (x, y) -> (x + 1e6, y) con cada lado y devuelve la paridad
+    uint32 crossings = 0;
+    for (int32 i = 0; i < static_cast<int32>(numPoints); i++) {
+        const auto& point     = points[i];
+        const auto& nextPoint = points[(i + 1) % static_cast<int32>(numPoints)];
+        if (CCollision::Test2DLineAgainst2DLine(x, y, 1'000'000.0f, 0.0f, point.x, point.y, nextPoint.x - point.x, nextPoint.y - point.y)) {
+            crossings++;
+        }
     }
 
-    return false;
+    return crossings & 1;
 }
 
 // 0x4416C0
@@ -241,9 +283,7 @@ bool CGameLogic::IsSkipWaitingForScriptToFadeIn() {
 
 // 0x441C10
 bool CGameLogic::LaRiotsActiveHere() {
-    const auto coors = FindPlayerCoors();
-
-    if (coors.z > 950.0f) {
+    if (FindPlayerCoors().z > 950.0f) {
         return false;
     }
 
@@ -255,76 +295,83 @@ bool CGameLogic::LaRiotsActiveHere() {
         return false;
     }
 
-    const CRect rects[]{
-        {1620.0f, -2178.0f, 2824.0f, -1067.0f},
-        {157.0f, -1950.0f, 1630.0f, -1192.0f},
-    };
-    return rng::any_of(rects, [&](auto rect) { return rect.IsPointInside(coors); });
+    // Como el original: límites estrictos en los dos ejes
+    const auto coors = FindPlayerCoors();
+    if (coors.x > 1620.0f && coors.x < 2824.0f && coors.y > -2178.0f && coors.y < -1067.0f) {
+        return true;
+    }
+    return coors.x > 157.0f && coors.x < 1630.0f && coors.y > -1950.0f && coors.y < -1192.0f;
 }
 
 // 0x5D33C0
-void CGameLogic::Save() {
+bool CGameLogic::Save() {
+    // Como el original: se guardan las globales directamente (GameState como byte) y devuelve true
     CGenericGameStorage::SaveDataToWorkBuffer(CGameLogic::NumAfterDeathStartPoints);
     CGenericGameStorage::SaveDataToWorkBuffer(CGameLogic::bPenaltyForDeathApplies);
     CGenericGameStorage::SaveDataToWorkBuffer(CGameLogic::bPenaltyForArrestApplies);
-    CGenericGameStorage::SaveDataToWorkBuffer(static_cast<uint8>(CGameLogic::GameState));
+    CGenericGameStorage::SaveDataToWorkBuffer(CGameLogic::GameState);
     CGenericGameStorage::SaveDataToWorkBuffer(CGameLogic::TimeOfLastEvent);
 
     for (int32 i = 0; i < NumAfterDeathStartPoints; i++) {
-        CGenericGameStorage::SaveDataToWorkBuffer(CGameLogic::AfterDeathStartPoints[i]);
-        CGenericGameStorage::SaveDataToWorkBuffer(CGameLogic::AfterDeathStartPointOrientations[i]);
+        CGenericGameStorage::SaveDataToWorkBuffer(CGameLogic::AfterDeathStartPoints.data()[i]);
+        CGenericGameStorage::SaveDataToWorkBuffer(CGameLogic::AfterDeathStartPointOrientations.data()[i]);
     }
+    return true;
 }
 
 // 0x5D3440
-void CGameLogic::Load() {
+bool CGameLogic::Load() {
     CGenericGameStorage::LoadDataFromWorkBuffer(CGameLogic::NumAfterDeathStartPoints);
     CGenericGameStorage::LoadDataFromWorkBuffer(CGameLogic::bPenaltyForDeathApplies);
     CGenericGameStorage::LoadDataFromWorkBuffer(CGameLogic::bPenaltyForArrestApplies);
-    CGameLogic::GameState = static_cast<eGameLogicState>(CGenericGameStorage::LoadDataFromWorkBuffer<uint8>());
+    CGenericGameStorage::LoadDataFromWorkBuffer(CGameLogic::GameState);
     CGenericGameStorage::LoadDataFromWorkBuffer(CGameLogic::TimeOfLastEvent);
     for (int32 i = 0; i < NumAfterDeathStartPoints; ++i) {
-        CGenericGameStorage::LoadDataFromWorkBuffer(CGameLogic::AfterDeathStartPoints[i]);
-        CGenericGameStorage::LoadDataFromWorkBuffer(CGameLogic::AfterDeathStartPointOrientations[i]);
+        CGenericGameStorage::LoadDataFromWorkBuffer(CGameLogic::AfterDeathStartPoints.data()[i]);
+        CGenericGameStorage::LoadDataFromWorkBuffer(CGameLogic::AfterDeathStartPointOrientations.data()[i]);
     }
+    return true;
 }
 
 // 0x4414C0
 void CGameLogic::PassTime(uint32 minutes) {
-    auto weekDay = CClock::GetGameWeekDay();
-    auto hours = CClock::GetGameClockHours();
-    auto mins = minutes + CClock::GetGameClockMinutes();
+    int32 weekDay = CClock::GetGameWeekDay();
+    int32 hours   = CClock::GetGameClockHours();
+    int32 mins    = static_cast<int32>(minutes) + CClock::GetGameClockMinutes();
 
+    // Como el original: enteros de 32 bits (comparaciones con signo, divisiones sin signo)
     if (mins >= 60) {
-        hours += mins / 60;
-        mins %= 60;
+        hours += static_cast<int32>(static_cast<uint32>(mins) / 60);
+        mins   = static_cast<int32>(static_cast<uint32>(mins) % 60);
     }
 
     if (hours >= 24) {
-        auto days = hours / 24;
-        hours %= 24;
+        auto days = static_cast<uint32>(hours) / 24;
+        hours -= static_cast<int32>(days) * 24;
 
-        CStats::IncrementStat(STAT_DAYS_PASSED_IN_GAME, (float)days);
-        weekDay += days;
-        if (weekDay > 7) {
-            weekDay = 1;
-        }
+        // Como el original: un día cada vez (día de la semana con vuelta a 1 y +1 a la estadística)
+        do {
+            if (++weekDay > 7) {
+                weekDay = 1;
+            }
+            CStats::IncrementStat(STAT_DAYS_PASSED_IN_GAME, 1.0f);
+        } while (--days);
     }
 
-    CClock::SetGameClock(hours, mins, weekDay);
+    CClock::SetGameClock(static_cast<uint8>(hours), static_cast<uint8>(mins), static_cast<uint8>(weekDay));
     CPickups::PassTime(minutes * 1000);
 }
 
 // 0x4413C0
 void CGameLogic::Remove2ndPlayerIfPresent() {
-    if (auto ped = FindPlayerPed(PED_TYPE_PLAYER2)) {
+    if (auto ped = CWorld::Players[PED_TYPE_PLAYER2].m_pPed) {
         CWorld::Remove(ped);
-        delete ped;
+        delete CWorld::Players[PED_TYPE_PLAYER2].m_pPed;
         CWorld::Players[PED_TYPE_PLAYER2].m_pPed = nullptr;
 
-        auto player1 = FindPlayerPed(PED_TYPE_PLAYER1);
+        auto player1 = CWorld::Players[PED_TYPE_PLAYER1].m_pPed;
         CClothes::RebuildPlayer(player1, false);
-        player1->CantBeKnockedOffBike = false;
+        player1->CantBeKnockedOffBike = CANT_BE_KNOCKED_OFF_DEFAULT;
     }
     n2PlayerPedInFocus = eFocusedPlayer::NONE;
 }
@@ -332,14 +379,15 @@ void CGameLogic::Remove2ndPlayerIfPresent() {
 // 0x442980
 void CGameLogic::ResetStuffUponResurrection() {
     auto& player = CWorld::Players[CWorld::PlayerInFocus];
-    auto playerPed = player.m_pPed;
 
     CMessages::ClearMessages(false);
     CCarCtrl::ClearInterestingVehicleList();
     CWorld::ClearExcitingStuffFromArea(player.GetPos(), 4000.0f, true);
     PassTime(12 * 60);
-    RestorePlayerStuffDuringResurrection(playerPed, playerPed->GetPosition(), playerPed->m_fCurrentRotation * RadiansToDegrees(1.0f));
-    SortOutStreamingAndMemory(playerPed->GetPosition(), playerPed->GetHeading());
+    // Como el original: rotación por 57.29578 (0x859878) y el peatón se vuelve a leer de CWorld::Players
+    RestorePlayerStuffDuringResurrection(player.m_pPed, player.m_pPed->GetPosition(), player.m_pPed->m_fCurrentRotation * GAMELOGIC_RAD_TO_DEG);
+    const float heading = player.m_pPed->GetHeading();
+    SortOutStreamingAndMemory(player.m_pPed->GetPosition(), heading);
     TheCamera.m_fCamShakeForce = 0.0f;
     TheCamera.SetMotionBlur(0, 0, 0, 0, eMotionBlurType::NONE);
     CPad::GetPad(PED_TYPE_PLAYER1)->StopShaking(0);
@@ -348,7 +396,7 @@ void CGameLogic::ResetStuffUponResurrection() {
     CPopulation::m_CountDownToPedsAtStart = 10;
     CPad::GetPad(CWorld::PlayerInFocus)->DisablePlayerControls = 0;
 
-    playerPed->ClearWeapons();
+    player.m_pPed->ClearWeapons();
     GameState = GAMELOGIC_STATE_PLAYING;
     TimeOfLastEvent = 0;
 }
@@ -356,16 +404,20 @@ void CGameLogic::ResetStuffUponResurrection() {
 // used in CGameLogic::DoWeaponStuffAtStartOf2PlayerGame
 // 0x441D00
 void CGameLogic::StorePedsWeapons(CPed* ped) {
-    rng::copy(ped->m_aWeapons, SavedWeapons.begin());
+    // Como el original: copia byte a byte (rep movs)
+    std::memcpy(SavedWeapons.data(), ped->m_aWeapons.data(), sizeof(CWeapon) * NUM_WEAPON_SLOTS);
 }
 
 // 0x441D30
 void CGameLogic::RestorePedsWeapons(CPed* ped) {
     ped->ClearWeapons();
     for (auto& weapon : SavedWeapons) {
-        const auto IsModelLoaded = [](int id) { return id == MODEL_INVALID || CStreaming::GetInfo(id).IsLoaded(); };
+        const auto modelId1 = CWeaponInfo::GetWeaponInfo(weapon.m_Type, eWeaponSkill::STD)->m_nModelId1;
+        const auto modelId2 = CWeaponInfo::GetWeaponInfo(weapon.m_Type, eWeaponSkill::STD)->m_nModelId2;
+        const auto IsLoaded = [](int32 modelId) { return CStreaming::ms_aInfoForModel.data()[modelId].m_LoadState == LOADSTATE_LOADED; };
 
-        if (rng::all_of(weapon.GetWeaponInfo().GetModels(), IsModelLoaded)) { // FIX_BUGS: They checked modelId1 twice
+        // Como el original: el segundo modelo se comprueba con el estado de carga del primero
+        if ((modelId1 == MODEL_INVALID || IsLoaded(modelId1)) && (modelId2 == MODEL_INVALID || IsLoaded(modelId1))) {
             ped->GiveWeapon(weapon.m_Type, weapon.m_TotalAmmo, true);
         }
     }
@@ -378,8 +430,8 @@ void CGameLogic::RestorePlayerStuffDuringResurrection(CPlayerPed* player, CVecto
     if (player->m_fHealth <= 0.0f) {
         CStats::UpdateStatsOnRespawn();
     }
-    auto playerData = player->GetPlayerData();
     auto playerInfo = player->GetPlayerInfoForThisPlayerPed();
+    auto playerData = player->GetPlayerData();
 
     player->physicalFlags.bRenderScorched = false;
     player->m_fArmour = 0.0f;
@@ -393,14 +445,17 @@ void CGameLogic::RestorePlayerStuffDuringResurrection(CPlayerPed* player, CVecto
     playerData->m_nDrugLevel = 0;
     player->ClearAdrenaline();
     player->ResetSprintEnergy();
-    if (auto* const fire = std::exchange(player->m_pFire, nullptr)) {
-        fire->SetIsScript(false);
-        fire->Extinguish();
+    if (player->m_pFire) {
+        // Como el original: el puntero se limpia después de Extinguish
+        player->m_pFire->SetIsScript(false);
+        player->m_pFire->Extinguish();
+        player->m_pFire = nullptr;
     }
     player->GetAE().TurnOffJetPack();
     player->bInVehicle = false;
-    if (auto vehicle = player->m_pVehicle) {
-        CEntity::CleanUpOldReference(vehicle);
+    if (player->m_pVehicle) {
+        // Como el original: se limpia la referencia guardada en el propio peatón (&m_pVehicle)
+        player->m_pVehicle->CleanUpOldReference(reinterpret_cast<CEntity**>(&player->m_pVehicle));
     }
     player->m_pVehicle = nullptr;
     player->GetWanted()->Reset();
@@ -412,12 +467,14 @@ void CGameLogic::RestorePlayerStuffDuringResurrection(CPlayerPed* player, CVecto
     player->GetAcquaintance() = CPedType::GetPedTypeAcquaintances(player->m_nPedType);
     CCarCtrl::ClearInterestingVehicleList();
 
-    player->Teleport(posn + CVector{0.0f, 0.0f, 1.0f}, false);
-    player->m_fCurrentRotation = player->m_fAimingRotation = DegreesToRadians(playerStartHeading);
+    player->Teleport(CVector{ posn.x, posn.y, posn.z + 1.0f }, false);
+    // Como el original: también anula la velocidad
+    player->m_vecMoveSpeed = CVector{ 0.0f, 0.0f, 0.0f };
+    player->m_fCurrentRotation = player->m_fAimingRotation = playerStartHeading * GAMELOGIC_DEG_TO_RAD;
     player->SetHeading(player->m_fCurrentRotation);
 
     CTheScripts::ClearSpaceForMissionEntity(posn, player);
-    CWorld::ClearExcitingStuffFromArea(posn, 4000.0, 1);
+    CWorld::ClearExcitingStuffFromArea(posn, 4000.0f, true);
     player->RestoreHeadingRate();
     player->SetAreaCode(AREA_CODE_NORMAL_WORLD);
     player->m_pEnex = 0;
@@ -429,7 +486,7 @@ void CGameLogic::RestorePlayerStuffDuringResurrection(CPlayerPed* player, CVecto
     TheCamera.RestoreWithJumpCut();
     CReferences::RemoveReferencesToPlayer();
     CGarages::PlayerArrestedOrDied();
-    CStats::SetStatValue(STAT_KILLS_SINCE_LAST_CHECKPOINT, 0.0);
+    CStats::SetStatValue(STAT_KILLS_SINCE_LAST_CHECKPOINT, 0.0f);
     CShopping::RemoveLoadedShop();
     CWorld::Remove(player);
     CWorld::Add(player);
@@ -440,7 +497,7 @@ void CGameLogic::RestorePlayerStuffDuringResurrection(CPlayerPed* player, CVecto
     CPostEffects::ScriptResetForEffects();
 
     if (auto clothesDesc = playerData->m_pPedClothesDesc; clothesDesc->m_anModelKeys[9]) {
-        clothesDesc->SetTextureAndModel(nullptr, nullptr, CLOTHES_TEXTURE_SPECIAL);
+        clothesDesc->SetTextureAndModel(static_cast<uint32>(0), static_cast<uint32>(0), CLOTHES_TEXTURE_SPECIAL); // Como el original: versión con hashes (0x5A8050)
         CClothes::RebuildPlayer(player, false);
     } else {
         CClothes::RebuildPlayerIfNeeded(player);
@@ -448,27 +505,33 @@ void CGameLogic::RestorePlayerStuffDuringResurrection(CPlayerPed* player, CVecto
     CAudioZones::Update(true, posn);
     AudioEngine.StopPoliceScanner(true);
     CWaterLevel::FindNearestWaterAndItsFlow();
-    TheCamera.m_fDistanceToWater = 100'000.0f;
+    TheCamera.m_fDistanceToWater = std::bit_cast<float>(0x47C34FF3u); // Como el original: 99999.9f, no 100000.0f
 }
 
 // @brief Set wanted level to 4 if player is in a forbidden territory.
 // @param immediately   Do position check without waiting for the frame counter.
 // @addr 0x441770
 void CGameLogic::SetPlayerWantedLevelForForbiddenTerritories(bool immediately) {
-    const auto  ped = FindPlayerPed();
-    const auto& coords = ped->GetPosition();
-
-    if ((!immediately && (CTimer::GetFrameCounter() % 32) != 18) || coords.z > 950.0f)
+    if (!immediately && (CTimer::GetFrameCounter() % 32) != 18)
         return;
 
-    if (ped->GetIntelligence()->GetTaskSwim() || ped->GetWantedLevel() >= eWantedLevel::WANTED_LEVEL_4)
+    // Como el original: posición de FindPlayerCoors (la del vehículo si va en uno), leída en cada comprobación
+    if (FindPlayerCoors().z > 950.0f)
         return;
 
-    const auto SetWantedIfInArea = [&](auto* vertices, size_t size) {
-        if (IsPointWithinLineArea(vertices, size, coords.x, coords.y)) {
-            ped->SetWantedLevel(eWantedLevel::WANTED_LEVEL_4);
+    if (FindPlayerPed()->GetIntelligence()->GetTaskSwim())
+        return;
+
+    // Como el original: nivel de búsqueda comparado con signo
+    if (static_cast<int32>(FindPlayerPed()->GetWanted()->GetWantedLevel()) >= static_cast<int32>(eWantedLevel::WANTED_LEVEL_4))
+        return;
+
+    const auto SetWantedIfInArea = [&](const CVector* vertices, size_t size) {
+        const auto coords = FindPlayerCoors();
+        if (IsPointWithinLineArea(vertices, static_cast<uint32>(size), coords.x, coords.y)) {
+            FindPlayerPed()->SetWantedLevel(eWantedLevel::WANTED_LEVEL_4);
             if (immediately) {
-                ped->GetWanted()->m_LastTimeWantedLevelChanged = 0;
+                FindPlayerWanted()->m_LastTimeWantedLevelChanged = 0;
             }
         }
     };
@@ -518,12 +581,15 @@ void CGameLogic::SetUpSkip(CVector coors, float angle, bool afterMission, CEntit
         TheCamera.Fade(0.5f, eFadeFlag::FADE_OUT);
     }
     SkipState = SKIP_NONE;
-    CPad::GetPad(PED_TYPE_PLAYER1)->bCamera = false;
+    CPad::GetPad(PED_TYPE_PLAYER1)->bPlayerSkipsToDestination = false;
     SkipPosition = coors;
+    SkipHeading = angle; // Como el original: también guarda el ángulo
     SkipState = afterMission ? SKIP_AFTER_MISSION : SKIP_AVAILABLE;
     SkipTimer = CTimer::GetTimeInMS();
+    // Como el original: SkipVehicle siempre se asigna y la referencia se registra sobre &SkipVehicle
+    SkipVehicle = static_cast<CVehicle*>(vehicle);
     if (vehicle) {
-        CEntity::RegisterReference(SkipVehicle);
+        vehicle->RegisterReference(reinterpret_cast<CEntity**>(&SkipVehicle));
     }
     SkipToBeFinishedByScript = finishedByScript;
 }
@@ -566,21 +632,80 @@ void CGameLogic::SortOutStreamingAndMemory(const CVector& translation, float ang
 
 // 0x441290
 void CGameLogic::StopPlayerMovingFromDirection(int32 playerId, CVector direction) {
-    if (auto obj = [ped = FindPlayerPed(playerId)]() -> CPhysical* {
-        if (ped->IsInVehicle()) {
-            return ped->GetVehicleIfInOne();
-        } else if (ped->bIsStanding || ped->GetIntelligence()->GetTaskJetPack()) {
-            return ped;
-        }
-
-        return nullptr;
-    }()) {
-        direction.z = std::max(0.0f, direction.z);
-
-        if (const auto compSum = (direction * obj->m_vecMoveSpeed).ComponentwiseSum(); compSum < 0.0f) {
-            obj->m_vecMoveSpeed -= direction * compSum;
-        }
+    // Como el original: peatón leído de CWorld::Players; vehículo si bInVehicle y m_pVehicle, si no el peatón
+    // si está de pie o con jetpack
+    auto* const ped = CWorld::Players[playerId].m_pPed;
+    CPhysical* obj;
+    if (ped->bInVehicle && ped->m_pVehicle) {
+        obj = ped->m_pVehicle;
+    } else if (ped->bIsStanding || ped->GetIntelligence()->GetTaskJetPack()) {
+        obj = ped;
+    } else {
+        return;
     }
+
+    if (direction.z < 0.0f) {
+        direction.z = 0.0f;
+    }
+
+    if (const auto compSum = (direction * obj->m_vecMoveSpeed).ComponentwiseSum(); compSum < 0.0f) {
+        obj->m_vecMoveSpeed -= direction * compSum;
+    }
+}
+
+// Como el original (en línea en Update): el jugador 1 deja el vehículo antes de resucitar
+static void LeaveVehicleForResurrection() {
+    auto* const ped = CWorld::Players[PED_TYPE_PLAYER1].m_pPed;
+    if (!ped->bInVehicle || !ped->m_pVehicle) {
+        return;
+    }
+
+    auto* const vehicle = ped->m_pVehicle;
+    if (vehicle->m_pDriver == ped) {
+        if (vehicle->m_pDriver) {
+            vehicle->m_pDriver->CleanUpOldReference(reinterpret_cast<CEntity**>(&vehicle->m_pDriver));
+        }
+        CWorld::Players[PED_TYPE_PLAYER1].m_pPed->m_pVehicle->m_pDriver = nullptr;
+        auto* const driven = CWorld::Players[PED_TYPE_PLAYER1].m_pPed->m_pVehicle;
+        if (driven->GetStatus() != STATUS_WRECKED) {
+            driven->SetStatus(STATUS_ABANDONED);
+        }
+    } else {
+        vehicle->RemovePassenger(ped);
+    }
+}
+
+// Como el original (en línea en Update): posición del peatón del jugador 1, corregida si está en un interior
+static CVector GetRestartSearchPosition() {
+    auto* const ped = CWorld::Players[PED_TYPE_PLAYER1].m_pPed;
+    CVector posn = ped->GetPosition();
+    if (auto* const enEx = ped->m_pEnex) {
+        enEx->GetPositionRelativeToOutsideWorld(posn);
+    }
+    return posn;
+}
+
+// Como el original (en línea en Update): partida a dos jugadores -> punto y rumbo de inicio (por 57.29578, 0x859878)
+static void UseTwoPlayerRestartPoint(CVector& restartPoint, float& restartAngle) {
+    if (CWorld::Players[PED_TYPE_PLAYER1].m_pPed && CWorld::Players[PED_TYPE_PLAYER2].m_pPed) {
+        restartAngle = CGameLogic::f2PlayerStartHeading * GAMELOGIC_RAD_TO_DEG;
+        restartPoint = CGameLogic::vec2PlayerStartLocation;
+        CGameLogic::RestorePedsWeapons(FindPlayerPed(PED_TYPE_PLAYER1));
+    }
+}
+
+// Como el original (en línea en Update): final común de la resurrección del jugador 1
+static void FinishResurrection() {
+    auto* const ped = CWorld::Players[PED_TYPE_PLAYER1].m_pPed;
+    const float heading = ped->GetHeading();
+    CGameLogic::SortOutStreamingAndMemory(ped->GetPosition(), heading);
+    TheCamera.m_fCamShakeForce = 0.0f;
+    TheCamera.SetMotionBlur(0, 0, 0, 0, eMotionBlurType::NONE);
+    CPad::GetPad(PED_TYPE_PLAYER1)->StopShaking(0);
+    CReferences::RemoveReferencesToPlayer();
+    CCarCtrl::CountDownToCarsAtStart = 10;
+    CPopulation::m_CountDownToPedsAtStart = 10;
+    CPad::GetPad(CWorld::PlayerInFocus)->DisablePlayerControls = 0;
 }
 
 // 0x442AD0
@@ -594,221 +719,18 @@ void CGameLogic::Update() {
     if (CCutsceneMgr::ms_cutsceneProcessing)
         return;
 
-    auto& player1 = FindPlayerInfo(PED_TYPE_PLAYER1);
-    auto player1Ped = player1.m_pPed;
+    auto& player1 = CWorld::Players[PED_TYPE_PLAYER1];
 
-    const auto Process = [&] {
-        const auto PunishPlayer = [&player1, player1Ped](int32 fee) {
-            player1.m_nMoney = std::max(player1.m_nMoney - fee, 0);
-            player1Ped->ClearWeapons();
-        };
-
-        const auto ResetForResurrectionAndFadeOut = [&player1, &player1Ped](CVector& restartPoint, float restartAngle, bool fadeOutNow) {
-            player1.m_nPlayerState = PLAYERSTATE_PLAYING;
-            GameState = GAMELOGIC_STATE_PLAYING;
-
-            if (auto vehicle = player1Ped->GetVehicleIfInOne()) {
-                if (auto& driver = vehicle->m_pDriver; player1Ped == driver) {
-                    CEntity::CleanUpOldReference(driver);
-                    driver = nullptr;
-
-                    if (vehicle->GetStatus() != STATUS_WRECKED) {
-                        vehicle->SetStatus(STATUS_ABANDONED);
-                    }
-                } else {
-                    vehicle->RemovePassenger(player1Ped);
-                }
-            }
-
-            CMessages::ClearMessages(false);
-            CHud::SetHelpMessage(nullptr, true, false, false);
-            CCarCtrl::ClearInterestingVehicleList();
-            CGarages::CloseHideOutGaragesBeforeSave();
-            CWorld::ClearExcitingStuffFromArea(player1.GetPos(), 4000.0f, true);
-
-            if (IsCoopGameGoingOn()) {
-                restartPoint = vec2PlayerStartLocation;
-                restartAngle = DegreesToRadians(f2PlayerStartHeading);
-                RestorePedsWeapons(player1Ped);
-            }
-            Remove2ndPlayerIfPresent();
-            PassTime(12 * 60);
-            FindPlayerInfo().m_nNumHoursDidntEat = 0;
-            RestorePlayerStuffDuringResurrection(player1Ped, restartPoint, restartAngle);
-            SortOutStreamingAndMemory(player1Ped->GetPosition(), player1Ped->GetHeading());
-
-            TheCamera.m_fCamShakeForce = 0.0f;
-            TheCamera.SetMotionBlur(0, 0, 0, 0, eMotionBlurType::NONE);
-            CPad::GetPad(PED_TYPE_PLAYER1)->StopShaking(0);
-            CReferences::RemoveReferencesToPlayer();
-            CCarCtrl::CountDownToCarsAtStart = 10;
-            CPopulation::m_CountDownToPedsAtStart = 10;
-            CPad::GetPad(CWorld::PlayerInFocus)->DisablePlayerControls = false;
-
-            if (fadeOutNow) {
-                TheCamera.SetFadeColour(0, 0, 0);
-                TheCamera.Fade(3.0f, eFadeFlag::FADE_OUT);
-            } else {
-                fadeOutNow = true;
-            }
-        };
-
-        const auto FadeInIfNewEvent = [&] {
-            if (CTimer::GetPreviousTimeInMS() - TimeOfLastEvent <= 3000) {
-                TheCamera.SetFadeColour(0, 0, 0);
-                TheCamera.Fade(2.0f, eFadeFlag::FADE_IN);
-            }
-        };
-
-        for (auto& player : CWorld::Players) {
-            auto ped = player.m_pPed;
-            if (!ped || player.m_nPlayerState != PLAYERSTATE_PLAYING)
-                continue;
-
-            ped->GetTaskManager().GetSimplestActiveTask();
-            if (ped->m_nPedState == PEDSTATE_DEAD || ped->m_nPedState == PEDSTATE_DIE && ped->bIsDyingStuck) {
-                ped->ClearAdrenaline();
-                player.KillPlayer();
-                GameState = GAMELOGIC_STATE_WASTED;
-                TimeOfLastEvent = CTimer::GetTimeInMS();
-            } else if (ped->m_nPedState == PEDSTATE_ARRESTED) {
-                ped->ClearAdrenaline();
-                player.ArrestPlayer();
-                ped->Say(CTX_GLOBAL_ARRESTED, 2300, 1.0f, 1u, 1u);
-                GameState = GAMELOGIC_STATE_BUSTED;
-                TimeOfLastEvent = CTimer::GetTimeInMS();
-
-                if (ped == FindPlayerPed(PED_TYPE_PLAYER2) && CHud::m_BigMessage[2][0] == '\0') {
-                    CMessages::AddBigMessage(TheText.Get("BUSTED"), 5000, STYLE_WHITE_MIDDLE);
-                }
-            }
-        }
-
-        switch (GameState) {
-        case GAMELOGIC_STATE_WASTED: {
-            CWeaponEffects::ClearCrossHairs();
-            if (CTimer::GetTimeInMS() - TimeOfLastEvent <= 3000)
-                break;
-
-            FadeInIfNewEvent();
-
-            if (TheCamera.m_bFading)
-                break;
-
-            if (!IsCoopGameGoingOn() && bPenaltyForDeathApplies) {
-                if (!player1.m_bFreeHealthCare) {
-                    PunishPlayer(100);
-                } else {
-                    player1.m_bFreeHealthCare = false;
-                }
-            }
-
-            auto posn = player1.GetPos();
-            if (auto enEx = player1Ped->m_pEnex) {
-                enEx->GetPositionRelativeToOutsideWorld(posn);
-            }
-
-            CVector restartPoint;
-            float restartAngle;
-            CRestart::FindClosestHospitalRestartPoint(posn, restartPoint, restartAngle);
-
-            ResetForResurrectionAndFadeOut(restartPoint, restartAngle, CRestart::bFadeInAfterNextDeath);
-            break;
-        }
-        case GAMELOGIC_STATE_BUSTED: {
-            CWeaponEffects::ClearCrossHairs();
-            auto delta = CTimer::GetTimeInMS() - TimeOfLastEvent;
-            if (delta > 3000) {
-                FadeInIfNewEvent();
-            }
-
-            if (!CTheScripts::IsPlayerOnAMission() && !CWorld::Players[0].m_nBustedAudioStatus) {
-                if (CGeneral::GetRandomNumberInRange(0, 4)) {
-                    player1.m_nBustedAudioStatus = 2;
-                } else {
-                    player1.m_nBustedAudioStatus = 1;
-                    player1.m_nLastBustMessageNumber = player1.m_nLastBustMessageNumber % 28 + 1;
-                }
-            }
-
-            if (delta < 4000 || TheCamera.m_bFading)
-                break;
-
-            if (!IsCoopGameGoingOn() && bPenaltyForArrestApplies) {
-                if (!player1.m_bGetOutOfJailFree) {
-                    const auto fee = [&] {
-                        switch (player1Ped->GetWantedLevel()) {
-                        case eWantedLevel::WANTED_LEVEL_1: return 100;
-                        case eWantedLevel::WANTED_LEVEL_2: return 200;
-                        case eWantedLevel::WANTED_LEVEL_3: return 400;
-                        case eWantedLevel::WANTED_LEVEL_4: return 600;
-                        case eWantedLevel::WANTED_LEVEL_5: return 900;
-                        case eWantedLevel::WANTED_LEVEL_6: return 1500;
-                        default:                           NOTSA_UNREACHABLE(); // NOTSA, SA returns 100.
-                        }
-                    }();
-                    PunishPlayer(fee);
-                } else {
-                    player1.m_bGetOutOfJailFree = false;
-                }
-            }
-
-            auto posn = player1.GetPos();
-            if (auto enEx = player1Ped->m_pEnex) {
-                enEx->GetPositionRelativeToOutsideWorld(posn);
-            }
-
-            CVector restartPoint;
-            float restartAngle;
-            CRestart::FindClosestPoliceRestartPoint(posn, restartPoint, restartAngle);
-            ResetForResurrectionAndFadeOut(restartPoint, restartAngle, CRestart::bFadeInAfterNextArrest);
-            break;
-        }
-        case GAMELOGIC_STATE_MISSION_FAILED: // really have no idea
-        case GAMELOGIC_STATE_MISSION_PASSED: {
-            if (CTimer::GetTimeInMS() - TimeOfLastEvent <= 3000)
-                break;
-
-            FadeInIfNewEvent();
-
-            if (TheCamera.m_bFading)
-                break;
-
-            auto posn = player1.GetPos();
-            if (auto enEx = player1Ped->m_pEnex) {
-                enEx->GetPositionRelativeToOutsideWorld(posn);
-            }
-
-            CVector restartPoint;
-            float restartAngle;
-            CRestart::FindClosestPoliceRestartPoint(posn, restartPoint, restartAngle);
-            ResetForResurrectionAndFadeOut(restartPoint, restartAngle, true);
-            break;
-        }
-        }
-
-        if (bLimitPlayerDistance && IsCoopGameGoingOn()) {
-            if (auto diff = FindPlayerCoors(PED_TYPE_PLAYER2) - FindPlayerCoors(PED_TYPE_PLAYER1); diff.Magnitude2D() > MaxPlayerDistance) {
-                StopPlayerMovingFromDirection(PED_TYPE_PLAYER1,  diff.Normalized());
-                StopPlayerMovingFromDirection(PED_TYPE_PLAYER2, -diff.Normalized());
-            }
-        }
-    };
-
-    if (!IsCoopGameGoingOn()) {
+    // Como el original: la partida a dos jugadores se decide con CWorld::Players y las distancias con la posición de los peatones
+    if (!CWorld::Players[PED_TYPE_PLAYER1].m_pPed || !CWorld::Players[PED_TYPE_PLAYER2].m_pPed) {
         UpdateSkip();
-        Process();
     } else {
         static float& lastPlayerDistance = StaticRef<float>(0x96AB24);
-        const auto dist = DistanceBetweenPoints2D(FindPlayerCoors(PED_TYPE_PLAYER1), FindPlayerCoors(PED_TYPE_PLAYER2));
-
-        const auto UpdateTimerAndLastDistance = [&dist] {
-            if (IsAPlayerInFocusOn2PlayerGame() && nPrintFocusHelpTimer != 0) {
-                nPrintFocusHelpTimer = CTimer::GetTimeInMS() + 30'000;
-            }
-
-            lastPlayerDistance = dist;
-        };
+        const auto& pos1 = CWorld::Players[PED_TYPE_PLAYER1].m_pPed->GetPosition();
+        const auto& pos2 = CWorld::Players[PED_TYPE_PLAYER2].m_pPed->GetPosition();
+        const float dx   = pos1.x - pos2.x;
+        const float dy   = pos1.y - pos2.y;
+        const float dist = std::sqrt(dy * dy + dx * dx);
 
         if (dist > 100.0f) {
             if (GameState != GAMELOGIC_STATE_MISSION_FAILED) {
@@ -816,65 +738,283 @@ void CGameLogic::Update() {
             }
         } else if (dist > 85.0f && lastPlayerDistance <= 85.0f) {
             CHud::SetHelpMessage(TheText.Get("WRN_2P"), false, false, false); // any further and 2P game will end.
-        } else if (dist > MaxPlayerDistance && nPrintFocusHelpCounter < 5) {
-            if (lastPlayerDistance > MaxPlayerDistance && (uint32)nPrintFocusHelpTimer < CTimer::GetTimeInMS()) {
+        } else if (dist > MaxPlayerDistance && static_cast<uint32>(nPrintFocusHelpCounter) < 5) {
+            // Como el original: el contador y el temporizador solo cambian si se muestra el mensaje
+            if (lastPlayerDistance <= MaxPlayerDistance) {
+                if (CTimer::GetTimeInMS() > static_cast<uint32>(nPrintFocusHelpTimer)) {
+                    CHud::SetHelpMessage(TheText.Get("WRN1_2P"), false, false, false); // distance limit reached
+                    nPrintFocusHelpTimer = CTimer::GetTimeInMS() + 15'000;
+                    nPrintFocusHelpCounter++;
+                }
+            } else if (CTimer::GetTimeInMS() > static_cast<uint32>(nPrintFocusHelpTimer)) {
                 CHud::SetHelpMessage(TheText.Get("WRN2_2P"), false, false, false); // press SELECT to toggle focus to individual player
+                nPrintFocusHelpTimer = CTimer::GetTimeInMS() + 60'000;
+                nPrintFocusHelpCounter++;
             }
-            else if ((uint32)nPrintFocusHelpTimer < CTimer::GetTimeInMS()) {
-                CHud::SetHelpMessage(TheText.Get("WRN1_2P"), false, false, false); // distance limit reached
-            }
-
-            nPrintFocusHelpTimer = CTimer::GetTimeInMS() + 60'000;
-            nPrintFocusHelpCounter++;
         }
 
-        UpdateTimerAndLastDistance();
-        Process();
+        if (n2PlayerPedInFocus != eFocusedPlayer::NONE && nPrintFocusHelpTimer != 0) {
+            nPrintFocusHelpTimer = CTimer::GetTimeInMS() + 30'000;
+        }
+        lastPlayerDistance = dist;
+    }
+
+    for (auto i = 0; i < MAX_PLAYERS; i++) {
+        auto& player = CWorld::Players[i];
+        if (!player.m_pPed || player.m_nPlayerState != PLAYERSTATE_PLAYING)
+            continue;
+
+        player.m_pPed->GetTaskManager().GetSimplestActiveTask();
+        if (player.m_pPed->m_nPedState == PEDSTATE_DEAD || player.m_pPed->m_nPedState == PEDSTATE_DIE && player.m_pPed->bIsDyingStuck) {
+            player.m_pPed->ClearAdrenaline();
+            player.KillPlayer();
+            GameState = GAMELOGIC_STATE_WASTED;
+            TimeOfLastEvent = CTimer::GetTimeInMS();
+        }
+        // Como el original: comprobación independiente (no else)
+        if (player.m_pPed->m_nPedState == PEDSTATE_ARRESTED) {
+            player.m_pPed->ClearAdrenaline();
+            player.ArrestPlayer();
+            player.m_pPed->Say(CTX_GLOBAL_ARRESTED, 2300, 1.0f, true, true, true);
+            GameState = GAMELOGIC_STATE_BUSTED;
+            TimeOfLastEvent = CTimer::GetTimeInMS();
+
+            if (i == PED_TYPE_PLAYER2 && CHud::m_BigMessage[2][0] == '\0') {
+                CMessages::AddBigMessage(TheText.Get("BUSTED"), 5000, STYLE_WHITE_MIDDLE);
+            }
+        }
+    }
+
+    const auto FadeInIfNewEvent = [] {
+        if (CTimer::GetPreviousTimeInMS() - TimeOfLastEvent <= 3000) {
+            TheCamera.SetFadeColour(0, 0, 0);
+            TheCamera.Fade(2.0f, eFadeFlag::FADE_IN);
+        }
+    };
+    const auto FadeOut = [] {
+        TheCamera.SetFadeColour(0, 0, 0);
+        TheCamera.Fade(3.0f, eFadeFlag::FADE_OUT);
+    };
+
+    switch (GameState) {
+    case GAMELOGIC_STATE_WASTED: {
+        CWeaponEffects::ClearCrossHairs();
+        if (CTimer::GetTimeInMS() - TimeOfLastEvent <= 3000)
+            break;
+
+        FadeInIfNewEvent();
+
+        if (TheCamera.m_bFading)
+            break;
+
+        if (!IsCoopGameGoingOn() && bPenaltyForDeathApplies) {
+            if (player1.m_bFreeHealthCare) {
+                player1.m_bFreeHealthCare = false;
+            } else {
+                // Como el original: el dinero solo se toca si es positivo
+                if (player1.m_nMoney > 0) {
+                    player1.m_nMoney = std::max(player1.m_nMoney - 100, 0);
+                }
+                player1.m_pPed->ClearWeapons();
+            }
+        }
+
+        player1.m_nPlayerState = PLAYERSTATE_PLAYING;
+        GameState = GAMELOGIC_STATE_PLAYING;
+        LeaveVehicleForResurrection();
+        CMessages::ClearMessages(false);
+        CHud::SetHelpMessage(nullptr, true, false, false);
+        CCarCtrl::ClearInterestingVehicleList();
+        CGarages::CloseHideOutGaragesBeforeSave();
+        CWorld::ClearExcitingStuffFromArea(player1.GetPos(), 4000.0f, true);
+
+        CVector restartPoint;
+        float restartAngle;
+        CRestart::FindClosestHospitalRestartPoint(GetRestartSearchPosition(), restartPoint, restartAngle);
+        UseTwoPlayerRestartPoint(restartPoint, restartAngle);
+        Remove2ndPlayerIfPresent();
+        PassTime(12 * 60);
+        CWorld::Players[CWorld::PlayerInFocus].m_nNumHoursDidntEat = 0;
+        RestorePlayerStuffDuringResurrection(player1.m_pPed, restartPoint, restartAngle);
+        FinishResurrection();
+
+        // Como el original: la primera vez solo se activa la bandera global
+        if (!CRestart::bFadeInAfterNextDeath) {
+            CRestart::bFadeInAfterNextDeath = true;
+            break;
+        }
+        FadeOut();
+        break;
+    }
+    case GAMELOGIC_STATE_BUSTED: {
+        CWeaponEffects::ClearCrossHairs();
+        const uint32 delta = CTimer::GetTimeInMS() - TimeOfLastEvent;
+        if (delta > 3000) {
+            FadeInIfNewEvent();
+        }
+
+        if (!CTheScripts::IsPlayerOnAMission() && !player1.m_nBustedAudioStatus) {
+            if (CGeneral::GetRandomIntInRange(0, 4)) {
+                player1.m_nBustedAudioStatus = 2;
+            } else {
+                player1.m_nBustedAudioStatus = 1;
+                player1.m_nLastBustMessageNumber = player1.m_nLastBustMessageNumber % 28 + 1;
+            }
+        }
+
+        if (delta < 4000 || TheCamera.m_bFading)
+            break;
+
+        player1.m_nPlayerState = PLAYERSTATE_PLAYING;
+        GameState = GAMELOGIC_STATE_PLAYING;
+
+        if (!IsCoopGameGoingOn()) {
+            // Como el original: la multa sale del CWanted de CWorld::Players[0] (por defecto 100)
+            int32 fee;
+            switch (static_cast<uint32>(player1.m_PlayerData.m_pWanted->GetWantedLevel())) {
+            case 2:  fee = 200;  break;
+            case 3:  fee = 400;  break;
+            case 4:  fee = 600;  break;
+            case 5:  fee = 900;  break;
+            case 6:  fee = 1500; break;
+            default: fee = 100;  break;
+            }
+            if (bPenaltyForArrestApplies) {
+                if (player1.m_bGetOutOfJailFree) {
+                    player1.m_bGetOutOfJailFree = false;
+                } else {
+                    if (player1.m_nMoney > 0) {
+                        player1.m_nMoney = std::max(player1.m_nMoney - fee, 0);
+                    }
+                    player1.m_pPed->ClearWeapons();
+                }
+            }
+        }
+
+        LeaveVehicleForResurrection();
+        CMessages::ClearMessages(false);
+        CHud::SetHelpMessage(nullptr, true, false, false);
+        CCarCtrl::ClearInterestingVehicleList();
+        CGarages::CloseHideOutGaragesBeforeSave();
+        CWorld::ClearExcitingStuffFromArea(player1.GetPos(), 4000.0f, true);
+
+        CVector restartPoint;
+        float restartAngle;
+        CRestart::FindClosestPoliceRestartPoint(GetRestartSearchPosition(), restartPoint, restartAngle);
+        UseTwoPlayerRestartPoint(restartPoint, restartAngle);
+        Remove2ndPlayerIfPresent();
+        PassTime(12 * 60);
+        RestorePlayerStuffDuringResurrection(player1.m_pPed, restartPoint, restartAngle);
+        FinishResurrection();
+
+        if (!CRestart::bFadeInAfterNextArrest) {
+            CRestart::bFadeInAfterNextArrest = true;
+            break;
+        }
+        FadeOut();
+        break;
+    }
+    case GAMELOGIC_STATE_MISSION_FAILED:
+    case GAMELOGIC_STATE_MISSION_PASSED: {
+        if (CTimer::GetTimeInMS() - TimeOfLastEvent <= 3000)
+            break;
+
+        FadeInIfNewEvent();
+
+        if (TheCamera.m_bFading)
+            break;
+
+        player1.m_nPlayerState = PLAYERSTATE_PLAYING;
+        GameState = GAMELOGIC_STATE_PLAYING;
+        LeaveVehicleForResurrection();
+        // Como el original: sin mensaje de ayuda, sin PassTime y siempre con fundido
+        CMessages::ClearMessages(false);
+        CCarCtrl::ClearInterestingVehicleList();
+        CGarages::CloseHideOutGaragesBeforeSave();
+        CWorld::ClearExcitingStuffFromArea(player1.GetPos(), 4000.0f, true);
+
+        CVector restartPoint;
+        float restartAngle;
+        CRestart::FindClosestPoliceRestartPoint(GetRestartSearchPosition(), restartPoint, restartAngle);
+        UseTwoPlayerRestartPoint(restartPoint, restartAngle);
+        Remove2ndPlayerIfPresent();
+        RestorePlayerStuffDuringResurrection(player1.m_pPed, restartPoint, restartAngle);
+        FinishResurrection();
+        FadeOut();
+        break;
+    }
+    }
+
+    if (bLimitPlayerDistance && CWorld::Players[PED_TYPE_PLAYER1].m_pPed && CWorld::Players[PED_TYPE_PLAYER2].m_pPed) {
+        const auto& pos1 = CWorld::Players[PED_TYPE_PLAYER1].m_pPed->GetPosition();
+        const auto& pos2 = CWorld::Players[PED_TYPE_PLAYER2].m_pPed->GetPosition();
+        const float dx = pos1.x - pos2.x;
+        const float dy = pos1.y - pos2.y;
+        if (std::sqrt(dy * dy + dx * dx) > MaxPlayerDistance) {
+            // Como el original: CVector::Normalise (0x59C910) sobre la diferencia de los peatones
+            CVector dir{ pos2.x - pos1.x, pos2.y - pos1.y, pos2.z - pos1.z };
+            dir.Normalise();
+            StopPlayerMovingFromDirection(PED_TYPE_PLAYER1, dir);
+            StopPlayerMovingFromDirection(PED_TYPE_PLAYER2, CVector{ -dir.x, -dir.y, -dir.z });
+        }
     }
 }
 
 // 0x442480
 void CGameLogic::UpdateSkip() {
-    if (SkipState == SKIP_AVAILABLE && DistanceBetweenPoints2D(FindPlayerCoors(), SkipPosition) < 25.0f ||
+    const auto IsPlayerNearSkipPosition = [] {
+        const auto coors = FindPlayerCoors();
+        const float dx = coors.x - SkipPosition.x;
+        const float dy = coors.y - SkipPosition.y;
+        return std::sqrt(dy * dy + dx * dx) < 25.0f;
+    };
+    if (SkipState == SKIP_AVAILABLE && IsPlayerNearSkipPosition() ||
         CanPlayerTripSkip() && CTimer::GetTimeInMS() > SkipTimer + 35'000) {
         SkipState = SKIP_NONE;
         return;
     }
 
-    auto player = FindPlayerPed();
     switch (SkipState) {
     case SKIP_AVAILABLE:
-    case SKIP_AFTER_MISSION:
-        if (!SkipCanBeActivated() || player->GetTaskManager().FindActiveTaskByType(TASK_COMPLEX_LEAVE_CAR)) {
+    case SKIP_AFTER_MISSION: {
+        if (!SkipCanBeActivated()) {
             return;
         }
 
         // TRIP SKIP
+        // Como el original: primero la cruceta y después la tarea de salir del coche
         if (auto pad = CPad::GetPad(PED_TYPE_PLAYER1); pad->IsDPadRightPressed()) {
+            if (FindPlayerPed()->GetTaskManager().FindActiveTaskByType(TASK_COMPLEX_LEAVE_CAR)) {
+                return;
+            }
             SkipState = SKIP_IN_PROGRESS;
-            pad->bCamera = true;
+            CPad::GetPad(PED_TYPE_PLAYER1)->bPlayerSkipsToDestination = true;
 
             TheCamera.SetFadeColour(0, 0, 0);
             TheCamera.Fade(2.5f, eFadeFlag::FADE_IN);
-            SkipTimer = CTimer::m_snTimeInMilliseconds + 3000;
+            SkipTimer = CTimer::GetTimeInMS() + 3000;
             CMessages::AddBigMessage(TheText.Get("SKIP"), 4500, STYLE_BOTTOM_RIGHT);
         }
         break;
-
+    }
     case SKIP_IN_PROGRESS: {
-        if (CTimer::GetTimeInMS() < SkipTimer)
+        // Como el original: continúa solo cuando el tiempo supera estrictamente al temporizador
+        if (CTimer::GetTimeInMS() <= SkipTimer)
             return;
 
         CTimer::Suspend();
         CStreaming::LoadSceneCollision(SkipPosition);
         CStreaming::LoadScene(SkipPosition);
-        auto playerDistToSkipPos = DistanceBetweenPoints2D(FindPlayerCoors(), SkipPosition);
+        const auto coors = FindPlayerCoors();
+        const float dx = SkipPosition.x - coors.x;
+        const float dy = SkipPosition.y - coors.y;
+        const float playerDistToSkipPos = std::sqrt(dy * dy + dx * dx);
 
         if (auto vehicle = FindPlayerVehicle()) {
             CTheScripts::ClearSpaceForMissionEntity(SkipPosition, vehicle);
 
             vehicle->Teleport(SkipPosition, false);
-            vehicle->SetHeading(DegreesToRadians(SkipHeading));
+            vehicle->SetHeading(SkipHeading * GAMELOGIC_DEG_TO_RAD);
 
             if (vehicle->IsBike()) {
                 vehicle->AsBike()->PlaceOnRoadProperly();
@@ -882,9 +1022,11 @@ void CGameLogic::UpdateSkip() {
                 vehicle->AsAutomobile()->PlaceOnRoadProperly();
             }
 
-            vehicle->m_vecMoveSpeed = vehicle->GetMatrix().GetForward() / 2.5f; // Make the vehicle appear as it's driving to the point.
-            CCamera::GetActiveCamera().m_fHorizontalAngle = vehicle->GetHeading() - FRAC_PI_2;
+            // Como el original: forward * 0.4f (operator* 0x40FEC0) con la matriz directa
+            vehicle->m_vecMoveSpeed = vehicle->m_matrix->GetForward() * 0.4f; // Make the vehicle appear as it's driving to the point.
+            CCamera::GetActiveCamera().m_fHorizontalAngle = GetHeadingMinusHalfPi(*vehicle);
         } else {
+            auto player = FindPlayerPed();
             CTheScripts::ClearSpaceForMissionEntity(SkipPosition, player);
             player->Teleport(SkipPosition, false);
             player->GetPosition().z = CWorld::FindGroundZForCoord(SkipPosition.x, SkipPosition.y) + 1.0f;
@@ -892,11 +1034,12 @@ void CGameLogic::UpdateSkip() {
         SkipTimer = CTimer::GetTimeInMS() + 1500;
         CHud::SetMessage(nullptr);
         CTimer::Resume();
-        PassTime((uint32)(playerDistToSkipPos / 20.0f + 23.0f));
+        // Como el original: dist * 0.05f + 23.0f truncado con _ftol2
+        PassTime(static_cast<uint32>(static_cast<int64>(playerDistToSkipPos * 0.05f + 23.0f)));
 
         if (SkipToBeFinishedByScript) {
             SkipState = SKIP_WAITING_SCRIPT;
-            CPad::GetPad(PED_TYPE_PLAYER1)->bCamera = false;
+            CPad::GetPad(PED_TYPE_PLAYER1)->bPlayerSkipsToDestination = false;
         } else {
             TheCamera.SetFadeColour(0, 0, 0);
             TheCamera.Fade(1.5f, eFadeFlag::FADE_OUT);
@@ -907,7 +1050,7 @@ void CGameLogic::UpdateSkip() {
     case SKIP_FADING_OUT:
         if (CTimer::GetTimeInMS() > SkipTimer) {
             SkipState = SKIP_NONE;
-            CPad::GetPad(PED_TYPE_PLAYER1)->bCamera = false;
+            CPad::GetPad(PED_TYPE_PLAYER1)->bPlayerSkipsToDestination = false;
         }
         break;
 

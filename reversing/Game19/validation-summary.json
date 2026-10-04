@@ -54,7 +54,7 @@
   "log_sha256": "7076a7ce6c19174bd87b0a4fe0d3e2c7fa2999f70aae894c9ce23cc425e37cd9",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-game19\\20261003-204714-770744",
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-game19\\20261004-103716-337552",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CDarkel::Init": true,
@@ -98,16 +98,16 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "0a7d478bb9583ad728a70369ec63f84236f0063ef4e808032aa7d18bdfbca871",
-      "pdb": "f70e2e0bb31bb1d3fd905251e5609fc5ebd1cde85173be5f000d88cd0ebb174a"
+      "asi": "de317772c84750a4e65414eed21cded6c47f7f926fe27f0bba51f078b2d87b47",
+      "pdb": "1f2f4178e3e6a73c22871490c00fd6b05d8fd387c7dcc14f5976a351b33a5453"
     },
     "sources": {
-      "source/game_sa/Darkel.cpp": "b81c0989f94c587e4d2bafb482bf979031253ae89537f1a03d1d55bf0fdce110",
+      "source/game_sa/Darkel.cpp": "3356380dbbe2cf4fa0be9b9fca5c8a55c010fca484ac5c1715d6043da4cfa6cc",
       "source/game_sa/Darkel.h": "96f0a07f178033ced63b9ae92f75ad79a4efc9cfd2059fa81cd45bffa2d79078",
-      "source/game_sa/TagManager.cpp": "c2419d1a0533e5ed835af77ffc47a96e6703611e4dcb7b09808d47e2390b7bad",
+      "source/game_sa/TagManager.cpp": "98796b384a0b0522866f08bfe9d32d5eb7a1dc3180da04ef9c89d2ffbef2520d",
       "source/game_sa/TagManager.h": "8981cf6f9e07657d7b263bb4bb377a8dc3fda68164b6755692d116715cb253b9"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
       "LiveComparison.hpp": "be75821114a1d1cfd12b27afe79a80644424c9c1c235351f27f644876951d1db",
       "build_probe.py": "468dd44068e73ba69c878bc289ce4b790e7a2745898d8dc5bb3e04ca48227063",

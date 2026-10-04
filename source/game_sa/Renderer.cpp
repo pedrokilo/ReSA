@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 33/33 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/33 entradas.
+ * Validación registrada: 33/33 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -34,6 +34,37 @@ END GENERATED HOOK STATUS */
 #include "toolsmenu/UIRenderer.h"
 auto& gnRendererModelRequestFlags = StaticRef<uint32>(0xB745C4);
 auto& gpOutEntitiesForGetObjectsInFrustum = StaticRef<CEntity**>(0xB76854);
+
+namespace {
+// Como el original: distancia sqrt((z*z + y*y) + x*x), el orden de sumas del x87 en SetupEntityVisibility,
+// SetupBigBuildingVisibility, ShouldModelBeStreamed y la lista submarina de RenderEverythingBarRoads
+float DistanceZYX(const CVector& a, const CVector& b) {
+    const float dx = a.x - b.x, dy = a.y - b.y, dz = a.z - b.z;
+    return std::sqrt(dz * dz + dy * dy + dx * dx);
+}
+
+// Como el original: atan2(num, den) con fpatan (precisión completa) menos `heading`, redondeado a float
+float FpatanMinus(float num, float den, float heading) {
+    float result;
+    __asm {
+        fld num
+        fld den
+        fpatan
+        fsub heading
+        fstp result
+    }
+    return result;
+}
+
+// Como el original: sectores con x * 0,02 + 60 y sectores LOD con x * 0,005 + 15 (multiplicación, no división)
+float SectorfX(float coord) { return coord * 0.02f + 60.0f; }
+float LodSectorfX(float coord) { return coord * 0.005f + 15.0f; }
+
+// Como el original: el sector repetido se indexa con & 15 (también con coordenadas negativas)
+CRepeatSector& RepeatSectorAnd15(int32 sectorX, int32 sectorY) {
+    return CWorld::ms_aRepeatSectors[uint32(sectorY) & 15u][uint32(sectorX) & 15u];
+}
+} // namespace
 
 void CRenderer::InjectHooks()
 {
@@ -236,8 +267,10 @@ void CRenderer::ProcessLodRenderLists() {
         }
     }
 
-    bool bAllLodsRendered = false;
-    while (bAllLodsRendered) {
+    // Como el original: do/while (el bucle se ejecuta al menos una vez y se repite mientras se libere algún LOD)
+    bool bAllLodsRendered;
+    do {
+        bAllLodsRendered = false;
         for (auto renderListEntry = GetLodRenderListBase(); renderListEntry != ms_pLodRenderList; renderListEntry++) {
             CEntity* entity = renderListEntry->entity;
             if (entity) {
@@ -264,7 +297,7 @@ void CRenderer::ProcessLodRenderLists() {
                 }
             }
         }
-    }
+    } while (bAllLodsRendered);
     for (auto renderListEntry = GetLodRenderListBase(); renderListEntry != ms_pLodRenderList; renderListEntry++) {
         CEntity* entity = renderListEntry->entity;
         if (entity && entity->HasLodChildrenRendered()) {
@@ -375,29 +408,28 @@ void CRenderer::RenderEverythingBarRoads() {
 
         bool bInserted = false;
         if (entity->GetIsTypeVehicle() || (entity->GetIsTypePed() && CVisibilityPlugins::GetClumpAlpha(entity->GetRpClump()) != 255)) {
-            // todo: R* nice check | or we missed smth here?
+            // Como el original: los peatones con alpha != 255 también van a la lista ordenada
+            bool bInsertIntoSortedList = true;
             if (entity->GetIsTypeVehicle()) {
-                bool bInsertIntoSortedList = false;
                 if (vehicle->IsBoat()) {
-                    const auto& camMode = CCamera::GetActiveCamera().m_nMode;
-                    const auto& lookDirection = TheCamera.GetLookDirection();
-                    if (camMode == MODE_WHEELCAM || camMode == MODE_1STPERSON &&
-                        lookDirection != LOOKING_DIRECTION_FORWARD && lookDirection != LOOKING_DIRECTION_UNKNOWN_1 ||
-                        CVisibilityPlugins::GetClumpAlpha(entity->GetRpClump()) != 255
-                    )
-                    {
-                        bInsertIntoSortedList = true;
-                    }
+                    // Como el original: GetLookDirection solo se consulta en primera persona (y dos veces)
+                    const auto camMode = CCamera::GetActiveCamera().m_nMode;
+                    bInsertIntoSortedList = camMode == MODE_WHEELCAM
+                        || camMode == MODE_1STPERSON && TheCamera.GetLookDirection() != LOOKING_DIRECTION_FORWARD && TheCamera.GetLookDirection() != LOOKING_DIRECTION_UNKNOWN_1
+                        || CVisibilityPlugins::GetClumpAlpha(entity->GetRpClump()) != 255;
+                } else {
+                    bInsertIntoSortedList = !vehicle->physicalFlags.bTouchingWater;
                 }
-                else if (!vehicle->physicalFlags.bTouchingWater) {
-                    bInsertIntoSortedList = true;
-                }
-                const float fMagnitude = DistanceBetweenPoints(entity->GetPosition(), ms_vecCameraPosition);
-                if (bInsertIntoSortedList)
-                    bInserted = CVisibilityPlugins::InsertEntityIntoSortedList(entity, fMagnitude);
-                else
-                    bInserted = CVisibilityPlugins::InsertEntityIntoUnderwaterList(entity, fMagnitude);
             }
+            const CVector& entityPos = entity->GetPosition();
+            const float dx = ms_vecCameraPosition.x - entityPos.x;
+            const float dy = ms_vecCameraPosition.y - entityPos.y;
+            const float dz = ms_vecCameraPosition.z - entityPos.z;
+            // Como el original: orden de sumas distinto en cada rama (z, y, x para la lista ordenada; z, x, y para la submarina)
+            if (bInsertIntoSortedList)
+                bInserted = CVisibilityPlugins::InsertEntityIntoSortedList(entity, std::sqrt(dz * dz + dy * dy + dx * dx));
+            else
+                bInserted = CVisibilityPlugins::InsertEntityIntoUnderwaterList(entity, std::sqrt(dz * dz + dx * dx + dy * dy));
         }
         if (!bInserted)
             RenderOneNonRoad(entity);
@@ -422,7 +454,8 @@ void CRenderer::RenderFirstPersonVehicle() {
 
     if (m_pFirstPersonVehicle) {
         bool bRestoreAlphaTest = false;
-        if (FindPlayerPed(0)->GetActiveWeapon().m_Type == WEAPON_MICRO_UZI) {
+        // Como el original: FindPlayerPed(0) está inlinado (lee CWorld::Players[0].m_pPed sin llamar)
+        if (CWorld::Players[0].m_pPed->GetActiveWeapon().m_Type == WEAPON_MICRO_UZI) {
             bRestoreAlphaTest = true;
             RwRenderStateSet(rwRENDERSTATEALPHATESTFUNCTIONREF, RWRSTATE(80u));
         }
@@ -447,7 +480,7 @@ bool CRenderer::SetupLightingForEntity(CPhysical* entity) {
         return false;
     }
     entity->m_fDynamicLighting = 0.0f;
-    const CVector& point = entity->GetPosition();
+    const CVector point = entity->GetPosition(); // Como el original: copia local de la posición
     float generatedLightings = CPointLights::GenerateLightsAffectingObject(&point, &entity->m_fDynamicLighting, entity);
     float lightingMultiplier = (entity->GetLightingFromCol(true) * (1.0f - 0.05f) + 0.05f) * generatedLightings;
     CCarFXRenderer::SetFxEnvMapLightMult(lightingMultiplier);
@@ -464,12 +497,17 @@ int32 CRenderer::SetupMapEntityVisibility(CEntity* entity, CBaseModelInfo* baseM
     }
 
     const float fFarClipRadius = baseModelInfo->GetColModel()->GetBoundRadius() + ms_fFarClipPlane;
-    float fDrawDistanceRadius = std::min(TheCamera.m_fLODDistMultiplier * baseModelInfo->m_fDrawDistance, fFarClipRadius);
+    // Como el original: se queda con el radio de recorte salvo que la distancia sea estrictamente menor (NaN -> radio)
+    float fDrawDistanceRadius = TheCamera.m_fLODDistMultiplier * baseModelInfo->m_fDrawDistance;
+    if (!(fDrawDistanceRadius < fFarClipRadius))
+        fDrawDistanceRadius = fFarClipRadius;
     float fFadingDistance = MAX_FADING_DISTANCE;
     if (!entity->GetLod()) {
-        float fDrawDistance = std::min(baseModelInfo->m_fDrawDistance, fDrawDistanceRadius);
+        float fDrawDistance = baseModelInfo->m_fDrawDistance;
+        if (!(fDrawDistance < fDrawDistanceRadius))
+            fDrawDistance = fDrawDistanceRadius;
         if (fDrawDistance > MAX_LOWLOD_DISTANCE)
-            fFadingDistance = fDrawDistance / 15.0f + 10.0f;
+            fFadingDistance = fDrawDistance * std::bit_cast<float>(0x3D888889u) + 10.0f; // Como el original: * 0,06666667 (flt_863E0C), no / 15
         if (entity->m_bIsBIGBuilding)
             fDrawDistanceRadius *= ms_lowLodDistScale;
     }
@@ -483,7 +521,7 @@ int32 CRenderer::SetupMapEntityVisibility(CEntity* entity, CBaseModelInfo* baseM
         }
     }
 
-    if (!baseModelInfo->GetRwObject() || (fFadingDistance + fDistance - MAX_FADING_DISTANCE >= fDrawDistanceRadius)) {
+    if (!baseModelInfo->GetRwObject() || !(fFadingDistance + fDistance - MAX_FADING_DISTANCE < fDrawDistanceRadius)) { // Como el original: NaN entra aquí
         if (entity->m_bDontStream)
             return RENDERER_INVISIBLE;
         if (baseModelInfo->GetRwObject() && fDistance - MAX_FADING_DISTANCE < fDrawDistanceRadius) {
@@ -508,7 +546,7 @@ int32 CRenderer::SetupMapEntityVisibility(CEntity* entity, CBaseModelInfo* baseM
                 AddEntityToRenderList(entity, fDistance);
             return RENDERER_INVISIBLE;
         }
-        if (fDistance - MAX_STREAMING_DISTANCE >= fDrawDistanceRadius || !bIsTimeInRange || !entity->GetIsVisible())
+        if (!(fDistance - MAX_STREAMING_DISTANCE < fDrawDistanceRadius) || !bIsTimeInRange || !entity->GetIsVisible()) // Como el original: NaN es invisible
             return RENDERER_INVISIBLE;
         if (!entity->GetRwObject())
             entity->CreateRwObject();
@@ -561,8 +599,9 @@ int32 CRenderer::SetupEntityVisibility(CEntity* entity, float& outDistance) {
         {
             if (FindPlayerVehicle() == entity && gbFirstPersonRunThisFrame && CReplay::Mode != MODE_PLAYBACK) {
                 uint32 dwDirectionWasLooking = CCamera::GetActiveCamera().m_nDirectionWasLooking;
-                CVehicle* vehicle = FindPlayerVehicle();
-                if (!vehicle->IsBike() || !(vehicle->AsBike()->bikeFlags.bWheelieForCamera))
+                CVehicle* vehicle = entity->AsVehicle();
+                // Como el original: FindPlayerVehicle se vuelve a llamar para el tipo y para los flags de la moto
+                if (!FindPlayerVehicle()->IsBike() || !(FindPlayerVehicle()->AsBike()->bikeFlags.bWheelieForCamera))
                 {
                     if (dwDirectionWasLooking == 3)
                         return RENDERER_CULLED;
@@ -599,7 +638,7 @@ int32 CRenderer::SetupEntityVisibility(CEntity* entity, float& outDistance) {
                 return RENDERER_CULLED;
             }
 
-            if (entity->GetWasPostponed()) {
+            if (entity->m_bDrawLast) { // Como el original: bit 14 (m_bDrawLast), no m_bWasPostponed
                 entity->m_bDistanceFade = false;
                 AddEntityToRenderList(entity, DistanceBetweenPoints(ms_vecCameraPosition, entity->GetPosition()));
                 return RENDERER_INVISIBLE;
@@ -643,7 +682,7 @@ int32 CRenderer::SetupEntityVisibility(CEntity* entity, float& outDistance) {
                     return RENDERER_CULLED;
                 }
 
-                if (!entity->GetWasPostponed())
+                if (!entity->m_bDrawLast) // Como el original: bit 14 (m_bDrawLast), no m_bWasPostponed
                 {
                     return RENDERER_VISIBLE;
                 }
@@ -661,7 +700,7 @@ int32 CRenderer::SetupEntityVisibility(CEntity* entity, float& outDistance) {
             position = entity->GetLod()->GetPosition();
         }
 
-        outDistance = DistanceBetweenPoints(ms_vecCameraPosition, position);
+        outDistance = DistanceZYX(position, ms_vecCameraPosition);
         if (outDistance > MAX_LOD_DISTANCE) {
             const float fDrawDistanceRadius = TheCamera.m_fLODDistMultiplier * baseModelInfo->m_fDrawDistance;
             if (fDrawDistanceRadius > MAX_LOD_DISTANCE &&
@@ -710,7 +749,7 @@ int32 CRenderer::SetupBigBuildingVisibility(CEntity* entity, float& outDistance)
         entityPos = entity->GetLod()->GetPosition();
     }
 
-    outDistance = DistanceBetweenPoints(ms_vecCameraPosition, entityPos);
+    outDistance = DistanceZYX(entityPos, ms_vecCameraPosition);
     if (!entity->HasLodChildrenRendered()) {
         int32 visibility = SetupMapEntityVisibility(entity, baseModelInfo, outDistance, bIsTimeInRange);
         if (visibility != RENDERER_VISIBLE || entity->GetNumLodChildren() <= 1u) {
@@ -743,8 +782,14 @@ int32 CRenderer::SetupBigBuildingVisibility(CEntity* entity, float& outDistance)
 template<bool CheckIsVisible>
 void I_ScanSectorList_ListModels(int32 sectorX, int32 sectorY) {
     CRenderer::SetupScanLists(sectorX, sectorY);
-    reinterpret_cast<tScanLists*>(&PC_Scratch)->VisitLists([&]<typename PtrListType>(PtrListType& list) {
-        for (auto* const entity : list) {
+    auto* const scanLists = reinterpret_cast<tScanLists*>(&PC_Scratch);
+    const auto ProcessList = [&]<typename PtrListType>(PtrListType* list) {
+        if (!list) {
+            // Como el original: ScanSectorList_ListModelsVisible (0x553650) no avanza el puntero de listas al
+            // encontrar una lista nula, así que no recorre ninguna de las siguientes. ListModels sí sigue.
+            return !CheckIsVisible;
+        }
+        for (auto* const entity : *list) {
             if (entity->IsScanCodeCurrent()) {
                 continue;
             }
@@ -760,7 +805,10 @@ void I_ScanSectorList_ListModels(int32 sectorX, int32 sectorY) {
             *gpOutEntitiesForGetObjectsInFrustum = entity;
             gpOutEntitiesForGetObjectsInFrustum++;
         }
-    });
+        return true;
+    };
+    (void)(ProcessList(scanLists->buildingsList) && ProcessList(scanLists->objectsList) && ProcessList(scanLists->vehiclesList)
+        && ProcessList(scanLists->pedsList) && ProcessList(scanLists->dummiesList));
 }
 
 // 0x5535D0
@@ -776,25 +824,27 @@ void CRenderer::ScanSectorList_ListModelsVisible(int32 sectorX, int32 sectorY) {
 // 0x554840
 void CRenderer::ScanSectorList(int32 sectorX, int32 sectorY) {
     bool bRequestModel = false;
-    float fDistanceX = CWorld::GetSectorPosX(sectorX) - ms_vecCameraPosition.x;
-    float fDistanceY = CWorld::GetSectorPosY(sectorY) - ms_vecCameraPosition.y;
-    float fAngleInRadians = std::atan2(-fDistanceX, fDistanceY) - ms_fCameraHeading;
-    if (CVector2D(fDistanceX, fDistanceY).SquaredMagnitude() < MAX_STREAMING_RADIUS_SQUARED ||
-        std::fabs(CGeneral::LimitRadianAngle(fAngleInRadians)) < STREAMING_ANGLE_THRESHOLD_RAD
+    const float fDistanceX = CWorld::GetSectorPosX(sectorX) - ms_vecCameraPosition.x;
+    const float fDistanceY = CWorld::GetSectorPosY(sectorY) - ms_vecCameraPosition.y;
+    // Como el original: el ángulo (fpatan de precisión completa menos el heading) solo se calcula si el sector no está cerca
+    if (fDistanceY * fDistanceY + fDistanceX * fDistanceX < MAX_STREAMING_RADIUS_SQUARED ||
+        std::fabs(CGeneral::LimitRadianAngle(FpatanMinus(-fDistanceX, fDistanceY, ms_fCameraHeading))) < STREAMING_ANGLE_THRESHOLD_RAD
     ) {
         bRequestModel = true;
     }
 
     CRenderer::SetupScanLists(sectorX, sectorY);
+    // Como el original: la distancia no se reinicia por entidad; SetupEntityVisibility no la escribe en todos los
+    // caminos y AddEntityToRenderList recibe entonces la de la entidad anterior (la inicial es basura de pila en el EXE)
+    float fDistance = 0.0f;
     reinterpret_cast<tScanLists*>(&PC_Scratch)->VisitLists([&]<typename PtrListType>(PtrListType& list) {
         for (auto* const entity : list) {
             if (entity->IsScanCodeCurrent())
                 continue;
 
-            entity->SetCurrentScanCode() ;
+            entity->SetCurrentScanCode();
             entity->m_bOffscreen = false;
             bool bInvisibleEntity = false;
-            float fDistance = 0.0f;
             switch (SetupEntityVisibility(entity, fDistance)) {
             case RENDERER_INVISIBLE: {
                 if (entity->GetIsTypeObject()) {
@@ -817,15 +867,16 @@ void CRenderer::ScanSectorList(int32 sectorX, int32 sectorY) {
                 if (CStreaming::ms_disableStreaming || !entity->GetIsOnScreen() || ms_bInTheSky)
                     break;
 
-                if (bRequestModel) {
-                    if (CStreaming::GetInfo(entity->m_nModelIndex).IsLoaded()) {
-                        CStreaming::RequestModel(entity->m_nModelIndex, 0);
-                        break;
-                    } else if (!entity->IsEntityOccluded()) {
-                        SetLoadingPriority(1);
+                // Como el original: si el modelo no está cargado se consulta la oclusión antes que bRequestModel
+                if (CStreaming::GetInfo(entity->m_nModelIndex).IsLoaded()) {
+                    if (bRequestModel) {
                         CStreaming::RequestModel(entity->m_nModelIndex, 0);
                         break;
                     }
+                } else if (!entity->IsEntityOccluded() && bRequestModel) {
+                    SetLoadingPriority(1);
+                    CStreaming::RequestModel(entity->m_nModelIndex, 0);
+                    break;
                 }
 
                 if (!m_loadingPriority || CStreaming::ms_numModelsRequested < 1)
@@ -843,18 +894,21 @@ void CRenderer::ScanSectorList(int32 sectorX, int32 sectorY) {
             entity->m_bOffscreen = true;
             if (entity->m_bHasPreRenderEffects) {
                 float fDrawDistance = MAX_INVISIBLE_ENTITY_DISTANCE;
-                CVector2D distance = ms_vecCameraPosition - entity->GetPosition();
+                const CVector& entityPos = entity->GetPosition();
+                const float fDiffX = ms_vecCameraPosition.x - entityPos.x;
                 if (entity->GetIsTypeVehicle()) {
                     if (entity->AsVehicle()->vehicleFlags.bAlwaysSkidMarks) {
                         fDrawDistance = MAX_INVISIBLE_VEHICLE_DISTANCE;
                     }
                 }
-                if (distance.x > -fDrawDistance && distance.x < fDrawDistance &&
-                    distance.y > -fDrawDistance && distance.y < fDrawDistance
-                ) {
-                    if (ms_nNoOfInVisibleEntities < MAX_INVISIBLE_ENTITY_PTRS - 1) {
-                        ms_aInVisibleEntityPtrs[ms_nNoOfInVisibleEntities] = entity;
-                        ms_nNoOfInVisibleEntities++;
+                if (fDiffX > -fDrawDistance && fDiffX < fDrawDistance) {
+                    const float fDiffY = ms_vecCameraPosition.y - entity->GetPosition().y;
+                    if (fDiffY > -fDrawDistance && fDiffY < fDrawDistance) {
+                        // Como el original: comparación con signo (jge 149)
+                        if (ms_nNoOfInVisibleEntities < (int32)MAX_INVISIBLE_ENTITY_PTRS - 1) {
+                            ms_aInVisibleEntityPtrs[ms_nNoOfInVisibleEntities] = entity;
+                            ms_nNoOfInVisibleEntities++;
+                        }
                     }
                 }
             }
@@ -868,26 +922,24 @@ void CRenderer::ScanBigBuildingList(int32 sectorX, int32 sectorY) {
         return;
 
     bool bRequestModel = false;
-    float fDistanceX = CWorld::GetLodSectorPosX(sectorX) - ms_vecCameraPosition.x;
-    float fDistanceY = CWorld::GetLodSectorPosY(sectorY) - ms_vecCameraPosition.y;
-    float fAngleInRadians = std::atan2(-fDistanceX, fDistanceY) - ms_fCameraHeading;
-    if (CVector2D(fDistanceX, fDistanceY).SquaredMagnitude() < MAX_BIGBUILDING_STREAMING_RADIUS_SQUARED ||
-        std::fabs(CGeneral::LimitRadianAngle(fAngleInRadians)) <= BIGBUILDING_STREAMING_ANGLE_THRESHOLD_RAD
+    const float fDistanceX = CWorld::GetLodSectorPosX(sectorX) - ms_vecCameraPosition.x;
+    const float fDistanceY = CWorld::GetLodSectorPosY(sectorY) - ms_vecCameraPosition.y;
+    // Como el original: el ángulo (fpatan de precisión completa menos el heading) solo se calcula si el sector no está cerca
+    if (fDistanceY * fDistanceY + fDistanceX * fDistanceX < MAX_BIGBUILDING_STREAMING_RADIUS_SQUARED ||
+        std::fabs(CGeneral::LimitRadianAngle(FpatanMinus(-fDistanceX, fDistanceY, ms_fCameraHeading))) <= BIGBUILDING_STREAMING_ANGLE_THRESHOLD_RAD
     ) {
         bRequestModel = true;
     }
 
+    // Como el original: la distancia no se reinicia por entidad (ver ScanSectorList)
+    float fDistance = 0.0f;
     for (auto* const entity : CWorld::GetLodPtrList(sectorX, sectorY)) {
         if (entity->IsScanCodeCurrent())
             continue;
 
         entity->SetCurrentScanCode();
 
-        float fDistance = 0.0f;
         switch (SetupBigBuildingVisibility(entity, fDistance)) {
-        case RENDERER_CULLED:
-        case RENDERER_INVISIBLE:
-            break;
         case RENDERER_STREAMME:
             if (!CStreaming::ms_disableStreaming && bRequestModel) {
                 CStreaming::RequestModel(entity->m_nModelIndex, 0);
@@ -897,8 +949,7 @@ void CRenderer::ScanBigBuildingList(int32 sectorX, int32 sectorY) {
             AddEntityToRenderList(entity, fDistance + 0.01f);
             entity->m_bOffscreen = false;
             break;
-        default:
-            assert(false);
+        default: // Como el original: cualquier otro valor se ignora
             break;
         }
     }
@@ -914,12 +965,12 @@ bool CRenderer::ShouldModelBeStreamed(CEntity* entity, const CVector& point, flo
     if (timeInfo && !CClock::GetIsTimeInRange(timeInfo->GetTimeOn(), timeInfo->GetTimeOff()))
         return false;
 
-    const float fMagnitude = DistanceBetweenPoints(point, entity->GetPosition());
-    const float fDrawDistanceRadius = TheCamera.m_fLODDistMultiplier * modelInfo->m_fDrawDistance;
-    if (fMagnitude <= modelInfo->GetColModel()->GetBoundRadius() + farClip && fDrawDistanceRadius > fMagnitude)
-        return true;
+    const float fMagnitude = DistanceZYX(entity->GetPosition(), point);
+    // Como el original: un radio NaN no descarta (solo sale si la distancia es estrictamente mayor)
+    if (fMagnitude > modelInfo->GetColModel()->GetBoundRadius() + farClip)
+        return false;
 
-    return false;
+    return TheCamera.m_fLODDistMultiplier * modelInfo->m_fDrawDistance > fMagnitude;
 }
 
 // 0x555680
@@ -952,19 +1003,21 @@ void CRenderer::ConstructRenderList() {
 
     CPlayerPed* player = FindPlayerPed();
     if (player && player->GetAreaCode() == AREA_CODE_NORMAL_WORLD) {
-        float fGroundHeightZ = TheCamera.CalculateGroundHeight(eGroundHeightType::ENTITY_BB_BOTTOM);
-        float fPlayerHeightZ = player->GetPosition().z;
+        // Como el original: las dos alturas del suelo se calculan siempre, antes de comparar
+        const float fGroundHeightBottomZ = TheCamera.CalculateGroundHeight(eGroundHeightType::ENTITY_BB_BOTTOM);
+        const float fGroundHeightTopZ = TheCamera.CalculateGroundHeight(eGroundHeightType::ENTITY_BB_TOP);
+        const float fPlayerHeightZ = player->GetPosition().z;
 
-        if (fPlayerHeightZ - fGroundHeightZ > 50.0f) {
-            fGroundHeightZ = TheCamera.CalculateGroundHeight(eGroundHeightType::ENTITY_BB_TOP);
-            if (fPlayerHeightZ - fGroundHeightZ > 10.0f && FindPlayerVehicle()) {
+        if (fPlayerHeightZ - fGroundHeightBottomZ > 50.0f) {
+            if (fPlayerHeightZ - fGroundHeightTopZ > 10.0f && FindPlayerVehicle()) {
                 ms_bInTheSky = true;
             }
         }
 
         if (camPos.z > LOWLOD_CAMERA_HEIGHT_THRESHOLD) {
             float fScale = (camPos.z - LOWLOD_CAMERA_HEIGHT_THRESHOLD) / (250.0f - LOWLOD_CAMERA_HEIGHT_THRESHOLD);
-            fScale = std::min(1.0f, fScale);
+            if (fScale > 1.0f) // Como el original: NaN se queda
+                fScale = 1.0f;
             ms_lowLodDistScale = fScale * (2.2f - 1.0f) + 1.0f;
         }
     }
@@ -996,6 +1049,9 @@ void CRenderer::ScanSectorList_RequestModels(int32 sectorX, int32 sectorY) {
 
 // 0x554FE0
 void CRenderer::ScanWorld() {
+    // Como el original: marca como construidas las dos variables estáticas locales (guarda 0xB76894, bits 0 y 1)
+    StaticRef<uint32>(0xB76894) |= 3u;
+
     const float& farPlane = TheCamera.m_pRwCamera->farPlane;
     const float& width  = TheCamera.m_pRwCamera->viewWindow.x;
     const float& height = TheCamera.m_pRwCamera->viewWindow.y;
@@ -1017,6 +1073,7 @@ void CRenderer::ScanWorld() {
         frustumPoints[i] = CVector(0.0f, 0.0f, 0.0f);
     }
 
+    RwMatrix* const cameraMatrix = TheCamera.GetRwMatrix();
     m_pFirstPersonVehicle = nullptr;
     CVisibilityPlugins::InitAlphaEntityList();
 
@@ -1024,61 +1081,51 @@ void CRenderer::ScanWorld() {
 
     static auto& lastCameraPosition = StaticRef<CVector>(0xB76888);
     static auto& lastCameraForward = StaticRef<CVector>(0xB7687C);
+    static auto& bCameraHasNotMoved = StaticRef<bool>(0xB745C8); // sin uso en el EXE
 
-    CVector distance = TheCamera.GetPosition() - lastCameraPosition;
-    static bool bUnusedBool = false;
-    if (DotProduct(distance, lastCameraForward) >= 16.0f || DotProduct(TheCamera.m_mCameraMatrix.GetForward(), lastCameraForward) <= 0.98f)
-        bUnusedBool = false;
-    else
-        bUnusedBool = true;
+    // Como el original: la cámara "no se ha movido" si |pos - última|² < 16 (sumando z, x, y) y
+    // forward · último forward > 0,98 (sumando z, x, y)
+    const CVector& cameraPos = TheCamera.GetPosition();
+    const float dx = cameraPos.x - lastCameraPosition.x;
+    const float dy = cameraPos.y - lastCameraPosition.y;
+    const float dz = cameraPos.z - lastCameraPosition.z;
+    const CVector& forward = TheCamera.m_mCameraMatrix.GetForward();
+    bCameraHasNotMoved = dz * dz + dx * dx + dy * dy < 16.0f
+        && forward.z * lastCameraForward.z + forward.x * lastCameraForward.x + forward.y * lastCameraForward.y > 0.98f;
 
     lastCameraPosition = TheCamera.GetPosition();
     lastCameraForward = TheCamera.m_mCameraMatrix.GetForward();
-    frustumPoints[5] = (frustumPoints[1] * MAX_LOD_DISTANCE) / farPlane;
-    frustumPoints[7].x = frustumPoints[5].x / 5;
-    frustumPoints[7].y = frustumPoints[5].y / 5;
-    frustumPoints[7].z = frustumPoints[5].z;
 
-    frustumPoints[6] = (frustumPoints[2] * MAX_LOD_DISTANCE) / farPlane;
-    frustumPoints[8].x = frustumPoints[6].x / 5;
-    frustumPoints[8].y = frustumPoints[6].y / 5;
-    frustumPoints[8].z = frustumPoints[6].z;
-
-    frustumPoints[9] = (frustumPoints[3] * MAX_LOD_DISTANCE) / farPlane;
-    frustumPoints[11].x = frustumPoints[9].x / 5;
-    frustumPoints[11].y = frustumPoints[9].y / 5;
-    frustumPoints[11].z = frustumPoints[9].z;
-
-    frustumPoints[10] = (frustumPoints[4] * MAX_LOD_DISTANCE) / farPlane;
-    frustumPoints[12].x = frustumPoints[10].x / 5;
-    frustumPoints[12].y = frustumPoints[10].y / 5;
-    frustumPoints[12].z = frustumPoints[10].z;
-    RwV3dTransformPoints(frustumPoints, frustumPoints, 13, TheCamera.GetRwMatrix());
+    // Como el original: (p * 300) * (1 / farPlane), y los puntos cercanos con * 0,2 (no / 5)
+    const float invFarPlane = 1.0f / farPlane;
+    const auto ScalePoint = [&](int32 dst, int32 src, int32 nearDst) {
+        frustumPoints[dst].x = frustumPoints[src].x * MAX_LOD_DISTANCE * invFarPlane;
+        frustumPoints[dst].y = frustumPoints[src].y * MAX_LOD_DISTANCE * invFarPlane;
+        frustumPoints[dst].z = frustumPoints[src].z * MAX_LOD_DISTANCE * invFarPlane;
+        frustumPoints[nearDst].x = frustumPoints[dst].x * 0.2f;
+        frustumPoints[nearDst].y = frustumPoints[dst].y * 0.2f;
+        frustumPoints[nearDst].z = frustumPoints[dst].z;
+    };
+    ScalePoint(5, 1, 7);
+    ScalePoint(6, 2, 8);
+    ScalePoint(9, 3, 11);
+    ScalePoint(10, 4, 12);
+    RwV3dTransformPoints(frustumPoints, frustumPoints, 13, cameraMatrix);
     m_loadingPriority = 0;
 
     CVector2D points[5] = {
-        { CWorld::GetSectorfX(frustumPoints[0].x),  CWorld::GetSectorfY(frustumPoints[0].y)  },
-        { CWorld::GetSectorfX(frustumPoints[5].x),  CWorld::GetSectorfY(frustumPoints[5].y)  },
-        { CWorld::GetSectorfX(frustumPoints[6].x),  CWorld::GetSectorfY(frustumPoints[6].y)  },
-        { CWorld::GetSectorfX(frustumPoints[9].x),  CWorld::GetSectorfY(frustumPoints[9].y)  },
-        { CWorld::GetSectorfX(frustumPoints[10].x), CWorld::GetSectorfY(frustumPoints[10].y) },
+        { SectorfX(frustumPoints[0].x),  SectorfX(frustumPoints[0].y)  },
+        { SectorfX(frustumPoints[5].x),  SectorfX(frustumPoints[5].y)  },
+        { SectorfX(frustumPoints[6].x),  SectorfX(frustumPoints[6].y)  },
+        { SectorfX(frustumPoints[9].x),  SectorfX(frustumPoints[9].y)  },
+        { SectorfX(frustumPoints[10].x), SectorfX(frustumPoints[10].y) },
     };
     CWorldScan::ScanWorld(points, (int)std::size(points), ScanSectorList);
 
-    points[0].x = CWorld::GetLodSectorfX(frustumPoints[0].x);
-    points[0].y = CWorld::GetLodSectorfY(frustumPoints[0].y);
-
-    points[1].x = CWorld::GetLodSectorfX(frustumPoints[1].x);
-    points[1].y = CWorld::GetLodSectorfY(frustumPoints[1].y);
-
-    points[2].x = CWorld::GetLodSectorfX(frustumPoints[2].x);
-    points[2].y = CWorld::GetLodSectorfY(frustumPoints[2].y);
-
-    points[3].x = CWorld::GetLodSectorfX(frustumPoints[3].x);
-    points[3].y = CWorld::GetLodSectorfY(frustumPoints[3].y);
-
-    points[4].x = CWorld::GetLodSectorfX(frustumPoints[4].x);
-    points[4].y = CWorld::GetLodSectorfY(frustumPoints[4].y );
+    for (auto i = 0u; i < std::size(points); i++) {
+        points[i].x = LodSectorfX(frustumPoints[i].x);
+        points[i].y = LodSectorfX(frustumPoints[i].y);
+    }
 
     CWorldScan::ScanWorld(points, (int)std::size(points), ScanBigBuildingList);
 }
@@ -1115,8 +1162,8 @@ int32 CRenderer::GetObjectsInFrustum(CEntity** outEntities, float farPlane, RwMa
     gpOutEntitiesForGetObjectsInFrustum = outEntities;
     CVector2D points[3];
     for (auto i = 0u; i < std::size(points); i++) {
-        points[i].x = CWorld::GetSectorfX(frustumPoints[i].x);
-        points[i].y = CWorld::GetSectorfY(frustumPoints[i].y);
+        points[i].x = SectorfX(frustumPoints[i].x);
+        points[i].y = SectorfX(frustumPoints[i].y);
     }
     if (transformMatrix)
         CWorldScan::ScanWorld(points, (int)std::size(points), ScanSectorList_ListModels);
@@ -1127,7 +1174,7 @@ int32 CRenderer::GetObjectsInFrustum(CEntity** outEntities, float farPlane, RwMa
 
 // 0x555960
 void CRenderer::RequestObjectsInFrustum(RwMatrix* transformMatrix, int32 modelRequestFlags) {
-    const float& farPlane = TheCamera.m_pRwCamera->farPlane;
+    const float farPlane = TheCamera.m_pRwCamera->farPlane;
     const float& width  = TheCamera.m_pRwCamera->viewWindow.x;
     const float& height = TheCamera.m_pRwCamera->viewWindow.y;
 
@@ -1150,27 +1197,34 @@ void CRenderer::RequestObjectsInFrustum(RwMatrix* transformMatrix, int32 modelRe
     ms_vecCameraPosition = transformMatrix->pos;
     ms_fFarClipPlane = MAX_LOD_DISTANCE;
     gnRendererModelRequestFlags = modelRequestFlags;
-    if (transformMatrix->at.z > 0.0f) {
-        frustumPoints[5] = (frustumPoints[4] * MAX_LOD_DISTANCE) / farPlane;
-        frustumPoints[6] = (frustumPoints[3] * MAX_LOD_DISTANCE) / farPlane;
+    // Como el original: (p * 300) * (1 / farPlane); con at.z NaN también se usan los puntos de abajo (4 y 3)
+    const float invFarPlane = 1.0f / farPlane;
+    const auto ScalePoint = [&](int32 dst, int32 src) {
+        frustumPoints[dst].x = frustumPoints[src].x * MAX_LOD_DISTANCE * invFarPlane;
+        frustumPoints[dst].y = frustumPoints[src].y * MAX_LOD_DISTANCE * invFarPlane;
+        frustumPoints[dst].z = frustumPoints[src].z * MAX_LOD_DISTANCE * invFarPlane;
+    };
+    if (!(transformMatrix->at.z <= 0.0f)) {
+        ScalePoint(5, 4);
+        ScalePoint(6, 3);
     }
     else {
-        frustumPoints[5] = (frustumPoints[1] * MAX_LOD_DISTANCE) / farPlane;
-        frustumPoints[6] = (frustumPoints[2] * MAX_LOD_DISTANCE) / farPlane;
+        ScalePoint(5, 1);
+        ScalePoint(6, 2);
     }
     RwV3dTransformPoints(frustumPoints, frustumPoints, (int)std::size(frustumPoints), transformMatrix);
     CVector2D points[3] = {
-        { CWorld::GetSectorfX(frustumPoints[0].x), CWorld::GetSectorfY(frustumPoints[0].y) },
-        { CWorld::GetSectorfX(frustumPoints[5].x), CWorld::GetSectorfY(frustumPoints[5].y) },
-        { CWorld::GetSectorfX(frustumPoints[6].x), CWorld::GetSectorfY(frustumPoints[6].y) },
+        { SectorfX(frustumPoints[0].x), SectorfX(frustumPoints[0].y) },
+        { SectorfX(frustumPoints[5].x), SectorfX(frustumPoints[5].y) },
+        { SectorfX(frustumPoints[6].x), SectorfX(frustumPoints[6].y) },
     };
     CWorldScan::ScanWorld(points, std::size(points), ScanSectorList_RequestModels);
 }
 
-// modelRequestFlags is always set to `STREAMING_LOADING_SCENE` when this function is called
 // 0x555CB0
 void CRenderer::RequestObjectsInDirection(const CVector& posn, float angle, int32 modelRequestFlags)
 {
+    // NOTA: el EXE hace OR 0x20003 sobre los flags sin inicializar de la matriz local
     RwMatrix matrix {
         .right = { 1.0f, 0.0f, 0.0f },
         .flags = rwMATRIXINTERNALIDENTITY | rwMATRIXTYPEORTHONORMAL,
@@ -1180,16 +1234,18 @@ void CRenderer::RequestObjectsInDirection(const CVector& posn, float angle, int3
     };
     RwV3d axis = { 1.0f, 0.0f, 0.0f };
     RwMatrixRotate(&matrix, &axis, 90.0f, rwCOMBINEREPLACE);
-    angle = ((angle * 180.0f) / PI) + 180.0f;
+    angle = angle * std::bit_cast<float>(0x42652EE0u) + 180.0f; // Como el original: * 57,295776 (flt_859878) + 180
     axis = { 0.0f, 0.0f, 1.0f };
     RwMatrixRotate(&matrix, &axis, angle, rwCOMBINEPOSTCONCAT);
     RwMatrixTranslate(&matrix, &posn, rwCOMBINEPOSTCONCAT);
-    RequestObjectsInFrustum(&matrix, modelRequestFlags);
+    // Como el original: siempre pide con STREAMING_LOADING_SCENE (0x20), ignora `modelRequestFlags`
+    (void)modelRequestFlags;
+    RequestObjectsInFrustum(&matrix, STREAMING_LOADING_SCENE);
 }
 
 // 0x553540
 void CRenderer::SetupScanLists(int32 sectorX, int32 sectorY) {
-    auto& repeatSector = CWorld::GetRepeatSector(sectorX, sectorY);
+    auto& repeatSector = RepeatSectorAnd15(sectorX, sectorY); // Como el original: & 15 (no abs % 16)
     auto* scanLists    = reinterpret_cast<tScanLists*>(&PC_Scratch);
     if (sectorX >= 0 && sectorY >= 0 && sectorX < MAX_SECTORS_X && sectorY < MAX_SECTORS_Y) {
         auto& sector             = CWorld::GetSector(sectorX, sectorY);

@@ -1,0 +1,91 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 7552,
+  "pairs_per_function": {
+    "CPlayerInfo::AddHealth": 1024,
+    "CPlayerInfo::ArrestPlayer": 128,
+    "CPlayerInfo::BlowUpRCBuggy": 256,
+    "CPlayerInfo::Clear": 256,
+    "CPlayerInfo::Constructor": 64,
+    "CPlayerInfo::DeletePlayerSkin": 64,
+    "CPlayerInfo::EvaluateCarPosition": 1024,
+    "CPlayerInfo::GetPos_Hook": 256,
+    "CPlayerInfo::GetSpeed_Hook": 256,
+    "CPlayerInfo::GivePlayerParachute": 256,
+    "CPlayerInfo::IsPlayerInRemoteMode": 128,
+    "CPlayerInfo::IsRestartingAfterArrest": 64,
+    "CPlayerInfo::IsRestartingAfterDeath": 64,
+    "CPlayerInfo::IsRestartingAfterMissionFailed": 64,
+    "CPlayerInfo::KillPlayer": 128,
+    "CPlayerInfo::Load": 128,
+    "CPlayerInfo::LoadPlayerSkin": 64,
+    "CPlayerInfo::MakePlayerSafe": 512,
+    "CPlayerInfo::PlayerFailedCriticalMission": 128,
+    "CPlayerInfo::Save": 128,
+    "CPlayerInfo::SetLastTargetVehicle": 256,
+    "CPlayerInfo::SetPlayerSkin": 256,
+    "CPlayerInfo::StreamParachuteWeapon": 1024,
+    "CPlayerInfo::WorkOutEnergyFromHunger": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "65d45f39a039648c012716f32a83ccdf56b310ade7305a61afec3ba1b88b3e43",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-player28\\20261004-112035-381935",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CPlayerInfo::AddHealth": true,
+    "CPlayerInfo::ArrestPlayer": true,
+    "CPlayerInfo::BlowUpRCBuggy": true,
+    "CPlayerInfo::Clear": true,
+    "CPlayerInfo::Constructor": true,
+    "CPlayerInfo::DeletePlayerSkin": true,
+    "CPlayerInfo::EvaluateCarPosition": true,
+    "CPlayerInfo::GetPos_Hook": true,
+    "CPlayerInfo::GetSpeed_Hook": true,
+    "CPlayerInfo::GivePlayerParachute": true,
+    "CPlayerInfo::IsPlayerInRemoteMode": true,
+    "CPlayerInfo::IsRestartingAfterArrest": true,
+    "CPlayerInfo::IsRestartingAfterDeath": true,
+    "CPlayerInfo::IsRestartingAfterMissionFailed": true,
+    "CPlayerInfo::KillPlayer": true,
+    "CPlayerInfo::Load": true,
+    "CPlayerInfo::LoadPlayerSkin": true,
+    "CPlayerInfo::MakePlayerSafe": true,
+    "CPlayerInfo::PlayerFailedCriticalMission": true,
+    "CPlayerInfo::Save": true,
+    "CPlayerInfo::SetLastTargetVehicle": true,
+    "CPlayerInfo::SetPlayerSkin": true,
+    "CPlayerInfo::StreamParachuteWeapon": true,
+    "CPlayerInfo::WorkOutEnergyFromHunger": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "b5a4cfea151bfcbe973619d443f4e86360b0314bd51aa9081819521b7bf3af49",
+      "pdb": "dd40f623cd3a83648e5ee38936ecf6a04693e5e703cfbe207958f6bc72a856b7"
+    },
+    "sources": {
+      "source/game_sa/PlayerInfo.cpp": "e49efb872ce6b2a78687ddf674bd96b7903728f716615cdf1204916d83ef22bb",
+      "source/game_sa/PlayerInfo.h": "1860550e07f2c88c924f5f072d7859e09bcb6f50feab0d01c1ec5103875ce77c"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "647577acc99f8a9609db14976dc25d682745a7c89dbe3c80d0dd575a52c80633",
+      "build_probe.py": "2b9f48a9dde3054c28e1850e4ba9394e029187db85d75af5b866f3b7cbd9bc13",
+      "run_local.py": "268c0c417b91f694cecae2255e417df4fa42d681c92c3f80f26e3b2e5a1ce1e2"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

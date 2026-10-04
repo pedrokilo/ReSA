@@ -1,0 +1,105 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 11072,
+  "pairs_per_function": {
+    "CAnimManager::AddAnimAssocDefinition": 512,
+    "CAnimManager::AddAnimBlockRef": 128,
+    "CAnimManager::AddAnimToAssocDefinition": 256,
+    "CAnimManager::AddAnimation-hier": 512,
+    "CAnimManager::AddAnimation-id": 512,
+    "CAnimManager::AddAnimationAndSync": 512,
+    "CAnimManager::BlendAnimation-hier": 1024,
+    "CAnimManager::BlendAnimation-id": 1024,
+    "CAnimManager::CreateAnimAssocGroups": 512,
+    "CAnimManager::CreateAnimAssociation": 128,
+    "CAnimManager::GetAnimAssociation-by-id": 128,
+    "CAnimManager::GetAnimAssociation-by-name": 256,
+    "CAnimManager::GetAnimBlockName": 64,
+    "CAnimManager::GetAnimGroupName": 64,
+    "CAnimManager::GetAnimation-0": 256,
+    "CAnimManager::GetAnimation-1": 256,
+    "CAnimManager::GetAnimationBlock-": 256,
+    "CAnimManager::GetAnimationBlockIndex-by-name": 256,
+    "CAnimManager::GetFirstAssocGroup": 256,
+    "CAnimManager::GetNumRefsToAnimBlock": 128,
+    "CAnimManager::Initialise": 256,
+    "CAnimManager::LoadAnimFile": 1024,
+    "CAnimManager::LoadAnimFiles": 256,
+    "CAnimManager::ReadAnimAssociationDefinitions": 256,
+    "CAnimManager::RegisterAnimBlock": 256,
+    "CAnimManager::RemoveAnimBlock": 256,
+    "CAnimManager::RemoveAnimBlockRefWithoutDelete": 128,
+    "CAnimManager::RemoveFromUncompressedCache": 256,
+    "CAnimManager::RemoveLastAnimFile": 256,
+    "CAnimManager::Shutdown": 64,
+    "CAnimManager::UncompressAnimation": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "402744433eaa53e821efcd0bdb678aee5bde10719d0736ccc816d7acf5f058ba",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-animmgr31\\20261004-112409-096781",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CAnimManager::AddAnimAssocDefinition": true,
+    "CAnimManager::AddAnimBlockRef": true,
+    "CAnimManager::AddAnimToAssocDefinition": true,
+    "CAnimManager::AddAnimation-hier": true,
+    "CAnimManager::AddAnimation-id": true,
+    "CAnimManager::AddAnimationAndSync": true,
+    "CAnimManager::BlendAnimation-hier": true,
+    "CAnimManager::BlendAnimation-id": true,
+    "CAnimManager::CreateAnimAssocGroups": true,
+    "CAnimManager::CreateAnimAssociation": true,
+    "CAnimManager::GetAnimAssociation-by-id": true,
+    "CAnimManager::GetAnimAssociation-by-name": true,
+    "CAnimManager::GetAnimBlockName": true,
+    "CAnimManager::GetAnimGroupName": true,
+    "CAnimManager::GetAnimation-0": true,
+    "CAnimManager::GetAnimation-1": true,
+    "CAnimManager::GetAnimationBlock-": true,
+    "CAnimManager::GetAnimationBlockIndex-by-name": true,
+    "CAnimManager::GetFirstAssocGroup": true,
+    "CAnimManager::GetNumRefsToAnimBlock": true,
+    "CAnimManager::Initialise": true,
+    "CAnimManager::LoadAnimFile": true,
+    "CAnimManager::LoadAnimFiles": true,
+    "CAnimManager::ReadAnimAssociationDefinitions": true,
+    "CAnimManager::RegisterAnimBlock": true,
+    "CAnimManager::RemoveAnimBlock": true,
+    "CAnimManager::RemoveAnimBlockRefWithoutDelete": true,
+    "CAnimManager::RemoveFromUncompressedCache": true,
+    "CAnimManager::RemoveLastAnimFile": true,
+    "CAnimManager::Shutdown": true,
+    "CAnimManager::UncompressAnimation": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "5c20c7ccd627dc9656ddfcdfa8d6a333d6d20756fc776c96d2ee84927924df73",
+      "pdb": "8d2c93bd172a9361c141581b3986a6a08f8e630a089ffb53cc2d4d97a8e1213c"
+    },
+    "sources": {
+      "source/game_sa/Animation/AnimManager.cpp": "b1b6fb52a5c9b121f9143e0b53b166bdba723f2439cafe056e9898a7f99f56ab",
+      "source/game_sa/Animation/AnimManager.h": "733c557162ca196077e93debb240eeb821325b17f4e1e957923a038f94f39f1b"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "49b83f55d702369748a7c7312ed4920898a38637dfd03c27262039fe531c3d10",
+      "build_probe.py": "c8a488dd2583ffc35c1269fc19c8d538d5569714ea4ae20863212b3690ef9d3d",
+      "run_local.py": "331f3e2c47832f8fcb17977bae295399c8b7182510e6ab5a3377edcbedc32666"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

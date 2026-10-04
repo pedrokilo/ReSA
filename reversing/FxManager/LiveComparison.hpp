@@ -55,6 +55,9 @@ struct Fixture {
         }
         for (auto& p : particles) { auto* bytes = reinterpret_cast<uint8*>(&p); payloads.emplace_back(bytes + 8, bytes + sizeof(p)); }
     }
+    // DestroyFxSystem (EXE 0x4A9810 y la DLL) devuelve las particulas a la lista libre del gestor global (0xA9AE9C), no a
+    // la de this: durante cada llamada la lista libre del fixture ocupa la de g_fxMan y despues se devuelve intacta.
+    void SwapFree() { std::swap(g_fxMan.m_FxEmitterParticles, manager.m_FxEmitterParticles); }
     void SwapLists() { for (size_t i = 0; i < prims.size(); ++i) std::swap(prims[i]->m_Particles, lists[i]); attached = !attached; }
     int SystemId(FxSystem_c* p) const {
         if (!p) return -1; if (p == foreign) return -2;
@@ -91,7 +94,7 @@ struct Fixture {
         // Cleanup is also valid after a failed/incomplete traversal.
         FxManagerProbe::active = false;
         if (!attached) SwapLists();
-        while (auto* system = manager.m_FxSystems.GetHead()) manager.DestroyFxSystem(system);
+        SwapFree(); while (auto* system = manager.m_FxSystems.GetHead()) manager.DestroyFxSystem(system); SwapFree();
         SwapLists(); foreign->Exit(); delete foreign;
     }
 };
@@ -103,9 +106,9 @@ inline json Run(Fixture& fixture, ReversibleHooks::ReversibleHook::Base* hook, b
     FxManagerProbe::invalidateLink = invalidate; FxManagerProbe::active = true;
     const auto before = FxManagerProbe::calls;
     auto entry = reinterpret_cast<void(__thiscall*)(FxManager_c*)>(0x4A98B0);
-    entry(&fixture.manager);
+    fixture.SwapFree(); entry(&fixture.manager); fixture.SwapFree();
     const auto first = fixture.Snapshot(); const auto firstDestroyed = FxManagerProbe::destroyed.size();
-    entry(&fixture.manager);
+    fixture.SwapFree(); entry(&fixture.manager); fixture.SwapFree();
     auto result = fixture.Snapshot();
     result["idempotent"] = first == result && firstDestroyed == FxManagerProbe::destroyed.size();
     result["candidate_calls"] = FxManagerProbe::calls - before;
@@ -125,7 +128,7 @@ inline json RunUpdate(Fixture& fixture, ReversibleHooks::ReversibleHook::Base* h
     json stages = json::array();
     auto entry = reinterpret_cast<void(__thiscall*)(FxManager_c*, RwCamera*, float)>(0x4A9A80);
     for (int i = 0; i < 3; ++i) {
-        entry(&fixture.manager, camera, step);
+        fixture.SwapFree(); entry(&fixture.manager, camera, step); fixture.SwapFree();
         auto stage = fixture.Snapshot();
         stage["destroyed"] = json::array();
         for (auto* s : FxManagerProbe::destroyed) stage["destroyed"].push_back(fixture.SystemId(s));

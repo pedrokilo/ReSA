@@ -8,16 +8,18 @@
 #include "extensions/FixedFloat.hpp"
 #include "extensions/FixedVector.hpp"
 
+// Como el original: valores empaquetados crudos; el EXE los lee con movsx (con signo) y los multiplica
+// por el recíproco (1/16383.5, 1/127, 0.05, 0.01), no los divide.
 class CVehicleStateEachFrame {
 public:
     uint32 m_nTime;
-    FixedVector<int16, 16383.5f> m_sVelocity;
-    FixedVector<int8, 127.0f> m_bRight;
-    FixedVector<int8, 127.0f> m_bTop;
-    FixedFloat<uint8, 20.0f> m_bSteeringAngle;
-    FixedFloat<uint8, 100.0f> m_bGasPedalPower;
-    FixedFloat<uint8, 100.0f> m_bBreakPedalPower;
-    bool m_bHandbrakeUsed;
+    int16 m_sVelocity[3];
+    int8 m_bRight[3];
+    int8 m_bTop[3];
+    int8 m_bSteeringAngle;
+    int8 m_bGasPedalPower;
+    int8 m_bBreakPedalPower;
+    uint8 m_bHandbrakeUsed;
     CVector m_vecPosn;
 };
 VALIDATE_SIZE(CVehicleStateEachFrame, 0x20);
@@ -69,7 +71,7 @@ public:
     static inline auto& bPlaybackLooped = StaticRef<std::array<bool, TOTAL_VEHICLE_RECORDS>>(0x97D6E0);
     static inline auto& bPlaybackPaused = StaticRef<std::array<bool, TOTAL_VEHICLE_RECORDS>>(0x97D6D0);
     static inline auto& bUseCarAI = StaticRef<std::array<bool, TOTAL_VEHICLE_RECORDS>>(0x97D6C0);
-    static inline auto& PlayBackStreamingIndex = StaticRef<std::array<uint32, 3>>(0x97D670);
+    static inline auto& PlayBackStreamingIndex = StaticRef<std::array<uint32, TOTAL_VEHICLE_RECORDS>>(0x97D670); // Como el original: uno por reproducción (0x97D670..0x97D6B0)
     // DisplayMode
 
 public:

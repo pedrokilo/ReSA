@@ -1,0 +1,93 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 8064,
+  "pairs_per_function": {
+    "CTxdStore::AddRef": 256,
+    "CTxdStore::Create": 256,
+    "CTxdStore::FindTxdSlot-hash": 512,
+    "CTxdStore::FindTxdSlot-name": 1024,
+    "CTxdStore::FinishLoadTxd": 512,
+    "CTxdStore::GameShutdown": 64,
+    "CTxdStore::GetNumRefs": 256,
+    "CTxdStore::GetParentTxdSlot": 256,
+    "CTxdStore::GetTxd": 256,
+    "CTxdStore::Initialise": 128,
+    "CTxdStore::LoadTxd-filename": 256,
+    "CTxdStore::LoadTxd-stream": 512,
+    "CTxdStore::PopCurrentTxd": 128,
+    "CTxdStore::PushCurrentTxd": 128,
+    "CTxdStore::RemoveIfRefCountIsGreaterThanOne": 256,
+    "CTxdStore::RemoveRef": 512,
+    "CTxdStore::RemoveRefWithoutDelete": 256,
+    "CTxdStore::RemoveTxd": 512,
+    "CTxdStore::SetCurrentTxd": 256,
+    "CTxdStore::SetupTxdParent": 512,
+    "CTxdStore::Shutdown": 128,
+    "CTxdStore::StartLoadTxd": 512,
+    "CTxdStore::TxdStoreFindCB": 512,
+    "CTxdStore::TxdStoreLoadCB": 64
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "e0275a8619227814166a5f6c85777dcd262e9b63ac561d451dc194f54425dbfc",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-txd26\\20261004-093430-168022",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTxdStore::AddRef": true,
+    "CTxdStore::Create": true,
+    "CTxdStore::FindTxdSlot-hash": true,
+    "CTxdStore::FindTxdSlot-name": true,
+    "CTxdStore::FinishLoadTxd": true,
+    "CTxdStore::GameShutdown": true,
+    "CTxdStore::GetNumRefs": true,
+    "CTxdStore::GetParentTxdSlot": true,
+    "CTxdStore::GetTxd": true,
+    "CTxdStore::Initialise": true,
+    "CTxdStore::LoadTxd-filename": true,
+    "CTxdStore::LoadTxd-stream": true,
+    "CTxdStore::PopCurrentTxd": true,
+    "CTxdStore::PushCurrentTxd": true,
+    "CTxdStore::RemoveIfRefCountIsGreaterThanOne": true,
+    "CTxdStore::RemoveRef": true,
+    "CTxdStore::RemoveRefWithoutDelete": true,
+    "CTxdStore::RemoveTxd": true,
+    "CTxdStore::SetCurrentTxd": true,
+    "CTxdStore::SetupTxdParent": true,
+    "CTxdStore::Shutdown": true,
+    "CTxdStore::StartLoadTxd": true,
+    "CTxdStore::TxdStoreFindCB": true,
+    "CTxdStore::TxdStoreLoadCB": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "18c5af143d881ee64ed937f30f563d666636c2b33b7e07c1913d62f28cbae4ff",
+      "pdb": "643b3aa1e494eec86f464306304e69f4c9e4b0e4a4882763fe769dce5eeb11e7"
+    },
+    "sources": {
+      "source/game_sa/TxdStore.cpp": "39b6582fed73dfe28ad7f3bc6528d08d4e9a2891791ba9a7e91ddc0058ed4ed5",
+      "source/game_sa/TxdStore.h": "c83687e4e009d3be86ea81c08cf1a869593bb9413b277a46c53e4f9d82486057",
+      "source/game_sa/TxdStore_Plugin.cpp": "6430710fd7ad4dbf6df59ae291e3b46aa7bf855afb7c9f510a7a7b16d0d46951",
+      "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "e97690bb052e43b216ac0b27f83e83d30c3f4b90915608e168a3754062b48b93",
+      "build_probe.py": "9321a59ddce78defc25536d8fe8f751611acbab79e64426e2daa35a70594afc7",
+      "run_local.py": "68909cfc7f99a7eeb1fbfa16c1a46814fdb2b9de679d9031ac72d9e0a3d37522"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

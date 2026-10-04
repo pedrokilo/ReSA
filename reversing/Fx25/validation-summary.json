@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 14336,
+  "pairs_per_function": {
+    "FxManager_c::CalcFrustumInfo": 1024,
+    "FxManager_c::Constructor": 256,
+    "FxManager_c::CreateFxSystem-1": 1024,
+    "FxManager_c::CreateFxSystem-2": 1024,
+    "FxManager_c::CreateFxSystem-3": 1024,
+    "FxManager_c::CreateFxSystem-4": 1024,
+    "FxManager_c::DestroyFxSystem": 1024,
+    "FxManager_c::Destructor": 128,
+    "FxManager_c::Exit": 512,
+    "FxManager_c::FindFxSystemBP": 1024,
+    "FxManager_c::FreeUpParticle": 1024,
+    "FxManager_c::FxRwMatrixCreate": 256,
+    "FxManager_c::FxRwMatrixDestroy": 256,
+    "FxManager_c::GetFrustumInfo": 128,
+    "FxManager_c::GetParticle": 512,
+    "FxManager_c::Init": 256,
+    "FxManager_c::LoadFxProject": 512,
+    "FxManager_c::LoadFxSystemBP": 512,
+    "FxManager_c::Render": 512,
+    "FxManager_c::ReturnParticle": 512,
+    "FxManager_c::SetWindData": 256,
+    "FxManager_c::ShouldCreate": 1024,
+    "FxManager_c::UnloadFxProject": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "7637a5f9ed64f63860396abaedaee3784ebaa897764b42ffaf25004da50d5f47",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fx25\\20261004-094145-843096",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "FxManager_c::CalcFrustumInfo": true,
+    "FxManager_c::Constructor": true,
+    "FxManager_c::CreateFxSystem-1": true,
+    "FxManager_c::CreateFxSystem-2": true,
+    "FxManager_c::CreateFxSystem-3": true,
+    "FxManager_c::CreateFxSystem-4": true,
+    "FxManager_c::DestroyFxSystem": true,
+    "FxManager_c::Destructor": true,
+    "FxManager_c::Exit": true,
+    "FxManager_c::FindFxSystemBP": true,
+    "FxManager_c::FreeUpParticle": true,
+    "FxManager_c::FxRwMatrixCreate": true,
+    "FxManager_c::FxRwMatrixDestroy": true,
+    "FxManager_c::GetFrustumInfo": true,
+    "FxManager_c::GetParticle": true,
+    "FxManager_c::Init": true,
+    "FxManager_c::LoadFxProject": true,
+    "FxManager_c::LoadFxSystemBP": true,
+    "FxManager_c::Render": true,
+    "FxManager_c::ReturnParticle": true,
+    "FxManager_c::SetWindData": true,
+    "FxManager_c::ShouldCreate": true,
+    "FxManager_c::UnloadFxProject": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "5f9669880ec0c1bb76e219c2da60e183a7c36f6540521452d134c17bef929591",
+      "pdb": "1eaafa6c0ee700ba4491fe59790c2afcde7ba5582ed00694c30e40b251ed4287"
+    },
+    "sources": {
+      "source/game_sa/Fx/FxManager.cpp": "3551bc297fd16e0eca0afc096db755fe0f53b662e905961b238285e7c0f24d11",
+      "source/game_sa/Fx/FxManager.h": "b80c788eaba818ce8c926d96d3afcb80ab6474e48ff0266c6b96985b0603c220",
+      "source/game_sa/Fx/FxEmitterPrt.h": "01772a232d2572b8e300e633578b6327cf03aac04795866466c7ccc6bfe8d5c8"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "5b80215c14e32d349a600b794b089522da7ed04d8468b4d5fece62bafc45c02d",
+      "build_probe.py": "504f10d32c61ad3419aae29b4819a2d4b5d837c26f8e1dc43273680f13d44067",
+      "run_local.py": "53372332d5a7995b8a779860415b009c18c09b4231bae732738093e442073d7d"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

@@ -1296,3 +1296,21 @@ Bancos nuevos, todos con pares exactos dentro de GTA: [WeapAudio](WeapAudio/READ
 - Para localizar cuelgues: migas de pan escritas en vivo con un solo `WriteFile` sin reservas (`FILE_FLAG_WRITE_THROUGH`).
 - Los stubs registran en un array fijo y el json se construye tras la llamada.
 - `run_local.py` lanza el juego aunque se le pase `--help`: los agentes no deben ejecutarlo nunca.
+
+## Continuidad vigente: clases de 25 a 33 funciones (2026-10-04)
+
+Bancos nuevos, todos con pares exactos dentro de GTA: [CarAI25](CarAI25/README.md), [Fx25](Fx25/README.md), [PGI26](PGI26/README.md), [Txd26](Txd26/README.md), [EnExInit](EnExInit/README.md), [Damage27](Damage27/README.md), [GameLogic27](GameLogic27/README.md), [Light27](Light27/README.md), [Rs27](Rs27/README.md), [Player28](Player28/README.md), [VehRec29](VehRec29/README.md), [Shop30](Shop30/README.md), [AnimMgr31](AnimMgr31/README.md), [Stats32](Stats32/README.md), [Renderer33](Renderer33/README.md), [Sprite2d33](Sprite2d33/README.md), [Wanted33](Wanted33/README.md).
+
+**Defectos de alcance general encontrados:**
+- `CGameLogic::GameState` y `ActivePlayers` son bytes en el EXE (la DLL escribía 4 bytes y pisaba 0x96A8B1..B4).
+- `CEntryExitManager::Init` reserva 400 entradas como el EXE (antes 512, NOTSA).
+- `FxEmitterPrt_c` medía 0x44 por una base `ListItem_c` duplicada; el EXE usa 0x3C.
+- `CDamageManager`: anchos de argumentos/retornos y dos convenciones de llamada incorrectas; `ProgressEngineDamage` corrompía la pila.
+- `CShopping::gpCurrentProperty` era una variable propia de la DLL en vez de una referencia a 0xA97294.
+- `CRenderer::ProcessLodRenderLists` nunca ejecutaba su segundo bucle y `CanLodChildrenRender` siempre era cierto.
+- `CCarAI::TellOccupantsToLeaveCar` recorría el número de pasajeros en vez de todos los asientos.
+
+**Lecciones:**
+- Un `NOTSA_LOG_*` dentro de una función probada con `operator new` parcheado reserva en la arena del banco (spdlog guarda un historial); evitar logs en esos caminos.
+- Las aserciones de depuración de la DLL que llaman a virtuales (p. ej. `GetRwModelType` dentro de `GetRwObject`) añaden llamadas que el EXE no hace: dar al vtable falso esa entrada sin traza.
+- Funciones que devuelven un `enum : uint8` y el EXE usa EAX completo: devolver `int32`.

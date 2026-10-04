@@ -20,6 +20,8 @@ Ejecutable analizado y copia de pruebas: SHA-256 `72ae59e44c761389e354a50dc6215e
 
 Se comparan orden de destrucción, estados de los supervivientes, cabeza/cola/contador y enlaces de listas de partículas, orden de devolución, propiedad, conservación exacta de todas las partículas y contenido de cada partícula fuera de sus enlaces. Las partículas del sistema ajeno deben permanecer activas. Update compara además los bytes del frustum y las tres etapas del ciclo.
 
+Desde el 04/10/2026 `DestroyFxSystem` devuelve las partículas, como el EXE, a la lista libre del gestor global (0xA9AE9C): el banco intercambia la lista libre del fixture con la de `g_fxMan` solo durante cada llamada (también en la limpieza) y la devuelve después, así el gestor real no se modifica.
+
 Los sistemas, instancias de primitivas, matrices propias y partículas de cada fase tienen almacenamiento independiente. Los blueprints cargados comparten datos de definición de solo lectura durante las llamadas; sus listas mutables se intercambian temporalmente por las de cada fixture y se restauran antes de la otra fase. No se actualizan ni destruyen los efectos activos del jugador. Se verifican al final los bytes del manager global, los sistemas vivos y las primitivas/partículas conservadas de los blueprints utilizados. Las partidas originales y de prueba conservaron sus hashes.
 
 Registro final: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fxmanager/20260922-194518-413631/comparisons.jsonl`.

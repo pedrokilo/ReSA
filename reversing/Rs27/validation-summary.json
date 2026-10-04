@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 6464,
+  "pairs_per_function": {
+    "Rs::RsKeyFromScanCode": 512,
+    "Rs::RsTimer": 64,
+    "Rs::RsWindowSetText": 64,
+    "Rs::RsPathGetSeparator": 64,
+    "Rs::RsCameraBeginUpdate": 256,
+    "Rs::RsAlwaysOnTop": 256,
+    "Rs::RsRegisterImageLoader": 64,
+    "Rs::RsSetDebug": 64,
+    "Rs::RsMouseSetVisibility": 128,
+    "Rs::RsMouseSetPos": 64,
+    "Rs::RsSelectDevice": 128,
+    "Rs::RsInputDeviceAttach": 512,
+    "Rs::rsCommandLine": 128,
+    "Rs::rsPreInitCommandLine": 256,
+    "Rs::RsKeyboardEventHandler": 256,
+    "Rs::RsMouseEventHandler": 256,
+    "Rs::RsPadEventHandler": 256,
+    "Rs::RsPathnameDestroy": 64,
+    "Rs::RsPathnameCreate": 64,
+    "Rs::RsRwTerminate": 64,
+    "Rs::RsTerminate": 64,
+    "Rs::RsInitialize": 256,
+    "Rs::RsGrabScreen": 64,
+    "Rs::RsErrorMessage": 256,
+    "Rs::RsWarningMessage": 256,
+    "Rs::RsEventHandler": 1024,
+    "Rs::RsRwInitialize": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "b946178e2ce46a96ed471f328caf4649260f58ec04f19d6c5534eeaa017b7c71",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-rs27\\20261004-100246-661715",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "Rs::RsKeyFromScanCode": true,
+    "Rs::RsTimer": true,
+    "Rs::RsWindowSetText": true,
+    "Rs::RsPathGetSeparator": true,
+    "Rs::RsCameraBeginUpdate": true,
+    "Rs::RsAlwaysOnTop": true,
+    "Rs::RsRegisterImageLoader": true,
+    "Rs::RsSetDebug": true,
+    "Rs::RsMouseSetVisibility": true,
+    "Rs::RsMouseSetPos": true,
+    "Rs::RsSelectDevice": true,
+    "Rs::RsInputDeviceAttach": true,
+    "Rs::rsCommandLine": true,
+    "Rs::rsPreInitCommandLine": true,
+    "Rs::RsKeyboardEventHandler": true,
+    "Rs::RsMouseEventHandler": true,
+    "Rs::RsPadEventHandler": true,
+    "Rs::RsPathnameDestroy": true,
+    "Rs::RsPathnameCreate": true,
+    "Rs::RsRwTerminate": true,
+    "Rs::RsTerminate": true,
+    "Rs::RsInitialize": true,
+    "Rs::RsGrabScreen": true,
+    "Rs::RsErrorMessage": true,
+    "Rs::RsWarningMessage": true,
+    "Rs::RsEventHandler": true,
+    "Rs::RsRwInitialize": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "8d2ea60ebab75c31e6b75f7d7bf582a975beec30b9d048685870dbbe8eba691b",
+      "pdb": "382eb66579c33465343adb05a51816bd977787a13a88ae195a5b845ee6e38a01"
+    },
+    "sources": {
+      "source/app/platform/platform.cpp": "7c82312baf342ebf53686d7791ee891a0bec67a48c2960c324af8d32e796167f",
+      "source/app/platform/platform.h": "d3574feb9078a4cffe6ed970524619cd11efbcae684404831523834e433409c7"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "a2964757b8b1edc2eeeb40a15ef31bd17d81794e05be9f31ec2db826896f0f7a",
+      "build_probe.py": "05f49ae0c17ef2eb61c9a520d26450dc9ba6b826d5eb0a424aa5e42e7b057d4b",
+      "run_local.py": "dd3d8ed59e647ffce8c6d9bfe1c1ca8f6848bbc70f40df2af055f8400bcb54ea"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

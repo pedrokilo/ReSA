@@ -1,0 +1,109 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 15616,
+  "pairs_per_function": {
+    "CWanted::Initialise": 128,
+    "CWanted::Reset": 128,
+    "CWanted::InitialiseStaticVariables": 64,
+    "CWanted::UpdateWantedLevel": 1024,
+    "CWanted::SetMaximumWantedLevel": 256,
+    "CWanted::AreMiamiViceRequired": 256,
+    "CWanted::AreSwatRequired": 256,
+    "CWanted::AreFbiRequired": 256,
+    "CWanted::AreArmyRequired": 256,
+    "CWanted::NumOfHelisRequired": 256,
+    "CWanted::ResetPolicePursuit": 64,
+    "CWanted::UpdateCrimesQ": 512,
+    "CWanted::ClearQdCrimes": 128,
+    "CWanted::AddCrimeToQ": 1024,
+    "CWanted::ReportCrimeNow": 1024,
+    "CWanted::IsInPursuit": 256,
+    "CWanted::UpdateEachFrame": 256,
+    "CWanted::RegisterCrime": 512,
+    "CWanted::RegisterCrime_Immediately": 512,
+    "CWanted::SetWantedLevel": 512,
+    "CWanted::CheatWantedLevel": 512,
+    "CWanted::SetWantedLevelNoDrop": 512,
+    "CWanted::ClearWantedLevelAndGoOnParole": 256,
+    "CWanted::WorkOutPolicePresence": 1024,
+    "CWanted::IsClosestCop": 1024,
+    "CWanted::ComputePursuitCopToDisplace": 1024,
+    "CWanted::RemovePursuitCop-func": 256,
+    "CWanted::RemovePursuitCop-method": 256,
+    "CWanted::RemoveExcessPursuitCops": 512,
+    "CWanted::Update": 1024,
+    "CWanted::CanCopJoinPursuit-func": 512,
+    "CWanted::CanCopJoinPursuit-method": 512,
+    "CWanted::SetPursuitCop": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "d7b53dd2c9b9f41c41ae91f3601aad6d8d04059cd69593580437eac1935e4132",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-wanted33\\20261004-105124-745278",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CWanted::Initialise": true,
+    "CWanted::Reset": true,
+    "CWanted::InitialiseStaticVariables": true,
+    "CWanted::UpdateWantedLevel": true,
+    "CWanted::SetMaximumWantedLevel": true,
+    "CWanted::AreMiamiViceRequired": true,
+    "CWanted::AreSwatRequired": true,
+    "CWanted::AreFbiRequired": true,
+    "CWanted::AreArmyRequired": true,
+    "CWanted::NumOfHelisRequired": true,
+    "CWanted::ResetPolicePursuit": true,
+    "CWanted::UpdateCrimesQ": true,
+    "CWanted::ClearQdCrimes": true,
+    "CWanted::AddCrimeToQ": true,
+    "CWanted::ReportCrimeNow": true,
+    "CWanted::IsInPursuit": true,
+    "CWanted::UpdateEachFrame": true,
+    "CWanted::RegisterCrime": true,
+    "CWanted::RegisterCrime_Immediately": true,
+    "CWanted::SetWantedLevel": true,
+    "CWanted::CheatWantedLevel": true,
+    "CWanted::SetWantedLevelNoDrop": true,
+    "CWanted::ClearWantedLevelAndGoOnParole": true,
+    "CWanted::WorkOutPolicePresence": true,
+    "CWanted::IsClosestCop": true,
+    "CWanted::ComputePursuitCopToDisplace": true,
+    "CWanted::RemovePursuitCop-func": true,
+    "CWanted::RemovePursuitCop-method": true,
+    "CWanted::RemoveExcessPursuitCops": true,
+    "CWanted::Update": true,
+    "CWanted::CanCopJoinPursuit-func": true,
+    "CWanted::CanCopJoinPursuit-method": true,
+    "CWanted::SetPursuitCop": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "2f15a16c0fca9c6cbb27096fef342a49706fce1f662278cc4e6f1d6c12bb1d70",
+      "pdb": "ae7c38c049238453d2ff706c9804c68cd21c2396d29d4fa039e842bddb0555d4"
+    },
+    "sources": {
+      "source/game_sa/Wanted.cpp": "270c5c4c1132033a7a111e603958145b398c9736c909b59ab4e4543b65a1c084",
+      "source/game_sa/Wanted.h": "7a4366269000d6cd77fa2e6f2d4df0e0b8dad842d491995b9813fef7f305eb84"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "f5104a90301aa4ba1ba8ed04d3a78d437eb7bfe007b2f607926494ebe12e54ff",
+      "build_probe.py": "c1efa120915b450291ca61fc737b79348887a54b2bd8f280bd91b75f670a4d15",
+      "run_local.py": "2f3b20e011b6a0c61804a28119dfdaac006a194824fe91798befaff966d8ee25"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

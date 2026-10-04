@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 27/27 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/27 entradas.
+ * Validación registrada: 27/27 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -121,9 +121,11 @@ void LightsDestroy(RpWorld* world) {
             if (destroyFrame) {
                 RwFrameDestroy(RpLightGetFrame(light));
             }
-            RpLightDestroy(std::exchange(light, nullptr));
+            RpLightDestroy(light);
+            light = nullptr;
         }
     };
+    // Como el original: destruye la luz y luego pone el puntero global a nullptr.
     DestroyLight(pAmbient, false);
     DestroyLight(pDirect, true);
     for (auto& light : pExtraDirectionals) {
@@ -140,8 +142,7 @@ void LightsEnable(int32 enable) {
 void SetLightsWithTimeOfDayColour(RpWorld* world) {
     ZoneScoped;
 
-    assert(world);
-
+    // Como el original: no usa `world`.
     if (pAmbient) {
         AmbientLightColourForFrame = {
             CTimeCycle::GetAmbientRed()   * CCoronas::LightsMult,
@@ -176,11 +177,11 @@ void SetLightsWithTimeOfDayColour(RpWorld* world) {
         const auto right = CVector::ZAxisVector().Cross(dir).Normalized(); // NOTE: I don't normalization is needed here
         const auto up    = right.Cross(dir);
 
-        RwMatrix transform{ // RW has y and z swapped, so don't get confused
-            .right = up,
-            .up    = right,
-            .at    = -dir
-        };
+        // Como el original: flags, rellenos y pos de la matriz quedan sin inicializar (pila).
+        RwMatrix transform; // RW has y and z swapped, so don't get confused
+        transform.right = up;
+        transform.up    = right;
+        transform.at    = -dir;
         RwFrameTransform(RpLightGetFrame(pDirect), &transform, rwCOMBINEREPLACE);
     }
 }
@@ -188,7 +189,11 @@ void SetLightsWithTimeOfDayColour(RpWorld* world) {
 // lighting = [ 0.0f; 1.0f ]
 // 0x7357E0
 void WorldReplaceNormalLightsWithScorched(RpWorld* world, float lighting) {
-    RwRGBAReal color{ lighting, lighting, lighting };
+    // Como el original: el alpha queda sin inicializar.
+    RwRGBAReal color;
+    color.red   = lighting;
+    color.green = lighting;
+    color.blue  = lighting;
     RpLightSetColor(pAmbient, &color);
     DeActivateDirectional();
 }
@@ -202,21 +207,23 @@ void WorldReplaceScorchedLightsWithNormal(RpWorld* world) {
 
 // 0x735840
 void AddAnExtraDirectionalLight(RpWorld* world, float x, float y, float z, float red, float green, float blue) {
-    const float strength     = std::max({ red, green, blue });
-    const auto  numDirLights = CGame::CanSeeOutSideFromCurrArea() ? 4 : 6;
+    // Como el original: (red > green ? red : green), luego compara con blue (NaN y ceros con signo incluidos).
+    const float maxRG    = red > green ? red : green;
+    const float strength = maxRG > blue ? maxRG : blue;
+    const int32 numDirLights = CGame::currArea != AREA_CODE_NORMAL_WORLD ? 6 : 4;
 
     const auto slot = [&] {
-        if (numDirLights > NumExtraDirectionalLights) {
+        if (NumExtraDirectionalLights < numDirLights) {
             return NumExtraDirectionalLights;
         }
 
-        // Android sets `msIdx` to -1, making `slot < 0` satisfiable.
-        int32 msIdx{};
+        // Como el original: empieza en -1 y solo recorre las `numDirLights` primeras.
+        int32 msIdx = -1;
         float msValue{ strength };
-        for (const auto&& [i, s] : rngv::enumerate(LightStrengths)) {
-            if (msValue > s) {
+        for (int32 i = 0; i < numDirLights; i++) {
+            if (msValue > LightStrengths[i]) {
                 msIdx = i;
-                msValue = s;
+                msValue = LightStrengths[i];
             }
         }
         return msIdx;
@@ -226,7 +233,11 @@ void AddAnExtraDirectionalLight(RpWorld* world, float x, float y, float z, float
         return;
     }
 
-    RwRGBAReal color{ red, green, blue };
+    // Como el original: el alpha queda sin inicializar.
+    RwRGBAReal color;
+    color.red   = red;
+    color.green = green;
+    color.blue  = blue;
     RpLightSetColor(pExtraDirectionals[slot], &color);
 
     auto* frame = RpLightGetFrame(pExtraDirectionals[slot]);
@@ -236,7 +247,7 @@ void AddAnExtraDirectionalLight(RpWorld* world, float x, float y, float z, float
     RwFrameUpdateObjects(frame);
 
     // RpLightSetFlags "returns" the first arg, which is marked [[nodiscard]], so we have to use it.
-    (void)RpLightSetFlags(pExtraDirectionals[slot], rpLIGHTDIRECTIONAL);
+    (void)RpLightSetFlags(pExtraDirectionals[slot], rpLIGHTLIGHTATOMICS);
 
     LightStrengths[slot] = strength;
     NumExtraDirectionalLights = std::min(NumExtraDirectionalLights + 1, numDirLights);
@@ -279,7 +290,10 @@ void SetFlashyColours(float fMult) {
         AmbientLightColour.red   = 1.0f;
         AmbientLightColour.green = 1.0f;
         AmbientLightColour.blue  = 1.0f;
-        DirectionalLightColour = DirectionalLightColourForFrame;
+        // Como el original: copia solo rgb, no el alpha.
+        DirectionalLightColour.red   = DirectionalLightColourForFrame.red;
+        DirectionalLightColour.green = DirectionalLightColourForFrame.green;
+        DirectionalLightColour.blue  = DirectionalLightColourForFrame.blue;
 
         RpLightSetColor(pAmbient, &AmbientLightColour);
         RpLightSetColor(pDirect,  &DirectionalLightColour);
@@ -295,7 +309,10 @@ void SetFlashyColours_Mild(float fMult) {
         AmbientLightColour.red   = 0.65f;
         AmbientLightColour.green = 0.65f;
         AmbientLightColour.blue  = 0.65f;
-        DirectionalLightColour = DirectionalLightColourForFrame;
+        // Como el original: copia solo rgb, no el alpha.
+        DirectionalLightColour.red   = DirectionalLightColourForFrame.red;
+        DirectionalLightColour.green = DirectionalLightColourForFrame.green;
+        DirectionalLightColour.blue  = DirectionalLightColourForFrame.blue;
 
         RpLightSetColor(pAmbient, &AmbientLightColour);
         RpLightSetColor(pDirect,  &DirectionalLightColour);
@@ -332,9 +349,11 @@ void SetAmbientColoursToIndicateRoadGroup(int32 idx) {
     static auto& IndicateG = StaticRef<std::array<uint8, 8>>(0x8D60D8);
     static auto& IndicateB = StaticRef<std::array<uint8, 8>>(0x8D60E0);
 
-    AmbientLightColour.red   = (float)IndicateR[idx & std::size(IndicateR)] * (1.0f / 255.0f);
-    AmbientLightColour.green = (float)IndicateG[idx & std::size(IndicateG)] * (1.0f / 255.0f);
-    AmbientLightColour.blue  = (float)IndicateB[idx & std::size(IndicateB)] * (1.0f / 255.0f);
+    // Como el original: índice idx % 7 con signo (cdq/idiv); un idx negativo lee antes de la tabla.
+    const int32 i = idx % 7;
+    AmbientLightColour.red   = (float)IndicateR.data()[i] * (1.0f / 255.0f);
+    AmbientLightColour.green = (float)IndicateG.data()[i] * (1.0f / 255.0f);
+    AmbientLightColour.blue  = (float)IndicateB.data()[i] * (1.0f / 255.0f);
     RpLightSetColor(pAmbient, &AmbientLightColour);
 }
 
@@ -367,9 +386,10 @@ void SetLightColoursForPedsCarsAndObjects(float fMult) {
     AmbientLightColour.green     = fMult * AmbientLightColourForFrame_PedsCarsAndObjects.green;
     AmbientLightColour.blue      = fMult * AmbientLightColourForFrame_PedsCarsAndObjects.blue;
 
+    // Como el original: cada canal suma su propio brillo (0xB79E38/34/30).
     AmbientLightColour.red      += CTimeCycle::m_BrightnessAddedToAmbientRed;
-    AmbientLightColour.green    += CTimeCycle::m_BrightnessAddedToAmbientRed;
-    AmbientLightColour.blue     += CTimeCycle::m_BrightnessAddedToAmbientRed;
+    AmbientLightColour.green    += CTimeCycle::m_BrightnessAddedToAmbientGreen;
+    AmbientLightColour.blue     += CTimeCycle::m_BrightnessAddedToAmbientBlue;
 
     RpLightSetColor(pAmbient, &AmbientLightColour);
     RpLightSetColor(pDirect, &DirectionalLightColour);
@@ -410,19 +430,21 @@ void SetLightsForNightVision() {
 
 // 0x6FAB30
 float GetDayNightBalance() {
-    const auto minutes = CClock::GetMinutesToday();
+    // Como el original: (horas * 60 + minutos) + segundos * 0.016666668f (0x859044), y multiplica en vez de dividir.
+    constexpr float ONE_SIXTIETH = 0.016666668f; // 0x3C888889
+    const float minutes = (float)(CClock::ms_nGameClockHours * 60 + CClock::ms_nGameClockMinutes) + (float)CClock::ms_nGameClockSeconds * ONE_SIXTIETH;
 
     if (minutes < 6.0f * 60.0f) // 0-6 o'clock
         return 1.0f;
 
     if (minutes < 7.0f * 60.0f) // 6-7 o'clock
-        return (7.0f * 60.0f - minutes) / 60.0f;
+        return (7.0f * 60.0f - minutes) * ONE_SIXTIETH;
 
     if (minutes < 20.0f * 60.0f) // 7-20 o'clock
         return 0.0f;
 
-    if (minutes >= 21.0f * 60.0f) // 21-0 o'clock
+    if (!(minutes < 21.0f * 60.0f)) // 21-0 o'clock
         return 1.0f;
 
-    return 1.0f - (21.0f * 60.0f - minutes) / 60.0f; // 20-21 o'clock
+    return 1.0f - (21.0f * 60.0f - minutes) * ONE_SIXTIETH; // 20-21 o'clock
 }

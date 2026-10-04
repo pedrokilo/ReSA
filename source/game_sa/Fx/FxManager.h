@@ -56,7 +56,7 @@ public:
     bool LoadFxProject(const char* path);
     void UnloadFxProject();
 
-    void LoadFxSystemBP(Const char* filename, FILESTREAM file);
+    FxSystemBP_c* LoadFxSystemBP(Const char* filename, FILESTREAM file); // Como el original: devuelve el blueprint
     FxSystemBP_c* FindFxSystemBP(const char* name);
 
     FxFrustumInfo_c* GetFrustumInfo() { return &m_Frustum; } // 0x4A9130
