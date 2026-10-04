@@ -17,7 +17,6 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
-#include "../../reversing/Audio7/LiveComparison.hpp"
 
 #include "UIRenderer.h"
 
@@ -735,7 +734,6 @@ void CGame::InitialiseWhenRestarting() {
 
 // 0x53BEE0
 void CGame::Process() {
-    Audio7Live::Update();
     ZoneScoped;
 
     CPad::UpdatePads();

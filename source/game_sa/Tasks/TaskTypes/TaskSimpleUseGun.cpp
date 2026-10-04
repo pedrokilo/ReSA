@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 19/19 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/19 entradas.
+ * Validación registrada: 19/19 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -71,19 +71,31 @@ CTaskSimpleUseGun::~CTaskSimpleUseGun() {
 
 // 0x61E0C0
 bool CTaskSimpleUseGun::ControlGunMove(const CVector2D& moveDir) {
-    const auto maxDelta = CTimer::GetTimeStep() * 0.07f;
-    for (size_t i = 0; i < 2; i++) {
-        m_MoveCmd[i] = std::clamp(moveDir[i], m_MoveCmd[i] - maxDelta, m_MoveCmd[i] + maxDelta);
-    }
+    const float maxDelta = CTimer::GetTimeStep() * 0.07f;
+    // Como el original: compara la diferencia con el maximo (no el destino con los limites redondeados),
+    // procesa primero la Y y, si la diferencia no supera el maximo en ningun sentido (o es NaN), copia el destino
+    const auto Approach = [maxDelta](float& cur, float dest) {
+        const float diff = dest - cur;
+        if (diff > maxDelta) {
+            cur = maxDelta + cur;
+        } else if (diff < -maxDelta) {
+            cur = cur - maxDelta;
+        } else {
+            cur = dest;
+        }
+    };
+    Approach(m_MoveCmd.y, moveDir.y);
+    Approach(m_MoveCmd.x, moveDir.x);
     m_HasMoveControl = true;
     return true;
 }
 
 // 0x61F3A0
 void CTaskSimpleUseGun::FinishGunAnimCB(CAnimBlendAssociation* anim, void* data) {
-    const auto self = notsa::cast<CTaskSimpleUseGun>(static_cast<CTask*>(data));
+    const auto self = static_cast<CTaskSimpleUseGun*>(data); // Como el original: sin consultar el tipo de la tarea
 
-    if (self->m_BurstShots > 0 && self->m_LastCmd == eGunCommand::RELOAD && self->m_NextCmd < eGunCommand::END_LEISURE) {
+    // Como el original: el contador de la rafaga se compara con signo
+    if (int16(self->m_BurstShots) > 0 && self->m_LastCmd == eGunCommand::RELOAD && self->m_NextCmd < eGunCommand::END_LEISURE) {
         switch (anim->GetAnimId()) {
         case ANIM_ID_RELOAD:
         case ANIM_ID_CROUCHRELOAD: {
@@ -99,32 +111,32 @@ void CTaskSimpleUseGun::FinishGunAnimCB(CAnimBlendAssociation* anim, void* data)
 
 // 0x61EB10
 void CTaskSimpleUseGun::FireGun(CPed* ped, bool isLeftHand) {
-    const auto DoFireGun = [&](CVector origin, CVector barrelPos) {
-        ped->GetActiveWeapon().Fire(
-            ped,
-            &origin,
-            &barrelPos,
-            m_TargetEntity,
-            m_TargetPos.x == 0.f || m_TargetPos.y == 0.f ? nullptr : &m_TargetPos,
-            nullptr
-        );
-    };
-
+    CVector origin{};
+    CVector barrelPos = m_WeaponInfo->m_vecFireOffset;
     if (ped->bCalledPreRender) { // If pre-render was called, the bone positions are up-to-date
-        CVector    barrelPos  = m_WeaponInfo->m_vecFireOffset;
         const auto handBoneId = isLeftHand ? BONE_L_HAND : BONE_R_HAND;
-        CVector    origin     = ped->GetBonePosition(handBoneId);
-        origin.z += barrelPos.z + 0.15f;
-        ped->GetTransformedBonePosition(barrelPos, handBoneId);
-        if (!ped->m_pedIK.bUseArm) {
+        ped->GetBonePosition(&origin, handBoneId, false); // Como el original: la sobrecarga del EXE (0x5E4280)
+        origin.z = (0.15f + barrelPos.z) + origin.z;
+        ped->GetTransformedBonePosition(barrelPos, handBoneId, false);
+        if (ped->m_pedIK.bUseArm) { // Como el original: solo con el brazo en uso (no al reves)
             ped->m_pedIK.bGunReachedTarget = g_ikChainMan.IsFacingTarget(ped, isLeftHand ? eIKChainSlot::LEFT_ARM : eIKChainSlot::RIGHT_ARM);
         }
-        DoFireGun(origin, barrelPos);
     } else { // Otherwise ped is probably not on screen anyways, so just do something good enough
-        CVector origin = ped->GetPosition();
+        origin = ped->GetPosition();
         origin.z += 0.7f;
-        DoFireGun(origin, origin);
+        barrelPos = origin;
+        if (ped->m_pedIK.bUseArm) { // Como el original: sin huesos actualizados da el arma por orientada
+            ped->m_pedIK.bGunReachedTarget = true;
+        }
     }
+    ped->GetActiveWeapon().Fire(
+        ped,
+        &origin,
+        &barrelPos,
+        m_TargetEntity,
+        m_TargetPos.x == 0.f || m_TargetPos.y == 0.f ? nullptr : &m_TargetPos,
+        nullptr
+    );
 
     if (ped->GetActiveWeapon().GetState() == WEAPONSTATE_FIRING) {
         ped->DoGunFlash(250, isLeftHand);
@@ -133,11 +145,9 @@ void CTaskSimpleUseGun::FireGun(CPed* ped, bool isLeftHand) {
 
 // 0x61E0A0
 bool CTaskSimpleUseGun::PlayerPassiveControlGun() {
-    m_IsInControl               = true;
-    const auto IsCommandPassive = [](eGunCommand c) {
-        return notsa::contains({ eGunCommand::UNKNOWN, eGunCommand::NONE, eGunCommand::AIM }, c);
-    };
-    if (IsCommandPassive(m_LastCmd) && IsCommandPassive(m_NextCmd)) {
+    m_IsInControl = true;
+    // Como el original: comparacion con signo (< FIRE), cualquier orden negativa cuenta como pasiva
+    if (m_LastCmd < eGunCommand::FIRE && m_NextCmd < eGunCommand::FIRE) {
         m_NextCmd = eGunCommand::END_LEISURE;
         return true;
     }
@@ -146,7 +156,8 @@ bool CTaskSimpleUseGun::PlayerPassiveControlGun() {
 
 // 0x61E8E0
 void CTaskSimpleUseGun::RemoveStanceAnims(CPed* ped, float x) {
-    if (m_Anim && !(m_Anim->m_Flags & ANIMATION_IS_PLAYING) && m_Anim->GetTimeProgress() < 1.f) {
+    // Como el original: compara la duracion total con el tiempo actual (sin dividir)
+    if (m_Anim && !(m_Anim->m_Flags & ANIMATION_IS_PLAYING) && m_Anim->m_BlendHier->m_fTotalTime > m_Anim->m_CurrentTime) {
         if (m_WeaponInfo && m_WeaponInfo->GetAnimLoopStart() == m_Anim->GetCurrentTime()) {
             m_Anim->SetCurrentTime(m_WeaponInfo->GetAnimLoopEnd());
         }
@@ -181,7 +192,8 @@ void CTaskSimpleUseGun::RemoveStanceAnims(CPed* ped, float x) {
 
     if (ped->IsPlayer()) {
         if (const auto pad = ped->AsPlayer()->GetPadFromPlayer()) {
-            if (std::abs(pad->GetPedWalkUpDown()) > 50 || std::abs(pad->GetPedWalkLeftRight()) > 50) { // NOTSA: They didn't use abs ;)
+            // Como el original: cada eje se lee dos veces (> 50 y < -50)
+            if (pad->GetPedWalkUpDown() > 50 || pad->GetPedWalkUpDown() < -50 || pad->GetPedWalkLeftRight() > 50 || pad->GetPedWalkLeftRight() < -50) {
                 DoBlendAnimAndStart(ANIM_ID_WALK);
 
                 ped->SetMoveState(PEDMOVE_WALK);
@@ -190,6 +202,7 @@ void CTaskSimpleUseGun::RemoveStanceAnims(CPed* ped, float x) {
                 if (const auto pd = ped->GetPlayerData()) {
                     pd->m_fMoveBlendRatio = 1.f;
                 }
+                return; // Como el original: al caminar no mezcla la animacion de reposo
             }
         }
     }
@@ -210,41 +223,60 @@ void CTaskSimpleUseGun::RemoveStanceAnims(CPed* ped, float x) {
 
 // 0x61E200
 bool CTaskSimpleUseGun::RequirePistolWhip(CPed* ped, CEntity* targetEntity) {
-    if (const auto tUseGun = ped->GetIntelligence()->GetTaskUseGun()) {
+    auto* const intel = ped->GetIntelligence();
+
+    // Como el original: con un objetivo peaton solo se prueba ese (indice 15); si no, las 16 entradas del escaner de peatones
+    CPed* other = nullptr;
+    int32 i     = 0;
+    if (targetEntity && targetEntity->GetIsTypePed()) {
+        other = targetEntity->AsPed();
+        i     = 15;
+    }
+
+    if (const auto tUseGun = intel->GetTaskUseGun()) {
         if (tUseGun->GetLastGunCommand() == eGunCommand::PISTOLWHIP) {
             return false;
         }
     }
-    const auto IsPistolWhipRequiredForPed = [
-        &,
-        &pedPos = ped->GetPosition()
-    ](CPed& otherPed) {
-        if (!otherPed.IsAlive()) { // Ped is dead :D
-            return false;
+
+    for (; i < 16; i++, other = nullptr) {
+        if (!other) {
+            other = static_cast<CPed*>(intel->GetPedEntities()[i]);
+            if (!other) {
+                continue;
+            }
         }
-        const auto forPedHeadPos = otherPed.GetBonePosition(BONE_HEAD);
-        if (pedPos.z >= forPedHeadPos.z || pedPos.z + 1.5f <= forPedHeadPos.z) { // Ped is below/above us
-            return false;
+
+        // Como el original: la posicion de la cabeza se pide antes de comprobar si esta vivo
+        CVector headPos;
+        other->GetBonePosition(&headPos, BONE_HEAD, false);
+        if (!other->IsAlive()) { // Ped is dead :D
+            continue;
         }
-        if (otherPed.bFallenDown && !notsa::dyn_cast_if_present<CTaskSimpleGetUp>(ped->GetTaskManager().GetSimplestActiveTask())) { // Fell, but hasn't got up yet?
-            return false;
+        if (!(headPos.z > ped->GetPosition().z) || !(ped->GetPosition().z + 1.5f > headPos.z)) { // Ped is below/above us (NaN: no)
+            continue;
         }
-        const auto pedToOther = otherPed.GetPosition() - ped->GetPosition();
-        if (pedToOther.SquaredMagnitude2D() >= 1.f) {
-            return false;
+        // Como el original: la tarea mas simple activa del peaton se usa sin comprobar nulo
+        if (other->bFallenDown && ped->GetTaskManager().GetSimplestActiveTask()->GetTaskType() != TASK_SIMPLE_GET_UP) { // Fell, but hasn't got up yet?
+            continue;
         }
-        const auto pedToOtherDot = ped->GetForward().Dot(pedToOther);
-        if (pedToOtherDot <= 0.f) { // Is behind?
-            return false;
+
+        // Como el original: productos escalares en orden z, y, x con la matriz del peaton
+        const CVector  d   = other->GetPosition() - ped->GetPosition();
+        const CMatrix& mat = *ped->m_matrix;
+        const float    fwdDot = d.z * mat.GetForward().z + d.y * mat.GetForward().y + d.x * mat.GetForward().x;
+        if (!(fwdDot > 0.f)) { // Is behind?
+            continue;
         }
-        if (std::abs(ped->GetRight().Dot(pedToOther)) / pedToOtherDot >= 1.f / SQRT_3) { // 1/sqrt3 = 0.57730001
-            return false;
+        if (!(std::sqrt(d.y * d.y + d.x * d.x) < 1.f)) {
+            continue;
         }
-        return true;
-    };
-    return targetEntity && targetEntity->GetIsTypePed()
-        ? IsPistolWhipRequiredForPed(*targetEntity->AsPed())
-        : rng::any_of(ped->GetIntelligence()->GetPedScanner().GetEntities<CPed>(), IsPistolWhipRequiredForPed);
+        const float rightDot = d.z * mat.GetRight().z + d.y * mat.GetRight().y + d.x * mat.GetRight().x;
+        if (std::abs(rightDot) / fwdDot < std::bit_cast<float>(0x3F13C9EFu)) { // 0.5773 (0x8D2E6C)
+            return true;
+        }
+    }
+    return false;
 }
 
 // 0x61E040
@@ -252,6 +284,7 @@ bool CTaskSimpleUseGun::ControlGun(CPed* ped, CEntity* target, eGunCommand cmd) 
     m_IsInControl = true;
     if (target != m_TargetEntity) { // New target?
         m_TargetEntity  = target;
+        AbortIK(ped); // Como el original: al cambiar de objetivo aborta la IK
         m_IsArmIKInUse  = false;
         m_IsLookIKInUse = false;
     }
@@ -275,127 +308,119 @@ void CTaskSimpleUseGun::AbortIK(CPed* ped) {
 
 // 0x61ED10
 void CTaskSimpleUseGun::AimGun(CPed* ped) {
-    const auto ikBlendTime = m_IsAimImmediate ? 0 : 250;
-    const auto ikSpeed     = m_IsAimImmediate ? 1.f : 0.5f;
+    // Como el original: velocidad y tiempo de mezcla de la IK salen de variables del EXE;
+    // apuntar inmediato los sustituye una sola vez (el indicador se consume)
+    float ikSpeed     = StaticRef<float>(0x8D2E70);
+    int32 ikBlendTime = StaticRef<int32>(0x8D2E74);
+    if (m_IsAimImmediate) {
+        ikBlendTime      = 0;
+        ikSpeed          = 1.f;
+        m_IsAimImmediate = false;
+    }
 
-    const auto isAimingWithArm = ped->bIsDucking || !m_WeaponInfo->flags.bAimWithArm;
-    if (isAimingWithArm) {
+    if (!ped->bIsDucking && m_WeaponInfo->flags.bAimWithArm) {
+        ped->m_pedIK.bUseArm         = true;
+        ped->m_pedIK.bEverythingUsed = false;
+    } else {
         if (!ped->m_pedIK.bEverythingUsed) {
             AbortIK(ped);
         }
+        ped->m_pedIK.bUseArm         = false;
+        ped->m_pedIK.bEverythingUsed = true;
     }
-    ped->m_pedIK.bUseArm         = !isAimingWithArm;
-    ped->m_pedIK.bEverythingUsed = isAimingWithArm;
 
-    const auto DoLookAt = [this, ped](eBoneTag lookAtBone, CEntity* lookAtEntity, CVector* lookAtPos) {
-        g_ikChainMan.LookAt(
-            "TaskUseGun",
-            ped,
-            lookAtEntity,
-            9'999'999,
-            lookAtBone,
-            lookAtPos,
-            true,
-            0.25f,
-            250,
-            3,
-            false
-        );
-        m_IsLookIKInUse = true;
+    const auto DoLookAt = [ped](CEntity* lookAtEntity, eBoneTag lookAtBone, CVector* lookAtPos) {
+        g_ikChainMan.LookAt("TaskUseGun", ped, lookAtEntity, 9'999'999, lookAtBone, lookAtPos, true, 0.25f, 250, 3, false);
     };
-
-    const auto DoPointArm = [&, this, ped](eIKArm arm, eBoneTag armBone = BONE_UNKNOWN, CEntity* lookAtEntity = nullptr, CVector* lookAtPos = nullptr) {
-        g_ikChainMan.PointArm(
-            "CTaskSimpleUseGun",
-            arm,
-            ped,
-            lookAtEntity,
-            armBone,
-            lookAtPos,
-            ikSpeed,
-            ikBlendTime,
-            100.f
-        );
-        m_IsArmIKInUse = true;
+    const auto DoPointArms = [&, ped](CEntity* lookAtEntity, eBoneTag armBone, CVector* lookAtPos) {
+        g_ikChainMan.PointArm("CTaskSimpleUseGun", eIKArm::IK_ARM_RIGHT, ped, lookAtEntity, armBone, lookAtPos, ikSpeed, ikBlendTime, 100.f);
+        if (m_WeaponInfo->flags.bTwinPistol && !ped->bLeftArmBlocked) {
+            g_ikChainMan.PointArm("CTaskSimpleUseGun", eIKArm::IK_ARM_LEFT, ped, lookAtEntity, armBone, lookAtPos, ikSpeed, ikBlendTime, 100.f);
+        }
     };
 
     if (m_TargetEntity) { // If there's a target entity, aim at them
-        const auto [lookAtPos, lookAtBone] = GetAimLookAtInfo(); // 0x61EDB8
+        // Como el original: objetivo peaton -> si el que apunta tiene datos de jugador, su hueso y desplazamiento objetivo
+        // transformados en el objetivo; si no, la posicion de la columna del objetivo; otra entidad -> su posicion
+        CVector lookAtPos;
+        if (m_TargetEntity->GetIsTypePed()) {
+            const auto targetPed = m_TargetEntity->AsPed();
+            if (const auto pd = ped->GetPlayerData()) {
+                lookAtPos = pd->m_vecTargetBoneOffset;
+                targetPed->GetTransformedBonePosition(lookAtPos, (eBoneTag)pd->m_nTargetBone, false);
+            } else {
+                targetPed->GetBonePosition(&lookAtPos, BONE_SPINE1, false);
+            }
+        } else {
+            lookAtPos = m_TargetEntity->GetPosition();
+        }
 
         if (!ped->IsPlayer()) {
             ped->Say(CTX_GLOBAL_TARGET);
         }
 
-        if (ped->m_pedIK.bUseArm) { // Removed redudant `if` check from here
-            if (!m_IsLookIKInUse) {
-                if (m_Anim->GetBlendAmount() > 0.98f) {
-                    DoLookAt(lookAtBone, m_TargetEntity, nullptr); // 0x61EF0B
+        if (ped->m_pedIK.bUseArm) {
+            if (!m_IsArmIKInUse || !m_IsLookIKInUse) {
+                // Como el original: con objetivo peaton el hueso es el del jugador que apunta (columna si no es jugador); -1 si no es peaton
+                eBoneTag lookAtBone = BONE_UNKNOWN;
+                if (m_TargetEntity->GetIsTypePed()) {
+                    lookAtBone = ped->IsPlayer() ? (eBoneTag)ped->GetPlayerData()->m_nTargetBone : BONE_SPINE1;
+                }
+                if (!m_IsLookIKInUse && m_Anim->m_BlendAmount > 0.98f) {
+                    DoLookAt(m_TargetEntity, lookAtBone, nullptr);
+                    m_IsLookIKInUse = true;
+                }
+                if (!m_IsArmIKInUse) {
+                    DoPointArms(m_TargetEntity, lookAtBone, nullptr);
+                    m_IsArmIKInUse = true;
                 }
             }
-             
-            if (!m_IsArmIKInUse) { // 0x61EF0B
-                DoPointArm(eIKArm::IK_ARM_RIGHT, lookAtBone, m_TargetEntity, nullptr);
-                if (m_WeaponInfo->flags.bTwinPistol && !ped->bLeftArmBlocked) {
-                    DoPointArm(eIKArm::IK_ARM_LEFT, lookAtBone, m_TargetEntity, nullptr);
-                } 
-            }
-
             ped->m_pedIK.RotateTorsoForArm(m_TargetEntity->GetPosition());
         } else {
-            ped->m_pedIK.PointGunAtPosition(lookAtPos, m_Anim->GetBlendAmount());
+            ped->m_pedIK.PointGunAtPosition(lookAtPos, m_Anim->m_BlendAmount);
         }
     } else if (ped->m_pedIK.bUseArm) { // 0x61EFB4 - Process player free-aiming
-        const auto pd = ped->GetPlayerData();
-        if (pd && pd->m_bFreeAiming && CVector2D{ m_TargetPos }.IsZero() && notsa::contains({ MODE_AIMWEAPON, MODE_AIMWEAPON_ATTACHED }, TheCamera.m_aCams[0].m_nMode)) { // Aim to in front of us
-            CVector origin, target;
-            TheCamera.Find3rdPersonCamTargetVector(20.f, ped->GetPosition() + CVector{0.f, 0.f, 0.7f}, origin, target);
+        const auto pd      = ped->GetPlayerData();
+        const auto camMode = TheCamera.m_aCams[0].m_nMode;
+        if (pd && pd->m_bFreeAiming && m_TargetPos.x == 0.f && m_TargetPos.y == 0.f && (camMode == MODE_AIMWEAPON || camMode == MODE_AIMWEAPON_ATTACHED)) { // Aim to in front of us
+            CVector origin, target{ 0.f, 0.f, 0.7f };
+            TheCamera.Find3rdPersonCamTargetVector(20.f, ped->GetPosition() + target, origin, target);
 
-            if (m_Anim->GetBlendAmount() > 0.98f) {
-                DoLookAt(BONE_UNKNOWN, nullptr, &target);
+            if (m_Anim->m_BlendAmount > 0.98f) {
+                DoLookAt(nullptr, BONE_UNKNOWN, &target);
+                m_IsLookIKInUse = true;
             }
-
-            DoPointArm(eIKArm::IK_ARM_RIGHT, BONE_UNKNOWN, nullptr, &target);
-            if (m_WeaponInfo->flags.bTwinPistol && !ped->bLeftArmBlocked) {
-                DoPointArm(eIKArm::IK_ARM_LEFT, BONE_UNKNOWN, nullptr, &target);
-            }
+            DoPointArms(nullptr, BONE_UNKNOWN, &target);
+            m_IsArmIKInUse = true;
 
             ped->m_pedIK.RotateTorsoForArm(target);
-        } else if (!m_IsArmIKInUse || !m_IsLookIKInUse) { // 0x61F144 - Neither pointing with arm, or looking at anything -> Just look somewhere...
-            if (m_TargetPos.x == 0.f || m_TargetPos.y == 0.f) { // TODO/NOTE: Bug? Perhaps they meant &&?
-                CVector target{0.f, 2.f, 0.f};
-
-                if (m_Anim->GetBlendAmount() > 0.98f) {
-                    DoLookAt(BONE_UNKNOWN, nullptr, &target);
+        } else if (!m_IsArmIKInUse || !m_IsLookIKInUse) {
+            if (m_TargetPos.x != 0.f && m_TargetPos.y != 0.f) { // 0x61F16F
+                if (m_Anim->m_BlendAmount > 0.98f) {
+                    DoLookAt(nullptr, BONE_UNKNOWN, &m_TargetPos); // Como el original: no marca la IK de mirada como activa
                 }
-
-                DoPointArm(eIKArm::IK_ARM_RIGHT, BONE_R_UPPER_ARM, ped, &target);
-                if (m_WeaponInfo->flags.bTwinPistol && !ped->bLeftArmBlocked) {
-                    DoPointArm(eIKArm::IK_ARM_LEFT, BONE_L_UPPER_ARM, ped, &target);
+                DoPointArms(nullptr, BONE_UNKNOWN, &m_TargetPos);
+            } else { // 0x61F205
+                // Como el original: mira y apunta con ambos brazos relativo al hombro derecho del propio peaton
+                CVector target{ 0.f, 2.f, 0.f };
+                if (m_Anim->m_BlendAmount > 0.98f && !m_IsLookIKInUse) {
+                    DoLookAt(ped, BONE_R_UPPER_ARM, &target);
+                    m_IsLookIKInUse = true;
                 }
-            } else { // 0x61F172 - Either arm/look IK is in use, meaning there's a target
-                if (m_Anim->GetBlendAmount() > 0.98f) {
-                    DoLookAt(BONE_UNKNOWN, nullptr, &m_TargetPos);
-                }
-
-                DoPointArm(eIKArm::IK_ARM_RIGHT, BONE_UNKNOWN, nullptr, &m_TargetPos);
-                if (m_WeaponInfo->flags.bTwinPistol && !ped->bLeftArmBlocked) {
-                    DoPointArm(eIKArm::IK_ARM_LEFT, BONE_UNKNOWN, nullptr, &m_TargetPos);
-                }
+                DoPointArms(ped, BONE_R_UPPER_ARM, &target);
             }
+            m_IsArmIKInUse = true;
         }
-    } else if (m_TargetPos.x == 0.f || m_TargetPos.y == 0.f) { // 0x61F30E
-        ped->m_pedIK.PointGunInDirection(
-            ped->m_fCurrentRotation,
-            ped->IsPlayer() ? ped->GetPlayerData()->m_fLookPitch : 0.f,
-            false,
-            m_Anim->GetBlendAmount()
-        );
-    } else { // 0x61F305
-        ped->m_pedIK.PointGunAtPosition(m_TargetPos, m_Anim->GetBlendAmount());
+    } else if (m_TargetPos.x != 0.f && m_TargetPos.y != 0.f) { // 0x61F2F4
+        ped->m_pedIK.PointGunAtPosition(m_TargetPos, m_Anim->m_BlendAmount);
+    } else if (ped->IsPlayer()) { // 0x61F317
+        ped->m_pedIK.PointGunInDirection(ped->m_fCurrentRotation, ped->GetPlayerData()->m_fLookPitch, false, m_Anim->m_BlendAmount);
+    } else { // Como el original: los que no son jugador usan la direccion de mirada
+        ped->m_pedIK.PointGunInDirection(ped->m_fLookDirection, 0.f, false, m_Anim->m_BlendAmount);
     }
 
     if (m_WeaponInfo->flags.bTwinPistol && ped->bLeftArmBlocked) {
-        g_ikChainMan.AbortPointArmIfPointing(eIKArm::IK_ARM_RIGHT, ped);
+        g_ikChainMan.AbortPointArmIfPointing(eIKArm::IK_ARM_LEFT, ped); // Como el original: el brazo izquierdo (hueco 1)
     }
 }
 
@@ -416,7 +441,7 @@ void CTaskSimpleUseGun::ClearAnim(CPed* ped) {
 
 // 0x624E30
 bool CTaskSimpleUseGun::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
-    if (priority == ABORT_PRIORITY_LEISURE) {
+    if (priority != ABORT_PRIORITY_URGENT && priority != ABORT_PRIORITY_IMMEDIATE) { // Como el original: cualquier otra prioridad cuenta como ociosa
         m_NextCmd = eGunCommand::END_LEISURE;
         return false;
     }
@@ -648,12 +673,11 @@ bool CTaskSimpleUseGun::SetPedPosition(CPed* ped) {
     if (m_WeaponInfo == &ped->GetActiveWeapon().GetWeaponInfo(ped)) {
         if (m_IsFiringGunRightHandThisFrame) { // Right hand
             FireGun(ped, false);
-            m_IsFiringGunRightHandThisFrame = false;
         }
         if (m_IsFiringGunLeftHandThisFrame) { // Left hand
             FireGun(ped, true);
-            m_IsFiringGunLeftHandThisFrame = false;
         }
+        reinterpret_cast<uint8*>(this)[0xD] = 0; // Como el original: se pone a cero el byte entero de los bits de disparo
     }
     return false;
 }
@@ -740,17 +764,28 @@ void CTaskSimpleUseGun::SetMoveAnim(CPed* ped) {
 
     // 0x61E505
     if (moveCmdAbsSum < 0.1f) {
-        const auto moveAnim = m_WeaponInfo->flags.bAimWithArm
-            ? ped->IsGangster() || ped->IsCop()
+        CAnimBlendAssociation* moveAnim;
+        if (m_WeaponInfo->flags.bAimWithArm) {
+            ped->SetMoveState(PEDMOVE_STILL); // Como el original
+            // Como el original: banda = tipos 7..15 (GANG1..GANG9, no GANG10) o policia; el reposo usa el grupo del peaton
+            const auto pedType = (int32)ped->m_nPedType;
+            moveAnim = (pedType >= (int32)PED_TYPE_GANG1 && pedType <= (int32)PED_TYPE_GANG9) || pedType == (int32)PED_TYPE_COP
                 ? DoBlendAnim(ANIM_ID_GANG_GUNSTAND, 4.f) // Why is this used for cops? (0x61E529, inverted)
-                : DoBlendAnim(ANIM_ID_IDLE, 8.f)
-            : DoBlendAnim(ANIM_ID_GUN_STAND, 8.f);
+                : CAnimManager::BlendAnimation(ped->GetRpClump(), ped->m_nAnimGroup, ANIM_ID_IDLE, 8.f);
+        } else {
+            moveAnim = DoBlendAnim(ANIM_ID_GUN_STAND, 8.f);
+        }
 
-        const auto resetPlayTime = moveAnim && moveAnim->GetBlendAmount() > 0.95f;
-        for (const auto anim : { animGunMoveBwd, animGunMoveL, animGunMoveR, animGunMoveBwd }) {
+        // Como el original: primero se paran las cuatro (adelante, izquierda, atras, derecha) y despues se reinicia su tiempo
+        const std::array<CAnimBlendAssociation*, 4> moveAnims{ animGunMoveFwd, animGunMoveL, animGunMoveBwd, animGunMoveR };
+        for (const auto anim : moveAnims) {
             if (anim) {
                 anim->SetFlag(ANIMATION_IS_PLAYING, false);
-                if (resetPlayTime) {
+            }
+        }
+        if (moveAnim && moveAnim->m_BlendAmount > 0.95f) {
+            for (const auto anim : moveAnims) {
+                if (anim) {
                     anim->SetCurrentTime(0.f);
                 }
             }
@@ -769,11 +804,11 @@ void CTaskSimpleUseGun::SetMoveAnim(CPed* ped) {
         const auto moveAnim = DoBlendAnim(
             m_MoveCmd.x > 0.75f
                 ? ANIM_ID_GUNMOVE_R
-                : m_MoveCmd.x <= -0.75f
+                : m_MoveCmd.x < -0.75f // Como el original: estrictamente menor
                     ? ANIM_ID_GUNMOVE_L
-                    : m_MoveCmd.y <= 0.f
-                        ? ANIM_ID_GUNMOVE_FWD
-                        : ANIM_ID_GUNMOVE_BWD,
+                    : m_MoveCmd.y > 0.f // Como el original: con NaN, adelante
+                        ? ANIM_ID_GUNMOVE_BWD
+                        : ANIM_ID_GUNMOVE_FWD,
             8.f
         );
         moveAnim->SetFlag(ANIMATION_IS_PLAYING, true);
@@ -791,7 +826,9 @@ void CTaskSimpleUseGun::SetMoveAnim(CPed* ped) {
         // 0x61E682 - Adjust blend amount
         if (aGS->GetBlendDelta() >= 0.f) {
             aGS->SetBlendDelta(0.f);
-            aGS->SetBlendAmount(std::max(0.f, aGS->GetBlendAmount() - CTimer::GetTimeStep() * 0.16f));
+            // Como el original: solo se satura a 0 si es menor (NaN y -0 se conservan)
+            const float amount = aGS->m_BlendAmount - CTimer::GetTimeStep() * 0.16f;
+            aGS->SetBlendAmount(0.f > amount ? 0.f : amount);
         }
 
         // Calculate lerp t
@@ -909,7 +946,7 @@ void CTaskSimpleUseGun::StartAnim(CPed* ped) {
             m_BurstShots = m_WeaponInfo->flags.bTwinPistol ? 2 : 1;
         }
 
-        if (m_BurstShots > 0) { // 0x625196 - Inverted
+        if (int16(m_BurstShots) > 0) { // 0x625196 - Inverted (Como el original: con signo)
             m_Anim = CAnimManager::BlendAnimation( // 0x62511C
                 ped->GetRpClump(),
                 m_WeaponInfo->m_eAnimGroup,
@@ -928,12 +965,12 @@ void CTaskSimpleUseGun::StartAnim(CPed* ped) {
         break;
     }
     case eGunCommand::PISTOLWHIP: {
-        if (tDuck && tDuck->StopFireGun()) {
+        if (tDuck && tDuck->IsTaskInUseByOtherTasks()) { // Como el original: 0x61C3D0, no StopFireGun
             return;
         }
         m_Anim = CAnimManager::BlendAnimation( // 0x6251DC
             ped->GetRpClump(),
-            CTaskSimpleFight::m_aComboData[12].m_nAnimGroup,
+            CTaskSimpleFight::m_aComboData.data()[12].m_nAnimGroup, // Como el original: lee justo despues de la tabla (0xC17730)
             ped->bIsDucking
                 ? ANIM_ID_FIGHT_2
                 : ANIM_ID_FIGHT_1

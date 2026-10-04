@@ -138,7 +138,9 @@ inline void Update() {
         {reinterpret_cast<void*>(0x8E3EF8),4},{reinterpret_cast<void*>(0x8E3EFC),4},{&CStreaming::ms_disableStreaming,1},{&CTheScripts::MissionCleanUp,sizeof(CTheScripts::MissionCleanUp)},
         {reinterpret_cast<void*>(0xB74498),12},{&CModelInfo::ms_modelInfoPtrs[FAKE_MODEL],4}};
     for(auto& b:blobs)b.saved.assign(static_cast<uint8*>(b.p),static_cast<uint8*>(b.p)+b.n);
-    auto restoreReal=[&]{ IplPoolPtr()=realPool; QuadTree()=realTree; std::memcpy(realPool,savedHeader.data(),savedHeader.size()); std::memcpy(Objects(realPool),savedObjects.data(),savedObjects.size()); std::memcpy(Map(realPool),savedMap.data(),savedMap.size());
+    // Como el EXE, CPool::New empieza en m_LastFreeSlot+1: se restaura el del pool de nodos del quadtree en cada pasada.
+    const int32 savedNodeLast=*reinterpret_cast<uint8**>(0xB745BC) ? *reinterpret_cast<int32*>(*reinterpret_cast<uint8**>(0xB745BC)+0xC) : 0;
+    auto restoreReal=[&]{ if(auto* np=*reinterpret_cast<uint8**>(0xB745BC))*reinterpret_cast<int32*>(np+0xC)=savedNodeLast; IplPoolPtr()=realPool; QuadTree()=realTree; std::memcpy(realPool,savedHeader.data(),savedHeader.size()); std::memcpy(Objects(realPool),savedObjects.data(),savedObjects.size()); std::memcpy(Map(realPool),savedMap.data(),savedMap.size());
                           for(auto& b:blobs)std::memcpy(b.p,b.saved.data(),b.n); };
     // referencias validas para la limpieza de mision
     std::vector<int32> pedRefs, vehRefs; for(int k=0;k<int(GetPedPool()->GetSize());++k)if(auto* p=GetPedPool()->GetAt(k))pedRefs.push_back(GetPedPool()->GetRef(p));

@@ -90,9 +90,9 @@ public:
     /*!
     * @addr 0x705D20
     * @brief Make a monocolor intensity gardient
-    * @return The camera the gardient was rendered on if successful, `nullptr` otherwise.
+    * @return The camera's raster (also when RwCameraBeginUpdate fails), `nullptr` without camera or raster height < 1.
     */
-    RwCamera* MakeGradientRaster();
+    RwRaster* MakeGradientRaster();
 
     RwImage* CreateRwImage();
     RwRaster* DrawBlurInRect(RwRect* rect);

@@ -32,7 +32,8 @@ public:
     ~CPedGroupMembership();
 
     //! R*'s implementation of `operator=` xD [0x5F7FE0]
-    void From(const CPedGroupMembership& obj) { *this = obj; }
+    //! Como el original: llama a AddMember con los 8 huecos (registra referencias) y luego copia grupo y separacion
+    void From(const CPedGroupMembership& obj);
 
     //! Add a new follower to the group. If there's no more memory, they aren't added
     void AddFollower(CPed* ped);
@@ -86,7 +87,8 @@ public:
     void RemoveMember(CPed* ped);
 
     //! I'll let you guess
-    void RemoveNFollowers(size_t count);
+    //! Como el original: contador con signo (no hace nada si es <= 0)
+    void RemoveNFollowers(int32 count);
 
     //! Get a random ped from the group. Might return null.
     CPed* GetRandom();

@@ -17,7 +17,7 @@ enum class ePaneType : uint32 {
 
 class CGlass {
 public:
-    static inline auto& PanePolyPositions = StaticRef<CVector2D[4][3]>(0x8D5CD8);
+    static inline auto& PanePolyPositions = StaticRef<CVector2D[5][3]>(0x8D5CD8); // Como el original: 5 piezas (0x8D5CD8..0x8D5D50)
     static inline auto& ReflectionPolyVertexBaseIdx = StaticRef<int32>(0xC71B18);
     static inline auto& ReflectionPolyIndexBaseIdx = StaticRef<int32>(0xC71B1C);
     static inline auto& ReflectionPolyVertexBuffer = StaticRef<std::array<RxObjSpace3DLitVertex, 1706>>(0xC5B158);
@@ -29,7 +29,7 @@ public:
     static inline auto& PanePolyCenterPositions = StaticRef<std::array<CVector2D, 5>>(0xC71B30);
     static inline auto& apEntitiesToBeRendered = StaticRef<CEntity*[32]>(0xC71B58);
     static inline auto& NumGlassEntities = StaticRef<uint32>(0xC71BD8);
-    static inline auto& aGlassPanes = StaticRef<std::array<CFallingGlassPane, 44>>(0xC71BF8);
+    static inline auto& aGlassPanes = StaticRef<std::array<CFallingGlassPane, 45>>(0xC71BF8); // Como el original: 45 paneles (hasta 0xC72FA8)
     static inline auto& LastColCheckMS = StaticRef<uint32>(0xC72FA8);
 
 public:

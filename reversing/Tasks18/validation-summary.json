@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 12160,
+  "pairs_per_function": {
+    "CTaskManager::Constructor": 128,
+    "CTaskManager::Destructor": 256,
+    "CTaskManager::GetActiveTask": 256,
+    "CTaskManager::FindActiveTaskByType": 1024,
+    "CTaskManager::FindTaskByType": 1024,
+    "CTaskManager::GetTaskSecondary": 256,
+    "CTaskManager::HasTaskSecondary": 512,
+    "CTaskManager::Flush": 256,
+    "CTaskManager::FlushImmediately": 512,
+    "CTaskManager::SetNextSubTask": 1024,
+    "CTaskManager::StopTimers": 256,
+    "CTaskManager::GetSimplestActiveTask": 256,
+    "CTaskManager::AddSubTasks": 1024,
+    "CTaskManager::ParentsControlChildren": 1024,
+    "CTaskManager::SetTask": 1024,
+    "CTaskManager::SetTaskSecondary": 1024,
+    "CTaskManager::ClearTaskEventResponse": 256,
+    "CTaskManager::ManageTasks": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "aa172a838dc2da465f5c7640b430c0542750ecab2dd2366e8231d3f7a528f9b4",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-tasks18\\20261003-204238-460432",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTaskManager::Constructor": true,
+    "CTaskManager::Destructor": true,
+    "CTaskManager::GetActiveTask": true,
+    "CTaskManager::FindActiveTaskByType": true,
+    "CTaskManager::FindTaskByType": true,
+    "CTaskManager::GetTaskSecondary": true,
+    "CTaskManager::HasTaskSecondary": true,
+    "CTaskManager::Flush": true,
+    "CTaskManager::FlushImmediately": true,
+    "CTaskManager::SetNextSubTask": true,
+    "CTaskManager::StopTimers": true,
+    "CTaskManager::GetSimplestActiveTask": true,
+    "CTaskManager::AddSubTasks": true,
+    "CTaskManager::ParentsControlChildren": true,
+    "CTaskManager::SetTask": true,
+    "CTaskManager::SetTaskSecondary": true,
+    "CTaskManager::ClearTaskEventResponse": true,
+    "CTaskManager::ManageTasks": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "a2324ab6f2eb297b87433d173ca86a2233d370789d3bfcfef4b2337632bc1223",
+      "pdb": "19bd8ecdddbc1854f3a4b8684f6728089ebbe5f8aaa6f8e094c7a63701e320a1"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskManager.cpp": "5b013e7c7366d7a380c2515f84ecd90417487e314db9697456282426c9a173d1",
+      "source/game_sa/Tasks/TaskManager.h": "4df0ea4e860d7906c77e6cd2cf2d09ca35bac0f59289d42b518f9f4eae81424b",
+      "source/game_sa/Tasks/Task.h": "8a913178efb37937cad3f18126a38130741793080f2a630cabde226f8d868c74",
+      "source/game_sa/Tasks/TaskComplex.h": "fb619224b46acabf41e2170d4cd9928644bf57ea51e54895ea823ca886f4728f",
+      "source/game_sa/Tasks/TaskSimple.h": "77ca98c23706b92e2a662826dd6dcebc0801f474b8c6341c3c9338f9f4b84069"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "8a665fc9c762a37cf8859e480ec4942580f20b790cd81bb585341d8a38c6fa86",
+      "build_probe.py": "d4f7c35b9d417eca1409a764e5910feadc39accf3fb58d63b83f611322c3ffd9",
+      "run_local.py": "9c30228de90a3b18c2905cdc748f9d98b7459b76d0761334fbfa97f272c3f9dd"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

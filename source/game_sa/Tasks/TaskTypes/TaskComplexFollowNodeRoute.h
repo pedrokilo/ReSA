@@ -45,32 +45,35 @@ protected:
     bool      CanGoStraightThere(const CPed* ped, const CVector& from, const CVector& to, float maxDist) const;
     void      ComputePathNodes(const CPed* ped);
     void      ComputeRoute();
-    auto      GetCurrentPt() const { return (*m_PtRoute)[m_CurrPtIdx]; }
+    // Como el original: se indexa el array sin comprobar el contador
+    auto      GetCurrentPt() const { return m_PtRoute->m_Entries.data()[m_CurrPtIdx]; }
 
 public:
-    CVector      m_TargetPt{};                            //< Point we're trying to get to
-    eMoveState   m_MoveState{};                           //< Move state to use to get to this point
-    float        m_TargetTolerance{};                     //< Tolerance [Determinates how close the ped has to get to the point for the task to be considered as finished]
-    float        m_SlowDownDist{};                        //< Used for `CTaskComplexGoToPointAndStandStill`
-    float        m_FollowNodeThresholdHeightChange{};     //< Determinates if the ped should go straight, or take some extra steps to avoid falling off and shit [I guess]
-    CNodeAddress m_StartNode{};                           //< The node the computed route starts from [See `ComputePathNodes`]
-    CNodeRoute*  m_NodeRoute{};                           //< The route to follow [See `ComputePathNodes`]
-    CPointRoute* m_PtRoute{};                             //< The node route but as points instead [See `ComputeRoute`] - This should be a 1:1 translation, unless a node's area isn't loaded
-    CNodeAddress m_CurrNode{};                            //< The node we're currently at
-    uint32       m_CurrPtIdx{};                           //< Current point we're at [If using `m_PtRoute`]
-    int32        m_TimeToFinishMs{};                      //< The the we have to finish going to the point. If not enough time, the ped is teleported and the task is finished
-    CTaskTimer   m_FinishedTimer{};                       //< Timer for finishing the task [See `m_TimeToFinishMs`]
-    bool         m_bKeepNodesHeadingAwayFromTarget : 1{}; //< Not sure
-    bool         m_LastRoutePointIsTarget : 1{};          //< If last entry in `NodeRoute` corresponds to `m_TargetPt`
-    bool         m_bNewTarget : 1{};                      //< If a new target was set using `SetTarget`
-    bool         m_bUseBlending : 1{};                    //< If the task should go rough or fine [by using blending] - It takes more time to finish the task if blending is used
-    bool         m_bWillSlowDown : 1{};                   //< Used for blending
-    bool         m_bSlowingDown : 1{};                    //< Used for blending
-    bool         m_bSpeedingUp : 1{};                     //< Used for blending
-    float        m_SpeedDecreaseDist{};                   //< Used for blending
-    float        m_SpeedIncreaseDist{};                   //< Used for blending
-    float        m_SpeedDecreaseAmt{};                    //< Used for blending
-    float        m_SpeedIncreaseAmt{};                    //< Used for blending
+    // Como el original (0x66EA30): el constructor solo escribe los campos indicados; sin inicializadores por defecto
+    // (no se escriben los bits 1, 2 y 4 de las banderas, el relleno, ni los flotantes de mezcla si no hay mezcla)
+    CVector      m_TargetPt;                         //< Point we're trying to get to
+    eMoveState   m_MoveState;                        //< Move state to use to get to this point
+    float        m_TargetTolerance;                  //< Tolerance [Determinates how close the ped has to get to the point for the task to be considered as finished]
+    float        m_SlowDownDist;                     //< Used for `CTaskComplexGoToPointAndStandStill`
+    float        m_FollowNodeThresholdHeightChange;  //< Determinates if the ped should go straight, or take some extra steps to avoid falling off and shit [I guess]
+    CNodeAddress m_StartNode;                        //< The node the computed route starts from [See `ComputePathNodes`]
+    CNodeRoute*  m_NodeRoute;                        //< The route to follow [See `ComputePathNodes`]
+    CPointRoute* m_PtRoute;                          //< The node route but as points instead [See `ComputeRoute`] - This should be a 1:1 translation, unless a node's area isn't loaded
+    union { CNodeAddress m_CurrNode; };              //< The node we're currently at [Como el original: el constructor solo escribe m_wAreaId]
+    uint32       m_CurrPtIdx;                        //< Current point we're at [If using `m_PtRoute`]
+    int32        m_TimeToFinishMs;                   //< The the we have to finish going to the point. If not enough time, the ped is teleported and the task is finished
+    CTaskTimer   m_FinishedTimer;                    //< Timer for finishing the task [See `m_TimeToFinishMs`]
+    bool         m_bKeepNodesHeadingAwayFromTarget : 1; //< Not sure
+    bool         m_LastRoutePointIsTarget : 1;          //< If last entry in `NodeRoute` corresponds to `m_TargetPt`
+    bool         m_bNewTarget : 1;                      //< If a new target was set using `SetTarget`
+    bool         m_bUseBlending : 1;                    //< If the task should go rough or fine [by using blending] - It takes more time to finish the task if blending is used
+    bool         m_bWillSlowDown : 1;                   //< Used for blending
+    bool         m_bSlowingDown : 1;                    //< Used for blending
+    bool         m_bSpeedingUp : 1;                     //< Used for blending
+    float        m_SpeedDecreaseDist;                //< Used for blending
+    float        m_SpeedIncreaseDist;                //< Used for blending
+    float        m_SpeedDecreaseAmt;                 //< Used for blending
+    float        m_SpeedIncreaseAmt;                 //< Used for blending
 
 private: // Hook shit, ignore
     friend void InjectHooksMain();

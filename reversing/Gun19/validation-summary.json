@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 9920,
+  "pairs_per_function": {
+    "CTaskSimpleUseGun::AbortIK": 256,
+    "CTaskSimpleUseGun::AimGun": 1024,
+    "CTaskSimpleUseGun::ClearAnim": 256,
+    "CTaskSimpleUseGun::Clone": 128,
+    "CTaskSimpleUseGun::ControlGun": 512,
+    "CTaskSimpleUseGun::ControlGunMove": 1024,
+    "CTaskSimpleUseGun::FinishGunAnimCB": 256,
+    "CTaskSimpleUseGun::FireGun": 512,
+    "CTaskSimpleUseGun::GetTaskType": 64,
+    "CTaskSimpleUseGun::MakeAbortable": 512,
+    "CTaskSimpleUseGun::PlayerPassiveControlGun": 256,
+    "CTaskSimpleUseGun::RemoveStanceAnims": 1024,
+    "CTaskSimpleUseGun::RequirePistolWhip": 1024,
+    "CTaskSimpleUseGun::Reset": 256,
+    "CTaskSimpleUseGun::SetMoveAnim": 1024,
+    "CTaskSimpleUseGun::SetPedPosition": 512,
+    "CTaskSimpleUseGun::StartAnim": 1024,
+    "CTaskSimpleUseGun::StartCountDown": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "dafccf4a6eec30c9db01bbda4ba5a2f2739e1e4a742a91ca3010329a65d6e33d",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gun19\\20261003-205249-726256",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTaskSimpleUseGun::AbortIK": true,
+    "CTaskSimpleUseGun::AimGun": true,
+    "CTaskSimpleUseGun::ClearAnim": true,
+    "CTaskSimpleUseGun::Clone": true,
+    "CTaskSimpleUseGun::ControlGun": true,
+    "CTaskSimpleUseGun::ControlGunMove": true,
+    "CTaskSimpleUseGun::FinishGunAnimCB": true,
+    "CTaskSimpleUseGun::FireGun": true,
+    "CTaskSimpleUseGun::GetTaskType": true,
+    "CTaskSimpleUseGun::MakeAbortable": true,
+    "CTaskSimpleUseGun::PlayerPassiveControlGun": true,
+    "CTaskSimpleUseGun::RemoveStanceAnims": true,
+    "CTaskSimpleUseGun::RequirePistolWhip": true,
+    "CTaskSimpleUseGun::Reset": true,
+    "CTaskSimpleUseGun::SetMoveAnim": true,
+    "CTaskSimpleUseGun::SetPedPosition": true,
+    "CTaskSimpleUseGun::StartAnim": true,
+    "CTaskSimpleUseGun::StartCountDown": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "61416df0cfbf48bbbf81a4cb3966df82f7e99cbb68707eb926f4df7bd8749553",
+      "pdb": "53f69b645663b58598a35edb62c4729fa29e0683c6bb51e9849786f82ea9742c"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp": "11e8a75b6e432f98eae22826a26a99bbfea051465ad7e55319d2ce979e8c8cef",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.h": "9a282bd00ef9abff980df79369b2fdd04d5e567e9f4bbe6f20c37e728e217911"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "8df569230d27e89180cc186e2a2684397e678068d68193ddca07aba5349e8527",
+      "build_probe.py": "f5bfb9cb680a860ce70ebf70b2c1dafa7ef1c128e83b7efdfbc7d2139342b265",
+      "run_local.py": "2659e5024768f52623b1a8ab8cadc98745a8b2ff65fc4d8af3dd962e670e3ee6"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

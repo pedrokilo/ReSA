@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 18/18 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/18 entradas.
+ * Validación registrada: 18/18 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -62,12 +62,14 @@ static void DeleteTaskAndNull(CTask*& task) {
 
 /// Find the first task (or subtask) that is of the required type
 inline CTask* FindFirstTaskOfType(CTask* task, eTaskType type) {
-    for (; task; task = task->GetSubTask()) {
+    // Como el original: tras encontrarla aún llama a GetSubTask de la tarea encontrada antes de salir del bucle
+    CTask* found = nullptr;
+    for (; task && !found; task = task->GetSubTask()) {
         if (task->GetTaskType() == type) {
-            return task;
+            found = task;
         }
     }
-    return nullptr;
+    return found;
 }
 
 // 0x6816A0
@@ -147,8 +149,9 @@ bool CTaskManager::HasTaskPrimary(const CTask* task) {
 
 // 0x681820
 bool CTaskManager::HasTaskSecondary(const CTask* task) {
+    // Como el original: compara sin comprobar nulos (con `task` nulo devuelve true si algún hueco secundario está vacío)
     for (auto& secondaryTask : m_aSecondaryTasks) {
-        if (secondaryTask && secondaryTask == task) {
+        if (secondaryTask == task) {
             return true;
         }
     }
@@ -164,7 +167,7 @@ void CTaskManager::Flush() {
 void CTaskManager::FlushImmediately() {
     ApplyToRootTasks([this](CTask*& task) {
         if (task && task->MakeAbortable(m_pPed, ABORT_PRIORITY_IMMEDIATE, nullptr)) {
-            delete std::exchange(task, nullptr);
+            DeleteTaskAndNull(task); // Como el original: borra y después pone el hueco a nulo
         }
     });
 }
@@ -269,86 +272,77 @@ void CTaskManager::ClearTaskEventResponse() {
 
 // 0x681C10
 void CTaskManager::ManageTasks() {
-    // Obviously this isn't how they did it, but, I wanted it to be readable...
-    enum ProcessResult {
-        TT_FINISHED, //< The task tree has finished.
-        TT_SUCCESS,  //< There's currently an active task.
-        TT_ADVANCED  //< New sub-tasks were created, and there's currently an active task.
-    };
-    const auto ProcessTaskTree = [this](CTask* root, bool bIsPrimary) {
-        ParentsControlChildren(root);
-
-        auto lastTask = GetLastTaskOf(root);
-
-        // The task tree can only be "terminated" with a `Simple` task. (Because a complex task must always have a sub-task)
-        // If the last task is complex that means that creating all sub-tasks (See `AddSubTasks`) failed.
-        // (Meaning that the task tree has finished and the root can be deleted)
-        if (!lastTask->IsSimple()) {
-            if (!bIsPrimary) {
-                return TT_FINISHED;
-            }
-
-            // Try setting next sub-task
-            SetNextSubTask(lastTask->GetParent());
-
-            // If setting the next sub-task above was successful then the last task has changed
-            lastTask = GetLastTaskOf(root);
-
-            // A complex task in this case means that the primary task has finished
-            if (lastTask->IsComplex()) {
-                return TT_FINISHED;
-            }
-        }
-
-        // Check if the simple task has finished
-        if (!lastTask->AsSimple()->ProcessPed(m_pPed)) {
-            return TT_SUCCESS;
-        }
-
-        // It has, try creating the next sub-task
-        SetNextSubTask(lastTask->GetParent());
-
-        // Check if the task tree has finished (See `SetNextSubTask` for more info)
-        if (!root->GetSubTask()) {
-            return TT_FINISHED;
-        }
-
-        // New sub-tasks were successfully created
-        return TT_ADVANCED;
-    };
-
-    // Process active primary task's tree
+    // Árbol de la tarea primaria activa (la primera no nula)
     if (const auto activeTaskIdx = GetActiveTaskIndex(); activeTaskIdx != (size_t)-1) {
-        auto*& activePrimaryTask = m_aPrimaryTasks[activeTaskIdx];
+        auto*& primary = m_aPrimaryTasks[activeTaskIdx];
 
-        if (!GetLastTaskOf(activePrimaryTask)->IsSimple()) {
-            delete std::exchange(activePrimaryTask, nullptr);
+        // Un árbol tiene que acabar en una tarea simple; si no, se borra y no se procesa nada más (ni las secundarias)
+        if (!GetLastTaskOf(primary)->IsSimple()) {
+            DeleteTaskAndNull(primary);
             return;
         }
 
-        // The `10` here has no particular meaning, it's just an arbitrary iteration limit
-        for (size_t i = 0; i < 10; i++) {
-            const auto res = ProcessTaskTree(activePrimaryTask, true);
+        // Como el original: el contador se incrementa antes de compararlo con 10, así que hace hasta 11 pasadas
+        for (int32 pass = 1;; pass++) {
+            const bool lastPass = pass > 10;
 
-            if (res == TT_FINISHED) {
-                delete std::exchange(activePrimaryTask, nullptr);
+            ParentsControlChildren(primary);
+
+            if (const auto last = GetLastTaskOf(primary); !last->IsSimple()) {
+                // Ha fallado la creación de subtareas: se intenta la siguiente subtarea del padre
+                SetNextSubTask(last->GetParent());
+                if (!GetLastTaskOf(primary)->IsSimple()) {
+                    DeleteTaskAndNull(primary); // La tarea primaria ha terminado
+                    break;
+                }
             }
 
-            if (res != TT_ADVANCED) { // TT_FINISHED, TT_SUCCESS
+            // Como el original: vuelve a buscar la última tarea del árbol
+            const auto last = GetLastTaskOf(primary);
+            if (!last->AsSimple()->ProcessPed(m_pPed)) {
+                break; // La tarea simple sigue activa
+            }
+
+            // La tarea simple ha terminado: se crea la siguiente subtarea
+            SetNextSubTask(last->GetParent());
+            if (!primary->GetSubTask()) {
+                DeleteTaskAndNull(primary); // El árbol ha terminado
+                break;
+            }
+
+            if (lastPass) {
                 break;
             }
         }
     }
-    
-    // Process secondary task-tree's
+
+    // Árboles de las tareas secundarias (sin límite de pasadas)
     for (auto& secondaryTask : m_aSecondaryTasks) {
-        if (!secondaryTask) {
+        const auto root = secondaryTask;
+        if (!root) {
             continue;
         }
-        ProcessResult res;
-        while ((res = ProcessTaskTree(secondaryTask, false)) == TT_ADVANCED);
-        if (res == TT_FINISHED) {
-            delete std::exchange(secondaryTask, nullptr);
+        for (;;) {
+            ParentsControlChildren(root);
+
+            // Como el original: en las secundarias un árbol que no acaba en tarea simple se da por terminado
+            if (!GetLastTaskOf(root)->IsSimple()) {
+                delete root;
+                secondaryTask = nullptr;
+                break;
+            }
+
+            const auto last = GetLastTaskOf(root);
+            if (!last->AsSimple()->ProcessPed(m_pPed)) {
+                break;
+            }
+
+            SetNextSubTask(last->GetParent());
+            if (!root->GetSubTask()) {
+                delete root;
+                secondaryTask = nullptr;
+                break;
+            }
         }
     }
 }
@@ -382,6 +376,6 @@ void CTaskManager::ChangeTaskInSlot(CTask*& taskInSlot, CTask* changeTo) {
 
     // Task trees must always end with a simple task, so if that's not the case delete it immidiately.
     if (taskInSlot && !GetLastTaskOf(taskInSlot)->IsSimple()) {
-        delete std::exchange(taskInSlot, nullptr);
+        DeleteTaskAndNull(taskInSlot); // Como el original: borra y después pone el hueco a nulo
     }
 }

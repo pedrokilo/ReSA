@@ -45,8 +45,8 @@ public:
     static CEntity*       GetNearestTag(const CVector& nearestToPoint);
     static void           SetupAtomic(RpAtomic& atomic);
     static void           RenderTagForPC(RpAtomic& atomic);
-    static void           Save();
-    static void           Load();
+    static bool           Save();
+    static bool           Load();
 
     /*!
      * @return A span of all initialized tags

@@ -1237,3 +1237,26 @@ Bancos nuevos con pares exactos dentro de GTA: [FixAudio](FixAudio/README.md) (7
 - Comprobar el conmutador del hook (`JumpsToDll`) **después** de activar los hooks de la pasada; si no, todos los casos fallan en `switches`.
 - `reversing/_handoff/dup_hooks.py` detecta funciones de la DLL enganchadas desde dos direcciones del EXE y virtuales con hook plano.
 - `probe_summary.py` admite funciones sin fila en `hooks.csv` (`CMatrix`, `CColBox`, que no instalan hooks): quedan en el banco pero no se registran.
+
+## Continuidad vigente: clases de 18 y 19 funciones (2026-10-03)
+
+Bancos nuevos, todos con pares exactos dentro de GTA: [FixHooks](FixHooks/README.md) (20 funciones, 6.144 pares), [Audio18](Audio18/README.md) (16, 9.216), [World18](World18/README.md) (17, 7.808), [Group18](Group18/README.md) (18, 10.112), [Tasks18](Tasks18/README.md) (18, 12.160), [Plant19](Plant19/README.md) (19, 10.688), [Render19](Render19/README.md) (37, 9.920), [Game19](Game19/README.md) (38, 17.792), [Route19](Route19/README.md) (19, 11.584), [Gun19](Gun19/README.md) (18, 9.920).
+
+**Defectos de alcance general encontrados:**
+- Hooks: dos funciones de la DLL enganchadas desde dos direcciones del EXE (`ControlSubTask` de `EvasiveDiveAndGetUp`/`DiveFromAttachedEntity` y `Wander`/`WanderFlee`) y 47 virtuales con hook plano (entre ellas los 14 métodos IStream de `CAEDataStream` y `CEntity::Add(rect)`), pasadas a hooks de vtable.
+- `CTaskManager::ManageTasks` hace hasta 11 pasadas; borrar y luego anular la ranura; `HasTaskSecondary(nullptr)` es cierto con una ranura vacía.
+- `CPedGroupMembership`: los seguidores ocupan las ranuras 0..6 (la DLL podía llenar la del líder); `RemoveMember` limpia la referencia antes de mirar al líder y usa la referencia del pool para el blip; `Process` compara el área.
+- `CEntryExitManager`: el pool se recorre del último al primero; `LinkEntryExit` tenía la condición del enlace inverso invertida; `EnableBurglaryHouses` escribía la bandera equivocada en todas las entradas.
+- `CGlass`: 45 paneles y `PanePolyPositions[5][3]`; `HasGlassBeenShatteredAtCoors` miraba el bit equivocado. `CShadowCamera::Destroy` desenganchaba el marco en vez de la cámara.
+- `CPlantMgr::UpdateAmbientColor` dejaba todos los canales a 255; `CDarkel::RegisterKillByPlayer` podía contar dos veces una muerte; `CTagManager` recorre las etiquetas de la última a la primera.
+- `CTaskComplexFollowNodeRoute`: la mezcla de velocidad estaba invertida y los NaN tomaban la rama contraria; `CTaskSimpleUseGun::AimGun` leía los datos de jugador del objetivo en vez del que apunta.
+
+**Lecciones:**
+- `test ah,41h; jne` salta con menor, igual o NaN; `test ah,5; jp` deja pasar solo el «menor» estricto. Los fallos con NaN suelen venir de leer mal estas pruebas.
+- Las direcciones de variables locales en las trazas difieren entre EXE y DLL: el banco las debe mostrar como `stack`.
+- Un hook de vtable también escribe un salto en la entrada del EXE: los parches del banco sobre esa misma entrada se ponen después de fijar el estado de los hooks y se quitan antes de cambiarlo.
+- Con `CPool::New` como el EXE (desde `last+1`), restaurar el `m_LastFreeSlot` de todos los pools tocados (también el de nodos del quadtree) en cada pasada.
+- Los PDB de las sondas ocupan ~800 MB por banco: `bench.sh` los borra al terminar (llegaron a llenar D:).
+- Agentes editando mientras corre la regresión producen BUILD FAIL falsos: lanzar la regresión cuando no haya agentes trabajando.
+
+**No validables por pares:** `CAEMFDecoder::Initialise/FillBuffer/InitLibrary` (el EXE usa QuickTime; la DLL, Media Foundation) y `CGlass::CalcAlphaWithNormal` (la rama de la DLL es `FIX_BUGS`; la versión exacta del EXE ya está escrita en la rama sin `FIX_BUGS`).

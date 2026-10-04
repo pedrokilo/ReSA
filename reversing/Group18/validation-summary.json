@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 10112,
+  "pairs_per_function": {
+    "CPedGroupMembership::AddFollower": 1024,
+    "CPedGroupMembership::AddMember": 512,
+    "CPedGroupMembership::AppointNewLeader": 512,
+    "CPedGroupMembership::CountMembers": 256,
+    "CPedGroupMembership::CountMembersExcludingLeader": 256,
+    "CPedGroupMembership::From": 256,
+    "CPedGroupMembership::GetLeader": 128,
+    "CPedGroupMembership::GetMember": 256,
+    "CPedGroupMembership::GetObjectForPedToHold": 512,
+    "CPedGroupMembership::IsFollower": 512,
+    "CPedGroupMembership::IsLeader": 256,
+    "CPedGroupMembership::IsMember": 512,
+    "CPedGroupMembership::Process": 1024,
+    "CPedGroupMembership::RemoveAllFollowers": 512,
+    "CPedGroupMembership::RemoveMember-ByMemIdx": 1024,
+    "CPedGroupMembership::RemoveMember-ByPed": 512,
+    "CPedGroupMembership::RemoveNFollowers": 1024,
+    "CPedGroupMembership::SetLeader": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "25507750041f5131ef9516264d097c9de4609f6c9df62e7d58e29eb93873f00c",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-group18\\20261003-204432-358238",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CPedGroupMembership::AddFollower": true,
+    "CPedGroupMembership::AddMember": true,
+    "CPedGroupMembership::AppointNewLeader": true,
+    "CPedGroupMembership::CountMembers": true,
+    "CPedGroupMembership::CountMembersExcludingLeader": true,
+    "CPedGroupMembership::From": true,
+    "CPedGroupMembership::GetLeader": true,
+    "CPedGroupMembership::GetMember": true,
+    "CPedGroupMembership::GetObjectForPedToHold": true,
+    "CPedGroupMembership::IsFollower": true,
+    "CPedGroupMembership::IsLeader": true,
+    "CPedGroupMembership::IsMember": true,
+    "CPedGroupMembership::Process": true,
+    "CPedGroupMembership::RemoveAllFollowers": true,
+    "CPedGroupMembership::RemoveMember-ByMemIdx": true,
+    "CPedGroupMembership::RemoveMember-ByPed": true,
+    "CPedGroupMembership::RemoveNFollowers": true,
+    "CPedGroupMembership::SetLeader": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "1cef8fd0cf0bacede1a41a3c794272a0b7930b9f3d8798d5b1c3621ba0f53cd5",
+      "pdb": "9e8e418b73e6d8b3bb8be49ddf1a01c0612abaa50681add2969bf30095ef8518"
+    },
+    "sources": {
+      "source/game_sa/PedGroupMembership.cpp": "5f6fce5fea4fb424eb5132457c0671f33974d4402b842c662c0e0b9bb016bee3",
+      "source/game_sa/PedGroupMembership.h": "15a1f964b9292f642bf760642393e7b422c93a59092e2f6e06099f3d4a0e045a"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "cfcbae676bfe8b32be54dcf44e3da91eb07fb18f28e2481a68b2ea7ebf8cf431",
+      "build_probe.py": "7a553d3f46c608b45dbb6ebf807b09589a8d26df107feba64118a6fe7693880e",
+      "run_local.py": "d92ff4384059c42c0ca15664c90d53be7999dad49bd3824563960d373a74695f"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

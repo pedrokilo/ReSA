@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 18/18 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/18 entradas.
+ * Validación registrada: 18/18 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -30,25 +30,44 @@ CPedGroupMembership::~CPedGroupMembership() {
     Flush();
 }
 
+// 0x5F7FE0
+void CPedGroupMembership::From(const CPedGroupMembership& obj) {
+    // Como el original: AddMember con los 8 huecos (tambien el lider), sin limpiar los actuales
+    for (auto i = 0; i < TOTAL_PED_GROUP_MEMBERS; i++) {
+        AddMember(obj.m_members.data()[i], i);
+    }
+    m_group           = obj.m_group;
+    m_separationRange = obj.m_separationRange;
+}
+
 // 0x5F8020
 void CPedGroupMembership::AddFollower(CPed* ped) {
     ped->bHasGroupDriveTask = false;
 
     // Peds in the player's group can't drown
-    if (const auto leader = GetLeader()) {
-        if (leader->IsPlayer()) { // same effect as GetPlayerData(), no?
-            assert(leader->GetPlayerData()); // Test above theory
-            ped->bDrownsInWater = false;
-        }
+    // Como el original: se mira GetPlayerData() del lider, no su tipo
+    if (const auto leader = GetLeader(); leader && leader->GetPlayerData()) {
+        ped->bDrownsInWater = false;
     }
 
-    if (IsFollower(ped) || GetLeader() == ped) { // TODO/BUG/NOTE: Stuff that was set above is now not reverted... I'm not sure if that's intended
+    // Como el original: busqueda en los 7 seguidores y luego el lider, sin comprobar nulo
+    for (auto i = 0; i < TOTAL_PED_GROUP_FOLLOWERS; i++) {
+        if (m_members.data()[i] == ped) {
+            return;
+        }
+    }
+    if (GetLeader() == ped) {
         return;
     }
 
-    const auto memId = FindIdForNewMember();
-    assert(memId != -1); 
-    if (memId == -1) {
+    // Como el original: solo los huecos de seguidores (0..6); nunca el del lider
+    auto memId = 0;
+    for (; memId < TOTAL_PED_GROUP_FOLLOWERS; memId++) {
+        if (!m_members.data()[memId]) {
+            break;
+        }
+    }
+    if (memId == TOTAL_PED_GROUP_FOLLOWERS) {
         return;
     }
 
@@ -59,13 +78,14 @@ void CPedGroupMembership::AddFollower(CPed* ped) {
 // 0x5F6AE0
 void CPedGroupMembership::AddMember(CPed* member, int32 memIdx) {
     assert(member);
-    assert(!m_members[memIdx]);
+    // Como el original: no se comprueba el hueco (From lo sobrescribe sin limpiar)
 
-    m_members[memIdx] = member;
-    CEntity::RegisterReference(m_members[memIdx]);
+    auto& slot = m_members.data()[memIdx];
+    slot = member;
+    CEntity::RegisterReference(slot);
     /* dead code before checking if the member is in the player's group */
-    if (!member->IsPlayer()) {
-        member->GetIntelligence()->SetPedDecisionMakerType(DM_EVENT_DRAGGED_OUT_CAR);
+    if (!slot->IsPlayer()) {
+        slot->GetIntelligence()->SetPedDecisionMakerType(0);
     }
 }
 
@@ -75,12 +95,18 @@ void CPedGroupMembership::AppointNewLeader() {
         return;
     }
 
-    const auto memId = FindNewLeaderToAppoint();
-    if (memId == -1) {
+    // Como el original: primer seguidor no nulo (0..6)
+    auto memId = 0;
+    for (; memId < TOTAL_PED_GROUP_FOLLOWERS; memId++) {
+        if (m_members.data()[memId]) {
+            break;
+        }
+    }
+    if (memId == TOTAL_PED_GROUP_FOLLOWERS) {
         return;
     }
 
-    const auto leader = m_members[memId];
+    const auto leader = m_members.data()[memId];
     RemoveMember(memId); // Must call as it does some cleanup
     AddMember(leader, LEADER_MEM_ID);
 }
@@ -92,10 +118,14 @@ size_t CPedGroupMembership::CountMembers() {
 
 // 0x5F6AA0
 int32 CPedGroupMembership::CountMembersExcludingLeader() {
-    const auto cnt = CountMembers();
-    return HasLeader()
-        ? cnt - 1
-        : cnt;
+    // Como el original: cuenta los huecos 0..6
+    int32 cnt = 0;
+    for (auto i = 0; i < TOTAL_PED_GROUP_FOLLOWERS; i++) {
+        if (m_members.data()[i]) {
+            cnt++;
+        }
+    }
+    return cnt;
 }
 
 // 0x5FB160
@@ -107,13 +137,14 @@ void CPedGroupMembership::Flush() {
     }
 }
 
+// 0x5F69A0
 CPed* CPedGroupMembership::GetLeader() const {
     return m_members[LEADER_MEM_ID];
 }
 
 // 0x5F69B0
 CPed* CPedGroupMembership::GetMember(int32 memberId) {
-    return m_members[memberId];
+    return m_members.data()[memberId]; // Como el original: sin comprobar el indice
 }
 
 int32 CPedGroupMembership::GetMemberId(const CPed* ped) const {
@@ -127,7 +158,16 @@ int32 CPedGroupMembership::GetMemberId(const CPed* ped) const {
 
 // 0x5F69E0
 bool CPedGroupMembership::IsFollower(const CPed* ped) const {
-    return !IsLeader(ped) && IsMember(ped);
+    // Como el original: solo se busca en los huecos 0..6 (no se mira el lider)
+    if (!ped) {
+        return false;
+    }
+    for (auto i = 0; i < TOTAL_PED_GROUP_FOLLOWERS; i++) {
+        if (m_members.data()[i] == ped) {
+            return true;
+        }
+    }
+    return false;
 }
 
 // 0x5F69C0
@@ -143,11 +183,12 @@ bool CPedGroupMembership::IsMember(const CPed* ped) const {
 // 0x5FBA60
 void CPedGroupMembership::Process() {
     // Remove dead members (except player ped)
-    for (auto&& [i, mem] : rngv::enumerate(m_members)) {
+    for (auto i = 0; i < TOTAL_PED_GROUP_MEMBERS; i++) {
+        const auto mem = m_members.data()[i];
         if (!mem || mem->IsAlive()) {
             continue;
         }
-        if (IsLeader(mem) && mem->IsPlayer()) { // Player always stays in it's group
+        if (i == LEADER_MEM_ID && GetLeader()->IsPlayer()) { // Como el original: por indice (el jugador lider se queda)
             continue;
         }
         RemoveMember(i);
@@ -162,15 +203,24 @@ void CPedGroupMembership::Process() {
     }
 
     // Now that we have a leader, check for separation distance and remove members further than it
-    const auto& leaderPos = GetLeader()->GetPosition();
-    for (auto&& [i, mem] : rngv::enumerate(m_members)) {
+    // Como el original: solo los huecos 0..6; se quita si r^2 < d^2 (NaN se queda) y ademas esta en la misma area que el lider
+    for (auto i = 0; i < TOTAL_PED_GROUP_FOLLOWERS; i++) {
+        const auto mem = m_members.data()[i];
         if (!mem || mem->bNeverLeavesGroup) {
             continue;
         }
-        if (IsLeader(mem)) { // Leader's distance to itself always 0, thus ignore
+        const auto  leader    = GetLeader();
+        const auto& leaderPos = leader->GetPosition();
+        const auto& memPos    = mem->GetPosition();
+        const float dx        = memPos.x - leaderPos.x;
+        const float dy        = memPos.y - leaderPos.y;
+        const float dz        = memPos.z - leaderPos.z;
+        const float distSq    = dz * dz + dy * dy + dx * dx; // Como el original: orden z, y, x
+        const float sepSq     = m_separationRange * m_separationRange;
+        if (!(sepSq < distSq)) {
             continue;
         }
-        if (sq(m_separationRange) >= (leaderPos - mem->GetPosition()).SquaredMagnitude()) {
+        if (mem->GetAreaCode() != leader->GetAreaCode()) {
             continue;
         }
         RemoveMember(i); // Ped is too far
@@ -179,8 +229,9 @@ void CPedGroupMembership::Process() {
 
 // 0x5FB190
 void CPedGroupMembership::RemoveAllFollowers(bool bCreatedByMissionOnly) {
-    for (auto&& [i, mem] : rngv::enumerate(m_members)) {
-        if (!mem || IsLeader(mem)) { // Leader isn't a follower
+    for (auto i = 0; i < TOTAL_PED_GROUP_MEMBERS; i++) {
+        const auto mem = m_members.data()[i];
+        if (!mem || i == LEADER_MEM_ID) { // Como el original: el lider se salta por indice
             continue;
         }
         if (bCreatedByMissionOnly && mem->IsCreatedBy(PED_MISSION)) {
@@ -191,47 +242,48 @@ void CPedGroupMembership::RemoveAllFollowers(bool bCreatedByMissionOnly) {
 }
 
 // 0x5FB1D0
-void CPedGroupMembership::RemoveNFollowers(size_t count) {
-    if (count == 0) { // Nothing to do
-        return;
-    }
-    for (auto&& [i, mem] : rngv::enumerate(m_members)) {
-        if (IsLeader(mem)) { // Leader isn't a follower
+void CPedGroupMembership::RemoveNFollowers(int32 count) {
+    // Como el original: recorre los huecos 0..6 sin cortar el bucle, salta los nulos y compara el contador con signo
+    for (auto i = 0; i < TOTAL_PED_GROUP_FOLLOWERS; i++) {
+        const auto mem = m_members.data()[i];
+        if (!mem || count <= 0) {
             continue;
         }
         if (mem->IsCreatedBy(PED_MISSION)) {
             continue;
         }
         RemoveMember(i);
-        if (!--count) {
-            break;
-        }
+        count--;
     }
 }
 
 // 0x5F80D0
 void CPedGroupMembership::RemoveMember(int32 memIdx) {
-    const auto mem = m_members[memIdx];
+    auto& slot = m_members.data()[memIdx];
+    const auto mem = slot;
     assert(mem);
 
-    CEntity::ClearReference(m_members[memIdx]); // Does `m_apMembers[memIdx] = nullptr`
-
-    if (mem->IsPlayer()) {
-        return;
+    // Como el original: se limpia la referencia pero el hueco se pone a nulo al final
+    // (si se quita el lider, GetLeader() todavia lo devuelve en la comprobacion de m_pPlayerData)
+    if (slot) {
+        CEntity::CleanUpOldReference(slot);
     }
 
-    if (mem->bClearRadarBlipOnDeath) {
-        CRadar::ClearBlipForEntity(mem);
-        mem->bClearRadarBlipOnDeath = false;
-    }
+    if (!mem->IsPlayer()) {
+        if (mem->bClearRadarBlipOnDeath) {
+            // Como el original: el blip se busca por la referencia SCM del pool (indice << 8 | estado)
+            CRadar::ClearBlipForEntity(BLIP_CHAR, GetPedPool()->GetRef(mem));
+            mem->bClearRadarBlipOnDeath = false;
+        }
 
-    mem->GetIntelligence()->RestorePedDecisionMakerType();
+        mem->GetIntelligence()->RestorePedDecisionMakerType();
 
-    if (const auto leader = GetLeader()) {
-        if (const auto plyrdat = leader->GetPlayerData()) {
+        if (const auto leader = GetLeader(); leader && leader->GetPlayerData()) {
             mem->bDrownsInWater = true;
         }
     }
+
+    slot = nullptr;
 }
 
 // 0x5FB210
@@ -246,11 +298,14 @@ void CPedGroupMembership::SetLeader(CPed* ped) {
     assert(ped);
 
     // Remove member (Just in case he's in the group already)
-    RemoveMember(ped);
+    // Como el original: solo si es seguidor (huecos 0..6); el lider actual se quita por indice
+    if (IsFollower(ped)) {
+        RemoveMember(ped);
+    }
 
     // Remov the current leader (If any)
     if (GetLeader()) {
-        RemoveMember(GetLeader());
+        RemoveMember(LEADER_MEM_ID);
     }
 
     // Now add member as the leader
@@ -284,12 +339,16 @@ CPed* CPedGroupMembership::GetFirstAvailableMember() {
 // 0x5F6950
 eModelID CPedGroupMembership::GetObjectForPedToHold() {
     using namespace ModelIndices;
-    return CGeneral::RandomChoiceFromList<eModelID>({ 
-        /* Each has 1/3 chance (Originally 33/33/34) */
-        MI_GANG_SMOKE, 
-        MODEL_INVALID, 
-        MI_GANG_DRINK 
-    }); 
+    // Como el original: (rand() & 0xFFFF) * (1/32768) * 100 truncado; < 33 cigarro, < 66 bebida, si no -1
+    // (los indices de modelo se leen como uint16, sin extension de signo)
+    const auto rnd = (int32)((float)(CGeneral::GetRandomNumber() & 0xFFFF) * (1.0f / 32768.0f) * 100.0f);
+    if (rnd < 33) {
+        return MI_GANG_SMOKE;
+    }
+    if (rnd < 66) {
+        return MI_GANG_DRINK;
+    }
+    return MODEL_INVALID;
 }
 
 // NOTSA

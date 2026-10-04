@@ -73,7 +73,4 @@ public:
 
     static CEntryExit* GetInSlot(int32 slot);
     static CEntryExitsPool* GetPool();
-
-private:
-    static void AddEnExToWorld(CEntryExit* enex);
 };

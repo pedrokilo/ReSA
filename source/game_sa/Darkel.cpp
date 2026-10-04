@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 19/19 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/19 entradas.
+ * Validación registrada: 19/19 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -64,62 +64,81 @@ bool CDarkel::FrenzyOnGoing() {
     return Status == eDarkelStatus::FRENZY_ON_GOING || Status == eDarkelStatus::FRENZY_ON_GOING_2P;
 }
 
+// Como el original: CGameLogic::SetMissionFailed va en línea y GameState se escribe como byte
+static void SetGameLogicStateNow(eGameLogicState state) {
+    reinterpret_cast<uint8&>(CGameLogic::GameState) = static_cast<uint8>(state);
+    CGameLogic::TimeOfLastEvent = CTimer::GetTimeInMS();
+}
+
 // 0x43CEC0
 void CDarkel::DrawMessages() {
     if (CReplay::Mode == MODE_PLAYBACK)
         return;
 
-    const auto elapsed = CTimer::GetTimeInMS() - CDarkel::TimeOfFrenzyStart;
-
-    if (FrenzyOnGoing()) {
-        if (pStartMessage) {
-            if (bStandardSoundAndMessages) {
-                if (elapsed >= 3000 && elapsed < 11'000) {
-                    CMessages::AddBigMessage(pStartMessage, 3000, STYLE_MIDDLE);
-                }
-            } else if (elapsed < 8000) {
+    switch (Status) {
+    case eDarkelStatus::FRENZY_ON_GOING:
+    case eDarkelStatus::FRENZY_ON_GOING_2P: {
+        const uint32 elapsed = CTimer::GetTimeInMS() - TimeOfFrenzyStart;
+        if (bStandardSoundAndMessages ? (elapsed >= 3000 && elapsed < 11'000) : elapsed < 8000) {
+            if (pStartMessage) {
                 CMessages::AddBigMessage(pStartMessage, 3000, STYLE_MIDDLE);
             }
         }
 
+        // Como el original: escalas con las constantes del EXE (ancho * 1/640 y alto * 1/448), sin corrección de aspecto
+        constexpr float kW = 1.0f / 640.0f; // 0x859520
+        constexpr float kH = 1.0f / 448.0f; // 0x859524
+        const float W  = (float)RsGlobal.maximumWidth;
+        const float H  = (float)RsGlobal.maximumHeight;
+        const float sy = H * kH;
+
         CFont::SetProportional(true);
         CFont::SetBackground(false, false);
-        CFont::SetScale(SCREEN_SCALE_X(0.5f), SCREEN_SCALE_Y(1.0f));
+        CFont::SetScale(W * kW * 0.5f, sy);
         CFont::SetOrientation(eFontAlignment::ALIGN_RIGHT);
         CFont::SetRightJustifyWrap(0.0f);
         CFont::SetFontStyle(FONT_MENU);
-        CFont::SetWrapx(SCREEN_SCALE_X(640.0f));
+        CFont::SetWrapx(W * kW * 640.0f);
         CFont::SetEdge(2);
         CFont::SetDropColor({0, 0, 0, 255});
         CFont::SetColor(HudColour.GetRGB(HUD_COLOUR_LIGHT_GRAY));
 
-        const auto y1 = CHud::GetYPosBasedOnHealth(CWorld::PlayerInFocus, SCREEN_SCALE_Y(148.0f), 12);
-        auto remainingTimerY = CHud::GetYPosBasedOnHealth(PED_TYPE_PLAYER2, y1, 12);
+        const float y1 = CHud::GetYPosBasedOnHealth(CWorld::PlayerInFocus, sy * 148.0f, 12);
+        float remainingTimerY = CHud::GetYPosBasedOnHealth(PED_TYPE_PLAYER2, y1, 12);
 
-        const auto y2 = CHud::GetYPosBasedOnHealth(CWorld::PlayerInFocus, SCREEN_SCALE_Y(168.0f), 12);
-        auto remainingKillsY = CHud::GetYPosBasedOnHealth(PED_TYPE_PLAYER2, y2, 12);
-        if (FindPlayerPed(PED_TYPE_PLAYER2)) {
-            remainingTimerY += SCREEN_SCALE_Y(72.0f);
-            remainingKillsY += SCREEN_SCALE_Y(72.0f);
+        const float y2 = CHud::GetYPosBasedOnHealth(CWorld::PlayerInFocus, sy * 20.0f + sy * 148.0f, 12);
+        float remainingKillsY = CHud::GetYPosBasedOnHealth(PED_TYPE_PLAYER2, y2, 12);
+
+        // Como el original: FindPlayerPed(1) va en línea (lee CWorld::Players[1].m_pPed)
+        if (CWorld::Players[PED_TYPE_PLAYER2].m_pPed) {
+            const float offset = sy * 72.0f;
+            remainingTimerY = remainingTimerY + offset;
+            remainingKillsY = offset + remainingKillsY;
         }
 
+        const float x = W - kW * W * 32.0f;
         if (TimeLimit >= 0) {
-            const auto remaining = TimeOfFrenzyStart + TimeLimit - CTimer::GetTimeInMS();
-            sprintf_s(gString, "%d:%02d", remaining / 60'000, remaining % 60'000 / 1000);
+            const uint32 remaining = TimeLimit - CTimer::GetTimeInMS() + TimeOfFrenzyStart;
+            sprintf(gString, "%d:%02d", remaining / 60'000, remaining % 60'000 / 1000); // Como el original: sprintf (sprintf_s rellena con 0xFE en debug)
             AsciiToGxtChar(gString, gGxtString);
 
             // blink in last 4 second
-            if (remaining > 4000 || CTimer::GetFrameCounter() % 2) {
-                CFont::PrintString(SCREEN_SCALE_FROM_RIGHT(32.0f), remainingTimerY, gGxtString);
+            if (remaining > 4000 || (CTimer::GetFrameCounter() & 1)) {
+                CFont::PrintString(x, remainingTimerY, gGxtString);
             }
         }
-        sprintf_s(gString, "%d", KillsNeeded < 0 ? 0 : KillsNeeded);
+        sprintf(gString, "%d", KillsNeeded < 0 ? 0 : KillsNeeded);
         AsciiToGxtChar(gString, gGxtString);
-        CFont::PrintString(SCREEN_SCALE_FROM_RIGHT(32.0f), remainingKillsY, gGxtString);
+        CFont::PrintString(x, remainingKillsY, gGxtString);
+        break;
     }
-
-    if (Status == eDarkelStatus::FRENZY_PASSED && bStandardSoundAndMessages && elapsed < 5'000) {
-        CMessages::AddBigMessage(TheText.Get("KILLPA"), 3000, STYLE_MIDDLE);
+    case eDarkelStatus::FRENZY_PASSED:
+        if (bStandardSoundAndMessages && CTimer::GetTimeInMS() - TimeOfFrenzyStart < 5'000) {
+            CMessages::AddBigMessage(TheText.Get("KILLPA"), 3000, STYLE_MIDDLE);
+        }
+        break;
+    default:
+        break;
     }
 }
 
@@ -130,8 +149,9 @@ eDarkelStatus CDarkel::ReadStatus() {
 
 // 0x43D210
 void CDarkel::RegisterKillNotByPlayer(const CPed* killedPed) {
-    if (auto player = FindPlayerPed(); killedPed != player->AsPed()) {
-        if (player->GetPlayerGroup().m_groupMembership.IsMember(killedPed)) {
+    // Como el original: FindPlayerPed se llama dos veces
+    if (killedPed != FindPlayerPed()) {
+        if (FindPlayerPed()->GetPlayerGroup().GetMembership().IsMember(killedPed)) {
             CStats::DecrementStat(STAT_RESPECT, 2.0f);
             CStats::IncrementStat(STAT_RECRUITED_GANG_MEMBERS_KILLED);
             CStats::DisplayScriptStatUpdateMessage(STAT_UPDATE_DECREASE, STAT_GANG_STRENGTH, 1.0f);
@@ -149,11 +169,12 @@ bool CDarkel::ThisPedShouldBeKilledForFrenzy(const CPed& ped) {
     if (!FrenzyOnGoing())
         return false;
 
-    if (ModelToKill[3] == MODELTK_ANY_PED || rng::find(ModelToKill, ped.GetModelIndex()) != ModelToKill.end()) {
-        return !ped.IsPlayer();
+    // Como el original: el modelo se extiende con signo (movsx)
+    const int32 model = (int16)ped.GetModelIndex();
+    if (ModelToKill[3] != (int32)MODELTK_ANY_PED && model != ModelToKill[3] && model != ModelToKill[2] && model != ModelToKill[1] && model != ModelToKill[0]) {
+        return false;
     }
-
-    return false;
+    return !ped.IsPlayer();
 }
 
 // 0x43D350
@@ -161,16 +182,22 @@ bool CDarkel::ThisVehicleShouldBeKilledForFrenzy(const CVehicle& vehicle) {
     if (!FrenzyOnGoing())
         return false;
 
-    if (ModelToKill[3] == MODELTK_ANY_VEHICLE || rng::find(ModelToKill, vehicle.GetModelIndex()) != ModelToKill.end())
+    if (ModelToKill[3] == (int32)MODELTK_ANY_VEHICLE)
         return true;
 
-    return ModelToKill[3] == MODELTK_ANY_BIKE && vehicle.IsSubBike();
+    // Como el original: el modelo se extiende con signo (movsx)
+    const int32 model = (int16)vehicle.GetModelIndex();
+    if (model == ModelToKill[3] || model == ModelToKill[2] || model == ModelToKill[1] || model == ModelToKill[0])
+        return true;
+
+    return ModelToKill[3] == (int32)MODELTK_ANY_BIKE && vehicle.IsSubBike();
 }
 
 // 0x43D3B0
 void CDarkel::StartFrenzy(eWeaponType weaponType, int32 timeLimit, uint16 killsNeeded, int32 modelToKill, const GxtChar* startMessage, int32 modelToKill2, int32 modelToKill3, int32 modelToKill4, bool standardSoundAndMessages, bool needHeadShot) {
     CGameLogic::ClearSkip(false);
-    const eWeaponType weapon = (WeaponType != WEAPON_UZI_DRIVEBY) ? weaponType : WEAPON_MICRO_UZI;
+    // Como el original: se mira el arma del parámetro (no la global WeaponType)
+    const eWeaponType weapon = (weaponType != WEAPON_UZI_DRIVEBY) ? weaponType : WEAPON_MICRO_UZI;
 
     if (CGameLogic::IsCoopGameGoingOn()) {
         Status = eDarkelStatus::FRENZY_ON_GOING_2P;
@@ -196,41 +223,46 @@ void CDarkel::StartFrenzy(eWeaponType weaponType, int32 timeLimit, uint16 killsN
     TimeLimit = timeLimit;
     PreviousTime = timeLimit / 1000;
 
-    auto playerPed = FindPlayerPed();
-    if (weapon < WEAPON_LAST_WEAPON) {
-        InterruptedWeaponTypeSelected = playerPed->GetActiveWeapon().m_Type;
-        playerPed->RemoveWeaponAnims(InterruptedWeaponTypeSelected, -1000.0f);
+    // Como el original: comparación con signo y FindPlayerPed() en cada acceso
+    if ((int32)weapon >= (int32)WEAPON_LAST_WEAPON) {
+        return;
+    }
+    InterruptedWeaponTypeSelected = FindPlayerPed()->GetActiveWeapon().m_Type;
+    FindPlayerPed()->RemoveWeaponAnims(InterruptedWeaponTypeSelected, -1000.0f);
 
-        const auto frenzyWeaponSlot = CWeaponInfo::GetWeaponInfo(weapon)->m_nSlot;
-        InterruptedWeaponType = playerPed->GetWeaponInSlot(frenzyWeaponSlot).m_Type;
-        AmmoInterruptedWeapon = playerPed->GetWeaponInSlot(frenzyWeaponSlot).m_TotalAmmo;
+    const auto frenzyWeaponSlot = CWeaponInfo::GetWeaponInfo(weapon)->m_nSlot;
+    InterruptedWeaponType = FindPlayerPed()->GetWeaponInSlot((size_t)frenzyWeaponSlot).m_Type;
+    AmmoInterruptedWeapon = FindPlayerPed()->GetWeaponInSlot((size_t)frenzyWeaponSlot).m_TotalAmmo;
 
-        if (InterruptedWeaponType != WEAPON_UNARMED) {
-            const auto weaponInfo = CWeaponInfo::GetWeaponInfo(InterruptedWeaponType);
-            CModelInfo::GetModelInfo(weaponInfo->m_nModelId1)->AddRef();
-        }
+    if (InterruptedWeaponType != WEAPON_UNARMED) {
+        CModelInfo::GetModelInfo(CWeaponInfo::GetWeaponInfo(InterruptedWeaponType)->m_nModelId1)->AddRef();
+    }
 
-        for (auto i = 0; i < 2; i++) {
-            if (auto player = FindPlayerPed(i)) {
-                player->GiveWeapon(weapon, 30'000, true);
-                player->SetCurrentWeapon(weapon);
-                player->MakeChangesForNewWeapon(weapon);
-            }
-        }
-
-        if (FindPlayerVehicle()) {
-            auto chosenWeapon = playerPed->GetPlayerData()->m_nChosenWeapon;
-            playerPed->SetCurrentWeapon(chosenWeapon);
-
-            if (auto& activeWeapon = playerPed->GetActiveWeapon(); activeWeapon.m_TotalAmmo >= activeWeapon.GetWeaponInfo().m_nAmmoClip) {
-                activeWeapon.m_AmmoInClip = activeWeapon.GetWeaponInfo().m_nAmmoClip;
-            } else {
-                activeWeapon.m_AmmoInClip = activeWeapon.m_TotalAmmo;
-            }
-
-            playerPed->ClearWeaponTarget();
+    for (auto i = 0; i < 2; i++) {
+        if (FindPlayerPed(i)) {
+            FindPlayerPed(i)->GiveWeapon(weapon, 30'000, true);
+            FindPlayerPed(i)->SetCurrentWeapon(weapon);
+            FindPlayerPed(i)->MakeChangesForNewWeapon(weapon);
         }
     }
+
+    if (!FindPlayerVehicle()) {
+        return;
+    }
+
+    const int32 chosenWeapon = (int8)FindPlayerPed()->GetPlayerData()->m_nChosenWeapon;
+    FindPlayerPed()->SetCurrentWeapon(chosenWeapon);
+
+    auto* const player = FindPlayerPed();
+    const int32 ammoClip = (int16)CWeaponInfo::GetWeaponInfo(FindPlayerPed()->GetActiveWeapon().m_Type)->m_nAmmoClip;
+    int32 ammoInClip;
+    if ((int32)player->GetActiveWeapon().m_TotalAmmo < ammoClip) {
+        ammoInClip = (int32)FindPlayerPed()->GetActiveWeapon().m_TotalAmmo;
+    } else {
+        ammoInClip = (int16)CWeaponInfo::GetWeaponInfo(FindPlayerPed()->GetActiveWeapon().m_Type)->m_nAmmoClip;
+    }
+    FindPlayerPed()->GetActiveWeapon().m_AmmoInClip = (uint32)ammoInClip;
+    FindPlayerPed()->ClearWeaponTarget();
 }
 
 // 0x43D6A0
@@ -242,55 +274,65 @@ void CDarkel::ResetModelsKilledByPlayer(int32 playerId) {
 
 // 0x43D6C0
 int16 CDarkel::QueryModelsKilledByPlayer(eModelID modelId, int32 playerId) {
-    return RegisteredKills[modelId][playerId];
+    return RegisteredKills.data()[modelId][playerId];
 }
 
 // 0x43D6E0
 int32 CDarkel::FindTotalPedsKilledByPlayer(int32 playerId) {
+    // Como el original: solo suma los 400 primeros modelos (peatones)
     int32 sum = 0;
-    for (auto& model : RegisteredKills) {
-        sum += model[playerId];
+    for (auto i = 0; i < 400; i++) {
+        sum += RegisteredKills[i][playerId];
     }
     return sum;
 }
 
 // 0x43D7A0
 void CDarkel::DealWithWeaponChangeAtEndOfFrenzy() {
-    auto playerPed = FindPlayerPed();
+    // Como el original: el límite se comprueba sobre el arma ya convertida (UZI_DRIVEBY -> MICRO_UZI)
+    // y FindPlayerPed() se llama en cada acceso
     const eWeaponType weapon = (WeaponType != WEAPON_UZI_DRIVEBY) ? WeaponType : WEAPON_MICRO_UZI;
-    if (WeaponType < WEAPON_LAST_WEAPON) {
+    if ((int32)weapon < (int32)WEAPON_LAST_WEAPON) {
         if (InterruptedWeaponType != WEAPON_UNARMED) {
-            const auto modelId = CWeaponInfo::GetWeaponInfo(InterruptedWeaponType)->m_nModelId1;
-            CModelInfo::GetModelInfo(modelId)->RemoveRef();
+            CModelInfo::GetModelInfo(CWeaponInfo::GetWeaponInfo(InterruptedWeaponType)->m_nModelId1)->RemoveRef();
         }
 
-        const auto weaponInfo = CWeaponInfo::GetWeaponInfo(weapon);
-        playerPed->RemoveWeaponModel(playerPed->GetWeaponInSlot(weaponInfo->m_nSlot).GetWeaponInfo().m_nModelId1);
+        const auto slot = (size_t)(uint8)CWeaponInfo::GetWeaponInfo(weapon)->m_nSlot;
+        const auto modelInSlot = CWeaponInfo::GetWeaponInfo(FindPlayerPed()->GetWeaponInSlot(slot).m_Type)->m_nModelId1;
+        FindPlayerPed()->RemoveWeaponModel(modelInSlot);
 
-        playerPed->GetWeaponInSlot(weaponInfo->m_nSlot).m_Type = WEAPON_UNARMED;
-        playerPed->GetWeaponInSlot(weaponInfo->m_nSlot).m_TotalAmmo = 0;
-        playerPed->GetWeaponInSlot(weaponInfo->m_nSlot).m_AmmoInClip = 0;
-        playerPed->GetWeaponInSlot(weaponInfo->m_nSlot).m_State = WEAPONSTATE_READY;
-        playerPed->RemoveWeaponAnims(weapon, -1000.0f);
+        FindPlayerPed()->GetWeaponInSlot(slot).m_Type = WEAPON_UNARMED;
+        FindPlayerPed()->GetWeaponInSlot(slot).m_TotalAmmo = 0;
+        FindPlayerPed()->GetWeaponInSlot(slot).m_AmmoInClip = 0;
+        FindPlayerPed()->GetWeaponInSlot(slot).m_State = WEAPONSTATE_READY;
+        FindPlayerPed()->RemoveWeaponAnims(weapon, -1000.0f);
 
-        if (auto mi = CModelInfo::GetModelInfo(weaponInfo->m_nModelId1); mi->m_nRefCount > 0) {
-            mi->RemoveRef();
+        if ((int16)CModelInfo::GetModelInfo(CWeaponInfo::GetWeaponInfo(weapon)->m_nModelId1)->m_nRefCount > 0) {
+            CModelInfo::GetModelInfo(CWeaponInfo::GetWeaponInfo(weapon)->m_nModelId1)->RemoveRef();
         }
-        playerPed->GiveWeapon(InterruptedWeaponType, AmmoInterruptedWeapon, true);
+
+        // Como el original: se restaura el arma elegida con el slot del arma activa antes del frenesí
+        auto* const playerData = FindPlayerPed()->GetPlayerData();
+        playerData->m_nChosenWeapon = (uint8)CWeaponInfo::GetWeaponInfo(InterruptedWeaponTypeSelected)->m_nSlot;
+        FindPlayerPed()->GiveWeapon(InterruptedWeaponType, AmmoInterruptedWeapon, true);
     }
 
     if (FindPlayerVehicle()) {
-        playerPed->RemoveWeaponModel(playerPed->GetActiveWeapon().GetWeaponInfo().m_nModelId1);
+        const auto activeModel = CWeaponInfo::GetWeaponInfo(FindPlayerPed()->GetActiveWeapon().m_Type)->m_nModelId1;
+        FindPlayerPed()->RemoveWeaponModel(activeModel);
 
-        auto& chosenWeaponSlot = playerPed->GetPlayerData()->m_nChosenWeapon;
-        if (playerPed->GetWeaponInSlot(eWeaponSlot::SMG).m_Type != WEAPON_UNARMED) {
-            chosenWeaponSlot = (uint8)eWeaponSlot::SMG;
+        if (FindPlayerPed()->GetWeaponInSlot(eWeaponSlot::SMG).m_Type != WEAPON_UNARMED) {
+            FindPlayerPed()->GetPlayerData()->m_nChosenWeapon = (uint8)eWeaponSlot::SMG;
         } else {
-            chosenWeaponSlot = (uint8)eWeaponSlot::UNARMED;
+            FindPlayerPed()->GetPlayerData()->m_nChosenWeapon = (uint8)eWeaponSlot::UNARMED;
         }
 
-        playerPed->SetCurrentWeapon(chosenWeaponSlot);
-        playerPed->MakeChangesForNewWeapon(chosenWeaponSlot);
+        const int32 chosenWeaponSlot = (int8)FindPlayerPed()->GetPlayerData()->m_nChosenWeapon;
+        FindPlayerPed()->SetCurrentWeapon(chosenWeaponSlot);
+
+        // Como el original: MakeChangesForNewWeapon recibe el tipo del arma activa (0x60B460), no el slot
+        const eWeaponType activeType = FindPlayerPed()->GetActiveWeapon().m_Type;
+        FindPlayerPed()->MakeChangesForNewWeapon(activeType);
     }
 }
 
@@ -389,7 +431,10 @@ void CDarkel::Update() {
     if (!FrenzyOnGoing())
         return;
 
-    const auto StartFrenzy = [&] {
+    const auto FailFrenzy = [] {
+        if (Status == eDarkelStatus::FRENZY_ON_GOING_2P) {
+            SetGameLogicStateNow(GAMELOGIC_STATE_MISSION_FAILED);
+        }
         Status = eDarkelStatus::FRENZY_FAILED;
         CPopulation::m_AllRandomPedsThisType = -1;
         TimeOfFrenzyStart = CTimer::GetTimeInMS();
@@ -398,26 +443,19 @@ void CDarkel::Update() {
 
     const int32 remaining = TimeOfFrenzyStart + TimeLimit - CTimer::GetTimeInMS();
     if (remaining <= 0 && TimeLimit >= 0) {
-        if (Status == eDarkelStatus::FRENZY_ON_GOING_2P) {
-            CGameLogic::SetMissionFailed();
+        FailFrenzy();
+    } else if (Status == eDarkelStatus::FRENZY_ON_GOING_2P && !CWorld::Players[PED_TYPE_PLAYER2].m_pPed) { // Como el original: FindPlayerPed(1) en línea
+        FailFrenzy();
+    } else if (remaining / 1000 != PreviousTime) {
+        if (PreviousTime < 12) {
+            AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_TIMER_COUNT);
         }
-        StartFrenzy();
-    } else if (Status != eDarkelStatus::FRENZY_ON_GOING_2P || FindPlayerPed(PED_TYPE_PLAYER2)) {
-        if (remaining / 1000 != PreviousTime) {
-            if (PreviousTime < 12) {
-                AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_TIMER_COUNT);
-            }
-            PreviousTime = remaining / 1000;
-        }
-    } else {
-        CGameLogic::SetMissionFailed();
-        StartFrenzy();
+        PreviousTime = remaining / 1000;
     }
 
     if (KillsNeeded <= 0) {
         if (Status == eDarkelStatus::FRENZY_ON_GOING_2P) {
-            CGameLogic::GameState = GAMELOGIC_STATE_MISSION_PASSED;
-            CGameLogic::TimeOfLastEvent = CTimer::GetTimeInMS();
+            SetGameLogicStateNow(GAMELOGIC_STATE_MISSION_PASSED);
         }
 
         Status = eDarkelStatus::FRENZY_PASSED;
@@ -447,96 +485,76 @@ void CDarkel::ResetOnPlayerDeath() {
 // 0x43DC60
 void CDarkel::FailKillFrenzy() {
     if (Status == eDarkelStatus::FRENZY_ON_GOING_2P) {
-        CGameLogic::SetMissionFailed();
+        SetGameLogicStateNow(GAMELOGIC_STATE_MISSION_FAILED);
     }
     ResetOnPlayerDeath();
 }
 
 // 0x43DCD0
 void CDarkel::RegisterKillByPlayer(const CPed& killedPed, eWeaponType damageWeaponId, bool headShotted, int32 playerId) {
+    // Como el original: orden de las estadísticas por tipo y sin comparar con el jugador antes de IsMember
     switch (killedPed.m_nPedType) {
     case PED_TYPE_COP:
     case PED_TYPE_DEALER:
         CStats::IncrementStat(STAT_RESPECT, 1.5f);
         break;
+    case PED_TYPE_GANG2:
+        CStats::DecrementStat(STAT_RESPECT, 5.0f);
+        CStats::IncrementStat(STAT_FRIENDLY_GANG_MEMBERS_KILLED);
+        if (FindPlayerPed()->GetPlayerGroup().GetMembership().IsMember(&killedPed)) {
+            CStats::IncrementStat(STAT_RECRUITED_GANG_MEMBERS_KILLED);
+            CStats::DisplayScriptStatUpdateMessage(STAT_UPDATE_DECREASE, STAT_GANG_STRENGTH, 1.0f);
+        }
+        break;
+    case PED_TYPE_GANG1:
+    case PED_TYPE_GANG3:
+    case PED_TYPE_GANG4:
+    case PED_TYPE_GANG5:
+    case PED_TYPE_GANG6:
+    case PED_TYPE_GANG7:
+    case PED_TYPE_GANG8:
+    case PED_TYPE_GANG9:
+    case PED_TYPE_GANG10:
+        CStats::IncrementStat(STAT_RESPECT, 0.75f);
+        CStats::IncrementStat(STAT_ENEMY_GANG_MEMBERS_KILLED);
+        break;
     default:
         break;
     }
 
-    if (const auto friendly = killedPed.m_nPedType == PED_TYPE_GANG2; killedPed.IsGangster()) {
-        if (friendly) {
-            CStats::IncrementStat(STAT_FRIENDLY_GANG_MEMBERS_KILLED);
-            CStats::DecrementStat(STAT_RESPECT, 5.0f);
-
-            if (auto player = FindPlayerPed(); &killedPed != player->AsPed()) {
-                if (player->GetPlayerGroup().m_groupMembership.IsMember(&killedPed)) {
-                    CStats::IncrementStat(STAT_RECRUITED_GANG_MEMBERS_KILLED);
-                    CStats::DisplayScriptStatUpdateMessage(STAT_UPDATE_DECREASE, STAT_GANG_STRENGTH, 1.0f);
-                }
-            }
-        } else {
-            CStats::IncrementStat(STAT_ENEMY_GANG_MEMBERS_KILLED);
-            CStats::IncrementStat(STAT_RESPECT, 0.75f);
-        }
-    }
-
     if (FrenzyOnGoing()) {
-        const auto CountFrenzyKill = [&] {
+        // Como el original: una sola comprobación encadenada, la muerte cuenta como mucho una vez
+        const bool counts = ((WeaponType == WEAPON_ANYMELEE || WeaponType == WEAPON_ANYWEAPON) && CheckDamagedWeaponType(damageWeaponId, WeaponType))
+            || damageWeaponId == WeaponType
+            || damageWeaponId == WEAPON_EXPLOSION
+            || (damageWeaponId == WEAPON_UZI_DRIVEBY && WeaponType == WEAPON_MICRO_UZI)
+            || (damageWeaponId == WEAPON_RAMMEDBYCAR && WeaponType == WEAPON_RUNOVERBYCAR)
+            || (damageWeaponId == WEAPON_RUNOVERBYCAR && WeaponType == WEAPON_RAMMEDBYCAR)
+            || (damageWeaponId == WEAPON_FLAMETHROWER && WeaponType == WEAPON_MOLOTOV);
+        if (counts) {
             if (ThisPedShouldBeKilledForFrenzy(killedPed) && (!bHeadShotRequired || headShotted)) {
                 KillsNeeded--;
                 AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_PART_MISSION_COMPLETE);
             }
-
-            CStats::IncrementStat(killedPed.IsCop() ? STAT_HIGHEST_POLICE_PEDS_KILLED_ON_RAMPAGE : STAT_HIGHEST_CIVILIAN_PEDS_KILLED_ON_RAMPAGE);
-        };
-
-        if (damageWeaponId == WeaponType || (WeaponType == WEAPON_ANYMELEE || WeaponType == WEAPON_ANYWEAPON) && CheckDamagedWeaponType(damageWeaponId, WeaponType)) {
-            CountFrenzyKill();
-        }
-
-        switch (damageWeaponId) {
-        case WEAPON_EXPLOSION:
-            CountFrenzyKill();
-            break;
-        case WEAPON_UZI_DRIVEBY:
-            if (WeaponType == WEAPON_MICRO_UZI) {
-                CountFrenzyKill();
-            }
-            break;
-        case WEAPON_RAMMEDBYCAR:
-            if (WeaponType == WEAPON_RUNOVERBYCAR) { // wrong?
-                CountFrenzyKill();
-            }
-            break;
-        case WEAPON_RUNOVERBYCAR:
-            if (WeaponType == WEAPON_RAMMEDBYCAR) { // wrong?
-                CountFrenzyKill();
-            }
-            break;
-        case WEAPON_FLAMETHROWER:
-            if (WeaponType == WEAPON_MOLOTOV) {
-                CountFrenzyKill();
-            }
-            break;
-        default:
-            break;
+            CStats::IncrementStat(killedPed.m_nPedType == PED_TYPE_COP ? STAT_HIGHEST_POLICE_PEDS_KILLED_ON_RAMPAGE : STAT_HIGHEST_CIVILIAN_PEDS_KILLED_ON_RAMPAGE);
         }
     }
 
-    RegisteredKills[killedPed.GetModelIndex()][playerId]++;
+    RegisteredKills.data()[(int16)killedPed.GetModelIndex()][playerId]++;
     CStats::IncrementStat(STAT_PEOPLE_YOUVE_WASTED);
-    CStats::PedsKilledOfThisType[killedPed.bChrisCriminal ? PED_TYPE_CRIMINAL : killedPed.m_nPedType]++;
+    CStats::PedsKilledOfThisType.data()[killedPed.bChrisCriminal ? PED_TYPE_CRIMINAL : killedPed.m_nPedType]++;
 
     if (headShotted) {
         CStats::IncrementStat(STAT_NUMBER_OF_HEADSHOTS);
     }
     CStats::IncrementStat(STAT_KILLS_SINCE_LAST_CHECKPOINT);
 
-    if (playerId == PED_TYPE_PLAYER1 && !FindPlayerPed(PED_TYPE_PLAYER1)->bInVehicle) {
+    // Como el original: FindPlayerPed(0) en línea (lee CWorld::Players[0].m_pPed)
+    if (playerId == PED_TYPE_PLAYER1 && !CWorld::Players[PED_TYPE_PLAYER1].m_pPed->bInVehicle) {
         CGangWars::AddKillToProvocation(killedPed.m_nPedType);
     }
 
-    if (killedPed.m_nPedType >= PED_TYPE_DEALER) { // BUG?
+    if ((int32)killedPed.m_nPedType >= (int32)PED_TYPE_DEALER) { // BUG?
         CPopCycle::PlayerKilledADealer();
     }
 }
@@ -547,7 +565,7 @@ void CDarkel::RegisterCarBlownUpByPlayer(CVehicle& vehicle, int32 playerId) {
         KillsNeeded--;
         AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_PART_MISSION_COMPLETE);
     }
-    RegisteredKills[vehicle.GetModelIndex()][playerId]++;
+    RegisteredKills.data()[(int16)vehicle.GetModelIndex()][playerId]++;
 
     switch (vehicle.GetVehicleAppearance()) {
     case VEHICLE_APPEARANCE_AUTOMOBILE:

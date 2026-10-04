@@ -788,5 +788,55 @@
     "id": "world16",
     "name": "Coberturas y CPlaceable (lista de 16)",
     "runner": "World16/run_local.py"
+  },
+  {
+    "id": "fixhooks",
+    "name": "Hooks duplicados y virtuales con hook plano",
+    "runner": "FixHooks/run_local.py"
+  },
+  {
+    "id": "tasks18",
+    "name": "Gestor de tareas (lista de 18)",
+    "runner": "Tasks18/run_local.py"
+  },
+  {
+    "id": "audio18",
+    "name": "Sonidos y decodificador MF (lista de 18)",
+    "runner": "Audio18/run_local.py"
+  },
+  {
+    "id": "group18",
+    "name": "Miembros de grupos de peatones (lista de 18)",
+    "runner": "Group18/run_local.py"
+  },
+  {
+    "id": "world18",
+    "name": "Gestor de entradas y salidas (lista de 18)",
+    "runner": "World18/run_local.py"
+  },
+  {
+    "id": "plant19",
+    "name": "Gestor de plantas (lista de 19)",
+    "runner": "Plant19/run_local.py"
+  },
+  {
+    "id": "game19",
+    "name": "Darkel y grafitis (lista de 19)",
+    "runner": "Game19/run_local.py"
+  },
+  {
+    "id": "gun19",
+    "name": "Usar arma (lista de 19)",
+    "runner": "Gun19/run_local.py"
+  },
+  {
+    "id": "route19",
+    "name": "Seguir ruta de nodos (lista de 19)",
+    "runner": "Route19/run_local.py"
+  },
+  {
+    "id": "render19",
+    "name": "Cámara de sombras y cristales (lista de 19)",
+    "runner": "Render19/run_local.py"
   }
 ]

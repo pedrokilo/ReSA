@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 7808,
+  "pairs_per_function": {
+    "CEntryExitManager::AddEntryExitToStack": 512,
+    "CEntryExitManager::AddOne": 768,
+    "CEntryExitManager::DeleteOne": 512,
+    "CEntryExitManager::EnableBurglaryHouses": 256,
+    "CEntryExitManager::FindNearestDoor": 512,
+    "CEntryExitManager::FindNearestEntryExit": 512,
+    "CEntryExitManager::GetEntryExitIndex": 768,
+    "CEntryExitManager::GetPositionRelativeToOutsideWorld": 512,
+    "CEntryExitManager::LinkEntryExit": 512,
+    "CEntryExitManager::Load": 512,
+    "CEntryExitManager::PostEntryExitsCreation": 256,
+    "CEntryExitManager::ResetAreaCodeForVisibleObjects": 256,
+    "CEntryExitManager::Save": 512,
+    "CEntryExitManager::SetAreaCodeForVisibleObjects": 256,
+    "CEntryExitManager::Shutdown": 128,
+    "CEntryExitManager::ShutdownForRestart": 256,
+    "CEntryExitManager::Update": 768
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "db042c6056a27fea582a642ad6a1d3e10a01184d71501775d893c7ee1d2e6072",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-world18\\20261003-204523-360641",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CEntryExitManager::AddEntryExitToStack": true,
+    "CEntryExitManager::AddOne": true,
+    "CEntryExitManager::DeleteOne": true,
+    "CEntryExitManager::EnableBurglaryHouses": true,
+    "CEntryExitManager::FindNearestDoor": true,
+    "CEntryExitManager::FindNearestEntryExit": true,
+    "CEntryExitManager::GetEntryExitIndex": true,
+    "CEntryExitManager::GetPositionRelativeToOutsideWorld": true,
+    "CEntryExitManager::LinkEntryExit": true,
+    "CEntryExitManager::Load": true,
+    "CEntryExitManager::PostEntryExitsCreation": true,
+    "CEntryExitManager::ResetAreaCodeForVisibleObjects": true,
+    "CEntryExitManager::Save": true,
+    "CEntryExitManager::SetAreaCodeForVisibleObjects": true,
+    "CEntryExitManager::Shutdown": true,
+    "CEntryExitManager::ShutdownForRestart": true,
+    "CEntryExitManager::Update": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "443cfef3fd0d8a1ab57854be92bdfc566172986cab9411daae7a61b17f02e4bf",
+      "pdb": "4578d7ce2631861ea0badbd8c4c5ada325305ca2ae16ce644f84947e247ed710"
+    },
+    "sources": {
+      "source/game_sa/EntryExitManager.cpp": "f74fed152b281221da671947cbb56ca953828fab7c394f0821c786692099f127",
+      "source/game_sa/EntryExitManager.h": "f9a1d78f6113d00af5b7ccee113a3def6b173a037e9ce030f44093a4c51503ab"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "43e068d0b2f2f99eba8d64dc56fa112b9e87b790c157211e2c7cd31465e45a3f",
+      "build_probe.py": "d78574d53c95ca6d8c7a959bc0b27052f0037087f00eeeef44bb4f53830ec494",
+      "run_local.py": "d589c5e533706c5b4e781f252a1e72194dfb7d44bc596ed34cda494793c716f8"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

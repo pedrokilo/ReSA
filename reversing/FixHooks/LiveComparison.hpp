@@ -16,6 +16,7 @@
 // Comprobaciones extra (sin pares): los hooks de vtable bloqueados (reversed=false) convertidos siguen en su
 // direccion original y son de tipo V; CEntity::Add-rect conmuta su hueco; las parejas tienen destinos distintos.
 #include <fstream>
+#include <optional>
 #include <reversiblehooks/RootHookCategory.h>
 #include <reversiblehooks/ReversibleHook/Base.h>
 #include <reversiblehooks/ReversibleHook/Virtual.h>
@@ -150,6 +151,13 @@ inline void Update() {
         if(!ok){ Write({{"event","error"},{"reason","static checks failed"},{"state_restored",statesRestored()}}); return; }
     }
     for(auto* h:all)h->LockState(false);
+    // Cuerpo de CTaskComplexWander::ControlSubTask en la DLL. Los hooks de vtable llevan un hook simple interno:
+    // activo = jmp en la entrada del EXE (0x674C30) hacia la DLL; inactivo = jmp en la entrada de la DLL (vtable
+    // de la DLL / ILT) hacia el EXE. Por eso el cuerpo se resuelve con el hook activo.
+    uintptr_t wanderBody{};
+    { auto* wh=partnerHooks[2]; const bool was=wh->Hooked(); wh->State(true); wanderBody=Follow(dllWanderControl); wh->State(was); }
+    if(InExe(wanderBody)){ for(size_t k=0;k<all.size();++k){all[k]->State(enabled[k]);all[k]->LockState(locked[k]);}
+        Write({{"event","error"},{"reason","Wander ControlSubTask body not found in the DLL"},{"state_restored",statesRestored()}}); return; }
 
     // --- fichero de prueba propio ---
     const auto fixture=std::filesystem::path(__FILE__).parent_path()/"artifacts/input.bin";
@@ -159,7 +167,11 @@ inline void Update() {
 
     {
         using ReversingProbe::EntryPatch;
-        EntryPatch w1(Follow(dllWanderControl),FakeWanderControl), w1e(0x674C30,FakeWanderControl);
+        // Los parches de CTaskComplexWander::ControlSubTask (entrada del EXE y cuerpo de la DLL) se ponen solo despues
+        // de fijar el estado de los hooks y se quitan antes de cualquier State(): State() reescribe esos mismos bytes.
+        std::optional<EntryPatch> wPatchExe, wPatchDll;
+        auto patchWander=[&]{ wPatchExe.emplace(0x674C30,FakeWanderControl); wPatchDll.emplace(wanderBody,FakeWanderControl); };
+        auto unpatchWander=[&]{ wPatchDll.reset(); wPatchExe.reset(); };
         for(size_t f=0;f<fns.size();++f) {
             const auto& fn=fns[f]; int failures=0; const std::string cls=fn.cls, nm=fn.name, full=cls+"::"+nm;
             if(!only.empty()&&only!=full)continue;
@@ -182,12 +194,17 @@ inline void Update() {
                             At<uint32>(obj.data(),8)=next()%5 ? 0x20000000u+(next()&0xFFFFu)*4u : 0u;
                             void* ped=reinterpret_cast<void*>(uintptr_t(0x30000000u+(next()&0xFFFFu)*16u)); wanderBase=obj.data(); wanderSeed=next();
                             using CS=void*(__thiscall*)(void*,void*);
+                            const bool wander=cls=="CTaskComplexWanderFlee";
+                            if(wander)patchWander();
                             ret=uintptr_t(reinterpret_cast<CS>(a)(obj.data(),ped));
+                            if(wander)unpatchWander();
                             // Estado mixto: este hook igual, la pareja al contrario (dos hooks ya no comparten destino)
                             partnerHook->State(!candidate);
                             const uintptr_t a2=Slot(fn.vt,fn.slot), p2=Slot(partner->vt,partner->slot);
                             out["mixed_switches"]=a2==a&&(candidate ? p2==partner->address : !InExe(p2));
+                            if(wander)patchWander();
                             out["mixed"]=uintptr_t(reinterpret_cast<CS>(a2)(obj.data(),ped));
+                            if(wander)unpatchWander();
                             partnerHook->State(candidate);
                         } else ret=reinterpret_cast<int32(__thiscall*)(void*)>(a)(obj.data());
                         out["obj"]=ReversingProbe::Bytes(obj.data()+4,obj.size()-4);

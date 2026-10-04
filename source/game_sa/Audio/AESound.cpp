@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 18/18 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 2/18 entradas.
+ * Validación registrada: 18/18 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -154,20 +154,35 @@ void CAESound::Initialise(
     float           speedVariance,
     int16           playTime
 ) {
-    *this = CAESound{
-        bankSlot,
-        sfxId,
-        audioEntity,
-        pos,
-        volume,
-        rollOff,
-        speed,
-        doppler,
-        frameDelay,
-        (eSoundEnvironment)(flags),
-        speedVariance,
-    };
-    m_PlayTime = playTime;
+    // Como el original: escribe los campos directamente en este sonido (sin temporal ni assert), retira la entidad
+    // física tras el banco/ID/entidad de audio, pone m_LastFrameUpdatedAt a 0 antes de SetPosition y no toca
+    // m_IsAudioHardwareAware ni el relleno.
+    m_BankSlot    = bankSlot;
+    m_SoundID     = sfxId;
+    m_AudioEntity = audioEntity;
+    UnregisterWithPhysicalEntity();
+    m_Volume        = volume;
+    m_RollOffFactor = rollOff;
+    m_Speed         = speed;
+    m_SpeedVariance = speedVariance;
+    m_PrevPos.x = 0.f;
+    m_PrevPos.y = 0.f;
+    m_PrevPos.z = 0.f;
+    m_Event              = AE_UNDEFINED;
+    m_ClientVariable     = -1.f;
+    m_LastFrameUpdatedAt = 0;
+    SetPosition(pos);
+    m_Doppler             = doppler;
+    m_Length              = -1;
+    m_IsPhysicallyPlaying = 0;
+    m_HasRequestedStopped = 0;
+    m_Headroom            = 0.f;
+    m_FrameDelay          = frameDelay;
+    m_Flags               = flags;
+    m_IsInUse             = 1;
+    m_PlayTime            = playTime;
+    m_ListenerVolume      = -100.f;
+    m_ListenerSpeed       = 1.f;
 }
 
 // 0x4EF1A0
@@ -245,8 +260,9 @@ void CAESound::GetRelativePosition(CVector* outVec) const {
 
 // 0x4EF390
 // Calcula una velocidad de escucha con variación aleatoria limitada por m_SpeedVariance.
+// Como el original: con NaN (variación o velocidad) se queda la velocidad sin variación (fcomp + test ah,41h / jp).
 void CAESound::CalculateFrequency() {
-    m_ListenerSpeed = m_SpeedVariance <= 0.f || m_SpeedVariance >= m_Speed
+    m_ListenerSpeed = !(m_SpeedVariance > 0.f) || !(m_SpeedVariance < m_Speed)
         ? m_Speed
         : m_Speed + CAEAudioUtility::GetRandomNumberInRange(-m_SpeedVariance, m_SpeedVariance);
 }
@@ -266,10 +282,12 @@ float CAESound::GetRelativePlaybackFrequencyWithDoppler() const {
 }
 
 // 0x4EF440
+// Como el original: el factor de cámara lenta se lee de la variable global del EXE 0x8CBA6C (0.5), no de una constante.
 float CAESound::GetSlowMoFrequencyScalingFactor() const {
+    static auto& slowMoFrequencyScalingFactor = StaticRef<float>(0x8CBA6C);
     return IsUnpausable() || !CTimer::GetIsSlowMotionActive() || CCamera::GetActiveCamera().m_nMode == eCamMode::MODE_CAMERA
         ? 1.f
-        : fSlowMoFrequencyScalingFactor;
+        : slowMoFrequencyScalingFactor;
 }
 
 // 0x4EF7A0
@@ -304,7 +322,12 @@ void CAESound::StopSoundAndForget() {
  * Sólo desplaza el estado previo una vez por frame, requisito del cálculo Doppler.
  */
 void CAESound::SetPosition(CVector pos) {
-    const auto dist = DistanceBetweenPoints(pos, TheCamera.GetPosition());
+    // Como el original: distancia a la cámara como sqrt(dz² + dy² + dx²), sumando en ese orden.
+    const auto& camPos = TheCamera.GetPosition();
+    const float dx = pos.x - camPos.x;
+    const float dy = pos.y - camPos.y;
+    const float dz = pos.z - camPos.z;
+    const float dist = std::sqrt(dz * dz + dy * dy + dx * dx);
     if (!m_LastFrameUpdatedAt) { // 0x4EF898
         m_PrevCamDist       = dist;
         m_PrevPos           = pos;
@@ -322,12 +345,21 @@ void CAESound::SetPosition(CVector pos) {
 
 // 0x4EFA10
 // Combina volumen base/headroom con atenuación direccional y distancia salvo frontend.
+// Como el original: una sola posición relativa; distancia sqrt(z² + y² + x²) / roll-off; primero la atenuación por
+// distancia y después la direccional; volumen = (direccional + distancia) + volumen y al final se resta el headroom.
 void CAESound::CalculateVolume() {
-    m_ListenerVolume = m_Volume - m_Headroom;
-    if (!IsFrontEnd()) {
-        m_ListenerVolume += CAEAudioEnvironment::GetDirectionalMikeAttenuation(CAEAudioEnvironment::GetPositionRelativeToCamera(m_CurrPos))
-                          + CAEAudioEnvironment::GetDistanceAttenuation(CAEAudioEnvironment::GetPositionRelativeToCamera(m_CurrPos).Magnitude() / m_RollOffFactor);
+    if (IsFrontEnd()) {
+        m_ListenerVolume = m_Volume;
+        m_ListenerVolume = m_ListenerVolume - m_Headroom;
+        return;
     }
+    CVector relPos;
+    CAEAudioEnvironment::GetPositionRelativeToCamera_Vector(&relPos, &m_CurrPos);
+    const float dist        = std::sqrt(relPos.z * relPos.z + relPos.y * relPos.y + relPos.x * relPos.x) / m_RollOffFactor;
+    const float distAtten   = CAEAudioEnvironment::GetDistanceAttenuation(dist);
+    const float directional = CAEAudioEnvironment::GetDirectionalMikeAttenuation(relPos);
+    m_ListenerVolume = directional + distAtten + m_Volume;
+    m_ListenerVolume = m_ListenerVolume - m_Headroom;
 }
 
 // 0x4EFF50

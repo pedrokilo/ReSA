@@ -1,0 +1,112 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 6144,
+  "pairs_per_function": {
+    "CTaskComplexDiveFromAttachedEntityAndGetUp::ControlSubTask": 512,
+    "CTaskComplexEvasiveDiveAndGetUp::ControlSubTask": 512,
+    "CTaskComplexWanderFlee::ControlSubTask": 512,
+    "CTaskComplexCarSlowBeDraggedOutAndStandUp::GetTaskType": 64,
+    "CTaskComplexGoToPointAndStandStillAndAchieveHeading::GetTaskType": 64,
+    "CAEStreamingChannel::SynchPlayback": 128,
+    "CAEDataStream::QueryInterface": 512,
+    "CAEDataStream::AddRef": 256,
+    "CAEDataStream::Release": 512,
+    "CAEDataStream::Read": 1024,
+    "CAEDataStream::Write": 64,
+    "CAEDataStream::Seek-istream": 1024,
+    "CAEDataStream::SetSize": 64,
+    "CAEDataStream::CopyTo": 64,
+    "CAEDataStream::Commit": 64,
+    "CAEDataStream::Revert": 64,
+    "CAEDataStream::LockRegion": 64,
+    "CAEDataStream::UnlockRegion": 64,
+    "CAEDataStream::Stat": 512,
+    "CAEDataStream::Clone": 64
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "a147e5065b17ec9949969b92f0beb8d36c93cbf30967908d7a4bb2e5fbd0e257",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fixhooks\\20261003-204150-933516",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTaskComplexDiveFromAttachedEntityAndGetUp::ControlSubTask": true,
+    "CTaskComplexEvasiveDiveAndGetUp::ControlSubTask": true,
+    "CTaskComplexWanderFlee::ControlSubTask": true,
+    "CTaskComplexCarSlowBeDraggedOutAndStandUp::GetTaskType": true,
+    "CTaskComplexGoToPointAndStandStillAndAchieveHeading::GetTaskType": true,
+    "CAEStreamingChannel::SynchPlayback": true,
+    "CAEDataStream::QueryInterface": true,
+    "CAEDataStream::AddRef": true,
+    "CAEDataStream::Release": true,
+    "CAEDataStream::Read": true,
+    "CAEDataStream::Write": true,
+    "CAEDataStream::Seek-istream": true,
+    "CAEDataStream::SetSize": true,
+    "CAEDataStream::CopyTo": true,
+    "CAEDataStream::Commit": true,
+    "CAEDataStream::Revert": true,
+    "CAEDataStream::LockRegion": true,
+    "CAEDataStream::UnlockRegion": true,
+    "CAEDataStream::Stat": true,
+    "CAEDataStream::Clone": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "9fb308b4067bd20091831e178017a901bd5de0f00575b5d76fdfaaf4490a2bf4",
+      "pdb": "406d4dac74907b2de592cba5d4c502dea2d721ec48b0077cef1ae8d713ad83bf"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.cpp": "b2afdd17f925652a1d22b9004a21c1e85a59680cc6ac1769bd753ed7566660a2",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.h": "b90ce8d9b93e4c76f6b3a8902aec5851bd9fa4139ea281149f0adebdb8f5823a",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveDiveAndGetUp.cpp": "ccc5c61ce9149ebdbc2405062162b2a45119ac0058aaa0eb51a7e3364bca8957",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveDiveAndGetUp.h": "b759f5cd51213be96eba55fb7e24116209f366600da2244a070560d070df192f",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderFlee.cpp": "2095524ef97bdaae480ca4e54f2c54e7e85dd5e12b2b18ebc40e4b93c5f6fd26",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWanderFlee.h": "dd229d0631c13d8553f92954f01dda960dd4be3943494969f87002b3dff5e440",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp": "8ba48e693f9be5164939881cdcbf5f4f7d6d63d0709d43813092d598354736bf",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexWander.h": "40a2db44b471d8168bd9fadb98a85dd876fc5800e09ec784981aaf75f7d02360",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOutAndStandUp.cpp": "6439d9214ac6dd436d67015c9454a50599a51ae7f3cb437d14712a0919735c7c",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOutAndStandUp.h": "610d70dba041aeaa62904010b533b1aa1ce8255ae6f71219011529c2fdacb215",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStillAndAchieveHeading.cpp": "66399b9cddb425a1d747ab5927fa25907f898b3561c5c5d827ffadc4f993c818",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStillAndAchieveHeading.h": "c1cadae418dd6e4ee2b560ac2d49532c91d6a2887d3a8af7d17d5ab6f64fe2ef",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp": "542fb566f50e2a7a9ae6c3200a86a254a2862828e2254177409af8ff066be54d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.h": "606e88849189d57e2479a4572c581c30b72251b4b1e6966569c0c1fe5eb163c9",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGotoDoorAndOpen.cpp": "e484d4521a91101924650c4498ca35dd94771f3b8ceb63189bc4417c5ee17e46",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGotoDoorAndOpen.h": "0958fa5fd3727b32c809b747f8c00941447ab90a99297b6c1afefde6ffcbb7c6",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAnyMeans.cpp": "7be6e1532eef5dd6093ec66088bca6d72400a4ff0046aa9a80cb58bd87048aad",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAnyMeans.h": "31be0924cd56767db59ef9fec43b4c3d77ea0f5fcfab489f5d706fe78c3df8d9",
+      "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp": "555258c557c2216b60c673458136a73f53bd706c59e8510292c38d49b427ba12",
+      "source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.h": "8bfd29869d59c6d40f6fcd14097d4043bdd1193445c7d3cce09e4b738a84b3d6",
+      "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp": "246040ed9989f2a79042d611cfbc97ce6efc0da16c67e1d77fe9ec603cb81a52",
+      "source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.h": "00d21f6f8fcac6a4167448322c24440c0e21788718988f02b7d983cdb94d299f",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp": "504803e6f6bcd0e585756e1701ea006cd9f1811fccf8749fad6b2194634f46af",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleDead.h": "e8b4750b954861b835258f52bfc67d3d0e9c05060ff48ed5d0bce4c5893e26d5",
+      "source/game_sa/Audio/Loaders/AEDataStream.cpp": "f20a9437ab3846485ba6f0c5eeaff93d1d9f3a3ede98259820455d056a0c523c",
+      "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
+      "source/game_sa/Audio/Hardware/AEStreamingChannel.cpp": "634919806e1b70ce9fff72d657792bf0b3d8dc274095977ef431a1e7a65d0c41",
+      "source/game_sa/Audio/Hardware/AEStreamingChannel.h": "7b9df955ac45b1a0d816cbf8305ba085a08c605ff253a8e303de983543b1aa65",
+      "source/game_sa/Entity/Entity.cpp": "dbd15f841a03e2cfb5bc4180ae819328eb9ba7b25424138faf61c67cf25b2327",
+      "source/game_sa/Entity/Entity.h": "f5473d2148d3221e34d0e06c6ad8d103c2c0abe8433837ad5e5489f584de79c0",
+      "source/game_sa/Entity/Vehicle/Bike.cpp": "ef970f0a273c7c09891350d89b582a900cc9568074b7000629b3c46d3b43d6f9"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "21e902dc26a2ec0e367e5ab21f5ff829c9313d6542946b81c0b6002f9e4e65be",
+      "build_probe.py": "1c586ab3bdd389396ef2c1f692bcd2d84e150fed4084d943cada8a3326f968ca",
+      "run_local.py": "a4811f78b8c985613da3e4638d4fdb6aeaa2b9db5b456ab61b6784bfc96f68d0"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

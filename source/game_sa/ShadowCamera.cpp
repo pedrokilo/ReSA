@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 19/19 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/19 entradas.
+ * Validación registrada: 19/19 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -29,13 +29,13 @@ void CShadowCamera::Destroy() {
     }
 
     if (auto frame = RwCameraGetFrame(m_pRwCamera)) {
-        rwObjectHasFrameSetFrame(frame, nullptr);
+        rwObjectHasFrameSetFrame(m_pRwCamera, nullptr); // Como el original: se desengancha la cámara (no el frame)
         RwFrameDestroy(frame);
     }
 
     if (auto frameBuffer = GetRwRenderRaster()) {
+        RwCameraSetRaster(m_pRwCamera, nullptr); // Como el original: se limpia antes de destruir el raster
         RwRasterDestroy(frameBuffer);
-        RwCameraSetRaster(m_pRwCamera, nullptr);
     }
 
     if (m_pRwRenderTexture) {
@@ -51,7 +51,7 @@ void CShadowCamera::Destroy() {
 // 0x7054C0
 void CShadowCamera::SetFrustum(float radius) {
     RwCameraSetFarClipPlane(m_pRwCamera, 2 * radius);
-    RwCameraSetNearClipPlane(m_pRwCamera, radius / 1000.0f);
+    RwCameraSetNearClipPlane(m_pRwCamera, radius * 0.001f); // Como el original: multiplica por 0.001 (0x858CDC)
 
     const CVector2D window(radius, radius);
     RwCameraSetViewWindow(m_pRwCamera, &window);
@@ -105,6 +105,7 @@ void CShadowCamera::InvertRaster() {
         MkVert(width, height), // Bottom right
     };
 
+    RwRenderStateSet(rwRENDERSTATEZTESTENABLE, RWRSTATE(FALSE)); // Como el original: desactiva el Z-test primero
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(NULL));
     RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(TRUE));
     RwRenderStateSet(rwRENDERSTATESRCBLEND, RWRSTATE(rwBLENDINVDESTCOLOR));
@@ -148,7 +149,8 @@ RwRaster* CShadowCamera::DrawOutlineBorder(const CRGBA& color) {
     };
 
     // NOTE: Code seemingly assumes the aspect ratio of the image is 1:1
-    const auto w = RwRasterGetWidth(GetRwRenderRaster()) - 1.f;
+    const auto raster = GetRwRenderRaster(); // Como el original: se lee una vez y es lo que se devuelve
+    const auto w = RwRasterGetWidth(raster) - 1.f;
     RwIm2DVertex vertices[]{
         MkVert(0.f, 0.f),
         MkVert(w,   0.f),
@@ -165,12 +167,12 @@ RwRaster* CShadowCamera::DrawOutlineBorder(const CRGBA& color) {
         VERIFY(RwIm2DRenderIndexedPrimitive(rwPRIMTYPEPOLYLINE, vertices, std::size(vertices), indices, std::size(indices)));
 
         RwRenderStateSet(rwRENDERSTATEZTESTENABLE,       RWRSTATE(TRUE));
-        RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(FALSE));
+        RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(TRUE)); // Como el original: TRUE al terminar
 
         RwCameraEndUpdate(m_pRwCamera);
     }
 
-    return GetRwRenderRaster();
+    return raster;
 }
 
 // 0x705B60
@@ -184,12 +186,8 @@ RwCamera* CShadowCamera::Create(int32 rasterSizePower) {
         return nullptr;
     }
 
-    const auto frame = RwFrameCreate();
-    if (!frame) {
-        goto fail;
-    }
-
-    rwObjectHasFrameSetFrame(m_pRwCamera, frame);
+    // Como el original: no se comprueba el frame; se engancha tal cual y se valida con el padre de la cámara
+    rwObjectHasFrameSetFrame(m_pRwCamera, RwFrameCreate());
 
     if (!RwCameraGetFrame(m_pRwCamera)) {
         goto fail;
@@ -229,14 +227,23 @@ RwCamera* CShadowCamera::Create(int32 rasterSizePower) {
 RpAtomic* atomicQuickRender(RpAtomic* atomic, void* data) {
     UNUSED(data);
 
-    const auto original = RpAtomicGetRenderCallBack(atomic);
+    // Como el original: AtomicDefaultRenderCallBack del EXE (0x7491C0) se guarda y se llama directamente;
+    // la macro de la DLL guardaría la dirección del envoltorio de la DLL.
+    const auto DefaultRenderCB = reinterpret_cast<RpAtomicCallBackRender>(0x7491C0);
 
-    RpAtomicSetRenderCallBack(atomic, NULL);
-    RpAtomicRender(atomic);
-    RpAtomicSetRenderCallBack(atomic, original);
+    const auto original = atomic->renderCallBack;
+    atomic->renderCallBack = DefaultRenderCB;
+    DefaultRenderCB(atomic);
+    atomic->renderCallBack = original;
+    if (!original) {
+        atomic->renderCallBack = DefaultRenderCB;
+    }
 
     return atomic;
 }
+
+// Como el original: RpClumpForAllAtomics recibe la función del EXE (0x705620)
+static const auto atomicQuickRenderExe = reinterpret_cast<RpAtomicCallBack>(0x705620);
 
 // notsa
 template<typename RenderFnT>
@@ -272,11 +279,20 @@ void CShadowCamera::Update_Internal(RpAtomic* atomic, uint32 geoFlagsToClear, Re
 
 // 0x705BF0
 RwCamera* CShadowCamera::Update(RpClump* clump) {
-    Update_Internal(
-        GetFirstAtomic(clump), // Not quite sure... They render all atomics, but only modify the first atomics geometry's flags? Why not render all atomics separately?
-        rpGEOMETRYTEXTURED | rpGEOMETRYPRELIT | rpGEOMETRYLIGHT | rpGEOMETRYMODULATEMATERIALCOLOR | rpGEOMETRYTEXTURED2,
-        [&] { RpClumpForAllAtomics(clump, &atomicQuickRender, nullptr); }
-    );
+    // Como el original: GetFirstAtomic se llama después de RwCameraBeginUpdate (y solo si tiene éxito)
+    RwRGBA color(0xFF, 0xFF, 0xFF, 0);
+    RwCameraClear(m_pRwCamera, &color, rwCAMERACLEARZ | rwCAMERACLEARIMAGE);
+
+    if (RwCameraBeginUpdate(m_pRwCamera)) {
+        // Not quite sure... They render all atomics, but only modify the first atomics geometry's flags? Why not render all atomics separately?
+        const auto geo     = RpAtomicGetGeometry(GetFirstAtomic(clump));
+        const auto ogflags = RpGeometryGetFlags(geo);
+        RpGeometrySetFlags(geo, ogflags & ~(rpGEOMETRYTEXTURED | rpGEOMETRYPRELIT | rpGEOMETRYLIGHT | rpGEOMETRYMODULATEMATERIALCOLOR | rpGEOMETRYTEXTURED2));
+        RpClumpForAllAtomics(clump, atomicQuickRenderExe, nullptr);
+        RpGeometrySetFlags(geo, ogflags);
+        InvertRaster();
+        RwCameraEndUpdate(m_pRwCamera);
+    }
 
     return m_pRwCamera;
 }
@@ -293,24 +309,27 @@ RwCamera* CShadowCamera::Update(RpAtomic* atomic) {
 }
 
 // 0x705D20
-RwCamera* CShadowCamera::MakeGradientRaster() {
-    // Monocolor intensity of the gardient
-    constexpr float MIN_COLOR_INTENSITY{ 64.f }, MAX_COLOR_INTENSITY{ 128.f };
+// Como el original: devuelve el raster de la cámara (también si falla RwCameraBeginUpdate) y la intensidad sale de
+// dos enteros globales del EXE (0x8D5218 = 128 al principio, 0x8D521C = 64 al final).
+RwRaster* CShadowCamera::MakeGradientRaster() {
+    static auto& gradientStart = StaticRef<int32>(0x8D5218);
+    static auto& gradientEnd   = StaticRef<int32>(0x8D521C);
 
     if (!m_pRwCamera) {
         return nullptr;
     }
 
-    const auto& raster = GetRwRenderRaster();
-    const auto  width  = RwRasterGetWidth(raster), height = RwRasterGetHeight(raster);
+    const auto rhw    = 1.f / RwCameraGetNearClipPlane(m_pRwCamera);
+    const auto raster = GetRwRenderRaster();
+    const auto width  = RwRasterGetWidth(raster), height = RwRasterGetHeight(raster);
+    const auto nscrz  = RwIm2DGetNearScreenZ();
 
-    // Raster too small, do nothing (Assumes aspect ratio is 1:1)
     if (height < 1) {
         return nullptr;
     }
 
     if (!RwCameraBeginUpdate(m_pRwCamera)) {
-        return nullptr;
+        return raster;
     }
 
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER,     RWRSTATE(FALSE));
@@ -320,42 +339,32 @@ RwCamera* CShadowCamera::MakeGradientRaster() {
     RwRenderStateSet(rwRENDERSTATESRCBLEND,          RWRSTATE(rwBLENDINVDESTCOLOR));
     RwRenderStateSet(rwRENDERSTATESHADEMODE,         RWRSTATE(rwSHADEMODEFLAT));
 
-    // Draw lines along the X axis while moving along the Y axis from top to bottom.
-    // Each line is less and less intense in color
-    // TODO: Maybe just replace this abnomination with 2 triangles with the top vertices being max intensity, and the other (bottom) 2 being min intensity?
-    {
-        const auto cistep = (MIN_COLOR_INTENSITY - MAX_COLOR_INTENSITY) / (float)height; // Color intensity step each iteration
-        float      cicurr = MAX_COLOR_INTENSITY; // Current color intensity
+    // Como el original: paso = (fin - inicio) / alto (fild/fidiv), el valor actual empieza en `inicio` como float
+    const float step = (float)(gradientEnd - gradientStart) / (float)height;
+    float       curr = (float)gradientStart;
+    const float maxX = (float)(width - 1);
 
-        const auto nscrz  = RwIm2DGetNearScreenZ();
+    for (auto y{ 0 }; y < height; y++) {
+        // Como el original: _ftol2 (truncado) y el entero se repite en los 4 bytes con OR (sin recortar a 8 bits)
+        const auto c     = (uint32)(int32)(int64)curr;
+        const auto color = (((((c << 8) | c) << 8) | c) << 8) | c;
 
-        for (auto y{0}; y < height; y++, cicurr += cistep) {
-            const auto MkVert = [
-                &,
-                rhw = 1.f / RwCameraGetNearClipPlane(m_pRwCamera),
-                cc  = (uint8)(cicurr)
-            ] (float x) {
-                RwIm2DVertex vtx;
+        RwIm2DVertex vertices[2];
+        RwIm2DVertexSetScreenX(&vertices[0], 0.f);
+        RwIm2DVertexSetScreenY(&vertices[0], (float)y);
+        RwIm2DVertexSetScreenZ(&vertices[0], nscrz);
+        RwIm2DVertexSetRecipCameraZ(&vertices[0], rhw);
+        vertices[0].emissiveColor = color;
 
-                RwIm2DVertexSetScreenX(&vtx, x);
-                RwIm2DVertexSetScreenY(&vtx, (float)(y));
-                RwIm2DVertexSetScreenZ(&vtx, nscrz);
+        RwIm2DVertexSetScreenX(&vertices[1], maxX);
+        RwIm2DVertexSetScreenY(&vertices[1], (float)y);
+        RwIm2DVertexSetScreenZ(&vertices[1], nscrz);
+        RwIm2DVertexSetRecipCameraZ(&vertices[1], rhw);
+        vertices[1].emissiveColor = color;
 
-                RwIm2DVertexSetRecipCameraZ(&vtx, rhw);
+        RwIm2DRenderLine(vertices, std::size(vertices), 0, 1);
 
-                RwIm2DVertexSetIntRGBA(&vtx, cc, cc, cc, cc);
-
-                return vtx;
-            };
-
-            RwIm2DVertex vertices[2]{
-                MkVert(0.f),
-                MkVert((float)(width - 1)),
-            };
-
-            // TODO/NOTE: Horrible efficiency (should batch these calls)
-            RwIm2DRenderLine(vertices, std::size(vertices), 0, 1);
-        }
+        curr = curr + step;
     }
 
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE, RWRSTATE(TRUE));
@@ -365,7 +374,7 @@ RwCamera* CShadowCamera::MakeGradientRaster() {
 
     RwCameraEndUpdate(m_pRwCamera);
 
-    return m_pRwCamera;
+    return raster;
 }
 
 // 0x705A20
@@ -406,7 +415,7 @@ RwRaster* CShadowCamera::RasterResample(RwRaster* sourceRaster) {
     const auto camRaster = GetRwRenderRaster();
 
     if (!RwCameraBeginUpdate(m_pRwCamera)) {
-        return nullptr;
+        return camRaster; // Como el original: devuelve el raster de la cámara
     }
 
     RwRenderStateSet(rwRENDERSTATESRCBLEND,      RWRSTATE(rwBLENDONE));
@@ -441,20 +450,23 @@ RwRaster* CShadowCamera::RasterBlur(RwRaster* blurRaster, int32 numPasses) {
 
     const auto camRaster = RwCameraGetRaster(m_pRwCamera);
 
+    // NOTE: El EXE no tiene este caso: con numPasses <= 0 no dibuja nada y devuelve `blurRaster`
     if (!numPasses) { // NOTSA
         return camRaster;
     }
 
-    const auto DoRenderQuad2D = [
-        brwidth = RwRasterGetWidth(blurRaster),
-        rhw = 1.f / RwCameraGetNearClipPlane(m_pRwCamera)
-    ] (float uv) {
+    const auto brwidth = (float)RwRasterGetWidth(blurRaster);
+    const auto invW    = 1.f / brwidth;
+    const auto rhw     = 1.f / RwCameraGetNearClipPlane(m_pRwCamera);
+
+    // Como el original: desplazamiento UV = (0.5 +/- 0.5) * (1 / ancho)
+    const auto DoRenderQuad2D = [&] (float uv) {
         Im2DRenderQuad(
             0.f, 0.f,
-            (RwReal)brwidth, (RwReal)brwidth,
+            brwidth, brwidth,
             RwIm2DGetNearScreenZ(),
             rhw,
-            uv / brwidth
+            uv * invW
         );
     };
 

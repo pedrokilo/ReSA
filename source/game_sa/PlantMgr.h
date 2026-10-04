@@ -38,26 +38,27 @@ public:
 
     static void MoveLocTriToList(CPlantLocTri*& oldList, CPlantLocTri*& newList, CPlantLocTri* triangle);
     static void MoveColEntToList(CPlantColEntEntry*& oldList, CPlantColEntEntry*& newList, CPlantColEntEntry* entry);
-    static void SetPlantFriendlyFlagInAtomicMI(CAtomicModelInfo*);
+    static bool SetPlantFriendlyFlagInAtomicMI(CAtomicModelInfo*);
+    static bool LoadModels(std::initializer_list<const char*> models, RpAtomic** atomics); // 0x5DD220 (__usercall: ecx = atomics, eax = nombres)
 
-    static void Update(const CVector& cameraPosition);
+    static bool Update(const CVector& cameraPosition);
     static void UpdateAmbientColor();
-    static void PreUpdateOnceForNewCameraPos(const CVector& posn);
+    static bool PreUpdateOnceForNewCameraPos(const CVector& posn);
     static float CalculateWindBending();
 
     static void Render();
 
 private:
-    static void _ColEntityCache_Add(CEntity* entity, bool checkAlreadyExists);
+    static CPlantColEntEntry* _ColEntityCache_Add(CEntity* entity, bool checkAlreadyExists);
     static CPlantColEntEntry* _ColEntityCache_FindInCache(CEntity* entity);
     static void _ColEntityCache_Remove(CEntity* entity);
-    static void _ColEntityCache_Update(const CVector& cameraPos, bool fast);
+    static bool _ColEntityCache_Update(const CVector& cameraPos, bool fast);
 
-    static void _ProcessEntryCollisionDataSections(const CPlantColEntEntry& entry, const CVector& center, int32 a3);
+    static bool _ProcessEntryCollisionDataSections(const CPlantColEntEntry& entry, const CVector& center, int32 a3);
     static void _ProcessEntryCollisionDataSections_AddLocTris(const CPlantColEntEntry& entry, const CVector& center, int32 a3, int32 start, int32 end);
     static void _ProcessEntryCollisionDataSections_RemoveLocTris(const CPlantColEntEntry& entry, const CVector& center, int32 a3, int32 start, int32 end);
 
-    static void _UpdateLocTris(const CVector& center, int32);
+    static bool _UpdateLocTris(const CVector& center, int32);
 
     static float _CalcDistanceSqrToEntity(CEntity* entity, const CVector& posn);
 
@@ -70,5 +71,5 @@ private:
 };
 
 static inline auto& grassTexturesPtr = StaticRef<RwTexture**[4]>(0xC039E0);
-static inline auto& grassModelsPtr = StaticRef<RpAtomic*[4]>(0xC03A30);
+static inline auto& grassModelsPtr = StaticRef<RpAtomic**[4]>(0xC03A30); // Como el original: punteros a filas de PC_PlantModelsTab
 static inline auto& tex_gras07Si = StaticRef<RwTexture*>(0xC09174);
