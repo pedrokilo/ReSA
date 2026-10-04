@@ -59,10 +59,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "b4c6184139b7911a877b476b5b5e9250d54608e27cc85f778f8c6d29baff8066",
+  "log_sha256": "651b0d2343ca0b404929ed18a0f486d302bd0dfc796b73c43cf2c7997bff0a73",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-sys10\\20261003-050041-386686",
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-sys10\\20261004-115643-380564",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEMFDecoder::Constructor": true,
@@ -114,22 +114,22 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "0c50fe23f68dea8f3efbf0a6bf38268ca64ccc574a9856a2f6cf400511d8a7d6",
-      "pdb": "f03b687fd8723eee0a9584ef2310edb879403048a55f1525902357fa15073598"
+      "asi": "d4b4153b21dea9003ae9b46c87240d62dc0ee17ebf841f0c1fb674cab729b035",
+      "pdb": "ec59018e7f0ce2ca09c3689bb41c56ff90cbd76d4bdc6d358b313d1a5bd9d9c4"
     },
     "sources": {
-      "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "6e7acd193a4162e3a35477ac57c17df258c13024b61d4e0a89a6286efb2f65c0",
-      "source/game_sa/Audio/Loaders/AEMFDecoder.h": "884fd653e5a9587ecc004783058a77f83192ec58ddd8ca1ae877e1e26417b07b",
-      "source/game_sa/Audio/AESmoothFadeThread.cpp": "a5ff3c384ae95efec7f4c123932b617920c92d1cf03ca81ecb834466bb1793dc",
+      "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "ea92ee6d3c0f05b140a576ad57cf51b2fbe1c76cf9840d8d10b5fbf6fa2ba52c",
+      "source/game_sa/Audio/Loaders/AEMFDecoder.h": "7c6018395ffce99152284a431e7d2e78f1b16d9b94d92ee492531e7ee046c8de",
+      "source/game_sa/Audio/AESmoothFadeThread.cpp": "2db90fbf9df0470110cf0fc72d7960c3ff59255e43a95df21c84c00e270551c7",
       "source/game_sa/Audio/AESmoothFadeThread.h": "8296cff6a8958232b0894eb6a0a3f49e9de038f1c63aad83de0318bc354757bc",
-      "source/game_sa/Conversations/Conversations.cpp": "2ffdc97ef746cf659c0561ebe2937dba89d520348c4f6eba5d764bdc4bd72843",
+      "source/game_sa/Conversations/Conversations.cpp": "e6f27925e98f79dace0d4750af35ff22deb687e8ddceba4ab536390220fde85f",
       "source/game_sa/Conversations/Conversations.h": "5c5f21aa37c2335168e1af5b7e3e5a42f583b823cc13f4110446a9e76d8bb4ad",
-      "source/game_sa/Directory.cpp": "466f27720c6f1c22d96a5b1cd380453a94153c5902dbd2abca8c995cb35700b5",
+      "source/game_sa/Directory.cpp": "d3f2f649baa20748e1e98ed3ef8aa76ac0f11442759658d181e2ade511141ea8",
       "source/game_sa/Directory.h": "d6fc73142d6fe98bc789e3281def4fd20835dfbe32e6f54d234e0f581904b185",
-      "source/game_sa/Events/EventHandlerHistory.cpp": "91212a68e67f8961d2744841538dca83ae3280cd17b10ef08326d59e611099cd",
+      "source/game_sa/Events/EventHandlerHistory.cpp": "2c5d84f349c94279170525703048c3cdc8a500ae6dd730aa6cda1d2b2172f854",
       "source/game_sa/Events/EventHandlerHistory.h": "c5e8ac7822a0fd2e50c73046877b5e1266cf9b089a6cd181f1f807830f608ec4"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
       "LiveComparison.hpp": "ec48a50a4e34c547fb498c465e1e637e0b5f8b973e355fec7efd847ce5e8dab8",
       "build_probe.py": "3f44e4a0461975e8a6e9261659587b52822fdd49c4074cc26ea989fac4942aae",

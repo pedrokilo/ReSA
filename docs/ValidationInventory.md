@@ -6,10 +6,10 @@ Universo de esta revisión: **7,858 entradas reversed=1**, de 8,441 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 4656 |
+| `validated=1` · evidencia aprobada vinculada | 4661 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 4656 |
-| Sin evidencia aprobada vinculada en este registro | 3202 |
+| Evidencia histórica vinculada; revisión pendiente | 4661 |
+| Sin evidencia aprobada vinculada en este registro | 3197 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -226,10 +226,13 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEGlobalWeaponAudioEntity | `UpdateParameters` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | CAEMFDecoder | `Constructor` | [Resumen](../reversing/Sys10/validation-summary.json) |
 | CAEMFDecoder | `Destructor` | [Resumen](../reversing/Sys10/validation-summary.json) |
+| CAEMFDecoder | `FillBuffer` | [Resumen](../reversing/MFDec/validation-summary.json) |
 | CAEMFDecoder | `GetSampleRate` | [Resumen](../reversing/Sys10/validation-summary.json) |
 | CAEMFDecoder | `GetStreamID` | [Resumen](../reversing/Sys10/validation-summary.json) |
 | CAEMFDecoder | `GetStreamLengthMs` | [Resumen](../reversing/Sys10/validation-summary.json) |
 | CAEMFDecoder | `GetStreamPlayTimeMs` | [Resumen](../reversing/Sys10/validation-summary.json) |
+| CAEMFDecoder | `InitLibrary` | [Resumen](../reversing/MFDec/validation-summary.json) |
+| CAEMFDecoder | `Initialise` | [Resumen](../reversing/MFDec/validation-summary.json) |
 | CAEMFDecoder | `SetCursor` | [Resumen](../reversing/Sys10/validation-summary.json) |
 | CAEMP3BankLoader | `Constructor` | [Resumen](../reversing/Audio13/validation-summary.json) |
 | CAEMP3BankLoader | `GetBankSlotBuffer` | [Resumen](../reversing/Audio13/validation-summary.json) |
@@ -1039,7 +1042,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CDecisionMakerTypesFileLoader | `LoadDefaultDecisionMaker` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CDecisionMakerTypesFileLoader | `ReStart` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CDecisionMakerTypesFileLoader | `UnloadDecisionMaker` | [Resumen](../reversing/Audio7/validation-summary.json) |
-| CDirectory | `AddItem-` | [Resumen](../reversing/FixBugs/validation-summary.json) |
+| CDirectory | `AddItem-` | [Resumen](../reversing/Sys10/validation-summary.json) |
 | CDirectory | `Constructor-Capacity` | [Resumen](../reversing/Sys10/validation-summary.json) |
 | CDirectory | `Constructor-Empty` | [Resumen](../reversing/Sys10/validation-summary.json) |
 | CDirectory | `Destructor` | [Resumen](../reversing/Sys10/validation-summary.json) |
@@ -4416,7 +4419,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Fx_c | `TriggerBulletSplash` | [Resumen](../reversing/Fx8/validation-summary.json) |
 | Fx_c | `TriggerFootSplash` | [Resumen](../reversing/Fx8/validation-summary.json) |
 | Fx_c | `TriggerWaterSplash` | [Resumen](../reversing/Fx8/validation-summary.json) |
+| Game | `FrontendIdle` | [Resumen](../reversing/GameIdle/validation-summary.json) |
 | Game | `GameInit` | [Resumen](../reversing/Sys12/validation-summary.json) |
+| Game | `Idle` | [Resumen](../reversing/GameIdle/validation-summary.json) |
 | Game | `InitialiseGame` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | Game | `Render2dStuff` | [Resumen](../reversing/Sys12/validation-summary.json) |
 | Game | `RenderDebugShit` | [Resumen](../reversing/Sys12/validation-summary.json) |
@@ -4707,7 +4712,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAEFireAudioEntity` | 7 | 0 | 7 | 0 |
 | `CAEFrontendAudioEntity` | 4 | 0 | 0 | 4 |
 | `CAEGlobalWeaponAudioEntity` | 6 | 0 | 6 | 0 |
-| `CAEMFDecoder` | 10 | 0 | 7 | 3 |
+| `CAEMFDecoder` | 10 | 0 | 10 | 0 |
 | `CAEMP3BankLoader` | 13 | 0 | 13 | 0 |
 | `CAEMP3TrackLoader` | 7 | 0 | 7 | 0 |
 | `CAEPedAudioEntity` | 16 | 0 | 1 | 15 |
@@ -5422,7 +5427,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxSystemBP_c` | 10 | 0 | 10 | 0 |
 | `FxSystem_c` | 31 | 0 | 0 | 31 |
 | `Fx_c` | 8 | 0 | 8 | 0 |
-| `Game` | 12 | 0 | 10 | 2 |
+| `Game` | 12 | 0 | 12 | 0 |
 | `IKChainManager_c` | 17 | 0 | 17 | 0 |
 | `IKChain_c` | 20 | 0 | 20 | 0 |
 | `Input` | 5 | 0 | 5 | 0 |

@@ -1023,5 +1023,15 @@
     "id": "renderer33",
     "name": "Renderizador (lista de 33)",
     "runner": "Renderer33/run_local.py"
+  },
+  {
+    "id": "mfdec",
+    "name": "CAEMFDecoder con QuickTime como el EXE",
+    "runner": "MFDec/run_local.py"
+  },
+  {
+    "id": "gameidle",
+    "name": "Game::Idle y FrontendIdle como el EXE",
+    "runner": "GameIdle/run_local.py"
   }
 ]

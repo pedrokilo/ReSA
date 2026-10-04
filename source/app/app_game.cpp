@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 3.
- * Validación registrada: 10/12 entradas.
+ * Validación registrada: 12/12 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -66,8 +66,10 @@ void AppGameInjectHooks() {
     RH_ScopedGlobalInstall(Render2dStuff, 0x53E230, { .locked = true }); // Must be hooked at all times otherwise game locks!
     RH_ScopedGlobalInstall(RenderDebugShit, 0x53E160);
 
-    RH_ScopedGlobalInstall(Idle, 0x53E920, { .locked = true }); // Must be hooked at all times otherwise game locks!
-    RH_ScopedGlobalInstall(FrontendIdle, 0x53E770, { .locked = true }); // Must be hooked at all times otherwise imgui stops working!
+    // Bloqueados: el cuerpo es el del EXE (validado en reversing/GameIdle), pero solo la versión de la DLL dibuja el
+    // menú ImGui (DrawLoop, adición NOTSA). Con el del EXE el menú desaparece y ya no se puede volver a activar el hook.
+    RH_ScopedGlobalInstall(Idle, 0x53E920, { .locked = true });
+    RH_ScopedGlobalInstall(FrontendIdle, 0x53E770, { .locked = true });
 }
 
 // 0x5BF3B0
@@ -331,15 +333,20 @@ void RenderDebugShit() {
 void Idle(void* param) {
     ZoneScoped;
 
-    /* FPS lock. Limits to 26 frames per second.
+    // Como el original: limitador de fotogramas por espera activa (como mínimo 14 ms entre fotogramas) con
+    // división y resta sin signo; las dos primeras lecturas del temporizador se descartan.
+    static auto& LastTickTime = StaticRef<uint32>(0xB72CA8);
     CTimer::GetCurrentTimeInCycles();
     CTimer::GetCyclesPerMillisecond();
-    do
-        CurrentTimeInCycles = CTimer::GetCurrentTimeInCycles();
-    while ( CurrentTimeInCycles / CTimer::GetCyclesPerMillisecond() - g_LastTickTime < 14 );
-    v2 = CTimer::GetCurrentTimeInCycles();
-    g_LastTickTime = v2 / CTimer::GetCyclesPerMillisecond();
-    */
+    uint32 timeInMs;
+    do {
+        const uint32 cycles = CTimer::GetCurrentTimeInCycles();
+        timeInMs = cycles / CTimer::GetCyclesPerMillisecond();
+    } while (timeInMs - LastTickTime < 14u);
+    {
+        const uint32 cycles = CTimer::GetCurrentTimeInCycles();
+        LastTickTime = cycles / CTimer::GetCyclesPerMillisecond();
+    }
 
     CTimer::Update();
     CSprite2d::InitPerFrame();
@@ -352,24 +359,18 @@ void Idle(void* param) {
         return;
     }
 
-    if (FrontEndMenuManager.m_bMenuActive || TheCamera.GetScreenFadeStatus() == eNameState::NAME_FADE_IN) {
-        CDraw::CalculateAspectRatio();
-        CameraSize(Scene.m_pRwCamera, nullptr, ExeViewWindow(), SCREEN_ASPECT_RATIO);
-        CVisibilityPlugins::SetRenderWareCamera(Scene.m_pRwCamera);
-        RwCameraClear(Scene.m_pRwCamera, &gColourTop, rwCAMERACLEARZ);
-        if (!RsCameraBeginUpdate(Scene.m_pRwCamera)) {
-            return;
-        }
-    }
-
+    // Como el original: un solo if/else; GetScreenFadeStatus se llama una vez y solo si el menú no está activo.
     if (!FrontEndMenuManager.m_bMenuActive && TheCamera.GetScreenFadeStatus() != eNameState::NAME_FADE_IN) {
-
-        // SDL already constraints the mouse pointer using relative mode
-#ifndef NOTSA_USE_SDL3
-        if (!notsa::ui::UIRenderer::GetSingleton().IsActive()) {
-            FrontEndMenuManager.CentreMousePointer();
+        // Como el original: RsMouseSetPos en línea con (ancho · 0.5, alto · 0.5) en float, sin pasar por
+        // CMenuManager::CentreMousePointer (que comprueba primero que el centro no sea 0).
+        // NOTSA: no se centra el ratón mientras el menú ImGui tiene la entrada (estado que no existe en el EXE),
+        // ni con la aplicación en segundo plano (el EXE nunca llama a Idle sin ForegroundApp; la DLL sí, porque
+        // su bucle principal no se pausa en segundo plano). También con SDL3 se llama, como el EXE (antes se omitía).
+        // Se lee el dword de ForegroundApp (0x8D621C) como IsForegroundApp, sin llamar a ninguna función.
+        if (!notsa::ui::UIRenderer::GetSingleton().IsActive() && StaticRef<uint32>(0x8D621C) != 0) {
+            RwV2d pos{ (float)RsGlobal.maximumWidth * 0.5f, (float)RsGlobal.maximumHeight * 0.5f }; // 0x858B8C
+            RsMouseSetPos(&pos);
         }
-#endif
 
         CRenderer::ConstructRenderList();
         CRenderer::PreRender();
@@ -399,8 +400,9 @@ void Idle(void* param) {
         CMirrors::RenderMirrorBuffer();
         RenderScene();
         CVisibilityPlugins::RenderWeaponPedsForPC();
-        CVisibilityPlugins::ResetWeaponPedsForPC();
+        CVisibilityPlugins::ResetWeaponPedsForPC(); // Como el original: vacía ms_weaponPedsForPC (0x53E8D0 con ECX = 0xC88224)
         RenderEffects();
+        // Como el original: con m_fScreenReductionPercentage NaN no se toca el alfa (fcomp + test ah,41h).
         if (TheCamera.m_nBlurType == eMotionBlurType::NONE || TheCamera.m_nBlurType == eMotionBlurType::LIGHT_SCENE) {
             if (TheCamera.m_fScreenReductionPercentage > 0.0f) {
                 TheCamera.SetMotionBlurAlpha(150);
@@ -408,21 +410,39 @@ void Idle(void* param) {
         }
         TheCamera.RenderMotionBlur();
         Render2dStuff();
+    } else {
+        CDraw::CalculateAspectRatio();
+        CameraSize(Scene.m_pRwCamera, nullptr, ExeViewWindow(), SCREEN_ASPECT_RATIO);
+        CVisibilityPlugins::SetRenderWareCamera(Scene.m_pRwCamera);
+        RwCameraClear(Scene.m_pRwCamera, &gColourTop, rwCAMERACLEARZ);
+        if (!RsCameraBeginUpdate(Scene.m_pRwCamera)) {
+            return;
+        }
     }
 
-    RenderMenus();
+    // Como el original: RenderMenus va en línea.
+    if (FrontEndMenuManager.m_bMenuActive) {
+        FrontEndMenuManager.DrawFrontEnd();
+    }
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(NULL));
     DoFade();
     CHud::DrawAfterFade();
     CMessages::Display(false);
     CFont::DrawFonts();
-    // Como el original: la comprobación y el dibujo de los créditos aparecen dos veces seguidas en el EXE.
-    CCredits::Render();
-    CCredits::Render();
+    // Como el original: la comprobación y el dibujo de los créditos (CCredits::Render en línea) aparecen dos
+    // veces seguidas en el EXE.
+    if (CCredits::bCreditsGoing && !FrontEndMenuManager.m_bMenuActive) {
+        CCredits::RenderCredits();
+    }
+    if (CCredits::bCreditsGoing && !FrontEndMenuManager.m_bMenuActive) {
+        CCredits::RenderCredits();
+    }
     CDebug::DebugDisplayTextBuffer();
     FlushObrsPrintfs();
 
-    // NOTSA: ImGui menu draw loop
+    // NOTSA: dibuja el menú de depuración ImGui (F7, módulos de depuración, interruptores de hooks). Adición pura
+    // entre FlushObrsPrintfs y RwCameraEndUpdate: no reordena ni omite ninguna llamada del EXE. Sin ella el menú
+    // deja de dibujarse y de recibir F7 (por eso los hooks de Idle/FrontendIdle siguen bloqueados).
     notsa::ui::UIRenderer::GetSingleton().DrawLoop();
 
     RwCameraEndUpdate(Scene.m_pRwCamera);
@@ -440,6 +460,7 @@ void FrontendIdle() {
     CFont::InitPerFrame();
     CPad::UpdatePads();
 
+    // Como el original: no se borra m_bActivateMenuNextFrame.
     if (FrontEndMenuManager.m_bActivateMenuNextFrame) {
         FrontEndMenuManager.m_bMenuActive = true;
     }
@@ -453,10 +474,8 @@ void FrontendIdle() {
     CameraSize(Scene.m_pRwCamera, nullptr, ExeViewWindow(), SCREEN_ASPECT_RATIO);
     CVisibilityPlugins::SetRenderWareCamera(Scene.m_pRwCamera);
 
-    if (g_FastLoaderConfig.ShouldLoadSaveGame()) {
-        return; // Don't render anything
-    }
-
+    // Como el original: siempre se limpia y se dibuja (se quitó la salida NOTSA de FastLoader, que no dibujaba
+    // el fotograma mientras quedaba una partida por cargar).
     RwCameraClear(Scene.m_pRwCamera, &gColourTop, rwCAMERACLEARZ);
     if (RsCameraBeginUpdate(Scene.m_pRwCamera)) {
         DefinedState();
@@ -479,7 +498,7 @@ void FrontendIdle() {
         CDebug::DebugDisplayTextBuffer();
         FlushObrsPrintfs();
 
-        // NOTSA: ImGui menu draw loop
+        // NOTSA: menú de depuración ImGui, adición pura (ver Idle).
         notsa::ui::UIRenderer::GetSingleton().DrawLoop();
 
         RwCameraEndUpdate(Scene.m_pRwCamera);
