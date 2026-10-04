@@ -918,5 +918,25 @@
     "id": "rwhelper24",
     "name": "Ayudantes de RenderWare (lista de 24)",
     "runner": "RwHelper24/run_local.py"
+  },
+  {
+    "id": "carctrl22",
+    "name": "Control de coches (lista de 22)",
+    "runner": "CarCtrl22/run_local.py"
+  },
+  {
+    "id": "fire24",
+    "name": "Gestor de fuegos (lista de 24)",
+    "runner": "Fire24/run_local.py"
+  },
+  {
+    "id": "clouds21",
+    "name": "Nubes (lista de 21)",
+    "runner": "Clouds21/run_local.py"
+  },
+  {
+    "id": "boat23",
+    "name": "Barcos (lista de 23)",
+    "runner": "Boat23/run_local.py"
   }
 ]

@@ -2,11 +2,11 @@
 
 La [hoja de ruta de PGTASA](../docs/ProjectRoadmap.md) sitúa estas pruebas dentro del objetivo de reconstrucción funcionalmente equivalente e independencia del EXE. Reconstrucción, validación, desbloqueo e independencia son dimensiones separadas; el total de pares no es un total de funciones validadas.
 
-La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 4.116 funciones a sus pruebas; las tres acreditaciones de la versión anterior quedan pendientes por el cambio de huella global de source durante CustomBuilding. Las 4.116 conservan evidencia vinculada pendiente de revisión de dependencias. El [inventario de las 7.858 reconstruidas](../docs/ValidationInventory.md) identifica también las 3.742 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
+La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 4.205 funciones a sus pruebas; las tres acreditaciones de la versión anterior quedan pendientes por el cambio de huella global de source durante CustomBuilding. Las 4.205 conservan evidencia vinculada pendiente de revisión de dependencias. El [inventario de las 7.858 reconstruidas](../docs/ValidationInventory.md) identifica también las 3.653 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
 
 ## Estado actual del catálogo de hooks
 
-El corte vigente de `PGTASA` contiene **771 clases/grupos y 8.441 entradas**: 7.858 reconstruidas y 583 pendientes. De ellas, **4.116 tienen `validated=1`** porque cuentan con evidencia aprobada vinculada; 0 conservan vigencia acreditada para el árbol actual. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
+El corte vigente de `PGTASA` contiene **771 clases/grupos y 8.441 entradas**: 7.858 reconstruidas y 583 pendientes. De ellas, **4.205 tienen `validated=1`** porque cuentan con evidencia aprobada vinculada; 0 conservan vigencia acreditada para el árbol actual. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
 
 ```powershell
 python contrib/audit_hook_catalog.py --strict
@@ -18,7 +18,7 @@ Esta carpeta sí se utiliza. Ejecutar `PROBAR.cmd` desde la raíz para elegir un
 
 `PROBAR.cmd --all` ejecuta en serie todos los bancos dentro de GTA. Para evitar la pausa del CMD, usar `python reversing/run.py --all`. Abre y cierra la copia de pruebas para cada banco, vuelve a analizar sus logs nuevos y comprueba la restauración del ASI/PDB y los hashes de las partidas antes de continuar. Los informes conjuntos quedan en `reversing/artifacts/suite-*/summary.json`, con salidas por caso y rutas/hashes de la evidencia. Se omite `pcsave-isolated` porque la misma función ya se prueba dentro del motor.
 
-El catálogo actual contiene **184 casos: 183 dentro del motor y uno aislado**.
+El catálogo actual contiene **188 casos: 187 dentro del motor y uno aislado**.
 
 Esta serie usa las sondas archivadas de cada trabajo. El caso `conversation-for-ped` comprueba además que fuentes e instrumentación coinciden con su manifiesto; si cambiaron, recompilar con `python reversing/ConversationForPed/build.py --probe` antes de ejecutarlo. La serie no es una prueba de integración de todos los cambios en una única compilación actual ni sustituye la campaña de estabilidad futura.
 
@@ -178,6 +178,10 @@ Se eliminaron los siete lanzadores específicos de la raíz y tres copias tempor
 - [Clump24](Clump24/README.md): modelos de clump `CClumpModelInfo` (lista de 24). 24 funciones y 12.256 pares. Caso `clump24`.
 - [Interior21](Interior21/README.md): gestor de interiores `InteriorManager_c` (lista de 21). 21 funciones y 10.112 pares. Caso `interior21`.
 - [RwHelper24](RwHelper24/README.md): ayudantes de RenderWare (lista de 24). 24 funciones y 11.328 pares. Caso `rwhelper24`.
+- [CarCtrl22](CarCtrl22/README.md): control de coches `CCarCtrl` (lista de 22). 22 funciones y 10.304 pares. Caso `carctrl22`.
+- [Fire24](Fire24/README.md): gestor de fuegos `CFireManager` (lista de 24). 24 funciones y 9.344 pares. Caso `fire24`.
+- [Clouds21](Clouds21/README.md): nubes `CClouds` (lista de 21). 20 funciones y 8.384 pares. Caso `clouds21`.
+- [Boat23](Boat23/README.md): barcos `CBoat` (lista de 23). 23 funciones y 12.288 pares. Caso `boat23`.
 - `CConversations`: 10/10 (se retiró `EnableConversation`, inexistente en el EXE); 2.048 pares de `DoneSettingUpConversation`. Configuración de tablas y referencias, sin reproducción de diálogos. El subsistema incluye además `CConversationNode` 1/1, `CPedToPlayerConversations` 3/3 y `CConversationForPed` 2/2; consultar [su README](CConversations/README.md).
 - CPedList: 7/7; 4.096 pares de sus cuatro funciones pendientes. Fixtures de grupos/pool y consultas de inteligencia controladas.
 

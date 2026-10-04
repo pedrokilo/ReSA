@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 21/21 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/21 entradas.
+ * Validación registrada: 21/21 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -481,7 +481,8 @@ void CClouds::Render() {
                     RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(RwTextureGetRaster(gpCoronaTexture[CORONATYPE_MOON])));
                     {
                         const float mult  = MoonMult();
-                        const int32 moonB = CloudsFtol(static_cast<float>(colorB) * 0.85f);
+                        // Como el original (0x713CC6): el azul parte del color ya balanceado ([esp+18h] se sobrescribe en 0x713A4E).
+                        const int32 moonB = CloudsFtol(static_cast<float>(colorRG) * 0.85f);
                         CSprite::RenderOneXLUSprite({ moonPosScr.x, moonPosScr.y, z }, { mult * scrW, scrH * mult },
                             static_cast<uint8>(colorRG), static_cast<uint8>(colorRG), static_cast<uint8>(moonB), 255, 1.0f / z, 255, 0, 0);
                     }

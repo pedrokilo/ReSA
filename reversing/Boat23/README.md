@@ -43,6 +43,7 @@ Validadas el 03/10/2026 con **12.288 pares original/candidato dentro de GTA**, t
 **Método:**
 - Barco falso (búfer 0xCD de `sizeof(CBoat)` con offsets crudos del EXE), vtable de trampas (huecos 24 y 41 trazados) y llamada por la dirección del EXE o por el hueco de la vtable 0x8721A0.
 - Constructor y destructor de `CVehicle` y constructor de `CObject` de la DLL localizados en el código de la DLL y simulados junto con los del EXE.
+- Los stubs no reservan memoria ni escriben al log: guardan tipo y valores crudos en un array fijo y el json (con nombres de punteros) se construye al volver la función probada.
 - Se simulan y trazan la base de `CVehicle`/`CPhysical`, FX, RW, Im3D, render states, audio, IA, mundo, cámara, explosiones, eventos, referencias, pads, jugador, rand, `CDoor::Process`, `ProcessBoatControl` y `FlyingControl` (cBuoyancy no se ejecuta).
 - `FillBoatList` usa un pool falso de vehículos (puntero 0xB74494 cambiado solo durante la llamada).
 - Se guardan y restauran reloj, trucos, ratón, pads, KeepWaterOut, lista de barcos, contadores del wake, model infos, contador de objetos temporales y el render state del motor.

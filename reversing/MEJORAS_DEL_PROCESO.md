@@ -1278,3 +1278,21 @@ Bancos nuevos, todos con pares exactos dentro de GTA: [Anim20](Anim20/README.md)
 - `CPedAcquaintanceScanner` está definida en `EventScanner.h` y en su propio encabezado: los bancos no deben incluir los dos.
 - `TaskStop` no mata el `bash.exe` de Windows que ejecuta `regress.sh`: hay que cerrarlo con `taskkill` (no cerrar GTA, que solo aborta el banco en curso).
 - Una función `void` en el EXE deja basura en EAX: no se compara su retorno.
+
+## Continuidad vigente: clases de 9, 21, 22, 23 y 24 funciones (2026-10-04)
+
+Bancos nuevos, todos con pares exactos dentro de GTA: [WeapAudio](WeapAudio/README.md), [Buoy9](Buoy9/README.md), [Clouds21](Clouds21/README.md), [Zones21](Zones21/README.md), [Garages21](Garages21/README.md), [Interior21](Interior21/README.md), [CarCtrl22](CarCtrl22/README.md), [Game22](Game22/README.md), [Ps22](Ps22/README.md), [Boat23](Boat23/README.md), [ColStore23](ColStore23/README.md), [Clump24](Clump24/README.md), [Fire24](Fire24/README.md), [RwHelper24](RwHelper24/README.md).
+
+**Defectos de alcance general encontrados:**
+- Catálogo: el "constructor" de `CAEWeaponAudioEntity` era el de `CAEPedWeaponAudioEntity` y su "destructor" era su constructor real; corregido.
+- `CClumpModelInfo` comparaba nombres de marcos con `strcmp`; el EXE usa `_stricmp`.
+- `CGame::Process` dividía el paso de tiempo entre 50 (el EXE multiplica por 0.02); `CameraDestroy` de `Game.cpp` leía rasters ya destruidos.
+- `CCullZones`/`CTheZones` recorrían arrays enteros en vez del número de zonas; `GetLevelFromPosition` devuelve 32 bits.
+- `cBuoyancy`: orden de sumas de los productos de matriz; la salpicadura +X usaba otros puntos.
+- `psSelectDevice` ya no usa la resolución nativa (`FIX_BUGS` quitado): busca 800x600x32 como el EXE.
+
+**Lecciones:**
+- Un ayudante de parches que sigue el salto del símbolo de la DLL **después** de parchearlo acaba parcheando el propio stub con un salto a sí mismo: bucle infinito en la primera llamada ("GTA no responde"). Resolver el cuerpo antes de escribir ningún parche y no parchear nunca un stub registrado.
+- Para localizar cuelgues: migas de pan escritas en vivo con un solo `WriteFile` sin reservas (`FILE_FLAG_WRITE_THROUGH`).
+- Los stubs registran en un array fijo y el json se construye tras la llamada.
+- `run_local.py` lanza el juego aunque se le pase `--help`: los agentes no deben ejecutarlo nunca.

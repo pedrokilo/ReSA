@@ -145703,6 +145703,2368 @@
       "dependency_review": null,
       "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
       "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "Init",
+        "address": "0x004212E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::Init"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "ReInit",
+        "address": "0x004213B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::ReInit"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "InitSequence",
+        "address": "0x00421740",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::InitSequence"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "ChooseBoatModel",
+        "address": "0x00421970",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::ChooseBoatModel"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "ChooseCarModelToLoad",
+        "address": "0x00421900",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::ChooseCarModelToLoad"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "ChoosePoliceCarModel",
+        "address": "0x00421980",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::ChoosePoliceCarModel"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "ChooseGangCarModel",
+        "address": "0x00421A40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::ChooseGangCarModel"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "GetNewVehicleDependingOnCarModel",
+        "address": "0x00421440",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::GetNewVehicleDependingOnCarModel"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "CreateCarForScript",
+        "address": "0x00431F80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::CreateCarForScript"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "IsAnyoneParking",
+        "address": "0x0042C250",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::IsAnyoneParking"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "IsThisVehicleInteresting",
+        "address": "0x00423EA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::IsThisVehicleInteresting"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "RemoveFromInterestingVehicleList",
+        "address": "0x00423ED0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::RemoveFromInterestingVehicleList"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "JoinCarWithRoadAccordingToMission",
+        "address": "0x00432CB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::JoinCarWithRoadAccordingToMission"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "PossiblyFireHSMissile",
+        "address": "0x00429600",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::PossiblyFireHSMissile"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "PruneVehiclesOfInterest",
+        "address": "0x00423F10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::PruneVehiclesOfInterest"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "RemoveCarsIfThePoolGetsFull",
+        "address": "0x004322B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::RemoveCarsIfThePoolGetsFull"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "RemoveDistantCars",
+        "address": "0x0042CD10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::RemoveDistantCars"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "SlowCarDownForObject",
+        "address": "0x00426220",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::SlowCarDownForObject"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "SlowCarOnRailsDownForTrafficAndLights",
+        "address": "0x00434790",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::SlowCarOnRailsDownForTrafficAndLights"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "FindMaxSteerAngle",
+        "address": "0x00427FE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::FindMaxSteerAngle"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "GenerateRandomCars",
+        "address": "0x004341C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::GenerateRandomCars"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCarCtrl",
+        "fn_name": "ScriptGenerateOneEmergencyServicesCar",
+        "address": "0x0042FBC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CarCtrl22/validation-summary.json",
+        "sha256": "d9c0787a208f49aceb4b3702423474e857f18108cccb6503e6b25dc05d0a787a",
+        "passed_path": [
+          "covered_functions",
+          "CCarCtrl::ScriptGenerateOneEmergencyServicesCar"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CarCtrl.cpp": "cc8394cb70ac182a64403a81c71782d1c1d6e302e20fa8af5bffb06007906c4d",
+        "source/game_sa/CarCtrl.h": "47d983d82c1a2c029d8a8187b3e7758616af9c8aea606ec092fe7f71df41a21b"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083453-387489).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10304 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CarCtrl22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "ClearAllScriptFireFlags",
+        "address": "0x005397A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::ClearAllScriptFireFlags"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "Constructor",
+        "address": "0x00539DA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::Constructor"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "CreateAllFxSystems",
+        "address": "0x00539D50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::CreateAllFxSystems"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "DestroyAllFxSystems",
+        "address": "0x00539D10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::DestroyAllFxSystems"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "Destructor",
+        "address": "0x00538BB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::Destructor"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "ExtinguishPoint",
+        "address": "0x00539450",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::ExtinguishPoint"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "ExtinguishPointWithWater",
+        "address": "0x005394C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::ExtinguishPointWithWater"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "FindNearestFire",
+        "address": "0x00538F40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::FindNearestFire"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "GetNextFreeFire",
+        "address": "0x00539E50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::GetNextFreeFire"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "GetNumFiresInArea",
+        "address": "0x00539860",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::GetNumFiresInArea"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "GetNumFiresInRange",
+        "address": "0x005397F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::GetNumFiresInRange"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "GetNumOfNonScriptFires",
+        "address": "0x00538F10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::GetNumOfNonScriptFires"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "GetScriptFireCoords",
+        "address": "0x005397E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::GetScriptFireCoords"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "Init",
+        "address": "0x00538BC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::Init"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "IsScriptFireExtinguished",
+        "address": "0x005396E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::IsScriptFireExtinguished"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "PlentyFiresAvailable",
+        "address": "0x00539340",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::PlentyFiresAvailable"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "RemoveAllScriptFires",
+        "address": "0x00539720",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::RemoveAllScriptFires"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "RemoveScriptFire",
+        "address": "0x00539700",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::RemoveScriptFire"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "SetScriptFireAudio",
+        "address": "0x005397B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::SetScriptFireAudio"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "Shutdown",
+        "address": "0x00539DD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::Shutdown"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "StartFire-",
+        "address": "0x0053A050",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::StartFire-"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "StartFire-NoTarget",
+        "address": "0x00539F00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::StartFire-NoTarget"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "StartScriptFire",
+        "address": "0x0053A270",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::StartScriptFire"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CFireManager",
+        "fn_name": "Update",
+        "address": "0x0053AF00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fire24/validation-summary.json",
+        "sha256": "f1f15e4242cf964f1a679c198aeb187e2f10b5880d27b614080ec30b016196c7",
+        "passed_path": [
+          "covered_functions",
+          "CFireManager::Update"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+        "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+        "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+        "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083553-805802).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 9344 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Fire24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "Init",
+        "address": "0x007138D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::Init"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "Update",
+        "address": "0x00712FF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::Update"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "Shutdown",
+        "address": "0x00712FA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::Shutdown"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "SetUpOneSkyPoly",
+        "address": "0x00713060",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::SetUpOneSkyPoly"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "Render",
+        "address": "0x00713950",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::Render"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "RenderSkyPolys",
+        "address": "0x00714650",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::RenderSkyPolys"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "MovingFogInit",
+        "address": "0x00713660",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::MovingFogInit"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "MovingFog_Create",
+        "address": "0x00713760",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::MovingFog_Create"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "MovingFog_Delete",
+        "address": "0x00713730",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::MovingFog_Delete"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "MovingFog_Update",
+        "address": "0x00716B10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::MovingFog_Update"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "MovingFog_GetFXIntensity",
+        "address": "0x007136D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::MovingFog_GetFXIntensity"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "MovingFog_GetWind",
+        "address": "0x007136E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::MovingFog_GetWind"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "MovingFog_GetFirstFreeSlot",
+        "address": "0x00713710",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::MovingFog_GetFirstFreeSlot"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "MovingFogRender",
+        "address": "0x00716C90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::MovingFogRender"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "VolumetricCloudsInit",
+        "address": "0x007131C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::VolumetricCloudsInit"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "VolumetricClouds_Create",
+        "address": "0x00715F40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::VolumetricClouds_Create"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "VolumetricClouds_Delete",
+        "address": "0x007135F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::VolumetricClouds_Delete"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "VolumetricClouds_GetFirstFreeSlot",
+        "address": "0x007135C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::VolumetricClouds_GetFirstFreeSlot"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "VolumetricCloudsGetMaxDistance",
+        "address": "0x00713630",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::VolumetricCloudsGetMaxDistance"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClouds",
+        "fn_name": "VolumetricCloudsRender",
+        "address": "0x00716380",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clouds21/validation-summary.json",
+        "sha256": "9016ae57dbbf0851936906943bd407b3e19dea9b6954b280f71d2dd55d25fcaf",
+        "passed_path": [
+          "covered_functions",
+          "CClouds::VolumetricCloudsRender"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+        "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-083819-920932).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clouds21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "AddWakePoint",
+        "address": "0x006F2550",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::AddWakePoint"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "BlowUpCar",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::BlowUpCar"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "CheckForSkippingCalculations",
+        "address": "0x006F10C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::CheckForSkippingCalculations"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "Constructor",
+        "address": "0x006F2940",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::Constructor"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "DebugCode",
+        "address": "0x006F0D00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::DebugCode"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "Destructor",
+        "address": "0x006F00F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::Destructor"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "DisplayHandlingData",
+        "address": "0x006F0D90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::DisplayHandlingData"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "FillBoatList",
+        "address": "0x006F2710",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::FillBoatList"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "GetBoatAtomicObjectCB",
+        "address": "0x006F00D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::GetBoatAtomicObjectCB"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "GetComponentWorldPosition",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::GetComponentWorldPosition"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "IsComponentPresent",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::IsComponentPresent"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "IsSectorAffectedByWake",
+        "address": "0x006F0E80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::IsSectorAffectedByWake"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "IsVertexAffectedByWake",
+        "address": "0x006F0F50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::IsVertexAffectedByWake"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "ModifyHandlingValue",
+        "address": "0x006F0DE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::ModifyHandlingValue"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "PreRender",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::PreRender"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "ProcessControl",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::ProcessControl"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "ProcessControlInputs",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::ProcessControlInputs"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "ProcessOpenDoor",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::ProcessOpenDoor"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "PruneWakeTrail",
+        "address": "0x006F0E20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::PruneWakeTrail"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "Render",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::Render"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "SetModelIndex",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::SetModelIndex"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "SetupModelNodes",
+        "address": "0x006F01A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::SetupModelNodes"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBoat",
+        "fn_name": "Teleport",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Boat23/validation-summary.json",
+        "sha256": "a6c021b4470a9741d51f48c2ae9015f3753f2e29cbbce76b1ec2aff6ccde04ba",
+        "passed_path": [
+          "covered_functions",
+          "CBoat::Teleport"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+        "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-090726-942849).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12288 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Boat23/README.md"
     }
   ]
 }

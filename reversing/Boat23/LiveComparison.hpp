@@ -77,7 +77,21 @@ inline uintptr_t FindCtorCall(uintptr_t fn,uintptr_t newFn,uintptr_t skipFn){
     for(uintptr_t p=fn;p<fn+0x1200;++p){ if(*reinterpret_cast<const uint8*>(p)!=0xE8)continue; const uintptr_t t=p+5+*reinterpret_cast<const int32*>(p+1);
         if(!seen){ if(InDll(t)&&FollowIn(t)==nf){seen=true;p+=4;} continue; }
         if(!InDll(t)||FollowIn(t)==sk)continue; if(*reinterpret_cast<const uint8*>(t)!=0xE9&&(t&15))continue;
+        // el constructor es __thiscall: la llamada va precedida de mov ecx,[ebp+d8] / mov ecx,[ebp+d32] / mov ecx,eax
+        const auto* q=reinterpret_cast<const uint8*>(p);
+        const bool movEcx=(q[-3]==0x8B&&q[-2]==0x4D)||(q[-6]==0x8B&&q[-5]==0x8D)||(q[-2]==0x8B&&q[-1]==0xC8);
+        if(!movEcx)continue;
         return FollowIn(t); }
+    return 0; }
+// Constructor de CObject de la DLL: se toma de una función propia que solo construye el objeto (placement new +
+// llamada __thiscall al constructor), más fiable que buscar dentro de BlowUpCar. Nunca se ejecuta.
+inline void* __cdecl MakeObjectProbe(void* p){ return ::new (p) CObject(); }
+inline uintptr_t FindThisCall(uintptr_t fn,uintptr_t skipFn){
+    fn=FollowIn(fn); const auto sk=FollowIn(skipFn); if(!InDll(fn))return 0;
+    for(uintptr_t p=fn+6;p<fn+0x200;++p){ if(*reinterpret_cast<const uint8*>(p)!=0xE8)continue; const uintptr_t t=p+5+*reinterpret_cast<const int32*>(p+1);
+        if(!InDll(t)||FollowIn(t)==sk)continue;
+        const auto* q=reinterpret_cast<const uint8*>(p);
+        if((q[-3]==0x8B&&q[-2]==0x4D)||(q[-6]==0x8B&&q[-5]==0x8D)||(q[-2]==0x8B&&q[-1]==0xC8))return FollowIn(t); }
     return 0; }
 inline ReversibleHooks::ReversibleHook::Base* FindHook(const char* cls,const char* fn) {
     ReversibleHooks::ReversibleHook::Base* r{};
@@ -130,98 +144,150 @@ inline json Name(const void* p){ return Name(uintptr_t(p)); }
 inline json RwMat(const void* p){ const auto* f=static_cast<const float*>(p); json r=json::array(); for(int k:{0,1,2,4,5,6,8,9,10,12,13,14})r.push_back(F(f[k])); return r; }
 inline json Vec(const void* p){ const auto* f=static_cast<const float*>(p); return json::array({F(f[0]),F(f[1]),F(f[2])}); }
 inline json Words(const void* p,size_t from,size_t to){ json r=json::array(); for(size_t k=from;k+4<=to;k+=4)r.push_back(Name(*reinterpret_cast<const uint32*>(static_cast<const uint8*>(p)+k))); return r; }
-inline void T(json j){ if(Main())trace.push_back(std::move(j)); }
+// liveTrace: solo marca fases fuera de las llamadas probadas (nunca se escribe desde los stubs)
+inline bool liveTrace{};
+
+// --- registro de stubs sin reservas de memoria ni E/S: tipo + valores crudos en un array fijo; el json (con los
+//     nombres de punteros) se construye después de que la función probada vuelve ---
+struct I { int32 v; }; struct U { uint32 v; }; struct Fl { float v; }; struct Pt { const void* p; }; struct Bo { bool v; };
+struct V3 { const void* p; }; struct M12 { const void* p; }; struct H { uint64 v; }; struct S { const char* p; };
+struct Arg { uint8 kind; uint32 v; };
+struct Rec { const char* tag; uint32 n; std::array<Arg,24> a; };
+inline std::array<Rec,1024> recs{}; inline size_t nrec{}; inline bool recOverflow{};
+inline void Put(Rec& r,uint8 k,uint32 v){ if(r.n<r.a.size())r.a[r.n++]={k,v}; }
+inline void Add(Rec& r,I x){ Put(r,0,uint32(x.v)); }
+inline void Add(Rec& r,U x){ Put(r,1,x.v); }
+inline void Add(Rec& r,Fl x){ Put(r,2,std::bit_cast<uint32>(x.v)); }
+inline void Add(Rec& r,Pt x){ Put(r,3,uint32(uintptr_t(x.p))); }
+inline void Add(Rec& r,Bo x){ Put(r,4,x.v ? 1u : 0u); }
+inline void Add(Rec& r,V3 x){ const auto* f=static_cast<const uint32*>(x.p); for(int k=0;k<3;++k)Put(r,2,f[k]); }
+inline void Add(Rec& r,M12 x){ const auto* f=static_cast<const uint32*>(x.p); for(int k:{0,1,2,4,5,6,8,9,10,12,13,14})Put(r,2,f[k]); }
+inline void Add(Rec& r,H x){ Put(r,6,uint32(x.v)); Put(r,7,uint32(x.v>>32)); }
+inline void Add(Rec& r,S x){ Add(r,H{Fnv(x.p,strlen(x.p))}); }
+// migas de pan a prueba de cuelgues: 32 bytes por llamada (contador, valor, 24 caracteres de etiqueta) con un solo
+// WriteFile sobre un fichero abierto una vez con FILE_FLAG_WRITE_THROUGH; sin reservas ni json. Solo en los primeros
+// casos de cada función (crumbOn). Fichero: <carpeta del juego>/boat23-breadcrumb.bin
+inline HANDLE crumb=INVALID_HANDLE_VALUE; inline uint32 crumbN{}; inline bool crumbOn{};
+inline void Crumb(const char* tag,uint32 val=0){
+    if(!crumbOn||crumb==INVALID_HANDLE_VALUE)return;
+    char buf[32]{}; const uint32 n=++crumbN; std::memcpy(buf,&n,4); std::memcpy(buf+4,&val,4);
+    for(int k=0;k<24&&tag[k];++k)buf[8+k]=tag[k];
+    DWORD w=0; WriteFile(crumb,buf,32,&w,nullptr); }
+template<class... A> void T(const char* tag,A... a){
+    Crumb(tag,GetCurrentThreadId());
+    if(!Main())return; if(nrec>=recs.size()){ recOverflow=true; return; }
+    Rec& r=recs[nrec++]; r.tag=tag; r.n=0; (Add(r,a),...); }
+inline json RecsToJson(){
+    json out=json::array();
+    for(size_t i=0;i<nrec;++i){ const Rec& r=recs[i]; json j=json::array(); j.push_back(r.tag);
+        for(uint32 k=0;k<r.n;++k){ const Arg& a=r.a[k];
+            switch(a.kind){ case 0: j.push_back(int32(a.v)); break; case 1: case 2: j.push_back(a.v); break; case 3: j.push_back(Name(uintptr_t(a.v))); break;
+                case 4: j.push_back(a.v!=0); break; case 6: { const uint32 hi=k+1<r.n ? r.a[k+1].v : 0; j.push_back(uint64(a.v)|(uint64(hi)<<32)); ++k; break; } default: j.push_back(a.v); } }
+        out.push_back(std::move(j)); }
+    if(recOverflow)out.push_back("overflow");
+    return out; }
 
 // trampas de vtable
-template<int N> void* __fastcall VTrap(void* v,void*) { T({"unexpected_slot",N,Name(v)}); return nullptr; }
+template<int N> void* __fastcall VTrap(void* v,void*) { T("unexpected_slot",I{N},Pt{v}); return nullptr; }
 template<int... N> void FillTraps(std::array<void*,NSLOT>& vt,std::integer_sequence<int,N...>) { ((vt[N]=reinterpret_cast<void*>(&VTrap<N>)),...); }
-inline void __fastcall VInputs(void* self,void*,uint32 pad){ T({"vt.ProcessControlInputs",Name(self),pad&0xFF}); }
-inline void __fastcall VBlowUp(void* self,void*,void* culprit,uint32 cut){ T({"vt.BlowUpCar",Name(self),Name(culprit),cut&0xFF}); }
-inline void __fastcall VObjSetModel(void* self,void*,uint32 m){ T({"obj.SetModelIndexNoCreate",Name(self),m}); }
-inline void __fastcall VObjSetStatic(void* self,void*,uint32 s){ T({"obj.SetIsStatic",Name(self),s&0xFF}); }
+inline void __fastcall VInputs(void* self,void*,uint32 pad){ T("vt.ProcessControlInputs",Pt{self},U{pad&0xFF}); }
+inline void __fastcall VBlowUp(void* self,void*,void* culprit,uint32 cut){ T("vt.BlowUpCar",Pt{self},Pt{culprit},U{cut&0xFF}); }
+inline void __fastcall VObjSetModel(void* self,void*,uint32 m){ T("obj.SetModelIndexNoCreate",Pt{self},U{m}); }
+inline void __fastcall VObjSetStatic(void* self,void*,uint32 s){ T("obj.SetIsStatic",Pt{self},U{s&0xFF}); }
 
 // --- dependencias simuladas ---
 inline void* fakePed{}; inline void* fakeVeh{}; inline CVector centre{}; inline float progress{}; inline uint32 appearance{};
-inline CPlayerPed* __cdecl FakeFindPlayerPed(int32 id){ T({"FindPlayerPed",id}); return static_cast<CPlayerPed*>(fakePed); }
-inline CVehicle* __cdecl FakeFindPlayerVehicle(int32 id,bool remote){ T({"FindPlayerVehicle",id,remote}); return static_cast<CVehicle*>(fakeVeh); }
-inline const CVector* __cdecl FakeCentre(int32 id){ T({"FindPlayerCentreOfWorld_NoSniperShift",id}); return &centre; }
+inline CPlayerPed* __cdecl FakeFindPlayerPed(int32 id){ T("FindPlayerPed",I{id}); return static_cast<CPlayerPed*>(fakePed); }
+inline CVehicle* __cdecl FakeFindPlayerVehicle(int32 id,bool remote){ T("FindPlayerVehicle",I{id},Bo{remote}); return static_cast<CVehicle*>(fakeVeh); }
+inline const CVector* __cdecl FakeCentre(int32 id){ T("FindPlayerCentreOfWorld_NoSniperShift",I{id}); return &centre; }
 inline uint32 seed{}, rngCalls{};
-inline int __cdecl FakeRand(){ T({"rand"}); return int((seed*2654435761u+rngCalls++*40503u)>>9)&0x7FFF; }
+inline int __cdecl FakeRand(){ T("rand"); return int((seed*2654435761u+rngCalls++*40503u)>>9)&0x7FFF; }
 inline uint16 FakeRandomNumber(){ return uint16(FakeRand()); }
-inline float __cdecl FakeProgress(){ T({"GetPercentageProgress"}); return progress; }
-inline uint32 __fastcall FakeAppearance(void* self,void*){ return appearance; }
-template<int N> void __fastcall Void0(void* self,void*){ static const char* names[]{"CVehicle::PreRender","CVehicle::Render","CPhysical::ProcessControl","Audio::Service","ProcessDelayedExplosion",
+inline float __cdecl FakeProgress(){ T("GetPercentageProgress"); return progress; }
+inline uint32 __fastcall FakeAppearance(void* self,void*){ Crumb("~GetVehicleAppearance"); return appearance; }
+inline const char* const VOID_NAMES[]{"CVehicle::PreRender","CVehicle::Render","CPhysical::ProcessControl","Audio::Service","ProcessDelayedExplosion",
     "UpdateClumpAlpha","ProcessCarAlarm","DoFixedMachineGuns","DoDriveByShootings","KillPedsInVehicle","Audio::Terminate","CVehicle::~CVehicle","Fx::Play","Fx::Stop","Fx::Kill","Fx::CopyParentMatrix"};
-    T({names[N],Name(self)}); }
-inline void __fastcall FakeLawEnforcer(void* self,void*,uint32 b){ T({"ChangeLawEnforcerState",Name(self),b&0xFF}); }
-inline void __fastcall FakeAudioInit(void* self,void*,void* e){ T({"Audio::Initialise",Name(self),Name(e)}); }
-inline void* __fastcall FakeVehCtor(void* self,void*,uint32 by){ T({"CVehicle::CVehicle",Name(self),by&0xFF}); std::memcpy(self,tmpl.data(),0x5A0); At<void*>(self,0)=nullptr; return self; }
-inline void __fastcall FakeVehSetModel(void* self,void*,uint32 m){ T({"CVehicle::SetModelIndex",Name(self),m}); At<int16>(self,0x22)=int16(m); At<void*>(self,0x18)=clump.data(); }
+template<int N> void __fastcall Void0(void* self,void*){ T(VOID_NAMES[N],Pt{self}); }
+inline void __fastcall FakeLawEnforcer(void* self,void*,uint32 b){ T("ChangeLawEnforcerState",Pt{self},U{b&0xFF}); }
+inline void __fastcall FakeAudioInit(void* self,void*,void* e){ T("Audio::Initialise",Pt{self},Pt{e}); }
+inline void* __fastcall FakeVehCtor(void* self,void*,uint32 by){ T("CVehicle::CVehicle",Pt{self},U{by&0xFF}); std::memcpy(self,tmpl.data(),0x5A0); At<void*>(self,0)=nullptr; return self; }
+inline void __fastcall FakeVehSetModel(void* self,void*,uint32 m){ T("CVehicle::SetModelIndex",Pt{self},U{m}); At<int16>(self,0x22)=int16(m); At<void*>(self,0x18)=clump.data(); }
 inline std::array<int8,12> fillPattern{};
-inline void __cdecl FakeFillFrameArray(void* c,RwFrame** out){ T({"FillFrameArray",Name(c),Name(out)}); for(size_t k=0;k<12;++k)if(fillPattern[k]>=0)out[k]=reinterpret_cast<RwFrame*>(frames[size_t(fillPattern[k])].data()); }
+inline void __cdecl FakeFillFrameArray(void* c,RwFrame** out){ T("FillFrameArray",Pt{c},Pt{out}); for(size_t k=0;k<12;++k)if(fillPattern[k]>=0)out[k]=reinterpret_cast<RwFrame*>(frames[size_t(fillPattern[k])].data()); }
 inline uint8 colours[4]{};
-inline void __fastcall FakeColour(void* self,void*,uint8* a,uint8* b,uint8* c,uint8* d,int32 v){ T({"ChooseVehicleColour",Name(self),Name(a),Name(b),Name(c),Name(d),v}); *a=colours[0]; *b=colours[1]; *c=colours[2]; *d=colours[3]; }
-inline void __fastcall FakeSetCompRot(void* self,void*,void* frame,int32 axis,float angle,uint32 reset){ T({"SetComponentRotation",Name(self),Name(frame),axis,F(angle),reset&0xFF}); }
-inline void __cdecl FakeCompAlpha(void* atomic,int32 alpha){ T({"SetComponentAtomicAlpha",Name(atomic),alpha}); }
-inline RwMatrix* __cdecl FakeLTM(RwFrame* f){ return reinterpret_cast<RwMatrix*>(reinterpret_cast<uint8*>(f)+0x50); }
+inline void __fastcall FakeColour(void* self,void*,uint8* a,uint8* b,uint8* c,uint8* d,int32 v){ T("ChooseVehicleColour",Pt{self},Pt{a},Pt{b},Pt{c},Pt{d},I{v}); *a=colours[0]; *b=colours[1]; *c=colours[2]; *d=colours[3]; }
+inline void __fastcall FakeSetCompRot(void* self,void*,void* frame,int32 axis,float angle,uint32 reset){ T("SetComponentRotation",Pt{self},Pt{frame},I{axis},Fl{angle},U{reset&0xFF}); }
+inline void __cdecl FakeCompAlpha(void* atomic,int32 alpha){ T("SetComponentAtomicAlpha",Pt{atomic},I{alpha}); }
+inline RwMatrix* __cdecl FakeLTM(RwFrame* f){ Crumb("~RwFrameGetLTM"); return reinterpret_cast<RwMatrix*>(reinterpret_cast<uint8*>(f)+0x50); }
 inline RwFrame* __cdecl FakeForAllObjects(RwFrame* f,RwObjectCallBack cb,void* data){
-    T({"RwFrameForAllObjects",Name(f),Name(uintptr_t(cb)),Name(data)});
+    T("RwFrameForAllObjects",Pt{f},Pt{reinterpret_cast<const void*>(cb)},Pt{data});
     for(size_t k=0;k<NFRAMES;++k)if(frames[k].data()==reinterpret_cast<uint8*>(f))for(int j=0;j<frameAtomCount[k];++j)cb(reinterpret_cast<RwObject*>(atoms[size_t((frameAtomFirst[k]+j)%int(NATOM))].data()),data);
     return f; }
-inline RwObject* __cdecl FakeFirstObject(RwFrame* f){ for(size_t k=0;k<NFRAMES;++k)if(frames[k].data()==reinterpret_cast<uint8*>(f))return frameAtomCount[k] ? reinterpret_cast<RwObject*>(atoms[size_t(frameAtomFirst[k]%int(NATOM))].data()) : nullptr; return nullptr; }
-inline RpAtomic* __cdecl FakeAtomicRender(RpAtomic* a){ T({"AtomicRender",Name(a)}); return a; }
-inline RwMatrix* __cdecl FakeMatrixUpdate(RwMatrix* m){ T({"RwMatrixUpdate",Name(m)}); return m; }
+inline RwObject* __cdecl FakeFirstObject(RwFrame* f){ Crumb("~GetFirstObject"); for(size_t k=0;k<NFRAMES;++k)if(frames[k].data()==reinterpret_cast<uint8*>(f))return frameAtomCount[k] ? reinterpret_cast<RwObject*>(atoms[size_t(frameAtomFirst[k]%int(NATOM))].data()) : nullptr; return nullptr; }
+inline RpAtomic* __cdecl FakeAtomicRender(RpAtomic* a){ T("AtomicRender",Pt{a}); return a; }
+inline RwMatrix* __cdecl FakeMatrixUpdate(RwMatrix* m){ T("RwMatrixUpdate",Pt{m}); return m; }
 inline float doorAngle{}; inline bool doorRet{};
-inline bool __fastcall FakeDoorProcess(void* door,void*,void* veh,const CVector* om,const CVector* ot,const CVector* off){ T({"CDoor::Process",Name(door),Name(veh),Name(om),Name(ot),Vec(off)}); At<float>(door,0xC)=doorAngle; return doorRet; }
-inline void __fastcall FakeSplashes(void* self,void*,float d){ T({"DoBoatSplashes",Name(self),F(d)}); }
+inline bool __fastcall FakeDoorProcess(void* door,void*,void* veh,const CVector* om,const CVector* ot,const CVector* off){ T("CDoor::Process",Pt{door},Pt{veh},Pt{om},Pt{ot},V3{off}); At<float>(door,0xC)=doorAngle; return doorRet; }
+inline void __fastcall FakeSplashes(void* self,void*,float d){ T("DoBoatSplashes",Pt{self},Fl{d}); }
 // FX
 inline size_t fxNext{}; inline uint32 fxCreateMask{};
 inline void* __fastcall FakeCreateFx(void* mgr,void*,const char* name,const CVector* p,RwMatrix* m,uint32 b){
-    const size_t k=fxNext++; const bool ok=(fxCreateMask>>(k%32))&1; T({"CreateFxSystem",Name(mgr),std::string(name),Vec(p),Name(m),b&0xFF,ok});
+    const size_t k=fxNext++; const bool ok=(fxCreateMask>>(k%32))&1; T("CreateFxSystem",Pt{mgr},S{name},V3{p},Pt{m},U{b&0xFF},Bo{ok});
     return ok ? fxs[k%NFX].data() : nullptr; }
-inline uint32 __fastcall FakeFxStatus(void* fx,void*){ for(size_t k=0;k<NFX;++k)if(fxs[k].data()==fx)return fxStatus[k]; return 7; }
-inline void __fastcall FakeFxLocal(void* fx,void*,uint32 b){ T({"Fx::SetLocalParticles",Name(fx),b&0xFF}); }
-inline void __fastcall FakeFxSetMatrix(void* fx,void*,void* m){ T({"Fx::SetMatrix",Name(fx),Name(m)}); }
-inline void __fastcall FakeFxConstTime(void* fx,void*,uint32 on,float t){ T({"Fx::SetConstTime",Name(fx),on&0xFF,F(t)}); }
+inline uint32 __fastcall FakeFxStatus(void* fx,void*){ Crumb("~Fx::GetPlayStatus"); for(size_t k=0;k<NFX;++k)if(fxs[k].data()==fx)return fxStatus[k]; return 7; }
+inline void __fastcall FakeFxLocal(void* fx,void*,uint32 b){ T("Fx::SetLocalParticles",Pt{fx},U{b&0xFF}); }
+inline void __fastcall FakeFxSetMatrix(void* fx,void*,void* m){ T("Fx::SetMatrix",Pt{fx},Pt{m}); }
+inline void __fastcall FakeFxConstTime(void* fx,void*,uint32 on,float t){ T("Fx::SetConstTime",Pt{fx},U{on&0xFF},Fl{t}); }
 // IA / física
-inline void __cdecl FakeCarAI(void* v){ T({"UpdateCarAI",Name(v)}); }
-inline void __cdecl FakeSteerAI(void* v){ T({"SteerAICarWithPhysics",Name(v)}); }
+inline void __cdecl FakeCarAI(void* v){ T("UpdateCarAI",Pt{v}); }
+inline void __cdecl FakeSteerAI(void* v){ T("SteerAICarWithPhysics",Pt{v}); }
 inline float boatVol{};
-inline void __fastcall FakeBoatControl(void* self,void*,void* h,float* vol,uint32 hit,uint32 post){ T({"ProcessBoatControl",Name(self),Name(h),Name(vol),F(*vol),hit&0xFF,post&0xFF}); *vol=boatVol; }
-inline void __fastcall FakeFlying(void* self,void*,int32 model,float a,float b,float c,float d){ T({"FlyingControl",Name(self),model,F(a),F(b),F(c),F(d)}); }
-inline int16 __fastcall FakeSay(void* p,void*,int32 ctx,uint32 delay,float prob,uint32 a,uint32 b,uint32 c){ T({"Say",Name(p),ctx,delay,F(prob),a&0xFF,b&0xFF,c&0xFF}); return 0; }
-inline void __fastcall FakeRegRef(void* self,void*,void* field){ T({"RegisterReference",Name(self),Name(field)}); }
-inline void __fastcall FakeCleanRef(void* self,void*,void* field){ T({"CleanUpOldReference",Name(self),Name(field)}); }
-inline void* __fastcall FakeEventAdd(void* grp,void*,CEvent* ev,uint32 valid){ T({"CEventGroup::Add",Name(grp),int32(ev->GetEventType()),valid&0xFF}); return nullptr; }
+inline void __fastcall FakeBoatControl(void* self,void*,void* h,float* vol,uint32 hit,uint32 post){ T("ProcessBoatControl",Pt{self},Pt{h},Pt{vol},Fl{*vol},U{hit&0xFF},U{post&0xFF}); *vol=boatVol; }
+inline void __fastcall FakeFlying(void* self,void*,int32 model,float a,float b,float c,float d){ T("FlyingControl",Pt{self},I{model},Fl{a},Fl{b},Fl{c},Fl{d}); }
+inline int16 __fastcall FakeSay(void* p,void*,int32 ctx,uint32 delay,float prob,uint32 a,uint32 b,uint32 c){ T("Say",Pt{p},I{ctx},U{delay},Fl{prob},U{a&0xFF},U{b&0xFF},U{c&0xFF}); return 0; }
+inline void __fastcall FakeRegRef(void* self,void*,void* field){ T("RegisterReference",Pt{self},Pt{field}); }
+inline void __fastcall FakeCleanRef(void* self,void*,void* field){ T("CleanUpOldReference",Pt{self},Pt{field}); }
+inline void* __fastcall FakeEventAdd(void* grp,void*,CEvent* ev,uint32 valid){ T("CEventGroup::Add",Pt{grp},I{int32(ev->GetEventType())},U{valid&0xFF}); return nullptr; }
 // pads
 inline int16 brakeVal{}, accelVal{}, steerVal{};
-inline int16 __fastcall FakeBrake(void*,void*){ return brakeVal; }
-inline int16 __fastcall FakeAccel(void*,void*){ return accelVal; }
-inline int16 __fastcall FakeSteer(void*,void*){ return steerVal; }
+inline int16 __fastcall FakeBrake(void*,void*){ Crumb("~GetBrake"); return brakeVal; }
+inline int16 __fastcall FakeAccel(void*,void*){ Crumb("~GetAccelerate"); return accelVal; }
+inline int16 __fastcall FakeSteer(void*,void*){ Crumb("~GetSteeringLeftRight"); return steerVal; }
 // mundo / render
-inline void __cdecl FakeWorldAdd(void* e){ T({"CWorld::Add",Name(e)}); }
-inline void __cdecl FakeWorldRemove(void* e){ T({"CWorld::Remove",Name(e)}); }
-inline RwBool __cdecl FakeRenderState(RwRenderState s,void* v){ T({"RenderStateSet",int32(s),Name(v)}); return TRUE; }
+inline void __cdecl FakeWorldAdd(void* e){ T("CWorld::Add",Pt{e}); }
+inline void __cdecl FakeWorldRemove(void* e){ T("CWorld::Remove",Pt{e}); }
+inline RwBool __cdecl FakeRenderState(RwRenderState s,void* v){ T("RenderStateSet",I{int32(s)},Pt{v}); return TRUE; }
 inline void* im3dRet{};
-inline void* __cdecl FakeIm3DTransform(RwIm3DVertex* v,RwUInt32 n,RwMatrix* m,RwUInt32 flags){ T({"Im3DTransform",Name(v),n,RwMat(m),flags,Fnv(v,sizeof(RwIm3DVertex)*n)}); return im3dRet; }
-inline RwBool __cdecl FakeIm3DRender(RwPrimitiveType t,RwImVertexIndex* idx,RwInt32 n){ T({"Im3DRenderIndexedPrimitive",int32(t),Name(idx),n}); return TRUE; }
-inline RwBool __cdecl FakeIm3DEnd(){ T({"Im3DEnd"}); return TRUE; }
+inline void* __cdecl FakeIm3DTransform(RwIm3DVertex* v,RwUInt32 n,RwMatrix* m,RwUInt32 flags){ T("Im3DTransform",Pt{v},U{n},M12{m},U{flags},H{Fnv(v,sizeof(RwIm3DVertex)*n)}); return im3dRet; }
+inline RwBool __cdecl FakeIm3DRender(RwPrimitiveType t,RwImVertexIndex* idx,RwInt32 n){ T("Im3DRenderIndexedPrimitive",I{int32(t)},Pt{idx},I{n}); return TRUE; }
+inline RwBool __cdecl FakeIm3DEnd(){ T("Im3DEnd"); return TRUE; }
 // BlowUpCar
-inline void __cdecl FakeClumpFlag(void* c,int32 f){ T({"SetClumpForAllAtomicsFlag",Name(c),f}); }
-inline void __fastcall FakeCamShake(void* cam,void*,float s,float x,float y,float z){ T({"CamShake",Name(cam),F(s),F(x),F(y),F(z)}); }
-inline void __cdecl FakeExplosion(void* v,void* c,int32 type,float x,float y,float z,uint32 life,uint32 snd,float shake,uint32 vis){ T({"AddExplosion",Name(v),Name(c),type,F(x),F(y),F(z),life,snd&0xFF,F(shake),vis&0xFF}); }
-inline void __cdecl FakeDarkel(void* v,int32 id){ T({"RegisterCarBlownUpByPlayer",Name(v),id}); }
+inline void __cdecl FakeClumpFlag(void* c,int32 f){ T("SetClumpForAllAtomicsFlag",Pt{c},I{f}); }
+inline void __fastcall FakeCamShake(void* cam,void*,float s,float x,float y,float z){ T("CamShake",Pt{cam},Fl{s},Fl{x},Fl{y},Fl{z}); }
+inline void __cdecl FakeExplosion(void* v,void* c,int32 type,float x,float y,float z,uint32 life,uint32 snd,float shake,uint32 vis){ T("AddExplosion",Pt{v},Pt{c},I{type},Fl{x},Fl{y},Fl{z},U{life},U{snd&0xFF},Fl{shake},U{vis&0xFF}); }
+inline void __cdecl FakeDarkel(void* v,int32 id){ T("RegisterCarBlownUpByPlayer",Pt{v},I{id}); }
 inline bool objNewOk{};
-inline void* __cdecl FakeObjNew(size_t n){ T({"CObject::new",uint32(n)}); return objNewOk ? obj.data() : nullptr; }
+inline void* __cdecl FakeObjNew(size_t n){ T("CObject::new",U{uint32(n)}); return objNewOk ? obj.data() : nullptr; }
 inline CVector objPos{};
-inline void* __fastcall FakeObjCtor(void* self,void*){ T({"CObject::CObject",Name(self)}); std::memset(self,0xCD,OBJ); At<void*>(self,0)=objVt.data(); At<void*>(self,0x14)=objMat.data();
+inline void* __fastcall FakeObjCtor(void* self,void*){ T("CObject::CObject",Pt{self}); std::memset(self,0xCD,OBJ); At<void*>(self,0)=objVt.data(); At<void*>(self,0x14)=objMat.data();
     std::memset(objMat.data(),0,MATB); At<float>(objMat.data(),0)=1.f; At<float>(objMat.data(),0x14)=1.f; At<float>(objMat.data(),0x28)=1.f; *reinterpret_cast<CVector*>(objMat.data()+0x30)=objPos; At<uint32>(self,0x1C)=0; At<uint32>(self,0x140)=0xFFFFFFFFu; return self; }
-inline void __fastcall FakeRefModel(void* self,void*,int32 m){ T({"RefModelInfo",Name(self),m}); }
-inline RwFrame* __cdecl FakeFrameCreate(){ T({"RwFrameCreate"}); return reinterpret_cast<RwFrame*>(newFrame.data()); }
-inline RpAtomic* __cdecl FakeAtomicClone(RpAtomic* a){ T({"RpAtomicClone",Name(a)}); return reinterpret_cast<RpAtomic*>(cloneAtom.data()); }
-inline RpAtomic* __cdecl FakeAtomicSetFrame(RpAtomic* a,RwFrame* f){ T({"RpAtomicSetFrame",Name(a),Name(f)}); return a; }
-inline void __cdecl FakeRenderCB(void* a,void* cb){ T({"SetAtomicRenderCallback",Name(a),Name(cb)}); }
-inline void __fastcall FakeAttach(void* self,void*,void* o,uint32 upd){ T({"AttachToRwObject",Name(self),Name(o),upd&0xFF}); }
+inline void __fastcall FakeRefModel(void* self,void*,int32 m){ T("RefModelInfo",Pt{self},I{m}); }
+inline RwFrame* __cdecl FakeFrameCreate(){ T("RwFrameCreate"); return reinterpret_cast<RwFrame*>(newFrame.data()); }
+inline RpAtomic* __cdecl FakeAtomicClone(RpAtomic* a){ T("RpAtomicClone",Pt{a}); return reinterpret_cast<RpAtomic*>(cloneAtom.data()); }
+inline RpAtomic* __cdecl FakeAtomicSetFrame(RpAtomic* a,RwFrame* f){ T("RpAtomicSetFrame",Pt{a},Pt{f}); return a; }
+inline void __cdecl FakeRenderCB(void* a,void* cb){ T("SetAtomicRenderCallback",Pt{a},Pt{cb}); }
+inline void __fastcall FakeAttach(void* self,void*,void* o,uint32 upd){ T("AttachToRwObject",Pt{self},Pt{o},U{upd&0xFF}); }
+
+// diagnóstico: primera aparición de cada excepción (no AV) en el hilo principal; no se maneja ninguna
+inline std::set<DWORD> seenCodes;
+inline LONG CALLBACK LogException(PEXCEPTION_POINTERS p){
+    const DWORD code=p->ExceptionRecord->ExceptionCode;
+    // durante los casos con traza en vivo también se registran los accesos inválidos (cualquier hilo)
+    static int avLogged=0; const bool av=code==EXCEPTION_ACCESS_VIOLATION&&liveTrace&&avLogged++<20;
+    if(code!=0x406D1388&&log.is_open()&&(av||(GetCurrentThreadId()==mainThread&&code!=EXCEPTION_ACCESS_VIOLATION&&seenCodes.insert(code).second))){
+        log<<json{{"event","step"},{"exception",code},{"eip",p->ContextRecord->Eip},{"eip_dll",InDll(p->ContextRecord->Eip) ? json(p->ContextRecord->Eip-modBase) : json(nullptr)},
+            {"access",p->ExceptionRecord->NumberParameters>1 ? json(p->ExceptionRecord->ExceptionInformation[1]) : json(nullptr)}}.dump()<<char(10); log.flush(); }
+    return EXCEPTION_CONTINUE_SEARCH; }
 
 // ======================= fixtures =======================
 inline void RandMatrix(Rng& r,std::array<uint8,MATB>& buf,const CVector& around,float spread){
@@ -237,6 +303,10 @@ inline void MakeWorld(const std::string& nm,Rng& r){
     for(size_t k=0;k<NFRAMES;++k){ frameAtomFirst[k]=int(r.next()%NATOM); frameAtomCount[k]=int(r.next()%4); }
     if(nm!="BlowUpCar"&&!frameAtomCount[1])frameAtomCount[1]=1; // el EXE no comprueba GetFirstObject (truco invisible)
     std::memset(clump.data(),0,clump.size()); clump[0]=2; At<void*>(clump.data(),4)=frames[13].data();
+    // listas RW bien formadas (vacías y circulares) por si algún recorrido real llega a ellas:
+    // atomicList del clump (+8) y objectList de cada marco (+0x90)
+    At<void*>(clump.data(),8)=clump.data()+8; At<void*>(clump.data(),0xC)=clump.data()+8;
+    for(auto& f:frames){ At<void*>(f.data(),0x90)=f.data()+0x90; At<void*>(f.data(),0x94)=f.data()+0x90; }
     for(auto& fx:fxs)std::memset(fx.data(),0xCD,fx.size());
     for(auto& s:fxStatus)s=r.next()%3==0 ? 1u : 0u;
     fxNext=0; fxCreateMask=r.next()%4 ? r.next()|1u : 0u;
@@ -334,8 +404,9 @@ inline json Globals(){ return {Words(reinterpret_cast<void*>(0xC278F8),0,0x9C),W
     *reinterpret_cast<uint32*>(0xC1CC04),*reinterpret_cast<uint16*>(0xBB4A70)}; }
 
 inline uintptr_t dllVehCtor{}, dllVehDtor{}, dllObjCtor{};
+inline void Phase(const char* what){ if(liveTrace)Write({{"event","step"},{"phase",what}}); }
 inline json Run(const std::string& nm,uintptr_t target,Rng& r,json& out){
-    MakeWorld(nm,r); void* const b=boat.data(); json ret=nullptr;
+    Phase("make_world"); MakeWorld(nm,r); Phase("world_ready"); void* const b=boat.data(); json ret=nullptr;
     auto thiscall0=[&]{ reinterpret_cast<void(__thiscall*)(void*)>(target)(b); };
     if(nm=="Constructor"){ std::memset(b,0xCD,BOAT); const int32 model=BOAT_MODELS[r.next()%std::size(BOAT_MODELS)]; const int32 by=int32(r.next()%5);
         ret=Name(reinterpret_cast<void*(__thiscall*)(void*,int32,int32)>(target)(b,model,by)); }
@@ -380,9 +451,13 @@ inline json Run(const std::string& nm,uintptr_t target,Rng& r,json& out){
         const uint32 pad=r.next()%6==0 ? 2u+r.next()%5 : r.next()%2;
         reinterpret_cast<void(__thiscall*)(void*,uint32)>(target)(b,pad); }
     else if(nm=="BlowUpCar"){ if(r.next()%3)At<void*>(b,0x5B4)=frames[1].data(); if(r.next()%2){ frameAtomCount[1]=1+int(r.next()%3); for(int j=0;j<frameAtomCount[1];++j)atoms[size_t((frameAtomFirst[1]+j)%int(NATOM))][2]|=4; }
-        reinterpret_cast<void(__thiscall*)(void*,void*,uint32)>(target)(b,r.next()%2 ? static_cast<void*>(otherVeh.data()) : nullptr,r.next()%2);
+        void* const culprit=r.next()%2 ? static_cast<void*>(otherVeh.data()) : nullptr; const uint32 cut=r.next()%2;
+        if(liveTrace)Write({{"event","step"},{"phase","call"},{"target",target},{"flags42A",boat[0x42A]},{"node1",Name(At<void*>(b,0x5B4))},{"obj_new",objNewOk},{"atoms1",frameAtomCount[1]},
+            {"entry_7322F0",ReversingProbe::Bytes(reinterpret_cast<void*>(0x7322F0),5)},{"stub",Addr(&FakeClumpFlag)},{"stub_body",FollowIn(Addr(&FakeClumpFlag))}});
+        Crumb("<call BlowUpCar>"); reinterpret_cast<void(__thiscall*)(void*,void*,uint32)>(target)(b,culprit,cut); Crumb("<BlowUpCar returned>");
+        Phase("returned");
         out["obj"]=Words(obj.data(),0,0x160); out["objmat"]=Words(objMat.data(),0,0x40); out["newframe"]=Words(newFrame.data(),0,FRAME); }
-    RestoreModelInfos();
+    RestoreModelInfos(); Phase("collect");
     const uintptr_t vp=At<uintptr_t>(b,0);
     out["vptr"]=vp==EXE_BOAT_VT||((nm=="Constructor"||nm=="Destructor")&&InDll(vp)) ? json("CBoat") : Name(vp);
     out["boat"]=Words(b,4,BOAT); out["mat"]=Words(boatMat.data(),0,0x40);
@@ -414,6 +489,7 @@ inline void Update() {
     if(!log.is_open()){log.open(dir/"boat23-runtime.jsonl");Write({{"event","waiting_for_player"}});ReversingProbe::InstallFailureCapture("boat23");}
     auto* player=FindPlayerPed(); if(!player || CCutsceneMgr::IsRunning())return; done=true;
     mainThread=GetCurrentThreadId(); InitModule();
+    crumb=CreateFileA((dir/"boat23-breadcrumb.bin").string().c_str(),GENERIC_WRITE,FILE_SHARE_READ,nullptr,CREATE_ALWAYS,FILE_ATTRIBUTE_NORMAL|FILE_FLAG_WRITE_THROUGH,nullptr);
     std::string only; { std::ifstream f(dir/"boat23-only.txt"); if(f)std::getline(f,only); }
     std::array<ReversibleHooks::ReversibleHook::Base*,NFN> hooks{};
     for(size_t f=0;f<fns.size();++f)if(!(hooks[f]=FindHook(fns[f].cls,fns[f].name))){Write({{"event","error"},{"reason","hook not found"},{"function",std::string(fns[f].cls)+"::"+fns[f].name}});return;}
@@ -426,8 +502,19 @@ inline void Update() {
     { const uintptr_t boatCtor=FirstDllCall(DllBody("CBoat","Constructor")); const uintptr_t a=boatCtor ? FirstDllCall(boatCtor) : 0; const uintptr_t c=FirstDllCall(DllBody("CVehicle","Constructor"));
       if(!a||a!=c)Write({{"event","warning"},{"reason","CVehicle constructor not found"},{"from_boat",a},{"from_wrapper",c}}); else dllVehCtor=a;
       dllVehDtor=FirstDllCall(DllBody("CVehicle","Destructor")); if(!dllVehDtor)Write({{"event","warning"},{"reason","CVehicle destructor not found"}});
-      dllObjCtor=FindCtorCall(DllBody("CBoat","BlowUpCar"),Addr(static_cast<void*(*)(size_t)>(&CObject::operator new)),Addr(static_cast<void*(__cdecl*)(size_t,void*) noexcept>(&::operator new)));
-      if(!dllObjCtor)Write({{"event","warning"},{"reason","CObject constructor not found"}}); }
+      { const uintptr_t placement=Addr(static_cast<void*(__cdecl*)(size_t,void*) noexcept>(&::operator new));
+        const uintptr_t fromProbe=FindThisCall(Addr(&MakeObjectProbe),placement);
+        const uintptr_t fromBoat=FindCtorCall(DllBody("CBoat","BlowUpCar"),Addr(static_cast<void*(*)(size_t)>(&CObject::operator new)),placement);
+        // las dos búsquedas deben coincidir; nunca se parchea una función propia del banco
+        const uintptr_t own[]{FollowIn(Addr(&RecsToJson)),FollowIn(Addr(&Write)),FollowIn(Addr(static_cast<json(*)(uintptr_t)>(&Name))),FollowIn(Addr(&Words)),
+                              FollowIn(Addr(&Phase)),FollowIn(Addr(&MakeObjectProbe)),FollowIn(Addr(&FakeClumpFlag)),FollowIn(Addr(&FakeObjCtor))};
+        const bool isOwn=std::find(std::begin(own),std::end(own),fromProbe)!=std::end(own);
+        if(fromProbe&&!isOwn)dllObjCtor=fromProbe;
+        if(fromProbe!=fromBoat||isOwn)Write({{"event","warning"},{"reason","CObject constructor search mismatch (se usa la de MakeObjectProbe)"},{"from_probe",fromProbe ? fromProbe-modBase : 0},{"from_boat",fromBoat ? fromBoat-modBase : 0},{"own",isOwn}}); }
+      if(!dllObjCtor)Write({{"event","warning"},{"reason","CObject constructor not found"}});
+      else Write({{"event","info"},{"dll_obj_ctor",dllObjCtor-modBase},{"dll_veh_ctor",dllVehCtor ? dllVehCtor-modBase : 0},{"dll_veh_dtor",dllVehDtor ? dllVehDtor-modBase : 0},
+                  {"obj_ctor_bytes",ReversingProbe::Bytes(reinterpret_cast<void*>(dllObjCtor),16)},
+                  {"FakeClumpFlag",FollowIn(Addr(&FakeClumpFlag))-modBase}}); }
     std::array<bool,NFN> enabled{},locked{};
     for(size_t f=0;f<fns.size();++f){enabled[f]=hooks[f]->Hooked();locked[f]=hooks[f]->Locked();hooks[f]->LockState(false);}
 
@@ -453,11 +540,20 @@ inline void Update() {
       for(size_t k=0;k<NFRAMES+NATOM+NFX;++k){ labels[k]=std::string(named[base+k].name)+std::to_string(k<NFRAMES ? k : k<NFRAMES+NATOM ? k-NFRAMES : k-NFRAMES-NATOM); named[base+k].name=labels[k].c_str(); } }
 
     bool passed=true; int pair=0;
+    void* const veh=nullptr; // LogException queda sin registrar: escribir json desde un manejador puede bloquear
     {
         using std::bit_cast;
         Patches p;
-        auto P=[&](uintptr_t exeAddr,uintptr_t dllAddr,auto stub){ p.Add(exeAddr,stub); if(dllAddr){ p.Add(dllAddr,stub); p.Add(FollowIn(dllAddr),stub); } };
-        for(auto& bs:bases){ p.Add(bs.exe,bs.stub); p.Add(bs.dll,bs.stub); }
+        // Cuerpo de la DLL resuelto ANTES de escribir parches: si se resolvía después, FollowIn seguía el salto recién
+        // escrito hasta el propio stub y lo parcheaba con un salto a sí mismo (bucle infinito en la primera llamada).
+        // Nunca se parchea un stub ya registrado.
+        std::set<uintptr_t> stubSet;
+        auto P=[&](uintptr_t exeAddr,uintptr_t dllAddr,auto stub){
+            const uintptr_t st=Addr(stub), stb=FollowIn(st); const uintptr_t body=dllAddr ? FollowIn(dllAddr) : 0;
+            stubSet.insert(st); stubSet.insert(stb);
+            auto ok=[&](uintptr_t a){ return a&&!stubSet.count(a); };
+            if(ok(exeAddr))p.Add(exeAddr,stub); if(ok(dllAddr))p.Add(dllAddr,stub); if(ok(body))p.Add(body,stub); };
+        for(auto& bs:bases){ stubSet.insert(uintptr_t(bs.stub)); stubSet.insert(FollowIn(uintptr_t(bs.stub))); if(!stubSet.count(bs.exe))p.Add(bs.exe,bs.stub); if(!stubSet.count(bs.dll))p.Add(bs.dll,bs.stub); }
         P(0x6D5F10,dllVehCtor,FakeVehCtor); P(0x6E2B40,dllVehDtor,&Void0<11>);
         P(0x56E210,Addr(static_cast<CPlayerPed*(*)(int32)>(&FindPlayerPed)),FakeFindPlayerPed);
         P(0x56E0D0,Addr(static_cast<CVehicle*(*)(int32,bool)>(&FindPlayerVehicle)),FakeFindPlayerVehicle);
@@ -502,14 +598,20 @@ inline void Update() {
             if((nm=="Constructor"&&!dllVehCtor)||(nm=="Destructor"&&!dllVehDtor)||(nm=="BlowUpCar"&&!dllObjCtor)){ passed=false; Write({{"event","function_summary"},{"function",full},{"failures",fn.cases},{"cases",fn.cases},{"reason","DLL constructor/destructor not found"}}); continue; }
             for(int i=0;i<fn.cases;++i) {
                 auto run=[&](bool candidate)->json {
+                    crumbOn=i<4; liveTrace=nm=="BlowUpCar"&&i<8; if(liveTrace)Write({{"event","step"},{"function",full},{"case",i},{"candidate",candidate}});
                     Rng r{uint32(i)*2654435761u^uint32(f*0x9E3779B9u)^0xB0A7u}; if(!r.s)r.s=1;
-                    trace=json::array(); seed=uint32(i); rngCalls=0; RestoreRegions(); *rsSlot=reinterpret_cast<void*>(&FakeRenderState);
-                    for(auto* h:hooks)h->State(candidate);
+                    nrec=0; recOverflow=false; seed=uint32(i); rngCalls=0; Phase("restore"); RestoreRegions(); *rsSlot=reinterpret_cast<void*>(&FakeRenderState);
+                    Phase("hooks"); for(auto* h:hooks)h->State(candidate);
+                    for(auto& e:p.v)e->Enable(true); // los parches de entrada se reafirman después de fijar los hooks
+                    Phase("hooks_set");
                     const uintptr_t target=fn.slot>=0 ? reinterpret_cast<uintptr_t*>(fn.vt)[fn.slot] : fn.address;
                     json out; out["switches"]=fn.slot>=0 ? ((target<0x400000||target>=0x1000000)==candidate) : (ReversingProbe::JumpsToDll(fn.address)==candidate);
+                    Crumb(candidate ? "<run candidate>" : "<run original>",uint32(f*100000+i));
                     json ret=Run(nm,target,r,out);
+                    Crumb("<returned>",uint32(f*100000+i));
+                    trace=RecsToJson(); // el registro de los stubs se convierte a json fuera de la llamada
                     RestoreRegions(); *rsSlot=reinterpret_cast<void*>(&FakeRenderState);
-                    out["ret"]=ret; out["trace"]=trace; return out;
+                    out["ret"]=ret; out["trace"]=trace; liveTrace=false; return out;
                 };
                 const auto original=run(false), candidate=run(true);
                 const bool ok=original==candidate&&original["switches"]==true&&candidate["switches"]==true;
@@ -523,8 +625,10 @@ inline void Update() {
         }
         *rsSlot=savedRs;
     }
+    if(veh)RemoveVectoredExceptionHandler(veh);
     for(size_t f=0;f<fns.size();++f){hooks[f]->State(enabled[f]);hooks[f]->LockState(locked[f]);}
     RestoreRegions();
+    crumbOn=false; if(crumb!=INVALID_HANDLE_VALUE){ CloseHandle(crumb); crumb=INVALID_HANDLE_VALUE; }
     Write({{"event",passed ? "complete":"error"},{"pairs",pair},{"state_restored",RegionsRestored()}});
 }
 }

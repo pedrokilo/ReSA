@@ -15,9 +15,9 @@ Corte del 30 de septiembre de 2026. Clases y reconstrucciones se calculan sobre 
 | Dimensión | Progreso | Medición |
 | --- | --- | --- |
 | Clases completas en el catálogo | `█████████████████░░░` | 666/771 · 86,38% |
-| Clases validadas de las completas | `██████████████████░░` | 613/666 · 92,04% |
+| Clases validadas de las completas | `███████████████████░` | 617/666 · 92,64% |
 | Funciones registradas como reconstruidas | `███████████████████░` | 7.858/8.441 · 93,09% |
-| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `██████████░░░░░░░░░░` | **4.116/7.858 · 52,38%** |
+| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `███████████░░░░░░░░░` | **4.205/7.858 · 53,51%** |
 
 **Siguientes mediciones** (todavía sin porcentaje útil):
 

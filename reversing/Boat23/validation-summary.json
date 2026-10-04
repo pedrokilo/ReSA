@@ -1,0 +1,89 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 12288,
+  "pairs_per_function": {
+    "CBoat::AddWakePoint": 1024,
+    "CBoat::BlowUpCar": 512,
+    "CBoat::CheckForSkippingCalculations": 512,
+    "CBoat::Constructor": 256,
+    "CBoat::DebugCode": 512,
+    "CBoat::Destructor": 256,
+    "CBoat::DisplayHandlingData": 128,
+    "CBoat::FillBoatList": 1024,
+    "CBoat::GetBoatAtomicObjectCB": 256,
+    "CBoat::GetComponentWorldPosition": 256,
+    "CBoat::IsComponentPresent": 64,
+    "CBoat::IsSectorAffectedByWake": 1024,
+    "CBoat::IsVertexAffectedByWake": 1024,
+    "CBoat::ModifyHandlingValue": 256,
+    "CBoat::PreRender": 1024,
+    "CBoat::ProcessControl": 1024,
+    "CBoat::ProcessControlInputs": 1024,
+    "CBoat::ProcessOpenDoor": 64,
+    "CBoat::PruneWakeTrail": 1024,
+    "CBoat::Render": 512,
+    "CBoat::SetModelIndex": 128,
+    "CBoat::SetupModelNodes": 128,
+    "CBoat::Teleport": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "93cb5e1837c2f0462ef1cf9b9419f6a6e6950ff49526e51e35bc99f3f5cda027",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-boat23\\20261004-090726-942849",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CBoat::AddWakePoint": true,
+    "CBoat::BlowUpCar": true,
+    "CBoat::CheckForSkippingCalculations": true,
+    "CBoat::Constructor": true,
+    "CBoat::DebugCode": true,
+    "CBoat::Destructor": true,
+    "CBoat::DisplayHandlingData": true,
+    "CBoat::FillBoatList": true,
+    "CBoat::GetBoatAtomicObjectCB": true,
+    "CBoat::GetComponentWorldPosition": true,
+    "CBoat::IsComponentPresent": true,
+    "CBoat::IsSectorAffectedByWake": true,
+    "CBoat::IsVertexAffectedByWake": true,
+    "CBoat::ModifyHandlingValue": true,
+    "CBoat::PreRender": true,
+    "CBoat::ProcessControl": true,
+    "CBoat::ProcessControlInputs": true,
+    "CBoat::ProcessOpenDoor": true,
+    "CBoat::PruneWakeTrail": true,
+    "CBoat::Render": true,
+    "CBoat::SetModelIndex": true,
+    "CBoat::SetupModelNodes": true,
+    "CBoat::Teleport": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "ca0697bf6f9e2b8f03052ddf42d0b87b6ad49066bac897856e72c5ca2c05ee0b",
+      "pdb": "701b1b1ac2fe4425ff0bb4d66bbf42880e881f8d4b6073ad42127d910d20e4e6"
+    },
+    "sources": {
+      "source/game_sa/Entity/Vehicle/Boat.cpp": "2c0fc8e0e0bb00ab5b43bb7db7e4aee554fb55a1518dc1cf322f583784cf91d6",
+      "source/game_sa/Entity/Vehicle/Boat.h": "1161e2b0f75ec42e87283c3b1f89eba941e65a4f80b5f21bf09e67307eed2876"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "85fed383a9197cecd22d70f0d89cab0c83aa7abb3e87ec3cec6e248cbad2161a",
+      "build_probe.py": "03c65acd24ec14c88fb48641fd7a9c8f3b53925651fed3ac6af803a85b1f5560",
+      "run_local.py": "52ca983329b6dfe104bfbe0f6fa3d10ce6c11dae4f4e2d7afa4785d3d8c6c579"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 8384,
+  "pairs_per_function": {
+    "CClouds::Init": 64,
+    "CClouds::Update": 1024,
+    "CClouds::Shutdown": 64,
+    "CClouds::SetUpOneSkyPoly": 512,
+    "CClouds::Render": 1024,
+    "CClouds::RenderSkyPolys": 512,
+    "CClouds::MovingFogInit": 64,
+    "CClouds::MovingFog_Create": 1024,
+    "CClouds::MovingFog_Delete": 256,
+    "CClouds::MovingFog_Update": 512,
+    "CClouds::MovingFog_GetFXIntensity": 64,
+    "CClouds::MovingFog_GetWind": 128,
+    "CClouds::MovingFog_GetFirstFreeSlot": 256,
+    "CClouds::MovingFogRender": 512,
+    "CClouds::VolumetricCloudsInit": 64,
+    "CClouds::VolumetricClouds_Create": 1024,
+    "CClouds::VolumetricClouds_Delete": 256,
+    "CClouds::VolumetricClouds_GetFirstFreeSlot": 256,
+    "CClouds::VolumetricCloudsGetMaxDistance": 256,
+    "CClouds::VolumetricCloudsRender": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "e29790064b7fd06fa38c3d719aa8a93714b3dcb6041772b724968ae83c74e69b",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clouds21\\20261004-083819-920932",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CClouds::Init": true,
+    "CClouds::Update": true,
+    "CClouds::Shutdown": true,
+    "CClouds::SetUpOneSkyPoly": true,
+    "CClouds::Render": true,
+    "CClouds::RenderSkyPolys": true,
+    "CClouds::MovingFogInit": true,
+    "CClouds::MovingFog_Create": true,
+    "CClouds::MovingFog_Delete": true,
+    "CClouds::MovingFog_Update": true,
+    "CClouds::MovingFog_GetFXIntensity": true,
+    "CClouds::MovingFog_GetWind": true,
+    "CClouds::MovingFog_GetFirstFreeSlot": true,
+    "CClouds::MovingFogRender": true,
+    "CClouds::VolumetricCloudsInit": true,
+    "CClouds::VolumetricClouds_Create": true,
+    "CClouds::VolumetricClouds_Delete": true,
+    "CClouds::VolumetricClouds_GetFirstFreeSlot": true,
+    "CClouds::VolumetricCloudsGetMaxDistance": true,
+    "CClouds::VolumetricCloudsRender": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "f1481838adce1e5c2060ae0e31052b0b2e64a4b893c7408f766cabeb79d27a29",
+      "pdb": "2cdf8430c7f01ff71a58e2329ea6bd895f1f1c791f27ce17e78658fd3c494ad0"
+    },
+    "sources": {
+      "source/game_sa/Clouds.cpp": "4f3821ff57fd0a8f18237f074245446a2cff1583abe40649587fc39ee3c5ce0a",
+      "source/game_sa/Clouds.h": "ecb68eb0ad6f8a6e243fe2852f00fd917327cde16614a224e91ca4f7e120a6f5"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "87e699bd6cd7300b653fd9e13f12fcc93f866e868bdbb86576c6e5af9dff434b",
+      "build_probe.py": "055ae775e59cc01253669e997e8d419eea88411be2af7a20a7b7a62a7ff19853",
+      "run_local.py": "f2c0c918316913711aa55a6fce2967a8b8d195a5bd60f88359939797b22049da"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 9344,
+  "pairs_per_function": {
+    "CFireManager::ClearAllScriptFireFlags": 64,
+    "CFireManager::Constructor": 64,
+    "CFireManager::CreateAllFxSystems": 256,
+    "CFireManager::DestroyAllFxSystems": 256,
+    "CFireManager::Destructor": 64,
+    "CFireManager::ExtinguishPoint": 512,
+    "CFireManager::ExtinguishPointWithWater": 512,
+    "CFireManager::FindNearestFire": 512,
+    "CFireManager::GetNextFreeFire": 512,
+    "CFireManager::GetNumFiresInArea": 512,
+    "CFireManager::GetNumFiresInRange": 512,
+    "CFireManager::GetNumOfNonScriptFires": 128,
+    "CFireManager::GetScriptFireCoords": 128,
+    "CFireManager::Init": 64,
+    "CFireManager::IsScriptFireExtinguished": 128,
+    "CFireManager::PlentyFiresAvailable": 256,
+    "CFireManager::RemoveAllScriptFires": 256,
+    "CFireManager::RemoveScriptFire": 256,
+    "CFireManager::SetScriptFireAudio": 128,
+    "CFireManager::Shutdown": 128,
+    "CFireManager::StartFire-": 1024,
+    "CFireManager::StartFire-NoTarget": 1024,
+    "CFireManager::StartScriptFire": 1024,
+    "CFireManager::Update": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "e794d9334b81d59345c9d7eeaaa625dcde45b15c1dc506b4e192512898f5d980",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fire24\\20261004-083553-805802",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CFireManager::ClearAllScriptFireFlags": true,
+    "CFireManager::Constructor": true,
+    "CFireManager::CreateAllFxSystems": true,
+    "CFireManager::DestroyAllFxSystems": true,
+    "CFireManager::Destructor": true,
+    "CFireManager::ExtinguishPoint": true,
+    "CFireManager::ExtinguishPointWithWater": true,
+    "CFireManager::FindNearestFire": true,
+    "CFireManager::GetNextFreeFire": true,
+    "CFireManager::GetNumFiresInArea": true,
+    "CFireManager::GetNumFiresInRange": true,
+    "CFireManager::GetNumOfNonScriptFires": true,
+    "CFireManager::GetScriptFireCoords": true,
+    "CFireManager::Init": true,
+    "CFireManager::IsScriptFireExtinguished": true,
+    "CFireManager::PlentyFiresAvailable": true,
+    "CFireManager::RemoveAllScriptFires": true,
+    "CFireManager::RemoveScriptFire": true,
+    "CFireManager::SetScriptFireAudio": true,
+    "CFireManager::Shutdown": true,
+    "CFireManager::StartFire-": true,
+    "CFireManager::StartFire-NoTarget": true,
+    "CFireManager::StartScriptFire": true,
+    "CFireManager::Update": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "5c55a620f188ecaebdc75463ca679881fe9665aad3890d3491383cc01d8b5cac",
+      "pdb": "7a0798e6b814859eba6e2feac418ba284dd5f61da8a557e82cf3fe52d5352687"
+    },
+    "sources": {
+      "source/game_sa/FireManager.cpp": "9e1983b420fe5895e49169cd0ce2cc2629c9970dc609d9a69e60b4863edf3541",
+      "source/game_sa/FireManager.h": "b66b2c68f718061764eac3f90d892398696d1708e8550577db5f3ac7fd7caeec",
+      "source/game_sa/Fire.cpp": "64229b5fe70da2832e07a2fa1606a323c89c72ddc3108862b570d629305e6be1",
+      "source/game_sa/Fire.h": "73297d2a0ab77fd0adeea2a4286660ae4379a6f5648653509b41bd1a5ab26d44"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "a7a40ac828a195e7d372c15c340c97e884b63b52b4bb9e2cfb5dbee1e6999dc5",
+      "build_probe.py": "c99af34256fbbde2deddf55cc46dea0038cdb6cae747a826eea68d2b14d8cd46",
+      "run_local.py": "3232f0af1e3121dcdffc744b56c3b5ffb3f3de2fa5b1811c255a27e9b6d99e32"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

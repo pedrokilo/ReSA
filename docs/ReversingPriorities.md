@@ -8,7 +8,7 @@
 
 > **Rama inspeccionada:** `PGTASA` · **Corte:** 1 de octubre de 2026 · **Alcance:** las 105 clases actualmente incompletas del catálogo auditado.
 
-**Objetivo:** contribuir a una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del ejecutable original, conforme a la [hoja de ruta](ProjectRoadmap.md). El catálogo registra actualmente **4.116 entradas con `validated=1`**; esa marca indica evidencia aprobada vinculada y no cambia por sí sola la prioridad de una función pendiente ni acredita vigencia actual. Esta guía estima el esfuerzo para completar las 583 entradas y 105 clases pendientes; cerrar clases es un hito intermedio. La estrategia incluye retirar los 650 locks con evidencia y eliminar dependencias originales por subsistema. No reabre automáticamente los 85 bloqueos aplazados ni reemplaza la cola autorizada.
+**Objetivo:** contribuir a una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del ejecutable original, conforme a la [hoja de ruta](ProjectRoadmap.md). El catálogo registra actualmente **4.205 entradas con `validated=1`**; esa marca indica evidencia aprobada vinculada y no cambia por sí sola la prioridad de una función pendiente ni acredita vigencia actual. Esta guía estima el esfuerzo para completar las 583 entradas y 105 clases pendientes; cerrar clases es un hito intermedio. La estrategia incluye retirar los 650 locks con evidencia y eliminar dependencias originales por subsistema. No reabre automáticamente los 85 bloqueos aplazados ni reemplaza la cola autorizada.
 
 | Clases evaluadas | Funciones pendientes | Parciales | Sin revertir |
 | :---: | :---: | :---: | :---: |

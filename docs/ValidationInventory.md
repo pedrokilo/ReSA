@@ -6,10 +6,10 @@ Universo de esta revisión: **7,858 entradas reversed=1**, de 8,441 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 4116 |
+| `validated=1` · evidencia aprobada vinculada | 4205 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 4116 |
-| Sin evidencia aprobada vinculada en este registro | 3742 |
+| Evidencia histórica vinculada; revisión pendiente | 4205 |
+| Sin evidencia aprobada vinculada en este registro | 3653 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -555,6 +555,29 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CBirds | `Render` | [Resumen](../reversing/Misc6/validation-summary.json) |
 | CBirds | `Shutdown` | [Resumen](../reversing/Misc6/validation-summary.json) |
 | CBirds | `Update` | [Resumen](../reversing/Misc6/validation-summary.json) |
+| CBoat | `AddWakePoint` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `BlowUpCar` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `CheckForSkippingCalculations` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `Constructor` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `DebugCode` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `Destructor` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `DisplayHandlingData` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `FillBoatList` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `GetBoatAtomicObjectCB` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `GetComponentWorldPosition` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `IsComponentPresent` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `IsSectorAffectedByWake` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `IsVertexAffectedByWake` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `ModifyHandlingValue` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `PreRender` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `ProcessControl` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `ProcessControlInputs` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `ProcessOpenDoor` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `PruneWakeTrail` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `Render` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `SetModelIndex` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `SetupModelNodes` | [Resumen](../reversing/Boat23/validation-summary.json) |
+| CBoat | `Teleport` | [Resumen](../reversing/Boat23/validation-summary.json) |
 | CBouncingPanel | `ProcessPanel` | [Resumen](../reversing/World52/validation-summary.json) |
 | CBouncingPanel | `ResetPanel` | [Resumen](../reversing/World52/validation-summary.json) |
 | CBouncingPanel | `SetPanel` | [Resumen](../reversing/World52/validation-summary.json) |
@@ -580,6 +603,28 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CBulletTraces | `Init` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | CBulletTraces | `Render` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | CBulletTraces | `Update` | [Resumen](../reversing/Fx43/validation-summary.json) |
+| CCarCtrl | `ChooseBoatModel` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `ChooseCarModelToLoad` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `ChooseGangCarModel` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `ChoosePoliceCarModel` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `CreateCarForScript` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `FindMaxSteerAngle` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `GenerateRandomCars` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `GetNewVehicleDependingOnCarModel` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `Init` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `InitSequence` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `IsAnyoneParking` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `IsThisVehicleInteresting` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `JoinCarWithRoadAccordingToMission` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `PossiblyFireHSMissile` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `PruneVehiclesOfInterest` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `ReInit` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `RemoveCarsIfThePoolGetsFull` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `RemoveDistantCars` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `RemoveFromInterestingVehicleList` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `ScriptGenerateOneEmergencyServicesCar` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `SlowCarDownForObject` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarCtrl | `SlowCarOnRailsDownForTrafficAndLights` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarGenerator | `CalcNextGen` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CCarGenerator | `CheckForBlockage` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CCarGenerator | `CheckIfWithinRangeOfAnyPlayers` | [Resumen](../reversing/Data8a/validation-summary.json) |
@@ -620,7 +665,27 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CClothes | `RebuildPlayer` | [Resumen](../reversing/Audio11/validation-summary.json) |
 | CClothes | `RebuildPlayerIfNeeded` | [Resumen](../reversing/Audio11/validation-summary.json) |
 | CClothes | `RequestMotionGroupAnims` | [Resumen](../reversing/Audio11/validation-summary.json) |
+| CClouds | `Init` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `MovingFogInit` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `MovingFogRender` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `MovingFog_Create` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `MovingFog_Delete` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `MovingFog_GetFXIntensity` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `MovingFog_GetFirstFreeSlot` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `MovingFog_GetWind` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `MovingFog_Update` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `Render` | [Resumen](../reversing/Clouds21/validation-summary.json) |
 | CClouds | `RenderBottomFromHeight` | [Resumen](../reversing/CClouds/validation-summary.json) |
+| CClouds | `RenderSkyPolys` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `SetUpOneSkyPoly` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `Shutdown` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `Update` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `VolumetricCloudsGetMaxDistance` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `VolumetricCloudsInit` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `VolumetricCloudsRender` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `VolumetricClouds_Create` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `VolumetricClouds_Delete` | [Resumen](../reversing/Clouds21/validation-summary.json) |
+| CClouds | `VolumetricClouds_GetFirstFreeSlot` | [Resumen](../reversing/Clouds21/validation-summary.json) |
 | CClumpModelInfo | `AtomicSetupLightingCB` | [Resumen](../reversing/Clump24/validation-summary.json) |
 | CClumpModelInfo | `ConvertAnimFileIndex` | [Resumen](../reversing/Clump24/validation-summary.json) |
 | CClumpModelInfo | `CreateInstance-mat` | [Resumen](../reversing/Clump24/validation-summary.json) |
@@ -1181,6 +1246,30 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CFire | `Extinguish` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | CFire | `Initialise` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | CFire | `ProcessFire` | [Resumen](../reversing/Fx43/validation-summary.json) |
+| CFireManager | `ClearAllScriptFireFlags` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `Constructor` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `CreateAllFxSystems` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `DestroyAllFxSystems` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `Destructor` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `ExtinguishPoint` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `ExtinguishPointWithWater` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `FindNearestFire` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `GetNextFreeFire` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `GetNumFiresInArea` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `GetNumFiresInRange` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `GetNumOfNonScriptFires` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `GetScriptFireCoords` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `Init` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `IsScriptFireExtinguished` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `PlentyFiresAvailable` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `RemoveAllScriptFires` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `RemoveScriptFire` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `SetScriptFireAudio` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `Shutdown` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `StartFire-` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `StartFire-NoTarget` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `StartScriptFire` | [Resumen](../reversing/Fire24/validation-summary.json) |
+| CFireManager | `Update` | [Resumen](../reversing/Fire24/validation-summary.json) |
 | CGame | `CameraDestroy` | [Resumen](../reversing/Game22/validation-summary.json) |
 | CGame | `CanSeeOutSideFromCurrArea` | [Resumen](../reversing/Game22/validation-summary.json) |
 | CGame | `CanSeeWaterFromCurrArea` | [Resumen](../reversing/Game22/validation-summary.json) |
@@ -4215,7 +4304,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CBike` | 22 | 0 | 0 | 22 |
 | `CBirds` | 6 | 0 | 6 | 0 |
 | `CBmx` | 7 | 0 | 0 | 7 |
-| `CBoat` | 23 | 0 | 0 | 23 |
+| `CBoat` | 23 | 0 | 23 | 0 |
 | `CBouncingPanel` | 3 | 0 | 3 | 0 |
 | `CBox` | 2 | 0 | 2 | 0 |
 | `CBridge` | 4 | 0 | 4 | 0 |
@@ -4227,7 +4316,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCam` | 14 | 0 | 0 | 14 |
 | `CCamera` | 91 | 0 | 0 | 91 |
 | `CCarAI` | 25 | 0 | 0 | 25 |
-| `CCarCtrl` | 22 | 0 | 0 | 22 |
+| `CCarCtrl` | 22 | 0 | 22 | 0 |
 | `CCarEnterExit` | 27 | 0 | 0 | 27 |
 | `CCarFXRenderer` | 9 | 0 | 0 | 9 |
 | `CCarGenerator` | 8 | 0 | 8 | 0 |
@@ -4238,7 +4327,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CClock` | 9 | 0 | 9 | 0 |
 | `CClothes` | 11 | 0 | 11 | 0 |
 | `CClothesBuilder` | 15 | 0 | 0 | 15 |
-| `CClouds` | 21 | 0 | 1 | 20 |
+| `CClouds` | 21 | 0 | 21 | 0 |
 | `CClumpModelInfo` | 24 | 0 | 24 | 0 |
 | `CColAccel` | 11 | 0 | 11 | 0 |
 | `CColLine` | 1 | 0 | 1 | 0 |
@@ -4364,7 +4453,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CFileLoader` | 47 | 0 | 0 | 47 |
 | `CFileMgr` | 17 | 0 | 17 | 0 |
 | `CFire` | 5 | 0 | 5 | 0 |
-| `CFireManager` | 24 | 0 | 0 | 24 |
+| `CFireManager` | 24 | 0 | 24 | 0 |
 | `CFont` | 32 | 0 | 0 | 32 |
 | `CFormation` | 1 | 0 | 0 | 1 |
 | `CGame` | 22 | 0 | 22 | 0 |
