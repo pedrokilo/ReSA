@@ -142701,6 +142701,3008 @@
       "dependency_review": null,
       "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
       "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psWindowSetText",
+        "address": "0x007451B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psWindowSetText"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psErrorMessage",
+        "address": "0x007451D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psErrorMessage"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psWarningMessage",
+        "address": "0x007451F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psWarningMessage"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psCameraBeginUpdate",
+        "address": "0x00745210",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psCameraBeginUpdate"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psCameraShowRaster",
+        "address": "0x00745240",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psCameraShowRaster"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psTimer",
+        "address": "0x00745270",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psTimer"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psGrabScreen",
+        "address": "0x007452B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psGrabScreen"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psMouseSetVisibility",
+        "address": "0x007453E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psMouseSetVisibility"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psMouseSetPos",
+        "address": "0x007453F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psMouseSetPos"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psPathnameCreate",
+        "address": "0x00745470",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psPathnameCreate"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psPathnameDestroy",
+        "address": "0x007454E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psPathnameDestroy"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psPathGetSeparator",
+        "address": "0x00745500",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psPathGetSeparator"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psInstallFileSystem",
+        "address": "0x00745520",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psInstallFileSystem"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psNativeTextureSupport",
+        "address": "0x00745530",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psNativeTextureSupport"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psDebugMessageHandler",
+        "address": "0x00745540",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psDebugMessageHandler"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "GetVideoMemInfo",
+        "address": "0x007455E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::GetVideoMemInfo"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "CheckDirectSound",
+        "address": "0x00745840",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::CheckDirectSound"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psTerminate",
+        "address": "0x007458A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psTerminate"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psAlwaysOnTop",
+        "address": "0x007458B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psAlwaysOnTop"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psSelectDevice",
+        "address": "0x00746190",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psSelectDevice"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "InitialiseLanguage",
+        "address": "0x007465B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::InitialiseLanguage"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "Ps",
+        "fn_name": "psInitialize",
+        "address": "0x00747420",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Ps22/validation-summary.json",
+        "sha256": "9fef82dcc1d578ede5f9d0db815ab4d9d77558d473de33a53f6a59673594ff36",
+        "passed_path": [
+          "covered_functions",
+          "Ps::psInitialize"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+        "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-232953-869117).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 6720 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Ps22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "CanSeeOutSideFromCurrArea",
+        "address": "0x0053C4A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::CanSeeOutSideFromCurrArea"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "CanSeeWaterFromCurrArea",
+        "address": "0x0053C4B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::CanSeeWaterFromCurrArea"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "ValidateVersion",
+        "address": "0x005BA060",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::ValidateVersion"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "CameraDestroy",
+        "address": "0x0072FD90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::CameraDestroy"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "TidyUpMemory",
+        "address": "0x0053C500",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::TidyUpMemory"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "DrasticTidyUpMemory",
+        "address": "0x0053C810",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::DrasticTidyUpMemory"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "ReloadIPLs",
+        "address": "0x0053BED0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::ReloadIPLs"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "InitialiseOnceBeforeRW",
+        "address": "0x0053BB50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::InitialiseOnceBeforeRW"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "InitialiseEssentialsAfterRW",
+        "address": "0x005BA160",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::InitialiseEssentialsAfterRW"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "InitialiseCoreDataAfterRW",
+        "address": "0x005BFA90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::InitialiseCoreDataAfterRW"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "InitialiseRenderWare",
+        "address": "0x005BD600",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::InitialiseRenderWare"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "ShutdownRenderWare",
+        "address": "0x0053BB80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::ShutdownRenderWare"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "FinalShutdown",
+        "address": "0x0053BC30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::FinalShutdown"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "Init1",
+        "address": "0x005BF840",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::Init1"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "Init2",
+        "address": "0x005BA1A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::Init2"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "Init3",
+        "address": "0x005BA400",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::Init3"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "Initialise",
+        "address": "0x0053BC80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::Initialise"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "ReInitGameObjectVariables",
+        "address": "0x0053BCF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::ReInitGameObjectVariables"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "InitialiseWhenRestarting",
+        "address": "0x0053C680",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::InitialiseWhenRestarting"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "ShutDownForRestart",
+        "address": "0x0053C550",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::ShutDownForRestart"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "Shutdown",
+        "address": "0x0053C900",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::Shutdown"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGame",
+        "fn_name": "Process",
+        "address": "0x0053BEE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Game22/validation-summary.json",
+        "sha256": "6ceb54d6301765c149217d463ffb681bbef504e100d46c6fa6eef150f8394d58",
+        "passed_path": [
+          "covered_functions",
+          "CGame::Process"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+        "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+        "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233052-658390).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 5824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Game22/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "GetModelType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::GetModelType"
+        ],
+        "pairs": 16,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "16 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "Init",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::Init"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "Shutdown",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::Shutdown"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "DeleteRwObject",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::DeleteRwObject"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "GetRwModelType",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::GetRwModelType"
+        ],
+        "pairs": 16,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "16 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "CreateInstance-mat",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::CreateInstance-mat"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "CreateInstance-void",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::CreateInstance-void"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "SetAnimFile",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::SetAnimFile"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "ConvertAnimFileIndex",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::ConvertAnimFileIndex"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "GetAnimFileIndex",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::GetAnimFileIndex"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "GetBoundingBox",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::GetBoundingBox"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "SetClump",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::SetClump"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "SetFrameIds",
+        "address": "0x004C5460",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::SetFrameIds"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "SetHierarchyForSkinAtomic",
+        "address": "0x004C4EF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::SetHierarchyForSkinAtomic"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "AtomicSetupLightingCB",
+        "address": "0x004C4F30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::AtomicSetupLightingCB"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "SetAtomicRendererCB",
+        "address": "0x004C5280",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::SetAtomicRendererCB"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "FindFrameFromNameCB",
+        "address": "0x004C52A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::FindFrameFromNameCB"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "FindFrameFromNameWithoutIdCB",
+        "address": "0x004C52F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::FindFrameFromNameWithoutIdCB"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "FindFrameFromIdCB",
+        "address": "0x004C5350",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::FindFrameFromIdCB"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "FillFrameArrayCB",
+        "address": "0x004C5390",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::FillFrameArrayCB"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "GetFrameFromId",
+        "address": "0x004C53C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::GetFrameFromId"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "GetFrameFromName",
+        "address": "0x004C5400",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::GetFrameFromName"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "FillFrameArray",
+        "address": "0x004C5440",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::FillFrameArray"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "CClumpModelInfo",
+        "fn_name": "SetClumpModelInfoFlags",
+        "address": "0x005B3C30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Clump24/validation-summary.json",
+        "sha256": "3728eebaf91f9e3961dd165e2a35f2160054e140861c1480b43f992d0dcf04a4",
+        "passed_path": [
+          "covered_functions",
+          "CClumpModelInfo::SetClumpModelInfoFlags"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+        "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233409-020037).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Clump24/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "ActivatePeds",
+        "address": "0x00598080",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::ActivatePeds"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "AddSameGroupEffectInfos",
+        "address": "0x00598430",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::AddSameGroupEffectInfos"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "AreAnimsLoaded",
+        "address": "0x005980F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::AreAnimsLoaded"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "Exit",
+        "address": "0x00598010",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::Exit"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "FindStealableObjectId-1",
+        "address": "0x00598360",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::FindStealableObjectId-1"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "FindStealableObjectId-2",
+        "address": "0x005982F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::FindStealableObjectId-2"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "GetBoundingBox",
+        "address": "0x00598090",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::GetBoundingBox"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "GetInteriorFromPool",
+        "address": "0x005984A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::GetInteriorFromPool"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "GetPedsInterior",
+        "address": "0x00598620",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::GetPedsInterior"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "GetPedsInteriorGroup",
+        "address": "0x00598240",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::GetPedsInteriorGroup"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "GetVectorsInterior",
+        "address": "0x005983D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::GetVectorsInterior"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "GetVisibleEffects",
+        "address": "0x00598D80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::GetVisibleEffects"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "HasInteriorHadStealDataSetup",
+        "address": "0x005982B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::HasInteriorHadStealDataSetup"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "Init",
+        "address": "0x005C0500",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::Init"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "IsGroupActive",
+        "address": "0x00598280",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::IsGroupActive"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "IsInteriorEffectVisible",
+        "address": "0x00598690",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::IsInteriorEffectVisible"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "PruneVisibleEffects",
+        "address": "0x00598A60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::PruneVisibleEffects"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "ReturnInteriorToPool",
+        "address": "0x005984B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::ReturnInteriorToPool"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "SetEntryExitPtr",
+        "address": "0x00598180",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::SetEntryExitPtr"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "SetStealableObjectStolen",
+        "address": "0x00598390",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::SetStealableObjectStolen"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "InteriorManager_c",
+        "fn_name": "Update",
+        "address": "0x00598F50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Interior21/validation-summary.json",
+        "sha256": "450539d9fe1daa99ecf9478caa8aa6bee7873e774972f7e9174aff352d7c6025",
+        "passed_path": [
+          "covered_functions",
+          "InteriorManager_c::Update"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+        "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+        "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+        "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233507-245222).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10112 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Interior21/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "GetEventGlobalGroup",
+        "address": "0x004ABA50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::GetEventGlobalGroup"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "GetNameAndDamage",
+        "address": "0x005370A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::GetNameAndDamage"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "GetFirstAtomicCallback",
+        "address": "0x00734810",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::GetFirstAtomicCallback"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "GetFirstAtomic",
+        "address": "0x00734820",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::GetFirstAtomic"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "Get2DEffectAtomic",
+        "address": "0x00734880",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::Get2DEffectAtomic"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "GetFirstObjectCallback",
+        "address": "0x007348B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::GetFirstObjectCallback"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "GetFirstObject",
+        "address": "0x007348C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::GetFirstObject"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "GetFirstFrameCallback",
+        "address": "0x007348F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::GetFirstFrameCallback"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "GetFirstChild",
+        "address": "0x00734900",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::GetFirstChild"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "SkinAtomicGetHAnimHierarchCB",
+        "address": "0x00734A20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::SkinAtomicGetHAnimHierarchCB"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "GetAnimHierarchyFromSkinClump",
+        "address": "0x00734A40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::GetAnimHierarchyFromSkinClump"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "GetAnimHierarchyFromClump",
+        "address": "0x00734B10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::GetAnimHierarchyFromClump"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "AtomicRemoveAnimFromSkinCB",
+        "address": "0x00734B90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::AtomicRemoveAnimFromSkinCB"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "RpAtomicConvertGeometryToTL",
+        "address": "0x00734BE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::RpAtomicConvertGeometryToTL"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "RpAtomicConvertGeometryToTS",
+        "address": "0x00734C20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::RpAtomicConvertGeometryToTS"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "atomicConvertGeometryToTL",
+        "address": "0x00734C60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::atomicConvertGeometryToTL"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "RpClumpConvertGeometryToTL",
+        "address": "0x00734CB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::RpClumpConvertGeometryToTL"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "atomicConvertGeometryToTS",
+        "address": "0x00734CE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::atomicConvertGeometryToTS"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "RpClumpConvertGeometryToTS",
+        "address": "0x00734D30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::RpClumpConvertGeometryToTS"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "forceLinearFilteringMatTexturesCB",
+        "address": "0x00734D60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::forceLinearFilteringMatTexturesCB"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "SetFilterModeOnAtomicsTextures",
+        "address": "0x00734D80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::SetFilterModeOnAtomicsTextures"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "forceLinearFilteringAtomicsCB",
+        "address": "0x00734DA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::forceLinearFilteringAtomicsCB"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "SetFilterModeOnClumpsTextures",
+        "address": "0x00734DC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::SetFilterModeOnClumpsTextures"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
+    },
+    {
+      "hook": {
+        "class": "RwHelper",
+        "fn_name": "RemoveRefsCB",
+        "address": "0x007226D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/RwHelper24/validation-summary.json",
+        "sha256": "cd0066a9a3232fbc1f75299382e13d1474e8dd780432c807ba46d3de72f9b228",
+        "passed_path": [
+          "covered_functions",
+          "RwHelper::RemoveRefsCB"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+        "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-233626-866637).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11328 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/RwHelper24/README.md"
     }
   ]
 }

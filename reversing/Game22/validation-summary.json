@@ -1,0 +1,88 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 5824,
+  "pairs_per_function": {
+    "CGame::CanSeeOutSideFromCurrArea": 256,
+    "CGame::CanSeeWaterFromCurrArea": 256,
+    "CGame::ValidateVersion": 512,
+    "CGame::CameraDestroy": 512,
+    "CGame::TidyUpMemory": 256,
+    "CGame::DrasticTidyUpMemory": 64,
+    "CGame::ReloadIPLs": 64,
+    "CGame::InitialiseOnceBeforeRW": 64,
+    "CGame::InitialiseEssentialsAfterRW": 256,
+    "CGame::InitialiseCoreDataAfterRW": 256,
+    "CGame::InitialiseRenderWare": 512,
+    "CGame::ShutdownRenderWare": 64,
+    "CGame::FinalShutdown": 64,
+    "CGame::Init1": 256,
+    "CGame::Init2": 256,
+    "CGame::Init3": 64,
+    "CGame::Initialise": 64,
+    "CGame::ReInitGameObjectVariables": 128,
+    "CGame::InitialiseWhenRestarting": 512,
+    "CGame::ShutDownForRestart": 128,
+    "CGame::Shutdown": 256,
+    "CGame::Process": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "2bfd5dad4b318aa6d1a3496c9636fd12432f0aa56f08bfd83b6f8cac5d6eaffc",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-game22\\20261003-233052-658390",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CGame::CanSeeOutSideFromCurrArea": true,
+    "CGame::CanSeeWaterFromCurrArea": true,
+    "CGame::ValidateVersion": true,
+    "CGame::CameraDestroy": true,
+    "CGame::TidyUpMemory": true,
+    "CGame::DrasticTidyUpMemory": true,
+    "CGame::ReloadIPLs": true,
+    "CGame::InitialiseOnceBeforeRW": true,
+    "CGame::InitialiseEssentialsAfterRW": true,
+    "CGame::InitialiseCoreDataAfterRW": true,
+    "CGame::InitialiseRenderWare": true,
+    "CGame::ShutdownRenderWare": true,
+    "CGame::FinalShutdown": true,
+    "CGame::Init1": true,
+    "CGame::Init2": true,
+    "CGame::Init3": true,
+    "CGame::Initialise": true,
+    "CGame::ReInitGameObjectVariables": true,
+    "CGame::InitialiseWhenRestarting": true,
+    "CGame::ShutDownForRestart": true,
+    "CGame::Shutdown": true,
+    "CGame::Process": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "57b2e245b8c0d771a79f0134fb49cab2637d4a3d82d2daacb5ae0e2e3239f69e",
+      "pdb": "eb11c9698f24e4db2d5f5c0843fa1d5b5800b22fac0b83658b1f448b238a1a19"
+    },
+    "sources": {
+      "source/game_sa/Game.cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+      "source/game_sa/Game.h": "7da39d8fbe39c9038456a8a1d9bc5b4effd3b551749ed408075807f9c14732cc",
+      "source/app/app_camera.cpp": "7ea0ce2273f366603805f486c69f515351908d4b71abb122390c56418db52182"
+    },
+    "game_cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+    "instrumentation": {
+      "LiveComparison.hpp": "cf09321b518818da823fed99ecabbe2d7dccf79df09c25db29fe0dadbe91e841",
+      "build_probe.py": "f0a36a1ae590717851684338f228cd674f09c943a14d9af5976e77f899c8cd28",
+      "run_local.py": "a1723f69693bd2d7000a1b52254a70441765783322b6035e2063075df920280f"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

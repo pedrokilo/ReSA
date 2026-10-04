@@ -157,9 +157,11 @@ inline void Update() {
                         globalGroup=mode<2 ? reinterpret_cast<CEventGlobalGroup*>(w.clump) : nullptr; newFails=mode==2;
                         CEventGlobalGroup* r; { EntryPatch n1(0x82119A,FakeNew); r=reinterpret_cast<CEventGlobalGroup*(__cdecl*)()>(a)(); }
                         ret=Name(r); out["global"]=Name(globalGroup); out["recs"]=Recs();
-                        auto bytes=ReversingProbe::Bytes(w.arena,sizeof(w.arena)); const uint32 vp=At<uint32>(w.arena,0);
-                        if(vp==0x85AAB4||vp==dllGroupVt){ bytes[0]=bytes[1]=bytes[2]=bytes[3]=0x11; }
-                        out["arena"]=bytes; globalGroup=savedGroup;
+                        // El vptr del grupo creado se compara como tipo: se enmascara en la propia arena para que
+                        // tampoco entre en el hash del mundo (vtable del EXE 0x85AAB4 frente a la de la DLL).
+                        const uint32 vp=At<uint32>(w.arena,0); out["vptr"]=vp==0x85AAB4||vp==dllGroupVt ? json("CEventGlobalGroup") : json(vp);
+                        if(vp==0x85AAB4||vp==dllGroupVt)At<uint32>(w.arena,0)=0x11111111u;
+                        out["arena"]=ReversingProbe::Bytes(w.arena,sizeof(w.arena)); globalGroup=savedGroup;
                     }
                     else if(nm=="GetNameAndDamage"){
                         alignas(16) static std::array<char,80> nameBuf{}; alignas(16) static std::array<uint8,80> objName{}; static uint8 dmg{};

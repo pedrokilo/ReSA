@@ -13,6 +13,7 @@ Validadas el 03/10/2026 con **12.256 pares original/candidato dentro de GTA**, t
   - llama dos veces a `GetAnimFileIndex` por la vtable.
 - `DeleteRwObject` llama dos veces a `GetAnimFileIndex` por la vtable.
 - `SetAnimFile`/`ConvertAnimFileIndex` usan `operator new`/`delete` escalares (0x82119A/0x8214BD) y `strcpy`, no `new[]`/`delete[]`.
+- `SetAnimFile`, `FindFrameFromNameCB` y `FindFrameFromNameWithoutIdCB` comparan con `_stricmp` (0x8229B6), no `strcmp`: `"NULL"` también se ignora y los nombres de frame no distinguen mayúsculas (afecta también a `GetFrameFromName` y `SetFrameIds`).
 - `CreateInstance()` toma el bloque como `0xB5D4A0 + índice·32` sin comprobar rango (antes una vista `take` que aborta en Debug).
 
 **Método:**

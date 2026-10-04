@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 24/24 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/24 entradas.
+ * Validación registrada: 24/24 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -173,7 +173,8 @@ RwObject* CClumpModelInfo::CreateInstance(RwMatrix* matrix)
 // Conserva temporalmente el nombre del IFP hasta ConvertAnimFileIndex().
 void CClumpModelInfo::SetAnimFile(const char* filename)
 {
-    if (!strcmp(filename, "null"))
+    // Como el original: 0x8229B6 es _stricmp ("NULL" también se ignora).
+    if (!_stricmp(filename, "null"))
         return;
 
     // Como el original: operator new escalar (0x82119A) y copia con strcpy.
@@ -323,7 +324,7 @@ RwFrame* CClumpModelInfo::FindFrameFromNameCB(RwFrame* frame, void* searchData)
 {
     auto searchInfo = reinterpret_cast<tCompSearchStructByName*>(searchData);
     auto name = GetFrameNodeName(frame);
-    if (!strcmp(searchInfo->m_pName, name)) {
+    if (!_stricmp(searchInfo->m_pName, name)) { // Como el original: comparación sin mayúsculas (_stricmp 0x8229B6).
         searchInfo->m_pFrame = frame;
         return nullptr;
     }
@@ -339,7 +340,7 @@ RwFrame* CClumpModelInfo::FindFrameFromNameWithoutIdCB(RwFrame* frame, void* sea
 {
     auto searchInfo = reinterpret_cast<tCompSearchStructByName*>(searchData);
     auto name = GetFrameNodeName(frame);
-    if (!CVisibilityPlugins::GetFrameHierarchyId(frame) && !strcmp(searchInfo->m_pName, name)) {
+    if (!CVisibilityPlugins::GetFrameHierarchyId(frame) && !_stricmp(searchInfo->m_pName, name)) { // Como el original: _stricmp (0x8229B6).
         searchInfo->m_pFrame = frame;
         return nullptr;
     }

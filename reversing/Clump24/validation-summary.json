@@ -1,0 +1,91 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 12256,
+  "pairs_per_function": {
+    "CClumpModelInfo::GetModelType": 16,
+    "CClumpModelInfo::Init": 64,
+    "CClumpModelInfo::Shutdown": 64,
+    "CClumpModelInfo::DeleteRwObject": 512,
+    "CClumpModelInfo::GetRwModelType": 16,
+    "CClumpModelInfo::CreateInstance-mat": 256,
+    "CClumpModelInfo::CreateInstance-void": 1024,
+    "CClumpModelInfo::SetAnimFile": 256,
+    "CClumpModelInfo::ConvertAnimFileIndex": 256,
+    "CClumpModelInfo::GetAnimFileIndex": 64,
+    "CClumpModelInfo::GetBoundingBox": 64,
+    "CClumpModelInfo::SetClump": 1024,
+    "CClumpModelInfo::SetFrameIds": 1024,
+    "CClumpModelInfo::SetHierarchyForSkinAtomic": 256,
+    "CClumpModelInfo::AtomicSetupLightingCB": 128,
+    "CClumpModelInfo::SetAtomicRendererCB": 64,
+    "CClumpModelInfo::FindFrameFromNameCB": 1024,
+    "CClumpModelInfo::FindFrameFromNameWithoutIdCB": 1024,
+    "CClumpModelInfo::FindFrameFromIdCB": 1024,
+    "CClumpModelInfo::FillFrameArrayCB": 512,
+    "CClumpModelInfo::GetFrameFromId": 1024,
+    "CClumpModelInfo::GetFrameFromName": 1024,
+    "CClumpModelInfo::FillFrameArray": 512,
+    "CClumpModelInfo::SetClumpModelInfoFlags": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "6fa79e7cf865598e62a9e46711bada75d9a08d8040c54dc5945fcb306740acce",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-clump24\\20261003-233409-020037",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CClumpModelInfo::GetModelType": true,
+    "CClumpModelInfo::Init": true,
+    "CClumpModelInfo::Shutdown": true,
+    "CClumpModelInfo::DeleteRwObject": true,
+    "CClumpModelInfo::GetRwModelType": true,
+    "CClumpModelInfo::CreateInstance-mat": true,
+    "CClumpModelInfo::CreateInstance-void": true,
+    "CClumpModelInfo::SetAnimFile": true,
+    "CClumpModelInfo::ConvertAnimFileIndex": true,
+    "CClumpModelInfo::GetAnimFileIndex": true,
+    "CClumpModelInfo::GetBoundingBox": true,
+    "CClumpModelInfo::SetClump": true,
+    "CClumpModelInfo::SetFrameIds": true,
+    "CClumpModelInfo::SetHierarchyForSkinAtomic": true,
+    "CClumpModelInfo::AtomicSetupLightingCB": true,
+    "CClumpModelInfo::SetAtomicRendererCB": true,
+    "CClumpModelInfo::FindFrameFromNameCB": true,
+    "CClumpModelInfo::FindFrameFromNameWithoutIdCB": true,
+    "CClumpModelInfo::FindFrameFromIdCB": true,
+    "CClumpModelInfo::FillFrameArrayCB": true,
+    "CClumpModelInfo::GetFrameFromId": true,
+    "CClumpModelInfo::GetFrameFromName": true,
+    "CClumpModelInfo::FillFrameArray": true,
+    "CClumpModelInfo::SetClumpModelInfoFlags": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "ddf74979f20f29538e49aa8b0b36a7e943d60f64a689a95048c21e556d5c8ff3",
+      "pdb": "1246eb3bea40feaafe7d6162d051374b837162d7328728718f3e4469b90d751e"
+    },
+    "sources": {
+      "source/game_sa/Models/ClumpModelInfo.cpp": "fa0165bc43f43af4d95a57b17026deeed0fae85866a9174d8e752253f2381d5d",
+      "source/game_sa/Models/ClumpModelInfo.h": "b0a0449498f54a9de8350e8037f114ae9d7d897a5cd8e740f4c71c1cbfd34eab"
+    },
+    "game_cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+    "instrumentation": {
+      "LiveComparison.hpp": "96fa4a683b412287a6ff377524033ee1f79f66260c0467d4d96e4ea4ab04b430",
+      "build_probe.py": "b2671d4223cb9e7deab894ff3afa992f2c63e0c7ee62ee3b73269088d29038c8",
+      "run_local.py": "1e3f39ed613c2ece58dac979d2e0104ffee052193f96cf6540bbfa5964cd081d"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

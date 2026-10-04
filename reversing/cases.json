@@ -893,5 +893,30 @@
     "id": "colstore23",
     "name": "Almacén de colisiones (lista de 23)",
     "runner": "ColStore23/run_local.py"
+  },
+  {
+    "id": "ps22",
+    "name": "Capa de plataforma Ps (lista de 22)",
+    "runner": "Ps22/run_local.py"
+  },
+  {
+    "id": "game22",
+    "name": "CGame (lista de 22)",
+    "runner": "Game22/run_local.py"
+  },
+  {
+    "id": "clump24",
+    "name": "Modelos de clump (lista de 24)",
+    "runner": "Clump24/run_local.py"
+  },
+  {
+    "id": "interior21",
+    "name": "Gestor de interiores (lista de 21)",
+    "runner": "Interior21/run_local.py"
+  },
+  {
+    "id": "rwhelper24",
+    "name": "Ayudantes de RenderWare (lista de 24)",
+    "runner": "RwHelper24/run_local.py"
   }
 ]

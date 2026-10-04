@@ -6,10 +6,10 @@ Universo de esta revisión: **7,858 entradas reversed=1**, de 8,441 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 4003 |
+| `validated=1` · evidencia aprobada vinculada | 4116 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 4003 |
-| Sin evidencia aprobada vinculada en este registro | 3855 |
+| Evidencia histórica vinculada; revisión pendiente | 4116 |
+| Sin evidencia aprobada vinculada en este registro | 3742 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -621,6 +621,30 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CClothes | `RebuildPlayerIfNeeded` | [Resumen](../reversing/Audio11/validation-summary.json) |
 | CClothes | `RequestMotionGroupAnims` | [Resumen](../reversing/Audio11/validation-summary.json) |
 | CClouds | `RenderBottomFromHeight` | [Resumen](../reversing/CClouds/validation-summary.json) |
+| CClumpModelInfo | `AtomicSetupLightingCB` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `ConvertAnimFileIndex` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `CreateInstance-mat` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `CreateInstance-void` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `DeleteRwObject` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `FillFrameArray` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `FillFrameArrayCB` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `FindFrameFromIdCB` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `FindFrameFromNameCB` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `FindFrameFromNameWithoutIdCB` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `GetAnimFileIndex` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `GetBoundingBox` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `GetFrameFromId` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `GetFrameFromName` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `GetModelType` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `GetRwModelType` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `Init` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `SetAnimFile` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `SetAtomicRendererCB` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `SetClump` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `SetClumpModelInfoFlags` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `SetFrameIds` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `SetHierarchyForSkinAtomic` | [Resumen](../reversing/Clump24/validation-summary.json) |
+| CClumpModelInfo | `Shutdown` | [Resumen](../reversing/Clump24/validation-summary.json) |
 | CColAccel | `addCacheCol` | [Resumen](../reversing/Audio11/validation-summary.json) |
 | CColAccel | `addColDef` | [Resumen](../reversing/Audio11/validation-summary.json) |
 | CColAccel | `addIPLEntity` | [Resumen](../reversing/Audio11/validation-summary.json) |
@@ -1157,6 +1181,28 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CFire | `Extinguish` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | CFire | `Initialise` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | CFire | `ProcessFire` | [Resumen](../reversing/Fx43/validation-summary.json) |
+| CGame | `CameraDestroy` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `CanSeeOutSideFromCurrArea` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `CanSeeWaterFromCurrArea` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `DrasticTidyUpMemory` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `FinalShutdown` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `Init1` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `Init2` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `Init3` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `Initialise` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `InitialiseCoreDataAfterRW` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `InitialiseEssentialsAfterRW` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `InitialiseOnceBeforeRW` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `InitialiseRenderWare` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `InitialiseWhenRestarting` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `Process` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `ReInitGameObjectVariables` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `ReloadIPLs` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `ShutDownForRestart` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `Shutdown` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `ShutdownRenderWare` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `TidyUpMemory` | [Resumen](../reversing/Game22/validation-summary.json) |
+| CGame | `ValidateVersion` | [Resumen](../reversing/Game22/validation-summary.json) |
 | CGamma | `Init` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | CGamma | `SetGamma` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | CGangs | `ChooseGangPedModel` | [Resumen](../reversing/Data8a/validation-summary.json) |
@@ -3936,6 +3982,27 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Input | `HandleKeyUp` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | Input | `KeyboardHandler` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | Input | `PadHandler` | [Resumen](../reversing/Fx43/validation-summary.json) |
+| InteriorManager_c | `ActivatePeds` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `AddSameGroupEffectInfos` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `AreAnimsLoaded` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `Exit` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `FindStealableObjectId-1` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `FindStealableObjectId-2` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `GetBoundingBox` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `GetInteriorFromPool` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `GetPedsInterior` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `GetPedsInteriorGroup` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `GetVectorsInterior` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `GetVisibleEffects` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `HasInteriorHadStealDataSetup` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `Init` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `IsGroupActive` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `IsInteriorEffectVisible` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `PruneVisibleEffects` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `ReturnInteriorToPool` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `SetEntryExitPtr` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `SetStealableObjectStolen` | [Resumen](../reversing/Interior21/validation-summary.json) |
+| InteriorManager_c | `Update` | [Resumen](../reversing/Interior21/validation-summary.json) |
 | JPegPlugin | `JPegCompressScreen` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | JPegPlugin | `JPegCompressScreenToBuffer` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | JPegPlugin | `JPegCompressScreenToFile` | [Resumen](../reversing/Fx43/validation-summary.json) |
@@ -3961,6 +4028,28 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | ProcSurfaceInfo_c | `AddObjects` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | ProcSurfaceInfo_c | `Exit` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | ProcSurfaceInfo_c | `Init` | [Resumen](../reversing/Misc8/validation-summary.json) |
+| Ps | `CheckDirectSound` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `GetVideoMemInfo` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `InitialiseLanguage` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psAlwaysOnTop` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psCameraBeginUpdate` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psCameraShowRaster` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psDebugMessageHandler` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psErrorMessage` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psGrabScreen` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psInitialize` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psInstallFileSystem` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psMouseSetPos` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psMouseSetVisibility` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psNativeTextureSupport` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psPathGetSeparator` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psPathnameCreate` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psPathnameDestroy` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psSelectDevice` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psTerminate` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psTimer` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psWarningMessage` | [Resumen](../reversing/Ps22/validation-summary.json) |
+| Ps | `psWindowSetText` | [Resumen](../reversing/Ps22/validation-summary.json) |
 | RenderBuffer | `ClearRenderBuffer` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
 | RenderBuffer | `RenderStuffInBuffer` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
 | RenderBuffer | `StartStoring` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
@@ -3971,6 +4060,30 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | RwCore | `RwCameraClear` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
 | RwCore | `RwCameraEndUpdate` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
 | RwCore | `RwCameraShowRaster` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
+| RwHelper | `AtomicRemoveAnimFromSkinCB` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `Get2DEffectAtomic` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `GetAnimHierarchyFromClump` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `GetAnimHierarchyFromSkinClump` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `GetEventGlobalGroup` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `GetFirstAtomic` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `GetFirstAtomicCallback` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `GetFirstChild` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `GetFirstFrameCallback` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `GetFirstObject` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `GetFirstObjectCallback` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `GetNameAndDamage` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `RemoveRefsCB` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `RpAtomicConvertGeometryToTL` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `RpAtomicConvertGeometryToTS` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `RpClumpConvertGeometryToTL` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `RpClumpConvertGeometryToTS` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `SetFilterModeOnAtomicsTextures` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `SetFilterModeOnClumpsTextures` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `SkinAtomicGetHAnimHierarchCB` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `atomicConvertGeometryToTL` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `atomicConvertGeometryToTS` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `forceLinearFilteringAtomicsCB` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
+| RwHelper | `forceLinearFilteringMatTexturesCB` | [Resumen](../reversing/RwHelper24/validation-summary.json) |
 | Securom | `SecuromDisplayInit` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | Securom | `SecuromStateDisplay` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | VideoMode | `FreeVideoModeList` | [Resumen](../reversing/RenderVideo8/validation-summary.json) |
@@ -4126,7 +4239,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CClothes` | 11 | 0 | 11 | 0 |
 | `CClothesBuilder` | 15 | 0 | 0 | 15 |
 | `CClouds` | 21 | 0 | 1 | 20 |
-| `CClumpModelInfo` | 24 | 0 | 0 | 24 |
+| `CClumpModelInfo` | 24 | 0 | 24 | 0 |
 | `CColAccel` | 11 | 0 | 11 | 0 |
 | `CColLine` | 1 | 0 | 1 | 0 |
 | `CColModel` | 9 | 0 | 9 | 0 |
@@ -4254,7 +4367,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CFireManager` | 24 | 0 | 0 | 24 |
 | `CFont` | 32 | 0 | 0 | 32 |
 | `CFormation` | 1 | 0 | 0 | 1 |
-| `CGame` | 22 | 0 | 0 | 22 |
+| `CGame` | 22 | 0 | 22 | 0 |
 | `CGameLogic` | 27 | 0 | 0 | 27 |
 | `CGamma` | 2 | 0 | 2 | 0 |
 | `CGangWars` | 32 | 0 | 0 | 32 |
@@ -4774,7 +4887,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `IKChain_c` | 20 | 0 | 20 | 0 |
 | `Input` | 5 | 0 | 5 | 0 |
 | `InteriorGroup_c` | 2 | 0 | 0 | 2 |
-| `InteriorManager_c` | 21 | 0 | 0 | 21 |
+| `InteriorManager_c` | 21 | 0 | 21 | 0 |
 | `JPegPlugin` | 5 | 0 | 5 | 0 |
 | `Light` | 27 | 0 | 0 | 27 |
 | `ModelIndices` | 2 | 0 | 2 | 0 |
@@ -4782,13 +4895,13 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `PipelinePlugin` | 3 | 0 | 3 | 0 |
 | `ProcObjectMan_c` | 8 | 0 | 8 | 0 |
 | `ProcSurfaceInfo_c` | 4 | 0 | 4 | 0 |
-| `Ps` | 22 | 0 | 0 | 22 |
+| `Ps` | 22 | 0 | 22 | 0 |
 | `RenderBuffer` | 4 | 0 | 4 | 0 |
 | `RpAnimBlend` | 43 | 0 | 1 | 42 |
 | `Rs` | 27 | 0 | 0 | 27 |
 | `RtAnim` | 1 | 0 | 1 | 0 |
 | `RwCore` | 4 | 0 | 4 | 0 |
-| `RwHelper` | 24 | 0 | 0 | 24 |
+| `RwHelper` | 24 | 0 | 24 | 0 |
 | `Securom` | 2 | 0 | 2 | 0 |
 | `SurfaceInfos_c` | 47 | 0 | 0 | 47 |
 | `VideoMode` | 4 | 0 | 4 | 0 |

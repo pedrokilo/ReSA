@@ -182,7 +182,8 @@ inline void Update() {
                     mkEnt(ent[3].data(),int(next()%8),base+randVec(-3.f,3.f)); mkEnt(ent[4].data(),3,base); mkEnt(ent[5].data(),2,base+randVec(-3.f,3.f));
                     for(int k:{0,4}){ At<void*>(ent[k].data(),0x730)=nullptr; At<int32>(ent[k].data(),0x598)=next()%3==0 ? 6 : int32(next()%20); }
                     for(int k:{1,5}){ At<void*>(ent[k].data(),0x490)=nullptr; At<int32>(ent[k].data(),0x590)=next()%2 ? 0 : int32(next()%11); At<uint8>(ent[k].data(),0x5A4)=uint8(next()%3==0 ? 225+next()%31 : next()%256); }
-                    At<void*>(ent[2].data(),0x164)=nullptr; };
+                    // Como el original lee m_pFire segun el tipo: todas las entidades (incluida la de tipo aleatorio) sin basura ahi
+                    for(auto& e:ent){ At<void*>(e.data(),0x730)=nullptr; At<void*>(e.data(),0x490)=nullptr; At<void*>(e.data(),0x164)=nullptr; } };
                 auto fireBytes=[&]{ return ReversingProbe::Bytes(Mgr()-0x28,0x28+0x964); };
                 auto entState=[&]{ json j=json::array(); for(int k=0;k<6;++k)j.push_back({Id(At<void*>(ent[k].data(),0x730)),Id(At<void*>(ent[k].data(),0x490)),Id(At<void*>(ent[k].data(),0x164)),At<uint8>(ent[k].data(),0x5A4)}); return j; };
                 auto run=[&](bool candidate)->json {
@@ -203,6 +204,7 @@ inline void Update() {
                     for(int k:{0,4})if(next()%3==0)At<void*>(ent[k].data(),0x730)=Mgr()+(next()%60)*0x28;
                     for(int k:{1,5})if(next()%3==0)At<void*>(ent[k].data(),0x490)=Mgr()+(next()%60)*0x28;
                     if(next()%4==0)At<void*>(ent[2].data(),0x164)=Mgr()+(next()%60)*0x28;
+                    if(next()%3==0){ void* fp=Mgr()+(next()%60)*0x28; At<void*>(ent[3].data(),0x730)=fp; At<void*>(ent[3].data(),0x490)=fp; At<void*>(ent[3].data(),0x164)=fp; }
                     for(int k:{0,1,4,5})At<uint32>(ent[k].data(),0x40)=next()%4==0 ? 0x80000u|next() : next()&~0x80000u;
 
                     if(nm=="ClearAllScriptFireFlags"||nm=="CreateAllFxSystems"||nm=="DestroyAllFxSystems"||nm=="RemoveAllScriptFires"||nm=="Shutdown"||nm=="Init")

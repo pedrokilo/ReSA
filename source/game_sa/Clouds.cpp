@@ -474,10 +474,11 @@ void CClouds::Render() {
                     }
 
                     // Textura de la luna
-                    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(RwTextureGetRaster(gpCoronaTexture[CORONATYPE_MOON])));
+                    // Como el original (0x713C51): mezcla y escritura Z antes de fijar el raster de la luna.
                     RwRenderStateSet(rwRENDERSTATESRCBLEND,      RWRSTATE(rwBLENDDESTALPHA));
                     RwRenderStateSet(rwRENDERSTATEDESTBLEND,     RWRSTATE(rwBLENDONE));
                     RwRenderStateSet(rwRENDERSTATEZWRITEENABLE,  RWRSTATE(FALSE));
+                    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(RwTextureGetRaster(gpCoronaTexture[CORONATYPE_MOON])));
                     {
                         const float mult  = MoonMult();
                         const int32 moonB = CloudsFtol(static_cast<float>(colorB) * 0.85f);

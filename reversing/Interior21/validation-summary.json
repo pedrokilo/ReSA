@@ -1,0 +1,87 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 10112,
+  "pairs_per_function": {
+    "InteriorManager_c::ActivatePeds": 64,
+    "InteriorManager_c::AddSameGroupEffectInfos": 1024,
+    "InteriorManager_c::AreAnimsLoaded": 256,
+    "InteriorManager_c::Exit": 256,
+    "InteriorManager_c::FindStealableObjectId-1": 256,
+    "InteriorManager_c::FindStealableObjectId-2": 512,
+    "InteriorManager_c::GetBoundingBox": 512,
+    "InteriorManager_c::GetInteriorFromPool": 128,
+    "InteriorManager_c::GetPedsInterior": 512,
+    "InteriorManager_c::GetPedsInteriorGroup": 512,
+    "InteriorManager_c::GetVectorsInterior": 512,
+    "InteriorManager_c::GetVisibleEffects": 1024,
+    "InteriorManager_c::HasInteriorHadStealDataSetup": 256,
+    "InteriorManager_c::Init": 64,
+    "InteriorManager_c::IsGroupActive": 256,
+    "InteriorManager_c::IsInteriorEffectVisible": 1024,
+    "InteriorManager_c::PruneVisibleEffects": 1024,
+    "InteriorManager_c::ReturnInteriorToPool": 128,
+    "InteriorManager_c::SetEntryExitPtr": 512,
+    "InteriorManager_c::SetStealableObjectStolen": 256,
+    "InteriorManager_c::Update": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "e18222c4947f9d1d903b629ea7edfcb53e8bd9e93689cb56a5c9a9ed01486398",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior21\\20261003-233507-245222",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "InteriorManager_c::ActivatePeds": true,
+    "InteriorManager_c::AddSameGroupEffectInfos": true,
+    "InteriorManager_c::AreAnimsLoaded": true,
+    "InteriorManager_c::Exit": true,
+    "InteriorManager_c::FindStealableObjectId-1": true,
+    "InteriorManager_c::FindStealableObjectId-2": true,
+    "InteriorManager_c::GetBoundingBox": true,
+    "InteriorManager_c::GetInteriorFromPool": true,
+    "InteriorManager_c::GetPedsInterior": true,
+    "InteriorManager_c::GetPedsInteriorGroup": true,
+    "InteriorManager_c::GetVectorsInterior": true,
+    "InteriorManager_c::GetVisibleEffects": true,
+    "InteriorManager_c::HasInteriorHadStealDataSetup": true,
+    "InteriorManager_c::Init": true,
+    "InteriorManager_c::IsGroupActive": true,
+    "InteriorManager_c::IsInteriorEffectVisible": true,
+    "InteriorManager_c::PruneVisibleEffects": true,
+    "InteriorManager_c::ReturnInteriorToPool": true,
+    "InteriorManager_c::SetEntryExitPtr": true,
+    "InteriorManager_c::SetStealableObjectStolen": true,
+    "InteriorManager_c::Update": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "851e836926e8fbf9ea725c3de220c3480fab1312ddbbbb4bc5101f98c24fcb87",
+      "pdb": "23531fbeade06e44a0410edf147c29ec00c6c9aa73dabf70702977ff3e7ef64b"
+    },
+    "sources": {
+      "source/game_sa/Interior/InteriorManager_c.cpp": "850e5f1090fdf433a17a9d2b6c3fe6102675b48c7ef19e88f351a599662762ba",
+      "source/game_sa/Interior/InteriorManager_c.h": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e",
+      "source/game_sa/Interior/Interior_c.cpp": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7",
+      "source/game_sa/Interior/Interior_c.h": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+    },
+    "game_cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+    "instrumentation": {
+      "LiveComparison.hpp": "03203e151a45ff76ad55ba45926f3b9fd7ffc2c52527eaeaaedb60e97a5e5029",
+      "build_probe.py": "ac56da346bb295ce3cdb83e62d3d8480eb613594cca6e5e0f49727fe65f04199",
+      "run_local.py": "abcd9c241de15c44ffeaab7de03cf46640f73712fa1757e45c0eabe70cb5454f"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

@@ -168,7 +168,7 @@ inline void Update() {
     const uint32 sFrame=frame, sTime=timeNow, sPrev=timePrev; const float sStep=step; const int32 sArea=area; const uint8 sCut=cut, sFocus=focus, sGen=genCounter;
     void* const sVehPool=vehPool; void* const sMi1=mi1; void* const sMi2=mi2;
     std::vector<std::pair<uint16,uint8>> sUsage; for(int32 m:vehModels){ auto* vmi=CModelInfo::GetVehicleModelInfo(m); sUsage.emplace_back(vmi->m_nRefCount,vmi->m_nTimesUsed); }
-    auto& fixFlag=const_cast<ReversibleBugFix&>(notsa::bugfixes::CCarCtrl_RemoveDistantCars_UseAfterFree); const bool sFix=fixFlag.Enabled;
+    auto& fixFlag=const_cast<notsa::bugfixes::ReversibleBugFix&>(notsa::bugfixes::CCarCtrl_RemoveDistantCars_UseAfterFree); const bool sFix=fixFlag.Enabled;
     auto RestoreAll=[&]{
         std::memcpy(reinterpret_cast<void*>(G1),sG1.data(),G1_SIZE); std::memcpy(reinterpret_cast<void*>(G2),sG2.data(),G2_SIZE);
         std::memcpy(reinterpret_cast<void*>(POP),sPop.data(),POP_SIZE); std::memcpy(reinterpret_cast<void*>(CARGRP),sCarGrp.data(),CARGRP_SIZE);

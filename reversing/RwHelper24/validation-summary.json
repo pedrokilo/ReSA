@@ -1,0 +1,91 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 11328,
+  "pairs_per_function": {
+    "RwHelper::GetEventGlobalGroup": 64,
+    "RwHelper::GetNameAndDamage": 1024,
+    "RwHelper::GetFirstAtomicCallback": 256,
+    "RwHelper::GetFirstAtomic": 512,
+    "RwHelper::Get2DEffectAtomic": 512,
+    "RwHelper::GetFirstObjectCallback": 256,
+    "RwHelper::GetFirstObject": 512,
+    "RwHelper::GetFirstFrameCallback": 256,
+    "RwHelper::GetFirstChild": 512,
+    "RwHelper::SkinAtomicGetHAnimHierarchCB": 256,
+    "RwHelper::GetAnimHierarchyFromSkinClump": 512,
+    "RwHelper::GetAnimHierarchyFromClump": 512,
+    "RwHelper::AtomicRemoveAnimFromSkinCB": 512,
+    "RwHelper::RpAtomicConvertGeometryToTL": 512,
+    "RwHelper::RpAtomicConvertGeometryToTS": 512,
+    "RwHelper::atomicConvertGeometryToTL": 512,
+    "RwHelper::RpClumpConvertGeometryToTL": 512,
+    "RwHelper::atomicConvertGeometryToTS": 512,
+    "RwHelper::RpClumpConvertGeometryToTS": 512,
+    "RwHelper::forceLinearFilteringMatTexturesCB": 512,
+    "RwHelper::SetFilterModeOnAtomicsTextures": 512,
+    "RwHelper::forceLinearFilteringAtomicsCB": 512,
+    "RwHelper::SetFilterModeOnClumpsTextures": 512,
+    "RwHelper::RemoveRefsCB": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "3ae70338b9739381f9019e593ab56a8bf4e342c01accd009e73477b98544716a",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-rwhelper24\\20261003-233626-866637",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "RwHelper::GetEventGlobalGroup": true,
+    "RwHelper::GetNameAndDamage": true,
+    "RwHelper::GetFirstAtomicCallback": true,
+    "RwHelper::GetFirstAtomic": true,
+    "RwHelper::Get2DEffectAtomic": true,
+    "RwHelper::GetFirstObjectCallback": true,
+    "RwHelper::GetFirstObject": true,
+    "RwHelper::GetFirstFrameCallback": true,
+    "RwHelper::GetFirstChild": true,
+    "RwHelper::SkinAtomicGetHAnimHierarchCB": true,
+    "RwHelper::GetAnimHierarchyFromSkinClump": true,
+    "RwHelper::GetAnimHierarchyFromClump": true,
+    "RwHelper::AtomicRemoveAnimFromSkinCB": true,
+    "RwHelper::RpAtomicConvertGeometryToTL": true,
+    "RwHelper::RpAtomicConvertGeometryToTS": true,
+    "RwHelper::atomicConvertGeometryToTL": true,
+    "RwHelper::RpClumpConvertGeometryToTL": true,
+    "RwHelper::atomicConvertGeometryToTS": true,
+    "RwHelper::RpClumpConvertGeometryToTS": true,
+    "RwHelper::forceLinearFilteringMatTexturesCB": true,
+    "RwHelper::SetFilterModeOnAtomicsTextures": true,
+    "RwHelper::forceLinearFilteringAtomicsCB": true,
+    "RwHelper::SetFilterModeOnClumpsTextures": true,
+    "RwHelper::RemoveRefsCB": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "fad9bf96059420b128bea5a36e113e1aee9d0041b7f0dc81349aad6fe728f6a3",
+      "pdb": "30e52581b6d477ec8c8d8762ea753298188639a38c4bb263ba6dd1ad1efccbe9"
+    },
+    "sources": {
+      "source/game_sa/RwHelper.cpp": "87d74f37adb77edb2e99a5ed0023426391609cfcbd0af4bc4e70b89929c32174",
+      "source/game_sa/RwHelper.h": "ef2f46800f300cee7ce7584dffebb5bd3f9f9c834598a30716ae387f686df735"
+    },
+    "game_cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+    "instrumentation": {
+      "LiveComparison.hpp": "95d2b8566288af1db6171512d9c43c87c8434a0b85584c1d54a97649e62237ed",
+      "build_probe.py": "87e6b9cf01c533711f22dc8d86855718f4ec59a9a45001cae81cc621c0df2533",
+      "run_local.py": "86e86f503d2524c040d41f1f0b17fe2cbca0494c52285a178d965e8a25ccfce8"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

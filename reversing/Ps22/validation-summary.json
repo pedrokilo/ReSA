@@ -1,0 +1,87 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 6720,
+  "pairs_per_function": {
+    "Ps::psWindowSetText": 128,
+    "Ps::psErrorMessage": 128,
+    "Ps::psWarningMessage": 128,
+    "Ps::psCameraBeginUpdate": 256,
+    "Ps::psCameraShowRaster": 256,
+    "Ps::psTimer": 256,
+    "Ps::psGrabScreen": 512,
+    "Ps::psMouseSetVisibility": 128,
+    "Ps::psMouseSetPos": 1024,
+    "Ps::psPathnameCreate": 512,
+    "Ps::psPathnameDestroy": 128,
+    "Ps::psPathGetSeparator": 64,
+    "Ps::psInstallFileSystem": 64,
+    "Ps::psNativeTextureSupport": 128,
+    "Ps::psDebugMessageHandler": 128,
+    "Ps::GetVideoMemInfo": 256,
+    "Ps::CheckDirectSound": 256,
+    "Ps::psTerminate": 64,
+    "Ps::psAlwaysOnTop": 256,
+    "Ps::psSelectDevice": 1024,
+    "Ps::InitialiseLanguage": 512,
+    "Ps::psInitialize": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "dad8699d92bb6e9aa91abcea6b85d1296a16749769e69d45e325f0e33ccf9f00",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ps22\\20261003-232953-869117",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "Ps::psWindowSetText": true,
+    "Ps::psErrorMessage": true,
+    "Ps::psWarningMessage": true,
+    "Ps::psCameraBeginUpdate": true,
+    "Ps::psCameraShowRaster": true,
+    "Ps::psTimer": true,
+    "Ps::psGrabScreen": true,
+    "Ps::psMouseSetVisibility": true,
+    "Ps::psMouseSetPos": true,
+    "Ps::psPathnameCreate": true,
+    "Ps::psPathnameDestroy": true,
+    "Ps::psPathGetSeparator": true,
+    "Ps::psInstallFileSystem": true,
+    "Ps::psNativeTextureSupport": true,
+    "Ps::psDebugMessageHandler": true,
+    "Ps::GetVideoMemInfo": true,
+    "Ps::CheckDirectSound": true,
+    "Ps::psTerminate": true,
+    "Ps::psAlwaysOnTop": true,
+    "Ps::psSelectDevice": true,
+    "Ps::InitialiseLanguage": true,
+    "Ps::psInitialize": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "f29d67cf9a1649d26a16eddee09bc033809cf3161f789870257466146fc2d2b0",
+      "pdb": "b077ada31fa1555b2b4a6830a42c4ee7414352747a8bb85d4e6d9f27dc99d34e"
+    },
+    "sources": {
+      "source/app/platform/win/WinPs.cpp": "6708e02f98312057bc207303348e0bcd7f046e342180f76bcd4c4b7cb8983c0c",
+      "source/app/platform/platform.h": "1785f979d4e8a468ba69a57157408948ad3b540738a92842aacfc434c4aa50df"
+    },
+    "game_cpp": "01a252ac01fd1eb0794c55593390406c92369a9a4f7c83e53799a77d5a73c0d9",
+    "instrumentation": {
+      "LiveComparison.hpp": "2a3d45e73e77a6e0392b238a51b6cffdf177084a36261c3eff7e70b6fdbf52f5",
+      "build_probe.py": "69104871e18d723ad5d29bc55a0734c7a8600bef1fea7f948fbd1c9178e4cc27",
+      "run_local.py": "1cc1d847816e28ed30a3e72f0482ce83e3edfdffdc909674ce845d3fba8dd5e3"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}
