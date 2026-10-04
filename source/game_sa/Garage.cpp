@@ -274,7 +274,7 @@ void CSaveGarage::CopyGarageIntoSaveGarage(Const CGarage& g) {
     m_fDoorPosition = g.m_fDoorPosition;
     m_nTimeToOpen   = g.m_nTimeToOpen;
     m_nOriginalType = g.m_nOriginalType;
-    strcpy_s(m_anName, g.m_anName);
+    strcpy(m_anName, g.m_anName); // Como el original: strcpy (sin relleno 0xFE de depuración)
 }
 
 // 0x5D30C0
@@ -296,7 +296,7 @@ void CSaveGarage::CopyGarageOutOfSaveGarage(CGarage& g) const {
     g.m_nTimeToOpen   = m_nTimeToOpen;
     g.m_nOriginalType = m_nOriginalType;
     g.m_pTargetCar    = nullptr;
-    strcpy_s(g.m_anName, m_anName);
+    strcpy(g.m_anName, m_anName); // Como el original: strcpy (sin relleno 0xFE de depuración)
 }
 
 // todo move

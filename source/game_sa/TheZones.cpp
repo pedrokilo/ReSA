@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 21/21 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/21 entradas.
+ * Validación registrada: 21/21 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -59,8 +59,16 @@ void CTheZones::InjectHooks() {
 }
 
 // 0x5720D0
+// Como el original: no toca ZoneColor ni los 4 bits altos del byte de razas.
 void CTheZones::InitZonesPopulationSettings() {
-    rng::fill(ZoneInfoArray, CZoneInfo{});
+    for (auto& info : ZoneInfoArray) {
+        auto* b = reinterpret_cast<uint8*>(&info);
+        b[0xF] = (b[0xF] & 0xE5) | 5;
+        b[0x10] |= 0x0F;
+        b[0xA] = 0;
+        std::memset(b, 0, 10);
+        b[0xF] &= 0x1F;
+    }
 }
 
 // 0x572110
@@ -93,16 +101,37 @@ bool CTheZones::GetCurrentZoneLockedOrUnlocked(CVector2D pos) {
 }
 
 // 0x572180
+// Como el original: compara los 8 bytes de la etiqueta en bruto, indices de 16 bits sin signo. Si el indice
+// propio es menor que el total y no hay coincidencia antes, el bucle del EXE no termina (CreateZone lo llama
+// con el indice igual al total).
 void CTheZones::AssignZoneInfoForThisZone(int16 newZoneIndex) {
-    auto& zone = NavigationZoneArray[newZoneIndex];
-    zone.m_ZoneInfoIndex = [&]{
-        for (const auto& [i, zoneInfo] : rngv::enumerate(GetNavigationZones())) {
-            if (i != newZoneIndex && zoneInfo.GetInfoLabel() == zone.GetInfoLabel()) {
-                return zoneInfo.m_ZoneInfoIndex;
+    auto* zones = NavigationZoneArray.data();
+    const uint16 self  = (uint16)newZoneIndex;
+    const uint16 count = (uint16)TotalNumberOfNavigationZones;
+    uint16 i = 0;
+    bool found = false;
+    if (count != 0) {
+        do {
+            if (found) {
+                break;
             }
-        }
-        return TotalNumberOfZoneInfos++;
-    }();
+            if (i != self) {
+                const auto* l = reinterpret_cast<const uint32*>(zones[i].m_InfoLabel);
+                const auto* r = reinterpret_cast<const uint32*>(zones[self].m_InfoLabel);
+                if (l[0] == r[0] && l[1] == r[1]) {
+                    found = true;
+                } else {
+                    i++;
+                }
+            }
+        } while (i < count);
+    }
+    if (found) {
+        zones[self].m_ZoneInfoIndex = zones[i].m_ZoneInfoIndex;
+    } else {
+        zones[self].m_ZoneInfoIndex = TotalNumberOfZoneInfos;
+        TotalNumberOfZoneInfos = (int16)(uint16)((uint16)TotalNumberOfZoneInfos + 1);
+    }
 }
 
 // 0x572220
@@ -131,35 +160,39 @@ bool CTheZones::PointLiesWithinZone(const CVector* point, CZone* zone) {
 }
 
 // Returns eLevelName from position
-eLevelName CTheZones::GetLevelFromPosition(const CVector& point) {
-    const auto& mapZones = GetMapZones();
-    for (auto& z : mapZones | rng::views::drop(1)) {
-        if (z.GetBB().IsPointInside(point)) {
-            return z.m_nLevel;
+// 0x572300
+// Como el original: zonas de mapa 1..total-1 con contador de 16 bits sin signo; si ninguna contiene el punto,
+// el nivel de la zona 0.
+uint32 CTheZones::GetLevelFromPosition(const CVector& point) {
+    auto* zones = MapZoneArray.data();
+    const uint16 count = (uint16)TotalNumberOfMapZones;
+    for (uint16 i = 1; i < count; i++) {
+        if (PointLiesWithinZone(&point, &zones[i])) {
+            return zones[i].m_nLevel;
         }
     }
-    return mapZones[0].m_nLevel;
+    return zones[0].m_nLevel;
 }
 
 // Returns pointer to zone by a point
 // 0x572360
+// Como el original: empieza en la zona 1; tamano = X2 - X1 + Y2 - Y1 en 32 bits comparado sin signo (jae).
 CZone* CTheZones::FindSmallestZoneForPosition(const CVector& point, bool checkIsNavi) {
-    const auto GetZoneSize = [](CZone* z) {
-        return z->m_fX2 - z->m_fX1 + z->m_fY2 - z->m_fY1;
-    };
-
-    auto smallestZone     = &NavigationZoneArray[0]; // Start with the whole map
-    auto smallestZoneSize = GetZoneSize(smallestZone); 
-    for (auto& z : GetNavigationZones()) {
-        if (checkIsNavi && z.m_nType != ZONE_TYPE_NAVI) {
+    auto* zones = NavigationZoneArray.data();
+    CZone* smallestZone     = &zones[0];
+    uint32 smallestZoneSize = (uint32)((int32)zones[0].m_fX2 - (int32)zones[0].m_fX1 - (int32)zones[0].m_fY1 + (int32)zones[0].m_fY2);
+    const uint16 count = (uint16)TotalNumberOfNavigationZones;
+    for (uint16 i = 1; i < count; i++) {
+        CZone* z = &zones[i];
+        if (checkIsNavi && z->m_nType != ZONE_TYPE_NAVI) {
             continue;
         }
-        if (!z.GetBB().IsPointInside(point)) {
+        if (!PointLiesWithinZone(&point, z)) {
             continue;
         }
-        const auto zsize = GetZoneSize(&z);
+        const uint32 zsize = (uint32)((int32)z->m_fY2 - (int32)z->m_fX1 + (int32)z->m_fX2 - (int32)z->m_fY1);
         if (zsize < smallestZoneSize) {
-            smallestZone     = &z;
+            smallestZone     = z;
             smallestZoneSize = zsize;
         }
     }
@@ -169,48 +202,68 @@ CZone* CTheZones::FindSmallestZoneForPosition(const CVector& point, bool checkIs
 // 0x572400
 CZoneInfo* CTheZones::GetZoneInfo(const CVector& point, CZone** outZone) {
     const auto z = FindSmallestZoneForPosition(point, false);
-    if (outZone) {
-        *outZone = z ? z : &NavigationZoneArray[0]; // Zone 0 is always SAN_AND
+    if (!z) {
+        if (outZone) {
+            *outZone = &NavigationZoneArray[0];
+        }
+        return &ZoneInfoArray[0];
     }
-    return &ZoneInfoArray[z ? z->m_ZoneInfoIndex : 0];
+    if (outZone) {
+        *outZone = z;
+    }
+    return &ZoneInfoArray.data()[(uint16)z->m_ZoneInfoIndex]; // Como el original: indice sin signo (movzx)
 }
 
 // 0x572440
+// Como el original: colores de las tablas del EXE (rojo/verde/azul por banda, 12 bytes cada una), divisiones
+// enteras con signo, alfa 0 sin bandas y min(suma*3, 120) con minimo 55 si hay alguna.
 void CTheZones::FillZonesWithGangColours(bool disableRadarGangColors) {
-    for (auto& z : GetZoneInfos()) {
-        const auto gdSum = z.GangStrength[GANG_BALLAS] + z.GangStrength[GANG_GROVE] + z.GangStrength[GANG_VAGOS];
+    const auto* colR = reinterpret_cast<const uint8*>(0x8D1344);
+    const auto* colG = reinterpret_cast<const uint8*>(0x8D1350);
+    const auto* colB = reinterpret_cast<const uint8*>(0x8D135C);
+    if ((uint16)TotalNumberOfZoneInfos == 0) {
+        return;
+    }
+    int32 i = 0;
+    do {
+        auto& z = ZoneInfoArray.data()[i];
+        const int32 g0 = z.GangStrength[0], g1 = z.GangStrength[1], g2 = z.GangStrength[2];
+        const int32 r = colR[0] * g0 + colR[1] * g1 + colR[2] * g2;
+        const int32 g = colG[0] * g0 + colG[1] * g1 + colG[2] * g2;
+        const int32 b = colB[0] * g0 + colB[1] * g1 + colB[2] * g2;
+        int32 sum = g0 + g1 + g2;
 
-        uint8 color[3];
-        for (auto i = 0; i < 3; i++) {
-            const auto GetVW = [&](eGangID g) {
-                return WeightedValue<uint32, uint32>{ gaGangColors[g].components[i], z.GangStrength[g] };
-            };
-            color[i] = (uint8)(multiply_weighted({ GetVW(GANG_BALLAS), GetVW(GANG_GROVE), GetVW(GANG_VAGOS) }) / std::max(1, gdSum));
+        if (sum != 0 && !disableRadarGangColors && CGangWars::CanPlayerStartAGangWarHere(&z)) {
+            z.RadarMode = 1;
+        } else {
+            z.RadarMode = 0;
         }
 
-        z.RadarMode = gdSum && !disableRadarGangColors && CGangWars::CanPlayerStartAGangWarHere(&z)
-            ? 1
-            : 0;
+        uint8 alpha = (uint8)std::min(sum * 3, 0x78);
+        if (sum != 0 && alpha <= 0x37) {
+            alpha = 0x37;
+        }
+        z.ZoneColor.a = alpha;
 
-        z.ZoneColor = {
-            color[0],
-            color[1],
-            color[2],
-            std::clamp<uint8>(gdSum * 3, 55, 120)
-        };
-    }
+        if (sum <= 1) {
+            sum = 1;
+        }
+        z.ZoneColor.r = (uint8)(r / sum);
+        z.ZoneColor.g = (uint8)(g / sum);
+        z.ZoneColor.b = (uint8)(b / sum);
+    } while (++i < (int32)(uint16)TotalNumberOfZoneInfos);
 }
 
 // Returns pointer to zone by index
 // 0x572590
 CZone* CTheZones::GetNavigationZone(uint16 index) {
-    return &GetNavigationZones()[index];
+    return &NavigationZoneArray.data()[index];
 }
 
 // Returns pointer to zone by index
 // 0x5725A0
 CZone* CTheZones::GetMapZone(uint16 index) {
-    return &CTheZones::MapZoneArray[index];
+    return &MapZoneArray.data()[index];
 }
 
 // 0x5725b0
@@ -238,22 +291,48 @@ float CTheZones::Calc2DDistanceBetween2Zones(CZone* a, CZone* b) {
 
 // Initializes CTheZones
 // 0x572670
+// Como el original: no escribe el byte de nivel (+0x1F) de las zonas vacias, las zonas de mapa quedan con tipo 3,
+// las zonas 0 se rellenan en linea (sin CreateZone) y el nivel actual se escribe como dword.
 void CTheZones::Init() {
     ZoneScoped;
-    
-    rng::fill(NavigationZoneArray, CZone{});
-    rng::fill(MapZoneArray, CZone{});
 
+    for (auto& z : NavigationZoneArray) {
+        std::memset(&z, 0, 0x1F);
+    }
     InitZonesPopulationSettings();
-    ResetZonesRevealed();
+    std::memset(&ZonesVisited, 0, 100);
 
-    TotalNumberOfZoneInfos       = 0;
-    TotalNumberOfNavigationZones = 0;
-    TotalNumberOfMapZones        = 0;
-    m_CurrLevel                  = LEVEL_NAME_COUNTRY_SIDE;
+    auto* nav = reinterpret_cast<uint8*>(&NavigationZoneArray[0]);
+    std::memcpy(nav, "SAN_AND", 8);
+    std::memcpy(nav + 8, "SAN_AND", 8);
+    TotalNumberOfNavigationZones = 1;
+    TotalNumberOfZoneInfos       = 1;
+    ZonesRevealed                = 0;
+    NavigationZoneArray[0].m_fX1 = -3000;
+    NavigationZoneArray[0].m_fY1 = -3000;
+    NavigationZoneArray[0].m_fZ1 = -2000;
+    NavigationZoneArray[0].m_fX2 = 3000;
+    NavigationZoneArray[0].m_fY2 = 3000;
+    NavigationZoneArray[0].m_fZ2 = 2000;
+    nav[0x1F] = 0;
+    nav[0x1E] = 0;
+    *reinterpret_cast<uint32*>(&m_CurrLevel) = 0;
 
-    CreateZone("SAN_AND", ZONE_TYPE_NAVI, { -3000.f, -3000.f, -2000.f }, { 3000.f, 3000.f, 2000.f }, LEVEL_NAME_COUNTRY_SIDE, "SAN_AND");
-    CreateZone("THEMAP", ZONE_TYPE_MAP, { -3000.f, -3000.f, -2000.f }, { 3000.f, 3000.f, 2000.f }, LEVEL_NAME_COUNTRY_SIDE, "THEMAP");
+    for (auto& z : MapZoneArray) {
+        std::memset(&z, 0, 0x1E);
+        reinterpret_cast<uint8*>(&z)[0x1E] = ZONE_TYPE_MAP;
+    }
+    auto* map = reinterpret_cast<uint8*>(&MapZoneArray[0]);
+    TotalNumberOfMapZones = 1;
+    std::memcpy(map, "THEMAP", 7);
+    std::memcpy(map + 8, "THEMAP", 7);
+    MapZoneArray[0].m_fX1 = -3000;
+    MapZoneArray[0].m_fY1 = -3000;
+    MapZoneArray[0].m_fZ1 = -2000;
+    MapZoneArray[0].m_fX2 = 3000;
+    MapZoneArray[0].m_fY2 = 3000;
+    MapZoneArray[0].m_fZ2 = 2000;
+    map[0x1F] = 0;
 }
 
 // Unlock the current zone
@@ -264,6 +343,10 @@ void CTheZones::SetCurrentZoneAsUnlocked() {
 
 // Creates a zone
 // 0x5728A0
+// Como el original: ordena las coordenadas en float antes de truncarlas (_ftol2), pasa las etiquetas de origen a
+// mayusculas en el propio buffer (solo a-z), copia como mucho 7 caracteres sin limpiar los bytes que siguen al
+// NUL, solo los tipos 0/1 (navegacion) y 3 (mapa) crean zona, y AssignZoneInfoForThisZone recibe el indice
+// antes de incrementar el total.
 void CTheZones::CreateZone(
     const char* infoLabel,
     eZoneType   type,
@@ -272,49 +355,84 @@ void CTheZones::CreateZone(
     eLevelName  level,
     const char* textLabel
 ) {
-    const auto z = [type]{
-        switch (type) {
-        case ZONE_TYPE_LOCAL_NAVI:
-        case ZONE_TYPE_NAVI:       return &NavigationZoneArray[TotalNumberOfNavigationZones++];
-        case ZONE_TYPE_MAP:        return &MapZoneArray[TotalNumberOfMapZones++];
-        }
-        NOTSA_UNREACHABLE();
-    }();
+    if (pos1.x > pos2.x) {
+        std::swap(pos1.x, pos2.x);
+    }
+    if (pos1.y > pos2.y) {
+        std::swap(pos1.y, pos2.y);
+    }
+    if (pos1.z > pos2.z) {
+        std::swap(pos1.z, pos2.z);
+    }
 
-    const auto StrCpyUpper = [](auto& dst, auto& src) {
-        rng::fill(dst, 0);
-        strcpy_s(dst, src);
-        for (auto& ch : dst) {
-            if (ch == 0) {
-                break;
+    const auto ToUpperInPlace = [](const char* str) {
+        auto* p = const_cast<char*>(str);
+        const uint16 len = (uint16)std::strlen(str);
+        for (uint16 i = 0; i < len; i++) {
+            if (p[i] >= 'a' && p[i] <= 'z') {
+                p[i] -= 0x20;
             }
-            ch = toupper(ch);
         }
     };
-    StrCpyUpper(z->m_TextLabel, textLabel);
-    StrCpyUpper(z->m_InfoLabel, infoLabel);
+    char info[8];
+    char text[8];
+    ToUpperInPlace(infoLabel);
+    std::strncpy(info, infoLabel, 7);
+    info[7] = 0;
+    ToUpperInPlace(textLabel);
+    std::strncpy(text, textLabel, 7);
+    text[7] = 0;
 
-    std::tie(z->m_fX1, z->m_fX2) = std::minmax((int16)pos1.x, (int16)pos2.x);
-    std::tie(z->m_fY1, z->m_fY2) = std::minmax((int16)pos1.y, (int16)pos2.y);
-    std::tie(z->m_fZ1, z->m_fZ2) = std::minmax((int16)pos1.z, (int16)pos2.z);
+    const auto Fill = [&](CZone* z, uint8 zoneType) {
+        std::strcpy(z->m_InfoLabel, info);
+        std::strcpy(z->m_TextLabel, text);
+        reinterpret_cast<uint8*>(z)[0x1E] = zoneType;
+        z->m_fX1 = (int16)(int64)pos1.x;
+        z->m_fY1 = (int16)(int64)pos1.y;
+        z->m_fZ1 = (int16)(int64)pos1.z;
+        z->m_fX2 = (int16)(int64)pos2.x;
+        z->m_fY2 = (int16)(int64)pos2.y;
+        z->m_fZ2 = (int16)(int64)pos2.z;
+    };
 
-    z->m_nLevel = level;
-
-    switch (type) {
-    case ZONE_TYPE_LOCAL_NAVI:
-    case ZONE_TYPE_NAVI:
-        AssignZoneInfoForThisZone(TotalNumberOfNavigationZones - 1);
-        break;
+    const uint8 t = (uint8)type;
+    if (t <= ZONE_TYPE_LOCAL_NAVI) {
+        const uint16 idx = (uint16)TotalNumberOfNavigationZones;
+        CZone* z = &NavigationZoneArray.data()[idx];
+        Fill(z, t);
+        z->m_nLevel = level;
+        AssignZoneInfoForThisZone((int16)idx);
+        TotalNumberOfNavigationZones = (int16)(uint16)(idx + 1);
+    } else if (t == ZONE_TYPE_MAP) {
+        const uint16 idx = (uint16)TotalNumberOfMapZones;
+        CZone* z = &MapZoneArray.data()[idx];
+        Fill(z, ZONE_TYPE_MAP);
+        TotalNumberOfMapZones = (int16)(uint16)(idx + 1);
+        z->m_nLevel = level;
     }
 }
 
 // Returns 1 if point lies within the specified zonename otherwise return 0
 // 0x572B80
+// Como el original: compara los 8 bytes de la etiqueta en bruto (texto para NAVI, info para INFO) y sigue
+// buscando si el punto no esta dentro.
 bool CTheZones::FindZone(CVector* point, uint64_t packedZoneName, eZoneType type) {
-    char zoneName[sizeof(packedZoneName)];
-    memcpy(zoneName, &packedZoneName, sizeof(packedZoneName));
-    assert(zoneName[sizeof(packedZoneName) - 1] == 0);
-    return FindZone(*point, { zoneName }, type);
+    size_t offset;
+    switch (type) {
+    case ZONE_TYPE_NAVI: offset = 8; break;
+    case ZONE_TYPE_INFO: offset = 0; break;
+    default:             return false;
+    }
+    const auto* name = reinterpret_cast<const uint32*>(&packedZoneName);
+    const uint16 count = (uint16)TotalNumberOfNavigationZones;
+    for (uint16 i = 0; i < count; i++) {
+        CZone* z = &NavigationZoneArray.data()[i];
+        const auto* label = reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(z) + offset);
+        if (label[0] == name[0] && label[1] == name[1] && PointLiesWithinZone(point, z)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 //! Find zone by name `name` and of type `type` and check if `point` lies within it
@@ -340,11 +458,19 @@ bool CTheZones::FindZone(const CVector& point, std::string_view name, eZoneType 
 
 // Returns pointer to zone by index
 // 0x572C40
+// Como el original: copia el nombre (strcpy sin limite) a un buffer de 8 bytes a cero, devuelve -1 si el tipo
+// no es INFO y compara los 8 bytes de la etiqueta en bruto.
 int16 CTheZones::FindZoneByLabel(const char* name, eZoneType type) {
-    assert(type == eZoneType::ZONE_TYPE_INFO); // Originally an `if` returning `-1`, but let's be safe
-
-    for (auto&& [i, v] : rngv::enumerate(GetNavigationZones())) {
-        if (name == v.GetInfoLabel()) {
+    char label[8]{};
+    std::strcpy(label, name);
+    if (type != ZONE_TYPE_INFO) {
+        return -1;
+    }
+    const auto* l = reinterpret_cast<const uint32*>(label);
+    const uint16 count = (uint16)TotalNumberOfNavigationZones;
+    for (uint16 i = 0; i < count; i++) {
+        const auto* z = reinterpret_cast<const uint32*>(NavigationZoneArray.data()[i].m_InfoLabel);
+        if (z[0] == l[0] && z[1] == l[1]) {
             return (int16)i;
         }
     }
@@ -352,82 +478,83 @@ int16 CTheZones::FindZoneByLabel(const char* name, eZoneType type) {
 }
 
 // 0x572cc0
+// Como el original: indices sin signo y el alfa no se toca.
 void CTheZones::SetZoneRadarColours(int16 index, char radarMode, uint8 red, uint8 green, uint8 blue) {
-    const auto zone = &ZoneInfoArray[NavigationZoneArray[index].m_ZoneInfoIndex];
+    const auto zone = &ZoneInfoArray.data()[(uint16)NavigationZoneArray.data()[(uint16)index].m_ZoneInfoIndex];
     zone->RadarMode = radarMode;
-    zone->ZoneColor = { red, green, blue, 255 };
+    zone->ZoneColor.r = red;
+    zone->ZoneColor.g = green;
+    zone->ZoneColor.b = blue;
 }
 
 // Updates CTheZones info
 // 0x572D10
+// Como el original: usa la variable estatica del EXE (0xBA6720, guarda 0xBA6724), llama a 0x572800 y despues
+// reinicia el contador con la hora actual.
 void CTheZones::Update() {
     ZoneScoped;
 
-    const auto DELAY = 5000;
-
-    static auto CountSeconds = CTimer::GetTimeInMS() - DELAY; // NOTE/BUG: This can underflow in the special case that `CTimer::GetTimeMS() < DELAY`
-    
-    if (CGame::CanSeeOutSideFromCurrArea()) { // Inverted
-        if (CTimer::GetTimeInMS() - CountSeconds > DELAY) {
-            // Code from 0x572800
-            const auto pos = FindPlayerCoors();
-            m_CurrLevel = CTheZones::GetLevelFromPosition(pos);
-            if (!CTheScripts::bPlayerIsOffTheMap && CGame::CanSeeOutSideFromCurrArea() && SetZoneWasVisited(pos, true)) {
-                CTheZones::ZonesRevealed++;
-            }
-        }
-    } else {
-        CountSeconds = CTimer::GetTimeInMS();
+    auto& guard        = StaticRef<uint32>(0xBA6724);
+    auto& countSeconds = StaticRef<uint32>(0xBA6720);
+    const uint32 now   = CTimer::GetTimeInMS();
+    if (!(guard & 1)) {
+        guard |= 1;
+        countSeconds = now - 5000;
+    }
+    if (CGame::currArea != eAreaCodes::AREA_CODE_NORMAL_WORLD) {
+        countSeconds = now;
+        return;
+    }
+    if (now - countSeconds > 5000) {
+        SetCurrentZoneAsUnlocked();
+        countSeconds = CTimer::GetTimeInMS();
     }
 }
 
 // Save CTheZones info
 // 0x5D2E60
-void CTheZones::Save() {
-    CGenericGameStorage::SaveDataToWorkBuffer((uint32)m_CurrLevel);
-    CGenericGameStorage::SaveDataToWorkBuffer(TotalNumberOfNavigationZones);
-    CGenericGameStorage::SaveDataToWorkBuffer(TotalNumberOfZoneInfos);
-    CGenericGameStorage::SaveDataToWorkBuffer(TotalNumberOfMapZones);
-
-    for (int32 i = 0; i < TotalNumberOfNavigationZones; i++) {
-        CGenericGameStorage::SaveDataToWorkBuffer(NavigationZoneArray[i]);
+// Como el original: guarda directamente desde las globales (nivel actual como dword), contadores de 16 bits sin
+// signo, y devuelve true.
+bool CTheZones::Save() {
+    CGenericGameStorage::SaveDataToWorkBuffer(&m_CurrLevel, 4);
+    CGenericGameStorage::SaveDataToWorkBuffer(&TotalNumberOfNavigationZones, 2);
+    CGenericGameStorage::SaveDataToWorkBuffer(&TotalNumberOfZoneInfos, 2);
+    CGenericGameStorage::SaveDataToWorkBuffer(&TotalNumberOfMapZones, 2);
+    for (uint16 i = 0; i < (uint16)TotalNumberOfNavigationZones; i++) {
+        CGenericGameStorage::SaveDataToWorkBuffer(&NavigationZoneArray.data()[i], 0x20);
     }
-
-    for (int32 i = 0; i < TotalNumberOfZoneInfos; i++) {
-        CGenericGameStorage::SaveDataToWorkBuffer(ZoneInfoArray[i]);
+    for (uint16 i = 0; i < (uint16)TotalNumberOfZoneInfos; i++) {
+        CGenericGameStorage::SaveDataToWorkBuffer(&ZoneInfoArray.data()[i], 0x11);
     }
-
-    for (int32 i = 0; i < TotalNumberOfMapZones; i++) {
-        CGenericGameStorage::SaveDataToWorkBuffer(MapZoneArray[i]);
+    for (uint16 i = 0; i < (uint16)TotalNumberOfMapZones; i++) {
+        CGenericGameStorage::SaveDataToWorkBuffer(&MapZoneArray.data()[i], 0x20);
     }
-
-    CGenericGameStorage::SaveDataToWorkBuffer(ZonesVisited);
-    CGenericGameStorage::SaveDataToWorkBuffer(ZonesRevealed);
+    CGenericGameStorage::SaveDataToWorkBuffer(&ZonesVisited, 100);
+    CGenericGameStorage::SaveDataToWorkBuffer(&ZonesRevealed, 4);
+    return true;
 }
 
 // Load CTheZones info
 // 0x5D2F40
-void CTheZones::Load() {
+bool CTheZones::Load() {
     Init();
 
-    m_CurrLevel = static_cast<eLevelName>(CGenericGameStorage::LoadDataFromWorkBuffer<uint32>());
-    CGenericGameStorage::LoadDataFromWorkBuffer(TotalNumberOfNavigationZones);
-    CGenericGameStorage::LoadDataFromWorkBuffer(TotalNumberOfZoneInfos);
-    CGenericGameStorage::LoadDataFromWorkBuffer(TotalNumberOfMapZones);
-
-    for (int32 i = 0; i < TotalNumberOfNavigationZones; i++) {
-        CGenericGameStorage::LoadDataFromWorkBuffer(NavigationZoneArray[i]);
+    CGenericGameStorage::LoadDataFromWorkBuffer(&m_CurrLevel, 4);
+    CGenericGameStorage::LoadDataFromWorkBuffer(&TotalNumberOfNavigationZones, 2);
+    CGenericGameStorage::LoadDataFromWorkBuffer(&TotalNumberOfZoneInfos, 2);
+    CGenericGameStorage::LoadDataFromWorkBuffer(&TotalNumberOfMapZones, 2);
+    for (uint16 i = 0; i < (uint16)TotalNumberOfNavigationZones; i++) {
+        CGenericGameStorage::LoadDataFromWorkBuffer(&NavigationZoneArray.data()[i], 0x20);
     }
-
-    for (int32 i = 0; i < TotalNumberOfZoneInfos; i++) {
-        CGenericGameStorage::LoadDataFromWorkBuffer(ZoneInfoArray[i]);
+    for (uint16 i = 0; i < (uint16)TotalNumberOfZoneInfos; i++) {
+        CGenericGameStorage::LoadDataFromWorkBuffer(&ZoneInfoArray.data()[i], 0x11);
     }
-
-    for (int32 i = 0; i < TotalNumberOfMapZones; i++) {
-        CGenericGameStorage::LoadDataFromWorkBuffer(MapZoneArray[i]);
+    for (uint16 i = 0; i < (uint16)TotalNumberOfMapZones; i++) {
+        CGenericGameStorage::LoadDataFromWorkBuffer(&MapZoneArray.data()[i], 0x20);
     }
-    CGenericGameStorage::LoadDataFromWorkBuffer(ZonesVisited);
-    CGenericGameStorage::LoadDataFromWorkBuffer(ZonesRevealed);
+    CGenericGameStorage::LoadDataFromWorkBuffer(&ZonesVisited, 100);
+    CGenericGameStorage::LoadDataFromWorkBuffer(&ZonesRevealed, 4);
+    return true;
 }
 
 // dummy function

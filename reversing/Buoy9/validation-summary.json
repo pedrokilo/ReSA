@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 6656,
+  "pairs_per_function": {
+    "cBuoyancy::FindWaterLevel": 512,
+    "cBuoyancy::FindWaterLevelNorm": 512,
+    "cBuoyancy::SimpleSumBuoyancyData": 1024,
+    "cBuoyancy::CalcBuoyancyForce": 1024,
+    "cBuoyancy::PreCalcSetup": 1024,
+    "cBuoyancy::AddSplashParticles": 1024,
+    "cBuoyancy::SimpleCalcBuoyancy": 512,
+    "cBuoyancy::ProcessBuoyancyBoat": 512,
+    "cBuoyancy::ProcessBuoyancy": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "79bfdfa1bea46bb09f3b7b01b2e278664b713473cabe78bb147b5ea816c4b32f",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-buoy9\\20261003-224643-761057",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "cBuoyancy::FindWaterLevel": true,
+    "cBuoyancy::FindWaterLevelNorm": true,
+    "cBuoyancy::SimpleSumBuoyancyData": true,
+    "cBuoyancy::CalcBuoyancyForce": true,
+    "cBuoyancy::PreCalcSetup": true,
+    "cBuoyancy::AddSplashParticles": true,
+    "cBuoyancy::SimpleCalcBuoyancy": true,
+    "cBuoyancy::ProcessBuoyancyBoat": true,
+    "cBuoyancy::ProcessBuoyancy": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "5d2ff5112d8379e685291529f183dae34050e3a8fcd0850f9115ca3bdb70af83",
+      "pdb": "6920f16adc3a7df512c8420dd7de81c6ed5605356646652c81ae6822a3f0638e"
+    },
+    "sources": {
+      "source/game_sa/Buoyancy.cpp": "e16672e49dc9ed274bbf1fdfe634b89c4ae4384c524b95084d0ffe7e4823cfb9",
+      "source/game_sa/Buoyancy.h": "77a32460f81bd42c770f7e6229b6a8b43679fa54b5b47b1b6e616b55b2a31389"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "a7f07a4734b64ed3392ab82f669a0d2ce976dd570dbdf4b83b84efbffef4224e",
+      "build_probe.py": "4106834c497910958b2b39a6606a95d20c4410bacdb21d6e44dbadf233804774",
+      "run_local.py": "e5319da7a373932b9f233b69e8cfa0975c55e80c294a900ef0cf3b2bf5185fb3"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

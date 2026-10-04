@@ -820,7 +820,7 @@ void CReplay::FinishPlayback() {
     Mode = MODE_RECORD;
 
     if (bDoLoadSceneWhenDone) {
-        CGame::currLevel = CTheZones::GetLevelFromPosition(LoadScene);
+        CGame::currLevel = static_cast<eLevelName>(CTheZones::GetLevelFromPosition(LoadScene));
         CCollision::SortOutCollisionAfterLoad();
         CStreaming::LoadScene(LoadScene);
     }
@@ -1573,7 +1573,7 @@ void CReplay::TriggerPlayback(eReplayCamMode mode, CVector fixedCamPos, bool loa
             LoadScene = TheCamera.GetPosition();
             CVector point{};
             FindFirstFocusCoordinate(point);
-            CGame::currLevel = CTheZones::GetLevelFromPosition(point);
+            CGame::currLevel = static_cast<eLevelName>(CTheZones::GetLevelFromPosition(point));
             CCollision::SortOutCollisionAfterLoad();
             CStreaming::LoadScene(point);
 

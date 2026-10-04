@@ -115,9 +115,9 @@ void CClumpModelInfo::DeleteRwObject()
     m_pRwObject = nullptr;
 
     CBaseModelInfo::RemoveTexDictionaryRef();
-    auto iAnimIndex = GetAnimFileIndex();
-    if (iAnimIndex != -1)
-        CAnimManager::RemoveAnimBlockRef(iAnimIndex);
+    // Como el original: GetAnimFileIndex se llama dos veces por la vtable.
+    if (GetAnimFileIndex() != -1)
+        CAnimManager::RemoveAnimBlockRef(GetAnimFileIndex());
 
     if (bOwnsCollisionModel)
         CBaseModelInfo::DeleteCollisionModel();
@@ -147,7 +147,9 @@ RwObject* CClumpModelInfo::CreateInstance()
 
     if (bHasAnimBlend) {
         RpAnimBlendClumpInit(clonedClump);
-        if (const auto anim = CAnimManager::GetAnimation(m_nKey, &CAnimManager::GetAnimBlocks()[m_nAnimFileIndex])) {
+        // Como el original: &ms_aAnimBlocks[índice] sin comprobar rango (0xB5D4A0 + índice·32).
+        const auto* const animBlock = reinterpret_cast<const CAnimBlock*>(0xB5D4A0) + static_cast<int32>(m_nAnimFileIndex);
+        if (const auto anim = CAnimManager::GetAnimation(m_nKey, animBlock)) {
             CAnimManager::BlendAnimation(clonedClump, anim, ANIMATION_IS_LOOPED, 1.0F);
         }
     }
@@ -161,9 +163,10 @@ RwObject* CClumpModelInfo::CreateInstance(RwMatrix* matrix)
     if (!GetRwObject())
         return nullptr;
 
-    auto clump = CreateInstance();
-    memcpy(RpClumpGetFrame(clump), matrix, sizeof(RwMatrix));
-    return clump;
+    // Como el original: copia la matriz en frame->modelling (frame + 0x10), no al inicio del frame.
+    auto* const clump = reinterpret_cast<RpClump*>(CreateInstance());
+    memcpy(&RpClumpGetFrame(clump)->modelling, matrix, sizeof(RwMatrix));
+    return reinterpret_cast<RwObject*>(clump);
 }
 
 // 0x4C5200
@@ -173,9 +176,9 @@ void CClumpModelInfo::SetAnimFile(const char* filename)
     if (!strcmp(filename, "null"))
         return;
 
-    const auto size = strlen(filename) + 1;
-    auto name = new char[size];
-    strcpy_s(name, size, filename);
+    // Como el original: operator new escalar (0x82119A) y copia con strcpy.
+    auto name = static_cast<char*>(::operator new(strlen(filename) + 1));
+    strcpy(name, filename);
     m_animFileName = name;
 }
 
@@ -187,7 +190,7 @@ void CClumpModelInfo::ConvertAnimFileIndex()
         return;
 
     auto iIndex = CAnimManager::GetAnimationBlockIndex(m_animFileName);
-    delete[] m_animFileName;
+    ::operator delete(m_animFileName); // Como el original: operator delete escalar (0x8214BD).
     m_nAnimFileIndex = iIndex;
 }
 
@@ -226,24 +229,25 @@ void CClumpModelInfo::SetClump(RpClump* clump)
     CVisibilityPlugins::SetClumpModelInfo(GetRpClump(), this);
     CBaseModelInfo::AddTexDictionaryRef();
 
-    auto iAnimIndex = GetAnimFileIndex();
-    if (iAnimIndex != -1)
-        CAnimManager::AddAnimBlockRef(iAnimIndex);
+    // Como el original: GetAnimFileIndex se llama dos veces por la vtable.
+    if (GetAnimFileIndex() != -1)
+        CAnimManager::AddAnimBlockRef(GetAnimFileIndex());
 
-    RpClumpForAllAtomics(GetRpClump(), AtomicSetupLightingCB, this);
-    auto firstAtomic = GetFirstAtomic(GetRpClump());
+    RpClumpForAllAtomics(clump, AtomicSetupLightingCB, this);
+    auto firstAtomic = GetFirstAtomic(clump);
     if (firstAtomic && RpSkinGeometryGetSkin(RpAtomicGetGeometry(firstAtomic))) {
         if (bHasComplexHierarchy) {
-            RpClumpForAllAtomics(GetRpClump(), SetHierarchyForSkinAtomic, nullptr);
+            RpClumpForAllAtomics(clump, SetHierarchyForSkinAtomic, nullptr);
         }
         else {
-            auto sphere = RpMorphTargetGetBoundingSphere(RpGeometryGetMorphTarget(RpAtomicGetGeometry(firstAtomic), 0));
+            // Como el original: vuelve a pedir el primer atomic antes de escalar la esfera y otra vez antes de los pesos.
+            auto sphere = RpMorphTargetGetBoundingSphere(RpGeometryGetMorphTarget(RpAtomicGetGeometry(GetFirstAtomic(clump)), 0));
             sphere->radius *= 1.2F;
 
-            auto hierarchy = GetAnimHierarchyFromClump(GetRpClump());
-            RpClumpForAllAtomics(GetRpClump(), SetHierarchyForSkinAtomic, hierarchy);
+            auto hierarchy = GetAnimHierarchyFromClump(clump);
+            RpClumpForAllAtomics(clump, SetHierarchyForSkinAtomic, hierarchy);
 
-            auto geometry = RpAtomicGetGeometry(firstAtomic);
+            auto geometry = RpAtomicGetGeometry(GetFirstAtomic(clump));
             auto skin = RpSkinGeometryGetSkin(geometry);
             for (int32 i = 0; i < RpGeometryGetNumVertices(geometry); ++i) {
                 auto& weight = const_cast<RwMatrixWeights*>(RpSkinGetVertexBoneWeights(skin))[i]; // Average R* dev from 2003

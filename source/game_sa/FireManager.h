@@ -37,7 +37,7 @@ public:
 
     bool IsScriptFireExtinguished(int16 id);
 
-    void RemoveScriptFire(uint16 fireId);
+    void RemoveScriptFire(int16 fireId);
     void RemoveAllScriptFires();
     void ClearAllScriptFireFlags();
 

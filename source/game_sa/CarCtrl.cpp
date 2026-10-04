@@ -93,8 +93,9 @@ void CCarCtrl::Init() {
     TimeNextMadDriverChaseCreated = CGeneral::GetRandomNumberInRange(600.0f, 1200.0f);
 
     std::ranges::fill(apCarsToKeep, nullptr);
-    for (auto& group : CPopulation::m_LoadedGangCars) {
-        group.Clear();
+    // Como el original: limpia 11 grupos (0xC0EA28 hasta 0xC0EC22, paso 0x2E), uno mas que m_LoadedGangCars
+    for (auto i = 0; i < 11; i++) {
+        CPopulation::m_LoadedGangCars.data()[i].Clear();
     }
     CPopulation::m_AppropriateLoadedCars.Clear();
     CPopulation::m_InAppropriateLoadedCars.Clear();
@@ -118,8 +119,9 @@ void CCarCtrl::ReInit() {
     CountDownToCarsAtStart = 2;
 
     std::ranges::fill(apCarsToKeep, nullptr);
-    for (auto& group : CPopulation::m_LoadedGangCars) {
-        group.Clear();
+    // Como el original: limpia 11 grupos (0xC0EA28 hasta 0xC0EC22, paso 0x2E), uno mas que m_LoadedGangCars
+    for (auto i = 0; i < 11; i++) {
+        CPopulation::m_LoadedGangCars.data()[i].Clear();
     }
     CPopulation::m_AppropriateLoadedCars.Clear();
     CPopulation::m_InAppropriateLoadedCars.Clear();
@@ -133,13 +135,16 @@ int32 CCarCtrl::ChooseBoatModel() {
 
 // 0x421900
 int32 CCarCtrl::ChooseCarModelToLoad(int32 groupID) {
-    const auto numCarsInGroup = CPopulation::m_nNumCarsInGroup[groupID];
-    if (numCarsInGroup > 0) {
-        for (auto i = 0; i < 16; i++) { // 16 tries
-            const auto model = CPopulation::m_CarGroups[groupID][CGeneral::GetRandomNumberInRange(numCarsInGroup)];
-            if (!CStreaming::IsModelLoaded(model)) {
-                return model;
-            }
+    // Como el original: el numero de coches se lee con signo (movsx) y no se comprueba que sea > 0;
+    // indice = _ftol2(n * (rand * 1/32768)) y el modelo se lee sin signo (movzx).
+    const auto numCarsInGroup = static_cast<int32>(static_cast<int16>(CPopulation::m_nNumCarsInGroup.data()[groupID]));
+    const auto* groups = reinterpret_cast<const uint16*>(&CPopulation::m_CarGroups);
+    for (auto i = 0; i < 16; i++) { // 16 tries
+        const float r = static_cast<float>(CGeneral::GetRandomNumber() & 0xFFFF) * std::bit_cast<float>(0x38000000u); // 0x858B14
+        const auto idx = static_cast<int32>(static_cast<float>(numCarsInGroup) * r);
+        const auto model = static_cast<int32>(groups[groupID * 23 + idx]);
+        if (!CStreaming::IsModelLoaded(model)) {
+            return model;
         }
     }
     return -1;
@@ -155,22 +160,22 @@ int32 CCarCtrl::ChooseModel(int32* arg1) {
 }
 
 int32 CCarCtrl::ChoosePoliceCarModel(uint32 ignoreLvpd1Model) {
-    CWanted* playerWanted = FindPlayerWanted();
-    if (playerWanted->AreSwatRequired()
+    // Como el original: FindPlayerWanted(-1) se llama antes de cada consulta
+    if (FindPlayerWanted(-1)->AreSwatRequired()
         && CStreaming::IsModelLoaded(MODEL_ENFORCER)
         && CStreaming::IsModelLoaded(MODEL_SWAT)
     ) {
-        if (CGeneral::GetRandomNumberInRange(0, 3) == 2)
+        if (CGeneral::GetRandomIntInRange(0, 3) == 2) // Como el original: 0x407180
             return MODEL_ENFORCER;
     }
     else
     {
-        if (playerWanted->AreFbiRequired()
+        if (FindPlayerWanted(-1)->AreFbiRequired()
             && CStreaming::IsModelLoaded(MODEL_FBIRANCH)
             && CStreaming::IsModelLoaded(MODEL_FBI))
             return MODEL_FBIRANCH;
 
-        if (playerWanted->AreArmyRequired()
+        if (FindPlayerWanted(-1)->AreArmyRequired()
             && CStreaming::IsModelLoaded(MODEL_RHINO)
             && CStreaming::IsModelLoaded(MODEL_BARRACKS)
             && CStreaming::IsModelLoaded(MODEL_ARMY))
@@ -389,7 +394,8 @@ void CCarCtrl::GenerateRandomCars() {
         CountDownToCarsAtStart = 2;
         return;
     }
-    if (CGangWars::DontCreateCivilians() || !CGame::CanSeeOutSideFromCurrArea()) {
+    // Como el original: solo en el mundo exterior (currArea == 0)
+    if (CGangWars::DontCreateCivilians() || CGame::currArea != AREA_CODE_NORMAL_WORLD) {
         return;
     }
 
@@ -400,15 +406,24 @@ void CCarCtrl::GenerateRandomCars() {
 
     if (NumRandomCars < 45) {
         if (CountDownToCarsAtStart) {
-            CountDownToCarsAtStart--;
-            for (auto i = 100; i --> 0;) {
-                GenerateOneRandomCar();
+            // Como el original: los 100 coches solo se generan cuando la cuenta atras llega a 0
+            if (--CountDownToCarsAtStart == 0) {
+                for (auto i = 100; i --> 0;) {
+                    GenerateOneRandomCar();
+                }
+                CTheCarGenerators::GenerateEvenIfPlayerIsCloseCounter = 20;
             }
-            CTheCarGenerators::GenerateEvenIfPlayerIsCloseCounter = 20;
         } else {
             GenerateOneRandomCar();
             GenerateOneRandomCar();
         }
+    }
+
+    // Como el original: trenes, aviones y servicios de emergencia (cada 4096 ms)
+    CTrain::DoTrainGenerationAndRemoval();
+    CPlane::DoPlaneGenerationAndRemoval();
+    if ((CTimer::GetTimeInMS() ^ CTimer::GetPreviousTimeInMS()) & 0xFFFFF000) {
+        GenerateEmergencyServicesCar();
     }
 
 }
@@ -554,7 +569,10 @@ void CCarCtrl::JoinCarWithRoadAccordingToMission(CVehicle* vehicle) {
     case MISSION_ESCORT_RIGHT_FARAWAY:
     case MISSION_ESCORT_REAR_FARAWAY:
     case MISSION_ESCORT_FRONT_FARAWAY: {
-        JoinCarWithRoadSystemGotoCoors(vehicle, vehicle->m_autoPilot.m_TargetEntity->GetPosition(), true, vehicle->IsSubBoat());
+        // Como el original: sin entidad objetivo no hace nada
+        if (vehicle->m_autoPilot.m_TargetEntity) {
+            JoinCarWithRoadSystemGotoCoors(vehicle, vehicle->m_autoPilot.m_TargetEntity->GetPosition(), true, vehicle->IsSubBoat());
+        }
         break;
     }
     }
@@ -579,7 +597,7 @@ bool CCarCtrl::PickNextNodeAccordingStrategy(CVehicle* vehicle) {
 void CCarCtrl::InitSequence(int32 numSequenceElements) {
     SequenceElements = numSequenceElements;
     SequenceRandomOffset = CGeneral::GetRandomNumber() % numSequenceElements;
-    bSequenceOtherWay = (CGeneral::GetRandomNumber() / 4) % 2;
+    bSequenceOtherWay = (CGeneral::GetRandomNumber() >> 4) & 1; // Como el original: shr al,4 / and al,1 (bit 4)
 }
 
 // 0x42DE80
@@ -605,21 +623,25 @@ void CCarCtrl::PossiblyFireHSMissile(CVehicle* entityLauncher, CEntity* targetEn
     if (CTimer::GetTimeInMS() / 2000u == CTimer::GetPreviousTimeInMS() / 2000u)
         return;
 
-    const CVector launcherPos = entityLauncher->GetPosition();
-    const CVector targetPos = targetEntity->GetPosition();
-    CVector dir = targetPos - launcherPos;
-    const float dist = dir.Magnitude();
+    const CVector& launcherPos = entityLauncher->GetPosition();
+    const CVector& targetPos = targetEntity->GetPosition();
+    CVector dir;
+    dir.z = targetPos.z - launcherPos.z;
+    dir.y = targetPos.y - launcherPos.y;
+    dir.x = targetPos.x - launcherPos.x;
+    const float dist = std::sqrt(dir.x * dir.x + dir.y * dir.y + dir.z * dir.z);
     if (dist < 160.0f && dist > 30.0f) {
-        CMatrix launcherMat = entityLauncher->GetMatrix();
-        CVector dirNormalized = dir;
+        // Como el original: usa m_matrix directamente, normaliza dir (0x59C910) y el producto escalar es (z + y) + x
+        const CMatrix& launcherMat = *entityLauncher->m_matrix;
         dir.Normalise();
-        if (DotProduct(launcherMat.GetForward(), dirNormalized) > 0.8f) {
+        const float dot = dir.z * launcherMat.GetForward().z + dir.y * launcherMat.GetForward().y + dir.x * launcherMat.GetForward().x;
+        if (dot > 0.8f) {
             CProjectileInfo::AddProjectile(
                 entityLauncher,
                 eWeaponType::WEAPON_ROCKET_HS,
-                launcherPos + launcherMat.GetForward() * 4.0f - launcherMat.GetUp() * 3.0f,
+                entityLauncher->GetPosition() + launcherMat.GetForward() * 4.0f - launcherMat.GetUp() * 3.0f,
                 1.0f,
-                &entityLauncher->GetMatrix().GetForward(),
+                &launcherMat.GetForward(),
                 targetEntity
             );
         }
@@ -667,10 +689,17 @@ void CCarCtrl::RemoveCarsIfThePoolGetsFull() {
         return;
 
     // Find closest deletable vehicle
-    const CVector camPos = TheCamera.GetPosition();
-    float fClosestDist = std::numeric_limits<float>::max();
+    // Como el original: recorre el pool de atras hacia delante, empieza con 10000000.0 y la distancia es (dz^2 + dx^2) + dy^2
+    const CVector& camPos = TheCamera.GetPosition();
+    float fClosestDist = 10000000.0f;
     CVehicle* closestVeh = nullptr;
-    for (auto& veh : GetVehiclePool()->GetAllValid()) {
+    auto* const pool = GetVehiclePool();
+    for (auto i = pool->GetSize(); i-- > 0;) {
+        auto* const pveh = pool->GetAt(i);
+        if (!pveh) {
+            continue;
+        }
+        auto& veh = *pveh;
         if (IsThisVehicleInteresting(&veh)) {
             continue;
         }
@@ -684,8 +713,12 @@ void CCarCtrl::RemoveCarsIfThePoolGetsFull() {
             continue;
         }
 
-        const float fCamVehDist = (camPos - veh.GetPosition()).Magnitude();
-        if (fClosestDist > fCamVehDist) {
+        const CVector& vehPos = veh.GetPosition();
+        const float dx = camPos.x - vehPos.x;
+        const float dy = camPos.y - vehPos.y;
+        const float dz = camPos.z - vehPos.z;
+        const float fCamVehDist = std::sqrt(dz * dz + dx * dx + dy * dy);
+        if (fCamVehDist < fClosestDist) {
             fClosestDist = fCamVehDist;
             closestVeh   = &veh;
         }
@@ -700,24 +733,39 @@ void CCarCtrl::RemoveCarsIfThePoolGetsFull() {
 void CCarCtrl::RemoveDistantCars() {
     ZoneScoped;
 
+    // Como el original: el pool se recorre de atras hacia delante
+    auto* const pool = GetVehiclePool();
+
     // FIXBUGS: First remove vehicles that can be removed
     if (notsa::bugfixes::CCarCtrl_RemoveDistantCars_UseAfterFree) {
-        for (auto& veh : GetVehiclePool()->GetAllValid()) {
-            PossiblyRemoveVehicle(&veh);
+        for (auto i = pool->GetSize(); i-- > 0;) {
+            if (auto* const veh = pool->GetAt(i)) {
+                PossiblyRemoveVehicle(veh);
+            }
         }
     }
 
     //... only then process them, this way we don't do use-after-free
     // only other solution would be `PossiblyRemoveVehicle` returning a `bool`
     // to indicate whenever the vehicle was deleted or not.
-    for (auto& veh : GetVehiclePool()->GetAllValid()) {
+    for (auto i = pool->GetSize(); i-- > 0;) {
+        auto* const pveh = pool->GetAt(i);
+        if (!pveh) {
+            continue;
+        }
+        auto& veh = *pveh;
         if (!notsa::bugfixes::CCarCtrl_RemoveDistantCars_UseAfterFree) {
             PossiblyRemoveVehicle(&veh); // This may or may not invalidate `veh`
         }
         if (!veh.vehicleFlags.bCreateRoadBlockPeds) {
             continue;
         }
-        if (DistanceBetweenPoints(FindPlayerCentreOfWorld(), veh.GetPosition()) >= 54.5f) {
+        // Como el original: centro del jugador con CWorld::PlayerInFocus y distancia 2D sqrt(dy^2 + dx^2)
+        const CVector centre = FindPlayerCentreOfWorld(static_cast<int32>(CWorld::PlayerInFocus));
+        const CVector& vehPos = veh.GetPosition();
+        const float dy = vehPos.y - centre.y;
+        const float dx = vehPos.x - centre.x;
+        if (!(std::sqrt(dy * dy + dx * dx) < 54.5f)) {
             continue;
         }
         CRoadBlocks::GenerateRoadBlockPedsForCar(
@@ -733,8 +781,7 @@ void CCarCtrl::RemoveDistantCars() {
 void CCarCtrl::RemoveFromInterestingVehicleList(CVehicle* vehicle) {
     for (auto& car : apCarsToKeep) {
         if (car == vehicle) {
-            car = nullptr;
-            break;
+            car = nullptr; // Como el original: sin break, limpia todas las coincidencias
         }
     }
 }
@@ -774,17 +821,30 @@ void CCarCtrl::SlowCarDownForCarsSectorList(PtrListType& ptrList, CVehicle* vehi
 
 // 0x426220
 void CCarCtrl::SlowCarDownForObject(CEntity* entity, CVehicle* vehicle, float* arg3, float arg4) {
-    const CVector entityDir = entity->GetPosition() - vehicle->GetPosition();
-    const float entityHeading = DotProduct(entityDir, vehicle->GetMatrix().GetForward());
-    if (entityHeading > 0.0f && entityHeading < 20.0f) {
-        if (entity->GetColModel()->GetBoundRadius() + vehicle->GetColModel()->GetBoundingBox().m_vecMax.x > fabs(DotProduct(entityDir, vehicle->GetMatrix().GetRight()))) {
-            if (entityHeading >= 7.0f) {
-                *arg3 = std::min(*arg3, (1.0f - (entityHeading - 7.0f) / 13.0f)) * arg4; // Original code multiplies by 0.07692308, which is the recp. of 13
-            } else {
-                *arg3 = 0.0f;
-            }
-        }
+    // Como el original: m_matrix del vehiculo sin comprobar, productos escalares (z + y) + x, col models del model info
+    // (sin col model especial) y *arg3 = min(*arg3, (1 - (h - 7) * 0.07692308) * arg4).
+    const CVector& entityPos = entity->GetPosition();
+    const CVector& vehiclePos = vehicle->GetPosition();
+    const float dx = entityPos.x - vehiclePos.x;
+    const float dy = entityPos.y - vehiclePos.y;
+    const float dz = entityPos.z - vehiclePos.z;
+    const CMatrix& mat = *vehicle->m_matrix;
+    const float entityHeading = dz * mat.GetForward().z + dy * mat.GetForward().y + dx * mat.GetForward().x;
+    if (!(entityHeading > 0.0f) || !(entityHeading < 20.0f)) {
+        return;
     }
+    const float side = std::fabs(dz * mat.GetRight().z + dy * mat.GetRight().y + dx * mat.GetRight().x);
+    const float radius = CModelInfo::GetModelInfo(static_cast<int16>(entity->m_nModelIndex))->GetColModel()->GetBoundRadius()
+                       + CModelInfo::GetModelInfo(static_cast<int16>(vehicle->m_nModelIndex))->GetColModel()->GetBoundingBox().m_vecMax.x;
+    if (!(radius > side)) {
+        return;
+    }
+    if (entityHeading < 7.0f) {
+        *arg3 = 0.0f;
+        return;
+    }
+    const float t = (1.0f - (entityHeading - 7.0f) * std::bit_cast<float>(0x3D9D89D9u)) * arg4; // 0x858FA4
+    *arg3 = *arg3 < t ? *arg3 : t;
 }
 
 // 0x42D4F0
@@ -817,13 +877,24 @@ void CCarCtrl::SlowCarOnRailsDownForTrafficAndLights(CVehicle* vehicle) {
         }
     }
 
-    if (autoPilot.m_fMaxTrafficSpeed >= autoPilot.m_speed) {
-        autoPilot.ModifySpeed(std::min(autoPilot.m_fMaxTrafficSpeed, CTimer::GetTimeStep() * 0.05f + autoPilot.m_speed));
-    } else if (autoPilot.m_speed >= 0.1f) {
-        autoPilot.ModifySpeed(std::max(autoPilot.m_fMaxTrafficSpeed, autoPilot.m_speed - CTimer::GetTimeStep() * 0.7f));
-    } else if (autoPilot.m_speed != 0.0f) {
-        autoPilot.ModifySpeed(0.0f);
+    // Como el original: con velocidad maxima == velocidad no se llama a ModifySpeed; comparaciones NaN como el x87
+    const float maxSpeed = autoPilot.m_fMaxTrafficSpeed;
+    if (!(maxSpeed < autoPilot.m_speed)) {
+        if (maxSpeed > autoPilot.m_speed) {
+            const float newSpeed = CTimer::GetTimeStep() * 0.05f + autoPilot.m_speed;
+            autoPilot.ModifySpeed(newSpeed < maxSpeed ? newSpeed : maxSpeed);
+        }
+        return;
     }
+    if (autoPilot.m_speed == 0.0f) {
+        return;
+    }
+    if (autoPilot.m_speed < 0.1f) {
+        autoPilot.ModifySpeed(0.0f);
+        return;
+    }
+    const float newSpeed = autoPilot.m_speed - CTimer::GetTimeStep() * 0.7f;
+    autoPilot.ModifySpeed(newSpeed > maxSpeed ? newSpeed : maxSpeed);
 }
 
 // 0x428DE0
@@ -1031,5 +1102,12 @@ void CCarCtrl::WeaveThroughPedsSectorList(PtrListType& ptrList, CVehicle* vehicl
 
 // 0x427FE0
 float CCarCtrl::FindMaxSteerAngle(CVehicle* veh) {
-    return std::clamp(0.9f - veh->GetMoveSpeed().Magnitude(), 0.2f, 0.7f);
+    // Como el original: si |v| > 0.7 devuelve 0.2; si no, min(0.9 - |v|, 0.7) (sin limite inferior)
+    const CVector& v = veh->GetMoveSpeed();
+    const float speed = std::sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+    if (speed > 0.7f) {
+        return 0.2f;
+    }
+    const float angle = 0.9f - speed;
+    return 0.7f < angle ? 0.7f : angle;
 }

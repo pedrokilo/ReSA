@@ -38,7 +38,8 @@ public:
     // Returns true if point lies within zone
     static bool PointLiesWithinZone(const CVector* point, CZone* zone);
     // Returns eLevelName from position
-    static eLevelName GetLevelFromPosition(const CVector& point);
+    // Como el original: devuelve el nivel extendido a 32 bits (movzx), el EXE lo guarda como dword
+    static uint32 GetLevelFromPosition(const CVector& point);
     // Returns pointer to zone by a point
     static CZone* FindSmallestZoneForPosition(const CVector& point, bool FindOnlyZonesType0);
     static CZoneInfo* GetZoneInfo(const CVector& point, CZone** outZone);
@@ -59,8 +60,8 @@ public:
     static void SetZoneRadarColours(int16 index, char flag, uint8 red, uint8 green, uint8 blue);
 
     static void Update();
-    static void Save();
-    static void Load();
+    static bool Save();
+    static bool Load();
     static void PostZoneCreation();
 
     // NOTSA

@@ -6,16 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CAEWeaponAudioEntity
- * Reconstrucción: COMPLETA — 20/20 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 19/19 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 2.
- * Validación registrada: 18/20 entradas.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 19/19 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   Constructor | 0x005DE990 | S
- *   Destructor | 0x00507560 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -64,16 +61,10 @@ void CAEWeaponAudioEntity::InjectHooks() {
     RH_ScopedVirtualClass(CAEWeaponAudioEntity, 0x862E68, 1);
     RH_ScopedCategory("Audio/Entities");
 
-    // Bloqueados y deshabilitados (ver reversing/CAEWeaponAudioEntity/README.md y reversing/Audio20/README.md):
-    //  - 0x5DE990 es el constructor de CAEPedWeaponAudioEntity (vtable 0x86C2AC,
-    //    inicializa también +0xA0/+0xA4), no el de esta clase.
-    //  - 0x507560 es el constructor de CAEWeaponAudioEntity (vtable 0x862E68), no un
-    //    destructor; esta clase no tiene destructor como función separada en el EXE.
-    // Ninguna de las dos direcciones tiene llamadores en el EXE (ni call/jmp ni referencias
-    // absolutas en .text). Redirigirlas a Constructor()/Destructor() cambiaría su semántica:
-    // se mantiene el original.
-    RH_ScopedInstall(Constructor, 0x5DE990, { .enabled = false, .locked = true });
-    RH_ScopedInstall(Destructor, 0x507560, { .enabled = false, .locked = true });
+    // 0x507560 es el constructor de esta clase (vtable 0x862E68). 0x5DE990 es el de
+    // CAEPedWeaponAudioEntity (se registra allí). El EXE no tiene destructor propio de esta
+    // clase (está en línea), así que no se registra ninguno.
+    RH_ScopedInstall(Constructor, 0x507560);
     RH_ScopedInstall(Initialise, 0x503450);
     RH_ScopedInstall(Reset, 0x503490);
     RH_ScopedInstall(Terminate, 0x503480);
@@ -1054,12 +1045,21 @@ void CAEWeaponAudioEntity::Clear() {
     m_LastGunFireTimeMs             = 0;
 }
 
-CAEWeaponAudioEntity* CAEWeaponAudioEntity::Constructor() {
-    CAEWeaponAudioEntity::CAEWeaponAudioEntity();
-    return this;
+// 0x507560
+CAEWeaponAudioEntity::CAEWeaponAudioEntity() {
+    // Como el original: solo pone a cero los campos de Clear(); m_MiniGunState y m_ChainsawState
+    // quedan sin escribir. (La parte CAEAudioEntity de la DLL sigue inicializando m_Entity y todo
+    // m_tempSound; el EXE solo escribe m_tempSound.m_PhysicalEntity: ver Constructor().)
+    Clear();
 }
 
-CAEWeaponAudioEntity* CAEWeaponAudioEntity::Destructor() {
-    CAEWeaponAudioEntity::~CAEWeaponAudioEntity();
+// 0x507560: envoltorio del hook. Construye en el sitio exactamente como el EXE, sin pasar por los
+// inicializadores de CAEAudioEntity/CAESound: m_tempSound.m_PhysicalEntity (+0x10) = nullptr, la
+// vtable del EXE (0x862E68) y los campos de Clear(). El resto de bytes no se tocan.
+CAEWeaponAudioEntity* CAEWeaponAudioEntity::Constructor() {
+    auto* const self = reinterpret_cast<uint8*>(this);
+    *reinterpret_cast<uint32*>(self + 0x10) = 0;
+    *reinterpret_cast<uintptr_t*>(self) = 0x862E68;
+    Clear();
     return this;
 }

@@ -51,7 +51,7 @@ class NOTSA_EXPORT_VTABLE CAEWeaponAudioEntity : public CAEAudioEntity {
     };
 
 public:
-    CAEWeaponAudioEntity() = default;
+    CAEWeaponAudioEntity();
     ~CAEWeaponAudioEntity() = default;
 
     void Initialise();
@@ -96,25 +96,26 @@ public:
     void Clear();
 
 private:
-    bool           m_IsMiniGunSpinActive{};
-    bool           m_IsMiniGunFireActive{};
-    uint8          m_LastWeaponPlaneFrequencyIndex{};
-    eMiniGunState  m_MiniGunState{eMiniGunState::SPINNING};
-    eChainsawState m_ChainsawState{eChainsawState::IDLE};
-    uint32         m_LastFlameThrowerFireTimeMs{};
-    uint32         m_LastSprayCanFireTimeMs{};
-    uint32         m_LastFireExtFireTimeMs{};
-    uint32         m_LastMiniGunFireTimeMs{};
-    uint32         m_LastChainsawEventTimeMs{};
-    uint32         m_LastGunFireTimeMs{};
-    CAESound*      m_FlameThrowerIdleGasLoopSound{};
+    // Como el original: sin inicializadores; el constructor (0x507560) solo pone a cero los
+    // campos de Clear() y deja m_MiniGunState/m_ChainsawState sin escribir (los fija Initialise).
+    bool           m_IsMiniGunSpinActive;
+    bool           m_IsMiniGunFireActive;
+    uint8          m_LastWeaponPlaneFrequencyIndex;
+    eMiniGunState  m_MiniGunState;
+    eChainsawState m_ChainsawState;
+    uint32         m_LastFlameThrowerFireTimeMs;
+    uint32         m_LastSprayCanFireTimeMs;
+    uint32         m_LastFireExtFireTimeMs;
+    uint32         m_LastMiniGunFireTimeMs;
+    uint32         m_LastChainsawEventTimeMs;
+    uint32         m_LastGunFireTimeMs;
+    CAESound*      m_FlameThrowerIdleGasLoopSound;
 
 private: // Hook stuff
     friend void InjectHooksMain();
     static void InjectHooks();
 
     CAEWeaponAudioEntity* Constructor();
-    CAEWeaponAudioEntity* Destructor();
 
 };
 VALIDATE_SIZE(CAEWeaponAudioEntity, 0xA0);

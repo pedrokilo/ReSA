@@ -71,7 +71,8 @@ public:
 
     static constexpr int32 NUM_WAKE_GEN_BOATS = 4;
 
-    static inline std::array<CBoat*, NUM_WAKE_GEN_BOATS> apFrameWakeGeneratingBoats{}; // 0xC27994
+    // Como el original: la lista del EXE (0xC27994), compartida con el código del EXE que la lee
+    static inline auto& apFrameWakeGeneratingBoats = StaticRef<std::array<CBoat*, NUM_WAKE_GEN_BOATS>>(0xC27994);
     static constexpr float MAX_WAKE_LENGTH = 50.0f; // 0x8D3938, unused
     static constexpr float MIN_WAKE_INTERVAL = 2.0f; // 0x8D393C
     static constexpr float WAKE_LIFETIME = 150.0f; // 0x8D3940
@@ -118,7 +119,7 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
-    void inline ProcessBoatNodeRendering(eBoatNodes eNode, float fRotation, RwUInt8 ucAlpha);
+    void inline ProcessBoatNodeRendering(eBoatNodes eNode, float fRotation, int32 alpha);
     void RenderWakePoints();
 
 private: // Wrappers for hooks

@@ -78,40 +78,52 @@ struct CZoneDef {
     int16 m_vec2X, m_vec2Y;
     int16 m_minZ, m_maxZ;
 
+    // Como el original: cada valor se trunca con _ftol2 (64 bits) y se guarda la palabra baja
     void Init(
         const CVector& pos,
         float vec1X, float vec1Y, float minZ,
         float vec2X, float vec2Y, float maxZ
     ) {
-        m_cornerX = int16(pos.x - vec1X - vec2X);
-        m_cornerY = int16(pos.y - vec1Y - vec2Y);
+        m_cornerX = (int16)(int64)(pos.x - vec1X - vec2X);
+        m_cornerY = (int16)(int64)(pos.y - vec1Y - vec2Y);
 
-        m_vec1X = int16(vec1X + vec1X);
-        m_vec1Y = int16(vec1Y + vec1Y);
+        m_vec1X = (int16)(int64)(vec1X + vec1X);
+        m_vec1Y = (int16)(int64)(vec1Y + vec1Y);
 
-        m_vec2X = int16(vec2X + vec2X);
-        m_vec2Y = int16(vec2Y + vec2Y);
+        m_minZ = (int16)(int64)(minZ);
 
-        m_minZ = int16(minZ);
-        m_maxZ = int16(maxZ);
+        m_vec2X = (int16)(int64)(vec2X + vec2X);
+        m_vec2Y = (int16)(int64)(vec2Y + vec2Y);
+
+        m_maxZ = (int16)(int64)(maxZ);
     }
 
     // 0x72D850
+    // Como el original: NaN falla todas las pruebas (fcomp + test ah,5/41h/1), las longitudes al cuadrado
+    // son enteros de 32 bits (imul) y se comparan exactos (fild) con el producto escalar en float.
     [[nodiscard]] bool IsPointWithin(const CVector& point) const {
-        if ((float)m_minZ >= point.z || (float)m_maxZ <= point.z) {
+        if (!((float)m_minZ < point.z) || !((float)m_maxZ > point.z)) {
             return false;
         }
 
-        float dx = point.x - (float)m_cornerX;
-        float dy = point.y - (float)m_cornerY;
+        const float dx = point.x - (float)m_cornerX;
+        const float dy = point.y - (float)m_cornerY;
 
-        float sqMag0 = (float)m_vec1X * dx + (float)m_vec1Y * dy;
-        if (sqMag0 < 0.0f || sqMag0 > (sq(m_vec1Y) + sq(m_vec1X))) {
+        const float dot1 = (float)m_vec1X * dx + (float)m_vec1Y * dy;
+        if (!(dot1 >= 0.0f)) {
+            return false;
+        }
+        const int32 len1 = (int32)((uint32)(m_vec1X * m_vec1X) + (uint32)(m_vec1Y * m_vec1Y));
+        if (!((double)dot1 <= (double)len1)) {
             return false;
         }
 
-        float sqMag1 = (float)m_vec2X * dx + (float)m_vec2Y * dy;
-        if (sqMag1 < 0.0f || sqMag1 > (sq(m_vec2Y) + sq(m_vec2X))) {
+        const float dot2 = (float)m_vec2X * dx + (float)m_vec2Y * dy;
+        if (!(dot2 >= 0.0f)) {
+            return false;
+        }
+        const int32 len2 = (int32)((uint32)(m_vec2X * m_vec2X) + (uint32)(m_vec2Y * m_vec2Y));
+        if (!((double)dot2 <= (double)len2)) {
             return false;
         }
 
@@ -169,8 +181,9 @@ public:
     static void Init();
     static void Update();
 
-    static eZoneAttributes FindAttributesForCoors(CVector pos);
-    static eZoneAttributes FindTunnelAttributesForCoors(CVector pos);
+    // Como el original: devuelven el OR de los flags extendidos con signo (movsx) como entero de 32 bits
+    static int32 FindAttributesForCoors(CVector pos);
+    static int32 FindTunnelAttributesForCoors(CVector pos);
     static CMirrorAttributeZone* FindMirrorAttributesForCoors(CVector pos);
     static CAttributeZone* FindZoneWithStairsAttributeForPlayer();
     static void AddCullZone(const CVector& pos, float vec1X, float vec1Y, float minZ, float vec2X, float vec2Y, float maxZ, uint16 flags);

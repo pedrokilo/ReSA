@@ -19,5 +19,8 @@ public:
 private:
     bool  m_bInitialised;
     CPed* m_Ped;
+
+private: // Hook stuff
+    CAEPedWeaponAudioEntity* Constructor();
 };
 VALIDATE_SIZE(CAEPedWeaponAudioEntity, 0xA8);

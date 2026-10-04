@@ -868,5 +868,30 @@
     "id": "fixbugs",
     "name": "FIX_BUGS quitados en funciones validadas",
     "runner": "FixBugs/run_local.py"
+  },
+  {
+    "id": "weapaudio",
+    "name": "Constructor de CAEWeaponAudioEntity",
+    "runner": "WeapAudio/run_local.py"
+  },
+  {
+    "id": "buoy9",
+    "name": "Flotabilidad cBuoyancy (lista de 9)",
+    "runner": "Buoy9/run_local.py"
+  },
+  {
+    "id": "garages21",
+    "name": "Garajes (lista de 21)",
+    "runner": "Garages21/run_local.py"
+  },
+  {
+    "id": "zones21",
+    "name": "Zonas y zonas de culling (lista de 21)",
+    "runner": "Zones21/run_local.py"
+  },
+  {
+    "id": "colstore23",
+    "name": "Almacén de colisiones (lista de 23)",
+    "runner": "ColStore23/run_local.py"
   }
 ]

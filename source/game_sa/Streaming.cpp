@@ -1300,7 +1300,7 @@ void CStreaming::LoadScene(const CVector& point) {
                 }
             }
         }
-        StreamCopModels(CTheZones::GetLevelFromPosition(point));
+        StreamCopModels(static_cast<eLevelName>(CTheZones::GetLevelFromPosition(point)));
     }
     LoadAllRequestedModels(false);
     InstanceLoadedModels(point);

@@ -59,7 +59,7 @@ public:
     static inline auto& m_bVolumetricCloudHeightSwitch = StaticRef<int8>(0x8D538C);
     static inline auto& m_fVolumetricCloudWindMoveFactor = StaticRef<float>(0x8D5390);
     static inline auto& m_fVolumetricCloudMaxDistance = StaticRef<float>(0xC6AA58);
-    static inline auto& m_VolumetricCloudsUsedNum = StaticRef<uint32>(0xC6AA5C);
+    static inline auto& m_VolumetricCloudsUsedNum = StaticRef<int32>(0xC6AA5C); // Como el original: dword con signo (jle/jl)
     static inline auto& ms_cameraRoll = StaticRef<float>(0xC6AA64);
     static inline auto& IndividualRotation = StaticRef<int32>(0xC6AA6C);
     static inline auto& CloudRotation = StaticRef<float>(0xC6AA70);
@@ -88,11 +88,6 @@ public:
     static void MovingFog_Delete(int32 fogSlotIndex);
     static void MovingFog_Update();
     static void MovingFogRender();
-    static void Render_MaybeRenderMoon(float colorBalance);
-    static void Render_MaybeRenderRockstarLogo(float colorBalance);
-    static void Render_RenderLowClouds(float colorBalance);
-    static void Render_MaybeRenderRainbows();
-    static void Render_MaybeRenderStreaks();
     static float MovingFog_GetFXIntensity();
     static CVector MovingFog_GetWind();
     static int32 MovingFog_GetFirstFreeSlot();

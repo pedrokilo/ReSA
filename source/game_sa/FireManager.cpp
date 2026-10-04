@@ -106,7 +106,7 @@ uint32 CFireManager::GetNumOfFires() {
 
 // 0x538F40
 CFire* CFireManager::FindNearestFire(const CVector& point, bool bCheckIsBeingExtinguished, bool bCheckWasCreatedByScript) {
-    float fNearestDist2DSq = std::numeric_limits<float>::max(); // Izzotop :thinking
+    float fNearestDist2DSq = std::numeric_limits<float>::max(); // 0x863A3C
     CFire* nearestFire{};
     for (CFire& fire : m_aFires) {
         if (!fire.IsActive())
@@ -121,7 +121,8 @@ CFire* CFireManager::FindNearestFire(const CVector& point, bool bCheckIsBeingExt
         if (fire.GetEntityOnFire() && fire.GetEntityOnFire()->GetIsTypePed())
             continue;
 
-        const float fDist2DSq = (fire.GetPosition() - point).SquaredMagnitude2D();
+        const float dx = fire.m_Position.x - point.x, dy = fire.m_Position.y - point.y;
+        const float fDist2DSq = dx * dx + dy * dy;
         if (fDist2DSq < fNearestDist2DSq) {
             fNearestDist2DSq = fDist2DSq;
             nearestFire = &fire;
@@ -144,13 +145,20 @@ bool CFireManager::PlentyFiresAvailable() {
     return false;
 }
 
+// Como el original: distancia al cuadrado (y² + x²) + z², con punto - fuego.
+static float FireDistSq3D(const CVector& point, const CVector& firePos) {
+    const float dz = point.z - firePos.z, dy = point.y - firePos.y, dx = point.x - firePos.x;
+    return dy * dy + dx * dx + dz * dz;
+}
+
 // 0x539450
 void CFireManager::ExtinguishPoint(CVector point, float fRadius) {
     for (CFire& fire : m_aFires) {
         if (!fire.IsActive())
             continue;
 
-        if ((fire.GetPosition() - point).SquaredMagnitude() > fRadius * fRadius)
+        // Como el original: solo si r² > d² estrictamente (la igualdad y NaN no apagan)
+        if (!(fRadius * fRadius > FireDistSq3D(point, fire.m_Position)))
             continue;
 
         fire.SetIsScript(false);
@@ -165,7 +173,7 @@ bool CFireManager::ExtinguishPointWithWater(CVector point, float fRadius, float 
         if (!fire.IsActive())
             continue;
 
-        if ((fire.GetPosition() - point).SquaredMagnitude() > fRadius * fRadius)
+        if (!(fRadius * fRadius > FireDistSq3D(point, fire.m_Position)))
             continue;
 
         fire.ExtinguishWithWater(fWaterStrength);
@@ -176,12 +184,13 @@ bool CFireManager::ExtinguishPointWithWater(CVector point, float fRadius, float 
 
 // 0x5396E0
 bool CFireManager::IsScriptFireExtinguished(int16 id) {
-    return !Get(id).IsActive();
+    // Como el original: acceso directo sin comprobar (movsx del índice)
+    return !m_aFires.data()[id].IsActive();
 }
 
 // 0x539700
-void CFireManager::RemoveScriptFire(uint16_t fireID) {
-    CFire& fire = Get(fireID);
+void CFireManager::RemoveScriptFire(int16 fireID) {
+    CFire& fire = m_aFires.data()[fireID];
     if (fire.IsScript()) {
         fire.SetIsScript(false);
         fire.Extinguish();
@@ -207,12 +216,12 @@ void CFireManager::ClearAllScriptFireFlags() {
 
 // 0x5397B0
 void CFireManager::SetScriptFireAudio(int16 fireID, bool makesNoise) {
-    Get(fireID).SetMakesNoise(makesNoise);
+    m_aFires.data()[fireID].SetMakesNoise(makesNoise);
 }
 
 // 0x5397E0
 const CVector& CFireManager::GetScriptFireCoords(int16 fireID) {
-    return Get(fireID).GetPosition();
+    return m_aFires.data()[fireID].m_Position;
 }
 
 // 0x5397F0
@@ -220,7 +229,8 @@ uint32 CFireManager::GetNumFiresInRange(const CVector& point, float fRadius) {
     uint32 c = 0;
     for (CFire& fire : m_aFires) {
         if (fire.IsActive() && !fire.IsScript()) {
-            if ((fire.GetPosition() - point).Magnitude2D() <= fRadius) {
+            const float dx = fire.m_Position.x - point.x, dy = fire.m_Position.y - point.y;
+            if (std::sqrt(dy * dy + dx * dx) <= fRadius) {
                 c++;
             }
         }
@@ -230,14 +240,12 @@ uint32 CFireManager::GetNumFiresInRange(const CVector& point, float fRadius) {
 
 // 0x539860
 uint32 CFireManager::GetNumFiresInArea(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) {
-    CBoundingBox boundingBox{
-        {minX, minY, minZ},
-        {maxX, maxY, maxZ}
-    };
     uint32 c = 0;
     for (CFire& fire : m_aFires) {
         if (fire.IsActive() && !fire.IsScript()) {
-            if (boundingBox.IsPointWithin(fire.GetPosition())) {
+            // Como el original: x, y, z contra min y max por ese orden; NaN queda fuera
+            const CVector& p = fire.m_Position;
+            if (p.x >= minX && p.x <= maxX && p.y >= minY && p.y <= maxY && p.z >= minZ && p.z <= maxZ) {
                 c++;
             }
         }
@@ -248,8 +256,10 @@ uint32 CFireManager::GetNumFiresInArea(float minX, float minY, float minZ, float
 // 0x539D10
 void CFireManager::DestroyAllFxSystems() {
     for (CFire& fire : m_aFires) {
-        if (fire.IsActive()) {
-            fire.DestroyFx();
+        // Como el original: FxManager_c::DestroyFxSystem (no FxSystem_c::Kill)
+        if (fire.IsActive() && fire.m_FxSystem) {
+            g_fxMan.DestroyFxSystem(fire.m_FxSystem);
+            fire.m_FxSystem = nullptr;
         }
     }
 }
@@ -257,8 +267,9 @@ void CFireManager::DestroyAllFxSystems() {
 // 0x539D50
 void CFireManager::CreateAllFxSystems() {
     for (CFire& fire : m_aFires) {
-        if (fire.IsActive()) {
-            fire.CreateFxSysForStrength(fire.GetPosition(), nullptr);
+        // Como el original: solo fuegos activos sin efecto
+        if (fire.IsActive() && !fire.m_FxSystem) {
+            fire.CreateFxSysForStrength(fire.m_Position, nullptr);
         }
     }
 }
@@ -274,10 +285,9 @@ CFire* CFireManager::GetNextFreeFire(bool bMayExtinguish) {
     if (!bMayExtinguish)
         return nullptr;
 
-    // At this point there are no inactive fires in the pool
-    // So try to extinguish a script / first generation fire
+    // Como el original: se recicla el primero que no sea a la vez de script y de primera generación
     for (CFire& fire : m_aFires) {
-        if (fire.IsFirstGen() || fire.IsScript()) {
+        if (!fire.IsScript() || !fire.IsFirstGen()) {
             fire.SetIsScript(false);
             fire.Extinguish();
             return &fire;
@@ -286,13 +296,19 @@ CFire* CFireManager::GetNextFreeFire(bool bMayExtinguish) {
     return nullptr;
 }
 
+// Como el original: mínimo con signo entre las generaciones (movsx) y el máximo del gestor global (0xB728E0)
+static uint8 ClampFireGenerations(int8 nGenerations) {
+    const auto maxGens = (int32)gFireManager.m_nMaxFireGenerationsAllowed;
+    return (uint8)((int32)nGenerations < maxGens ? (int32)nGenerations : maxGens);
+}
+
 // 0x539F00
 CFire* CFireManager::StartFire(CVector pos, float size, uint8 unused, CEntity* creator, uint32 nTimeToBurn, int8 nGenerations, uint8 unused_) {
     if (CWaterLevel::IsPointUnderwaterNoWaves(pos))
         return nullptr;
 
     if (CFire* fire = GetNextFreeFire(false)) {
-        fire->Start(creator, pos, nTimeToBurn, std::min<uint8>((uint8)m_nMaxFireGenerationsAllowed, nGenerations));
+        fire->Start(creator, pos, nTimeToBurn, ClampFireGenerations(nGenerations));
         return fire;
     }
     return nullptr;
@@ -300,13 +316,12 @@ CFire* CFireManager::StartFire(CVector pos, float size, uint8 unused, CEntity* c
 
 // 0x53A050
 CFire* CFireManager::StartFire(CEntity* target, CEntity* creator, float size, uint8 unused, uint32 lifetime, int8 numGenerations) {
-    /* Do few checks, and clear `m_pFire` if `target` */
     switch (target->GetType()) {
     case ENTITY_TYPE_PED: {
         auto pedTarget = target->AsPed();
-        if (!pedTarget->IsPedInControl())
+        if (pedTarget->m_pFire) // Como el original: m_pFire antes que IsPedInControl
             return nullptr;
-        if (pedTarget->m_pFire)
+        if (!pedTarget->IsPedInControl())
             return nullptr;
         if (pedTarget->physicalFlags.bFireProof)
             return nullptr;
@@ -333,33 +348,32 @@ CFire* CFireManager::StartFire(CEntity* target, CEntity* creator, float size, ui
     }
     }
 
-    if (auto fire = GetNextFreeFire(false))
-        fire->Start(creator, target, lifetime, std::min<uint8>((uint8)m_nMaxFireGenerationsAllowed, numGenerations));
-
-    return nullptr;
+    CFire* fire = GetNextFreeFire(false);
+    if (fire) {
+        fire->Start(creator, target, lifetime, ClampFireGenerations(numGenerations));
+    }
+    return fire; // Como el original: devuelve el fuego (la DLL devolvía siempre nullptr)
 }
 
 // 0x53A270
 int32 CFireManager::StartScriptFire(const CVector& pos, CEntity* target, float _fUnused, uint8 _nUnused, int8 nGenerations, int32 nStrength) {
     if (target) {
-        /* Extinguish current fire (if any) of target */
-        const auto StopFire = [](CFire* fire) {
-            fire->Extinguish();
-            fire->SetIsScript(false);
-        };
         switch (target->GetType()) {
         case ENTITY_TYPE_PED: {
             auto pedTarget = target->AsPed();
-            if (pedTarget->m_pFire)
-                StopFire(pedTarget->m_pFire);
+            if (pedTarget->m_pFire) {
+                pedTarget->m_pFire->SetIsScript(false);
+                pedTarget->m_pFire->Extinguish();
+            }
             break;
         }
         case ENTITY_TYPE_VEHICLE: {
             auto vehTarget = target->AsVehicle();
-            if (vehTarget->m_pFire)
-                StopFire(vehTarget->m_pFire);
+            if (vehTarget->m_pFire) {
+                vehTarget->m_pFire->SetIsScript(false);
+                vehTarget->m_pFire->Extinguish();
+            }
 
-            /* Set engine status for automobiles */
             if (vehTarget->IsAutomobile()) {
                 auto& dmgMgr = vehTarget->AsAutomobile()->m_damageManager;
                 if (dmgMgr.GetEngineStatus() >= 225)
@@ -371,10 +385,38 @@ int32 CFireManager::StartScriptFire(const CVector& pos, CEntity* target, float _
     }
 
     if (auto fire = GetNextFreeFire(true)) {
-        fire->Start(pos, (float)nStrength, target, std::min<uint8>((uint8)m_nMaxFireGenerationsAllowed, nGenerations));
-        return CTheScripts::GetNewUniqueScriptThingIndex(GetIndexOf(fire), SCRIPT_THING_FIRE);
+        fire->Start(pos, (float)nStrength, target, ClampFireGenerations(nGenerations));
+        return CTheScripts::GetNewUniqueScriptThingIndex((int32)GetIndexOf(fire), SCRIPT_THING_FIRE);
     }
     return -1;
+}
+
+// Como el original: fsin/fcos x87 a precisión completa y producto redondeado
+static float FireSinMul(float angle, float mult) {
+    float res;
+    __asm {
+        fld dword ptr [angle]
+        fsin
+        fmul dword ptr [mult]
+        fstp dword ptr [res]
+    }
+    return res;
+}
+
+static float FireCosMul(float angle, float mult) {
+    float res;
+    __asm {
+        fld dword ptr [angle]
+        fcos
+        fmul dword ptr [mult]
+        fstp dword ptr [res]
+    }
+    return res;
+}
+
+static void FireRegisterCorona(uint32 id, uint8 red, uint8 green, uint8 blue, const CVector& pos, float coronaSize, eCoronaFlareType flare) {
+    CCoronas::RegisterCorona(id, nullptr, red, green, blue, 0xFF, pos, coronaSize, 70.0f, eCoronaType::CORONATYPE_HEADLIGHT, flare,
+        eCoronaReflType::CORREFL_NONE, eCoronaLOSCheck::LOSCHECK_OFF, eCoronaTrail::TRAIL_OFF, 0.0f, false, 1.5f, false, 15.0f, false, false);
 }
 
 // 0x53AF00
@@ -392,96 +434,123 @@ void CFireManager::Update() {
     if (CGameLogic::LaRiotsActiveHere()
      && CTimer::GetTimeInMS() / 500u != CTimer::GetPreviousTimeInMS() / 500u
     ) {
-        const float fRandomAngleRad = CGeneral::GetRandomNumberInRange(0.0f, TWO_PI);
-        const float fRandomDir = CGeneral::GetRandomNumberInRange(35.0f, 60.0f);
-        CVector point = TheCamera.GetPosition() + CVector{
-            std::sin(fRandomAngleRad) * fRandomDir,
-            std::cos(fRandomAngleRad) * fRandomDir,
-            10.0f
-        };
+        // Como el original: rand * (1/32767) * 2pi y rand * (1/32767) * 25 + 35 (floats del EXE)
+        const float fRandomAngleRad = (float)(int32)CGeneral::GetRandomNumber() * RAND_MAX_FLOAT_RECIPROCAL * 6.2831855f;
+        const float fRandomDist = (float)(int32)CGeneral::GetRandomNumber() * RAND_MAX_FLOAT_RECIPROCAL * 25.0f + 35.0f;
+        const float offX = FireSinMul(fRandomAngleRad, fRandomDist);
+        const float offY = FireCosMul(fRandomAngleRad, fRandomDist);
 
-        CEntity* hitEntity{};
-        bool bHit{};
+        CVector point;
+        {
+            const CVector& camPos = TheCamera.GetPosition();
+            point.x = offX + camPos.x;
+            point.y = offY + camPos.y;
+            point.z = camPos.z + 10.0f;
+        }
+
+        CEntity* hitEntity;
+        bool bHit;
         point.z = CWorld::FindGroundZFor3DCoord(point, &bHit, &hitEntity);
 
-        CVector pointToCamDirNorm = (TheCamera.GetPosition() - point);
-        pointToCamDirNorm.Normalise();
+        const CVector& camPos = TheCamera.GetPosition();
+        // Como el original: dirección punto - cámara (la DLL usaba cámara - punto)
+        CVector camToPointDir{ point.x - camPos.x, point.y - camPos.y, point.z - camPos.z };
+        camToPointDir.Normalise();
 
-        // In the PC version 0.2f and "riot_smoke" is accessed through an array
-        // On the Android version it's inlined
-        // Android values used here, and on the PC version the array access isn't
-        // a 100% clear to me.
-        // TODO: Use the array here
-        if (DotProduct(TheCamera.GetForward(), pointToCamDirNorm) > 0.2f || CGeneral::GetRandomNumber() < RAND_MAX / 2) {
-            auto fx = g_fxMan.CreateFxSystem("riot_smoke", point, nullptr, true);
-            if (fx)
-                fx->PlayAndKill();
+        // Como el original: sin matriz se usa el heading del placement (-sin, cos, 0)
+        CVector camFwd;
+        if (TheCamera.m_matrix) {
+            camFwd = TheCamera.m_matrix->GetForward();
         } else {
-            StartFire(point, CGeneral::GetRandomNumberInRange(0.5f, 2.5f), true, nullptr, 30000u, 5, 1);
+            const float heading = TheCamera.m_placement.m_fHeading;
+            float sinH, cosH;
+            __asm {
+                fld dword ptr [heading]
+                fsin
+                fchs
+                fstp dword ptr [sinH]
+                fld dword ptr [heading]
+                fcos
+                fstp dword ptr [cosH]
+            }
+            camFwd = CVector{ sinH, cosH, 0.0f };
+        }
+
+        // Como el original: solo con suelo encontrado sobre una entidad con el bit 0 de +0x1E y z > 0.5
+        if (hitEntity && (reinterpret_cast<const uint8*>(hitEntity)[0x1E] & 1) && bHit && point.z > 0.5f) {
+            const float dot = camFwd.z * camToPointDir.z + camFwd.y * camToPointDir.y + camFwd.x * camToPointDir.x;
+            if ((double)dot > 0.2 /* double del EXE (0x862D08) */ || CGeneral::GetRandomNumber() < 0x3FFF) {
+                if (auto fx = g_fxMan.CreateFxSystem("riot_smoke", point, nullptr, true))
+                    fx->PlayAndKill();
+            } else {
+                StartFire(point, CGeneral::GetRandomNumberInRange(0.5f, 2.5f), 1, nullptr, 30000u, 5, 1);
+            }
         }
     }
 
+    // Como el original: color base leído del EXE (0x8CCFF0..2 = 64, 50, 32)
+    const auto* baseColor = reinterpret_cast<const uint8*>(0x8CCFF0);
+
     auto nFires = (int32)GetNumOfFires();
-    bool firesVisited[MAX_NUM_FIRES] = { false }; // Lookup table to see if a fire's strength was already included into a group of fires
+    bool firesVisited[MAX_NUM_FIRES] = { false };
     while (nFires > 0) {
-        // Repeat until there are no active fires left
-        // Find strongest un-visited fire, and sum of the strength of all fires within 6.0 units of it
-        // Based on this strength possibly create a shadow (if combined strength > 4), and coronas (combined strength > 6)
-
-        // Find the strongest fire, which hasn't yet been visited
-        CFire* strongest{};
-        for (size_t i = 0; i < MAX_NUM_FIRES; i++) {
+        // Como el original: el más fuerte parte de -1.0 (si ninguno lo supera, el índice queda en -1)
+        float fBest = -1.0f;
+        int32 strongestIdx = -1;
+        for (int32 i = 0; i < MAX_NUM_FIRES; i++) {
             CFire& fire = m_aFires[i];
             if (firesVisited[i] || !fire.IsActive())
                 continue;
-            if (!strongest || strongest->GetStrength() < fire.GetStrength())
-                strongest = &fire;
+            if (fBest < fire.m_Strength) {
+                fBest = fire.m_Strength;
+                strongestIdx = i;
+            }
         }
+        CFire* strongest = m_aFires.data() + strongestIdx;
 
-        // Sum up strengths of all fires (that haven't yet been visited) within 6.0 units range
-        float fCombinedStrength{};
-        int32 nCombinedCeilStrength{};
-        for (size_t i = 0; i < MAX_NUM_FIRES; i++) {
+        float fCombinedStrength = 0.0f;
+        int32 nCombinedCeilStrength = 0;
+        for (int32 i = 0; i < MAX_NUM_FIRES; i++) {
             CFire& fire = m_aFires[i];
             if (firesVisited[i] || !fire.IsActive())
                 continue;
 
-            if ((fire.GetPosition() - strongest->GetPosition()).Magnitude2D() < 6.0f) {
-                fCombinedStrength += fire.GetStrength();
-                nCombinedCeilStrength += (int32)std::ceil(fire.GetStrength());
+            const float dx = fire.m_Position.x - strongest->m_Position.x, dy = fire.m_Position.y - strongest->m_Position.y;
+            if (std::sqrt(dx * dx + dy * dy) < 6.0f) {
+                fCombinedStrength = fCombinedStrength + fire.m_Strength;
+                nCombinedCeilStrength += (int32)(int64)std::ceil((double)fire.m_Strength); // CRT ceil + _ftol2
                 nFires--;
                 firesVisited[i] = true;
-
-                // R* also does some weird vector point calculation,
-                // which doesn't seem to end up being used. Probably old code left in?
-                // <vector defined where `fCombinedStrength` is, lets name it averagedFirePos = {}>
-                // averagedFirePos += fire.m_vecPosition * std::ceil(fire.m_fStrength);
             }
         }
 
         if (fCombinedStrength > 4.0f && nCombinedCeilStrength) {
-            const CRGBA baseColor{ 40, 32, 20 }; // From addresses 0x8CCFF0, 0x8CCFF1, 0x8CCFF2
+            const float t = fCombinedStrength - 6.0f + 3.0f;
+            const float fDir = (7.0f < t) ? 7.0f : t;
 
-            const float fDir = std::min(7.0f, fCombinedStrength - 6.0f + 3.0f);
+            // Como el original: 0.39999998 (0x3ECCCCCC) y 0.6
+            float fColorMult = (float)(int32)CGeneral::GetRandomNumber() * RAND_MAX_FLOAT_RECIPROCAL * std::bit_cast<float>(0x3ECCCCCCu) + 0.6f;
 
-            CVector shdwPos = strongest->GetPosition();
-            shdwPos.z += 5.0f;
-            const float fColorMult = CGeneral::GetRandomNumberInRange(0.6f, 1.0f);
+            CVector shdwPos = strongest->m_Position;
+            shdwPos.z = shdwPos.z + 5.0f;
             {
-                const CRGBA shdwColor = baseColor * fColorMult;
+                const auto blue  = (uint8)(int64)((float)baseColor[2] * fColorMult);
+                const auto green = (uint8)(int64)((float)baseColor[1] * fColorMult);
+                const auto red   = (uint8)(int64)((float)baseColor[0] * fColorMult);
+                // Como el original: frontX = dir * 1.2 y sideY = dir * -1.2
                 CShadows::StoreStaticShadow(
                     reinterpret_cast<uint32>(strongest),
                     SHADOW_ADDITIVE,
                     gpShadowExplosionTex,
                     shdwPos,
-                    fDir * -1.2f,
-                    0.0f,
-                    0.0f,
                     fDir * 1.2f,
+                    0.0f,
+                    0.0f,
+                    fDir * -1.2f,
                     0,
-                    shdwColor.r,
-                    shdwColor.g,
-                    shdwColor.b,
+                    red,
+                    green,
+                    blue,
                     10.0f,
                     1.0f,
                     40.0f,
@@ -491,61 +560,38 @@ void CFireManager::Update() {
             }
 
             if (fCombinedStrength > 6.0f) {
-                // Create coronas in a _|_ like shape.
-                // Keep in mind, the right line's end is always pointing towards the camera,
-                // so what you see is more like |
+                fColorMult = fColorMult * 0.8f;
+                const auto blue  = (uint8)(int64)((float)baseColor[2] * fColorMult);
+                const auto green = (uint8)(int64)((float)baseColor[1] * fColorMult);
+                const auto red   = (uint8)(int64)((float)baseColor[0] * fColorMult);
 
-                CVector point = strongest->GetPosition()
-                    + CVector{ 0.0f, 0.0f, 2.6f }
-                    + (TheCamera.GetPosition() - point).Normalized() * 3.5f;
+                CVector point = strongest->m_Position;
+                point.z = point.z + 2.6f;
+                const CVector& camPos = TheCamera.GetPosition();
+                CVector toCam{ camPos.x - point.x, camPos.y - point.y, camPos.z - point.z };
+                toCam.Normalise();
+                point = CVector{ toCam.x * 3.5f + point.x, toCam.y * 3.5f + point.y, toCam.z * 3.5f + point.z };
 
-                auto strongestId = reinterpret_cast<uint32>(strongest);
-                // Wrapper lambda for code readability
-                const auto RegisterCorona = [&](auto idx, CVector pos, eCoronaFlareType flare = eCoronaFlareType::FLARETYPE_NONE) {
-                    const CRGBA crnaColor = baseColor * (fColorMult * 0.8f);
-                    CCoronas::RegisterCorona(
-                        strongestId,
-                        nullptr,
-                        crnaColor.r,
-                        crnaColor.g,
-                        crnaColor.b,
-                        0xFF,
-                        pos,
-                        fDir * 0.5f,
-                        70.0f,
-                        eCoronaType::CORONATYPE_HEADLIGHT,
-                        flare,
-                        eCoronaReflType::CORREFL_NONE,
-                        eCoronaLOSCheck::LOSCHECK_OFF,
-                        eCoronaTrail::TRAIL_OFF,
-                        0.0f,
-                        false,
-                        1.5f,
-                        0,
-                        15.0f,
-                        false,
-                        false
-                    );
-                };
+                const float coronaSize = fDir * 0.5f;
+                const auto strongestId = reinterpret_cast<uint32>(strongest);
 
-                // Each corona only differs in position, and ID
-                RegisterCorona(strongestId, point, eCoronaFlareType::FLARETYPE_HEADLIGHTS);
+                // Como el original: ids consecutivos (id, id+1, id+2, id+3)
+                FireRegisterCorona(strongestId, red, green, blue, point, coronaSize, eCoronaFlareType::FLARETYPE_HEADLIGHTS);
 
-                point.z += 2.0f;
-                RegisterCorona(strongestId + 1, point);
+                point.z = point.z + 2.0f;
+                FireRegisterCorona(strongestId + 1, red, green, blue, point, coronaSize, eCoronaFlareType::FLARETYPE_NONE);
 
-                point.z -= 2.0f;
-                CVector camRightNorm = TheCamera.GetRight();
-                camRightNorm.z = 0.0f;
-                camRightNorm.Normalise();
-                point += camRightNorm * 2.0f;
-                RegisterCorona(strongestId + 2, point);
+                point.z = point.z - 2.0f;
+                // Como el original: derecha de m_mCameraMatrix (0xB6F99C) con z = 0
+                CVector camRight{ TheCamera.m_mCameraMatrix.GetRight().x, TheCamera.m_mCameraMatrix.GetRight().y, 0.0f };
+                camRight.Normalise();
+                point = CVector{ camRight.x * 2.0f + point.x, camRight.y * 2.0f + point.y, camRight.z * 2.0f + point.z };
+                FireRegisterCorona(strongestId + 2, red, green, blue, point, coronaSize, eCoronaFlareType::FLARETYPE_NONE);
 
-                point -= camRightNorm * 4.0f;
-                RegisterCorona(strongestId + 3, point);
+                point = CVector{ point.x - camRight.x * 4.0f, point.y - camRight.y * 4.0f, point.z - camRight.z * 4.0f };
+                FireRegisterCorona(strongestId + 3, red, green, blue, point, coronaSize, eCoronaFlareType::FLARETYPE_NONE);
             }
         }
-
     }
 }
 

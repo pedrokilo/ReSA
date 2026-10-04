@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 21/21 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/21 entradas.
+ * Validación registrada: 21/21 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -80,7 +80,7 @@ void CCullZones::AddCullZone(const CVector& pos, float vec1X, float vec1Y, float
 // flags: see eZoneAttributes
 // 0x72DB50
 void CCullZones::AddTunnelAttributeZone(const CVector& pos, float vec1X, float vec1Y, float minZ, float vec2X, float vec2Y, float maxZ, eZoneAttributes flags) {
-    CAttributeZone& zone = aTunnelAttributeZones[NumTunnelAttributeZones];
+    CAttributeZone& zone = aTunnelAttributeZones.data()[NumTunnelAttributeZones];
 
     zone.zoneDef.Init(pos, vec1X, vec1Y, minZ, vec2X, vec2Y, maxZ);
     zone.flags = flags;
@@ -90,14 +90,15 @@ void CCullZones::AddTunnelAttributeZone(const CVector& pos, float vec1X, float v
 
 // 0x72DC10
 void CCullZones::AddMirrorAttributeZone(const CVector& pos, float vec1X, float vec1Y, float minZ, float vec2X, float vec2Y, float maxZ, eZoneAttributes flags, float mirrorV, float mirrorNormalX, float mirrorNormalY, float mirrorNormalZ) {
-    CMirrorAttributeZone& zone = aMirrorAttributeZones[NumMirrorAttributeZones];
+    CMirrorAttributeZone& zone = aMirrorAttributeZones.data()[NumMirrorAttributeZones];
 
     zone.zoneDef.Init(pos, vec1X, vec1Y, minZ, vec2X, vec2Y, maxZ);
     zone.flags = (eMirrorFlags)flags;
     zone.mirrorV = mirrorV;
-    zone.mirrorNormalX = int8(mirrorNormalX * 100.0f);
-    zone.mirrorNormalY = int8(mirrorNormalY * 100.0f);
-    zone.mirrorNormalZ = int8(mirrorNormalZ * 100.0f);
+    // Como el original: _ftol2 (64 bits) y se guarda el byte bajo
+    zone.mirrorNormalX = (int8)(int64)(mirrorNormalX * 100.0f);
+    zone.mirrorNormalY = (int8)(int64)(mirrorNormalY * 100.0f);
+    zone.mirrorNormalZ = (int8)(int64)(mirrorNormalZ * 100.0f);
 
     NumMirrorAttributeZones++;
 }
@@ -163,26 +164,29 @@ bool CCullZones::DoINeedToLoadCollision() {
 }
 
 // 0x72D9F0
-eZoneAttributes CCullZones::FindTunnelAttributesForCoors(CVector pos) {
+// Como el original: solo recorre las NumTunnelAttributeZones primeras (comparacion con signo) y combina los
+// flags extendidos con signo.
+int32 CCullZones::FindTunnelAttributesForCoors(CVector pos) {
     int32 flags = eZoneAttributes::ZA_NONE;
-    if (NumTunnelAttributeZones > 0) {
-        for (auto& zone : aTunnelAttributeZones) {
-            if (zone.IsPointWithin(pos)) {
-                flags |= zone.flags;
-            }
+    const int32 count = NumTunnelAttributeZones;
+    for (int32 i = 0; i < count; i++) {
+        const auto& zone = aTunnelAttributeZones.data()[i];
+        if (zone.IsPointWithin(pos)) {
+            flags |= (int16)zone.flags;
         }
     }
 
-    return (eZoneAttributes)flags;
+    return flags;
 }
 
 // 0x72DA70
+// Como el original: solo recorre las NumMirrorAttributeZones primeras.
 CMirrorAttributeZone* CCullZones::FindMirrorAttributesForCoors(CVector pos) {
-    if (NumMirrorAttributeZones > 0) {
-        for (auto& zone : aMirrorAttributeZones) {
-            if (zone.IsPointWithin(pos)) {
-                return &zone;
-            }
+    const int32 count = NumMirrorAttributeZones;
+    for (int32 i = 0; i < count; i++) {
+        auto& zone = aMirrorAttributeZones.data()[i];
+        if (zone.IsPointWithin(pos)) {
+            return &zone;
         }
     }
 
@@ -190,14 +194,14 @@ CMirrorAttributeZone* CCullZones::FindMirrorAttributesForCoors(CVector pos) {
 }
 
 // 0x72DAD0
+// Como el original: la posicion del jugador se pide una sola vez, antes del bucle, y el contador se relee
+// en cada vuelta.
 CAttributeZone* CCullZones::FindZoneWithStairsAttributeForPlayer() {
-    if (NumAttributeZones > 0) {
-        for (auto& zone : aAttributeZones) {
-            if (zone.flags & eZoneAttributes::STAIRS) {
-                if (zone.IsPointWithin(FindPlayerCoors())) {
-                    return &zone;
-                }
-            }
+    const CVector playerPos = FindPlayerCoors();
+    for (int32 i = 0; i < NumAttributeZones; i++) {
+        auto& zone = aAttributeZones[i];
+        if ((zone.flags & eZoneAttributes::STAIRS) && zone.IsPointWithin(playerPos)) {
+            return &zone;
         }
     }
 
@@ -205,15 +209,19 @@ CAttributeZone* CCullZones::FindZoneWithStairsAttributeForPlayer() {
 }
 
 // 0x72D970
-eZoneAttributes CCullZones::FindAttributesForCoors(CVector pos) {
+// Como el original: solo recorre las NumAttributeZones primeras (comparacion con signo) y combina los
+// flags extendidos con signo (movsx), asi que 0x8000 deja los 16 bits altos a 1.
+int32 CCullZones::FindAttributesForCoors(CVector pos) {
     int32 flags = eZoneAttributes::ZA_NONE;
-    for (auto& zone : aAttributeZones) {
+    const int32 count = NumAttributeZones;
+    for (int32 i = 0; i < count; i++) {
+        const auto& zone = aAttributeZones[i];
         if (zone.IsPointWithin(pos)) {
-            flags |= zone.flags;
+            flags |= (int16)zone.flags;
         }
     }
 
-    return (eZoneAttributes)flags;
+    return flags;
 }
 
 // 0x72DEC0
@@ -228,9 +236,9 @@ void CCullZones::Update() {
     if ((CTimer::GetFrameCounter() & 7) == 6) {
         CurrentFlags_Player = FindAttributesForCoors(FindPlayerCoors());
         if (!bMilitaryZonesDisabled && (CurrentFlags_Player & eZoneAttributes::MILITARY_ZONE) != 0) {
-            auto player = FindPlayerPed();
-            if (player->IsAlive()) {
-                player->SetWantedLevelNoDrop(eWantedLevel::WANTED_LEVEL_5);
+            // Como el original: FindPlayerPed se llama otra vez para subir el nivel de busqueda
+            if (FindPlayerPed()->IsAlive()) {
+                FindPlayerPed()->SetWantedLevelNoDrop(eWantedLevel::WANTED_LEVEL_5);
             }
         }
     }

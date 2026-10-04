@@ -6,10 +6,10 @@ Universo de esta revisión: **7,858 entradas reversed=1**, de 8,441 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 3906 |
+| `validated=1` · evidencia aprobada vinculada | 4003 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 3906 |
-| Sin evidencia aprobada vinculada en este registro | 3952 |
+| Evidencia histórica vinculada; revisión pendiente | 4003 |
+| Sin evidencia aprobada vinculada en este registro | 3855 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -253,6 +253,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEMP3TrackLoader | `LoadTrackLookupTable` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CAEPedAudioEntity | `UpdateParameters` | [Resumen](../reversing/FixAudio/validation-summary.json) |
 | CAEPedWeaponAudioEntity | `AddAudioEvent` | [Resumen](../reversing/Data23/validation-summary.json) |
+| CAEPedWeaponAudioEntity | `Constructor` | [Resumen](../reversing/WeapAudio/validation-summary.json) |
 | CAEPedWeaponAudioEntity | `Initialise` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CAEPedWeaponAudioEntity | `Service` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CAEPedWeaponAudioEntity | `Terminate` | [Resumen](../reversing/Data23/validation-summary.json) |
@@ -401,6 +402,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEWaveDecoder | `GetStreamPlayTimeMs` | [Resumen](../reversing/Core9/validation-summary.json) |
 | CAEWaveDecoder | `Initialise` | [Resumen](../reversing/Core9/validation-summary.json) |
 | CAEWaveDecoder | `SetCursor` | [Resumen](../reversing/Core9/validation-summary.json) |
+| CAEWeaponAudioEntity | `Constructor` | [Resumen](../reversing/WeapAudio/validation-summary.json) |
 | CAEWeaponAudioEntity | `Initialise` | [Resumen](../reversing/Audio20/validation-summary.json) |
 | CAEWeaponAudioEntity | `PlayCameraSound` | [Resumen](../reversing/Audio20/validation-summary.json) |
 | CAEWeaponAudioEntity | `PlayChainsawStopSound` | [Resumen](../reversing/Audio20/validation-summary.json) |
@@ -646,6 +648,29 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CColSphere | `IntersectRay` | [Resumen](../reversing/World43/validation-summary.json) |
 | CColSphere | `IntersectSphere` | [Resumen](../reversing/World43/validation-summary.json) |
 | CColSphere | `Set` | [Resumen](../reversing/World43/validation-summary.json) |
+| CColStore | `AddColSlot` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `AddCollisionNeededAtPosn` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `AddRef` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `BoundingBoxesPostProcess` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `EnsureCollisionIsInMemory` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `GetBoundingBox` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `HasCollisionLoaded` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `IncludeModelIndex` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `Initialise` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `LoadAllBoundingBoxes` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `LoadAllCollision` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `LoadCol-` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `LoadCol-2` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `LoadCollision` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `RemoveAllCollision` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `RemoveCol` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `RemoveColSlot` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `RemoveRef` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `RequestCollision` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `SetCollisionRequired` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `SetIfCollisionIsRequired` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `SetIfCollisionIsRequiredReducedBB` | [Resumen](../reversing/ColStore23/validation-summary.json) |
+| CColStore | `Shutdown` | [Resumen](../reversing/ColStore23/validation-summary.json) |
 | CColTrianglePlane | `GetNormal-Out` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CColTrianglePlane | `Set` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CCollisionData | `CalculateTrianglePlanes` | [Resumen](../reversing/Data8a/validation-summary.json) |
@@ -730,6 +755,27 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCreepingFire | `Update` | [Resumen](../reversing/World52/validation-summary.json) |
 | CCrime | `FindImmediateDetectionRange` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | CCrime | `ReportCrime` | [Resumen](../reversing/Misc70/validation-summary.json) |
+| CCullZones | `AddCullZone` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `AddMirrorAttributeZone` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `AddTunnelAttributeZone` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `Cam1stPersonForPlayer` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `CamCloseInForPlayer` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `CamNoRain` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `CamStairsForPlayer` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `DoExtraAirResistanceForPlayer` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `DoINeedToLoadCollision` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `FewerCars` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `FewerPeds` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `FindAttributesForCoors` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `FindMirrorAttributesForCoors` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `FindTunnelAttributesForCoors` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `FindZoneWithStairsAttributeForPlayer` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `InRoomForAudio` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `Init` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `NoPolice` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `PlayerNoRain` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `PoliceAbandonCars` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CCullZones | `Update` | [Resumen](../reversing/Zones21/validation-summary.json) |
 | CCurrentVehicle | `Display` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | CCurrentVehicle | `Process` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | CCurves | `CalcCorrectedDist` | [Resumen](../reversing/Misc6/validation-summary.json) |
@@ -1125,6 +1171,27 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CGarage | `CloseThisGarage` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CGarage | `OpenThisGarage` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CGarage | `StoreAndRemoveCarsForThisHideOut` | [Resumen](../reversing/Data23/validation-summary.json) |
+| CGarages | `ActivateGarage` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `AllRespraysCloseOrOpen` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `ChangeGarageType` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `CloseHideOutGaragesBeforeSave` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `DeActivateGarage` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `GetGarageNumberByName` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `Init` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `Init_AfterRestart` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `IsCarSprayable` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `IsGarageClosed` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `IsGarageOpen` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `IsModelIndexADoor` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `IsPointWithinHideOutGarage` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `Load` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `PlayerArrestedOrDied` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `PrintMessages` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `Save` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `SetTargetCarForMissionGarage` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `Shutdown` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `TriggerMessage` | [Resumen](../reversing/Garages21/validation-summary.json) |
+| CGarages | `Update` | [Resumen](../reversing/Garages21/validation-summary.json) |
 | CGeneral | `GetATanOfXY` | [Resumen](../reversing/Core9/validation-summary.json) |
 | CGeneral | `GetAngleBetweenPoints` | [Resumen](../reversing/Core9/validation-summary.json) |
 | CGeneral | `GetNodeHeadingFromVector` | [Resumen](../reversing/Core9/validation-summary.json) |
@@ -3599,6 +3666,27 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTheCarGenerators | `Process` | [Resumen](../reversing/Mgr7/validation-summary.json) |
 | CTheCarGenerators | `RemoveCarGenerators` | [Resumen](../reversing/Mgr7/validation-summary.json) |
 | CTheCarGenerators | `Save` | [Resumen](../reversing/Mgr7/validation-summary.json) |
+| CTheZones | `AssignZoneInfoForThisZone` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `Calc2DDistanceBetween2Zones` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `CreateZone` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `FillZonesWithGangColours` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `FindSmallestZoneForPosition` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `FindZone-` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `FindZoneByLabel` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `GetLevelFromPosition` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `GetMapZone` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `GetNavigationZone` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `GetZoneInfo-` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `Init` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `InitZonesPopulationSettings` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `Load` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `PointLiesWithinZone` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `PostZoneCreation` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `ResetZonesRevealed` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `Save` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `SetZoneRadarColours` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `Update` | [Resumen](../reversing/Zones21/validation-summary.json) |
+| CTheZones | `ZoneIsEntirelyContainedWithinOtherZone` | [Resumen](../reversing/Zones21/validation-summary.json) |
 | CTimeCycle | `AddOne` | [Resumen](../reversing/Time20/validation-summary.json) |
 | CTimeCycle | `CalcColoursForPoint` | [Resumen](../reversing/Time20/validation-summary.json) |
 | CTimeCycle | `FindFarClipForCoors` | [Resumen](../reversing/Time20/validation-summary.json) |
@@ -3910,6 +3998,15 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Win | `IsAlreadyRunning` | [Resumen](../reversing/Misc6/validation-summary.json) |
 | Win | `IsForegroundApp` | [Resumen](../reversing/Misc6/validation-summary.json) |
 | Win | `MessageLoop` | [Resumen](../reversing/Misc6/validation-summary.json) |
+| cBuoyancy | `AddSplashParticles` | [Resumen](../reversing/Buoy9/validation-summary.json) |
+| cBuoyancy | `CalcBuoyancyForce` | [Resumen](../reversing/Buoy9/validation-summary.json) |
+| cBuoyancy | `FindWaterLevel` | [Resumen](../reversing/Buoy9/validation-summary.json) |
+| cBuoyancy | `FindWaterLevelNorm` | [Resumen](../reversing/Buoy9/validation-summary.json) |
+| cBuoyancy | `PreCalcSetup` | [Resumen](../reversing/Buoy9/validation-summary.json) |
+| cBuoyancy | `ProcessBuoyancy` | [Resumen](../reversing/Buoy9/validation-summary.json) |
+| cBuoyancy | `ProcessBuoyancyBoat` | [Resumen](../reversing/Buoy9/validation-summary.json) |
+| cBuoyancy | `SimpleCalcBuoyancy` | [Resumen](../reversing/Buoy9/validation-summary.json) |
+| cBuoyancy | `SimpleSumBuoyancyData` | [Resumen](../reversing/Buoy9/validation-summary.json) |
 | cHandlingDataMgr | `ConvertBikeDataToGameUnits` | [Resumen](../reversing/World11/validation-summary.json) |
 | cHandlingDataMgr | `ConvertBikeDataToWorldUnits` | [Resumen](../reversing/World11/validation-summary.json) |
 | cHandlingDataMgr | `ConvertDataToGameUnits` | [Resumen](../reversing/World11/validation-summary.json) |
@@ -3962,7 +4059,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAEMP3TrackLoader` | 7 | 0 | 7 | 0 |
 | `CAEPedAudioEntity` | 16 | 0 | 1 | 15 |
 | `CAEPedSpeechAudioEntity` | 58 | 0 | 0 | 58 |
-| `CAEPedWeaponAudioEntity` | 4 | 0 | 4 | 0 |
+| `CAEPedWeaponAudioEntity` | 5 | 0 | 5 | 0 |
 | `CAEPedlessSpeechAudioEntity` | 11 | 0 | 11 | 0 |
 | `CAEPoliceScannerAudioEntity` | 13 | 0 | 0 | 13 |
 | `CAERadioTrackManager` | 29 | 0 | 0 | 29 |
@@ -3983,7 +4080,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAEWMADecoder` | 11 | 0 | 11 | 0 |
 | `CAEWaterCannonAudioEntity` | 7 | 0 | 7 | 0 |
 | `CAEWaveDecoder` | 9 | 0 | 9 | 0 |
-| `CAEWeaponAudioEntity` | 20 | 0 | 18 | 2 |
+| `CAEWeaponAudioEntity` | 19 | 0 | 19 | 0 |
 | `CAEWeatherAudioEntity` | 5 | 0 | 5 | 0 |
 | `CAccidentManager` | 5 | 0 | 5 | 0 |
 | `CAcquaintance` | 5 | 0 | 5 | 0 |
@@ -4035,7 +4132,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CColModel` | 9 | 0 | 9 | 0 |
 | `CColModelPool` | 1 | 0 | 1 | 0 |
 | `CColSphere` | 5 | 0 | 5 | 0 |
-| `CColStore` | 23 | 0 | 0 | 23 |
+| `CColStore` | 23 | 0 | 23 | 0 |
 | `CColTrianglePlane` | 2 | 0 | 2 | 0 |
 | `CCollision` | 59 | 0 | 0 | 59 |
 | `CCollisionData` | 8 | 0 | 8 | 0 |
@@ -4055,7 +4152,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCredits` | 6 | 0 | 6 | 0 |
 | `CCreepingFire` | 3 | 0 | 3 | 0 |
 | `CCrime` | 2 | 0 | 2 | 0 |
-| `CCullZones` | 21 | 0 | 0 | 21 |
+| `CCullZones` | 21 | 0 | 21 | 0 |
 | `CCurrentVehicle` | 2 | 0 | 2 | 0 |
 | `CCurves` | 6 | 0 | 6 | 0 |
 | `CCustomBuildingDNPipeline` | 14 | 0 | 14 | 0 |
@@ -4163,7 +4260,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CGangWars` | 32 | 0 | 0 | 32 |
 | `CGangs` | 8 | 0 | 8 | 0 |
 | `CGarage` | 4 | 0 | 4 | 0 |
-| `CGarages` | 21 | 0 | 0 | 21 |
+| `CGarages` | 21 | 0 | 21 | 0 |
 | `CGeneral` | 9 | 0 | 9 | 0 |
 | `CGenericGameStorage` | 5 | 0 | 0 | 5 |
 | `CGlass` | 19 | 0 | 19 | 0 |
@@ -4626,7 +4723,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CText` | 9 | 0 | 9 | 0 |
 | `CTheCarGenerators` | 7 | 0 | 7 | 0 |
 | `CTheScripts` | 69 | 0 | 0 | 69 |
-| `CTheZones` | 21 | 0 | 0 | 21 |
+| `CTheZones` | 21 | 0 | 21 | 0 |
 | `CTimeCycle` | 20 | 0 | 20 | 0 |
 | `CTimeInfo` | 6 | 0 | 6 | 0 |
 | `CTimeModelInfo` | 2 | 0 | 2 | 0 |
@@ -4699,7 +4796,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `WaterCreatureManager_c` | 7 | 0 | 7 | 0 |
 | `WaterCreature_c` | 3 | 0 | 3 | 0 |
 | `Win` | 6 | 0 | 5 | 1 |
-| `cBuoyancy` | 9 | 0 | 0 | 9 |
+| `cBuoyancy` | 9 | 0 | 9 | 0 |
 | `cHandlingDataMgr` | 11 | 0 | 11 | 0 |
 | `cTransmission` | 4 | 0 | 4 | 0 |
 

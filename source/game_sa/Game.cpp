@@ -107,35 +107,16 @@ void CGame::InjectHooks() {
     RH_ScopedGlobalInstall(ValidateVersion, 0x5BA060); // Antes 0x5BA0BC: caía dentro de un salto de esta función
 }
 
-// 0x72FD90
-static void CameraDestroy(RwCamera* rwCamera) {
-    if (!rwCamera)
-        return;
-
-    if (auto parent = rwObjectGetParent(&rwCamera->object.object); parent) {
-        rwObjectHasFrameSetFrame(rwCamera, NULL);
-        RwFrameDestroy((RwFrame*)parent);
-    }
-
-    const auto DestroyIncludingParent = [](auto* buffer) {
-        if (!buffer)
-            return;
-
-        RwRasterDestroy(buffer);
-        if (auto parent = RwRasterGetParent(buffer); parent && parent != buffer) {
-            RwRasterDestroy(parent);
-        }
-    };
-
-    DestroyIncludingParent(rwCamera->frameBuffer);
-    DestroyIncludingParent(rwCamera->zBuffer);
-    RwCameraDestroy(rwCamera);
-}
+// 0x72FD90: CameraDestroy está en app/app_camera.cpp (lee el padre de cada raster antes de destruirlo, como el
+// original). Antes había aquí una copia estática que leía el padre del raster ya destruido.
 
 // 0x5BA060
 void ValidateVersion() {
     auto file = CFileMgr::OpenFile("models\\coll\\peds.col", "rb");
-    if (!file) {
+    // Como el original: el EXE compara con -1, no con nullptr
+    if (file == reinterpret_cast<FILESTREAM>(-1)) {
+        LoadingScreen("Invalid version", nullptr, nullptr);
+        // NOTSA: el EXE se queda en un bucle infinito (0x5BA110); aquí se aborta con un mensaje
         NOTSA_UNREACHABLE("Invalid version\nmodels\\coll\\peds.col file not found.");
     }
     CFileMgr::Seek(file, 100, 0);
@@ -153,12 +134,14 @@ void ValidateVersion() {
     }
 
     if (strncmp(buf, "grandtheftauto3", 15u) != 0) {
-        NOTSA_UNREACHABLE("Invalid version\npeds.col version text does not start with 'grandtheftauto3'.\nText was '{}'", buf);
+        LoadingScreen("Invalid version", nullptr, nullptr);
+        // NOTSA: el EXE se queda en un bucle infinito (0x5BA110); aquí se aborta con un mensaje
+        NOTSA_UNREACHABLE("Invalid version\npeds.col version text does not start with 'grandtheftauto3'.");
     }
 
     static auto& version_name = StaticRef<char[64]>(0xB72C28);
 
-    strncpy_s(version_name, &buf[15], 64u);
+    strncpy(version_name, &buf[15], 64u); // Como el original: strncpy (0x821F40); strncpy_s rellenaba con 0xFE en Debug
     CFileMgr::CloseFile(file);
 }
 
@@ -216,9 +199,6 @@ void CGame::DrasticTidyUpMemory(bool a1) {
 
 // 0x53C900
 bool CGame::Shutdown() {
-    // The cover list validates its building pointers when unlinking nodes.
-    // Release it while those buildings and their reference lists still exist.
-    CCover::ClearProcessedBuildings();
     g_breakMan.Exit();
     g_interiorMan.Exit();
     g_procObjMan.Exit();
@@ -272,6 +252,10 @@ bool CGame::Shutdown() {
     CSkidmarks::Shutdown();
     CWeaponEffects::Shutdown();
     CTimeCycle::Shutdown();
+    // Como el original: la lista de edificios procesados de CCover se vacía aquí (Flush 0x552470 sobre 0xC1A2B8).
+    // Se usa ClearProcessedBuildings (libera los mismos nodos en el mismo orden) porque el Flush de la DLL valida en
+    // Debug cada edificio contra su pool, y en este punto CWorld::ShutDown ya los ha borrado.
+    CCover::ClearProcessedBuildings();
     CPedGroups::CleanUpForShutDown();
     CTaskSequences::CleanUpForShutdown();
     CInformGroupEventQueue::Flush();
@@ -306,6 +290,7 @@ void CGame::ShutDownForRestart() {
     CReplay::EmptyReplayBuffer();
     CMovingThings::Shutdown();
     rng::for_each(CWorld::Players, [](auto& info) { info.Clear(); });
+    std::memset(&CTheZones::ZonesVisited, 0, sizeof(CTheZones::ZonesVisited)); // Como el original: rep stos de 0x19 dwords en 0xBA3730 (sin tocar ZonesRevealed)
     CTheScripts::UndoBuildingSwaps();
     CTheScripts::UndoEntityInvisibilitySettings();
     g_interiorMan.Exit();
@@ -358,7 +343,7 @@ bool CGame::Init1(char const *datFile) {
     ZoneScoped;
 
     CMaths::InitMathsTables();
-    strcpy_s(aDatFile, datFile);
+    strcpy(aDatFile, datFile); // Como el original: strcpy en línea; strcpy_s rellenaba con 0xFE en Debug
     CPools::Initialise();
     CPlaceable::InitMatrixArray();
     CIniFile::LoadIniFile();
@@ -366,7 +351,6 @@ bool CGame::Init1(char const *datFile) {
     currLevel = LEVEL_NAME_COUNTRY_SIDE;
     currArea = AREA_CODE_NORMAL_WORLD;
 
-    CMemoryMgr::PushMemId(MEM_TEXTURES);
     gameTxdSlot = CTxdStore::AddTxdSlot("generic");
     CTxdStore::Create(gameTxdSlot);
     CTxdStore::AddRef(gameTxdSlot);
@@ -375,7 +359,6 @@ bool CGame::Init1(char const *datFile) {
     CTxdStore::LoadTxd(slot, "MODELS\\PARTICLE.TXD");
     CTxdStore::AddRef(slot);
     CTxdStore::SetCurrentTxd(gameTxdSlot);
-    CMemoryMgr::PopMemId();
 
     CGameLogic::InitAtStartOfGame();
     CGangWars::InitAtStartOfGame();
@@ -406,20 +389,13 @@ bool CGame::Init1(char const *datFile) {
     CVehicleRecording::Init();
     CRestart::Initialise();
 
-    CMemoryMgr::PushMemId(MEM_WORLD);
     CWorld::Initialise();
-    CMemoryMgr::PopMemId();
 
-    CMemoryMgr::PushMemId(MEM_ANIMATION);
     CAnimManager::Initialise();
     CCutsceneMgr::Initialise();
-    CMemoryMgr::PopMemId();
 
-    CMemoryMgr::PushMemId(MEM_CARS);
     CCarCtrl::Init();
-    CMemoryMgr::PopMemId();
 
-    // CMemoryMgr::PushMemId(MEM_DEFAULT_MODELS);
     InitModelIndices();
 
     CModelInfo::Initialise();
@@ -430,17 +406,13 @@ bool CGame::Init1(char const *datFile) {
     CStreaming::InitImageList();
     CStreaming::ReadIniFile();
 
-    CMemoryMgr::PushMemId(MEM_PATHS);
     ThePaths.Init();
     CPathFind::AllocatePathFindInfoMem();
-    CMemoryMgr::PopMemId();
 
     CTaskSimpleFight::LoadMeleeData();
     CCheat::ResetCheats();
 
-    CMemoryMgr::PushMemId(MEM_FX);
     g_fx.Init();
-    CMemoryMgr::PopMemId();
 
     return true;
 }
@@ -456,20 +428,17 @@ bool CGame::Init2(const char* datFile) {
     LoadingScreen("Loading the Game", "Setup paths");
     CPathFind::PreparePathData();
 
-    rng::for_each(CWorld::Players, [](auto& info) {
-        info.Clear();
-        info.LoadPlayerSkin();
-    });
+    rng::for_each(CWorld::Players, [](auto& info) { info.Clear(); });
+    CWorld::Players[0].LoadPlayerSkin(); // Como el original: solo se carga la piel del jugador 1 (0x5BA1FA)
 
     TestModelIndices();
     LoadingScreen("Loading the Game", "Setup water");
     CClothes::Init();
     CWaterLevel::WaterLevelInitialise();
     CDraw::SetFOV(120.0f);
-    CDraw::ms_fLODDistance = 0.0f;
+    CDraw::ms_fLODDistance = 500.0f; // Como el original: 500 (0x43FA0000), no 0
 
     if (!CCustomCarPlateMgr::Initialise()) {
-        NOTSA_LOG_DEBUG("[CGame::Init2] CCustomCarPlateMgr::Initialise() failed");
         return false;
     }
 
@@ -596,12 +565,10 @@ bool CGame::InitialiseCoreDataAfterRW() {
 
 // 0x5BA160
 bool CGame::InitialiseEssentialsAfterRW() {
-    CMemoryMgr::PushMemId(MEM_30);
     TheText.Load(false);
     if (!CCarFXRenderer::Initialise() || !CGrassRenderer::Initialise() || !CCustomBuildingRenderer::Initialise()) {
         return false;
     }
-    CMemoryMgr::PopMemId();
 
     CTimer::Initialise();
     return true;
@@ -623,27 +590,29 @@ bool CGame::InitialiseRenderWare() {
     CTxdStore::Initialise();
     CVisibilityPlugins::Initialise();
 
-    const auto camera = RwCameraCreate();
-    if (!camera) {
+    // Como el original: CameraCreate(ancho, alto, TRUE) (0x5BA490) va en línea con sus comprobaciones; si falla se
+    // destruye la cámara (también si RwCameraCreate devolvió nulo) y Scene.m_pRwCamera queda a nulo.
+    const auto width  = RsGlobal.maximumWidth;
+    const auto height = RsGlobal.maximumHeight;
+    auto* camera = RwCameraCreate();
+    if (camera) {
+        rwObjectHasFrameSetFrame(&camera->object.object, RwFrameCreate());
+        RwCameraSetRaster(camera, RwRasterCreate(width, height, 0, rwRASTERTYPECAMERA));
+        RwCameraSetZRaster(camera, RwRasterCreate(width, height, 0, rwRASTERTYPEZBUFFER));
+        if (!camera->object.object.parent
+            || !camera->frameBuffer || !camera->frameBuffer->parent
+            || !camera->zBuffer || !camera->zBuffer->parent) {
+            CameraDestroy(camera);
+            camera = nullptr;
+        }
+    } else {
         CameraDestroy(camera);
-        return false;
-    }
-
-    const auto frame = RwFrameCreate();
-    rwObjectHasFrameSetFrame(&camera->object.object, frame);
-
-    RwCameraSetRaster(camera, RwRasterCreate(RsGlobal.maximumWidth, RsGlobal.maximumHeight, 0, rwRASTERTYPECAMERA));
-    assert(RwCameraGetRaster(camera));
-
-    RwCameraSetZRaster(camera, RwRasterCreate(RsGlobal.maximumWidth, RsGlobal.maximumHeight, 0, rwRASTERTYPEZBUFFER));
-    assert(RwCameraGetZRaster(camera));
-
-    if (!RwCameraGetFrame(camera)) {
-        CameraDestroy(camera);
-        return false;
     }
 
     Scene.m_pRwCamera = camera;
+    if (!camera) {
+        return false;
+    }
     TheCamera.Init();
     TheCamera.SetRwCamera(Scene.m_pRwCamera);
     RwCameraSetFarClipPlane(Scene.m_pRwCamera, 2000.0f);
@@ -670,7 +639,10 @@ bool CGame::InitialiseRenderWare() {
     CGame::m_pWorkingMatrix1 = RwMatrixCreate();
     CGame::m_pWorkingMatrix2 = RwMatrixCreate();
 
-    _rwD3D9DeviceSetRestoreCallback(_rwD3D9DeviceGetRestoreCallback());
+    // Como el original: guarda el callback de restauración anterior en 0xBD0114 e instala el del EXE (0x5BA120), que
+    // lo llama y marca CRealTimeShadowManager (0xC40351) y CMirrors::d3dRestored (0xC7C729).
+    StaticRef<rwD3D9DeviceRestoreCallBack>(0xBD0114) = _rwD3D9DeviceGetRestoreCallback();
+    _rwD3D9DeviceSetRestoreCallback(reinterpret_cast<rwD3D9DeviceRestoreCallBack>(0x5BA120));
     return true;
 }
 
@@ -739,7 +711,10 @@ void CGame::Process() {
     CPad::UpdatePads();
     g_LoadMonitor.BeginFrame();
 
-    const auto GetTime = [] { return CTimer::GetCurrentTimeInCycles() / CTimer::GetCyclesPerMillisecond(); };
+    const auto GetTime = [] {
+        const auto cycles = CTimer::GetCurrentTimeInCycles(); // Como el original: primero los ciclos, luego ciclos/ms
+        return cycles / CTimer::GetCyclesPerMillisecond();
+    };
 
     const auto timeBeforeStreamingUpdate = GetTime();
     CStreaming::Update();
@@ -857,11 +832,12 @@ void CGame::Process() {
             CCarCtrl::RemoveCarsIfThePoolGetsFull();
         }
 
-        g_fx.Update(TheCamera.m_pRwCamera, CTimer::GetTimeStepInSeconds());
+        // Como el original: paso × 0.02f (0x858B38), no paso / 50
+        g_fx.Update(TheCamera.m_pRwCamera, CTimer::GetTimeStep() * 0.02f);
         g_breakMan.Update(CTimer::GetTimeStep());
         g_interiorMan.Update();
         g_procObjMan.Update();
-        g_waterCreatureMan.Update(CTimer::GetTimeStepInSeconds());
+        g_waterCreatureMan.Update(CTimer::GetTimeStep() * 0.02f);
     }
     CWaterLevel::PreRenderWater();
 }

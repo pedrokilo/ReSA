@@ -8,7 +8,7 @@
 
 > **Rama inspeccionada:** `PGTASA` · **Corte:** 1 de octubre de 2026 · **Alcance:** las 105 clases actualmente incompletas del catálogo auditado.
 
-**Objetivo:** contribuir a una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del ejecutable original, conforme a la [hoja de ruta](ProjectRoadmap.md). El catálogo registra actualmente **3.906 entradas con `validated=1`**; esa marca indica evidencia aprobada vinculada y no cambia por sí sola la prioridad de una función pendiente ni acredita vigencia actual. Esta guía estima el esfuerzo para completar las 583 entradas y 105 clases pendientes; cerrar clases es un hito intermedio. La estrategia incluye retirar los 675 locks con evidencia y eliminar dependencias originales por subsistema. No reabre automáticamente los 85 bloqueos aplazados ni reemplaza la cola autorizada.
+**Objetivo:** contribuir a una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del ejecutable original, conforme a la [hoja de ruta](ProjectRoadmap.md). El catálogo registra actualmente **4.003 entradas con `validated=1`**; esa marca indica evidencia aprobada vinculada y no cambia por sí sola la prioridad de una función pendiente ni acredita vigencia actual. Esta guía estima el esfuerzo para completar las 583 entradas y 105 clases pendientes; cerrar clases es un hito intermedio. La estrategia incluye retirar los 650 locks con evidencia y eliminar dependencias originales por subsistema. No reabre automáticamente los 85 bloqueos aplazados ni reemplaza la cola autorizada.
 
 | Clases evaluadas | Funciones pendientes | Parciales | Sin revertir |
 | :---: | :---: | :---: | :---: |
@@ -16,7 +16,7 @@
 
 **Navegación:** [🟢 Fáciles](#faciles) · [🟡 Intermedia](#intermedia) · [🟠 Difíciles](#dificiles) · [🔴 Final](#final) · [Evidencia](#evidencia) · [Top 10](#top-10)
 
-Los 24 bloqueos solicitados se retiraron tras comparación dentro del motor: [bancos de desbloqueo](../reversing/Unlocks/README.md). CGeneral ya estaba desbloqueado. No cambia el número de funciones pendientes ni la clasificación de esta guía. La entrega posterior de [DataStream y TrackEntity](../reversing/UnlockBatch2/README.md) retira otros diez candados validados; no altera las clases históricas de esa entrega ni el Top 10. En el catálogo vigente quedan 675 candados globales, de los cuales 85 pertenecen al lote aplazado.
+Los 24 bloqueos solicitados se retiraron tras comparación dentro del motor: [bancos de desbloqueo](../reversing/Unlocks/README.md). CGeneral ya estaba desbloqueado. No cambia el número de funciones pendientes ni la clasificación de esta guía. La entrega posterior de [DataStream y TrackEntity](../reversing/UnlockBatch2/README.md) retira otros diez candados validados; no altera las clases históricas de esa entrega ni el Top 10. En el catálogo vigente quedan 650 candados globales, de los cuales 85 pertenecen al lote aplazado.
 
 La [ampliación de la reserva de CEntryExit](../reversing/CEntryExitPool/README.md) corrige la saturación observada, sin completar funciones pendientes ni retirar candados; no modifica estas prioridades ni sus totales.
 

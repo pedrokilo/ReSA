@@ -8,22 +8,11 @@
  * ESTADO: CTaskComplexGangLeader
  * Reconstrucción: COMPLETA — 13/13 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 10.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 13/13 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   Clone | 0x00000000 | V
- *   ControlSubTask | 0x00000000 | V
- *   CreateFirstSubTask | 0x00000000 | V
- *   CreateNextSubTask | 0x00000000 | V
- *   DoGangAbuseSpeech | 0x0065E860 | S
- *   GetRandomGangAmbientAnim | 0x0065E730 | S
- *   MakeAbortable | 0x00000000 | V
- *   ScanForStuff | 0x00000000 | V
- *   ShouldLoadGangAnims | 0x0065E7F0 | S
- *   TryToPassObject | 0x0065EA50 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 

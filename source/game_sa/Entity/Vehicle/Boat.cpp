@@ -41,8 +41,32 @@ const float fShapeTime = 0.05f; // 0x8D3948
 auto& fRangeMult = StaticRef<float>(0x8D394C); // 0.6f
 auto& fTimeMult = StaticRef<float>(0xC279CC); // 1.2f / CBoat::WAKE_LIFETIME
 
-int16 nWakeSkipCounters[4]; // 0xC279A4
-int16 nWakeSkipCounterVertex[4]; // 0xC279AC
+// Como el original: los contadores son las globales del EXE (no copias de la DLL)
+auto& nWakeSkipCounters = StaticRef<int16[4]>(0xC279A4);
+auto& nWakeSkipCounterVertex = StaticRef<int16[4]>(0xC279AC);
+
+namespace {
+// Constantes del EXE que no son el float más cercano al literal o que la DLL tenía imprecisas
+const float BOAT_NO_LOCKED_HEADING = std::bit_cast<float>(0xC61C3FF6u); // -9999.99f
+const float BOAT_TWO_PI            = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC
+const float BOAT_PROP_SPEED_SCALE  = std::bit_cast<float>(0x40A2F983u); // 0x8722D8 (32 / 2pi)
+const float BOAT_SCORCH_MASS_MULT  = std::bit_cast<float>(0x3BD1B718u); // 0x871248 (0.0064)
+const float BOAT_SCORCH_BUOY_MULT  = std::bit_cast<float>(0x370637BEu); // 0x871244 (8e-6)
+const float BOAT_DOOR_PI_10        = std::bit_cast<float>(0x3EA0D97Cu); // pi / 10
+const float BOAT_DOOR_2PI_10       = std::bit_cast<float>(0x3F20D97Cu); // 2pi / 10
+const float BOAT_WHEEL_BUOYANCY    = std::bit_cast<float>(0x3DDA740Fu); // 8 / 75
+const float BOAT_WAKE_MAX_DIST     = std::bit_cast<float>(0x497423FEu); // 999999.99f del EXE (0x6F2892)
+const float BOAT_INV_255           = std::bit_cast<float>(0x3B808081u); // 0x859A3C (1/255)
+
+// Como el original: Multiply3x3 (0x59C790) con el orden de sumas del EXE
+CVector BoatMultiply3x3(const CMatrix& m, const CVector& v) {
+    return {
+        m.GetUp().x * v.z + m.GetForward().x * v.y + m.GetRight().x * v.x,
+        m.GetUp().y * v.z + m.GetRight().y * v.x + m.GetForward().y * v.y,
+        m.GetUp().z * v.z + m.GetRight().z * v.x + m.GetForward().z * v.y,
+    };
+}
+} // namespace
 
 /**
  * Registra construcción, control, wake trail y comportamiento específico de barcos.
@@ -104,7 +128,8 @@ CBoat::CBoat(int32 modelIndex, eVehicleCreatedBy createdBy) : CVehicle(createdBy
     CVehicle::SetModelIndex(modelIndex);
     SetupModelNodes();
 
-    m_pHandlingData = gHandlingDataMgr.GetVehiclePointer(mi->m_nHandlingId);
+    // Como el original: el índice del handling de vehículo es el byte bajo de m_nHandlingId (movzx bl)
+    m_pHandlingData = gHandlingDataMgr.GetVehiclePointer(static_cast<uint8>(mi->m_nHandlingId));
     m_nHandlingFlagsIntValue = m_pHandlingData->m_nHandlingFlags;
     m_pFlyingHandlingData = gHandlingDataMgr.GetFlyingPointer(static_cast<uint8>(mi->m_nHandlingId));
     m_BoatHandling = gHandlingDataMgr.GetBoatPointer(static_cast<uint8>(mi->m_nHandlingId));
@@ -133,17 +158,18 @@ CBoat::CBoat(int32 modelIndex, eVehicleCreatedBy createdBy) : CVehicle(createdBy
     m_PrevVolume = 7.0F;
     m_TimeOfLastParticle = 0;
 
-    m_LockedHeading = -10000.0f;
+    m_LockedHeading = BOAT_NO_LOCKED_HEADING; // Como el original: -9999.99f
     m_BlowUpTimer = 0.0f;
     m_EntityThatSetUsOnFire = nullptr;
     m_NumWakeCoords = 0;
     rng::fill(m_WakePtCounters, 0.0f);
 
     m_nAmmoInClip = 20;
+    // Como el original: ángulos pi/10 y 2pi/10 exactos del EXE y eje Z (byte 2) en los dos casos
     if (m_nModelIndex == MODEL_MARQUIS) {
-        m_BoatDoor.Init(PI / 10.0F, -PI / 10.0F, DOOR_AXIS_NEG_Y, DOOR_AXIS_Y, DOOR_EXTRA_NONE);
+        m_BoatDoor.Init(BOAT_DOOR_PI_10, -BOAT_DOOR_PI_10, DOOR_AXIS_NEG_Y, DOOR_AXIS_Z, DOOR_EXTRA_NONE);
     } else {
-        m_BoatDoor.Init(TWO_PI / 10.0F, -TWO_PI / 10.0F, DOOR_AXIS_NEG_X, DOOR_AXIS_Y, DOOR_EXTRA_NONE);
+        m_BoatDoor.Init(BOAT_DOOR_2PI_10, -BOAT_DOOR_2PI_10, DOOR_AXIS_NEG_X, DOOR_AXIS_Z, DOOR_EXTRA_NONE);
     }
 
     m_vehicleAudio.Initialise(this);
@@ -178,12 +204,14 @@ void CBoat::DebugCode() {
         return;
     }
 
-    if (CPad::GetPad()->IsDPadLeftPressed()) {
+    // Como el original: sigue solo si DPadLeft se acaba de pulsar (nuevo != 0 y anterior == 0)
+    if (!CPad::GetPad()->IsDPadLeftPressed()) {
         return;
     }
 
-    auto uiHandlingId = CModelInfo::GetModelInfo(m_nModelIndex)->AsVehicleModelInfoPtr()->m_nHandlingId;
-    m_pHandlingData = &gHandlingDataMgr.m_aVehicleHandling[uiHandlingId];
+    // Como el original: byte bajo de m_nHandlingId (movzx byte [mi+4Ah])
+    const auto uiHandlingId = static_cast<uint8>(CModelInfo::GetModelInfo(m_nModelIndex)->AsVehicleModelInfoPtr()->m_nHandlingId);
+    m_pHandlingData = &gHandlingDataMgr.m_aVehicleHandling.data()[uiHandlingId];
     SetupModelNodes();
 }
 
@@ -191,12 +219,10 @@ void CBoat::DebugCode() {
 // unused
 // 0x6F0D90
 void CBoat::DisplayHandlingData() {
-    char cBuffer[64]{};
-    // int32 y, x = 1; // unused
-
-    std::format_to(cBuffer, "Thrust {:3.2f}", m_pHandlingData->m_transmissionData.m_EngineAcceleration * m_pHandlingData->m_fMass);
-
-    std::format_to(cBuffer, "Rudder Angle  {:3.2f}", m_pHandlingData->m_fSteeringLock);
+    // Como el original: dos sprintf sobre un búfer local de 64 bytes sin inicializar
+    char cBuffer[64];
+    sprintf(cBuffer, "Thrust %3.2f", m_pHandlingData->m_transmissionData.m_EngineAcceleration * m_pHandlingData->m_fMass);
+    sprintf(cBuffer, "Rudder Angle  %3.2f", m_pHandlingData->m_fSteeringLock);
 }
 
 // debug function
@@ -219,21 +245,22 @@ void CBoat::ModifyHandlingValue(const bool& plus) {
 // 0x6F0E20
 // Envejece los puntos de wake y recorta m_NumWakeCoords al primer slot expirado.
 void CBoat::PruneWakeTrail() {
-    int16 count = 0;
-    for (; count < (int16)std::size(m_WakePtCounters); count++) {
+    // Como el original: si los 32 puntos siguen vivos se sale sin escribir m_NumWakeCoords
+    for (uint16 count = 0; count < 32; count++) {
         float& lifetime = m_WakePtCounters[count];
-        if (lifetime <= 0.0F) {
-            break;
+        if (!(lifetime > 0.0F)) {
+            m_NumWakeCoords = count;
+            return;
         }
 
-        if (lifetime <= CTimer::GetTimeStep()) {
+        if (!(lifetime > CTimer::GetTimeStep())) {
             lifetime = 0.0F;
-            break;
+            m_NumWakeCoords = count;
+            return;
         }
 
         lifetime -= CTimer::GetTimeStep();
     }
-    m_NumWakeCoords = count;
 }
 
 // 0x6F2550
@@ -242,7 +269,8 @@ void CBoat::PruneWakeTrail() {
  * La longitud máxima del historial depende de player/mission/ambient.
  */
 void CBoat::AddWakePoint(CVector pos) {
-    const auto ucIntensity = static_cast<uint8>(m_vecMoveSpeed.Magnitude() * 100.0F);
+    // Como el original: _ftol2 (truncamiento a 64 bits) y se guarda el byte bajo
+    const auto ucIntensity = static_cast<uint8>(static_cast<int64>(m_vecMoveSpeed.Magnitude() * 100.0F));
 
     // No wake points existing, early out
     if (m_WakePtCounters[0] <= 0.0F) {
@@ -397,8 +425,9 @@ bool CBoat::IsSectorAffectedByWake(CVector2D centreCoords, float semiSize, CBoat
 
     bool bWakeFound = false;
     for (auto& boat : apFrameWakeGeneratingBoats) {
+        // Como el original: el primer hueco vacío termina la búsqueda
         if (!boat) {
-            continue;
+            break;
         }
 
         if (!boat->m_NumWakeCoords) {
@@ -407,7 +436,7 @@ bool CBoat::IsSectorAffectedByWake(CVector2D centreCoords, float semiSize, CBoat
 
         for (int32 iTrail = 0; iTrail < boat->m_NumWakeCoords; ++iTrail) {
             auto fDist = (WAKE_LIFETIME - boat->m_WakePtCounters[iTrail]) * fShapeTime + static_cast<float>(iTrail) * fShapeLength + semiSize;
-            if (std::fabs(boat->m_WakeCoords[iTrail].x - centreCoords.x) >= fDist || std::fabs(boat->m_WakeCoords[iTrail].y - centreCoords.y) >= fDist) {
+            if (!(std::fabs(boat->m_WakeCoords[iTrail].x - centreCoords.x) < fDist) || !(std::fabs(boat->m_WakeCoords[iTrail].y - centreCoords.y) < fDist)) {
                 continue;
             }
 
@@ -434,12 +463,17 @@ float CBoat::IsVertexAffectedByWake(CVector coords, CBoat* boat, int16 wakeQuadr
     }
 
     for (uint16 iTrail = 0; iTrail < boat->m_NumWakeCoords; ++iTrail) {
-        auto fWakeDistSquared = powf((WAKE_LIFETIME - boat->m_WakePtCounters[iTrail]) * fShapeTime + static_cast<float>(iTrail) * fShapeLength, 2);
-        auto fTrailDistSquared = (boat->m_WakeCoords[iTrail] - coords).SquaredMagnitude();
+        const float fWakeDist = (WAKE_LIFETIME - boat->m_WakePtCounters[iTrail]) * fShapeTime + static_cast<float>(iTrail) * fShapeLength;
+        const float fWakeDistSquared = fWakeDist * fWakeDist;
+        const float dx = boat->m_WakeCoords[iTrail].x - coords.x;
+        const float dy = boat->m_WakeCoords[iTrail].y - coords.y;
+        const float fTrailDistSquared = dy * dy + dx * dx;
         if (fTrailDistSquared < fWakeDistSquared) {
             nWakeSkipCounterVertex[wakeQuadrant] = 0;
             float fContrib = sqrtf(fTrailDistSquared / fWakeDistSquared) * fRangeMult + (WAKE_LIFETIME - boat->m_WakePtCounters[iTrail]) * fTimeMult;
-            fContrib = std::min(1.0F, fContrib);
+            if (1.0F < fContrib) { // Como el original: NaN se conserva
+                fContrib = 1.0F;
+            }
             return 1.0F - fContrib;
         }
 
@@ -461,14 +495,13 @@ float CBoat::IsVertexAffectedByWake(CVector coords, CBoat* boat, int16 wakeQuadr
 // 0x6F10C0
 void CBoat::CheckForSkippingCalculations() {
     for (size_t ind = 0; ind < 4; ++ind) {
-        auto iVal = nWakeSkipCounterVertex[ind];
-        if (iVal <= 0 || iVal >= 8) {
-            if (nWakeSkipCounters[ind] <= 0) {
-                nWakeSkipCounterVertex[ind] = 8;
-                continue;
-            }
-            nWakeSkipCounters[ind] = iVal - 1;
-        } else if (iVal <= nWakeSkipCounters[ind] - 1) {
+        const int32 iVal = nWakeSkipCounterVertex[ind];
+        if (iVal > 0 && iVal < 8) {
+            // Como el original: max(vértice, contador - 1)
+            const int32 dec = nWakeSkipCounters[ind] - 1;
+            nWakeSkipCounters[ind] = static_cast<int16>(iVal > dec ? iVal : dec);
+        } else if (nWakeSkipCounters[ind] > 0) {
+            // Como el original: el contador baja en uno (no se copia el valor del vértice)
             --nWakeSkipCounters[ind];
         }
 
@@ -485,54 +518,70 @@ void CBoat::FillBoatList() {
     apFrameWakeGeneratingBoats.fill(nullptr);
 
     const auto& vecCamPos = TheCamera.GetPosition();
-    auto vecCamDir = TheCamera.m_mCameraMatrix.GetForward();
-    vecCamDir.Normalise();
+    const float camX = vecCamPos.x, camY = vecCamPos.y;
 
-    auto iCurBoat = 0u;
-    for (auto& vehicle : GetVehiclePool()->GetAllValid()) {
-        if (!vehicle.IsBoat()) {
+    // Como el original: solo x/y del forward de m_mCameraMatrix (0xB6F9AC/0xB6F9B0), normalizado en 2D
+    float dirX = *reinterpret_cast<const float*>(0xB6F9AC);
+    float dirY = *reinterpret_cast<const float*>(0xB6F9B0);
+    const float dirLen = std::sqrt(dirY * dirY + dirX * dirX);
+    if (dirLen > 0.0F) {
+        const float inv = 1.0F / dirLen;
+        dirX *= inv;
+        dirY *= inv;
+    }
+
+    // Como el original: el pool se recorre desde el último índice hacia el primero y se usan distancias al cuadrado
+    auto* const pool = GetVehiclePool();
+    int16 iCurBoat = 0;
+    for (auto idx = static_cast<int32>(pool->GetSize()) - 1; idx >= 0; --idx) {
+        if (pool->IsFreeSlotAtIndex(static_cast<size_t>(idx))) {
             continue;
         }
 
-        auto boat = vehicle.AsBoat();
+        auto* const vehicle = pool->GetAt(static_cast<size_t>(idx));
+        if (vehicle->m_nVehicleType != VEHICLE_TYPE_BOAT) {
+            continue;
+        }
+
+        auto* const boat = vehicle->AsBoat();
         if (!boat->m_NumWakeCoords) {
             continue;
         }
 
         const auto& vecBoatPos = boat->GetPosition();
-        CVector2D vecBoatCamOffset = vecBoatPos - vecCamPos;
-        const auto fCamDot = vecBoatCamOffset.Dot(vecCamDir);
-
+        const float dx = vecBoatPos.x - camX;
+        const float dy = vecBoatPos.y - camY;
+        const float fCamDot = dy * dirY + dx * dirX;
         if (fCamDot > 100.0F || fCamDot < -15.0F) {
             continue;
         }
 
-        const auto fDistFromCam = DistanceBetweenPoints2D(vecCamPos, vecBoatPos);
-        if (fDistFromCam > 80.0F) { // Originally squared dist, compared to 6400.0F
+        const float fDistSq = dy * dy + dx * dx;
+        if (fDistSq > 6400.0F) {
             continue;
         }
 
         // Early out, the list isn't full yet
-        if (iCurBoat < std::size(apFrameWakeGeneratingBoats)) {
-            apFrameWakeGeneratingBoats[iCurBoat] = boat;
-            ++iCurBoat;
+        if (iCurBoat < NUM_WAKE_GEN_BOATS) {
+            apFrameWakeGeneratingBoats[iCurBoat++] = boat;
             continue;
         }
 
-        // Insert the new boat into list, based on dist from camera
-        auto iNewInd = -1;
-        auto fMinDist = 999999.99F;
-        for (int32 iCheckedInd = 0; iCheckedInd < NUM_WAKE_GEN_BOATS; ++iCheckedInd) {
-            auto checkedBoat = apFrameWakeGeneratingBoats[iCheckedInd];
-            const auto& vecCheckedPos = checkedBoat->GetPosition();
-            auto fCheckedDistFromCam = DistanceBetweenPoints2D(vecCamPos, vecCheckedPos); // Originally squared dist
-            if (fCheckedDistFromCam < fMinDist) {
-                fMinDist = fCheckedDistFromCam;
+        // Como el original: se busca el barco más cercano de la lista y se reemplaza si el nuevo está aún más cerca
+        int16 iNewInd = -1;
+        float fMinDistSq = BOAT_WAKE_MAX_DIST;
+        for (int16 iCheckedInd = 0; iCheckedInd < NUM_WAKE_GEN_BOATS; ++iCheckedInd) {
+            const auto& vecCheckedPos = apFrameWakeGeneratingBoats[iCheckedInd]->GetPosition();
+            const float cx = vecCheckedPos.x - camX;
+            const float cy = vecCheckedPos.y - camY;
+            const float fCheckedDistSq = cy * cy + cx * cx;
+            if (fCheckedDistSq < fMinDistSq) {
+                fMinDistSq = fCheckedDistSq;
                 iNewInd = iCheckedInd;
             }
         }
 
-        if (iNewInd != -1 && (fDistFromCam < fMinDist || boat->GetStatus() == STATUS_PLAYER)) {
+        if (iNewInd != -1 && (fDistSq < fMinDistSq || boat->GetStatus() == STATUS_PLAYER)) {
             apFrameWakeGeneratingBoats[iNewInd] = boat;
         }
     }
@@ -554,13 +603,14 @@ void CBoat::ProcessControl() {
     PruneWakeTrail();
     CVehicle::ProcessDelayedExplosion();
 
-    auto fMassCheck = (m_fMass * 0.008F * 100.0F) / 125.0F;
-    if (physicalFlags.bRenderScorched && fMassCheck < m_fBuoyancyConstant) {
-        m_fBuoyancyConstant -= ((m_fMass * 0.001F) * 0.008F);
+    // Como el original: constantes plegadas del EXE (0x871248 y 0x871244, no son el float más cercano)
+    if (physicalFlags.bRenderScorched && m_fMass * BOAT_SCORCH_MASS_MULT < m_fBuoyancyConstant) {
+        m_fBuoyancyConstant -= m_fMass * BOAT_SCORCH_BUOY_MULT;
     }
 
-    auto wanted = FindPlayerWanted();
-    if (wanted->GetWantedLevel() > eWantedLevel::WANTED_CLEAN && m_nModelIndex == MODEL_PREDATOR) {
+    // Como el original: FindPlayerPed()->GetPlayerData()->m_pWanted y nivel con signo
+    const auto* wanted = FindPlayerPed()->GetPlayerData()->m_pWanted;
+    if (static_cast<int32>(wanted->GetWantedLevel()) > 0 && m_nModelIndex == MODEL_PREDATOR) {
         auto vehicle = FindPlayerVehicle();
         if (vehicle && vehicle->GetVehicleAppearance() == eVehicleAppearance::VEHICLE_APPEARANCE_BOAT) {
             auto iCarMission = m_autoPilot.m_nCarMission;
@@ -568,7 +618,7 @@ void CBoat::ProcessControl() {
                 || (iCarMission >= eCarMission::MISSION_RAMPLAYER_FARAWAY
                     && iCarMission <= eCarMission::MISSION_BLOCKPLAYER_CLOSE)) {
                 if (CTimer::GetTimeInMS() > m_NextTalkTimer) {
-                    m_NextTalkTimer = CGeneral::GetRandomNumber() % 4'096 + CTimer::GetTimeInMS() + 4'500;
+                    m_NextTalkTimer = CGeneral::GetRandomNumber() % 4096 + CTimer::GetTimeInMS() + 4500;
                 }
             }
         }
@@ -580,7 +630,7 @@ void CBoat::ProcessControl() {
     switch (GetStatus()) {
     case eEntityStatus::STATUS_PLAYER:
         m_nBoatFlags.bLockedToXY = false;
-        m_LockedHeading = -10000.0f;
+        m_LockedHeading = BOAT_NO_LOCKED_HEADING;
         if (m_pDriver) {
             ProcessControlInputs(m_pDriver->m_nPedType);
         }
@@ -593,7 +643,7 @@ void CBoat::ProcessControl() {
         break;
     case eEntityStatus::STATUS_SIMPLE:
         m_nBoatFlags.bLockedToXY = false;
-        m_LockedHeading = -10000.0f;
+        m_LockedHeading = BOAT_NO_LOCKED_HEADING;
         CCarAI::UpdateCarAI(this);
         CPhysical::ProcessControl();
         physicalFlags.bSubmergedInWater = true;
@@ -602,13 +652,13 @@ void CBoat::ProcessControl() {
         return;
     case eEntityStatus::STATUS_PHYSICS:
         m_nBoatFlags.bLockedToXY = false;
-        m_LockedHeading = -10000.0f;
+        m_LockedHeading = BOAT_NO_LOCKED_HEADING;
         CCarAI::UpdateCarAI(this);
         CCarCtrl::SteerAICarWithPhysics(this);
         break;
     case eEntityStatus::STATUS_ABANDONED:
-    case eEntityStatus::STATUS_WRECKED:
-        vehicleFlags.bIsHandbrakeOn = false; //?
+    case eEntityStatus::STATUS_WRECKED: {
+        vehicleFlags.bIsHandbrakeOn = false;
         physicalFlags.bSubmergedInWater = true;
         m_nBoatFlags.bBoatInWater = true;
         m_nBoatFlags.bBoatEngineInWater = true;
@@ -617,12 +667,15 @@ void CBoat::ProcessControl() {
         m_BrakePedal = 0.5F;
         m_GasPedal = 0.0F;
 
-        auto fDist = (GetPosition() - FindPlayerCentreOfWorld_NoSniperShift(0)).Magnitude();
+        const auto fDist = (GetPosition() - FindPlayerCentreOfWorld_NoSniperShift(0)).Magnitude();
         if (fDist > SECOND_LOD_DISTANCE) {
             ResetMoveSpeed();
             ResetTurnSpeed();
             return;
         }
+        break;
+    }
+    default:
         break;
     }
 
@@ -635,37 +688,35 @@ void CBoat::ProcessControl() {
             fROCPropSpeed *= 5.0F;
         }
 
-        if (m_GasPedal == 0.0F) {
-            m_EngineSpeed += (fSTDPropSpeed - m_EngineSpeed) * CTimer::GetTimeStep() * fROCPropSpeed;
-        } else if (m_GasPedal < 0.0F) {
-            fSTDPropSpeed = (CPlane::PLANE_STD_PROP_SPEED - 0.05F) * m_GasPedal + CPlane::PLANE_STD_PROP_SPEED;
-            m_EngineSpeed += (fSTDPropSpeed - m_EngineSpeed) * CTimer::GetTimeStep() * fROCPropSpeed;
-        } else {
+        if (m_GasPedal > 0.0F) {
             fSTDPropSpeed = (CPlane::PLANE_MAX_PROP_SPEED - CPlane::PLANE_STD_PROP_SPEED) * m_GasPedal + CPlane::PLANE_STD_PROP_SPEED;
-            m_EngineSpeed += (fSTDPropSpeed - m_EngineSpeed) * CTimer::GetTimeStep() * fROCPropSpeed;
+        } else if (m_GasPedal < 0.0F) {
+            fSTDPropSpeed = (CPlane::PLANE_STD_PROP_SPEED - CPlane::PLANE_MIN_PROP_SPEED) * m_GasPedal + CPlane::PLANE_STD_PROP_SPEED;
         }
+        m_EngineSpeed += (fSTDPropSpeed - m_EngineSpeed) * CTimer::GetTimeStep() * fROCPropSpeed;
     } else if (m_EngineSpeed > 0.0F) {
         m_EngineSpeed *= 0.95F;
     }
 
     auto fDamagePower = m_fDamageIntensity * m_pHandlingData->m_fCollisionDamageMultiplier;
     if (fDamagePower > 25.0F && GetStatus() != STATUS_WRECKED && m_fHealth >= 250.0F) {
-        auto fSavedHealth = m_fHealth;
+        const auto fSavedHealth = m_fHealth;
         if (GetStatus() == STATUS_PLAYER && CStats::GetPercentageProgress() >= 100.0F) {
             fDamagePower *= 0.5F;
         }
 
+        // Como el original: se multiplica por 0.5/0.25 o por 1/6 y 1/12 (no se divide)
         auto fGivenDamage = fDamagePower;
-        if (this == FindPlayerVehicle()->AsBoat()) {
+        if (this == FindPlayerVehicle()) {
             fGivenDamage -= 25.0F;
-            fGivenDamage /= vehicleFlags.bTakeLessDamage ? 6.0f : 2.0f;
+            fGivenDamage *= vehicleFlags.bTakeLessDamage ? 1.0F / 6.0F : 0.5F;
         } else {
             if (fGivenDamage > 60.0F && m_pDriver) {
                 m_pDriver->Say(CTX_GLOBAL_CRASH_GENERIC);
             }
 
             fGivenDamage -= 25.0F;
-            fGivenDamage /= vehicleFlags.bTakeLessDamage ? 12.0f : 4.0f;
+            fGivenDamage *= vehicleFlags.bTakeLessDamage ? 1.0F / 12.0F : 0.25F;
         }
 
         m_fHealth -= fGivenDamage;
@@ -680,26 +731,34 @@ void CBoat::ProcessControl() {
         FxSystem_c::SafeKillAndClear(m_pFireParticle);
     } else {
         auto vecDist = GetPosition() - TheCamera.GetPosition();
-        if (std::fabs(vecDist.x) < 200.0F && fabs(vecDist.y) < 200.0F) {
+        if (std::fabs(vecDist.x) < 200.0F && std::fabs(vecDist.y) < 200.0F) {
             CVector vecFirePos(-1.5F, -0.5F, 1.2F);
             if (m_nModelIndex == MODEL_SPEEDER) {
                 vecFirePos.Set(0.4F, -2.4F, 0.8F);
             } else if (m_nModelIndex == MODEL_REEFER) {
                 vecFirePos.Set(2.0F, -1.0F, 0.5F);
             }
+            vecFirePos.z += 1.0F; // Como el original: el fuego se crea 1 m más arriba
 
             if (m_fHealth < 250.0F) {
-                auto modellingMat = GetModellingMatrix();
-                if (!m_pFireParticle && modellingMat) {
-                    m_pFireParticle = g_fxMan.CreateFxSystem("fire_car", vecFirePos, modellingMat, false);
-                    if (m_pFireParticle) {
-                        m_pFireParticle->Play();
-                        CEventVehicleOnFire vehOnFireEvent(this);
-                        GetEventGlobalGroup()->Add(&vehOnFireEvent, false);
+                if (!m_pFireParticle) {
+                    if (const auto modellingMat = GetModellingMatrix()) {
+                        m_pFireParticle = g_fxMan.CreateFxSystem("fire_car", vecFirePos, modellingMat, false);
+                        if (m_pFireParticle) {
+                            m_pFireParticle->Play();
+                            CEventVehicleOnFire vehOnFireEvent(this);
+                            GetEventGlobalGroup()->Add(&vehOnFireEvent, false);
+                        }
                     }
                 }
 
-                m_BlowUpTimer += (CTimer::GetTimeStep() * 20.0F);
+                // Como el original: se suman los ms del paso truncados a uint32 (_ftol2 y fild + 2^32)
+                const auto ticks = static_cast<int32>(static_cast<int64>(CTimer::GetTimeStep() * 0.02F * 1000.0F));
+                if (ticks < 0) {
+                    m_BlowUpTimer += static_cast<float>(static_cast<double>(ticks) + 4294967296.0);
+                } else {
+                    m_BlowUpTimer = static_cast<float>(static_cast<double>(ticks) + static_cast<double>(m_BlowUpTimer));
+                }
                 if (m_BlowUpTimer > 5000.0F) {
                     BlowUpCar(m_EntityThatSetUsOnFire, false);
                 }
@@ -707,28 +766,52 @@ void CBoat::ProcessControl() {
         }
     }
 
-    auto bPostCollision = m_fDamageIntensity > 0.0F && m_vecLastCollisionImpactVelocity.z > 0.1F;
+    // Como el original: m_bHasHitWall se lee antes de CPhysical::ProcessControl
+    const bool bHasHitWall = GetHasHitWall();
+    const bool bPostCollision = m_fDamageIntensity > 0.0F && m_vecLastCollisionImpactVelocity.z > 0.1F;
     CPhysical::ProcessControl();
-    ProcessBoatControl(m_BoatHandling, &m_PrevVolume, GetHasHitWall(), bPostCollision);
+    ProcessBoatControl(m_BoatHandling, &m_PrevVolume, bHasHitWall, bPostCollision);
 
-    if (m_nModelIndex == MODEL_SKIMMER
-        && (m_EngineSpeed > CPlane::PLANE_MIN_PROP_SPEED || m_vecMoveSpeed.SquaredMagnitude() > CPlane::PLANE_MIN_PROP_SPEED)) {
-        FlyingControl(FLIGHT_MODEL_PLANE, -10000.0f, -10000.0f, -10000.0f, -10000.0f);
+    // Como el original: el Skimmer nunca consulta el truco de barcos voladores; la velocidad al cuadrado
+    // (float) se compara con 0.05 en double
+    if (m_nModelIndex == MODEL_SKIMMER) {
+        if (m_EngineSpeed > CPlane::PLANE_MIN_PROP_SPEED || static_cast<double>(m_vecMoveSpeed.SquaredMagnitude()) > 0.05) {
+            FlyingControl(FLIGHT_MODEL_PLANE, BOAT_NO_LOCKED_HEADING, BOAT_NO_LOCKED_HEADING, BOAT_NO_LOCKED_HEADING, BOAT_NO_LOCKED_HEADING);
+        }
     } else if (CCheat::IsActive(CHEAT_BOATS_FLY)) {
-        FlyingControl(FLIGHT_MODEL_BOAT, -10000.0f, -10000.0f, -10000.0f, -10000.0f);
+        FlyingControl(FLIGHT_MODEL_BOAT, BOAT_NO_LOCKED_HEADING, BOAT_NO_LOCKED_HEADING, BOAT_NO_LOCKED_HEADING, BOAT_NO_LOCKED_HEADING);
     }
 
     if (m_nBoatFlags.bLockedToXY) {
         m_vecMoveSpeed.x = 0.0F;
         m_vecMoveSpeed.y = 0.0F;
 
-        auto bNoAnchorAngle = m_LockedHeading == -10000.0f;
-        if (bNoAnchorAngle) {
+        if (m_LockedHeading == BOAT_NO_LOCKED_HEADING) {
             m_LockedHeading = GetHeading();
         } else {
-            CVector vecPos = GetMatrix().GetPosition();
-            GetMatrix().RotateZ(m_LockedHeading - GetHeading());
-            GetMatrix().SetTranslateOnly(vecPos);
+            // Como el original: locked - heading con el heading de fpatan sin redondear (x87)
+            const CPlaceable* const self = this;
+            const float locked = m_LockedHeading;
+            float angle;
+            __asm {
+                mov ecx, self
+                mov eax, dword ptr [ecx+14h]
+                test eax, eax
+                je no_matrix
+                fld dword ptr [eax+10h]
+                fchs
+                fld dword ptr [eax+14h]
+                fpatan
+                jmp have_heading
+            no_matrix:
+                fld dword ptr [ecx+10h]
+            have_heading:
+                fsubr locked
+                fstp angle
+            }
+            const CVector vecPos = GetPosition();
+            m_matrix->RotateZ(angle);
+            m_matrix->GetPosition() = vecPos;
         }
     }
 }
@@ -751,36 +834,38 @@ void CBoat::PreRender() {
     CVehicle::PreRender();
 
     m_fContactSurfaceBrightness = 0.5F;
-    auto fUsedAngle = -m_fSteerAngle;
-    SetComponentRotation(m_BoatNodes[BOAT_RUDDER],         AXIS_Z, fUsedAngle, true);
-    SetComponentRotation(m_BoatNodes[BOAT_REARFLAP_LEFT],  AXIS_Z, fUsedAngle, true);
-    SetComponentRotation(m_BoatNodes[BOAT_REARFLAP_RIGHT], AXIS_Z, fUsedAngle, true);
+    SetComponentRotation(m_BoatNodes[BOAT_RUDDER],         AXIS_Z, -m_fSteerAngle, true);
+    SetComponentRotation(m_BoatNodes[BOAT_REARFLAP_LEFT],  AXIS_Z, -m_fSteerAngle, true);
+    SetComponentRotation(m_BoatNodes[BOAT_REARFLAP_RIGHT], AXIS_Z, -m_fSteerAngle, true);
 
-    auto fPropSpeed = std::min(1.0F, m_EngineSpeed * (32.0F / TWO_PI));
-    auto ucTransparency = static_cast<RwUInt8>((1.0F - fPropSpeed) * 255.0F);
+    // Como el original: escala 32/2pi exacta del EXE, NaN se conserva y alpha = _ftol2 (sin truncar a byte)
+    float fPropSpeed = m_EngineSpeed * BOAT_PROP_SPEED_SCALE;
+    if (1.0F < fPropSpeed) {
+        fPropSpeed = 1.0F;
+    }
+    const auto propAlpha = static_cast<int32>(static_cast<int64>((1.0F - fPropSpeed) * 255.0F));
 
-    m_PropellerAngle += m_EngineSpeed * CTimer::GetTimeStep();
-    while (m_PropellerAngle > TWO_PI) {
-        m_PropellerAngle -= TWO_PI;
+    m_PropellerAngle += CTimer::GetTimeStep() * m_EngineSpeed;
+    while (m_PropellerAngle > BOAT_TWO_PI) {
+        m_PropellerAngle -= BOAT_TWO_PI;
     }
 
-    ProcessBoatNodeRendering(BOAT_STATIC_PROP,   m_PropellerAngle * +2, ucTransparency);
-    ProcessBoatNodeRendering(BOAT_STATIC_PROP_2, m_PropellerAngle * -2, ucTransparency);
-
-    ucTransparency = (ucTransparency >= 150 ? 0 : 150 - ucTransparency);
-    ProcessBoatNodeRendering(BOAT_MOVING_PROP,   -m_PropellerAngle, ucTransparency);
-    ProcessBoatNodeRendering(BOAT_MOVING_PROP_2, +m_PropellerAngle, ucTransparency);
+    // Como el original: hélice fija y móvil del primer par, después las del segundo
+    const int32 movingAlpha = 150 - propAlpha < 0 ? 0 : 150 - propAlpha;
+    ProcessBoatNodeRendering(BOAT_STATIC_PROP,   m_PropellerAngle * 2.0F,    propAlpha);
+    ProcessBoatNodeRendering(BOAT_MOVING_PROP,   -m_PropellerAngle,          movingAlpha);
+    ProcessBoatNodeRendering(BOAT_STATIC_PROP_2, -(m_PropellerAngle * 2.0F), propAlpha);
+    ProcessBoatNodeRendering(BOAT_MOVING_PROP_2, m_PropellerAngle,           movingAlpha);
 
     if (m_nModelIndex == MODEL_MARQUIS) {
-        auto pFlap = m_BoatNodes[BOAT_FLAP_LEFT];
-        if (pFlap) {
-            auto tempMat = CMatrix();
-            tempMat.Attach(RwFrameGetMatrix(pFlap), false);
-            CVector& posCopy = tempMat.GetPosition();
-            auto vecTransformed = GetMatrix().TransformVector(posCopy);
+        if (const auto pFlap = m_BoatNodes[BOAT_FLAP_LEFT]) {
+            CMatrix tempMat(RwFrameGetMatrix(pFlap), false);
+            // Como el original: copia de la posición (SetRotate la pone a cero) y Multiply3x3 con m_matrix
+            const CVector posCopy = tempMat.GetPosition();
+            const CVector vecTransformed = BoatMultiply3x3(*m_matrix, posCopy);
 
             m_BoatDoor.Process(this, m_OldMoveSpeed, m_OldTurnSpeed, vecTransformed);
-            CVector vecAxis;
+            CVector vecAxis{ 0.0F, 0.0F, 0.0F };
             vecAxis[m_BoatDoor.GetAxes()] = m_BoatDoor.m_angle;
 
             tempMat.SetRotate(vecAxis.x, vecAxis.y, vecAxis.z);
@@ -792,86 +877,86 @@ void CBoat::PreRender() {
     if (m_nModelIndex == MODEL_PREDATOR
         || m_nModelIndex == MODEL_REEFER
         || m_nModelIndex == MODEL_TROPIC) {
-        auto moving = m_BoatNodes[BOAT_MOVING];
-        if (moving) {
+        if (const auto moving = m_BoatNodes[BOAT_MOVING]) {
             SetComponentRotation(moving, AXIS_Z, m_Scan, true);
             if (CCheat::IsActive(CHEAT_INVISIBLE_CAR)) {
                 auto firstObj = reinterpret_cast<RpAtomic*>(GetFirstObject(moving));
                 RpAtomicRenderMacro(firstObj);
             }
         }
-        m_Scan += CTimer::GetTimeStepInSeconds();
+        m_Scan += CTimer::GetTimeStep() * 0.02F; // Como el original: timestep * 0.02f (no / 50)
     }
 
     m_OldMoveSpeed = m_vecMoveSpeed + m_vecFrictionMoveSpeed;
     m_OldTurnSpeed = m_vecTurnSpeed + m_vecFrictionTurnSpeed;
-    auto fSpeed = m_vecMoveSpeed.Magnitude();
+    const float fSpeed = m_vecMoveSpeed.Magnitude();
 
-    int32 iCounter = 0;
-    for (const auto node : { BOAT_STATIC_PROP, BOAT_STATIC_PROP_2 }) {
-        auto prop = m_BoatNodes[node];
-        RwMatrix* splashMat = CEntity::GetModellingMatrix();
+    constexpr eBoatNodes propNodes[2]{ BOAT_STATIC_PROP, BOAT_STATIC_PROP_2 };
+    for (auto i = 0; i < 2; ++i) {
+        const auto prop = m_BoatNodes[propNodes[i]];
+        RwMatrix* const splashMat = GetRwObject() ? GetRwMatrix() : nullptr;
 
-        auto splashFx = m_fxSysProp[iCounter];
-        if (!splashFx && splashMat && prop) {
+        auto& splashFx = m_fxSysProp[i];
+        if (!splashFx) {
+            if (!splashMat || !prop) {
+                continue;
+            }
+            const CVector vecPoint{ 0.0F, 0.0F, 0.0F };
             RwV3dAssign(RwMatrixGetPos(splashMat), RwMatrixGetPos(RwFrameGetLTM(prop)));
             RwMatrixUpdate(splashMat);
-            auto vecPoint = CVector(0.0F, 0.0F, 0.0F);
             splashFx = g_fxMan.CreateFxSystem("boat_prop", vecPoint, splashMat, false);
-            if (splashFx) {
-                m_fxSysProp[iCounter] = splashFx;
+            if (!splashFx) {
+                continue;
+            }
+            splashFx->Play();
+            splashFx->SetLocalParticles(true);
+            splashFx->CopyParentMatrix();
+        }
+
+        // Como el original: con el sistema ya creado no se comprueba la matriz
+        if (physicalFlags.bSubmergedInWater) {
+            if (splashFx->GetPlayStatus() == eFxSystemPlayStatus::FX_STOPPED) {
                 splashFx->Play();
-                splashFx->SetLocalParticles(true);
-                splashFx->CopyParentMatrix();
             }
-        }
 
-        if (splashFx && splashMat) {
-            if (physicalFlags.bSubmergedInWater) {
-                if (splashFx->GetPlayStatus() == eFxSystemPlayStatus::FX_STOPPED) {
-                    splashFx->Play();
-                }
-
-                RwV3dAssign(RwMatrixGetPos(splashMat), RwMatrixGetPos(RwFrameGetLTM(prop)));
-                RwMatrixUpdate(splashMat);
-                splashFx->SetMatrix(splashMat);
-                auto fTime = std::min(1.0F, fSpeed * 2.0F);
-                splashFx->SetConstTime(true, fTime);
-            } else if (splashFx->GetPlayStatus() == eFxSystemPlayStatus::FX_PLAYING) {
-                splashFx->Stop();
+            RwV3dAssign(RwMatrixGetPos(splashMat), RwMatrixGetPos(RwFrameGetLTM(prop)));
+            RwMatrixUpdate(splashMat);
+            splashFx->SetMatrix(splashMat);
+            float fTime = fSpeed + fSpeed;
+            if (1.0F < fTime) {
+                fTime = 1.0F;
             }
+            splashFx->SetConstTime(true, fTime);
+        } else if (splashFx->GetPlayStatus() == eFxSystemPlayStatus::FX_PLAYING) {
+            splashFx->Stop();
         }
-
-        ++iCounter;
     }
 
-    auto fWaterDamping = m_fxBuoyancyForce.Magnitude();
-    CVehicle::DoBoatSplashes(fWaterDamping);
+    CVehicle::DoBoatSplashes(m_fxBuoyancyForce.Magnitude());
 }
 
 // NOTSA: optimization
-inline void CBoat::ProcessBoatNodeRendering(eBoatNodes eNode, float fRotation, RwUInt8 ucAlpha) {
-    auto frame = m_BoatNodes[eNode];
-    if (!frame) {
+inline void CBoat::ProcessBoatNodeRendering(eBoatNodes eNode, float fRotation, int32 alpha) {
+    if (!m_BoatNodes[eNode]) {
         return;
     }
 
-    SetComponentRotation(frame, AXIS_Y, fRotation, true);
-    RpAtomic* atomic;
-    RwFrameForAllObjects(frame, GetCurrentAtomicObjectCB, &atomic);
+    SetComponentRotation(m_BoatNodes[eNode], AXIS_Y, fRotation, true);
+    RpAtomic* atomic = nullptr; // Como el original: se inicializa antes de buscar
+    RwFrameForAllObjects(m_BoatNodes[eNode], GetCurrentAtomicObjectCB, &atomic);
     if (atomic) {
-        CVehicle::SetComponentAtomicAlpha(atomic, ucAlpha);
+        CVehicle::SetComponentAtomicAlpha(atomic, alpha);
     }
 }
 
 // 0x6F0210
 void CBoat::Render() {
     m_nTimeTillWeNeedThisCar = CTimer::GetTimeInMS() + 3'000;
-    if (CCheat::IsActive(CHEAT_INVISIBLE_CAR)) {
-        return;
+    // Como el original: con el truco de coche invisible no se dibuja el vehículo, pero se siguen
+    // preparando los vértices y los render states (solo se omiten las transformaciones/dibujos)
+    if (!CCheat::IsActive(CHEAT_INVISIBLE_CAR)) {
+        CVehicle::Render();
     }
-
-    CVehicle::Render();
 
     if (m_nModelIndex == MODEL_SKIMMER) {
         return;
@@ -892,74 +977,39 @@ void CBoat::Render() {
     KeepWaterOutIndices[4] = 2;
     KeepWaterOutIndices[5] = 3;
 
-    // u/v
-    RxObjSpace3DVertexSetU(&KeepWaterOutVertices[0], 0.0F);
-    RxObjSpace3DVertexSetV(&KeepWaterOutVertices[0], 0.0F);
-    RxObjSpace3DVertexSetU(&KeepWaterOutVertices[1], 1.0F);
-    RxObjSpace3DVertexSetV(&KeepWaterOutVertices[1], 0.0F);
-    RxObjSpace3DVertexSetU(&KeepWaterOutVertices[2], 0.0F);
-    RxObjSpace3DVertexSetV(&KeepWaterOutVertices[2], 1.0F);
-    RxObjSpace3DVertexSetU(&KeepWaterOutVertices[3], 1.0F);
-    RxObjSpace3DVertexSetV(&KeepWaterOutVertices[3], 1.0F);
+    const auto SetQuad = [](float x0, float y0, float z0, float x1, float y1, float z1) {
+        RwIm3DVertexSetPos(&KeepWaterOutVertices[0], -x0, y0, z0);
+        RwIm3DVertexSetPos(&KeepWaterOutVertices[1], +x0, y0, z0);
+        RwIm3DVertexSetPos(&KeepWaterOutVertices[2], -x1, y1, z1);
+        RwIm3DVertexSetPos(&KeepWaterOutVertices[3], +x1, y1, z1);
+    };
+    // Como el original: u/v solo se escriben para los modelos con zona (el caso por defecto no las toca)
+    const auto SetUVs = [] {
+        RxObjSpace3DVertexSetU(&KeepWaterOutVertices[0], 0.0F);
+        RxObjSpace3DVertexSetV(&KeepWaterOutVertices[0], 0.0F);
+        RxObjSpace3DVertexSetU(&KeepWaterOutVertices[1], 1.0F);
+        RxObjSpace3DVertexSetV(&KeepWaterOutVertices[1], 0.0F);
+        RxObjSpace3DVertexSetU(&KeepWaterOutVertices[2], 0.0F);
+        RxObjSpace3DVertexSetV(&KeepWaterOutVertices[2], 1.0F);
+        RxObjSpace3DVertexSetU(&KeepWaterOutVertices[3], 1.0F);
+        RxObjSpace3DVertexSetV(&KeepWaterOutVertices[3], 1.0F);
+    };
 
+    // Como el original: Speeder con y = +0.06 detrás y Reefer con el par trasero en los vértices 0/1
     switch (m_nModelIndex) {
-    case MODEL_PREDATOR:
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[0], -1.45F,  1.90F, 0.96F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[1], +1.45F,  1.90F, 0.96F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[2], -1.45F, -3.75F, 0.96F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[3], +1.45F, -3.75F, 0.96F);
-        break;
-    case MODEL_SQUALO:
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[0], -1.222F,  2.004F, 1.409F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[1], +1.222F,  2.004F, 1.409F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[2], -1.240F, -1.367F, 0.846F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[3], +1.240F, -1.367F, 0.846F);
-        break;
-    case MODEL_SPEEDER:
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[0], -1.15F,  3.61F, 1.03F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[1], +1.15F,  3.61F, 1.03F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[2], -1.15F, -0.06F, 1.03F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[3], +1.15F, -0.06F, 1.03F);
-        break;
-    case MODEL_REEFER:
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[0], -1.90F,  2.83F, 1.00F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[1], +1.90F,  2.83F, 1.00F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[2], -1.66F, -4.48F, 0.83F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[3], +1.66F, -4.48F, 0.83F);
-        break;
-    case MODEL_TROPIC:
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[0], -1.886F, -2.347F, 0.787F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[1], +1.886F, -2.347F, 0.787F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[2], -1.886F, -4.670F, 0.842F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[3], +1.886F, -4.670F, 0.842F);
-        break;
-    case MODEL_COASTG:
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[0], -0.663F, 3.565F, 0.382F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[1], +0.663F, 3.565F, 0.382F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[2], -1.087F, 0.831F, 0.381F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[3], +1.087F, 0.831F, 0.381F);
-        break;
-    case MODEL_DINGHY:
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[0], -0.797F,  1.641F, 0.573F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[1], +0.797F,  1.641F, 0.573F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[2], -0.865F, -1.444F, 0.509F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[3], +0.865F, -1.444F, 0.509F);
-        break;
-    case MODEL_MARQUIS:
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[0], -1.246F, -1.373F, 0.787F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[1], +1.246F, -1.373F, 0.787F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[2], -1.023F, -5.322F, 0.787F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[3], +1.023F, -5.322F, 0.787F);
-        break;
-    case MODEL_LAUNCH:
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[0], -1.0F,  2.5F, 0.3F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[1], +1.0F,  2.5F, 0.3F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[2], -1.0F, -5.4F, 0.3F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[3], +1.0F, -5.4F, 0.3F);
-        break;
+    case MODEL_PREDATOR: SetQuad(1.45F,  1.90F, 0.96F,  1.45F, -3.75F, 0.96F); break;
+    case MODEL_SQUALO:   SetQuad(1.222F, 2.004F, 1.409F, 1.240F, -1.367F, 0.846F); break;
+    case MODEL_SPEEDER:  SetQuad(1.15F,  3.61F, 1.03F,  1.15F,  0.06F, 1.03F); break;
+    case MODEL_REEFER:   SetQuad(1.66F, -4.48F, 0.83F,  1.90F,  2.83F, 1.00F); break;
+    case MODEL_TROPIC:   SetQuad(1.886F, -2.347F, 0.787F, 1.886F, -4.670F, 0.842F); break;
+    case MODEL_COASTG:   SetQuad(0.663F, 3.565F, 0.382F, 1.087F, 0.831F, 0.381F); break;
+    case MODEL_DINGHY:   SetQuad(0.797F, 1.641F, 0.573F, 0.865F, -1.444F, 0.509F); break;
+    case MODEL_MARQUIS:  SetQuad(1.246F, -1.373F, 0.787F, 1.023F, -5.322F, 0.787F); break;
+    case MODEL_LAUNCH:   SetQuad(1.0F,   2.5F,  0.3F,   1.0F,  -5.4F,  0.3F); break;
     default:
         return;
     }
+    SetUVs();
 
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER,     RWRSTATE(CWaterLevel::waterclear256Raster));
     RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(TRUE));
@@ -968,23 +1018,25 @@ void CBoat::Render() {
     RwRenderStateSet(rwRENDERSTATEDESTBLEND,         RWRSTATE(rwBLENDONE));
 
     RwMatrix tempMat;
-    GetMatrix().UpdateRwMatrix(&tempMat);
-    if (RwIm3DTransform(KeepWaterOutVertices, uiNumVertices, &tempMat, rwMATRIXTYPENORMAL)) {
-        RwIm3DRenderIndexedPrimitive(RwPrimitiveType::rwPRIMTYPETRILIST, KeepWaterOutIndices, uiNumIndices);
-        RwIm3DEnd();
+    if (!CCheat::IsActive(CHEAT_INVISIBLE_CAR)) {
+        m_matrix->UpdateRwMatrix(&tempMat);
+        if (RwIm3DTransform(KeepWaterOutVertices, uiNumVertices, &tempMat, rwMATRIXTYPENORMAL)) {
+            RwIm3DRenderIndexedPrimitive(RwPrimitiveType::rwPRIMTYPETRILIST, KeepWaterOutIndices, uiNumIndices);
+            RwIm3DEnd();
+        }
     }
 
     // Second tri list for Coastguard
     if (m_nModelIndex == MODEL_COASTG) {
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[0], -1.087F,  0.831F, 0.381F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[1], +1.087F,  0.831F, 0.381F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[2], -1.097F, -2.977F, 0.381F);
-        RwIm3DVertexSetPos(&KeepWaterOutVertices[3], +1.097F, -2.977F, 0.381F);
+        SetQuad(1.087F, 0.831F, 0.381F, 1.097F, -2.977F, 0.381F);
+        SetUVs();
 
-        GetMatrix().UpdateRwMatrix(&tempMat);
-        if (RwIm3DTransform(KeepWaterOutVertices, uiNumVertices, &tempMat, rwMATRIXTYPENORMAL)) {
-            RwIm3DRenderIndexedPrimitive(RwPrimitiveType::rwPRIMTYPETRILIST, KeepWaterOutIndices, uiNumIndices);
-            RwIm3DEnd();
+        if (!CCheat::IsActive(CHEAT_INVISIBLE_CAR)) {
+            m_matrix->UpdateRwMatrix(&tempMat);
+            if (RwIm3DTransform(KeepWaterOutVertices, uiNumVertices, &tempMat, rwMATRIXTYPENORMAL)) {
+                RwIm3DRenderIndexedPrimitive(RwPrimitiveType::rwPRIMTYPETRILIST, KeepWaterOutIndices, uiNumIndices);
+                RwIm3DEnd();
+            }
         }
     }
 
@@ -998,46 +1050,84 @@ void CBoat::ProcessControlInputs(uint8 padNum) {
     m_PadNum = std::min<uint8>(padNum, 3);
     CPad* pad = CPad::GetPad(padNum);
 
-    float newBrake = std::lerp(m_BrakePedal, pad->GetBrake() / 255.0f, 0.1f);
-    m_BrakePedal = std::clamp(newBrake, 0.0f, 1.0f);
+    // Como el original: multiplicación por la constante 1/255 del EXE (0x859A3C), suavizado
+    // (objetivo - freno) * 0.1 + freno y recorte que manda NaN a 0
+    float newBrake = (static_cast<float>(pad->GetBrake()) * BOAT_INV_255 - m_BrakePedal) * 0.1F + m_BrakePedal;
+    if (newBrake > 0.0F) {
+        if (newBrake >= 1.0F) {
+            newBrake = 1.0F;
+        }
+    } else {
+        newBrake = 0.0F;
+    }
+    m_BrakePedal = newBrake;
 
     if (m_BrakePedal >= 0.05f) {
         m_GasPedal = m_BrakePedal * -0.3f;
     } else {
         m_BrakePedal = 0.0f;
-        m_GasPedal = pad->GetAccelerate() / 255.0f;
+        m_GasPedal = static_cast<float>(pad->GetAccelerate()) * BOAT_INV_255;
     }
 
-    const auto steerInput = pad->GetSteeringLeftRight();
+    const auto KeyboardSteer = [&] {
+        const float timeStep = CTimer::GetTimeStep();
+        const auto steerInput = static_cast<int32>(pad->GetSteeringLeftRight());
+        m_fRawSteerAngle += (static_cast<float>(-steerInput) * 0.0078125F - m_fRawSteerAngle) * BOAT_STEER_SMOOTH_RATE * timeStep;
+        CVehicle::m_nLastControlInput = eControllerType::KEYBOARD;
+    };
 
     // 0x6F0AE7
-    // if mouse enabled and camera allows 3rd person mouse -> try mouse branch, otherwise keyboard branch
     if (CCamera::m_bUseMouse3rdPerson && CVehicle::m_bEnableMouseSteering) {
-        if (CPad::NewMouseControllerState.m_AmountMoved.x == 0.0f && m_fRawSteerAngle == 0.0f || CVehicle::m_nLastControlInput != eControllerType::MOUSE || steerInput != 0) {
-            // keyboard/controller steering smoothing (как было)
-            m_fRawSteerAngle += (-steerInput / 128.0f - m_fRawSteerAngle) * BOAT_STEER_SMOOTH_RATE * CTimer::GetTimeStep();
-            CVehicle::m_nLastControlInput = eControllerType::KEYBOARD;
+        // Como el original: el ratón manda si se movió, o si no se movió pero el volante sigue girado,
+        // la última entrada fue el ratón y no hay dirección por teclado/mando
+        const float mouseX = CPad::NewMouseControllerState.m_AmountMoved.x;
+        bool useMouse = true;
+        if (mouseX == 0.0f) {
+            useMouse = std::fabs(m_fRawSteerAngle) > 0.0F
+                && CVehicle::m_nLastControlInput == eControllerType::MOUSE
+                && pad->GetSteeringLeftRight() == 0;
+        }
+
+        if (!useMouse) {
+            // Como el original: sin dirección y con el ratón como última entrada no se toca nada
+            if (pad->GetSteeringLeftRight() != 0 || CVehicle::m_nLastControlInput != eControllerType::MOUSE) {
+                KeyboardSteer();
+            }
         } else {
-            // mouse branch
             if (!pad->NewState.m_bVehicleMouseLook) {
-                m_fRawSteerAngle += CPad::NewMouseControllerState.m_AmountMoved.x * BOAT_MOUSE_STEER_SCALE;
+                m_fRawSteerAngle += mouseX * BOAT_MOUSE_STEER_SCALE;
             }
             CVehicle::m_nLastControlInput = eControllerType::MOUSE;
 
-            // if the angle is small or "mouse look" mode is enabled, apply damping
             if (std::fabs(m_fRawSteerAngle) < BOAT_STEER_DAMP_THRESHOLD || pad->NewState.m_bVehicleMouseLook) {
-                m_fRawSteerAngle *= std::pow(BOAT_STEER_DAMP_BASE, CTimer::GetTimeStep());
+                // Como el original: pow del EXE (_CIpow 0x822130) en ST0 con precisión completa por el ángulo
+                float* const rawPtr = &m_fRawSteerAngle;
+                const float base = BOAT_STEER_DAMP_BASE;
+                const float step = CTimer::GetTimeStep();
+                __asm {
+                    fld base
+                    fld step
+                    mov eax, 0x822130
+                    call eax
+                    mov edx, rawPtr
+                    fmul dword ptr [edx]
+                    fstp dword ptr [edx]
+                }
             }
         }
     } else {
-        // keyboard branch (repeated — but retained for clarity)
-        m_fRawSteerAngle += (-steerInput / 128.0f - m_fRawSteerAngle) * BOAT_STEER_SMOOTH_RATE * CTimer::GetTimeStep();
-        CVehicle::m_nLastControlInput = eControllerType::KEYBOARD;
+        KeyboardSteer();
     }
 
-    // limitation and final conversion to the steering angle
-    m_fRawSteerAngle = std::clamp(m_fRawSteerAngle, -1.0f, 1.0f);
-    const float signedSquare = std::copysign(m_fRawSteerAngle * m_fRawSteerAngle, m_fRawSteerAngle);
+    // Como el original: recorte a [-1, 1] (NaN se conserva) y cuadrado con signo (-0 da +0)
+    float raw = m_fRawSteerAngle;
+    if (raw > 1.0F) {
+        raw = 1.0F;
+    } else if (raw < -1.0F) {
+        raw = -1.0F;
+    }
+    m_fRawSteerAngle = raw;
+    const float signedSquare = (raw < 0.0F || raw != raw) ? -(raw * raw) : raw * raw;
     m_fSteerAngle = m_pHandlingData->m_fSteeringLock * DEG_TO_RAD * signedSquare;
 }
 
@@ -1059,7 +1149,7 @@ void CBoat::BlowUpCar(CEntity* culprit, bool inACutscene) {
 
     physicalFlags.bRenderScorched = true;
     SetStatus(STATUS_WRECKED);
-    CVisibilityPlugins::SetClumpForAllAtomicsFlag(GetRpClump(), eAtomicComponentFlag::ATOMIC_PIPE_NO_EXTRA_PASSES_LOD);
+    CVisibilityPlugins::SetClumpForAllAtomicsFlag(GetRpClump(), eAtomicComponentFlag::ATOMIC_PIPE_NO_EXTRA_PASSES); // Como el original: 0x4000
     m_vecMoveSpeed.z += 0.13F;
     m_fHealth = 0.0F;
     m_wBombTimer = 0;
@@ -1079,13 +1169,18 @@ void CBoat::BlowUpCar(CEntity* culprit, bool inACutscene) {
         return;
     }
 
-    RpAtomic* movingCompAtomic;
+    RpAtomic* movingCompAtomic = nullptr; // Como el original: se inicializa antes de buscar
     RwFrameForAllObjects(movingComponent, GetBoatAtomicObjectCB, &movingCompAtomic);
     if (!movingCompAtomic) {
         return;
     }
 
-    auto obj = new CObject();
+    // Como el original: si el pool de objetos no da hueco no se construye nada
+    void* const objMem = CObject::operator new(sizeof(CObject));
+    if (!objMem) {
+        return;
+    }
+    auto obj = ::new (objMem) CObject();
     obj->SetModelIndexNoCreate(MODEL_TEMPCOL_WHEEL1);
     obj->RefModelInfo(m_nModelIndex);
 
@@ -1103,7 +1198,7 @@ void CBoat::BlowUpCar(CEntity* culprit, bool inACutscene) {
     obj->m_fTurnMass = 25.0F;
     obj->m_fAirResistance = 0.99F;
     obj->m_fElasticity = 0.1F;
-    obj->m_fBuoyancyConstant = 8.0F / 75.0F;
+    obj->m_fBuoyancyConstant = BOAT_WHEEL_BUOYANCY; // Como el original: 0x3DDA740F
     obj->m_nObjectType = eObjectType::OBJECT_TEMPORARY;
     obj->SetIsStatic(false);
     obj->objectFlags.bIsPickup = false;
@@ -1128,6 +1223,7 @@ void CBoat::BlowUpCar(CEntity* culprit, bool inACutscene) {
     obj->SetPosn(vecObjPos);
 
     CWorld::Add(obj);
+    movingCompAtomic = nullptr;
     RwFrameForAllObjects(movingComponent, GetBoatAtomicObjectCB, &movingCompAtomic);
     if (movingCompAtomic) {
         RpAtomicSetFlags(movingCompAtomic, 0x0);

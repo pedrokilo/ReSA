@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CAEPedWeaponAudioEntity
- * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 4/4 entradas.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -27,8 +27,7 @@ void CAEPedWeaponAudioEntity::InjectHooks() {
     RH_ScopedClass(CAEPedWeaponAudioEntity);
     RH_ScopedCategory("Audio/Entities");
 
-    // El constructor 0x5DE990 no se instala aquí: ya está registrado (bloqueado y
-    // deshabilitado) en CAEWeaponAudioEntity::InjectHooks; duplicarlo chocaría.
+    RH_ScopedInstall(Constructor, 0x5DE990);
     RH_ScopedInstall(Initialise, 0x4E6AA0);
     RH_ScopedInstall(Terminate, 0x4E6AC0);
     RH_ScopedInstall(AddAudioEvent, 0x4E69F0);
@@ -39,6 +38,19 @@ void CAEPedWeaponAudioEntity::InjectHooks() {
 CAEPedWeaponAudioEntity::CAEPedWeaponAudioEntity() : CAEWeaponAudioEntity() {
     m_Ped = nullptr;
     m_bInitialised = false;
+}
+
+// 0x5DE990: envoltorio del hook. Construye en el sitio exactamente como el EXE: la parte
+// CAEWeaponAudioEntity (m_tempSound.m_PhysicalEntity en +0x10 y los campos de Clear()), la vtable
+// del EXE (0x86C2AC), m_Ped (+0xA4) y m_bInitialised (+0xA0, un byte). El resto de bytes no se tocan.
+CAEPedWeaponAudioEntity* CAEPedWeaponAudioEntity::Constructor() {
+    auto* const self = reinterpret_cast<uint8*>(this);
+    *reinterpret_cast<uint32*>(self + 0x10) = 0;
+    Clear();
+    *reinterpret_cast<uintptr_t*>(self) = 0x86C2AC;
+    m_Ped          = nullptr;
+    m_bInitialised = false;
+    return this;
 }
 
 // 0x4E6AA0

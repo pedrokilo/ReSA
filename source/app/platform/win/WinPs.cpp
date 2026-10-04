@@ -36,13 +36,19 @@ END GENERATED HOOK STATUS */
 #endif
 #include "winincl.h"
 #include "intrin.h"
+#include <mmsystem.h>
 
 //! Disable "This function was depracated"
 //#pragma warning (disable : 28159 4996)
 
-static inline char gCpuVendor[13] = "GTAReversed!"; // = "UnknownVendr";
+// Como el original: el fabricante de la CPU se guarda en el global del EXE ("UnknownVendr" hasta psInitialize).
+static auto& gCpuVendor = StaticRef<std::array<char, 13>>(0x8D6238);
 
 static auto& PsGlobal = StaticRef<psGlobalType>(0xC8CF88);
+
+// Como el original: psSelectDevice guarda aquí el contador de ciclos (rdtsc); nadie lo lee.
+static auto& s_SelectDeviceTscHigh = StaticRef<uint32>(0xC92104);
+static auto& s_SelectDeviceTscLow  = StaticRef<uint32>(0xC92108);
 
 // 0x7455E0 - Get available videomem
 static HRESULT GetVideoMemInfo(LPDWORD total, LPDWORD available) {
@@ -61,38 +67,35 @@ static HRESULT GetVideoMemInfo(LPDWORD total, LPDWORD available) {
     return hr;
 }
 
-//! Check if D3D9 can be loaded (Originally this checked for versions 7 => 9, but GTA can only run with 9, so... :D
-static BOOL CheckDirectX() {
-    const auto hD3D9DLL = LoadLibrary("D3D9.DLL");
-    if (hD3D9DLL == NULL) {
-        return FALSE;
-    }
-    FreeLibrary(hD3D9DLL);
-    return TRUE;
-}
-
 //! 0x745840 - Check if DirectSound can be loaded
 static BOOL CheckDirectSound() {
-    LPDIRECTSOUND ds;
+    // Como el original: inicializa COM aqui (sin mirar el resultado) y crea el dispositivo con DirectSoundCreate8
+    // (DSOUND ordinal 11 en la importacion diferida del EXE).
+    CoInitialize(NULL);
 
-    if (FAILED(DirectSoundCreate(NULL, &ds, NULL))) {
+    LPDIRECTSOUND8 ds;
+    if (FAILED(DirectSoundCreate8(NULL, &ds, NULL))) {
         return FALSE;
     }
 
-    DSCAPS  caps{ sizeof(DSCAPS) };
-    HRESULT hr = ds->GetCaps(&caps);
+    DSCAPS caps; // Como el original: solo se escribe dwSize
+    caps.dwSize = sizeof(DSCAPS);
+    const BOOL result = ds->GetCaps(&caps) == DS_OK; // Como el original: cualquier HRESULT distinto de 0 es fallo
 
     ds->Release();
 
-    return SUCCEEDED(hr);
+    return result;
 }
 
 // 0x7465B0
 static void InitialiseLanguage() {
-    // TODO: Use `GetLocaleInfoEx`
     const auto sysDefaultLCID = PRIMARYLANGID(GetSystemDefaultLCID());
 	const auto usrDefaultLCID = PRIMARYLANGID(GetUserDefaultLCID());
     const auto kbLayoutLCID   = PRIMARYLANGID(LOWORD(GetKeyboardLayout(0)));
+    // Como el original: las tres consultas se repiten (solo usa el subidioma del usuario, que no cambia el resultado)
+    GetSystemDefaultLCID();
+    GetUserDefaultLCID();
+    GetKeyboardLayout(0);
 
 	FrontEndMenuManager.m_nTitleLanguage = sysDefaultLCID;
 
@@ -120,10 +123,10 @@ static void InitialiseLanguage() {
 
 // 0x747420
 RwBool psInitialize() {
+    // NOTSA: el EXE no declara la aplicacion consciente de DPI; sin esto Windows escala la ventana (SDL3/ventana).
     SetProcessDPIAware();
-    auto ps = &PsGlobal;
 
-    RsGlobal.ps = ps;
+    auto ps = &PsGlobal;
 
     ps->lastMousePos.y = 0.f;
     ps->lastMousePos.x = 0.f;
@@ -132,88 +135,82 @@ RwBool psInitialize() {
     ps->diMouse       = NULL;
     ps->diDevice1     = NULL;
     ps->diDevice2     = NULL;
-    
+
+    RsGlobal.ps = ps;
+
     CFileMgr::Initialise();
-    const auto usrdir = InitUserDirectories();
-    s_PcSaveHelper.SetSaveDirectory(usrdir);
+    C_PcSave::SetSaveDirectory(InitUserDirectories());
+
+    InitialiseLanguage(); // Como el original
 
     gGameState = GAME_STATE_INITIAL;
 
-    int regs[4]{};
-    __cpuid(regs, 0); // EAX=0: Highest Function Parameter and Manufacturer ID
-    std::memcpy(gCpuVendor, &regs[1], 4);
-    std::memcpy(gCpuVendor + 4, &regs[3], 4);
-    std::memcpy(gCpuVendor + 8, &regs[2], 4);
-    gCpuVendor[12] = '\0';
-    NOTSA_LOG_DEBUG("CPU vendor: {}", gCpuVendor);
+    // Como el original: cpuid(1) y cpuid(0x80000001) solo rellenan una variable local sin uso; el fabricante
+    // (cpuid 0: ebx, edx, ecx) se copia sin terminador al global del EXE.
+    int regs[4];
+    __cpuid(regs, 0);
+    std::memcpy(gCpuVendor.data(), &regs[1], 4);
+    std::memcpy(gCpuVendor.data() + 4, &regs[3], 4);
+    std::memcpy(gCpuVendor.data() + 8, &regs[2], 4);
 
-    // Figure out Windows version (TODO: Use `IsWindowsVersion*` from VersionHelpers.h instead)
-    s_OSStatus.OSVer = [&] {
-        OSVERSIONINFO verInfo{ sizeof(OSVERSIONINFO) };	
-	    GetVersionEx(&verInfo);
+    OSVERSIONINFOA verInfo; // Como el original: solo se escribe el tamano
+    verInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFOA);
+    GetVersionExA(&verInfo);
 
-        if (verInfo.dwPlatformId == VER_PLATFORM_WIN32_NT) {
-            switch (const auto mv = verInfo.dwMajorVersion) {
-            case 4:  return WinVer::WIN_NT;
-            case 5:  return WinVer::WIN_2000_XP_2003;
-            case 6:  return WinVer::WIN_VISTA_OR_LATER;
-            default: return mv < 4 ? WinVer::WIN_NT : WinVer::WIN_VISTA_OR_LATER;
-            }
-        } else if (verInfo.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS) {
-            return verInfo.dwMajorVersion > 4 || verInfo.dwMajorVersion == 4 && verInfo.dwMinorVersion != 0
-                ? WinVer::WIN_98
-                : WinVer::WIN_95;
+    s_OSStatus.OSVer = WinVer::WIN_95;
+    if (verInfo.dwPlatformId == VER_PLATFORM_WIN32_NT) {
+        // Como el original: NT anterior a la 4 se queda en WIN_95
+        if (verInfo.dwMajorVersion == 4) {
+            s_OSStatus.OSVer = WinVer::WIN_NT;
+        } else if (verInfo.dwMajorVersion == 5) {
+            s_OSStatus.OSVer = WinVer::WIN_2000_XP_2003;
+        } else if (verInfo.dwMajorVersion > 5) {
+            s_OSStatus.OSVer = WinVer::WIN_VISTA_OR_LATER;
         }
-        NOTSA_UNREACHABLE(); // If this is reached the game wouldn't run anyways, so might as well just crash it.
-    }();
+    } else if (verInfo.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS) {
+        s_OSStatus.OSVer = verInfo.dwMajorVersion > 4 || verInfo.dwMajorVersion == 4 && verInfo.dwMinorVersion > 0
+            ? WinVer::WIN_98
+            : WinVer::WIN_95;
+    }
 
+    // Como el original: los ajustes se cargan antes de comprobar nada
+    FrontEndMenuManager.LoadSettings();
+
+    // Como el original: GetDXVersion (0x745650, no reversada) detecta la version de DirectX
+    s_OSStatus.DxVer = plugin::CallAndReturn<DWORD, 0x745650>();
+
+    // Como el original: MessageBoxA, con el titulo pedido antes que el texto
     if (s_OSStatus.OSVer == WinVer::WIN_95) {
-        MessageBoxW(
-            NULL,
-            (LPCWSTR)TheText.Get("WIN_95"),	 // Grand Theft Auto San Andreas cannot run on Windows 95
-            (LPCWSTR)TheText.Get("WIN_TTL"), // Grand Theft Auto San Andreas
-            MB_OK
-        );
-
+        const auto title = TheText.Get("WIN_TTL"); // Grand Theft Auto San Andreas
+        const auto text  = TheText.Get("WIN_95");  // Grand Theft Auto San Andreas cannot run on Windows 95
+        MessageBoxA(NULL, (LPCSTR)text, (LPCSTR)title, MB_OK);
         return FALSE;
     }
 
-    // Originally figured out available dx version and only allowed dx9, but we've simplified it.
-    if (!CheckDirectX()) {
-        MessageBoxW(
-            NULL,
-            (LPCWSTR)TheText.Get("WIN_DX"),	 // Grand Theft Auto San Andreas requires at least DirectX version 8.1
-            (LPCWSTR)TheText.Get("WIN_TTL"), // Grand Theft Auto San Andreas
-            MB_OK
-        );
+    if (s_OSStatus.DxVer < 0x900) {
+        const auto title = TheText.Get("WIN_TTL");
+        const auto text  = TheText.Get("WIN_DX"); // Grand Theft Auto San Andreas requires at least DirectX version 8.1
+        MessageBoxA(NULL, (LPCSTR)text, (LPCSTR)title, MB_OK);
         return FALSE;
     }
 
-    // CheckDirectX() Checks for Dx9 only, so use that
-    s_OSStatus.DxVer = 0x900;
-
-    if (!CheckDirectSound()) {
-        MessageBoxW(
-            NULL,
-            (LPCWSTR)TheText.Get("WIN_NSC"), // Grand Theft Auto San Andreas requires a sound card (I guess?)
-            (LPCWSTR)TheText.Get("WIN_TTL"), // Grand Theft Auto San Andreas
-            MB_ICONEXCLAMATION
-        );
-        return FALSE;
-    }
-
-    MEMORYSTATUS memstat{ sizeof(MEMORYSTATUS) };
-    GlobalMemoryStatus(&memstat); // TODO: `GlobalMemoryStatusEx`
+    MEMORYSTATUS memstat; // Como el original: GlobalMemoryStatus rellena dwLength
+    GlobalMemoryStatus(&memstat);
     s_OSStatus.RAM.TotalPhys    = memstat.dwTotalPhys;
     s_OSStatus.RAM.AvailPhys    = memstat.dwAvailPhys;
     s_OSStatus.RAM.TotalVirtual = memstat.dwTotalVirtual;
     s_OSStatus.RAM.AvailVirtual = memstat.dwAvailVirtual;
 
-    VERIFY(SUCCEEDED(GetVideoMemInfo(&s_OSStatus.VRAM.Total, &s_OSStatus.VRAM.Avail)));
-    VERIFY(SUCCEEDED(CoInitialize(NULL)));
+    GetVideoMemInfo(&s_OSStatus.VRAM.Total, &s_OSStatus.VRAM.Avail); // Como el original: sin comprobar
 
-    // Load setting only after everything was checked - TODO: Move this out from here, it's not platform specific
-    FrontEndMenuManager.LoadSettings();
+    if (!CheckDirectSound()) {
+        const auto title = TheText.Get("WIN_TTL");
+        const auto text  = TheText.Get("WIN_NSC"); // Grand Theft Auto San Andreas requires a sound card
+        MessageBoxA(NULL, (LPCSTR)text, (LPCSTR)title, MB_ICONEXCLAMATION);
+        return FALSE;
+    }
+
+    TheText.Unload(false); // Como el original
 
     return TRUE;
 }
@@ -239,12 +236,12 @@ void psWarningMessage(const char* str) {
 }
 
 // 0x745210
-bool psCameraBeginUpdate(RwCamera* camera) {
+RwBool psCameraBeginUpdate(RwCamera* camera) {
     if (RwCameraBeginUpdate(Scene.m_pRwCamera)) {
-        return true;
+        return TRUE;
     }
     RsEventHandler(rsACTIVATE, nullptr);
-    return false;
+    return FALSE;
 }
 
 // 0x745240
@@ -256,53 +253,38 @@ RwCamera* psCameraShowRaster(RwCamera* camera) {
 
 // 0x745270
 uint32 psTimer() {
-    return OS_TimeMS();
+    // Como el original: timeGetTime con la resolucion minima del temporizador multimedia
+    TIMECAPS timeCaps;
+    timeGetDevCaps(&timeCaps, sizeof(TIMECAPS));
+    timeBeginPeriod(timeCaps.wPeriodMin);
+    const auto time = (uint32)timeGetTime();
+    timeEndPeriod(timeCaps.wPeriodMin);
+    return time;
 }
 
 // 0x7452B0
 RwImage* psGrabScreen(RwCamera* camera) {
     auto* device = static_cast<IDirect3DDevice9*>(RwD3D9GetCurrentD3DDevice());
-    assert(device);
 
-    D3DDISPLAYMODE displayMode{};
-    VERIFY(SUCCEEDED(device->GetDisplayMode(0, &displayMode)));
+    // Como el original: no se comprueba ningun HRESULT
+    D3DDISPLAYMODE displayMode;
+    device->GetDisplayMode(0, &displayMode);
 
-    IDirect3DSurface9* surface = nullptr;
-    VERIFY(SUCCEEDED(device->CreateOffscreenPlainSurface(displayMode.Width, displayMode.Height, D3DFMT_A8R8G8B8, D3DPOOL_SYSTEMMEM, &surface, nullptr)));
-    VERIFY(SUCCEEDED(device->GetFrontBufferData(0, surface)));
+    IDirect3DSurface9* surface;
+    device->CreateOffscreenPlainSurface(displayMode.Width, displayMode.Height, D3DFMT_A8R8G8B8, D3DPOOL_SYSTEMMEM, &surface, nullptr);
+    device->GetFrontBufferData(0, surface);
 
-    D3DLOCKED_RECT lockedRect{};
-#ifndef FIX_BUGS
-    // It's not needed as ClientToScreen func works with fullscreen mode.
-    if (PSGLOBAL(fullScreen)) { // todo: Doesn't work properly with III.VC.SA.WindowedMode.asi
-        VERIFY(SUCCEEDED(surface->LockRect(&lockedRect, nullptr, D3DLOCK_READONLY)));
+    D3DLOCKED_RECT lockedRect;
+    if (PSGLOBAL(fullScreen)) {
+        surface->LockRect(&lockedRect, nullptr, D3DLOCK_READONLY);
     } else {
-#endif
+        // Como el original: rectangulo de toda la ventana (con marco y barra de titulo)
         RECT rect;
-#ifdef FIX_BUGS
-        // SA code gets the whole window of the game, which includes the titlebar etc.
-        //
-        // BUG: There should be bugs for older versions of Windows IIRC.
-        // One example would be Vista version of the func doesn't count Aero effects of windows.
-        //
-        // TODO: Test with dual monitors etc.
-
-        GetClientRect(PSGLOBAL(window), &rect);
-
-        // GetClientRect returns relative positions unlike GetWindowRect.
-        // i.e. will return { 0, 0, width, height }.
-        ClientToScreen(PSGLOBAL(window), (POINT*)(&rect)); // kinda hacky but should work.
-        rect.right += rect.left;
-        rect.bottom += rect.top;
-#else
         GetWindowRect(PSGLOBAL(window), &rect);
-#endif
         displayMode.Height = rect.bottom - rect.top;
         displayMode.Width = rect.right - rect.left;
-        VERIFY(SUCCEEDED(surface->LockRect(&lockedRect, &rect, D3DLOCK_READONLY)));
-#ifndef FIX_BUGS
+        surface->LockRect(&lockedRect, &rect, D3DLOCK_READONLY);
     }
-#endif
 
     RwImage* image = RwImageCreate(int32(displayMode.Width), int32(displayMode.Height), 32);
     if (image) {
@@ -310,7 +292,6 @@ RwImage* psGrabScreen(RwCamera* camera) {
 
         auto* pixels = (RwRGBA*)RwImageGetPixels(image);
         auto* imagePixels = (uint8*)lockedRect.pBits;
-        assert(pixels && imagePixels);
 
         for (auto h = 0u; h < displayMode.Height; h++) {
             for (auto w = 0u; w < displayMode.Width; w++) {
@@ -324,37 +305,35 @@ RwImage* psGrabScreen(RwCamera* camera) {
         }
     }
 
-    { // FIX_BUGS
-        surface->UnlockRect();
-        surface->Release();
-        delete surface;
-    }
-
+    // Como el original: la superficie no se desbloquea ni se libera
     return image;
 }
 
 // 0x7453E0
-void psMouseSetVisibility(bool visible) {
+void psMouseSetVisibility(RwBool visible) {
     ::ShowCursor(visible);
 }
 
 // 0x7453F0
 void psMouseSetPos(RwV2d* pos) {
-    POINT point = { .x = LONG(pos->x), .y = LONG(pos->y) };
+    // Como el original: _ftol2 (truncamiento de 64 bits)
+    POINT point = { .x = LONG((int64)pos->x), .y = LONG((int64)pos->y) };
     ::ClientToScreen(PSGLOBAL(window), &point);
     ::SetCursorPos(point.x, point.y);
-    PSGLOBAL(lastMousePos) = *pos;
+    // Como el original: guarda la posicion truncada a entero (vuelve a leer pos)
+    PSGLOBAL(lastMousePos).x = (float)(int32)(int64)pos->x;
+    PSGLOBAL(lastMousePos).y = (float)(int32)(int64)pos->y;
 }
 
 // 0x745470
 char* psPathnameCreate(const char* buffer) {
-    const auto pathSize = std::strlen(buffer) + 1u;
-    auto path = (char*)CMemoryMgr::Malloc(pathSize);
+    // Como el original: funciones de cadena de RenderWare (RwEngineInstance)
+    auto path = (char*)CMemoryMgr::Malloc(uint32(rwstrlen(buffer) + 1), 0);
     if (path) {
-        strcpy_s(path, pathSize, buffer);
+        rwstrcpy(path, buffer);
 
-        while (auto ch = std::strchr(path, '/')) {
-            *ch = psPathGetSeparator();
+        while (auto ch = rwstrchr(path, '/')) {
+            *ch = '\\';
         }
     }
 
@@ -374,133 +353,62 @@ char psPathGetSeparator() {
 }
 
 // 0x745520
-bool psInstallFileSystem() {
-    return true;
+RwBool psInstallFileSystem() {
+    return TRUE;
 }
 
 // 0x745530
-bool psNativeTextureSupport() {
+RwBool psNativeTextureSupport() {
     return RwD3D9DeviceSupportsDXTTexture();
 }
 
 // 0x745540
-RsEventStatus psDebugMessageHandler(RsEvent event, void* param) {
-    if (rsINITDEBUG == event) {
-        RwDebugSetHandler(psDebugMessageHandler);
-#if defined(DEBUG) && defined(RWTRACE)
-        RwDebugSetTraceState(true);
-#else
-        RwDebugSetTraceState(false);
-#endif
-    }
-
-    return rsEVENTNOTPROCESSED;
+void psDebugMessageHandler(RwDebugType type, const RwChar* str) {
+    // Como el original: manejador de depuracion de RW, solo lo envia al depurador
+    OutputDebugStringA(str);
+    OutputDebugStringA("\n");
 }
 
 // 0x7458B0
-bool psAlwaysOnTop(bool alwaysOnTop) {
+RwBool psAlwaysOnTop(RwBool alwaysOnTop) {
     const auto hwnd = PSGLOBAL(window);
 
     RECT winRect;
-    VERIFY(GetWindowRect(hwnd, &winRect));
+    GetWindowRect(hwnd, &winRect); // Como el original: sin comprobar
 
     return SetWindowPos(
         hwnd,
         alwaysOnTop ? HWND_TOPMOST : HWND_NOTOPMOST,
         winRect.left,                 winRect.top,
         winRect.right - winRect.left, winRect.bottom - winRect.top,
-        NULL
+        0
     );
-}
-
-// NOTSA
-static auto GetNativeResolutionOfCurrentSubsystem() {
-#ifdef USE_D3D9
-    const auto d3d = Direct3DCreate9(D3D_SDK_VERSION);
-#else
-    const auto d3d = Direct3DCreate8(D3D_SDK_VERSION);
-#endif
-    const notsa::ScopeGuard released3d{[d3d] { d3d->Release(); }};
-    assert(d3d != NULL);
-
-    D3DDISPLAYMODE nativeRes;
-    d3d->GetAdapterDisplayMode(RwEngineGetCurrentSubSystem(), &nativeRes);
-
-    NOTSA_LOG_DEBUG("Got native resolution from RW subsystem ({}): {} x {}", RwEngineGetCurrentSubSystem(), nativeRes.Width, nativeRes.Height);
-
-    return std::make_pair(nativeRes.Width, nativeRes.Height);
-}
-
-static BOOL CheckDefaultVideoModeSupported() {
-    // IMPROVEMENT/FIX_BUGS: The game will now default to native adapter
-    // resolution instead of 800x600.
-
-    const auto SearchVideoMode = [](int32 width, int32 height) {
-        for (auto i = 0; i < RwEngineGetNumVideoModes(); i++) {
-            RwVideoMode vmi;
-            RwEngineGetVideoModeInfo(&vmi, i);
-            if (vmi.width == width && vmi.height == height && vmi.depth == 32 && (vmi.flags & rwVIDEOMODEEXCLUSIVE)) {
-                return i;
-            }
-        }
-        return -1;
-    };
-
-    if (notsa::IsFixBugs()) {
-        const auto&& [w, h] = GetNativeResolutionOfCurrentSubsystem();
-        if (const auto vm = SearchVideoMode(w, h); vm != -1) {
-            GcurSelVM = vm;
-            return TRUE;
-        }
-        /* fallthrough if native res is not supported! */
-    }
-
-    if (const auto vm = SearchVideoMode(800, 600); vm != -1) {
-        GcurSelVM = vm;
-        return TRUE;
-    }
-
-    MessageBox(NULL, "Cannot find 800x600x32 video mode", "GTA: San Andreas", IDOK);
-    return FALSE;
 }
 
 // 0x7460A0
 static RwUInt32 GetBestRefreshRate(RwUInt32 width, RwUInt32 height, RwUInt32 depth) {
-#ifdef USE_D3D9
-    const auto d3d = Direct3DCreate9(D3D_SDK_VERSION);
-#else
-    const auto d3d = Direct3DCreate8(D3D_SDK_VERSION);
-#endif
-    const notsa::ScopeGuard released3d{ [d3d] { d3d->Release(); } };
-
-    assert(d3d != NULL);
-
-    RwUInt32 refreshRate = UINT_MAX;
+    // Como el original: version de SDK 31 (0x1F)
+    const auto d3d = Direct3DCreate9(31);
 
     const auto format = depth == 32
         ? D3DFMT_X8R8G8B8
         : depth == 24
             ? D3DFMT_R8G8B8
             : D3DFMT_R5G6B5;
-    
-#ifdef USE_D3D9
-    for (auto i = d3d->GetAdapterModeCount(GcurSelSS, format); i-- > 0;) {
-#else
-    for (auto i = d3d->GetAdapterModeCount(GcurSel); i-- > 0;) {
-#endif
-        D3DDISPLAYMODE mode;
 
-#ifdef USE_D3D9
+    // Como el original: recorre los modos en orden ascendente; centinela 0x7FFFFFFF
+    RwUInt32 refreshRate = INT32_MAX;
+    const auto numModes = (int32)d3d->GetAdapterModeCount(GcurSelSS, format);
+    for (auto i = 0; i < numModes; i++) {
+        D3DDISPLAYMODE mode;
         d3d->EnumAdapterModes(GcurSelSS, format, i, &mode);
-#else
-        d3d->EnumAdapterModes(GcurSel, i, &mode);
-#endif
 
         if (mode.Width != width || mode.Height != height || mode.Format != format) {
             continue;
         }
 
         if (mode.RefreshRate == 0) {
+            d3d->Release();
             return 0;
         }
 
@@ -508,19 +416,19 @@ static RwUInt32 GetBestRefreshRate(RwUInt32 width, RwUInt32 height, RwUInt32 dep
             refreshRate = mode.RefreshRate;
         }
     }
+    d3d->Release();
 
-    return refreshRate;
+    return refreshRate == INT32_MAX ? (RwUInt32)-1 : refreshRate;
 }
 
 // 0x746190
-bool psSelectDevice() {
+RwBool psSelectDevice() {
     const auto wnd  = PSGLOBAL(window);
     const auto inst = PSGLOBAL(instance);
 
     if (!UseDefaultVM) {
         GnumSubSystems = RwEngineGetNumSubSystems();
         if (!GnumSubSystems) {
-            NOTSA_LOG_DEBUG("No SubSystems to select from!");
             return FALSE;
         }
 
@@ -534,73 +442,93 @@ bool psSelectDevice() {
 
         /* Get the default selection */
         GcurSelSS = RwEngineGetCurrentSubSystem();
+
+        const auto tsc = __rdtsc(); // Como el original
+        s_SelectDeviceTscHigh = (uint32)(tsc >> 32);
+        s_SelectDeviceTscLow  = (uint32)tsc;
     }
 
-    MultipleSubSystems = GnumSubSystems > 1;
+    if (GnumSubSystems > 1) {
+        MultipleSubSystems = TRUE;
 
-    // Select video mode to use
-    if (MultipleSubSystems && !UseDefaultVM) {
-        if (g_MiscConfig.SkipDeviceSelection) {
-            // NOTSA: Same choice the dialog would offer, without waiting for the user:
-            // the GPU and video mode saved in gta_sa.set when still valid, otherwise RW's current ones.
-            if (const auto ss = FrontEndMenuManager.m_nCurrentRwSubsystem; ss >= 0 && ss < GnumSubSystems) {
-                GcurSelSS = ss;
+        if (!UseDefaultVM) {
+            if (g_MiscConfig.SkipDeviceSelection) {
+                // NOTSA (opcion de configuracion, desactivada por defecto): same choice the dialog would offer,
+                // without waiting for the user: the GPU and video mode saved in gta_sa.set when still valid,
+                // otherwise RW's current ones.
+                if (const auto ss = FrontEndMenuManager.m_nCurrentRwSubsystem; ss >= 0 && ss < GnumSubSystems) {
+                    GcurSelSS = ss;
+                }
+                VERIFY(RwEngineSetSubSystem(GcurSelSS));
+                const auto vm = FrontEndMenuManager.m_nDisplayVideoMode;
+                GcurSelVM = vm > 0 && vm < RwEngineGetNumVideoModes() && GetVideoModeList()[vm] ? vm : RwEngineGetCurrentVideoMode();
+            } else if (!CreateVidModeSelectDialog(inst, wnd)) {
+                return FALSE; // User failed to select video mode
             }
-            VERIFY(RwEngineSetSubSystem(GcurSelSS));
-            const auto vm = FrontEndMenuManager.m_nDisplayVideoMode;
-            GcurSelVM = vm > 0 && vm < RwEngineGetNumVideoModes() && GetVideoModeList()[vm] ? vm : RwEngineGetCurrentVideoMode();
-            NOTSA_LOG_DEBUG("Device selection skipped: GcurSelSS={} GcurSelVM={}", GcurSelSS, GcurSelVM);
-        } else if (!CreateVidModeSelectDialog(inst, wnd)) {
-            return FALSE; // User failed to select video mode
+        }
+
+        if (!RwEngineSetSubSystem(GcurSelSS)) {
+            return FALSE;
+        }
+    } else {
+        MultipleSubSystems = FALSE;
+
+        if (!RwEngineSetSubSystem(GcurSelSS)) {
+            return FALSE;
+        }
+
+        if (!UseDefaultVM) {
+            // Como el original: la lista se pide siempre, antes de mirar el modo guardado
+            const auto vmList    = GetVideoModeList();
+            const auto vmDisplay = FrontEndMenuManager.m_nDisplayVideoMode;
+            if (vmList[vmDisplay] && vmDisplay) {
+                GcurSelVM = FrontEndMenuManager.m_nPrefsVideoMode = vmDisplay;
+            } else {
+                // Como el original: busca 800x600x32 exclusivo desde el modo actual avanzando GcurSelVM;
+                // si IsVMNotSelected es falso se queda con el primer modo examinado.
+                for (;; GcurSelVM++) {
+                    if (GcurSelVM >= RwEngineGetNumVideoModes()) {
+                        MessageBoxA(NULL, "Cannot find 800x600x32 video mode", "GTA: San Andreas", MB_OK);
+                        return FALSE;
+                    }
+
+                    RwVideoMode vmi;
+                    RwEngineGetVideoModeInfo(&vmi, GcurSelVM);
+                    if (!IsVMNotSelected) {
+                        break;
+                    }
+                    if (vmi.width == 800 && vmi.height == 600 && vmi.depth == 32 && (vmi.flags & rwVIDEOMODEEXCLUSIVE)) {
+                        break;
+                    }
+                }
+            }
         }
     }
 
-    // Set selected subsystem
-    if (!RwEngineSetSubSystem(GcurSelSS)) {
-        NOTSA_LOG_DEBUG("Failed: RwEngineSetSubSystem({})", GcurSelSS);
-        return FALSE;
-    }
-
-    NOTSA_LOG_DEBUG("GcurSelSS={}", GcurSelSS);
-
-    if (!UseDefaultVM && !MultipleSubSystems) {
-        const auto vmDisplay = FrontEndMenuManager.m_nDisplayVideoMode;
-        if (!vmDisplay || !GetVideoModeList()[vmDisplay]) {
-            if (IsVMNotSelected && !CheckDefaultVideoModeSupported()) {
-                return FALSE;
-            }
-        } else {
-            GcurSelVM = FrontEndMenuManager.m_nPrefsVideoMode = vmDisplay;
-        }
-    }
+    RwVideoMode vmi;
+    RwEngineGetVideoModeInfo(&vmi, GcurSelVM);
 
     FrontEndMenuManager.m_nCurrentScreenItem = 0;
 
     // Set selected videomode
     if (!RwEngineSetVideoMode(GcurSelVM)) {
-        NOTSA_LOG_DEBUG("Failed: RwEngineSetVideoMode({})", GcurSelVM);
         return FALSE;
     }
 
-    NOTSA_LOG_DEBUG("GcurSelVM={}", GcurSelVM);
-
-    RwVideoMode vmi;
-    RwEngineGetVideoModeInfo(&vmi, GcurSelVM);
-
 #ifdef NOTSA_USE_SDL3
+    // NOTSA: con SDL3 la ventana la gestiona SDL; hay que ajustarla al modo elegido.
     if (!notsa::SDLWrapper::Initialize()) { return FALSE; }
     SDL_SetWindowSize(notsa::SDLWrapper::GetWindow(), (int)(vmi.width), (int)(vmi.height));
 #endif
 
     if (vmi.flags & rwVIDEOMODEEXCLUSIVE) {
-        if (const auto rr = GetBestRefreshRate(vmi.width, vmi.height, vmi.depth); rr != -1) {
-            NOTSA_LOG_DEBUG("Refresh Rate: {} Hz", rr);
+        if (const auto rr = GetBestRefreshRate(vmi.width, vmi.height, vmi.depth); rr != (RwUInt32)-1) {
             RwD3D9EngineSetRefreshRate(rr);
         }
 
-        RsGlobal.maximumHeight = vmi.height;
         RsGlobal.maximumWidth  = vmi.width;
-        PSGLOBAL(fullScreen)   = true;
+        RsGlobal.maximumHeight = vmi.height;
+        PSGLOBAL(fullScreen)   = TRUE;
     }
 
     RwD3D9EngineSetMultiSamplingLevels(FrontEndMenuManager.m_nPrefsAntialiasing);

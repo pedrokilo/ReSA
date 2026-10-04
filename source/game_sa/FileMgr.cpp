@@ -8,25 +8,11 @@
  * ESTADO: CFileMgr
  * Reconstrucción: COMPLETA — 17/17 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
- * Funciones bloqueadas: 13.
+ * Funciones bloqueadas: 0.
  * Validación registrada: 17/17 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * BLOQUEADAS (nombre | dirección | tipo):
- *   CloseFile | 0x005389D0 | S
- *   GetErrorReadWrite | 0x00538A50 | S
- *   GetTotalSize | 0x005389E0 | S
- *   LoadFile | 0x00538890 | S
- *   OpenFile | 0x00538900 | S
- *   OpenFileForAppending | 0x00538930 | S
- *   OpenFileForWriting | 0x00538910 | S
- *   Read | 0x00538950 | S
- *   ReadLine | 0x005389B0 | S
- *   Seek | 0x00538990 | S
- *   SetDirMyDocuments | 0x00538860 | S
- *   Tell | 0x00538A20 | S
- *   Write | 0x00538970 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -403,23 +389,23 @@ void CFileMgr::InjectHooks()
     RH_ScopedClass(CFileMgr);
     RH_ScopedCategoryGlobal();
 
-    // File related functions locked to prevent crashes
+    // Desbloqueados: validados contra el EXE (banco Sys17). Ojo: no conmutar con ficheros abiertos (CRT del EXE y de la DLL distintos).
 
     RH_ScopedInstall(Initialise, 0x5386f0);
     RH_ScopedInstall(ChangeDir, 0x538730);
     RH_ScopedInstall(SetDir, 0x5387D0);
-    RH_ScopedInstall(SetDirMyDocuments, 0x538860, { .locked = true });
-    RH_ScopedInstall(LoadFile, 0x538890, { .locked = true });
-    RH_ScopedInstall(OpenFile, 0x538900, { .locked = true });
-    RH_ScopedInstall(OpenFileForWriting, 0x538910, { .locked = true });
-    RH_ScopedInstall(OpenFileForAppending, 0x538930, { .locked = true });
-    RH_ScopedInstall(Read, 0x538950, { .locked = true });
-    RH_ScopedInstall(Write, 0x538970, { .locked = true });
-    RH_ScopedInstall(Seek, 0x538990, { .locked = true });
-    RH_ScopedInstall(ReadLine, 0x5389b0, { .locked = true });
-    RH_ScopedInstall(CloseFile, 0x5389d0, { .locked = true });
-    RH_ScopedInstall(GetTotalSize, 0x5389e0, { .locked = true });
-    RH_ScopedInstall(Tell, 0x538a20, { .locked = true });
-    RH_ScopedInstall(GetErrorReadWrite, 0x538a50, { .locked = true });
+    RH_ScopedInstall(SetDirMyDocuments, 0x538860);
+    RH_ScopedInstall(LoadFile, 0x538890);
+    RH_ScopedInstall(OpenFile, 0x538900);
+    RH_ScopedInstall(OpenFileForWriting, 0x538910);
+    RH_ScopedInstall(OpenFileForAppending, 0x538930);
+    RH_ScopedInstall(Read, 0x538950);
+    RH_ScopedInstall(Write, 0x538970);
+    RH_ScopedInstall(Seek, 0x538990);
+    RH_ScopedInstall(ReadLine, 0x5389b0);
+    RH_ScopedInstall(CloseFile, 0x5389d0);
+    RH_ScopedInstall(GetTotalSize, 0x5389e0);
+    RH_ScopedInstall(Tell, 0x538a20);
+    RH_ScopedInstall(GetErrorReadWrite, 0x538a50);
     RH_ScopedGlobalInstall(InitUserDirectories, 0x744fb0);
 }

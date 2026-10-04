@@ -20,7 +20,7 @@ public:
     InteriorManager_c() = default;  // 0x5984C0
     ~InteriorManager_c() = default; // 0x598580
 
-    void Init();
+    bool Init(); // Como el original: devuelve true (al = 1)
     bool Update();
     void Exit();
 
@@ -69,7 +69,7 @@ public:
     int8 IsGroupActive(int32 group) const;
     InteriorGroup_c* GetPedsInteriorGroup(const CPed* ped);
     void SetEntryExitPtr(CEntryExit* exit);
-    bool GetBoundingBox(FurnitureEntity_c* entity, CVector* pos);
+    bool GetBoundingBox(CEntity* entity, CVector* pos); // Como el original: busca primero el FurnitureEntity_c de la entidad
     void ActivatePeds(bool enable);
 
     auto GetInteriorIds() const { return m_InteriorIds | rng::views::take(m_InteriorCount); }

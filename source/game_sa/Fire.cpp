@@ -62,56 +62,81 @@ void CFire::Initialise() {
     m_RemovalDist = 60;
 }
 
+// Inlined in 0x5394C0 CFireManager::ExtinguishPointWithWater
 void CFire::ExtinguishWithWater(float fWaterStrength) {
+    // Como el original: fuerza - (agua * 0.02 * paso), con el orden de productos del EXE.
     const float fOriginalStrength = m_Strength;
-    m_Strength -= fWaterStrength * CTimer::GetTimeStepInSeconds();
+    CVector particlePos = m_Position;
+    m_Strength = m_Strength - fWaterStrength * 0.02f * CTimer::GetTimeStep();
 
-    /* Create particles */
-    CVector particlePos = m_Position + CVector{
-        CGeneral::GetRandomNumberInRange(-1.28f, 1.28f),
-        CGeneral::GetRandomNumberInRange(-1.28f, 1.28f),
-        CGeneral::GetRandomNumberInRange(-0.64f, 0.64f)
-        /* Original code:
-        (float)((CGeneral::GetRandomNumber() % 256) - 128) / 100.0f,
-        (float)((CGeneral::GetRandomNumber() % 256) - 128) / 100.0f,
-        (float)((CGeneral::GetRandomNumber() % 256) - 128) / 200.0f
-        */
-    };
+    // Como el original: rand() & 0xFF; x e y centrados (-128) por 0.01, z sin centrar por 0.005.
+    particlePos.x = (float)((int32)(CGeneral::GetRandomNumber() & 0xFF) - 128) * 0.01f + particlePos.x;
+    particlePos.y = (float)((int32)(CGeneral::GetRandomNumber() & 0xFF) - 128) * 0.01f + particlePos.y;
+    particlePos.z = (float)(int32)(CGeneral::GetRandomNumber() & 0xFF) * 0.005f + particlePos.z;
+
     FxPrtMult_c prtMult{ 1.0f, 1.0f, 1.0f, 0.6f, 0.75f, 0.0f, 0.4f };
-    const auto AddParticle = [&](CVector velocity) {
-        g_fx.m_SmokeII3expand->AddParticle(particlePos, velocity, 0.0f, prtMult);
-    };
-    /* The two particles only differ in velocity */
-    AddParticle({ 0.0f, 0.0f, 0.8f });
-    AddParticle({ 0.0f, 0.0f, 1.4f });
+    const CVector vel0{ 0.0f, 0.0f, 0.8f };
+    const CVector vel1{ 0.0f, 0.0f, 1.4f };
+    g_fx.m_SmokeII3expand->AddParticle(particlePos, vel0, 0.0f, prtMult, -1.0f, 1.2f, 0.6f, false);
+    g_fx.m_SmokeII3expand->AddParticle(particlePos, vel1, 0.0f, prtMult, -1.0f, 1.2f, 0.6f, false);
 
-    /* Re-create fx / extinguish */
     m_IsBeingExtinguished = true;
-    if (m_Strength >= 0.0f) {
-        if ((intmax_t)fOriginalStrength != (intmax_t)m_Strength) { /* Check if integer part has changed */
-            CreateFxSysForStrength(m_Position, nullptr); /* Yes, so needs a new fx */
-        }
-    } else {
+    if (m_Strength < 0.0f) { // Como el original: un NaN no apaga
         Extinguish();
+    } else if ((int32)(int64)m_Strength != (int32)(int64)fOriginalStrength) { // _ftol2: 64 bits truncados, se comparan los 32 bajos
+        CreateFxSysForStrength(m_Position, nullptr);
     }
+}
+
+// Como el original (0x539F00): (rand * 1/32767 * 0.29999995 + 1) * tiempo + ahora, todo en x87 (enteros sin signo con fild + 2^32)
+static uint32 FireStartBurnTime(uint32 burnTime) {
+    int32 rnd = (int32)CGeneral::GetRandomNumber();
+    uint32 nowMs = CTimer::GetTimeInMS();
+    float total;
+    __asm {
+        fild dword ptr [rnd]
+        fmul dword ptr ds:[0x858C7C]
+        fmul dword ptr ds:[0x863A40]
+        fadd dword ptr ds:[0x858624]
+        fild dword ptr [burnTime]
+        mov eax, burnTime
+        test eax, eax
+        jge burn_pos
+        fadd dword ptr ds:[0x858C54]
+    burn_pos:
+        fmulp st(1), st
+        fild dword ptr [nowMs]
+        mov eax, nowMs
+        test eax, eax
+        jge now_pos
+        fadd dword ptr ds:[0x858C54]
+    now_pos:
+        faddp st(1), st
+        fstp dword ptr [total]
+    }
+    return (uint32)(int64)total;
 }
 
 // see 0x539F00 CFireManager::StartFire
 void CFire::Start(CEntity* creator, CVector pos, uint32 nTimeToBurn, uint8 nGens) {
-    m_IsActive = true;
+    // Como el original: posicion, flags (sin script; activo, ruido, primera generacion) y luego el rand.
+    m_Position = pos;
     m_IsCreatedByScript = false;
+    m_IsActive = true;
     m_MakesNoise = true;
-    m_IsBeingExtinguished = false;
     m_IsFirstGeneration = true;
 
-    m_TimeToBurn = CTimer::GetTimeInMS() + (uint32_t)(CGeneral::GetRandomNumberInRange(1.0f, 1.3f) * (float)nTimeToBurn);
+    m_TimeToBurn = FireStartBurnTime(nTimeToBurn);
 
-    SetEntityOnFire(nullptr);
-    SetEntityStartedFire(creator);
+    CEntity::SafeCleanUpRef(m_EntityOnFire);
+    m_EntityOnFire = nullptr;
+    m_IsBeingExtinguished = false;
 
+    CEntity::SafeCleanUpRef(m_EntityStartedFire);
+    m_EntityStartedFire = creator;
     m_NumGenerationsAllowed = nGens;
     m_Strength = 1.0f;
-    m_Position = pos;
+    CEntity::SafeRegisterRef(m_EntityStartedFire);
 
     CreateFxSysForStrength(m_Position, nullptr);
 }
@@ -122,21 +147,22 @@ void CFire::Start(CEntity* creator, CEntity* target, uint32 nTimeToBurn, uint8 n
     case ENTITY_TYPE_PED: {
         auto targetPed = target->AsPed();
         targetPed->m_pFire = this;
-        CCrime::ReportCrime(
-            targetPed->m_nPedType == PED_TYPE_COP ? eCrimeType::CRIME_SET_COP_PED_ON_FIRE : eCrimeType::CRIME_SET_PED_ON_FIRE,
-            targetPed,
-            creator->AsPed()
-        );
+        (void)FindPlayerPed(); // Como el original: se llama y se descarta
+        if (creator) { // Como el original: solo se denuncia con autor
+            CCrime::ReportCrime(
+                targetPed->m_nPedType == PED_TYPE_COP ? eCrimeType::CRIME_SET_COP_PED_ON_FIRE : eCrimeType::CRIME_SET_PED_ON_FIRE,
+                targetPed,
+                creator->AsPed()
+            );
+        }
         break;
     }
     case ENTITY_TYPE_VEHICLE: {
         auto targetVehicle = target->AsVehicle();
         targetVehicle->m_pFire = this;
-        CCrime::ReportCrime(
-            eCrimeType::CRIME_SET_CAR_ON_FIRE,
-            targetVehicle,
-            creator->AsPed()
-        );
+        if (creator) {
+            CCrime::ReportCrime(eCrimeType::CRIME_SET_CAR_ON_FIRE, targetVehicle, creator->AsPed());
+        }
         break;
     }
     case ENTITY_TYPE_OBJECT: {
@@ -145,56 +171,72 @@ void CFire::Start(CEntity* creator, CEntity* target, uint32 nTimeToBurn, uint8 n
     }
     }
 
-    m_IsActive = true;
-    m_IsCreatedByScript = false;
-    m_MakesNoise = true;
-    m_IsBeingExtinguished = false;
-    m_IsFirstGeneration = true;
-
-    m_NumGenerationsAllowed = nGens;
-    m_Strength = 1.0f;
     m_Position = target->GetPosition();
+    m_IsCreatedByScript = false;
+    m_IsBeingExtinguished = false;
+    m_IsActive = true;
+    m_IsFirstGeneration = true;
+    m_Strength = 1.0f;
 
+    // Como el original: aleatorio entero de 0x407180 ([0, 1000) con 1/32768)
     if (target->GetIsTypePed() && target->AsPed()->IsPlayer())
         m_TimeToBurn = CTimer::GetTimeInMS() + 2333;
     else if (target->GetIsTypeVehicle())
-        m_TimeToBurn = CTimer::GetTimeInMS() + CGeneral::GetRandomNumberInRange(0, 1000) + 3000;
+        m_TimeToBurn = (uint32)CGeneral::GetRandomIntInRange(0, 1000) + CTimer::GetTimeInMS() + 3000;
     else
-        m_TimeToBurn = CTimer::GetTimeInMS() + CGeneral::GetRandomNumberInRange(0, 1000) + nTimeToBurn;
+        m_TimeToBurn = (uint32)CGeneral::GetRandomIntInRange(0, 1000) + CTimer::GetTimeInMS() + nTimeToBurn;
 
-    SetEntityOnFire(target);
-    SetEntityStartedFire(creator);
+    CEntity::SafeCleanUpRef(m_EntityOnFire);
+    m_EntityOnFire = target;
+    m_EntityOnFire->RegisterReference(&m_EntityOnFire);
+
+    CEntity::SafeCleanUpRef(m_EntityStartedFire);
+    m_EntityStartedFire = creator;
+    CEntity::SafeRegisterRef(m_EntityStartedFire);
+
+    m_MakesNoise = true;
+    m_NumGenerationsAllowed = nGens;
 
     CreateFxSysForStrength(m_Position, nullptr);
 }
 
 // see 0x53A270 CFireManager::StartScriptFire
 void CFire::Start(CVector pos, float fStrength, CEntity* target, uint8 nGens) {
-    SetEntityOnFire(target);
-    SetEntityStartedFire(nullptr);
-
     m_IsActive = true;
     m_IsCreatedByScript = true;
     m_MakesNoise = true;
     m_IsBeingExtinguished = false;
     m_IsFirstGeneration = true;
-
-    m_NumGenerationsAllowed = nGens;
-    m_Strength = fStrength;
     m_Position = pos;
+    m_NumGenerationsAllowed = nGens;
 
-    if (target) {
-        switch (target->GetType()) { /* Set target's `m_pFire` to `this` */
-        case ENTITY_TYPE_PED:
-            target->AsPed()->m_pFire = this;
-            break;
-        case ENTITY_TYPE_VEHICLE:
-            target->AsVehicle()->m_pFire = this;
-            break;
-        }
+    CEntity::SafeCleanUpRef(m_EntityOnFire);
+    m_EntityOnFire = target;
+    CEntity::SafeRegisterRef(m_EntityOnFire);
+
+    CEntity::SafeCleanUpRef(m_EntityStartedFire);
+    m_EntityStartedFire = nullptr;
+    m_Strength = fStrength;
+
+    if (!target) {
+        CreateFxSysForStrength(pos, nullptr);
+        return;
     }
-
-    CreateFxSysForStrength(target ? target->GetPosition() : pos, nullptr);
+    // Como el original: solo peatones y vehiculos reciben m_pFire y efecto; otros tipos se quedan sin efecto.
+    switch (target->GetType()) {
+    case ENTITY_TYPE_PED: {
+        target->AsPed()->m_pFire = this;
+        const CVector targetPos = target->GetPosition();
+        CreateFxSysForStrength(targetPos, nullptr);
+        break;
+    }
+    case ENTITY_TYPE_VEHICLE: {
+        target->AsVehicle()->m_pFire = this;
+        const CVector targetPos = target->GetPosition();
+        CreateFxSysForStrength(targetPos, nullptr);
+        break;
+    }
+    }
 }
 
 void CFire::SetEntityOnFire(CEntity* target) {

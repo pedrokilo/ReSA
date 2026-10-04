@@ -60,6 +60,8 @@ public:
     auto& GetId(this auto&& self) { return self.m_ScriptReferenceIndex; }
 
 private:
+    friend class CFireManager; // Como el original: el gestor lee y escribe los campos en línea
+
     bool        m_IsActive : 1;
     bool        m_IsCreatedByScript : 1;
     bool        m_MakesNoise : 1;

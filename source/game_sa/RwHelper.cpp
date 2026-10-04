@@ -68,8 +68,9 @@ CEventGlobalGroup* GetEventGlobalGroup() {
 void GetNameAndDamage(const char* name, char* objName, bool& bIsDamageModel) {
     const size_t nodesz = strlen(name);
 
+    // Como el original: strncpy (0x821F40) del prefijo y terminador escrito a mano; strcpy en otro caso.
     const auto TerminatedCopy = [=](size_t offset) {
-        strncpy_s(objName, nodesz - offset + 1, name, nodesz - offset);
+        strncpy(objName, name, nodesz - offset);
         objName[nodesz - offset] = 0;
     };
 
@@ -87,7 +88,7 @@ void GetNameAndDamage(const char* name, char* objName, bool& bIsDamageModel) {
         ) {
             TerminatedCopy(sizeof("_l0") - 1);
         } else
-            strcpy_s(objName, strlen(name) + 1, name);
+            strcpy(objName, name);
     }
 }
 

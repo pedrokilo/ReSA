@@ -63,22 +63,22 @@ void psWindowSetText(const char* str);
 void psErrorMessage(const char* str);
 void psWarningMessage(const char* str);
 
-bool psCameraBeginUpdate(RwCamera* camera);
+RwBool psCameraBeginUpdate(RwCamera* camera); // Como el original: RwBool (eax completo)
 RwCamera* psCameraShowRaster(RwCamera* camera);
 
 uint32 psTimer();
 
 RwImage* psGrabScreen(RwCamera* camera);
 
-void psMouseSetVisibility(bool visible);
+void psMouseSetVisibility(RwBool visible);
 void psMouseSetPos(RwV2d* pos);
 
 char* psPathnameCreate(const char* buffer);
 void psPathnameDestroy(char* buffer);
 char psPathGetSeparator();
 
-bool psInstallFileSystem();
-bool psNativeTextureSupport();
-RsEventStatus psDebugMessageHandler(RsEvent event, void* param);
-bool psAlwaysOnTop(bool alwaysOnTop);
-bool psSelectDevice();
+RwBool psInstallFileSystem();
+RwBool psNativeTextureSupport();
+void psDebugMessageHandler(RwDebugType type, const RwChar* str); // Como el original: es un RwDebugHandler
+RwBool psAlwaysOnTop(RwBool alwaysOnTop);
+RwBool psSelectDevice();

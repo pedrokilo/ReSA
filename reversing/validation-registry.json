@@ -140003,6 +140003,2704 @@
       "dependency_review": null,
       "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
       "review_reference": "reversing/CTasks13/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAEWeaponAudioEntity",
+        "fn_name": "Constructor",
+        "address": "0x00507560",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/WeapAudio/validation-summary.json",
+        "sha256": "6188ae69608f132d45be80c40f06efefe4e7cd7302ec35dcbe1f8fa9cae78e7e",
+        "passed_path": [
+          "covered_functions",
+          "CAEWeaponAudioEntity::Constructor"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "64774f991faf599fb505023d349aee62b8a76fb1dcb48f5672eee299c14efdbc",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "d08bb4a5434f3de67c9dd93b7370866f16d36165481b90d36e52761ab5e50707",
+        "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
+        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-224035-521997).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 1024 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/WeapAudio/README.md"
+    },
+    {
+      "hook": {
+        "class": "CAEPedWeaponAudioEntity",
+        "fn_name": "Constructor",
+        "address": "0x005DE990",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/WeapAudio/validation-summary.json",
+        "sha256": "6188ae69608f132d45be80c40f06efefe4e7cd7302ec35dcbe1f8fa9cae78e7e",
+        "passed_path": [
+          "covered_functions",
+          "CAEPedWeaponAudioEntity::Constructor"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "64774f991faf599fb505023d349aee62b8a76fb1dcb48f5672eee299c14efdbc",
+        "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+        "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "d08bb4a5434f3de67c9dd93b7370866f16d36165481b90d36e52761ab5e50707",
+        "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
+        "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
+        "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-224035-521997).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 1024 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/WeapAudio/README.md"
+    },
+    {
+      "hook": {
+        "class": "cBuoyancy",
+        "fn_name": "FindWaterLevel",
+        "address": "0x006C2810",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Buoy9/validation-summary.json",
+        "sha256": "05fdc34ede34c3fa79c9dd0c666b19479289893ffdb71210aeb3fc8c66200619",
+        "passed_path": [
+          "covered_functions",
+          "cBuoyancy::FindWaterLevel"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Buoyancy.cpp": "e16672e49dc9ed274bbf1fdfe634b89c4ae4384c524b95084d0ffe7e4823cfb9",
+        "source/game_sa/Buoyancy.h": "77a32460f81bd42c770f7e6229b6a8b43679fa54b5b47b1b6e616b55b2a31389"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-224643-761057).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 6656 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Buoy9/README.md"
+    },
+    {
+      "hook": {
+        "class": "cBuoyancy",
+        "fn_name": "FindWaterLevelNorm",
+        "address": "0x006C28C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Buoy9/validation-summary.json",
+        "sha256": "05fdc34ede34c3fa79c9dd0c666b19479289893ffdb71210aeb3fc8c66200619",
+        "passed_path": [
+          "covered_functions",
+          "cBuoyancy::FindWaterLevelNorm"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Buoyancy.cpp": "e16672e49dc9ed274bbf1fdfe634b89c4ae4384c524b95084d0ffe7e4823cfb9",
+        "source/game_sa/Buoyancy.h": "77a32460f81bd42c770f7e6229b6a8b43679fa54b5b47b1b6e616b55b2a31389"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-224643-761057).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 6656 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Buoy9/README.md"
+    },
+    {
+      "hook": {
+        "class": "cBuoyancy",
+        "fn_name": "SimpleSumBuoyancyData",
+        "address": "0x006C2970",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Buoy9/validation-summary.json",
+        "sha256": "05fdc34ede34c3fa79c9dd0c666b19479289893ffdb71210aeb3fc8c66200619",
+        "passed_path": [
+          "covered_functions",
+          "cBuoyancy::SimpleSumBuoyancyData"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Buoyancy.cpp": "e16672e49dc9ed274bbf1fdfe634b89c4ae4384c524b95084d0ffe7e4823cfb9",
+        "source/game_sa/Buoyancy.h": "77a32460f81bd42c770f7e6229b6a8b43679fa54b5b47b1b6e616b55b2a31389"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-224643-761057).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 6656 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Buoy9/README.md"
+    },
+    {
+      "hook": {
+        "class": "cBuoyancy",
+        "fn_name": "CalcBuoyancyForce",
+        "address": "0x006C2750",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Buoy9/validation-summary.json",
+        "sha256": "05fdc34ede34c3fa79c9dd0c666b19479289893ffdb71210aeb3fc8c66200619",
+        "passed_path": [
+          "covered_functions",
+          "cBuoyancy::CalcBuoyancyForce"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Buoyancy.cpp": "e16672e49dc9ed274bbf1fdfe634b89c4ae4384c524b95084d0ffe7e4823cfb9",
+        "source/game_sa/Buoyancy.h": "77a32460f81bd42c770f7e6229b6a8b43679fa54b5b47b1b6e616b55b2a31389"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-224643-761057).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 6656 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Buoy9/README.md"
+    },
+    {
+      "hook": {
+        "class": "cBuoyancy",
+        "fn_name": "PreCalcSetup",
+        "address": "0x006C2B90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Buoy9/validation-summary.json",
+        "sha256": "05fdc34ede34c3fa79c9dd0c666b19479289893ffdb71210aeb3fc8c66200619",
+        "passed_path": [
+          "covered_functions",
+          "cBuoyancy::PreCalcSetup"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Buoyancy.cpp": "e16672e49dc9ed274bbf1fdfe634b89c4ae4384c524b95084d0ffe7e4823cfb9",
+        "source/game_sa/Buoyancy.h": "77a32460f81bd42c770f7e6229b6a8b43679fa54b5b47b1b6e616b55b2a31389"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-224643-761057).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 6656 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Buoy9/README.md"
+    },
+    {
+      "hook": {
+        "class": "cBuoyancy",
+        "fn_name": "AddSplashParticles",
+        "address": "0x006C34E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Buoy9/validation-summary.json",
+        "sha256": "05fdc34ede34c3fa79c9dd0c666b19479289893ffdb71210aeb3fc8c66200619",
+        "passed_path": [
+          "covered_functions",
+          "cBuoyancy::AddSplashParticles"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Buoyancy.cpp": "e16672e49dc9ed274bbf1fdfe634b89c4ae4384c524b95084d0ffe7e4823cfb9",
+        "source/game_sa/Buoyancy.h": "77a32460f81bd42c770f7e6229b6a8b43679fa54b5b47b1b6e616b55b2a31389"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-224643-761057).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 6656 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Buoy9/README.md"
+    },
+    {
+      "hook": {
+        "class": "cBuoyancy",
+        "fn_name": "SimpleCalcBuoyancy",
+        "address": "0x006C3B00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Buoy9/validation-summary.json",
+        "sha256": "05fdc34ede34c3fa79c9dd0c666b19479289893ffdb71210aeb3fc8c66200619",
+        "passed_path": [
+          "covered_functions",
+          "cBuoyancy::SimpleCalcBuoyancy"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Buoyancy.cpp": "e16672e49dc9ed274bbf1fdfe634b89c4ae4384c524b95084d0ffe7e4823cfb9",
+        "source/game_sa/Buoyancy.h": "77a32460f81bd42c770f7e6229b6a8b43679fa54b5b47b1b6e616b55b2a31389"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-224643-761057).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 6656 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Buoy9/README.md"
+    },
+    {
+      "hook": {
+        "class": "cBuoyancy",
+        "fn_name": "ProcessBuoyancyBoat",
+        "address": "0x006C3030",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Buoy9/validation-summary.json",
+        "sha256": "05fdc34ede34c3fa79c9dd0c666b19479289893ffdb71210aeb3fc8c66200619",
+        "passed_path": [
+          "covered_functions",
+          "cBuoyancy::ProcessBuoyancyBoat"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Buoyancy.cpp": "e16672e49dc9ed274bbf1fdfe634b89c4ae4384c524b95084d0ffe7e4823cfb9",
+        "source/game_sa/Buoyancy.h": "77a32460f81bd42c770f7e6229b6a8b43679fa54b5b47b1b6e616b55b2a31389"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-224643-761057).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 6656 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Buoy9/README.md"
+    },
+    {
+      "hook": {
+        "class": "cBuoyancy",
+        "fn_name": "ProcessBuoyancy",
+        "address": "0x006C3EF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Buoy9/validation-summary.json",
+        "sha256": "05fdc34ede34c3fa79c9dd0c666b19479289893ffdb71210aeb3fc8c66200619",
+        "passed_path": [
+          "covered_functions",
+          "cBuoyancy::ProcessBuoyancy"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Buoyancy.cpp": "e16672e49dc9ed274bbf1fdfe634b89c4ae4384c524b95084d0ffe7e4823cfb9",
+        "source/game_sa/Buoyancy.h": "77a32460f81bd42c770f7e6229b6a8b43679fa54b5b47b1b6e616b55b2a31389"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-224643-761057).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 6656 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Buoy9/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "ActivateGarage",
+        "address": "0x00447CD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::ActivateGarage"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "AllRespraysCloseOrOpen",
+        "address": "0x00448B30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::AllRespraysCloseOrOpen"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "ChangeGarageType",
+        "address": "0x004476D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::ChangeGarageType"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "CloseHideOutGaragesBeforeSave",
+        "address": "0x0044A170",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::CloseHideOutGaragesBeforeSave"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "DeActivateGarage",
+        "address": "0x00447CB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::DeActivateGarage"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "GetGarageNumberByName",
+        "address": "0x00447680",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::GetGarageNumberByName"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "Init",
+        "address": "0x00447120",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::Init"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "Init_AfterRestart",
+        "address": "0x00448B60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::Init_AfterRestart"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "IsCarSprayable",
+        "address": "0x004479A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::IsCarSprayable"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "IsGarageClosed",
+        "address": "0x00447D30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::IsGarageClosed"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "IsGarageOpen",
+        "address": "0x00447D00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::IsGarageOpen"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "IsModelIndexADoor",
+        "address": "0x00448AF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::IsModelIndexADoor"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "IsPointWithinHideOutGarage",
+        "address": "0x00448900",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::IsPointWithinHideOutGarage"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "Load",
+        "address": "0x005D3270",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::Load"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "PlayerArrestedOrDied",
+        "address": "0x00449E60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::PlayerArrestedOrDied"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "PrintMessages",
+        "address": "0x00447790",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::PrintMessages"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "Save",
+        "address": "0x005D3160",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::Save"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "SetTargetCarForMissionGarage",
+        "address": "0x00447C40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::SetTargetCarForMissionGarage"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "Shutdown",
+        "address": "0x004471B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::Shutdown"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "TriggerMessage",
+        "address": "0x00447B80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::TriggerMessage"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGarages",
+        "fn_name": "Update",
+        "address": "0x0044C8C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Garages21/validation-summary.json",
+        "sha256": "a66a182b89eb76e57bd9063bbc80403d6ee2de1c720d94678a41e7480d098608",
+        "passed_path": [
+          "covered_functions",
+          "CGarages::Update"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Garages.cpp": "8665984421250a598a3ceac1f2ab4b7639de2844352f01083102a83a73d2bb49",
+        "source/game_sa/Garages.h": "6ef471e9a50620eab5f6d29927305d92979d7a79a7d0e15d935efda563ff02bc",
+        "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
+        "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230220-644725).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 7936 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Garages21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "Init",
+        "address": "0x0072D6B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::Init"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "AddCullZone",
+        "address": "0x0072DF70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::AddCullZone"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "AddTunnelAttributeZone",
+        "address": "0x0072DB50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::AddTunnelAttributeZone"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "AddMirrorAttributeZone",
+        "address": "0x0072DC10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::AddMirrorAttributeZone"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "CamCloseInForPlayer",
+        "address": "0x0072DD20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::CamCloseInForPlayer"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "CamStairsForPlayer",
+        "address": "0x0072DD30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::CamStairsForPlayer"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "Cam1stPersonForPlayer",
+        "address": "0x0072DD40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::Cam1stPersonForPlayer"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "NoPolice",
+        "address": "0x0072DD50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::NoPolice"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "PoliceAbandonCars",
+        "address": "0x0072DD60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::PoliceAbandonCars"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "InRoomForAudio",
+        "address": "0x0072DD70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::InRoomForAudio"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "FewerCars",
+        "address": "0x0072DD80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::FewerCars"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "FewerPeds",
+        "address": "0x0072DD90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::FewerPeds"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "DoINeedToLoadCollision",
+        "address": "0x0072DDA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::DoINeedToLoadCollision"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "CamNoRain",
+        "address": "0x0072DDB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::CamNoRain"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "PlayerNoRain",
+        "address": "0x0072DDC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::PlayerNoRain"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "DoExtraAirResistanceForPlayer",
+        "address": "0x0072DDD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::DoExtraAirResistanceForPlayer"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "FindAttributesForCoors",
+        "address": "0x0072D970",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::FindAttributesForCoors"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "FindTunnelAttributesForCoors",
+        "address": "0x0072D9F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::FindTunnelAttributesForCoors"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "FindMirrorAttributesForCoors",
+        "address": "0x0072DA70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::FindMirrorAttributesForCoors"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "FindZoneWithStairsAttributeForPlayer",
+        "address": "0x0072DAD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::FindZoneWithStairsAttributeForPlayer"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CCullZones",
+        "fn_name": "Update",
+        "address": "0x0072DEC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CCullZones::Update"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "InitZonesPopulationSettings",
+        "address": "0x005720D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::InitZonesPopulationSettings"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "ResetZonesRevealed",
+        "address": "0x00572110",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::ResetZonesRevealed"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "AssignZoneInfoForThisZone",
+        "address": "0x00572180",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::AssignZoneInfoForThisZone"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "ZoneIsEntirelyContainedWithinOtherZone",
+        "address": "0x00572220",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::ZoneIsEntirelyContainedWithinOtherZone"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "PointLiesWithinZone",
+        "address": "0x00572270",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::PointLiesWithinZone"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "GetLevelFromPosition",
+        "address": "0x00572300",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::GetLevelFromPosition"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "FindSmallestZoneForPosition",
+        "address": "0x00572360",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::FindSmallestZoneForPosition"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "GetZoneInfo-",
+        "address": "0x00572400",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::GetZoneInfo-"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "FillZonesWithGangColours",
+        "address": "0x00572440",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::FillZonesWithGangColours"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "GetNavigationZone",
+        "address": "0x00572590",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::GetNavigationZone"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "GetMapZone",
+        "address": "0x005725A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::GetMapZone"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "Calc2DDistanceBetween2Zones",
+        "address": "0x005725B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::Calc2DDistanceBetween2Zones"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "Init",
+        "address": "0x00572670",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::Init"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "CreateZone",
+        "address": "0x005728A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::CreateZone"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "PostZoneCreation",
+        "address": "0x00572B70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::PostZoneCreation"
+        ],
+        "pairs": 16,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "16 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "FindZone-",
+        "address": "0x00572B80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::FindZone-"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "FindZoneByLabel",
+        "address": "0x00572C40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::FindZoneByLabel"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "SetZoneRadarColours",
+        "address": "0x00572CC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::SetZoneRadarColours"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "Update",
+        "address": "0x00572D10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::Update"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "Save",
+        "address": "0x005D2E60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::Save"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTheZones",
+        "fn_name": "Load",
+        "address": "0x005D2F40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Zones21/validation-summary.json",
+        "sha256": "edf668e37c2d30d23febfb169e06031ecce2130a8b90bb609d764bcf97c530a5",
+        "passed_path": [
+          "covered_functions",
+          "CTheZones::Load"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/CullZones.cpp": "bb026230083440bbd7c0544b1fc3aa7edd18145c40df1a578f5a514a3b5748ed",
+        "source/game_sa/CullZones.h": "965f299bc558fcec7013890211e54a64eda54764f0572a6ca251e396389053bc",
+        "source/game_sa/TheZones.cpp": "cb049cbe344ab5491fcbe19a4f51238eab6d10d90104ef964acce66c590ea6dd",
+        "source/game_sa/TheZones.h": "30f7eaa8d17dd99d22a8c8f372bc0c3cc1bd49fa62b597213233e63293a61f9e",
+        "source/game_sa/Renderer.cpp": "65dfb9637ff2e954548e3ce7e3e2070bc0178130d13f33bfb02ad036713aec43"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-230848-553538).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 14352 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Zones21/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "AddColSlot",
+        "address": "0x00411140",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::AddColSlot"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "AddCollisionNeededAtPosn",
+        "address": "0x004103A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::AddCollisionNeededAtPosn"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "AddRef",
+        "address": "0x004107A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::AddRef"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "BoundingBoxesPostProcess",
+        "address": "0x00410EC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::BoundingBoxesPostProcess"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "EnsureCollisionIsInMemory",
+        "address": "0x00410AD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::EnsureCollisionIsInMemory"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "GetBoundingBox",
+        "address": "0x00410800",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::GetBoundingBox"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "HasCollisionLoaded",
+        "address": "0x00410CE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::HasCollisionLoaded"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "IncludeModelIndex",
+        "address": "0x00410820",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::IncludeModelIndex"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "Initialise",
+        "address": "0x004113F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::Initialise"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "LoadAllBoundingBoxes",
+        "address": "0x004113D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::LoadAllBoundingBoxes"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "LoadAllCollision",
+        "address": "0x00410E60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::LoadAllCollision"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "LoadCol-",
+        "address": "0x00410690",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::LoadCol-"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "LoadCol-2",
+        "address": "0x004106D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::LoadCol-2"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "LoadCollision",
+        "address": "0x00410860",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::LoadCollision"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "RemoveAllCollision",
+        "address": "0x00410E00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::RemoveAllCollision"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "RemoveCol",
+        "address": "0x00410730",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::RemoveCol"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "RemoveColSlot",
+        "address": "0x00411330",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::RemoveColSlot"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "RemoveRef",
+        "address": "0x004107D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::RemoveRef"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "RequestCollision",
+        "address": "0x00410C00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::RequestCollision"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "SetCollisionRequired",
+        "address": "0x004104E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::SetCollisionRequired"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "SetIfCollisionIsRequired",
+        "address": "0x004103D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::SetIfCollisionIsRequired"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "SetIfCollisionIsRequiredReducedBB",
+        "address": "0x00410470",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::SetIfCollisionIsRequiredReducedBB"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
+    },
+    {
+      "hook": {
+        "class": "CColStore",
+        "fn_name": "Shutdown",
+        "address": "0x004114D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/ColStore23/validation-summary.json",
+        "sha256": "b2b3d63a6ded54f39b6c89ce2ed7907ae33da55da24f7ee0c42921477894cab9",
+        "passed_path": [
+          "covered_functions",
+          "CColStore::Shutdown"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Collision/ColStore.cpp": "65cca3514b27dfb6093180a6e471b6760ff4274ad4237895a3926662c8209a32",
+        "source/game_sa/Collision/ColStore.h": "5476b00fcf8352d5df71eb529a4a45293e0623587029aaa88f025a916998d0c6"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-231136-918349).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10752 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/ColStore23/README.md"
     }
   ]
 }

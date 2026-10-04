@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 1024,
+  "pairs_per_function": {
+    "CAEWeaponAudioEntity::Constructor": 512,
+    "CAEPedWeaponAudioEntity::Constructor": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "57890c5a5aef92a8e9db7d5514fa6a26e91cca46be482be547eb8d8d7378a82b",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-weapaudio\\20261003-224035-521997",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CAEWeaponAudioEntity::Constructor": true,
+    "CAEPedWeaponAudioEntity::Constructor": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "7ebd4870724781206737e7f07b7a196a6d39cc95fb9a04b55dc02f52e3246cf2",
+      "pdb": "1d7ecae8b8b46d8e48d517a36b2c5644f6a5c413363af578c17fa0766831a81f"
+    },
+    "sources": {
+      "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "64774f991faf599fb505023d349aee62b8a76fb1dcb48f5672eee299c14efdbc",
+      "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "4babfa013c993b41c46532d734cd97a9cfa8e7f72cadf2bde222da44e4cac040",
+      "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "d08bb4a5434f3de67c9dd93b7370866f16d36165481b90d36e52761ab5e50707",
+      "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
+      "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
+      "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "2c666aab84bf2d802ad9bf3a8e51995914205af632cb8f38f884bd0d95fe71c2",
+      "build_probe.py": "90b37be1f9d0d17abe84006c4af2897f7d7aba2cd9e64bc895e74b41eff4f6de",
+      "run_local.py": "712e3f5e89206a61eb86fe24c17a345277dafaecf86a6e4b591e5d6b77d06e45"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}
