@@ -4,6 +4,8 @@
 
 **Nueve arranques aprobados**, con los siete hooks sin candado en las fuentes. **324 pares de función y 18 comprobaciones de entrada**. [Resumen verificable](validation-summary.json).
 
+> **04/10/2026:** el menú ImGui se retiró del juego (comportamiento del EXE). SDLWrapper ya no reenvía eventos a ImGui ni descarta entrada, y WinMain cierra SDL directamente. El banco solo comprueba ahora que el juego recibe la tecla y el ratón: una comprobación de entrada por arranque en vez de dos. Los resultados de abajo son anteriores a este cambio.
+
 ## Qué se cambió
 
 PsGlobal vuelve al bloque nativo de 40 bytes en 0xC8CF88. La ventana es un HWND nativo que SDL envuelve; el puntero SDL se mantiene fuera de ese bloque. Un temporizador de la ventana bombea los eventos tanto con WinMain/MessageLoop originales como reversados. La captura de ImGui está entre el procedimiento SDL y el procedimiento del juego, y WM_GRAPHNOTIFY sigue llegando al reproductor de vídeo.

@@ -36,7 +36,6 @@ END GENERATED HOOK STATUS */
 #include "Securom.h"
 #include "UserDisplay.h"
 #include "Garages.h"
-#include "UIRenderer.h"
 #include "Gamma.h"
 #include "Birds.h"
 #include "Skidmarks.h"
@@ -66,8 +65,8 @@ void AppGameInjectHooks() {
     RH_ScopedGlobalInstall(Render2dStuff, 0x53E230, { .locked = true }); // Must be hooked at all times otherwise game locks!
     RH_ScopedGlobalInstall(RenderDebugShit, 0x53E160);
 
-    // Bloqueados: el cuerpo es el del EXE (validado en reversing/GameIdle), pero solo la versión de la DLL dibuja el
-    // menú ImGui (DrawLoop, adición NOTSA). Con el del EXE el menú desaparece y ya no se puede volver a activar el hook.
+    // Bloqueados: el cuerpo es el del EXE (validado en reversing/GameIdle). El menú ImGui (F7) ya no existe, así que
+    // nada permite conmutarlos en juego; la versión de la DLL conserva además la guarda NOTSA de ForegroundApp de Idle.
     RH_ScopedGlobalInstall(Idle, 0x53E920, { .locked = true });
     RH_ScopedGlobalInstall(FrontendIdle, 0x53E770, { .locked = true });
 }
@@ -162,8 +161,6 @@ void RenderEffects() {
     CPointLights::RenderFogEffect();
     CRenderer::RenderFirstPersonVehicle();
     CPostEffects::Render();
-
-    notsa::ui::UIRenderer::GetSingleton().Render3D();
 }
 
 // 0x53DF40
@@ -363,11 +360,11 @@ void Idle(void* param) {
     if (!FrontEndMenuManager.m_bMenuActive && TheCamera.GetScreenFadeStatus() != eNameState::NAME_FADE_IN) {
         // Como el original: RsMouseSetPos en línea con (ancho · 0.5, alto · 0.5) en float, sin pasar por
         // CMenuManager::CentreMousePointer (que comprueba primero que el centro no sea 0).
-        // NOTSA: no se centra el ratón mientras el menú ImGui tiene la entrada (estado que no existe en el EXE),
-        // ni con la aplicación en segundo plano (el EXE nunca llama a Idle sin ForegroundApp; la DLL sí, porque
-        // su bucle principal no se pausa en segundo plano). También con SDL3 se llama, como el EXE (antes se omitía).
-        // Se lee el dword de ForegroundApp (0x8D621C) como IsForegroundApp, sin llamar a ninguna función.
-        if (!notsa::ui::UIRenderer::GetSingleton().IsActive() && StaticRef<uint32>(0x8D621C) != 0) {
+        // NOTSA: no se centra el ratón con la aplicación en segundo plano (el EXE nunca llama a Idle sin
+        // ForegroundApp; la DLL sí, porque su bucle principal no se pausa en segundo plano). También con SDL3 se
+        // llama, como el EXE (antes se omitía). Se lee el dword de ForegroundApp (0x8D621C) como IsForegroundApp,
+        // sin llamar a ninguna función.
+        if (StaticRef<uint32>(0x8D621C) != 0) {
             RwV2d pos{ (float)RsGlobal.maximumWidth * 0.5f, (float)RsGlobal.maximumHeight * 0.5f }; // 0x858B8C
             RsMouseSetPos(&pos);
         }
@@ -439,12 +436,6 @@ void Idle(void* param) {
     }
     CDebug::DebugDisplayTextBuffer();
     FlushObrsPrintfs();
-
-    // NOTSA: dibuja el menú de depuración ImGui (F7, módulos de depuración, interruptores de hooks). Adición pura
-    // entre FlushObrsPrintfs y RwCameraEndUpdate: no reordena ni omite ninguna llamada del EXE. Sin ella el menú
-    // deja de dibujarse y de recibir F7 (por eso los hooks de Idle/FrontendIdle siguen bloqueados).
-    notsa::ui::UIRenderer::GetSingleton().DrawLoop();
-
     RwCameraEndUpdate(Scene.m_pRwCamera);
     RsCameraShowRaster(Scene.m_pRwCamera);
 }
@@ -497,10 +488,6 @@ void FrontendIdle() {
         CFont::DrawFonts();
         CDebug::DebugDisplayTextBuffer();
         FlushObrsPrintfs();
-
-        // NOTSA: menú de depuración ImGui, adición pura (ver Idle).
-        notsa::ui::UIRenderer::GetSingleton().DrawLoop();
-
         RwCameraEndUpdate(Scene.m_pRwCamera);
         RsCameraShowRaster(Scene.m_pRwCamera);
     }

@@ -23,8 +23,6 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #ifndef NOTSA_USE_SDL3
-#include <libs/imgui/bindings/imgui_impl_win32.h>
-
 #include "winincl.h"
 #include <rwplcore.h>
 #include <Dbt.h>
@@ -39,25 +37,9 @@ END GENERATED HOOK STATUS */
 #include "WinPlatform.h"
 #include "Gamma.h"
 
-// Dear ImGui said I have to copy this here
-extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
 // 0x747EB0
 LRESULT CALLBACK __MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-    const auto imio = ImGui::GetCurrentContext() ? &ImGui::GetIO() : nullptr;
-
-    if (imio) {
-        if (imio->MouseDrawCursor) {
-            imio->ConfigFlags &= ~ImGuiConfigFlags_NoMouse;
-        } else {
-            imio->ConfigFlags |= ImGuiConfigFlags_NoMouse;
-        }
-    }
-
-    if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam)) {
-        return true;
-    }
-
+    // Como el original: sin reenviar los mensajes al menú ImGui (ya no existe).
     switch (uMsg) {
     case WM_SETCURSOR: {
         ShowCursor(false);
@@ -308,6 +290,6 @@ void InjectHooksWndProcStuff() {
     RH_ScopedCategory("Win");
     RH_ScopedNamespaceName("Win");
 
-    RH_ScopedGlobalInstall(__MainWndProc, 0x747EB0, {.locked = true}); // Locked because of ImGui
+    RH_ScopedGlobalInstall(__MainWndProc, 0x747EB0, {.locked = true}); // Bloqueado desde la época del menú ImGui (ya no existe)
 }
 #endif

@@ -14,10 +14,10 @@ Validadas el 04/10/2026 con **2.048 pares original/candidato dentro de GTA**, to
   - `RenderMenus` y las dos comprobaciones de `CCredits::Render` van en línea (antes llamaban a las funciones de la DLL).
 - `FrontendIdle`: se quitó la salida NOTSA de FastLoader (`ShouldLoadSaveGame`) que se saltaba `RwCameraClear`/`RsCameraBeginUpdate` y todo el dibujo.
 
+**04/10/2026: menú ImGui retirado.** Por decisión del usuario (el juego debe comportarse como `gta-sa.exe` 1.0 US), `Idle` y `FrontendIdle` ya no llaman a `UIRenderer::DrawLoop` (menú F7, módulos de depuración, interruptores de hooks), ni `Idle` comprueba si el menú tiene la entrada. La traza del candidato debe coincidir exactamente con la del EXE, sin llamadas extra. Los hooks siguen con `locked = true`, aunque ya no hay menú desde el que conmutarlos. Los 2.048 pares de arriba se obtuvieron con la versión anterior, la que tenía `DrawLoop`: **hay que repetir el banco**.
+
 **Adiciones NOTSA conservadas** (no cambian el orden de llamadas ni el estado observable del EXE):
-- `UIRenderer::DrawLoop` (menú ImGui/F7, módulos de depuración, interruptores de hooks) entre `FlushObrsPrintfs` y `RwCameraEndUpdate` en las dos funciones. Sin ella el menú deja de dibujarse; por eso los hooks siguen con `locked = true` (con el cuerpo del EXE ya no se podría volver a activar el hook desde el menú).
-  - Ojo: `DrawLoop` ejecuta además `UIRenderer::DebugCode` (teclas de depuración 2, 3, 5, 6, 8, 9, J, T con el menú cerrado), que sí cambia el estado del juego; está fuera de este alcance.
-- En `Idle`, `RsMouseSetPos` no se llama mientras el menú ImGui tiene la entrada, ni con la aplicación en segundo plano (se lee el dword `ForegroundApp` 0x8D621C sin llamar a nada). El EXE nunca llama a `Idle` en segundo plano (su `WinMain` se detiene); la DLL sí (`NO_FOREGROUND_PAUSE`). Con SDL3 también se centra, como el EXE (la versión anterior lo omitía con `NOTSA_USE_SDL3`, que está activado en esta compilación).
+- En `Idle`, `RsMouseSetPos` no se llama con la aplicación en segundo plano (se lee el dword `ForegroundApp` 0x8D621C sin llamar a nada). El EXE nunca llama a `Idle` en segundo plano (su `WinMain` se detiene); la DLL sí (`NO_FOREGROUND_PAUSE`). Con SDL3 también se centra, como el EXE (la versión anterior lo omitía con `NOTSA_USE_SDL3`, que está activado en esta compilación).
 - `ZoneScoped` (Tracy) solo perfila.
 
 **Método:**
@@ -27,7 +27,7 @@ Validadas el 04/10/2026 con **2.048 pares original/candidato dentro de GTA**, to
 - Registro fijo sin reservas (el json se arma después de la llamada): nombre, `ECX`, argumentos (bool a 8 bits, colores del cielo a 16 bits, `RwV2d` por valor, floats por bits); `CalculateAspectRatio` devuelve el float en ST0; `RwRenderStateSet` se traza cambiando `fpRenderStateSet`.
 - Fixtures: ciclos crecientes con paso y ciclos/ms aleatorios (de 0 a ~56 vueltas del limitador, incluida la vuelta de la resta sin signo), estado del fundido, retornos de `BeginUpdate`/`DoRWStuff`, menú, `quit`, créditos, relámpago, colores del cielo, tipo de desenfoque y reducción de pantalla (0, negativa, NaN), FOV, aspecto, resolución, `param` nulo o no.
 - `ms_weaponPedsForPC` (0x53E8D0 en el EXE, en línea en la DLL) corre de verdad sobre una lista falsa colocada en 0xC88224 con eslabones propios; se compara por hash junto con la cámara falsa (`fogPlane`) y 17 rangos globales, que se restauran en cada ejecución.
-- Fuera del banco: `ForegroundApp` (0x8D621C) = 0 y el menú ImGui abierto, estados que el EXE nunca alcanza en `Idle`. En cada ejecución se exige el menú cerrado y `ForegroundApp` vale 1 durante la llamada (se restaura justo después).
-- `DrawLoop` se intercepta aparte y no entra en la traza: se exige que el candidato la llame una vez justo antes de `RwCameraEndUpdate` (o nunca si no llega) y el original nunca. El banco exige el menú ImGui cerrado.
+- Fuera del banco: `ForegroundApp` (0x8D621C) = 0, un estado que el EXE nunca alcanza en `Idle`. `ForegroundApp` vale 1 durante la llamada (se restaura justo después).
+- Desde el 04/10/2026 no hay stub de `UIRenderer::DrawLoop` ni comprobación del menú ImGui: cualquier llamada que no haga el EXE aparece como diferencia en la traza.
 
 Repetir: `python reversing/GameIdle/build_probe.py` y `python reversing/run.py --case gameidle`. Evidencia: [validation-summary.json](validation-summary.json).

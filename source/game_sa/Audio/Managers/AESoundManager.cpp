@@ -24,8 +24,6 @@ END GENERATED HOOK STATUS */
 #include "AEAudioHardware.h"
 
 #include <reversiblebugfixes/Bugs.hpp>
-#include <DebugModules/Audio/SoundManagerDebugModule.hpp>
-#include <UIRenderer.h>
 
 auto& AESoundManager = StaticRef<CAESoundManager>(0xB62CB0);
 
@@ -432,14 +430,6 @@ CAESound* CAESoundManager::RequestNewSound(CAESound* pSound) {
         s->NewVPSLEntry();
         AEAudioHardware.RequestVirtualChannelSoundInfo((uint16)sidx, s->m_SoundID, s->m_BankSlot);
     }
-
-#ifdef NOTSA_DEBUG
-    if (s) { // NOTSA: sin voz libre sidx queda sin inicializar
-        notsa::ui::UIRenderer::GetSingleton().GetDebugModules().GetModule<notsa::debugmodules::SoundManagerDebugModule>()->SetSoundInfo(sidx, {
-            .StackTrace = std::stacktrace::current()
-        });
-    }
-#endif
 
     return s;
 }

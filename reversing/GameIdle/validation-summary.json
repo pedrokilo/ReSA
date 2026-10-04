@@ -15,10 +15,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "a2d988b2356b8797dd097e80b027092d93d2a890e6984c51c0af9caf5b2119e5",
+  "log_sha256": "6c3abfb0c5c092da02191723cf6a5e45150abff2e4515f1e6e202ce01c877bfe",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gameidle\\20261004-120404-758646",
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gameidle\\20261004-121818-892636",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "Game::Idle": true,
@@ -26,15 +26,15 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "002f28cb95dfec2006632467989bb450f7513d7c28dbdbd2378a0eb6e89cf57a",
-      "pdb": "380e0683afa9005252d275f6b5f46a49ad772ddce045ad23465206f93f38c929"
+      "asi": "b3f3404a9e621e70e09f4e93c5eb35c63fa2d9fc9c2c1f487bed36858de8ab78",
+      "pdb": "b3b3bd70c34f4e204d7fc818840d1dfa02e17bbc2a5f3e6f980c32b63d23409d"
     },
     "sources": {
-      "source/app/app_game.cpp": "f7643131b7ac926a9df0341041617c6c2fe6a9e0810478b6bdffd0d7f9a00705"
+      "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "78e1be616e071af92a9a96a7c87f177bde837afc60e120aa3997efb0f0c17863",
+      "LiveComparison.hpp": "585877dcf161a7d2ddc9ab2b6293750f5a5c48a579b52ab97b777f09e98f672b",
       "build_probe.py": "f130187fc5add6c181a8c1b048b024b1e4757802da0e33809ef18a1fe98f2d46",
       "run_local.py": "6630790b29cad86e87ca79601c815c6ecc562861acaddaacbcdcf9827789c7eb"
     }

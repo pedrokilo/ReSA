@@ -8,8 +8,8 @@
 // temporizador (limitador de 14 ms), ciclos/ms, estado del fundido, retornos de BeginUpdate/DoRWStuff y el float en ST0
 // de CDraw::CalculateAspectRatio. El estado de render se traza cambiando fpRenderStateSet. Nada real se ejecuta salvo el
 // vaciado de ms_weaponPedsForPC (0x53E8D0 en el EXE, en línea en la DLL), que corre sobre una lista falsa.
-// La única adición NOTSA (UIRenderer::DrawLoop) se intercepta aparte: no entra en la traza y se exige que el candidato
-// la llame una sola vez justo antes de RwCameraEndUpdate (y el original nunca).
+// El menú ImGui (UIRenderer::DrawLoop) ya no existe: la traza del candidato debe ser exactamente la del EXE.
+// Única guarda NOTSA restante: ForegroundApp (0x8D621C), que se fija a 1 durante la llamada.
 #include <fstream>
 #include <reversiblehooks/RootHookCategory.h>
 #include <reversiblehooks/ReversibleHook/Base.h>
@@ -18,7 +18,6 @@
 #include "platform.h"
 #include "Credits.h"
 #include "Securom.h"
-#include "UIRenderer.h"
 #include "RealTimeShadowManager.h"
 #include "Mirrors.h"
 #include "Renderer.h"
@@ -39,15 +38,11 @@ inline uintptr_t Body(uintptr_t a){
     for(int k=0;k<8&&*reinterpret_cast<const uint8*>(a)==0xE9;++k){ const uintptr_t t=a+5+*reinterpret_cast<const int32*>(a+1); if(InExe(t))break; a=t; }
     return a;
 }
-// UIRenderer::DrawLoop es privada (solo Idle/FrontendIdle son amigas): la instanciación explícita no comprueba el acceso.
-template<auto M> struct StealDrawLoop { friend uintptr_t DrawLoopAddress() { return A(M); } };
-uintptr_t DrawLoopAddress();
-template struct StealDrawLoop<&notsa::ui::UIRenderer::DrawLoop>;
 
 // --- tabla de stubs: dirección del EXE, símbolo de la DLL, nombre, convención ('c' cdecl / 't' thiscall),
 //     argumentos ('i' dword, 'b' byte, 'h' 16 bits, 'p' RwV2d* por valor), retorno
 //     ('0' cero, '1' uno, 'C' primer argumento, 'T' ciclos, 'M' ciclos/ms, 'B' bool de fixture, 'S' estado del fundido,
-//      'f' float en ST0, 'N' adición NOTSA: no se traza)
+//      'f' float en ST0)
 struct Stub { uintptr_t exe, dll; const char* name; char conv; const char* kinds; char ret; };
 inline std::vector<Stub>& Stubs() {
     static std::vector<Stub> s{
@@ -100,8 +95,6 @@ inline std::vector<Stub>& Stubs() {
         {0x53E530,A(&RenderMenus),"RenderMenus",'c',"",'0'},
         {0x53D5B0,A(&CCredits::Render),"Credits::Render",'c',"",'0'},
         {0x746060,A(&IsForegroundApp),"IsForegroundApp",'c',"",'1'},
-        // adición NOTSA (solo DLL): fuera de la traza
-        {0,DrawLoopAddress(),"UIRenderer::DrawLoop",'t',"",'N'},
         // estado de render: thunk instalado en RwEngineInstance->dOpenDevice.fpRenderStateSet
         {0,0,"RwRenderStateSet",'c',"ii",'1'},
     };
@@ -116,7 +109,6 @@ inline std::array<Rec,2048> recs{}; inline size_t nrec{}; inline bool overflow{}
 inline uint64 boolMask{}; inline uint32 boolCalls{};
 inline uint32 cycBase{}, cycStep{1}, cycCalls{}, cpms{1};
 inline uint32 fadeStatus{};
-inline int32 notsaAt{-1}; inline uint32 notsaCalls{};
 inline uint8 floatRet{}; inline float floatVal{1.25f};
 
 inline DWORD mainTid{};
@@ -128,7 +120,6 @@ inline uint32 __cdecl Dispatch(uint32 idx,uint32 ecx,const uint32* args) {
         if(s.exe==0x746060)return uint32(*reinterpret_cast<const uint32*>(0x8D621C)!=0);
         switch(s.ret){ case '1': return 1; case 'C': return args[0]; case 'M': return cpms; default: return 0; }
     }
-    if(s.ret=='N'){ if(notsaCalls++==0)notsaAt=int32(nrec); return 0; }
     Rec r{}; r.stub=uint16(idx);
     auto put=[&](uint32 v){ if(r.n<8)r.v[r.n++]=v; else overflow=true; };
     if(s.conv=='t')put(ecx);
@@ -253,7 +244,6 @@ inline void Update() {
     auto* player=FindPlayerPed(); if(!player || CCutsceneMgr::IsRunning())return; done=true;
     mainTid=GetCurrentThreadId();
     std::string only; { std::ifstream f(dir/"gameidle-only.txt"); if(f)std::getline(f,only); }
-    if(notsa::ui::UIRenderer::GetSingleton().IsActive()){Write({{"event","error"},{"reason","menu ImGui activo: cerrarlo (F7) antes del banco"}});return;}
     std::array<ReversibleHooks::ReversibleHook::Base*,2> hooks{};
     for(size_t f=0;f<fns.size();++f)if(!(hooks[f]=FindHook(fns[f].cls,fns[f].name))){Write({{"event","error"},{"reason","hook not found"},{"function",std::string(fns[f].cls)+"::"+fns[f].name}});return;}
     if(!BuildThunks()){Write({{"event","error"},{"reason","VirtualAlloc"}});return;}
@@ -283,7 +273,7 @@ inline void Update() {
                 stt=uint32(i)*2654435761u^uint32(f*0x9E3779B9u)^0x1D1Eu; if(!stt)stt=1;
                 // fixtures de los stubs
                 boolMask=0; for(int b=0;b<64;++b)if(next()%8)boolMask|=1ull<<b;
-                boolCalls=cycCalls=0; notsaAt=-1; notsaCalls=0; floatRet=0;
+                boolCalls=cycCalls=0; floatRet=0;
                 cpms=1000+next()%3000;
                 const uint32 lastTick=100+next()%900000;
                 const int32 d0=int32(next()%24)-8;                       // <0: la resta sin signo da la vuelta y sale enseguida
@@ -316,9 +306,8 @@ inline void Update() {
                     }
                 }
                 const uint32 param=next()%5 ? 1+next()%0x7FFF : 0u;
-                // Fuera del dominio del EXE: el EXE solo llama a Idle con ForegroundApp != 0 y no tiene menú ImGui.
-                // Se exige el menú cerrado en cada ejecución y ForegroundApp = 1 durante la llamada (más abajo).
-                const bool imguiClosed=!notsa::ui::UIRenderer::GetSingleton().IsActive();
+                // Fuera del dominio del EXE: el EXE solo llama a Idle con ForegroundApp != 0.
+                // Se exige ForegroundApp = 1 durante la llamada (más abajo).
                 nrec=0; overflow=false;
                 bool fgWasOne=false;
                 for(auto* h:hooks)h->State(candidate);
@@ -335,13 +324,11 @@ inline void Update() {
                     fpState=savedFp;
                     for(size_t k=P.size();k-->0;)P[k].reset();
                 }
-                // posición de la adición NOTSA: justo antes de RwCameraEndUpdate (o nunca si no se llega)
-                int32 endAt=-1; for(size_t k=0;k<nrec;++k)if(std::strcmp(stubs[recs[k].stub].name,"RwCameraEndUpdate")==0){ endAt=int32(k); break; }
-                const bool notsaOk=imguiClosed&&fgWasOne&&(candidate ? (notsaCalls==(endAt>=0 ? 1u : 0u)&&notsaAt==endAt) : (notsaCalls==0));
+                const bool notsaOk=fgWasOne;
                 json out={{"switches",switches},{"trace",Trace()}};
                 json st=json::array(); for(auto& r:ranges)st.push_back(Fnv(reinterpret_cast<void*>(r.a),r.n)); out["state"]=st;
                 out["cam"]=Fnv(fakeCam.data(),fakeCam.size()); out["links"]=Fnv(fakeLinks.data(),sizeof(fakeLinks));
-                out["notsa"]={{"ok",notsaOk},{"calls",notsaCalls},{"at",notsaAt},{"imgui_closed",imguiClosed},{"foreground",fgWasOne}};
+                out["notsa"]={{"ok",notsaOk},{"foreground",fgWasOne}};
                 restore();
                 return out;
             };
@@ -350,7 +337,7 @@ inline void Update() {
             const json notsaCand=candidate["notsa"]; original.erase("notsa"); candidate.erase("notsa");
             const bool ok=notsaOk&&original==candidate&&original["switches"]==true&&candidate["switches"]==true;
             passed&=ok; failures+=!ok;
-            if(ok)Write({{"event","comparison"},{"pair",pair++},{"function",full},{"case",i},{"equal",true},{"accepted",true},{"original",original["trace"].size()},{"candidate",candidate["trace"].size()},{"notsa_draw_loop",notsaCand["calls"]}});
+            if(ok)Write({{"event","comparison"},{"pair",pair++},{"function",full},{"case",i},{"equal",true},{"accepted",true},{"original",original["trace"].size()},{"candidate",candidate["trace"].size()}});
             else { json diff=json::array(); for(auto& [k,v]:original.items())if(candidate[k]!=v)diff.push_back(k); if(!notsaOk)diff.push_back("notsa");
                 Write({{"event","comparison"},{"pair",pair++},{"function",full},{"case",i},{"equal",false},{"accepted",false},{"differs",diff},{"notsa",notsaCand},
                        {"original",failures<=2 ? original:json(nullptr)},{"candidate",failures<=2 ? candidate:json(nullptr)}}); }

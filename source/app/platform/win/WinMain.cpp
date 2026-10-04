@@ -21,7 +21,6 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
-#include "UIRenderer.h"
 
 #ifdef NOTSA_USE_SDL3
 #include <SDL3/SDL.h>
@@ -480,10 +479,11 @@ INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdL
 
     // now quit 0x748E75
     AudioEngine.Shutdown();
-    // Release ImGui/SDL while the D3D device, native window and worker threads exist.
-    if (notsa::ui::UIRenderer::HasInstance()) {
-        notsa::ui::UIRenderer::DestroySingleton();
-    }
+#ifdef NOTSA_USE_SDL3
+    // NOTSA: libera SDL mientras existen el dispositivo D3D, la ventana nativa y los hilos (antes lo hacía el
+    // destructor del menú ImGui, que ya no se crea).
+    notsa::SDLWrapper::Terminate();
+#endif
     FreeVideoModeList();
     RsEventHandler(rsRWTERMINATE, nullptr);
     DestroyWindow(PSGLOBAL(window));

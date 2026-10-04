@@ -26,7 +26,6 @@ END GENERATED HOOK STATUS */
 
 #include "Pad.h"
 #include "platform/win/WinInput.h"
-#include "UIRenderer.h"
 #include "ControllerConfigManager.h"
 #include "app.h"
 #include "platform/win/WinPlatform.h"
@@ -233,22 +232,14 @@ void CPad::Update(int32 pad) {
 void CPad::UpdatePads() {
     ZoneScoped;
 
-    const auto& isDebugUIActive = notsa::ui::UIRenderer::GetSingleton().IsActive();
-
-    if (!isDebugUIActive) {
-        GetPad(0)->UpdateMouse();
-    }
-
+    // Como el original: sin el bloqueo de ratón/teclado del menú ImGui (ya no existe).
+    GetPad(0)->UpdateMouse();
     ProcessPad(PAD1);
-
     ControlsManager.ClearSimButtonPressCheckers();
-
-    if (!isDebugUIActive) {
-        ControlsManager.AffectPadFromKeyBoard();
-        ControlsManager.AffectPadFromMouse();
-        GetPad(PAD1)->Update(PAD1);
-        GetPad(PAD2)->Update(PAD2);
-    }
+    ControlsManager.AffectPadFromKeyBoard();
+    ControlsManager.AffectPadFromMouse();
+    GetPad(PAD1)->Update(PAD1);
+    GetPad(PAD2)->Update(PAD2);
 
     OldKeyState = std::exchange(NewKeyState, TempKeyState);
 }

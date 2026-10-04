@@ -8,7 +8,6 @@
 #include "PostEffects.h"
 
 #include "winincl.h"
-#include <bindings/imgui_impl_dx9.h>
 
 #define MINZBUFFERVALUE 0.0f
 #define MAXZBUFFERVALUE 1.0f
@@ -351,16 +350,13 @@ struct D3D9ProxyDevice {
         //    AdjustPresentParams(pp);
         //}
 
-        ImGui_ImplDX9_InvalidateDeviceObjects();
-
+        // NOTSA: ya no se invalidan/recrean los objetos D3D de ImGui (el menú ImGui ya no existe).
         HRESULT hr;
 
         {
             //ScopedRestoreWindowInfo restore{};
             hr = (self->*Real_Reset)(pp);
         }
-
-        ImGui_ImplDX9_CreateDeviceObjects();
 
         if (SUCCEEDED(hr)) {
             auto& vm  = DisplayModes[RwEngineGetCurrentVideoMode()];

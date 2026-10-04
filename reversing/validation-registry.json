@@ -110793,992 +110793,6 @@
     },
     {
       "hook": {
-        "class": "CStreamedScripts",
-        "fn_name": "Initialise",
-        "address": "0x00470660",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CStreamedScripts::Initialise"
-        ],
-        "pairs": 64,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CStreamedScripts",
-        "fn_name": "ReInitialise",
-        "address": "0x004706A0",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CStreamedScripts::ReInitialise"
-        ],
-        "pairs": 64,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CStreamedScripts",
-        "fn_name": "FindStreamedScript",
-        "address": "0x00470740",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CStreamedScripts::FindStreamedScript"
-        ],
-        "pairs": 512,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CStreamedScripts",
-        "fn_name": "FindStreamedScriptQuiet",
-        "address": "0x004706F0",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CStreamedScripts::FindStreamedScriptQuiet"
-        ],
-        "pairs": 512,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CStreamedScripts",
-        "fn_name": "GetProperIndexFromIndexUsedByScript",
-        "address": "0x00470810",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CStreamedScripts::GetProperIndexFromIndexUsedByScript"
-        ],
-        "pairs": 512,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CStreamedScripts",
-        "fn_name": "GetStreamedScriptFilename",
-        "address": "0x00470900",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CStreamedScripts::GetStreamedScriptFilename"
-        ],
-        "pairs": 256,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CStreamedScripts",
-        "fn_name": "GetStreamedScriptWithThisStartAddress",
-        "address": "0x00470910",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CStreamedScripts::GetStreamedScriptWithThisStartAddress"
-        ],
-        "pairs": 512,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CStreamedScripts",
-        "fn_name": "RegisterScript",
-        "address": "0x004706C0",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CStreamedScripts::RegisterScript"
-        ],
-        "pairs": 256,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CStreamedScripts",
-        "fn_name": "RemoveStreamedScriptFromMemory",
-        "address": "0x004708E0",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CStreamedScripts::RemoveStreamedScriptFromMemory"
-        ],
-        "pairs": 256,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CStreamedScripts",
-        "fn_name": "LoadStreamedScript",
-        "address": "0x00470840",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CStreamedScripts::LoadStreamedScript"
-        ],
-        "pairs": 256,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CStreamedScripts",
-        "fn_name": "StartNewStreamedScript",
-        "address": "0x00470890",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CStreamedScripts::StartNewStreamedScript"
-        ],
-        "pairs": 256,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CStreamedScripts",
-        "fn_name": "ReadStreamedScriptData",
-        "address": "0x00470750",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CStreamedScripts::ReadStreamedScriptData"
-        ],
-        "pairs": 256,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CQuadTreeNode<T>",
-        "fn_name": "InitPool",
-        "address": "0x00552C00",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CQuadTreeNode::InitPool"
-        ],
-        "pairs": 64,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CQuadTreeNode<T>",
-        "fn_name": "FindSector-rect",
-        "address": "0x005525A0",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CQuadTreeNode::FindSector-rect"
-        ],
-        "pairs": 1024,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CQuadTreeNode<T>",
-        "fn_name": "FindSector-vec",
-        "address": "0x00552640",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CQuadTreeNode::FindSector-vec"
-        ],
-        "pairs": 1024,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CQuadTreeNode<T>",
-        "fn_name": "InSector",
-        "address": "0x005526A0",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CQuadTreeNode::InSector"
-        ],
-        "pairs": 1024,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CQuadTreeNode<T>",
-        "fn_name": "AddItem",
-        "address": "0x00552CD0",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CQuadTreeNode::AddItem"
-        ],
-        "pairs": 512,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CQuadTreeNode<T>",
-        "fn_name": "DeleteItem-",
-        "address": "0x00552A40",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CQuadTreeNode::DeleteItem-"
-        ],
-        "pairs": 512,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CQuadTreeNode<T>",
-        "fn_name": "DeleteItem-rect",
-        "address": "0x00552A90",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CQuadTreeNode::DeleteItem-rect"
-        ],
-        "pairs": 512,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CQuadTreeNode<T>",
-        "fn_name": "GetAll",
-        "address": "0x00552870",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CQuadTreeNode::GetAll"
-        ],
-        "pairs": 256,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CQuadTreeNode<T>",
-        "fn_name": "GetAllMatching-rect",
-        "address": "0x005528C0",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CQuadTreeNode::GetAllMatching-rect"
-        ],
-        "pairs": 512,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CQuadTreeNode<T>",
-        "fn_name": "GetAllMatching-vec",
-        "address": "0x00552930",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CQuadTreeNode::GetAllMatching-vec"
-        ],
-        "pairs": 512,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CQuadTreeNode<T>",
-        "fn_name": "ForAllMatching-rect",
-        "address": "0x00552980",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CQuadTreeNode::ForAllMatching-rect"
-        ],
-        "pairs": 512,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "CQuadTreeNode<T>",
-        "fn_name": "ForAllMatching-vec",
-        "address": "0x005529F0",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "CQuadTreeNode::ForAllMatching-vec"
-        ],
-        "pairs": 512,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "Game",
-        "fn_name": "GameInit",
-        "address": "0x005BF3B0",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "Game::GameInit"
-        ],
-        "pairs": 64,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "Game",
-        "fn_name": "RwInitialize",
-        "address": "0x005BF390",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "Game::RwInitialize"
-        ],
-        "pairs": 64,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "Game",
-        "fn_name": "RwTerminate",
-        "address": "0x0053D910",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "Game::RwTerminate"
-        ],
-        "pairs": 64,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "Game",
-        "fn_name": "InitialiseGame",
-        "address": "0x0053E580",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "Game::InitialiseGame"
-        ],
-        "pairs": 64,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "Game",
-        "fn_name": "TheGame",
-        "address": "0x0053DF10",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "Game::TheGame"
-        ],
-        "pairs": 16,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "16 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "Game",
-        "fn_name": "RenderMenus",
-        "address": "0x0053E530",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "Game::RenderMenus"
-        ],
-        "pairs": 64,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "Game",
-        "fn_name": "RenderDebugShit",
-        "address": "0x0053E160",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "Game::RenderDebugShit"
-        ],
-        "pairs": 16,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "16 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "Game",
-        "fn_name": "RenderEffects",
-        "address": "0x0053E170",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "Game::RenderEffects"
-        ],
-        "pairs": 256,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "Game",
-        "fn_name": "RenderScene",
-        "address": "0x0053DF40",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "Game::RenderScene"
-        ],
-        "pairs": 512,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
-        "class": "Game",
-        "fn_name": "Render2dStuff",
-        "address": "0x0053E230",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Sys12/validation-summary.json",
-        "sha256": "bcdc39b832c290d68fc61987964399516d029b296ea160da8b81a7affd7b0e3d",
-        "passed_path": [
-          "covered_functions",
-          "Game::Render2dStuff"
-        ],
-        "pairs": 512,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
-        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-        "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
-        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-        "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261003-090521-693688).",
-      "dependency_review": null,
-      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/Sys12/README.md"
-    },
-    {
-      "hook": {
         "class": "CAnimBlendSequence",
         "fn_name": "Constructor",
         "address": "0x004D0C10",
@@ -159936,7 +158950,7 @@
       },
       "evidence": {
         "path": "reversing/GameIdle/validation-summary.json",
-        "sha256": "9733c86fd872d6224a92605d309f2beb741722e24d2535d9e603d322e1ae7806",
+        "sha256": "7b17e5386f25d4cae5686b151ecccbc01a05e2e46328e5b054244af2c03f5251",
         "passed_path": [
           "covered_functions",
           "Game::Idle"
@@ -159945,9 +158959,9 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/app_game.cpp": "f7643131b7ac926a9df0341041617c6c2fe6a9e0810478b6bdffd0d7f9a00705"
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
       },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-120404-758646).",
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121818-892636).",
       "dependency_review": null,
       "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 2048 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
       "review_reference": "reversing/GameIdle/README.md"
@@ -159961,7 +158975,7 @@
       },
       "evidence": {
         "path": "reversing/GameIdle/validation-summary.json",
-        "sha256": "9733c86fd872d6224a92605d309f2beb741722e24d2535d9e603d322e1ae7806",
+        "sha256": "7b17e5386f25d4cae5686b151ecccbc01a05e2e46328e5b054244af2c03f5251",
         "passed_path": [
           "covered_functions",
           "Game::FrontendIdle"
@@ -159970,12 +158984,998 @@
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/app/app_game.cpp": "f7643131b7ac926a9df0341041617c6c2fe6a9e0810478b6bdffd0d7f9a00705"
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
       },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-120404-758646).",
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121818-892636).",
       "dependency_review": null,
       "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 2048 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
       "review_reference": "reversing/GameIdle/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreamedScripts",
+        "fn_name": "Initialise",
+        "address": "0x00470660",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CStreamedScripts::Initialise"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreamedScripts",
+        "fn_name": "ReInitialise",
+        "address": "0x004706A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CStreamedScripts::ReInitialise"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreamedScripts",
+        "fn_name": "FindStreamedScript",
+        "address": "0x00470740",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CStreamedScripts::FindStreamedScript"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreamedScripts",
+        "fn_name": "FindStreamedScriptQuiet",
+        "address": "0x004706F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CStreamedScripts::FindStreamedScriptQuiet"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreamedScripts",
+        "fn_name": "GetProperIndexFromIndexUsedByScript",
+        "address": "0x00470810",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CStreamedScripts::GetProperIndexFromIndexUsedByScript"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreamedScripts",
+        "fn_name": "GetStreamedScriptFilename",
+        "address": "0x00470900",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CStreamedScripts::GetStreamedScriptFilename"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreamedScripts",
+        "fn_name": "GetStreamedScriptWithThisStartAddress",
+        "address": "0x00470910",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CStreamedScripts::GetStreamedScriptWithThisStartAddress"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreamedScripts",
+        "fn_name": "RegisterScript",
+        "address": "0x004706C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CStreamedScripts::RegisterScript"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreamedScripts",
+        "fn_name": "RemoveStreamedScriptFromMemory",
+        "address": "0x004708E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CStreamedScripts::RemoveStreamedScriptFromMemory"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreamedScripts",
+        "fn_name": "LoadStreamedScript",
+        "address": "0x00470840",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CStreamedScripts::LoadStreamedScript"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreamedScripts",
+        "fn_name": "StartNewStreamedScript",
+        "address": "0x00470890",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CStreamedScripts::StartNewStreamedScript"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStreamedScripts",
+        "fn_name": "ReadStreamedScriptData",
+        "address": "0x00470750",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CStreamedScripts::ReadStreamedScriptData"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CQuadTreeNode<T>",
+        "fn_name": "InitPool",
+        "address": "0x00552C00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CQuadTreeNode::InitPool"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CQuadTreeNode<T>",
+        "fn_name": "FindSector-rect",
+        "address": "0x005525A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CQuadTreeNode::FindSector-rect"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CQuadTreeNode<T>",
+        "fn_name": "FindSector-vec",
+        "address": "0x00552640",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CQuadTreeNode::FindSector-vec"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CQuadTreeNode<T>",
+        "fn_name": "InSector",
+        "address": "0x005526A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CQuadTreeNode::InSector"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CQuadTreeNode<T>",
+        "fn_name": "AddItem",
+        "address": "0x00552CD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CQuadTreeNode::AddItem"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CQuadTreeNode<T>",
+        "fn_name": "DeleteItem-",
+        "address": "0x00552A40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CQuadTreeNode::DeleteItem-"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CQuadTreeNode<T>",
+        "fn_name": "DeleteItem-rect",
+        "address": "0x00552A90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CQuadTreeNode::DeleteItem-rect"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CQuadTreeNode<T>",
+        "fn_name": "GetAll",
+        "address": "0x00552870",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CQuadTreeNode::GetAll"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CQuadTreeNode<T>",
+        "fn_name": "GetAllMatching-rect",
+        "address": "0x005528C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CQuadTreeNode::GetAllMatching-rect"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CQuadTreeNode<T>",
+        "fn_name": "GetAllMatching-vec",
+        "address": "0x00552930",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CQuadTreeNode::GetAllMatching-vec"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CQuadTreeNode<T>",
+        "fn_name": "ForAllMatching-rect",
+        "address": "0x00552980",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CQuadTreeNode::ForAllMatching-rect"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "CQuadTreeNode<T>",
+        "fn_name": "ForAllMatching-vec",
+        "address": "0x005529F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "CQuadTreeNode::ForAllMatching-vec"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "Game",
+        "fn_name": "GameInit",
+        "address": "0x005BF3B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "Game::GameInit"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "Game",
+        "fn_name": "RwInitialize",
+        "address": "0x005BF390",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "Game::RwInitialize"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "Game",
+        "fn_name": "RwTerminate",
+        "address": "0x0053D910",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "Game::RwTerminate"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "Game",
+        "fn_name": "InitialiseGame",
+        "address": "0x0053E580",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "Game::InitialiseGame"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "Game",
+        "fn_name": "TheGame",
+        "address": "0x0053DF10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "Game::TheGame"
+        ],
+        "pairs": 16,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "16 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "Game",
+        "fn_name": "RenderMenus",
+        "address": "0x0053E530",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "Game::RenderMenus"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "Game",
+        "fn_name": "RenderDebugShit",
+        "address": "0x0053E160",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "Game::RenderDebugShit"
+        ],
+        "pairs": 16,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "16 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "Game",
+        "fn_name": "RenderEffects",
+        "address": "0x0053E170",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "Game::RenderEffects"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "Game",
+        "fn_name": "RenderScene",
+        "address": "0x0053DF40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "Game::RenderScene"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
+    },
+    {
+      "hook": {
+        "class": "Game",
+        "fn_name": "Render2dStuff",
+        "address": "0x0053E230",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Sys12/validation-summary.json",
+        "sha256": "53a323a426528416ac24a84d4ff0f99b128fd92c26bab9c40e9358d6c3f3ae7a",
+        "passed_path": [
+          "covered_functions",
+          "Game::Render2dStuff"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
+        "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
+        "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
+        "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
+        "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-121909-013085).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 12320 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/Sys12/README.md"
     }
   ]
 }

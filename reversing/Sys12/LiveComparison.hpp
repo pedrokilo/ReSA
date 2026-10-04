@@ -12,7 +12,7 @@
 //   menú, audio, inicialización y RenderWare) y se compara la secuencia exacta de llamadas, argumentos y estados
 //   de render. Escena, cámara, espejos, agua, pads, réplica, menú y resolución se fijan y se restauran.
 //   Idle y FrontendIdle quedan fuera (alojan el propio banco y llevan añadidos NOTSA de ImGui/carga rápida).
-//   Silenciosos (sin traza, NOTSA o sin efecto observable): printf del EXE en TheGame y DebugModules::Render3D (lo único que hace UIRenderer::Render3D, privada).
+//   Silenciosos (sin traza, NOTSA o sin efecto observable): printf del EXE en TheGame y DebugModules::Render3D (lo único que hacía UIRenderer::Render3D; desde el 04/10/2026 RenderEffects ya no la llama).
 #include <fstream>
 #include <set>
 #include <optional>
@@ -467,7 +467,7 @@ inline void Update() {
         patches.Add(0x49E650,FxRender); patches.Add(Addr(&Fx_c::Render),FxRender);
         patches.Add(0x727B60,DrawRect); patches.Add(Addr(static_cast<void(*)(const CRect&,const CRGBA&)>(&CSprite2d::DrawRect)),DrawRect);
         patches.Add(0x56E210,FakeFindPlayerPed); patches.Add(Addr(static_cast<CPlayerPed*(*)(int32)>(&FindPlayerPed)),FakeFindPlayerPed);
-        patches.Add(0x821982,SilentPrintf); patches.Add(Addr(&DebugModules::Render3D),SilentThis); // UIRenderer::Render3D es privada: solo llama a esto (NOTSA)
+        patches.Add(0x821982,SilentPrintf); patches.Add(Addr(&DebugModules::Render3D),SilentThis); // ya no se llama desde RenderEffects (menú ImGui retirado); el parche queda inerte
         patches.Add(0x464FF0,FakeCheckVersion); patches.Add(Addr(&CTheScripts::CheckStreamedScriptVersion),FakeCheckVersion);
         patches.Add(0x7EC9D0,FakeStreamRead); patches.Add(Addr(static_cast<RwUInt32(*)(RwStream*,void*,RwUInt32)>(&RwStreamRead)),FakeStreamRead);
         patches.Add(0x464C20,FakeStartNewScript); patches.Add(Addr(static_cast<CRunningScript*(*)(uint8*)>(&CTheScripts::StartNewScript)),FakeStartNewScript);

@@ -50,7 +50,7 @@
   "log_sha256": "483552bfa0e54e213d765cd2a57362b079e6c5b76594080c78baf61fd6aa9507",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-sys12\\20261003-090521-693688",
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-sys12\\20261004-121909-013085",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CStreamedScripts::Initialise": true,
@@ -90,19 +90,19 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "9b17104d2c111850411d0889ed7363eba278b52d8111f4d40c82fea4e6bca55f",
-      "pdb": "0489258af3929c521ec35a55cfad19e2678b52f8a20db1890a6ab06ccdb81952"
+      "asi": "4d4e65ea014a32cc76fa8613a99dd0ec89ba1b38788846a751d7d3f3434f43de",
+      "pdb": "b8607835e7d118f5e3dda014d7e8c665b368ea5f08043cb73bdaf1494b102870"
     },
     "sources": {
-      "source/game_sa/StreamedScripts.cpp": "29ca7937a657bad5fd205404a8a2c55b8b800d7a1761e7654a017468df990069",
+      "source/game_sa/StreamedScripts.cpp": "d72c3c376dbef5dd823f663124ecb6436fe09b16b4b340bf31010d127cf514cc",
       "source/game_sa/StreamedScripts.h": "2205a5518c85d9ccc0e1c9f28e476cfd690a3639cf7acdcffb8aad0ec83fa46a",
-      "source/game_sa/Core/QuadTreeNode.h": "21ee6805b4dd9145bb068a1a1574d5e3ae413369928c8c861036a703c2a54c1c",
+      "source/game_sa/Core/QuadTreeNode.h": "2a1f8ab87b195d71019b39d860f4c68f9324abae5b9892e5d61d1fdcc6475299",
       "source/game_sa/Pools/PtrNodeSingleLinkPool.h": "e92245c30f507ef410b07ba594e0a06607134b775b2104accaf9e9b6ff9b89eb",
-      "source/app/app_game.cpp": "7011913dc46d7774a01c5287aacbda92d61a2db58b3ca5f3c187ddf290661376"
+      "source/app/app_game.cpp": "1c0bd502735403b4a63b7303d27ea95e4cf27e0ecaf7f6da156921bec3a8db9c"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "057c747458ea0e854723301cafb357296ddf73598eb71611d5832e73bea22f12",
+      "LiveComparison.hpp": "ad111014aefae77acb339a2f0f18aab81e8fd26327f4cd879b30eaaa2f1c305a",
       "build_probe.py": "d398722474cfada1f1f80cdf4ab6ebbc47bbf28b40ba0a169a62302380c5ecff",
       "run_local.py": "ca5e8c0c03e7f5c69506fce0c7016445dd470f7bfb20cd184f4c260760ab165d"
     }

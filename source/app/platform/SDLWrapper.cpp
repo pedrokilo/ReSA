@@ -3,8 +3,6 @@
 #ifdef NOTSA_USE_SDL3
 #include <SDL3/SDL.h>
 #include "SDLWrapper.hpp"
-#include <bindings/imgui_impl_sdl3.h>
-#include "UIRenderer.h"
 #include "VideoPlayer.h"
 
 namespace notsa::SDLWrapper {
@@ -16,19 +14,11 @@ bool pumping{};
 constexpr UINT_PTR EventTimer = 0x475441;
 
 LRESULT CALLBACK PlatformWindowProcedure(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam) {
-    // This procedure sits below SDL's foreign-window procedure. SDL still gets
-    // input for ImGui; captured input does not reach the native game procedure.
+    // This procedure sits below SDL's foreign-window procedure. The ImGui debug
+    // menu no longer exists, so every message reaches the native game procedure.
     if (message == WM_GRAPHNOTIFY && (gGameState == GAME_STATE_PLAYING_LOGO || gGameState == GAME_STATE_PLAYING_INTRO)) {
         VideoPlayer::OnGraphNotify();
         return 0;
-    }
-    if (ImGui::GetCurrentContext() && ui::UIRenderer::GetSingleton().IsActive()) {
-        if (message >= WM_KEYFIRST && message <= WM_KEYLAST && wparam != VK_F7) {
-            return 0;
-        }
-        if (message >= WM_MOUSEFIRST && message <= WM_MOUSELAST) {
-            return 0;
-        }
     }
     const auto previous = originalProcedure;
     if (message == WM_NCDESTROY) {
@@ -97,21 +87,17 @@ void ProcessEvents() {
         return;
     }
     pumping = true;
-    const auto* context = ImGui::GetCurrentContext();
     for (SDL_Event event; SDL_PollEvent(&event);) {
-        if (context) {
-            ImGui_ImplSDL3_ProcessEvent(&event);
-        }
         if (event.type == SDL_EVENT_QUIT) {
             RsGlobal.quit = true;
         }
-        if (event.type == SDL_EVENT_MOUSE_MOTION && (!context || !ui::UIRenderer::GetSingleton().IsActive())) {
+        if (event.type == SDL_EVENT_MOUSE_MOTION) {
             FrontEndMenuManager.m_nMousePosWinX = static_cast<int32>(event.motion.x);
             FrontEndMenuManager.m_nMousePosWinY = static_cast<int32>(event.motion.y);
         }
     }
     // The game receives keyboard input from its Windows procedure and mouse /
-    // controller state from DirectInput. SDL events belong to the UI backend.
+    // controller state from DirectInput.
     pumping = false;
 }
 }

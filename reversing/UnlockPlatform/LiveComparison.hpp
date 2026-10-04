@@ -1,7 +1,6 @@
 #pragma once
 #include "Probe.hpp"
 #include "../ProbeSupport.hpp"
-#include "UIRenderer.h"
 #include "SDLWrapper.hpp"
 #include <SDL3/SDL.h>
 namespace PlatformLive {
@@ -13,7 +12,7 @@ inline void Update(){
  if(!active||finished||entered)return;
  auto* player=FindPlayerPed();if(!player||CCutsceneMgr::IsRunning())return;entered=true;inTest=true;
  std::array<bool,7> enabled{};for(size_t i=0;i<7;++i)enabled[i]=hooks[i]->Hooked();
- const auto psBefore=ReversingProbe::Bytes(RsGlobal.ps,40);const bool uiBefore=notsa::ui::UIRenderer::GetSingleton().IsActive();
+ const auto psBefore=ReversingProbe::Bytes(RsGlobal.ps,40);
  Write({{"event","startup"},{"enabled",enabled},{"calls",calls},{"ps_static",RsGlobal.ps==reinterpret_cast<psGlobalType*>(0xC8CF88)},{"ps_size",sizeof(psGlobalType)},{"sdl_attached",notsa::SDLWrapper::GetWindow()!=nullptr},{"rw_camera",Scene.m_pRwCamera&&RwCameraGetRaster(Scene.m_pRwCamera)!=nullptr}});
  bool passed=true;int pairs=0;
  for(int index:{4,6}){
@@ -41,16 +40,16 @@ inline void Update(){
  }
  hooks[2]->State(enabled[2]);
  }
- // Exercise the Windows -> SDL -> ImGui path with input confined to this HWND.
- auto& ui=notsa::ui::UIRenderer::GetSingleton();
- for(int mode=0;mode<2&&passed;++mode){ui.SetIsActive(mode!=0);CPad::TempKeyState.standardKeys['J']=0;const auto events=uiEvents;
+ // Exercise the Windows -> SDL -> game path with input confined to this HWND (04/10/2026: el menú ImGui ya no
+ // existe, así que ya no hay ruta hacia ImGui ni modo en el que el juego deje de recibir la entrada).
+ if(passed){CPad::TempKeyState.standardKeys['J']=0;
   SendMessageA(PSGLOBAL(window),WM_KEYDOWN,'J',1|(MapVirtualKeyA('J',MAPVK_VK_TO_VSC)<<16));
   SendMessageA(PSGLOBAL(window),WM_MOUSEMOVE,0,MAKELPARAM(31,37));notsa::SDLWrapper::ProcessEvents();
-  const bool gameReceived=CPad::TempKeyState.standardKeys['J']!=0;const bool uiReceived=uiEvents>events;
+  const bool gameReceived=CPad::TempKeyState.standardKeys['J']!=0;
   SendMessageA(PSGLOBAL(window),WM_KEYUP,'J',0xC0000001|(MapVirtualKeyA('J',MAPVK_VK_TO_VSC)<<16));notsa::SDLWrapper::ProcessEvents();
-  passed=gameReceived==(mode==0)&&uiReceived;Write({{"event","input_route"},{"ui_active",mode!=0},{"game_received",gameReceived},{"ui_received",uiReceived},{"passed",passed}});
+  passed=gameReceived;Write({{"event","input_route"},{"game_received",gameReceived},{"passed",passed}});
  }
- ui.SetIsActive(uiBefore);for(size_t i=0;i<7;++i)hooks[i]->State(enabled[i]);
+ for(size_t i=0;i<7;++i)hooks[i]->State(enabled[i]);
  const bool restored=std::ranges::equal(enabled,hooks,{},[](bool e){return e;},[](Hook* h){return h->Hooked();})&&RsGlobal.ps==reinterpret_cast<psGlobalType*>(0xC8CF88)&&!FrontEndMenuManager.m_bMenuActive;
  finished=true;Write({{"event",passed&&restored?"complete":"error"},{"pairs",pairs},{"state_restored",restored},{"calls",calls}});inTest=false;
 }

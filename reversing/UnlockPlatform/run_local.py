@@ -2,7 +2,7 @@ import argparse,json,os,sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from runtime_runner import run_case,digest,terminal_event
-PROBE_HASH='ae413d05a310b07159a40e6275813a075b7efc31fcf46ec6da1ed7864fe67ea6'
+PROBE_HASH='491b96afcc8e40d50b825d352b762d3bbf64d6c0e8ba50940f53c1fda9865034'
 REQUIRE_UNLOCKED=True
 COUNTS={2:4,4:16,6:16}
 def analyze(path):
@@ -18,7 +18,7 @@ def analyze(path):
  if len(comparisons)!=36 or {(r['function'],r['case']) for r in comparisons}!={(f,i) for f,n in COUNTS.items() for i in range(n)}:raise RuntimeError('Cobertura incorrecta')
  for r in comparisons:
   if not r['equal'] or r['original']!=r['candidate'] or r['original_candidate_calls']!=0 or r['candidate_calls']!=(2 if r['function']==2 else 1):raise RuntimeError('Diferencia de comportamiento o contador')
- if len(routes)!=2 or not all(r['passed'] for r in routes) or not complete[0]['state_restored']:raise RuntimeError('Entrada o restauracion incorrecta')
+ if len(routes)!=1 or not all(r['passed'] for r in routes) or not complete[0]['state_restored']:raise RuntimeError('Entrada o restauracion incorrecta')
  return dict(pairs=36,pairs_per_function=COUNTS,mask=config['mask'],startup=start,input_routes=routes,all_equal=True,state_restored=True,log_sha256=digest(path))
 def main():
  parser=argparse.ArgumentParser();parser.add_argument('--mask',type=int,default=127);a=parser.parse_args();assert 0<=a.mask<=127;os.environ['GTA_REVERSED_PLATFORM_MASK']=str(a.mask)

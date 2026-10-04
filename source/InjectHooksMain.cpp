@@ -571,8 +571,10 @@ void InjectHooksMain() {
     **/
 
     #ifndef NOTSA_STANDALONE
-        HookInstall(0x53E230, &Render2dStuff);   // [ImGui] This one shouldn't be reversible, it contains imgui debug menu logic, and makes game unplayable without
-        HookInstall(0x541DD0, CPad::UpdatePads); // [ImGui] Changes logic of the function and shouldn't be toggled on/off
+        // Instalados de forma permanente desde la época del menú ImGui (ya no existe; UpdatePads vuelve a ser como el EXE).
+        // Se mantienen porque los bancos (p. ej. Sys12) cuentan con este HookInstall de Render2dStuff.
+        HookInstall(0x53E230, &Render2dStuff);
+        HookInstall(0x541DD0, CPad::UpdatePads);
 
         #ifdef NOTSA_WINDOWED_MODE
             notsa::InjectWindowedModeHooks();

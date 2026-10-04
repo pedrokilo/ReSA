@@ -20,15 +20,15 @@ def main():
    for index,needle in TARGETS[p.relative_to(ROOT).as_posix()]:
     assert s.count(needle)==1,needle;s=s.replace(needle,needle+'\n ++PlatformProbe::calls['+str(index)+'];')
    if p.name=='Game.cpp':s=s.replace('void CGame::Process() {','void CGame::Process() {\n PlatformLive::Update();')
-   if p.name=='SDLWrapper.cpp':s=s.replace('    pumping = false;','    pumping = false;\n    PlatformProbe::Tick();').replace('            ImGui_ImplSDL3_ProcessEvent(&event);','            ++PlatformProbe::uiEvents;\n            ImGui_ImplSDL3_ProcessEvent(&event);')
+   if p.name=='SDLWrapper.cpp':s=s.replace('    pumping = false;','    pumping = false;\n    PlatformProbe::Tick();')
    if p.name=='dllmain.cpp':
     s=s.replace('#include "StdInc.h"','#include "StdInc.h"\n#include "'+(ROOT/'reversing/ProbeRuntime.hpp').as_posix()+'"');s=s.replace('        LoadConfigurations();','        ReversingProbe::InstallFailureCapture("unlock-platform");\n        LoadConfigurations();');s=s.replace('        ApplyCommandLineHookSettings();','        PlatformProbe::Configure();\n        ApplyCommandLineHookSettings();')
-   p.write_text(s,newline='\n')
+   p.write_text(s,encoding='utf-8',newline='\n')
   with (artifacts/'probe-build.log').open('w') as log:subprocess.run([str(CMAKE),'--build',str(ROOT/'build'),'--config','Debug'],stdout=log,stderr=subprocess.STDOUT,check=True)
   hashes={}
   for ext in ('asi','pdb'):
    dest=artifacts/f'gta_reversed-unlock-platform-probe.{ext}';shutil.copy2(ROOT/f'bin/Debug/gta_reversed.{ext}',dest);hashes[ext]=digest(dest)
-  dependencies=['source/game_sa/MenuManager.cpp','source/game_sa/RenderWare/rw/skeleton.h','source/app/platform/SDLWrapper.hpp','source/app/platform/win/WinInput.cpp','source/app/platform/win/WinInput.h','source/toolsmenu/UIRenderer.cpp','source/game_sa/ControllerConfigManager.cpp','source/app/platform/win/WindowedMode.cpp','source/app/app_debug.cpp','source/game_sa/MouseControllerState.h']
+  dependencies=['source/game_sa/MenuManager.cpp','source/game_sa/RenderWare/rw/skeleton.h','source/app/platform/SDLWrapper.hpp','source/app/platform/win/WinInput.cpp','source/app/platform/win/WinInput.h','source/game_sa/ControllerConfigManager.cpp','source/app/platform/win/WindowedMode.cpp','source/app/app_debug.cpp','source/game_sa/MouseControllerState.h']
   m=dict(binaries=hashes,sources={str(p.relative_to(ROOT)):hashlib.sha256(data).hexdigest() for p,data in saved.items()},dependencies={f:digest(ROOT/f) for f in dependencies},instrumentation={p.name:digest(p) for p in (HERE/'Probe.hpp',HERE/'LiveComparison.hpp',HERE/'build_probe.py',ROOT/'reversing/ProbeRuntime.hpp')})
   (artifacts/'build-manifest.json').write_text(json.dumps(m,indent=2));print(json.dumps(hashes))
  finally:
