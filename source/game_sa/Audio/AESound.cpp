@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 18/18 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/18 entradas.
+ * Validación registrada: 2/18 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -194,7 +194,7 @@ void CAESound::SetFlags(uint16 envFlag, uint16 bEnabled) {
  * Avanza el tiempo lógico cuando la voz aún no está reproduciéndose físicamente.
  *
  * Al alcanzar el final, termina la voz o la reubica en loopStartTime. El bugfix
- * existente evita módulo por cero cuando faltan datos de audio.
+ * reversible evita el módulo por cero (solo con longitud 0) cuando faltan datos de audio.
  */
 void CAESound::UpdatePlayTime(int16 soundLength, int16 loopStartTime, int16 playProgress) {
     m_Length = soundLength;
@@ -208,7 +208,9 @@ void CAESound::UpdatePlayTime(int16 soundLength, int16 loopStartTime, int16 play
         return;
     }
 
-    m_PlayTime += static_cast<int16>(static_cast<float>(playProgress) * m_ListenerSpeed);
+    // Como el original: progreso * velocidad + tiempo actual en float (fild/fmul/fiadd a 24 bits) y después se trunca
+    // con _ftol2 (64 bits, se guardan los 16 bits bajos); no se trunca antes de sumar.
+    m_PlayTime = static_cast<int16>(static_cast<int64>(static_cast<float>(playProgress) * m_ListenerSpeed + static_cast<float>(m_PlayTime)));
     if (m_PlayTime < soundLength) {
         return;
     }
@@ -218,12 +220,13 @@ void CAESound::UpdatePlayTime(int16 soundLength, int16 loopStartTime, int16 play
         return;
     }
 
-    // Avoid division by 0
-    // This seems to have been fixed the same way in Android
-    // The cause is/can be missing audio files, but I'm lazy to fix it, so this is gonna be fine for now
-    m_PlayTime = !notsa::bugfixes::AESound_UpdatePlayTime_DivisionByZero || soundLength > 0
-        ? loopStartTime + (m_PlayTime % soundLength)
-        : loopStartTime;
+    // NOTSA (bugfix reversible): el EXE divide por cero si soundLength es 0 (p. ej. faltan datos de audio).
+    // Una longitud negativa sigue el camino del EXE (idiv con signo).
+    if (soundLength == 0 && notsa::bugfixes::AESound_UpdatePlayTime_DivisionByZero) {
+        m_PlayTime = loopStartTime;
+        return;
+    }
+    m_PlayTime = static_cast<int16>(int32(m_PlayTime) % int32(soundLength) + loopStartTime);
 }
 
 // NOTSA: Simplified calling convention

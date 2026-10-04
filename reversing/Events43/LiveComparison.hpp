@@ -216,7 +216,7 @@ inline bool __cdecl FakeLos(const CVector& a,const CVector& b,bool b1,bool b2,bo
     trace.push_back({"line_of_sight",F(a.x),F(a.y),F(a.z),F(b.x),F(b.y),F(b.z),b1,b2,b3,b4,b5,b6,b7}); return losRet;
 }
 // repartidores
-inline void __cdecl FakeFlushDll(void* pairs,CPed* ped) { trace.push_back({"flush_tasks",Name(pairs),Name(ped)}); }
+inline void __fastcall FakeFlushDll(void*,void*,void* pairs,CPed* ped) { trace.push_back({"flush_tasks",Name(pairs),Name(ped)}); }
 inline void __fastcall FakeFlushExe(void*,void*,void* pairs,CPed* ped) { trace.push_back({"flush_tasks",Name(pairs),Name(ped)}); }   // thiscall, ret 8
 inline CTask* __fastcall FakeFindTask(void* tm,void*,int32 idx,int32 type) { trace.push_back({"find_task_by_type",Name(tm),idx,type}); return reinterpret_cast<CTask*>(findTaskRet); }
 inline void __fastcall FakeEventResponse(void* in,void*,CPed* ped,uint32 hasMain,const CTask* main,uint32 hasSec,const CTask* sec,int32 slot) {

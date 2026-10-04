@@ -1,6 +1,6 @@
 # Audio de colisiones (lista de 17)
 
-Validadas el 02/10/2026 con **11.088 pares original/candidato dentro de GTA**, todos exactos: 17 funciones de 1 clase con `validated=1`.
+Validadas el 03/10/2026 con **11.088 pares original/candidato dentro de GTA**, todos exactos: 17 funciones de 1 clase con `validated=1`.
 
 | Clase | Funciones |
 |---|---|
@@ -12,6 +12,7 @@ Validadas el 02/10/2026 con **11.088 pares original/candidato dentro de GTA**, t
   - preparan `m_tempSound` con `CAESound::Initialise` y lo piden con `RequestNewSound`, como el EXE (la DLL usaba una voz local y dejaba `m_tempSound` sin tocar);
   - los campos se escriben después de `Initialise` en el orden del EXE: velocidad 0, hora de arranque, evento y flags (el segundo sonido del invernadero se inicializa con velocidad 0,56 y luego se pone a 0);
   - `ReportWaterSplash` del físico registra la entidad en `m_tempSound` antes de poner el evento en cada uno de los dos sonidos.
+- `ChooseCollisionSoundID` repite el sorteo sin límite hasta salir un id distinto del historial, como el EXE (la DLL se rendía a los 100 intentos y devolvía el mínimo).
 - `ReportCollision` y `ReportObjectDestruction` comparan el modelo de la entidad extendido con signo con `MI_*` sin signo (`movsx`/`movzx`): un `MI_*` no cargado (0xFFFF) ya no coincide con una entidad de modelo 0xFFFF.
 
 **Método:**
@@ -24,6 +25,6 @@ Validadas el 02/10/2026 con **11.088 pares original/candidato dentro de GTA**, t
   - superficies >= 195 en el resto (el EXE lee fuera de `gCollisionLookup` y del historial);
   - edificios con superficie especial en `ReportCollision` (`GetFrictionEffect` fuera de tabla);
   - impulsos NaN o enormes en `PlayOneShotCollisionSound`.
-- `UpdateParameters` (0x4DA370, hueco 0 de la vtable 0x862E64) no está en la lista: la DLL no la ha reconstruido.
+- `UpdateParameters` (0x4DA370, hueco 0 de la vtable 0x862E64) no está en la lista: se reconstruyó el 03/10/2026 y se valida en el banco [FixAudio](../FixAudio/README.md).
 
 Repetir: `python reversing/Audio17/build_probe.py` y `python reversing/run.py --case audio17`. Evidencia: [validation-summary.json](validation-summary.json).

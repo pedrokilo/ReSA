@@ -102,17 +102,17 @@ bool CAEStaticChannel::IsSoundPlaying() {
 }
 
 // 0x4F0F70
-int16 CAEStaticChannel::GetPlayTime() {
+int32 CAEStaticChannel::GetPlayTime() {
     if (!IsSoundPlaying())
         return -1;
 
     const auto curPos = CAEAudioChannel::GetCurrentPlaybackPosition();
-    return CAEAudioChannel::ConvertFromBytesToMS(curPos);
+    return static_cast<int16>(CAEAudioChannel::ConvertFromBytesToMS(curPos)); // Como el original: movsx eax,ax
 }
 
 // 0x4F0FA0
-uint16 CAEStaticChannel::GetLength() {
-    return CAEAudioChannel::ConvertFromBytesToMS(m_nLengthInBytes);
+int32 CAEStaticChannel::GetLength() {
+    return static_cast<int16>(CAEAudioChannel::ConvertFromBytesToMS(m_nLengthInBytes)); // Como el original: movsx eax,ax
 }
 
 // 0x4F0BD0

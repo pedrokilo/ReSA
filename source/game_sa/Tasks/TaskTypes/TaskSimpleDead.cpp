@@ -14,9 +14,9 @@
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
  * PENDIENTES (nombre | dirección | tipo):
- *   ProcessPed | 0x00630600 | S
+ *   ProcessPed | 0x00000000 | V
  * BLOQUEADAS (nombre | dirección | tipo):
- *   ProcessPed | 0x00630600 | S
+ *   ProcessPed | 0x00000000 | V
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -27,7 +27,7 @@ END GENERATED HOOK STATUS */
 void CTaskSimpleDead::InjectHooks() {
     RH_ScopedVirtualClass(CTaskSimpleDead, 0x86DEA4, 9);
     RH_ScopedCategory("Tasks/TaskTypes");
-    RH_ScopedInstall(ProcessPed, 0x630600, { .reversed = false });
+    RH_ScopedVMTInstall(ProcessPed, 0x630600, { .reversed = false });
 }
 
 // NOTSA: *deathTime* originally int32

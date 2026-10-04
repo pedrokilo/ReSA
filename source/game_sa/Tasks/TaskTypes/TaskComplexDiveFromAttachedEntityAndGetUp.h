@@ -19,7 +19,8 @@ public:
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;
-    // ControlSubTask was overwritten too, but it does the same as in `CTaskComplexEvasiveDiveAndGetUp`
+    // Como el original: 0x655710 es una copia propia (mov eax,[ecx+8]; ret 4); llama a la base sin despacho virtual
+    CTask*    ControlSubTask(CPed* ped) override { return CTaskComplexEvasiveDiveAndGetUp::ControlSubTask(ped); }
 
 private: // Wrappers for hooks
     // 0x492E20

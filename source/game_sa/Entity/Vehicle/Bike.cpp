@@ -23,7 +23,7 @@
  *   PlaceOnRoadProperly | 0x006BEEB0 | S
  *   PlayCarHorn | 0x00000000 | V
  *   PreRender | 0x00000000 | V
- *   ProcessAI | 0x006BC930 | S
+ *   ProcessAI | 0x00000000 | V
  *   ProcessControl | 0x00000000 | V
  *   ProcessControlInputs | 0x00000000 | V
  *   ProcessRiderAnims | 0x006B7280 | S
@@ -42,7 +42,7 @@
  *   PlaceOnRoadProperly | 0x006BEEB0 | S
  *   PlayCarHorn | 0x00000000 | V
  *   PreRender | 0x00000000 | V
- *   ProcessAI | 0x006BC930 | S
+ *   ProcessAI | 0x00000000 | V
  *   ProcessControl | 0x00000000 | V
  *   ProcessControlInputs | 0x00000000 | V
  *   ProcessRiderAnims | 0x006B7280 | S
@@ -79,7 +79,7 @@ void CBike::InjectHooks() {
     RH_ScopedInstall(KnockOffRider, 0x6B5F40);
     RH_ScopedInstall(SetRemoveAnimFlags, 0x6B5F50, { .reversed = false });
     RH_ScopedInstall(ReduceHornCounter, 0x6B5F90);
-    RH_ScopedInstall(ProcessAI, 0x6BC930, { .reversed = false });
+    RH_ScopedVMTInstall(ProcessAI, 0x6BC930, { .reversed = false });
     RH_ScopedInstall(ProcessBuoyancy, 0x6B5FB0);
     RH_ScopedInstall(ResetSuspension, 0x6B6740, { .reversed = false });
     RH_ScopedInstall(GetAllWheelsOffGround, 0x6B6790);

@@ -157,7 +157,7 @@ inline bool __fastcall SInsideGarage(void* g,void*,float x,float y,float z){ con
 inline bool __fastcall SSphereOutside(void* g,void*,void* e,float r){ const bool v=SNext()%4==0; T({"sphere_outside",Off(g,garBase),VName(e),F(r),v}); return v; }
 inline void __fastcall SStoreCar(void* sc,void*,void* v){ T({"store_car",Off(sc,storedBase),VName(v)}); }
 inline void __fastcall SCancelEnterExe(void*,void*,void* v){ T({"cancel_entering",VName(v)}); }
-inline void __cdecl SCancelEnterDll(void* v){ T({"cancel_entering",VName(v)}); }
+inline void __fastcall SCancelEnterDll(void*,void*,void* v){ T({"cancel_entering",VName(v)}); }
 inline void __cdecl SWorldRemove(void* e){ T({"world_remove",VName(e)}); }
 inline void* __fastcall SVehDelete(void* v,void*,int32 flags){ T({"vehicle_delete",VName(v),flags}); return v; }
 
@@ -402,7 +402,7 @@ inline void Update() {
                             {
                                 Patches P;
                                 P.Add(0x448740,SInsideGarage); P.Add(0x449050,SSphereOutside); P.Add(0x449760,SStoreCar);
-                                P.Add(0x56E860,SCancelEnterExe); P.Add(MA(static_cast<void(*)(CVehicle*)>(&CPlayerInfo::CancelPlayerEnteringCars)),SCancelEnterDll);
+                                P.Add(0x56E860,SCancelEnterExe); P.Add(MA(static_cast<void(CPlayerInfo::*)(CVehicle*)>(&CPlayerInfo::CancelPlayerEnteringCars)),SCancelEnterDll);
                                 P.Add(0x563280,SWorldRemove); P.Add(MA(&CWorld::Remove),SWorldRemove);
                                 reinterpret_cast<void(__thiscall*)(void*,void*,int32)>(a)(gar.data(),stored.data(),maxSlot);
                             }

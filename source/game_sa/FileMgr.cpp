@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 17/17 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 13.
- * Validación registrada: 0/17 entradas.
+ * Validación registrada: 17/17 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -70,6 +70,9 @@ inline void createDirectory(const wchar_t* path)
 // 0x744FB0
 char* InitUserDirectories()
 {
+    // NOTSA: el EXE no guarda caché (lee el registro y crea las carpetas en cada llamada) y obtiene Mis documentos
+    // del valor "Personal" de HKCU\...\Explorer\Shell Folders; aquí se usa SHGetFolderPathW(CSIDL_PERSONAL) y rutas anchas.
+    // Con rutas cortas el resultado y las llamadas a CreateFile/CreateDirectory/CloseHandle coinciden con el original.
     if (gta_user_dir_path[0] != '\0')
         return gta_user_dir_path;
 

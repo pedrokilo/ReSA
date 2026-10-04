@@ -9,7 +9,7 @@
  * Reconstrucción: INCOMPLETA — 21/24 funciones reconstruidas.
  * Pendientes de reconstruir: 3.
  * Funciones bloqueadas: 3.
- * Validación registrada: 0/24 entradas.
+ * Validación registrada: 2/24 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -444,25 +444,26 @@ bool CAEStreamingChannel::IsSoundPlaying() {
 }
 
 // 0x4F19E0
-int16 CAEStreamingChannel::GetPlayTime() {
+// Como el original: devuelve los 32 bits completos (tiempo de reproducción o el estado), sin truncar a 16 bits.
+int32 CAEStreamingChannel::GetPlayTime() {
     switch (m_nState) {
     case StreamingChannelState::Started:
     case StreamingChannelState::UNK_MINUS_3:
         if (CAEAudioUtility::GetCurrentTimeInMS() - m_nLastUpdateTime >= 1000u)
             return UpdatePlayTime();
-        else
-            return static_cast<int16>(m_nPlayTime - static_cast<uint32>(m_nLastUpdateTime) + CAEAudioUtility::GetCurrentTimeInMS());
-        break;
+        else // Como el original: parte baja del tiempo actual + (m_nPlayTime - parte baja de m_nLastUpdateTime), módulo 2^32
+            return static_cast<int32>(static_cast<uint32>(m_nPlayTime) - static_cast<uint32>(m_nLastUpdateTime) + static_cast<uint32>(CAEAudioUtility::GetCurrentTimeInMS()));
     default:
         break;
     }
 
-    return static_cast<int16>(m_nState); // possibly not intended.
+    return static_cast<int32>(m_nState); // possibly not intended.
 }
 
 // 0x4F1880
-uint16 CAEStreamingChannel::GetLength() {
-    return static_cast<uint16>(m_pStreamingDecoder ? m_pStreamingDecoder->GetStreamLengthMs() : -1);
+// Como el original: devuelve el long de GetStreamLengthMs sin truncar (o -1 sin decoder).
+int32 CAEStreamingChannel::GetLength() {
+    return m_pStreamingDecoder ? static_cast<int32>(m_pStreamingDecoder->GetStreamLengthMs()) : -1;
 }
 
 // 0x4F1D40
@@ -527,7 +528,7 @@ void CAEStreamingChannel::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x4F1800, { .reversed = false }); // makes game not load radio
     RH_ScopedInstall(Destructor, 0x4F2200);
-    RH_ScopedInstall(SynchPlayback, 0x4F1870);
+    RH_ScopedVMTInstall(SynchPlayback, 0x4F1870);
     RH_ScopedInstall(PrepareStream, 0x4F23D0, { .reversed = false });
     RH_ScopedInstall(Initialise, 0x4F22F0);
     RH_ScopedInstall(Pause, 0x4F2170);

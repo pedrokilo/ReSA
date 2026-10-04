@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 16/16 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/16 entradas.
+ * Validación registrada: 16/16 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -328,7 +328,7 @@ void CCover::Update() {
     const float maxY = FindPlayerCoors().y + 30.0f;
     const auto SectorOf = [](float coord) {
         const float scaled = coord * 0.02f + 60.0f;
-        return (int32)std::floor((double)scaled);
+        return (int32)(int64)std::floor((double)scaled); // Como el original: _ftol2 (64 bits, se queda la parte baja)
     };
     const auto startX = std::max(SectorOf(minX), 0);
     const auto startY = std::max(SectorOf(minY), 0);

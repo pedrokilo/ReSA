@@ -9,7 +9,7 @@
  * Reconstrucción: INCOMPLETA — 16/20 funciones reconstruidas.
  * Pendientes de reconstruir: 4.
  * Funciones bloqueadas: 4.
- * Validación registrada: 0/20 entradas.
+ * Validación registrada: 1/20 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -33,7 +33,8 @@ END GENERATED HOOK STATUS */
 #include "AEAudioUtility.h"
 
 void CAEPedAudioEntity::InjectHooks() {
-    RH_ScopedClass(CAEPedAudioEntity);
+    // Como el original: vtable 0x86C2A8 con una sola entrada (UpdateParameters 0x4E1180).
+    RH_ScopedVirtualClass(CAEPedAudioEntity, 0x86C2A8, 1);
     RH_ScopedCategory("Audio/Entities");
 
     //RH_ScopedInstall(Constructor, 0x5DE8D0, { .reversed = false });
@@ -47,7 +48,7 @@ void CAEPedAudioEntity::InjectHooks() {
     RH_ScopedInstall(StopJetPackSound, 0x4E1120);
     RH_ScopedInstall(UpdateJetPack, 0x4E0EE0);
     RH_ScopedInstall(PlayWindRush, 0x4E1170);
-    RH_ScopedInstall(UpdateParameters, 0x4E1180);
+    RH_ScopedVMTInstall(UpdateParameters, 0x4E1180); // virtual: un hook plano entraría en bucle infinito
     RH_ScopedInstall(HandleFootstepEvent, 0x4E13A0);
     RH_ScopedInstall(HandleSkateEvent, 0x4E17E0);
     RH_ScopedInstall(HandleLandingEvent, 0x4E18E0);
@@ -357,7 +358,8 @@ void CAEPedAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) {
     case AE_PED_JACKED_CAR_KICK:
     case AE_PED_JACKED_BIKE:
     case AE_PED_JACKED_DOZER:
-        if (CTimer::GetTimeInMS() < (uint32)sound->m_ClientVariable)
+        // Como el original: _ftol2 (64 bits, parte baja) y comparación sin signo.
+        if (CTimer::GetTimeInMS() < static_cast<uint32>(static_cast<int64>(sound->m_ClientVariable)))
             return;
         sound->m_Speed = 1.0f;
         return;
@@ -365,22 +367,22 @@ void CAEPedAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) {
         const auto volume = GetDefaultVolume(AE_PED_SWIM_WAKE);
 
         if (CTimer::GetTimeInMS() <= m_LastSwimWakeTriggerTimeMs + 100) {
-            if (sound->m_Volume >= volume) {
+            // Como el original: sube 0.6 dB por llamada hasta el volumen por defecto (NaN o ya alcanzado: no toca nada).
+            if (!(sound->m_Volume < volume)) {
                 return;
             }
-
-            if (sound->m_Volume + 0.6f >= volume) {
-                sound->m_Volume = volume;
-                return;
-            }
+            const float up = sound->m_Volume + 0.6f;
+            sound->m_Volume = up < volume ? up : volume;
         } else {
-            auto vol = volume - 20.0f;
-            if (sound->m_Volume <= vol) {
+            // Como el original: por debajo (o igual, o NaN) de volumen - 20 se detiene; si no, baja 0.6 dB sin pasar de ahí.
+            const float vol = volume - 20.0f;
+            if (!(sound->m_Volume > vol)) {
                 sound->StopSoundAndForget();
                 m_LastSwimWakeTriggerTimeMs = 0;
                 return;
             }
-            sound->m_Volume = std::max(sound->m_Volume - 0.6f, vol);
+            const float down = sound->m_Volume - 0.6f;
+            sound->m_Volume = down > vol ? down : vol;
         }
 
         return;

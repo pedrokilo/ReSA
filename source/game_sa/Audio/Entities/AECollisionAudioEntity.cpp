@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CAECollisionAudioEntity
- * Reconstrucción: COMPLETA — 17/17 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 18/18 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/17 entradas.
+ * Validación registrada: 18/18 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -97,6 +97,7 @@ void CAECollisionAudioEntity::InjectHooks() {
     RH_ScopedInstall(ChooseCollisionSoundID, 0x4DAA50);
     RH_ScopedOverloadedInstall(ReportWaterSplash, "at-position", 0x4DA190, void(CAECollisionAudioEntity::*)(CVector, float));
     RH_ScopedOverloadedInstall(ReportWaterSplash, "for-physical", 0x4DAE40, void(CAECollisionAudioEntity::*)(CPhysical*, float, bool));
+    RH_ScopedVMTInstall(UpdateParameters, 0x4DA370); // Como el original: entrada 0 de la vtable 0x862E64 (virtual)
 }
 
 // 0x5B9BD0
@@ -753,6 +754,52 @@ void CAECollisionAudioEntity::ReportBulletHit(CEntity* entity, eSurfaceType surf
     }
 }
 
+// 0x4DA370
+// Como el original: switch sobre m_Event del sonido (tabla de saltos 0x4DA490/0x4DA47C):
+// - 1: nada;
+// - 2, 3 y 128: si curPlayPos >= 0 y ya pasó el instante guardado en m_ClientVariable (_ftol2, 64 bits, se compara
+//   la parte baja sin signo con CTimer::m_snTimeInMilliseconds), fija la velocidad del sonido;
+// - resto (incluidos 0 y negativos): con curPlayPos == -1 limpia la primera entrada de la lista con ese sonido y
+//   descuenta m_NumActiveCollisionSounds (si no la encuentra no descuenta).
+void CAECollisionAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) {
+    float speed{}; // todas las ramas que llegan abajo lo fijan
+    switch (sound->m_Event) {
+    case 1:
+        return;
+    case 2:
+        speed = std::bit_cast<float>(0x3FA147AEu); // 1.26f
+        break;
+    case 3:
+        speed = std::bit_cast<float>(0x3F70A3D7u); // 0.94f
+        break;
+    case 128:
+        speed = std::bit_cast<float>(0x3F0F5C29u); // 0.56f
+        break;
+    default: {
+        if (curPlayPos != -1) {
+            return;
+        }
+        for (auto& entry : m_CollisionSoundList) {
+            if (entry.Sound != sound) {
+                continue;
+            }
+            ClearCollisionSoundEntry(entry);
+            --m_NumActiveCollisionSounds;
+            return;
+        }
+        return;
+    }
+    }
+
+    if (curPlayPos < 0) {
+        return;
+    }
+    if (CTimer::m_snTimeInMilliseconds < static_cast<uint32>(static_cast<int64>(sound->m_ClientVariable))) {
+        return;
+    }
+    sound->m_Speed = speed;
+}
+
 // 0x4DA2C0
 void CAECollisionAudioEntity::Service() {
     const auto time = CTimer::GetTimeInMS();
@@ -775,12 +822,11 @@ eSoundID CAECollisionAudioEntity::ChooseCollisionSoundID(eSurfaceType surface) {
     if (l->MinSoundID == l->MaxSoundID) {
         return l->MinSoundID;
     }
-    for (auto retry = 0; retry < 100; retry++) { // NOTSA: Handle very unlikely infinite loop
+    // Como el original: repite sin límite hasta sacar un id distinto del último de esta superficie.
+    for (;;) {
         const auto soundID = CAEAudioUtility::GetRandomNumberInRange(l->MinSoundID, l->MaxSoundID);
         if (soundID != m_CollisionSoundIDHistory[surface]) {
             return soundID;
         }
     }
-    NOTSA_LOG_WARN("Failed to generate collision sound ID not in history!"); // NOTSA
-    return l->MinSoundID; // NOTSA
 }

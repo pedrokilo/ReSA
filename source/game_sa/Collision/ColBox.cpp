@@ -2,10 +2,13 @@
 
 #include "ColBox.h"
 
+// 0x40EEC0
+// Like the original: copies min, max, material + piece (one word) and lighting; m_nLight (0x1B) is not copied
 CColBox& CColBox::operator=(const CColBox& right) {
     m_vecMin = right.m_vecMin;
     m_vecMax = right.m_vecMax;
     m_Surface.m_nMaterial = right.m_Surface.m_nMaterial;
+    m_Surface.m_nPiece = right.m_Surface.m_nPiece;
     m_Surface.m_nLighting = right.m_Surface.m_nLighting;
     return *this;
 }

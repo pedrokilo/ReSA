@@ -188,7 +188,8 @@ inline uint16 FakeRandomNumber() { return uint16(FakeRand()); }
 inline CPedGroup* __cdecl FakePedsGroup(const CPed* p) { const int n=PedIndex(p); const uintptr_t g=n>=0 ? groupOf[n] : 0; trace.push_back({"peds_group",Name(p),Name(g)}); return reinterpret_cast<CPedGroup*>(g); }
 inline int32 __cdecl FakeGroupId(const CPedGroup* g) { const int32 id=int32(uint32(uintptr_t(g))-uint32(MS_GROUPS))/int32(GROUP_SIZE); trace.push_back({"group_id",Name(g)}); return id; }
 inline void __fastcall FakeFlushExe(void* in,void*,void* pairs,CPed* p) { trace.push_back({"flush_tasks",Name(pairs),Name(p)}); }
-inline void __cdecl FakeFlushDll(void* pairs,CPed* p) { trace.push_back({"flush_tasks",Name(pairs),Name(p)}); }
+inline void __fastcall FakeFlushDll(void*,void*,void* pairs,CPed* p) { // DLL ya es __thiscall (ret 8), como el EXE
+    trace.push_back({"flush_tasks",Name(pairs),Name(p)}); }
 inline void __fastcall FakeEventResponse(void* in,void*,CPed* ped,uint32 hasMain,const CTask* main,uint32 hasSec,const CTask* sec,int32 slot) {
     trace.push_back({"group_event_response",Name(in),Name(ped),uint8(hasMain),SerStack(main),uint8(hasSec),sec ? json(const_cast<CTask*>(sec)->GetTaskType()) : json(nullptr),slot});
 }

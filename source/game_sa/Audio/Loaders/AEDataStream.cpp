@@ -243,7 +243,8 @@ bool CAEDataStream::Initialise() {
  * Registra la implementación Win32/IStream del stream de datos de audio.
  */
 void CAEDataStream::InjectHooks() {
-    RH_ScopedClass(CAEDataStream);
+    // Como el original: vtable IStream en 0x85F0BC (14 entradas: IUnknown, ISequentialStream, IStream; sin destructor virtual)
+    RH_ScopedVirtualClass(CAEDataStream, 0x85F0BC, 14);
     RH_ScopedCategory("Audio/Loaders");
 
     // Native and reconstructed methods share Win32 HANDLE ownership.
@@ -255,21 +256,21 @@ void CAEDataStream::InjectHooks() {
     RH_ScopedInstall(GetCurrentPosition, 0x4dc230);
     RH_ScopedOverloadedInstall(Seek, "OG", 0x4dc250, uint32(CAEDataStream::*)(long offset, int32 whence));
 
-    // IStream implementation. These depend on functions above so most of them don't have to be locked.
-    RH_ScopedInstall(Read, 0x4dc320);
-    RH_ScopedOverloadedInstall(Seek, "istream", 0x4dc340, HRESULT(__stdcall CAEDataStream::*)(LARGE_INTEGER, DWORD, ULARGE_INTEGER*));
-    RH_ScopedInstall(Stat, 0x4dc3a0, {.locked = false});
-    RH_ScopedInstall(QueryInterface, 0x4dc410);
-    RH_ScopedInstall(AddRef, 0x4dc460);
-    RH_ScopedInstall(Write, 0x4dc4d0);
-    RH_ScopedInstall(SetSize, 0x4dc4e0);
-    RH_ScopedInstall(CopyTo, 0x4dc4f0);
-    RH_ScopedInstall(Commit, 0x4dc500);
-    RH_ScopedInstall(Revert, 0x4dc510);
-    RH_ScopedInstall(LockRegion, 0x4dc520);
-    RH_ScopedInstall(UnlockRegion, 0x4dc530);
-    RH_ScopedInstall(Clone, 0x4dc540);
-    RH_ScopedInstall(Release, 0x4dc5b0);
+    // IStream implementation (vtable: un hook plano sobre una virtual entra en bucle). These depend on functions above so most of them don't have to be locked.
+    RH_ScopedVMTInstall(Read, 0x4dc320);
+    RH_ScopedVMTOverloadedInstall(Seek, "istream", 0x4dc340, HRESULT(__stdcall CAEDataStream::*)(LARGE_INTEGER, DWORD, ULARGE_INTEGER*));
+    RH_ScopedVMTInstall(Stat, 0x4dc3a0, {.locked = false});
+    RH_ScopedVMTInstall(QueryInterface, 0x4dc410);
+    RH_ScopedVMTInstall(AddRef, 0x4dc460);
+    RH_ScopedVMTInstall(Write, 0x4dc4d0);
+    RH_ScopedVMTInstall(SetSize, 0x4dc4e0);
+    RH_ScopedVMTInstall(CopyTo, 0x4dc4f0);
+    RH_ScopedVMTInstall(Commit, 0x4dc500);
+    RH_ScopedVMTInstall(Revert, 0x4dc510);
+    RH_ScopedVMTInstall(LockRegion, 0x4dc520);
+    RH_ScopedVMTInstall(UnlockRegion, 0x4dc530);
+    RH_ScopedVMTInstall(Clone, 0x4dc540);
+    RH_ScopedVMTInstall(Release, 0x4dc5b0);
 
     CAEStreamTransformer::InjectHooks();
 }

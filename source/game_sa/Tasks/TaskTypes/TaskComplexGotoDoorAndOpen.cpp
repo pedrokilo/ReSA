@@ -14,15 +14,15 @@
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
  * PENDIENTES (nombre | dirección | tipo):
- *   Clone | 0x0066BCA0 | S
- *   ControlSubTask | 0x0066C1F0 | S
- *   CreateFirstSubTask | 0x0066BD40 | S
- *   CreateNextSubTask | 0x0066C0D0 | S
+ *   Clone | 0x00000000 | V
+ *   ControlSubTask | 0x00000000 | V
+ *   CreateFirstSubTask | 0x00000000 | V
+ *   CreateNextSubTask | 0x00000000 | V
  * BLOQUEADAS (nombre | dirección | tipo):
- *   Clone | 0x0066BCA0 | S
- *   ControlSubTask | 0x0066C1F0 | S
- *   CreateFirstSubTask | 0x0066BD40 | S
- *   CreateNextSubTask | 0x0066C0D0 | S
+ *   Clone | 0x00000000 | V
+ *   ControlSubTask | 0x00000000 | V
+ *   CreateFirstSubTask | 0x00000000 | V
+ *   CreateNextSubTask | 0x00000000 | V
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -37,10 +37,10 @@ void CTaskComplexGotoDoorAndOpen::InjectHooks() {
     RH_ScopedOverloadedInstall(Constructor, "0", 0x66BB20, CTaskComplexGotoDoorAndOpen*(CTaskComplexGotoDoorAndOpen::*)(CObject *));
     RH_ScopedOverloadedInstall(Constructor, "1", 0x66BBA0, CTaskComplexGotoDoorAndOpen*(CTaskComplexGotoDoorAndOpen::*)(CVector const&, CVector const&));
     RH_ScopedInstall(Destructor, 0x66BC00);
-    RH_ScopedInstall(Clone, 0x66BCA0, { .reversed = false });
-    RH_ScopedInstall(CreateNextSubTask, 0x66C0D0, { .reversed = false });
-    RH_ScopedInstall(CreateFirstSubTask, 0x66BD40, { .reversed = false });
-    RH_ScopedInstall(ControlSubTask, 0x66C1F0, { .reversed = false });
+    RH_ScopedVMTInstall(Clone, 0x66BCA0, { .reversed = false });
+    RH_ScopedVMTInstall(CreateNextSubTask, 0x66C0D0, { .reversed = false });
+    RH_ScopedVMTInstall(CreateFirstSubTask, 0x66BD40, { .reversed = false });
+    RH_ScopedVMTInstall(ControlSubTask, 0x66C1F0, { .reversed = false });
 }
 
 // 0x66BB20

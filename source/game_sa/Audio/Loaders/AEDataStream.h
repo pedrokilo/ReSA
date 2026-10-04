@@ -10,7 +10,7 @@
  * Posee el HANDLE y el nombre de archivo, mantiene un rango lógico por track y puede
  * aplicar el XOR de CAEStreamTransformer durante las lecturas de recursos cifrados.
  */
-class CAEDataStream : public IStream {
+class NOTSA_EXPORT_VTABLE CAEDataStream : public IStream {
 public:
     HANDLE     m_pFileHandle; //!< HANDLE Win32 propiedad del stream mientras m_bIsOpen.
     char*      m_pszFilename; //!< Cadena dinámica propiedad de la instancia.

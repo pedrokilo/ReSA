@@ -42,7 +42,7 @@
   "log_sha256": "f22e8494fc5149c18f155680122f9ba196fd382831f956c0150bb3ff4c78b7c1",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio13\\20261003-094601-386816",
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio13\\20261003-175324-042589",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEMP3BankLoader::Constructor": true,
@@ -74,18 +74,18 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "75791b20ed2d4623a6c63cf8dd50af74107ec6dd9cad6a6503877f1afe7dc21f",
-      "pdb": "d027a065722273084b69287cd6842e695c06c18ee109aaa647119ee0190f1983"
+      "asi": "e57763f7a159a26e5f6c43500894d15abca5ab675c7b18cd31b7a078cf594fd4",
+      "pdb": "c68e86ead24578dc879d876fb2b0f1d5b783b3a44eadbece74c2b40c991365d6"
     },
     "sources": {
-      "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "2e1e55752555288989b95cdbd249a8a674afd080f3fbe5e6740efc4250fee160",
+      "source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp": "0776420d6887e135ca794d32190ef7b5f48c4b3d2162e700b093349f2fa0a6bd",
       "source/game_sa/Audio/Loaders/AEMP3BankLoader.h": "f5f14465bbf23d1896152dfb1aef67d5e79a9c27500a5edde6c736c22b8cc3d1",
-      "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "a7fe6e492bcc7e6bd51ac754c6c6de9fbadc4ac8e99938faf9b019ffe4d1f3e6",
+      "source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp": "a0e6668a6e3fd6f39d2f6f077f6d670f048819e341a46d6850b82db1cf9122ce",
       "source/game_sa/Audio/Loaders/AEVorbisDecoder.h": "3ecfd06e439754a309d44cf4b22b94945c28e6f97de022df5a442f07a5964c61"
     },
     "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
     "instrumentation": {
-      "LiveComparison.hpp": "5d7ccae2a256371c024420d51464f071055c14b7d9db33417fe02f8073116c9e",
+      "LiveComparison.hpp": "b3d0965af3c9df54d67392e5397fc834720d6bf6b730515d6b8aa85e076e8ccf",
       "build_probe.py": "9bb6ced4c30f309343aacfcc965ac379147dc44a23760e15face6f39be827841",
       "run_local.py": "82f059bc80d463fe66600d52a9632fb8e725383554111fa1cca9fbf6b1042915"
     }

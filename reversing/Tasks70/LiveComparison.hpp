@@ -181,7 +181,7 @@ inline void FlushImpl(CPedTaskPair* pairs,CPed* ped) {
     for(int n=0;n<TOTAL_PED_GROUP_MEMBERS;++n)if(!ped||pairs[n].Ped==ped){ if(pairs[n].Task)trace.push_back({"flushed",n,Name(pairs[n].Task)}); pairs[n].Task=nullptr; }
 }
 inline void __fastcall FakeFlushExe(void*,void*,CPedTaskPair* pairs,CPed* ped) { FlushImpl(pairs,ped); } // EXE: ret 8
-inline void __cdecl FakeFlushDll(CPedTaskPair* pairs,CPed* ped) { FlushImpl(pairs,ped); }
+inline void __fastcall FakeFlushDll(void*,void*,CPedTaskPair* pairs,CPed* ped) { FlushImpl(pairs,ped); } // DLL: __thiscall, ret 8
 inline void __fastcall FakeSetResponse(void* in,void*,CPed* ped,uint32 hasMain,const CTask* mainTask,uint32 hasSec,const CTask*,int32 slot) {
     json r={"set_event_response",Name(in),Name(ped),uint8(hasMain),uint8(hasSec)};
     if(uint8(hasSec))r.push_back(slot);

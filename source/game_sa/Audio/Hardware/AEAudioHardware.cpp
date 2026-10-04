@@ -338,7 +338,7 @@ void CAEAudioHardware::GetChannelPlayTimes(int16 channel, int16* playTimes) {
         return;
 
     for (uint32 k = 0; k < last - first; k++) {
-        playTimes[k] = m_aChannels[first + k]->GetPlayTime();
+        playTimes[k] = static_cast<int16>(m_aChannels[first + k]->GetPlayTime()); // Como el original: mov word ptr [esi],ax
     }
 }
 
@@ -516,7 +516,8 @@ void CAEAudioHardware::RescaleChannelVolumes() {
         } else if ((flags & FLAG_FADE_NEAR_END) && ch && ch->GetPlayTime() >= 0) {
             // NOTE: `GetPlayTime()` is called twice on purpose (0x4D8B9A / 0x4D8BBB) -
             // it reads live playback state, so caching it would deviate from the original.
-            // NOTE: `static_cast<int16>` reproduces the original's MOVSX sign-extension (0x4D8BB2).
+            // NOTE: `static_cast<int16>` reproduces the original's MOVSX sign-extension (0x4D8BB2);
+            // the play time is used with its full 32 bits (`sub ebp,eax`, 0x4D8BBE).
             const auto  length    = static_cast<int16>(ch->GetLength());
             const auto  playTime  = ch->GetPlayTime();
             // Como el original: fild exacto de la diferencia, fmul y fidiv redondeados a float.

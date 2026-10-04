@@ -40,9 +40,9 @@ void CMatrix::InjectHooks()
     RH_ScopedInstall(SetRotateX, 0x59B060);
     RH_ScopedInstall(SetRotateY, 0x59B0A0);
     RH_ScopedInstall(SetRotateZ, 0x59B0E0);
-    //RH_ScopedInstall(RotateX, 0x59B1E0, {.enabled }); // has NOTSA args, cant hook
-    //RH_ScopedInstall(RotateY, 0x59B2C0, {.enabled }); // has NOTSA args, cant hook
-    //RH_ScopedInstall(RotateZ, 0x59B390, {.enabled }); // has NOTSA args, cant hook
+    RH_ScopedInstall(RotateX, 0x59B1E0);
+    RH_ScopedInstall(RotateY, 0x59B2C0);
+    RH_ScopedInstall(RotateZ, 0x59B390);
     RH_ScopedInstall(Rotate, 0x59B460);
     RH_ScopedInstall(Reorthogonalise, 0x59B6A0);
     RH_ScopedInstall(CopyToRwMatrix, 0x59B8B0);
@@ -176,24 +176,56 @@ void CMatrix::SetTranslate(CVector translation)
     CMatrix::SetTranslateOnly(translation);
 }
 
-void CMatrix::SetRotateXOnly(float angle)
+// 0x59AFA0
+// Como el original: fsin/fcos del x87 (precisión interna completa) guardados a float con fstp, sin el
+// sin/cos de la CRT, y los mismos campos escritos (sin tocar el relleno ni la posición).
+__declspec(naked) void CMatrix::SetRotateXOnly(float angle)
 {
-    auto fSin = sin(angle);
-    auto fCos = cos(angle);
-
-    m_right.Set  (1.0F,  0.0F,  0.0F);
-    m_forward.Set(0.0F,  fCos,  fSin);
-    m_up.Set     (0.0F, -fSin,  fCos);
+    __asm {
+        fld dword ptr [esp+4]
+        xor eax,eax
+        fcos
+        mov dword ptr [ecx],3F800000h
+        mov dword ptr [ecx+4],eax
+        mov dword ptr [ecx+8],eax
+        mov dword ptr [ecx+10h],eax
+        mov dword ptr [ecx+20h],eax
+        fld dword ptr [esp+4]
+        fsin
+        fld st(1)
+        fstp dword ptr [ecx+14h]
+        fst dword ptr [ecx+18h]
+        fchs
+        fstp dword ptr [ecx+24h]
+        fstp dword ptr [ecx+28h]
+        ret 4
+    }
 }
 
-void CMatrix::SetRotateYOnly(float angle)
+// 0x59AFE0
+// Como el original: igual que SetRotateXOnly, con fsin/fcos del x87.
+__declspec(naked) void CMatrix::SetRotateYOnly(float angle)
 {
-    auto fSin = sin(angle);
-    auto fCos = cos(angle);
-
-    m_right.Set  (fCos,  0.0F, -fSin);
-    m_forward.Set(0.0F,  1.0F,  0.0F);
-    m_up.Set     (fSin,  0.0F,  fCos);
+    __asm {
+        fld dword ptr [esp+4]
+        xor eax,eax
+        fcos
+        mov dword ptr [ecx+4],eax
+        mov dword ptr [ecx+10h],eax
+        mov dword ptr [ecx+14h],3F800000h
+        mov dword ptr [ecx+18h],eax
+        mov dword ptr [ecx+24h],eax
+        fld dword ptr [esp+4]
+        fsin
+        fld st(1)
+        fstp dword ptr [ecx]
+        fld st(0)
+        fchs
+        fstp dword ptr [ecx+8]
+        fstp dword ptr [ecx+20h]
+        fstp dword ptr [ecx+28h]
+        ret 4
+    }
 }
 
 // 0x59B020
@@ -315,39 +347,235 @@ __declspec(naked) void CMatrix::SetRotate(float x, float y, float z)
     }
 }
 
-void CMatrix::RotateX(float angle, bool bKeepPos)
+// 0x59B1E0
+// Como el original: transcripción exacta del x87 del EXE. fcos se queda en la pila sin redondear a float,
+// fsin se guarda como float (fstp); los productos se redondean a 24 bits como en el EXE y la posición también se rota.
+__declspec(naked) void CMatrix::RotateX(float angle)
 {
-    auto rotMat = CMatrix();
-    rotMat.SetRotateX(angle);
-    m_right =   rotMat.TransformVector(m_right);
-    m_forward = rotMat.TransformVector(m_forward);
-    m_up =      rotMat.TransformVector(m_up);
-    if (!bKeepPos) {
-        m_pos = rotMat.TransformVector(m_pos);
+    __asm {
+        sub esp,20h
+        fld dword ptr [esp+24h]
+        fcos
+        fld dword ptr [esp+24h]
+        fsin
+        fstp dword ptr [esp+24h]
+        fld st(0)
+        fmul dword ptr [ecx+4]
+        fld dword ptr [esp+24h]
+        fmul dword ptr [ecx+8]
+        fsubp st(1),st
+        fld dword ptr [esp+24h]
+        fmul dword ptr [ecx+4]
+        fld st(2)
+        fmul dword ptr [ecx+8]
+        faddp st(1),st
+        fld st(2)
+        fmul dword ptr [ecx+14h]
+        fld dword ptr [esp+24h]
+        fmul dword ptr [ecx+18h]
+        fsubp st(1),st
+        fstp dword ptr [esp+8]
+        fld dword ptr [esp+24h]
+        mov eax,dword ptr [esp+8]
+        fmul dword ptr [ecx+14h]
+        mov dword ptr [ecx+14h],eax
+        fld st(3)
+        fmul dword ptr [ecx+18h]
+        faddp st(1),st
+        fstp dword ptr [esp+0Ch]
+        fld st(2)
+        mov edx,dword ptr [esp+0Ch]
+        fmul dword ptr [ecx+24h]
+        mov dword ptr [ecx+18h],edx
+        fld dword ptr [esp+24h]
+        fmul dword ptr [ecx+28h]
+        fsubp st(1),st
+        fstp dword ptr [esp+10h]
+        fld dword ptr [esp+24h]
+        mov eax,dword ptr [esp+10h]
+        fmul dword ptr [ecx+24h]
+        mov dword ptr [ecx+24h],eax
+        fld st(3)
+        fmul dword ptr [ecx+28h]
+        faddp st(1),st
+        fstp dword ptr [esp+14h]
+        mov edx,dword ptr [esp+14h]
+        fld st(2)
+        fmul dword ptr [ecx+34h]
+        mov dword ptr [ecx+28h],edx
+        fld dword ptr [esp+24h]
+        fmul dword ptr [ecx+38h]
+        fsubp st(1),st
+        fstp dword ptr [esp+18h]
+        fld dword ptr [esp+24h]
+        mov eax,dword ptr [esp+18h]
+        fmul dword ptr [ecx+34h]
+        mov dword ptr [ecx+34h],eax
+        fxch st(3)
+        fmul dword ptr [ecx+38h]
+        faddp st(3),st
+        fxch st(2)
+        fstp dword ptr [esp+1Ch]
+        mov edx,dword ptr [esp+1Ch]
+        fstp dword ptr [ecx+4]
+        mov dword ptr [ecx+38h],edx
+        fstp dword ptr [ecx+8]
+        add esp,20h
+        ret 4
     }
 }
 
-void CMatrix::RotateY(float angle, bool bKeepPos)
+// 0x59B2C0
+// Como el original: transcripción exacta del x87 del EXE. fcos se queda en la pila sin redondear a float,
+// fsin se guarda como float con fst pero right.x usa el seno sin redondear; los productos se redondean a 24 bits como en el EXE y la posición también se rota.
+__declspec(naked) void CMatrix::RotateY(float angle)
 {
-    auto rotMat = CMatrix();
-    rotMat.SetRotateY(angle);
-    m_right =   rotMat.TransformVector(m_right);
-    m_forward = rotMat.TransformVector(m_forward);
-    m_up =      rotMat.TransformVector(m_up);
-    if (!bKeepPos) {
-        m_pos = rotMat.TransformVector(m_pos);
+    __asm {
+        sub esp,20h
+        fld dword ptr [esp+24h]
+        fcos
+        fld dword ptr [esp+24h]
+        fsin
+        fst dword ptr [esp+24h]
+        fmul dword ptr [ecx+8]
+        fld st(1)
+        fmul dword ptr [ecx]
+        faddp st(1),st
+        fld st(1)
+        fmul dword ptr [ecx+8]
+        fld dword ptr [esp+24h]
+        fmul dword ptr [ecx]
+        fsubp st(1),st
+        fld dword ptr [esp+24h]
+        fmul dword ptr [ecx+18h]
+        fld st(3)
+        fmul dword ptr [ecx+10h]
+        faddp st(1),st
+        fstp dword ptr [esp+8]
+        fld st(2)
+        mov eax,dword ptr [esp+8]
+        fmul dword ptr [ecx+18h]
+        fld dword ptr [esp+24h]
+        fmul dword ptr [ecx+10h]
+        mov dword ptr [ecx+10h],eax
+        fsubp st(1),st
+        fstp dword ptr [esp+0Ch]
+        fld dword ptr [esp+24h]
+        mov edx,dword ptr [esp+0Ch]
+        fmul dword ptr [ecx+28h]
+        mov dword ptr [ecx+18h],edx
+        fld st(3)
+        fmul dword ptr [ecx+20h]
+        faddp st(1),st
+        fstp dword ptr [esp+10h]
+        fld st(2)
+        mov eax,dword ptr [esp+10h]
+        fmul dword ptr [ecx+28h]
+        fld dword ptr [esp+24h]
+        fmul dword ptr [ecx+20h]
+        mov dword ptr [ecx+20h],eax
+        fsubp st(1),st
+        fstp dword ptr [esp+14h]
+        fld dword ptr [esp+24h]
+        mov edx,dword ptr [esp+14h]
+        fmul dword ptr [ecx+38h]
+        mov dword ptr [ecx+28h],edx
+        fld st(3)
+        fmul dword ptr [ecx+30h]
+        faddp st(1),st
+        fstp dword ptr [esp+18h]
+        mov eax,dword ptr [esp+18h]
+        fxch st(2)
+        fmul dword ptr [ecx+38h]
+        fld dword ptr [esp+24h]
+        fmul dword ptr [ecx+30h]
+        mov dword ptr [ecx+30h],eax
+        fsubp st(1),st
+        fstp dword ptr [esp+1Ch]
+        mov edx,dword ptr [esp+1Ch]
+        fstp dword ptr [ecx]
+        mov dword ptr [ecx+38h],edx
+        fstp dword ptr [ecx+8]
+        add esp,20h
+        ret 4
     }
 }
 
-void CMatrix::RotateZ(float angle, bool bKeepPos)
+// 0x59B390
+// Como el original: transcripción exacta del x87 del EXE. fcos se queda en la pila sin redondear a float,
+// fsin se guarda como float (fstp); los productos se redondean a 24 bits como en el EXE y la posición también se rota.
+__declspec(naked) void CMatrix::RotateZ(float angle)
 {
-    auto rotMat = CMatrix();
-    rotMat.SetRotateZ(angle);
-    m_right =   rotMat.TransformVector(m_right);
-    m_forward = rotMat.TransformVector(m_forward);
-    m_up =      rotMat.TransformVector(m_up);
-    if (!bKeepPos) {
-        m_pos = rotMat.TransformVector(m_pos);
+    __asm {
+        sub esp,20h
+        fld dword ptr [esp+24h]
+        fcos
+        fld dword ptr [esp+24h]
+        fsin
+        fstp dword ptr [esp+24h]
+        fld st(0)
+        fmul dword ptr [ecx]
+        fld dword ptr [esp+24h]
+        fmul dword ptr [ecx+4]
+        fsubp st(1),st
+        fld st(1)
+        fmul dword ptr [ecx+4]
+        fld dword ptr [esp+24h]
+        fmul dword ptr [ecx]
+        faddp st(1),st
+        fld st(2)
+        fmul dword ptr [ecx+10h]
+        fld dword ptr [esp+24h]
+        fmul dword ptr [ecx+14h]
+        fsubp st(1),st
+        fstp dword ptr [esp+8]
+        fld dword ptr [esp+24h]
+        mov eax,dword ptr [esp+8]
+        fmul dword ptr [ecx+10h]
+        mov dword ptr [ecx+10h],eax
+        fld st(3)
+        fmul dword ptr [ecx+14h]
+        faddp st(1),st
+        fstp dword ptr [esp+0Ch]
+        fld st(2)
+        mov edx,dword ptr [esp+0Ch]
+        fmul dword ptr [ecx+20h]
+        mov dword ptr [ecx+14h],edx
+        fld dword ptr [esp+24h]
+        fmul dword ptr [ecx+24h]
+        fsubp st(1),st
+        fstp dword ptr [esp+10h]
+        fld dword ptr [esp+24h]
+        mov eax,dword ptr [esp+10h]
+        fmul dword ptr [ecx+20h]
+        mov dword ptr [ecx+20h],eax
+        fld st(3)
+        fmul dword ptr [ecx+24h]
+        faddp st(1),st
+        fstp dword ptr [esp+14h]
+        mov edx,dword ptr [esp+14h]
+        fld st(2)
+        fmul dword ptr [ecx+30h]
+        mov dword ptr [ecx+24h],edx
+        fld dword ptr [esp+24h]
+        fmul dword ptr [ecx+34h]
+        fsubp st(1),st
+        fstp dword ptr [esp+18h]
+        fld dword ptr [esp+24h]
+        mov eax,dword ptr [esp+18h]
+        fmul dword ptr [ecx+30h]
+        mov dword ptr [ecx+30h],eax
+        fxch st(3)
+        fmul dword ptr [ecx+34h]
+        faddp st(3),st
+        fxch st(2)
+        fstp dword ptr [esp+1Ch]
+        mov edx,dword ptr [esp+1Ch]
+        fstp dword ptr [ecx]
+        mov dword ptr [ecx+34h],edx
+        fstp dword ptr [ecx+4]
+        add esp,20h
+        ret 4
     }
 }
 

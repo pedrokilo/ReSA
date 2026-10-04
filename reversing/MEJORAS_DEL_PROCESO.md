@@ -1190,7 +1190,7 @@ Bancos nuevos, todos con pares exactos dentro de GTA (105 funciones, 48.032 pare
 - Los recorridos de listas de la DLL validan nodos y entidades contra los pools; con listas falsas se recorre como el EXE (sin validar).
 - Una función que pasa con pocos casos alcanzando una rama (p. ej. `GetTaskUseGun` casi siempre nulo) puede esconder una llamada duplicada del EXE.
 
-## Continuidad vigente: clases de 16 y 17 funciones (2026-10-03, en pausa)
+## Continuidad vigente: clases de 16 y 17 funciones (2026-10-03)
 
 Banco nuevo con pares exactos dentro de GTA: [Anim16](Anim16/README.md) (32 funciones, 14.080 pares).
 
@@ -1200,5 +1200,40 @@ Banco nuevo con pares exactos dentro de GTA: [Anim16](Anim16/README.md) (32 func
 
 **Lección:** el propio ayudante de parches del banco libera memoria al desmontarse; el `delete` falso solo debe registrar punteros de la arena del banco y reenviar el resto al `free` real.
 
-**Pausa a petición del usuario:** World16 (`CCover`, `CPlaceable`), Audio17 (`CAECollisionAudioEntity`) y Sys17 (`CFileMgr`, `IKChainManager_c`) quedan con cambios de fuente sin validar.
+Bancos nuevos tras la pausa, todos con pares exactos dentro de GTA: [World16](World16/README.md) (32 funciones, 19.680 pares), [Audio17](Audio17/README.md) (17 funciones, 11.088 pares), [Sys17](Sys17/README.md) (34 funciones, 13.248 pares).
 
+**Defectos de alcance general encontrados:**
+- `CCover::FindAndReserveCoverPoint` elegía el punto más lejano (casi siempre devolvía nulo); `CalculateHorizontalSize`, `DoLineCheckWithinObject` y `Find2HighestPoints` no estaban implementadas.
+- `CPlaceable::GetRoll` usaba la magnitud al cuadrado y no seguía la regla de signo del EXE; `GetHeading`/`GetRoll` devuelven ahora ST0 sin redondear y el heading de las matrices usa `fpatan`.
+- `CFileMgr`: rutas con `strcpy`/`strcat` sin `memset`, `LoadFile` por bloques de 0x4000 con terminador; `IKChainManager_c::CanAccept`/`LookAt` en el orden del EXE y sin comprobar el tipo de las tareas IK.
+- `CAECollisionAudioEntity::ChooseCollisionSoundID` se rendía a los 100 sorteos (NOTSA); el EXE repite sin límite.
+
+**Lecciones:**
+- `PtrListDoubleLink::IsNodeValid` (DLL de depuración) comprueba el nodo contra su pool **y el elemento contra el pool de edificios**: las listas de edificios falsos necesitan nodos del pool real y un pool de edificios falso que cubra las entidades.
+- `CVector v = {a, b, c}` es ambiguo (`operator=` de `CVector` y de `RwV3d`): escribir `CVector{...}`.
+
+## Arreglos fuera de las listas (2026-10-03)
+
+Bancos nuevos con pares exactos dentro de GTA: [FixAudio](FixAudio/README.md) (7 funciones, 5.120 pares), [FixCore](FixCore/README.md) (17 funciones, 11.776 pares), [FixPeds](FixPeds/README.md) (21 funciones, 9.664 pares). Se repitieron Audio13 (Vorbis sin `FIX_BUGS`) y CTasks13 (hooks de `CTaskComplexGangLeader` activados): aprobados.
+
+**Defectos corregidos (decisión del usuario: lo que sea parte del EXE):**
+- Audio:
+  - `CAEVorbisDecoder` sin los `FIX_BUGS` de canales;
+  - `CAESound::UpdatePlayTime` suma en float y luego trunca;
+  - `GetPlayTime`/`GetLength` de los canales devuelven 32 bits;
+  - `CAECollisionAudioEntity::UpdateParameters` reconstruida (hueco 0 de 0x862E64);
+  - `CAEPedAudioEntity::UpdateParameters` pasa de hook plano a hook de vtable.
+- Núcleo:
+  - `CMatrix::RotateX/Y/Z` y `SetRotateX/YOnly` son copias exactas del EXE (sin el argumento NOTSA `bKeepPos`), y `CVehicle::SetComponentRotation` se reescribió en consecuencia;
+  - `CPool::New/Delete/NewAt` siguen al EXE (búsqueda desde `m_LastFreeSlot+1`, sin rellenos 0xCD/0xDD);
+  - `CColBox::operator=` copia `m_nPiece`;
+  - los contadores del búfer temporal son `int32`.
+- Peatones:
+  - las cuatro virtuales de `CPedAttractor` pasan a hooks de vtable, y se corrigió el cuerpo (cola contra lista de atraídos, `ms_tasks`, ranuras);
+  - `CPedGroupIntelligence::FlushTasks` y `CPlayerInfo::CancelPlayerEnteringCars` pasan a thiscall.
+- Sin cambios: los contadores de `FurnitureManager_c` ya eran de 16 bits sin signo, como en el EXE, y `SetRotateZOnly` ya era exacta.
+
+**Lecciones:**
+- Comprobar el conmutador del hook (`JumpsToDll`) **después** de activar los hooks de la pasada; si no, todos los casos fallan en `switches`.
+- `reversing/_handoff/dup_hooks.py` detecta funciones de la DLL enganchadas desde dos direcciones del EXE y virtuales con hook plano.
+- `probe_summary.py` admite funciones sin fila en `hooks.csv` (`CMatrix`, `CColBox`, que no instalan hooks): quedan en el banco pero no se registran.

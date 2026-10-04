@@ -14,15 +14,15 @@
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
  * PENDIENTES (nombre | dirección | tipo):
- *   Clone | 0x0066CFD0 | S
- *   ControlSubTask | 0x00668E80 | S
- *   CreateFirstSubTask | 0x0066E030 | S
- *   CreateNextSubTask | 0x0066DFD0 | S
+ *   Clone | 0x00000000 | V
+ *   ControlSubTask | 0x00000000 | V
+ *   CreateFirstSubTask | 0x00000000 | V
+ *   CreateNextSubTask | 0x00000000 | V
  * BLOQUEADAS (nombre | dirección | tipo):
- *   Clone | 0x0066CFD0 | S
- *   ControlSubTask | 0x00668E80 | S
- *   CreateFirstSubTask | 0x0066E030 | S
- *   CreateNextSubTask | 0x0066DFD0 | S
+ *   Clone | 0x00000000 | V
+ *   ControlSubTask | 0x00000000 | V
+ *   CreateFirstSubTask | 0x00000000 | V
+ *   CreateNextSubTask | 0x00000000 | V
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -40,11 +40,11 @@ void CTaskComplexGoToPointAndStandStillAndAchieveHeading::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x668CD0);
     RH_ScopedInstall(Destructor, 0x668D40);
 
-    RH_ScopedInstall(Clone, 0x66CFD0, { .reversed = false });
-    RH_ScopedInstall(GetTaskType, 0x668D30);
-    RH_ScopedInstall(CreateNextSubTask, 0x66DFD0, { .reversed = false });
-    RH_ScopedInstall(CreateFirstSubTask, 0x66E030, { .reversed = false });
-    RH_ScopedInstall(ControlSubTask, 0x668E80, { .reversed = false });
+    RH_ScopedVMTInstall(Clone, 0x66CFD0, { .reversed = false });
+    RH_ScopedVMTInstall(GetTaskType, 0x668D30);
+    RH_ScopedVMTInstall(CreateNextSubTask, 0x66DFD0, { .reversed = false });
+    RH_ScopedVMTInstall(CreateFirstSubTask, 0x66E030, { .reversed = false });
+    RH_ScopedVMTInstall(ControlSubTask, 0x668E80, { .reversed = false });
 }
 
 // 0x668CD0

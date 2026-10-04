@@ -78,6 +78,8 @@ public:
 
     void Service();
 
+    void UpdateParameters(CAESound* sound, int16 curPlayPos) override;
+
     // notsa
     bool CanAddNewSound() const { return m_NumActiveCollisionSounds <= m_CollisionSoundList.size(); }
 

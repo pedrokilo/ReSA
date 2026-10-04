@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 11776,
+  "pairs_per_function": {
+    "CMatrix::RotateX": 1024,
+    "CMatrix::RotateY": 1024,
+    "CMatrix::RotateZ": 1024,
+    "CMatrix::SetRotateXOnly": 512,
+    "CMatrix::SetRotateYOnly": 512,
+    "CMatrix::SetRotateZOnly": 512,
+    "CMatrix::SetRotateX": 512,
+    "CMatrix::SetRotateY": 512,
+    "CMatrix::SetRotateZ": 512,
+    "CColBox::operator=": 512,
+    "CVehicle::SetComponentRotation": 1024,
+    "CTaskSimpleSwim::ApplyRollAndPitch": 1024,
+    "CTxdStore::AddTxdSlot": 1024,
+    "CTxdStore::RemoveTxdSlot": 512,
+    "CPed::operator new-anon": 512,
+    "CPed::operator new-poolIndexed": 512,
+    "CPed::operator delete-anon": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "d465e42df2ddcedee9e3a003387eb5248da1fde089815b0e6f1c6bb52481bde8",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fixcore\\20261003-175619-725397",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CMatrix::RotateX": true,
+    "CMatrix::RotateY": true,
+    "CMatrix::RotateZ": true,
+    "CMatrix::SetRotateXOnly": true,
+    "CMatrix::SetRotateYOnly": true,
+    "CMatrix::SetRotateZOnly": true,
+    "CMatrix::SetRotateX": true,
+    "CMatrix::SetRotateY": true,
+    "CMatrix::SetRotateZ": true,
+    "CColBox::operator=": true,
+    "CVehicle::SetComponentRotation": true,
+    "CTaskSimpleSwim::ApplyRollAndPitch": true,
+    "CTxdStore::AddTxdSlot": true,
+    "CTxdStore::RemoveTxdSlot": true,
+    "CPed::operator new-anon": true,
+    "CPed::operator new-poolIndexed": true,
+    "CPed::operator delete-anon": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "fe13537fe909def2c29332a20a9ac63b7efa360271d212e816e60c3bf4e30946",
+      "pdb": "d7d100068fe67b8da3ba5df2a3e6968e49c324a2d0289c568fa57de0f6b951d3"
+    },
+    "sources": {
+      "source/game_sa/Core/Matrix.cpp": "e439e925994ce51ae63294beb9c3c0116cc3913947c466873bc4a9e387b86323",
+      "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
+      "source/game_sa/Core/Pool.h": "f83df423fac811bd829b32df13da90b19a64e9504abad36d9133d76a05284cc9",
+      "source/game_sa/Collision/ColBox.cpp": "8f44969c1c61a913ef2d36b9034b4f171a8abfd605d9d474599975950161cac0",
+      "source/game_sa/Collision/ColBox.h": "6f45b61e91adfc8ebd93a89929dffb142fe47f5c622ba4d5dcee18c758a87da4",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "e685e06c99cf987300b15fef843189e17fe6eac5881a5320b8e27a83620cf7c1",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp": "8785dbea42b37059bfac5da22133332916cd4c60c578ef2b44f267067deb73f0",
+      "source/game_sa/TxdStore.cpp": "ccc71b3089f1e11a0c53cf2d79da50620e0df12c34afe32ef3f84ad47f2e92fe",
+      "source/game_sa/Entity/Ped/Ped.cpp": "ffbd84d92ddba5020c9836411b69ddab9c5354eaabaa992f996eb46df2a224f3",
+      "source/game_sa/Pools/PedPool.h": "5471c3169048392770658f70374d876454e3b31eda7abd105ad97a46c4ec07fd",
+      "source/game_sa/common.h": "8d8089e14184c70ca8c1e7711cdc0fb48719447ab544cc5ff9520dc1ff998ed1"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "ac11e07119b76085eea6ecb068d4c634782b5f5263798fd0546a773f363a0612",
+      "build_probe.py": "08c708d10b8af19a3cdaf9948889f113c9eb4ffdbc9dff643745656d3d5c7ea0",
+      "run_local.py": "b197973d71ecb9da037fef6ebea23386e9e94ee8369e541a317814d821f2f9a9"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

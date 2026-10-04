@@ -29,8 +29,8 @@ Validadas el 02/10/2026 con **11.520 pares original/candidato dentro de GTA**, t
 - `CAEVorbisDecoder` usa streams, `OggVorbis_File` y `vorbis_info` falsos; vorbisFile.dll se sustituye en la IAT del EXE y la libvorbis estática de la DLL con parches de entrada; `CAEDataStream` se simula en ambos lados. operator new/delete solo se sustituyen en `Initialise` y el destructor, con registros sin reservas.
 - Los falsos se ponen y se quitan en cada ejecución (nunca durante la escritura del log); un vigilante registra EIP y pila del hilo principal si una ejecución tarda más de 10 s.
 - Se vigilan la IAT de vorbisFile.dll, la vtable 0x862D70 y las entradas de `IsForegroundApp`.
+- Desde el 03/10/2026 el decoder ya no tiene desviaciones `FIX_BUGS`: los fixtures incluyen fuentes mono y de más de dos canales en `Initialise` y `FillBuffer`.
 - Fuera de los fixtures:
-  - desviaciones `FIX_BUGS` (más de dos canales en `Initialise`, fuente mono en `FillBuffer`);
   - banco igual al contador en `LoadSoundBank`/`LoadSound` (el EXE desreferencia el lookup nulo);
   - sonidos negativos en `GetSoundHeadroom` (el EXE lee 786 KB fuera del slot);
   - `size` 0 en `ReadCallback` (división por cero en ambos).

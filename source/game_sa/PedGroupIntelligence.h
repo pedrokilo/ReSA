@@ -37,7 +37,7 @@ public:
     void            ComputeDefaultTasks(CPed* ped);
     CTaskAllocator* ComputeEventResponseTasks();
     void            ComputeScriptCommandTasks();
-    static void     FlushTasks(PedTaskPairs& taskPairs, CPed* ped);
+    void            FlushTasks(PedTaskPairs& taskPairs, CPed* ped); // Como el original: __thiscall (ret 8), `this` sin usar
 
     //! @notsa
     CPedTaskPair*  GetPedsTaskPair(CPed* ped, PedTaskPairs& taskPairs) const;

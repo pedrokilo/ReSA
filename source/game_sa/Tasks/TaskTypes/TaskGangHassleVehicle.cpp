@@ -15,17 +15,17 @@
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
  * PENDIENTES (nombre | dirección | tipo):
  *   CalcTargetOffset | 0x006641A0 | S
- *   Clone | 0x0065FC00 | S
- *   ControlSubTask | 0x006637C0 | S
- *   CreateFirstSubTask | 0x00664BA0 | S
- *   CreateNextSubTask | 0x0065FC80 | S
+ *   Clone | 0x00000000 | V
+ *   ControlSubTask | 0x00000000 | V
+ *   CreateFirstSubTask | 0x00000000 | V
+ *   CreateNextSubTask | 0x00000000 | V
  *   GetTargetHeading | 0x0065FDD0 | S
  * BLOQUEADAS (nombre | dirección | tipo):
  *   CalcTargetOffset | 0x006641A0 | S
- *   Clone | 0x0065FC00 | S
- *   ControlSubTask | 0x006637C0 | S
- *   CreateFirstSubTask | 0x00664BA0 | S
- *   CreateNextSubTask | 0x0065FC80 | S
+ *   Clone | 0x00000000 | V
+ *   ControlSubTask | 0x00000000 | V
+ *   CreateFirstSubTask | 0x00000000 | V
+ *   CreateNextSubTask | 0x00000000 | V
  *   GetTargetHeading | 0x0065FDD0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
@@ -42,10 +42,10 @@ void CTaskGangHassleVehicle::InjectHooks() {
     RH_ScopedInstall(Destructor, 0x65FB60);
     RH_ScopedInstall(GetTargetHeading, 0x65FDD0, { .reversed = false });
     RH_ScopedInstall(CalcTargetOffset, 0x6641A0, { .reversed = false });
-    RH_ScopedInstall(Clone, 0x65FC00, { .reversed = false });
-    RH_ScopedInstall(CreateNextSubTask, 0x65FC80, { .reversed = false });
-    RH_ScopedInstall(CreateFirstSubTask, 0x664BA0, { .reversed = false });
-    RH_ScopedInstall(ControlSubTask, 0x6637C0, { .reversed = false });
+    RH_ScopedVMTInstall(Clone, 0x65FC00, { .reversed = false });
+    RH_ScopedVMTInstall(CreateNextSubTask, 0x65FC80, { .reversed = false });
+    RH_ScopedVMTInstall(CreateFirstSubTask, 0x664BA0, { .reversed = false });
+    RH_ScopedVMTInstall(ControlSubTask, 0x6637C0, { .reversed = false });
 }
 
 // 0x65FAC0

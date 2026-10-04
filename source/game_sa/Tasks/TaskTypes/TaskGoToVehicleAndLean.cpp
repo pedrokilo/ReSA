@@ -14,17 +14,17 @@
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
  * PENDIENTES (nombre | dirección | tipo):
- *   Clone | 0x006621B0 | S
- *   ControlSubTask | 0x00664E60 | S
- *   CreateFirstSubTask | 0x00664D40 | S
- *   CreateNextSubTask | 0x00664590 | S
- *   MakeAbortable | 0x00664500 | S
+ *   Clone | 0x00000000 | V
+ *   ControlSubTask | 0x00000000 | V
+ *   CreateFirstSubTask | 0x00000000 | V
+ *   CreateNextSubTask | 0x00000000 | V
+ *   MakeAbortable | 0x00000000 | V
  * BLOQUEADAS (nombre | dirección | tipo):
- *   Clone | 0x006621B0 | S
- *   ControlSubTask | 0x00664E60 | S
- *   CreateFirstSubTask | 0x00664D40 | S
- *   CreateNextSubTask | 0x00664590 | S
- *   MakeAbortable | 0x00664500 | S
+ *   Clone | 0x00000000 | V
+ *   ControlSubTask | 0x00000000 | V
+ *   CreateFirstSubTask | 0x00000000 | V
+ *   CreateNextSubTask | 0x00000000 | V
+ *   MakeAbortable | 0x00000000 | V
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -38,11 +38,11 @@ void CTaskGoToVehicleAndLean::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x660E60);
     RH_ScopedInstall(Destructor, 0x660EE0);
-    RH_ScopedInstall(Clone, 0x6621B0, { .reversed = false });
-    RH_ScopedInstall(MakeAbortable, 0x664500, { .reversed = false });
-    RH_ScopedInstall(CreateNextSubTask, 0x664590, { .reversed = false });
-    RH_ScopedInstall(CreateFirstSubTask, 0x664D40, { .reversed = false });
-    RH_ScopedInstall(ControlSubTask, 0x664E60, { .reversed = false });
+    RH_ScopedVMTInstall(Clone, 0x6621B0, { .reversed = false });
+    RH_ScopedVMTInstall(MakeAbortable, 0x664500, { .reversed = false });
+    RH_ScopedVMTInstall(CreateNextSubTask, 0x664590, { .reversed = false });
+    RH_ScopedVMTInstall(CreateFirstSubTask, 0x664D40, { .reversed = false });
+    RH_ScopedVMTInstall(ControlSubTask, 0x664E60, { .reversed = false });
 }
 
 // 0x660E60

@@ -183,33 +183,21 @@ public:
     }
 
     /*!
-    * @brief Allocates object
+    * @brief Allocates object (inlined in the exe, e.g. CTask::operator new 0x61A5A0 -> 0x61A500)
+    * @brief Like the original: searches from m_LastFreeSlot + 1, wrapping to 0 once (a full second pass;
+    * @brief if the pool is full it leaves m_LastFreeSlot = 0 and returns nullptr), marks the slot used,
+    * @brief increments its 7-bit ID and does not touch the object's storage (no 0xCD fill).
     */
     T* New() {
-        const auto i = m_LastFreeSlot = FindFreeSlot();
-        if (i == -1) {
+        T* const obj = NewLegacy();
+        if (!obj) {
             if (CanDealWithNoMemory()) {
                 NOTSA_LOG_ERR("Allocation failed for type {:?}", typeid(T).name());
             } else {
                 NOTSA_DEBUG_BREAK();
             }
-            return nullptr;
         }
-        assert(IsIndexInBounds(i) && "Free slot index is out-of-bounds");
-        assert(IsFreeSlotAtIndex(i) && "Can't allocate an object at a non-free slot");
-
-        auto* const state = &m_SlotState[i];
-        const auto isFirstAllocation = state->Ref == 0; // First allocation of this slot?
-        state->IsEmpty = false;
-        state->Ref++;
-
-        StorageType* ptr = &m_Storage[i];
-        // NOTE/TODO: Works, and does find bugs (...that I'm lazy to fix right now)
-        //if (!isFirstAllocation) {
-        //    CheckFill(DEADLAND_FILL, ptr); // Theoretically `isFirstAllocation ? NOMANSLAND_FILL : DEADLAND_FILL` would work, but we don't have every and all constructor of this class hooked
-        //}
-        DoFill(CLEANLAND_FILL, ptr);
-        return (T*)(void*)(ptr);
+        return obj;
     }
 
     /*!
@@ -229,6 +217,7 @@ public:
 
     /*!
     * @brief Allocate object at ref (0x5A1C00)
+    * @brief Like the original (e.g. CPed::operator new(size, ref) 0x5E4730): no 0xCD fill of the storage
     * @returns A ptr to the object at ref
     */
     T* NewAt(int32 ref) {
@@ -237,7 +226,6 @@ public:
 
         StorageType* ptr = &m_Storage[idx];
         CreateAtRef(ref);
-        DoFill(CLEANLAND_FILL, ptr);
         return (T*)(void*)(ptr);
     }
 
@@ -252,10 +240,8 @@ public:
 #endif
         assert(!IsFreeSlotAtIndex(GetIndex(obj)) && "Can't delete an already deleted object");
 
-        const auto idx = GetIndex(obj);
-        m_SlotState[idx].IsEmpty = true;
-        m_LastFreeSlot          = std::min(m_LastFreeSlot, idx);
-        DoFill(DEADLAND_FILL, (StorageType*)(obj));
+        // Like the original (e.g. 0x61A570): mark the slot free and lower the cursor, without filling the storage
+        DeleteLegacy(obj);
     }
 
     /*!

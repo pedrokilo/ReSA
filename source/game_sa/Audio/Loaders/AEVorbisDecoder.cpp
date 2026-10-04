@@ -70,12 +70,7 @@ bool CAEVorbisDecoder::Initialise() {
 
     m_pVorbisInfo = ov_info(m_pVorbisFileHandle, -1);
 
-#ifdef FIX_BUGS
-    // NOTSA: no se admiten más de dos canales (el original no lo comprueba).
-    if (m_pVorbisInfo && m_pVorbisInfo->channels > 2)
-        return false;
-#endif
-
+    // Como el original: no se comprueba el número de canales.
     m_bInitialized = true;
 
     // Como el original: las pistas de usuario de menos de 7 s se rechazan y el decoder queda sin inicializar.
@@ -90,18 +85,11 @@ bool CAEVorbisDecoder::Initialise() {
 // 0x502470
 /**
  * Decodifica Ogg Vorbis a PCM de 16 bits con signo (little endian).
+ * Como el original: no mira los canales (una fuente mono se entrega tal cual).
  */
 size_t CAEVorbisDecoder::FillBuffer(void* dest, size_t size) {
     size_t readTotal = 0;
     char*  buffer    = static_cast<char*>(dest);
-
-#ifdef FIX_BUGS
-    // NOTSA: con una fuente mono se lee la mitad y luego se duplica cada sample para entregar estéreo
-    // (el original no mira los canales).
-    const bool mono = m_pVorbisInfo && m_pVorbisInfo->channels == 1;
-    if (mono)
-        size /= 2;
-#endif
 
     int32 bitstream = -1; // Como el original: se inicializa a -1
     while (readTotal < size) {
@@ -111,18 +99,6 @@ size_t CAEVorbisDecoder::FillBuffer(void* dest, size_t size) {
 
         readTotal += static_cast<size_t>(read);
     }
-
-#ifdef FIX_BUGS
-    if (mono) {
-        // Duplicate channel data
-        int16* bufShort = reinterpret_cast<int16*>(buffer);
-
-        for (int32 i = static_cast<int32>(readTotal / sizeof(int16)) - 1; i >= 0; i--)
-            bufShort[i * 2] = bufShort[i * 2 + 1] = bufShort[i];
-
-        readTotal *= 2;
-    }
-#endif
 
     return readTotal;
 }

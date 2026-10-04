@@ -58,7 +58,7 @@ public:
     auto     GetEffect() const { return m_Fx; }
     CEntity* GetEntity() const { return m_Entity; }
 
-    bool         HasEmptySlot() const { return GetNoOfRegisteredPeds() < m_MaxNumPeds; }
+    bool         HasEmptySlot() const { return (int32)GetNoOfRegisteredPeds() < (int32)m_MaxNumPeds; } // Como el original: comparación con signo (setl)
     int32        ComputeFreeSlot();
 
     float        ComputeDeltaPos() const;
@@ -87,16 +87,18 @@ private:
         return std::construct_at(this,fx, entity, moveState, maxNoOfPeds, spacing, achieveQueueTime, achieveQueueShuffleTime, arriveRange, headingRange, deltaPos, deltaHeading);
     }
     auto* Destructor() {
-        std::destroy_at(this);
+        // Como el original: llamada no virtual; std::destroy_at llamaba al destructor por la vtable del EXE,
+        // que vuelve a 0x5EC410 (enganchado aquí) -> bucle infinito
+        this->CPedAttractor::~CPedAttractor();
         return this;
     }
 
 public:
     C2dEffectPedAttractor* m_Fx{};
     notsa::EntityRef<>     m_Entity{};
-    SArray<CPed*>          m_AttractPeds{};
-    SArray<CPed*>          m_ArrivedPeds{}; // AKA queue
-    SArray<CPedTaskPair>   m_PedTaskPairs{};
+    SArray<CPed*>          m_AttractPeds;  // Como el original: sin inicializar por valor (el constructor no escribe el allocator)
+    SArray<CPed*>          m_ArrivedPeds;  // AKA queue
+    SArray<CPedTaskPair>   m_PedTaskPairs;
     size_t                 m_MaxNumPeds{}; //!< Maximum number of registered peds (ArrivedPeds + AttractPeds, see `GetNoOfRegisteredPeds()`)
     float                  m_Spacing{};
     float                  m_AchieveQueueTime{};
@@ -109,6 +111,6 @@ public:
     CVector                m_QueueDir{};
     CVector                m_UseDir{};
     eMoveState             m_MoveState{};
-    char                   m_ScriptName[8]{};
+    char                   m_ScriptName[8]; // Como el original: solo lo escribe strcpy
 };
 VALIDATE_SIZE(CPedAttractor, 0x8C);

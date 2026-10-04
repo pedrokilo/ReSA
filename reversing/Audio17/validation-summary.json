@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 11088,
+  "pairs_per_function": {
+    "CAECollisionAudioEntity::Initialise": 64,
+    "CAECollisionAudioEntity::InitialisePostLoading": 16,
+    "CAECollisionAudioEntity::Reset": 256,
+    "CAECollisionAudioEntity::Service": 512,
+    "CAECollisionAudioEntity::AddCollisionSoundToList": 512,
+    "CAECollisionAudioEntity::GetCollisionSoundStatus": 1024,
+    "CAECollisionAudioEntity::ChooseCollisionSoundID": 1024,
+    "CAECollisionAudioEntity::PlayOneShotCollisionSound": 1024,
+    "CAECollisionAudioEntity::PlayLoopingCollisionSound": 1024,
+    "CAECollisionAudioEntity::UpdateLoopingCollisionSound": 1024,
+    "CAECollisionAudioEntity::PlayBulletHitCollisionSound": 1024,
+    "CAECollisionAudioEntity::ReportGlassCollisionEvent": 512,
+    "CAECollisionAudioEntity::ReportWaterSplash-at-position": 256,
+    "CAECollisionAudioEntity::ReportWaterSplash-for-physical": 1024,
+    "CAECollisionAudioEntity::ReportObjectDestruction": 512,
+    "CAECollisionAudioEntity::ReportCollision": 1024,
+    "CAECollisionAudioEntity::ReportBulletHit": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "84cf26e9b988eb05dd6027d4041fb6f55b041a1c348c3e00c2fd27c2b388bf8b",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio17\\20261003-173637-393299",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CAECollisionAudioEntity::Initialise": true,
+    "CAECollisionAudioEntity::InitialisePostLoading": true,
+    "CAECollisionAudioEntity::Reset": true,
+    "CAECollisionAudioEntity::Service": true,
+    "CAECollisionAudioEntity::AddCollisionSoundToList": true,
+    "CAECollisionAudioEntity::GetCollisionSoundStatus": true,
+    "CAECollisionAudioEntity::ChooseCollisionSoundID": true,
+    "CAECollisionAudioEntity::PlayOneShotCollisionSound": true,
+    "CAECollisionAudioEntity::PlayLoopingCollisionSound": true,
+    "CAECollisionAudioEntity::UpdateLoopingCollisionSound": true,
+    "CAECollisionAudioEntity::PlayBulletHitCollisionSound": true,
+    "CAECollisionAudioEntity::ReportGlassCollisionEvent": true,
+    "CAECollisionAudioEntity::ReportWaterSplash-at-position": true,
+    "CAECollisionAudioEntity::ReportWaterSplash-for-physical": true,
+    "CAECollisionAudioEntity::ReportObjectDestruction": true,
+    "CAECollisionAudioEntity::ReportCollision": true,
+    "CAECollisionAudioEntity::ReportBulletHit": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "fdd01ea9cd0af2972aace6575b43899f39c20d6b07f8a3ea75d69acbf60b1a78",
+      "pdb": "abe077953659a904db7fb86f32cdb21ad9d6e925efd8d24e5550d14e003582a3"
+    },
+    "sources": {
+      "source/game_sa/Audio/Entities/AECollisionAudioEntity.cpp": "5464bebc9e620144157db8e1789a32d93cbf4318a39f321bcc1054227673807a",
+      "source/game_sa/Audio/Entities/AECollisionAudioEntity.h": "94a0916a5a29ff5274ff94d44ee0ab1262d11622c6a5ab944cfcb0072cb42aff",
+      "source/game_sa/Audio/Entities/AECollisionAudioEntity.CollisionLookup.h": "b23a427d344dabf095de34fb4eb5e052e0bf4a1bacdc5b8b7d2e44046ff9eac1",
+      "source/reversiblebugfixes/Bugs.hpp": "9f85cffe86710e90f29a3f56e6103955be0c74ae07010a42655eec6ee71b1ba0"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "62a522caeb3ac0de971f63e636785bf18d9807077ee9b51d0a3ef3b72071bca9",
+      "build_probe.py": "91ff3ebf8a81dfc7c9cdbfbdf6ab6dcee2c93c7589f94dd5ed974dce30e00405",
+      "run_local.py": "2fbe77505aba2bf321cbf82289a920e9b63e297c87063aeee1181dc6e168f6c8"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

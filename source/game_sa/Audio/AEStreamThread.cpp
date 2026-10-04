@@ -26,7 +26,7 @@ END GENERATED HOOK STATUS */
 
 namespace {
 // Como el original: el EXE guarda y compara el eax entero de CAEAudioChannel::GetPlayTime (+0xC) y GetLength (+0x10)
-// (en el canal de streaming son valores de 32 bits); la DLL los declara int16/uint16 en CAEAudioChannel.
+// (en el canal de streaming son valores de 32 bits); se llama por la vtable del objeto como el EXE.
 int32 ChannelPlayTime(CAEStreamingChannel* channel) {
     return reinterpret_cast<int32(__thiscall*)(CAEStreamingChannel*)>((*reinterpret_cast<void***>(channel))[3])(channel);
 }

@@ -758,5 +758,35 @@
     "id": "anim16",
     "name": "Jerarquías y nodos de animación (lista de 16)",
     "runner": "Anim16/run_local.py"
+  },
+  {
+    "id": "audio17",
+    "name": "Audio de colisiones (lista de 17)",
+    "runner": "Audio17/run_local.py"
+  },
+  {
+    "id": "fixaudio",
+    "name": "Arreglos de audio fuera de listas",
+    "runner": "FixAudio/run_local.py"
+  },
+  {
+    "id": "fixcore",
+    "name": "Arreglos de núcleo fuera de listas",
+    "runner": "FixCore/run_local.py"
+  },
+  {
+    "id": "fixpeds",
+    "name": "Arreglos de peatones y grupos fuera de listas",
+    "runner": "FixPeds/run_local.py"
+  },
+  {
+    "id": "sys17",
+    "name": "Gestor de ficheros y cadenas IK (lista de 17)",
+    "runner": "Sys17/run_local.py"
+  },
+  {
+    "id": "world16",
+    "name": "Coberturas y CPlaceable (lista de 16)",
+    "runner": "World16/run_local.py"
   }
 ]

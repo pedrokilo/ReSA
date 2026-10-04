@@ -415,10 +415,9 @@ void CTaskSimpleSwim::ApplyRollAndPitch(CPed* ped) const {
         CMatrix pedMatrix(ped->GetModellingMatrix(), false);
         CMatrix rotationMatrix;
         rotationMatrix.SetTranslate(CVector{});
-        // Como el original: CMatrix::RotateY/RotateX del EXE (0x59B2C0/0x59B1E0, fcos/fsin con ST0 completo); la DLL
-        // no los engancha y su versión (matriz de rotación + TransformVector) redondea distinto
-        plugin::CallMethod<0x59B2C0, CMatrix*, float>(&rotationMatrix, m_fTurningRotationY);
-        plugin::CallMethod<0x59B1E0, CMatrix*, float>(&rotationMatrix, m_fRotationX);
+        // Como el original: CMatrix::RotateY (0x59B2C0) y luego RotateX (0x59B1E0)
+        rotationMatrix.RotateY(m_fTurningRotationY);
+        rotationMatrix.RotateX(m_fRotationX);
         pedMatrix *= rotationMatrix;
         pedMatrix.UpdateRW();
         ped->UpdateRwFrame();

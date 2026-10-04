@@ -1,0 +1,109 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 19680,
+  "pairs_per_function": {
+    "CCover::Init": 128,
+    "CCover::RemoveCoverPointIfEntityLost": 512,
+    "CCover::RemoveCoverPointsForThisEntity": 512,
+    "CCover::ShouldThisBuildingHaveItsCoverPointsCreated": 512,
+    "CCover::Update": 512,
+    "CCover::AddCoverPoint": 1024,
+    "CCover::CalculateHorizontalSize": 1024,
+    "CCover::DoLineCheckWithinObject": 1024,
+    "CCover::DoesCoverPointStillProvideCover": 1024,
+    "CCover::Find2HighestPoints": 1024,
+    "CCover::FindAndReserveCoverPoint": 1024,
+    "CCover::FindCoordinatesCoverPoint": 1024,
+    "CCover::FindCoverPointsForThisBuilding": 512,
+    "CCover::FindDirFromVector": 512,
+    "CCover::FindVectorFromDir": 512,
+    "CCover::FindVectorFromFirstToMissingVertex": 1024,
+    "CPlaceable::SetPosn-xyz": 256,
+    "CPlaceable::SetPosn-vector": 256,
+    "CPlaceable::SetOrientation-xyz": 512,
+    "CPlaceable::SetHeading": 512,
+    "CPlaceable::GetHeading": 1024,
+    "CPlaceable::GetRoll": 1024,
+    "CPlaceable::IsWithinArea-xy": 512,
+    "CPlaceable::IsWithinArea-xyz": 512,
+    "CPlaceable::RemoveMatrix": 512,
+    "CPlaceable::AllocateStaticMatrix": 512,
+    "CPlaceable::AllocateMatrix": 512,
+    "CPlaceable::SetMatrix": 512,
+    "CPlaceable::GetMatrix": 512,
+    "CPlaceable::ShutdownMatrixArray": 64,
+    "CPlaceable::InitMatrixArray": 32,
+    "CPlaceable::FreeStaticMatrix": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "43608c6f428e066c37eae497cd8bbe92aca71e799f7cf13f5925413eaabf7c13",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-world16\\20261003-181133-025966",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CCover::Init": true,
+    "CCover::RemoveCoverPointIfEntityLost": true,
+    "CCover::RemoveCoverPointsForThisEntity": true,
+    "CCover::ShouldThisBuildingHaveItsCoverPointsCreated": true,
+    "CCover::Update": true,
+    "CCover::AddCoverPoint": true,
+    "CCover::CalculateHorizontalSize": true,
+    "CCover::DoLineCheckWithinObject": true,
+    "CCover::DoesCoverPointStillProvideCover": true,
+    "CCover::Find2HighestPoints": true,
+    "CCover::FindAndReserveCoverPoint": true,
+    "CCover::FindCoordinatesCoverPoint": true,
+    "CCover::FindCoverPointsForThisBuilding": true,
+    "CCover::FindDirFromVector": true,
+    "CCover::FindVectorFromDir": true,
+    "CCover::FindVectorFromFirstToMissingVertex": true,
+    "CPlaceable::SetPosn-xyz": true,
+    "CPlaceable::SetPosn-vector": true,
+    "CPlaceable::SetOrientation-xyz": true,
+    "CPlaceable::SetHeading": true,
+    "CPlaceable::GetHeading": true,
+    "CPlaceable::GetRoll": true,
+    "CPlaceable::IsWithinArea-xy": true,
+    "CPlaceable::IsWithinArea-xyz": true,
+    "CPlaceable::RemoveMatrix": true,
+    "CPlaceable::AllocateStaticMatrix": true,
+    "CPlaceable::AllocateMatrix": true,
+    "CPlaceable::SetMatrix": true,
+    "CPlaceable::GetMatrix": true,
+    "CPlaceable::ShutdownMatrixArray": true,
+    "CPlaceable::InitMatrixArray": true,
+    "CPlaceable::FreeStaticMatrix": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "84f5419118e19d8a4709320d0587fe890b8fba64b466a5bb0359ca2bdde80905",
+      "pdb": "bf638425dbe5653cfab2920bc590e1b862bae13aa6b35103c1589320e4905e7b"
+    },
+    "sources": {
+      "source/game_sa/Cover.cpp": "d48cc738ec2bbc97621ab936460f9093adbc9d3877fad18aa493482bd9aeb24a",
+      "source/game_sa/Cover.h": "59ce2e82a80ed6dc560e8965f918036151f7cebed90a741f72a23e927a84d634",
+      "source/game_sa/Entity/Placeable.cpp": "01062c74c1bb9e7a5a0d43ec68d857260bcf11ea190b5276c1ac01e2c496bfbd",
+      "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "7381d1d45c8c35f7d7a80481958168b9441e7f563e98623b407945a34d61f4eb",
+      "build_probe.py": "c41dd05c5bc250965bcb72648721a9e8fed180479906aad80fb26e384d23023d",
+      "run_local.py": "b795dd5d6189c2be1e7d97e55ea058601af0ff78b2a02db5d45ff5a5a85b40a1"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

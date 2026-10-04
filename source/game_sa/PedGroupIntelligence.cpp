@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 26/26 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/26 entradas.
+ * Validación registrada: 1/26 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -29,7 +29,7 @@ void CPedGroupIntelligence::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x5F7250);
 
-    RH_ScopedGlobalInstall(FlushTasks, 0x5F79C0);
+    RH_ScopedInstall(FlushTasks, 0x5F79C0); // Como el original: __thiscall con 2 argumentos (ret 8); como cdecl descuadraba la pila
     RH_ScopedOverloadedInstall(ReportFinishedTask, "Wrapper", 0x5F86F0, bool(CPedGroupIntelligence::*)(const CPed*, const CTask*));
     RH_ScopedOverloadedInstall(ReportFinishedTask, "Impl", 0x5F76C0, bool(CPedGroupIntelligence::*)(const CPed*, const CTask*, PedTaskPairs& taskPairs));
     RH_ScopedInstall(SetTask, 0x5F7540);
@@ -343,7 +343,8 @@ void CPedGroupIntelligence::FlushTasks(PedTaskPairs& taskPairs, CPed* ped) {
         if (ped && tp.Ped != ped) {
             continue;
         }
-        delete std::exchange(tp.Task, nullptr);
+        delete tp.Task; // Como el original: borra y después anula (0x5F79E6)
+        tp.Task = nullptr;
     }
 }
 

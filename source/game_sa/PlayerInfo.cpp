@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 28/28 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 3/28 entradas.
+ * Validación registrada: 4/28 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -100,7 +100,7 @@ CVector* CPlayerInfo::GetPos_Hook(CVector* outPos) {
 
 // 0x56E860
 void CPlayerInfo::CancelPlayerEnteringCars(CVehicle* vehicle) {
-    // NOP
+    // Como el original: no hace nada, pero es __thiscall y saca el argumento de la pila (ret 4)
 }
 
 // 0x56DBD0

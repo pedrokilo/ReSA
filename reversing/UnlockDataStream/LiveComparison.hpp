@@ -89,7 +89,7 @@ inline void Update() {
             if(fn==6){
                 STATSTG status;std::memset(&status,0xA7,sizeof(status));
                 if(i%8==0){CloseHandle(owned);owned=INVALID_HANDLE_VALUE;stream->m_pFileHandle=INVALID_HANDLE_VALUE;}
-                result["return"]=reinterpret_cast<Stat>(0x4DC3A0)(stream,i%7?&status:nullptr,i%3);result["stat"]=ReversingProbe::Bytes(&status,sizeof(status));
+                /* Stat es virtual (hook de vtable): se llama por el hueco 12 de la vtable IStream del EXE 0x85F0BC */ result["return"]=reinterpret_cast<Stat>(reinterpret_cast<void**>(0x85F0BC)[12])(stream,i%7?&status:nullptr,i%3);result["stat"]=ReversingProbe::Bytes(&status,sizeof(status));
             }
             result["object"]=ObjectState(stream);
             result["file_position"]=SetFilePointer(stream->m_pFileHandle,0,nullptr,FILE_CURRENT);

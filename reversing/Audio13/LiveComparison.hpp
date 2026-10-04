@@ -368,7 +368,7 @@ inline void Update() {
                         At<uint32>(o,0)=0x862D70; At<void*>(o,4)=vds[0].data(); At<void*>(o,0x18)=next()%4 ? static_cast<void*>(vf.data()) : nullptr;
                         o[0x1C]=uint8(next()%4 ? 1 : 0); { static const uint8 u[]{0,1,2,0x80}; o[0x1D]=u[next()%4]; }
                         At<void*>(o,0x20)=vds[1].data(); At<void*>(o,0x24)=vi.data();
-                        { static const int32 ch[]{2,2,0,-1,3,6}; At<int32>(vi.data(),4)=ch[next()%6]; }
+                        { static const int32 ch[]{2,2,0,-1,3,6,1}; At<int32>(vi.data(),4)=ch[next()%7]; } /* sin FIX_BUGS: mono y >2 canales entran */
                         dsRet=next()%3 ? next()%0x2000 : next();
                         auto randTime=[&]()->double{
                             static const double fixed[]{7.0,6.999,6.9999999,7.0000001,6.9995,0.0,-131.0,-0.0004,100.5,2147483.0};
@@ -383,7 +383,7 @@ inline void Update() {
                         else if(nm=="Destructor"){ At<void*>(o,4)=nullptr; ResetArena();
                             { EntryPatch n1(0x82119A,FakeNew),n2(0x821195,FakeNew),d1(0x8214BD,FakeDelete),d2(0x8213AE,FakeDelete); reinterpret_cast<void(__thiscall*)(void*)>(a)(o); } }
                         else if(nm=="Initialise"){
-                            { static const int32 ch[]{1,2,2,0,-1}; At<int32>(vi.data(),4)=ch[next()%5]; }
+                            { static const int32 ch[]{1,2,2,0,-1,3,6}; At<int32>(vi.data(),4)=ch[next()%7]; }
                             At<uint32>(o,0x18)=next(); At<uint32>(o,0x24)=next();
                             openRet=next()%5 ? 0 : std::array<int32,5>{-132,-133,-130,1,-1}[next()%5]; infoNull=next()%10==0; timeRet=randTime();
                             ResetArena();

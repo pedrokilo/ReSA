@@ -17,6 +17,8 @@ public:
     CTask*      Clone() const override { return new CTaskComplexWanderFlee{ *this }; }
     eWanderType GetWanderType() override { return WANDER_TYPE_FLEE; }
     void        ScanForStuff(CPed* ped) override { /*nop*/ }
+    // Como el original: 0x65B380 es un thunk (jmp 0x674C30) a CTaskComplexWander::ControlSubTask; llamada sin despacho virtual
+    CTask*      ControlSubTask(CPed* ped) override { return CTaskComplexWander::ControlSubTask(ped); }
 
 private: // Wrappers for hooks
     // 0x65B320

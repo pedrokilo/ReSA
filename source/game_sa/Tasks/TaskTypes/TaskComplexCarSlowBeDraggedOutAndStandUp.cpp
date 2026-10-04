@@ -14,19 +14,19 @@
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
  * PENDIENTES (nombre | dirección | tipo):
- *   Clone | 0x0064A190 | S
- *   ControlSubTask | 0x00648B80 | S
- *   CreateFirstSubTask | 0x00648A10 | S
- *   CreateNextSubTask | 0x006488F0 | S
+ *   Clone | 0x00000000 | V
+ *   ControlSubTask | 0x00000000 | V
+ *   CreateFirstSubTask | 0x00000000 | V
+ *   CreateNextSubTask | 0x00000000 | V
  *   CreateSubTask | 0x00648710 | S
- *   MakeAbortable | 0x006486F0 | S
+ *   MakeAbortable | 0x00000000 | V
  * BLOQUEADAS (nombre | dirección | tipo):
- *   Clone | 0x0064A190 | S
- *   ControlSubTask | 0x00648B80 | S
- *   CreateFirstSubTask | 0x00648A10 | S
- *   CreateNextSubTask | 0x006488F0 | S
+ *   Clone | 0x00000000 | V
+ *   ControlSubTask | 0x00000000 | V
+ *   CreateFirstSubTask | 0x00000000 | V
+ *   CreateNextSubTask | 0x00000000 | V
  *   CreateSubTask | 0x00648710 | S
- *   MakeAbortable | 0x006486F0 | S
+ *   MakeAbortable | 0x00000000 | V
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -41,12 +41,12 @@ void CTaskComplexCarSlowBeDraggedOutAndStandUp::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x648620);
     RH_ScopedInstall(Destructor, 0x648690);
     RH_ScopedInstall(CreateSubTask, 0x648710, { .reversed = false });
-    RH_ScopedInstall(Clone, 0x64A190, { .reversed = false });
-    RH_ScopedInstall(GetTaskType, 0x648680);
-    RH_ScopedInstall(MakeAbortable, 0x6486F0, { .reversed = false });
-    RH_ScopedInstall(CreateNextSubTask, 0x6488F0, { .reversed = false });
-    RH_ScopedInstall(CreateFirstSubTask, 0x648A10, { .reversed = false });
-    RH_ScopedInstall(ControlSubTask, 0x648B80, { .reversed = false });
+    RH_ScopedVMTInstall(Clone, 0x64A190, { .reversed = false });
+    RH_ScopedVMTInstall(GetTaskType, 0x648680);
+    RH_ScopedVMTInstall(MakeAbortable, 0x6486F0, { .reversed = false });
+    RH_ScopedVMTInstall(CreateNextSubTask, 0x6488F0, { .reversed = false });
+    RH_ScopedVMTInstall(CreateFirstSubTask, 0x648A10, { .reversed = false });
+    RH_ScopedVMTInstall(ControlSubTask, 0x648B80, { .reversed = false });
 }
 
 // 0x648620

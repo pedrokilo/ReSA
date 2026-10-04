@@ -119,9 +119,9 @@ public:
     void SetRotateY(float angle);
     void SetRotateZ(float angle);
     void SetRotate(float x, float y, float z); // set rotate on 3 axes (Values are in radians)
-    void RotateX(float angle, bool bKeepPos = false); // NOTSA bKeepPos
-    void RotateY(float angle, bool bKeepPos = false); // NOTSA bKeepPos
-    void RotateZ(float angle, bool bKeepPos = false); // NOTSA bKeepPos
+    void RotateX(float angle); // 0x59B1E0 (rotates the position too, like the exe)
+    void RotateY(float angle); // 0x59B2C0
+    void RotateZ(float angle); // 0x59B390
     void Rotate(CVector rotation); // rotate on 3 axes
     void Reorthogonalise();
     void CopyToRwMatrix(RwMatrix* matrix) const; // similar to UpdateRW(RwMatrixTag *)

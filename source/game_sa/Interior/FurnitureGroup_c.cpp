@@ -55,7 +55,7 @@ void FurnitureGroup_c::Exit() {
  * el almacén fijo del que procede y esta lista sólo mantiene el enlace.
  */
 bool FurnitureGroup_c::AddSubGroup(int32 subGroupId, int32 minWidth, int32 minDepth, int32 maxWidth, int32 maxDepth, uint8 canPlaceInFrontOfWindow, bool isTall, bool canSteal) {
-    // Como el original: NewSubGroup en línea con el contador de 16 bits de 0xBAB37C (la DLL lo declara uint32)
+    // Como el original: NewSubGroup en línea con el contador de 16 bits sin signo de 0xBAB37C (mov/inc dx, jae)
     auto& numSubGroups  = StaticRef<uint16>(0xBAB37C);
     auto& subGroupStore = StaticRef<std::array<FurnitureSubGroup_c, 128>>(0xBAD3F8);
     if (numSubGroups >= subGroupStore.size()) {

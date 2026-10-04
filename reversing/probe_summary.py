@@ -33,6 +33,9 @@ def main(here, prefix, limitations):
         cls, fn = label.split('::')
         if (cls, fn) not in rows and (cls + '<T>', fn) in rows:
             cls += '<T>'  # plantillas: el banco usa el nombre sin <T> (las etiquetas solo admiten \w+)
+        if (cls, fn) not in rows:
+            print('sin fila en hooks.csv (no se registra):', label)  # p. ej. CMatrix/CColBox: clases sin hooks instalados
+            continue
         row = rows[(cls, fn)]
         registry['functions'].append({
             'hook': {'class': cls, 'fn_name': fn, 'address': row['address'], 'type': row['type']},

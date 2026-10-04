@@ -1,0 +1,89 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 9664,
+  "pairs_per_function": {
+    "CPedAttractor::Constructor": 256,
+    "CPedAttractor::Destructor": 256,
+    "CPedAttractor::SetTaskForPed": 1024,
+    "CPedAttractor::RegisterPed": 1024,
+    "CPedAttractor::DeRegisterPed": 1024,
+    "CPedAttractor::IsRegisteredWithPed": 256,
+    "CPedAttractor::IsAtHeadOfQueue": 256,
+    "CPedAttractor::GetTaskForPed": 512,
+    "CPedAttractor::GetQueueSlot": 256,
+    "CPedAttractor::GetHeadOfQueue": 128,
+    "CPedAttractor::GetTailOfQueue": 128,
+    "CPedAttractor::HasEmptySlot": 256,
+    "CPedAttractor::ComputeDeltaPos": 256,
+    "CPedAttractor::ComputeDeltaHeading": 256,
+    "CPedAttractor::ComputeAttractTime": 128,
+    "CPedAttractor::ComputeAttractPos-v": 512,
+    "CPedAttractor::ComputeAttractHeading-v": 512,
+    "CPedAttractor::BroadcastDeparture": 1024,
+    "CPedAttractor::BroadcastArrival": 1024,
+    "CPedGroupIntelligence::FlushTasks": 512,
+    "CPlayerInfo::CancelPlayerEnteringCars": 64
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "ce4886245360e8c11e58334b16365f40bdcfbd89681f3284accb37a2a769c7ef",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fixpeds\\20261003-180419-619553",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CPedAttractor::Constructor": true,
+    "CPedAttractor::Destructor": true,
+    "CPedAttractor::SetTaskForPed": true,
+    "CPedAttractor::RegisterPed": true,
+    "CPedAttractor::DeRegisterPed": true,
+    "CPedAttractor::IsRegisteredWithPed": true,
+    "CPedAttractor::IsAtHeadOfQueue": true,
+    "CPedAttractor::GetTaskForPed": true,
+    "CPedAttractor::GetQueueSlot": true,
+    "CPedAttractor::GetHeadOfQueue": true,
+    "CPedAttractor::GetTailOfQueue": true,
+    "CPedAttractor::HasEmptySlot": true,
+    "CPedAttractor::ComputeDeltaPos": true,
+    "CPedAttractor::ComputeDeltaHeading": true,
+    "CPedAttractor::ComputeAttractTime": true,
+    "CPedAttractor::ComputeAttractPos-v": true,
+    "CPedAttractor::ComputeAttractHeading-v": true,
+    "CPedAttractor::BroadcastDeparture": true,
+    "CPedAttractor::BroadcastArrival": true,
+    "CPedGroupIntelligence::FlushTasks": true,
+    "CPlayerInfo::CancelPlayerEnteringCars": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "8b6f5cb75dc5cec927478ce76ea3e960bed1207cfc56319c0d9b49663df4300a",
+      "pdb": "28e0870c5776872e07833213da4a110bc4d21fbe5f94c0d18a18b6976c21221a"
+    },
+    "sources": {
+      "source/game_sa/Attractors/PedAttractor.cpp": "586e3d2d600d57124bfce82816b0b028cda4f6fd70a647d56dbbd6d2c9c4ca97",
+      "source/game_sa/Attractors/PedAttractor.h": "12450ea6e5c248f03ee8c9d4f7381be81923cfcaf799aad790fe3bd9edca593f",
+      "source/game_sa/PedGroupIntelligence.cpp": "45c0d1e3d07f75c29660d7a5959149c0b2dab0155fe3d334844d53651d04ffbe",
+      "source/game_sa/PedGroupIntelligence.h": "01c0384264dd981ecc72c9bd91b4dcd83e2dbe4ef431769495d7bdca422f988f",
+      "source/game_sa/PlayerInfo.cpp": "a77e60354d829288af71fb7a52d9780402b16c5d1abb78e16b596ffd2dda1e73",
+      "source/game_sa/PlayerInfo.h": "1860550e07f2c88c924f5f072d7859e09bcb6f50feab0d01c1ec5103875ce77c"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "7a563ddfbaa6568458ae53586a2bba239e5a97139b13bee73c7311947b5454e5",
+      "build_probe.py": "bcf6e5c1c809e005c1537d5ae009c133c7fe6cde82da51f90a02d41d4cb6b8e5",
+      "run_local.py": "1e8bd1a921c7d9ad350137d14e8fae9612ec0c60ad2e027936ed62fe3f7bd4ae"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

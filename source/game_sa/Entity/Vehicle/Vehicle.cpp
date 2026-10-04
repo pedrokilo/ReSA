@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 142/142 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/142 entradas.
+ * Validación registrada: 1/142 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -3694,13 +3694,33 @@ void CVehicle::SetComponentRotation(RwFrame* component, eRotationAxis axis, floa
     }
 
     CMatrix mat{ RwFrameGetMatrix(component) };
+    const CVector savedPos = mat.GetPosition();
 
-    switch (axis) {
-    case AXIS_X: bSetRotate ? mat.SetRotateXOnly(angle) : mat.RotateX(angle, true); break;
-    case AXIS_Y: bSetRotate ? mat.SetRotateYOnly(angle) : mat.RotateY(angle, true); break;
-    case AXIS_Z: bSetRotate ? mat.SetRotateZOnly(angle) : mat.RotateZ(angle, true); break;
-    default:     NOTSA_UNREACHABLE();
+    // Como el original: SetRotateX/Y/Z completos (ponen la posición a 0) o, sin bSetRotate, la posición se
+    // anula sumando su opuesto y RotateX/Y/Z la rota; al final se le suma la posición guardada. Un eje
+    // distinto de 0/1/2 no rota nada.
+    if (bSetRotate) {
+        switch (axis) {
+        case AXIS_Z: mat.SetRotateZ(angle); break;
+        case AXIS_Y: mat.SetRotateY(angle); break;
+        case AXIS_X: mat.SetRotateX(angle); break;
+        default:     break;
+        }
+    } else {
+        const CVector negPos = -savedPos;
+        mat.GetPosition().x = mat.GetPosition().x + negPos.x;
+        mat.GetPosition().y = mat.GetPosition().y + negPos.y;
+        mat.GetPosition().z = mat.GetPosition().z + negPos.z;
+        switch (axis) {
+        case AXIS_Z: mat.RotateZ(angle); break;
+        case AXIS_Y: mat.RotateY(angle); break;
+        case AXIS_X: mat.RotateX(angle); break;
+        default:     break;
+        }
     }
+    mat.GetPosition().x = mat.GetPosition().x + savedPos.x;
+    mat.GetPosition().y = mat.GetPosition().y + savedPos.y;
+    mat.GetPosition().z = mat.GetPosition().z + savedPos.z;
 
     mat.UpdateRW();
 }
