@@ -246,11 +246,7 @@ int32 CEntryExitManager::AddOne(
 ) {
     const auto enex = mp_poolEntryExits->New();
     if (!enex) {
-#ifdef FIX_BUGS
-        return -1;
-#else
-        return 0; // Returns an actually valid index, not good
-#endif
+        return 0; // Como el original: con el pool lleno devuelve 0 (un índice válido)
     }
 
     // Como el original: los campos se escriben sobre el slot sin construir el objeto (no se tocan el byte 0x37
@@ -350,10 +346,7 @@ int32 CEntryExitManager::AddOne(
 void CEntryExitManager::DeleteOne(int32 index) {
     if (const auto enex = mp_poolEntryExits->GetAt(index)) {
         mp_QuadTree->DeleteItem(enex);
-#ifdef FIX_BUGS // Call destructor
-        std::destroy_at(enex);
-#endif
-        mp_poolEntryExits->Delete(enex);
+        mp_poolEntryExits->Delete(enex); // Como el original: sin llamar al destructor (además es trivial)
     }
 }
 

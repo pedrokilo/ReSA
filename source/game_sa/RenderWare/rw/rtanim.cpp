@@ -138,7 +138,7 @@ RtAnimInterpolatorSetCurrentAnim(RtAnimInterpolator *animI,
      * Now initialize the interpolated frame headers to point to the initial
      * keyframe pairs.
      */
-    if (!notsa::IsFixBugs() || anim->interpInfo->typeID != rwID_RPANIMBLENDPLUGIN) {
+    { // Como el original: también con las animaciones de RpAnimBlend (el EXE pisa sus frames interpolados)
         /*
          * In RW there is an RtAnimAnimation, which holds the raw keyframes of an animation.
          * To play an animation, an RtAnimAnimation is given to an RtAnimInterpolator which
@@ -152,7 +152,7 @@ RtAnimInterpolatorSetCurrentAnim(RtAnimInterpolator *animI,
          * Almost! They're still attaching an RtAnimAnimation to an RtAnimInterpolator
          * and this is where stuff breaks.
          *
-         * So, instead of corrupting our lovely `RpHAnimBlendInterpFrame`'s, we leave them alone ;)
+         * (SilentPatch skips this for RpAnimBlend animations; we keep the exe behaviour and overwrite them.)
          *
          * For more info see: https://gtaforums.com/topic/669045-silentpatch/page/154/#comment-1068971599
          */

@@ -56,7 +56,7 @@ private: // Wrappers for hooks
 private:
     int32                  m_GetOutAfterInterval{};           //< Time after which we should get out of the bed and finish the task
     InteriorInfo_t*        m_IntInfo{};                       //< The interior's info we're in
-    bool                   m_bRghtHandSide;                   //< Originally left uninitalized (bug), but is actually used in `Clone`. Como el original: sin inicializador (solo FIX_BUGS lo escribe)
+    bool                   m_bRghtHandSide;                   //< Originally left uninitalized (bug), but is actually used in `Clone`. Como el original: sin inicializador ni escritura en el constructor
     bool                   m_bDoInstantly{};                  //< Whenever the ped should be set into the bed instantly
     CAnimBlendAssociation* m_Anim{};                          //< The currently playing animation
     AnimationId            m_PrevAnimId{ ANIM_ID_UNDEFINED }; //< The previously played animation's ID

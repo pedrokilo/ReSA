@@ -36,12 +36,7 @@ CTaskSimpleCarFallOut::CTaskSimpleCarFallOut(const CTaskSimpleCarFallOut& o) :
 
 // 0x648DE0
 CTaskSimpleCarFallOut::~CTaskSimpleCarFallOut() {
-    CEntity::SafeCleanUpRef(m_Vehicle); // Como el original
-    if (notsa::IsFixBugs()) {
-        if (const auto a = std::exchange(m_Anim, nullptr)) {
-            a->SetDefaultFinishCallback();
-        }
-    }
+    CEntity::SafeCleanUpRef(m_Vehicle); // Como el original: la animación conserva su callback hacia la tarea
 }
 
 // 0x648EE0

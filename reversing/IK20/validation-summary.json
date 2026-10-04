@@ -1,0 +1,81 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 11264,
+  "pairs_per_function": {
+    "IKChain_c::Init": 1024,
+    "IKChain_c::Exit": 256,
+    "IKChain_c::Update": 2048,
+    "IKChain_c::MoveBonesToTarget": 2048,
+    "IKChain_c::IsAtTarget": 1024,
+    "IKChain_c::IsFacingTarget": 1024,
+    "IKChain_c::UpdateEntity": 512,
+    "IKChain_c::GetBoneNodeFromTag": 512,
+    "IKChain_c::ClampLimits": 512,
+    "IKChain_c::GetLimits": 512,
+    "IKChain_c::SetLimits": 512,
+    "IKChain_c::GetBoneSpeed": 256,
+    "IKChain_c::SetBoneSpeed": 256,
+    "IKChain_c::GetPriority": 128,
+    "IKChain_c::SetBlend": 128,
+    "IKChain_c::SetOffsetBoneTag": 128,
+    "IKChain_c::SetOffsetPos": 128,
+    "IKChain_c::UpdateOffset": 128,
+    "IKChain_c::UpdateTarget": 128
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "49b703b340dabaceac879a7097b8c7327064e8994c82410576b79105ae67bf09",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ik20\\20261003-215143-972802",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "IKChain_c::Init": true,
+    "IKChain_c::Exit": true,
+    "IKChain_c::Update": true,
+    "IKChain_c::MoveBonesToTarget": true,
+    "IKChain_c::IsAtTarget": true,
+    "IKChain_c::IsFacingTarget": true,
+    "IKChain_c::UpdateEntity": true,
+    "IKChain_c::GetBoneNodeFromTag": true,
+    "IKChain_c::ClampLimits": true,
+    "IKChain_c::GetLimits": true,
+    "IKChain_c::SetLimits": true,
+    "IKChain_c::GetBoneSpeed": true,
+    "IKChain_c::SetBoneSpeed": true,
+    "IKChain_c::GetPriority": true,
+    "IKChain_c::SetBlend": true,
+    "IKChain_c::SetOffsetBoneTag": true,
+    "IKChain_c::SetOffsetPos": true,
+    "IKChain_c::UpdateOffset": true,
+    "IKChain_c::UpdateTarget": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "a0fdec9602851125e6c8a1612a57a8ebd2f3f6403ff65db98259723537256079",
+      "pdb": "e17576d5291b0b7aabcc1184c7b06ab363e5616951ff8ac16256f29605d8f55a"
+    },
+    "sources": {
+      "source/game_sa/Ragdoll/IKChain.cpp": "0d97f50cf65a72498edca9c24f13b179062b8a32434c2fe7761b9b71f7262edf",
+      "source/game_sa/Ragdoll/IKChain.h": "304b3aca53613f46e2757362674df5b28597c5e317dce88fc8a8fe781a734635"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "dc9668edbb63099193d7fe56594e8f5916b14ca3f567c25be0378bda77d880da",
+      "build_probe.py": "cf8bc0b49fb1aa68f4561c6ff6ab8390a70ae923cea099d4245b485cb85b3cca",
+      "run_local.py": "83ac8a258a5414890f7ec0770e26b5ce09ed23cf174201f7bd8b36d1065fefa7"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

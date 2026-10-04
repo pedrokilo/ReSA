@@ -838,5 +838,35 @@
     "id": "render19",
     "name": "Cámara de sombras y cristales (lista de 19)",
     "runner": "Render19/run_local.py"
+  },
+  {
+    "id": "anim20",
+    "name": "Asociaciones de animación (lista de 20)",
+    "runner": "Anim20/run_local.py"
+  },
+  {
+    "id": "time20",
+    "name": "Ciclo horario (lista de 20)",
+    "runner": "Time20/run_local.py"
+  },
+  {
+    "id": "ik20",
+    "name": "Cadenas IK (lista de 20)",
+    "runner": "IK20/run_local.py"
+  },
+  {
+    "id": "audio20",
+    "name": "Flujo de datos y audio de armas (lista de 20)",
+    "runner": "Audio20/run_local.py"
+  },
+  {
+    "id": "event20",
+    "name": "Evento de daño (lista de 20)",
+    "runner": "Event20/run_local.py"
+  },
+  {
+    "id": "fixbugs",
+    "name": "FIX_BUGS quitados en funciones validadas",
+    "runner": "FixBugs/run_local.py"
   }
 ]

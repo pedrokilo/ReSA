@@ -421,14 +421,16 @@ void CTaskComplexFollowNodeRoute::ComputePathNodes(const CPed* ped) {
 
     if (!g_interiorMan.GetPedsInteriorGroup(ped)) { // 0x66F216
         // Make the route as short as possible by "cutting" down excess nodes
+        // Como el original: una sola posición en la pila ([esp+18h]); si el nodo no está cargado se reutiliza la
+        // anterior (con su z ya subida), o lo que hubiera en la pila si es el primero (bytes crudos: sin la
+        // comprobación de variable sin inicializar de /RTC)
+        alignas(CVector) uint8 nodePosStorage[sizeof(CVector)];
+        auto& nodePos = *reinterpret_cast<CVector*>(nodePosStorage);
         for (int32 i = 0; i < (int32)m_NodeRoute->m_NumEntries; i++) {
             const auto node = m_NodeRoute->m_Entries.data()[i];
 
-            CVector nodePos;
             if (FollowNodeRouteNodeLoaded(node)) {
                 nodePos = FollowNodeRouteNodePos(node);
-            } else if (notsa::IsFixBugs()) {
-                continue; // El original usa la posición anterior que quedó en la pila
             }
             nodePos.z += 1.f;
             if (CanGoStraightThere(ped, nodePos, m_TargetPt, ped->GetIntelligence()->m_FollowNodeThresholdDistance)) {

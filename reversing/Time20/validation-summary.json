@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 7488,
+  "pairs_per_function": {
+    "CTimeCycle::Initialise": 64,
+    "CTimeCycle::InitForRestart": 64,
+    "CTimeCycle::Shutdown": 64,
+    "CTimeCycle::Update": 1024,
+    "CTimeCycle::StartExtraColour": 512,
+    "CTimeCycle::StopExtraColour": 256,
+    "CTimeCycle::AddOne": 1024,
+    "CTimeCycle::CalcColoursForPoint": 1024,
+    "CTimeCycle::FindFarClipForCoors": 1024,
+    "CTimeCycle::FindTimeCycleBox": 1024,
+    "CTimeCycle::SetConstantParametersForPostFX": 256,
+    "CTimeCycle::GetAmbientRed": 128,
+    "CTimeCycle::GetAmbientGreen": 128,
+    "CTimeCycle::GetAmbientBlue": 128,
+    "CTimeCycle::GetAmbientRed_Obj": 128,
+    "CTimeCycle::GetAmbientGreen_Obj": 128,
+    "CTimeCycle::GetAmbientBlue_Obj": 128,
+    "CTimeCycle::GetAmbientRed_BeforeBrightness": 128,
+    "CTimeCycle::GetAmbientGreen_BeforeBrightness": 128,
+    "CTimeCycle::GetAmbientBlue_BeforeBrightness": 128
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "5a1040dedcbe11b16f85e4009ea7f95a70d701589c7e215a304424f239f228fe",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-time20\\20261003-215102-587999",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTimeCycle::Initialise": true,
+    "CTimeCycle::InitForRestart": true,
+    "CTimeCycle::Shutdown": true,
+    "CTimeCycle::Update": true,
+    "CTimeCycle::StartExtraColour": true,
+    "CTimeCycle::StopExtraColour": true,
+    "CTimeCycle::AddOne": true,
+    "CTimeCycle::CalcColoursForPoint": true,
+    "CTimeCycle::FindFarClipForCoors": true,
+    "CTimeCycle::FindTimeCycleBox": true,
+    "CTimeCycle::SetConstantParametersForPostFX": true,
+    "CTimeCycle::GetAmbientRed": true,
+    "CTimeCycle::GetAmbientGreen": true,
+    "CTimeCycle::GetAmbientBlue": true,
+    "CTimeCycle::GetAmbientRed_Obj": true,
+    "CTimeCycle::GetAmbientGreen_Obj": true,
+    "CTimeCycle::GetAmbientBlue_Obj": true,
+    "CTimeCycle::GetAmbientRed_BeforeBrightness": true,
+    "CTimeCycle::GetAmbientGreen_BeforeBrightness": true,
+    "CTimeCycle::GetAmbientBlue_BeforeBrightness": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "3543a68e81a5be217a08a6a52c8b8b34f07d65f4330e6085e03c16c645f6fc0c",
+      "pdb": "bdf2b3631375bf34fe4e8257afb6afb4f40c2bd0436b4efae888df4164a56b3b"
+    },
+    "sources": {
+      "source/game_sa/TimeCycle.cpp": "989c16f3a2b06dfd607806d286ea65dd9ba3655cf24b874cb6522cb1ba12dc03",
+      "source/game_sa/TimeCycle.h": "1c0e657e6c1f8625064b6040135b039e322ffd642f1b0a6a0a6562fbde8a8446"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "84e24f8fda16fd5d474215884de452e8cae5016f2634ccd90784644fd3735e35",
+      "build_probe.py": "ed16c399f109b6ec8bedd6fafd7eae0120967f9ecd373aa0ca1a00d4667d3d52",
+      "run_local.py": "0dfee0e65d0d7d25d8a97295f8033a9d9d9a9fef1233dd46b44ead93e9f40887"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

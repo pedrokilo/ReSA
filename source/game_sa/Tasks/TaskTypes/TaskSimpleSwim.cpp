@@ -861,11 +861,7 @@ void CTaskSimpleSwim::ProcessEffects(CPed* ped) {
         }
         if (CGeneral::GetRandomIntInRange(0, 100) < oxygen) {
             RpHAnimHierarchy* hier = GetAnimHierarchyFromSkinClump(ped->GetRpClump()); // todo: almost CPed::GetBoneMatrix
-#ifdef FIX_BUGS
-            constexpr auto bubbleMatrix = BONE_JAW;
-#else
             constexpr auto bubbleMatrix = 3; // Como el original: matriz 3 directamente (sin RpHAnimIDGetIndex)
-#endif
             CVector* bonePos = static_cast<CVector*>(&RpHAnimHierarchyGetMatrixArray(hier)[bubbleMatrix].pos);
 
             static FxPrtMult_c fxPrtMult(1.0f, 1.0f, 1.0f, 0.25f, 0.3f, 0.0f, 0.5f);

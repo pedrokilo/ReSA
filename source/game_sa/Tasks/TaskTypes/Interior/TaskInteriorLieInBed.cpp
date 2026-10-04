@@ -48,11 +48,8 @@ CTaskInteriorLieInBed::CTaskInteriorLieInBed(
     m_IntInfo{intInfo},
     m_GetOutAfterInterval{duration},
     m_bDoInstantly{doInstantly},
-    m_BaseAnimId{ rightHandSide ? ANIM_ID_BED_IN_R : ANIM_ID_BED_IN_L },
-
-#ifdef FIX_BUGS
-    m_bRghtHandSide{rightHandSide}
-#endif
+    m_BaseAnimId{ rightHandSide ? ANIM_ID_BED_IN_R : ANIM_ID_BED_IN_L }
+    // Como el original: m_bRghtHandSide no se escribe (queda lo que hubiera en el slot)
 {
 }
 

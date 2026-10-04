@@ -72,6 +72,9 @@ eModelID CLoadedCarGroup::PickRandomCar(bool bNotTooManyInTheWorld, bool bOnlyPi
         const auto weightSum = notsa::accumulate(choices, 0, [](int16 model) {
             return CModelInfo::GetVehicleModelInfo(model)->m_nFrq;
         });
+        if (weightSum == 0) { // Como el original (0x611D16): sin peso total no se sortea
+            return MODEL_INVALID;
+        }
 
         for (auto tr{ 0 }; tr < 10; tr++) { // tr = tries
             // First, pick a model
@@ -119,11 +122,8 @@ eModelID CLoadedCarGroup::PickRandomCar(bool bNotTooManyInTheWorld, bool bOnlyPi
             })
         );
     } else {
-#ifdef FIX_BUGS
+        // Como el original: pesos de los CountMembers() primeros modelos (es lo que hace también el EXE, no es un arreglo)
         return PickRandom(GetAllModels());
-#else
-        return PickRandom(m_models);
-#endif
     }
 }
 

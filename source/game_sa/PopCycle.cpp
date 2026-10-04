@@ -99,9 +99,6 @@ void CPopCycle::Initialise() {
                     NOTSA_UNREACHABLE("Failed reading all data!");
                 }
 
-                // In the vanilla game the %'s in this array add up to 100% (The original code rescales the values in order to make sure this is the case...but fails sometimes, see below)
-                // But we take another route and don't normalize to 100%. This way there's no rounding error involved and everything works perfectly. 
-#ifndef FIX_BUGS
                 // Como el original: siempre se reescala con 100.0f / suma en la FPU (truncando con _ftol2) y la
                 // diferencia hasta 100 se suma (en bytes) al ultimo porcentaje maximo.
                 {
@@ -124,7 +121,6 @@ void CPopCycle::Initialise() {
                     }
                     percs[maxIdx] = (uint8)(percs[maxIdx] + (uint8)(100 - newSum));
                 }
-#endif
 
             }
         }
@@ -336,14 +332,7 @@ bool CPopCycle::PedIsAcceptableInCurrentZone(int32 modelIndex) {
 ePopcycleGroup CPopCycle::PickARandomGroupOfOtherPeds() {
     const auto& percs = m_nPercTypeGroup[m_nCurrentTimeIndex][m_nCurrentTimeOfWeek][m_pCurrZoneInfo->PopType];
     // Como el original: (int)(rand * (1/32768) * 100), sin limite de grupos al restar
-    auto rndPerc = CGeneral::GetRandomIntInRange(
-        0,
-#ifdef FIX_BUGS // See `Initialise` for an explanation
-        (int32)notsa::accumulate(percs, (size_t)0)
-#else
-        100
-#endif
-    );
+    auto rndPerc = CGeneral::GetRandomIntInRange(0, 100);
     int32 grpIdx = 0;
     while ((int32)percs[grpIdx] < rndPerc) {
         rndPerc -= (int32)percs[grpIdx];

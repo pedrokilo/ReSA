@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 10304,
+  "pairs_per_function": {
+    "CGlass::CalcAlphaWithNormal": 1024,
+    "CTaskManager::GetTaskSecondary": 512,
+    "CPopCycle::PickARandomGroupOfOtherPeds": 1024,
+    "CCoverPoint::CanAccommodateAnotherPed": 256,
+    "CCover::AddCoverPoint": 1024,
+    "RtAnim::RtAnimInterpolatorSetCurrentAnim": 512,
+    "CAnimBlendHierarchy::CalcTotalTime": 512,
+    "CAnimBlendHierarchy::CalcTotalTimeCompressed": 512,
+    "CdStream::CdStreamRead": 512,
+    "CDirectory::AddItem-": 512,
+    "CEntryExitManager::AddOne": 64,
+    "CLoadedCarGroup::PickRandomCar": 512,
+    "CCheckpoint::Render": 512,
+    "CTaskSimpleCarFallOut::Destructor": 256,
+    "CTaskComplexFleeAnyMeans::Destructor": 256,
+    "CTaskComplexPassObject::Destructor": 256,
+    "CTaskComplexDestroyCarArmed::Constructor": 256,
+    "CTaskInteriorLieInBed::Constructor": 256,
+    "CPedGroupDefaultTaskAllocatorStandStill::AllocateDefaultTasks": 512,
+    "CPedGroupDefaultTaskAllocatorFollowLimited::AllocateDefaultTasks": 512,
+    "CPedGroupDefaultTaskAllocatorFollowAnyMeans::AllocateDefaultTasks": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "677b90a8c7631b8be1ccfcc43263624435ed495b4b8c903a6919c2289437ae8a",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fixbugs\\20261003-215658-748065",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CGlass::CalcAlphaWithNormal": true,
+    "CTaskManager::GetTaskSecondary": true,
+    "CPopCycle::PickARandomGroupOfOtherPeds": true,
+    "CCoverPoint::CanAccommodateAnotherPed": true,
+    "CCover::AddCoverPoint": true,
+    "RtAnim::RtAnimInterpolatorSetCurrentAnim": true,
+    "CAnimBlendHierarchy::CalcTotalTime": true,
+    "CAnimBlendHierarchy::CalcTotalTimeCompressed": true,
+    "CdStream::CdStreamRead": true,
+    "CDirectory::AddItem-": true,
+    "CEntryExitManager::AddOne": true,
+    "CLoadedCarGroup::PickRandomCar": true,
+    "CCheckpoint::Render": true,
+    "CTaskSimpleCarFallOut::Destructor": true,
+    "CTaskComplexFleeAnyMeans::Destructor": true,
+    "CTaskComplexPassObject::Destructor": true,
+    "CTaskComplexDestroyCarArmed::Constructor": true,
+    "CTaskInteriorLieInBed::Constructor": true,
+    "CPedGroupDefaultTaskAllocatorStandStill::AllocateDefaultTasks": true,
+    "CPedGroupDefaultTaskAllocatorFollowLimited::AllocateDefaultTasks": true,
+    "CPedGroupDefaultTaskAllocatorFollowAnyMeans::AllocateDefaultTasks": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "35f214b9097af8a9565be415a94b6bc03838d6b98803790da2ed4e1fa9eb91ee",
+      "pdb": "c26b0ad4bbe0f611305f89304b2c9ed6c3807f0bdeb810602f79cacedf80068f"
+    },
+    "sources": {
+      "source/game_sa/Glass.cpp": "94f3f8a8f3fd4fe8d5baa7ca0c18c812bad4bc962cfdfed5af3266933a6c602b",
+      "source/game_sa/Tasks/TaskManager.cpp": "85a31a84a68c8687b0353ac4d7be91bc98cf430f1994f16b1c796da8b5ff20d5",
+      "source/game_sa/PopCycle.cpp": "21bd0ae5cbb6a59be5917c4de6c032b82d9cf3e5659a57bec9ebedad6e709b68",
+      "source/game_sa/CoverPoint.cpp": "5a8417dec82cfbcd7cc06337907ce217b938f1acd254a8b174b0cb92d1483388",
+      "source/game_sa/Cover.cpp": "0f36341e21ef8e42236a112e1695325913fb0bf44e738e33f76455521f9ec630",
+      "source/game_sa/RenderWare/rw/rtanim.cpp": "a9662e9a32b0ac58b7765ae03d2a891f9114c893cf807f0da0d94e2a2867509f",
+      "source/game_sa/Animation/AnimBlendHierarchy.cpp": "c7e5476e0cbaa63bb0d4670cdf54fe20618f2680a85185e8646fb3e36913f430",
+      "source/game_sa/CdStreamInfo.cpp": "0856f64244e8edb56b4944b493430ab8d258658e062cc927792ebd21d5c4ba4d",
+      "source/game_sa/Directory.cpp": "d3f2f649baa20748e1e98ed3ef8aa76ac0f11442759658d181e2ade511141ea8",
+      "source/game_sa/EntryExitManager.cpp": "cc9ceafd622cc6c40be8f79291aceb2419087187e47ccfb199afc835ba9da12d",
+      "source/game_sa/LoadedCarGroup.cpp": "85ab80b61224f6b424e4e1b3a0996d99a7b3815fb0f5cbd200adbe19c4fda5e7",
+      "source/game_sa/Checkpoint.cpp": "1849b0ab02bb993f4b5bed6956ffaf76b645bfe4d04b926b284e64adcaf336f9",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleCarFallOut.cpp": "8192459206d6ed80f79447fb384e19ff78770478f972cf9f9b65cd2a0fd6f2fe",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFleeAnyMeans.cpp": "0f48b5331de77862de6ce2f307c4f769f1c17fe4e30fcc7d1d8294015781a4cb",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp": "6c35685655f0f098045e6ea5dc34602ac0f3a52a670f06bc7f089dcb91a4c775",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp": "ee695f9f3b5981f7648d34596e390ed058a49d0b3e6c496e007b222aafe92b69",
+      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorLieInBed.cpp": "edd2fc4a129012e466f9fde98e6a505d1a5def052096c39c9d0fdd8a364300c3",
+      "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorLieInBed.h": "57a2a74396e661a63f6787992b7450c87a1275957c0bb15197801c8e0e337fd0",
+      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorStandStill.h": "96b4ccde4b5660c6ec3c29eb82c84ab122779d4ca165de074b0bbff0f983cecc",
+      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowLimited.h": "9be9a41fd84551c565db23aebd753057ff92d226b7bb444462ec08e317421596",
+      "source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocatorFollowAnyMeans.h": "0290b1e9e77589faee2965c9765af40f523f5d8f63e15c3528922600da694789",
+      "source/game_sa/Core/Pool.h": "137fc300ea5c2a82dbe65b39e9a21444288172282f8a13b86d01671deffb1a15",
+      "source/game_sa/Tasks/Task.cpp": "6125234ef4662d786ba71880a00972d7e0d7e6ead58a67dbfb577a657399f265"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "ea19f916deb416cadb1705e45e03f5d6c1dfb7e3776347df3f8b3ab543527c5e",
+      "build_probe.py": "55ba0cbbbc5a368e05f2b7b5fb1919271fae59fb29a0d40074d4944eccc6bcb8",
+      "run_local.py": "f9ec9815b8c1dbb9607aef9e9b5135629322eb8a29f08f3e835f64b9097cdb85"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

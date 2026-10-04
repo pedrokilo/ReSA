@@ -878,7 +878,7 @@ void CTaskSimpleJetPack::DoJetPackEffect(CPed* ped) {
     // But the flame is blue, even though the audio for the blue flame isn't playing.
     // So, going by the logic "blue == thrust is generated", "orange == no thrust generated"
     // I conclude it this is a bug.
-    const bool  thrusting = (notsa::IsFixBugs() ? m_ThrustFwd == 1 : m_ThrustFwd != 0) || m_ThrustStrafe != 0.f;
+    const bool  thrusting = m_ThrustFwd != 0 || m_ThrustStrafe != 0.f; // Como el original: también al frenar (-1)
     const float target    = thrusting ? 1.f : 0.f;
     if (target > m_FxKeyTime) {
         m_FxKeyTime += 0.1f;

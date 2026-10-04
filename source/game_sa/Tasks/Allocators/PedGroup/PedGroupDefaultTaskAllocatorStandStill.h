@@ -41,13 +41,8 @@ public:
             if (ped && tp.Ped != ped) {
                 continue;
             }
-            assert(!tp.Task);
-            tp.Task = new CTaskComplexBeStill{}; // Skipping the unnecessary leader check because they both get the same task
-            if (notsa::IsFixBugs()) {
-                if (ped) {
-                    break; // There are no duplicate entries in the array, so we can stop now
-                }
-            }
+            // Como el original: se recorren los 8 pares (seguidores y líder) sin parar ni comprobar la tarea anterior
+            tp.Task = new CTaskComplexBeStill{};
         }
     };
 

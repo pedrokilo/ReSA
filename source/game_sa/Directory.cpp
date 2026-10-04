@@ -67,15 +67,7 @@ void CDirectory::Init(int32 capacity, DirectoryInfo* entries) {
 
 // 0x532310
 void CDirectory::AddItem(const DirectoryInfo& dirInfo) {
-    if ((int32)m_nNumEntries < (int32)m_nCapacity) { // Como el original: comparación con signo
-#ifdef FIX_BUGS
-        // don't add if already exists
-        uint32 size;
-        CdStreamPos pos;
-        if (FindItem(dirInfo.Name, pos, size)) {
-            return;
-        }
-#endif
+    if ((int32)m_nNumEntries < (int32)m_nCapacity) { // Como el original: comparación con signo, y se añade aunque el nombre ya exista
         std::memcpy(&m_pEntries[m_nNumEntries], &dirInfo, sizeof(DirectoryInfo)); // Como el original: rep movs de 32 bytes
         m_nNumEntries++;
     } else {

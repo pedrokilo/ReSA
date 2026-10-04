@@ -43,9 +43,7 @@ bool CCoverPoint::CanAccommodateAnotherPed() const noexcept {
     case CCoverPoint::eType::NONE:
         return false;
     case CCoverPoint::eType::VEHICLE:
-        return notsa::IsFixBugs()
-            ? rng::all_of(GetCoveredPeds(), notsa::IsNull{})
-            : !m_CoveredPeds[0] || m_CoveredPeds[1];
+        return !m_CoveredPeds[0] || m_CoveredPeds[1]; // Como el original: cierto también con los dos huecos ocupados
     default:
         return !m_CoveredPeds[0];
     }

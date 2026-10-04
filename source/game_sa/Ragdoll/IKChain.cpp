@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 20/20 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/20 entradas.
+ * Validación registrada: 20/20 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -49,45 +49,113 @@ void IKChain_c::InjectHooks() {
     RH_ScopedInstall(IsAtTarget, 0x617F30);
 }
 
+// Como el original: las referencias de la cadena (m_Ped y m_TargetEntity) se escriben en bruto, sin
+// CleanUpOldReference del valor anterior; solo se llama a RegisterReference donde lo hace el EXE.
+template<typename T>
+static T*& RawRefSlot(notsa::EntityRef<T>& ref) {
+    return *reinterpret_cast<T**>(std::addressof(ref));
+}
+
+// Como el original (0x617AA3..0x617AC5): GetSpeed() * acos(dot) * m_Speed * 57.29578f en el x87.
+// acos es el del CRT del juego (0x822380): fpatan(sqrt((1 + x)(1 - x)), x) con la palabra de control
+// (anterior & 0x300) | 0x7F; con la palabra del juego (!= 0x27F, precision enmascarada) y el indicador de
+// inexactitud activo, el CRT redondea el resultado a double (0x828EA7) antes de devolverlo, salvo que el
+// indicador del CRT 0xC9ABFC (nunca escrito por el EXE) no sea cero.
+static float s_IKChainRadToDeg = std::bit_cast<float>(0x42652EE0u); // 0x859878 (no es el float más cercano a 180/pi)
+static float __declspec(naked) __cdecl IKChainRotationAngleX87(float boneSpeed, float dot, float chainSpeed) {
+    __asm {
+        fld    dword ptr [esp + 4]
+        fld    dword ptr [esp + 8]
+        sub    esp, 0Ch
+        fnstcw word ptr [esp + 8]
+        mov    ax, word ptr [esp + 8]
+        and    ax, 300h
+        or     ax, 7Fh
+        mov    word ptr [esp + 0Ah], ax
+        cmp    word ptr [esp + 8], 27Fh
+        je     ik_compute
+        fldcw  word ptr [esp + 0Ah]
+    ik_compute:
+        fld1
+        fadd   st, st(1)
+        fld1
+        fsub   st, st(2)
+        fmulp  st(1), st
+        fsqrt
+        fxch   st(1)
+        fpatan
+        mov    ax, word ptr [esp + 8]
+        cmp    dword ptr ds:[0C9ABFCh], 0
+        jne    ik_fast
+        cmp    ax, 27Fh
+        je     ik_done
+        test   ax, 20h
+        je     ik_restore
+        fnstsw ax
+        test   ax, 20h
+        je     ik_restore
+        fstp   qword ptr [esp]
+        fld    qword ptr [esp]
+        jmp    ik_restore
+    ik_fast:
+        cmp    ax, 27Fh
+        je     ik_done
+    ik_restore:
+        fldcw  word ptr [esp + 8]
+    ik_done:
+        add    esp, 0Ch
+        fmulp  st(1), st
+        fmul   dword ptr [esp + 0Ch]
+        fmul   dword ptr [s_IKChainRadToDeg]
+        ret
+    }
+}
+
 // 0x618370
 bool IKChain_c::Init(
     const char*  name, // unused
     eIKChainSlot ikSlot,
     CPed*        ped,
     eBoneTag32   effectorBone,
-    CVector        effectorPos,
+    CVector      effectorPos,
     eBoneTag32   pivotBone,
     CEntity*     entity,
     eBoneTag32   offsetBone,
-    CVector        offsetPos,
+    CVector      offsetPos,
     float        speed,
     int32        priority
 ) {
-    m_Ped = ped;
+    // Como el original: m_Ped se escribe en bruto y la referencia solo se registra si la cadena es válida.
+    auto& rawPed = RawRefSlot(m_Ped);
+    rawPed = ped;
 
-    const auto frames = m_Ped->GetAnimBlendData().GetFrames();
+    const auto frames = ped->GetAnimBlendData().GetFrames();
 
     if (frames[0].NeedsKeyFrameUpdate || !frames[0].IsUpdatingFrame) {
         return false;
     }
 
-    if (!m_Ped->bHasBeenRendered) { // Bone data isn't present yet in this case
+    if (!ped->bHasBeenRendered) { // Bone data isn't present yet in this case
         return false;
     }
 
-    // Check if frame of this bone has non-zero translation
+    // Check if frame of this bone has non-zero translation (Como el original: NaN cuenta como distinto de cero)
     {
-        const auto& boneFrame = frames[RpHAnimIDGetIndex(&m_Ped->GetAnimHierarchy(), (RwInt32)effectorBone)].KeyFrame;
-        if (boneFrame->t.IsZero()) {
+        const auto& boneFrame = frames[RpHAnimIDGetIndex(&ped->GetAnimHierarchy(), (RwInt32)effectorBone)].KeyFrame;
+        if (boneFrame->t.x == 0.f && boneFrame->t.y == 0.f && boneFrame->t.z == 0.f) {
             return false;
         }
     }
 
+    rawPed->RegisterReference(reinterpret_cast<CEntity**>(&rawPed));
+
+    m_Bones = nullptr; // Como el original: se limpia antes de SetupBones
     SetupBones(effectorBone, effectorPos, pivotBone, frames);
-    UpdateEntity(entity);
 
     m_EffectorPos  = effectorPos;
+    m_Blend        = 0.f; // Como el original: la mezcla empieza en 0
     m_EffectorBone = effectorBone;
+    UpdateEntity(entity); // Inlined en el EXE
     m_OffsetBone   = offsetBone;
     m_OffsetPos    = offsetPos;
     m_Speed        = speed;
@@ -100,8 +168,8 @@ bool IKChain_c::Init(
 
 // 0x617870
 void IKChain_c::Exit() {
-    for (auto&& bone : GetBones()) {
-        g_boneNodeMan.ReturnBoneNode(bone);
+    for (auto i = 0; i < m_BonesCount; i++) {
+        g_boneNodeMan.ReturnBoneNode(m_Bones[i]);
     }
     delete[] std::exchange(m_Bones, nullptr);
 }
@@ -110,17 +178,23 @@ void IKChain_c::Exit() {
 void IKChain_c::Update(float deltaTime) {
     UNUSED(deltaTime);
 
-    m_PivotBoneMatrix = m_Ped->GetBoneMatrix(m_PivotBone);
-    GetBones()[m_BonesCount - 1]->CalcWldMat(m_PivotBoneMatrix);
+    // Como el original: jerarquía de la piel del clump (0x734A40) y matriz por índice, sin comprobar nulos
+    auto* const hier = GetAnimHierarchyFromSkinClump(reinterpret_cast<RpClump*>(m_Ped->GetRwObject()));
+    const auto  idx  = RpHAnimIDGetIndex(hier, (RwInt32)static_cast<eBoneTag>(m_PivotBone));
+    m_PivotBoneMatrix = RpHAnimHierarchyGetMatrixArray(hier) + idx;
+    m_Bones[m_BonesCount - 1]->CalcWldMat(m_PivotBoneMatrix);
     MoveBonesToTarget();
-    for (auto& bone : GetBones()) {
-        bone->BlendKeyframe(m_Blend);
+    for (auto i = 0; i < m_BonesCount; i++) {
+        m_Bones[i]->BlendKeyframe(m_Blend);
     }
 }
 
 // 0x617F30
 bool IKChain_c::IsAtTarget(float range, float* outDist) const {
-    const auto len = (m_OffsetPosWS - GetBones().front()->GetPosition()).Magnitude();
+    // Como el original: RwV3dLength del EXE (raíz por tabla), no CVector::Magnitude
+    const CVector rootPos = m_Bones[0]->GetPosition();
+    CVector       delta{ m_OffsetPosWS.x - rootPos.x, m_OffsetPosWS.y - rootPos.y, m_OffsetPosWS.z - rootPos.z };
+    const float   len = RwV3dLength(&delta);
     if (outDist) {
         *outDist = len;
     }
@@ -129,17 +203,20 @@ bool IKChain_c::IsAtTarget(float range, float* outDist) const {
 
 // 0x617E60
 bool IKChain_c::IsFacingTarget() const {
-    // Genuine cancer :D
+    const auto* const root    = m_Bones[0];
+    const CVector     rootPos = root->GetPosition();
 
-    CVector targetPos;
-    RwV3dTransformVector(&targetPos, &m_EffectorPos, &GetBones().front()->GetMatrix());
-    RwV3dNormalize(&targetPos, &targetPos);
+    CVector effectorDir;
+    RwV3dTransformVector(&effectorDir, &m_EffectorPos, &root->GetMatrix());
+    RwV3dNormalize(&effectorDir, &effectorDir);
 
-    CVector dir;
-    RwV3dSub(&dir, &m_OffsetPosWS, &targetPos);
-    RwV3dNormalize(&dir, &dir);
+    // Como el original: la dirección al objetivo parte de la posición del hueso raíz (no del efector transformado)
+    CVector targetDir{ m_OffsetPosWS.x - rootPos.x, m_OffsetPosWS.y - rootPos.y, m_OffsetPosWS.z - rootPos.z };
+    RwV3dNormalize(&targetDir, &targetDir);
 
-    return RwV3dDotProduct(&dir, &targetPos) >= 0.95f && m_Blend > 0.98f;
+    // Como el original: (y*y + x*x) + z*z
+    const float dot = effectorDir.y * targetDir.y + effectorDir.x * targetDir.x + effectorDir.z * targetDir.z;
+    return dot >= 0.95f && m_Blend > 0.98f;
 }
 
 // 0x617E50
@@ -165,8 +242,12 @@ void IKChain_c::ClampLimits(eBoneTag32 boneTag, bool limitX, bool limitY, bool l
 
 // 0x617E00
 void IKChain_c::UpdateEntity(CEntity* entity) {
-    // NOTE: Original code didn't un-register the ref, but we're going to do that here (Or well, the Ref wrapper does it for us)
-    m_TargetEntity = entity;
+    // Como el original: no se llama a CleanUpOldReference de la entidad anterior
+    auto& rawTarget = RawRefSlot(m_TargetEntity);
+    rawTarget = entity;
+    if (entity) {
+        entity->RegisterReference(&rawTarget);
+    }
 }
 
 // inline
@@ -203,19 +284,26 @@ void IKChain_c::SetBlend(float blend) {
 
 // 0x6178B0
 void IKChain_c::MoveBonesToTarget() {
+    static auto& s_bLimitBones = StaticRef<bool>(0x8D2BD2); // true; Como el original: Limit solo si está activo
+
+    const auto rootBone = m_Bones[0]; // Como el original: se lee antes de mirar el número de huesos
+
     if (m_UpdateTarget) {
-        if (m_TargetEntity) {
-            const auto mat = m_TargetEntity->GetModellingMatrix();
+        if (CEntity* const target = m_TargetEntity) {
+            const auto mat = target->GetModellingMatrix();
             if (m_OffsetBone == BONE_UNKNOWN) {
                 if (mat) {
                     RwV3dTransformPoint(&m_OffsetPosWS, &m_OffsetPos, mat);
                 }
             } else {
-                m_OffsetPosWS = m_TargetEntity->AsPed()->GetBonePosition((eBoneTag)m_OffsetBone);
+                // Como el original: 0x5E4280 escribe directamente en m_OffsetPosWS (sin comprobar el tipo)
+                target->AsPed()->GetBonePosition(&m_OffsetPosWS, (eBoneTag)m_OffsetBone, false);
                 if (mat) {
                     CVector transformed;
                     RwV3dTransformVector(&transformed, &m_OffsetPos, mat);
-                    m_OffsetPosWS += transformed;
+                    m_OffsetPosWS.x = transformed.x + m_OffsetPosWS.x;
+                    m_OffsetPosWS.y = transformed.y + m_OffsetPosWS.y;
+                    m_OffsetPosWS.z = transformed.z + m_OffsetPosWS.z;
                 }
             }
         } else {
@@ -223,59 +311,77 @@ void IKChain_c::MoveBonesToTarget() {
         }
     }
 
-    auto bones = GetBones();
-    if (bones.empty()) {
-        return;
-    }
+    constexpr auto DIST_TOLERANCE = 0.00001f; // 0x858C14
 
-    constexpr auto DIST_TOLERANCE = 0.00001f;
+    for (auto i = 0; i < m_BonesCount; i++) {
+        const auto    bone    = m_Bones[i];
+        const CVector bonePos = bone->GetPosition();
+        const CVector rootPos = rootBone->GetPosition();
 
-    const auto rootBone = bones.front();
-    for (auto&& bone : bones) {
-        CVector transformedBonePos;
-        RwV3dTransformVector(&transformedBonePos, &m_EffectorPos, &rootBone->GetMatrix()); // Not sure why it's transformed every iteration..
+        CVector transformedEffector;
+        RwV3dTransformVector(&transformedEffector, &m_EffectorPos, &rootBone->GetMatrix()); // Se transforma en cada iteración, como en el EXE
 
-        CVector dirBoneToRoot = transformedBonePos + (rootBone->GetPosition() - bone->GetPosition());
-        if (dirBoneToRoot.Magnitude() <= DIST_TOLERANCE) {
+        // Como el original: (efector + raíz) - hueso, longitud con RwV3dLength y NaN descartado
+        CVector dirBoneToEffector{
+            (transformedEffector.x + rootPos.x) - bonePos.x,
+            (transformedEffector.y + rootPos.y) - bonePos.y,
+            (transformedEffector.z + rootPos.z) - bonePos.z
+        };
+        if (!(RwV3dLength(&dirBoneToEffector) > DIST_TOLERANCE)) {
             continue;
         }
-        RwV3dNormalize(&dirBoneToRoot, &dirBoneToRoot);
+        RwV3dNormalize(&dirBoneToEffector, &dirBoneToEffector);
 
-        CVector dirBoneToOffset = m_OffsetPosWS - bone->GetPosition();
-        if (dirBoneToOffset.Magnitude() <= DIST_TOLERANCE) {
+        CVector dirBoneToOffset{ m_OffsetPosWS.x - bonePos.x, m_OffsetPosWS.y - bonePos.y, m_OffsetPosWS.z - bonePos.z };
+        if (!(RwV3dLength(&dirBoneToOffset) > DIST_TOLERANCE)) {
             continue;
         }
         RwV3dNormalize(&dirBoneToOffset, &dirBoneToOffset);
 
-        const auto dot = DotProduct(&dirBoneToOffset, &dirBoneToRoot);
-        if (dot >= 0.997f) { // Make sure they don't point in the same direction
+        // Como el original: (y*y + x*x) + z*z; solo sigue si dot < 0.997 (NaN se descarta)
+        const float dot = dirBoneToOffset.y * dirBoneToEffector.y + dirBoneToOffset.x * dirBoneToEffector.x + dirBoneToOffset.z * dirBoneToEffector.z;
+        if (!(dot < 0.997f)) { // Make sure they don't point in the same direction
             continue;
         }
 
-        const auto boneParentMat = bone->GetParent()
+        const float angle = IKChainRotationAngleX87(bone->GetSpeed(), dot, m_Speed);
+
+        // Como el original: efector x objetivo con los productos en el orden del EXE
+        CVector cross{
+            dirBoneToOffset.z * dirBoneToEffector.y - dirBoneToOffset.y * dirBoneToEffector.z,
+            dirBoneToOffset.x * dirBoneToEffector.z - dirBoneToOffset.z * dirBoneToEffector.x,
+            dirBoneToOffset.y * dirBoneToEffector.x - dirBoneToOffset.x * dirBoneToEffector.y
+        };
+
+        const RwMatrix* const boneParentMat = bone->GetParent()
             ? &bone->GetParent()->GetMatrix()
             : m_PivotBoneMatrix;
 
         RtQuat quat;
         RtQuatConvertFromMatrix(&quat, boneParentMat);
 
-        // NOTE: Normalize Quat.. I wonder why there isn't a macro or something for this?
+        // Como el original: inverso en otro cuaternión, norma ((y*y + x*x) + z*z) + w*w; si no es
+        // positiva el EXE usa ese cuaternión sin inicializar
+        RtQuat invQuat;
         {
-            const auto mag = RwV3dDotProduct(&quat.imag, &quat.imag) + quat.real * quat.real;
+            const float mag = quat.imag.y * quat.imag.y + quat.imag.x * quat.imag.x + quat.imag.z * quat.imag.z + quat.real * quat.real;
             if (mag > 0.f) {
-                const auto recp = 1.f / mag;
-                quat.real *= recp;
-                RwV3dScale(&quat.imag, &quat.imag, -recp);
+                const float recp = 1.f / mag;
+                invQuat.real   = quat.real * recp;
+                invQuat.imag.x = quat.imag.x * -recp;
+                invQuat.imag.y = quat.imag.y * -recp;
+                invQuat.imag.z = quat.imag.z * -recp;
             }
         }
 
-        CVector cross = CrossProduct(dirBoneToRoot, dirBoneToOffset);
         CVector axis;
-        RtQuatTransformVectors(&axis, &cross, 1, &quat);
-        RtQuatRotate(reinterpret_cast<RtQuat*>(&bone->GetOrientation()), &axis, RadiansToDegrees(bone->GetSpeed() * std::acos(dot) * m_Speed), rwCOMBINEPOSTCONCAT);
+        RtQuatTransformVectors(&axis, &cross, 1, &invQuat);
+        RtQuatRotate(&bone->GetOrientation(), &axis, angle, rwCOMBINEPOSTCONCAT);
 
-        bone->Limit(m_Blend); // Originally this was in an `if`, but the variable that was checked was always `true`
-        bone->CalcWldMat(boneParentMat);
+        if (s_bLimitBones) {
+            bone->Limit(m_Blend);
+        }
+        bone->CalcWldMat(bone->GetParent() ? &bone->GetParent()->GetMatrix() : m_PivotBoneMatrix);
     }
 }
 

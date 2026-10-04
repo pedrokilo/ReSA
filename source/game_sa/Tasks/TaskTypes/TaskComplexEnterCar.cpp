@@ -788,12 +788,7 @@ void CTaskComplexEnterCar::PrepareVehicleForPedEnter(CPed* ped) {
 void CTaskComplexEnterCar::CreateTaskUtilityLineUpPedWithCar(CPed* ped) {
     // Como el original: el desplazamiento se calcula antes de reservar la utilidad
     const CVector offset = CCarEnterExit::GetPositionToOpenCarDoor(m_Car, m_TargetDoor) - ped->GetPosition();
-    if (m_LineUpUtility && notsa::IsFixBugs()) {
-        // FIX_BUGS: el EXE reserva otra utilidad y pierde la anterior; aquí se reutiliza
-        m_LineUpUtility = new (m_LineUpUtility) CTaskUtilityLineUpPedWithCar{ offset, 600, 0, m_TargetDoor };
-        return;
-    }
-    m_LineUpUtility = new CTaskUtilityLineUpPedWithCar{ offset, 600, 0, m_TargetDoor };
+    m_LineUpUtility = new CTaskUtilityLineUpPedWithCar{ offset, 600, 0, m_TargetDoor }; // Como el original: la anterior se pierde
 }
 
 // NOTSA - Copy paste code elimination (0x63F034 / 0x63FCF1)

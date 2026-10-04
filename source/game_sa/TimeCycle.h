@@ -133,6 +133,10 @@ public:
 
     static inline auto& m_vecDirnLightToSun = StaticRef<CVector>(0xB7CB14);
 
+    // Como el original: CalcColoursForPoint guarda aquí (words) los tipos de clima viejo y nuevo que usa
+    static inline auto& m_nCurrentOldWeatherType = StaticRef<int16>(0xB7CB20);
+    static inline auto& m_nCurrentNewWeatherType = StaticRef<int16>(0xB7CB24);
+
 public:
     static void InjectHooks();
 

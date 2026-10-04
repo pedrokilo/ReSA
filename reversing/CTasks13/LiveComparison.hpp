@@ -23,8 +23,12 @@
 // trazar (el EXE lo lee en linea en ShouldLoadGangAnims).
 // Pools de tareas, rutas de puntos y eventos: m_LastFreeSlot y estados restaurados y slots libres con 0xCD en cada
 // ejecucion; lo nuevo se serializa y se libera sin destructor. Se guarda y restaura el reloj.
-// Fuera del banco: varios vehiculos validos en ScanForStuff (FIX_BUGS: el DLL para tras el primer evento) y la rama de ControlSubTask de GangLeader que en el EXE devuelve StandStill(500) tras
-// SetDefaultTaskAllocatorType (el DLL devuelve nullptr a proposito, ver el comentario del codigo).
+// ScanForStuff: ninguno, uno o varios vehiculos validos en el escaner (los dos vehiculos y a veces el mismo en dos huecos;
+// el EXE y el DLL siguen tras cada evento) y la mitad de los casos con una semilla que entra en la rama de vehiculos.
+// ControlSubTask de GangLeader: rama de deambular cumplida (subtarea WANDER, temporizador vencido o parado) con
+// GetDistSqOfClosestPathNodeToPed trazado alrededor de 2 (debajo, igual, encima, 0, NaN): debajo llama a
+// SetDefaultTaskAllocatorType(RANDOM) trazado sobre el CPedGroup falso y devuelve StandStill(500) del pool (tarea nueva
+// serializada entera).
 #include <fstream>
 #include <unordered_map>
 #include <reversiblehooks/RootHookCategory.h>
@@ -585,11 +589,16 @@ inline void Update() {
                             if(nm=="ScanForStuff"){
                                 // exploracion: vehiculos y peatones del escaner del peaton 0 (algunos dentro de los limites)
                                 auto* in=intels[0].data();
-                                // un solo vehiculo en el escaner: con FIX_BUGS el DLL para tras el primer evento (el EXE sigue)
-                                if(next()%3)At<CVehicle*>(in,I_VEHENTS+4*int(next()%16))=Veh(int(next()%2));
+                                // ninguno, uno o varios vehiculos en el escaner (ambos vehiculos y a veces el mismo en dos huecos):
+                                // el EXE y el DLL siguen con el resto tras cada evento
+                                { const uint32 m=next()%4; const int cnt=m==0 ? 0 : m==1 ? 1 : int(2+next()%5);
+                                  for(int k=0;k<cnt;++k)At<CVehicle*>(in,I_VEHENTS+4*int(next()%16))=Veh(k<2 ? k : int(next()%2)); }
                                 for(int s=0;s<16;++s)At<CPed*>(in,I_PEDENTS+4*s)=next()%3 ? nullptr : Ped(int(1+next()%3));
-                                for(int n=0;n<NVEH;++n){ if(next()%2){ const CVector pp=p0->GetPosition(); At<CVector>(vehMats[n].data(),0x30)=CVector{pp.x+uni(-12.f,12.f),pp.y+uni(-12.f,12.f),pp.z+uni(-6.f,6.f)}; }
-                                    if(next()%2){ vehs[n][E_TYPE]=uint8(2|4<<3); At<int32>(vehs[n].data(),V_SUBTYPE)=0; vehs[n][V_FLAGS42E]=0; vehs[n][V_CREATEDBY]=1; } }
+                                const bool allValid=next()%3==0;
+                                for(int n=0;n<NVEH;++n){ if(allValid||next()%2){ const CVector pp=p0->GetPosition(); At<CVector>(vehMats[n].data(),0x30)=CVector{pp.x+uni(-12.f,12.f),pp.y+uni(-12.f,12.f),pp.z+uni(-6.f,6.f)}; }
+                                    if(allValid||next()%2){ vehs[n][E_TYPE]=uint8(2|4<<3); At<int32>(vehs[n].data(),V_SUBTYPE)=0; vehs[n][V_FLAGS42E]=0; vehs[n][V_CREATEDBY]=1; } }
+                                // la mitad de los casos con una semilla cuyo primer rand cae en la rama de vehiculos ((int)(rand*100/32768) < 5)
+                                if(next()%2)for(uint32 s=uint32(i)*977u+11u;;++s)if((((s*2654435761u)>>9)&0x7FFFu)<1600u){ seed=s; break; }
                                 for(int n=1;n<4;++n){ if(next()%2){ peds[n][P_CREATEDBY]=1; At<int32>(peds[n].data(),P_PEDTYPE)=At<int32>(p0b,P_PEDTYPE); }
                                     if(next()%2){ const CVector pp=p0->GetPosition(); auto& pos=At<void*>(peds[n].data(),E_MATRIX) ? At<CVector>(pedMats[n].data(),0x30) : At<CVector>(peds[n].data(),E_POS);
                                         pos=CVector{pp.x+uni(-12.f,12.f),pp.y+uni(-12.f,12.f),pp.z}; } }
@@ -606,7 +615,12 @@ inline void Update() {
                                 At<CTask*>(o,8)=Fake(0);
                                 if(next()%2){ At<uint32>(o,0x10)=now-5000; At<int32>(o,0x14)=1000; o[0x18]=1; o[0x19]=0; }
                                 if(next()%2){ At<uint32>(o,0x28)=now-5000; At<int32>(o,0x2C)=1000; o[0x30]=1; o[0x31]=0; }
-                                if(next()%5==0)At<void*>(p0b,E_RWOBJ)=nullptr;
+                                // rama de deambular cumplida (0x66241F): subtarea WANDER y temporizador vencido (a veces parado: se rearma
+                                // y no vence); GetDistSqOfClosestPathNodeToPed alrededor de 2 (debajo -> SetDefaultTaskAllocatorType(RANDOM)
+                                // trazado y StandStill(500) del pool, igual o encima o NaN -> sigue)
+                                if(next()%3==0){ At<int32>(fakes[0].data(),FK_TYPE)=TASK_COMPLEX_WANDER; At<uint32>(o,0x10)=now-5000; At<int32>(o,0x14)=1000; o[0x18]=1; o[0x19]=uint8(next()%6==0); }
+                                { const uint32 m=next()%7; pathDist[0]=m==0 ? 2.f : m==1 ? std::nextafter(2.f,0.f) : m==2 ? std::nextafter(2.f,3.f) : m==3 ? qnan
+                                                                     : m==4 ? 0.f : m==5 ? uni(0.f,2.f) : uni(2.f,30.f); }
                                 At<int32>(p0b,P_MOVESTATE)=next()%4==0 ? 6+int32(next()%2) : 4;
                                 if(next()%3)o[0x34]=1;
                                 holdingRet=uintptr_t(Veh(1)); { const uint32 m=next()%3; At<int16>(vehs[1].data(),E_MODEL)=m==0 ? miDrink : m==1 ? miSmoke : vehModel; }

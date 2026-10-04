@@ -128,9 +128,7 @@ void CAnimBlendHierarchy::CalcTotalTime() {
     m_fTotalTime = 0.0f;
     for (int32 i = 0; i < static_cast<int16>(m_nSeqCount); i++) {
         auto& seq = m_pSequences[i];
-        if (seq.m_FramesNum == 0) { // FIX_BUGS by Mitchell Tobass (el EXE lee el keyframe -1)
-            continue;
-        }
+        // Como el original: sin keyframes se lee el keyframe -1 (antes del bloque de frames) y no hay deltas
         const int32 numFrames = static_cast<int16>(seq.m_FramesNum);
         const int32 stride    = seq.m_bHasTranslation ? 32 : 20;
         auto* const frames    = static_cast<uint8*>(seq.m_Frames);
@@ -152,9 +150,7 @@ void CAnimBlendHierarchy::CalcTotalTimeCompressed() {
     m_fTotalTime = 0.0f;
     for (int32 i = 0; i < static_cast<int16>(m_nSeqCount); i++) {
         auto& seq = m_pSequences[i];
-        if (seq.m_FramesNum == 0) { // FIX_BUGS by Mitchell Tobass (el EXE lee el keyframe -1)
-            continue;
-        }
+        // Como el original: sin keyframes se lee el keyframe -1 (antes del bloque de frames) y no hay deltas
         const int32 numFrames = static_cast<int16>(seq.m_FramesNum);
         const int32 stride    = seq.m_bHasTranslation ? 16 : 10;
         auto* const frames    = static_cast<uint8*>(seq.m_Frames);

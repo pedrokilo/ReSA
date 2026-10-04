@@ -173,11 +173,7 @@ CTask* CTaskComplexSeekCoverUntilTargetDead::ControlSubTask(CPed* ped) {
     // No ped to cover, or they're dead?
     if (!m_coverPed || !m_coverPed->IsAlive()) { // Inverted
         CEntity::SafeCleanUpRef(m_coverPed);
-#ifdef FIX_BUGS
-        m_coverPed = GetCoverPed(ped);
-#else
         m_coverPed = GetTargetPed(); // Como el original (fallo del EXE)
-#endif
         CEntity::SafeRegisterRef(m_coverPed);
         // Try aborting current subtask and returning new
         if (m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr)) { // Moved out as common code

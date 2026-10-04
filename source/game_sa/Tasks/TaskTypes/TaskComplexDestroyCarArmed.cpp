@@ -51,15 +51,11 @@ CTaskComplexDestroyCarArmed::CTaskComplexDestroyCarArmed(CVehicle* vehicleToDest
     m_VehToDestroy{vehicleToDestroy},
     m_bGotoPointAndStandStill{false}
 {
-#ifdef FIX_BUGS
-    CEntity::SafeRegisterRef(m_VehToDestroy);
-#else
     // Como el original: el EXE registra la direccion del parametro en la pila (lea eax,[esp+18h]), no la del campo;
     // la referencia queda colgando y el destructor no la encuentra
     if (vehicleToDestroy) {
         vehicleToDestroy->RegisterReference(reinterpret_cast<CEntity**>(&vehicleToDestroy));
     }
-#endif
 }
 
 CTaskComplexDestroyCarArmed::CTaskComplexDestroyCarArmed(const CTaskComplexDestroyCarArmed& o) :

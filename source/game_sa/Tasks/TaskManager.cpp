@@ -127,10 +127,8 @@ CTask* CTaskManager::FindTaskByType(ePrimaryTasks taskIndex, eTaskType taskId) c
 
 // 0x681810
 CTask* CTaskManager::GetTaskSecondary(eSecondaryTask taskIndex) {
-    if (notsa::IsFixBugs() && taskIndex == eSecondaryTask::TASK_SECONDARY_INVALID) {
-        return nullptr;
-    }
-    return m_aSecondaryTasks[taskIndex];
+    // Como el original: sin comprobar el índice (con -1 se lee la última tarea primaria)
+    return m_aSecondaryTasks.data()[(int32)taskIndex];
 }
 
 CTaskComplexFacial* CTaskManager::GetTaskSecondaryFacial() {

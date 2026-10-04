@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 20/20 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/20 entradas.
+ * Validación registrada: 20/20 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -63,9 +63,7 @@ CAnimBlendAssociation::CAnimBlendAssociation() {
     m_AnimId = ANIM_ID_UNDEFINED;
     m_Flags = 0;
     m_nCallbackType = ANIM_BLEND_CALLBACK_NONE;
-    // NOTSA
-    m_pCallbackFunc = nullptr;
-    m_pCallbackData = nullptr;
+    // Como el original: no escribe m_NumBlendNodes, m_pCallbackFunc ni m_pCallbackData.
 }
 
 // 0x4CEFC0
@@ -134,20 +132,20 @@ float CAnimBlendAssociation::GetTimeProgress() const {
 void CAnimBlendAssociation::Init(RpClump* clump, CAnimBlendHierarchy* animHierarchy) {
     CAnimBlendClumpData* animClumpData = RpAnimBlendClumpGetData(clump);
     m_NumBlendNodes = animClumpData->m_NumFrameData;
-    AllocateAnimBlendNodeArray(m_NumBlendNodes);
-    for (auto i = 0; i < m_NumBlendNodes; i++) {
+    // Como el original: contadores de 16 bits con signo (movsx/jle).
+    AllocateAnimBlendNodeArray((int16)m_NumBlendNodes);
+    for (int32 i = 0; i < (int16)m_NumBlendNodes; i++) {
         m_BlendNodes[i].m_BlendAssoc = this;
     }
 
     m_BlendHier = animHierarchy;
-    for (auto& seq : m_BlendHier->GetSequences()) {
-        if (!seq.m_FramesNum) {
-            continue;
-        }
+    for (int32 i = 0; i < (int16)m_BlendHier->m_nSeqCount; i++) {
+        auto& seq = m_BlendHier->m_pSequences[i];
+        // Como el original: busca el frame antes de mirar el número de keyframes (> 0 con signo).
         const auto frame = seq.IsUsingBoneTag()
             ? RpAnimBlendClumpFindBone(clump, seq.GetBoneTag())
             : RpAnimBlendClumpFindFrameFromHashKey(clump, seq.GetNameHashKey());
-        if (!frame) {
+        if (!frame || (int16)seq.m_FramesNum <= 0) {
             continue;
         }
         m_BlendNodes[frame - animClumpData->m_FrameDatas].m_Seq = &seq;
@@ -161,9 +159,10 @@ void CAnimBlendAssociation::Init(CAnimBlendAssociation& assoc) {
     m_Flags         = assoc.m_Flags;
     m_AnimId        = assoc.m_AnimId;
     m_AnimGroupId     = assoc.m_AnimGroupId;
-    AllocateAnimBlendNodeArray(m_NumBlendNodes);
-    for (auto i = 0; i < m_NumBlendNodes; i++) {
-        m_BlendNodes[i] = assoc.m_BlendNodes[i];
+    AllocateAnimBlendNodeArray((int16)m_NumBlendNodes);
+    for (int32 i = 0; i < (int16)m_NumBlendNodes; i++) {
+        // Como el original: copia cruda del nodo (rep movs).
+        std::memcpy(&m_BlendNodes[i], &assoc.m_BlendNodes[i], sizeof(CAnimBlendNode));
         m_BlendNodes[i].m_BlendAssoc = this;
     }
 }
@@ -175,8 +174,8 @@ void CAnimBlendAssociation::Init(CAnimBlendStaticAssociation& assoc) {
     m_Flags         = assoc.m_Flags;
     m_AnimId        = assoc.m_AnimId;
     m_AnimGroupId    = assoc.m_AnimGroupId;
-    AllocateAnimBlendNodeArray(m_NumBlendNodes);
-    for (auto i = 0; i < m_NumBlendNodes; i++) {
+    AllocateAnimBlendNodeArray((int16)m_NumBlendNodes);
+    for (int32 i = 0; i < (int16)m_NumBlendNodes; i++) {
         m_BlendNodes[i].m_Seq = assoc.m_BlendSeqs[i];
         m_BlendNodes[i].m_BlendAssoc = this;
     }
@@ -195,9 +194,12 @@ uint32 CAnimBlendAssociation::GetHashKey() const noexcept {
 
 // 0x4CE9F0
 void CAnimBlendAssociation::AllocateAnimBlendNodeArray(int32 count) {
-    m_BlendNodes = (CAnimBlendNode*)CMemoryMgr::MallocAlign(count * sizeof(CAnimBlendNode), 64);
-    for (auto& node : std::span{ m_BlendNodes, (size_t)count }) {
-        node.Init();
+    // Como el original: el tamaño se redondea a múltiplo de 64 ((n·24 - 1) >> 6 sin signo, + 1, << 6) y el bucle
+    // usa el contador con signo (con count <= 0 no inicializa nada).
+    const uint32 size = ((((uint32)(count * (int32)sizeof(CAnimBlendNode)) - 1u) >> 6) + 1u) << 6;
+    m_BlendNodes = (CAnimBlendNode*)CMemoryMgr::MallocAlign(size, 64);
+    for (int32 i = 0; i < count; i++) {
+        m_BlendNodes[i].Init();
     }
 }
 
@@ -238,14 +240,15 @@ void CAnimBlendAssociation::SetCurrentTime(float currentTime) {
     CAnimManager::UncompressAnimation(m_BlendHier);
 
     // ANIM_COMPRESSION strangely PC has this but android doesn't
+    // Como el original: contador de 16 bits con signo.
     if (m_BlendHier->m_bKeepCompressed) {
-        for (auto i = 0; i < m_NumBlendNodes; i++) {
+        for (int32 i = 0; i < (int16)m_NumBlendNodes; i++) {
             if (m_BlendNodes[i].m_Seq) {
                 m_BlendNodes[i].SetupKeyFrameCompressed();
             }
         }
     } else {
-        for (auto i = 0; i < m_NumBlendNodes; i++) {
+        for (int32 i = 0; i < (int16)m_NumBlendNodes; i++) {
             if (m_BlendNodes[i].m_Seq) {
                 m_BlendNodes[i].FindKeyFrame(m_CurrentTime);
             }
@@ -285,12 +288,17 @@ bool CAnimBlendAssociation::UpdateBlend(float timeStep) {
 
     if (m_BlendAmount <= 0.0f && m_BlendDelta < 0.0f) { // We're faded out and are not fading in
         m_BlendAmount = 0.0f;
-        m_BlendDelta  = std::max(0.0f, m_BlendDelta);
+        m_BlendDelta  = 0.0f; // Como el original: aquí m_BlendDelta < 0 siempre
 
         if (m_Flags & ANIMATION_IS_BLEND_AUTO_REMOVE) {
             if (m_nCallbackType == ANIM_BLEND_CALLBACK_DELETE || m_nCallbackType == ANIM_BLEND_CALLBACK_FINISH) { // condition simplified
                 m_pCallbackFunc(this, m_pCallbackData);
-                SetFinishCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+                // Como el original: relee el tipo tras el callback y deja un callback por defecto del mismo tipo.
+                if (m_nCallbackType == ANIM_BLEND_CALLBACK_DELETE) {
+                    SetDeleteCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+                } else {
+                    SetFinishCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+                }
             }
             delete this;
             return false;
@@ -299,7 +307,10 @@ bool CAnimBlendAssociation::UpdateBlend(float timeStep) {
 
     if (m_BlendAmount > 1.0f) { // Maximally faded in, clamp values
         m_BlendAmount = 1.0f;
-        m_BlendDelta  = std::min(0.0f, m_BlendDelta);
+        // Como el original: solo recorta un delta positivo (un NaN se conserva).
+        if (m_BlendDelta > 0.0f) {
+            m_BlendDelta = 0.0f;
+        }
     }
 
     return true;
@@ -330,7 +341,8 @@ bool CAnimBlendAssociation::UpdateTime(float timeStep, float timeMult) {
     m_CurrentTime += m_TimeStep;
 
     // Is it finished now?
-    if (m_CurrentTime < m_BlendHier->GetTotalTime()) {
+    // Como el original: con NaN también sale aquí (fcomp + test ah,1).
+    if (!(m_CurrentTime >= m_BlendHier->GetTotalTime())) {
         return true;
     }
 

@@ -48,9 +48,6 @@ public:
                 CVector{CTaskComplexFollowLeaderInFormation::ms_offsets.Offsets[i]}, // Como el original salvo z: el EXE pasa un CVector cuya z queda sin escribir en la pila
                 10.f
             };
-            if (notsa::IsFixBugs() && ped) {
-                return; // NOTSA: no hay pares repetidos, así que se puede parar (el EXE sigue recorriendo)
-            }
         }
 
         // Como el original: el par del líder (7) deambula en grupo.

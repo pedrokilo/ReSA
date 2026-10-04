@@ -367,12 +367,8 @@ void CLoadingScreen::DoPCScreenChange(bool isLastOne) {
     if (isLastOne) {
         m_bFadeOutCurrSplashToBlack = true;
     } else {
-        // FIX_BUGS: el original se sale del array tras la última pantalla; solo entonces se vuelve a la 1
-        if (notsa::IsFixBugs() && +m_currDisplayedSplash + 1 >= +eDisplayedSplash::COUNT) {
-            m_currDisplayedSplash = eDisplayedSplash::SPLASH_1_NO_BAR;
-        } else {
-            m_currDisplayedSplash = (eDisplayedSplash)(+m_currDisplayedSplash + 1);
-        }
+        // Como el original (inc 0x8D093C): siempre se avanza, aunque pase de la última pantalla
+        m_currDisplayedSplash = (eDisplayedSplash)(+m_currDisplayedSplash + 1);
     }
 
     if (!g_FastLoaderConfig.NoFading) {

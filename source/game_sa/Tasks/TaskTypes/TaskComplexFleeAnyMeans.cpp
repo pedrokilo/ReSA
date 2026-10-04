@@ -80,10 +80,7 @@ CTaskComplexFleeAnyMeans::CTaskComplexFleeAnyMeans(const CTaskComplexFleeAnyMean
 // 0x65CD10
 CTaskComplexFleeAnyMeans::~CTaskComplexFleeAnyMeans() {
     // Como el original: la entidad se limpia aquí y otra vez en el destructor de SmartFlee
-    CEntity::SafeCleanUpRef(m_fleeFrom);
-#ifdef FIX_BUGS
-    CEntity::SafeCleanUpRef(m_stealVeh);
-#endif
+    CEntity::SafeCleanUpRef(m_fleeFrom); // Como el original: m_stealVeh no se limpia
 }
 
 // 0x65D2E0

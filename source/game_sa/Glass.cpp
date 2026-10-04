@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 19/19 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 18/19 entradas.
+ * Validación registrada: 19/19 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -607,13 +607,6 @@ void CGlass::RenderHiLightPolys() {
 uint8 CGlass::CalcAlphaWithNormal(const CVector& normal) {
     // Como el original: la dirección de la cámara sale de TheCamera.m_mCameraMatrix (0xB6F9AC), no de su CPlaceable
     const auto& camFwd = TheCamera.m_mCameraMatrix.GetForward();
-
-    if (notsa::IsFixBugs()) {
-        // reflect(I, N) = I - 2 * project(I, N) where `N` is assumed to be normalized (eg.: unit vector)
-        const auto reflect = camFwd - 2.0f * camFwd.ProjectOnToNormal(normal);
-        static const auto LightDir = CVector{ 1.0f, 1.0f, -1.0f }.Normalized();
-        return static_cast<uint8>(std::pow(reflect.Dot(LightDir), 6.0f) * 235.0f + 20.0f);
-    }
 
     // Como el original: reflejo con el producto escalar en orden y, z, x; luz (0.57, 0.57, -0.57) como (rx + ry) · 0.57 - rz · 0.57;
     // potencia 6 con 5 multiplicaciones; resultado truncado con _ftol2 (sin recortar a 0..255)

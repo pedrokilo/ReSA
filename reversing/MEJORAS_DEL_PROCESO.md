@@ -1260,3 +1260,21 @@ Bancos nuevos, todos con pares exactos dentro de GTA: [FixHooks](FixHooks/README
 - Agentes editando mientras corre la regresión producen BUILD FAIL falsos: lanzar la regresión cuando no haya agentes trabajando.
 
 **No validables por pares:** `CAEMFDecoder::Initialise/FillBuffer/InitLibrary` (el EXE usa QuickTime; la DLL, Media Foundation) y `CGlass::CalcAlphaWithNormal` (la rama de la DLL es `FIX_BUGS`; la versión exacta del EXE ya está escrita en la rama sin `FIX_BUGS`).
+
+## Continuidad vigente: clases de 20 funciones y `FIX_BUGS` quitados (2026-10-03)
+
+Bancos nuevos, todos con pares exactos dentro de GTA: [Anim20](Anim20/README.md) (20 funciones, 10.368 pares), [Time20](Time20/README.md) (20, 7.488), [IK20](IK20/README.md) (19, 11.264), [Event20](Event20/README.md) (20, 6.976), [Audio20](Audio20/README.md) (24, 10.176), [FixBugs](FixBugs/README.md) (21, 10.304).
+
+**Decisión del usuario:** las funciones validadas se comportan como el EXE. FixBugs quitó 52 bloques `FIX_BUGS` (50 en funciones validadas, más `CGlass::CalcAlphaWithNormal` y `CStreaming::GetNextFileOnCd`); la tabla completa está en su README. Vuelven fallos del original: el bloqueo raro del streaming de `CdStream`, la escalada sin tope de velocidad a más de 60 fps y referencias colgantes en `CCover`, `CarFallOut` y `DestroyCarArmed`. Los 15 bugfixes reversibles siguen activos y solo se cambian en el menú de depuración (Settings → Bugs).
+
+**Defectos de alcance general encontrados:**
+- `CAEWeaponAudioEntity` usaba la vtable de `CAEPedWeaponAudioEntity` y sonidos locales en vez de `m_tempSound`.
+- `CTimeCycle::CalcColoursForPoint`: lectura de bytes de las tablas de clima, mezcla del túnel con la entrada equivocada y senos/cosenos sin redondear.
+- `IKChain_c::IsFacingTarget` restaba el efector normalizado en vez del hueso raíz; `MoveBonesToTarget` replica el `acos` del CRT del EXE.
+- `CAnimBlendAssociation::UpdateBlend` siempre ponía la callback de fin (el EXE vuelve a leer el tipo).
+- `CEventDamage::ComputeDeathAnim`/`ComputeDamageAnim`: animaciones elegidas con otras reglas, fuerza con la dirección 3D en vez de 2D.
+
+**Lecciones:**
+- `CPedAcquaintanceScanner` está definida en `EventScanner.h` y en su propio encabezado: los bancos no deben incluir los dos.
+- `TaskStop` no mata el `bash.exe` de Windows que ejecuta `regress.sh`: hay que cerrarlo con `taskkill` (no cerrar GTA, que solo aborta el banco en curso).
+- Una función `void` en el EXE deja basura en EAX: no se compara su retorno.

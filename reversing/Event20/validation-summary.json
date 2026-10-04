@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 6976,
+  "pairs_per_function": {
+    "CEventDamage::GetEventType": 64,
+    "CEventDamage::GetEventPriority": 64,
+    "CEventDamage::GetLifeTime": 64,
+    "CEventDamage::AffectsPed": 1024,
+    "CEventDamage::AffectsPedGroup": 512,
+    "CEventDamage::IsCriminalEvent": 256,
+    "CEventDamage::ReportCriminalEvent": 512,
+    "CEventDamage::GetSourceEntity": 128,
+    "CEventDamage::TakesPriorityOver": 512,
+    "CEventDamage::GetLocalSoundLevel": 64,
+    "CEventDamage::DoInformVehicleOccupants": 128,
+    "CEventDamage::CanBeInterruptedBySameEvent": 64,
+    "CEventDamage::CloneEditable": 256,
+    "CEventDamage::Constructor-": 256,
+    "CEventDamage::Constructor-1": 256,
+    "CEventDamage::From": 256,
+    "CEventDamage::ProcessDamage": 256,
+    "CEventDamage::ComputeBodyPartToRemove": 256,
+    "CEventDamage::ComputeDeathAnim": 1024,
+    "CEventDamage::ComputeDamageAnim": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "6474e1e85995604b07b3d971dbecd46f529569f93d7c8398cdfbf311998c1974",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-event20\\20261003-215412-405801",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CEventDamage::GetEventType": true,
+    "CEventDamage::GetEventPriority": true,
+    "CEventDamage::GetLifeTime": true,
+    "CEventDamage::AffectsPed": true,
+    "CEventDamage::AffectsPedGroup": true,
+    "CEventDamage::IsCriminalEvent": true,
+    "CEventDamage::ReportCriminalEvent": true,
+    "CEventDamage::GetSourceEntity": true,
+    "CEventDamage::TakesPriorityOver": true,
+    "CEventDamage::GetLocalSoundLevel": true,
+    "CEventDamage::DoInformVehicleOccupants": true,
+    "CEventDamage::CanBeInterruptedBySameEvent": true,
+    "CEventDamage::CloneEditable": true,
+    "CEventDamage::Constructor-": true,
+    "CEventDamage::Constructor-1": true,
+    "CEventDamage::From": true,
+    "CEventDamage::ProcessDamage": true,
+    "CEventDamage::ComputeBodyPartToRemove": true,
+    "CEventDamage::ComputeDeathAnim": true,
+    "CEventDamage::ComputeDamageAnim": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "4776459bea06713bc33458bc181c4a14ec6a73d28562c710a7c4abda5c2d1f40",
+      "pdb": "e212f9fe0ed1cf14f90d2ab8a7812cb981e604bdef4c0533843e4f7613cf24df"
+    },
+    "sources": {
+      "source/game_sa/Events/EventDamage.cpp": "6511e422cc843695317f17a23bba5d34fb5017705dde2ccc630e48d15b4db118",
+      "source/game_sa/Events/EventDamage.h": "0b039361cb2f917e475ce43c695640f08e57ad8c35dc0f79d988286d55b96e7d"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "9f6d63e04f34d5558ff0cf82b01c8a0606561da4327f25e194e5ae0ee78a676f",
+      "build_probe.py": "1c5f4af41f710a96cafe50d02df461df894df70c4ba2ec86a59cc80809179eac",
+      "run_local.py": "f5726398170b3478171fcbeb046beff66fc1c3c3c72340385d52ed61d0a396ac"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

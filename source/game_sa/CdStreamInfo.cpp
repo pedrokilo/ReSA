@@ -32,38 +32,6 @@ auto& gStreamingThread = StaticRef<HANDLE>(0x8E4008);
 auto& gStreamingThreadId = StaticRef<DWORD>(0x8E4000);
 auto& gLastCdStreamPosn = StaticRef<uint32>(0x8E4898);
 
-#define APPLY_CD_STREAM_DEADLOCK_FIX 1
-
-#ifdef APPLY_CD_STREAM_DEADLOCK_FIX
-// thanks to http://forums.codeguru.com/showthread.php?175474-a-CCriticalSection-question
-class CSync {
-public:
-    CSync() { InitializeCriticalSection(&m_CriticalSection); }
-    ~CSync() { DeleteCriticalSection(&m_CriticalSection); }
-    void Acquire() { EnterCriticalSection(&m_CriticalSection); }
-    void Release() { LeaveCriticalSection(&m_CriticalSection); }
-
-private:
-    CRITICAL_SECTION m_CriticalSection;
-};
-
-class CLockGuard {
-public:
-    CLockGuard(CSync& refSync) : m_refSync(refSync) { Lock(); }
-    ~CLockGuard() { Unlock(); }
-
-private:
-    CSync& m_refSync;
-    CLockGuard(const CLockGuard& refcSource);
-    CLockGuard& operator=(const CLockGuard& refcSource);
-
-public:
-    void Lock() { m_refSync.Acquire(); }
-    void Unlock() { m_refSync.Release(); }
-};
-
-static CSync cdStreamThreadSync;
-#endif
 #include "AEBankLoader.h"
 
 void InjectCdStreamHooks() {
@@ -113,7 +81,7 @@ CdStreamHandle CdStreamOpen(const char* lpFileName) {
 // like when spawning after exiting interiors.
 // This function was responsible for causing the deadlock since it was not thread-safe.
 // The deadlock problem only exists on PC version of SA. R* fixed it on android.
-// So it's fixed here because we used a critical section for it.
+// Como el original no se usa sección crítica (la DLL la añadía con APPLY_CD_STREAM_DEADLOCK_FIX).
 // Workflow:
 // 1. CdStreamRead is called on the main thread and signals gStreamSemaphore to
 //    read game asset in a secondary thread a.k.a. CdStreamThread.
@@ -124,19 +92,10 @@ CdStreamHandle CdStreamOpen(const char* lpFileName) {
 // 0x406460
 eCdStreamStatus CdStreamSync(int32 streamId) {
     CdStream& stream = gCdStreams[streamId];
-#ifdef APPLY_CD_STREAM_DEADLOCK_FIX
-    CLockGuard lockGuard(cdStreamThreadSync);
-#endif
     if (gStreamingInitialized) {
         if (stream.nSectorsToRead) {
             stream.bLocked = true;
-#ifdef APPLY_CD_STREAM_DEADLOCK_FIX
-            lockGuard.Unlock();
-#endif
             WaitForSingleObject(stream.sync.hSemaphore, INFINITE);
-#ifdef APPLY_CD_STREAM_DEADLOCK_FIX
-            lockGuard.Lock();
-#endif
         }
         stream.bInUse = false;
         return stream.status;
@@ -179,7 +138,7 @@ eCdStreamStatus CdStreamGetStatus(int32 streamId) {
 // 0x406A20
 bool CdStreamRead(int32 streamId, void* lpBuffer, CdStreamPos pos, int32 sectorCount) {
     CdStream& stream = gCdStreams[streamId];
-    gLastCdStreamPosn = sectorCount + (notsa::IsFixBugs() ? pos.Offset : pos.ToInt()); // CD_STREAM_READ_POS_FIX
+    gLastCdStreamPosn = sectorCount + pos.ToInt(); // Como el original: posición completa (con el FileID en el byte alto)
     stream.hFile = gStreamFileHandles[pos.FileID];
     SetLastError(NO_ERROR);
     if (gStreamingInitialized) {
@@ -250,11 +209,8 @@ bool CdStreamRead(int32 streamId, void* lpBuffer, CdStreamPos pos, int32 sectorC
         }
 
         RemoveFirstInQueue(&gStreamQueue);
-#ifdef APPLY_CD_STREAM_DEADLOCK_FIX
-        CLockGuard lockGuard(cdStreamThreadSync);
-#endif
-        // locking is necessary here, so ReleaseSemaphore is not called before WaitForSingleObject
-        // in CdStreamSync to avoid causing a deadlock.
+        // Como el original: sin sección crítica (si CdStreamSync pone bLocked justo después de esta comprobación,
+        // el hilo principal se queda esperando: es el bloqueo conocido de la versión de PC)
         stream.nSectorsToRead = 0;
         if (stream.bLocked)
             ReleaseSemaphore(stream.sync.hSemaphore, 1, nullptr);
@@ -301,11 +257,10 @@ void CdStreamInit(int32 streamCount) {
     GetDiskFreeSpace(nullptr, &sectorsPerCluster, &bytesPerSector, &numberOfFreeClusters, &totalNumberOfClusters);
 
     gStreamFileCreateFlags = FILE_FLAG_OVERLAPPED;
-#ifndef FIX_BUGS // this just slows down streaming
+    // Como el original: sin búfer del sistema cuando el sector del disco cabe en uno de streaming
     if (bytesPerSector <= STREAMING_SECTOR_SIZE) {
         gStreamFileCreateFlags |= FILE_FLAG_NO_BUFFERING;
     }
-#endif
 
     gOverlappedIO = 1;
     gStreamingInitialized = 0;

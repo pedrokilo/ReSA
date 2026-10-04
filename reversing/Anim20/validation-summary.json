@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 10368,
+  "pairs_per_function": {
+    "CAnimBlendAssociation::Constructor0-": 512,
+    "CAnimBlendAssociation::Constructor1-clump_hier": 512,
+    "CAnimBlendAssociation::Constructor2-blend": 512,
+    "CAnimBlendAssociation::Constructor3-static_blend": 512,
+    "CAnimBlendAssociation::Init-0": 768,
+    "CAnimBlendAssociation::Init-1": 768,
+    "CAnimBlendAssociation::Init-2": 768,
+    "CAnimBlendAssociation::AllocateAnimBlendNodeArray": 512,
+    "CAnimBlendAssociation::FreeAnimBlendNodeArray": 128,
+    "CAnimBlendAssociation::ReferenceAnimBlock": 256,
+    "CAnimBlendAssociation::SetBlend": 128,
+    "CAnimBlendAssociation::SetBlendTo": 256,
+    "CAnimBlendAssociation::SetCurrentTime": 1024,
+    "CAnimBlendAssociation::SetDeleteCallback": 64,
+    "CAnimBlendAssociation::SetFinishCallback": 64,
+    "CAnimBlendAssociation::Start": 512,
+    "CAnimBlendAssociation::SyncAnimation": 512,
+    "CAnimBlendAssociation::UpdateBlend": 1024,
+    "CAnimBlendAssociation::UpdateTime": 1024,
+    "CAnimBlendAssociation::UpdateTimeStep": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "9f51a19ace365c7de11d095276272cf64833040f15b08fbf88cae8fccd999a9a",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-anim20\\20261003-215020-521110",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CAnimBlendAssociation::Constructor0-": true,
+    "CAnimBlendAssociation::Constructor1-clump_hier": true,
+    "CAnimBlendAssociation::Constructor2-blend": true,
+    "CAnimBlendAssociation::Constructor3-static_blend": true,
+    "CAnimBlendAssociation::Init-0": true,
+    "CAnimBlendAssociation::Init-1": true,
+    "CAnimBlendAssociation::Init-2": true,
+    "CAnimBlendAssociation::AllocateAnimBlendNodeArray": true,
+    "CAnimBlendAssociation::FreeAnimBlendNodeArray": true,
+    "CAnimBlendAssociation::ReferenceAnimBlock": true,
+    "CAnimBlendAssociation::SetBlend": true,
+    "CAnimBlendAssociation::SetBlendTo": true,
+    "CAnimBlendAssociation::SetCurrentTime": true,
+    "CAnimBlendAssociation::SetDeleteCallback": true,
+    "CAnimBlendAssociation::SetFinishCallback": true,
+    "CAnimBlendAssociation::Start": true,
+    "CAnimBlendAssociation::SyncAnimation": true,
+    "CAnimBlendAssociation::UpdateBlend": true,
+    "CAnimBlendAssociation::UpdateTime": true,
+    "CAnimBlendAssociation::UpdateTimeStep": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "279586acf315158ead741d8dd66ffeec2d2f3aad84bf7a02f447b7a5642c29b7",
+      "pdb": "e24ad65fac322aca28df288d34ad1d22c416592e450473d2eaede460861cce06"
+    },
+    "sources": {
+      "source/game_sa/Animation/AnimBlendAssociation.cpp": "8595afed8a8fa91229618098506bf1326b77f75f4b60419cd3630bcfccada34f",
+      "source/game_sa/Animation/AnimBlendAssociation.h": "c9f3243ffe9626d3bf003debd8cfa6fe8762323601c6a1cdc1acc911d4fa21cd"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "d583a928c4705e5292a51260061fb6e42d625f0bed055248ca63fa33074c183a",
+      "build_probe.py": "2e3f6f9f7d99e4916149c697d29eea77845bef3fe9f0df75fc53e54ca5b8c743",
+      "run_local.py": "9caa47bc237b297116afc9352b7e73b55f508567d3dd046e4718f0832069ed68"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

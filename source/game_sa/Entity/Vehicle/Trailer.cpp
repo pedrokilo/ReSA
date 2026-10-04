@@ -459,12 +459,7 @@ int32 CTrailer::ProcessEntityCollision(CEntity* entity, CColPoint* outColPoints)
 
     const auto tcd = GetColData();
 
-#ifdef FIX_BUGS // Text search for `FIX_BUGS@CAutomobile::ProcessEntityCollision:1`
-    if (!tcd || !entity->GetColData()) {
-        return 0;
-    }
-#endif
-
+    // Como el original: sin comprobar que haya datos de colisión
     if (physicalFlags.bSkipLineCol || physicalFlags.bProcessingShift || entity->GetIsTypePed() || entity->GetIsTypeVehicle()) {
         tcd->m_nNumLines = 0; // Later reset back to original value
     }

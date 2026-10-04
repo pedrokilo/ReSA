@@ -87,7 +87,7 @@ CTask* CTaskComplexChat::CreateFirstSubTask(CPed* ped) {
     g_InterestingEvents.Add(CInterestingEvents::PEDS_CHATTING, ped);
 
     if (m_GlobalSpeechContext == CTX_GLOBAL_PCONV_DISMISS || m_GlobalSpeechContext >= CTX_GLOBAL_PCONV_PART_FEM && m_GlobalSpeechContext <= CTX_GLOBAL_PCONV_PART_MALE) {
-        switch (CGeneral::GetRandomNumberInRange(0, notsa::IsFixBugs() ? 4 : 3)) {
+        switch (CGeneral::GetRandomNumberInRange(0, 3)) { // Como el original: [0, 3), el caso 3 no se alcanza
         case 0: return new CTaskSimpleRunAnim(ANIM_GROUP_DEFAULT, ANIM_ID_ENDCHAT_01, 4.0f, 0);
         case 1: return new CTaskSimpleRunAnim(ANIM_GROUP_DEFAULT, ANIM_ID_ENDCHAT_02, 4.0f, 0);
         case 2: return new CTaskSimpleRunAnim(ANIM_GROUP_DEFAULT, ANIM_ID_ENDCHAT_03, 4.0f, 0);

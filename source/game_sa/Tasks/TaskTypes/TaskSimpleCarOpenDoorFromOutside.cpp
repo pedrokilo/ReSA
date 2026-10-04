@@ -149,11 +149,7 @@ bool CTaskSimpleCarOpenDoorFromOutside::ProcessPed(CPed* ped) {
 
         if (m_veh && m_veh->IsDriverAPlayer() && m_disallowPlayerDriverToExitCar) { // NOTE/TODO: Inlined? Double check if `m_veh`
             if (ped && ped->IsCop()) {
-#ifdef FIX_BUGS
-                FindPlayerPed()->bCanExitCar = false; // See `IfNotAlreadySetPlayerCanExitCarFlag`
-#else
-                m_veh->m_pDriver->bCanExitCar = false; 
-#endif
+                m_veh->m_pDriver->bCanExitCar = false; // Como el original: el conductor del vehículo
                 m_hasSetPlayerCanExitCarFlag = true;
             }
         }

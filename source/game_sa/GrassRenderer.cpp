@@ -92,11 +92,7 @@ void CGrassRenderer::DrawTriPlants(PPTriPlant* triPlants, int32 numTriPlants, Rp
         auto frame = RpAtomicGetFrame(atomic);
 
         // Como el original: srand con la semilla truncada (_ftol2) y rand() en vez de un generador propio
-#if FIX_BUGS
-        srand(std::bit_cast<uint32>(plant.seed));
-#else
-        srand(static_cast<uint32>(static_cast<int32>(plant.seed))); // La semilla está en [0, 1): siempre 0
-#endif
+        srand(static_cast<uint32>(static_cast<int64>(plant.seed))); // La semilla está en [0, 1): siempre 0
 
         RwRGBA newColorIntensity;
         if (camDist < farDist) {

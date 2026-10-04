@@ -1,6 +1,6 @@
 # Seguir ruta, líder de banda, persecución policial y secuencia (lista de 13)
 
-Validadas el 02/10/2026 con **16.384 pares original/candidato dentro de GTA**, todos exactos: 51 funciones de 4 clases con `validated=1`.
+Validadas el 03/10/2026 con **16.384 pares original/candidato dentro de GTA**, todos exactos: 51 funciones de 4 clases con `validated=1`.
 
 | Clase | Funciones |
 |---|---|
@@ -22,7 +22,8 @@ Validadas el 02/10/2026 con **16.384 pares original/candidato dentro de GTA**, t
   - `ControlSubTask`: sin objeto en la mano llamaba a `SetTaskSecondary(m_pSubTask)` casi siempre; ahora 51..55 charla, 100 señal y el resto nada; borra `bDontAcceptIKLookAts` al empezar, mirada con `(int)(rand·100/32768) > 95`, tiempo antes que el miembro, animación de la mano 1 de cada 100 y distancia del camino estricta;
   - `ScanForStuff`: explora también con el temporizador sin arrancar, mira el subtipo del vehículo, el comando de unirse va al peatón explorado y llama a `Process`, distancias al cuadrado entre 16 y 100, `GetRandomIntInRange` del EXE y eventos locales (antes se copiaban y se borraban dos veces);
   - `CreateNextSubTask`: miembro, probabilidad e intervalo `[15000, 30000)` con las fórmulas del EXE; `ShouldLoadGangAnims` compara con 0.04 y mira el vehículo antes del streaming; `GetRandomGangAmbientAnim` usa las animaciones de fumar con el porro;
-  - temporizadores sin `{}` (relleno sin escribir).
+  - temporizadores sin `{}` (relleno sin escribir);
+  - `ControlSubTask` devuelve `StandStill(500)` tras `SetDefaultTaskAllocatorType(RANDOM)` en la rama de deambular (antes `nullptr`) y `ScanForStuff` ya no para tras el primer vehículo (se quitó el `FIX_BUGS`).
 - `CTaskComplexPolicePursuit`:
   - `CreateFirstSubTask` guarda el perseguidor (sin referencia; el destructor ya no la limpia) y `SetPursuit` solo guarda el perseguido si `SetPursuitCop` acepta;
   - `ControlSubTask`: el coche a distancia al cuadrado de 25 o más da `STAND_STILL` (antes `TASK_NONE`); el constructor por defecto es del usuario (el `Clone` ya no pone a cero el byte de banderas); `CreateSubTask` sin perseguido o con tipos desconocidos devuelve `nullptr` y el radio sale del modelo;
@@ -36,6 +37,7 @@ Validadas el 02/10/2026 con **16.384 pares original/candidato dentro de GTA**, t
 - La ruta de puntos vive dentro de un buffer mayor: las lecturas fuera de rango del EXE caen en bytes conocidos.
 - Simulados con traza: RNG, `FindPlayerWanted`, `CWanted` (perseguidores), `NoPolice`, `SetCurrentWeapon`, `Say`, `IsEntityBlockingTarget`, streaming, referencias de bloques de animación, `GetDistSqOfClosestPathNodeToPed`, FX, `IKChainManager`, `GetEntityThatThisPedIsHolding`, `IsPlayingHandSignal`, asociaciones, `SetTaskSecondary`/`ChangeTaskInSlot`, `GetClosestGroupPed`, `AddEvent`, `CEventGroup::Add` (eventos serializados por campos), `GetPedsGroup`, `AddFollower` y `CPedGroup::Process`.
 - Pools de tareas, rutas de puntos y eventos restaurados en cada ejecución (slots libres con 0xCD); lo nuevo se serializa y se libera sin destructor. Constructores sobre buffers con 0xCD comparados enteros; cambios de todos los buffers de fixtures comparados palabra a palabra.
-- Fuera del banco: varios vehículos válidos en `ScanForStuff` (con `FIX_BUGS` el DLL para tras el primer evento; el escáner lleva un solo vehículo) y la rama de `ControlSubTask` de `GangLeader` que en el EXE devuelve `StandStill(500)` tras `SetDefaultTaskAllocatorType` (el DLL devuelve `nullptr` a propósito, ver el comentario del código).
+- `ScanForStuff`: ninguno, uno o varios vehículos válidos en el escáner (los dos vehículos y a veces el mismo en dos huecos); el EXE y el DLL siguen con el resto tras cada evento (ya sin el `FIX_BUGS` que paraba tras el primero). La mitad de los casos usa una semilla cuyo primer `rand` entra en la rama de vehículos.
+- `ControlSubTask` de `GangLeader`: rama de deambular cumplida (subtarea `WANDER`, temporizador vencido o parado) con `GetDistSqOfClosestPathNodeToPed` trazado alrededor de 2 (debajo, igual, encima, 0 y NaN). Debajo de 2 se llama a `SetDefaultTaskAllocatorType(RANDOM)` (simulado y trazado; el grupo real no se toca) y se devuelve `StandStill(500)` del pool como el EXE (antes el DLL devolvía `nullptr`); la tarea nueva se compara entera.
 
 Repetir: `python reversing/CTasks13/build_probe.py` y `python reversing/run.py --case ctasks13`. Evidencia: [validation-summary.json](validation-summary.json).

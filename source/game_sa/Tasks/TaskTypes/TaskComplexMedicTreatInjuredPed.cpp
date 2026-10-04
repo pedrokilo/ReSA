@@ -116,14 +116,10 @@ CTask* CTaskComplexMedicTreatInjuredPed::CreateDealWithNextAccidentTask(CPed* pe
             return subTask;
         } else {
             auto* const task = CreateSubTask(TASK_COMPLEX_GO_TO_POINT_AND_STAND_STILL);
-#ifdef FIX_BUGS
-            return task;
-#else
             // Como el original: el EXE devuelve el peatón en vez de la tarea creada (que se pierde).
             // Rama inalcanzable desde CreateNextSubTask/ControlSubTask (la subtarea siempre es GO_TO_POINT_AND_STAND_STILL)
             UNUSED(task);
             return reinterpret_cast<CTask*>(ped);
-#endif
         }
     } else
         return CreateSubTask(m_bIsDriver ? TASK_COMPLEX_ENTER_CAR_AS_DRIVER : TASK_COMPLEX_ENTER_CAR_AS_PASSENGER);

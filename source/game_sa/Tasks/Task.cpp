@@ -33,11 +33,6 @@ void* CTask::operator new(size_t size) {
 
 // 0x61A5B0
 void CTask::operator delete(void* object) {
-#ifdef FIX_BUGS // El original no comprueba nullptr
-    if (!object) {
-        return;
-    }
-#endif
     // Como el original: marca el slot libre y baja m_LastFreeSlot (comparación con signo), sin rellenar con 0xDD
     GetTaskPool()->Delete(static_cast<CTask*>(object));
 }

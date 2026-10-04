@@ -140,13 +140,8 @@ void CCheckpoint::Render() {
     }
     case eCheckpointType::TORUSTHROUGH: { // 0x725F05
         const auto PlaceTorusMarker = [this](size_t i) {
-            // NOTE: Originally this would underflow... Not a desired behaviour.
+            // Como el original: alfa - 16 * i en un byte (se desborda por debajo de 0 y se dibuja igual)
             const auto a = (int32)m_Colour.a - (int32)(16 * i);
-            if constexpr (notsa::IsFixBugs()) {
-                if (a < 0) {
-                    return;
-                }
-            }
             // Como el original: (fwd * i) * multiplicador + pos; con i == 0 se pasa m_Pos directamente
             const float fi = (float)i;
             CVector p{ m_Fwd.x * fi * m_MultiSize + m_Pos.x, m_Fwd.y * fi * m_MultiSize + m_Pos.y, m_Fwd.z * fi * m_MultiSize + m_Pos.z };

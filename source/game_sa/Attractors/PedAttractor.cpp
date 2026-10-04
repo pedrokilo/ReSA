@@ -171,12 +171,7 @@ bool CPedAttractor::IsRegisteredWithPed(const CPed* ped) const {
 
 // 0x5EB530
 bool CPedAttractor::IsAtHeadOfQueue(CPed* ped) {
-#ifdef FIX_BUGS
-    if (!m_ArrivedPeds.begin()) { // El original lee de un puntero nulo
-        return false;
-    }
-#endif
-    return *m_ArrivedPeds.begin() == ped; // Como el original: lee el primer hueco aunque la cola esté vacía
+    return *m_ArrivedPeds.begin() == ped; // Como el original: lee el primer hueco aunque la cola esté vacía (o sin reservar)
 }
 
 // 0x5EC500

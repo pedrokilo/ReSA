@@ -233,11 +233,7 @@ public:
     * @brief Deallocates object
     */
     void Delete(T* obj) {
-#ifdef FIX_BUGS // C++ says that `delete nullptr` is well defined, and should do nothing.
-        if (!obj) {
-            return;
-        }
-#endif
+        // Como el original (p. ej. 0x61A5B0): sin comprobar nullptr
         assert(!IsFreeSlotAtIndex(GetIndex(obj)) && "Can't delete an already deleted object");
 
         // Like the original (e.g. 0x61A570): mark the slot free and lower the cursor, without filling the storage

@@ -251,12 +251,9 @@ CTask* CTaskComplexGangLeader::ControlSubTask(CPed* ped) {
         if (m_wanderTimer.IsOutOfTime()) {
             if (static_cast<CTaskComplexWander*>(m_pSubTask)->GetDistSqOfClosestPathNodeToPed(ped) < 2.f) { // Como el original: estricto
                 m_gang->GetIntelligence().SetDefaultTaskAllocatorType(ePedGroupDefaultTaskAllocatorType::RANDOM);
-                // Above call causes this task to be flushed (deleted), and changes our vfptr to `CTaskComplex`'s.
-                // If we return non-null here, `CTaskManager::ParentsControlChildren` will be called, and calls our
-                // `ControlSubTask` causing an assert (as CTaskComplex defines it as `pure` (`= 0`))
-                // This is an OG bug, and we can't even wrap it into `FIX_BUGS` because it literally aborts the process,
-                // makes no sense keeping it.
-                return nullptr; //return new CTaskSimpleStandStill{ 500 };
+                // Como el original (0x662486): StandStill de 500 ms. El cambio de reparto borra las tareas por defecto
+                // que guarda el grupo, no esta: el ped ejecuta un clon (CTaskComplexBeInGroup hace Clone()).
+                return new CTaskSimpleStandStill{ 500, false, false, 8.f };
             }
         }
     }
@@ -442,10 +439,7 @@ void CTaskComplexGangLeader::ScanForStuff(CPed* ped) {
             m_gang->GetIntelligence().AddEvent(&groupEvent);
             m_scanTimer.Start(60'000);
 
-            // 0x65E3E8
-#ifdef FIX_BUGS
-            break;
-#endif
+            // 0x65E3E8 - Como el original: se sigue con el resto de vehículos
         }
     } else if (rndChance == 20) { // 1% chance
         // Try recruiting one nearby ped to the gang
@@ -470,11 +464,8 @@ void CTaskComplexGangLeader::ScanForStuff(CPed* ped) {
             }
 
             // Can it join a gang at all?
-#ifdef FIX_BUGS
-            if (const auto wander = static_cast<CTaskComplexWander*>(scannedPed->GetTaskManager().FindActiveTaskByType(TASK_COMPLEX_WANDER))) { // 0x65E4BE
-#else
+            // Como el original (0x65E4A1): se mira la tarea de deambular del líder, no la del peatón explorado
             if (const auto wander = static_cast<CTaskComplexWander*>(ped->GetTaskManager().FindActiveTaskByType(TASK_COMPLEX_WANDER))) {
-#endif
                 if (wander->GetWanderType() == WANDER_TYPE_GANG) {
                     if (!static_cast<CTaskComplexWanderGang*>(wander)->CanJoinGang()) {
                         continue;

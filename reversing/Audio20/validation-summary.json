@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 10176,
+  "pairs_per_function": {
+    "CAEDataStream::Constructor": 256,
+    "CAEDataStream::Destructor": 256,
+    "CAEDataStream::FillBuffer": 1024,
+    "CAEDataStream::GetCurrentPosition": 256,
+    "CAEDataStream::Initialise": 512,
+    "CAEDataStream::Seek-OG": 1024,
+    "CAEWeaponAudioEntity::Initialise": 128,
+    "CAEWeaponAudioEntity::Terminate": 64,
+    "CAEWeaponAudioEntity::Reset": 128,
+    "CAEWeaponAudioEntity::StopFlameThrowerIdleGasLoop": 128,
+    "CAEWeaponAudioEntity::PlayGoggleSound": 256,
+    "CAEWeaponAudioEntity::WeaponReload": 512,
+    "CAEWeaponAudioEntity::PlayFlameThrowerIdleGasLoop": 128,
+    "CAEWeaponAudioEntity::ReportChainsawEvent": 512,
+    "CAEWeaponAudioEntity::ReportStealthKill": 256,
+    "CAEWeaponAudioEntity::PlayGunSounds": 1024,
+    "CAEWeaponAudioEntity::PlayFlameThrowerSounds": 256,
+    "CAEWeaponAudioEntity::PlayWeaponLoopSound": 256,
+    "CAEWeaponAudioEntity::PlayCameraSound": 128,
+    "CAEWeaponAudioEntity::PlayMiniGunFireSounds": 512,
+    "CAEWeaponAudioEntity::PlayMiniGunStopSound": 256,
+    "CAEWeaponAudioEntity::PlayChainsawStopSound": 256,
+    "CAEWeaponAudioEntity::UpdateParameters": 1024,
+    "CAEWeaponAudioEntity::WeaponFire": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "0c9d12e68e9b10d0ebdc0f3ed6fddea376bebec6f10a80e6254375ae21c653cb",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio20\\20261003-215247-052956",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CAEDataStream::Constructor": true,
+    "CAEDataStream::Destructor": true,
+    "CAEDataStream::FillBuffer": true,
+    "CAEDataStream::GetCurrentPosition": true,
+    "CAEDataStream::Initialise": true,
+    "CAEDataStream::Seek-OG": true,
+    "CAEWeaponAudioEntity::Initialise": true,
+    "CAEWeaponAudioEntity::Terminate": true,
+    "CAEWeaponAudioEntity::Reset": true,
+    "CAEWeaponAudioEntity::StopFlameThrowerIdleGasLoop": true,
+    "CAEWeaponAudioEntity::PlayGoggleSound": true,
+    "CAEWeaponAudioEntity::WeaponReload": true,
+    "CAEWeaponAudioEntity::PlayFlameThrowerIdleGasLoop": true,
+    "CAEWeaponAudioEntity::ReportChainsawEvent": true,
+    "CAEWeaponAudioEntity::ReportStealthKill": true,
+    "CAEWeaponAudioEntity::PlayGunSounds": true,
+    "CAEWeaponAudioEntity::PlayFlameThrowerSounds": true,
+    "CAEWeaponAudioEntity::PlayWeaponLoopSound": true,
+    "CAEWeaponAudioEntity::PlayCameraSound": true,
+    "CAEWeaponAudioEntity::PlayMiniGunFireSounds": true,
+    "CAEWeaponAudioEntity::PlayMiniGunStopSound": true,
+    "CAEWeaponAudioEntity::PlayChainsawStopSound": true,
+    "CAEWeaponAudioEntity::UpdateParameters": true,
+    "CAEWeaponAudioEntity::WeaponFire": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "1d4ea8bc000103bea994e1b621f466a76a732c65876a09b2c4c35f95b452c108",
+      "pdb": "0cb143f26d5b54428f84b031908135ffbabc91631a68a7bb0047b069f731f1fa"
+    },
+    "sources": {
+      "source/game_sa/Audio/Loaders/AEDataStream.cpp": "e9bfc78c5f0664e2170c10d73fd28104e1f914c7b35fe34953a8c44bf37b240a",
+      "source/game_sa/Audio/Loaders/AEDataStream.h": "7d4a1d220f61a7ea2e82c9d23cbbda9c6a0c2980e402c190bca4225d3aca990c",
+      "source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp": "8de6f37e2b7c9c9072412fefa77dfc0db1a75b109cff7ee562ebc528db744e84",
+      "source/game_sa/Audio/Entities/AEWeaponAudioEntity.h": "b7a6dafca12ee4cc27a29809de0898e891087459d47917517a54fa2c4b0f3d51",
+      "source/game_sa/Audio/Entities/AEAudioEntity.cpp": "317b44db87cf494c866f73addff701fcc237078e386669cc0a1f1b0e1e5e36f3",
+      "source/game_sa/Audio/Entities/AEAudioEntity.h": "f8b358f4838957f48bddc8eeb20949b6a4dae5d1258641df0e283b6fd3ef5f67",
+      "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
+      "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250"
+    },
+    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "instrumentation": {
+      "LiveComparison.hpp": "5330abe467977a3f45e04a5bb863aa02ab56c8db981f0ac931008753a77fc9dd",
+      "build_probe.py": "2a6ccfa3bde4c76cf02cd43d5388dcce60af582fe070f48d398bf7ebdd7245d5",
+      "run_local.py": "b905b2d462d57a385edb3d28ab4458748a914ca9c16a88471ae430a3979b3d5a"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

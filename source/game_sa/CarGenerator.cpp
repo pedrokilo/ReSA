@@ -363,11 +363,8 @@ void CCarGenerator::DoInternalProcessing()
     // This made the generated code to always skip the decrementation.
     // However, this bug does not affect the game at all because all cargens created by the script
     // are either disabled or infinite.
-#ifdef FIX_BUGS
-    if (m_nGenerateCount < (uint16)-1)
-#else
-    if (m_nGenerateCount < -1)
-#endif
+    // Como el original (movzx + cmp -1 + jge en 0x6F3E2C): nunca se decrementa
+    if ((int32)m_nGenerateCount < -1)
         m_nGenerateCount--;
 
     m_nNextGenTime = CalcNextGen();

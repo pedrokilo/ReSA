@@ -401,9 +401,8 @@ int32 CStreaming::GetNextFileOnCd(uint32 streamLastPosn, bool bNotPriority) {
         }
 
         const auto pos = GetInfo(modelId).GetCdPosn();
-        const uint32 offset = notsa::IsFixBugs() // CD_STREAM_READ_POS_FIX
-            ? pos.Offset // NB: Use correct value (Instead of including the handle too)
-            : pos.ToInt();
+        // Como el original: posición completa (con el FileID), la misma que guarda CdStreamRead en gLastCdStreamPosn
+        const uint32 offset = pos.ToInt();
         if (offset < firstRequestModelOffset) {
             firstRequestModelOffset = offset;
             firstRequestModelId     = modelId;

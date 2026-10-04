@@ -152,12 +152,12 @@ void CCover::Init() {
 
 // NOTSA: cleanup while the referenced buildings are still alive.
 void CCover::ClearProcessedBuildings() {
-    // Nodes can own registered entity references when FIX_BUGS is enabled.
-    // Unregister them before freeing the storage containing their pointer.
-    for (auto* node = m_ListOfProcessedBuildings.GetNode(); node; node = node->Next) {
-        CEntity::SafeCleanUpRef(node->Item);
+    // Como el original los nodos no registran referencias, así que el edificio puede estar ya borrado: los nodos se
+    // liberan sin las comprobaciones de depuración de la lista (que validan el edificio contra su pool).
+    auto& head = *reinterpret_cast<CPtrNodeDoubleLink<CBuilding*>**>(&m_ListOfProcessedBuildings);
+    for (auto* node = std::exchange(head, nullptr); node;) {
+        delete std::exchange(node, node->Next);
     }
-    m_ListOfProcessedBuildings.Flush();
 }
 
 // 0x698DB0
@@ -297,23 +297,28 @@ void CCover::Update() {
         return;
     }
 
-    // BUG:
-    // This implementation may've accessed objects after they've been destroyed (use-after-free
-    // I've modified it so that it uses references that get null'd automatically
-    for (CPtrNodeDoubleLink<CBuilding*> *it = m_ListOfProcessedBuildings.GetNode(), *next{}; it; it = next) {
-        next            = it->Next;
+    // Como el original: los nodos guardan el edificio sin registrar referencia (puede quedar colgando si el edificio
+    // se borra); el nodo se desenlaza a mano (cabeza, prev->next, next->prev) y se libera con el pool de nodos,
+    // sin las comprobaciones de depuración de la lista, que validarían el edificio.
+    auto& head = *reinterpret_cast<CPtrNodeDoubleLink<CBuilding*>**>(&m_ListOfProcessedBuildings);
+    for (CPtrNodeDoubleLink<CBuilding*> *it = head, *next{}; it; it = next) {
         auto* const obj = it->Item;
+        next            = it->Next;
 
-        if (!notsa::IsFixBugs() || obj) { // If fixbugs the reference may've got cleared
-            if (ShouldThisBuildingHaveItsCoverPointsCreated(obj)) {
-                continue;
-            }
-            RemoveCoverPointsForThisEntity(obj);
-            if (notsa::IsFixBugs()) { // FIXBUGS: Use-after-free
-                CEntity::SafeCleanUpRef(reinterpret_cast<CEntity*&>(it->Item));
-            }
+        if (ShouldThisBuildingHaveItsCoverPointsCreated(obj)) {
+            continue;
         }
-        m_ListOfProcessedBuildings.DeleteNode(it);
+        RemoveCoverPointsForThisEntity(obj);
+        if (head == it) {
+            head = it->Next;
+        }
+        if (it->Prev) {
+            it->Prev->Next = it->Next;
+        }
+        if (it->Next) {
+            it->Next->Prev = it->Prev;
+        }
+        delete it;
     }
 
     if (FindPlayerVehicle()) { // 0x699AE1
@@ -351,10 +356,15 @@ void CCover::Update() {
                     continue;
                 }
                 FindCoverPointsForThisBuilding(obj);
-                auto* const link = m_ListOfProcessedBuildings.AddItem(obj);
-                if (notsa::IsFixBugs()) { // FIXBUGS: Use-after-free
-                    CEntity::SafeRegisterRef(reinterpret_cast<CEntity*&>(link->Item));
+                // Como el original: el nodo se enlaza a mano en la cabeza (0x699D69), sin registrar referencia al edificio
+                auto& head       = *reinterpret_cast<CPtrNodeDoubleLink<CBuilding*>**>(&m_ListOfProcessedBuildings);
+                auto* const link = new CPtrNodeDoubleLink<CBuilding*>{ obj };
+                link->Prev = nullptr;
+                link->Next = head;
+                if (head) {
+                    head->Prev = link;
                 }
+                head = link;
                 return; // Como el original: como mucho un edificio nuevo por llamada
             }
         }
@@ -402,8 +412,8 @@ CCoverPoint* CCover::AddCoverPoint(CCoverPoint::eType type, CEntity* coverEntity
             }
         }
 
-        // 0x698F9D - BUG: The original reads `m_PointOnMap` for every non-free point (it's stale for objects/vehicles)
-        if (notsa::IsFixBugs() ? raw.Type != 3 : raw.Type == 0) {
+        // 0x698F9D - Como el original: se lee `m_PointOnMap` de todo punto ocupado (aunque sea de objeto o vehículo)
+        if (raw.Type == 0) {
             continue;
         }
 
