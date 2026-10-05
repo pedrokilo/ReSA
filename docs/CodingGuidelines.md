@@ -142,7 +142,7 @@ Cuando encuentres un error, intenta corregirlo o deja un comentario que lo expli
 
 Usa `assert` para detectar accesos fuera de límites y otras condiciones propensas a errores. Ante una condición inesperada que deba señalarse, prefiere una aserción a un retorno anticipado silencioso.
 
-Si el juego puede gestionar o recuperarse de una condición, basta con registrar un error o una advertencia. En PGTASA, contrasta las precondiciones con el original: una aserción añadida no debe rechazar entradas que el motor utiliza legítimamente.
+Si el juego puede gestionar o recuperarse de una condición, basta con registrar un error o una advertencia. En ReSA, contrasta las precondiciones con el original: una aserción añadida no debe rechazar entradas que el motor utiliza legítimamente.
 
 ## Tratamiento del texto traducido GXT
 
@@ -156,4 +156,4 @@ Si el juego puede gestionar o recuperarse de una condición, basta con registrar
 
 Prueba el código antes de abrir una solicitud de cambios. Identifica los lugares y las misiones afectados y compruébalos. El menú de depuración (ImGui, F7) se retiró del juego para que se comporte como el EXE; su código sigue en `source/toolsmenu`, pero no se crea ni dibuja. Para comprobar un cambio usa los bancos de `reversing/`.
 
-Para el trabajo local de PGTASA, sigue además el [proceso de comparación y continuidad](../reversing/MEJORAS_DEL_PROCESO.md): no actualices el progreso antes de validar contra el original dentro del motor.
+Para el trabajo local de ReSA, sigue además el [proceso de comparación y continuidad](../reversing/MEJORAS_DEL_PROCESO.md): no actualices el progreso antes de validar contra el original dentro del motor.

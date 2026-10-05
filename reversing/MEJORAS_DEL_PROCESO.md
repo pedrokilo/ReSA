@@ -1,6 +1,6 @@
 # Reconstrucción y pruebas: proceso y mejoras
 
-> **Estado vigente:** [objetivo y continuidad](#continuidad-vigente) y [hoja de ruta de PGTASA](../docs/ProjectRoadmap.md). Las secciones de continuidad anteriores son históricas; sus cifras, pendientes y hashes describen cada entrega. Comprobar siempre Git antes de continuar.
+> **Estado vigente:** [objetivo y continuidad](#continuidad-vigente) y [hoja de ruta de ReSA](../docs/ProjectRoadmap.md). Las secciones de continuidad anteriores son históricas; sus cifras, pendientes y hashes describen cada entrega. Comprobar siempre Git antes de continuar.
 
 ## Qué se hizo realmente y qué faltaba mostrar
 
@@ -63,7 +63,7 @@ No cambiar docs/hooks.csv ni completar una clase en docs/ReversedClasses.md ante
 ### Rutas y estado comprobado
 
 - Repositorio: D:\Original\gta-reversed-master.
-- Rama local comprobada: PGTASA. Destino indicado por el usuario: pedrokilo/RePorteoGTA-XBOXONESS. Verificar el remoto antes de cualquier publicación.
+- Rama local comprobada: ReSA. Destino indicado por el usuario: pedrokilo/RePorteoGTA-XBOXONESS. Verificar el remoto antes de cualquier publicación.
 - Al comenzar esta actualización documental, git status --short estaba limpio. No suponer que siguen pendientes los cambios mencionados en el chat anterior; consultar Git. Esta actualización del Markdown es un cambio nuevo. No se realizó commit ni push en esta tarea de traspaso.
 - Juego de pruebas: D:\JUEGOS\GTA San Andreas - CVehicle Test.
 - Instalación personal: E:\JUEGOS\GTA San Andreas. Conservarla y conservar las partidas originales.
@@ -251,7 +251,7 @@ Constructor de CPlayerInfo permanece deshabilitado y locked por el fallo conocid
 
 hooks.csv sincronizado reversed/locked tras validar; ReversedClasses.md regenerado con contrib/hooks2md.py. Unico PROBAR.cmd: --case conversations, --case playerinfo y --case pedlist; integrados en --all. runtime_runner puede cerrar su propio proceso al evento final antes de auditar registros grandes, sin aceptar el evento por si solo. Los bancos archivados no son una prueba combinada de la compilacion actual; no se repitio toda la suite historica y ULTIMA_EJECUCION.md sigue historico.
 
-ASI normal Debug x86 sin instrumentacion instalado SOLO en copia de pruebas: 9f6dc8c8db43ea47e9cd377c489a8fe5691f3dd0f24979426c8a5e3812221f80. Respaldo _baseline/before-playerinfo-conversations-pedlist-20260922. Partidas sin cambios; instalacion personal intacta. Sin commit/push. Rama PGTASA; conservar cambios previos. CQuadBike sigue 11/12, compilada pero NO validada y hook deshabilitado. La cola anterior conserva las demas clases pendientes; este lote no las completa.
+ASI normal Debug x86 sin instrumentacion instalado SOLO en copia de pruebas: 9f6dc8c8db43ea47e9cd377c489a8fe5691f3dd0f24979426c8a5e3812221f80. Respaldo _baseline/before-playerinfo-conversations-pedlist-20260922. Partidas sin cambios; instalacion personal intacta. Sin commit/push. Rama ReSA; conservar cambios previos. CQuadBike sigue 11/12, compilada pero NO validada y hook deshabilitado. La cola anterior conserva las demas clases pendientes; este lote no las completa.
 
 ## Continuidad: constructor de CPlayerInfo corregido (2026-09-22)
 
@@ -261,7 +261,7 @@ Sustituye la excepcion de constructor locked descrita en el cierre anterior. CPl
 
 Evidencia: reversing/CPlayerInfo/constructor-validation-summary.json y README.md; logs en D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-playerinfo-constructor\20260922-233000-236046. PROBAR.cmd --case playerinfo-constructor, integrado en --all sin nuevos CMD. Constructor actualizado a reversed=1, locked=0 solo tras validar. Banco anterior de 16.896 pares conservado sin repetir: las tres funciones no cambiaron.
 
-ASI normal sin instrumentacion instalado SOLO en copia de pruebas: dc6281acd032e459eb86eeab373be832c9d203a7d0c00cf38ab6ea4446195009. Respaldo _baseline/before-playerinfo-constructor-20260922. Fuentes restauradas; partidas sin cambios; instalacion personal intacta. Rama PGTASA; sin commit/push. Conservar los trabajos anteriores y cola pendiente. Campana integral sigue aplazada.
+ASI normal sin instrumentacion instalado SOLO en copia de pruebas: dc6281acd032e459eb86eeab373be832c9d203a7d0c00cf38ab6ea4446195009. Respaldo _baseline/before-playerinfo-constructor-20260922. Fuentes restauradas; partidas sin cambios; instalacion personal intacta. Rama ReSA; sin commit/push. Conservar los trabajos anteriores y cola pendiente. Campana integral sigue aplazada.
 
 ## Continuidad: FurnitureSubGroup_c (2026-09-22)
 
@@ -269,11 +269,11 @@ Completada 3/3: AddFurniture 0x5C00C0, GetFurniture 0x590EE0 y GetRandomId 0x590
 
 Fixtures de listas/cajas aisladas y RNG controlado; AddItem compartido existente. No colocacion/robo completos, representacion ni estabilidad general. README y validation-summary.json detallan evidencia: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-furniture\20260922-234110-237502. PROBAR.cmd --case furniture, incluido en --all sin nuevos CMD. hooks.csv actualizado reversed=1/locked=0 tras validar; ReversedClasses.md regenerado.
 
-ASI normal sin instrumentacion instalado solo en copia de pruebas: 36910037caae88d3f125d9492f1987e4d025b78677133b37b25efd622ac24ca1. Respaldo _baseline/before-furniture-20260922. Fuentes restauradas, partidas sin cambios e instalacion personal intacta. Rama PGTASA, sin commit/push. Conservar trabajos anteriores y cola pendiente; CQuadBike sigue sin validar/deshabilitada. CPlayerInfo constructor sigue corregido y habilitado. No se repitio toda la suite ni se inicio la campana integral.
+ASI normal sin instrumentacion instalado solo en copia de pruebas: 36910037caae88d3f125d9492f1987e4d025b78677133b37b25efd622ac24ca1. Respaldo _baseline/before-furniture-20260922. Fuentes restauradas, partidas sin cambios e instalacion personal intacta. Rama ReSA, sin commit/push. Conservar trabajos anteriores y cola pendiente; CQuadBike sigue sin validar/deshabilitada. CPlayerInfo constructor sigue corregido y habilitado. No se repitio toda la suite ni se inicio la campana integral.
 
 ## Continuidad documental: progreso y prioridades (2026-09-23)
 
-Se actualizó README.md para describir PGTASA, los bancos aprobados, copia de pruebas, partidas, hooks y límites reales. Se retiró la estimación genérica heredada de 50-60%; los números proceden de hooks.csv. ReversedClasses.md ahora es un panel con resumen, navegación, tablas y columna locked; su formato vive en contrib/hooks2md.py y se conserva al regenerar, incluida la ejecución desde CI.
+Se actualizó README.md para describir ReSA, los bancos aprobados, copia de pruebas, partidas, hooks y límites reales. Se retiró la estimación genérica heredada de 50-60%; los números proceden de hooks.csv. ReversedClasses.md ahora es un panel con resumen, navegación, tablas y columna locked; su formato vive en contrib/hooks2md.py y se conserva al regenerar, incluida la ejecución desde CI.
 
 Nueva guía manual docs/ReversingPriorities.md: las 100 clases incompletas (98 parciales, 2 sin revertir), 555 funciones pendientes, cuatro grupos de dificultad y Top 10 con 23 entradas pendientes. Inspección de fuentes/headers, registros, referencias y algunos originales para candidatos inmediatos; no se presenta como desensamblado exhaustivo de 555 funciones. Incluye código candidato frente a wrappers/borradores, límites y enlaces al pendiente concreto.
 
@@ -290,7 +290,7 @@ Banco automático integrado en el único PROBAR.cmd: --case clothes-scripted-spr
 
 Evidencia final: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-clothes-scripted-sprint\20260923-001346-817023. ASI normal instalado solo en copia de pruebas: d62c1071aadb1b459964a46efc4bfc3b9c6b3ea094521374408c14de7e9da034. Respaldo _baseline/before-clothes-scripted-sprint-20260923. Fuentes normales coinciden con el manifiesto; partidas sin cambios e instalación personal intacta.
 
-hooks.csv actualizado solo para cuatro filas tras validar, ReversedClasses.md regenerado y README actualizado. Guía de prioridades conserva su corte inicial y ahora señala estos tres cierres; quedan 97 clases incompletas y 551 entradas pendientes. Rama PGTASA, sin commit/push. Conservar cambios anteriores, incluido CQuadBike sin validar/deshabilitado y el constructor CPlayerInfo ya corregido.
+hooks.csv actualizado solo para cuatro filas tras validar, ReversedClasses.md regenerado y README actualizado. Guía de prioridades conserva su corte inicial y ahora señala estos tres cierres; quedan 97 clases incompletas y 551 entradas pendientes. Rama ReSA, sin commit/push. Conservar cambios anteriores, incluido CQuadBike sin validar/deshabilitado y el constructor CPlayerInfo ya corregido.
 
 
 ## Continuidad: CGeneral desbloqueado (2026-09-23)
@@ -341,7 +341,7 @@ ASI normal Debug x86 final, sin instrumentación: `4bfe388ecf97ee2ad8c7d4a296bdc
 
 hooks.csv actualizado solo en las 22 filas validadas (Scanner pasa a tipo virtual); ReversedClasses regenerado, README y ReversingPriorities actualizados. **614 completas, 85 parciales, 2 sin revertir; 7.485/8.014 entradas y 529 pendientes.** La guía contiene 87 clases incompletas y nuevo Top 10 intermedio de 28 pendientes; no volver a introducir clases cerradas. Comprobados 734 enlaces locales, coherencia del catálogo, totales y diff sin errores de espacios. ULTIMA_EJECUCION.md sigue siendo histórico; no se repitió toda la suite.
 
-Rama PGTASA. Cambios previos conservados. Sin commit ni push.
+Rama ReSA. Cambios previos conservados. Sin commit ni push.
 
 
 
@@ -370,7 +370,7 @@ Los ocho casos unlock-* se integraron en cases.json y run_all.py. Un solo PROBAR
 
 hooks.csv actualizado solo después de validar: 24 flags locked y dos correcciones de registro (pool y destructor). ReversedClasses regenerado; README, guía de prioridades, InicioNormal y documentación de bancos actualizados. Totales intactos: **614 completas, 85 parciales, 2 sin revertir; 7.485/8.014 entradas, 529 pendientes**. Quedan otros 630 candados fuera de esta petición. La guía conserva sus 87 clases pendientes; no reintroducir clases completadas. ULTIMA_EJECUCION sigue siendo histórico.
 
-Rama PGTASA, cambios previos conservados, sin commit ni push. La campaña integral sigue aplazada hasta completar las clases; las sondas históricas no prueban conjuntamente todo el ASI actual. No se garantiza estabilidad general. No hay orden vigente de apagar el equipo: el apagado pedido para la tarea anterior no es permanente.
+Rama ReSA, cambios previos conservados, sin commit ni push. La campaña integral sigue aplazada hasta completar las clases; las sondas históricas no prueban conjuntamente todo el ASI actual. No se garantiza estabilidad general. No hay orden vigente de apagar el equipo: el apagado pedido para la tarea anterior no es permanente.
 
 Revisión final de logs: avisos de Acquire antes de mostrar ventana, timecyc y rechazo del guardado permanecen documentados. En la ejecución conjunta, el driver Intel/D3D9On12 generó una excepción de primera oportunidad; el motor continuó 863 frames. El rótulo legado UNHANDLED EXCEPTION lo escribe el VEH antes de los manejadores SEH y no prueba un cierre por sí solo. No atribuir esa línea a un nuevo fallo terminal sin comprobar salida del proceso y continuidad.
 
@@ -422,14 +422,14 @@ ASI normal Debug x86 final, sin instrumentación: **16f5542f9ff8fc2e84d8adb31cad
 
 Inicio normal sin argumentos/exclusiones/teclas: estados muestreados 0,1,2,5,7; menú a **30,82 s**, diez segundos estable, sin carga automática. Evidencia InicioNormal/artifacts/startup-20260923-132328. Integración del mismo ASI: **30,03 s en IDLE, 873 frames**, Audio activo, sin exclusiones. Evidencia Unlocks/artifacts/current-20260923-132450. Proceso cerrado automáticamente al terminar. INI restaurados y partidas conservadas por hash; instalación personal intacta. FastLoader=false/SaveGameToLoad=-2 para uso normal.
 
-Limitaciones: el log conjunto registró 13 fallos de asignación de CEntryExit; el motor siguió funcionando. No se investigó ni atribuyó su causa. Persisten aviso timecyc y rechazo de la ranura 2 incompatible; no forzar su carga. El arranque mostró un aviso de adquisición del ratón. No hubo cierre inesperado, aserción ni RTC observado en las comprobaciones finales. No se probó conducción, combate, carga/guardado completo ni sesión prolongada; no garantiza estabilidad general. Campaña integral sigue aplazada. Rama PGTASA, sin commit/push del agente, sin apagar. Esperar otra petición antes de continuar los 86 pendientes.
+Limitaciones: el log conjunto registró 13 fallos de asignación de CEntryExit; el motor siguió funcionando. No se investigó ni atribuyó su causa. Persisten aviso timecyc y rechazo de la ranura 2 incompatible; no forzar su carga. El arranque mostró un aviso de adquisición del ratón. No hubo cierre inesperado, aserción ni RTC observado en las comprobaciones finales. No se probó conducción, combate, carga/guardado completo ni sesión prolongada; no garantiza estabilidad general. Campaña integral sigue aplazada. Rama ReSA, sin commit/push del agente, sin apagar. Esperar otra petición antes de continuar los 86 pendientes.
 
 
 <a id="continuidad-entryexit"></a>
 
 ## Continuidad histórica: reserva de CEntryExit reparada (2026-09-23)
 
-Petición completada: investigar los fallos de asignación de CEntryExit. Git comenzó limpio en PGTASA, HEAD cba65c3, posterior a la entrega parcial. No recuperar los borradores de CFileMgr/Game: siguen aplazados los mismos 86 candados.
+Petición completada: investigar los fallos de asignación de CEntryExit. Git comenzó limpio en ReSA, HEAD cba65c3, posterior a la entrega parcial. No recuperar los borradores de CFileMgr/Game: siguen aplazados los mismos 86 candados.
 
 Traza: 444 altas, 25 bajas y 19 fallos con 400 plazas; ninguna búsqueda de una baja falló. Banco con pools privados: el original y el candidato fallan en las mismas 19 altas con 400, y aceptan todas con 512 (419 entradas activas). Se cambió únicamente la reserva inicial de CEntryExitManager::Init a 512; 6.832 bytes adicionales. Ampliación deliberada del límite original, no equivalencia de Init ni una corrección general del pool. Los objetos no se mueven después de asignarse.
 
@@ -446,7 +446,7 @@ Revisión documental posterior: se inspeccionaron los 59 Markdown propios del re
 
 ## Continuidad histórica: desplazamiento de peatones por animación reparado (2026-09-23)
 
-Petición: investigar y reparar los avisos de peatones fuera del mapa. Git comenzó limpio en **PGTASA, HEAD 4516c03**, que ya contenía CEntryExit y su documentación. Esta tarea no hizo commit ni push; comprobar el estado real antes de continuar y conservar los cambios nuevos.
+Petición: investigar y reparar los avisos de peatones fuera del mapa. Git comenzó limpio en **ReSA, HEAD 4516c03**, que ya contenía CEntryExit y su documentación. Esta tarea no hizo commit ni push; comprobar el estado real antes de continuar y conservar los cambios nuevos.
 
 Los avisos anteriores tenían coordenadas compatibles con `0xCDCDCDCD`. Una traza registró 74 saltos de posición y 14 avisos; otra acotó 39 saltos a `CPedIntelligence::Process` → `CTaskManager::ManageTasks` (117 registros al observar los mismos saltos en tres niveles, no 117 sucesos independientes). Las pasadas naturales son variables y dos no reprodujeron. No se identificó el nombre concreto de la animación de los 18 avisos históricos.
 
@@ -466,7 +466,7 @@ El log final mantiene avisos de timecyc/skimmer; no apareció IK en esta muestra
 
 ## Continuidad histórica: aviso del pivote IK y datos reparados (2026-09-23)
 
-El usuario pidió reparar IK/datos y revisar el debug adjunto de las 15:02. Rama **PGTASA**, HEAD **4516c033c3e8e205af47aac18c9ca4f58f323b68**. Se conservaron todos los cambios existentes de peatones y su documentación; no hubo commit ni push. Comprobar Git real antes de continuar.
+El usuario pidió reparar IK/datos y revisar el debug adjunto de las 15:02. Rama **ReSA**, HEAD **4516c033c3e8e205af47aac18c9ca4f58f323b68**. Se conservaron todos los cambios existentes de peatones y su documentación; no hubo commit ni push. Comprobar Git real antes de continuar.
 
 **IKChain_c::SetupBones:** evita buscar como padre interno el pivote excluido deliberadamente de la cadena. El original también omite ese enlace; la reconstrucción emitía un aviso falso, incluido el caso cabeza/cuello (hueso 4). Se mantiene el diagnóstico para otras búsquedas fallidas. No se modifica el solver ni se completa la clase.
 
@@ -488,7 +488,7 @@ No se observó cierre inesperado, aserción ni RTC en la integración final. No 
 
 ## Continuidad histórica: recuperación del ratón comprobada y revisión de Markdown (2026-09-23)
 
-Petición: comprobar el fallo inicial de adquisición del ratón y actualizar todos los Markdown. Git revisado en **PGTASA**, HEAD **4516c033c3e8e205af47aac18c9ca4f58f323b68**, conservando los cambios existentes de peatones e IK/datos. Sin commit ni push.
+Petición: comprobar el fallo inicial de adquisición del ratón y actualizar todos los Markdown. Git revisado en **ReSA**, HEAD **4516c033c3e8e205af47aac18c9ca4f58f323b68**, conservando los cambios existentes de peatones e IK/datos. Sin commit ni push.
 
 **Diagnóstico confirmado:** una sonda temporal observa las llamadas reales, sin añadir Acquire/GetDeviceState ni inyectar movimiento/clics. El primer Acquire devuelve `0x80070005` con la ventana oculta y otra ventana en primer plano. A los **1,485 segundos**, con la ventana visible y con foco, la primera lectura falla (`0x8007000C`), el reintento de adquisición da `S_OK` y la segunda lectura también, dentro de la misma llamada. Se registran **120 lecturas correctas y 120 actualizaciones de estado**; termina a los 15,110 s desde el primer intento. Las inicializaciones posteriores también adquieren el dispositivo. No hizo falta cambiar el código normal ni ocultar el aviso. Esto demuestra recuperación en esta ejecución, no retrospectivamente en todas las sesiones anteriores.
 
@@ -506,13 +506,13 @@ Petición: comprobar el fallo inicial de adquisición del ratón y actualizar to
 
 ## Continuidad histórica: objetivo de independencia del ejecutable (2026-09-23)
 
-Petición documental: orientar PGTASA hacia una reconstrucción completa, funcionalmente equivalente y validada, reduciendo hasta eliminar la dependencia de funciones originales; después, construir un ejecutable propio. La [hoja de ruta](../docs/ProjectRoadmap.md) define el orden y los criterios. Sustituye el 100% del Markdown como objetivo final; no invalida los bancos anteriores.
+Petición documental: orientar ReSA hacia una reconstrucción completa, funcionalmente equivalente y validada, reduciendo hasta eliminar la dependencia de funciones originales; después, construir un ejecutable propio. La [hoja de ruta](../docs/ProjectRoadmap.md) define el orden y los criterios. Sustituye el 100% del Markdown como objetivo final; no invalida los bancos anteriores.
 
-Git comprobado al comenzar: **PGTASA**, HEAD **11fd6912f759d3bc93208a9def001b6dd751dbdf**, árbol limpio, sin archivos no rastreados no ignorados. Ese commit posterior a 4516c03 incorpora peatones, IK/datos y documentación del ratón. No asumir que los cambios descritos en continuidades anteriores siguen sin commit. Esta actualización deja cambios documentales y del generador sin commit; comprobar siempre Git real.
+Git comprobado al comenzar: **ReSA**, HEAD **11fd6912f759d3bc93208a9def001b6dd751dbdf**, árbol limpio, sin archivos no rastreados no ignorados. Ese commit posterior a 4516c03 incorpora peatones, IK/datos y documentación del ratón. No asumir que los cambios descritos en continuidades anteriores siguen sin commit. Esta actualización deja cambios documentales y del generador sin commit; comprobar siempre Git real.
 
 Cifras del CSV: **7.485/8.014** entradas reconstruidas (93,40%), **614/701** clases completas (87,59%), 529 pendientes, 87 clases incompletas y 620 locks. Las 7.394 entradas desbloqueadas no son una medida de independencia. El número único de funciones validadas por versión y el de funciones que todavía usan código original **no están consolidados ni medidos**. No inferirlos del número de casos o pares. El panel mantiene estas dimensiones separadas mediante su generador; no se añaden flags ni se modifica el CSV.
 
-Orden estratégico: completar funciones, eliminar locks con evidencia, cerrar las clases registradas, inventariar dependencias originales, consolidar equivalencia reproducible, probar el juego integrado, independizar subsistemas y acreditar ausencia de ejecución de lógica original. Hito posterior a los porcentajes: **PGTASA — Zero Original Function Dependency**. El ejecutable propio exige además sustituir inicialización y servicios del host. La validación deberá tener seguimiento separado y vinculado a evidencia, sin rebajar la comparación dentro del motor exigida para nuevas marcas reversed=1.
+Orden estratégico: completar funciones, eliminar locks con evidencia, cerrar las clases registradas, inventariar dependencias originales, consolidar equivalencia reproducible, probar el juego integrado, independizar subsistemas y acreditar ausencia de ejecución de lógica original. Hito posterior a los porcentajes: **ReSA — Zero Original Function Dependency**. El ejecutable propio exige además sustituir inicialización y servicios del host. La validación deberá tener seguimiento separado y vinculado a evidencia, sin rebajar la comparación dentro del motor exigida para nuevas marcas reversed=1.
 
 Se actualizan README, prioridades, índice de pruebas, referencia del plan histórico, panel y proceso. Esta tarea no compila, instala ni ejecuta GTA; no cambia resultados históricos, binarios, configuración o partidas. El estado instalado y las limitaciones siguen siendo los documentados en la [continuidad del ratón](#continuidad-raton): ASI ec43e626ac929660f8f75e027cd7c4292b8438db0c37ee78136544ab4483944f; última integración normal de 121,16 s y 3.605 fotogramas; 41 casos, sin repetir toda la suite ni afirmar estabilidad general.
 
@@ -551,7 +551,7 @@ Incorporadas 30 funciones adicionales mediante identidad exacta y resumen aproba
 Nuevo build_probe.py para RpAnimBlend; el ejecutor de revalidación admite --case rpanimblend, conserva el runner histórico y su sonda predeterminada. Importador histórico idempotente; inventario regenerable con contrib/validation_inventory.py. CSV, clases reconstruidas y flags intactos. Fuentes normales, ASI/PDB, INI y partidas restaurados por hash; ASI normal ec43e626ac929660f8f75e027cd7c4292b8438db0c37ee78136544ab4483944f. Instalación personal intacta, GTA propio cerrado, sin commit/push ni apagado. No se repitió toda la suite ni se afirma estabilidad general. La independencia del EXE sigue sin medirse globalmente.
 ### Pausa vigente: CCustomBuildingRenderer (2026-09-23)
 
-Por petición del usuario, se aplaza el trabajo para evaluar qué ofrece menor coste: reconstrucciones nuevas o desbloqueos. [Estado completo y punto de reanudación](CustomBuilding/README.md), [resumen](CustomBuilding/validation-summary.json). La prueba ya iniciada terminó con **95.168 pares exactos**, cinco hooks habilitados desde arranque y restauración verificada. No se inició otra prueba después de la pausa. Fuentes candidatas conservadas; CSV y catálogo siguen 3/7. Falta compilación normal, integración, instalación y cierre del registro; no declarar la clase terminada. ASI/PDB normales conservan los hashes de la continuidad del ratón. Partidas e INI restaurados y GTA cerrado. Git: PGTASA, HEAD 11fd6912f759d3bc93208a9def001b6dd751dbdf; cambios locales y archivos no rastreados conservados, sin commit/push.
+Por petición del usuario, se aplaza el trabajo para evaluar qué ofrece menor coste: reconstrucciones nuevas o desbloqueos. [Estado completo y punto de reanudación](CustomBuilding/README.md), [resumen](CustomBuilding/validation-summary.json). La prueba ya iniciada terminó con **95.168 pares exactos**, cinco hooks habilitados desde arranque y restauración verificada. No se inició otra prueba después de la pausa. Fuentes candidatas conservadas; CSV y catálogo siguen 3/7. Falta compilación normal, integración, instalación y cierre del registro; no declarar la clase terminada. ASI/PDB normales conservan los hashes de la continuidad del ratón. Partidas e INI restaurados y GTA cerrado. Git: ReSA, HEAD 11fd6912f759d3bc93208a9def001b6dd751dbdf; cambios locales y archivos no rastreados conservados, sin commit/push.
 
 Panel e inventario regenerados sin alterar CSV: 33 evidencias históricas, 0 acreditaciones vigentes para el árbol modificado y 7.452 reconstruidas sin evidencia vinculada. Las tres anteriores requieren revisar el cambio de huella global de source; no es un fallo de sus pruebas. CustomBuilding aún no aporta acreditaciones al registro.
 
@@ -559,7 +559,7 @@ Criterio propuesto, no campaña iniciada: priorizar funciones con implementació
 
 ### Continuidad posterior: GetTaskType de GangLeader desbloqueado (2026-09-24)
 
-Autorizada únicamente `CTaskComplexGangLeader::GetTaskType`. Git real: **PGTASA**, HEAD **aef6bcbf051d0370cc6ed68e8d9809e0b7bb8d51**, con cambio local previo en TaskSimpleClimb.cpp, conservado byte a byte. El HEAD y los binarios eran posteriores a los del traspaso. Sin commit, push ni apagado.
+Autorizada únicamente `CTaskComplexGangLeader::GetTaskType`. Git real: **ReSA**, HEAD **aef6bcbf051d0370cc6ed68e8d9809e0b7bb8d51**, con cambio local previo en TaskSimpleClimb.cpp, conservado byte a byte. El HEAD y los binarios eran posteriores a los del traspaso. Sin commit, push ni apagado.
 
 Original verificado `0x65DF20`: `mov eax,1201; ret`, tabla virtual `0x86F8FC`, índice 4. El cuerpo C++ ya coincidía. Su lock era una precaución colectiva con el hook deshabilitado, no una obligación de mantenerlo activo; no se atribuye a esta función la causa de los cierres mencionados en la clase. [Informe y reproducción](GangLeader/README.md), [24 pares aprobados](GangLeader/validation-summary.json): entrada directa y rutas virtuales, contadores original/candidato 0/1, bytes y tablas al conmutar, objetos y otros hooks conservados. Banco dentro del menú del motor; no sesión jugable. Intento previo descartado por índice incorrecto de la sonda conservado.
 
@@ -584,12 +584,12 @@ FastLoader admite SaveGameToLoad=0 para partida nueva. Las pruebas lo activan te
 
 ASI normal en bin/Debug y copia de pruebas: b132855e4c96c1a02824b91569de158848a723718059962d5b83f91e02c5f980. PDB: 7fbdff7c8c62a74cdd266cb3898bf8f2160b41ff36fdc14687d8b4ba22751750. Reproducir con ShutdownLists/build_isolated.py: excluye los dos candidatos CustomBuilding y el cambio local de Climb, restaurados por bytes. Incluye GetTaskType ya entregado. El manifiesto identifica las fuentes exactas y el resumen el respaldo anterior. No usar la compilación aislada histórica de GangLeader para esta entrega: aquella excluía Game/Cover.
 
-Se conservan 619 locks y los 85 aplazados de clases completas; no se alteraron CSV, catálogo ni acreditaciones en esta corrección. Rama PGTASA, HEAD aef6bcbf051d0370cc6ed68e8d9809e0b7bb8d51, cambios anteriores preservados. Sin commit, push ni apagado.
+Se conservan 619 locks y los 85 aplazados de clases completas; no se alteraron CSV, catálogo ni acreditaciones en esta corrección. Rama ReSA, HEAD aef6bcbf051d0370cc6ed68e8d9809e0b7bb8d51, cambios anteriores preservados. Sin commit, push ni apagado.
 
 
 ## Continuidad histórica: auditoría y sincronización del catálogo (2026-09-26)
 
-Se auditó de forma bidireccional el registro de hooks de `PGTASA` para detectar owners activos presentes en fuente pero ausentes de `docs/hooks.csv`, registros indirectos, scopes sin instalaciones y código de hooks deliberadamente inactivo. La primera comparación sobreestimó candidatos porque incluía llamadas comentadas; el auditor se corrigió para eliminar comentarios antes del análisis y distinguir registro directo, indirecto, inactivo y aliases/namespaces.
+Se auditó de forma bidireccional el registro de hooks de `ReSA` para detectar owners activos presentes en fuente pero ausentes de `docs/hooks.csv`, registros indirectos, scopes sin instalaciones y código de hooks deliberadamente inactivo. La primera comparación sobreestimó candidatos porque incluía llamadas comentadas; el auditor se corrigió para eliminar comentarios antes del análisis y distinguir registro directo, indirecto, inactivo y aliases/namespaces.
 
 Estado vigente del catálogo:
 
@@ -627,7 +627,7 @@ No se afirma independencia del EXE ni estabilidad general. El crecimiento del ca
 
 Esta sección conserva el estado y los hashes de aquella entrega. La [continuidad vigente](#continuidad-vigente) incluye la finalización posterior de CConversationForPed.
 
-Petición expresa de completar esta clase, en PGTASA sobre HEAD `143b5e73b51cf4ae2a642401f0045213c05bab4e`. `Update` (0x43B0F0) reconstruido, conectado y sin lock; clase **3/3**. [Informe y procedimiento](PedToPlayerConversations/README.md), [evidencia](PedToPlayerConversations/validation-summary.json), [instalación](PedToPlayerConversations/installation-summary.json).
+Petición expresa de completar esta clase, en ReSA sobre HEAD `143b5e73b51cf4ae2a642401f0045213c05bab4e`. `Update` (0x43B0F0) reconstruido, conectado y sin lock; clase **3/3**. [Informe y procedimiento](PedToPlayerConversations/README.md), [evidencia](PedToPlayerConversations/validation-summary.json), [instalación](PedToPlayerConversations/installation-summary.json).
 
 Banco aprobado: **6.266 pares exactos** dentro del motor, con estados independientes, conmutación original/candidato, contadores 0/1, objetos intactos y restauración. Audio, entrada, estadísticas, azar e IK usan proveedores controlados; geometría, referencias y tareas utilizan el motor real. No acredita reproducción de audio, combate, todo el subsistema ni independencia. El banco inicial de 5.910 pares es un subconjunto, no cobertura adicional.
 
@@ -771,7 +771,7 @@ La lección anterior ("la auditoría textual no resuelve `Derivada::InjectHooks(
 
 Catálogo: **750 grupos, 8.296 entradas, 7.727 reconstruidas y 569 pendientes; 650 completas, 97 parciales y 3 sin revertir; 661 locks y 7.635 sin lock**. Registro de validación sin cambios: 37 `validated=1`, 0 vigentes. Se ejecutó `contrib/sync_docs.py --update-source-status`; `ReversingPriorities.md` incluye las 16 clases nuevas en una sección propia que el sincronizador ya reconoce.
 
-Compilación Debug y arranque al menú sin errores con el ASI de este árbol; el primer intento superó los 180 s por un estado 0 de 132 s. **Sin comparaciones contra el original.** El ASI instalado en la copia de pruebas sigue siendo `a0c5e7fb…`, restaurado tras cada prueba. Commits: un commit por clase en `PGTASA`, sin push. Los cambios de `InjectHooksMain.cpp` y `hooks.csv` se commitearon solo con las líneas propias. Los documentos y la auditoría quedan sin commit porque comparten archivos con trabajo previo pendiente.
+Compilación Debug y arranque al menú sin errores con el ASI de este árbol; el primer intento superó los 180 s por un estado 0 de 132 s. **Sin comparaciones contra el original.** El ASI instalado en la copia de pruebas sigue siendo `a0c5e7fb…`, restaurado tras cada prueba. Commits: un commit por clase en `ReSA`, sin push. Los cambios de `InjectHooksMain.cpp` y `hooks.csv` se commitearon solo con las líneas propias. Los documentos y la auditoría quedan sin commit porque comparten archivos con trabajo previo pendiente.
 
 ## Continuidad vigente: plantillas de 21 clases sin código (2026-10-01)
 
@@ -1332,3 +1332,16 @@ Bancos nuevos, todos con pares exactos dentro de GTA: Model34, Cutscene35, EnvMa
 - Los bytes de pila no inicializados que lee el EXE hay que fijarlos igual en ambos lados (rutina `naked` que pone a cero bajo la dirección de retorno).
 - Carrera del directorio de trabajo: el hilo de audio del EXE llama a `CFileMgr::SetDir("")` entre `SetDir` y `fopen` de `CTheScripts::Init`; un banco que muere antes de crear su registro puede ser eso, y repetirlo basta.
 - Cuelgues intermitentes (IplStore, CTasks10b) pasan al repetir el banco aislado.
+
+## Continuidad vigente: CCollision completa y CPhysical 56/56 (2026-10-05)
+
+Bancos nuevos: ColGeom59a (25 funciones, 19.712 pares), ColProc59b (13 funciones, 8.192 pares) y ColWorld59c (20 funciones, 13.568 pares); Physical56 gana casos propios de `Add` (512) y `RemoveAndAdd` (1.024), con lo que CPhysical queda 56/56. **5382/8441 validadas, 224 casos.** Los 59 hooks de CCollision dejaron de estar bloqueados (`bEnableHooks` ya no gobierna esas líneas); `SphereVsEntity` queda con hook normal pero sin validar (el EXE tiene cuerpo, nadie la llama y lee una esfera local sin inicializar).
+
+**Diferencias reales corregidas** (la DLL no coincidía con el EXE en casi todas): `TestLineTriangle`, `TestLineSphere`, `TestSphereTriangle`, `ClosestSquaredDistanceBetweenFiniteLines`, `ClosestPointOnLine` (firma con el punto primero), `ProcessLineBox`, `ProcessLineSphere`, `ProcessLineTriangle`, `ProcessVerticalLineTriangle`, `ProcessSphereTriangle`, `ProcessColModels`, `TestLineOfSight`, `ProcessLineOfSight`, `Shutdown`, `ResetMadeInvisibleObjects`, `SphereCastVsEntity` y varias de cámara. `ProcessDiscCollision` escribía con NaN donde el EXE no toca la salida.
+
+**Lecciones:**
+- Dos agentes que editan el mismo fichero definieron el mismo ayudante en espacios de nombres distintos: calificar las llamadas (`ColProc59b::...`), porque ADL anula un `using` local.
+- Un `CColTrianglePlane` ocupa 10 bytes pero el EXE escribe 9: hashear 9, el último es basura de heap.
+- El 05/10 los cuelgues "GTA no responde" de ColProc59b y PlayerPed51 desaparecieron al repetir el banco aislado.
+
+**Sin comprobar:** el rendimiento en juego con los hooks de CCollision activos (antes estaban apagados por lentitud en depuración). La medición de 30 s de `Unlocks/run_current_build.py` dio 741 fotogramas con y sin los hooks, pero ese estado no ejercita colisiones; hay que probarlo jugando.

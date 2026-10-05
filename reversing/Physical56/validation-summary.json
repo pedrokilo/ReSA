@@ -8,7 +8,7 @@
     "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
     "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
   },
-  "pairs": 22272,
+  "pairs": 23808,
   "pairs_per_function": {
     "CPhysical::ApplyMoveForce-vec": 256,
     "CPhysical::ApplyTurnForce": 256,
@@ -63,14 +63,16 @@
     "CPhysical::ProcessShiftSectorList": 1024,
     "CPhysical::TestCollision": 512,
     "CPhysical::ProcessCollision": 512,
-    "CPhysical::ProcessShift": 512
+    "CPhysical::ProcessShift": 512,
+    "CPhysical::Add": 512,
+    "CPhysical::RemoveAndAdd": 1024
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "ecb10886d70c57241fb723b7fb5d1769c7c2d4f4ef374c0a7205bec512e6b056",
+  "log_sha256": "d50848c8a85ec75f53836a754c229d5d58189c3b7a984c2afcb058f9a7e816c8",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-physical56\\20261005-094312-576597",
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-physical56\\20261005-161449-539643",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CPhysical::ApplyMoveForce-vec": true,
@@ -126,20 +128,22 @@
     "CPhysical::ProcessShiftSectorList": true,
     "CPhysical::TestCollision": true,
     "CPhysical::ProcessCollision": true,
-    "CPhysical::ProcessShift": true
+    "CPhysical::ProcessShift": true,
+    "CPhysical::Add": true,
+    "CPhysical::RemoveAndAdd": true
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "0d11b673becaa1d7b56738520a51fad504c70e1d7de85bdf1f72dfb61afe2f63",
-      "pdb": "93aee96b58a8ab23c1b4cb68f88ab4a8f871b5fa387937c8f271597ac981f115"
+      "asi": "2fd5fa8f8f469bb875b6df642537fdcdbd7486585f8222bfedc90063ea819265",
+      "pdb": "6cec23018228528637e0bedbadaa16abd54f3c6c6490ecc0f46a5d8460834fdb"
     },
     "sources": {
-      "source/game_sa/Entity/Physical.cpp": "acda92e64fbbe8ee3448f58447a6a6ef8018a9ecf896a6c852163baf7ab964b1",
+      "source/game_sa/Entity/Physical.cpp": "c6665002607d29aef009c8807ca662a4ff47e3934437212486061ba265f3efed",
       "source/game_sa/Entity/Physical.h": "3dc44efcc999a3ff8974e1a3da78963d0dfb00f3e9d3ee07d026efc01e275052"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "ee616f61422209940caa9eec408d27506cd2c117cd52c164bc17c3c3703cee6f",
+      "LiveComparison.hpp": "9b7d97dd885b0dae5013f2f3a3f0db106592c7fa6b1f32edd93f6a40c0786666",
       "build_probe.py": "85e330d16bcae4d0c3c10fa4ea4d5562c423211a2eb59538f3694c3ada8841d9",
       "run_local.py": "5d52b864d380fbe5b32c70d741a0dced4e1855b5754166afb7f0e1f4c4e77959"
     }

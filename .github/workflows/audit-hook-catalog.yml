@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - PGTASA
+      - ReSA
     paths:
       - 'source/**'
       - 'docs/hooks.csv'

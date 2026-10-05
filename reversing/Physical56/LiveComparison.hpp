@@ -1,7 +1,8 @@
 #pragma once
-// Banco dentro del motor: CPhysical (56 funciones de la lista de 34; Add y RemoveAndAdd ya estaban validadas en
-// UnlockPhysical y aqui solo se ejecutan como llamadas internas). Original (hooks de CPhysical desactivados) frente a
-// candidato con fixtures deterministas por caso.
+// Banco dentro del motor: CPhysical (56 funciones de la lista de 34; Add y RemoveAndAdd tienen casos propios desde el
+// 05/10/2026, con la tecnica de UnlockPhysical: rectangulo de limites inyectado con valores en los bordes de sector y
+// listas de repeticion/nodos reales). Original (hooks de CPhysical desactivados) frente a candidato con fixtures
+// deterministas por caso.
 // Fisicos FALSOS con desplazamientos crudos (8 bloques de 0xA20 bytes: vehiculos, peatones, objetos y edificios) con
 // matriz, masas, velocidades, banderas, registros de colision y datos derivados (tipo/subtipo de vehiculo, alarma,
 // estado y banderas de peaton, banderas y CObjectData de objeto). Todos comparten una vtable FALSA cuyas ranuras
@@ -17,7 +18,7 @@
 // respuestas de ventana), g_fx (TriggerWaterHydrant y AddSparks), CPickups::CreateSomeMoney, CStats::IncrementStat,
 // FindPlayerPed/FindPlayerVehicle, CCullZones::DoExtraAirResistanceForPlayer, CWorld::Add/Remove/ClearScanCodes,
 // CCarCtrl::SwitchVehicleToRealPhysics/FindGhostRoadHeight, CPed::KillPedWithCar, CPedIntelligence::GetTaskClimb,
-// CBike::CalculateLeanMatrix, CEntity::Remove (edificios grandes), y para constructor/destructor
+// CBike::CalculateLeanMatrix, CEntity::Add/CEntity::Remove (edificios grandes), y para constructor/destructor
 // CPlaceable::AllocateStaticMatrix, CRealTimeShadowManager::ReturnRealTimeShadow, CEntryInfoList::Flush y ~CEntity.
 // Estado global que se toca y se restaura en cada ejecucion: paso de tiempo, reloj, CGame::currArea, jugador en foco
 // y CPlayerInfo, bNoMoreCollisionTorque, bSecondShift, mesa de billar, codigo de busqueda, los tres arrays de
@@ -143,6 +144,7 @@ inline void __fastcall FakeKillPed(void* ped,void*,void* car,float d,uint32 b) {
 inline void* __fastcall FakeTaskClimb(void* intel,void*) { T({"task_climb",Name(intel)}); return nullptr; }
 inline void __fastcall FakeLean(void* bike,void*) { T({"lean_matrix",Name(bike)}); }
 inline void __fastcall FakeEntityRemove(void* e,void*) { T({"entity_remove",Name(e)}); }
+inline void __fastcall FakeEntityAdd(void* e,void*) { T({"entity_add",Name(e)}); }
 inline void __fastcall FakeReturnShadow(void*,void*,void* s) { T({"return_shadow",Name(s)}); }
 inline void __fastcall FakeFlush(void* l,void*) { T({"flush",Name(l)}); }
 inline void __fastcall FakeEntityDtor(void* e,void*) { T({"entity_dtor",Name(e)}); }
@@ -187,7 +189,9 @@ template<int K> void __fastcall VTrap(void* self,void*) {
 }
 template<int... K> std::array<void*,sizeof...(K)> TrapTable(std::integer_sequence<int,K...>) { return {reinterpret_cast<void*>(&VTrap<K>)...}; }
 inline void __fastcall VSetIsStatic(uint8* e,void*,uint32 s) { T({"set_is_static",Name(e),s&0xFF}); At<uint32>(e,0x1C)=(At<uint32>(e,0x1C)&~4u)|((s&0xFF) ? 4u : 0u); }
+inline bool boundsOn{}; inline float bnd[4]{}; // Add/RemoveAndAdd: rectangulo de limites inyectado (izq, arriba, der, abajo en memoria)
 inline float* __fastcall VGetBoundRect(uint8* e,void*,float* out) {
+    if(boundsOn){ out[0]=bnd[0]; out[1]=bnd[1]; out[2]=bnd[2]; out[3]=bnd[3]; T({"bound_rect",Name(e)}); return out; }
     const auto& p=At<CVector>(At<uint8*>(e,0x14),0x30); const float r=1.f+float(At<uint8>(e,KNOB+1)%5);
     out[0]=p.x-r; out[1]=p.y+r; out[2]=p.x+r; out[3]=p.y-r; T({"bound_rect",Name(e)}); return out; }
 inline void __fastcall VPreCol(uint8* e,void*,CPhysical* other,uint32 shift,bool& skipAll,bool& skipCol,bool& forceBld,bool& forceSoft) {
@@ -240,8 +244,8 @@ inline const std::array<Fn,NFNS> fns{{
     {"CPhysical","ProcessCollisionSectorList",0x54BA60,0,-1,1024},{"CPhysical","ProcessCollisionSectorList_SimpleCar",0x54CFF0,0,-1,512},
     {"CPhysical","ProcessShiftSectorList",0x546670,0,-1,1024},{"CPhysical","TestCollision",0,0x863BA0,13,512},
     {"CPhysical","ProcessCollision",0,0x863BA0,11,512},{"CPhysical","ProcessShift",0,0x863BA0,12,512},
-    // Add y RemoveAndAdd (validadas en UnlockPhysical) solo se conmutan con el resto: sin casos propios
-    {"CPhysical","Add",0,0x863BA0,2,0 /* solo conmutada */},{"CPhysical","RemoveAndAdd",0x542560,0,-1,0 /* solo conmutada */},
+    // Add (virtual, ranura 2) y RemoveAndAdd: casos propios, con la tecnica de UnlockPhysical
+    {"CPhysical","Add",0,0x863BA0,2,512},{"CPhysical","RemoveAndAdd",0x542560,0,-1,1024},
 }};
 
 // --- llamadas que devuelven un float en ST0 (se guardan los 80 bits) ---
@@ -280,8 +284,8 @@ inline void Update() {
     // --- cuerpos de la DLL exportados (se resuelven ANTES de escribir ningun parche) ---
     HMODULE module{}; GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS|GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,reinterpret_cast<LPCSTR>(&Update),&module);
     auto Local=[&](const char* name)->uintptr_t{ auto p=reinterpret_cast<uintptr_t>(GetProcAddress(module,name)); if(!p)return 0; if(*reinterpret_cast<uint8*>(p)==0xE9)p+=5+*reinterpret_cast<int32*>(p+1); return p; };
-    const uintptr_t dllEntityDtor=Local("??1CEntity@@UAE@XZ"), dllEntityRemove=Local("?Remove@CEntity@@UAEXXZ");
-    if(!dllEntityDtor||!dllEntityRemove){Write({{"event","error"},{"reason","dll export not found"}});return;}
+    const uintptr_t dllEntityDtor=Local("??1CEntity@@UAE@XZ"), dllEntityRemove=Local("?Remove@CEntity@@UAEXXZ"), dllEntityAdd=Local("?Add@CEntity@@UAEXXZ");
+    if(!dllEntityDtor||!dllEntityRemove||!dllEntityAdd){Write({{"event","error"},{"reason","dll export not found"}});return;}
     const uintptr_t allocStatic=std::bit_cast<uintptr_t>(&CPlaceable::AllocateStaticMatrix), flushFn=std::bit_cast<uintptr_t>(&CEntryInfoList::Flush),
                     returnShadow=std::bit_cast<uintptr_t>(&CRealTimeShadowManager::ReturnRealTimeShadow);
 
@@ -346,6 +350,7 @@ inline void Update() {
         EntryPatch tc(bit_cast<uintptr_t>(&CPedIntelligence::GetTaskClimb),FakeTaskClimb), tce(0x601180,FakeTaskClimb);
         EntryPatch lm(bit_cast<uintptr_t>(&CBike::CalculateLeanMatrix),FakeLean), lme(0x6B7150,FakeLean);
         EntryPatch er(dllEntityRemove,FakeEntityRemove), ere(0x534AE0,FakeEntityRemove);
+        EntryPatch ea(dllEntityAdd,FakeEntityAdd), eae(0x533020,FakeEntityAdd);
         EntryPatch cm(bit_cast<uintptr_t>(&CCollision::ProcessColModels),FakeColModels), cme(0x4185C0,FakeColModels);
         const CVector C0{2525.f,2525.f,20.f};
 
@@ -357,8 +362,8 @@ inline void Update() {
                 auto uni=[&](float a,float b){return a+(b-a)*float(next()%1000000)/1000000.f;};
                 auto run=[&](bool candidate)->json {
                     stt=uint32(i)*2654435761u^uint32(f*0x9E3779B9u)^0x5656u; if(!stt)stt=1; sst=stt^0xA5A5A5A5u; if(!sst)sst=7;
-                    trace=json::array(); fakePed=nullptr; fakeVeh=nullptr; extraAir=false; ghostHeight=0.f;
-                    json out; json ret=nullptr;
+                    trace=json::array(); fakePed=nullptr; fakeVeh=nullptr; extraAir=false; ghostHeight=0.f; boundsOn=false;
+                    json out; json ret=nullptr, extra=nullptr;
 
                     // ---------- mundo y pools (identicos en las dos ejecuciones) ----------
                     std::memcpy(dblHdr.data(),dblImg.data(),dblImg.size()); dblStore.fill(0xFD); dblStates.fill(0x80);
@@ -597,6 +602,45 @@ inline void Update() {
                         if(nm=="ProcessCollision"&&types[0]==ENTITY_TYPE_VEHICLE&&next()%4==0){ At<uint8>(self,0x36)=uint8((At<uint8>(self,0x36)&7)|(STATUS_GHOST<<3)); ghostHeight=uni(15.f,25.f); At<void*>(colBuf.data(),0x2C)=colData.data(); }
                         if(next()%3==0)AddCollisionNodes(0,int(1+next()%3));
                         call=[&](uintptr_t a){ reinterpret_cast<void(__thiscall*)(void*)>(a)(self); }; }
+                    else if(nm=="Add"||nm=="RemoveAndAdd"){
+                        /* Add (0x544A30) y RemoveAndAdd (0x542560): rectangulo inyectado (GetBoundRect trazado) con coordenadas en los bordes de
+                           sector (multiplos de 50 y sus vecinos de 1 ulp: x87 coordenada*0,02+60, floor y _ftol), extremos negativos del mapa, rangos
+                           vacios y rangos de mas de 16 celdas (se solapan por la mascara &15). Listas de repeticion reales con entidades de fondo,
+                           nodos CEntryInfoNode previos (tambien en las celdas destino y en la misma lista), nodos reutilizados, sobrantes retirados y
+                           edificio grande (CEntity::Add/Remove trazados; la lista de colision no se toca). */
+                        const bool redo=nm=="RemoveAndAdd", big=next()%9==0;
+                        auto Snap=[&]()->float{ const float x=float(int(next()%161)-80)*50.f; switch(next()%4){ case 0:return std::nextafter(x,-INFINITY); case 1:return x; case 2:return std::nextafter(x,INFINITY); default:return x+uni(-25.f,25.f); } };
+                        float l,b;
+                        if(next()%40==0){ l=uni(-1.0e7f,1.0e7f); b=uni(-1.0e7f,1.0e7f); } else if(next()%7==0){ l=uni(-4500.f,4500.f); b=uni(-4500.f,4500.f); } else { l=Snap(); b=Snap(); }
+                        float w=next()%5==0 ? 0.f : float(next()%6)*50.f+(next()%3 ? 0.f : uni(0.f,50.f));
+                        float h=next()%5==0 ? 0.f : float(next()%6)*50.f+(next()%3 ? 0.f : uni(0.f,50.f));
+                        if(next()%14==0)w=-uni(1.f,120.f);
+                        if(next()%18==0)h=-uni(1.f,120.f);
+                        boundsOn=true; bnd[0]=l; bnd[1]=b+h; bnd[2]=l+w; bnd[3]=b;
+                        const int bx=int(std::floor(l*0.02f+60.f)), by=int(std::floor(b*0.02f+60.f));
+                        const int ownList=types[0]>=2&&types[0]<=4 ? types[0]-2 : int(next()%3);
+                        auto Cell=[&](int c)->CRepeatSector*{ return &CWorld::ms_aRepeatSectors[unsigned(c>>4)&15u][unsigned(c&15)]; };
+                        auto Background=[&](int n){ for(int j=0;j<n;++j){ const int cx=next()%2 ? bx+int(next()%4) : int(next()%16), cy=next()%2 ? by+int(next()%4) : int(next()%16);
+                            auto* list=reinterpret_cast<CPtrListDoubleLink<CPhysical*>*>(Cell((cy&15)*16+(cx&15)))+next()%3; const int k=int(next()%NE);
+                            list->AddItem(reinterpret_cast<CPhysical*>(Phys(k)&&next()%4 ? E(k) : self)); } };
+                        auto MakeNodes=[&](int n){ for(int j=0;j<n;++j){ const int cx=next()%3==0 ? bx+int(next()%4) : int(next()%16), cy=next()%3==0 ? by+int(next()%4) : int(next()%16);
+                            auto* sector=Cell((cy&15)*16+(cx&15)); auto* list=reinterpret_cast<CPtrListDoubleLink<CPhysical*>*>(sector)+(next()%2 ? ownList : int(next()%3));
+                            auto* node=new CEntryInfoNode; node->m_doubleLink=list->AddItem(sp); node->m_doubleLinkList=list; node->m_repeatSector=sector;
+                            node->AddToList(sp->m_pCollisionList.m_node); sp->m_pCollisionList.m_node=node; } };
+                        Background(int(next()%10));
+                        MakeNodes(redo ? (next()%4==0 ? 0 : int(next()%21)) : (next()%2 ? 0 : int(next()%4)));
+                        Background(int(next()%6));
+                        if(big){ At<uint32>(self,0x1C)|=0x100u; At<uint8>(self,0x36)=uint8((At<uint8>(self,0x36)&~7u)|(1u+next()%5)); }
+                        call=[&,redo](uintptr_t a){ reinterpret_cast<void(__thiscall*)(void*)>(a)(self);
+                            json en=json::array(); int g=0;
+                            for(auto* n=At<uint8*>(self,0xB0);n&&g<400;n=At<uint8*>(n,0x10),++g){ auto* lk=At<uint8*>(n,4);
+                                en.push_back({Name(n),Name(At<void*>(n,0)),Name(lk),Name(lk ? At<void*>(lk,0) : nullptr),Name(At<void*>(n,8)),Name(At<void*>(n,0xC)),Name(At<void*>(n,0x10))}); }
+                            ret={{"entries",en},{"redo",redo}};
+                            json cells=json::array();
+                            for(int c=0;c<256;++c)for(int t=0;t<3;++t){ auto* hd=*reinterpret_cast<uint8**>(REPEAT+size_t(c)*12+size_t(t)*4); if(!hd)continue;
+                                json ch=json::array(); int q=0; for(auto* n=hd;n&&q<600;n=At<uint8*>(n,4),++q)ch.push_back({Name(n),Name(At<void*>(n,0)),Name(At<void*>(n,8))});
+                                cells.push_back({c,t,ch}); }
+                            extra=cells; }; }
                     if(world){ BuildWorld(); fakePed=next()%4==0 ? E(int(next()%NE)) : nullptr; }
 
                     // ---------- llamada ----------
@@ -627,7 +671,7 @@ inline void Update() {
                                   Name(At<void*>(reinterpret_cast<void*>(MOVING_LIST),0))};
                     {   json w=json::array(); w.push_back(Hash(reinterpret_cast<void*>(REPEAT),16*16*12));
                         for(int y=SEC_LO;y<=SEC_HI;++y)w.push_back(Hash(reinterpret_cast<void*>(SECTORS+(size_t(y)*120+SEC_LO)*8),size_t(SEC_HI-SEC_LO+1)*8)); out["world"]=w; }
-                    out["ret"]=ret; out["trace"]=trace;
+                    out["ret"]=ret; out["extra"]=extra; out["trace"]=trace;
                     RestoreAll();
                     return out;
                 };

@@ -4,7 +4,7 @@
 
 [Inicio](../../README.md) · [Progreso](../../docs/ReversedClasses.md) · [Prioridades restantes](../../docs/ReversingPriorities.md) · [Resumen verificable](validation-summary.json)
 
-**PGTASA, 23 de septiembre de 2026: 10 clases cerradas, 22 entradas nuevas habilitadas y 51.712 pares sin diferencias dentro del motor.** Las cuatro sondas finales se compilaron después de habilitar las diez clases; sus manifiestos coinciden con las fuentes usadas para la compilación normal.
+**ReSA, 23 de septiembre de 2026: 10 clases cerradas, 22 entradas nuevas habilitadas y 51.712 pares sin diferencias dentro del motor.** Las cuatro sondas finales se compilaron después de habilitar las diez clases; sus manifiestos coinciden con las fuentes usadas para la compilación normal.
 
 | Clase | Revertidas / registradas | Pares | Evidencia y límites |
 | --- | ---: | ---: | --- |

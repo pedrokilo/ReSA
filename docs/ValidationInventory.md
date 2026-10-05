@@ -6,10 +6,10 @@ Universo de esta revisión: **7,858 entradas reversed=1**, de 8,441 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 5322 |
+| `validated=1` · evidencia aprobada vinculada | 5382 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 5322 |
-| Sin evidencia aprobada vinculada en este registro | 2536 |
+| Evidencia histórica vinculada; revisión pendiente | 5382 |
+| Sin evidencia aprobada vinculada en este registro | 2476 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -965,6 +965,64 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CColStore | `Shutdown` | [Resumen](../reversing/ColStore23/validation-summary.json) |
 | CColTrianglePlane | `GetNormal-Out` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CColTrianglePlane | `Set` | [Resumen](../reversing/Core70/validation-summary.json) |
+| CCollision | `BuildCacheOfCameraCollision` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `CalculateColPointInsideBox` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `CalculateTrianglePlanes-colData` | [Resumen](../reversing/ColProc59b/validation-summary.json) |
+| CCollision | `CameraConeCastVsWorldCollision` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `CheckCameraCollisionBuildings` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `CheckCameraCollisionObjects` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `CheckCameraCollisionPeds` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `CheckCameraCollisionVehicles` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `CheckPeds` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `Closest3` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `ClosestPointOnLine` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `ClosestPointOnPoly` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `ClosestPointsOnPoly` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `ClosestSquaredDistanceBetweenFiniteLines` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `DistAlongLine2D` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `DistToLine` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `DistToLineSqr` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `DistToMathematicalLine` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `DistToMathematicalLine2D` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `GetBoundingBoxFromTwoSpheres` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `GetPrincipleAxis` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `Init` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `IsStoredPolyStillValidVerticalLine` | [Resumen](../reversing/ColProc59b/validation-summary.json) |
+| CCollision | `IsThisVehicleSittingOnMe` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `PointInPoly` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `PointInTriangle` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `ProcessColModels` | [Resumen](../reversing/ColProc59b/validation-summary.json) |
+| CCollision | `ProcessDiscCollision` | [Resumen](../reversing/ColProc59b/validation-summary.json) |
+| CCollision | `ProcessLineBox` | [Resumen](../reversing/ColProc59b/validation-summary.json) |
+| CCollision | `ProcessLineOfSight` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `ProcessLineSphere` | [Resumen](../reversing/ColProc59b/validation-summary.json) |
+| CCollision | `ProcessLineTriangle` | [Resumen](../reversing/ColProc59b/validation-summary.json) |
+| CCollision | `ProcessSphereBox` | [Resumen](../reversing/ColProc59b/validation-summary.json) |
+| CCollision | `ProcessSphereSphere` | [Resumen](../reversing/ColProc59b/validation-summary.json) |
+| CCollision | `ProcessSphereTriangle` | [Resumen](../reversing/ColProc59b/validation-summary.json) |
+| CCollision | `ProcessVerticalLine` | [Resumen](../reversing/ColProc59b/validation-summary.json) |
+| CCollision | `ProcessVerticalLineTriangle` | [Resumen](../reversing/ColProc59b/validation-summary.json) |
+| CCollision | `RayPolyPOP` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `RemoveTrianglePlanes-colData` | [Resumen](../reversing/ColProc59b/validation-summary.json) |
+| CCollision | `ResetMadeInvisibleObjects` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `Shutdown` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `SortOutCollisionAfterLoad` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `SphereCastVersusVsPoly` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `SphereCastVsBBox` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `SphereCastVsCaches` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `SphereCastVsEntity` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `SphereCastVsSphere` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `Test2DLineAgainst2DLine` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `TestLineBox` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `TestLineBox_DW` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `TestLineOfSight` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
+| CCollision | `TestLineSphere` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `TestLineTriangle` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `TestSphereBox` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `TestSphereSphere` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `TestSphereTriangle` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `TestVerticalLineBox` | [Resumen](../reversing/ColGeom59a/validation-summary.json) |
+| CCollision | `Update` | [Resumen](../reversing/ColWorld59c/validation-summary.json) |
 | CCollisionData | `CalculateTrianglePlanes` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CCollisionData | `Copy` | [Resumen](../reversing/Data8a/validation-summary.json) |
 | CCollisionData | `GetLinkPtr` | [Resumen](../reversing/Data8a/validation-summary.json) |
@@ -2365,6 +2423,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedType | `Save` | [Resumen](../reversing/Sys13/validation-summary.json) |
 | CPedType | `SetPedTypeAsAcquaintance` | [Resumen](../reversing/Sys13/validation-summary.json) |
 | CPedType | `Shutdown` | [Resumen](../reversing/Sys13/validation-summary.json) |
+| CPhysical | `Add` | [Resumen](../reversing/Physical56/validation-summary.json) |
 | CPhysical | `AddCollisionRecord` | [Resumen](../reversing/Physical56/validation-summary.json) |
 | CPhysical | `AddToMovingList` | [Resumen](../reversing/Physical56/validation-summary.json) |
 | CPhysical | `ApplyAirResistance` | [Resumen](../reversing/Physical56/validation-summary.json) |
@@ -2413,6 +2472,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPhysical | `ProcessShift` | [Resumen](../reversing/Physical56/validation-summary.json) |
 | CPhysical | `ProcessShiftSectorList` | [Resumen](../reversing/Physical56/validation-summary.json) |
 | CPhysical | `Remove` | [Resumen](../reversing/Physical56/validation-summary.json) |
+| CPhysical | `RemoveAndAdd` | [Resumen](../reversing/Physical56/validation-summary.json) |
 | CPhysical | `RemoveFromMovingList` | [Resumen](../reversing/Physical56/validation-summary.json) |
 | CPhysical | `RemoveRefsToEntity` | [Resumen](../reversing/Physical56/validation-summary.json) |
 | CPhysical | `SetDamagedPieceRecord` | [Resumen](../reversing/Physical56/validation-summary.json) |
@@ -5453,7 +5513,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CColSphere` | 5 | 0 | 5 | 0 |
 | `CColStore` | 23 | 0 | 23 | 0 |
 | `CColTrianglePlane` | 2 | 0 | 2 | 0 |
-| `CCollision` | 59 | 0 | 0 | 59 |
+| `CCollision` | 59 | 0 | 58 | 1 |
 | `CCollisionData` | 8 | 0 | 8 | 0 |
 | `CCollisionPlugin` | 2 | 0 | 2 | 0 |
 | `CColourSet` | 2 | 0 | 2 | 0 |
@@ -5669,7 +5729,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedTaskPair` | 1 | 0 | 1 | 0 |
 | `CPedToPlayerConversations` | 3 | 0 | 3 | 0 |
 | `CPedType` | 13 | 0 | 13 | 0 |
-| `CPhysical` | 56 | 0 | 54 | 2 |
+| `CPhysical` | 56 | 0 | 56 | 0 |
 | `CPickup` | 12 | 0 | 12 | 0 |
 | `CPickups` | 35 | 0 | 0 | 35 |
 | `CPlaceName` | 2 | 0 | 2 | 0 |

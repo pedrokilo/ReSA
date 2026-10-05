@@ -33,7 +33,7 @@ La ejecución ocurre durante sesiones de trabajo y procesos que dejemos configur
 
 ### Estado vigente del catálogo
 
-La rama `PGTASA` incorpora una auditoría bidireccional que contrasta scopes e instalaciones de hooks, llamadas de registro y `docs/hooks.csv`. El corte actual pasa:
+La rama `ReSA` incorpora una auditoría bidireccional que contrasta scopes e instalaciones de hooks, llamadas de registro y `docs/hooks.csv`. El corte actual pasa:
 
 ```powershell
 python contrib/audit_hook_catalog.py --strict

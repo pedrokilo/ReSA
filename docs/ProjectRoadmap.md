@@ -1,4 +1,4 @@
-# PGTASA: reconstrucción, validación e independencia
+# ReSA: reconstrucción, validación e independencia
 
 [Inicio](../README.md) · [Indicadores del catálogo](ReversedClasses.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas](../reversing/README.md)
 
@@ -15,9 +15,9 @@ Corte del 30 de septiembre de 2026. Clases y reconstrucciones se calculan sobre 
 | Dimensión | Progreso | Medición |
 | --- | --- | --- |
 | Clases completas en el catálogo | `█████████████████░░░` | 666/771 · 86,38% |
-| Clases validadas de las completas | `███████████████████░` | 647/666 · 97,15% |
+| Clases validadas de las completas | `███████████████████░` | 648/666 · 97,30% |
 | Funciones registradas como reconstruidas | `███████████████████░` | 7.858/8.441 · 93,09% |
-| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `██████████████░░░░░░` | **5.322/7.858 · 67,73%** |
+| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `██████████████░░░░░░` | **5.382/7.858 · 68,49%** |
 
 **Siguientes mediciones** (todavía sin porcentaje útil):
 
@@ -55,9 +55,9 @@ En el corte actual las seis comprobaciones críticas están en cero, y la opció
 
 ## Hitos
 
-**PGTASA 95%** puede utilizarse como hito del catálogo de funciones reconstruidas, siempre acompañado por las otras dimensiones y sus límites.
+**ReSA 95%** puede utilizarse como hito del catálogo de funciones reconstruidas, siempre acompañado por las otras dimensiones y sus límites.
 
-**PGTASA — Zero Original Function Dependency** será el hito de eliminación de dependencias de funciones originales de la lógica del juego, con alcance e inventario auditados. No se declara alcanzado por tener 100% de funciones registradas ni cero locks.
+**ReSA — Zero Original Function Dependency** será el hito de eliminación de dependencias de funciones originales de la lógica del juego, con alcance e inventario auditados. No se declara alcanzado por tener 100% de funciones registradas ni cero locks.
 
 Después se evaluará y construirá **un ejecutable propio**: punto de entrada, inicialización y cierre, memoria y globales, carga de recursos, plataforma, render, audio y demás servicios actualmente aportados por el host. Independencia de funciones no implica que esa infraestructura ya exista. Los recursos del juego y las bibliotecas externas son dependencias separadas; no se promete eliminarlas mediante este hito.
 

@@ -1,14 +1,14 @@
 # ESOS WEYES DEL REVERSE SE DEMORAN UN CHINGO, SUS CLASES REVERTIDAS NI ESTÁN VALIDADAS Y ESO QUE SON UN MONTÓN DE GENTE PTM 
-# GTA San Andreas · Reversing en PGTASA
+# GTA San Andreas · Reversing en ReSA
 
 Recrear GTA San Andreas PC de forma funcionalmente equivalente mediante código fuente reconstruido, reduciendo hasta eliminar la dependencia de funciones originales del ejecutable. La meta es una reconstrucción completa y validada, seguida de un ejecutable propio.
 
-La [hoja de ruta de PGTASA](docs/ProjectRoadmap.md) define el objetivo **PGTASA — Zero Original Function Dependency**. Completar el catálogo es un hito intermedio.
+La [hoja de ruta de ReSA](docs/ProjectRoadmap.md) define el objetivo **ReSA — Zero Original Function Dependency**. Completar el catálogo es un hito intermedio.
 
 **[📊 Progreso](docs/ReversedClasses.md) · [🧭 Qué abordar después](docs/ReversingPriorities.md) · [🧪 Pruebas](reversing/README.md) · [📋 Proceso y continuidad](reversing/MEJORAS_DEL_PROCESO.md)**
 
 > [!NOTE]
-> Este README describe el trabajo local de la rama **PGTASA**. El avance registrado y los bancos aprobados no equivalen a cobertura exhaustiva ni a estabilidad general del juego.
+> Este README describe el trabajo local de la rama **ReSA**. El avance registrado y los bancos aprobados no equivalen a cobertura exhaustiva ni a estabilidad general del juego.
 
 ## Cómo funciona
 
@@ -37,9 +37,9 @@ La fuente del progreso es [docs/hooks.csv](docs/hooks.csv). El [informe generado
 | Dimensión | Estado |
 | --- | --- |
 | Clases completas | 666/771 · 86,38% |
-| Clases validadas (de las completas) | 647/666 · 97,15% |
+| Clases validadas (de las completas) | 648/666 · 97,30% |
 | Funciones reconstruidas | 7.858/8.441 · 93,09% |
-| Funciones validadas (de las reconstruidas) | **5.322/7.858 · 67,73%** · evidencia aprobada vinculada |
+| Funciones validadas (de las reconstruidas) | **5.382/7.858 · 68,49%** · evidencia aprobada vinculada |
 
 La validación se mide sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. Los 3 extras NOTSA sin equivalente en el EXE (modo ventana, [hooks_notsa.csv](docs/hooks_notsa.csv)) quedan fuera de la cuenta.
 
@@ -49,7 +49,7 @@ Todavía no tienen un porcentaje útil; la tabla explica qué falta hacer para p
 
 | Dimensión | Estado actual | Qué hay que hacer |
 | --- | --- | --- |
-| Validaciones vigentes para el árbol actual | 0/5.322 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrar el resultado en el [registro de validaciones](reversing/ValidationRegistry/README.md). |
+| Validaciones vigentes para el árbol actual | 0/5.382 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrar el resultado en el [registro de validaciones](reversing/ValidationRegistry/README.md). |
 | Dependencias de funciones originales eliminadas | No medido | Auditar, por cada función reconstruida, las llamadas directas y transitivas que aún saltan al EXE (`plugin::Call*`, direcciones fijas, hooks sin reconstruir) y contar las que ya no dependen de ninguna. |
 
 Quedan 583 entradas pendientes, 105 clases incompletas y 650 locks. En `hooks.csv`, `type=S` significa **Simple hook** (función normal por dirección) y `type=V` significa **Virtual hook** (entrada de vtable). `validated=1` significa que existe evidencia aprobada vinculada; no significa por sí solo que esa evidencia siga vigente para el árbol actual. Las 7.765 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
@@ -111,7 +111,7 @@ El constructor de `CPlayerInfo` ya fue corregido, validado y desbloqueado; inclu
 
 ## Comparación técnica con `gta-reversed/gta-reversed`: por qué su progreso no cuenta toda la historia
 
-Este proyecto parte del trabajo público de [gta-reversed/gta-reversed](https://github.com/gta-reversed/gta-reversed), que sigue siendo una referencia importante para nombres, estructuras, direcciones y reconstrucciones de GTA San Andreas. La comparación siguiente no pretende borrar ese trabajo: explica por qué **su forma actual de medir y presentar el progreso es insuficiente** y por qué PGTASA mantiene un catálogo, una auditoría y un registro de validación más estrictos.
+Este proyecto parte del trabajo público de [gta-reversed/gta-reversed](https://github.com/gta-reversed/gta-reversed), que sigue siendo una referencia importante para nombres, estructuras, direcciones y reconstrucciones de GTA San Andreas. La comparación siguiente no pretende borrar ese trabajo: explica por qué **su forma actual de medir y presentar el progreso es insuficiente** y por qué ReSA mantiene un catálogo, una auditoría y un registro de validación más estrictos.
 
 ### El primer problema: su propio README reconoce que el progreso está desactualizado
 
@@ -119,7 +119,7 @@ El README de `gta-reversed/gta-reversed` dice literalmente que el seguimiento de
 
 Ese número no está ligado a un procedimiento reproducible visible en el repositorio. En cambio, su `docs/hooks.csv` registra actualmente:
 
-| Métrica | gta-reversed upstream | PGTASA |
+| Métrica | gta-reversed upstream | ReSA |
 | --- | ---: | ---: |
 | Clases/grupos catalogados | 701 | **772** |
 | Entradas catalogadas | 8.014 | **8.442** |
@@ -133,7 +133,7 @@ Ese número no está ligado a un procedimiento reproducible visible en el reposi
 
 Por tanto, hay dos métricas distintas en upstream que no deben mezclarse: una estimación informal del “50-60% del código” y un catálogo de hooks que marca aproximadamente **92,69%** de sus entradas como `reversed=1`. Ninguna de las dos, por sí sola, significa “porcentaje del juego terminado”, pero el README no ofrece una metodología que conecte ambas cifras.
 
-PGTASA tampoco interpreta su **93,07%** como “93,07% del juego terminado”. Aquí ese porcentaje significa solamente: **7.857 de 8.442 entradas actualmente catalogadas tienen `reversed=1`**.
+ReSA tampoco interpreta su **93,07%** como “93,07% del juego terminado”. Aquí ese porcentaje significa solamente: **7.857 de 8.442 entradas actualmente catalogadas tienen `reversed=1`**.
 
 ### El segundo problema: el catálogo upstream no es bidireccional
 
@@ -170,16 +170,16 @@ sin `.reversed = false`.
 
 Aun así, el problema ni siquiera llega a alterar sus estadísticas porque **`CConversationForPed` no está incluido en el CSV**. Es decir: una dependencia original puede existir en fuente y quedar fuera de la medición completa.
 
-PGTASA corrigió este caso de dos formas:
+ReSA corrigió este caso de dos formas:
 
 1. registra los owners faltantes en el flujo global;
 2. marca explícitamente como pendientes las funciones que todavía llaman al EXE.
 
-El 30 de septiembre se completaron además las dos reconstrucciones de `CConversationForPed`, con [4.702 pares dentro del motor](reversing/ConversationForPed/README.md). El ejemplo anterior describe el código upstream observado; PGTASA ya sustituye esas dos funciones.
+El 30 de septiembre se completaron además las dos reconstrucciones de `CConversationForPed`, con [4.702 pares dentro del motor](reversing/ConversationForPed/README.md). El ejemplo anterior describe el código upstream observado; ReSA ya sustituye esas dos funciones.
 
 El estado real del subsistema queda así:
 
-| Owner | upstream en hooks.csv | PGTASA |
+| Owner | upstream en hooks.csv | ReSA |
 | --- | ---: | ---: |
 | `CConversations` | 10/11 | **10/10** ¹ |
 | `CConversationNode` | no catalogada | **1/1** |
@@ -194,7 +194,7 @@ Y `CConversations::DoneSettingUpConversation`, que en upstream todavía es:
 plugin::Call<0x43ADB0, bool>(bSuppressSubtitles);
 ```
 
-en PGTASA ya tiene una reconstrucción C++ documentada y un banco de comparación de **2.048 pares original/candidato** para su alcance.
+en ReSA ya tiene una reconstrucción C++ documentada y un banco de comparación de **2.048 pares original/candidato** para su alcance.
 
 ### El tercer problema: “reversed” no significa “validado”
 
@@ -204,7 +204,7 @@ El upstream genera `ReversedClasses.md` desde `hooks.csv`, pero ese documento in
 
 Ese disclaimer es correcto, pero deja una consecuencia importante: **una clase completa en el panel no demuestra equivalencia funcional**.
 
-PGTASA separa explícitamente cuatro dimensiones:
+ReSA separa explícitamente cuatro dimensiones:
 
 1. **Reconstruida:** existe una implementación C++ registrada.
 2. **Validada:** existe evidencia original/candidato vinculada a una versión concreta.
@@ -213,7 +213,7 @@ PGTASA separa explícitamente cuatro dimensiones:
 
 Una función puede estar reconstruida y no validada. Puede estar validada y todavía depender transitivamente del EXE. Puede estar desbloqueada sin que eso pruebe independencia.
 
-Por eso PGTASA mantiene por separado:
+Por eso ReSA mantiene por separado:
 
 - [`docs/hooks.csv`](docs/hooks.csv)
 - [`docs/ReversedClasses.md`](docs/ReversedClasses.md)
@@ -242,7 +242,7 @@ ReversedClasses.md perfectamente generado
 
 el resultado sigue siendo un informe perfectamente generado **sobre un denominador incompleto**.
 
-PGTASA añadió una comprobación en la dirección contraria:
+ReSA añadió una comprobación en la dirección contraria:
 
 ```powershell
 python contrib/audit_hook_catalog.py --strict
@@ -273,11 +273,11 @@ No basta con “revertir más funciones”. Para que su porcentaje pueda interpr
 
 ### Lo que sí sabemos y lo que todavía no sabemos
 
-**Sabemos** que PGTASA tiene actualmente 8.442 entradas auditadas, frente a 8.014 en el catálogo upstream. Sabemos exactamente cuáles están marcadas como reconstruidas, cuáles pendientes y cuáles bloqueadas. Sabemos también que el catálogo upstream omite al menos owners del subsistema Conversations que sí existen en su fuente.
+**Sabemos** que ReSA tiene actualmente 8.442 entradas auditadas, frente a 8.014 en el catálogo upstream. Sabemos exactamente cuáles están marcadas como reconstruidas, cuáles pendientes y cuáles bloqueadas. Sabemos también que el catálogo upstream omite al menos owners del subsistema Conversations que sí existen en su fuente.
 
-**Sabemos** que PGTASA ha encontrado candidatos aparentemente correctos que no coincidían con el original hasta compararlos dentro del motor. Por eso aquí “el código compila” o “la clase aparece completa” no se considera evidencia suficiente.
+**Sabemos** que ReSA ha encontrado candidatos aparentemente correctos que no coincidían con el original hasta compararlos dentro del motor. Por eso aquí “el código compila” o “la clase aparece completa” no se considera evidencia suficiente.
 
-**No sabemos todavía** qué porcentaje del comportamiento total de GTA San Andreas representa el catálogo completo. Tampoco tenemos aún una medida global de cuántas funciones reconstruidas siguen dependiendo transitivamente del EXE. PGTASA lo declara como desconocido en vez de convertirlo en un porcentaje decorativo.
+**No sabemos todavía** qué porcentaje del comportamiento total de GTA San Andreas representa el catálogo completo. Tampoco tenemos aún una medida global de cuántas funciones reconstruidas siguen dependiendo transitivamente del EXE. ReSA lo declara como desconocido en vez de convertirlo en un porcentaje decorativo.
 
 La diferencia metodológica puede resumirse así:
 
@@ -288,7 +288,7 @@ gta-reversed:
         → reversed=1
         → porcentaje
 
-PGTASA:
+ReSA:
     función reconstruida
         → registro auditado
         → comparación con el original
@@ -298,7 +298,7 @@ PGTASA:
         → progreso por dimensiones
 ```
 
-El objetivo no es ganar una carrera de porcentajes. El objetivo es poder llegar a **PGTASA — Zero Original Function Dependency** y demostrar, paso a paso, qué parte del juego ya no necesita la lógica original.
+El objetivo no es ganar una carrera de porcentajes. El objetivo es poder llegar a **ReSA — Zero Original Function Dependency** y demostrar, paso a paso, qué parte del juego ya no necesita la lógica original.
 
 
 ## Abrir el juego desde el inicio

@@ -103,7 +103,7 @@ public:
         const CVector& normal,
         const CVector* verts
     );
-    static void Closest3(CVector* arg0, CVector* arg1);
+    static void Closest3(CVector* verts, CVector* point);
     static bool  SphereCastVersusVsPoly(const CColSphere& sphere1, const CColSphere& sphere2, const CColTriangle& tri, const CColTrianglePlane& triPlane, CompressedVector* verts);
     static void CalculateTrianglePlanes(CCollisionData* colData);
     static void RemoveTrianglePlanes(CCollisionData* colData);
@@ -116,7 +116,7 @@ public:
     static bool ProcessLineOfSight(const CColLine& line, const CMatrix& transform, CColModel& colModel, CColPoint& colPoint, float& maxTouchDistance, bool doSeeThroughCheck, bool doShootThroughCheck);
     static bool ProcessVerticalLine(const CColLine& line, const CMatrix& transform, CColModel& colModel, CColPoint& colPoint, float& maxTouchDistance, bool doSeeThroughCheck, bool doShootThroughCheck, CStoredCollPoly* collPoly);
     static bool SphereCastVsSphere(const CColSphere& spA, const CColSphere& spB, const CColSphere& spS);
-    static void ClosestPointOnLine(const CVector& l0, const CVector& l1, const CVector& point, CVector& closest);
+    static void ClosestPointOnLine(const CVector& point, const CVector& l0, const CVector& l1, CVector& closest); // El EXE (0x417FD0) recibe primero el punto
     static void ClosestPointsOnPoly(CColTriangle* arg0, CVector* arg1, CVector* arg2, CVector* arg3);
     static void ClosestPointOnPoly(CColTriangle* arg0, CVector* arg1, CVector* arg2);
     static bool SphereCastVsCaches(

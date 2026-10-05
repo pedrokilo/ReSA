@@ -2,7 +2,7 @@
 
 > Informe histórico de la ejecución conjunta del 22 de septiembre. La entrega más reciente es [HooksActivados, 01/10/2026](HooksActivados/README.md): 39 clases registradas, compilación y arranque al menú, sin comparaciones contra el original. La última validación diferencial completa sigue siendo [CConversationForPed, 30/09/2026](ConversationForPed/README.md), con 4.702 pares exactos. Consultar [la continuidad vigente](MEJORAS_DEL_PROCESO.md#continuidad-vigente) para el estado instalado. Esa validación individual no repite ni amplía los resultados de la suite histórica conservados aquí.
 
-Fecha local: 2026-09-22. Rama: PGTASA. Resultado: **9/9 bancos aprobados, 76.319 comparaciones dentro de GTA**.
+Fecha local: 2026-09-22. Rama: ReSA. Resultado: **9/9 bancos aprobados, 76.319 comparaciones dentro de GTA**.
 
 Entre las observaciones posteriores figura la [recuperación del ratón al arrancar](MouseRecovery/README.md), que no repitió esta suite. Después se entregaron la [corrección del cierre](ShutdownLists/README.md), [CPedToPlayerConversations](PedToPlayerConversations/README.md) y [CConversationForPed](ConversationForPed/README.md), cada una con su evidencia y alcance propios.
 

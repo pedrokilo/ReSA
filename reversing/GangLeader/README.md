@@ -24,7 +24,7 @@ Intentos descartados: una compilación falló por una cabecera faltante del banc
 
 ## Entrega aislada
 
-Git real de partida: PGTASA, `aef6bcbf051d0370cc6ed68e8d9809e0b7bb8d51`, con un cambio local previo en TaskSimpleClimb.cpp. El ASI instalado era `d8b39a395abfed3acae54a480df9db7368dbdbbaff94caeed817dcc121f903ec`; bin/Debug contenía el candidato de cierre `a81bb5fb1cb3cd3586c57a349193b2f5715390768e9fe40ec437943ec0891153`. No eran el HEAD ni los binarios del traspaso antiguo.
+Git real de partida: ReSA, `aef6bcbf051d0370cc6ed68e8d9809e0b7bb8d51`, con un cambio local previo en TaskSimpleClimb.cpp. El ASI instalado era `d8b39a395abfed3acae54a480df9db7368dbdbbaff94caeed817dcc121f903ec`; bin/Debug contenía el candidato de cierre `a81bb5fb1cb3cd3586c57a349193b2f5715390768e9fe40ec437943ec0891153`. No eran el HEAD ni los binarios del traspaso antiguo.
 
 `build_probe.py` compila HEAD con estas sustituciones temporales documentadas por hash:
 

@@ -2,7 +2,7 @@
 
 [Continuidad vigente](../MEJORAS_DEL_PROCESO.md#continuidad-vigente)
 
-El usuario pidió pausar el 2026-09-23. Se conserva la implementación local y el banco; no continuar la integración sin una nueva petición. HEAD comprobado: `11fd6912f759d3bc93208a9def001b6dd751dbdf`, rama PGTASA. Sin commit ni push.
+El usuario pidió pausar el 2026-09-23. Se conserva la implementación local y el banco; no continuar la integración sin una nueva petición. HEAD comprobado: `11fd6912f759d3bc93208a9def001b6dd751dbdf`, rama ReSA. Sin commit ni push.
 
 ## Resultado registrado
 

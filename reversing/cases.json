@@ -1103,5 +1103,20 @@
     "id": "fileloader47",
     "name": "Cargador de ficheros CFileLoader (lista de 47)",
     "runner": "FileLoader47/run_local.py"
+  },
+  {
+    "id": "colgeom59a",
+    "name": "Geometria pura de CCollision (lista 59a)",
+    "runner": "ColGeom59a/run_local.py"
+  },
+  {
+    "id": "colworld59c",
+    "name": "Colision de mundo y camara (lista de 59)",
+    "runner": "ColWorld59c/run_local.py"
+  },
+  {
+    "id": "colproc59b",
+    "name": "Procesado de colision de CCollision (lista de 59b)",
+    "runner": "ColProc59b/run_local.py"
   }
 ]

@@ -55,7 +55,7 @@ También distingue entre:
 
 ### Estado comprobado del corte actual
 
-En `PGTASA`, el modo estricto devuelve **OK** con:
+En `ReSA`, el modo estricto devuelve **OK** con:
 
 - 772 clases/grupos catalogados.
 - 8.442 entradas en `hooks.csv`.

@@ -1,6 +1,6 @@
 # CPhysical (lista de 34)
 
-Banco preparado el 04/10/2026 con **22.272 pares original/candidato dentro de GTA** (54 funciones con casos propios de las 56 de `CPhysical`). Pendiente de compilar y correr.
+Banco preparado el 04/10/2026 y ampliado el 05/10/2026 con **23.808 pares original/candidato dentro de GTA** (las 56 funciones de `CPhysical` con casos propios; `Add` y `RemoveAndAdd` añadidas el 05/10 con 512 y 1.024 casos). Las 54 anteriores ya se corrieron y aprobaron (22.272 pares); las cifras nuevas están pendientes de compilar y correr.
 
 | Grupo | Funciones |
 |---|---|
@@ -8,11 +8,18 @@ Banco preparado el 04/10/2026 con **22.272 pares original/candidato dentro de GT
 | Muelles | `ApplySpringCollision`, `ApplySpringCollisionAlt`, `ApplySpringDampening` |
 | Respuesta a colisiones | `ApplyCollision` (3 y 4 argumentos), `ApplySoftCollision` (3 y 4 argumentos), `ApplyCollisionAlt`, `ApplyFriction` (propia, con otro cuerpo y sin argumentos), `SetDamagedPieceRecord` |
 | Estado y registros | `SkipPhysics`, `ProcessControl`, `AddCollisionRecord`, `GetHasCollidedWith`, `GetHasCollidedWithAnyObject`, `RemoveRefsToEntity`, `CanPhysicalBeDamaged`, `GetLightingFromCol`, `GetLightingTotal`, `GetBoundRect` |
-| Ciclo de vida y listas | Constructor, Destructor, `Remove`, `AddToMovingList`, `RemoveFromMovingList` |
+| Ciclo de vida y listas | Constructor, Destructor, `Add` (virtual, ranura 2), `Remove`, `RemoveAndAdd`, `AddToMovingList`, `RemoveFromMovingList` |
 | Enganches | `AttachEntityToEntity` (vector y cuaternión), `DettachEntityFromEntity`, `DettachAutoAttachedEntity`, `PositionAttachedEntity`, `PlacePhysicalRelativeToOtherPhysical` |
 | Mundo | `ProcessEntityCollision`, `CheckCollision`, `CheckCollision_SimpleCar`, `ProcessCollisionSectorList`, `ProcessCollisionSectorList_SimpleCar`, `ProcessShiftSectorList`, `TestCollision`, `ProcessCollision`, `ProcessShift` |
 
-`Add` y `RemoveAndAdd` ya estaban validadas en [UnlockPhysical](../UnlockPhysical/README.md): aquí solo se conmutan con el resto (las llaman `ProcessCollision` y `ProcessShift`).
+**`Add` y `RemoveAndAdd` (05/10/2026):** ya no son "solo conmutadas". Antes figuraban con 0 casos porque se habían validado en [UnlockPhysical](../UnlockPhysical/README.md) (3.072 pares) con un resumen antiguo sin `covered_functions`, y `docs/hooks.csv` las marcaba como no validadas. Ahora tienen casos propios (≥256 cada una) con la técnica de ese banco:
+- **Fuente comparada con el EXE** (0x544A30 y 0x542560, EXE 1.0 US): sin diferencias. Rectángulo en memoria (izq, arriba, der, abajo), conversión `coord·0,02+60` en x87 (`fld`/`fmul`/`fadd`, `fstp` a double, `floor` y `_ftol`), orden de evaluación izq/abajo/der/arriba, bucle y de abajo a arriba y x de izquierda a derecha, celda `[y&15][x&15]`, lista por tipo (vehículo +0, peatón +4, objeto +8), nodo `CEntryInfoNode` antes que el nodo de puntero en `Add` y al revés en la ruta de alta de `RemoveAndAdd`, redistribución con desenlace/reenlace del nodo existente (cursor `m_next`) y retirada de sobrantes (nodo de puntero y luego entrada), y edificio grande (bit 0x100 de +0x1C) delegando en `CEntity::Add` (0x533020) y `CEntity::Remove` (0x534AE0).
+- **Caso:** `GetBoundRect` (ranura 9 de la vtable falsa) devuelve un rectángulo inyectado con coordenadas en múltiplos de 50 y sus vecinos de 1 ulp, valores negativos de hasta −4.000, extremos de ±1e7, rangos vacíos en X o en Y y rangos de hasta 7×7 celdas (que se solapan por la máscara `&15`).
+- **Mundo:** listas de repetición reales con entidades de fondo (también en las celdas destino), de 0 a 20 nodos previos en `m_pCollisionList` (algunos en la celda destino y en la misma lista) para reutilizar, mover y retirar, y pools locales (doble enlace y `CEntryInfoNode`) con su relleno 0xFD.
+- **Se compara:** los 3×256 listas de repetición (nodos, elementos y anteriores), la cadena `m_pCollisionList` (índices de nodo, enlace, celda, lista, anterior y siguiente), los pools completos (contenido y estados), `CReferences`, la entidad y la traza (`bound_rect`, `entity_add`, `entity_remove`).
+- **Dobles trazados nuevos:** `CEntity::Add` (EXE 0x533020 y símbolo de la DLL), además del ya existente `CEntity::Remove`.
+- **Fuera de alcance:** agotamiento de pools y tipos de entidad distintos de vehículo/peatón/objeto sin edificio grande (el EXE usa un registro sin inicializar y la DLL aborta a propósito).
+- **Resumen:** `probe_summary.py` toma las claves de `pairs_per_function` (`CPhysical::Add`, `CPhysical::RemoveAndAdd`, de los eventos `function_summary`/`comparison` del banco) y las escribe en `covered_functions`; al regenerar `validation-summary.json` tras correr, `hooks.csv` las marcará como validadas.
 
 **Diferencias reales corregidas:**
 - **Orden x87 en todo el archivo:**
@@ -69,7 +76,7 @@ Banco preparado el 04/10/2026 con **22.272 pares original/candidato dentro de GT
   - los pools de vehículos, peatones, objetos y edificios son **falsos** y cubren las entidades, porque la DLL de depuración valida nodos e `Item`.
 - **Funciones simuladas y trazadas:**
   - `rand` (EXE, CRT de la DLL y `CGeneral::GetRandomNumber`), `ProcessColModels`, audio, `ObjectDamage`, `CGlass`, `g_fx`, dinero, estadísticas;
-  - `FindPlayerPed`/`FindPlayerVehicle`, resistencia extra del aire, `CWorld::Add/Remove/ClearScanCodes`, `CCarCtrl`, `KillPedWithCar`, `GetTaskClimb`, `CalculateLeanMatrix`, `CEntity::Remove`;
+  - `FindPlayerPed`/`FindPlayerVehicle`, resistencia extra del aire, `CWorld::Add/Remove/ClearScanCodes`, `CCarCtrl`, `KillPedWithCar`, `GetTaskClimb`, `CalculateLeanMatrix`, `CEntity::Add` y `CEntity::Remove`;
   - en constructor y destructor: `AllocateStaticMatrix`, `ReturnRealTimeShadow`, `CEntryInfoList::Flush` y `~CEntity`.
 - **Estado global** que se guarda y se restaura en cada ejecución: paso de tiempo, reloj, área, jugador en foco y `CPlayerInfo`, `bNoMoreCollisionTorque`, `bSecondShift`, mesa de billar, código de búsqueda, los tres arrays estáticos de `CColPoint`, la lista de entidades en movimiento, los punteros de los pools, `ms_modelInfoPtrs`, `CReferences` y los sectores.
 - **Retornos en ST0:** se comparan con sus 80 bits.
