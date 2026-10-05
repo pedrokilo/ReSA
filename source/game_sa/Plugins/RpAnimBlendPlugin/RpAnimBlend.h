@@ -165,7 +165,7 @@ CAnimBlendAssociation* RpAnimBlendClumpGetFirstAssociation(RpClump* clump, uint3
 CAnimBlendAssociation* RpAnimBlendClumpGetMainAssociation(RpClump* clump, CAnimBlendAssociation** pp2ndAnim, float* pBlendVal2nd);
 
 /*!
- * @addr 0x4D6A30
+ * @addr 0x4D69F0
  * @brief Get the `n`th non-partial animation
  * @param clump The clump containing the associations
  * @param n The `n`
@@ -181,7 +181,7 @@ CAnimBlendAssociation* RpAnimBlendClumpGetMainAssociation_N(RpClump* clump, uint
 CAnimBlendAssociation* RpAnimBlendClumpGetMainPartialAssociation(RpClump* clump);
 
 /*!
- * @brief 0x4D69F0
+ * @brief 0x4D6A30
  * @brief Get the `n`th partial animation
  * @param clump The clump containing the associations
  * @param n The `n`

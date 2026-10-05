@@ -102,7 +102,9 @@ CTaskComplexFollowPointRoute::CTaskComplexFollowPointRoute(
 }
 
 CTaskComplexFollowPointRoute::~CTaskComplexFollowPointRoute() {
-    delete m_route;
+    if (m_route) { // CPool::Delete ya no comprueba nullptr (como el EXE)
+        delete m_route;
+    }
 }
 
 CTaskComplexFollowPointRoute::CTaskComplexFollowPointRoute(const CTaskComplexFollowPointRoute& o) :

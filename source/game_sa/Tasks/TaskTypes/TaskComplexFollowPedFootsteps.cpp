@@ -59,7 +59,9 @@ CTaskComplexFollowPedFootsteps* CTaskComplexFollowPedFootsteps::Constructor(CPed
 CTaskComplexFollowPedFootsteps::~CTaskComplexFollowPedFootsteps() {
     CEntity::SafeCleanUpRef(m_targetPed);
 
-    delete m_pointRoute;
+    if (m_pointRoute) { // CPool::Delete ya no comprueba nullptr (como el EXE)
+        delete m_pointRoute;
+    }
     m_pointRoute = nullptr;
 }
 

@@ -43,4 +43,6 @@ Validadas el 02/10/2026 con **13.904 pares original/candidato dentro de GTA**, t
 - Todo el estado global tocado se restaura por ejecución.
 - Fuera de los fixtures: nombres de más de 24 caracteres, ids de superficie ≥ 178, más de 15 matrículas, frames nulos en `DeleteRwObject` y floats leídos que no son múltiplos de 0,25.
 
+- Arranque: el banco escribe `case_start` (función, caso, semilla) antes de cada caso. Al cargar la DLL (solo con `data23-runtime.start`) anula el `call SetDir` de `CAETrackLoader::GetDataStream` (0x4E0E3D): el hilo de streaming de audio cambiaba el directorio de trabajo global durante `CTheScripts::Init` y `fopen("main.scm")` devolvía NULL (0xC0000409 antes del primer caso). Un parámetro inválido del CRT en el arranque queda registrado como `boot_invalid_parameter` (RVA en el ASI).
+
 Repetir: `python reversing/Data23/build_probe.py` y `python reversing/run.py --case data23`. Evidencia: [validation-summary.json](validation-summary.json).

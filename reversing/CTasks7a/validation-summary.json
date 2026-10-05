@@ -58,7 +58,7 @@
   "log_sha256": "38c4ec325ca804c2b5aeac902c8de392e13546015cd4d7cc377e00b687518719",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks7a\\20261002-231008-974258",
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks7a\\20261005-142444-051461",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexChat::Clone": true,
@@ -106,26 +106,26 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "175a023fddb1790ab9b582208942de43812d155cc2bd262c8aff78577934cbc7",
-      "pdb": "06d95ce60edb7b96c71e43733c4d857b4d10599c68d1a5c0eb5307643bbaad1e"
+      "asi": "c4b53688dbaae54d8c40d383b0a3cfc204016cfa5dca6012eadf8c86f1d292f1",
+      "pdb": "abfc330adbd74d588cae83afe6f2d54b2907a18fa7e4402d1b2ecfb63fcfe66d"
     },
     "sources": {
-      "source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp": "b1df34af75a0a575b473d72b7f2ffa84d636a4b0d43b4ff84f9a6a88881e9ea8",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp": "43fd9a84ae99e1ce5a13dc9aa4dd1dc3b3b2063ccdb73bdb031283e2b38c74b9",
       "source/game_sa/Tasks/TaskTypes/TaskComplexChat.h": "de62e8ce6761237f32ad24eb30d5e0a21e77dedebb599bc3f8cbdd70998f306c",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.cpp": "1ec1f292caf8a7902e82ac81d1eeb94dfa552285db465837140b6ebc622fd007",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.h": "36eade8da1d98a5779be9edb453366405e682fc3859755ceaa06aeec446813ff",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexDrivePointRoute.cpp": "9a31ce9b005b79631491e9afdcf364e442df9da5fa28e4eb02dee03f2d40ff42",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.cpp": "b2afdd17f925652a1d22b9004a21c1e85a59680cc6ac1769bd753ed7566660a2",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.h": "b90ce8d9b93e4c76f6b3a8902aec5851bd9fa4139ea281149f0adebdb8f5823a",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDrivePointRoute.cpp": "6cc993c167fddcc2725c341cb6c11eb6388df7e05d7a96f930c2b0bae3f8facd",
       "source/game_sa/Tasks/TaskTypes/TaskComplexDrivePointRoute.h": "521643dbbecd539abc2a2ce6659f493318cd64f1f2de0d83835156214b36d9b3",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "bc2aec5815a04b7e8eb3ece07c7832f468730c33367318fcc5f10fb7c4d1fdcb",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "0eaf10e15bed49090db67f0b03bac2b2d00b33294883b4dbc5617e137c3ba6b7",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.h": "70a6149b4fe79ca1505be3b8fa9cd90fee360a3f73d8d7b5f3417d09491163e9",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexHitResponse.cpp": "d7900b6d55a3a06f4d85b73e9d5427a0f024262f7e7aeb6316d954e90c38f4d5",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexHitResponse.cpp": "e178099b699abba0fc3eedaa00791f21167e8983ef2c9cfe5e9aa28c24e0eb63",
       "source/game_sa/Tasks/TaskTypes/TaskComplexHitResponse.h": "fb4438ed239898d88268372befe00a6aab6ca74e534eb23be6cae591c396eb0f",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "e4b076c5693f4ceb846975f8910c9b821cbf55dc3355ba614528248a6894dfbb",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp": "f589aa8d0332bf71c49448573afae9487aad90246d1ae5ea3079f2c0c0fba236",
       "source/game_sa/Tasks/TaskTypes/TaskComplexInWater.h": "cf39223c1b2204730c17b496d36264f07728fe548869ad5f7efe7028ccce07a3"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "3a81c2c18233b3b07e0b733d27fd4b7429b2371151e447186909912f27a2e2b3",
+      "LiveComparison.hpp": "f437ce1d1161b5db023edb0268727c0973f4fab47b055971145e35afced8c15b",
       "build_probe.py": "e32ec6e33c92fddf3f29e6ac0fdf8dc3a04c7d77e8561cebbd214afe2c3bf7b6",
       "run_local.py": "22b1e8a59899c1553032bb477a85c031e52f862d9013a6e74f6522987d365fa5"
     }

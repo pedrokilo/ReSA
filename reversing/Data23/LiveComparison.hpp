@@ -43,6 +43,39 @@ inline uint64 Fnv(const void* p,size_t n,uint64 h=1469598103934665603ull){ auto*
 inline intptr_t Off(const void* p,const void* b){ return intptr_t(p)-intptr_t(b); }
 template<class M> uintptr_t MA(M m){ static_assert(sizeof(M)==sizeof(uintptr_t)); uintptr_t a{}; std::memcpy(&a,&m,sizeof(a)); return a; }
 
+// --- arranque del banco (se ejecuta al cargar la DLL, solo si existe data23-runtime.start) ---
+// GTA moria con 0xC0000409 ANTES de ejecutar ningun caso (sin registro): durante la carga de la partida de FastLoader,
+// CTheScripts::Init (0x468D50) hace CFileMgr::SetDir("data\\script") + fopen("main.scm") y fread(NULL) -> __fastfail(5).
+// CFileMgr::SetDir cambia el directorio de trabajo GLOBAL del proceso y el hilo de streaming de audio del EXE
+// (CAEStreamThread::Service 0x4F1290 -> CAETrackLoader::GetDataStream 0x4E0D20) llama a SetDir("") (call en 0x4E0E3D)
+// desde otro hilo: si cae entre el SetDir y el fopen, "main.scm" no se encuentra. En el volcado del fallo el hilo de
+// streaming estaba preparando la pista 0xAE (tiempo -2) y el directorio de trabajo era la raiz del juego.
+// Solo en el banco: ese call no hace nada (el streaming abre "AUDIO\\STREAMS\\..." relativo al directorio actual).
+inline int __cdecl NoSetDir(const char*){ return 0; }
+// Si aun asi GTA muere por un parametro invalido del CRT antes del primer fotograma, queda escrito donde (RVA en el ASI).
+inline void __cdecl BootInvalidParameter(const wchar_t*,const wchar_t*,const wchar_t*,unsigned,uintptr_t){
+    char cwd[MAX_PATH]{}; GetCurrentDirectoryA(MAX_PATH,cwd);
+    auto clean=[](const char* s,size_t max){ std::string r; for(size_t i=0;i<max&&s[i];++i)r+=(uint8(s[i])>=0x20&&uint8(s[i])<0x7F) ? s[i] : '?'; return r; };
+    HMODULE mod{}; GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS|GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,reinterpret_cast<LPCSTR>(&BootInvalidParameter),&mod);
+    void* frames[24]{}; const auto n=CaptureStackBackTrace(1,24,frames,nullptr);
+    json st=json::array(); for(USHORT k=0;k<n;++k)st.push_back(uint32(reinterpret_cast<uintptr_t>(frames[k])-reinterpret_cast<uintptr_t>(mod)));
+    ReversingProbe::Fail({{"event","boot_invalid_parameter"},{"cwd",clean(cwd,MAX_PATH)},{"dirName",clean(reinterpret_cast<const char*>(0xB71A60),128)},
+                          {"thread",GetCurrentThreadId()},{"stack_rva",st}},95);
+}
+inline bool BootSetup() {
+    char exe[MAX_PATH]{}; GetModuleFileNameA(nullptr,exe,MAX_PATH); const auto dir=std::filesystem::path(exe).parent_path();
+    if(!std::filesystem::exists(dir/"data23-runtime.start"))return false;
+    ReversingProbe::failureLog=dir/"data23-runtime.jsonl";
+    _set_invalid_parameter_handler(BootInvalidParameter);
+    constexpr uintptr_t site=0x4E0E3D; auto* p=reinterpret_cast<uint8*>(site);
+    if(p[0]==0xE8 && uint32(site+5+*reinterpret_cast<int32*>(p+1))==0x5387D0u) {   // solo si sigue siendo "call SetDir"
+        DWORD old{},ignored{}; const int32 rel=int32(reinterpret_cast<uintptr_t>(&NoSetDir)-(site+5));
+        if(VirtualProtect(p+1,4,PAGE_EXECUTE_READWRITE,&old)){ std::memcpy(p+1,&rel,4); VirtualProtect(p+1,4,old,&ignored); FlushInstructionCache(GetCurrentProcess(),p,5); }
+    }
+    return true;
+}
+inline const bool bootSetup=BootSetup();
+
 // --- RNG de los stubs (depende solo del caso y del orden de llamadas) ---
 inline uint32 sst{};
 inline uint32 SNext(){ sst^=sst<<13; sst^=sst>>17; sst^=sst<<5; return sst; }
@@ -500,6 +533,8 @@ inline void Update() {
                     }
                     out["ret"]=ret; out["trace"]=trace; return out;
                 };
+                // Antes de ejecutar: si el proceso muere, el ultimo case_start del registro dice que funcion/caso fue (la semilla se recalcula igual al repetirlo).
+                Write({{"event","case_start"},{"function",full},{"case",i},{"pair",pair},{"seed",uint32(i)*2654435761u^uint32(f*0x9E3779B9u)^0xDA23u}});
                 const auto original=run(false), candidate=run(true);
                 const bool ok=original==candidate&&original["switches"]==true&&candidate["switches"]==true;
                 passed&=ok; failures+=!ok;

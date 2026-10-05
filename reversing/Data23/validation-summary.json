@@ -45,10 +45,10 @@
   },
   "all_equal": true,
   "state_restored": true,
-  "log_sha256": "7b3ac640ff0bc6ab27b5b8bab27a4701b4c80fe940fb661041984b8cdd59371a",
+  "log_sha256": "3a850a0d58fce84ac12b1a5c272752e214acb5c72b2899f60e50d25fea096f00",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-data23\\20261002-160407-193060",
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-data23\\20261005-143050-950715",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CAEPedWeaponAudioEntity::AddAudioEvent": true,
@@ -86,17 +86,17 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "3f1d227d0af58a33009dcfe2960588083d512a609264f7e9429b2118335e0a78",
-      "pdb": "dcbe5012528d0b49408caf3cedfd109df00a8543660591a1d8e69c989610fa8b"
+      "asi": "f472408ad8efc1e0dc9d4d5c5dee728b2785a9f5f87597090569620c9934d4c3",
+      "pdb": "a9b2c5fd11b89e20f0ce9d45bbb671821e9b01dcda8a31d4c20f92a392cb6e64"
     },
     "sources": {
-      "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "7622f7a270c3296d1866fb992fc603df6573051ae0dae6d40ad88b666649e98b",
-      "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "d2c4baf56e2165fb99c8277f1c6e007292e70e0f21498b9db9216fe499b1145e",
+      "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp": "4173e8160ce9455748b231cd4d0e6739b081210ca9e4f0c448acbec76ea01bfc",
+      "source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.h": "3107195f6da972a769eb2017f84589cefc3e2ff6624e9dd7f5c2175888918819",
       "source/game_sa/BulletInfo.cpp": "d3ebcaa37f90e20ce6476fb3817aae4372c0b1a0e88866a93e0ea217ff5d4bbe",
       "source/game_sa/BulletInfo.h": "418f03bc16096a9f56eae487bce8187d9c7be6af8c429939dd9a1bfe675768c6",
       "source/game_sa/Models/DamageAtomicModelInfo.cpp": "37d511cb3491d971a71431426e9df0768ea8a65e4fdf4dc7e235f99d14dc9710",
       "source/game_sa/Models/DamageAtomicModelInfo.h": "9159b5c3595b19cf97d968db54671c57011c8bb6722f68e2fe5ef8ae2e6ec2bd",
-      "source/game_sa/Garage.cpp": "43190295f3598e4618209e286d31247712193acb942d5890c57a9f9a001ae711",
+      "source/game_sa/Garage.cpp": "55e320355a659bb268e20902c2f52bb9c5efa6677c832313ce6a9e218d426a31",
       "source/game_sa/Garage.h": "cc2f0747be5bec1210568df6ed72a1df3af7faba37e5ed0dfac8b79b0c09ae4a",
       "source/game_sa/PedStats.cpp": "fa30407710521d6717829c349d584a3855ddf073726770d93f0140c87ed785fa",
       "source/game_sa/PedStats.h": "ca105a64fd965faeedb580a2fa6f5e6ca9ea0517f432201790e5a98c5acbd0a0",
@@ -107,15 +107,15 @@
       "source/game_sa/SpecialPlateHandler.cpp": "aec994fc147ab1e0e66aa7b2cce0d4d30b15571aa1e9a5bc27579a0e6e8a7122",
       "source/game_sa/SpecialPlateHandler.h": "377f5f1f0858ece84ac3936a20afe70d65b700dd0a7a353aefa2ce2e8aa7084c"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
-      "LiveComparison.hpp": "de40a70dc538f48431fe34397679fc041f683da4dbd74ae095671af7c8e8ee93",
+      "LiveComparison.hpp": "6a56f4c779723c26663b13b914a3aa052940204a0dafbc043c307d1c02e0e307",
       "build_probe.py": "0c14291275d7cc4be63c1e45501958aea59fee3bdec24c89afe4658e21a3e0fc",
       "run_local.py": "bfff625c864474d8a015d310b5db5ede2c34f3c2335a80da31b58bbb29c6de42"
     }
   },
   "limitations": [
-    "Entidades falsas; dependencias simuladas y trazadas en el EXE y en la DLL; estado global restaurado por ejecucion.",
-    "Sin nombres de mas de 24 caracteres, ids de superficie >= 178, mas de 15 matriculas ni frames nulos en DeleteRwObject."
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
   ]
 }

@@ -71,7 +71,11 @@ CTaskComplexDrivePointRoute::CTaskComplexDrivePointRoute(const CTaskComplexDrive
 
 // 0x643490
 CTaskComplexDrivePointRoute::~CTaskComplexDrivePointRoute() {
-    delete m_route;
+    // Como el original (0x6434B6): solo se libera si no es nula (`delete nullptr` llegaba a CPool::Delete, que ya no
+    // comprueba nullptr y abortaba en IsPtrFromPool)
+    if (m_route) {
+        delete m_route;
+    }
     // Also no unregister ref here.. probably delibarate?
 }
 

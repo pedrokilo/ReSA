@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 43/43 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/43 entradas.
+ * Validación registrada: 43/43 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -560,7 +560,7 @@ CAnimBlendAssociation* RpAnimBlendClumpGetMainAssociation(RpClump* clump, CAnimB
     */
 }
 
-// 0x4D6A30
+// 0x4D69F0
 CAnimBlendAssociation* RpAnimBlendClumpGetMainAssociation_N(RpClump* clump, uint32 n) {
     return RpAnimBlendClumpFindAssociationIf_N(clump, [](const CAnimBlendAssociation& a){
         return !a.IsPartial();
@@ -585,7 +585,7 @@ CAnimBlendAssociation* RpAnimBlendClumpGetMainPartialAssociation(RpClump* clump)
     return mA;
 }
 
-// 0x4D69F0
+// 0x4D6A30
 CAnimBlendAssociation* RpAnimBlendClumpGetMainPartialAssociation_N(RpClump* clump, int32 n) {
     return RpAnimBlendClumpFindAssociationIf_N(clump, [](const CAnimBlendAssociation& a){
         return a.IsPartial();
@@ -1973,9 +1973,9 @@ void RpAnimBlendPlugin::InjectHooks() {
     RH_ScopedGlobalOverloadedInstall(RpAnimBlendClumpGetFirstAssociation, "", 0x4D15E0, CAnimBlendAssociation*(*)(RpClump*));
     RH_ScopedGlobalOverloadedInstall(RpAnimBlendClumpGetFirstAssociation, "Flags", 0x4D6A70, CAnimBlendAssociation*(*)(RpClump*, uint32));
     RH_ScopedGlobalInstall(RpAnimBlendClumpGetMainAssociation, 0x4D6910);
-    RH_ScopedGlobalInstall(RpAnimBlendClumpGetMainAssociation_N, 0x4D6A30);
+    RH_ScopedGlobalInstall(RpAnimBlendClumpGetMainAssociation_N, 0x4D69F0);
     RH_ScopedGlobalInstall(RpAnimBlendClumpGetMainPartialAssociation, 0x4D69A0);
-    RH_ScopedGlobalInstall(RpAnimBlendClumpGetMainPartialAssociation_N, 0x4D69F0);
+    RH_ScopedGlobalInstall(RpAnimBlendClumpGetMainPartialAssociation_N, 0x4D6A30);
     RH_ScopedGlobalInstall(RpAnimBlendClumpGetNumAssociations, 0x4D6B60);
     RH_ScopedGlobalInstall(RpAnimBlendClumpGetNumNonPartialAssociations, 0x4D6BB0);
     RH_ScopedGlobalInstall(RpAnimBlendClumpGetNumPartialAssociations, 0x4D6B80);

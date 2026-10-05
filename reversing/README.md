@@ -2,11 +2,11 @@
 
 La [hoja de ruta de PGTASA](../docs/ProjectRoadmap.md) sitúa estas pruebas dentro del objetivo de reconstrucción funcionalmente equivalente e independencia del EXE. Reconstrucción, validación, desbloqueo e independencia son dimensiones separadas; el total de pares no es un total de funciones validadas.
 
-La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 4.877 funciones a sus pruebas; las tres acreditaciones de la versión anterior quedan pendientes por el cambio de huella global de source durante CustomBuilding. Las 4.877 conservan evidencia vinculada pendiente de revisión de dependencias. El [inventario de las 7.858 reconstruidas](../docs/ValidationInventory.md) identifica también las 2.981 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
+La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 5.322 funciones a sus pruebas; las tres acreditaciones de la versión anterior quedan pendientes por el cambio de huella global de source durante CustomBuilding. Las 5.322 conservan evidencia vinculada pendiente de revisión de dependencias. El [inventario de las 7.858 reconstruidas](../docs/ValidationInventory.md) identifica también las 2.536 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
 
 ## Estado actual del catálogo de hooks
 
-El corte vigente de `PGTASA` contiene **771 clases/grupos y 8.441 entradas**: 7.858 reconstruidas y 583 pendientes. De ellas, **4.877 tienen `validated=1`** porque cuentan con evidencia aprobada vinculada; 0 conservan vigencia acreditada para el árbol actual. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
+El corte vigente de `PGTASA` contiene **771 clases/grupos y 8.441 entradas**: 7.858 reconstruidas y 583 pendientes. De ellas, **5.322 tienen `validated=1`** porque cuentan con evidencia aprobada vinculada; 0 conservan vigencia acreditada para el árbol actual. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
 
 ```powershell
 python contrib/audit_hook_catalog.py --strict
@@ -18,7 +18,7 @@ Esta carpeta sí se utiliza. Ejecutar `PROBAR.cmd` desde la raíz para elegir un
 
 `PROBAR.cmd --all` ejecuta en serie todos los bancos dentro de GTA. Para evitar la pausa del CMD, usar `python reversing/run.py --all`. Abre y cierra la copia de pruebas para cada banco, vuelve a analizar sus logs nuevos y comprueba la restauración del ASI/PDB y los hashes de las partidas antes de continuar. Los informes conjuntos quedan en `reversing/artifacts/suite-*/summary.json`, con salidas por caso y rutas/hashes de la evidencia. Se omite `pcsave-isolated` porque la misma función ya se prueba dentro del motor.
 
-El catálogo actual contiene **212 casos: 211 dentro del motor y uno aislado**.
+El catálogo actual contiene **221 casos: 220 dentro del motor y uno aislado**.
 
 Esta serie usa las sondas archivadas de cada trabajo. El caso `conversation-for-ped` comprueba además que fuentes e instrumentación coinciden con su manifiesto; si cambiaron, recompilar con `python reversing/ConversationForPed/build.py --probe` antes de ejecutarlo. La serie no es una prueba de integración de todos los cambios en una única compilación actual ni sustituye la campaña de estabilidad futura.
 
@@ -206,6 +206,15 @@ Se eliminaron los siete lanzadores específicos de la raíz y tres copias tempor
 - [AudioHw54](AudioHw54/README.md): hardware de audio `CAEAudioHardware` (lista de 54). 53 funciones y 9.280 pares. Caso `audiohw54`.
 - [EnvMap37](EnvMap37/README.md): tubería de reflejos de coches `CCustomCarEnvMapPipeline` (lista de 37). 37 funciones y 10.880 pares. Caso `envmap37`.
 - [PedSpeech58](PedSpeech58/README.md): Voz de peatón (CAEPedSpeechAudioEntity, lista de 34) Caso `pedspeech58`.
+- [PedIntel52](PedIntel52/README.md): CPedIntelligence validada por pares contra el EXE. Caso `pedintel52`.
+- [Surface47](Surface47/README.md): SurfaceInfos_c validada por pares contra el EXE. Caso `surface47`.
+- [PlayerPed51](PlayerPed51/README.md): CPlayerPed validada por pares contra el EXE. Caso `playerped51`.
+- [CtrlConfig58](CtrlConfig58/README.md): CControllerConfigManager validada por pares contra el EXE. Caso `ctrlconfig58`.
+- [RpAnim43](RpAnim43/README.md): RpAnimBlend validado por pares contra el EXE. Caso `rpanim43`.
+- [Replay47](Replay47/README.md): CReplay validada por pares contra el EXE. Caso `replay47`.
+- [Object48](Object48/README.md): CObject validada por pares contra el EXE. Caso `object48`.
+- [Physical56](Physical56/README.md): CPhysical validada por pares contra el EXE. Caso `physical56`.
+- [FileLoader47](FileLoader47/README.md): CFileLoader validada por pares contra el EXE. Caso `fileloader47`.
 - `CConversations`: 10/10 (se retiró `EnableConversation`, inexistente en el EXE); 2.048 pares de `DoneSettingUpConversation`. Configuración de tablas y referencias, sin reproducción de diálogos. El subsistema incluye además `CConversationNode` 1/1, `CPedToPlayerConversations` 3/3 y `CConversationForPed` 2/2; consultar [su README](CConversations/README.md).
 - CPedList: 7/7; 4.096 pares de sus cuatro funciones pendientes. Fixtures de grupos/pool y consultas de inteligencia controladas.
 

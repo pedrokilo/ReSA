@@ -124,7 +124,10 @@ inline bool __cdecl FakeReadLine(FILESTREAM f,char* buf,int32 num){ Push(1,uint3
     const char* s=lines[lineAt++]; int32 i=0; for(;s[i]&&i<num-1;++i)buf[i]=s[i]; buf[i]=0; return true; }
 inline FILESTREAM __cdecl FakeOpenFile(const char* path,const char* mode){ Push(2,S(path),S(mode)); return reinterpret_cast<FILESTREAM>(FAKE_FILE); }
 inline int32 __cdecl FakeCloseFile(FILESTREAM f){ Push(3,uint32(uintptr_t(f))); return 0; }
-inline size_t __cdecl FakeFileRead(FILESTREAM f,void* buf,size_t size){ Push(4,uint32(size),N(buf)); size_t n=0; while(n<size&&filePos<fileSize)static_cast<uint8*>(buf)[n++]=fileData[filePos++]; return n; }
+// La cabecera del .col se lee en variables locales del llamador (pila): su direccion depende del marco de pila de cada
+// implementacion (EXE vs DLL), asi que se enmascara; los buffers de datos (COLBUF, MS_LINE, ...) siguen trazandose.
+inline uint32 NBuf(const void* p){ const uint32 v=N(p); return v<0x1000000u ? 0xEC000000u : v; }
+inline size_t __cdecl FakeFileRead(FILESTREAM f,void* buf,size_t size){ Push(4,uint32(size),NBuf(buf)); size_t n=0; while(n<size&&filePos<fileSize)static_cast<uint8*>(buf)[n++]=fileData[filePos++]; return n; }
 
 // --- model infos: vtable falsa trazada ---
 inline int MiIndex(const void* p){ for(int k=0;k<NMI;++k)if(p==mis[k].data())return k; return -1; }
@@ -236,7 +239,7 @@ inline void __cdecl FakeMiIndex(RpAtomic* a,int32 i){ Push(98,N(a),uint32(i)); }
 inline void __fastcall FakeSetDamaged(uint8* self,void*,RpAtomic* a){ Push(99,N(self),N(a)); }
 
 // --- colision ---
-inline void* __cdecl FakeMalloc(uint32 size,uint32 hint){ Push(100,size,hint); arenaTop=(arenaTop+15)&~size_t(15); if(arenaTop+size>arena.size()){ arenaTop=0; return nullptr; } void* r=arena.data()+arenaTop; arenaTop+=size; return r; }
+inline void* __cdecl FakeMalloc(uint32 size,uint32 hint){ Push(100,size,hint); arenaTop=(arenaTop+15)&~size_t(15); if(uint64_t(arenaTop)+uint64_t(size)>uint64_t(arena.size())){ arenaTop=0; return nullptr; } void* r=arena.data()+arenaTop; arenaTop+=size; return r; }
 inline void* __cdecl FakeMalloc1(uint32 size){ return FakeMalloc(size,0xDEAD); }
 inline void* __cdecl FakeNew(size_t size){ Push(101,uint32(size)); return FakeMalloc(uint32(size),0xBEEF); }
 inline void* __cdecl FakeColModelNew(unsigned size){ Push(102,size); return colModels[8+uint32(colModelsUsed++)%8].data(); }
@@ -348,7 +351,7 @@ inline void Update() {
     if(!std::filesystem::exists(dir/"fileloader47-runtime.start")){done=true;return;}
     if(!log.is_open()){log.open(dir/"fileloader47-runtime.jsonl");Write({{"event","waiting_for_player"}});ReversingProbe::InstallFailureCapture("fileloader47");}
     auto* player=FindPlayerPed(); if(!player || CCutsceneMgr::IsRunning())return; done=true;
-    std::string only; { std::ifstream f(dir/"fileloader47-only.txt"); if(f)std::getline(f,only); }
+    std::string only; int onlyCase=-1; { std::ifstream f(dir/"fileloader47-only.txt"); if(f){ std::getline(f,only); std::string c; if(std::getline(f,c)&&!c.empty())onlyCase=std::atoi(c.c_str()); } } // 2.a linea opcional: numero de caso a repetir
     std::array<ReversibleHooks::ReversibleHook::Base*,47> hooks{};
     for(size_t f=0;f<fns.size();++f)if(!(hooks[f]=FindHook(fns[f].cls,fns[f].name))){Write({{"event","error"},{"reason","hook not found"},{"function",std::string(fns[f].cls)+"::"+fns[f].name}});return;}
     std::array<bool,47> enabled{},locked{};
@@ -429,6 +432,9 @@ inline void Update() {
             const auto& fn=fns[f]; int failures=0; const std::string cls=fn.cls, nm=fn.name, full=cls+"::"+nm;
             if(!only.empty()&&only!=full)continue;
             for(int i=0;i<fn.cases;++i) {
+                if(onlyCase>=0&&i!=onlyCase)continue;
+                // Antes de ejecutar: si el proceso muere, el ultimo case_start del log dice que caso fue (la semilla se recalcula igual al repetirlo).
+                Write({{"event","case_start"},{"function",full},{"case",i},{"pair",pair},{"seed",uint32(i)*2654435761u^uint32(f*0x9E3779B9u)^0xF1E47u}});
                 uint32 stt{}; auto next=[&]{stt^=stt<<13;stt^=stt>>17;stt^=stt<<5;return stt;};
                 auto run=[&](bool candidate)->json {
                     stt=uint32(i)*2654435761u^uint32(f*0x9E3779B9u)^0xF1E47u; if(!stt)stt=1; nev=0; arenaTop=0; colModelsUsed=0; matsUsed=0; framesUsed=0; clumpsRead=0; loaderSeq=0; instSeq=0; rngState=uint32(i)*7919u;
@@ -741,7 +747,11 @@ inline void Update() {
                             const uint16 mid=uint16(next()%3==0 ? 20000+next()%40000 : next()%5==0 ? next()%1900 : uint32(miId[next()%NMI]));
                             std::memcpy(buf+pos+30,&mid,2); std::memcpy(buf+pos+32,pl.data(),payload); pos+=32+payload;
                         }
-                        const size_t total=pos+(next()%3==0 ? next()%12 : 0);
+                        size_t tail=next()%3==0 ? next()%12 : 0;
+                        // Con exactamente 8 bytes sobrantes el EXE lee fourcc=0 y size=0 con el nombre anterior intacto: size-24 negativo,
+                        // Malloc enorme (nullptr) y memcpy a nullptr, un fallo real del EXE (y de la DLL) que no se puede comparar.
+                        if(isFile&&tail>4)tail=0; // Con >4 bytes sobrantes size queda en 0 (o parcial): size-24 ~ 4 GB, el EXE hace Malloc/memcpy gigantes (con 32 bits el FakeMalloc daba la vuelta y se pisaba el heap)
+                        const size_t total=pos+tail;
                         P(pMalloc,FakeMalloc); P(pMalloc1,FakeMalloc1); P(pNew,FakeNew); P(pColNew,FakeColModelNew); P(pSetCol,FakeSetColModel); P(pMiByName,FakeGetMiByName); P(pMiByRange,FakeGetMiByNameRange);
                         P(pPlant,FakePlantFlag); P(pInclude,FakeIncludeModel); P(pCacheCol,FakeAddCacheCol);
                         if(isFile){ fileSize=total; filePos=0; P(pOpen,FakeOpenFile); P(pRead,FakeFileRead); P(pClose,FakeCloseFile);

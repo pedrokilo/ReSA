@@ -67,7 +67,7 @@
   "log_sha256": "a4c399cc84d1f04e2d9221150e1134283cc2eddf96ad5c0acec02a2450d300c2",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks13\\20261003-220933-376405",
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctasks13\\20261005-142638-671607",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CTaskComplexFollowPointRoute::CalcBlendRatio": true,
@@ -124,20 +124,20 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "0c4a9f19cee5afd583a21aeac058a003e8c5138fb0210d4aac9a8e8cacf16e55",
-      "pdb": "fd2fc777d6eb15777e425fe7a70bf7e5e9b2fc8672293d7e8433e6866c8dd76e"
+      "asi": "dd5260b8099d47e0badf6e9cd5128ca715cd1cf6cbd2fc2235aad9d4084778a4",
+      "pdb": "b6469c8d16268ce14b7a91fe208a16577b47bfa24ea9fc34bee4e74ca19d6379"
     },
     "sources": {
       "source/game_sa/Tasks/TaskComplexSequence.cpp": "3497ea85aebba258669ea20dbd06fd3628f1e443bca554bfbdd257f1984d5df5",
       "source/game_sa/Tasks/TaskComplexSequence.h": "9d2404579563e19da54b6c829f3f98129484cc3d10c6c2732e5845d5660926aa",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPointRoute.cpp": "e70da0ab852d7b0b879d237f38d89b0cd4437d769c4f2808e81eb4406428711d",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPointRoute.cpp": "3d31f805b3f0bebf8a1f2b00bbea2ee36ea002143fc523ece70ef075c8e286e8",
       "source/game_sa/Tasks/TaskTypes/TaskComplexFollowPointRoute.h": "23f508fce4f2fda7812b678aa6ce1b39ddc4f5902679bbbbc71d15a2e18e5512",
-      "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "9c33ffb54e53945b55c4089759833398af59c2d987216f3004462679b67a19c1",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp": "02f74c58ec3e129240e4d53c754e7b45500ecdec3acd27e30d3dd08a3f65cc12",
       "source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.h": "609b0839ebdfa401b89407b8096a94568c92f0eb14b9f15fd1c462d5e68868e4",
       "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
       "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33"
     },
-    "game_cpp": "8ce4b43b5b066e9937418360d134d007b145d345b2f3362ac7a7ab0a87048372",
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
     "instrumentation": {
       "LiveComparison.hpp": "d76d803dae7ce7aaae080470d26bfe315c2b114054190e828482381e0af8b6de",
       "build_probe.py": "41dba92ca9bc7c4545b4d85ce54a6a9db92b13e1f2952dc04a08765df2d1b5cf",

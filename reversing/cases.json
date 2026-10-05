@@ -1058,5 +1058,50 @@
     "id": "pedspeech58",
     "name": "Habla de peatones (lista de 58)",
     "runner": "PedSpeech58/run_local.py"
+  },
+  {
+    "id": "pedintel52",
+    "name": "Inteligencia de peatones (lista de 52)",
+    "runner": "PedIntel52/run_local.py"
+  },
+  {
+    "id": "surface47",
+    "name": "Superficies SurfaceInfos_c (lista de 47)",
+    "runner": "Surface47/run_local.py"
+  },
+  {
+    "id": "playerped51",
+    "name": "Peatón jugador CPlayerPed (lista de 51)",
+    "runner": "PlayerPed51/run_local.py"
+  },
+  {
+    "id": "ctrlconfig58",
+    "name": "Configuración de controles (lista de 58)",
+    "runner": "CtrlConfig58/run_local.py"
+  },
+  {
+    "id": "rpanim43",
+    "name": "Plugin RpAnimBlend (lista de 43)",
+    "runner": "RpAnim43/run_local.py"
+  },
+  {
+    "id": "replay47",
+    "name": "Repeticiones CReplay (lista de 47)",
+    "runner": "Replay47/run_local.py"
+  },
+  {
+    "id": "object48",
+    "name": "Objetos CObject (lista de 48)",
+    "runner": "Object48/run_local.py"
+  },
+  {
+    "id": "physical56",
+    "name": "Físicas CPhysical (lista de 56)",
+    "runner": "Physical56/run_local.py"
+  },
+  {
+    "id": "fileloader47",
+    "name": "Cargador de ficheros CFileLoader (lista de 47)",
+    "runner": "FileLoader47/run_local.py"
   }
 ]

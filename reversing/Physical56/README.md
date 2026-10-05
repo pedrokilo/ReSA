@@ -78,3 +78,7 @@ Banco preparado el 04/10/2026 con **22.272 pares original/candidato dentro de GT
   - `bDisableZ` (billar) solo en objetos y con velocidades pequeñas: el `CColPoint` local de `ApplyFriction()`/`ApplySpeed` solo tiene punto y normal en el EXE, y la ruta de chispas leería superficies de la pila.
 
 Repetir: `python reversing/Physical56/build_probe.py` y `python reversing/run.py --case physical56`.
+
+**Ajustes del banco tras la primera corrida (04/10/2026):**
+- `mats` ya no compara las palabras de relleno (+0x0C/+0x1C/+0x2C/+0x3C) de las matrices: el EXE las copia desde `CMatrix::operator*` (0x59BE30, usado por `operator*=` 0x411A80 y por la composición cuaternión-matriz), que deja esos huecos con basura de pila. Afectaba a `AttachEntityToEntity` (las dos) y `PositionAttachedEntity`.
+- `ApplySpeed`/`UnsetIsInSafePosition`/`ApplyFriction-void` ponen a cero la pila bajo la llamada (`ScrubStack`): el `CColPoint` local de `ApplyFriction` en el EXE tiene sin inicializar las superficies (+0x20/+0x23) que lee la ruta de chispas; la DLL las pone a cero con `{}`.

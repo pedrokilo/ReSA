@@ -146,6 +146,21 @@ inline void __fastcall FakeEntityRemove(void* e,void*) { T({"entity_remove",Name
 inline void __fastcall FakeReturnShadow(void*,void*,void* s) { T({"return_shadow",Name(s)}); }
 inline void __fastcall FakeFlush(void* l,void*) { T({"flush",Name(l)}); }
 inline void __fastcall FakeEntityDtor(void* e,void*) { T({"entity_dtor",Name(e)}); }
+/* El CColPoint local de ApplyFriction()/ApplySpeed en el EXE solo tiene punto y normal: sus superficies (+0x20/+0x23) son pila sin
+   inicializar (los 12 bytes justo bajo la direccion de retorno de ApplySpeed) y la ruta de chispas las lee. Se pone a cero la pila
+   bajo la llamada para que el EXE lea ceros como el `{}` de la DLL. Naked y sin marco propio: una version en C++ dejaba sin poner a
+   cero el tope de su propio marco (ebp guardado, cookie, relleno), que es justo donde cae ese CColPoint. */
+__declspec(naked) inline void ScrubStack() {
+    __asm {
+        mov edx, edi
+        lea edi, [esp-4000h]
+        mov ecx, 1000h
+        xor eax, eax
+        rep stosd
+        mov edi, edx
+        ret
+    }
+}
 inline void __fastcall FakeAllocStatic(void* e,void*) { T({"alloc_static_matrix",Name(e)}); At<void*>(e,0x14)=mats[NE].data(); }
 // CCollision::ProcessColModels: rellena n puntos de colision deterministas
 inline void FillColPoint(uint8* c,const CVector& at) {
@@ -501,7 +516,7 @@ inline void Update() {
                             if(next()%5==0)At<int16>(self,0x22)=363; if(next()%3==0)sp->physicalFlags.bInfiniteMass=true;
                             if(next()%4==0)At<uint8>(E(k),0x1C)=uint8(At<uint8>(E(k),0x1C)&~1u); }
                         if(nm=="CheckCollision"||nm=="CheckCollision_SimpleCar"){ world=true; if(nm=="CheckCollision_SimpleCar")AddCollisionNodes(0,int(next()%4)); }
-                        call=[&](uintptr_t a){ reinterpret_cast<void(__thiscall*)(void*)>(a)(self); };
+                        call=[&](uintptr_t a){ ScrubStack(); reinterpret_cast<void(__thiscall*)(void*)>(a)(self); };
                         if(nm=="CheckCollision"||nm=="CheckCollision_SimpleCar")call=[&](uintptr_t a){ ret=reinterpret_cast<bool(__thiscall*)(void*)>(a)(self); };
                         fakePed=next()%4==0 ? E(int(next()%NE)) : nullptr; }
                     else if(nm=="ApplyFrictionMoveForce"){ const CVector fo=RandVec(next()%2 ? 1.f : 500.f); call=[&,fo](uintptr_t a){ reinterpret_cast<void(__thiscall*)(void*,CVector)>(a)(self,fo); }; }
@@ -598,7 +613,10 @@ inline void Update() {
                             if(ctorDtor&&k==0){ std::memset(c.data(),0,4); c[0xBA]=0; }
                             ents.push_back({Hex(c.data()+4,0x134),Hash(c.data(),ES)}); }
                         out["ents"]=ents; }
-                    out["mats"]=Hash(mats.data(),sizeof(mats)); out["misc"]=Hex(misc.data(),misc.size()); out["cp"]=Hex(cpBuf.data(),cpBuf.size()); out["cpa"]=Hash(cpArr.data(),cpArr.size());
+                    /* Las palabras de relleno (+0x0C/+0x1C/+0x2C/+0x3C) de una matriz copiada por el EXE vienen de CMatrix::operator* (0x59BE30), que deja
+                       esos huecos con basura de pila (operator*= 0x411A80, cuaternion->matriz): no se comparan */
+                    {   auto mm=mats; for(auto& m:mm)for(size_t o:{0x0Cu,0x1Cu,0x2Cu,0x3Cu})std::memset(m.data()+o,0,4);
+                        out["mats"]=Hash(mm.data(),sizeof(mm)); } out["misc"]=Hex(misc.data(),misc.size()); out["cp"]=Hex(cpBuf.data(),cpBuf.size()); out["cpa"]=Hash(cpArr.data(),cpArr.size());
                     out["col"]=Hash(colBuf.data(),colBuf.size())+Hash(colData.data(),colData.size());
                     out["globals"]={F(CTimer::ms_fTimeStep),Hash(reinterpret_cast<void*>(PLAYERS),PLAYERS_SIZE),*reinterpret_cast<uint16*>(SCAN_CODE),*reinterpret_cast<uint8*>(SECOND_SHIFT),
                                     Hash(reinterpret_cast<void*>(CPS_A),CPS_SIZE),*reinterpret_cast<uint32*>(CPS_A_GUARD),Hash(reinterpret_cast<void*>(CPS_B),CPS_SIZE),*reinterpret_cast<uint32*>(CPS_B_GUARD),

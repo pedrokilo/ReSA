@@ -52,7 +52,9 @@ CTaskComplexWalkRoundObject::CTaskComplexWalkRoundObject(int32 moveState, const 
 CTaskComplexWalkRoundObject::~CTaskComplexWalkRoundObject() {
     CEntity::SafeCleanUpRef(m_object);
 
-    delete m_pointRoute;
+    if (m_pointRoute) { // CPool::Delete ya no comprueba nullptr (como el EXE)
+        delete m_pointRoute;
+    }
     // todo: m_pointRoute = nullptr;
 }
 

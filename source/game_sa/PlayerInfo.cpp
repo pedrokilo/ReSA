@@ -745,66 +745,57 @@ bool CPlayerInfo::Save() {
 
 // 0x45DEF0
 CPlayerInfo& CPlayerInfo::operator=(const CPlayerInfo& rhs) {
-    m_pPed                             = rhs.m_pPed;
-    m_PlayerData                       = rhs.m_PlayerData;
-    m_pRemoteVehicle                   = rhs.m_pRemoteVehicle;
-    m_pSpecCar                         = rhs.m_pSpecCar;
-    m_nMoney                           = rhs.m_nMoney;
-    m_nDisplayMoney                    = rhs.m_nDisplayMoney;
-    m_nCollectablesPickedUp            = rhs.m_nCollectablesPickedUp;
-    m_nTotalNumCollectables            = rhs.m_nTotalNumCollectables;
-    m_nLastBumpPlayerCarTimer          = rhs.m_nLastBumpPlayerCarTimer;
-    m_nTaxiTimer                       = rhs.m_nTaxiTimer;
-    m_nVehicleTimeCounter              = rhs.m_nVehicleTimeCounter;
-    m_bTaxiTimerScore                  = rhs.m_bTaxiTimerScore;
-    m_bTryingToExitCar                 = rhs.m_bTryingToExitCar;
-    m_pLastTargetVehicle               = rhs.m_pLastTargetVehicle;
-    m_nPlayerState                     = rhs.m_nPlayerState;
-    m_bAfterRemoteVehicleExplosion     = rhs.m_bAfterRemoteVehicleExplosion;
-    m_bCreateRemoteVehicleExplosion    = rhs.m_bCreateRemoteVehicleExplosion;
-    m_bFadeAfterRemoteVehicleExplosion = rhs.m_bFadeAfterRemoteVehicleExplosion;
-    m_nTimeOfRemoteVehicleExplosion    = rhs.m_nTimeOfRemoteVehicleExplosion;
-    m_nLastTimeEnergyLost              = rhs.m_nLastTimeEnergyLost;
-    m_nLastTimeArmourLost              = rhs.m_nLastTimeArmourLost;
-    m_nLastTimeBigGunFired             = rhs.m_nLastTimeBigGunFired;
-    m_nTimesUpsideDownInARow           = rhs.m_nTimesUpsideDownInARow;
-    m_nTimesStuckInARow                = rhs.m_nTimesStuckInARow;
-    m_nCarTwoWheelCounter              = rhs.m_nCarTwoWheelCounter;
-    m_fCarTwoWheelDist                 = rhs.m_fCarTwoWheelDist;
-    m_nCarLess3WheelCounter            = rhs.m_nCarLess3WheelCounter;
-    m_nBikeRearWheelCounter            = rhs.m_nBikeRearWheelCounter;
-    m_fBikeRearWheelDist               = rhs.m_fBikeRearWheelDist;
-    m_nBikeFrontWheelCounter           = rhs.m_nBikeFrontWheelCounter;
-    m_fBikeFrontWheelDist              = rhs.m_fBikeFrontWheelDist;
-    m_nTempBufferCounter               = rhs.m_nTempBufferCounter;
-    m_nBestCarTwoWheelsTimeMs          = rhs.m_nBestCarTwoWheelsTimeMs;
-    m_fBestCarTwoWheelsDistM           = rhs.m_fBestCarTwoWheelsDistM;
-    m_nBestBikeWheelieTimeMs           = rhs.m_nBestBikeWheelieTimeMs;
-    m_fBestBikeWheelieDistM            = rhs.m_fBestBikeWheelieDistM;
-    m_nBestBikeStoppieTimeMs           = rhs.m_nBestBikeStoppieTimeMs;
-    m_fBestBikeStoppieDistM            = rhs.m_fBestBikeStoppieDistM;
-    m_nCarDensityForCurrentZone        = rhs.m_nCarDensityForCurrentZone;
-    m_fRoadDensityAroundPlayer         = rhs.m_fRoadDensityAroundPlayer;
-    m_nTimeOfLastCarExplosionCaused    = rhs.m_nTimeOfLastCarExplosionCaused;
-    m_nExplosionMultiplier             = rhs.m_nExplosionMultiplier;
-    m_nHavocCaused                     = rhs.m_nHavocCaused;
-    m_nNumHoursDidntEat                = rhs.m_nNumHoursDidntEat;
-    m_fCurrentChaseValue               = rhs.m_fCurrentChaseValue;
-    m_bDoesNotGetTired                 = rhs.m_bDoesNotGetTired;
-    m_bFastReload                      = rhs.m_bFastReload;
-    m_bFireProof                       = rhs.m_bFireProof;
-    m_nMaxHealth                       = rhs.m_nMaxHealth;
-    m_nMaxArmour                       = rhs.m_nMaxArmour;
-    m_bGetOutOfJailFree                = rhs.m_bGetOutOfJailFree;
-    m_bFreeHealthCare                  = rhs.m_bFreeHealthCare;
-    m_bCanDoDriveBy                    = rhs.m_bCanDoDriveBy;
-    m_nBustedAudioStatus               = rhs.m_nBustedAudioStatus;
-    m_nLastBustMessageNumber           = rhs.m_nLastBustMessageNumber;
-    m_nCrosshairActivated              = rhs.m_nCrosshairActivated;
-    m_vecCrosshairTarget               = rhs.m_vecCrosshairTarget;
-    m_pSkinTexture                     = rhs.m_pSkinTexture;
-    m_bParachuteReferenced             = rhs.m_bParachuteReferenced;
-    m_nRequireParachuteTimer           = rhs.m_nRequireParachuteTimer;
-    strcpy_s(m_szSkinName, rhs.m_szSkinName);
+    // Como el original: copia por campos sin tocar el relleno (el EXE no usa memcpy de la estructura).
+    auto* const dst = reinterpret_cast<uint8*>(this);
+    const auto* const src = reinterpret_cast<const uint8*>(&rhs);
+    const auto copy = [&](size_t off, size_t size) { memcpy(dst + off, src + off, size); };
+
+    copy(0x0, 4); // m_pPed
+
+    // 0x45C4B0 (CPlayerPedData, +4): solo copia los campos, no el relleno (+0x22/0x23, +0x87, +0x8F).
+    // Las banderas de +0x34 las mezcla con un registro sin inicializar (ESI = this del CPlayerInfo):
+    // solo el bit 9 queda con el valor de destino, los bits 10-12 con el de origen y el resto con ESI.
+    uint8* const pd = dst + 4;
+    const uint8* const ps = src + 4;
+    const auto copyPd = [&](size_t off, size_t size) { memcpy(pd + off, ps + off, size); };
+    copyPd(0x00, 0x22); // 0x00..0x21 (dwords hasta 0x1C + bytes 0x20/0x21)
+    copyPd(0x24, 0x10); // 0x24..0x33
+    {
+        uint32 oldFlags, srcFlags;
+        memcpy(&oldFlags, pd + 0x34, 4);
+        memcpy(&srcFlags, ps + 0x34, 4);
+        const uint32 esi = static_cast<uint32>(reinterpret_cast<uintptr_t>(this));
+        const uint32 newFlags = (esi & ~0x1E00u) | (oldFlags & 0x200u) | (srcFlags & 0x1C00u);
+        memcpy(pd + 0x34, &newFlags, 4);
+    }
+    copyPd(0x38, 0x08); // 0x38..0x3F
+    copyPd(0x40, 0x04);
+    copyPd(0x44, 0x30); // 0x44..0x73
+    copyPd(0x74, 0x0C);
+    copyPd(0x80, 0x07); // 0x80 dword + bytes 0x84..0x86
+    copyPd(0x88, 0x07); // words 0x88/0x8A + byte 0x8C..0x8E (0x88..0x8E)
+    copyPd(0x90, 0x10); // 0x90..0x9F
+    {
+        // Bits 0-30 de +0xA0 (el bit 31 acaba también con el valor de origen)
+        memcpy(pd + 0xA0, ps + 0xA0, 4);
+    }
+    copyPd(0xA4, 0x08);
+
+    copy(0xB0, 0x24); // 0xB0..0xD3 (dwords)
+    copy(0xD4, 2);    // m_bTaxiTimerScore, m_bTryingToExitCar
+    copy(0xD8, 4);    // m_pLastTargetVehicle
+    copy(0xDC, 4);    // estado y 3 bytes
+    copy(0xE0, 0x50); // 0xE0..0x12F
+    copy(0x130, 2);   // m_nCarDensityForCurrentZone
+    copy(0x134, 0x10);// 0x134..0x143
+    copy(0x144, 2);   // m_nNumHoursDidntEat
+    copy(0x148, 4);   // m_fCurrentChaseValue
+    copy(0x14C, 9);   // 0x14C..0x154
+    copy(0x156, 2);   // m_nLastBustMessageNumber
+    copy(0x158, 0x0C);
+    copy(0x164, 0x20);// m_szSkinName entero (el EXE copia los 32 bytes)
+    copy(0x184, 4);   // m_pSkinTexture
+    copy(0x188, 1);   // m_bParachuteReferenced
+    copy(0x18C, 4);   // m_nRequireParachuteTimer
     return *this;
 }

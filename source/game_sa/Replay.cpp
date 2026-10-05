@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 47/47 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/47 entradas.
+ * Validación registrada: 47/47 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -1910,7 +1910,8 @@ void CReplay::TriggerPlayback(eReplayCamMode mode, CVector fixedCamPos, bool loa
     Playback.m_pBase = &Buffers.data()[slot];
     Playback.m_nOffset = 0;
 
-    CObject::DeleteAllTempObjectsInArea(CVector{0.0f, 0.0f, 0.0f}, 1'000'000.0f);
+    // Como el original: el radio es 0x497423FE (999999,875), no 1e6 exacto.
+    CObject::DeleteAllTempObjectsInArea(CVector{0.0f, 0.0f, 0.0f}, std::bit_cast<float>(0x497423FEu));
     StoreStuffInMem();
     InitialisePedPoolConversionTable();
     InitialiseVehiclePoolConversionTable();

@@ -773,7 +773,15 @@ inline void Update() {
                         for(int k=0;k<3;++k)At<float>(loadBuf.data(),4*k)=uni(-500.f,500.f);
                         ret=reinterpret_cast<bool(__thiscall*)(void*)>(a)(A);
                     }
-                    out["A"]=Region(A,OBJ_SIZE); out["B"]=Fnv(B,OBJ_SIZE); out["matA"]=Floats(Mat(0),18);
+                    {
+                        // Create construye en el hueco A o B: la vptr se compara por tipo (EXE 0x866F60 o la vtable de CObject de la DLL)
+                        const bool isCreate=nm.starts_with("Create-");
+                        out["A"]=Region(A,OBJ_SIZE);
+                        std::vector<uint8> bCopy(B,B+OBJ_SIZE);
+                        if(isCreate){ if(At<uintptr_t>(A,0)==OBJ_VT||InDll(At<uintptr_t>(A,0)))out["A"][0]="CObject_vt"; if(At<uintptr_t>(B,0)==OBJ_VT||InDll(At<uintptr_t>(B,0)))At<uintptr_t>(bCopy.data(),0)=OBJ_VT; }
+                        out["B"]=Fnv(bCopy.data(),OBJ_SIZE);
+                    }
+                    out["matA"]=Floats(Mat(0),18);
                     out["states"]=ReversingProbe::Bytes(objStates.data(),OBJ_CAP); out["hdr"]=Region(objHdr.data(),0x14);
                     out["veh"]=Fnv(veh.data(),veh.size()); out["ped"]=Fnv(ped.data(),ped.size()); out["dummy"]=Fnv(dummy.data(),dummy.size());
                     out["mats"]=Fnv(mats.data(),sizeof(mats)); out["miA"]=Fnv(miA.data(),0x20);
