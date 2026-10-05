@@ -1314,3 +1314,21 @@ Bancos nuevos, todos con pares exactos dentro de GTA: [CarAI25](CarAI25/README.m
 - Un `NOTSA_LOG_*` dentro de una función probada con `operator new` parcheado reserva en la arena del banco (spdlog guarda un historial); evitar logs en esos caminos.
 - Las aserciones de depuración de la DLL que llaman a virtuales (p. ej. `GetRwModelType` dentro de `GetRwObject`) añaden llamadas que el EXE no hace: dar al vtable falso esa entrada sin traza.
 - Funciones que devuelven un `enum : uint8` y el EXE usa EAX completo: devolver `int32`.
+
+## Continuidad vigente: clases de 34 a 58 funciones y regresión completa (2026-10-05)
+
+Bancos nuevos, todos con pares exactos dentro de GTA: Model34, Cutscene35, EnvMap37, RpAnim43, FileLoader47, Replay47, Surface47, Object48, PlayerPed51, PedIntel52, AudioHw54, Physical56, PedSpeech58 y CtrlConfig58. Regresión completa de 169 bancos terminada el 05/10 a las 13:36; **5322/8441 validadas, 221 casos**.
+
+**Diferencias reales corregidas:**
+- `RpAnimBlendClumpGetMainAssociation_N` y `GetMainPartialAssociation_N` tenían las direcciones del EXE intercambiadas (0x4D69F0 y 0x4D6A30).
+- `CReplay::TriggerPlayback` usaba 1000000.0f; el EXE pasa 0x497423FE (999999,875).
+- `CPlayerInfo::operator=` copia campo a campo como 0x45DEF0 (relleno sin tocar, mezcla de banderas incluida).
+- Destructores de `CTaskComplexDrivePointRoute`, `FollowPointRoute`, `FollowPedFootsteps` y `WalkRoundObject`: `delete` con guarda de nulo como el EXE (la regresión de CTasks7a lo destapó).
+
+**Lecciones:**
+- Comparar punteros de pila entre EXE y DLL da falsos fallos: enmascarar con una función que normalice también las direcciones entre 0x400000 y 0x1000000.
+- La comprobación de desbordamiento de una arena falsa con `size_t` de 32 bits da la vuelta: usar `uint64` y devolver nulo.
+- Un crash que cambia de caso en cada corrida y cae en `ntdll` suele ser corrupción del heap por un fixture; escribir y vaciar un evento `case_start` antes de cada caso para localizarlo.
+- Los bytes de pila no inicializados que lee el EXE hay que fijarlos igual en ambos lados (rutina `naked` que pone a cero bajo la dirección de retorno).
+- Carrera del directorio de trabajo: el hilo de audio del EXE llama a `CFileMgr::SetDir("")` entre `SetDir` y `fopen` de `CTheScripts::Init`; un banco que muere antes de crear su registro puede ser eso, y repetirlo basta.
+- Cuelgues intermitentes (IplStore, CTasks10b) pasan al repetir el banco aislado.
