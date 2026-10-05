@@ -146,12 +146,13 @@ struct tReplayPedUpdateBlock : tReplayBlockBase {
     uint8 __pad1[2];
     CCompressedMatrixNotAligned matrix;
     int16 weaponModel;
-    uint16 animGroup;
+    int16 animGroup; // Como el original: se lee con movsx
     uint8 contactSurfaceBrightness;
     struct {
-        bool isTalking : 1;
-        bool stillOnValidPoly : 1;
-        bool usesCollision : 1;
+        // Como el original: bits 7, 30 y 31 de CEntity::m_nFlags
+        bool isVisible : 1;
+        bool tunnel : 1;
+        bool tunnelTransition : 1;
     } flags;
     uint8 __pad2[2];
 };
@@ -292,7 +293,7 @@ struct tReplayClothesBlock : tReplayBlockBase {
     uint8 __pad[3];
     std::array<uint32, 10> modelKeys;
     std::array<uint32, 18> textureKeys;
-    uint16 fatStat;    // compressed float
-    uint16 muscleStat; // compressed float
+    int16 fatStat;    // compressed float (Como el original: se lee con movsx)
+    int16 muscleStat; // compressed float
 };
 #pragma pack(pop)

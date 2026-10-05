@@ -12,7 +12,7 @@ namespace PedListLive {
 inline bool done{}; inline std::ofstream log;
 inline int seed{}; inline json trace;
 inline std::array<CTask*,64> tasks{};
-inline bool __fastcall InCar(CPedIntelligence* p,void*) { auto id=uintptr_t(p)-1; trace.push_back({"car",id}); return (id+seed)%3==0; }
+inline uint32 __fastcall InCar(CPedIntelligence* p,void*) { auto id=uintptr_t(p)-1; trace.push_back({"car",id}); return (id+seed)%3==0 ? 1u : 0u; } // EAX entero: IsInACarOrEnteringOne devuelve el vehiculo
 inline CTask* __fastcall Task(CPedIntelligence* p,void*,eTaskType type) { auto id=uintptr_t(p)-1; trace.push_back({"task",id,int(type)}); return tasks[id]; }
 inline void Write(const json& r) { ReversingProbe::PumpMessages(); log<<r.dump()<<'\n'; log.flush(); }
 inline int Report(int type,char* msg,int*) { if(type!=_CRT_ASSERT)return FALSE; Write({{"event","assertion"},{"message",msg ? msg:""}}); ExitProcess(91); }

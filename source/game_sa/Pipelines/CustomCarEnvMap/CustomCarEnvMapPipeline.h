@@ -86,6 +86,50 @@ typedef CPool<CustomEnvMapPipeMaterialData, CustomEnvMapPipeMaterialData>  Custo
 typedef CPool<CustomEnvMapPipeAtomicData, CustomEnvMapPipeAtomicData>    CustomEnvMapPipeAtomicDataPool;
 typedef CPool<CustomSpecMapPipeMaterialData, CustomSpecMapPipeMaterialData> CustomSpecMapPipeMaterialDataPool;
 
+// Como el original: los pools de este pipeline se manejan con las plantillas de CPool que el EXE
+// instancia para ellos (0x5D9060/0x5D91B0/0x5D9300 constructor, 0x5D9110/0x5D9260/0x5D93B0 New,
+// 0x5D9180 Delete, liberación inline en DestroyPipe). Se trabaja sobre la disposición cruda de CPool
+// (objetos +0, flags +4, tamaño +8, último libre +0xC, propietario +0x10) para no pasar por los
+// assert/relleno/break de depuración de la CPool de la DLL.
+namespace notsa::envmap {
+struct RawPool {
+    uint8* Objects;
+    uint8* Flags;
+    int32  Size;
+    int32  LastFreeSlot;
+    uint8  OwnsAllocations;
+};
+
+template<size_t ElemSize, class Pool>
+inline void* PoolNew(Pool* pool) {
+    auto* const p = reinterpret_cast<RawPool*>(pool);
+    bool wrapped = false;
+    do {
+        if (++p->LastFreeSlot == p->Size) {
+            p->LastFreeSlot = 0;
+            if (wrapped) {
+                return nullptr;
+            }
+            wrapped = true;
+        }
+    } while (!(p->Flags[p->LastFreeSlot] & 0x80));
+    auto& flags = p->Flags[p->LastFreeSlot];
+    flags = uint8(flags & 0x7F);
+    flags = uint8((flags & 0x80) | ((flags + 1) & 0x7F));
+    return p->Objects + p->LastFreeSlot * ElemSize;
+}
+
+template<size_t ElemSize, class Pool>
+inline void PoolDelete(Pool* pool, const void* obj) {
+    auto* const p     = reinterpret_cast<RawPool*>(pool);
+    const auto  index = (int32)((uintptr_t)obj - (uintptr_t)p->Objects) / (int32)ElemSize;
+    p->Flags[index] |= 0x80;
+    if (index < p->LastFreeSlot) {
+        p->LastFreeSlot = index;
+    }
+}
+} // namespace notsa::envmap
+
 class CCustomCarEnvMapPipeline {
 public:
     enum eMaterialFlags {
@@ -112,9 +156,9 @@ public:
 public:
     static void InjectHooks();
 
-    static bool RegisterPlugin();
+    static RwBool RegisterPlugin();
 
-    static bool CreatePipe();
+    static RwBool CreatePipe();
     static void DestroyPipe();
     static RxPipeline* CreateCustomObjPipe();
     static void CustomPipeRenderCB(RwResEntry* repEntry, void* object, RwUInt8 type, RwUInt32 flags);

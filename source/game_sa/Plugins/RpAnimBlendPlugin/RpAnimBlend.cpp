@@ -30,12 +30,10 @@ CAnimBlendClumpData*& RpAnimBlendClumpGetData(RpClump* clump) {
 
 // 0x4D5F40
 void* ClumpAnimConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
-    UNUSED(offsetInObject);
     UNUSED(sizeInObject);
 
-    const auto clump = static_cast<RpClump*>(object);
-
-    RpAnimBlendClumpGetData(clump) = nullptr;
+    // Como el original: usa el offset recibido (no el global 0xB5F878)
+    *RWPLUGINOFFSET(CAnimBlendClumpData*, object, offsetInObject) = nullptr;
 
     return object;
 }
@@ -51,9 +49,10 @@ void* ClumpAnimDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObje
 
     const auto clump = static_cast<RpClump*>(object);
 
-    if (auto& bd = RpAnimBlendClumpGetData(clump)) {
+    if (const auto bd = RpAnimBlendClumpGetData(clump)) {
         RpAnimBlendClumpRemoveAllAssociations(clump);
-        delete std::exchange(bd, nullptr);
+        delete bd;
+        RpAnimBlendClumpGetData(clump) = nullptr; // Como el original: se anula después de liberar
     }
 
     return object;
@@ -96,7 +95,7 @@ void RpAnimBlendKeyFrameInterpolate(void* voidOut, void* voidIn1, void* voidIn2,
  * RenderWare conserva los callbacks de keyframe, mientras el juego administra por
  * separado las asociaciones y secuencias reconstruidas por el plugin.
  */
-bool RpAnimBlendPluginAttach() {
+RwBool RpAnimBlendPluginAttach() { // Como el original: devuelve EAX completo (el llamador 0x53D8AE hace test eax,eax)
     ClumpOffset = RpClumpRegisterPlugin(
         sizeof(CAnimBlendClumpData*),
         rwID_RPANIMBLENDPLUGIN,
@@ -105,8 +104,8 @@ bool RpAnimBlendPluginAttach() {
         &ClumpAnimCopy
     );
 
-    if (ClumpOffset == -1) {
-        return false;
+    if (static_cast<int32>(ClumpOffset) < 0) { // Como el original: cualquier offset negativo es un fallo (jge)
+        return FALSE;
     }
 
     RtAnimInterpolatorInfo rtInfo{
@@ -128,82 +127,66 @@ bool RpAnimBlendPluginAttach() {
     };
     RtAnimRegisterInterpolationScheme(&rtInfo);
 
-    return true;
+    return TRUE;
 }
 
 // 0x4D5F50
-void RpAnimBlendAllocateData(RpClump* clump) {
-    RpAnimBlendClumpGetData(clump) = new CAnimBlendClumpData;
+CAnimBlendClumpData* RpAnimBlendAllocateData(RpClump* clump) {
+    // Como el original: devuelve el puntero guardado (EAX)
+    return RpAnimBlendClumpGetData(clump) = new CAnimBlendClumpData;
+}
+
+// 0x4D6500 (FrameInitCBskin)
+static void FrameInitCBskin(AnimBlendFrameData* fd, void* data) {
+    UNUSED(data);
+    fd->Flags = 0;
 }
 
 // 0x4D6510
 /**
  * Construye un AnimBlendFrameData por bone de un clump skinned.
  *
- * Deriva posiciones locales desde las matrices skin-to-bone y relaciona cada slot
- * con el frame del RtAnimInterpolator correspondiente.
+ * Toma las posiciones de los bones de SkinGetBonePositionsToTable y relaciona cada
+ * slot con el frame del RtAnimInterpolator correspondiente.
  */
 void RpAnimBlendClumpInitSkinned(RpClump* clump) { // Can't hook, `clump` passed in eax
+    // Como el original: la propia función reserva los datos del clump
+    RpAnimBlendAllocateData(clump);
     const auto bd = RpAnimBlendClumpGetData(clump);
 
     constexpr size_t MAX_NUM_BONES = 64;
 
-    const auto skinGeo  = RpAtomicGetGeometry(GetFirstAtomic(clump));
-    const auto skin     = RpSkinGeometryGetSkin(skinGeo);
+    const auto skin     = RpSkinGeometryGetSkin(RpAtomicGetGeometry(GetFirstAtomic(clump)));
     const auto nBones   = RpSkinGetNumBones(skin);
+    bd->SetNumberOfBones(nBones);
     const auto rpHAHier = GetAnimHierarchyFromSkinClump(clump);
 
-    bd->SetNumberOfBones(nBones);
+    // Como el original: tabla de 64 posiciones a cero rellenada por 0x735360 (SkinGetBonePositionsToTable)
+    RwV3d bonePositions[MAX_NUM_BONES]{};
+    SkinGetBonePositionsToTable(clump, bonePositions);
 
-    // Get bone positions
-    CVector bonePositions[MAX_NUM_BONES];
-    { // 0x735360 (SkinGetBonePositionsToTable)
-        assert(MAX_NUM_BONES >= nBones);
+    // Como el original: contador con signo
+    const auto frames = bd->m_FrameDatas;
+    for (int32 i = 0; i < static_cast<int32>(nBones); i++) {
+        const auto fd = &frames[i];
 
-        bonePositions[0] = CVector{0.f, 0.f, 0.f}; // root bone
-
-        uint32  nodeStk[MAX_NUM_BONES]{};
-        uint32* nodeStkPtr{nodeStk};
-        uint32  currNodeIdx{};
-
-        for (uint32 i = 1; i < nBones; i++) { // Intentionally starting at 1
-            // Calculate inverse matrix of this bone
-            RwMatrix invBoneMat;
-            RwMatrixInvert(&invBoneMat, &RpSkinGetSkinToBoneMatrices(skin)[i]); // Originally they did a copy here, not sure why
-
-            // Calculate position of this bone
-            RwV3dTransformPoint(
-                &bonePositions[i],
-                RwMatrixGetPos(&invBoneMat),
-                &RpSkinGetSkinToBoneMatrices(skin)[currNodeIdx]
-            );
-
-            // Handle node stack now
-            const auto nodeFlags = rpHAHier->pNodeInfo[i].flags;
-            if (nodeFlags & rpHANIMPUSHPARENTMATRIX) {
-                *++nodeStkPtr = currNodeIdx;
-            }
-            currNodeIdx = nodeFlags & rpHANIMPOPPARENTMATRIX
-                ? *nodeStkPtr--
-                : i;
-        }
-    }
-
-    // Now, fill in the frame blend data from the positions we've just calculated
-    for (size_t i = 0; i < nBones; i++) {
-        const auto fd = &bd->m_FrameDatas[i]; // Frame blend data
-            
         fd->KeyFrame = (RpHAnimBlendInterpFrame*)rtANIMGETINTERPFRAME(rpHAHier->currentAnim, i);
         fd->BoneTag  = rpHAHier->pNodeInfo[i].nodeID;
-        fd->BonePos  = bonePositions[i];
+        fd->BonePos  = CVector{ bonePositions[i].x, bonePositions[i].y, bonePositions[i].z };
     }
 
-    // Initialize all frames now
-    bd->ForAllFramesF([](AnimBlendFrameData* fd) { // 0x4D6500 (FrameInitCBskin)
-        fd->Flags = 0;
-    });
+    bd->ForAllFrames(FrameInitCBskin, nullptr);
+    bd->m_FrameDatas[0].HasVelocity = true;
 }
 
+// 0x4D6610
+static RwFrame* FrameCountCB(RwFrame* f, void* data) {
+    ++*static_cast<int32*>(data);
+    RwFrameForAllChildren(f, FrameCountCB, data);
+    return f;
+}
+
+// 0x4D6670
 RwFrame* SetFrameDataFrameCB(RwFrame* f, void* data) {
     const auto fd = static_cast<AnimBlendFrameData**>(data);
     (*fd)->Frame = f;
@@ -212,44 +195,58 @@ RwFrame* SetFrameDataFrameCB(RwFrame* f, void* data) {
     return f;
 }
 
-// 0x
+// 0x4D6640 (FrameInitCBnonskin)
+static void FrameInitCBnonskin(AnimBlendFrameData* fd, void* data) {
+    UNUSED(data);
+    fd->Flags    = 0;
+    fd->FramePos = *RwMatrixGetPos(RwFrameGetMatrix(fd->Frame));
+    fd->BoneTag  = BONE_UNKNOWN;
+}
+
+// 0x4D66A0
 /**
  * Inicializa clumps no skinned recorriendo sus RwFrame hijos y conservando la
  * posición base de cada frame para posteriores mezclas de traslación.
  */
-void RpAnimBlendClumpInitNonSkinned(RpClump* clump) {
+void RpAnimBlendClumpInitNonSkinned(RpClump* clump) { // Can't hook, `clump` passed in eax
+    int32 numFrames = 0;
+    RpAnimBlendAllocateData(clump);
     const auto bd = RpAnimBlendClumpGetData(clump);
 
-    // Number of bones is the count number of child frames (excluding root)
-    bd->SetNumberOfBones(RwFrameCount(RpClumpGetFrame(clump)) - 1); // They didn't use RwFrameCount, but I will
+    // Como el original: cuenta los descendientes del frame raíz con RwFrameForAllChildren (sin RwFrameCount)
+    const auto root = RpClumpGetFrame(clump);
+    RwFrameForAllChildren(root, FrameCountCB, &numFrames);
+    bd->SetNumberOfBones(numFrames);
 
     // Assign frames to our frame data recursively
     auto fd = bd->m_FrameDatas;
-    RwFrameForAllChildren(RpClumpGetFrame(clump), SetFrameDataFrameCB, &fd);
-    
-    // Initialize all frames now (Could've done this in the above step too, oh well)
-    bd->ForAllFramesF([](AnimBlendFrameData* fd) { // 0x4D6640 (FrameInitCBnonskin)
-        fd->Flags    = 0;
-        fd->FramePos = *RwMatrixGetPos(RwFrameGetMatrix(fd->Frame));
-        fd->BoneTag  = BONE_UNKNOWN;
-    });
+    RwFrameForAllChildren(root, SetFrameDataFrameCB, &fd);
+
+    bd->ForAllFrames(FrameInitCBnonskin, nullptr);
+    bd->m_FrameDatas[0].HasVelocity = true;
 }
 
 // 0x4D6720
-// Reserva los datos del clump y selecciona la ruta skinned/no-skinned adecuada.
+// Selecciona la ruta skinned/no-skinned; cada una reserva los datos del clump.
 void RpAnimBlendClumpInit(RpClump* clump) {
-    RpAnimBlendAllocateData(clump); // Moved this common piece out of the 2 functions
+    // Como el original: comprueba el skin antes de reservar los datos
     if (IsClumpSkinned(clump)) {
         RpAnimBlendClumpInitSkinned(clump);
     } else {
         RpAnimBlendClumpInitNonSkinned(clump);
     }
-    RpAnimBlendClumpGetData(clump)->GetRootFrameData().HasVelocity = true;
 }
 
 // 0x4D6790
 CAnimBlendAssociation* RpAnimBlendClumpAddAssociation(RpClump* clump, CAnimBlendAssociation* association, uint32 playFlags, float startTime, float blendAmount) {
-    NOTSA_UNREACHABLE("Unused function");
+    const auto bd = RpAnimBlendClumpGetData(clump);
+
+    // Como el original: enlaza al principio, arranca y aplica flags (palabra baja) y blend
+    bd->m_AnimList.Prepend(&association->GetLink());
+    association->Start(startTime);
+    association->m_Flags |= static_cast<uint16>(playFlags);
+    association->m_BlendAmount = blendAmount;
+    return association;
 }
 
 //! @notsa
@@ -327,7 +324,10 @@ const char* ConvertBoneTag2BoneName(eBoneTag32 boneTag) {
 CAnimBlendAssociation* RpAnimBlendClumpExtractAssociations(RpClump* clump) {
     const auto bd = RpAnimBlendClumpGetData(clump);
 
-    const auto head = std::exchange(bd->m_AnimList.next, nullptr);
+    // Como el original: no comprueba la lista vacía y anula también el `prev` de la cabeza
+    const auto head = bd->m_AnimList.next;
+    bd->m_AnimList.next = nullptr;
+    head->prev          = nullptr;
     return CAnimBlendAssociation::FromLink(head);
 }
 
@@ -343,19 +343,33 @@ void RpAnimBlendClumpGiveAssociations(RpClump* clump, CAnimBlendAssociation* ass
     associations->GetLink().prev = &bd->m_AnimList;
 }
 
+// 0x4D6430 (FillFrameArrayIndiciesNonSkinned)
+static void FillFrameArrayIndiciesNonSkinnedCB(AnimBlendFrameData* fd, void* data) {
+    static_cast<AnimBlendFrameData**>(data)[CVisibilityPlugins::GetFrameHierarchyId(fd->Frame)] = fd;
+}
+
 // 0x4D64A0
 void RpAnimBlendClumpFillFrameArray(RpClump* clump, AnimBlendFrameData** outFrameData) {
     const auto bd = RpAnimBlendClumpGetData(clump);
 
     if (IsClumpSkinned(clump)) { // 0x4D6450 (FillFrameArrayIndiciesSkinned)
-        const auto ah = GetAnimHierarchyFromClump(clump);
-        for (size_t i = PED_NODE_UPPER_TORSO; i < TOTAL_PED_NODES; i++) {
+        // Como el original: jerarquía del skin (0x734A40), índice sin comprobar (-1 apunta al frame anterior)
+        const auto ah = GetAnimHierarchyFromSkinClump(clump);
+        for (int32 i = PED_NODE_UPPER_TORSO; i < TOTAL_PED_NODES; i++) {
             outFrameData[i] = &bd->m_FrameDatas[RpHAnimIDGetIndex(ah, ConvertPedNode2BoneTag((ePedNode)i))];
         }
     } else {
-        bd->ForAllFramesF([&](AnimBlendFrameData* fd) { // 0x4D6430 (FillFrameArrayIndiciesNonSkinned)
-            outFrameData[CVisibilityPlugins::GetFrameHierarchyId(fd->Frame)] = fd;
-        });
+        bd->ForAllFrames(FillFrameArrayIndiciesNonSkinnedCB, outFrameData);
+    }
+}
+
+// Como el original: resultado de las búsquedas de frames en un global del EXE (gpAnimBlendFrame)
+static auto& gpAnimBlendFrameData = StaticRef<AnimBlendFrameData*>(0xB5F87C);
+
+// 0x4D63E0
+static void FrameFindByBoneTagCB(AnimBlendFrameData* fd, void* data) {
+    if (fd->BoneTag == reinterpret_cast<uint32>(data)) {
+        gpAnimBlendFrameData = fd;
     }
 }
 
@@ -363,58 +377,66 @@ void RpAnimBlendClumpFillFrameArray(RpClump* clump, AnimBlendFrameData** outFram
 AnimBlendFrameData* RpAnimBlendClumpFindBone(RpClump* clump, eBoneTag32 boneTag) {
     const auto bd = RpAnimBlendClumpGetData(clump);
 
-    AnimBlendFrameData* ret{};
-    bd->ForAllFramesF([&](AnimBlendFrameData* f) {
-        if (f->BoneTag == boneTag) {
-            ret = f;
-        }
-    });
-    return ret;
+    gpAnimBlendFrameData = nullptr;
+    bd->ForAllFrames(FrameFindByBoneTagCB, reinterpret_cast<void*>(static_cast<uint32>(static_cast<eBoneTag>(boneTag))));
+    return gpAnimBlendFrameData;
+}
+
+// 0x4D6240
+static void FrameFindByNameCBskin(AnimBlendFrameData* fd, void* data) {
+    const auto boneName = ConvertBoneTag2BoneName((eBoneTag)fd->BoneTag);
+    if (boneName && !_stricmp(static_cast<const char*>(data), boneName)) {
+        gpAnimBlendFrameData = fd;
+    }
+}
+
+// 0x4D6270
+static void FrameFindByNameCBnonskin(AnimBlendFrameData* fd, void* data) {
+    if (!_stricmp(static_cast<const char*>(data), GetFrameNodeName(fd->Frame))) {
+        gpAnimBlendFrameData = fd;
+    }
 }
 
 // 0x4D62A0
 AnimBlendFrameData* RpAnimBlendClumpFindFrame(RpClump* clump, const char* needle) {
     const auto bd = RpAnimBlendClumpGetData(clump);
 
-    const auto          needlesv = notsa::ci_string_view{ needle };
-    AnimBlendFrameData* ret{};
+    // Como el original: _stricmp (0x8229B6) y gana la última coincidencia
+    gpAnimBlendFrameData = nullptr;
     if (IsClumpSkinned(clump)) {
-        bd->ForAllFramesF([&](AnimBlendFrameData* f) { // 0x4D6240
-            const auto boneName = ConvertBoneTag2BoneName((eBoneTag)f->BoneTag);
-            if (boneName && needlesv == boneName) {
-                ret = f;
-            }
-        });
+        bd->ForAllFrames(FrameFindByNameCBskin, const_cast<char*>(needle));
     } else {
-        bd->ForAllFramesF([&](AnimBlendFrameData* f) { // 0x4D6240
-            if (needlesv == GetFrameNodeName(f->Frame)) {
-                ret = f;
-            }
-        });
+        bd->ForAllFrames(FrameFindByNameCBnonskin, const_cast<char*>(needle));
     }
-    return ret;
+    return gpAnimBlendFrameData;
+}
+
+// 0x4D6310
+static void FrameFindByKeyCBskin(AnimBlendFrameData* fd, void* data) {
+    const auto boneName = ConvertBoneTag2BoneName((eBoneTag)fd->BoneTag);
+    if (boneName && CKeyGen::GetUppercaseKey(boneName) == reinterpret_cast<uint32>(data)) {
+        gpAnimBlendFrameData = fd;
+    }
+}
+
+// 0x4D6340
+static void FrameFindByKeyCBnonskin(AnimBlendFrameData* fd, void* data) {
+    if (CKeyGen::GetUppercaseKey(GetFrameNodeName(fd->Frame)) == reinterpret_cast<uint32>(data)) {
+        gpAnimBlendFrameData = fd;
+    }
 }
 
 // 0x4D6370
 AnimBlendFrameData* RpAnimBlendClumpFindFrameFromHashKey(RpClump* clump, uint32 boneNameKey) {
     const auto bd = RpAnimBlendClumpGetData(clump);
 
-    AnimBlendFrameData* ret{};
+    gpAnimBlendFrameData = nullptr;
     if (IsClumpSkinned(clump)) {
-        bd->ForAllFramesF([&](AnimBlendFrameData* f) { // 0x4D6310
-            const auto boneName = ConvertBoneTag2BoneName((eBoneTag)f->BoneTag);
-            if (boneName && boneNameKey == CKeyGen::GetUppercaseKey(boneName)) {
-                ret = f;
-            }
-        });
+        bd->ForAllFrames(FrameFindByKeyCBskin, reinterpret_cast<void*>(boneNameKey));
     } else {
-        bd->ForAllFramesF([&](AnimBlendFrameData* f) { // 0x4D6340
-            if (boneNameKey == CKeyGen::GetUppercaseKey(GetFrameNodeName(f->Frame))) {
-                ret = f;
-            }
-        });
+        bd->ForAllFrames(FrameFindByKeyCBnonskin, reinterpret_cast<void*>(boneNameKey));
     }
-    return ret;
+    return gpAnimBlendFrameData;
 }
 
 // notsa
@@ -573,7 +595,15 @@ CAnimBlendAssociation* RpAnimBlendClumpGetMainPartialAssociation_N(RpClump* clum
 // notsa
 template<typename Fn>
 uint32 RpAnimBlendClumpCountAssociationsIf(RpClump* clump, Fn&& Pred) {
-    return rng::count_if(RpAnimBlendClumpGetAssociations(clump), Pred);
+    // Como el original: se recorre desde `m_AnimList.next` (el iterador de CAnimBlendLink empieza en la propia
+    // cabeza y contaba una asociación falsa en `bd - 4`)
+    uint32 count = 0;
+    RpAnimBlendClumpForEachAssociation(clump, [&](CAnimBlendAssociation* a) {
+        if (Pred(*a)) {
+            count++;
+        }
+    });
+    return count;
 }
 
 // 0x4D6B60
@@ -606,16 +636,18 @@ bool RpAnimBlendClumpIsInitialized(RpClump* clump) {
 
 // 0x4D6B00
 void RpAnimBlendClumpPauseAllAnimations(RpClump* clump) {
-    for (auto& a : RpAnimBlendClumpGetAssociations(clump)) {
-        a.SetFlag(ANIMATION_IS_PLAYING, false);
-    }
+    // Como el original: desde `m_AnimList.next` (el range-for sobre CAnimBlendLink empezaba en la cabeza)
+    RpAnimBlendClumpForEachAssociation(clump, [](CAnimBlendAssociation* a) {
+        a->SetFlag(ANIMATION_IS_PLAYING, false);
+    });
 }
 
 // 0x4D6B30
 void RpAnimBlendClumpUnPauseAllAnimations(RpClump* clump) {
-    for (auto& a : RpAnimBlendClumpGetAssociations(clump)) {
-        a.SetFlag(ANIMATION_IS_PLAYING, true);
-    }
+    // Como el original: desde `m_AnimList.next` (el range-for sobre CAnimBlendLink empezaba en la cabeza)
+    RpAnimBlendClumpForEachAssociation(clump, [](CAnimBlendAssociation* a) {
+        a->SetFlag(ANIMATION_IS_PLAYING, true);
+    });
 }
 
 
@@ -679,10 +711,153 @@ float CalculateTotalBlendOfPartial(AnimBlendUpdateData* c, AnimBlendFrameData* f
 
 #ifdef USE_COPY_PASTE_FRAME_UPDATE
 #pragma region "R* Frame Update Functions"
+// 0x4D1610 (CQuaternion::Normalise del EXE; los hooks de CQuaternion no están instalados)
+// Como el original: longitud en registros x87 y multiplicación por el recíproco (no división).
+static void NormaliseQuatExe(CQuaternion* quat) {
+    __asm {
+        mov ecx, quat
+        fld dword ptr [ecx+0Ch]
+        fld dword ptr [ecx+8]
+        fld dword ptr [ecx+4]
+        fld dword ptr [ecx]
+        fld st(0)
+        fmul st, st(1)
+        fld st(2)
+        fmul st, st(3)
+        faddp st(1), st
+        fld st(3)
+        fmul st, st(4)
+        faddp st(1), st
+        fld st(4)
+        fmul st, st(5)
+        faddp st(1), st
+        fstp st(4)
+        fstp st(0)
+        fstp st(0)
+        fstp st(0)
+        fcom dword ptr ds:[0x858B50]
+        fnstsw ax
+        test ah, 44h
+        jp quat_normalise
+        fstp st(0)
+        mov dword ptr [ecx+0Ch], 3F800000h
+        jmp quat_done
+    quat_normalise:
+        fsqrt
+        fdivr dword ptr ds:[0x858624]
+        fld st(0)
+        fmul dword ptr [ecx]
+        fstp dword ptr [ecx]
+        fld st(0)
+        fmul dword ptr [ecx+4]
+        fstp dword ptr [ecx+4]
+        fld st(0)
+        fmul dword ptr [ecx+8]
+        fstp dword ptr [ecx+8]
+        fmul dword ptr [ecx+0Ch]
+        fstp dword ptr [ecx+0Ch]
+    quat_done:
+    }
+}
+
+/*!
+ * @brief Ruta sin extracción de velocidad de 0x4D2B90/0x4D2E40/0x4D30A0/0x4D32D0
+ * @details Como el original: el blend parcial suma `blend + suma`, la escala se pasa como `1 - suma`,
+ * @details las sumas van en el orden del EXE y el producto escalar de los skinned es `w·w + z·z + y·y + x·x`
+ * @details (con NaN se suma, `test ah,5`). Skinned: `t = T·b` y luego `(1 - b)·BonePos + t`.
+ * @details No skinned: identidad, quaternion normalizado y `pos = T + (1 - b)·FramePos` (T no se escala).
+ */
+template<bool IsCompressed, bool IsSkinned>
+static void FrameUpdateCallBackNoVelocity(AnimBlendFrameData* fd, AnimBlendUpdateData* c) {
+    float partialBlend = 0.f;
+    if (c->IncludePartial) {
+        for (auto it = c->BlendNodeArrays; *it; it++) {
+            const auto node = *it;
+            if (node->m_Seq && node->m_BlendAssoc->IsPartial()) {
+                partialBlend = node->m_BlendAssoc->m_BlendAmount + partialBlend;
+            }
+        }
+    }
+
+    CVector     nextT{ 0.f, 0.f, 0.f };
+    CQuaternion nextQ{ 0.f, 0.f, 0.f, 0.f };
+    float       nextBlendT = 0.f;
+    for (auto it = c->BlendNodeArrays; *it; ++*it, it++) { // NOTE: Increments NodeArray pointer too!
+        const auto node = *it;
+        if (!node->m_Seq) {
+            continue;
+        }
+
+        CVector     t;
+        CQuaternion q;
+        if constexpr (IsCompressed) {
+            node->UpdateCompressed(t, q, 1.f - partialBlend);
+        } else {
+            node->Update(t, q, 1.f - partialBlend);
+        }
+
+        if (node->m_Seq->m_bHasTranslation) {
+            nextT.x    = t.x + nextT.x;
+            nextT.y    = t.y + nextT.y;
+            nextT.z    = t.z + nextT.z;
+            nextBlendT = node->m_BlendAssoc->m_BlendAmount + nextBlendT;
+        }
+
+        if constexpr (IsSkinned) {
+            const float dot = q.w * nextQ.w + q.z * nextQ.z + q.y * nextQ.y + q.x * nextQ.x;
+            if (dot < 0.f) {
+                nextQ.x = nextQ.x - q.x;
+                nextQ.y = nextQ.y - q.y;
+                nextQ.z = nextQ.z - q.z;
+                nextQ.w = nextQ.w - q.w;
+                continue;
+            }
+        }
+        nextQ.x = q.x + nextQ.x;
+        nextQ.y = q.y + nextQ.y;
+        nextQ.z = q.z + nextQ.z;
+        nextQ.w = q.w + nextQ.w;
+    }
+
+    if constexpr (IsSkinned) {
+        const auto kf = fd->KeyFrame;
+        if (!fd->KeyFramesIgnoreNodeOrientation) {
+            NormaliseQuatExe(&nextQ);
+            std::memcpy(&kf->q, &nextQ, sizeof(kf->q));
+        }
+        if (!fd->KeyFramesIgnoreNodeTranslation) {
+            kf->t.x = nextT.x * nextBlendT;
+            kf->t.y = nextT.y * nextBlendT;
+            kf->t.z = nextT.z * nextBlendT;
+            const float inv = 1.f - nextBlendT;
+            kf->t.x = inv * fd->BonePos.x + kf->t.x;
+            kf->t.y = inv * fd->BonePos.y + kf->t.y;
+            kf->t.z = inv * fd->BonePos.z + kf->t.z;
+        }
+    } else {
+        const auto mat = RwFrameGetMatrix(fd->Frame);
+        if (!fd->KeyFramesIgnoreNodeOrientation) {
+            RwMatrixSetIdentity(mat);
+            NormaliseQuatExe(&nextQ);
+            nextQ.Get(mat);
+        }
+        if (!fd->KeyFramesIgnoreNodeTranslation) {
+            const auto pos = RwMatrixGetPos(mat);
+            pos->x = nextT.x;
+            pos->y = nextT.y;
+            pos->z = nextT.z;
+            const float inv = 1.f - nextBlendT;
+            pos->x = inv * fd->FramePos.x + pos->x;
+            pos->y = inv * fd->FramePos.y + pos->y;
+            pos->z = inv * fd->FramePos.z + pos->z;
+        }
+        RwMatrixUpdate(mat);
+    }
+}
+
 // 0x4D1DB0
 void FrameUpdateCallBackWithVelocityExtractionCompressedSkinned(AnimBlendUpdateData* c, AnimBlendFrameData* fd) {
-    assert(fd->HasVelocity);
-    assert(fd->HasZVelocity);
+    // Como el original: sin asserts de HasVelocity/HasZVelocity (las comprimidas se llaman sin mirar HasZVelocity)
 
 #if DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS
     _asm {
@@ -690,6 +865,7 @@ void FrameUpdateCallBackWithVelocityExtractionCompressedSkinned(AnimBlendUpdateD
         push fd
         mov ecx, 0x4D1DB0
         call ecx
+        add esp, 4 // Como el original: cdecl, el llamador limpia el argumento
     };
     return;
 #endif
@@ -781,50 +957,13 @@ void FrameUpdateCallBackCompressedSkinned(AnimBlendFrameData* fd, void* data) {
         return;
     }
 
-    const auto partialScale = 1.f - CalculateTotalBlendOfPartial(c, fd, false);
-
-    // Calculate new key-frame translation, rotation and blend values
-    CVector nextT{};
-    CQuaternion nextQ{};
-    float nextBlendT{};
-    for (auto it = c->BlendNodeArrays; *it; ++*it, it++) { // NOTE: Increments NodeArray pointer too!
-        const auto node = *it;
-
-        if (!node->IsValid()) {
-            continue;
-        }
-
-        CVector t;
-        CQuaternion q;
-        node->UpdateCompressed(t, q, partialScale);
-
-        // Sum translation
-        if (node->GetRootKF()->HasTranslation()) {
-            nextT      += t;
-            nextBlendT += node->GetAnimAssoc()->GetBlendAmount();
-        }
-
-        // Sum rotation
-        nextQ = nextQ + (q.Dot(nextQ) >= 0.f ? q : -q);
-    }
-
-    // Apply rotation to kf
-    if (!fd->KeyFramesIgnoreNodeOrientation) {
-        nextQ.Normalise();
-        fd->KeyFrame->q = nextQ;
-    }
-
-    // Apply translation to kf
-    if (!fd->KeyFramesIgnoreNodeTranslation) {
-        fd->KeyFrame->t = lerp<CVector>(fd->BonePos, nextT, nextBlendT);
-    }
+    FrameUpdateCallBackNoVelocity<true, true>(fd, c);
 }
 
 // 0x4D27F0
 // FrameUpdateCallBackT<true, false, true, true>
 void FrameUpdateCallBackWithVelocityExtractionCompressedNonSkinned(AnimBlendUpdateData* c, AnimBlendFrameData* fd) {
-    assert(fd->HasVelocity);
-    assert(fd->HasZVelocity);
+    // Como el original: sin asserts de HasVelocity/HasZVelocity (las comprimidas se llaman sin mirar HasZVelocity)
 
 #if DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS
     _asm {
@@ -832,6 +971,7 @@ void FrameUpdateCallBackWithVelocityExtractionCompressedNonSkinned(AnimBlendUpda
         push fd
         mov ecx, 0x4D27F0
         call ecx
+        add esp, 4 // Como el original: cdecl, el llamador limpia el argumento
     };
     return;
 #endif
@@ -929,56 +1069,13 @@ void FrameUpdateCallBackCompressedNonSkinned(AnimBlendFrameData* fd, void* data)
         return;
     }
 
-    // 0x4D2C23
-    const auto partialScale = 1.f - CalculateTotalBlendOfPartial(c, fd, false);
-
-    // 0x4D2D69 - Calculate new key-frame translation, rotation and blend values
-    CVector nextT{};
-    CQuaternion nextQ{};
-    float nextBlendT{};
-    for (auto it = c->BlendNodeArrays; *it; ++*it, it++) { // NOTE: Increments NodeArray pointer too!
-        const auto node = *it;
-
-        if (!node->IsValid()) {
-            continue;
-        }
-
-        CVector t;
-        CQuaternion q;
-        node->UpdateCompressed(t, q, partialScale);
-
-        // Sum translation
-        if (node->GetRootKF()->HasTranslation()) {
-            nextT += t;
-            nextBlendT += node->GetAnimAssoc()->GetBlendAmount();
-        }
-
-        // Sum rotation
-        nextQ = nextQ + q;
-    }
-    const auto fmat = RwFrameGetMatrix(fd->Frame);
-
-    // Apply rotation to frame
-    if (!fd->KeyFramesIgnoreNodeOrientation) {
-        RwMatrixSetIdentity(fmat);
-        nextQ.Normalise();
-        nextQ.Get(fmat);
-    }
-
-    // Apply translation to frame
-    if (!fd->KeyFramesIgnoreNodeTranslation) {
-        CVector t = lerp<CVector>(fd->FramePos, nextT, nextBlendT);
-        RwV3dAssign(RwMatrixGetPos(fmat), &t);
-    }
-
-    RwMatrixUpdate(fmat);
+    FrameUpdateCallBackNoVelocity<true, false>(fd, c);
 }
 
 // 0x4D1A50
 // FrameUpdateCallBackT<false, true, true, true>
 void FrameUpdateCallBackSkinnedWith3dVelocityExtraction(AnimBlendUpdateData* c, AnimBlendFrameData* fd) { // `c` is passed in `eax`, can't hook
-    assert(fd->HasVelocity);
-    assert(fd->HasZVelocity);
+    // Como el original: sin asserts de HasVelocity/HasZVelocity (las comprimidas se llaman sin mirar HasZVelocity)
 
 #if DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS
     _asm {
@@ -986,6 +1083,7 @@ void FrameUpdateCallBackSkinnedWith3dVelocityExtraction(AnimBlendUpdateData* c, 
         push fd
         mov ecx, 0x4D1A50
         call ecx
+        add esp, 4 // Como el original: cdecl, el llamador limpia el argumento
     };
     return;
 #endif
@@ -1074,7 +1172,7 @@ void FrameUpdateCallBackSkinnedWith3dVelocityExtraction(AnimBlendUpdateData* c, 
 // 0x4D1680
 // FrameUpdateCallBackT<false, true, true, false>
 void FrameUpdateCallBackSkinnedWithVelocityExtraction(AnimBlendUpdateData* c, AnimBlendFrameData* fd) { // `c` is passed in `eax`, can't hook
-    assert(fd->HasVelocity);
+    // Como el original: sin asserts de HasVelocity/HasZVelocity (las comprimidas se llaman sin mirar HasZVelocity)
 
 #if DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS
     _asm {
@@ -1082,6 +1180,7 @@ void FrameUpdateCallBackSkinnedWithVelocityExtraction(AnimBlendUpdateData* c, An
         push fd
         mov ecx, 0x4D1680
         call ecx
+        add esp, 4 // Como el original: cdecl, el llamador limpia el argumento
     };
     return;
 #endif
@@ -1201,51 +1300,13 @@ void FrameUpdateCallBackSkinned(AnimBlendFrameData* fd, void* data) {
         return;
     }
 
-    // 0x4D2C23
-    const auto partialScale = 1.f - CalculateTotalBlendOfPartial(c, fd, false);
-
-    // 0x4D2D69 - Calculate new key-frame translation, rotation and blend values
-    CVector nextT{};
-    CQuaternion nextQ{};
-    float nextBlendT{};
-    for (auto it = c->BlendNodeArrays; *it; ++*it, it++) { // NOTE: Increments NodeArray pointer too!
-        const auto node = *it;
-
-        if (!node->IsValid()) {
-            continue;
-        }
-
-        CVector t;
-        CQuaternion q;
-        node->Update(t, q, partialScale);
-
-        // Sum translation
-        if (node->GetRootKF()->HasTranslation()) {
-            nextT += t;
-            nextBlendT += node->GetAnimAssoc()->GetBlendAmount();
-        }
-
-        // Sum rotation
-        nextQ = nextQ + (q.Dot(nextQ) >= 0.f ? q : -q);
-    }
-
-    // 0x4D2D73 - Apply rotation to kf
-    if (!fd->KeyFramesIgnoreNodeOrientation) {
-        nextQ.Normalise();
-        fd->KeyFrame->q = nextQ;
-    }
-
-    // 0x4D2D9D - Apply translation to kf
-    if (!fd->KeyFramesIgnoreNodeTranslation) {
-        fd->KeyFrame->t = lerp<CVector>(fd->BonePos, nextT, nextBlendT);
-    }
+    FrameUpdateCallBackNoVelocity<false, true>(fd, c);
 }
 
 // 0x4D2450
 // FrameUpdateCallBackT<false, false, true, true>
 void FrameUpdateCallBackNonSkinnedWith3dVelocityExtraction(AnimBlendUpdateData* c, AnimBlendFrameData* fd) {
-    assert(fd->HasVelocity);
-    assert(fd->HasZVelocity);
+    // Como el original: sin asserts de HasVelocity/HasZVelocity (las comprimidas se llaman sin mirar HasZVelocity)
 
 #if DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS
     _asm {
@@ -1253,6 +1314,7 @@ void FrameUpdateCallBackNonSkinnedWith3dVelocityExtraction(AnimBlendUpdateData* 
         push fd
         mov ecx, 0x4D2450
         call ecx
+        add esp, 4 // Como el original: cdecl, el llamador limpia el argumento
     };
     return;
 #endif
@@ -1343,7 +1405,7 @@ void FrameUpdateCallBackNonSkinnedWith3dVelocityExtraction(AnimBlendUpdateData* 
 // 0x4D2100
 // FrameUpdateCallBackT<false, false, true, false>
 void FrameUpdateCallBackNonSkinnedWithVelocityExtraction(AnimBlendUpdateData* c, AnimBlendFrameData* fd) {
-    assert(fd->HasVelocity);
+    // Como el original: sin asserts de HasVelocity/HasZVelocity (las comprimidas se llaman sin mirar HasZVelocity)
 
 #if DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS
     _asm {
@@ -1351,6 +1413,7 @@ void FrameUpdateCallBackNonSkinnedWithVelocityExtraction(AnimBlendUpdateData* c,
         push fd
         mov ecx, 0x4D2100
         call ecx
+        add esp, 4 // Como el original: cdecl, el llamador limpia el argumento
     };
     return;
 #endif
@@ -1472,51 +1535,7 @@ void FrameUpdateCallBackNonSkinned(AnimBlendFrameData* fd, void* data) {
         return;
     }
 
-    // 0x4D3131
-    const auto partialScale = 1.f - CalculateTotalBlendOfPartial(c, fd, false);
-
-    // 0x4D3170 - Calculate new key-frame translation, rotation and blend values
-    CVector nextT{};
-    CQuaternion nextQ{};
-    float nextBlendT{};
-    for (auto it = c->BlendNodeArrays; *it; ++*it, it++) { // NOTE: Increments NodeArray pointer too!
-        const auto node = *it;
-
-        if (!node->IsValid()) {
-            continue;
-        }
-
-        CVector t;
-        CQuaternion q;
-        node->Update(t, q, partialScale);
-
-        // Sum translation
-        if (node->GetRootKF()->HasTranslation()) {
-            nextT += t;
-            nextBlendT += node->GetAnimAssoc()->GetBlendAmount();
-        }
-
-        // Sum rotation
-        nextQ = nextQ + q;
-    }
-
-    const auto fmat = RwFrameGetMatrix(fd->Frame);
-
-    // 0x4D322F - Apply rotation to frame
-    if (!fd->KeyFramesIgnoreNodeOrientation) {
-        RwMatrixSetIdentity(fmat);
-        nextQ.Normalise();
-        nextQ.Get(fmat);
-    }
-
-    // 0x4D3278 - Apply translation to frame
-    if (!fd->KeyFramesIgnoreNodeTranslation) {
-        CVector t = lerp<CVector>(fd->FramePos, nextT, nextBlendT);
-        RwV3dAssign(RwMatrixGetPos(fmat), &t);
-    }
-
-    // 0x4D32BE
-    RwMatrixUpdate(fmat);
+    FrameUpdateCallBackNoVelocity<false, false>(fd, c);
 }
 
 #pragma endregion
@@ -1903,8 +1922,9 @@ const char* RpAnimBlendFrameGetName(RwFrame* frame) {
 }
 
 // 0x4D5F00
-void RpAnimBlendFrameSetName(RwFrame* frame, const char* name) {
+RwFrame* RpAnimBlendFrameSetName(RwFrame* frame, const char* name) {
     SetFrameNodeName(frame, name);
+    return frame; // Como el original: devuelve el frame (EAX)
 }
 
 // 0x4D6AB0
@@ -1917,8 +1937,7 @@ CAnimBlendAssociation* RpAnimBlendGetNextAssociation(CAnimBlendAssociation* asso
 
 // 0x4D6AD0
 CAnimBlendAssociation* RpAnimBlendGetNextAssociation(CAnimBlendAssociation* association, uint32 flags) {
-    assert(flags);
-    
+    // Como el original: sin assert; con flags 0 recorre la lista y devuelve nulo
     for (auto l = association->GetLink().next; l;) {
         const auto a = CAnimBlendAssociation::FromLink(l);
         l            = a->GetLink().next;

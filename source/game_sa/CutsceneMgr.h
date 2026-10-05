@@ -81,6 +81,10 @@ public:
     static inline auto& ms_hasFileInfo = StaticRef<int8>(0xB5F855);
     static inline auto& ms_numAppendObjectNames = StaticRef<int32>(0xB5F858);
     static inline auto& restoreEverythingAfterCutscene = StaticRef<bool>(0xB5F85C);
+    //! Armas del jugador guardadas para restaurarlas al borrar la cinemática con `m_bDontClearZone` (ver 0x5AFFE5)
+    static inline auto& numPlayerWeaponsToRestoreInZone = StaticRef<int32>(0xBC1CFC);
+    static inline auto& playerWeaponsToRestoreInZone_Ammo = StaticRef<std::array<int32, 13>>(0xBC1D00);
+    static inline auto& playerWeaponsToRestoreInZone_Type = StaticRef<std::array<int32, 13>>(0xBC1D34);
     static inline auto& m_fPrevCarDensity = StaticRef<float>(0xBC1D68);
     static inline auto& m_fPrevPedDensity = StaticRef<float>(0xBC1D6C);
     static inline auto& ms_pParticleEffects = StaticRef<std::array<tCutsceneParticleEffect, 8>>(0xBC1D70);
@@ -144,7 +148,6 @@ public:
     static void LoadCutsceneData_loading();
     static void LoadCutsceneData_overlay(const char* cutsceneName);
     static void LoadCutsceneData_postload();
-    static bool LoadCutSceneFile(const char* csFileName);
     static void LoadCutsceneData_preload();
     static void LoadEverythingBecauseCutsceneDeletedAllOfIt();
     static void RemoveCutscenePlayer();

@@ -128,7 +128,7 @@ public:
     void     SetObjectTargettable(bool targetable);
     [[nodiscard]] bool CanBeTargetted() const;
     void     RefModelInfo(int32 modelIndex);
-    void     SetRemapTexture(RwTexture* remapTexture, int16 txdIndex);
+    void     SetRemapTexture(RwTexture* remapTexture, int32 txdIndex);
     float    GetRopeHeight();
     void     SetRopeHeight(float height);
     CEntity* GetObjectCarriedWithRope();

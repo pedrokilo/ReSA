@@ -76,7 +76,7 @@ public:
         const uint8& at(size_t index) const { return buffer.at(index); }
 
         // Returns its index from CReplay::Buffers array.
-        size_t GetIndex() const  { return (this - Buffers.data()) / sizeof(tReplayBuffer); }
+        size_t GetIndex() const  { return this - Buffers.data(); } // la resta de punteros ya divide por el tamaño
         bool IsAvailable() const { return BufferStatus[GetIndex()] != REPLAYBUFFER_NOT_AVAILABLE; }
 
         struct Iterator {
@@ -202,12 +202,9 @@ public:
     static inline auto& TimeStep = StaticRef<float>(0x97FB38);
     static inline auto& TimeScale = StaticRef<float>(0x97FB3C);
 
-    // these are overwritten when OldWeatherType changes for some reason
-    // they have no unreversed xref anyways so it's fine.
-    // inline static auto& ClockHours = StaticRef<uint8>(0x97FAEF);
-    // inline static auto& ClockMinutes = StaticRef<uint8>(0x97FAEE);
-    inline static uint8 ClockHours{};
-    inline static uint8 ClockMinutes{};
+    // Como el original: OldWeatherType es int16 (0x97FAEC), así que la hora y los minutos no se solapan
+    inline static auto& ClockHours = StaticRef<uint8>(0x97FAEF);
+    inline static auto& ClockMinutes = StaticRef<uint8>(0x97FAEE);
 
     static inline auto& OldWeatherType = StaticRef<eWeatherType>(0x97FAEC);
     static inline auto& NewWeatherType = StaticRef<eWeatherType>(0x97FAE8);
@@ -235,7 +232,7 @@ public:
     static inline auto& LoadScene = StaticRef<CVector_Reversed>(0x97FAC0);
     static inline auto& CameraMode = StaticRef<eReplayCamMode>(0x97FB30);
     static inline auto& FramesActiveLookAroundCam = StaticRef<int32>(0x97FAD0);
-    static inline auto& OldRadioStation = StaticRef<eRadioID>(0x97FABC);
+    static inline auto& OldRadioStation = StaticRef<int32>(0x97FABC); // Como el original: dword (movsx al guardar)
     static inline auto& CurrArea = StaticRef<int8>(0x97FAB8);
     static inline auto& BufferStatus = StaticRef<std::array<eReplayBufferStatus, NUM_REPLAY_BUFFERS>>(0x97FB7C);
 

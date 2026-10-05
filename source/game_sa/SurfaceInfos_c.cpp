@@ -270,27 +270,44 @@ SurfaceId SurfaceInfos_c::GetSurfaceIdFromName(Const char* cName)
 // 0x55D0E0
 void SurfaceInfos_c::LoadAdhesiveLimits()
 {
-    return plugin::CallMethod<0x55D0E0, SurfaceInfos_c*>(this);
-
     CFileMgr::SetDir("");
     auto* file = CFileMgr::OpenFile("data\\surface.dat", "rb");
-#if FIX_BUGS
-    if (!file) {
-        NOTSA_LOG_DEBUG("[SurfaceInfos_c] Failed to open surface.dat");
-        CFileMgr::CloseFile(file);
-        return;
-    }
-#endif
-    for (const char* line = CFileLoader::LoadLine(file); line; line = CFileLoader::LoadLine(file)) {
+    // Como el original: sin comprobar si el fichero se abrió.
+    // Matriz triangular: la fila N trae N + 1 valores y cada valor se escribe en [N][j] y en [j][N].
+    // Como el original: no hay límite de filas (aritmética de punteros sobre la tabla 6x6).
+    auto* limits = m_adhesiveLimits.data()->data();
+    int32 row = 0;
+    for (char* line = CFileLoader::LoadLine(file); line; line = CFileLoader::LoadLine(file)) {
         if (*line == ';' || !*line)
             continue;
 
-        char value[4];
-        VERIFY(sscanf_s(line, "%s", SCANF_S_STR(value)) == 1);
-        for (auto i = *line; i != ' '; i = *++line) {
-            if (i == '\t')
+        char name[240];
+        sscanf(line, "%s", name); // Como el original: el nombre se lee y no se usa.
+        // Como el original: salta el nombre hasta un espacio o tabulador, sin comprobar el fin de cadena.
+        for (auto c = *line; c != ' '; c = *++line) {
+            if (c == '\t')
                 break;
         }
+
+        if (row >= 0) {
+            for (int32 col = 0; col <= row; col++) {
+                while (*line == ' ' || *line == '\t')
+                    line++;
+
+                // Como el original: un valor que empieza por '-' cuenta como 0 (también los negativos).
+                float value = 0.0f;
+                if (*line != '-')
+                    sscanf(line, "%f", &value);
+
+                while (*line != ' ' && *line != '\t' && *line != '\0')
+                    line++;
+
+                // Como el original: copia de dword, sin pasar por la FPU.
+                std::memcpy(&limits[row * 6 + col], &value, sizeof(value));
+                std::memcpy(&limits[col * 6 + row], &value, sizeof(value));
+            }
+        }
+        row++;
     }
     CFileMgr::CloseFile(file);
 }
@@ -299,18 +316,12 @@ void SurfaceInfos_c::LoadAdhesiveLimits()
 void SurfaceInfos_c::LoadSurfaceInfos()
 {
     auto* file = CFileMgr::OpenFile("data\\surfinfo.dat", "r");
-#if FIX_BUGS
-    if (!file) {
-        NOTSA_LOG_DEBUG("[SurfaceInfos_c] Failed to open surfinfo.dat");
-        CFileMgr::CloseFile(file);
-        return;
-    }
-#endif
+    // Como el original: sin comprobar si el fichero se abrió.
     for (const char* line = CFileLoader::LoadLine(file); line; line = CFileLoader::LoadLine(file)) {
         if (*line == '#' || !*line)
             continue;
 
-        SurfaceInfo si{};
+        SurfaceInfo si; // Como el original: sin inicializar, sscanf rellena los campos.
         si.Read(line);
 
         auto id = SurfaceInfos_c::GetSurfaceIdFromName(si.SurfaceName);
@@ -323,12 +334,14 @@ void SurfaceInfos_c::LoadSurfaceInfos()
         else if (!strcmp(si.AdhesionGroup, "SAND"))   surface.ucAdhesionGroup = ADHESION_GROUP_SAND;
         else if (!strcmp(si.AdhesionGroup, "WET"))    surface.ucAdhesionGroup = ADHESION_GROUP_WET;
 
-        surface.tyreGrip = uint32(si.TyreGrip * 10.0f);
-        surface.wetGrip  = uint32(si.WetGrip  * 100.0f); // BUG:? Data has negative values, with *original* conversion we loose sign
+        // Como el original: _ftol2 (truncación de 64 bits) y se guarda el byte bajo (los negativos se conservan).
+        surface.tyreGrip = static_cast<int8>(static_cast<int64>(si.TyreGrip * 10.0f));
+        surface.wetGrip  = static_cast<int8>(static_cast<int64>(si.WetGrip * 100.0f));
 
-        if (!strcmp(si.SkidMark, "DEFAULT")) surface.ucSkidmarkType = static_cast<uint32>(eSkidmarkType::DEFAULT);
-        if (!strcmp(si.SkidMark, "SANDY"))   surface.ucSkidmarkType = static_cast<uint32>(eSkidmarkType::SANDY);
-        if (!strcmp(si.SkidMark, "MUDDY"))   surface.ucSkidmarkType = static_cast<uint32>(eSkidmarkType::MUDDY);
+        // Como el original: "SANDY" guarda 2 y "MUDDY" guarda 1 (0x55EE82/0x55EEAD).
+        if      (!strcmp(si.SkidMark, "DEFAULT")) surface.ucSkidmarkType = 0;
+        else if (!strcmp(si.SkidMark, "SANDY"))   surface.ucSkidmarkType = 2;
+        else if (!strcmp(si.SkidMark, "MUDDY"))   surface.ucSkidmarkType = 1;
 
         if      (!strcmp(si.FrictionEffect, "NONE"))   surface.ucFrictionEffect = FRICTION_EFFECT_NONE;
         else if (!strcmp(si.FrictionEffect, "SPARKS")) surface.ucFrictionEffect = FRICTION_EFFECT_SPARKS;
@@ -339,35 +352,36 @@ void SurfaceInfos_c::LoadSurfaceInfos()
         else if (!strcmp(si.BulletFx, "WOOD"))   surface.ucBulletFX = BULLET_FX_WOOD;
         else if (!strcmp(si.BulletFx, "DUST"))   surface.ucBulletFX = BULLET_FX_DUST;
 
-        surface.bIsSoftLand         = (bool)si.SoftLand;
-        surface.bIsSeeThrough       = (bool)si.SeeThrough;
-        surface.bIsShootThrough     = (bool)si.ShootThrough;
-        surface.bIsSand             = (bool)si.Sand;
-        surface.bIsWater            = (bool)si.Water;
-        surface.bIsShallowWater     = (bool)si.ShallowWater;
-        surface.bIsBeach            = (bool)si.Beach;
-        surface.bIsSteepSlope       = (bool)si.SteepSlope;
-        surface.bIsGlass            = (bool)si.Glass;
-        surface.bIsStairs           = (bool)si.Stairs;
-        surface.bIsSkateable        = (bool)si.Skateable;
-        surface.bIsPavement         = (bool)si.Pavement;
-        surface.ucRoughness         = (uint32)si.Roughness;
-        surface.ucFlammability      = (uint32)si.Flame;
-        surface.bCreatesSparks      = (bool)si.Sparks;
-        surface.bCantSprintOn       = (bool)si.Sprint;
-        surface.bLeavesFootsteps    = (bool)si.Footsteps;
-        surface.bProducesFootDust   = (bool)si.FootDust;
-        surface.bMakesCarDirty      = (bool)si.CarDirt;
-        surface.bMakesCarClean      = (bool)si.CarClean;
-        surface.bCreatesWheelGrass  = (bool)si.WheelGrass;
-        surface.bCreatesWheelGravel = (bool)si.WheelGravel;
-        surface.bCreatesWheelMud    = (bool)si.WheelMud;
-        surface.bCreatesWheelDust   = (bool)si.WheelDust;
-        surface.bCreatesWheelSand   = (bool)si.WheelSand;
-        surface.bCreatesWheelSpray  = (bool)si.WheelSpray;
-        surface.bCreatesPlants      = (bool)si.ProcPlant;
-        surface.bCreatesObjects     = (bool)si.ProcObj;
-        surface.bCanClimb           = (bool)si.Climbable;
+        // Como el original: cada campo guarda los bits bajos del entero leído (2 cuenta como 0), no su valor booleano.
+        surface.bIsSoftLand         = si.SoftLand & 1;
+        surface.bIsSeeThrough       = si.SeeThrough & 1;
+        surface.bIsShootThrough     = si.ShootThrough & 1;
+        surface.bIsSand             = si.Sand & 1;
+        surface.bIsWater            = si.Water & 1;
+        surface.bIsShallowWater     = si.ShallowWater & 1;
+        surface.bIsBeach            = si.Beach & 1;
+        surface.bIsSteepSlope       = si.SteepSlope & 1;
+        surface.bIsGlass            = si.Glass & 1;
+        surface.bIsStairs           = si.Stairs & 1;
+        surface.bIsSkateable        = si.Skateable & 1;
+        surface.bIsPavement         = si.Pavement & 1;
+        surface.ucRoughness         = si.Roughness & 3;
+        surface.ucFlammability      = si.Flame & 3;
+        surface.bCreatesSparks      = si.Sparks & 1;
+        surface.bCantSprintOn       = si.Sprint & 1;
+        surface.bLeavesFootsteps    = si.Footsteps & 1;
+        surface.bProducesFootDust   = si.FootDust & 1;
+        surface.bMakesCarDirty      = si.CarDirt & 1;
+        surface.bMakesCarClean      = si.CarClean & 1;
+        surface.bCreatesWheelGrass  = si.WheelGrass & 1;
+        surface.bCreatesWheelGravel = si.WheelGravel & 1;
+        surface.bCreatesWheelMud    = si.WheelMud & 1;
+        surface.bCreatesWheelDust   = si.WheelDust & 1;
+        surface.bCreatesWheelSand   = si.WheelSand & 1;
+        surface.bCreatesWheelSpray  = si.WheelSpray & 1;
+        surface.bCreatesPlants      = si.ProcPlant & 1;
+        surface.bCreatesObjects     = si.ProcObj & 1;
+        surface.bCanClimb           = si.Climbable & 1;
     }
     CFileMgr::CloseFile(file);
 }
@@ -376,37 +390,34 @@ void SurfaceInfos_c::LoadSurfaceInfos()
 void SurfaceInfos_c::LoadSurfaceAudioInfos()
 {
     auto* file = CFileMgr::OpenFile("data\\surfaud.dat", "r");
-#if FIX_BUGS
-    if (!file) {
-        NOTSA_LOG_DEBUG("[SurfaceInfos_c] Failed to open surfaud.dat");
-        CFileMgr::CloseFile(file);
-        return;
-    }
-#endif
+    // Como el original: sin comprobar si el fichero se abrió.
     for (const char* line = CFileLoader::LoadLine(file); line; line = CFileLoader::LoadLine(file)) {
         if (*line == '#' || !*line)
             continue;
 
         char  name[64];
         int32 concrete, grass, sand, gravel, wood, water, metal, longGrass, tile;
-        VERIFY(sscanf_s(line, "%s %d %d %d %d %d %d %d %d %d", SCANF_S_STR(name), &concrete, &grass, &sand, &gravel, &wood, &water, &metal, &longGrass, &tile) == 10);
+        // Como el original: sscanf sin límites y sin comprobar el resultado.
+        sscanf(line, "%s %d %d %d %d %d %d %d %d %d", name, &concrete, &grass, &sand, &gravel, &wood, &water, &metal, &longGrass, &tile);
 
         auto id = GetSurfaceIdFromName(name);
         auto& surface = m_surfaces[id];
 
-        surface.bIsAudioConcrete  = (bool)concrete;
-        surface.bIsAudioGrass     = (bool)grass;
-        surface.bIsAudioSand      = (bool)sand;
-        surface.bIsAudioGravel    = (bool)gravel;
-        surface.bIsAudioWood      = (bool)wood;
-        surface.bIsAudioWater     = (bool)water;
-        surface.bIsAudioMetal     = (bool)metal;
-        surface.bIsAudioLongGrass = (bool)longGrass;
-        surface.bIsAudioTile      = (bool)tile;
+        // Como el original: se guarda el bit bajo de cada entero, no su valor booleano.
+        surface.bIsAudioConcrete  = concrete & 1;
+        surface.bIsAudioGrass     = grass & 1;
+        surface.bIsAudioSand      = sand & 1;
+        surface.bIsAudioGravel    = gravel & 1;
+        surface.bIsAudioWood      = wood & 1;
+        surface.bIsAudioWater     = water & 1;
+        surface.bIsAudioMetal     = metal & 1;
+        surface.bIsAudioLongGrass = longGrass & 1;
+        surface.bIsAudioTile      = tile & 1;
     }
     CFileMgr::CloseFile(file);
 }
 
+// 0x55F420
 void SurfaceInfos_c::Init()
 {
     // They call CFileMgr::SetDir("") only once in LoadAdhesiveLimits
@@ -684,5 +695,6 @@ float SurfaceInfos_c::GetAdhesiveLimit(CColPoint* colPoint)
 {
     auto& surfaceA = m_surfaces[colPoint->m_nSurfaceTypeA];
     auto& surfaceB = m_surfaces[colPoint->m_nSurfaceTypeB];
-    return m_adhesiveLimits[surfaceB.ucAdhesionGroup][surfaceA.ucAdhesionGroup];
+    // Como el original: índice plano grupoB * 6 + grupoA sin límites (el grupo ocupa 3 bits, 6 y 7 leen fuera de la tabla 6x6).
+    return m_adhesiveLimits.data()->data()[surfaceB.ucAdhesionGroup * 6 + surfaceA.ucAdhesionGroup];
 }

@@ -190,15 +190,18 @@ public:
 
     [[nodiscard]] CColModel* GetColModel() const { return m_pColModel; }
 
-    [[nodiscard]] bool GetIsDrawLast() const { return bDrawLast; }
-    [[nodiscard]] bool HasBeenPreRendered() const { return bHasBeenPreRendered; }
-    [[nodiscard]] bool HasComplexHierarchy() const { return bHasComplexHierarchy; }
-    [[nodiscard]] bool IsBackfaceCulled() const { return bIsBackfaceCulled; }
-    [[nodiscard]] bool IsLod() const { return bIsLod; }
-    [[nodiscard]] bool IsRoad() const { return bIsRoad; }
-    void SetHasBeenPreRendered(int32 bPreRendered) { bHasBeenPreRendered = bPreRendered; }
-    void SetIsLod(bool bLod) { bIsLod = bLod; }
-    void SetOwnsColModel(bool bOwns) { bDoWeOwnTheColModel = bOwns; }
+    // Como el original (0x5328C0, 0x5328B0, 0x4C4E00, 0x5328F0, 0x4C4A00, 0x4C4DF0): devuelven en EAX completo
+    // el bit enmascarado (p. ej. 0x80 o 0x100), no un bool en AL; los llamadores del EXE prueban EAX.
+    [[nodiscard]] uint32 GetIsDrawLast() const { return m_nFlags & 0x2; }
+    [[nodiscard]] uint32 HasBeenPreRendered() const { return m_nFlags & 0x1; }
+    [[nodiscard]] uint32 HasComplexHierarchy() const { return m_nFlags & 0x200; }
+    [[nodiscard]] uint32 IsBackfaceCulled() const { return m_nFlags & 0x40; }
+    [[nodiscard]] uint32 IsLod() const { return m_nFlags & 0x80; }
+    [[nodiscard]] uint32 IsRoad() const { return m_nFlags & 0x100; }
+    // Como el original (0x4C42F0, 0x4C4A10, 0x5328D0): prueban el dword completo del argumento (test eax,eax).
+    void SetHasBeenPreRendered(int32 bPreRendered) { bHasBeenPreRendered = bPreRendered != 0; }
+    void SetIsLod(int32 bLod) { bIsLod = bLod != 0; }
+    void SetOwnsColModel(int32 bOwns) { bDoWeOwnTheColModel = bOwns != 0; }
     void IncreaseAlpha() {
         if (m_nAlpha >= 239)
             m_nAlpha = 255;
@@ -231,9 +234,11 @@ public:
     [[nodiscard]] bool IsGlassType1()          const { return nSpecialType == eModelInfoSpecialType::GLASS_TYPE_1; }       // 0x2000
     [[nodiscard]] bool IsGlassType2()          const { return nSpecialType == eModelInfoSpecialType::GLASS_TYPE_2; }       // 0x2800
     [[nodiscard]] bool IsGlass()               const { return IsGlassType1() || IsGlassType2(); }
-    [[nodiscard]] bool IsTagModel()            const { return nSpecialType == eModelInfoSpecialType::TAG; }                // 0x3000
+    // Como el original (0x49CC20): devuelve 0/1 en EAX completo.
+    [[nodiscard]] int32 IsTagModel()           const { return nSpecialType == eModelInfoSpecialType::TAG; }                // 0x3000
     [[nodiscard]] bool IsGarageDoor()          const { return nSpecialType == eModelInfoSpecialType::GARAGE_DOOR; }        // 0x3800
-    [[nodiscard]] bool IsBreakableStatuePart() const { return nSpecialType == eModelInfoSpecialType::BREAKABLE_STATUE; }
+    // Como el original (0x59F090): devuelve 0/1 en EAX completo.
+    [[nodiscard]] int32 IsBreakableStatuePart() const { return nSpecialType == eModelInfoSpecialType::BREAKABLE_STATUE; }
     [[nodiscard]] bool IsCrane()               const { return nSpecialType == eModelInfoSpecialType::CRANE; }              // 0x4800
 
     void SetBaseModelInfoFlags(uint32 flags); // Wrapper for the static function. I honestly think this is how they did it..
@@ -252,6 +257,7 @@ public:
 
 private:
     friend void InjectHooksMain();
+    friend class CFileLoader; // LoadClumpFile lee m_pRwObject en crudo como el EXE
     static void InjectHooks();
 
 };

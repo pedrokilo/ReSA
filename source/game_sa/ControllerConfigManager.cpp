@@ -248,7 +248,7 @@ void CControllerConfigManager::DeleteMatching1rstPersonControls(eControllerActio
 }
 
 // 0x531BC0
-void CControllerConfigManager::DeleteMatchingVehicle_3rdPersonControls(KeyCode button, eControllerType type) {
+void CControllerConfigManager::DeleteMatchingVehicle_3rdPersonControls(eControllerAction nop, KeyCode button, eControllerType type) {
     if (GetIsKeyBlank(button, type)) {
         return;
     }
@@ -269,7 +269,7 @@ void CControllerConfigManager::ClearSettingsAssociatedWithAction(eControllerActi
         m_Actions[+action].Keys[+type].m_uiActionInitiator = (RsKeyCodes)0;
         m_Actions[+action].Keys[+type].m_uiSetOrder        = eContSetOrder::NONE;
         break;
-    default: NOTSA_UNREACHABLE();
+    default: break; // Como el original: con un tipo fuera de rango solo reordena
     }
     ResetSettingOrder(action);
 }
@@ -298,10 +298,11 @@ void CControllerConfigManager::AffectControllerStateOn_ButtonDown_FirstAndThirdP
     CheckAndSetButton(PED_FIRE_WEAPON, type, button, state.ButtonCircle);
     CheckAndSetButton(PED_FIRE_WEAPON_ALT, type, button, state.LeftShoulder1);
     CheckAndSetButton(PED_LOCK_TARGET, type, button, state.RightShoulder1);
-    CheckAndSetStick(GO_FORWARD, type, button, state.LeftStickY, m_bStickL_Up_Dwn_MovementBothDown[+type], -128);
-    CheckAndSetStick(GO_BACK, type, button, state.LeftStickY, m_bStickL_Up_Dwn_MovementBothDown[+type], 128);
-    CheckAndSetStick(GO_LEFT, type, button, state.LeftStickX, m_bStickL_X_Rgh_Lft_MovementBothDown[+type], -128);
-    CheckAndSetStick(GO_RIGHT, type, button, state.LeftStickX, m_bStickL_X_Rgh_Lft_MovementBothDown[+type], 128);
+    // Como el original: el stick izquierdo solo mira el indicador de ambas teclas pulsadas, no el valor previo
+    CheckAndSetStickFlagOnly(GO_FORWARD, type, button, state.LeftStickY, m_bStickL_Up_Dwn_MovementBothDown[+type], -128);
+    CheckAndSetStickFlagOnly(GO_BACK, type, button, state.LeftStickY, m_bStickL_Up_Dwn_MovementBothDown[+type], 128);
+    CheckAndSetStickFlagOnly(GO_LEFT, type, button, state.LeftStickX, m_bStickL_X_Rgh_Lft_MovementBothDown[+type], -128);
+    CheckAndSetStickFlagOnly(GO_RIGHT, type, button, state.LeftStickX, m_bStickL_X_Rgh_Lft_MovementBothDown[+type], 128);
     CheckAndSetButton(PED_WALK, type, button, state.m_bPedWalk);
     CheckAndSetPad(GROUP_CONTROL_FWD, type, button, state.DPadDown, state.DPadUp);
     CheckAndSetPad(GROUP_CONTROL_BWD, type, button, state.DPadUp, state.DPadDown);
@@ -375,10 +376,11 @@ void CControllerConfigManager::AffectControllerStateOn_ButtonDown_Driving(KeyCod
     CheckAndSetButton(VEHICLE_HANDBRAKE, type, button, state.RightShoulder1);
     CheckAndSetButton(VEHICLE_ACCELERATE, type, button, state.ButtonCross);
     CheckAndSetButton(VEHICLE_BRAKE, type, button, state.ButtonSquare);
-    CheckAndSetStick(VEHICLE_STEERUP, type, button, state.LeftStickY, m_bStickL_Up_Dwn_MovementBothDown[+type], -128);
-    CheckAndSetStick(VEHICLE_STEERDOWN, type, button, state.LeftStickY, m_bStickL_Up_Dwn_MovementBothDown[+type], 128);
-    CheckAndSetStick(VEHICLE_STEERLEFT, type, button, state.LeftStickX, m_bStickL_X_Rgh_Lft_MovementBothDown[+type], -128);
-    CheckAndSetStick(VEHICLE_STEERRIGHT, type, button, state.LeftStickX, m_bStickL_X_Rgh_Lft_MovementBothDown[+type], 128);
+    // Como el original: el stick izquierdo solo mira el indicador de ambas teclas pulsadas, no el valor previo
+    CheckAndSetStickFlagOnly(VEHICLE_STEERUP, type, button, state.LeftStickY, m_bStickL_Up_Dwn_MovementBothDown[+type], -128);
+    CheckAndSetStickFlagOnly(VEHICLE_STEERDOWN, type, button, state.LeftStickY, m_bStickL_Up_Dwn_MovementBothDown[+type], 128);
+    CheckAndSetStickFlagOnly(VEHICLE_STEERLEFT, type, button, state.LeftStickX, m_bStickL_X_Rgh_Lft_MovementBothDown[+type], -128);
+    CheckAndSetStickFlagOnly(VEHICLE_STEERRIGHT, type, button, state.LeftStickX, m_bStickL_X_Rgh_Lft_MovementBothDown[+type], 128);
     CheckAndSetButton(VEHICLE_RADIO_STATION_UP, type, button, state.DPadUp);
     CheckAndSetButton(VEHICLE_RADIO_STATION_DOWN, type, button, state.DPadDown);
     CheckAndSetButton(VEHICLE_RADIO_TRACK_SKIP, type, button, state.m_bRadioTrackSkip);
@@ -412,9 +414,10 @@ void CControllerConfigManager::ResetSettingOrder(eControllerAction action) {
                 const auto keyPriority = m_Actions[+action].Keys[+type].m_uiSetOrder;
 
                 // Only consider keys with priority > priorityLevel and not 0 (unset)
-                if (keyPriority > order && keyPriority != eContSetOrder::NONE) {
+                // Como el original: comparaciones con signo (jle/jge)
+                if ((int32)keyPriority > (int32)order && keyPriority != eContSetOrder::NONE) {
                     // If no key found yet or this key has lower priority than current best
-                    if (!found || keyPriority < m_Actions[+action].Keys[+result].m_uiSetOrder) {
+                    if (!found || (int32)keyPriority < (int32)m_Actions[+action].Keys[+result].m_uiSetOrder) {
                         result = type;
                         found = true;
                     }
@@ -466,8 +469,8 @@ bool CControllerConfigManager::LoadSettings(FILESTREAM file) {
     // Go back to position after version info
     CFileMgr::Seek(file, 4, 0);
 
-    // Clear existing settings
-    MakeControllerActionsBlank();
+    // Como el original: borra y rellena el ControlsManager global (0xB70198), no `this`
+    ControlsManager.MakeControllerActionsBlank();
 
     // Read key mappings for all controller types
     for (const auto& type : CONTROLLER_TYPES_ALL) {
@@ -476,7 +479,7 @@ bool CControllerConfigManager::LoadSettings(FILESTREAM file) {
             CFileMgr::Seek(file, 4, 1);
 
             // Read key and order for this action
-            CFileMgr::Read(file, &m_Actions[action].Keys[+type], 8);
+            CFileMgr::Read(file, &ControlsManager.m_Actions[action].Keys[+type], 8);
         }
     }
 
@@ -494,8 +497,8 @@ bool CControllerConfigManager::SaveSettings(FILESTREAM file) {
             // Write action ID
             CFileMgr::Write(file, &action, 4);
 
-            // Write key mapping data
-            CFileMgr::Write(file, &m_Actions[action].Keys[+type], 8);
+            // Como el original: escribe las asignaciones del ControlsManager global (0xB70D08), no las de `this`
+            CFileMgr::Write(file, &ControlsManager.m_Actions[action].Keys[+type], 8);
         }
     }
     return true;
@@ -537,8 +540,8 @@ void CControllerConfigManager::InitDefaultControlConfiguration() {
     SetControllerKeyAssociatedWithAction(PED_FIRE_WEAPON, rsLCTRL, eControllerType::OPTIONAL_EXTRA_KEY);
     SetControllerKeyAssociatedWithAction(PED_SNIPER_ZOOM_IN, rsPGUP, eControllerType::KEYBOARD);
     SetControllerKeyAssociatedWithAction(PED_SNIPER_ZOOM_OUT, rsPGDN, eControllerType::KEYBOARD);
-    // Fixes key mapping issue between old Windows 98 and modern systems
-    SetControllerKeyAssociatedWithAction(PED_FIRE_WEAPON_ALT, RsKeyCodes(notsa::IsFixBugs() ? '0' : '\\'), eControllerType::KEYBOARD);
+    // Como el original: '\\' (sin el arreglo FIX_BUGS de '0')
+    SetControllerKeyAssociatedWithAction(PED_FIRE_WEAPON_ALT, (RsKeyCodes)'\\', eControllerType::KEYBOARD);
     SetControllerKeyAssociatedWithAction(GROUP_CONTROL_FWD, (RsKeyCodes)'G', eControllerType::KEYBOARD);
     SetControllerKeyAssociatedWithAction(GROUP_CONTROL_BWD, (RsKeyCodes)'H', eControllerType::KEYBOARD);
     SetControllerKeyAssociatedWithAction(CONVERSATION_NO, (RsKeyCodes)'N', eControllerType::KEYBOARD);
@@ -558,8 +561,8 @@ void CControllerConfigManager::InitDefaultControlConfiguration() {
     SetControllerKeyAssociatedWithAction(PED_1RST_PERSON_LOOK_RIGHT, rsPADRIGHT, eControllerType::KEYBOARD);
     SetControllerKeyAssociatedWithAction(PED_1RST_PERSON_LOOK_UP, rsPADDOWN, eControllerType::KEYBOARD);
     SetControllerKeyAssociatedWithAction(PED_1RST_PERSON_LOOK_DOWN, rsPADUP, eControllerType::KEYBOARD);
-    // Fixes key mapping issue between old Windows 98 and modern systems
-    SetControllerKeyAssociatedWithAction(PED_CENTER_CAMERA_BEHIND_PLAYER, RsKeyCodes(notsa::IsFixBugs() ? '3' : '#'), eControllerType::KEYBOARD);
+    // Como el original: '#' (sin el arreglo FIX_BUGS de '3')
+    SetControllerKeyAssociatedWithAction(PED_CENTER_CAMERA_BEHIND_PLAYER, (RsKeyCodes)'#', eControllerType::KEYBOARD);
     SetControllerKeyAssociatedWithAction(PED_LOOKBEHIND, rsPADEND, eControllerType::KEYBOARD);
     SetControllerKeyAssociatedWithAction(VEHICLE_STEERUP, rsUP, eControllerType::KEYBOARD);
     SetControllerKeyAssociatedWithAction(VEHICLE_STEERDOWN, rsDOWN, eControllerType::KEYBOARD);
@@ -605,11 +608,7 @@ void CControllerConfigManager::InitDefaultControlConfiguration() {
     SetControllerKeyAssociatedWithAction(PED_CYCLE_TARGET_LEFT, (RsKeyCodes)'[', eControllerType::KEYBOARD);
     SetControllerKeyAssociatedWithAction(PED_CYCLE_TARGET_RIGHT, (RsKeyCodes)']', eControllerType::KEYBOARD);
 
-    // NOTE: If by chance there is no mouse the key assignment will fail, keep this.
-    if (notsa::IsFixBugs()) {
-        SetControllerKeyAssociatedWithAction(VEHICLE_LOOKBEHIND, rsPAD5, eControllerType::KEYBOARD);
-        SetControllerKeyAssociatedWithAction(VEHICLE_MOUSELOOK, '*', eControllerType::KEYBOARD);
-    }
+    // Como el original: sin las asignaciones extra de FIX_BUGS (VEHICLE_LOOKBEHIND / VEHICLE_MOUSELOOK)
 
     ClearSimButtonPressCheckers();
 }
@@ -702,13 +701,10 @@ void CControllerConfigManager::InitDefaultControlConfigJoyPad(uint32 buttonCount
 
 // 0x52F6F0
 void CControllerConfigManager::InitDefaultControlConfigMouse(const CMouseControllerState& MouseSetUp, bool mouseControls) {
-#ifdef NOTSA_USE_SDL3
-    constexpr bool isForcedMouseBlinding = true;
-#else
+    // Como el original: solo se asignan los botones que GetMouseSetUp detecta (sin el forzado NOTSA de SDL3)
     constexpr bool isForcedMouseBlinding = false;
-#endif
 
-    m_MouseFoundInitSet = false;
+    // Como el original: m_MouseFoundInitSet solo se pone a 1 (nunca se limpia aquí)
     if (MouseSetUp.isMouseLeftButtonPressed || isForcedMouseBlinding) {
         m_MouseFoundInitSet = true;
         SetMouseButtonAssociatedWithAction(PED_FIRE_WEAPON,            rsMOUSE_LEFT_BUTTON);
@@ -730,10 +726,7 @@ void CControllerConfigManager::InitDefaultControlConfigMouse(const CMouseControl
         SetMouseButtonAssociatedWithAction(PED_SNIPER_ZOOM_IN,         rsMOUSE_WHEEL_UP_BUTTON);
         SetMouseButtonAssociatedWithAction(PED_SNIPER_ZOOM_OUT,        rsMOUSE_WHEEL_DOWN_BUTTON);
     }
-
-    // This assert maybe is in the original game, but probably is missing by release build.
-    // Prevents 'wrong' vehicle keys init. In cases where the mouse starts incorrectly.
-    assert(m_MouseFoundInitSet == mouseControls || !mouseControls);
+    // Como el original: el segundo argumento no se usa (sin assert)
 }
 
 // 0x52D260
@@ -764,9 +757,7 @@ void CControllerConfigManager::InitialiseControllerActionNameArray() {
     GxtCharStrcpy(m_ControllerActionName[+VEHICLE_BRAKE], "VEHICLE_BRAKE"_gxt);
     GxtCharStrcpy(m_ControllerActionName[+VEHICLE_RADIO_STATION_UP], "VEHICLE_RADIO_STATION_UP"_gxt);
     GxtCharStrcpy(m_ControllerActionName[+VEHICLE_RADIO_STATION_DOWN], "VEHICLE_RADIO_STATION_DOWN"_gxt);
-    if (notsa::IsFixBugs()) { // Fix: Missing on vanilla game
-        GxtCharStrcpy(m_ControllerActionName[+VEHICLE_RADIO_TRACK_SKIP], "VEHICLE_RADIO_TRACK_SKIP"_gxt);
-    }
+    // Como el original: VEHICLE_RADIO_TRACK_SKIP no tiene nombre (sin el arreglo FIX_BUGS)
     GxtCharStrcpy(m_ControllerActionName[+TOGGLE_SUBMISSIONS], "TOGGLE_SUBMISSIONS"_gxt);
     GxtCharStrcpy(m_ControllerActionName[+PED_SNIPER_ZOOM_IN], "PED_SNIPER_ZOOM_IN"_gxt);
     GxtCharStrcpy(m_ControllerActionName[+PED_SNIPER_ZOOM_OUT], "PED_SNIPER_ZOOM_OUT"_gxt);
@@ -810,15 +801,15 @@ void CControllerConfigManager::ReinitControls() {
 
         DIDEVCAPS devCaps;
         devCaps.dwSize = sizeof(DIDEVCAPS);
-        if (!FAILED(PSGLOBAL(diDevice1)->GetCapabilities(&devCaps))) {
-            ControlsManager.InitDefaultControlConfigJoyPad(devCaps.dwButtons);
-        }
+        // Como el original: no comprueba el resultado de GetCapabilities
+        PSGLOBAL(diDevice1)->GetCapabilities(&devCaps);
+        ControlsManager.InitDefaultControlConfigJoyPad(devCaps.dwButtons);
     }
 }
 
 // 0x52F590
 void CControllerConfigManager::SetMouseButtonAssociatedWithAction(eControllerAction action, KeyCode button) {
-    ResetSettingOrder(action);
+    // Como el original: no llama a ResetSettingOrder (SetControllerKeyAssociatedWithAction sí)
     const auto numOfSettings = GetNumOfSettingsForAction(action);
     m_Actions[+action].Keys[+eControllerType::MOUSE].m_uiActionInitiator = button;
     m_Actions[+action].Keys[+eControllerType::MOUSE].m_uiSetOrder = eContSetOrder(+numOfSettings + 1);
@@ -835,7 +826,7 @@ void CControllerConfigManager::StoreMouseButtonState(RsKeyCodes button, bool sta
     case rsMOUSE_WHEEL_DOWN_BUTTON: CPad::TempMouseControllerState.isMouseWheelMovedDown = state; break;
     case rsMOUSE_X1_BUTTON:         CPad::TempMouseControllerState.isMouseFirstXPressed = state; break;
     case rsMOUSE_X2_BUTTON:         CPad::TempMouseControllerState.isMouseSecondXPressed = state; break;
-    default:                        NOTSA_UNREACHABLE();
+    default:                        break; // Como el original: otros valores no hacen nada
     }
 }
 
@@ -857,25 +848,31 @@ void CControllerConfigManager::AffectControllerStateOn_ButtonDown_DebugStuff(Key
 
 // 0x52DAB0
 void CControllerConfigManager::UpdateJoyInConfigMenus_ButtonDown(KeyCode button, int32 padNumber) {
-    CPad* pad = CPad::GetPad(padNumber);
-    if (!pad || !button) {
+    // Como el original: comprueba el botón antes de pedir el pad
+    if (!button) {
         return;
     }
-
-    if ((button != eJoyButtons::JOYBUTTON_TWELVE && padNumber != 1) || notsa::IsFixBugs()) {
-        GetControllerStateJoyStick(*pad, button) = 255;
+    CPad* pad = CPad::GetPad(padNumber);
+    if (!pad) {
+        return;
+    }
+    if (const auto state = GetControllerStateJoyStick(*pad, button, padNumber)) {
+        *state = 255;
     }
 }
 
 // 0x52DC20
 void CControllerConfigManager::UpdateJoyInConfigMenus_ButtonUp(KeyCode button, int32 padNumber) {
-    CPad* pad = CPad::GetPad(padNumber);
-    if (!pad || !button) {
+    // Como el original: comprueba el botón antes de pedir el pad
+    if (!button) {
         return;
     }
-
-    if ((button != eJoyButtons::JOYBUTTON_TWELVE && padNumber != 1) || notsa::IsFixBugs()) {
-        GetControllerStateJoyStick(*pad, button) = 0;
+    CPad* pad = CPad::GetPad(padNumber);
+    if (!pad) {
+        return;
+    }
+    if (const auto state = GetControllerStateJoyStick(*pad, button, padNumber)) {
+        *state = 0;
     }
 }
 
@@ -949,67 +946,52 @@ bool CControllerConfigManager::GetIsKeyboardKeyJustDown(KeyCode key) {
     return IsKeyboardKeyDownInState(CPad::NewKeyState, key) && !IsKeyboardKeyDownInState(CPad::OldKeyState, key);
 }
 
-// Enum to specify what type of mouse check to perform
-enum class eMouseCheckType {
-    IS_DOWN, // Button is currently down
-    IS_UP,   // Button is currently up
-    JUST_UP  // Button was just released this frame
-};
-
-// NOTSA: But at the moment of compile is 1:1.
-template<eMouseCheckType CheckType>
-constexpr inline bool CheckMouseButton(KeyCode& key) {
-    auto* pad = CPad::GetPad();
-    if (!pad || !key) {
-        return false;
+// Como el original: lee el byte del botón del estado de ratón (los campos de rueda son bool en la DLL)
+static uint8 MouseButtonByte(const CMouseControllerState& state, KeyCode key) {
+    switch (key) {
+    case rsMOUSE_LEFT_BUTTON:       return state.isMouseLeftButtonPressed;
+    case rsMOUSE_MIDDLE_BUTTON:     return state.isMouseMiddleButtonPressed;
+    case rsMOUSE_RIGHT_BUTTON:      return state.isMouseRightButtonPressed;
+    case rsMOUSE_WHEEL_UP_BUTTON:   return *reinterpret_cast<const uint8*>(&state.isMouseWheelMovedUp);
+    case rsMOUSE_WHEEL_DOWN_BUTTON: return *reinterpret_cast<const uint8*>(&state.isMouseWheelMovedDown);
+    case rsMOUSE_X1_BUTTON:         return state.isMouseFirstXPressed;
+    case rsMOUSE_X2_BUTTON:         return state.isMouseSecondXPressed;
+    default:                        return 0;
     }
-
-    bool result = false;
-    if constexpr (CheckType == eMouseCheckType::JUST_UP) {
-        switch (key) {
-        case rsMOUSE_LEFT_BUTTON:       result = pad->IsMouseLButtonPressed(); break;
-        case rsMOUSE_MIDDLE_BUTTON:     result = pad->IsMouseMButtonPressed(); break;
-        case rsMOUSE_RIGHT_BUTTON:      result = pad->IsMouseRButtonPressed(); break;
-        case rsMOUSE_WHEEL_UP_BUTTON:   result = pad->IsMouseWheelUpPressed(); break;
-        case rsMOUSE_WHEEL_DOWN_BUTTON: result = pad->IsMouseWheelDownPressed(); break;
-        case rsMOUSE_X1_BUTTON:         result = pad->IsMouseBmx1Pressed(); break;
-        case rsMOUSE_X2_BUTTON:         result = pad->IsMouseBmx2Pressed(); break;
-        default:                        NOTSA_UNREACHABLE("Invalid Key: {}", (uint32)key); break;
-        }
-    } else if constexpr (CheckType == eMouseCheckType::IS_DOWN || CheckType == eMouseCheckType::IS_UP) {
-        switch (key) {
-        case rsMOUSE_LEFT_BUTTON:       result = pad->IsMouseLButton(); break;
-        case rsMOUSE_MIDDLE_BUTTON:     result = pad->IsMouseMButton(); break;
-        case rsMOUSE_RIGHT_BUTTON:      result = pad->IsMouseRButton(); break;
-        case rsMOUSE_WHEEL_UP_BUTTON:   result = pad->IsMouseWheelUp(); break;
-        case rsMOUSE_WHEEL_DOWN_BUTTON: result = pad->IsMouseWheelDown(); break;
-        case rsMOUSE_X1_BUTTON:         result = pad->IsMouseBmx1(); break;
-        case rsMOUSE_X2_BUTTON:         result = pad->IsMouseBmx2(); break;
-        default:                        NOTSA_UNREACHABLE("Invalid Key: {}", (uint32)key); break;
-        }
-    }
-
-    if constexpr (CheckType == eMouseCheckType::IS_UP) {
-        return !result;
-    } else {
-        return result;
-    }
-    NOTSA_UNREACHABLE("Invalid CheckType: {}", (uint32)CheckType); // Unreachable
 }
 
 // 0x52EF30
 bool CControllerConfigManager::GetIsMouseButtonDown(KeyCode Key) {
-    return CheckMouseButton<eMouseCheckType::IS_DOWN>(Key);
+    // Como el original: botones fuera de 1..7 (incluido 0) devuelven false
+    if (Key - 1 > 6) {
+        return false;
+    }
+    return MouseButtonByte(CPad::NewMouseControllerState, Key) != 0;
 }
 
 // 0x52F020
 bool CControllerConfigManager::GetIsMouseButtonUp(KeyCode Key) {
-    return CheckMouseButton<eMouseCheckType::IS_UP>(Key);
+    // Como el original: botones fuera de 1..7 (incluido 0) devuelven false
+    if (Key - 1 > 6) {
+        return false;
+    }
+    return MouseButtonByte(CPad::NewMouseControllerState, Key) == 0;
 }
 
 // 0x52F110
 bool CControllerConfigManager::GetIsMouseButtonJustUp(KeyCode Key) {
-    return CheckMouseButton<eMouseCheckType::JUST_UP>(Key);
+    // Como el original: botones fuera de 1..7 (incluido 0) devuelven false
+    if (Key - 1 > 6) {
+        return false;
+    }
+    // Como el original: soltado = ahora arriba y antes abajo; el 2 (medio) mira el botón derecho y el 3 (derecho) el medio
+    KeyCode checked = Key;
+    if (Key == rsMOUSE_MIDDLE_BUTTON) {
+        checked = rsMOUSE_RIGHT_BUTTON;
+    } else if (Key == rsMOUSE_RIGHT_BUTTON) {
+        checked = rsMOUSE_MIDDLE_BUTTON;
+    }
+    return !MouseButtonByte(CPad::NewMouseControllerState, checked) && MouseButtonByte(CPad::OldMouseControllerState, checked);
 }
 
 // unused
@@ -1020,7 +1002,7 @@ bool CControllerConfigManager::GetIsKeyBlank(KeyCode key, eControllerType type) 
     case eControllerType::OPTIONAL_EXTRA_KEY: return key == rsNULL;
     case eControllerType::MOUSE:
     case eControllerType::JOY_STICK:          return key == 0;
-    default:                                  NOTSA_UNREACHABLE();
+    default:                                  return true; // Como el original: tipos fuera de rango cuentan como vacíos
     }
 }
 
@@ -1146,42 +1128,39 @@ void CControllerConfigManager::AffectPadFromKeyBoard() {
     RsKeyCodes keyCode;
     GTATranslateShiftKey(&keyCode);
 
-    const auto inMenu = !CPad::padNumber && !FrontEndMenuManager.m_bMenuActive;
+    const auto canProcess = !CPad::padNumber && !FrontEndMenuManager.m_bMenuActive;
     for (auto& action : m_Actions) {
-        // Handle key press logic
-        for (const auto& type : CONTROLLER_TYPES_KEYBOARD) {
-            const auto key = action.Keys[+type].m_uiActionInitiator;
+        const auto key = action.Keys[+eControllerType::KEYBOARD].m_uiActionInitiator;
+        if (GetIsKeyboardKeyDown(key) && canProcess && key != rsNULL) {
+            AffectControllerStateOn_ButtonDown(key, eControllerType::KEYBOARD);
+        }
 
-            if (GetIsKeyboardKeyDown(key) && inMenu && !GetIsKeyBlank(key, type)) {
-                if (inMenu) {
-                    AffectControllerStateOn_ButtonDown(key, type);
-                }
-                auto* pad = CPad::GetPad();
-                if (!pad || FrontEndMenuManager.m_bMenuActive) {
-                    continue;
-                }
-                AffectControllerStateOn_ButtonUp_All_Player_States(key, type, GetControllerState(*pad, type));
-            }
+        const auto extraKey = action.Keys[+eControllerType::OPTIONAL_EXTRA_KEY].m_uiActionInitiator;
+        if (GetIsKeyboardKeyDown(extraKey) && canProcess && extraKey != rsNULL) {
+            AffectControllerStateOn_ButtonDown(extraKey, eControllerType::OPTIONAL_EXTRA_KEY);
+        }
+
+        // Como el original: si la tecla principal está suelta solo se procesa su liberación;
+        // la secundaria solo se libera cuando la principal sigue pulsada
+        if (!GetIsKeyboardKeyDown(key)) {
+            AffectControllerStateOn_ButtonUp(key, eControllerType::KEYBOARD);
+        } else if (!GetIsKeyboardKeyDown(extraKey)) {
+            AffectControllerStateOn_ButtonUp(extraKey, eControllerType::OPTIONAL_EXTRA_KEY);
         }
     }
 }
 
 // 0x5314A0
 void CControllerConfigManager::AffectPadFromMouse() {
-    bool inMenu = !CPad::padNumber && !FrontEndMenuManager.m_bMenuActive;
+    const auto canProcess = !CPad::padNumber && !FrontEndMenuManager.m_bMenuActive;
     for (auto& action : m_Actions) {
         const auto button = action.Keys[+eControllerType::MOUSE].m_uiActionInitiator;
-
-        if (GetIsMouseButtonDown(button)) {
-            if (inMenu && !GetIsKeyBlank(button, eControllerType::MOUSE)) {
-                AffectControllerStateOn_ButtonDown(button, eControllerType::MOUSE);
-            }
+        if (GetIsMouseButtonDown(button) && canProcess && button != 0) {
+            AffectControllerStateOn_ButtonDown(button, eControllerType::MOUSE);
         }
-
+        // Como el original: la liberación también exige botón asignado y menú cerrado
         if (GetIsMouseButtonUp(button)) {
-            if (auto* pad = CPad::GetPad()) {
-                AffectControllerStateOn_ButtonUp_All_Player_States(button, eControllerType::MOUSE, GetControllerState(*pad, eControllerType::MOUSE));
-            }
+            AffectControllerStateOn_ButtonUp(button, eControllerType::MOUSE);
         }
     }
 }
@@ -1201,12 +1180,12 @@ void CControllerConfigManager::DeleteMatchingActionInitiators(eControllerAction 
         DeleteMatchingCommonControls(action, button, type);
         DeleteMatching1rst3rdPersonControls(action, button, type);
         DeleteMatching3rdPersonControls(action, button, type);
-        DeleteMatchingVehicle_3rdPersonControls(button, type);
+        DeleteMatchingVehicle_3rdPersonControls(action, button, type);
         break;
     case eActionType::IN_CAR:
         DeleteMatchingCommonControls(action, button, type);
         DeleteMatchingVehicleControls(action, button, type);
-        DeleteMatchingVehicle_3rdPersonControls(button, type);
+        DeleteMatchingVehicle_3rdPersonControls(action, button, type);
         break;
     case eActionType::IN_CAR_THIRD_PERSON:
         DeleteMatchingCommonControls(action, button, type);
@@ -1220,40 +1199,52 @@ void CControllerConfigManager::DeleteMatchingActionInitiators(eControllerAction 
         DeleteMatching1rst3rdPersonControls(action, button, type);
         DeleteMatching3rdPersonControls(action, button, type);
         DeleteMatchingVehicleControls(action, button, type);
-        DeleteMatchingVehicle_3rdPersonControls(button, type);
+        DeleteMatchingVehicle_3rdPersonControls(action, button, type);
         break;
     case eActionType::FIRST_THIRD_PERSON:
         DeleteMatchingCommonControls(action, button, type);
         DeleteMatching1rstPersonControls(action, button, type);
         DeleteMatching1rst3rdPersonControls(action, button, type);
         DeleteMatching3rdPersonControls(action, button, type);
-        DeleteMatchingVehicle_3rdPersonControls(button, type);
+        DeleteMatchingVehicle_3rdPersonControls(action, button, type);
         break;
     default:
         return;
     }
 }
 
+// 0x719360
+// Como el original: los caracteres >= 0x80 pasan por la tabla de 0x8D5AD8 (entradas de 2 bytes)
+static GxtChar KeyCharToGxtChar(uint8 ch) {
+    if (ch < 0x80) {
+        return (GxtChar)ch;
+    }
+    return (GxtChar)*reinterpret_cast<const uint8*>(0x8D5AD8 + ch * 2);
+}
+
 // 0x52FE10
 const GxtChar* CControllerConfigManager::GetControllerSettingTextKeyBoard(eControllerAction action, eControllerType type) {
     auto& s_KeyName = StaticRef<GxtChar[50]>(0xB714BC); // temp value
+    auto& s_KeyNameWithNumber = StaticRef<GxtChar[32]>(0xB7149C);
     rng::fill(s_KeyName, 0);
 
     const auto key = GetControllerKeyAssociatedWithAction(action, type);
-    if (GetIsKeyBlank(key, type)) {
+    // Como el original: solo compara con rsNULL, sin mirar el tipo
+    if (key == rsNULL) {
         return nullptr;
     }
 
+    // Como el original: los textos con número van a 0xB7149C, no a s_KeyName
     const auto KeyNameWithNumber = [&](const GxtChar* text, int32 key) {
-        CMessages::InsertNumberInString(text, key, -1, -1, -1, -1, -1, s_KeyName);
-        return s_KeyName;
+        CMessages::InsertNumberInString(text, key, -1, -1, -1, -1, -1, s_KeyNameWithNumber);
+        return s_KeyNameWithNumber;
     };
 
     if (key >= rsF1 && key <= rsF12) {
         return KeyNameWithNumber(TheText.Get("FEC_FNC"), key - rsF1 + 1); // F~1~
     }
 
-    if (key > 255) { /* Non-ASCII keys */
+    if ((int32)key < 0 || (int32)key > 255) { /* Non-ASCII keys */
         switch (key) {
         case rsINS:      return TheText.Get("FEC_IRT");                       // INS
         case rsDEL:      return TheText.Get("FEC_DLL");                       // DEL
@@ -1305,22 +1296,31 @@ const GxtChar* CControllerConfigManager::GetControllerSettingTextKeyBoard(eContr
         case '*': return TheText.Get("FEC_AST"); // Asterisk
         case ' ': return TheText.Get("FEC_SPC"); // SPACE
         case '^':
-            if (FrontEndMenuManager.m_nTextLanguage == GERMAN) {
-                return "|"_gxt;
+            // Como el original: se escribe en s_KeyName; en otros idiomas sigue al caso general
+            // Como el original: idioma 2 (eLanguage::GERMAN); `GERMAN` a secas es 'g' (Text.h)
+            if (FrontEndMenuManager.m_nTextLanguage == (int32)eLanguage::GERMAN) {
+                s_KeyName[0] = '|';
+                s_KeyName[1] = '\0';
+                return s_KeyName;
             }
             break;
         case 178:
-            if (FrontEndMenuManager.m_nTextLanguage == FRENCH) {
-                return "2"_gxt;
+            // Como el original: idioma 1 (eLanguage::FRENCH); `FRENCH` a secas es 'f' (Text.h)
+            if (FrontEndMenuManager.m_nTextLanguage == (int32)eLanguage::FRENCH) {
+                s_KeyName[0] = '2';
+                s_KeyName[1] = '\0';
+                return s_KeyName;
             }
             break;
-        default:
-            s_KeyName[0] = (GxtChar)key ? key : '#';
-            s_KeyName[1] = '\0';
-            return s_KeyName;
         }
+        // Como el original: carácter convertido con 0x719360; si da 0 se usa '#'
+        s_KeyName[0] = KeyCharToGxtChar((uint8)key);
+        if (!s_KeyName[0]) {
+            s_KeyName[0] = KeyCharToGxtChar('#');
+        }
+        s_KeyName[1] = '\0';
+        return s_KeyName;
     }
-    return nullptr; // Please not add 'NOTSA_UNREACHABLE' !!!
 }
 
 // 0x52F560
@@ -1335,13 +1335,12 @@ void CControllerConfigManager::GetGxtStringOfCommandKeys(eControllerAction actio
         CMessages::StringCopy(pStringToFill, retString, len);
     };
 
-    if (FrontEndMenuManager.m_ControlMethod == eController::JOYPAD) {
+    // Como el original: con cualquier método distinto de ratón+teclado se mira el joystick y se salta el ratón
+    if (FrontEndMenuManager.m_ControlMethod != eController::MOUSE_PLUS_KEYS) {
         if (auto keyText = GetControllerSettingTextJoystick(action)) {
             return setString(keyText);
         }
-    }
-
-    if (auto keyText = GetControllerSettingTextMouse(action)) {
+    } else if (auto keyText = GetControllerSettingTextMouse(action)) {
         return setString(keyText);
     }
 
@@ -1415,6 +1414,18 @@ void CControllerConfigManager::CheckAndSetPad(eControllerAction action, eControl
     }
 }
 
+// Como el original (stick izquierdo): solo el indicador decide si se anula el eje
+void CControllerConfigManager::CheckAndSetStickFlagOnly(eControllerAction action, eControllerType type, KeyCode button, int16& state, bool& movementBothDown, int16 value) {
+    if (GetControllerKeyAssociatedWithAction(action, type) == button) {
+        if (movementBothDown) {
+            state = 0;
+            movementBothDown = true;
+        } else {
+            state = value;
+        }
+    }
+}
+
 void CControllerConfigManager::CheckAndSetStick(eControllerAction action, eControllerType type, KeyCode button, int16& state, bool& movementBothDown, int16 value) {
     if (GetControllerKeyAssociatedWithAction(action, type) == button) {
         if (state == -value || movementBothDown) {
@@ -1427,26 +1438,31 @@ void CControllerConfigManager::CheckAndSetStick(eControllerAction action, eContr
 }
 
 // inlined
-int16& CControllerConfigManager::GetControllerStateJoyStick(CPad& pad, KeyCode button) {
+// Como el original: botones fuera de 1..16 no tocan nada; Start (12) solo se toca en el pad 1
+int16* CControllerConfigManager::GetControllerStateJoyStick(CPad& pad, KeyCode button, int32 padNumber) {
+    auto& state = pad.PCTempJoyState;
+    switch (button) {
+    case eJoyButtons::JOYBUTTON_FIVE:      return &state.LeftShoulder2;
+    case eJoyButtons::JOYBUTTON_SIX:       return &state.RightShoulder2;
+    case eJoyButtons::JOYBUTTON_SEVEN:     return &state.LeftShoulder1;
+    case eJoyButtons::JOYBUTTON_EIGHT:     return &state.RightShoulder1;
+    case eJoyButtons::JOYBUTTON_NINE:      return &state.Select;
+    case eJoyButtons::JOYBUTTON_TEN:       return &state.ShockButtonL;
+    case eJoyButtons::JOYBUTTON_ELEVEN:    return &state.ShockButtonR;
+    case eJoyButtons::JOYBUTTON_TWELVE:    return padNumber == 1 ? &state.Start : nullptr;
+    case eJoyButtons::JOYBUTTON_THIRTEEN:  return &state.DPadUp;
+    case eJoyButtons::JOYBUTTON_FOURTEEN:  return &state.DPadRight;
+    case eJoyButtons::JOYBUTTON_FIFTHTEEN: return &state.DPadDown;
+    case eJoyButtons::JOYBUTTON_SIXTEEN:   return &state.DPadLeft;
+    default:                               break;
+    }
     const auto specGamepad = AllValidWinJoys.JoyStickNum[PAD1].wVendorID == 0x3427 && AllValidWinJoys.JoyStickNum[PAD1].wProductID == 0x1190;
     switch (button) {
-    case eJoyButtons::JOYBUTTON_ONE:       return specGamepad ? pad.PCTempJoyState.ButtonTriangle : pad.PCTempJoyState.ButtonCircle;
-    case eJoyButtons::JOYBUTTON_TWO:       return specGamepad ? pad.PCTempJoyState.ButtonCircle : pad.PCTempJoyState.ButtonCross;
-    case eJoyButtons::JOYBUTTON_THREE:     return specGamepad ? pad.PCTempJoyState.ButtonCross : pad.PCTempJoyState.ButtonSquare;
-    case eJoyButtons::JOYBUTTON_FOUR:      return specGamepad ? pad.PCTempJoyState.ButtonSquare : pad.PCTempJoyState.ButtonTriangle;
-    case eJoyButtons::JOYBUTTON_FIVE:      return pad.PCTempJoyState.LeftShoulder2;
-    case eJoyButtons::JOYBUTTON_SIX:       return pad.PCTempJoyState.RightShoulder2;
-    case eJoyButtons::JOYBUTTON_SEVEN:     return pad.PCTempJoyState.LeftShoulder1;
-    case eJoyButtons::JOYBUTTON_EIGHT:     return pad.PCTempJoyState.RightShoulder1;
-    case eJoyButtons::JOYBUTTON_NINE:      return pad.PCTempJoyState.Select;
-    case eJoyButtons::JOYBUTTON_TEN:       return pad.PCTempJoyState.ShockButtonL;
-    case eJoyButtons::JOYBUTTON_ELEVEN:    return pad.PCTempJoyState.ShockButtonR;
-    case eJoyButtons::JOYBUTTON_TWELVE:    return pad.PCTempJoyState.Start;
-    case eJoyButtons::JOYBUTTON_THIRTEEN:  return pad.PCTempJoyState.DPadUp;
-    case eJoyButtons::JOYBUTTON_FOURTEEN:  return pad.PCTempJoyState.DPadRight;
-    case eJoyButtons::JOYBUTTON_FIFTHTEEN: return pad.PCTempJoyState.DPadDown;
-    case eJoyButtons::JOYBUTTON_SIXTEEN:   return pad.PCTempJoyState.DPadLeft;
-    default:                               NOTSA_UNREACHABLE("Invalid button ({})", (uint32)button);
+    case eJoyButtons::JOYBUTTON_ONE:       return specGamepad ? &state.ButtonTriangle : &state.ButtonCircle;
+    case eJoyButtons::JOYBUTTON_TWO:       return specGamepad ? &state.ButtonCircle : &state.ButtonCross;
+    case eJoyButtons::JOYBUTTON_THREE:     return specGamepad ? &state.ButtonCross : &state.ButtonSquare;
+    case eJoyButtons::JOYBUTTON_FOUR:      return specGamepad ? &state.ButtonSquare : &state.ButtonTriangle;
+    default:                               return nullptr;
     }
 }
 

@@ -1033,5 +1033,30 @@
     "id": "gameidle",
     "name": "Game::Idle y FrontendIdle como el EXE",
     "runner": "GameIdle/run_local.py"
+  },
+  {
+    "id": "model34",
+    "name": "Modelo base CBaseModelInfo (lista de 34)",
+    "runner": "Model34/run_local.py"
+  },
+  {
+    "id": "cutscene35",
+    "name": "Cinemáticas CCutsceneMgr (lista de 35)",
+    "runner": "Cutscene35/run_local.py"
+  },
+  {
+    "id": "audiohw54",
+    "name": "Hardware de audio (lista de 54)",
+    "runner": "AudioHw54/run_local.py"
+  },
+  {
+    "id": "envmap37",
+    "name": "Tubería de reflejos de coches (lista de 37)",
+    "runner": "EnvMap37/run_local.py"
+  },
+  {
+    "id": "pedspeech58",
+    "name": "Habla de peatones (lista de 58)",
+    "runner": "PedSpeech58/run_local.py"
   }
 ]

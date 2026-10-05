@@ -1,0 +1,109 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 13280,
+  "pairs_per_function": {
+    "CBaseModelInfo::AsAtomicModelInfoPtr": 32,
+    "CBaseModelInfo::AsDamageAtomicModelInfoPtr": 32,
+    "CBaseModelInfo::AsLodAtomicModelInfoPtr": 32,
+    "CBaseModelInfo::GetTimeInfo": 32,
+    "CBaseModelInfo::Init": 128,
+    "CBaseModelInfo::Shutdown": 512,
+    "CBaseModelInfo::SetAnimFile": 32,
+    "CBaseModelInfo::ConvertAnimFileIndex": 32,
+    "CBaseModelInfo::GetAnimFileIndex": 32,
+    "CBaseModelInfo::SetTexDictionary": 512,
+    "CBaseModelInfo::ClearTexDictionary": 64,
+    "CBaseModelInfo::AddTexDictionaryRef": 256,
+    "CBaseModelInfo::RemoveTexDictionaryRef": 256,
+    "CBaseModelInfo::AddRef": 256,
+    "CBaseModelInfo::RemoveRef": 256,
+    "CBaseModelInfo::SetColModel": 1024,
+    "CBaseModelInfo::Init2dEffects": 64,
+    "CBaseModelInfo::DeleteCollisionModel": 256,
+    "CBaseModelInfo::Get2dEffect": 2048,
+    "CBaseModelInfo::Add2dEffect": 1024,
+    "CBaseModelInfo::GetIsDrawLast": 512,
+    "CBaseModelInfo::HasBeenPreRendered": 512,
+    "CBaseModelInfo::HasComplexHierarchy": 512,
+    "CBaseModelInfo::IsBackfaceCulled": 512,
+    "CBaseModelInfo::IsLod": 512,
+    "CBaseModelInfo::IsRoad": 512,
+    "CBaseModelInfo::SetHasBeenPreRendered": 256,
+    "CBaseModelInfo::SetIsLod": 256,
+    "CBaseModelInfo::SetOwnsColModel": 256,
+    "CBaseModelInfo::IncreaseAlpha": 512,
+    "CBaseModelInfo::IsBreakableStatuePart": 512,
+    "CBaseModelInfo::IsTagModel": 512,
+    "CBaseModelInfo::SetBaseModelInfoFlags": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "90654abc0909e36d8a2f29b26464ed4d40d2b1fdb52278a3bc2ba50e67220e44",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-model34\\20261004-193144-259472",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CBaseModelInfo::AsAtomicModelInfoPtr": true,
+    "CBaseModelInfo::AsDamageAtomicModelInfoPtr": true,
+    "CBaseModelInfo::AsLodAtomicModelInfoPtr": true,
+    "CBaseModelInfo::GetTimeInfo": true,
+    "CBaseModelInfo::Init": true,
+    "CBaseModelInfo::Shutdown": true,
+    "CBaseModelInfo::SetAnimFile": true,
+    "CBaseModelInfo::ConvertAnimFileIndex": true,
+    "CBaseModelInfo::GetAnimFileIndex": true,
+    "CBaseModelInfo::SetTexDictionary": true,
+    "CBaseModelInfo::ClearTexDictionary": true,
+    "CBaseModelInfo::AddTexDictionaryRef": true,
+    "CBaseModelInfo::RemoveTexDictionaryRef": true,
+    "CBaseModelInfo::AddRef": true,
+    "CBaseModelInfo::RemoveRef": true,
+    "CBaseModelInfo::SetColModel": true,
+    "CBaseModelInfo::Init2dEffects": true,
+    "CBaseModelInfo::DeleteCollisionModel": true,
+    "CBaseModelInfo::Get2dEffect": true,
+    "CBaseModelInfo::Add2dEffect": true,
+    "CBaseModelInfo::GetIsDrawLast": true,
+    "CBaseModelInfo::HasBeenPreRendered": true,
+    "CBaseModelInfo::HasComplexHierarchy": true,
+    "CBaseModelInfo::IsBackfaceCulled": true,
+    "CBaseModelInfo::IsLod": true,
+    "CBaseModelInfo::IsRoad": true,
+    "CBaseModelInfo::SetHasBeenPreRendered": true,
+    "CBaseModelInfo::SetIsLod": true,
+    "CBaseModelInfo::SetOwnsColModel": true,
+    "CBaseModelInfo::IncreaseAlpha": true,
+    "CBaseModelInfo::IsBreakableStatuePart": true,
+    "CBaseModelInfo::IsTagModel": true,
+    "CBaseModelInfo::SetBaseModelInfoFlags": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "549de31c12ca67816b504d134ccb01f719e867055f9506aac41c3a66f158f604",
+      "pdb": "7371178618d955daf2abf9a8cc202682f5451a6c26e8f3bea181ca104eeb0ac9"
+    },
+    "sources": {
+      "source/game_sa/Models/BaseModelInfo.cpp": "996669fff921af5d7c869a7ff7bcb74cef4d1fd04009e78e20cae3c466e3e8b3",
+      "source/game_sa/Models/BaseModelInfo.h": "3d88292971652529ee698ae867f71ca2216e362800ad366b152755776c9d5184"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "b20ddee0505b4ff7fe2386dc0e27d3c8ac32eff84ef53f43b8eafc32f5de3100",
+      "build_probe.py": "82e72f4c5c23b4fdeb079e856992885b88c76cd9509bf0df0a45a51a8679f5eb",
+      "run_local.py": "c20fa27ca6e280b40257e73c9e3a4e1fa4db7991ce1c106a54686fd3daa4f17d"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

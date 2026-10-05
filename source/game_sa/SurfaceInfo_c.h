@@ -62,16 +62,16 @@ struct SurfaceInfo {
     char     BulletFx[32];
 
     void Read(const char* line) {
-        // FIX_BUGS: Possible buffer overflow
-        VERIFY(sscanf_s(
+        // Como el original (0x55ECD4): sscanf sin límites de búfer y sin comprobar cuántos campos se leen.
+        sscanf(
             line, "%s %s %f %f %s %s %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %s",
-            SCANF_S_STR(SurfaceName), SCANF_S_STR(AdhesionGroup),
-            &TyreGrip, &WetGrip, SCANF_S_STR(SkidMark), SCANF_S_STR(FrictionEffect),
+            SurfaceName, AdhesionGroup,
+            &TyreGrip, &WetGrip, SkidMark, FrictionEffect,
             &SoftLand, &SeeThrough, &ShootThrough, &Sand, &Water, &ShallowWater, &Beach, &SteepSlope, &Glass, &Stairs, &Skateable, &Pavement,
             &Roughness, &Flame, &Sparks, &Sprint, &Footsteps, &FootDust, &CarDirt, &CarClean, &WheelGrass, &WheelGravel, &WheelMud, &WheelDust, &WheelSand, &WheelSpray,
             &ProcPlant, &ProcObj, &Climbable,
-            SCANF_S_STR(BulletFx)
-        ) == 36);
+            BulletFx
+        );
     }
 };
 

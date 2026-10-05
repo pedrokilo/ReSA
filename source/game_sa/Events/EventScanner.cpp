@@ -4,7 +4,18 @@
 
 // 0x605300
 CEventScanner::CEventScanner() {
-    m_nNextScanTime = CTimer::GetTimeInMS() + CGeneral::GetRandomNumberInRange(3000u); // Originally should be -3000.0f (float value)
+    // Como el original: los temporizadores quedan a cero (inicializadores de miembro); el escáner de atractores
+    // empieza con field_0 = 1, efecto y field_14 nulos y se limpia; el de conocidos permite peatones de script
+    m_attractorScanner.field_0       = 1;
+    m_attractorScanner.m_pEffectInUse = nullptr;
+    m_attractorScanner.field_14      = 0;
+    m_attractorScanner.Clear();
+    m_pedAcquaintanceScanner.m_bScanAllowedScriptPed    = true;
+    m_pedAcquaintanceScanner.m_bScanAllowedInVehicle    = false;
+    m_pedAcquaintanceScanner.m_bScanAllowedScriptedTask = false;
+    // Como el original: tiempo - ftol((rand() & 0xFFFF) * (1/32768) * -3000), con productos redondeados a float
+    const uint32 time = CTimer::GetTimeInMS();
+    m_nNextScanTime = time - (uint32)(int32)((float)(CGeneral::GetRandomNumber() & 0xFFFF) * 3.0517578125e-05f * -3000.0f);
 }
 
 void CEventScanner::Clear() {

@@ -134,6 +134,9 @@ CPedIntelligence::CPedIntelligence(CPed* ped) :
     m_NextEventResponseSequence                              = -1;
     m_nEventId                            = 0;
     m_nEventPriority                      = 0;
+    // Como el original: el CMentalState en línea pone a cero el enfado y arranca su temporizador con intervalo 0
+    m_mentalState.m_AngerAtPlayer         = 0;
+    m_mentalState.m_AngerTimer.Start(0);
     field_188                             = 0;
     m_collisionScanner.m_bAlreadyHitByCar = false;
     m_AnotherStaticCounter                = 0;
@@ -203,8 +206,11 @@ bool CPedIntelligence::IsInHearingRange(const CVector& posn) {
 // 0x600C60
 bool CPedIntelligence::IsInSeeingRange(const CVector& posn) const {
     CVector distance = posn - m_pPed->GetPosition();
-    if (m_fSeeingRange * m_fSeeingRange > distance.SquaredMagnitude()) {
-        if (DotProduct(distance, m_pPed->GetForward()) > 0.0f)
+    // Como el original: z² + y² + x² y z*fz + y*fy + x*fx (orden del EXE en x87 a 24 bits)
+    const float distSq = distance.z * distance.z + distance.y * distance.y + distance.x * distance.x;
+    if (m_fSeeingRange * m_fSeeingRange > distSq) {
+        const auto& fwd = m_pPed->GetForward();
+        if (distance.z * fwd.z + distance.y * fwd.y + distance.x * fwd.x > 0.0f)
             return true;
     }
     return false;
@@ -213,12 +219,14 @@ bool CPedIntelligence::IsInSeeingRange(const CVector& posn) const {
 // 0x600CF0
 bool CPedIntelligence::FindRespectedFriendInInformRange() {
     auto respect = m_pPed->GetAcquaintance().GetAcquaintances(ACQUAINTANCE_RESPECT);
-    for (uint32 pedScanIndex = 0; pedScanIndex < m_nDmNumPedsToScan; pedScanIndex++) {
+    // Como el original: el número de peatones se compara con signo y el bucle no pasa de 16 entradas
+    for (int32 pedScanIndex = 0; pedScanIndex < (int32)m_nDmNumPedsToScan && pedScanIndex < 16; pedScanIndex++) {
         CPed* pedEntity = GetPedEntities()[pedScanIndex]->AsPed();
         if (pedEntity) {
             if (CPedType::GetPedFlag(pedEntity->m_nPedType) & respect) {
                 CVector distance = m_pPed->GetPosition() - pedEntity->GetPosition();
-                if ((m_fDmRadius * m_fDmRadius) > distance.SquaredMagnitude())
+                // Como el original: z² + x² + y²
+                if ((m_fDmRadius * m_fDmRadius) > distance.z * distance.z + distance.x * distance.x + distance.y * distance.y)
                     return true;
             }
         }
@@ -363,16 +371,15 @@ bool CPedIntelligence::GetUsingParachute() {
         return false;
     }
 
-    int32 blockID = animAssoc->m_BlendHier->m_nAnimBlockId;
-    if (_stricmp(CAnimManager::GetAnimBlocks()[blockID].Name, "parachute") != 0) {
-        while (true) {
-            animAssoc = RpAnimBlendGetNextAssociation(animAssoc);
-            if (!animAssoc) {
-                return false;
-            }
+    // Como el original: se recorren todas las animaciones hasta encontrar una del bloque "parachute"
+    do {
+        const int32 blockID = animAssoc->m_BlendHier->m_nAnimBlockId;
+        if (_stricmp(CAnimManager::GetAnimBlocks()[blockID].Name, "parachute") == 0) {
+            return true;
         }
-    }
-    return true;
+        animAssoc = RpAnimBlendGetNextAssociation(animAssoc);
+    } while (animAssoc);
+    return false;
 }
 
 // 0x601230
@@ -513,8 +520,10 @@ void CPedIntelligence::FlushImmediately(bool bSetPrimaryDefaultTask) {
     // Restore hold task
     if (taskSimpleHoldEntityCloned) {
         if (objectType != -1) {
-            objectToHold->m_nObjectType = objectType;
-            objectToHold->SetIsVisible(bIsEntityVisible);
+            // Como el original: se restaura sobre la entidad de la tarea clonada
+            const auto clonedObject = (CObject*)taskSimpleHoldEntityCloned->m_pEntityToHold;
+            clonedObject->m_nObjectType = objectType;
+            clonedObject->SetIsVisible(bIsEntityVisible);
         }
         m_TaskMgr.SetTaskSecondary(taskSimpleHoldEntityCloned, TASK_SECONDARY_PARTIAL_ANIM);
         taskSimpleHoldEntityCloned->ProcessPed(m_pPed);
@@ -659,20 +668,21 @@ bool CPedIntelligence::Respects(CPed* ped) const {
 }
 
 // 0x601CC0
-bool CPedIntelligence::IsInACarOrEnteringOne() {
+// Como el original: devuelve el vehículo (los llamadores del EXE comprueban EAX entero, no AL)
+CVehicle* CPedIntelligence::IsInACarOrEnteringOne() {
     if (const auto task = m_TaskMgr.Find<CTaskComplexEnterCarAsDriver>()) {
-        return !!task->GetTargetCar();
+        return task->GetTargetCar();
     }
 
     if (const auto task = m_TaskMgr.Find<CTaskComplexEnterCarAsPassenger>()) {
-        return !!task->GetTargetCar();
+        return task->GetTargetCar();
     }
 
     if (const auto task = m_TaskMgr.Find<CTaskSimpleCarDrive>()) {
-        return !!task->GetVehicle();
+        return task->GetVehicle();
     }
 
-    return false;
+    return nullptr;
 }
 
 // 0x601D10
@@ -698,8 +708,9 @@ eMoveState CPedIntelligence::GetMoveStateFromGoToTask() {
 // 0x601DA0
 void CPedIntelligence::FlushIntelligence() {
     m_TaskMgr.Flush();
-    m_eventHandler.ResetHistory();
+    // Como el original: primero se ponen a nulo las tareas de respuesta y después se borra el historial
     m_eventHandler.ResetResponse();
+    m_eventHandler.ResetHistory();
     m_eventGroup.Flush(false);
     m_vehicleScanner.Clear();
     m_pedScanner.Clear();
@@ -711,10 +722,13 @@ bool CPedIntelligence::TestForStealthKill(CPed* target, bool bFullTest) {
     if (target->bInVehicle)
         return false;
 
+    // Como el original: la posición de la cabeza se pide antes de mirar si se agacha o la salud
+    const CVector headPos = target->GetBonePosition(BONE_HEAD);
+
     if (target->bIsDucking || target->m_fHealth < 1.0f)
         return false;
 
-    if (target->GetBonePosition(BONE_HEAD).z < target->GetPosition().z)
+    if (headPos.z < target->GetPosition().z)
         return false;
 
     if (bFullTest)
@@ -727,7 +741,9 @@ bool CPedIntelligence::TestForStealthKill(CPed* target, bool bFullTest) {
     if (STEALTH_KILL_RANGE * STEALTH_KILL_RANGE < distance.SquaredMagnitude())
         return false;
 
-    if (DotProduct(distance, target->GetForward()) <= 0.0f)
+    // Como el original: y*fy + z*fz + x*fx
+    const auto& fwd = target->GetForward();
+    if (distance.y * fwd.y + distance.z * fwd.z + distance.x * fwd.x <= 0.0f)
         return false;
 
     if (const auto tKillPedOnFoot = notsa::dyn_cast_if_present<CTaskComplexKillPedOnFoot>(target->GetTaskManager().GetActiveTask())) {
@@ -736,20 +752,22 @@ bool CPedIntelligence::TestForStealthKill(CPed* target, bool bFullTest) {
         }
     }
 
-    CEvent* currentEvent = target->GetEventHandlerHistory().GetCurrentEvent();
-    if (currentEvent && currentEvent->GetSourceEntity() == m_pPed)
-    {
-        // todo: IsThreatenedBy ???
-        auto hate = target->GetAcquaintance().GetAcquaintances(ACQUAINTANCE_HATE);
-        auto dislike = target->GetAcquaintance().GetAcquaintances(ACQUAINTANCE_DISLIKE);
-        auto pedFlag = CPedType::GetPedFlag(m_pPed->m_nPedType);
-        bool bAcquaintancesFlagSet = (
-            (hate && (pedFlag & hate)) ||
-            (dislike && (pedFlag & dislike))
-        );
-        if (bAcquaintancesFlagSet && target->GetGroup()) {
-            const auto oe = target->GetGroup()->GetIntelligence().GetCurrentEvent();
-            if (oe && oe->GetSourceEntity() == m_pPed && bAcquaintancesFlagSet) {
+    // Como el original: si el evento actual del objetivo viene de este peatón y lo odia o le cae mal, no hay sigilo;
+    // después se hace la misma prueba con el evento actual de su grupo
+    const auto threatened = [&] {
+        return (CPedType::GetPedFlag(m_pPed->m_nPedType) & target->GetAcquaintance().GetAcquaintances(ACQUAINTANCE_HATE))
+            || (CPedType::GetPedFlag(m_pPed->m_nPedType) & target->GetAcquaintance().GetAcquaintances(ACQUAINTANCE_DISLIKE));
+    };
+
+    if (target->GetEventHandlerHistory().GetCurrentEvent() && target->GetEventHandlerHistory().GetCurrentEvent()->GetSourceEntity() == m_pPed) {
+        if (threatened()) {
+            return false;
+        }
+    }
+
+    if (const auto group = CPedGroups::GetPedsGroup(target)) {
+        if (const auto groupEvent = group->GetIntelligence().GetCurrentEvent()) {
+            if (groupEvent->GetSourceEntity() == m_pPed && threatened()) {
                 return false;
             }
         }
@@ -798,7 +816,8 @@ void CPedIntelligence::LookAtInterestingEntities() {
     if (!bInterestingEntityExists)
         return;
 
-    if (g_ikChainMan.IsLooking(m_pPed) || !m_pPed->GetIsOnScreen() || CGeneral::GetRandomNumberInRange(0, 100) != 50)
+    // Como el original: tiradas con 0x407180 ([min, max) con 1/32768)
+    if (g_ikChainMan.IsLooking(m_pPed) || !m_pPed->GetIsOnScreen() || CGeneral::GetRandomIntInRange(0, 100) != 50)
         return;
 
     CEntity* outEntities[1024];
@@ -819,8 +838,8 @@ void CPedIntelligence::LookAtInterestingEntities() {
     if (!interestingEntityCount)
         return;
 
-    const int32 randomInterestingEntityIndex = CGeneral::GetRandomNumberInRange(0, interestingEntityCount);
-    const int32 randomTime = CGeneral::GetRandomNumberInRange(3000, 5000);
+    const int32 randomInterestingEntityIndex = CGeneral::GetRandomIntInRange(0, interestingEntityCount);
+    const int32 randomTime = CGeneral::GetRandomIntInRange(3000, 5000);
     CPed* interestingEntity1 = (CPed*)outEntities[randomInterestingEntityIndex];
 
     CVector position = { 0.0f, 0.0f, 0.0f };
@@ -870,62 +889,69 @@ float CPedIntelligence::CanSeeEntityWithLights(CEntity* entity, int32 unUsed) {
     if (fLightingTotal > LIGHT_AI_LEVEL_MAX)
         return LIGHT_AI_LEVEL_MAX;
 
-    const float fLightLevelSquared = LIGHT_AI_LEVEL_MAX * LIGHT_AI_LEVEL_MAX;
-    float fMagnitude = (ped->GetPosition() - m_pPed->GetPosition()).Magnitude() - 0.7f;
-    float result = fLightingTotal * fLightingTotal - fMagnitude / 30.0f * fLightLevelSquared;
-    if (result <= 0.0f) {
-        result = result * result - fMagnitude / 50.0f * fLightLevelSquared;
-        if (result <= 0.0f)
-            result = 0.0f;
-        else
-            result *= -1.0f;
+    // Como el original: distancia con z² + x² + y², y cada término (d / 30) * L * L redondeado en ese orden;
+    // los resultados NaN o no positivos pasan a la segunda prueba y acaban en 0
+    const CVector delta = ped->GetPosition() - m_pPed->GetPosition();
+    const float fMagnitude = std::sqrt(delta.z * delta.z + delta.x * delta.x + delta.y * delta.y) - 0.7f;
+    float result = fLightingTotal * fLightingTotal - fMagnitude / flt_8D2384 * LIGHT_AI_LEVEL_MAX * LIGHT_AI_LEVEL_MAX;
+    if (result > 0.0f) {
+        return result;
     }
-    return result;
+    result = result * result - fMagnitude / flt_8D2388 * LIGHT_AI_LEVEL_MAX * LIGHT_AI_LEVEL_MAX;
+    if (result > 0.0f) {
+        return result * -1.0f;
+    }
+    return 0.0f;
 }
 
 // 0x605650
 void CPedIntelligence::ProcessStaticCounter() {
+    // Como el original: m_StaticCounter se compara sin signo con 4 y la distancia se suma z² + y² + x²
+    const auto incrementStaticCounter = [this] {
+        m_StaticCounter = (int32)((uint32)m_StaticCounter + 1u); // Como el original: suma con desbordamiento modular
+        if (m_StaticCounter == -1) {
+            m_StaticCounter = 4;
+        }
+    };
+
     CTask* task = m_TaskMgr.GetSimplestActiveTask();
     if (!task || !CTask::IsGoToTask(task)) {
-        if (m_StaticCounter == -2) {
-            m_StaticCounter = 4;
-        } else {
-            m_StaticCounter++;
-        }
+        incrementStaticCounter();
         m_AnotherStaticCounter = 0;
         return;
     }
 
-    int32 moveState = static_cast<CTaskSimpleGoTo*>(task)->m_moveState;
-    if (moveState != PEDMOVE_WALK && moveState != PEDMOVE_RUN && moveState != PEDMOVE_SPRINT) {
-        if (m_StaticCounter == -2) {
-            m_StaticCounter = 4;
-        } else {
-            m_StaticCounter++;
+    // Como el original: la tarea se vuelve a buscar por la inteligencia del peatón
+    CTask* goToTask = m_pPed->GetTaskManager().GetSimplestActiveTask();
+    const bool moving = [&] {
+        if (!goToTask || !CTask::IsGoToTask(goToTask)) {
+            return false;
         }
+        const int32 moveState = static_cast<CTaskSimpleGoTo*>(goToTask)->m_moveState;
+        return moveState == PEDMOVE_WALK || moveState == PEDMOVE_RUN || moveState == PEDMOVE_SPRINT;
+    }();
+    if (!moving) {
+        incrementStaticCounter();
         m_AnotherStaticCounter = 0;
         return;
     }
 
     if (m_pPed->m_pDamageEntity) {
-        if (m_StaticCounter > 4) {
+        if ((uint32)m_StaticCounter > 4) {
             m_vecLastPedPosDuringDamageEntity = m_pPed->GetPosition();
         }
         m_StaticCounter = 0;
     } else {
-        if (m_StaticCounter == -2) {
-            m_StaticCounter = 4;
-        } else {
-            m_StaticCounter++;
-        }
+        incrementStaticCounter();
     }
 
-    if (m_StaticCounter > 4) {
+    if ((uint32)m_StaticCounter > 4) {
         m_AnotherStaticCounter = 0;
         return;
     }
 
-    if ((m_pPed->GetPosition() - m_vecLastPedPosDuringDamageEntity).SquaredMagnitude() < 1.0f / 16.0f) {
+    const CVector delta = m_pPed->GetPosition() - m_vecLastPedPosDuringDamageEntity;
+    if (delta.z * delta.z + delta.y * delta.y + delta.x * delta.x < 1.0f / 16.0f) {
         m_AnotherStaticCounter++;
     } else {
         m_AnotherStaticCounter = 0;
@@ -945,7 +971,10 @@ void CPedIntelligence::ProcessFirst() {
     {
         CEntity* damageEntity = m_pPed->m_pDamageEntity;
         if (damageEntity && !damageEntity->GetIsTypePed()) {
-            if (DotProduct(m_pPed->m_vecLastCollisionImpactVelocity, m_pPed->GetForward()) < -0.5f)
+            // Como el original: z*fz + y*fy + x*fx
+            const auto& v = m_pPed->m_vecLastCollisionImpactVelocity;
+            const auto& fwd = m_pPed->GetForward();
+            if (v.z * fwd.z + v.y * fwd.y + v.x * fwd.x < -0.5f)
                 m_pPed->bPedHitWallLastFrame = true;
         }
     }
@@ -981,8 +1010,9 @@ void CPedIntelligence::Process() {
 
 // 0x4B85B0
 CTask* CPedIntelligence::GetActivePrimaryTask() const {
+    // Como el original: primera tarea no nula de respuesta física, temporal o persistente (la DLL miraba siempre la física)
     for (const auto i : { TASK_PRIMARY_PHYSICAL_RESPONSE, TASK_PRIMARY_EVENT_RESPONSE_TEMP, TASK_PRIMARY_EVENT_RESPONSE_NONTEMP }) {
-        if (CTask* task = m_TaskMgr.GetTaskPrimary(TASK_PRIMARY_PHYSICAL_RESPONSE)) {
+        if (CTask* task = m_TaskMgr.GetTaskPrimary(i)) {
             return task;
         }
     }

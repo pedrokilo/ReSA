@@ -71,6 +71,8 @@ struct CAEPedSpeechSlot {
     bool                     ForceAudible{};
     bool                     IsReservedForPedConversation{};
     bool                     IsReservedForPlayerConversation{};
+
+    void Reset(); //!< 0x4E3350: reinicia los campos (sin tocar el relleno)
 };
 VALIDATE_SIZE(CAEPedSpeechSlot, 0x1C);
 
@@ -213,7 +215,7 @@ public:
     bool              GetPedTalking() const;
     ePainSpeechVoices GetPainVoice() const;
 
-    void                       UpdateParameters(CAESound* sound, int16 playTime) override { return I_UpdateParameters<false>(sound, playTime); }
+    void                       UpdateParameters(CAESound* sound, int16 playTime) override;
     virtual void               AddScriptSayEvent(eAudioEvents audioEvent, eAudioEvents scriptID, bool overrideSilence, bool isForceAudible, bool isFrontEnd);
     virtual void               Terminate();
     virtual void               PlayLoadedSound();
@@ -304,7 +306,7 @@ public:
      * @brief Not used
      * @return If the context is "uber" (very) important
      */
-    static bool IsGlobalContextUberImportant(int16 gCtx);
+    static bool __stdcall IsGlobalContextUberImportant(int16 gCtx);
 
     /*!
      * @addr 0x4E44F0
@@ -360,8 +362,8 @@ public:
      */
     static ePedSpeechVoiceS16 GetVoice(const char* name, eAudioPedTypeS16 type);
 
-    static float                             GetSpeechContextVolumeOffset(eGlobalSpeechContextS16 gctx);
-    static eSpecificSpeechContext            GetSpecificSpeechContext(eGlobalSpeechContext gCtx, eAudioPedType pedAudioType);
+    static float __stdcall                   GetSpeechContextVolumeOffset(eGlobalSpeechContextS16 gctx);
+    static eSpecificSpeechContext __stdcall  GetSpecificSpeechContext(eGlobalSpeechContext gCtx, eAudioPedType pedAudioType);
     static const tGlobalSpeechContextInfo*   GetGlobalSpeechContextInfo(eGlobalSpeechContext gCtx);
     static const tSpecificSpeechContextInfo* GetSpecificSpeechContextInfo(eSpecificSpeechContext sCtx, eGlobalSpeechContext gCtx, eAudioPedType pt, ePedSpeechVoiceS16 voice);
     static eSoundBank                        GetVoiceSoundBank(eGlobalSpeechContext gCtx, eAudioPedType pt, ePedSpeechVoiceS16 voice);
@@ -408,10 +410,7 @@ protected:
 
 private:
     // 0x4E4F10
-    CAEPedSpeechAudioEntity* Constructor() {
-        this->CAEPedSpeechAudioEntity::CAEPedSpeechAudioEntity();
-        return this;
-    }
+    CAEPedSpeechAudioEntity* Constructor();
 };
 
 VALIDATE_SIZE(CAEPedSpeechAudioEntity, 0x100);

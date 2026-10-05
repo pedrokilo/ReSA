@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 37/37 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/37 entradas.
+ * Validación registrada: 37/37 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -22,6 +22,236 @@ END GENERATED HOOK STATUS */
 #include "CustomCarEnvMapPipeline.h"
 #include "app_light.h"
 #include "CarFXRenderer.h"
+
+using namespace notsa::envmap;
+
+namespace {
+// Como el original: matrices de textura globales (solo se escriben la diagonal y la fila de traslación)
+auto& EnvCamTexMatrix  = StaticRef<D3DMATRIX>(0xC02D78);
+auto& EnvWaveTexMatrix = StaticRef<D3DMATRIX>(0xC02D38);
+
+// Como el original: material D3D9 global que se rellena por partes (0x8D12D8)
+auto& gEnvMapD3DMaterial = StaticRef<D3DMATERIAL9>(0x8D12D8);
+
+// Como el original: propiedades de superficie y color por defecto que se restauran al final (0x8D131C, 0x8D1328)
+auto& gDefaultSurfaceProps = StaticRef<RwSurfaceProperties>(0x8D131C);
+auto& gDefaultColor        = StaticRef<RwRGBA>(0x8D1328);
+
+// Como el original: _ftol2 (0x821B40) trunca a 64 bits y el código usa la palabra baja
+int32 Ftol(float x) {
+    return (int32)(int64)x;
+}
+
+// Como el original: fild n; fmul f (el entero entra exacto en la FPU y el producto se redondea una vez)
+float FildMul(int32 n, float f) {
+    float r;
+    __asm {
+        fild n
+        fmul f
+        fstp r
+    }
+    return r;
+}
+
+// Como el original: byte con signo · 0,125 (flt_858C48)
+float FixedScale(const uint8* data, size_t i) {
+    return (float)(int8)data[i] * 0.125f;
+}
+
+// 0x5D84C0 - UV del brillo de cámara (escala de traslación · 50, posición del frame del clump o del atomic)
+void CalcEnvCamUV(RpAtomic* atomic, const uint8* matData, float* out) {
+    const auto tx = FixedScale(matData, 2) * 50.0f;
+    const auto ty = FixedScale(matData, 3) * 50.0f;
+
+    auto* const clump = RpAtomicGetClump(atomic);
+    const auto  pos   = *RwMatrixGetPos(RwFrameGetLTM(clump ? RpClumpGetFrame(clump) : RpAtomicGetFrame(atomic)));
+
+    // Como el original: u = -((p - n · s) · (1 / s)) con n = (int)(p · (1 / s))
+    const auto rx = 1.0f / tx;
+    out[0] = -((pos.x - FildMul(Ftol(pos.x * rx), tx)) * rx);
+
+    const auto ry = 1.0f / ty;
+    out[1] = -((pos.y - FildMul(Ftol(pos.y * ry), ty)) * ry);
+}
+
+// Como el original: |(n · s - p) · (1 / s)|, invertido (1 - x) cuando n es par
+float EnvWaveCoord(float p, float s, float rs, int32 n) {
+    const auto t = std::fabs((FildMul(n, s) - p) * rs);
+    return (n & 1) ? t : 1.0f - t;
+}
+
+// 0x5D8590 - UV de la onda lateral (desplazamiento U acumulado en los datos del atomic, una vez por fotograma)
+void CalcEnvWaveUV(RpAtomic* atomic, uint8* matData, CustomEnvMapPipeAtomicData* atmData, float* out) {
+    auto* const clump = RpAtomicGetClump(atomic);
+    auto* const ltm   = RwFrameGetLTM(clump ? RpClumpGetFrame(clump) : RpAtomicGetFrame(atomic));
+
+    const auto tx  = FixedScale(matData, 2) * 50.0f;
+    const auto pos = *RwMatrixGetPos(ltm);
+    const auto rf  = *reinterpret_cast<const uint16*>(&RWSRCGLOBAL(renderFrame)); // Como el original: palabra baja
+    const auto ty  = FixedScale(matData, 3) * 50.0f;
+
+    auto  offsetU        = atmData->OffsetU;
+    auto& matRenderFrame = *reinterpret_cast<uint16*>(matData + 6);
+    if (matRenderFrame != rf) { // 0x5D85F5
+        matRenderFrame = rf;
+
+        const auto ry      = 1.0f / ty;
+        const auto ny      = Ftol(pos.y * ry);
+        const auto rx      = 1.0f / tx;
+        const auto nx      = Ftol(pos.x * rx);
+        const auto currU   = EnvWaveCoord(pos.x, tx, rx, nx);
+        const auto currSum = EnvWaveCoord(pos.y, ty, ry, ny) + currU;
+
+        const auto prevX   = atmData->PrevPosX;
+        const auto prevY   = atmData->PrevPosY;
+        const auto pny     = Ftol(ry * prevY);
+        const auto pnx     = Ftol(rx * prevX);
+        const auto prevU   = EnvWaveCoord(prevX, tx, rx, pnx);
+        const auto prevSum = EnvWaveCoord(prevY, ty, ry, pny) + prevU;
+
+        // 0x5D8701 - Como el original: el sentido se decide con el vector "up" del LTM (ambos normalizados con 0x59C910)
+        CVector dir{ pos.x - prevX, pos.y - prevY, 0.0f };
+        bool backwards = false;
+        if (dir.x * dir.x + dir.y * dir.y > 0.0f) {
+            CVector up{ *RwMatrixGetUp(ltm) };
+            dir.Normalise();
+            up.Normalise();
+            backwards = up.z * dir.z + dir.x * up.x + up.y * dir.y < 0.0f;
+        }
+
+        if (backwards) { // 0x5D878A - Como el original: una sola corrección (+1) si queda negativo
+            offsetU = offsetU - std::fabs(prevSum - currSum);
+            if (offsetU < 0.0f) {
+                offsetU += 1.0f;
+            }
+        } else { // 0x5D87B1 - Como el original: una sola corrección (-1) si llega a 1 (NaN no se corrige)
+            offsetU = std::fabs(prevSum - currSum) + offsetU;
+            if (!(offsetU < 1.0f) && offsetU == offsetU) {
+                offsetU -= 1.0f;
+            }
+        }
+        atmData->OffsetU  = offsetU;
+        atmData->PrevPosX = pos.x;
+        atmData->PrevPosY = pos.y;
+    }
+
+    // 0x5D87EA - Como el original: (at.y + at.x) limitado a [0, 0,1] (NaN da 0,1) e invertido si at.z < 0
+    const auto& at = *RwMatrixGetAt(ltm);
+    auto v = at.y + at.x;
+    if (v < 0.1f) {
+        if (!(v > 0.0f)) {
+            v = 0.0f;
+        }
+    } else {
+        v = 0.1f;
+    }
+    if (at.z < 0.0f) {
+        v = 1.0f - v;
+    }
+    out[0] = -offsetU;
+    out[1] = v;
+}
+
+// 0x5DA790 - Rellena el material D3D9 global y los estados de color/ambiente
+void SetEnvMapMaterial(const RwSurfaceProperties* surfProps, const RwRGBA* color, RwUInt32 flags, float spec, float power) {
+    auto& m = gEnvMapD3DMaterial;
+    m.Specular.r = m.Specular.g = m.Specular.b = spec;
+    m.Power = power;
+
+    constexpr auto INV_255 = 1.0f / 255.0f; // flt_859A3C
+    const auto isPrelit = (flags & rxGEOMETRY_PRELIT) != 0;
+    if ((flags & rxGEOMETRY_MODULATE) && *reinterpret_cast<const uint32*>(color) != 0xFFFFFFFF) { // 0x5DA7C4
+        // Como el original: difuso = c · (difuso · 1/255), ambiente = (c · AmbientSaturated) · (ambiente · 1/255)
+        const auto d = surfProps->diffuse * INV_255;
+        m.Diffuse.r = (float)color->red * d;
+        m.Diffuse.g = (float)color->green * d;
+        m.Diffuse.b = (float)color->blue * d;
+        m.Diffuse.a = (float)color->alpha * INV_255;
+
+        const auto amb = surfProps->ambient * INV_255;
+        if (isPrelit) {
+            RwD3D9SetRenderState(D3DRS_AMBIENT, D3DCOLOR_ARGB(color->alpha, color->red, color->green, color->blue));
+            RwD3D9SetRenderState(D3DRS_COLORVERTEX, TRUE);
+            RwD3D9SetRenderState(D3DRS_AMBIENTMATERIALSOURCE, D3DMCS_COLOR1);
+            RwD3D9SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
+        } else {
+            RwD3D9SetRenderState(D3DRS_AMBIENT, 0xFFFFFFFF);
+            RwD3D9SetRenderState(D3DRS_COLORVERTEX, FALSE);
+            RwD3D9SetRenderState(D3DRS_AMBIENTMATERIALSOURCE, D3DMCS_MATERIAL);
+            RwD3D9SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
+        }
+        // Como el original: solo r, g, b (el alfa de ambiente/emisivo no se toca)
+        auto& lit   = isPrelit ? m.Emissive : m.Ambient;
+        auto& unlit = isPrelit ? m.Ambient : m.Emissive;
+        unlit.r = unlit.g = unlit.b = 0.0f;
+        lit.r = (float)color->red * AmbientSaturated.red * amb;
+        lit.g = (float)color->green * AmbientSaturated.green * amb;
+        lit.b = (float)color->blue * AmbientSaturated.blue * amb;
+    } else { // 0x5DA9B2
+        const auto d = surfProps->diffuse;
+        m.Diffuse.r = m.Diffuse.g = m.Diffuse.b = d;
+        m.Diffuse.a = 1.0f;
+        RwD3D9SetRenderState(D3DRS_AMBIENT, 0xFFFFFFFF);
+        RwD3D9SetRenderState(D3DRS_AMBIENTMATERIALSOURCE, D3DMCS_MATERIAL);
+        if (isPrelit) { // Como el original: el emisivo queda como estaba
+            RwD3D9SetRenderState(D3DRS_COLORVERTEX, TRUE);
+            RwD3D9SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_COLOR1);
+        } else {
+            RwD3D9SetRenderState(D3DRS_COLORVERTEX, FALSE);
+            RwD3D9SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
+            m.Emissive.r = m.Emissive.g = m.Emissive.b = 0.0f;
+        }
+        if (std::bit_cast<uint32>(surfProps->ambient) == 0x3F800000) { // Como el original: copia directa con ambiente 1,0 exacto
+            m.Ambient.r = AmbientSaturated.red;
+            m.Ambient.g = AmbientSaturated.green;
+            m.Ambient.b = AmbientSaturated.blue;
+        } else {
+            m.Ambient.r = AmbientSaturated.red * surfProps->ambient;
+            m.Ambient.g = AmbientSaturated.green * surfProps->ambient;
+            m.Ambient.b = AmbientSaturated.blue * surfProps->ambient;
+        }
+    }
+    RwD3D9SetMaterial(&m);
+}
+
+// Como el original: new de 0x14 bytes y constructor inline de CPool (0x5D9060/0x5D91B0/0x5D9300: new escalar
+// para objetos y flags, propietario, sin relleno; todos los flags quedan en 0x80). Si new falla, el pool es nulo.
+template<size_t ElemSize, class Pool>
+Pool* CreateEnvMapPool(int32 size) {
+    auto* const p = static_cast<RawPool*>(::operator new(0x14));
+    if (!p) {
+        return nullptr;
+    }
+    p->Objects         = static_cast<uint8*>(::operator new(size * ElemSize));
+    p->Flags           = static_cast<uint8*>(::operator new(size));
+    p->OwnsAllocations = 1;
+    p->Size            = size;
+    p->LastFreeSlot    = -1;
+    for (int32 i = 0; i < size; i++) {
+        p->Flags[i] |= 0x80;
+        p->Flags[i] &= 0x80;
+    }
+    return reinterpret_cast<Pool*>(p);
+}
+
+// Como el original: destructor inline de CPool (solo con tamaño > 0, operator delete escalar, último libre = 0)
+// y operator delete del pool
+template<class Pool>
+void DestroyEnvMapPool(Pool* pool) {
+    auto* const p = reinterpret_cast<RawPool*>(pool);
+    if (p->Size > 0) {
+        if (p->OwnsAllocations) {
+            ::operator delete(p->Objects);
+            ::operator delete(p->Flags);
+        }
+        p->Objects      = nullptr;
+        p->Flags        = nullptr;
+        p->Size         = 0;
+        p->LastFreeSlot = 0;
+    }
+    ::operator delete(p);
+}
+} // namespace
 
 void CCustomCarEnvMapPipeline::InjectHooks() {
     RH_ScopedClass(CCustomCarEnvMapPipeline);
@@ -70,44 +300,40 @@ void CCustomCarEnvMapPipeline::InjectHooks() {
 }
 
 // 0x5DA450
-bool CCustomCarEnvMapPipeline::RegisterPlugin() {
+RwBool CCustomCarEnvMapPipeline::RegisterPlugin() {
+    // Como el original: devuelve 0/1 en EAX completo (los llamadores del EXE hacen neg eax)
     ms_envMapPluginOffset = RpMaterialRegisterPlugin(4, rwID_ENVMAPPLUGIN, pluginEnvMatConstructorCB, pluginEnvMatDestructorCB, pluginEnvMatCopyConstructorCB);
     if (ms_envMapPluginOffset < 0) {
-        NOTSA_LOG_DEBUG("Failed to register Env Map Plugin");
-        return false;
+        return FALSE;
     }
     if (RpMaterialRegisterPluginStream(rwID_ENVMAPPLUGIN, pluginEnvMatStreamReadCB, pluginEnvMatStreamWriteCB, pluginEnvMatStreamGetSizeCB) < 0) {
         ms_envMapPluginOffset = -1;
-        NOTSA_LOG_DEBUG("Failed to register Env Map Plugin");
-        return false;
+        return FALSE;
     }
 
     SetCustomEnvMapPipeMaterialDataDefaults(&fakeEnvMapPipeMatData);
 
     ms_envMapAtmPluginOffset = RpAtomicRegisterPlugin(4, rwID_ENVMAPATMPLUGIN, pluginEnvAtmConstructorCB, pluginEnvAtmDestructorCB, pluginEnvAtmCopyConstructorCB);
     if (ms_envMapAtmPluginOffset < 0) {
-        NOTSA_LOG_DEBUG("Failed to register Env Map Atm Plugin");
-        return false;
+        return FALSE;
     }
 
     ms_specularMapPluginOffset = RpMaterialRegisterPlugin(4, rwID_SPECMAPATMPLUGIN, pluginSpecMatConstructorCB, pluginSpecMatDestructorCB, pluginSpecMatCopyConstructorCB);
     if (ms_specularMapPluginOffset < 0) {
-        NOTSA_LOG_DEBUG("Failed to register Specular Map Plugin");
-        return false;
+        return FALSE;
     }
     if (RpMaterialRegisterPluginStream(rwID_SPECMAPATMPLUGIN, pluginSpecMatStreamReadCB, pluginSpecMatStreamWriteCB, pluginSpecMatStreamGetSizeCB) < 0) {
         ms_specularMapPluginOffset = -1;
-        NOTSA_LOG_DEBUG("Failed to register Specular Map Plugin");
-        return false;
+        return FALSE;
     }
 
-    return true;
+    return TRUE;
 }
 
 // 0x5D8980
 bool IsEnvironmentMappingSupported() {
     const auto caps = (D3DCAPS9*)RwD3D9GetCaps();
-    return caps->MaxTextureBlendStages > 1 &&
+    return (int32)caps->MaxTextureBlendStages > 1 && // Como el original: comparación con signo (jle)
         caps->MaxSimultaneousTextures >= 2 &&
         (caps->TextureOpCaps & D3DTEXOPCAPS_BLENDFACTORALPHA) &&
         (caps->TextureOpCaps & D3DTEXOPCAPS_MULTIPLYADD) &&
@@ -115,33 +341,45 @@ bool IsEnvironmentMappingSupported() {
 }
 
 // 0x5DA020
-bool CCustomCarEnvMapPipeline::CreatePipe() {
+RwBool CCustomCarEnvMapPipeline::CreatePipe() {
     ObjPipeline = CreateCustomObjPipe();
     if (!ObjPipeline || !IsEnvironmentMappingSupported()) {
-        return false;
+        return FALSE;
     }
     std::memset(&g_GameLight, 0, sizeof(g_GameLight));
-    m_gEnvMapPipeMatDataPool = new CustomEnvMapPipeMaterialDataPool(4096, "CustomEnvMapPipeMatDataPool");
-    m_gEnvMapPipeAtmDataPool = new CustomEnvMapPipeAtomicDataPool(1024, "CustomEnvMapPipeAtmDataPool");
-    m_gSpecMapPipeMatDataPool = new CustomSpecMapPipeMaterialDataPool(4096, "CustomSpecMapPipeMaterialDataPool");
-    return true;
+    m_gEnvMapPipeMatDataPool  = CreateEnvMapPool<sizeof(CustomEnvMapPipeMaterialData), CustomEnvMapPipeMaterialDataPool>(4096);
+    m_gEnvMapPipeAtmDataPool  = CreateEnvMapPool<sizeof(CustomEnvMapPipeAtomicData), CustomEnvMapPipeAtomicDataPool>(1024);
+    m_gSpecMapPipeMatDataPool = CreateEnvMapPool<sizeof(CustomSpecMapPipeMaterialData), CustomSpecMapPipeMaterialDataPool>(4096);
+    return TRUE;
 }
 
 // 0x5DA130
 void CCustomCarEnvMapPipeline::DestroyPipe() {
-    delete std::exchange(m_gEnvMapPipeMatDataPool, nullptr);
-    delete std::exchange(m_gEnvMapPipeAtmDataPool, nullptr);
-    delete std::exchange(m_gSpecMapPipeMatDataPool, nullptr);
+    // Como el original: cada global se pone a 0 después de liberar su pool
+    if (m_gEnvMapPipeMatDataPool) {
+        DestroyEnvMapPool(m_gEnvMapPipeMatDataPool);
+    }
+    m_gEnvMapPipeMatDataPool = nullptr;
+    if (m_gEnvMapPipeAtmDataPool) {
+        DestroyEnvMapPool(m_gEnvMapPipeAtmDataPool);
+    }
+    m_gEnvMapPipeAtmDataPool = nullptr;
+    if (m_gSpecMapPipeMatDataPool) {
+        DestroyEnvMapPool(m_gSpecMapPipeMatDataPool);
+    }
+    m_gSpecMapPipeMatDataPool = nullptr;
 
-    if (auto* const pipe = std::exchange(ObjPipeline, nullptr)) {
-        RxPipelineDestroy(pipe);
+    if (ObjPipeline) {
+        RxPipelineDestroy(ObjPipeline);
+        ObjPipeline = nullptr;
     }
 }
 
 // 0x5D8870
 void CCustomCarEnvMapPipeline::PreRenderUpdate() {
     std::memset(&g_GameLight, 0, sizeof(g_GameLight));
-    const auto dir = CVector{ *RwMatrixGetAt(RwFrameGetMatrix(RpLightGetFrame(pDirect))) }.Normalized();
+    CVector dir{ *RwMatrixGetAt(RwFrameGetMatrix(RpLightGetFrame(pDirect))) };
+    dir.Normalise(); // 0x59C910
     g_GameLight.Direction    = D3DVECTOR{ dir.x, dir.y, dir.z };
     g_GameLight.Type         = D3DLIGHT_DIRECTIONAL;
     g_GameLight.Diffuse      = { 0.25f, 0.25f, 0.25f, 1.0f };
@@ -156,21 +394,27 @@ void CCustomCarEnvMapPipeline::PreRenderUpdate() {
 
 // 0x5DA560
 RpMaterial* CCustomCarEnvMapPipeline::CustomPipeMaterialSetup(RpMaterial* material, void* data) {
-    RwUInt32 flags{};
+    // Como el original: los flags van en el campo `specular` (sin uso), que se pone a 0 antes de nada
+    SetMaterialFlags(material, 0);
     if (RpMatFXMaterialGetEffects(material) == rpMATFXEFFECTENVMAP) {
         SetFxEnvTexture(material, nullptr);
     }
-    if (GetFxEnvShininess(material) != 0.0f) {
-        if (auto* const tex = GetFxEnvTexture(material)) {
-            flags |= RwTextureGetName(tex)[0] == 'x'
+
+    RwUInt32 flags = MF_NONE;
+    if (auto* const env = EnvMapPlGetData(material)) {
+        // Como el original: brillo (byte sin signo) · (1/255) distinto de 0 y textura
+        if ((float)reinterpret_cast<const uint8*>(env)[4] * (1.0f / 255.0f) != 0.0f && env->Texture) {
+            flags = RwTextureGetName(env->Texture)[0] == 'x'
                 ? MF_HAS_SHINE_WAVE
                 : MF_HAS_SHINE_CAM;
         }
     }
-    if (GetFxSpecSpecularity(material) != 0.0f && GetFxSpecTexture(material)) {
-        flags |= MF_HAS_SPECULARITY;
+    if (auto* const spec = SpecMapPlGetData(material)) {
+        if (spec->Specularity != 0.0f && spec->Texture) {
+            flags |= MF_HAS_SPECULARITY;
+        }
     }
-    SetMaterialFlags(material, flags);
+    SetMaterialFlags(material, (GetMaterialFlags(material) & ~7u) | flags);
     return material;
 }
 
@@ -190,11 +434,10 @@ RxPipeline* CCustomCarEnvMapPipeline::CreateCustomObjPipe() {
         return nullptr;
     }
 
-    auto* const lpipe = RxPipelineLock(pipe);
-    if (lpipe) {
+    if (auto* const lpipe = RxPipelineLock(pipe)) {
         auto* const nodeDef = RxNodeDefinitionGetD3D9AtomicAllInOne();
-        RxLockedPipeAddFragment(lpipe, nullptr, nodeDef);
-        if (RxLockedPipeUnlock(lpipe)) {
+        // Como el original: se desbloquea lo que devuelve AddFragment (nulo si falla)
+        if (RxLockedPipeUnlock(RxLockedPipeAddFragment(lpipe, nullptr, nodeDef))) {
             auto* const node = RxPipelineFindNodeByName(pipe, nodeDef->name, nullptr, nullptr);
             RxD3D9AllInOneSetInstanceCallBack(node, RxD3D9AllInOneGetInstanceCallBack(node));
             RxD3D9AllInOneSetReinstanceCallBack(node, CustomPipeInstanceCB);
@@ -210,33 +453,26 @@ RxPipeline* CCustomCarEnvMapPipeline::CreateCustomObjPipe() {
     return nullptr;
 }
 
-// todo: check signature
 // 0x5D8490
 RwBool CCustomCarEnvMapPipeline::CustomPipeInstanceCB(void* object, RwResEntry* resEntry, RxD3D9AllInOneInstanceCallBack instanceCallback) {
     if (instanceCallback) {
-        auto entry = *reinterpret_cast<RwResEntrySA*>(resEntry);
-        return instanceCallback(object, &entry.header, true) != 0;
+        // Como el original: la cabecera va justo detrás del RwResEntry y se pasa en su sitio (sin copiar)
+        return instanceCallback(object, (RxD3D9ResEntryHeader*)(resEntry + 1), true) ? TRUE : FALSE;
     }
-    return true;
+    return TRUE;
 }
 
 // 0x5D9900
 void CCustomCarEnvMapPipeline::CustomPipeRenderCB(RwResEntry* resEntry, void* object, RwUInt8 type, RwUInt32 rxGeoFlags) {
-    assert(type == rpATOMIC);
+    const auto specIntensity = gSpecIntensity * 1.85f; // flt_86BEA4
 
-    const auto specIntensity = gSpecIntensity * 1.85f;
+    const auto atomic   = (RpAtomic*)(object);
+    const auto geoFlags = RpAtomicGetGeometry(atomic)->flags;
 
-    const auto atomic = (RpAtomic*)(object);
-    const auto geo = RpAtomicGetGeometry(atomic);
+    // Como el original: sin reflejos si el atomic tiene alguno de los bits 0x6000 (test ah, 60h)
+    const auto noReflections = (CVisibilityPlugins::GetAtomicId(atomic) & 0x6000) != 0;
 
     _rwD3D9EnableClippingIfNeeded(atomic, type);
-
-    const auto atmFlags = CVisibilityPlugins::GetAtomicId(atomic);
-    const auto noReflections = (atmFlags & (ATOMIC_PIPE_NO_EXTRA_PASSES_LOD | ATOMIC_UNIQUE_MATERIALS)) != 0;
-
-    // Fixed blown up car rendering ("DarkVehiclesFix")
-    // Credit: SilentPatch
-    const auto isBlownUp = notsa::IsFixBugs() && (atmFlags & ATOMIC_PIPE_NO_EXTRA_PASSES_LOD) && !(RpLightGetFlags(pDirect) & rpLIGHTLIGHTATOMICS);
 
     DWORD isLightingEnabled = 0;
     RwD3D9GetRenderState(D3DRS_LIGHTING, &isLightingEnabled);
@@ -252,7 +488,7 @@ void CCustomCarEnvMapPipeline::CustomPipeRenderCB(RwResEntry* resEntry, void* ob
     }
 
     auto* const header = (RxD3D9ResEntryHeader*)(resEntry + 1);
-    auto* const meshes = (RxD3D9InstanceData*)(header + 1);
+    auto*       mesh   = (RxD3D9InstanceData*)(header + 1);
 
     if (const auto i = header->indexBuffer) {
         RwD3D9SetIndices(i);
@@ -261,88 +497,71 @@ void CCustomCarEnvMapPipeline::CustomPipeRenderCB(RwResEntry* resEntry, void* ob
     _rwD3D9SetStreams(header->vertexStream, header->useOffsets);
     RwD3D9SetVertexDeclaration(header->vertexDeclaration);
 
-    auto* const clump = RpAtomicGetClump(atomic);
-    auto* const frame = clump
-        ? RpClumpGetFrame(clump)
-        : RpAtomicGetFrame(atomic);
-    const auto* const ltm = RwFrameGetLTM(frame);
-    const auto* const pos = RwMatrixGetPos(ltm);
-
-    for (RwUInt32 i = 0; i < header->numMeshes; i++) { // 0x5D99E9
-        auto* const mesh  = &meshes[i];
-        auto* const mat   = mesh->material;
+    // Como el original: el número de mallas se compara con signo (jle)
+    for (int32 n = (int32)header->numMeshes; n > 0; n--, mesh++) { // 0x5D9A00
+        auto* const mat      = mesh->material;
         const auto  matFlags = GetMaterialFlags(mat);
+        auto* const envData  = reinterpret_cast<uint8*>(EnvMapPlGetData(mat));
 
-        // Calculate spec and power & set render states
-        const auto useSpecular = isLightingEnabled && (matFlags & MF_HAS_SPECULARITY) && (g_fx.GetFxQuality() >= FX_QUALITY_HIGH || !noReflections); // Specular lighting enabled?
+        const auto useCam  = (matFlags & MF_HAS_SHINE_CAM) && !noReflections;
+        const auto useWave = (matFlags & MF_HAS_SHINE_WAVE) && !noReflections && (geoFlags & rpGEOMETRYTEXTURED2);
+
+        // 0x5D9A49 - Como el original: con calidad alta basta el flag; si no, además hace falta que haya reflejos
+        const auto useSpecular = g_fx.GetFxQuality() >= FX_QUALITY_HIGH
+            ? (matFlags & MF_HAS_SPECULARITY) != 0
+            : (matFlags & MF_HAS_SPECULARITY) && !noReflections;
+
         float spec, power;
-        if (useSpecular && !isBlownUp) { // 0x5D9A7F - 0x5D9B25 (Inverted if)
-            const auto specularity = GetFxSpecSpecularity(mat);
-            spec  = std::min(1.f, specIntensity * specularity * 2.f);
-            power = specularity * 100.f;
-
-            // 0x5D9A89
+        if (useSpecular && isLightingEnabled) { // 0x5D9A7A
+            const auto* const specData = SpecMapPlGetData(mat);
             RwD3D9SetLight(1, &g_GameLight);
             RwD3D9EnableLight(1, TRUE);
 
-            // 0x5D9ACB
+            // Como el original: solo se satura si es mayor que 1 (NaN se conserva)
+            spec = specIntensity * specData->Specularity * 2.0f;
+            if (spec > 1.0f) {
+                spec = 1.0f;
+            }
+            power = specData->Specularity * 100.0f;
+
+            RwD3D9SetRenderState(D3DRS_SPECULARENABLE, TRUE);
             RwD3D9SetRenderState(D3DRS_LOCALVIEWER, FALSE);
             RwD3D9SetRenderState(D3DRS_SPECULARMATERIALSOURCE, D3DMCS_MATERIAL);
-        } else {  // 0x5D9A4E - 0x5D9A74
-            spec  = 0.f;
-            power = 0.f;
+        } else { // 0x5D9B09
+            RwD3D9SetRenderState(D3DRS_SPECULARENABLE, FALSE);
+            spec  = 0.0f;
+            power = 0.0f;
         }
 
-        // 0x5D9B0D + 0x5D9AC5
-        RwD3D9SetRenderState(D3DRS_SPECULARENABLE, useSpecular);
-
-
-        // 0x5D9B2B
+        // 0x5D9B25
         RwD3D9SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
         RwD3D9SetTextureStageState(2, D3DTSS_COLOROP, D3DTOP_DISABLE);
 
-        // Can't have both at the same time
-        assert(!((matFlags & MF_HAS_SHINE_CAM) && (matFlags & MF_HAS_SHINE_WAVE)));
+        // 0x5D9B4A (EnvCam)
+        if (useCam) {
+            RwRenderStateSet(rwRENDERSTATETEXTUREADDRESS, RWRSTATE(rwTEXTUREADDRESSWRAP));
 
-        // 0x5D9B54 (EnvCam)
-        if ((matFlags & MF_HAS_SHINE_CAM) && !noReflections && !isBlownUp) {
-            RwRenderStateSet(rwRENDERSTATETEXTUREADDRESS, RWRSTATE(D3DTADDRESS_WRAP));
+            // Como el original: matriz global 0xC02D78 (escala en la diagonal, UV en la tercera fila)
+            float uv[2]{ 0.0f, 0.0f };
+            EnvCamTexMatrix._11 = FixedScale(envData, 0);
+            EnvCamTexMatrix._44 = 1.0f;
+            EnvCamTexMatrix._33 = 1.0f;
+            EnvCamTexMatrix._22 = FixedScale(envData, 1);
+            CalcEnvCamUV(atomic, envData, uv);
+            EnvCamTexMatrix._31 = uv[0];
+            EnvCamTexMatrix._32 = uv[1];
+            RwD3D9SetTransform(D3DTS_TEXTURE1, &EnvCamTexMatrix);
 
-            // Set transform
-            {
-                // The formula `-fmod(p, s) / s` is creating normalized UV coordinates in the [0,1]
-                // range that will properly wrap/tile the texture based on the object's
-                // world position and the tiling scale (s).
-                const auto CalculatePos = [](float p, float s) { // @ 0x5D84C0
-                    return std::fmod(p, s) / s; // (p - floor(p / s) * s) / s
-                };
+            RwD3D9SetTexture(*reinterpret_cast<RwTexture**>(envData + 8), 1);
 
-                // Tex coords u, v
-                const auto u = -CalculatePos(pos->x, GetFxEnvTransSclX(mat) * 50.f),
-                           v = -CalculatePos(pos->y, GetFxEnvTransSclY(mat) * 50.f);
-
-                // Scale x, y
-                const auto sx = GetFxEnvScaleX(mat),
-                           sy = GetFxEnvScaleY(mat);
-
-                // Now set the texture transform matrix
-                const D3DMATRIX transform{.m = {
-                    { sx,  0.f, 0.f, 0.f },
-                    { 0.f, sy,  0.f, 0.f },
-                    { u,   v,   1.f, 0.f },
-                    { 0.f, 0.f, 0.f, 1.f },
-                }};
-                RwD3D9SetTransform(D3DTS_TEXTURE1, &transform);
+            // 0x5D9BF0 - Como el original: brillo · (1/255) · intensidad · 254, truncado y saturado con signo
+            auto c = Ftol((float)envData[4] * (1.0f / 255.0f) * specIntensity * 254.0f);
+            if (c > 0xFF) {
+                c = 0xFF;
             }
+            const uint32 shine = (uint8)c;
+            RwD3D9SetRenderState(D3DRS_TEXTUREFACTOR, 0xFF000000u | (shine << 16) | (shine << 8) | shine);
 
-            // 0x5D9BE0
-            RwD3D9SetTexture(GetFxEnvTexture(mat), 1);
-
-            // 0x5D9C04
-            const auto c = std::min(0xFFu, (uint32)(GetFxEnvShininess(mat) * specIntensity * 254.f));
-            RwD3D9SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(0xFF, c, c, c));
-
-            // 0x5D9C38
             RwD3D9SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_MULTIPLYADD);
             RwD3D9SetTextureStageState(1, D3DTSS_COLORARG0, D3DTA_CURRENT);
             RwD3D9SetTextureStageState(1, D3DTSS_COLORARG1, D3DTA_TEXTURE);
@@ -358,83 +577,41 @@ void CCustomCarEnvMapPipeline::CustomPipeRenderCB(RwResEntry* resEntry, void* ob
             RwD3D9SetTextureStageState(2, D3DTSS_COLOROP, D3DTOP_DISABLE);
         }
 
-        // 0x5D9CB2 (EnvWave - The wavy texture on the sides of vehicles)
-        if ((matFlags & MF_HAS_SHINE_WAVE) && !noReflections && (geo->flags & rpGEOMETRYTEXTURED2) && !isBlownUp) {
-            RwRenderStateSet(rwRENDERSTATETEXTUREADDRESS, RWRSTATE(D3DTADDRESS_WRAP));
+        // 0x5D9CB8 (EnvWave - The wavy texture on the sides of vehicles)
+        if (useWave) {
+            RwRenderStateSet(rwRENDERSTATETEXTUREADDRESS, RWRSTATE(rwTEXTUREADDRESSWRAP));
 
-            auto* const envMapAtmData = AllocEnvMapPipeAtomicData(atomic);
-            assert(envMapAtmData);
-
-            // Calculate and set texture UV transform
-            {
-                // Inline begin (@ 0x5D8590)
-                auto* const env_map_atm = EnvMapAtmPlGetData(atomic);
-                auto* const env_map_mat = EnvMapPlGetData(mat);
-
-                const auto tsx = GetFxEnvTransSclX(mat) * 50.f,
-                           tsy = GetFxEnvTransSclY(mat) * 50.f;
-
-                if (env_map_mat->RenderFrame != RWSRCGLOBAL(renderFrame)) { // 0x5D85F5
-                    env_map_mat->RenderFrame = RWSRCGLOBAL(renderFrame);
-
-                    const auto CalcPos = [](float p, float s) {
-                        const auto n = (int32)(p / s); // floor(p / s)
-                        const auto t = std::abs((p - (float)(n) * s) / s); // = std::abs(std::modf(p, s) / s) = std::abs((p - floor(p / s) * s) / s)
-                        return n % 2 == 0
-                            ? 1.f - t
-                            : t;
-                    };
-
-                    // 0x5D8639
-                    const CVector2D currUV{
-                        CalcPos(pos->x, tsx),
-                        CalcPos(pos->y, tsy)
-                    };
-
-                    // 0x5D86B9
-                    const CVector2D prevUV{
-                        CalcPos(env_map_atm->PrevPosX, tsx),
-                        CalcPos(env_map_atm->PrevPosY, tsy)
-                    };
-
-                    // 0x5D8719 - Very much simplified
-                    const auto dir = (CVector2D{*pos} - CVector2D{env_map_atm->PrevPosX, env_map_atm->PrevPosY}).Dot(CVector2D{ ltm->up });
-                    env_map_atm->OffsetU = notsa::wrap(
-                        env_map_atm->OffsetU + std::copysignf(prevUV.CWSum() - currUV.CWSum(), dir),
-                        0.f, 1.f
-                    );
-
-                    // 0x5D87E4
-                    env_map_atm->PrevPosX = pos->x;
-                    env_map_atm->PrevPosY = pos->y;
+            // Como el original: reserva inline de los datos del atomic; si el pool está lleno, UV = (0, 0)
+            float uv[2]{ 0.0f, 0.0f };
+            auto*& atmData = EnvMapAtmPlGetData(atomic);
+            if (!atmData) {
+                atmData = static_cast<CustomEnvMapPipeAtomicData*>(PoolNew<sizeof(CustomEnvMapPipeAtomicData)>(m_gEnvMapPipeAtmDataPool));
+                if (atmData) {
+                    SetCustomEnvMapPipeAtomicDataDefaults(atmData);
                 }
-
-                // 0x5D87EA
-                auto v = std::clamp(ltm->at.x + ltm->at.y, 0.f, 0.1f);
-                if (ltm->at.z < 0.f) {
-                    v = 1.f - v;
-                }
-                const auto u = -env_map_atm->OffsetU;
-                // Inline end
-
-                // 0x5D9D08 - Now set the texture transform matrix
-                D3DMATRIX transform{.m = {
-                    { 1.f, 0.f, 0.f, 0.f },
-                    { 0.f, 1.f, 0.f, 0.f },
-                    { u,   v,   1.f, 0.f },
-                    { 0.f, 0.f, 0.f, 1.f },
-                }};
-                RwD3D9SetTransform(D3DTS_TEXTURE1, &transform);
+            }
+            if (atmData) {
+                CalcEnvWaveUV(atomic, envData, atmData, uv);
             }
 
-            // 0x5D9D69
-            RwD3D9SetTexture(GetFxEnvTexture(mat), 1);
+            // Como el original: matriz global 0xC02D38 (diagonal a 1, UV en la tercera fila)
+            EnvWaveTexMatrix._44 = 1.0f;
+            EnvWaveTexMatrix._33 = 1.0f;
+            EnvWaveTexMatrix._22 = 1.0f;
+            EnvWaveTexMatrix._11 = 1.0f;
+            EnvWaveTexMatrix._31 = uv[0];
+            EnvWaveTexMatrix._32 = uv[1];
+            RwD3D9SetTransform(D3DTS_TEXTURE1, &EnvWaveTexMatrix);
 
-            // 0x5D9D7B
-            const auto a = std::min(255u, (uint32)(specIntensity * 24.f));
-            RwD3D9SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(a, 0xFF, 0xFF, 0xFF));
+            RwD3D9SetTexture(*reinterpret_cast<RwTexture**>(envData + 8), 1);
 
-            // 0x5D9DA6
+            // 0x5D9D6E - Como el original: intensidad · 24 truncado y saturado con signo
+            auto a = Ftol(specIntensity * 24.0f);
+            if (a > 0xFF) {
+                a = 0xFF;
+            }
+            RwD3D9SetRenderState(D3DRS_TEXTUREFACTOR, ((uint32)(uint8)a << 24) | 0xFFFFFFu);
+
             RwD3D9SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_BLENDFACTORALPHA);
             RwD3D9SetTextureStageState(1, D3DTSS_COLORARG1, D3DTA_TEXTURE);
             RwD3D9SetTextureStageState(1, D3DTSS_COLORARG2, D3DTA_CURRENT);
@@ -447,93 +624,35 @@ void CCustomCarEnvMapPipeline::CustomPipeRenderCB(RwResEntry* resEntry, void* ob
             RwD3D9SetTextureStageState(2, D3DTSS_COLOROP, D3DTOP_DISABLE);
         }
 
-        // 0x5D9E0D
-        RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(mesh->vertexAlpha || mesh->material->color.alpha != 0xFF));
+        // 0x5D9E0D - Como el original: llama directamente a la función interna del driver (0x7FE0A0)
+        ((void(__cdecl*)(RwBool))0x7FE0A0)(mesh->vertexAlpha || mesh->material->color.alpha != 0xFF);
 
-        if (geoHasNoLighting) { // 0x5D9E31 - Render without lighting
+        if (geoHasNoLighting) { // 0x5D9EF5 - Render without lighting
             RxD3D9InstanceDataRender(header, mesh);
         } else {
-            if (isLightingEnabled) { // 0x5D9E3D
-                // Some car materials are initially painted over, so for those we use black (0, 0, 0) instead
-                const auto isSpecialColor = notsa::contains<uint32>({
-                    0xAF00FF, // @ 0x5D9E6B
-                    0x00FFB9, // @ 0x5D9E8D
-                    0x00FF3C, // @ 0x5D9E84...
-                    0x003CFF,
-                    0x00AFFF,
-                    0xC8FF00, // @ 0x5D9E9B...
-                    0xFF00FF,
-                    0xFFFF00,
-                }, CRGBA{mat->color}.ToIntRGB());
-                const auto color = isSpecialColor
-                    ? CRGBA{0, 0, 0, mat->color.alpha}
-                    : CRGBA{mat->color};
-
-                // 0x5DA790 - [Inlined] Create and set material using the calculated
-                {
-                    D3DMATERIAL9 m;
-
-                    m.Specular = { spec, spec, spec };
-                    m.Power = power;
-
-                    const auto isPrelit = (rxGeoFlags & rxGEOMETRY_PRELIT) != 0;
-                    if (!(rxGeoFlags & rxGEOMETRY_MODULATE) || color == CRGBA{0xFF, 0xFF, 0xFF, 0xFF}) { // 0x5DA7A9
-                        const auto d = mat->surfaceProps.diffuse;
-                        m.Diffuse = { d, d, d, 1.f };
-
-                        // 0x5DA9DC
-                        RwD3D9SetRenderState(D3DRS_AMBIENT, 0xFFFFFFFF);
-                        RwD3D9SetRenderState(D3DRS_AMBIENTMATERIALSOURCE, D3DMCS_MATERIAL);
-
-                        // 0x5DA9F3
-                        if (!isPrelit) {
-                            m.Emissive = { 0.f, 0.f, 0.f, 0.f };
-                        }
-                        RwD3D9SetRenderState(D3DRS_COLORVERTEX, isPrelit);
-                        RwD3D9SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, isPrelit ? D3DMCS_COLOR1 : D3DMCS_MATERIAL);
-
-                        // 0x5DAA4F - Skipping useless `ambient == 1` optimization
-                        m.Ambient.r = AmbientSaturated.red * mat->surfaceProps.ambient;
-                        m.Ambient.g = AmbientSaturated.green * mat->surfaceProps.ambient;
-                        m.Ambient.b = AmbientSaturated.blue * mat->surfaceProps.ambient;
-                    } else { // 0x5DA7E2
-                        const auto d = mat->surfaceProps.diffuse;
-                        m.Diffuse = {
-                            (float)(color.r) / 255.f * d,
-                            (float)(color.g) / 255.f * d,
-                            (float)(color.b) / 255.f * d,
-                            (float)(color.a) / 255.f
-                        };
-
-                        RwD3D9SetRenderState(D3DRS_AMBIENT, isPrelit ? color.ToIntARGB() : 0xFFFFFFFF);
-                        RwD3D9SetRenderState(D3DRS_AMBIENTMATERIALSOURCE, isPrelit ? D3DMCS_COLOR1 : D3DMCS_MATERIAL);
-
-                        RwD3D9SetRenderState(D3DRS_COLORVERTEX, isPrelit);
-                        RwD3D9SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
-
-                        const auto amb = mat->surfaceProps.ambient;
-                        (isPrelit ? m.Ambient : m.Emissive) = {0.f, 0.f, 0.f};
-                        (isPrelit ? m.Emissive : m.Ambient) = {
-                            (float)(color.r) / 255.f * AmbientSaturated.red * amb,
-                            (float)(color.g) / 255.f * AmbientSaturated.green * amb,
-                            (float)(color.b) / 255.f * AmbientSaturated.blue * amb,
-                        };
-                    }
-                    RwD3D9SetMaterial(&m);
+            if (isLightingEnabled) { // 0x5D9E43
+                // Como el original: algunos colores de pintura se dibujan en negro (alfa intacto); el color se
+                // compara como dword r | g << 8 | b << 16 sobre una copia local
+                RwRGBA color = mat->color;
+                switch (*reinterpret_cast<const uint32*>(&color) & 0xFFFFFF) {
+                case 0xAF00FF: case 0x00FF3C: case 0x003CFF: case 0x00AFFF:
+                case 0x00FFB9: case 0xC8FF00: case 0xFF00FF: case 0xFFFF00:
+                    color.blue = color.green = color.red = 0;
+                    break;
                 }
+                SetEnvMapMaterial(&mat->surfaceProps, &color, rxGeoFlags, spec, power); // 0x5DA790
             }
-            RxD3D9InstanceDataRenderLighting(header, mesh, rxGeoFlags, mesh->material->texture); // 0x5D9EEB
+            RxD3D9InstanceDataRenderLighting(header, mesh, rxGeoFlags, mesh->material->texture); // 0x5DA6A0
         }
 
-        if (useSpecular) {
+        if (useSpecular && isLightingEnabled) {
             RwD3D9SetRenderState(D3DRS_SPECULARENABLE, FALSE);
             RwD3D9EnableLight(1, FALSE);
         }
     }
 
-    constexpr RwSurfaceProperties D3D9SurfaceProps{ 1.f, 0.f, 0.f };
-    constexpr RwRGBA              D3D9RGBA{ 0xFF, 0xFF, 0xFF, 0xFF };
-    RwD3D9SetSurfaceProperties(&D3D9SurfaceProps, &D3D9RGBA, rxGEOMETRY_LIGHT);
+    // 0x5DAAC0
+    RwD3D9SetSurfaceProperties(&gDefaultSurfaceProps, &gDefaultColor, rxGEOMETRY_LIGHT);
 
     RwD3D9SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
     RwD3D9SetTextureStageState(1, D3DTSS_ALPHAOP, D3DTOP_DISABLE);

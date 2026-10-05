@@ -2,6 +2,8 @@
 
 #include "CustomCarEnvMapPipeline.h"
 
+using namespace notsa::envmap;
+
 // 0x5D8D40
 void* CCustomCarEnvMapPipeline::pluginSpecMatConstructorCB(void* object, int32 offsetInObject, int32 sizeInObject) {
     *RWPLUGINOFFSET(CustomSpecMapPipeMaterialData*, object, ms_specularMapPluginOffset) = nullptr;
@@ -10,54 +12,54 @@ void* CCustomCarEnvMapPipeline::pluginSpecMatConstructorCB(void* object, int32 o
 
 // 0x5D97D0
 void* CCustomCarEnvMapPipeline::pluginSpecMatDestructorCB(void* object, int32 offsetInObject, int32 sizeInObject) {
-    auto* data = *RWPLUGINOFFSET(CustomSpecMapPipeMaterialData*, object, ms_specularMapPluginOffset);
+    auto& data = *RWPLUGINOFFSET(CustomSpecMapPipeMaterialData*, object, ms_specularMapPluginOffset);
     if (data) {
         if (data->Texture) {
             RwTextureDestroy(data->Texture);
             data->Texture = nullptr;
         }
-        m_gSpecMapPipeMatDataPool->Delete(data);
-        data = nullptr;
+        PoolDelete<sizeof(CustomSpecMapPipeMaterialData)>(m_gSpecMapPipeMatDataPool, data);
+        data = nullptr; // Como el original: se limpia el puntero del plugin
     }
     return object;
 }
 
 // 0x5D9830
 void* CCustomCarEnvMapPipeline::pluginSpecMatCopyConstructorCB(void* dstObject, const void* srcObject, int32 offsetInObject, int32 sizeInObject) {
-    auto* const srcMat = static_cast<const RpMaterial*>(srcObject);
-    auto* const dstMat = static_cast<RpMaterial*>(dstObject);
-
-    auto* const  src = SpecMapPlGetData(srcMat);
-    auto*& dst = SpecMapPlGetData(dstMat);
+    auto* const src = SpecMapPlGetData(static_cast<const RpMaterial*>(srcObject));
+    auto*&      dst = SpecMapPlGetData(static_cast<RpMaterial*>(dstObject));
     if (src) {
         if (!dst) {
-            dst = m_gSpecMapPipeMatDataPool->New();
-        }
-        dst->Specularity = src->Specularity;
-        RwTextureAddRef(src->Texture);
-        if (auto* const t = std::exchange(dst->Texture, src->Texture)) {
-            if (notsa::IsFixBugs()) { // Memory leak
-                RwTextureDestroy(t);
+            dst = static_cast<CustomSpecMapPipeMaterialData*>(PoolNew<sizeof(CustomSpecMapPipeMaterialData)>(m_gSpecMapPipeMatDataPool));
+            if (!dst) {
+                return dstObject;
             }
         }
+        // Como el original: la textura anterior del destino no se libera y solo se suma una referencia a la nueva
+        dst->Specularity = src->Specularity;
+        dst->Texture     = src->Texture;
+        if (auto* const t = src->Texture) {
+            ++t->refCount;
+        }
     }
-    return dst;
+    return dstObject;
 }
 
 // 0x5D9880
 RwStream* CCustomCarEnvMapPipeline::pluginSpecMatStreamReadCB(RwStream* stream, int32 binaryLength, void* object, int32 offsetInObject, int32 sizeInObject) {
-    auto* const mat = static_cast<const RpMaterial*>(object);
+    auto& slot = SpecMapPlGetData(static_cast<RpMaterial*>(object));
 
-    assert(!SpecMapPlGetData(mat));
-
-    SpecMapPipeMaterialDataBuffer buffer{};
-    assert(binaryLength == sizeof(SpecMapPipeMaterialDataBuffer));
+    SpecMapPipeMaterialDataBuffer buffer;
     RwStreamRead(stream, &buffer, binaryLength);
 
-    if (buffer.Specularity != 0.f) {
-        const auto data = CustomSpecMapPipeMaterialData::FromBuffer(buffer);
-        if (data.Texture) {
-            SpecMapPlGetData(mat) = new (m_gSpecMapPipeMatDataPool->New()) CustomSpecMapPipeMaterialData{data};
+    if (buffer.Specularity != 0.0f) { // Como el original: NaN también entra
+        if (auto* const tex = RwTextureRead(buffer.TexName, nullptr)) {
+            // Como el original: si el pool está lleno el puntero queda nulo (y la textura leída sin dueño)
+            slot = static_cast<CustomSpecMapPipeMaterialData*>(PoolNew<sizeof(CustomSpecMapPipeMaterialData)>(m_gSpecMapPipeMatDataPool));
+            if (slot) {
+                slot->Texture     = tex;
+                slot->Specularity = buffer.Specularity;
+            }
         }
     }
 
@@ -66,13 +68,17 @@ RwStream* CCustomCarEnvMapPipeline::pluginSpecMatStreamReadCB(RwStream* stream, 
 
 // 0x5D8D60
 RwStream* CCustomCarEnvMapPipeline::pluginSpecMatStreamWriteCB(RwStream* stream, int32 binaryLength, const void* object, int32 offsetInObject, int32 sizeInObject) {
-    auto* const mat = static_cast<const RpMaterial*>(object);
+    auto* const data = SpecMapPlGetData(static_cast<const RpMaterial*>(object));
 
-    auto* const data = SpecMapPlGetData(mat);
-    const auto buffer = data
-        ? data->ToBuffer()
-        : SpecMapPipeMaterialDataBuffer{};
-    assert(binaryLength == sizeof(buffer));
+    // Como el original: búfer a cero, nombre copiado con strncpy de 24 bytes solo si hay textura
+    SpecMapPipeMaterialDataBuffer buffer;
+    std::memset(&buffer, 0, sizeof(buffer));
+    if (data) {
+        buffer.Specularity = data->Specularity;
+        if (auto* const t = data->Texture) {
+            std::strncpy(buffer.TexName, RwTextureGetName(t), sizeof(buffer.TexName));
+        }
+    }
     RwStreamWrite(stream, &buffer, binaryLength);
 
     return stream;
@@ -103,15 +109,18 @@ void CCustomCarEnvMapPipeline::SetFxSpecTexture(RpMaterial* material, RwTexture*
     }
 
     if (texture) {
-        if (auto* const tex = std::exchange(data->Texture, texture)) {
-            RwTextureDestroy(tex);
+        if (auto* const old = data->Texture) {
+            RwTextureDestroy(old);
+            data->Texture = nullptr;
         }
-        RwTextureAddRef(texture);
+        data->Texture = texture;
+        ++texture->refCount;
     }
 
+    // Como el original: direccionamiento U/V envolvente (byte +0x51 = 0x11) y filtro lineal (byte +0x50 = 2)
     if (auto* const t = data->Texture) {
-        RwTextureSetAddressing(t, rwTEXTUREADDRESSCLAMP);
-        RwTextureSetFilterMode(t, rwFILTERLINEAR);
+        reinterpret_cast<uint8*>(t)[0x51] = 0x11;
+        reinterpret_cast<uint8*>(t)[0x50] = rwFILTERLINEAR;
     }
 }
 

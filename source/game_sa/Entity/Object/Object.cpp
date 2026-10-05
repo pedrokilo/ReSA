@@ -35,6 +35,150 @@ END GENERATED HOOK STATUS */
 #include "Shadows.h"
 #include "Garages.h"
 #include "CustomBuildingRenderer.h"
+#include "CustomBuildingDNPipeline.h"
+
+namespace {
+// Como el original: constantes float exactas del EXE
+constexpr float ObjF(uint32 bits) { return std::bit_cast<float>(bits); }
+const float OBJ_PI       = ObjF(0x40490FDBu); // 0x858CB8
+const float OBJ_TWO_PI   = ObjF(0x40C90FDBu); // 0x858CBC
+const float OBJ_MINUS_PI = ObjF(0xC0490FDBu); // 0x858CC0
+const float OBJ_HALF_PI  = ObjF(0x3FC90FDBu); // 0x858FE4
+
+// Como el original: variables globales del EXE usadas por las puertas y los pasos de colisión
+auto& fObjectStepSizeMult = StaticRef<float>(0x8D0A28); // 0.5
+auto& fDoorSpeedMult      = StaticRef<float>(0x8D0A2C); // 0.002
+auto& fDoorCutoffSpeed    = StaticRef<float>(0x8D0A30); // 0.02
+auto& fMaxDoorDiff        = StaticRef<float>(0x8D0A34); // 0.3
+
+// Como el original: Multiply3x3 (0x59C790), con el orden de sumas del EXE
+CVector ObjMultiply3x3(const CMatrix& m, const CVector& v) {
+    return CVector{
+        (m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x,
+        (m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y,
+        (m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y,
+    };
+}
+
+// Como el original: MultiplyMatrixWithVector (0x59C890), con el orden de sumas del EXE
+CVector ObjMultiplyPoint(const CMatrix& m, const CVector& v) {
+    return CVector{
+        ((m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x) + m.GetPosition().x,
+        ((m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y) + m.GetPosition().y,
+        ((m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y) + m.GetPosition().z,
+    };
+}
+
+// Como el original: CVector::SquaredMagnitude (0x406DA0), (x·x + y·y) + z·z
+float ObjSqMag(const CVector& v) {
+    return (v.x * v.x + v.y * v.y) + v.z * v.z;
+}
+
+// Como el original: _ftol2 (0x821B40) trunca a 64 bits y se usa la parte baja
+int32 ObjFtol(float f) {
+    return static_cast<int32>(static_cast<int64>(f));
+}
+
+// Como el original: ceil del CRT sobre el valor convertido a double y _ftol2 (0x823820/0x538AD0 + 0x821B40)
+uint8 ObjCeilSteps(float f) {
+    return static_cast<uint8>(static_cast<int64>(std::ceil(static_cast<double>(f))));
+}
+
+// Como el original: pow del CRT del EXE (_CIpow, 0x822130) y cada componente multiplicado por el resultado
+// completo de ST0 (sin redondearlo antes a float).
+void ObjMulByCrtPow(float base, float exponent, float* values, int32 count) {
+    __asm {
+        fld    base
+        fld    exponent
+        mov    eax, 0x822130
+        call   eax
+        mov    edx, values
+        mov    ecx, count
+    pow_loop:
+        fld    st(0)
+        fmul   dword ptr [edx]
+        fstp   dword ptr [edx]
+        add    edx, 4
+        dec    ecx
+        jnz    pow_loop
+        fstp   st(0)
+    }
+}
+
+// Como el original (0x5A0CD3..0x5A0D11): acos del CRT del EXE (_CIacos, 0x822380) con el resultado completo en
+// ST0 y la suma o resta del paso redondeada una sola vez.
+float ObjTrainCrossingAngle(float upZ, float step, int32 subtract) {
+    float result;
+    __asm {
+        fld    upZ
+        mov    eax, 0x822380
+        call   eax
+        fld    step
+        cmp    subtract, 0
+        je     tc_add
+        fsubp  st(1), st
+        jmp    tc_done
+    tc_add:
+        faddp  st(1), st
+    tc_done:
+        fstp   result
+    }
+    return result;
+}
+
+// Como el original: rumbo con fpatan sin redondear (CPlaceable::GetHeading inline), normalizado frente al ángulo
+// inicial de la puerta con comparaciones sobre el valor de 80 bits, y diferencia redondeada a float.
+float ObjDoorAngleDiff(const CPlaceable* placeable, float doorStart) {
+    const auto* mat = placeable->m_matrix;
+    float fwdX = 0.0f, fwdY = 0.0f, heading = 0.0f;
+    int32 hasMatrix = 0;
+    if (mat) {
+        hasMatrix = 1;
+        fwdX = mat->GetForward().x;
+        fwdY = mat->GetForward().y;
+    } else {
+        heading = placeable->m_placement.m_fHeading;
+    }
+    const float startPlusPi  = doorStart + OBJ_PI;
+    const float startMinusPi = doorStart - OBJ_PI;
+    const float twoPi        = OBJ_TWO_PI;
+    float result;
+    __asm {
+        cmp    hasMatrix, 0
+        je     da_nomat
+        fld    fwdX
+        fchs
+        fld    fwdY
+        fpatan
+        jmp    da_have
+    da_nomat:
+        fld    heading
+    da_have:
+        fld    startPlusPi
+        fld    st(1)
+        fcompp
+        fnstsw ax
+        test   ah, 41h
+        jne    da_check_low
+        fsub   twoPi
+        jmp    da_diff
+    da_check_low:
+        fld    startMinusPi
+        fld    st(1)
+        fcompp
+        fnstsw ax
+        test   ah, 5
+        jp     da_diff
+        fadd   twoPi
+    da_diff:
+        fld    doorStart
+        fsub   st, st(1)
+        fstp   result
+        fstp   st(0)
+    }
+    return result;
+}
+} // namespace
 
 void CObject::InjectHooks()
 {
@@ -218,25 +362,23 @@ void CObject::ProcessControl() {
         && !physicalFlags.bInfiniteMass
         && !physicalFlags.bDisableMoveForce
         && m_pDamageEntity
+        // Como el original: el volquete siempre; la carretilla solo con la horquilla levantada
+        && (m_pDamageEntity->m_nModelIndex == MODEL_DUMPER
+            || m_pDamageEntity->m_nModelIndex == MODEL_FORKLIFT && m_pDamageEntity->AsAutomobile()->m_wMiscComponentAngle)
+        && !CRopes::IsCarriedByRope(this)
     ) {
-        const auto bCanCarryItems = m_pDamageEntity->m_nModelIndex == MODEL_DUMPER || m_pDamageEntity->m_nModelIndex == MODEL_FORKLIFT;
-        if (bCanCarryItems && m_pDamageEntity->AsAutomobile()->m_wMiscComponentAngle
-            && !CRopes::IsCarriedByRope(this))
-        {
-            if (m_nColDamageEffect != COL_DAMAGE_EFFECT_NONE && m_fDamageIntensity > 5.0F)
-                ObjectDamage(m_fDamageIntensity, &m_vecLastCollisionPosn, &m_vecLastCollisionImpactVelocity, m_pDamageEntity, eWeaponType::WEAPON_RAMMEDBYCAR);
+        if (m_nColDamageEffect != COL_DAMAGE_EFFECT_NONE && m_fDamageIntensity > 5.0F)
+            ObjectDamage(m_fDamageIntensity, &m_vecLastCollisionPosn, &m_vecLastCollisionImpactVelocity, m_pDamageEntity, eWeaponType::WEAPON_RAMMEDBYCAR);
 
-            if (m_vecLastCollisionImpactVelocity.z > 0.3F)
-            {
-                m_nFakePhysics = 0;
-                const auto vecColDir = GetPosition() - m_pDamageEntity->GetPosition();
-                const auto vecEntSpeed = m_pDamageEntity->AsPhysical()->GetSpeed(vecColDir);
-                auto vecSpeedDiff = vecEntSpeed - m_vecMoveSpeed;
-                if (vecSpeedDiff.SquaredMagnitude() < 0.0001F && m_vecTurnSpeed.SquaredMagnitude() < 0.0001F)
-                {
-                    CPhysical::AttachEntityToEntity(m_pDamageEntity->AsPhysical(), nullptr, nullptr);
-                    m_fElasticity = 0.2F;
-                }
+        if (m_vecLastCollisionImpactVelocity.z > 0.3F) {
+            m_nFakePhysics = 0;
+            auto* const damageEntity = m_pDamageEntity->AsPhysical();
+            const auto vecColDir = GetPosition() - damageEntity->GetPosition();
+            const auto vecEntSpeed = damageEntity->GetSpeed(vecColDir);
+            const auto vecSpeedDiff = vecEntSpeed - m_vecMoveSpeed;
+            if (ObjSqMag(vecSpeedDiff) < 0.0001F && ObjSqMag(m_vecTurnSpeed) < 0.0001F) {
+                CPhysical::AttachEntityToEntity(damageEntity, nullptr, nullptr);
+                m_fElasticity = 0.2F;
             }
         }
     }
@@ -244,13 +386,13 @@ void CObject::ProcessControl() {
     objectFlags.bDamaged = false;
     if (!GetIsStuck() && !GetIsStatic()) {
         if (!physicalFlags.bDisableZ && !physicalFlags.bInfiniteMass && !physicalFlags.bDisableMoveForce) {
-            m_vecForce += m_vecMoveSpeed;
-            m_vecForce /= 2.0F;
-            m_vecTorque += m_vecTurnSpeed;
-            m_vecTorque /= 2.0F;
+            // Como el original: (a + b) · (1/2) con 0x40FE30 y 0x4119D0
+            m_vecForce = (m_vecForce + m_vecMoveSpeed) * 0.5F;
+            m_vecTorque = (m_vecTorque + m_vecTurnSpeed) * 0.5F;
 
             const auto fTimeStep = CTimer::GetTimeStep() * 0.003F;
-            if (sq(fTimeStep) <= m_vecForce.SquaredMagnitude() || sq(fTimeStep) <= m_vecTorque.SquaredMagnitude()) {
+            // Como el original: NaN reinicia el contador
+            if (!(ObjSqMag(m_vecForce) < fTimeStep * fTimeStep) || !(ObjSqMag(m_vecTorque) < fTimeStep * fTimeStep)) {
                 m_nFakePhysics = 0;
             } else {
                 m_nFakePhysics++;
@@ -284,12 +426,12 @@ void CObject::ProcessControl() {
 
         CPhysical::ApplyMoveForce(vecBuoyancyForce);
         CPhysical::ApplyTurnForce(vecBuoyancyForce, vecBuoyancyTurnPoint);
-        const auto fTimeStep = std::pow(0.97F, CTimer::GetTimeStep());
-        m_vecMoveSpeed *= fTimeStep;
-        m_vecTurnSpeed *= fTimeStep;
+        // Como el original: pow(0.97, paso) del CRT con ST0 completo en los seis productos; m_vecTurnSpeed (0x50)
+        // sigue a m_vecMoveSpeed (0x44) en memoria.
+        ObjMulByCrtPow(0.97F, CTimer::GetTimeStep(), &m_vecMoveSpeed.x, 6);
     }
     else if (m_nModelIndex != ModelIndices::MI_BUOY) {
-        physicalFlags.bTouchingWater = false; // Not clearing bSubmergedInWater, BUG?
+        physicalFlags.bTouchingWater = false;
     }
 
     if (m_pObjectInfo->m_bCausesExplosion
@@ -300,45 +442,47 @@ void CObject::ProcessControl() {
         SetUsesCollision(false);
         SetIsVisible(false);
         physicalFlags.bExplosionProof = true;
-        physicalFlags.bApplyGravity = false;
         ResetMoveSpeed();
+        physicalFlags.bApplyGravity = false;
         DeleteRwObject();
     }
 
     if (m_nModelIndex == ModelIndices::MI_RCBOMB) {
-        CPhysical::ApplyTurnForce(m_vecMoveSpeed * -0.05F, -GetForward());
-        m_vecMoveSpeed *= std::pow(CTimer::GetTimeStep(), 1.0F - m_vecMoveSpeed.SquaredMagnitude() * 0.2F);
+        // Como el original: fuerza = velocidad · (−0.05 · masa de giro) en −forward y pow(1 − |v|²·0.2, paso)
+        const auto& fwd = m_matrix->GetForward();
+        const CVector vecPoint{ -fwd.x, -fwd.y, -fwd.z };
+        const float fForceMult = -0.05F * m_fTurnMass;
+        CPhysical::ApplyTurnForce(CVector{ fForceMult * m_vecMoveSpeed.x, fForceMult * m_vecMoveSpeed.y, fForceMult * m_vecMoveSpeed.z }, vecPoint);
+        const float fBase = 1.0F - ObjSqMag(m_vecMoveSpeed) * 0.2F;
+        ObjMulByCrtPow(fBase, CTimer::GetTimeStep(), &m_vecMoveSpeed.x, 3);
     }
 
     if (m_bIsBIGBuilding)
         SetIsInSafePosition(true);
 
     if (physicalFlags.bDisableMoveForce && m_fDoorStartAngle > -1000.0F) {
-        auto fHeading = GetHeading();
-        if (m_fDoorStartAngle + PI < fHeading)
-            fHeading -= TWO_PI;
-        else if (m_fDoorStartAngle - PI > fHeading)
-            fHeading += TWO_PI;
-
-        auto fDiff = m_fDoorStartAngle - fHeading;
-        if (std::fabs(fDiff) > PI / 6.0F)
+        auto fDiff = ObjDoorAngleDiff(this, m_fDoorStartAngle);
+        if (std::fabs(fDiff) > ObjF(0x3F060A92u)) // 0x866F58, PI/6
             objectFlags.bIsDoorOpen = true;
 
-        static float fMaxDoorDiff = 0.3F;
-        static float fDoorCutoffSpeed = 0.02F;
-        static float fDoorSpeedMult = 0.002F;
-        fDiff = std::clamp(fDiff, -fMaxDoorDiff, fMaxDoorDiff);
-        if (fDiff > 0.0F && m_vecTurnSpeed.z < +fDoorCutoffSpeed ||
-            fDiff < 0.0F && m_vecTurnSpeed.z > -fDoorCutoffSpeed
+        // Como el original: límites de las variables globales del EXE (0x8D0A2C..0x8D0A34)
+        if (fDiff > fMaxDoorDiff)
+            fDiff = fMaxDoorDiff;
+        else if (fDiff < -fMaxDoorDiff)
+            fDiff = -fMaxDoorDiff;
+
+        if (fDiff > 0.0F && m_vecTurnSpeed.z < fDoorCutoffSpeed ||
+            fDiff < 0.0F && -fDoorCutoffSpeed < m_vecTurnSpeed.z
         ) {
-            m_vecTurnSpeed.z += CTimer::GetTimeStep() * fDoorSpeedMult * fDiff;
+            m_vecTurnSpeed.z = CTimer::GetTimeStep() * fDoorSpeedMult * fDiff + m_vecTurnSpeed.z;
         }
 
         if (fDiff != 0.0F && objectFlags.bIsDoorMoving) {
             AudioEngine.ReportDoorMovement(this);
         }
 
-        if (!m_bIsBIGBuilding
+        // Como el original: se comprueba m_bIsStuck (no m_bIsBIGBuilding)
+        if (!GetIsStuck()
             && !GetIsStatic()
             && std::fabs(fDiff) < 0.01F
             && (objectFlags.bIsDoorMoving || std::fabs(m_vecTurnSpeed.z) < 0.01F)
@@ -371,64 +515,64 @@ void CObject::SpecialEntityPreCollisionStuff(CPhysical* colPhysical, bool bIgnor
         return;
     }
 
-    if (m_pAttachedTo == colPhysical)
+    if (m_pAttachedTo == colPhysical
+        || colPhysical->m_pAttachedTo == this
+        || m_pAttachedTo && m_pAttachedTo == colPhysical->m_pAttachedTo
+        || physicalFlags.bDisableZ && !physicalFlags.bApplyGravity && !colPhysical->physicalFlags.bDisableZ
+    ) {
         bCollisionDisabled = true;
-    else if (colPhysical->m_pAttachedTo == this || m_pAttachedTo && m_pAttachedTo == colPhysical->m_pAttachedTo)
-        bCollisionDisabled = true;
-    else if (physicalFlags.bDisableZ && !physicalFlags.bApplyGravity && !colPhysical->physicalFlags.bDisableZ)
-        bCollisionDisabled = true;
-    else
-    {
-        if (!physicalFlags.bDisableZ) {
-            if (physicalFlags.bDisableMoveForce || physicalFlags.bInfiniteMass)
-            {
-                if (bIgnoreStuckCheck || GetIsStuck())
-                    bCollisionDisabled = true;
-                else if (!colPhysical->GetIsStuck()) { /* Do nothing pretty much, and skip further calc */ }
-                else if (!colPhysical->GetHasHitWall())
-                    bThisOrCollidedEntityStuck = true;
-                else
-                    bCollidedEntityUnableToMove = true;
-            }
-            else if (objectFlags.bIsLampPost && (GetUp().z < 0.66F || GetIsStuck()))
-            {
-                if (colPhysical->GetIsTypeVehicle() || colPhysical->GetIsTypePed()) {
-                    bCollidedEntityCollisionIgnored = true;
-                    if (colPhysical->GetIsTypeVehicle())
-                        return;
+    } else if (physicalFlags.bDisableZ) {
+        if (bIgnoreStuckCheck)
+            bCollisionDisabled = true;
+        else if (GetIsStuck() || colPhysical->GetIsStuck())
+            bThisOrCollidedEntityStuck = true;
+    } else if (physicalFlags.bDisableMoveForce || physicalFlags.bInfiniteMass) {
+        if (bIgnoreStuckCheck || GetIsStuck())
+            bCollisionDisabled = true;
+        else if (colPhysical->GetIsStuck()) {
+            if (!colPhysical->GetHasHitWall())
+                bThisOrCollidedEntityStuck = true;
+            else
+                bCollidedEntityUnableToMove = true;
+        }
+    } else {
+        // Como el original: una farola caída solo ignora vehículos y peatones; con otras entidades se siguen las
+        // comprobaciones generales. Con un vehículo lo guarda como entidad ignorada; con un peatón sale sin la
+        // comprobación final.
+        bool bHandled = false;
+        if (objectFlags.bIsLampPost && (m_matrix->GetUp().z < 0.66F || GetIsStuck())
+            && (colPhysical->GetIsTypeVehicle() || colPhysical->GetIsTypePed())
+        ) {
+            bCollidedEntityCollisionIgnored = true;
+            if (!colPhysical->GetIsTypeVehicle())
+                return;
 
-                    m_pEntityIgnoredCollision = colPhysical;
-                }
-            }
-            else if ( colPhysical->GetIsTypeVehicle())
-            {
-                if (IsModelTempCollision())
-                    bCollisionDisabled = true;
-                else if (IsTemporary() || IsExploded() || !CEntity::GetIsStatic())
-                {
-                    if (colPhysical->AsVehicle()->IsConstructionVehicle())
-                    {
-                        if (GetIsStuck() || colPhysical->GetIsStuck())
-                            bThisOrCollidedEntityStuck = true;
-                    }
-                    else if (!CanBeSmashed())
-                    {
-                        auto tempMat = CMatrix();
-                        auto* cm = CEntity::GetColModel();
-                        auto vecSize = cm->GetBoundingBox().GetSize();
-                        auto vecTransformed = m_matrix->TransformPoint(vecSize);
+            m_pEntityIgnoredCollision = colPhysical;
+            bHandled = true;
+        }
 
-                        auto& vecCollidedPos = colPhysical->GetPosition();
-                        if (vecTransformed.z < vecCollidedPos.z)
-                        {
+        if (bHandled) {
+            // Nada más
+        } else if (colPhysical->GetIsTypeVehicle()) {
+            if (IsModelTempCollision()) {
+                bCollisionDisabled = true;
+            } else if (IsTemporary() || IsExploded() || !CEntity::GetIsStatic()) {
+                if (colPhysical->AsVehicle()->IsConstructionVehicle()) {
+                    if (GetIsStuck() || colPhysical->GetIsStuck())
+                        bThisOrCollidedEntityStuck = true;
+                } else if (!CanBeSmashed()) {
+                    // Como el original: solo objetos cuya caja acaba por debajo de 1 en los tres ejes
+                    const auto& box = CEntity::GetColModel()->GetBoundingBox();
+                    if (box.m_vecMax.x < 1.0F && box.m_vecMax.y < 1.0F && box.m_vecMax.z < 1.0F) {
+                        CMatrix tempMat;
+                        const auto vecSize = box.m_vecMax - box.m_vecMin;
+                        const auto vecTransformed = ObjMultiplyPoint(*m_matrix, vecSize);
+                        if (vecTransformed.z < colPhysical->GetPosition().z) {
                             bCollidedEntityCollisionIgnored = true;
                             m_pEntityIgnoredCollision = colPhysical;
-                        }
-                        else
-                        {
-                            Invert(colPhysical->GetMatrix(), tempMat);
-                            if ((tempMat.TransformPoint(vecTransformed)).z < 0.0F)
-                            {
+                        } else {
+                            Invert(*colPhysical->m_matrix, tempMat);
+                            if (ObjMultiplyPoint(tempMat, vecTransformed).z < 0.0F) {
                                 bCollidedEntityCollisionIgnored = true;
                                 m_pEntityIgnoredCollision = colPhysical;
                             }
@@ -436,105 +580,107 @@ void CObject::SpecialEntityPreCollisionStuff(CPhysical* colPhysical, bool bIgnor
                     }
                 }
             }
-            else if (m_nModelIndex != MODEL_GRENADE
-                || !colPhysical->GetIsTypePed()
-                || m_matrix->GetPosition().z >= colPhysical->m_matrix->GetPosition().z)
-            {
-                if (colPhysical->GetIsTypeObject() && colPhysical->AsObject()->m_pObjectInfo->m_fUprootLimit > 0.0F && !colPhysical->m_pAttachedTo)
-                {
-                    if ((!colPhysical->physicalFlags.bDisableCollisionForce || colPhysical->physicalFlags.bCollidable)
-                        && colPhysical->m_fMass * 10.0F > m_fMass)
-                    {
-                        bCollidedEntityUnableToMove = true;
-                    }
-                }
-            }
-        }
-        else
-        {
-            if (bIgnoreStuckCheck)
-                bCollisionDisabled = true;
-            else if (GetIsStuck() || colPhysical->GetIsStuck())
-                bThisOrCollidedEntityStuck = true;
+        } else if (m_nModelIndex == MODEL_GRENADE
+            && colPhysical->GetIsTypePed()
+            && m_matrix->GetPosition().z < colPhysical->m_matrix->GetPosition().z
+        ) {
+            // Como el original: la granada por debajo del peatón no colisiona con él
+            bCollisionDisabled = true;
+        } else if (colPhysical->GetIsTypeObject()
+            && colPhysical->AsObject()->m_pObjectInfo->m_fUprootLimit > 0.0F
+            && !colPhysical->m_pAttachedTo
+            && (!colPhysical->physicalFlags.bDisableCollisionForce || colPhysical->physicalFlags.bCollidable)
+            && colPhysical->m_fMass * 10.0F > m_fMass
+        ) {
+            bCollidedEntityUnableToMove = true;
         }
     }
 
     if (!bCollidedEntityCollisionIgnored && (bIgnoreStuckCheck || GetIsStuck()))
         bThisOrCollidedEntityStuck = true;
-
 }
 
 // 0x5A02E0
+// Como el original: magnitudes de 0x406DA0, (|v|²·paso)·paso, comparaciones en las que NaN devuelve 1, raíz
+// por las constantes inversas del EXE (6.6666665 y 3.3333333) y ceil del CRT + _ftol2.
 uint8 CObject::SpecialEntityCalcCollisionSteps(bool& bProcessCollisionBeforeSettingTimeStep, bool& unk2) {
+    const float ts = CTimer::GetTimeStep();
     if (physicalFlags.bDisableZ || m_pObjectInfo->m_nSpecialColResponseCase == COL_SPECIAL_RESPONSE_GRENADE) {
+        const float radius = GetModelInfo()->GetColModel()->GetBoundRadius();
+        const float fMove = ObjSqMag(m_vecMoveSpeed) * ts * ts;
+        if (!(fMove >= radius * radius))
+            return 1;
+
+        return ObjCeilSteps(std::sqrt(fMove) / radius);
+    }
+
+    if (physicalFlags.bDisableMoveForce) {
+        // Como el original: mayor de max.x/max.y frente al menor de min.x/min.y (se guarda sin negar) y fabs
+        const auto& box = CEntity::GetColModel()->GetBoundingBox();
+        float fLongest = box.m_vecMax.y < box.m_vecMax.x ? box.m_vecMax.x : box.m_vecMax.y;
+        const float fMin = box.m_vecMin.y > box.m_vecMin.x ? box.m_vecMin.x : box.m_vecMin.y;
+        if (-fMin > fLongest)
+            fLongest = fMin;
+
+        const float fMove = std::fabs(fLongest * m_vecTurnSpeed.z);
+        if (!(fMove > 0.1F))
+            return 1;
+
+        return ObjCeilSteps(fMove * 10.0F);
+    }
+
+    if (physicalFlags.bInfiniteMass) {
+        auto* cm = CEntity::GetColModel();
+        const auto vecMin = ObjMultiply3x3(*m_matrix, cm->GetBoundingBox().m_vecMin);
+        const auto vecSpeed = CPhysical::GetSpeed(vecMin);
+        // Como el original: aquí la magnitud se suma z, y, x
+        const float fMove = ((vecSpeed.z * vecSpeed.z + vecSpeed.y * vecSpeed.y) + vecSpeed.x * vecSpeed.x) * ts * ts;
+        if (!(fMove >= 0.0225F))
+            return 1;
+
+        return ObjCeilSteps(std::sqrt(fMove) * ObjF(0x40D55555u)); // 0x866FBC
+    }
+
+    if (IsTemporary() && !objectFlags.bIsLiftable)
+        return 1;
+
+    const auto special = m_pObjectInfo->m_nSpecialColResponseCase;
+    if (special == COL_SPECIAL_RESPONSE_LAMPOST) {
+        // Como el original: primero los dos Multiply3x3 (arriba y abajo) y luego GetSpeed de arriba y de abajo
         auto* cm = GetModelInfo()->GetColModel();
-        const auto fMove = m_vecMoveSpeed.SquaredMagnitude() * sq(CTimer::GetTimeStep());
-        if (fMove >= sq(cm->GetBoundRadius()))
-            return static_cast<uint8>(std::ceil(std::sqrt(fMove) / cm->GetBoundRadius()));
+        const auto vecTop    = ObjMultiply3x3(*m_matrix, CVector(0.0F, 0.0F, cm->GetBoundingBox().m_vecMax.z));
+        const auto vecBottom = ObjMultiply3x3(*m_matrix, CVector(0.0F, 0.0F, cm->GetBoundingBox().m_vecMin.z));
+        const auto vecSpeedTop    = CPhysical::GetSpeed(vecTop);
+        const auto vecSpeedBottom = CPhysical::GetSpeed(vecBottom);
+        const auto& vecUsed = ObjSqMag(vecSpeedBottom) < ObjSqMag(vecSpeedTop) ? vecSpeedTop : vecSpeedBottom;
+        const float fMove = ObjSqMag(vecUsed) * ts * ts;
+        if (!(fMove >= 0.09F))
+            return 1;
 
-        return 1;
+        return ObjCeilSteps(std::sqrt(fMove) * ObjF(0x40555555u)); // 0x859F60
     }
 
-    if (!physicalFlags.bDisableMoveForce) {
-        if (physicalFlags.bInfiniteMass) {
-            auto cm = CEntity::GetColModel();
-            auto vecMin = GetMatrix().TransformVector(cm->GetBoundingBox().m_vecMin);
-            auto vecSpeed = CPhysical::GetSpeed(vecMin);
-            const auto fMove = vecSpeed.SquaredMagnitude() * sq(CTimer::GetTimeStep());
-            if (fMove >= 0.0225F) // std::pow(0.15F, 2.0F)
-                return static_cast<uint8>(std::ceil(std::sqrt(fMove) / 0.15F));
-
-            return 1;
-        }
-
-        if (IsTemporary() && !objectFlags.bIsLiftable)
+    if (objectFlags.bIsLiftable || special == COL_SPECIAL_RESPONSE_SMALLBOX || special == COL_SPECIAL_RESPONSE_FENCEPART) {
+        // Como el original: la arista usada es la MENOR de la caja por fObjectStepSizeMult (0x8D0A28)
+        const auto& box = CEntity::GetColModel()->GetBoundingBox();
+        const float sizeX = box.m_vecMax.x - box.m_vecMin.x;
+        const float sizeY = box.m_vecMax.y - box.m_vecMin.y;
+        const float sizeZ = box.m_vecMax.z - box.m_vecMin.z;
+        float fEdge = sizeY < sizeX ? sizeY : sizeX;
+        fEdge = sizeZ < fEdge ? sizeZ : fEdge;
+        fEdge = fObjectStepSizeMult * fEdge;
+        const float fMove = ObjSqMag(m_vecMoveSpeed) * ts * ts;
+        if (!(fMove >= fEdge * fEdge))
             return 1;
 
-        if (m_pObjectInfo->m_nSpecialColResponseCase == COL_SPECIAL_RESPONSE_LAMPOST) {
-            auto* cm = GetModelInfo()->GetColModel();
-
-            auto vecMin = CVector(0.0F, 0.0F, cm->GetBoundingBox().m_vecMin.z);
-            vecMin = GetMatrix().TransformVector(vecMin);
-            vecMin = CPhysical::GetSpeed(vecMin);
-
-            auto vecMax = CVector(0.0F, 0.0F, cm->GetBoundingBox().m_vecMax.z);
-            vecMax = GetMatrix().TransformVector(vecMax);
-            vecMax = CPhysical::GetSpeed(vecMax);
-
-            auto& vecUsed = vecMin.SquaredMagnitude() >= vecMax.SquaredMagnitude() ? vecMin : vecMax;
-            const auto fMove = vecUsed.SquaredMagnitude() * sq(CTimer::GetTimeStep());
-            if (fMove >= 0.09F)
-                return static_cast<uint8>(std::ceil(std::sqrt(fMove) / 0.3F));
-
-            return 1;
-        }
-
-        if (objectFlags.bIsLiftable || m_pObjectInfo->m_nSpecialColResponseCase == COL_SPECIAL_RESPONSE_SMALLBOX ||
-            m_pObjectInfo->m_nSpecialColResponseCase == COL_SPECIAL_RESPONSE_FENCEPART) {
-            auto* cm = GetModelInfo()->GetColModel();
-            const auto vecSize = cm->GetBoundingBox().GetSize();
-            const auto fEdge = std::max({ vecSize.x, vecSize.y, vecSize.z }) / 2.0F;
-            const auto fMove = m_vecMoveSpeed.SquaredMagnitude() * sq(CTimer::GetTimeStep());
-            if (fMove >= sq(fEdge)) {
-                return static_cast<uint8>(std::ceil(std::sqrt(fMove) / fEdge));
-            }
-            return 1;
-        }
-
-        const auto fMove = m_vecMoveSpeed.SquaredMagnitude() * sq(CTimer::GetTimeStep());
-        if (fMove >= 0.09F)
-            return static_cast<uint8>(std::ceil(sqrt(fMove) / 0.3F));
-
-        return 1;
+        return ObjCeilSteps(std::sqrt(fMove) / fEdge);
     }
 
-    auto& box = GetModelInfo()->GetColModel()->GetBoundingBox();
-    const auto fLongest = std::max({ box.m_vecMax.x, box.m_vecMax.y, -box.m_vecMin.x, -box.m_vecMin.y });
-    const auto fMove = std::fabs(fLongest * m_vecTurnSpeed.z);
-    if (fMove > 0.1F)
-        return static_cast<uint8>(std::ceil(fMove * 10.0F));
+    const float fMove = ObjSqMag(m_vecMoveSpeed) * ts * ts;
+    if (!(fMove >= 0.09F))
+        return 1;
 
-    return 1;
+    return ObjCeilSteps(std::sqrt(fMove) * ObjF(0x40555555u)); // 0x859F60
 }
 
 // 0x59FD50
@@ -545,8 +691,13 @@ void CObject::PreRender() {
     if (m_nBurnTime > CTimer::GetTimeInMS())
         DoBurnEffect();
 
-    if (!m_pAttachedTo)
-        m_fContactSurfaceBrightness = m_nColLighting.GetCurrentLighting();
+    if (!m_pAttachedTo) {
+        // Como el original: GetCurrentLighting en línea con 1/30 (0x858F10) y (día·k)·(1 − b) + (noche·k)·b
+        const float balance = CCustomBuildingDNPipeline::m_fDNBalanceParam;
+        const float k = ObjF(0x3D088889u);
+        m_fContactSurfaceBrightness = (static_cast<float>(m_nColLighting.day) * k) * (1.0F - balance)
+                                    + (static_cast<float>(m_nColLighting.night) * k) * balance;
+    }
 
     if (GetRwObject() && RwObjectGetType(GetRwObject()) == rpCLUMP && objectFlags.bFadingIn)
     {
@@ -657,7 +808,7 @@ void CObject::ProcessGarageDoorBehaviour() {
         else if (garage.m_nType == eGarageType::HANGAR_ABANDONED_AIRPORT)
             m_matrix->GetPosition().x = vecDummyPos.x - garage.m_fDoorPosition * m_matrix->GetRight().x * 14.0F;
         else
-            m_matrix->GetPosition().z = vecDummyPos.z + fHeight * garage.m_fDoorPosition / 1.1F;
+            m_matrix->GetPosition().z = fHeight * garage.m_fDoorPosition * ObjF(0x3F68BA2Eu) + vecDummyPos.z; // Como el original: · 0x8599A0 (no /1.1)
     }
 
     SetUsesCollision(garage.m_bDoorClosed);
@@ -716,9 +867,10 @@ void CObject::RefModelInfo(int32 modelIndex) {
 }
 
 // 0x59F350
-void CObject::SetRemapTexture(RwTexture* remapTexture, int16 txdIndex) {
+// Como el original: el índice llega como dword y se compara entero con -1
+void CObject::SetRemapTexture(RwTexture* remapTexture, int32 txdIndex) {
     m_pRemapTexture = remapTexture;
-    m_wRemapTxd = txdIndex;
+    m_wRemapTxd = static_cast<int16>(txdIndex);
     if (txdIndex != -1)
         CTxdStore::AddRef(txdIndex);
 }
@@ -736,9 +888,10 @@ void CObject::SetRopeHeight(float height) {
 }
 
 // 0x59F3C0
+// Como el original: devuelve el objeto recogido (+0x318, m_pRopeAttachObject), no el gancho
 CEntity* CObject::GetObjectCarriedWithRope() {
     const auto ropeIndex = CRopes::FindRope(reinterpret_cast<uint32>(this));
-    return CRopes::GetRope(ropeIndex).m_pAttachedEntity;
+    return CRopes::GetRope(ropeIndex).m_pRopeAttachObject;
 }
 
 // 0x59F3E0
@@ -795,22 +948,24 @@ void CObject::Init() {
     m_nObjectType = eObjectType::OBJECT_GAME;
     SetIsStatic(true);
 
-    m_nObjectFlags &= 0xFC000000 | 0x40000;
-    // objectFlags.bCanBeAttachedToMagnet = true;
+    // Como el original: se conservan los bits 18 y 26..31 y bCanBeAttachedToMagnet queda siempre activo
+    m_nObjectFlags = (m_nObjectFlags & 0xFC040000) | 0x40000;
     if (m_nModelIndex == 0xFFFF) {
         objectFlags.bHasNoModel = false;
     } else {
-        CObjectData::SetObjectData(m_nModelIndex, *this);
+        CObjectData::SetObjectData(static_cast<int16>(m_nModelIndex), *this);
         auto* mi = GetModelInfo();
-        if (mi->GetColModel()->m_bHasCollisionVolumes) {
-            CColStore::AddRef(mi->GetColModel()->m_nColSlot);
+        auto* cm = mi->GetColModel();
+        if (cm->m_bHasCollisionVolumes) {
+            CColStore::AddRef(cm->m_nColSlot);
             objectFlags.bHasNoModel = true;
+        }
 
-            auto* ami = mi->AsAtomicModelInfoPtr();
-            if (ami && ami->SwaysInWind() && !physicalFlags.bDisableCollisionForce) {
-                auto& bbox = mi->GetColModel()->GetBoundingBox();
-                m_vecCentreOfMass.z = bbox.m_vecMin.z + bbox.GetHeight() * 0.2F;
-            }
+        // Como el original: el centro de masas de los modelos que se balancean se ajusta haya o no volúmenes
+        auto* ami = mi->AsAtomicModelInfoPtr();
+        if (ami && ami->SwaysInWind() && !physicalFlags.bDisableCollisionForce) {
+            auto& bbox = cm->GetBoundingBox();
+            m_vecCentreOfMass.z = (bbox.m_vecMax.z - bbox.m_vecMin.z) * 0.2F + bbox.m_vecMin.z;
         }
     }
 
@@ -825,7 +980,9 @@ void CObject::Init() {
     m_nRemovalTime = 0;
     m_nBonusValue = 0;
     m_wCostValue = 0;
-    std::ranges::fill(m_nCarColor, 0);
+    // Como el original: solo se ponen a cero los dos primeros colores
+    m_nCarColor[1] = 0;
+    m_nCarColor[0] = 0;
 
     m_nRefModelIndex = -1;
     m_nGarageDoorGarageIndex = -1;
@@ -886,7 +1043,8 @@ void CObject::Init() {
 void CObject::DoBurnEffect() const {
     const auto& box = GetModelInfo()->GetColModel()->GetBoundingBox();
     const auto& vecSize = box.GetSize();
-    const auto nUsedSize = static_cast<int32>(vecSize.x * vecSize.y * vecSize.z * m_fBurnDamage / 20.0F);
+    // Como el original: producto por 0.05 (0x858C28) y _ftol2
+    const auto nUsedSize = ObjFtol(vecSize.x * vecSize.y * vecSize.z * m_fBurnDamage * 0.05F);
     if (nUsedSize <= 0)
         return;
 
@@ -894,7 +1052,7 @@ void CObject::DoBurnEffect() const {
         const auto fRandX = CGeneral::GetRandomNumberInRange(box.m_vecMin.x, box.m_vecMax.x);
         const auto fRandY = CGeneral::GetRandomNumberInRange(box.m_vecMin.y, box.m_vecMax.y);
         const auto fRandZ = CGeneral::GetRandomNumberInRange(box.m_vecMin.z, box.m_vecMax.z);
-        auto vecParticlePos = m_matrix->TransformPoint(CVector(fRandX, fRandY, fRandZ));
+        auto vecParticlePos = ObjMultiplyPoint(*m_matrix, CVector(fRandX, fRandY, fRandZ));
 
         g_fx.m_SmokeII3expand->AddParticle(vecParticlePos, { 0.0F, 0.0F, 0.02F }, 0.0F, FxPrtMult_c(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F, 0.4F));
     }
@@ -914,68 +1072,81 @@ void CObject::ProcessSamSiteBehaviour() {
     if (objectFlags.bIsBroken)
         return;
 
-    const auto& vecPos = GetPosition();
-    bool bDisabled = bAircraftCarrierSamSiteDisabled;
-    if (vecPos.x >= -1000) {
-        bDisabled = bArea51SamSiteDisabled;
-    }
+    // Como el original: x < −1000 usa el indicador del portaaviones; si no (también NaN), el del Área 51
+    const bool bDisabled = GetPosition().x < -1000.0F ? bAircraftCarrierSamSiteDisabled : bArea51SamSiteDisabled;
     if (bDisabled) {
         return;
     }
 
+    const float fHeading = CGeneral::GetATanOfXY(m_matrix->GetForward().x, m_matrix->GetForward().y);
+
+    // Como el original: FindPlayerVehicle se vuelve a llamar en cada comprobación
     CEntity* targetEntity = nullptr;
-    auto fHeading = CGeneral::GetATanOfXY(m_matrix->GetForward().x, m_matrix->GetForward().y);
-    auto* playerVeh = FindPlayerVehicle();
-    if (!playerVeh
-        || playerVeh->GetVehicleAppearance() == eVehicleAppearance::VEHICLE_APPEARANCE_BIKE
-        || playerVeh->GetVehicleAppearance() == eVehicleAppearance::VEHICLE_APPEARANCE_AUTOMOBILE
+    if (FindPlayerVehicle()
+        && FindPlayerVehicle()->GetVehicleAppearance() != eVehicleAppearance::VEHICLE_APPEARANCE_BIKE
+        && FindPlayerVehicle()->GetVehicleAppearance() != eVehicleAppearance::VEHICLE_APPEARANCE_AUTOMOBILE
     ) {
-        auto* player = FindPlayerPed();
-        if (player->GetIntelligence()->GetTaskJetPack()) {
-            targetEntity = player;
-        }
-    } else {
-        targetEntity = playerVeh;
+        targetEntity = FindPlayerVehicle();
+    } else if (FindPlayerPed()->GetIntelligence()->GetTaskJetPack()) {
+        targetEntity = FindPlayerPed();
     }
 
     if (targetEntity) {
-        auto& vecTargetPos = targetEntity->GetPosition();
-        if (vecPos.z <= vecTargetPos.z + 2.0F
-            && vecTargetPos.y <= 2100.0F
-        ) {
-            const auto vecDir = vecTargetPos - vecPos;
-            const auto fAngle = CGeneral::GetATanOfXY(vecDir.x, vecDir.y);
-            const auto fAngleDiff = CGeneral::LimitRadianAngle(fAngle - fHeading);
+        const auto& vecPos = GetPosition();
+        const auto& vecTargetPos = targetEntity->GetPosition();
+        // Como el original: (z − 2) > z del objetivo y y > 2100 descartan el objetivo (NaN no)
+        if (!(vecPos.z - 2.0F > vecTargetPos.z) && !(vecTargetPos.y > 2100.0F)) {
+            const float dirX = vecTargetPos.x - vecPos.x;
+            const float dirY = vecTargetPos.y - vecPos.y;
 
+            // Como el original: la diferencia se calcula con el ángulo completo de ST0 y LimitRadianAngle en línea
+            float fAngle, fAngleDiff;
+            auto* const atanOfXY = &CGeneral::GetATanOfXY;
+            __asm {
+                push   dirY
+                push   dirX
+                call   atanOfXY
+                add    esp, 8
+                fst    fAngle
+                fsub   fHeading
+                fstp   fAngleDiff
+            }
+            while (fAngleDiff > OBJ_PI)
+                fAngleDiff -= OBJ_TWO_PI;
+            while (fAngleDiff < OBJ_MINUS_PI)
+                fAngleDiff += OBJ_TWO_PI;
+
+            // Como el original: paso · 0.05 (0x858C28)
+            const float fTimeStep = CTimer::GetTimeStep() * 0.05F;
             float fNewAngle;
-            const auto fTimeStep = CTimer::GetTimeStep() / 20.0F;
-            if (abs(fAngleDiff) <= fTimeStep)
+            if (!(std::fabs(fAngleDiff) > fTimeStep))
                 fNewAngle = fAngle;
             else if (fAngleDiff < 0.0F)
                 fNewAngle = fHeading - fTimeStep;
             else
-                fNewAngle = fHeading + fTimeStep;
+                fNewAngle = fTimeStep + fHeading;
 
-            CPlaceable::SetHeading(fNewAngle - HALF_PI);
+            m_matrix->SetRotateZOnly(fNewAngle - OBJ_HALF_PI);
             CEntity::UpdateRwMatrix();
             CEntity::UpdateRwFrame();
 
-            auto vecShootDir = vecPos - vecTargetPos;
-            if (vecShootDir.Magnitude2D() >= 120.0F)
+            const float shootX = GetPosition().x - targetEntity->GetPosition().x;
+            const float shootY = GetPosition().y - targetEntity->GetPosition().y;
+            if (!(std::sqrt(shootY * shootY + shootX * shootX) < 120.0F))
                 return;
 
-            if (std::fabs(fAngleDiff) >= 0.1F || CTimer::GetTimeInMS() / 4000 == CTimer::GetPreviousTimeInMS() / 4000)
+            if (!(std::fabs(fAngleDiff) < 0.1F) || CTimer::GetTimeInMS() / 4000 == CTimer::GetPreviousTimeInMS() / 4000)
                 return;
 
             auto vecRocketDir = m_matrix->GetForward() + m_matrix->GetUp();
-            const auto vecSrcPos = m_matrix->TransformPoint(CVector(0.0F, 2.0F, 4.0F));
+            const auto vecSrcPos = ObjMultiplyPoint(*m_matrix, CVector(0.0F, 2.0F, 4.0F));
             CProjectileInfo::AddProjectile(this, eWeaponType::WEAPON_ROCKET_HS, vecSrcPos, 0.0F, &vecRocketDir, targetEntity);
             return;
         }
     }
 
-    fHeading += CTimer::GetTimeStep() / 200.0F;
-    CPlaceable::SetHeading(fHeading - HALF_PI);
+    // Como el original: (paso · 0.005 + rumbo) − PI/2 directamente sobre la matriz
+    m_matrix->SetRotateZOnly(CTimer::GetTimeStep() * 0.005F + fHeading - OBJ_HALF_PI);
     CEntity::UpdateRwMatrix();
     CEntity::UpdateRwFrame();
 }
@@ -985,8 +1156,8 @@ void CObject::ProcessTrainCrossingBehaviour() {
     if (!(static_cast<uint8>(CTimer::GetFrameCounter() + m_nRandomSeedUpperByte) & 0x10)) {
         const auto& vecPos = GetPosition();
         const auto bWasEnabled = objectFlags.bTrainCrossEnabled;
-        objectFlags.bTrainCrossEnabled = false;
         auto* train = CTrain::FindNearestTrain(vecPos, true);
+        objectFlags.bTrainCrossEnabled = false;
         if (train) {
             auto vecDist = train->GetPosition() - vecPos;
             if (vecDist.Magnitude2D() < 120.0F)
@@ -1002,12 +1173,20 @@ void CObject::ProcessTrainCrossingBehaviour() {
     if (m_nModelIndex == ModelIndices::MI_TRAINCROSSING1)
         return;
 
-    const auto fAngle = std::acos(m_matrix->GetUp().z);
-    const auto fTimeStep = CTimer::GetTimeStep() / 200.0F;
-    if (objectFlags.bTrainCrossEnabled)
-        SetMatrixForTrainCrossing(m_matrix, std::max(0.0F, fAngle - fTimeStep));
-    else
-        SetMatrixForTrainCrossing(m_matrix, std::min(PI * 0.43F, fAngle + fTimeStep));
+    // Como el original: acos del CRT con ST0 completo ± paso · 0.005; límites 0 y 0x866FC8 (1.3508849)
+    const float fTimeStep = CTimer::GetTimeStep() * 0.005F;
+    const float fMaxAngle = ObjF(0x3FACE9CCu);
+    float fAngle;
+    if (objectFlags.bTrainCrossEnabled) {
+        fAngle = ObjTrainCrossingAngle(m_matrix->GetUp().z, fTimeStep, 1);
+        if (!(fAngle > 0.0F))
+            fAngle = 0.0F;
+    } else {
+        fAngle = ObjTrainCrossingAngle(m_matrix->GetUp().z, fTimeStep, 0);
+        if (!(fAngle < fMaxAngle))
+            fAngle = fMaxAngle;
+    }
+    SetMatrixForTrainCrossing(m_matrix, fAngle);
 
     CEntity::UpdateRwMatrix();
     CEntity::UpdateRwFrame();
@@ -1015,6 +1194,24 @@ void CObject::ProcessTrainCrossingBehaviour() {
 
 // 0x5A0D90
 void CObject::ObjectDamage(float damage, const CVector* fxOrigin, const CVector* fxDirection, CEntity* damager, eWeaponType weaponType) {
+    // Como el original: secuencia en línea de destrucción (0x5A0F7B, 0x5A1003, 0x5A16C4): quita colisión y
+    // visibilidad, saca de la lista de móviles si no es estático, escribe el bit estático directamente (sin
+    // SetIsStatic), activa bExplosionProof, anula velocidad y giro y borra el objeto RW.
+    const auto SmashInline = [this](bool bBroken) {
+        SetUsesCollision(false);
+        SetIsVisible(false);
+        if (!CEntity::GetIsStatic())
+            CPhysical::RemoveFromMovingList();
+
+        m_bIsStatic = true;
+        physicalFlags.bExplosionProof = true;
+        ResetMoveSpeed();
+        ResetTurnSpeed();
+        if (bBroken)
+            objectFlags.bIsBroken = true;
+        DeleteRwObject();
+    };
+
     if (!GetUsesCollision())
         return;
 
@@ -1025,7 +1222,9 @@ void CObject::ObjectDamage(float damage, const CVector* fxOrigin, const CVector*
         return;
 
     m_fHealth -= damage * m_pObjectInfo->m_fColDamageMultiplier;
-    m_fHealth = std::max(0.0F, m_fHealth);
+    // Como el original: solo se recorta si es menor que 0 (NaN y −0 se conservan)
+    if (m_fHealth < 0.0F)
+        m_fHealth = 0.0F;
 
     if (!m_nColDamageEffect || physicalFlags.bInvulnerable && damager != FindPlayerPed() && damager != FindPlayerVehicle())
         return;
@@ -1063,32 +1262,13 @@ void CObject::ObjectDamage(float damage, const CVector* fxOrigin, const CVector*
             break;
 
         case COL_DAMAGE_EFFECT_SMASH_COMPLETELY:
-            SetUsesCollision(false);
-            SetIsVisible(false);
-            if (!CEntity::GetIsStatic())
-                CPhysical::RemoveFromMovingList();
-
-            SetIsStatic(true);
-            physicalFlags.bExplosionProof = true;
-            ResetMoveSpeed();
-            ResetTurnSpeed();
-            DeleteRwObject();
+            SmashInline(false);
             bWasDestroyed = true;
             break;
 
         case COL_DAMAGE_EFFECT_CHANGE_THEN_SMASH:
             if (m_bRenderDamaged) {
-                SetUsesCollision(false);
-                SetIsVisible(false);
-                if (!CEntity::GetIsStatic()) {
-                    CPhysical::RemoveFromMovingList();
-                }
-
-                SetIsStatic(true);
-                physicalFlags.bExplosionProof = true;
-                ResetMoveSpeed();
-                ResetTurnSpeed();
-                DeleteRwObject();
+                SmashInline(false);
                 bWasDestroyed = true;
             } else {
                 DeleteRwObject();
@@ -1098,20 +1278,11 @@ void CObject::ObjectDamage(float damage, const CVector* fxOrigin, const CVector*
 
         case COL_DAMAGE_EFFECT_BREAKABLE:
         case COL_DAMAGE_EFFECT_BREAKABLE_REMOVED: {
+            // Como el original: se pasa una copia local de la velocidad de rotura
+            CVector vecBreakVelocity = m_pObjectInfo->m_vecBreakVelocity;
             const auto bJustFaces = damage * m_pObjectInfo->m_fColDamageMultiplier > m_pObjectInfo->m_fSmashMultiplier * 150.0F;
-            g_breakMan.Add(this, &m_pObjectInfo->m_vecBreakVelocity, m_pObjectInfo->m_fBreakVelocityRand, bJustFaces);
-
-            SetUsesCollision(false);
-            SetIsVisible(false);
-            if (!CEntity::GetIsStatic())
-                CPhysical::RemoveFromMovingList();
-
-            SetIsStatic(true);
-            physicalFlags.bExplosionProof = true;
-            ResetMoveSpeed();
-            ResetTurnSpeed();
-            objectFlags.bIsBroken = true;
-            DeleteRwObject();
+            g_breakMan.Add(this, &vecBreakVelocity, m_pObjectInfo->m_fBreakVelocityRand, bJustFaces);
+            SmashInline(true);
             bWasDestroyed = true;
             break;
         }
@@ -1122,32 +1293,25 @@ void CObject::ObjectDamage(float damage, const CVector* fxOrigin, const CVector*
         }
     }
 
-    bool bExploded = false;
     if (bWasDestroyed) {
-        if (TryToExplode()) {
-            bExploded = true;
-        }
-        AudioEngine.ReportObjectDestruction(this); // todo: Add check ``if bExploded``?
+        const bool bExploded = TryToExplode();
+        AudioEngine.ReportObjectDestruction(this);
+        if (bExploded)
+            return;
     }
 
-    // Particle creation
-    if (bWasDestroyed && bExploded)
-        return;
-
+    // Como el original: destruido solo reproduce PLAY_ON_DESTROYED; sin destruir, PLAY_ON_HIT con daño > 30;
+    // PLAY_ON_HIT_DESTROYED siempre.
     switch (m_pObjectInfo->m_nFxType) {
-    case eObjectFxType::NO_FX:
-        return;
     case eObjectFxType::PLAY_ON_HIT_DESTROYED:
         break;
     case eObjectFxType::PLAY_ON_DESTROYED:
-        if (bWasDestroyed) {
+        if (bWasDestroyed)
             break;
-        }
         return;
     case eObjectFxType::PLAY_ON_HIT:
-        if (damage > 30.0f) {
+        if (!bWasDestroyed && damage > 30.0F)
             break;
-        }
         return;
     default:
         return;
@@ -1166,7 +1330,8 @@ void CObject::ObjectDamage(float damage, const CVector* fxOrigin, const CVector*
         return;
     }
 
-    auto vecPoint = m_matrix->TransformPoint(m_pObjectInfo->m_vFxOffset);
+    // Como el original: Multiply3x3 (0x59C790) del desplazamiento y la posición sumada una sola vez
+    auto vecPoint = ObjMultiply3x3(*m_matrix, m_pObjectInfo->m_vFxOffset);
     vecPoint += GetPosition();
     auto* fxSystem = g_fxMan.CreateFxSystem(m_pObjectInfo->m_pFxSystemBP, vecPoint, nullptr, false);
     if (fxSystem)
@@ -1184,9 +1349,10 @@ void CObject::Explode() {
         auto vecDir = CVector(0.0F, 0.0F, 1.0F);
         ObjectDamage(10'000.0F, &vecPos, &vecDir, this, eWeaponType::WEAPON_EXPLOSION);
     } else if (!physicalFlags.bDisableCollisionForce) {
-        m_vecMoveSpeed.x += CGeneral::GetRandomNumberInRange(-0.0256F, 0.0256F);
-        m_vecMoveSpeed.y += CGeneral::GetRandomNumberInRange(-0.0256F, 0.0256F);
+        // Como el original: primero z += 0.5 y luego x, y += ((rand & 0xFF) − 128) · 0.0002 (0x85A7D0)
         m_vecMoveSpeed.z += 0.5F;
+        m_vecMoveSpeed.x += static_cast<float>(static_cast<int32>(CGeneral::GetRandomNumber() & 0xFF) - 128) * ObjF(0x3951B717u);
+        m_vecMoveSpeed.y += static_cast<float>(static_cast<int32>(CGeneral::GetRandomNumber() & 0xFF) - 128) * ObjF(0x3951B717u);
 
         if (GetIsStatic()) {
             SetIsStatic(false);
@@ -1195,7 +1361,8 @@ void CObject::Explode() {
     }
 
     if (m_pObjectInfo->m_nFxType == eObjectFxType::PLAY_ON_DESTROYED) {
-        auto vecPoint = m_matrix->TransformPoint(m_pObjectInfo->m_vFxOffset);
+        // Como el original: Multiply3x3 (0x59C790) del desplazamiento y la posición sumada una sola vez
+        auto vecPoint = ObjMultiply3x3(*m_matrix, m_pObjectInfo->m_vFxOffset);
         vecPoint += GetPosition();
         auto* fxSystem = g_fxMan.CreateFxSystem(m_pObjectInfo->m_pFxSystemBP, vecPoint, nullptr, false);
         if (fxSystem)
@@ -1205,18 +1372,39 @@ void CObject::Explode() {
 
 // 0x5A1580
 void CObject::ObjectFireDamage(float damage, CEntity* damager) {
+    // Como el original: secuencia en línea de destrucción (0x5A0F7B, 0x5A1003, 0x5A16C4): quita colisión y
+    // visibilidad, saca de la lista de móviles si no es estático, escribe el bit estático directamente (sin
+    // SetIsStatic), activa bExplosionProof, anula velocidad y giro y borra el objeto RW.
+    const auto SmashInline = [this](bool bBroken) {
+        SetUsesCollision(false);
+        SetIsVisible(false);
+        if (!CEntity::GetIsStatic())
+            CPhysical::RemoveFromMovingList();
+
+        m_bIsStatic = true;
+        physicalFlags.bExplosionProof = true;
+        ResetMoveSpeed();
+        ResetTurnSpeed();
+        if (bBroken)
+            objectFlags.bIsBroken = true;
+        DeleteRwObject();
+    };
+
     if (m_nModelIndex != ModelIndices::MI_GRASSPLANT && m_nModelIndex != ModelIndices::MI_GRASSHOUSE)
         return;
 
     m_fHealth -= damage;
-    m_fHealth = std::max(0.0F, m_fHealth);
+    // Como el original: solo se recorta si es menor que 0 (NaN y −0 se conservan)
+    if (m_fHealth < 0.0F)
+        m_fHealth = 0.0F;
 
     if (!m_nColDamageEffect || physicalFlags.bInvulnerable && damager != FindPlayerPed() && damager != FindPlayerVehicle())
         return;
 
     if (m_nModelIndex == ModelIndices::MI_GRASSPLANT)
     {
-        m_fBurnDamage = 1.0F - (m_fHealth / 2000.0F);
+        // Como el original: 1 − salud · 0.0005 (0x859978)
+        m_fBurnDamage = 1.0F - m_fHealth * 0.0005F;
         m_nBurnTime = CTimer::GetTimeInMS() + 3000;
     }
 
@@ -1231,35 +1419,33 @@ void CObject::ObjectFireDamage(float damage, CEntity* damager) {
         if (!objectFlags.bIsBroken)
             AudioEngine.ReportObjectDestruction(this);
 
-        g_breakMan.Add(this, &m_pObjectInfo->m_vecBreakVelocity, m_pObjectInfo->m_fBreakVelocityRand, true);
-
-        SetUsesCollision(false);
-        SetIsVisible(false);
-        if (!CEntity::GetIsStatic())
-            CPhysical::RemoveFromMovingList();
-
-        SetIsStatic(true);
-        physicalFlags.bExplosionProof = true;
-        ResetMoveSpeed();
-        ResetTurnSpeed();
-        objectFlags.bIsBroken = true;
-        DeleteRwObject();
+        CVector vecBreakVelocity = m_pObjectInfo->m_vecBreakVelocity;
+        g_breakMan.Add(this, &vecBreakVelocity, m_pObjectInfo->m_fBreakVelocityRand, true);
+        SmashInline(true);
     } else if (m_nColDamageEffect == COL_DAMAGE_EFFECT_CHANGE_MODEL && !m_bRenderDamaged) {
         m_bRenderDamaged = true;
         DeleteRwObject();
-        CShadows::AddPermanentShadow(eShadowType::SHADOW_DEFAULT, gpShadowHeliTex, &GetPosition(), 3.0F, 0.0F, 0.0F, -3.0F, 200, 0, 0, 0, 10.0F, 30'000, 1.0F);
+        CVector vecPos = GetPosition();
+        CShadows::AddPermanentShadow(eShadowType::SHADOW_DEFAULT, gpShadowHeliTex, &vecPos, 3.0F, 0.0F, 0.0F, -3.0F, 200, 0, 0, 0, 10.0F, 30'000, 1.0F);
     }
 }
 
 // 0x5A1840
 void CObject::TryToFreeUpTempObjects(int32 numObjects) {
-    if (numObjects <= 0)
-        return;
+    // Como el original: recorre el pool del último slot al primero y para en cuanto no quedan objetos por liberar
+    auto* pool = GetObjectPool();
+    for (auto i = static_cast<int32>(pool->GetSize()); i > 0;) {
+        --i;
+        if (numObjects <= 0)
+            return;
 
-    for (auto& obj : GetObjectPool()->GetAllValid()) {
-        if (obj.IsTemporary() && !obj.IsVisible()) {
-            CWorld::Remove(&obj);
-            delete &obj;
+        if (pool->IsFreeSlotAtIndex(i))
+            continue;
+
+        auto* obj = pool->GetAt(i);
+        if (obj->IsTemporary() && !obj->IsVisible()) {
+            CWorld::Remove(obj);
+            delete obj;
             --numObjects;
         }
     }
@@ -1291,7 +1477,12 @@ void CObject::DeleteAllTempObjectsInArea(CVector point, float radius) {
         if (!obj.IsTemporary())
             continue;
 
-        if (DistanceBetweenPointsSquared(obj.GetPosition(), point) < sq(radius)) {
+        // Como el original: (punto − posición) sumando z, y, x
+        const auto& pos = obj.GetPosition();
+        const float dz = point.z - pos.z;
+        const float dy = point.y - pos.y;
+        const float dx = point.x - pos.x;
+        if (radius * radius > (dz * dz + dy * dy) + dx * dx) {
             CWorld::Remove(&obj);
             delete &obj;
         }
@@ -1308,20 +1499,20 @@ bool CObject::IsCraneMovingPart() const {
 }
 
 // 0x5A1AB0
+// Como el original: el objeto recogido va a +0x318 (m_pRopeAttachObject, con su referencia) y el gancho (+0x314,
+// m_pAttachedEntity) se coloca en attachTo · (0, 0, altura de recogida) y deja de usar colisión.
 void CObject::GrabObjectToCarryWithRope(CPhysical* attachTo) {
     const auto iRopeInd = CRopes::FindRope(reinterpret_cast<uint32>(this));
     auto& rope = CRopes::GetRope(iRopeInd);
     rope.ReleasePickedUpObject();
-    rope.m_pAttachedEntity = attachTo;
-    assert(rope.m_pAttachedEntity);
-    rope.m_pAttachedEntity->RegisterReference(&rope.m_pAttachedEntity);
+    rope.m_pRopeAttachObject = attachTo;
+    attachTo->RegisterReference(&rope.m_pRopeAttachObject);
 
-    auto vecRopePoint = CVector();
-    vecRopePoint.z = CRopes::FindPickupHeight(attachTo);
-    vecRopePoint *= attachTo->m_matrix->TransformPoint(vecRopePoint);
+    const float fPickupHeight = CRopes::FindPickupHeight(attachTo);
+    const auto vecRopePoint = ObjMultiplyPoint(*rope.m_pRopeAttachObject->m_matrix, CVector(0.0F, 0.0F, fPickupHeight));
 
-    rope.m_pRopeAttachObject->SetPosn(vecRopePoint);
-    rope.m_pRopeAttachObject->SetUsesCollision(false);
+    rope.m_pAttachedEntity->SetPosn(vecRopePoint);
+    rope.m_pAttachedEntity->SetUsesCollision(false);
 }
 
 // 0x5A1B60
@@ -1336,8 +1527,9 @@ bool CObject::CanBeUsedToTakeCoverBehind() {
     if (mi->AsAtomicModelInfoPtr() && mi->AsAtomicModelInfoPtr()->IsBreakableStatuePart())
         return false;
 
+    // Como el original: altura < 1.25 y > 0.75 y up.z > 0.9; NaN no pasa
     const auto fHeight = mi->GetColModel()->GetBoundingBox().GetHeight();
-    if (fHeight <= 0.75F || fHeight >= 1.25F || GetUp().z <= 0.9F)
+    if (!(fHeight < 1.25F) || !(fHeight > 0.75F) || !(m_matrix->GetUp().z > 0.9F))
         return false;
 
     return true;
@@ -1374,12 +1566,29 @@ CObject* CObject::Create(CDummyObject* dummyObject) {
 }
 
 // 0x59F200
+// Como el original: fcos/fsin completos en el x87; forward = (0·sen + x·cos, 0·sen + y·cos, sen + z·cos) (el 0·sen
+// fija el signo de los ceros) y se escribe up antes que forward.
 void CObject::SetMatrixForTrainCrossing(CMatrix* matrix, float fAngle) {
-    auto vecForward = CrossProduct(CVector(0.0F, 0.0F, 1.0F), matrix->GetRight());
-    const auto fCos = std::cos(fAngle);
-    const auto fSin = std::sin(fAngle);
-    vecForward *= fCos;
-    vecForward.z += fSin;
+    const auto vecAxis = CrossProduct(CVector(0.0F, 0.0F, 1.0F), matrix->GetRight());
+    const float axisX = vecAxis.x, axisY = vecAxis.y, axisZ = vecAxis.z;
+    float cosX, cosY, cosZ, sinA;
+    __asm {
+        fld    fAngle
+        fcos
+        fld    axisX
+        fmul   st, st(1)
+        fstp   cosX
+        fld    axisY
+        fmul   st, st(1)
+        fstp   cosY
+        fmul   axisZ
+        fstp   cosZ
+        fld    fAngle
+        fsin
+        fstp   sinA
+    }
+    const float zeroSin = 0.0F * sinA;
+    const CVector vecForward{ zeroSin + cosX, zeroSin + cosY, sinA + cosZ };
 
     matrix->GetUp() = CrossProduct(matrix->GetRight(), vecForward);
     matrix->GetForward() = vecForward;
@@ -1398,42 +1607,59 @@ void CObject::ProcessControlLogic() {
         || m_nModelIndex == ModelIndices::MI_QUARRYCRANE_ARM
     ) {
         const auto iRopeInd = CRopes::FindRope(reinterpret_cast<uint32>(this));
-        uint8 nSegments = 0;
+        int32 nSegments = 0;
         auto fRopeLengthChange = 0.0F;
         if (iRopeInd >= 0) {
             auto& rope = CRopes::GetRope(iRopeInd);
-            nSegments = static_cast<uint8>(rope.m_fSegmentLength * 32.0F);
+            // Como el original: _ftol2 completo; el entero de 32 bits se usa en la resta
+            nSegments = ObjFtol(rope.m_fSegmentLength * 32.0F);
             fRopeLengthChange = rope.m_fMass * rope.m_fSegmentLength - static_cast<float>(nSegments) * rope.m_fTotalLength;
         }
 
+        // Como el original: MultiplyMatrixWithVector (0x59C890) y después se suma el cambio de longitud a z
         if (m_nModelIndex == ModelIndices::MI_MAGNOCRANE) {
-            auto vecRopePoint = m_matrix->TransformPoint(CVector(0.0F, 36.64F, -1.69F));
+            auto vecRopePoint = ObjMultiplyPoint(*m_matrix, CVector(0.0F, 36.64F, -1.69F));
             vecRopePoint.z += fRopeLengthChange;
-            CRopes::RegisterRope((uint32)this, static_cast<uint32>(eRopeType::CRANE_MAGNO), vecRopePoint, false, nSegments, 1u, this, 20'000u);
+            CRopes::RegisterRope((uint32)this, static_cast<uint32>(eRopeType::CRANE_MAGNO), vecRopePoint, false, static_cast<uint8>(nSegments), 1u, this, 20'000u);
         } else if (m_nModelIndex == ModelIndices::MI_CRANETROLLEY) {
-            const auto nRopeType = static_cast<const uint32>(GetPosition().x >= 0 ? eRopeType::CRANE_TROLLEY : eRopeType::WRECKING_BALL);
-            auto vecRopePoint = m_matrix->TransformPoint(CVector(0.0F, 0.0F, 0.0F));
+            // Como el original: 0 > x elige la bola de demolición; si no (también NaN), la grúa de carro
+            const auto nRopeType = static_cast<const uint32>(0.0F > GetPosition().x ? eRopeType::WRECKING_BALL : eRopeType::CRANE_TROLLEY);
+            auto vecRopePoint = ObjMultiplyPoint(*m_matrix, CVector(0.0F, 0.0F, 0.0F));
             vecRopePoint.z += fRopeLengthChange;
-            CRopes::RegisterRope((uint32)this, nRopeType, vecRopePoint, false, nSegments, 1u, this, 20'000u);
+            CRopes::RegisterRope((uint32)this, nRopeType, vecRopePoint, false, static_cast<uint8>(nSegments), 1u, this, 20'000u);
         } else {
-            auto vecRopePoint = m_matrix->TransformPoint(CVector(0.0F, 0.0F, 59.0F));
+            auto vecRopePoint = ObjMultiplyPoint(*m_matrix, CVector(0.0F, 0.0F, 59.0F));
             vecRopePoint.z += fRopeLengthChange;
-            CRopes::RegisterRope((uint32)this, static_cast<uint32>(eRopeType::QUARRY_CRANE_ARM), vecRopePoint, false, nSegments, 1u, this, 20'000u);
+            CRopes::RegisterRope((uint32)this, static_cast<uint32>(eRopeType::QUARRY_CRANE_ARM), vecRopePoint, false, static_cast<uint8>(nSegments), 1u, this, 20'000u);
         }
     }
 
-    if (CGarages::IsModelIndexADoor(m_nModelIndex))
+    if (CGarages::IsModelIndexADoor(static_cast<int16>(m_nModelIndex)))
         ProcessGarageDoorBehaviour();
+}
+
+// Como el original: índice = (puntero − base) / 0x19C con división entera con signo (trunca hacia cero) y
+// comprobación 0 <= índice < tamaño y slot ocupado.
+static bool ObjIsInObjectPool(const CObject* object) {
+    const auto* pool = reinterpret_cast<const uint8*>(GetObjectPool());
+    const auto storage = *reinterpret_cast<const uintptr_t*>(pool + 0x0);
+    const auto* byteMap = *reinterpret_cast<const uint8* const*>(pool + 0x4);
+    const auto size = *reinterpret_cast<const int32*>(pool + 0x8);
+    const auto index = static_cast<int32>(reinterpret_cast<uintptr_t>(object) - storage) / 0x19C;
+    if (index < 0 || index >= size)
+        return false;
+
+    return !(byteMap[index] & 0x80);
 }
 
 // 0x5A2B90
 bool IsObjectPointerValid_NotInWorld(CObject* object) {
-    return GetObjectPool()->IsObjectValid(object);
+    return ObjIsInObjectPool(object);
 }
 
 // 0x5A2C20
 bool IsObjectPointerValid(CObject* object) {
-    if (!GetObjectPool()->IsObjectValid(object))
+    if (!ObjIsInObjectPool(object))
         return false;
 
     if (object->m_bIsBIGBuilding)

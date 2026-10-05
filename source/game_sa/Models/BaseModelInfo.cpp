@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 34/34 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/34 entradas.
+ * Validación registrada: 34/34 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -164,8 +164,15 @@ void CBaseModelInfo::ConvertAnimFileIndex() {
 // 0x4C4AE0
 int32 CBaseModelInfo::GetAnimFileIndex() {
     return -1;
-}void CBaseModelInfo::SetTexDictionary(const char* txdName) {
-    m_nTxdIndex = CTxdStore::FindOrAddTxdSlot(txdName);
+}
+
+// 0x4C4B40
+void CBaseModelInfo::SetTexDictionary(const char* txdName) {
+    // Como el original: guarda el slot y compara sólo los 16 bits guardados (cmp ax,0FFFFh) antes de añadirlo.
+    m_nTxdIndex = (int16)CTxdStore::FindTxdSlot(txdName);
+    if (m_nTxdIndex == -1) {
+        m_nTxdIndex = (int16)CTxdStore::AddTxdSlot(txdName);
+    }
 }
 
 void CBaseModelInfo::ClearTexDictionary() {
@@ -235,27 +242,26 @@ void CBaseModelInfo::DeleteCollisionModel() {
  * Resuelve un 2DFX combinando el store global de CModelInfo y los efectos embebidos
  * directamente en la geometría RenderWare del modelo.
  */
+// 0x4C4C70
 C2dEffect* CBaseModelInfo::Get2dEffect(int32 index) const {
-    auto uiStoredEffectsCount = m_n2dfxCount;
+    // Como el original: el conteo es un int de 32 bits (puede quedar negativo; la DLL lo truncaba a uint8),
+    // GetRwModelType se consulta antes que el RwObject (y otra vez si no es atómico con objeto) y la
+    // comparación es con signo (jl).
+    int32 storedEffectsCount = m_n2dfxCount;
     RpGeometry* geometry = nullptr;
-    if (GetRwObject()) {
-        if (GetRwModelType() == rpATOMIC) {
-            geometry = RpAtomicGetGeometry(GetRpAtomic());
-        } else if (GetRwModelType() == rpCLUMP) {
-            auto atomic = Get2DEffectAtomic(GetRpClump());
-            if (atomic) {
-                geometry = RpAtomicGetGeometry(atomic);
-            }
+    if (GetRwModelType() == rpATOMIC && m_pRwObject) {
+        geometry = RpAtomicGetGeometry(reinterpret_cast<RpAtomic*>(m_pRwObject));
+        storedEffectsCount -= (int32)RpGeometryGet2dFxCount(geometry);
+    } else if (GetRwModelType() == rpCLUMP && m_pRwObject) {
+        if (auto* const atomic = Get2DEffectAtomic(reinterpret_cast<RpClump*>(m_pRwObject))) {
+            geometry = RpAtomicGetGeometry(atomic);
+            storedEffectsCount -= (int32)RpGeometryGet2dFxCount(geometry);
         }
-
-        if (geometry)
-            uiStoredEffectsCount -= RpGeometryGet2dFxCount(geometry);
     }
 
-    if (index < uiStoredEffectsCount)
-        return &CModelInfo::Get2dEffectStore()->GetItemAtIndex(index + m_n2dEffectIndex);
-    else
-        return RpGeometryGet2dFxAtIndex(geometry, index - uiStoredEffectsCount);
+    if (index >= storedEffectsCount)
+        return RpGeometryGet2dFxAtIndex(geometry, index - storedEffectsCount);
+    return &CModelInfo::Get2dEffectStore()->m_aObjects[m_n2dEffectIndex + index];
 }
 
 // 0x4C4D20
@@ -264,7 +270,9 @@ void CBaseModelInfo::Add2dEffect(C2dEffect* effect) {
     if (m_n2dEffectIndex >= 0)
         ++m_n2dfxCount;
     else {
-        m_n2dEffectIndex = (effect - &CModelInfo::Get2dEffectStore()->m_aObjects[0]);
+        // Como el original: (effect - store - 4) >> 6 con desplazamiento aritmético, truncado a 16 bits.
+        const auto store = reinterpret_cast<intptr_t>(CModelInfo::Get2dEffectStore());
+        m_n2dEffectIndex = (int16)((reinterpret_cast<intptr_t>(effect) - store - 4) >> 6);
         m_n2dfxCount = 1;
     }
 }

@@ -6,10 +6,10 @@ Universo de esta revisión: **7,858 entradas reversed=1**, de 8,441 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 4661 |
+| `validated=1` · evidencia aprobada vinculada | 4877 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 4661 |
-| Sin evidencia aprobada vinculada en este registro | 3197 |
+| Evidencia histórica vinculada; revisión pendiente | 4877 |
+| Sin evidencia aprobada vinculada en este registro | 2981 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -139,6 +139,59 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEAudioEnvironment | `GetPositionRelativeToCamera-placeable` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CAEAudioEnvironment | `GetPositionRelativeToCamera-vec` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CAEAudioEnvironment | `GetReverbEnvironmentAndDepth` | [Resumen](../reversing/Small2/validation-summary.json) |
+| CAEAudioHardware | `AllocateChannels` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `CheckDVD` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `Constructor` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `Destructor` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `DisableBassEq` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `DisableEffectsLoading` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `EnableBassEq` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `EnableEffectsLoading` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `GetActiveTrackID` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `GetBeatInfo` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `GetChannelPlayTimes` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `GetDVDDriveLetter` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `GetEffectsFaderScalingFactor` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `GetEffectsMasterScalingFactor` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `GetMusicMasterScalingFactor` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `GetNumAvailableChannels` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `GetPlayingTrackID` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `GetSoundBankLoadingStatus` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `GetSoundHeadroom` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `GetSoundLoadingStatus` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `GetTrackLengthMs` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `GetTrackPlayTime` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `GetVirtualChannelSoundLengths` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `GetVirtualChannelSoundLoopStartTimes` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `InitDirectSoundListener` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `IsSoundBankLoaded` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `IsSoundLoaded` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `IsStreamingFromDVD` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `LoadSound` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `LoadSoundBank` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `PauseAllSounds` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `PlayTrack` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `Query3DSoundEffects` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `RequestVirtualChannelSoundInfo` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `RescaleChannelVolumes` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `ResumeAllSounds` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `Service` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `SetBassSetting` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `SetChannelFlags` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `SetChannelFrequencyScalingFactor` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `SetChannelPosition` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `SetChannelVolume` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `SetEffectsFaderScalingFactor` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `SetEffectsMasterScalingFactor` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `SetMusicFaderScalingFactor` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `SetMusicMasterScalingFactor` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `SetNonStreamFaderScalingFactor` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `SetStreamFaderScalingFactor` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `StartTrackPlayback` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `StopSound` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `StopTrack` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `Terminate` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
+| CAEAudioHardware | `UpdateReverbEnvironment` | [Resumen](../reversing/AudioHw54/validation-summary.json) |
 | CAEAudioUtility | `AudioLog10` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CAEAudioUtility | `ConvertFromBytesToMS` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CAEAudioUtility | `ConvertFromMSToBytes` | [Resumen](../reversing/Small2/validation-summary.json) |
@@ -255,6 +308,64 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEMP3TrackLoader | `LoadStreamPackTable` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CAEMP3TrackLoader | `LoadTrackLookupTable` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CAEPedAudioEntity | `UpdateParameters` | [Resumen](../reversing/FixAudio/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `AddSayEvent` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `AddScriptSayEvent` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `CanPedHoldConversation` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `CanPedSayGlobalContext` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `CanWePlayGlobalSpeechContext` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `CanWePlayScriptedSpeech` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `Constructor` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `DisableAllPedSpeech` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `DisablePedSpeech` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `DisablePedSpeechForScriptSpeech` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `EnableAllPedSpeech` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `EnablePedSpeech` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `EnablePedSpeechForScriptSpeech` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetAllocatedVoice` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetAudioPedType` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetCurrentCJMood` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetNextMoodToUse` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetNextPlayTime` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetNumSlotsPlayingContext` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetPedTalking` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetPedType` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetRepeatTime` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetSexForSpecialPed` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetSexFromModel` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetSoundAndBankIDs` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetSoundAndBankIDsForScriptedSpeech` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetSpecificSpeechContext` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetSpeechContextVolumeOffset` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetVoice` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetVoiceAndTypeForSpecialPed` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetVoiceAndTypeFromModel` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `GetVoiceForMood` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `Initialise` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `IsCJDressedInForGangSpeech` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `IsGlobalContextImportantForInterupting` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `IsGlobalContextImportantForStreaming` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `IsGlobalContextImportantForWidescreen` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `IsGlobalContextPain` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `IsGlobalContextUberImportant` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `IsPedFemaleForAudio` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `LoadAndPlaySpeech` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `PlayLoadedSound` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `ReleasePedConversation` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `ReleasePlayerConversation` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `RequestPedConversation` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `RequestPlayerConversation` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `ReservePedConversationSpeechSlots` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `ReservePlayerConversationSpeechSlot` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `Reset` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `Service` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `SetCJMood` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `SetNextPlayTime` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `SetUpConversation` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `StaticInitialise` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `StopCurrentSpeech` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `Terminate` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `UpdateParameters` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
+| CAEPedSpeechAudioEntity | `WillPedChatAboutTopic` | [Resumen](../reversing/PedSpeech58/validation-summary.json) |
 | CAEPedWeaponAudioEntity | `AddAudioEvent` | [Resumen](../reversing/Data23/validation-summary.json) |
 | CAEPedWeaponAudioEntity | `Constructor` | [Resumen](../reversing/WeapAudio/validation-summary.json) |
 | CAEPedWeaponAudioEntity | `Initialise` | [Resumen](../reversing/Data23/validation-summary.json) |
@@ -582,6 +693,39 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAudioZones | `RegisterAudioSphere` | [Resumen](../reversing/World43/validation-summary.json) |
 | CAudioZones | `SwitchAudioZone` | [Resumen](../reversing/World43/validation-summary.json) |
 | CAudioZones | `Update` | [Resumen](../reversing/World43/validation-summary.json) |
+| CBaseModelInfo | `Add2dEffect` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `AddRef` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `AddTexDictionaryRef` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `AsAtomicModelInfoPtr` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `AsDamageAtomicModelInfoPtr` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `AsLodAtomicModelInfoPtr` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `ClearTexDictionary` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `ConvertAnimFileIndex` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `DeleteCollisionModel` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `Get2dEffect` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `GetAnimFileIndex` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `GetIsDrawLast` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `GetTimeInfo` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `HasBeenPreRendered` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `HasComplexHierarchy` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `IncreaseAlpha` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `Init` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `Init2dEffects` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `IsBackfaceCulled` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `IsBreakableStatuePart` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `IsLod` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `IsRoad` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `IsTagModel` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `RemoveRef` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `RemoveTexDictionaryRef` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `SetAnimFile` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `SetBaseModelInfoFlags` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `SetColModel` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `SetHasBeenPreRendered` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `SetIsLod` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `SetOwnsColModel` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `SetTexDictionary` | [Resumen](../reversing/Model34/validation-summary.json) |
+| CBaseModelInfo | `Shutdown` | [Resumen](../reversing/Model34/validation-summary.json) |
 | CBaseModelInfo | `SwaysInWind` | [Resumen](../reversing/CBaseModelInfo/validation-summary.json) |
 | CBirds | `CreateNumberOfBirds` | [Resumen](../reversing/Misc6/validation-summary.json) |
 | CBirds | `HandleGunShot` | [Resumen](../reversing/Misc6/validation-summary.json) |
@@ -953,6 +1097,43 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCustomBuildingPipeline | `CustomPipeReinstanceCB` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CCustomBuildingPipeline | `CustomPipeRenderCB` | [Resumen](../reversing/Audio7/validation-summary.json) |
 | CCustomBuildingPipeline | `DestroyPipe` | [Resumen](../reversing/Audio7/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `AllocEnvMapPipeAtomicData` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `CreateCustomObjPipe` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `CreatePipe` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `CustomPipeAtomicSetup` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `CustomPipeInstanceCB` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `CustomPipeMaterialSetup` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `CustomPipeRenderCB` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `DestroyPipe` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `GetFxEnvScaleX` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `GetFxEnvScaleY` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `GetFxEnvShininess` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `GetFxEnvTransSclX` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `GetFxEnvTransSclY` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `GetFxSpecSpecularity` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `GetFxSpecTexture` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `PreRenderUpdate` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `RegisterPlugin` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `SetCustomEnvMapPipeMaterialDataDefaults` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `SetFxEnvScale` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `SetFxEnvShininess` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `SetFxEnvTexture` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `SetFxEnvTransScl` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `pluginEnvAtmConstructorCB` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `pluginEnvAtmCopyConstructorCB` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `pluginEnvAtmDestructorCB` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `pluginEnvMatConstructorCB` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `pluginEnvMatCopyConstructorCB` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `pluginEnvMatDestructorCB` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `pluginEnvMatStreamGetSizeCB` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `pluginEnvMatStreamReadCB` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `pluginEnvMatStreamWriteCB` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `pluginSpecMatConstructorCB` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `pluginSpecMatCopyConstructorCB` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `pluginSpecMatDestructorCB` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `pluginSpecMatStreamGetSizeCB` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `pluginSpecMatStreamReadCB` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
+| CCustomCarEnvMapPipeline | `pluginSpecMatStreamWriteCB` | [Resumen](../reversing/EnvMap37/validation-summary.json) |
 | CCustomCarPlateMgr | `AtomicSetCarplateTextureCB` | [Resumen](../reversing/Mix14/validation-summary.json) |
 | CCustomCarPlateMgr | `AtomicUpgradeSetCarplateTextureCB` | [Resumen](../reversing/Mix14/validation-summary.json) |
 | CCustomCarPlateMgr | `CreatePlateTexture` | [Resumen](../reversing/Mix14/validation-summary.json) |
@@ -976,6 +1157,41 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCustomRoadsignMgr | `SetAtomicAlpha` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CCustomRoadsignMgr | `SetupRoadsignAtomic` | [Resumen](../reversing/Models9/validation-summary.json) |
 | CCustomRoadsignMgr | `Shutdown` | [Resumen](../reversing/Models9/validation-summary.json) |
+| CCutsceneMgr | `AddCutsceneHead` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `AppendToNextCutscene` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `AttachObjectToBone` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `AttachObjectToFrame` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `AttachObjectToParent` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `BuildCutscenePlayer` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `CalculateBoundingSphereRadiusCB` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `CreateCutsceneObject` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `DeleteCutsceneData` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `DeleteCutsceneData_overlay` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `FinishCutscene` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `GetCutsceneTimeInMilleseconds` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `HasCutsceneFinished` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `HideRequestedObjects` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `Initialise` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `IsCutsceneSkipButtonBeingPressed` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `LoadAnimationUncompressed` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `LoadCutsceneData` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `LoadCutsceneData_loading` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `LoadCutsceneData_overlay` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `LoadCutsceneData_postload` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `LoadCutsceneData_preload` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `LoadEverythingBecauseCutsceneDeletedAllOfIt` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `RemoveCutscenePlayer` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `RemoveEverythingBecauseCutsceneDoesntFitInMemory` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `SetCutsceneAnim` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `SetCutsceneAnimToLoop` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `SetHeadAnim` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `SetupCutsceneToStart` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `Shutdown` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `SkipCutscene` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `StartCutscene` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `Update` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `UpdateCutsceneObjectBoundingBox` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
+| CCutsceneMgr | `Update_overlay` | [Resumen](../reversing/Cutscene35/validation-summary.json) |
 | CCutsceneObject | `PreRender` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | CCutsceneObject | `ProcessControl` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | CCutsceneObject | `RemoveLighting` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
@@ -4701,7 +4917,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAEAudioChannel` | 12 | 0 | 12 | 0 |
 | `CAEAudioEntity` | 2 | 0 | 2 | 0 |
 | `CAEAudioEnvironment` | 6 | 0 | 6 | 0 |
-| `CAEAudioHardware` | 54 | 0 | 0 | 54 |
+| `CAEAudioHardware` | 54 | 0 | 53 | 1 |
 | `CAEAudioUtility` | 11 | 0 | 11 | 0 |
 | `CAEBankLoader` | 6 | 0 | 6 | 0 |
 | `CAECollisionAudioEntity` | 18 | 0 | 18 | 0 |
@@ -4716,7 +4932,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAEMP3BankLoader` | 13 | 0 | 13 | 0 |
 | `CAEMP3TrackLoader` | 7 | 0 | 7 | 0 |
 | `CAEPedAudioEntity` | 16 | 0 | 1 | 15 |
-| `CAEPedSpeechAudioEntity` | 58 | 0 | 0 | 58 |
+| `CAEPedSpeechAudioEntity` | 58 | 0 | 58 | 0 |
 | `CAEPedWeaponAudioEntity` | 5 | 0 | 5 | 0 |
 | `CAEPedlessSpeechAudioEntity` | 11 | 0 | 11 | 0 |
 | `CAEPoliceScannerAudioEntity` | 13 | 0 | 0 | 13 |
@@ -4756,7 +4972,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAudioEngine` | 82 | 0 | 0 | 82 |
 | `CAudioZones` | 5 | 0 | 5 | 0 |
 | `CAutomobile` | 99 | 0 | 0 | 99 |
-| `CBaseModelInfo` | 34 | 0 | 1 | 33 |
+| `CBaseModelInfo` | 34 | 0 | 34 | 0 |
 | `CBike` | 22 | 0 | 0 | 22 |
 | `CBirds` | 6 | 0 | 6 | 0 |
 | `CBmx` | 7 | 0 | 0 | 7 |
@@ -4816,10 +5032,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCustomBuildingDNPipeline` | 14 | 0 | 14 | 0 |
 | `CCustomBuildingPipeline` | 7 | 0 | 7 | 0 |
 | `CCustomBuildingRenderer` | 3 | 0 | 0 | 3 |
-| `CCustomCarEnvMapPipeline` | 37 | 0 | 0 | 37 |
+| `CCustomCarEnvMapPipeline` | 37 | 0 | 37 | 0 |
 | `CCustomCarPlateMgr` | 14 | 0 | 14 | 0 |
 | `CCustomRoadsignMgr` | 9 | 0 | 9 | 0 |
-| `CCutsceneMgr` | 35 | 0 | 0 | 35 |
+| `CCutsceneMgr` | 35 | 0 | 35 | 0 |
 | `CCutsceneObject` | 6 | 0 | 6 | 0 |
 | `CDamageAtomicModelInfo` | 4 | 0 | 4 | 0 |
 | `CDamageManager` | 27 | 0 | 27 | 0 |

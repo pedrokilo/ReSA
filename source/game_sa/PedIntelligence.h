@@ -118,7 +118,7 @@ public:
     bool IsFriendlyWith(const CPed& ped) const;
     bool IsThreatenedBy(const CPed& ped) const;
     bool Respects(CPed* ped) const;
-    bool IsInACarOrEnteringOne();
+    CVehicle* IsInACarOrEnteringOne(); // Como el original: devuelve el vehículo en EAX
     static bool AreFriends(const CPed& ped1, const CPed& ped2);
     bool IsPedGoingSomewhereOnFoot();
     eMoveState GetMoveStateFromGoToTask();

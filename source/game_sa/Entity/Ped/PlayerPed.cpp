@@ -31,6 +31,8 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleUseGun.h"
 #include "EntryExitManager.h"
 #include "MBlur.h"
+#include "EventPlayerCommandToGroupAttack.h"
+#include "EventPlayerCommandToGroupGather.h"
 
 bool CPlayerPed::bDebugPlayerInvincible;
 bool CPlayerPed::bDebugTargeting;
@@ -114,9 +116,11 @@ bool CPlayerPed::Load() {
 
     CWanted* wanted = GetPlayerWanted();
     wanted->m_ChaosLevel = sd.ChaosLevel;
-    wanted->m_WantedLevel= sd.WantedLevel;
+    // Como el original: solo se lee el byte bajo del nivel guardado (movzx)
+    wanted->m_WantedLevel = static_cast<eWantedLevel>(*reinterpret_cast<const uint8*>(&sd.WantedLevel));
 
-    *GetPlayerData()->m_pPedClothesDesc = sd.ClothesDesc;
+    // Como el original: copia de 0x78 bytes con rep movs
+    std::memcpy(GetPlayerData()->m_pPedClothesDesc, &sd.ClothesDesc, sizeof(CPedClothesDesc));
     GetPlayerData()->m_nChosenWeapon   = sd.ChosenWeapon;
 
     return true;
@@ -128,9 +132,10 @@ bool CPlayerPed::Save() {
 
     CWanted* wanted = GetPlayerWanted();
     saveData.ChaosLevel = wanted->m_ChaosLevel;
-    saveData.WantedLevel = wanted->m_WantedLevel;
-    saveData.ChosenWeapon = GetPlayerData()->m_nChosenWeapon;
-    saveData.ClothesDesc  = *GetPlayerData()->m_pPedClothesDesc;
+    // Como el original: solo se escriben los bytes bajos del nivel y del arma elegida (el resto queda sin inicializar)
+    *reinterpret_cast<uint8*>(&saveData.WantedLevel) = static_cast<uint8>(wanted->m_WantedLevel);
+    std::memcpy(&saveData.ClothesDesc, GetPlayerData()->m_pPedClothesDesc, sizeof(CPedClothesDesc));
+    *reinterpret_cast<uint8*>(&saveData.ChosenWeapon) = GetPlayerData()->m_nChosenWeapon;
 
     CPed::Save();
     CGenericGameStorage::SaveDataToWorkBuffer(sizeof(CPlayerPedDataSaveStructure));
@@ -185,8 +190,9 @@ CPlayerPed::CPlayerPed(int32 playerId, bool bGroupCreated) : CPed(PED_TYPE_PLAYE
 
 // 0x6094A0
 void CPlayerPed::RemovePlayerPed(int32 playerId) {
-    CPed* player = FindPlayerPed(playerId);
-    CPlayerInfo* playerInfo = &FindPlayerInfo(playerId);
+    // Como el original: CWorld::Players[playerId] directamente (sin el jugador en foco para ids negativos)
+    CPlayerInfo* playerInfo = &CWorld::Players[playerId];
+    CPed* player = playerInfo->m_pPed;
     if (player)
     {
         CVehicle* playerVehicle = player->m_pVehicle;
@@ -204,14 +210,12 @@ void CPlayerPed::RemovePlayerPed(int32 playerId) {
 
 // 0x609520
 void CPlayerPed::DeactivatePlayerPed(int32 playerId) {
-    assert(playerId >= 0);
-    CWorld::Remove(FindPlayerPed(playerId));
+    CWorld::Remove(CWorld::Players[playerId].m_pPed);
 }
 
 // 0x609540
 void CPlayerPed::ReactivatePlayerPed(int32 playerId) {
-    assert(playerId >= 0);
-    CWorld::Add(FindPlayerPed(playerId));
+    CWorld::Add(CWorld::Players[playerId].m_pPed);
 }
 
 // 0x609560
@@ -223,8 +227,7 @@ CPad* CPlayerPed::GetPadFromPlayer() const {
     case PED_TYPE_PLAYER2:
         return CPad::GetPad(1);
     }
-    assert(0); // shouldn't happen
-    return nullptr;
+    return nullptr; // Como el original: sin assert, cualquier otro tipo devuelve nullptr
 }
 
 // 0x609590
@@ -257,7 +260,8 @@ bool CPlayerPed::CanPlayerStartMission() {
 
 // 0x609620
 bool CPlayerPed::IsHidden() {
-    return bInVehicle && GetLightingTotal() <= 0.05f;
+    // Como el original: solo fuera de un vehículo (bit 8 de 0x46C a 0)
+    return !bInVehicle && GetLightingTotal() <= 0.05f;
 }
 
 // 0x609650
@@ -298,8 +302,15 @@ bool CPlayerPed::DoesPlayerWantNewWeapon(eWeaponType weaponType, bool arg1) {
     if (arg1)
         return false;
 
-    if (GetIntelligence()->GetTaskJetPack())
-        return false;
+    // Como el original: con el jetpack se evalúa `bAimWithArm && !bAimWithArm`, que nunca es cierto,
+    // así que la tarea del jetpack no cambia el resultado
+    if (GetIntelligence()->GetTaskJetPack()) {
+        if (m_nActiveWeaponSlot == weaponSlot
+            && CWeaponInfo::GetWeaponInfo(weaponInSlotType, GetWeaponSkill(weaponInSlotType))->flags.bAimWithArm
+            && !CWeaponInfo::GetWeaponInfo(weaponInSlotType, GetWeaponSkill(weaponInSlotType))->flags.bAimWithArm) {
+            return false;
+        }
+    }
 
     /* !See comment!
     if (m_nActiveWeaponSlot == weaponSlot
@@ -378,26 +389,33 @@ void CPlayerPed::ClearWeaponTarget() {
 // 0x609CD0
 float CPlayerPed::GetWeaponRadiusOnScreen() {
     CWeapon& wep = GetActiveWeapon();
-    CWeaponInfo& wepInfo = wep.GetWeaponInfo(this);
-
-    if (wep.IsTypeMelee())
-        return 0.0f;
+    // Como el original: información con la habilidad actual (0x5E6580) y cuerpo a cuerpo según su tipo de disparo
+    CWeaponInfo& wepInfo = *CWeaponInfo::GetWeaponInfo(wep.m_Type, GetWeaponSkill());
 
     const float accuracyProg = 0.5f / wepInfo.m_fAccuracy;
+    if (wepInfo.m_nWeaponFire == eWeaponFire::WEAPON_FIRE_MELEE)
+        return 0.0f;
+
+    float radius;
     switch (wep.m_Type) {
     case eWeaponType::WEAPON_SHOTGUN:
     case eWeaponType::WEAPON_SPAS12_SHOTGUN:
     case eWeaponType::WEAPON_SAWNOFF_SHOTGUN:
-        return std::max(0.2f, accuracyProg); // here they multiply *accuracyProg * 1.0f* :thinking
+        radius = accuracyProg * 1.0f;
+        break;
 
     default: {
-        const float rangeProg = std::min(1.0f, 15.0f / wepInfo.m_fWeaponRange);
-        const float radius = (GetPlayerData()->m_fAttackButtonCounter * 0.5f + 1.0f) * rangeProg * accuracyProg;
+        float rangeProg = 15.0f / wepInfo.m_fWeaponRange;
+        if (1.0f < rangeProg) // Como el original: NaN se conserva
+            rangeProg = 1.0f;
+        // Como el original: (0.5 * contador + 1) * (rango * precisión)
+        radius = (0.5f * GetPlayerData()->m_fAttackButtonCounter + 1.0f) * (rangeProg * accuracyProg);
         if (bIsDucking)
-            return std::max(0.2f, radius / 2.0f);
-        return std::max(0.2f, radius);
+            radius *= 0.5f;
+        break;
     }
     }
+    return radius < 0.2f ? 0.2f : radius; // Como el original: NaN se conserva
 }
 
 // 0x609D90
@@ -418,23 +436,22 @@ float CPlayerPed::FindTargetPriority(CEntity* entity) {
     case ENTITY_TYPE_PED: {
         auto ped = entity->AsPed();
 
+        // Como el original: se evalúan todas las condiciones en este orden (las llamadas se hacen siempre)
+        // y la de mayor prioridad sobrescribe a las anteriores
+        float priority = 0.1f;
+        if (ped->IsCreatedBy(PED_MISSION))
+            priority = 0.25f;
+        if (ped->m_nPedType == PED_TYPE_GANG2)
+            priority = 0.06f;
+        if (CPedGroups::AreInSameGroup(this, ped))
+            priority = 0.05f;
+        if (ped->GetTaskManager().FindActiveTaskByType(TASK_COMPLEX_KILL_PED_ON_FOOT)
+            || ped->GetTaskManager().FindActiveTaskByType(TASK_COMPLEX_ARREST_PED)) {
+            priority = 0.8f;
+        }
         if (ped->bThisPedIsATargetPriority)
             return 1.0f;
-
-        if (ped->GetTaskManager().HasAnyOf<TASK_COMPLEX_KILL_PED_ON_FOOT, TASK_COMPLEX_ARREST_PED>()) {
-            return 0.8f;
-        }
-
-        if (CPedGroups::AreInSameGroup(this, ped))
-            return 0.05f;
-
-        if (ped->m_nPedType == PED_TYPE_GANG2)
-            return 0.06f;
-
-        if (ped->IsCreatedByMission())
-            return 0.25f;
-
-        return 0.1f;
+        return priority;
     }
 
     case ENTITY_TYPE_OBJECT: {
@@ -497,17 +514,18 @@ void CPlayerPed::CheatWantedLevel(eWantedLevel level) {
 bool CPlayerPed::CanIKReachThisTarget(CVector posn, CWeapon* weapon, bool arg2) {
     if (!weapon->GetWeaponInfo(this).flags.bAimWithArm) {
         const CVector thisPos = GetPosition();
-        return (posn - thisPos).Magnitude2D() >= thisPos.z - posn.z;
+        // Como el original: cierto salvo que la distancia 2D sea menor (NaN devuelve cierto)
+        return !((posn - thisPos).Magnitude2D() < thisPos.z - posn.z);
     }
     return true;
 }
 
 // 0x609FF0
 CPlayerInfo* CPlayerPed::GetPlayerInfoForThisPlayerPed() {
-    // TODO: Use range for here
-    for (int i = 0; i < MAX_PLAYERS; i++) {
-        if (FindPlayerPed(i) == this)
-            return &FindPlayerInfo(i);
+    // Como el original: recorre CWorld::Players directamente
+    for (auto& info : CWorld::Players) {
+        if (info.m_pPed == this)
+            return &info;
     }
     return nullptr;
 }
@@ -522,10 +540,11 @@ void CPlayerPed::DoStuffToGoOnFire() {
 void CPlayerPed::AnnoyPlayerPed(bool arg0) {
     auto& temper = m_pStats->m_nTemper;
 
-    if (temper < 52) {
+    // Como el original: comparaciones con signo (jge/jl) sobre el byte
+    if (static_cast<int8>(temper) < 52) {
         temper++;
     } else if (arg0) {
-        if (temper < 55)
+        if (static_cast<int8>(temper) < 55)
             temper++;
         else
             temper = 46;
@@ -542,12 +561,11 @@ void CPlayerPed::ClearAdrenaline() {
 
 // 0x60A0A0
 void CPlayerPed::DisbandPlayerGroup() {
-    auto& ms = GetPlayerGroup().GetMembership();
-    if (const auto numMembers = ms.CountMembersExcludingLeader()) {
-        Say(numMembers > 1 ? CTX_GLOBAL_ORDER_DISBAND_MANY : CTX_GLOBAL_ORDER_ATTACK_SINGLE);
-    } else {
-        ms.RemoveAllFollowers(true);
+    // Como el original: con miembros dice DISBAND_MANY/DISBAND_ONE y siempre quita a los seguidores
+    if (const auto numMembers = GetPlayerGroup().GetMembership().CountMembersExcludingLeader(); numMembers > 0) {
+        Say(numMembers > 1 ? CTX_GLOBAL_ORDER_DISBAND_MANY : CTX_GLOBAL_ORDER_DISBAND_ONE);
     }
+    GetPlayerGroup().GetMembership().RemoveAllFollowers(true);
 }
 
 // 0x60A110
@@ -580,10 +598,11 @@ void CPlayerPed::TellGroupToStartFollowingPlayer(bool arg0, bool arg1, bool arg2
     group.m_bMembersEnterLeadersVehicle = arg0;
     groupIntel.SetDefaultTaskAllocatorType(ePedGroupDefaultTaskAllocatorType::RANDOM);
     if (arg0) {
-        CEventPlayerCommandToGroup playerCmdEvent;
+        // Como el original: el evento local es un CEventPlayerCommandToGroupAttack (vtable 0x86C710)
+        CEventPlayerCommandToGroupAttack playerCmdEvent(nullptr);
         playerCmdEvent.ComputeResponseTaskType(&group);
         if (playerCmdEvent.WillRespond()) {
-            auto gatherCmdEvent = new CEventPlayerCommandToGroup(ePlayerGroupCommand::PLAYER_GROUP_COMMAND_GATHER);
+            auto gatherCmdEvent = new CEventPlayerCommandToGroupGather(nullptr); // Como el original: vtable 0x86D120
             gatherCmdEvent->m_TaskId = playerCmdEvent.m_TaskId;
 
             CEventGroupEvent groupEvent(this, gatherCmdEvent);
@@ -592,22 +611,18 @@ void CPlayerPed::TellGroupToStartFollowingPlayer(bool arg0, bool arg1, bool arg2
     }
 
     if (arg1) {
-        const uint32 nMembers = membership.CountMembersExcludingLeader();
-        if (!nMembers)
+        const int32 nMembers = membership.CountMembersExcludingLeader();
+        if (nMembers <= 0)
             return;
 
+        // Como el original: la distancia al más lejano se pide siempre, también para esperar
+        const float distToFurthest = group.FindDistanceToFurthestMember();
         if (arg0) {
-            const float distToFurthest = group.FindDistanceToFurthestMember();
+            // Como el original: < 3 muy cerca, < 10 cerca y el resto (NaN incluido) lejos
             if (nMembers > 1) {
-                if (distToFurthest >= 3.0f)
-                    Say(distToFurthest >= 10.0f ? CTX_GLOBAL_ORDER_FOLLOW_FAR_MANY : CTX_GLOBAL_ORDER_FOLLOW_NEAR_MANY);
-                else
-                    Say(CTX_GLOBAL_ORDER_FOLLOW_VNEAR_MANY);
+                Say(distToFurthest < 3.0f ? CTX_GLOBAL_ORDER_FOLLOW_VNEAR_MANY : distToFurthest < 10.0f ? CTX_GLOBAL_ORDER_FOLLOW_NEAR_MANY : CTX_GLOBAL_ORDER_FOLLOW_FAR_MANY);
             } else {
-                if (distToFurthest >= 3.0f)
-                    Say(distToFurthest >= 10.0f ? CTX_GLOBAL_ORDER_FOLLOW_FAR_ONE : CTX_GLOBAL_ORDER_FOLLOW_NEAR_ONE);
-                else
-                    Say(CTX_GLOBAL_ORDER_FOLLOW_VNEAR_ONE);
+                Say(distToFurthest < 3.0f ? CTX_GLOBAL_ORDER_FOLLOW_VNEAR_ONE : distToFurthest < 10.0f ? CTX_GLOBAL_ORDER_FOLLOW_NEAR_ONE : CTX_GLOBAL_ORDER_FOLLOW_FAR_ONE);
             }
         } else if (nMembers > 1) {
             Say(CTX_GLOBAL_ORDER_WAIT_MANY);
@@ -623,8 +638,10 @@ void CPlayerPed::MakePlayerGroupDisappear() {
     for (int i = 0; i < TOTAL_PED_GROUP_FOLLOWERS; i++) {
         if (CPed* member = membership.GetMember(i)) {
             if (!member->IsCreatedByMission()) {
-                member->SetCollisionProcessed(false);
+                // Como el original: and [flags], ~0x81 (bUsesCollision y bIsVisible)
+                member->SetUsesCollision(false);
                 member->SetIsVisible(false);
+
                 abTempNeverLeavesGroup[i] = member->bNeverLeavesGroup;
                 member->bNeverLeavesGroup = true;
             }
@@ -657,18 +674,20 @@ void CPlayerPed::ResetSprintEnergy()
 bool CPlayerPed::HandleSprintEnergy(bool sprint, float adrenalineConsumedPerTimeStep) {
     float& timeCanRun = GetPlayerData()->m_fTimeCanRun;
     if (sprint) {
-        if (FindPlayerInfo().m_bDoesNotGetTired)
+        if (CWorld::Players[CWorld::PlayerInFocus].m_bDoesNotGetTired)
             return true;
         if (GetPlayerData()->m_bAdrenaline || adrenalineConsumedPerTimeStep == 0.0f)
             return true;
 
-        if (timeCanRun > -150.0f) { // TODO: Find out what this magic number is
-            timeCanRun = std::max(-150.0f, timeCanRun - CTimer::GetTimeStep() * adrenalineConsumedPerTimeStep);
+        if (timeCanRun > -150.0f) { // 0x86D1D8
+            // Como el original: max de 0x420800, un NaN se conserva
+            const float t = timeCanRun - CTimer::GetTimeStep() * adrenalineConsumedPerTimeStep;
+            timeCanRun = (-150.0f > t) ? -150.0f : t;
             return true;
         }
     } else {
         if (CStats::GetFatAndMuscleModifier(STAT_MOD_TIME_CAN_RUN) > timeCanRun) {
-            timeCanRun += CTimer::GetTimeStep() * adrenalineConsumedPerTimeStep / 2.0f;
+            timeCanRun += CTimer::GetTimeStep() * adrenalineConsumedPerTimeStep * 0.5f;
         }
     }
     return false;
@@ -745,10 +764,14 @@ void CPlayerPed::HandlePlayerBreath(bool bDecreaseAir, float fMultiplier) {
         if (CStats::GetFatAndMuscleModifier(STAT_MOD_AIR_IN_LUNG) > breath)
             breath += decreaseAmount * 2.0f;
     } else {
-        if (breath > 0.0f && bDrownsInWater)
-            breath = std::max(0.0f, breath - decreaseAmount);
-        else
-            CWeapon::GenerateDamageEvent(this, this, eWeaponType::WEAPON_DROWNING, (int32)(decreaseAmount * 3.0f), PED_PIECE_TORSO, 0);
+        if (breath > 0.0f && bDrownsInWater) {
+            // Como el original: solo pasa a 0 si queda por debajo (NaN y -0 se conservan)
+            const float b = breath - decreaseAmount;
+            breath = (0.0f > b) ? 0.0f : b;
+        } else {
+            // Como el original: _ftol2 (truncado de 64 bits)
+            CWeapon::GenerateDamageEvent(this, this, eWeaponType::WEAPON_DROWNING, static_cast<int32>(static_cast<int64>(decreaseAmount * 3.0f)), PED_PIECE_TORSO, 0);
+        }
     }
     GetPlayerData()->m_bRequireHandleBreath = false;
 }
@@ -770,9 +793,11 @@ void CPlayerPed::MakeChangesForNewWeapon(eWeaponType weaponType) {
     GetPlayerData()->m_fAttackButtonCounter= 0.0f;
 
     CWeapon& wep = GetActiveWeapon();
-    CWeaponInfo& wepInfo = wep.GetWeaponInfo(this);
+    // Como el original: habilidad actual (0x5E6580)
+    CWeaponInfo& wepInfo = *CWeaponInfo::GetWeaponInfo(wep.m_Type, GetWeaponSkill());
 
-    wep.m_AmmoInClip = std::min<uint32>(wep.m_TotalAmmo, (uint32)wepInfo.m_nAmmoClip);
+    // Como el original: mínimo con signo (jl) entre la munición total y el cargador (movsx)
+    wep.m_AmmoInClip = std::min<int32>(static_cast<int32>(wep.m_TotalAmmo), static_cast<int32>(static_cast<int16>(wepInfo.m_nAmmoClip)));
 
     if (!wepInfo.flags.bCanAim)
         ClearWeaponTarget();
@@ -781,8 +806,9 @@ void CPlayerPed::MakeChangesForNewWeapon(eWeaponType weaponType) {
         GetPlayerData()->m_bFreeAiming = false;
 
 
+    // Como el original: or byte [+0x2E], 9 (reproducir y quitar al terminar)
     if (auto anim = RpAnimBlendClumpGetAssociation(GetRpClump(), ANIM_ID_FIRE))
-        anim->m_Flags |= ANIMATION_IS_PLAYING & ANIMATION_IS_FINISH_AUTO_REMOVE;
+        anim->m_Flags |= ANIMATION_IS_PLAYING | ANIMATION_IS_FINISH_AUTO_REMOVE;
 
     TheCamera.ClearPlayerWeaponMode();
 }
@@ -791,16 +817,20 @@ void CPlayerPed::MakeChangesForNewWeapon(eWeaponType weaponType) {
 bool LOSBlockedBetweenPeds(CEntity* entity1, CEntity* entity2) {
     CVector origin{};
     if (entity1->GetIsTypePed()) {
-        origin = entity1->AsPed()->GetBonePosition(eBoneTag::BONE_NECK, false);
+        entity1->AsPed()->GetBonePosition(&origin, eBoneTag::BONE_NECK, false);
         if (entity1->AsPed()->bIsDucking)
             origin.z += 0.35f;
     } else {
         origin = entity1->GetPosition();
     }
 
-    const auto target = entity2->GetIsTypePed()
-        ? entity1->AsPed()->GetBonePosition(eBoneTag::BONE_NECK, false)
-        : entity1->GetPosition();
+    // Como el original: el destino es el cuello o la posición de entity2
+    CVector target;
+    if (entity2->GetIsTypePed()) {
+        entity2->AsPed()->GetBonePosition(&target, eBoneTag::BONE_NECK, false);
+    } else {
+        target = entity2->GetPosition();
+    }
 
     CColPoint colPoint;
     CEntity* hitEntity;
@@ -826,9 +856,14 @@ bool CPlayerPed::DoesTargetHaveToBeBroken(CEntity* target, CWeapon* weapon) {
         return true;
     }
 
-    if (weapon->GetWeaponRange(this, target) < (target->GetPosition() - GetPosition()).Magnitude()) {
+    // Como el original: primero el multiplicador, luego la distancia (suma en orden z, y, x) y la habilidad del arma
+    const float rangeMultiplier = CWeapon::TargetWeaponRangeMultiplier(target, this);
+    const CVector d = target->GetPosition() - GetPosition();
+    const float dist = std::sqrt(d.z * d.z + d.y * d.y + d.x * d.x);
+    if (CWeaponInfo::GetWeaponInfo(weapon->m_Type, GetWeaponSkill(weapon->m_Type))->m_fTargetRange * rangeMultiplier < dist) {
         return true;
     }
+
 
     if (weapon->m_Type == eWeaponType::WEAPON_SPRAYCAN) {
         if (target->GetIsTypeBuilding()) {
@@ -852,7 +887,14 @@ void CPlayerPed::KeepAreaAroundPlayerClear() {
 void CPlayerPed::SetPlayerMoveBlendRatio(CVector* point) {
     float& moveBlendRatio = GetPlayerData()->m_fMoveBlendRatio;
     if (point) {
-        moveBlendRatio = std::min(2.0f, (*point - GetPosition()).Magnitude2D() * 2.0f);
+        // Como el original: dy² + dx², se guarda y solo se recorta si es mayor que 2 (NaN se conserva)
+        const CVector& pos = GetPosition();
+        const float dx = point->x - pos.x;
+        const float dy = point->y - pos.y;
+        const float mag = std::sqrt(dy * dy + dx * dx);
+        moveBlendRatio = mag + mag;
+        if (moveBlendRatio > 2.0f)
+            moveBlendRatio = 2.0f;
     } else {
         switch (m_nMoveState)
         {
@@ -878,25 +920,33 @@ void CPlayerPed::SetPlayerMoveBlendRatio(CVector* point) {
 
 // 0x60C5F0
 CPed* CPlayerPed::FindPedToAttack() {
-    CVector origin = FindPlayerCoors();
+    auto* const pool = GetPedPool();
+    int32 i = pool->GetSize();
+
+    CVector origin = FindPlayerCoors(-1);
     origin.z = 0.0f;
 
-    CVector end = origin + TheCamera.GetForward() * 100.0f;
+    // Como el original: frente de TheCamera.m_mCameraMatrix (0xB6F9AC), no el de su CPlaceable
+    const auto& camFwd = StaticRef<CVector>(0xB6F9AC);
+    CVector end;
+    end.x = camFwd.x * 100.0f + origin.x;
+    end.y = origin.y + camFwd.y * 100.0f;
     end.z = 0.0f;
 
     CPed* closestPed{};
-    float closestDistance = std::numeric_limits<float>::max();
+    float closestDistance = 99999.9f; // 0x47C34FF3
 
-    CPedGroupMembership& membership = GetPlayerGroup().GetMembership();
-    for (int i = 0; GetPedPool()->GetSize(); i++) {
-        CPed* ped = GetPedPool()->GetAt(i);
+    // Como el original: del último slot al primero
+    while (i != 0) {
+        --i;
+        CPed* ped = pool->GetAt(i);
         if (!ped)
             continue;
         if (ped->IsPlayer())
             continue;
         if (!ped->IsAlive())
             continue;
-        if (membership.IsMember(ped))
+        if (GetPlayerGroup().GetMembership().IsMember(ped))
             continue;
         if (ped->m_nPedType == PED_TYPE_GANG2)
             continue;
@@ -905,12 +955,17 @@ CPed* CPlayerPed::FindPedToAttack() {
         point.z = 0.0f;
 
         float dist = CCollision::DistToLine(origin, end, point);
-        float pointDist = (point - origin).Magnitude2D();
+        const float dx = point.x - origin.x;
+        const float dy = point.y - origin.y;
+        const float pointDist = std::sqrt(dx * dx + dy * dy);
         if (pointDist > 20.0f)
-            dist += (pointDist - 20.0f) / 5.0f;
+            dist = (pointDist - 20.0f) * 0.2f + dist; // Como el original: producto por 0.2 (0x858CC4)
 
-        if (IsPedTypeGang(ped->m_nPedType))
-            dist = std::max(0.0f, dist / 2.0f - 2.0f);
+        if (ped->m_nPedType >= PED_TYPE_GANG1 && ped->m_nPedType <= PED_TYPE_GANG10) {
+            dist = dist * 0.5f - 2.0f;
+            if (!(dist > 0.0f)) // Como el original: NaN pasa a 0
+                dist = 0.0f;
+        }
 
         if (dist < closestDistance) {
             closestDistance = dist;
@@ -958,22 +1013,57 @@ void CPlayerPed::MakeChangesForNewWeapon(uint32 weaponSlot) {
 
 static auto& PLAYER_MAX_TARGET_VIEW_ANGLE = StaticRef<float>(0x8D243C); // 140.0f
 
+// Como el original: GetATanOfXY (0x53CC70) deja el ángulo en ST0 sin redondear a float y el EXE le resta
+// la compensación directamente (una sola rotura a 24 bits)
+static float PlayerPedATanMinus(float x, float y, float compensation) {
+    float (*const atanOfXY)(float, float) = &CGeneral::GetATanOfXY;
+    float result;
+    __asm {
+        push y
+        push x
+        call atanOfXY
+        add esp, 8
+        fsub compensation
+        fstp result
+    }
+    return result;
+}
+
+constexpr float PLAYER_PI = 3.14159274101257324f;     // 0x858CB8
+constexpr float PLAYER_TWO_PI = 6.28318548202514648f; // 0x858CBC
+
+
 // 0x60D020
 void CPlayerPed::EvaluateTarget(CEntity* target, CEntity *& outTarget, float & outTargetPriority, float maxDistance, float compensationRotRad, bool arg5) {
     const CVector dir = target->GetPosition() - GetPosition();
-    const float dist = dir.Magnitude();
+    // Como el original: suma en orden z, y, x
+    const float dist = std::sqrt(dir.z * dir.z + dir.y * dir.y + dir.x * dir.x);
 
-    if (dist > maxDistance)
+    if (!(dist <= maxDistance)) // Como el original: NaN tambien sale
         return;
 
     if (DoesTargetHaveToBeBroken(target, &GetActiveWeapon()))
         return;
 
-    const float targetAngleDeg = std::fabs(RadiansToDegrees(CGeneral::LimitRadianAngle(CGeneral::GetATanOf(dir) - compensationRotRad)));
+    // Como el original: LimitRadianAngle inlinado (sin recorte), por 57.29578 (0x859878) y fchs si no es >= 0
+    float angle = PlayerPedATanMinus(dir.x, dir.y, compensationRotRad);
+    if (angle > PLAYER_PI) {
+        do {
+            angle -= PLAYER_TWO_PI;
+        } while (angle > PLAYER_PI);
+    }
+    if (angle < -PLAYER_PI) {
+        do {
+            angle += PLAYER_TWO_PI;
+        } while (angle < -PLAYER_PI);
+    }
+    float targetAngleDeg = angle * 57.2957763671875f;
+    if (targetAngleDeg < 0.0f) // Como el original: NaN no cambia de signo
+        targetAngleDeg = -targetAngleDeg;
 
     float viewAngleMultiplier = 1.0f - targetAngleDeg / PLAYER_MAX_TARGET_VIEW_ANGLE;
     if (dist > 1.0f)
-        viewAngleMultiplier /= sqrt(sqrt(dist)); // Take quad root of dist
+        viewAngleMultiplier = viewAngleMultiplier / std::sqrt(std::sqrt(dist)); // Take quad root of dist
 
     const float targetPriority = FindTargetPriority(target) * viewAngleMultiplier;
     if (targetPriority > outTargetPriority && !LOSBlockedBetweenPeds(this, target)) {
@@ -1027,140 +1117,159 @@ bool CPlayerPed::FindNextWeaponLockOnTarget(CEntity* arg0, bool arg1) {
     return plugin::CallMethodAndReturn<bool, 0x60E530, CPlayerPed *, CEntity*, bool>(this, arg0, arg1);
 }
 
+// Como el original: fpatan (precisión completa) con el resultado redondeado a float al guardarlo
+static float PlayerPedAtan2(float y, float x) {
+    float result;
+    __asm {
+        fld y
+        fld x
+        fpatan
+        fstp result
+    }
+    return result;
+}
+
 // 0x60EA90
 void CPlayerPed::ProcessControl() {
-    if (GetPlayerData()->m_nCarDangerCounter)
-        GetPlayerData()->m_nCarDangerCounter--;
-    if (!GetPlayerData()->m_nCarDangerCounter)
-        GetPlayerData()->m_pDangerCar = 0;
-    if (GetPlayerData()->m_nFadeDrunkenness) {
-        if (GetPlayerData()->m_nDrunkenness - 1 > 0) {
-            --GetPlayerData()->m_nDrunkenness;
+    CPlayerPedData* pd = GetPlayerData();
+    if (pd->m_nCarDangerCounter)
+        pd->m_nCarDangerCounter--;
+    if (!pd->m_nCarDangerCounter)
+        pd->m_pDangerCar = nullptr;
+    if (pd->m_nFadeDrunkenness) {
+        if (static_cast<int32>(pd->m_nDrunkenness) - 1 > 0) {
+            --pd->m_nDrunkenness;
         } else {
-            GetPlayerData()->m_nDrunkenness = 0;
+            pd->m_nDrunkenness = 0;
             CMBlur::ClearDrunkBlur();
-            GetPlayerData()->m_nFadeDrunkenness = 0;
+            pd->m_nFadeDrunkenness = 0;
         }
     }
-    if (GetPlayerData()->m_nDrunkenness) 
-        CMBlur::SetDrunkBlur(GetPlayerData()->m_nDrunkenness / 255.0f);
-    if (GetPlayerData()->m_bRequireHandleBreath) {
-        if (CStats::GetFatAndMuscleModifier(STAT_MOD_AIR_IN_LUNG) > GetPlayerData()->m_fBreath)
-            GetPlayerData()->m_fBreath += CTimer::GetTimeStep() + CTimer::GetTimeStep();
-        GetPlayerData()->m_bRequireHandleBreath = false;
+    if (pd->m_nDrunkenness) // Como el original: producto por 1/255 (0x859A3C)
+        CMBlur::SetDrunkBlur(static_cast<float>(pd->m_nDrunkenness) * 0.003921568859368563f);
+    if (pd->m_bRequireHandleBreath) {
+        if (CStats::GetFatAndMuscleModifier(STAT_MOD_AIR_IN_LUNG) > pd->m_fBreath)
+            pd->m_fBreath = (CTimer::GetTimeStep() + CTimer::GetTimeStep()) + pd->m_fBreath;
+        pd->m_bRequireHandleBreath = false;
     }
-    GetPlayerData()->m_bRequireHandleBreath = true;
+    pd->m_bRequireHandleBreath = true;
     CPed::ProcessControl();
-    bCheckColAboveHead = true;
-    float markColor = 1.0f;
-    bool limitMarkColor = true;
-    CVector effectPos;
-    CPad* pad = CPad::GetPad(m_nPedType);
-    if (!bCanPointGunAtTarget) {
-        GetPlayerWanted()->Update();
-        PruneReferences();
-        if (GetActiveWeapon().m_Type == WEAPON_MINIGUN) {
-            auto weaponInfo = CWeaponInfo::GetWeaponInfo(WEAPON_MINIGUN, eWeaponSkill::STD);
-            if (GetIntelligence()->GetTaskUseGun()) {
-                auto animAssoc = GetIntelligence()->GetTaskUseGun()->m_Anim;
-                if (animAssoc && animAssoc->m_CurrentTime - animAssoc->m_TimeStep < weaponInfo->m_fAnimLoopEnd) {
-                    if (GetPlayerData()->m_fGunSpinSpeed < 0.45f) {
-                        GetPlayerData()->m_fGunSpinSpeed += CTimer::GetTimeStep() * 0.025f;
-                        GetPlayerData()->m_fGunSpinSpeed = std::min(GetPlayerData()->m_fGunSpinSpeed, 0.45f);
-                    }
-                    if (pad->GetWeapon(this) && GetActiveWeapon().m_TotalAmmo > 0 && animAssoc->m_CurrentTime >= weaponInfo->m_fAnimLoopStart) 
-                        m_weaponAudio.AddAudioEvent(AE_WEAPON_FIRE_MINIGUN_AMMO);
-                    else 
-                        m_weaponAudio.AddAudioEvent(AE_WEAPON_FIRE_MINIGUN_NO_AMMO);
-                }
-            } else {
-                if (GetPlayerData()->m_fGunSpinSpeed > 0.0f) {
-                    GetPlayerData()->m_fGunSpinSpeed -= CTimer::GetTimeStep() * 0.003f;
-                    GetPlayerData()->m_fGunSpinSpeed = std::max(GetPlayerData()->m_fGunSpinSpeed, 0.0f);
-                }
+    // Como el original: or dword [0x478], 0x100 (bit 104 de las banderas del peatón)
+    *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(this) + 0x478) |= 0x100;
+
+    // Como el original: si el control se aplazó (bit 6 de las banderas de la entidad) no se hace nada más
+    if (GetWasPostponed())
+        return;
+
+    CPad* pad = GetPadFromPlayer();
+    GetWanted()->Update(); // Como el original: sin comprobar el puntero
+    PruneReferences();
+
+    if (GetActiveWeapon().m_Type == WEAPON_MINIGUN) {
+        const auto* weaponInfo = CWeaponInfo::GetWeaponInfo(WEAPON_MINIGUN, eWeaponSkill::STD);
+        CAnimBlendAssociation* animAssoc = GetIntelligence()->GetTaskUseGun() ? GetIntelligence()->GetTaskUseGun()->m_Anim : nullptr;
+        if (animAssoc && animAssoc->m_CurrentTime - animAssoc->m_TimeStep < weaponInfo->m_fAnimLoopEnd) {
+            if (pd->m_fGunSpinSpeed < 0.45f) { // 0x86D098
+                pd->m_fGunSpinSpeed = CTimer::GetTimeStep() * 0.025f + pd->m_fGunSpinSpeed;
+                if (pd->m_fGunSpinSpeed > 0.45f)
+                    pd->m_fGunSpinSpeed = 0.45f;
             }
+            if (pad->GetWeapon(this) && static_cast<int32>(GetActiveWeapon().m_TotalAmmo) > 0 && animAssoc->m_CurrentTime >= weaponInfo->m_fAnimLoopStart)
+                m_weaponAudio.AddAudioEvent(AE_WEAPON_FIRE_MINIGUN_AMMO);
+            else
+                m_weaponAudio.AddAudioEvent(AE_WEAPON_FIRE_MINIGUN_NO_AMMO);
+        } else if (pd->m_fGunSpinSpeed > 0.0f) {
+            // Como el original: también se frena con tarea sin animación o fuera del bucle
+            pd->m_fGunSpinSpeed = pd->m_fGunSpinSpeed - CTimer::GetTimeStep() * 0.003f;
+            if (pd->m_fGunSpinSpeed < 0.0f)
+                pd->m_fGunSpinSpeed = 0.0f;
         }
-        if (GetActiveWeapon().m_Type == WEAPON_CHAINSAW && m_nPedState != PEDSTATE_ATTACK && !bInVehicle) {
-            GetIntelligence()->GetTaskSwim(); // hmmm?
-        }
-        if (m_pTargetedObject) {
-            ClearReference(m_p3rdPersonMouseTarget);
-            if (m_pTargetedObject->GetIsTypePed()) {
-                CPed* targetPed = m_pTargetedObject->AsPed();
-                auto weaponInfo = CWeaponInfo::GetWeaponInfo(GetActiveWeapon().m_Type, GetWeaponSkill());
-                float targetHeadRange = weaponInfo->GetTargetHeadRange();
-                markColor = targetPed->m_fHealth / targetPed->m_fMaxHealth;
-                bool instantFireHit = false;
-                if (targetPed->IsAlive()) {
-                    auto stdWeaponInfo = CWeaponInfo::GetWeaponInfo(GetActiveWeapon().m_Type, eWeaponSkill::STD);
-                    if (stdWeaponInfo->m_nWeaponFire == WEAPON_FIRE_INSTANT_HIT) {
-                        instantFireHit = true;
-                        CVector distance = targetPed->GetPosition() - GetPosition();
-                        if (targetHeadRange * targetHeadRange > distance.SquaredMagnitude()) {
-                            GetPlayerData()->m_nTargetBone = BONE_HEAD;
-                            GetPlayerData()->m_vecTargetBoneOffset.x = 0.05f;
-                        }
-                    }
-                }
-                if (!instantFireHit) {
-                    GetPlayerData()->m_nTargetBone = BONE_SPINE1;
-                    GetPlayerData()->m_vecTargetBoneOffset.x = 0.2f;
-                }
-                effectPos = GetPlayerData()->m_vecTargetBoneOffset;
-                targetPed->GetTransformedBonePosition(effectPos, static_cast<eBoneTag>(GetPlayerData()->m_nTargetBone), false);
-                bool targetIsInVehicle = false;
-                if (markColor > 0.0f) {
-                    if (!targetPed->bInVehicle && targetPed->m_nMoveState != PEDMOVE_STILL) {
-                        effectPos += targetPed->m_vecMoveSpeed * CTimer::GetTimeStep();
-                    }
-                }
-                if (targetPed->bInVehicle) {
-                    auto targetVeh = targetPed->m_pVehicle;
-                    if (targetVeh)
-                        effectPos += (targetVeh->m_vecMoveSpeed + targetVeh->m_vecTurnSpeed) * CTimer::GetTimeStep();
-                }
-            } else if (m_pTargetedObject->GetIsTypeVehicle()) {
-                CVehicle* targetVeh = m_pTargetedObject->AsVehicle();
-                effectPos = (targetVeh->m_vecMoveSpeed + targetVeh->m_vecTurnSpeed) * CTimer::GetTimeStep();
-                effectPos += targetVeh->GetPosition();
-            } else if (m_pTargetedObject->GetIsTypeObject()) {
-                CObject* targetObj = m_pTargetedObject->AsObject();
-                effectPos = targetObj->m_vecMoveSpeed * CTimer::GetTimeStep();
-                effectPos += targetObj->GetPosition();
-                markColor = targetObj->m_fHealth * 0.001f;
-            } else {
-                effectPos = m_pTargetedObject->GetPosition();
-                limitMarkColor = false; 
-            }
-        }
+    }
+    if (GetActiveWeapon().m_Type == WEAPON_CHAINSAW && m_nPedState != PEDSTATE_ATTACK && !bInVehicle) {
+        GetIntelligence()->GetTaskSwim(); // Como el original: se llama y se ignora el resultado
     }
     if (m_pTargetedObject) {
+        ClearReference(m_p3rdPersonMouseTarget);
+        CVector effectPos{};
+        float markColor = 1.0f;
+        bool checkColor = true;
+        switch (m_pTargetedObject->GetType()) {
+        case ENTITY_TYPE_PED: {
+            CPed* targetPed = m_pTargetedObject->AsPed();
+            const auto* weaponInfo = CWeaponInfo::GetWeaponInfo(GetActiveWeapon().m_Type, GetWeaponSkill());
+            markColor = targetPed->m_fHealth / targetPed->m_fMaxHealth;
+            const float targetHeadRange = weaponInfo->GetTargetHeadRange();
+            // Como el original: el resto de casos (muerto, sin disparo instantáneo o fuera de rango) apunta al torso
+            if (targetPed->IsAlive()
+                && CWeaponInfo::GetWeaponInfo(GetActiveWeapon().m_Type, eWeaponSkill::STD)->m_nWeaponFire == WEAPON_FIRE_INSTANT_HIT
+                && targetHeadRange * targetHeadRange > (targetPed->GetPosition() - GetPosition()).SquaredMagnitude()) {
+                pd->m_nTargetBone = BONE_HEAD;
+                pd->m_vecTargetBoneOffset.x = 0.05f;
+            } else {
+                pd->m_nTargetBone = BONE_SPINE1;
+                pd->m_vecTargetBoneOffset.x = 0.2f;
+            }
+            effectPos = pd->m_vecTargetBoneOffset;
+            targetPed->GetTransformedBonePosition(effectPos, static_cast<eBoneTag>(pd->m_nTargetBone), false);
+            if (markColor > 0.0f && !targetPed->bInVehicle) {
+                if (targetPed->m_nMoveState != PEDMOVE_STILL)
+                    effectPos += targetPed->m_vecMoveSpeed * CTimer::GetTimeStep();
+            } else if (targetPed->bInVehicle) {
+                if (CVehicle* targetVeh = targetPed->m_pVehicle)
+                    effectPos += (targetVeh->m_vecMoveSpeed + targetVeh->m_vecTurnSpeed) * CTimer::GetTimeStep();
+            }
+            break;
+        }
+        case ENTITY_TYPE_VEHICLE: {
+            CVehicle* targetVeh = m_pTargetedObject->AsVehicle();
+            markColor = targetVeh->m_fHealth * 0.001f; // Como el original: la salud del vehículo también colorea la marca
+            effectPos = (targetVeh->m_vecMoveSpeed + targetVeh->m_vecTurnSpeed) * CTimer::GetTimeStep() + targetVeh->GetPosition();
+            break;
+        }
+        case ENTITY_TYPE_OBJECT: {
+            CObject* targetObj = m_pTargetedObject->AsObject();
+            markColor = targetObj->m_fHealth * 0.001f;
+            effectPos = targetObj->GetPosition() + targetObj->m_vecMoveSpeed * CTimer::GetTimeStep();
+            break;
+        }
+        default:
+            effectPos = m_pTargetedObject->GetPosition();
+            checkColor = false;
+            break;
+        }
+
         uint8 r = 0, g = 0, b = 0;
-        bool setRGB = true;
-        if (limitMarkColor) {
-            if (markColor > 0.0f)
-                markColor = std::min(markColor, 1.0f);
-            else
-                setRGB = false;
+        if (!checkColor || markColor > 0.0f) {
+            if (checkColor && markColor > 1.0f)
+                markColor = 1.0f;
+            // Como el original: mezcla con los términos * 0.0f y _ftol2
+            const float inv = 1.0f - markColor;
+            r = static_cast<uint8>(static_cast<int64>(inv * 255.0f + markColor * 0.0f));
+            g = static_cast<uint8>(static_cast<int64>(markColor * 255.0f + inv * 0.0f));
+            b = static_cast<uint8>(static_cast<int64>(inv * 0.0f + markColor * 0.0f));
         }
-        if (setRGB) {
-            r = static_cast<uint8>((1.0f - markColor) * 255.0f);
-            g = static_cast<uint8>(markColor * 255.0f);
-            b = static_cast<uint8>(0.0f);
-        }
-        CVector distance = effectPos - GetPosition();
-        float size = 1.0f - distance.Magnitude() * 0.02f;
-        CWeaponEffects::MarkTarget(m_nPedType, effectPos, r, g, b, 255u, size, false);
+        const CVector& pos = GetPosition();
+        const float dx = effectPos.x - pos.x;
+        const float dy = effectPos.y - pos.y;
+        const float dz = effectPos.z - pos.z;
+        const float dist = std::sqrt(dx * dx + dz * dz + dy * dy); // Como el original: orden x, z, y
+        CWeaponEffects::MarkTarget(static_cast<CrossHairId>(m_nPedType), effectPos, r, g, b, 255u, 1.0f - dist * 0.02f, false);
     }
-    if (m_nMoveState != PEDMOVE_NONE) {
-        if (m_nMoveState != PEDMOVE_RUN) {
-            if (m_nMoveState != PEDMOVE_SPRINT)
-                HandleSprintEnergy(false, 1.0f);
-        } else if (CStats::GetFatAndMuscleModifier(STAT_MOD_TIME_CAN_RUN) > GetPlayerData()->m_fTimeCanRun)
-            GetPlayerData()->m_fTimeCanRun += CTimer::GetTimeStep() * 0.15f;
-    } else if (bInVehicle) {
-        if (m_pVehicle && !m_pVehicle->IsSubBMX())
+
+    switch (m_nMoveState) {
+    case PEDMOVE_NONE:
+        if (bInVehicle && m_pVehicle && !m_pVehicle->IsSubBMX())
             HandleSprintEnergy(false, 1.0f);
+        break;
+    case PEDMOVE_RUN:
+        if (CStats::GetFatAndMuscleModifier(STAT_MOD_TIME_CAN_RUN) > pd->m_fTimeCanRun)
+            pd->m_fTimeCanRun = CTimer::GetTimeStep() * 0.15f + pd->m_fTimeCanRun;
+        break;
+    case PEDMOVE_SPRINT:
+        break;
+    default:
+        HandleSprintEnergy(false, 1.0f);
+        break;
     }
     GetActiveWeapon().Update(this);
     if (m_nPedState == PEDSTATE_DEAD || m_nPedState == PEDSTATE_DIE) {
@@ -1169,9 +1278,8 @@ void CPlayerPed::ProcessControl() {
     }
     if (pad) {
         if (pad->WeaponJustDown(this)) {
-            auto& activeWeapon = GetActiveWeapon();
-            auto weaponType = activeWeapon.m_Type;
-            if (!TheCamera.Using1stPersonWeaponMode() || activeWeapon.m_State == WEAPONSTATE_OUT_OF_AMMO) {
+            const auto weaponType = GetActiveWeapon().m_Type;
+            if (!TheCamera.Using1stPersonWeaponMode() || GetActiveWeapon().m_State == WEAPONSTATE_OUT_OF_AMMO) {
                 if (!GetIntelligence()->GetTaskSwim()) {
                     if (weaponType == WEAPON_SNIPERRIFLE) {
                         AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_FIRE_FAIL_SNIPERRIFFLE, 0.0f, 1.0f);
@@ -1181,106 +1289,103 @@ void CPlayerPed::ProcessControl() {
                 }
             }
         }
-        if (IsPedShootable() && this->m_nPedState != PEDSTATE_ANSWER_MOBILE) {
-            int32 slot = CWorld::FindPlayerSlotWithPedPointer(this);
-            if (!CWorld::Players[slot].m_pRemoteVehicle)
+        if (IsPedShootable() && m_nPedState != PEDSTATE_ANSWER_MOBILE) {
+            if (!CWorld::Players[CWorld::FindPlayerSlotWithPedPointer(this)].m_pRemoteVehicle)
                 ProcessWeaponSwitch(pad);
         }
     }
     ProcessAnimGroups();
-    if (pad && TheCamera.GetActiveCamera().m_nMode == MODE_FOLLOWPED && !TheCamera.GetActiveCamera().m_nDirectionWasLooking) {
-        auto& activeCam = TheCamera.GetActiveCamera();
-        m_nLookTime = 0;
-        float lookDir = CGeneral::LimitRadianAngle(atan2(-activeCam.m_vecFront.x, activeCam.m_vecFront.y));
-        float angle = fabs(lookDir - m_fCurrentRotation);
-        if (m_nPedState != PEDSTATE_ATTACK && angle > DegreesToRadians(30.0f) && angle < DegreesToRadians(330.0f)) {
-            if (angle > DegreesToRadians(150.0f) && angle < DegreesToRadians(210.0f)) {
-                float dir1 = CGeneral::LimitRadianAngle(m_fCurrentRotation - DegreesToRadians(150.0f));
-                float dir2 = CGeneral::LimitRadianAngle(m_fCurrentRotation + DegreesToRadians(150.0f));
-                lookDir = dir1;
-                if (m_fLookDirection != 999'999.f && !bIsDucking) {
-                    if (fabs(dir2 - m_fLookDirection) <= fabs(dir1 - m_fLookDirection))
-                        lookDir = dir2;
+    if (pad) {
+        auto& activeCam = TheCamera.GetActiveCam();
+        if (activeCam.m_nMode == MODE_FOLLOWPED && !activeCam.m_nDirectionWasLooking) {
+            m_nLookTime = 0;
+            float lookDir = CGeneral::LimitRadianAngle(PlayerPedAtan2(-activeCam.m_vecFront.x, activeCam.m_vecFront.y));
+            const float angle = std::fabs(lookDir - m_fCurrentRotation);
+            // Como el original: 30, 150, 210 y 330 grados son las constantes en radianes del EXE; NaN limpia la mirada
+            if (m_nPedState != PEDSTATE_ATTACK && angle > 0.5235987901687622f && angle < 5.759586811065674f) {
+                if (angle > 2.6179938316345215f && angle < 3.665191650390625f) {
+                    const float dir1 = CGeneral::LimitRadianAngle(m_fCurrentRotation - 2.6179938316345215f);
+                    const float dir2 = CGeneral::LimitRadianAngle(m_fCurrentRotation + 2.6179938316345215f);
+                    if (std::bit_cast<uint32>(m_fLookDirection) != 0x497423F0u && !bIsDucking) { // 999999.0f comparado por bits
+                        lookDir = std::fabs(dir2 - m_fLookDirection) > std::fabs(dir1 - m_fLookDirection) ? dir1 : dir2;
+                    } else {
+                        lookDir = dir1;
+                    }
                 }
+                SetLookFlag(lookDir, true, false);
+                // Como el original: el paso en ms se trunca a entero sin signo antes de multiplicarlo por 5
+                const auto stepMs = static_cast<uint32>(static_cast<int64>(CTimer::GetTimeStep() * 0.02f * 1000.0f));
+                SetLookTimer(static_cast<uint32>(static_cast<int64>(static_cast<float>(stepMs) * 5.0f)));
+            } else {
+                ClearLookFlag();
             }
-            SetLookFlag(lookDir, true, false);
-            SetLookTimer(static_cast<uint32>((CTimer::GetTimeStep() * 0.02f * 1000.0f) * 5.0f));
-        } else {
-            ClearLookFlag();
         }
     }
     if (m_nMoveState == PEDMOVE_SPRINT && bIsLooking) {
         ClearLookFlag();
         SetLookTimer(250);
     }
-    if (m_vecMoveSpeed.Magnitude() >= 0.1f) {
-        GetPlayerData()->m_nStandStillTimer = 0;
-        GetPlayerData()->m_bStoppedMoving = false;
-    } else if (!GetPlayerData()->m_nStandStillTimer) {
-        GetPlayerData()->m_nStandStillTimer = CTimer::GetTimeInMS() + 500;
-    } else if (CTimer::GetTimeInMS() > GetPlayerData()->m_nStandStillTimer) {
-        GetPlayerData()->m_bStoppedMoving = true;
-    }
-    if (GetPlayerData()->m_bDontAllowWeaponChange) {
-        if (IsPlayer()) {
-            if (!CPad::GetPad(0)->GetTarget())
-                GetPlayerData()->m_bDontAllowWeaponChange = false;
+    // Como el original: velocidad 2D; NaN reinicia el temporizador
+    if (std::sqrt(m_vecMoveSpeed.x * m_vecMoveSpeed.x + m_vecMoveSpeed.y * m_vecMoveSpeed.y) < 0.1f) {
+        if (!pd->m_nStandStillTimer) {
+            pd->m_nStandStillTimer = CTimer::GetTimeInMS() + 500;
+        } else if (CTimer::GetTimeInMS() > pd->m_nStandStillTimer) {
+            pd->m_bStoppedMoving = true;
         }
+    } else {
+        pd->m_nStandStillTimer = 0;
+        pd->m_bStoppedMoving = false;
+    }
+    if (pd->m_bDontAllowWeaponChange && IsPlayer()) {
+        if (!CPad::GetPad(0)->GetTarget())
+            pd->m_bDontAllowWeaponChange = false;
     }
     if (m_nPedState != PEDSTATE_SNIPER_MODE && GetActiveWeapon().m_State == WEAPONSTATE_FIRING)
-        GetPlayerData()->m_nLastTimeFiring = CTimer::GetTimeInMS();
+        pd->m_nLastTimeFiring = CTimer::GetTimeInMS();
     ProcessGroupBehaviour(pad);
     if (bInVehicle)
         CCarCtrl::RegisterVehicleOfInterest(m_pVehicle);
     if (!GetIsVisible())
         UpdateRpHAnim();
     if (bInVehicle) {
-        CPad* pad = CPad::GetPad(0);
-        if (!pad->IsDPadDownPressed()) {
-            if (pad->IsDPadUpPressed())
-                GetPlayerData()->m_bPlayersGangActive = true;
-        } else {
-            GetPlayerData()->m_bPlayersGangActive = false;
+        if (CPad::GetPad(0)->IsDPadDownPressed()) {
+            pd->m_bPlayersGangActive = false;
+        } else if (CPad::GetPad(0)->IsDPadUpPressed()) {
+            pd->m_bPlayersGangActive = true;
         }
     }
     if (physicalFlags.bSubmergedInWater) {
-        CVector pos = GetPosition();
-        pos.z += 1.5f;
-        if (CWaterLevel::GetWaterLevel(pos.x, pos.y, pos.z, GetPlayerData()->m_fWaterHeight, true, nullptr)) {
-            auto& box = CEntity::GetColModel()->GetBoundingBox();
-            float playerMinZ = pos.z + box.m_vecMin.z;
-            float playerMaxZ = pos.z + box.m_vecMax.z;
-            if (GetPlayerData()->m_fWaterHeight < playerMaxZ) {
-                if (GetPlayerData()->m_fWaterHeight > playerMinZ)
-                    GetPlayerData()->m_nWaterCoverPerc = static_cast<uint8>((GetPlayerData()->m_fWaterHeight - playerMinZ) / (playerMaxZ - playerMinZ) * 100.0f);
-                else
-                    GetPlayerData()->m_nWaterCoverPerc = 0;
+        const CVector pos = GetPosition();
+        if (CWaterLevel::GetWaterLevel(pos.x, pos.y, pos.z + 1.5f, pd->m_fWaterHeight, true, nullptr)) {
+            // Como el original: los límites usan la z sin el 1.5 añadido
+            const float playerMinZ = pos.z + GetColModel()->GetBoundingBox().m_vecMin.z;
+            const float playerMaxZ = pos.z + GetColModel()->GetBoundingBox().m_vecMax.z;
+            const float waterHeight = pd->m_fWaterHeight;
+            if (!(waterHeight < playerMaxZ) && !std::isunordered(waterHeight, playerMaxZ)) {
+                pd->m_nWaterCoverPerc = 100;
+            } else if (waterHeight > playerMinZ || std::isunordered(waterHeight, playerMinZ)) {
+                pd->m_nWaterCoverPerc = static_cast<uint8>(static_cast<int64>((waterHeight - playerMinZ) / (playerMaxZ - playerMinZ) * 100.0f));
             } else {
-                GetPlayerData()->m_nWaterCoverPerc = 100;
+                pd->m_nWaterCoverPerc = 0;
             }
         } else {
             physicalFlags.bSubmergedInWater = false;
         }
     } else {
-        GetPlayerData()->m_nWaterCoverPerc = 0;
+        pd->m_nWaterCoverPerc = 0;
     }
-    if ((CTimer::GetFrameCounter() & 0x7F) == 0 && !FindPlayerVehicle()) {
-        auto& group = CPedGroups::GetGroup(GetPlayerData()->m_nPlayerGroup);
+    if ((CTimer::GetFrameCounter() & 0x7F) == 0 && !FindPlayerVehicle(-1, false)) {
+        auto& group = CPedGroups::GetGroup(pd->m_nPlayerGroup);
         if (group.m_bMembersEnterLeadersVehicle) {
-            int32 memberCount = group.m_groupMembership.CountMembersExcludingLeader();
-            if (memberCount > 0) {
-                float distance = group.FindDistanceToNearestMember(nullptr);
-                if (distance > 20.0f && distance < 100.0f && CGame::currArea == AREA_CODE_NORMAL_WORLD) {
-                    if (memberCount == 1)
-                        Say(CTX_GLOBAL_ORDER_KEEP_UP_ONE);
-                    else
-                        Say(CTX_GLOBAL_ORDER_KEEP_UP_MANY);
-                    for (int32 i = 0; i < TOTAL_PED_GROUP_FOLLOWERS; ++i) {
-                        CPed* member = group.m_groupMembership.GetMember(i);
-                        if (member && CGeneral::GetRandomNumberInRange(0.0f, 1.0f) < 0.5f) {
-                            int32 offset = CGeneral::GetRandomNumberInRange(3000, 4500);
-                            member->Say(CTX_GLOBAL_FOLLOW_REPLY, offset);
-                        }
+            const int32 memberCount = group.GetMembership().CountMembersExcludingLeader();
+            // Como el original: FindDistanceToNearestMember se llama dos veces
+            if (memberCount > 0 && group.FindDistanceToNearestMember(nullptr) > 20.0f && group.FindDistanceToNearestMember(nullptr) < 100.0f
+                && CGame::currArea == AREA_CODE_NORMAL_WORLD) {
+                Say(memberCount == 1 ? CTX_GLOBAL_ORDER_KEEP_UP_ONE : CTX_GLOBAL_ORDER_KEEP_UP_MANY);
+                for (int32 i = 0; i < TOTAL_PED_GROUP_FOLLOWERS; ++i) {
+                    CPed* member = group.GetMembership().GetMember(i);
+                    if (member && CGeneral::GetRandomNumberInRange(0.0f, 1.0f) < 0.5f) {
+                        member->Say(CTX_GLOBAL_FOLLOW_REPLY, CGeneral::GetRandomIntInRange(3000, 4500));
                     }
                 }
             }

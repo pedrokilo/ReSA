@@ -260,11 +260,14 @@ public:
     // NOTSA
     eControllerAction GetActionIDByName(std::string_view name);
 
+    friend class CReplay; // Como el original: CReplay::Update llama a GetIsKeyboardKeyJustDown (0x52E450)
+
 protected:
     void DeleteMatchingCommonControls(eControllerAction nop, KeyCode button, eControllerType type);
     void DeleteMatching3rdPersonControls(eControllerAction action, KeyCode button, eControllerType type);
     void DeleteMatchingVehicleControls(eControllerAction nop, KeyCode button, eControllerType type);
-    void DeleteMatchingVehicle_3rdPersonControls(KeyCode button, eControllerType type);
+    // Como el original: 3 argumentos (ret 0Ch); la acción no se usa
+    void DeleteMatchingVehicle_3rdPersonControls(eControllerAction nop, KeyCode button, eControllerType type);
     void DeleteMatching1rstPersonControls(eControllerAction nop, KeyCode button, eControllerType type);
     void DeleteMatching1rst3rdPersonControls(eControllerAction action, KeyCode button, eControllerType type);
     bool GetIsKeyBlank(KeyCode button, eControllerType type);
@@ -279,12 +282,13 @@ private:
     void CheckAndReset(eControllerAction action, eControllerType type, KeyCode button, int16& state);
     void CheckAndSetPad(eControllerAction action, eControllerType type, KeyCode button, int16& primaryState, int16& secondaryState);
     void CheckAndSetStick(eControllerAction action, eControllerType type, KeyCode button, int16& state, bool& movementBothDown, int16 value);
+    void CheckAndSetStickFlagOnly(eControllerAction action, eControllerType type, KeyCode button, int16& state, bool& movementBothDown, int16 value);
 
     bool UseDrivingControls();
     bool UseFirstPersonControls();
     bool IsKeyboardKeyDownInState(CKeyboardState& state, KeyCode key);
     CControllerState& GetControllerState(CPad& pad, eControllerType type);
-    int16& GetControllerStateJoyStick(CPad& pad, KeyCode button);
+    int16* GetControllerStateJoyStick(CPad& pad, KeyCode button, int32 padNumber);
 
 private:
     CControllerConfigManager* Constructor() {

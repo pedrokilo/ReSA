@@ -25,7 +25,7 @@ namespace RpAnimBlendPlugin {
  * @brief Registra el payload de clump y el esquema de interpolación en RenderWare.
  * @return true si ambos registros pudieron inicializarse.
 */
-bool RpAnimBlendPluginAttach();
+RwBool RpAnimBlendPluginAttach(); // Como el original: EAX completo (0x53D8AE hace test eax,eax)
 
 /*!
  * @unused
@@ -298,8 +298,9 @@ const char* RpAnimBlendFrameGetName(RwFrame* frame);
  * @brief Set the name of a (bone?) frame
  * @param frame The frame to set the name of
  * @param name The new name
+ * @return The frame (como el original)
 */
-void RpAnimBlendFrameSetName(RwFrame* frame, const char* name);
+RwFrame* RpAnimBlendFrameSetName(RwFrame* frame, const char* name);
 
 /*!
  * @addr 0x4D6AB0

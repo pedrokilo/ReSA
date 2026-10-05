@@ -61,7 +61,7 @@ void CAEStreamThread::InjectHooks() {
 
 // 0x4F11E0
 CAEStreamThread::~CAEStreamThread() {
-    OS_MutexRelease(&m_criticalSection);
+    DeleteCriticalSection(&m_criticalSection); // Como el original: DeleteCriticalSection (IAT 0x8580E0) sobre la sección crítica.
 }
 
 // 0x4F1680
