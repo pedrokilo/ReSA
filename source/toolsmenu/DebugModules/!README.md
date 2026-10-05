@@ -1,3 +1,5 @@
+> **Aviso (04/10/2026):** el menú de depuración está desactivado en el juego (no se crea ni dibuja); los módulos compilan pero no son visibles hasta reactivarlo.
+
 # Cómo añadir un módulo de depuración
 1. Crea los archivos de cabecera y fuente en esta carpeta (.hpp y .cpp), con el nombre del módulo; por ejemplo, `YourModuleNameDebugModule.cpp`. Por ahora deben llevar el sufijo `DebugModule`
 2. Escribe el código del módulo; las plantillas están más abajo.

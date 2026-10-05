@@ -15,7 +15,7 @@ Aquí conviven el código reconstruido de GTA San Andreas, la integración con W
 | [oswrapper](oswrapper/) | Interfaz para servicios del sistema operativo: archivos, hilos, mutex y semáforos. `oswrapper.h` declara la interfaz y `oswrapper_win.cpp` contiene la implementación para Windows. |
 | [reversiblebugfixes](reversiblebugfixes/) | Registro de correcciones de errores con estado activado/desactivado y metadatos. `Bugs.hpp` declara las correcciones; `ReversibleBugFix.hpp` define su estructura, incluidos bloqueos y requisitos de reinicio. |
 | [reversiblehooks](reversiblehooks/) | Infraestructura para redirigir funciones originales a sus implementaciones reconstruidas y gestionar el estado de esas redirecciones, llamadas *hooks*. También organiza los hooks por categorías. |
-| [toolsmenu](toolsmenu/) | Interfaz de herramientas y depuración dentro del juego: renderizado de ventanas, entrada del menú y controles compartidos. |
+| [toolsmenu](toolsmenu/) | Interfaz de herramientas y depuración (ImGui): renderizado de ventanas, entrada del menú y controles compartidos. **Desactivada desde el 04/10/2026:** el menú F7 no se crea, no dibuja ni recibe entrada, para que el juego se comporte como el EXE. |
 
 ## Aplicación y utilidades
 
