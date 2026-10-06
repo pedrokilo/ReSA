@@ -1449,12 +1449,18 @@ void CTheScripts::Process() {
 
     CLoadingScreen::NewChunkLoaded();
 
-    for (CRunningScript* it = pActiveScripts, *next{}; it; it = next) {
-        next = it->m_pNext;
+    // Como el EXE (0x46A1F0..0x46A22C): `next` se guarda antes de ejecutar el script y el bucle termina si el siguiente
+    // ya no esta activo (m_IsActive, +0xC4). Sin esa comprobacion, un script que termina a otro por nombre
+    // (TERMINATE_ALL_SCRIPTS_WITH_THIS_NAME) hacia que se ejecutara el script terminado y, siguiendo su m_pNext,
+    // toda la lista de scripts inactivos.
+    for (CRunningScript* it = pActiveScripts; it;) {
+        CRunningScript* const next = it->m_pNext;
 
         it->m_LocalVars[SCRIPT_VAR_TIMERA].iParam += timeStepMS;
         it->m_LocalVars[SCRIPT_VAR_TIMERB].iParam += timeStepMS;
         it->Process();
+
+        it = (next && next->m_IsActive) ? next : nullptr;
     }
 
     CLoadingScreen::NewChunkLoaded();
