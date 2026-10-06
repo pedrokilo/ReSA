@@ -2,14 +2,14 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **7,858 entradas reversed=1**, de 8,441 registradas. Las 583 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **7,865 entradas reversed=1**, de 8,441 registradas. Las 576 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 5382 |
+| `validated=1` · evidencia aprobada vinculada | 5393 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 5382 |
-| Sin evidencia aprobada vinculada en este registro | 2476 |
+| Evidencia histórica vinculada; revisión pendiente | 5393 |
+| Sin evidencia aprobada vinculada en este registro | 2472 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -3065,6 +3065,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexAvoidOtherPedWhileWandering | `NearbyPedsInSphere` | [Resumen](../reversing/CTasks15/validation-summary.json) |
 | CTaskComplexAvoidOtherPedWhileWandering | `QuitIK` | [Resumen](../reversing/CTasks15/validation-summary.json) |
 | CTaskComplexAvoidOtherPedWhileWandering | `SetUpIK` | [Resumen](../reversing/CTasks15/validation-summary.json) |
+| CTaskComplexBeCop | `Clone` | [Resumen](../reversing/BeCop60/validation-summary.json) |
+| CTaskComplexBeCop | `Destructor` | [Resumen](../reversing/BeCop60/validation-summary.json) |
+| CTaskComplexBeCop | `GetTaskType` | [Resumen](../reversing/BeCop60/validation-summary.json) |
 | CTaskComplexBeInGroup | `Clone` | [Resumen](../reversing/Data10/validation-summary.json) |
 | CTaskComplexBeInGroup | `Constructor` | [Resumen](../reversing/Data10/validation-summary.json) |
 | CTaskComplexBeInGroup | `ControlSubTask` | [Resumen](../reversing/Data10/validation-summary.json) |
@@ -3121,7 +3124,15 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexCarSlowBeDraggedOut | `GetTaskType` | [Resumen](../reversing/CTasks11/validation-summary.json) |
 | CTaskComplexCarSlowBeDraggedOut | `MakeAbortable` | [Resumen](../reversing/CTasks11/validation-summary.json) |
 | CTaskComplexCarSlowBeDraggedOut | `PrepareVehicleForPedExit` | [Resumen](../reversing/CTasks11/validation-summary.json) |
+| CTaskComplexCarSlowBeDraggedOutAndStandUp | `Clone` | [Resumen](../reversing/DragOut60/validation-summary.json) |
+| CTaskComplexCarSlowBeDraggedOutAndStandUp | `Constructor` | [Resumen](../reversing/DragOut60/validation-summary.json) |
+| CTaskComplexCarSlowBeDraggedOutAndStandUp | `ControlSubTask` | [Resumen](../reversing/DragOut60/validation-summary.json) |
+| CTaskComplexCarSlowBeDraggedOutAndStandUp | `CreateFirstSubTask` | [Resumen](../reversing/DragOut60/validation-summary.json) |
+| CTaskComplexCarSlowBeDraggedOutAndStandUp | `CreateNextSubTask` | [Resumen](../reversing/DragOut60/validation-summary.json) |
+| CTaskComplexCarSlowBeDraggedOutAndStandUp | `CreateSubTask` | [Resumen](../reversing/DragOut60/validation-summary.json) |
+| CTaskComplexCarSlowBeDraggedOutAndStandUp | `Destructor` | [Resumen](../reversing/DragOut60/validation-summary.json) |
 | CTaskComplexCarSlowBeDraggedOutAndStandUp | `GetTaskType` | [Resumen](../reversing/FixHooks/validation-summary.json) |
+| CTaskComplexCarSlowBeDraggedOutAndStandUp | `MakeAbortable` | [Resumen](../reversing/DragOut60/validation-summary.json) |
 | CTaskComplexChat | `Clone` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
 | CTaskComplexChat | `Constructor` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
 | CTaskComplexChat | `ControlSubTask` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
@@ -3175,7 +3186,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexDieInCar | `PreparePedVehicleForPedDeath` | [Resumen](../reversing/CTasks6a/validation-summary.json) |
 | CTaskComplexDiveFromAttachedEntityAndGetUp | `Clone` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
 | CTaskComplexDiveFromAttachedEntityAndGetUp | `Constructor` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
-| CTaskComplexDiveFromAttachedEntityAndGetUp | `ControlSubTask` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
+| CTaskComplexDiveFromAttachedEntityAndGetUp | `ControlSubTask` | [Resumen](../reversing/FixHooks/validation-summary.json) |
 | CTaskComplexDiveFromAttachedEntityAndGetUp | `CreateFirstSubTask` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
 | CTaskComplexDiveFromAttachedEntityAndGetUp | `CreateNextSubTask` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
 | CTaskComplexDiveFromAttachedEntityAndGetUp | `Destructor` | [Resumen](../reversing/CTasks7a/validation-summary.json) |
@@ -5809,7 +5820,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexArrestPed` | 4 | 0 | 0 | 4 |
 | `CTaskComplexAttractorPartnerWait` | 5 | 0 | 5 | 0 |
 | `CTaskComplexAvoidOtherPedWhileWandering` | 15 | 0 | 15 | 0 |
-| `CTaskComplexBeCop` | 2 | 0 | 0 | 2 |
+| `CTaskComplexBeCop` | 3 | 0 | 3 | 0 |
 | `CTaskComplexBeInCouple` | 7 | 0 | 0 | 7 |
 | `CTaskComplexBeInGroup` | 10 | 0 | 10 | 0 |
 | `CTaskComplexBeStill` | 6 | 0 | 6 | 0 |
@@ -5819,7 +5830,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexCarDriveMissionKillPed` | 4 | 0 | 4 | 0 |
 | `CTaskComplexCarDriveWander` | 5 | 0 | 5 | 0 |
 | `CTaskComplexCarSlowBeDraggedOut` | 11 | 0 | 11 | 0 |
-| `CTaskComplexCarSlowBeDraggedOutAndStandUp` | 3 | 0 | 1 | 2 |
+| `CTaskComplexCarSlowBeDraggedOutAndStandUp` | 9 | 0 | 9 | 0 |
 | `CTaskComplexChat` | 7 | 0 | 7 | 0 |
 | `CTaskComplexClimb` | 4 | 0 | 4 | 0 |
 | `CTaskComplexCopInCar` | 9 | 0 | 9 | 0 |

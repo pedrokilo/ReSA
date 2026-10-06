@@ -1118,5 +1118,15 @@
     "id": "colproc59b",
     "name": "Procesado de colision de CCollision (lista de 59b)",
     "runner": "ColProc59b/run_local.py"
+  },
+  {
+    "id": "becop60",
+    "name": "Tarea de policia de a pie (CTaskComplexBeCop)",
+    "runner": "BeCop60/run_local.py"
+  },
+  {
+    "id": "dragout60",
+    "name": "Arrastrar fuera despacio y levantarse (CTaskComplexCarSlowBeDraggedOutAndStandUp)",
+    "runner": "DragOut60/run_local.py"
   }
 ]

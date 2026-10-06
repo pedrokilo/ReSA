@@ -6,17 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskComplexBeCop
- * Reconstrucción: INCOMPLETA — 2/3 funciones reconstruidas.
- * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 1.
- * Validación registrada: 0/3 entradas.
+ * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 3/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   Clone | 0x00499440 | V
- * BLOQUEADAS (nombre | dirección | tipo):
- *   Clone | 0x00499440 | V
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -31,5 +27,13 @@ void CTaskComplexBeCop::InjectHooks() {
     RH_ScopedInstall(Destructor, 0x4994E0);
 
     RH_ScopedVMTInstall(GetTaskType, 0x499430);
-    RH_ScopedVMTInstall(Clone, 0x499440, { .reversed = false }); // No es fiel: no comprueba si la subtarea es nula y trunca m_nDir a bool
+    RH_ScopedVMTInstall(Clone, 0x499440);
+}
+
+// 0x499440
+CTask* CTaskComplexBeCop::Clone() const {
+    // Como el original: primero clona la subtarea (solo si no es nula, llamada virtual [vtable+4]) y despues
+    // reserva la tarea (CTask::operator new, 0x50 bytes); m_nDir se pasa como byte (movzx)
+    CTask* const clonedTask = m_pGoToPointAndStandStillTask ? m_pGoToPointAndStandStillTask->Clone() : nullptr;
+    return new CTaskComplexBeCop(m_nMoveState, m_nDir, clonedTask);
 }

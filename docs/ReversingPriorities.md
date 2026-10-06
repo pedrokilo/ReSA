@@ -10,11 +10,11 @@
 | Dimensión | Cifra |
 | --- | ---: |
 | Entradas en el catálogo | 8.441 |
-| Reconstruidas | 7.858 |
-| Validadas | 5.382 |
-| Reconstruidas sin validar | 2.476 |
-| De ellas, en esta cola (validables por pares) | 2.472 |
-| Sin reconstruir (en 105 clases incompletas) | 583 |
+| Reconstruidas | 7.865 |
+| Validadas | 5.393 |
+| Reconstruidas sin validar | 2.472 |
+| De ellas, en esta cola (validables por pares) | 2.468 |
+| Sin reconstruir (en 103 clases incompletas) | 576 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
 
@@ -22,56 +22,54 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 36 | 194 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 34 | 190 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 9 | 569 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
 | [🟠 Nivel 3: moderadas](#nivel-3) | 37 | 776 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 33 | 933 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **115** | **2472** | |
+| **Total** | **113** | **2468** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (36 clases, 194 funciones)
+## 🟢 Nivel 1: muy barato (34 clases, 190 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CTaskComplexBeCop | 3 | 2 | 1 | 22 |
-| 2 | CTaskComplexCarSlowBeDraggedOutAndStandUp | 9 | 2 | 6 | 29 |
-| 3 | CPedShelterAttractor | 4 | 2 | 2 | 30 |
-| 4 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | 7 | 2 | 4 | 33 |
-| 5 | CTaskSimpleCarSetPedOut | 5 | 2 | 3 | 34 |
-| 6 | CTaskComplexOpenPassengerDoor | 4 | 3 | 1 | 13 |
-| 7 | CTaskSimpleRunNamedAnim | 7 | 3 | 3 | 25 |
-| 8 | CTaskComplexWanderCriminal | 6 | 3 | 3 | 28 |
-| 9 | CTaskComplexGoToPointAnyMeans | 7 | 3 | 4 | 33 |
-| 10 | CScriptsForBrains | 6 | 3 | 3 | 34 |
-| 11 | CTaskComplexGotoDoorAndOpen | 7 | 3 | 4 | 35 |
-| 12 | CTaskLeanOnVehicle | 5 | 3 | 2 | 35 |
-| 13 | CTaskComplexWanderProstitute | 5 | 4 | 1 | 12 |
-| 14 | CTaskSimpleCarDriveTimed | 5 | 4 | 1 | 14 |
-| 15 | CTaskSimpleCarSetPedInAsPassenger | 5 | 4 | 1 | 18 |
-| 16 | CTaskComplexSignalAtPed | 7 | 4 | 3 | 19 |
-| 17 | CTaskSimpleCarSetPedInAsDriver | 5 | 4 | 1 | 19 |
-| 18 | CTaskComplexEnterCarAsPassengerWait | 8 | 4 | 4 | 24 |
-| 19 | CTaskSimpleChoking | 7 | 5 | 2 | 18 |
-| 20 | CTaskComplexGoToPointAiming | 8 | 5 | 3 | 22 |
-| 21 | CTaskComplexDriveToPoint | 8 | 5 | 3 | 32 |
-| 22 | CTaskComplexUseClosestFreeScriptedAttractor | 8 | 6 | 2 | 10 |
-| 23 | CTaskComplexEvasiveCower | 8 | 7 | 1 | 11 |
-| 24 | CTaskComplexEvasiveStep | 8 | 7 | 1 | 13 |
-| 25 | CTaskComplexBeInCouple | 9 | 7 | 2 | 19 |
-| 26 | CTaskSimpleCarDrive | 13 | 7 | 6 | 31 |
-| 27 | CBmx | 10 | 7 | 3 | 35 |
-| 28 | CTaskComplexCrossRoadLookAndAchieveHeading | 9 | 8 | 1 | 12 |
-| 29 | CTaskComplexDestroyCar | 9 | 8 | 1 | 19 |
-| 30 | CCarFXRenderer | 10 | 9 | 1 | 14 |
-| 31 | CTaskComplexWalkRoundCar | 13 | 9 | 4 | 16 |
-| 32 | CRopes | 11 | 9 | 2 | 17 |
-| 33 | CStencilShadows | 13 | 9 | 4 | 35 |
-| 34 | CPedGroup | 12 | 10 | 2 | 18 |
-| 35 | CWeather | 13 | 10 | 3 | 34 |
-| 36 | CQuadBike | 12 | 11 | 1 | 30 |
+| 1 | CPedShelterAttractor | 4 | 2 | 2 | 30 |
+| 2 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | 7 | 2 | 4 | 33 |
+| 3 | CTaskSimpleCarSetPedOut | 5 | 2 | 3 | 34 |
+| 4 | CTaskComplexOpenPassengerDoor | 4 | 3 | 1 | 13 |
+| 5 | CTaskSimpleRunNamedAnim | 7 | 3 | 3 | 25 |
+| 6 | CTaskComplexWanderCriminal | 6 | 3 | 3 | 28 |
+| 7 | CTaskComplexGoToPointAnyMeans | 7 | 3 | 4 | 33 |
+| 8 | CScriptsForBrains | 6 | 3 | 3 | 34 |
+| 9 | CTaskComplexGotoDoorAndOpen | 7 | 3 | 4 | 35 |
+| 10 | CTaskLeanOnVehicle | 5 | 3 | 2 | 35 |
+| 11 | CTaskComplexWanderProstitute | 5 | 4 | 1 | 12 |
+| 12 | CTaskSimpleCarDriveTimed | 5 | 4 | 1 | 14 |
+| 13 | CTaskSimpleCarSetPedInAsPassenger | 5 | 4 | 1 | 18 |
+| 14 | CTaskComplexSignalAtPed | 7 | 4 | 3 | 19 |
+| 15 | CTaskSimpleCarSetPedInAsDriver | 5 | 4 | 1 | 19 |
+| 16 | CTaskComplexEnterCarAsPassengerWait | 8 | 4 | 4 | 24 |
+| 17 | CTaskSimpleChoking | 7 | 5 | 2 | 18 |
+| 18 | CTaskComplexGoToPointAiming | 8 | 5 | 3 | 22 |
+| 19 | CTaskComplexDriveToPoint | 8 | 5 | 3 | 32 |
+| 20 | CTaskComplexUseClosestFreeScriptedAttractor | 8 | 6 | 2 | 10 |
+| 21 | CTaskComplexEvasiveCower | 8 | 7 | 1 | 11 |
+| 22 | CTaskComplexEvasiveStep | 8 | 7 | 1 | 13 |
+| 23 | CTaskComplexBeInCouple | 9 | 7 | 2 | 19 |
+| 24 | CTaskSimpleCarDrive | 13 | 7 | 6 | 31 |
+| 25 | CBmx | 10 | 7 | 3 | 35 |
+| 26 | CTaskComplexCrossRoadLookAndAchieveHeading | 9 | 8 | 1 | 12 |
+| 27 | CTaskComplexDestroyCar | 9 | 8 | 1 | 19 |
+| 28 | CCarFXRenderer | 10 | 9 | 1 | 14 |
+| 29 | CTaskComplexWalkRoundCar | 13 | 9 | 4 | 16 |
+| 30 | CRopes | 11 | 9 | 2 | 17 |
+| 31 | CStencilShadows | 13 | 9 | 4 | 35 |
+| 32 | CPedGroup | 12 | 10 | 2 | 18 |
+| 33 | CWeather | 13 | 10 | 3 | 34 |
+| 34 | CQuadBike | 12 | 11 | 1 | 30 |
 
 <a id="nivel-2"></a>
 

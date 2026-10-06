@@ -82,12 +82,7 @@ inline const std::array<Partner,3> partners{{
 }};
 // Hooks de vtable bloqueados (reversed=false) que antes eran planos: solo se comprueba que siguen en su sitio
 struct Locked { const char* cls; const char* name; uintptr_t vt; int slot; uintptr_t address; };
-inline const std::array<Locked,32> lockedVmt{{
-    { "CTaskComplexCarSlowBeDraggedOutAndStandUp", "Clone", 0x86EF80, 1, 0x64A190 },
-    { "CTaskComplexCarSlowBeDraggedOutAndStandUp", "MakeAbortable", 0x86EF80, 6, 0x6486F0 },
-    { "CTaskComplexCarSlowBeDraggedOutAndStandUp", "CreateNextSubTask", 0x86EF80, 8, 0x6488F0 },
-    { "CTaskComplexCarSlowBeDraggedOutAndStandUp", "CreateFirstSubTask", 0x86EF80, 9, 0x648A10 },
-    { "CTaskComplexCarSlowBeDraggedOutAndStandUp", "ControlSubTask", 0x86EF80, 10, 0x648B80 },
+inline const std::array<Locked,27> lockedVmt{{
     { "CTaskComplexGoToPointAndStandStillAndAchieveHeading", "Clone", 0x86FE58, 1, 0x66CFD0 },
     { "CTaskComplexGoToPointAndStandStillAndAchieveHeading", "CreateNextSubTask", 0x86FE58, 8, 0x66DFD0 },
     { "CTaskComplexGoToPointAndStandStillAndAchieveHeading", "CreateFirstSubTask", 0x86FE58, 9, 0x66E030 },
