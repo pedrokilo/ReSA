@@ -1,4 +1,4 @@
-<img src="docs/images/resa-logo.png" alt="reSA logo" width="200">
+<img src="docs/images/resa-logo.png" alt="reSA logo" width="400">
 
 # ESOS WEYES DEL REVERSE SE DEMORAN UN CHINGO, SUS CLASES REVERTIDAS NI ESTÁN VALIDADAS Y ESO QUE SON UN MONTÓN DE GENTE PTM 
 # GTA San Andreas · Reversing en ReSA
