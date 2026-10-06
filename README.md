@@ -1,3 +1,5 @@
+<img src="docs/images/resa-logo.png" alt="reSA logo" width="200">
+
 # ESOS WEYES DEL REVERSE SE DEMORAN UN CHINGO, SUS CLASES REVERTIDAS NI ESTÁN VALIDADAS Y ESO QUE SON UN MONTÓN DE GENTE PTM 
 # GTA San Andreas · Reversing en ReSA
 
@@ -10,13 +12,79 @@ La [hoja de ruta de ReSA](docs/ProjectRoadmap.md) define el objetivo **ReSA — 
 > [!NOTE]
 > Este README describe el trabajo local de la rama **ReSA**. El avance registrado y los bancos aprobados no equivalen a cobertura exhaustiva ni a estabilidad general del juego.
 
-## Cómo funciona
+## Intro
+
+### Cómo funciona
 
 La compilación produce `gta_reversed.asi`, una DLL que carga un ASI loader. Los hooks redirigen funciones del ejecutable a sus reconstrucciones en C++; las direcciones como `0x571920` identifican entradas del original. El proyecto todavía depende del ejecutable y de los recursos del juego: no es un ejecutable independiente terminado.
 
 El objetivo es preservar el comportamiento original. Cada reconstrucción se contrasta con el original antes de actualizar sus indicadores; una compilación correcta o un hook visible en el debug no sustituyen esa comparación.
 
-## Estado del trabajo
+## Instalación
+
+### Abrir el juego desde el inicio
+
+**Corrección instalada:** [impactos de bala sobre BMX](reversing/CollisionBulletHit/README.md). Se evita consultar la tabla de 179 superficies con el identificador especial de audio 188. Banco aprobado: 8.234 comparaciones con el original, 256 identificadores y cuatro casos de `ReportBulletHit`. ASI normal instalado: `d8b39a395abfed3acae54a480df9db7368dbdbbaff94caeed817dcc121f903ec`; configuración y partidas conservadas.
+
+La copia de pruebas tiene `FastLoader.Enable = false` y `SaveGameToLoad = -2`. Muestra las pantallas de inicio y el menú; el usuario elige **Nueva partida** o **Cargar partida**.
+
+```powershell
+Set-Location 'D:\JUEGOS\GTA San Andreas - CVehicle Test'
+& '.\gta_sa.exe'
+```
+
+Este arranque carga el ASI normal con los hooks habilitados de la compilación, sin exclusiones por argumentos. Los bancos automáticos activan temporalmente la carga rápida solicitando la ranura 2 y restauran los dos INI originales al terminar, incluso si la prueba falla.
+
+En las últimas pruebas, la versión del guardado de esa ranura no coincidió y el juego inició partida nueva; no se forzó la carga ni se modificó el guardado.
+
+[Configuración y comprobación del inicio](reversing/InicioNormal/README.md) · [Diagnóstico y reparación del cierre de audio](reversing/CAESound/README.md).
+
+### Ejecutar las pruebas
+
+Desde la raíz, usar el **único `PROBAR.cmd`**:
+
+```powershell
+.\PROBAR.cmd --list
+.\PROBAR.cmd --case furniture
+.\PROBAR.cmd --case playerinfo-constructor
+.\PROBAR.cmd --all
+```
+
+Para ejecución sin la pausa final del CMD:
+
+```powershell
+python reversing/run.py --case furniture
+python reversing/run.py --all
+```
+
+El catálogo está en [reversing/cases.json](reversing/cases.json). Las sondas deben estar compiladas y archivadas con el hash esperado por cada ejecutor; ejecutar un caso no recompila automáticamente la sonda. `--all` requiere disponer de los artefactos locales de todos los bancos.
+
+El runner compartido comprueba el ejecutable, evita ejecuciones simultáneas, respalda ASI/PDB, instala la sonda, abre su propio GTA, audita los logs, cierra ese proceso y restaura los binarios y ambos INI. Verifica los hashes de las partidas. Los informes por caso quedan en la copia de pruebas; los informes conjuntos, en `reversing/artifacts/suite-*/summary.json`.
+
+> [!IMPORTANT]
+> `--all` ejecuta **sondas archivadas** de cada trabajo. No demuestra que todos los cambios sean estables juntos en la última compilación. La campaña de integración, guardado/carga y sesiones prolongadas se hará cuando estén completas todas las clases, según lo acordado en el [proceso](reversing/MEJORAS_DEL_PROCESO.md).
+
+#### Instalación y datos protegidos
+
+| Uso | Ruta del entorno local |
+| --- | --- |
+| Repositorio | `D:\Original\gta-reversed-master` |
+| Copia de pruebas | `D:\JUEGOS\GTA San Andreas - CVehicle Test` |
+| Instalación personal, conservar | `E:\JUEGOS\GTA San Andreas` |
+
+La instalación normal se actualiza únicamente en la copia de pruebas y conserva un respaldo. Los cambios no deben sobrescribir partidas personales. El runner actual tiene rutas locales configuradas; revisar [runtime_runner.py](reversing/runtime_runner.py) y el proceso antes de usarlo en otra máquina. `PROBAR.cmd` también apunta al Python instalado en este equipo.
+
+El ejecutable de referencia es **GTA SA Compact**, distinto de otros ejecutables llamados «1.0 US». SHA-256 verificado en este entorno:
+
+```text
+72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b
+```
+
+Los bancos habituales arrancan con `--unhook=Audio,Global/SurfaceInfos_c`. El caso `sound-copy` mantiene Audio activo y solo excluye SurfaceInfos. Esa exclusión limita sus conclusiones; una futura validación de funciones de audio necesita configurar y comprobar explícitamente sus hooks. Las pruebas son automáticas y no requieren una demostración visual.
+
+## Mejoras
+
+### Estado del trabajo
 
 **Entrega vigente (05/10/2026):** tanda de clases de 34 a 58 funciones validadas dentro del juego contra `gta_sa.exe` 1.0 US: [CBaseModelInfo](reversing/Model34/README.md), [CCutsceneMgr](reversing/Cutscene35/README.md), [CCustomCarEnvMapPipeline](reversing/EnvMap37/README.md), [RpAnimBlend](reversing/RpAnim43/README.md), [CFileLoader](reversing/FileLoader47/README.md), [CReplay](reversing/Replay47/README.md), [SurfaceInfos_c](reversing/Surface47/README.md), [CObject](reversing/Object48/README.md), [CPlayerPed](reversing/PlayerPed51/README.md), [CPedIntelligence](reversing/PedIntel52/README.md), [CAEAudioHardware](reversing/AudioHw54/README.md), [CPhysical](reversing/Physical56/README.md), [CAEPedSpeechAudioEntity](reversing/PedSpeech58/README.md) y [CControllerConfigManager](reversing/CtrlConfig58/README.md). Se corrigieron diferencias reales con el EXE (direcciones de hooks `_N` de RpAnimBlend, radio de `CReplay::TriggerPlayback`, `CPlayerInfo::operator=`, guardas de nulo en destructores de rutas de punto). Regresión completa de 169 bancos terminada el 05/10 sin fallos pendientes; **5.322 funciones validadas, 221 casos**. El menú F7 (ImGui) está retirado del juego y los bugfixes reversibles desactivados por defecto, como el EXE.
 
@@ -32,29 +100,29 @@ La fuente del progreso es [docs/hooks.csv](docs/hooks.csv). El [informe generado
 
 **Corte documental vigente (5 de octubre de 2026, hora de México):** 666 clases completas, 103 parciales y 2 sin revertir; 7.858 de 8.441 entradas registradas como reconstruidas. La auditoría bidireccional del catálogo pasa en modo estricto: no hay hooks activos fuera de `hooks.csv`, registros indirectos sin catalogar, clases del CSV sin scope fuente, owners activos sin catálogo ni llamadas `X::InjectHooks()` que resuelvan al `InjectHooks` heredado de una base. Estos números miden el catálogo registrado, no líneas de código ni porcentaje de comportamiento probado.
 
-### Dimensiones de progreso
+#### Dimensiones de progreso
 
 | Dimensión | Estado |
 | --- | --- |
-| Clases completas | 666/771 · 86,38% |
-| Clases validadas (de las completas) | 648/666 · 97,30% |
-| Funciones reconstruidas | 7.858/8.441 · 93,09% |
-| Funciones validadas (de las reconstruidas) | **5.382/7.858 · 68,49%** · evidencia aprobada vinculada |
+| Clases completas | 668/771 · 86,64% |
+| Clases validadas (de las completas) | 650/668 · 97,31% |
+| Funciones reconstruidas | 7.865/8.441 · 93,18% |
+| Funciones validadas (de las reconstruidas) | **5.393/7.865 · 68,57%** · evidencia aprobada vinculada |
 
 La validación se mide sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. Los 3 extras NOTSA sin equivalente en el EXE (modo ventana, [hooks_notsa.csv](docs/hooks_notsa.csv)) quedan fuera de la cuenta.
 
-#### Siguientes mediciones
+##### Siguientes mediciones
 
 Todavía no tienen un porcentaje útil; la tabla explica qué falta hacer para poder medirlas.
 
 | Dimensión | Estado actual | Qué hay que hacer |
 | --- | --- | --- |
-| Validaciones vigentes para el árbol actual | 0/5.382 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrar el resultado en el [registro de validaciones](reversing/ValidationRegistry/README.md). |
+| Validaciones vigentes para el árbol actual | 0/5.393 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrar el resultado en el [registro de validaciones](reversing/ValidationRegistry/README.md). |
 | Dependencias de funciones originales eliminadas | No medido | Auditar, por cada función reconstruida, las llamadas directas y transitivas que aún saltan al EXE (`plugin::Call*`, direcciones fijas, hooks sin reconstruir) y contar las que ya no dependen de ninguna. |
 
-Quedan 583 entradas pendientes, 105 clases incompletas y 650 locks. En `hooks.csv`, `type=S` significa **Simple hook** (función normal por dirección) y `type=V` significa **Virtual hook** (entrada de vtable). `validated=1` significa que existe evidencia aprobada vinculada; no significa por sí solo que esa evidencia siga vigente para el árbol actual. Las 7.765 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
+Quedan 576 entradas pendientes, 103 clases incompletas y 643 locks. En `hooks.csv`, `type=S` significa **Simple hook** (función normal por dirección) y `type=V` significa **Virtual hook** (entrada de vtable). `validated=1` significa que existe evidencia aprobada vinculada; no significa por sí solo que esa evidencia siga vigente para el árbol actual. Las 7.765 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
 
-### Auditoría del catálogo de hooks
+#### Auditoría del catálogo de hooks
 
 La coherencia entre código y catálogo se comprueba con:
 
@@ -70,7 +138,7 @@ python contrib/audit_hook_catalog.py --strict --verbose
 
 El modo estricto falla únicamente ante inconsistencias del registro activo. Los hooks presentes en fuente pero deliberadamente no registrados se muestran sólo como información y no se añaden automáticamente a los porcentajes.
 
-### Reconstrucciones recientes con evidencia local
+#### Reconstrucciones recientes con evidencia local
 
 Las comparaciones corresponden al alcance descrito en cada README, no necesariamente a todas las funciones de la clase.
 
@@ -108,12 +176,59 @@ Las comparaciones corresponden al alcance descrito en cada README, no necesariam
 
 El constructor de `CPlayerInfo` ya fue corregido, validado y desbloqueado; incluye regresiones de entrega y selección de armas. `CQuadBike::ProcessControl` tiene un candidato que compila, pero continúa **sin validar y deshabilitado**, con progreso 11/12. Se conservan también los bancos históricos de vehículos, guardados, jugador y efectos de armas.
 
+## Pendientes
 
-## Comparación técnica con `gta-reversed/gta-reversed`: por qué su progreso no cuenta toda la historia
+### Flujo para continuar
+
+1. Leer [MEJORAS_DEL_PROCESO.md](reversing/MEJORAS_DEL_PROCESO.md), incluida la última continuidad, y comprobar rama y cambios de Git.
+2. Revisar funciones pendientes, contrato original, llamadas y código comparable. La guía de prioridades es una estimación, no una orden para habilitar código.
+3. Reconstruir y comparar original/candidato dentro del motor con entradas reproducibles, contadores y restauración de estado.
+4. Solo después de validar, actualizar `reversed/locked` en `hooks.csv`, documentar resultados y regenerar el informe:
+
+   ```powershell
+   python contrib/hooks2md.py --input docs/hooks.csv --output docs/ReversedClasses.md
+   ```
+
+5. Restaurar las fuentes instrumentadas, compilar normalmente e instalar solo en la copia de pruebas con respaldo. Conservar límites, hashes y evidencia en `reversing/<clase>/`.
+
+Los artefactos voluminosos, logs y cachés locales no se incluyen en Git. No hacer commit ni push sin solicitud expresa. Mantener los cambios previos y reutilizar la infraestructura existente.
+
+## Compilar
+
+La configuración del repositorio usa **Windows, MSVC, x86, C++23 y Debug** por defecto. Véanse [perfil Conan](conan/profiles/windows-msvc.txt), [CMakeLists.txt](CMakeLists.txt) y [conanfile.py](conanfile.py): CMake requiere 4.2.0 o superior y el perfil actual selecciona MSVC 195. El entorno utilizado tiene Visual Studio 2026, Python y Conan 2.
+
+Preparación de un entorno nuevo con las herramientas instaladas:
+
+```powershell
+python -m pip install conan
+conan profile detect
+python setup.py
+python setup.py --build
+```
+
+Para recompilar el directorio `build` ya configurado:
+
+```powershell
+cmake --build build --config Debug
+```
+
+Salida del entorno local: `bin/Debug/gta_reversed.asi` y `.pdb`. El proceso documenta la ruta del CMake disponible en la caché local cuando no está en `PATH`. No mover esa caché sin revisar las rutas de compilación.
+
+Se necesita una copia propia del juego y sus recursos, además de un ASI loader compatible. Las instrucciones generales heredadas de instalación están en [contrib/install.py](contrib/install.py); revisar sus rutas y enlaces antes de aplicarlas. El flujo local de validación usa respaldos y la copia de pruebas descrita arriba.
+
+## Contribuir
+
+### Proyecto original y contribuciones
+
+Este trabajo continúa [gta-reversed](https://github.com/gta-reversed/gta-reversed). Se conservan los [criterios de código](docs/CodingGuidelines.MD) y el reconocimiento a sus autores. Comunidad original: [GTA Groupies](https://discord.gg/FG8XJ5Npqe). No hay una fecha comprometida para completar todo el proyecto.
+
+## Historia
+
+### Comparación técnica con `gta-reversed/gta-reversed`: por qué su progreso no cuenta toda la historia
 
 Este proyecto parte del trabajo público de [gta-reversed/gta-reversed](https://github.com/gta-reversed/gta-reversed), que sigue siendo una referencia importante para nombres, estructuras, direcciones y reconstrucciones de GTA San Andreas. La comparación siguiente no pretende borrar ese trabajo: explica por qué **su forma actual de medir y presentar el progreso es insuficiente** y por qué ReSA mantiene un catálogo, una auditoría y un registro de validación más estrictos.
 
-### El primer problema: su propio README reconoce que el progreso está desactualizado
+#### El primer problema: su propio README reconoce que el progreso está desactualizado
 
 El README de `gta-reversed/gta-reversed` dice literalmente que el seguimiento de clases **“needs to be updated”** y, al mismo tiempo, presenta una estimación general de **“about 50-60% of the code is done”**.
 
@@ -135,7 +250,7 @@ Por tanto, hay dos métricas distintas en upstream que no deben mezclarse: una e
 
 ReSA tampoco interpreta su **93,07%** como “93,07% del juego terminado”. Aquí ese porcentaje significa solamente: **7.857 de 8.442 entradas actualmente catalogadas tienen `reversed=1`**.
 
-### El segundo problema: el catálogo upstream no es bidireccional
+#### El segundo problema: el catálogo upstream no es bidireccional
 
 La diferencia se hizo visible al revisar el subsistema `Conversations`.
 
@@ -196,7 +311,7 @@ plugin::Call<0x43ADB0, bool>(bSuppressSubtitles);
 
 en ReSA ya tiene una reconstrucción C++ documentada y un banco de comparación de **2.048 pares original/candidato** para su alcance.
 
-### El tercer problema: “reversed” no significa “validado”
+#### El tercer problema: “reversed” no significa “validado”
 
 El upstream genera `ReversedClasses.md` desde `hooks.csv`, pero ese documento incluso incluye su propio disclaimer:
 
@@ -226,7 +341,7 @@ En la búsqueda pública realizada sobre upstream no aparece un equivalente a `V
 
 Eso no demuestra que sus colaboradores nunca prueben nada. Significa algo más concreto: **el repositorio no expone una contabilidad equivalente que permita auditar esas pruebas función por función desde el propio árbol**.
 
-### El cuarto problema: un generador no arregla un inventario incompleto
+#### El cuarto problema: un generador no arregla un inventario incompleto
 
 Upstream dice que `ReversedClasses.md` se actualiza automáticamente cuando cambia `hooks.csv`. Eso está bien, pero automatizar la generación no garantiza que la entrada sea completa.
 
@@ -257,7 +372,7 @@ La auditoría revisa fuente → registro → CSV y actualmente exige que sean ce
 
 Los hooks escritos pero deliberadamente inactivos se reportan con `--verbose`, pero no se añaden artificialmente al progreso.
 
-### Entonces, ¿qué le falta realmente a upstream?
+#### Entonces, ¿qué le falta realmente a upstream?
 
 No basta con “revertir más funciones”. Para que su porcentaje pueda interpretarse con rigor, todavía necesita al menos:
 
@@ -271,7 +386,7 @@ No basta con “revertir más funciones”. Para que su porcentaje pueda interpr
 - evitar presentar una estimación general de progreso como si fuera equivalente al porcentaje del catálogo;
 - mantener el panel de progreso como una consecuencia del inventario auditado, no como sustituto de ese inventario.
 
-### Lo que sí sabemos y lo que todavía no sabemos
+#### Lo que sí sabemos y lo que todavía no sabemos
 
 **Sabemos** que ReSA tiene actualmente 8.442 entradas auditadas, frente a 8.014 en el catálogo upstream. Sabemos exactamente cuáles están marcadas como reconstruidas, cuáles pendientes y cuáles bloqueadas. Sabemos también que el catálogo upstream omite al menos owners del subsistema Conversations que sí existen en su fuente.
 
@@ -300,110 +415,9 @@ ReSA:
 
 El objetivo no es ganar una carrera de porcentajes. El objetivo es poder llegar a **ReSA — Zero Original Function Dependency** y demostrar, paso a paso, qué parte del juego ya no necesita la lógica original.
 
+## Licencia y créditos
 
-## Abrir el juego desde el inicio
-
-**Corrección instalada:** [impactos de bala sobre BMX](reversing/CollisionBulletHit/README.md). Se evita consultar la tabla de 179 superficies con el identificador especial de audio 188. Banco aprobado: 8.234 comparaciones con el original, 256 identificadores y cuatro casos de `ReportBulletHit`. ASI normal instalado: `d8b39a395abfed3acae54a480df9db7368dbdbbaff94caeed817dcc121f903ec`; configuración y partidas conservadas.
-
-La copia de pruebas tiene `FastLoader.Enable = false` y `SaveGameToLoad = -2`. Muestra las pantallas de inicio y el menú; el usuario elige **Nueva partida** o **Cargar partida**.
-
-```powershell
-Set-Location 'D:\JUEGOS\GTA San Andreas - CVehicle Test'
-& '.\gta_sa.exe'
-```
-
-Este arranque carga el ASI normal con los hooks habilitados de la compilación, sin exclusiones por argumentos. Los bancos automáticos activan temporalmente la carga rápida solicitando la ranura 2 y restauran los dos INI originales al terminar, incluso si la prueba falla.
-
-En las últimas pruebas, la versión del guardado de esa ranura no coincidió y el juego inició partida nueva; no se forzó la carga ni se modificó el guardado.
-
-[Configuración y comprobación del inicio](reversing/InicioNormal/README.md) · [Diagnóstico y reparación del cierre de audio](reversing/CAESound/README.md).
-
-## Ejecutar las pruebas
-
-Desde la raíz, usar el **único `PROBAR.cmd`**:
-
-```powershell
-.\PROBAR.cmd --list
-.\PROBAR.cmd --case furniture
-.\PROBAR.cmd --case playerinfo-constructor
-.\PROBAR.cmd --all
-```
-
-Para ejecución sin la pausa final del CMD:
-
-```powershell
-python reversing/run.py --case furniture
-python reversing/run.py --all
-```
-
-El catálogo está en [reversing/cases.json](reversing/cases.json). Las sondas deben estar compiladas y archivadas con el hash esperado por cada ejecutor; ejecutar un caso no recompila automáticamente la sonda. `--all` requiere disponer de los artefactos locales de todos los bancos.
-
-El runner compartido comprueba el ejecutable, evita ejecuciones simultáneas, respalda ASI/PDB, instala la sonda, abre su propio GTA, audita los logs, cierra ese proceso y restaura los binarios y ambos INI. Verifica los hashes de las partidas. Los informes por caso quedan en la copia de pruebas; los informes conjuntos, en `reversing/artifacts/suite-*/summary.json`.
-
-> [!IMPORTANT]
-> `--all` ejecuta **sondas archivadas** de cada trabajo. No demuestra que todos los cambios sean estables juntos en la última compilación. La campaña de integración, guardado/carga y sesiones prolongadas se hará cuando estén completas todas las clases, según lo acordado en el [proceso](reversing/MEJORAS_DEL_PROCESO.md).
-
-### Instalación y datos protegidos
-
-| Uso | Ruta del entorno local |
-| --- | --- |
-| Repositorio | `D:\Original\gta-reversed-master` |
-| Copia de pruebas | `D:\JUEGOS\GTA San Andreas - CVehicle Test` |
-| Instalación personal, conservar | `E:\JUEGOS\GTA San Andreas` |
-
-La instalación normal se actualiza únicamente en la copia de pruebas y conserva un respaldo. Los cambios no deben sobrescribir partidas personales. El runner actual tiene rutas locales configuradas; revisar [runtime_runner.py](reversing/runtime_runner.py) y el proceso antes de usarlo en otra máquina. `PROBAR.cmd` también apunta al Python instalado en este equipo.
-
-El ejecutable de referencia es **GTA SA Compact**, distinto de otros ejecutables llamados «1.0 US». SHA-256 verificado en este entorno:
-
-```text
-72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b
-```
-
-Los bancos habituales arrancan con `--unhook=Audio,Global/SurfaceInfos_c`. El caso `sound-copy` mantiene Audio activo y solo excluye SurfaceInfos. Esa exclusión limita sus conclusiones; una futura validación de funciones de audio necesita configurar y comprobar explícitamente sus hooks. Las pruebas son automáticas y no requieren una demostración visual.
-
-## Compilar
-
-La configuración del repositorio usa **Windows, MSVC, x86, C++23 y Debug** por defecto. Véanse [perfil Conan](conan/profiles/windows-msvc.txt), [CMakeLists.txt](CMakeLists.txt) y [conanfile.py](conanfile.py): CMake requiere 4.2.0 o superior y el perfil actual selecciona MSVC 195. El entorno utilizado tiene Visual Studio 2026, Python y Conan 2.
-
-Preparación de un entorno nuevo con las herramientas instaladas:
-
-```powershell
-python -m pip install conan
-conan profile detect
-python setup.py
-python setup.py --build
-```
-
-Para recompilar el directorio `build` ya configurado:
-
-```powershell
-cmake --build build --config Debug
-```
-
-Salida del entorno local: `bin/Debug/gta_reversed.asi` y `.pdb`. El proceso documenta la ruta del CMake disponible en la caché local cuando no está en `PATH`. No mover esa caché sin revisar las rutas de compilación.
-
-Se necesita una copia propia del juego y sus recursos, además de un ASI loader compatible. Las instrucciones generales heredadas de instalación están en [contrib/install.py](contrib/install.py); revisar sus rutas y enlaces antes de aplicarlas. El flujo local de validación usa respaldos y la copia de pruebas descrita arriba.
-
-## Flujo para continuar
-
-1. Leer [MEJORAS_DEL_PROCESO.md](reversing/MEJORAS_DEL_PROCESO.md), incluida la última continuidad, y comprobar rama y cambios de Git.
-2. Revisar funciones pendientes, contrato original, llamadas y código comparable. La guía de prioridades es una estimación, no una orden para habilitar código.
-3. Reconstruir y comparar original/candidato dentro del motor con entradas reproducibles, contadores y restauración de estado.
-4. Solo después de validar, actualizar `reversed/locked` en `hooks.csv`, documentar resultados y regenerar el informe:
-
-   ```powershell
-   python contrib/hooks2md.py --input docs/hooks.csv --output docs/ReversedClasses.md
-   ```
-
-5. Restaurar las fuentes instrumentadas, compilar normalmente e instalar solo en la copia de pruebas con respaldo. Conservar límites, hashes y evidencia en `reversing/<clase>/`.
-
-Los artefactos voluminosos, logs y cachés locales no se incluyen en Git. No hacer commit ni push sin solicitud expresa. Mantener los cambios previos y reutilizar la infraestructura existente.
-
-## Proyecto original y contribuciones
-
-Este trabajo continúa [gta-reversed](https://github.com/gta-reversed/gta-reversed). Se conservan los [criterios de código](docs/CodingGuidelines.MD) y el reconocimiento a sus autores. Comunidad original: [GTA Groupies](https://discord.gg/FG8XJ5Npqe). No hay una fecha comprometida para completar todo el proyecto.
-
-## Créditos
+### Créditos
 - All contributors of the [plugin-sdk](https://github.com/DK22Pac/plugin-sdk) project.
 - All contributors of the [original project](https://github.com/codenulls/gta-reversed).
 - Hundreds of great people on [gtaforums.com](https://gtaforums.com/topic/194199-documenting-gta-sa-memory-addresses).

@@ -2,13 +2,13 @@
 
 Inventario local generado el 2026-09-23.
 
-| Proyecto | Raíz examinada | Archivos |
-| --- | --- | ---: |
-| re3 | `E:/Original/gta3/src` | 551 |
-| reVC | `E:/Original/gtavc/src` | 575 |
-| reSA | `D:/Original/gta-reversed-master/source/game_sa` | 2,119 |
+| Proyecto | Rama | Raíz examinada | Archivos |
+| --- | --- | --- | ---: |
+| re3 | `Re3` | `E:/Original/gta3/src` | 551 |
+| reVC | `ReVC` | `E:/Original/gtavc/src` | 575 |
+| reSA | `ReSA` | `D:/Original/gta-reversed-master/source/game_sa` | 2,119 |
 
-reSA corresponde a `source/game_sa` del proyecto gta-reversed-master. Las otras columnas corresponden a las copias locales indicadas, sin inferir su versión o rama por el nombre de la carpeta.
+reSA corresponde a `source/game_sa` del proyecto gta-reversed-master. Las otras columnas corresponden a las copias locales indicadas; la columna Rama es la rama de git de cada copia (comprobada el 05/10/2026: `gta3` está en `Re3` y `gtavc` en `ReVC`).
 
 **Navegación:** [Carpetas](#carpetas) · [Nombres distintos](#funcionales) · [Coincidencias con reSA](#coincidencias) · [Otros archivos re3/reVC](#otros) · [Archivos solo por nombre en reSA](#resto-sa)
 

@@ -47,7 +47,7 @@ def main():
         ],
     }
     block = chr(10).join([
-        '### Dimensiones de progreso', '',
+        '#### Dimensiones de progreso', '',
         '| Dimensión | Estado |', '| --- | --- |',
         f'| Clases completas | {fmt(complete)}/{fmt(len(classes))} · {pct(complete, len(classes))}% |',
         f'| Clases validadas (de las completas) | {fmt(vclasses)}/{fmt(complete)} · {pct(vclasses, complete)}% |',
@@ -55,7 +55,7 @@ def main():
         f'| Funciones validadas (de las reconstruidas) | **{fmt(val)}/{fmt(rev)} · {pct(val, rev)}%** · evidencia aprobada vinculada |', '',
         'La validación se mide sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL.'
         + (f' Los {notsa_count} extras NOTSA sin equivalente en el EXE (modo ventana, [hooks_notsa.csv](docs/hooks_notsa.csv)) quedan fuera de la cuenta.' if notsa_count else ''), '',
-        '#### Siguientes mediciones', '',
+        '##### Siguientes mediciones', '',
         'Todavía no tienen un porcentaje útil; la tabla explica qué falta hacer para poder medirlas.', '',
         '| Dimensión | Estado actual | Qué hay que hacer |', '| --- | --- | --- |',
         f'| Validaciones vigentes para el árbol actual | 0/{fmt(val)} validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrar el resultado en el [registro de validaciones](reversing/ValidationRegistry/README.md). |',
@@ -63,7 +63,7 @@ def main():
         f'Quedan {fmt(total - rev)} entradas pendientes, {fmt(len(classes) - complete)} clases incompletas y {fmt(locked)} locks.',
     ])
     readme = ROOT/'README.md'; t = readme.read_bytes().decode('utf-8')
-    a = t.index('### Dimensiones de progreso'); b = t.index('Quedan ', a); e = t.index('locks.', b) + len('locks.')
+    a = t.index('#### Dimensiones de progreso'); b = t.index('Quedan ', a); e = t.index('locks.', b) + len('locks.')
     readme.write_bytes((t[:a] + block + t[e:]).encode('utf-8'))
     for f, pairs in subs.items():
         p = ROOT/f; s = p.read_bytes().decode('utf-8'); n = 0

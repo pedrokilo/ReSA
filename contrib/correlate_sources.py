@@ -129,10 +129,10 @@ def generate(roots, output):
     table_header = ['| re3 | reVC | reSA | Descripción |', '| --- | --- | --- | --- |']
     lines = ['# Correlación de fuentes: re3 · reVC · reSA', '',
              f'Inventario local generado el {date.today().isoformat()}.', '',
-             '| Proyecto | Raíz examinada | Archivos |', '| --- | --- | ---: |']
-    for name, root, files in zip(('re3', 'reVC', 'reSA'), roots, inventories):
-        lines.append(f'| {name} | `{root.as_posix()}` | {len(files):,} |')
-    lines += ['', 'reSA corresponde a `source/game_sa` del proyecto gta-reversed-master. Las otras columnas corresponden a las copias locales indicadas, sin inferir su versión o rama por el nombre de la carpeta.', '',
+             '| Proyecto | Rama | Raíz examinada | Archivos |', '| --- | --- | --- | ---: |']
+    for name, branch, root, files in zip(('re3', 'reVC', 'reSA'), ('Re3', 'ReVC', 'ReSA'), roots, inventories):
+        lines.append(f'| {name} | `{branch}` | `{root.as_posix()}` | {len(files):,} |')
+    lines += ['', 'reSA corresponde a `source/game_sa` del proyecto gta-reversed-master. Las otras columnas corresponden a las copias locales indicadas; la columna Rama es la rama de git de cada copia (comprobada el 05/10/2026: `gta3` está en `Re3` y `gtavc` en `ReVC`).', '',
               '**Navegación:** [Carpetas](#carpetas) · [Nombres distintos](#funcionales) · [Coincidencias con reSA](#coincidencias) · [Otros archivos re3/reVC](#otros) · [Archivos solo por nombre en reSA](#resto-sa)', '',
               '## Cómo leer la correlación', '',
               '- Cada ruta es un enlace al archivo o carpeta. Los enlaces relativos solo funcionan si los tres repositorios son carpetas hermanas; hoy re3/reVC están en `E:/Original` y reSA en `D:/Original`, así que esos enlaces no resuelven y al regenerar hay que pasar `--re3`/`--revc`.',
