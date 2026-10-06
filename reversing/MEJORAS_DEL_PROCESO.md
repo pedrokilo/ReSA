@@ -1358,3 +1358,11 @@ Bancos nuevos: CTasks61a (9 clases de tareas de coche), CTasks61b (9 de deambula
 - En ensamblador en línea MSVC, nombres como `fAdd` o `fScale` se confunden con instrucciones x87.
 - Dos agentes que definen el mismo ayudante en espacios de nombres distintos obligan a calificar la llamada (ADL).
 - Los diálogos "Device Selection" y los cuelgues de unos 50 s de CarAI25 y FixHooks eran intermitentes o de sondas congeladas: repetir el banco aislado antes de investigar.
+
+## Continuidad vigente: cierre del nivel 1, funciones que se habían dejado fuera (2026-10-06)
+
+Bancos nuevos: StencilReg62 (`RegisterStencilShadows`, con pool de vehículos y sectores del mundo falsos y dobles trazados de las llamadas de salida) y VehCtor62 (constructores de `CBmx` y `CQuadBike`: búfer completo del EXE frente a la DLL, con las bases `CBike`/`CAutomobile` simuladas). Las 34 clases del nivel 1 quedan al 100 %. **5.665/8.441 validadas, 233 casos, 702 clases completas.**
+
+**Diferencias reales corregidas:** `StencilSignedDistSq` usaba otra transformación (0x59C890 con el orden up, forward, right, pos; sin matriz 0x54ECE0 con `fcos`/`fsin`); `CQuadBike::CQuadBike` leía el modelo de `m_nModelIndex` y el EXE usa el índice recibido; `cHandlingDataMgr::GetBikeHandlingPointer` restaba 162 solo si el id era >= 162, y el EXE indexa con `(byte id)<<6` desde la base (afecta también a `CBike::CBike`, aún sin validar).
+
+**Verificado y descartado:** la sospecha de que el enlazador fusionara funciones idénticas (aliasado de hooks) no aplica: `source/CMakeLists.txt` usa `/INCREMENTAL`, que desactiva ICF. Los cuelgues esporádicos de CarAI25, FixHooks, STasks6a y CTasks6b no se reprodujeron en 12 repeticiones seguidas; su causa sigue sin conocerse. El parche especulativo de un agente a STasks6a (parchear el cuerpo de `SetPedInAsDriver::ProcessPed` si el hueco de la vtable es un salto) se revirtió porque colgaba el banco; no se sabe si el riesgo que temía existe.

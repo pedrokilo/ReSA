@@ -802,7 +802,7 @@ CStreaming,WeAreTryingToPhaseVehicleOut,0x00407F80,1,0,0,S
 CStencilShadows,GraphicsHighQuality,0x0070F9B0,1,0,1,S
 CStencilShadows,Init,0x0070F9E0,1,0,1,S
 CStencilShadows,Process,0x00711D90,1,0,1,S
-CStencilShadows,RegisterStencilShadows,0x00711760,0,1,0,S
+CStencilShadows,RegisterStencilShadows,0x00711760,1,0,1,S
 CStencilShadows,Render,0x00710D50,1,0,1,S
 CStencilShadows,RenderBuffer,0x00710B50,1,0,1,S
 CStencilShadows,RenderForObject,0x00710310,1,0,1,S
@@ -3815,7 +3815,7 @@ CTrailer,ResetSuspension,0x00000000,1,0,1,V
 CTrailer,ScanForTowLink,0x006CF030,1,0,1,S
 CTrailer,SetTowLink,0x00000000,1,0,1,V
 CTrailer,SetupSuspensionLines,0x00000000,1,0,1,V
-CQuadBike,Constructor,0x006CE370,1,0,0,S
+CQuadBike,Constructor,0x006CE370,1,0,1,S
 CQuadBike,Fix,0x00000000,1,0,1,V
 CQuadBike,GetRideAnimData,0x00000000,1,0,1,V
 CQuadBike,PreRender,0x00000000,1,0,1,V
@@ -3896,7 +3896,7 @@ CBoat,SetModelIndex,0x00000000,1,0,1,V
 CBoat,SetupModelNodes,0x006F01A0,1,0,1,S
 CBoat,Teleport,0x00000000,1,0,1,V
 CBmx,BurstTyre,0x00000000,1,0,1,V
-CBmx,Constructor,0x006BF820,1,0,0,S
+CBmx,Constructor,0x006BF820,1,0,1,S
 CBmx,FindWheelWidth,0x00000000,1,0,1,V
 CBmx,LaunchBunnyHopCB,0x006C0390,1,0,1,S
 CBmx,PreRender,0x00000000,1,0,1,V

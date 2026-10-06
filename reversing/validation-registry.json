@@ -190382,6 +190382,94 @@
       "dependency_review": null,
       "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 21504 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
       "review_reference": "reversing/Misc61b/README.md"
+    },
+    {
+      "hook": {
+        "class": "CStencilShadows",
+        "fn_name": "RegisterStencilShadows",
+        "address": "0x00711760",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/StencilReg62/validation-summary.json",
+        "sha256": "166b77d1537f36c4fb08829b7dee660a8f8b7844353d88347d16995dd7e98d93",
+        "passed_path": [
+          "covered_functions",
+          "CStencilShadows::RegisterStencilShadows"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/StencilShadows.cpp": "824d9085ae61b0904c93da5e53a9e21f11301290518eb50be57b801fff56244d",
+        "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
+        "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
+        "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-003035-814094).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 1024 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/StencilReg62/README.md"
+    },
+    {
+      "hook": {
+        "class": "CBmx",
+        "fn_name": "Constructor",
+        "address": "0x006BF820",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/VehCtor62/validation-summary.json",
+        "sha256": "2ed9a9919f490ab3fd0e087feeef1e248498cfdf538c2c852128415eb5512f8f",
+        "passed_path": [
+          "covered_functions",
+          "CBmx::Constructor"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Bmx.cpp": "6dddd969cd7a1b3c51d04ad1afc36287a6f7f8a254017f536c1c2c0699a7d0d4",
+        "source/game_sa/Entity/Vehicle/Bmx.h": "973ebb137609ea14fe271b3af789489f1c5889ee4ffe7510738770e9d29d6f7a",
+        "source/game_sa/Entity/Vehicle/QuadBike.cpp": "100ea2992f7c1e868139e6bf7a2ad66964dec567e4145743af58c96866b874df",
+        "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
+        "source/game_sa/cHandlingDataMgr.cpp": "87cd7e19a98b03db49981b8bc0a7a1b31666650724ef0364001b1427a58084e6",
+        "source/game_sa/cHandlingDataMgr.h": "a884fbd43e07fccff9812824d123ee35d1050e6902fcc6a559824dded809e31d"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-003112-252805).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 1536 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/VehCtor62/README.md"
+    },
+    {
+      "hook": {
+        "class": "CQuadBike",
+        "fn_name": "Constructor",
+        "address": "0x006CE370",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/VehCtor62/validation-summary.json",
+        "sha256": "2ed9a9919f490ab3fd0e087feeef1e248498cfdf538c2c852128415eb5512f8f",
+        "passed_path": [
+          "covered_functions",
+          "CQuadBike::Constructor"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Bmx.cpp": "6dddd969cd7a1b3c51d04ad1afc36287a6f7f8a254017f536c1c2c0699a7d0d4",
+        "source/game_sa/Entity/Vehicle/Bmx.h": "973ebb137609ea14fe271b3af789489f1c5889ee4ffe7510738770e9d29d6f7a",
+        "source/game_sa/Entity/Vehicle/QuadBike.cpp": "100ea2992f7c1e868139e6bf7a2ad66964dec567e4145743af58c96866b874df",
+        "source/game_sa/Entity/Vehicle/QuadBike.h": "7eb0730bab20492d24738c64036d0de17849e32aaef69e2959e80d4ac97d5964",
+        "source/game_sa/cHandlingDataMgr.cpp": "87cd7e19a98b03db49981b8bc0a7a1b31666650724ef0364001b1427a58084e6",
+        "source/game_sa/cHandlingDataMgr.h": "a884fbd43e07fccff9812824d123ee35d1050e6902fcc6a559824dded809e31d"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-003112-252805).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 1536 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/VehCtor62/README.md"
     }
   ]
 }

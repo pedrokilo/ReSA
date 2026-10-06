@@ -401,7 +401,9 @@ tHandlingData* cHandlingDataMgr::GetVehiclePointer(uint32 handlingId) {
 }
 
 tBikeHandlingData* cHandlingDataMgr::GetBikeHandlingPointer(uint32 handlingId) {
-    return &m_aBikeHandling[handlingId >= 162 ? handlingId - 162 : handlingId]; // NOTE: 162 = VT_BIKE
+    // Como el original (inlinado en 0x6BF520 y 0x6CE3C6): movzx del byte bajo, shl 6 y suma de 0xC3491C = &m_aBikeHandling[0] - 162 entradas
+    // (para ids menores que 162 el puntero queda antes de m_aBikeHandling, dentro de m_aVehicleHandling; sin comprobar el indice)
+    return m_aBikeHandling.data() + (static_cast<ptrdiff_t>(static_cast<uint8>(handlingId)) - 162); // NOTE: 162 = VT_BIKE
 }
 
 // 0x6A0480

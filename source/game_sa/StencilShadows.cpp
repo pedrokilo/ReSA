@@ -6,17 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CStencilShadows
- * Reconstrucción: INCOMPLETA — 12/13 funciones reconstruidas.
- * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 1.
- * Validación registrada: 12/13 entradas.
+ * Reconstrucción: COMPLETA — 13/13 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 13/13 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   RegisterStencilShadows | 0x00711760 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   RegisterStencilShadows | 0x00711760 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -56,11 +52,22 @@ CVector StencilMulPoint(const CMatrix& m, const CVector& v) {
     };
 }
 
+// Como el original: 0x5334F0 (CEntity::TransformFromObjectSpace con salida). Con matriz usa 0x59C890 (suma en el orden
+// up, forward, right, posicion; no es CMatrix::TransformPoint) y sin ella 0x54ECE0 (fcos/fsin x87 completos)
+CVector StencilTransformFromObjectSpace(const CEntity* entity, const CVector& offset) {
+    if (entity->m_matrix) {
+        return StencilMulPoint(*entity->m_matrix, offset);
+    }
+    CVector result;
+    plugin::Call<0x54ECE0, CVector*, const CSimpleTransform*, const CVector*>(&result, &entity->m_placement, &offset);
+    return result;
+}
+
 // Como el original: 0x711160 / 0x7111F0 (identicas), con la posicion de la camara en ESI y la entidad en EBX.
 // Distancia con signo al cuadrado entre la camara y la superficie de la esfera envolvente: negativa si la camara esta dentro
 float StencilSignedDistSq(const CVector& cam, CEntity* entity) {
     const CColModel* colModel = entity->GetColModel();
-    const CVector    centre   = entity->TransformFromObjectSpace(colModel->m_boundSphere.m_vecCenter);
+    const CVector    centre   = StencilTransformFromObjectSpace(entity, colModel->m_boundSphere.m_vecCenter);
     const float      radius   = colModel->m_boundSphere.m_fRadius;
     const float      dx       = cam.x - centre.x;
     const float      dy       = cam.y - centre.y;

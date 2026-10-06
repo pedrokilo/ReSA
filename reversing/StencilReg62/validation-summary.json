@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 1024,
+  "pairs_per_function": {
+    "CStencilShadows::RegisterStencilShadows": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "0f5cf1a4aa95dce6af3648f4e8366ebdb2c52263a39b2fb36c3319876abc5a5d",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-stencilreg62\\20261006-003035-814094",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CStencilShadows::RegisterStencilShadows": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "67df3edc33fafa54e8befb3910eccb1c7f9b4d703b460456ef38cc25c9577811",
+      "pdb": "6da36c0213b4b5a44b9f42f7b0e62b1ec6fc4857ac1449e9a3b0de58882a35b2"
+    },
+    "sources": {
+      "source/game_sa/StencilShadows.cpp": "824d9085ae61b0904c93da5e53a9e21f11301290518eb50be57b801fff56244d",
+      "source/game_sa/StencilShadows.h": "6b43d4d340b5db956dbb9ab0225a913cb58fbaa0497fe5b7bde96706d6947c45",
+      "source/game_sa/StencilShadowObject.cpp": "345d8648c061af5dcc12aba2d739ce9af60e686bbb37b02b8d57490a7320bf65",
+      "source/game_sa/StencilShadowObject.h": "d4f04214eb843021a498e1307bc1ec289957fbec990f76318fb23997e5865908"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "fb989b20d4159fc7da41e7ef19e9701be05b4e17d9dae70eca9e37e50e4e93de",
+      "build_probe.py": "b02e1143d9b56f2c65cf349d50cf690ae377f164ffdfc67ce65722951ac5b611",
+      "run_local.py": "bd426ef1a046422a09b8da133b767d51e4dee22cc813b695fe4bc92d5dc93b34"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

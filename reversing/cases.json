@@ -1153,5 +1153,15 @@
     "id": "misc61b",
     "name": "Clases sueltas misc61b: BMX, quad, CarFX y sombras de stencil",
     "runner": "Misc61b/run_local.py"
+  },
+  {
+    "id": "stencilreg62",
+    "name": "RegisterStencilShadows (sombras de stencil)",
+    "runner": "StencilReg62/run_local.py"
+  },
+  {
+    "id": "vehctor62",
+    "name": "Constructores de CBmx y CQuadBike",
+    "runner": "VehCtor62/run_local.py"
   }
 ]

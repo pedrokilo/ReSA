@@ -2,14 +2,14 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **7,946 entradas reversed=1**, de 8,441 registradas. Las 495 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **7,947 entradas reversed=1**, de 8,441 registradas. Las 494 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 5662 |
+| `validated=1` · evidencia aprobada vinculada | 5665 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 5662 |
-| Sin evidencia aprobada vinculada en este registro | 2284 |
+| Evidencia histórica vinculada; revisión pendiente | 5665 |
+| Sin evidencia aprobada vinculada en este registro | 2282 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -734,6 +734,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CBirds | `Shutdown` | [Resumen](../reversing/Misc6/validation-summary.json) |
 | CBirds | `Update` | [Resumen](../reversing/Misc6/validation-summary.json) |
 | CBmx | `BurstTyre` | [Resumen](../reversing/Misc61b/validation-summary.json) |
+| CBmx | `Constructor` | [Resumen](../reversing/VehCtor62/validation-summary.json) |
 | CBmx | `FindWheelWidth` | [Resumen](../reversing/Misc61b/validation-summary.json) |
 | CBmx | `LaunchBunnyHopCB` | [Resumen](../reversing/Misc61b/validation-summary.json) |
 | CBmx | `PreRender` | [Resumen](../reversing/Misc61b/validation-summary.json) |
@@ -2684,6 +2685,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPopCycle | `UpdatePercentages` | [Resumen](../reversing/World15/validation-summary.json) |
 | CPtrNodeDoubleLinkPool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
 | CPtrNodeSingleLinkPool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
+| CQuadBike | `Constructor` | [Resumen](../reversing/VehCtor62/validation-summary.json) |
 | CQuadBike | `Fix` | [Resumen](../reversing/Misc61b/validation-summary.json) |
 | CQuadBike | `GetRideAnimData` | [Resumen](../reversing/Misc61b/validation-summary.json) |
 | CQuadBike | `PreRender` | [Resumen](../reversing/Misc61b/validation-summary.json) |
@@ -3025,6 +3027,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CStencilShadows | `GraphicsHighQuality` | [Resumen](../reversing/Misc61b/validation-summary.json) |
 | CStencilShadows | `Init` | [Resumen](../reversing/Misc61b/validation-summary.json) |
 | CStencilShadows | `Process` | [Resumen](../reversing/Misc61b/validation-summary.json) |
+| CStencilShadows | `RegisterStencilShadows` | [Resumen](../reversing/StencilReg62/validation-summary.json) |
 | CStencilShadows | `Render` | [Resumen](../reversing/Misc61b/validation-summary.json) |
 | CStencilShadows | `RenderBuffer` | [Resumen](../reversing/Misc61b/validation-summary.json) |
 | CStencilShadows | `RenderForObject` | [Resumen](../reversing/Misc61b/validation-summary.json) |
@@ -5760,7 +5763,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CBaseModelInfo` | 34 | 0 | 34 | 0 |
 | `CBike` | 22 | 0 | 0 | 22 |
 | `CBirds` | 6 | 0 | 6 | 0 |
-| `CBmx` | 10 | 0 | 9 | 1 |
+| `CBmx` | 10 | 0 | 10 | 0 |
 | `CBoat` | 23 | 0 | 23 | 0 |
 | `CBouncingPanel` | 3 | 0 | 3 | 0 |
 | `CBox` | 2 | 0 | 2 | 0 |
@@ -6033,7 +6036,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CProjectileInfo` | 1 | 0 | 0 | 1 |
 | `CPtrNodeDoubleLinkPool` | 1 | 0 | 1 | 0 |
 | `CPtrNodeSingleLinkPool` | 1 | 0 | 1 | 0 |
-| `CQuadBike` | 12 | 0 | 11 | 1 |
+| `CQuadBike` | 12 | 0 | 12 | 0 |
 | `CQuadTreeNode<T>` | 12 | 0 | 12 | 0 |
 | `CRadar` | 63 | 0 | 0 | 63 |
 | `CRealTimeShadow` | 8 | 0 | 8 | 0 |
@@ -6070,7 +6073,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CStaticShadow` | 1 | 0 | 1 | 0 |
 | `CStats` | 32 | 0 | 32 | 0 |
 | `CStencilShadowObject` | 3 | 0 | 3 | 0 |
-| `CStencilShadows` | 12 | 0 | 12 | 0 |
+| `CStencilShadows` | 13 | 0 | 13 | 0 |
 | `CStreamedScripts` | 12 | 0 | 12 | 0 |
 | `CStreaming` | 94 | 0 | 0 | 94 |
 | `CStreamingInfo` | 7 | 0 | 7 | 0 |

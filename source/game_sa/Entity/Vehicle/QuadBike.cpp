@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 11/12 entradas.
+ * Validación registrada: 12/12 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -154,7 +154,9 @@ void CQuadBike::InjectHooks() {
 CQuadBike::CQuadBike(int32 modelIndex, eVehicleCreatedBy createdBy) :
     CAutomobile(modelIndex, createdBy, false)
 {
-    m_pHandling = gHandlingDataMgr.GetBikeHandlingPointer(GetVehicleModelInfo()->m_nHandlingId);
+    // Como el original (0x6CE3B9): el modelo sale del indice recibido (no de m_nModelIndex) y el manejo se indexa con el byte bajo de m_nHandlingId
+    auto* const mi = CModelInfo::GetModelInfo(modelIndex)->AsVehicleModelInfoPtr();
+    m_pHandling = gHandlingDataMgr.GetBikeHandlingPointer(mi->m_nHandlingId);
     m_nVehicleSubType = VEHICLE_TYPE_QUAD;
 
     { // unused
