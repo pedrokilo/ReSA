@@ -1092,7 +1092,13 @@ void CEventHandler::ComputeDamageResponse(CEventDamage* e, CTask* tactive, CTask
             }
 
             // Otherwise
-            if (!e->m_bFallDown && !notsa::contains({ ANIM_ID_NO_ANIMATION_SET, ANIM_ID_DOOR_LHINGE_O }, e->m_nAnimID)) {
+            if (e->m_bFallDown) { // 0x4C042F
+                m_PhysicalResponseTask = new CTaskComplexFallAndGetUp{
+                    e->GetAnimId(),
+                    e->GetAnimGroup(),
+                    (int32)(1000.f / ((float)m_Ped->m_nWeaponShootingRate / 40.f))
+                };
+            } else if (!notsa::contains({ ANIM_ID_NO_ANIMATION_SET, ANIM_ID_DOOR_LHINGE_O }, e->m_nAnimID)) { // 0x4C0488 - sin animacion: no hay tarea fisica
                 if (CAnimManager::GetAnimAssociation(e->m_nAnimGroup, e->m_nAnimID)->m_Flags & ANIMATION_DONT_ADD_TO_PARTIAL_BLEND) { // 0x4C04B7
                     if (!e->GetAnimAdded()) {
                         if (!notsa::contains({ANIM_ID_SHOT_PARTIAL, ANIM_ID_SHOT_LEFTP, ANIM_ID_SHOT_PARTIAL_B, ANIM_ID_SHOT_RIGHTP}, e->m_nAnimID)) {
@@ -1123,12 +1129,6 @@ void CEventHandler::ComputeDamageResponse(CEventDamage* e, CTask* tactive, CTask
                     tBeHit->m_nAnimGroup = e->GetAnimGroup();
                     tBeHit->m_bAnimAdded = e->GetAnimAdded();
                 }
-            } else {
-                m_PhysicalResponseTask = new CTaskComplexFallAndGetUp{
-                    e->GetAnimId(),
-                    e->GetAnimGroup(),
-                    (int32)(1000.f / ((float)m_Ped->m_nWeaponShootingRate / 40.f))
-                };
             }
 
             return DoComputeDamageAndResponseForPersonality();

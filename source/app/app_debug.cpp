@@ -240,10 +240,19 @@ static int __cdecl ContinueOnCrtReport(int reportType, wchar_t* message, int* re
     if (reportType == _CRT_WARN) {
         return FALSE; // comportamiento normal
     }
+    static thread_local bool inside{}; // el propio registro puede lanzar un error CRT (mutex): sin esto recursa hasta desbordar la pila
+    if (inside) {
+        if (returnValue) {
+            *returnValue = 0;
+        }
+        return TRUE;
+    }
+    inside = true;
     char m[2048]{};
     WideCharToMultiByte(CP_UTF8, 0, message ? message : L"", -1, m, sizeof(m), nullptr, nullptr);
     SPDLOG_ERROR("CRT {} (sin cuadro, se continua): {}", reportType == _CRT_ASSERT ? "ASSERT" : "ERROR", m);
     LogCurrentStack();
+    inside = false;
     if (returnValue) {
         *returnValue = 0; // sin __debugbreak
     }
