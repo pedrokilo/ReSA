@@ -418,8 +418,9 @@ El objetivo no es ganar una carrera de porcentajes. El objetivo es poder llegar 
 ## Licencia y créditos
 
 ### Créditos
-- All contributors of the [plugin-sdk](https://github.com/DK22Pac/plugin-sdk) project.
-- All contributors of the [original project](https://github.com/codenulls/gta-reversed).
-- Hundreds of great people on [gtaforums.com](https://gtaforums.com/topic/194199-documenting-gta-sa-memory-addresses).
-- [re3 team](https://github.com/GTAmodding/re3).
-- And everyone who contributed to GTA:SA reversing.
+
+- Todos los colaboradores del proyecto [plugin-sdk](https://github.com/DK22Pac/plugin-sdk).
+- Todos los colaboradores del [proyecto original](https://github.com/codenulls/gta-reversed).
+- Cientos de personas que han compartido sus conocimientos en [gtaforums.com](https://gtaforums.com/topic/194199-documenting-gta-sa-memory-addresses).
+- El [equipo de re3](https://github.com/GTAmodding/re3).
+- Todas las personas que han contribuido a la ingeniería inversa de GTA San Andreas.
