@@ -10,10 +10,7 @@ public:
     CVehicle*                     m_pVehicle;
     CAnimBlendAssociation*        m_pAnimCloseDoorRolling;
     CTaskUtilityLineUpPedWithCar* m_pTaskUtilityLineUpPedWithCar;
-    CTaskTimer*                   m_TaskTimer;
-    int32                         field_18;
-    char                          field_1C;
-    char                          field_1D;
+    CTaskTimer                    m_waitTimer; //!< Como el original: temporizador en línea (+0x14..+0x1F) del pasajero delantero sin conductor
     int32                         m_nBoppingStartTime;
     int32                         field_24;
     int32                         m_nBoppingEndTime;  // Seemingly not a tick count, but rather the bopping interval
@@ -58,6 +55,7 @@ eTaskType GetTaskType() const override { return Type; }
     void ProcessHeadBopping(CPed* ped, bool a3, float a4);
     void ProcessArmBopping(CPed* pPed, bool a3, float a4);
     void ProcessBopping(CPed* ped, bool a3);
+    void StartRollingDoor(CPed* ped); // 0x642700 (sin catalogar)
 
     [[nodiscard]] auto GetVehicle() const { return m_pVehicle; }
 

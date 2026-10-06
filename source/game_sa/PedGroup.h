@@ -17,8 +17,9 @@ class CPedGroup {
 public:
     static void InjectHooks();
 
-    CPedGroup() = default;
-    ~CPedGroup() = default;
+    // Como el original (0x5FC150 / 0x5FC190): constructor y destructor propios; los miembros no se construyen por defecto
+    CPedGroup();
+    ~CPedGroup();
 
     //! Find follower closest to the leader
     float FindDistanceToNearestMember(CPed** ppOutNearestMember);
@@ -72,10 +73,12 @@ private: // Wrappers for hooks
     }
 
 public:
-    CPed*                 m_pPed{};
-    bool                  m_bMembersEnterLeadersVehicle{true};
-    CPedGroupMembership   m_groupMembership{*this};
-    CPedGroupIntelligence m_groupIntelligence{this};
-    bool                  m_bIsMissionGroup{};
+    // Como el original: sin inicializadores; el constructor escribe solo lo que escribe el EXE.
+    // Los miembros van en uniones anonimas para que no se construyan solos (el EXE deja sin tocar parte de sus bytes).
+    CPed*                 m_pPed;
+    bool                  m_bMembersEnterLeadersVehicle;
+    union { CPedGroupMembership   m_groupMembership; };
+    union { CPedGroupIntelligence m_groupIntelligence; };
+    bool                  m_bIsMissionGroup;
 };
 VALIDATE_SIZE(CPedGroup, 0x2D4);

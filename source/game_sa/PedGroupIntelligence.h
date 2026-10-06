@@ -102,6 +102,7 @@ public:
     auto&& GetPedGroup(this auto&& self) { return *self.m_pPedGroup; }
 
 private: // Wrappers for hooks
+    friend class CPedGroup; // Como el original: CPedGroup::CPedGroup (0x5FC150) llama a este constructor (0x5F7250) sobre su campo
     // 0x5F7250 (definido en el .cpp: no escribe los tres primeros punteros)
     CPedGroupIntelligence* Constructor();
 

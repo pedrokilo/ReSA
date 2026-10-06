@@ -2,11 +2,11 @@
 
 La [hoja de ruta de ReSA](../docs/ProjectRoadmap.md) sitúa estas pruebas dentro del objetivo de reconstrucción funcionalmente equivalente e independencia del EXE. Reconstrucción, validación, desbloqueo e independencia son dimensiones separadas; el total de pares no es un total de funciones validadas.
 
-La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 5.393 funciones a sus pruebas; las tres acreditaciones de la versión anterior quedan pendientes por el cambio de huella global de source durante CustomBuilding. Las 5.393 conservan evidencia vinculada pendiente de revisión de dependencias. El [inventario de las 7.865 reconstruidas](../docs/ValidationInventory.md) identifica también las 2.472 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
+La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 5.662 funciones a sus pruebas; las tres acreditaciones de la versión anterior quedan pendientes por el cambio de huella global de source durante CustomBuilding. Las 5.662 conservan evidencia vinculada pendiente de revisión de dependencias. El [inventario de las 7.946 reconstruidas](../docs/ValidationInventory.md) identifica también las 2.284 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
 
 ## Estado actual del catálogo de hooks
 
-El corte vigente de `ReSA` contiene **771 clases/grupos y 8.441 entradas**: 7.865 reconstruidas y 576 pendientes. De ellas, **5.393 tienen `validated=1`** porque cuentan con evidencia aprobada vinculada; 0 conservan vigencia acreditada para el árbol actual. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
+El corte vigente de `ReSA` contiene **771 clases/grupos y 8.441 entradas**: 7.946 reconstruidas y 495 pendientes. De ellas, **5.662 tienen `validated=1`** porque cuentan con evidencia aprobada vinculada; 0 conservan vigencia acreditada para el árbol actual. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
 
 ```powershell
 python contrib/audit_hook_catalog.py --strict
@@ -18,7 +18,7 @@ Esta carpeta sí se utiliza. Ejecutar `PROBAR.cmd` desde la raíz para elegir un
 
 `PROBAR.cmd --all` ejecuta en serie todos los bancos dentro de GTA. Para evitar la pausa del CMD, usar `python reversing/run.py --all`. Abre y cierra la copia de pruebas para cada banco, vuelve a analizar sus logs nuevos y comprueba la restauración del ASI/PDB y los hashes de las partidas antes de continuar. Los informes conjuntos quedan en `reversing/artifacts/suite-*/summary.json`, con salidas por caso y rutas/hashes de la evidencia. Se omite `pcsave-isolated` porque la misma función ya se prueba dentro del motor.
 
-El catálogo actual contiene **226 casos: 225 dentro del motor y uno aislado**.
+El catálogo actual contiene **231 casos: 230 dentro del motor y uno aislado**.
 
 Esta serie usa las sondas archivadas de cada trabajo. El caso `conversation-for-ped` comprueba además que fuentes e instrumentación coinciden con su manifiesto; si cambiaron, recompilar con `python reversing/ConversationForPed/build.py --probe` antes de ejecutarlo. La serie no es una prueba de integración de todos los cambios en una única compilación actual ni sustituye la campaña de estabilidad futura.
 
@@ -220,6 +220,11 @@ Se eliminaron los siete lanzadores específicos de la raíz y tres copias tempor
 - [ColProc59b](ColProc59b/README.md): Procesado de colisión de CCollision (13 funciones) validado contra el EXE. Caso `colproc59b`.
 - [BeCop60](BeCop60/README.md): CTaskComplexBeCop reconstruida (Clone) y validada contra el EXE. Caso `becop60`.
 - [DragOut60](DragOut60/README.md): CTaskComplexCarSlowBeDraggedOutAndStandUp reconstruida (6 funciones) y validada contra el EXE. Caso `dragout60`.
+- [CTasks61b](CTasks61b/README.md): Nueve tareas (WanderCriminal, WanderProstitute, EvasiveCower, EvasiveStep, BeInCouple, SignalAtPed, CrossRoad, DestroyCar, Choking) reconstruidas y validadas contra el EXE. Caso `ctasks61b`.
+- [CTasks61c](CTasks61c/README.md): Ocho clases (GoToPoint*, GotoDoor, Aiming, atractores, RunNamedAnim, WalkRoundCar) reconstruidas y validadas contra el EXE. Caso `ctasks61c`.
+- [Misc61a](Misc61a/README.md): Scripts de cerebros, grupos de peatones, clima y cuerdas (CScriptsForBrains, CPedGroup, CWeather, CRopes) reconstruidos y validados contra el EXE. Caso `misc61a`.
+- [CTasks61a](CTasks61a/README.md): Nueve tareas de coche (CarDrive, CarSetPedOut/In, DriveToPoint, EnterCarAsPassengerWait, OpenPassengerDoor, LeanOnVehicle) reconstruidas y validadas contra el EXE. Caso `ctasks61a`.
+- [Misc61b](Misc61b/README.md): CBmx, CQuadBike, CCarFXRenderer y CStencilShadows reconstruidos y validados contra el EXE. Caso `misc61b`.
 - `CConversations`: 10/10 (se retiró `EnableConversation`, inexistente en el EXE); 2.048 pares de `DoneSettingUpConversation`. Configuración de tablas y referencias, sin reproducción de diálogos. El subsistema incluye además `CConversationNode` 1/1, `CPedToPlayerConversations` 3/3 y `CConversationForPed` 2/2; consultar [su README](CConversations/README.md).
 - CPedList: 7/7; 4.096 pares de sus cuatro funciones pendientes. Fixtures de grupos/pool y consultas de inteligencia controladas.
 

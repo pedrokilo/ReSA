@@ -6,23 +6,21 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskComplexEvasiveCower
- * Reconstrucción: INCOMPLETA — 7/8 funciones reconstruidas.
- * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 1.
- * Validación registrada: 0/8 entradas.
+ * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   CreateSubTask | 0x00655570 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   CreateSubTask | 0x00655570 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 
 #include "TaskComplexEvasiveCower.h"
+#include "TaskSimpleCower.h"
+#include "TaskSimpleAchieveHeading.h"
 
 void CTaskComplexEvasiveCower::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexEvasiveCower, 0x86F3BC, 11);
@@ -31,7 +29,7 @@ void CTaskComplexEvasiveCower::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x655460);
     RH_ScopedInstall(Destructor, 0x6554E0);
 
-    RH_ScopedInstall(CreateSubTask, 0x655570, { .reversed = false }); // Stub plugin::Call: activarlo provocaría recursión infinita
+    RH_ScopedInstall(CreateSubTask, 0x655570);
 
     RH_ScopedVMTInstall(Clone, 0x655CD0);
     RH_ScopedVMTInstall(GetTaskType, 0x6554D0);
@@ -72,5 +70,16 @@ CTask* CTaskComplexEvasiveCower::CreateFirstSubTask(CPed* ped) {
 
 // 0x655570
 CTask* CTaskComplexEvasiveCower::CreateSubTask(eTaskType taskType) {
-    return plugin::CallMethodAndReturn<CTask*, 0x655570, CTaskComplexEvasiveCower*, eTaskType>(this, taskType);
+    switch (taskType) {
+    case TASK_SIMPLE_COWER:
+        return new CTaskSimpleCower();
+    case TASK_SIMPLE_ACHIEVE_HEADING: {
+        // Como el original: el angulo se calcula con GetRadianAngleBetweenPoints(-x, -y, 0, 0) y la tolerancia es 0.2f (0x86FC80)
+        const auto angle = CGeneral::GetRadianAngleBetweenPoints(-m_Pos.x, -m_Pos.y, 0.0f, 0.0f);
+        return new CTaskSimpleAchieveHeading(angle, 2.0f, 0.2f);
+    }
+    case TASK_FINISHED:
+    default:
+        return nullptr;
+    }
 }

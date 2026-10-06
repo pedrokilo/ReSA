@@ -42,6 +42,9 @@ CTask* Clone() const override {
  // 0x61B770
     bool ProcessPed(CPed* ped) override;
     void OffsetPedPosition(CPed* ped);
+    // Como el original: 0x61BB10 (arranca la animación) y 0x61AAA0 (callback de fin que guarda el desplazamiento final)
+    void StartAnim(CPed* ped);
+    static void FinishRunAnimMovePedCB(CAnimBlendAssociation* blendAssoc, void* data); // data es CTaskSimpleRunNamedAnim
 
 private:
     friend void InjectHooksMain();

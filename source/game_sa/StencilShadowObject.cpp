@@ -62,3 +62,32 @@ void CStencilShadowObject::Destroy() {
         m_pNext->m_pPrev = this;
     }
 }
+
+// 0x711280
+CStencilShadowObject* CStencilShadowObject::Create(CEntity* owner, eStencilShadowObjType type) {
+    if (type == eStencilShadowObjType::NONE || (uint8)type > 2) {
+        return nullptr;
+    }
+
+    const CColModel* colModel = owner->GetColModel();
+    CCollisionData*  colData  = colModel->m_pColData;
+    if (!colData || !colData->bHasShadowInfo) {
+        return nullptr;
+    }
+
+    const int32 numShadowTriangles = (int32)colData->m_nNumShadowTriangles;
+    if (numShadowTriangles <= 0) {
+        return nullptr;
+    }
+
+    // Como el original: 15 CVector por cara de sombra (caras, caras extruidas y aristas)
+    m_NumShadowFaces        = (int16)numShadowTriangles;
+    m_FaceID                = numShadowTriangles * 15;
+    m_pOwner                = owner;
+    m_Type                  = type;
+    m_SizeOfShadowFacesData = 0;
+    m_ShadowFacesData       = (CVector*)CMemoryMgr::Malloc(numShadowTriangles * 15 * 3 * 4);
+    owner->RegisterReference(reinterpret_cast<CEntity**>(&m_pOwner));
+    CStencilShadows::UpdateHierarchy(CStencilShadows::pFirstAvailableStencilShadowObject, CStencilShadows::pFirstActiveStencilShadowObject, this);
+    return this;
+}

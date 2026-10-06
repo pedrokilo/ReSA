@@ -313,8 +313,9 @@ inline void Update() {
     for(size_t f=0;f<fns.size();++f)if(!(hooks[f]=FindHook(fns[f].cls,fns[f].name))){Write({{"event","error"},{"reason","hook not found"},{"function",std::string(fns[f].cls)+"::"+fns[f].name}});return;}
     std::vector<ReversibleHooks::ReversibleHook::Base*> extra;
     for(auto& [c,n]:baseHooks){ if(auto* h=FindHook(c,n))extra.push_back(h); else {Write({{"event","error"},{"reason","hook not found"},{"function",std::string(c)+"::"+n}});return;} }
-    const uintptr_t dllWanderFirst=OurVirtual("CTaskComplexWander","CreateFirstSubTask"), dllStandStill=OurVirtual("CTaskSimpleStandStill","ProcessPed");
-    if(!dllWanderFirst||!dllStandStill){Write({{"event","error"},{"reason","virtual hook not found"},{"wander_first",dllWanderFirst!=0},{"stand_still",dllStandStill!=0}});return;}
+    const uintptr_t dllWanderFirst=OurVirtual("CTaskComplexWander","CreateFirstSubTask"), dllStandStill=OurVirtual("CTaskSimpleStandStill","ProcessPed"),
+        dllCarAbort=OurVirtual("CTaskSimpleCarDrive","MakeAbortable"), dllCarProc=OurVirtual("CTaskSimpleCarDrive","ProcessPed");
+    if(!dllWanderFirst||!dllStandStill||!dllCarAbort||!dllCarProc){Write({{"event","error"},{"reason","virtual hook not found"},{"wander_first",dllWanderFirst!=0},{"stand_still",dllStandStill!=0}});return;}
     FillTraps(std::make_integer_sequence<int,12>{});
     fakeVtbl[0]=reinterpret_cast<void*>(&FDtor); fakeVtbl[1]=reinterpret_cast<void*>(&FClone); fakeVtbl[2]=reinterpret_cast<void*>(&FSub);
     fakeVtbl[3]=reinterpret_cast<void*>(&FSimple); fakeVtbl[4]=reinterpret_cast<void*>(&FType); fakeVtbl[6]=reinterpret_cast<void*>(&FAbort);
@@ -341,7 +342,8 @@ inline void Update() {
         EntryPatch s1(bit_cast<uintptr_t>(static_cast<int16(CPed::*)(eGlobalSpeechContext,uint32,float,bool,bool,bool)>(&CPed::Say)),FakeSay), s1e(0x5EFFE0,FakeSay);
         EntryPatch s2(bit_cast<uintptr_t>(&CTaskComplexWander::GetWanderTaskByPedType),FakeWanderByType), s2e(0x673D00,FakeWanderByType);
         EntryPatch s3(bit_cast<uintptr_t>(&CPedGroups::IsInPlayersGroup),FakeInPlayersGroup), s3e(0x5F7F10,FakeInPlayersGroup);
-        EntryPatch s4e(0x63C670,FakeCarDriveAbort), s5e(0x644470,FakeCarDriveProcess); // la DLL llama a estas direcciones del EXE
+        EntryPatch s4(Follow(dllCarAbort),FakeCarDriveAbort), s4e(0x63C670,FakeCarDriveAbort), s5(Follow(dllCarProc),FakeCarDriveProcess), s5e(0x644470,FakeCarDriveProcess);
+        // CTaskSimpleCarDrive::MakeAbortable/ProcessPed ya estan reconstruidos: las llamadas calificadas de la DLL (CarSetTempAction) entran en el cuerpo de la DLL, no en el EXE
         EntryPatch v1(bit_cast<uintptr_t>(&CVehicle::RemoveDriver),FakeRemoveDriver), v1e(0x6D1950,FakeRemoveDriver);
         EntryPatch v2(bit_cast<uintptr_t>(&CVehicle::RemovePassenger),FakeRemovePassenger), v2e(0x6D1610,FakeRemovePassenger);
         EntryPatch v3(bit_cast<uintptr_t>(&CVehicle::IsLawEnforcementVehicle),FakeIsLaw), v3e(0x6D2370,FakeIsLaw);

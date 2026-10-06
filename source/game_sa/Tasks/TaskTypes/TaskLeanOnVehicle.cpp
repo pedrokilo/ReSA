@@ -6,19 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskLeanOnVehicle
- * Reconstrucción: INCOMPLETA — 3/5 funciones reconstruidas.
- * Pendientes de reconstruir: 2.
- * Funciones bloqueadas: 2.
- * Validación registrada: 0/5 entradas.
+ * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   MakeAbortable | 0x00000000 | V
- *   ProcessPed | 0x00000000 | V
- * BLOQUEADAS (nombre | dirección | tipo):
- *   MakeAbortable | 0x00000000 | V
- *   ProcessPed | 0x00000000 | V
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -35,9 +29,8 @@ void CTaskLeanOnVehicle::InjectHooks() {
 
     RH_ScopedInstall(FinishAnimCB, 0x661160);
 
-    RH_ScopedVMTInstall(MakeAbortable, 0x661110, { .reversed = false });
-    RH_ScopedVMTInstall(ProcessPed, 0x6648C0, { .reversed = false });
-
+    RH_ScopedVMTInstall(MakeAbortable, 0x661110);
+    RH_ScopedVMTInstall(ProcessPed, 0x6648C0);
 }
 
 // 0x660F90
@@ -101,5 +94,65 @@ bool CTaskLeanOnVehicle::MakeAbortable(CPed* ped, eAbortPriority priority, const
 
 // 0x6648C0
 bool CTaskLeanOnVehicle::ProcessPed(CPed* ped) {
-    return plugin::CallMethodAndReturn<bool, 0x6648C0, CTaskLeanOnVehicle*, CPed*>(this, ped);
+    if (!m_Vehicle) {
+        m_StopLeaning = true;
+    }
+    ped->m_pEntityIgnoredCollision = m_Vehicle;
+
+    // Como el original: id de la animación activa (-1 si no hay)
+    const int32 curAnimId = m_LeanAnim ? (int32)(int16)m_LeanAnim->m_AnimId : -1;
+
+    if (m_StopLeaning) {
+        ped->m_pEntityIgnoredCollision = nullptr;
+        return true;
+    }
+
+    ped->SetMoveState(PEDMOVE_STILL);
+
+    if (m_bFinished && !RpAnimBlendClumpGetAssociation(ped->GetRpClump(), (uint32)ANIM_ID_LEANOUT)) {
+        ped->m_pEntityIgnoredCollision = nullptr;
+        return true;
+    }
+
+    // Como el original: grupo de animaciones 0x34 (ANIM_GROUP_GANGS) para entrar, estar y salir de la postura.
+    constexpr auto LeanGroup = static_cast<AssocGroupId>(0x34);
+    const auto PlayAndTrack = [&](AnimationId animId, float blend) {
+        const auto anim = CAnimManager::BlendAnimation(ped->GetRpClump(), LeanGroup, animId, blend);
+        m_LeanAnim = anim;
+        anim->SetFinishCallback(FinishAnimCB, this);
+    };
+
+    if (m_LeanAnimId) {
+        if (curAnimId == ANIM_ID_LEANIN) {
+            m_LeanAnim->m_BlendDelta = -8.0f;
+        } else if (curAnimId == ANIM_ID_LEANIDLE) {
+            m_LeanAnim->SetDeleteCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+            PlayAndTrack(ANIM_ID_LEANOUT, 1000.0f);
+            return false;
+        } else if (curAnimId == ANIM_ID_LEANOUT) {
+            m_LeanAnim->m_Speed = 3.0f;
+        }
+    }
+
+    if (!m_LeanAnim) {
+        if (m_LastAnimId == -1) {
+            if (!field_10) {
+                PlayAndTrack(ANIM_ID_LEANIN, 4.0f);
+                return false;
+            }
+        } else if (m_LastAnimId != ANIM_ID_LEANIN) {
+            return false;
+        }
+
+        if (m_LeanAnimDurationInMs >= 0) {
+            m_LeanTimer.m_nStartTime = CTimer::GetTimeInMS();
+            m_LeanTimer.m_nInterval  = m_LeanAnimDurationInMs;
+            m_LeanTimer.m_bStarted   = true;
+        }
+        PlayAndTrack(ANIM_ID_LEANIDLE, 1000.0f);
+    } else if (m_LeanTimer.m_bStarted && m_LeanTimer.IsOutOfTime() && m_LeanAnim->m_AnimId != ANIM_ID_LEANOUT) {
+        m_LeanAnim->SetDeleteCallback(CDefaultAnimCallback::DefaultAnimCB, nullptr);
+        PlayAndTrack(ANIM_ID_LEANOUT, 1000.0f);
+    }
+    return false;
 }

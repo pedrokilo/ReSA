@@ -6,17 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskSimpleCarDriveTimed
- * Reconstrucción: INCOMPLETA — 4/5 funciones reconstruidas.
- * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 1.
- * Validación registrada: 0/5 entradas.
+ * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 5/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   ProcessPed | 0x0046F610 | V
- * BLOQUEADAS (nombre | dirección | tipo):
- *   ProcessPed | 0x0046F610 | V
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -33,8 +29,7 @@ void CTaskSimpleCarDriveTimed::InjectHooks() {
 
     RH_ScopedVMTInstall(Clone, 0x46F570);
     RH_ScopedVMTInstall(GetTaskType, 0x46F600);
-    // ProcessPed todavía es un stub que llama al original.
-    RH_ScopedVMTInstall(ProcessPed, 0x46F610, { .reversed = false });
+    RH_ScopedVMTInstall(ProcessPed, 0x46F610);
 }
 
 CTaskSimpleCarDriveTimed* CTaskSimpleCarDriveTimed::Constructor(CVehicle* vehicle, int32 nTime) {
@@ -49,5 +44,10 @@ CTaskSimpleCarDriveTimed::CTaskSimpleCarDriveTimed(CVehicle* vehicle, int32 nTim
 
 // 0x46F610
 bool CTaskSimpleCarDriveTimed::ProcessPed(CPed* ped) {
-    return plugin::CallMethodAndReturn<bool, 0x46F610, CTaskSimpleCarDriveTimed*, CPed*>(this, ped);
+    // Como el original: el temporizador arranca en la primera llamada; al vencer la tarea termina, y si no sigue conduciendo.
+    m_nTimer.StartIfNotAlready(m_nTime);
+    if (m_nTimer.IsOutOfTime()) {
+        return true;
+    }
+    return CTaskSimpleCarDrive::ProcessPed(ped);
 }

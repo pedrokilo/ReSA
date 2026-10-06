@@ -10,11 +10,11 @@
 | Dimensión | Cifra |
 | --- | ---: |
 | Entradas en el catálogo | 8.441 |
-| Reconstruidas | 7.865 |
-| Validadas | 5.393 |
-| Reconstruidas sin validar | 2.472 |
-| De ellas, en esta cola (validables por pares) | 2.468 |
-| Sin reconstruir (en 103 clases incompletas) | 576 |
+| Reconstruidas | 7.946 |
+| Validadas | 5.662 |
+| Reconstruidas sin validar | 2.284 |
+| De ellas, en esta cola (validables por pares) | 2.280 |
+| Sin reconstruir (en 70 clases incompletas) | 495 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
 
@@ -22,54 +22,20 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 34 | 190 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 0 | 0 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 9 | 569 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 37 | 776 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
-| [🔴 Nivel 4: caras](#nivel-4) | 33 | 933 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **113** | **2468** | |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 38 | 777 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🔴 Nivel 4: caras](#nivel-4) | 34 | 934 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
+| **Total** | **81** | **2280** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (34 clases, 190 funciones)
+## 🟢 Nivel 1: muy barato (0 clases, 0 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CPedShelterAttractor | 4 | 2 | 2 | 30 |
-| 2 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | 7 | 2 | 4 | 33 |
-| 3 | CTaskSimpleCarSetPedOut | 5 | 2 | 3 | 34 |
-| 4 | CTaskComplexOpenPassengerDoor | 4 | 3 | 1 | 13 |
-| 5 | CTaskSimpleRunNamedAnim | 7 | 3 | 3 | 25 |
-| 6 | CTaskComplexWanderCriminal | 6 | 3 | 3 | 28 |
-| 7 | CTaskComplexGoToPointAnyMeans | 7 | 3 | 4 | 33 |
-| 8 | CScriptsForBrains | 6 | 3 | 3 | 34 |
-| 9 | CTaskComplexGotoDoorAndOpen | 7 | 3 | 4 | 35 |
-| 10 | CTaskLeanOnVehicle | 5 | 3 | 2 | 35 |
-| 11 | CTaskComplexWanderProstitute | 5 | 4 | 1 | 12 |
-| 12 | CTaskSimpleCarDriveTimed | 5 | 4 | 1 | 14 |
-| 13 | CTaskSimpleCarSetPedInAsPassenger | 5 | 4 | 1 | 18 |
-| 14 | CTaskComplexSignalAtPed | 7 | 4 | 3 | 19 |
-| 15 | CTaskSimpleCarSetPedInAsDriver | 5 | 4 | 1 | 19 |
-| 16 | CTaskComplexEnterCarAsPassengerWait | 8 | 4 | 4 | 24 |
-| 17 | CTaskSimpleChoking | 7 | 5 | 2 | 18 |
-| 18 | CTaskComplexGoToPointAiming | 8 | 5 | 3 | 22 |
-| 19 | CTaskComplexDriveToPoint | 8 | 5 | 3 | 32 |
-| 20 | CTaskComplexUseClosestFreeScriptedAttractor | 8 | 6 | 2 | 10 |
-| 21 | CTaskComplexEvasiveCower | 8 | 7 | 1 | 11 |
-| 22 | CTaskComplexEvasiveStep | 8 | 7 | 1 | 13 |
-| 23 | CTaskComplexBeInCouple | 9 | 7 | 2 | 19 |
-| 24 | CTaskSimpleCarDrive | 13 | 7 | 6 | 31 |
-| 25 | CBmx | 10 | 7 | 3 | 35 |
-| 26 | CTaskComplexCrossRoadLookAndAchieveHeading | 9 | 8 | 1 | 12 |
-| 27 | CTaskComplexDestroyCar | 9 | 8 | 1 | 19 |
-| 28 | CCarFXRenderer | 10 | 9 | 1 | 14 |
-| 29 | CTaskComplexWalkRoundCar | 13 | 9 | 4 | 16 |
-| 30 | CRopes | 11 | 9 | 2 | 17 |
-| 31 | CStencilShadows | 13 | 9 | 4 | 35 |
-| 32 | CPedGroup | 12 | 10 | 2 | 18 |
-| 33 | CWeather | 13 | 10 | 3 | 34 |
-| 34 | CQuadBike | 12 | 11 | 1 | 30 |
 
 <a id="nivel-2"></a>
 
@@ -91,53 +57,54 @@ Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (37 clases, 776 funciones)
+## 🟠 Nivel 3: moderadas (38 clases, 777 funciones)
 
 Criterio: el resto.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CTaskUtilityLineUpPedWithCar | 5 | 2 | 3 | 37 |
-| 2 | CTaskComplexGoToAttractor | 5 | 2 | 3 | 38 |
-| 3 | CTaskComplexKillPedFromBoat | 7 | 2 | 5 | 39 |
-| 4 | CTaskComplexGangJoinRespond | 7 | 2 | 5 | 40 |
-| 5 | CTaskGoToVehicleAndLean | 7 | 2 | 5 | 46 |
-| 6 | CTaskGangHasslePed | 5 | 2 | 3 | 50 |
-| 7 | CTaskComplexWanderStandard | 9 | 3 | 6 | 38 |
-| 8 | CCustomBuildingRenderer | 7 | 3 | 4 | 41 |
-| 9 | CTaskComplexPlayHandSignalAnim | 9 | 3 | 6 | 41 |
-| 10 | CRealTimeShadowManager | 7 | 5 | 2 | 38 |
-| 11 | CMonsterTruck | 11 | 5 | 6 | 43 |
-| 12 | CRope | 7 | 5 | 2 | 45 |
-| 13 | CTaskComplexProstituteSolicit | 11 | 7 | 4 | 44 |
-| 14 | CPedGeometryAnalyser | 38 | 9 | 29 | 44 |
-| 15 | CTaskComplexKillCriminal | 11 | 9 | 2 | 44 |
-| 16 | CIdleCam | 14 | 13 | 1 | 28 |
-| 17 | CAEPoliceScannerAudioEntity | 17 | 13 | 4 | 29 |
-| 18 | CPlane | 23 | 14 | 9 | 34 |
-| 19 | CAEPedAudioEntity | 20 | 15 | 4 | 37 |
-| 20 | CClothesBuilder | 23 | 15 | 8 | 47 |
-| 21 | CPools | 19 | 16 | 3 | 27 |
-| 22 | CAEStreamingChannel | 24 | 18 | 3 | 26 |
-| 23 | CTrain | 40 | 20 | 20 | 49 |
-| 24 | CBike | 40 | 22 | 18 | 36 |
-| 25 | CRunningScript | 39 | 24 | 15 | 42 |
-| 26 | CWaterLevel | 30 | 25 | 5 | 40 |
-| 27 | CCarEnterExit | 32 | 27 | 5 | 30 |
-| 28 | CAERadioTrackManager | 43 | 29 | 14 | 33 |
-| 29 | CGroupEventHandler | 32 | 30 | 2 | 27 |
-| 30 | CFont | 36 | 32 | 4 | 26 |
-| 31 | CGangWars | 35 | 32 | 3 | 33 |
-| 32 | CPostEffects | 38 | 35 | 3 | 33 |
-| 33 | CRadar | 63 | 63 |  | 34 |
-| 34 | CPopulation | 66 | 64 | 2 | 31 |
-| 35 | CTheScripts | 69 | 69 |  | 29 |
-| 36 | CEventHandler | 72 | 69 | 3 | 45 |
-| 37 | CEntity | 70 | 70 |  | 35 |
+| 1 | CQuadBike | 12 | 1 |  | 42 |
+| 2 | CTaskUtilityLineUpPedWithCar | 5 | 2 | 3 | 37 |
+| 3 | CTaskComplexGoToAttractor | 5 | 2 | 3 | 38 |
+| 4 | CTaskComplexKillPedFromBoat | 7 | 2 | 5 | 39 |
+| 5 | CTaskComplexGangJoinRespond | 7 | 2 | 5 | 40 |
+| 6 | CTaskGoToVehicleAndLean | 7 | 2 | 5 | 46 |
+| 7 | CTaskGangHasslePed | 5 | 2 | 3 | 50 |
+| 8 | CTaskComplexWanderStandard | 9 | 3 | 6 | 38 |
+| 9 | CCustomBuildingRenderer | 7 | 3 | 4 | 41 |
+| 10 | CTaskComplexPlayHandSignalAnim | 9 | 3 | 6 | 41 |
+| 11 | CRealTimeShadowManager | 7 | 5 | 2 | 38 |
+| 12 | CMonsterTruck | 11 | 5 | 6 | 43 |
+| 13 | CRope | 7 | 5 | 2 | 45 |
+| 14 | CTaskComplexProstituteSolicit | 11 | 7 | 4 | 44 |
+| 15 | CPedGeometryAnalyser | 38 | 9 | 29 | 44 |
+| 16 | CTaskComplexKillCriminal | 11 | 9 | 2 | 44 |
+| 17 | CIdleCam | 14 | 13 | 1 | 28 |
+| 18 | CAEPoliceScannerAudioEntity | 17 | 13 | 4 | 29 |
+| 19 | CPlane | 23 | 14 | 9 | 34 |
+| 20 | CAEPedAudioEntity | 20 | 15 | 4 | 37 |
+| 21 | CClothesBuilder | 23 | 15 | 8 | 47 |
+| 22 | CPools | 19 | 16 | 3 | 27 |
+| 23 | CAEStreamingChannel | 24 | 18 | 3 | 26 |
+| 24 | CTrain | 40 | 20 | 20 | 49 |
+| 25 | CBike | 40 | 22 | 18 | 36 |
+| 26 | CRunningScript | 39 | 24 | 15 | 42 |
+| 27 | CWaterLevel | 30 | 25 | 5 | 40 |
+| 28 | CCarEnterExit | 32 | 27 | 5 | 30 |
+| 29 | CAERadioTrackManager | 43 | 29 | 14 | 33 |
+| 30 | CGroupEventHandler | 32 | 30 | 2 | 27 |
+| 31 | CFont | 36 | 32 | 4 | 26 |
+| 32 | CGangWars | 35 | 32 | 3 | 33 |
+| 33 | CPostEffects | 38 | 35 | 3 | 33 |
+| 34 | CRadar | 63 | 63 |  | 34 |
+| 35 | CPopulation | 66 | 64 | 2 | 31 |
+| 36 | CTheScripts | 69 | 69 |  | 29 |
+| 37 | CEventHandler | 72 | 69 | 3 | 45 |
+| 38 | CEntity | 70 | 70 |  | 35 |
 
 <a id="nivel-4"></a>
 
-## 🔴 Nivel 4: caras (33 clases, 933 funciones)
+## 🔴 Nivel 4: caras (34 clases, 934 funciones)
 
 Criterio: 90 o más funciones, o más de 50 líneas por función.
 
@@ -147,35 +114,36 @@ Criterio: 90 o más funciones, o más de 50 líneas por función.
 | 2 | CDecision | 3 | 1 | 2 | 82 |
 | 3 | CTaskComplexFollowLeaderInFormation | 7 | 1 | 6 | 86 |
 | 4 | CTaskSimpleGangDriveBy | 4 | 1 | 3 | 96 |
-| 5 | CFormation | 9 | 1 | 8 | 147 |
-| 6 | CProjectileInfo | 12 | 1 | 11 | 158 |
-| 7 | CTaskComplexHitPedWithCar | 10 | 2 | 8 | 54 |
-| 8 | CTaskGangHassleVehicle | 8 | 2 | 6 | 54 |
-| 9 | CTaskComplexSmartFleePoint | 12 | 2 | 10 | 59 |
-| 10 | CTaskComplexSunbathe | 8 | 2 | 6 | 59 |
-| 11 | CPedDamageResponseCalculator | 7 | 2 | 5 | 114 |
-| 12 | FxEmitterBP_c | 9 | 2 | 7 | 116 |
-| 13 | InteriorGroup_c | 24 | 2 | 22 | 122 |
-| 14 | CInterestingEvents | 7 | 2 | 5 | 177 |
-| 15 | CTaskComplexArrestPed | 7 | 4 | 3 | 83 |
-| 16 | CAEFrontendAudioEntity | 6 | 4 | 2 | 211 |
-| 17 | CGenericGameStorage | 19 | 5 | 14 | 183 |
-| 18 | CTaskSimpleFightingControl | 7 | 6 | 1 | 54 |
-| 19 | CRoadBlocks | 8 | 7 | 1 | 57 |
-| 20 | CAEScriptAudioEntity | 19 | 8 | 11 | 107 |
-| 21 | CTaskComplexKillPedOnFootArmed | 11 | 9 | 2 | 51 |
-| 22 | CTaskSimplePlayerOnFoot | 12 | 11 | 1 | 103 |
-| 23 | CCam | 44 | 14 | 30 | 82 |
-| 24 | CShadows | 31 | 21 | 10 | 59 |
-| 25 | CHud | 38 | 30 | 8 | 57 |
-| 26 | CWeapon | 41 | 35 | 6 | 60 |
-| 27 | CCamera | 110 | 91 | 19 | 23 |
-| 28 | CWorld | 94 | 94 |  | 35 |
-| 29 | CStreaming | 94 | 94 |  | 40 |
-| 30 | CAutomobile | 99 | 99 |  | 65 |
-| 31 | CAEVehicleAudioEntity | 106 | 102 | 4 | 48 |
-| 32 | CPed | 145 | 136 |  | 31 |
-| 33 | CVehicle | 142 | 141 |  | 33 |
+| 5 | CBmx | 10 | 1 |  | 114 |
+| 6 | CFormation | 9 | 1 | 8 | 147 |
+| 7 | CProjectileInfo | 12 | 1 | 11 | 158 |
+| 8 | CTaskComplexHitPedWithCar | 10 | 2 | 8 | 54 |
+| 9 | CTaskGangHassleVehicle | 8 | 2 | 6 | 54 |
+| 10 | CTaskComplexSmartFleePoint | 12 | 2 | 10 | 59 |
+| 11 | CTaskComplexSunbathe | 8 | 2 | 6 | 59 |
+| 12 | CPedDamageResponseCalculator | 7 | 2 | 5 | 114 |
+| 13 | FxEmitterBP_c | 9 | 2 | 7 | 116 |
+| 14 | InteriorGroup_c | 24 | 2 | 22 | 122 |
+| 15 | CInterestingEvents | 7 | 2 | 5 | 177 |
+| 16 | CTaskComplexArrestPed | 7 | 4 | 3 | 83 |
+| 17 | CAEFrontendAudioEntity | 6 | 4 | 2 | 211 |
+| 18 | CGenericGameStorage | 19 | 5 | 14 | 183 |
+| 19 | CTaskSimpleFightingControl | 7 | 6 | 1 | 54 |
+| 20 | CRoadBlocks | 8 | 7 | 1 | 57 |
+| 21 | CAEScriptAudioEntity | 19 | 8 | 11 | 107 |
+| 22 | CTaskComplexKillPedOnFootArmed | 11 | 9 | 2 | 51 |
+| 23 | CTaskSimplePlayerOnFoot | 12 | 11 | 1 | 103 |
+| 24 | CCam | 44 | 14 | 30 | 82 |
+| 25 | CShadows | 31 | 21 | 10 | 59 |
+| 26 | CHud | 38 | 30 | 8 | 57 |
+| 27 | CWeapon | 41 | 35 | 6 | 60 |
+| 28 | CCamera | 110 | 91 | 19 | 23 |
+| 29 | CWorld | 94 | 94 |  | 35 |
+| 30 | CStreaming | 94 | 94 |  | 40 |
+| 31 | CAutomobile | 99 | 99 |  | 65 |
+| 32 | CAEVehicleAudioEntity | 106 | 102 | 4 | 48 |
+| 33 | CPed | 145 | 136 |  | 31 |
+| 34 | CVehicle | 142 | 141 |  | 33 |
 
 <a id="fuera-de-la-cola"></a>
 

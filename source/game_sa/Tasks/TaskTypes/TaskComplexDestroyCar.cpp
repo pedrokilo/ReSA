@@ -6,17 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskComplexDestroyCar
- * Reconstrucción: INCOMPLETA — 8/9 funciones reconstruidas.
- * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 1.
- * Validación registrada: 0/9 entradas.
+ * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   ControlSubTask | 0x00000000 | V
- * BLOQUEADAS (nombre | dirección | tipo):
- *   ControlSubTask | 0x00000000 | V
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -41,7 +37,7 @@ void CTaskComplexDestroyCar::InjectHooks() {
     RH_ScopedVMTInstall(MakeAbortable, 0x621C80);
     RH_ScopedVMTInstall(CreateNextSubTask, 0x62D9E0);
     RH_ScopedVMTInstall(CreateFirstSubTask, 0x62DA90);
-    RH_ScopedVMTInstall(ControlSubTask, 0x6288C0, { .reversed = false });
+    RH_ScopedVMTInstall(ControlSubTask, 0x6288C0);
 }
 
 // 0x621C00

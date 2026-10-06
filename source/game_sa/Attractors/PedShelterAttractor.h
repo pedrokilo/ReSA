@@ -33,7 +33,8 @@ public:
     // 0x5E9680
     bool IsAtHeadOfQueue(CPed* ped) override { return true; }
 
-    static CVector GetDisplacement(int32 pedId);
+    // Como el original (0x5EF420): devuelve un puntero al elemento de la tabla (en eax), no un vector por valor
+    static CVector& GetDisplacement(int32 pedId);
     void ComputeAttractPos(int32 pedId, CVector& outPos) override;
     void ComputeAttractHeading(int32 bQueue, float& heading) override;
     bool BroadcastDeparture(CPed* ped) override;

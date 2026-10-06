@@ -20,6 +20,7 @@
 #include <set>
 #include <reversiblehooks/RootHookCategory.h>
 #include <reversiblehooks/ReversibleHook/Base.h>
+#include <reversiblehooks/ReversibleHook/Virtual.h>
 #include "CarAI.h"
 #include "CarCtrl.h"
 #include "CullZones.h"
@@ -80,6 +81,7 @@ inline ReversibleHooks::ReversibleHook::Base* FindHook(const char* cls,const cha
     ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& c){if(c.Name()==cls)for(auto& h:c.Items())if(h->Name()==fn)r=h.get();});
     return r;
 }
+inline uintptr_t OurVirtual(const char* cls,const char* fn){ auto* h=FindHook(cls,fn); if(!h||h->Symbol()[0]!='V')return 0; uintptr_t p=uintptr_t(static_cast<ReversibleHooks::ReversibleHook::Virtual*>(h)->GetHookOurAddress()); for(int k=0;k<4&&*reinterpret_cast<const uint8*>(p)==0xE9;++k)p=p+5+*reinterpret_cast<const int32*>(p+1); return p; }
 
 // ======================= objetos falsos =======================
 constexpr size_t VSTRIDE=0xA18, NPOOL=10, MATB=0x60, NMAT=NPOOL+4, PEDB=0x7C4, NPED=6, INTELB=0x300, NPEDPOOL=8, TSLOT=0x80, NFAKET=8, NSLOT=80;
@@ -476,7 +478,7 @@ inline void Update() {
         P(0x6D1A50,Addr(&CVehicle::SetUpDriver),FakeSetUpDriver); P(0x6D1AA0,Addr(&CVehicle::SetupPassenger),FakeSetupPassenger);
         P(0x5E89B0,Addr(&CPed::GiveDelayedWeapon),FakeGiveDelayed); P(0x5E7CB0,Addr(&CPed::AttachPedToEntity),FakeAttach);
         P(0x5E6280,Addr(static_cast<void(CPed::*)(eWeaponType)>(&CPed::SetCurrentWeapon)),FakeSetWeapon);
-        P(0x647D10,0,FakeSetPedOutProcess);
+        P(0x647D10,OurVirtual("CTaskSimpleCarSetPedOut","ProcessPed"),FakeSetPedOutProcess);
         P(0x601420,Addr(&CPedIntelligence::ClearTasks),FakeClearTasks); P(0x600EE0,Addr(&CPedIntelligence::FindTaskByType),FakeFindTaskByType);
         P(0x601070,Addr(&CPedIntelligence::GetTaskSwim),FakeTaskSwim);
         P(0x681AF0,Addr(&CTaskManager::SetTask),FakeSetTaskExe); P(0,Addr(Get(ChangeTaskTag{})),FakeChangeTask);

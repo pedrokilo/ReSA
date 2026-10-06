@@ -128,7 +128,9 @@ void ApplyCruiseSpeed(CVehicle* car, float cruiseSpeed) {
 CTaskComplexEnterCar::~CTaskComplexEnterCar() {
     // Como el original: primero suelta la referencia del coche y después borra la utilidad de alineación
     CEntity::SafeCleanUpRef(m_Car);
-    delete m_LineUpUtility;
+    if (m_LineUpUtility) { // Como el original: test ebx,ebx antes de operator delete (0x63DFE0)
+        delete m_LineUpUtility;
+    }
 
     if (m_Car) {
         m_Car->m_nNumGettingIn -= m_NumGettingInSet;

@@ -1128,5 +1128,30 @@
     "id": "dragout60",
     "name": "Arrastrar fuera despacio y levantarse (CTaskComplexCarSlowBeDraggedOutAndStandUp)",
     "runner": "DragOut60/run_local.py"
+  },
+  {
+    "id": "ctasks61b",
+    "name": "Tareas de deambular, esquivar, pareja, senal, cruzar, destruir coche y ahogarse (lista 61b)",
+    "runner": "CTasks61b/run_local.py"
+  },
+  {
+    "id": "ctasks61c",
+    "name": "Tareas lista 61c (GoToPoint, GotoDoor, Aiming, atractores, RunNamedAnim, WalkRoundCar)",
+    "runner": "CTasks61c/run_local.py"
+  },
+  {
+    "id": "misc61a",
+    "name": "Clases sueltas misc61a: scripts de cerebros, grupos, clima y cuerdas",
+    "runner": "Misc61a/run_local.py"
+  },
+  {
+    "id": "ctasks61a",
+    "name": "Tareas de coche lista 61a",
+    "runner": "CTasks61a/run_local.py"
+  },
+  {
+    "id": "misc61b",
+    "name": "Clases sueltas misc61b: BMX, quad, CarFX y sombras de stencil",
+    "runner": "Misc61b/run_local.py"
   }
 ]

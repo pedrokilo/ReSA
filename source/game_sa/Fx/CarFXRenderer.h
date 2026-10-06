@@ -19,8 +19,8 @@ public:
 
     static bool IsCCPCPipelineAttached(RpAtomic* atomic);
 
-    static void CustomCarPipeAtomicSetup(RpAtomic* atomic);
-    static void CustomCarPipeClumpSetup(RpClump* clump);
+    static RpAtomic* CustomCarPipeAtomicSetup(RpAtomic* atomic);
+    static RpClump* CustomCarPipeClumpSetup(RpClump* clump);
 
     static RpMaterial* MaterialRemapDirtCB(RpMaterial*, void*);
     static RpAtomic* AtomicRemapDirtCB(RpAtomic*, void*);

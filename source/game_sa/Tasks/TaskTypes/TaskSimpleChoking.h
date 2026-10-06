@@ -17,6 +17,7 @@ public:
 
     CTaskSimpleChoking(CPed* attacker, bool bIsTeargas);
     CTaskSimpleChoking(const CTaskSimpleChoking&);
+    ~CTaskSimpleChoking() override;
 
     CTask*    Clone() const override { return new CTaskSimpleChoking{*this}; }
     eTaskType GetTaskType() const override { return Type; }

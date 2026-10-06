@@ -6,17 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskComplexOpenPassengerDoor
- * Reconstrucción: INCOMPLETA — 3/4 funciones reconstruidas.
- * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 1.
- * Validación registrada: 0/4 entradas.
+ * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 4/4 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   Clone | 0x006438E0 | V
- * BLOQUEADAS (nombre | dirección | tipo):
- *   Clone | 0x006438E0 | V
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -31,7 +27,14 @@ void CTaskComplexOpenPassengerDoor::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x6403E0);
     RH_ScopedInstall(Destructor, 0x640420);
 
-    // El original (0x6438E0) también copia m_MoveState a la tarea nueva; el Clone inline no lo hace.
-    RH_ScopedVMTInstall(Clone, 0x6438E0, { .reversed = false });
+    RH_ScopedVMTInstall(Clone, 0x6438E0);
     RH_ScopedVMTInstall(GetTaskType, 0x640410);
+}
+
+// 0x6438E0
+CTask* CTaskComplexOpenPassengerDoor::Clone() const {
+    // Como el original: tarea nueva con (vehículo, asiento) y copia del estado de movimiento.
+    auto* task = new CTaskComplexOpenPassengerDoor(m_Car, m_TargetSeat);
+    task->m_MoveState = m_MoveState;
+    return task;
 }

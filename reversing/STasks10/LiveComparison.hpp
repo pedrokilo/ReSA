@@ -30,6 +30,7 @@
 #include <unordered_map>
 #include <reversiblehooks/RootHookCategory.h>
 #include <reversiblehooks/ReversibleHook/Base.h>
+#include <reversiblehooks/ReversibleHook/Virtual.h>
 #include <reversiblehooks/ReversibleHook/Simple.h>
 #include "Tasks/TaskTypes/TaskSimpleCarCloseDoorFromOutside.h"
 #include "Tasks/TaskTypes/TaskSimpleCarGetOut.h"
@@ -167,6 +168,7 @@ inline ReversibleHooks::ReversibleHook::Base* FindHook(const char* cls,const cha
     ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& c){if(c.Name()==cls)for(auto& h:c.Items())if(h->Name()==fn)r=h.get();});
     return r;
 }
+inline uintptr_t OurVirtual(const char* cls,const char* fn){ auto* h=FindHook(cls,fn); if(!h||h->Symbol()[0]!='V')return 0; uintptr_t p=uintptr_t(static_cast<ReversibleHooks::ReversibleHook::Virtual*>(h)->GetHookOurAddress()); for(int k=0;k<4&&*reinterpret_cast<const uint8*>(p)==0xE9;++k)p=p+5+*reinterpret_cast<const int32*>(p+1); return p; }
 inline uintptr_t Follow(uintptr_t p){ for(int k=0;k<4&&*reinterpret_cast<const uint8*>(p)==0xE9;++k)p=p+5+*reinterpret_cast<const int32*>(p+1); return p; }
 
 enum Kind { CLOSEDOOR, GETOUT, JUMPOUT, OPENDOOR, SLOWDRAG };
@@ -295,7 +297,7 @@ inline void Update() {
         EntryPatch p4(bit_cast<uintptr_t>(static_cast<CPlayerPed*(*)(int32)>(&FindPlayerPed)),FindPlayer), p4e(0x56E210,FindPlayer);
         EntryPatch p5(bit_cast<uintptr_t>(static_cast<bool(CUpsideDownCarCheck::*)(const CVehicle*)>(&CUpsideDownCarCheck::IsCarUpsideDown)),UpsideDown), p5e(0x463830,UpsideDown);
         EntryPatch p6(bit_cast<uintptr_t>(&CPad::GetTarget),GetTarget), p6e(0x540670,GetTarget);
-        EntryPatch p7(0x647D10,SetPedOutProcess); // la version de la DLL es un reenvio al EXE (no reconstruida)
+        EntryPatch p7(OurVirtual("CTaskSimpleCarSetPedOut","ProcessPed"),SetPedOutProcess), p7e(0x647D10,SetPedOutProcess); // la version de la DLL es un reenvio al EXE (no reconstruida)
         EntryPatch p8(bit_cast<uintptr_t>(&CPlaceable::GetHeading),GetHeading), p8e(0x441DB0,GetHeading);
         EntryPatch p9(bit_cast<uintptr_t>(&CPlaceable::SetHeading),SetHeading), p9e(0x43E0C0,SetHeading);
         EntryPatch g1(bit_cast<uintptr_t>(&CGeneral::LimitRadianAngle),LimitAngle), g1e(0x53CB50,LimitAngle);

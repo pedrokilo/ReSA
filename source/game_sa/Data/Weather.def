@@ -2,7 +2,7 @@
 #include "eWeatherType.h"
 
 // 0x8D5EB0
-eWeatherType WeatherTypesListDefault[] = {
+const int8 WeatherTypesListDefault[] = {
     WEATHER_EXTRASUNNY_COUNTRYSIDE,  //  0
     WEATHER_EXTRASUNNY_COUNTRYSIDE,  //  1
     WEATHER_EXTRASUNNY_COUNTRYSIDE,  //  2
@@ -70,7 +70,7 @@ eWeatherType WeatherTypesListDefault[] = {
 };
 
 // 0x8D5EF0
-eWeatherType WeatherTypesListLA[] = {
+const int8 WeatherTypesListLA[] = {
     WEATHER_EXTRASUNNY_SMOG_LA,      //  0
     WEATHER_EXTRASUNNY_SMOG_LA,      //  1
     WEATHER_EXTRASUNNY_LA,           //  2
@@ -138,7 +138,7 @@ eWeatherType WeatherTypesListLA[] = {
 };
 
 // 0x8D5F30
-eWeatherType WeatherTypesListSF[] = {
+const int8 WeatherTypesListSF[] = {
     WEATHER_SUNNY_SF,                //  0
     WEATHER_SUNNY_SF,                //  1
     WEATHER_SUNNY_SF,                //  2
@@ -206,7 +206,7 @@ eWeatherType WeatherTypesListSF[] = {
 };
 
 // 0x8D5F70
-eWeatherType WeatherTypesListVegas[] = {
+const int8 WeatherTypesListVegas[] = {
     WEATHER_EXTRASUNNY_VEGAS,        //  0
     WEATHER_EXTRASUNNY_VEGAS,        //  1
     WEATHER_EXTRASUNNY_VEGAS,        //  2
@@ -274,7 +274,7 @@ eWeatherType WeatherTypesListVegas[] = {
 };
 
 // 0x8D5FB0
-eWeatherType WeatherTypesListDesert[] = {
+const int8 WeatherTypesListDesert[] = {
     WEATHER_EXTRASUNNY_DESERT,       //  0
     WEATHER_EXTRASUNNY_DESERT,       //  1
     WEATHER_EXTRASUNNY_DESERT,       //  2

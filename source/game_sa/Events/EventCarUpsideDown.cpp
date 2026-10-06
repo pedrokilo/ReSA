@@ -38,11 +38,8 @@ CEventCarUpsideDown::CEventCarUpsideDown(CVehicle* vehicle) : CEvent() {
 }
 
 CEventCarUpsideDown::~CEventCarUpsideDown() {
-#if FIX_BUGS
-    CEntity::SafeCleanUpRef(m_vehicle);
-#else
+    // Como el original (0x4B1D50): el destructor vuelve a registrar la referencia en vez de limpiarla (fallo del EXE; la referencia queda colgando)
     CEntity::SafeRegisterRef(m_vehicle);
-#endif
 }
 
 // 0x4B1DB0

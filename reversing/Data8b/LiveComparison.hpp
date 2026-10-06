@@ -26,6 +26,7 @@
 #include <fstream>
 #include <reversiblehooks/RootHookCategory.h>
 #include <reversiblehooks/ReversibleHook/Base.h>
+#include <reversiblehooks/ReversibleHook/Virtual.h>
 #include "Events/EventKnockOffBike.h"
 #include "Events/EventScriptCommand.h"
 #include "Tasks/PedScriptedTaskRecord.h"
@@ -245,6 +246,7 @@ inline ReversibleHooks::ReversibleHook::Base* FindHook(const char* cls,const cha
     ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& c){if(c.Name()==cls)for(auto& h:c.Items())if(h->Name()==fn)r=h.get();});
     return r;
 }
+inline uintptr_t OurVirtual(const char* cls,const char* fn){ auto* h=FindHook(cls,fn); if(!h||h->Symbol()[0]!='V')return 0; uintptr_t p=uintptr_t(static_cast<ReversibleHooks::ReversibleHook::Virtual*>(h)->GetHookOurAddress()); for(int k=0;k<4&&*reinterpret_cast<const uint8*>(p)==0xE9;++k)p=p+5+*reinterpret_cast<const int32*>(p+1); return p; }
 
 struct Fn { const char* cls; const char* name; uintptr_t address; uintptr_t vt; int slot; int cases; };
 constexpr size_t NFNS=48;
@@ -339,7 +341,7 @@ inline void Update() {
         EntryPatch p1(bit_cast<uintptr_t>(&CPed::SetPedPositionInCar),FakePosInCar), p1e(0x5DF910,FakePosInCar);
         EntryPatch p2(bit_cast<uintptr_t>(&CPed::PositionPedOutOfCollision),FakePosOut), p2e(0x5E0820,FakePosOut);
         EntryPatch l1(bit_cast<uintptr_t>(&CWorld::GetIsLineOfSightClear),FakeLos), l1e(0x56A490,FakeLos);
-        EntryPatch t1e(0x647D10,FakeProcessPed);   // la entrada de la DLL es un envoltorio que llama al EXE
+        EntryPatch t1(OurVirtual("CTaskSimpleCarSetPedOut","ProcessPed"),FakeProcessPed), t1e(0x647D10,FakeProcessPed);   // la entrada de la DLL es un envoltorio que llama al EXE
         EntryPatch t2(bit_cast<uintptr_t>(&CCarEnterExit::RemoveCarSitAnim),FakeRemoveSit), t2e(0x64F680,FakeRemoveSit);
         EntryPatch c1e(0x420C40,FakeSphereVis);    // IsSphereVisible de 3 args: envoltorio en la DLL
         EntryPatch c2(bit_cast<uintptr_t>(&CWorld::FindMissionEntitiesIntersectingCube),FakeFindMission), c2e(0x569240,FakeFindMission);

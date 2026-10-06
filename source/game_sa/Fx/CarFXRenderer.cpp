@@ -6,17 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CCarFXRenderer
- * Reconstrucción: INCOMPLETA — 9/10 funciones reconstruidas.
- * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 1.
- * Validación registrada: 0/10 entradas.
+ * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 10/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   InitialiseDirtTexture | 0x005D5BC0 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   InitialiseDirtTexture | 0x005D5BC0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -32,7 +28,7 @@ void CCarFXRenderer::InjectHooks() {
 
     RH_ScopedInstall(RegisterPlugins, 0x5D5B00);
     RH_ScopedInstall(Initialise, 0x5D5AC0);
-    RH_ScopedInstall(InitialiseDirtTexture, 0x5D5BC0, { .reversed = false });
+    RH_ScopedInstall(InitialiseDirtTexture, 0x5D5BC0);
     RH_ScopedInstall(Shutdown, 0x5D5AD0);
     RH_ScopedInstall(PreRenderUpdate, 0x5D5B10);
     RH_ScopedInstall(IsCCPCPipelineAttached, 0x5D5B80);
@@ -83,8 +79,12 @@ bool CCarFXRenderer::InitialiseDirtTexture() {
 
 // 0x5D5AD0
 void CCarFXRenderer::Shutdown() {
+    // Como el original: solo se destruyen las texturas existentes y la tabla queda a nulo
     for (auto& texture : ms_aDirtTextures) {
-        RwTextureDestroy(texture);
+        if (texture) {
+            RwTextureDestroy(texture);
+            texture = nullptr;
+        }
     }
     CCustomCarEnvMapPipeline::DestroyPipe();
 }
@@ -100,13 +100,14 @@ bool CCarFXRenderer::IsCCPCPipelineAttached(RpAtomic* atomic) {
 }
 
 // 0x5D5B20
-void CCarFXRenderer::CustomCarPipeAtomicSetup(RpAtomic* atomic) {
-    CCustomCarEnvMapPipeline::CustomPipeAtomicSetup(atomic);
+RpAtomic* CCarFXRenderer::CustomCarPipeAtomicSetup(RpAtomic* atomic) {
+    return CCustomCarEnvMapPipeline::CustomPipeAtomicSetup(atomic); // Como el original: salto a 0x5DA610 (devuelve el atomic)
 }
 
 // 0x5D5B40
-void CCarFXRenderer::CustomCarPipeClumpSetup(RpClump* clump) {
+RpClump* CCarFXRenderer::CustomCarPipeClumpSetup(RpClump* clump) {
     RpClumpForAllAtomics(clump, SetCustomFXAtomicRenderPipelinesVMICB, nullptr);
+    return clump; // Como el original: devuelve el clump
 }
 
 // 0x5D5B60

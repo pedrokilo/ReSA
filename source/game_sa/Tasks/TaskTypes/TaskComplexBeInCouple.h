@@ -9,7 +9,7 @@ class NOTSA_EXPORT_VTABLE CTaskComplexBeInCouple : public CTaskComplex {
         LEFT,
     };
 public:
-    WalkSide m_walkOnSide{};
+    WalkSide m_walkOnSide; // Como el original: el constructor (0x6836F0) no lo escribe
     CPed*    m_partner{}; // The other ped this (the owner of the task) ped is together with
     bool     m_isLeader{};
     bool     m_holdHands{};
@@ -38,6 +38,7 @@ public:
     CTask* CreateNextSubTask(CPed* ped) override;
     CTask* ControlSubTask(CPed* ped) override;
     void AbortArmIK(CPed* ped);
+    int32 GetSideOfPartner(CPed* ped) const; // 0x683840: 1 o 2 segun de que lado de la pareja esta el peaton
 
 private: // Wrappers for hooks
     // 0x6836F0

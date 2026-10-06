@@ -39,7 +39,10 @@ CTaskComplexLeaveCar::~CTaskComplexLeaveCar() {
         m_pTargetVehicle->CleanUpOldReference(reinterpret_cast<CEntity**>(&m_pTargetVehicle));
     }
 
-    delete m_pTaskUtilityLineUpPedWithCar;
+    // Como el original: test edi,edi antes de operator delete (el destructor de la utilidad es trivial y delete nullptr llamaría a operator delete)
+    if (m_pTaskUtilityLineUpPedWithCar) {
+        delete m_pTaskUtilityLineUpPedWithCar;
+    }
 }
 
 CTaskComplexLeaveCar::CTaskComplexLeaveCar(const CTaskComplexLeaveCar& o) :

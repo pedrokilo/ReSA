@@ -1345,3 +1345,16 @@ Bancos nuevos: ColGeom59a (25 funciones, 19.712 pares), ColProc59b (13 funciones
 - El 05/10 los cuelgues "GTA no responde" de ColProc59b y PlayerPed51 desaparecieron al repetir el banco aislado.
 
 **Sin comprobar:** el rendimiento en juego con los hooks de CCollision activos (antes estaban apagados por lentitud en depuración). La medición de 30 s de `Unlocks/run_current_build.py` dio 741 fotogramas con y sin los hooks, pero ese estado no ejercita colisiones; hay que probarlo jugando.
+
+## Continuidad vigente: nivel 1 de la cola de validación, 34 clases (2026-10-05)
+
+Bancos nuevos: CTasks61a (9 clases de tareas de coche), CTasks61b (9 de deambular, esquivar, pareja, señal, cruzar, destruir coche y ahogarse), CTasks61c (8 de ir a punto, puerta, apuntar, atractores, anim nombrada y rodear coche), Misc61a (CScriptsForBrains, CPedGroup, CWeather, CRopes) y Misc61b (CBmx, CQuadBike, CCarFXRenderer, CStencilShadows). Antes: BeCop60 y DragOut60. **5.662/8.441 validadas, 231 casos, 701 clases completas.** Quedan fuera del banco `RegisterStencilShadows` y los constructores de CBmx y CQuadBike.
+
+**Diferencias reales corregidas** (la DLL no coincidía con el EXE): tiempo de `CTaskSimpleChoking` (1000..1999), `WanderProstitute::ScanForStuff` (campo +0xA8), rotación escrita en `m_fAimingRotation` (+0x55C), `GotoDoorAndOpen` (animación 0, no 3), `ComputeClosestFreeScriptedEffect` es `stdcall`, `GetDisplacement` devuelve puntero, `CPedGroup::Teleport` (3 errores), `RenderRainStreaks` reescrita, `CQuadBike::ProcessAI` llama a `DoHoverSuspensionRatios` y no a `Remove`, `CBmx::PreRender` (nodo trasero y signo del NaN), `CEventCarUpsideDown` sin `FIX_BUGS`, `ComputeTargetDoorToExit` sin `assert` y destructores de `CTaskComplexLeaveCar`/`EnterCar` con guarda de nulo.
+
+**Lecciones:**
+- Al reconstruir una virtual que un banco antiguo parchea solo en la dirección del EXE, la vtable de la DLL ya no pasa por ese parche: hay que parchear también el cuerpo de la DLL (`Body(OurVirtual(...))`). Cuatro bancos viejos caían por eso (CTasks10a, CarAI25, Data8b, STasks10).
+- Un parche especulativo de un agente en un banco que ya pasaba lo rompió (STasks6a): revertir y repetir antes de aceptar.
+- En ensamblador en línea MSVC, nombres como `fAdd` o `fScale` se confunden con instrucciones x87.
+- Dos agentes que definen el mismo ayudante en espacios de nombres distintos obligan a calificar la llamada (ADL).
+- Los diálogos "Device Selection" y los cuelgues de unos 50 s de CarAI25 y FixHooks eran intermitentes o de sondas congeladas: repetir el banco aislado antes de investigar.

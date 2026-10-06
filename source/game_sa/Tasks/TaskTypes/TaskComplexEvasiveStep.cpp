@@ -6,17 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskComplexEvasiveStep
- * Reconstrucción: INCOMPLETA — 7/8 funciones reconstruidas.
- * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 1.
- * Validación registrada: 0/8 entradas.
+ * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 8/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   CreateSubTask | 0x006533E0 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   CreateSubTask | 0x006533E0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -33,7 +29,7 @@ void CTaskComplexEvasiveStep::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x6532D0);
     RH_ScopedInstall(Destructor, 0x653350);
 
-    RH_ScopedInstall(CreateSubTask, 0x6533E0, { .reversed = false }); // Stub plugin::Call: activarlo provocaría recursión infinita
+    RH_ScopedInstall(CreateSubTask, 0x6533E0);
 
     RH_ScopedVMTInstall(Clone, 0x655870);
     RH_ScopedVMTInstall(GetTaskType, 0x653340);
@@ -56,13 +52,12 @@ CTaskComplexEvasiveStep::~CTaskComplexEvasiveStep() {
 
 // 0x6533E0
 CTask* CTaskComplexEvasiveStep::CreateSubTask(eTaskType taskType) {
-    return plugin::CallMethodAndReturn<CTask*, 0x6533E0, CTaskComplexEvasiveStep*, eTaskType>(this, taskType);
-
     switch (taskType) {
     case TASK_SIMPLE_EVASIVE_STEP:
         return new CTaskSimpleEvasiveStep(m_Entity);
     case TASK_SIMPLE_ACHIEVE_HEADING: {
-        auto angle = CGeneral::GetRadianAngleBetweenPoints(-m_Pos.x, -m_Pos.y, 0.0f, 0.0f);
+        // Como el original: tolerancia 0.2f (0x86FC80)
+        const auto angle = CGeneral::GetRadianAngleBetweenPoints(-m_Pos.x, -m_Pos.y, 0.0f, 0.0f);
         return new CTaskSimpleAchieveHeading(angle, 2.0f, 0.2f);
     }
     case TASK_FINISHED:

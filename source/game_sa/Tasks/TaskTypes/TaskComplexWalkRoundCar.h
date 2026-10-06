@@ -44,20 +44,21 @@ private: // Wrappers for hooks
     }
 
 public:
-    uint8        m_MoveState{}; // eMoveState
+    // Como el original (0x6541B0): el constructor solo escribe los campos que escribe el EXE; sin inicializadores por defecto
+    uint8        m_MoveState; // eMoveState
     // flags 1
-    bool         m_bIsPedGoingForCarDoor : 1{};
-    bool         m_bFirstSubTaskNeedsToBeCreated : 1{};
-    // flags 2
-    uint8        m_DirectionGoingRoundCar : 4{};
-    uint8        m_ForceThisDirectionRoundCar : 4{};
-    CVector      m_TargetPt{};
-    CVehicle*    m_Veh{};
-    CPointRoute* m_Route{};
-    CTaskTimer   m_Timer{};
-    CVector      m_VehPos{};
-    CVector      m_VehMatFwd{};
-    CVector      m_VehMatRight{};
-    int32        m_EnterCarStartTime{};
+    bool         m_bIsPedGoingForCarDoor : 1;
+    bool         m_bFirstSubTaskNeedsToBeCreated : 1;
+    uint8        m_DirectionGoingRoundCar : 4;
+    // flags 2 (bits 0-3 del byte 0xE)
+    uint8        m_ForceThisDirectionRoundCar : 4;
+    CVector      m_TargetPt;
+    CVehicle*    m_Veh;
+    CPointRoute* m_Route;
+    CTaskTimer   m_Timer;
+    CVector      m_VehPos;
+    CVector      m_VehMatFwd;
+    CVector      m_VehMatRight;
+    int32        m_EnterCarStartTime;
 };
 VALIDATE_SIZE(CTaskComplexWalkRoundCar, 0x58);

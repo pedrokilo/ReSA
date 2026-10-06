@@ -60,6 +60,8 @@ public:
     static inline auto& OldWeatherType = StaticRef<eWeatherType>(0xC81320);
     static inline auto& m_WeatherAudioEntity = StaticRef<CAEWeatherAudioEntity>(0xC81360);
     static inline auto& StreamAfterRainTimer = StaticRef<int32>(0x8D5EAC);
+    static inline auto& StreamAfterRainFlag = StaticRef<int32>(0xC81328); // != 0 mientras ha llovido hace poco
+    static inline auto& RainFXAlpha = StaticRef<float>(0xC81410);        // alfa del efecto de particulas de lluvia
 
     // in entity.cpp:
 
@@ -72,7 +74,7 @@ public:
     static void Init();
     static void AddRain();
     static void AddSandStormParticles();
-    static const eWeatherType* FindWeatherTypesList();
+    static const int8* FindWeatherTypesList(); // Como el original: tabla de 64 bytes (int8) por tipo de tiempo
     static void ForceWeather(eWeatherType weatherType);
     static void ForceWeatherNow(eWeatherType weatherType);
     static bool ForecastWeather(eWeatherType weatherType, int32 numSteps);

@@ -11,22 +11,22 @@ public:
 
     static void InjectHooks();
 
-    static void Init();
+    static bool Init();
     static void Shutdown();
-    static void Process(CVector& cameraPos);
+    static bool Process(CVector& cameraPos);
 
     // NOTSA/FIX_BUGS: It was named GraphicsLowQuality for some reason
     static bool GraphicsHighQuality();
 
     static void UpdateHierarchy(CStencilShadowObject*& firstAvailable, CStencilShadowObject*& firstActive, CStencilShadowObject* newOne);
-    static void RegisterStencilShadows(CVector& cameraPos, bool doNotCreateNew);
+    static bool RegisterStencilShadows(CVector& cameraPos, bool doNotCreateNew);
 
-    static void RenderStencilShadows();
-    static void RenderForVehicle(CStencilShadowObject*);
-    static void RenderForObject(CStencilShadowObject*);
-    static void Render(const CRGBA& color);
-    static void RenderBuffer(const CVector& pos);
-    static void SunSetPositionFromEntity(const CEntity* entity);
+    static bool RenderStencilShadows();
+    static bool RenderForVehicle(CStencilShadowObject*);
+    static bool RenderForObject(CStencilShadowObject*);
+    static bool Render(const CRGBA& color);
+    static bool RenderBuffer(const CVector& pos);
+    static bool SunSetPositionFromEntity(const CEntity* entity);
 
     static void sub_710CC0(int32 indices, int32 vertices);
 };

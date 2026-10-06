@@ -82,23 +82,12 @@ inline const std::array<Partner,3> partners{{
 }};
 // Hooks de vtable bloqueados (reversed=false) que antes eran planos: solo se comprueba que siguen en su sitio
 struct Locked { const char* cls; const char* name; uintptr_t vt; int slot; uintptr_t address; };
-inline const std::array<Locked,27> lockedVmt{{
-    { "CTaskComplexGoToPointAndStandStillAndAchieveHeading", "Clone", 0x86FE58, 1, 0x66CFD0 },
-    { "CTaskComplexGoToPointAndStandStillAndAchieveHeading", "CreateNextSubTask", 0x86FE58, 8, 0x66DFD0 },
-    { "CTaskComplexGoToPointAndStandStillAndAchieveHeading", "CreateFirstSubTask", 0x86FE58, 9, 0x66E030 },
-    { "CTaskComplexGoToPointAndStandStillAndAchieveHeading", "ControlSubTask", 0x86FE58, 10, 0x668E80 },
+inline const std::array<Locked,16> lockedVmt{{
     { "CTaskComplexGangFollower", "Clone", 0x86F938, 1, 0x65ECB0 },
     { "CTaskComplexGangFollower", "MakeAbortable", 0x86F938, 6, 0x65EC30 },
     { "CTaskComplexGangFollower", "CreateNextSubTask", 0x86F938, 8, 0x665E00 },
     { "CTaskComplexGangFollower", "CreateFirstSubTask", 0x86F938, 9, 0x666160 },
     { "CTaskComplexGangFollower", "ControlSubTask", 0x86F938, 10, 0x662A10 },
-    { "CTaskComplexGotoDoorAndOpen", "Clone", 0x86FFC0, 1, 0x66BCA0 },
-    { "CTaskComplexGotoDoorAndOpen", "CreateNextSubTask", 0x86FFC0, 8, 0x66C0D0 },
-    { "CTaskComplexGotoDoorAndOpen", "CreateFirstSubTask", 0x86FFC0, 9, 0x66BD40 },
-    { "CTaskComplexGotoDoorAndOpen", "ControlSubTask", 0x86FFC0, 10, 0x66C1F0 },
-    { "CTaskComplexGoToPointAnyMeans", "CreateNextSubTask", 0x86FF68, 8, 0x6728A0 },
-    { "CTaskComplexGoToPointAnyMeans", "CreateFirstSubTask", 0x86FF68, 9, 0x6729C0 },
-    { "CTaskComplexGoToPointAnyMeans", "ControlSubTask", 0x86FF68, 10, 0x672A50 },
     { "CTaskGangHassleVehicle", "Clone", 0x86F9D4, 1, 0x65FC00 },
     { "CTaskGangHassleVehicle", "CreateNextSubTask", 0x86F9D4, 8, 0x65FC80 },
     { "CTaskGangHassleVehicle", "CreateFirstSubTask", 0x86F9D4, 9, 0x664BA0 },

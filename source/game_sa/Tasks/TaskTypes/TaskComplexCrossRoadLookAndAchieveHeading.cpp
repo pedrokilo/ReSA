@@ -6,17 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskComplexCrossRoadLookAndAchieveHeading
- * Reconstrucción: INCOMPLETA — 8/9 funciones reconstruidas.
- * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 1.
- * Validación registrada: 0/9 entradas.
+ * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 9/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   Constructor | 0x00631AE0 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   Constructor | 0x00631AE0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -30,8 +26,7 @@ void CTaskComplexCrossRoadLookAndAchieveHeading::InjectHooks() {
     RH_ScopedVirtualClass(CTaskComplexCrossRoadLookAndAchieveHeading, 0x86DFF0, 11);
     RH_ScopedCategory("Tasks/TaskTypes");
 
-    // El constructor todavía es un stub que llama al original.
-    RH_ScopedInstall(Constructor, 0x631AE0, { .reversed = false });
+    RH_ScopedInstall(Constructor, 0x631AE0);
     RH_ScopedInstall(Destructor, 0x631B50);
     RH_ScopedInstall(CreateSubTask, 0x631B60);
 
@@ -45,7 +40,8 @@ void CTaskComplexCrossRoadLookAndAchieveHeading::InjectHooks() {
 
 // 0x631AE0
 CTaskComplexCrossRoadLookAndAchieveHeading::CTaskComplexCrossRoadLookAndAchieveHeading(int32 durationInMs, float fTargetHeading) : CTaskComplex() {
-    plugin::CallMethodAndReturn<CTaskComplexCrossRoadLookAndAchieveHeading*, 0x631AE0, CTaskComplexCrossRoadLookAndAchieveHeading*, int32, float>(this, durationInMs, fTargetHeading);
+    m_nDuration = durationInMs;
+    m_fTargetHeading = fTargetHeading;
 }
 
 // 0x631B50

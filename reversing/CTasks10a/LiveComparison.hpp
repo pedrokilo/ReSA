@@ -249,8 +249,8 @@ inline void Update() {
         EntryPatch s2(Body(bit_cast<uintptr_t>(&CPed::SetMoveState)),FakeSetMoveState), s2e(0x5DEC00,FakeSetMoveState);
         EntryPatch s3(Body(bit_cast<uintptr_t>(&CInterestingEvents::Add)),FakeInteresting), s3e(0x602590,FakeInteresting);
         EntryPatch s4(Body(dllStandStill),FakeStandStillProcess), s4e(0x62F370,FakeStandStillProcess);
-        // ProcessPed de CTaskSimpleCarSetPedOut/CarSetPedInAsPassenger no estan reversionados: la DLL llama a la direccion del EXE
-        EntryPatch s5e(0x647D10,FakeSetPedOutProcess), s6e(0x64B5D0,FakeSetPedInProcess);
+        // ProcessPed de CTaskSimpleCarSetPedOut/CarSetPedInAsPassenger estan reconstruidos: se parchea la direccion del EXE y tambien el cuerpo de la DLL
+        EntryPatch s5(Body(OurVirtual("CTaskSimpleCarSetPedOut","ProcessPed")),FakeSetPedOutProcess), s5e(0x647D10,FakeSetPedOutProcess), s6(Body(OurVirtual("CTaskSimpleCarSetPedInAsPassenger","ProcessPed")),FakeSetPedInProcess), s6e(0x64B5D0,FakeSetPedInProcess);
 
         for(size_t f=0;f<fns.size();++f) {
             const auto& fn=fns[f]; int failures=0; const std::string cls=fn.cls, nm=fn.name, full=cls+"::"+nm;
