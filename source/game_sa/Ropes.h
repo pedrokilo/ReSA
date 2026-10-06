@@ -44,5 +44,5 @@ public:
     static void SetSpeedOfTopNode(uint32 ropeId, CVector dirSpeed);
 
 public:
-    static inline CRope& GetRope(int32 index) { return aRopes[index]; }
+    static inline CRope& GetRope(int32 index) { return aRopes.data()[index]; } // Como el original: sin comprobar el rango (CVehicle::GetRopeHeightForHeli etc. pasan el resultado de FindRope sin mirar -1)
 };

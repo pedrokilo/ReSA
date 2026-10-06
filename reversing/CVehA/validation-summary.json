@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 14464,
+  "pairs_per_function": {
+    "CVehicle::AddPassenger-Auto-Seat": 768,
+    "CVehicle::AddPassenger-Fixed-Seat": 1024,
+    "CVehicle::CanBeDeleted": 768,
+    "CVehicle::CanBeDriven": 512,
+    "CVehicle::CanDoorsBeDamaged": 128,
+    "CVehicle::CanPedEnterCar": 768,
+    "CVehicle::CanPedJumpOutCar": 1024,
+    "CVehicle::CanPedLeanOut": 512,
+    "CVehicle::CanPedOpenLocks": 256,
+    "CVehicle::CanPedStepOutCar": 768,
+    "CVehicle::CanVehicleBeDamaged": 1024,
+    "CVehicle::CarHasRoof": 256,
+    "CVehicle::ChangeLawEnforcerState": 256,
+    "CVehicle::ClearGettingInFlags": 128,
+    "CVehicle::ClearGettingOutFlags": 128,
+    "CVehicle::SetGettingInFlags": 128,
+    "CVehicle::SetGettingOutFlags": 128,
+    "CVehicle::SetWindowOpenFlag": 256,
+    "CVehicle::ClearWindowOpenFlag": 256,
+    "CVehicle::IsDriver-ModelID": 256,
+    "CVehicle::IsDriver-Ped": 256,
+    "CVehicle::IsPassenger-ModelID": 256,
+    "CVehicle::IsPassenger-Ped": 256,
+    "CVehicle::IsLawEnforcementVehicle": 512,
+    "CVehicle::IsOnItsSide": 256,
+    "CVehicle::IsUpsideDown": 256,
+    "CVehicle::IsVehicleNormal": 512,
+    "CVehicle::IsVehiclePointerValid": 1024,
+    "CVehicle::UsesSiren": 512,
+    "CVehicle::SetVehicleCreatedBy": 256,
+    "CVehicle::MakeDirty": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "dd76ca7e5dbd13cebd54c6443c551a4f9d0ec525b27922c2dd6ba0c94a109541",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cveha\\20261006-173859-432105",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CVehicle::AddPassenger-Auto-Seat": true,
+    "CVehicle::AddPassenger-Fixed-Seat": true,
+    "CVehicle::CanBeDeleted": true,
+    "CVehicle::CanBeDriven": true,
+    "CVehicle::CanDoorsBeDamaged": true,
+    "CVehicle::CanPedEnterCar": true,
+    "CVehicle::CanPedJumpOutCar": true,
+    "CVehicle::CanPedLeanOut": true,
+    "CVehicle::CanPedOpenLocks": true,
+    "CVehicle::CanPedStepOutCar": true,
+    "CVehicle::CanVehicleBeDamaged": true,
+    "CVehicle::CarHasRoof": true,
+    "CVehicle::ChangeLawEnforcerState": true,
+    "CVehicle::ClearGettingInFlags": true,
+    "CVehicle::ClearGettingOutFlags": true,
+    "CVehicle::SetGettingInFlags": true,
+    "CVehicle::SetGettingOutFlags": true,
+    "CVehicle::SetWindowOpenFlag": true,
+    "CVehicle::ClearWindowOpenFlag": true,
+    "CVehicle::IsDriver-ModelID": true,
+    "CVehicle::IsDriver-Ped": true,
+    "CVehicle::IsPassenger-ModelID": true,
+    "CVehicle::IsPassenger-Ped": true,
+    "CVehicle::IsLawEnforcementVehicle": true,
+    "CVehicle::IsOnItsSide": true,
+    "CVehicle::IsUpsideDown": true,
+    "CVehicle::IsVehicleNormal": true,
+    "CVehicle::IsVehiclePointerValid": true,
+    "CVehicle::UsesSiren": true,
+    "CVehicle::SetVehicleCreatedBy": true,
+    "CVehicle::MakeDirty": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "a511a9c10dacea0af9c905286044756eb0a7ec8b093d2fe90e7a3675e06807a1",
+      "pdb": "ace942a9058721cbce36addcbebd60378003a6c0773a2b5495c5daf65c162a70"
+    },
+    "sources": {
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "6fb5e5a9d475fa8dd05475988233c0b60c6c680b8cc721a688dc015298f9fb5f",
+      "build_probe.py": "be49273dc16931553f7236a032981e86e98745ff873e6e8b926bcf55546e757a",
+      "run_local.py": "fc8a6109909f8c64515e8555b2968f075f634597652d4c866f81216ea2564019"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

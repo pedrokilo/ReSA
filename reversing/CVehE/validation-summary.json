@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 8128,
+  "pairs_per_function": {
+    "CVehicle::ApplyBoatWaterResistance": 512,
+    "CVehicle::ProcessBoatControl": 1024,
+    "CVehicle::BladeColSectorList<CPtrListSingleLink<CEntity*>>": 512,
+    "CVehicle::DoBladeCollision": 512,
+    "CVehicle::DoFixedMachineGuns": 256,
+    "CVehicle::FirePlaneGuns": 512,
+    "CVehicle::FireUnguidedMissile": 512,
+    "CVehicle::GetFiringRateMultiplier": 128,
+    "CVehicle::SetFiringRateMultiplier": 256,
+    "CVehicle::GetPlaneGunsAutoAimAngle": 128,
+    "CVehicle::GetPlaneGunsPosition": 256,
+    "CVehicle::GetPlaneGunsRateOfFire": 256,
+    "CVehicle::GetPlaneNumGuns": 128,
+    "CVehicle::GetPlaneOrdnancePosition": 256,
+    "CVehicle::GetPlaneOrdnanceRateOfFire": 256,
+    "CVehicle::SelectPlaneWeapon": 256,
+    "CVehicle::InitWinch": 128,
+    "CVehicle::PickUpEntityWithWinch": 64,
+    "CVehicle::QueryPickedUpEntityWithWinch": 64,
+    "CVehicle::ReleasePickedUpEntityWithWinch": 64,
+    "CVehicle::RemoveWinch": 128,
+    "CVehicle::UpdateWinch": 256,
+    "CVehicle::GetRopeHeightForHeli": 64,
+    "CVehicle::SetRopeHeightForHeli": 64,
+    "CVehicle::SpecialEntityCalcCollisionSteps": 512,
+    "CVehicle::SpecialEntityPreCollisionStuff": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "0e46e6a5d52e2275f083439dc708bc4b56dd5844e3a37112b5905c3678071cda",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cvehe\\20261006-174506-902218",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CVehicle::ApplyBoatWaterResistance": true,
+    "CVehicle::ProcessBoatControl": true,
+    "CVehicle::BladeColSectorList<CPtrListSingleLink<CEntity*>>": true,
+    "CVehicle::DoBladeCollision": true,
+    "CVehicle::DoFixedMachineGuns": true,
+    "CVehicle::FirePlaneGuns": true,
+    "CVehicle::FireUnguidedMissile": true,
+    "CVehicle::GetFiringRateMultiplier": true,
+    "CVehicle::SetFiringRateMultiplier": true,
+    "CVehicle::GetPlaneGunsAutoAimAngle": true,
+    "CVehicle::GetPlaneGunsPosition": true,
+    "CVehicle::GetPlaneGunsRateOfFire": true,
+    "CVehicle::GetPlaneNumGuns": true,
+    "CVehicle::GetPlaneOrdnancePosition": true,
+    "CVehicle::GetPlaneOrdnanceRateOfFire": true,
+    "CVehicle::SelectPlaneWeapon": true,
+    "CVehicle::InitWinch": true,
+    "CVehicle::PickUpEntityWithWinch": true,
+    "CVehicle::QueryPickedUpEntityWithWinch": true,
+    "CVehicle::ReleasePickedUpEntityWithWinch": true,
+    "CVehicle::RemoveWinch": true,
+    "CVehicle::UpdateWinch": true,
+    "CVehicle::GetRopeHeightForHeli": true,
+    "CVehicle::SetRopeHeightForHeli": true,
+    "CVehicle::SpecialEntityCalcCollisionSteps": true,
+    "CVehicle::SpecialEntityPreCollisionStuff": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "30f7850cbf213f8f1a1e61ce671e3d88f033146eb5757cfa88e29dd5a20e94db",
+      "pdb": "d3b793b795960772fa89657f7698afdae4d2a48a91d4c4c1c655f1c390926543"
+    },
+    "sources": {
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+      "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "04d200d218dee93a4a5f463782881480adee11cbf34f34abd31f29aec2e8fd51",
+      "build_probe.py": "f30bbd86d6647a1fbce6c89322b72124b914db358290c793565de69d5d45f0ea",
+      "run_local.py": "7bea977d93053cac3364b0de276a7384a6b6e79c802e447afbcbccd9d7559b7c"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

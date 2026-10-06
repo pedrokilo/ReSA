@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 142/142 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/142 entradas.
+ * Validación registrada: 142/142 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -43,6 +43,7 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexEnterCarAsDriver.h"
 #include "TaskComplexEnterCarAsPassenger.h"
 #include "Shadows.h"
+#include "CustomBuildingDNPipeline.h"
 #include "PedClothesDesc.h"
 
 auto& planeRotorDmgTimeMS = StaticRef<uint32>(0xC1CC1C);
@@ -70,6 +71,121 @@ auto& DIFF_SPRING_MULT_Y = StaticRef<float>(0x8D35BC);           // 0.05f
 auto& DIFF_SPRING_MULT_Z = StaticRef<float>(0x8D35C0);           // 0.1f
 auto& DIFF_SPRING_COMPRESS_MULT = StaticRef<float>(0x8D35C4);    // 2.0f
 auto& VehicleGunOffset = StaticRef<std::array<CVector, 14>>(0x8D35D4); // maybe [12]
+
+// Auxiliares del banco CVehE: reproducen el orden de operaciones (x87 a 24 bits) de los helpers del EXE
+namespace {
+// Como el original: _ftol2 (0x821B40) trunca hacia cero a int64; se usa la palabra baja
+int32 VehEFtol(float f) { return static_cast<int32>(static_cast<int64>(f)); }
+
+// Como el original: CMatrix * CVector (0x59C890): x = z, y, x; y = z, x, y; z = z, x, y; mas la posicion
+CVector VehEMatPoint(const CMatrix& m, const CVector& v) {
+    return CVector{
+        ((m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x) + m.GetPosition().x,
+        ((m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y) + m.GetPosition().y,
+        ((m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y) + m.GetPosition().z,
+    };
+}
+
+// Como el original: Multiply3x3 (0x59C790) con las sumas en el orden del EXE
+CVector VehEMatVec(const CMatrix& m, const CVector& v) {
+    return CVector{
+        (m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x,
+        (m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y,
+        (m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y,
+    };
+}
+
+// Como el original: transformacion inversa de un vector (0x59C810)
+CVector VehEInvVec(const CMatrix& m, const CVector& v) {
+    return CVector{
+        (m.GetRight().y * v.y + m.GetRight().z * v.z) + v.x * m.GetRight().x,
+        (m.GetForward().y * v.y + m.GetForward().x * v.x) + m.GetForward().z * v.z,
+        (m.GetUp().y * v.y + m.GetUp().x * v.x) + m.GetUp().z * v.z,
+    };
+}
+
+// Como el original: producto escalar de 0x40FDB0 (sumas z, y, x)
+float VehEDot(const CVector& a, const CVector& b) {
+    return (a.z * b.z + a.y * b.y) + a.x * b.x;
+}
+
+// Como el original: producto vectorial de 0x59C730
+CVector VehECross(const CVector& a, const CVector& b) {
+    return CVector{
+        a.y * b.z - a.z * b.y,
+        a.z * b.x - a.x * b.z,
+        a.x * b.y - a.y * b.x,
+    };
+}
+
+// Como el original: pow del CRT del EXE (_CIpow, 0x822130, precision x87 completa) y resultado guardado como float
+float VehEPow(float base, float exponent) {
+    float result;
+    __asm {
+        fld base
+        fld exponent
+        mov eax, 0x822130
+        call eax
+        fstp result
+    }
+    return result;
+}
+
+// Como el original: fsin y fcos del x87 sobre el mismo valor (precision completa, el resultado se redondea al guardarlo)
+void VehESinCos(float angle, float& outSin, float& outCos) {
+    float* pSin = &outSin;
+    float* pCos = &outCos;
+    __asm {
+        fld angle
+        fsin
+        mov eax, pSin
+        fstp dword ptr [eax]
+        fld angle
+        fcos
+        mov eax, pCos
+        fstp dword ptr [eax]
+    }
+}
+
+// Como el original: CVector2D::Normalise (0x44E480); con suma de cuadrados no positiva solo pone x = 1
+void VehENormalise2D(CVector2D& v) {
+    const float sumSq = v.x * v.x + v.y * v.y;
+    if (!(sumSq > 0.0f) && !std::isnan(sumSq)) {
+        v.x = 1.0f;
+        return;
+    }
+    const float inv = 1.0f / std::sqrt(sumSq);
+    v.x = inv * v.x;
+    v.y = inv * v.y;
+}
+
+// Como el original: CVector::Normalise (0x59C910); con suma de cuadrados no positiva solo pone x = 1
+void VehENormalise(CVector& v) {
+    const float sumSq = (v.x * v.x + v.y * v.y) + v.z * v.z;
+    if (!(sumSq > 0.0f) && !std::isnan(sumSq)) {
+        v.x = 1.0f;
+        return;
+    }
+    const float inv = 1.0f / std::sqrt(sumSq);
+    v.x = inv * v.x;
+    v.y = inv * v.y;
+    v.z = inv * v.z;
+}
+
+// Como el original: CVector::NormaliseAndMag (0x59C970); devuelve 1 / (1 / raiz), no la raiz
+float VehENormaliseAndMag(CVector& v) {
+    const float sumSq = (v.x * v.x + v.y * v.y) + v.z * v.z;
+    if (!(sumSq > 0.0f) && !std::isnan(sumSq)) {
+        v.x = 1.0f;
+        return 1.0f;
+    }
+    const float inv = 1.0f / std::sqrt(sumSq);
+    v.x = inv * v.x;
+    v.y = inv * v.y;
+    v.z = inv * v.z;
+    return 1.0f / inv;
+}
+} // namespace
 
 void CVehicle::InjectHooks() {
     RH_ScopedVirtualClass(CVehicle, 0x871e80, 66);
@@ -256,6 +372,7 @@ CVehicle::CVehicle(eVehicleCreatedBy createdBy) : CPhysical(), m_vehicleAudio(),
     SetTypeVehicle();
 
     m_fRawSteerAngle = 0.0f;
+    m_fSteerAngle = 0.0f; // Como el original: tambien se pone a cero (0x494)
     m_f2ndSteerAngle = 0.0f;
     m_nCurrentGear = 1;
     m_fGearChangeCount = 0.0f;
@@ -301,6 +418,7 @@ CVehicle::CVehicle(eVehicleCreatedBy createdBy) : CPhysical(), m_vehicleAudio(),
     m_nOverrideLights = eVehicleOverrideLightsState::NO_CAR_LIGHT_OVERRIDE;
     m_ropeType = 0;
     m_nGunsCycleIndex = 0;
+    m_nOrdnanceCycleIndex = 0; // Como el original: el EXE borra los dos indices de ciclo (&0xF0 del byte 0x4A9)
     physicalFlags.bCanBeCollidedWith = true;
 
     m_nLastWeaponDamageType = -1;
@@ -395,15 +513,22 @@ CVehicle::~CVehicle() {
     }
 
     if (m_vehicleSpecialColIndex > -1) {
-        m_aSpecialColVehicle[m_vehicleSpecialColIndex] = nullptr;
+        m_aSpecialColVehicle.data()[m_vehicleSpecialColIndex] = nullptr; // Como el original: sin comprobar el rango
         m_vehicleSpecialColIndex = -1;
     }
 
-    for (auto particle : { m_pOverheatParticle, m_pFireParticle, m_pDustParticle }) {
-        if (particle) {
-            g_fxMan.DestroyFxSystem(particle);
-            particle = nullptr;
-        }
+    // Como el original: los tres punteros se ponen a cero (antes se anulaba una copia)
+    if (m_pOverheatParticle) {
+        g_fxMan.DestroyFxSystem(m_pOverheatParticle);
+        m_pOverheatParticle = nullptr;
+    }
+    if (m_pFireParticle) {
+        g_fxMan.DestroyFxSystem(m_pFireParticle);
+        m_pFireParticle = nullptr;
+    }
+    if (m_pDustParticle) {
+        g_fxMan.DestroyFxSystem(m_pDustParticle);
+        m_pDustParticle = nullptr;
     }
 
     if (m_pCustomCarPlate) {
@@ -411,7 +536,7 @@ CVehicle::~CVehicle() {
         m_pCustomCarPlate = nullptr;
     }
 
-    const auto iRopeInd = CRopes::FindRope(reinterpret_cast<uint32>(this) + 1);
+    const auto iRopeInd = CRopes::FindRope(GetRopeID()); // Como el original: this + 0x1D (&m_nFlags + 1), no this + 1
     if (iRopeInd >= 0) {
         CRopes::GetRope(iRopeInd).Remove();
     }
@@ -455,7 +580,7 @@ void CVehicle::SetModelIndex(uint32 index) {
         vehicleFlags.bIsRCVehicle = true;
         break;
     default:
-        vehicleFlags.bCreatedAsPoliceVehicle = false;
+        // Como el original (0x6D6AAB): solo se borra bIsRCVehicle (and 0x7F); bCreatedAsPoliceVehicle no se toca
         vehicleFlags.bIsRCVehicle = false;
         break;
     }
@@ -494,7 +619,8 @@ void CVehicle::SpecialEntityPreCollisionStuff(CPhysical* colPhysical, bool bIgno
         return;
     }
 
-    if (physicalFlags.bSubmergedInWater
+    // Como el original: el EXE prueba el bit 24 de las banderas fisicas (bDontCollideWithFlyers), no bSubmergedInWater
+    if (physicalFlags.bDontCollideWithFlyers
         && GetStatus() != STATUS_PLAYER
         && (GetStatus() != STATUS_REMOTE_CONTROLLED && colPhysical->DoesNotCollideWithFlyers())) // BUG:? Seems like it should check for it being heli
     {
@@ -548,6 +674,7 @@ void CVehicle::SpecialEntityPreCollisionStuff(CPhysical* colPhysical, bool bIgno
         {
             bCollisionDisabled = true;
             colPhysical->AsObject()->m_pEntityIgnoredCollision = this;
+            return; // Como el original: salta a la comprobacion final, que con bCollisionDisabled no hace nada
         }
         else
         {
@@ -574,14 +701,14 @@ void CVehicle::SpecialEntityPreCollisionStuff(CPhysical* colPhysical, bool bIgno
                     if (vecMax.x < 1.0F && vecMax.y < 1.0F && vecMax.z < 1.0F)
                     {
                         const auto vecSize = cm->GetBoundingBox().GetSize();
-                        const auto vecTransformed = colPhysical->m_matrix->TransformPoint(vecSize);
+                        const auto vecTransformed = VehEMatPoint(*colPhysical->m_matrix, vecSize); // Como el original: 0x59C890
 
                         if (GetPosition().z > vecTransformed.z)
                             bCollidedEntityCollisionIgnored = true;
                         else
                         {
                             Invert(*m_matrix, tempMat);
-                            if (tempMat.TransformPoint(vecTransformed).z < 0.0F) // `m_matrix->GetUp().Dot(vecTransformed)` should work too
+                            if (VehEMatPoint(tempMat, vecTransformed).z < 0.0F) // `m_matrix->GetUp().Dot(vecTransformed)` should work too
                                 bCollidedEntityCollisionIgnored = true;
                         }
                     }
@@ -625,40 +752,57 @@ void CVehicle::SpecialEntityPreCollisionStuff(CPhysical* colPhysical, bool bIgno
 
 // 0x6D0E90
 uint8 CVehicle::SpecialEntityCalcCollisionSteps(bool& bProcessCollisionBeforeSettingTimeStep, bool& unk2) {
-    if (physicalFlags.bDisableCollisionForce)
+    if (physicalFlags.bDisableCollisionForce) {
         return 1;
-
-    const auto fMoveSquared = m_vecMoveSpeed.SquaredMagnitude() * sq(CTimer::GetTimeStep());
-    if (fMoveSquared < 0.16F)
-        return 1;
-
-    auto fMove = sqrt(fMoveSquared);
-    if (!TreatAsPlayerForCollisions())
-    {
-        if (fMoveSquared <= 0.32F)
-            fMove *= (10.0F / 4.0F);
-        else
-            fMove *= (10.0F / 3.0F);
     }
-    else if (IsBike())
+
+    // Como el original: (|v|^2 * paso) * paso (no |v|^2 * sq(paso)); el limite es 0x871E34 (el siguiente float tras 0.16) y con NaN tambien devuelve 1
+    const float fMoveSquared = (m_vecMoveSpeed.SquaredMagnitude() * CTimer::GetTimeStep()) * CTimer::GetTimeStep();
+    if (!(fMoveSquared >= std::bit_cast<float>(0x3E23D70Bu))) {
+        return 1;
+    }
+
+    float fMove = std::sqrt(fMoveSquared);
+    if (!TreatAsPlayerForCollisions()) {
+        if (fMoveSquared <= std::bit_cast<float>(0x3EA3D70Bu)) { // 0x871E30
+            fMove *= (10.0F / 4.0F);
+        } else {
+            fMove *= (10.0F / 3.0F);
+        }
+    } else if (IsBike()) {
         fMove *= (10.0F / 1.5F);
-    else
+    } else {
         fMove *= (10.0F / 2.0F);
+    }
+
+    // Como el original: ceil del CRT sobre el double del producto y _ftol2; se usa el byte bajo
+    const auto steps = static_cast<uint8>(static_cast<int64>(std::ceil(static_cast<double>(fMove))));
 
     auto& bbox = CEntity::GetColModel()->GetBoundingBox();
-    auto fLongestDir = std::fabs(DotProduct(m_vecMoveSpeed, GetForward()) * CTimer::GetTimeStep() / bbox.GetLength());
-    fLongestDir = std::max(fLongestDir, std::fabs(DotProduct(m_vecMoveSpeed, GetRight()) * CTimer::GetTimeStep() / bbox.GetWidth()));
-    fLongestDir = std::max(fLongestDir, std::fabs(DotProduct(m_vecMoveSpeed, GetUp()) * CTimer::GetTimeStep() / bbox.GetHeight()));
+    const auto& mat = *m_matrix;
 
-    if (IsBike())
+    // Como el original: |dot * paso| se calcula como |dot| * paso / dimension, el dot suma z, y, x y el maximo queda con el primero si es estrictamente mayor
+    auto fLongestDir = (std::fabs(VehEDot(m_vecMoveSpeed, mat.GetForward())) * CTimer::GetTimeStep()) / bbox.GetLength();
+    const auto fWidthDir = (std::fabs(VehEDot(m_vecMoveSpeed, mat.GetRight())) * CTimer::GetTimeStep()) / bbox.GetWidth();
+    if (!(fLongestDir > fWidthDir)) {
+        fLongestDir = fWidthDir;
+    }
+    const auto fHeightDir = (std::fabs(VehEDot(m_vecMoveSpeed, mat.GetUp())) * CTimer::GetTimeStep()) / bbox.GetHeight();
+    if (!(fLongestDir > fHeightDir)) {
+        fLongestDir = fHeightDir;
+    }
+
+    if (IsBike()) {
         fLongestDir *= 1.5F;
+    }
 
-    if (fLongestDir < 1.0F)
+    if (fLongestDir < 1.0F) {
         bProcessCollisionBeforeSettingTimeStep = true;
-    else if (fLongestDir < 2.0F)
+    } else if (fLongestDir < 2.0F) {
         unk2 = true;
+    }
 
-    return static_cast<uint8>(ceil(fMove));
+    return steps;
 }
 
 // 0x6D6480
@@ -713,8 +857,8 @@ void CVehicle::ProcessOpenDoor(CPed* ped, uint32 doorComponentId_, uint32 animGr
         case COMPONENT_DOOR_RR: return DOOR_LEFT_FRONT;
         case COMPONENT_WING_LF: return DOOR_LEFT_REAR;
         default:
-            assert(false); // Shouldn't get here
-            return static_cast<eDoors>(fTime);
+            // Como el original: usa los bits del float fTime como numero de puerta (sin assert)
+            return static_cast<eDoors>(std::bit_cast<uint32>(fTime));
         }
     }();
 
@@ -748,7 +892,24 @@ void CVehicle::ProcessOpenDoor(CPed* ped, uint32 doorComponentId_, uint32 animGr
     case ANIM_ID_CAR_CLOSE_RHS_0:
     case ANIM_ID_CAR_CLOSE_LHS_1:
     case ANIM_ID_CAR_CLOSE_RHS_1: {
+        // Como el original (0x6D5940): sin comparar con la apertura actual (eso lo hace CLOSEDOOR)
         CVehicleAnimGroupData::GetInOutTimings(group, eInOutTimingMode::CLOSE_STOP, &fAnimStart, &fAnimEnd);
+        if (fTime < fAnimStart) {
+            OpenDoor(ped, doorComponentId, iCheckedDoor, 1.0F, true);
+        } else if (fTime > fAnimEnd) {
+            OpenDoor(ped, doorComponentId, iCheckedDoor, 0.0F, true);
+        } else if (fTime > fAnimStart && fTime < fAnimEnd) {
+            const auto fNewRatio = 1.0F - invLerp(fAnimStart, fAnimEnd, fTime);
+            OpenDoor(ped, doorComponentId, iCheckedDoor, fNewRatio, true);
+        }
+        return;
+    }
+    case ANIM_ID_CAR_CLOSEDOOR_LHS_0:
+    case ANIM_ID_CAR_CLOSEDOOR_RHS_0:
+    case ANIM_ID_CAR_CLOSEDOOR_LHS_1:
+    case ANIM_ID_CAR_CLOSEDOOR_RHS_1: {
+        // Como el original (0x6D57E2): solo cierra si la apertura actual es mayor que la nueva
+        CVehicleAnimGroupData::GetInOutTimings(group, eInOutTimingMode::OPEN_STOP, &fAnimStart, &fAnimEnd);
         if (fTime < fAnimStart) {
             OpenDoor(ped, doorComponentId, iCheckedDoor, 1.0F, true);
         } else if (fTime > fAnimEnd) {
@@ -759,21 +920,6 @@ void CVehicle::ProcessOpenDoor(CPed* ped, uint32 doorComponentId_, uint32 animGr
             if (fCurRatio > fNewRatio) {
                 OpenDoor(ped, doorComponentId, iCheckedDoor, fNewRatio, true);
             }
-        }
-        return;
-    }
-    case ANIM_ID_CAR_CLOSEDOOR_LHS_0:
-    case ANIM_ID_CAR_CLOSEDOOR_RHS_0:
-    case ANIM_ID_CAR_CLOSEDOOR_LHS_1:
-    case ANIM_ID_CAR_CLOSEDOOR_RHS_1: {
-        CVehicleAnimGroupData::GetInOutTimings(group, eInOutTimingMode::OPEN_STOP, &fAnimStart, &fAnimEnd);
-        if (fTime < fAnimStart) {
-            OpenDoor(ped, doorComponentId, iCheckedDoor, 1.0F, true);
-        } else if (fTime > fAnimEnd) {
-            OpenDoor(ped, doorComponentId, iCheckedDoor, 0.0F, true);
-        } else if (fTime > fAnimStart && fTime < fAnimEnd) {
-            const auto fNewRatio = 1.0F - invLerp(fAnimStart, fAnimEnd, fTime);
-            OpenDoor(ped, doorComponentId, iCheckedDoor, fNewRatio, true);
         }
         return;
     }
@@ -1065,50 +1211,70 @@ bool CVehicle::CanPedStepOutCar(bool bIgnoreSpeedUpright) const {
     if (IsBoat())
         return true;
 
+    // Como el original: devuelve verdadero cuando la velocidad de giro NO supera el limite (con bIgnoreSpeedUpright; la DLL
+    // devolvia lo contrario) y las comparaciones son "no mayor que" (fcomp + test ah,41h): un NaN cuenta como dentro del limite.
     if (bIgnoreSpeedUpright)
-        return m_vecTurnSpeed.SquaredMagnitude() > 0.0004F;
+        return !(m_vecTurnSpeed.SquaredMagnitude() > 0.0004F);
 
-    return m_vecMoveSpeed.Magnitude2D() <= 0.01F &&
-           std::fabs(m_vecMoveSpeed.z) <= 0.05F &&
-           m_vecTurnSpeed.SquaredMagnitude() <= 0.0004F;
+    return !(m_vecMoveSpeed.Magnitude2D() > 0.01F) &&
+           !(std::fabs(m_vecMoveSpeed.z) > 0.05F) &&
+           !(m_vecTurnSpeed.SquaredMagnitude() > 0.0004F);
 }
 
 // 0x6D2030
 bool CVehicle::CanPedJumpOutCar(CPed* ped) {
-    if (IsBike())
-    {
-        if (!HasPassengerAtSeat(0) || ped == m_apPassengers[0])
-            return m_vecMoveSpeed.SquaredMagnitude2D() >= 0.07F;
+    // Como el original: las comparaciones son las del x87 (fcomp + test ah,5 / 41h), de modo que un NaN no se trata como "menor".
+    if (IsBike()) {
+        const auto* const passenger0 = m_apPassengers.data()[0];
+        if (passenger0 && ped != passenger0)
+            return false;
 
-        return false;
+        return !(m_vecMoveSpeed.SquaredMagnitude2D() < 0.07F);
     }
 
     const auto fHorSpeedSquared = m_vecMoveSpeed.SquaredMagnitude2D();
-    if (!IsSubPlane()
-        && !IsSubHeli()
-        && (!IsAutomobile() || m_matrix->GetUp().z >= 0.3F || m_nLastCollisionTime <= CTimer::GetTimeInMS() - 1000))
-    {
-        return fHorSpeedSquared >= 0.1F && fHorSpeedSquared <= 0.5F;
+    bool bInTheAir = IsSubPlane() || IsSubHeli();
+    if (!bInTheAir && IsAutomobile()) {
+        bInTheAir = m_matrix->GetUp().z < 0.3F && m_nLastCollisionTime > CTimer::GetTimeInMS() - 1000;
     }
 
-    if (fHorSpeedSquared >= 0.1F)
+    if (!bInTheAir) {
+        if (fHorSpeedSquared < 0.1F)
+            return false;
+
+        return !(fHorSpeedSquared > 0.5F);
+    }
+
+    if (!(fHorSpeedSquared < 0.1F))
         return true;
 
     if (CanPedStepOutCar(false))
         return false;
 
     m_vecTurnSpeed *= 0.9F; // BUG(PRONE): We are modifying vehicle move and turn speeds in function that seems that it should be const
-    auto const fMoveSpeedSquared = m_vecMoveSpeed.SquaredMagnitude();
-    if (fMoveSpeedSquared / 100.0F > sq(CTimer::GetTimeStep()) * sq(0.008F))
-    {
+    const auto fMoveSpeedSquared = m_vecMoveSpeed.SquaredMagnitude();
+    const auto fTimeStep = CTimer::GetTimeStep();
+    // Como el original: 0.01f * |v|^2 frente a ts*ts*6.4000007e-05f (0x871E38 = 0.008f^2 en float), sin dividir entre 100.
+    if (fTimeStep * fTimeStep * std::bit_cast<float>(0x388637BEu) < 0.01F * fMoveSpeedSquared) {
         m_vecMoveSpeed *= 0.9F;
         return false;
     }
 
-    auto fMoveMult = CTimer::GetTimeStep() / std::sqrt(fMoveSpeedSquared) * 0.016F;
-    fMoveMult = std::max(0.0F, 1.0F - fMoveMult);
+    auto fMoveMult = fTimeStep / std::sqrt(fMoveSpeedSquared) * 0.016F;
+    fMoveMult = 1.0F - fMoveMult;
+    if (0.0F > fMoveMult) // el EXE no toca un NaN
+        fMoveMult = 0.0F;
     m_vecMoveSpeed *= fMoveMult;
     return false;
+}
+
+// Como el original (0x59C890, CMatrix * CVector): x = ((at*z + up*y) + right*x) + pos; y y z = ((at*z + right*x) + up*y) + pos.
+// TransformPoint suma en otro orden.
+static CVector CVehTowTransformPoint(const CMatrix& m, const CVector& v) {
+    const float x = (m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x + m.GetPosition().x;
+    const float y = (m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y + m.GetPosition().y;
+    const float z = (m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y + m.GetPosition().z;
+    return { x, y, z };
 }
 
 // 0x871F6C// 0x6DFB70
@@ -1118,7 +1284,7 @@ bool CVehicle::GetTowHitchPos(CVector& outPos, bool bCheckModelInfo, CVehicle* v
 
     auto const fColFront = CModelInfo::GetModelInfo(m_nModelIndex)->GetColModel()->GetBoundingBox().m_vecMax.y;
     outPos.Set(0.0F, fColFront + 1.0F, 0.0F);
-    outPos = m_matrix->TransformPoint(outPos);
+    outPos = CVehTowTransformPoint(*m_matrix, outPos);
     return true;
 }
 
@@ -1129,7 +1295,7 @@ bool CVehicle::GetTowBarPos(CVector& outPos, bool bCheckModelInfo, CVehicle* veh
 
     auto const fColRear = CModelInfo::GetModelInfo(m_nModelIndex)->GetColModel()->GetBoundingBox().m_vecMin.y;
     outPos.Set(0.0F, fColRear - 1.0F, 0.0F);
-    outPos = m_matrix->TransformPoint(outPos);
+    outPos = CVehTowTransformPoint(*m_matrix, outPos);
     return true;
 }
 
@@ -1165,15 +1331,17 @@ void CVehicle::Shutdown() {
 // -1 if no remap index
 // 0x6D0B70
 int32 CVehicle::GetRemapIndex() {
-    auto* mi = GetVehicleModelInfo();
-    if (mi->GetNumRemaps() <= 0) {
-        return -1;
-    }
-
-    for (auto i = 0; i < mi->GetNumRemaps(); ++i) {
-        if (mi->m_anRemapTxds[i] == m_nPreviousRemapTxd) {
-            return i;
-        }
+    // Como el original (0x6D0B70): el modelo se lee sin comprobar tipo; GetNumRemaps se llama una vez al empezar y otra
+    // por cada iteración fallida (no dos veces seguidas); el índice del bucle es un int16 (movsx) y no se comprueba el rango.
+    auto* mi = CModelInfo::GetModelInfo(m_nModelIndex)->AsVehicleModelInfoPtr();
+    int32 i = 0;
+    if (mi->GetNumRemaps() > 0) {
+        do {
+            if (mi->m_anRemapTxds.data()[(int16)i] == m_nPreviousRemapTxd) {
+                return i;
+            }
+            ++i;
+        } while (i < mi->GetNumRemaps());
     }
     return -1;
 }
@@ -1196,7 +1364,8 @@ void CVehicle::SetRemap(int32 remapIndex) {
     if (remapIndex == -1) {
         SetRemapTexDictionary(-1);
     } else {
-        auto const infoRemapInd = GetVehicleModelInfo()->m_anRemapTxds[remapIndex];
+        // Como el original (0x6D0C00): el índice se trunca a int16 (movsx) y no se comprueba el rango
+        auto const infoRemapInd = GetVehicleModelInfo()->m_anRemapTxds.data()[(int16)remapIndex];
         SetRemapTexDictionary(infoRemapInd);
     }
 }
@@ -1215,16 +1384,29 @@ void CVehicle::UpdateLightingFromStoredPolys() {
     m_anCollisionLighting[3] = m_RearCollPoly.ligthing;
 }
 
+// Como el original (0x59C890, CMatrix * CVector, usado por el grupo D de CVehicle): x = ((at*z + up*y) + right*x) + pos;
+// y y z = ((at*z + right*x) + up*y) + pos. TransformPoint suma en otro orden.
+static CVector CVehDMatPoint(const CMatrix& m, const CVector& v) {
+    const float x = (m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x + m.GetPosition().x;
+    const float y = (m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y + m.GetPosition().y;
+    const float z = (m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y + m.GetPosition().z;
+    return { x, y, z };
+}
+
 // 0x6D0CF0
 void CVehicle::CalculateLightingFromCollision() {
+    // Como el original: GetCurrentLighting en linea con 1/30 (0x858F10) y (dia*k)*(1 - b) + (noche*k)*b, suma acumulada y * 0.25
+    const float balance = CCustomBuildingDNPipeline::m_fDNBalanceParam;
+    const float k = std::bit_cast<float>(0x3D088889u);
     float fAvgLight = 0.0F;
-    for (auto& colLighting : m_anCollisionLighting) {
-        fAvgLight += colLighting.GetCurrentLighting();
+    for (auto i = 0; i < 4; i++) {
+        const auto lighting = m_anCollisionLighting[i].value;
+        const float term = (static_cast<float>(lighting & 0xF) * k) * (1.0F - balance)
+                         + (static_cast<float>(lighting >> 4) * k) * balance;
+        fAvgLight = i == 0 ? term : fAvgLight + term;
     }
 
-    fAvgLight /= 4.0F;
-    m_fContactSurfaceBrightness = fAvgLight;
-
+    m_fContactSurfaceBrightness = fAvgLight * 0.25F;
 }
 
 // 0x6D0E20
@@ -1293,7 +1475,7 @@ bool CVehicle::CustomCarPlate_TextureCreate(CVehicleModelInfo* model) {
 
     if (const auto text = model->GetCustomCarPlateText()) {
         m_pCustomCarPlate = CCustomCarPlateMgr::CreatePlateTexture(text, model->m_nPlateType);
-        model->SetCustomCarPlateText(text);
+        model->SetCustomCarPlateText(nullptr); // Como el original (0x6D111D): borra el texto del modelo (push 0), no lo vuelve a poner
         model->m_nPlateType = -1;
     } else {
         m_pCustomCarPlate = RpMaterialGetTexture(model->m_pPlateMaterial);
@@ -1351,7 +1533,8 @@ float CVehicle::ProcessWheelRotation(tWheelState wheelState, const CVector& arg1
     if (wheelState == WHEEL_STATE_FIXED)
         return 0.0f;
 
-    const auto angle = DotProduct(arg1, arg2) / arg3;
+    // Como el original: producto escalar sumado en orden z, y, x
+    const float angle = ((arg1.z * arg2.z + arg1.y * arg2.y) + arg1.x * arg2.x) / arg3;
     return -angle;
 }
 
@@ -1360,56 +1543,69 @@ bool CVehicle::CanVehicleBeDamaged(CEntity* damager, eWeaponType weapon, bool& b
     if (!vehicleFlags.bCanBeDamaged)
         return false;
 
-    const auto player = FindPlayerPed();
-    const auto vehicle = FindPlayerVehicle();
-    if (   GetStatus() != STATUS_PLAYER
-        && physicalFlags.bInvulnerable
-        && damager != player
-        && damager != vehicle
-    ) {
-        return false;
+    // Como el original (0x6D1280): FindPlayerPed/FindPlayerVehicle se piden solo cuando hacen falta (y FindPlayerPed hasta tres veces).
+    if (GetStatus() != STATUS_PLAYER && physicalFlags.bInvulnerable) {
+        if (damager != FindPlayerPed() && damager != FindPlayerVehicle()) {
+            return false;
+        }
     }
 
-    if (player && damager == player && player->m_pAttachedTo == this)
-        return false;
+    if (FindPlayerPed()) {
+        if (damager == FindPlayerPed() && FindPlayerPed()->m_pAttachedTo == this) {
+            return false;
+        }
+    }
 
     bDamagedDueToFireOrExplosionOrBullet = false;
-    if (CanPhysicalBeDamaged(weapon, &bDamagedDueToFireOrExplosionOrBullet)) {
-        return !bDamagedDueToFireOrExplosionOrBullet || GetStatus() != STATUS_PLAYER || m_fHealth >= 250.0f;
-    } else {
+    if (!CanPhysicalBeDamaged(weapon, &bDamagedDueToFireOrExplosionOrBullet)) {
         return false;
     }
+
+    // Como el original: "no menor que 250" (un NaN en la salud no impide el dano).
+    return !bDamagedDueToFireOrExplosionOrBullet || GetStatus() != STATUS_PLAYER || !(m_fHealth < 250.0f);
 }
 
 // 0x6D1340
 void CVehicle::ProcessDelayedExplosion() {
-    if (!m_wBombTimer) {
+    // Como el original: el temporizador se trata como uint16 (movzx + ja) y el periodo es un entero de 32 bits (_ftol2),
+    // no un int16; si el temporizador es mayor que el periodo se resta, si no se pone a cero.
+    const uint16 timer = (uint16)m_wBombTimer;
+    if (!timer) {
         return;
     }
 
-    const auto period = (int16)(CTimer::GetTimeStep() * (100.0f / 6.0f));
-    m_wBombTimer = std::max(m_wBombTimer - period, 0);
+    const int32 period = (int32)(int64)(CTimer::GetTimeStep() * (100.0f / 6.0f));
+    if ((uint32)timer > (uint32)period) {
+        m_wBombTimer = (int16)(uint16)((uint32)timer - (uint32)period);
+    } else {
+        m_wBombTimer = 0;
+    }
 
-    if (!m_wBombTimer) {
+    if (!(uint16)m_wBombTimer) {
         BlowUpCar(m_pWhoDetonatedMe, false);
     }
 }
 
 // NOTSA
 void CVehicle::ApplyTurnForceToOccupantOnEntry(CPed* passenger) {
-    // Apply some turn force
+    // Como el original (0x6D13BE / 0x6D1503 / 0x6D1463): las constantes se multiplican en float (-0.02f, -0.1f, -0.2f), no se divide.
     switch (m_nVehicleType) {
     case VEHICLE_TYPE_BIKE: {
+        const auto& up  = m_matrix->GetUp();
+        const auto& fwd = m_matrix->GetForward();
+        const auto  k   = passenger->m_fMass * -0.02f;
         ApplyTurnForce(
-            GetUp() * passenger->m_fMass / -50.f,
-            GetForward() / -10.f // Behind the bike
+            CVector{ k * up.x, k * up.y, k * up.z },
+            CVector{ fwd.x * -0.1f, fwd.y * -0.1f, fwd.z * -0.1f } // Behind the bike
         );
         break;
     }
     default: {
+        const auto dy = passenger->m_matrix->GetPosition().y - m_matrix->GetPosition().y;
+        const auto dx = passenger->m_matrix->GetPosition().x - m_matrix->GetPosition().x;
         ApplyTurnForce(
-            CVector{ .0f, .0f, passenger->m_fMass / -5.f },
-            CVector{ CVector2D{passenger->GetPosition() - GetPosition()}, 0.f }
+            CVector{ 0.f, 0.f, passenger->m_fMass * -0.2f },
+            CVector{ dx, dy, 0.f }
         );
         break;
     }
@@ -1420,13 +1616,15 @@ void CVehicle::ApplyTurnForceToOccupantOnEntry(CPed* passenger) {
 bool CVehicle::AddPassenger(CPed* passenger) {
     ApplyTurnForceToOccupantOnEntry(passenger);
 
-    // Now, find a seat and place them into it
-    const auto seats = GetMaxPassengerSeats();
-    if (const auto emptySeat = rng::find(seats, nullptr); emptySeat != seats.end()) {
-        *emptySeat = passenger;
-        CEntity::RegisterReference(*emptySeat);
-        m_nNumPassengers++;
-        return true;
+    // Como el original: el bucle llega hasta m_nMaxPassengers (sin limitarse a los 8 del array).
+    for (int32 i = 0; i < (int32)m_nMaxPassengers; i++) {
+        CPed*& seat = m_apPassengers.data()[i];
+        if (!seat) {
+            seat = passenger;
+            CEntity::RegisterReference(seat);
+            m_nNumPassengers++;
+            return true;
+        }
     }
 
     // No empty seats
@@ -1439,19 +1637,23 @@ bool CVehicle::AddPassenger(CPed* passenger, uint8 seatIdx) {
         return AddPassenger(passenger);
     }
 
+    // Como el original: la fuerza de giro se aplica siempre, antes de comprobar el asiento.
+    ApplyTurnForceToOccupantOnEntry(passenger);
+
     // Check if seat is valid
     if (seatIdx >= m_nMaxPassengers) {
         return false;
     }
 
     // Check if anyone is already in that seat
-    if (HasPassengerAtSeat(seatIdx)) {
+    CPed*& seat = m_apPassengers.data()[seatIdx];
+    if (seat) {
         return false;
     }
 
     // Place passenger into seat, and add ref
-    m_apPassengers[seatIdx] = passenger;
-    CEntity::RegisterReference(m_apPassengers[seatIdx]);
+    seat = passenger;
+    CEntity::RegisterReference(seat);
     m_nNumPassengers++;
 
     return true;
@@ -1463,19 +1665,16 @@ void CVehicle::RemovePassenger(CPed* passenger) {
         return;
     }
 
-    const auto RemovePassengerFromArray = [&](auto array) { /* array by-value because it's either a span or a view */
-        if (const auto seatOfPsgr = rng::find(array, passenger); seatOfPsgr != array.end()) {
-            CEntity::SafeCleanUpRef(*seatOfPsgr);
-            *seatOfPsgr = nullptr;
-
-            assert(m_nNumPassengers > 0); // NOTSA: Sanity check
+    // Como el original: el tren recorre los 8 asientos y el resto m_nMaxPassengers (sin limitarlo a 8, por eso .data()[]);
+    // al encontrarlo limpia la referencia, vacia el asiento y baja el contador (byte, sin comprobar que sea > 0).
+    const uint32 numSeats = IsTrain() ? 8u : (uint32)m_nMaxPassengers;
+    for (uint32 seat = 0; seat < numSeats; seat++) {
+        if (m_apPassengers.data()[seat] == passenger) {
+            CEntity::SafeCleanUpRef(m_apPassengers.data()[seat]);
+            m_apPassengers.data()[seat] = nullptr;
             m_nNumPassengers--;
+            return;
         }
-    };
-    if (IsTrain()) {
-        RemovePassengerFromArray(std::span{ m_apPassengers });
-    } else {
-        RemovePassengerFromArray(GetMaxPassengerSeats());
     }
 }
 
@@ -1498,7 +1697,11 @@ void CVehicle::SetDriver(CPed* driver) {
             break;
         }
         case MODEL_ENFORCER: {
-            driver->m_fArmour = std::max((float)FindPlayerInfo(0).m_nMaxArmour, driver->m_fArmour);
+            // Como el original: fcom + test ah,41h; solo sube si maxArmour > armadura (con NaN o igual no cambia)
+            const float maxArmour = (float)FindPlayerInfo(0).m_nMaxArmour;
+            if (maxArmour > driver->m_fArmour) {
+                driver->m_fArmour = maxArmour;
+            }
             break;
         }
         case MODEL_CADDY: {
@@ -1527,7 +1730,20 @@ void CVehicle::SetDriver(CPed* driver) {
         }
     }
 
-    ApplyTurnForceToOccupantOnEntry(driver);
+    // Como el original (0x6D17D5): el conductor NO usa ApplyTurnForceToOccupantOnEntry (esa es la del pasajero): la fuerza
+    // es masa * -0.02f; en moto es ApplyMoveForce(arriba * (masa * -0.02f)), y en el resto ApplyTurnForce((0, 0, masa * -0.02f),
+    // (dx, dy, 0)) con dx, dy = posicion del conductor - posicion del vehiculo (matrices sin comprobar).
+    if (m_nVehicleType == VEHICLE_TYPE_BIKE) {
+        const float k = driver->m_fMass * -0.02f;
+        const CVector& up = m_matrix->GetUp();
+        const CVector force{ up.x * k, up.y * k, up.z * k };
+        ApplyMoveForce(force);
+    } else {
+        const float dy = driver->m_matrix->GetPosition().y - m_matrix->GetPosition().y;
+        const float dx = driver->m_matrix->GetPosition().x - m_matrix->GetPosition().x;
+        const float fz = driver->m_fMass * -0.02f;
+        ApplyTurnForce(CVector{ 0.0f, 0.0f, fz }, CVector{ dx, dy, 0.0f });
+    }
 }
 
 // 0x6D1950
@@ -1555,13 +1771,16 @@ void CVehicle::RemoveDriver(bool dontTurnEngineOff) {
         case MODEL_COPCARSF:
         case MODEL_COPCARVG:
         case MODEL_COPCARRU: {
-            if (CStreaming::IsModelLoaded(MODEL_CHROMEGUN) && vehicleFlags.bFreebies) {
-                if (playerPed->DoesPlayerWantNewWeapon(eWeaponType::WEAPON_SHOTGUN, true)) {
-                    playerPed->GiveWeapon(eWeaponType::WEAPON_SHOTGUN, 5, true);
-                } else {
-                    playerPed->GrantAmmo(eWeaponType::WEAPON_SHOTGUN, 5);
+            if (CStreaming::IsModelLoaded(MODEL_CHROMEGUN)) {
+                if (vehicleFlags.bFreebies) {
+                    if (playerPed->DoesPlayerWantNewWeapon(eWeaponType::WEAPON_SHOTGUN, true)) {
+                        playerPed->GiveWeapon(eWeaponType::WEAPON_SHOTGUN, 5, true);
+                    } else {
+                        playerPed->GrantAmmo(eWeaponType::WEAPON_SHOTGUN, 5);
+                    }
+                    vehicleFlags.bFreebies = false;
                 }
-                vehicleFlags.bFreebies = false;
+                // Como el original: SetModelIsDeletable se llama siempre que el modelo este cargado, tambien sin bFreebies
                 CStreaming::SetModelIsDeletable(MODEL_CHROMEGUN);
             }
             break;
@@ -1588,7 +1807,8 @@ CPed* CVehicle::SetUpDriver(int32 gangPedType, bool createAsMale, bool createAsC
 
 // 0x6D1AA0
 CPed* CVehicle::SetupPassenger(int32 seatIdx, int32 gangPedType, bool createAsMale, bool createAsCriminal) {
-    if (const auto passenger = m_apPassengers[seatIdx]) {
+    // Como el original: el asiento se lee sin comprobar el rango (.data()[]).
+    if (const auto passenger = m_apPassengers.data()[seatIdx]) {
         return passenger;
     }
 
@@ -1597,65 +1817,46 @@ CPed* CVehicle::SetupPassenger(int32 seatIdx, int32 gangPedType, bool createAsMa
     case MODEL_CABBIE:
     case MODEL_STRETCH: {
         if (!seatIdx) {
-            // RemovePassenger(m_apPassengers[0]); // Nice C*! => This does nothing, because above we've already ensured that nobody sits here!
+            // Como el original: RemovePassenger sobre el asiento 0 (ya vacio, asi que no hace nada, pero se llama)
+            RemovePassenger(m_apPassengers.data()[0]);
             return nullptr;
         }
     }
     }
 
-    const auto psgrAdded = CPopulation::AddPedInCar(this, false, gangPedType, seatIdx, createAsMale, createAsCriminal);
+    CPed* psgrAdded = CPopulation::AddPedInCar(this, false, gangPedType, seatIdx, createAsMale, createAsCriminal);
 
-    const auto ShouldCheckModels = [&] {
-        // unit test: https://godbolt.org/z/deqcso6WT
-        switch (psgrAdded->m_nPedType) {
-        case PED_TYPE_MEDIC:
-        case PED_TYPE_FIREMAN:
-        case PED_TYPE_COP: {
-            return false;
-        }
-        case PED_TYPE_CRIMINAL: { // (ped_added_to_car_type != PED_TYPE_CRIMINAL || pedType < PED_TYPE_GANG8 || pedType > PED_TYPE_SPECIAL) )
-            switch (gangPedType) { // pedType < PED_TYPE_GANG8 || pedType > PED_TYPE_SPECIAL)
-            case PED_TYPE_GANG8:
-            case PED_TYPE_GANG9:
-            case PED_TYPE_GANG10:
-            case PED_TYPE_DEALER:
-            case PED_TYPE_MEDIC:
-            case PED_TYPE_FIREMAN:
-            case PED_TYPE_CRIMINAL:
-            case PED_TYPE_BUM:
-            case PED_TYPE_PROSTITUTE:
-            case PED_TYPE_SPECIAL:
-                return false;
-            }
-            break;
-        }
-        default: 
-            return !IsPedTypeGang(psgrAdded->m_nPedType);
-        }
-        return true;
-    };
-
-    // In case of some specific ped types we make sure
-    // that no occupant in the seats before the current (eg.: `seatIdx`)
-    // has the same model id.
-    // In case they do, the passenger that we've just added will be removed
-    // and nullptr will be returned.
-    if (ShouldCheckModels()) {
-        const auto ProcessOccupant = [&](CPed* occupant) {
-            if (occupant && occupant->m_nModelIndex == psgrAdded->m_nModelIndex) {
-                RemovePassenger(psgrAdded);
-                CPopulation::RemovePed(psgrAdded);
-                return false;
-            }
-            return true;
-        };
-
-        // Not sure why this checks only up to the seat the passenger was added to, but okay.
-        if (!ProcessOccupant(m_pDriver) || !rng::all_of(std::span{ m_apPassengers.data(), (size_t)seatIdx }, ProcessOccupant)) {
-            return nullptr;
-        }
+    // Como el original (0x6D1B22): comparaciones con signo sobre el tipo del peaton. No se comprueban los modelos de los
+    // ocupantes para medicos, bomberos, policias, bandas (GANG1..GANG10) ni, siendo criminal, con gangPedType en GANG8..SPECIAL.
+    const int32 pedType = (int32)psgrAdded->m_nPedType;
+    bool shouldCheckModels = true;
+    if (pedType == (int32)PED_TYPE_MEDIC || pedType == (int32)PED_TYPE_FIREMAN || pedType == (int32)PED_TYPE_COP) {
+        shouldCheckModels = false;
+    } else if (pedType >= (int32)PED_TYPE_GANG1 && pedType <= (int32)PED_TYPE_GANG10) {
+        shouldCheckModels = false;
+    } else if (pedType == (int32)PED_TYPE_CRIMINAL && gangPedType >= (int32)PED_TYPE_GANG8 && gangPedType <= (int32)PED_TYPE_SPECIAL) {
+        shouldCheckModels = false;
+    }
+    if (!shouldCheckModels) {
+        return psgrAdded;
     }
 
+    // Como el original: se quita al pasajero recien anadido si el conductor o alguno de los asientos anteriores (sin contar
+    // al propio pasajero) tiene el mismo modelo; el recorrido de asientos sigue con psgrAdded ya nulo, sin efecto.
+    const int16 psgrModel = (int16)psgrAdded->m_nModelIndex;
+    if (m_pDriver && (int16)m_pDriver->m_nModelIndex == psgrModel) {
+        RemovePassenger(psgrAdded);
+        CPopulation::RemovePed(psgrAdded);
+        return nullptr;
+    }
+    for (int32 seat = 0; seat < seatIdx; seat++) {
+        CPed* const occupant = m_apPassengers.data()[seat];
+        if (occupant && psgrAdded && occupant != psgrAdded && (int16)occupant->m_nModelIndex == psgrModel) {
+            RemovePassenger(psgrAdded);
+            CPopulation::RemovePed(psgrAdded);
+            psgrAdded = nullptr;
+        }
+    }
     return psgrAdded;
 }
 
@@ -1675,7 +1876,8 @@ bool CVehicle::IsPassenger(CPed* ped) const {
 // 0x6D1C00
 bool CVehicle::IsPassenger(int32 modelIndex) const {
     for (const auto& passenger : m_apPassengers) {
-        if (passenger && passenger->m_nModelIndex == modelIndex) {
+        // Como el original: movsx del indice de modelo del peaton (con signo)
+        if (passenger && (int16)passenger->m_nModelIndex == modelIndex) {
             return true;
         }
     }
@@ -1691,7 +1893,8 @@ bool CVehicle::IsDriver(const CPed* ped) const {
 }
 
 bool CVehicle::IsDriver(int32 modelIndex) const {
-    return m_pDriver && m_pDriver->m_nModelIndex == modelIndex;
+    // Como el original: movsx del indice de modelo del peaton (con signo)
+    return m_pDriver && (int16)m_pDriver->m_nModelIndex == modelIndex;
 }
 
 /*!
@@ -1753,13 +1956,16 @@ bool CVehicle::CanDoorsBeDamaged() const {
 
 // 0x6D1E80
 bool CVehicle::CanPedEnterCar() {
+    // Como el original (0x6D1E80): con el vehiculo de lado (|up.z| <= 0.1, no moto) no se puede entrar; en el resto de casos
+    // solo si no se mueve ni gira (0x863244 = 0.04000000283f, el siguiente float a 0.04f; "no mayor que": un NaN pasa).
     const auto upZ = GetUp().z;
-    if (IsBike() || upZ > 0.1f || upZ < -0.1f) {
-        return true;
+    if (!IsBike() && !(upZ > 0.1f || std::isnan(upZ)) && !(upZ < -0.1f)) {
+        return false;
     }
 
-    return m_vecTurnSpeed.SquaredMagnitude() <= sq(0.2f) &&
-           m_vecMoveSpeed.SquaredMagnitude() <= sq(0.2f);
+    constexpr auto limit = std::bit_cast<float>(0x3D23D70Bu);
+    return !(m_vecMoveSpeed.SquaredMagnitude() > limit) &&
+           !(m_vecTurnSpeed.SquaredMagnitude() > limit);
 }
 
 // 0x6D21F0
@@ -1771,9 +1977,14 @@ void CVehicle::ProcessCarAlarm() {
     }
     }
 
-    const auto ts = (uint16)CTimer::GetTimeStepInMS();
-    if (m_nAlarmState >= ts) {
-        m_nAlarmState = ts;
+    // Como el original (0x6D21F0): el contador de la alarma se RESTA el paso en milisegundos (timestep * 0.02f * 1000.0f,
+    // truncado a entero de 32 bits con _ftol2); si el contador es menor que el paso (comparacion sin signo) se pone a cero
+    // junto con la bocina.
+    const uint16 alarm = m_nAlarmState;
+    const float stepMs = CTimer::GetTimeStep() * 0.02f * 1000.0f;
+    const int32 ts = (int32)(int64)stepMs;
+    if ((uint32)alarm >= (uint32)ts) {
+        m_nAlarmState = (uint16)((uint32)alarm - (uint32)ts);
     } else {
         m_nAlarmState = 0;
         m_HornCounter = 0;
@@ -1791,8 +2002,9 @@ void CVehicle::DestroyVehicleAndDriverAndPassengers(CVehicle* vehicle) {
         }
     };
 
-    ProcessOccupant(m_pDriver);
-    rng::for_each(GetMaxPassengerSeats(), ProcessOccupant);
+    // Como el original: los ocupantes son los de `vehicle` (la funcion es estatica, sin this)
+    ProcessOccupant(vehicle->m_pDriver);
+    rng::for_each(vehicle->GetMaxPassengerSeats(), ProcessOccupant);
 
     CWorld::Remove(vehicle);
     delete vehicle;
@@ -1854,7 +2066,8 @@ bool CVehicle::ShufflePassengersToMakeSpace() {
 // 0x6D2460
 void CVehicle::ExtinguishCarFire() {
     if (GetStatus() != STATUS_WRECKED) {
-        if (m_fHealth <= 300.0f)
+        // Como el original: un NaN tambien se sube a 300 (fcomp + test ah,41h)
+        if (!(m_fHealth > 300.0f))
             m_fHealth = 300.0f;
     }
 
@@ -1898,7 +2111,7 @@ void CVehicle::ActivateBombWhenEntered() {
         if (!vehicleFlags.bDriverLastFrame && m_nBombOnBoard == BOMB_IGNITION_ACTIVATED) { // If the driver just entered and there's an ignition bomb...
             m_wBombTimer = 1000;
             m_pWhoDetonatedMe = m_pWhoInstalledBombOnMe; // NOTE: `m_pWhoInstalledBombOnMe` isn't set in `ActivateBomb` weird...
-            CEntity::RegisterReference(m_pWhoDetonatedMe);
+            CEntity::SafeRegisterRef(m_pWhoDetonatedMe); // Como el original: solo registra si no es nulo
         }
     }
     vehicleFlags.bDriverLastFrame = m_pDriver != nullptr;
@@ -1911,29 +2124,24 @@ bool CVehicle::CarHasRoof() {
 
 // 0x6D2600
 float CVehicle::HeightAboveCeiling(float height, eFlightModel flightModel) {
-    switch (flightModel) {
-    case eFlightModel::FLIGHT_MODEL_BARON: {
-        if (height >= 500.f) {
-            if (height < 950.f) {
-                return height - 500.f;
-            }
-
-            if (height >= 1500.f) {
-                return (height - 1000.f) + 500.f;
-            }
+    // Como el original: los modelos 1 (BARON) y 2 (RC) comparten rama; las comparaciones son "height < X" (un NaN
+    // pasa de largo y devuelve NaN en la rama del Baron o NaN - 800 en la otra).
+    if (flightModel == eFlightModel::FLIGHT_MODEL_BARON || flightModel == eFlightModel::FLIGHT_MODEL_RC) {
+        if (height < 500.f) {
+            return -1.f;
         }
+        if (height < 950.f) {
+            return height - 500.f;
+        }
+        if (height < 1500.f) {
+            return -1.f;
+        }
+        return (height - 1000.f) + 500.f;
+    }
+    if (height < 800.f) {
         return -1.f;
     }
-    default: {
-        // Originally this was the condition used, but it's ugly
-        // Leaving here to make sure it all works as expectd
-        assert(!(((int)flightModel - 1) <= 1));
-
-        if (height < 800.f)
-            return -1.f;
-        return height - 800.f;
-    }
-    }
+    return height - 800.f;
 }
 
 // 0x6D2690
@@ -1941,7 +2149,9 @@ RwObject* SetVehicleAtomicVisibilityCB(RwObject* object, void* data) {
     assert(RwObjectGetType(object) == rpATOMIC);
     const auto atomic      = reinterpret_cast<RpAtomic*>(object);
     const auto toSet = std::bit_cast<eAtomicComponentFlag>(data);
-    if (const auto current = CVisibilityPlugins::GetUserValue(atomic) & ATOMIC_MASK; current != ATOMIC_NONE) {
+    // Como el original (0x6D2690): usa GetAtomicId (0x732370), no GetUserValue, y lo llama dos veces (test al,3 y luego and eax,3)
+    if (CVisibilityPlugins::GetAtomicId(atomic) & ATOMIC_MASK) {
+        const auto current = CVisibilityPlugins::GetAtomicId(atomic) & ATOMIC_MASK;
         RpAtomicSetFlags(atomic, current != toSet ? 0 : rpATOMICRENDER);
     }
     return object;
@@ -1968,35 +2178,52 @@ void CVehicle::SetComponentVisibility(RwFrame* component, uint32 visibilityState
 
 // 0x6D2740
 void CVehicle::ApplyBoatWaterResistance(tBoatHandlingData* boatHandling, float fImmersionDepth) {
-    float fSpeedMult = sq(fImmersionDepth) * m_pHandlingData->m_fSuspensionForceLevel * m_fMass / 1000.0F;
+    // Como el original: ((profundidad * fuerza de suspension) * profundidad) * masa * 0.001 (sin sq() ni division entre 1000)
+    float fSpeedMult = fImmersionDepth * m_pHandlingData->m_fSuspensionForceLevel;
+    fSpeedMult       = fSpeedMult * fImmersionDepth;
+    fSpeedMult       = fSpeedMult * m_fMass;
+    fSpeedMult       = fSpeedMult * 0.001F; // 0x858CDC
     if (m_nModelIndex == MODEL_SKIMMER) {
-        fSpeedMult *= 30.0F;
+        fSpeedMult *= 30.0F; // 0x871DDC
     }
 
-    auto fMoveDotProduct = DotProduct(m_vecMoveSpeed, GetForward());
-    fSpeedMult *= sq(fMoveDotProduct) + 0.05F;
+    // Como el original: producto escalar con la suma z, y, x
+    const auto& mat = *m_matrix;
+    const auto fMoveDotProduct = VehEDot(m_vecMoveSpeed, mat.GetForward());
+    fSpeedMult = fSpeedMult * (fMoveDotProduct * fMoveDotProduct + 0.05F);
     fSpeedMult += 1.0F;
-    fSpeedMult = std::fabs(fSpeedMult);
+    if (fSpeedMult < 0.0F) { // fabs sin tocar NaN (fcom + fchs)
+        fSpeedMult = -fSpeedMult;
+    }
     fSpeedMult = 1.0F / fSpeedMult;
 
-    float fUsedTimeStep = CTimer::GetTimeStep() * 0.5F;
-    auto vecSpeedMult = Pow(boatHandling->m_vecMoveRes * fSpeedMult, fUsedTimeStep);
+    // Como el original: pow del CRT del EXE (_CIpow) por componente
+    const float fUsedTimeStep = CTimer::GetTimeStep() * 0.5F;
+    const CVector vecSpeedMult{
+        VehEPow(fSpeedMult * boatHandling->m_vecMoveRes.x, fUsedTimeStep),
+        VehEPow(fSpeedMult * boatHandling->m_vecMoveRes.y, fUsedTimeStep),
+        VehEPow(fSpeedMult * boatHandling->m_vecMoveRes.z, fUsedTimeStep),
+    };
 
-    CVector vecMoveSpeedMatrixDotProduct = GetMatrix().InverseTransformVector(m_vecMoveSpeed);
-    m_vecMoveSpeed = vecMoveSpeedMatrixDotProduct * vecSpeedMult;
+    // Como el original: inversa de la matriz (0x59C810), producto por componente y de vuelta a mundo (0x59C790)
+    m_vecMoveSpeed   = VehEInvVec(mat, m_vecMoveSpeed);
+    m_vecMoveSpeed.x = vecSpeedMult.x * m_vecMoveSpeed.x;
+    m_vecMoveSpeed.y = vecSpeedMult.y * m_vecMoveSpeed.y;
+    m_vecMoveSpeed.z = vecSpeedMult.z * m_vecMoveSpeed.z;
 
-    auto fMassMult = (vecSpeedMult.y - 1.0F) * m_vecMoveSpeed.y * m_fMass;
-    CVector vecTransformedMoveSpeed = GetMatrix().TransformVector(m_vecMoveSpeed);
-    m_vecMoveSpeed = vecTransformedMoveSpeed;
+    const auto fMassMult = ((vecSpeedMult.y - 1.0F) * m_vecMoveSpeed.y) * m_fMass;
+    m_vecMoveSpeed       = VehEMatVec(mat, m_vecMoveSpeed);
 
-    auto vecDown = GetUp() * -1.0F;
-    auto vecTurnForce = GetForward() * fMassMult;
+    const CVector vecDown{ mat.GetUp().x * -1.0F, mat.GetUp().y * -1.0F, mat.GetUp().z * -1.0F };
+    const CVector vecTurnForce{ mat.GetForward().x * fMassMult, mat.GetForward().y * fMassMult, mat.GetForward().z * fMassMult };
     ApplyTurnForce(vecTurnForce, vecDown);
 
-    if (m_vecMoveSpeed.z <= 0.0F)
+    // Como el original: con velocidad z <= 0 (o NaN) se amortigua con (1 - z') * 0.5 + z'
+    if (!(m_vecMoveSpeed.z > 0.0F)) {
         m_vecMoveSpeed.z *= ((1.0F - vecSpeedMult.z) * 0.5F + vecSpeedMult.z);
-    else
+    } else {
         m_vecMoveSpeed.z *= vecSpeedMult.z;
+    }
 }
 
 // 0x6D2950
@@ -2037,7 +2264,7 @@ void CVehicle::UpdateClumpAlpha() {
         } else if (curr < 255) {
             return std::min(255, curr + 16);
         }
-        return 255;
+        return curr; // Como el original (0x6D29B0): con alfa >= 255 se conserva tal cual (no se recorta a 255)
     };
     CVisibilityPlugins::SetClumpAlpha(GetRpClump(), GetAlphaToSet());
 }
@@ -2058,9 +2285,11 @@ void CVehicle::UpdatePassengerList() {
 CPed* CVehicle::PickRandomPassenger() {
     // TODO: Add a function for this to random.hpp
 
-    const auto rnd = CGeneral::GetRandomNumberInRange(0u, std::size(m_apPassengers));
-    for (auto i = 0u; i < std::size(m_apPassengers); i++) {
-        if (const auto psgr = m_apPassengers[(rnd + i) % std::size(m_apPassengers)]) {
+    // Como el original (0x6D2A10): el inicio es (int)(rand() * (1/32768) * 8), es decir GetRandomIntInRange(0, 8)
+    // (GetRandomNumberInRange<uint> reparte con 1/32767 sobre [0, 7] y puede dar otro asiento).
+    const int32 rnd = CGeneral::GetRandomIntInRange(0, (int32)std::size(m_apPassengers));
+    for (int32 i = 0; i < (int32)std::size(m_apPassengers); i++) {
+        if (const auto psgr = m_apPassengers.data()[(rnd + i) % (int32)std::size(m_apPassengers)]) {
             return psgr;
         }
     }
@@ -2097,7 +2326,8 @@ void CVehicle::AddDamagedVehicleParticles() {
     }
 
     if (m_pOverheatParticle) {
-        m_pOverheatParticle->SetConstTime(1u, 1.0f - (m_fHealth - 250.0f) / 400.0f);
+        // Como el original: multiplica por la constante 0x86C340 (no divide entre 400)
+        m_pOverheatParticle->SetConstTime(1u, 1.0f - (m_fHealth - 250.0f) * std::bit_cast<float>(0x3B23D70Au));
         CVector velocity = m_vecMoveSpeed * 50.0f;
         m_pOverheatParticle->SetVelAdd(velocity);
     }
@@ -2105,8 +2335,9 @@ void CVehicle::AddDamagedVehicleParticles() {
 
 // 0x6D2BF0
 void CVehicle::MakeDirty(CColPoint& colPoint) {
+    // Como el original: comparaciones "no mayor que" (los NaN salen como en el x87) y productos en float (ts * 0.01f, no ts / 50).
     if (g_surfaceInfos.IsWater(colPoint.m_nSurfaceTypeB) || CWeather::IsRainy()) {
-        if (m_fDirtLevel <= 1.0f) {
+        if (!(m_fDirtLevel > 1.0f)) {
             return;
         }
         m_fDirtLevel = m_fDirtLevel - CTimer::ms_fTimeStep * 0.01f;
@@ -2114,24 +2345,27 @@ void CVehicle::MakeDirty(CColPoint& colPoint) {
     }
 
     if (g_surfaceInfos.MakesCarDirty(colPoint.m_nSurfaceTypeB)) {
-        if (m_vecMoveSpeed.Magnitude2D() <= 0.06f) {
+        if (!(m_vecMoveSpeed.Magnitude2D() > 0.06f)) {
             return;
         }
-        m_fDirtLevel = std::clamp(m_fDirtLevel + CTimer::GetTimeStep() * 0.003f, m_fDirtLevel, 15.0f); // todo: check
+        const auto dirt = CTimer::GetTimeStep() * 0.003f + m_fDirtLevel;
+        m_fDirtLevel = 15.0f < dirt ? 15.0f : dirt;
         return;
     }
 
     if (g_surfaceInfos.MakesCarClean(colPoint.m_nSurfaceTypeB)) {
-        if (m_vecMoveSpeed.Magnitude2D() <= 0.04f || m_fDirtLevel <= 4.0f) {
+        if (!(m_vecMoveSpeed.Magnitude2D() > 0.04f) || !(m_fDirtLevel > 4.0f)) {
             return;
         }
-        m_fDirtLevel = std::clamp(m_fDirtLevel - CTimer::GetTimeStepInSeconds(), 4.0f, m_fDirtLevel); // todo: check
+        const auto dirt = m_fDirtLevel - CTimer::GetTimeStep() * 0.02f;
+        m_fDirtLevel = 4.0f > dirt ? 4.0f : dirt;
     }
 }
 
 // 0x6D2D50
 bool CVehicle::AddWheelDirtAndWater(CColPoint& colPoint, bool isProduceWheelDrops, bool isWheelsSpinning, bool isWheelInWater) {
-    if (!isProduceWheelDrops && !g_surfaceInfos.IsSand(colPoint.m_nPieceTypeB)) {
+    // Como el original (0x6D2D50): todas las consultas de superficie usan m_nSurfaceTypeB (byte 0x23)
+    if (!isProduceWheelDrops && !g_surfaceInfos.IsSand(colPoint.m_nSurfaceTypeB)) {
         return false;
     }
 
@@ -2156,16 +2390,21 @@ bool CVehicle::AddWheelDirtAndWater(CColPoint& colPoint, bool isProduceWheelDrop
     if (CreateFxForSurface(&SurfaceInfos_c::CreatesWheelMud, &Fx_c::AddWheelMud)) {
         return false;
     }
-    if (CWeather::WetRoads <= 0.0 || CGeneral::GetRandomNumberInRange(CWeather::WetRoads, 1.01f) <= 0.5f) {
-        if (CreateFxForSurface(&SurfaceInfos_c::CreatesWheelDust, &Fx_c::AddWheelDust)) {
-            return false;
+    // Como el original: el azar solo se tira si la superficie es polvo/arena, y en ese caso siempre devuelve false
+    if (g_surfaceInfos.CreatesWheelDust(colPoint.m_nSurfaceTypeB)) {
+        if (CWeather::WetRoads <= 0.0f || CGeneral::GetRandomNumberInRange(CWeather::WetRoads, 1.01f) <= 0.5f) {
+            g_fx.AddWheelDust(this, colPoint.m_vecPoint, isWheelsSpinning, m_fContactSurfaceBrightness);
         }
-        if (CreateFxForSurface(&SurfaceInfos_c::CreatesWheelSand, &Fx_c::AddWheelSand)) {
-            return false;
-        }
+        return false;
     }
-    if (CWeather::WetRoads > 0.4f && !CCullZones::CamNoRain()) {
-        if (g_surfaceInfos.CreatesWheelSpray(colPoint.m_nPieceTypeB)) {
+    if (g_surfaceInfos.CreatesWheelSand(colPoint.m_nSurfaceTypeB)) {
+        if (CWeather::WetRoads <= 0.0f || CGeneral::GetRandomNumberInRange(CWeather::WetRoads, 1.01f) <= 0.5f) {
+            g_fx.AddWheelSand(this, colPoint.m_vecPoint, isWheelsSpinning, m_fContactSurfaceBrightness);
+        }
+        return false;
+    }
+    if (g_surfaceInfos.CreatesWheelSpray(colPoint.m_nSurfaceTypeB)) {
+        if (CWeather::WetRoads > 0.4f && !CCullZones::CamNoRain()) {
             g_fx.AddWheelSpray(this, colPoint.m_vecPoint, isWheelsSpinning, false, m_fContactSurfaceBrightness);
             return false;
         }
@@ -2279,7 +2518,8 @@ bool CVehicle::ClearVehicleUpgradeFlags(int32 arg0, int32 modId) {
 
     switch (modId) {
     case 17: { // 0x6D3270
-        if (m_vehicleAudio.m_AuSettings.RadioType != AE_RT_CIVILIAN && vehicleFlags.bUpgradedStereo) {
+        // Como el original (0x6D326D): actúa solo con RadioType == AE_RT_CIVILIAN (el EXE salta si es distinto de 0) y la mejora puesta
+        if (m_vehicleAudio.m_AuSettings.RadioType == AE_RT_CIVILIAN && vehicleFlags.bUpgradedStereo) {
             auto& bs = m_vehicleAudio.m_AuSettings.BassSetting;
             switch (bs) {
             case eBassSetting::BOOST:  bs = eBassSetting::NORMAL; break;
@@ -2303,7 +2543,7 @@ bool CVehicle::ClearVehicleUpgradeFlags(int32 arg0, int32 modId) {
         if (handlingFlags.bHydraulicInst) {
             auto& specColIdx = m_vehicleSpecialColIndex;
             if (specColIdx > -1) {
-                m_aSpecialColVehicle[specColIdx] = nullptr;
+                m_aSpecialColVehicle.data()[specColIdx] = nullptr; // Como el original: índice con signo de 8 bits sin comprobar el rango
                 specColIdx = -1;
 
                 SetupSuspensionLines();
@@ -2395,12 +2635,15 @@ RpAtomic* RemoveAllUpgradesCB(RpAtomic* atomic, void* data) {
 }
 
 // From [0x6D35BC - 0x6D3611]
-static void SetupUpgradeAtomicRendering(RpAtomic* atomic, bool isDamaged) {
+// Como el original: CreateUpgradeAtomic (0x6D35EA) marca además ATOMIC_ALPHA; CreateReplacementAtomic (0x6D37F6) y AddReplacementUpgrade no
+static void SetupUpgradeAtomicRendering(RpAtomic* atomic, bool setAlphaFlag) {
     RpMaterial* hasAlphaMaterial = nullptr;
     RpGeometryForAllMaterials(RpAtomicGetGeometry(atomic), CVehicleModelInfo::HasAlphaMaterialCB, &hasAlphaMaterial);
     if (hasAlphaMaterial) {
         CVisibilityPlugins::SetAtomicRenderCallback(atomic, CVisibilityPlugins::RenderVehicleHiDetailAlphaCB);
-        CVisibilityPlugins::SetAtomicFlag(atomic, ATOMIC_ALPHA);
+        if (setAlphaFlag) {
+            CVisibilityPlugins::SetAtomicFlag(atomic, ATOMIC_ALPHA);
+        }
     } else {
         CVisibilityPlugins::SetAtomicRenderCallback(atomic, CVisibilityPlugins::RenderVehicleHiDetailCB);
     }
@@ -2433,7 +2676,7 @@ RpAtomic* CVehicle::CreateUpgradeAtomic(CBaseModelInfo* mi, const UpgradePosnDes
     CVisibilityPlugins::SetAtomicFlag(atomic, eAtomicComponentFlag::ATOMIC_UPGRADE);
     CVisibilityPlugins::SetAtomicFlag(atomic, eAtomicComponentFlag::ATOMIC_DONT_CULL);
 
-    SetupUpgradeAtomicRendering(atomic, isDamaged);
+    SetupUpgradeAtomicRendering(atomic, true);
 
     CDamageAtomicModelInfo::ms_bCreateDamagedVersion = false;
     return atomic;
@@ -2441,7 +2684,8 @@ RpAtomic* CVehicle::CreateUpgradeAtomic(CBaseModelInfo* mi, const UpgradePosnDes
 
 // 0x6D3630
 void CVehicle::RemoveUpgrade(int32 upgradeId) {
-    RpClumpForAllAtomics(GetRpClump(), RemoveUpgradeCB, &upgradeId);
+    // Como el original (0x6D3630): el identificador se pasa como valor en 'data' (RemoveUpgradeCB lo compara directamente), no su dirección
+    RpClumpForAllAtomics(GetRpClump(), RemoveUpgradeCB, std::bit_cast<void*>(upgradeId));
 }
 
 // 0x6D3650
@@ -2488,9 +2732,23 @@ RpAtomic* CVehicle::CreateReplacementAtomic(CBaseModelInfo* mi, RwFrame* parentF
     RpClumpAddAtomic(GetRpClump(), atomic);
 
     if (bIsWheel) {
+        // Como el original (0x6D3743): diagonal a 1 y el resto de los 12 floats a 0 (sin tocar pad1/pad2/pad3), flags |= 0x20003 y luego RwMatrixUpdate
         const auto mat = RwFrameGetMatrix(frame);
-        CMatrix::GetIdentity().UpdateRwMatrix(mat);
-        mat->flags |= rwMATRIXINTERNALIDENTITY | rwMATRIXTYPEMASK;
+        mat->at.z = 1.0f;
+        mat->up.y = 1.0f;
+        mat->right.x = 1.0f;
+        const auto matFlags = mat->flags | (rwMATRIXINTERNALIDENTITY | rwMATRIXTYPEMASK);
+        mat->up.x = 0.0f;
+        mat->right.z = 0.0f;
+        mat->right.y = 0.0f;
+        mat->at.y = 0.0f;
+        mat->at.x = 0.0f;
+        mat->up.z = 0.0f;
+        mat->pos.z = 0.0f;
+        mat->pos.y = 0.0f;
+        mat->pos.x = 0.0f;
+        mat->flags = matFlags;
+        RwMatrixUpdate(mat);
         CVisibilityPlugins::SetFrameHierarchyId(frame, 0);
         RwFrameAddChild(parentFrame, frame);
     } else {
@@ -2501,7 +2759,7 @@ RpAtomic* CVehicle::CreateReplacementAtomic(CBaseModelInfo* mi, RwFrame* parentF
     CVisibilityPlugins::SetAtomicId(atomic, flags & ~eAtomicComponentFlag::ATOMIC_MASK);
     CVisibilityPlugins::SetAtomicFlag(atomic, isDamaged ? eAtomicComponentFlag::ATOMIC_DAMAGED : eAtomicComponentFlag::ATOMIC_OK);
 
-    SetupUpgradeAtomicRendering(atomic, isDamaged);
+    SetupUpgradeAtomicRendering(atomic, false);
 
     CDamageAtomicModelInfo::ms_bCreateDamagedVersion = false;
 
@@ -2522,12 +2780,10 @@ void CVehicle::RemoveReplacementUpgrade(int32 frameId) {
     RwFrameForAllObjects(frameOfUpgrade, RemoveObjectsCB, &atomicFlags);
     RwFrameForAllChildren(frameOfUpgrade, RemoveObjectsCB, &atomicFlags);
 
+    // Como el original (0x6D3A1D): primero se busca el marco del modelo y después se guarda el clump destino
+    const auto modelFrame = CClumpModelInfo::GetFrameFromId(GetModelInfo()->GetRpClump(), frameId);
     CopyObjectsCB_TargetClump = GetRpClump();
-    RwFrameForAllObjects(
-        CClumpModelInfo::GetFrameFromId(GetModelInfo()->GetRpClump(), frameId),
-        CopyObjectsCB,
-        frameOfUpgrade
-    );
+    RwFrameForAllObjects(modelFrame, CopyObjectsCB, frameOfUpgrade);
 }
 
 // 0x6D3A50
@@ -2593,11 +2849,12 @@ void CVehicle::UpdateWinch() {
 
     const auto ropeID = GetRopeID();
 
-    const auto GetZAndSegmentCount = [&, this]() -> std::pair<float, uint32> {
+    const auto GetZAndSegmentCount = [&, this]() -> std::pair<float, int32> {
         const auto baseLen = (eRopeType)m_ropeType == eRopeType::MAGNET ? -0.2f : -0.6f;
         if (const auto ropeIdx = CRopes::FindRope(ropeID); ropeIdx >= 0) { // Inverted condition
             const auto& rope = CRopes::GetRope(ropeIdx);
-            const auto segCount = (uint32)(rope.m_fSegmentLength * 32.f);
+            // Como el original: _ftol2 (entero con signo, trunca) y fild al restar
+            const auto segCount = VehEFtol(rope.m_fSegmentLength * 32.f);
             return { (rope.m_fMass * rope.m_fSegmentLength) - ((float)segCount * rope.m_fTotalLength) + baseLen, segCount };
         }
         return { baseLen, 0 };
@@ -2607,9 +2864,9 @@ void CVehicle::UpdateWinch() {
     CRopes::RegisterRope(
         ropeID,
         m_ropeType,
-        m_matrix->TransformPoint(CVector{ 0.f, 0.f, pointZ }),
+        VehEMatPoint(*m_matrix, CVector{ 0.f, 0.f, pointZ }), // Como el original: 0x59C890 con el puntero de matriz, sin reservarla
         false,
-        segCount,
+        (uint8)segCount,
         1u,
         this,
         20'000u
@@ -2618,13 +2875,9 @@ void CVehicle::UpdateWinch() {
 
 // 0x6D3C70
 void CVehicle::RemoveWinch() {
-    // NOTE: This function is not correct, as in
-    //       the original code uses `&this[29]` as the rope index (and not `GetRopeID()`).
-    //       BUT it's not used anywhere, so..
-
-    NOTSA_UNREACHABLE("Unused function");
-
-    if (const auto ropeIdx = GetRopeID(); ropeIdx >= 0) {
+    // Como el original: la cuerda se busca con this + 0xA320 (el EXE usa &this[29] de un CVehicle de 0x5A0 bytes) y no con GetRopeID();
+    // la funcion no se usa en el juego
+    if (const auto ropeIdx = CRopes::FindRope((uint32)((uintptr_t)this + 0xA320)); ropeIdx >= 0) {
         CRopes::GetRope(ropeIdx).Remove();
     }
 
@@ -2651,27 +2904,27 @@ AssocGroupId CVehicle::GetAnimGroupId() const {
 
 // 0x6D3CB0
 void CVehicle::ReleasePickedUpEntityWithWinch() const {
-    return CRopes::GetRope(GetRopeID()).ReleasePickedUpObject();
+    return CRopes::GetRope(CRopes::FindRope(GetRopeID())) /* Como el original: FindRope sin comprobar el resultado */.ReleasePickedUpObject();
 }
 
 // 0x6D3CD0
 void CVehicle::PickUpEntityWithWinch(CEntity* entity) const {
-    return CRopes::GetRope(GetRopeID()).PickUpObject(entity);
+    return CRopes::GetRope(CRopes::FindRope(GetRopeID())) /* Como el original: FindRope sin comprobar el resultado */.PickUpObject(entity);
 }
 
 // 0x6D3CF0
 CEntity* CVehicle::QueryPickedUpEntityWithWinch() const {
-    return CRopes::GetRope(GetRopeID()).m_pRopeAttachObject;
+    return CRopes::GetRope(CRopes::FindRope(GetRopeID())) /* Como el original: FindRope sin comprobar el resultado */.m_pRopeAttachObject;
 }
 
 // 0x6D3D10
 float CVehicle::GetRopeHeightForHeli() const {
-    return CRopes::GetRope(GetRopeID()).m_fSegmentLength;
+    return CRopes::GetRope(CRopes::FindRope(GetRopeID())) /* Como el original: FindRope sin comprobar el resultado */.m_fSegmentLength;
 }
 
 // 0x6D3D30
 void CVehicle::SetRopeHeightForHeli(float height) const {
-    CRopes::GetRope(GetRopeID()).m_fSegmentLength = height;
+    CRopes::GetRope(CRopes::FindRope(GetRopeID())) /* Como el original: FindRope sin comprobar el resultado */.m_fSegmentLength = height;
 }
 
 // 0x6D3D60
@@ -2765,59 +3018,67 @@ float CVehicle::GetFiringRateMultiplier() {
 
 // 0x6D40E0
 uint32 CVehicle::GetPlaneGunsRateOfFire() {
+    // Como el original: _ftol2 (trunca a int64) y se devuelve la palabra baja
     const auto mult = GetFiringRateMultiplier();
     switch (m_nModelIndex) {
     case MODEL_SEASPAR:
     case MODEL_RCBARON:
-        return uint32(40.0f / mult);
+        return uint32(VehEFtol(40.0f / mult));
     case MODEL_RUSTLER:
-        return uint32(80.0f / mult);
+        return uint32(VehEFtol(80.0f / mult));
     case MODEL_HYDRA:
-        return uint32(17.0f / mult);
+        return uint32(VehEFtol(17.0f / mult));
     case MODEL_CARGOBOB:
-        return uint32(100.0f / mult);
+        return uint32(VehEFtol(100.0f / mult));
     case MODEL_TORNADO:
-        return uint32(45.0f / mult);
+        return uint32(VehEFtol(45.0f / mult));
     default:
-        return uint32(60.0f / mult);
+        return uint32(VehEFtol(60.0f / mult));
     }
 }
 
 // 0x6D4290
 CVector CVehicle::GetPlaneGunsPosition(int32 gunId) {
-    const auto pos = GetModelInfo()->AsVehicleModelInfoPtr()->GetModelDummyPosition(DUMMY_VEHICLE_GUN);
-    if (!pos.IsZero()) {
-        return pos;
+    CVector pos = GetModelInfo()->AsVehicleModelInfoPtr()->GetModelDummyPosition(DUMMY_VEHICLE_GUN);
+    if (pos.IsZero()) {
+        switch (m_nModelIndex) {
+        case MODEL_HUNTER:   pos = VehicleGunOffset[0]; break;
+        case MODEL_SEASPAR:  pos = CVector{ -0.5f, 2.4f, -0.785f }; break; // 0x8D35F8
+        case MODEL_RCBARON:  pos = CVector{ 0.0f, 0.45f, 0.0f }; break;    // 0x8D3634
+        case MODEL_RUSTLER:  pos = CVector{ 2.19f, 1.5f, -0.58f }; break;  // 0x8D3610
+        case MODEL_MAVERICK: pos = CVector{ 0.0f, 2.85f, -0.5f }; break;   // 0x8D35E0
+        case MODEL_POLMAV:   pos = CVector{ 0.0f, 2.85f, -0.5f }; break;   // 0x8D35EC [Values same as the maverick's]
+        case MODEL_HYDRA:    pos = CVector{ 1.48f, 0.44f, -0.52f }; break; // 0x8D3628
+        case MODEL_CARGOBOB: pos = CVector{ 0.0f, 6.87f, -1.65f }; break;  // 0x8D3604
+        case MODEL_TORNADO:  pos = StaticRef<CVector>(0xC1CC2C); break;    // Como el original: se lee la global (a cero)
+        default:             pos = CVector{ 0.f, 0.f, 0.f }; break;
+        }
     }
 
-    switch (m_nModelIndex) {
-    case MODEL_HUNTER:   return VehicleGunOffset[0];
-    case MODEL_SEASPAR:  return { -0.5f, 2.4f, -0.785f }; // 0x8D35F8
-    case MODEL_RCBARON:  return { 0.0f, 0.45f, 0.0f };    // 0x8D3634
-    case MODEL_RUSTLER:  return CVector{ 2.19f, 1.5f, -0.58f } + CVector{ 0.2f, 0.0f, 0.0f } * (float)(gunId - 1);  // 0x8D3610 (posn), 0x8D361C (offset)
-    case MODEL_MAVERICK: return { 0.0f, 2.85f, -0.5f };   // 0x8D35E0
-    case MODEL_POLMAV:   return { 0.0f, 2.85f, -0.5f };   // 0x8D35EC [Values same as the maverick's]
-    case MODEL_HYDRA:    return { 1.48f, 0.44f, -0.52f }; // 0x8D3628
-    case MODEL_CARGOBOB: return { 0.0f, 6.87f, -1.65f };  // 0x8D3604
-    case MODEL_TORNADO:  return {};                       // 0xC1CC2C
-    default:
-        return { 0.f, 0.f, 0.f };
+    // Como el original: el desplazamiento del Rustler (0x8D361C = 0.2, 0, 0) por (gunId - 1) se suma TAMBIEN a la posicion del dummy del modelo
+    if (m_nModelIndex == MODEL_RUSTLER) {
+        const auto n = (float)(gunId - 1);
+        pos.x = (0.2f * n) + pos.x;
+        pos.y = (0.0f * n) + pos.y;
+        pos.z = (0.0f * n) + pos.z;
     }
+    return pos;
 }
 
 // 0x6D4590
 uint32 CVehicle::GetPlaneOrdnanceRateOfFire(eOrdnanceType type) {
+    // Como el original: _ftol2 (trunca a int64) y se devuelve la palabra baja
     const auto mult = GetFiringRateMultiplier();
     switch (m_nModelIndex) {
     case MODEL_HUNTER:
-        return (uint32)((float)500 / mult);
+        return (uint32)VehEFtol((float)500 / mult);
     case MODEL_SEASPAR:
     case MODEL_RUSTLER:
-        return (uint32)((float)1000 / mult);
+        return (uint32)VehEFtol((float)1000 / mult);
     case MODEL_HYDRA:
-        return (uint32)((float)(type != 1 ? 1000 : 500) / mult); // todo: heat trap / missile?
+        return (uint32)VehEFtol((float)(type != 1 ? 1000 : 500) / mult); // todo: heat trap / missile?
     default:
-        return (uint32)((float)350 / mult);
+        return (uint32)VehEFtol((float)350 / mult);
     }
 }
 
@@ -2837,9 +3098,10 @@ CVector CVehicle::GetPlaneOrdnancePosition(eOrdnanceType type) {
     constexpr CVector HYDRA_1_ORDNANCE_POS = { 3.70f, 0.98f, -1.02f }; // 0x8D3658
     constexpr CVector HYDRA_2_ORDNANCE_POS = { 3.92f, 0.98f, -1.02f }; // 0x8D3664
 
-    constexpr CVector SEASPAR_ORDNANCE_POS = { }; // 0xC1CC38;
-    constexpr CVector RCBARON_ORDNANCE_POS = { }; // 0xC1CC50;
-    constexpr CVector TORNADO_ORDNANCE_POS = { }; // 0xC1CC44;
+    // Como el original: se leen las globales (a cero)
+    const CVector SEASPAR_ORDNANCE_POS = StaticRef<CVector>(0xC1CC38);
+    const CVector RCBARON_ORDNANCE_POS = StaticRef<CVector>(0xC1CC50);
+    const CVector TORNADO_ORDNANCE_POS = StaticRef<CVector>(0xC1CC44);
 
     switch (m_nModelIndex) {
     case MODEL_HUNTER:  return HUNTER_ORDNANCE_POS;
@@ -2903,16 +3165,27 @@ void CVehicle::DoPlaneGunFireFX(CWeapon* weapon, CVector& particlePos, CVector& 
         if (!parts) {
             const auto nguns = GetPlaneNumGuns();
             parts = new FxSystem_c*[nguns];
-            rng::fill(std::span{ parts, (size_t)nguns }, nullptr);
+            // Como el original (0x6D4B30): bucle do-while que vuelve a llamar a GetPlaneNumGuns en cada vuelta y escribe al menos una vez.
+            // (0x6D4B23: antes del bucle vuelve a llamar a GetPlaneNumGuns y lo salta si es <= 0)
+            if ((int32)GetPlaneNumGuns() > 0) {
+                for (int32 i = 0; ; ) {
+                    parts[i] = nullptr;
+                    i++;
+                    if (!(i < (int32)GetPlaneNumGuns())) {
+                        break;
+                    }
+                }
+            }
         }
 
         if (parts) {
             auto& part = parts[fxIdx];
             if (!part) {
+                // Como el original: matriz nula si no hay clump
                 part = g_fxMan.CreateFxSystem(
                     "gunflash",
                     CVector{0.f, 0.f, 0.f},
-                    RwFrameGetMatrix(RpClumpGetFrame(GetRpClump())),
+                    GetRpClump() ? RwFrameGetMatrix(RpClumpGetFrame(GetRpClump())) : nullptr,
                     false
                 );
             }
@@ -2936,7 +3209,7 @@ void CVehicle::DoPlaneGunFireFX(CWeapon* weapon, CVector& particlePos, CVector& 
         break;
     }
     case VEHICLE_TYPE_HELI: {
-        DoFx(AsHeli()->m_pParticlesList);
+        DoFx(AsHeli()->m_ppGunflashFx); // Como el original (0x6D4BC4): el array de fogonazos del helicóptero está en +0xA0C, no en m_pParticlesList (+0x9D4)
         break;
     }
     default: {
@@ -2955,88 +3228,88 @@ void CVehicle::FirePlaneGuns() {
         return;
     }
 
-    struct ModelGunInfo {
-        bool        isDoubleGun{};
-        uint8       freq{};
-        eWeaponType weap{};
-    };
-    const auto GetModelGunInfo = [this]() -> std::optional<ModelGunInfo> {
-        switch (m_nModelIndex) {
-        case MODEL_HUNTER:
-        case MODEL_CARGOBOB:
-            return ModelGunInfo{ false, 160u, WEAPON_MINIGUN };
-        case MODEL_SEASPAR:
-        case MODEL_RCBARON:
-        case MODEL_MAVERICK:
-        case MODEL_POLMAV:
-            return ModelGunInfo{ false, 92u, WEAPON_M4 };
-        case MODEL_RUSTLER: {
-            if (m_nGunsCycleIndex + 1 == 3) {
-                m_nGunsCycleIndex = 0;
-            } else {
-                m_nGunsCycleIndex++;
-            }
-            return ModelGunInfo{ true, 225u, WEAPON_M4 };
+    // Como el original: (es doble, frecuencia del temblor, arma) por modelo; el Rustler avanza el ciclo de ametralladoras antes de crear el arma
+    bool        isDoubleGun{};
+    uint8       freq{};
+    eWeaponType weaponType{};
+    switch (m_nModelIndex) {
+    case MODEL_HUNTER:
+    case MODEL_CARGOBOB:
+        isDoubleGun = false;
+        freq        = 160u;
+        weaponType  = WEAPON_MINIGUN;
+        break;
+    case MODEL_SEASPAR:
+    case MODEL_RCBARON:
+    case MODEL_MAVERICK:
+    case MODEL_POLMAV:
+        isDoubleGun = false;
+        freq        = 92u;
+        weaponType  = WEAPON_M4;
+        break;
+    case MODEL_RUSTLER:
+        if (m_nGunsCycleIndex + 1 == 3) {
+            m_nGunsCycleIndex = 0;
+        } else {
+            m_nGunsCycleIndex++;
         }
-        case MODEL_HYDRA:
-        case MODEL_TORNADO:
-            return ModelGunInfo{ true, 123u, WEAPON_MINIGUN };
-        default:
-            return std::nullopt;
-        }
-    };
-
-    const auto ginfo = GetModelGunInfo();
-    if (!ginfo.has_value()) {
+        isDoubleGun = true;
+        freq        = 224u; // 0xE0
+        weaponType  = WEAPON_M4;
+        break;
+    case MODEL_HYDRA:
+    case MODEL_TORNADO:
+        isDoubleGun = true;
+        freq        = 128u; // 0x80
+        weaponType  = WEAPON_MINIGUN;
+        break;
+    default:
         return;
     }
 
-    const auto [giIsDoubleGun, giFreq, giWeaponType] = *ginfo;
+    CWeapon weapon{ weaponType, 5000 };
 
-    CWeapon weapon{ giWeaponType, 5000 };
+    auto planeGunPosMS = GetPlaneGunsPosition(m_nGunsCycleIndex); // MS = Model Space
 
-          auto planeGunPosMS  = GetPlaneGunsPosition(m_nGunsCycleIndex); // MS = Model Space
-    const auto velocityOffset = m_vecMoveSpeed * CTimer::GetTimeStep();
-          auto gunShellPos    = velocityOffset +  m_matrix->TransformPoint(planeGunPosMS);
-
-    const auto FireGun = [&](const auto gunId) {
-        DoPlaneGunFireFX(
-            &weapon,
-            planeGunPosMS,
-            gunShellPos,
-            gunId
-        );
-        weapon.FireInstantHit(this, &gunShellPos, &gunShellPos);
+    // Como el original: velocidad * paso + matriz * posicion (0x59C890)
+    const auto CalcGunShellPos = [&]() {
+        const CVector velocityOffset{
+            CTimer::GetTimeStep() * m_vecMoveSpeed.x,
+            CTimer::GetTimeStep() * m_vecMoveSpeed.y,
+            CTimer::GetTimeStep() * m_vecMoveSpeed.z,
+        };
+        const auto transformed = VehEMatPoint(*m_matrix, planeGunPosMS);
+        return CVector{ velocityOffset.x + transformed.x, velocityOffset.y + transformed.y, velocityOffset.z + transformed.z };
     };
 
-    if (giIsDoubleGun) {
-        // NOTE: There might be a bug in the original code, being that
-        //       the gun position (`planeGunPosMS`) is not recalculated for the second gun
-        //       although, the gunId in `GetPlaneGunsPosition` is only used for the "rustler"
-        for (auto i = 0u; i < 2; i++) {
-            FireGun(m_nGunsCycleIndex * 2 + i);
-        }
+    // Como el original: primero se dispara y despues se dibuja el efecto; la segunda ametralladora usa la posicion con x negada
+    auto gunShellPos = CalcGunShellPos();
+    weapon.FireInstantHit(this, &gunShellPos, &gunShellPos);
+    if (!isDoubleGun) {
+        DoPlaneGunFireFX(&weapon, planeGunPosMS, gunShellPos, m_nGunsCycleIndex);
     } else {
-        FireGun(m_nGunsCycleIndex);
+        DoPlaneGunFireFX(&weapon, planeGunPosMS, gunShellPos, m_nGunsCycleIndex * 2);
+
+        const auto secondGunPos = GetPlaneGunsPosition(m_nGunsCycleIndex);
+        planeGunPosMS = CVector{ -secondGunPos.x, secondGunPos.y, secondGunPos.z };
+        gunShellPos   = CalcGunShellPos();
+        weapon.FireInstantHit(this, &gunShellPos, &gunShellPos);
+        DoPlaneGunFireFX(&weapon, planeGunPosMS, gunShellPos, m_nGunsCycleIndex * 2 + 1);
     }
 
     // Shake pad (if necessary)
-    const auto GetPadIdToShake = [this]() -> std::optional<int32> {
-        if (GetStatus() == STATUS_REMOTE_CONTROLLED) {
-            return 0;
+    // Como el original: mando 0 con el control remoto; si no, el del conductor jugador (solo tipos de peaton 0 y 1)
+    if (GetStatus() == STATUS_REMOTE_CONTROLLED) {
+        CPad::GetPad(0)->StartShake(240, freq, 0);
+    } else if (m_pDriver && m_pDriver->IsPlayer()) {
+        if (m_pDriver->m_nPedType == PED_TYPE_PLAYER1) {
+            CPad::GetPad(0)->StartShake(240, freq, 0);
+        } else if (m_pDriver->m_nPedType == PED_TYPE_PLAYER2) {
+            CPad::GetPad(1)->StartShake(240, freq, 0);
         }
-
-        if (m_pDriver && m_pDriver->IsPlayer()) {
-            return m_pDriver->GetPadNumber();
-        }
-
-        return std::nullopt;
-    };
-    if (const auto padId = GetPadIdToShake()) {
-        CPad::GetPad(*padId)->StartShake(240, giFreq, 0);
     }
 
-    AudioEngine.ReportWeaponEvent(AE_WEAPON_FIRE_PLANE, giWeaponType == WEAPON_MINIGUN ? WEAPON_M4 : giWeaponType, this); // Unsure about why the change the M4 => minigun but okay
+    AudioEngine.ReportWeaponEvent(AE_WEAPON_FIRE_PLANE, weaponType == WEAPON_MINIGUN ? WEAPON_M4 : weaponType, this); // Unsure about why the change the M4 => minigun but okay
 
     m_nGunFiringTime = CTimer::GetTimeInMS();
 }
@@ -3062,15 +3335,34 @@ void CVehicle::FireUnguidedMissile(eOrdnanceType type, bool bCheckTime) {
 
     CWeapon weapon{ WEAPON_RLAUNCHER, 5000 };
 
+    // Como el original: el segundo misil sale del lado opuesto (la x de la posicion se niega)
     for (auto i = 0; i < 2; i++) {
-        const auto ordnancePos = m_matrix->TransformPoint(GetPlaneOrdnancePosition(type));
+        auto ordnancePosMS = GetPlaneOrdnancePosition(type);
+        if (i == 1) {
+            ordnancePosMS.x = -ordnancePosMS.x;
+        }
+
+        const auto& mat          = *m_matrix;
+        const auto  ordnancePos  = VehEMatPoint(mat, ordnancePosMS);
         // This places a point somewhere in front of us, depending on our velocity's direction
-        auto origin = ordnancePos + m_matrix->GetForward() * (std::max(0.f, DotProduct(m_matrix->GetForward(), m_vecMoveSpeed)) * CTimer::GetTimeStep());
+        // Como el original: max(0, dot) con el dot en el orden z, y, x; (adelante * velocidad) * paso, y despues se suma la posicion
+        const auto  dot          = VehEDot(m_vecMoveSpeed, mat.GetForward());
+        const auto  forwardSpeed = dot < 0.0f ? 0.0f : dot;
+        const CVector origin{
+            ((mat.GetForward().x * forwardSpeed) * CTimer::GetTimeStep()) + ordnancePos.x,
+            ((mat.GetForward().y * forwardSpeed) * CTimer::GetTimeStep()) + ordnancePos.y,
+            ((mat.GetForward().z * forwardSpeed) * CTimer::GetTimeStep()) + ordnancePos.z,
+        };
         weapon.FireProjectile(this, origin);
     }
 
+    // Como el original: solo los tipos de peaton 0 y 1 del conductor jugador, un solo temblor tras los dos misiles
     if (m_pDriver && m_pDriver->IsPlayer()) {
-        CPad::GetPad(m_pDriver->GetPadNumber())->StartShake(240, 160u, 0);
+        if (m_pDriver->m_nPedType == PED_TYPE_PLAYER1) {
+            CPad::GetPad(0)->StartShake(240, 160u, 0);
+        } else if (m_pDriver->m_nPedType == PED_TYPE_PLAYER2) {
+            CPad::GetPad(1)->StartShake(240, 160u, 0);
+        }
     }
 
     firingTimeForOrdnanceType = CTimer::GetTimeInMS();
@@ -3081,60 +3373,79 @@ bool CVehicle::CanBeDriven() const {
     if (IsSubTrailer() || IsSubTrain() && AsTrain()->m_nTrackId || vehicleFlags.bIsRCVehicle) {
         return false;
     }
-    return GetDriverSeatDummyPositionOS().SquaredMagnitude() > 0.0f;
+    // Como el original (0x6D5400): el hueco (0 o 4) lo decide el tipo del model info (5 = barco), no el tipo del vehiculo.
+    const auto* const mi = GetVehicleModelInfo();
+    const auto& dummy = mi->GetModelDummyPosition(mi->m_nVehicleType == VEHICLE_TYPE_BOAT ? DUMMY_LIGHT_FRONT_MAIN : DUMMY_SEAT_FRONT);
+    // Como el original: los cuadrados se acumulan en registros x87 (exponente ampliado), asi que un componente diminuto (p. ej. 1e-30f)
+    // no se redondea a 0 como en float; se usa double para no perder esos valores.
+    return (double)dummy.z * dummy.z + (double)dummy.y * dummy.y + (double)dummy.x * dummy.x > 0.0;
 }
 
 // 0x6D5490
 void CVehicle::ReactToVehicleDamage(CPed* dmgCauser) {
-    const auto DoReact = [=](CPed* pedThatLooks, CEntity* pedToLookAt) {
-        g_ikChainMan.LookAt("ReactToVhclDam", pedThatLooks, pedToLookAt, CGeneral::GetRandomNumberInRange(2000, 5000), BONE_HEAD, nullptr, false, 0.25f, 500, 3, false);
+    // Como el original: el azar se consume en este orden: tiempo del conductor (aunque no haya conductor), cara o cruz
+    // (solo con conductor y pasajero), tiempo del pasajero (siempre) y cara o cruz del pasajero. El tiempo es
+    // 2000 + (int)(rand() * (1/32768) * 3000) (GetRandomIntInRange), no el reparto de GetRandomNumberInRange.
+    const auto Look = [](CPed* pedThatLooks, CEntity* pedToLookAt, int32 time) {
+        g_ikChainMan.LookAt("ReactToVhclDam", pedThatLooks, pedToLookAt, time, BONE_HEAD, nullptr, false, 0.25f, 500, 3, false);
     };
 
-    const auto& passenger = m_apPassengers[0];
-
+    int32 time = CGeneral::GetRandomIntInRange(2000, 5000);
     if (m_pDriver) {
-        if (passenger) {
-            DoReact(m_pDriver, CGeneral::DoCoinFlip() ? dmgCauser : passenger);
+        if (m_apPassengers.data()[0]) {
+            const bool flip = CGeneral::DoCoinFlip();
+            Look(m_pDriver, flip ? dmgCauser : m_apPassengers.data()[0], time);
         } else {
-            DoReact(m_pDriver, dmgCauser);
+            Look(m_pDriver, dmgCauser, time);
         }
     }
 
-    if (passenger) {
-        DoReact(passenger, CGeneral::DoCoinFlip() ? dmgCauser : m_pDriver);
+    time = CGeneral::GetRandomIntInRange(2000, 5000);
+    if (m_apPassengers.data()[0]) {
+        const bool flip = CGeneral::DoCoinFlip();
+        Look(m_apPassengers.data()[0], flip ? dmgCauser : m_pDriver, time);
     }
 }
 
 // 0x6D55C0
 bool CVehicle::GetVehicleLightsStatus() {
-    // I've changed the logic flow a little bit so avoid the usage of variables
-    // 0x6D566A - This branch overwrites everything, so test it first
-    if (   m_pDriver
-        && IsPedTypeGang(m_pDriver->m_nPedType)
-        && m_pDriver->m_nRandomSeed % 2
+    // Como el original (0x6D55C0): mismo orden de evaluacion (CamNoRain se consulta aunque ya haya luces)
+    const auto hours   = CClock::GetGameClockHours();
+    const auto minutes = CClock::GetGameClockMinutes();
+    const uint16 seedLow6 = m_nRandomSeed & 0x3F;
+
+    bool lights = false;
+    if (hours > 20) {
+        lights = true;
+    } else if (hours > 19 && static_cast<uint16>(minutes) > seedLow6) {
+        lights = true;
+    } else if (hours < 6) {
+        lights = true;
+    } else if (hours < 7 && static_cast<uint16>(minutes) < seedLow6) {
+        lights = true;
+    } else {
+        const auto treshold = static_cast<float>(m_nRandomSeed) * std::bit_cast<float>(0x37A7C5ACu); // 0x871E78
+        if (CWeather::Foggyness > treshold || CWeather::WetRoads > treshold) {
+            lights = true;
+        }
+    }
+
+    if (m_fContactSurfaceBrightness < 0.05f && CCullZones::CamNoRain()) {
+        lights = true;
+    }
+
+    // Las bandas no usan luces en su zona
+    if (lights
+        && m_pDriver
+        && static_cast<int32>(m_pDriver->m_nPedType) >= PED_TYPE_GANG1
+        && static_cast<int32>(m_pDriver->m_nPedType) <= PED_TYPE_GANG10
+        && (m_pDriver->m_nRandomSeed & 1)
         && CPopCycle::m_bCurrentZoneIsGangArea
     ) {
-        return false; // Real OG' don't use lights! Vo�l�!
+        return false;
     }
 
-    // The rest pretty much follows the original code
-
-    if (CClock::GetIsTimeInRange(21, 6)) {
-        return true;
-    }
-
-    if (CClock::GetGameClockHours() == 20 && CClock::GetGameClockMinutes() > (m_nRandomSeed % 64)) {
-        return true;
-    }
-    if (CClock::GetGameClockHours() == 6 && CClock::GetGameClockMinutes() < (m_nRandomSeed % 64)) {
-        return true;
-    }
-
-    if (const auto treshold = (float)m_nRandomSeed / 50'000.f; CWeather::Foggyness > treshold || CWeather::WetRoads > treshold) {
-        return true;
-    }
-
-    return m_fContactSurfaceBrightness < 0.05f && CCullZones::CamNoRain();
+    return lights;
 }
 
 // 0x6D5CF0
@@ -3246,8 +3557,9 @@ void CVehicle::ProcessWheel(CVector& wheelFwd, CVector& wheelRight,
 
     float right = 0.0f;
     float fwd = 0.0f;
-    float contactSpeedFwd = DotProduct(wheelFwd, wheelContactSpeed);
-    float contactSpeedRight = DotProduct(wheelRight, wheelContactSpeed);
+    // Como el original: los productos escalares se suman en el orden del EXE ((y + x) + z para fwd, (y + z) + x para right)
+    float contactSpeedFwd = ((wheelFwd.y * wheelContactSpeed.y) + (wheelFwd.x * wheelContactSpeed.x)) + wheelContactSpeed.z * wheelFwd.z;
+    float contactSpeedRight = ((wheelRight.y * wheelContactSpeed.y) + (wheelRight.z * wheelContactSpeed.z)) + wheelRight.x * wheelContactSpeed.x;
 
     bBraking = brake != 0.0f;
     bDriving = !bBraking;
@@ -3276,7 +3588,14 @@ void CVehicle::ProcessWheel(CVector& wheelFwd, CVector& wheelRight,
 
     if (bDriving) {
         fwd = thrust;
-        right = std::clamp(right, -adhesion, adhesion);
+        // Como el original: sin std::clamp (el EXE no comprueba que adhesion sea positiva)
+        if (right > 0.0f) {
+            if (!(right <= adhesion)) {
+                right = adhesion;
+            }
+        } else if (!(right >= -adhesion)) {
+            right = -adhesion;
+        }
     }
     else if (contactSpeedFwd != 0.0f) {
         fwd = -contactSpeedFwd / wheelsOnGround;
@@ -3288,7 +3607,8 @@ void CVehicle::ProcessWheel(CVector& wheelFwd, CVector& wheelRight,
             else {
                 brake = gHandlingDataMgr.fWheelFriction / m_pHandlingData->m_fMass;
 
-                if (brake > 500.0f)
+                // Como el original (0x6D6EA2): compara la masa (no el freno) con 500
+                if (m_pHandlingData->m_fMass < 500.0f)
                     brake *= 0.1f;
                 else if (m_nModelIndex == MODEL_RCBANDIT)
                     brake *= 0.2f;
@@ -3298,8 +3618,13 @@ void CVehicle::ProcessWheel(CVector& wheelFwd, CVector& wheelRight,
             if (std::fabs(contactSpeedFwd) > 0.005f) {
                 *wheelState = WHEEL_STATE_FIXED;
             }
-        } else {
-            fwd = std::clamp(fwd, -brake, brake);
+        } else if (fwd > 0.0f) {
+            // Como el original: sin std::clamp
+            if (!(fwd <= brake)) {
+                fwd = brake;
+            }
+        } else if (!(fwd >= -brake)) {
+            fwd = -brake;
         }
     }
 
@@ -3324,8 +3649,10 @@ void CVehicle::ProcessWheel(CVector& wheelFwd, CVector& wheelRight,
             }
         }
         float l = sqrt(speedSq);
-        fwd *= adhesion * tractionLoss / l;
-        right *= adhesion * tractionLoss / l;
+        // Como el original: factor = (tractionLoss / l) * adhesion
+        const float factor = (tractionLoss / l) * adhesion;
+        fwd *= factor;
+        right *= factor;
     }
 
     if (fwd != 0.0f || right != 0.0f) {
@@ -3344,16 +3671,32 @@ void CVehicle::ProcessWheel(CVector& wheelFwd, CVector& wheelRight,
             }
         }
 
+        // Como el original: modulos sumados en orden (z + y) + x y normalizacion con 1 / modulo (si no es > 0 solo x = 1)
         CVector direction = totalSpeed;
-        float speed = totalSpeed.Magnitude();
+        float speed = std::sqrt((totalSpeed.z * totalSpeed.z + totalSpeed.y * totalSpeed.y) + totalSpeed.x * totalSpeed.x);
         float turnSpeed = speed;
         if (separateTurnForce)
-            turnSpeed = turnDirection.Magnitude();
-        direction.Normalise();
-        if (separateTurnForce)
-            turnDirection.Normalise();
-        else
+            turnSpeed = std::sqrt((turnDirection.z * turnDirection.z + turnDirection.y * turnDirection.y) + turnDirection.x * turnDirection.x);
+        if (speed > 0.0f) {
+            const float recip = 1.0f / speed;
+            direction.x = totalSpeed.x * recip;
+            direction.y = totalSpeed.y * recip;
+            direction.z = totalSpeed.z * recip;
+        } else {
+            direction.x = 1.0f;
+        }
+        if (separateTurnForce) {
+            if (turnSpeed > 0.0f) {
+                const float recip = 1.0f / turnSpeed;
+                turnDirection.x = turnDirection.x * recip;
+                turnDirection.y = turnDirection.y * recip;
+                turnDirection.z = turnDirection.z * recip;
+            } else {
+                turnDirection.x = 1.0f;
+            }
+        } else {
             turnDirection = direction;
+        }
 
         float force = speed * m_fMass;
         float turnForce = turnSpeed * GetMass(wheelContactPoint, turnDirection);
@@ -3372,12 +3715,19 @@ void CVehicle::ProcessBikeWheel(CVector& wheelFwd, CVector& wheelRight, CVector&
 
 // 0x6D7BC0
 auto CVehicle::FindTyreNearestPoint(CVector2D point) -> eNearestCarWheel {
-    const auto relativePt = point - GetPosition2D();
-    const bool isFront = relativePt.Dot(GetForward()) > 0.f;
+    // Como el original: cada producto escalar suma tambien z * 0.0f (un z NaN/inf lo vuelve NaN) y el orden es y primero, luego x.
+    const auto& pos = GetPosition();
+    const float relX = point.x - pos.x;
+    const float relY = point.y - pos.y;
+    const auto& fwd = GetForward();
+    const auto& right = GetRight();
+    const float fwdDot = (relY * fwd.y + relX * fwd.x) + fwd.z * 0.0f;
+    const float rightDot = (relY * right.y + relX * right.x) + right.z * 0.0f;
+    const bool isFront = fwdDot > 0.f;
     if (IsBike()) { // only distinguishes front vs rear
         return isFront ? eNearestCarWheel::FRONT_LEFT : eNearestCarWheel::REAR_LEFT;
     }
-    const bool isRight = relativePt.Dot(GetRight()) > 0.f;
+    const bool isRight = rightDot > 0.f;
     return isFront
         ? isRight ? eNearestCarWheel::FRONT_RIGHT : eNearestCarWheel::FRONT_LEFT
         : isRight ? eNearestCarWheel::REAR_RIGHT : eNearestCarWheel::REAR_LEFT;
@@ -3390,12 +3740,20 @@ void CVehicle::InflictDamage(CEntity* damager, eWeaponType weapon, float intensi
 
 // 0x6D82F0
 void CVehicle::KillPedsGettingInVehicle() {
-    for (auto& ped : GetPedPool()->GetAllValid()) {
-        if (ped.bInVehicle || ped.bIsStanding) {
+    // Como el original: se recorre el pool del ultimo hueco al primero y se omiten los peatones que van en un vehiculo
+    // o que usan colision (bit 0 de m_nFlags, no bIsStanding).
+    auto* const pedPool = GetPedPool();
+    for (int32 slot = (int32)pedPool->GetSize(); slot-- > 0;) {
+        CPed* const pedPtr = pedPool->GetAt(slot);
+        if (!pedPtr) {
+            continue;
+        }
+        auto& ped = *pedPtr;
+        if (ped.bInVehicle || ped.m_bUsesCollision) {
             continue;
         }
 
-        if (const auto task = static_cast<CTaskComplexEnterCar*>(ped.GetTaskManager().Find<CTaskComplexEnterCarAsPassenger, CTaskComplexEnterCarAsDriver>());
+        if (const auto task = static_cast<CTaskComplexEnterCar*>(ped.GetTaskManager().Find<CTaskComplexEnterCarAsDriver, CTaskComplexEnterCarAsPassenger>()); // Como el original: primero 701 (conductor) y luego 700
             !task || task->GetTargetCar() != this
         ) {
             continue;
@@ -3428,24 +3786,27 @@ bool CVehicle::UsesSiren() {
 
 // 0x6D84D0
 bool CVehicle::IsSphereTouchingVehicle(CVector posn, float radius) {
-    const auto cm = GetColModel();
     const auto dist = posn - GetPosition();
+    const auto cm = GetColModel();
 
-    const auto dotRight = DotProduct(dist, GetRight());
+    // Como el original: cada producto escalar suma z, luego y y por ultimo x (DotProduct suma x, y, z)
+    const auto DotZYX = [&](const CVector& v) { return (dist.z * v.z + dist.y * v.y) + dist.x * v.x; };
+
+    const auto dotRight = DotZYX(GetRight());
     if (dotRight < cm->m_boundBox.m_vecMin.x - radius ||
         dotRight > cm->m_boundBox.m_vecMax.x + radius
     ) {
         return false;
     }
 
-    const auto dotFwd = DotProduct(dist, GetForward());
+    const auto dotFwd = DotZYX(GetForward());
     if (dotFwd < cm->m_boundBox.m_vecMin.y - radius ||
         dotFwd > cm->m_boundBox.m_vecMax.y + radius
     ) {
         return false;
     }
 
-    const auto dotUp = DotProduct(dist, GetUp());
+    const auto dotUp = DotZYX(GetUp());
     if (dotUp < cm->m_boundBox.m_vecMin.z - radius ||
         dotUp > cm->m_boundBox.m_vecMax.z + radius
     ) {
@@ -3505,31 +3866,29 @@ void CVehicle::FlyingControl(eFlightModel flightModel, float leftRightSkid, floa
 // always returns `false`, and `rotorType` is always `-3`
 template<typename PtrListType>
 bool CVehicle::BladeColSectorList(PtrListType& ptrList, CColModel& colModel, CMatrix& matrix, int16 rotorType, float damageMult) {
+    // Como el original: el grosor del rotor es 0x871D9C (0.2); la direccion y el grosor (un solo eje) salen del tipo de rotor
+    // (-3, -2, -1, 1, 2, 3 = abajo, atras, izquierda, derecha, adelante, arriba). Con otro valor (0 incluido) el original deja
+    // la direccion sin inicializar; aqui queda a cero.
+    constexpr auto ROTOR_THICKNESS = 0.2f;
+    CVector rotorUp{};
+    CVector rotorSizeOS{};
+    switch (rotorType) {
+    case -3: rotorUp = CVector{ -matrix.GetUp().x, -matrix.GetUp().y, -matrix.GetUp().z };                rotorSizeOS.z = -ROTOR_THICKNESS; break; // down
+    case -2: rotorUp = CVector{ -matrix.GetForward().x, -matrix.GetForward().y, -matrix.GetForward().z }; rotorSizeOS.y = -ROTOR_THICKNESS; break; // backwards
+    case -1: rotorUp = CVector{ -matrix.GetRight().x, -matrix.GetRight().y, -matrix.GetRight().z };       rotorSizeOS.x = -ROTOR_THICKNESS; break; // left
+    case  1: rotorUp = matrix.GetRight();                                                                 rotorSizeOS.x =  ROTOR_THICKNESS; break; // right
+    case  2: rotorUp = matrix.GetForward();                                                               rotorSizeOS.y =  ROTOR_THICKNESS; break; // forward
+    case  3: rotorUp = matrix.GetUp();                                                                    rotorSizeOS.z =  ROTOR_THICKNESS; break; // up
+    default: break;
+    }
+
+    // Como el original: Multiply3x3 (0x59C790) y matriz * punto (0x59C890) con el orden de sumas del EXE
+    const auto rotorSize      = VehEMatVec(matrix, rotorSizeOS);
+    const auto colModelCenter = VehEMatPoint(matrix, colModel.GetBoundCenter());
+
     if (ptrList.IsEmpty()) {
         return false;
     }
-
-    // Returns UP vector and thickness vector (in which only 1 component is set and that is the thickness)
-    const auto GetRotorDirUpAndThickness = [this, rotorType, &matrix]() -> std::pair<CVector, CVector> {
-        // Seems like `rotorType` is just one of the 6 possible directions:
-        // down, backwards, left, right, foward, up => -3, -2, -1, 1, 2, 3
-        // Not sure how this works in the real world, as the code only uses -3
-        assert(rotorType == -3); // NOTSA: Testing my theory (Pirulax)
-        switch (rotorType) {
-        case -3: return { -matrix.GetUp(),      {  0.0f,  0.0f, -0.2f }, }; // down
-        case -2: return { -matrix.GetForward(), {  0.0f, -0.2f,  0.0f }, }; // backwards
-        case -1: return { -matrix.GetRight(),   { -0.2f,  0.0f,  0.0f }, }; // left
-        case  1: return {  matrix.GetRight(),   {  0.2f,  0.0f,  0.0f }, }; // right
-        case  2: return {  matrix.GetForward(), {  0.0f,  0.2f,  0.0f }, }; // forward
-        case  3: return {  matrix.GetUp(),      {  0.0f,  0.0f,  0.2f }, }; // up
-        default: NOTSA_UNREACHABLE("Unknown rotorType");
-        }
-    };
-
-    const auto [rotorUp, rotorSizeOS] = GetRotorDirUpAndThickness();
-    const auto rotorSize              = matrix.TransformVector(rotorSizeOS);
-    const auto colModelCenter         = matrix.TransformPoint(colModel.GetBoundCenter());
-    const auto& thisPosn              = GetPosition();
 
     for (auto* entity : ptrList) {
         if (static_cast<CEntity*>(entity) == static_cast<CEntity*>(this) || !entity->m_bUsesCollision) {
@@ -3541,15 +3900,16 @@ bool CVehicle::BladeColSectorList(PtrListType& ptrList, CColModel& colModel, CMa
         }
         entity->SetCurrentScanCode();
 
+        // Como el original: el clump se pasa tal cual (sin la comprobacion de tipo de GetRpClump)
         auto entityCM = entity->GetIsTypePed()
-            ? entity->GetModelInfo()->AsPedModelInfoPtr()->AnimatePedColModelSkinned(entity->GetRpClump())
+            ? entity->GetModelInfo()->AsPedModelInfoPtr()->AnimatePedColModelSkinned(reinterpret_cast<RpClump*>(entity->GetRwObject()))
             : entity->GetColModel();
 
-        if (!entityCM) {
+        if (entity->GetIsTypeObject() && entity->AsObject()->m_nObjectType == eObjectType::OBJECT_TEMPORARY) {
             continue;
         }
 
-        if (entity->GetIsTypeObject() && entity->AsObject()->m_nObjectType == eObjectType::OBJECT_TEMPORARY) {
+        if (!entityCM) {
             continue;
         }
 
@@ -3568,36 +3928,41 @@ bool CVehicle::BladeColSectorList(PtrListType& ptrList, CColModel& colModel, CMa
         if (entity->GetIsTypePed()) { // 0x6DB207
             auto& ped = *entity->AsPed();
 
-            const auto dirToPed = Normalized(GetPosition() - ped.GetPosition());
+            // Como el original: direccion 2D (este vehiculo - peaton) normalizada con CVector2D::Normalise (0x44E480)
+            CVector2D dirToPed{ GetPosition().x - ped.GetPosition().x, GetPosition().y - ped.GetPosition().y };
+            VehENormalise2D(dirToPed);
+            const auto localDir = ped.GetLocalDirection(dirToPed);
 
             if (!ped.m_pAttachedTo) { // 0x6DB24C
-                ped.ApplyMoveForce(CVector{ CVector2D{dirToPed} * -5.f, 5.f });
+                // Como el original: se quita bIsStanding (bit 0 de las banderas del peaton) antes de empujarlo
+                ped.bIsStanding = false;
+                ped.ApplyMoveForce(CVector{ dirToPed.x * -5.f, dirToPed.y * -5.f, 5.f });
             }
 
+            // Como el original: el calculador de respuesta se construye antes que el evento
+            CPedDamageResponseCalculator dmgCalculator{ this, 1000.f, WEAPON_RUNOVERBYCAR, PED_PIECE_TORSO, false };
             CEventDamage dmgEvent{ // 0x6DB2CE
                 this,
                 CTimer::GetTimeInMS(),
                 WEAPON_RUNOVERBYCAR,
                 PED_PIECE_TORSO,
-                static_cast<uint8>(ped.GetLocalDirection(dirToPed)),
+                static_cast<uint8>(localDir),
                 false,
                 false
             };
             dmgEvent.ComputeDamageResponseIfAffectsPed( // 0x6DB326
                 &ped,
-                { this, 1000.f, WEAPON_RUNOVERBYCAR, PED_PIECE_TORSO, false },
+                dmgCalculator,
                 true
             );
-            ped.GetEventGroup().Add(dmgEvent);
+            ped.GetEventGroup().Add(&dmgEvent, false); // Como el original: se pasa el propio evento (no una copia)
 
             if (CLocalisation::Blood()) { // 0x6DB34D
+                // Como el original: la sangre sale de la posicion del PEATON; la direccion es (x * 0.01, y * 0.01, 0.01) y el desplazamiento (x * 0.35, y * 0.35, 0.6)
+                CVector bloodDir{ dirToPed.x * 0.01f, dirToPed.y * 0.01f, 0.01f };
+                CVector bloodPos{ dirToPed.x * 0.35f + ped.GetPosition().x, dirToPed.y * 0.35f + ped.GetPosition().y, ped.GetPosition().z + 0.6f };
                 if (ped.GetIsOnScreen()) {
-                    g_fx.AddBlood(
-                        GetPosition() + CVector{ CVector2D{ dirToPed } * 0.35f, 0.6f}, // TODO: Magic 0.6f
-                        dirToPed / 100.f,
-                        16,
-                        ped.m_fContactSurfaceBrightness
-                    );
+                    g_fx.AddBlood(bloodPos, bloodDir, 16, ped.m_fContactSurfaceBrightness);
                 }
             }
         } else if (entity->m_nModelIndex != eModelID::MODEL_MISSILE) { // 0x6DB44F
@@ -3607,25 +3972,38 @@ bool CVehicle::BladeColSectorList(PtrListType& ptrList, CColModel& colModel, CMa
 
             const auto prevElasticity = std::exchange(m_fElasticity, 1.f);
 
-            for (const auto& cp : CWorld::m_aTempColPts | rng::views::take(numColls)) { // 0x6DB474
-                const auto colDir = cp.m_vecPoint - colModelCenter;
-                const auto colDirOnRotorUp = DotProduct(colDir, rotorUp);
+            for (auto i = 0; i < numColls; i++) { // 0x6DB474
+                const auto& cp = CWorld::m_aTempColPts.data()[i];
 
+                // Como el original: la copia del punto se reutiliza para el sonido posterior aunque el punto no sea valido
+                cpOnRotor = cp.m_vecPoint;
+
+                const CVector colDir{ cp.m_vecPoint.x - colModelCenter.x, cp.m_vecPoint.y - colModelCenter.y, cp.m_vecPoint.z - colModelCenter.z };
+                // Como el original: el producto escalar con la direccion del rotor suma x, z, y
+                const auto colDirOnRotorUp = (colDir.x * rotorUp.x + rotorUp.z * colDir.z) + rotorUp.y * colDir.y;
+
+                // Como el original: el segundo producto escalar suma z, y, x
                 if ( std::abs(colDirOnRotorUp) > ROTOR_SEMI_THICKNESS * 2.f
-                  && std::abs(colDirOnRotorUp) > std::abs(DotProduct(colDir, cp.m_vecNormal)) * 0.3f
+                  && std::abs(colDirOnRotorUp) > std::abs(VehEDot(colDir, cp.m_vecNormal)) * 0.3f
                 ) {
                     continue;
                 }
 
                 wasAnyCPValid = true;
 
-                     cpOnRotor   = cp.m_vecPoint - rotorUp * colDirOnRotorUp;
-                auto colForceDir = rotorSize.Cross(cpOnRotor - colModelCenter) + m_vecMoveSpeed;
+                const CVector rotorUpOnDir{ rotorUp.x * colDirOnRotorUp, rotorUp.y * colDirOnRotorUp, rotorUp.z * colDirOnRotorUp };
+                cpOnRotor = CVector{ cpOnRotor.x - rotorUpOnDir.x, cpOnRotor.y - rotorUpOnDir.y, cpOnRotor.z - rotorUpOnDir.z };
 
+                const CVector cpOnRotorDir{ cpOnRotor.x - colModelCenter.x, cpOnRotor.y - colModelCenter.y, cpOnRotor.z - colModelCenter.z };
+                const auto cross = VehECross(rotorSize, cpOnRotorDir);
+                auto colForceDir = CVector{ cross.x + m_vecMoveSpeed.x, cross.y + m_vecMoveSpeed.y, cross.z + m_vecMoveSpeed.z };
+
+                // Como el original: NormaliseAndMag (0x59C970) normaliza colForceDir en el sitio y devuelve 1 / (1 / raiz)
+                const auto sparkForce = VehENormaliseAndMag(colForceDir) * 15.f;
                 g_fx.AddSparks(
                     cpOnRotor,
                     colForceDir,
-                    colForceDir.NormaliseAndMag() * 15.f,
+                    sparkForce,
                     16,
                     CVector{},
                     eSparkType::SPARK_PARTICLE_SPARK,
@@ -3635,28 +4013,35 @@ bool CVehicle::BladeColSectorList(PtrListType& ptrList, CColModel& colModel, CMa
 
                 if (IsAutomobile()) {
                     const auto au = AsAutomobile();
-                    if (au->m_fHeliRotorSpeed <= 0.15f) {
+                    if (!(au->m_fHeliRotorSpeed > 0.15f)) {
                         if (au->m_fHeliRotorSpeed < 0.15f / 2.f && au->m_fHeliRotorSpeed > 0.f) {
                             au->m_fHeliRotorSpeed *= -1.f;
                         }
                     } else {
                         ApplySoftCollision(entity, cp, automobileCollisionDmgIntensity);
-                        ApplyTurnForce(colForceDir * (m_fTurnMass * -0.0005f), cpOnRotor - colModelCenter);
+                        // Como el original: la fuerza de giro es el producto vectorial (sin la velocidad ni normalizar) por turnMass * -0.0005
+                        const auto turnForceMult = -0.0005f * m_fTurnMass;
+                        ApplyTurnForce(CVector{ cross.x * turnForceMult, cross.y * turnForceMult, cross.z * turnForceMult }, cpOnRotorDir);
                         au->m_fHeliRotorSpeed = 0.15f;
                     }
                 }
 
+                // Como el original: (100 * masa) * (1 / 3000) (0x865030), el mayor de los dos y por damageMult
+                const auto dmgIntensity = (100.f * m_fMass) * std::bit_cast<float>(0x39AEC33Eu);
                 SetDamagedPieceRecord(
-                    std::max(automobileCollisionDmgIntensity, 100.f * m_fMass / 3000.f),
+                    (dmgIntensity > automobileCollisionDmgIntensity ? dmgIntensity : automobileCollisionDmgIntensity) * damageMult,
                     entity,
                     cp,
                     1.f
                 );
             }
 
+            // Como el original: el sonido se prueba cuando el momento no esta en [planeRotorDmgTimeMS - 2000, planeRotorDmgTimeMS]
+            // (extremos incluidos); la rama de peaton de esta prueba nunca se cumple aqui porque los peatones salen antes
             if (wasAnyCPValid) {
-                if (entity->GetIsTypePed() && !CTimer::IsTimeInRange(planeRotorDmgTimeMS - 2000, planeRotorDmgTimeMS)) {
-                    const auto ReportCollision = [&](CVector pos) {
+                const auto timeMs = CTimer::GetTimeInMS();
+                if (timeMs > planeRotorDmgTimeMS || timeMs < planeRotorDmgTimeMS - 2000) {
+                    const auto ReportCollision = [&](const CVector& pos) {
                         AudioEngine.ReportCollision(
                             this,
                             entity,
@@ -3673,10 +4058,16 @@ bool CVehicle::BladeColSectorList(PtrListType& ptrList, CColModel& colModel, CMa
                     if (GetStatus() == STATUS_REMOTE_CONTROLLED) {
                         ReportCollision(cpOnRotor);
                     } else if (GetStatus() == STATUS_PLAYER) {
+                        // Como el original: normaliza con CVector::Normalise (0x59C910); la camara se pide dos veces
+                        const auto& firstCamPos = *TheCamera.GetGameCamPosition();
+                        CVector dirToCP{ cpOnRotor.x - firstCamPos.x, cpOnRotor.y - firstCamPos.y, cpOnRotor.z - firstCamPos.z };
+                        VehENormalise(dirToCP);
+                        const CVector dirScaled{ dirToCP.x * 4.f, dirToCP.y * 4.f, dirToCP.z * 4.f };
                         const auto& gameCamPos = *TheCamera.GetGameCamPosition();
-                        ReportCollision(gameCamPos + Normalized(cpOnRotor - gameCamPos) * 4.f);
+                        ReportCollision(CVector{ dirScaled.x + gameCamPos.x, dirScaled.y + gameCamPos.y, dirScaled.z + gameCamPos.z });
                     }
-                    planeRotorDmgTimeMS = CTimer::GetTimeInMS() + CGeneral::GetRandomNumberInRange(150, 250);
+                    // Como el original: 0x407180 (CGeneral::GetRandomIntInRange), no la plantilla entera
+                    planeRotorDmgTimeMS = CTimer::GetTimeInMS() + CGeneral::GetRandomIntInRange(150, 250);
                 }
             }
 
@@ -3725,20 +4116,31 @@ void CVehicle::SetComponentRotation(RwFrame* component, eRotationAxis axis, floa
     mat.UpdateRW();
 }
 
+// Como el original (0x6DBC41 / 0x6DBC55): atan2(y, x) con fpatan del x87 a precisión interna completa; el resultado lo redondea el fstp posterior
+static __declspec(naked) float __cdecl TransmissionAtan2(float y, float x) {
+    __asm {
+        fld    dword ptr [esp + 4]
+        fld    dword ptr [esp + 8]
+        fpatan
+        ret
+    }
+}
+
 // 0x6DBBB0
 void CVehicle::SetTransmissionRotation(RwFrame* component, float angleL, float angleR, CVector wheelPos, bool isFront) {
     if (component) {
         CMatrix mat(&component->modelling);
         CVector savedPos = mat.GetPosition();
-        float angleX = -std::atan2(
-            (angleL + angleR) / 2.0f - wheelPos.z,
+        // Como el original: (L + R) * 0.5 (0x858B8C) y PI exacto del EXE (0x858CB8 = 0x40490FDB), no el PI impreciso de common.h
+        float angleX = -TransmissionAtan2(
+            (angleL + angleR) * 0.5f - wheelPos.z,
             mat.GetPosition().y - wheelPos.y
         );
         if (isFront) {
-            angleX += PI;
+            angleX += std::bit_cast<float>(0x40490FDBu);
         }
         mat.SetRotateX(angleX);
-        mat.RotateY(std::atan2(angleL - angleR, std::fabs(wheelPos.x) + std::fabs(wheelPos.x)));
+        mat.RotateY(TransmissionAtan2(angleL - angleR, std::fabs(wheelPos.x) + std::fabs(wheelPos.x)));
         mat.GetPosition() += savedPos;
         mat.UpdateRW();
     }
@@ -3746,27 +4148,34 @@ void CVehicle::SetTransmissionRotation(RwFrame* component, float angleL, float a
 
 // 0x6DBCE0
 void CVehicle::ProcessBoatControl(tBoatHandlingData* boatHandling, float* fLastWaterImmersionDepth, bool bCollidedWithWorld, bool bPostCollision) {
+    // Como el original: todos los productos de vector por escalar y los productos escalares siguen el orden de operaciones del EXE
+    const auto MulComp = [](const CVector& v, float s) { return CVector{ v.x * s, v.y * s, v.z * s }; };
+    const auto timeStep = CTimer::GetTimeStep();
+
     CVector vecBuoyancyTurnPoint{};
     CVector vecBuoyancyForce{};
+    auto* const boat = IsSubBoat() ? AsBoat() : nullptr;
     if (!mod_Buoyancy.ProcessBuoyancyBoat(this, m_fBuoyancyConstant, &vecBuoyancyTurnPoint, &vecBuoyancyForce, bCollidedWithWorld)) {
         physicalFlags.bSubmergedInWater = false;
-        if (IsSubBoat()) {
-            AsBoat()->m_nBoatFlags.bBoatInWater = false;
+        if (boat) {
+            boat->m_nBoatFlags.bBoatInWater = false;
         }
         return;
     }
 
     bool bOnWater = false;
-    // FIX_BUGS ? vehicleFlags.bIsDrowning = false;
-    if (CTimer::GetTimeStep() * m_fMass * 0.0008F >= vecBuoyancyForce.z) {
+    // Como el original: 0x871FBC (el siguiente float tras 0.0008) y, con NaN, tampoco queda sumergido
+    if (!(timeStep * m_fMass * std::bit_cast<float>(0x3A51B718u) < vecBuoyancyForce.z)) {
         physicalFlags.bSubmergedInWater = false;
+        vehicleFlags.bIsDrowning        = false;
     } else {
         physicalFlags.bSubmergedInWater = true;
         bOnWater = true;
 
+        // Como el original: bIsDrowning solo se limpia cuando NO se cumple la condicion de ahogo (si se cumple se queda a true)
         if (GetUp().z < -0.6F
-            && std::fabs(m_vecMoveSpeed.x) < 0.05F
-            && std::fabs(m_vecMoveSpeed.y) < 0.05F
+            && std::fabs(m_vecMoveSpeed.x) < 0.05
+            && std::fabs(m_vecMoveSpeed.y) < 0.05
         ) {
             vehicleFlags.bIsDrowning = true;
             if (m_pDriver) {
@@ -3774,9 +4183,10 @@ void CVehicle::ProcessBoatControl(tBoatHandlingData* boatHandling, float* fLastW
                 if (m_pDriver->IsPlayer()) {
                     m_pDriver->AsPlayer()->HandlePlayerBreath(true, 1.0F);
                 } else {
+                    // Como el original: el calculador se construye siempre, antes que el evento y que AffectsPed
+                    auto pedDamageResponseCalc = CPedDamageResponseCalculator(this, timeStep, eWeaponType::WEAPON_DROWNING, PED_PIECE_TORSO, false);
                     auto damageEvent = CEventDamage(this, CTimer::GetTimeInMS(), eWeaponType::WEAPON_DROWNING, PED_PIECE_TORSO, 0, false, true);
                     if (damageEvent.AffectsPed(m_pDriver)) {
-                        auto pedDamageResponseCalc = CPedDamageResponseCalculator(this, CTimer::GetTimeStep(), eWeaponType::WEAPON_DROWNING, PED_PIECE_TORSO, false);
                         pedDamageResponseCalc.ComputeDamageResponse(m_pDriver, damageEvent.m_damageResponse, true);
                     } else {
                         damageEvent.m_damageResponse.m_bDamageCalculated = true;
@@ -3785,48 +4195,51 @@ void CVehicle::ProcessBoatControl(tBoatHandlingData* boatHandling, float* fLastW
                     m_pDriver->GetEventGroup().Add(&damageEvent, false);
                 }
             }
+        } else {
+            vehicleFlags.bIsDrowning = false;
         }
     }
-    vehicleFlags.bIsDrowning = false; // see above
 
     // 0x6DBF0A
     auto vecUsedBuoyancyForce = vecBuoyancyForce;
-    auto fImmersionDepth = mod_Buoyancy.m_fEntityWaterImmersion;
+    const auto fImmersionDepth = mod_Buoyancy.m_fEntityWaterImmersion;
     if (m_nModelIndex == MODEL_SKIMMER
         && GetUp().z < -0.5F
         && std::fabs(m_vecMoveSpeed.x) < 0.2F
         && std::fabs(m_vecMoveSpeed.y) < 0.2F
     ) {
-        vecUsedBuoyancyForce *= 0.03F;
+        vecUsedBuoyancyForce = MulComp(vecBuoyancyForce, 0.03F);
     }
     CPhysical::ApplyMoveForce(vecUsedBuoyancyForce);
 
     if (bCollidedWithWorld) {
-        CPhysical::ApplyTurnForce(vecBuoyancyForce * 0.4F, vecBuoyancyTurnPoint);
+        CPhysical::ApplyTurnForce(MulComp(vecBuoyancyForce, 0.4F), vecBuoyancyTurnPoint);
     }
 
     // 0x6DC00B
     if (m_nModelIndex == MODEL_SKIMMER) {
-        auto fCheckedMass = CTimer::GetTimeStep() * m_fMass;
+        // Como el original: los limites usan las constantes 0x871FB8 (8e-5, el siguiente float tras 8e-5) y 0.4 * 0.008, no divisiones entre 125
+        const auto fCheckedMass = timeStep * m_fMass;
         if (m_f2ndSteerAngle != 0.0F
             || (GetForward().z < -0.5F
             && GetUp().z > -0.5F
             && m_vecMoveSpeed.z < -0.15F
-            && fCheckedMass * 0.01F / 125.0F < vecBuoyancyForce.z
-            && vecBuoyancyForce.z < fCheckedMass * 0.4F / 125.0F)
+            && std::bit_cast<float>(0x38A7C5ADu) * fCheckedMass < vecBuoyancyForce.z
+            && vecBuoyancyForce.z < (0.4F * fCheckedMass) * 0.008F)
         ) {
             bOnWater = false;
 
-            auto fTurnForceMult = GetForward().z * m_fTurnMass * -0.00017F * vecBuoyancyForce.z;
-            CPhysical::ApplyTurnForce(GetForward() * fTurnForceMult, GetUp());
+            const auto fTurnForceMult = (((GetForward().z * m_fTurnMass) * timeStep) * -0.00017F) * vecBuoyancyForce.z;
+            CPhysical::ApplyTurnForce(MulComp(GetForward(), fTurnForceMult), GetUp());
 
-            auto fMoveForceMult = DotProduct(m_vecMoveSpeed, GetForward()) / -2.0f * m_fMass;
-            CPhysical::ApplyMoveForce(GetForward() * fMoveForceMult);
+            const auto fMoveForceMult = (VehEDot(m_vecMoveSpeed, GetForward()) * -0.5F) * m_fMass;
+            CPhysical::ApplyMoveForce(MulComp(GetForward(), fMoveForceMult));
 
+            const auto fTimeMs = (float)CTimer::GetTimeInMS();
             if (m_f2ndSteerAngle == 0.0F) { // todo: missing checks for CTimer 0x6DC195 ?
-                m_f2ndSteerAngle = (float)CTimer::GetTimeInMS() + 300.0F;
+                m_f2ndSteerAngle = fTimeMs + 300.0F;
             }
-            else if (m_f2ndSteerAngle <= (float)CTimer::GetTimeInMS()) {
+            else if (fTimeMs > m_f2ndSteerAngle) { // Como el original: estrictamente mayor
                 m_f2ndSteerAngle = 0.0F;
             }
         }
@@ -3834,22 +4247,23 @@ void CVehicle::ProcessBoatControl(tBoatHandlingData* boatHandling, float* fLastW
 
     // 0x6DC1E2
     if (!bPostCollision && bOnWater && GetUp().z > 0.0F) {
-        auto fMoveForce = m_vecMoveSpeed.SquaredMagnitude() * boatHandling->m_fAqPlaneForce * CTimer::GetTimeStep() * vecBuoyancyForce.z * 0.5F;
+        auto fMoveForce = m_vecMoveSpeed.SquaredMagnitude() * boatHandling->m_fAqPlaneForce * timeStep * vecBuoyancyForce.z * 0.5F;
         if (m_nModelIndex == MODEL_SKIMMER)
             fMoveForce *= (m_GasPedal + 1.0F);
-        else if (m_GasPedal <= 0.05F)
+        else if (!(m_GasPedal > 0.05F))
             fMoveForce = 0.0F;
         else
             fMoveForce *= m_GasPedal;
 
-        auto fMaxMoveForce = CTimer::GetTimeStep() * boatHandling->m_fAqPlaneLimit * m_fMass / 125.0F;
-        fMoveForce = std::min(fMoveForce, fMaxMoveForce);
+        // Como el original: el limite multiplica por 0.008 (0x863984) en vez de dividir entre 125
+        const auto fMaxMoveForce = ((timeStep * boatHandling->m_fAqPlaneLimit) * m_fMass) * 0.008F;
+        fMoveForce = (fMaxMoveForce < fMoveForce) ? fMaxMoveForce : fMoveForce;
 
-        auto vecUsedMoveForce = GetUp() * fMoveForce;
+        const auto vecUsedMoveForce = MulComp(GetUp(), fMoveForce);
         CPhysical::ApplyMoveForce(vecUsedMoveForce);
 
-        auto vecOffset = GetForward() * boatHandling->m_fAqPlaneOffset;
-        auto vecTurnPoint = vecBuoyancyTurnPoint - vecOffset;
+        const auto vecOffset = MulComp(GetForward(), boatHandling->m_fAqPlaneOffset);
+        const CVector vecTurnPoint{ vecBuoyancyTurnPoint.x - vecOffset.x, vecBuoyancyTurnPoint.y - vecOffset.y, vecBuoyancyTurnPoint.z - vecOffset.z };
         CPhysical::ApplyTurnForce(vecUsedMoveForce, vecTurnPoint);
     }
 
@@ -3861,98 +4275,128 @@ void CVehicle::ProcessBoatControl(tBoatHandlingData* boatHandling, float* fLastW
     // 0x6DC3AF
     if (GetUp().z > -0.6F) {
         float fMoveSpeed = 1.0F;
-        if (std::fabs(m_GasPedal) <= 0.05F) {
-            fMoveSpeed = m_vecMoveSpeed.Magnitude2D();
+        if (!(std::fabs(m_GasPedal) > 0.05F)) {
+            fMoveSpeed = std::sqrt(m_vecMoveSpeed.x * m_vecMoveSpeed.x + m_vecMoveSpeed.y * m_vecMoveSpeed.y);
         }
 
         if (std::fabs(m_GasPedal) > 0.05F || fMoveSpeed > 0.01F) {
-            if (IsSubBoat() && bOnWater && fMoveSpeed > 0.05F) {
-                //GetColModel(); Unused call
-                AsBoat()->AddWakePoint(GetPosition());
+            // Como el original: la comparacion usa el double 0.05 (0x859068), no el float
+            if (boat && bOnWater && static_cast<double>(fMoveSpeed) > 0.05) {
+                [[maybe_unused]] auto* const unusedColModel = CEntity::GetColModel(); // El EXE llama a GetColModel aunque no use el resultado
+                boat->AddWakePoint(GetPosition());
             }
 
             auto fTraction = 1.0F;
             if (GetStatus() == STATUS_PLAYER) {
-                auto fTractionLoss = DotProduct(m_vecMoveSpeed, GetForward()) * m_pHandlingData->m_fTractionBias;
+                auto fTractionLoss = VehEDot(m_vecMoveSpeed, GetForward()) * m_pHandlingData->m_fTractionBias;
                 if (pad->GetHandBrake())
                     fTractionLoss *= 0.5F;
 
                 fTraction = 1.0F - fTractionLoss;
-                fTraction = std::clamp(fTraction, 0.0F, 1.0F);
+                if (fTraction < 0.0F) {
+                    fTraction = 0.0F;
+                } else if (fTraction > 1.0F) {
+                    fTraction = 1.0F;
+                }
             }
 
-            auto fSteerAngleChange = -(fTraction * m_fSteerAngle);
-            auto fSteerAngleSin = std::sin(fSteerAngleChange);
-            auto fSteerAngleCos = std::cos(fSteerAngleChange);
+            // Como el original: fsin y fcos del x87 sobre el mismo valor
+            const auto fSteerAngleChange = -(fTraction * m_fSteerAngle);
+            float fSteerAngleSin, fSteerAngleCos;
+            VehESinCos(fSteerAngleChange, fSteerAngleSin, fSteerAngleCos);
 
             const auto& vecBoundingMin = CEntity::GetColModel()->m_boundBox.m_vecMin;
             CVector vecThrustPoint(0.0F, vecBoundingMin.y * boatHandling->m_fThrustY, vecBoundingMin.z * boatHandling->m_fThrustZ);
-            auto vecTransformedThrustPoint = GetMatrix().TransformVector(vecThrustPoint);
+            const auto vecTransformedThrustPoint = VehEMatVec(*m_matrix, vecThrustPoint);
 
-            auto vecWorldThrustPos = GetPosition() + vecTransformedThrustPoint;
-            float fWaterLevel;
+            const CVector vecWorldThrustPos{
+                vecTransformedThrustPoint.x + GetPosition().x,
+                vecTransformedThrustPoint.y + GetPosition().y,
+                vecTransformedThrustPoint.z + GetPosition().z,
+            };
+            // Como el original: la variable comparte la pila con fMoveSpeed, asi que conserva su valor si GetWaterLevel no la escribe
+            float fWaterLevel = fMoveSpeed;
             CWaterLevel::GetWaterLevel(vecWorldThrustPos, fWaterLevel, true); // warn: result not checked
-            if (vecWorldThrustPos.z - 0.5F >= fWaterLevel) {
-                if (IsSubBoat())
-                    AsBoat()->m_nBoatFlags.bBoatEngineInWater = false;
+            if (!(vecWorldThrustPos.z - 0.5F < fWaterLevel)) {
+                if (boat)
+                    boat->m_nBoatFlags.bBoatEngineInWater = false;
             }
             else {
                 auto fThrustDepth = fWaterLevel - vecWorldThrustPos.z + 0.5F;
-                fThrustDepth = std::min(sq(fThrustDepth), 1.0F);
+                fThrustDepth = fThrustDepth > 1.0F ? 1.0F : fThrustDepth * fThrustDepth;
 
-                if (IsSubBoat())
-                    AsBoat()->m_nBoatFlags.bBoatEngineInWater = true;
+                if (boat)
+                    boat->m_nBoatFlags.bBoatEngineInWater = true;
 
                 bool bIsSlowingDown = false;
                 auto fGasState = std::fabs(m_GasPedal);
-                if (fGasState < 0.01F || m_nModelIndex == MODEL_SKIMMER) {
+                if (!(fGasState > 0.01F) || m_nModelIndex == MODEL_SKIMMER) {
                     bIsSlowingDown = true;
                 }
                 else {
                     if (fGasState < 0.5F)
                         bIsSlowingDown = true;
 
-                    auto fSteerAngle = std::fabs(m_fSteerAngle);
-                    CVector vecSteer(-fSteerAngleSin, fSteerAngleCos, -fSteerAngle);
-                    CVector vecSteerMoveForce = GetMatrix().TransformVector(vecSteer);
-                    vecSteerMoveForce *= fThrustDepth * m_GasPedal * 40.0F * m_pHandlingData->m_transmissionData.m_EngineAcceleration * m_fMass;
+                    // Como el original: |steer| con comparacion + cambio de signo y z = |steer| * -1
+                    auto fSteerAngle = m_fSteerAngle;
+                    if (fSteerAngle < 0.0F)
+                        fSteerAngle = -fSteerAngle;
+                    CVector vecSteer(-fSteerAngleSin, fSteerAngleCos, fSteerAngle * -1.0F);
+                    // Como el original: cada componente se multiplica secuencialmente (profundidad, gas, 40, aceleracion, masa)
+                    auto vecSteerMoveForce = VehEMatVec(*m_matrix, vecSteer);
+                    vecSteerMoveForce = MulComp(vecSteerMoveForce, fThrustDepth);
+                    vecSteerMoveForce = MulComp(vecSteerMoveForce, m_GasPedal);
+                    vecSteerMoveForce = MulComp(vecSteerMoveForce, 40.0F);
+                    vecSteerMoveForce = MulComp(vecSteerMoveForce, m_pHandlingData->m_transmissionData.m_EngineAcceleration);
+                    vecSteerMoveForce = MulComp(vecSteerMoveForce, m_fMass);
 
                     if (vecSteerMoveForce.z > 0.2F)
                         vecSteerMoveForce.z = sq(1.2F - vecSteerMoveForce.z) + 0.2F;
 
                     if (bPostCollision) {
-                        if (m_GasPedal < 0.0F)
-                            vecSteerMoveForce *= CVector(5.0F, 5.0F, 1.0F);
+                        if (m_GasPedal < 0.0F) {
+                            vecSteerMoveForce.x *= 5.0F;
+                            vecSteerMoveForce.y *= 5.0F;
+                        }
 
-                        vecSteerMoveForce.z = std::max(0.0F, vecSteerMoveForce.z);
-                        CPhysical::ApplyMoveForce(vecSteerMoveForce * CTimer::GetTimeStep());
+                        // Como el original: solo se anula si es negativo (conserva -0 y NaN)
+                        if (vecSteerMoveForce.z < 0.0F)
+                            vecSteerMoveForce.z = 0.0F;
+                        CPhysical::ApplyMoveForce(MulComp(vecSteerMoveForce, timeStep));
                     }
                     else {
-                        CPhysical::ApplyMoveForce(vecSteerMoveForce * CTimer::GetTimeStep());
+                        CPhysical::ApplyMoveForce(MulComp(vecSteerMoveForce, timeStep));
 
-                        auto vecTurnForcePoint = vecTransformedThrustPoint - (GetUp() * boatHandling->m_fThrustAppZ);
-                        CPhysical::ApplyTurnForce(vecSteerMoveForce * CTimer::GetTimeStep(), vecTurnForcePoint);
+                        const auto vecThrustAppZ = MulComp(GetUp(), boatHandling->m_fThrustAppZ);
+                        const CVector vecTurnForcePoint{
+                            vecTransformedThrustPoint.x - vecThrustAppZ.x,
+                            vecTransformedThrustPoint.y - vecThrustAppZ.y,
+                            vecTransformedThrustPoint.z - vecThrustAppZ.z,
+                        };
+                        CPhysical::ApplyTurnForce(MulComp(vecSteerMoveForce, timeStep), vecTurnForcePoint);
 
-                        auto fTractionSide = -DotProduct(vecSteerMoveForce, GetRight()) * m_pHandlingData->m_fTractionMultiplier;
-                        auto vecTurnForceSide = GetRight() * fTractionSide * CTimer::GetTimeStep();
+                        // Como el original: el producto escalar con la derecha suma y, z, x
+                        const auto fSteerDotRight = (vecSteerMoveForce.y * GetRight().y + vecSteerMoveForce.z * GetRight().z) + vecSteerMoveForce.x * GetRight().x;
+                        const auto fTractionSide = -(fSteerDotRight * m_pHandlingData->m_fTractionMultiplier);
+                        const auto vecTurnForceSide = MulComp(MulComp(GetRight(), fTractionSide), timeStep);
                         CPhysical::ApplyTurnForce(vecTurnForceSide, GetUp());
                     }
 
-                    //This code does nothing
-                    /*if (m_fGasPedal > 0.0F && GetStatus() == eEntityStatus::STATUS_PLAYER) {
-                        const auto& vecBoundMin = GetColModel()->m_boundBox.m_vecMin;
-                        CVector vecUnkn = CVector(0.0F, vecBoundingMin.y, 0.0F);
-                        CVector vecUnknTransformed;
-                        Multiply3x3(&vecUnknTransformed, GetMatrix(), &vecUnkn);
-                    }*/
+                    // This code does nothing, pero el EXE si llama a GetColModel
+                    if (m_GasPedal > 0.0F && GetStatus() == STATUS_PLAYER) {
+                        [[maybe_unused]] auto* const unusedColModel = CEntity::GetColModel();
+                    }
                 }
 
                 if (!bPostCollision && bIsSlowingDown) {
-                    auto fTractionLoss = DotProduct(m_vecMoveSpeed, GetForward()) * m_pHandlingData->m_fTractionLoss;
-                    fTractionLoss = std::min(fTractionLoss, m_fTurnMass * 0.01F);
+                    auto fTractionLoss = VehEDot(m_vecMoveSpeed, GetForward()) * m_pHandlingData->m_fTractionLoss;
+                    const auto fTurnMassLimit = m_fTurnMass * 0.01F;
+                    if (fTractionLoss > fTurnMassLimit) {
+                        fTractionLoss = fTurnMassLimit;
+                    }
 
                     if (fGasState > 0.01F) {
-                        fTractionLoss *= (0.55F - fGasState);
+                        fTractionLoss = (0.55F - fGasState) * fTractionLoss;
                         if (GetStatus() == STATUS_PLAYER)
                             fTractionLoss *= 2.6F;
                         else
@@ -3966,15 +4410,17 @@ void CVehicle::ProcessBoatControl(tBoatHandlingData* boatHandling, float* fLastW
                     }
 
                     CVector vecTractionLoss(-fSteerAngleSin, 0.0F, 0.0F);
-                    vecTractionLoss *= fTractionLoss;
-                    CVector vecTractionLossTransformed = GetMatrix().TransformVector(vecTractionLoss);
-                    vecTractionLossTransformed *= fThrustDepth * CTimer::GetTimeStep();
+                    vecTractionLoss = MulComp(vecTractionLoss, fTractionLoss);
+                    // Como el original: (matriz * vector) * profundidad y despues * paso, componente a componente
+                    const auto vecTractionLossTransformed = MulComp(MulComp(VehEMatVec(*m_matrix, vecTractionLoss), fThrustDepth), timeStep);
 
                     CPhysical::ApplyMoveForce(vecTractionLossTransformed);
                     CPhysical::ApplyTurnForce(vecTractionLossTransformed, vecTransformedThrustPoint);
 
-                    auto fUsedTimeStep = std::max(CTimer::GetTimeStep(), 0.01F);
-                    auto vecTurn = GetRight() * fUsedTimeStep / fTraction * fTractionLoss * fSteerAngleSin * -0.75F;
+                    // Como el original: max(0.01, paso) como (0.01 > paso) ? 0.01 : paso, y el factor escalar se calcula antes de multiplicar por la derecha
+                    const auto fUsedTimeStep = (0.01F > timeStep) ? 0.01F : timeStep;
+                    const auto fTurnScalar = (((fUsedTimeStep / fTraction) * fTractionLoss) * fSteerAngleSin) * -0.75F;
+                    const auto vecTurn = MulComp(GetRight(), fTurnScalar);
                     CPhysical::ApplyTurnForce(vecTurn, GetUp());
                 }
             }
@@ -3982,12 +4428,13 @@ void CVehicle::ProcessBoatControl(tBoatHandlingData* boatHandling, float* fLastW
     }
 
     if (m_pHandlingData->m_fSuspensionBiasBetweenFrontAndRear != 0.0F) {
-        auto right = GetForward().Cross(CVector::ZAxisVector());
+        auto right = VehECross(GetForward(), CVector::ZAxisVector());
 
+        // Como el original: el producto escalar con la derecha suma y, z, x y el factor final es -(... * 0.1)
         const auto mult =
-              DotProduct(right, m_vecMoveSpeed)
+              ((right.y * m_vecMoveSpeed.y + right.z * m_vecMoveSpeed.z) + right.x * m_vecMoveSpeed.x)
             * m_pHandlingData->m_fSuspensionBiasBetweenFrontAndRear
-            * CTimer::GetTimeStep()
+            * timeStep
             * fImmersionDepth
             * m_fMass
             * -0.1F;
@@ -3996,14 +4443,14 @@ void CVehicle::ProcessBoatControl(tBoatHandlingData* boatHandling, float* fLastW
         right.x -= right.y * 0.3F;
         right.y += x;
 
-        CPhysical::ApplyMoveForce(right * mult);
+        CPhysical::ApplyMoveForce(MulComp(right, mult));
     }
 
     if (GetStatus() == STATUS_PLAYER && pad->GetHandBrake()) {
-        auto fDirDotProd = DotProduct(m_vecMoveSpeed, GetForward());
+        auto fDirDotProd = VehEDot(m_vecMoveSpeed, GetForward());
         if (fDirDotProd > 0.0F) {
-            auto fMoveForceMult = fDirDotProd * m_pHandlingData->m_fSuspensionLowerLimit * CTimer::GetTimeStep() * fImmersionDepth * m_fMass * -0.1F;
-            auto vecMoveForce = GetForward() * fMoveForceMult;
+            auto fMoveForceMult = fDirDotProd * m_pHandlingData->m_fSuspensionLowerLimit * timeStep * fImmersionDepth * m_fMass * -0.1F;
+            auto vecMoveForce = MulComp(GetForward(), fMoveForceMult);
             CPhysical::ApplyMoveForce(vecMoveForce);
         }
     }
@@ -4014,41 +4461,51 @@ void CVehicle::ProcessBoatControl(tBoatHandlingData* boatHandling, float* fLastW
 
     // 0x6DCD63
     if ((m_nModelIndex != MODEL_SKIMMER || m_f2ndSteerAngle == 0.0F) && !bCollidedWithWorld) {
-        auto vecTurnRes = Pow(boatHandling->m_vecTurnRes, CTimer::GetTimeStep());
-        m_vecTurnSpeed = GetMatrix().InverseTransformVector(m_vecTurnSpeed);
-        m_vecTurnSpeed.y *= vecTurnRes.y;
-        m_vecTurnSpeed.z *= vecTurnRes.z;
+        // Como el original: pow del CRT del EXE (_CIpow) por componente y producto por la velocidad en el espacio del modelo
+        const CVector vecTurnRes{
+            VehEPow(boatHandling->m_vecTurnRes.x, timeStep),
+            VehEPow(boatHandling->m_vecTurnRes.y, timeStep),
+            VehEPow(boatHandling->m_vecTurnRes.z, timeStep),
+        };
+        m_vecTurnSpeed = VehEInvVec(*m_matrix, m_vecTurnSpeed);
 
-        float fMult = vecTurnRes.x / (sq(m_vecTurnSpeed.x) * 1000.0F + 1.0F) * m_vecTurnSpeed.x - m_vecTurnSpeed.x;
+        float fMult = vecTurnRes.x / (m_vecTurnSpeed.x * m_vecTurnSpeed.x * 1000.0F + 1.0F) * m_vecTurnSpeed.x - m_vecTurnSpeed.x;
+        m_vecTurnSpeed.y = vecTurnRes.y * m_vecTurnSpeed.y;
+        m_vecTurnSpeed.z = vecTurnRes.z * m_vecTurnSpeed.z;
+
         fMult *= m_fTurnMass;
-        auto vecTurnForce = GetUp() * fMult;
+        auto vecTurnForce = MulComp(GetUp(), fMult);
 
-        m_vecTurnSpeed = GetMatrix().TransformVector(m_vecTurnSpeed);
-        auto vecCentreOfMass = GetMatrix().TransformVector(m_vecCentreOfMass);
-        auto vecTurnPoint = GetForward() + vecCentreOfMass;
+        m_vecTurnSpeed = VehEMatVec(*m_matrix, m_vecTurnSpeed);
+        auto vecCentreOfMass = VehEMatVec(*m_matrix, m_vecCentreOfMass);
+        const CVector vecTurnPoint{ GetForward().x + vecCentreOfMass.x, GetForward().y + vecCentreOfMass.y, GetForward().z + vecCentreOfMass.z };
         CPhysical::ApplyTurnForce(vecTurnForce, vecTurnPoint);
     }
 
     // Handle wave collision
+    // Como el original: la diferencia por 10000 se trunca con _ftol2 y se reduce a 16 bits con signo (movsx edi,di)
+    const auto fWaveMult = (float)(int16)VehEFtol((fImmersionDepth - *fLastWaterImmersionDepth) * 10000.0F);
     if (!bPostCollision && bOnWater && GetUp().z > 0.0F) {
-        auto fWaveMult = floorf((fImmersionDepth - *fLastWaterImmersionDepth) * 10000.0F);
         auto fAudioVolume = fWaveMult * boatHandling->m_fWaveAudioMult;
         if (fAudioVolume > 200.0F)
             m_vehicleAudio.AddAudioEvent(eAudioEvents::AE_BOAT_HIT_WAVE, fAudioVolume);
 
         if (fWaveMult > 200.0F) {
-            auto fZComp = m_vecMoveSpeed.SquaredMagnitude() * fWaveMult / 1000.0F;
+            // Como el original: * 0.001 en vez de / 1000, limite por suma y conserva -0 y NaN al comparar con 0
+            auto fZComp = m_vecMoveSpeed.SquaredMagnitude() * fWaveMult * 0.001F;
             CVector vecWaveMoveForce(0.0F, 0.0F, fZComp);
 
-            vecWaveMoveForce.z = std::min(vecWaveMoveForce.z, m_pHandlingData->m_fBrakeDeceleration - m_vecMoveSpeed.z);
-            vecWaveMoveForce.z = std::max(vecWaveMoveForce.z, 0.0F);
+            if (vecWaveMoveForce.z + m_vecMoveSpeed.z > m_pHandlingData->m_fBrakeDeceleration)
+                vecWaveMoveForce.z = m_pHandlingData->m_fBrakeDeceleration - m_vecMoveSpeed.z;
+            if (vecWaveMoveForce.z < 0.0F)
+                vecWaveMoveForce.z = 0.0F;
 
-            auto fMoveDotProd = DotProduct(m_vecMoveSpeed, GetForward());
+            auto fMoveDotProd = VehEDot(m_vecMoveSpeed, GetForward());
             auto fTurnForceMult = fWaveMult * m_pHandlingData->m_fBrakeBias * -0.01F;
 
-            auto vecMoveForce = GetForward() * fTurnForceMult * fMoveDotProd;
-            vecWaveMoveForce += vecMoveForce;
-            vecWaveMoveForce *= m_fMass;
+            auto vecMoveForce = MulComp(MulComp(GetForward(), fTurnForceMult), fMoveDotProd);
+            vecWaveMoveForce = CVector{ vecWaveMoveForce.x + vecMoveForce.x, vecWaveMoveForce.y + vecMoveForce.y, vecWaveMoveForce.z + vecMoveForce.z };
+            vecWaveMoveForce = MulComp(vecWaveMoveForce, m_fMass);
 
             CPhysical::ApplyMoveForce(vecWaveMoveForce);
             CPhysical::ApplyTurnForce(vecWaveMoveForce, vecBuoyancyTurnPoint);
@@ -4056,9 +4513,9 @@ void CVehicle::ProcessBoatControl(tBoatHandlingData* boatHandling, float* fLastW
     }
 
     *fLastWaterImmersionDepth = fImmersionDepth;
-    if (IsSubBoat()) {
-        AsBoat()->m_fxBuoyancyForce = vecBuoyancyForce;
-        AsBoat()->m_nBoatFlags.bBoatInWater = bOnWater;
+    if (boat) {
+        boat->m_fxBuoyancyForce = vecBuoyancyForce;
+        boat->m_nBoatFlags.bBoatInWater = bOnWater;
     }
     else if (IsAutomobile()) {
         this->AsAutomobile()->m_fDoomHorizontalRotation = vecBuoyancyForce.Magnitude();
@@ -4067,10 +4524,9 @@ void CVehicle::ProcessBoatControl(tBoatHandlingData* boatHandling, float* fLastW
 
 // 0x6DD130
 void CVehicle::DoBoatSplashes(float fWaterDamping) {
-    //return plugin::CallMethod<0x6DD130, CVehicle*, float>(this, fWaterDamping);
-
+    // Como el original (0x6DD130): constantes leidas del EXE y cuentas en el mismo orden
     const auto speedDist = m_vecMoveSpeed.SquaredMagnitude();
-    if (speedDist <= 0.0025f || GetUp().z <= 0.0f || TheCamera.GetLookingForwardFirstPerson() || !IsVisible()) {
+    if (speedDist <= std::bit_cast<float>(0x3B23D70Bu) /* 0x858CD8 */ || GetUp().z <= 0.0f || TheCamera.GetLookingForwardFirstPerson() || !IsVisible()) {
         return;
     }
 
@@ -4080,7 +4536,7 @@ void CVehicle::DoBoatSplashes(float fWaterDamping) {
 
     auto vec = GetPosition() - TheCamera.GetPosition(); // -> DistanceBetweenPoints2D()
     vec.z = 0.0f;
-    auto dist = vec.Magnitude();
+    const auto dist = vec.Magnitude();
     if (dist >= 80.0f)
         return;
 
@@ -4097,28 +4553,33 @@ void CVehicle::DoBoatSplashes(float fWaterDamping) {
 
     auto v48 = v9 * 0.75f;
     if (m_autoPilot.m_nCarMission == MISSION_CRUISE) {
-        auto v10 = v48 + v48;
-        if (v10 >= 1.0f)
-            v48 = 1.0f;
-        else
-            v48 = v10;
+        const auto v10 = v48 + v48;
+        v48 = v10 >= 1.0f ? 1.0f : v10;
     }
 
-    auto alpha0 = std::min(v48 * 128.0f, 64.0f);
+    // Como el original: el alfa es un byte (truncado con _ftol2, tope 0x40)
+    auto alpha8 = static_cast<uint8>(static_cast<int64>(v48 * 128.0f));
+    if (alpha8 >= 0x40) {
+        alpha8 = 0x40;
+    }
+
+    const auto v12      = v48 * 10.0f;
+    const auto sizeTmp  = v12 + 0.75f;
+    const auto lifeRnd  = CGeneral::GetRandomNumberInRange(0.8f, 1.2f);
+    const auto life0    = lifeRnd * ((v48 + v48) + 0.3f); // Como el original: el fld [esp+14h] ocurre antes de liberar los argumentos y lee v48
     if (dist > 50.0f) {
-        alpha0 *= (80.0f - dist) * 0.033f;
+        alpha8 = static_cast<uint8>(static_cast<int64>(((80.0f - dist) * std::bit_cast<float>(0x3D088889u) /* 0x858F10 */) * static_cast<float>(alpha8)));
     }
 
     FxPrtMult_c particleData(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f);
 
-    auto alpha = alpha0 / 255.0f;
+    const auto alpha = static_cast<float>(alpha8) * std::bit_cast<float>(0x3B808081u); // 0x859A3C
     particleData.m_Color.alpha = alpha >= 1.0f ? 1.0f : alpha;
 
-    auto v12 = v48 * 10.0f;
-    auto size = v12 + 0.75f * 0.1f;
+    const auto size = sizeTmp * 0.1f;
     particleData.m_fSize = size >= 1.0f ? 1.0f : size;
 
-    auto life = CGeneral::GetRandomNumberInRange(0.8f, 1.2f) * (v48 + v48 + 0.3f) * 0.2f;
+    const auto life = life0 * 0.2f;
     particleData.m_fLife = life >= 1.0f ? 1.0f : life;
 
     const CVector& colMin = GetColModel()->GetBoundingBox().m_vecMin;
@@ -4131,17 +4592,17 @@ void CVehicle::DoBoatSplashes(float fWaterDamping) {
         Z_MULT = 0.85f; // 0x8D3674
     }
 
-    auto baseVel = CVector{ -GetForward().x, -GetRight().y, -GetRight().z };
+    const auto baseVel = CVector{ -GetForward().x, -GetForward().y, -GetForward().z };
 
-    CVector p0 = m_matrix->TransformPoint({ colMin.x * X_MULT, colMax.y / 2.0f, colMin.z * Z_MULT });
+    // Como el original: CMatrix * CVector (0x59C890) suma en su propio orden
+    CVector p0 = CVehDMatPoint(*m_matrix, CVector{ colMin.x * X_MULT, colMax.y / 2.0f, colMin.z * Z_MULT });
     auto vel0 = baseVel * CGeneral::GetRandomNumberInRange(0.8f, 1.2f);
     vel0 -= GetRight() * CGeneral::GetRandomNumberInRange(0.3f, 0.7f); // minus
     vel0 += GetUp() * CGeneral::GetRandomNumberInRange(0.8f, 1.2f);
     vel0 *= v12;
     g_fx.m_BoatSplash->AddParticle(p0, vel0, 0.0f, particleData);
 
-    CVector p1 = { colMax.x * X_MULT, colMax.y / 2.0f, colMin.z * Z_MULT };
-    p1 = m_matrix->TransformPoint(p1);
+    CVector p1 = CVehDMatPoint(*m_matrix, CVector{ colMax.x * X_MULT, colMax.y / 2.0f, colMin.z * Z_MULT });
     auto vel1 = baseVel * CGeneral::GetRandomNumberInRange(0.8f, 1.2f);
     vel1 += GetRight() * CGeneral::GetRandomNumberInRange(0.3f, 0.7f);  // plus
     vel1 += GetUp() * CGeneral::GetRandomNumberInRange(0.8f, 1.2f);
@@ -4173,20 +4634,23 @@ void CVehicle::AddWaterSplashParticles() {
         // Get and transform triangle vertices to world space
         auto vertices = cd.GetTriVertices(tri);
         for (auto& v : vertices) {
-            v = m_matrix->TransformPoint(v);
+            v = CVehDMatPoint(*m_matrix, v); // Como el original: CMatrix * CVector (0x59C890)
         }
 
         const auto v0v1 = vertices[1] - vertices[0];
         const auto v1v2 = vertices[2] - vertices[1];
 
-        for (auto i = 1 - (size_t)(CWeather::Rain * -2.f); i > 0; i--) {
-            g_fx.m_Splash->AddParticle(
-                vertices[0]
-                    + v0v1 * CGeneral::GetRandomNumberInRange(0.f, 1.f)
-                    + v1v2 * CGeneral::GetRandomNumberInRange(0.f, 1.f),
-                {},
-                0.f, fxPrtMult
-            );
+        // Como el original: 1 - (int)(lluvia * -2); dos rand() directos (r1 y r2) y el punto es v0 + v0v1*r1 + v1v2*(r2*r1)
+        for (int32 i = 1 - static_cast<int32>(CWeather::Rain * -2.0f); i > 0; i--) {
+            const float r1 = static_cast<float>(CGeneral::GetRandomNumber()) * std::bit_cast<float>(0x38000100u); // 0x858C7C
+            const float r2 = static_cast<float>(CGeneral::GetRandomNumber()) * std::bit_cast<float>(0x38000100u);
+            const float t  = r2 * r1;
+            const CVector pos{
+                (v0v1.x * r1 + vertices[0].x) + v1v2.x * t,
+                (v0v1.y * r1 + vertices[0].y) + v1v2.y * t,
+                (v0v1.z * r1 + vertices[0].z) + v1v2.z * t
+            };
+            g_fx.m_Splash->AddParticle(pos, CVector{ 0.0f, 0.0f, 0.0f }, 0.f, fxPrtMult);
         }
     }
 }
@@ -4231,15 +4695,25 @@ void CVehicle::AddExhaustParticles() {
         return;
     }
 
-    CVector vecParticleVelocity;
-    if (DotProduct(GetForward(), m_vecMoveSpeed) >= 0.05f) {
-        vecParticleVelocity = m_vecMoveSpeed * 30.0f;
+    // Como el original: producto escalar sumado en orden z, y, x; la componente z de la velocidad queda a 0
+    CVector vecParticleVelocity{ 0.0f, 0.0f, 0.0f };
+    if (((GetForward().z * m_vecMoveSpeed.z) + (GetForward().y * m_vecMoveSpeed.y)) + GetForward().x * m_vecMoveSpeed.x >= 0.05f) {
+        vecParticleVelocity.x = m_vecMoveSpeed.x * 30.0f;
+        vecParticleVelocity.y = m_vecMoveSpeed.y * 30.0f;
     } else {
-        static float randomFactor = CGeneral::GetRandomNumberInRange(-1.8f, -0.9f);
-        vecParticleVelocity = randomFactor * GetForward();
+        // Como el original: estatica local del EXE (valor 0xC1CDB4, guarda 0xC1CDB8 bit 0), se inicializa una sola vez
+        auto& randomFactorInit = StaticRef<uint32>(0xC1CDB8);
+        auto& randomFactor     = StaticRef<float>(0xC1CDB4);
+        if (!(randomFactorInit & 1)) {
+            randomFactorInit |= 1;
+            randomFactor = CGeneral::GetRandomNumberInRange(-1.8f, -0.9f);
+        }
+        vecParticleVelocity.x = randomFactor * GetForward().x;
+        vecParticleVelocity.y = randomFactor * GetForward().y;
     }
 
-    firstExhaustPos = entityMatrix.TransformPoint(firstExhaustPos);
+    // Como el original: CMatrix * CVector (0x59C890)
+    firstExhaustPos = CVehDMatPoint(entityMatrix, firstExhaustPos);
     bool bFirstExhaustSubmergedInWater = false;
     bool bSecondExhaustSubmergedInWater = false;
     float pLevel = 0.0f;
@@ -4249,7 +4723,7 @@ void CVehicle::AddExhaustParticles() {
     }
 
     if (bHasDoubleExhaust) {
-        secondExhaustPos = entityMatrix.TransformPoint(secondExhaustPos);
+        secondExhaustPos = CVehDMatPoint(entityMatrix, secondExhaustPos);
         if (physicalFlags.bTouchingWater && CWaterLevel::GetWaterLevel(secondExhaustPos, pLevel, true) &&
             pLevel >= secondExhaustPos.z) {
             bSecondExhaustSubmergedInWater = true;
@@ -4315,7 +4789,8 @@ bool CVehicle::AddSingleWheelParticles(tWheelState wheelState, uint32 arg1, floa
 
 // 0x6DF3D0
 bool CVehicle::GetSpecialColModel() {
-    if (m_vehicleSpecialColIndex > -1 && m_aSpecialColVehicle[m_vehicleSpecialColIndex] == this) {
+    // Como el original (0x6DF3D9): el índice (int8 con signo) se usa sin comprobar el rango
+    if (m_vehicleSpecialColIndex > -1 && m_aSpecialColVehicle.data()[m_vehicleSpecialColIndex] == this) {
         return true;
     }
 
@@ -4331,7 +4806,7 @@ bool CVehicle::GetSpecialColModel() {
     CEntity::RegisterReference(*specialCMSlot);
 
     auto& cm = m_aSpecialColModel[m_vehicleSpecialColIndex];
-    cm.RemoveTrianglePlanes();
+    CCollision::RemoveTrianglePlanes(&cm); // Como el original (0x6DF438): llama a 0x4185A0 con el CColModel
     if (!cm.m_pColData) {
         cm.AllocateData();
     }
@@ -4394,12 +4869,14 @@ void CVehicle::DoHeadLightBeam(eVehicleDummy dummyId, CMatrix& matrix, bool arg2
     if (dummyId == DUMMY_LIGHT_REAR_MAIN && pointModelSpace.IsZero())
         return;
 
-    CVector point = matrix.GetPosition() + matrix.TransformVector(pointModelSpace);
+    // Como el original: CMatrix * CVector (0x59C890) y producto escalar sumado en orden z, y, x
+    CVector point = CVehDMatPoint(matrix, pointModelSpace);
     if (!arg2) {
         point -= 2 * pointModelSpace.x * matrix.GetRight();
     }
     const CVector pointToCamDir = Normalized(TheCamera.GetPosition() - point);
-    const auto    alpha = (uint8)((1.0f - std::fabs(DotProduct(pointToCamDir, matrix.GetForward()))) * 32.0f);
+    const auto    dotToCam = ((pointToCamDir.z * matrix.GetForward().z) + (pointToCamDir.y * matrix.GetForward().y)) + pointToCamDir.x * matrix.GetForward().x;
+    const auto    alpha = (uint8)((1.0f - std::fabs(dotToCam)) * 32.0f);
 
     RwRenderStateSet(rwRENDERSTATEZWRITEENABLE,         RWRSTATE(FALSE));
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE,          RWRSTATE(TRUE));
@@ -4426,17 +4903,25 @@ void CVehicle::DoHeadLightBeam(eVehicleDummy dummyId, CMatrix& matrix, bool arg2
     };
     const uint8 alphas[] = { alpha, alpha, 0, 0, alpha };
 
-    RxObjSpace3DVertex vertices[5];
-    for (auto i = 0u; i < std::size(vertices); i++) {
-        const RwRGBA color = { 255, 255, 255, alphas[i] };
-        RxObjSpace3DVertexSetPreLitColor(&vertices[i], &color);
-        RxObjSpace3DVertexSetPos(&vertices[i], &posn[i]);
+    // Como el original: los vertices e indices se escriben en los buffers temporales globales (0xC4D958 / 0xC4B958)
+    for (auto i = 0u; i < std::size(posn); i++) {
+        auto& vertex = TempBufferVertices.m_3d[i];
+        vertex.objVertex.x = posn[i].x;
+        vertex.objVertex.y = posn[i].y;
+        vertex.objVertex.z = posn[i].z;
+        vertex.color = (static_cast<uint32>(alphas[i]) << 24) | 0xFFFFFFu;
     }
 
-    if (RwIm3DTransform(vertices, std::size(vertices), nullptr, rwIM3D_VERTEXRGBA | rwIM3D_VERTEXXYZ))
+    static constexpr RxVertexIndex indices[] = { 0, 1, 4, 1, 3, 4, 2, 3, 4, 0, 2, 4 };
+    for (auto i = 0u; i < std::size(indices); i++) {
+        aTempBufferIndices[i] = indices[i];
+    }
+    uiTempBufferIndicesStored  = static_cast<int32>(std::size(indices));
+    uiTempBufferVerticesStored = static_cast<int32>(std::size(posn));
+
+    if (RwIm3DTransform(TempBufferVertices.m_3d, std::size(posn), nullptr, rwIM3D_VERTEXRGBA | rwIM3D_VERTEXXYZ))
     {
-        RxVertexIndex indices[] = { 0, 1, 4, 1, 3, 4, 2, 3, 4, 0, 2, 4 };
-        RwIm3DRenderIndexedPrimitive(rwPRIMTYPETRILIST, indices, std::size(indices));
+        RwIm3DRenderIndexedPrimitive(rwPRIMTYPETRILIST, aTempBufferIndices, uiTempBufferIndicesStored);
         RwIm3DEnd();
     }
 
@@ -4449,31 +4934,44 @@ void CVehicle::DoHeadLightBeam(eVehicleDummy dummyId, CMatrix& matrix, bool arg2
     RwRenderStateSet(rwRENDERSTATECULLMODE,              RWRSTATE(rwCULLMODECULLBACK));
 }
 
+// Como el original: vector 2D normalizado en linea; si la longitud al cuadrado es 0 no se normaliza (se multiplica por 0)
+static CVector2D CVehNormalise2DInline(float x, float y) {
+    const float lenSq = y * y + x * x;
+    float recip = lenSq;
+    if (lenSq != 0.0F) {
+        recip = 1.0F / std::sqrt(lenSq);
+    }
+    return { x * recip, y * recip };
+}
+
 // 0x6E1440
 void CVehicle::DoHeadLightReflectionSingle(CMatrix& lightMat, bool bRight) {
     auto vehOffset = GetDummyPositionObjSpace(DUMMY_LIGHT_FRONT_MAIN);
     if (!bRight) {
         vehOffset.x *= -1.f;
     }
-    const auto lightFwd2D = CVector2D(lightMat.GetForward()).Normalized();
-    const auto lightRight2D = CVector2D(lightMat.GetRight()).Normalized();
-    const auto lightSize = (IsBike() || GetModelId() == MODEL_QUAD)
+    const auto lightFwd2D = CVehNormalise2DInline(lightMat.GetForward().x, lightMat.GetForward().y);
+    const auto lightRight2D = CVehNormalise2DInline(lightMat.GetRight().x, lightMat.GetRight().y);
+    // Como el original: comprueba el subtipo (0x594), no el tipo
+    const auto lightSize = (IsSubBike() || GetModelId() == MODEL_QUAD)
         ? 1.25f
         : std::fabs(vehOffset.x) * 4.0f;
 
-    const float offsetDistance = lightSize * 2.0f + 1.0f + vehOffset.y;
+    const float offsetDistance = (lightSize + lightSize + 1.0f) + vehOffset.y;
 
     const auto shdwFront = lightFwd2D * (lightSize * 2.0f);
     const auto shdwSide  = (lightFwd2D * lightSize).GetPerpRight();
 
+    // Como el original: x = (der.x * off.x) + ((fwd.x * dist) + pos.x)
+    const auto pos = GetPosition();
     CShadows::StoreCarLightShadow(
         this,
         reinterpret_cast<int32>(&m_matrix) + 2,
         gpShadowHeadLightsTex2,
-        GetPosition() + CVector(
-            lightRight2D.x * vehOffset.x + lightFwd2D.x * offsetDistance,
-            lightRight2D.y * vehOffset.x + lightFwd2D.y * offsetDistance,
-            2.0f
+        CVector(
+            (lightRight2D.x * vehOffset.x) + ((lightFwd2D.x * offsetDistance) + pos.x),
+            (lightRight2D.y * vehOffset.x) + ((lightFwd2D.y * offsetDistance) + pos.y),
+            pos.z + 2.0f
         ),
         shdwFront.x, shdwFront.y,
         shdwSide.x, shdwSide.y,
@@ -4485,10 +4983,10 @@ void CVehicle::DoHeadLightReflectionSingle(CMatrix& lightMat, bool bRight) {
 // 0x6E1600
 void CVehicle::DoHeadLightReflectionTwin(CMatrix& matrix) {
     const auto& vehOffset = GetDummyPositionObjSpace(DUMMY_LIGHT_FRONT_MAIN);
-    const auto lightFwd2D = CVector2D(matrix.GetForward()).Normalized();
+    const auto lightFwd2D = CVehNormalise2DInline(matrix.GetForward().x, matrix.GetForward().y);
     const auto lightSize  = vehOffset.x * 4.0f;
 
-    const auto offsetDistance = lightSize * 2.0f + 1.0f + vehOffset.y;
+    const auto offsetDistance = (lightSize + lightSize + 1.0f) + vehOffset.y;
 
     const auto shdwFront = lightFwd2D * (lightSize * 2.0f);
     const auto shdwSide  = (lightFwd2D * lightSize).GetPerpRight();
@@ -4497,7 +4995,7 @@ void CVehicle::DoHeadLightReflectionTwin(CMatrix& matrix) {
         this,
         reinterpret_cast<int32>(&m_matrix) + 2,
         gpShadowHeadLightsTex,
-        GetPosition() + CVector(lightFwd2D * offsetDistance, 2.0f),
+        CVector((lightFwd2D.x * offsetDistance) + GetPosition().x, (lightFwd2D.y * offsetDistance) + GetPosition().y, GetPosition().z + 2.0f),
         shdwFront.x, shdwFront.y,
         shdwSide.x, shdwSide.y,
         45, 45, 45,
@@ -4514,9 +5012,10 @@ void CVehicle::DoHeadLightReflection(CMatrix& matrix, uint32 flags, bool left, b
             DoHeadLightReflectionSingle(matrix, right);
         }
     } else {
+        // Como el original: fuera del Combine siempre dibuja el reflejo derecho (no comprueba right)
         if (m_nModelIndex == MODEL_COMBINE) {
             DoHeadLightReflectionTwin(matrix);
-        } else if (right) {
+        } else {
             DoHeadLightReflectionSingle(matrix, true);
         }
     }
@@ -4535,32 +5034,43 @@ void CVehicle::DoVehicleLights(CMatrix& matrix, eVehicleLightsFlags flags) {
 // unused
 // 0x6E2900
 void CVehicle::FillVehicleWithPeds(bool setClothesToAfro) {
+    // Como el original (0x6E2900): el jugador se lee de CWorld::Players[0].m_pPed al entrar.
+    const auto playerPed = FindPlayerPed(PED_TYPE_PLAYER1);
+    eModelID modelId;
     if (setClothesToAfro) {
-        const auto playerPed = FindPlayerPed(PED_TYPE_PLAYER1);
         CStats::SetStatValue(STAT_FAT, 1000.0f);
         playerPed->GetPlayerData()->m_pPedClothesDesc->SetModel("afro", CLOTHES_MODEL_HEAD);
         CClothes::RebuildPlayer(playerPed, false);
+        modelId = MODEL_PLAYER;
+    } else {
+        modelId = MODEL_WMOST;
     }
-    const eModelID modelId = setClothesToAfro ? MODEL_PLAYER : MODEL_WMOST;
-    if (!CStreaming::IsModelLoaded(modelId)) {
-        CStreaming::RequestModel(modelId, STREAMING_KEEP_IN_MEMORY);
-        return;
-    }
-    const auto AddPedToSeat = [modelId, this](int32 seat) {
-        CCarEnterExit::SetPedInCarDirect(
-            CPopulation::AddPed(PED_TYPE_CIVFEMALE, modelId, GetPosition(), false),
-            this,
-            seat,
-            true
-        );
-    };
-    if (!m_pDriver || !m_pDriver->IsPlayer()) { // BUGFIX: Added `!m_pDriver`
-        m_pDriver = nullptr;
-        AddPedToSeat(0);
-    }
-    for (int32 i = 0; i < m_nMaxPassengers; i++) {
-        m_apPassengers[i] = nullptr;
-        AddPedToSeat(CCarEnterExit::ComputeTargetDoorToEnterAsPassenger(this, i));
+
+    // Como el original: seat -1 es el conductor y 0..m_nMaxPassengers-1 los pasajeros. La comprobacion de que el modelo
+    // este cargado va DENTRO del bucle (si no lo esta se pide el modelo y se pasa al siguiente asiento, no se sale), el
+    // conductor solo se salta si es el jugador 0 (no si IsPlayer()), el ocupante anterior se borra (destructor virtual con
+    // flag 1) despues de crear al nuevo y sin anular el puntero, y el flag de SetPedInCarDirect es true solo en el conductor.
+    for (int32 seat = -1; seat < (int32)m_nMaxPassengers; seat++) {
+        if (seat == -1 && m_pDriver && m_pDriver == playerPed) {
+            continue;
+        }
+        if (!CStreaming::IsModelLoaded(modelId)) {
+            CStreaming::RequestModel(modelId, STREAMING_KEEP_IN_MEMORY);
+            continue;
+        }
+        CPed* const ped = CPopulation::AddPed(PED_TYPE_CIVFEMALE, modelId, GetPosition(), false);
+        if (seat == -1) {
+            if (m_pDriver) {
+                delete m_pDriver;
+            }
+            CCarEnterExit::SetPedInCarDirect(ped, this, 0, true);
+        } else {
+            if (m_apPassengers.data()[seat]) {
+                delete m_apPassengers.data()[seat];
+            }
+            const int32 door = CCarEnterExit::ComputeTargetDoorToEnterAsPassenger(this, seat);
+            CCarEnterExit::SetPedInCarDirect(ped, this, door, false);
+        }
     }
 }
 
@@ -4572,13 +5082,29 @@ bool CVehicle::DoBladeCollision(CVector pos, CMatrix& matrix, int16 rotorType, f
 
     // Set-up collision model for the blade
     {
-        CVector bbMin(pos - CVector(radius, radius, radius));
-        CVector bbMax(pos + CVector(radius, radius, radius));
+        CVector bbMin{ pos.x - radius, pos.y - radius, pos.z - radius };
+        CVector bbMax{ pos.x + radius, pos.y + radius, pos.z + radius };
 
-        const auto axis = abs(rotorType) - 1;
-        assert(axis >= 0 && axis < 3);
-        bbMin[axis] = pos[axis] - ROTOR_SEMI_THICKNESS;
-        bbMax[axis] = pos[axis] + ROTOR_SEMI_THICKNESS;
+        // Como el original: solo los tipos de rotor -3..3 (sin el 0) fijan el grosor del eje; con otros valores no se toca ningun eje
+        switch (rotorType) {
+        case -1:
+        case 1:
+            bbMin.x = pos.x - ROTOR_SEMI_THICKNESS;
+            bbMax.x = pos.x + ROTOR_SEMI_THICKNESS;
+            break;
+        case -2:
+        case 2:
+            bbMin.y = pos.y - ROTOR_SEMI_THICKNESS;
+            bbMax.y = pos.y + ROTOR_SEMI_THICKNESS;
+            break;
+        case -3:
+        case 3:
+            bbMin.z = pos.z - ROTOR_SEMI_THICKNESS;
+            bbMax.z = pos.z + ROTOR_SEMI_THICKNESS;
+            break;
+        default:
+            break;
+        }
 
         s_TestBladeCol.m_boundBox.Set(bbMin, bbMax);
         s_TestBladeCol.m_boundSphere.Set(radius, pos);
@@ -4592,22 +5118,39 @@ bool CVehicle::DoBladeCollision(CVector pos, CMatrix& matrix, int16 rotorType, f
 
     bool collided = false;
 
-    CWorld::AdvanceCurrentScanCode();
-    CWorld::IterateSectorsOverlappedByRect(CRect{ m_matrix->TransformPoint(pos), radius }, [&](int32 x, int32 y) {
-        const auto ProcessSector = [&]<typename PtrListType>(PtrListType& list, float damage) {
-            return BladeColSectorList(list, s_TestBladeCol, matrix, rotorType, damage);
-        };
-        auto& s = CWorld::GetSector(x, y);
-        auto& rs = CWorld::GetRepeatSector(x, y);
-        collided |= ProcessSector(s.Buildings, damageMult);
-        collided |= ProcessSector(rs.Vehicles, damageMult);
-        collided |= ProcessSector(rs.Peds, 0.0f);
-        collided |= ProcessSector(rs.Objects, damageMult);
-        return 1;
-    });
+    // Como el original: la posicion se transforma con la matriz recibida (no con la del vehiculo; 0x59C890), el indice de sector es
+    // floor(x * 0.02 + 60) (no x / 50 + 60) y el rango se recorta a 0..120 antes de avanzar el codigo de escaneo
+    const auto center = VehEMatPoint(matrix, pos);
+    const auto SectorOf = [](float coord) -> int32 {
+        return static_cast<int32>(static_cast<int64>(std::floor(static_cast<double>((coord * 0.02f) + 60.0f))));
+    };
+    int32 sectorXMin = SectorOf(center.x - radius);
+    sectorXMin       = sectorXMin > 0 ? sectorXMin : 0;
+    int32 sectorYMin = SectorOf(center.y - radius);
+    sectorYMin       = sectorYMin > 0 ? sectorYMin : 0;
+    int32 sectorXMax = SectorOf(center.x + radius);
+    sectorXMax       = sectorXMax < 120 ? sectorXMax : 120;
+    int32 sectorYMax = SectorOf(center.y + radius);
+    sectorYMax       = sectorYMax < 120 ? sectorYMax : 120;
 
+    CWorld::AdvanceCurrentScanCode();
+
+    for (int32 y = sectorYMin; y <= sectorYMax; y++) {
+        for (int32 x = sectorXMin; x <= sectorXMax; x++) {
+            // Como el original: GetSector acota a 0..119 y GetRepeatSector usa x & 15 / y & 15 (siempre >= 0 aqui)
+            auto& s  = CWorld::GetSector(x, y);
+            auto& rs = CWorld::GetRepeatSector(x, y);
+            collided |= BladeColSectorList(s.Buildings, s_TestBladeCol, matrix, rotorType, damageMult);
+            collided |= BladeColSectorList(rs.Vehicles, s_TestBladeCol, matrix, rotorType, damageMult);
+            collided |= BladeColSectorList(rs.Peds, s_TestBladeCol, matrix, rotorType, 0.0f);
+            collided |= BladeColSectorList(rs.Objects, s_TestBladeCol, matrix, rotorType, damageMult);
+        }
+    }
+
+    // Como el original: tambien se anula m_pSpheres
+    s_TestBladeColData.m_pSpheres    = nullptr;
     s_TestBladeColData.m_nNumSpheres = 0;
-    s_TestBladeCol.m_pColData = nullptr;
+    s_TestBladeCol.m_pColData        = nullptr;
 
     return collided;
 }
@@ -4637,9 +5180,15 @@ bool IsValidModForVehicle(uint32 modelId, CVehicle* vehicle) {
 
 // 0x6E38F0
 bool IsVehiclePointerValid(CVehicle* vehicle) {
-    const auto* const pool = GetVehiclePool();
+    // Como el original (0x6E38F0): indice por division con signo (hacia cero) del desplazamiento respecto al almacenamiento (0xA18 por
+    // hueco), sin comprobar que el puntero pertenezca al pool (IsObjectValid si lo hacia); luego lee el vehiculo aunque no sea valido.
+    auto* const pool = GetVehiclePool();
     assert(pool);
-    return pool->IsObjectValid(vehicle) && (vehicle->m_nVehicleType == VEHICLE_TYPE_FPLANE || !vehicle->m_pCollisionList.IsEmpty());
+    const auto idx = pool->GetIndexUnchecked(vehicle);
+    if (idx < 0 || idx >= int32(pool->GetSize()) || pool->IsFreeSlotAtIndex(idx)) {
+        return false;
+    }
+    return vehicle->m_nVehicleType == VEHICLE_TYPE_FPLANE || !vehicle->m_pCollisionList.IsEmpty();
 }
 
 // 0x6E3950
@@ -4652,7 +5201,11 @@ void CVehicle::DoFixedMachineGuns() {
     if (CCamera::GetActiveCamera().m_nDirectionWasLooking != eLookingDirection::LOOKING_DIRECTION_FORWARD)
         return;
 
-    const auto* const driverPad = CPad::GetPad(m_pDriver && m_pDriver->m_nPedType == PED_TYPE_PLAYER2 ? 1 : 0);
+    // Como el original: siempre se pide el mando 0 y, si el conductor es el jugador 2, despues el 1
+    auto* driverPad = CPad::GetPad(0);
+    if (m_pDriver && m_pDriver->m_nPedType == PED_TYPE_PLAYER2) {
+        driverPad = CPad::GetPad(1);
+    }
     if (driverPad->GetCarGunFired() && !vehicleFlags.bGunSwitchedOff) {
         FireFixedMachineGuns();
     } else if (CTimer::GetTimeInMS() > m_nGunFiringTime + 1400) {

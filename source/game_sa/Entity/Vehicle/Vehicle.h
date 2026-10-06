@@ -547,7 +547,7 @@ public:
     [[nodiscard]] bool CanDoorsBeDamaged() const;
     bool CanPedEnterCar();
     void ProcessCarAlarm();
-    void DestroyVehicleAndDriverAndPassengers(CVehicle* vehicle);
+    static void DestroyVehicleAndDriverAndPassengers(CVehicle* vehicle); // Como el original (0x6D2250): cdecl sin this
     bool IsVehicleNormal();
     void ChangeLawEnforcerState(bool bIsEnforcer);
     bool IsLawEnforcementVehicle() const;

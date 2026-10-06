@@ -195732,6 +195732,3698 @@
       "dependency_review": null,
       "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
       "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "AddPassenger-Auto-Seat",
+        "address": "0x006D13A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::AddPassenger-Auto-Seat"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "AddPassenger-Fixed-Seat",
+        "address": "0x006D14D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::AddPassenger-Fixed-Seat"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "CanBeDeleted",
+        "address": "0x006D1180",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::CanBeDeleted"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "CanBeDriven",
+        "address": "0x006D5400",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::CanBeDriven"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "CanDoorsBeDamaged",
+        "address": "0x006D1E60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::CanDoorsBeDamaged"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "CanPedEnterCar",
+        "address": "0x006D1E80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::CanPedEnterCar"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "CanPedJumpOutCar",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::CanPedJumpOutCar"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "CanPedLeanOut",
+        "address": "0x006D5CF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::CanPedLeanOut"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "CanPedOpenLocks",
+        "address": "0x006D1E20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::CanPedOpenLocks"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "CanPedStepOutCar",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::CanPedStepOutCar"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "CanVehicleBeDamaged",
+        "address": "0x006D1280",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::CanVehicleBeDamaged"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "CarHasRoof",
+        "address": "0x006D25D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::CarHasRoof"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ChangeLawEnforcerState",
+        "address": "0x006D2330",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ChangeLawEnforcerState"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ClearGettingInFlags",
+        "address": "0x006D3040",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ClearGettingInFlags"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ClearGettingOutFlags",
+        "address": "0x006D3060",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ClearGettingOutFlags"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetGettingInFlags",
+        "address": "0x006D3000",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetGettingInFlags"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetGettingOutFlags",
+        "address": "0x006D3020",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetGettingOutFlags"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetWindowOpenFlag",
+        "address": "0x006D3080",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetWindowOpenFlag"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ClearWindowOpenFlag",
+        "address": "0x006D30B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ClearWindowOpenFlag"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsDriver-ModelID",
+        "address": "0x006D1C60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsDriver-ModelID"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsDriver-Ped",
+        "address": "0x006D1C40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsDriver-Ped"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsPassenger-ModelID",
+        "address": "0x006D1C00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsPassenger-ModelID"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsPassenger-Ped",
+        "address": "0x006D1BD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsPassenger-Ped"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsLawEnforcementVehicle",
+        "address": "0x006D2370",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsLawEnforcementVehicle"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsOnItsSide",
+        "address": "0x006D1DD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsOnItsSide"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsUpsideDown",
+        "address": "0x006D1D90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsUpsideDown"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsVehicleNormal",
+        "address": "0x006D22F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsVehicleNormal"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsVehiclePointerValid",
+        "address": "0x006E38F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsVehiclePointerValid"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "UsesSiren",
+        "address": "0x006D8470",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::UsesSiren"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetVehicleCreatedBy",
+        "address": "0x006D5D70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetVehicleCreatedBy"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "MakeDirty",
+        "address": "0x006D2BF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehA/validation-summary.json",
+        "sha256": "2139d2ec39faf78ec262ddaba85921000a7007467e4c081e5ed6f879b21c889f",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::MakeDirty"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-173859-432105).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "Constructor",
+        "address": "0x006D5F10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::Constructor"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "Destructor",
+        "address": "0x006E2B40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::Destructor"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetModelIndex",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetModelIndex"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "DeleteRwObject",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::DeleteRwObject"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetHeightAboveRoad",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetHeightAboveRoad"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetTowHitchPos",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetTowHitchPos"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetTowBarPos",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetTowBarPos"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "Save",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::Save"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "Load",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::Load"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "HeightAboveCeiling",
+        "address": "0x006D2600",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::HeightAboveCeiling"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "IsSphereTouchingVehicle",
+        "address": "0x006D84D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::IsSphereTouchingVehicle"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "FindTyreNearestPoint",
+        "address": "0x006D7BC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::FindTyreNearestPoint"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "Shutdown",
+        "address": "0x006D0B40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::Shutdown"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "FillVehicleWithPeds",
+        "address": "0x006E2900",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::FillVehicleWithPeds"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "KillPedsGettingInVehicle",
+        "address": "0x006D82F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::KillPedsGettingInVehicle"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "KillPedsInVehicle",
+        "address": "0x006D1C80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::KillPedsInVehicle"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "PickRandomPassenger",
+        "address": "0x006D2A10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::PickRandomPassenger"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "RemoveDriver",
+        "address": "0x006D1950",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::RemoveDriver"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "RemovePassenger",
+        "address": "0x006D1610",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::RemovePassenger"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetDriver",
+        "address": "0x006D16A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetDriver"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetUpDriver",
+        "address": "0x006D1A50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetUpDriver"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetupPassenger",
+        "address": "0x006D1AA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetupPassenger"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "UpdatePassengerList",
+        "address": "0x006D29E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::UpdatePassengerList"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "DestroyVehicleAndDriverAndPassengers",
+        "address": "0x006D2250",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::DestroyVehicleAndDriverAndPassengers"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetSpareHasslePosId",
+        "address": "0x006D3AE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetSpareHasslePosId"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetHasslePosId",
+        "address": "0x006D3B30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetHasslePosId"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ActivateBomb",
+        "address": "0x006D24F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ActivateBomb"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ActivateBombWhenEntered",
+        "address": "0x006D2570",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ActivateBombWhenEntered"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ExtinguishCarFire",
+        "address": "0x006D2460",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ExtinguishCarFire"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ReactToVehicleDamage",
+        "address": "0x006D5490",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ReactToVehicleDamage"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ProcessCarAlarm",
+        "address": "0x006D21F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ProcessCarAlarm"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ProcessDelayedExplosion",
+        "address": "0x006D1340",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehB/validation-summary.json",
+        "sha256": "ecb876a35f2f8a00019dede9975f233e0b18c3b4888a047784e4295f53c00a2b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ProcessDelayedExplosion"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174043-163705).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 11520 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ClearVehicleUpgradeFlags",
+        "address": "0x006D3210",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ClearVehicleUpgradeFlags"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetVehicleUpgradeFlags",
+        "address": "0x006D30E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetVehicleUpgradeFlags"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetUpgrade",
+        "address": "0x006D3650",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetUpgrade"
+        ],
+        "pairs": 384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "384 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "RemoveUpgrade",
+        "address": "0x006D3630",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::RemoveUpgrade"
+        ],
+        "pairs": 384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "384 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "RemoveAllUpgrades",
+        "address": "0x006D3AB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::RemoveAllUpgrades"
+        ],
+        "pairs": 192,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "192 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetReplacementUpgrade",
+        "address": "0x006D3A50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetReplacementUpgrade"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "RemoveReplacementUpgrade",
+        "address": "0x006D39E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::RemoveReplacementUpgrade"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "CreateUpgradeAtomic",
+        "address": "0x006D3510",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::CreateUpgradeAtomic"
+        ],
+        "pairs": 384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "384 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "CreateReplacementAtomic",
+        "address": "0x006D3700",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::CreateReplacementAtomic"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "CustomCarPlate_TextureCreate",
+        "address": "0x006D10E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::CustomCarPlate_TextureCreate"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "CustomCarPlate_TextureDestroy",
+        "address": "0x006D1150",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::CustomCarPlate_TextureDestroy"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetRemapIndex",
+        "address": "0x006D0B70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetRemapIndex"
+        ],
+        "pairs": 384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "384 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetRemap",
+        "address": "0x006D0C00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetRemap"
+        ],
+        "pairs": 384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "384 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetVehicleAppearance",
+        "address": "0x006D1080",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetVehicleAppearance"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetComponentVisibility",
+        "address": "0x006D2700",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetComponentVisibility"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetComponentAtomicAlpha",
+        "address": "0x006D2960",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetComponentAtomicAlpha"
+        ],
+        "pairs": 192,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "192 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "UpdateClumpAlpha",
+        "address": "0x006D2980",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::UpdateClumpAlpha"
+        ],
+        "pairs": 384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "384 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetVehicleAtomicVisibilityCB-Object",
+        "address": "0x006D2690",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetVehicleAtomicVisibilityCB-Object"
+        ],
+        "pairs": 384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "384 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetVehicleAtomicVisibilityCB-Frame",
+        "address": "0x006D26D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetVehicleAtomicVisibilityCB-Frame"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "RemoveObjectsCB-Object",
+        "address": "0x006D33B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::RemoveObjectsCB-Object"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "RemoveObjectsCB-Frame",
+        "address": "0x006D3420",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::RemoveObjectsCB-Frame"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "CopyObjectsCB",
+        "address": "0x006D3450",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::CopyObjectsCB"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "RemoveAllUpgradesCB",
+        "address": "0x006D34D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::RemoveAllUpgradesCB"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetupUpgradesAfterLoad",
+        "address": "0x006E3400",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetupUpgradesAfterLoad"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetSpecialColModel",
+        "address": "0x006DF3D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetSpecialColModel"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetTransmissionRotation",
+        "address": "0x006DBBB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehC/validation-summary.json",
+        "sha256": "4ce5118cbb0299a73ba8d697329e2830fbfb372e54873ac4eb4e6304cfb06a1b",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetTransmissionRotation"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174309-958996).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8640 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "PreRender",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::PreRender"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "PreRenderDriverAndPassengers",
+        "address": "0x006D3DB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::PreRenderDriverAndPassengers"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "Render",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::Render"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "RenderDriverAndPassengers",
+        "address": "0x006D3D60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::RenderDriverAndPassengers"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ResetAfterRender",
+        "address": "0x006D0E20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ResetAfterRender"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetupRender",
+        "address": "0x006D64F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetupRender"
+        ],
+        "pairs": 384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "384 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetupLighting",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetupLighting"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "RemoveLighting",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::RemoveLighting"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetCollisionLighting",
+        "address": "0x006D0CA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetCollisionLighting"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "CalculateLightingFromCollision",
+        "address": "0x006D0CF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::CalculateLightingFromCollision"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "UpdateLightingFromStoredPolys",
+        "address": "0x006D0CC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::UpdateLightingFromStoredPolys"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "DoHeadLightBeam",
+        "address": "0x006E0E20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::DoHeadLightBeam"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "DoHeadLightReflection",
+        "address": "0x006E1720",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::DoHeadLightReflection"
+        ],
+        "pairs": 384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "384 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "DoHeadLightReflectionSingle",
+        "address": "0x006E1440",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::DoHeadLightReflectionSingle"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "DoHeadLightReflectionTwin",
+        "address": "0x006E1600",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::DoHeadLightReflectionTwin"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "AddDamagedVehicleParticles",
+        "address": "0x006D2A80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::AddDamagedVehicleParticles"
+        ],
+        "pairs": 384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "384 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "AddExhaustParticles",
+        "address": "0x006DE240",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::AddExhaustParticles"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "AddWaterSplashParticles",
+        "address": "0x006DDF60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::AddWaterSplashParticles"
+        ],
+        "pairs": 384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "384 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "AddWheelDirtAndWater",
+        "address": "0x006D2D50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::AddWheelDirtAndWater"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "DoBoatSplashes",
+        "address": "0x006DD130",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::DoBoatSplashes"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetVehicleLightsStatus",
+        "address": "0x006D55C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetVehicleLightsStatus"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "DoPlaneGunFireFX",
+        "address": "0x006D4AD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::DoPlaneGunFireFX"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ProcessDrivingAnims",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ProcessDrivingAnims"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ProcessOpenDoor",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ProcessOpenDoor"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ProcessWheel",
+        "address": "0x006D6C00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ProcessWheel"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ProcessWheelRotation",
+        "address": "0x006D1230",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehD/validation-summary.json",
+        "sha256": "1264cae41d3802232d4908b98b5c7f66e49d59c33b7c927923d93e8c6e7aadb5",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ProcessWheelRotation"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ApplyBoatWaterResistance",
+        "address": "0x006D2740",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ApplyBoatWaterResistance"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ProcessBoatControl",
+        "address": "0x006DBCE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ProcessBoatControl"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "BladeColSectorList<CPtrListSingleLink<CEntity*>>",
+        "address": "0x006DAF00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::BladeColSectorList<CPtrListSingleLink<CEntity*>>"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "DoBladeCollision",
+        "address": "0x006E2E50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::DoBladeCollision"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "DoFixedMachineGuns",
+        "address": "0x0073F400",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::DoFixedMachineGuns"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "FirePlaneGuns",
+        "address": "0x006D4D30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::FirePlaneGuns"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "FireUnguidedMissile",
+        "address": "0x006D5110",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::FireUnguidedMissile"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetFiringRateMultiplier",
+        "address": "0x006D4090",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetFiringRateMultiplier"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetFiringRateMultiplier",
+        "address": "0x006D4010",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetFiringRateMultiplier"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetPlaneGunsAutoAimAngle",
+        "address": "0x006D3E00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetPlaneGunsAutoAimAngle"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetPlaneGunsPosition",
+        "address": "0x006D4290",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetPlaneGunsPosition"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetPlaneGunsRateOfFire",
+        "address": "0x006D40E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetPlaneGunsRateOfFire"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetPlaneNumGuns",
+        "address": "0x006D3F30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetPlaneNumGuns"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetPlaneOrdnancePosition",
+        "address": "0x006D46E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetPlaneOrdnancePosition"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetPlaneOrdnanceRateOfFire",
+        "address": "0x006D4590",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetPlaneOrdnanceRateOfFire"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SelectPlaneWeapon",
+        "address": "0x006D4900",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SelectPlaneWeapon"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "InitWinch",
+        "address": "0x006D3B60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::InitWinch"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "PickUpEntityWithWinch",
+        "address": "0x006D3CD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::PickUpEntityWithWinch"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "QueryPickedUpEntityWithWinch",
+        "address": "0x006D3CF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::QueryPickedUpEntityWithWinch"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "ReleasePickedUpEntityWithWinch",
+        "address": "0x006D3CB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::ReleasePickedUpEntityWithWinch"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "RemoveWinch",
+        "address": "0x006D3C70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::RemoveWinch"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "UpdateWinch",
+        "address": "0x006D3B80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::UpdateWinch"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "GetRopeHeightForHeli",
+        "address": "0x006D3D10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::GetRopeHeightForHeli"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SetRopeHeightForHeli",
+        "address": "0x006D3D30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SetRopeHeightForHeli"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SpecialEntityCalcCollisionSteps",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SpecialEntityCalcCollisionSteps"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CVehicle",
+        "fn_name": "SpecialEntityPreCollisionStuff",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CVehE/validation-summary.json",
+        "sha256": "6d2c4dd570fd82ba86d450b3985a708f10556b69b9f89a083b37a1f0a6b650c7",
+        "passed_path": [
+          "covered_functions",
+          "CVehicle::SpecialEntityPreCollisionStuff"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513",
+        "source/game_sa/Ropes.h": "aee78dfc8a56d92e326ad12e669654a42304198b0891fa8146378de270b530ac"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174506-902218).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CVehE/README.md"
     }
   ]
 }

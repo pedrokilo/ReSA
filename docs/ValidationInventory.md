@@ -6,10 +6,10 @@ Universo de esta revisión: **7,947 entradas reversed=1**, de 8,441 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 5862 |
+| `validated=1` · evidencia aprobada vinculada | 6003 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 5862 |
-| Sin evidencia aprobada vinculada en este registro | 2085 |
+| Evidencia histórica vinculada; revisión pendiente | 6003 |
+| Sin evidencia aprobada vinculada en este registro | 1944 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -5311,7 +5311,148 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CUpsideDownCarCheck | `UpdateTimers` | [Resumen](../reversing/Events43/validation-summary.json) |
 | CUserDisplay | `Init` | [Resumen](../reversing/Misc70/validation-summary.json) |
 | CUserDisplay | `Process` | [Resumen](../reversing/Misc70/validation-summary.json) |
+| CVehicle | `ActivateBomb` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `ActivateBombWhenEntered` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `AddDamagedVehicleParticles` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `AddExhaustParticles` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `AddPassenger-Auto-Seat` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `AddPassenger-Fixed-Seat` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `AddWaterSplashParticles` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `AddWheelDirtAndWater` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `ApplyBoatWaterResistance` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `BladeColSectorList<CPtrListSingleLink<CEntity*>>` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `CalculateLightingFromCollision` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `CanBeDeleted` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `CanBeDriven` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `CanDoorsBeDamaged` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `CanPedEnterCar` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `CanPedJumpOutCar` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `CanPedLeanOut` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `CanPedOpenLocks` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `CanPedStepOutCar` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `CanVehicleBeDamaged` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `CarHasRoof` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `ChangeLawEnforcerState` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `ClearGettingInFlags` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `ClearGettingOutFlags` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `ClearVehicleUpgradeFlags` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `ClearWindowOpenFlag` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `Constructor` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `CopyObjectsCB` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `CreateReplacementAtomic` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `CreateUpgradeAtomic` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `CustomCarPlate_TextureCreate` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `CustomCarPlate_TextureDestroy` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `DeleteRwObject` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `DestroyVehicleAndDriverAndPassengers` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `Destructor` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `DoBladeCollision` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `DoBoatSplashes` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `DoFixedMachineGuns` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `DoHeadLightBeam` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `DoHeadLightReflection` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `DoHeadLightReflectionSingle` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `DoHeadLightReflectionTwin` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `DoPlaneGunFireFX` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `ExtinguishCarFire` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `FillVehicleWithPeds` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `FindTyreNearestPoint` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `FirePlaneGuns` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `FireUnguidedMissile` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `GetFiringRateMultiplier` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `GetHeightAboveRoad` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `GetPlaneGunsAutoAimAngle` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `GetPlaneGunsPosition` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `GetPlaneGunsRateOfFire` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `GetPlaneNumGuns` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `GetPlaneOrdnancePosition` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `GetPlaneOrdnanceRateOfFire` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `GetRemapIndex` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `GetReplacementUpgrade` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `GetRopeHeightForHeli` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `GetSpareHasslePosId` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `GetSpecialColModel` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `GetTowBarPos` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `GetTowHitchPos` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `GetUpgrade` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `GetVehicleAppearance` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `GetVehicleLightsStatus` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `HeightAboveCeiling` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `InitWinch` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `IsDriver-ModelID` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `IsDriver-Ped` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `IsLawEnforcementVehicle` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `IsOnItsSide` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `IsPassenger-ModelID` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `IsPassenger-Ped` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `IsSphereTouchingVehicle` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `IsUpsideDown` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `IsVehicleNormal` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `IsVehiclePointerValid` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `KillPedsGettingInVehicle` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `KillPedsInVehicle` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `Load` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `MakeDirty` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `PickRandomPassenger` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `PickUpEntityWithWinch` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `PreRender` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `PreRenderDriverAndPassengers` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `ProcessBoatControl` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `ProcessCarAlarm` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `ProcessDelayedExplosion` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `ProcessDrivingAnims` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `ProcessOpenDoor` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `ProcessWheel` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `ProcessWheelRotation` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `QueryPickedUpEntityWithWinch` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `ReactToVehicleDamage` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `ReleasePickedUpEntityWithWinch` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `RemoveAllUpgrades` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `RemoveAllUpgradesCB` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `RemoveDriver` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `RemoveLighting` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `RemoveObjectsCB-Frame` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `RemoveObjectsCB-Object` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `RemovePassenger` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `RemoveReplacementUpgrade` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `RemoveUpgrade` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `RemoveWinch` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `Render` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `RenderDriverAndPassengers` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `ResetAfterRender` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `Save` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `SelectPlaneWeapon` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `SetCollisionLighting` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `SetComponentAtomicAlpha` | [Resumen](../reversing/CVehC/validation-summary.json) |
 | CVehicle | `SetComponentRotation` | [Resumen](../reversing/FixCore/validation-summary.json) |
+| CVehicle | `SetComponentVisibility` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `SetDriver` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `SetFiringRateMultiplier` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `SetGettingInFlags` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `SetGettingOutFlags` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `SetHasslePosId` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `SetModelIndex` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `SetRemap` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `SetRopeHeightForHeli` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `SetTransmissionRotation` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `SetUpDriver` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `SetVehicleAtomicVisibilityCB-Frame` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `SetVehicleAtomicVisibilityCB-Object` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `SetVehicleCreatedBy` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `SetVehicleUpgradeFlags` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `SetWindowOpenFlag` | [Resumen](../reversing/CVehA/validation-summary.json) |
+| CVehicle | `SetupLighting` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `SetupPassenger` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `SetupRender` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `SetupUpgradesAfterLoad` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `Shutdown` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `SpecialEntityCalcCollisionSteps` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `SpecialEntityPreCollisionStuff` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `UpdateClumpAlpha` | [Resumen](../reversing/CVehC/validation-summary.json) |
+| CVehicle | `UpdateLightingFromStoredPolys` | [Resumen](../reversing/CVehD/validation-summary.json) |
+| CVehicle | `UpdatePassengerList` | [Resumen](../reversing/CVehB/validation-summary.json) |
+| CVehicle | `UpdateWinch` | [Resumen](../reversing/CVehE/validation-summary.json) |
+| CVehicle | `UsesSiren` | [Resumen](../reversing/CVehA/validation-summary.json) |
 | CVehicleAnimGroup | `ComputeAnimDoorOffsets` | [Resumen](../reversing/Events43/validation-summary.json) |
 | CVehicleAnimGroup | `ComputeCriticalBlendTime` | [Resumen](../reversing/Events43/validation-summary.json) |
 | CVehicleAnimGroup | `CopyAnimGroup` | [Resumen](../reversing/Events43/validation-summary.json) |
@@ -6593,7 +6734,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTxdStore` | 26 | 0 | 26 | 0 |
 | `CUpsideDownCarCheck` | 5 | 0 | 5 | 0 |
 | `CUserDisplay` | 2 | 0 | 2 | 0 |
-| `CVehicle` | 142 | 0 | 1 | 141 |
+| `CVehicle` | 142 | 0 | 142 | 0 |
 | `CVehicleAnimGroup` | 5 | 0 | 5 | 0 |
 | `CVehicleAnimGroupData` | 5 | 0 | 5 | 0 |
 | `CVehicleModelInfo` | 75 | 0 | 0 | 75 |

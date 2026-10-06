@@ -1,0 +1,96 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 8640,
+  "pairs_per_function": {
+    "CVehicle::ClearVehicleUpgradeFlags": 512,
+    "CVehicle::SetVehicleUpgradeFlags": 512,
+    "CVehicle::GetUpgrade": 384,
+    "CVehicle::RemoveUpgrade": 384,
+    "CVehicle::RemoveAllUpgrades": 192,
+    "CVehicle::GetReplacementUpgrade": 256,
+    "CVehicle::RemoveReplacementUpgrade": 256,
+    "CVehicle::CreateUpgradeAtomic": 384,
+    "CVehicle::CreateReplacementAtomic": 512,
+    "CVehicle::CustomCarPlate_TextureCreate": 256,
+    "CVehicle::CustomCarPlate_TextureDestroy": 64,
+    "CVehicle::GetRemapIndex": 384,
+    "CVehicle::SetRemap": 384,
+    "CVehicle::GetVehicleAppearance": 256,
+    "CVehicle::SetComponentVisibility": 256,
+    "CVehicle::SetComponentAtomicAlpha": 192,
+    "CVehicle::UpdateClumpAlpha": 384,
+    "CVehicle::SetVehicleAtomicVisibilityCB-Object": 384,
+    "CVehicle::SetVehicleAtomicVisibilityCB-Frame": 256,
+    "CVehicle::RemoveObjectsCB-Object": 512,
+    "CVehicle::RemoveObjectsCB-Frame": 256,
+    "CVehicle::CopyObjectsCB": 256,
+    "CVehicle::RemoveAllUpgradesCB": 256,
+    "CVehicle::SetupUpgradesAfterLoad": 128,
+    "CVehicle::GetSpecialColModel": 512,
+    "CVehicle::SetTransmissionRotation": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "57b21c5a9847b6a9306924fc4b1df65cfeef247b387284ecc3d60d85fc86c5f8",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cvehc\\20261006-174309-958996",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CVehicle::ClearVehicleUpgradeFlags": true,
+    "CVehicle::SetVehicleUpgradeFlags": true,
+    "CVehicle::GetUpgrade": true,
+    "CVehicle::RemoveUpgrade": true,
+    "CVehicle::RemoveAllUpgrades": true,
+    "CVehicle::GetReplacementUpgrade": true,
+    "CVehicle::RemoveReplacementUpgrade": true,
+    "CVehicle::CreateUpgradeAtomic": true,
+    "CVehicle::CreateReplacementAtomic": true,
+    "CVehicle::CustomCarPlate_TextureCreate": true,
+    "CVehicle::CustomCarPlate_TextureDestroy": true,
+    "CVehicle::GetRemapIndex": true,
+    "CVehicle::SetRemap": true,
+    "CVehicle::GetVehicleAppearance": true,
+    "CVehicle::SetComponentVisibility": true,
+    "CVehicle::SetComponentAtomicAlpha": true,
+    "CVehicle::UpdateClumpAlpha": true,
+    "CVehicle::SetVehicleAtomicVisibilityCB-Object": true,
+    "CVehicle::SetVehicleAtomicVisibilityCB-Frame": true,
+    "CVehicle::RemoveObjectsCB-Object": true,
+    "CVehicle::RemoveObjectsCB-Frame": true,
+    "CVehicle::CopyObjectsCB": true,
+    "CVehicle::RemoveAllUpgradesCB": true,
+    "CVehicle::SetupUpgradesAfterLoad": true,
+    "CVehicle::GetSpecialColModel": true,
+    "CVehicle::SetTransmissionRotation": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "aeabeff27862b43124bb07ee56501d94eac9721bfbe4bcb01f2483845fe0c454",
+      "pdb": "62751e42f2b1dfb18c2216ae37ea987371c12992134602e639765990f44b59da"
+    },
+    "sources": {
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "d2166b60a042e4e6c0eb186531acfce11745fa219d6355432169596387ff990d",
+      "build_probe.py": "01aa3692998f2941f6db0cd318987b7a093c5cd2e0063dcb681c4b74eec84f18",
+      "run_local.py": "615b542fe74769f1365d402bceff452d5914738304a116ce49e4d13fdafd457d"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

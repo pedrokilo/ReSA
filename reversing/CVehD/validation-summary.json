@@ -1,0 +1,96 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 10176,
+  "pairs_per_function": {
+    "CVehicle::PreRender": 256,
+    "CVehicle::PreRenderDriverAndPassengers": 128,
+    "CVehicle::Render": 128,
+    "CVehicle::RenderDriverAndPassengers": 128,
+    "CVehicle::ResetAfterRender": 64,
+    "CVehicle::SetupRender": 384,
+    "CVehicle::SetupLighting": 64,
+    "CVehicle::RemoveLighting": 64,
+    "CVehicle::SetCollisionLighting": 64,
+    "CVehicle::CalculateLightingFromCollision": 256,
+    "CVehicle::UpdateLightingFromStoredPolys": 64,
+    "CVehicle::DoHeadLightBeam": 512,
+    "CVehicle::DoHeadLightReflection": 384,
+    "CVehicle::DoHeadLightReflectionSingle": 256,
+    "CVehicle::DoHeadLightReflectionTwin": 256,
+    "CVehicle::AddDamagedVehicleParticles": 384,
+    "CVehicle::AddExhaustParticles": 768,
+    "CVehicle::AddWaterSplashParticles": 384,
+    "CVehicle::AddWheelDirtAndWater": 768,
+    "CVehicle::DoBoatSplashes": 768,
+    "CVehicle::GetVehicleLightsStatus": 768,
+    "CVehicle::DoPlaneGunFireFX": 256,
+    "CVehicle::ProcessDrivingAnims": 768,
+    "CVehicle::ProcessOpenDoor": 1024,
+    "CVehicle::ProcessWheel": 1024,
+    "CVehicle::ProcessWheelRotation": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "41c91b7802fc3f901436db046106963a8134d088a4e0a9b7c8d3c28b83bb4aab",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cvehd\\20261006-174404-054276",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CVehicle::PreRender": true,
+    "CVehicle::PreRenderDriverAndPassengers": true,
+    "CVehicle::Render": true,
+    "CVehicle::RenderDriverAndPassengers": true,
+    "CVehicle::ResetAfterRender": true,
+    "CVehicle::SetupRender": true,
+    "CVehicle::SetupLighting": true,
+    "CVehicle::RemoveLighting": true,
+    "CVehicle::SetCollisionLighting": true,
+    "CVehicle::CalculateLightingFromCollision": true,
+    "CVehicle::UpdateLightingFromStoredPolys": true,
+    "CVehicle::DoHeadLightBeam": true,
+    "CVehicle::DoHeadLightReflection": true,
+    "CVehicle::DoHeadLightReflectionSingle": true,
+    "CVehicle::DoHeadLightReflectionTwin": true,
+    "CVehicle::AddDamagedVehicleParticles": true,
+    "CVehicle::AddExhaustParticles": true,
+    "CVehicle::AddWaterSplashParticles": true,
+    "CVehicle::AddWheelDirtAndWater": true,
+    "CVehicle::DoBoatSplashes": true,
+    "CVehicle::GetVehicleLightsStatus": true,
+    "CVehicle::DoPlaneGunFireFX": true,
+    "CVehicle::ProcessDrivingAnims": true,
+    "CVehicle::ProcessOpenDoor": true,
+    "CVehicle::ProcessWheel": true,
+    "CVehicle::ProcessWheelRotation": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "6b4855815916b04ec8df6412c6f859ec4762be0a613261888a11f62b7081d3a6",
+      "pdb": "1cc8c67156a481d55c71488e4371daef03388006aa74894f5eb1ea18db2034b0"
+    },
+    "sources": {
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "1b63602d11b1cfd9d2eb70067ae0919b3449caadd7d33bb01babc2592d7114e9",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "84de76a02a734b1ffde15a57753d146715aaed813c071bf9467c3be371457513"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "764f43e88ad9f2a6b6c29a69434628b076cc7f32f9306990e05a6554a3454a15",
+      "build_probe.py": "ddcc71064e88d1993866a4780abc39cdfd6bab455d85c17edddd36cff279e680",
+      "run_local.py": "4a5ddcc98082a5e20461f18408d9dfddf23333c2fa5000bcf58b80f379e74074"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

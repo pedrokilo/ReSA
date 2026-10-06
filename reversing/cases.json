@@ -1208,5 +1208,30 @@
     "id": "cpede",
     "name": "CPed grupo E (posición, enganches, voz y percepción)",
     "runner": "CPedE/run_local.py"
+  },
+  {
+    "id": "cveha",
+    "name": "CVehicle grupo A (consultas, banderas y estado)",
+    "runner": "CVehA/run_local.py"
+  },
+  {
+    "id": "cvehb",
+    "name": "CVehicle grupo B (ocupantes, ciclo de vida y geometría)",
+    "runner": "CVehB/run_local.py"
+  },
+  {
+    "id": "cvehc",
+    "name": "CVehicle grupo C (mejoras, átomos, remaps y componentes)",
+    "runner": "CVehC/run_local.py"
+  },
+  {
+    "id": "cvehd",
+    "name": "CVehicle grupo D (dibujo, luces y partículas)",
+    "runner": "CVehD/run_local.py"
+  },
+  {
+    "id": "cvehe",
+    "name": "CVehicle grupo E (armas de avión, barco, cabrestante y colisión)",
+    "runner": "CVehE/run_local.py"
   }
 ]
