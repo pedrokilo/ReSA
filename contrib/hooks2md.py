@@ -122,7 +122,7 @@ def generate(input_path, output_path, update_source_status=False):
                 cells.append("")
         lines.append("| " + " | ".join(cells) + " |")
     lines += ["", "</details>", "", '<a id="parciales"></a>', f"## 🟡 Parciales · {len(partial)} clases", "",
-              "Orden alfabético para localizar clases. Para decidir qué abordar primero, consultar la [estimación por dificultad](ReversingPriorities.md).", "",
+              "Orden alfabético para localizar clases. Para decidir qué abordar primero, consultar la [cola de validación por niveles](ReversingPriorities.md).", "",
               "| Clase | Revertidas / total | Pendientes | Avance | Validated | Locked |", "| --- | ---: | ---: | ---: | ---: | ---: |"]
     for c in partial:
         lines.append(f"| {class_link(c.name)} | {c.reversed}/{c.total} | **{c.pending}** | {c.reversed/c.total:.2%} | {c.validated} | {c.locked} |")

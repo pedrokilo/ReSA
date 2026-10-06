@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-06 00:31 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-06 00:35 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -282,7 +282,7 @@ Orden alfabético. El número entre paréntesis indica funciones registradas; �
 <a id="parciales"></a>
 ## 🟡 Parciales · 103 clases
 
-Orden alfabético para localizar clases. Para decidir qué abordar primero, consultar la [estimación por dificultad](ReversingPriorities.md).
+Orden alfabético para localizar clases. Para decidir qué abordar primero, consultar la [cola de validación por niveles](ReversingPriorities.md).
 
 | Clase | Revertidas / total | Pendientes | Avance | Validated | Locked |
 | --- | ---: | ---: | ---: | ---: | ---: |

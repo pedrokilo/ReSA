@@ -1,6 +1,6 @@
 # Hooks activados en 39 clases (2026-10-01)
 
-[Inicio](../../README.md) · [Prioridades](../../docs/ReversingPriorities.md#incorporadas-2026-10-01) · [Proceso y continuidad](../MEJORAS_DEL_PROCESO.md#continuidad-vigente)
+[Inicio](../../README.md) · [Prioridades](../../docs/ReversingPriorities.md) · [Proceso y continuidad](../MEJORAS_DEL_PROCESO.md#continuidad-vigente)
 
 Clases con `.h` en el código cuyos hooks no se instalaban ni figuraban en `docs/hooks.csv`. Se registraron 39 y se descartaron 10 con motivo. **Alcance: registro, catálogo, compilación y arranque. No hay comparaciones función a función contra el original.**
 
@@ -21,7 +21,7 @@ Los vtables no estaban en el código. Se localizaron en `gta_sa.exe`: se busca e
 - Las funciones cuyo cuerpo es solo `plugin::Call` hacia su propia dirección; activarlas causaría recursión infinita.
 - Tres `Clone` inline que no copian todos los campos del original: `OpenPassengerDoor` (`m_MoveState`), `WanderCriminal` y `WanderStandard` (`m_bWanderSensibly`).
 
-En total, 16 clases quedan parciales con 43 pendientes; se detallan en [Prioridades](../../docs/ReversingPriorities.md#incorporadas-2026-10-01).
+En total, 16 clases quedan parciales con 43 pendientes; se detallan en [Prioridades](../../docs/ReversingPriorities.md).
 
 ## Correcciones de código
 
@@ -123,7 +123,7 @@ Además se comprobaron los vtables de las cinco clases virtuales contra el exe y
 
 La comprobación de duplicados recorre ahora todas las instalaciones `RH_Scoped*Install` del código, porque muchas filas `V` de `hooks.csv` tienen dirección 0 y no sirven para detectarlos.
 
-**Catálogo:** 145 entradas nuevas, 144 tras retirar el destructor duplicado. Quedan 8 clases parciales con 17 pendientes, listadas en [Prioridades](../../docs/ReversingPriorities.md#incorporadas-2026-10-01).
+**Catálogo:** 145 entradas nuevas, 144 tras retirar el destructor duplicado. Quedan 8 clases parciales con 17 pendientes, listadas en [Prioridades](../../docs/ReversingPriorities.md).
 
 **Evidencia:**
 

@@ -1,5 +1,5 @@
 """Actualiza las cifras de validacion escritas a mano en README.md, reversing/README.md,
-reversing/ValidationRegistry/README.md y docs/ReversingPriorities.md a partir de docs/hooks.csv,
+reversing/ValidationRegistry/README.md a partir de docs/hooks.csv,
 reversing/cases.json y el registro de validacion. Complementa sync_docs.py (que no toca esos textos).
 
 Uso: python contrib/sync_readme_counts.py
@@ -44,9 +44,6 @@ def main():
             (r'Hay \*\*[\d.]+ funciones con `validated=1`\*\*', f'Hay **{fmt(val)} funciones con `validated=1`**'),
             (r'clasifica las [\d.]+ entradas: 0 vigentes, [\d.]+ históricas por revisar', f'clasifica las {fmt(rev)} entradas: 0 vigentes, {fmt(val)} históricas por revisar'),
             (r'La barra es \*\*0/[\d.]+ · 0,00%\*\*', f'La barra es **0/{fmt(total)} · 0,00%**'),
-        ],
-        'docs/ReversingPriorities.md': [
-            (r'registra actualmente \*\*[\d.]+ entradas con `validated=1`\*\*', f'registra actualmente **{fmt(val)} entradas con `validated=1`**'),
         ],
     }
     block = chr(10).join([
