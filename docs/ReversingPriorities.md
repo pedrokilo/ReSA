@@ -14,7 +14,22 @@
 | :---: | :---: | :---: | :---: |
 | **105** | **583** | **103** | **2** |
 
-**Navegación:** [🟢 Fáciles](#faciles) · [🟡 Intermedia](#intermedia) · [🟠 Difíciles](#dificiles) · [🔴 Final](#final) · [Evidencia](#evidencia) · [Top 10](#top-10)
+<!-- cola-validacion-resumen:start -->
+
+| Cola de validación | Clases | Por validar | Enfoque |
+| --- | :---: | :---: | --- |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 36 | 194 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 9 | 569 | Reenvíos, accesores y datos de plugin; pocas líneas por función pero hay que simular los destinos. |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 37 | 776 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🔴 Nivel 4: caras](#nivel-4) | 33 | 933 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
+| **Total** | **115** | **2472** | Funciones reconstruidas sin validar; ver la [cola completa](#cola-validacion). |
+
+<!-- cola-validacion-resumen:end -->
+
+
+
+
+**Navegación:** [🟢 Fáciles](#faciles) · [🟡 Intermedia](#intermedia) · [🟠 Difíciles](#dificiles) · [🔴 Final](#final) · [Evidencia](#evidencia) · [Top 10](#top-10) · [Cola de validación](#cola-validacion)
 
 Los 24 bloqueos solicitados se retiraron tras comparación dentro del motor: [bancos de desbloqueo](../reversing/Unlocks/README.md). CGeneral ya estaba desbloqueado. No cambia el número de funciones pendientes ni la clasificación de esta guía. La entrega posterior de [DataStream y TrackEntity](../reversing/UnlockBatch2/README.md) retira otros diez candados validados; no altera las clases históricas de esa entrega ni el Top 10. En el catálogo vigente quedan 650 candados globales, de los cuales 85 pertenecen al lote aplazado.
 
@@ -42,15 +57,6 @@ python contrib/audit_hook_catalog.py --strict
 ```
 
 El corte actual devuelve **OK**: cero hooks activos fuera del CSV, cero registros indirectos ausentes, cero entradas del CSV sin scope fuente y cero owners activos con instalaciones propias sin catálogo. Los owners inactivos se muestran sólo con `--verbose` y no forman parte del progreso mientras no se registren globalmente.
-
-### Distribución propuesta
-
-| Grupo | Clases | Pendientes | Enfoque |
-| --- | ---: | ---: | --- |
-| [🟢 Más fáciles / buenos candidatos para terminar primero](#faciles) | 0 | 0 | Los diez candidatos de este grupo ya están cerrados; consultar su evidencia. |
-| [🟡 Dificultad intermedia](#intermedia) | 33 | 95 | Máquinas de estados o recursos con dependencias manejables; preparar fixtures específicos. |
-| [🟠 Difíciles](#dificiles) | 39 | 173 | Funciones extensas, física, render o audio; el banco de validación pesa mucho. |
-| [🔴 Dejar para el final](#final) | 17 | 264 | Sistemas centrales o grandes bloques desconocidos; dividir antes en hitos internos. |
 
 <a id="faciles"></a>
 ## 🟢 Más fáciles / buenos candidatos para terminar primero
@@ -368,3 +374,177 @@ Los diez anteriores ya están completados. Esta selección continúa con candida
 | 10 | [CTaskSimpleChoking](../source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp) — **5/7 — 71.43%** | 2 | **Respuesta de asfixia.** Aborto y ProcessPed nativos; patrones de tarea simple ayudan, pero daño y callbacks requieren casos propios. |
 
 Los bancos nuevos de recursos, grupos y tareas reducen el coste de preparar casos, pero no sustituyen comparar estas funciones. Si aparecen dependencias nuevas, reajustar el orden antes de forzar un cierre por porcentaje.
+
+<!-- cola-validacion:start -->
+
+<a id="cola-validacion"></a>
+
+## Cola de validación: funciones reconstruidas y sin validar
+
+> **Corte 05/10/2026.** 2472 funciones con `reversed=1` y `validated=0` en 115 clases, de `docs/hooks.csv`. No incluye las que no se pueden validar por pares (abajo). Se regenera con `python contrib/validation_queue.py`.
+
+Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola. "Líneas/func." es una **estimación** (líneas del `.cpp` repartidas entre las clases que define, divididas por sus funciones reconstruidas), no un coste medido; `?` = no se pudo medir.
+
+<a id="nivel-1"></a>
+
+### Nivel 1: muy barato (36 clases, 194 funciones)
+
+Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
+
+| # | Clase | Por validar | Sin reconstruir | Líneas/func. |
+|--:|---|--:|--:|--:|
+| 1 | CTaskComplexBeCop | 2 | 1 | 18 |
+| 2 | CTaskComplexCarSlowBeDraggedOutAndStandUp | 2 | 6 | 29 |
+| 3 | CPedShelterAttractor | 2 | 2 | 30 |
+| 4 | CTaskComplexGoToPointAndStandStillAndAchieveHeading | 2 | 4 | 33 |
+| 5 | CTaskSimpleCarSetPedOut | 2 | 3 | 34 |
+| 6 | CTaskComplexOpenPassengerDoor | 3 | 1 | 13 |
+| 7 | CTaskSimpleRunNamedAnim | 3 | 3 | 25 |
+| 8 | CTaskComplexWanderCriminal | 3 | 3 | 28 |
+| 9 | CTaskComplexGoToPointAnyMeans | 3 | 4 | 33 |
+| 10 | CScriptsForBrains | 3 | 3 | 34 |
+| 11 | CTaskComplexGotoDoorAndOpen | 3 | 4 | 35 |
+| 12 | CTaskLeanOnVehicle | 3 | 2 | 35 |
+| 13 | CTaskComplexWanderProstitute | 4 | 1 | 12 |
+| 14 | CTaskSimpleCarDriveTimed | 4 | 1 | 14 |
+| 15 | CTaskSimpleCarSetPedInAsPassenger | 4 | 1 | 18 |
+| 16 | CTaskComplexSignalAtPed | 4 | 3 | 19 |
+| 17 | CTaskSimpleCarSetPedInAsDriver | 4 | 1 | 19 |
+| 18 | CTaskComplexEnterCarAsPassengerWait | 4 | 4 | 24 |
+| 19 | CTaskSimpleChoking | 5 | 2 | 18 |
+| 20 | CTaskComplexGoToPointAiming | 5 | 3 | 22 |
+| 21 | CTaskComplexDriveToPoint | 5 | 3 | 32 |
+| 22 | CTaskComplexUseClosestFreeScriptedAttractor | 6 | 2 | 10 |
+| 23 | CTaskComplexEvasiveCower | 7 | 1 | 11 |
+| 24 | CTaskComplexEvasiveStep | 7 | 1 | 13 |
+| 25 | CTaskComplexBeInCouple | 7 | 2 | 19 |
+| 26 | CTaskSimpleCarDrive | 7 | 6 | 31 |
+| 27 | CBmx | 7 | 3 | 35 |
+| 28 | CTaskComplexCrossRoadLookAndAchieveHeading | 8 | 1 | 12 |
+| 29 | CTaskComplexDestroyCar | 8 | 1 | 19 |
+| 30 | CCarFXRenderer | 9 | 1 | 14 |
+| 31 | CTaskComplexWalkRoundCar | 9 | 4 | 16 |
+| 32 | CRopes | 9 | 2 | 17 |
+| 33 | CStencilShadows | 9 | 4 | 35 |
+| 34 | CPedGroup | 10 | 2 | 18 |
+| 35 | CWeather | 10 | 3 | 34 |
+| 36 | CQuadBike | 11 | 1 | 30 |
+
+<a id="nivel-2"></a>
+
+### Nivel 2: baratas por función, pero muchas (9 clases, 569 funciones)
+
+Criterio: más de 12 funciones y hasta 25 líneas por función.
+
+| # | Clase | Por validar | Sin reconstruir | Líneas/func. |
+|--:|---|--:|--:|--:|
+| 1 | FxSystem_c | 31 | 4 | 15 |
+| 2 | CPickups | 35 | 2 | 23 |
+| 3 | CPathFind | 54 | 2 | 25 |
+| 4 | CMenuManager | 61 |  | 20 |
+| 5 | CCheat | 72 |  | 17 |
+| 6 | CPad | 75 |  | 19 |
+| 7 | CVehicleModelInfo | 75 |  | 22 |
+| 8 | CAudioEngine | 82 |  | 10 |
+| 9 | CVisibilityPlugins | 84 |  | 14 |
+
+<a id="nivel-3"></a>
+
+### Nivel 3: moderadas (37 clases, 776 funciones)
+
+Criterio: el resto.
+
+| # | Clase | Por validar | Sin reconstruir | Líneas/func. |
+|--:|---|--:|--:|--:|
+| 1 | CTaskUtilityLineUpPedWithCar | 2 | 3 | 37 |
+| 2 | CTaskComplexGoToAttractor | 2 | 3 | 38 |
+| 3 | CTaskComplexKillPedFromBoat | 2 | 5 | 39 |
+| 4 | CTaskComplexGangJoinRespond | 2 | 5 | 40 |
+| 5 | CTaskGoToVehicleAndLean | 2 | 5 | 46 |
+| 6 | CTaskGangHasslePed | 2 | 3 | 50 |
+| 7 | CTaskComplexWanderStandard | 3 | 6 | 38 |
+| 8 | CCustomBuildingRenderer | 3 | 4 | 41 |
+| 9 | CTaskComplexPlayHandSignalAnim | 3 | 6 | 41 |
+| 10 | CRealTimeShadowManager | 5 | 2 | 38 |
+| 11 | CMonsterTruck | 5 | 6 | 43 |
+| 12 | CRope | 5 | 2 | 45 |
+| 13 | CTaskComplexProstituteSolicit | 7 | 4 | 44 |
+| 14 | CPedGeometryAnalyser | 9 | 29 | 44 |
+| 15 | CTaskComplexKillCriminal | 9 | 2 | 44 |
+| 16 | CIdleCam | 13 | 1 | 28 |
+| 17 | CAEPoliceScannerAudioEntity | 13 | 4 | 29 |
+| 18 | CPlane | 14 | 9 | 34 |
+| 19 | CAEPedAudioEntity | 15 | 4 | 37 |
+| 20 | CClothesBuilder | 15 | 8 | 47 |
+| 21 | CPools | 16 | 3 | 27 |
+| 22 | CAEStreamingChannel | 18 | 3 | 26 |
+| 23 | CTrain | 20 | 20 | 49 |
+| 24 | CBike | 22 | 18 | 36 |
+| 25 | CRunningScript | 24 | 15 | 42 |
+| 26 | CWaterLevel | 25 | 5 | 40 |
+| 27 | CCarEnterExit | 27 | 5 | 30 |
+| 28 | CAERadioTrackManager | 29 | 14 | 33 |
+| 29 | CGroupEventHandler | 30 | 2 | 27 |
+| 30 | CFont | 32 | 4 | 26 |
+| 31 | CGangWars | 32 | 3 | 33 |
+| 32 | CPostEffects | 35 | 3 | 33 |
+| 33 | CRadar | 63 |  | 34 |
+| 34 | CPopulation | 64 | 2 | 31 |
+| 35 | CTheScripts | 69 |  | 29 |
+| 36 | CEventHandler | 69 | 3 | 45 |
+| 37 | CEntity | 70 |  | 35 |
+
+<a id="nivel-4"></a>
+
+### Nivel 4: caras (33 clases, 933 funciones)
+
+Criterio: 90 o más funciones, o más de 50 líneas por función.
+
+| # | Clase | Por validar | Sin reconstruir | Líneas/func. |
+|--:|---|--:|--:|--:|
+| 1 | CPedGroupPlacer | 1 | 3 | 66 |
+| 2 | CDecision | 1 | 2 | 82 |
+| 3 | CTaskComplexFollowLeaderInFormation | 1 | 6 | 86 |
+| 4 | CTaskSimpleGangDriveBy | 1 | 3 | 96 |
+| 5 | CFormation | 1 | 8 | 147 |
+| 6 | CProjectileInfo | 1 | 11 | 158 |
+| 7 | CTaskComplexHitPedWithCar | 2 | 8 | 54 |
+| 8 | CTaskGangHassleVehicle | 2 | 6 | 54 |
+| 9 | CTaskComplexSmartFleePoint | 2 | 10 | 59 |
+| 10 | CTaskComplexSunbathe | 2 | 6 | 59 |
+| 11 | CPedDamageResponseCalculator | 2 | 5 | 114 |
+| 12 | FxEmitterBP_c | 2 | 7 | 116 |
+| 13 | InteriorGroup_c | 2 | 22 | 122 |
+| 14 | CInterestingEvents | 2 | 5 | 177 |
+| 15 | CTaskComplexArrestPed | 4 | 3 | 83 |
+| 16 | CAEFrontendAudioEntity | 4 | 2 | 211 |
+| 17 | CGenericGameStorage | 5 | 14 | 183 |
+| 18 | CTaskSimpleFightingControl | 6 | 1 | 54 |
+| 19 | CRoadBlocks | 7 | 1 | 57 |
+| 20 | CAEScriptAudioEntity | 8 | 11 | 107 |
+| 21 | CTaskComplexKillPedOnFootArmed | 9 | 2 | 51 |
+| 22 | CTaskSimplePlayerOnFoot | 11 | 1 | 103 |
+| 23 | CCam | 14 | 30 | 82 |
+| 24 | CShadows | 21 | 10 | 59 |
+| 25 | CHud | 30 | 8 | 57 |
+| 26 | CWeapon | 35 | 6 | 60 |
+| 27 | CCamera | 91 | 19 | 23 |
+| 28 | CWorld | 94 |  | 35 |
+| 29 | CStreaming | 94 |  | 40 |
+| 30 | CAutomobile | 99 |  | 65 |
+| 31 | CAEVehicleAudioEntity | 102 | 4 | 48 |
+| 32 | CPed | 136 |  | 31 |
+| 33 | CVehicle | 141 |  | 33 |
+
+<a id="fuera-de-la-cola"></a>
+
+### Fuera de la cola (no validables por pares)
+
+| Clase | Función | Motivo |
+|---|---|---|
+| CAEAudioHardware | `Initialise` | crea canales y cargadores reales, DirectSoundCreate8 e hilos |
+| CPlayerPed | `SetupPlayerPed` | construye un CPlayerPed real con pools, audio y grupos |
+| Win | `NOTSA_WinMain` | punto de entrada del juego, no vuelve hasta cerrar |
+| CCollision | `SphereVsEntity` | el EXE no la llama y lee una esfera local sin inicializar |
+
+<!-- cola-validacion:end -->
