@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 8384,
+  "pairs_per_function": {
+    "CPed::Constructor": 512,
+    "CPed::Destructor": 512,
+    "CPed::Initialise": 16,
+    "CPed::Update": 16,
+    "CPed::Save": 128,
+    "CPed::Load": 128,
+    "CPed::FlagToDestroyWhenNextProcessed": 1024,
+    "CPed::CanBeArrested": 256,
+    "CPed::CanBeDeleted": 512,
+    "CPed::CanBeDeletedEvenInVehicle": 256,
+    "CPed::CanPedReturnToState": 256,
+    "CPed::CanSetPedState": 256,
+    "CPed::CanStrafeOrMouseControl": 256,
+    "CPed::IsAlive": 256,
+    "CPed::IsPedInControl": 512,
+    "CPed::IsPedShootable": 256,
+    "CPed::IsPlayer": 128,
+    "CPed::IsPointerValid": 1024,
+    "CPed::SetPedState": 512,
+    "CPed::SetPedStats": 128,
+    "CPed::SetPedDefaultDecisionMaker": 256,
+    "CPed::SetStayInSamePlace": 128,
+    "CPed::SetRadioStation": 512,
+    "CPed::GetBikeRidingSkill": 512,
+    "CPed::UpdateStatEnteringVehicle": 16,
+    "CPed::UpdateStatLeavingVehicle": 16
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "a467eb3b4a2fdc5ee3394735f0434a05a837ff3329c174e65c263064f94e8460",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-cpedd\\20261006-145942-411319",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CPed::Constructor": true,
+    "CPed::Destructor": true,
+    "CPed::Initialise": true,
+    "CPed::Update": true,
+    "CPed::Save": true,
+    "CPed::Load": true,
+    "CPed::FlagToDestroyWhenNextProcessed": true,
+    "CPed::CanBeArrested": true,
+    "CPed::CanBeDeleted": true,
+    "CPed::CanBeDeletedEvenInVehicle": true,
+    "CPed::CanPedReturnToState": true,
+    "CPed::CanSetPedState": true,
+    "CPed::CanStrafeOrMouseControl": true,
+    "CPed::IsAlive": true,
+    "CPed::IsPedInControl": true,
+    "CPed::IsPedShootable": true,
+    "CPed::IsPlayer": true,
+    "CPed::IsPointerValid": true,
+    "CPed::SetPedState": true,
+    "CPed::SetPedStats": true,
+    "CPed::SetPedDefaultDecisionMaker": true,
+    "CPed::SetStayInSamePlace": true,
+    "CPed::SetRadioStation": true,
+    "CPed::GetBikeRidingSkill": true,
+    "CPed::UpdateStatEnteringVehicle": true,
+    "CPed::UpdateStatLeavingVehicle": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "afe795f43c66cd12e2e4dc96cf034bd6e88e6468d3155684a6c1e0fc7a06504a",
+      "pdb": "fd991b8feab48f371e343509e04c5689ec839d556c5c97cc2d0dee754574c2e3"
+    },
+    "sources": {
+      "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+      "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+      "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "9094e160796f859dae5728ac81602fc5e0a3813d0e8e480f32ef88db18a8983d",
+      "build_probe.py": "6ad21e3ff4036a37731dbda7419a720918d45d24509b31e4571924f11a2ab818",
+      "run_local.py": "e93af7d4c148e89fb6755c8fb16d391dda05586a72e9d01f88863d0ded437289"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

@@ -151,6 +151,14 @@ public:
     }
 
     /*!
+    * @brief Como el original (p. ej. CPed::IsPointerValid 0x5E4220): índice por división con signo (hacia cero) del
+    * @brief desplazamiento respecto al almacenamiento, sin comprobar que el puntero pertenezca al pool.
+    */
+    int32 GetIndexUnchecked(const T* obj) const {
+        return int32(intptr_t(obj) - intptr_t(m_Storage)) / int32(sizeof(StorageType));
+    }
+
+    /*!
     * @brief Returns pointer to object by slot index
     */
     T* GetAt(size_t idx) {

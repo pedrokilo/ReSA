@@ -6,10 +6,10 @@ Universo de esta revisión: **7,947 entradas reversed=1**, de 8,441 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 5726 |
+| `validated=1` · evidencia aprobada vinculada | 5862 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 5726 |
-| Sin evidencia aprobada vinculada en este registro | 2221 |
+| Evidencia histórica vinculada; revisión pendiente | 5862 |
+| Sin evidencia aprobada vinculada en este registro | 2085 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -2278,12 +2278,148 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPPTriPlantBuffer | `SetGrassMaterialCB` | [Resumen](../reversing/Data7/validation-summary.json) |
 | CPPTriPlantBuffer | `SetPlantModelsTab` | [Resumen](../reversing/Data7/validation-summary.json) |
 | CPathNode | `GetPosition` | [Resumen](../reversing/Pools56/validation-summary.json) |
+| CPed | `AddGogglesModel` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `AddWeaponModel` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `AttachPedToBike` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `AttachPedToEntity` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `CalculateNewOrientation` | [Resumen](../reversing/CPedC/validation-summary.json) |
 | CPed | `CalculateNewVelocity` | [Resumen](../reversing/CPed/validation-summary.json) |
+| CPed | `CanBeArrested` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `CanBeDeleted` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `CanBeDeletedEvenInVehicle` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `CanPedHoldConversation` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `CanPedReturnToState` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `CanSeeEntity` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `CanSetPedState` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `CanStrafeOrMouseControl` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `CanThrowEntityThatThisPedIsHolding` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `CanUseTorsoWhenLooking` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `ClearAimFlag` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `ClearAll` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `ClearLook` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `ClearLookFlag` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `ClearWeapon` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `ClearWeapons` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `Constructor` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `CreateDeadPedMoney` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `CreateDeadPedPickupCoors-` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `CreateDeadPedWeaponPickups` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `DeadPedMakesTyresBloody` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `DeleteRwObject` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `Destructor` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `DettachPedFromEntity` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `DisablePedSpeech` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `DisablePedSpeechForScriptSpeech` | [Resumen](../reversing/CPedE/validation-summary.json) |
 | CPed | `DoFootLanded` | [Resumen](../reversing/CPed/validation-summary.json) |
+| CPed | `DoGunFlash` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `DoWeHaveWeaponAvailable` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `DoesLOSBulletHitPed` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `Dress` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `DropEntityThatThisPedIsHolding` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `EnablePedSpeech` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `EnablePedSpeechForScriptSpeech` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `FlagToDestroyWhenNextProcessed` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `GetBikeRidingSkill` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `GetBonePosition-Original` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `GetEntityThatThisPedIsHolding` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `GetHoldingTask` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `GetLocalDirection` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `GetPedTalking` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `GetTransformedBonePosition` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `GetWalkAnimSpeed` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `GetWeaponSkill-Current` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `GetWeaponSkill-WeaponType` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `GetWeaponSlot` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `GiveDelayedWeapon` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `GiveObjectToPedToHold` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `GiveWeapon-` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `GiveWeaponAtStartOfFight` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `GiveWeaponWhenJoiningGang` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `GrantAmmo` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `Initialise` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `IsAlive` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `IsPedHeadAbovePos` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `IsPedInControl` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `IsPedShootable` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `IsPlayer` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `IsPlayingHandSignal` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `IsPointerValid` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `IsWearingGoggles` | [Resumen](../reversing/CPedB/validation-summary.json) |
 | CPed | `KillPedWithCar` | [Resumen](../reversing/CPed/validation-summary.json) |
+| CPed | `Load` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `Look` | [Resumen](../reversing/CPedC/validation-summary.json) |
 | CPed | `MakeTyresMuddySectorList<CPtrListSingleLink<CPhysical*>>` | [Resumen](../reversing/CPed/validation-summary.json) |
+| CPed | `OurPedCanSeeThisEntity` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `PedCanPickUpPickUp` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `PedIsInvolvedInConversation` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `PedIsReadyForConversation` | [Resumen](../reversing/CPedE/validation-summary.json) |
 | CPed | `PlayFootSteps` | [Resumen](../reversing/CPed/validation-summary.json) |
+| CPed | `PositionAnyPedOutOfCollision` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `PositionAttachedPed` | [Resumen](../reversing/CPedE/validation-summary.json) |
 | CPed | `PositionPedOutOfCollision` | [Resumen](../reversing/CPed/validation-summary.json) |
+| CPed | `PreRender` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `PreRenderAfterTest` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `ProcessBuoyancy` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `PutOnGoggles` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `ReleaseCoverPoint` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `RemoveBodyPart` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `RemoveGogglesModel` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `RemoveLighting` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `RemoveWeaponAnims` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `RemoveWeaponForScriptedCutscene` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `RemoveWeaponModel` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `RemoveWeaponWhenEnteringVehicle` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `Render` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `ReplaceWeaponForScriptedCutscene` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `ReplaceWeaponWhenExitingVehicle` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `RequestDelayedWeapon` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `ResetGunFlashAlpha` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `RestartNonPartialAnims` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `RestoreHeadingRate` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `RestoreHeadingRateCB` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `Save` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `Say` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `SayScript` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `SetAimFlag-Entity` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `SetAimFlag-Heading` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `SetAmmo` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `SetCharCreatedBy` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `SetCurrentWeapon-Slot` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `SetCurrentWeapon-WepType` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `SetGunFlashAlpha` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `SetIdle` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `SetLook-Entity` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `SetLook-Heading` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `SetLookFlag-Entity` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `SetLookFlag-Heading` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `SetLookTimer` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `SetModelIndex` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `SetMoveAnim` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `SetMoveAnimSpeed` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `SetMoveState` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `SetPedAtomicVisibilityCB` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `SetPedDefaultDecisionMaker` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `SetPedPositionInCar` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `SetPedState` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `SetPedStats` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `SetRadioStation` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `SetStayInSamePlace` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `SetWeaponSkill` | [Resumen](../reversing/CPedA/validation-summary.json) |
+| CPed | `SetupLighting` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `ShoulderBoneRotation` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `SpawnFlyingComponent` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `StopNonPartialAnims` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `StopPlayingHandSignal` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `TakeOffGoggles` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `Teleport` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `TurnBody` | [Resumen](../reversing/CPedC/validation-summary.json) |
+| CPed | `Undress` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `Update` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `UpdatePosition` | [Resumen](../reversing/CPedE/validation-summary.json) |
+| CPed | `UpdateStatEnteringVehicle` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `UpdateStatLeavingVehicle` | [Resumen](../reversing/CPedD/validation-summary.json) |
+| CPed | `UseGroundColModel` | [Resumen](../reversing/CPedB/validation-summary.json) |
+| CPed | `WorkOutHeadingForMovingFirstPerson` | [Resumen](../reversing/CPedC/validation-summary.json) |
 | CPed | `operator delete-anon` | [Resumen](../reversing/FixCore/validation-summary.json) |
 | CPed | `operator new-anon` | [Resumen](../reversing/FixCore/validation-summary.json) |
 | CPed | `operator new-poolIndexed` | [Resumen](../reversing/FixCore/validation-summary.json) |
@@ -6040,7 +6176,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPad` | 75 | 0 | 0 | 75 |
 | `CPathFind` | 54 | 0 | 0 | 54 |
 | `CPathNode` | 1 | 0 | 1 | 0 |
-| `CPed` | 145 | 0 | 9 | 136 |
+| `CPed` | 145 | 0 | 145 | 0 |
 | `CPedAttractor` | 19 | 0 | 19 | 0 |
 | `CPedAttractorManager` | 14 | 0 | 14 | 0 |
 | `CPedAttractorPedPlacer` | 1 | 0 | 1 | 0 |

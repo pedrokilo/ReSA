@@ -1183,5 +1183,30 @@
     "id": "menumgrd",
     "name": "CMenuManager grupo D (estado, texturas y ajustes)",
     "runner": "MenuMgrD/run_local.py"
+  },
+  {
+    "id": "cpeda",
+    "name": "CPed grupo A (armas e inventario)",
+    "runner": "CPedA/run_local.py"
+  },
+  {
+    "id": "cpedb",
+    "name": "CPed grupo B (ropa, dibujo y muerte)",
+    "runner": "CPedB/run_local.py"
+  },
+  {
+    "id": "cpedc",
+    "name": "CPed grupo C (mirar, apuntar y animaciones)",
+    "runner": "CPedC/run_local.py"
+  },
+  {
+    "id": "cpedd",
+    "name": "CPed grupo D (ciclo de vida, estado y consultas)",
+    "runner": "CPedD/run_local.py"
+  },
+  {
+    "id": "cpede",
+    "name": "CPed grupo E (posición, enganches, voz y percepción)",
+    "runner": "CPedE/run_local.py"
   }
 ]

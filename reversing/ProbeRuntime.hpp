@@ -8,7 +8,8 @@
 namespace ReversingProbe {
 inline std::filesystem::path failureLog;
 inline void Fail(const json& record,UINT code){std::ofstream file(failureLog,std::ios::app);file<<record.dump()<<'\n';file.flush();ExitProcess(code);}
-inline int __cdecl RuntimeFailure(int,const wchar_t*,int,const wchar_t*,const wchar_t*,...){Fail({{"event","error"},{"reason","RTC failure before or during probe"}},92);return 0;}
+inline json SymbolStack();
+inline int __cdecl RuntimeFailure(int num,const wchar_t* file,int line,const wchar_t* module,const wchar_t* fmt,...){char f[512]{},m[512]{},t[512]{};if(file)WideCharToMultiByte(CP_UTF8,0,file,-1,f,511,nullptr,nullptr);if(module)WideCharToMultiByte(CP_UTF8,0,module,-1,m,511,nullptr,nullptr);if(fmt)WideCharToMultiByte(CP_UTF8,0,fmt,-1,t,511,nullptr,nullptr);Fail({{"event","error"},{"reason","RTC failure before or during probe"},{"rtc_number",num},{"file",f},{"line",line},{"module",m},{"format",t},{"stack",SymbolStack()}},92);return 0;}
 inline json SymbolStack(){void* frames[24]{};const auto n=CaptureStackBackTrace(1,24,frames,nullptr);static bool init=SymInitialize(GetCurrentProcess(),nullptr,TRUE);json st=json::array();
     for(USHORT k=0;k<n;++k){alignas(SYMBOL_INFO) char buf[sizeof(SYMBOL_INFO)+256]{};auto* si=reinterpret_cast<SYMBOL_INFO*>(buf);si->SizeOfStruct=sizeof(SYMBOL_INFO);si->MaxNameLen=255;DWORD64 d=0;
         if(init&&SymFromAddr(GetCurrentProcess(),DWORD64(frames[k]),&d,si))st.push_back(std::string(si->Name)+"+"+std::to_string(d));else st.push_back(uintptr_t(frames[k]));}return st;}

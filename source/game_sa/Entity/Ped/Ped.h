@@ -470,7 +470,7 @@ public:
     bool IsPointerValid();
     CVector GetBonePosition(eBoneTag boneId, bool updateSkinBones = false);
     void GetBonePosition(CVector* outVec, eBoneTag bone, bool updateSkinBones);
-    void GiveObjectToPedToHold(int32 modelIndex, uint8 replace);
+    CObject* GiveObjectToPedToHold(int32 modelIndex, uint8 replace);
     void SetPedState(ePedState pedState);
     ePedState GetPedState() { return m_nPedState; }
     //1 = default, 2 = scm/mission script
@@ -500,7 +500,7 @@ public:
     void SetIdle();
     void SetLook(float heading);
     void SetLook(CEntity* entity);
-    void Look();
+    bool Look(); // Como el original: 0x5E7B20 es un jmp a TurnBody y devuelve su resultado
     CEntity* AttachPedToEntity(CEntity* entity, CVector offset, uint16 arg2, float arg3, eWeaponType weaponType);
     void AttachPedToBike(CEntity* entity, CVector offset, uint16 arg2, float arg3, float arg4, eWeaponType weaponType);
     void DettachPedFromEntity();

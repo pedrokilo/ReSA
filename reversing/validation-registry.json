@@ -192170,6 +192170,3568 @@
       "dependency_review": null,
       "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 6784 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
       "review_reference": "reversing/MenuMgrD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "GetWeaponSlot",
+        "address": "0x005DF200",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::GetWeaponSlot"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "GrantAmmo",
+        "address": "0x005DF220",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::GrantAmmo"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetAmmo",
+        "address": "0x005DF290",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetAmmo"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "DoWeHaveWeaponAvailable",
+        "address": "0x005DF300",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::DoWeHaveWeaponAvailable"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "DoGunFlash",
+        "address": "0x005DF340",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::DoGunFlash"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetGunFlashAlpha",
+        "address": "0x005DF400",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetGunFlashAlpha"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "ResetGunFlashAlpha",
+        "address": "0x005DF4E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::ResetGunFlashAlpha"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "GetHoldingTask",
+        "address": "0x005E0290",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::GetHoldingTask"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "GetEntityThatThisPedIsHolding",
+        "address": "0x005E02E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::GetEntityThatThisPedIsHolding"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "DropEntityThatThisPedIsHolding",
+        "address": "0x005E0360",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::DropEntityThatThisPedIsHolding"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "CanThrowEntityThatThisPedIsHolding",
+        "address": "0x005E0400",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::CanThrowEntityThatThisPedIsHolding"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "GiveObjectToPedToHold",
+        "address": "0x005E4390",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::GiveObjectToPedToHold"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "RemoveWeaponModel",
+        "address": "0x005E3990",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::RemoveWeaponModel"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "AddWeaponModel",
+        "address": "0x005E5ED0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::AddWeaponModel"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "GetWeaponSkill-Current",
+        "address": "0x005E6580",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::GetWeaponSkill-Current"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "GetWeaponSkill-WeaponType",
+        "address": "0x005E3B60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::GetWeaponSkill-WeaponType"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetWeaponSkill",
+        "address": "0x005E3C10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetWeaponSkill"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "GiveWeapon-",
+        "address": "0x005E6080",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::GiveWeapon-"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetCurrentWeapon-Slot",
+        "address": "0x005E61F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetCurrentWeapon-Slot"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetCurrentWeapon-WepType",
+        "address": "0x005E6280",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetCurrentWeapon-WepType"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "ClearWeapon",
+        "address": "0x005E62B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::ClearWeapon"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "ClearWeapons",
+        "address": "0x005E6320",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::ClearWeapons"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "RemoveWeaponWhenEnteringVehicle",
+        "address": "0x005E6370",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::RemoveWeaponWhenEnteringVehicle"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "ReplaceWeaponWhenExitingVehicle",
+        "address": "0x005E6490",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::ReplaceWeaponWhenExitingVehicle"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "ReplaceWeaponForScriptedCutscene",
+        "address": "0x005E6530",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::ReplaceWeaponForScriptedCutscene"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "RemoveWeaponForScriptedCutscene",
+        "address": "0x005E6550",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::RemoveWeaponForScriptedCutscene"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "RequestDelayedWeapon",
+        "address": "0x005E8910",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::RequestDelayedWeapon"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "GiveDelayedWeapon",
+        "address": "0x005E89B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::GiveDelayedWeapon"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "GiveWeaponAtStartOfFight",
+        "address": "0x005E8AB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::GiveWeaponAtStartOfFight"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "GiveWeaponWhenJoiningGang",
+        "address": "0x005E8BE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::GiveWeaponWhenJoiningGang"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "RemoveWeaponAnims",
+        "address": "0x005F0250",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedA/validation-summary.json",
+        "sha256": "9668eaf14c1b4143301a863e18caca625e281b870c2a4701aa9d0e977222099d",
+        "passed_path": [
+          "covered_functions",
+          "CPed::RemoveWeaponAnims"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145517-907678).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14080 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "CanUseTorsoWhenLooking",
+        "address": "0x005DED90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::CanUseTorsoWhenLooking"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "ClearAimFlag",
+        "address": "0x005DEF20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::ClearAimFlag"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "ClearAll",
+        "address": "0x005E5320",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::ClearAll"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "ClearLook",
+        "address": "0x005E3FF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::ClearLook"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "ClearLookFlag",
+        "address": "0x005E1950",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::ClearLookFlag"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "Look",
+        "address": "0x005E7B20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::Look"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetAimFlag-Entity",
+        "address": "0x005DEED0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetAimFlag-Entity"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetAimFlag-Heading",
+        "address": "0x005E8830",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetAimFlag-Heading"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetLook-Entity",
+        "address": "0x005E7A60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetLook-Entity"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetLook-Heading",
+        "address": "0x005E79B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetLook-Heading"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetLookFlag-Entity",
+        "address": "0x005DEE40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetLookFlag-Entity"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetLookFlag-Heading",
+        "address": "0x005DEDC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetLookFlag-Heading"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetLookTimer",
+        "address": "0x005DF8D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetLookTimer"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "TurnBody",
+        "address": "0x005E4000",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::TurnBody"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "2048 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "ShoulderBoneRotation",
+        "address": "0x005DF560",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::ShoulderBoneRotation"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "RestoreHeadingRate",
+        "address": "0x005DFD60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::RestoreHeadingRate"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "RestoreHeadingRateCB",
+        "address": "0x005DFD70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::RestoreHeadingRateCB"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetIdle",
+        "address": "0x005E7980",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetIdle"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "StopNonPartialAnims",
+        "address": "0x005DED10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::StopNonPartialAnims"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "RestartNonPartialAnims",
+        "address": "0x005DED50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::RestartNonPartialAnims"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetMoveAnim",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetMoveAnim"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetMoveAnimSpeed",
+        "address": "0x005DEC10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetMoveAnimSpeed"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetMoveState",
+        "address": "0x005DEC00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetMoveState"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "GetWalkAnimSpeed",
+        "address": "0x005E04B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::GetWalkAnimSpeed"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "CalculateNewOrientation",
+        "address": "0x005E52E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::CalculateNewOrientation"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "WorkOutHeadingForMovingFirstPerson",
+        "address": "0x005E1A00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::WorkOutHeadingForMovingFirstPerson"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "GetLocalDirection",
+        "address": "0x005DEF60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::GetLocalDirection"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "2048 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "IsPlayingHandSignal",
+        "address": "0x005E0460",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::IsPlayingHandSignal"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "StopPlayingHandSignal",
+        "address": "0x005E0480",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedC/validation-summary.json",
+        "sha256": "ad61db758117f4d28c76ecdda694349eb3d5bdfa7370105e45e81f5c22962048",
+        "passed_path": [
+          "covered_functions",
+          "CPed::StopPlayingHandSignal"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145846-990320).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 15552 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "Constructor",
+        "address": "0x005E8030",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::Constructor"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "Destructor",
+        "address": "0x005E8620",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::Destructor"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "Initialise",
+        "address": "0x005DEBB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::Initialise"
+        ],
+        "pairs": 16,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "16 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "Update",
+        "address": "0x005DEBE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::Update"
+        ],
+        "pairs": 16,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "16 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "Save",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::Save"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "Load",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::Load"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "FlagToDestroyWhenNextProcessed",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::FlagToDestroyWhenNextProcessed"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "CanBeArrested",
+        "address": "0x005DF060",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::CanBeArrested"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "CanBeDeleted",
+        "address": "0x005DF100",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::CanBeDeleted"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "CanBeDeletedEvenInVehicle",
+        "address": "0x005DF150",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::CanBeDeletedEvenInVehicle"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "CanPedReturnToState",
+        "address": "0x005DF000",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::CanPedReturnToState"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "CanSetPedState",
+        "address": "0x005DF030",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::CanSetPedState"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "CanStrafeOrMouseControl",
+        "address": "0x005DF090",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::CanStrafeOrMouseControl"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "IsAlive",
+        "address": "0x005E0170",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::IsAlive"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "IsPedInControl",
+        "address": "0x005E3960",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::IsPedInControl"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "IsPedShootable",
+        "address": "0x005DEFD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::IsPedShootable"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "IsPlayer",
+        "address": "0x005DF8F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::IsPlayer"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "IsPointerValid",
+        "address": "0x005E4220",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::IsPointerValid"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetPedState",
+        "address": "0x005E4500",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetPedState"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetPedStats",
+        "address": "0x005DEBC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetPedStats"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetPedDefaultDecisionMaker",
+        "address": "0x005E06E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetPedDefaultDecisionMaker"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetStayInSamePlace",
+        "address": "0x00481090",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetStayInSamePlace"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetRadioStation",
+        "address": "0x005DFD90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetRadioStation"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "GetBikeRidingSkill",
+        "address": "0x005DF510",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::GetBikeRidingSkill"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "UpdateStatEnteringVehicle",
+        "address": "0x005E01A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::UpdateStatEnteringVehicle"
+        ],
+        "pairs": 16,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "16 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "UpdateStatLeavingVehicle",
+        "address": "0x005E01B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedD/validation-summary.json",
+        "sha256": "127dcdfa581237508dd5d2782d8ad914ae8d72643ac464b59cd139c451d8cfd5",
+        "passed_path": [
+          "covered_functions",
+          "CPed::UpdateStatLeavingVehicle"
+        ],
+        "pairs": 16,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341",
+        "source/game_sa/Core/Pool.h": "e2d06906e812b180d3a69211408c02959d9fd41cd5e58453e2a2f2c6d541fd32"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145942-411319).",
+      "dependency_review": null,
+      "scope": "16 pares original/candidato con hook conmutado dentro del motor; banco de 8384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "AttachPedToBike",
+        "address": "0x005E7E60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::AttachPedToBike"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "AttachPedToEntity",
+        "address": "0x005E7CB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::AttachPedToEntity"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "DettachPedFromEntity",
+        "address": "0x005E7EC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::DettachPedFromEntity"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "PositionAnyPedOutOfCollision",
+        "address": "0x005E13C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::PositionAnyPedOutOfCollision"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "PositionAttachedPed",
+        "address": "0x005DFDF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::PositionAttachedPed"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "UpdatePosition",
+        "address": "0x005E1B10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::UpdatePosition"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "Teleport",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::Teleport"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetPedPositionInCar",
+        "address": "0x005DF910",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetPedPositionInCar"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "GetBonePosition-Original",
+        "address": "0x005E4280",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::GetBonePosition-Original"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "GetTransformedBonePosition",
+        "address": "0x005E01C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::GetTransformedBonePosition"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "CanSeeEntity",
+        "address": "0x005E0730",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::CanSeeEntity"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "OurPedCanSeeThisEntity",
+        "address": "0x005E1660",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::OurPedCanSeeThisEntity"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "DoesLOSBulletHitPed",
+        "address": "0x005F01A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::DoesLOSBulletHitPed"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "IsPedHeadAbovePos",
+        "address": "0x005F02C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::IsPedHeadAbovePos"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "ReleaseCoverPoint",
+        "address": "0x005E0270",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::ReleaseCoverPoint"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "Say",
+        "address": "0x005EFFE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::Say"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SayScript",
+        "address": "0x005EFFB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SayScript"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "DisablePedSpeech",
+        "address": "0x005EFF60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::DisablePedSpeech"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "DisablePedSpeechForScriptSpeech",
+        "address": "0x005EFF80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::DisablePedSpeechForScriptSpeech"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "EnablePedSpeech",
+        "address": "0x005EFF70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::EnablePedSpeech"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "EnablePedSpeechForScriptSpeech",
+        "address": "0x005EFF90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::EnablePedSpeechForScriptSpeech"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "GetPedTalking",
+        "address": "0x005EFF50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::GetPedTalking"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "CanPedHoldConversation",
+        "address": "0x005EFFA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::CanPedHoldConversation"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "PedIsInvolvedInConversation",
+        "address": "0x0043AB90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::PedIsInvolvedInConversation"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "PedIsReadyForConversation",
+        "address": "0x0043ABA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedE/validation-summary.json",
+        "sha256": "1f44921ff613a1e5272e22cf4e6fb9c0f8f70dff61d401b8d9c316da13e0d159",
+        "passed_path": [
+          "covered_functions",
+          "CPed::PedIsReadyForConversation"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-150049-052551).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10368 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "AddGogglesModel",
+        "address": "0x005E3A90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::AddGogglesModel"
+        ],
+        "pairs": 192,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "192 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "RemoveGogglesModel",
+        "address": "0x005DF170",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::RemoveGogglesModel"
+        ],
+        "pairs": 192,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "192 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "PutOnGoggles",
+        "address": "0x005E3AE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::PutOnGoggles"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "TakeOffGoggles",
+        "address": "0x005E6010",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::TakeOffGoggles"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "IsWearingGoggles",
+        "address": "0x00479D10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::IsWearingGoggles"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "Dress",
+        "address": "0x005E0130",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::Dress"
+        ],
+        "pairs": 192,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "192 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "Undress",
+        "address": "0x005E00F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::Undress"
+        ],
+        "pairs": 192,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "192 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "CreateDeadPedMoney",
+        "address": "0x004590F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::CreateDeadPedMoney"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "CreateDeadPedPickupCoors-",
+        "address": "0x00459180",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::CreateDeadPedPickupCoors-"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "CreateDeadPedWeaponPickups",
+        "address": "0x004591D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::CreateDeadPedWeaponPickups"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "DeadPedMakesTyresBloody",
+        "address": "0x006B4200",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::DeadPedMakesTyresBloody"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "RemoveBodyPart",
+        "address": "0x005F0140",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::RemoveBodyPart"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SpawnFlyingComponent",
+        "address": "0x005F0190",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SpawnFlyingComponent"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "PedCanPickUpPickUp",
+        "address": "0x00455560",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::PedCanPickUpPickUp"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetPedAtomicVisibilityCB",
+        "address": "0x005F0060",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetPedAtomicVisibilityCB"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetupLighting",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetupLighting"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "RemoveLighting",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::RemoveLighting"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "Render",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::Render"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "PreRender",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::PreRender"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "PreRenderAfterTest",
+        "address": "0x005E65A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::PreRenderAfterTest"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "DeleteRwObject",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::DeleteRwObject"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetModelIndex",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetModelIndex"
+        ],
+        "pairs": 384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "384 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "SetCharCreatedBy",
+        "address": "0x005E47E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::SetCharCreatedBy"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "UseGroundColModel",
+        "address": "0x005DEFE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::UseGroundColModel"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CPed",
+        "fn_name": "ProcessBuoyancy",
+        "address": "0x005E1FA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CPedB/validation-summary.json",
+        "sha256": "1cbc3cb5177aaa34fa9ac3809dcdfaf9136b305d7a86f0e5209572a86ee075e1",
+        "passed_path": [
+          "covered_functions",
+          "CPed::ProcessBuoyancy"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Ped/Ped.cpp": "f794140a0cdaa4a309ad9c98229881dfe1ce230f49d33e6af3577fb3fde539a6",
+        "source/game_sa/Entity/Ped/Ped.h": "77c646a8de91c6bdb4d8a0a115baa910d6601722b63c00b22a95db4d29f5e341"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-145805-416086).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 7232 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CPedB/README.md"
     }
   ]
 }
