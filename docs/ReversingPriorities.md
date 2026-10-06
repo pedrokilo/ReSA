@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 8.441 |
 | Reconstruidas | 7.947 |
-| Validadas | 5.665 |
-| Reconstruidas sin validar | 2.282 |
-| De ellas, en esta cola (validables por pares) | 2.278 |
+| Validadas | 5.726 |
+| Reconstruidas sin validar | 2.221 |
+| De ellas, en esta cola (validables por pares) | 2.217 |
 | Sin reconstruir (en 69 clases incompletas) | 494 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -23,10 +23,10 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
 | [🟢 Nivel 1: muy barato](#nivel-1) | 0 | 0 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
-| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 9 | 569 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
+| [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 8 | 508 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
 | [🟠 Nivel 3: moderadas](#nivel-3) | 37 | 776 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 33 | 933 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **79** | **2278** | |
+| **Total** | **78** | **2217** | |
 
 <a id="nivel-1"></a>
 
@@ -39,7 +39,7 @@ Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
 <a id="nivel-2"></a>
 
-## 🟡 Nivel 2: baratas por función, pero muchas (9 clases, 569 funciones)
+## 🟡 Nivel 2: baratas por función, pero muchas (8 clases, 508 funciones)
 
 Criterio: más de 12 funciones y hasta 25 líneas por función.
 
@@ -48,12 +48,11 @@ Criterio: más de 12 funciones y hasta 25 líneas por función.
 | 1 | FxSystem_c | 35 | 31 | 4 | 15 |
 | 2 | CPickups | 37 | 35 | 2 | 23 |
 | 3 | CPathFind | 56 | 54 | 2 | 25 |
-| 4 | CMenuManager | 61 | 61 |  | 20 |
-| 5 | CCheat | 72 | 72 |  | 17 |
-| 6 | CPad | 75 | 75 |  | 19 |
-| 7 | CVehicleModelInfo | 75 | 75 |  | 22 |
-| 8 | CAudioEngine | 82 | 82 |  | 10 |
-| 9 | CVisibilityPlugins | 84 | 84 |  | 14 |
+| 4 | CCheat | 72 | 72 |  | 17 |
+| 5 | CPad | 75 | 75 |  | 19 |
+| 6 | CVehicleModelInfo | 75 | 75 |  | 22 |
+| 7 | CAudioEngine | 82 | 82 |  | 10 |
+| 8 | CVisibilityPlugins | 84 | 84 |  | 14 |
 
 <a id="nivel-3"></a>
 
@@ -97,7 +96,7 @@ Criterio: el resto.
 | 32 | CPostEffects | 38 | 35 | 3 | 33 |
 | 33 | CRadar | 63 | 63 |  | 34 |
 | 34 | CPopulation | 66 | 64 | 2 | 31 |
-| 35 | CTheScripts | 69 | 69 |  | 29 |
+| 35 | CTheScripts | 69 | 69 |  | 30 |
 | 36 | CEventHandler | 72 | 69 | 3 | 45 |
 | 37 | CEntity | 70 | 70 |  | 35 |
 

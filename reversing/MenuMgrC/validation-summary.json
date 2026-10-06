@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 14336,
+  "pairs_per_function": {
+    "CMenuManager::Process": 256,
+    "CMenuManager::ProcessMenuOptions": 2048,
+    "CMenuManager::ProcessPCMenuOptions": 4096,
+    "CMenuManager::ProcessMissionPackNewGame": 512,
+    "CMenuManager::CheckMissionPackValidMenu": 512,
+    "CMenuManager::SwitchToNewScreen": 2048,
+    "CMenuManager::JumpToGenericMessageScreen": 512,
+    "CMenuManager::SaveLoadFileError_SetUpErrorScreen": 128,
+    "CMenuManager::GetNumberOfMenuOptions": 1024,
+    "CMenuManager::ProcessFileActions": 1024,
+    "CMenuManager::DoSettingsBeforeStartingAGame": 512,
+    "CMenuManager::ProcessStreaming": 1024,
+    "CMenuManager::HasLanguageChanged": 128,
+    "CMenuManager::InitialiseChangedLanguageSettings": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "ad8a4ac98871aaa9c089b554d84e33d0557b0da6026cb8b016fb4a1a96d6499a",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-menumgrc\\20261006-130318-152075",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CMenuManager::Process": true,
+    "CMenuManager::ProcessMenuOptions": true,
+    "CMenuManager::ProcessPCMenuOptions": true,
+    "CMenuManager::ProcessMissionPackNewGame": true,
+    "CMenuManager::CheckMissionPackValidMenu": true,
+    "CMenuManager::SwitchToNewScreen": true,
+    "CMenuManager::JumpToGenericMessageScreen": true,
+    "CMenuManager::SaveLoadFileError_SetUpErrorScreen": true,
+    "CMenuManager::GetNumberOfMenuOptions": true,
+    "CMenuManager::ProcessFileActions": true,
+    "CMenuManager::DoSettingsBeforeStartingAGame": true,
+    "CMenuManager::ProcessStreaming": true,
+    "CMenuManager::HasLanguageChanged": true,
+    "CMenuManager::InitialiseChangedLanguageSettings": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "ddc8d851a585941dec95c5b010cc74fac3fcac2a5f1e93e89473daf57b429ad3",
+      "pdb": "b7e306865d1239894860a10d00869d783571e179a7e3308cf80529e184341915"
+    },
+    "sources": {
+      "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+      "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+      "source/game_sa/Frontend/MenuManager_Process.cpp": "29f2542ce3ab46d4899379d5d7d42e532eba56a63a02e193cc0246b969a370aa",
+      "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279",
+      "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "8c262bad43a6c536d916cac528c3c9572210b57da965f73cc9d382b853695289",
+      "build_probe.py": "ee2d6a960f8438247a87011bcae1e7d085d3e6d160f98632be4a3d02a1a2fb63",
+      "run_local.py": "fb2a27044b5f2fe0b74e63834936d81e0af8903737f06cac7fab56c3fb256c85"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

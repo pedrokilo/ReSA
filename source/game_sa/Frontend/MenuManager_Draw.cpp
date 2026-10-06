@@ -460,7 +460,7 @@ void CMenuManager::DrawStandardMenus(bool drawTitle) {
         // Como el original: W - 40 en entero y escala inline (0.49/640, 1.2/448)
         CFont::SetWrapx((float)(RsGlobal.maximumWidth - 40));
         CFont::SetFontStyle(eFontStyle::FONT_SUBTITLES);
-        CFont::SetScaleForCurrentLanguage(InlineScaleX(0.49f, 0x3A48B439u), InlineScaleY(1.2f, 0x3B2F8AF9u));
+        CFont::SetScaleForCurrentLanguage(InlineScaleX(std::bit_cast<float>(0x3EFAE147u), 0x3A48B439u), InlineScaleY(1.2f, 0x3B2F8AF9u));
         CFont::SetOrientation(eFontAlignment::ALIGN_LEFT);
         CFont::SetEdge(2);
         CFont::SetDropColor(MENU_BG);
@@ -514,7 +514,7 @@ void CMenuManager::DrawStandardMenus(bool drawTitle) {
             CFont::SetEdge(2);
         } else {
             CFont::SetEdge(1);
-            CFont::SetScale(InlineScaleX(0.42f, 0x3A2C0832u), InlineScaleY(0.95f, 0x3B0AF8AFu));
+            CFont::SetScale(InlineScaleX(std::bit_cast<float>(0x3ED70A3Eu), 0x3A2C0832u), InlineScaleY(0.95f, 0x3B0AF8AFu));
         }
         CFont::SetDropColor(MENU_BG);
         if (i == m_nCurrentScreenItem && m_bMapLoaded) {
@@ -551,26 +551,23 @@ void CMenuManager::DrawStandardMenus(bool drawTitle) {
 
         switch (item.m_nType) {
         case eMenuEntryType::TI_MPACK: {
-            // Check if the index is within bounds
-            if (i - 2 < MPACK_COUNT && i - 2 >= 0) {
-                const auto& MPacks = m_MissionPacks[i - 2];
-                // Como el original: se mira el id del pack (no el nombre) y el nombre va a gGxtString (0xC1B100)
-                if (!MPacks.m_Id) {
-                    item.m_nActionType = eMenuAction::MENU_ACTION_SKIP;
-                    displayText = nullptr;
-                    item.m_Y = aScreens[m_nCurrentScreen].m_aItems[i - 1].m_Y;
-                } else {
-                    AsciiToGxtChar(MPacks.m_Name, gGxtString);
-                    item.m_nActionType = eMenuAction::MENU_ACTION_MPACK;
-                    displayText = gGxtString;
-                }
+            // Como el original (0x579CDD): sin comprobar el rango del índice (con i < 2 lee antes del array)
+            const auto& MPacks = m_MissionPacks[i - 2];
+            // Como el original: se mira el id del pack (no el nombre) y el nombre va a gGxtString (0xC1B100)
+            if (!MPacks.m_Id) {
+                item.m_nActionType = eMenuAction::MENU_ACTION_SKIP;
+                displayText = nullptr;
+                item.m_Y = aScreens[m_nCurrentScreen].m_aItems[i - 1].m_Y;
             } else {
-                NOTSA_UNREACHABLE("Index out of bounds for missionPacksArray");
+                AsciiToGxtChar(MPacks.m_Name, gGxtString);
+                item.m_nActionType = eMenuAction::MENU_ACTION_MPACK;
+                displayText = gGxtString;
             }
             break;
         }
         case eMenuEntryType::TI_MOUSEJOYPAD:
-            displayText = TheText.Get(m_ControlMethod == eController::JOYPAD
+            // Como el original (0x579D5A): cualquier método distinto de 0 es el del mando
+            displayText = TheText.Get(m_ControlMethod != eController::MOUSE_PLUS_KEYS
                 ? "FEJ_TIT" // Joypad Settings
                 : "FEC_MOU" // Mouse Settings
             );
@@ -601,7 +598,7 @@ void CMenuManager::DrawStandardMenus(bool drawTitle) {
                     break;
                 }
                 if (!displayText || !*displayText) { // Empty slot
-                    sprintf_s(gString, "FEM_SL%d", i);
+                    std::sprintf(gString, "FEM_SL%d", i); // Como el original: sprintf (0x821BB5); sprintf_s rellena el resto con 0xFE en depuración
                     CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
                     item.m_X = DEFAULT_CONTENT_X;
                     displayText = TheText.Get(gString);
@@ -641,7 +638,7 @@ void CMenuManager::DrawStandardMenus(bool drawTitle) {
             case eRadarMode::RADAR_MODE_MAPS_AND_BLIPS: rightColumnText = TheText.Get("FED_RDM"); break; // MAP & BLIPS
             case eRadarMode::RADAR_MODE_BLIPS_ONLY:     rightColumnText = TheText.Get("FED_RDB"); break; // BLIPS ONLY
             case eRadarMode::RADAR_MODE_OFF:            rightColumnText = TheText.Get("FEM_OFF"); break; // OFF
-            default:                         NOTSA_UNREACHABLE();
+            default:                                    break; // Como el original: otro valor no deja texto en la columna derecha
             }
             break;
         case eMenuAction::MENU_ACTION_LANGUAGE:
@@ -651,7 +648,7 @@ void CMenuManager::DrawStandardMenus(bool drawTitle) {
             case eLanguage::GERMAN:   rightColumnText = TheText.Get("FEL_GER"); break; // German
             case eLanguage::ITALIAN:  rightColumnText = TheText.Get("FEL_ITA"); break; // Italian
             case eLanguage::SPANISH:  rightColumnText = TheText.Get("FEL_SPA"); break; // Spanish
-            default:                  NOTSA_UNREACHABLE();
+            default:                  break; // Como el original: otro valor no deja texto en la columna derecha
             }
             break;
         case eMenuAction::MENU_ACTION_FX_QUALITY:
@@ -660,7 +657,7 @@ void CMenuManager::DrawStandardMenus(bool drawTitle) {
             case FxQuality_e::FX_QUALITY_MEDIUM:    rightColumnText = TheText.Get("FED_FXM"); break; // MEDIUM
             case FxQuality_e::FX_QUALITY_HIGH:      rightColumnText = TheText.Get("FED_FXH"); break; // HIGH
             case FxQuality_e::FX_QUALITY_VERY_HIGH: rightColumnText = TheText.Get("FED_FXV"); break; // VERY HIGH
-            default:                                NOTSA_UNREACHABLE();
+            default:                                break; // Como el original: otro valor no deja texto en la columna derecha
             }
             break;
         case eMenuAction::MENU_ACTION_MIP_MAPPING:
@@ -703,10 +700,12 @@ void CMenuManager::DrawStandardMenus(bool drawTitle) {
             break;
         }
         case eMenuAction::MENU_ACTION_CONTROL_TYPE:
-            rightColumnText = TheText.Get(m_ControlMethod == eController::JOYPAD
-                ? "FET_CCN" // Joypad
-                : "FET_SCN" // Mouse + Keys
-            );
+            // Como el original (0x57A141): solo 0 y 1 dan texto; otro valor no deja texto
+            switch (m_ControlMethod) {
+            case eController::MOUSE_PLUS_KEYS: rightColumnText = TheText.Get("FET_SCN"); break; // Mouse + Keys
+            case eController::JOYPAD:          rightColumnText = TheText.Get("FET_CCN"); break; // Joypad
+            default:                           break;
+            }
             break;
         case eMenuAction::MENU_ACTION_MOUSE_STEERING:
             rightColumnText = GetOnOffText(CVehicle::m_bEnableMouseSteering);
@@ -721,7 +720,8 @@ void CMenuManager::DrawStandardMenus(bool drawTitle) {
             }
             break;
         case eMenuAction::MENU_ACTION_USER_TRACKS_PLAY_MODE:
-            if (m_RadioMode < RADIO_MODE_COUNT) {
+            // Como el original (0x579E7A): solo 0, 1 y 2 dan texto (FEA_PR1/2/3)
+            if (m_RadioMode >= 0 && m_RadioMode < RADIO_MODE_COUNT) {
                 rightColumnText = TheText.Get(std::format("FEA_PR{}", m_RadioMode + 1).c_str());
             }
             break;
@@ -827,17 +827,35 @@ void CMenuManager::DrawStandardMenus(bool drawTitle) {
             SetHelperText(eHelperText::FET_RSO);
         }
 
-        const auto processSlider = [&](float value, eMouseInBounds leftBound, eMouseInBounds rightBound, bool isRadioVolumeSlider = false) {
-            const auto verticalOffset = isRadioVolumeSlider ? 30.0f : 0.0f;
-            const auto sliderPos = DisplaySlider(StretchX(500.0f), StretchY(125.0f - verticalOffset), StretchY(4.0f), StretchY(20.0f), StretchX(100.0f), value, (int32)StretchX(3.0f));
+        // Como el original (0x57A7D4): las medidas de la barra van en línea con el atajo 640x448 y la constante
+        // precalculada (valor/640 o valor/448); el resto de comprobaciones usan StretchX/StretchY (0x5733E0/0x573410).
+        const auto processSlider = [&](float value, eMouseInBounds leftBound, eMouseInBounds rightBound, bool isRadioVolumeSlider = false, bool onlyCheckX = false) {
+            const float top    = isRadioVolumeSlider ? 95.0f  : 125.0f;
+            const float bottom = isRadioVolumeSlider ? 120.0f : 150.0f;
+            const auto sliderPos = DisplaySlider(
+                InlineScaleX(500.0f, 0x3F480000u),
+                InlineScaleY(top, isRadioVolumeSlider ? 0x3E592492u : 0x3E8EDB6Eu),
+                InlineScaleY(4.0f, 0x3C124925u),
+                InlineScaleY(20.0f, 0x3D36DB6Eu),
+                InlineScaleX(100.0f, 0x3E200000u),
+                value,
+                (int32)InlineScaleX(3.0f, 0x3B99999Au)
+            );
             if (i == m_nCurrentScreenItem && shouldDrawStandardItems) {
-                if (CheckHover(0, (int32)(sliderPos - StretchX(3.0f)), (int32)StretchY(125.0f - verticalOffset), (int32)StretchY(150.0f - verticalOffset))) {
+                if (CheckHover(0, (int32)((float)sliderPos - StretchX(3.0f)), (int32)StretchY(top), (int32)StretchY(bottom))) {
                     m_MouseInBounds = leftBound;
-                } else if (CheckHover((int32)(sliderPos + StretchX(3.0f)), (int32)StretchX(SCREEN_WIDTH), (int32)StretchY(125.0f - verticalOffset), (int32)StretchY(150.0f - verticalOffset))) {
+                } else if (CheckHover((int32)(StretchX(3.0f) + (float)sliderPos), (int32)StretchX(SCREEN_WIDTH), (int32)StretchY(top), (int32)StretchY(bottom))) {
                     m_MouseInBounds = rightBound;
-                    if (StretchX(500.0f) <= m_nMousePosX && StretchY(125.0f - verticalOffset) <= m_nMousePosY && m_nMousePosY <= StretchY(150.0f - verticalOffset)) {
+                    // Como el original (0x57A9B3 / 0x57AFF2): si falla alguna comprobación, vuelve a NONE
+                    // (fcomp + test ah,41h/5: con NaN se conserva; el slider del ratón solo mira la X)
+                    const float mouseX = (float)m_nMousePosX;
+                    const float mouseY = (float)m_nMousePosY;
+                    if (!(StretchX(500.0f) > mouseX)
+                        && (onlyCheckX || (!(StretchY(top) > mouseY) && !(StretchY(bottom) < mouseY)))
+                    ) {
                         return;
                     }
+                    m_MouseInBounds = eMouseInBounds::NONE;
                 } else {
                     m_MouseInBounds = eMouseInBounds::NONE;
                 }
@@ -845,18 +863,20 @@ void CMenuManager::DrawStandardMenus(bool drawTitle) {
         };
 
         // 0x57A7D4 - Handle sliders
+        // Como el original: los valores son (int * const) o (resta * const), no divisiones (1/384 y 1/0.875 de .rdata)
         switch (item.m_nActionType) {
-        case MENU_ACTION_BRIGHTNESS: processSlider(m_PrefsBrightness / 384.f, eMouseInBounds::SLIDER_LEFT, eMouseInBounds::SLIDER_RIGHT); break;
-        case MENU_ACTION_RADIO_VOL:  processSlider(m_nRadioVolume / 64.f, eMouseInBounds::RADIO_VOL_LEFT, eMouseInBounds::RADIO_VOL_RIGHT, true); break;
-        case MENU_ACTION_SFX_VOL:    processSlider(m_nSfxVolume / 64.f, eMouseInBounds::SFX_VOL_LEFT, eMouseInBounds::SFX_VOL_RIGHT); break;
-        case MENU_ACTION_DRAW_DIST:  processSlider((m_fDrawDistance - 0.925f) / 0.875f, eMouseInBounds::DRAW_DIST_LEFT, eMouseInBounds::DRAW_DIST_RIGHT); break;
-        case MENU_ACTION_MOUSE_SENS: processSlider(CCamera::m_fMouseAccelHorzntl / 0.005f, eMouseInBounds::MOUSE_SENS_LEFT, eMouseInBounds::MOUSE_SENS_RIGHT); break;
+        case MENU_ACTION_BRIGHTNESS: processSlider((float)m_PrefsBrightness * std::bit_cast<float>(0x3B2AAAABu), eMouseInBounds::SLIDER_LEFT, eMouseInBounds::SLIDER_RIGHT); break;
+        case MENU_ACTION_RADIO_VOL:  processSlider((float)m_nRadioVolume * 0.015625f, eMouseInBounds::RADIO_VOL_LEFT, eMouseInBounds::RADIO_VOL_RIGHT, true); break;
+        case MENU_ACTION_SFX_VOL:    processSlider((float)m_nSfxVolume * 0.015625f, eMouseInBounds::SFX_VOL_LEFT, eMouseInBounds::SFX_VOL_RIGHT); break;
+        case MENU_ACTION_DRAW_DIST:  processSlider((m_fDrawDistance - 0.925f) * std::bit_cast<float>(0x3F924925u), eMouseInBounds::DRAW_DIST_LEFT, eMouseInBounds::DRAW_DIST_RIGHT); break;
+        case MENU_ACTION_MOUSE_SENS: processSlider(CCamera::m_fMouseAccelHorzntl / 0.005f, eMouseInBounds::MOUSE_SENS_LEFT, eMouseInBounds::MOUSE_SENS_RIGHT, false, true); break;
         default:                     break;
         }
 
         // 0x57B239
         if (displayText) {
-            itemYPosition += 29 * CFont::GetNumberLines(60.0f, itemYPosition, displayText);
+            // Como el original (0x57B24B): el producto se convierte como sin signo (fild + 2^32 si es negativo)
+            itemYPosition += (float)(uint32)(29 * (int32)CFont::GetNumberLines(60.0f, itemYPosition, displayText));
         }
         if (item.m_nActionType == MENU_ACTION_RADIO_STATION) {
             itemYPosition += 70;
@@ -1454,25 +1474,24 @@ int32 CMenuManager::DisplaySlider(float x, float y, float barHeight1, float barH
             lastActiveBarX = (int32)currentBarX;
         }
 
-        CRect barRect = {
-            currentBarX,
-            y + maxBarHeight - barFreeSpace,
-            currentBarX + barSpacing,
-            y + maxBarHeight
-        };
+        // Como el original: los rectángulos se escriben campo a campo (sin el constructor de CRect, que aborta si queda invertido por redondeo)
+        CRect barRect;
+        barRect.left   = currentBarX;
+        barRect.bottom = y + maxBarHeight - barFreeSpace;
+        barRect.right  = currentBarX + barSpacing;
+        barRect.top    = y + maxBarHeight;
 
         // Draw shadow rectangle with resolution scaling
         // Como el original: desplazamiento inline con atajo 640x448 y constantes 2/640 (0x865394), 2/448 (0x865398);
         // y el orden de las sumas es (bs + sx) + x y (max + sy) + y
         const float shadowX = RsGlobal.maximumWidth  == DEFAULT_SCREEN_WIDTH  ? 2.0f : SCREEN_WIDTH  * std::bit_cast<float>(0x3B4CCCCDu);
         const float shadowY = RsGlobal.maximumHeight == DEFAULT_SCREEN_HEIGHT ? 2.0f : SCREEN_HEIGHT * std::bit_cast<float>(0x3B924925u);
-        CSprite2d::DrawRect({
-                currentBarX + shadowX,
-                barRect.bottom + shadowY,
-                ((float)barSpacing + shadowX) + currentBarX,
-                (maxBarHeight + shadowY) + y
-            },MENU_SHADOW
-        );
+        CRect shadowRect;
+        shadowRect.left   = currentBarX + shadowX;
+        shadowRect.bottom = barRect.bottom + shadowY;
+        shadowRect.right  = ((float)barSpacing + shadowX) + currentBarX;
+        shadowRect.top    = (maxBarHeight + shadowY) + y;
+        CSprite2d::DrawRect(shadowRect, MENU_SHADOW);
 
         // Draw foreground rectangle
         CSprite2d::DrawRect(barRect, barColor);

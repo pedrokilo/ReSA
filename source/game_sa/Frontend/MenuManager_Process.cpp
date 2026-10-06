@@ -85,7 +85,7 @@ void CMenuManager::ProcessFileActions() {
     switch (m_nCurrentScreen) {
     case SCREEN_LOAD_FIRST_SAVE:
         if (m_CurrentlyLoading) {
-            if (CGenericGameStorage::CheckSlotDataValid(m_SelectedSlot)) {
+            if (CGenericGameStorage::CheckSlotDataValid((int8)m_SelectedSlot)) { // Como el original: movsx de la ranura (0x578EEA)
                 // Prepare for game start if not switching from main menu
                 if (!m_bMainMenuSwitch) {
                     DoSettingsBeforeStartingAGame();
@@ -130,7 +130,7 @@ void CMenuManager::ProcessFileActions() {
             if (CGame::bMissionPackGame) {
                 // Check mission pack file availability
                 CFileMgr::SetDirMyDocuments();
-                sprintf_s(gString, "MPACK//MPACK%d//SCR.SCM", CGame::bMissionPackGame);
+                sprintf(gString, "MPACK//MPACK%d//SCR.SCM", CGame::bMissionPackGame);
                 auto file = CFileMgr::OpenFile(gString, "rb");
                 CFileMgr::SetDir(""); // FIX_BUGS
 
@@ -147,7 +147,7 @@ void CMenuManager::ProcessFileActions() {
             }
 
             // Como el original: SaveSlot y PopulateSlotInfo van antes de cambiar de pantalla (0x578DFA, 0x578E08)
-            const auto saveFailed = s_PcSaveHelper.SaveSlot(m_SelectedSlot);
+            const auto saveFailed = (uint8)s_PcSaveHelper.SaveSlot(m_SelectedSlot); // Como el original: solo se comprueba AL (0x578E0D)
             s_PcSaveHelper.PopulateSlotInfo();
 
             if (saveFailed) {
@@ -199,15 +199,10 @@ void CMenuManager::ProcessMenuOptions(int8 pressedLR, bool& cancelPressed, bool 
         ProcessMissionPackNewGame();
         return;
     case MENU_ACTION_MPACK: {
-        std::array<MPack, MPACK_COUNT> missionPacksArray = std::to_array(m_MissionPacks);
-        if (m_nCurrentScreenItem - 2 < MPACK_COUNT && m_nCurrentScreenItem - 2 >= 0) {
-            const auto& MPacks = missionPacksArray[m_nCurrentScreenItem - 2];
-            m_nMissionPackGameId = MPacks.m_Id;
-            NOTSA_LOG_DEBUG("Selected mission pack: {}", (int)MPacks.m_Id);
-            SwitchToNewScreen(SCREEN_MISSION_PACK_LOADING_ASK);
-        } else {
-            NOTSA_UNREACHABLE("Index out of bounds for missionPacksArray");
-        }
+        // Como el original (0x57724F): sin comprobar el rango; lee el Id de m_MissionPacks[opción - 2]
+        // (la copia del array y la aserción de rango no existen en el EXE)
+        m_nMissionPackGameId = (&m_MissionPacks[0] + (m_nCurrentScreenItem - 2))->m_Id;
+        SwitchToNewScreen(SCREEN_MISSION_PACK_LOADING_ASK);
         return;
     }
     case MENU_ACTION_MPACKGAME:
@@ -217,7 +212,7 @@ void CMenuManager::ProcessMenuOptions(int8 pressedLR, bool& cancelPressed, bool 
     case MENU_ACTION_SAVE_SLOT: {
         if (item->m_nType >= eMenuEntryType::TI_SLOT1 && item->m_nType <= eMenuEntryType::TI_SLOT8) {
             m_SelectedSlot = (uint8)(m_nCurrentScreenItem - 1);
-            const auto slotState = CGenericGameStorage::ms_Slots[(int8)m_SelectedSlot];
+            const auto slotState = CGenericGameStorage::ms_Slots.data()[(int8)m_SelectedSlot]; // Como el original: sin comprobar el rango
 
             // Como el original: solo actúa en las pantallas de cargar/borrar (0x57729B)
             switch (m_nCurrentScreen) {
@@ -358,12 +353,11 @@ bool CMenuManager::ProcessPCMenuOptions(int8 pressedLR, bool acceptPressed) {
         m_bScanningUserTracks = true;
         return true;
     case MENU_ACTION_CTRLS_JOYPAD:
+        // Como el original (0x57D2FA): cualquier valor distinto de JOYPAD va a la pantalla del ratón
         if (m_ControlMethod == eController::JOYPAD) {
             SwitchToNewScreen(SCREEN_JOYPAD_SETTINGS);
-        } else if (m_ControlMethod == eController::MOUSE_PLUS_KEYS) {
-            SwitchToNewScreen(SCREEN_MOUSE_SETTINGS);
         } else {
-            NOTSA_UNREACHABLE();
+            SwitchToNewScreen(SCREEN_MOUSE_SETTINGS);
         }
         return true;
     case MENU_ACTION_CTRLS_FOOT: // Redefine Controls -> Foot Controls
@@ -574,14 +568,13 @@ bool CMenuManager::ProcessPCMenuOptions(int8 pressedLR, bool acceptPressed) {
         return true;
     }
     case MENU_ACTION_CONTROL_TYPE:
+        // Como el original (0x57CF5B): cualquier valor distinto de JOYPAD pasa a JOYPAD
         if (m_ControlMethod == eController::JOYPAD) {
             m_ControlMethod = eController::MOUSE_PLUS_KEYS;
             CCamera::m_bUseMouse3rdPerson = true;
-        } else if (m_ControlMethod == eController::MOUSE_PLUS_KEYS) {
+        } else {
             m_ControlMethod = eController::JOYPAD;
             CCamera::m_bUseMouse3rdPerson = false;
-        } else {
-            NOTSA_UNREACHABLE();
         }
         SaveSettings();
         return true;
@@ -634,7 +627,7 @@ void CMenuManager::ProcessMissionPackNewGame() {
     // Scan for available mission packs
     for (auto i = 0; i < 25; i++) {
         CFileMgr::SetDirMyDocuments(); // Como el original: en cada iteración (0x57D563)
-        sprintf_s(gString, "MPACK//MPACK%d//MPACK.DAT", i);
+        sprintf(gString, "MPACK//MPACK%d//MPACK.DAT", i);
         if (auto file = CFileMgr::OpenFile(gString, "rb")) {
             // MPACK.DAT file format:
             //
@@ -662,7 +655,7 @@ void CMenuManager::ProcessMissionPackNewGame() {
                         if (readingId) {
                             m_MissionPacks[numMissionPacks].m_Id = (uint8)atoi(field);
                         } else {
-                            strcpy_s(m_MissionPacks[numMissionPacks].m_Name, field);
+                            strcpy(m_MissionPacks[numMissionPacks].m_Name, field); // Como el original: strcpy (strcpy_s rellena con 0xFE en depuración)
                             numMissionPacks++;
                         }
                         readingId = !readingId;
@@ -685,11 +678,11 @@ void CMenuManager::ProcessMissionPackNewGame() {
         if (CGame::bMissionPackGame) {
             // Are you sure you want to start a new standard game?
             // All current game progress in this Mission Pack will be lost. Proceed?
-            strncpy_s(screen->m_aItems[0].m_szName, "FESZ_MR", 8u);
+            strncpy(screen->m_aItems[0].m_szName, "FESZ_MR", 8u); // Como el original: strncpy (strncpy_s rellena con 0xFE en depuración)
         } else {
             // Are you sure you want to start a new game?
             // All current game progress will be lost. Proceed?
-            strncpy_s(screen->m_aItems[0].m_szName, "FESZ_QR", 8u);
+            strncpy(screen->m_aItems[0].m_szName, "FESZ_QR", 8u);
         }
     }
 }

@@ -190470,6 +190470,1706 @@
       "dependency_review": null,
       "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 1536 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
       "review_reference": "reversing/VehCtor62/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "DrawBackground",
+        "address": "0x0057B750",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::DrawBackground"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "DrawFrontEnd",
+        "address": "0x0057C290",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::DrawFrontEnd"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "DrawStandardMenus",
+        "address": "0x005794A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::DrawStandardMenus"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "2048 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "DrawWindow",
+        "address": "0x00573EE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::DrawWindow"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "DrawWindowedText",
+        "address": "0x00578F50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::DrawWindowedText"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "DrawQuitGameScreen",
+        "address": "0x0057D860",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::DrawQuitGameScreen"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "DrawControllerBound",
+        "address": "0x0057E6E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::DrawControllerBound"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "DrawControllerScreenExtraText",
+        "address": "0x0057D8D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::DrawControllerScreenExtraText"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "DrawControllerSetupScreen",
+        "address": "0x0057F300",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::DrawControllerSetupScreen"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "DisplaySlider",
+        "address": "0x00576860",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::DisplaySlider"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "DisplayHelperText",
+        "address": "0x0057E240",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::DisplayHelperText"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "PrintBriefs",
+        "address": "0x00576320",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::PrintBriefs"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "PrintMap",
+        "address": "0x00575130",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::PrintMap"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "2048 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "PrintRadioStationList",
+        "address": "0x005746F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::PrintRadioStationList"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "PrintStats",
+        "address": "0x00574900",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::PrintStats"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "MessageScreen",
+        "address": "0x00579330",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::MessageScreen"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "SmallMessageScreen",
+        "address": "0x00574010",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::SmallMessageScreen"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "StretchX",
+        "address": "0x005733E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::StretchX"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "StretchY",
+        "address": "0x00573410",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrA/validation-summary.json",
+        "sha256": "b9d50e9c7dd002ec8817f9485f68592d34cf3b93ec51e87d81a1dd81500b16ab",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::StretchY"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+        "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130008-826163).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14464 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "AdditionalOptionInput",
+        "address": "0x005773D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrB/validation-summary.json",
+        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::AdditionalOptionInput"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10560 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "CentreMousePointer",
+        "address": "0x0057C520",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrB/validation-summary.json",
+        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::CentreMousePointer"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 10560 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "CheckCodesForControls",
+        "address": "0x0057DB20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrB/validation-summary.json",
+        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::CheckCodesForControls"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10560 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "CheckForMenuClosing",
+        "address": "0x00576B70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrB/validation-summary.json",
+        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::CheckForMenuClosing"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10560 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "CheckFrontEndDownInput",
+        "address": "0x005738B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrB/validation-summary.json",
+        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::CheckFrontEndDownInput"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10560 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "CheckFrontEndLeftInput",
+        "address": "0x00573920",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrB/validation-summary.json",
+        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::CheckFrontEndLeftInput"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10560 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "CheckFrontEndRightInput",
+        "address": "0x00573990",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrB/validation-summary.json",
+        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::CheckFrontEndRightInput"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10560 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "CheckFrontEndUpInput",
+        "address": "0x00573840",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrB/validation-summary.json",
+        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::CheckFrontEndUpInput"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10560 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "CheckHover",
+        "address": "0x0057C4F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrB/validation-summary.json",
+        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::CheckHover"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10560 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "CheckRedefineControlInput",
+        "address": "0x0057E4D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrB/validation-summary.json",
+        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::CheckRedefineControlInput"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10560 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "CheckSliderMovement",
+        "address": "0x00573440",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrB/validation-summary.json",
+        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::CheckSliderMovement"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 10560 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "ProcessUserInput",
+        "address": "0x0057B480",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrB/validation-summary.json",
+        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::ProcessUserInput"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10560 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "RedefineScreenUserInput",
+        "address": "0x0057EF50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrB/validation-summary.json",
+        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::RedefineScreenUserInput"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10560 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "ScrollRadioStations",
+        "address": "0x00573A00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrB/validation-summary.json",
+        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::ScrollRadioStations"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 10560 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "UserInput",
+        "address": "0x0057FD70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrB/validation-summary.json",
+        "sha256": "27dc600953005df595c8717280e6a072bcbebac69acf0a16fb98e637550ac051",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::UserInput"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130227-663879).",
+      "dependency_review": null,
+      "scope": "2048 pares original/candidato con hook conmutado dentro del motor; banco de 10560 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "Process",
+        "address": "0x0057B440",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrC/validation-summary.json",
+        "sha256": "0993431e845df7cfc86a1ac1ad7b1c4bb39b4b6a7bb373912dd0dd5701229b6b",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::Process"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Process.cpp": "29f2542ce3ab46d4899379d5d7d42e532eba56a63a02e193cc0246b969a370aa",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130318-152075).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 14336 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "ProcessMenuOptions",
+        "address": "0x00576FE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrC/validation-summary.json",
+        "sha256": "0993431e845df7cfc86a1ac1ad7b1c4bb39b4b6a7bb373912dd0dd5701229b6b",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::ProcessMenuOptions"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Process.cpp": "29f2542ce3ab46d4899379d5d7d42e532eba56a63a02e193cc0246b969a370aa",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130318-152075).",
+      "dependency_review": null,
+      "scope": "2048 pares original/candidato con hook conmutado dentro del motor; banco de 14336 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "ProcessPCMenuOptions",
+        "address": "0x0057CD50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrC/validation-summary.json",
+        "sha256": "0993431e845df7cfc86a1ac1ad7b1c4bb39b4b6a7bb373912dd0dd5701229b6b",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::ProcessPCMenuOptions"
+        ],
+        "pairs": 4096,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Process.cpp": "29f2542ce3ab46d4899379d5d7d42e532eba56a63a02e193cc0246b969a370aa",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130318-152075).",
+      "dependency_review": null,
+      "scope": "4096 pares original/candidato con hook conmutado dentro del motor; banco de 14336 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "ProcessMissionPackNewGame",
+        "address": "0x0057D520",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrC/validation-summary.json",
+        "sha256": "0993431e845df7cfc86a1ac1ad7b1c4bb39b4b6a7bb373912dd0dd5701229b6b",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::ProcessMissionPackNewGame"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Process.cpp": "29f2542ce3ab46d4899379d5d7d42e532eba56a63a02e193cc0246b969a370aa",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130318-152075).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14336 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "CheckMissionPackValidMenu",
+        "address": "0x0057D720",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrC/validation-summary.json",
+        "sha256": "0993431e845df7cfc86a1ac1ad7b1c4bb39b4b6a7bb373912dd0dd5701229b6b",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::CheckMissionPackValidMenu"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Process.cpp": "29f2542ce3ab46d4899379d5d7d42e532eba56a63a02e193cc0246b969a370aa",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130318-152075).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14336 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "SwitchToNewScreen",
+        "address": "0x00573680",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrC/validation-summary.json",
+        "sha256": "0993431e845df7cfc86a1ac1ad7b1c4bb39b4b6a7bb373912dd0dd5701229b6b",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::SwitchToNewScreen"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Process.cpp": "29f2542ce3ab46d4899379d5d7d42e532eba56a63a02e193cc0246b969a370aa",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130318-152075).",
+      "dependency_review": null,
+      "scope": "2048 pares original/candidato con hook conmutado dentro del motor; banco de 14336 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "JumpToGenericMessageScreen",
+        "address": "0x00576AE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrC/validation-summary.json",
+        "sha256": "0993431e845df7cfc86a1ac1ad7b1c4bb39b4b6a7bb373912dd0dd5701229b6b",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::JumpToGenericMessageScreen"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Process.cpp": "29f2542ce3ab46d4899379d5d7d42e532eba56a63a02e193cc0246b969a370aa",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130318-152075).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14336 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "SaveLoadFileError_SetUpErrorScreen",
+        "address": "0x0057C490",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrC/validation-summary.json",
+        "sha256": "0993431e845df7cfc86a1ac1ad7b1c4bb39b4b6a7bb373912dd0dd5701229b6b",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::SaveLoadFileError_SetUpErrorScreen"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Process.cpp": "29f2542ce3ab46d4899379d5d7d42e532eba56a63a02e193cc0246b969a370aa",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130318-152075).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 14336 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "GetNumberOfMenuOptions",
+        "address": "0x00573E70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrC/validation-summary.json",
+        "sha256": "0993431e845df7cfc86a1ac1ad7b1c4bb39b4b6a7bb373912dd0dd5701229b6b",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::GetNumberOfMenuOptions"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Process.cpp": "29f2542ce3ab46d4899379d5d7d42e532eba56a63a02e193cc0246b969a370aa",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130318-152075).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14336 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "ProcessFileActions",
+        "address": "0x00578D60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrC/validation-summary.json",
+        "sha256": "0993431e845df7cfc86a1ac1ad7b1c4bb39b4b6a7bb373912dd0dd5701229b6b",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::ProcessFileActions"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Process.cpp": "29f2542ce3ab46d4899379d5d7d42e532eba56a63a02e193cc0246b969a370aa",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130318-152075).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14336 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "DoSettingsBeforeStartingAGame",
+        "address": "0x00573330",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrC/validation-summary.json",
+        "sha256": "0993431e845df7cfc86a1ac1ad7b1c4bb39b4b6a7bb373912dd0dd5701229b6b",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::DoSettingsBeforeStartingAGame"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Process.cpp": "29f2542ce3ab46d4899379d5d7d42e532eba56a63a02e193cc0246b969a370aa",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130318-152075).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14336 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "ProcessStreaming",
+        "address": "0x00573CF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrC/validation-summary.json",
+        "sha256": "0993431e845df7cfc86a1ac1ad7b1c4bb39b4b6a7bb373912dd0dd5701229b6b",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::ProcessStreaming"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Process.cpp": "29f2542ce3ab46d4899379d5d7d42e532eba56a63a02e193cc0246b969a370aa",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130318-152075).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 14336 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "HasLanguageChanged",
+        "address": "0x00573CD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrC/validation-summary.json",
+        "sha256": "0993431e845df7cfc86a1ac1ad7b1c4bb39b4b6a7bb373912dd0dd5701229b6b",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::HasLanguageChanged"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Process.cpp": "29f2542ce3ab46d4899379d5d7d42e532eba56a63a02e193cc0246b969a370aa",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130318-152075).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 14336 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "InitialiseChangedLanguageSettings",
+        "address": "0x00573260",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrC/validation-summary.json",
+        "sha256": "0993431e845df7cfc86a1ac1ad7b1c4bb39b4b6a7bb373912dd0dd5701229b6b",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::InitialiseChangedLanguageSettings"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+        "source/game_sa/Frontend/MenuManager_Process.cpp": "29f2542ce3ab46d4899379d5d7d42e532eba56a63a02e193cc0246b969a370aa",
+        "source/game_sa/Frontend/MenuManager_Input.cpp": "a94f8ca7c07a12ffbf20a29826f53eb4e78cbbe1d992e2c8b842f509714ce279",
+        "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130318-152075).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 14336 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "Constructor",
+        "address": "0x00574350",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrD/validation-summary.json",
+        "sha256": "d9487e225be447e2c3569e7b32f37157593e5f17f6a8166ca2abf2533124fba9",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::Constructor"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130459-522275).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 6784 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "Destructor",
+        "address": "0x00579440",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrD/validation-summary.json",
+        "sha256": "d9487e225be447e2c3569e7b32f37157593e5f17f6a8166ca2abf2533124fba9",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::Destructor"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130459-522275).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 6784 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "Initialise",
+        "address": "0x005744D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrD/validation-summary.json",
+        "sha256": "d9487e225be447e2c3569e7b32f37157593e5f17f6a8166ca2abf2533124fba9",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::Initialise"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130459-522275).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 6784 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "LoadAllTextures",
+        "address": "0x00572EC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrD/validation-summary.json",
+        "sha256": "d9487e225be447e2c3569e7b32f37157593e5f17f6a8166ca2abf2533124fba9",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::LoadAllTextures"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130459-522275).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 6784 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "UnloadTextures",
+        "address": "0x00574630",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrD/validation-summary.json",
+        "sha256": "d9487e225be447e2c3569e7b32f37157593e5f17f6a8166ca2abf2533124fba9",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::UnloadTextures"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130459-522275).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 6784 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "SwapTexturesRound",
+        "address": "0x005730A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrD/validation-summary.json",
+        "sha256": "d9487e225be447e2c3569e7b32f37157593e5f17f6a8166ca2abf2533124fba9",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::SwapTexturesRound"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130459-522275).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 6784 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "SetFrontEndRenderStates",
+        "address": "0x00573A60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrD/validation-summary.json",
+        "sha256": "d9487e225be447e2c3569e7b32f37157593e5f17f6a8166ca2abf2533124fba9",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::SetFrontEndRenderStates"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130459-522275).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 6784 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "SetDefaultPreferences",
+        "address": "0x00573AE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrD/validation-summary.json",
+        "sha256": "d9487e225be447e2c3569e7b32f37157593e5f17f6a8166ca2abf2533124fba9",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::SetDefaultPreferences"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130459-522275).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 6784 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "LoadSettings",
+        "address": "0x0057C8F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrD/validation-summary.json",
+        "sha256": "d9487e225be447e2c3569e7b32f37157593e5f17f6a8166ca2abf2533124fba9",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::LoadSettings"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130459-522275).",
+      "dependency_review": null,
+      "scope": "2048 pares original/candidato con hook conmutado dentro del motor; banco de 6784 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "SaveSettings",
+        "address": "0x0057C660",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrD/validation-summary.json",
+        "sha256": "d9487e225be447e2c3569e7b32f37157593e5f17f6a8166ca2abf2533124fba9",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::SaveSettings"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130459-522275).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 6784 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "SaveStatsToFile",
+        "address": "0x0057DDE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrD/validation-summary.json",
+        "sha256": "d9487e225be447e2c3569e7b32f37157593e5f17f6a8166ca2abf2533124fba9",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::SaveStatsToFile"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130459-522275).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 6784 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "ResetHelperText",
+        "address": "0x0057CD30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrD/validation-summary.json",
+        "sha256": "d9487e225be447e2c3569e7b32f37157593e5f17f6a8166ca2abf2533124fba9",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::ResetHelperText"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130459-522275).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 6784 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CMenuManager",
+        "fn_name": "SetHelperText",
+        "address": "0x0057CD10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/MenuMgrD/validation-summary.json",
+        "sha256": "d9487e225be447e2c3569e7b32f37157593e5f17f6a8166ca2abf2533124fba9",
+        "passed_path": [
+          "covered_functions",
+          "CMenuManager::SetHelperText"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+        "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-130459-522275).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 6784 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/MenuMgrD/README.md"
     }
   ]
 }

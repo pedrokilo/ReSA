@@ -1163,5 +1163,25 @@
     "id": "vehctor62",
     "name": "Constructores de CBmx y CQuadBike",
     "runner": "VehCtor62/run_local.py"
+  },
+  {
+    "id": "menumgra",
+    "name": "CMenuManager grupo A (dibujo)",
+    "runner": "MenuMgrA/run_local.py"
+  },
+  {
+    "id": "menumgrb",
+    "name": "CMenuManager grupo B (entrada)",
+    "runner": "MenuMgrB/run_local.py"
+  },
+  {
+    "id": "menumgrc",
+    "name": "CMenuManager grupo C (flujo y opciones)",
+    "runner": "MenuMgrC/run_local.py"
+  },
+  {
+    "id": "menumgrd",
+    "name": "CMenuManager grupo D (estado, texturas y ajustes)",
+    "runner": "MenuMgrD/run_local.py"
   }
 ]

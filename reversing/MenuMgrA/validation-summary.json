@@ -1,0 +1,85 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 14464,
+  "pairs_per_function": {
+    "CMenuManager::DrawBackground": 1024,
+    "CMenuManager::DrawFrontEnd": 512,
+    "CMenuManager::DrawStandardMenus": 2048,
+    "CMenuManager::DrawWindow": 512,
+    "CMenuManager::DrawWindowedText": 512,
+    "CMenuManager::DrawQuitGameScreen": 128,
+    "CMenuManager::DrawControllerBound": 1024,
+    "CMenuManager::DrawControllerScreenExtraText": 512,
+    "CMenuManager::DrawControllerSetupScreen": 1024,
+    "CMenuManager::DisplaySlider": 1024,
+    "CMenuManager::DisplayHelperText": 1024,
+    "CMenuManager::PrintBriefs": 512,
+    "CMenuManager::PrintMap": 2048,
+    "CMenuManager::PrintRadioStationList": 256,
+    "CMenuManager::PrintStats": 1024,
+    "CMenuManager::MessageScreen": 256,
+    "CMenuManager::SmallMessageScreen": 512,
+    "CMenuManager::StretchX": 256,
+    "CMenuManager::StretchY": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "26d285da259da5f0cedfb31cc748be22d1cc8013262ebfce8260b620b069cc96",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-menumgra\\20261006-130008-826163",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CMenuManager::DrawBackground": true,
+    "CMenuManager::DrawFrontEnd": true,
+    "CMenuManager::DrawStandardMenus": true,
+    "CMenuManager::DrawWindow": true,
+    "CMenuManager::DrawWindowedText": true,
+    "CMenuManager::DrawQuitGameScreen": true,
+    "CMenuManager::DrawControllerBound": true,
+    "CMenuManager::DrawControllerScreenExtraText": true,
+    "CMenuManager::DrawControllerSetupScreen": true,
+    "CMenuManager::DisplaySlider": true,
+    "CMenuManager::DisplayHelperText": true,
+    "CMenuManager::PrintBriefs": true,
+    "CMenuManager::PrintMap": true,
+    "CMenuManager::PrintRadioStationList": true,
+    "CMenuManager::PrintStats": true,
+    "CMenuManager::MessageScreen": true,
+    "CMenuManager::SmallMessageScreen": true,
+    "CMenuManager::StretchX": true,
+    "CMenuManager::StretchY": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "f643168fab027cd7810b64285382eff22007f0040ef15cc903051b585235dd6c",
+      "pdb": "9ae55fb5563ceea5dbbca00099d61f6cd8df0c411367427cce5030bb86611208"
+    },
+    "sources": {
+      "source/game_sa/MenuManager.cpp": "bdc00aa4b943a8515c0377f1f8613ba4457d08216b18f37f0745793bf67257c3",
+      "source/game_sa/MenuManager.h": "65d876aba2161ccd9e9a5801ce307b8408dec96b8aef0f7f2597567c6af8fad1",
+      "source/game_sa/Frontend/MenuManager_Draw.cpp": "37e580bed06ebfd616545ab2157e6c42cc6ca52d05eb4bff1f3133b1636481ad",
+      "source/game_sa/Frontend/MenuManager_Pages.cpp": "883ca0ca58d70f039a2a4df444647394ee9ee521cd3b1cd55d0fc0433f17c8dd",
+      "source/game_sa/Frontend/MenuManager_Internal.h": "a7c92ff7945106a7b1024b0213aca223de7217fd3aa0030334af3118dd479586"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "2e0ef4c5ae39e5b479c726910868e4a31e0308c6941f256741adbc950564f2dc",
+      "build_probe.py": "bacff7c2a16d0ade3a087de447d61a337c25af52239253175dd512ebcae4b0ec",
+      "run_local.py": "7a92d149b011fa331dc2b4711a7585a2a73b2f795c0b9b2a8835381e527c2eb0"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

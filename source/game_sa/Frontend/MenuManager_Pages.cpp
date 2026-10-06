@@ -548,7 +548,7 @@ void CMenuManager::PrintBriefs() {
     CFont::SetDropColor(MENU_BG);
     CFont::SetOrientation(eFontAlignment::ALIGN_LEFT);
     CFont::SetFontStyle(eFontStyle::FONT_SUBTITLES);
-    CFont::SetScaleForCurrentLanguage(StretchXK(0.49f, 0x3A48B439u), StretchYK(0.7f, 0x3ACCCCCDu));
+    CFont::SetScaleForCurrentLanguage(StretchXK(std::bit_cast<float>(0x3EFAE147u), 0x3A48B439u), StretchYK(0.7f, 0x3ACCCCCDu));
     CFont::SetWrapx(StretchXK(560.0f, 0x3F600000u));
     CFont::SetDropShadowPosition(1);
     CFont::SetJustify(false);

@@ -6,10 +6,10 @@ Universo de esta revisión: **7,947 entradas reversed=1**, de 8,441 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 5665 |
+| `validated=1` · evidencia aprobada vinculada | 5726 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 5665 |
-| Sin evidencia aprobada vinculada en este registro | 2282 |
+| Evidencia histórica vinculada; revisión pendiente | 5726 |
+| Sin evidencia aprobada vinculada en este registro | 2221 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -2038,6 +2038,67 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CMatrixLinkList | `MoveToList1` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMatrixLinkList | `MoveToList2` | [Resumen](../reversing/Small2/validation-summary.json) |
 | CMatrixLinkList | `Shutdown` | [Resumen](../reversing/Small2/validation-summary.json) |
+| CMenuManager | `AdditionalOptionInput` | [Resumen](../reversing/MenuMgrB/validation-summary.json) |
+| CMenuManager | `CentreMousePointer` | [Resumen](../reversing/MenuMgrB/validation-summary.json) |
+| CMenuManager | `CheckCodesForControls` | [Resumen](../reversing/MenuMgrB/validation-summary.json) |
+| CMenuManager | `CheckForMenuClosing` | [Resumen](../reversing/MenuMgrB/validation-summary.json) |
+| CMenuManager | `CheckFrontEndDownInput` | [Resumen](../reversing/MenuMgrB/validation-summary.json) |
+| CMenuManager | `CheckFrontEndLeftInput` | [Resumen](../reversing/MenuMgrB/validation-summary.json) |
+| CMenuManager | `CheckFrontEndRightInput` | [Resumen](../reversing/MenuMgrB/validation-summary.json) |
+| CMenuManager | `CheckFrontEndUpInput` | [Resumen](../reversing/MenuMgrB/validation-summary.json) |
+| CMenuManager | `CheckHover` | [Resumen](../reversing/MenuMgrB/validation-summary.json) |
+| CMenuManager | `CheckMissionPackValidMenu` | [Resumen](../reversing/MenuMgrC/validation-summary.json) |
+| CMenuManager | `CheckRedefineControlInput` | [Resumen](../reversing/MenuMgrB/validation-summary.json) |
+| CMenuManager | `CheckSliderMovement` | [Resumen](../reversing/MenuMgrB/validation-summary.json) |
+| CMenuManager | `Constructor` | [Resumen](../reversing/MenuMgrD/validation-summary.json) |
+| CMenuManager | `Destructor` | [Resumen](../reversing/MenuMgrD/validation-summary.json) |
+| CMenuManager | `DisplayHelperText` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `DisplaySlider` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `DoSettingsBeforeStartingAGame` | [Resumen](../reversing/MenuMgrC/validation-summary.json) |
+| CMenuManager | `DrawBackground` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `DrawControllerBound` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `DrawControllerScreenExtraText` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `DrawControllerSetupScreen` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `DrawFrontEnd` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `DrawQuitGameScreen` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `DrawStandardMenus` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `DrawWindow` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `DrawWindowedText` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `GetNumberOfMenuOptions` | [Resumen](../reversing/MenuMgrC/validation-summary.json) |
+| CMenuManager | `HasLanguageChanged` | [Resumen](../reversing/MenuMgrC/validation-summary.json) |
+| CMenuManager | `Initialise` | [Resumen](../reversing/MenuMgrD/validation-summary.json) |
+| CMenuManager | `InitialiseChangedLanguageSettings` | [Resumen](../reversing/MenuMgrC/validation-summary.json) |
+| CMenuManager | `JumpToGenericMessageScreen` | [Resumen](../reversing/MenuMgrC/validation-summary.json) |
+| CMenuManager | `LoadAllTextures` | [Resumen](../reversing/MenuMgrD/validation-summary.json) |
+| CMenuManager | `LoadSettings` | [Resumen](../reversing/MenuMgrD/validation-summary.json) |
+| CMenuManager | `MessageScreen` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `PrintBriefs` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `PrintMap` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `PrintRadioStationList` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `PrintStats` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `Process` | [Resumen](../reversing/MenuMgrC/validation-summary.json) |
+| CMenuManager | `ProcessFileActions` | [Resumen](../reversing/MenuMgrC/validation-summary.json) |
+| CMenuManager | `ProcessMenuOptions` | [Resumen](../reversing/MenuMgrC/validation-summary.json) |
+| CMenuManager | `ProcessMissionPackNewGame` | [Resumen](../reversing/MenuMgrC/validation-summary.json) |
+| CMenuManager | `ProcessPCMenuOptions` | [Resumen](../reversing/MenuMgrC/validation-summary.json) |
+| CMenuManager | `ProcessStreaming` | [Resumen](../reversing/MenuMgrC/validation-summary.json) |
+| CMenuManager | `ProcessUserInput` | [Resumen](../reversing/MenuMgrB/validation-summary.json) |
+| CMenuManager | `RedefineScreenUserInput` | [Resumen](../reversing/MenuMgrB/validation-summary.json) |
+| CMenuManager | `ResetHelperText` | [Resumen](../reversing/MenuMgrD/validation-summary.json) |
+| CMenuManager | `SaveLoadFileError_SetUpErrorScreen` | [Resumen](../reversing/MenuMgrC/validation-summary.json) |
+| CMenuManager | `SaveSettings` | [Resumen](../reversing/MenuMgrD/validation-summary.json) |
+| CMenuManager | `SaveStatsToFile` | [Resumen](../reversing/MenuMgrD/validation-summary.json) |
+| CMenuManager | `ScrollRadioStations` | [Resumen](../reversing/MenuMgrB/validation-summary.json) |
+| CMenuManager | `SetDefaultPreferences` | [Resumen](../reversing/MenuMgrD/validation-summary.json) |
+| CMenuManager | `SetFrontEndRenderStates` | [Resumen](../reversing/MenuMgrD/validation-summary.json) |
+| CMenuManager | `SetHelperText` | [Resumen](../reversing/MenuMgrD/validation-summary.json) |
+| CMenuManager | `SmallMessageScreen` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `StretchX` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `StretchY` | [Resumen](../reversing/MenuMgrA/validation-summary.json) |
+| CMenuManager | `SwapTexturesRound` | [Resumen](../reversing/MenuMgrD/validation-summary.json) |
+| CMenuManager | `SwitchToNewScreen` | [Resumen](../reversing/MenuMgrC/validation-summary.json) |
+| CMenuManager | `UnloadTextures` | [Resumen](../reversing/MenuMgrD/validation-summary.json) |
+| CMenuManager | `UserInput` | [Resumen](../reversing/MenuMgrB/validation-summary.json) |
 | CMenuSystem | `ActivateItems` | [Resumen](../reversing/MenuSystem2/validation-summary.json) |
 | CMenuSystem | `ActivateOneItem` | [Resumen](../reversing/MenuSystem2/validation-summary.json) |
 | CMenuSystem | `CheckForAccept` | [Resumen](../reversing/MenuSystem2/validation-summary.json) |
@@ -5955,7 +6016,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CMaths` | 3 | 0 | 3 | 0 |
 | `CMatrixLink` | 2 | 0 | 2 | 0 |
 | `CMatrixLinkList` | 10 | 0 | 10 | 0 |
-| `CMenuManager` | 61 | 0 | 0 | 61 |
+| `CMenuManager` | 61 | 0 | 61 | 0 |
 | `CMenuSystem` | 21 | 0 | 21 | 0 |
 | `CMessages` | 28 | 0 | 28 | 0 |
 | `CMirrors` | 8 | 0 | 8 | 0 |

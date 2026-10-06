@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 61/61 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/61 entradas.
+ * Validación registrada: 61/61 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -171,7 +171,7 @@ CMenuManager::CMenuManager() {
     m_PrefsUseVibration       = true;
     m_fMapZoom                = 300.0f;
     m_vMapOrigin.x            = APP_MINIMAL_WIDTH / 2;
-    m_vMapOrigin.y            = APP_MINIMAL_HEIGHT / 2;
+    m_vMapOrigin.y            = 224.0f; // Como el original: 0x43600000 (448 / 2), no APP_MINIMAL_HEIGHT / 2 (240).
 }
 
 CMenuManager* CMenuManager::Constructor() {
@@ -292,7 +292,9 @@ void CMenuManager::LoadAllTextures() {
 // round always false;
 // 0x5730A0
 void CMenuManager::SwapTexturesRound(bool round) {
-    if (m_TexturesSwapped == round)
+    // Como el original (0x5730A7/0x5730B8): el indicador es el de FrontEndMenuManager (0xBA8268), no el de `this`.
+    auto& texturesSwapped = FrontEndMenuManager.m_TexturesSwapped;
+    if (texturesSwapped == round)
         return; // Swap doesn't needed
 
     const auto LoadTexture = [](const char* txdName, const char* slotName, unsigned size) {
@@ -305,7 +307,7 @@ void CMenuManager::SwapTexturesRound(bool round) {
         CTxdStore::SetCurrentTxd(slot);
     };
 
-    m_TexturesSwapped = round;
+    texturesSwapped = round;
 
     if (round || !CTxdStore::FindTxdSlot("frontend3")) {
         auto slot = CTxdStore::FindTxdSlot("frontend2");
@@ -372,8 +374,9 @@ void CMenuManager::InitialiseChangedLanguageSettings(bool reinitControls) {
 
     CTimer::Update();
 
-    auto lang88 = static_cast<eLanguage>(m_SystemLanguage);
-    if (lang88 != eLanguage::FRENCH && lang88 != eLanguage::GERMAN) {
+    // Como el original (0x5732CA): m_SystemLanguage se compara como dword (1 = francés, 2 = alemán), sin truncar a 8 bits
+    const auto lang88 = m_SystemLanguage;
+    if (lang88 != (int32)eLanguage::FRENCH && lang88 != (int32)eLanguage::GERMAN) {
         switch (m_nPrefsLanguage) {
         case eLanguage::AMERICAN:
         case eLanguage::GERMAN:
@@ -389,7 +392,7 @@ void CMenuManager::InitialiseChangedLanguageSettings(bool reinitControls) {
         }
     }
 
-    if (lang88 == eLanguage::FRENCH) {
+    if (lang88 == (int32)eLanguage::FRENCH) {
         CLocalisation::SetFrenchGame();
     }
 
@@ -562,10 +565,12 @@ void CMenuManager::SetDefaultPreferences(eMenuScreen screen) {
         m_bRadioAutoSelect     = true;
         m_bTracksAutoScan      = false;
         m_RadioMode            = eRadioMode::RADIO_MODE_RADIO;
-        AudioEngine.SetMusicMasterVolume(m_nRadioVolume);
-        AudioEngine.SetEffectsMasterVolume(m_nSfxVolume);
-        AudioEngine.SetBassEnhanceOnOff(m_bRadioEq);
-        AudioEngine.SetRadioAutoRetuneOnOff(m_bRadioAutoSelect);
+        // Como el original (0x573B10...0x573B72): los cuatro valores se leen de FrontEndMenuManager (0xBA6795...0xBA6799),
+        // no de `this`; con el singleton es lo mismo, con otro objeto no.
+        AudioEngine.SetMusicMasterVolume(FrontEndMenuManager.m_nRadioVolume);
+        AudioEngine.SetEffectsMasterVolume(FrontEndMenuManager.m_nSfxVolume);
+        AudioEngine.SetBassEnhanceOnOff(FrontEndMenuManager.m_bRadioEq);
+        AudioEngine.SetRadioAutoRetuneOnOff(FrontEndMenuManager.m_bRadioAutoSelect);
         break;
     case SCREEN_DISPLAY_SETTINGS:
     case SCREEN_DISPLAY_ADVANCED:
@@ -668,13 +673,6 @@ void CMenuManager::JumpToGenericMessageScreen(eMenuScreen screen, const char* ti
 
 // 0x57C520
 void CMenuManager::CentreMousePointer() {
-#ifdef FIX_BUGS
-    // Not really a vanilla bug, because the vanilla game stops rendering when not in foreground
-    if (!IsForegroundApp()) {
-        return;
-    }
-#endif
-
     CVector2D pos{ SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f };
     if (pos.x != 0.0f && pos.y != 0.0f) {
         // Como el original: psMouseSetPos va en línea con mitades enteras (ancho / 2),
@@ -722,7 +720,7 @@ void CMenuManager::LoadSettings() {
     };
 
     {
-        char buf[29]{0};
+        char buf[29]; // Como el original: sin poner a cero (el EXE solo lo rellena con la lectura).
         ReadFromFile(buf, 29u);
         if (!strncmp(buf, TopLineEmptyFile, 26u)) {
             return SetToDefaultSettings();
@@ -792,10 +790,12 @@ void CMenuManager::LoadSettings() {
     SetBrightness(static_cast<float>(m_PrefsBrightness), true);
     m_nPrefsAntialiasing = m_nDisplayAntialiasing;
     m_bDoVideoModeUpdate = true;
-    AudioEngine.SetMusicMasterVolume(m_nRadioVolume);
-    AudioEngine.SetEffectsMasterVolume(m_nSfxVolume);
-    AudioEngine.SetBassEnhanceOnOff(m_bRadioEq);
-    AudioEngine.SetRadioAutoRetuneOnOff(m_bRadioAutoSelect);
+    // Como el original (0x57CC19...0x57CC5D): volúmenes, ecualizador y autosintonía salen de FrontEndMenuManager
+    // (0xBA6795...0xBA6799); solo la emisora (+0x52) sale de `this`.
+    AudioEngine.SetMusicMasterVolume(FrontEndMenuManager.m_nRadioVolume);
+    AudioEngine.SetEffectsMasterVolume(FrontEndMenuManager.m_nSfxVolume);
+    AudioEngine.SetBassEnhanceOnOff(FrontEndMenuManager.m_bRadioEq);
+    AudioEngine.SetRadioAutoRetuneOnOff(FrontEndMenuManager.m_bRadioAutoSelect);
     AudioEngine.RetuneRadio(m_nRadioStation);
 
     if (previousLang == m_nPrefsLanguage) {
@@ -890,11 +890,6 @@ void CMenuManager::SaveStatsToFile() {
             return UnicodeToUTF8(wide);
         };
 
-#ifdef FIX_BUGS
-        // FIX_BUGS: Use UTF-8 instead of ANSI.
-        fprintf_s(file, "<meta charset=\"UTF-8\"/>\n");
-#endif
-
         // Como el original: mismas cadenas y mismos cortes de fprintf que el EXE (0x86636C...0x865708).
         fprintf_s(file, "<title>Grand Theft Auto San Andreas Stats</title>\n");
         fprintf_s(file, "<body bgcolor=\"#000000\" leftmargin=\"10\" topmargin=\"10\" marginwidth=\"10\" marginheight=\"10\">\n");
@@ -955,7 +950,16 @@ void CMenuManager::SaveStatsToFile() {
                 static auto& unk = StaticRef<uint16>(0xB794CC);
                 if (unk) { // stat line formatted in percents?
                     // Como el original: atoi * 0.001f * 100.0f, y 100 si no es < 100 (NaN incluido); sprintf sin límite.
-                    float percent = (float)atoi(val) * 0.001f * 100.0f;
+                    // fild/fmul/fmul del EXE (0x57E116): el entero entra exacto en el x87 (sin redondear antes a float).
+                    const int32 percentValue = atoi(val);
+                    const float percentScale = 0.001f, percentHundred = 100.0f;
+                    float percent;
+                    __asm {
+                        fild percentValue
+                        fmul percentScale
+                        fmul percentHundred
+                        fstp percent
+                    }
                     if (!(percent < 100.0f)) {
                         percent = 100.0f;
                     }
@@ -1037,7 +1041,9 @@ void CMenuManager::DisplayHelperText(const char* key) {
                 m_nHelperTextFadingAlpha -= 2;
             }
             if (m_nHelperTextFadingAlpha < 1) {
-                ResetHelperText();
+                // Como el original (0x57E312): escritura en línea, no llama a ResetHelperText
+                m_HelperText             = HELPER_NONE;
+                m_nHelperTextFadingAlpha = 300;
             }
             alpha = std::min(m_nHelperTextFadingAlpha, 255);
         }
@@ -1173,14 +1179,10 @@ void CMenuManager::SmallMessageScreen(const char* key) {
     auto text = TheText.Get(key);
     if (!TheText.m_bCdErrorLoaded) {
         for (auto& k : { "NOCD", "OPENCD", "WRONGCD", "CDERROR" }) {
-            if (!_stricmp(k, key)) {
-#ifdef FIX_BUGS
-                // FIX_BUGS: AsciiToGxtChar <-> GxtCharToAscii (then UTF-8)
-                GxtCharToUTF8(TheText.m_szCdErrorText, text);
-#else
+            // Como el original (0x574297..0x5742CF): copia cuando la clave es DISTINTA de alguna de las cuatro (jne), es decir, siempre
+            if (_stricmp(k, key) != 0) {
                 // Como el original: copia el texto de error del CD sobre la cadena GXT devuelta (0x718600).
                 AsciiToGxtChar(TheText.m_szCdErrorText, const_cast<GxtChar*>(text));
-#endif
                 break; // Como el original: la cadena de || se detiene en la primera coincidencia
             }
         }

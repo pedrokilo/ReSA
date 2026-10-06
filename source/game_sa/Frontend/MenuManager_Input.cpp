@@ -197,52 +197,54 @@ void CMenuManager::UserInput() {
         if (bDown || bUp || bEnter) {
             bExit = false;
         }
+    }
 
-        // Check for left/right slider movement
-        // Como el original (0x5803CF): izquierda tiene prioridad (else-if, GetPedWalkLeftRight solo se evalúa si hace falta),
-        // los tiempos se leen/escriben en FrontEndMenuManager y se actualizan aunque la acción no sea un deslizador
-        const auto IsSliderAction = [&] {
-            const auto actionType = curScreen[m_nCurrentScreenItem].m_nActionType;
-            return notsa::contains(SLIDER_ACTIONS, actionType) || actionType == MENU_ACTION_STAT;
-        };
-        if (CPad::IsLeftDown() || pad->GetPedWalkLeftRight() < 0 || pad->f0x57C380()) {
-            if (CTimer::GetTimeInMSPauseMode() - FrontEndMenuManager.m_SlideLeftMoveTime > 200) {
-                if (IsSliderAction()) {
-                    sliderMove = -1;
-                }
-                FrontEndMenuManager.m_SlideLeftMoveTime = CTimer::GetTimeInMSPauseMode();
-            }
-        } else if (CPad::IsRightDown() || pad->GetPedWalkLeftRight() > 0 || pad->f0x57C390()) {
-            if (CTimer::GetTimeInMSPauseMode() - FrontEndMenuManager.m_SlideRightMoveTime > 200) {
-                if (IsSliderAction()) {
-                    sliderMove = 1;
-                }
-                FrontEndMenuManager.m_SlideRightMoveTime = CTimer::GetTimeInMSPauseMode();
-            }
-        }
-
-        // 0x58052C - Handle mouse wheel movement
-        if (m_nCurrentScreen != eMenuScreen::SCREEN_MAP) {
-            if (CPad::IsMouseWheelUpPressed()) {
-                sliderMove = 1;
-            } else if (CPad::IsMouseWheelDownPressed()) {
+    // Como el original: el EXE salta a 0x5803CF tanto desde la pantalla de redefinir controles (0x580071/0x58005A) como desde el resto,
+    // por lo que la parte de deslizadores, rueda y flechas izquierda/derecha se ejecuta siempre (antes solo estaba dentro del `else`).
+    // Check for left/right slider movement
+    // Como el original (0x5803CF): izquierda tiene prioridad (else-if, GetPedWalkLeftRight solo se evalúa si hace falta),
+    // los tiempos se leen/escriben en FrontEndMenuManager y se actualizan aunque la acción no sea un deslizador
+    const auto IsSliderAction = [&] {
+        const auto actionType = curScreen[m_nCurrentScreenItem].m_nActionType;
+        return notsa::contains(SLIDER_ACTIONS, actionType) || actionType == MENU_ACTION_STAT;
+    };
+    if (CPad::IsLeftDown() || pad->GetPedWalkLeftRight() < 0 || pad->f0x57C380()) {
+        if (CTimer::GetTimeInMSPauseMode() - FrontEndMenuManager.m_SlideLeftMoveTime > 200) {
+            if (IsSliderAction()) {
                 sliderMove = -1;
             }
+            FrontEndMenuManager.m_SlideLeftMoveTime = CTimer::GetTimeInMSPauseMode();
         }
+    } else if (CPad::IsRightDown() || pad->GetPedWalkLeftRight() > 0 || pad->f0x57C390()) {
+        if (CTimer::GetTimeInMSPauseMode() - FrontEndMenuManager.m_SlideRightMoveTime > 200) {
+            if (IsSliderAction()) {
+                sliderMove = 1;
+            }
+            FrontEndMenuManager.m_SlideRightMoveTime = CTimer::GetTimeInMSPauseMode();
+        }
+    }
 
-        if (CheckFrontEndRightInput()) {
-            m_DisplayTheMouse = false;
+    // 0x58052C - Handle mouse wheel movement
+    if (m_nCurrentScreen != eMenuScreen::SCREEN_MAP) {
+        if (CPad::IsMouseWheelUpPressed()) {
             sliderMove = 1;
-        } else if (CheckFrontEndLeftInput()) {
-            m_DisplayTheMouse = false;
+        } else if (CPad::IsMouseWheelDownPressed()) {
             sliderMove = -1;
         }
+    }
 
-        // Play sound for specific screens and actions
-        if (sliderMove != 0 && notsa::contains(specialScreens, m_nCurrentScreen) &&
-            !notsa::contains(specialMenuActions, curScreen[m_nCurrentScreenItem].m_nActionType)) {
-            AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_SELECT);
-        }
+    if (CheckFrontEndRightInput()) {
+        m_DisplayTheMouse = false;
+        sliderMove = 1;
+    } else if (CheckFrontEndLeftInput()) {
+        m_DisplayTheMouse = false;
+        sliderMove = -1;
+    }
+
+    // Play sound for specific screens and actions
+    if (sliderMove != 0 && notsa::contains(specialScreens, m_nCurrentScreen) &&
+        !notsa::contains(specialMenuActions, curScreen[m_nCurrentScreenItem].m_nActionType)) {
+        AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_SELECT);
     }
 
     // Process all user input
@@ -312,7 +314,8 @@ void CMenuManager::ProcessUserInput(bool GoDownMenu, bool GoUpMenu, bool EnterMe
             eMenuEntryType menuType = aScreens[m_nCurrentScreen].m_aItems[m_nCurrentScreenItem].m_nType;
 
             // Audio feedback based on menu type and status
-            if (m_isPreInitialised || !IsSaveSlot(menuType) || GetSavedGameState(m_nCurrentScreenItem - 1) == eSlotState::SLOT_FILLED) {
+            // Como el original (0x57B6AA): lee ms_Slots[item] sin comprobar el rango (.data() evita el aborto de std::array en depuración)
+            if (m_isPreInitialised || !IsSaveSlot(menuType) || CGenericGameStorage::ms_Slots.data()[m_nCurrentScreenItem - 1] == eSlotState::SLOT_FILLED) {
                 AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_SELECT);
             } else {
                 AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_ERROR);
@@ -1204,15 +1207,25 @@ void CMenuManager::CheckForMenuClosing() {
 bool CMenuManager::CheckMissionPackValidMenu() {
     CFileMgr::SetDirMyDocuments();
 
-    sprintf_s(gString, "MPACK//MPACK%d//SCR.SCM", CGame::bMissionPackGame);
+    sprintf(gString, "MPACK//MPACK%d//SCR.SCM", CGame::bMissionPackGame);
     auto scr = CFileMgr::OpenFile(gString, "rb");
-    sprintf_s(gString, "MPACK//MPACK%d//TEXT.GXT", CGame::bMissionPackGame);
+    sprintf(gString, "MPACK//MPACK%d//TEXT.GXT", CGame::bMissionPackGame);
     auto gxt = CFileMgr::OpenFile(gString, "rb");
 
     CFileMgr::SetDir("");
 
-    if (!scr) {
-        if (gxt) {
+    // Como el original (0x57D787): ambos manejadores se comparan con signo (> 0); solo es valido si SCR.SCM y TEXT.GXT se abrieron.
+    if ((int32)(intptr_t)scr > 0 && (int32)(intptr_t)gxt > 0) {
+        CFileMgr::CloseFile(scr);
+        CFileMgr::CloseFile(gxt);
+        return true;
+    }
+
+    {
+        if ((int32)(intptr_t)scr > 0) {
+            CFileMgr::CloseFile(scr);
+        }
+        if ((int32)(intptr_t)gxt > 0) {
             CFileMgr::CloseFile(gxt);
         }
         CTimer::StartUserPause();
@@ -1245,11 +1258,6 @@ bool CMenuManager::CheckMissionPackValidMenu() {
         return false;
     }
 
-    CFileMgr::CloseFile(scr);
-    if (gxt) { // Como el original (0x57D791): también cierra TEXT.GXT si se abrió
-        CFileMgr::CloseFile(gxt);
-    }
-    return true;
 }
 
 // 0x57DB20
