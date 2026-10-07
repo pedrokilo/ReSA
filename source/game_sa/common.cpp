@@ -54,11 +54,32 @@ void InjectCommonHooks() {
 
 // 0x54ECE0
 void TransformPoint(RwV3d& point, const CSimpleTransform& placement, const RwV3d& vecPos) {
-    const auto cos = std::cos(placement.m_fHeading), sin = std::sin(placement.m_fHeading);
-
-    point.x = cos * vecPos.x - sin * vecPos.y + placement.m_vPosn.x;
-    point.y = sin * vecPos.x + cos * vecPos.y + placement.m_vPosn.y;
-    point.z = vecPos.z + placement.m_vPosn.z;
+    // Como el original: fcos/fsin a precision completa (sin pasarlos a float) y cada producto/suma redondeado a 24 bits por el x87
+    const float hdg = placement.m_fHeading, vecX = vecPos.x, vecY = vecPos.y, posX = placement.m_vPosn.x, posY = placement.m_vPosn.y;
+    float outX, outY;
+    __asm {
+        fld dword ptr [hdg]
+        fcos
+        fld dword ptr [hdg]
+        fsin
+        fld st(1)
+        fmul dword ptr [vecX]
+        fld st(1)
+        fmul dword ptr [vecY]
+        fsubp st(1), st(0)
+        fadd dword ptr [posX]
+        fstp dword ptr [outX]
+        fxch st(1)
+        fmul dword ptr [vecY]
+        fxch st(1)
+        fmul dword ptr [vecX]
+        faddp st(1), st(0)
+        fadd dword ptr [posY]
+        fstp dword ptr [outY]
+    }
+    point.x = outX;
+    point.y = outY;
+    point.z = placement.m_vPosn.z + vecPos.z;
 }
 
 // 0x54EEA0
@@ -73,8 +94,25 @@ void TransformVectors(RwV3d* vecsOut, int32 numVectors, const CMatrix& matrix, c
 
 // 0x54EE30
 void TransformVectors(RwV3d* vecsOut, int32 numVectors, const CSimpleTransform& transform, const RwV3d* vecsIn) {
+    // Como el original: solo rota (sin sumar la posicion) y copia la z; coseno y seno se redondean a float antes de usarlos
+    const float hdg = transform.m_fHeading;
+    float cosHeading, sinHeading;
+    __asm {
+        fld dword ptr [hdg]
+        fcos
+        fstp dword ptr [cosHeading]
+        fld dword ptr [hdg]
+        fsin
+        fstp dword ptr [sinHeading]
+    }
     for (auto i = 0; i < numVectors; i++) {
-        TransformPoint(*vecsOut++, transform, *vecsIn++);
+        const float vecX = vecsIn->x, vecY = vecsIn->y;
+        const auto  vecZ = vecsIn->z;
+        vecsOut->x = cosHeading * vecX - sinHeading * vecY;
+        vecsOut->y = sinHeading * vecX + cosHeading * vecY;
+        vecsOut->z = vecZ;
+        ++vecsOut;
+        ++vecsIn;
     }
 }
 

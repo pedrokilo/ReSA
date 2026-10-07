@@ -1,0 +1,101 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344",
+    "scripts/gta-reversed.ini": "7a3a9c53a5a457d68dc6139d6aadf447a680e9feb566d2c801078d252357e344"
+  },
+  "pairs": 13824,
+  "pairs_per_function": {
+    "CEntity::Constructor": 512,
+    "CEntity::Destructor": 512,
+    "CEntity::CleanUpOldReference-": 512,
+    "CEntity::RegisterReference-": 1024,
+    "CEntity::ResolveReferences": 512,
+    "CEntity::PruneReferences": 512,
+    "CEntity::IsEntityPointerValid": 512,
+    "CEntity::FlagToDestroyWhenNextProcessed": 64,
+    "CEntity::SetModelIndex": 256,
+    "CEntity::SetModelIndexNoCreate": 1024,
+    "CEntity::CreateRwObject": 2048,
+    "CEntity::DeleteRwObject": 1024,
+    "CEntity::SetIsStatic": 128,
+    "CEntity::GetIsStatic": 256,
+    "CEntity::GetIsTouching-ent": 1024,
+    "CEntity::GetIsTouching-vec": 1024,
+    "CEntity::GetIsTypePhysical": 256,
+    "CEntity::DoesNotCollideWithFlyers": 512,
+    "CEntity::TreatAsPlayerForCollisions": 256,
+    "CEntity::ProcessCollision": 64,
+    "CEntity::ProcessControl": 64,
+    "CEntity::ProcessShift": 64,
+    "CEntity::TestCollision": 64,
+    "CEntity::Teleport": 128,
+    "CEntity::SpecialEntityCalcCollisionSteps": 64,
+    "CEntity::SpecialEntityPreCollisionStuff": 128,
+    "CEntity::FindTriggerPointCoors": 1024,
+    "CEntity::SetupBigBuilding": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "39dbcb1e81d41aedf756c7c30cd6a1f62bdc16028fcefd222d4899d506498223",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-centb\\20261007-012630-696471",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CEntity::Constructor": true,
+    "CEntity::Destructor": true,
+    "CEntity::CleanUpOldReference-": true,
+    "CEntity::RegisterReference-": true,
+    "CEntity::ResolveReferences": true,
+    "CEntity::PruneReferences": true,
+    "CEntity::IsEntityPointerValid": true,
+    "CEntity::FlagToDestroyWhenNextProcessed": true,
+    "CEntity::SetModelIndex": true,
+    "CEntity::SetModelIndexNoCreate": true,
+    "CEntity::CreateRwObject": true,
+    "CEntity::DeleteRwObject": true,
+    "CEntity::SetIsStatic": true,
+    "CEntity::GetIsStatic": true,
+    "CEntity::GetIsTouching-ent": true,
+    "CEntity::GetIsTouching-vec": true,
+    "CEntity::GetIsTypePhysical": true,
+    "CEntity::DoesNotCollideWithFlyers": true,
+    "CEntity::TreatAsPlayerForCollisions": true,
+    "CEntity::ProcessCollision": true,
+    "CEntity::ProcessControl": true,
+    "CEntity::ProcessShift": true,
+    "CEntity::TestCollision": true,
+    "CEntity::Teleport": true,
+    "CEntity::SpecialEntityCalcCollisionSteps": true,
+    "CEntity::SpecialEntityPreCollisionStuff": true,
+    "CEntity::FindTriggerPointCoors": true,
+    "CEntity::SetupBigBuilding": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "adda4fb12038c9f0efa2a47e5dfcf974c39834cb431517651f0608915a6e10ce",
+      "pdb": "b04c5d31b0d98c4f04fc83a91797a4f88f991a36ca91eb4adbb2c255b8611eaf"
+    },
+    "sources": {
+      "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+      "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "cfafae39f69b307e00ac435e83409615344dedb853779544f502cfea619cdb24",
+      "build_probe.py": "8daf3a4baeae7c850d5906c68160fd653630e90d909b078d6fe605ec2d5f66cc",
+      "run_local.py": "c4fad455164bdff0139f881a48d42dd7f4b7213059431e74cba47d1346658dd1"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

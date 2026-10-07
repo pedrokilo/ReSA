@@ -199424,6 +199424,1906 @@
       "dependency_review": null,
       "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 2048 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
       "review_reference": "reversing/EnExInit/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "AttachToRwObject",
+        "address": "0x00533ED0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::AttachToRwObject"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "DetachFromRwObject",
+        "address": "0x00533FB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::DetachFromRwObject"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "BuildWindSockMatrix",
+        "address": "0x00532DB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::BuildWindSockMatrix"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "CalculateBBProjection",
+        "address": "0x00535340",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::CalculateBBProjection"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "ModifyMatrixForBannerInWind",
+        "address": "0x00535040",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::ModifyMatrixForBannerInWind"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "ModifyMatrixForCrane",
+        "address": "0x00533170",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::ModifyMatrixForCrane"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "ModifyMatrixForTreeInWind",
+        "address": "0x00534E90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::ModifyMatrixForTreeInWind"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "GetBoundCentre-ref",
+        "address": "0x00534290",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::GetBoundCentre-ref"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "GetBoundCentre-vec",
+        "address": "0x00534250",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::GetBoundCentre-vec"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "GetBoundRect",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::GetBoundRect"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "GetColModel",
+        "address": "0x00535300",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::GetColModel"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "GetDistanceFromCentreOfMassToBaseOfModel",
+        "address": "0x00536BE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::GetDistanceFromCentreOfMassToBaseOfModel"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "GetModellingMatrix",
+        "address": "0x0046A2D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::GetModellingMatrix"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "TransformFromObjectSpace-ptr",
+        "address": "0x00533560",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::TransformFromObjectSpace-ptr"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "TransformFromObjectSpace-ref",
+        "address": "0x005334F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::TransformFromObjectSpace-ref"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "UpdateRwFrame",
+        "address": "0x00532B00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::UpdateRwFrame"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "UpdateRwMatrix",
+        "address": "0x00446F90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::UpdateRwMatrix"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "UpdateRpHAnim",
+        "address": "0x00532B20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::UpdateRpHAnim"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "UpdateAnim",
+        "address": "0x00535F00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::UpdateAnim"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "Add-rect",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::Add-rect"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "Remove",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::Remove"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "LivesInThisNonOverlapSector",
+        "address": "0x00533050",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::LivesInThisNonOverlapSector"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "GetIsBoundingBoxOnScreen",
+        "address": "0x005345D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::GetIsBoundingBoxOnScreen"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "GetIsOnScreen",
+        "address": "0x00534540",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::GetIsOnScreen"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "IsEntityOccluded",
+        "address": "0x0071FAE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::IsEntityOccluded"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "IsVisible",
+        "address": "0x00536BC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntA/validation-summary.json",
+        "sha256": "bf484980fe19ac573ec98ca5f6ed35e8636b039c7861cedfe1b14473b88d7ca0",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::IsVisible"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/common.cpp": "2cc99c61c86fc36664cc81869e69984ea99087b4e85405ff9890768451f79004",
+        "source/game_sa/SimpleTransform.cpp": "9b37b26e261f5fcd84b0108d194e42ee29a47afc0134239e07a13663d1fbd7e2"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012511-472660).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 16384 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "Constructor",
+        "address": "0x00532A90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::Constructor"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "Destructor",
+        "address": "0x00535E90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::Destructor"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "CleanUpOldReference-",
+        "address": "0x00571A00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::CleanUpOldReference-"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "RegisterReference-",
+        "address": "0x00571B70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::RegisterReference-"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "ResolveReferences",
+        "address": "0x00571A40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::ResolveReferences"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "PruneReferences",
+        "address": "0x00571A90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::PruneReferences"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "IsEntityPointerValid",
+        "address": "0x00533310",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::IsEntityPointerValid"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "FlagToDestroyWhenNextProcessed",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::FlagToDestroyWhenNextProcessed"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "SetModelIndex",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::SetModelIndex"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "SetModelIndexNoCreate",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::SetModelIndexNoCreate"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "CreateRwObject",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::CreateRwObject"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "2048 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "DeleteRwObject",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::DeleteRwObject"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "SetIsStatic",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::SetIsStatic"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "GetIsStatic",
+        "address": "0x004633E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::GetIsStatic"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "GetIsTouching-ent",
+        "address": "0x005343F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::GetIsTouching-ent"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "GetIsTouching-vec",
+        "address": "0x005344B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::GetIsTouching-vec"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "GetIsTypePhysical",
+        "address": "0x004DA030",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::GetIsTypePhysical"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "DoesNotCollideWithFlyers",
+        "address": "0x00532D40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::DoesNotCollideWithFlyers"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "TreatAsPlayerForCollisions",
+        "address": "0x00541F70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::TreatAsPlayerForCollisions"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "ProcessCollision",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::ProcessCollision"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "ProcessControl",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::ProcessControl"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "ProcessShift",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::ProcessShift"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "TestCollision",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::TestCollision"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "Teleport",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::Teleport"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "SpecialEntityCalcCollisionSteps",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::SpecialEntityCalcCollisionSteps"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "SpecialEntityPreCollisionStuff",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::SpecialEntityPreCollisionStuff"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "FindTriggerPointCoors",
+        "address": "0x00533380",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::FindTriggerPointCoors"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "SetupBigBuilding",
+        "address": "0x00533150",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntB/validation-summary.json",
+        "sha256": "bc1af5cd663229025f95d8b3e63cd58c96c2a9fc23890b8ce6bd8f728ad63db8",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::SetupBigBuilding"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf",
+        "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012630-696471).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 13824 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "CreateEffects",
+        "address": "0x00533790",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntC/validation-summary.json",
+        "sha256": "9638a3c0d4897f05665c75f947a544d7fca9fda968c6fed26f13a8c66dbdd60a",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::CreateEffects"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 4608 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "DestroyEffects",
+        "address": "0x00533BF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntC/validation-summary.json",
+        "sha256": "9638a3c0d4897f05665c75f947a544d7fca9fda968c6fed26f13a8c66dbdd60a",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::DestroyEffects"
+        ],
+        "pairs": 384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
+      "dependency_review": null,
+      "scope": "384 pares original/candidato con hook conmutado dentro del motor; banco de 4608 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "GetRandom2dEffect",
+        "address": "0x00533410",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntC/validation-summary.json",
+        "sha256": "9638a3c0d4897f05665c75f947a544d7fca9fda968c6fed26f13a8c66dbdd60a",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::GetRandom2dEffect"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 4608 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "HasPreRenderEffects",
+        "address": "0x00532B70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntC/validation-summary.json",
+        "sha256": "9638a3c0d4897f05665c75f947a544d7fca9fda968c6fed26f13a8c66dbdd60a",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::HasPreRenderEffects"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 4608 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "ProcessLightsForEntity",
+        "address": "0x006FC7A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntC/validation-summary.json",
+        "sha256": "9638a3c0d4897f05665c75f947a544d7fca9fda968c6fed26f13a8c66dbdd60a",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::ProcessLightsForEntity"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 4608 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "PreRender",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntC/validation-summary.json",
+        "sha256": "9638a3c0d4897f05665c75f947a544d7fca9fda968c6fed26f13a8c66dbdd60a",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::PreRender"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 4608 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "PreRenderForGlassWindow",
+        "address": "0x00533240",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntC/validation-summary.json",
+        "sha256": "9638a3c0d4897f05665c75f947a544d7fca9fda968c6fed26f13a8c66dbdd60a",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::PreRenderForGlassWindow"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 4608 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "Render",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntC/validation-summary.json",
+        "sha256": "9638a3c0d4897f05665c75f947a544d7fca9fda968c6fed26f13a8c66dbdd60a",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::Render"
+        ],
+        "pairs": 384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
+      "dependency_review": null,
+      "scope": "384 pares original/candidato con hook conmutado dentro del motor; banco de 4608 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "RenderEffects",
+        "address": "0x005342B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntC/validation-summary.json",
+        "sha256": "9638a3c0d4897f05665c75f947a544d7fca9fda968c6fed26f13a8c66dbdd60a",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::RenderEffects"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 4608 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "RemoveEscalatorsForEntity",
+        "address": "0x00717900",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntC/validation-summary.json",
+        "sha256": "9638a3c0d4897f05665c75f947a544d7fca9fda968c6fed26f13a8c66dbdd60a",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::RemoveEscalatorsForEntity"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 4608 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "RemoveLighting",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntC/validation-summary.json",
+        "sha256": "9638a3c0d4897f05665c75f947a544d7fca9fda968c6fed26f13a8c66dbdd60a",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::RemoveLighting"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 4608 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "SetupLighting",
+        "address": "0x00000000",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CEntC/validation-summary.json",
+        "sha256": "9638a3c0d4897f05665c75f947a544d7fca9fda968c6fed26f13a8c66dbdd60a",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::SetupLighting"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 4608 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "SetAtomicAlpha",
+        "address": "0x00533290",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntC/validation-summary.json",
+        "sha256": "9638a3c0d4897f05665c75f947a544d7fca9fda968c6fed26f13a8c66dbdd60a",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::SetAtomicAlpha"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 4608 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "SetCompAlphaCB",
+        "address": "0x00533280",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntC/validation-summary.json",
+        "sha256": "9638a3c0d4897f05665c75f947a544d7fca9fda968c6fed26f13a8c66dbdd60a",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::SetCompAlphaCB"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 4608 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "SetRwObjectAlpha",
+        "address": "0x005332C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntC/validation-summary.json",
+        "sha256": "9638a3c0d4897f05665c75f947a544d7fca9fda968c6fed26f13a8c66dbdd60a",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::SetRwObjectAlpha"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 4608 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntity",
+        "fn_name": "MaterialUpdateUVAnimCB",
+        "address": "0x00532D70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CEntC/validation-summary.json",
+        "sha256": "9638a3c0d4897f05665c75f947a544d7fca9fda968c6fed26f13a8c66dbdd60a",
+        "passed_path": [
+          "covered_functions",
+          "CEntity::MaterialUpdateUVAnimCB"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Entity/Entity.cpp": "c34a88841d6b4871882b2058bc399715a147e79af23327e0b6daa1c2bc428e68",
+        "source/game_sa/Entity/Entity.h": "02f15b0741a3cad86e36c6a03da7189e13d25dfeb737aefa0a7a3d4c3b218dbf"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-012730-966936).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 4608 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CEntC/README.md"
     }
   ]
 }

@@ -1233,5 +1233,20 @@
     "id": "cvehe",
     "name": "CVehicle grupo E (armas de avión, barco, cabrestante y colisión)",
     "runner": "CVehE/run_local.py"
+  },
+  {
+    "id": "centa",
+    "name": "CEntity grupo A (matrices, transformaciones, límites y visibilidad)",
+    "runner": "CEntA/run_local.py"
+  },
+  {
+    "id": "centb",
+    "name": "CEntity grupo B (ciclo de vida, referencias, estado y colisión)",
+    "runner": "CEntB/run_local.py"
+  },
+  {
+    "id": "centc",
+    "name": "CEntity grupo C (efectos 2D, dibujo e iluminación)",
+    "runner": "CEntC/run_local.py"
   }
 ]

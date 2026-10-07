@@ -9,7 +9,7 @@
  * Reconstrucción: COMPLETA — 70/70 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/70 entradas.
+ * Validación registrada: 70/70 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -126,7 +126,7 @@ void CEntity::InjectHooks() {
 
 // 0x532A90
 /**
- * Inicializa una entidad sin modelo ni RwObject, con estado/área/LOD en sus valores base.
+ * Inicializa una entidad sin modelo ni RwObject, con estado/area/LOD en sus valores base.
  */
 CEntity::CEntity() : CPlaceable() {
     SetStatus(STATUS_ABANDONED);
@@ -151,8 +151,8 @@ CEntity::CEntity() : CPlaceable() {
 
 // 0x535E90
 /**
- * Desvincula la relación LOD, destruye el recurso RenderWare y resuelve todas las
- * referencias registradas para que ningún puntero externo conserve this.
+ * Desvincula la relacion LOD, destruye el recurso RenderWare y resuelve todas las
+ * referencias registradas para que ningun puntero externo conserve this.
  */
 CEntity::~CEntity() {
     if (GetLod()) {
@@ -169,50 +169,105 @@ void CEntity::Add() {
     Add(GetBoundRect());
 }
 
+namespace {
+// Como el original (0x5347D0/0x534AE0): sector = floor(v * 0.02 + 60) con el producto y la suma redondeados a float (x87 a 24 bits)
+// y _ftol2 (64 bits) sobre el resultado; el sector LOD es trunc(v * 0.005 + 15) sin floor.
+int32 EntityA_SectorCoord(float v) {
+    const float scaled = v * 0.02F;
+    const float sector = scaled + 60.0F;
+    return static_cast<int32>(static_cast<int64>(std::floor(sector)));
+}
+int32 EntityA_LodSectorCoord(float v) {
+    const float scaled = v * 0.005F;
+    const float sector = scaled + 15.0F;
+    return static_cast<int32>(static_cast<int64>(sector));
+}
+// Como el original: recorte del rectangulo con las comparaciones del x87 (NaN no recorta).
+// Los campos en memoria son left(+0), top(+4), right(+8), bottom(+0xC): el EXE recorta +4 con '> 3000' y +0xC con '< -3000'.
+void EntityA_ClampBoundRect(CRect& r) {
+    if (r.left < -3000.0F) {
+        r.left = -3000.0F;
+    }
+    if (r.right >= 3000.0F) {
+        r.right = 2999.0F;
+    }
+    if (r.bottom < -3000.0F) {
+        r.bottom = -3000.0F;
+    }
+    if (r.top > 3000.0F) {
+        r.top = 2999.0F;
+    }
+}
+CPtrListSingleLink<CEntity*>& EntityA_LodList(int32 x, int32 y) { // sin comprobar rangos, como el original (indice plano y * 30 + x)
+    return *(reinterpret_cast<CPtrListSingleLink<CEntity*>*>(&CWorld::ms_aLodPtrLists) + (y * 30 + x));
+}
+CRepeatSector& EntityA_RepeatSector(int32 x, int32 y) { // Como el original: (y & 15) * 16 + (x & 15)
+    return CWorld::ms_aRepeatSectors[static_cast<uint32>(y) & 0xF][static_cast<uint32>(x) & 0xF];
+}
+// Como el original: MultiplyMatrixWithVector (0x59C890) con el orden de sumas del EXE (x: z, y, x; y: z, x, y; z: z, x, y)
+CVector EntityA_MultiplyPoint59C890(const CMatrix& m, const CVector& v) {
+    return CVector{
+        ((m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x) + m.GetPosition().x,
+        ((m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y) + m.GetPosition().y,
+        ((m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y) + m.GetPosition().z,
+    };
+}
+// Como el original: fsin a precision completa y el producto redondeado a 24 bits por el x87
+float EntityA_SinTimes(float angle, float factor) {
+    float result;
+    __asm {
+        fld dword ptr [angle]
+        fsin
+        fmul dword ptr [factor]
+        fstp dword ptr [result]
+    }
+    return result;
+}
+// Como el original: (v < 0) ? -v : v (con -0.0 y NaN sin cambios, a diferencia de fabs)
+float EntityA_AbsLikeExe(float v) {
+    return v < 0.0F ? -v : v;
+}
+}
+
 // 0x5347D0
 /**
- * Inserta la entidad en sectores LOD o normales según m_bIsBIGBuilding.
+ * Inserta la entidad en sectores LOD o normales segun m_bIsBIGBuilding.
  *
- * La lista concreta depende de eEntityType; el rectángulo se recorta primero a los
- * límites válidos del mapa.
+ * La lista concreta depende de eEntityType; el rectangulo se recorta primero a los
+ * limites validos del mapa.
  */
 void CEntity::Add(const CRect& rect) {
     CRect usedRect = rect;
-    if (usedRect.left < -3000.0F) {
-        usedRect.left = -3000.0F;
-    }
-    if (usedRect.right >= 3000.0F) {
-        usedRect.right = 2999.0F;
-    }
-    if (usedRect.bottom < -3000.0F) {
-        usedRect.bottom = -3000.0F;
-    }
-    if (usedRect.top >= 3000.0F) {
-        usedRect.top = 2999.0F;
-    }
+    EntityA_ClampBoundRect(usedRect);
 
     if (m_bIsBIGBuilding) {
-        CWorld::IterateLodSectorsOverlappedByRect({ usedRect }, [&](int32 x, int32 y) {
-            auto& pLodListEntry = CWorld::GetLodPtrList(x, y);
-            pLodListEntry.AddItem(this);
-            return true;
-        });
-    } else {
-        CWorld::IterateSectorsOverlappedByRect({ usedRect }, [&](int32 x, int32 y) {
-            auto& s = CWorld::GetSector(x, y);
-            auto& rs = CWorld::GetRepeatSector(x, y);
-            const auto  ProcessAddItem = [this]<typename PtrListType>(PtrListType& list) {
-                list.AddItem(static_cast<typename PtrListType::ItemType>(this)); // TODO: notsa::cast
-            };
-            switch (GetType()) {
-            case ENTITY_TYPE_DUMMY:    ProcessAddItem(s.Dummies); break;
-            case ENTITY_TYPE_VEHICLE:  ProcessAddItem(rs.Vehicles); break;
-            case ENTITY_TYPE_PED:      ProcessAddItem(rs.Peds); break;
-            case ENTITY_TYPE_OBJECT:   ProcessAddItem(rs.Objects); break;
-            case ENTITY_TYPE_BUILDING: ProcessAddItem(s.Buildings); break;
+        // Como el original: los LOD se calculan con trunc(v * 0.005 + 15) (sin floor) y sin recorte de indices
+        const auto startX = EntityA_LodSectorCoord(usedRect.left);
+        const auto endX   = EntityA_LodSectorCoord(usedRect.right);
+        const auto endY   = EntityA_LodSectorCoord(usedRect.top);
+        const auto startY = EntityA_LodSectorCoord(usedRect.bottom);
+        for (auto y = startY; y <= endY; ++y) {
+            for (auto x = startX; x <= endX; ++x) {
+                EntityA_LodList(x, y).AddItem(this);
             }
-            return true;
-        });
+        }
+    } else {
+        const auto startX = EntityA_SectorCoord(usedRect.left);
+        const auto startY = EntityA_SectorCoord(usedRect.bottom);
+        const auto endX   = EntityA_SectorCoord(usedRect.right);
+        const auto endY   = EntityA_SectorCoord(usedRect.top);
+        for (auto y = startY; y <= endY; ++y) {
+            for (auto x = startX; x <= endX; ++x) {
+                switch (GetType()) {
+                case ENTITY_TYPE_DUMMY:    CWorld::GetSector(x, y).Dummies.AddItem(static_cast<CDummy*>(this)); break;
+                case ENTITY_TYPE_VEHICLE:  EntityA_RepeatSector(x, y).Vehicles.AddItem(static_cast<CVehicle*>(this)); break;
+                case ENTITY_TYPE_PED:      EntityA_RepeatSector(x, y).Peds.AddItem(static_cast<CPed*>(this)); break;
+                case ENTITY_TYPE_OBJECT:   EntityA_RepeatSector(x, y).Objects.AddItem(static_cast<CObject*>(this)); break;
+                case ENTITY_TYPE_BUILDING: CWorld::GetSector(x, y).Buildings.AddItem(static_cast<CBuilding*>(this)); break;
+                default: break;
+                }
+            }
+        }
     }
 }
 
@@ -220,41 +275,35 @@ void CEntity::Add(const CRect& rect) {
 // Ejecuta el proceso inverso de Add(), retirando la entidad de todas las listas espaciales.
 void CEntity::Remove() {
     auto usedRect = GetBoundRect();
-    if (usedRect.left < -3000.0F) {
-        usedRect.left = -3000.0F;
-    }
-    if (usedRect.right >= 3000.0F) {
-        usedRect.right = 2999.0F;
-    }
-    if (usedRect.bottom < -3000.0F) {
-        usedRect.bottom = -3000.0F;
-    }
-    if (usedRect.top >= 3000.0F) {
-        usedRect.top = 2999.0F;
-    }
+    EntityA_ClampBoundRect(usedRect);
 
     if (m_bIsBIGBuilding) {
-        CWorld::IterateLodSectorsOverlappedByRect({ usedRect }, [&](int32 x, int32 y) {
-            auto& list = CWorld::GetLodPtrList(x, y);
-            list.DeleteItem(this);
-            return true;
-        });
-    } else {
-        CWorld::IterateSectorsOverlappedByRect({ usedRect }, [&](int32 x, int32 y) {
-            auto& s = CWorld::GetSector(x, y);
-            auto& rs = CWorld::GetRepeatSector(x, y);
-            const auto  ProcessDeleteItem = [this]<typename PtrListType>(PtrListType& list) {
-                list.DeleteItem(static_cast<typename PtrListType::ItemType>(this)); // TODO: notsa::cast
-            };
-            switch (GetType()) {
-            case ENTITY_TYPE_DUMMY:    ProcessDeleteItem(s.Dummies); break;
-            case ENTITY_TYPE_VEHICLE:  ProcessDeleteItem(rs.Vehicles); break;
-            case ENTITY_TYPE_PED:      ProcessDeleteItem(rs.Peds); break;
-            case ENTITY_TYPE_OBJECT:   ProcessDeleteItem(rs.Objects); break;
-            case ENTITY_TYPE_BUILDING: ProcessDeleteItem(s.Buildings); break;
+        const auto startX = EntityA_LodSectorCoord(usedRect.left);
+        const auto endX   = EntityA_LodSectorCoord(usedRect.right);
+        const auto endY   = EntityA_LodSectorCoord(usedRect.top);
+        const auto startY = EntityA_LodSectorCoord(usedRect.bottom);
+        for (auto y = startY; y <= endY; ++y) {
+            for (auto x = startX; x <= endX; ++x) {
+                EntityA_LodList(x, y).DeleteItem(this);
             }
-            return true;
-        });
+        }
+    } else {
+        const auto startX = EntityA_SectorCoord(usedRect.left);
+        const auto startY = EntityA_SectorCoord(usedRect.bottom);
+        const auto endX   = EntityA_SectorCoord(usedRect.right);
+        const auto endY   = EntityA_SectorCoord(usedRect.top);
+        for (auto y = startY; y <= endY; ++y) {
+            for (auto x = startX; x <= endX; ++x) {
+                switch (GetType()) {
+                case ENTITY_TYPE_DUMMY:    CWorld::GetSector(x, y).Dummies.DeleteItem(static_cast<CDummy*>(this)); break;
+                case ENTITY_TYPE_VEHICLE:  EntityA_RepeatSector(x, y).Vehicles.DeleteItem(static_cast<CVehicle*>(this)); break;
+                case ENTITY_TYPE_PED:      EntityA_RepeatSector(x, y).Peds.DeleteItem(static_cast<CPed*>(this)); break;
+                case ENTITY_TYPE_OBJECT:   EntityA_RepeatSector(x, y).Objects.DeleteItem(static_cast<CObject*>(this)); break;
+                case ENTITY_TYPE_BUILDING: CWorld::GetSector(x, y).Buildings.DeleteItem(static_cast<CBuilding*>(this)); break;
+                default: break;
+                }
+            }
+        }
     }
 }
 
@@ -267,8 +316,8 @@ void CEntity::SetModelIndex(uint32 index) {
 
 // 0x533700
 /**
- * Cambia sólo el model index y sincroniza flags derivados del CBaseModelInfo.
- * No crea todavía el RpAtomic/RpClump.
+ * Cambia solo el model index y sincroniza flags derivados del CBaseModelInfo.
+ * No crea todavia el RpAtomic/RpClump.
  */
 void CEntity::SetModelIndexNoCreate(uint32 index) {
     auto mi = CModelInfo::GetModelInfo(index);
@@ -374,12 +423,13 @@ void CEntity::DeleteRwObject() {
     }
 
     switch (RwObjectGetType(GetRwObject())) {
-    case rpATOMIC:
-        if (auto* frame = RpAtomicGetFrame(GetRpAtomic())) {
-            RpAtomicDestroy(GetRpAtomic());
-            RwFrameDestroy(frame);
-        }
+    case rpATOMIC: {
+        // Como el original (0x534046..0x534055): lee el frame, destruye el atomic y destruye el frame sin comprobar que sea nulo
+        auto* const frame = RpAtomicGetFrame(GetRpAtomic());
+        RpAtomicDestroy(GetRpAtomic());
+        RwFrameDestroy(frame);
         break;
+    }
     case rpCLUMP:
 #ifdef SA_SKINNED_PEDS
         if (IsClumpSkinned(GetRpClump())) {
@@ -393,7 +443,9 @@ void CEntity::DeleteRwObject() {
     m_pRwObject = nullptr;
     auto* mi = GetModelInfo();
     mi->RemoveRef();
-    CStreaming::RemoveEntity(std::exchange(m_pStreamingLink, nullptr));
+    // Como el original (0x5340B1..0x5340C4): el enlace se pasa a RemoveEntity y solo despues se pone a nulo
+    CStreaming::RemoveEntity(m_pStreamingLink);
+    m_pStreamingLink = nullptr;
 
     if (GetIsTypeBuilding()) {
         gBuildings--;
@@ -473,7 +525,10 @@ void CEntity::PreRender() {
 
     if (ami && ami->SwaysInWind() && (!GetIsTypeObject() || !AsObject()->objectFlags.bIsExploded)) {
         const auto fDist = DistanceBetweenPoints2D(GetPosition(), TheCamera.GetPosition());
-        CObject::fDistToNearestTree = std::min(CObject::fDistToNearestTree, fDist);
+        // Como el original (0x536130): fcomp + test ah,5 -> se guarda siempre que NO sea (distancia al arbol < fDist)
+        if (!(CObject::fDistToNearestTree < fDist)) {
+            CObject::fDistToNearestTree = fDist;
+        }
         ModifyMatrixForTreeInWind();
     }
 
@@ -604,11 +659,13 @@ void CEntity::PreRender() {
             }
         } else if (modelIndex == ModelIndices::MI_BEACHBALL) {
             if (DistanceBetweenPoints(GetPosition(), TheCamera.GetPosition()) < 50.0F) {
-                const auto ucShadowStrength = static_cast<uint8>(CTimeCycle::m_CurrentColours.m_nShadowStrength);
+                // Como el original: la intensidad es la palabra de 16 bits completa y solo r/g/b usan el byte bajo
+                const auto shadowStrength = CTimeCycle::m_CurrentColours.m_nShadowStrength;
+                const auto ucShadowStrength = static_cast<uint8>(shadowStrength);
                 CShadows::StoreShadowToBeRendered(
                     eShadowType::SHADOW_DEFAULT, gpShadowPedTex, GetPosition(),
                     0.4F, 0.0F, 0.0F, -0.4F,
-                    ucShadowStrength, ucShadowStrength, ucShadowStrength, ucShadowStrength,
+                    shadowStrength, ucShadowStrength, ucShadowStrength, ucShadowStrength,
                     20.0F, false, 1.0F, nullptr, false
                 );
             }
@@ -617,7 +674,8 @@ void CEntity::PreRender() {
                    || modelIndex == ModelIndices::MI_CRANE_MAGNET
                    || modelIndex == ModelIndices::MI_MINI_MAGNET
                    || modelIndex == ModelIndices::MI_CRANE_HARNESS) {
-            if (DistanceBetweenPoints(GetPosition(), TheCamera.GetPosition()) < 100.0F) {
+            // Como el original (0x5368DE): el limite es 110,0 (0x858BA8), no 100
+            if (DistanceBetweenPoints(GetPosition(), TheCamera.GetPosition()) < 110.0F) {
                 CShadows::StoreShadowToBeRendered(
                     eShadowType::SHADOW_DEFAULT, gpShadowPedTex, GetPosition(),
                     2.0F, 0.0F, 0.0F, -2.0F, 128, 128, 128, 128,
@@ -695,11 +753,12 @@ void CEntity::Render() {
     CStreaming::RenderEntity(m_pStreamingLink);
     RenderEffects();
 
-    m_bImBeingRendered = false;
-
+    // Como el original: primero se restaura el estado de render y despues se baja la bandera
     if (isJellyfish) {
         RwRenderStateSet(rwRENDERSTATEALPHATESTFUNCTIONREF, RWRSTATE(savedAlphaRef));
     }
+
+    m_bImBeingRendered = false;
 }
 
 // Sets up lighting for the entity by activating directional lights
@@ -848,7 +907,8 @@ RpMaterial* MaterialUpdateUVAnimCB(RpMaterial* material, void* data) {
         return material;
     }
 
-    auto fTimeStep = CTimer::GetTimeStepInSeconds();
+    // Como el original: ms_fTimeStep * 0,02f (0x858B38), no una division entre 50
+    const float fTimeStep = CTimer::ms_fTimeStep * 0.02f;
     RpMaterialUVAnimAddAnimTime(material, fTimeStep);
     RpMaterialUVAnimApplyUpdate(material);
     return material;
@@ -858,7 +918,8 @@ RpMaterial* MaterialUpdateUVAnimCB(RpMaterial* material, void* data) {
 // to make it point in the direction of the current wind
 // 0x532DB0
 void CEntity::BuildWindSockMatrix() {
-    auto vecWindDir = CVector(CWeather::WindDir.x + 0.01F, CWeather::WindDir.y + 0.01F, 0.1F);
+    // Como el original (0x532DB0): el viento se invierte (fchs) antes de normalizar
+    auto vecWindDir = CVector(-(CWeather::WindDir.x + 0.01F), -(CWeather::WindDir.y + 0.01F), 0.1F);
 
     auto forward = vecWindDir;
     forward.Normalise();
@@ -882,11 +943,12 @@ void CEntity::BuildWindSockMatrix() {
 bool CEntity::LivesInThisNonOverlapSector(int32 x, int32 y) {
     const auto rect = GetBoundRect();
 
-    float centerX, centerY;
-    rect.GetCenter(&centerX, &centerY);
+    // Como el original (0x533050): centro = (derecha + izquierda) * 0.5 y (borde +4 + borde +0xC) * 0.5; sector = floor(c * 0.02 + 60)
+    const float centerX = (rect.right + rect.left) * 0.5F;
+    const float centerY = (rect.top + rect.bottom) * 0.5F;
 
-    const auto middleX = CWorld::GetSectorX(centerX);
-    const auto middleY = CWorld::GetSectorY(centerY);
+    const auto middleX = EntityA_SectorCoord(centerX);
+    const auto middleY = EntityA_SectorCoord(centerY);
 
     return x == middleX && y == middleY;
 }
@@ -895,9 +957,11 @@ bool CEntity::LivesInThisNonOverlapSector(int32 x, int32 y) {
 // disabling its collision and making it persistent
 // 0x533150
 void CEntity::SetupBigBuilding() {
+    // Como el original (0x533150): el EXE pone los bits 8 (m_bIsBIGBuilding) y 16 (m_bDontCastShadowsOn) de +0x1C
+    // (`or eax,10100h`); la DLL ponia el bit 10 (m_bStreamingDontDelete).
     SetUsesCollision(false);
     m_bIsBIGBuilding = true;
-    m_bStreamingDontDelete = true;
+    m_bDontCastShadowsOn = true;
     GetModelInfo()->SetOwnsColModel(true);
 }
 
@@ -913,7 +977,8 @@ void CEntity::ModifyMatrixForCrane() {
             }
 
             auto tempMat = CMatrix(parentMatrix, false);
-            auto fRot = (CTimer::GetTimeInMS() & 0x3FF) * (PI / 512.26F);
+            // Como el original (0x533170): constante exacta del EXE (0x863980), no PI / 512.26F
+            const auto fRot = static_cast<float>(CTimer::GetTimeInMS() & 0x3FF) * std::bit_cast<float>(0x3BC8F5C3u);
             tempMat.SetRotateZOnly(fRot);
             tempMat.UpdateRW();
             UpdateRwFrame();
@@ -938,10 +1003,11 @@ void CEntity::SetRwObjectAlpha(int32 alpha) {
     if (!object) {
         return;
     }
-    switch (const auto type = RwObjectGetType(object)) {
+    // Como el original: cualquier otro tipo de objeto no hace nada (sin NOTSA_UNREACHABLE)
+    switch (RwObjectGetType(object)) {
     case rpATOMIC: SetAtomicAlpha(GetRpAtomic(), (void*)(alpha)); break;
     case rpCLUMP:  RpClumpForAllAtomics(GetRpClump(), SetAtomicAlpha, (void*)alpha); break;
-    default:       NOTSA_UNREACHABLE_CASE(type);
+    default:       break;
     }
 }
 
@@ -971,6 +1037,15 @@ bool IsEntityPointerValid(CEntity* entity) {
     return false;
 }
 
+// Como el original: MultiplyMatrixWithVector (0x59C890) con el orden de sumas del EXE (x: z, y, x; y: z, x, y; z: z, x, y)
+static CVector EntityGroupB_MultiplyPoint59C890(const CMatrix& m, const CVector& v) {
+    return CVector{
+        ((m.GetUp().x * v.z + m.GetForward().x * v.y) + m.GetRight().x * v.x) + m.GetPosition().x,
+        ((m.GetUp().y * v.z + m.GetRight().y * v.x) + m.GetForward().y * v.y) + m.GetPosition().y,
+        ((m.GetUp().z * v.z + m.GetRight().z * v.x) + m.GetForward().z * v.y) + m.GetPosition().z,
+    };
+}
+
 // Finds the world coordinates of a 2dEffect trigger point on the entity's model by its index
 // 0x533380
 CVector* CEntity::FindTriggerPointCoors(CVector* outVec, int32 index) {
@@ -980,7 +1055,7 @@ CVector* CEntity::FindTriggerPointCoors(CVector* outVec, int32 index) {
         for (int32 iFxInd = 0; iFxInd < numEffects; ++iFxInd) {
             auto effect = mi->Get2dEffect(iFxInd);
             if (effect->m_Type == e2dEffectType::EFFECT_TRIGGER_POINT && effect->slotMachineIndex.m_nId == index) {
-                *outVec = GetMatrix().TransformPoint(effect->m_Pos);
+                *outVec = EntityGroupB_MultiplyPoint59C890(GetMatrix(), effect->m_Pos);
                 return outVec;
             }
         }
@@ -1008,7 +1083,8 @@ C2dEffect* CEntity::GetRandom2dEffect(int32 effectType, bool mustBeFree) {
                 continue;
             }
 
-            if (mustBeFree && !GetPedAttractorManager()->HasEmptySlot(notsa::cast<C2dEffectPedAttractor>(effect), this)) {
+            // Como el original: sin comprobar el tipo (HasEmptySlot lo comprueba por dentro)
+            if (mustBeFree && !GetPedAttractorManager()->HasEmptySlot(reinterpret_cast<C2dEffectPedAttractor*>(effect), this)) {
                 continue;
             }
 
@@ -1018,7 +1094,8 @@ C2dEffect* CEntity::GetRandom2dEffect(int32 effectType, bool mustBeFree) {
         }
     }
 
-    return numCandidates ? candidates[CGeneral::GetRandomNumberInRange(0u, numCandidates)] : nullptr;
+    // Como el original: (rand() & 0xFFFF) * (1/32768) * numCandidates truncado (0x858B14), no la interpolacion 1/32767
+    return numCandidates ? candidates.data()[CGeneral::GetRandomIntInRange(0, (int32)numCandidates)] : nullptr;
 }
 
 // Transforms a point from the entity's local (object) space to world space
@@ -1026,7 +1103,7 @@ C2dEffect* CEntity::GetRandom2dEffect(int32 effectType, bool mustBeFree) {
 // 0x5334F0
 CVector CEntity::TransformFromObjectSpace(const CVector& offset) const {
     if (m_matrix) {
-        return m_matrix->TransformPoint(offset);
+        return EntityA_MultiplyPoint59C890(*m_matrix, offset); // Como el original: 0x59C890 con su orden de sumas
     }
     CVector result;
     TransformPoint(result, m_placement, offset);
@@ -1040,6 +1117,33 @@ CVector CEntity::TransformFromObjectSpace(const CVector& offset) const {
 CVector* CEntity::TransformFromObjectSpace(CVector& outPos, const CVector& offset) const {
     outPos = TransformFromObjectSpace(offset);
     return &outPos;
+}
+
+// Como el original (0x533A21...): atan2(-forward.x, forward.y) con fpatan (precision completa, sin pasar por float),
+// por 57,29578f (0x859878) y mas el angulo base, con redondeo a 24 bits del x87 en el producto y la suma.
+static float EntityGroupC_HeadingDegreesPlus(const CMatrix* mat, float placementHeading, float baseAngle) {
+    static const float kRadToDeg = 57.2957763671875f;
+    float outDeg;
+    if (mat) {
+        const float negFwdX = -mat->GetForward().x;
+        const float fwdY    = mat->GetForward().y;
+        __asm {
+            fld  dword ptr [negFwdX]
+            fld  dword ptr [fwdY]
+            fpatan
+            fmul dword ptr [kRadToDeg]
+            fadd dword ptr [baseAngle]
+            fstp dword ptr [outDeg]
+        }
+    } else {
+        __asm {
+            fld  dword ptr [placementHeading]
+            fmul dword ptr [kRadToDeg]
+            fadd dword ptr [baseAngle]
+            fstp dword ptr [outDeg]
+        }
+    }
+    return outDeg;
 }
 
 // Creates all 2dEffects (e.g., lights, particles, entry/exits)
@@ -1078,16 +1182,17 @@ void CEntity::CreateEffects() {
             const auto vecWorldExit = TransformFromObjectSpace(vecExit);
 
             if (effect->enEx.bTimedEffect) {
-                auto ucDays = CClock::GetGameClockDays();
+                // Como el original: los dias son un entero de 32 bits (dec eax: 0 pasa a 0xFFFFFFFF), no un uint8
+                uint32 ucDays = CClock::GetGameClockDays();
                 if (effect->enEx.m_nTimeOn > effect->enEx.m_nTimeOff && CClock::ms_nGameClockHours < effect->enEx.m_nTimeOff) {
                     ucDays--;
                 }
                 srand(std::bit_cast<uint32>(this) + ucDays);
             }
 
-            const auto fHeading = GetHeading();
-            const auto fExitRot = effect->enEx.m_fExitAngle + RadiansToDegrees(fHeading);
-            const auto fEnterRot = effect->enEx.m_fEnterAngle + RadiansToDegrees(fHeading);
+            // Como el original: el rumbo (fpatan, precision completa) se convierte a grados y se suma sin redondearlo antes
+            const auto fExitRot = EntityGroupC_HeadingDegreesPlus(m_matrix, m_placement.m_fHeading, effect->enEx.m_fExitAngle);
+            const auto fEnterRot = EntityGroupC_HeadingDegreesPlus(m_matrix, m_placement.m_fHeading, effect->enEx.m_fEnterAngle);
             const auto iEnExId = CEntryExitManager::AddOne(
                 vecWorldEffect.x, vecWorldEffect.y, vecWorldEffect.z,
                 fEnterRot,
@@ -1304,7 +1409,11 @@ bool CEntity::GetIsTouching(CEntity* entity) const {
 
     const auto radius = GetBoundRadius() + entity->GetBoundRadius();
 
-    return (centreA - centreB).SquaredMagnitude() < sq(radius);
+    // Como el original (0x53445B..0x534487): diferencias en x87 con la suma en orden z, y, x (no x, y, z)
+    const float dx = centreA.x - centreB.x;
+    const float dy = centreA.y - centreB.y;
+    const float dz = centreA.z - centreB.z;
+    return (dz * dz + dy * dy) + dx * dx < radius * radius;
 }
 
 // Checks if the bounding sphere of this entity intersects with a given sphere
@@ -1315,7 +1424,11 @@ bool CEntity::GetIsTouching(const CVector& centre, float radius) const {
     GetBoundCentre(centreB);
     float totalRadius = GetBoundRadius() + radius;
 
-    return (centreB - centre).SquaredMagnitude() < sq(totalRadius);
+    // Como el original (0x5344EE..0x534516): diferencias en x87 con la suma en orden z, x, y
+    const float dx = centreB.x - centre.x;
+    const float dy = centreB.y - centre.y;
+    const float dz = centreB.z - centre.z;
+    return (dz * dz + dx * dx) + dy * dy < totalRadius * totalRadius;
 }
 
 // Checks if the entity's bounding sphere is visible within the camera's view frustum
@@ -1342,23 +1455,28 @@ bool CEntity::GetIsBoundingBoxOnScreen() {
     }
 
     for (int32 i = 0; i < 2; ++i) {
-        auto chooseComponent = [&](auto member_ptr) {
-            return std::invoke(member_ptr, vecNormals[i]) < 0
-                ? std::invoke(member_ptr, cm->m_boundBox.m_vecMax)
-                : std::invoke(member_ptr, cm->m_boundBox.m_vecMin);
+        // Como el original (0x5345D0): la esquina se elige por el bit de signo de la normal (-0.0 y NaN negativos eligen el maximo)
+        const auto chooseComponent = [](float normal, float boxMin, float boxMax) {
+            return (std::bit_cast<uint32>(normal) >> 31) ? boxMax : boxMin;
         };
 
-        CVector worldBBPoint = TransformFromObjectSpace(CVector{
-            chooseComponent(&CVector::x),
-            chooseComponent(&CVector::y),
-            chooseComponent(&CVector::z)
+        const CVector worldBBPoint = TransformFromObjectSpace(CVector{
+            chooseComponent(vecNormals.data()[i].x, cm->m_boundBox.m_vecMin.x, cm->m_boundBox.m_vecMax.x),
+            chooseComponent(vecNormals.data()[i].y, cm->m_boundBox.m_vecMin.y, cm->m_boundBox.m_vecMax.y),
+            chooseComponent(vecNormals.data()[i].z, cm->m_boundBox.m_vecMin.z, cm->m_boundBox.m_vecMax.z)
         });
 
+        // Como el original: producto escalar en el orden z, y, x del x87
+        const auto& normal = TheCamera.m_avecFrustumWorldNormals[i];
+        const float dot = (worldBBPoint.z * normal.z + worldBBPoint.y * normal.y) + worldBBPoint.x * normal.x;
+
         // Check whether the point is outside the main frustum
-        if (worldBBPoint.Dot(TheCamera.m_avecFrustumWorldNormals[i]) > TheCamera.m_fFrustumPlaneOffsets[i]) {
+        if (dot > TheCamera.m_fFrustumPlaneOffsets[i]) {
             // If the mirror is active and the point is inside the mirror frustum, skip
             if (TheCamera.m_bMirrorActive) {
-                if (worldBBPoint.Dot(TheCamera.m_avecFrustumWorldNormals_Mirror[i]) <= TheCamera.m_fFrustumPlaneOffsets_Mirror[i]) {
+                const auto& mirrorNormal = TheCamera.m_avecFrustumWorldNormals_Mirror[i];
+                const float mirrorDot = (worldBBPoint.z * mirrorNormal.z + worldBBPoint.y * mirrorNormal.y) + worldBBPoint.x * mirrorNormal.x;
+                if (!(mirrorDot > TheCamera.m_fFrustumPlaneOffsets_Mirror[i])) {
                     continue;
                 }
             }
@@ -1386,24 +1504,26 @@ void CEntity::ModifyMatrixForTreeInWind() {
     auto at = RwMatrixGetAt(parentMatrix);
 
     float fWindOffset;
-    if (CWeather::Wind >= 0.5F) {
-        auto uiOffset1 = (((m_nRandomSeed + CTimer::GetTimeInMS() * 8) & 0xFFFF) / 4'096) % 16;
-        auto uiOffset2 = (uiOffset1 + 1) % 16;
-        auto fContrib = static_cast<float>(((m_nRandomSeed + CTimer::GetTimeInMS() * 8) % 4'096)) / 4096.0F;
+    if (!(CWeather::Wind < 0.5F)) { // Como el original (0x534E90): el salto jp lleva aqui tambien con NaN
+        const uint32 uiPhase   = (m_nRandomSeed + CTimer::GetTimeInMS() * 8) & 0xFFFF;
+        const uint32 uiOffset1 = (uiPhase >> 12) & 0xF;
+        const uint32 uiOffset2 = (uiOffset1 + 1) & 0xF;
+        const float  fContrib  = static_cast<float>(uiPhase & 0xFFF) * 0.000244140625F;
 
-        fWindOffset = (1.0F - fContrib) * CWeather::saTreeWindOffsets[uiOffset1];
-        fWindOffset += 1.0F + fContrib * CWeather::saTreeWindOffsets[uiOffset2];
+        // Como el original: ((1 - c) * t1 + c * t2) + 1, y luego * viento * 0.015
+        const float fPart1 = (1.0F - fContrib) * CWeather::saTreeWindOffsets.data()[uiOffset1];
+        const float fPart2 = fContrib * CWeather::saTreeWindOffsets.data()[uiOffset2];
+        fWindOffset = fPart1 + fPart2;
+        fWindOffset += 1.0F;
         fWindOffset *= CWeather::Wind;
         fWindOffset *= 0.015F;
-
     } else {
-        auto uiTimeOffset = (reinterpret_cast<uint32>(this) + CTimer::GetTimeInMS()) & 0xFFF;
+        const uint32 uiTimeOffset = (reinterpret_cast<uint32>(this) + CTimer::GetTimeInMS()) & 0xFFF;
 
-        constexpr float scalingFactor = 6.28f / 4096.f;
-        fWindOffset = sin(uiTimeOffset * scalingFactor) * 0.005F;
-        if (CWeather::Wind >= 0.2F) {
-            fWindOffset *= 1.6F;
-        }
+        // Como el original: fsin a precision completa; con viento >= 0.2 el factor es 0.008 (0x863984), si no 0.005
+        const float fAngle = static_cast<float>(uiTimeOffset) * 0.0015332031762227416F;
+        const bool  bStrong = !(CWeather::Wind < 0.2F);
+        fWindOffset = EntityA_SinTimes(fAngle, bStrong ? 0.008F : 0.005F);
     }
 
     at->x = fWindOffset;
@@ -1428,33 +1548,38 @@ void CEntity::ModifyMatrixForBannerInWind() {
         return;
     }
 
-    auto vecPos = CVector2D(GetPosition());
-    auto uiOffset = static_cast<uint16>(16 * (CTimer::GetTimeInMS() + (static_cast<uint16>(vecPos.x + vecPos.y) * 64)));
+    // Como el original (0x535040): trunc(y + x) con _ftol2, (n << 6) + tiempo, << 4 y se queda con 16 bits (sin el uint16 intermedio)
+    const auto& vecPos = GetPosition();
+    const int32  iPosSum  = static_cast<int32>(static_cast<int64>(vecPos.y + vecPos.x));
+    const uint32 uiPhase  = ((static_cast<uint32>(iPosSum) << 6) + CTimer::GetTimeInMS()) << 4;
+    const auto   uiOffset = static_cast<uint16>(uiPhase);
 
+    const float  fContrib = static_cast<float>(uiPhase & 0x7FF) * 0.00048828125F;
+    const uint32 uiIndex  = uiOffset >> 11;
+    const float  fPart1   = (1.0F - fContrib) * CWeather::saBannerWindOffsets.data()[uiIndex];
+    const float  fPart2   = fContrib * CWeather::saBannerWindOffsets.data()[(uiIndex + 1) & 0x1F];
+
+    // Como el original: se multiplica por la constante elegida (0.2 / 0.43 / 0.66), no por CWeather::Wind
     float wind;
-    if (CWeather::Wind < 0.1f) {
-        wind = 0.2f;
-    } else if (CWeather::Wind < 0.8f) {
-        wind = 0.43f;
+    if (CWeather::Wind < 0.1F) {
+        wind = 0.2F;
+    } else if (CWeather::Wind < 0.8F) {
+        wind = 0.43F;
     } else {
-        wind = 0.66f;
+        wind = 0.66F;
     }
+    float fWindOffset = fPart1 + fPart2;
+    fWindOffset = wind * fWindOffset;
 
-    auto   fContrib = static_cast<float>(uiOffset & 0x7FF) / 2048.0F;
-    uint32 uiIndex = uiOffset / 2'048;
-    auto   fWindOffset = (1.0F - fContrib) * CWeather::saBannerWindOffsets[uiIndex];
-    fWindOffset += fContrib * CWeather::saBannerWindOffsets[(uiIndex + 1) & 0x1F];
-    fWindOffset *= CWeather::Wind;
-
-    auto fZPos = sqrt(1.0F - pow(fWindOffset, 2.0F));
+    const float fZPos = std::sqrt(1.0F - fWindOffset * fWindOffset);
 
     CMatrix& matrix = GetMatrix();
     auto vecCross = matrix.GetForward().Cross(matrix.GetUp());
     vecCross.z = 0.0F;
     vecCross.Normalise();
 
-    auto vecWind = CVector(vecCross * fWindOffset, fZPos);
-    auto vecCross2 = matrix.GetForward().Cross(vecWind);
+    const auto vecWind = CVector{ vecCross.x * fWindOffset, vecCross.y * fWindOffset, fZPos };
+    const auto vecCross2 = matrix.GetForward().Cross(vecWind);
 
     matrix.GetRight() = vecCross2;
     matrix.GetUp() = vecWind;
@@ -1480,7 +1605,7 @@ CColModel* CEntity::GetColModel() const {
     if (GetIsTypeVehicle()) {
         const auto veh = AsVehicle();
         if (veh->m_vehicleSpecialColIndex > -1) {
-            return &CVehicle::m_aSpecialColModel[veh->m_vehicleSpecialColIndex];
+            return &CVehicle::m_aSpecialColModel.data()[veh->m_vehicleSpecialColIndex]; // Como el original: sin comprobar el rango del indice
         }
     }
 
@@ -1504,10 +1629,11 @@ void CEntity::CalculateBBProjection(CVector* point1, CVector* point2, CVector* p
 
     // Calculate the lengths of the projections of the object's local axes. This allows for scaling to be taken into account,
     // since when scaling is present, the lengths of the right, forward, and up vectors will differ from 1
+    // Como el original (0x535340): la longitud es 2D (solo x e y), sqrt(y * y + x * x)
     const auto [lengthProjX, lengthProjY, lengthProjZ] = std::make_tuple(
-        right.Magnitude(),
-        forward.Magnitude(),
-        up.Magnitude()
+        std::sqrt(right.y * right.y + right.x * right.x),
+        std::sqrt(forward.x * forward.x + forward.y * forward.y),
+        std::sqrt(up.x * up.x + up.y * up.y)
     );
 
     // Get bounding box
@@ -1566,8 +1692,9 @@ void CEntity::CalculateBBProjection(CVector* point1, CVector* point2, CVector* p
     }
 
     // Compute absolute values and sums
-    offsetLength = std::fabs(offsetLength1) + std::fabs(offsetLength2);
-    offsetWidth  = std::fabs(offsetWidth1)  + std::fabs(offsetWidth2);
+    // Como el original: (v < 0) ? -v : v, no fabs (que cambia el signo de -0.0)
+    offsetLength = EntityA_AbsLikeExe(offsetLength2) + EntityA_AbsLikeExe(offsetLength1);
+    offsetWidth  = EntityA_AbsLikeExe(offsetWidth2) + EntityA_AbsLikeExe(offsetWidth1);
 
     // Helper lambda for corner calculation
     const auto calcCorner = [&](const CVector& base, float sign1, float sign2) -> CVector {
@@ -1601,14 +1728,14 @@ void CEntity::UpdateAnim() {
     float fStep;
     if (GetIsTypeObject() && AsObject()->m_nObjectType == eObjectType::OBJECT_TYPE_CUTSCENE) {
         bOnScreen = true;
-        fStep = CTimer::GetTimeStepNonClippedInSeconds();
+        fStep = CTimer::ms_fTimeStepNonClipped * 0.02F; // Como el original (0x535F00): multiplica por 0.02, no divide entre 50
     } else {
         if (!m_bOffscreen) {
             m_bOffscreen = !GetIsOnScreen();
         }
 
         bOnScreen = !m_bOffscreen;
-        fStep = CTimer::GetTimeStepInSeconds();
+        fStep = CTimer::ms_fTimeStep * 0.02F;
     }
 
     RpAnimBlendClumpUpdateAnimations(GetRpClump(), fStep, bOnScreen);
@@ -1659,7 +1786,8 @@ void CEntity::CleanUpOldReference(CEntity** entity) {
 // 0x571A40
 void CEntity::ResolveReferences() {
     for (auto ref = m_pReferences; ref; ref = ref->m_pNext) {
-        if (ref->m_ppEntity && *ref->m_ppEntity == this) {
+        // Como el original (0x571A50): sin comprobar que m_ppEntity sea nulo
+        if (*ref->m_ppEntity == this) {
             *ref->m_ppEntity = nullptr;
         }
     }
@@ -1726,29 +1854,26 @@ void CEntity::RegisterReference(CEntity** entity) {
     }
 
     if (!CReferences::pEmptyList) {
-        for (auto& ped : GetPedPool()->GetAllValid()) {
-            ped.PruneReferences();
-            if (CReferences::pEmptyList) {
-                break;
-            }
-        }
-
-        if (!CReferences::pEmptyList) {
-            for (auto& vehicle : GetVehiclePool()->GetAllValid()) {
-                vehicle.PruneReferences();
-                if (CReferences::pEmptyList) {
-                    break;
+        // Como el original (0x571BC3..0x571C90): cada pool (peatones, vehiculos y objetos) se recorre de la ultima
+        // ranura a la primera, y se para en cuanto la lista de libres deja de estar vacia
+        const auto PruneDescending = [](auto* pool) {
+            for (int32 i = (int32)pool->GetSize(); i > 0;) {
+                --i;
+                if (auto* const entity = pool->GetAt(i)) {
+                    entity->PruneReferences();
+                    if (CReferences::pEmptyList) {
+                        return;
+                    }
                 }
             }
-        }
+        };
 
+        PruneDescending(GetPedPool());
         if (!CReferences::pEmptyList) {
-            for (auto& obj : GetObjectPool()->GetAllValid()) {
-                obj.PruneReferences();
-                if (CReferences::pEmptyList) {
-                    break;
-                }
-            }
+            PruneDescending(GetVehiclePool());
+        }
+        if (!CReferences::pEmptyList) {
+            PruneDescending(GetObjectPool());
         }
     }
 
@@ -1765,11 +1890,15 @@ void CEntity::RegisterReference(CEntity** entity) {
 // This creates coronas, point lights, and shadows based on the effect's properties
 // in Coronas.cpp
 // 0x6FC7A0
+// Como el original: transcripcion del EXE (orden de las sumas del x87, constantes exactas, ids de corona, tiradas de azar
+// y la estructura de saltos entre coronas "encendida", "apagada" y actualizacion de coordenadas).
 void CEntity::ProcessLightsForEntity() {
     constexpr static const uint16 randomSeedRandomiser[8] = { 0, 27'034, 43'861, 52'326, 64'495, 38'437, 21'930, 39'117 }; // 0x8D5028
-    constexpr static const float FADE_RATE = 0.0009f; // 0x872538
+    constexpr static const float FADE_RATE = std::bit_cast<float>(0x3A6BF405u); // 0x872538 (1/1111 como float, no 0,0009)
+    constexpr static const float RECIP_256 = 0.00390625f;                       // 0x859AA0
+    const auto toByte = [](float f) { return static_cast<uint8>(static_cast<int32>(f)); }; // _ftol2 y byte bajo del argumento
 
-    const auto dayNightBalance = GetDayNightBalance();
+    const float dayNightBalance = GetDayNightBalance();
     if (m_bRenderDamaged || !GetIsVisible()) {
         return;
     }
@@ -1783,60 +1912,80 @@ void CEntity::ProcessLightsForEntity() {
     }
 
     CBaseModelInfo* mi = GetModelInfo();
-    const int32 numEffects = mi->m_n2dfxCount;
-    if (!numEffects) {
+    if (!mi->m_n2dfxCount) {
         return;
     }
 
-    for (int32 C = 0; C < numEffects; ++C) {
+    // Como el original: el numero de efectos se relee del model info en cada vuelta
+    for (int32 C = 0; C < mi->m_n2dfxCount; ++C) {
         const auto* effect = mi->Get2dEffect(C);
+        const uint32 randomSeed = static_cast<uint16>(randomSeedRandomiser[C & 7] ^ m_nRandomSeed);
         float TimeFade = 1.0f;
-        const auto randomSeed = m_nRandomSeed ^ randomSeedRandomiser[C % 8];
 
-        if (effect->m_Type == e2dEffectType::EFFECT_SUN_GLARE && CWeather::SunGlare >= 0.0f) {
-            auto effectPos = TransformFromObjectSpace(effect->m_Pos);
-            auto direction = effectPos - GetPosition();
-            direction.Normalise();
-
-            const auto cameraPos = TheCamera.GetPosition();
-            auto cameraDir = cameraPos - effectPos;
-            const auto cameraDist = cameraDir.Magnitude();
-            const auto scale = 2.0f / cameraDist;
-            auto scaledCameraDir = cameraDir * scale;
-
-            direction += scaledCameraDir;
-            direction.Normalise();
-
-            const auto dotProduct = -direction.Dot(CTimeCycle::m_VectorToSun[CTimeCycle::m_CurrentStoredValue]);
-            if (dotProduct > 0.0f) {
-                const auto glare = sqrt(dotProduct) * CWeather::SunGlare;
-                const auto radius = sqrt(cameraDist) * CWeather::SunGlare * 0.5f;
-                effectPos += scaledCameraDir;
-
-                CCoronas::RegisterCorona(
-                    m_nRandomSeed + C + 1,
-                    nullptr,
-                    static_cast<uint8>((CTimeCycle::m_CurrentColours.m_nSunCoreRed + 510) * glare / 3.0f),
-                    static_cast<uint8>((CTimeCycle::m_CurrentColours.m_nSunCoreGreen + 510) * glare / 3.0f),
-                    static_cast<uint8>((CTimeCycle::m_CurrentColours.m_nSunCoreBlue + 510) * glare / 3.0f),
-                    255,
-                    effectPos,
-                    radius,
-                    120.0f,
-                    gpCoronaTexture[CORONATYPE_SHINYSTAR],
-                    eCoronaFlareType::FLARETYPE_NONE,
-                    eCoronaReflType::CORREFL_NONE,
-                    eCoronaLOSCheck::LOSCHECK_OFF,
-                    eCoronaTrail::TRAIL_OFF,
-                    0.0f,
-                    false,
-                    1.5f,
-                    0,
-                    15.0f,
-                    false,
-                    false
-                );
+        if (effect->m_Type == e2dEffectType::EFFECT_SUN_GLARE) {
+            if (!(CWeather::SunGlare >= 0.0f)) {
+                continue;
             }
+
+            CVector effectPos = TransformFromObjectSpace(effect->m_Pos);
+            const CVector& entityPos = GetPosition();
+            CVector direction{ effectPos.x - entityPos.x, effectPos.y - entityPos.y, effectPos.z - entityPos.z };
+            direction.Normalise();
+
+            const CVector& cameraPos = TheCamera.GetPosition();
+            const float camDx = cameraPos.x - effectPos.x;
+            const float camDy = cameraPos.y - effectPos.y;
+            const float camDz = cameraPos.z - effectPos.z;
+            const float cameraDist = std::sqrt((camDy * camDy + camDz * camDz) + camDx * camDx); // orden y, z, x
+            const float scale = 2.0f / cameraDist;                                                // 0x858CA0
+            const CVector scaledCameraDir{ camDx * scale, camDy * scale, camDz * scale };
+
+            direction.x = scaledCameraDir.x + direction.x;
+            direction.y = scaledCameraDir.y + direction.y;
+            direction.z = scaledCameraDir.z + direction.z;
+            direction.Normalise();
+
+            const CVector& sunVec = CTimeCycle::m_VectorToSun.data()[CTimeCycle::m_CurrentStoredValue];
+            const float dotProduct = -((direction.y * sunVec.y + direction.z * sunVec.z) + direction.x * sunVec.x);
+            if (!(dotProduct > 0.0f)) {
+                continue;
+            }
+
+            const float glare = std::sqrt(dotProduct) * CWeather::SunGlare;
+            const float radius = std::sqrt(cameraDist) * CWeather::SunGlare * 0.5f;
+            effectPos.x = scaledCameraDir.x + effectPos.x;
+            effectPos.y = scaledCameraDir.y + effectPos.y;
+            effectPos.z = scaledCameraDir.z + effectPos.z;
+
+            // Como el original: se multiplica por 0,33333334f (0x859040) en vez de dividir entre 3
+            const uint8 blue  = toByte(static_cast<float>(CTimeCycle::m_CurrentColours.m_nSunCoreBlue  + 510) * glare * 0.33333334f);
+            const uint8 green = toByte(static_cast<float>(CTimeCycle::m_CurrentColours.m_nSunCoreGreen + 510) * glare * 0.33333334f);
+            const uint8 red   = toByte(static_cast<float>(CTimeCycle::m_CurrentColours.m_nSunCoreRed   + 510) * glare * 0.33333334f);
+
+            // Como el original: el id es this + C + 0x21 (direccion del objeto), no la semilla
+            CCoronas::RegisterCorona(
+                std::bit_cast<uint32>(this) + static_cast<uint32>(C) + 0x21u,
+                nullptr,
+                red,
+                green,
+                blue,
+                255,
+                effectPos,
+                radius,
+                120.0f,
+                gpCoronaTexture[CORONATYPE_SHINYSTAR],
+                eCoronaFlareType::FLARETYPE_NONE,
+                eCoronaReflType::CORREFL_NONE,
+                eCoronaLOSCheck::LOSCHECK_OFF,
+                eCoronaTrail::TRAIL_OFF,
+                0.0f,
+                false,
+                1.5f,
+                0,
+                15.0f,
+                false,
+                false
+            );
             continue;
         }
 
@@ -1844,80 +1993,83 @@ void CEntity::ProcessLightsForEntity() {
             continue;
         }
 
-        auto effectPos = TransformFromObjectSpace(effect->m_Pos);
+        CVector effectPos = TransformFromObjectSpace(effect->m_Pos);
+        const uint16 lightFlags = effect->light.m_nFlags;
+        const uint32 timeMs = CTimer::GetTimeInMS();
         bool ApplyLight = false;
-        bool ApplyOffVersion = false;
         bool ApplyOnVersion = false;
         bool UpdateCoors = false;
+        bool ApplyOffVersion = false;
         float LightFade = 1.0f;
 
-        if (effect->light.m_bAtDay && effect->light.m_bAtNight) {
+        if ((lightFlags & 0x20) && (lightFlags & 0x40)) { // de dia y de noche
             ApplyOffVersion = true;
-        } else if (effect->light.m_bAtDay && dayNightBalance < 1.0f) {
+        } else if ((lightFlags & 0x20) && dayNightBalance < 1.0f) {
             ApplyOffVersion = true;
             LightFade = 1.0f - dayNightBalance;
-        } else if (effect->light.m_bAtNight && dayNightBalance > 0.0f) {
+        } else if ((lightFlags & 0x40) && dayNightBalance > 0.0f) {
             ApplyOffVersion = true;
             LightFade = dayNightBalance;
         }
 
-        const auto& entityPos = GetPosition();
-        const auto flashType = effect->light.m_nCoronaFlashType;
-
-        if (flashType == e2dCoronaFlashType::FLASH_RANDOM_WHEN_WET && CWeather::WetRoads > 0.5f || ApplyOffVersion) {
+        const uint8 flashType = effect->light.m_nCoronaFlashType;
+        if ((flashType == e2dCoronaFlashType::FLASH_RANDOM_WHEN_WET && CWeather::WetRoads > 0.5f) || ApplyOffVersion) {
             switch (flashType) {
             case e2dCoronaFlashType::FLASH_DEFAULT:
                 ApplyLight = true;
                 break;
             case e2dCoronaFlashType::FLASH_RANDOM:
             case e2dCoronaFlashType::FLASH_RANDOM_WHEN_WET:
-                if ((CTimer::GetTimeInMS() ^ randomSeed) & 0x60) {
+                if ((randomSeed ^ timeMs) & 0x60) {
                     ApplyLight = true;
                 } else {
                     ApplyOnVersion = true;
                 }
-                if ((randomSeed ^ (CTimer::GetTimeInMS() / 4'096)) & 0x3) {
+                // Como el original: el tiempo se desplaza 11 bits (/2048), no 12
+                if (((timeMs >> 11) ^ randomSeed) & 0x3) {
                     ApplyLight = true;
                 }
                 break;
             case e2dCoronaFlashType::FLASH_ANIM_SPEED_4X:
-                if (((CTimer::GetTimeInMS() + C * 128) & 0x200) == 0) {
+                if (((timeMs + C * 128) & 0x200) == 0) {
                     UpdateCoors = true;
                 } else {
                     ApplyLight = true;
                 }
                 break;
             case e2dCoronaFlashType::FLASH_ANIM_SPEED_2X:
-                if (((CTimer::GetTimeInMS() + C * 256) & 0x400) == 0) {
+                if (((timeMs + C * 256) & 0x400) == 0) {
                     UpdateCoors = true;
                 } else {
                     ApplyLight = true;
                 }
                 break;
             case e2dCoronaFlashType::FLASH_ANIM_SPEED_1X:
-                if (((CTimer::GetTimeInMS() + C * 512) & 0x800) == 0) {
+                if (((timeMs + C * 512) & 0x800) == 0) {
                     UpdateCoors = true;
                 } else {
                     ApplyLight = true;
                 }
                 break;
             case e2dCoronaFlashType::FLASH_UNKN:
-                if (static_cast<uint8>(randomSeed) > 0x10) {
+                if ((randomSeed & 0xFF) > 0x10) {
                     ApplyLight = true;
                     break;
                 }
-                if ((CTimer::GetTimeInMS() ^ (randomSeed * 8)) & 0x60) {
+                if (((randomSeed * 8) ^ timeMs) & 0x60) {
                     ApplyLight = true;
                 } else {
                     ApplyOnVersion = true;
                 }
-                if ((randomSeed ^ (CTimer::GetTimeInMS() / 4'096)) & 0x3) {
+                if (((timeMs >> 11) ^ randomSeed) & 0x3) {
                     ApplyLight = true;
                 }
                 break;
+            case e2dCoronaFlashType::FLASH_TRAFFICLIGHT:
+                break;
             case e2dCoronaFlashType::FLASH_TRAINCROSSING:
                 if (GetIsTypeObject() && AsObject()->objectFlags.bTrainCrossEnabled) {
-                    if (CTimer::GetTimeInMS() & 0x400) {
+                    if (timeMs & 0x400) {
                         ApplyLight = true;
                     }
                     if (C & 1) {
@@ -1929,7 +2081,7 @@ void CEntity::ProcessLightsForEntity() {
                 }
                 break;
             case e2dCoronaFlashType::FLASH_UNUSED:
-                if (CBridge::ShouldLightsBeFlashing() && (CTimer::GetTimeInMS() & 0x1FF) < 0x3C) {
+                if (CBridge::ShouldLightsBeFlashing() && (timeMs & 0x1FF) < 0x3C) {
                     ApplyLight = true;
                 }
                 break;
@@ -1943,19 +2095,40 @@ void CEntity::ProcessLightsForEntity() {
             case e2dCoronaFlashType::FLASH_6ON_4OFF:
             case e2dCoronaFlashType::FLASH_4ON_6OFF: {
                 ApplyLight = true;
-                uint32 offset = CTimer::GetTimeInMS() + 3'333 * (flashType - 11);
-                offset += static_cast<uint32>(entityPos.x * 20.0f);
-                offset += static_cast<uint32>(entityPos.y * 10.0f);
+                // Como el original: cada suma pasa por el x87 (float de 24 bits) antes del _ftol2 y el resto es entero con signo
+                const int32 iBaseOff = static_cast<int32>(timeMs + static_cast<uint32>((static_cast<int32>(flashType) - 11) * 3333));
+                const CVector& entityPos = GetPosition();
+                const float fPosX = entityPos.x, fPosY = entityPos.y;
+                static const float kMulX = 20.0f, kMulY = 10.0f; // 0x858BA4, 0x85862C
+                float fSumX, fSumY;
+                __asm {
+                    fld   dword ptr [fPosX]
+                    fmul  dword ptr [kMulX]
+                    fiadd dword ptr [iBaseOff]
+                    fstp  dword ptr [fSumX]
+                }
+                const int32 iOffX = static_cast<int32>(fSumX);
+                __asm {
+                    fld   dword ptr [fPosY]
+                    fmul  dword ptr [kMulY]
+                    fiadd dword ptr [iOffX]
+                    fstp  dword ptr [fSumY]
+                }
+                const int32 iOffY = static_cast<int32>(fSumY);
 
-                const auto mode = 9 * (offset % 10'000 / 10'000);
-                const auto fade = (offset % 10'000 - (1'111 * mode)) * FADE_RATE;
-
-                switch (mode) {
-                case 0:  TimeFade = fade; break;
-                case 1:
-                case 2:  TimeFade = 1.0f; break;
-                case 3:  TimeFade = 1.0f - fade; break;
-                default: ApplyLight = false; break;
+                // Como el original: el modo sale de (resto * 9) / 10000 (con signo), no de resto / 10000 * 9
+                const int32 rem = iOffY % 10'000;
+                const int32 mode = rem * 9 / 10'000;
+                const float fade = static_cast<float>(rem - 1'111 * mode) * FADE_RATE;
+                if (static_cast<uint32>(mode) > 3u) {
+                    ApplyLight = false;
+                } else {
+                    switch (mode) {
+                    case 0:  TimeFade = fade; break;
+                    case 1:
+                    case 2:  TimeFade = 1.0f; break;
+                    case 3:  TimeFade = 1.0f - fade; break;
+                    }
                 }
                 break;
             }
@@ -1965,19 +2138,118 @@ void CEntity::ProcessLightsForEntity() {
         }
 
         // CORONAS
-        bool skipCoronaChecks = false;
+        // Como el original: 0x6FCC15 llama siempre a LaRiotsActiveHere; los saltos del EXE se reproducen con tres banderas
+        bool gotoNormalCorona = false; // 0x6FCECD
+        bool gotoOnCheck      = false; // 0x6FCE65
+        bool gotoOnCorona     = false; // 0x6FCE71
         if (CGameLogic::LaRiotsActiveHere()) {
-            bool lightsOn = ApplyLight;
-            lightsOn = lightsOn && !GetIsTypeVehicle();
-            lightsOn = lightsOn && ((randomSeed & 3) == 0 || (randomSeed & 3) == 1 && ((CTimer::GetTimeInMS() ^ (randomSeed * 8)) & 0x60));
+            if (!ApplyLight) {
+                gotoOnCheck = true;
+            } else if (!GetIsTypeVehicle()) {
+                const uint32 seedLow = randomSeed & 3;
+                if (seedLow == 0 || (seedLow == 1 && (((randomSeed * 8) ^ timeMs) & 0x60))) {
+                    ApplyLight = false;
+                    ApplyOnVersion = true;
+                    gotoOnCorona = true;
+                }
+            }
+        }
 
-            if (lightsOn) {
-                ApplyLight = false;
-                ApplyOnVersion = true;
-                skipCoronaChecks = true;
+        if (!gotoOnCheck && !gotoOnCorona) { // 0x6FCD84
+            if (!ApplyLight) {
+                gotoOnCheck = true;
+            } else if (lightFlags & 0x800) { // m_bCheckDirection
+                const float offX = static_cast<float>(static_cast<int8>(effect->light.offsetX));
+                const float offY = static_cast<float>(static_cast<int8>(effect->light.offsetY));
+                const float offZ = static_cast<float>(static_cast<int8>(effect->light.offsetZ));
+                // Como el original: AllocateMatrix + UpdateMatrix si no hay matriz; Multiply3x3 (0x59C790) con su orden de sumas
+                (void)GetMatrix();
+                const CMatrix& mat = *m_matrix;
+                const CVector lightPos{
+                    (mat.GetUp().x * offZ + mat.GetForward().x * offY) + mat.GetRight().x * offX,
+                    (mat.GetUp().y * offZ + mat.GetRight().y * offX) + mat.GetForward().y * offY,
+                    (mat.GetUp().z * offZ + mat.GetRight().z * offX) + mat.GetForward().z * offY
+                };
+                const CVector& camPos = TheCamera.GetPosition();
+                const float toCamX = camPos.x - effectPos.x;
+                const float toCamY = camPos.y - effectPos.y;
+                const float toCamZ = camPos.z - effectPos.z;
+                // Como el original: producto escalar (y + z) + x
+                const float dot = (lightPos.y * toCamY + lightPos.z * toCamZ) + toCamX * lightPos.x;
+                if (dot < 0.0f) {
+                    ApplyLight = false;
+                    UpdateCoors = true;
+                    gotoOnCheck = true;
+                } else {
+                    gotoNormalCorona = true;
+                }
+            } else {
+                gotoNormalCorona = true;
+            }
+        }
 
+        if (gotoNormalCorona) {
+            float brightness;
+            if (lightFlags & 0x80) { // m_bBlinking1
+                brightness = (1.0f - static_cast<float>(CGeneral::GetRandomNumber() & 0x1F) * 0.012f) * TimeFade;
+            } else {
+                brightness = TimeFade;
+            }
+            const uint32 frame = CTimer::GetFrameCounter();
+            if (lightFlags & 0x200) { // m_bBlinking2
+                if ((randomSeed + frame) & 3) {
+                    brightness = 0.0f;
+                }
+            }
+            if (lightFlags & 0x1000) { // m_bBlinking3
+                const uint32 phase = (frame + randomSeed) & 0x3F;
+                if (phase == 1) {
+                    brightness *= 0.5f;
+                } else if (phase != 0) {
+                    brightness = 0.0f;
+                }
+            }
+
+            float sizeMult = 1.0f;
+            if (m_nModelIndex == MODEL_RCBARON) {
+                brightness *= 1.9f; // 0x866C0C
+                sizeMult = 2.0f;
+            }
+
+            // Como el original: * 0,1f (0x858B1C), no / 10
+            TimeFade = CTimeCycle::m_CurrentColours.m_fSpriteBrightness * brightness * 0.1f;
+            const float coronaSize = sizeMult * effect->light.m_fCoronaSize;
+
+            CCoronas::RegisterCorona(
+                std::bit_cast<uint32>(this) + static_cast<uint32>(C),
+                nullptr,
+                toByte(static_cast<float>(effect->light.m_color.red) * TimeFade),
+                toByte(static_cast<float>(effect->light.m_color.green) * TimeFade),
+                toByte(static_cast<float>(effect->light.m_color.blue) * TimeFade),
+                toByte(LightFade * 255.0f),
+                effectPos,
+                coronaSize,
+                effect->light.m_fCoronaFarClip,
+                effect->light.m_pCoronaTex,
+                static_cast<eCoronaFlareType>(effect->light.m_nCoronaFlareType),
+                static_cast<eCoronaReflType>(effect->light.m_bCoronaEnableReflection),
+                static_cast<eCoronaLOSCheck>(effect->light.m_bCheckObstacles),
+                eCoronaTrail::TRAIL_OFF,
+                0.0f,
+                effect->light.m_bOnlyLongDistance,
+                0.8f,
+                0,
+                15.0f,
+                effect->light.m_bOnlyFromBelow,
+                effect->light.m_bUpdateHeightAboveGround
+            );
+        } else {
+            if (gotoOnCheck && ApplyOnVersion) {
+                gotoOnCorona = true;
+            }
+            if (gotoOnCorona) {
                 CCoronas::RegisterCorona(
-                    (uint32)this + C,
+                    std::bit_cast<uint32>(this) + static_cast<uint32>(C),
                     nullptr,
                     0,
                     0,
@@ -1999,121 +2271,25 @@ void CEntity::ProcessLightsForEntity() {
                     false,
                     false
                 );
-            }
-        }
-
-        if (!skipCoronaChecks && ApplyLight) {
-            bool canCreateLight = true;
-            if (effect->light.m_bCheckDirection) {
-                const auto& camPos = TheCamera.GetPosition();
-                CVector lightOffset{
-                    static_cast<float>(effect->light.offsetX),
-                    static_cast<float>(effect->light.offsetY),
-                    static_cast<float>(effect->light.offsetZ)
-                };
-                const auto lightPos = GetMatrix().TransformVector(lightOffset);
-                const auto dot = lightPos.Dot(camPos - effectPos);
-                canCreateLight = dot >= 0.0f;
-            }
-
-            if (canCreateLight) {
-                skipCoronaChecks = true;
-                auto brightness = TimeFade;
-                if (effect->light.m_bBlinking1) {
-                    brightness = (1.0f - (CGeneral::GetRandomNumber() % 32) * 0.012f) * TimeFade;
-                }
-                if (effect->light.m_bBlinking2 && (CTimer::GetFrameCounter() + randomSeed) & 3) {
-                    brightness = 0.0f;
-                }
-                if (effect->light.m_bBlinking3 && (CTimer::GetFrameCounter() + randomSeed) & 0x3F) {
-                    if (((CTimer::GetFrameCounter() + randomSeed) & 0x3F) == 1) {
-                        brightness *= 0.5f;
-                    } else {
-                        brightness = 0.0f;
-                    }
-                }
-
-                auto sizeMult = 1.0f;
-                if (GetModelIndex() == MODEL_RCBARON) {
-                    brightness *= 1.9f;
-                    sizeMult = 2.0f;
-                }
-
-                TimeFade = CTimeCycle::m_CurrentColours.m_fSpriteBrightness * brightness / 10.0f;
-                const auto coronaSize = effect->light.m_fCoronaSize * sizeMult;
-
-                CCoronas::RegisterCorona(
-                    (uint32)this + C,
-                    nullptr,
-                    static_cast<uint8>(static_cast<float>(effect->light.m_color.red) * TimeFade),
-                    static_cast<uint8>(static_cast<float>(effect->light.m_color.green) * TimeFade),
-                    static_cast<uint8>(static_cast<float>(effect->light.m_color.blue) * TimeFade),
-                    static_cast<uint8>(LightFade * 255.0f),
+            } else if (UpdateCoors) {
+                CCoronas::UpdateCoronaCoors(
+                    std::bit_cast<uint32>(this) + static_cast<uint32>(C),
                     effectPos,
-                    coronaSize,
                     effect->light.m_fCoronaFarClip,
-                    effect->light.m_pCoronaTex,
-                    static_cast<eCoronaFlareType>(effect->light.m_nCoronaFlareType),
-                    static_cast<eCoronaReflType>(effect->light.m_bCoronaEnableReflection),
-                    static_cast<eCoronaLOSCheck>(effect->light.m_bCheckObstacles),
-                    eCoronaTrail::TRAIL_OFF,
-                    0.0f,
-                    effect->light.m_bOnlyLongDistance,
-                    0.8f,
-                    0,
-                    15.0f,
-                    effect->light.m_bOnlyFromBelow,
-                    effect->light.m_bUpdateHeightAboveGround
+                    0.0f
                 );
-            } else {
-                ApplyLight = false;
-                UpdateCoors = true;
             }
-        }
-
-        if (!skipCoronaChecks && ApplyOnVersion) {
-            skipCoronaChecks = true;
-            CCoronas::RegisterCorona(
-                (uint32)this + C,
-                nullptr,
-                0,
-                0,
-                0,
-                255,
-                effectPos,
-                effect->light.m_fCoronaSize,
-                effect->light.m_fCoronaFarClip,
-                effect->light.m_pCoronaTex,
-                static_cast<eCoronaFlareType>(effect->light.m_nCoronaFlareType),
-                static_cast<eCoronaReflType>(effect->light.m_bCoronaEnableReflection),
-                static_cast<eCoronaLOSCheck>(effect->light.m_bCheckObstacles),
-                eCoronaTrail::TRAIL_OFF,
-                0.0f,
-                effect->light.m_bOnlyLongDistance,
-                1.5f,
-                0,
-                15.0f,
-                false,
-                false
-            );
-        }
-
-        if (!skipCoronaChecks && UpdateCoors) {
-            CCoronas::UpdateCoronaCoors(
-                (uint32)this + C,
-                effectPos,
-                effect->light.m_fCoronaFarClip,
-                0.0f
-            );
         }
 
         // POINT LIGHTS
-        bool skipLights = false;
+        // Como el original: con rango != 0 y ApplyLight, los colores (si alguno != 0) van con el desvanecimiento; sin color es
+        // una luz anti-luz y entonces se continua con la niebla; con rango 0 solo la niebla.
+        bool skipFog = false;
         if (effect->light.m_fPointlightRange != 0.0f && ApplyLight) {
             const auto& color = effect->light.m_color;
             if (color.red || color.green || color.blue) {
-                const float colorMult = LightFade * TimeFade / 256.0f;
-                skipLights = true;
+                const float colorMult = LightFade * TimeFade * RECIP_256;
+                skipFog = true;
                 CPointLights::AddLight(
                     ePointLightType::PLTYPE_POINTLIGHT,
                     effectPos,
@@ -2122,7 +2298,7 @@ void CEntity::ProcessLightsForEntity() {
                     static_cast<float>(color.red) * colorMult,
                     static_cast<float>(color.green) * colorMult,
                     static_cast<float>(color.blue) * colorMult,
-                    effect->light.m_nFogType,
+                    static_cast<uint8>((lightFlags >> 1) & 3),
                     true,
                     nullptr
                 );
@@ -2142,30 +2318,30 @@ void CEntity::ProcessLightsForEntity() {
             }
         }
 
-        if (!skipLights) {
+        if (!skipFog) {
             const auto& color = effect->light.m_color;
-            if (effect->light.m_nFogType & RwFogType::rwFOGTYPEEXPONENTIAL) {
+            if (lightFlags & 0x4) { // niebla exponencial
                 CPointLights::AddLight(
                     ePointLightType::PLTYPE_ONLYFOGEFFECT_ALWAYS,
                     effectPos,
                     CVector{},
                     0.0f,
-                    color.red / 256.0f,
-                    color.green / 256.0f,
-                    color.blue / 256.0f,
+                    static_cast<float>(color.red) * RECIP_256,
+                    static_cast<float>(color.green) * RECIP_256,
+                    static_cast<float>(color.blue) * RECIP_256,
                     RwFogType::rwFOGTYPEEXPONENTIAL,
                     true,
                     nullptr
                 );
-            } else if (effect->light.m_nFogType & RwFogType::rwFOGTYPELINEAR && ApplyLight && effect->light.m_fPointlightRange == 0.0f) {
+            } else if ((lightFlags & 0x2) && ApplyLight && effect->light.m_fPointlightRange == 0.0f) { // niebla lineal
                 CPointLights::AddLight(
                     ePointLightType::PLTYPE_ONLYFOGEFFECT,
                     effectPos,
                     CVector{},
                     0.0f,
-                    color.red / 256.0f,
-                    color.green / 256.0f,
-                    color.blue / 256.0f,
+                    static_cast<float>(color.red) * RECIP_256,
+                    static_cast<float>(color.green) * RECIP_256,
+                    static_cast<float>(color.blue) * RECIP_256,
                     RwFogType::rwFOGTYPELINEAR,
                     true,
                     nullptr
@@ -2176,20 +2352,21 @@ void CEntity::ProcessLightsForEntity() {
         // PC Only?
         // SHADOWS
         if (effect->light.m_fShadowSize != 0.0f) {
+            // Como el original: la distancia en Z se lee sin signo (movzx)
             float shadowZ = 15.0f;
             if (effect->light.m_nShadowZDistance) {
-                shadowZ = static_cast<float>(effect->light.m_nShadowZDistance);
+                shadowZ = static_cast<float>(static_cast<uint8>(effect->light.m_nShadowZDistance));
             }
 
             if (ApplyLight) {
-                auto color = effect->light.m_color;
-                const float colorMult = effect->light.m_nShadowColorMultiplier * TimeFade / 256.0f;
-                color.red = static_cast<uint8>(static_cast<float>(color.red) * colorMult);
-                color.green = static_cast<uint8>(static_cast<float>(color.green) * colorMult);
-                color.blue = static_cast<uint8>(static_cast<float>(color.blue) * colorMult);
+                // Como el original: ((canal * multiplicador) * TimeFade) * (1/256), cada paso a float
+                const float mult = static_cast<float>(effect->light.m_nShadowColorMultiplier);
+                const uint8 blue  = toByte(static_cast<float>(effect->light.m_color.blue)  * mult * TimeFade * RECIP_256);
+                const uint8 green = toByte(static_cast<float>(effect->light.m_color.green) * mult * TimeFade * RECIP_256);
+                const uint8 red   = toByte(static_cast<float>(effect->light.m_color.red)   * mult * TimeFade * RECIP_256);
 
                 CShadows::StoreStaticShadow(
-                    (uint32)this + C,
+                    std::bit_cast<uint32>(this) + static_cast<uint32>(C),
                     eShadowType::SHADOW_ADDITIVE,
                     effect->light.m_pShadowTex,
                     effectPos,
@@ -2198,9 +2375,9 @@ void CEntity::ProcessLightsForEntity() {
                     0.0f,
                     -effect->light.m_fShadowSize,
                     128,
-                    color.red,
-                    color.green,
-                    color.blue,
+                    red,
+                    green,
+                    blue,
                     shadowZ,
                     1.0f,
                     40.0f,
@@ -2209,7 +2386,7 @@ void CEntity::ProcessLightsForEntity() {
                 );
             } else if (ApplyOnVersion) {
                 CShadows::StoreStaticShadow(
-                    (uint32)this + C,
+                    std::bit_cast<uint32>(this) + static_cast<uint32>(C),
                     eShadowType::SHADOW_ADDITIVE,
                     effect->light.m_pShadowTex,
                     effectPos,
@@ -2236,10 +2413,10 @@ void CEntity::ProcessLightsForEntity() {
 // in fluff.cpp
 // 0x717900
 void CEntity::RemoveEscalatorsForEntity() {
+    // Como el original: no se sale tras la primera coincidencia (la entidad puede tener varias escaleras)
     for (auto& escalator : CEscalators::GetAllExists()) {
         if (escalator.GetEntity() == this) {
             escalator.Remove();
-            return;
         }
     }
 }
@@ -2249,11 +2426,14 @@ void CEntity::RemoveEscalatorsForEntity() {
 // in occlusion.cpp
 // 0x71FAE0
 bool CEntity::IsEntityOccluded() {
-    if (COcclusion::GetActiveOccluders().empty()) {
+    // Como el original (0x71FAE0): el centro se calcula antes de mirar si hay oclusores y los puntos se transforman con la
+    // matriz (0x59C890, reservandola si hace falta) y se comprueban uno a uno, sin precalcularlos
+    CVector center;
+    GetBoundCentre(center);
+
+    if (static_cast<int32>(COcclusion::NumActiveOccluders) == 0) {
         return false;
     }
-
-    CVector center = GetBoundCentre();
 
     CVector centerScrPos;
     float   scaleX, scaleY;
@@ -2261,90 +2441,73 @@ bool CEntity::IsEntityOccluded() {
         return false;
     }
 
-    const auto* mi = GetModelInfo();
-    const auto& bb = mi->GetColModel()->GetBoundingBox();
+    const float longEdge = (scaleX > scaleY) ? scaleX : scaleY; // fcomp + jne: con NaN o igualdad se queda con scaleY
+    const float boundingRadius = GetModelInfo()->GetColModel()->GetBoundingSphere().m_fRadius;
+    const float occlusionRadius = (boundingRadius * longEdge) * 0.9F;
 
-    const auto longEdge = std::max(scaleX, scaleY);
-    const auto boundingRadius = mi->GetColModel()->GetBoundRadius();
-    const auto occlusionRadius = boundingRadius * longEdge * 0.9f;
+    const int32 numOccluders = static_cast<int32>(COcclusion::NumActiveOccluders);
+    for (int32 i = 0; i < numOccluders; ++i) {
+        const CActiveOccluder& o = COcclusion::ActiveOccluders.data()[i];
 
-    const auto GetOccluderPt = [this](CVector pt) -> std::pair<CVector, std::optional<CVector>> {
-        const auto ws = TransformFromObjectSpace(pt);
-        if (CVector scr; CalcScreenCoors(ws, scr)) {
-            return { ws, scr };
-        }
-        return { ws, std::nullopt };
-    };
-
-    const CVector min = bb.m_vecMin,
-                  max = bb.m_vecMax;
-
-    // The first 4 points (bounding box corners)
-    const std::array firstFourPoints = {
-        GetOccluderPt(min),                     // Point 1: min
-        GetOccluderPt(max),                     // Point 2: max
-        GetOccluderPt({ min.x, max.y, max.z }), // Point 3
-        GetOccluderPt({ max.x, min.y, min.z })  // Point 4
-    };
-    const std::array lastTwoPoints = {
-        GetOccluderPt({ min.x, min.y, max.z }), // Point 5
-        GetOccluderPt({ max.x, min.y, max.z })  // Point 6
-    };
-
-    return rng::any_of(COcclusion::GetActiveOccluders(), [&](const auto& o) -> bool {
-        if (o.GetDistToCam() >= centerScrPos.z - boundingRadius) {
-            return false;
+        // Como el original: la distancia es un int16 con signo (movsx)
+        if (!(static_cast<float>(static_cast<int16>(o.m_DistToCam)) < centerScrPos.z - boundingRadius)) {
+            continue;
         }
 
-        // Checking the center with the occlusion radius
-        if (o.IsPointWithinOcclusionArea(centerScrPos, occlusionRadius)) {
+        if (o.IsPointWithinOcclusionArea(CVector2D{ centerScrPos.x, centerScrPos.y }, occlusionRadius)) {
             if (o.IsPointBehindOccluder(center, boundingRadius)) {
                 return true;
             }
         }
 
-        // Checking the center without radius
-        if (!o.IsPointWithinOcclusionArea(centerScrPos)) {
-            return false;
+        if (!o.IsPointWithinOcclusionArea(CVector2D{ centerScrPos.x, centerScrPos.y }, 0.0F)) {
+            continue;
         }
 
-        // Common lambda for point verification (screen + world, with radius=0.0f)
-        const auto checkPoint = [&](const std::optional<CVector>& scrOpt, const CVector& ws) -> bool {
-            if (!scrOpt.has_value()) {
-                return false;
+        const auto GetBox = [this]() -> decltype(auto) { return GetModelInfo()->GetColModel()->GetBoundingBox(); };
+
+        // Prueba de un punto de la caja: si falla, no se prueban los siguientes (pero se siguen transformando)
+        bool failed = false;
+        const auto TestPoint = [&](const CVector& objectSpacePoint) {
+            const CVector worldPoint = EntityA_MultiplyPoint59C890(GetMatrix(), objectSpacePoint);
+            if (failed) {
+                return;
             }
-            const auto& scr = *scrOpt;
-            return o.IsPointWithinOcclusionArea(scr) && o.IsPointBehindOccluder(ws);
+            CVector screenPoint;
+            if (!CalcScreenCoors(worldPoint, screenPoint)
+                || !o.IsPointWithinOcclusionArea(CVector2D{ screenPoint.x, screenPoint.y }, 0.0F)
+                || !o.IsPointBehindOccluder(worldPoint, 0.0F)) {
+                failed = true;
+            }
         };
 
-        // Checking the first 4 points with early exit
-        bool allFirstFourPass = true;
-        for (const auto& [ws, scr] : firstFourPoints) {
-            if (!checkPoint(scr, ws)) {
-                allFirstFourPass = false;
-                break;
-            }
-        }
-        if (!allFirstFourPass) {
-            return false;
+        TestPoint(GetBox().m_vecMin);
+        TestPoint(GetBox().m_vecMax);
+        TestPoint(CVector{ GetBox().m_vecMin.x, GetBox().m_vecMax.y, GetBox().m_vecMax.z });
+        TestPoint(CVector{ GetBox().m_vecMax.x, GetBox().m_vecMin.y, GetBox().m_vecMin.z });
+        if (failed) {
+            continue;
         }
 
-        // Checking bounding box dimensions
-        const auto width = max.x - min.x;
-        const auto length = max.y - min.y;
-        const auto height = max.z - min.z;
-        if ((width <= 60.0f && length <= 60.0f) || height <= 30.0f) {
+        // Cajas pequenas: valen los cuatro puntos. Con NaN se comporta como el x87 (no es "> 60" ni "> 30")
+        const float width  = GetBox().m_vecMax.x - GetBox().m_vecMin.x;
+        const float length = GetBox().m_vecMax.y - GetBox().m_vecMin.y;
+        const float height = GetBox().m_vecMax.z - GetBox().m_vecMin.z;
+        if (!(width > 60.0F) && !(length > 60.0F)) {
+            return true;
+        }
+        if (!(height > 30.0F)) {
             return true;
         }
 
-        // Check the last 2 points (only for large objects)
-        for (const auto& [ws, scr] : lastTwoPoints) {
-            if (!checkPoint(scr, ws)) {
-                return false;
-            }
+        TestPoint(CVector{ GetBox().m_vecMin.x, GetBox().m_vecMin.y, GetBox().m_vecMax.z });
+        TestPoint(CVector{ GetBox().m_vecMax.x, GetBox().m_vecMin.y, GetBox().m_vecMax.z });
+        if (!failed) {
+            return true;
         }
-        return true;
-    });
+    }
+
+    return false;
 }
 
 // in header

@@ -6,10 +6,10 @@ Universo de esta revisión: **7,947 entradas reversed=1**, de 8,441 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 6003 |
+| `validated=1` · evidencia aprobada vinculada | 6073 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 6003 |
-| Sin evidencia aprobada vinculada en este registro | 1944 |
+| Evidencia histórica vinculada; revisión pendiente | 6073 |
+| Sin evidencia aprobada vinculada en este registro | 1874 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -1416,6 +1416,76 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CDummyObject | `CreateObject` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CDummyObject | `UpdateFromObject` | [Resumen](../reversing/Core70/validation-summary.json) |
 | CDummyPool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
+| CEntity | `Add-rect` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `AttachToRwObject` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `BuildWindSockMatrix` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `CalculateBBProjection` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `CleanUpOldReference-` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `Constructor` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `CreateEffects` | [Resumen](../reversing/CEntC/validation-summary.json) |
+| CEntity | `CreateRwObject` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `DeleteRwObject` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `DestroyEffects` | [Resumen](../reversing/CEntC/validation-summary.json) |
+| CEntity | `Destructor` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `DetachFromRwObject` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `DoesNotCollideWithFlyers` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `FindTriggerPointCoors` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `FlagToDestroyWhenNextProcessed` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `GetBoundCentre-ref` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `GetBoundCentre-vec` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `GetBoundRect` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `GetColModel` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `GetDistanceFromCentreOfMassToBaseOfModel` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `GetIsBoundingBoxOnScreen` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `GetIsOnScreen` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `GetIsStatic` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `GetIsTouching-ent` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `GetIsTouching-vec` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `GetIsTypePhysical` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `GetModellingMatrix` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `GetRandom2dEffect` | [Resumen](../reversing/CEntC/validation-summary.json) |
+| CEntity | `HasPreRenderEffects` | [Resumen](../reversing/CEntC/validation-summary.json) |
+| CEntity | `IsEntityOccluded` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `IsEntityPointerValid` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `IsVisible` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `LivesInThisNonOverlapSector` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `MaterialUpdateUVAnimCB` | [Resumen](../reversing/CEntC/validation-summary.json) |
+| CEntity | `ModifyMatrixForBannerInWind` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `ModifyMatrixForCrane` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `ModifyMatrixForTreeInWind` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `PreRender` | [Resumen](../reversing/CEntC/validation-summary.json) |
+| CEntity | `PreRenderForGlassWindow` | [Resumen](../reversing/CEntC/validation-summary.json) |
+| CEntity | `ProcessCollision` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `ProcessControl` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `ProcessLightsForEntity` | [Resumen](../reversing/CEntC/validation-summary.json) |
+| CEntity | `ProcessShift` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `PruneReferences` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `RegisterReference-` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `Remove` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `RemoveEscalatorsForEntity` | [Resumen](../reversing/CEntC/validation-summary.json) |
+| CEntity | `RemoveLighting` | [Resumen](../reversing/CEntC/validation-summary.json) |
+| CEntity | `Render` | [Resumen](../reversing/CEntC/validation-summary.json) |
+| CEntity | `RenderEffects` | [Resumen](../reversing/CEntC/validation-summary.json) |
+| CEntity | `ResolveReferences` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `SetAtomicAlpha` | [Resumen](../reversing/CEntC/validation-summary.json) |
+| CEntity | `SetCompAlphaCB` | [Resumen](../reversing/CEntC/validation-summary.json) |
+| CEntity | `SetIsStatic` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `SetModelIndex` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `SetModelIndexNoCreate` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `SetRwObjectAlpha` | [Resumen](../reversing/CEntC/validation-summary.json) |
+| CEntity | `SetupBigBuilding` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `SetupLighting` | [Resumen](../reversing/CEntC/validation-summary.json) |
+| CEntity | `SpecialEntityCalcCollisionSteps` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `SpecialEntityPreCollisionStuff` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `Teleport` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `TestCollision` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `TransformFromObjectSpace-ptr` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `TransformFromObjectSpace-ref` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `TreatAsPlayerForCollisions` | [Resumen](../reversing/CEntB/validation-summary.json) |
+| CEntity | `UpdateAnim` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `UpdateRpHAnim` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `UpdateRwFrame` | [Resumen](../reversing/CEntA/validation-summary.json) |
+| CEntity | `UpdateRwMatrix` | [Resumen](../reversing/CEntA/validation-summary.json) |
 | CEntityScanner | `Clear` | [Resumen](../reversing/Events23/validation-summary.json) |
 | CEntityScanner | `Constructor` | [Resumen](../reversing/Events23/validation-summary.json) |
 | CEntityScanner | `Destructor` | [Resumen](../reversing/Events23/validation-summary.json) |
@@ -6176,7 +6246,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CDummy` | 1 | 0 | 1 | 0 |
 | `CDummyObject` | 2 | 0 | 2 | 0 |
 | `CDummyPool` | 1 | 0 | 1 | 0 |
-| `CEntity` | 70 | 0 | 0 | 70 |
+| `CEntity` | 70 | 0 | 70 | 0 |
 | `CEntityScanner` | 4 | 0 | 4 | 0 |
 | `CEntitySeekPosCalculatorFixedPos` | 1 | 0 | 1 | 0 |
 | `CEntitySeekPosCalculatorRadiusAngleOffset` | 1 | 0 | 1 | 0 |
