@@ -134223,32 +134223,6 @@
     {
       "hook": {
         "class": "CEntryExitManager",
-        "fn_name": "Init",
-        "address": "0x0043F880",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/EnExInit/validation-summary.json",
-        "sha256": "f36710be68e5954f19cdd4377b0493d931afde7a3156c4d82d57be3780d2ceea",
-        "passed_path": [
-          "covered_functions",
-          "CEntryExitManager::Init"
-        ],
-        "pairs": 1024,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/EntryExitManager.cpp": "aa49cdae39785559d1b6f8061d3c6fd619fe622564601e609de3a67e4b7b8315",
-        "source/game_sa/EntryExitManager.h": "f9a1d78f6113d00af5b7ccee113a3def6b173a037e9ce030f44093a4c51503ab"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-092707-231636).",
-      "dependency_review": null,
-      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 2048 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/EnExInit/README.md"
-    },
-    {
-      "hook": {
-        "class": "CEntryExitManager",
         "fn_name": "AddEntryExitToStack",
         "address": "0x0043E410",
         "type": "S"
@@ -134561,32 +134535,6 @@
     {
       "hook": {
         "class": "CEntryExitManager",
-        "fn_name": "Save",
-        "address": "0x005D5970",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/World18/validation-summary.json",
-        "sha256": "a808f378b1963664b0e6968a1ef70ea22553464eef2e20de2776bbc392c9eb4b",
-        "passed_path": [
-          "covered_functions",
-          "CEntryExitManager::Save"
-        ],
-        "pairs": 512,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/EntryExitManager.cpp": "aa49cdae39785559d1b6f8061d3c6fd619fe622564601e609de3a67e4b7b8315",
-        "source/game_sa/EntryExitManager.h": "f9a1d78f6113d00af5b7ccee113a3def6b173a037e9ce030f44093a4c51503ab"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-092756-262993).",
-      "dependency_review": null,
-      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 7808 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/World18/README.md"
-    },
-    {
-      "hook": {
-        "class": "CEntryExitManager",
         "fn_name": "SetAreaCodeForVisibleObjects",
         "address": "0x0043ECF0",
         "type": "S"
@@ -134608,32 +134556,6 @@
       "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-092756-262993).",
       "dependency_review": null,
       "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 7808 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/World18/README.md"
-    },
-    {
-      "hook": {
-        "class": "CEntryExitManager",
-        "fn_name": "Shutdown",
-        "address": "0x00440B90",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/World18/validation-summary.json",
-        "sha256": "a808f378b1963664b0e6968a1ef70ea22553464eef2e20de2776bbc392c9eb4b",
-        "passed_path": [
-          "covered_functions",
-          "CEntryExitManager::Shutdown"
-        ],
-        "pairs": 128,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/game_sa/EntryExitManager.cpp": "aa49cdae39785559d1b6f8061d3c6fd619fe622564601e609de3a67e4b7b8315",
-        "source/game_sa/EntryExitManager.h": "f9a1d78f6113d00af5b7ccee113a3def6b173a037e9ce030f44093a4c51503ab"
-      },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261004-092756-262993).",
-      "dependency_review": null,
-      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 7808 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
       "review_reference": "reversing/World18/README.md"
     },
     {
@@ -199424,6 +199346,84 @@
       "dependency_review": null,
       "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 8128 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
       "review_reference": "reversing/CVehE/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntryExitManager",
+        "fn_name": "Init",
+        "address": "0x0043F880",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EnExInit/validation-summary.json",
+        "sha256": "1dcdda7baf319cb8fe3a0d995420b81eac2f243c1ff14a66c69da8413b591b0a",
+        "passed_path": [
+          "covered_functions",
+          "CEntryExitManager::Init"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/EntryExitManager.cpp": "8b32308daffd6fdb776eb56c847fcfcac89c16dd0e8ea1eb53385c02e3c8ac1b",
+        "source/game_sa/EntryExitManager.h": "f9a1d78f6113d00af5b7ccee113a3def6b173a037e9ce030f44093a4c51503ab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-000600-018653).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 2048 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EnExInit/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntryExitManager",
+        "fn_name": "Save",
+        "address": "0x005D5970",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EnExInit/validation-summary.json",
+        "sha256": "1dcdda7baf319cb8fe3a0d995420b81eac2f243c1ff14a66c69da8413b591b0a",
+        "passed_path": [
+          "covered_functions",
+          "CEntryExitManager::Save"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/EntryExitManager.cpp": "8b32308daffd6fdb776eb56c847fcfcac89c16dd0e8ea1eb53385c02e3c8ac1b",
+        "source/game_sa/EntryExitManager.h": "f9a1d78f6113d00af5b7ccee113a3def6b173a037e9ce030f44093a4c51503ab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-000600-018653).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 2048 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EnExInit/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEntryExitManager",
+        "fn_name": "Shutdown",
+        "address": "0x00440B90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EnExInit/validation-summary.json",
+        "sha256": "1dcdda7baf319cb8fe3a0d995420b81eac2f243c1ff14a66c69da8413b591b0a",
+        "passed_path": [
+          "covered_functions",
+          "CEntryExitManager::Shutdown"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/EntryExitManager.cpp": "8b32308daffd6fdb776eb56c847fcfcac89c16dd0e8ea1eb53385c02e3c8ac1b",
+        "source/game_sa/EntryExitManager.h": "f9a1d78f6113d00af5b7ccee113a3def6b173a037e9ce030f44093a4c51503ab"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-000600-018653).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 2048 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EnExInit/README.md"
     }
   ]
 }

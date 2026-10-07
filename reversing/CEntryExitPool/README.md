@@ -49,3 +49,9 @@ python reversing/Unlocks/run_current_build.py --entryexit-pool --seconds 120
 Esta opción lee la ocupación sin escribir memoria del juego y exige cero mensajes nuevos de fallo de CEntryExit para aprobar. Las partidas y ambos INI se verifican y restauran; para uso normal siguen `FastLoader=false` y `SaveGameToLoad=-2`.
 
 La reserva sigue siendo finita. No se certifican sesiones largas ni un ciclo completo de guardar/cargar, ni compatibilidad de guardados nuevos que usen índices superiores a 399 con un ejecutable sin esta ampliación. Las partidas existentes se conservan sin modificaciones. No se incorporan los 86 desbloqueos aplazados ni se cambia el porcentaje de reversing: CSV y catálogo de clases no necesitan modificar ninguna fila.
+
+> **Nota 07/10/2026 — ampliación retirada.** Este banco (sonda congelada) comprobaba el pool de `CEntryExit` ampliado a 512 plazas.
+> Midiendo con el EXE solo (`--unhook-except=Win/Win`, partida nueva) el pool llega a 400 de 400 en los primeros minutos de partida,
+> así que llenarse es el comportamiento normal del original y no una fuga de la DLL. Se volvió a 400 plazas como el EXE
+> (`CEntryExitManager::Init` validado de nuevo con el banco `EnExInit`) y el aviso "Allocation failed" del log solo se registra
+> una vez por tipo de pool. Este banco ya no aplica (exige `live_capacity == 512`) y no forma parte de la regresión.

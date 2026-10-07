@@ -1,6 +1,7 @@
 {
   "passed": true,
   "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
     "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
     "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
   },
@@ -19,7 +20,7 @@
   "log_sha256": "cb800c48e39b327e3eaba5d545543fdec2ec1c0389407271efdb817ff4e94d70",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-enexinit\\20261004-092707-231636",
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-enexinit\\20261007-000600-018653",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CEntryExitManager::Init": true,
@@ -28,11 +29,11 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "3a8ec707afcfc4eefce6360d164f93e7ba48dd975c0e040d2486699bc0b22573",
-      "pdb": "1afa7925788213a61bb658b9c1db703a192cdab3ef3dc15eb57af2c36e15e6b8"
+      "asi": "c7c053c3626a5f4828b0dc93d7f465cd490c38729a29671ceec3f793e3718073",
+      "pdb": "72d1a60a044d15da6971a89a9754d6c92b8266786b605d2962953eca10a55652"
     },
     "sources": {
-      "source/game_sa/EntryExitManager.cpp": "aa49cdae39785559d1b6f8061d3c6fd619fe622564601e609de3a67e4b7b8315",
+      "source/game_sa/EntryExitManager.cpp": "8b32308daffd6fdb776eb56c847fcfcac89c16dd0e8ea1eb53385c02e3c8ac1b",
       "source/game_sa/EntryExitManager.h": "f9a1d78f6113d00af5b7ccee113a3def6b173a037e9ce030f44093a4c51503ab"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",

@@ -1448,9 +1448,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEntryExitManager | `Load` | [Resumen](../reversing/World18/validation-summary.json) |
 | CEntryExitManager | `PostEntryExitsCreation` | [Resumen](../reversing/World18/validation-summary.json) |
 | CEntryExitManager | `ResetAreaCodeForVisibleObjects` | [Resumen](../reversing/World18/validation-summary.json) |
-| CEntryExitManager | `Save` | [Resumen](../reversing/World18/validation-summary.json) |
+| CEntryExitManager | `Save` | [Resumen](../reversing/EnExInit/validation-summary.json) |
 | CEntryExitManager | `SetAreaCodeForVisibleObjects` | [Resumen](../reversing/World18/validation-summary.json) |
-| CEntryExitManager | `Shutdown` | [Resumen](../reversing/World18/validation-summary.json) |
+| CEntryExitManager | `Shutdown` | [Resumen](../reversing/EnExInit/validation-summary.json) |
 | CEntryExitManager | `ShutdownForRestart` | [Resumen](../reversing/World18/validation-summary.json) |
 | CEntryExitManager | `Update` | [Resumen](../reversing/World18/validation-summary.json) |
 | CEntryInfoList | `Flush` | [Resumen](../reversing/Pools56/validation-summary.json) |

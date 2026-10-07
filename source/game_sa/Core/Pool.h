@@ -200,7 +200,14 @@ public:
         T* const obj = NewLegacy();
         if (!obj) {
             if (CanDealWithNoMemory()) {
-                NOTSA_LOG_ERR("Allocation failed for type {:?}", typeid(T).name());
+                // NOTSA: un pool lleno es normal en el original (p. ej. CEntryExit llega a su límite en partida): solo el
+                // primer fallo de cada tipo se registra como error y después uno de cada 1000, a nivel de depuración.
+                static uint32 s_nFailed{};
+                if (s_nFailed++ == 0) {
+                    NOTSA_LOG_ERR("Allocation failed for type {:?}", typeid(T).name());
+                } else if (s_nFailed % 1000 == 0) {
+                    NOTSA_LOG_DEBUG("Allocation failed for type {:?} ({} fallos)", typeid(T).name(), s_nFailed);
+                }
             } else {
                 NOTSA_DEBUG_BREAK();
             }
