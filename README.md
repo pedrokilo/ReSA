@@ -7,7 +7,7 @@ Recrear GTA San Andreas PC de forma funcionalmente equivalente mediante código 
 
 La [hoja de ruta de ReSA](docs/ProjectRoadmap.md) define el objetivo **ReSA — Zero Original Function Dependency**. Completar el catálogo es un hito intermedio.
 
-**[📊 Progreso](docs/ReversedClasses.md) · [🧭 Qué abordar después](docs/ReversingPriorities.md) · [🧪 Pruebas](reversing/README.md) · [📋 Proceso y continuidad](reversing/MEJORAS_DEL_PROCESO.md)**
+**[🗺️ Mapa de clases y funciones](docs/MemoryMap/index.html) · [📊 Progreso](docs/ReversedClasses.md) · [🧭 Qué abordar después](docs/ReversingPriorities.md) · [🧪 Pruebas](reversing/README.md) · [📋 Proceso y continuidad](reversing/MEJORAS_DEL_PROCESO.md)**
 
 > [!NOTE]
 > Este README describe el trabajo local de la rama **ReSA**. El avance registrado y los bancos aprobados no equivalen a cobertura exhaustiva ni a estabilidad general del juego.
