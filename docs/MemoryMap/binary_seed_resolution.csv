@@ -1,0 +1,5 @@
+va,result,function_va,instruction
+0x004a9fb0,created_function,0x004a9fb0,JMP
+0x00591590,created_function,0x00591590,MOV
+0x00612cd0,created_function,0x00612cd0,MOV
+0x007487cf,inside_existing_body,0x00748710,

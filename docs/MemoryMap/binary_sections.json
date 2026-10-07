@@ -1,0 +1,92 @@
+[
+  {
+    "name": ".text",
+    "rva": "0x00001000",
+    "va": "0x00401000",
+    "virtual_size": 4546560,
+    "raw_size": 4546048,
+    "raw_offset": 1024,
+    "executable": true,
+    "writable": false,
+    "readable": true,
+    "ghidra_function_entries": 17757,
+    "instruction_bytes": 4013886,
+    "function_body_bytes": 3723677,
+    "bytes_without_function": 822371
+  },
+  {
+    "name": "_rwcseg",
+    "rva": "0x00457000",
+    "va": "0x00857000",
+    "virtual_size": 4096,
+    "raw_size": 1536,
+    "raw_offset": 4547072,
+    "executable": true,
+    "writable": false,
+    "readable": true,
+    "ghidra_function_entries": 8,
+    "instruction_bytes": 882,
+    "function_body_bytes": 882,
+    "bytes_without_function": 654
+  },
+  {
+    "name": ".rdata",
+    "rva": "0x00458000",
+    "va": "0x00858000",
+    "virtual_size": 311296,
+    "raw_size": 308224,
+    "raw_offset": 4548608,
+    "executable": false,
+    "writable": false,
+    "readable": true,
+    "ghidra_function_entries": 0
+  },
+  {
+    "name": ".data",
+    "rva": "0x004a4000",
+    "va": "0x008a4000",
+    "virtual_size": 4169728,
+    "raw_size": 262144,
+    "raw_offset": 4856832,
+    "executable": false,
+    "writable": true,
+    "readable": true,
+    "ghidra_function_entries": 0
+  },
+  {
+    "name": "_TEXT_HA",
+    "rva": "0x0089e000",
+    "va": "0x00c9e000",
+    "virtual_size": 69632,
+    "raw_size": 68608,
+    "raw_offset": 5118976,
+    "executable": false,
+    "writable": true,
+    "readable": true,
+    "ghidra_function_entries": 0
+  },
+  {
+    "name": "_rwdseg",
+    "rva": "0x008af000",
+    "va": "0x00caf000",
+    "virtual_size": 4096,
+    "raw_size": 512,
+    "raw_offset": 5187584,
+    "executable": false,
+    "writable": true,
+    "readable": true,
+    "ghidra_function_entries": 0
+  },
+  {
+    "name": ".rsrc",
+    "rva": "0x008b0000",
+    "va": "0x00cb0000",
+    "virtual_size": 4096,
+    "raw_size": 1536,
+    "raw_offset": 5188096,
+    "executable": false,
+    "writable": false,
+    "readable": true,
+    "ghidra_function_entries": 0
+  }
+]

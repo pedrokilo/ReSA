@@ -22,6 +22,7 @@
   "registry_sha256": "162185cb02bedd91b67812f4cf927b230bb59316044b48a5c00c80f1383acac9",
   "source_manifest_sha256": "9551b0bf0ba59f82fbb8c98b297a49d04df0babeeed1930281ac81708698cda9",
   "source_files_changed_during_generation": [],
-  "binary_verified": false,
-  "exhaustive_cpp_parse": false
+  "binary_verified": true,
+  "exhaustive_cpp_parse": false,
+  "binary_inventory_available": true
 }

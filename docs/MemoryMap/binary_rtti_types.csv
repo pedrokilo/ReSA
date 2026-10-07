@@ -1,0 +1,10 @@
+name,mangled,kind,type_descriptor_va,type_descriptor_rva,status,section,locators,vtables,bases
+exception,.?AVexception@@,class,0x008cbb88,0x004cbb88,exe_rtti_with_vtable,.data,0x0088e108,0x00887e80,
+std::logic_error,.?AVlogic_error@std@@,class,0x008cbba0,0x004cbba0,exe_rtti_with_vtable,.data,0x0088dffc,0x00887d5c,exception
+std::length_error,.?AVlength_error@std@@,class,0x008cbbc0,0x004cbbc0,exe_rtti_with_vtable,.data,0x0088e048,0x00887d68,std::logic_error;exception
+std::out_of_range,.?AVout_of_range@std@@,class,0x008e2b2c,0x004e2b2c,exe_rtti_with_vtable,.data,0x0088e094,0x00887d74,std::logic_error;exception
+std::bad_alloc,.?AVbad_alloc@std@@,class,0x008e2b4c,0x004e2b4c,exe_rtti_with_vtable,.data,0x0088e0dc,0x00887da8,exception
+bad_cast,.?AVbad_cast@@,class,0x008e2bc4,0x004e2bc4,exe_rtti_with_vtable,.data,0x0088e150,0x00887ea0,exception
+bad_typeid,.?AVbad_typeid@@,class,0x008e2bdc,0x004e2bdc,exe_rtti_with_vtable,.data,0x0088e198,0x00887eac,exception
+__non_rtti_object,.?AV__non_rtti_object@@,class,0x008e2bf8,0x004e2bf8,exe_rtti_with_vtable,.data,0x0088e1e4,0x00887eb8,bad_typeid;exception
+type_info,.?AVtype_info@@,class,0x008e2c18,0x004e2c18,exe_rtti_with_vtable,.data,0x0088e228,0x00887ec4,

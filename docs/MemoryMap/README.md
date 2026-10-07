@@ -2,7 +2,37 @@
 
 **[Abrir el visor local](index.html)**. Página interactiva sin servidor ni conexión, compatible con navegadores modernos. Busca una clase, función, dirección o archivo; selecciona una fila para consultar su ficha y procedencia. El filtro de estado permite consultar sólo lo reconstruido, la evidencia aprobada, la vigencia o los pendientes.
 
-Este mapa se generó desde `D:\Original\gta-reversed-master` el 6 de octubre de 2026. No copia clases de ReIV ni convierte sus direcciones a GTA SA. No ejecuta GTA, modifica hooks, recompila, cambia flags ni vuelve a correr bancos.
+Este mapa combina el **análisis del EXE de GTA SA** y el inventario de `D:\Original\gta-reversed-master`, del 6 de octubre de 2026. No ejecuta GTA, modifica hooks, recompila, cambia flags ni vuelve a correr bancos.
+
+## Inventario del EXE
+
+La vista inicial **Funciones del EXE** incluye el código detectado aunque no figure en el catálogo de ReSA. Ghidra 12.1.4 terminó el análisis global de memoria y código en 201 segundos, sin timeout; después se delimitaron tres entradas mediante revisión estática dirigida. Se aportaron 9.473 entradas candidatas de registros fuente y destinos virtuales, además de la detección automática del analizador.
+
+| Resultado del análisis binario | Cantidad |
+| --- | ---: |
+| Entradas de función detectadas | **17.765** |
+| Entradas con nombres cruzados del catálogo o sus registros fuente | 8.433 |
+| Entradas sin nombre del catálogo | **9.332** |
+| Dirección candidata dentro de un cuerpo existente, sin entrada propia | 1 |
+| Direcciones de código en el inventario combinado | 17.766 |
+| Tablas fuente leídas del EXE | 445 |
+| Destinos de slots leídos y verificados como punteros a código | 5.506 |
+| Tipos RTTI recuperados estructuralmente | 9 |
+| Sitios de llamada detectados | 80.567 |
+| Sitios de llamada indirecta sin resolver | 6.004 |
+| Bytes de archivo en secciones ejecutables | 4.547.584 |
+| Bytes decodificados como instrucciones | 4.014.768 |
+| Bytes asignados a cuerpos de funciones, sin duplicados | 3.724.559 |
+| Bytes ejecutables sin cuerpo de función asignado | 823.025 |
+| Rangos de bytes sin cuerpo asignado | 15.639 |
+
+**8.441 es el tamaño del catálogo de ReSA, no el número de funciones del EXE.** El análisis abarca todas las secciones del binario; el mapa conserva cada rango de bytes ejecutables no asignado a un cuerpo en «Huecos por revisar». Esos huecos pueden incluir alineación, tablas de datos, instrucciones sueltas y código pendiente de identificar. No se suman como nuevas funciones.
+
+El análisis automático global se completó, pero **17.765 sigue siendo un número de entradas detectadas, no un total semántico exacto demostrado**. Puede haber límites imperfectos, thunks, cuerpos compartidos, saltos indirectos o funciones no reconocidas. La revisión de las cuatro entradas pendientes delimitó tres funciones adicionales. La cuarta, 0x007487CF, está dentro de la función 0x00748710: no se cuenta como una función nueva.
+
+El EXE no conserva RTTI útil de todas las clases del juego. Los nueve tipos recuperados no representan todas sus clases. Los nombres de clases del juego se cruzan con el código y las tablas declaradas de ReSA, sin atribuir necesariamente cada implementación virtual a la clase de su tabla.
+
+Binario analizado: `D:\Grand Theft Auto San Andreas\gta-sa.exe`, 5.189.632 bytes, x86 PE32, base `0x00400000`. SHA-256 **`72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b`**, coincidente con la copia de pruebas. Ningún EXE se modifica ni se publica. Los proyectos de Ghidra y las exportaciones de trabajo permanecen en build, fuera de Git.
 
 ## Inventario captado
 
@@ -31,7 +61,7 @@ El auditor estricto del catálogo devolvió **OK** durante esta generación. Sus
 - **Catálogo:** se preservan las identidades clase + nombre + dirección + tipo y los flags `reversed`, `locked` y `validated` de `hooks.csv`. `S` y `V` describen hooks simples y virtuales.
 - **Evidencia aprobada:** se usa el auditor existente `contrib/validation_registry.py`. Comprueba resumen, SHA-256 y resultado aprobado por función. No repite el banco ni verifica de nuevo los logs referidos por ese resumen.
 - **Vigencia:** exige además coincidencia de fuentes y revisión de dependencias según el registro. Coincidir sólo en las fuentes de prueba no acredita vigencia. Los cambios pendientes no se clasifican automáticamente como fallos.
-- **Código:** se fichan referencias explícitas de registro de hooks, tablas virtuales y StaticRef/StaticArray con archivo y línea. Son referencias fuente, sin nueva confirmación del EXE.
+- **Código:** se fichan referencias explícitas de registro de hooks, tablas virtuales y StaticRef/StaticArray con archivo y línea. Sus estados fuente se preservan. Las vistas binarias agregan la lectura real del EXE y el cruce por dirección, sin elevar la validación del comportamiento.
 - **Tipos y funciones extraídos:** son candidatos sintácticos de un parser conservador, no una certificación ABI ni un análisis exhaustivo de C++. Las sobrecargas y las declaraciones/cuerpos se conservan como entradas distintas. El código auxiliar y librerías también están dentro de source.
 
 El inventario no atribuye independencia del EXE por no tener locks. Una clase catalogada puede ser un namespace o un grupo sin definición class/struct. Tampoco se acreditan todas las funciones de una clase porque una tenga evidencia.
@@ -42,7 +72,7 @@ Se conserva la VA del catálogo. **6.982 entradas tienen dirección distinta de 
 
 Las direcciones candidatas del registro fuente se guardan en otra columna. El cruce requiere el mismo owner y nombre de entrada, incluyendo etiquetas de sobrecargas. No se inventan fuentes cuando el parser no consigue enlazarlas: 175 entradas del catálogo quedaron sin localización directa de registro por este criterio.
 
-La RVA se calcula respecto a `0x00400000`, base de referencia del proyecto. El visor permite calcular otra VA mediante `base indicada + RVA`; **no observa un proceso ni verifica la base leyendo un EXE**. Las vtables incluyen el número de slots declarado en RH_ScopedVirtualClass, pero no sus destinos individuales: generar este mapa desde el código no equivale a leer la tabla del binario.
+La RVA se calcula respecto a `0x00400000`, base comprobada en la cabecera PE. El visor permite calcular otra VA mediante `base indicada + RVA`; **no observa un proceso**. «Tablas virtuales» conserva la referencia fuente y «Vtables leídas»/«Slots leídos del EXE» añaden los valores del binario para la extensión declarada por RH_ScopedVirtualClass; no se adivina una extensión mayor.
 
 ## Archivos
 
@@ -58,6 +88,16 @@ La RVA se calcula respecto a `0x00400000`, base de referencia del proyecto. El v
 | [notsa.csv](notsa.csv) | Extras propios sin equivalente en el EXE |
 | [summary.json](summary.json) | Recuentos y hashes de las fuentes del inventario |
 | [source_manifest.json](source_manifest.json) | SHA-256 de cada archivo fuente examinado |
+| [binary_functions.csv](binary_functions.csv) | Todas las entradas de función detectadas en el EXE, nombres cruzados y referencias virtuales |
+| [binary_entry_candidates.csv](binary_entry_candidates.csv) | Direcciones a código sin entrada de función delimitada |
+| [binary_vtables.csv](binary_vtables.csv) | Tablas fuente leídas del binario, slots declarados y punteros comprobados |
+| [binary_slots.csv](binary_slots.csv) | Destinos reales de cada slot leído |
+| [binary_rtti_types.csv](binary_rtti_types.csv) | Tipos RTTI recuperados del EXE |
+| [binary_calls.csv](binary_calls.csv) | Sitios de llamada directa e indirecta detectados |
+| [binary_function_ranges.csv](binary_function_ranges.csv) | Rangos de bytes que Ghidra asigna a cada función |
+| [binary_unassigned_ranges.csv](binary_unassigned_ranges.csv) | Todos los huecos de secciones ejecutables sin cuerpo asignado |
+| [binary_sections.json](binary_sections.json) | Rangos PE y cobertura por sección |
+| [binary_summary.json](binary_summary.json) | Recuentos binarios, SHA-256 del EXE y del análisis |
 
 Las fichas del visor enlazan directamente a declaraciones, registros y evidencia del mismo repositorio. Los CSV se pueden descargar completos o exportar filtrados desde el visor.
 
@@ -72,3 +112,11 @@ python contrib/build-memory-map.py
 ```
 
 También acepta `--root`, `--output` y `--template`. El generador sólo escribe el inventario y el visor en la carpeta de salida; no actualiza hooks.csv ni el registro de validación. Los hashes del resumen y del manifiesto permiten identificar el corte de fuentes consultado.
+
+Para exportar del proyecto de Ghidra existente y actualizar la vista binaria:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File reversing/MemoryMap/export-binary.ps1 -GhidraDirectory 'RUTA\ghidra_12.1.4_PUBLIC'
+```
+
+Si el proyecto no existe, importa y analiza el EXE completo. `-Reanalyze` solicita repetir su análisis. Se requiere JDK compatible y Python; las exportaciones de trabajo se guardan en `build/binary-map`. `contrib/build-binary-map.py` exige el hash canónico y un log de análisis global terminado antes de publicar el inventario. Regenerar sólo la vista fuente preserva las vistas binarias existentes; no actualiza su corte automáticamente.

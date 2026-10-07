@@ -1,0 +1,2 @@
+va,rva,name,body_bytes,thunk,calling_convention,source,section,executable_section,catalogue_names,virtual_owners,evidence_status,status,containing_function_va,call_sites,direct_call_sites_to_entry
+0x007487cf,0x003487cf,unresolved_entry_007487cf,,unknown,unknown,binary_pointer_or_source_reference,.text,True,,,,entry_candidate_without_ghidra_function,0x00748710,0,0

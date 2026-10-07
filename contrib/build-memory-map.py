@@ -133,6 +133,15 @@ def main():
                 writer=csv.DictWriter(f,fieldnames=list(entries[0]),extrasaction='ignore');writer.writeheader();writer.writerows(entries)
     (out/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     (out/'source_manifest.json').write_text(json.dumps(files,indent=2)+'\n',encoding='utf-8')
+    previous=out/'index.html'
+    if previous.is_file():
+        packed_old=re.search(r"atob\('([^']+)'\)",previous.read_text(encoding='utf-8'))
+        if packed_old:
+            old=json.loads(gzip.decompress(base64.b64decode(packed_old[1])))
+            dataset.update({key:value for key,value in old.items() if key.startswith('binary_')})
+            if 'binary_summary' in old:
+                summary.update(binary_inventory_available=True,binary_verified=True)
+                (out/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     template=args.template or root/'reversing/MemoryMap/viewer.template.html'
     packed=base64.b64encode(gzip.compress(json.dumps(dataset,ensure_ascii=False,separators=(',',':')).encode(),mtime=0)).decode()
     (out/'index.html').write_text(template.read_text(encoding='utf-8').replace('__DATA__',packed),encoding='utf-8')
