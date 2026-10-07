@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 6528,
+  "pairs_per_function": {
+    "CEventHandler::ComputeOnEscalatorResponse": 64,
+    "CEventHandler::ComputeOnFireResponse": 128,
+    "CEventHandler::ComputePassObjectResponse": 64,
+    "CEventHandler::ComputePedEnteredVehicleResponse": 1024,
+    "CEventHandler::ComputePedFriendResponse": 256,
+    "CEventHandler::ComputePedSoundQuietResponse": 128,
+    "CEventHandler::ComputePedThreatBadlyLitResponse": 128,
+    "CEventHandler::ComputePedThreatResponse": 2048,
+    "CEventHandler::ComputePedToChaseResponse": 64,
+    "CEventHandler::ComputePedToFleeResponse": 64,
+    "CEventHandler::ComputePlayerCollisionWithPedResponse": 1024,
+    "CEventHandler::ComputePlayerWantedLevelResponse": 64,
+    "CEventHandler::ComputePotentialPedCollideResponse": 512,
+    "CEventHandler::ComputePotentialWalkIntoFireResponse": 256,
+    "CEventHandler::ComputeReallyLowHealthResponse": 64,
+    "CEventHandler::ComputeReviveResponse": 128,
+    "CEventHandler::ComputeScriptCommandResponse": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "ea558d9ea022e79ed5ba8794c85713e1f5b8d618674a9bd67c126b2b98fe0c31",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-evhc\\20261007-140441-764069",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CEventHandler::ComputeOnEscalatorResponse": true,
+    "CEventHandler::ComputeOnFireResponse": true,
+    "CEventHandler::ComputePassObjectResponse": true,
+    "CEventHandler::ComputePedEnteredVehicleResponse": true,
+    "CEventHandler::ComputePedFriendResponse": true,
+    "CEventHandler::ComputePedSoundQuietResponse": true,
+    "CEventHandler::ComputePedThreatBadlyLitResponse": true,
+    "CEventHandler::ComputePedThreatResponse": true,
+    "CEventHandler::ComputePedToChaseResponse": true,
+    "CEventHandler::ComputePedToFleeResponse": true,
+    "CEventHandler::ComputePlayerCollisionWithPedResponse": true,
+    "CEventHandler::ComputePlayerWantedLevelResponse": true,
+    "CEventHandler::ComputePotentialPedCollideResponse": true,
+    "CEventHandler::ComputePotentialWalkIntoFireResponse": true,
+    "CEventHandler::ComputeReallyLowHealthResponse": true,
+    "CEventHandler::ComputeReviveResponse": true,
+    "CEventHandler::ComputeScriptCommandResponse": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "80e72ccb9d09b022eaf01da4802db99a3675896862cde11a53096f07744026ee",
+      "pdb": "5dbaeb480b9f5f675cfccfc1d109c741ed22519bad1864317892ab3309f1d8fe"
+    },
+    "sources": {
+      "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+      "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "903ace66297827e7fd81e4caff936261d9c955c6156c5e460b2134d1ef151169",
+      "build_probe.py": "e3a4209b242e3c43cc888b9db3c44218ef6bf9c7644b3014c72a2ce8a2c04972",
+      "run_local.py": "5a6b4668244b4be43a50fe6d843b29652543b338d1f0a3aa284ad39898e3597e"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

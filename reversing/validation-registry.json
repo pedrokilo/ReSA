@@ -201324,6 +201324,1888 @@
       "dependency_review": null,
       "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 4608 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
       "review_reference": "reversing/CEntC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeDamageResponse",
+        "address": "0x004C0170",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeDamageResponse"
+        ],
+        "pairs": 3072,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "3072 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputePersonalityResponseToDamage",
+        "address": "0x004BF9B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputePersonalityResponseToDamage"
+        ],
+        "pairs": 1536,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "1536 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeDeathResponse",
+        "address": "0x004B9400",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeDeathResponse"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeDeadPedResponse",
+        "address": "0x004B9470",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeDeadPedResponse"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeVehicleDamageResponse",
+        "address": "0x004C2FC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeVehicleDamageResponse"
+        ],
+        "pairs": 1536,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "1536 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeGotKnockedOverByCarResponse",
+        "address": "0x004C3430",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeGotKnockedOverByCarResponse"
+        ],
+        "pairs": 384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "384 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeVehicleCollisionResponse",
+        "address": "0x004BD6A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeVehicleCollisionResponse"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "2048 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeVehiclePotentialCollisionResponse",
+        "address": "0x004C0BD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeVehiclePotentialCollisionResponse"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "2048 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeEventResponseTask-0",
+        "address": "0x004C3870",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeEventResponseTask-0"
+        ],
+        "pairs": 1536,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "1536 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeEventResponseTask-Ped",
+        "address": "0x004C4220",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeEventResponseTask-Ped"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "HandleEvents",
+        "address": "0x004C3F10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::HandleEvents"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "2048 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "Flush",
+        "address": "0x004C3790",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::Flush"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "FlushImmediately",
+        "address": "0x004C3820",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::FlushImmediately"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "SetEventResponseTask",
+        "address": "0x004BC600",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::SetEventResponseTask"
+        ],
+        "pairs": 768,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "768 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "RegisterKill",
+        "address": "0x004B9340",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::RegisterKill"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "Constructor",
+        "address": "0x004C3E80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::Constructor"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "Destructor",
+        "address": "0x004C3EC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::Destructor"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "IsKillTaskAppropriate",
+        "address": "0x004BC3E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::IsKillTaskAppropriate"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "IsTemporaryEvent",
+        "address": "0x004BC370",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::IsTemporaryEvent"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "GetCurrentEventType",
+        "address": "0x004B8CC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHA/validation-summary.json",
+        "sha256": "c249d2073921c417b25dd097f10a03ba00fcf4d546a498f0ac8402e0dca0b87e",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::GetCurrentEventType"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140619-369981).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 17984 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHA/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeAreaCodesResponse",
+        "address": "0x004BBF50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeAreaCodesResponse"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeAttractorResponse",
+        "address": "0x004B9BE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeAttractorResponse"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeBuildingCollisionResponse",
+        "address": "0x004BF2B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeBuildingCollisionResponse"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeCarUpsideDownResponse",
+        "address": "0x004BBC30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeCarUpsideDownResponse"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeChatPartnerResponse",
+        "address": "0x004B98E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeChatPartnerResponse"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeCopCarBeingStolenResponse",
+        "address": "0x004BB740",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeCopCarBeingStolenResponse"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeCreatePartnerTaskResponse",
+        "address": "0x004BB130",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeCreatePartnerTaskResponse"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeDangerResponse",
+        "address": "0x004BC230",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeDangerResponse"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeDontJoinGroupResponse",
+        "address": "0x004BC1D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeDontJoinGroupResponse"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeDraggedOutCarResponse",
+        "address": "0x004BCC30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeDraggedOutCarResponse"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeFireNearbyResponse",
+        "address": "0x004BBFB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeFireNearbyResponse"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeGunAimedAtResponse",
+        "address": "0x004C2840",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeGunAimedAtResponse"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeHighAngerAtPlayerResponse",
+        "address": "0x004BAC10",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeHighAngerAtPlayerResponse"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeInWaterResponse",
+        "address": "0x004BAF80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeInWaterResponse"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeInteriorUseInfoResponse",
+        "address": "0x004BAFE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeInteriorUseInfoResponse"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeLowAngerAtPlayerResponse",
+        "address": "0x004BAAD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeLowAngerAtPlayerResponse"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeLowHealthResponse",
+        "address": "0x004BA990",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeLowHealthResponse"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeObjectCollisionPassiveResponse",
+        "address": "0x004BBB90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeObjectCollisionPassiveResponse"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeObjectCollisionResponse",
+        "address": "0x004B92B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHB/validation-summary.json",
+        "sha256": "c1f3e8e3504046060f603cf196524223f7d1b05ce269fd7d6a85df505d3004a1",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeObjectCollisionResponse"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140911-870165).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 5696 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHB/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeOnEscalatorResponse",
+        "address": "0x004BC150",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHC/validation-summary.json",
+        "sha256": "1bb57de2935ce5d728e6282b502de0fca71a21d99a833d7a2d3c8a8f5514d537",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeOnEscalatorResponse"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140441-764069).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 6528 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeOnFireResponse",
+        "address": "0x004BAD50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHC/validation-summary.json",
+        "sha256": "1bb57de2935ce5d728e6282b502de0fca71a21d99a833d7a2d3c8a8f5514d537",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeOnFireResponse"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140441-764069).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 6528 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputePassObjectResponse",
+        "address": "0x004BB0C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHC/validation-summary.json",
+        "sha256": "1bb57de2935ce5d728e6282b502de0fca71a21d99a833d7a2d3c8a8f5514d537",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputePassObjectResponse"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140441-764069).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 6528 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputePedEnteredVehicleResponse",
+        "address": "0x004C1590",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHC/validation-summary.json",
+        "sha256": "1bb57de2935ce5d728e6282b502de0fca71a21d99a833d7a2d3c8a8f5514d537",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputePedEnteredVehicleResponse"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140441-764069).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 6528 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputePedFriendResponse",
+        "address": "0x004B9DD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHC/validation-summary.json",
+        "sha256": "1bb57de2935ce5d728e6282b502de0fca71a21d99a833d7a2d3c8a8f5514d537",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputePedFriendResponse"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140441-764069).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 6528 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputePedSoundQuietResponse",
+        "address": "0x004B9D40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHC/validation-summary.json",
+        "sha256": "1bb57de2935ce5d728e6282b502de0fca71a21d99a833d7a2d3c8a8f5514d537",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputePedSoundQuietResponse"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140441-764069).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 6528 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputePedThreatBadlyLitResponse",
+        "address": "0x004B9C90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHC/validation-summary.json",
+        "sha256": "1bb57de2935ce5d728e6282b502de0fca71a21d99a833d7a2d3c8a8f5514d537",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputePedThreatBadlyLitResponse"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140441-764069).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 6528 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputePedThreatResponse",
+        "address": "0x004C19A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHC/validation-summary.json",
+        "sha256": "1bb57de2935ce5d728e6282b502de0fca71a21d99a833d7a2d3c8a8f5514d537",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputePedThreatResponse"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140441-764069).",
+      "dependency_review": null,
+      "scope": "2048 pares original/candidato con hook conmutado dentro del motor; banco de 6528 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputePedToChaseResponse",
+        "address": "0x004C1910",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHC/validation-summary.json",
+        "sha256": "1bb57de2935ce5d728e6282b502de0fca71a21d99a833d7a2d3c8a8f5514d537",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputePedToChaseResponse"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140441-764069).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 6528 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputePedToFleeResponse",
+        "address": "0x004B9B50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHC/validation-summary.json",
+        "sha256": "1bb57de2935ce5d728e6282b502de0fca71a21d99a833d7a2d3c8a8f5514d537",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputePedToFleeResponse"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140441-764069).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 6528 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputePlayerCollisionWithPedResponse",
+        "address": "0x004B8CE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHC/validation-summary.json",
+        "sha256": "1bb57de2935ce5d728e6282b502de0fca71a21d99a833d7a2d3c8a8f5514d537",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputePlayerCollisionWithPedResponse"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140441-764069).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 6528 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputePlayerWantedLevelResponse",
+        "address": "0x004BB280",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHC/validation-summary.json",
+        "sha256": "1bb57de2935ce5d728e6282b502de0fca71a21d99a833d7a2d3c8a8f5514d537",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputePlayerWantedLevelResponse"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140441-764069).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 6528 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputePotentialPedCollideResponse",
+        "address": "0x004C2610",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHC/validation-summary.json",
+        "sha256": "1bb57de2935ce5d728e6282b502de0fca71a21d99a833d7a2d3c8a8f5514d537",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputePotentialPedCollideResponse"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140441-764069).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 6528 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputePotentialWalkIntoFireResponse",
+        "address": "0x004BBCD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHC/validation-summary.json",
+        "sha256": "1bb57de2935ce5d728e6282b502de0fca71a21d99a833d7a2d3c8a8f5514d537",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputePotentialWalkIntoFireResponse"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140441-764069).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 6528 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeReallyLowHealthResponse",
+        "address": "0x004BAA30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHC/validation-summary.json",
+        "sha256": "1bb57de2935ce5d728e6282b502de0fca71a21d99a833d7a2d3c8a8f5514d537",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeReallyLowHealthResponse"
+        ],
+        "pairs": 64,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140441-764069).",
+      "dependency_review": null,
+      "scope": "64 pares original/candidato con hook conmutado dentro del motor; banco de 6528 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeReviveResponse",
+        "address": "0x004B97B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHC/validation-summary.json",
+        "sha256": "1bb57de2935ce5d728e6282b502de0fca71a21d99a833d7a2d3c8a8f5514d537",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeReviveResponse"
+        ],
+        "pairs": 128,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140441-764069).",
+      "dependency_review": null,
+      "scope": "128 pares original/candidato con hook conmutado dentro del motor; banco de 6528 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeScriptCommandResponse",
+        "address": "0x004BA7C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHC/validation-summary.json",
+        "sha256": "1bb57de2935ce5d728e6282b502de0fca71a21d99a833d7a2d3c8a8f5514d537",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeScriptCommandResponse"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp": "6cfb9a25514cb938bec20db6cc3f92819883399fbc3bb65ad362906781c0ad91",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.h": "dbd347e6671a5a2f4b7fecc37b6ff9175cbc105a98563adf86fa7390adbbc35c"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-140441-764069).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 6528 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHC/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeSeenCopResponse",
+        "address": "0x004BC050",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHD/validation-summary.json",
+        "sha256": "355dbb79a90bcb34123a7603d8c8c5fbd88a171e226a1c083cc57a43ef94e5c4",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeSeenCopResponse"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-141012-082906).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 9728 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeSeenPanickedPedResponse",
+        "address": "0x004C35F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHD/validation-summary.json",
+        "sha256": "355dbb79a90bcb34123a7603d8c8c5fbd88a171e226a1c083cc57a43ef94e5c4",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeSeenPanickedPedResponse"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-141012-082906).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 9728 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeSexyPedResponse",
+        "address": "0x004B99F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHD/validation-summary.json",
+        "sha256": "355dbb79a90bcb34123a7603d8c8c5fbd88a171e226a1c083cc57a43ef94e5c4",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeSexyPedResponse"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-141012-082906).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 9728 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeSexyVehicleResponse",
+        "address": "0x004B9AA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHD/validation-summary.json",
+        "sha256": "355dbb79a90bcb34123a7603d8c8c5fbd88a171e226a1c083cc57a43ef94e5c4",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeSexyVehicleResponse"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-141012-082906).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 9728 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeShotFiredResponse",
+        "address": "0x004BC710",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHD/validation-summary.json",
+        "sha256": "355dbb79a90bcb34123a7603d8c8c5fbd88a171e226a1c083cc57a43ef94e5c4",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeShotFiredResponse"
+        ],
+        "pairs": 2048,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-141012-082906).",
+      "dependency_review": null,
+      "scope": "2048 pares original/candidato con hook conmutado dentro del motor; banco de 9728 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeShotFiredWhizzedByResponse",
+        "address": "0x004BBE30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHD/validation-summary.json",
+        "sha256": "355dbb79a90bcb34123a7603d8c8c5fbd88a171e226a1c083cc57a43ef94e5c4",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeShotFiredWhizzedByResponse"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-141012-082906).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 9728 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeSignalAtPedResponse",
+        "address": "0x004BB050",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHD/validation-summary.json",
+        "sha256": "355dbb79a90bcb34123a7603d8c8c5fbd88a171e226a1c083cc57a43ef94e5c4",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeSignalAtPedResponse"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-141012-082906).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 9728 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeSpecialResponse",
+        "address": "0x004BB800",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHD/validation-summary.json",
+        "sha256": "355dbb79a90bcb34123a7603d8c8c5fbd88a171e226a1c083cc57a43ef94e5c4",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeSpecialResponse"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-141012-082906).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 9728 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeVehicleDiedResponse",
+        "address": "0x004BA8B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHD/validation-summary.json",
+        "sha256": "355dbb79a90bcb34123a7603d8c8c5fbd88a171e226a1c083cc57a43ef94e5c4",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeVehicleDiedResponse"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-141012-082906).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 9728 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeVehicleOnFireResponse",
+        "address": "0x004BB2E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHD/validation-summary.json",
+        "sha256": "355dbb79a90bcb34123a7603d8c8c5fbd88a171e226a1c083cc57a43ef94e5c4",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeVehicleOnFireResponse"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-141012-082906).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 9728 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeVehiclePotentialPassiveCollisionResponse",
+        "address": "0x004B96D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHD/validation-summary.json",
+        "sha256": "355dbb79a90bcb34123a7603d8c8c5fbd88a171e226a1c083cc57a43ef94e5c4",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeVehiclePotentialPassiveCollisionResponse"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-141012-082906).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 9728 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeVehicleToStealResponse",
+        "address": "0x004B9F80",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHD/validation-summary.json",
+        "sha256": "355dbb79a90bcb34123a7603d8c8c5fbd88a171e226a1c083cc57a43ef94e5c4",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeVehicleToStealResponse"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-141012-082906).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 9728 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHD/README.md"
+    },
+    {
+      "hook": {
+        "class": "CEventHandler",
+        "fn_name": "ComputeWaterCannonResponse",
+        "address": "0x004BAE30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/EvHD/validation-summary.json",
+        "sha256": "355dbb79a90bcb34123a7603d8c8c5fbd88a171e226a1c083cc57a43ef94e5c4",
+        "passed_path": [
+          "covered_functions",
+          "CEventHandler::ComputeWaterCannonResponse"
+        ],
+        "pairs": 512,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+        "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261007-141012-082906).",
+      "dependency_review": null,
+      "scope": "512 pares original/candidato con hook conmutado dentro del motor; banco de 9728 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/EvHD/README.md"
     }
   ]
 }

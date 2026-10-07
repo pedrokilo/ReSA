@@ -40,6 +40,7 @@ private: // Wrappers for hooks
     // 0x6611B0
     CTaskComplexPassObject* Constructor(CPed* ped, uint8 isPasser) {
         this->CTaskComplexPassObject::CTaskComplexPassObject(ped, isPasser);
+        *reinterpret_cast<uint8*>(&m_isPasser) = isPasser; // Como el original (0x6611B0): el byte se guarda crudo, sin normalizar a bool
         return this;
     }
     // 0x661230

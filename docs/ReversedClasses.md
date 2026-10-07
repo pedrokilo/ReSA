@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-07 12:09 UTC
+> **Fuente:** [hooks.csv](hooks.csv) · **Generado:** 2026-10-07 20:11 UTC
 
 ## Objetivo y dimensiones de progreso
 
@@ -13,7 +13,7 @@ La [hoja de ruta de ReSA](ProjectRoadmap.md) define una reconstrucción funciona
 | Clases completas | `██████████████████░░` | 702/771 · 91.05% |
 | Clases validadas (de las completas) | `████████████████████` | 688/702 · 98.01% |
 | Funciones reconstruidas | `███████████████████░` | 7,947/8,441 · 94.15% |
-| Funciones validadas (de las reconstruidas) | `███████████████░░░░░` | 6,073/7,947 · 76.42% |
+| Funciones validadas (de las reconstruidas) | `███████████████░░░░░` | 6,142/7,947 · 77.29% |
 
 Las clases y funciones validadas se miden sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL.
 
@@ -25,17 +25,17 @@ Estas dimensiones todavía no tienen un porcentaje útil: indican el trabajo que
 
 | Dimensión | Estado actual | Qué hay que hacer |
 | --- | --- | --- |
-| Validaciones vigentes para el árbol actual | 0/6,073 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
+| Validaciones vigentes para el árbol actual | 0/6,142 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual y revisar que sus dependencias (funciones llamadas) no hayan cambiado desde la evidencia; registrar el resultado en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
 | Dependencias de funciones originales eliminadas | No medido | Auditar, para cada función reconstruida, las llamadas directas y transitivas que todavía saltan a código del EXE (`plugin::Call*`, direcciones fijas, hooks sin reconstruir) y contar las que ya no dependen de ninguna. |
 
-**Validación consolidada parcialmente:** 6073 funciones con evidencia aprobada vinculada, 861 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
+**Validación consolidada parcialmente:** 6142 funciones con evidencia aprobada vinculada, 861 con fuentes registradas coincidentes y 0 con vigencia confirmada incluyendo revisión de dependencias. Las restantes no se clasifican como fallidas: falta consolidarlas o revisar su vigencia. [Registro, alcance y procedimiento](../reversing/ValidationRegistry/README.md).
 
 ## Vista general
 
 | Clases validadas | Completas por validar | Funciones validadas | Reconstruidas por validar | Funciones por reconstruir |
 | :---: | :---: | :---: | :---: | :---: |
-| **688 / 702** | **14 / 702** | **6,073 / 7,947** | **1,874 / 7,947** | **494 / 8,441** |
-| 98.01% | 1.99% | 76.42% | 23.58% | 5.85% |
+| **688 / 702** | **14 / 702** | **6,142 / 7,947** | **1,805 / 7,947** | **494 / 8,441** |
+| 98.01% | 1.99% | 77.29% | 22.71% | 5.85% |
 
 Reconstrucción por clases: 702 completas, 67 parciales y 2 sin revertir de 771.
 
@@ -312,7 +312,7 @@ Orden alfabético para localizar clases. Para decidir qué abordar primero, cons
 | [CClothesBuilder](../source/game_sa/ClothesBuilder.cpp) | 15/23 | **8** | 65.22% | 0 | 8 |
 | [CCustomBuildingRenderer](../source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp) | 3/7 | **4** | 42.86% | 0 | 4 |
 | [CDecision](../source/game_sa/DecisionMakers/Decision.cpp) | 1/3 | **2** | 33.33% | 0 | 2 |
-| [CEventHandler](../source/game_sa/Events/EventHandler.cpp) | 69/72 | **3** | 95.83% | 0 | 3 |
+| [CEventHandler](../source/game_sa/Events/EventHandler.cpp) | 69/72 | **3** | 95.83% | 69 | 3 |
 | [CFont](../source/game_sa/Font.cpp) | 32/36 | **4** | 88.89% | 0 | 4 |
 | [CFormation](../source/game_sa/Formation.cpp) | 1/9 | **8** | 11.11% | 0 | 8 |
 | [CGangWars](../source/game_sa/GangWars.cpp) | 32/35 | **3** | 91.43% | 0 | 3 |

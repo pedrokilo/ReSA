@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 5696,
+  "pairs_per_function": {
+    "CEventHandler::ComputeAreaCodesResponse": 64,
+    "CEventHandler::ComputeAttractorResponse": 256,
+    "CEventHandler::ComputeBuildingCollisionResponse": 1024,
+    "CEventHandler::ComputeCarUpsideDownResponse": 128,
+    "CEventHandler::ComputeChatPartnerResponse": 128,
+    "CEventHandler::ComputeCopCarBeingStolenResponse": 256,
+    "CEventHandler::ComputeCreatePartnerTaskResponse": 256,
+    "CEventHandler::ComputeDangerResponse": 256,
+    "CEventHandler::ComputeDontJoinGroupResponse": 64,
+    "CEventHandler::ComputeDraggedOutCarResponse": 1024,
+    "CEventHandler::ComputeFireNearbyResponse": 128,
+    "CEventHandler::ComputeGunAimedAtResponse": 1024,
+    "CEventHandler::ComputeHighAngerAtPlayerResponse": 128,
+    "CEventHandler::ComputeInWaterResponse": 64,
+    "CEventHandler::ComputeInteriorUseInfoResponse": 128,
+    "CEventHandler::ComputeLowAngerAtPlayerResponse": 128,
+    "CEventHandler::ComputeLowHealthResponse": 128,
+    "CEventHandler::ComputeObjectCollisionPassiveResponse": 256,
+    "CEventHandler::ComputeObjectCollisionResponse": 256
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "acf80464cedb1c463bbd7541d10a612cf8a7b59dc5baf11200841573d94c8a1f",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-evhb\\20261007-140911-870165",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CEventHandler::ComputeAreaCodesResponse": true,
+    "CEventHandler::ComputeAttractorResponse": true,
+    "CEventHandler::ComputeBuildingCollisionResponse": true,
+    "CEventHandler::ComputeCarUpsideDownResponse": true,
+    "CEventHandler::ComputeChatPartnerResponse": true,
+    "CEventHandler::ComputeCopCarBeingStolenResponse": true,
+    "CEventHandler::ComputeCreatePartnerTaskResponse": true,
+    "CEventHandler::ComputeDangerResponse": true,
+    "CEventHandler::ComputeDontJoinGroupResponse": true,
+    "CEventHandler::ComputeDraggedOutCarResponse": true,
+    "CEventHandler::ComputeFireNearbyResponse": true,
+    "CEventHandler::ComputeGunAimedAtResponse": true,
+    "CEventHandler::ComputeHighAngerAtPlayerResponse": true,
+    "CEventHandler::ComputeInWaterResponse": true,
+    "CEventHandler::ComputeInteriorUseInfoResponse": true,
+    "CEventHandler::ComputeLowAngerAtPlayerResponse": true,
+    "CEventHandler::ComputeLowHealthResponse": true,
+    "CEventHandler::ComputeObjectCollisionPassiveResponse": true,
+    "CEventHandler::ComputeObjectCollisionResponse": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "1b10e9732e4ccbb942c670ebb7d64be2d9ab0fdd2334408dde7eacbc6373b2ea",
+      "pdb": "05f057bb218d399ef22fa069cff0da181dcde8744ec23dda180a34b014bb97fb"
+    },
+    "sources": {
+      "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+      "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "ab106d7dd54da10c1ad63fe52214e0a1496d8b61a9ab725b89c25ff5628ab68a",
+      "build_probe.py": "7b3576656fa5df7afcd997045ee6dbdfd9be6eff71b5e5f69cb660859f18d6bb",
+      "run_local.py": "dc6ec6e2c1ed2dbf32cc4cc62ec00fbb7d0cb8ab67d68482985547412174dd05"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

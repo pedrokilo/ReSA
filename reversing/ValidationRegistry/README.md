@@ -14,11 +14,11 @@ La tabla conserva lo acreditado en aquellas revalidaciones. El estado actual se 
 | IKChain_c::SetupBones | 131 pares únicos | Sí | Acreditada para el alcance del banco |
 | RpAnimBlendClumpUpdateAnimations | 652 pares | Sí | Acreditada para el alcance del banco |
 
-Hay **6.073 funciones con `validated=1`** y **0 con vigencia confirmada para el árbol modificado**. Las tres acreditaciones anteriores quedan pendientes por el cambio de huella global de source durante CustomBuilding; no significa que hayan fallado sus bancos. La barra es **0/8.441 · 0,00%**. CustomBuilding sigue aplazada y todavía no se incorpora al registro.
+Hay **6.142 funciones con `validated=1`** y **0 con vigencia confirmada para el árbol modificado**. Las tres acreditaciones anteriores quedan pendientes por el cambio de huella global de source durante CustomBuilding; no significa que hayan fallado sus bancos. La barra es **0/8.441 · 0,00%**. CustomBuilding sigue aplazada y todavía no se incorpora al registro.
 
 **Ocho funciones conservan coincidencia de fuentes registradas:** `CConversationForPed::Update` e `IsPlayerInPositionForConversation`, con el banco final de 4.702 pares; las tres del [lote de audio](../AudioCompletion/README.md) (`UpdateAmbienceTrackAndVolume`, `AddAudioEvent` y `SetAudioBuffer`), con 10.086 pares; y las tres de los [asignadores de grupo](../GroupTasksCompletion/README.md) (`AllocateDefaultTasks` de Random y SitInLeaderCar, y `CTaskComplexGangFollower::SetCanEnterLeadersCar`), con 4.608 pares. La revisión de dependencias sigue pendiente y por eso no suman acreditaciones vigentes.
 
-El [inventario de todas las funciones reconstruidas](../../docs/ValidationInventory.md) clasifica las 7.947 entradas: 0 vigentes, 6.073 históricas por revisar y 7.817 sin evidencia vinculada todavía. Incluye las clases y la siguiente tanda de funciones concretas. No significa que las 7.817 nunca se probaran: faltan bancos por incorporar. Las 585 entradas sin reconstruir se contabilizan aparte.
+El [inventario de todas las funciones reconstruidas](../../docs/ValidationInventory.md) clasifica las 7.947 entradas: 0 vigentes, 6.142 históricas por revisar y 7.817 sin evidencia vinculada todavía. Incluye las clases y la siguiente tanda de funciones concretas. No significa que las 7.817 nunca se probaran: faltan bancos por incorporar. Las 585 entradas sin reconstruir se contabilizan aparte.
 
 ### Integridad del universo catalogado
 

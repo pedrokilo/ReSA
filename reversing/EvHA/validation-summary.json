@@ -1,0 +1,85 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 17984,
+  "pairs_per_function": {
+    "CEventHandler::ComputeDamageResponse": 3072,
+    "CEventHandler::ComputePersonalityResponseToDamage": 1536,
+    "CEventHandler::ComputeDeathResponse": 64,
+    "CEventHandler::ComputeDeadPedResponse": 768,
+    "CEventHandler::ComputeVehicleDamageResponse": 1536,
+    "CEventHandler::ComputeGotKnockedOverByCarResponse": 384,
+    "CEventHandler::ComputeVehicleCollisionResponse": 2048,
+    "CEventHandler::ComputeVehiclePotentialCollisionResponse": 2048,
+    "CEventHandler::ComputeEventResponseTask-0": 1536,
+    "CEventHandler::ComputeEventResponseTask-Ped": 512,
+    "CEventHandler::HandleEvents": 2048,
+    "CEventHandler::Flush": 128,
+    "CEventHandler::FlushImmediately": 64,
+    "CEventHandler::SetEventResponseTask": 768,
+    "CEventHandler::RegisterKill": 512,
+    "CEventHandler::Constructor": 64,
+    "CEventHandler::Destructor": 128,
+    "CEventHandler::IsKillTaskAppropriate": 512,
+    "CEventHandler::IsTemporaryEvent": 128,
+    "CEventHandler::GetCurrentEventType": 128
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "998faad23a08d57f6490e2f8b78d4098a8308d9455be9d109315e70eb45a6054",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-evha\\20261007-140619-369981",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CEventHandler::ComputeDamageResponse": true,
+    "CEventHandler::ComputePersonalityResponseToDamage": true,
+    "CEventHandler::ComputeDeathResponse": true,
+    "CEventHandler::ComputeDeadPedResponse": true,
+    "CEventHandler::ComputeVehicleDamageResponse": true,
+    "CEventHandler::ComputeGotKnockedOverByCarResponse": true,
+    "CEventHandler::ComputeVehicleCollisionResponse": true,
+    "CEventHandler::ComputeVehiclePotentialCollisionResponse": true,
+    "CEventHandler::ComputeEventResponseTask-0": true,
+    "CEventHandler::ComputeEventResponseTask-Ped": true,
+    "CEventHandler::HandleEvents": true,
+    "CEventHandler::Flush": true,
+    "CEventHandler::FlushImmediately": true,
+    "CEventHandler::SetEventResponseTask": true,
+    "CEventHandler::RegisterKill": true,
+    "CEventHandler::Constructor": true,
+    "CEventHandler::Destructor": true,
+    "CEventHandler::IsKillTaskAppropriate": true,
+    "CEventHandler::IsTemporaryEvent": true,
+    "CEventHandler::GetCurrentEventType": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "fafae072c4cce197438543328a7b14fac03cafa8cdc191dd44f1cf66c2fc3a0b",
+      "pdb": "abfea5169ff6837b93c5e785dca2363bfb31fb1bcb7a88f1bc3862ee601ef45e"
+    },
+    "sources": {
+      "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+      "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
+      "source/game_sa/Events/EventHandlerHistory.h": "77d1d017ec808cc8ea148a0443b93d4c1645807dde4fe93ae2ffd35afd6d0781"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "04bf71a6e224c53cd0e2fe1aef555c729e7b8eaf3edef9468290a5cd5ce64f66",
+      "build_probe.py": "74928b705bf145289afc419d6837435214c202a0e5535a6a0baa43eb8cc23ba3",
+      "run_local.py": "2b23d4a87fd3b3e803eb8c674af8bff78a052eabd5652be0526bda064967ff13"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

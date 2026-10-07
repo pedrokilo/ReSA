@@ -35,6 +35,6 @@ private:
     CEvent*    m_CurrentNonTempEvent{};
     CEvent*    m_CurrentTempEvent{};
     CEvent*    m_StoredEventActive{};
-    CTaskTimer m_StoreTimer{};
+    CTaskTimer m_StoreTimer; // Como el original: sin {} (el EXE no escribe el relleno del temporizador)
 };
 VALIDATE_SIZE(CEventHandlerHistory, 0x1C);

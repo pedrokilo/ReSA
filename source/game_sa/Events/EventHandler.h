@@ -85,7 +85,7 @@ public:
 
     eEventType GetCurrentEventType() const;
     void HandleEvents();
-    bool IsKillTaskAppropriate(CPed* ped1, CPed* ped2, const CEvent& event);
+    static bool IsKillTaskAppropriate(CPed* ped1, CPed* ped2, const CEvent& event); // Como el original (0x4BC3E0): cdecl sin `this`
     static bool IsTemporaryEvent(const CEvent& event);
     void RecordActiveEvent(const CEvent& event);
     void RecordPassiveEvent(const CEvent& event);
@@ -175,7 +175,7 @@ private:
 
 private:
     CPed*                m_Ped{};
-    CEventHandlerHistory m_History{};
+    CEventHandlerHistory m_History; // Como el original: sin {} (el EXE no escribe el relleno del temporizador)
     CTask*               m_PhysicalResponseTask{};
     CTask*               m_EventResponseTask{};
     CTask*               m_AttackTask{};

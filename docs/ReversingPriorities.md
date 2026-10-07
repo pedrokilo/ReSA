@@ -11,9 +11,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 8.441 |
 | Reconstruidas | 7.947 |
-| Validadas | 6.073 |
-| Reconstruidas sin validar | 1.874 |
-| De ellas, en esta cola (validables por pares) | 1.870 |
+| Validadas | 6.142 |
+| Reconstruidas sin validar | 1.805 |
+| De ellas, en esta cola (validables por pares) | 1.801 |
 | Sin reconstruir (en 69 clases incompletas) | 494 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -24,9 +24,9 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 | --- | :---: | :---: | --- |
 | [🟢 Nivel 1: muy barato](#nivel-1) | 0 | 0 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 8 | 508 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 36 | 706 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 35 | 637 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 31 | 656 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **75** | **1870** | |
+| **Total** | **74** | **1801** | |
 
 <a id="nivel-1"></a>
 
@@ -56,7 +56,7 @@ Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (36 clases, 706 funciones)
+## 🟠 Nivel 3: moderadas (35 clases, 637 funciones)
 
 Criterio: el resto.
 
@@ -97,7 +97,6 @@ Criterio: el resto.
 | 33 | CRadar | 63 | 63 |  | 34 |
 | 34 | CPopulation | 66 | 64 | 2 | 31 |
 | 35 | CTheScripts | 69 | 69 |  | 30 |
-| 36 | CEventHandler | 72 | 69 | 3 | 45 |
 
 <a id="nivel-4"></a>
 

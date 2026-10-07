@@ -1248,5 +1248,25 @@
     "id": "centc",
     "name": "CEntity grupo C (efectos 2D, dibujo e iluminación)",
     "runner": "CEntC/run_local.py"
+  },
+  {
+    "id": "evha",
+    "name": "CEventHandler: respuestas a eventos y manejador (grupo A)",
+    "runner": "EvHA/run_local.py"
+  },
+  {
+    "id": "evhb",
+    "name": "CEventHandler: respuestas a eventos (grupo B)",
+    "runner": "EvHB/run_local.py"
+  },
+  {
+    "id": "evhc",
+    "name": "CEventHandler grupo C (EvHC)",
+    "runner": "EvHC/run_local.py"
+  },
+  {
+    "id": "evhd",
+    "name": "Manejadores de eventos (CEventHandler, grupo D)",
+    "runner": "EvHD/run_local.py"
   }
 ]

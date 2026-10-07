@@ -6,10 +6,10 @@ Universo de esta revisión: **7,947 entradas reversed=1**, de 8,441 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 6073 |
+| `validated=1` · evidencia aprobada vinculada | 6142 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 6073 |
-| Sin evidencia aprobada vinculada en este registro | 1874 |
+| Evidencia histórica vinculada; revisión pendiente | 6142 |
+| Sin evidencia aprobada vinculada en este registro | 1805 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -1620,6 +1620,75 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventGunShot | `TakesPriorityOver` | [Resumen](../reversing/Events43/validation-summary.json) |
 | CEventGunShotWhizzedBy | `AffectsPed` | [Resumen](../reversing/Events70/validation-summary.json) |
 | CEventGunShotWhizzedBy | `Constructor` | [Resumen](../reversing/Events70/validation-summary.json) |
+| CEventHandler | `ComputeAreaCodesResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeAttractorResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeBuildingCollisionResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeCarUpsideDownResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeChatPartnerResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeCopCarBeingStolenResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeCreatePartnerTaskResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeDamageResponse` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `ComputeDangerResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeDeadPedResponse` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `ComputeDeathResponse` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `ComputeDontJoinGroupResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeDraggedOutCarResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeEventResponseTask-0` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `ComputeEventResponseTask-Ped` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `ComputeFireNearbyResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeGotKnockedOverByCarResponse` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `ComputeGunAimedAtResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeHighAngerAtPlayerResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeInWaterResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeInteriorUseInfoResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeLowAngerAtPlayerResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeLowHealthResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeObjectCollisionPassiveResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeObjectCollisionResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeOnEscalatorResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputeOnFireResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputePassObjectResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputePedEnteredVehicleResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputePedFriendResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputePedSoundQuietResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputePedThreatBadlyLitResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputePedThreatResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputePedToChaseResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputePedToFleeResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputePersonalityResponseToDamage` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `ComputePlayerCollisionWithPedResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputePlayerWantedLevelResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputePotentialPedCollideResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputePotentialWalkIntoFireResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputeReallyLowHealthResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputeReviveResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputeScriptCommandResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputeSeenCopResponse` | [Resumen](../reversing/EvHD/validation-summary.json) |
+| CEventHandler | `ComputeSeenPanickedPedResponse` | [Resumen](../reversing/EvHD/validation-summary.json) |
+| CEventHandler | `ComputeSexyPedResponse` | [Resumen](../reversing/EvHD/validation-summary.json) |
+| CEventHandler | `ComputeSexyVehicleResponse` | [Resumen](../reversing/EvHD/validation-summary.json) |
+| CEventHandler | `ComputeShotFiredResponse` | [Resumen](../reversing/EvHD/validation-summary.json) |
+| CEventHandler | `ComputeShotFiredWhizzedByResponse` | [Resumen](../reversing/EvHD/validation-summary.json) |
+| CEventHandler | `ComputeSignalAtPedResponse` | [Resumen](../reversing/EvHD/validation-summary.json) |
+| CEventHandler | `ComputeSpecialResponse` | [Resumen](../reversing/EvHD/validation-summary.json) |
+| CEventHandler | `ComputeVehicleCollisionResponse` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `ComputeVehicleDamageResponse` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `ComputeVehicleDiedResponse` | [Resumen](../reversing/EvHD/validation-summary.json) |
+| CEventHandler | `ComputeVehicleOnFireResponse` | [Resumen](../reversing/EvHD/validation-summary.json) |
+| CEventHandler | `ComputeVehiclePotentialCollisionResponse` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `ComputeVehiclePotentialPassiveCollisionResponse` | [Resumen](../reversing/EvHD/validation-summary.json) |
+| CEventHandler | `ComputeVehicleToStealResponse` | [Resumen](../reversing/EvHD/validation-summary.json) |
+| CEventHandler | `ComputeWaterCannonResponse` | [Resumen](../reversing/EvHD/validation-summary.json) |
+| CEventHandler | `Constructor` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `Destructor` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `Flush` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `FlushImmediately` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `GetCurrentEventType` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `HandleEvents` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `IsKillTaskAppropriate` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `IsTemporaryEvent` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `RegisterKill` | [Resumen](../reversing/EvHA/validation-summary.json) |
+| CEventHandler | `SetEventResponseTask` | [Resumen](../reversing/EvHA/validation-summary.json) |
 | CEventHandlerHistory | `ClearAllEvents` | [Resumen](../reversing/Sys10/validation-summary.json) |
 | CEventHandlerHistory | `ClearNonTempEvent` | [Resumen](../reversing/Sys10/validation-summary.json) |
 | CEventHandlerHistory | `ClearTempEvent` | [Resumen](../reversing/Sys10/validation-summary.json) |
@@ -6277,7 +6346,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CEventGroup` | 12 | 0 | 12 | 0 |
 | `CEventGunShot` | 5 | 0 | 5 | 0 |
 | `CEventGunShotWhizzedBy` | 2 | 0 | 2 | 0 |
-| `CEventHandler` | 69 | 0 | 0 | 69 |
+| `CEventHandler` | 69 | 0 | 69 | 0 |
 | `CEventHandlerHistory` | 10 | 0 | 10 | 0 |
 | `CEventHitByWaterCannon` | 2 | 0 | 2 | 0 |
 | `CEventInAir` | 2 | 0 | 2 | 0 |
