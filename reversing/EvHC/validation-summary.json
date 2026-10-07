@@ -34,7 +34,7 @@
   "log_sha256": "ea558d9ea022e79ed5ba8794c85713e1f5b8d618674a9bd67c126b2b98fe0c31",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-evhc\\20261007-140441-764069",
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-evhc\\20261007-144727-470158",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CEventHandler::ComputeOnEscalatorResponse": true,
@@ -57,11 +57,11 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "80e72ccb9d09b022eaf01da4802db99a3675896862cde11a53096f07744026ee",
-      "pdb": "5dbaeb480b9f5f675cfccfc1d109c741ed22519bad1864317892ab3309f1d8fe"
+      "asi": "d92cc8b47a0b552610c00c380144e82ee651b2410a51ede2e0b645256bd3723f",
+      "pdb": "9f219601317791a5df4291df0235c016bcc6f7fec06a6c159f902cff796adde3"
     },
     "sources": {
-      "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+      "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
       "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1",
       "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp": "fb21b95555063b16f90a693fcaa724aa1d687fafa650a289f7852998eca336e5",
       "source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.h": "31d7ff694b1170558fdcc469ba1fc6793dabeb969a3c23d3e6c270870698fc33",

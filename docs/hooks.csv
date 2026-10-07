@@ -3267,7 +3267,7 @@ CEventHandler,ComputeGunAimedAtResponse,0x004C2840,1,0,1,S
 CEventHandler,ComputeHighAngerAtPlayerResponse,0x004BAC10,1,0,1,S
 CEventHandler,ComputeInWaterResponse,0x004BAF80,1,0,1,S
 CEventHandler,ComputeInteriorUseInfoResponse,0x004BAFE0,1,0,1,S
-CEventHandler,ComputeKnockOffBikeResponse,0x004B9FF0,0,1,0,S
+CEventHandler,ComputeKnockOffBikeResponse,0x004B9FF0,1,0,1,S
 CEventHandler,ComputeLowAngerAtPlayerResponse,0x004BAAD0,1,0,1,S
 CEventHandler,ComputeLowHealthResponse,0x004BA990,1,0,1,S
 CEventHandler,ComputeObjectCollisionPassiveResponse,0x004BBB90,1,0,1,S
@@ -3275,8 +3275,8 @@ CEventHandler,ComputeObjectCollisionResponse,0x004B92B0,1,0,1,S
 CEventHandler,ComputeOnEscalatorResponse,0x004BC150,1,0,1,S
 CEventHandler,ComputeOnFireResponse,0x004BAD50,1,0,1,S
 CEventHandler,ComputePassObjectResponse,0x004BB0C0,1,0,1,S
-CEventHandler,ComputePedCollisionWithPedResponse,0x004BDB80,0,1,0,S
-CEventHandler,ComputePedCollisionWithPlayerResponse,0x004BE7D0,0,1,0,S
+CEventHandler,ComputePedCollisionWithPedResponse,0x004BDB80,1,0,1,S
+CEventHandler,ComputePedCollisionWithPlayerResponse,0x004BE7D0,1,0,1,S
 CEventHandler,ComputePedEnteredVehicleResponse,0x004C1590,1,0,1,S
 CEventHandler,ComputePedFriendResponse,0x004B9DD0,1,0,1,S
 CEventHandler,ComputePedSoundQuietResponse,0x004B9D40,1,0,1,S

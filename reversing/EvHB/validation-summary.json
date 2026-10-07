@@ -36,7 +36,7 @@
   "log_sha256": "acf80464cedb1c463bbd7541d10a612cf8a7b59dc5baf11200841573d94c8a1f",
   "saves_unchanged": true,
   "configs_restored": true,
-  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-evhb\\20261007-140911-870165",
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-evhb\\20261007-144627-425310",
   "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
   "covered_functions": {
     "CEventHandler::ComputeAreaCodesResponse": true,
@@ -61,11 +61,11 @@
   },
   "probe_build_manifest": {
     "binaries": {
-      "asi": "1b10e9732e4ccbb942c670ebb7d64be2d9ab0fdd2334408dde7eacbc6373b2ea",
-      "pdb": "05f057bb218d399ef22fa069cff0da181dcde8744ec23dda180a34b014bb97fb"
+      "asi": "d2fb119a52777977125fb0b52effbc561ea7ba2f43057551dac26bf539e64030",
+      "pdb": "27dd910e42d7d1bb52840d34b87204050c06039d844fe190ba0d8698e6605935"
     },
     "sources": {
-      "source/game_sa/Events/EventHandler.cpp": "e3959cb25bf36a68c5120bc2c823a66055c2aa92ce5d0c5a017aa6478d00989e",
+      "source/game_sa/Events/EventHandler.cpp": "4d15f290563a7a8f964f5d4493b9115220fe3e57643ef6b3c9b00d50c23046b9",
       "source/game_sa/Events/EventHandler.h": "1143bf258e147586f2ef813b9ece3a6ef74c396d61b54333f246b62c10c2cbb1"
     },
     "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",

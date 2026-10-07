@@ -6,21 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CEventHandler
- * Reconstrucción: INCOMPLETA — 69/72 funciones reconstruidas.
- * Pendientes de reconstruir: 3.
- * Funciones bloqueadas: 3.
- * Validación registrada: 69/72 entradas.
+ * Reconstrucción: COMPLETA — 72/72 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 72/72 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   ComputeKnockOffBikeResponse | 0x004B9FF0 | S
- *   ComputePedCollisionWithPedResponse | 0x004BDB80 | S
- *   ComputePedCollisionWithPlayerResponse | 0x004BE7D0 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   ComputeKnockOffBikeResponse | 0x004B9FF0 | S
- *   ComputePedCollisionWithPedResponse | 0x004BDB80 | S
- *   ComputePedCollisionWithPlayerResponse | 0x004BE7D0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -117,6 +109,8 @@ END GENERATED HOOK STATUS */
 #include "Tasks/TaskTypes/TaskComplexArrestPed.h"
 #include "Tasks/TaskTypes/TaskComplexHitPedWithCar.h"
 #include "Tasks/TaskTypes/TaskComplexEvasiveStep.h"
+#include "Tasks/TaskTypes/TaskComplexFollowPointRoute.h"
+#include "Events/EventPedCollisionWithPed.h"
 #include "Tasks/TaskTypes/TaskComplexWalkRoundCar.h"
 #include "Tasks/TaskTypes/TaskComplexRoadRage.h"
 #include "Tasks/TaskTypes/TaskComplexLeaveAnyCar.h"
@@ -137,6 +131,7 @@ END GENERATED HOOK STATUS */
 #include "Events/EventDeath.h"
 #include "Events/EventDontJoinPlayerGroup.h"
 #include "Events/EventDraggedOutCar.h"
+#include "Events/EventLeaderExitedCarAsDriver.h"
 #include "Events/EventFireNearby.h"
 #include "Events/EventDamage.h"
 #include "Events/EventGotKnockedOverByCar.h"
@@ -289,7 +284,7 @@ void CEventHandler::InjectHooks() {
     RH_ScopedInstall(ComputeHighAngerAtPlayerResponse, 0x4BAC10);
     RH_ScopedInstall(ComputeInWaterResponse, 0x4BAF80);
     RH_ScopedInstall(ComputeInteriorUseInfoResponse, 0x4BAFE0);
-    RH_ScopedInstall(ComputeKnockOffBikeResponse, 0x4B9FF0, { .reversed = false });
+    RH_ScopedInstall(ComputeKnockOffBikeResponse, 0x4B9FF0);
     RH_ScopedInstall(ComputeLowAngerAtPlayerResponse, 0x4BAAD0);
     RH_ScopedInstall(ComputeLowHealthResponse, 0x4BA990);
     RH_ScopedInstall(ComputeObjectCollisionPassiveResponse, 0x4BBB90);
@@ -297,8 +292,8 @@ void CEventHandler::InjectHooks() {
     RH_ScopedInstall(ComputeOnEscalatorResponse, 0x4BC150);
     RH_ScopedInstall(ComputeOnFireResponse, 0x4BAD50);
     RH_ScopedInstall(ComputePassObjectResponse, 0x4BB0C0);
-    RH_ScopedInstall(ComputePedCollisionWithPedResponse, 0x4BDB80, { .reversed = false });
-    RH_ScopedInstall(ComputePedCollisionWithPlayerResponse, 0x4BE7D0, { .reversed = false });
+    RH_ScopedInstall(ComputePedCollisionWithPedResponse, 0x4BDB80);
+    RH_ScopedInstall(ComputePedCollisionWithPlayerResponse, 0x4BE7D0);
     RH_ScopedInstall(ComputePedEnteredVehicleResponse, 0x4C1590);
     RH_ScopedInstall(ComputePedFriendResponse, 0x4B9DD0);
     RH_ScopedInstall(ComputePedSoundQuietResponse, 0x4B9D40);
@@ -1660,7 +1655,153 @@ void CEventHandler::ComputeInteriorUseInfoResponse(CEventInteriorUseInfo* e, CTa
 
 // 0x4B9FF0
 void CEventHandler::ComputeKnockOffBikeResponse(CEvent* e, CTask* tactive, CTask* tsimplest) {
-    plugin::CallMethod<0x4B9FF0, CEventHandler*, CEvent*, CTask*, CTask*>(this, e, tactive, tsimplest);
+    // Como el original: el evento local se construye siempre (0x4AFC70) y se destruye al final
+    CEventKnockOffBike  localEvent;
+    CEventKnockOffBike* knockOff = nullptr; // Como el original: con un tipo desconocido el EXE lee [0+0x38] y revienta; aqui se sale sin hacer nada
+
+    // Como el original (0x4BA11D / 0x4BA27B): selector 0 = -forward, 1 = right, 2 = forward, otro = -right (0x40FE90)
+    const auto ComputeKnockOffDirection = [&](int32 selector) -> CVector {
+        const auto& mat = *m_Ped->m_matrix;
+        switch (selector) {
+        case 0:  return CVector{mat.GetForward().x * -1.f, mat.GetForward().y * -1.f, mat.GetForward().z * -1.f};
+        case 1:  return mat.GetRight();
+        case 2:  return mat.GetForward();
+        default: return CVector{mat.GetRight().x * -1.f, mat.GetRight().y * -1.f, mat.GetRight().z * -1.f};
+        }
+    };
+    // Como el original: velocidad del vehiculo del ped * 0.75 (x87 a 24 bits = float)
+    const auto ComputeVehicleSpeed = [&]() -> CVector {
+        const auto& vms = m_Ped->m_pVehicle->m_vecMoveSpeed;
+        return CVector{vms.x * 0.75f, vms.y * 0.75f, vms.z * 0.75f};
+    };
+
+    if (e->GetEventType() == EVENT_KNOCK_OFF_BIKE) { // 0x4BA031
+        const auto eKnock = static_cast<CEventKnockOffBike*>(e);
+        // Como el original: el danio por caida (WEAPON_FALL = 0x36) solo se calcula si el evento de danio afecta al ped
+        CEventDamage damage{eKnock->m_vehicle, CTimer::GetTimeInMS(), WEAPON_FALL, PED_PIECE_TORSO, 2, true, false};
+        if (damage.AffectsPed(m_Ped)) {
+            CPedDamageResponseCalculator calculator{eKnock->m_vehicle, eKnock->field_28, WEAPON_FALL, PED_PIECE_TORSO, true};
+            calculator.ComputeDamageResponse(m_Ped, damage.m_damageResponse, true);
+        }
+        knockOff = eKnock;
+    } else if (e->GetEventType() == EVENT_DAMAGE) { // 0x4BA0DE
+        const auto eDamage   = static_cast<CEventDamage*>(e);
+        const auto direction = eDamage->m_ucDirection;
+        const auto speed     = ComputeVehicleSpeed();
+        const auto dir       = ComputeKnockOffDirection(direction);
+        localEvent = CEventKnockOffBike{m_Ped->m_pVehicle, speed, dir, 50.f, 0.f, (uint8)eDamage->m_weaponType, direction, 0, nullptr, false, false};
+        knockOff = &localEvent;
+    } else if (e->GetEventType() == EVENT_VEHICLE_DIED || e->GetEventType() == EVENT_VEHICLE_ON_FIRE) { // 0x4BA20C / 0x4BA218
+        const auto speed = ComputeVehicleSpeed();
+        // Como el original: (rand() & 0xFFFF) * (1/32768) * 4.0 redondeado a float en cada paso y truncado con _ftol2 (0..7)
+        const auto selector = (int32)(int64)((float)CGeneral::GetRandomNumber() * 3.0517578125e-05f * 4.0f);
+        const auto dir      = ComputeKnockOffDirection(selector);
+        localEvent = CEventKnockOffBike{m_Ped->m_pVehicle, speed, dir, 50.f, 0.f, KNOCK_OFF_TYPE_EXPLOSION, (uint8)selector, 0, nullptr, false, false};
+        knockOff = &localEvent;
+    }
+    if (!knockOff) {
+        return;
+    }
+
+    // 0x4BA364
+    const auto vehicle = knockOff->m_vehicle;
+    const auto time    = knockOff->m_time;
+    if (!vehicle) {
+        return;
+    }
+    if (vehicle->m_pDriver != m_Ped
+        && vehicle->m_apPassengers.data()[0] != m_Ped
+        && vehicle->m_apPassengers.data()[1] != m_Ped
+        && vehicle->m_apPassengers.data()[2] != m_Ped
+    ) {
+        return;
+    }
+
+    g_InterestingEvents.Add(CInterestingEvents::INTERESTING_EVENT_16, m_Ped); // 0x4BA3A8
+
+    if (!knockOff->SetPedSafePosition(m_Ped)) { // 0x4BA3B2
+        if (m_Ped->bInVehicle) {
+            m_Ped->m_bUsesCollision = false;
+        }
+        return;
+    }
+
+    knockOff->SetPedOutCar(m_Ped);
+    const auto animId = knockOff->CalcForcesAndAnims(m_Ped);
+
+    // Como el original (0x4BA53E): solo se toca el bit 4 de +0x614 (bOnSideStand) si el vehiculo es una moto
+    const auto ClearSideStand = [&] {
+        if (vehicle->m_nVehicleType == VEHICLE_TYPE_BIKE) {
+            static_cast<CBike*>(vehicle)->bikeFlags.bOnSideStand = false;
+        }
+    };
+
+    // 0x4BA701: avisa al ped que tira de la moto (evento de sacar del coche) y marca la moto
+    const auto ProcessKnockOffPed = [&] {
+        if (knockOff->m_ped) {
+            CEventDraggedOutCar draggedOut{vehicle, knockOff->m_ped, knockOff->m_isVictimDriver != 0};
+            m_Ped->GetIntelligence()->GetEventGroup().Add(static_cast<CEvent*>(&draggedOut), true);
+            if (vehicle->m_nVehicleType == VEHICLE_TYPE_BIKE) {
+                static_cast<CBike*>(vehicle)->bikeFlags.bOnSideStand = true;
+            }
+        } else {
+            ClearSideStand();
+        }
+    };
+
+    if (knockOff->m_knockOffType == KNOCK_OFF_TYPE_FALL) { // 0x4BA3D6
+        m_Ped->bIsStanding  = false;
+        m_Ped->bWasStanding = false;
+        m_Ped->bIsInTheAir  = true;
+        m_Ped->m_nPhysicalFlags |= 0x100;
+        m_Ped->m_nPhysicalFlags |= 0x8000000;
+        if (m_Ped->m_fHealth > 0.f) { // 0x4BA41F: vida <= 0 o NaN va a la muerte
+            m_EventResponseTask = new CTaskComplexInAirAndLand{false, false};
+        } else {
+            m_EventResponseTask = new CTaskComplexDie{(eWeaponType)(int8)knockOff->m_knockOffType, ANIM_GROUP_DEFAULT, (AnimationId)animId, 4.f};
+        }
+        ProcessKnockOffPed();
+        return;
+    }
+
+    if (m_Ped->m_fHealth <= 0.f) { // 0x4BA4C2: aqui NaN cuenta como vivo (jp)
+        int32 dieAnimId = animId;
+        if (dieAnimId == 0xBF) {
+            switch ((int8)knockOff->m_knockOffDirection) {
+            case 0:  dieAnimId = 0x6A; break;
+            case 1:
+            case 2:  dieAnimId = 0x19; break;
+            case 3:  dieAnimId = 0x1B; break;
+            default: break;
+            }
+        }
+        m_EventResponseTask = new CTaskComplexDie{(eWeaponType)(int8)knockOff->m_knockOffType, ANIM_GROUP_DEFAULT, (AnimationId)dieAnimId, 4.f};
+        m_Ped->bIsStanding = false;
+        ClearSideStand();
+        return;
+    }
+
+    if (knockOff->m_knockOffType != KNOCK_OFF_TYPE_NONE) { // 0x4BA557
+        m_EventResponseTask = new CTaskComplexFallAndGetUp{(AnimationId)animId, ANIM_GROUP_DEFAULT, (int32)time};
+        if (const auto group = CPedGroups::GetPedsGroup(m_Ped)) {
+            auto& membership = group->GetMembership();
+            if (!membership.IsLeader(m_Ped) && !knockOff->m_isVictimDriver) {
+                const auto leader = membership.GetLeader();
+                if (leader && leader->bInVehicle && !leader->GetIntelligence()->GetEventGroup().GetEventOfType(EVENT_KNOCK_OFF_BIKE)) {
+                    const auto seq = new CTaskComplexSequence;
+                    seq->AddTask(m_EventResponseTask);
+                    seq->AddTask(new CTaskComplexEnterCarAsPassenger{vehicle, 0, true});
+                    m_EventResponseTask = seq;
+                }
+            } else if (membership.IsLeader(m_Ped)) {
+                const auto leaderEvent = new CEventLeaderExitedCarAsDriver;
+                CEventGroupEvent groupEvent{m_Ped, leaderEvent};
+                group->GetIntelligence().AddEvent(static_cast<CEvent*>(&groupEvent));
+            }
+        }
+        m_Ped->bIsStanding = false;
+    }
+    ProcessKnockOffPed();
 }
 
 // 0x4BAAD0
@@ -1763,12 +1904,383 @@ void CEventHandler::ComputePassObjectResponse(CEventPassObject* e, CTask* tactiv
 
 // 0x4BDB80
 void CEventHandler::ComputePedCollisionWithPedResponse(CEvent* e, CTask* tactive, CTask* tsimplest) {
-    plugin::CallMethod<0x4BDB80, CEventHandler*, CEvent*, CTask*, CTask*>(this, e, tactive, tsimplest);
+    const auto ev     = static_cast<CEventPedCollisionWithPed*>(e);
+    const auto victim = ev->m_victim;
+    if (!victim) { // Como el original: sin peaton chocado no se escribe nada
+        return;
+    }
+    const auto plyr = m_Ped;
+
+    // Como el original: se pide la tarea simple activa de la victima y se descarta el resultado
+    (void)victim->GetTaskManager().GetSimplestActiveTask();
+
+    // Como el original: producto escalar (z*fz + y*fy) + x*fx en float; "delante" = !(dot < 0 || NaN), "detras" = (dot <= 0 y no NaN)
+    const auto toVictim = victim->GetPosition() - plyr->GetPosition();
+    const auto Dot      = [&](const CVector& f) { return (toVictim.z * f.z + toVictim.y * f.y) + toVictim.x * f.x; };
+    const bool front    = Dot(plyr->GetForward()) >= 0.f;
+    const bool behind   = Dot(victim->GetForward()) <= 0.f;
+
+    const int32 m1 = static_cast<int32>(ev->GetMoveState());       // movsx
+    const int32 m2 = static_cast<int32>(ev->GetVictimMoveState()); // movsx
+
+    CTask* response = nullptr;
+
+    const auto Say  = [&] { m_SayTask = new CTaskSimpleSay{CTX_GLOBAL_BUMP, -1}; };
+    const auto Look = [&] {
+        g_ikChainMan.LookAt("CompPedCollPedResp", plyr, victim, 2000, BONE_HEAD, nullptr, true, 0.25f, 500, 3, false);
+    };
+    // Como el original: el EXE usa 0x5F3BC0 con (victima, jugador)
+    const auto HitSide = [&] { return CPedGeometryAnalyser::ComputeEntityHitSide(*victim, *plyr); };
+
+    // Como el original: paso evasivo con la direccion (fx, -fy, 0) del manejador normalizada
+    const auto Evasive = [&] {
+        const auto& f = plyr->GetForward();
+        CVector     dir{f.x, -f.y, 0.f};
+        dir.Normalise();
+        response = new CTaskComplexEvasiveStep{victim, dir};
+    };
+    // Como el original: ruta alrededor de la victima hasta el destino de la tarea simple (solo se pone a cero el contador de la ruta)
+    const auto Route = [&] {
+        alignas(CPointRoute) uint8 routeBuf[sizeof(CPointRoute)];
+        *reinterpret_cast<uint32*>(routeBuf) = 0;
+        auto& route = *reinterpret_cast<CPointRoute*>(routeBuf);
+        CPedGeometryAnalyser::ComputeRouteRoundEntityBoundingBox(*plyr, *victim, static_cast<CTaskSimpleGoTo*>(tsimplest)->m_vecTargetPoint, route, 0);
+        response = new CTaskComplexFollowPointRoute{PEDMOVE_WALK, route, CTaskComplexFollowPointRoute::Mode::ONE_WAY, 0.5f, 5.f, false, true, true};
+    };
+    // Como el original: debilidad de defensa (+0x2C de CPedStat) mayor que 1.5 y mayor que la de la victima (o la de la victima <= 1.5)
+    const auto ShouldFall = [&] {
+        const float pw = plyr->m_pStats->m_fDefendWeakness;
+        if (!(pw > 1.5f)) {
+            return false;
+        }
+        const float vw = victim->m_pStats->m_fDefendWeakness;
+        return !(vw > 1.5f) || pw > vw;
+    };
+    const auto IsStill = [](int32 ms) { return ms == PEDMOVE_STILL || ms == PEDMOVE_NONE; };
+    const auto IsMoving = [](int32 ms) { return ms == PEDMOVE_WALK || ms == PEDMOVE_RUN || ms == PEDMOVE_SPRINT; }; // 4, 6, 7
+
+    [&] {
+        const auto plyrGroup = CPedGroups::GetPedsGroup(plyr);
+        if (plyrGroup) { // 0x4BDC6D
+            const auto leaderA     = plyrGroup->GetMembership().GetLeader();
+            const auto victimGroup = CPedGroups::GetPedsGroup(victim);
+            const auto leaderB     = victimGroup ? victimGroup->GetMembership().GetLeader() : nullptr;
+            const bool sameGroup   = plyrGroup == victimGroup;
+            if (sameGroup) {
+                // Como el original: el bit 31 del dword +0x474 (bPushOtherPeds) se pone con "or" de dword
+                if (victim == leaderA) {
+                    *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(victim) + 0x474) |= 0x80000000u;
+                }
+                if (plyr == leaderA) {
+                    *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(plyr) + 0x474) |= 0x80000000u;
+                }
+            }
+            if (victim->IsPlayer()) { // 0x4BDCD7
+                Say();
+                return;
+            }
+            if (!victimGroup) { // 0x4BDFD2
+                if (m1 != PEDMOVE_STILL && m2 != PEDMOVE_STILL) {
+                    return;
+                }
+                Evasive();
+                return;
+            }
+            if (m1 != PEDMOVE_STILL && m2 != PEDMOVE_STILL) { // 0x4BDD0A
+                return;
+            }
+            if (!sameGroup) { // 0x4BDD18
+                if (CGeneral::GetRandomNumberInRange(0.f, 1.f) < 0.25f) {
+                    const float r = CGeneral::GetRandomNumberInRange(0.f, 1.f);
+                    if (r < 0.33f) {
+                        Look();
+                    } else if (r < 0.66f) {
+                        Say();
+                    }
+                }
+            } else if (victim != leaderB) { // 0x4BDDEE
+                if (!leaderA || static_cast<int32>(leaderA->GetIntelligence()->GetMoveStateFromGoToTask()) != PEDMOVE_STILL) {
+                    return;
+                }
+            }
+
+            // 0x4BDE1A. Como el original: orden de busqueda fijo (0x4B7, 0x384 activa 0x395, 0x384, 0x38B)
+            const auto intel    = plyr->GetIntelligence();
+            const auto tGangFol = static_cast<CTaskComplexGangFollower*>(intel->FindTaskByType(TASK_COMPLEX_GANG_FOLLOWER));
+            const auto tAvoid   = intel->GetTaskManager().FindActiveTaskByType(TASK_COMPLEX_AVOID_OTHER_PED_WHILE_WANDERING);
+            const auto tGoTo    = static_cast<CTaskSimpleGoTo*>(intel->FindTaskByType(TASK_SIMPLE_GO_TO_POINT));
+            const auto tSeek    = intel->FindTaskByType(TASK_COMPLEX_SEEK_ENTITY);
+            if (sameGroup && tGangFol && tGangFol->m_Leader && tSeek && (tAvoid || tGoTo)) { // 0x4BDE83
+                CVector d = plyr->GetPosition() - tGangFol->m_Leader->GetPosition();
+                d.z       = 0.f;
+                const float mag = d.Magnitude();
+                if (tAvoid) {
+                    *(reinterpret_cast<uint8*>(tAvoid) + 0x5C) |= 2; // m_WantsToQuit
+                }
+                if (tGoTo) {
+                    tGoTo->m_fRadius = mag + 0.1f;
+                }
+                plugin::CallMethod<0x4BC470, CTask*, float>(tSeek, mag + 0.1f);
+                if (mag < 8.f) {
+                    std::memcpy(&tGangFol->dword20, &d, sizeof(float) * 3);
+                }
+                return;
+            }
+            if (tGangFol && sameGroup) { // 0x4BDF49
+                return;
+            }
+            Evasive(); // 0x4BDF55
+            return;
+        }
+
+        // 0x4BE05D: sin grupo
+        if (m1 == PEDMOVE_WALK) {
+            if (IsStill(m2)) { // 0x4BE077
+                if (front) {
+                    if (tsimplest && CTask::IsGoToTask(tsimplest)) {
+                        Route();
+                    }
+                    Say();
+                } else {
+                    Look();
+                    Say();
+                }
+            } else if (m2 == PEDMOVE_WALK) { // 0x4BE188
+                if (front) {
+                    if (CTask::IsGoToTask(tsimplest)) { // Como el original: sin comprobar nulo
+                        Route();
+                    }
+                    Look();
+                    Say();
+                } else if (behind) {
+                    Look();
+                    Say();
+                }
+            }
+            return;
+        }
+
+        const bool m1RunOrSprint = m1 == PEDMOVE_RUN || m1 == PEDMOVE_SPRINT;
+        const bool m2RunOrSprint = m2 == PEDMOVE_RUN || m2 == PEDMOVE_SPRINT;
+        if (m1RunOrSprint && m2RunOrSprint) { // 0x4BE58D
+            if (front) {
+                if (behind) {
+                    if (ShouldFall()) { // 0x4BE61C
+                        response = new CTaskComplexFallAndGetUp{(int32)HitSide(), false};
+                    } else {
+                        Say();
+                        Look();
+                        response = new CTaskComplexHitResponse{(eDirection)HitSide()};
+                    }
+                } else { // 0x4BE6D5
+                    Say();
+                    Look();
+                }
+            } else if (behind) { // 0x4BE720
+                Say();
+                Look();
+            }
+            return;
+        }
+
+        if (IsStill(m1) && IsMoving(m2) && behind) { // 0x4BE32F
+            if (m2 != PEDMOVE_WALK && ShouldFall()) { // 0x4BE3DC
+                response = new CTaskComplexFallAndGetUp{(int32)HitSide(), false};
+            } else { // 0x4BE3A0
+                Say();
+                Look();
+                if (m2 != PEDMOVE_WALK) {
+                    response = new CTaskComplexHitResponse{(eDirection)HitSide()};
+                }
+            }
+            return;
+        }
+
+        // 0x4BE4B7
+        if (IsStill(m2) && IsMoving(m1) && behind) {
+            Say();
+            Look();
+            if (m1 != PEDMOVE_WALK) {
+                response = new CTaskComplexHitResponse{(eDirection)HitSide()};
+            }
+        }
+    }();
+
+    // 0x4BE78A. Como el original: la respuesta se escribe siempre al final; el jugador se enfada si hay respuesta y la victima es el jugador
+    m_EventResponseTask = response;
+    if (response && victim->IsPlayer()) {
+        m_Ped->GetIntelligence()->IncrementAngerAtPlayer(1);
+    }
 }
 
 // 0x4BE7D0
 void CEventHandler::ComputePedCollisionWithPlayerResponse(CEvent* e, CTask* tactive, CTask* tsimplest) {
-    plugin::CallMethod<0x4BE7D0, CEventHandler*, CEvent*, CTask*, CTask*>(this, e, tactive, tsimplest);
+    // Como el original: sin peaton chocado no se escribe nada
+    const auto other = static_cast<CEventPedCollisionWithPed*>(e)->m_victim;
+    if (!other) {
+        return;
+    }
+    const auto ped = m_Ped;
+
+    // Como el original: producto escalar (z*fz + y*fy) + x*fx en float; "delante" = !(dot < 0 || NaN), "detras" = (dot <= 0 y no NaN)
+    const auto toOther = other->GetPosition() - ped->GetPosition();
+    const auto Dot     = [&](const CVector& f) { return (toOther.z * f.z + toOther.y * f.y) + toOther.x * f.x; };
+    const bool front   = Dot(ped->GetForward()) >= 0.f;
+    const bool behind  = Dot(other->GetForward()) <= 0.f;
+
+    const auto  IsMoving    = [](int32 ms) { return ms == PEDMOVE_WALK || ms == PEDMOVE_RUN || ms == PEDMOVE_SPRINT; }; // 4, 6, 7
+    const bool  otherMoving = IsMoving(static_cast<int32>(other->m_nMoveState));
+    const int32 moveState   = static_cast<int32>(static_cast<CEventPedCollisionWithPed*>(e)->GetMoveState());
+
+    // Como el original: orden de busqueda fijo (0x4B7, 0x395 activa, 0x384, 0x38B, 0xF3)
+    const auto intel    = ped->GetIntelligence();
+    const auto tGangFol = intel->FindTaskByType(TASK_COMPLEX_GANG_FOLLOWER);
+    const auto tAvoid   = intel->GetTaskManager().FindActiveTaskByType(TASK_COMPLEX_AVOID_OTHER_PED_WHILE_WANDERING);
+    const auto tGoTo    = intel->FindTaskByType(TASK_SIMPLE_GO_TO_POINT);
+    const auto tSeek    = intel->FindTaskByType(TASK_COMPLEX_SEEK_ENTITY);
+    const auto tInGroup = intel->FindTaskByType(TASK_COMPLEX_BE_IN_GROUP);
+
+    bool hasGroupTask = false; // tarea de grupo sin subtarea
+    bool groupBig     = false; // ademas el grupo del jugador tiene mas de 2 miembros
+    if (tInGroup && !*reinterpret_cast<CTask**>(reinterpret_cast<uint8*>(tInGroup) + 0xC)) {
+        hasGroupTask = true;
+        if (static_cast<int32>(CPedGroups::ms_groups.data()[0].GetMembership().CountMembers()) <= 2) {
+            return;
+        }
+        groupBig = true;
+    }
+
+    ped->Say(CTX_GLOBAL_BUMP, 0, 1.f, false, false, false);
+
+    CTask* result = nullptr; // local del EXE: respuesta de la ruta de puntos
+
+    const auto Look = [&] {
+        g_ikChainMan.LookAt("CompPedCollPlayerResp", ped, other, 2000, BONE_HEAD, nullptr, true, 0.25f, 500, 3, false);
+    };
+    // Como el original: la tarea de decir se guarda antes de la mirada
+    const auto SayTask = [&] { m_SayTask = new CTaskSimpleSay{CTX_GLOBAL_BUMP, -1}; };
+    // 0x4BF244: paso evasivo perpendicular a la direccion del otro peaton
+    const auto Evasive = [&] {
+        const auto& f = other->GetForward();
+        CVector     dir{-f.y, f.x, 0.f};
+        dir.Normalise();
+        m_EventResponseTask = new CTaskComplexEvasiveStep{other, dir};
+    };
+    // Como el original: acerca al seguidor de pandilla al lider (x = ped - lider, z = 0)
+    const auto Compute = [&] {
+        const auto leader = *reinterpret_cast<CPed**>(reinterpret_cast<uint8*>(tGangFol) + 0x10);
+        CVector    d      = ped->GetPosition() - leader->GetPosition();
+        d.z               = 0.f;
+        const float mag   = d.Magnitude();
+        if (tAvoid) {
+            *(reinterpret_cast<uint8*>(tAvoid) + 0x5C) |= 2;
+        } else if (tGoTo) {
+            static_cast<CTaskSimpleGoTo*>(tGoTo)->m_fRadius = mag + 0.1f;
+        }
+        plugin::CallMethod<0x4BC470, CTask*, float>(tSeek, mag + 0.1f);
+        if (mag < 8.f) {
+            std::memcpy(reinterpret_cast<uint8*>(tGangFol) + 0x20, &d, sizeof(float) * 3);
+        }
+    };
+    // 0x4BF12E
+    const auto GroupTail = [&] {
+        if (tGangFol) {
+            if (tSeek && (tAvoid || tGoTo)) {
+                if (!hasGroupTask) {
+                    Evasive();
+                    return;
+                }
+                if (!otherMoving) {
+                    Compute();
+                    m_EventResponseTask = result;
+                    return;
+                }
+            }
+            if (hasGroupTask && !otherMoving) { // 0x4BF234
+                m_EventResponseTask = result;
+                return;
+            }
+        }
+        Evasive();
+    };
+    // 0x4BF122
+    const auto Finish = [&] {
+        if (!groupBig) {
+            m_EventResponseTask = result;
+        } else {
+            GroupTail();
+        }
+    };
+    // 0x4BECAB: ruta alrededor del otro peaton hasta el destino de la tarea simple
+    const auto PathBlock = [&] {
+        if (tsimplest && CTask::IsGoToTask(tsimplest)) {
+            alignas(CPointRoute) uint8 routeBuf[sizeof(CPointRoute)]; // Como el original: solo se pone a cero el contador
+            *reinterpret_cast<uint32*>(routeBuf) = 0;
+            auto& route = *reinterpret_cast<CPointRoute*>(routeBuf);
+            CPedGeometryAnalyser::ComputeRouteRoundEntityBoundingBox(*ped, *other, static_cast<CTaskSimpleGoTo*>(tsimplest)->m_vecTargetPoint, route, 0);
+            result   = new CTaskComplexFollowPointRoute{PEDMOVE_WALK, route, CTaskComplexFollowPointRoute::Mode::ONE_WAY, 0.5f, 5.f, false, true, true};
+            groupBig = false;
+        }
+    };
+    // 0x4BEBAA / 0x4BEF2E
+    const auto FollowBlock = [&] {
+        bool path = true;
+        if (tGangFol) {
+            if (tSeek && (tAvoid || tGoTo)) {
+                if (hasGroupTask && !otherMoving) {
+                    Compute();
+                    path = false;
+                }
+            } else { // 0x4BEC97
+                path = !hasGroupTask || otherMoving;
+            }
+        }
+        if (path) {
+            PathBlock();
+        }
+        SayTask(); // 0x4BED40
+        Look();
+        Finish();
+    };
+    // 0x4BED71 / 0x4BEAF2 / 0x4BEE61: decir, mirar y, fuera del grupo, paso evasivo
+    const auto SayLookEvasive = [&] {
+        SayTask();
+        Look();
+        if (groupBig) {
+            GroupTail();
+        } else {
+            Evasive();
+        }
+    };
+
+    if (tactive && tactive->GetTaskType() == TASK_COMPLEX_FOLLOW_LEADER_IN_FORMATION) { // 0x4BE975
+        if (other->IsPlayer()) {
+            SayTask();
+        } else if (other->GetTaskManager().GetActiveTask() && other->GetTaskManager().GetActiveTask()->GetTaskType() == TASK_COMPLEX_FOLLOW_LEADER_IN_FORMATION) {
+            if (CGeneral::GetRandomNumberInRange(0.f, 1.f) < 0.25f) {
+                const float r = CGeneral::GetRandomNumberInRange(0.f, 1.f);
+                if (r < 0.33f) {
+                    Look();
+                } else if (static_cast<double>(r) < 0.66) {
+                    SayTask();
+                }
+            }
+        }
+        if (behind && other == *reinterpret_cast<CPed**>(reinterpret_cast<uint8*>(tactive) + 0x10)) {
+            GroupTail();
+        } else {
+            Finish();
+        }
+        return;
+    }
+
+    if (!behind && !front) { // 0x4BF122
+        Finish();
+    } else if (front && IsMoving(moveState)) {
+        FollowBlock();
+    } else {
+        SayLookEvasive();
+    }
 }
 
 // 0x4C1590

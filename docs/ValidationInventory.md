@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **7,947 entradas reversed=1**, de 8,441 registradas. Las 494 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **7,950 entradas reversed=1**, de 8,441 registradas. Las 491 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 6142 |
+| `validated=1` · evidencia aprobada vinculada | 6145 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 6142 |
+| Evidencia histórica vinculada; revisión pendiente | 6145 |
 | Sin evidencia aprobada vinculada en este registro | 1805 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -1641,6 +1641,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventHandler | `ComputeHighAngerAtPlayerResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
 | CEventHandler | `ComputeInWaterResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
 | CEventHandler | `ComputeInteriorUseInfoResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
+| CEventHandler | `ComputeKnockOffBikeResponse` | [Resumen](../reversing/EvHE/validation-summary.json) |
 | CEventHandler | `ComputeLowAngerAtPlayerResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
 | CEventHandler | `ComputeLowHealthResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
 | CEventHandler | `ComputeObjectCollisionPassiveResponse` | [Resumen](../reversing/EvHB/validation-summary.json) |
@@ -1648,6 +1649,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CEventHandler | `ComputeOnEscalatorResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
 | CEventHandler | `ComputeOnFireResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
 | CEventHandler | `ComputePassObjectResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
+| CEventHandler | `ComputePedCollisionWithPedResponse` | [Resumen](../reversing/EvHF/validation-summary.json) |
+| CEventHandler | `ComputePedCollisionWithPlayerResponse` | [Resumen](../reversing/EvHG/validation-summary.json) |
 | CEventHandler | `ComputePedEnteredVehicleResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
 | CEventHandler | `ComputePedFriendResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
 | CEventHandler | `ComputePedSoundQuietResponse` | [Resumen](../reversing/EvHC/validation-summary.json) |
@@ -6346,7 +6349,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CEventGroup` | 12 | 0 | 12 | 0 |
 | `CEventGunShot` | 5 | 0 | 5 | 0 |
 | `CEventGunShotWhizzedBy` | 2 | 0 | 2 | 0 |
-| `CEventHandler` | 69 | 0 | 69 | 0 |
+| `CEventHandler` | 72 | 0 | 72 | 0 |
 | `CEventHandlerHistory` | 10 | 0 | 10 | 0 |
 | `CEventHitByWaterCannon` | 2 | 0 | 2 | 0 |
 | `CEventInAir` | 2 | 0 | 2 | 0 |

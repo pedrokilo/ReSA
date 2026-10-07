@@ -1268,5 +1268,20 @@
     "id": "evhd",
     "name": "Manejadores de eventos (CEventHandler, grupo D)",
     "runner": "EvHD/run_local.py"
+  },
+  {
+    "id": "evhe",
+    "name": "CEventHandler grupo E (EvHE)",
+    "runner": "EvHE/run_local.py"
+  },
+  {
+    "id": "evhf",
+    "name": "CEventHandler grupo F (EvHF)",
+    "runner": "EvHF/run_local.py"
+  },
+  {
+    "id": "evhg",
+    "name": "CEventHandler grupo G (EvHG)",
+    "runner": "EvHG/run_local.py"
   }
 ]

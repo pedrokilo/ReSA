@@ -10,11 +10,11 @@
 | Dimensión | Cifra |
 | --- | ---: |
 | Entradas en el catálogo | 8.441 |
-| Reconstruidas | 7.947 |
-| Validadas | 6.142 |
+| Reconstruidas | 7.950 |
+| Validadas | 6.145 |
 | Reconstruidas sin validar | 1.805 |
 | De ellas, en esta cola (validables por pares) | 1.801 |
-| Sin reconstruir (en 69 clases incompletas) | 494 |
+| Sin reconstruir (en 68 clases incompletas) | 491 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
 
