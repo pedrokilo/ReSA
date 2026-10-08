@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "requested_base": "24adc9887871e167b4b64e981446b265ba1e16df",
-  "inspected_head": "77c517277dd11abf97ebed582c249edaa15a2a9e",
+  "inspected_head": "c62854efedeb7dfff52527be9bb6f37d6a4b6f4a",
   "selection": "Classes requested by user; requested_pending=1 selects initial validated=0 identities. Historical rows are context, not an automatic replay expansion.",
-  "hooks_sha256": "839803086910194c33db825fa61fb923d81e573a2a97e29119da4c11102fa048",
-  "registry_sha256": "8e8f8d301c1ad2b5c199f8e45a2be359bec20390f3c09d54d4b76ea1143327f0",
+  "hooks_sha256": "a038f07a0d31f0904cbc3811c3c7cc6314608f1508ed9f8812a9696e7a200d8f",
+  "registry_sha256": "e8f190a8fae7c57afffc021d1a4260e22338b771f1d4d0d34b226d00a8079892",
   "classes": {
     "CAEAudioHardware": {
       "expected_pending": 1,
@@ -412,12 +412,12 @@
     },
     "CPools": {
       "expected_pending": 16,
-      "unlinked": 16,
+      "historical_linked": 10,
       "total": 19,
       "requested_pending": 16,
-      "pending_now": 16,
+      "pending_now": 9,
       "pending_with_candidate_summary": 0,
-      "historical_linked": 3
+      "unlinked": 9
     },
     "CAEStreamingChannel": {
       "expected_pending": 18,
@@ -674,8 +674,8 @@
     }
   },
   "totals": {
-    "unlinked": 1586,
-    "historical_linked": 724
+    "unlinked": 1579,
+    "historical_linked": 731
   },
   "total_identities": 2310,
   "requested_pending": 1710,
@@ -5559,9 +5559,9 @@
       "address": "0x00550170",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPoolsAtomicCheck",
+      "evidence": "reversing/RequestedPoolsAtomicCheck/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -5581,9 +5581,9 @@
       "address": "0x00550050",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPoolsSixGettersV2",
+      "evidence": "reversing/RequestedPoolsSixGettersV2/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -5592,9 +5592,9 @@
       "address": "0x00550020",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPoolsSixGettersV2",
+      "evidence": "reversing/RequestedPoolsSixGettersV2/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -5603,9 +5603,9 @@
       "address": "0x0054FF90",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPoolsSixGettersV2",
+      "evidence": "reversing/RequestedPoolsSixGettersV2/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -5614,9 +5614,9 @@
       "address": "0x0054FF60",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPoolsSixGettersV2",
+      "evidence": "reversing/RequestedPoolsSixGettersV2/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -5625,9 +5625,9 @@
       "address": "0x0054FFF0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPoolsSixGettersV2",
+      "evidence": "reversing/RequestedPoolsSixGettersV2/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -5636,9 +5636,9 @@
       "address": "0x0054FFC0",
       "type": "S",
       "requested_pending": 1,
-      "validation_state": "unlinked",
-      "bank": "",
-      "evidence": "",
+      "validation_state": "historical_linked",
+      "bank": "RequestedPoolsSixGettersV2",
+      "evidence": "reversing/RequestedPoolsSixGettersV2/validation-summary.json",
       "candidate_banks": ""
     },
     {
@@ -26096,6 +26096,6 @@
     "Candidate summary passed=true does not accredit current sources or dependencies.",
     "Read-only registry evaluation verifies registered summary/source/dependency hashes; it does not replay GTA or re-hash remote historical logs."
   ],
-  "audit_mode": "full_registry_evaluate",
-  "pending_now": 1586
+  "audit_mode": "selection_only_current_unverified",
+  "pending_now": 1579
 }

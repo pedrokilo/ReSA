@@ -72,3 +72,15 @@ compile_commands.json
 
 ## TODO: These files can be put into a better place?
 /source/libs/imgui/*
+
+# Local validation binaries and temporary runtime state
+/reversing/**/*.asi
+/reversing/**/artifacts/
+/reversing/**/__pycache__/
+/reversing/**/*.tmp
+/reversing/**/pid.txt
+/reversing/RequestedValidation20261008/historical-launch/backup/
+/reversing/RequestedValidation20261008/rea-live/
+/reversing/RequestedValidation20261008/rea-live.log
+/reversing/RequestedValidation20261008/rea-queue.json
+/reversing/RequestedValidation20261008/rea-supplement-queue.json

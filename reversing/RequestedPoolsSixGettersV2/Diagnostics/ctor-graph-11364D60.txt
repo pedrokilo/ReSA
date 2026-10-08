@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsSixGettersV2\artifacts\gta_reversed-pools-six-getters-v2.asi
+
+File Type: DLL
+
+  11364D60: 55                 push        ebp
+  11364D61: 8B EC              mov         ebp,esp
+  11364D63: 81 EC C0 00 00 00  sub         esp,0C0h
+  11364D69: 53                 push        ebx
+  11364D6A: 56                 push        esi
+  11364D6B: 57                 push        edi
+  11364D6C: 8B FD              mov         edi,ebp
+  11364D6E: 33 C9              xor         ecx,ecx
+  11364D70: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11364D75: F3 AB              rep stos    dword ptr es:[edi]
+  11364D77: E8 D3 0D D3 FF     call        11095B4F
+  11364D7C: 0F B6 C0           movzx       eax,al
+  11364D7F: 85 C0              test        eax,eax
+  11364D81: 74 21              je          11364DA4
+  11364D83: EB 09              jmp         11364D8E
+  11364D85: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11364D88: 83 C0 01           add         eax,1
+  11364D8B: 89 45 08           mov         dword ptr [ebp+8],eax
+  11364D8E: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11364D91: 3B 45 0C           cmp         eax,dword ptr [ebp+0Ch]
+  11364D94: 74 0E              je          11364DA4
+  11364D96: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11364D99: 50                 push        eax
+  11364D9A: E8 2B B3 D0 FF     call        110700CA
+  11364D9F: 83 C4 04           add         esp,4
+  11364DA2: EB E1              jmp         11364D85
+  11364DA4: 5F                 pop         edi
+  11364DA5: 5E                 pop         esi
+  11364DA6: 5B                 pop         ebx
+  11364DA7: 81 C4 C0 00 00 00  add         esp,0C0h
+  11364DAD: 3B EC              cmp         ebp,esp
+  11364DAF: E8 B8 4E CF FF     call        11059C6C
+  11364DB4: 8B E5              mov         esp,ebp
+  11364DB6: 5D                 pop         ebp
+  11364DB7: C3                 ret
+  11364DB8: CC                 int         3
+
+  Summary
+
+     2165000 .text

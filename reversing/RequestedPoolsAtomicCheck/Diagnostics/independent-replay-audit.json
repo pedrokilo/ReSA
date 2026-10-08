@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "pairs": 256,
+  "differences": 0,
+  "natural_exit0": true,
+  "global_ranges_restored": 17692,
+  "strict_full_guard64_poolglobal68_FP_model_checked": true,
+  "caller_EAX_contexts_unique": 256,
+  "raw_uint32_return": 4294967295,
+  "cdecl_stack_and_saved_register_contract_checked": true,
+  "compiled_ABI_proof_sha256": "3d8f34eab1d478876b5503935cbc3a8c0f9e53d9c81a3155423a92fa5b38c5a5",
+  "summary_sha256": "bcb0a8b1d17ff6a32fd8699a5b4e5a219fee2aaa22139c2983a92a6cfaa172a3",
+  "log_sha256": "e543d770225e05dd02a0e18a6857e7cfa96a49849f7703ac465d2c788e8f2ea9",
+  "harness_sha256": "a4739962fddbfd91b0641a09b70fc0e428b340705c86ab8f1d06ff3b21a19da2",
+  "manifest": {
+    "head": "77c517277dd11abf97ebed582c249edaa15a2a9e",
+    "tested_sources": {
+      "source/game_sa/Pools.cpp": "bcb6131d7e43c1ed38a7af1276d8b8ee508b93525c311154f796d57724c871d3",
+      "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
+      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4"
+    },
+    "bank_sources": {
+      "reversing/RequestedPoolsAtomicCheck/LiveComparison.hpp": "1664d77e88d15b98cb34f6c2dfef627d9e7336571a6759b65966af81ceec4e8b",
+      "reversing/RequestedPoolsAtomicCheck/PreflightHarness.hpp": "ec071e626456b7fe941a7e5b136baba1d0d2da2470b1b047f048523da22bd85a",
+      "reversing/RequestedPoolsAtomicCheck/VTableRanges.hpp": "0c585deb0f6762f72005e8cec0903629e097803e8f16c472c4a86e5777c14db6",
+      "reversing/RequestedPoolsAtomicCheck/build_probe.py": "f3c248a49bfb86158edb9ae0a644bdc33721e1fcce48df063d0cff9c2474c944",
+      "reversing/RequestedPoolsAtomicCheck/inspect_compiled.py": "15468c7285c70f3a8475196e52665138b6208e2f6c92a74c440d0ca1d7eedb5d",
+      "reversing/RequestedPoolsAtomicCheck/restore_winmain.py": "83b3d93515d14d5fd72eafbbae58ee916c57e92af0fbbd3a337e6cffe0388cb9",
+      "reversing/RequestedPoolsAtomicCheck/run_local.py": "75d085c9248deb6e73df87a55ae15b0b1dce17698d1ff79eb25ecbb89b115ebf",
+      "reversing/RequestedPoolsAtomicCheck/corpus-plan.json": "0cf461a94d51a7298eacf8dfa8d52346ff87a09574b002a81fd45e5eb7f0e588",
+      "reversing/RequestedPoolsAtomicCheck/evidence/CheckBuildingAtomics-fullasm.txt": "e061e2673b09a218d4cf741619ecbc18536d4a8e492929e2d44b289d6cc357f3",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "fixture_scope": "Pregraphics constant getter256 caller EAX/guard contexts, uint32 returnFFFFFFFF, cdecl stack/callee-saved ABI, all68 pool-pointer global bytes readonly. No pool allocation/actor/lifetime helpers or class-wide accreditation.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "853d70986fb9a87d7c0aac1e33fe6e90410e3ea92f89bf634b81038071bbbe9a"
+    },
+    "asi": "3f76feca824b6ff753e29ba555b015787febebfc74a5ff8948b8f94f926e6672",
+    "pdb": "cc6ddbff28900a093b305223ac7ff93abc129c445d26c1ff18d83d8e577a3495"
+  },
+  "scope": "One pure parameterless constant-return function under256 caller contexts; no EFLAGS, pool/actor lifecycle or class-wide accreditation."
+}

@@ -1,0 +1,50 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsSixGetters\artifacts\gta_reversed-pools-six-getters.asi
+
+File Type: DLL
+
+  113615D0: 55                 push        ebp
+  113615D1: 8B EC              mov         ebp,esp
+  113615D3: 81 EC C0 00 00 00  sub         esp,0C0h
+  113615D9: 53                 push        ebx
+  113615DA: 56                 push        esi
+  113615DB: 57                 push        edi
+  113615DC: 8B FD              mov         edi,ebp
+  113615DE: 33 C9              xor         ecx,ecx
+  113615E0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113615E5: F3 AB              rep stos    dword ptr es:[edi]
+  113615E7: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113615EA: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  113615ED: 8B 10              mov         edx,dword ptr [eax]
+  113615EF: 3B 11              cmp         edx,dword ptr [ecx]
+  113615F1: 76 2D              jbe         11361620
+  113615F3: 68 A4 DC 1B 13     push        131BDCA4h
+  113615F8: 68 5C DB 1B 13     push        131BDB5Ch
+  113615FD: 6A 00              push        0
+  113615FF: 68 10 06 00 00     push        610h
+  11361604: 68 C8 DC 1B 13     push        131BDCC8h
+  11361609: 6A 02              push        2
+  1136160B: E8 BB 74 D1 FF     call        11078ACB
+  11361610: 83 C4 18           add         esp,18h
+  11361613: 83 F8 01           cmp         eax,1
+  11361616: 75 01              jne         11361619
+  11361618: CC                 int         3
+  11361619: B9 05 00 00 00     mov         ecx,5
+  1136161E: CD 29              int         29h
+  11361620: 5F                 pop         edi
+  11361621: 5E                 pop         esi
+  11361622: 5B                 pop         ebx
+  11361623: 81 C4 C0 00 00 00  add         esp,0C0h
+  11361629: 3B EC              cmp         ebp,esp
+  1136162B: E8 37 76 CF FF     call        11058C67
+  11361630: 8B E5              mov         esp,ebp
+  11361632: 5D                 pop         ebp
+  11361633: C3                 ret
+  11361634: CC                 int         3
+
+  Summary
+
+     2165000 .text

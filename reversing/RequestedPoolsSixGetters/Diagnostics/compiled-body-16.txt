@@ -1,0 +1,42 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsSixGetters\artifacts\gta_reversed-pools-six-getters.asi
+
+File Type: DLL
+
+  11354400: 55                 push        ebp
+  11354401: 8B EC              mov         ebp,esp
+  11354403: 81 EC D0 00 00 00  sub         esp,0D0h
+  11354409: 53                 push        ebx
+  1135440A: 56                 push        esi
+  1135440B: 57                 push        edi
+  1135440C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1135440F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11354412: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  11354415: 8B 11              mov         edx,dword ptr [ecx]
+  11354417: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1135441A: 8B 08              mov         ecx,dword ptr [eax]
+  1135441C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1135441F: 8B 00              mov         eax,dword ptr [eax]
+  11354421: 3B 04 91           cmp         eax,dword ptr [ecx+edx*4]
+  11354424: 75 0C              jne         11354432
+  11354426: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],1
+            01 00 00 00
+  11354430: EB 0A              jmp         1135443C
+  11354432: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  1135443C: 0F B6 85 30 FF FF  movzx       eax,byte ptr [ebp+FFFFFF30h]
+            FF
+  11354443: 5F                 pop         edi
+  11354444: 5E                 pop         esi
+  11354445: 5B                 pop         ebx
+  11354446: 8B E5              mov         esp,ebp
+  11354448: 5D                 pop         ebp
+  11354449: C2 04 00           ret         4
+  1135444C: CC                 int         3
+
+  Summary
+
+     2165000 .text

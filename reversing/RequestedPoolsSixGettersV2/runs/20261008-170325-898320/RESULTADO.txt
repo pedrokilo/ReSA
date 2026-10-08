@@ -1,0 +1,3 @@
+APROBADO: PoolsSixGetters3072
+Comparacion automatizada completada.
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-requested-pools-six-getters-v2\20261008-170325-898320

@@ -1,0 +1,197 @@
+{
+  "static_only": true,
+  "not_compiled_not_runtime_approved": true,
+  "native_FTOL_address": "0x821B40",
+  "native_bytes_sha256": "5333b186c02836974c6f792303aeb2c00d856316b93ccbbe65f51def6ae661b4",
+  "complete_native_instruction_count": 37,
+  "source_helper_mnemonics_exact": true,
+  "native_instructions": [
+    {
+      "address": "0x821b40",
+      "mnemonic": "push",
+      "operands": "ebp"
+    },
+    {
+      "address": "0x821b41",
+      "mnemonic": "mov",
+      "operands": "ebp, esp"
+    },
+    {
+      "address": "0x821b43",
+      "mnemonic": "sub",
+      "operands": "esp, 0x20"
+    },
+    {
+      "address": "0x821b46",
+      "mnemonic": "and",
+      "operands": "esp, 0xfffffff0"
+    },
+    {
+      "address": "0x821b49",
+      "mnemonic": "fld",
+      "operands": "st(0)"
+    },
+    {
+      "address": "0x821b4b",
+      "mnemonic": "fst",
+      "operands": "dword ptr [esp + 0x18]"
+    },
+    {
+      "address": "0x821b4f",
+      "mnemonic": "fistp",
+      "operands": "qword ptr [esp + 0x10]"
+    },
+    {
+      "address": "0x821b53",
+      "mnemonic": "fild",
+      "operands": "qword ptr [esp + 0x10]"
+    },
+    {
+      "address": "0x821b57",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [esp + 0x18]"
+    },
+    {
+      "address": "0x821b5b",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [esp + 0x10]"
+    },
+    {
+      "address": "0x821b5f",
+      "mnemonic": "test",
+      "operands": "eax, eax"
+    },
+    {
+      "address": "0x821b61",
+      "mnemonic": "je",
+      "operands": "0x821b9f"
+    },
+    {
+      "address": "0x821b63",
+      "mnemonic": "fsubp",
+      "operands": "st(1)"
+    },
+    {
+      "address": "0x821b65",
+      "mnemonic": "test",
+      "operands": "edx, edx"
+    },
+    {
+      "address": "0x821b67",
+      "mnemonic": "jns",
+      "operands": "0x821b87"
+    },
+    {
+      "address": "0x821b69",
+      "mnemonic": "fstp",
+      "operands": "dword ptr [esp]"
+    },
+    {
+      "address": "0x821b6c",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [esp]"
+    },
+    {
+      "address": "0x821b6f",
+      "mnemonic": "xor",
+      "operands": "ecx, 0x80000000"
+    },
+    {
+      "address": "0x821b75",
+      "mnemonic": "add",
+      "operands": "ecx, 0x7fffffff"
+    },
+    {
+      "address": "0x821b7b",
+      "mnemonic": "adc",
+      "operands": "eax, 0"
+    },
+    {
+      "address": "0x821b7e",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [esp + 0x14]"
+    },
+    {
+      "address": "0x821b82",
+      "mnemonic": "adc",
+      "operands": "edx, 0"
+    },
+    {
+      "address": "0x821b85",
+      "mnemonic": "jmp",
+      "operands": "0x821bb3"
+    },
+    {
+      "address": "0x821b87",
+      "mnemonic": "fstp",
+      "operands": "dword ptr [esp]"
+    },
+    {
+      "address": "0x821b8a",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [esp]"
+    },
+    {
+      "address": "0x821b8d",
+      "mnemonic": "add",
+      "operands": "ecx, 0x7fffffff"
+    },
+    {
+      "address": "0x821b93",
+      "mnemonic": "sbb",
+      "operands": "eax, 0"
+    },
+    {
+      "address": "0x821b96",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [esp + 0x14]"
+    },
+    {
+      "address": "0x821b9a",
+      "mnemonic": "sbb",
+      "operands": "edx, 0"
+    },
+    {
+      "address": "0x821b9d",
+      "mnemonic": "jmp",
+      "operands": "0x821bb3"
+    },
+    {
+      "address": "0x821b9f",
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [esp + 0x14]"
+    },
+    {
+      "address": "0x821ba3",
+      "mnemonic": "test",
+      "operands": "edx, 0x7fffffff"
+    },
+    {
+      "address": "0x821ba9",
+      "mnemonic": "jne",
+      "operands": "0x821b63"
+    },
+    {
+      "address": "0x821bab",
+      "mnemonic": "fstp",
+      "operands": "dword ptr [esp + 0x18]"
+    },
+    {
+      "address": "0x821baf",
+      "mnemonic": "fstp",
+      "operands": "dword ptr [esp + 0x18]"
+    },
+    {
+      "address": "0x821bb3",
+      "mnemonic": "leave",
+      "operands": ""
+    },
+    {
+      "address": "0x821bb4",
+      "mnemonic": "ret",
+      "operands": ""
+    }
+  ],
+  "source_helper_assembly": " {\n    __asm {\n        push ebp\n        mov ebp, esp\n        sub esp, 20h\n        and esp, 0FFFFFFF0h\n        fld st(0)\n        fst dword ptr [esp + 18h]\n        fistp qword ptr [esp + 10h]\n        fild qword ptr [esp + 10h]\n        mov edx, dword ptr [esp + 18h]\n        mov eax, dword ptr [esp + 10h]\n        test eax, eax\n        je shake_ftol_zero\n        shake_ftol_adjust:\n        fsubp st(1), st(0)\n        test edx, edx\n        jns shake_ftol_positive\n        fstp dword ptr [esp]\n        mov ecx, dword ptr [esp]\n        xor ecx, 80000000h\n        add ecx, 7FFFFFFFh\n        adc eax, 0\n        mov edx, dword ptr [esp + 14h]\n        adc edx, 0\n        jmp shake_ftol_done\n        shake_ftol_positive:\n        fstp dword ptr [esp]\n        mov ecx, dword ptr [esp]\n        add ecx, 7FFFFFFFh\n        sbb eax, 0\n        mov edx, dword ptr [esp + 14h]\n        sbb edx, 0\n        jmp shake_ftol_done\n        shake_ftol_zero:\n        mov edx, dword ptr [esp + 14h]\n        test edx, 7FFFFFFFh\n        jne shake_ftol_adjust\n        fstp dword ptr [esp + 18h]\n        fstp dword ptr [esp + 18h]\n        shake_ftol_done:\n        leave\n        ret\n    }\n}\n\n",
+  "all_native_operands_and_branch_destinations_exact": true
+}

@@ -1,0 +1,25 @@
+{
+  "v1_freeze_sha256": "c14ff3633a582a287575d6603db424277dec7e93cd6ae97ea0e2a69dbbcacec2",
+  "v2_freeze_sha256": "fc13297a056beb6438bb3e7ec9aa7836ec33c08300bbb8e85982931782114728",
+  "v1_inputs_unchanged": true,
+  "v2_inputs_verified": true,
+  "only_instrument_bytes_changed": [
+    "VTableRanges.hpp"
+  ],
+  "old_restoration_report": {
+    "errors": [],
+    "WinMain_restored": true,
+    "binaries_restored": {
+      "asi": true,
+      "pdb": true
+    }
+  },
+  "restoration_report_filename": "artifacts/restoration.json",
+  "old_before_files": {
+    "before-WinMain.cpp.bin": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "before.asi": "90b2d48573646fd93fe01171939aa00ef6ba8007059db4c20456545e07d5dc37",
+    "before.pdb": "def3979c2b292de260d7aa45cd9165e6d6484e8c006fdc4d60c300147107547b"
+  },
+  "old_build_log_sha256": "42a8ab073f5bb6b556af9b98a162f7c94034d48a9e88b7b4b92ddcf0b02b126e",
+  "current_WinMain_and_bins_not_read_or_modified": true
+}

@@ -1,0 +1,41 @@
+{
+  "head": "c62854efedeb7dfff52527be9bb6f37d6a4b6f4a",
+  "tested_sources": {
+    "source/game_sa/Pools.cpp": "bcb6131d7e43c1ed38a7af1276d8b8ee508b93525c311154f796d57724c871d3",
+    "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
+    "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
+    "source/game_sa/Pools/PedPool.h": "5471c3169048392770658f70374d876454e3b31eda7abd105ad97a46c4ec07fd",
+    "source/game_sa/Pools/VehiclePool.h": "9430baf7198222a21f4404c8314c9da0709d6c91f509d0a4938a6f1473e3df3a",
+    "source/game_sa/Pools/ObjectPool.h": "833e700558e62963f6716def8201758504b89c2f94d02e460acc5e35f0cb58cd",
+    "source/game_sa/Entity/Ped/CopPed.h": "d9a6e69e3462ea23401a519dc7be959f72700d31d82ba6c4fadd82e2256a1117",
+    "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
+    "source/game_sa/Entity/Object/CutsceneObject.h": "b0e369e0cfa2c6efa6b340e7ce8de4f4cdbf46a1da65136d7d945d92bd5c7328"
+  },
+  "bank_sources": {
+    "reversing/RequestedPoolsSixGetters/LiveComparison.hpp": "89b385f91240c291e4d73cb44335341efd7d9da0baa7c58229bccc1e855b3b03",
+    "reversing/RequestedPoolsSixGetters/PreflightHarness.hpp": "a7a71fd31930c7e0873e269d23550fc3e3555fecfe5d007a2bc9927658a247c6",
+    "reversing/RequestedPoolsSixGetters/VTableRanges.hpp": "1a6b59694bbc299480937e8219e15d5bf021da68d68fbf98b69a05f2a2fb624c",
+    "reversing/RequestedPoolsSixGetters/build_probe.py": "7fdadb3356c47f87997e15cf1cfe8a9359e5e4f0847fee4a82ab6debdb0f02db",
+    "reversing/RequestedPoolsSixGetters/inspect_compiled.py": "d2e7884087a9aacd2f04c8dc1b6797907ef902c6ccde87c34a92a98151aedc7a",
+    "reversing/RequestedPoolsSixGetters/restore_winmain.py": "83b3d93515d14d5fd72eafbbae58ee916c57e92af0fbbd3a337e6cffe0388cb9",
+    "reversing/RequestedPoolsSixGetters/run_local.py": "aedb3e7ed4582e2fbd1016254eb7cd728a72994c3428b5a1ffb26bc9c3b03125",
+    "reversing/RequestedPoolsSixGetters/corpus-plan.json": "465384581477bbf52470731c650894930d27c73ba94c97e67bdd4fcfbb6030cd",
+    "reversing/RequestedPoolsSixGetters/evidence/GetObject-fullasm.txt": "01a51c9188915e2b224aa3201d8e83769c90e9a3befd198080717e5f3858a27f",
+    "reversing/RequestedPoolsSixGetters/evidence/GetObjectRef-fullasm.txt": "c01fb822b79e36d6250b05c11031108f58233fb60de2df54f66c81ccbbc82c64",
+    "reversing/RequestedPoolsSixGetters/evidence/GetPed-fullasm.txt": "e7c9347d4dff8c2ea1cf519e6f67377bdf57e4aeb39c74b0a2a135ce605923e0",
+    "reversing/RequestedPoolsSixGetters/evidence/GetPedRef-fullasm.txt": "da7ed68f0ad251edc34806e397bc43d1881b70a46536b26235dc80a121c2a481",
+    "reversing/RequestedPoolsSixGetters/evidence/GetVehicle-fullasm.txt": "0f754e4eca60e84b30aac6db4cd45200c5636e388c90a4c3a95cf922e316cd10",
+    "reversing/RequestedPoolsSixGetters/evidence/GetVehicleRef-fullasm.txt": "8a87332d1c05a152dcf4eebf200360d0294638e564cca47eb71a56d785da4f96",
+    "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+    "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+    "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+  },
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+  "fixture_scope": "Pregraphics six pool wrappers3072, actual typed borrowed pool headers over bounded raw slot/state arenas. No real actor lifetimes, allocation/destruction assets or constructor/helper accreditation. In-bounds index0/1 activeID0..127; matched and stale/free-bit mismatches.",
+  "compiled_instruments": {
+    "source/app/platform/win/WinMain.cpp": "338575a6ea51281c57a4aebccda0aa763a2e6cc348029490572eeb6c0b8b6ba5"
+  },
+  "asi": "f3fc415f965b9c6e205aedcacb3cf54531b6ed991ed42707e806ae37ecbba75b",
+  "pdb": "9dda9475d5e11157c7327e3275759444bd0846a868641924bb4ec7a829d667e3"
+}

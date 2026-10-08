@@ -1,0 +1,87 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsSixGetters\artifacts\gta_reversed-pools-six-getters.asi
+
+File Type: DLL
+
+  113695C0: 55                 push        ebp
+  113695C1: 8B EC              mov         ebp,esp
+  113695C3: 6A FF              push        0FFFFFFFFh
+  113695C5: 68 FD 72 0C 13     push        130C72FDh
+  113695CA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  113695D0: 50                 push        eax
+  113695D1: 81 EC DC 00 00 00  sub         esp,0DCh
+  113695D7: 53                 push        ebx
+  113695D8: 56                 push        esi
+  113695D9: 57                 push        edi
+  113695DA: 8D 7D D8           lea         edi,[ebp-28h]
+  113695DD: B9 07 00 00 00     mov         ecx,7
+  113695E2: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  113695E7: F3 AB              rep stos    dword ptr es:[edi]
+  113695E9: A1 40 EA 6B 13     mov         eax,dword ptr ds:[136BEA40h]
+  113695EE: 33 C5              xor         eax,ebp
+  113695F0: 50                 push        eax
+  113695F1: 8D 45 F4           lea         eax,[ebp-0Ch]
+  113695F4: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  113695FA: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113695FD: 50                 push        eax
+  113695FE: 8D 4D E8           lea         ecx,[ebp-18h]
+  11369601: E8 28 35 D3 FF     call        1109CB2E
+  11369606: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  1136960D: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11369610: 3B 45 0C           cmp         eax,dword ptr [ebp+0Ch]
+  11369613: 74 0F              je          11369624
+  11369615: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  11369618: 50                 push        eax
+  11369619: 8D 4D E8           lea         ecx,[ebp-18h]
+  1136961C: E8 3B 99 D2 FF     call        11092F5C
+  11369621: 90                 nop
+  11369622: EB E9              jmp         1136960D
+  11369624: 8D 4D E8           lea         ecx,[ebp-18h]
+  11369627: E8 65 46 D2 FF     call        1108DC91
+  1136962C: 89 85 1C FF FF FF  mov         dword ptr [ebp+FFFFFF1Ch],eax
+  11369632: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  11369639: 8D 4D E8           lea         ecx,[ebp-18h]
+  1136963C: E8 37 39 D0 FF     call        1106CF78
+  11369641: 8B 85 1C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF1Ch]
+  11369647: 52                 push        edx
+  11369648: 8B CD              mov         ecx,ebp
+  1136964A: 50                 push        eax
+  1136964B: 8D 15 78 96 36 11  lea         edx,ds:[11369678h]
+  11369651: E8 7C 4E CF FF     call        1105E4D2
+  11369656: 58                 pop         eax
+  11369657: 5A                 pop         edx
+  11369658: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  1136965B: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  11369662: 59                 pop         ecx
+  11369663: 5F                 pop         edi
+  11369664: 5E                 pop         esi
+  11369665: 5B                 pop         ebx
+  11369666: 81 C4 E8 00 00 00  add         esp,0E8h
+  1136966C: 3B EC              cmp         ebp,esp
+  1136966E: E8 F4 F5 CE FF     call        11058C67
+  11369673: 8B E5              mov         esp,ebp
+  11369675: 5D                 pop         ebp
+  11369676: C3                 ret
+  11369677: 90                 nop
+  11369678: 01 00              add         dword ptr [eax],eax
+  1136967A: 00 00              add         byte ptr [eax],al
+  1136967C: 80 96 36 11 E8 FF  adc         byte ptr [esi+FFE81136h],0FFh
+            FF
+  11369683: FF 08              dec         dword ptr [eax]
+  11369685: 00 00              add         byte ptr [eax],al
+  11369687: 00 8C 96 36 11 5F  add         byte ptr [esi+edx*4+425F1136h],cl
+            42
+  1136968E: 61                 popad
+  1136968F: 63 6B 6F           arpl        word ptr [ebx+6Fh],bp
+  11369692: 75 74              jne         11369708
+  11369694: 00 CC              add         ah,cl
+
+  Summary
+
+     2165000 .text

@@ -1,0 +1,11 @@
+--- a/source/game_sa/Pad.cpp
++++ b/source/game_sa/Pad.cpp
+@@ -572,7 +572,7 @@
+         return;
+     }
+ 
+-    if (!FindPlayerVehicle(-1) || !FindPlayerVehicle(-1)->IsTrain()) {
++    if (FindPlayerVehicle(-1) && FindPlayerVehicle(-1)->IsTrain()) {
+         return;
+     }
+ 

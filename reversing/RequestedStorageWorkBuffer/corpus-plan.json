@@ -1,0 +1,41 @@
+{
+  "functions": {
+    "SaveDataToWorkBuffer-org": "0x005D1270",
+    "LoadDataFromWorkBuffer-org": "0x005D1300"
+  },
+  "pairs_each": 1024,
+  "sizes": [
+    -1,
+    0,
+    1,
+    2,
+    3,
+    4,
+    7,
+    16
+  ],
+  "positions": [
+    0,
+    1,
+    2,
+    3,
+    16,
+    51168,
+    51176,
+    51184
+  ],
+  "prior_failed": [
+    false,
+    true
+  ],
+  "patterns": 8,
+  "buffer_capacity": 51200,
+  "domain": "Nonoverlapping caller/private work buffer; in-buffer copies only; no refill/flush, file I/O or variable-capacity credit. Exact rawAL bool return; upperEAX unspecified.",
+  "full_payload": [
+    "guarded51200byteWorkBuffer",
+    "guarded256byteCaller",
+    "globalsC16EE8..C16EFFF",
+    "globals8D2BD0..8D2BEF"
+  ],
+  "harness_ranges": 17692
+}

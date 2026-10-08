@@ -1,0 +1,29 @@
+{
+  "central_approval_rows": 131,
+  "missing_current_links": [],
+  "prefixes": 563,
+  "frozen_markdown_exact": 28,
+  "snapshot": {
+    "historical": 6867,
+    "pending": 1579,
+    "pending_groups": 58,
+    "current": 0,
+    "new_approvals": 131
+  },
+  "MemoryMap": {
+    "approved_evidence": 6867,
+    "current_validation": 0,
+    "source_matches": 982,
+    "source_manifest_sha256": "f2ca87b56995125deae38edd08f9ce5dd8e0ec9b8584429e05d090d623ef677f",
+    "binary_verified": true,
+    "source_files_changed_during_generation": []
+  },
+  "initial_scope": 1710,
+  "pending_now": 1579,
+  "validations_stopped": true,
+  "cleanup_evidence": [
+    "disk-recovery-20261008.json",
+    "regenerable-build-cleanup-20261008.json"
+  ],
+  "no_source_status_rewrite": true
+}

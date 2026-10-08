@@ -547,13 +547,90 @@ void CPad::StartShake(int16 time, uint8 freq, uint32 shakeDelayMs) {
     }
 }
 
+// x87 ST(0) input, EDX:EAX truncated integer output; native 0x821B40 arithmetic.
+// Called only by the shake arithmetic block; no delegate to the original EXE.
+static __declspec(naked) int64 __cdecl PadShakeFloatToInteger() {
+    __asm {
+        push ebp
+        mov ebp, esp
+        sub esp, 20h
+        and esp, 0FFFFFFF0h
+        fld st(0)
+        fst dword ptr [esp + 18h]
+        fistp qword ptr [esp + 10h]
+        fild qword ptr [esp + 10h]
+        mov edx, dword ptr [esp + 18h]
+        mov eax, dword ptr [esp + 10h]
+        test eax, eax
+        je shake_ftol_zero
+        shake_ftol_adjust:
+        fsubp st(1), st(0)
+        test edx, edx
+        jns shake_ftol_positive
+        fstp dword ptr [esp]
+        mov ecx, dword ptr [esp]
+        xor ecx, 80000000h
+        add ecx, 7FFFFFFFh
+        adc eax, 0
+        mov edx, dword ptr [esp + 14h]
+        adc edx, 0
+        jmp shake_ftol_done
+        shake_ftol_positive:
+        fstp dword ptr [esp]
+        mov ecx, dword ptr [esp]
+        add ecx, 7FFFFFFFh
+        sbb eax, 0
+        mov edx, dword ptr [esp + 14h]
+        sbb edx, 0
+        jmp shake_ftol_done
+        shake_ftol_zero:
+        mov edx, dword ptr [esp + 14h]
+        test edx, 7FFFFFFFh
+        jne shake_ftol_adjust
+        fstp dword ptr [esp + 18h]
+        fstp dword ptr [esp + 18h]
+        shake_ftol_done:
+        leave
+        ret
+    }
+}
+
 // originally 3x float instead of CVector
 // 0x53F9A0
 void CPad::StartShake_Distance(int16 time, uint8 freq, CVector pos) {
     if (!FrontEndMenuManager.m_PrefsUseVibration || CCutsceneMgr::ms_running)
         return;
 
-    if ((TheCamera.GetPosition() - pos).Magnitude() < 70.0f) {
+    const auto& camera = TheCamera.GetPosition();
+    const float cameraX = camera.x, cameraY = camera.y, cameraZ = camera.z;
+    const float pointX = pos.x, pointY = pos.y, pointZ = pos.z, limit = 70.0f;
+    bool withinDistance;
+    // Preserve native z^2 + y^2 + x^2 order and x87 exception effects.
+    __asm {
+        fld cameraZ
+        fsub pointZ
+        fld cameraZ
+        fsub pointZ
+        fmulp st(1), st(0)
+        fld cameraY
+        fsub pointY
+        fld cameraY
+        fsub pointY
+        fmulp st(1), st(0)
+        faddp st(1), st(0)
+        fld cameraX
+        fsub pointX
+        fld cameraX
+        fsub pointX
+        fmulp st(1), st(0)
+        faddp st(1), st(0)
+        fsqrt
+        fcomp limit
+        fnstsw ax
+        test ah, 5
+        setnp withinDistance
+    }
+    if (withinDistance) {
         if (freq) {
             if (time > ShakeDur) {
                 ShakeDur = time;
@@ -572,14 +649,47 @@ void CPad::StartShake_Train(CVector2D point) {
         return;
     }
 
-    if (!FindPlayerVehicle(-1) || !FindPlayerVehicle(-1)->IsTrain()) {
+    if (FindPlayerVehicle(-1) && FindPlayerVehicle(-1)->IsTrain()) {
         return;
     }
 
-    const auto fDistSq = (TheCamera.GetPosition() - point).SquaredMagnitude();
-    if (ShakeDur < 100 && fDistSq < 4900.0f) {
+    const auto& camera = TheCamera.GetPosition();
+    const float cameraX = camera.x, cameraY = camera.y;
+    const float pointX = point.x, pointY = point.y, squaredLimit = 4900.0f;
+    const float seventy = 70.0f, thirty = 30.0f;
+    float distanceSquared;
+    bool withinDistance;
+    // Preserve native 2D y^2 + x^2, its float spill and x87 comparison.
+    __asm {
+        fld cameraY
+        fsub pointY
+        fld cameraY
+        fsub pointY
+        fmulp st(1), st(0)
+        fld cameraX
+        fsub pointX
+        fld cameraX
+        fsub pointX
+        fmulp st(1), st(0)
+        faddp st(1), st(0)
+        fst distanceSquared
+        fcomp squaredLimit
+        fnstsw ax
+        test ah, 5
+        setnp withinDistance
+    }
+    if (withinDistance && ShakeDur < 100) {
         ShakeDur = 100;
-        ShakeFreq = static_cast<uint8>(70.0f - sqrt(fDistSq) + 30.0f);
+        uint8 frequency;
+        __asm {
+            fld distanceSquared
+            fsqrt
+            fsubr seventy
+            fadd thirty
+            call PadShakeFloatToInteger
+            mov frequency, al
+        }
+        ShakeFreq = frequency;
     }
 }
 

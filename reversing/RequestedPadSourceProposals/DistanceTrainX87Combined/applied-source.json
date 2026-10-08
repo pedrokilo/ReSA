@@ -1,0 +1,11 @@
+{
+  "authorized_by_coordinator": true,
+  "applied": true,
+  "before_sha256": "b0902674db3e303e58c1bb9b875439a1e3ec02eaa8fa0acb8a619ab6774adaf2",
+  "after_sha256": "89badf36b91db868c0a9d41408db7b595bc116ce941a7864cd697af8a4bbaa4d",
+  "source_path": "source/game_sa/Pad.cpp",
+  "old_source_preserved": "reversing\\RequestedPadSourceProposals\\DistanceTrainX87Combined\\Pad.cpp.before.txt",
+  "compiled": false,
+  "GTA_executed": false,
+  "registry_written": false
+}

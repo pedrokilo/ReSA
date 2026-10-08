@@ -1,14 +1,14 @@
 # Estado comprobado de ReSA · 8 de octubre de 2026
 
-**Corte documental: 8 de octubre de 2026, después de vincular Context9, GeometryPlanes, seis mutaciones de CPad y PlaceGroup V2, Projectile, ReferenceAnims, Reconcile, Update, StartShake y cuatro despachos CPU, ArrestPed, FxEmitter, cinco wrappers de geometría y el getter de radio frontend, hora de Ciudad de México.** Los contadores corresponden al catálogo sincronizado con 124 aprobaciones nuevas. Las sondas posteriores pendientes no se suman.
+**Corte documental: 8 de octubre de 2026, después de vincular Context9, GeometryPlanes, seis mutaciones de CPad y PlaceGroup V2, Projectile, ReferenceAnims, Reconcile, Update, StartShake y cuatro despachos CPU, ArrestPed, FxEmitter, cinco wrappers de geometría y el getter de radio frontend, hora de Ciudad de México.** Los contadores corresponden al catálogo sincronizado con 131 aprobaciones nuevas. Las validaciones se detuvieron por solicitud del usuario. Las sondas preparadas, compiladas o pendientes no se suman.
 
-El catálogo contiene **771 clases, namespaces o grupos / 8446 entradas**, todas marcadas como reconstruidas. Hay **6860 entradas con evidencia histórica vinculada** y **1586 pendientes de validación**, distribuidas en **58 grupos**. El alcance solicitado inicial fue de 77 grupos y 1710 funciones; 124 identidades nuevas quedaron aprobadas para sus fixtures. Reconstrucción no significa validación ni independencia del ejecutable.
+El catálogo contiene **771 clases, namespaces o grupos / 8446 entradas**, todas marcadas como reconstruidas. Hay **6867 entradas con evidencia histórica vinculada** y **1579 pendientes de validación**, distribuidas en **58 grupos**. El alcance solicitado inicial fue de 77 grupos y 1710 funciones; 131 identidades nuevas quedaron aprobadas para sus fixtures. Reconstrucción no significa validación ni independencia del ejecutable.
 
 **Vigencia actual: 0 funciones acreditadas.** Las validaciones nuevas tienen `dependency_review=null`: son evidencia histórica aprobada, con límites explícitos. Las 52 de Interior_c mantienen sus resultados históricos; su huella de dependencias no coincide con el árbol actual. Esta documentación no cambia huellas de evidencia ni acredita dependencias.
 
 El **snapshot de arranque histórico del 8 de octubre de 2026** seleccionó **694 grupos completos / 6136 funciones** y desactivó 2313 hooks del inventario de ejecución (incluye 3 extras NOTSA), sin discrepancias entre selección y estados. El ASI de ese arranque fue `f33a7f5ca0ebdb08f4f77d91c2f8142c4a2776761191c3e683eb352fc3438cae`. Es un snapshot fechado; no identifica la última instalación ni certifica comportamiento conjunto. Las sondas posteriores restauran la instalación que encontraron. La whitelist histórica de ese arranque permanece fija; las nuevas aprobaciones no se añadieron automáticamente. El argumento `--historical-hooks` es explícito y no implica validación vigente. [Registro de arranque y correspondencias](../reversing/RequestedValidation20261008/historical-launch/README.md).
 
-## Ciento veinticuatro aprobaciones nuevas, con alcance limitado
+## Ciento treinta y una aprobaciones nuevas, con alcance limitado
 
 | Función | Pares aprobados | Evidencia conservada | Alcance |
 | --- | ---: | --- | --- |
@@ -110,6 +110,13 @@ El **snapshot de arranque histórico del 8 de octubre de 2026** seleccionó **69
 | CPedGeometryAnalyser::ComputeEntityBoundingBoxSegmentPlanesUncachedAll | 1024 | [Resumen](../reversing/RequestedGeometryWrappersFiveV4/validation-summary.json) | Wrappers con helper nativo read-only, fixtures geométricos finitos y traza exacta; sin actors ni acreditación del helper. |
 | CAEFrontendAudioEntity::IsRadioTuneSoundActive | 2048 | [Resumen](../reversing/RequestedFrontendRadioGetterV2/validation-summary.json) | Getter CPU con bytes privados y retorno AL crudo; sin subsistema de radio/sonido acreditado. |
 | FxEmitterBP_c::LoadTextures | 5120 | [Resumen](../reversing/RequestedFxEmitterTwo/validation-summary-LoadTextures.json) | Objetos y texturas opacas privados; constructor CPU real o lecturas trazadas; NULL conserva handles. Sin assets, gráficos ni lifecycle de recursos. |
+| CPools::CheckBuildingAtomics | 256 | [Resumen](../reversing/RequestedPoolsAtomicCheck/validation-summary.json) | Pools privados y referencias/handles finitos, con salida natural y restauración de estado. Sin actores reales ni acreditación de dependencias. |
+| CPools::GetPedRef | 256 | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) | Pools privados y referencias/handles finitos, con salida natural y restauración de estado. Sin actores reales ni acreditación de dependencias. |
+| CPools::GetPed | 768 | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) | Pools privados y referencias/handles finitos, con salida natural y restauración de estado. Sin actores reales ni acreditación de dependencias. |
+| CPools::GetVehicleRef | 256 | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) | Pools privados y referencias/handles finitos, con salida natural y restauración de estado. Sin actores reales ni acreditación de dependencias. |
+| CPools::GetVehicle | 768 | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) | Pools privados y referencias/handles finitos, con salida natural y restauración de estado. Sin actores reales ni acreditación de dependencias. |
+| CPools::GetObjectRef | 256 | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) | Pools privados y referencias/handles finitos, con salida natural y restauración de estado. Sin actores reales ni acreditación de dependencias. |
+| CPools::GetObject | 768 | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) | Pools privados y referencias/handles finitos, con salida natural y restauración de estado. Sin actores reales ni acreditación de dependencias. |
 
 Los resúmenes incluyen el EXE y DLL ejecutados, fuentes/instrumentos congelados, comparaciones y comprobaciones de restauración. Los errores previos permanecen conservados. La aprobación de una función no acredita el resto de su clase; los bancos preparados o fallidos no suman validaciones. [Inventario por función y vigencia](ValidationInventory.md).
 | CPad::AimWeaponLeftRight | 6048 | [Resumen](../reversing/RequestedPadContext9/validation-summary-context9.json) | Selectores sobre imágenes ABI privadas y task tags; retornos y predicados compilados de bytes completos. Sin actores, entrada OS ni trazas call-for-call de helpers. |
@@ -178,6 +185,10 @@ StartShake añadió 89600 casos con cero diferencias, incluyendo relojes envuelt
 
 ArrestPed aprobó sus cuatro identidades en 2816 pares con salida natural 0 y restauración de 17692 rangos: constructor 128, destructor 256, MakeAbortable 384 y CreateFirstSubTask 2048. FxEmitter aprobó constructor 512 y LoadTextures 5120 en replays de 5632; el baseline conserva 512 diferencias de LoadTextures ante NULL, corregidas sin cambiar corpus ni modelo. El runner inicial observaba un nombre de archivo distinto: se conservan esos rechazos y se usó un adaptador externo con ASI/corpus congelados. Las aprobaciones separan vptr reales declarados, colaboradores aislados y límites de lifecycle. Los cinco wrappers de GeometryV4 añadieron 5120 con harness global completo; V3 no se acreditó por omitirlo. El getter frontend añadió 2048 casos CPU privados en su replay V2. La vigencia permanece 0.
 
+Se añaden únicamente siete aprobaciones de CPools: CheckBuildingAtomics (256), GetPedRef/GetVehicleRef/GetObjectRef (256 cada una) y GetPed/GetVehicle/GetObject (768 cada una). Las pruebas acreditan sus fixtures privados; la vigencia sigue en 0. UpdateMouse V2 quedó compilado con revisión estática de ABI y calls, sin replay ni aprobación. Distance/Train y las demás sondas pendientes tampoco amplían el registro.
+
+Se liberó espacio trasladando cinco carpetas de artefactos a un archivo en C:, con hashes verificados y junctions que mantienen las rutas de evidencia. [Registro del traslado](../reversing/RequestedValidation20261008/Diagnostics/disk-recovery-20261008.json). No se eliminaron evidencias acreditadas. Además se eliminaron 1079 archivos regenerables de compilación (1,36 GiB), dejando aproximadamente 24,67 GiB libres en D:. [Registro de limpieza](../reversing/RequestedValidation20261008/Diagnostics/regenerable-build-cleanup-20261008.json).
+
 ## Pendientes por clase
 
 Tabla generada desde `docs/hooks.csv`; cuenta `validated=0`, independientemente del bloqueo del hook.
@@ -222,7 +233,7 @@ El freeze relativo antiguo de TaskCtorDtor corresponde a preparación no ejecuta
 | CPickups | 35 |
 | CPlane | 14 |
 | CPlayerPed | 1 |
-| CPools | 16 |
+| CPools | 9 |
 | CPopulation | 64 |
 | CPostEffects | 35 |
 | CRadar | 63 |

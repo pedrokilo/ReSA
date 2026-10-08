@@ -1,0 +1,189 @@
+{
+  "asi_sha256": "05c66666a3e653eeaeab592fe4a7341ec1531703c253f20a48307ca9e53c5684",
+  "pdb_sha256": "30d9024bfe702dadf9e9be6794e6e35a471806b6b4e8275517b75b446cc43937",
+  "manifest_sha256": "adbf6ec2ca3590f68f73510514625b7b60fc8fdfc1ebd7da787f75a30885e322",
+  "pdb_rsds_match": true,
+  "passed": true,
+  "helper_call_paths_verified": true,
+  "separate_getmouse_ABIs_verified": true,
+  "actual_target_calls": {
+    "foreground": {
+      "site": "0x11b0020a",
+      "entry": "0x11097fa7",
+      "body": "0x1138fdd0",
+      "chain": [
+        [
+          "0x11097fa7",
+          "0x1138fdd0"
+        ]
+      ]
+    },
+    "exclusive": {
+      "site": "0x11b00236",
+      "entry": "0x1108cf76",
+      "body": "0x11344360",
+      "chain": [
+        [
+          "0x1108cf76",
+          "0x11344360"
+        ]
+      ]
+    },
+    "init": {
+      "site": "0x11b0025a",
+      "entry": "0x11094992",
+      "body": "0x1134e950",
+      "chain": [
+        [
+          "0x11094992",
+          "0x1134e950"
+        ]
+      ]
+    },
+    "getmouse": {
+      "site": "0x11b00277",
+      "entry": "0x110854bf",
+      "body": "0x11af5740",
+      "chain": [
+        [
+          "0x110854bf",
+          "0x11af5740"
+        ]
+      ]
+    },
+    "checkinput": {
+      "site": "0x11b00460",
+      "entry": "0x1106b8a3",
+      "body": "0x11ae1c40",
+      "chain": [
+        [
+          "0x1106b8a3",
+          "0x11ae1c40"
+        ]
+      ]
+    },
+    "settouched": {
+      "site": "0x11b0046f",
+      "entry": "0x11089dfd",
+      "body": "0x11aff4a0",
+      "chain": [
+        [
+          "0x11089dfd",
+          "0x11aff4a0"
+        ]
+      ]
+    }
+  },
+  "gate_operand_mapping": {
+    "foreground": {
+      "native": "0x746060",
+      "original": {
+        "operand_site": "0x11392c22",
+        "stub_entry": "0x1108913c",
+        "stub_body": "0x1138ef50",
+        "chain": [
+          [
+            "0x1108913c",
+            "0x1138ef50"
+          ]
+        ]
+      },
+      "candidate": {
+        "operand_site": "0x11392c1d",
+        "stub_entry": "0x1108913c",
+        "stub_body": "0x1138ef50",
+        "chain": [
+          [
+            "0x1108913c",
+            "0x1138ef50"
+          ]
+        ]
+      }
+    },
+    "exclusive": {
+      "native": "0x745ca0",
+      "original": {
+        "operand_site": "0x11392c8b",
+        "stub_entry": "0x110a3325",
+        "stub_body": "0x1138ed20",
+        "chain": [
+          [
+            "0x110a3325",
+            "0x1138ed20"
+          ]
+        ]
+      },
+      "candidate": {
+        "operand_site": "0x11392c86",
+        "stub_entry": "0x110a3325",
+        "stub_body": "0x1138ed20",
+        "chain": [
+          [
+            "0x110a3325",
+            "0x1138ed20"
+          ]
+        ]
+      }
+    },
+    "init": {
+      "native": "0x7469a0",
+      "original": {
+        "operand_site": "0x11392cf4",
+        "stub_entry": "0x11075bdc",
+        "stub_body": "0x1138f3a0",
+        "chain": [
+          [
+            "0x11075bdc",
+            "0x1138f3a0"
+          ]
+        ]
+      },
+      "candidate": {
+        "operand_site": "0x11392cef",
+        "stub_entry": "0x11075bdc",
+        "stub_body": "0x1138f3a0",
+        "chain": [
+          [
+            "0x11075bdc",
+            "0x1138f3a0"
+          ]
+        ]
+      }
+    },
+    "getmouse": {
+      "native": "0x746ed0",
+      "original": {
+        "operand_site": "0x11392d5d",
+        "stub_entry": "0x1109a743",
+        "stub_body": "0x11391ab0",
+        "chain": [
+          [
+            "0x1109a743",
+            "0x11391ab0"
+          ]
+        ]
+      },
+      "candidate": {
+        "operand_site": "0x11392d58",
+        "stub_entry": "0x1105f6b6",
+        "stub_body": "0x113919f0",
+        "chain": [
+          [
+            "0x1105f6b6",
+            "0x113919f0"
+          ]
+        ]
+      }
+    }
+  },
+  "pure_check_input": {
+    "native": "0x53f270",
+    "own_entry": "0x11ae1c40",
+    "own_body": "0x11ae1c40",
+    "compiled_redirect_operand": "0x11392fc2",
+    "native_bytes_preserved_by_runtime_gate": 128
+  },
+  "limitations": [
+    "Static call/ABI preparation only; native/DLL hook gates, all52 byte entry restores, strictFP and all17692 globals require runtime. No helper accreditation."
+  ]
+}

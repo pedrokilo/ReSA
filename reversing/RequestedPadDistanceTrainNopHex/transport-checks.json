@@ -1,0 +1,22 @@
+{
+  "synthetic_only": true,
+  "no_runtime_approval": true,
+  "canonical_parity_rows": 13952,
+  "same_oracle_rows": 13952,
+  "negative_codec_checks": [
+    "uppercase_hex",
+    "short_camera",
+    "odd_matrix",
+    "missing_vehicle",
+    "extra_field",
+    "deduplicated_camera_global",
+    "legacy_array_in_wire",
+    "bool_as_integer",
+    "float_as_integer",
+    "extra_FP_field",
+    "extra_trace_field",
+    "duplicate_json",
+    "nonfinite_json"
+  ],
+  "legacy_semantic_rejections": 7
+}

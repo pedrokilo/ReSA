@@ -1,0 +1,48 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsSixGettersV2\artifacts\gta_reversed-pools-six-getters-v2.asi
+
+File Type: DLL
+
+  11364DD0: 55                 push        ebp
+  11364DD1: 8B EC              mov         ebp,esp
+  11364DD3: 81 EC C0 00 00 00  sub         esp,0C0h
+  11364DD9: 53                 push        ebx
+  11364DDA: 56                 push        esi
+  11364DDB: 57                 push        edi
+  11364DDC: 8B FD              mov         edi,ebp
+  11364DDE: 33 C9              xor         ecx,ecx
+  11364DE0: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11364DE5: F3 AB              rep stos    dword ptr es:[edi]
+  11364DE7: E8 63 0D D3 FF     call        11095B4F
+  11364DEC: 0F B6 C0           movzx       eax,al
+  11364DEF: 85 C0              test        eax,eax
+  11364DF1: 74 21              je          11364E14
+  11364DF3: EB 09              jmp         11364DFE
+  11364DF5: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11364DF8: 83 C0 01           add         eax,1
+  11364DFB: 89 45 08           mov         dword ptr [ebp+8],eax
+  11364DFE: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11364E01: 3B 45 0C           cmp         eax,dword ptr [ebp+0Ch]
+  11364E04: 74 0E              je          11364E14
+  11364E06: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11364E09: 50                 push        eax
+  11364E0A: E8 11 A4 CF FF     call        1105F220
+  11364E0F: 83 C4 04           add         esp,4
+  11364E12: EB E1              jmp         11364DF5
+  11364E14: 5F                 pop         edi
+  11364E15: 5E                 pop         esi
+  11364E16: 5B                 pop         ebx
+  11364E17: 81 C4 C0 00 00 00  add         esp,0C0h
+  11364E1D: 3B EC              cmp         ebp,esp
+  11364E1F: E8 48 4E CF FF     call        11059C6C
+  11364E24: 8B E5              mov         esp,ebp
+  11364E26: 5D                 pop         ebp
+  11364E27: C3                 ret
+  11364E28: CC                 int         3
+
+  Summary
+
+     2165000 .text

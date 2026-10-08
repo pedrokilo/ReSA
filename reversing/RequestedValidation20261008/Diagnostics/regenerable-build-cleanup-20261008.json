@@ -1,0 +1,5421 @@
+{
+  "timestamp_utc": "2026-10-08T23:25:42.8258401Z",
+  "build_root": "D:\\Original\\gta-reversed-master\\build",
+  "allowed_extensions": [
+    ".obj",
+    ".pch",
+    ".ilk",
+    ".idb",
+    ".tlog"
+  ],
+  "files_deleted": 1079,
+  "bytes_deleted": 1458430558.0,
+  "free_before": {
+    "D": 25033564160,
+    "C": 223444791296
+  },
+  "free_after": {
+    "D": 26493665280,
+    "C": 223444795392
+  },
+  "directories_deleted": 0,
+  "tracked_files_deleted": 0,
+  "reparse_points_followed": 0,
+  "paths": [
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\Win32\\Debug\\ZERO_CHECK\\ZERO_CHECK.tlog\\CustomBuild.command.1.tlog",
+      "bytes": 580,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\Win32\\Debug\\ZERO_CHECK\\ZERO_CHECK.tlog\\CustomBuild.read.1.tlog",
+      "bytes": 7928,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\Win32\\Debug\\ZERO_CHECK\\ZERO_CHECK.tlog\\CustomBuild.write.1.tlog",
+      "bytes": 241,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\Win32\\Debug\\ALL_BUILD\\ALL_BUILD.tlog\\CustomBuild.command.1.tlog",
+      "bytes": 490,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\Win32\\Debug\\ALL_BUILD\\ALL_BUILD.tlog\\CustomBuild.read.1.tlog",
+      "bytes": 4929,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\Win32\\Debug\\ALL_BUILD\\ALL_BUILD.tlog\\CustomBuild.write.1.tlog",
+      "bytes": 114,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\2dEffect.obj",
+      "bytes": 1997352,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\3dMarker.obj",
+      "bytes": 274513,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\3dMarkers.obj",
+      "bytes": 1616200,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Accident.obj",
+      "bytes": 82512,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AccidentManager.obj",
+      "bytes": 254610,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Acquaintance.obj",
+      "bytes": 230355,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ActiveOccluder.obj",
+      "bytes": 246460,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEAmbienceTrackManager.obj",
+      "bytes": 321970,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEAudioChannel.obj",
+      "bytes": 312850,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEAudioEntity.obj",
+      "bytes": 231725,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEAudioEnvironment.obj",
+      "bytes": 290542,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEAudioHardware.obj",
+      "bytes": 808370,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEAudioUtility.obj",
+      "bytes": 289980,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEBankLoader.obj",
+      "bytes": 254601,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AECollisionAudioEntity.obj",
+      "bytes": 591686,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AECutsceneTrackManager.obj",
+      "bytes": 316282,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEDataStream.obj",
+      "bytes": 303981,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEDoorAudioEntity.obj",
+      "bytes": 292754,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEExplosionAudioEntity.obj",
+      "bytes": 274688,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEFireAudioEntity.obj",
+      "bytes": 279797,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEFrontendAudioEntity.obj",
+      "bytes": 297104,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEGlobalWeaponAudioEntity.obj",
+      "bytes": 348860,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEMFDecoder.obj",
+      "bytes": 282683,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEMP3BankLoader.obj",
+      "bytes": 314833,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEMP3TrackLoader.obj",
+      "bytes": 246499,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEPedAudioEntity.obj",
+      "bytes": 409917,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEPedlessSpeechAudioEntity.obj",
+      "bytes": 296327,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEPedSpeechAudioEntity.obj",
+      "bytes": 3922216,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEPedWeaponAudioEntity.obj",
+      "bytes": 244112,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEPoliceScannerAudioEntity.obj",
+      "bytes": 390901,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AERadioTrackManager.obj",
+      "bytes": 2854352,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEScriptAudioEntity.obj",
+      "bytes": 437580,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AESmoothFadeThread.obj",
+      "bytes": 278131,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AESound.obj",
+      "bytes": 378794,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AESoundManager.obj",
+      "bytes": 455487,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEStaticChannel.obj",
+      "bytes": 264186,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEStreamingChannel.obj",
+      "bytes": 349290,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEStreamingDecoder.obj",
+      "bytes": 223153,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEStreamThread.obj",
+      "bytes": 481594,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEStreamTransformer.obj",
+      "bytes": 220955,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AETrackLoader.obj",
+      "bytes": 217684,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AETwinLoopSoundEntity.obj",
+      "bytes": 348977,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEUserRadioTrackManager.obj",
+      "bytes": 2576261,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEVehicleAudioEntity.obj",
+      "bytes": 3425880,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEVorbisDecoder.obj",
+      "bytes": 282227,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEWaterCannonAudioEntity.obj",
+      "bytes": 295640,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEWaveDecoder.obj",
+      "bytes": 256700,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEWeaponAudioEntity.obj",
+      "bytes": 399707,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEWeatherAudioEntity.obj",
+      "bytes": 334504,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AEWMADecoder.obj",
+      "bytes": 344585,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AmbienceTrackManagerDebugModule.obj",
+      "bytes": 110876,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AngledRect.obj",
+      "bytes": 137861,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AnimAssocDefinitions.obj",
+      "bytes": 285448,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AnimatedBuilding.obj",
+      "bytes": 216808,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AnimBlendAssocGroup.obj",
+      "bytes": 326720,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AnimBlendAssociation.obj",
+      "bytes": 350086,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AnimBlendClumpData.obj",
+      "bytes": 244768,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AnimBlendHierarchy.obj",
+      "bytes": 286395,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AnimBlendNode.obj",
+      "bytes": 297717,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AnimBlendSequence.obj",
+      "bytes": 336503,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AnimBlendStaticAssociation.obj",
+      "bytes": 263714,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AnimManager.obj",
+      "bytes": 2210430,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\app_camera.obj",
+      "bytes": 95025,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\app_debug.obj",
+      "bytes": 2006739,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\app_game.obj",
+      "bytes": 1039063,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\app_input.obj",
+      "bytes": 260803,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\app_light.obj",
+      "bytes": 478020,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\app.obj",
+      "bytes": 1318807,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AtomicModelInfo.obj",
+      "bytes": 273994,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AttractorScanner.obj",
+      "bytes": 84317,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AudioDebugModule.obj",
+      "bytes": 498091,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AudioEngine.obj",
+      "bytes": 888127,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AudioZones.obj",
+      "bytes": 260599,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AudioZonesDebugModule.obj",
+      "bytes": 150016,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Automobile.obj",
+      "bytes": 3660349,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\AutoPilot.obj",
+      "bytes": 98074,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\BaseModelInfo.obj",
+      "bytes": 331320,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\BasicCommands.obj",
+      "bytes": 4160151,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Bike.obj",
+      "bytes": 1919205,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Birds.obj",
+      "bytes": 1987083,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Bmx.obj",
+      "bytes": 465611,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Boat.obj",
+      "bytes": 579157,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\BoneNode.obj",
+      "bytes": 370431,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\BoneNodeManager.obj",
+      "bytes": 1915531,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\BouncingPanel.obj",
+      "bytes": 256082,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\BoundingBox.obj",
+      "bytes": 83505,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Box.obj",
+      "bytes": 249173,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\BreakablePlugin.obj",
+      "bytes": 279719,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\BreakManager_c.obj",
+      "bytes": 247442,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\BreakObject_c.obj",
+      "bytes": 489198,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Bridge.obj",
+      "bytes": 220493,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\BrightLights.obj",
+      "bytes": 249360,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\BugsDebugModule.obj",
+      "bytes": 150785,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Building.obj",
+      "bytes": 250141,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\BulletInfo.obj",
+      "bytes": 297893,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\BulletTrace.obj",
+      "bytes": 82516,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\BulletTraces.obj",
+      "bytes": 263401,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Buoyancy.obj",
+      "bytes": 337559,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\C_PcSave.obj",
+      "bytes": 264807,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Cam.obj",
+      "bytes": 2416368,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Camera.obj",
+      "bytes": 2855583,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CameraCommands.obj",
+      "bytes": 4138170,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CarAI.obj",
+      "bytes": 588657,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CarCtrl.obj",
+      "bytes": 954217,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CarEnterExit.obj",
+      "bytes": 2331510,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CarFXRenderer.obj",
+      "bytes": 279587,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CarGenerator.obj",
+      "bytes": 1394429,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CDarkelDebugModule.obj",
+      "bytes": 194363,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CDebugMenuToolInput.obj",
+      "bytes": 822388,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CdStreamInfo.obj",
+      "bytes": 1298142,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\cHandlingDataMgr.obj",
+      "bytes": 317433,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CharacterCommands.obj",
+      "bytes": 6521529,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Cheat.obj",
+      "bytes": 1461188,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CheatDebugModule.obj",
+      "bytes": 130145,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Checkpoint.obj",
+      "bytes": 255887,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Checkpoints.obj",
+      "bytes": 300107,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CheckpointsDebugModule.obj",
+      "bytes": 167505,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CivilianPed.obj",
+      "bytes": 240210,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CLEOAudioStreamCommands.obj",
+      "bytes": 471188,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CLEOCharacterCommands.obj",
+      "bytes": 471182,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CLEODynamicLibraryCommands.obj",
+      "bytes": 471203,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CLEOFsCommands.obj",
+      "bytes": 471155,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CLEOGameCommands.obj",
+      "bytes": 471711,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CLEOGenericCommands.obj",
+      "bytes": 471172,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CLEOMemoryCommands.obj",
+      "bytes": 2047911,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CLEOPadCommands.obj",
+      "bytes": 471996,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CLEOScriptCommands.obj",
+      "bytes": 471165,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CLEOVehicleCommands.obj",
+      "bytes": 474104,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CLEOWorldCommands.obj",
+      "bytes": 475875,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Clock.obj",
+      "bytes": 270885,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ClockCommands.obj",
+      "bytes": 3504040,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Clothes.obj",
+      "bytes": 304376,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ClothesBuilder.obj",
+      "bytes": 2251352,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Clouds.obj",
+      "bytes": 610262,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CloudsDebugModule.obj",
+      "bytes": 139893,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ClumpModelInfo.obj",
+      "bytes": 319725,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\cmake_pch.obj",
+      "bytes": 6601514,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\cmake_pch.pch",
+      "bytes": 494469120,
+      "extension": ".pch"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\COcclusionDebugModule.obj",
+      "bytes": 200241,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ColAccel.obj",
+      "bytes": 300924,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ColBox.obj",
+      "bytes": 85194,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ColDisk.obj",
+      "bytes": 82516,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ColLine.obj",
+      "bytes": 222914,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Collision.obj",
+      "bytes": 2605506,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CollisionData.obj",
+      "bytes": 302811,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CollisionDebugModule.obj",
+      "bytes": 265881,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CollisionEventScanner.obj",
+      "bytes": 84587,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CollisionPlugin.obj",
+      "bytes": 231163,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ColModel.obj",
+      "bytes": 271133,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ColourSet.obj",
+      "bytes": 305266,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ColPoint.obj",
+      "bytes": 91754,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ColSphere.obj",
+      "bytes": 246539,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ColStore.obj",
+      "bytes": 1475196,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ColTriangle.obj",
+      "bytes": 118922,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ColTrianglePlane.obj",
+      "bytes": 242753,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CommandLine.obj",
+      "bytes": 1531592,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\common.obj",
+      "bytes": 706406,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CommonSize.obj",
+      "bytes": 1204539,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ComparasionCommands.obj",
+      "bytes": 471155,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CompressedBox.obj",
+      "bytes": 88969,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CompressedMatrixNotAligned.obj",
+      "bytes": 229248,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ControllerConfigManager.obj",
+      "bytes": 2272424,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ControllerState.obj",
+      "bytes": 218510,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ConversationCommands.obj",
+      "bytes": 3619261,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ConversationForPed.obj",
+      "bytes": 277625,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ConversationNode.obj",
+      "bytes": 246815,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Conversations.obj",
+      "bytes": 305970,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CopPed.obj",
+      "bytes": 1939372,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Coronas.obj",
+      "bytes": 417443,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Cover.obj",
+      "bytes": 427355,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CoverPoint.obj",
+      "bytes": 1998008,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CoverPointsDebugModule.obj",
+      "bytes": 361653,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CPickupsDebugModule.obj",
+      "bytes": 192350,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Cranes.obj",
+      "bytes": 226174,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Credits.obj",
+      "bytes": 389294,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CreepingFire.obj",
+      "bytes": 229151,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Crime.obj",
+      "bytes": 250192,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CStreamingDebugModule.obj",
+      "bytes": 132814,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CTeleportDebugModule.obj",
+      "bytes": 2517225,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\cTransmission.obj",
+      "bytes": 258984,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CullZones.obj",
+      "bytes": 304886,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CullZonesDebugModule.obj",
+      "bytes": 283239,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CurrentVehicle.obj",
+      "bytes": 221687,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Curves.obj",
+      "bytes": 321646,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CustomBuildingDNPipeline.obj",
+      "bytes": 348963,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CustomBuildingPipeline.obj",
+      "bytes": 302947,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CustomBuildingRenderer.obj",
+      "bytes": 253438,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CustomCarEnvMapPipeline_EnvAtm.obj",
+      "bytes": 110356,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CustomCarEnvMapPipeline_EnvMat.obj",
+      "bytes": 136809,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CustomCarEnvMapPipeline_SpecMat.obj",
+      "bytes": 118670,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CustomCarEnvMapPipeline.obj",
+      "bytes": 434538,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CustomCarPlateMgr.obj",
+      "bytes": 376042,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CustomRoadsignMgr.obj",
+      "bytes": 299156,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CutsceneMgr.obj",
+      "bytes": 674976,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CutsceneObject.obj",
+      "bytes": 328755,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\CutsceneTrackManagerDebugModule.obj",
+      "bytes": 117929,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\D3DIndexDataBuffer.obj",
+      "bytes": 82540,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\D3DResourceSystem.obj",
+      "bytes": 101173,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\D3DTextureBuffer.obj",
+      "bytes": 82540,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\DamageAtomicModelInfo.obj",
+      "bytes": 232975,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\DamageManager.obj",
+      "bytes": 410008,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Darkel.obj",
+      "bytes": 408083,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Data.obj",
+      "bytes": 87426,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Date.obj",
+      "bytes": 84028,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Debug.obj",
+      "bytes": 293716,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\DebugModule.obj",
+      "bytes": 83773,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\DebugModules.obj",
+      "bytes": 8781388,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Decision.obj",
+      "bytes": 251906,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\DecisionMaker.obj",
+      "bytes": 87048,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\DecisionMakerTypes.obj",
+      "bytes": 185657,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\DecisionMakerTypesFileLoader.obj",
+      "bytes": 273441,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\DecisionSimple.obj",
+      "bytes": 82536,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Directory.obj",
+      "bytes": 282072,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\dllmain.obj",
+      "bytes": 3910320,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Door.obj",
+      "bytes": 1916618,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\DoorDebugModule.obj",
+      "bytes": 151380,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Draw.obj",
+      "bytes": 246406,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\DrawCommands.obj",
+      "bytes": 3738957,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Dummy.obj",
+      "bytes": 239480,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\DummyObject.obj",
+      "bytes": 249345,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\DummyPed.obj",
+      "bytes": 82524,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\eCarWheel.obj",
+      "bytes": 1835820,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EmergencyPed.obj",
+      "bytes": 106297,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Entity.obj",
+      "bytes": 2798572,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EntityScanner.obj",
+      "bytes": 289939,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EntitySeekPosCalculator.obj",
+      "bytes": 82580,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EntitySeekPosCalculatorFixedPos.obj",
+      "bytes": 222499,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EntitySeekPosCalculatorRadiusAngleOffset.obj",
+      "bytes": 227920,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EntitySeekPosCalculatorStandard.obj",
+      "bytes": 223902,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EntitySeekPosCalculatorXYOffset.obj",
+      "bytes": 227511,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EntryExit.obj",
+      "bytes": 560777,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EntryExitManager.obj",
+      "bytes": 1475081,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EntryInfoList.obj",
+      "bytes": 213132,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EntryInfoNode.obj",
+      "bytes": 225725,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Escalator.obj",
+      "bytes": 285317,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Escalators.obj",
+      "bytes": 339940,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Event.obj",
+      "bytes": 254776,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventAcquaintancePed.obj",
+      "bytes": 248156,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventAcquaintancePedHate.obj",
+      "bytes": 251648,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventAcquaintancePedHateBadlyLit.obj",
+      "bytes": 268833,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventAreaCodes.obj",
+      "bytes": 287795,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventAttractor.obj",
+      "bytes": 434696,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventBuildingCollision.obj",
+      "bytes": 306084,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventCarUpsideDown.obj",
+      "bytes": 247057,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventChatPartner.obj",
+      "bytes": 110392,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventCopCarBeingStolen.obj",
+      "bytes": 246588,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventCreatePartnerTask.obj",
+      "bytes": 104259,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventDamage.obj",
+      "bytes": 433321,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventDanger.obj",
+      "bytes": 266277,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventDeadPed.obj",
+      "bytes": 355636,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventDeath.obj",
+      "bytes": 104321,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventDontJoinPlayerGroup.obj",
+      "bytes": 241384,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventDraggedOutCar.obj",
+      "bytes": 109174,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventEditableResponse.obj",
+      "bytes": 501471,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventEscalator.obj",
+      "bytes": 235565,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventFireNearby.obj",
+      "bytes": 124699,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventGlobalGroup.obj",
+      "bytes": 232506,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventGotKnockedOverByCar.obj",
+      "bytes": 106747,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventGroup.obj",
+      "bytes": 404042,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventGroupEvent.obj",
+      "bytes": 109409,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventGunAimedAt.obj",
+      "bytes": 112593,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventGunShot.obj",
+      "bytes": 263788,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventGunShotWhizzedBy.obj",
+      "bytes": 244590,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventHandler.obj",
+      "bytes": 4174298,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventHandlerHistory.obj",
+      "bytes": 265663,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventHitByWaterCannon.obj",
+      "bytes": 238165,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventInAir.obj",
+      "bytes": 237062,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventInteriorUseInfo.obj",
+      "bytes": 108496,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventInWater.obj",
+      "bytes": 103329,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventKnockOffBike.obj",
+      "bytes": 333943,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventLeaderEnteredCarAsDriver.obj",
+      "bytes": 288061,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventLeaderEntryExit.obj",
+      "bytes": 273351,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventLeaderExitedCarAsDriver.obj",
+      "bytes": 391507,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventLeaderQuitEnteringCarAsDriver.obj",
+      "bytes": 270668,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventLeanOnVehicle.obj",
+      "bytes": 244884,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventLowAngerAtPlayer.obj",
+      "bytes": 113524,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventNewGangMember.obj",
+      "bytes": 240778,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventObjectCollision.obj",
+      "bytes": 277399,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventOnFire.obj",
+      "bytes": 236033,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventPassObject.obj",
+      "bytes": 244404,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventPedCollisionWithPed.obj",
+      "bytes": 306897,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventPedCollisionWithPlayer.obj",
+      "bytes": 281037,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventPedEnteredMyVehicle.obj",
+      "bytes": 121014,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventPedToChase.obj",
+      "bytes": 103909,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventPedToFlee.obj",
+      "bytes": 103852,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventPlayerCollisionWithPed.obj",
+      "bytes": 281037,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventPlayerCommandToGroup.obj",
+      "bytes": 243575,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventPlayerCommandToGroupAttack.obj",
+      "bytes": 238384,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventPlayerCommandToGroupGather.obj",
+      "bytes": 233370,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventPotentialGetRunOver.obj",
+      "bytes": 119852,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventPotentialWalkIntoBuilding.obj",
+      "bytes": 151637,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventPotentialWalkIntoFire.obj",
+      "bytes": 246666,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventPotentialWalkIntoObject.obj",
+      "bytes": 247544,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventPotentialWalkIntoPed.obj",
+      "bytes": 259895,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventPotentialWalkIntoVehicle.obj",
+      "bytes": 260786,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventRevived.obj",
+      "bytes": 108023,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventScanner.obj",
+      "bytes": 99743,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventScriptCommand.obj",
+      "bytes": 278044,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventScriptedAttractor.obj",
+      "bytes": 404349,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventSeenCop.obj",
+      "bytes": 251195,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventSeenPanickedPed.obj",
+      "bytes": 260043,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventSexyPed.obj",
+      "bytes": 370686,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventSexyVehicle.obj",
+      "bytes": 110361,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventSignalAtPed.obj",
+      "bytes": 103681,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventSoundLoud.obj",
+      "bytes": 105992,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventSoundQuiet.obj",
+      "bytes": 255583,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventSource.obj",
+      "bytes": 84291,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventSpecial.obj",
+      "bytes": 112717,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventStuckInAir.obj",
+      "bytes": 254533,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventVehicleCollision.obj",
+      "bytes": 252416,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventVehicleDamage.obj",
+      "bytes": 254137,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventVehicleDamageCollision.obj",
+      "bytes": 235459,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventVehicleDamageWeapon.obj",
+      "bytes": 235222,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventVehicleDied.obj",
+      "bytes": 248365,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventVehicleHitAndRun.obj",
+      "bytes": 244018,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventVehicleOnFire.obj",
+      "bytes": 247758,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventVehicleThreat.obj",
+      "bytes": 106138,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\EventVehicleToSteal.obj",
+      "bytes": 263815,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Explosion.obj",
+      "bytes": 362701,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FallingGlassPane.obj",
+      "bytes": 279629,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FileLoader.obj",
+      "bytes": 1180229,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FileMgr.obj",
+      "bytes": 908672,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Fire.obj",
+      "bytes": 300637,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FireManager.obj",
+      "bytes": 417047,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Font.obj",
+      "bytes": 473667,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Formation.obj",
+      "bytes": 361383,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Furniture_c.obj",
+      "bytes": 82636,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FurnitureGroup_c.obj",
+      "bytes": 281214,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FurnitureManager_c.obj",
+      "bytes": 621364,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FurnitureSubGroup_c.obj",
+      "bytes": 251364,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Fx.obj",
+      "bytes": 315619,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxBox.obj",
+      "bytes": 82508,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxEmitter.obj",
+      "bytes": 241184,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxEmitterBP.obj",
+      "bytes": 493190,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxEmitterPrt.obj",
+      "bytes": 213147,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxFrustumInfo.obj",
+      "bytes": 86892,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfo.obj",
+      "bytes": 330538,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoAnimTexture.obj",
+      "bytes": 346420,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoAttractLine.obj",
+      "bytes": 360141,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoAttractPt.obj",
+      "bytes": 349236,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoColour.obj",
+      "bytes": 346850,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoColourBright.obj",
+      "bytes": 347202,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoColourRange.obj",
+      "bytes": 348026,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoDir.obj",
+      "bytes": 347028,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoEmAngle.obj",
+      "bytes": 346096,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoEmDir.obj",
+      "bytes": 346577,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoEmLife.obj",
+      "bytes": 346028,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoEmPos.obj",
+      "bytes": 346645,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoEmRate.obj",
+      "bytes": 346852,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoEmRotation.obj",
+      "bytes": 346240,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoEmSize.obj",
+      "bytes": 346280,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoEmSpeed.obj",
+      "bytes": 346028,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoEmWeather.obj",
+      "bytes": 346404,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoFlat.obj",
+      "bytes": 346306,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoFloat.obj",
+      "bytes": 345278,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoForce.obj",
+      "bytes": 347707,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoFriction.obj",
+      "bytes": 348110,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoGroundCollide.obj",
+      "bytes": 353521,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoHeatHaze.obj",
+      "bytes": 345374,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoJitter.obj",
+      "bytes": 347393,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoManager.obj",
+      "bytes": 2188019,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoNoise.obj",
+      "bytes": 347838,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoRotSpeed.obj",
+      "bytes": 347819,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoSelfLit.obj",
+      "bytes": 345118,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoSize.obj",
+      "bytes": 346238,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoSmoke.obj",
+      "bytes": 346240,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoSpriteRect.obj",
+      "bytes": 346452,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoTrail.obj",
+      "bytes": 346214,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoUnderwater.obj",
+      "bytes": 345508,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInfoWind.obj",
+      "bytes": 347745,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInterpInfo.obj",
+      "bytes": 327340,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInterpInfo255.obj",
+      "bytes": 1875867,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInterpInfo32.obj",
+      "bytes": 1875833,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInterpInfoFloat.obj",
+      "bytes": 1878858,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxInterpInfoU255.obj",
+      "bytes": 1874862,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxManager.obj",
+      "bytes": 1692437,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxMemoryPool.obj",
+      "bytes": 227687,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxPlane_c.obj",
+      "bytes": 82516,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxPrim.obj",
+      "bytes": 89774,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxPrimBP.obj",
+      "bytes": 1912499,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxPrtMult.obj",
+      "bytes": 86429,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxSphere.obj",
+      "bytes": 234424,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxSystem.obj",
+      "bytes": 445842,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxSystemBP.obj",
+      "bytes": 451005,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\FxTools.obj",
+      "bytes": 324739,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Game.obj",
+      "bytes": 2645405,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\GameCommands.obj",
+      "bytes": 4389221,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\GameLogic.obj",
+      "bytes": 666886,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Gamma.obj",
+      "bytes": 227728,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Gangs.obj",
+      "bytes": 277824,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\GangWars.obj",
+      "bytes": 3437228,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\GangWarsSaveStructure.obj",
+      "bytes": 126570,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Garage.obj",
+      "bytes": 272997,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Garages.obj",
+      "bytes": 409453,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\General.obj",
+      "bytes": 267518,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\GenericCommands.obj",
+      "bytes": 471139,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\GenericGameStorage.obj",
+      "bytes": 1863670,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Glass.obj",
+      "bytes": 460171,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\GrassRenderer.obj",
+      "bytes": 297164,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\GridRef.obj",
+      "bytes": 244157,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\GroupEventHandler.obj",
+      "bytes": 2918485,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\gta_reversed.ilk",
+      "bytes": 259492802,
+      "extension": ".ilk"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\GxtChar.obj",
+      "bytes": 2088079,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\HandObject.obj",
+      "bytes": 243226,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\HandShaker.obj",
+      "bytes": 236892,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\HeapBlockDesc.obj",
+      "bytes": 91284,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\HeapFreeBlockDesc.obj",
+      "bytes": 89440,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Heli.obj",
+      "bytes": 350399,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\HooksDebugModule.obj",
+      "bytes": 2405723,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Hud.obj",
+      "bytes": 802951,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\HudColours.obj",
+      "bytes": 246482,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\IdleCam.obj",
+      "bytes": 342560,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\IKChain.obj",
+      "bytes": 1388743,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\IKChainManager.obj",
+      "bytes": 2094104,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\imgui_impl_dx9.obj",
+      "bytes": 155997,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\imgui_impl_sdl3.obj",
+      "bytes": 223191,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\imgui_stdlib.obj",
+      "bytes": 153505,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ImGuiDebugModule.obj",
+      "bytes": 136958,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\InformFriendsEventQueue.obj",
+      "bytes": 236246,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\InformGroupEvent.obj",
+      "bytes": 234440,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\InformGroupEventQueue.obj",
+      "bytes": 257840,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\IniFile.obj",
+      "bytes": 226786,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\InjectHooksMain.obj",
+      "bytes": 5108425,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\InterestingEvents.obj",
+      "bytes": 311758,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Interior_c.obj",
+      "bytes": 1006185,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\InteriorGroup_c.obj",
+      "bytes": 2098364,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\InteriorManager_c.obj",
+      "bytes": 436607,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\IplStore.obj",
+      "bytes": 2613571,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\JPegCompress.obj",
+      "bytes": 1927892,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\KeyArray.obj",
+      "bytes": 93969,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\KeyboardState.obj",
+      "bytes": 212714,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\KeyGen.obj",
+      "bytes": 228041,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Lines.obj",
+      "bytes": 100999,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ListItem_c.obj",
+      "bytes": 82520,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\LoadedCarGroup.obj",
+      "bytes": 2137609,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\LoadingScreen.obj",
+      "bytes": 1711347,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\LoadMonitor.obj",
+      "bytes": 500287,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\LoadMonitorDebugModule.obj",
+      "bytes": 138432,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Localisation.obj",
+      "bytes": 247051,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\LodAtomicModelInfo.obj",
+      "bytes": 233222,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\LodTimeModelInfo.obj",
+      "bytes": 213981,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MathCommands.obj",
+      "bytes": 3541173,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Maths.obj",
+      "bytes": 229379,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Matrix.obj",
+      "bytes": 377254,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MatrixLink.obj",
+      "bytes": 217706,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MatrixLinkList.obj",
+      "bytes": 256436,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MBlur.obj",
+      "bytes": 100905,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MemoryHeap.obj",
+      "bytes": 1293700,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MemoryMgr.obj",
+      "bytes": 232463,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MentalHealth.obj",
+      "bytes": 85909,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MenuManager_Draw.obj",
+      "bytes": 2376803,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MenuManager_Gallery.obj",
+      "bytes": 82540,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MenuManager_Input.obj",
+      "bytes": 773589,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MenuManager_Internal.obj",
+      "bytes": 101272,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MenuManager_Pages.obj",
+      "bytes": 203030,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MenuManager_Process.obj",
+      "bytes": 282430,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MenuManager.obj",
+      "bytes": 711443,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MenuSystem.obj",
+      "bytes": 387060,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Messages.obj",
+      "bytes": 480988,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Mirrors.obj",
+      "bytes": 506605,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MissionCleanup.obj",
+      "bytes": 122434,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MissionCommands.obj",
+      "bytes": 3658871,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MissionDebugModule.obj",
+      "bytes": 1758543,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MissionTextOffsets.obj",
+      "bytes": 86189,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ModelIndices.obj",
+      "bytes": 424129,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ModelInfo.obj",
+      "bytes": 402588,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ModelInfoAccelerator.obj",
+      "bytes": 1210330,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MonsterTruck.obj",
+      "bytes": 327163,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MotionBlurStreaks.obj",
+      "bytes": 240047,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MouseControllerState.obj",
+      "bytes": 228170,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\MovingThings.obj",
+      "bytes": 225564,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\NodeAddress.obj",
+      "bytes": 82516,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\NodeName.obj",
+      "bytes": 230685,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\NodeRoute.obj",
+      "bytes": 224854,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Object.obj",
+      "bytes": 1030982,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ObjectCommands.obj",
+      "bytes": 4089831,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ObjectData.obj",
+      "bytes": 240821,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ObjectSaveStructure.obj",
+      "bytes": 215673,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ObjectScanner.obj",
+      "bytes": 84433,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Occluder.obj",
+      "bytes": 314632,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Occlusion.obj",
+      "bytes": 284274,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\OctTree.obj",
+      "bytes": 1290302,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\OctTreeBase.obj",
+      "bytes": 106091,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\OnscreenCounterEntry.obj",
+      "bytes": 240122,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\OnscreenTimer.obj",
+      "bytes": 251802,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\OnscreenTimerEntry.obj",
+      "bytes": 109263,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\oswrapper_win.obj",
+      "bytes": 1239105,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Pad_SDL.obj",
+      "bytes": 1238801,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Pad.obj",
+      "bytes": 1654099,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PadCommands.obj",
+      "bytes": 3514384,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ParticleDebugModule.obj",
+      "bytes": 127746,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PathCommands.obj",
+      "bytes": 3465666,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PathFind.obj",
+      "bytes": 3020245,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Ped.obj",
+      "bytes": 3240121,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedAttractor.obj",
+      "bytes": 621842,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedAttractorManager.obj",
+      "bytes": 3360113,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedAttractorPedPlacer.obj",
+      "bytes": 224566,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedClothesDesc.obj",
+      "bytes": 304604,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedCommands.obj",
+      "bytes": 3467286,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedDamageResponse.obj",
+      "bytes": 82528,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedDamageResponseCalculator.obj",
+      "bytes": 351297,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedDebugModule.obj",
+      "bytes": 2823967,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedDebugVisualiser.obj",
+      "bytes": 95967,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedGeometryAnalyser.obj",
+      "bytes": 2216420,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedGroup.obj",
+      "bytes": 364315,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedGroupIntelligence.obj",
+      "bytes": 2356355,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedGroupMembership.obj",
+      "bytes": 529423,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedGroupPlacer.obj",
+      "bytes": 2213433,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedGroups.obj",
+      "bytes": 249404,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedIK.obj",
+      "bytes": 337263,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedIntelligence.obj",
+      "bytes": 1246124,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedList.obj",
+      "bytes": 438996,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedModelInfo.obj",
+      "bytes": 264435,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedPlacement.obj",
+      "bytes": 287571,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedSaveStructure.obj",
+      "bytes": 86228,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedScanner.obj",
+      "bytes": 84213,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedScriptedTaskRecord.obj",
+      "bytes": 294751,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedShelterAttractor.obj",
+      "bytes": 345934,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedStats.obj",
+      "bytes": 236274,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedStuckChecker.obj",
+      "bytes": 84535,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedTaskPair.obj",
+      "bytes": 213157,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedToPlayerConversations.obj",
+      "bytes": 497092,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PedType.obj",
+      "bytes": 293674,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Physical.obj",
+      "bytes": 2712231,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Pickup.obj",
+      "bytes": 400036,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Pickups.obj",
+      "bytes": 1853867,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PipelinePlugin.obj",
+      "bytes": 228382,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Placeable.obj",
+      "bytes": 313279,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PlaceName.obj",
+      "bytes": 250063,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Plane.obj",
+      "bytes": 877769,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PlaneBanners.obj",
+      "bytes": 84856,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PlaneTrail.obj",
+      "bytes": 315869,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PlaneTrails.obj",
+      "bytes": 245698,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PlantColEntEntry.obj",
+      "bytes": 254605,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PlantLocTri.obj",
+      "bytes": 301184,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PlantMgr.obj",
+      "bytes": 1532669,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PlantSurfPropMgr.obj",
+      "bytes": 270128,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\platform.obj",
+      "bytes": 351263,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PlayerCommands.obj",
+      "bytes": 4635920,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PlayerInfo.obj",
+      "bytes": 598621,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PlayerPed.obj",
+      "bytes": 683241,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PlayerPedData.obj",
+      "bytes": 232852,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PlayerRelationshipRecorder.obj",
+      "bytes": 105586,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PlayerSkin.obj",
+      "bytes": 246956,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PluginBase.obj",
+      "bytes": 84905,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PointLights.obj",
+      "bytes": 94353,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PointList.obj",
+      "bytes": 88274,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PoliceScannerAudioEntityDebugModule.obj",
+      "bytes": 151533,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PolyBunch.obj",
+      "bytes": 82512,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Pools.obj",
+      "bytes": 2810630,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PoolsDebugModule.obj",
+      "bytes": 399377,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PopCycle.obj",
+      "bytes": 2167395,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Population.obj",
+      "bytes": 4259415,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PostEffects.obj",
+      "bytes": 1854225,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PostEffectsDebugModule.obj",
+      "bytes": 238585,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PPTriPlantBuffer.obj",
+      "bytes": 283166,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\preset_view.obj",
+      "bytes": 1847794,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ProcObjectDebugModule.obj",
+      "bytes": 2274616,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ProcObjectMan.obj",
+      "bytes": 272261,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ProcSurfaceInfo.obj",
+      "bytes": 293043,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Projectile.obj",
+      "bytes": 94650,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ProjectileInfo.obj",
+      "bytes": 561807,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PtrNodeDoubleLink.obj",
+      "bytes": 95463,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\PtrNodeSingleLink.obj",
+      "bytes": 92738,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\QuadBike.obj",
+      "bytes": 381288,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Quaternion.obj",
+      "bytes": 231961,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Radar.obj",
+      "bytes": 2726838,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Range2D.obj",
+      "bytes": 87384,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Range3D.obj",
+      "bytes": 87498,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\RealTimeShadow.obj",
+      "bytes": 264223,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\RealTimeShadowManager.obj",
+      "bytes": 294643,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Rect.obj",
+      "bytes": 254095,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\References.obj",
+      "bytes": 241169,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\RegisteredCorona.obj",
+      "bytes": 243655,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\RegisteredMotionBlurStreak.obj",
+      "bytes": 228467,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Remote.obj",
+      "bytes": 85926,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\RenderBuffer.obj",
+      "bytes": 239691,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Renderer.obj",
+      "bytes": 893014,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Replay.obj",
+      "bytes": 2432705,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ReplayBlockType.obj",
+      "bytes": 185510,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Restart.obj",
+      "bytes": 304664,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ReversibleHooks.obj",
+      "bytes": 3145417,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\RideAnims.obj",
+      "bytes": 82512,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\RoadBlocks.obj",
+      "bytes": 2268232,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Rope.obj",
+      "bytes": 1998742,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Ropes.obj",
+      "bytes": 289409,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\RpAnimBlend.obj",
+      "bytes": 658203,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\rpanisot.obj",
+      "bytes": 85597,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\rpdbgerr.obj",
+      "bytes": 82752,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\rphanim.obj",
+      "bytes": 104257,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\rpmatfx.obj",
+      "bytes": 109178,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\rpskin.obj",
+      "bytes": 100347,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\rpuvanim.obj",
+      "bytes": 106898,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\rpworld.obj",
+      "bytes": 323661,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\rtanim.obj",
+      "bytes": 235339,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\rtbmp.obj",
+      "bytes": 84041,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\rtdict.obj",
+      "bytes": 96498,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\rtpng.obj",
+      "bytes": 84041,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\rtquat.obj",
+      "bytes": 86534,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\rtslerp.obj",
+      "bytes": 83472,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Rubbish.obj",
+      "bytes": 83190,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\RunningScript.obj",
+      "bytes": 2424212,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\rwcore.obj",
+      "bytes": 458032,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\RwHelper.obj",
+      "bytes": 331385,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\rwplcore.obj",
+      "bytes": 174018,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\rwtexdict.obj",
+      "bytes": 95709,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Scene.obj",
+      "bytes": 84230,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ScriptCommands.obj",
+      "bytes": 4137197,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ScriptDebugModule.obj",
+      "bytes": 109994,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Scripted2dEffects.obj",
+      "bytes": 342497,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ScriptedBrainTaskStore.obj",
+      "bytes": 262202,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ScriptResourceManager.obj",
+      "bytes": 250489,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ScriptsForBrains.obj",
+      "bytes": 291835,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\SDLWrapper.obj",
+      "bytes": 1224074,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\SearchLight.obj",
+      "bytes": 89202,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Securom.obj",
+      "bytes": 1219707,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\SequenceCommands.obj",
+      "bytes": 3480631,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\SetPiece.obj",
+      "bytes": 1349613,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\SetPieces.obj",
+      "bytes": 243715,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ShadowCamera.obj",
+      "bytes": 350981,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Shadows.obj",
+      "bytes": 839968,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ShinyTexts.obj",
+      "bytes": 269501,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Shopping.obj",
+      "bytes": 471781,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ShotInfo.obj",
+      "bytes": 314429,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Simple.obj",
+      "bytes": 1227134,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\SimpleTransform.obj",
+      "bytes": 86753,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\SimpleVariablesSaveStructure.obj",
+      "bytes": 301444,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Skidmark.obj",
+      "bytes": 1899814,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Skidmarks.obj",
+      "bytes": 259070,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\SoundManagerDebugModule.obj",
+      "bytes": 262987,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\SpawnerDebugModule.obj",
+      "bytes": 451951,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\SpecialFX.obj",
+      "bytes": 1280405,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\SpecialPlateHandler.obj",
+      "bytes": 231636,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Sphere.obj",
+      "bytes": 100615,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Sprite.obj",
+      "bytes": 2236022,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Sprite2d.obj",
+      "bytes": 414669,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\StatCommands.obj",
+      "bytes": 3586998,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Stats.obj",
+      "bytes": 519766,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\StdInc.obj",
+      "bytes": 82500,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\StencilShadowObject.obj",
+      "bytes": 227611,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\StencilShadows.obj",
+      "bytes": 423695,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\StreamedScripts.obj",
+      "bytes": 277575,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Streaming.obj",
+      "bytes": 3501886,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\StreamingInfo.obj",
+      "bytes": 251193,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\StuckCarCheck.obj",
+      "bytes": 270452,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\StuntJumpManager.obj",
+      "bytes": 587048,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\SurfaceInfos_c.obj",
+      "bytes": 388284,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TagManager.obj",
+      "bytes": 1454412,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Task.obj",
+      "bytes": 243640,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskAllocator.obj",
+      "bytes": 239516,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskAllocatorAttack.obj",
+      "bytes": 267606,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskAllocatorKillOnFoot.obj",
+      "bytes": 332409,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskAllocatorKillThreatsBasic.obj",
+      "bytes": 472192,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskAllocatorKillThreatsBasicRandomGroup.obj",
+      "bytes": 441698,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskAllocatorKillThreatsDriveby.obj",
+      "bytes": 399677,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskAllocatorPlayerCommandAttack.obj",
+      "bytes": 312099,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskAllocatorPlayerCommandRetreat.obj",
+      "bytes": 100828,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskAllocatorRetreat.obj",
+      "bytes": 100146,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskCategories.obj",
+      "bytes": 86182,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexArrestPed.obj",
+      "bytes": 632507,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexAttractorPartnerWait.obj",
+      "bytes": 265565,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexAvoidEntity.obj",
+      "bytes": 197043,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexAvoidOtherPedWhileWandering.obj",
+      "bytes": 599960,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexBeCop.obj",
+      "bytes": 272438,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexBeInCouple.obj",
+      "bytes": 490419,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexBeInGroup.obj",
+      "bytes": 289100,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexBeStill.obj",
+      "bytes": 284489,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexCarDrive.obj",
+      "bytes": 378034,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexCarDriveMission.obj",
+      "bytes": 332970,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexCarSlowBeDraggedOut.obj",
+      "bytes": 340725,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexCarSlowBeDraggedOutAndStandUp.obj",
+      "bytes": 336811,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexChat.obj",
+      "bytes": 317162,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexClimb.obj",
+      "bytes": 254511,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexCopInCar.obj",
+      "bytes": 433379,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexCrossRoadLookAndAchieveHeading.obj",
+      "bytes": 309592,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexDestroyCar.obj",
+      "bytes": 305395,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexDestroyCarArmed.obj",
+      "bytes": 567980,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexDestroyCarMelee.obj",
+      "bytes": 551126,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexDie.obj",
+      "bytes": 1989268,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexDieInCar.obj",
+      "bytes": 358858,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexDiveFromAttachedEntityAndGetUp.obj",
+      "bytes": 276909,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexDragPedFromCar.obj",
+      "bytes": 253167,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexDriveFireTruck.obj",
+      "bytes": 333438,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexDrivePointRoute.obj",
+      "bytes": 290420,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexDriveToPoint.obj",
+      "bytes": 313077,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexDriveWander.obj",
+      "bytes": 263502,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexEnterAnyCarAsDriver.obj",
+      "bytes": 272907,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexEnterBoatAsDriver.obj",
+      "bytes": 339609,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexEnterCar.obj",
+      "bytes": 902494,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexEnterCarAsDriver.obj",
+      "bytes": 237488,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexEnterCarAsDriverTimed.obj",
+      "bytes": 298103,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexEnterCarAsPassenger.obj",
+      "bytes": 241632,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexEnterCarAsPassengerTimed.obj",
+      "bytes": 300621,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexEnterCarAsPassengerWait.obj",
+      "bytes": 383646,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexEvasiveCower.obj",
+      "bytes": 318635,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexEvasiveDiveAndGetUp.obj",
+      "bytes": 329251,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexEvasiveStep.obj",
+      "bytes": 302720,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexExtinguishFireOnFoot.obj",
+      "bytes": 197583,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexExtinguishFires.obj",
+      "bytes": 311728,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFacial.obj",
+      "bytes": 309158,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFallAndGetUp.obj",
+      "bytes": 313301,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFallAndStayDown.obj",
+      "bytes": 197287,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFallToDeath.obj",
+      "bytes": 1992729,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFleeAnyMeans.obj",
+      "bytes": 393969,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFleeEntity.obj",
+      "bytes": 485107,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFleePoint.obj",
+      "bytes": 535654,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFleeShooting.obj",
+      "bytes": 330127,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFollowLeaderAnyMeans.obj",
+      "bytes": 416405,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFollowLeaderInFormation.obj",
+      "bytes": 508726,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFollowNodeRoute.obj",
+      "bytes": 457023,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFollowNodeRouteShooting.obj",
+      "bytes": 193674,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFollowPatrolRoute.obj",
+      "bytes": 197399,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFollowPedFootsteps.obj",
+      "bytes": 251947,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexFollowPointRoute.obj",
+      "bytes": 457825,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexGangFollower.obj",
+      "bytes": 834737,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexGangJoinRespond.obj",
+      "bytes": 366056,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexGangLeader.obj",
+      "bytes": 717245,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexGetOnBoatSeat.obj",
+      "bytes": 290961,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexGetUpAndStandStill.obj",
+      "bytes": 288193,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexGoToAttractor.obj",
+      "bytes": 302275,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexGoToBoatSteeringWheel.obj",
+      "bytes": 313207,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexGoToCarDoorAndStandStill.obj",
+      "bytes": 434659,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexGotoDoorAndOpen.obj",
+      "bytes": 366252,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexGoToPointAiming.obj",
+      "bytes": 337638,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexGoToPointAndStandStill.obj",
+      "bytes": 2319147,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexGoToPointAndStandStillAndAchieveHeading.obj",
+      "bytes": 317397,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexGoToPointAndStandStillTimed.obj",
+      "bytes": 276226,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexGoToPointAnyMeans.obj",
+      "bytes": 354246,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexGoToPointShooting.obj",
+      "bytes": 248058,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexGoToPointUntilCollisionAndStandStill.obj",
+      "bytes": 193729,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexHitByGunResponse.obj",
+      "bytes": 314020,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexHitPedWithCar.obj",
+      "bytes": 377908,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexHitResponse.obj",
+      "bytes": 309172,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexInAirAndLand.obj",
+      "bytes": 333566,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexInvestigateDeadPed.obj",
+      "bytes": 523484,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexInvestigateDisturbance.obj",
+      "bytes": 710650,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexInWater.obj",
+      "bytes": 357305,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexJump.obj",
+      "bytes": 341003,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexKillAllThreats.obj",
+      "bytes": 197223,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexKillCriminal.obj",
+      "bytes": 2287423,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexKillPedFromBoat.obj",
+      "bytes": 289739,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexKillPedGroupOnFoot.obj",
+      "bytes": 327115,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexKillPedOnFoot.obj",
+      "bytes": 252392,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexKillPedOnFootArmed.obj",
+      "bytes": 2381864,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexKillPedOnFootMelee.obj",
+      "bytes": 574154,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexKillPedOnFootStealth.obj",
+      "bytes": 341646,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexLeaveAnyCar.obj",
+      "bytes": 282252,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexLeaveBoat.obj",
+      "bytes": 286313,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexLeaveCar.obj",
+      "bytes": 210289,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexLeaveCarAndDie.obj",
+      "bytes": 239672,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexLeaveCarAndFlee.obj",
+      "bytes": 366538,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexLeaveCarAndWander.obj",
+      "bytes": 308755,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexLeaveCarAsPassengerWait.obj",
+      "bytes": 354619,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexMedicTreatInjuredPed.obj",
+      "bytes": 425220,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexMoveBackAndJump.obj",
+      "bytes": 303181,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexObserveTrafficLights.obj",
+      "bytes": 314385,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexObserveTrafficLightsAndAchieveHeading.obj",
+      "bytes": 288381,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexOnFire.obj",
+      "bytes": 296286,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexOpenDriverDoor.obj",
+      "bytes": 258080,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexOpenPassengerDoor.obj",
+      "bytes": 258573,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexPartner.obj",
+      "bytes": 253539,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexPartnerChat.obj",
+      "bytes": 253656,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexPartnerDeal.obj",
+      "bytes": 253924,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexPartnerGreet.obj",
+      "bytes": 414119,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexPartnerShove.obj",
+      "bytes": 250500,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexPassObject.obj",
+      "bytes": 488502,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexPlayHandSignalAnim.obj",
+      "bytes": 549864,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexPolicePursuit.obj",
+      "bytes": 598628,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexPresentIDToCop.obj",
+      "bytes": 197235,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexProstituteSolicit.obj",
+      "bytes": 713545,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexReactToAttack.obj",
+      "bytes": 197159,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexReactToGunAimedAt.obj",
+      "bytes": 394907,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexRoadRage.obj",
+      "bytes": 578962,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexScreamInCarThenLeave.obj",
+      "bytes": 325355,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexSeekCoverUntilTargetDead.obj",
+      "bytes": 560540,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexSeekEntityAiming.obj",
+      "bytes": 543413,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexSeekEntityAnyMeansXYOffset.obj",
+      "bytes": 326406,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexSeekEntityRadiusAngleOffset.obj",
+      "bytes": 522021,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexSeekEntityStandard.obj",
+      "bytes": 512064,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexSeekEntityXYOffset.obj",
+      "bytes": 304561,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexSequence.obj",
+      "bytes": 336763,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexShuffleSeats.obj",
+      "bytes": 334809,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexSignalAtPed.obj",
+      "bytes": 536687,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexSitDownThenIdleThenStandUp.obj",
+      "bytes": 362239,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexSmartFleeEntity.obj",
+      "bytes": 489557,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexSmartFleePoint.obj",
+      "bytes": 550459,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexStareAtPed.obj",
+      "bytes": 551729,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexStealCar.obj",
+      "bytes": 360150,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexStuckInAir.obj",
+      "bytes": 376476,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexSunbathe.obj",
+      "bytes": 338640,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexTrackEntity.obj",
+      "bytes": 355678,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexTreatAccident.obj",
+      "bytes": 463574,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexTurnToFaceEntityOrCoord.obj",
+      "bytes": 322290,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexUseAttractor.obj",
+      "bytes": 365542,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexUseAttractorPartner.obj",
+      "bytes": 279397,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexUseClosestFreeScriptedAttractor.obj",
+      "bytes": 313491,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexUseClosestFreeScriptedAttractorRun.obj",
+      "bytes": 262875,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexUseClosestFreeScriptedAttractorSprint.obj",
+      "bytes": 263251,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexUseEffect.obj",
+      "bytes": 365989,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexUseEffectRunning.obj",
+      "bytes": 237898,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexUseEffectSprinting.obj",
+      "bytes": 238072,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexUseEntryExit.obj",
+      "bytes": 193126,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexUseGoggles.obj",
+      "bytes": 288672,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexUseMobilePhone.obj",
+      "bytes": 194664,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexUsePairedAttractor.obj",
+      "bytes": 339410,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexUseScriptedAttractor.obj",
+      "bytes": 279708,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexUseScriptedBrain.obj",
+      "bytes": 275413,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexUseSequence.obj",
+      "bytes": 256820,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexUseSwatRope.obj",
+      "bytes": 332196,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexUseWaterCannon.obj",
+      "bytes": 285041,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWaitAtAttractor.obj",
+      "bytes": 280659,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWaitForBackup.obj",
+      "bytes": 325806,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWaitForBus.obj",
+      "bytes": 300340,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWaitForDryWeather.obj",
+      "bytes": 278120,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWaitForPed.obj",
+      "bytes": 197319,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWalkAlongsidePed.obj",
+      "bytes": 555830,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWalkRoundBuildingAttempt.obj",
+      "bytes": 426157,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWalkRoundCar.obj",
+      "bytes": 361812,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWalkRoundFire.obj",
+      "bytes": 303668,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWalkRoundObject.obj",
+      "bytes": 248036,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWander.obj",
+      "bytes": 632903,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWanderCop.obj",
+      "bytes": 488494,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWanderCriminal.obj",
+      "bytes": 281557,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWanderFlee.obj",
+      "bytes": 266102,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWanderGang.obj",
+      "bytes": 261856,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWanderMedic.obj",
+      "bytes": 257815,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWanderProstitute.obj",
+      "bytes": 335508,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskComplexWanderStandard.obj",
+      "bytes": 389101,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskGangHasslePed.obj",
+      "bytes": 594367,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskGangHassleVehicle.obj",
+      "bytes": 602233,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskGoToVehicleAndLean.obj",
+      "bytes": 392855,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskInteriorBeInHouse.obj",
+      "bytes": 280726,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskInteriorBeInOffice.obj",
+      "bytes": 278759,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskInteriorBeInShop.obj",
+      "bytes": 456902,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskInteriorGoToInfo.obj",
+      "bytes": 325054,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskInteriorLieInBed.obj",
+      "bytes": 1943066,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskInteriorShopKeeper.obj",
+      "bytes": 300110,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskInteriorSitAtDesk.obj",
+      "bytes": 335738,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskInteriorSitInChair.obj",
+      "bytes": 193855,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskInteriorUseInfo.obj",
+      "bytes": 360148,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskLeanOnVehicle.obj",
+      "bytes": 288488,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskManager.obj",
+      "bytes": 419206,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSequences.obj",
+      "bytes": 221090,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleAchieveHeading.obj",
+      "bytes": 425169,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleAffectSecondaryBehaviour.obj",
+      "bytes": 256671,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleAnim.obj",
+      "bytes": 232248,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleArrestPed.obj",
+      "bytes": 262306,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleBeHit.obj",
+      "bytes": 320590,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleBeHitWhileMoving.obj",
+      "bytes": 194079,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleBeKickedOnGround.obj",
+      "bytes": 194079,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleBikeJacked.obj",
+      "bytes": 286989,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarAlign.obj",
+      "bytes": 292193,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarCloseDoorFromInside.obj",
+      "bytes": 304045,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarCloseDoorFromOutside.obj",
+      "bytes": 310970,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarDrive.obj",
+      "bytes": 635893,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarDriveTimed.obj",
+      "bytes": 266329,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarFallOut.obj",
+      "bytes": 311610,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarForcePedOut.obj",
+      "bytes": 193951,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarGetIn.obj",
+      "bytes": 1954500,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarGetOut.obj",
+      "bytes": 302023,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarGoToPointNearDoorUntilDoorNotInUse.obj",
+      "bytes": 307862,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarJumpOut.obj",
+      "bytes": 325702,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarOpenDoorFromOutside.obj",
+      "bytes": 1944411,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarOpenLockedDoorFromOutside.obj",
+      "bytes": 284744,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarSetPedInAsDriver.obj",
+      "bytes": 355694,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarSetPedInAsPassenger.obj",
+      "bytes": 290510,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarSetPedOut.obj",
+      "bytes": 352276,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarSetPedSlowDraggedOut.obj",
+      "bytes": 326884,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarSetTempAction.obj",
+      "bytes": 270138,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarShuffle.obj",
+      "bytes": 282317,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarSlowBeDraggedOut.obj",
+      "bytes": 1956914,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarSlowDragPedOut.obj",
+      "bytes": 302132,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarWaitForDoorNotToBeInUse.obj",
+      "bytes": 265187,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCarWaitToSlowDown.obj",
+      "bytes": 266043,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleChat.obj",
+      "bytes": 246122,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleChoking.obj",
+      "bytes": 286249,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleClearLookAt.obj",
+      "bytes": 406226,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleClimb.obj",
+      "bytes": 2204273,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCower.obj",
+      "bytes": 256994,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleCreateCarAndGetIn.obj",
+      "bytes": 307243,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleDead.obj",
+      "bytes": 310225,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleDetonate.obj",
+      "bytes": 189674,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleDie.obj",
+      "bytes": 288818,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleDieInCar.obj",
+      "bytes": 258461,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleDoHandSignal.obj",
+      "bytes": 276407,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleDrown.obj",
+      "bytes": 240029,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleDrownInCar.obj",
+      "bytes": 239917,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleDuck.obj",
+      "bytes": 426854,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleDuckToggle.obj",
+      "bytes": 330975,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleDuckWhileShotsWhizzing.obj",
+      "bytes": 194429,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleEvasiveDive.obj",
+      "bytes": 297042,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleEvasiveStep.obj",
+      "bytes": 279242,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleFacial.obj",
+      "bytes": 255852,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleFall.obj",
+      "bytes": 279307,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleFight.obj",
+      "bytes": 215971,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleFightingControl.obj",
+      "bytes": 2024324,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleFinishBrain.obj",
+      "bytes": 243775,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleGangDriveBy.obj",
+      "bytes": 283285,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleGetUp.obj",
+      "bytes": 285146,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleGiveCPR.obj",
+      "bytes": 292734,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleGoTo.obj",
+      "bytes": 417874,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleGoToPoint.obj",
+      "bytes": 487295,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleGoToPointFine.obj",
+      "bytes": 300089,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleGunControl.obj",
+      "bytes": 320535,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleHailTaxi.obj",
+      "bytes": 189674,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleHailTaxiAndPause.obj",
+      "bytes": 189583,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleHandsUp.obj",
+      "bytes": 252685,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleHitByGunFromFront.obj",
+      "bytes": 256570,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleHitByGunFromLeft.obj",
+      "bytes": 256459,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleHitByGunFromRear.obj",
+      "bytes": 256463,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleHitByGunFromRight.obj",
+      "bytes": 256570,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleHitFromBack.obj",
+      "bytes": 255891,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleHitFromBehind.obj",
+      "bytes": 256121,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleHitFromFront.obj",
+      "bytes": 256006,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleHitFromLeft.obj",
+      "bytes": 255891,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleHitFromRight.obj",
+      "bytes": 256002,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleHitHead.obj",
+      "bytes": 254319,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleHitWall.obj",
+      "bytes": 255454,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleHoldEntity.obj",
+      "bytes": 397450,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleHurtPedWithCar.obj",
+      "bytes": 280111,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleIKChain.obj",
+      "bytes": 451965,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleIKLookAt.obj",
+      "bytes": 460556,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleIKManager.obj",
+      "bytes": 319013,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleIKPointArm.obj",
+      "bytes": 446925,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleInAir.obj",
+      "bytes": 332874,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleJetPack.obj",
+      "bytes": 389990,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleJump.obj",
+      "bytes": 350269,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleKillPedWithCar.obj",
+      "bytes": 306240,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleLand.obj",
+      "bytes": 272044,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleLeaveGroup.obj",
+      "bytes": 244251,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleLookAbout.obj",
+      "bytes": 246650,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleNone.obj",
+      "bytes": 224251,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleOnEscalator.obj",
+      "bytes": 193779,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimplePause.obj",
+      "bytes": 250908,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimplePickUpBike.obj",
+      "bytes": 285089,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimplePickUpEntity.obj",
+      "bytes": 266029,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimplePlayerOnFire.obj",
+      "bytes": 283984,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimplePlayerOnFoot.obj",
+      "bytes": 736714,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimplePlayHandSignalAnim.obj",
+      "bytes": 420498,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimplePutDownEntity.obj",
+      "bytes": 255068,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleRunAnim.obj",
+      "bytes": 266549,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleRunAnimLoopedMiddle.obj",
+      "bytes": 190222,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleRunNamedAnim.obj",
+      "bytes": 286318,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleRunTimedAnim.obj",
+      "bytes": 269371,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleSay.obj",
+      "bytes": 261063,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleScratchHead.obj",
+      "bytes": 248877,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleSetCharDecisionMaker.obj",
+      "bytes": 256955,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleSetCharIgnoreWeaponRangeFlag.obj",
+      "bytes": 257211,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleSetKindaStayInSamePlace.obj",
+      "bytes": 256450,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleSetPedAsAutoDriver.obj",
+      "bytes": 262888,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleSetStayInSamePlace.obj",
+      "bytes": 250360,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleShakeFist.obj",
+      "bytes": 268667,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleSitDown.obj",
+      "bytes": 275202,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleSitIdle.obj",
+      "bytes": 439994,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleSlideToCoord.obj",
+      "bytes": 142290,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleStandStill.obj",
+      "bytes": 262689,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleStandUp.obj",
+      "bytes": 274405,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleStealthKill.obj",
+      "bytes": 302464,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleSwim.obj",
+      "bytes": 423827,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleThrowControl.obj",
+      "bytes": 277550,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleThrowProjectile.obj",
+      "bytes": 322539,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleTired.obj",
+      "bytes": 256541,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleTogglePedThreatScanner.obj",
+      "bytes": 252895,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleTriggerEvent.obj",
+      "bytes": 189870,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleTriggerLookAt.obj",
+      "bytes": 191633,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleTurn180.obj",
+      "bytes": 255014,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleUninterruptable.obj",
+      "bytes": 238594,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleUseAtm.obj",
+      "bytes": 257213,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleUseGun.obj",
+      "bytes": 650264,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleWaitForBus.obj",
+      "bytes": 255809,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleWaitForPizza.obj",
+      "bytes": 193839,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleWaitUntilAreaCodesMatch.obj",
+      "bytes": 291143,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleWaitUntilLeaderAreaCodesMatch.obj",
+      "bytes": 273628,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleWaitUntilPedIsInCar.obj",
+      "bytes": 273045,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskSimpleWaitUntilPedIsOutCar.obj",
+      "bytes": 275808,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskTimer.obj",
+      "bytes": 214679,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TaskUtilityLineUpPedWithCar.obj",
+      "bytes": 296136,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TempColModels.obj",
+      "bytes": 293479,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Text.obj",
+      "bytes": 2052569,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TextCommands.obj",
+      "bytes": 4394688,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TextDebugModule.obj",
+      "bytes": 645505,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TheCarGenerators.obj",
+      "bytes": 270487,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TheScripts.obj",
+      "bytes": 3745047,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TheZones.obj",
+      "bytes": 416113,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TimeCycle.obj",
+      "bytes": 1645574,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TimeCycleDebugModule.obj",
+      "bytes": 348616,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TimeInfo.obj",
+      "bytes": 245610,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TimeModelInfo.obj",
+      "bytes": 213859,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Timer.obj",
+      "bytes": 294662,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TrafficLights.obj",
+      "bytes": 359269,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Trailer.obj",
+      "bytes": 441870,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Train.obj",
+      "bytes": 938424,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TrainNode.obj",
+      "bytes": 93528,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TwoDEffectsDebugModule.obj",
+      "bytes": 443033,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TxdDef.obj",
+      "bytes": 82508,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TxdStore_Plugin.obj",
+      "bytes": 88511,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\TxdStore.obj",
+      "bytes": 1629884,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\UIRenderer.obj",
+      "bytes": 312502,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\UnusedCommands.obj",
+      "bytes": 4066600,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\UpsideDownCarCheck.obj",
+      "bytes": 263546,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\UserDisplay.obj",
+      "bytes": 220778,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\UserRadioTrackDebugModule.obj",
+      "bytes": 571868,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\UtilityCommands.obj",
+      "bytes": 471139,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\vc145.idb",
+      "bytes": 30469120,
+      "extension": ".idb"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Vector.obj",
+      "bytes": 279870,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Vector2D.obj",
+      "bytes": 230334,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Vehicle.obj",
+      "bytes": 3467515,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\VehicleAnimGroupData.obj",
+      "bytes": 341049,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\VehicleAudioEntityDebugModule.obj",
+      "bytes": 1991402,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\VehicleCommands.obj",
+      "bytes": 3927758,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\VehicleInfoDebugModule.obj",
+      "bytes": 121349,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\VehicleModelInfo.obj",
+      "bytes": 1828630,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\VehicleRecording.obj",
+      "bytes": 486321,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\VehicleSaveStructure.obj",
+      "bytes": 215118,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\VehicleScanner.obj",
+      "bytes": 88061,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\VideoMode.obj",
+      "bytes": 374340,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\VideoModeSelectDialog.obj",
+      "bytes": 1281106,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\VideoPlayer.obj",
+      "bytes": 1283009,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Virtual.obj",
+      "bytes": 1883066,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\VisibilityPlugins.obj",
+      "bytes": 629572,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Wanted.obj",
+      "bytes": 431648,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\WaterCannon.obj",
+      "bytes": 306739,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\WaterCannons.obj",
+      "bytes": 243228,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\WaterCreature_c.obj",
+      "bytes": 272124,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\WaterCreatureManager_c.obj",
+      "bytes": 284241,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\WaterLevel.obj",
+      "bytes": 3004976,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\WaterLevelDebugModule.obj",
+      "bytes": 101457,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Weapon.obj",
+      "bytes": 3500496,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\WeaponDebugModule.obj",
+      "bytes": 108362,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\WeaponEffects.obj",
+      "bytes": 316150,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\WeaponInfo.obj",
+      "bytes": 1997415,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\WeaponModelInfo.obj",
+      "bytes": 218848,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Weather.obj",
+      "bytes": 548812,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\WindModifiers.obj",
+      "bytes": 234728,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\WindowedMode.obj",
+      "bytes": 2103890,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\WinInput.obj",
+      "bytes": 2031850,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\WinMain.obj",
+      "bytes": 7710705,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\WinPlatform.obj",
+      "bytes": 244003,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\WinPs.obj",
+      "bytes": 779581,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\WndProc.obj",
+      "bytes": 82516,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\World_Helper.obj",
+      "bytes": 127613,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\World.obj",
+      "bytes": 3532479,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\Zone.obj",
+      "bytes": 85146,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\ZoneCommands.obj",
+      "bytes": 3782042,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\gta_reversed.tlog\\CL.command.1.tlog",
+      "bytes": 22124558,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\gta_reversed.tlog\\Cl.items.tlog",
+      "bytes": 177001,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\gta_reversed.tlog\\CL.read.1.tlog",
+      "bytes": 1370768,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\gta_reversed.tlog\\CL.write.1.tlog",
+      "bytes": 2706734,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\gta_reversed.tlog\\CustomBuild.command.1.tlog",
+      "bytes": 504,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\gta_reversed.tlog\\CustomBuild.read.1.tlog",
+      "bytes": 2897,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\gta_reversed.tlog\\CustomBuild.write.1.tlog",
+      "bytes": 128,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\gta_reversed.tlog\\link.command.1.tlog",
+      "bytes": 286230,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\gta_reversed.tlog\\link.read.1.tlog",
+      "bytes": 384676,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\gta_reversed.tlog\\link.secondary.1.tlog",
+      "bytes": 93776,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\source\\gta_reversed.dir\\Debug\\gta_reversed.tlog\\link.write.1.tlog",
+      "bytes": 187382,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdCXX\\Debug\\CMakeCXXCompilerId.obj",
+      "bytes": 1945,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdCXX\\Debug\\CompilerIdCXX.tlog\\CL.command.1.tlog",
+      "bytes": 778,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdCXX\\Debug\\CompilerIdCXX.tlog\\Cl.items.tlog",
+      "bytes": 191,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdCXX\\Debug\\CompilerIdCXX.tlog\\CL.read.1.tlog",
+      "bytes": 352,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdCXX\\Debug\\CompilerIdCXX.tlog\\CL.write.1.tlog",
+      "bytes": 388,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdCXX\\Debug\\CompilerIdCXX.tlog\\link.command.1.tlog",
+      "bytes": 1058,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdCXX\\Debug\\CompilerIdCXX.tlog\\link.read.1.tlog",
+      "bytes": 3362,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdCXX\\Debug\\CompilerIdCXX.tlog\\link.secondary.1.tlog",
+      "bytes": 100,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdCXX\\Debug\\CompilerIdCXX.tlog\\link.write.1.tlog",
+      "bytes": 378,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdC\\Debug\\CMakeCCompilerId.obj",
+      "bytes": 1898,
+      "extension": ".obj"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdC\\Debug\\CompilerIdC.tlog\\CL.command.1.tlog",
+      "bytes": 754,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdC\\Debug\\CompilerIdC.tlog\\Cl.items.tlog",
+      "bytes": 181,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdC\\Debug\\CompilerIdC.tlog\\CL.read.1.tlog",
+      "bytes": 340,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdC\\Debug\\CompilerIdC.tlog\\CL.write.1.tlog",
+      "bytes": 368,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdC\\Debug\\CompilerIdC.tlog\\link.command.1.tlog",
+      "bytes": 1034,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdC\\Debug\\CompilerIdC.tlog\\link.read.1.tlog",
+      "bytes": 3346,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdC\\Debug\\CompilerIdC.tlog\\link.secondary.1.tlog",
+      "bytes": 96,
+      "extension": ".tlog"
+    },
+    {
+      "path": "D:\\Original\\gta-reversed-master\\build\\CMakeFiles\\4.2.0\\CompilerIdC\\Debug\\CompilerIdC.tlog\\link.write.1.tlog",
+      "bytes": 362,
+      "extension": ".tlog"
+    }
+  ]
+}

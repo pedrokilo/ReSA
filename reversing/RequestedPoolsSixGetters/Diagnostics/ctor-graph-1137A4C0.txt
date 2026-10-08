@@ -1,0 +1,33 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsSixGetters\artifacts\gta_reversed-pools-six-getters.asi
+
+File Type: DLL
+
+  1137A4C0: 55                 push        ebp
+  1137A4C1: 8B EC              mov         ebp,esp
+  1137A4C3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1137A4C9: 53                 push        ebx
+  1137A4CA: 56                 push        esi
+  1137A4CB: 57                 push        edi
+  1137A4CC: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137A4CF: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137A4D2: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1137A4D5: 89 08              mov         dword ptr [eax],ecx
+  1137A4D7: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137A4DA: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1137A4DD: 89 48 04           mov         dword ptr [eax+4],ecx
+  1137A4E0: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137A4E3: 5F                 pop         edi
+  1137A4E4: 5E                 pop         esi
+  1137A4E5: 5B                 pop         ebx
+  1137A4E6: 8B E5              mov         esp,ebp
+  1137A4E8: 5D                 pop         ebp
+  1137A4E9: C2 04 00           ret         4
+  1137A4EC: CC                 int         3
+
+  Summary
+
+     2165000 .text

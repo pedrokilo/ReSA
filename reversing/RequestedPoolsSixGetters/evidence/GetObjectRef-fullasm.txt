@@ -1,0 +1,30 @@
+// CPools::GetObjectRef @ 0x00550020 [0x550020..0x55004b]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+int FUN_00550020(int param_1)
+
+{
+  int iVar1;
+  
+  iVar1 = (param_1 - *DAT_00b7449c) / 0x19c;
+  return (uint)*(byte *)(DAT_00b7449c[1] + iVar1) + iVar1 * 0x100;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00550020: mov ecx,dword ptr [esp+4]
+00550024: push esi
+00550025: mov esi,dword ptr ds:[00B7449Ch]
+0055002B: sub ecx,dword ptr [esi]
+0055002D: mov eax,13E22CBDh
+00550032: imul ecx
+00550034: mov ecx,dword ptr [esi+4]
+00550037: sar edx,5
+0055003A: mov eax,edx
+0055003C: shr eax,1Fh
+0055003F: add edx,eax
+00550041: movzx eax,byte ptr [ecx+edx]
+00550045: shl edx,8
+00550048: add eax,edx
+0055004A: pop esi
+0055004B: ret

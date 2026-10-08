@@ -1,0 +1,438 @@
+{
+  "asi_sha256": "05c66666a3e653eeaeab592fe4a7341ec1531703c253f20a48307ca9e53c5684",
+  "pdb_sha256": "30d9024bfe702dadf9e9be6794e6e35a471806b6b4e8275517b75b446cc43937",
+  "pdb_rsds_match": true,
+  "pdb_guid_raw": "c77be937b65eb0419b8fb6e599cb79e0",
+  "pdb_age": 2431,
+  "base": 268435456,
+  "symbols": [
+    {
+      "name": "IsVideoModeExclusive",
+      "address": 288637792,
+      "size": 136,
+      "tag": 5,
+      "body": 288637792,
+      "e9_chain": [],
+      "first128": "558bec81ece40000005356578d7ddcb909000000b8ccccccccf3aba140da6c1333c58945fca124ab6e138b08518d55e052e8e3d2d5ff83c4088b45ec83e001528bcd508d15d0433411e864f2d1ff585a5f5e5b8b4dfc33cde88c7fd1ff81c4e40000003bece81f99d1ff8be55dc3669001000000d8433411e0ffffff18000000"
+    },
+    {
+      "name": "WinInput::diMouseInit",
+      "address": 288680272,
+      "size": 1425,
+      "tag": 5,
+      "body": 288680272,
+      "e9_chain": [],
+      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec81ecc003000056578dbdc0fdffffb990000000b8ccccccccf3aba1ccab6e138b48148b5118899548fcffffa1ccab6e138b48148b51188b028b480c898d44fcffff8bf46a008b15ccab6e138b421483c01c506828af31138b8d48fcffff51ff9544fcffff3bf4e818f3d0"
+    },
+    {
+      "name": "std::ranges::_Any_of_fn::operator()<std::vector<std::shared_ptr<ReversibleHooks::ReversibleHook::Base>,std::allocator<std::shared_ptr<ReversibleHooks::ReversibleHook::Base> > > &,std::identity,``RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> >",
+      "address": 288734288,
+      "size": 227,
+      "tag": 5,
+      "body": 288734288,
+      "e9_chain": [],
+      "first128": "558bec81ec280100005356578d7d98b91a000000b8ccccccccf3ab8d451050e813f6cfff83c40488853bffffff8a8d3bffffff888d17ffffff8a9517ffffff8895fffeffff8a85fffeffff8885e7feffff8d4d0c518d952fffffff52e8d58cd0ff83c4080fb600888523ffffff8a8d23ffffff888d0bffffff8a950bffffff88"
+    },
+    {
+      "name": "std::ranges::_All_of_fn::operator()<std::vector<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> >,std::allocator<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > > > &,std::identity,`RequestedPadUpdateMouse::Update'::`2'::<lambda_3> >",
+      "address": 288734736,
+      "size": 227,
+      "tag": 5,
+      "body": 288734736,
+      "e9_chain": [],
+      "first128": "558bec81ec280100005356578d7d98b91a000000b8ccccccccf3ab8d451050e853f4cfff83c40488853bffffff8a8d3bffffff888d17ffffff8a9517ffffff8895fffeffff8a85fffeffff8885e7feffff8d4d0c518d952fffffff52e87120d0ff83c4080fb600888523ffffff8a8d23ffffff888d0bffffff8a950bffffff88"
+    },
+    {
+      "name": "std::ranges::_All_of_fn::operator()<std::vector<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> >,std::allocator<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > > > &,std::identity,`RequestedPadUpdateMouse::Update'::`22'::<lambda_4> >",
+      "address": 288735024,
+      "size": 227,
+      "tag": 5,
+      "body": 288735024,
+      "e9_chain": [],
+      "first128": "558bec81ec280100005356578d7d98b91a000000b8ccccccccf3ab8d451050e833f3cfff83c40488853bffffff8a8d3bffffff888d17ffffff8a9517ffffff8895fffeffff8a85fffeffff8885e7feffff8d4d0c518d952fffffff52e805dacfff83c4080fb600888523ffffff8a8d23ffffff888d0bffffff8a950bffffff88"
+    },
+    {
+      "name": "``RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1>::operator()<std::shared_ptr<ReversibleHooks::ReversibleHook::Base> >",
+      "address": 288739424,
+      "size": 103,
+      "tag": 5,
+      "body": 288739424,
+      "e9_chain": [],
+      "first128": "558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df88b4d08e84375d0ff8bc8e88d17d3ff83f801750cc78530ffffff01000000eb0ac78530ffffff000000000fb68530ffffff5f5e5b81c4d00000003bece8280cd0ff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "`RequestedPadUpdateMouse::Update'::`2'::<lambda_3>::operator()<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > >",
+      "address": 288739552,
+      "size": 66,
+      "tag": 5,
+      "body": 288739552,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4d08e8ded5d1ff0fb640305f5e5b81c4cc0000003bece8cd0bd0ff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8"
+    },
+    {
+      "name": "`RequestedPadUpdateMouse::Update'::`22'::<lambda_4>::operator()<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > >",
+      "address": 288739648,
+      "size": 69,
+      "tag": 5,
+      "body": 288739648,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4d08e87ed5d1ff8bc8e890e6cfff5f5e5b81c4cc0000003bece86a0bd0ff8be55dc20400cccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ec08010000535657518d7db8b912000000b8ccccccccf3ab59894df8"
+    },
+    {
+      "name": "``RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()'::`2'::<lambda_1>::operator()<ReversibleHooks::HookCategory>",
+      "address": 288739744,
+      "size": 191,
+      "tag": 5,
+      "body": 288739744,
+      "e9_chain": [],
+      "first128": "558bec81ec08010000535657518d7db8b912000000b8ccccccccf3ab59894df88b4d08e84237d3ff8945ec8b4dece8babdd3ff8945e08b4dece8b2b9cfff8945d4eb098b45e083c0088945e08b45e03b45d474558b45e08945c88b4dc8e8c973d0ff8bc8e81316d3ff85c0753a8b4dc8e806d3d0ff8945bc8b4dbce8d0f2d1ff"
+    },
+    {
+      "name": "`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>",
+      "address": 288740592,
+      "size": 1108,
+      "tag": 5,
+      "body": 288740592,
+      "e9_chain": [],
+      "first128": "558bec6aff687c480d1364a1000000005081ec8c030000535657518dbde8fdffffb983000000b8ccccccccf3ab59a140da6c1333c58945f0508d45f464a300000000894de833c0888517feffff8a8d17feffff888df3fdffff8a950bfeffff8895fffdffff8b4d08e8ad33d3ff89856cfcffff0fb685f3fdffff500fb68dfffd"
+    },
+    {
+      "name": "ReversibleHooks::HookCategory::ForEachCategory<``RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()'::`2'::<lambda_1> &>",
+      "address": 288742272,
+      "size": 232,
+      "tag": 5,
+      "body": 288742272,
+      "e9_chain": [],
+      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e893e1cfff83c4088b45f883c0348945ec8d45e0508b4dece8fe3ed1ff908d45d4508b4dece827b0d4ff90eb098d4de0e879d0d4ff908d45d4508d4de0e871f9d3ff0fb6c885c9751a8d4de0e8800bd1ff8945c88b450850"
+    },
+    {
+      "name": "ReversibleHooks::HookCategory::ForEachCategory<`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2> &>",
+      "address": 288743184,
+      "size": 232,
+      "tag": 5,
+      "body": 288743184,
+      "e9_chain": [],
+      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e870ebd2ff83c4088b45f883c0348945ec8d45e0508b4dece86e3bd1ff908d45d4508b4dece897acd4ff90eb098d4de0e8e9ccd4ff908d45d4508d4de0e8e1f5d3ff0fb6c885c9751a8d4de0e8f007d1ff8945c88b450850"
+    },
+    {
+      "name": "ReversibleHooks::HookCategory::ForEachCategory<``RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()'::`2'::<lambda_1> >",
+      "address": 288743488,
+      "size": 232,
+      "tag": 5,
+      "body": 288743488,
+      "e9_chain": [],
+      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e8d3dccfff83c4088b45f883c0348945ec8d45e0508b4dece83e3ad1ff908d45d4508b4dece867abd4ff90eb098d4de0e8b9cbd4ff908d45d4508d4de0e8b1f4d3ff0fb6c885c9751a8d4de0e8c006d1ff8945c88b450850"
+    },
+    {
+      "name": "ReversibleHooks::HookCategory::ForEachCategory<`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2> >",
+      "address": 288744400,
+      "size": 232,
+      "tag": 5,
+      "body": 288744400,
+      "e9_chain": [],
+      "first128": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df88b45f8508b4d0851e8b0e6d2ff83c4088b45f883c0348945ec8d45e0508b4dece8ae36d1ff908d45d4508b4dece8d7a7d4ff90eb098d4de0e829c8d4ff908d45d4508d4de0e821f1d3ff0fb6c885c9751a8d4de0e83003d1ff8945c88b450850"
+    },
+    {
+      "name": "std::ranges::_All_of_fn::_All_of_unchecked<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > *,std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > *,std::identity,`RequestedPadUpdateMouse::Update'::`2'::<lambda_3> >",
+      "address": 288746880,
+      "size": 106,
+      "tag": 5,
+      "body": 288746880,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abeb098b450883c0048945088b45083b450c742a8b4508508d4d1451e8bad5d4ff83c408508d551052e86a24d3ff83c4080fb6c085c0750432c0eb04ebc5b0015f5e5b81c4c00000003bece803efcfff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::ranges::_All_of_fn::_All_of_unchecked<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > *,std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > *,std::identity,`RequestedPadUpdateMouse::Update'::`22'::<lambda_4> >",
+      "address": 288747024,
+      "size": 106,
+      "tag": 5,
+      "body": 288747024,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abeb098b450883c0048945088b45083b450c742a8b4508508d4d1451e82ad5d4ff83c408508d551052e81557d3ff83c4080fb6c085c0750432c0eb04ebc5b0015f5e5b81c4c00000003bece873eecfff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::ranges::_Any_of_fn::_Any_of_unchecked<std::shared_ptr<ReversibleHooks::ReversibleHook::Base> *,std::shared_ptr<ReversibleHooks::ReversibleHook::Base> *,std::identity,``RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> >",
+      "address": 288747888,
+      "size": 106,
+      "tag": 5,
+      "body": 288747888,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3abeb098b450883c0088945088b45083b450c742a8b4508508d4d1451e8faf5d0ff83c408508d551052e84db3d1ff83c4080fb6c085c07404b001eb04ebc532c05f5e5b81c4c00000003bece813ebcfff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "std::_Pass_fn<``RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> >",
+      "address": 288786272,
+      "size": 26,
+      "tag": 5,
+      "body": 288786272,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec6aff68ad500d1364a1000000005081ec28010000535657518d7d8cb91a"
+    },
+    {
+      "name": "std::_Pass_fn<`RequestedPadUpdateMouse::Update'::`2'::<lambda_3> >",
+      "address": 288786304,
+      "size": 26,
+      "tag": 5,
+      "body": 288786304,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec6aff68ad500d1364a1000000005081ec28010000535657518d7d8cb91a000000b8ccccccccf3ab59a140da6c1333c5508d45f464a300000000894dec8b"
+    },
+    {
+      "name": "std::_Pass_fn<`RequestedPadUpdateMouse::Update'::`22'::<lambda_4> >",
+      "address": 288786336,
+      "size": 26,
+      "tag": 5,
+      "body": 288786336,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657c645fb018b45085f5e5b8be55dc3cccccccccccc558bec6aff68ad500d1364a1000000005081ec28010000535657518d7d8cb91a000000b8ccccccccf3ab59a140da6c1333c5508d45f464a300000000894dec8b4dece84473d1ff8945e08b45ec8945d48b45d483c0048945c88b45d483c00889"
+    },
+    {
+      "name": "std::invoke<``RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> &,std::shared_ptr<ReversibleHooks::ReversibleHook::Base> &>",
+      "address": 288851328,
+      "size": 55,
+      "tag": 5,
+      "body": 288851328,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e8abf0cfff5f5e5b81c4c00000003bece83657ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc0000005356578d7df4b903000000b8ccccccccf3ab83ec088bcc89a538ffffff8b450c50e8651ad1ff8b"
+    },
+    {
+      "name": "std::invoke<``RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()'::`2'::<lambda_1> &,ReversibleHooks::HookCategory &>",
+      "address": 288851504,
+      "size": 56,
+      "tag": 5,
+      "body": 288851504,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e8eb74ceff905f5e5b81c4c00000003bece88556ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e811a3cfff905f5e5b81c4c00000003bece8"
+    },
+    {
+      "name": "std::invoke<`NOTSA_WinMain'::`2'::<lambda_1> &>",
+      "address": 288851664,
+      "size": 52,
+      "tag": 5,
+      "body": 288851664,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b4d08e8f13c0100905f5e5b81c4c00000003bece8e955ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e88bbfcfff905f5e5b81c4c00000003bece8"
+    },
+    {
+      "name": "std::invoke<`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2> &,ReversibleHooks::HookCategory &>",
+      "address": 288851824,
+      "size": 56,
+      "tag": 5,
+      "body": 288851824,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e8bab2d0ff905f5e5b81c4c00000003bece84555ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e87473ceff5f5e5b81c4c00000003bece8f6"
+    },
+    {
+      "name": "std::invoke<`RequestedPadUpdateMouse::Update'::`2'::<lambda_3> &,std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > &>",
+      "address": 288851904,
+      "size": 55,
+      "tag": 5,
+      "body": 288851904,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e87473ceff5f5e5b81c4c00000003bece8f654ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e80bc8ceff5f5e5b81c4c00000003bece8a6"
+    },
+    {
+      "name": "std::invoke<`RequestedPadUpdateMouse::Update'::`22'::<lambda_4> &,std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > &>",
+      "address": 288851984,
+      "size": 55,
+      "tag": 5,
+      "body": 288851984,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450c508b4d08e80bc8ceff5f5e5b81c4c00000003bece8a654ceff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df832c05f5e5b8be55dc20400cccccccccccc558bec81ecd0000000535657894df883"
+    },
+    {
+      "name": "``RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()'::`2'::<lambda_1>::<lambda_1>",
+      "address": 288869488,
+      "size": 53,
+      "tag": 5,
+      "body": 288869488,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f88b4d0c8948048b45f88b4d108948088b45f85f5e5b8be55dc20c00cccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d0889088b45f88b4d0c8948048b45f88b4d108948088b45f85f5e5b8b"
+    },
+    {
+      "name": "`RequestedPadUpdateMouse::Update'::`2'::<lambda_1>::<lambda_1>",
+      "address": 288869696,
+      "size": 35,
+      "tag": 5,
+      "body": 288869696,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d088b1189108b45f88b4d0c8b"
+    },
+    {
+      "name": "`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_1>::<lambda_1>",
+      "address": 288869744,
+      "size": 35,
+      "tag": 5,
+      "body": 288869744,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f85f5e5b8be55dc20400cccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d088b1189108b45f88b4d0c8b118950048b45f88b4d108a118850088b45f88b4d148b1189500c8b45f88b4d188b118950108b45f85f5e5b8be55dc214"
+    },
+    {
+      "name": "`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::<lambda_2>",
+      "address": 288869904,
+      "size": 53,
+      "tag": 5,
+      "body": 288869904,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f88b4d0889088b45f88b4d0c8948048b45f88b4d108948088b45f85f5e5b8be55dc20c00cccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b4df8e890e3ceff908b45f85f5e5b81"
+    },
+    {
+      "name": "notsa::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >",
+      "address": 288870064,
+      "size": 27,
+      "tag": 5,
+      "body": 288870064,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657894df88b45f85f5e5b8be55dc20400cccccccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b45f88b4d0889088b45f8c74004000000008b45f85f5e5b8be55dc20400cccccccccccccccccccccccccccccccccccccc558bec81eccc000000535657894df88b"
+    },
+    {
+      "name": "notsa::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >::~ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >",
+      "address": 288892272,
+      "size": 111,
+      "tag": 5,
+      "body": 288892272,
+      "e9_chain": [],
+      "first128": "558bec6aff6800710d1364a1000000005081eccc000000535657518d7de8b903000000b8ccccccccf3ab59a140da6c1333c5508d45f464a300000000894dec8b45ec50e81861ffff83c4048b4df464890d00000000595f5e5b81c4d80000003bece813b7cdff8be55dc3cccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "`NOTSA_WinMain'::`2'::<lambda_1>::operator()",
+      "address": 288932832,
+      "size": 77,
+      "tag": 5,
+      "body": 288932832,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8e853e0cdff0fb6c085c0740de839cfceff8bc8e8cad9ccff905f5e5b81c4cc0000003bece8c018cdff8be55dc3cccccccccccccccccccccccccccccccccccccc558bec6aff68617b0d1364a1000000005081eca0010000535657518dbd14ffff"
+    },
+    {
+      "name": "`RequestedPadUpdateMouse::Update'::`2'::<lambda_1>::operator()",
+      "address": 288933440,
+      "size": 243,
+      "tag": 5,
+      "body": 288933440,
+      "e9_chain": [],
+      "first128": "558bec6aff68c07b0d1364a1000000005081ec04010000535657518d7db0b911000000b8ccccccccf3ab59a140da6c1333c58945f0508d45f464a300000000894de88b45e88b08898dfcfeffff6a006a006a206aff8d9504ffffff528b4d08e85440d0ff8985f8feffff8b85f8feffff8985f4feffffc745fc000000008b8df4"
+    },
+    {
+      "name": "`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_1>::operator()",
+      "address": 288933744,
+      "size": 243,
+      "tag": 5,
+      "body": 288933744,
+      "e9_chain": [],
+      "first128": "558bec6aff68107c0d1364a1000000005081ec04010000535657518d7db0b911000000b8ccccccccf3ab59a140da6c1333c58945f0508d45f464a300000000894de88b45e88b08898dfcfeffff6a006a006a206aff8d9504ffffff528b4d08e8243fd0ff8985f8feffff8b85f8feffff8985f4feffffc745fc000000008b8df4"
+    },
+    {
+      "name": "`RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()",
+      "address": 288934480,
+      "size": 223,
+      "tag": 5,
+      "body": 288934480,
+      "e9_chain": [],
+      "first128": "558bec81ec00010000535657518d7dc0b910000000b8ccccccccf3ab59894df8c745ec00000000c745e000000000e8bcddceff898504ffffff8d45e0508d4dec518d5508528d8d0cffffffe875d7ccff898500ffffff8b8500ffffff508b8d04ffffffe80e55d0ff90837de001750b8b45ec898504ffffffeb0ac78504ffffff"
+    },
+    {
+      "name": "IsForegroundApp",
+      "address": 288947664,
+      "size": 94,
+      "tag": 5,
+      "body": 288947664,
+      "e9_chain": [],
+      "first128": "558bec81ecc40000005356578d7dfcb901000000b8ccccccccf3ab681c628d00e86b23d0ff83c404833800740cc7853cffffff01000000eb0ac7853cffffff000000000fb6853cffffff5f5e5b81c4c40000003bece8bfdeccff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "name": "NOTSA_WinMain",
+      "address": 288949552,
+      "size": 1778,
+      "tag": 5,
+      "body": 288949552,
+      "e9_chain": [],
+      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec6aff688d970d1364a100000000505381ec2802000056578dbd88feffffb95a000000b8ccccccccf3aba140da6c1333c58945ec508d45f464a3000000000fb685a7feffff508d4de7e81dc9feffc745fc00000000e83d1cd1ff90c78598feffff00000000c745fcffffff"
+    },
+    {
+      "name": "RequestedPadUpdateMouse::Read",
+      "address": 288954032,
+      "size": 657,
+      "tag": 5,
+      "body": 288954032,
+      "e9_chain": [],
+      "first128": "558bec6aff6817980d1364a1000000005081ecb40100005356578dbd00ffffffb93d000000b8ccccccccf3aba140da6c1333c58945f0508d45f464a300000000e8c32ed1ff8945e88b45e88b4808894ddc8b45e88b4804894dd08b45088945c48b45c43b45dc72148b4dd083e914394dc47709c6854bfeffff01eb07c6854bfe"
+    },
+    {
+      "name": "RequestedPadUpdateMouse::ReadDll",
+      "address": 288954864,
+      "size": 142,
+      "tag": 5,
+      "body": 288954864,
+      "e9_chain": [],
+      "first128": "558bec81ece0000000535657518d7de0b908000000b8ccccccccf3ab598955ec894df80fb60531706213898524ffffff8b0d70b06e1351e864e6cfff83c4043945f8750cc78520ffffff01000000eb0ac78520ffffff000000008b9524ffffff239520ffffff8815317062138b450850e8039eccff83c4045f5e5b81c4e00000"
+    },
+    {
+      "name": "RequestedPadUpdateMouse::ReadExe",
+      "address": 288955056,
+      "size": 55,
+      "tag": 5,
+      "body": 288955056,
+      "e9_chain": [],
+      "first128": "558bec81ecc00000005356578bfd33c9b8ccccccccf3ab8b450850e8989dccff83c4045f5e5b81c4c00000003bece806c2ccff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccc558bec6aff6870980d1364a1000000005081ec3c010000535657518dbd78ffffffb91f000000b8ccccccccf3ab59a140"
+    },
+    {
+      "name": "RequestedPadUpdateMouse::Update",
+      "address": 288957600,
+      "size": 16945,
+      "tag": 5,
+      "body": 288957600,
+      "e9_chain": [],
+      "first128": "538bdc83ec0883e4f883c404558b6b04896c24048bec6aff681ba50d1364a1000000005053b8602d0000e8fba8cdff56578dbd90d8ffffb9d8090000b8ccccccccf3aba140da6c1333c58945ec508d45f464a300000000c78540e4ffff0000000068040100006a008d85e0feffff50e872b2d0ff83c40c8bf468040100008d85"
+    },
+    {
+      "name": "RequestedPreflightPadUpdateMouseLive::Update",
+      "address": 288978784,
+      "size": 4859,
+      "tag": 5,
+      "body": 288978784,
+      "e9_chain": [],
+      "first128": "558bec6aff682dac0d1364a10000000050b868100000e84f56cdff5356578dbd0cf4ffffb9fa020000b8ccccccccf3aba140da6c1333c58945f0508d45f464a30000000068040100006a008d85e8feffff50e8cf5fd0ff83c40c8bf468040100008d85e8feffff506a00ff15fc9472133bf4e81265ccff906a008d85e8feffff"
+    },
+    {
+      "name": "CMouseControllerState::CheckForInput",
+      "address": 296623168,
+      "size": 175,
+      "tag": 5,
+      "body": 296623168,
+      "e9_chain": [],
+      "first128": "558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df88b45f80fb60885c975608b55f80fb6420185c075558b4df80fb6510285d2754a8b45f80fb6480385c9753f8b55f80fb6420485c075348b4df80fb6510585d275298b45f80fb6480685c9751e8b4df883c10ce85ed15bff0fb6d085d2740cc785"
+    },
+    {
+      "name": "CPad::GetMouseState",
+      "address": 296703808,
+      "size": 496,
+      "tag": 5,
+      "body": 296703808,
+      "e9_chain": [],
+      "first128": "558bec81ecf8000000535657518d7dc8b90e000000b8ccccccccf3ab59894df8a118416f138b481483791c00750ab801000000e9a20100008b4508c74008000000008b4d08c74104000000008b5508c70200000000c78520ffffff000000008b450883c00c50e861c557ff83c40489850cffffff8b4d0883c10c51e8a4ef57ff"
+    },
+    {
+      "name": "CPad::SetTouched",
+      "address": 296744096,
+      "size": 66,
+      "tag": 5,
+      "body": 296744096,
+      "e9_chain": [],
+      "first128": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df8e8fc8959ff8b4df88981200100005f5e5b81c4cc0000003bece80be855ff8be55dc3cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc558bec81ecd0000000535657518d7df0b904000000b8ccccccccf3ab59894df8"
+    },
+    {
+      "name": "CPad::UpdateMouse",
+      "address": 296747488,
+      "size": 734,
+      "tag": 5,
+      "body": 296747488,
+      "e9_chain": [],
+      "first128": "558bec81ec34010000535657518d7d8cb91d000000b8ccccccccf3ab59a140da6c1333c58945fc894df4e8987d59ff0fb6c085c07505e95a020000a118416f138b481483791c007539a1303b6f130fb6485c85c97515e83bcd58ff0fb6d085d27409c685cffeffff01eb07c685cffeffff000fb685cffeffff50e8334759ff83"
+    }
+  ],
+  "manifest_sha256": "adbf6ec2ca3590f68f73510514625b7b60fc8fdfc1ebd7da787f75a30885e322",
+  "compiled_header_sha256": "12be195d68406f02429270eeb2bcc3d304880d2a9d86bfe26c4e5de4e39f0dc9",
+  "limitations": [
+    "Static PE/PDB and disassembly only. No runtime, helper behavior or approval. Human inspection required for call-path/return-branch proof."
+  ]
+}

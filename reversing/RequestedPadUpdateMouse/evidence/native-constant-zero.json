@@ -1,0 +1,7 @@
+{
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "address": "0x00858B50",
+  "raw": "00000000",
+  "float32": 0.0,
+  "purpose": "Real CheckForInput compares x/y to exact zero; no epsilon/model substitution."
+}

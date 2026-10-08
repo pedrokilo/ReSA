@@ -1,0 +1,18 @@
+{
+  "approval": false,
+  "original_pairs": 3072,
+  "original_accepted": 3072,
+  "original_failures": 0,
+  "original_family_restore_false": 3,
+  "final_hook_flags_restored": true,
+  "diagnostic_projected_model_pairs": 3072,
+  "projection_fields": [
+    "family_restore.state_restored",
+    "terminal"
+  ],
+  "traceback": "Traceback (most recent call last):\n  File \"D:\\Original\\gta-reversed-master\\reversing\\RequestedPoolsSixGettersV2\\Diagnostics\\audit_v1_failure.py\", line 17, in <module>\n    try:bank.analyze(path)\n        ~~~~~~~~~~~~^^^^^^\n  File \"D:\\Original\\gta-reversed-master\\reversing\\RequestedPoolsSixGetters\\run_local.py\", line 46, in analyze\n    restore=rows[cursor];cursor+=1;assert restore==dict(event='family_restore',family=family,state_restored=True)\n                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "overlap_bytes": 4,
+  "full_snapshot_bytes": 52,
+  "two_phase_model_passed": true,
+  "raw_log_sha256": "99e1a54217df730b4b2c910c212f82d35f67827761eb8ddd1a9f0fad17d9d546"
+}

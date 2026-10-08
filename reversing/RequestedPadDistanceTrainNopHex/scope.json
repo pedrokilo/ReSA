@@ -1,0 +1,34 @@
+{
+  "status": "prepared_hex_revision_no_compilation_no_runtime_approval",
+  "expected_pairs": 13952,
+  "canonical_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "targets": [
+    {
+      "class": "CPad",
+      "fn_name": "ProcessPCSpecificStuff",
+      "address": "0x0053FB40",
+      "pairs": 1024
+    },
+    {
+      "class": "CPad",
+      "fn_name": "StartShake_Distance",
+      "address": "0x0053F9A0",
+      "pairs": 10240
+    },
+    {
+      "class": "CPad",
+      "fn_name": "StartShake_Train",
+      "address": "0x0053FA70",
+      "pairs": 2688
+    }
+  ],
+  "fp_domain": "x87 PC24/RN, masked exceptions, MXCSR0x1f80; finite inputs",
+  "source_before_abi": {
+    "Pad.cpp.before-ABI.txt": "412b814d1a7e94b1ae4871e02de25efd5d18aa54ec507fda1cb80f26def5a1db",
+    "Pad.h.before-ABI.txt": "be591b40bc79f987b7f61038a4adffaabee5dfd21dd9c22019f5a587b794cf25"
+  },
+  "native_Train_RET": "0x0053FB3D ret8; arguments2byvaluefloat",
+  "no_runtime_approval": true,
+  "transport": "full lossless lowercase hex, strict canonical shape decoder",
+  "replay_timeout_seconds": 900
+}

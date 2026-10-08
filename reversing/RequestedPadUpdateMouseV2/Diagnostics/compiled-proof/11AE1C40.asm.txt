@@ -1,0 +1,76 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV2\artifacts\gta_reversed-pad-update-mouse.asi
+
+File Type: DLL
+
+  11AE1C40: 55                 push        ebp
+  11AE1C41: 8B EC              mov         ebp,esp
+  11AE1C43: 81 EC D0 00 00 00  sub         esp,0D0h
+  11AE1C49: 53                 push        ebx
+  11AE1C4A: 56                 push        esi
+  11AE1C4B: 57                 push        edi
+  11AE1C4C: 51                 push        ecx
+  11AE1C4D: 8D 7D F0           lea         edi,[ebp-10h]
+  11AE1C50: B9 04 00 00 00     mov         ecx,4
+  11AE1C55: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11AE1C5A: F3 AB              rep stos    dword ptr es:[edi]
+  11AE1C5C: 59                 pop         ecx
+  11AE1C5D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11AE1C60: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11AE1C63: 0F B6 08           movzx       ecx,byte ptr [eax]
+  11AE1C66: 85 C9              test        ecx,ecx
+  11AE1C68: 75 60              jne         11AE1CCA
+  11AE1C6A: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11AE1C6D: 0F B6 42 01        movzx       eax,byte ptr [edx+1]
+  11AE1C71: 85 C0              test        eax,eax
+  11AE1C73: 75 55              jne         11AE1CCA
+  11AE1C75: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11AE1C78: 0F B6 51 02        movzx       edx,byte ptr [ecx+2]
+  11AE1C7C: 85 D2              test        edx,edx
+  11AE1C7E: 75 4A              jne         11AE1CCA
+  11AE1C80: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11AE1C83: 0F B6 48 03        movzx       ecx,byte ptr [eax+3]
+  11AE1C87: 85 C9              test        ecx,ecx
+  11AE1C89: 75 3F              jne         11AE1CCA
+  11AE1C8B: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11AE1C8E: 0F B6 42 04        movzx       eax,byte ptr [edx+4]
+  11AE1C92: 85 C0              test        eax,eax
+  11AE1C94: 75 34              jne         11AE1CCA
+  11AE1C96: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11AE1C99: 0F B6 51 05        movzx       edx,byte ptr [ecx+5]
+  11AE1C9D: 85 D2              test        edx,edx
+  11AE1C9F: 75 29              jne         11AE1CCA
+  11AE1CA1: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11AE1CA4: 0F B6 48 06        movzx       ecx,byte ptr [eax+6]
+  11AE1CA8: 85 C9              test        ecx,ecx
+  11AE1CAA: 75 1E              jne         11AE1CCA
+  11AE1CAC: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11AE1CAF: 83 C1 0C           add         ecx,0Ch
+  11AE1CB2: E8 5E D1 5B FF     call        1109EE15
+  11AE1CB7: 0F B6 D0           movzx       edx,al
+  11AE1CBA: 85 D2              test        edx,edx
+  11AE1CBC: 74 0C              je          11AE1CCA
+  11AE1CBE: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],0
+            00 00 00 00
+  11AE1CC8: EB 0A              jmp         11AE1CD4
+  11AE1CCA: C7 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],1
+            01 00 00 00
+  11AE1CD4: 0F B6 85 30 FF FF  movzx       eax,byte ptr [ebp+FFFFFF30h]
+            FF
+  11AE1CDB: 5F                 pop         edi
+  11AE1CDC: 5E                 pop         esi
+  11AE1CDD: 5B                 pop         ebx
+  11AE1CDE: 81 C4 D0 00 00 00  add         esp,0D0h
+  11AE1CE4: 3B EC              cmp         ebp,esp
+  11AE1CE6: E8 FE BF 57 FF     call        1105DCE9
+  11AE1CEB: 8B E5              mov         esp,ebp
+  11AE1CED: 5D                 pop         ebp
+  11AE1CEE: C3                 ret
+  11AE1CEF: CC                 int         3
+
+  Summary
+
+     216F000 .text

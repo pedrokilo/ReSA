@@ -1,0 +1,42 @@
+[
+  {
+    "bank": "RequestedPreflightAdditionalLifetimes",
+    "original_path": "D:\\Original\\gta-reversed-master\\reversing\\RequestedPreflightAdditionalLifetimes\\artifacts",
+    "archive_target": "C:\\Users\\pedro\\Tools\\ReSA-evidence-archive-20261008\\RequestedPreflightAdditionalLifetimes-artifacts",
+    "junction": true,
+    "hash_journal": "C:\\Users\\pedro\\Tools\\ReSA-evidence-archive-20261008\\RequestedPreflightAdditionalLifetimes-file-hashes.json",
+    "hash_journal_sha256": "FEC5ABA7A41F685C356B3821997E8F25B0C866393C4FD4B2799E04615E54B75F"
+  },
+  {
+    "bank": "RequestedMenuBatch",
+    "original_path": "D:\\Original\\gta-reversed-master\\reversing\\RequestedMenuBatch\\artifacts",
+    "archive_target": "C:\\Users\\pedro\\Tools\\ReSA-evidence-archive-20261008\\RequestedMenuBatch-artifacts",
+    "junction": true,
+    "hash_journal": "C:\\Users\\pedro\\Tools\\ReSA-evidence-archive-20261008\\RequestedMenuBatch-file-hashes.json",
+    "hash_journal_sha256": "0645922A2DD5EEE051188BA1EC1A8215B373048C4A2D9019654C1523B7E55952"
+  },
+  {
+    "bank": "RequestedPreflightTaskCtorDtor",
+    "original_path": "D:\\Original\\gta-reversed-master\\reversing\\RequestedPreflightTaskCtorDtor\\artifacts",
+    "archive_target": "C:\\Users\\pedro\\Tools\\ReSA-evidence-archive-20261008\\RequestedPreflightTaskCtorDtor-artifacts",
+    "junction": true,
+    "hash_journal": "C:\\Users\\pedro\\Tools\\ReSA-evidence-archive-20261008\\RequestedPreflightTaskCtorDtor-file-hashes.json",
+    "hash_journal_sha256": "9ECFB1BB327DD870926217614A118D62421540057F0C41225406E701D6B0A330"
+  },
+  {
+    "bank": "RequestedGeometryPlanesV2",
+    "original_path": "D:\\Original\\gta-reversed-master\\reversing\\RequestedGeometryPlanesV2\\artifacts",
+    "archive_target": "C:\\Users\\pedro\\Tools\\ReSA-evidence-archive-20261008\\RequestedGeometryPlanesV2-artifacts",
+    "junction": true,
+    "hash_journal": "C:\\Users\\pedro\\Tools\\ReSA-evidence-archive-20261008\\RequestedGeometryPlanesV2-file-hashes.json",
+    "hash_journal_sha256": "B4DC66B73462BE8577C8BE7BE197307492AE109383592ACB2469FF9DDBE0AD0F"
+  },
+  {
+    "bank": "RequestedAnimProjectilePair",
+    "original_path": "D:\\Original\\gta-reversed-master\\reversing\\RequestedAnimProjectilePair\\artifacts",
+    "archive_target": "C:\\Users\\pedro\\Tools\\ReSA-evidence-archive-20261008\\RequestedAnimProjectilePair-artifacts",
+    "junction": true,
+    "hash_journal": "C:\\Users\\pedro\\Tools\\ReSA-evidence-archive-20261008\\RequestedAnimProjectilePair-file-hashes.json",
+    "hash_journal_sha256": "95208507FCC04F0BB93A23A4787CB72AC16C901FB6AAA08D48529EC0AAC9FBB1"
+  }
+]

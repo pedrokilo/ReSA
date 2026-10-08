@@ -1,0 +1,19 @@
+{
+  "applied": false,
+  "source_before_sha256": "b0902674db3e303e58c1bb9b875439a1e3ec02eaa8fa0acb8a619ab6774adaf2",
+  "proposed_source_sha256": "734aaa4ccdef0799d71fad91656288d4427d7af7ca07af0e7ded0f481ddbf5b8",
+  "patch_sha256": "bfabcbfb0e9be5972df72e10b396bac285caf6698ae8cf153317739d51185c22",
+  "native_address": "0x53FA70",
+  "native_nonnull_guard": "0x53FA99 TEST EAX / 0x53FA9B JE distance",
+  "native_second_call": "0x53FAA1 call 0x56E0D0",
+  "native_train_return": "0x53FAAF CMP ECX,6 / 0x53FAB2 JE epilogue",
+  "native_ret": "0x53FB3D RET8",
+  "change": "Only boolean gate; retains existing default false second argument and exact helper multiplicity",
+  "call_counts": {
+    "null": 1,
+    "nonnull_nontrain": 2,
+    "nonnull_train": 2
+  },
+  "domains_unchanged": true,
+  "no_source_edit": true
+}

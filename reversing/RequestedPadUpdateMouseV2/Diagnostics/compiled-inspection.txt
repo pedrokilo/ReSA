@@ -1,0 +1,242 @@
+{
+  "bank": "RequestedPadUpdateMouseV2",
+  "pdb_match": true,
+  "base": "0x10000000",
+  "symbols": [
+    [
+      "IsVideoModeExclusive",
+      "0x11344360",
+      136
+    ],
+    [
+      "WinInput::diMouseInit",
+      "0x1134e950",
+      1425
+    ],
+    [
+      "std::ranges::_Any_of_fn::operator()<std::vector<std::shared_ptr<ReversibleHooks::ReversibleHook::Base>,std::allocator<std::shared_ptr<ReversibleHooks::ReversibleHook::Base> > > &,std::identity,``RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> >",
+      "0x1135bc50",
+      227
+    ],
+    [
+      "std::ranges::_All_of_fn::operator()<std::vector<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> >,std::allocator<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > > > &,std::identity,`RequestedPadUpdateMouse::Update'::`2'::<lambda_3> >",
+      "0x1135be10",
+      227
+    ],
+    [
+      "std::ranges::_All_of_fn::operator()<std::vector<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> >,std::allocator<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > > > &,std::identity,`RequestedPadUpdateMouse::Update'::`22'::<lambda_4> >",
+      "0x1135bf30",
+      227
+    ],
+    [
+      "``RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1>::operator()<std::shared_ptr<ReversibleHooks::ReversibleHook::Base> >",
+      "0x1135d060",
+      103
+    ],
+    [
+      "`RequestedPadUpdateMouse::Update'::`2'::<lambda_3>::operator()<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > >",
+      "0x1135d0e0",
+      66
+    ],
+    [
+      "`RequestedPadUpdateMouse::Update'::`22'::<lambda_4>::operator()<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > >",
+      "0x1135d140",
+      69
+    ],
+    [
+      "``RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()'::`2'::<lambda_1>::operator()<ReversibleHooks::HookCategory>",
+      "0x1135d1a0",
+      191
+    ],
+    [
+      "`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>",
+      "0x1135d4f0",
+      1108
+    ],
+    [
+      "ReversibleHooks::HookCategory::ForEachCategory<``RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()'::`2'::<lambda_1> &>",
+      "0x1135db80",
+      232
+    ],
+    [
+      "ReversibleHooks::HookCategory::ForEachCategory<`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2> &>",
+      "0x1135df10",
+      232
+    ],
+    [
+      "ReversibleHooks::HookCategory::ForEachCategory<``RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()'::`2'::<lambda_1> >",
+      "0x1135e040",
+      232
+    ],
+    [
+      "ReversibleHooks::HookCategory::ForEachCategory<`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2> >",
+      "0x1135e3d0",
+      232
+    ],
+    [
+      "std::ranges::_All_of_fn::_All_of_unchecked<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > *,std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > *,std::identity,`RequestedPadUpdateMouse::Update'::`2'::<lambda_3> >",
+      "0x1135ed80",
+      106
+    ],
+    [
+      "std::ranges::_All_of_fn::_All_of_unchecked<std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > *,std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > *,std::identity,`RequestedPadUpdateMouse::Update'::`22'::<lambda_4> >",
+      "0x1135ee10",
+      106
+    ],
+    [
+      "std::ranges::_Any_of_fn::_Any_of_unchecked<std::shared_ptr<ReversibleHooks::ReversibleHook::Base> *,std::shared_ptr<ReversibleHooks::ReversibleHook::Base> *,std::identity,``RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> >",
+      "0x1135f170",
+      106
+    ],
+    [
+      "std::_Pass_fn<``RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> >",
+      "0x11368760",
+      26
+    ],
+    [
+      "std::_Pass_fn<`RequestedPadUpdateMouse::Update'::`2'::<lambda_3> >",
+      "0x11368780",
+      26
+    ],
+    [
+      "std::_Pass_fn<`RequestedPadUpdateMouse::Update'::`22'::<lambda_4> >",
+      "0x113687a0",
+      26
+    ],
+    [
+      "std::invoke<``RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::operator()<ReversibleHooks::HookCategory>'::`1'::<lambda_1> &,std::shared_ptr<ReversibleHooks::ReversibleHook::Base> &>",
+      "0x11378580",
+      55
+    ],
+    [
+      "std::invoke<``RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()'::`2'::<lambda_1> &,ReversibleHooks::HookCategory &>",
+      "0x11378630",
+      56
+    ],
+    [
+      "std::invoke<`NOTSA_WinMain'::`2'::<lambda_1> &>",
+      "0x113786d0",
+      52
+    ],
+    [
+      "std::invoke<`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2> &,ReversibleHooks::HookCategory &>",
+      "0x11378770",
+      56
+    ],
+    [
+      "std::invoke<`RequestedPadUpdateMouse::Update'::`2'::<lambda_3> &,std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > &>",
+      "0x113787c0",
+      55
+    ],
+    [
+      "std::invoke<`RequestedPadUpdateMouse::Update'::`22'::<lambda_4> &,std::unique_ptr<RequestedPadUpdateMouse::Gate,std::default_delete<RequestedPadUpdateMouse::Gate> > &>",
+      "0x11378810",
+      55
+    ],
+    [
+      "``RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()'::`2'::<lambda_1>::<lambda_1>",
+      "0x1137cc70",
+      53
+    ],
+    [
+      "`RequestedPadUpdateMouse::Update'::`2'::<lambda_1>::<lambda_1>",
+      "0x1137cd40",
+      35
+    ],
+    [
+      "`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_1>::<lambda_1>",
+      "0x1137cd70",
+      35
+    ],
+    [
+      "`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_2>::<lambda_2>",
+      "0x1137ce10",
+      53
+    ],
+    [
+      "notsa::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >",
+      "0x1137ceb0",
+      27
+    ],
+    [
+      "notsa::ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >::~ScopeGuard<`NOTSA_WinMain'::`2'::<lambda_1> >",
+      "0x11382570",
+      111
+    ],
+    [
+      "`NOTSA_WinMain'::`2'::<lambda_1>::operator()",
+      "0x1138c3e0",
+      77
+    ],
+    [
+      "`RequestedPadUpdateMouse::Update'::`2'::<lambda_1>::operator()",
+      "0x1138c640",
+      243
+    ],
+    [
+      "`RequestedPreflightPadUpdateMouseLive::Update'::`2'::<lambda_1>::operator()",
+      "0x1138c770",
+      243
+    ],
+    [
+      "`RequestedPadUpdateMouse::Update'::`2'::<lambda_2>::operator()",
+      "0x1138ca50",
+      223
+    ],
+    [
+      "IsForegroundApp",
+      "0x1138fdd0",
+      94
+    ],
+    [
+      "NOTSA_WinMain",
+      "0x11390530",
+      1778
+    ],
+    [
+      "RequestedPadUpdateMouse::Read",
+      "0x113916b0",
+      657
+    ],
+    [
+      "RequestedPadUpdateMouse::ReadDll",
+      "0x113919f0",
+      142
+    ],
+    [
+      "RequestedPadUpdateMouse::ReadExe",
+      "0x11391ab0",
+      55
+    ],
+    [
+      "RequestedPadUpdateMouse::Update",
+      "0x113924a0",
+      16945
+    ],
+    [
+      "RequestedPreflightPadUpdateMouseLive::Update",
+      "0x11397760",
+      4859
+    ],
+    [
+      "CMouseControllerState::CheckForInput",
+      "0x11ae1c40",
+      175
+    ],
+    [
+      "CPad::GetMouseState",
+      "0x11af5740",
+      496
+    ],
+    [
+      "CPad::SetTouched",
+      "0x11aff4a0",
+      66
+    ],
+    [
+      "CPad::UpdateMouse",
+      "0x11b001e0",
+      734
+    ]
+  ]
+}

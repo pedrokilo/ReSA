@@ -1,0 +1,74 @@
+{
+  "reviewed": true,
+  "no_actor_or_heap_lifecycle_calls": true,
+  "asi_sha256": "f3fc415f965b9c6e205aedcacb3cf54531b6ed991ed42707e806ae37ecbba75b",
+  "pdb_sha256": "9dda9475d5e11157c7327e3275759444bd0846a868641924bb4ec7a829d667e3",
+  "constructor_callgraph_sha256": "18c28a260ad97272f92eef0899c261b36eab82115626b392ff904a499811f8df",
+  "families": [
+    {
+      "pool": "CPedPool",
+      "storage": "CCopPed",
+      "stride": 1988,
+      "run_body": "0x11359ce0",
+      "actual_borrowed_ctor_call": {
+        "call": "0x11359e5c",
+        "chain": [
+          "0x1105cc9a",
+          "0x1137d180"
+        ]
+      },
+      "inherited_ctor": "0x1137d180",
+      "base_ctor_chain": [
+        "0x11083cff",
+        "0x11379560"
+      ],
+      "layout": "storage+0,state+4,capacity+8,cursor+0C,owner0+10,policy0+11; sizeof20",
+      "raw_target_call": "1135B031",
+      "target_ABI": "uint32 cdecl(oneuint32arg), push argument then indirectcall then addesp4; fullEAX saved, no AL canonicalization"
+    },
+    {
+      "pool": "CVehiclePool",
+      "storage": "CHeli",
+      "stride": 2584,
+      "run_body": "0x1135d8c0",
+      "actual_borrowed_ctor_call": {
+        "call": "0x1135da3c",
+        "chain": [
+          "0x11068338",
+          "0x1137d1f0"
+        ]
+      },
+      "inherited_ctor": "0x1137d1f0",
+      "base_ctor_chain": [
+        "0x1105b73c",
+        "0x11379680"
+      ],
+      "layout": "storage+0,state+4,capacity+8,cursor+0C,owner0+10,policy0+11; sizeof20",
+      "raw_target_call": "1135EC29",
+      "target_ABI": "uint32 cdecl(oneuint32arg), push argument then indirectcall then addesp4; fullEAX saved, no AL canonicalization"
+    },
+    {
+      "pool": "CObjectPool",
+      "storage": "CCutsceneObject",
+      "stride": 412,
+      "run_body": "0x11356100",
+      "actual_borrowed_ctor_call": {
+        "call": "0x1135627c",
+        "chain": [
+          "0x11087bca",
+          "0x1137d110"
+        ]
+      },
+      "inherited_ctor": "0x1137d110",
+      "base_ctor_chain": [
+        "0x1105e6e9",
+        "0x11379440"
+      ],
+      "layout": "storage+0,state+4,capacity+8,cursor+0C,owner0+10,policy0+11; sizeof20",
+      "raw_target_call": "11357451",
+      "target_ABI": "uint32 cdecl(oneuint32arg), push argument then indirectcall then addesp4; fullEAX saved, no AL canonicalization"
+    }
+  ],
+  "reachable_fixture_operations": "Borrowed header scalar stores; SlotState1-byte uninitialized_fill placement construction; linked memset bounded private storage. _wassert excluded by nonnull arena pointers, range diagnostics excluded by ordered2-element bounds; compiler RTC only valid-path checks. No actor/pool destructor invoked.",
+  "contract": "Only in-bounds indices0/1, aligned rawslotaddresses and active IDs0..127. Native unchecked invalid-index behavior intentionally untested. No actor lifetime/helper credit."
+}

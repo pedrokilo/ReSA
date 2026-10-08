@@ -1,0 +1,1721 @@
+{
+  "asi_sha256": "f2adc3360bbb14d0442940d4ffe4c6c87521aa854ac7ad74bcfc32d783d2e564",
+  "pdb_sha256": "7480df942570214a20110500aa391cd7e83f8edec5824afa84d5744a938fc227",
+  "metadata_reader": "VS DIA current matched ASI/PDB; never loads ASI",
+  "functions": [
+    {
+      "name": "CVector::Magnitude",
+      "rva": 23790144,
+      "length": 120,
+      "body_sha256": "a7c5175ce5f89a559a4ce46e253fa5663eb622b5ec77f8d451b2dcd951865a87",
+      "bytes_hex": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b45f88b4df8f30f1000f30f59018b55f88b45f8f30f104a04f30f594804f30f58c18b4df88b55f8f30f104908f30f594a08f30f58c151f30f110424e8e3c89aff83c4045f5e5b81c4cc0000003bece80daa9aff8be55dc3",
+      "instructions": [
+        {
+          "rva": 23790144,
+          "mnemonic": "push",
+          "operands": "ebp"
+        },
+        {
+          "rva": 23790145,
+          "mnemonic": "mov",
+          "operands": "ebp, esp"
+        },
+        {
+          "rva": 23790147,
+          "mnemonic": "sub",
+          "operands": "esp, 0xcc"
+        },
+        {
+          "rva": 23790153,
+          "mnemonic": "push",
+          "operands": "ebx"
+        },
+        {
+          "rva": 23790154,
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": 23790155,
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "rva": 23790156,
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "rva": 23790157,
+          "mnemonic": "lea",
+          "operands": "edi, [ebp - 0xc]"
+        },
+        {
+          "rva": 23790160,
+          "mnemonic": "mov",
+          "operands": "ecx, 3"
+        },
+        {
+          "rva": 23790165,
+          "mnemonic": "mov",
+          "operands": "eax, 0xcccccccc"
+        },
+        {
+          "rva": 23790170,
+          "mnemonic": "rep stosd",
+          "operands": "dword ptr es:[edi], eax"
+        },
+        {
+          "rva": 23790172,
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "rva": 23790173,
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 8], ecx"
+        },
+        {
+          "rva": 23790176,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 23790179,
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 23790182,
+          "mnemonic": "movss",
+          "operands": "xmm0, dword ptr [eax]"
+        },
+        {
+          "rva": 23790186,
+          "mnemonic": "mulss",
+          "operands": "xmm0, dword ptr [ecx]"
+        },
+        {
+          "rva": 23790190,
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 23790193,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 23790196,
+          "mnemonic": "movss",
+          "operands": "xmm1, dword ptr [edx + 4]"
+        },
+        {
+          "rva": 23790201,
+          "mnemonic": "mulss",
+          "operands": "xmm1, dword ptr [eax + 4]"
+        },
+        {
+          "rva": 23790206,
+          "mnemonic": "addss",
+          "operands": "xmm0, xmm1"
+        },
+        {
+          "rva": 23790210,
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 23790213,
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 23790216,
+          "mnemonic": "movss",
+          "operands": "xmm1, dword ptr [ecx + 8]"
+        },
+        {
+          "rva": 23790221,
+          "mnemonic": "mulss",
+          "operands": "xmm1, dword ptr [edx + 8]"
+        },
+        {
+          "rva": 23790226,
+          "mnemonic": "addss",
+          "operands": "xmm0, xmm1"
+        },
+        {
+          "rva": 23790230,
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "rva": 23790231,
+          "mnemonic": "movss",
+          "operands": "dword ptr [esp], xmm0"
+        },
+        {
+          "rva": 23790236,
+          "mnemonic": "call",
+          "operands": "0x1105cb84"
+        },
+        {
+          "rva": 23790241,
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        },
+        {
+          "rva": 23790244,
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "rva": 23790245,
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "rva": 23790246,
+          "mnemonic": "pop",
+          "operands": "ebx"
+        },
+        {
+          "rva": 23790247,
+          "mnemonic": "add",
+          "operands": "esp, 0xcc"
+        },
+        {
+          "rva": 23790253,
+          "mnemonic": "cmp",
+          "operands": "ebp, esp"
+        },
+        {
+          "rva": 23790255,
+          "mnemonic": "call",
+          "operands": "0x1105acc1"
+        },
+        {
+          "rva": 23790260,
+          "mnemonic": "mov",
+          "operands": "esp, ebp"
+        },
+        {
+          "rva": 23790262,
+          "mnemonic": "pop",
+          "operands": "ebp"
+        },
+        {
+          "rva": 23790263,
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ],
+      "calls": [
+        {
+          "rva": 23790236,
+          "target_rva": 17156996,
+          "symbol": "@ILT+31615(?sqrt@@YAMM@Z)"
+        },
+        {
+          "rva": 23790255,
+          "target_rva": 17149121,
+          "symbol": "@ILT+23740(__RTC_CheckEsp)"
+        }
+      ]
+    },
+    {
+      "name": "std::_Array_const_iterator<CVector,8>::operator->",
+      "rva": 38889280,
+      "length": 173,
+      "body_sha256": "c233ae97b12279389762926a08f43c31fede4aedb173962f8337aedc670e4630",
+      "bytes_hex": "558bec81eccc000000535657518d7df4b903000000b8ccccccccf3ab59894df88b45f883780800752d688ca01d13685c3b1c136a0068890000006800731c136a02e86b45b6fe83c41883f8017501ccb905000000cd298b45f883780c08722d68cca01d13685c3b1c136a00688a0000006800731c136a02e83545b6fe83c41883f8017501ccb905000000cd298b45f86b400c0c8b4df80341085f5e5b81c4cc0000003bece8d844b4fe8be55dc3",
+      "instructions": [
+        {
+          "rva": 38889280,
+          "mnemonic": "push",
+          "operands": "ebp"
+        },
+        {
+          "rva": 38889281,
+          "mnemonic": "mov",
+          "operands": "ebp, esp"
+        },
+        {
+          "rva": 38889283,
+          "mnemonic": "sub",
+          "operands": "esp, 0xcc"
+        },
+        {
+          "rva": 38889289,
+          "mnemonic": "push",
+          "operands": "ebx"
+        },
+        {
+          "rva": 38889290,
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": 38889291,
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "rva": 38889292,
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "rva": 38889293,
+          "mnemonic": "lea",
+          "operands": "edi, [ebp - 0xc]"
+        },
+        {
+          "rva": 38889296,
+          "mnemonic": "mov",
+          "operands": "ecx, 3"
+        },
+        {
+          "rva": 38889301,
+          "mnemonic": "mov",
+          "operands": "eax, 0xcccccccc"
+        },
+        {
+          "rva": 38889306,
+          "mnemonic": "rep stosd",
+          "operands": "dword ptr es:[edi], eax"
+        },
+        {
+          "rva": 38889308,
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "rva": 38889309,
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 8], ecx"
+        },
+        {
+          "rva": 38889312,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 38889315,
+          "mnemonic": "cmp",
+          "operands": "dword ptr [eax + 8], 0"
+        },
+        {
+          "rva": 38889319,
+          "mnemonic": "jne",
+          "operands": "0x12516796"
+        },
+        {
+          "rva": 38889321,
+          "mnemonic": "push",
+          "operands": "0x131da08c"
+        },
+        {
+          "rva": 38889326,
+          "mnemonic": "push",
+          "operands": "0x131c3b5c"
+        },
+        {
+          "rva": 38889331,
+          "mnemonic": "push",
+          "operands": "0"
+        },
+        {
+          "rva": 38889333,
+          "mnemonic": "push",
+          "operands": "0x89"
+        },
+        {
+          "rva": 38889338,
+          "mnemonic": "push",
+          "operands": "0x131c7300"
+        },
+        {
+          "rva": 38889343,
+          "mnemonic": "push",
+          "operands": "2"
+        },
+        {
+          "rva": 38889345,
+          "mnemonic": "call",
+          "operands": "0x1107acf1"
+        },
+        {
+          "rva": 38889350,
+          "mnemonic": "add",
+          "operands": "esp, 0x18"
+        },
+        {
+          "rva": 38889353,
+          "mnemonic": "cmp",
+          "operands": "eax, 1"
+        },
+        {
+          "rva": 38889356,
+          "mnemonic": "jne",
+          "operands": "0x1251678f"
+        },
+        {
+          "rva": 38889358,
+          "mnemonic": "int3",
+          "operands": ""
+        },
+        {
+          "rva": 38889359,
+          "mnemonic": "mov",
+          "operands": "ecx, 5"
+        },
+        {
+          "rva": 38889364,
+          "mnemonic": "int",
+          "operands": "0x29"
+        },
+        {
+          "rva": 38889366,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 38889369,
+          "mnemonic": "cmp",
+          "operands": "dword ptr [eax + 0xc], 8"
+        },
+        {
+          "rva": 38889373,
+          "mnemonic": "jb",
+          "operands": "0x125167cc"
+        },
+        {
+          "rva": 38889375,
+          "mnemonic": "push",
+          "operands": "0x131da0cc"
+        },
+        {
+          "rva": 38889380,
+          "mnemonic": "push",
+          "operands": "0x131c3b5c"
+        },
+        {
+          "rva": 38889385,
+          "mnemonic": "push",
+          "operands": "0"
+        },
+        {
+          "rva": 38889387,
+          "mnemonic": "push",
+          "operands": "0x8a"
+        },
+        {
+          "rva": 38889392,
+          "mnemonic": "push",
+          "operands": "0x131c7300"
+        },
+        {
+          "rva": 38889397,
+          "mnemonic": "push",
+          "operands": "2"
+        },
+        {
+          "rva": 38889399,
+          "mnemonic": "call",
+          "operands": "0x1107acf1"
+        },
+        {
+          "rva": 38889404,
+          "mnemonic": "add",
+          "operands": "esp, 0x18"
+        },
+        {
+          "rva": 38889407,
+          "mnemonic": "cmp",
+          "operands": "eax, 1"
+        },
+        {
+          "rva": 38889410,
+          "mnemonic": "jne",
+          "operands": "0x125167c5"
+        },
+        {
+          "rva": 38889412,
+          "mnemonic": "int3",
+          "operands": ""
+        },
+        {
+          "rva": 38889413,
+          "mnemonic": "mov",
+          "operands": "ecx, 5"
+        },
+        {
+          "rva": 38889418,
+          "mnemonic": "int",
+          "operands": "0x29"
+        },
+        {
+          "rva": 38889420,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 38889423,
+          "mnemonic": "imul",
+          "operands": "eax, dword ptr [eax + 0xc], 0xc"
+        },
+        {
+          "rva": 38889427,
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 38889430,
+          "mnemonic": "add",
+          "operands": "eax, dword ptr [ecx + 8]"
+        },
+        {
+          "rva": 38889433,
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "rva": 38889434,
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "rva": 38889435,
+          "mnemonic": "pop",
+          "operands": "ebx"
+        },
+        {
+          "rva": 38889436,
+          "mnemonic": "add",
+          "operands": "esp, 0xcc"
+        },
+        {
+          "rva": 38889442,
+          "mnemonic": "cmp",
+          "operands": "ebp, esp"
+        },
+        {
+          "rva": 38889444,
+          "mnemonic": "call",
+          "operands": "0x1105acc1"
+        },
+        {
+          "rva": 38889449,
+          "mnemonic": "mov",
+          "operands": "esp, ebp"
+        },
+        {
+          "rva": 38889451,
+          "mnemonic": "pop",
+          "operands": "ebp"
+        },
+        {
+          "rva": 38889452,
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ],
+      "calls": [
+        {
+          "rva": 38889345,
+          "target_rva": 17280241,
+          "symbol": "@ILT+154860(__CrtDbgReport)"
+        },
+        {
+          "rva": 38889399,
+          "target_rva": 17280241,
+          "symbol": "@ILT+154860(__CrtDbgReport)"
+        },
+        {
+          "rva": 38889444,
+          "target_rva": 17149121,
+          "symbol": "@ILT+23740(__RTC_CheckEsp)"
+        }
+      ]
+    },
+    {
+      "name": "CPad::StartShake_Train",
+      "rva": 28272944,
+      "length": 296,
+      "body_sha256": "1a7b2249866320a730476e69670ed239a7e2279b0e261813bdfc84f12d49dd8d",
+      "bytes_hex": "558bec81ecfc000000535657518d7dc4b90f000000b8ccccccccf3ab59894df8a198a76e130fb6482085c9740ca1cc096e130fbe0885c97405e9d40000006a006affe8c73f5aff83c40885c0741a6a006affe8b73f5aff83c4088bc8e88b895aff0fb6c085c07505e9a50000008b0dc8256e13e8126d56ff508d8d1cffffffe878ef57ff8d4508508d8d1cffffff518d950cffffff52e8c7ea5aff83c40c8bc8e8e40758ffd95dec8b45f80fbf880c01000083f9647d5bf30f100538f51d130f2f45ec764db8640000008b4df86689810c01000051f30f1045ecf30f110424e8706156ff83c404d99d04fffffff30f100530f51d13f30f5c8504fffffff30f5805ec771c13f30f2cc08b4df88881100100005f5e5b81c4fc0000003bece86f4256ff8be55dc20800",
+      "instructions": [
+        {
+          "rva": 28272944,
+          "mnemonic": "push",
+          "operands": "ebp"
+        },
+        {
+          "rva": 28272945,
+          "mnemonic": "mov",
+          "operands": "ebp, esp"
+        },
+        {
+          "rva": 28272947,
+          "mnemonic": "sub",
+          "operands": "esp, 0xfc"
+        },
+        {
+          "rva": 28272953,
+          "mnemonic": "push",
+          "operands": "ebx"
+        },
+        {
+          "rva": 28272954,
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": 28272955,
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "rva": 28272956,
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "rva": 28272957,
+          "mnemonic": "lea",
+          "operands": "edi, [ebp - 0x3c]"
+        },
+        {
+          "rva": 28272960,
+          "mnemonic": "mov",
+          "operands": "ecx, 0xf"
+        },
+        {
+          "rva": 28272965,
+          "mnemonic": "mov",
+          "operands": "eax, 0xcccccccc"
+        },
+        {
+          "rva": 28272970,
+          "mnemonic": "rep stosd",
+          "operands": "dword ptr es:[edi], eax"
+        },
+        {
+          "rva": 28272972,
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "rva": 28272973,
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 8], ecx"
+        },
+        {
+          "rva": 28272976,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0x136ea798]"
+        },
+        {
+          "rva": 28272981,
+          "mnemonic": "movzx",
+          "operands": "ecx, byte ptr [eax + 0x20]"
+        },
+        {
+          "rva": 28272985,
+          "mnemonic": "test",
+          "operands": "ecx, ecx"
+        },
+        {
+          "rva": 28272987,
+          "mnemonic": "je",
+          "operands": "0x11af6969"
+        },
+        {
+          "rva": 28272989,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0x136e09cc]"
+        },
+        {
+          "rva": 28272994,
+          "mnemonic": "movsx",
+          "operands": "ecx, byte ptr [eax]"
+        },
+        {
+          "rva": 28272997,
+          "mnemonic": "test",
+          "operands": "ecx, ecx"
+        },
+        {
+          "rva": 28272999,
+          "mnemonic": "je",
+          "operands": "0x11af696e"
+        },
+        {
+          "rva": 28273001,
+          "mnemonic": "jmp",
+          "operands": "0x11af6a42"
+        },
+        {
+          "rva": 28273006,
+          "mnemonic": "push",
+          "operands": "0"
+        },
+        {
+          "rva": 28273008,
+          "mnemonic": "push",
+          "operands": "-1"
+        },
+        {
+          "rva": 28273010,
+          "mnemonic": "call",
+          "operands": "0x1109a93e"
+        },
+        {
+          "rva": 28273015,
+          "mnemonic": "add",
+          "operands": "esp, 8"
+        },
+        {
+          "rva": 28273018,
+          "mnemonic": "test",
+          "operands": "eax, eax"
+        },
+        {
+          "rva": 28273020,
+          "mnemonic": "je",
+          "operands": "0x11af6998"
+        },
+        {
+          "rva": 28273022,
+          "mnemonic": "push",
+          "operands": "0"
+        },
+        {
+          "rva": 28273024,
+          "mnemonic": "push",
+          "operands": "-1"
+        },
+        {
+          "rva": 28273026,
+          "mnemonic": "call",
+          "operands": "0x1109a93e"
+        },
+        {
+          "rva": 28273031,
+          "mnemonic": "add",
+          "operands": "esp, 8"
+        },
+        {
+          "rva": 28273034,
+          "mnemonic": "mov",
+          "operands": "ecx, eax"
+        },
+        {
+          "rva": 28273036,
+          "mnemonic": "call",
+          "operands": "0x1109f31c"
+        },
+        {
+          "rva": 28273041,
+          "mnemonic": "movzx",
+          "operands": "eax, al"
+        },
+        {
+          "rva": 28273044,
+          "mnemonic": "test",
+          "operands": "eax, eax"
+        },
+        {
+          "rva": 28273046,
+          "mnemonic": "jne",
+          "operands": "0x11af699d"
+        },
+        {
+          "rva": 28273048,
+          "mnemonic": "jmp",
+          "operands": "0x11af6a42"
+        },
+        {
+          "rva": 28273053,
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0x136e25c8]"
+        },
+        {
+          "rva": 28273059,
+          "mnemonic": "call",
+          "operands": "0x1105d6ba"
+        },
+        {
+          "rva": 28273064,
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "rva": 28273065,
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp - 0xe4]"
+        },
+        {
+          "rva": 28273071,
+          "mnemonic": "call",
+          "operands": "0x1107592c"
+        },
+        {
+          "rva": 28273076,
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 8]"
+        },
+        {
+          "rva": 28273079,
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "rva": 28273080,
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp - 0xe4]"
+        },
+        {
+          "rva": 28273086,
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "rva": 28273087,
+          "mnemonic": "lea",
+          "operands": "edx, [ebp - 0xf4]"
+        },
+        {
+          "rva": 28273093,
+          "mnemonic": "push",
+          "operands": "edx"
+        },
+        {
+          "rva": 28273094,
+          "mnemonic": "call",
+          "operands": "0x110a5492"
+        },
+        {
+          "rva": 28273099,
+          "mnemonic": "add",
+          "operands": "esp, 0xc"
+        },
+        {
+          "rva": 28273102,
+          "mnemonic": "mov",
+          "operands": "ecx, eax"
+        },
+        {
+          "rva": 28273104,
+          "mnemonic": "call",
+          "operands": "0x110771b9"
+        },
+        {
+          "rva": 28273109,
+          "mnemonic": "fstp",
+          "operands": "dword ptr [ebp - 0x14]"
+        },
+        {
+          "rva": 28273112,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 28273115,
+          "mnemonic": "movsx",
+          "operands": "ecx, word ptr [eax + 0x10c]"
+        },
+        {
+          "rva": 28273122,
+          "mnemonic": "cmp",
+          "operands": "ecx, 0x64"
+        },
+        {
+          "rva": 28273125,
+          "mnemonic": "jge",
+          "operands": "0x11af6a42"
+        },
+        {
+          "rva": 28273127,
+          "mnemonic": "movss",
+          "operands": "xmm0, dword ptr [0x131df538]"
+        },
+        {
+          "rva": 28273135,
+          "mnemonic": "comiss",
+          "operands": "xmm0, dword ptr [ebp - 0x14]"
+        },
+        {
+          "rva": 28273139,
+          "mnemonic": "jbe",
+          "operands": "0x11af6a42"
+        },
+        {
+          "rva": 28273141,
+          "mnemonic": "mov",
+          "operands": "eax, 0x64"
+        },
+        {
+          "rva": 28273146,
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 28273149,
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0x10c], ax"
+        },
+        {
+          "rva": 28273156,
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "rva": 28273157,
+          "mnemonic": "movss",
+          "operands": "xmm0, dword ptr [ebp - 0x14]"
+        },
+        {
+          "rva": 28273162,
+          "mnemonic": "movss",
+          "operands": "dword ptr [esp], xmm0"
+        },
+        {
+          "rva": 28273167,
+          "mnemonic": "call",
+          "operands": "0x1105cb84"
+        },
+        {
+          "rva": 28273172,
+          "mnemonic": "add",
+          "operands": "esp, 4"
+        },
+        {
+          "rva": 28273175,
+          "mnemonic": "fstp",
+          "operands": "dword ptr [ebp - 0xfc]"
+        },
+        {
+          "rva": 28273181,
+          "mnemonic": "movss",
+          "operands": "xmm0, dword ptr [0x131df530]"
+        },
+        {
+          "rva": 28273189,
+          "mnemonic": "subss",
+          "operands": "xmm0, dword ptr [ebp - 0xfc]"
+        },
+        {
+          "rva": 28273197,
+          "mnemonic": "addss",
+          "operands": "xmm0, dword ptr [0x131c77ec]"
+        },
+        {
+          "rva": 28273205,
+          "mnemonic": "cvttss2si",
+          "operands": "eax, xmm0"
+        },
+        {
+          "rva": 28273209,
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 28273212,
+          "mnemonic": "mov",
+          "operands": "byte ptr [ecx + 0x110], al"
+        },
+        {
+          "rva": 28273218,
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "rva": 28273219,
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "rva": 28273220,
+          "mnemonic": "pop",
+          "operands": "ebx"
+        },
+        {
+          "rva": 28273221,
+          "mnemonic": "add",
+          "operands": "esp, 0xfc"
+        },
+        {
+          "rva": 28273227,
+          "mnemonic": "cmp",
+          "operands": "ebp, esp"
+        },
+        {
+          "rva": 28273229,
+          "mnemonic": "call",
+          "operands": "0x1105acc1"
+        },
+        {
+          "rva": 28273234,
+          "mnemonic": "mov",
+          "operands": "esp, ebp"
+        },
+        {
+          "rva": 28273236,
+          "mnemonic": "pop",
+          "operands": "ebp"
+        },
+        {
+          "rva": 28273237,
+          "mnemonic": "ret",
+          "operands": "8"
+        }
+      ],
+      "calls": [
+        {
+          "rva": 28273010,
+          "target_rva": 17410366,
+          "symbol": "@ILT+284985(?FindPlayerVehicle@@YAPAVCVehicle@@H_N@Z)"
+        },
+        {
+          "rva": 28273026,
+          "target_rva": 17410366,
+          "symbol": "@ILT+284985(?FindPlayerVehicle@@YAPAVCVehicle@@H_N@Z)"
+        },
+        {
+          "rva": 28273036,
+          "target_rva": 17429276,
+          "symbol": "@ILT+303895(?IsTrain@CVehicle@@QBE_NXZ)"
+        },
+        {
+          "rva": 28273059,
+          "target_rva": 17159866,
+          "symbol": "@ILT+34485(?GetPosition@CPlaceable@@QAEAAVCVector@@XZ)"
+        },
+        {
+          "rva": 28273071,
+          "target_rva": 17258796,
+          "symbol": "@ILT+133415(??0CVector2D@@QAE@ABVCVector@@@Z)"
+        },
+        {
+          "rva": 28273094,
+          "target_rva": 17454226,
+          "symbol": "@ILT+328845(??G@YA?AVCVector2D@@ABV0@0@Z)"
+        },
+        {
+          "rva": 28273104,
+          "target_rva": 17265081,
+          "symbol": "@ILT+139700(?SquaredMagnitude@CVector2D@@QBEMXZ)"
+        },
+        {
+          "rva": 28273167,
+          "target_rva": 17156996,
+          "symbol": "@ILT+31615(?sqrt@@YAMM@Z)"
+        },
+        {
+          "rva": 28273229,
+          "target_rva": 17149121,
+          "symbol": "@ILT+23740(__RTC_CheckEsp)"
+        }
+      ]
+    },
+    {
+      "name": "CVector2D::operator-=",
+      "rva": 24443872,
+      "length": 69,
+      "body_sha256": "87a8f76e238a9e27ceaaa59af931260a90cf1a4cc6b5fb5c216263b79cce732f",
+      "bytes_hex": "558bec81eccc000000535657894df88b45f88b4d08f30f1000f30f5c018b55f8f30f11028b45f88b4d08f30f104004f30f5c41048b55f8f30f1142045f5e5b8be55dc20400",
+      "instructions": [
+        {
+          "rva": 24443872,
+          "mnemonic": "push",
+          "operands": "ebp"
+        },
+        {
+          "rva": 24443873,
+          "mnemonic": "mov",
+          "operands": "ebp, esp"
+        },
+        {
+          "rva": 24443875,
+          "mnemonic": "sub",
+          "operands": "esp, 0xcc"
+        },
+        {
+          "rva": 24443881,
+          "mnemonic": "push",
+          "operands": "ebx"
+        },
+        {
+          "rva": 24443882,
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": 24443883,
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "rva": 24443884,
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 8], ecx"
+        },
+        {
+          "rva": 24443887,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 24443890,
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp + 8]"
+        },
+        {
+          "rva": 24443893,
+          "mnemonic": "movss",
+          "operands": "xmm0, dword ptr [eax]"
+        },
+        {
+          "rva": 24443897,
+          "mnemonic": "subss",
+          "operands": "xmm0, dword ptr [ecx]"
+        },
+        {
+          "rva": 24443901,
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 24443904,
+          "mnemonic": "movss",
+          "operands": "dword ptr [edx], xmm0"
+        },
+        {
+          "rva": 24443908,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 24443911,
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp + 8]"
+        },
+        {
+          "rva": 24443914,
+          "mnemonic": "movss",
+          "operands": "xmm0, dword ptr [eax + 4]"
+        },
+        {
+          "rva": 24443919,
+          "mnemonic": "subss",
+          "operands": "xmm0, dword ptr [ecx + 4]"
+        },
+        {
+          "rva": 24443924,
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 24443927,
+          "mnemonic": "movss",
+          "operands": "dword ptr [edx + 4], xmm0"
+        },
+        {
+          "rva": 24443932,
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "rva": 24443933,
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "rva": 24443934,
+          "mnemonic": "pop",
+          "operands": "ebx"
+        },
+        {
+          "rva": 24443935,
+          "mnemonic": "mov",
+          "operands": "esp, ebp"
+        },
+        {
+          "rva": 24443937,
+          "mnemonic": "pop",
+          "operands": "ebp"
+        },
+        {
+          "rva": 24443938,
+          "mnemonic": "ret",
+          "operands": "4"
+        }
+      ],
+      "calls": []
+    },
+    {
+      "name": "CPad::StartShake_Distance",
+      "rva": 28272640,
+      "length": 241,
+      "body_sha256": "206eb4427c9fddf9339b0e19f566ef2c095a2e72b70e8e576e3fc9e368119b58",
+      "bytes_hex": "558bec81ece8000000535657518d7dd8b90a000000b8ccccccccf3ab59a1404a6c1333c58945fc894df4a198a76e130fb6482085c9740ca1cc096e130fbe0885c97405e9890000008d4510508b0dc8256e13e8636e56ff508d8d20ffffff51e804805aff83c40c8bc8e849e05affd99d18fffffff30f100530f51d130f2f8518ffffff764c0fb6450c85c0742e0fbf45088b4df40fbf910c0100003bc27e1a8b45f4668b4d086689880c0100008b45f48a4d0c888810010000eb1633c08b4df46689810c0100008b45f4c68010010000005f5e5b8b4dfc33cde8342a56ff81c4e80000003bece8d64356ff8be55dc21400",
+      "instructions": [
+        {
+          "rva": 28272640,
+          "mnemonic": "push",
+          "operands": "ebp"
+        },
+        {
+          "rva": 28272641,
+          "mnemonic": "mov",
+          "operands": "ebp, esp"
+        },
+        {
+          "rva": 28272643,
+          "mnemonic": "sub",
+          "operands": "esp, 0xe8"
+        },
+        {
+          "rva": 28272649,
+          "mnemonic": "push",
+          "operands": "ebx"
+        },
+        {
+          "rva": 28272650,
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": 28272651,
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "rva": 28272652,
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "rva": 28272653,
+          "mnemonic": "lea",
+          "operands": "edi, [ebp - 0x28]"
+        },
+        {
+          "rva": 28272656,
+          "mnemonic": "mov",
+          "operands": "ecx, 0xa"
+        },
+        {
+          "rva": 28272661,
+          "mnemonic": "mov",
+          "operands": "eax, 0xcccccccc"
+        },
+        {
+          "rva": 28272666,
+          "mnemonic": "rep stosd",
+          "operands": "dword ptr es:[edi], eax"
+        },
+        {
+          "rva": 28272668,
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "rva": 28272669,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0x136c4a40]"
+        },
+        {
+          "rva": 28272674,
+          "mnemonic": "xor",
+          "operands": "eax, ebp"
+        },
+        {
+          "rva": 28272676,
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 4], eax"
+        },
+        {
+          "rva": 28272679,
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0xc], ecx"
+        },
+        {
+          "rva": 28272682,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0x136ea798]"
+        },
+        {
+          "rva": 28272687,
+          "mnemonic": "movzx",
+          "operands": "ecx, byte ptr [eax + 0x20]"
+        },
+        {
+          "rva": 28272691,
+          "mnemonic": "test",
+          "operands": "ecx, ecx"
+        },
+        {
+          "rva": 28272693,
+          "mnemonic": "je",
+          "operands": "0x11af6843"
+        },
+        {
+          "rva": 28272695,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [0x136e09cc]"
+        },
+        {
+          "rva": 28272700,
+          "mnemonic": "movsx",
+          "operands": "ecx, byte ptr [eax]"
+        },
+        {
+          "rva": 28272703,
+          "mnemonic": "test",
+          "operands": "ecx, ecx"
+        },
+        {
+          "rva": 28272705,
+          "mnemonic": "je",
+          "operands": "0x11af6848"
+        },
+        {
+          "rva": 28272707,
+          "mnemonic": "jmp",
+          "operands": "0x11af68d1"
+        },
+        {
+          "rva": 28272712,
+          "mnemonic": "lea",
+          "operands": "eax, [ebp + 0x10]"
+        },
+        {
+          "rva": 28272715,
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "rva": 28272716,
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0x136e25c8]"
+        },
+        {
+          "rva": 28272722,
+          "mnemonic": "call",
+          "operands": "0x1105d6ba"
+        },
+        {
+          "rva": 28272727,
+          "mnemonic": "push",
+          "operands": "eax"
+        },
+        {
+          "rva": 28272728,
+          "mnemonic": "lea",
+          "operands": "ecx, [ebp - 0xe0]"
+        },
+        {
+          "rva": 28272734,
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "rva": 28272735,
+          "mnemonic": "call",
+          "operands": "0x1109e868"
+        },
+        {
+          "rva": 28272740,
+          "mnemonic": "add",
+          "operands": "esp, 0xc"
+        },
+        {
+          "rva": 28272743,
+          "mnemonic": "mov",
+          "operands": "ecx, eax"
+        },
+        {
+          "rva": 28272745,
+          "mnemonic": "call",
+          "operands": "0x110a48b7"
+        },
+        {
+          "rva": 28272750,
+          "mnemonic": "fstp",
+          "operands": "dword ptr [ebp - 0xe8]"
+        },
+        {
+          "rva": 28272756,
+          "mnemonic": "movss",
+          "operands": "xmm0, dword ptr [0x131df530]"
+        },
+        {
+          "rva": 28272764,
+          "mnemonic": "comiss",
+          "operands": "xmm0, dword ptr [ebp - 0xe8]"
+        },
+        {
+          "rva": 28272771,
+          "mnemonic": "jbe",
+          "operands": "0x11af68d1"
+        },
+        {
+          "rva": 28272773,
+          "mnemonic": "movzx",
+          "operands": "eax, byte ptr [ebp + 0xc]"
+        },
+        {
+          "rva": 28272777,
+          "mnemonic": "test",
+          "operands": "eax, eax"
+        },
+        {
+          "rva": 28272779,
+          "mnemonic": "je",
+          "operands": "0x11af68bb"
+        },
+        {
+          "rva": 28272781,
+          "mnemonic": "movsx",
+          "operands": "eax, word ptr [ebp + 8]"
+        },
+        {
+          "rva": 28272785,
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "rva": 28272788,
+          "mnemonic": "movsx",
+          "operands": "edx, word ptr [ecx + 0x10c]"
+        },
+        {
+          "rva": 28272795,
+          "mnemonic": "cmp",
+          "operands": "eax, edx"
+        },
+        {
+          "rva": 28272797,
+          "mnemonic": "jle",
+          "operands": "0x11af68b9"
+        },
+        {
+          "rva": 28272799,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 0xc]"
+        },
+        {
+          "rva": 28272802,
+          "mnemonic": "mov",
+          "operands": "cx, word ptr [ebp + 8]"
+        },
+        {
+          "rva": 28272806,
+          "mnemonic": "mov",
+          "operands": "word ptr [eax + 0x10c], cx"
+        },
+        {
+          "rva": 28272813,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 0xc]"
+        },
+        {
+          "rva": 28272816,
+          "mnemonic": "mov",
+          "operands": "cl, byte ptr [ebp + 0xc]"
+        },
+        {
+          "rva": 28272819,
+          "mnemonic": "mov",
+          "operands": "byte ptr [eax + 0x110], cl"
+        },
+        {
+          "rva": 28272825,
+          "mnemonic": "jmp",
+          "operands": "0x11af68d1"
+        },
+        {
+          "rva": 28272827,
+          "mnemonic": "xor",
+          "operands": "eax, eax"
+        },
+        {
+          "rva": 28272829,
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "rva": 28272832,
+          "mnemonic": "mov",
+          "operands": "word ptr [ecx + 0x10c], ax"
+        },
+        {
+          "rva": 28272839,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 0xc]"
+        },
+        {
+          "rva": 28272842,
+          "mnemonic": "mov",
+          "operands": "byte ptr [eax + 0x110], 0"
+        },
+        {
+          "rva": 28272849,
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "rva": 28272850,
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "rva": 28272851,
+          "mnemonic": "pop",
+          "operands": "ebx"
+        },
+        {
+          "rva": 28272852,
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 4]"
+        },
+        {
+          "rva": 28272855,
+          "mnemonic": "xor",
+          "operands": "ecx, ebp"
+        },
+        {
+          "rva": 28272857,
+          "mnemonic": "call",
+          "operands": "0x11059312"
+        },
+        {
+          "rva": 28272862,
+          "mnemonic": "add",
+          "operands": "esp, 0xe8"
+        },
+        {
+          "rva": 28272868,
+          "mnemonic": "cmp",
+          "operands": "ebp, esp"
+        },
+        {
+          "rva": 28272870,
+          "mnemonic": "call",
+          "operands": "0x1105acc1"
+        },
+        {
+          "rva": 28272875,
+          "mnemonic": "mov",
+          "operands": "esp, ebp"
+        },
+        {
+          "rva": 28272877,
+          "mnemonic": "pop",
+          "operands": "ebp"
+        },
+        {
+          "rva": 28272878,
+          "mnemonic": "ret",
+          "operands": "0x14"
+        }
+      ],
+      "calls": [
+        {
+          "rva": 28272722,
+          "target_rva": 17159866,
+          "symbol": "@ILT+34485(?GetPosition@CPlaceable@@QAEAAVCVector@@XZ)"
+        },
+        {
+          "rva": 28272735,
+          "target_rva": 17426536,
+          "symbol": "@ILT+301155(??G@YA?AVCVector@@ABV0@0@Z)"
+        },
+        {
+          "rva": 28272745,
+          "target_rva": 17451191,
+          "symbol": "@ILT+325810(?Magnitude@CVector@@QBEMXZ)"
+        },
+        {
+          "rva": 28272857,
+          "target_rva": 17142546,
+          "symbol": "@ILT+17165(@__security_check_cookie@4)"
+        },
+        {
+          "rva": 28272870,
+          "target_rva": 17149121,
+          "symbol": "@ILT+23740(__RTC_CheckEsp)"
+        }
+      ]
+    },
+    {
+      "name": "CVector::operator-=",
+      "rva": 23783008,
+      "length": 93,
+      "body_sha256": "1f24e779ed2af60b47964a85150e056d5ee7a5554e459d60a941968c2d247b24",
+      "bytes_hex": "558bec81eccc000000535657894df88b45f88b4d08f30f1000f30f5c018b55f8f30f11028b45f88b4d08f30f104004f30f5c41048b55f8f30f1142048b45f88b4d08f30f104008f30f5c41088b55f8f30f1142085f5e5b8be55dc20400",
+      "instructions": [
+        {
+          "rva": 23783008,
+          "mnemonic": "push",
+          "operands": "ebp"
+        },
+        {
+          "rva": 23783009,
+          "mnemonic": "mov",
+          "operands": "ebp, esp"
+        },
+        {
+          "rva": 23783011,
+          "mnemonic": "sub",
+          "operands": "esp, 0xcc"
+        },
+        {
+          "rva": 23783017,
+          "mnemonic": "push",
+          "operands": "ebx"
+        },
+        {
+          "rva": 23783018,
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": 23783019,
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "rva": 23783020,
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 8], ecx"
+        },
+        {
+          "rva": 23783023,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 23783026,
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp + 8]"
+        },
+        {
+          "rva": 23783029,
+          "mnemonic": "movss",
+          "operands": "xmm0, dword ptr [eax]"
+        },
+        {
+          "rva": 23783033,
+          "mnemonic": "subss",
+          "operands": "xmm0, dword ptr [ecx]"
+        },
+        {
+          "rva": 23783037,
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 23783040,
+          "mnemonic": "movss",
+          "operands": "dword ptr [edx], xmm0"
+        },
+        {
+          "rva": 23783044,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 23783047,
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp + 8]"
+        },
+        {
+          "rva": 23783050,
+          "mnemonic": "movss",
+          "operands": "xmm0, dword ptr [eax + 4]"
+        },
+        {
+          "rva": 23783055,
+          "mnemonic": "subss",
+          "operands": "xmm0, dword ptr [ecx + 4]"
+        },
+        {
+          "rva": 23783060,
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 23783063,
+          "mnemonic": "movss",
+          "operands": "dword ptr [edx + 4], xmm0"
+        },
+        {
+          "rva": 23783068,
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 23783071,
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp + 8]"
+        },
+        {
+          "rva": 23783074,
+          "mnemonic": "movss",
+          "operands": "xmm0, dword ptr [eax + 8]"
+        },
+        {
+          "rva": 23783079,
+          "mnemonic": "subss",
+          "operands": "xmm0, dword ptr [ecx + 8]"
+        },
+        {
+          "rva": 23783084,
+          "mnemonic": "mov",
+          "operands": "edx, dword ptr [ebp - 8]"
+        },
+        {
+          "rva": 23783087,
+          "mnemonic": "movss",
+          "operands": "dword ptr [edx + 8], xmm0"
+        },
+        {
+          "rva": 23783092,
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "rva": 23783093,
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "rva": 23783094,
+          "mnemonic": "pop",
+          "operands": "ebx"
+        },
+        {
+          "rva": 23783095,
+          "mnemonic": "mov",
+          "operands": "esp, ebp"
+        },
+        {
+          "rva": 23783097,
+          "mnemonic": "pop",
+          "operands": "ebp"
+        },
+        {
+          "rva": 23783098,
+          "mnemonic": "ret",
+          "operands": "4"
+        }
+      ],
+      "calls": []
+    }
+  ]
+}

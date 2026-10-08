@@ -1,0 +1,162 @@
+{
+  "asi_sha256": "112a1501f52451168a4718cbd3b50d968169fb158e95b48a6ffbc0c7b80d20e6",
+  "pdb_sha256": "e3f74156804b2e948f99813ad8f212c25bd7889650eb510d4085627d537b9d2f",
+  "base": 268435456,
+  "symbols": [
+    {
+      "name": "CPools::GetPed",
+      "address": 297789360,
+      "size": 75
+    },
+    {
+      "name": "CPools::GetObjectRef",
+      "address": 297789232,
+      "size": 75
+    },
+    {
+      "name": "CPools::GetVehicle",
+      "address": 297789808,
+      "size": 75
+    },
+    {
+      "name": "CPools::GetVehicleRef",
+      "address": 297789936,
+      "size": 75
+    },
+    {
+      "name": "CPools::GetObject",
+      "address": 297789104,
+      "size": 75
+    },
+    {
+      "name": "CPools::GetPedRef",
+      "address": 297789552,
+      "size": 75
+    },
+    {
+      "name": "`RequestedPoolsSixGettersV2Live::Run<CPedPool,CCopPed>'::`25'::<lambda_1>::<lambda_1>",
+      "address": 288859088,
+      "size": 44
+    },
+    {
+      "name": "RequestedPoolsSixGettersV2Live::Run<CObjectPool,CCutsceneObject>",
+      "address": 288715008,
+      "size": 12302
+    },
+    {
+      "name": "`RequestedPoolsSixGettersV2Live::Run<CObjectPool,CCutsceneObject>'::`25'::<lambda_1>::operator()<SmallPendingSupport::HookSnapshot>",
+      "address": 288707392,
+      "size": 76
+    },
+    {
+      "name": "RequestedPoolsSixGettersV2Live::Run<CPedPool,CCopPed>",
+      "address": 288730400,
+      "size": 12302
+    },
+    {
+      "name": "`RequestedPoolsSixGettersV2Live::Run<CPedPool,CCopPed>'::`25'::<lambda_1>::operator()<SmallPendingSupport::HookSnapshot>",
+      "address": 288707488,
+      "size": 76
+    },
+    {
+      "name": "`RequestedPoolsSixGettersV2Live::Run<CObjectPool,CCutsceneObject>'::`25'::<lambda_1>::<lambda_1>",
+      "address": 288859024,
+      "size": 44
+    },
+    {
+      "name": "std::find_if<std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<SmallPendingSupport::HookSnapshot> > >,`RequestedPoolsSixGettersV2Live::Run<CPedPool,CCopPed>'::`25'::<lambda_1> >",
+      "address": 288842016,
+      "size": 316
+    },
+    {
+      "name": "RequestedPoolsSixGettersV2Live::Run<CVehiclePool,CHeli>",
+      "address": 288745792,
+      "size": 12334
+    },
+    {
+      "name": "std::find_if<std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<SmallPendingSupport::HookSnapshot> > >,`RequestedPoolsSixGettersV2Live::Run<CVehiclePool,CHeli>'::`25'::<lambda_1> >",
+      "address": 288842416,
+      "size": 316
+    },
+    {
+      "name": "`RequestedPoolsSixGettersV2Live::Run<CVehiclePool,CHeli>'::`25'::<lambda_1>::operator()<SmallPendingSupport::HookSnapshot>",
+      "address": 288707584,
+      "size": 76
+    },
+    {
+      "name": "std::find_if<std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<SmallPendingSupport::HookSnapshot> > >,`RequestedPoolsSixGettersV2Live::Run<CObjectPool,CCutsceneObject>'::`25'::<lambda_1> >",
+      "address": 288841616,
+      "size": 316
+    },
+    {
+      "name": "`RequestedPoolsSixGettersV2Live::Run<CVehiclePool,CHeli>'::`25'::<lambda_1>::<lambda_1>",
+      "address": 288859152,
+      "size": 44
+    },
+    {
+      "name": "CPedPool::CPedPool",
+      "address": 297772000,
+      "size": 74
+    },
+    {
+      "name": "CPedPool::CPedPool",
+      "address": 288875056,
+      "size": 78
+    },
+    {
+      "name": "CVehiclePool::CVehiclePool",
+      "address": 297772576,
+      "size": 74
+    },
+    {
+      "name": "CVehiclePool::CVehiclePool",
+      "address": 288875168,
+      "size": 78
+    },
+    {
+      "name": "CObjectPool::CObjectPool",
+      "address": 297771616,
+      "size": 74
+    },
+    {
+      "name": "CObjectPool::CObjectPool",
+      "address": 288874944,
+      "size": 78
+    },
+    {
+      "name": "CPool<CVehicle,CHeli>::GetRef",
+      "address": 291420192,
+      "size": 96
+    },
+    {
+      "name": "CPool<CPed,CCopPed>::GetRef",
+      "address": 292877232,
+      "size": 96
+    },
+    {
+      "name": "CPool<CObject,CCutsceneObject>::GetRef",
+      "address": 292735680,
+      "size": 96
+    },
+    {
+      "name": "CPool<CVehicle,CHeli>::GetAtRef",
+      "address": 291518000,
+      "size": 148
+    },
+    {
+      "name": "CPool<CPed,CCopPed>::GetAtRef",
+      "address": 288113648,
+      "size": 148
+    },
+    {
+      "name": "CPool<CObject,CCutsceneObject>::GetAtRefNoChecks",
+      "address": 297788816,
+      "size": 75
+    },
+    {
+      "name": "CPool<CObject,CCutsceneObject>::GetAtRef",
+      "address": 296363552,
+      "size": 148
+    }
+  ]
+}

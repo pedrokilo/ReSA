@@ -1,0 +1,55 @@
+{
+  "identities": [
+    {
+      "class": "CPools",
+      "fn_name": "GetPedRef",
+      "address": "0x0054FF60",
+      "type": "S",
+      "pairs": 256
+    },
+    {
+      "class": "CPools",
+      "fn_name": "GetPed",
+      "address": "0x0054FF90",
+      "type": "S",
+      "pairs": 768
+    },
+    {
+      "class": "CPools",
+      "fn_name": "GetVehicleRef",
+      "address": "0x0054FFC0",
+      "type": "S",
+      "pairs": 256
+    },
+    {
+      "class": "CPools",
+      "fn_name": "GetVehicle",
+      "address": "0x0054FFF0",
+      "type": "S",
+      "pairs": 768
+    },
+    {
+      "class": "CPools",
+      "fn_name": "GetObjectRef",
+      "address": "0x00550020",
+      "type": "S",
+      "pairs": 256
+    },
+    {
+      "class": "CPools",
+      "fn_name": "GetObject",
+      "address": "0x00550050",
+      "type": "S",
+      "pairs": 768
+    }
+  ],
+  "total_pairs": 3072,
+  "fixture": "Actual CPedPool/CVehiclePool/CObjectPool inherited borrowed-memory constructor (non-owning) placed in guarded20-byte headers. Two rawstorage slots sized CCopPed7C4/CHeliA18/CCutsceneObject19C; states alive SlotState1byte from constructor. No actor lifetimes constructed/destructed and no actor dereference. Addresses of raw storage used only by pool reference arithmetic.",
+  "GetRef_domain": "2 aligned in-bounds rawslot pointers x all128 active seven-bitIDs; no free/non-slot/out-of-range pointers",
+  "Get_domain": "2 in-bounds indices x128activeIDs x matched/xor1/xor80 requestedtags; return exact rawslot physical address orNULL",
+  "native_contract": "Original wrappers read signed ref>>8 states before any index guard (NO checks). Corpus explicitly excludes negative and >=capacity indices, never treats checked DLL behavior there as native equivalence.",
+  "model": "GetRef=(index<<8)|storedFullByte. Get pointer iff requestedLowByte==storedFullByte; originalstrides7C4/A18/19C.",
+  "payload": "Whole guarded storage2*stride+32, states34, typed header52 and all68pool global bytes, lowercase losslesshex; perleg FP, flags gates and exact raw return. No pointer normalization.",
+  "scope": "CPU handle/address wrappers under borrowed raw pool memory only; no pool/actor allocation/lifetime/assets/serialization or helper/fullclass/dependency accreditation.",
+  "required_postbuild": "Matching capturedASI/PDB borrow-constructor actualcall proof before native replay; no actor/heap lifecycle calls. No compile/GTA yet."
+}

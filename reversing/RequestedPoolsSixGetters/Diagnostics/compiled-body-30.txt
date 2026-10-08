@@ -1,0 +1,63 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsSixGetters\artifacts\gta_reversed-pools-six-getters.asi
+
+File Type: DLL
+
+  11AA1570: 55                 push        ebp
+  11AA1571: 8B EC              mov         ebp,esp
+  11AA1573: 81 EC DC 00 00 00  sub         esp,0DCh
+  11AA1579: 53                 push        ebx
+  11AA157A: 56                 push        esi
+  11AA157B: 57                 push        edi
+  11AA157C: 51                 push        ecx
+  11AA157D: 8D 7D E4           lea         edi,[ebp-1Ch]
+  11AA1580: B9 07 00 00 00     mov         ecx,7
+  11AA1585: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11AA158A: F3 AB              rep stos    dword ptr es:[edi]
+  11AA158C: 59                 pop         ecx
+  11AA158D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11AA1590: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11AA1593: C1 F8 08           sar         eax,8
+  11AA1596: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  11AA1599: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  11AA159C: 50                 push        eax
+  11AA159D: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11AA15A0: E8 4D EA 5C FF     call        1106FFF2
+  11AA15A5: 0F B6 C8           movzx       ecx,al
+  11AA15A8: 85 C9              test        ecx,ecx
+  11AA15AA: 74 32              je          11AA15DE
+  11AA15AC: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  11AA15AF: 8B 4A 04           mov         ecx,dword ptr [edx+4]
+  11AA15B2: 03 4D EC           add         ecx,dword ptr [ebp-14h]
+  11AA15B5: E8 97 1C 5D FF     call        11073251
+  11AA15BA: 0F B6 C0           movzx       eax,al
+  11AA15BD: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11AA15C0: 81 E1 FF 00 00 00  and         ecx,0FFh
+  11AA15C6: 3B C1              cmp         eax,ecx
+  11AA15C8: 75 14              jne         11AA15DE
+  11AA15CA: 69 55 EC 9C 01 00  imul        edx,dword ptr [ebp-14h],19Ch
+            00
+  11AA15D1: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11AA15D4: 03 10              add         edx,dword ptr [eax]
+  11AA15D6: 89 95 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],edx
+  11AA15DC: EB 0A              jmp         11AA15E8
+  11AA15DE: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],0
+            00 00 00 00
+  11AA15E8: 8B 85 24 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF24h]
+  11AA15EE: 5F                 pop         edi
+  11AA15EF: 5E                 pop         esi
+  11AA15F0: 5B                 pop         ebx
+  11AA15F1: 81 C4 DC 00 00 00  add         esp,0DCh
+  11AA15F7: 3B EC              cmp         ebp,esp
+  11AA15F9: E8 69 76 5B FF     call        11058C67
+  11AA15FE: 8B E5              mov         esp,ebp
+  11AA1600: 5D                 pop         ebp
+  11AA1601: C2 04 00           ret         4
+  11AA1604: CC                 int         3
+
+  Summary
+
+     2165000 .text

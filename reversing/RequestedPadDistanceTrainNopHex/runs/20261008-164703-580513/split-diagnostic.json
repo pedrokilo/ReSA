@@ -1,0 +1,624 @@
+{
+  "no_runtime_approval": true,
+  "counts": {
+    "CPad::ProcessPCSpecificStuff": 1024,
+    "CPad::StartShake_Distance": 10240,
+    "CPad::StartShake_Train": 2688
+  },
+  "native_independent_model_failures": {
+    "CPad::ProcessPCSpecificStuff": 0,
+    "CPad::StartShake_Distance": 0,
+    "CPad::StartShake_Train": 0
+  },
+  "native_candidate_disagreements": {
+    "CPad::ProcessPCSpecificStuff": 0,
+    "CPad::StartShake_Distance": 1280,
+    "CPad::StartShake_Train": 414
+  },
+  "route_field_counts": {
+    "CPad::ProcessPCSpecificStuff": {},
+    "CPad::StartShake_Distance": {
+      "fp": 1280
+    },
+    "CPad::StartShake_Train": {
+      "pad": 234,
+      "fp": 318
+    }
+  },
+  "native_failure_examples": [],
+  "route_disagreement_examples": {
+    "CPad::ProcessPCSpecificStuff": [],
+    "CPad::StartShake_Distance": [
+      {
+        "pair": 1057,
+        "case": 33,
+        "geometry": 1,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8096
+        },
+        "pad_offsets": []
+      },
+      {
+        "pair": 1059,
+        "case": 35,
+        "geometry": 3,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8096
+        },
+        "pad_offsets": []
+      },
+      {
+        "pair": 1060,
+        "case": 36,
+        "geometry": 4,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8096
+        },
+        "pad_offsets": []
+      },
+      {
+        "pair": 1061,
+        "case": 37,
+        "geometry": 5,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8096
+        },
+        "pad_offsets": []
+      },
+      {
+        "pair": 1063,
+        "case": 39,
+        "geometry": 7,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8096
+        },
+        "pad_offsets": []
+      },
+      {
+        "pair": 1064,
+        "case": 40,
+        "geometry": 8,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8096
+        },
+        "pad_offsets": []
+      },
+      {
+        "pair": 1066,
+        "case": 42,
+        "geometry": 10,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8096
+        },
+        "pad_offsets": []
+      },
+      {
+        "pair": 1068,
+        "case": 44,
+        "geometry": 12,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8096
+        },
+        "pad_offsets": []
+      },
+      {
+        "pair": 1069,
+        "case": 45,
+        "geometry": 13,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8096
+        },
+        "pad_offsets": []
+      },
+      {
+        "pair": 1073,
+        "case": 49,
+        "geometry": 1,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8096
+        },
+        "pad_offsets": []
+      },
+      {
+        "pair": 1075,
+        "case": 51,
+        "geometry": 3,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8096
+        },
+        "pad_offsets": []
+      },
+      {
+        "pair": 1076,
+        "case": 52,
+        "geometry": 4,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8096
+        },
+        "pad_offsets": []
+      }
+    ],
+    "CPad::StartShake_Train": [
+      {
+        "pair": 11296,
+        "case": 32,
+        "geometry": 0,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "pad"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 0,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 0,
+          "mxcsr": 8064
+        },
+        "pad_offsets": [
+          268,
+          269,
+          272
+        ]
+      },
+      {
+        "pair": 11297,
+        "case": 33,
+        "geometry": 1,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp",
+          "pad"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 0,
+          "mxcsr": 8064
+        },
+        "pad_offsets": [
+          268,
+          269,
+          272
+        ]
+      },
+      {
+        "pair": 11299,
+        "case": 35,
+        "geometry": 3,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 0,
+          "mxcsr": 8064
+        },
+        "pad_offsets": []
+      },
+      {
+        "pair": 11300,
+        "case": 36,
+        "geometry": 4,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp",
+          "pad"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 0,
+          "mxcsr": 8064
+        },
+        "pad_offsets": [
+          268,
+          269,
+          272
+        ]
+      },
+      {
+        "pair": 11301,
+        "case": 37,
+        "geometry": 5,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp",
+          "pad"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 0,
+          "mxcsr": 8064
+        },
+        "pad_offsets": [
+          268,
+          269,
+          272
+        ]
+      },
+      {
+        "pair": 11303,
+        "case": 39,
+        "geometry": 7,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 0,
+          "mxcsr": 8064
+        },
+        "pad_offsets": []
+      },
+      {
+        "pair": 11304,
+        "case": 40,
+        "geometry": 8,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "pad"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 0,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 0,
+          "mxcsr": 8064
+        },
+        "pad_offsets": [
+          268,
+          269,
+          272
+        ]
+      },
+      {
+        "pair": 11305,
+        "case": 41,
+        "geometry": 9,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "pad"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 0,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 0,
+          "mxcsr": 8064
+        },
+        "pad_offsets": [
+          268,
+          269,
+          272
+        ]
+      },
+      {
+        "pair": 11306,
+        "case": 42,
+        "geometry": 10,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "pad"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 0,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 0,
+          "mxcsr": 8064
+        },
+        "pad_offsets": [
+          268,
+          269,
+          272
+        ]
+      },
+      {
+        "pair": 11308,
+        "case": 44,
+        "geometry": 12,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp",
+          "pad"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 0,
+          "mxcsr": 8064
+        },
+        "pad_offsets": [
+          268,
+          269,
+          272
+        ]
+      },
+      {
+        "pair": 11309,
+        "case": 45,
+        "geometry": 13,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 0,
+          "mxcsr": 8064
+        },
+        "pad_offsets": []
+      },
+      {
+        "pair": 11310,
+        "case": 46,
+        "geometry": 14,
+        "gates": 1,
+        "vehicle_role": 0,
+        "old_duration": -32768,
+        "fields": [
+          "fp",
+          "pad"
+        ],
+        "original_fp": {
+          "control": 655391,
+          "exceptions": 1,
+          "mxcsr": 8064
+        },
+        "candidate_fp": {
+          "control": 655391,
+          "exceptions": 0,
+          "mxcsr": 8064
+        },
+        "pad_offsets": [
+          268,
+          269,
+          272
+        ]
+      }
+    ]
+  },
+  "terminal": {
+    "collaborator_entries_restored": true,
+    "differences": 1694,
+    "entries_restored": true,
+    "event": "error",
+    "flags_restored": true,
+    "fp_control_after": 589855,
+    "fp_control_before": 589855,
+    "fp_restored": false,
+    "fp_status_after": 288,
+    "fp_status_before": 32,
+    "globals_restored": true,
+    "mxcsr_after": 8096,
+    "mxcsr_before": 8096,
+    "pairs": 13952,
+    "scope": "PC24 round-nearest finite CPU fixtures; FindPlayerVehicle isolated exact multiplicity; real camera borrowed matrix restored; no resources/gameplay/helper credit",
+    "state_restored": false
+  },
+  "raw_sha256": "f84056d19adf178dd63a3c5a46b6301972feff8aff09129baa1a79d613e38710"
+}

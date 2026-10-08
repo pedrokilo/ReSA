@@ -1,0 +1,18 @@
+{
+  "static_compiled_review_passed": true,
+  "no_runtime_approval": true,
+  "asi_sha256": "390debbf008d3e602ce8f36a3d101580b530c2cf3fb9cae386f4685411a9cbe4",
+  "pdb_sha256": "cfe44076920938d9d629946adfce5dfb0d7de9442a721b0372f7c394bb2abda5",
+  "metadata_dump_sha256": "786753e0e7cc6ce44cf3fc46b20ec3f6490e93262758932a31282e68e3ce5fb7",
+  "local_ftol_entire_native_bytes_identical": true,
+  "local_ftol_bytes": 117,
+  "local_ftol_instructions": 37,
+  "distance_native_x87_order": true,
+  "train_native_x87_order_and_local_ftol_call": true,
+  "target_no_SSE_arithmetic_or_comparison": true,
+  "Distance_RET20_Train_RET8": true,
+  "snapshot_FNSTENV_immediate_FLDENV_same_pointer": true,
+  "restore_FLDENV_present": true,
+  "ReadEnvironment_executable_return_rva": 20499661,
+  "ReadEnvironment_RTC_descriptor_after_return_is_data_not_executed_FMUL": true
+}

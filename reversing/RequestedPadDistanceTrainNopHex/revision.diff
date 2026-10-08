@@ -1,0 +1,184 @@
+--- revision2/LiveComparison.hpp
++++ hex/LiveComparison.hpp
+@@ -6,9 +6,10 @@
+ #include <fstream>
+ #include <map>
+ #include "Fixtures.hpp"
++#include "HexTransport.hpp"
+ #include "../RequestedParallelSmall/HookSnapshots.hpp"
+ #include <reversiblehooks/ReversibleHook/Virtual.h>
+-namespace RequestedPadDistanceTrainNop {
++namespace RequestedPadDistanceTrainNopHex {
+ using Simple=ReversibleHooks::ReversibleHook::Simple;
+ struct Range{void* ptr;std::vector<uint8> bytes;};
+ inline json trace;
+@@ -57,8 +58,8 @@
+  fstp value
+  }return uint8(int32(value));}
+ inline void Update(){
+- static bool done{};if(done)return;char exe[MAX_PATH]{};GetModuleFileNameA(nullptr,exe,MAX_PATH);const auto dir=std::filesystem::path(exe).parent_path();if(!std::filesystem::exists(dir/"pad-distance-train-nop-runtime.start"))return;done=true;
+- std::ofstream log(dir/"pad-distance-train-nop-runtime.jsonl");auto write=[&](const json& r){log<<r.dump()<<'\n';if(r.value("event","")!="comparison")log.flush();};
++ static bool done{};if(done)return;char exe[MAX_PATH]{};GetModuleFileNameA(nullptr,exe,MAX_PATH);const auto dir=std::filesystem::path(exe).parent_path();if(!std::filesystem::exists(dir/"pad-distance-train-nop-hex-runtime.start"))return;done=true;
++ std::ofstream log(dir/"pad-distance-train-nop-hex-runtime.jsonl");auto write=[&](const json& r){log<<r.dump()<<'\n';if(r.value("event","")!="comparison")log.flush();};
+  const auto flags=SmallPendingSupport::SnapshotHooks();std::map<std::string,Simple*> targets;std::vector<Range> entries;
+  ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& cat){for(auto& holder:cat.Items()){auto* base=holder.get();void* gta{};void* ours{};using namespace ReversibleHooks::ReversibleHook;
+   if(base->Type()==Base::HookType::Simple){auto* h=static_cast<Simple*>(base);gta=h->GetHookGTAAddress();ours=h->GetHookOurAddress();targets[std::string(cat.Name())+"::"+h->Name()]=h;}
+@@ -84,14 +85,15 @@
+    std::memcpy(modelPad.data()+0x10C,&expectedDuration,2);modelPad[0x110]=expectedFrequency;
+    json results[2],initialCamera,initialMatrix,initialVehicle,initialGlobals;bool guards=true;
+    for(int route=0;route<2;++route){for(const auto& r:globals)std::memcpy(r.ptr,r.bytes.data(),r.bytes.size());TheCamera.m_placement.m_vPosn=f.camera;matrix.value.GetPosition()=f.camera;TheCamera.m_matrix=f.mode?&matrix.value:nullptr;FrontEndMenuManager.m_PrefsUseVibration=enabled;CCutsceneMgr::ms_running=running?1:0;vehicle.Fill(uint8(seed*37),f.vehicle==2?6:0);returnedVehicle=f.vehicle?vehicle.Get():nullptr;vehicleRole=int(f.vehicle);trace=json::array();collaboratorValid=true;
+-    const auto camBefore=ReversingProbe::Bytes(&TheCamera,sizeof(TheCamera)),matBefore=ReversingProbe::Bytes(&matrix.value,sizeof(matrix.value)),vehBefore=ReversingProbe::Bytes(vehicle.bytes.data(),vehicle.bytes.size());json globalsBefore=json::array();for(const auto& r:globals)globalsBefore.push_back(ReversingProbe::Bytes(r.ptr,r.bytes.size()));if(route==0){initialCamera=camBefore;initialMatrix=matBefore;initialVehicle=vehBefore;initialGlobals=globalsBefore;}
++    const auto camBefore=HexBytes(&TheCamera,sizeof(TheCamera)),matBefore=HexBytes(&matrix.value,sizeof(matrix.value)),vehBefore=HexBytes(vehicle.bytes.data(),vehicle.bytes.size());json globalsBefore=json::array();for(const auto& r:globals)globalsBefore.push_back(HexBytes(r.ptr,r.bytes.size()));if(route==0){initialCamera=camBefore;initialMatrix=matBefore;initialVehicle=vehBefore;initialGlobals=globalsBefore;}
+     GuardedPad pad(padSeed);TestFP();auto* h=targets.at(keys[bank]);h->State(route!=0);const bool gate=SmallPendingSupport::ExactSwitch(*h,route!=0);const bool helperProof=*reinterpret_cast<const uint8*>(0x56E0D0)==0xE9&&*reinterpret_cast<const uint8*>(findDll)==0xE9&&uint32(0x56E0D0+5+*reinterpret_cast<const int32*>(0x56E0D1))==uint32(std::bit_cast<uintptr_t>(&FindVehicle))&&uint32(findDll+5+*reinterpret_cast<const int32*>(findDll+1))==uint32(std::bit_cast<uintptr_t>(&FindVehicle));
+     if(bank==0)reinterpret_cast<void(__thiscall*)(CPad*)>(addresses[bank])(&pad.value);else if(bank==1)reinterpret_cast<void(__thiscall*)(CPad*,int16,uint8,CVector)>(addresses[bank])(&pad.value,f.requestDuration,f.requestFrequency,f.point);else reinterpret_cast<void(__thiscall*)(CPad*,float,float)>(addresses[bank])(&pad.value,f.point.x,f.point.y);
+-    const auto fp=FP();json globalsAfter=json::array();for(const auto& r:globals)globalsAfter.push_back(ReversingProbe::Bytes(r.ptr,r.bytes.size()));const bool protectedGuards=pad.Guards()&&matrix.Guards()&&vehicle.Guards();guards&=protectedGuards;
+-    results[route]={{"gate",gate},{"helper_patch_exact",helperProof},{"collaborator_valid",collaboratorValid},{"pad",ReversingProbe::Bytes(&pad.value,sizeof(pad.value))},{"camera",ReversingProbe::Bytes(&TheCamera,sizeof(TheCamera))},{"matrix",ReversingProbe::Bytes(&matrix.value,sizeof(matrix.value))},{"vehicle",ReversingProbe::Bytes(vehicle.bytes.data(),vehicle.bytes.size())},{"globals",globalsAfter},{"trace",trace},{"guards",protectedGuards},{"fp",fp}};h->State(false);
++    const auto fp=FP(); // Capture before any transport allocation.
++    json globalsAfter=json::array();for(const auto& r:globals)globalsAfter.push_back(HexBytes(r.ptr,r.bytes.size()));const bool protectedGuards=pad.Guards()&&matrix.Guards()&&vehicle.Guards();guards&=protectedGuards;
++    results[route]={{"gate",gate},{"helper_patch_exact",helperProof},{"collaborator_valid",collaboratorValid},{"pad",HexBytes(&pad.value,sizeof(pad.value))},{"camera",HexBytes(&TheCamera,sizeof(TheCamera))},{"matrix",HexBytes(&matrix.value,sizeof(matrix.value))},{"vehicle",HexBytes(vehicle.bytes.data(),vehicle.bytes.size())},{"globals",globalsAfter},{"trace",trace},{"guards",protectedGuards},{"fp",fp}};h->State(false);
+    }
+-   const bool equal=results[0]==results[1]&&results[0]["gate"]==true&&results[0]["helper_patch_exact"]==true&&results[0]["collaborator_valid"]==true&&guards&&results[0]["pad"]==modelPad&&results[0]["camera"]==initialCamera&&results[0]["matrix"]==initialMatrix&&results[0]["vehicle"]==initialVehicle&&results[0]["globals"]==initialGlobals&&results[0]["trace"]==modelTrace;passed&=equal;differences+=!equal;
+-   write({{"event","comparison"},{"function",keys[bank]},{"pair",pairs++},{"case",seed},{"bank",bank},{"equal",equal},{"geometry",f.geometry},{"mode",f.mode},{"gates",f.gates},{"vehicle_role",f.vehicle},{"duration_role",f.durationRole},{"old_duration",f.oldDuration},{"request_duration",f.requestDuration},{"request_frequency",f.requestFrequency},{"camera_bits",{std::bit_cast<uint32>(f.camera.x),std::bit_cast<uint32>(f.camera.y),std::bit_cast<uint32>(f.camera.z)}},{"point_bits",{std::bit_cast<uint32>(f.point.x),std::bit_cast<uint32>(f.point.y),std::bit_cast<uint32>(f.point.z)}},{"matrix_address",uintptr_t(&matrix.value)},{"initial_pad",initialPad},{"initial_camera",initialCamera},{"initial_matrix",initialMatrix},{"initial_vehicle",initialVehicle},{"initial_globals",initialGlobals},{"model_pad",modelPad},{"model_trace",modelTrace},{"model_sum_bits",std::bit_cast<uint32>(sum)},{"model_magnitude_bits",std::bit_cast<uint32>(mag)},{"original",results[0]},{"candidate",results[1]}});if(seed%64==63){log.flush();ReversingProbe::PumpMessages();}
++   const bool equal=results[0]==results[1]&&results[0]["gate"]==true&&results[0]["helper_patch_exact"]==true&&results[0]["collaborator_valid"]==true&&guards&&results[0]["pad"]==HexBytes(modelPad.data(),modelPad.size())&&results[0]["camera"]==initialCamera&&results[0]["matrix"]==initialMatrix&&results[0]["vehicle"]==initialVehicle&&results[0]["globals"]==initialGlobals&&results[0]["trace"]==modelTrace;passed&=equal;differences+=!equal;
++   write({{"event","comparison"},{"function",keys[bank]},{"pair",pairs++},{"case",seed},{"bank",bank},{"equal",equal},{"geometry",f.geometry},{"mode",f.mode},{"gates",f.gates},{"vehicle_role",f.vehicle},{"duration_role",f.durationRole},{"old_duration",f.oldDuration},{"request_duration",f.requestDuration},{"request_frequency",f.requestFrequency},{"camera_bits",{std::bit_cast<uint32>(f.camera.x),std::bit_cast<uint32>(f.camera.y),std::bit_cast<uint32>(f.camera.z)}},{"point_bits",{std::bit_cast<uint32>(f.point.x),std::bit_cast<uint32>(f.point.y),std::bit_cast<uint32>(f.point.z)}},{"matrix_address",uintptr_t(&matrix.value)},{"initial_pad",HexBytes(initialPad.data(),initialPad.size())},{"initial_camera",initialCamera},{"initial_matrix",initialMatrix},{"initial_vehicle",initialVehicle},{"initial_globals",initialGlobals},{"model_pad",HexBytes(modelPad.data(),modelPad.size())},{"model_trace",modelTrace},{"model_sum_bits",std::bit_cast<uint32>(sum)},{"model_magnitude_bits",std::bit_cast<uint32>(mag)},{"original",results[0]},{"candidate",results[1]}});if(seed%64==63){log.flush();ReversingProbe::PumpMessages();}
+   }
+   for(const auto& r:globals)std::memcpy(r.ptr,r.bytes.data(),r.bytes.size());
+  }
+--- revision2/Fixtures.hpp
++++ hex/Fixtures.hpp
+@@ -7,7 +7,7 @@
+ #include <Vehicle.h>
+ #include <World.h>
+ #include <cmath>
+-namespace RequestedPadDistanceTrainNop {
++namespace RequestedPadDistanceTrainNopHex {
+ static_assert(sizeof(CPad)==0x134&&sizeof(CVector)==12&&sizeof(CVector2D)==8&&sizeof(CVehicle)==0x5A0&&sizeof(CCamera)==0xD78&&sizeof(CMatrixLink)==0x54);
+ static_assert(offsetof(CPad,ShakeDur)==0x10C&&offsetof(CPad,ShakeFreq)==0x110);
+ // Native RET 8 and stack reads prove two floats by value. Blocks the current reference ABI.
+--- revision2/build_probe.py
++++ hex/build_probe.py
+@@ -8,6 +8,8 @@
+ TESTED=sorted(p.relative_to(ROOT).as_posix() for p in (ROOT/'source').rglob('*') if p.is_file() and p.suffix in ('.cpp','.h','.hpp','.inl','.inc') and p.relative_to(ROOT).as_posix()!='source/app/platform/win/WinMain.cpp')+['CMakeLists.txt','CMakePresets.json','ConanPresets.json','conanfile.py']
+ 
+ def main():
++    frozen=json.loads((HERE/'instrument-freeze.json').read_text())
++    for name,h in frozen['inputs'].items():assert digest(ROOT/name)==h,name
+     header=(ROOT/'source/game_sa/Pad.h').read_text(encoding='utf-8')
+     if 'StartShake_Train(const CVector2D&' in header:raise RuntimeError('Blocked: Train current source reference ABI is incompatible with native RET8; coordinator must perform authorized ABI fix first')
+     ART.mkdir(exist_ok=True)
+@@ -17,9 +19,9 @@
+         for p in previous:shutil.copy2(p,history/p.name)
+     win=ROOT/'source/app/platform/win/WinMain.cpp';saved=win.read_bytes();bins={ext:ROOT/f'bin/Debug/gta_reversed.{ext}' for ext in ('asi','pdb')}
+     for ext,path in bins.items():shutil.copy2(path,ART/f'before.{ext}')
+-    instruments=list(HERE.glob('*.hpp'))+list(HERE.glob('*.py'))+[p for p in (HERE/'evidence').iterdir() if p.is_file()]+[HERE/'scope.json',HERE/'README.md']+[ROOT/p for p in ('reversing/RequestedParallelSmall/HookSnapshots.hpp','reversing/ProbeSupport.hpp','reversing/runtime_runner.py')]
++    instruments=[ROOT/name for name in frozen['inputs']]+[HERE/'instrument-freeze.json']
+     manifest={'head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'tested_sources':{p:digest(ROOT/p) for p in TESTED},'bank_sources':{p.relative_to(ROOT).as_posix():digest(p) for p in instruments},'exe_sha256':digest(GAME/'gta_sa.exe'),'original_winmain_sha256':hashlib.sha256(saved).hexdigest(),'expected_pairs':13952,'fixture_scope':'Three CPU CPad targets before graphics; native Train byvalue8bytes required; private pad and vehicle type ABI fixtures; real camera position with borrowed private matrix; PC24 finite geometry and strict independent byte/FP model; exact vehicle helper multiplicity; no gameplay/helper implementation credit.'}
+-    assert manifest['exe_sha256']==EXE_HASH;lock=ROOT/'reversing/.pad-distance-train-nop-build.lock'
++    assert manifest['exe_sha256']==EXE_HASH;lock=ROOT/'reversing/.pad-distance-train-nop-hex-build.lock'
+     with lock.open('x') as handle:handle.write('pad distance train nop preflight serial build')
+     try:
+         source=saved.decode('utf-8');signature='INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdLine, INT nCmdShow) {';assert source.count(signature)==1
+@@ -29,12 +31,18 @@
+         with (ART/'build.log').open('w',encoding='utf-8') as log:subprocess.run([str(cmake),'--build',str(ROOT/'build'),'--config','Debug','--parallel','1'],stdout=log,stderr=subprocess.STDOUT,env=env,check=True)
+         for p,h in manifest['tested_sources'].items():assert digest(ROOT/p)==h
+         for p,h in manifest['bank_sources'].items():assert digest(ROOT/p)==h
+-        for ext,path in bins.items():target=ART/f'gta_reversed-pad-distance-train-nop.{ext}';shutil.copy2(path,target);manifest[ext]=digest(target)
++        for ext,path in bins.items():target=ART/f'gta_reversed-pad-distance-train-nop-hex.{ext}';shutil.copy2(path,target);manifest[ext]=digest(target)
+         from check_train_abi import check
+-        manifest['train_abi_proof_sha256']=check(ART/'gta_reversed-pad-distance-train-nop.asi',ART/'gta_reversed-pad-distance-train-nop.pdb',manifest,ART/'train-compiled-abi.json')
++        manifest['train_abi_proof_sha256']=check(ART/'gta_reversed-pad-distance-train-nop-hex.asi',ART/'gta_reversed-pad-distance-train-nop-hex.pdb',manifest,ART/'train-compiled-abi.json')
+         (ART/'manifest.json').write_text(json.dumps(manifest,indent=2));print('Pad distance/train/NOP frozen',manifest['asi'])
+     finally:
+-        win.write_bytes(saved)
+-        for ext,path in bins.items():shutil.copy2(ART/f'before.{ext}',path)
+-        lock.unlink(missing_ok=True);assert win.read_bytes()==saved;assert all(digest(path)==digest(ART/f'before.{ext}') for ext,path in bins.items())
++        restore_errors=[]
++        try:win.write_bytes(saved)
++        except Exception as error:restore_errors.append(str(error))
++        for ext,path in bins.items():
++            try:shutil.copy2(ART/f'before.{ext}',path)
++            except Exception as error:restore_errors.append(str(error))
++        lock.unlink(missing_ok=True)
++        if restore_errors:raise RuntimeError('Restoration failures: '+repr(restore_errors))
++        assert win.read_bytes()==saved;assert all(digest(path)==digest(ART/f'before.{ext}') for ext,path in bins.items())
+ if __name__=='__main__':main()
+--- revision2/run_local.py
++++ hex/run_local.py
+@@ -13,12 +13,13 @@
+ sys.path.insert(0, str(ROOT / 'reversing'))
+ import runtime_runner as runner
+ 
+-PREFIX = 'pad-distance-train-nop'
++PREFIX = 'pad-distance-train-nop-hex'
+ from oracle import EXPECTED, KEYS, expected_row
++from hex_wire import strict_loads,decode_row
+ diagnostics = {}
+ 
+ def analyze(log):
+-    harness = runner.GAME / 'preflight-pad-distance-train-nop-harness.jsonl'
++    harness = runner.GAME / 'preflight-pad-distance-train-nop-hex-harness.jsonl'
+     if not runner.terminal_event(log) or not runner.terminal_event(harness):
+         return None
+     counts = collections.Counter()
+@@ -32,7 +33,7 @@
+         if len(errors)<100:errors.append(message)
+     with log.open(encoding='utf-8') as stream:
+         for line_number,line in enumerate(stream,1):
+-            row=json.loads(line)
++            row=decode_row(strict_loads(line))
+             if row.get('event')!='comparison':
+                 if row.get('event')!='complete' or final is not None:reject('Unexpected bank event '+str(line_number))
+                 final=row;continue
+@@ -58,7 +59,7 @@
+     if not all(final.get(k) is True for k in ('state_restored','entries_restored','collaborator_entries_restored','flags_restored','fp_restored','globals_restored')):reject('Incomplete bank restoration')
+     for before,after in (('fp_control_before','fp_control_after'),('fp_status_before','fp_status_after'),('mxcsr_before','mxcsr_after')):
+         if type(final.get(before)) is not int or final.get(before)!=final.get(after):reject('FP state differs')
+-    hrows = [json.loads(line) for line in harness.read_text(encoding='utf-8').splitlines()]
++    hrows = [strict_loads(line) for line in harness.read_text(encoding='utf-8').splitlines()]
+     stages = [row.get('event') for row in hrows]
+     hfinal = hrows[-1] if hrows else {}
+     if stages != ['preflight_entered', 'before_task_bank', 'task_bank_returned', 'complete']:
+@@ -95,12 +96,12 @@
+     for label in ('tested_sources', 'bank_sources'):
+         for path, expected in manifest[label].items():
+             assert runner.digest(ROOT / path) == expected, path
+-    harness = runner.GAME / 'preflight-pad-distance-train-nop-harness.jsonl'
++    harness = runner.GAME / 'preflight-pad-distance-train-nop-hex-harness.jsonl'
+     if harness.exists():
+         shutil.copy2(harness, HERE / 'artifacts' / ('previous-harness-' + runner.digest(harness) + '.jsonl'))
+         harness.unlink()
+     for ext in ('asi', 'pdb'):
+-        source = HERE / f'artifacts/gta_reversed-pad-distance-train-nop.{ext}'
++        source = HERE / f'artifacts/gta_reversed-pad-distance-train-nop-hex.{ext}'
+         assert runner.digest(source) == manifest[ext]
+         target = runner.GAME / f'_baseline/gta_reversed-{PREFIX}-probe.{ext}'
+         if target.exists():
+@@ -112,7 +113,7 @@
+     runner.probe_configuration = lambda data: configuration(data).replace(b'SaveGameToLoad = 2\n', b'SaveGameToLoad = -2\n')
+     try:
+         status = runner.run_case(PREFIX, manifest['asi'], analyze, 'Pad distance/train/NOP13952',
+-                                 timeout=300, stop_before_analysis=False, unhook='', wait_for_exit=True)
++                                 timeout=900, stop_before_analysis=False, unhook='', wait_for_exit=True)
+     finally:
+         runner.probe_configuration = configuration
+     run = max((runner.GAME / f'resultados-{PREFIX}').glob('*/summary.json'),
+--- revision2/Preflight.hpp
++++ hex/Preflight.hpp
+@@ -9,7 +9,7 @@
+     using namespace ReversibleHooks::ReversibleHook;
+     char executable[MAX_PATH]{};GetModuleFileNameA(nullptr,executable,MAX_PATH);
+     const auto dir=std::filesystem::path(executable).parent_path();
+-    std::ofstream log(dir/"preflight-pad-distance-train-nop-harness.jsonl");
++    std::ofstream log(dir/"preflight-pad-distance-train-nop-hex-harness.jsonl");
+     auto write=[&](const json& row){log<<row.dump()<<'\n';log.flush();};
+     write({{"event","preflight_entered"},{"graphics_initialized",false}});
+     const auto flags=SmallPendingSupport::SnapshotHooks();
+@@ -39,7 +39,7 @@
+         }
+     }
+     write({{"event","before_task_bank"},{"hooks_snapshotted",flags.size()}});
+-    RequestedPadDistanceTrainNop::Update();
++    RequestedPadDistanceTrainNopHex::Update();
+     write({{"event","task_bank_returned"}});
+     for(const auto& state:flags){state.hook->LockState(false);state.hook->State(state.enabled);state.hook->LockState(state.locked);}
+     bool entriesRestored=true;

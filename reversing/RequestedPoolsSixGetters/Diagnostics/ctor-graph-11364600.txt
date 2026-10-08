@@ -1,0 +1,47 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsSixGetters\artifacts\gta_reversed-pools-six-getters.asi
+
+File Type: DLL
+
+  11364600: 55                 push        ebp
+  11364601: 8B EC              mov         ebp,esp
+  11364603: 81 EC CC 00 00 00  sub         esp,0CCh
+  11364609: 53                 push        ebx
+  1136460A: 56                 push        esi
+  1136460B: 57                 push        edi
+  1136460C: 51                 push        ecx
+  1136460D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  11364610: B9 03 00 00 00     mov         ecx,3
+  11364615: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1136461A: F3 AB              rep stos    dword ptr es:[edi]
+  1136461C: 59                 pop         ecx
+  1136461D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11364620: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11364623: 50                 push        eax
+  11364624: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11364627: 8B 51 04           mov         edx,dword ptr [ecx+4]
+  1136462A: 52                 push        edx
+  1136462B: E8 C4 1E D3 FF     call        110964F4
+  11364630: 83 C4 08           add         esp,8
+  11364633: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11364636: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  11364639: 83 C1 01           add         ecx,1
+  1136463C: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1136463F: 89 4A 04           mov         dword ptr [edx+4],ecx
+  11364642: 5F                 pop         edi
+  11364643: 5E                 pop         esi
+  11364644: 5B                 pop         ebx
+  11364645: 81 C4 CC 00 00 00  add         esp,0CCh
+  1136464B: 3B EC              cmp         ebp,esp
+  1136464D: E8 15 46 CF FF     call        11058C67
+  11364652: 8B E5              mov         esp,ebp
+  11364654: 5D                 pop         ebp
+  11364655: C2 04 00           ret         4
+  11364658: CC                 int         3
+
+  Summary
+
+     2165000 .text

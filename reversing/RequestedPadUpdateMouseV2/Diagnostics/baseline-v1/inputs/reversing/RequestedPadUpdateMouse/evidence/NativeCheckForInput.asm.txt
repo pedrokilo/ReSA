@@ -1,0 +1,72 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\JUEGOS\GTA San Andreas - CVehicle Test\gta_sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0053F270: 80 39 00           cmp         byte ptr [ecx],0
+  0053F273: 75 4D              jne         0053F2C2
+  0053F275: 8A 41 01           mov         al,byte ptr [ecx+1]
+  0053F278: 84 C0              test        al,al
+  0053F27A: 75 46              jne         0053F2C2
+  0053F27C: 8A 41 02           mov         al,byte ptr [ecx+2]
+  0053F27F: 84 C0              test        al,al
+  0053F281: 75 3F              jne         0053F2C2
+  0053F283: 8A 41 03           mov         al,byte ptr [ecx+3]
+  0053F286: 84 C0              test        al,al
+  0053F288: 75 38              jne         0053F2C2
+  0053F28A: 8A 41 04           mov         al,byte ptr [ecx+4]
+  0053F28D: 84 C0              test        al,al
+  0053F28F: 75 31              jne         0053F2C2
+  0053F291: 8A 41 05           mov         al,byte ptr [ecx+5]
+  0053F294: 84 C0              test        al,al
+  0053F296: 75 2A              jne         0053F2C2
+  0053F298: 8A 41 06           mov         al,byte ptr [ecx+6]
+  0053F29B: 84 C0              test        al,al
+  0053F29D: 75 23              jne         0053F2C2
+  0053F29F: D9 41 0C           fld         dword ptr [ecx+0Ch]
+  0053F2A2: D8 1D 50 8B 85 00  fcomp       dword ptr ds:[00858B50h]
+  0053F2A8: DF E0              fnstsw      ax
+  0053F2AA: F6 C4 44           test        ah,44h
+  0053F2AD: 7A 13              jp          0053F2C2
+  0053F2AF: D9 41 10           fld         dword ptr [ecx+10h]
+  0053F2B2: D8 1D 50 8B 85 00  fcomp       dword ptr ds:[00858B50h]
+  0053F2B8: DF E0              fnstsw      ax
+  0053F2BA: F6 C4 44           test        ah,44h
+  0053F2BD: 7A 03              jp          0053F2C2
+  0053F2BF: 32 C0              xor         al,al
+  0053F2C1: C3                 ret
+  0053F2C2: B0 01              mov         al,1
+  0053F2C4: C3                 ret
+  0053F2C5: 90                 nop
+  0053F2C6: 90                 nop
+  0053F2C7: 90                 nop
+  0053F2C8: 90                 nop
+  0053F2C9: 90                 nop
+  0053F2CA: 90                 nop
+  0053F2CB: 90                 nop
+  0053F2CC: 90                 nop
+  0053F2CD: 90                 nop
+  0053F2CE: 90                 nop
+  0053F2CF: 90                 nop
+  0053F2D0: 83 EC 44           sub         esp,44h
+  0053F2D3: A1 54 70 C1 00     mov         eax,dword ptr ds:[00C17054h]
+  0053F2D8: 8B 48 1C           mov         ecx,dword ptr [eax+1Ch]
+  0053F2DB: 53                 push        ebx
+  0053F2DC: 33 DB              xor         ebx,ebx
+  0053F2DE: 3B CB              cmp         ecx,ebx
+  0053F2E0: 88 5C 24 08        mov         byte ptr [esp+8],bl
+  0053F2E4: 88 5C 24 09        mov         byte ptr [esp+9],bl
+  0053F2E8: 88 5C 24 0A        mov         byte ptr [esp+0Ah],bl
+  0053F2EC: 88 5C 24 0B        mov         byte ptr [esp+0Bh],bl
+  0053F2F0: 88 5C 24 0C        mov         byte ptr [esp+0Ch],bl
+  0053F2F4: 89 5C 24 10        mov         dword ptr [esp+10h],ebx
+  0053F2F8: 89 5C 24 14        mov         dword ptr [esp+14h],ebx
+  0053F2FC: 89 5C 24 18        mov         dword ptr [esp+18h],ebx
+  0053F300: 88
+
+  Summary
+
+      456000 .text

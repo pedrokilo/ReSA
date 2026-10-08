@@ -1,0 +1,49 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsSixGetters\artifacts\gta_reversed-pools-six-getters.asi
+
+File Type: DLL
+
+  1172BA10: 55                 push        ebp
+  1172BA11: 8B EC              mov         ebp,esp
+  1172BA13: 81 EC D8 00 00 00  sub         esp,0D8h
+  1172BA19: 53                 push        ebx
+  1172BA1A: 56                 push        esi
+  1172BA1B: 57                 push        edi
+  1172BA1C: 51                 push        ecx
+  1172BA1D: 8D 7D E8           lea         edi,[ebp-18h]
+  1172BA20: B9 06 00 00 00     mov         ecx,6
+  1172BA25: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1172BA2A: F3 AB              rep stos    dword ptr es:[edi]
+  1172BA2C: 59                 pop         ecx
+  1172BA2D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1172BA30: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1172BA33: 50                 push        eax
+  1172BA34: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1172BA37: E8 41 A9 96 FF     call        1109637D
+  1172BA3C: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  1172BA3F: 8B 75 EC           mov         esi,dword ptr [ebp-14h]
+  1172BA42: C1 E6 08           shl         esi,8
+  1172BA45: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1172BA48: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  1172BA4B: 03 4D EC           add         ecx,dword ptr [ebp-14h]
+  1172BA4E: E8 FE 77 94 FF     call        11073251
+  1172BA53: 0F B6 C8           movzx       ecx,al
+  1172BA56: 0B F1              or          esi,ecx
+  1172BA58: 8B C6              mov         eax,esi
+  1172BA5A: 5F                 pop         edi
+  1172BA5B: 5E                 pop         esi
+  1172BA5C: 5B                 pop         ebx
+  1172BA5D: 81 C4 D8 00 00 00  add         esp,0D8h
+  1172BA63: 3B EC              cmp         ebp,esp
+  1172BA65: E8 FD D1 92 FF     call        11058C67
+  1172BA6A: 8B E5              mov         esp,ebp
+  1172BA6C: 5D                 pop         ebp
+  1172BA6D: C2 04 00           ret         4
+  1172BA70: CC                 int         3
+
+  Summary
+
+     2165000 .text

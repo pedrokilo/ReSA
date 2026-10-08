@@ -1,0 +1,19 @@
+# UpdateMouse: preparación de 9216 casos CPU privados
+
+Estado: preparado, sin compilación ni ejecución. La fuente del juego no se modifica.
+
+El producto contiene 6 rutas × 12 perfiles DIMOUSESTATE2 × 8 combinaciones canónicas de menú/inversión × 4 patrones × 2 receptores × 2 relojes uint32. Cubre salida por falta de foreground, creación sin dispositivo, dispositivo previo y lectura fallida o satisfactoria, incluyendo HRESULT positivo declarado. Los tres estados de ratón de 20 bytes, sus padding, dos receptores CPad de 308 bytes en arenas de 340 con guards y las trazas de helpers se comparan completos. Los dos CPad globales de 616 bytes quedan como memoria ajena inmutable.
+
+CPad es trivially-copyable, comprobado estáticamente: los receptores se establecen por memcpy de representación privada (C++20 implicit lifetime), sin ejecutar un constructor que limpiaría el teclado global. Sólo LastTimeTouched se accede como valor; bool no leídos quedan como representación opaca, y todos los bool de mouse que se leen son canónicos.
+
+El EXE llama GetMouseState como cdecl(buffer); la candidata usa CPad::GetMouseState thiscall(self,buffer). Se usan adaptadores separados: el segundo verifica el receptor privado seleccionado. Ambos verifican buffer dentro de la pila del hilo y sólo escriben 20 bytes. El puntero de dispositivo es un token opaco privado; ninguna llamada COM ni dispositivo real se ejecuta. No se atribuye un receptor inexistente al helper nativo ni se acredita su implementación.
+
+CheckForInput nativo 53F270 permanece intacto y ejecuta CPU real. La entrada/cuerpo de CheckForInput de la candidata se redirige explícitamente a ese cuerpo puro, con bytes propios de patch y 52 bytes de restauración comprobados. Una resolución candidata fuera del DLL aborta el corpus sin parchear el nativo. SetTouched sigue siendo código CPU real de la candidata; su escritura esperada en +120 se modela independientemente. Los helpers restantes requieren entrada original/registrada/cuerpo resuelto y gates de 5 bytes, con 52 bytes conservados.
+
+Los botones conservan las máscaras uint8 0/128 y no se convierten a bool. Los bool de semilla son canónicos; coordenadas invertibles excluyen INT_MIN por overflow signed del código candidato. La rueda admite INT_MIN. Todos los floats modelados son finitos. Se exige redondeo nearest. Cada comparación conserva control x87 y MXCSR crudo; una diferencia de status FP también rechaza el gate actual, sin normalizarla. Los registros incluyen controles/status reales para diagnosticar cualquier rechazo. La restauración final exige todo el MXCSR y el control x87 original.
+
+El preflight probado captura y restaura 17692 rangos de hooks/entradas/tablas, flags y reloj. El banco restaura además mouse, dispositivo, preferencias, CPad globales y sus arenas, guards, trazas y FP. Se exige salida natural 0 y restauración de INI/partidas. El analizador recomputa igualdad, modelos y cobertura exacta, y rechaza duplicados, entradas faltantes, eventos desconocidos, gates o restauraciones incompletas. El nombre es pad-update-mouse-runtime.jsonl, conforme al runner.
+
+El builder usa una lista explícita estable; guarda WinMain y binarios y ejecuta todas las restauraciones de forma independiente, con reintentos ante error transitorio. Los artefactos anteriores se archivan antes de sustituirlos. Después de compilar, el inspector verifica PE/PDB GUID+age y genera ASM. El runner queda bloqueado hasta un informe externo Diagnostics/compiled-runtime-proof.json con matching ASI/PDB, helper_call_paths_verified y separate_getmouse_ABIs_verified. Ese informe exige revisión de las llamadas y ABI del binario real; no se crea con true literal durante preparación.
+
+Esta evidencia finita no acredita integración de dispositivos, COM, helpers, gameplay, ni vigencia de dependencias. El corpus no es una validación de GetMouseState ni de ProcessPad.

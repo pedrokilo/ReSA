@@ -1,0 +1,63 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsSixGettersV2\artifacts\gta_reversed-pools-six-getters-v2.asi
+
+File Type: DLL
+
+  11603630: 55                 push        ebp
+  11603631: 8B EC              mov         ebp,esp
+  11603633: 81 EC DC 00 00 00  sub         esp,0DCh
+  11603639: 53                 push        ebx
+  1160363A: 56                 push        esi
+  1160363B: 57                 push        edi
+  1160363C: 51                 push        ecx
+  1160363D: 8D 7D E4           lea         edi,[ebp-1Ch]
+  11603640: B9 07 00 00 00     mov         ecx,7
+  11603645: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1160364A: F3 AB              rep stos    dword ptr es:[edi]
+  1160364C: 59                 pop         ecx
+  1160364D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11603650: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11603653: C1 F8 08           sar         eax,8
+  11603656: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  11603659: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  1160365C: 50                 push        eax
+  1160365D: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  11603660: E8 F2 CF A5 FF     call        11060657
+  11603665: 0F B6 C8           movzx       ecx,al
+  11603668: 85 C9              test        ecx,ecx
+  1160366A: 74 32              je          1160369E
+  1160366C: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  1160366F: 8B 4A 04           mov         ecx,dword ptr [edx+4]
+  11603672: 03 4D EC           add         ecx,dword ptr [ebp-14h]
+  11603675: E8 A3 00 AA FF     call        110A371D
+  1160367A: 0F B6 C0           movzx       eax,al
+  1160367D: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  11603680: 81 E1 FF 00 00 00  and         ecx,0FFh
+  11603686: 3B C1              cmp         eax,ecx
+  11603688: 75 14              jne         1160369E
+  1160368A: 69 55 EC 18 0A 00  imul        edx,dword ptr [ebp-14h],0A18h
+            00
+  11603691: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11603694: 03 10              add         edx,dword ptr [eax]
+  11603696: 89 95 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],edx
+  1160369C: EB 0A              jmp         116036A8
+  1160369E: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],0
+            00 00 00 00
+  116036A8: 8B 85 24 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF24h]
+  116036AE: 5F                 pop         edi
+  116036AF: 5E                 pop         esi
+  116036B0: 5B                 pop         ebx
+  116036B1: 81 C4 DC 00 00 00  add         esp,0DCh
+  116036B7: 3B EC              cmp         ebp,esp
+  116036B9: E8 AE 65 A5 FF     call        11059C6C
+  116036BE: 8B E5              mov         esp,ebp
+  116036C0: 5D                 pop         ebp
+  116036C1: C2 04 00           ret         4
+  116036C4: CC                 int         3
+
+  Summary
+
+     2165000 .text

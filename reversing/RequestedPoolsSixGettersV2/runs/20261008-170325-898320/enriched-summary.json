@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "112a1501f52451168a4718cbd3b50d968169fb158e95b48a6ffbc0c7b80d20e6",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "natural_exit": true,
+  "exit_code": 0,
+  "pairs": 3072,
+  "pairs_per_function": {
+    "CPools::GetPedRef": 256,
+    "CPools::GetPed": 768,
+    "CPools::GetVehicleRef": 256,
+    "CPools::GetVehicle": 768,
+    "CPools::GetObjectRef": 256,
+    "CPools::GetObject": 768
+  },
+  "differences": 0,
+  "all_equal": true,
+  "state_restored": true,
+  "harness_restored": true,
+  "floating_environment_restored": true,
+  "full_borrowed_pool_arena_model_checked": true,
+  "log_sha256": "944e5cef7de16a1e9f4519c056978bdb6f1b8c5d35d3a303f90a0b8834720c6f",
+  "harness_sha256": "a4739962fddbfd91b0641a09b70fc0e428b340705c86ab8f1d06ff3b21a19da2",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "manifest": {
+    "head": "c62854efedeb7dfff52527be9bb6f37d6a4b6f4a",
+    "tested_sources": {
+      "source/game_sa/Pools.cpp": "bcb6131d7e43c1ed38a7af1276d8b8ee508b93525c311154f796d57724c871d3",
+      "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe",
+      "source/game_sa/Core/Pool.h": "9ff9a24841cd9196afedf48047c011b0324de913e0d69b029449ee55a76c68c4",
+      "source/game_sa/Pools/PedPool.h": "5471c3169048392770658f70374d876454e3b31eda7abd105ad97a46c4ec07fd",
+      "source/game_sa/Pools/VehiclePool.h": "9430baf7198222a21f4404c8314c9da0709d6c91f509d0a4938a6f1473e3df3a",
+      "source/game_sa/Pools/ObjectPool.h": "833e700558e62963f6716def8201758504b89c2f94d02e460acc5e35f0cb58cd",
+      "source/game_sa/Entity/Ped/CopPed.h": "d9a6e69e3462ea23401a519dc7be959f72700d31d82ba6c4fadd82e2256a1117",
+      "source/game_sa/Entity/Vehicle/Heli.h": "481cf340e4a2a7135729bd5012a9e76a27a05baa8d0eca092f0b4f75fd2d9593",
+      "source/game_sa/Entity/Object/CutsceneObject.h": "b0e369e0cfa2c6efa6b340e7ce8de4f4cdbf46a1da65136d7d945d92bd5c7328"
+    },
+    "bank_sources": {
+      "reversing/RequestedPoolsSixGettersV2/LiveComparison.hpp": "fb33e799388d0eb66706f94f77ee07bf69186181c69a41eb5fda39b48f6b4185",
+      "reversing/RequestedPoolsSixGettersV2/PreflightHarness.hpp": "84c52e82f621bde86c8d1cfa7417086e6bd567603722c8bd6699023fdc820295",
+      "reversing/RequestedPoolsSixGettersV2/VTableRanges.hpp": "1a6b59694bbc299480937e8219e15d5bf021da68d68fbf98b69a05f2a2fb624c",
+      "reversing/RequestedPoolsSixGettersV2/build_probe.py": "d44f8e06c8e408f6b97185027825352c571208ea88dbda712b3c0f17be4ae6eb",
+      "reversing/RequestedPoolsSixGettersV2/inspect_compiled.py": "be2de135a661beee4131a619ad106db1dfd67d91288771a94c6eec9c43b530a5",
+      "reversing/RequestedPoolsSixGettersV2/restore_winmain.py": "83b3d93515d14d5fd72eafbbae58ee916c57e92af0fbbd3a337e6cffe0388cb9",
+      "reversing/RequestedPoolsSixGettersV2/run_local.py": "b26a92bd46156a393725f6bc1996e2597d9110b724b744c0ccc28aec83c852de",
+      "reversing/RequestedPoolsSixGettersV2/corpus-plan.json": "465384581477bbf52470731c650894930d27c73ba94c97e67bdd4fcfbb6030cd",
+      "reversing/RequestedPoolsSixGettersV2/evidence/GetObject-fullasm.txt": "01a51c9188915e2b224aa3201d8e83769c90e9a3befd198080717e5f3858a27f",
+      "reversing/RequestedPoolsSixGettersV2/evidence/GetObjectRef-fullasm.txt": "c01fb822b79e36d6250b05c11031108f58233fb60de2df54f66c81ccbbc82c64",
+      "reversing/RequestedPoolsSixGettersV2/evidence/GetPed-fullasm.txt": "e7c9347d4dff8c2ea1cf519e6f67377bdf57e4aeb39c74b0a2a135ce605923e0",
+      "reversing/RequestedPoolsSixGettersV2/evidence/GetPedRef-fullasm.txt": "da7ed68f0ad251edc34806e397bc43d1881b70a46536b26235dc80a121c2a481",
+      "reversing/RequestedPoolsSixGettersV2/evidence/GetVehicle-fullasm.txt": "0f754e4eca60e84b30aac6db4cd45200c5636e388c90a4c3a95cf922e316cd10",
+      "reversing/RequestedPoolsSixGettersV2/evidence/GetVehicleRef-fullasm.txt": "8a87332d1c05a152dcf4eebf200360d0294638e564cca47eb71a56d785da4f96",
+      "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+      "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+      "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+    },
+    "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+    "original_winmain_sha256": "d60e6f1219f1e81c7288de72949973132832bd7e699b46a80b89f537e4f417be",
+    "fixture_scope": "Pregraphics six pool wrappers3072, actual typed borrowed pool headers over bounded raw slot/state arenas. No real actor lifetimes, allocation/destruction assets or constructor/helper accreditation. In-bounds index0/1 activeID0..127; matched and stale/free-bit mismatches.",
+    "compiled_instruments": {
+      "source/app/platform/win/WinMain.cpp": "718d732470bd07b8a2b137e1c65dfc966b617a4641f3749002d790019b8e239e"
+    },
+    "asi": "112a1501f52451168a4718cbd3b50d968169fb158e95b48a6ffbc0c7b80d20e6",
+    "pdb": "e3f74156804b2e948f99813ad8f212c25bd7889650eb510d4085627d537b9d2f"
+  },
+  "borrowed_constructor_proof_sha256": "e8db512900be37fd7de0abebfbc85a96882368cd8f393f206dee76f6c7466848",
+  "runner_sha256": "b26a92bd46156a393725f6bc1996e2597d9110b724b744c0ccc28aec83c852de"
+}

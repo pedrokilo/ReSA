@@ -1,0 +1,51 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV2\artifacts\gta_reversed-pad-update-mouse.asi
+
+File Type: DLL
+
+  1137CD40: 55                 push        ebp
+  1137CD41: 8B EC              mov         ebp,esp
+  1137CD43: 81 EC CC 00 00 00  sub         esp,0CCh
+  1137CD49: 53                 push        ebx
+  1137CD4A: 56                 push        esi
+  1137CD4B: 57                 push        edi
+  1137CD4C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137CD4F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137CD52: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  1137CD55: 89 08              mov         dword ptr [eax],ecx
+  1137CD57: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137CD5A: 5F                 pop         edi
+  1137CD5B: 5E                 pop         esi
+  1137CD5C: 5B                 pop         ebx
+  1137CD5D: 8B E5              mov         esp,ebp
+  1137CD5F: 5D                 pop         ebp
+  1137CD60: C2 04 00           ret         4
+  1137CD63: CC                 int         3
+  1137CD64: CC                 int         3
+  1137CD65: CC                 int         3
+  1137CD66: CC                 int         3
+  1137CD67: CC                 int         3
+  1137CD68: CC                 int         3
+  1137CD69: CC                 int         3
+  1137CD6A: CC                 int         3
+  1137CD6B: CC                 int         3
+  1137CD6C: CC                 int         3
+  1137CD6D: CC                 int         3
+  1137CD6E: CC                 int         3
+  1137CD6F: CC                 int         3
+  1137CD70: 55                 push        ebp
+  1137CD71: 8B EC              mov         ebp,esp
+  1137CD73: 81 EC CC 00 00 00  sub         esp,0CCh
+  1137CD79: 53                 push        ebx
+  1137CD7A: 56                 push        esi
+  1137CD7B: 57                 push        edi
+  1137CD7C: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137CD7F: 8B
+  1137CD80: 45                 inc         ebp
+
+  Summary
+
+     216F000 .text

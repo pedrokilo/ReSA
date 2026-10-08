@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "synthetic_pairs": 2048,
+  "negative_rejected": [
+    "wrong_both_AL",
+    "wrong_both_byte",
+    "wrong_position",
+    "wrong_FP",
+    "false_gate",
+    "false_accepted",
+    "duplicate_seed",
+    "invalid_bool_type",
+    "uppercase_hex",
+    "missing_pairs"
+  ],
+  "no_game_or_build": true
+}

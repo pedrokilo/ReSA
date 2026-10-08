@@ -1,0 +1,53 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPadUpdateMouseV2\artifacts\gta_reversed-pad-update-mouse.asi
+
+File Type: DLL
+
+  11368780: 55                 push        ebp
+  11368781: 8B EC              mov         ebp,esp
+  11368783: 81 EC CC 00 00 00  sub         esp,0CCh
+  11368789: 53                 push        ebx
+  1136878A: 56                 push        esi
+  1136878B: 57                 push        edi
+  1136878C: C6 45 FB 01        mov         byte ptr [ebp-5],1
+  11368790: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  11368793: 5F                 pop         edi
+  11368794: 5E                 pop         esi
+  11368795: 5B                 pop         ebx
+  11368796: 8B E5              mov         esp,ebp
+  11368798: 5D                 pop         ebp
+  11368799: C3                 ret
+  1136879A: CC                 int         3
+  1136879B: CC                 int         3
+  1136879C: CC                 int         3
+  1136879D: CC                 int         3
+  1136879E: CC                 int         3
+  1136879F: CC                 int         3
+  113687A0: 55                 push        ebp
+  113687A1: 8B EC              mov         ebp,esp
+  113687A3: 81 EC CC 00 00 00  sub         esp,0CCh
+  113687A9: 53                 push        ebx
+  113687AA: 56                 push        esi
+  113687AB: 57                 push        edi
+  113687AC: C6 45 FB 01        mov         byte ptr [ebp-5],1
+  113687B0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  113687B3: 5F                 pop         edi
+  113687B4: 5E                 pop         esi
+  113687B5: 5B                 pop         ebx
+  113687B6: 8B E5              mov         esp,ebp
+  113687B8: 5D                 pop         ebp
+  113687B9: C3                 ret
+  113687BA: CC                 int         3
+  113687BB: CC                 int         3
+  113687BC: CC                 int         3
+  113687BD: CC                 int         3
+  113687BE: CC                 int         3
+  113687BF: CC                 int         3
+  113687C0: 55                 push        ebp
+
+  Summary
+
+     216F000 .text

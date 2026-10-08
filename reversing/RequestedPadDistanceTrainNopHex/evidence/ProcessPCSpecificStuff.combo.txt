@@ -1,0 +1,355 @@
+// Sin pseudocódigo de Ghidra para 0x0053fb40: {'cls': 'CPad', 'fn': 'ProcessPCSpecificStuff', 'error': '{"code":"invalid_request","category":"invalid_input","message":"Analysis input is invalid. Check the arguments and try again.","retryable":true,"remediation":{"action":"Correct the listed arguments and retry."}}'}
+==== ensamblador exacto (dis.sh) ====
+0053FB40: ret
+0053FB50: ret 4
+0053FB60: cmp byte ptr [ecx+00000108h],0Bh
+ 0B
+0053FB67: sete al
+0053FB6A: ret
+0053FB70: mov eax,dword ptr [esp+4]
+0053FB74: imul eax,eax,134h
+0053FB7A: add eax,0B73458h
+0053FB7F: ret
+0053FB80: cmp word ptr [ecx+0000010Eh],0
+0053FB88: jne 0053FBAD
+0053FB8A: movzx eax,word ptr [ecx+0000010Ah]
+ 00
+0053FB91: cmp eax,3
+0053FB94: ja 0053FBAD
+0053FB96: jmp dword ptr [eax*4+0053FBB4h]
+ 00
+0053FB9D: mov ax,word ptr [ecx]
+0053FBA0: mov edx,dword ptr [ecx+74h]
+0053FBA3: mov word ptr [ecx+60h],ax
+0053FBA7: mov ax,word ptr [ecx+edx*2+60h]
+0053FBAC: ret
+0053FBAD: xor ax,ax
+0053FBB0: ret
+0053FBB1: lea ecx,[ecx]
+0053FBB4: popfd
+0053FBB5: sti
+0053FBB6: push ebx
+0053FBB7: add byte ptr [ebp+9D0053FBh],bl
+0053FBBD: sti
+0053FBBE: push ebx
+0053FBBF: add byte ptr [ebp+900053FBh],bl
+0053FBD0: cmp word ptr [ecx+0000010Eh],0
+0053FBD8: jne 0053FBF2
+0053FBDA: movzx eax,word ptr [ecx+0000010Ah]
+ 00
+0053FBE1: cmp eax,3
+0053FBE4: ja 0053FBF2
+0053FBE6: jmp dword ptr [eax*4+0053FBF8h]
+ 00
+0053FBED: mov ax,word ptr [ecx+2]
+0053FBF1: ret
+0053FBF2: xor ax,ax
+0053FBF5: ret
+0053FBF6: mov edi,edi
+0053FBF8: in eax,dx
+0053FBF9: sti
+0053FBFA: push ebx
+0053FBFB: add ch,ch
+0053FBFD: sti
+0053FBFE: push ebx
+0053FBFF: add ch,ch
+0053FC01: sti
+0053FC02: push ebx
+0053FC03: add ch,ch
+0053FC05: sti
+0053FC06: push ebx
+0053FC07: add byte ptr [eax+90909090h],dl
+0053FC10: cmp word ptr [ecx+0000010Eh],0
+0053FC18: jne 0053FC44
+0053FC1A: movzx eax,word ptr [ecx+0000010Ah]
+ 00
+0053FC21: test eax,eax
+0053FC23: jl 0053FC44
+0053FC25: cmp eax,2
+0053FC28: jle 0053FC3F
+0053FC2A: cmp eax,3
+0053FC2D: jne 0053FC44
+0053FC2F: movsx edx,word ptr [ecx+12h]
+0053FC33: movsx eax,word ptr [ecx+10h]
+0053FC37: sub eax,edx
+0053FC39: cdq
+0053FC3A: sub eax,edx
+0053FC3C: sar eax,1
+0053FC3E: ret
+0053FC3F: mov ax,word ptr [ecx+6]
+0053FC43: ret
+0053FC44: xor ax,ax
+0053FC47: ret
+0053FC50: cmp word ptr [ecx+0000010Eh],0
+0053FC58: jne 0053FC84
+0053FC5A: movzx eax,word ptr [ecx+0000010Ah]
+ 00
+0053FC61: test eax,eax
+0053FC63: jl 0053FC84
+0053FC65: cmp eax,2
+0053FC68: jle 0053FC7F
+0053FC6A: cmp eax,3
+0053FC6D: jne 0053FC84
+0053FC6F: movsx eax,word ptr [ecx+16h]
+0053FC73: movsx ecx,word ptr [ecx+14h]
+0053FC77: sub eax,ecx
+0053FC79: cdq
+0053FC7A: sub eax,edx
+0053FC7C: sar eax,1
+0053FC7E: ret
+0053FC7F: mov ax,word ptr [ecx+4]
+0053FC83: ret
+0053FC84: xor ax,ax
+0053FC87: ret
+0053FC90: cmp word ptr [ecx+0000010Eh],0
+0053FC98: jne 0053FCB1
+0053FC9A: movzx eax,word ptr [ecx+0000010Ah]
+ 00
+0053FCA1: cmp eax,3
+0053FCA4: ja 0053FCB1
+0053FCA6: jmp dword ptr [eax*4+0053FCB8h]
+ 00
+0053FCAD: mov ax,word ptr [ecx]
+0053FCB0: ret
+0053FCB1: xor ax,ax
+0053FCB4: ret
+0053FCB5: lea ecx,[ecx]
+0053FCB8: lods dword ptr [esi]
+0053FCB9: cld
+0053FCBA: push ebx
+0053FCBB: add byte ptr [ebp+AD0053FCh],ch
+0053FCC1: cld
+0053FCC2: push ebx
+0053FCC3: add byte ptr [ebp+900053FCh],ch
+0053FCD0: movzx eax,word ptr [ecx+0000010Ah]
+ 00
+0053FCD7: cmp eax,3
+0053FCDA: push esi
+0053FCDB: ja 0053FD18
+0053FCDD: jmp dword ptr [eax*4+0053FD20h]
+ 00
+0053FCE4: mov si,word ptr [ecx]
+0053FCE7: movsx eax,word ptr [ecx+16h]
+0053FCEB: movsx ecx,word ptr [ecx+14h]
+0053FCEF: sub eax,ecx
+0053FCF1: cdq
+0053FCF2: sub eax,edx
+0053FCF4: sar eax,1
+0053FCF6: test si,si
+0053FCF9: movsx edx,si
+0053FCFC: jge 0053FD00
+0053FCFE: neg edx
+0053FD00: test ax,ax
+0053FD03: movsx ecx,ax
+0053FD06: jge 0053FD0A
+0053FD08: neg ecx
+0053FD0A: cmp edx,ecx
+0053FD0C: jle 0053FD1B
+0053FD0E: mov ax,si
+0053FD11: pop esi
+0053FD12: ret
+0053FD13: mov ax,word ptr [ecx]
+0053FD16: pop esi
+0053FD17: ret
+0053FD18: xor ax,ax
+0053FD1B: pop esi
+0053FD1C: ret
+0053FD1D: lea ecx,[ecx]
+0053FD20: in al,0FCh
+0053FD22: push ebx
+0053FD23: add byte ptr [ebx],dl
+0053FD25: std
+0053FD26: push ebx
+0053FD27: add ah,ah
+0053FD29: cld
+0053FD2A: push ebx
+0053FD2B: add byte ptr [ebx],dl
+0053FD2D: std
+0053FD2E: push ebx
+0053FD2F: add byte ptr [esi-7Dh],ah
+0053FD32: mov ecx,10Eh
+0053FD37: add byte ptr [ebp+18h],dh
+0053FD3A: movzx eax,word ptr [ecx+0000010Ah]
+ 00
+0053FD41: cmp eax,3
+0053FD44: ja 0053FD52
+0053FD46: jmp dword ptr [eax*4+0053FD58h]
+ 00
+0053FD4D: mov ax,word ptr [ecx+2]
+0053FD51: ret
+0053FD52: xor ax,ax
+0053FD55: ret
+0053FD56: mov edi,edi
+0053FD58: dec ebp
+0053FD59: std
+0053FD5A: push ebx
+0053FD5B: add byte ptr [ebp-3],cl
+0053FD5E: push ebx
+0053FD5F: add byte ptr [ebp-3],cl
+0053FD62: push ebx
+0053FD63: add byte ptr [ebp-3],cl
+0053FD66: push ebx
+0053FD67: add byte ptr [eax+90909090h],dl
+0053FD70: movzx eax,word ptr [ecx+0000010Ah]
+ 00
+0053FD77: cmp eax,3
+0053FD7A: push esi
+0053FD7B: ja 0053FDBA
+0053FD7D: jmp dword ptr [eax*4+0053FDC0h]
+ 00
+0053FD84: mov si,word ptr [ecx+2]
+0053FD88: movsx eax,word ptr [ecx+12h]
+0053FD8C: movsx ecx,word ptr [ecx+10h]
+0053FD90: sub eax,ecx
+0053FD92: cdq
+0053FD93: sub eax,edx
+0053FD95: sar eax,1
+0053FD97: test si,si
+0053FD9A: movsx edx,si
+0053FD9D: jge 0053FDA1
+0053FD9F: neg edx
+0053FDA1: test ax,ax
+0053FDA4: movsx ecx,ax
+0053FDA7: jge 0053FDAB
+0053FDA9: neg ecx
+0053FDAB: cmp edx,ecx
+0053FDAD: jle 0053FDBD
+0053FDAF: mov ax,si
+0053FDB2: pop esi
+0053FDB3: ret
+0053FDB4: mov ax,word ptr [ecx+2]
+0053FDB8: pop esi
+0053FDB9: ret
+0053FDBA: xor ax,ax
+0053FDBD: pop esi
+0053FDBE: ret
+0053FDC0: test ch,bh
+0053FDC2: push ebx
+0053FDC3: add byte ptr [ebp+edi*8+FD840053h],dh
+ FD
+0053FDCA: push ebx
+0053FDCB: add byte ptr [ebp+edi*8+83660053h],dh
+ 83
+0053FDD2: mov ecx,10Eh
+0053FDD7: add byte ptr [ebp+1Fh],dh
+0053FDDA: mov dx,word ptr [ecx+0Ah]
+0053FDDE: test dx,dx
+0053FDE1: je 0053FDEA
+0053FDE3: cmp word ptr [ecx+3Ah],0
+0053FDE8: je 0053FDF9
+0053FDEA: mov ax,word ptr [ecx+0Eh]
+0053FDEE: test ax,ax
+0053FDF1: jne 0053FDFC
+0053FDF3: cmp word ptr [ecx+3Eh],ax
+0053FDF7: je 0053FDFC
+0053FDF9: xor al,al
+0053FDFB: ret
+0053FDFC: test dx,dx
+0053FDFF: je 0053FE0C
+0053FE01: test ax,ax
+0053FE04: jne 0053FE0C
+0053FE06: mov eax,1
+0053FE0B: ret
+0053FE0C: xor eax,eax
+0053FE0E: ret
+0053FE10: cmp word ptr [ecx+0000010Eh],0
+0053FE18: jne 0053FE39
+0053FE1A: mov dx,word ptr [ecx+0Eh]
+0053FE1E: test dx,dx
+0053FE21: je 0053FE2A
+0053FE23: cmp word ptr [ecx+3Eh],0
+0053FE28: je 0053FE39
+0053FE2A: mov ax,word ptr [ecx+0Ah]
+0053FE2E: test ax,ax
+0053FE31: jne 0053FE3C
+0053FE33: cmp word ptr [ecx+3Ah],ax
+0053FE37: je 0053FE3C
+0053FE39: xor al,al
+0053FE3B: ret
+0053FE3C: test dx,dx
+0053FE3F: je 0053FE4C
+0053FE41: test ax,ax
+0053FE44: jne 0053FE4C
+0053FE46: mov eax,1
+0053FE4B: ret
+0053FE4C: xor eax,eax
+0053FE4E: ret
+0053FE50: cmp word ptr [ecx+0000010Eh],0
+0053FE58: je 0053FE5E
+0053FE5A: xor ax,ax
+0053FE5D: ret
+0053FE5E: movsx eax,word ptr [ecx+0Eh]
+0053FE62: movsx ecx,word ptr [ecx+0Ah]
+0053FE66: sub eax,ecx
+0053FE68: cdq
+0053FE69: sub eax,edx
+0053FE6B: sar eax,1
+0053FE6D: ret
+0053FE70: cmp word ptr [ecx+0000010Eh],0
+0053FE78: je 0053FE7D
+0053FE7A: xor al,al
+0053FE7C: ret
+0053FE7D: cmp word ptr [ecx+0Ah],0
+0053FE82: jne 0053FE8F
+0053FE84: cmp word ptr [ecx+3Ah],0
+0053FE89: jne 0053FE8F
+0053FE8B: xor dl,dl
+0053FE8D: jmp 0053FE91
+0053FE8F: mov dl,1
+0053FE91: cmp word ptr [ecx+0Eh],0
+0053FE96: jne 0053FEA3
+0053FE98: cmp word ptr [ecx+3Eh],0
+0053FE9D: jne 0053FEA3
+0053FE9F: xor al,al
+0053FEA1: jmp 0053FEA5
+0053FEA3: mov al,1
+0053FEA5: test dl,dl
+0053FEA7: je 0053FEB3
+0053FEA9: test al,al
+0053FEAB: je 0053FEB3
+0053FEAD: mov eax,1
+0053FEB2: ret
+0053FEB3: xor eax,eax
+0053FEB5: ret
+0053FEC0: cmp word ptr [ecx+0000010Eh],0
+0053FEC8: je 0053FECD
+0053FECA: xor al,al
+0053FECC: ret
+0053FECD: cmp word ptr [ecx+26h],0
+0053FED2: setne al
+0053FED5: ret
+0053FEE0: cmp word ptr [ecx+0000010Eh],0
+0053FEE8: jne 0053FF18
+0053FEEA: movzx eax,word ptr [ecx+0000010Ah]
+ 00
+0053FEF1: cmp eax,3
+0053FEF4: ja 0053FF18
+0053FEF6: jmp dword ptr [eax*4+0053FF1Ch]
+ 00
+0053FEFD: cmp word ptr [ecx+24h],0
+0053FF02: setne al
+0053FF05: ret
+0053FF06: cmp word ptr [ecx+8],0
+0053FF0B: setne al
+0053FF0E: ret
+0053FF0F: cmp word ptr [ecx+0Ch],0
+0053FF14: setne al
+0053FF17: ret
+0053FF18: xor al,al
+0053FF1A: ret
+0053FF1C: std
+ 0053FF1D: FE
+0053FF1E: push ebx
+0053FF1F: add byte ptr [esi],al
+0053FF21: call dword ptr [ebx]
+ 0053FF24: 0F
+0053FF25: call dword ptr [ebx]
+0053FF28: std
+ 0053FF29: FE
+0053FF2A: push ebx
+0053FF2B: add byte ptr [eax+66909090h],dl
+0053FF31: cmp dword ptr [ecx+0000010Eh],0
+ 00
+0053FF38: jne 0053FF5C
+0053FF3A: movzx eax,word ptr [ecx+0000010Ah]
+ 00

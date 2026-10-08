@@ -1,0 +1,11 @@
+{
+  "prepared_only": true,
+  "no_runtime_approval": true,
+  "previous_bank": "reversing/RequestedPadDistanceTrainNopHex",
+  "previous_instrument_freeze_sha256": "14af54f66cddd44f9fdf71f0d0fb9a1fcc76f30b95e31c3427546a1b5ae0b3d9",
+  "complete_rejected_baseline": "reversing/RequestedPadDistanceTrainNopHex/runs/20261008-164703-580513",
+  "baseline_summary_sha256": "0e2e34fa7c7f5ec37d796e7ff20cad369bfde230a96a7b2852bfceff72729b5c",
+  "split_diagnostic_sha256": "d1e01b79a072f912fb5a24fb80d5b1a262ebd9e9fec284353e5b1900b2cdcb5d",
+  "same_oracle_sha256": "48bd00ed721e3a7883392ea4fafa8e449fa129f874d9bcf72ff32860f39227c1",
+  "revision": "V2 exact 28byte x87 FNSTENV/immediateFLDENV capture and finalFLDENV+MXCSR restore; all before/after bytes compared. No filtering or target/model/corpus changes."
+}

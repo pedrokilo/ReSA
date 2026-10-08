@@ -1,0 +1,1451 @@
+[
+  {
+    "address": "0x1137d180",
+    "name": "CPedPool::CPedPool",
+    "size": 78,
+    "calls": [
+      {
+        "call": "0x1137d1af",
+        "chain": [
+          "0x11083cff",
+          "0x11379560"
+        ],
+        "name": "CPool<CPed,CCopPed>::CPool<CPed,CCopPed>",
+        "size": 219
+      },
+      {
+        "call": "0x1137d1c3",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x1137d1f0",
+    "name": "CVehiclePool::CVehiclePool",
+    "size": 78,
+    "calls": [
+      {
+        "call": "0x1137d21f",
+        "chain": [
+          "0x1105b73c",
+          "0x11379680"
+        ],
+        "name": "CPool<CVehicle,CHeli>::CPool<CVehicle,CHeli>",
+        "size": 219
+      },
+      {
+        "call": "0x1137d233",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x1137d110",
+    "name": "CObjectPool::CObjectPool",
+    "size": 78,
+    "calls": [
+      {
+        "call": "0x1137d13f",
+        "chain": [
+          "0x1105e6e9",
+          "0x11379440"
+        ],
+        "name": "CPool<CObject,CCutsceneObject>::CPool<CObject,CCutsceneObject>",
+        "size": 219
+      },
+      {
+        "call": "0x1137d153",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11379560",
+    "name": "CPool<CPed,CCopPed>::CPool<CPed,CCopPed>",
+    "size": 219,
+    "calls": [
+      {
+        "call": "0x113795c6",
+        "chain": [
+          "0x1108558c",
+          "0x12fae5f0"
+        ],
+        "name": "_wassert",
+        "size": 31
+      },
+      {
+        "call": "0x113795e3",
+        "chain": [
+          "0x1108558c",
+          "0x12fae5f0"
+        ],
+        "name": "_wassert",
+        "size": 31
+      },
+      {
+        "call": "0x1137960a",
+        "chain": [
+          "0x1108387c",
+          "0x11354090"
+        ],
+        "name": "std::ranges::_Uninitialized_fill_fn::operator()<CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState>",
+        "size": 193
+      },
+      {
+        "call": "0x1137961c",
+        "chain": [
+          "0x11064ffd",
+          "0x11388430"
+        ],
+        "name": "CPool<CPed,CCopPed>::DoFill",
+        "size": 114
+      },
+      {
+        "call": "0x11379630",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11379680",
+    "name": "CPool<CVehicle,CHeli>::CPool<CVehicle,CHeli>",
+    "size": 219,
+    "calls": [
+      {
+        "call": "0x113796e6",
+        "chain": [
+          "0x1108558c",
+          "0x12fae5f0"
+        ],
+        "name": "_wassert",
+        "size": 31
+      },
+      {
+        "call": "0x11379703",
+        "chain": [
+          "0x1108558c",
+          "0x12fae5f0"
+        ],
+        "name": "_wassert",
+        "size": 31
+      },
+      {
+        "call": "0x1137972a",
+        "chain": [
+          "0x110843ad",
+          "0x11354190"
+        ],
+        "name": "std::ranges::_Uninitialized_fill_fn::operator()<CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState>",
+        "size": 193
+      },
+      {
+        "call": "0x1137973c",
+        "chain": [
+          "0x1106099e",
+          "0x113884c0"
+        ],
+        "name": "CPool<CVehicle,CHeli>::DoFill",
+        "size": 114
+      },
+      {
+        "call": "0x11379750",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11379440",
+    "name": "CPool<CObject,CCutsceneObject>::CPool<CObject,CCutsceneObject>",
+    "size": 219,
+    "calls": [
+      {
+        "call": "0x113794a6",
+        "chain": [
+          "0x1108558c",
+          "0x12fae5f0"
+        ],
+        "name": "_wassert",
+        "size": 31
+      },
+      {
+        "call": "0x113794c3",
+        "chain": [
+          "0x1108558c",
+          "0x12fae5f0"
+        ],
+        "name": "_wassert",
+        "size": 31
+      },
+      {
+        "call": "0x113794ea",
+        "chain": [
+          "0x110ac0d8",
+          "0x11353f90"
+        ],
+        "name": "std::ranges::_Uninitialized_fill_fn::operator()<CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState>",
+        "size": 193
+      },
+      {
+        "call": "0x113794fc",
+        "chain": [
+          "0x1108fe24",
+          "0x113883a0"
+        ],
+        "name": "CPool<CObject,CCutsceneObject>::DoFill",
+        "size": 114
+      },
+      {
+        "call": "0x11379510",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11354090",
+    "name": "std::ranges::_Uninitialized_fill_fn::operator()<CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState>",
+    "size": 193,
+    "calls": [
+      {
+        "call": "0x113540b3",
+        "chain": [
+          "0x1105848d",
+          "0x113615d0"
+        ],
+        "name": "std::_Adl_verify_range<CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState *>",
+        "size": 100
+      },
+      {
+        "call": "0x113540bf",
+        "chain": [
+          "0x11071bef",
+          "0x11369d30"
+        ],
+        "name": "std::ranges::_Unwrap_sent<CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState *>",
+        "size": 24
+      },
+      {
+        "call": "0x113540d1",
+        "chain": [
+          "0x11073ca1",
+          "0x11369c50"
+        ],
+        "name": "std::ranges::_Unwrap_iter<CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState *>",
+        "size": 24
+      },
+      {
+        "call": "0x113540f1",
+        "chain": [
+          "0x11071d61",
+          "0x113695c0"
+        ],
+        "name": "std::ranges::_Uninitialized_fill_fn::_Uninitialized_fill_unchecked<CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState>",
+        "size": 213
+      },
+      {
+        "call": "0x11354104",
+        "chain": [
+          "0x11068a22",
+          "0x113683c0"
+        ],
+        "name": "std::_Seek_wrapped<CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState *>",
+        "size": 29
+      },
+      {
+        "call": "0x11354119",
+        "chain": [
+          "0x1105e4d2",
+          "0x12f8c0d0"
+        ],
+        "name": "_RTC_CheckStackVars",
+        "size": 77
+      },
+      {
+        "call": "0x1135412b",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11388430",
+    "name": "CPool<CPed,CCopPed>::DoFill",
+    "size": 114,
+    "calls": [
+      {
+        "call": "0x11388464",
+        "chain": [
+          "0x110980f1",
+          "0x12f91a20"
+        ],
+        "name": "memset",
+        "size": 346
+      },
+      {
+        "call": "0x11388484",
+        "chain": [
+          "0x110980f1",
+          "0x12f91a20"
+        ],
+        "name": "memset",
+        "size": 346
+      },
+      {
+        "call": "0x11388497",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11354190",
+    "name": "std::ranges::_Uninitialized_fill_fn::operator()<CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState>",
+    "size": 193,
+    "calls": [
+      {
+        "call": "0x113541b3",
+        "chain": [
+          "0x11062d2a",
+          "0x11361650"
+        ],
+        "name": "std::_Adl_verify_range<CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState *>",
+        "size": 100
+      },
+      {
+        "call": "0x113541bf",
+        "chain": [
+          "0x1106058e",
+          "0x11369d50"
+        ],
+        "name": "std::ranges::_Unwrap_sent<CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState *>",
+        "size": 24
+      },
+      {
+        "call": "0x113541d1",
+        "chain": [
+          "0x11097859",
+          "0x11369c70"
+        ],
+        "name": "std::ranges::_Unwrap_iter<CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState *>",
+        "size": 24
+      },
+      {
+        "call": "0x113541f1",
+        "chain": [
+          "0x110878dc",
+          "0x113696d0"
+        ],
+        "name": "std::ranges::_Uninitialized_fill_fn::_Uninitialized_fill_unchecked<CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState>",
+        "size": 213
+      },
+      {
+        "call": "0x11354204",
+        "chain": [
+          "0x11089056",
+          "0x113683f0"
+        ],
+        "name": "std::_Seek_wrapped<CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState *>",
+        "size": 29
+      },
+      {
+        "call": "0x11354219",
+        "chain": [
+          "0x1105e4d2",
+          "0x12f8c0d0"
+        ],
+        "name": "_RTC_CheckStackVars",
+        "size": 77
+      },
+      {
+        "call": "0x1135422b",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x113884c0",
+    "name": "CPool<CVehicle,CHeli>::DoFill",
+    "size": 114,
+    "calls": [
+      {
+        "call": "0x113884f4",
+        "chain": [
+          "0x110980f1",
+          "0x12f91a20"
+        ],
+        "name": "memset",
+        "size": 346
+      },
+      {
+        "call": "0x11388514",
+        "chain": [
+          "0x110980f1",
+          "0x12f91a20"
+        ],
+        "name": "memset",
+        "size": 346
+      },
+      {
+        "call": "0x11388527",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11353f90",
+    "name": "std::ranges::_Uninitialized_fill_fn::operator()<CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState>",
+    "size": 193,
+    "calls": [
+      {
+        "call": "0x11353fb3",
+        "chain": [
+          "0x110a4cb6",
+          "0x11361550"
+        ],
+        "name": "std::_Adl_verify_range<CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState *>",
+        "size": 100
+      },
+      {
+        "call": "0x11353fbf",
+        "chain": [
+          "0x110aba7f",
+          "0x11369d10"
+        ],
+        "name": "std::ranges::_Unwrap_sent<CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState *>",
+        "size": 24
+      },
+      {
+        "call": "0x11353fd1",
+        "chain": [
+          "0x1105366d",
+          "0x11369c30"
+        ],
+        "name": "std::ranges::_Unwrap_iter<CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState *>",
+        "size": 24
+      },
+      {
+        "call": "0x11353ff1",
+        "chain": [
+          "0x11059e2d",
+          "0x113694b0"
+        ],
+        "name": "std::ranges::_Uninitialized_fill_fn::_Uninitialized_fill_unchecked<CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState>",
+        "size": 213
+      },
+      {
+        "call": "0x11354004",
+        "chain": [
+          "0x1105f20b",
+          "0x11368390"
+        ],
+        "name": "std::_Seek_wrapped<CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState *>",
+        "size": 29
+      },
+      {
+        "call": "0x11354019",
+        "chain": [
+          "0x1105e4d2",
+          "0x12f8c0d0"
+        ],
+        "name": "_RTC_CheckStackVars",
+        "size": 77
+      },
+      {
+        "call": "0x1135402b",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x113883a0",
+    "name": "CPool<CObject,CCutsceneObject>::DoFill",
+    "size": 114,
+    "calls": [
+      {
+        "call": "0x113883d4",
+        "chain": [
+          "0x110980f1",
+          "0x12f91a20"
+        ],
+        "name": "memset",
+        "size": 346
+      },
+      {
+        "call": "0x113883f4",
+        "chain": [
+          "0x110980f1",
+          "0x12f91a20"
+        ],
+        "name": "memset",
+        "size": 346
+      },
+      {
+        "call": "0x11388407",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x113615d0",
+    "name": "std::_Adl_verify_range<CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState *>",
+    "size": 100,
+    "calls": [
+      {
+        "call": "0x1136160b",
+        "chain": [
+          "0x11078acb",
+          "0x12fab340"
+        ],
+        "name": "_CrtDbgReport",
+        "size": 67
+      },
+      {
+        "call": "0x1136162b",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11369d30",
+    "name": "std::ranges::_Unwrap_sent<CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState *>",
+    "size": 24,
+    "calls": []
+  },
+  {
+    "address": "0x11369c50",
+    "name": "std::ranges::_Unwrap_iter<CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState *>",
+    "size": 24,
+    "calls": []
+  },
+  {
+    "address": "0x113695c0",
+    "name": "std::ranges::_Uninitialized_fill_fn::_Uninitialized_fill_unchecked<CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState>",
+    "size": 213,
+    "calls": [
+      {
+        "call": "0x11369601",
+        "chain": [
+          "0x1109cb2e",
+          "0x1137a500"
+        ],
+        "name": "std::_Uninitialized_backout<CPool<CPed,CCopPed>::SlotState *>::_Uninitialized_backout<CPool<CPed,CCopPed>::SlotState *>",
+        "size": 44
+      },
+      {
+        "call": "0x1136961c",
+        "chain": [
+          "0x11092f5c",
+          "0x11364600"
+        ],
+        "name": "std::_Uninitialized_backout<CPool<CPed,CCopPed>::SlotState *>::_Emplace_back<CPool<CPed,CCopPed>::SlotState const &>",
+        "size": 88
+      },
+      {
+        "call": "0x11369627",
+        "chain": [
+          "0x1108dc91",
+          "0x11392220"
+        ],
+        "name": "std::_Uninitialized_backout<CPool<CPed,CCopPed>::SlotState *>::_Release",
+        "size": 39
+      },
+      {
+        "call": "0x1136963c",
+        "chain": [
+          "0x1106cf78",
+          "0x1137ed20"
+        ],
+        "name": "std::_Uninitialized_backout<CPool<CPed,CCopPed>::SlotState *>::~_Uninitialized_backout<CPool<CPed,CCopPed>::SlotState *>",
+        "size": 73
+      },
+      {
+        "call": "0x11369651",
+        "chain": [
+          "0x1105e4d2",
+          "0x12f8c0d0"
+        ],
+        "name": "_RTC_CheckStackVars",
+        "size": 77
+      },
+      {
+        "call": "0x1136966e",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x113683c0",
+    "name": "std::_Seek_wrapped<CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState *>",
+    "size": 29,
+    "calls": []
+  },
+  {
+    "address": "0x11361650",
+    "name": "std::_Adl_verify_range<CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState *>",
+    "size": 100,
+    "calls": [
+      {
+        "call": "0x1136168b",
+        "chain": [
+          "0x11078acb",
+          "0x12fab340"
+        ],
+        "name": "_CrtDbgReport",
+        "size": 67
+      },
+      {
+        "call": "0x113616ab",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11369d50",
+    "name": "std::ranges::_Unwrap_sent<CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState *>",
+    "size": 24,
+    "calls": []
+  },
+  {
+    "address": "0x11369c70",
+    "name": "std::ranges::_Unwrap_iter<CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState *>",
+    "size": 24,
+    "calls": []
+  },
+  {
+    "address": "0x113696d0",
+    "name": "std::ranges::_Uninitialized_fill_fn::_Uninitialized_fill_unchecked<CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState>",
+    "size": 213,
+    "calls": [
+      {
+        "call": "0x11369711",
+        "chain": [
+          "0x1107925f",
+          "0x1137a540"
+        ],
+        "name": "std::_Uninitialized_backout<CPool<CVehicle,CHeli>::SlotState *>::_Uninitialized_backout<CPool<CVehicle,CHeli>::SlotState *>",
+        "size": 44
+      },
+      {
+        "call": "0x1136972c",
+        "chain": [
+          "0x11075e70",
+          "0x11364670"
+        ],
+        "name": "std::_Uninitialized_backout<CPool<CVehicle,CHeli>::SlotState *>::_Emplace_back<CPool<CVehicle,CHeli>::SlotState const &>",
+        "size": 88
+      },
+      {
+        "call": "0x11369737",
+        "chain": [
+          "0x1106d694",
+          "0x11392250"
+        ],
+        "name": "std::_Uninitialized_backout<CPool<CVehicle,CHeli>::SlotState *>::_Release",
+        "size": 39
+      },
+      {
+        "call": "0x1136974c",
+        "chain": [
+          "0x11078c6f",
+          "0x1137ed80"
+        ],
+        "name": "std::_Uninitialized_backout<CPool<CVehicle,CHeli>::SlotState *>::~_Uninitialized_backout<CPool<CVehicle,CHeli>::SlotState *>",
+        "size": 73
+      },
+      {
+        "call": "0x11369761",
+        "chain": [
+          "0x1105e4d2",
+          "0x12f8c0d0"
+        ],
+        "name": "_RTC_CheckStackVars",
+        "size": 77
+      },
+      {
+        "call": "0x1136977e",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x113683f0",
+    "name": "std::_Seek_wrapped<CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState *>",
+    "size": 29,
+    "calls": []
+  },
+  {
+    "address": "0x11361550",
+    "name": "std::_Adl_verify_range<CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState *>",
+    "size": 100,
+    "calls": [
+      {
+        "call": "0x1136158b",
+        "chain": [
+          "0x11078acb",
+          "0x12fab340"
+        ],
+        "name": "_CrtDbgReport",
+        "size": 67
+      },
+      {
+        "call": "0x113615ab",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11369d10",
+    "name": "std::ranges::_Unwrap_sent<CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState *>",
+    "size": 24,
+    "calls": []
+  },
+  {
+    "address": "0x11369c30",
+    "name": "std::ranges::_Unwrap_iter<CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState *>",
+    "size": 24,
+    "calls": []
+  },
+  {
+    "address": "0x113694b0",
+    "name": "std::ranges::_Uninitialized_fill_fn::_Uninitialized_fill_unchecked<CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState>",
+    "size": 213,
+    "calls": [
+      {
+        "call": "0x113694f1",
+        "chain": [
+          "0x11069dc3",
+          "0x1137a4c0"
+        ],
+        "name": "std::_Uninitialized_backout<CPool<CObject,CCutsceneObject>::SlotState *>::_Uninitialized_backout<CPool<CObject,CCutsceneObject>::SlotState *>",
+        "size": 44
+      },
+      {
+        "call": "0x1136950c",
+        "chain": [
+          "0x11097b24",
+          "0x11364590"
+        ],
+        "name": "std::_Uninitialized_backout<CPool<CObject,CCutsceneObject>::SlotState *>::_Emplace_back<CPool<CObject,CCutsceneObject>::SlotState const &>",
+        "size": 88
+      },
+      {
+        "call": "0x11369517",
+        "chain": [
+          "0x110991ae",
+          "0x113921f0"
+        ],
+        "name": "std::_Uninitialized_backout<CPool<CObject,CCutsceneObject>::SlotState *>::_Release",
+        "size": 39
+      },
+      {
+        "call": "0x1136952c",
+        "chain": [
+          "0x110686d0",
+          "0x1137ecc0"
+        ],
+        "name": "std::_Uninitialized_backout<CPool<CObject,CCutsceneObject>::SlotState *>::~_Uninitialized_backout<CPool<CObject,CCutsceneObject>::SlotState *>",
+        "size": 73
+      },
+      {
+        "call": "0x11369541",
+        "chain": [
+          "0x1105e4d2",
+          "0x12f8c0d0"
+        ],
+        "name": "_RTC_CheckStackVars",
+        "size": 77
+      },
+      {
+        "call": "0x1136955e",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11368390",
+    "name": "std::_Seek_wrapped<CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState *>",
+    "size": 29,
+    "calls": []
+  },
+  {
+    "address": "0x1137a500",
+    "name": "std::_Uninitialized_backout<CPool<CPed,CCopPed>::SlotState *>::_Uninitialized_backout<CPool<CPed,CCopPed>::SlotState *>",
+    "size": 44,
+    "calls": []
+  },
+  {
+    "address": "0x11364600",
+    "name": "std::_Uninitialized_backout<CPool<CPed,CCopPed>::SlotState *>::_Emplace_back<CPool<CPed,CCopPed>::SlotState const &>",
+    "size": 88,
+    "calls": [
+      {
+        "call": "0x1136462b",
+        "chain": [
+          "0x110964f4",
+          "0x113626d0"
+        ],
+        "name": "std::_Construct_in_place<CPool<CPed,CCopPed>::SlotState,CPool<CPed,CCopPed>::SlotState const &>",
+        "size": 128
+      },
+      {
+        "call": "0x1136464d",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11392220",
+    "name": "std::_Uninitialized_backout<CPool<CPed,CCopPed>::SlotState *>::_Release",
+    "size": 39,
+    "calls": []
+  },
+  {
+    "address": "0x1137ed20",
+    "name": "std::_Uninitialized_backout<CPool<CPed,CCopPed>::SlotState *>::~_Uninitialized_backout<CPool<CPed,CCopPed>::SlotState *>",
+    "size": 73,
+    "calls": [
+      {
+        "call": "0x1137ed4d",
+        "chain": [
+          "0x11076db1",
+          "0x11363cb0"
+        ],
+        "name": "std::_Destroy_range<CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState *>",
+        "size": 88
+      },
+      {
+        "call": "0x1137ed60",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x1137a540",
+    "name": "std::_Uninitialized_backout<CPool<CVehicle,CHeli>::SlotState *>::_Uninitialized_backout<CPool<CVehicle,CHeli>::SlotState *>",
+    "size": 44,
+    "calls": []
+  },
+  {
+    "address": "0x11364670",
+    "name": "std::_Uninitialized_backout<CPool<CVehicle,CHeli>::SlotState *>::_Emplace_back<CPool<CVehicle,CHeli>::SlotState const &>",
+    "size": 88,
+    "calls": [
+      {
+        "call": "0x1136469b",
+        "chain": [
+          "0x11080483",
+          "0x11362770"
+        ],
+        "name": "std::_Construct_in_place<CPool<CVehicle,CHeli>::SlotState,CPool<CVehicle,CHeli>::SlotState const &>",
+        "size": 128
+      },
+      {
+        "call": "0x113646bd",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11392250",
+    "name": "std::_Uninitialized_backout<CPool<CVehicle,CHeli>::SlotState *>::_Release",
+    "size": 39,
+    "calls": []
+  },
+  {
+    "address": "0x1137ed80",
+    "name": "std::_Uninitialized_backout<CPool<CVehicle,CHeli>::SlotState *>::~_Uninitialized_backout<CPool<CVehicle,CHeli>::SlotState *>",
+    "size": 73,
+    "calls": [
+      {
+        "call": "0x1137edad",
+        "chain": [
+          "0x1109ab99",
+          "0x11363d20"
+        ],
+        "name": "std::_Destroy_range<CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState *>",
+        "size": 88
+      },
+      {
+        "call": "0x1137edc0",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x1137a4c0",
+    "name": "std::_Uninitialized_backout<CPool<CObject,CCutsceneObject>::SlotState *>::_Uninitialized_backout<CPool<CObject,CCutsceneObject>::SlotState *>",
+    "size": 44,
+    "calls": []
+  },
+  {
+    "address": "0x11364590",
+    "name": "std::_Uninitialized_backout<CPool<CObject,CCutsceneObject>::SlotState *>::_Emplace_back<CPool<CObject,CCutsceneObject>::SlotState const &>",
+    "size": 88,
+    "calls": [
+      {
+        "call": "0x113645bb",
+        "chain": [
+          "0x110a208d",
+          "0x11362630"
+        ],
+        "name": "std::_Construct_in_place<CPool<CObject,CCutsceneObject>::SlotState,CPool<CObject,CCutsceneObject>::SlotState const &>",
+        "size": 128
+      },
+      {
+        "call": "0x113645dd",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x113921f0",
+    "name": "std::_Uninitialized_backout<CPool<CObject,CCutsceneObject>::SlotState *>::_Release",
+    "size": 39,
+    "calls": []
+  },
+  {
+    "address": "0x1137ecc0",
+    "name": "std::_Uninitialized_backout<CPool<CObject,CCutsceneObject>::SlotState *>::~_Uninitialized_backout<CPool<CObject,CCutsceneObject>::SlotState *>",
+    "size": 73,
+    "calls": [
+      {
+        "call": "0x1137eced",
+        "chain": [
+          "0x11053398",
+          "0x11363c40"
+        ],
+        "name": "std::_Destroy_range<CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState *>",
+        "size": 88
+      },
+      {
+        "call": "0x1137ed00",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x113626d0",
+    "name": "std::_Construct_in_place<CPool<CPed,CCopPed>::SlotState,CPool<CPed,CCopPed>::SlotState const &>",
+    "size": 128,
+    "calls": [
+      {
+        "call": "0x113626eb",
+        "chain": [
+          "0x11094b4f",
+          "0x11261ce0"
+        ],
+        "name": "std::is_constant_evaluated",
+        "size": 21
+      },
+      {
+        "call": "0x113626ff",
+        "chain": [
+          "0x1107003d",
+          "0x11369fd0"
+        ],
+        "name": "std::addressof<CPool<CPed,CCopPed>::SlotState>",
+        "size": 22
+      },
+      {
+        "call": "0x11362708",
+        "chain": [
+          "0x1105a4ae",
+          "0x1136e260"
+        ],
+        "name": "std::construct_at<CPool<CPed,CCopPed>::SlotState,CPool<CPed,CCopPed>::SlotState const &>",
+        "size": 86
+      },
+      {
+        "call": "0x11362716",
+        "chain": [
+          "0x1107003d",
+          "0x11369fd0"
+        ],
+        "name": "std::addressof<CPool<CPed,CCopPed>::SlotState>",
+        "size": 22
+      },
+      {
+        "call": "0x11362721",
+        "chain": [
+          "0x1105492d",
+          "0x11231640"
+        ],
+        "name": "operator new",
+        "size": 22
+      },
+      {
+        "call": "0x11362747",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11363cb0",
+    "name": "std::_Destroy_range<CPool<CPed,CCopPed>::SlotState *,CPool<CPed,CCopPed>::SlotState *>",
+    "size": 88,
+    "calls": [
+      {
+        "call": "0x11363cc7",
+        "chain": [
+          "0x11094b4f",
+          "0x11261ce0"
+        ],
+        "name": "std::is_constant_evaluated",
+        "size": 21
+      },
+      {
+        "call": "0x11363cea",
+        "chain": [
+          "0x1106f0c0",
+          "0x11363b90"
+        ],
+        "name": "std::_Destroy_in_place<CPool<CPed,CCopPed>::SlotState>",
+        "size": 19
+      },
+      {
+        "call": "0x11363cff",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11362770",
+    "name": "std::_Construct_in_place<CPool<CVehicle,CHeli>::SlotState,CPool<CVehicle,CHeli>::SlotState const &>",
+    "size": 128,
+    "calls": [
+      {
+        "call": "0x1136278b",
+        "chain": [
+          "0x11094b4f",
+          "0x11261ce0"
+        ],
+        "name": "std::is_constant_evaluated",
+        "size": 21
+      },
+      {
+        "call": "0x1136279f",
+        "chain": [
+          "0x110a6ee4",
+          "0x11369ff0"
+        ],
+        "name": "std::addressof<CPool<CVehicle,CHeli>::SlotState>",
+        "size": 22
+      },
+      {
+        "call": "0x113627a8",
+        "chain": [
+          "0x11078c92",
+          "0x1136e2d0"
+        ],
+        "name": "std::construct_at<CPool<CVehicle,CHeli>::SlotState,CPool<CVehicle,CHeli>::SlotState const &>",
+        "size": 86
+      },
+      {
+        "call": "0x113627b6",
+        "chain": [
+          "0x110a6ee4",
+          "0x11369ff0"
+        ],
+        "name": "std::addressof<CPool<CVehicle,CHeli>::SlotState>",
+        "size": 22
+      },
+      {
+        "call": "0x113627c1",
+        "chain": [
+          "0x1105492d",
+          "0x11231640"
+        ],
+        "name": "operator new",
+        "size": 22
+      },
+      {
+        "call": "0x113627e7",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11363d20",
+    "name": "std::_Destroy_range<CPool<CVehicle,CHeli>::SlotState *,CPool<CVehicle,CHeli>::SlotState *>",
+    "size": 88,
+    "calls": [
+      {
+        "call": "0x11363d37",
+        "chain": [
+          "0x11094b4f",
+          "0x11261ce0"
+        ],
+        "name": "std::is_constant_evaluated",
+        "size": 21
+      },
+      {
+        "call": "0x11363d5a",
+        "chain": [
+          "0x1105e220",
+          "0x11363bb0"
+        ],
+        "name": "std::_Destroy_in_place<CPool<CVehicle,CHeli>::SlotState>",
+        "size": 19
+      },
+      {
+        "call": "0x11363d6f",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11362630",
+    "name": "std::_Construct_in_place<CPool<CObject,CCutsceneObject>::SlotState,CPool<CObject,CCutsceneObject>::SlotState const &>",
+    "size": 128,
+    "calls": [
+      {
+        "call": "0x1136264b",
+        "chain": [
+          "0x11094b4f",
+          "0x11261ce0"
+        ],
+        "name": "std::is_constant_evaluated",
+        "size": 21
+      },
+      {
+        "call": "0x1136265f",
+        "chain": [
+          "0x11085ba9",
+          "0x11369fb0"
+        ],
+        "name": "std::addressof<CPool<CObject,CCutsceneObject>::SlotState>",
+        "size": 22
+      },
+      {
+        "call": "0x11362668",
+        "chain": [
+          "0x11075173",
+          "0x1136e1f0"
+        ],
+        "name": "std::construct_at<CPool<CObject,CCutsceneObject>::SlotState,CPool<CObject,CCutsceneObject>::SlotState const &>",
+        "size": 86
+      },
+      {
+        "call": "0x11362676",
+        "chain": [
+          "0x11085ba9",
+          "0x11369fb0"
+        ],
+        "name": "std::addressof<CPool<CObject,CCutsceneObject>::SlotState>",
+        "size": 22
+      },
+      {
+        "call": "0x11362681",
+        "chain": [
+          "0x1105492d",
+          "0x11231640"
+        ],
+        "name": "operator new",
+        "size": 22
+      },
+      {
+        "call": "0x113626a7",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11363c40",
+    "name": "std::_Destroy_range<CPool<CObject,CCutsceneObject>::SlotState *,CPool<CObject,CCutsceneObject>::SlotState *>",
+    "size": 88,
+    "calls": [
+      {
+        "call": "0x11363c57",
+        "chain": [
+          "0x11094b4f",
+          "0x11261ce0"
+        ],
+        "name": "std::is_constant_evaluated",
+        "size": 21
+      },
+      {
+        "call": "0x11363c7a",
+        "chain": [
+          "0x1106e0b2",
+          "0x11363b70"
+        ],
+        "name": "std::_Destroy_in_place<CPool<CObject,CCutsceneObject>::SlotState>",
+        "size": 19
+      },
+      {
+        "call": "0x11363c8f",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11261ce0",
+    "name": "std::is_constant_evaluated",
+    "size": 21,
+    "calls": []
+  },
+  {
+    "address": "0x11369fd0",
+    "name": "std::addressof<CPool<CPed,CCopPed>::SlotState>",
+    "size": 22,
+    "calls": []
+  },
+  {
+    "address": "0x1136e260",
+    "name": "std::construct_at<CPool<CPed,CCopPed>::SlotState,CPool<CPed,CCopPed>::SlotState const &>",
+    "size": 86,
+    "calls": [
+      {
+        "call": "0x1136e281",
+        "chain": [
+          "0x1105492d",
+          "0x11231640"
+        ],
+        "name": "operator new",
+        "size": 22
+      },
+      {
+        "call": "0x1136e2ad",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11231640",
+    "name": "operator new",
+    "size": 22,
+    "calls": []
+  },
+  {
+    "address": "0x11363b90",
+    "name": "std::_Destroy_in_place<CPool<CPed,CCopPed>::SlotState>",
+    "size": 19,
+    "calls": []
+  },
+  {
+    "address": "0x11369ff0",
+    "name": "std::addressof<CPool<CVehicle,CHeli>::SlotState>",
+    "size": 22,
+    "calls": []
+  },
+  {
+    "address": "0x1136e2d0",
+    "name": "std::construct_at<CPool<CVehicle,CHeli>::SlotState,CPool<CVehicle,CHeli>::SlotState const &>",
+    "size": 86,
+    "calls": [
+      {
+        "call": "0x1136e2f1",
+        "chain": [
+          "0x1105492d",
+          "0x11231640"
+        ],
+        "name": "operator new",
+        "size": 22
+      },
+      {
+        "call": "0x1136e31d",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11363bb0",
+    "name": "std::_Destroy_in_place<CPool<CVehicle,CHeli>::SlotState>",
+    "size": 19,
+    "calls": []
+  },
+  {
+    "address": "0x11369fb0",
+    "name": "std::addressof<CPool<CObject,CCutsceneObject>::SlotState>",
+    "size": 22,
+    "calls": []
+  },
+  {
+    "address": "0x1136e1f0",
+    "name": "std::construct_at<CPool<CObject,CCutsceneObject>::SlotState,CPool<CObject,CCutsceneObject>::SlotState const &>",
+    "size": 86,
+    "calls": [
+      {
+        "call": "0x1136e211",
+        "chain": [
+          "0x1105492d",
+          "0x11231640"
+        ],
+        "name": "operator new",
+        "size": 22
+      },
+      {
+        "call": "0x1136e23d",
+        "chain": [
+          "0x11058c67",
+          "0x12f8c130"
+        ],
+        "name": "_RTC_CheckEsp",
+        "size": 37
+      }
+    ]
+  },
+  {
+    "address": "0x11363b70",
+    "name": "std::_Destroy_in_place<CPool<CObject,CCutsceneObject>::SlotState>",
+    "size": 19,
+    "calls": []
+  }
+]

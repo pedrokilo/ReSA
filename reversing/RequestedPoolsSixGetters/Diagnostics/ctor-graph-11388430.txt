@@ -1,0 +1,56 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsSixGetters\artifacts\gta_reversed-pools-six-getters.asi
+
+File Type: DLL
+
+  11388430: 55                 push        ebp
+  11388431: 8B EC              mov         ebp,esp
+  11388433: 81 EC CC 00 00 00  sub         esp,0CCh
+  11388439: 53                 push        ebx
+  1138843A: 56                 push        esi
+  1138843B: 57                 push        edi
+  1138843C: 51                 push        ecx
+  1138843D: 8D 7D F4           lea         edi,[ebp-0Ch]
+  11388440: B9 03 00 00 00     mov         ecx,3
+  11388445: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1138844A: F3 AB              rep stos    dword ptr es:[edi]
+  1138844C: 59                 pop         ecx
+  1138844D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  11388450: 83 7D 0C 00        cmp         dword ptr [ebp+0Ch],0
+  11388454: 74 18              je          1138846E
+  11388456: 68 C4 07 00 00     push        7C4h
+  1138845B: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  1138845F: 50                 push        eax
+  11388460: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  11388463: 51                 push        ecx
+  11388464: E8 88 FC D0 FF     call        110980F1
+  11388469: 83 C4 0C           add         esp,0Ch
+  1138846C: EB 1E              jmp         1138848C
+  1138846E: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11388471: 69 48 08 C4 07 00  imul        ecx,dword ptr [eax+8],7C4h
+            00
+  11388478: 51                 push        ecx
+  11388479: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  1138847D: 52                 push        edx
+  1138847E: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  11388481: 8B 08              mov         ecx,dword ptr [eax]
+  11388483: 51                 push        ecx
+  11388484: E8 68 FC D0 FF     call        110980F1
+  11388489: 83 C4 0C           add         esp,0Ch
+  1138848C: 5F                 pop         edi
+  1138848D: 5E                 pop         esi
+  1138848E: 5B                 pop         ebx
+  1138848F: 81 C4 CC 00 00 00  add         esp,0CCh
+  11388495: 3B EC              cmp         ebp,esp
+  11388497: E8 CB 07 CD FF     call        11058C67
+  1138849C: 8B E5              mov         esp,ebp
+  1138849E: 5D                 pop         ebp
+  1138849F: C2 08 00           ret         8
+  113884A2: CC                 int         3
+
+  Summary
+
+     2165000 .text

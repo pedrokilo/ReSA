@@ -1,0 +1,39 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsSixGetters\artifacts\gta_reversed-pools-six-getters.asi
+
+File Type: DLL
+
+  11BFD600: 55                 push        ebp
+  11BFD601: 8B EC              mov         ebp,esp
+  11BFD603: 81 EC C4 00 00 00  sub         esp,0C4h
+  11BFD609: 53                 push        ebx
+  11BFD60A: 56                 push        esi
+  11BFD60B: 57                 push        edi
+  11BFD60C: 8D 7D FC           lea         edi,[ebp-4]
+  11BFD60F: B9 01 00 00 00     mov         ecx,1
+  11BFD614: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11BFD619: F3 AB              rep stos    dword ptr es:[edi]
+  11BFD61B: A1 44 56 6E 13     mov         eax,dword ptr ds:[136E5644h]
+  11BFD620: 8B 08              mov         ecx,dword ptr [eax]
+  11BFD622: 89 8D 3C FF FF FF  mov         dword ptr [ebp+FFFFFF3Ch],ecx
+  11BFD628: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  11BFD62B: 52                 push        edx
+  11BFD62C: 8B 8D 3C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF3Ch]
+  11BFD632: E8 9A 4B 46 FF     call        110621D1
+  11BFD637: 5F                 pop         edi
+  11BFD638: 5E                 pop         esi
+  11BFD639: 5B                 pop         ebx
+  11BFD63A: 81 C4 C4 00 00 00  add         esp,0C4h
+  11BFD640: 3B EC              cmp         ebp,esp
+  11BFD642: E8 20 B6 45 FF     call        11058C67
+  11BFD647: 8B E5              mov         esp,ebp
+  11BFD649: 5D                 pop         ebp
+  11BFD64A: C3                 ret
+  11BFD64B: CC                 int         3
+
+  Summary
+
+     2165000 .text

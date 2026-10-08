@@ -1,0 +1,45 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsSixGettersV2\artifacts\gta_reversed-pools-six-getters-v2.asi
+
+File Type: DLL
+
+  1137E1C0: 55                 push        ebp
+  1137E1C1: 8B EC              mov         ebp,esp
+  1137E1C3: 81 EC CC 00 00 00  sub         esp,0CCh
+  1137E1C9: 53                 push        ebx
+  1137E1CA: 56                 push        esi
+  1137E1CB: 57                 push        edi
+  1137E1CC: 51                 push        ecx
+  1137E1CD: 8D 7D F4           lea         edi,[ebp-0Ch]
+  1137E1D0: B9 03 00 00 00     mov         ecx,3
+  1137E1D5: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1137E1DA: F3 AB              rep stos    dword ptr es:[edi]
+  1137E1DC: 59                 pop         ecx
+  1137E1DD: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  1137E1E0: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  1137E1E3: 50                 push        eax
+  1137E1E4: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  1137E1E7: 51                 push        ecx
+  1137E1E8: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  1137E1EB: 52                 push        edx
+  1137E1EC: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  1137E1EF: E8 F5 14 CE FF     call        1105F6E9
+  1137E1F4: 90                 nop
+  1137E1F5: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  1137E1F8: 5F                 pop         edi
+  1137E1F9: 5E                 pop         esi
+  1137E1FA: 5B                 pop         ebx
+  1137E1FB: 81 C4 CC 00 00 00  add         esp,0CCh
+  1137E201: 3B EC              cmp         ebp,esp
+  1137E203: E8 64 BA CD FF     call        11059C6C
+  1137E208: 8B E5              mov         esp,ebp
+  1137E20A: 5D                 pop         ebp
+  1137E20B: C2 0C 00           ret         0Ch
+  1137E20E: CC                 int         3
+
+  Summary
+
+     2165000 .text

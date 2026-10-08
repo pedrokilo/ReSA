@@ -1,0 +1,49 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsSixGettersV2\artifacts\gta_reversed-pools-six-getters-v2.asi
+
+File Type: DLL
+
+  115EB820: 55                 push        ebp
+  115EB821: 8B EC              mov         ebp,esp
+  115EB823: 81 EC D8 00 00 00  sub         esp,0D8h
+  115EB829: 53                 push        ebx
+  115EB82A: 56                 push        esi
+  115EB82B: 57                 push        edi
+  115EB82C: 51                 push        ecx
+  115EB82D: 8D 7D E8           lea         edi,[ebp-18h]
+  115EB830: B9 06 00 00 00     mov         ecx,6
+  115EB835: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  115EB83A: F3 AB              rep stos    dword ptr es:[edi]
+  115EB83C: 59                 pop         ecx
+  115EB83D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  115EB840: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  115EB843: 50                 push        eax
+  115EB844: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  115EB847: E8 B8 64 A7 FF     call        11061D04
+  115EB84C: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  115EB84F: 8B 75 EC           mov         esi,dword ptr [ebp-14h]
+  115EB852: C1 E6 08           shl         esi,8
+  115EB855: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  115EB858: 8B 48 04           mov         ecx,dword ptr [eax+4]
+  115EB85B: 03 4D EC           add         ecx,dword ptr [ebp-14h]
+  115EB85E: E8 BA 7E AB FF     call        110A371D
+  115EB863: 0F B6 C8           movzx       ecx,al
+  115EB866: 0B F1              or          esi,ecx
+  115EB868: 8B C6              mov         eax,esi
+  115EB86A: 5F                 pop         edi
+  115EB86B: 5E                 pop         esi
+  115EB86C: 5B                 pop         ebx
+  115EB86D: 81 C4 D8 00 00 00  add         esp,0D8h
+  115EB873: 3B EC              cmp         ebp,esp
+  115EB875: E8 F2 E3 A6 FF     call        11059C6C
+  115EB87A: 8B E5              mov         esp,ebp
+  115EB87C: 5D                 pop         ebp
+  115EB87D: C2 04 00           ret         4
+  115EB880: CC                 int         3
+
+  Summary
+
+     2165000 .text

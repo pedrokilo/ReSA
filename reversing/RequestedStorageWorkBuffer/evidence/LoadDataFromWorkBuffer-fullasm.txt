@@ -1,0 +1,97 @@
+// CGenericGameStorage::LoadDataFromWorkBuffer-org @ 0x005d1300 [0x5d1300..0x5d137e]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_005d1300(undefined4 *param_1,uint param_2)
+
+{
+  char cVar1;
+  uint uVar2;
+  int iVar3;
+  undefined4 *puVar4;
+  
+  if (DAT_00c16efc != '\0') {
+    return 0;
+  }
+  if (0 < (int)param_2) {
+    if (DAT_008d2be0 < DAT_00c16eec + param_2) {
+      iVar3 = 0xc800 - DAT_00c16eec;
+      cVar1 = FUN_005d1300(param_1,iVar3);
+      if (cVar1 == '\0') {
+        return 0;
+      }
+      param_2 = param_2 - iVar3;
+      param_1 = (undefined4 *)((int)param_1 + iVar3);
+      cVar1 = FUN_005d10b0();
+      if (cVar1 == '\0') {
+        return 0;
+      }
+    }
+    puVar4 = (undefined4 *)(DAT_00c16ee8 + DAT_00c16eec);
+    for (uVar2 = param_2 >> 2; uVar2 != 0; uVar2 = uVar2 - 1) {
+      *param_1 = *puVar4;
+      puVar4 = puVar4 + 1;
+      param_1 = param_1 + 1;
+    }
+    for (uVar2 = param_2 & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
+      *(undefined1 *)param_1 = *(undefined1 *)puVar4;
+      puVar4 = (undefined4 *)((int)puVar4 + 1);
+      param_1 = (undefined4 *)((int)param_1 + 1);
+    }
+    DAT_00c16eec = DAT_00c16eec + param_2;
+  }
+  return 1;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005D1300: mov al,byte ptr ds:[00C16EFCh]
+005D1305: test al,al
+005D1307: je 005D130C
+005D1309: xor al,al
+005D130B: ret
+005D130C: push ebx
+005D130D: mov ebx,dword ptr [esp+0Ch]
+005D1311: test ebx,ebx
+005D1313: push esi
+005D1314: push edi
+005D1315: jle 005D1379
+005D1317: mov eax,dword ptr ds:[00C16EECh]
+005D131C: mov edx,dword ptr ds:[008D2BE0h]
+005D1322: mov edi,dword ptr [esp+10h]
+005D1326: lea ecx,[eax+ebx]
+005D1329: cmp ecx,edx
+005D132B: jbe 005D135A
+005D132D: mov esi,0C800h
+005D1332: sub esi,eax
+005D1334: push esi
+005D1335: push edi
+005D1336: call 005D1300
+005D133B: add esp,8
+005D133E: test al,al
+005D1340: jne 005D1348
+005D1342: pop edi
+005D1343: pop esi
+005D1344: xor al,al
+005D1346: pop ebx
+005D1347: ret
+005D1348: sub ebx,esi
+005D134A: add edi,esi
+005D134C: call 005D10B0
+005D1351: test al,al
+005D1353: je 005D1342
+005D1355: mov eax,dword ptr ds:[00C16EECh]
+005D135A: mov edx,dword ptr ds:[00C16EE8h]
+005D1360: lea esi,[edx+eax]
+005D1363: mov ecx,ebx
+005D1365: mov eax,ecx
+005D1367: shr ecx,2
+005D136A: rep movs dword ptr es:[edi],dword ptr [esi]
+005D136C: mov ecx,eax
+005D136E: and ecx,3
+005D1371: rep movs byte ptr es:[edi],byte ptr [esi]
+005D1373: add dword ptr ds:[00C16EECh],ebx
+005D1379: pop edi
+005D137A: pop esi
+005D137B: mov al,1
+005D137D: pop ebx
+005D137E: ret

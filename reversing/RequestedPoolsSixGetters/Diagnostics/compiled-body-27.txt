@@ -1,0 +1,63 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsSixGetters\artifacts\gta_reversed-pools-six-getters.asi
+
+File Type: DLL
+
+  11602580: 55                 push        ebp
+  11602581: 8B EC              mov         ebp,esp
+  11602583: 81 EC DC 00 00 00  sub         esp,0DCh
+  11602589: 53                 push        ebx
+  1160258A: 56                 push        esi
+  1160258B: 57                 push        edi
+  1160258C: 51                 push        ecx
+  1160258D: 8D 7D E4           lea         edi,[ebp-1Ch]
+  11602590: B9 07 00 00 00     mov         ecx,7
+  11602595: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  1160259A: F3 AB              rep stos    dword ptr es:[edi]
+  1160259C: 59                 pop         ecx
+  1160259D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  116025A0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  116025A3: C1 F8 08           sar         eax,8
+  116025A6: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  116025A9: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  116025AC: 50                 push        eax
+  116025AD: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  116025B0: E8 9D D0 A5 FF     call        1105F652
+  116025B5: 0F B6 C8           movzx       ecx,al
+  116025B8: 85 C9              test        ecx,ecx
+  116025BA: 74 32              je          116025EE
+  116025BC: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  116025BF: 8B 4A 04           mov         ecx,dword ptr [edx+4]
+  116025C2: 03 4D EC           add         ecx,dword ptr [ebp-14h]
+  116025C5: E8 44 01 AA FF     call        110A270E
+  116025CA: 0F B6 C0           movzx       eax,al
+  116025CD: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  116025D0: 81 E1 FF 00 00 00  and         ecx,0FFh
+  116025D6: 3B C1              cmp         eax,ecx
+  116025D8: 75 14              jne         116025EE
+  116025DA: 69 55 EC 18 0A 00  imul        edx,dword ptr [ebp-14h],0A18h
+            00
+  116025E1: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  116025E4: 03 10              add         edx,dword ptr [eax]
+  116025E6: 89 95 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],edx
+  116025EC: EB 0A              jmp         116025F8
+  116025EE: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],0
+            00 00 00 00
+  116025F8: 8B 85 24 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF24h]
+  116025FE: 5F                 pop         edi
+  116025FF: 5E                 pop         esi
+  11602600: 5B                 pop         ebx
+  11602601: 81 C4 DC 00 00 00  add         esp,0DCh
+  11602607: 3B EC              cmp         ebp,esp
+  11602609: E8 59 66 A5 FF     call        11058C67
+  1160260E: 8B E5              mov         esp,ebp
+  11602610: 5D                 pop         ebp
+  11602611: C2 04 00           ret         4
+  11602614: CC                 int         3
+
+  Summary
+
+     2165000 .text

@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "synthetic_pairs": 3072,
+  "per_family_reference_pairs": 256,
+  "per_family_handle_pairs": 768,
+  "negative_tests_rejected": [
+    "wrong_both_return",
+    "raw_pointer_identity",
+    "padding_byte",
+    "ownership_flag",
+    "wrong_stale_id",
+    "false_gate",
+    "false_FP",
+    "case_duplicate",
+    "restore_false",
+    "uppercase_hex"
+  ],
+  "game_or_build_executed": false
+}

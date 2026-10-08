@@ -1,0 +1,15 @@
+{
+  "prepared_only": true,
+  "no_runtime_approval": true,
+  "previous_bank": "reversing/RequestedPadDistanceTrainNop",
+  "previous_freeze_sha256": "6020b9f4b3523ccdfcf82fd006330c17f2228dd51a13b0d81726cc6d0b332852",
+  "rejected_partial_run": "reversing/RequestedPadDistanceTrainNop/runs/20261008-161553-454998",
+  "rejected_summary_sha256": "f89f62d6e6a98fda331d60cfed0a8b9b946146d5533e5450ff28a6e6599f17e8",
+  "source_oracle_sha256": "48bd00ed721e3a7883392ea4fafa8e449fa129f874d9bcf72ff32860f39227c1",
+  "same_oracle_sha256": "48bd00ed721e3a7883392ea4fafa8e449fa129f874d9bcf72ff32860f39227c1",
+  "assets": {
+    "HexTransport.hpp": "f64946480245cb30f7b288b201016d844888c610d60b4a35c6d6a8adc4c9e497",
+    "hex_wire.py": "025279a040bccf43cca09325098e4357683160496da4c30e0a8e4a057f112037"
+  },
+  "revision_reason": "Lowercase full lossless transport; exact canonical decode; same 13952 corpus/model; 900s envelope and failclosed negative naturalexit wrapper; independent restore attempts finally"
+}

@@ -1,0 +1,8 @@
+{
+  "applied": false,
+  "before_sha256": "b0902674db3e303e58c1bb9b875439a1e3ec02eaa8fa0acb8a619ab6774adaf2",
+  "proposed_sha256": "89badf36b91db868c0a9d41408db7b595bc116ce941a7864cd697af8a4bbaa4d",
+  "patch_sha256": "4ec0e4c20581adca3d142e6c966ff45f2fde79e7188a36df03aeac36b8327540",
+  "scope": "Pad.cpp only; Train gate and x87 Distance/Train arithmetic+local complete native FTOL transcription, no original EXE delegation",
+  "no_source_edit": true
+}

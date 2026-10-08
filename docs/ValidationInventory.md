@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6860 con evidencia histórica, 0 con vigencia acreditada y 1586 pendientes en 58 grupos. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
+> **Estado al 8 de octubre de 2026:** 771 grupos / 8446 funciones reconstruidas; 6867 con evidencia histórica, 0 con vigencia acreditada y 1579 pendientes en 58 grupos. Validaciones detenidas por solicitud del usuario. Snapshot de arranque histórico: 694 grupos / 6136 funciones; whitelist sin ampliación automática. REA: 1395 dossiers y 315 fallos de búsqueda sobre 1710 direcciones iniciales resueltas; no equivale a validación. Standalone jugable aún no acreditado. [Estado actual y alcance](CurrentStatus.md). Las mediciones anteriores conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Inventario de validación de funciones reconstruidas
@@ -10,10 +10,10 @@ Universo de esta revisión: **8,446 entradas reversed=1**, de 8,446 registradas.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 6860 |
+| `validated=1` · evidencia aprobada vinculada | 6867 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 6860 |
-| Sin evidencia aprobada vinculada en este registro | 1586 |
+| Evidencia histórica vinculada; revisión pendiente | 6867 |
+| Sin evidencia aprobada vinculada en este registro | 1579 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -3328,6 +3328,13 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPlayerSkin | `RenderFrontendSkinEdit` | [Resumen](../reversing/Render23/validation-summary.json) |
 | CPlayerSkin | `Shutdown` | [Resumen](../reversing/Render23/validation-summary.json) |
 | CPointRoutePool | `New` | [Resumen](../reversing/Pools56/validation-summary.json) |
+| CPools | `CheckBuildingAtomics` | [Resumen](../reversing/RequestedPoolsAtomicCheck/validation-summary.json) |
+| CPools | `GetObject` | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) |
+| CPools | `GetObjectRef` | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) |
+| CPools | `GetPed` | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) |
+| CPools | `GetPedRef` | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) |
+| CPools | `GetVehicle` | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) |
+| CPools | `GetVehicleRef` | [Resumen](../reversing/RequestedPoolsSixGettersV2/validation-summary.json) |
 | CPools | `SaveObjectPool` | [Resumen](../reversing/PoolsPending/validation-summary.json) |
 | CPools | `SavePedPool` | [Resumen](../reversing/PoolsPending/validation-summary.json) |
 | CPools | `SaveVehiclePool` | [Resumen](../reversing/PoolsPending/validation-summary.json) |
@@ -7228,7 +7235,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPlayerPedData` | 5 | 0 | 5 | 0 |
 | `CPlayerSkin` | 4 | 0 | 4 | 0 |
 | `CPointRoutePool` | 1 | 0 | 1 | 0 |
-| `CPools` | 19 | 0 | 3 | 16 |
+| `CPools` | 19 | 0 | 10 | 9 |
 | `CPopCycle` | 15 | 0 | 15 | 0 |
 | `CPopulation` | 66 | 0 | 2 | 64 |
 | `CPostEffects` | 38 | 0 | 3 | 35 |

@@ -1,0 +1,28 @@
+{
+  "exe": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\gta_sa.exe",
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "decoder": "capstone 5.0.7",
+  "functions": [
+    {
+      "name": "Distance",
+      "start": "0x53f9a0",
+      "end_exclusive": "0x53fa63",
+      "bytes": 195,
+      "sha256": "cd18f904ceebd7a02ef798b2269bd9f341d659c7e8b19da760432f57ca911c56"
+    },
+    {
+      "name": "Train",
+      "start": "0x53fa70",
+      "end_exclusive": "0x53fb40",
+      "bytes": 208,
+      "sha256": "f03ffbce3385d98c767cac73e93ef2a779fe6b79f8483203690a422bfff2b847"
+    },
+    {
+      "name": "Nop",
+      "start": "0x53fb40",
+      "end_exclusive": "0x53fb41",
+      "bytes": 1,
+      "sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e"
+    }
+  ]
+}

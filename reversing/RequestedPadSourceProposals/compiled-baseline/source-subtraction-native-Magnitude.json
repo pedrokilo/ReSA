@@ -1,0 +1,296 @@
+{
+  "compiled_source_operator_minus_thunk_rva": 17426536,
+  "resolved_body_rva": 19448144,
+  "instructions": [
+    {
+      "rva": 19448144,
+      "mnemonic": "push",
+      "operands": "ebp"
+    },
+    {
+      "rva": 19448145,
+      "mnemonic": "mov",
+      "operands": "ebp, esp"
+    },
+    {
+      "rva": 19448147,
+      "mnemonic": "sub",
+      "operands": "esp, 0xc0"
+    },
+    {
+      "rva": 19448153,
+      "mnemonic": "push",
+      "operands": "ebx"
+    },
+    {
+      "rva": 19448154,
+      "mnemonic": "push",
+      "operands": "esi"
+    },
+    {
+      "rva": 19448155,
+      "mnemonic": "push",
+      "operands": "edi"
+    },
+    {
+      "rva": 19448156,
+      "mnemonic": "mov",
+      "operands": "edi, ebp"
+    },
+    {
+      "rva": 19448158,
+      "mnemonic": "xor",
+      "operands": "ecx, ecx"
+    },
+    {
+      "rva": 19448160,
+      "mnemonic": "mov",
+      "operands": "eax, 0xcccccccc"
+    },
+    {
+      "rva": 19448165,
+      "mnemonic": "rep stosd",
+      "operands": "dword ptr es:[edi], eax"
+    },
+    {
+      "rva": 19448167,
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [ebp + 0xc]"
+    },
+    {
+      "rva": 19448170,
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [ebp + 0x10]"
+    },
+    {
+      "rva": 19448173,
+      "mnemonic": "movss",
+      "operands": "xmm0, dword ptr [eax]"
+    },
+    {
+      "rva": 19448177,
+      "mnemonic": "subss",
+      "operands": "xmm0, dword ptr [ecx]"
+    },
+    {
+      "rva": 19448181,
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [ebp + 0xc]"
+    },
+    {
+      "rva": 19448184,
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [ebp + 0x10]"
+    },
+    {
+      "rva": 19448187,
+      "mnemonic": "movss",
+      "operands": "xmm1, dword ptr [edx + 4]"
+    },
+    {
+      "rva": 19448192,
+      "mnemonic": "subss",
+      "operands": "xmm1, dword ptr [eax + 4]"
+    },
+    {
+      "rva": 19448197,
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [ebp + 0xc]"
+    },
+    {
+      "rva": 19448200,
+      "mnemonic": "mov",
+      "operands": "edx, dword ptr [ebp + 0x10]"
+    },
+    {
+      "rva": 19448203,
+      "mnemonic": "movss",
+      "operands": "xmm2, dword ptr [ecx + 8]"
+    },
+    {
+      "rva": 19448208,
+      "mnemonic": "subss",
+      "operands": "xmm2, dword ptr [edx + 8]"
+    },
+    {
+      "rva": 19448213,
+      "mnemonic": "push",
+      "operands": "ecx"
+    },
+    {
+      "rva": 19448214,
+      "mnemonic": "movss",
+      "operands": "dword ptr [esp], xmm2"
+    },
+    {
+      "rva": 19448219,
+      "mnemonic": "push",
+      "operands": "ecx"
+    },
+    {
+      "rva": 19448220,
+      "mnemonic": "movss",
+      "operands": "dword ptr [esp], xmm1"
+    },
+    {
+      "rva": 19448225,
+      "mnemonic": "push",
+      "operands": "ecx"
+    },
+    {
+      "rva": 19448226,
+      "mnemonic": "movss",
+      "operands": "dword ptr [esp], xmm0"
+    },
+    {
+      "rva": 19448231,
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [ebp + 8]"
+    },
+    {
+      "rva": 19448234,
+      "mnemonic": "call",
+      "operands": "0x1108f336"
+    },
+    {
+      "rva": 19448239,
+      "mnemonic": "nop",
+      "operands": ""
+    },
+    {
+      "rva": 19448240,
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [ebp + 8]"
+    },
+    {
+      "rva": 19448243,
+      "mnemonic": "pop",
+      "operands": "edi"
+    },
+    {
+      "rva": 19448244,
+      "mnemonic": "pop",
+      "operands": "esi"
+    },
+    {
+      "rva": 19448245,
+      "mnemonic": "pop",
+      "operands": "ebx"
+    },
+    {
+      "rva": 19448246,
+      "mnemonic": "add",
+      "operands": "esp, 0xc0"
+    },
+    {
+      "rva": 19448252,
+      "mnemonic": "cmp",
+      "operands": "ebp, esp"
+    },
+    {
+      "rva": 19448254,
+      "mnemonic": "call",
+      "operands": "0x1105acc1"
+    },
+    {
+      "rva": 19448259,
+      "mnemonic": "mov",
+      "operands": "esp, ebp"
+    },
+    {
+      "rva": 19448261,
+      "mnemonic": "pop",
+      "operands": "ebp"
+    },
+    {
+      "rva": 19448262,
+      "mnemonic": "ret",
+      "operands": ""
+    }
+  ],
+  "native_Magnitude4082C0": [
+    {
+      "address": "0x4082c0",
+      "mnemonic": "fld",
+      "operands": "dword ptr [ecx + 8]"
+    },
+    {
+      "address": "0x4082c3",
+      "mnemonic": "fld",
+      "operands": "dword ptr [ecx + 4]"
+    },
+    {
+      "address": "0x4082c6",
+      "mnemonic": "fld",
+      "operands": "dword ptr [ecx]"
+    },
+    {
+      "address": "0x4082c8",
+      "mnemonic": "fld",
+      "operands": "st(0)"
+    },
+    {
+      "address": "0x4082ca",
+      "mnemonic": "fmul",
+      "operands": "st(1)"
+    },
+    {
+      "address": "0x4082cc",
+      "mnemonic": "fld",
+      "operands": "st(2)"
+    },
+    {
+      "address": "0x4082ce",
+      "mnemonic": "fmul",
+      "operands": "st(3)"
+    },
+    {
+      "address": "0x4082d0",
+      "mnemonic": "faddp",
+      "operands": "st(1)"
+    },
+    {
+      "address": "0x4082d2",
+      "mnemonic": "fld",
+      "operands": "st(3)"
+    },
+    {
+      "address": "0x4082d4",
+      "mnemonic": "fmul",
+      "operands": "st(4)"
+    },
+    {
+      "address": "0x4082d6",
+      "mnemonic": "faddp",
+      "operands": "st(1)"
+    },
+    {
+      "address": "0x4082d8",
+      "mnemonic": "fsqrt",
+      "operands": ""
+    },
+    {
+      "address": "0x4082da",
+      "mnemonic": "fstp",
+      "operands": "st(3)"
+    },
+    {
+      "address": "0x4082dc",
+      "mnemonic": "fstp",
+      "operands": "st(0)"
+    },
+    {
+      "address": "0x4082de",
+      "mnemonic": "fstp",
+      "operands": "st(0)"
+    },
+    {
+      "address": "0x4082e0",
+      "mnemonic": "ret",
+      "operands": ""
+    }
+  ],
+  "native_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "compiled_asi_sha256": "f2adc3360bbb14d0442940d4ffe4c6c87521aa854ac7ad74bcfc32d783d2e564",
+  "actual_runtime_helper_mode_basis": "Probe unhooks ALL simple hooks before legs. Simple::Switch(false) patches OUR helper entry to jump original EXE; only target toggled in route. Native Magnitude not newly credited."
+}

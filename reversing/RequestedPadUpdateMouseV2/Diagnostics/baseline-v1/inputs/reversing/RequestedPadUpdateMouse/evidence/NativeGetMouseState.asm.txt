@@ -1,0 +1,82 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\JUEGOS\GTA San Andreas - CVehicle Test\gta_sa.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00746ED0: A1 54 70 C1 00     mov         eax,dword ptr ds:[00C17054h]
+  00746ED5: 8B 48 1C           mov         ecx,dword ptr [eax+1Ch]
+  00746ED8: 85 C9              test        ecx,ecx
+  00746EDA: 75 06              jne         00746EE2
+  00746EDC: B8 01 00 00 00     mov         eax,1
+  00746EE1: C3                 ret
+  00746EE2: 56                 push        esi
+  00746EE3: 8B 74 24 08        mov         esi,dword ptr [esp+8]
+  00746EE7: 33 C9              xor         ecx,ecx
+  00746EE9: 8B D6              mov         edx,esi
+  00746EEB: 89 0A              mov         dword ptr [edx],ecx
+  00746EED: 89 4A 04           mov         dword ptr [edx+4],ecx
+  00746EF0: 89 4A 08           mov         dword ptr [edx+8],ecx
+  00746EF3: 89 4A 0C           mov         dword ptr [edx+0Ch],ecx
+  00746EF6: 89 4A 10           mov         dword ptr [edx+10h],ecx
+  00746EF9: A1 54 70 C1 00     mov         eax,dword ptr ds:[00C17054h]
+  00746EFE: 8B 40 1C           mov         eax,dword ptr [eax+1Ch]
+  00746F01: 8B 08              mov         ecx,dword ptr [eax]
+  00746F03: 56                 push        esi
+  00746F04: 6A 14              push        14h
+  00746F06: 50                 push        eax
+  00746F07: FF 51 24           call        dword ptr [ecx+24h]
+  00746F0A: 85 C0              test        eax,eax
+  00746F0C: 7D 52              jge         00746F60
+  00746F0E: 8B 15 54 70 C1 00  mov         edx,dword ptr ds:[00C17054h]
+  00746F14: 8B 42 1C           mov         eax,dword ptr [edx+1Ch]
+  00746F17: 8B 08              mov         ecx,dword ptr [eax]
+  00746F19: 50                 push        eax
+  00746F1A: FF 51 1C           call        dword ptr [ecx+1Ch]
+  00746F1D: 3D 1E 00 07 80     cmp         eax,8007001Eh
+  00746F22: 75 16              jne         00746F3A
+  00746F24: 8B 15 54 70 C1 00  mov         edx,dword ptr ds:[00C17054h]
+  00746F2A: 8B 42 1C           mov         eax,dword ptr [edx+1Ch]
+  00746F2D: 8B 08              mov         ecx,dword ptr [eax]
+  00746F2F: 50                 push        eax
+  00746F30: FF 51 1C           call        dword ptr [ecx+1Ch]
+  00746F33: 3D 1E 00 07 80     cmp         eax,8007001Eh
+  00746F38: 74 EA              je          00746F24
+  00746F3A: 33 D2              xor         edx,edx
+  00746F3C: 8B C6              mov         eax,esi
+  00746F3E: 89 10              mov         dword ptr [eax],edx
+  00746F40: 89 50 04           mov         dword ptr [eax+4],edx
+  00746F43: 89 50 08           mov         dword ptr [eax+8],edx
+  00746F46: 89 50 0C           mov         dword ptr [eax+0Ch],edx
+  00746F49: 89 50 10           mov         dword ptr [eax+10h],edx
+  00746F4C: 8B 0D 54 70 C1 00  mov         ecx,dword ptr ds:[00C17054h]
+  00746F52: 8B 41 1C           mov         eax,dword ptr [ecx+1Ch]
+  00746F55: 8B 10              mov         edx,dword ptr [eax]
+  00746F57: 56                 push        esi
+  00746F58: 6A 14              push        14h
+  00746F5A: 50                 push        eax
+  00746F5B: FF 52 24           call        dword ptr [edx+24h]
+  00746F5E: 5E                 pop         esi
+  00746F5F: C3                 ret
+  00746F60: 33 C0              xor         eax,eax
+  00746F62: 5E                 pop         esi
+  00746F63: C3                 ret
+  00746F64: 90                 nop
+  00746F65: 90                 nop
+  00746F66: 90                 nop
+  00746F67: 90                 nop
+  00746F68: 90                 nop
+  00746F69: 90                 nop
+  00746F6A: 90                 nop
+  00746F6B: 90                 nop
+  00746F6C: 90                 nop
+  00746F6D: 90                 nop
+  00746F6E: 90                 nop
+  00746F6F: 90                 nop
+  00746F70: A1
+
+  Summary
+
+      456000 .text

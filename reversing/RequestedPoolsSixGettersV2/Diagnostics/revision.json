@@ -1,0 +1,11 @@
+{
+  "reason": "52-byte Ref snapshots overlap the neighbouring Get entry at +48; compare only after restoring both hooks.",
+  "source_functional_changes": false,
+  "corpus_pairs": 3072,
+  "original_freeze_sha256": "3b8b4719f3b6c08e47f55e23709a48666e472ae587a52880eda8a5b7920730ec",
+  "old_run": "20261008-165717-944081",
+  "old_failures": 0,
+  "old_comparison_accepted": 3072,
+  "old_family_restore_false": 3,
+  "approval": false
+}

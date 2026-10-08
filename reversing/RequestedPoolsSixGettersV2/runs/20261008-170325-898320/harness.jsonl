@@ -1,0 +1,4 @@
+{"event":"preflight_entered","graphics_initialized":false}
+{"event":"before_task_bank","hooks_snapshotted":8449}
+{"event":"task_bank_returned"}
+{"bank_fenv":[63,16,63,63,1,0,1,1],"bank_fp_unchanged":true,"bank_mxcsr":8096,"changed_ranges":[],"entries_restored":true,"event":"complete","flags_restored":true,"floating_environment_restored":true,"initial_fenv":[63,16,63,63,1,0,1,1],"initial_mxcsr":8096,"snapshot_ranges":17692,"state_restored":true,"timer_unchanged":true}

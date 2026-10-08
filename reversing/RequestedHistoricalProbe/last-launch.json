@@ -1,0 +1,10 @@
+{
+  "args": [
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\gta_sa.exe",
+    "--dump-hooks-to=runtime-hooks.csv",
+    "--unhook=Win/Win/NOTSA_WinMain",
+    "--historical-hooks=D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\historical-hooks.txt"
+  ],
+  "selection_sha256": "af90ae125f1d766ef7504b205a086f9cab09dd3af8128dceacd6bbcdba09b763",
+  "wrapper_sha256": "2cbc3241196319b541c42804170ea60686885a0bd2fe22969d9936e38715095b"
+}

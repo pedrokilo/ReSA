@@ -1,0 +1,169 @@
+--- HexV1/LiveComparison.hpp
++++ HexV2/LiveComparison.hpp
+@@ -9,7 +9,7 @@
+ #include "HexTransport.hpp"
+ #include "../RequestedParallelSmall/HookSnapshots.hpp"
+ #include <reversiblehooks/ReversibleHook/Virtual.h>
+-namespace RequestedPadDistanceTrainNopHex {
++namespace RequestedPadDistanceTrainNopHexV2 {
+ using Simple=ReversibleHooks::ReversibleHook::Simple;
+ struct Range{void* ptr;std::vector<uint8> bytes;};
+ inline json trace;
+@@ -17,6 +17,18 @@
+ inline int vehicleRole{};
+ inline bool collaboratorValid{};
+ inline CVehicle* __cdecl FindVehicle(int32 player,bool remote){const bool valid=player==-1&&!remote;collaboratorValid&=valid;trace.push_back({{"event","find_player_vehicle"},{"player",player},{"remote",remote},{"role",vehicleRole},{"arguments_valid",valid}});return returnedVehicle;}
++// Full 32-bit x87 environment, including condition codes, TOP, tags and pointers.
++using X87Environment=std::array<uint8,28>;
++static_assert(sizeof(X87Environment)==28);
++__declspec(noinline) inline X87Environment ReadX87Environment(){X87Environment image{};auto* environmentPointer=image.data();__asm {
++ mov eax,environmentPointer
++ fnstenv [eax]
++ fldenv [eax]
++ }return image;}
++__declspec(noinline) inline void RestoreX87Environment(const X87Environment& image){const auto* environmentPointer=image.data();__asm {
++ mov eax,environmentPointer
++ fldenv [eax]
++ }}
+ inline json FP(){unsigned control{};_controlfp_s(&control,0,0);return {{"control",control},{"exceptions",_statusfp()},{"mxcsr",_mm_getcsr()}};}
+ inline void TestFP(){_clearfp();unsigned control{};_controlfp_s(&control,_PC_24|_RC_NEAR|_MCW_EM,_MCW_PC|_MCW_RC|_MCW_EM);_mm_setcsr(0x1F80);}
+ // Independent arithmetic model transcribed from native x87 order (z+y+x or y+x), not CVector code.
+@@ -58,8 +70,8 @@
+  fstp value
+  }return uint8(int32(value));}
+ inline void Update(){
+- static bool done{};if(done)return;char exe[MAX_PATH]{};GetModuleFileNameA(nullptr,exe,MAX_PATH);const auto dir=std::filesystem::path(exe).parent_path();if(!std::filesystem::exists(dir/"pad-distance-train-nop-hex-runtime.start"))return;done=true;
+- std::ofstream log(dir/"pad-distance-train-nop-hex-runtime.jsonl");auto write=[&](const json& r){log<<r.dump()<<'\n';if(r.value("event","")!="comparison")log.flush();};
++ static bool done{};if(done)return;char exe[MAX_PATH]{};GetModuleFileNameA(nullptr,exe,MAX_PATH);const auto dir=std::filesystem::path(exe).parent_path();if(!std::filesystem::exists(dir/"pad-distance-train-nop-hex-v2-runtime.start"))return;done=true;
++ std::ofstream log(dir/"pad-distance-train-nop-hex-v2-runtime.jsonl");auto write=[&](const json& r){log<<r.dump()<<'\n';if(r.value("event","")!="comparison")log.flush();};
+  const auto flags=SmallPendingSupport::SnapshotHooks();std::map<std::string,Simple*> targets;std::vector<Range> entries;
+  ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& cat){for(auto& holder:cat.Items()){auto* base=holder.get();void* gta{};void* ours{};using namespace ReversibleHooks::ReversibleHook;
+   if(base->Type()==Base::HookType::Simple){auto* h=static_cast<Simple*>(base);gta=h->GetHookGTAAddress();ours=h->GetHookOurAddress();targets[std::string(cat.Name())+"::"+h->Name()]=h;}
+@@ -67,7 +79,7 @@
+  for(size_t n=0;n<3;++n)if(!targets.contains(keys[n])||uintptr_t(targets.at(keys[n])->GetHookGTAAddress())!=addresses[n]){write({{"event","error"},{"reason","missing/wrong target"},{"function",keys[n]}});return;}
+  if(uintptr_t(&TheCamera)!=0xB6F028||uintptr_t(&FrontEndMenuManager.m_PrefsUseVibration)!=0xBA6768||uintptr_t(&CCutsceneMgr::ms_running)!=0xB5F851){write({{"event","error"},{"reason","global alias layout"}});return;}
+  std::vector<Range> globals{{&TheCamera,ReversingProbe::Bytes(&TheCamera,sizeof(TheCamera))},{reinterpret_cast<void*>(0xBA6758),ReversingProbe::Bytes(reinterpret_cast<void*>(0xBA6758),33)},{reinterpret_cast<void*>(0xB5F841),ReversingProbe::Bytes(reinterpret_cast<void*>(0xB5F841),33)},{&CPad::Pads,ReversingProbe::Bytes(&CPad::Pads,sizeof(CPad::Pads))}};
+- std::fenv_t fpBefore{};const bool gotFp=std::fegetenv(&fpBefore)==0;const auto mxcsrBefore=_mm_getcsr();uint16 statusBefore{};__asm fnstsw statusBefore
++ const auto x87Before=ReadX87Environment();const auto mxcsrBefore=_mm_getcsr();uint16 statusBefore{};__asm fnstsw statusBefore
+  unsigned controlBefore{};_controlfp_s(&controlBefore,0,0);
+  const uintptr_t findDll=std::bit_cast<uintptr_t>(static_cast<CVehicle*(*)(int32,bool)>(&FindPlayerVehicle));const std::array<uintptr_t,2> patchAddresses{0x56E0D0,findDll};std::vector<Range> patchBefore;for(auto at:patchAddresses)patchBefore.push_back({reinterpret_cast<void*>(at),ReversingProbe::Bytes(reinterpret_cast<void*>(at),52)});
+  for(const auto& state:flags)if(state.hook->Name()!="NOTSA_WinMain"){state.hook->LockState(false);state.hook->State(false);}
+@@ -99,9 +111,9 @@
+  }
+  for(const auto& r:globals)std::memcpy(r.ptr,r.bytes.data(),r.bytes.size());for(const auto& state:flags){state.hook->LockState(false);state.hook->State(state.enabled);state.hook->LockState(state.locked);}
+  const auto rangesRestored=[](const auto& ranges){return std::ranges::all_of(ranges,[](const auto& r){return r.bytes==ReversingProbe::Bytes(r.ptr,r.bytes.size());});};const bool entriesRestored=rangesRestored(entries),patchesRestored=rangesRestored(patchBefore),globalsRestored=rangesRestored(globals),flagsRestored=SmallPendingSupport::HooksUnchanged(flags);
+- const bool setFp=std::fesetenv(&fpBefore)==0;_mm_setcsr(mxcsrBefore);uint16 statusAfter{};__asm fnstsw statusAfter
+- unsigned controlAfter{};_controlfp_s(&controlAfter,0,0);const bool fpRestored=gotFp&&setFp&&statusBefore==statusAfter&&controlBefore==controlAfter&&_mm_getcsr()==mxcsrBefore;const bool restored=entriesRestored&&patchesRestored&&globalsRestored&&flagsRestored&&fpRestored;
+- write({{"event",passed&&restored&&pairs==13952?"complete":"error"},{"pairs",pairs},{"differences",differences},{"state_restored",restored},{"entries_restored",entriesRestored},{"collaborator_entries_restored",patchesRestored},{"globals_restored",globalsRestored},{"flags_restored",flagsRestored},{"fp_restored",fpRestored},{"fp_status_before",statusBefore},{"fp_status_after",statusAfter},{"fp_control_before",controlBefore},{"fp_control_after",controlAfter},{"mxcsr_before",mxcsrBefore},{"mxcsr_after",_mm_getcsr()},{"scope","PC24 round-nearest finite CPU fixtures; FindPlayerVehicle isolated exact multiplicity; real camera borrowed matrix restored; no resources/gameplay/helper credit"}});
++ RestoreX87Environment(x87Before);_mm_setcsr(mxcsrBefore);const auto x87After=ReadX87Environment();const bool x87Restored=x87Before==x87After;uint16 statusAfter{};__asm fnstsw statusAfter
++ unsigned controlAfter{};_controlfp_s(&controlAfter,0,0);const bool fpRestored=x87Restored&&statusBefore==statusAfter&&controlBefore==controlAfter&&_mm_getcsr()==mxcsrBefore;const bool restored=entriesRestored&&patchesRestored&&globalsRestored&&flagsRestored&&fpRestored;
++ write({{"event",passed&&restored&&pairs==13952?"complete":"error"},{"pairs",pairs},{"differences",differences},{"state_restored",restored},{"entries_restored",entriesRestored},{"collaborator_entries_restored",patchesRestored},{"globals_restored",globalsRestored},{"flags_restored",flagsRestored},{"fp_restored",fpRestored},{"x87_environment_restored",x87Restored},{"x87_environment_before",HexBytes(x87Before.data(),x87Before.size())},{"x87_environment_after",HexBytes(x87After.data(),x87After.size())},{"fp_status_before",statusBefore},{"fp_status_after",statusAfter},{"fp_control_before",controlBefore},{"fp_control_after",controlAfter},{"mxcsr_before",mxcsrBefore},{"mxcsr_after",_mm_getcsr()},{"scope","PC24 round-nearest finite CPU fixtures; FindPlayerVehicle isolated exact multiplicity; real camera borrowed matrix restored; no resources/gameplay/helper credit"}});
+  returnedVehicle=nullptr;trace=nullptr;
+ }
+ }
+--- HexV1/Fixtures.hpp
++++ HexV2/Fixtures.hpp
+@@ -7,7 +7,7 @@
+ #include <Vehicle.h>
+ #include <World.h>
+ #include <cmath>
+-namespace RequestedPadDistanceTrainNopHex {
++namespace RequestedPadDistanceTrainNopHexV2 {
+ static_assert(sizeof(CPad)==0x134&&sizeof(CVector)==12&&sizeof(CVector2D)==8&&sizeof(CVehicle)==0x5A0&&sizeof(CCamera)==0xD78&&sizeof(CMatrixLink)==0x54);
+ static_assert(offsetof(CPad,ShakeDur)==0x10C&&offsetof(CPad,ShakeFreq)==0x110);
+ // Native RET 8 and stack reads prove two floats by value. Blocks the current reference ABI.
+--- HexV1/run_local.py
++++ HexV2/run_local.py
+@@ -13,13 +13,13 @@
+ sys.path.insert(0, str(ROOT / 'reversing'))
+ import runtime_runner as runner
+ 
+-PREFIX = 'pad-distance-train-nop-hex'
++PREFIX = 'pad-distance-train-nop-hex-v2'
+ from oracle import EXPECTED, KEYS, expected_row
+ from hex_wire import strict_loads,decode_row
+ diagnostics = {}
+ 
+ def analyze(log):
+-    harness = runner.GAME / 'preflight-pad-distance-train-nop-hex-harness.jsonl'
++    harness = runner.GAME / 'preflight-pad-distance-train-nop-hex-v2-harness.jsonl'
+     if not runner.terminal_event(log) or not runner.terminal_event(harness):
+         return None
+     counts = collections.Counter()
+@@ -56,9 +56,10 @@
+     if final is None or final.get('event')!='complete' or final.get('pairs')!=13952:reject('No exact complete event')
+     final=final or {}
+     if final.get('differences')!=failures or failures or model_failures:reject('Nonzero differences or oracle mismatch')
+-    if not all(final.get(k) is True for k in ('state_restored','entries_restored','collaborator_entries_restored','flags_restored','fp_restored','globals_restored')):reject('Incomplete bank restoration')
++    if not all(final.get(k) is True for k in ('state_restored','entries_restored','collaborator_entries_restored','flags_restored','fp_restored','globals_restored','x87_environment_restored')):reject('Incomplete bank restoration')
+     for before,after in (('fp_control_before','fp_control_after'),('fp_status_before','fp_status_after'),('mxcsr_before','mxcsr_after')):
+         if type(final.get(before)) is not int or final.get(before)!=final.get(after):reject('FP state differs')
++    if final.get('x87_environment_before')!=final.get('x87_environment_after'):reject('Full x87 environment differs')
+     hrows = [strict_loads(line) for line in harness.read_text(encoding='utf-8').splitlines()]
+     stages = [row.get('event') for row in hrows]
+     hfinal = hrows[-1] if hrows else {}
+@@ -96,12 +97,12 @@
+     for label in ('tested_sources', 'bank_sources'):
+         for path, expected in manifest[label].items():
+             assert runner.digest(ROOT / path) == expected, path
+-    harness = runner.GAME / 'preflight-pad-distance-train-nop-hex-harness.jsonl'
++    harness = runner.GAME / 'preflight-pad-distance-train-nop-hex-v2-harness.jsonl'
+     if harness.exists():
+         shutil.copy2(harness, HERE / 'artifacts' / ('previous-harness-' + runner.digest(harness) + '.jsonl'))
+         harness.unlink()
+     for ext in ('asi', 'pdb'):
+-        source = HERE / f'artifacts/gta_reversed-pad-distance-train-nop-hex.{ext}'
++        source = HERE / f'artifacts/gta_reversed-pad-distance-train-nop-hex-v2.{ext}'
+         assert runner.digest(source) == manifest[ext]
+         target = runner.GAME / f'_baseline/gta_reversed-{PREFIX}-probe.{ext}'
+         if target.exists():
+--- HexV1/hex_wire.py
++++ HexV2/hex_wire.py
+@@ -7,7 +7,7 @@
+ BYTE_FIELDS={'pad':0x134,'camera':0xD78,'matrix':0x54,'vehicle':0x5A0}
+ LEG=set('gate helper_patch_exact collaborator_valid pad camera matrix vehicle globals trace guards fp'.split())
+ TOP=set('event function pair case bank equal geometry mode gates vehicle_role duration_role old_duration request_duration request_frequency camera_bits point_bits matrix_address initial_pad initial_camera initial_matrix initial_vehicle initial_globals model_pad model_trace model_sum_bits model_magnitude_bits original candidate'.split())
+-TERMINAL=set('event pairs differences state_restored entries_restored collaborator_entries_restored globals_restored flags_restored fp_restored fp_status_before fp_status_after fp_control_before fp_control_after mxcsr_before mxcsr_after scope'.split())
++TERMINAL=set('event pairs differences state_restored entries_restored collaborator_entries_restored globals_restored flags_restored fp_restored fp_status_before fp_status_after fp_control_before fp_control_after mxcsr_before mxcsr_after x87_environment_restored x87_environment_before x87_environment_after scope'.split())
+ def trace(value):
+     if type(value) is not list:raise ValueError('Wrong trace type')
+     for item in value:
+@@ -24,10 +24,11 @@
+     if type(value) is not dict:raise ValueError('Wire row must be object')
+     if value.get('event') in ('complete','error'):
+         exact(value,TERMINAL)
+-        for k in TERMINAL-{'event','scope'}:
++        for k in TERMINAL-{'event','scope','x87_environment_before','x87_environment_after'}:
+             integer=k in ('pairs','differences') or k.endswith('_before') or k.endswith('_after')
+             if type(value[k]) is not (int if integer else bool):raise ValueError('Wrong terminal field type')
+         if type(value['scope']) is not str:raise ValueError('Wrong scope type')
++        byte_string(value['x87_environment_before'],28);byte_string(value['x87_environment_after'],28)
+         return value
+     exact(value,TOP)
+     if value['event']!='comparison' or type(value['function']) is not str or type(value['equal']) is not bool:raise ValueError('Wrong row event/type')
+--- HexV1/run_negative_baseline.py
++++ HexV2/run_negative_baseline.py
+@@ -3,7 +3,7 @@
+ from pathlib import Path
+ if not __debug__:raise RuntimeError('Negative baseline requires assertions enabled')
+ ROOT=Path(__file__).resolve().parents[2]
+-BANK=ROOT/'reversing/RequestedPadDistanceTrainNopHex'
++BANK=ROOT/'reversing/RequestedPadDistanceTrainNopHexV2'
+ sys.path.insert(0,str(BANK))
+ import run_local
+ 
+@@ -22,11 +22,12 @@
+             if not d or d.get('pairs')!=13952 or d.get('pairs_per_function')!=run_local.EXPECTED:raise
+             final=d.get('terminal_bank_record',{});hfinal=d.get('terminal_harness_record',{})
+             if final.get('event')!='error' or final.get('pairs')!=13952:raise
+-            if not all(final.get(k) is True for k in ('state_restored','entries_restored','collaborator_entries_restored','flags_restored','fp_restored','globals_restored')):raise
++            if not all(final.get(k) is True for k in ('state_restored','entries_restored','collaborator_entries_restored','flags_restored','fp_restored','globals_restored','x87_environment_restored')):raise
++            if final.get('x87_environment_before')!=final.get('x87_environment_after'):raise
+             for before,after in (('fp_control_before','fp_control_after'),('fp_status_before','fp_status_after'),('mxcsr_before','mxcsr_after')):
+                 if type(final.get(before)) is not int or final.get(before)!=final.get(after):raise
+             if not all(hfinal.get(k) is True for k in ('state_restored','entries_restored','tables_restored','flags_restored','timer_restored')):raise
+-            harness=run_local.runner.GAME/'preflight-pad-distance-train-nop-hex-harness.jsonl'
++            harness=run_local.runner.GAME/'preflight-pad-distance-train-nop-hex-v2-harness.jsonl'
+             if not run_local.runner.terminal_event(log) or not run_local.runner.terminal_event(harness):raise
+             stages=[json.loads(line).get('event') for line in harness.read_text(encoding='utf-8').splitlines()]
+             if stages!=['preflight_entered','before_task_bank','task_bank_returned','complete']:raise

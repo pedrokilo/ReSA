@@ -1,0 +1,63 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsSixGettersV2\artifacts\gta_reversed-pools-six-getters-v2.asi
+
+File Type: DLL
+
+  112C43F0: 55                 push        ebp
+  112C43F1: 8B EC              mov         ebp,esp
+  112C43F3: 81 EC DC 00 00 00  sub         esp,0DCh
+  112C43F9: 53                 push        ebx
+  112C43FA: 56                 push        esi
+  112C43FB: 57                 push        edi
+  112C43FC: 51                 push        ecx
+  112C43FD: 8D 7D E4           lea         edi,[ebp-1Ch]
+  112C4400: B9 07 00 00 00     mov         ecx,7
+  112C4405: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  112C440A: F3 AB              rep stos    dword ptr es:[edi]
+  112C440C: 59                 pop         ecx
+  112C440D: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  112C4410: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  112C4413: C1 F8 08           sar         eax,8
+  112C4416: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  112C4419: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  112C441C: 50                 push        eax
+  112C441D: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  112C4420: E8 11 15 DA FF     call        11065936
+  112C4425: 0F B6 C8           movzx       ecx,al
+  112C4428: 85 C9              test        ecx,ecx
+  112C442A: 74 32              je          112C445E
+  112C442C: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  112C442F: 8B 4A 04           mov         ecx,dword ptr [edx+4]
+  112C4432: 03 4D EC           add         ecx,dword ptr [ebp-14h]
+  112C4435: E8 1D 1D D9 FF     call        11056157
+  112C443A: 0F B6 C0           movzx       eax,al
+  112C443D: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  112C4440: 81 E1 FF 00 00 00  and         ecx,0FFh
+  112C4446: 3B C1              cmp         eax,ecx
+  112C4448: 75 14              jne         112C445E
+  112C444A: 69 55 EC C4 07 00  imul        edx,dword ptr [ebp-14h],7C4h
+            00
+  112C4451: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  112C4454: 03 10              add         edx,dword ptr [eax]
+  112C4456: 89 95 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],edx
+  112C445C: EB 0A              jmp         112C4468
+  112C445E: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],0
+            00 00 00 00
+  112C4468: 8B 85 24 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF24h]
+  112C446E: 5F                 pop         edi
+  112C446F: 5E                 pop         esi
+  112C4470: 5B                 pop         ebx
+  112C4471: 81 C4 DC 00 00 00  add         esp,0DCh
+  112C4477: 3B EC              cmp         ebp,esp
+  112C4479: E8 EE 57 D9 FF     call        11059C6C
+  112C447E: 8B E5              mov         esp,ebp
+  112C4480: 5D                 pop         ebp
+  112C4481: C2 04 00           ret         4
+  112C4484: CC                 int         3
+
+  Summary
+
+     2165000 .text

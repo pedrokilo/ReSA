@@ -1,0 +1,3 @@
+FALLO: Pad distance/train/NOP13952
+[WinError 112] Espacio en disco insuficiente
+Informe: D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-pad-distance-train-nop-hex-v2\20261008-170728-931505

@@ -1,0 +1,83 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36257.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file D:\Original\gta-reversed-master\reversing\RequestedPoolsSixGetters\artifacts\gta_reversed-pools-six-getters.asi
+
+File Type: DLL
+
+  11353F90: 55                 push        ebp
+  11353F91: 8B EC              mov         ebp,esp
+  11353F93: 81 EC D4 00 00 00  sub         esp,0D4h
+  11353F99: 53                 push        ebx
+  11353F9A: 56                 push        esi
+  11353F9B: 57                 push        edi
+  11353F9C: 8D 7D EC           lea         edi,[ebp-14h]
+  11353F9F: B9 05 00 00 00     mov         ecx,5
+  11353FA4: B8 CC CC CC CC     mov         eax,0CCCCCCCCh
+  11353FA9: F3 AB              rep stos    dword ptr es:[edi]
+  11353FAB: 8D 45 0C           lea         eax,[ebp+0Ch]
+  11353FAE: 50                 push        eax
+  11353FAF: 8D 4D 08           lea         ecx,[ebp+8]
+  11353FB2: 51                 push        ecx
+  11353FB3: E8 FE 0C D5 FF     call        110A4CB6
+  11353FB8: 83 C4 08           add         esp,8
+  11353FBB: 8D 45 0C           lea         eax,[ebp+0Ch]
+  11353FBE: 50                 push        eax
+  11353FBF: E8 BB 7A D5 FF     call        110ABA7F
+  11353FC4: 83 C4 04           add         esp,4
+  11353FC7: 89 85 30 FF FF FF  mov         dword ptr [ebp+FFFFFF30h],eax
+  11353FCD: 8D 4D 08           lea         ecx,[ebp+8]
+  11353FD0: 51                 push        ecx
+  11353FD1: E8 97 F6 CF FF     call        1105366D
+  11353FD6: 83 C4 04           add         esp,4
+  11353FD9: 89 85 2C FF FF FF  mov         dword ptr [ebp+FFFFFF2Ch],eax
+  11353FDF: 8B 55 10           mov         edx,dword ptr [ebp+10h]
+  11353FE2: 52                 push        edx
+  11353FE3: 8B 85 30 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF30h]
+  11353FE9: 50                 push        eax
+  11353FEA: 8B 8D 2C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF2Ch]
+  11353FF0: 51                 push        ecx
+  11353FF1: E8 37 5E D0 FF     call        11059E2D
+  11353FF6: 83 C4 0C           add         esp,0Ch
+  11353FF9: 89 45 F8           mov         dword ptr [ebp-8],eax
+  11353FFC: 8D 45 F8           lea         eax,[ebp-8]
+  11353FFF: 50                 push        eax
+  11354000: 8D 4D 08           lea         ecx,[ebp+8]
+  11354003: 51                 push        ecx
+  11354004: E8 02 B2 D0 FF     call        1105F20B
+  11354009: 83 C4 08           add         esp,8
+  1135400C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  1135400F: 52                 push        edx
+  11354010: 8B CD              mov         ecx,ebp
+  11354012: 50                 push        eax
+  11354013: 8D 15 34 40 35 11  lea         edx,ds:[11354034h]
+  11354019: E8 B4 A4 D0 FF     call        1105E4D2
+  1135401E: 58                 pop         eax
+  1135401F: 5A                 pop         edx
+  11354020: 5F                 pop         edi
+  11354021: 5E                 pop         esi
+  11354022: 5B                 pop         ebx
+  11354023: 81 C4 D4 00 00 00  add         esp,0D4h
+  11354029: 3B EC              cmp         ebp,esp
+  1135402B: E8 37 4C D0 FF     call        11058C67
+  11354030: 8B E5              mov         esp,ebp
+  11354032: 5D                 pop         ebp
+  11354033: C3                 ret
+  11354034: 01 00              add         dword ptr [eax],eax
+  11354036: 00 00              add         byte ptr [eax],al
+  11354038: 3C 40              cmp         al,40h
+  1135403A: 35 11 F8 FF FF     xor         eax,0FFFFF811h
+  1135403F: FF 04 00           inc         dword ptr [eax+eax]
+  11354042: 00 00              add         byte ptr [eax],al
+  11354044: 48                 dec         eax
+  11354045: 40                 inc         eax
+  11354046: 35 11 5F 55 52     xor         eax,52555F11h
+  1135404B: 65 73 75           jae         113540C3
+  1135404E: 6C                 ins         byte ptr es:[edi],dx
+  1135404F: 74 00              je          11354051
+  11354051: CC                 int         3
+
+  Summary
+
+     2165000 .text

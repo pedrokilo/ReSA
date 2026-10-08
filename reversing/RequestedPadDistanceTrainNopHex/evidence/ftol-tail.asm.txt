@@ -1,0 +1,56 @@
+00821B40: push ebp
+00821B41: mov ebp,esp
+00821B43: sub esp,20h
+00821B46: and esp,0FFFFFFF0h
+00821B49: fld st(0)
+00821B4B: fst dword ptr [esp+18h]
+00821B4F: fistp qword ptr [esp+10h]
+00821B53: fild qword ptr [esp+10h]
+00821B57: mov edx,dword ptr [esp+18h]
+00821B5B: mov eax,dword ptr [esp+10h]
+00821B5F: test eax,eax
+00821B61: je 00821B9F
+00821B63: fsubp st(1),st
+00821B65: test edx,edx
+00821B67: jns 00821B87
+00821B69: fstp dword ptr [esp]
+00821B6C: mov ecx,dword ptr [esp]
+00821B6F: xor ecx,80000000h
+00821B75: add ecx,7FFFFFFFh
+00821B7B: adc eax,0
+00821B7E: mov edx,dword ptr [esp+14h]
+00821B82: adc edx,0
+00821B85: jmp 00821BB3
+00821B87: fstp dword ptr [esp]
+00821B8A: mov ecx,dword ptr [esp]
+00821B8D: add ecx,7FFFFFFFh
+00821B93: sbb eax,0
+00821B96: mov edx,dword ptr [esp+14h]
+00821B9A: sbb edx,0
+00821B9D: jmp 00821BB3
+00821B9F: mov edx,dword ptr [esp+14h]
+00821BA3: test edx,7FFFFFFFh
+00821BA9: jne 00821B63
+00821BAB: fstp dword ptr [esp+18h]
+00821BAF: fstp dword ptr [esp+18h]
+00821BB3: leave
+00821BB4: ret
+00821BB5: push ebp
+00821BB6: mov ebp,esp
+00821BB8: sub esp,20h
+00821BBB: push esi
+00821BBC: mov esi,dword ptr [ebp+8]
+00821BBF: push edi
+00821BC0: lea eax,[ebp+10h]
+00821BC3: push eax
+00821BC4: push dword ptr [ebp+0Ch]
+00821BC7: lea eax,[ebp-20h]
+00821BCA: push eax
+00821BCB: mov dword ptr [ebp-1Ch],7FFFFFFFh
+ 7F
+00821BD2: mov dword ptr [ebp-14h],42h
+ 00
+00821BD9: mov dword ptr [ebp-18h],esi
+00821BDC: mov dword ptr [ebp-20h],esi
+ 00821BDF: E8
+ 00821BE0: 67

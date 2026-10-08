@@ -389,7 +389,11 @@
     "reversing/RequestedLeafValidation/STATIC_REVIEW.md",
     "reversing/RequestedPadMutationNext/proposal-archive/343bea476fe6b197fe4cc78c158cbb0ba7295ed939185f852dab07b22a402a25/PROPOSAL.md",
     "reversing/RequestedPadMutationRemaining3/restoration-retry-proposal.md",
+    "reversing/RequestedPadMutationRemaining3Cached/Diagnostics/original-rev2-inputs/DESIGN.md",
+    "reversing/RequestedPadMutationRemaining3Hex/Diagnostics/original-rev4-inputs/DESIGN.md",
+    "reversing/RequestedPadMutationRemaining3Phased/Diagnostics/original-rev3-inputs/DESIGN.md",
     "reversing/RequestedPadSelectors/VERDICT_AUDIT.md",
+    "reversing/RequestedPadSourceProposals/DistanceTrainX87Combined/REVIEW.md",
     "reversing/RequestedParallelReplay/EXISTING_BANK_AUDIT.md",
     "reversing/RequestedParallelReplay/TaskCtorDtor/FIXTURES.md",
     "reversing/RequestedParallelReplay/WanderType/FIXTURES.md",
@@ -410,6 +414,7 @@
     "reversing/RequestedRemainingLeafPair/README.md",
     "reversing/RequestedRemainingLeafPairV2/NATIVE_DIAG.md",
     "reversing/RequestedRemainingLeafPairV2/README.md",
+    "reversing/RequestedValidation20261008/CONTINUATION-20261008.md",
     "reversing/RequestedValidation20261008/INVENTORY.md",
     "reversing/RequestedValidation20261008/REA_REPAIR.md",
     "reversing/RequestedValidation20261008/bank-audit.md",
@@ -560,13 +565,13 @@
     "reversing/World52/README.md",
     "reversing/Zones21/README.md"
   ],
-  "count": 558,
-  "catalog_sha256": "839803086910194c33db825fa61fb923d81e573a2a97e29119da4c11102fa048",
+  "count": 563,
+  "catalog_sha256": "a038f07a0d31f0904cbc3811c3c7cc6314608f1508ed9f8812a9696e7a200d8f",
   "snapshot": {
-    "historical": 6860,
-    "pending": 1586,
+    "historical": 6867,
+    "pending": 1579,
     "pending_groups": 58,
     "current": 0,
-    "new_approvals": 124
+    "new_approvals": 131
   }
 }

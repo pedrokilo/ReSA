@@ -1,0 +1,25 @@
+{
+  "status": "prepared_frozen_not_compiled_not_executed",
+  "expected_pairs": 9216,
+  "scope": "9216 finite isolated UpdateMouse CPU cases; real unmodified native CheckForInput used by both legs, helpers identity/ABI traced. FullprivatePad+mouse/guard/device/preferences/timer byte comparison; strict rawFP/control gates and all17692globalharness restoration. No devices/COM/realinput/helpers/actorintegration/dependencies accredited. MatchingPE/PDB calls/ABI must be reviewed after coordinator build.",
+  "inputs": {
+    "reversing/RequestedPadUpdateMouse/LiveComparison.hpp": "12be195d68406f02429270eeb2bcc3d304880d2a9d86bfe26c4e5de4e39f0dc9",
+    "reversing/RequestedPadUpdateMouse/Preflight.hpp": "d2e2e6bcfc8ee24497907913cb37b47a36508b0717fdac2d370d75288eeead75",
+    "reversing/RequestedPadUpdateMouse/VTableRanges.hpp": "df21f8fa7c5d25629430a38edb6d53c9ac4fee1d5ac2a1c1c72a6795583af81c",
+    "reversing/RequestedPadUpdateMouse/model.py": "ea7e5b27fb3c349f0cae8e79e958902a0873abcec66238d86b26305ef536af6c",
+    "reversing/RequestedPadUpdateMouse/build_probe.py": "c9ba79e75c23d58590090c264aeaabc95d80bd4ada368e6d09302962f62b9540",
+    "reversing/RequestedPadUpdateMouse/run_local.py": "de35fa63040ff4e8700f6626eb4b8a8752f633929fe5e12de5e4321e2faba1f2",
+    "reversing/RequestedPadUpdateMouse/inspect_compiled.py": "e8ad23ef7cc2b34b80fe7047e75319bcc67d3dfe824a177e8481c38b5269476c",
+    "reversing/RequestedPadUpdateMouse/preparation-plan.json": "d94b58b47ae1660b156509dcc273dd9ec53498404544e7c51f40f9850502f3c4",
+    "reversing/RequestedPadUpdateMouse/DESIGN.md": "d73aa5844ffef3c6e616ff76271a851040c27d782b22fb4dc16333cd68d948a9",
+    "reversing/RequestedPadUpdateMouse/evidence/UpdateMouse-fresh-combo.txt": "49e57d6ebf6e4851aac95d2c4822b98519d650b4d629be04692a4bdb99db2c21",
+    "reversing/RequestedPadUpdateMouse/evidence/NativeCheckForInput.asm.txt": "49d204995cbc747885aa10080ef5cab78df34f1f2577ca1aa12e2de5ada92ed6",
+    "reversing/RequestedPadUpdateMouse/evidence/NativeGetMouseState.asm.txt": "db0b7920f2e7b624782fc65e5e54dd0c2279a9f28dd866439736ea58c5ababb0",
+    "reversing/RequestedPadUpdateMouse/evidence/native-constant-zero.json": "de7e1f0ea93ea4555a3bea55696f2dfca5bc02643a423222832c4075a9973cd7",
+    "reversing/RequestedParallelSmall/HookSnapshots.hpp": "2632c0a73ceb49899dd2710cf4f3a4db7ee58b62e8fd3de64fbb0216176dc3e6",
+    "reversing/ProbeSupport.hpp": "7b8d8b6a7dfe7694f740db99e5c490ccfaee877c5a16a5a4a09bc6cfb3b0f739",
+    "reversing/ProbeRuntime.hpp": "cb385ffe394e6b6b7abd631d0927cb6306ea9886eab3c60f1565935330248f48",
+    "reversing/runtime_runner.py": "a27eb0b2fbc89a12d3d1f6b91ff2c5cde0944c91b5f7b03e2ac02fc1ece8cf3a"
+  },
+  "source_before_sha256": "b0902674db3e303e58c1bb9b875439a1e3ec02eaa8fa0acb8a619ab6774adaf2"
+}

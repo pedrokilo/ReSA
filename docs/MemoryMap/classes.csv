@@ -336,7 +336,7 @@ CPlayerPed,class,51,51,0,50,50,0,0x0086D168,public CPed,source/game_sa/Entity/Pe
 CPlayerPedData,class,5,5,0,5,5,0,,,source/game_sa/PlayerPedData.h:19,catalogue_class_or_group
 CPlayerSkin,class,4,4,0,4,4,0,,,source/game_sa/Entity/Ped/PlayerSkin.h:5,catalogue_class_or_group
 CPointRoutePool,class,1,1,0,1,1,0,,public CPool<CPointRoute>,source/game_sa/Pools/PointRoutePool.h:31,catalogue_class_or_group
-CPools,class,19,19,0,3,3,0,,,source/game_sa/Pools/Pools.h:169,catalogue_class_or_group
+CPools,class,19,19,0,10,10,0,,,source/game_sa/Pools/Pools.h:169,catalogue_class_or_group
 CPopCycle,class,15,15,0,15,15,0,,,source/game_sa/PopCycle.h:192,catalogue_class_or_group
 CPopulation,class,66,66,0,2,2,0,,,source/game_sa/Population.h:33,catalogue_class_or_group
 CPostEffects,class,38,38,1,3,3,0,,,source/game_sa/PostEffects.h:18,catalogue_class_or_group

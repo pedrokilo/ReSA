@@ -1,0 +1,32 @@
+{
+  "valid": {
+    "passed": true,
+    "models": 0,
+    "errors": []
+  },
+  "matching_wrong_model": {
+    "passed": false,
+    "models": 2,
+    "errors": []
+  },
+  "bad_gate": {
+    "passed": false,
+    "models": 0,
+    "errors": [
+      {
+        "equal_tag": 0
+      },
+      "terminal"
+    ]
+  },
+  "duplicate": {
+    "passed": false,
+    "models": 0,
+    "errors": [
+      {
+        "fixture": 1
+      },
+      "missing/excess corpus"
+    ]
+  }
+}
