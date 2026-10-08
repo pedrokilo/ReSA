@@ -1,0 +1,178 @@
+// Interior_c::GetNumEmptyTiles @ 0x00591920 [0x591920..0x591a53]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+int FUN_00591920(int param_1,int param_2,int param_3,int param_4)
+
+{
+  int in_ECX;
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  char *pcVar4;
+  int local_c;
+  int local_8;
+  
+  local_c = 0;
+  local_8 = 1;
+  if ((param_3 == 3) || (param_3 == 0)) {
+    local_8 = -1;
+  }
+  if ((param_3 == 3) || (param_3 == 1)) {
+    iVar3 = param_1 * 0x1e + 0x68 + in_ECX;
+    do {
+      iVar1 = 0;
+      if (0 < param_4) {
+        iVar2 = param_2;
+        do {
+          if (((((int)(uint)*(byte *)(*(int *)(in_ECX + 0x14) + 2) <= param_1) ||
+               ((int)(uint)*(byte *)(*(int *)(in_ECX + 0x14) + 3) <= iVar2)) || (param_1 < 0)) ||
+             ((iVar2 < 0 || (*(char *)(iVar3 + iVar2) != '\0')))) {
+            return local_c;
+          }
+          iVar1 = iVar1 + 1;
+          iVar2 = iVar2 + 1;
+        } while (iVar1 < param_4);
+      }
+      local_c = local_c + 1;
+      param_1 = param_1 + local_8;
+      iVar3 = iVar3 + local_8 * 0x1e;
+    } while( true );
+  }
+  do {
+    iVar3 = 0;
+    if (0 < param_4) {
+      pcVar4 = (char *)(param_1 * 0x1e + param_2 + 0x68 + in_ECX);
+      iVar1 = param_1;
+      do {
+        if ((int)(uint)*(byte *)(*(int *)(in_ECX + 0x14) + 2) <= iVar1) {
+          return local_c;
+        }
+        if ((int)(uint)*(byte *)(*(int *)(in_ECX + 0x14) + 3) <= param_2) {
+          return local_c;
+        }
+        if (iVar1 < 0) {
+          return local_c;
+        }
+        if (param_2 < 0) {
+          return local_c;
+        }
+        if (*pcVar4 != '\0') {
+          return local_c;
+        }
+        iVar3 = iVar3 + 1;
+        pcVar4 = pcVar4 + 0x1e;
+        iVar1 = iVar1 + 1;
+      } while (iVar3 < param_4);
+    }
+    local_c = local_c + 1;
+    param_2 = param_2 + local_8;
+  } while( true );
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+00591920: sub esp,0Ch
+00591923: mov edx,dword ptr [esp+18h]
+00591927: cmp edx,3
+0059192A: push ebx
+0059192B: push ebp
+0059192C: push esi
+0059192D: mov esi,ecx
+0059192F: push edi
+00591930: mov dword ptr [esp+18h],esi
+00591934: mov dword ptr [esp+10h],0
+0059193C: mov dword ptr [esp+14h],1
+00591944: je 0059194A
+00591946: test edx,edx
+00591948: jne 00591952
+0059194A: mov dword ptr [esp+14h],0FFFFFFFFh
+00591952: cmp edx,3
+00591955: je 005919D1
+00591957: cmp edx,1
+0059195A: je 005919D1
+0059195C: mov ebp,dword ptr [esp+24h]
+00591960: mov eax,dword ptr [esp+2Ch]
+00591964: xor ebx,ebx
+00591966: test eax,eax
+00591968: jle 005919C0
+0059196A: mov edx,dword ptr [esp+20h]
+0059196E: mov eax,dword ptr [esi+14h]
+00591971: movzx ecx,byte ptr [eax+2]
+00591975: mov edi,edx
+00591977: imul edi,edi,1Eh
+0059197A: add edi,ebp
+0059197C: lea esi,[edi+esi+68h]
+00591980: cmp edx,ecx
+00591982: jge 00591A46
+00591988: movzx edi,byte ptr [eax+3]
+0059198C: cmp ebp,edi
+0059198E: jge 00591A46
+00591994: test edx,edx
+00591996: jl 00591A46
+0059199C: test ebp,ebp
+0059199E: jl 00591A46
+005919A4: movzx edi,byte ptr [esi]
+005919A7: test edi,edi
+005919A9: jne 00591A46
+005919AF: mov edi,dword ptr [esp+2Ch]
+005919B3: inc ebx
+005919B4: add esi,1Eh
+005919B7: inc edx
+005919B8: cmp ebx,edi
+005919BA: jl 00591980
+005919BC: mov esi,dword ptr [esp+18h]
+005919C0: mov ecx,dword ptr [esp+10h]
+005919C4: mov eax,dword ptr [esp+14h]
+005919C8: inc ecx
+005919C9: mov dword ptr [esp+10h],ecx
+005919CD: add ebp,eax
+005919CF: jmp 00591960
+005919D1: mov edx,dword ptr [esp+20h]
+005919D5: mov eax,dword ptr [esp+14h]
+005919D9: imul eax,eax,1Eh
+005919DC: mov edi,edx
+005919DE: imul edx,edx,1Eh
+005919E1: mov dword ptr [esp+20h],eax
+005919E5: lea ebx,[edx+esi+68h]
+005919E9: lea esp,[esp+00000000h]
+ 00
+005919F0: mov ecx,dword ptr [esp+2Ch]
+005919F4: xor ebp,ebp
+005919F6: test ecx,ecx
+005919F8: jle 00591A33
+005919FA: mov eax,dword ptr [esi+14h]
+005919FD: movzx ecx,byte ptr [eax+2]
+00591A01: mov edx,dword ptr [esp+24h]
+00591A05: cmp edi,ecx
+00591A07: jge 00591A46
+00591A09: movzx esi,byte ptr [eax+3]
+00591A0D: cmp edx,esi
+00591A0F: jge 00591A46
+00591A11: test edi,edi
+00591A13: jl 00591A46
+00591A15: test edx,edx
+00591A17: jl 00591A46
+00591A19: movzx esi,byte ptr [ebx+edx]
+00591A1D: test esi,esi
+00591A1F: jne 00591A46
+00591A21: mov esi,dword ptr [esp+2Ch]
+00591A25: inc ebp
+00591A26: inc edx
+00591A27: cmp ebp,esi
+00591A29: jl 00591A05
+00591A2B: mov esi,dword ptr [esp+18h]
+00591A2F: mov eax,dword ptr [esp+20h]
+00591A33: mov ebp,dword ptr [esp+10h]
+00591A37: mov edx,dword ptr [esp+14h]
+00591A3B: inc ebp
+00591A3C: add edi,edx
+00591A3E: mov dword ptr [esp+10h],ebp
+00591A42: add ebx,eax
+00591A44: jmp 005919F0
+00591A46: mov eax,dword ptr [esp+10h]
+00591A4A: pop edi
+00591A4B: pop esi
+00591A4C: pop ebp
+00591A4D: pop ebx
+00591A4E: add esp,0Ch
+00591A51: ret 10h

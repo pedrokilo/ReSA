@@ -1,0 +1,217 @@
+// Interior_c::FurnishKitchen @ 0x005970b0 [0x5970b0..0x59723b]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005970b0(void)
+
+{
+  undefined1 uVar1;
+  undefined4 uVar2;
+  undefined4 uVar3;
+  undefined4 uVar4;
+  int in_ECX;
+  int iVar5;
+  int iVar6;
+  int iVar7;
+  undefined4 uVar8;
+  undefined4 uVar9;
+  undefined4 uVar10;
+  undefined1 *puVar11;
+  undefined1 *puVar12;
+  undefined4 uVar13;
+  undefined1 local_8 [4];
+  undefined1 local_4 [4];
+  
+  FUN_00591700(*(char *)(*(int *)(in_ECX + 0x14) + 5) + -1,0,2,1,7,0);
+  iVar7 = *(byte *)(*(int *)(in_ECX + 0x14) + 2) - 2;
+  iVar6 = 1;
+  iVar5 = *(byte *)(*(int *)(in_ECX + 0x14) + 3) - 2;
+  if (0 < iVar7) {
+    do {
+      FUN_00591700(iVar6,iVar5,1,1,3,0);
+      FUN_00591700(iVar6,0,1,1,3,0);
+      iVar6 = iVar6 + 1;
+    } while (iVar6 <= iVar7);
+  }
+  iVar6 = 0;
+  if (-1 < iVar5) {
+    do {
+      FUN_00591700(1,iVar6,1,1,3,0);
+      FUN_00591700(iVar7,iVar6,1,1,3,0);
+      iVar6 = iVar6 + 1;
+    } while (iVar6 <= iVar5);
+  }
+  FUN_00591d20(1,1,0,0);
+  FUN_00591d20(1,iVar5,0,0);
+  FUN_00591d20(iVar7,1,0,0);
+  FUN_00591d20(iVar7,iVar5,0,0);
+  uVar1 = FUN_00591220(4,0,*(undefined1 *)(*(int *)(in_ECX + 0x14) + 0x1f));
+  *(undefined1 *)(in_ECX + 0x791) = uVar1;
+  FUN_00596930();
+  uVar2 = FUN_005911e0(8,1,0xffffffff,*(undefined1 *)(*(int *)(in_ECX + 0x14) + 0x1f));
+  uVar13 = 0;
+  puVar12 = local_8;
+  puVar11 = local_4;
+  uVar10 = 0;
+  uVar9 = 0;
+  uVar8 = 0;
+  uVar3 = FUN_00821b40(0,0,0,puVar11,puVar12,0);
+  uVar4 = FUN_00821b40(uVar3);
+  FUN_00592aa0(uVar2,uVar4,uVar3,uVar8,uVar9,uVar10,puVar11,puVar12,uVar13);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+005970B0: sub esp,0Ch
+005970B3: push ebx
+005970B4: push ebp
+005970B5: push esi
+005970B6: push edi
+005970B7: push 0
+005970B9: mov esi,ecx
+005970BB: mov eax,dword ptr [esi+14h]
+005970BE: movsx ecx,byte ptr [eax+5]
+005970C2: push 7
+005970C4: push 1
+005970C6: push 2
+005970C8: dec ecx
+005970C9: push 0
+005970CB: push ecx
+005970CC: mov ecx,esi
+005970CE: call 00591700
+005970D3: mov eax,dword ptr [esi+14h]
+005970D6: movzx edi,byte ptr [eax+2]
+005970DA: movzx ebx,byte ptr [eax+3]
+005970DE: sub edi,2
+005970E1: mov ebp,1
+005970E6: sub ebx,2
+005970E9: cmp edi,ebp
+005970EB: jl 00597118
+005970ED: lea ecx,[ecx]
+005970F0: push 0
+005970F2: push 3
+005970F4: push 1
+005970F6: push 1
+005970F8: push ebx
+005970F9: push ebp
+005970FA: mov ecx,esi
+005970FC: call 00591700
+00597101: push 0
+00597103: push 3
+00597105: push 1
+00597107: push 1
+00597109: push 0
+0059710B: push ebp
+0059710C: mov ecx,esi
+0059710E: call 00591700
+00597113: inc ebp
+00597114: cmp ebp,edi
+00597116: jle 005970F0
+00597118: xor ebp,ebp
+0059711A: test ebx,ebx
+0059711C: jl 00597148
+0059711E: mov edi,edi
+00597120: push 0
+00597122: push 3
+00597124: push 1
+00597126: push 1
+00597128: push ebp
+00597129: push 1
+0059712B: mov ecx,esi
+0059712D: call 00591700
+00597132: push 0
+00597134: push 3
+00597136: push 1
+00597138: push 1
+0059713A: push ebp
+0059713B: push edi
+0059713C: mov ecx,esi
+0059713E: call 00591700
+00597143: inc ebp
+00597144: cmp ebp,ebx
+00597146: jle 00597120
+00597148: push 0
+0059714A: push 0
+0059714C: push 1
+0059714E: push 1
+00597150: mov ecx,esi
+00597152: call 00591D20
+00597157: push 0
+00597159: push 0
+0059715B: push ebx
+0059715C: push 1
+0059715E: mov ecx,esi
+00597160: call 00591D20
+00597165: push 0
+00597167: push 0
+00597169: push 1
+0059716B: push edi
+0059716C: mov ecx,esi
+0059716E: call 00591D20
+00597173: push 0
+00597175: push 0
+00597177: push ebx
+00597178: push edi
+00597179: mov ecx,esi
+0059717B: call 00591D20
+00597180: mov edx,dword ptr [esi+14h]
+00597183: xor eax,eax
+00597185: mov al,byte ptr [edx+1Fh]
+00597188: mov ecx,0BAB380h
+0059718D: push eax
+0059718E: push 0
+00597190: push 4
+00597192: call 00591220
+00597197: mov ecx,esi
+00597199: mov byte ptr [esi+00000791h],al
+0059719F: call 00596930
+005971A4: mov ecx,dword ptr [esi+14h]
+005971A7: xor edx,edx
+005971A9: mov dl,byte ptr [ecx+1Fh]
+005971AC: mov ecx,0BAB380h
+005971B1: push edx
+005971B2: push 0FFFFFFFFh
+005971B4: push 1
+005971B6: push 8
+005971B8: call 005911E0
+005971BD: mov ebx,dword ptr [esi+14h]
+005971C0: movzx edx,byte ptr [ebx+3]
+005971C4: push 0
+005971C6: mov edi,eax
+005971C8: lea eax,[esp+18h]
+005971CC: push eax
+005971CD: movzx eax,byte ptr [edi+0Dh]
+005971D1: mov dword ptr [esp+18h],edx
+005971D5: lea ecx,[esp+20h]
+005971D9: push ecx
+005971DA: fild dword ptr [esp+1Ch]
+005971DE: mov dword ptr [esp+1Ch],eax
+005971E2: push 0
+005971E4: push 0
+005971E6: fmul dword ptr ds:[00858B8Ch]
+005971EC: push 0
+005971EE: fild dword ptr [esp+28h]
+005971F2: fmul dword ptr ds:[00858B8Ch]
+005971F8: fsubp st(1),st
+005971FA: call 00821B40
+005971FF: movzx ecx,byte ptr [ebx+2]
+00597203: movzx edx,byte ptr [edi+0Ch]
+00597207: mov dword ptr [esp+28h],ecx
+0059720B: push eax
+0059720C: fild dword ptr [esp+2Ch]
+00597210: mov dword ptr [esp+2Ch],edx
+00597214: fmul dword ptr ds:[00858B8Ch]
+0059721A: fild dword ptr [esp+2Ch]
+0059721E: fmul dword ptr ds:[00858B8Ch]
+00597224: fsubp st(1),st
+00597226: call 00821B40
+0059722B: push eax
+0059722C: push edi
+0059722D: mov ecx,esi
+0059722F: call 00592AA0
+00597234: pop edi
+00597235: pop esi
+00597236: pop ebp
+00597237: pop ebx
+00597238: add esp,0Ch
+0059723B: ret

@@ -6,31 +6,31 @@
 
 Recrear GTA San Andreas PC de forma funcionalmente equivalente mediante código fuente reconstruido, reduciendo hasta eliminar la dependencia de funciones originales del ejecutable. Completar `ReversedClasses.md` es un paso intermedio: el objetivo es una reconstrucción completa, validada y ejecutable, seguida de un ejecutable propio.
 
-El contador técnico decisivo será **cuántas funciones siguen necesitando código original**, incluidas sus dependencias transitivas. El 99,38% registrado como reconstruido no representa el porcentaje recorrido hacia un GTA SA independiente.
+El contador técnico decisivo será **cuántas funciones siguen necesitando código original**, incluidas sus dependencias transitivas. El 100,00% registrado como reconstruido no representa el porcentaje recorrido hacia un GTA SA independiente.
 
 ## Cuatro dimensiones de progreso
 
-Corte del 30 de septiembre de 2026. Clases y reconstrucciones se calculan sobre `hooks.csv`; la validación procede del registro parcial de evidencia y versiones. La independencia aún no tiene medición y no se rellena con estimaciones.
+Corte del 8 de octubre de 2026. Clases y reconstrucciones se calculan sobre `hooks.csv`; la validación procede del registro parcial de evidencia y versiones. La independencia aún no tiene medición y no se rellena con estimaciones.
 
 | Dimensión | Progreso | Medición |
 | --- | --- | --- |
-| Clases completas en el catálogo | `████████████████████` | 770/771 · 99,87% |
-| Clases validadas de las completas | `██████████████████░░` | 693/770 · 90,00% |
-| Funciones registradas como reconstruidas | `████████████████████` | 8.394/8.446 · 99,38% |
-| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `████████████████░░░░` | **6.684/8.394 · 79,63%** |
+| Clases completas en el catálogo | `████████████████████` | 771/771 · 100,00% |
+| Clases validadas de las completas | `██████████████████░░` | 694/771 · 90,01% |
+| Funciones registradas como reconstruidas | `████████████████████` | 8.446/8.446 · 100,00% |
+| Funciones con evidencia aprobada (`validated=1`) de las reconstruidas | `████████████████░░░░` | **6.736/8.446 · 79,75%** |
 
 **Siguientes mediciones** (todavía sin porcentaje útil):
 
 | Dimensión | Estado actual | Qué hay que hacer |
 | --- | --- | --- |
-| Validaciones vigentes para el árbol actual | Ninguna validada confirmada como vigente | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrarlo en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
+| Validaciones vigentes para el árbol actual | 52 validadas con vigencia acreditada para sus fixtures | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrarlo en el [registro de validaciones](../reversing/ValidationRegistry/README.md). |
 | Dependencias de funciones originales eliminadas | No medido | Auditar las llamadas directas, indirectas y transitivas de cada función reconstruida que aún saltan al EXE y contar las que ya no dependen de ninguna. |
 
 Los extras NOTSA sin equivalente en el EXE (modo ventana) están en [hooks_notsa.csv](hooks_notsa.csv) y quedan fuera de la cuenta.
 
-El catálogo contiene 8.447 entradas, no un inventario demostrado de todas las funciones del EXE. Hay 52 entradas pendientes y 1 clases incompletas. De las entradas registradas, 473 tienen `locked=1` y 7.973 tienen `locked=0`: estas últimas son **desbloqueadas**, no necesariamente validadas, activas o independientes. No se conoce todavía el total de funciones que usan el original. Tampoco puede calcularse cuántos hooks originales se han eliminado restando los locks.
+El catálogo contiene 8.446 entradas, no un inventario demostrado de todas las funciones del EXE. Hay 0 entradas pendientes y 0 clases incompletas. De las entradas registradas, 421 tienen `locked=1` y 8.025 tienen `locked=0`: estas últimas son **desbloqueadas**, no necesariamente validadas, activas o independientes. No se conoce todavía el total de funciones que usan el original. Tampoco puede calcularse cuántos hooks originales se han eliminado restando los locks.
 
-`reversed`, `validated`, vigencia de validación, `locked` y dependencia del original son dimensiones distintas. `validated=1` conserva que la función pasó una evidencia aprobada; la vigencia se calcula aparte con hashes y revisión de dependencias. Un cuerpo C++ puede seguir pendiente de validación; una función validada puede llamar a otras implementaciones originales. Ya existe un [registro separado de validaciones](../reversing/ValidationRegistry/README.md), con 40 funciones vinculadas a evidencia. El constructor de animación por nombre, SetupBones y RpAnimBlendClumpUpdateAnimations obtuvieron acreditación en la versión anterior; los cambios locales de CustomBuilding requieren revisar la huella global de dependencias. Las 40 conservan evidencia histórica o coincidencia de fuentes. El [inventario completo](ValidationInventory.md) clasifica las 7.857 funciones reconstruidas. El panel calcula la acreditación desde evidencia y hashes, sin añadir columnas ni cambiar flags del CSV. Se mantiene el requisito de comparar contra el original dentro del motor antes de marcar nuevas entradas `reversed=1` o retirar locks.
+`reversed`, `validated`, vigencia de validación, `locked` y dependencia del original son dimensiones distintas. `validated=1` conserva que la función pasó una evidencia aprobada; la vigencia se calcula aparte con hashes y revisión de dependencias. Un cuerpo C++ puede seguir pendiente de validación; una función validada puede llamar a otras implementaciones originales. El [registro separado de validaciones](../reversing/ValidationRegistry/README.md) vincula 6.736 funciones con evidencia aprobada; 52 tienen vigencia acreditada para sus fixtures en el árbol actual y 6.684 conservan evidencia histórica por revisar. El [inventario completo](ValidationInventory.md) clasifica las 8.446 entradas reconstruidas. El panel calcula la vigencia mediante evidencia, hashes y revisión de dependencias; no la deduce del flag de reconstrucción.
 
 ## Integridad del catálogo
 
@@ -44,7 +44,7 @@ En el corte actual las seis comprobaciones críticas están en cero, y la opció
 
 ## Orden de trabajo y criterios de cierre
 
-1. **Completar las 52 entradas pendientes.** Reconstruir contratos, ABI y efectos, y contrastar con el original antes de actualizar progreso. Registrar por separado mejoras deliberadas y diferencias esperadas.
+1. **Mantener completa la reconstrucción catalogada.** Las 52 entradas de `Interior_c` ya tienen implementación y aprobación final en sus fixtures. El cierre de su repetición final se documenta en [InteriorValidation.md](InteriorValidation.md); la validación de dependencias y las ramas no cubiertas siguen siendo trabajos separados.
 2. **Reducir los 677 locks a cero.** Retirar cada bloqueo tras demostrar que la implementación sustituye al original en los escenarios documentados y supera las regresiones pertinentes. Quitar un flag por sí solo no acredita estabilidad.
 3. **Alcanzar 772/772 clases completas.** Es un resultado del cierre de funciones registradas, no una tercera carga de trabajo independiente ni una certificación de todo el juego.
 4. **Medir la independencia del EXE.** Crear un inventario por función, identidad inequívoca, versión de fuentes y configuración: reconstrucción, validación y evidencia, bloqueo, uso directo del original y dependencias transitivas. Resolver alias, virtuales, callbacks y trampolines; conservar como desconocidas las llamadas sin resolver. Informar por separado entradas catalogadas y funciones únicas, así como accesos a datos o servicios del host.

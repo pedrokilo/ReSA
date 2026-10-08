@@ -1,0 +1,151 @@
+// Interior_c::AddInteriorInfo @ 0x00591e40 [0x591e40..0x591f84]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4
+FUN_00591e40(undefined1 param_1,undefined4 param_2,undefined4 param_3,int param_4,undefined4 param_5
+            )
+
+{
+  int in_ECX;
+  undefined4 *puVar1;
+  undefined4 local_18;
+  undefined4 local_14;
+  undefined4 local_10;
+  undefined4 local_c;
+  undefined4 local_8;
+  float local_4;
+  
+  if (*(char *)(in_ECX + 0x40d) < '\x10') {
+    FUN_00591bd0(param_2,param_3,&local_c);
+    local_4 = local_4 + 0.8;
+    local_10 = 0;
+    local_14 = 0;
+    local_18 = 0;
+    if (param_4 != -1) {
+      if (param_4 == 3) {
+        local_18 = 0xbf800000;
+      }
+      else if (param_4 == 1) {
+        local_18 = 0x3f800000;
+      }
+      else if (param_4 == 2) {
+        local_14 = 0x3f800000;
+      }
+      else if (param_4 == 0) {
+        local_14 = 0xbf800000;
+      }
+      FUN_007eddf0(&local_18,&local_18,1,in_ECX + 0x18);
+    }
+    *(undefined1 *)(*(char *)(in_ECX + 0x40d) * 0x20 + 0x590 + in_ECX) = param_1;
+    puVar1 = (undefined4 *)(*(char *)(in_ECX + 0x40d) * 0x20 + 0x594 + in_ECX);
+    *puVar1 = local_c;
+    puVar1[1] = local_8;
+    puVar1[2] = local_4;
+    puVar1 = (undefined4 *)((*(char *)(in_ECX + 0x40d) + 0x2d) * 0x20 + in_ECX);
+    *puVar1 = local_18;
+    puVar1[1] = local_14;
+    puVar1[2] = local_10;
+    *(undefined1 *)(*(char *)(in_ECX + 0x40d) * 0x20 + 0x591 + in_ECX) = 0;
+    *(undefined4 *)(*(char *)(in_ECX + 0x40d) * 0x20 + 0x5ac + in_ECX) = param_5;
+    *(char *)(in_ECX + 0x40d) = *(char *)(in_ECX + 0x40d) + '\x01';
+    return 1;
+  }
+  return 0;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+00591E40: sub esp,18h
+00591E43: push esi
+00591E44: mov esi,ecx
+00591E46: cmp byte ptr [esi+0000040Dh],10h
+ 10
+00591E4D: jge 00591F7C
+00591E53: mov ecx,dword ptr [esp+28h]
+00591E57: mov edx,dword ptr [esp+24h]
+00591E5B: lea eax,[esp+10h]
+00591E5F: push eax
+00591E60: push ecx
+00591E61: push edx
+00591E62: mov ecx,esi
+00591E64: call 00591BD0
+00591E69: fld dword ptr [esp+18h]
+00591E6D: fadd dword ptr ds:[00858C98h]
+00591E73: mov eax,dword ptr [esp+2Ch]
+00591E77: cmp eax,0FFFFFFFFh
+00591E7A: mov dword ptr [esp+0Ch],0
+00591E82: fstp dword ptr [esp+18h]
+00591E86: mov dword ptr [esp+8],0
+00591E8E: mov dword ptr [esp+4],0
+00591E96: je 00591EE9
+00591E98: cmp eax,3
+00591E9B: jne 00591EA7
+00591E9D: mov dword ptr [esp+4],0BF800000h
+00591EA5: jmp 00591ED1
+00591EA7: cmp eax,1
+00591EAA: jne 00591EB6
+00591EAC: mov dword ptr [esp+4],3F800000h
+00591EB4: jmp 00591ED1
+00591EB6: cmp eax,2
+00591EB9: jne 00591EC5
+00591EBB: mov dword ptr [esp+8],3F800000h
+00591EC3: jmp 00591ED1
+00591EC5: test eax,eax
+00591EC7: jne 00591ED1
+00591EC9: mov dword ptr [esp+8],0BF800000h
+00591ED1: lea eax,[esi+18h]
+00591ED4: push eax
+00591ED5: push 1
+00591ED7: lea ecx,[esp+0Ch]
+00591EDB: push ecx
+00591EDC: lea edx,[esp+10h]
+00591EE0: push edx
+00591EE1: call 007EDDF0
+00591EE6: add esp,10h
+00591EE9: movsx eax,byte ptr [esi+0000040Dh]
+ 00
+00591EF0: mov cl,byte ptr [esp+20h]
+00591EF4: shl eax,5
+00591EF7: mov byte ptr [eax+esi+00000590h],cl
+ 00
+00591EFE: movsx edx,byte ptr [esi+0000040Dh]
+ 00
+00591F05: mov ecx,dword ptr [esp+10h]
+00591F09: shl edx,5
+00591F0C: lea eax,[edx+esi+00000594h]
+ 00
+00591F13: mov dword ptr [eax],ecx
+00591F15: mov edx,dword ptr [esp+14h]
+00591F19: mov dword ptr [eax+4],edx
+00591F1C: mov ecx,dword ptr [esp+18h]
+00591F20: mov dword ptr [eax+8],ecx
+00591F23: movsx edx,byte ptr [esi+0000040Dh]
+ 00
+00591F2A: mov eax,dword ptr [esp+4]
+00591F2E: add edx,2Dh
+00591F31: shl edx,5
+00591F34: add edx,esi
+00591F36: mov dword ptr [edx],eax
+00591F38: mov ecx,dword ptr [esp+8]
+00591F3C: mov dword ptr [edx+4],ecx
+00591F3F: mov eax,dword ptr [esp+0Ch]
+00591F43: mov dword ptr [edx+8],eax
+00591F46: movsx ecx,byte ptr [esi+0000040Dh]
+ 00
+00591F4D: mov eax,dword ptr [esp+30h]
+00591F51: shl ecx,5
+00591F54: mov byte ptr [ecx+esi+00000591h],0
+00591F5C: movsx edx,byte ptr [esi+0000040Dh]
+ 00
+00591F63: shl edx,5
+00591F66: mov dword ptr [edx+esi+000005ACh],eax
+ 00
+00591F6D: inc byte ptr [esi+0000040Dh]
+00591F73: mov al,1
+00591F75: pop esi
+00591F76: add esp,18h
+00591F79: ret 14h
+00591F7C: xor al,al
+00591F7E: pop esi
+00591F7F: add esp,18h
+00591F82: ret 14h

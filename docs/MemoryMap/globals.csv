@@ -2212,13 +2212,24 @@ g_subGroupStore,0x00BAD3F8,0x007AD3F8,source/game_sa/Interior/FurnitureManager_c
 g_furnitureMan,0x00BAB380,0x007AB380,source/game_sa/Interior/FurnitureManager_c.h,46,static inline auto& g_furnitureMan = StaticRef<FurnitureManager_c>(0xBAB380);,source_global_reference
 next,0x00BAB378,0x007AB378,source/game_sa/Interior/FurnitureSubGroup_c.cpp,63,auto& next = StaticRef<uint16>(0xBAB378);,source_global_reference
 store,0x00BAE1F8,0x007AE1F8,source/game_sa/Interior/FurnitureSubGroup_c.cpp,64,auto& store = StaticRef<Furniture_c[256]>(0xBAE1F8);,source_global_reference
+other,0x00BB3DAC,0x007B3DAC,source/game_sa/Interior/Interior_c.cpp,208,const auto* other = StaticRef<const uint8*>(0xBB3DAC);,source_global_reference
+count,0x00BB3914,0x007B3914,source/game_sa/Interior/Interior_c.cpp,232,auto& count = StaticRef<int32>(0xBB3914);,source_global_reference
+margin,0x008D22B0,0x004D22B0,source/game_sa/Interior/Interior_c.cpp,7915,const float margin = StaticRef<float>(0x8D22B0);,source_global_reference
+pool,0x00BAD3EC,0x007AD3EC,source/game_sa/Interior/Interior_c.cpp,8002,auto& pool = StaticRef<TList_c<FurnitureEntity_c>>(0xBAD3EC);,source_global_reference
+reference,0x00BB4A70,0x007B4A70,source/game_sa/Interior/Interior_c.cpp,8087,++StaticRef<uint16>(0xBB4A70);,source_global_reference
+reference,0x00BAD3EC,0x007AD3EC,source/game_sa/Interior/Interior_c.cpp,8097,StaticRef<TList_c<FurnitureEntity_c>>(0xBAD3EC).AddItem(item);,source_global_reference
+reference,0x00BB3DC4,0x007B3DC4,source/game_sa/Interior/Interior_c.cpp,8431,if (uint32(CTimer::GetTimeInMS() - StaticRef<uint32>(0xBB3DC4)) < 180000u) return;,source_global_reference
+reference,0x008CD59C,0x004CD59C,source/game_sa/Interior/Interior_c.cpp,8442,"CPickups::GenerateNewOne(position, StaticRef<uint16>(0x8CD59C), static_cast<ePickupType>(8), amount, 0, false, nullptr);",source_global_reference
+pool,0x00BAD3EC,0x007AD3EC,source/game_sa/Interior/Interior_c.cpp,8568,auto& pool = StaticRef<TList_c<FurnitureEntity_c>>(0xBAD3EC);,source_global_reference
+reference,0x00858B14,0x00458B14,source/game_sa/Interior/Interior_c.cpp,8619,const auto randomScaled = [](int32 range) { return int32(double(CGeneral::GetRandomNumber() & 0xFFFF) * double(StaticRef<float>(0x858B14)) * double(range)); };,source_global_reference
+reference,0x00858B14,0x00458B14,source/game_sa/Interior/Interior_c.cpp,8653,if (originalDirection == -1) direction = int32(double(CGeneral::GetRandomNumber() & 0xFFFF) * double(StaticRef<float>(0x858B14)) * 4.0);,source_global_reference
 reference,0x00BB3DC2,0x007B3DC2,source/game_sa/Interior/InteriorGroup_c.cpp,120,if (m_EnEx && StaticRef<bool>(0xBB3DC2)) {,source_global_reference
 reference,0x00BB3DC2,0x007B3DC2,source/game_sa/Interior/InteriorGroup_c.cpp,132,if (m_EnEx && StaticRef<bool>(0xBB3DC2)) {,source_global_reference
 reference,0x00BB3D9C,0x007B3D9C,source/game_sa/Interior/InteriorGroup_c.cpp,174,if(!StaticRef<uint8>(0xBB3D9C+i))RemovePed(m_peds[slot]);,source_global_reference
 reference,0x0096F854,0x0056F854,source/game_sa/Interior/InteriorGroup_c.cpp,233,const auto* node = reinterpret_cast<const uint8*>(StaticRef<uint8*>(0x96F854 + exterior.m_wAreaId * 4)) + exterior.m_wNodeId * 0x1C;,source_global_reference
 reference,0x00BB3D9C,0x007B3D9C,source/game_sa/Interior/InteriorGroup_c.cpp,303,if (!ped->IsAlive()) StaticRef<uint8>(0xBB3D9C + i) = 0;,source_global_reference
 reference,0x00BB3D9C,0x007B3D9C,source/game_sa/Interior/InteriorGroup_c.cpp,306,StaticRef<uint8>(0xBB3D9C + i) = 0;,source_global_reference
-g_interiorMan,0x00BAF670,0x007AF670,source/game_sa/Interior/InteriorManager_c.h,98,static inline auto& g_interiorMan = StaticRef<InteriorManager_c>(0xBAF670);,source_global_reference
+g_interiorMan,0x00BAF670,0x007AF670,source/game_sa/Interior/InteriorManager_c.h,99,static inline auto& g_interiorMan = StaticRef<InteriorManager_c>(0xBAF670);,source_global_reference
 ms_pQuadTree,0x008E3FAC,0x004E3FAC,source/game_sa/IplStore.cpp,32,auto& ms_pQuadTree = StaticRef<IplTreeNode*>(0x8E3FAC);,source_global_reference
 ms_pPool,0x008E3FB0,0x004E3FB0,source/game_sa/IplStore.cpp,34,auto& ms_pPool = StaticRef<CIplPool*>(0x8E3FB0);,source_global_reference
 ms_currentIPLAreaCode,0x008E3EF8,0x004E3EF8,source/game_sa/IplStore.cpp,36,auto& ms_currentIPLAreaCode = StaticRef<int32>(0x8E3EF8);,source_global_reference

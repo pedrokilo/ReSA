@@ -1,0 +1,26 @@
+// Interior_c::Shop_FurnishCeiling @ 0x0059a130 [0x599af0..0x59a130]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00599af0(void)
+
+{
+  undefined1 uVar1;
+  int in_ECX;
+  
+  FUN_00591700(0,0,2,2,2,0);
+  FUN_00591700(0,*(byte *)(*(int *)(in_ECX + 0x14) + 3) - 2,2,2,2,0);
+  FUN_00591700(*(byte *)(*(int *)(in_ECX + 0x14) + 2) - 2,0,2,2,2,0);
+  FUN_00591700(*(byte *)(*(int *)(in_ECX + 0x14) + 2) - 2,*(byte *)(*(int *)(in_ECX + 0x14) + 3) - 2
+               ,2,2,2,0);
+  uVar1 = FUN_00591220(1,0,*(undefined1 *)(*(int *)(in_ECX + 0x14) + 0x1f));
+  *(undefined1 *)(in_ECX + 0x791) = uVar1;
+  uVar1 = FUN_00591220(1,1,*(undefined1 *)(*(int *)(in_ECX + 0x14) + 0x1f));
+  *(undefined1 *)(in_ECX + 0x792) = uVar1;
+  FUN_00599770();
+  FUN_00599a30();
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+0059A130: ret

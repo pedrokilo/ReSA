@@ -1,0 +1,4823 @@
+{
+  "schema": "InteriorSourceAudit/v1",
+  "passed": true,
+  "scope_class": "Interior_c",
+  "scope_functions": 52,
+  "input_hashes": {
+    "catalogue": {
+      "path": "docs/hooks.csv",
+      "sha256": "ef70524f4153e6b497dc055534700df97551df03fd089c15b2715750c66f4c1c"
+    },
+    "ranges": {
+      "path": "docs/MemoryMap/binary_function_ranges.csv",
+      "sha256": "e564971a676caae737507fb719e50771d6ea42313e88bbd9534a9cc8e4738ea4"
+    },
+    "source": {
+      "path": "source/game_sa/Interior/Interior_c.cpp",
+      "sha256": "68f7a7ac357bb8f8f9045eff0449e701623632438d5c425b83aa9544fdfb3c90"
+    },
+    "header": {
+      "path": "source/game_sa/Interior/Interior_c.h",
+      "sha256": "481975c80d69fbdf7a92f7dc3ef77f439140a02eaf8585015536ba93e9ea6c5f"
+    }
+  },
+  "functions": [
+    {
+      "function": "Interior_c::AddGotoPt",
+      "address": "0x00591D20",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "AddGotoPt",
+        "address": "0x00591D20",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "1079d29ac64c5ddd1b09428b1bcd77f79d39b6f64d1ecb7b7d0c8c75392ec3bc",
+      "source_line": 8389,
+      "return": "void",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "header_return": "void",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 16,
+      "catalogue_binary_range": [
+        "0x591d20",
+        "0x591e32"
+      ],
+      "binary_range": [
+        "0x591d20",
+        "0x591e32"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_AddGotoPt.txt",
+      "evidence_sha256": "b9d98c69d87c740fe719bfa652b541ec987e85a38f20ff023ab0e06453deeaf7",
+      "original_instruction_count": 88,
+      "native_ret_stack_bytes": [
+        16
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,ebx",
+        "mov eax,dword ptr [esp+1Ch]",
+        "mov al,byte ptr [ebx+esi+68h]"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::AddInteriorInfo",
+      "address": "0x00591E40",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "AddInteriorInfo",
+        "address": "0x00591E40",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "0ccf03a8a0a7734f89d7ea331f062f482ed436e3c88c46edfb22d3907c174929",
+      "source_line": 8404,
+      "return": "bool",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "pointer:4"
+      ],
+      "header_return": "bool",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "pointer:4"
+      ],
+      "parameter_stack_bytes": 20,
+      "catalogue_binary_range": [
+        "0x591e40",
+        "0x591f84"
+      ],
+      "binary_range": [
+        "0x591e40",
+        "0x591f84"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_AddInteriorInfo.txt",
+      "evidence_sha256": "9b046c00e3f1f2a15103e762d5826ca342612b75bd42cbee030fe446dfab9e98",
+      "original_instruction_count": 85,
+      "native_ret_stack_bytes": [
+        20
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esp+2Ch]",
+        "mov eax,dword ptr [esp+4]",
+        "mov eax,dword ptr [esp+0Ch]",
+        "mov eax,dword ptr [esp+30h]",
+        "mov al,1",
+        "xor al,al"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::AddPickups",
+      "address": "0x00591F90",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "AddPickups",
+        "address": "0x00591F90",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorRandomCoordinate": "20a157d7e1dd00b20498273178d002361cf37088e178f7f647232319d03f7943"
+      },
+      "body_sha256": "1fdad9dae0620f58f41f187532d3ecb0dc7cc35e5825bcefa2cfda124fd10500",
+      "source_line": 8428,
+      "return": "void",
+      "parameter_abi": [],
+      "header_return": "void",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x591f90",
+        "0x5921cf"
+      ],
+      "binary_range": [
+        "0x591f90",
+        "0x5921cf"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_AddPickups.txt",
+      "evidence_sha256": "d76d517f80a5623d3db39bcffd37d47c13a7267a20aa894b6fadea79e802ec90",
+      "original_instruction_count": 163,
+      "native_ret_stack_bytes": [],
+      "native_return_writes": [
+        "mov eax,dword ptr ds:[00B7CB84h]",
+        "mov eax,dword ptr [edi+14h]",
+        "mov eax,esp",
+        "mov eax,dword ptr [esp+24h]",
+        "mov eax,dword ptr [esp+44h]"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [
+        "0x821b40",
+        "0x858b14"
+      ],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Bedroom_AddTableItem",
+      "address": "0x00593F10",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Bedroom_AddTableItem",
+        "address": "0x00593F10",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorHomeNativeBedroom_AddTableItem": "44fb83a8927fe14a87151bf3deebd5ad525a3e45dbf30c1bb290ec473536910f"
+      },
+      "body_sha256": "bc2155c2d6dfe1e4aa575ee141d22e2507ecbd0e3ada51418cca6c1639e14a68",
+      "source_line": 402,
+      "return": "CObject*",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "header_return": "CObject*",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 24,
+      "catalogue_binary_range": [
+        "0x593f10",
+        "0x593fb7"
+      ],
+      "binary_range": [
+        "0x593f10",
+        "0x593fb7"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Bedroom_AddTableItem.txt",
+      "evidence_sha256": "9b2426ac3ef9d4e4ca41392008554dd6449916dbe54994f1692f061a1620b52a",
+      "original_instruction_count": 53,
+      "native_ret_stack_bytes": [
+        24
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esp+10h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+0Ch]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005934E0",
+          "target": "0x5934e0"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x5911e0",
+        "0x5934e0"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::CalcExitPts",
+      "address": "0x005924A0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "CalcExitPts",
+        "address": "0x005924A0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "782b56c44646812054471942145233f5bb82b42a3c69655fa01cbda7e9f938a3",
+      "source_line": 8478,
+      "return": "void",
+      "parameter_abi": [],
+      "header_return": "void",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x5924a0",
+        "0x5929e8"
+      ],
+      "binary_range": [
+        "0x5924a0",
+        "0x5929e8"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_CalcExitPts.txt",
+      "evidence_sha256": "382b16842f60ef87d20a189f3fc2b2869181871b4b34609d7ccab75c4e83c2a8",
+      "original_instruction_count": 352,
+      "native_ret_stack_bytes": [],
+      "native_return_writes": [
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+1Ch]",
+        "mov eax,dword ptr [esp+24h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov al,byte ptr [esi+0000040Ch]",
+        "mov eax,dword ptr [esp+18h]",
+        "mov eax,dword ptr [esp+20h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+14h]",
+        "mov eax,dword ptr [esp+20h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,ebx",
+        "mov al,cl",
+        "mov eax,dword ptr [esp+14h]",
+        "mov eax,dword ptr [esp+20h]"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::CalcMatrix",
+      "address": "0x005914D0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "CalcMatrix",
+        "address": "0x005914D0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "fc7bbc7570943c9b8a814662c633e92b60715a366dd146e8b6e4cd22ebe8dbb6",
+      "source_line": 8049,
+      "return": "void",
+      "parameter_abi": [
+        "pointer:4"
+      ],
+      "header_return": "void",
+      "header_parameter_abi": [
+        "pointer:4"
+      ],
+      "parameter_stack_bytes": 4,
+      "catalogue_binary_range": [
+        "0x5914d0",
+        "0x59158a"
+      ],
+      "binary_range": [
+        "0x5914d0",
+        "0x59158a"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_CalcMatrix.txt",
+      "evidence_sha256": "c15877102f1b6f045e24caedefb4e1722258c8d0c64eb9ff60c9871f00abb877",
+      "original_instruction_count": 68,
+      "native_ret_stack_bytes": [
+        4
+      ],
+      "native_return_writes": [
+        "mov eax,3F800000h",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+2Ch]",
+        "mov eax,dword ptr [eax+18h]",
+        "mov eax,dword ptr [eax+4]",
+        "xor eax,eax"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::CheckTilesEmpty",
+      "address": "0x00591680",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "CheckTilesEmpty",
+        "address": "0x00591680",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "d114222c98d8497d44e8bbf01c6a330e177d10712a2b3500ce903c7d6ee3214d",
+      "source_line": 8101,
+      "return": "int8",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "header_return": "int8",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 20,
+      "catalogue_binary_range": [
+        "0x591680",
+        "0x5916fd"
+      ],
+      "binary_range": [
+        "0x591680",
+        "0x5916fd"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_CheckTilesEmpty.txt",
+      "evidence_sha256": "5db92180a2e35ead6a5b65d0d908ff9e2ff7eafdd2bc21664d59f59b33963b5f",
+      "original_instruction_count": 58,
+      "native_ret_stack_bytes": [
+        20
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esp+4]",
+        "mov al,byte ptr [esi+ecx]",
+        "mov al,1",
+        "xor al,al"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Exit",
+      "address": "0x00592230",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Exit",
+        "address": "0x00592230",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "504b37dc9ad943bd4b05e8a1b50f2786fd16e0132baa9bee286805aa9b531e8c",
+      "source_line": 238,
+      "return": "void",
+      "parameter_abi": [],
+      "header_return": "void",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x592230",
+        "0x5922b5"
+      ],
+      "binary_range": [
+        "0x592230",
+        "0x5922b5"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Exit.txt",
+      "evidence_sha256": "9ea3dbda1940b7e6551cdb15ecaf9ea9e530ab402c42b0f5008378a0c3d658c9",
+      "original_instruction_count": 35,
+      "native_ret_stack_bytes": [],
+      "native_return_writes": [
+        "mov eax,dword ptr [eax+8]"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::FindBoundingBox",
+      "address": "0x005922C0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "FindBoundingBox",
+        "address": "0x005922C0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "93e8796adfa3e102ed0f8af32bb9bcf358283cf7a37dd0dd6117cb19d487cd1f",
+      "source_line": 8453,
+      "return": "void",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4"
+      ],
+      "header_return": "void",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4"
+      ],
+      "parameter_stack_bytes": 28,
+      "catalogue_binary_range": [
+        "0x5922c0",
+        "0x592494"
+      ],
+      "binary_range": [
+        "0x5922c0",
+        "0x592494"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_FindBoundingBox.txt",
+      "evidence_sha256": "b3c70e2718f62ab62b9fd8515f03ecc64446b4d961a960fcdb9bebd366a4c51b",
+      "original_instruction_count": 180,
+      "native_ret_stack_bytes": [
+        28
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [edi+14h]",
+        "mov eax,ebx",
+        "mov eax,dword ptr [esp+28h]",
+        "mov eax,dword ptr [esp+2Ch]",
+        "mov eax,dword ptr [esp+28h]",
+        "mov eax,dword ptr [edi+14h]",
+        "mov eax,ebx",
+        "mov eax,dword ptr [esp+24h]",
+        "mov eax,dword ptr [esp+18h]"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::FindEmptyTiles",
+      "address": "0x00591C50",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "FindEmptyTiles",
+        "address": "0x00591C50",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorRandomCoordinate": "20a157d7e1dd00b20498273178d002361cf37088e178f7f647232319d03f7943"
+      },
+      "body_sha256": "d9b05bc3620c812ec9911c9274756b572d781efac72d5f78b503272784eb9a92",
+      "source_line": 8672,
+      "return": "bool",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "pointer:4",
+        "pointer:4"
+      ],
+      "header_return": "bool",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "pointer:4",
+        "pointer:4"
+      ],
+      "parameter_stack_bytes": 16,
+      "catalogue_binary_range": [
+        "0x591c50",
+        "0x591d11"
+      ],
+      "binary_range": [
+        "0x591c50",
+        "0x591d11"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_FindEmptyTiles.txt",
+      "evidence_sha256": "c615e111ebeb58913b3af4185302edaf8d3fd95592ef90e8d7410cee82d42088",
+      "original_instruction_count": 65,
+      "native_ret_stack_bytes": [
+        16
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+10h]",
+        "xor al,al",
+        "mov eax,dword ptr [esp+28h]",
+        "mov al,1"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [
+        "0x821b40",
+        "0x858b14"
+      ],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Furnish",
+      "address": "0x00591590",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Furnish",
+        "address": "0x00591590",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "3da29bd78a2ad1f6a17a4b24f17a455f1e33c009fb5c24a8c382040aea42adcf",
+      "source_line": 8066,
+      "return": "void",
+      "parameter_abi": [],
+      "header_return": "void",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x591590",
+        "0x5915c8"
+      ],
+      "binary_range": [
+        "0x591590",
+        "0x5915c8"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Furnish.txt",
+      "evidence_sha256": "b2ca55d0d03cfbc56b0647996613545493178e45789b6ea0c25de98565a92212",
+      "original_instruction_count": 19,
+      "native_ret_stack_bytes": [
+        0
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [ecx+14h]"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::FurnishBedroom",
+      "address": "0x00593FC0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "FurnishBedroom",
+        "address": "0x00593FC0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorHomeNativeFurnishBedroom": "9b297b40321be5f64b7819e12d03fadf5d4f17aa419c7ce6872ddd6dc39b479a"
+      },
+      "body_sha256": "19ee7c119e58f9cbb829cfca01b32bca0bac185e3fca1cff0e992956cdb16eee",
+      "source_line": 1824,
+      "return": "void",
+      "parameter_abi": [],
+      "header_return": "void",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x593fc0",
+        "0x5947d9"
+      ],
+      "binary_range": [
+        "0x593fc0",
+        "0x5947d9"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_FurnishBedroom.txt",
+      "evidence_sha256": "d3e567168661dd0a971e1e4822dce466b022edc3a07d98a8eaf452b6d72fd311",
+      "original_instruction_count": 705,
+      "native_ret_stack_bytes": [],
+      "native_return_writes": [
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+14h]",
+        "mov eax,dword ptr [esp+30h]",
+        "mov eax,dword ptr [esp+10h]",
+        "mov eax,3",
+        "mov eax,4",
+        "mov eax,3",
+        "mov eax,4",
+        "mov eax,dword ptr [esp+24h]",
+        "mov eax,dword ptr [esp+10h]",
+        "mov eax,dword ptr [esp+10h]",
+        "mov eax,4",
+        "mov eax,4",
+        "mov eax,3",
+        "mov eax,dword ptr [esp+24h]",
+        "mov eax,dword ptr [esp+10h]",
+        "mov eax,dword ptr [esp+10h]",
+        "mov eax,dword ptr [esp+10h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov al,byte ptr [eax+1Fh]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+20h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+20h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+20h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+20h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+20h]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591220",
+          "target": "0x591220"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593F10",
+          "target": "0x593f10"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593F10",
+          "target": "0x593f10"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00407180",
+          "target": "0x407180"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591C50",
+          "target": "0x591c50"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005934E0",
+          "target": "0x5934e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591C50",
+          "target": "0x591c50"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005934E0",
+          "target": "0x5934e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591C50",
+          "target": "0x591c50"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005934E0",
+          "target": "0x5934e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591C50",
+          "target": "0x591c50"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005934E0",
+          "target": "0x5934e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591C50",
+          "target": "0x591c50"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005934E0",
+          "target": "0x5934e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00592AA0",
+          "target": "0x592aa0"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x407180",
+        "0x5911e0",
+        "0x591220",
+        "0x591700",
+        "0x591c50",
+        "0x591e40",
+        "0x592aa0",
+        "0x593120",
+        "0x5934e0",
+        "0x593f10",
+        "0x821b1e",
+        "0x821b40"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::FurnishKitchen",
+      "address": "0x005970B0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "FurnishKitchen",
+        "address": "0x005970B0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorHomeNativeFurnishKitchen": "759e76462853c6efdd5b3f07055d1682243e3eafd0f528905ee535d39e8bdf5e"
+      },
+      "body_sha256": "53847d1220473e42fd969490b603d908c3e5de0ec5fac309d61be268508db730",
+      "source_line": 3410,
+      "return": "void",
+      "parameter_abi": [],
+      "header_return": "void",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x5970b0",
+        "0x59723b"
+      ],
+      "binary_range": [
+        "0x5970b0",
+        "0x59723b"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_FurnishKitchen.txt",
+      "evidence_sha256": "80a1a8659c699ad7b49b6390da82e5b0d7760fd37a342e749e7a7269cbb91435",
+      "original_instruction_count": 152,
+      "native_ret_stack_bytes": [],
+      "native_return_writes": [
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esi+14h]",
+        "xor eax,eax",
+        "mov al,byte ptr [edx+1Fh]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591D20",
+          "target": "0x591d20"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591D20",
+          "target": "0x591d20"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591D20",
+          "target": "0x591d20"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591D20",
+          "target": "0x591d20"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591220",
+          "target": "0x591220"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00596930",
+          "target": "0x596930"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00592AA0",
+          "target": "0x592aa0"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x5911e0",
+        "0x591220",
+        "0x591700",
+        "0x591d20",
+        "0x592aa0",
+        "0x596930",
+        "0x821b40"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::FurnishLounge",
+      "address": "0x00597740",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "FurnishLounge",
+        "address": "0x00597740",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorHomeNativeFurnishLounge": "9f21698210605ec496d0810912c9173d7e64d0e71156f4595cb4a92ebd743721"
+      },
+      "body_sha256": "ee2c0a5eb242cfe800af2040d698d834a54bbb37a64f646444a82ff318a0aed4",
+      "source_line": 5874,
+      "return": "void",
+      "parameter_abi": [],
+      "header_return": "void",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x597740",
+        "0x597fd1"
+      ],
+      "binary_range": [
+        "0x597740",
+        "0x597fd1"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_FurnishLounge.txt",
+      "evidence_sha256": "7b75934783dd5e3275e70dadcac736adc7e1c77c85c7bee6a58eecd04e191e37",
+      "original_instruction_count": 805,
+      "native_ret_stack_bytes": [],
+      "native_return_writes": [
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+10h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+18h]",
+        "mov eax,dword ptr [esp+10h]",
+        "mov eax,dword ptr [esp+18h]",
+        "mov eax,dword ptr [esp+14h]",
+        "mov eax,dword ptr [esp+28h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov al,byte ptr [eax+1Fh]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+1Ch]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+18h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+18h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esi+14h]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593340",
+          "target": "0x593340"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00597240",
+          "target": "0x597240"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005917C0",
+          "target": "0x5917c0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591D20",
+          "target": "0x591d20"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591D20",
+          "target": "0x591d20"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591D20",
+          "target": "0x591d20"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591D20",
+          "target": "0x591d20"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005917C0",
+          "target": "0x5917c0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005917C0",
+          "target": "0x5917c0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005917C0",
+          "target": "0x5917c0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005917C0",
+          "target": "0x5917c0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591220",
+          "target": "0x591220"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005975C0",
+          "target": "0x5975c0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005974E0",
+          "target": "0x5974e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005974E0",
+          "target": "0x5974e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005974E0",
+          "target": "0x5974e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005917C0",
+          "target": "0x5917c0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005917C0",
+          "target": "0x5917c0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005917C0",
+          "target": "0x5917c0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005917C0",
+          "target": "0x5917c0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00597430",
+          "target": "0x597430"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591C50",
+          "target": "0x591c50"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005934E0",
+          "target": "0x5934e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591C50",
+          "target": "0x591c50"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005934E0",
+          "target": "0x5934e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591C50",
+          "target": "0x591c50"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005934E0",
+          "target": "0x5934e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00592AA0",
+          "target": "0x592aa0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005918E0",
+          "target": "0x5918e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005918E0",
+          "target": "0x5918e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005918E0",
+          "target": "0x5918e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005918E0",
+          "target": "0x5918e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x5911e0",
+        "0x591220",
+        "0x591700",
+        "0x5917c0",
+        "0x5918e0",
+        "0x591c50",
+        "0x591d20",
+        "0x591e40",
+        "0x592aa0",
+        "0x593120",
+        "0x593340",
+        "0x5934e0",
+        "0x597240",
+        "0x597430",
+        "0x5974e0",
+        "0x5975c0",
+        "0x821b1e",
+        "0x821b40"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::FurnishOffice",
+      "address": "0x00599AF0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "FurnishOffice",
+        "address": "0x00599AF0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "787dbd69217f254373b23b78e173ea732ca0337f5bc70eaf0429341cf819f28b",
+      "source_line": 6838,
+      "return": "void",
+      "parameter_abi": [],
+      "header_return": "void",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x599af0",
+        "0x599bad"
+      ],
+      "binary_range": [
+        "0x599af0",
+        "0x599bad"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_FurnishOffice.txt",
+      "evidence_sha256": "df9ae6ec997228d2197abfc34df33017a8eabeb1d0bf1d51f806109e02257110",
+      "original_instruction_count": 69,
+      "native_ret_stack_bytes": [],
+      "native_return_writes": [
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esi+14h]",
+        "xor eax,eax",
+        "mov al,byte ptr [edx+1Fh]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_FurnishOfficeCalls+4]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_FurnishOfficeCalls+4]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_FurnishOfficeCalls+4]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_FurnishOfficeCalls+4]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_FurnishOfficeCalls+0]",
+          "target": "0x591220"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_FurnishOfficeCalls+0]",
+          "target": "0x591220"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_FurnishOfficeCalls+8]",
+          "target": "0x599770"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_FurnishOfficeCalls+12]",
+          "target": "0x599a30"
+        },
+        {
+          "instruction": "jmp",
+          "operand": "dword ptr [InteriorCommerce_FurnishOfficeCalls+16]",
+          "target": "0x59a130"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x591220",
+        "0x591700",
+        "0x599770",
+        "0x599a30",
+        "0x59a130"
+      ],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::FurnishShop",
+      "address": "0x0059A790",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "FurnishShop",
+        "address": "0x0059A790",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "b89015bc3996c87736fa6a839135848e00c04e69e7f64fda8d5016fcddd8d229",
+      "source_line": 8690,
+      "return": "void",
+      "parameter_abi": [
+        "scalar:4"
+      ],
+      "header_return": "void",
+      "header_parameter_abi": [
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 4,
+      "catalogue_binary_range": [
+        "0x59a790",
+        "0x59a834"
+      ],
+      "binary_range": [
+        "0x59a790",
+        "0x59a834"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_FurnishShop.txt",
+      "evidence_sha256": "bd8fd899588f57431d6deb7cf22cbeb07c4e55490e85c369fbab3ab043a6f367",
+      "original_instruction_count": 64,
+      "native_ret_stack_bytes": [
+        4
+      ],
+      "native_return_writes": [
+        "mov al,byte ptr [esp+4]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esi+14h]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_FurnishShopCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_FurnishShopCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_FurnishShopCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_FurnishShopCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_FurnishShopCalls+4]",
+          "target": "0x59a030"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_FurnishShopCalls+8]",
+          "target": "0x59a1b0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_FurnishShopCalls+12]",
+          "target": "0x59a590"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x591700",
+        "0x59a030",
+        "0x59a1b0",
+        "0x59a590"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::GetBoundingBox",
+      "address": "0x00593DB0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "GetBoundingBox",
+        "address": "0x00593DB0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "298d041c1a009f42d11936e10d4e8b05d7bb1bd5a112181a463d2587e218e135",
+      "source_line": 7905,
+      "return": "bool",
+      "parameter_abi": [
+        "pointer:4",
+        "pointer:4"
+      ],
+      "header_return": "bool",
+      "header_parameter_abi": [
+        "pointer:4",
+        "pointer:4"
+      ],
+      "parameter_stack_bytes": 8,
+      "catalogue_binary_range": [
+        "0x593db0",
+        "0x593f0e"
+      ],
+      "binary_range": [
+        "0x593db0",
+        "0x593f0e"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_GetBoundingBox.txt",
+      "evidence_sha256": "ba2b19a7d1d8971f62ac17f22163bb11912684bd2790210b443091d1173f529f",
+      "original_instruction_count": 113,
+      "native_ret_stack_bytes": [
+        8
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esi+14h]",
+        "mov al,byte ptr [eax]",
+        "xor al,al",
+        "mov eax,dword ptr [ebp+8]",
+        "xor eax,eax",
+        "mov al,1"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::GetFurnitureEntity",
+      "address": "0x005913B0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "GetFurnitureEntity",
+        "address": "0x005913B0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "91b7671d78234803c35fda3cd88349bcbc43a8ef5ed6ca1fff179115054a873c",
+      "source_line": 8032,
+      "return": "FurnitureEntity_c*",
+      "parameter_abi": [
+        "pointer:4"
+      ],
+      "header_return": "FurnitureEntity_c*",
+      "header_parameter_abi": [
+        "pointer:4"
+      ],
+      "parameter_stack_bytes": 4,
+      "catalogue_binary_range": [
+        "0x5913c0",
+        "0x5913d0"
+      ],
+      "binary_range": [
+        "0x5913c0",
+        "0x5913d0"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_GetFurnitureEntity.txt",
+      "evidence_sha256": "d787888acd93c7259504e941f2f4ef61b24e7e1bdb0010361f41e96c827fa00f",
+      "original_instruction_count": 7,
+      "native_ret_stack_bytes": [
+        4
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [eax+4]",
+        "xor eax,eax"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::GetNumEmptyTiles",
+      "address": "0x00591920",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "GetNumEmptyTiles",
+        "address": "0x00591920",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "7f9a579e688d440d5b2be2e560edb048308aa8035ae588d30c6ddb3ba2ec0106",
+      "source_line": 8162,
+      "return": "int32",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "header_return": "int32",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 16,
+      "catalogue_binary_range": [
+        "0x591920",
+        "0x591a53"
+      ],
+      "binary_range": [
+        "0x591920",
+        "0x591a53"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_GetNumEmptyTiles.txt",
+      "evidence_sha256": "d9d3ec20e7463f8eb88d2b725f3b661c3b3ff5d936522d36c9ccc0e4789ee081",
+      "original_instruction_count": 104,
+      "native_ret_stack_bytes": [
+        16
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esp+2Ch]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+14h]",
+        "mov eax,dword ptr [esp+14h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+20h]",
+        "mov eax,dword ptr [esp+10h]"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::GetRandomTile",
+      "address": "0x00591B20",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "GetRandomTile",
+        "address": "0x00591B20",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorRandomCoordinate": "20a157d7e1dd00b20498273178d002361cf37088e178f7f647232319d03f7943"
+      },
+      "body_sha256": "d18b9058344199d0cfc5d8024087a12861cdb84078968a280df4910879509d16",
+      "source_line": 8177,
+      "return": "int32",
+      "parameter_abi": [
+        "scalar:4",
+        "pointer:4",
+        "pointer:4"
+      ],
+      "header_return": "int32",
+      "header_parameter_abi": [
+        "scalar:4",
+        "pointer:4",
+        "pointer:4"
+      ],
+      "parameter_stack_bytes": 12,
+      "catalogue_binary_range": [
+        "0x591b20",
+        "0x591bcc"
+      ],
+      "binary_range": [
+        "0x591b20",
+        "0x591bcc"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_GetRandomTile.txt",
+      "evidence_sha256": "7feef70f3ff9b47dd3702249108f4454be30613a7f76a97688cd38e4bccb4144",
+      "original_instruction_count": 55,
+      "native_ret_stack_bytes": [
+        12
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [edi+14h]"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [
+        "0x821b40",
+        "0x858b14"
+      ],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::GetTileCentre",
+      "address": "0x00591BD0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "GetTileCentre",
+        "address": "0x00591BD0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorLocalTileCentre": "20baba688b98aea60767e925d29b2ee2d76b0ab8501a32773696cf4314fcc103"
+      },
+      "body_sha256": "9142a772465c79dfe61de3959e2be1ef8dac7800e9c3c7d2962f294da15992b7",
+      "source_line": 8382,
+      "return": "CVector*",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "pointer:4"
+      ],
+      "header_return": "CVector*",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "pointer:4"
+      ],
+      "parameter_stack_bytes": 12,
+      "catalogue_binary_range": [
+        "0x591bd0",
+        "0x591c48"
+      ],
+      "binary_range": [
+        "0x591bd0",
+        "0x591c48"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_GetTileCentre.txt",
+      "evidence_sha256": "e645161efc62eee3b526f2e4d680a234da66ce64894e7cc50bfeaaf6a49aee63",
+      "original_instruction_count": 35,
+      "native_ret_stack_bytes": [
+        12
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [ecx+14h]",
+        "mov eax,dword ptr [esp+10h]"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::GetTileStatus",
+      "address": "0x005918E0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "GetTileStatus",
+        "address": "0x005918E0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "a2b3a73fbb0639b304005efa86f763ea76614929d5bc02b9f9c652833bf536be",
+      "source_line": 8155,
+      "return": "int32",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4"
+      ],
+      "header_return": "int32",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 8,
+      "catalogue_binary_range": [
+        "0x5918e0",
+        "0x59191a"
+      ],
+      "binary_range": [
+        "0x5918e0",
+        "0x59191a"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_GetTileStatus.txt",
+      "evidence_sha256": "6a1bfeccfed460afa8b7e253190d05d8449d18dd87eced90106c117212b64a15",
+      "original_instruction_count": 22,
+      "native_ret_stack_bytes": [
+        8
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esp+4]",
+        "mov eax,1"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Init",
+      "address": "0x00593BF0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Init",
+        "address": "0x00593BF0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorPositionSeed": "30da8955f881da416951dce48076437b24cd8cf129a789cc07bdec0bdec1a9a0",
+        "InteriorTruncate": "7efa05931da336bafbe37f457b572283abaf0ef7a3bf0a159ef107d996394669"
+      },
+      "body_sha256": "545206ae0026c83066a3fdbce828aca1d94621c2a2eebaa44929558e31a35239",
+      "source_line": 199,
+      "return": "int32",
+      "parameter_abi": [
+        "pointer:4"
+      ],
+      "header_return": "int32",
+      "header_parameter_abi": [
+        "pointer:4"
+      ],
+      "parameter_stack_bytes": 4,
+      "catalogue_binary_range": [
+        "0x593bf0",
+        "0x593da9"
+      ],
+      "binary_range": [
+        "0x593bf0",
+        "0x593da9"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Init.txt",
+      "evidence_sha256": "8d658e626341ede230595dd54f53e543bd28d6ef396c344290baed96c4de5916",
+      "original_instruction_count": 134,
+      "native_ret_stack_bytes": [
+        4
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr fs:[00000000h]",
+        "mov eax,dword ptr [esp+10h]",
+        "mov eax,dword ptr [edi+14h]",
+        "mov eax,dword ptr ds:[00BB3914h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov al,byte ptr [eax]",
+        "mov eax,1"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [
+        "0x821b11",
+        "0x821b40",
+        "0xbb3918"
+      ],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::IsPtInside",
+      "address": "0x005913E0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "IsPtInside",
+        "address": "0x005913E0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorProjectionInside": "19afb1c417774d89a4418a0cfb8b2527a0b750a617cfde1e0466547584f76bd2"
+      },
+      "body_sha256": "fbeae340f3c8954db7a4ccfe6f688f5a1ea51735e610ec971997c8eda8bcd751",
+      "source_line": 8040,
+      "return": "bool",
+      "parameter_abi": [
+        "pointer:4",
+        "CVector:12"
+      ],
+      "header_return": "bool",
+      "header_parameter_abi": [
+        "pointer:4",
+        "CVector:12"
+      ],
+      "parameter_stack_bytes": 16,
+      "catalogue_binary_range": [
+        "0x5913e0",
+        "0x5914c4"
+      ],
+      "binary_range": [
+        "0x5913e0",
+        "0x5914c4"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_IsPtInside.txt",
+      "evidence_sha256": "4d45dfc46977c5bab6f19d314c5e740f11ee1788f641958e91338f6d31f4235e",
+      "original_instruction_count": 72,
+      "native_ret_stack_bytes": [
+        16
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esp+10h]",
+        "mov al,1",
+        "xor al,al"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::IsVisible",
+      "address": "0x005929F0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "IsVisible",
+        "address": "0x005929F0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorNearEntrance": "047120ac57935f32fcb675b8e834c02045e31ad125cd6137b7af9d4b943780d2"
+      },
+      "body_sha256": "287f79ff0fcf50ba553831b4876952ae98eeb4e72f15fbfc4bff52dc39252cc3",
+      "source_line": 8558,
+      "return": "bool",
+      "parameter_abi": [],
+      "header_return": "bool",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x5929f0",
+        "0x592a95"
+      ],
+      "binary_range": [
+        "0x5929f0",
+        "0x592a95"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_IsVisible.txt",
+      "evidence_sha256": "b535dbaf919f93393d428397478bde18a1c445a03e83f1237b9882cf3151436a",
+      "original_instruction_count": 57,
+      "native_ret_stack_bytes": [
+        0
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr ds:[00B6F03Ch]",
+        "mov eax,0B6F02Ch",
+        "mov eax,dword ptr [eax+8]",
+        "mov al,byte ptr [edx+5]",
+        "mov eax,dword ptr [esi]",
+        "mov al,1",
+        "xor al,al"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Kitchen_FurnishEdges",
+      "address": "0x00596930",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Kitchen_FurnishEdges",
+        "address": "0x00596930",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorHomeNativeKitchen_FurnishEdges": "69b4fab74437a31376cd9e54accd4d50f529d7d41f6e874c89f1ce2308e385e1"
+      },
+      "body_sha256": "832eaa059d2111777130edf1e2531633a42d9b4baa1d134b6b157be623dbcca3",
+      "source_line": 3094,
+      "return": "CObject*",
+      "parameter_abi": [],
+      "header_return": "CObject*",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x596f70",
+        "0x5970a7"
+      ],
+      "binary_range": [
+        "0x596f70",
+        "0x5970a7"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Kitchen_FurnishEdges.txt",
+      "evidence_sha256": "91e965b8533c9d98a5209ae0c306085c8b21689f288e07027dd95455895c1293",
+      "original_instruction_count": 101,
+      "native_ret_stack_bytes": [],
+      "native_return_writes": [
+        "xor eax,eax",
+        "mov al,byte ptr [edx+1Fh]",
+        "mov eax,dword ptr [esp+1Ch]",
+        "xor eax,eax",
+        "mov al,byte ptr [edx+1Fh]",
+        "xor eax,eax",
+        "mov al,byte ptr [edx+1Fh]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00592AA0",
+          "target": "0x592aa0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00592AA0",
+          "target": "0x592aa0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00407180",
+          "target": "0x407180"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00407180",
+          "target": "0x407180"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591700",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00592AA0",
+          "target": "0x592aa0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00592AA0",
+          "target": "0x592aa0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00593120",
+          "target": "0x593120"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00592AA0",
+          "target": "0x592aa0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00592AA0",
+          "target": "0x592aa0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00592AA0",
+          "target": "0x592aa0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005934E0",
+          "target": "0x5934e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B40",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005934E0",
+          "target": "0x5934e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005934E0",
+          "target": "0x5934e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005934E0",
+          "target": "0x5934e0"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x407180",
+        "0x5911e0",
+        "0x591700",
+        "0x591e40",
+        "0x592aa0",
+        "0x593120",
+        "0x5934e0",
+        "0x821b1e",
+        "0x821b40"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Lounge_AddChairInfo",
+      "address": "0x005974E0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Lounge_AddChairInfo",
+        "address": "0x005974E0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorHomeNativeLounge_AddChairInfo": "8ac52b3cf9702df4bbabe989129befae165c14b566f679ae4e0cfb21859af6fb"
+      },
+      "body_sha256": "5e430827a7f006223fe293ecb93fc2e33be7a23212d9564a64fc0dce2e87d4e5",
+      "source_line": 3962,
+      "return": "void",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "pointer:4"
+      ],
+      "header_return": "void",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "pointer:4"
+      ],
+      "parameter_stack_bytes": 12,
+      "catalogue_binary_range": [
+        "0x5974e0",
+        "0x5975b6"
+      ],
+      "binary_range": [
+        "0x5974e0",
+        "0x5975b6"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Lounge_AddChairInfo.txt",
+      "evidence_sha256": "c11480dd404032f30b0104e262575b16081bcb2b7462f5e8a6193c1dfd4b0310",
+      "original_instruction_count": 67,
+      "native_ret_stack_bytes": [
+        12
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [ecx+14h]",
+        "mov eax,dword ptr [ecx+14h]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x591e40"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Lounge_AddHifi",
+      "address": "0x00597430",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Lounge_AddHifi",
+        "address": "0x00597430",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorHomeNativeLounge_AddHifi": "9599e79e29cccfe69f5a6a5ccbb258ccfab0e4fc1cda257641df7b186d4c5d6f"
+      },
+      "body_sha256": "25cc548d1acb204204a1febc42e0d6c0961bd8bd908eb8c1b09d6a26cb0e1735",
+      "source_line": 3818,
+      "return": "CObject*",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "header_return": "CObject*",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 16,
+      "catalogue_binary_range": [
+        "0x597430",
+        "0x5974da"
+      ],
+      "binary_range": [
+        "0x597430",
+        "0x5974da"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Lounge_AddHifi.txt",
+      "evidence_sha256": "7d18af9812de140f764582769d4e433a3ddce709237362b3b9b7672b94db95de",
+      "original_instruction_count": 54,
+      "native_ret_stack_bytes": [
+        16
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esp+8]",
+        "xor eax,eax",
+        "mov al,byte ptr [edx+1Fh]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005934E0",
+          "target": "0x5934e0"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x5911e0",
+        "0x5934e0"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Lounge_AddSofaInfo",
+      "address": "0x005975C0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Lounge_AddSofaInfo",
+        "address": "0x005975C0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorHomeNativeLounge_AddSofaInfo": "d7ff294643f4b050144dc873421967dd3570eaa5cf53e3496abc8358ccab411d"
+      },
+      "body_sha256": "0ef69b5a171c5acf109469b5dabb97e5af5f39efc3023f013fa8f480402461b4",
+      "source_line": 4252,
+      "return": "void",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "pointer:4"
+      ],
+      "header_return": "void",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "pointer:4"
+      ],
+      "parameter_stack_bytes": 12,
+      "catalogue_binary_range": [
+        "0x5975c0",
+        "0x59773d"
+      ],
+      "binary_range": [
+        "0x5975c0",
+        "0x59773d"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Lounge_AddSofaInfo.txt",
+      "evidence_sha256": "0fc41f8b4e4b2214d3eb70f58d1c8e7d06e3f64487f1b7a79e39b5cb3fe77c00",
+      "original_instruction_count": 140,
+      "native_ret_stack_bytes": [
+        12
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esp+4]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+24h]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x591e40"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Lounge_AddTV",
+      "address": "0x00597240",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Lounge_AddTV",
+        "address": "0x00597240",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorHomeNativeLounge_AddTV": "da8013878598761474cd0babe236612afab247bfc6a701f911ba9cd475116c57"
+      },
+      "body_sha256": "a2d7abb29c6c8242f70dd2fdbe507052f8bdb6782b9bc74042e470d95afa8a68",
+      "source_line": 3700,
+      "return": "CObject*",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "header_return": "CObject*",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 16,
+      "catalogue_binary_range": [
+        "0x597240",
+        "0x597428"
+      ],
+      "binary_range": [
+        "0x597240",
+        "0x597428"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Lounge_AddTV.txt",
+      "evidence_sha256": "fc52e2e7125c91845abc8ef0687e5780639e160424716f95a26a8d974d02f652",
+      "original_instruction_count": 140,
+      "native_ret_stack_bytes": [
+        16
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esp+14h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esi+14h]",
+        "xor eax,eax",
+        "mov al,byte ptr [edx+1Fh]",
+        "xor eax,eax",
+        "mov al,byte ptr [edx+1Fh]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00591E40",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005934E0",
+          "target": "0x5934e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall00821B1E",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005911E0",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "InteriorHomeCall005934E0",
+          "target": "0x5934e0"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x5911e0",
+        "0x591e40",
+        "0x5934e0",
+        "0x821b1e"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Office_FurnishCenter",
+      "address": "0x00599A30",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Office_FurnishCenter",
+        "address": "0x00599A30",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "0c56c72e08d66d169c1a361fda31da790bd2a9b2034bb3000351bc1cbf96052d",
+      "source_line": 6751,
+      "return": "int32",
+      "parameter_abi": [],
+      "header_return": "int32",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x599a30",
+        "0x599ae4"
+      ],
+      "binary_range": [
+        "0x599a30",
+        "0x599ae4"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Office_FurnishCenter.txt",
+      "evidence_sha256": "50b61ea164748b8dac1f550dcc1de830e573d77f47af976904c3eb05cf0d3af0",
+      "original_instruction_count": 74,
+      "native_ret_stack_bytes": [],
+      "native_return_writes": [
+        "mov eax,dword ptr [edi+14h]",
+        "mov eax,2AAAAAABh",
+        "mov eax,edx",
+        "mov eax,2AAAAAABh",
+        "mov eax,edx",
+        "mov eax,ecx",
+        "mov eax,dword ptr [esp+10h]",
+        "mov eax,esi",
+        "mov eax,dword ptr [esp+18h]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishCenterCalls+0]",
+          "target": "0x599960"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x599960"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Office_FurnishEdges",
+      "address": "0x00599770",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Office_FurnishEdges",
+        "address": "0x00599770",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "ad5663f75ee11bab29e782e941ad38bb70842ac7e06bdf3e517e4c2e6889c76b",
+      "source_line": 6422,
+      "return": "void",
+      "parameter_abi": [],
+      "header_return": "void",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x599770",
+        "0x59995a"
+      ],
+      "binary_range": [
+        "0x599770",
+        "0x59995a"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Office_FurnishEdges.txt",
+      "evidence_sha256": "6c45df8960bec8944e504c06024df933c831f11c9c788923f91e914e8b5511a8",
+      "original_instruction_count": 204,
+      "native_ret_stack_bytes": [],
+      "native_return_writes": [
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esi+14h]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishEdgesCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishEdgesCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishEdgesCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishEdgesCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishEdgesCalls+4]",
+          "target": "0x591d20"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishEdgesCalls+4]",
+          "target": "0x591d20"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishEdgesCalls+4]",
+          "target": "0x591d20"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishEdgesCalls+4]",
+          "target": "0x591d20"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishEdgesCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishEdgesCalls+12]",
+          "target": "0x5995b0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishEdgesCalls+12]",
+          "target": "0x5995b0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishEdgesCalls+12]",
+          "target": "0x5995b0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishEdgesCalls+12]",
+          "target": "0x5995b0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishEdgesCalls+8]",
+          "target": "0x599210"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishEdgesCalls+8]",
+          "target": "0x599210"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishEdgesCalls+8]",
+          "target": "0x599210"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_FurnishEdgesCalls+8]",
+          "target": "0x599210"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x591700",
+        "0x591d20",
+        "0x599210",
+        "0x5995b0"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Office_PlaceDesk",
+      "address": "0x005993E0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Office_PlaceDesk",
+        "address": "0x005993E0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "069bd08f9a6151cb328530f621066e162a8603e286d174161d369059f4511c8c",
+      "source_line": 6070,
+      "return": "int32",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "header_return": "int32",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 24,
+      "catalogue_binary_range": [
+        "0x5993e0",
+        "0x5995a4"
+      ],
+      "binary_range": [
+        "0x5993e0",
+        "0x5995a4"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Office_PlaceDesk.txt",
+      "evidence_sha256": "16c8376bdf1f0d3d18faeb10feaf8514c17b948e23074ec96cc2d194109478d4",
+      "original_instruction_count": 163,
+      "native_ret_stack_bytes": [
+        24
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esp+18h]",
+        "xor eax,eax",
+        "mov al,byte ptr [edx+1Fh]",
+        "mov eax,dword ptr [esp+28h]",
+        "mov eax,dword ptr [esp+2Ch]",
+        "mov eax,dword ptr [esp+10h]",
+        "mov eax,2",
+        "mov eax,1"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceDeskCalls+0]",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceDeskCalls+12]",
+          "target": "0x592aa0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceDeskCalls+0]",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceDeskCalls+12]",
+          "target": "0x592aa0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceDeskCalls+8]",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceDeskCalls+4]",
+          "target": "0x591700"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x5911e0",
+        "0x591700",
+        "0x591e40",
+        "0x592aa0"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Office_PlaceDeskQuad",
+      "address": "0x00599960",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Office_PlaceDeskQuad",
+        "address": "0x00599960",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "e30212588bfcd32cfbd145d959d8b33092dce3b6adc442fe6e3a9afd510db26a",
+      "source_line": 6655,
+      "return": "int32",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "header_return": "int32",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 16,
+      "catalogue_binary_range": [
+        "0x599960",
+        "0x599a23"
+      ],
+      "binary_range": [
+        "0x599960",
+        "0x599a23"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Office_PlaceDeskQuad.txt",
+      "evidence_sha256": "f5e2e407fdb50aac2408e3c34fbeacc059c177c169b375e8c9186d85213df10a",
+      "original_instruction_count": 88,
+      "native_ret_stack_bytes": [
+        16
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esp+10h]",
+        "mov eax,dword ptr [esp+20h]",
+        "mov eax,6"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceDeskQuadCalls+4]",
+          "target": "0x5993e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceDeskQuadCalls+4]",
+          "target": "0x5993e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceDeskQuadCalls+4]",
+          "target": "0x5993e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceDeskQuadCalls+4]",
+          "target": "0x5993e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceDeskQuadCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceDeskQuadCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceDeskQuadCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceDeskQuadCalls+0]",
+          "target": "0x591700"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x591700",
+        "0x5993e0"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Office_PlaceEdgeDesks",
+      "address": "0x005995B0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Office_PlaceEdgeDesks",
+        "address": "0x005995B0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "eb23b3c2780b1d1bbec4e7c97d75d6b029e8ab7984c3ec3c96f07e58b88b8184",
+      "source_line": 6253,
+      "return": "int32",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "header_return": "int32",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 20,
+      "catalogue_binary_range": [
+        "0x5995b0",
+        "0x599769"
+      ],
+      "binary_range": [
+        "0x5995b0",
+        "0x599769"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Office_PlaceEdgeDesks.txt",
+      "evidence_sha256": "e969472a24fbd8613dcc93e3031906bff020d06e96824ee3b3f01790bd7938c5",
+      "original_instruction_count": 147,
+      "native_ret_stack_bytes": [
+        20
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esp+24h]",
+        "mov eax,2",
+        "mov eax,1",
+        "mov eax,dword ptr [esp+24h]",
+        "mov eax,1",
+        "mov eax,dword ptr [esp+14h]",
+        "mov eax,1",
+        "mov eax,dword ptr [esp+2Ch]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeDesksCalls+8]",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeDesksCalls+12]",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeDesksCalls+8]",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeDesksCalls+12]",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeDesksCalls+0]",
+          "target": "0x591920"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeDesksCalls+8]",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeDesksCalls+12]",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeDesksCalls+8]",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeDesksCalls+12]",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeDesksCalls+4]",
+          "target": "0x5993e0"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x591920",
+        "0x5993e0",
+        "0x821b1e",
+        "0x821b40"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Office_PlaceEdgeFillers",
+      "address": "0x00599210",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Office_PlaceEdgeFillers",
+        "address": "0x00599210",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "88092b3a3be88bb1cf933f28fe56eefbfc0cdee55bcfa7d87f75ea1382d50072",
+      "source_line": 5882,
+      "return": "int32",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "header_return": "int32",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 20,
+      "catalogue_binary_range": [
+        "0x599210",
+        "0x5993db"
+      ],
+      "binary_range": [
+        "0x599210",
+        "0x5993db"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Office_PlaceEdgeFillers.txt",
+      "evidence_sha256": "31085cd8afb26a3e791702636abf733bfe4af90f855f4e7b20301549d643a6ed",
+      "original_instruction_count": 166,
+      "native_ret_stack_bytes": [
+        20
+      ],
+      "native_return_writes": [
+        "mov eax,2",
+        "mov eax,1",
+        "mov eax,dword ptr [esp+20h]",
+        "mov eax,dword ptr [esp+10h]",
+        "xor eax,eax",
+        "mov al,byte ptr [edx+1Fh]",
+        "xor eax,eax",
+        "mov al,byte ptr [edx+1Fh]",
+        "mov eax,1",
+        "mov eax,dword ptr [esp+14h]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeFillersCalls+20]",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeFillersCalls+24]",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeFillersCalls+8]",
+          "target": "0x591920"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeFillersCalls+4]",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeFillersCalls+12]",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeFillersCalls+0]",
+          "target": "0x407180"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeFillersCalls+4]",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeFillersCalls+12]",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeFillersCalls+4]",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Office_PlaceEdgeFillersCalls+16]",
+          "target": "0x592aa0"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x407180",
+        "0x5911e0",
+        "0x591920",
+        "0x591e40",
+        "0x592aa0",
+        "0x821b1e",
+        "0x821b40"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::PlaceFurniture",
+      "address": "0x00592AA0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "PlaceFurniture",
+        "address": "0x00592AA0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorFurniturePositionExact": "cf58c8f66ef7158704f8199a2833b802987c9b9d5d709069a9fedf2f94c5c55d"
+      },
+      "body_sha256": "ac0c0d2ee20f433f55d11584536a083bd369971b1caa27b2167d446889ae7783",
+      "source_line": 8565,
+      "return": "CEntity*",
+      "parameter_abi": [
+        "pointer:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "pointer:4",
+        "pointer:4",
+        "scalar:4"
+      ],
+      "header_return": "CEntity*",
+      "header_parameter_abi": [
+        "pointer:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "pointer:4",
+        "pointer:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 36,
+      "catalogue_binary_range": [
+        "0x592aa0",
+        "0x593110"
+      ],
+      "binary_range": [
+        "0x592aa0",
+        "0x593110"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_PlaceFurniture.txt",
+      "evidence_sha256": "cfa853d06133315d70857130f0ae89f1d684c2a35c3484819a5d95ce307029b3",
+      "original_instruction_count": 392,
+      "native_ret_stack_bytes": [
+        36
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr fs:[00000000h]",
+        "mov eax,dword ptr [esp+000002DCh]",
+        "xor eax,eax",
+        "mov al,byte ptr [edi+10h]",
+        "mov eax,dword ptr [esp+000002D0h]",
+        "mov eax,dword ptr [esp+14h]",
+        "mov eax,dword ptr [esp+000002DCh]",
+        "mov eax,dword ptr [esp+1Ch]",
+        "mov eax,dword ptr [esp+000002D8h]",
+        "mov eax,dword ptr [ebp+14h]",
+        "mov eax,dword ptr [ebp+14h]",
+        "xor eax,eax",
+        "mov al,byte ptr [ebp+10h]",
+        "mov eax,dword ptr [esi+8]",
+        "mov eax,dword ptr [esi+8]",
+        "mov eax,dword ptr [esi+8]",
+        "mov eax,dword ptr [esp+20h]",
+        "mov eax,dword ptr [esp+000002D8h]",
+        "mov eax,dword ptr [esp+000002D4h]",
+        "mov eax,dword ptr [esp+20h]",
+        "mov eax,esi",
+        "mov eax,dword ptr [esp+000002E0h]",
+        "xor eax,eax"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::PlaceFurnitureInCorner",
+      "address": "0x00593340",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "PlaceFurnitureInCorner",
+        "address": "0x00593340",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "14898610664df597e8bb8c743cec939fe1c9f6c83ddf82c752ca6fe7225bc439",
+      "source_line": 8644,
+      "return": "CEntity*",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4"
+      ],
+      "header_return": "CEntity*",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4"
+      ],
+      "parameter_stack_bytes": 48,
+      "catalogue_binary_range": [
+        "0x593340",
+        "0x5934d1"
+      ],
+      "binary_range": [
+        "0x593340",
+        "0x5934d1"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_PlaceFurnitureInCorner.txt",
+      "evidence_sha256": "2c73b224a182897fff26767b4d037825e89332280ba59c0d63fc01c94c5bc07c",
+      "original_instruction_count": 138,
+      "native_ret_stack_bytes": [
+        48
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [ebp+14h]",
+        "mov eax,dword ptr [esp+18h]",
+        "mov eax,dword ptr [esp+24h]",
+        "mov eax,dword ptr [ebp+14h]",
+        "mov eax,dword ptr [ebp+14h]",
+        "mov eax,dword ptr [ebp+14h]",
+        "mov eax,dword ptr [esp+34h]",
+        "mov eax,dword ptr [esp+20h]",
+        "xor eax,eax"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::PlaceFurnitureOnWall",
+      "address": "0x00593120",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "PlaceFurnitureOnWall",
+        "address": "0x00593120",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "d2f5ea284ed1c75ee1e301291adb155cea97936faf13f6bae3e034408fa3a347",
+      "source_line": 8610,
+      "return": "CEntity*",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4"
+      ],
+      "header_return": "CEntity*",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4",
+        "pointer:4"
+      ],
+      "parameter_stack_bytes": 56,
+      "catalogue_binary_range": [
+        "0x593120",
+        "0x59333e"
+      ],
+      "binary_range": [
+        "0x593120",
+        "0x59333e"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_PlaceFurnitureOnWall.txt",
+      "evidence_sha256": "d37228114393d84b953a2d926c54fdd73087c13431144c1b69d6102bb5b00af5",
+      "original_instruction_count": 181,
+      "native_ret_stack_bytes": [
+        56
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [ebx+14h]",
+        "mov eax,dword ptr [esp+1Ch]",
+        "xor eax,eax",
+        "mov eax,dword ptr [ebx+14h]",
+        "mov eax,dword ptr [ebx+14h]",
+        "mov eax,dword ptr [esp+40h]",
+        "mov eax,dword ptr [esp+40h]",
+        "mov eax,dword ptr [esp+3Ch]",
+        "mov eax,dword ptr [esp+24h]",
+        "xor eax,eax"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::PlaceObject",
+      "address": "0x005934E0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "PlaceObject",
+        "address": "0x005934E0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {
+        "InteriorObjectZExact": "66a3fc55824d2cd7d776c1b8fadf4edb021c2c948bc394c0a34d2f9498b27651"
+      },
+      "body_sha256": "0c77869aa79da59836c496d51ba252db1eea5539c28e407b08c9ff3bce836cc0",
+      "source_line": 7997,
+      "return": "CObject*",
+      "parameter_abi": [
+        "scalar:4",
+        "pointer:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "header_return": "CObject*",
+      "header_parameter_abi": [
+        "scalar:4",
+        "pointer:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 24,
+      "catalogue_binary_range": [
+        "0x5934e0",
+        "0x59390e"
+      ],
+      "binary_range": [
+        "0x5934e0",
+        "0x59390e"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_PlaceObject.txt",
+      "evidence_sha256": "e1fa91fb631ccbce3749f99649bb501185c66c740cf0f7fb69534a3ebcf3d74e",
+      "original_instruction_count": 265,
+      "native_ret_stack_bytes": [
+        24
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr fs:[00000000h]",
+        "mov eax,dword ptr [eax*4+00A9B0C8h]",
+        "mov eax,dword ptr [eax+14h]",
+        "mov eax,dword ptr [eax+8]",
+        "mov eax,dword ptr [edi+14h]",
+        "xor eax,eax",
+        "mov al,byte ptr [edi+10h]",
+        "mov eax,dword ptr [esi+8]",
+        "mov eax,dword ptr [ecx]",
+        "mov eax,dword ptr [esi+8]",
+        "mov eax,dword ptr [esp+14h]",
+        "mov eax,dword ptr [esp+28h]",
+        "mov eax,dword ptr [edi+8]",
+        "xor eax,eax",
+        "mov eax,dword ptr ds:[00BB3A18h]",
+        "mov eax,dword ptr [edi+8]",
+        "mov eax,dword ptr [esp+18h]",
+        "mov eax,dword ptr ds:[00BB3A18h]",
+        "mov eax,dword ptr [esp+18h]",
+        "mov eax,dword ptr [esp+0000016Ch]",
+        "mov eax,esi"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::ResetTiles",
+      "address": "0x00593910",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "ResetTiles",
+        "address": "0x00593910",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "96fc504aaff369f20ae281aeb8d7ccf9ac33e2ae137b0e189d9f191849f50581",
+      "source_line": 7924,
+      "return": "void",
+      "parameter_abi": [],
+      "header_return": "void",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x593a70",
+        "0x593be4"
+      ],
+      "binary_range": [
+        "0x593a70",
+        "0x593be4"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_ResetTiles.txt",
+      "evidence_sha256": "743c0575996463716da1985e6f76cad746ebfb8c4b56405d3086c748529a40d5",
+      "original_instruction_count": 143,
+      "native_ret_stack_bytes": [],
+      "native_return_writes": [
+        "mov al,byte ptr [ecx+0Eh]",
+        "mov al,byte ptr [edx+ecx]",
+        "mov al,byte ptr [edx+10h]",
+        "mov al,byte ptr [ecx+ebp+15h]",
+        "xor eax,eax"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::SetCornerTiles",
+      "address": "0x005917C0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "SetCornerTiles",
+        "address": "0x005917C0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "1847d63e186b5aab172fcca0ea965de158fc1d764c752f80c59e65b2c8d75b19",
+      "source_line": 8132,
+      "return": "void",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "header_return": "void",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 16,
+      "catalogue_binary_range": [
+        "0x5917c0",
+        "0x5918db"
+      ],
+      "binary_range": [
+        "0x5917c0",
+        "0x5918db"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_SetCornerTiles.txt",
+      "evidence_sha256": "6ceab24d99ea337dce83df381b949f4fcc43e25fcee8da231507adce9d4db297",
+      "original_instruction_count": 131,
+      "native_ret_stack_bytes": [
+        16
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esp+4]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esi+14h]"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::SetTilesStatus",
+      "address": "0x00591700",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "SetTilesStatus",
+        "address": "0x00591700",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "fcd57684488bac69bca72b46340f7f49791957ed7faec0458d24663b2c0a8836",
+      "source_line": 8114,
+      "return": "void",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "header_return": "void",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 24,
+      "catalogue_binary_range": [
+        "0x591700",
+        "0x5917b5"
+      ],
+      "binary_range": [
+        "0x591700",
+        "0x5917b5"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_SetTilesStatus.txt",
+      "evidence_sha256": "697cb016f3f36e7b872380ab71bc80995fa6dfa795911289f9d45e25b4c8249c",
+      "original_instruction_count": 73,
+      "native_ret_stack_bytes": [
+        24
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esp+4]",
+        "mov al,byte ptr [esi+ecx]",
+        "mov eax,dword ptr [esp+1Ch]"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Shop_AddShelfInfo",
+      "address": "0x0059A140",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Shop_AddShelfInfo",
+        "address": "0x0059A140",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "dc4a3b4a0fe54ac43702a3a29d7ad8e24bb4cf783cedfa38a4ffb2329c7664f8",
+      "source_line": 7495,
+      "return": "void",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "header_return": "void",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 12,
+      "catalogue_binary_range": [
+        "0x59a140",
+        "0x59a1ae"
+      ],
+      "binary_range": [
+        "0x59a140",
+        "0x59a1ae"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Shop_AddShelfInfo.txt",
+      "evidence_sha256": "1c9d660bb7e67140b8305f7f5f8d3706fddcb59db1a83a9f12d94063a2760b38",
+      "original_instruction_count": 35,
+      "native_ret_stack_bytes": [
+        12
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esp+14h]",
+        "xor eax,eax"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_AddShelfInfoCalls+4]",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_AddShelfInfoCalls+8]",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_AddShelfInfoCalls+0]",
+          "target": "0x591e40"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x591e40",
+        "0x821b1e",
+        "0x821b40"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Shop_FurnishAisles",
+      "address": "0x0059A590",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Shop_FurnishAisles",
+        "address": "0x0059A590",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "098eb55c420b132a683b33fca13f3896f3080b7f29082bccfd525828c3a0681c",
+      "source_line": 8194,
+      "return": "void",
+      "parameter_abi": [],
+      "header_return": "void",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x59a590",
+        "0x59a786"
+      ],
+      "binary_range": [
+        "0x59a590",
+        "0x59a786"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Shop_FurnishAisles.txt",
+      "evidence_sha256": "1d63b7bce1224cc9d64d9def2ccf13e93c9ca94f281ce451a21dbae559121d1e",
+      "original_instruction_count": 169,
+      "native_ret_stack_bytes": [],
+      "native_return_writes": [
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,ecx",
+        "mov eax,dword ptr [esp+18h]",
+        "mov eax,dword ptr [esp+10h]",
+        "mov eax,dword ptr [esp+10h]",
+        "mov eax,dword ptr [esp+10h]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishAislesCalls+4]",
+          "target": "0x591d20"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishAislesCalls+4]",
+          "target": "0x591d20"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishAislesCalls+16]",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishAislesCalls+20]",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishAislesCalls+8]",
+          "target": "0x599dc0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishAislesCalls+8]",
+          "target": "0x599dc0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishAislesCalls+12]",
+          "target": "0x59a140"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishAislesCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishAislesCalls+4]",
+          "target": "0x591d20"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishAislesCalls+4]",
+          "target": "0x591d20"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishAislesCalls+4]",
+          "target": "0x591d20"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishAislesCalls+4]",
+          "target": "0x591d20"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x591700",
+        "0x591d20",
+        "0x599dc0",
+        "0x59a140",
+        "0x821b1e",
+        "0x821b40"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Shop_FurnishCeiling",
+      "address": "0x0059A130",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Shop_FurnishCeiling",
+        "address": "0x0059A130",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "029e827e06dd5513fdd8ec76a412d5ba127a12a9930ed755fa47a3cf2beaa1bd",
+      "source_line": 7483,
+      "return": "void",
+      "parameter_abi": [],
+      "header_return": "void",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x59a130",
+        "0x59a130"
+      ],
+      "range_resolution": "Zero-sized Ghidra range: exact evidence at 0059A130 is one-byte RET; neighboring FurnishOffice pseudocode alias is not the implementation.",
+      "binary_range": [
+        "0x59a130",
+        "0x59a131"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Shop_FurnishCeiling.txt",
+      "evidence_sha256": "1eb614f2df35c9a2893b597d41d76a95c7d7646832e23807c0827d69a6e48663",
+      "original_instruction_count": 1,
+      "native_ret_stack_bytes": [
+        0
+      ],
+      "native_return_writes": [],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Shop_FurnishEdges",
+      "address": "0x0059A1B0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Shop_FurnishEdges",
+        "address": "0x0059A1B0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "42fcb6bca15375cc0fa126bf49b5a1c49136672fa5e5d06e1e209694c828533f",
+      "source_line": 7539,
+      "return": "void",
+      "parameter_abi": [],
+      "header_return": "void",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x59a1b0",
+        "0x59a584"
+      ],
+      "binary_range": [
+        "0x59a1b0",
+        "0x59a584"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Shop_FurnishEdges.txt",
+      "evidence_sha256": "74a517bb5607828a7675f2f5d3c0a1e0ccf979ed232295daa050daf4165ccf07",
+      "original_instruction_count": 325,
+      "native_ret_stack_bytes": [],
+      "native_return_writes": [
+        "mov eax,dword ptr [esi+14h]",
+        "mov al,byte ptr [ecx+0Ah]",
+        "mov al,byte ptr [ecx+6]",
+        "mov al,byte ptr [ecx+8]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+16]",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+20]",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+12]",
+          "target": "0x599dc0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+16]",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+20]",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+12]",
+          "target": "0x599dc0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+16]",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+20]",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+12]",
+          "target": "0x599dc0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+16]",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+20]",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+8]",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+4]",
+          "target": "0x5918e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+16]",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+20]",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+8]",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+16]",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+20]",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+8]",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+4]",
+          "target": "0x5918e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_FurnishEdgesCalls+0]",
+          "target": "0x591700"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x591700",
+        "0x5918e0",
+        "0x591e40",
+        "0x599dc0",
+        "0x821b1e",
+        "0x821b40"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Shop_Place3PieceUnit",
+      "address": "0x00599BB0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Shop_Place3PieceUnit",
+        "address": "0x00599BB0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "31118c9a3f51bcedcb7dbd8a0ab4ddec92b0f1a005cbca696e774419496e9c22",
+      "source_line": 6915,
+      "return": "int8",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "header_return": "int8",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 20,
+      "catalogue_binary_range": [
+        "0x599cd0",
+        "0x599db8"
+      ],
+      "binary_range": [
+        "0x599cd0",
+        "0x599db8"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Shop_Place3PieceUnit.txt",
+      "evidence_sha256": "220bef8d872b436a231d45c763a6c3f138d89c51179fee16356915f16fd5ae30",
+      "original_instruction_count": 102,
+      "native_ret_stack_bytes": [
+        20
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esp+18h]",
+        "mov al,1",
+        "mov eax,dword ptr [esp+24h]",
+        "mov eax,dword ptr [esp+2Ch]",
+        "mov eax,dword ptr [esp+24h]",
+        "mov al,1"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_Place3PieceUnitCalls+0]",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_Place3PieceUnitCalls+0]",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_Place3PieceUnitCalls+0]",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_Place3PieceUnitCalls+0]",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_Place3PieceUnitCalls+4]",
+          "target": "0x592aa0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_Place3PieceUnitCalls+4]",
+          "target": "0x592aa0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_Place3PieceUnitCalls+4]",
+          "target": "0x592aa0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_Place3PieceUnitCalls+4]",
+          "target": "0x592aa0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_Place3PieceUnitCalls+4]",
+          "target": "0x592aa0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_Place3PieceUnitCalls+4]",
+          "target": "0x592aa0"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x5911e0",
+        "0x592aa0"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Shop_PlaceCounter",
+      "address": "0x00599EF0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Shop_PlaceCounter",
+        "address": "0x00599EF0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "3f1cd017743bfd35bdb690e1d43d5541e1e257bf0ef95ee0fa4b4b3724ce9f63",
+      "source_line": 7278,
+      "return": "int32",
+      "parameter_abi": [
+        "scalar:4"
+      ],
+      "header_return": "int32",
+      "header_parameter_abi": [
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 4,
+      "catalogue_binary_range": [
+        "0x599ef0",
+        "0x59a025"
+      ],
+      "binary_range": [
+        "0x599ef0",
+        "0x59a025"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Shop_PlaceCounter.txt",
+      "evidence_sha256": "08bf04285ea10a6f405abe543bd6f23e06565050e23b81698ec567c288185aeb",
+      "original_instruction_count": 122,
+      "native_ret_stack_bytes": [
+        4
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esi+14h]",
+        "xor eax,eax",
+        "mov al,byte ptr [edx+1Fh]",
+        "mov al,byte ptr [esp+20h]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esi+14h]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceCounterCalls+0]",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceCounterCalls+0]",
+          "target": "0x5911e0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceCounterCalls+12]",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceCounterCalls+16]",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceCounterCalls+8]",
+          "target": "0x592aa0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceCounterCalls+4]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceCounterCalls+8]",
+          "target": "0x592aa0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceCounterCalls+4]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceCounterCalls+8]",
+          "target": "0x592aa0"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x5911e0",
+        "0x591700",
+        "0x592aa0",
+        "0x821b1e",
+        "0x821b40"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Shop_PlaceEdgeUnits",
+      "address": "0x00599DC0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Shop_PlaceEdgeUnits",
+        "address": "0x00599DC0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "1905d9a21d7eb2a477359ad9f087f2ee975b92355bb51ce5e04557339829aec2",
+      "source_line": 7135,
+      "return": "int32",
+      "parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "header_return": "int32",
+      "header_parameter_abi": [
+        "scalar:4",
+        "scalar:4",
+        "scalar:4",
+        "scalar:4"
+      ],
+      "parameter_stack_bytes": 16,
+      "catalogue_binary_range": [
+        "0x599dc0",
+        "0x599ee3"
+      ],
+      "binary_range": [
+        "0x599dc0",
+        "0x599ee3"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Shop_PlaceEdgeUnits.txt",
+      "evidence_sha256": "95858ecdb597f43ef53436678feb923c4ecc08a41a7697defc20e2f73de882ce",
+      "original_instruction_count": 125,
+      "native_ret_stack_bytes": [
+        16
+      ],
+      "native_return_writes": [
+        "mov eax,dword ptr [esp+10h]",
+        "mov eax,2",
+        "mov eax,1",
+        "mov eax,1",
+        "mov eax,dword ptr [esp+18h]",
+        "mov eax,dword ptr [esp+14h]",
+        "mov eax,dword ptr ds:[00BB3DE4h]",
+        "mov eax,dword ptr [esp+24h]",
+        "mov eax,esi",
+        "mov eax,esi",
+        "mov eax,esi",
+        "mov eax,dword ptr [esp+24h]",
+        "mov eax,esi",
+        "mov eax,esi"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceEdgeUnitsCalls+0]",
+          "target": "0x591920"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceEdgeUnitsCalls+8]",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceEdgeUnitsCalls+12]",
+          "target": "0x821b40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceEdgeUnitsCalls+4]",
+          "target": "0x599bb0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceEdgeUnitsCalls+4]",
+          "target": "0x599bb0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceEdgeUnitsCalls+4]",
+          "target": "0x599bb0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceEdgeUnitsCalls+4]",
+          "target": "0x599bb0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceEdgeUnitsCalls+4]",
+          "target": "0x599bb0"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x591920",
+        "0x599bb0",
+        "0x821b1e",
+        "0x821b40"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Shop_PlaceFixedUnits",
+      "address": "0x0059A030",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Shop_PlaceFixedUnits",
+        "address": "0x0059A030",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "fdf5f9ac33cfac3d8dc3f6df597d168e5d18d43027d5118b63b6677c631e41c7",
+      "source_line": 7410,
+      "return": "void",
+      "parameter_abi": [],
+      "header_return": "void",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x59a030",
+        "0x59a0d6"
+      ],
+      "binary_range": [
+        "0x59a030",
+        "0x59a0d6"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Shop_PlaceFixedUnits.txt",
+      "evidence_sha256": "d4e7e695a58373bf8e3b52b1c444bcb35a1ea3992f305a8cc9ea2bba69f2aab2",
+      "original_instruction_count": 63,
+      "native_ret_stack_bytes": [],
+      "native_return_writes": [
+        "mov eax,dword ptr [esi+14h]",
+        "mov al,byte ptr [eax+5]",
+        "mov eax,dword ptr [esi+14h]",
+        "mov eax,dword ptr [esp+4]"
+      ],
+      "original_address_transfers": [
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceFixedUnitsCalls+0]",
+          "target": "0x591700"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceFixedUnitsCalls+12]",
+          "target": "0x821b1e"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceFixedUnitsCalls+8]",
+          "target": "0x599ef0"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceFixedUnitsCalls+4]",
+          "target": "0x591e40"
+        },
+        {
+          "instruction": "call",
+          "operand": "dword ptr [InteriorCommerce_Shop_PlaceFixedUnitsCalls+4]",
+          "target": "0x591e40"
+        }
+      ],
+      "bounded_external_addresses": [
+        "0x591700",
+        "0x591e40",
+        "0x599ef0",
+        "0x821b1e"
+      ],
+      "implementation_kind": "locally_relocated_asm",
+      "issues": []
+    },
+    {
+      "function": "Interior_c::Unfurnish",
+      "address": "0x005915D0",
+      "catalogue": {
+        "class": "Interior_c",
+        "fn_name": "Unfurnish",
+        "address": "0x005915D0",
+        "reversed": "1",
+        "locked": "0",
+        "validated": "1",
+        "type": "S"
+      },
+      "helper_bodies": {},
+      "body_sha256": "f7ce1e039086949e0e8504d88cf11690938f219639fd5ade2b8434499fe5d141",
+      "source_line": 8077,
+      "return": "void",
+      "parameter_abi": [],
+      "header_return": "void",
+      "header_parameter_abi": [],
+      "parameter_stack_bytes": 0,
+      "catalogue_binary_range": [
+        "0x5915d0",
+        "0x59167a"
+      ],
+      "binary_range": [
+        "0x5915d0",
+        "0x59167a"
+      ],
+      "evidence": "reversing/InteriorEvidence/Interior_Unfurnish.txt",
+      "evidence_sha256": "b2e4fe753cc21bacf590bc1619e2fd1aaa445ad3412814d884330f930018307b",
+      "original_instruction_count": 55,
+      "native_ret_stack_bytes": [],
+      "native_return_writes": [
+        "mov eax,dword ptr [esi+8]"
+      ],
+      "original_address_transfers": [],
+      "bounded_external_addresses": [],
+      "implementation_kind": "cpp_with_helpers",
+      "issues": []
+    }
+  ],
+  "issues": [],
+  "limits": [
+    "Static structural/ABI audit; not a runtime validation certificate.",
+    "External collaborators and other Interior_c functions are explicitly allowed outside each target original-body range.",
+    "C++ semantics, dynamic callback ABI and arbitrary exception behavior remain bounded by differential fixtures/manual ASM review.",
+    "No claim of full EXE independence; helpers may call canonical external functions.",
+    "Return-write inventory is evidence; register values on every path require runtime/manual analysis."
+  ]
+}

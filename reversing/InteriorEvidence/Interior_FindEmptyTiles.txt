@@ -1,0 +1,96 @@
+// Interior_c::FindEmptyTiles @ 0x00591c50 [0x591c50..0x591d11]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4
+FUN_00591c50(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined4 *param_4)
+
+{
+  char cVar1;
+  undefined4 uVar2;
+  undefined4 uVar3;
+  undefined4 local_8;
+  
+  local_8 = 0;
+  do {
+    _rand();
+    uVar2 = FUN_00821b40();
+    _rand();
+    uVar3 = FUN_00821b40();
+    cVar1 = FUN_00591680(uVar2,uVar3,param_1,param_2,1);
+    if (cVar1 != '\0') {
+      *param_3 = uVar2;
+      *param_4 = uVar3;
+      return 1;
+    }
+    local_8 = local_8 + 1;
+  } while (local_8 < 100);
+  return 0;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+00591C50: sub esp,8
+00591C53: push ebx
+00591C54: push ebp
+00591C55: mov ebp,dword ptr [esp+18h]
+00591C59: push esi
+00591C5A: push edi
+00591C5B: mov esi,ecx
+00591C5D: mov dword ptr [esp+10h],0
+00591C65: mov eax,dword ptr [esi+14h]
+00591C68: movzx ecx,byte ptr [eax+2]
+00591C6C: sub ecx,dword ptr [esp+1Ch]
+00591C70: mov dword ptr [esp+14h],ecx
+00591C74: call 00821B1E
+00591C79: and eax,0FFFFh
+00591C7E: mov dword ptr [esp+20h],eax
+00591C82: fild dword ptr [esp+20h]
+00591C86: fmul dword ptr ds:[00858B14h]
+00591C8C: fimul dword ptr [esp+14h]
+00591C90: call 00821B40
+00591C95: mov edx,dword ptr [esi+14h]
+00591C98: mov edi,eax
+00591C9A: movzx eax,byte ptr [edx+3]
+00591C9E: sub eax,ebp
+00591CA0: mov dword ptr [esp+14h],eax
+00591CA4: call 00821B1E
+00591CA9: and eax,0FFFFh
+00591CAE: mov dword ptr [esp+20h],eax
+00591CB2: fild dword ptr [esp+20h]
+00591CB6: fmul dword ptr ds:[00858B14h]
+00591CBC: fimul dword ptr [esp+14h]
+00591CC0: call 00821B40
+00591CC5: mov ecx,dword ptr [esp+1Ch]
+00591CC9: push 1
+00591CCB: push ebp
+00591CCC: push ecx
+00591CCD: mov ebx,eax
+00591CCF: push ebx
+00591CD0: push edi
+00591CD1: mov ecx,esi
+00591CD3: call 00591680
+00591CD8: test al,al
+00591CDA: jne 00591CFA
+00591CDC: mov eax,dword ptr [esp+10h]
+00591CE0: inc eax
+00591CE1: cmp eax,64h
+00591CE4: mov dword ptr [esp+10h],eax
+00591CE8: jl 00591C65
+00591CEE: pop edi
+00591CEF: pop esi
+00591CF0: pop ebp
+00591CF1: xor al,al
+00591CF3: pop ebx
+00591CF4: add esp,8
+00591CF7: ret 10h
+00591CFA: mov edx,dword ptr [esp+24h]
+00591CFE: mov eax,dword ptr [esp+28h]
+00591D02: mov dword ptr [edx],edi
+00591D04: pop edi
+00591D05: pop esi
+00591D06: mov dword ptr [eax],ebx
+00591D08: pop ebp
+00591D09: mov al,1
+00591D0B: pop ebx
+00591D0C: add esp,8
+00591D0F: ret 10h

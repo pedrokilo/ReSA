@@ -3809,11 +3809,11 @@
   },
   {
     "file": "source/game_sa/Interior/Interior_c.cpp",
-    "sha256": "e23c8b8ac31c0128b0fc90c65a1ade5c7209ffd12a7948bb7acb811edc257cd7"
+    "sha256": "68f7a7ac357bb8f8f9045eff0449e701623632438d5c425b83aa9544fdfb3c90"
   },
   {
     "file": "source/game_sa/Interior/Interior_c.h",
-    "sha256": "e73ff60d10a02c6db19026f6a92f374cbfd98e23f0cd7bd4811b988bea8fba82"
+    "sha256": "481975c80d69fbdf7a92f7dc3ef77f439140a02eaf8585015536ba93e9ea6c5f"
   },
   {
     "file": "source/game_sa/Interior/InteriorEffectInfo_t.h",
@@ -3837,7 +3837,7 @@
   },
   {
     "file": "source/game_sa/Interior/InteriorManager_c.h",
-    "sha256": "fa18123df8e2d9ade833e20cabe7af470b548d95c9aeb929230bd2167d2bc67e"
+    "sha256": "03902416fd4a3d05afde758819ecb4296316c711f6894955b75bbf1a9d700aab"
   },
   {
     "file": "source/game_sa/Interior/InteriorObject.h",

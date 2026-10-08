@@ -1,0 +1,230 @@
+// Interior_c::Office_PlaceEdgeDesks @ 0x005995b0 [0x5995b0..0x599769]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+int FUN_005995b0(undefined4 param_1,int param_2,int param_3,int param_4,int param_5)
+
+{
+  char cVar1;
+  int iVar2;
+  int iVar3;
+  undefined4 uVar4;
+  int iVar5;
+  int iVar6;
+  int in_ECX;
+  uint uVar7;
+  
+  _rand();
+  iVar2 = FUN_00821b40();
+  _rand();
+  iVar3 = FUN_00821b40();
+  if ((param_4 == 2) || (uVar4 = 2, param_4 == 0)) {
+    uVar4 = 1;
+  }
+  iVar5 = FUN_00591920(param_2,param_3,uVar4,1);
+  if (iVar5 < 2) {
+    return 1;
+  }
+  iVar5 = iVar5 / 2;
+  _rand();
+  iVar6 = FUN_00821b40();
+  if (2 - iVar6 <= iVar5) {
+    _rand();
+    iVar5 = FUN_00821b40();
+    iVar5 = 2 - iVar5;
+  }
+  iVar6 = 0;
+  if (0x1e - iVar3 < iVar2) {
+    return 1;
+  }
+  if (0 < iVar5) {
+    uVar7 = param_4 - 2;
+    param_4 = iVar5;
+    do {
+      if (param_5 == 0) {
+        cVar1 = *(char *)(in_ECX + 0x791);
+        iVar2 = param_3 + -1;
+LAB_00599746:
+        iVar5 = (int)cVar1;
+        iVar3 = iVar6 + param_2;
+LAB_0059974d:
+        iVar2 = FUN_005993e0(iVar3,iVar2,uVar7 & 3,0x46,0,iVar5);
+        iVar6 = iVar6 + iVar2;
+      }
+      else {
+        if (param_5 == 3) {
+          iVar5 = (int)*(char *)(in_ECX + 0x791);
+          iVar2 = iVar6 + param_3;
+          iVar3 = param_2 + -1;
+          goto LAB_0059974d;
+        }
+        if (param_5 == 1) {
+          iVar5 = (int)*(char *)(in_ECX + 0x791);
+          iVar2 = iVar6 + param_3;
+          iVar3 = param_2;
+          goto LAB_0059974d;
+        }
+        if (param_5 == 2) {
+          cVar1 = *(char *)(in_ECX + 0x791);
+          iVar2 = param_3;
+          goto LAB_00599746;
+        }
+      }
+      param_4 = param_4 + -1;
+    } while (param_4 != 0);
+  }
+  return iVar6 + 1;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+005995B0: sub esp,8
+005995B3: push ebx
+005995B4: push ebp
+005995B5: push edi
+005995B6: mov edi,ecx
+005995B8: call 00821B1E
+005995BD: and eax,0FFFFh
+005995C2: mov dword ptr [esp+0Ch],eax
+005995C6: fild dword ptr [esp+0Ch]
+005995CA: fmul dword ptr ds:[00858B14h]
+005995D0: fmul dword ptr ds:[00858628h]
+005995D6: call 00821B40
+005995DB: mov dword ptr [esp+10h],eax
+005995DF: call 00821B1E
+005995E4: and eax,0FFFFh
+005995E9: mov dword ptr [esp+0Ch],eax
+005995ED: fild dword ptr [esp+0Ch]
+005995F1: fmul dword ptr ds:[00858B14h]
+005995F7: fmul dword ptr ds:[0085A708h]
+005995FD: call 00821B40
+00599602: mov ebx,1Eh
+00599607: sub ebx,eax
+00599609: mov eax,dword ptr [esp+24h]
+0059960D: cmp eax,2
+00599610: je 0059961B
+00599612: test eax,eax
+00599614: mov eax,2
+00599619: jne 00599620
+0059961B: mov eax,1
+00599620: mov ebp,dword ptr [esp+20h]
+00599624: push 1
+00599626: push eax
+00599627: mov eax,dword ptr [esp+24h]
+0059962B: push ebp
+0059962C: push eax
+0059962D: mov ecx,edi
+0059962F: call 00591920
+00599634: cmp eax,1
+00599637: jg 00599647
+00599639: pop edi
+0059963A: pop ebp
+0059963B: mov eax,1
+00599640: pop ebx
+00599641: add esp,8
+00599644: ret 14h
+00599647: cdq
+00599648: push esi
+00599649: sub eax,edx
+0059964B: mov esi,eax
+0059964D: sar esi,1
+0059964F: call 00821B1E
+00599654: and eax,0FFFFh
+00599659: mov dword ptr [esp+24h],eax
+0059965D: fild dword ptr [esp+24h]
+00599661: fmul dword ptr ds:[00858B14h]
+00599667: fmul dword ptr ds:[00858B18h]
+0059966D: call 00821B40
+00599672: mov ecx,2
+00599677: sub ecx,eax
+00599679: cmp esi,ecx
+0059967B: jge 00599681
+0059967D: mov ecx,esi
+0059967F: jmp 005996AB
+00599681: call 00821B1E
+00599686: and eax,0FFFFh
+0059968B: mov dword ptr [esp+24h],eax
+0059968F: fild dword ptr [esp+24h]
+00599693: fmul dword ptr ds:[00858B14h]
+00599699: fmul dword ptr ds:[00858B18h]
+0059969F: call 00821B40
+005996A4: mov ecx,2
+005996A9: sub ecx,eax
+005996AB: mov eax,dword ptr [esp+14h]
+005996AF: xor esi,esi
+005996B1: cmp eax,ebx
+005996B3: jle 005996C4
+005996B5: pop esi
+005996B6: pop edi
+005996B7: pop ebp
+005996B8: mov eax,1
+005996BD: pop ebx
+005996BE: add esp,8
+005996C1: ret 14h
+005996C4: test ecx,ecx
+005996C6: jle 0059975D
+005996CC: mov ebx,dword ptr [esp+28h]
+005996D0: add ebx,0FFFFFFFEh
+005996D3: and ebx,3
+005996D6: mov dword ptr [esp+28h],ecx
+005996DA: lea ebx,[ebx+00000000h]
+005996E0: mov eax,dword ptr [esp+2Ch]
+005996E4: test eax,eax
+005996E6: jne 005996FA
+005996E8: movsx edx,byte ptr [edi+00000791h]
+ 00
+005996EF: push edx
+005996F0: push eax
+005996F1: push 46h
+005996F3: push ebx
+005996F4: lea eax,[ebp-1]
+005996F7: push eax
+005996F8: jmp 00599746
+005996FA: cmp eax,3
+005996FD: jne 00599717
+005996FF: movsx eax,byte ptr [edi+00000791h]
+ 00
+00599706: mov edx,dword ptr [esp+20h]
+0059970A: push eax
+0059970B: push 0
+0059970D: push 46h
+0059970F: push ebx
+00599710: lea ecx,[esi+ebp]
+00599713: push ecx
+00599714: dec edx
+00599715: jmp 0059974D
+00599717: cmp eax,1
+0059971A: jne 00599733
+0059971C: movsx eax,byte ptr [edi+00000791h]
+ 00
+00599723: mov edx,dword ptr [esp+20h]
+00599727: push eax
+00599728: push 0
+0059972A: push 46h
+0059972C: push ebx
+0059972D: lea ecx,[esi+ebp]
+00599730: push ecx
+00599731: jmp 0059974D
+00599733: cmp eax,2
+00599736: jne 00599757
+00599738: movsx eax,byte ptr [edi+00000791h]
+ 00
+0059973F: push eax
+00599740: push 0
+00599742: push 46h
+00599744: push ebx
+00599745: push ebp
+00599746: mov ecx,dword ptr [esp+34h]
+0059974A: lea edx,[esi+ecx]
+0059974D: mov ecx,edi
+0059974F: push edx
+00599750: call 005993E0
+00599755: add esi,eax
+00599757: dec dword ptr [esp+28h]
+0059975B: jne 005996E0
+0059975D: lea eax,[esi+1]
+00599760: pop esi
+00599761: pop edi
+00599762: pop ebp
+00599763: pop ebx
+00599764: add esp,8
+00599767: ret 14h

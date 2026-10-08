@@ -1,0 +1,45 @@
+// Interior_c::Destructor @ 0x00591360 [0x591360..0x5913ab]
+// Ghidra 12.1.4 vÃ­a REA, gta-sa.exe 1.0 US (sha256 72ae59e4â€¦). PseudocÃ³digo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00591360(void)
+
+{
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  puStack_8 = &LAB_0083cf48;
+  local_c = ExceptionList;
+  local_4 = 0;
+  ExceptionList = &local_c;
+  FUN_004a8de0();
+  local_4 = 0xffffffff;
+  FUN_004a8dc0();
+  ExceptionList = local_c;
+  return;
+}
+
+
+==== exact ASM; function_ranges canonical EXE ====
+00591360: push 0FFFFFFFFh
+00591362: push 83CF48h
+00591367: mov eax,dword ptr fs:[00000000h]
+0059136D: push eax
+0059136E: mov dword ptr fs:[00000000h],esp
+ 00
+00591375: push ecx
+00591376: push esi
+00591377: mov esi,ecx
+00591379: mov dword ptr [esp+4],esi
+0059137D: lea ecx,[esi+5Ch]
+00591380: mov dword ptr [esp+10h],0
+00591388: call 004A8DE0
+0059138D: mov ecx,esi
+0059138F: mov dword ptr [esp+10h],0FFFFFFFFh
+00591397: call 004A8DC0
+0059139C: mov ecx,dword ptr [esp+8]
+005913A0: pop esi
+005913A1: mov dword ptr fs:[00000000h],ecx
+ 00
+005913A8: add esp,10h
+005913AB: ret

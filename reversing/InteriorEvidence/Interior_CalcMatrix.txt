@@ -1,0 +1,111 @@
+// Interior_c::CalcMatrix @ 0x005914d0 [0x5914d0..0x59158a]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005914d0(undefined4 param_1)
+
+{
+  undefined4 *puVar1;
+  int iVar2;
+  int in_ECX;
+  undefined4 local_c;
+  undefined4 local_8;
+  undefined4 local_4;
+  
+  puVar1 = (undefined4 *)(in_ECX + 0x18);
+  *(undefined4 *)(in_ECX + 0x40) = 0x3f800000;
+  *(undefined4 *)(in_ECX + 0x2c) = 0x3f800000;
+  *puVar1 = 0x3f800000;
+  local_c = 0;
+  local_8 = 0;
+  local_4 = 0x3f800000;
+  *(undefined4 *)(in_ECX + 0x28) = 0;
+  *(undefined4 *)(in_ECX + 0x20) = 0;
+  *(undefined4 *)(in_ECX + 0x1c) = 0;
+  *(undefined4 *)(in_ECX + 0x3c) = 0;
+  *(undefined4 *)(in_ECX + 0x38) = 0;
+  *(undefined4 *)(in_ECX + 0x30) = 0;
+  *(undefined4 *)(in_ECX + 0x50) = 0;
+  *(undefined4 *)(in_ECX + 0x4c) = 0;
+  *(undefined4 *)(in_ECX + 0x48) = 0;
+  *(uint *)(in_ECX + 0x24) = *(uint *)(in_ECX + 0x24) | 0x20003;
+  FUN_007f1fd0(puVar1,&local_c,*(undefined4 *)(*(int *)(in_ECX + 0x14) + 0x20),0);
+  FUN_007f2450(puVar1,param_1,2);
+  iVar2 = FUN_00594bd0();
+  if (*(int *)(iVar2 + 0x18) != 0) {
+    FUN_007f18b0(puVar1,puVar1,*(int *)(*(int *)(iVar2 + 0x18) + 4) + 0x10);
+    return;
+  }
+  FUN_007f18b0(puVar1,puVar1,0);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+005914D0: sub esp,0Ch
+005914D3: push ebx
+005914D4: push esi
+005914D5: mov esi,ecx
+005914D7: mov ecx,dword ptr [esi+24h]
+005914DA: push edi
+005914DB: xor edi,edi
+005914DD: mov eax,3F800000h
+005914E2: lea ebx,[esi+18h]
+005914E5: mov dword ptr [esi+40h],eax
+005914E8: mov dword ptr [esi+2Ch],eax
+005914EB: mov dword ptr [ebx],eax
+005914ED: mov eax,dword ptr [esi+14h]
+005914F0: or ecx,20003h
+005914F6: mov dword ptr [esp+0Ch],0
+005914FE: mov dword ptr [esp+10h],0
+00591506: mov dword ptr [esp+14h],3F800000h
+0059150E: mov dword ptr [esi+28h],edi
+00591511: mov dword ptr [esi+20h],edi
+00591514: mov dword ptr [esi+1Ch],edi
+00591517: mov dword ptr [esi+3Ch],edi
+0059151A: mov dword ptr [esi+38h],edi
+0059151D: mov dword ptr [esi+30h],edi
+00591520: mov dword ptr [esi+50h],edi
+00591523: mov dword ptr [esi+4Ch],edi
+00591526: mov dword ptr [esi+48h],edi
+00591529: mov dword ptr [esi+24h],ecx
+0059152C: mov ecx,dword ptr [eax+20h]
+0059152F: push edi
+00591530: push ecx
+00591531: lea edx,[esp+14h]
+00591535: push edx
+00591536: push ebx
+00591537: call 007F1FD0
+0059153C: mov eax,dword ptr [esp+2Ch]
+00591540: push 2
+00591542: push eax
+00591543: push ebx
+00591544: call 007F2450
+00591549: mov ecx,dword ptr [esi+0Ch]
+0059154C: add esp,1Ch
+0059154F: call 00594BD0
+00591554: mov eax,dword ptr [eax+18h]
+00591557: cmp eax,edi
+00591559: je 00591575
+0059155B: mov eax,dword ptr [eax+4]
+0059155E: add eax,10h
+00591561: push eax
+00591562: push ebx
+00591563: push ebx
+00591564: call 007F18B0
+00591569: add esp,0Ch
+0059156C: pop edi
+0059156D: pop esi
+0059156E: pop ebx
+0059156F: add esp,0Ch
+00591572: ret 4
+00591575: xor eax,eax
+00591577: push eax
+00591578: push ebx
+00591579: push ebx
+0059157A: call 007F18B0
+0059157F: add esp,0Ch
+00591582: pop edi
+00591583: pop esi
+00591584: pop ebx
+00591585: add esp,0Ch
+00591588: ret 4

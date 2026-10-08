@@ -1,0 +1,105 @@
+// Interior_c::Shop_PlaceFixedUnits @ 0x0059a030 [0x59a030..0x59a0d6]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0059a030(void)
+
+{
+  char cVar1;
+  int iVar2;
+  int in_ECX;
+  int iVar3;
+  bool bVar4;
+  int local_4;
+  
+  cVar1 = *(char *)(*(int *)(in_ECX + 0x14) + 5);
+  if (cVar1 == -1) {
+    return;
+  }
+  FUN_00591700(cVar1 + -1,0,2,1,7,0);
+  iVar3 = (int)*(char *)(*(int *)(in_ECX + 0x14) + 5);
+  iVar2 = iVar3 + -2;
+  if ((int)(((uint)*(byte *)(*(int *)(in_ECX + 0x14) + 2) - iVar3) + -2) < 6) {
+    local_4 = in_ECX;
+    if (iVar2 < 6) goto LAB_0059a0a3;
+    bVar4 = true;
+  }
+  else if (iVar2 < 6) {
+    bVar4 = false;
+  }
+  else {
+    iVar2 = _rand();
+    bVar4 = iVar2 < 0x3fff;
+  }
+  local_4 = FUN_00599ef0(bVar4);
+LAB_0059a0a3:
+  FUN_00591e40(9,(float)local_4,0x40000000,0,0);
+  FUN_00591e40(10,(float)local_4,0,2,0);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+0059A030: push ecx
+0059A031: push esi
+0059A032: mov esi,ecx
+0059A034: mov eax,dword ptr [esi+14h]
+0059A037: mov al,byte ptr [eax+5]
+0059A03A: cmp al,0FFh
+0059A03C: je 0059A0D4
+0059A042: push 0
+0059A044: push 7
+0059A046: push 1
+0059A048: movsx ecx,al
+0059A04B: push 2
+0059A04D: dec ecx
+0059A04E: push 0
+0059A050: push ecx
+0059A051: mov ecx,esi
+0059A053: call 00591700
+0059A058: mov eax,dword ptr [esi+14h]
+0059A05B: movsx ecx,byte ptr [eax+5]
+0059A05F: movzx eax,byte ptr [eax+2]
+0059A063: sub eax,ecx
+0059A065: sub eax,2
+0059A068: cmp eax,6
+0059A06B: lea edx,[ecx-2]
+0059A06E: jl 0059A091
+0059A070: cmp edx,6
+0059A073: jl 0059A08D
+0059A075: call 00821B1E
+0059A07A: cmp eax,3FFFh
+0059A07F: setl dl
+0059A082: mov byte ptr [esp+4],dl
+0059A086: mov eax,dword ptr [esp+4]
+0059A08A: push eax
+0059A08B: jmp 0059A098
+0059A08D: push 0
+0059A08F: jmp 0059A098
+0059A091: cmp edx,6
+0059A094: jl 0059A0A3
+0059A096: push 1
+0059A098: mov ecx,esi
+0059A09A: call 00599EF0
+0059A09F: mov dword ptr [esp+4],eax
+0059A0A3: fild dword ptr [esp+4]
+0059A0A7: push edi
+0059A0A8: push 0
+0059A0AA: push 0
+0059A0AC: fstp dword ptr [esp+10h]
+0059A0B0: push 40000000h
+0059A0B5: mov edi,dword ptr [esp+14h]
+0059A0B9: push edi
+0059A0BA: push 9
+0059A0BC: mov ecx,esi
+0059A0BE: call 00591E40
+0059A0C3: push 0
+0059A0C5: push 2
+0059A0C7: push 0
+0059A0C9: push edi
+0059A0CA: push 0Ah
+0059A0CC: mov ecx,esi
+0059A0CE: call 00591E40
+0059A0D3: pop edi
+0059A0D4: pop esi
+0059A0D5: pop ecx
+0059A0D6: ret

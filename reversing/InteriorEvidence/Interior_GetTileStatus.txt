@@ -1,0 +1,40 @@
+// Interior_c::GetTileStatus @ 0x005918e0 [0x5918e0..0x59191a]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined1 FUN_005918e0(int param_1,int param_2)
+
+{
+  int in_ECX;
+  
+  if ((((param_1 < (int)(uint)*(byte *)(*(int *)(in_ECX + 0x14) + 2)) &&
+       (param_2 < (int)(uint)*(byte *)(*(int *)(in_ECX + 0x14) + 3))) && (-1 < param_1)) &&
+     (-1 < param_2)) {
+    return *(undefined1 *)(in_ECX + 0x68 + param_1 * 0x1e + param_2);
+  }
+  return 1;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+005918E0: mov edx,dword ptr [ecx+14h]
+005918E3: mov eax,dword ptr [esp+4]
+005918E7: push esi
+005918E8: movzx esi,byte ptr [edx+2]
+005918EC: cmp eax,esi
+005918EE: jge 00591912
+005918F0: movzx esi,byte ptr [edx+3]
+005918F4: mov edx,dword ptr [esp+0Ch]
+005918F8: cmp edx,esi
+005918FA: jge 00591912
+005918FC: test eax,eax
+005918FE: jl 00591912
+00591900: test edx,edx
+00591902: jl 00591912
+00591904: imul eax,eax,1Eh
+00591907: add eax,edx
+00591909: movzx eax,byte ptr [ecx+eax+68h]
+0059190E: pop esi
+0059190F: ret 8
+00591912: mov eax,1
+00591917: pop esi
+00591918: ret 8

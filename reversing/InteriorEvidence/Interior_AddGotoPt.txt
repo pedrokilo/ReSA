@@ -1,0 +1,136 @@
+// Interior_c::AddGotoPt @ 0x00591d20 [0x591d20..0x591e32]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00591d20(int param_1,int param_2,float param_3,float param_4)
+
+{
+  undefined4 *puVar1;
+  char cVar2;
+  int iVar3;
+  int in_ECX;
+  undefined4 local_c;
+  undefined4 local_8;
+  undefined4 local_4;
+  
+  if ((*(char *)(in_ECX + 0x40c) < '\x10') &&
+     (((((param_1 < (int)(uint)*(byte *)(*(int *)(in_ECX + 0x14) + 2) &&
+         (param_2 < (int)(uint)*(byte *)(*(int *)(in_ECX + 0x14) + 3))) && (-1 < param_1)) &&
+       ((-1 < param_2 && (*(char *)(param_1 * 0x1e + param_2 + 0x68 + in_ECX) == '\x03')))) ||
+      (iVar3 = FUN_005918e0(param_1,param_2), iVar3 == 7)))) {
+    FUN_00591bd0((float)param_1 + param_3,(float)param_2 + param_4,&local_c);
+    puVar1 = (undefined4 *)(*(char *)(in_ECX + 0x40c) * 0x10 + 0x414 + in_ECX);
+    *puVar1 = local_c;
+    puVar1[1] = local_8;
+    puVar1[2] = local_4;
+    *(char *)((*(char *)(in_ECX + 0x40c) + 0x41) * 0x10 + in_ECX) = (char)param_1;
+    *(char *)(*(char *)(in_ECX + 0x40c) * 0x10 + 0x411 + in_ECX) = (char)param_2;
+    if (((-1 < param_1) && (-1 < param_2)) &&
+       ((param_1 + 1 <= (int)(uint)*(byte *)(*(int *)(in_ECX + 0x14) + 2) &&
+        (param_2 + 1 <= (int)(uint)*(byte *)(*(int *)(in_ECX + 0x14) + 3))))) {
+      param_2 = param_1 * 0x1e + param_2;
+      cVar2 = *(char *)(param_2 + 0x68 + in_ECX);
+      if ((cVar2 == '\x03') || (cVar2 == '\0')) {
+        *(undefined1 *)(param_2 + 0x68 + in_ECX) = 4;
+      }
+    }
+    *(char *)(in_ECX + 0x40c) = *(char *)(in_ECX + 0x40c) + '\x01';
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+00591D20: sub esp,0Ch
+00591D23: push esi
+00591D24: mov esi,ecx
+00591D26: cmp byte ptr [esi+0000040Ch],10h
+ 10
+00591D2D: jge 00591E2C
+00591D33: mov eax,dword ptr [esi+14h]
+00591D36: movzx ecx,byte ptr [eax+2]
+00591D3A: push ebx
+00591D3B: mov ebx,dword ptr [esp+18h]
+00591D3F: cmp ebx,ecx
+00591D41: mov ecx,dword ptr [esp+1Ch]
+00591D45: jge 00591D68
+00591D47: movzx edx,byte ptr [eax+3]
+00591D4B: cmp ecx,edx
+00591D4D: jge 00591D68
+00591D4F: test ebx,ebx
+00591D51: jl 00591D68
+00591D53: test ecx,ecx
+00591D55: jl 00591D68
+00591D57: mov eax,ebx
+00591D59: imul eax,eax,1Eh
+00591D5C: add eax,ecx
+00591D5E: movzx eax,byte ptr [eax+esi+68h]
+00591D63: cmp eax,3
+00591D66: je 00591D7A
+00591D68: push ecx
+00591D69: push ebx
+00591D6A: mov ecx,esi
+00591D6C: call 005918E0
+00591D71: cmp eax,7
+00591D74: jne 00591E2B
+00591D7A: fild dword ptr [esp+1Ch]
+00591D7E: lea ecx,[esp+8]
+00591D82: push ecx
+00591D83: sub esp,8
+00591D86: fadd dword ptr [esp+30h]
+00591D8A: mov ecx,esi
+00591D8C: fstp dword ptr [esp+4]
+00591D90: fild dword ptr [esp+24h]
+00591D94: fadd dword ptr [esp+2Ch]
+00591D98: fstp dword ptr [esp]
+00591D9B: call 00591BD0
+00591DA0: movsx edx,byte ptr [esi+0000040Ch]
+ 00
+00591DA7: mov ecx,dword ptr [esp+8]
+00591DAB: shl edx,4
+00591DAE: lea eax,[edx+esi+00000414h]
+ 00
+00591DB5: mov dword ptr [eax],ecx
+00591DB7: mov edx,dword ptr [esp+0Ch]
+00591DBB: mov dword ptr [eax+4],edx
+00591DBE: mov ecx,dword ptr [esp+10h]
+00591DC2: mov dword ptr [eax+8],ecx
+00591DC5: movsx edx,byte ptr [esi+0000040Ch]
+ 00
+00591DCC: mov eax,dword ptr [esp+1Ch]
+00591DD0: add edx,41h
+00591DD3: shl edx,4
+00591DD6: mov byte ptr [edx+esi],bl
+00591DD9: movsx ecx,byte ptr [esi+0000040Ch]
+ 00
+00591DE0: shl ecx,4
+00591DE3: test ebx,ebx
+00591DE5: mov byte ptr [ecx+esi+00000411h],al
+ 00
+00591DEC: jl 00591E25
+00591DEE: test eax,eax
+00591DF0: jl 00591E25
+00591DF2: mov ecx,dword ptr [esi+14h]
+00591DF5: movzx edx,byte ptr [ecx+2]
+00591DF9: push edi
+00591DFA: lea edi,[ebx+1]
+00591DFD: cmp edi,edx
+00591DFF: pop edi
+00591E00: jg 00591E25
+00591E02: movzx ecx,byte ptr [ecx+3]
+00591E06: lea edx,[eax+1]
+00591E09: cmp edx,ecx
+00591E0B: jg 00591E25
+00591E0D: imul ebx,ebx,1Eh
+00591E10: add ebx,eax
+00591E12: mov al,byte ptr [ebx+esi+68h]
+00591E16: cmp al,3
+00591E18: lea ebx,[ebx+esi+68h]
+00591E1C: je 00591E22
+00591E1E: test al,al
+00591E20: jne 00591E25
+00591E22: mov byte ptr [ebx],4
+00591E25: inc byte ptr [esi+0000040Ch]
+00591E2B: pop ebx
+00591E2C: pop esi
+00591E2D: add esp,0Ch
+00591E30: ret 10h

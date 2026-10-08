@@ -1,0 +1,95 @@
+// Interior_c::IsVisible @ 0x005929f0 [0x5929f0..0x592a95]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_005929f0(void)
+
+{
+  char cVar1;
+  float *pfVar2;
+  int in_ECX;
+  float local_18;
+  float local_14;
+  float local_10;
+  
+  if (DAT_00b6f03c == 0) {
+    pfVar2 = (float *)&DAT_00b6f02c;
+  }
+  else {
+    pfVar2 = (float *)(DAT_00b6f03c + 0x30);
+  }
+  local_18 = *pfVar2;
+  local_14 = pfVar2[1];
+  local_10 = pfVar2[2];
+  cVar1 = FUN_005913e0(&local_18,0x40a00000,0x40a00000,0);
+  if (cVar1 != '\0') {
+    return 1;
+  }
+  if (('\0' < *(char *)(*(int *)(in_ECX + 0x14) + 5)) &&
+     (local_18 = local_18 - *(float *)(in_ECX + 0x400),
+     local_14 = local_14 - *(float *)(in_ECX + 0x404),
+     local_18 * local_18 + local_14 * local_14 < 100.0)) {
+    return 1;
+  }
+  return 0;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+005929F0: mov eax,dword ptr ds:[00B6F03Ch]
+005929F5: sub esp,18h
+005929F8: test eax,eax
+005929FA: push esi
+005929FB: mov esi,ecx
+005929FD: je 00592A04
+005929FF: add eax,30h
+00592A02: jmp 00592A09
+00592A04: mov eax,0B6F02Ch
+00592A09: mov ecx,dword ptr [eax]
+00592A0B: mov edx,dword ptr [eax+4]
+00592A0E: mov eax,dword ptr [eax+8]
+00592A11: push 0
+00592A13: push 40A00000h
+00592A18: mov dword ptr [esp+0Ch],ecx
+00592A1C: push 40A00000h
+00592A21: lea ecx,[esp+10h]
+00592A25: push ecx
+00592A26: mov ecx,esi
+00592A28: mov dword ptr [esp+18h],edx
+00592A2C: mov dword ptr [esp+1Ch],eax
+00592A30: call 005913E0
+00592A35: test al,al
+00592A37: jne 00592A88
+00592A39: mov edx,dword ptr [esi+14h]
+00592A3C: mov al,byte ptr [edx+5]
+00592A3F: test al,al
+00592A41: jle 00592A8F
+00592A43: fld dword ptr [esp+4]
+00592A47: add esi,400h
+00592A4D: mov eax,dword ptr [esi]
+00592A4F: mov ecx,dword ptr [esi+4]
+00592A52: mov edx,dword ptr [esi+8]
+00592A55: mov dword ptr [esp+10h],eax
+00592A59: fsub dword ptr [esp+10h]
+00592A5D: fld dword ptr [esp+8]
+00592A61: mov dword ptr [esp+14h],ecx
+00592A65: fsub dword ptr [esp+14h]
+00592A69: mov dword ptr [esp+18h],edx
+00592A6D: fld st(0)
+00592A6F: fmul st,st(1)
+00592A71: fld st(2)
+00592A73: fmul st,st(3)
+00592A75: faddp st(1),st
+00592A77: fcomp dword ptr ds:[00858628h]
+00592A7D: fnstsw ax
+00592A7F: fstp st(0)
+00592A81: test ah,5
+00592A84: fstp st(0)
+00592A86: jp 00592A8F
+00592A88: mov al,1
+00592A8A: pop esi
+00592A8B: add esp,18h
+00592A8E: ret
+00592A8F: xor al,al
+00592A91: pop esi
+00592A92: add esp,18h
+00592A95: ret

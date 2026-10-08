@@ -1,0 +1,110 @@
+// Interior_c::Office_PlaceDeskQuad @ 0x00599960 [0x599960..0x599a23]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_00599960(undefined4 param_1,int param_2,int param_3,undefined4 param_4)
+
+{
+  int iVar1;
+  
+  iVar1 = param_3 + -2;
+  FUN_005993e0(param_2,iVar1,2,0x46,0,param_4);
+  FUN_005993e0(param_2,param_3,0,0x46,0,param_4);
+  FUN_005993e0(param_2 + -2,param_3,0,0x46,0,param_4);
+  FUN_005993e0(param_2 + -2,iVar1,2,0x46,0,param_4);
+  FUN_00591700(param_2 + -3,param_3 + -3,6,1,3,0);
+  FUN_00591700(param_2 + -3,param_3 + 2,6,1,3,0);
+  FUN_00591700(param_2 + -3,iVar1,1,4,3,0);
+  FUN_00591700(param_2 + 2,iVar1,1,4,3,0);
+  return 6;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00599960: mov eax,dword ptr [esp+10h]
+00599964: push ebx
+00599965: push ebp
+00599966: mov ebp,dword ptr [esp+10h]
+0059996A: push esi
+0059996B: push edi
+0059996C: mov edi,dword ptr [esp+1Ch]
+00599970: push eax
+00599971: push 0
+00599973: push 46h
+00599975: push 2
+00599977: lea ebx,[edi-2]
+0059997A: push ebx
+0059997B: push ebp
+0059997C: mov esi,ecx
+0059997E: call 005993E0
+00599983: mov ecx,dword ptr [esp+20h]
+00599987: push ecx
+00599988: push 0
+0059998A: push 46h
+0059998C: push 0
+0059998E: push edi
+0059998F: push ebp
+00599990: mov ecx,esi
+00599992: call 005993E0
+00599997: mov edx,dword ptr [esp+20h]
+0059999B: push edx
+0059999C: push 0
+0059999E: push 46h
+005999A0: push 0
+005999A2: lea eax,[ebp-2]
+005999A5: push edi
+005999A6: push eax
+005999A7: mov ecx,esi
+005999A9: call 005993E0
+005999AE: mov eax,dword ptr [esp+20h]
+005999B2: push eax
+005999B3: push 0
+005999B5: push 46h
+005999B7: push 2
+005999B9: push ebx
+005999BA: lea eax,[ebp-2]
+005999BD: push eax
+005999BE: mov ecx,esi
+005999C0: call 005993E0
+005999C5: push 0
+005999C7: push 3
+005999C9: push 1
+005999CB: push 6
+005999CD: lea ecx,[edi-3]
+005999D0: push ecx
+005999D1: lea eax,[ebp-3]
+005999D4: push eax
+005999D5: mov ecx,esi
+005999D7: call 00591700
+005999DC: push 0
+005999DE: push 3
+005999E0: push 1
+005999E2: push 6
+005999E4: add edi,2
+005999E7: push edi
+005999E8: lea edi,[ebp-3]
+005999EB: push edi
+005999EC: mov ecx,esi
+005999EE: call 00591700
+005999F3: push 0
+005999F5: push 3
+005999F7: push 4
+005999F9: push 1
+005999FB: push ebx
+005999FC: push edi
+005999FD: mov ecx,esi
+005999FF: call 00591700
+00599A04: push 0
+00599A06: push 3
+00599A08: push 4
+00599A0A: push 1
+00599A0C: push ebx
+00599A0D: add ebp,2
+00599A10: push ebp
+00599A11: mov ecx,esi
+00599A13: call 00591700
+00599A18: pop edi
+00599A19: pop esi
+00599A1A: pop ebp
+00599A1B: mov eax,6
+00599A20: pop ebx
+00599A21: ret 10h

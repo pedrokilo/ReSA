@@ -1,0 +1,66 @@
+[
+  {
+    "function": "Office_PlaceEdgeFillers",
+    "address": "0x599210"
+  },
+  {
+    "function": "Office_PlaceDesk",
+    "address": "0x5993E0"
+  },
+  {
+    "function": "Office_PlaceEdgeDesks",
+    "address": "0x5995B0"
+  },
+  {
+    "function": "Office_FurnishEdges",
+    "address": "0x599770"
+  },
+  {
+    "function": "Office_PlaceDeskQuad",
+    "address": "0x599960"
+  },
+  {
+    "function": "Office_FurnishCenter",
+    "address": "0x599A30"
+  },
+  {
+    "function": "FurnishOffice",
+    "address": "0x599AF0"
+  },
+  {
+    "function": "Shop_Place3PieceUnit",
+    "address": "0x599BB0"
+  },
+  {
+    "function": "Shop_PlaceEdgeUnits",
+    "address": "0x599DC0"
+  },
+  {
+    "function": "Shop_PlaceCounter",
+    "address": "0x599EF0"
+  },
+  {
+    "function": "Shop_PlaceFixedUnits",
+    "address": "0x59A030"
+  },
+  {
+    "function": "Shop_FurnishCeiling",
+    "address": "0x59A130"
+  },
+  {
+    "function": "Shop_AddShelfInfo",
+    "address": "0x59A140"
+  },
+  {
+    "function": "Shop_FurnishEdges",
+    "address": "0x59A1B0"
+  },
+  {
+    "function": "Shop_FurnishAisles",
+    "address": "0x59A590"
+  },
+  {
+    "function": "FurnishShop",
+    "address": "0x59A790"
+  }
+]

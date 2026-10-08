@@ -1,0 +1,263 @@
+// Interior_c::Shop_FurnishAisles @ 0x0059a590 [0x59a590..0x59a786]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0059a590(void)
+
+{
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  int iVar4;
+  int in_ECX;
+  uint uVar5;
+  int iVar6;
+  uint uVar7;
+  int iVar8;
+  int iVar9;
+  uint local_14;
+  int local_10;
+  
+  uVar5 = (uint)*(byte *)(*(int *)(in_ECX + 0x14) + 2);
+  uVar7 = (uint)*(byte *)(*(int *)(in_ECX + 0x14) + 3);
+  iVar6 = uVar5 - 6;
+  iVar1 = uVar7 - 7;
+  if ((0 < iVar6) && (0 < iVar1)) {
+    FUN_00591d20(2,3,0xbf000000,0xbf000000);
+    iVar8 = uVar7 - 3;
+    FUN_00591d20(2,iVar8,0xbf000000,0x3f000000);
+    local_14 = 0;
+    if (0 < iVar6) {
+      do {
+        iVar9 = 4;
+        _rand();
+        iVar2 = FUN_00821b40();
+        if (iVar2 < 0x33) {
+          if (iVar2 < 0x1a) {
+            iVar2 = ((iVar2 < 0xb) - 1 & 0xfffffffd) + 9;
+          }
+          else {
+            iVar2 = 3;
+          }
+        }
+        else {
+          iVar2 = 0;
+        }
+        uVar7 = local_14 & 0x80000003;
+        if ((int)uVar7 < 0) {
+          uVar7 = (uVar7 - 1 | 0xfffffffc) + 1;
+        }
+        if (uVar7 == 0) {
+          if ((local_14 != uVar5 - 7) && (local_10 = iVar1, 0 < iVar1)) {
+            do {
+              iVar3 = FUN_00599dc0(iVar2,local_14 + 3,iVar9,3);
+              iVar9 = iVar9 + iVar3;
+              local_10 = local_10 + -1;
+            } while (local_10 != 0);
+          }
+        }
+        else if (uVar7 == 1) {
+          iVar3 = iVar1;
+          if (0 < iVar1) {
+            do {
+              iVar4 = FUN_00599dc0(iVar2,local_14 + 3,iVar9,1);
+              iVar9 = iVar9 + iVar4;
+              iVar3 = iVar3 + -1;
+            } while (iVar3 != 0);
+          }
+        }
+        else if (uVar7 == 2) {
+          iVar2 = 0;
+          if (0 < iVar1) {
+            do {
+              FUN_0059a140(local_14 + 3,iVar2 + 4,3);
+              iVar2 = iVar2 + 1;
+            } while (iVar2 < iVar1);
+          }
+        }
+        else if (uVar7 == 3) {
+          iVar2 = local_14 + 3;
+          FUN_00591700(iVar2,4,1,iVar1,3,0);
+          FUN_00591d20(iVar2,3,0xbf000000,0xbf000000);
+          FUN_00591d20(iVar2,iVar8,0xbf000000,0x3f000000);
+        }
+        local_14 = local_14 + 1;
+      } while ((int)local_14 < iVar6);
+    }
+    FUN_00591d20(local_14 + 3,3,0x3f000000,0xbf000000);
+    FUN_00591d20(local_14 + 3,iVar8,0x3f000000,0x3f000000);
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+0059A590: sub esp,14h
+0059A593: push ebx
+0059A594: push ebp
+0059A595: push esi
+0059A596: mov esi,ecx
+0059A598: mov eax,dword ptr [esi+14h]
+0059A59B: movzx ebx,byte ptr [eax+2]
+0059A59F: push edi
+0059A5A0: movzx edi,byte ptr [eax+3]
+0059A5A4: sub edi,4
+0059A5A7: sub ebx,6
+0059A5AA: test ebx,ebx
+0059A5AC: lea ebp,[edi-3]
+0059A5AF: mov dword ptr [esp+18h],ebx
+0059A5B3: mov dword ptr [esp+20h],ebp
+0059A5B7: jle 0059A77F
+0059A5BD: test ebp,ebp
+0059A5BF: jle 0059A77F
+0059A5C5: push 0BF000000h
+0059A5CA: push 0BF000000h
+0059A5CF: push 3
+0059A5D1: push 2
+0059A5D3: call 00591D20
+0059A5D8: push 3F000000h
+0059A5DD: push 0BF000000h
+0059A5E2: inc edi
+0059A5E3: push edi
+0059A5E4: push 2
+0059A5E6: mov ecx,esi
+0059A5E8: mov dword ptr [esp+2Ch],edi
+0059A5EC: call 00591D20
+0059A5F1: test ebx,ebx
+0059A5F3: mov dword ptr [esp+10h],0
+0059A5FB: jle 0059A751
+0059A601: mov edi,4
+0059A606: call 00821B1E
+0059A60B: and eax,0FFFFh
+0059A610: mov dword ptr [esp+14h],eax
+0059A614: fild dword ptr [esp+14h]
+0059A618: fmul dword ptr ds:[00858B14h]
+0059A61E: fmul dword ptr ds:[00858628h]
+0059A624: call 00821B40
+0059A629: cmp eax,32h
+0059A62C: jle 0059A632
+0059A62E: xor ebx,ebx
+0059A630: jmp 0059A64D
+0059A632: cmp eax,19h
+0059A635: jle 0059A63E
+0059A637: mov ebx,3
+0059A63C: jmp 0059A64D
+0059A63E: xor ebx,ebx
+0059A640: cmp eax,0Ah
+0059A643: setle bl
+0059A646: dec ebx
+0059A647: and ebx,0FFFFFFFDh
+0059A64A: add ebx,9
+0059A64D: mov ecx,dword ptr [esp+10h]
+0059A651: mov eax,ecx
+0059A653: and eax,80000003h
+0059A658: jns 0059A65F
+0059A65A: dec eax
+0059A65B: or eax,0FFFFFFFCh
+0059A65E: inc eax
+0059A65F: jne 0059A6A0
+0059A661: mov eax,dword ptr [esp+18h]
+0059A665: dec eax
+0059A666: cmp ecx,eax
+0059A668: je 0059A738
+0059A66E: test ebp,ebp
+0059A670: jle 0059A738
+0059A676: mov dword ptr [esp+14h],ebp
+0059A67A: lea ebx,[ebx+00000000h]
+0059A680: mov eax,dword ptr [esp+10h]
+0059A684: push 3
+0059A686: push edi
+0059A687: add eax,3
+0059A68A: push eax
+0059A68B: push ebx
+0059A68C: mov ecx,esi
+0059A68E: call 00599DC0
+0059A693: add edi,eax
+0059A695: dec dword ptr [esp+14h]
+0059A699: jne 0059A680
+0059A69B: jmp 0059A738
+0059A6A0: cmp eax,1
+0059A6A3: jne 0059A6CE
+0059A6A5: test ebp,ebp
+0059A6A7: jle 0059A738
+0059A6AD: lea ecx,[ecx]
+0059A6B0: mov eax,dword ptr [esp+10h]
+0059A6B4: push 1
+0059A6B6: push edi
+0059A6B7: add eax,3
+0059A6BA: push eax
+0059A6BB: push ebx
+0059A6BC: mov ecx,esi
+0059A6BE: call 00599DC0
+0059A6C3: add edi,eax
+0059A6C5: dec ebp
+0059A6C6: jne 0059A6B0
+0059A6C8: mov ebp,dword ptr [esp+20h]
+0059A6CC: jmp 0059A738
+0059A6CE: cmp eax,2
+0059A6D1: jne 0059A6F5
+0059A6D3: xor edi,edi
+0059A6D5: test ebp,ebp
+0059A6D7: jle 0059A738
+0059A6D9: lea ebx,[ecx+3]
+0059A6DC: lea esp,[esp]
+0059A6E0: push 3
+0059A6E2: lea ecx,[edi+4]
+0059A6E5: push ecx
+0059A6E6: push ebx
+0059A6E7: mov ecx,esi
+0059A6E9: call 0059A140
+0059A6EE: inc edi
+0059A6EF: cmp edi,ebp
+0059A6F1: jl 0059A6E0
+0059A6F3: jmp 0059A738
+0059A6F5: cmp eax,3
+0059A6F8: jne 0059A738
+0059A6FA: push 0
+0059A6FC: push eax
+0059A6FD: push ebp
+0059A6FE: push 1
+0059A700: lea edi,[ecx+3]
+0059A703: push 4
+0059A705: push edi
+0059A706: mov ecx,esi
+0059A708: call 00591700
+0059A70D: push 0BF000000h
+0059A712: push 0BF000000h
+0059A717: push 3
+0059A719: push edi
+0059A71A: mov ecx,esi
+0059A71C: call 00591D20
+0059A721: mov edx,dword ptr [esp+1Ch]
+0059A725: push 3F000000h
+0059A72A: push 0BF000000h
+0059A72F: push edx
+0059A730: push edi
+0059A731: mov ecx,esi
+0059A733: call 00591D20
+0059A738: mov eax,dword ptr [esp+10h]
+0059A73C: mov ecx,dword ptr [esp+18h]
+0059A740: inc eax
+0059A741: cmp eax,ecx
+0059A743: mov dword ptr [esp+10h],eax
+0059A747: jl 0059A601
+0059A74D: mov edi,dword ptr [esp+1Ch]
+0059A751: mov ebx,dword ptr [esp+10h]
+0059A755: push 0BF000000h
+0059A75A: push 3F000000h
+0059A75F: push 3
+0059A761: add ebx,3
+0059A764: push ebx
+0059A765: mov ecx,esi
+0059A767: call 00591D20
+0059A76C: push 3F000000h
+0059A771: push 3F000000h
+0059A776: push edi
+0059A777: push ebx
+0059A778: mov ecx,esi
+0059A77A: call 00591D20
+0059A77F: pop edi
+0059A780: pop esi
+0059A781: pop ebp
+0059A782: pop ebx
+0059A783: add esp,14h
+0059A786: ret

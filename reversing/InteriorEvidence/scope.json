@@ -1,0 +1,272 @@
+[
+  {
+    "cls": "Interior_c",
+    "fn": "Constructor",
+    "a": 5841360
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Destructor",
+    "a": 5837664
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Bedroom_AddTableItem",
+    "a": 5848848
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "FurnishBedroom",
+    "a": 5849024
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Kitchen_FurnishEdges",
+    "a": 5859632
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "FurnishKitchen",
+    "a": 5861552
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Lounge_AddTV",
+    "a": 5861952
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Lounge_AddHifi",
+    "a": 5862448
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Lounge_AddChairInfo",
+    "a": 5862624
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Lounge_AddSofaInfo",
+    "a": 5862848
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "FurnishLounge",
+    "a": 5863232
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Office_PlaceEdgeFillers",
+    "a": 5870096
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Office_PlaceDesk",
+    "a": 5870560
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Office_PlaceEdgeDesks",
+    "a": 5871024
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Office_FurnishEdges",
+    "a": 5871472
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Office_PlaceDeskQuad",
+    "a": 5871968
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Office_FurnishCenter",
+    "a": 5872176
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "FurnishOffice",
+    "a": 5872368
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Shop_Place3PieceUnit",
+    "a": 5872560
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Shop_PlaceEdgeUnits",
+    "a": 5873088
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Shop_PlaceCounter",
+    "a": 5873392
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Shop_PlaceFixedUnits",
+    "a": 5873712
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Shop_FurnishCeiling",
+    "a": 5873968
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Shop_AddShelfInfo",
+    "a": 5873984
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Shop_FurnishEdges",
+    "a": 5874096
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "GetBoundingBox",
+    "a": 5848496
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Init",
+    "a": 5848048
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "ResetTiles",
+    "a": 5847312
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "PlaceObject",
+    "a": 5846240
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "GetFurnitureEntity",
+    "a": 5837744
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "IsPtInside",
+    "a": 5837792
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "CalcMatrix",
+    "a": 5838032
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Furnish",
+    "a": 5838224
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Unfurnish",
+    "a": 5838288
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "CheckTilesEmpty",
+    "a": 5838464
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "SetTilesStatus",
+    "a": 5838592
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "SetCornerTiles",
+    "a": 5838784
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "GetTileStatus",
+    "a": 5839072
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "GetNumEmptyTiles",
+    "a": 5839136
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "GetRandomTile",
+    "a": 5839648
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Shop_FurnishAisles",
+    "a": 5875088
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "GetTileCentre",
+    "a": 5839824
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "AddGotoPt",
+    "a": 5840160
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "AddInteriorInfo",
+    "a": 5840448
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "AddPickups",
+    "a": 5840784
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "Exit",
+    "a": 5841456
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "FindBoundingBox",
+    "a": 5841600
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "CalcExitPts",
+    "a": 5842080
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "IsVisible",
+    "a": 5843440
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "PlaceFurniture",
+    "a": 5843616
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "PlaceFurnitureOnWall",
+    "a": 5845280
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "PlaceFurnitureInCorner",
+    "a": 5845824
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "FindEmptyTiles",
+    "a": 5839952
+  },
+  {
+    "cls": "Interior_c",
+    "fn": "FurnishShop",
+    "a": 5875600
+  }
+]

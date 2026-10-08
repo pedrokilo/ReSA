@@ -106,10 +106,10 @@ La fuente del progreso es [docs/hooks.csv](docs/hooks.csv). El [informe generado
 
 | Dimensión | Estado |
 | --- | --- |
-| Clases completas | 770/771 · 99,87% |
-| Clases validadas (de las completas) | 693/770 · 90,00% |
-| Funciones reconstruidas | 8.394/8.446 · 99,38% |
-| Funciones validadas (de las reconstruidas) | **6.684/8.394 · 79,63%** · evidencia aprobada vinculada |
+| Clases completas | 771/771 · 100,00% |
+| Clases validadas (de las completas) | 694/771 · 90,01% |
+| Funciones reconstruidas | 8.446/8.446 · 100,00% |
+| Funciones validadas (de las reconstruidas) | **6.736/8.446 · 79,75%** · evidencia aprobada vinculada |
 
 La validación se mide sobre lo ya completado o reconstruido: solo se valida lo que existe en la DLL. Los 3 extras NOTSA sin equivalente en el EXE (modo ventana, [hooks_notsa.csv](docs/hooks_notsa.csv)) quedan fuera de la cuenta.
 
@@ -119,10 +119,10 @@ Todavía no tienen un porcentaje útil; la tabla explica qué falta hacer para p
 
 | Dimensión | Estado actual | Qué hay que hacer |
 | --- | --- | --- |
-| Validaciones vigentes para el árbol actual | 117/6.684 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrar el resultado en el [registro de validaciones](reversing/ValidationRegistry/README.md). |
+| Validaciones vigentes para el árbol actual | 52/6.736 validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrar el resultado en el [registro de validaciones](reversing/ValidationRegistry/README.md). |
 | Dependencias de funciones originales eliminadas | No medido | Auditar, por cada función reconstruida, las llamadas directas y transitivas que aún saltan al EXE (`plugin::Call*`, direcciones fijas, hooks sin reconstruir) y contar las que ya no dependen de ninguna. |
 
-Quedan 52 entradas pendientes, 1 clases incompletas y 473 locks. En `hooks.csv`, `type=S` significa **Simple hook** (función normal por dirección) y `type=V` significa **Virtual hook** (entrada de vtable). `validated=1` significa que existe evidencia aprobada vinculada; no significa por sí solo que esa evidencia siga vigente para el árbol actual. Las 7.765 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
+Quedan 0 entradas pendientes, 0 clases incompletas y 421 locks. En `hooks.csv`, `type=S` significa **Simple hook** (función normal por dirección) y `type=V` significa **Virtual hook** (entrada de vtable). `validated=1` significa que existe evidencia aprobada vinculada; no significa por sí solo que esa evidencia siga vigente para el árbol actual. Las 7.765 entradas sin lock no equivalen a funciones independientes. El catálogo tampoco es un inventario exhaustivo del EXE. La [hoja de ruta](docs/ProjectRoadmap.md) establece criterios para la suite reproducible, regresión de juego, subsistemas independientes y ejecutable propio. El [registro de validaciones](reversing/ValidationRegistry/README.md) alimenta el panel; las entradas aún no acreditadas requieren consolidación o revisión, no se clasifican como fallidas. Consultar el panel generado para recuentos posteriores.
 
 #### Auditoría del catálogo de hooks
 
@@ -230,11 +230,13 @@ Este trabajo continúa [gta-reversed](https://github.com/gta-reversed/gta-revers
 
 Este proyecto parte del trabajo público de [gta-reversed/gta-reversed](https://github.com/gta-reversed/gta-reversed), que sigue siendo una referencia importante para nombres, estructuras, direcciones y reconstrucciones de GTA San Andreas. La comparación siguiente no pretende borrar ese trabajo: explica por qué **su forma actual de medir y presentar el progreso es insuficiente** y por qué ReSA mantiene un catálogo, una auditoría y un registro de validación más estrictos.
 
+Esta comparación conserva su corte histórico. Los contadores vigentes de ReSA están en [Dimensiones de progreso](#dimensiones-de-progreso).
+
 #### El primer problema: su propio README reconoce que el progreso está desactualizado
 
 El README de `gta-reversed/gta-reversed` dice literalmente que el seguimiento de clases **“needs to be updated”** y, al mismo tiempo, presenta una estimación general de **“about 50-60% of the code is done”**.
 
-Ese número no está ligado a un procedimiento reproducible visible en el repositorio. En cambio, su `docs/hooks.csv` registra actualmente:
+Ese número no está ligado a un procedimiento reproducible visible en el repositorio. En cambio, su `docs/hooks.csv` registraba en aquel corte:
 
 | Métrica | gta-reversed upstream | ReSA |
 | --- | ---: | ---: |
@@ -250,7 +252,7 @@ Ese número no está ligado a un procedimiento reproducible visible en el reposi
 
 Por tanto, hay dos métricas distintas en upstream que no deben mezclarse: una estimación informal del “50-60% del código” y un catálogo de hooks que marca aproximadamente **92,69%** de sus entradas como `reversed=1`. Ninguna de las dos, por sí sola, significa “porcentaje del juego terminado”, pero el README no ofrece una metodología que conecte ambas cifras.
 
-ReSA tampoco interpreta su **93,07%** como “93,07% del juego terminado”. Aquí ese porcentaje significa solamente: **7.857 de 8.442 entradas actualmente catalogadas tienen `reversed=1`**.
+ReSA tampoco interpreta su **93,07%** como “93,07% del juego terminado”. Aquí ese porcentaje significa solamente: **7.857 de 8.442 entradas catalogadas en aquel corte tenían `reversed=1`**.
 
 #### El segundo problema: el catálogo upstream no es bidireccional
 
@@ -430,3 +432,5 @@ El objetivo no es ganar una carrera de porcentajes. El objetivo es poder llegar 
 <!-- USER LISTS STOP STATUS -->
 Estado de las listas solicitadas al detener el trabajo: [reconstrucción y validación parcial](docs/EstadoListasSolicitadas.md). Las 67 clases tienen la reconstrucción solicitada aplicada; el último lote quedó con 117/354 funciones verificadas con las fuentes finales y un fallo pendiente en el destructor de GangFollower.
 <!-- /USER LISTS STOP STATUS -->
+
+Solicitud posterior: [`Interior_c` quedó reconstruida y validada](docs/InteriorValidation.md), con 52/52 funciones catalogadas y 74.752 comparaciones finales. El lote anterior permanece detenido; sus cifras de replay corresponden al cierre histórico indicado.

@@ -1,20 +1,20 @@
 # Estado de todas las listas solicitadas
 
-Trabajo detenido por instrucción del usuario el 08/10/2026. No se iniciaron nuevas reconstrucciones ni regresiones después de detener la ejecución.
+Las listas anteriores se detuvieron por instrucción del usuario el 08/10/2026. Sus cifras de replay describen ese cierre histórico. Una solicitud posterior abrió `Interior_c`; sus cambios modifican el árbol de fuentes y exigen renovar las comprobaciones de dependencias del lote anterior. El nuevo trabajo se registra por separado en [InteriorValidation.md](InteriorValidation.md).
 
 **Reconstrucción solicitada hecha en las 67 clases.** Las listas anteriores reúnen 89 identidades aprobadas históricamente; el último lote tiene 354 funciones válidas reconstruidas y una corrección de catálogo. La aprobación de fixtures no certifica todas las funciones preexistentes de una clase ni una campaña completa del juego.
 
-**Último lote: cierre parcial.** 74 de 177 bancos, 117 de 354 funciones y 301.568 pares del alcance quedaron verificados con fuentes, instrumentos, binarios y hashes de ejecución actuales. Quedan 237 funciones sin cierre final, repartidas entre un banco fallido y 102 bancos que no completaron el replay. `CTaskComplexGangFollower::Destructor` difiere en 256/256 casos, en el vptr de `task[0]`; no se resolvió después de la orden de parar.
+**Último lote: cierre parcial.** Al detener el lote, 74 de 177 bancos, 117 de 354 funciones y 301.568 pares del alcance quedaron verificados con las fuentes, instrumentos, binarios y hashes de aquel cierre. Quedan 237 funciones sin cierre final, repartidas entre un banco fallido y 102 bancos que no completaron el replay. `CTaskComplexGangFollower::Destructor` difiere en 256/256 casos, en el vptr de `task[0]`; no se resolvió después de la orden de parar.
 
 Las tres desviaciones de [resolutions.json](../reversing/Pending355/resolutions.json), los límites de fixtures/SEH y los 17 pseudocódigos que el proveedor no pudo producir siguen explícitos en sus bancos. El ensamblador sí está disponible. La regresión anterior de cinco bancos y 9.984 pares no se renovó antes de parar.
 
-Las listas anteriores conservan aprobación histórica: 75 de sus 89 identidades solicitadas coinciden con los hashes registrados de fuentes/evidencia; 14 requieren renovación (`CTaskSimpleDead`: 6, `CRealTimeShadowManager`: 2, `CTaskGangHasslePed`: 3, `CTaskUtilityLineUpPedWithCar`: 3). Ese cotejo no acredita dependencias actuales.
+Las listas anteriores conservan aprobación histórica: al detener las listas, 75 de sus 89 identidades solicitadas coincidían con los hashes registrados de fuentes/evidencia; 14 requerían renovación (`CTaskSimpleDead`: 6, `CRealTimeShadowManager`: 2, `CTaskGangHasslePed`: 3, `CTaskUtilityLineUpPedWithCar`: 3). Ese cotejo no acredita dependencias actuales.
 
 [Tabla CSV](EstadoListasSolicitadas.csv), [estado del último lote](../reversing/Pending355/README.md), [registro parcial](../reversing/Pending355/partial-summary.json).
 
-## Último lote: qué quedó verificado ahora
+## Último lote: qué quedó verificado al detenerlo
 
-| Clase | Reconstrucción solicitada | Replay final actual | Estado |
+| Clase | Reconstrucción solicitada | Replay al detener el lote | Estado |
 |---|---:|---:|---|
 | `CAERadioTrackManager` | 14/14 | 0/14 | Pendiente |
 | `CAEScriptAudioEntity` | 11/11 | 0/11 | Pendiente |

@@ -1,4 +1,4 @@
-clase,lote,reconstruidas,catalogadas,funciones_solicitadas_reconstruidas,aprobacion_historica,replay_final_actual,funciones_replay_final_actual,hashes_fuentes_evidencia_coincidentes,nota
+clase,lote,reconstruidas,catalogadas,funciones_solicitadas_reconstruidas,aprobacion_historica,replay_final_al_detener,funciones_replay_final_al_detener,hashes_fuentes_evidencia_coincidentes_al_detener,nota
 CTaskSimpleDead,anteriores,6,6,,sí,no renovado,0,0,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
 CIdleCam,anteriores,14,14,,sí,no renovado,0,1,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.
 CPedAttractor,anteriores,20,20,,sí,no renovado,0,1,Aprobación histórica; coincidencia de fuentes/evidencia no equivale a revisión de dependencias actual.

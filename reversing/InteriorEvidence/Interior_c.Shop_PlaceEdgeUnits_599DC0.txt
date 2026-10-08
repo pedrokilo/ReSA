@@ -1,0 +1,172 @@
+// Interior_c::Shop_PlaceEdgeUnits @ 0x00599dc0 [0x599dc0..0x599ee3]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+int FUN_00599dc0(int param_1,undefined4 param_2,undefined4 param_3,int param_4)
+
+{
+  undefined4 uVar1;
+  int iVar2;
+  int iVar3;
+  int iVar4;
+  int iVar5;
+  
+  if ((param_4 == 2) || (uVar1 = 2, param_4 == 0)) {
+    uVar1 = 1;
+  }
+  iVar2 = FUN_00591920(param_2,param_3,uVar1,1);
+  if (iVar2 < 2) {
+    return 1;
+  }
+  _rand();
+  iVar3 = FUN_00821b40();
+  iVar5 = -iVar3 + 2;
+  if (((iVar2 != 3) && (iVar4 = iVar2 - iVar5, -1 < iVar4)) && (iVar2 = iVar5, iVar4 == 1)) {
+    iVar2 = -iVar3 + 1;
+  }
+  if (param_1 != -1) {
+    FUN_00599bb0(param_1,param_2,param_3,param_4,iVar2);
+    return iVar2;
+  }
+  if (0x32 < DAT_00bb3de4) {
+    FUN_00599bb0(0,param_2,param_3,param_4,iVar2);
+    return iVar2;
+  }
+  if (DAT_00bb3de4 < 0x1a) {
+    if (DAT_00bb3de4 < 0xb) {
+      FUN_00599bb0(9,param_2,param_3,param_4,iVar2);
+      return iVar2;
+    }
+    FUN_00599bb0(6,param_2,param_3,param_4,iVar2);
+    return iVar2;
+  }
+  FUN_00599bb0(3,param_2,param_3,param_4,iVar2);
+  return iVar2;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00599DC0: mov eax,dword ptr [esp+10h]
+00599DC4: cmp eax,2
+00599DC7: push ebx
+00599DC8: push ebp
+00599DC9: push edi
+00599DCA: mov edi,ecx
+00599DCC: je 00599DD7
+00599DCE: test eax,eax
+00599DD0: mov eax,2
+00599DD5: jne 00599DDC
+00599DD7: mov eax,1
+00599DDC: mov ebx,dword ptr [esp+18h]
+00599DE0: mov ebp,dword ptr [esp+14h]
+00599DE4: push 1
+00599DE6: push eax
+00599DE7: push ebx
+00599DE8: push ebp
+00599DE9: mov ecx,edi
+00599DEB: call 00591920
+00599DF0: cmp eax,1
+00599DF3: mov dword ptr [esp+14h],eax
+00599DF7: jg 00599E04
+00599DF9: pop edi
+00599DFA: pop ebp
+00599DFB: mov eax,1
+00599E00: pop ebx
+00599E01: ret 10h
+00599E04: push esi
+00599E05: call 00821B1E
+00599E0A: and eax,0FFFFh
+00599E0F: mov dword ptr [esp+1Ch],eax
+00599E13: fild dword ptr [esp+1Ch]
+00599E17: fmul dword ptr ds:[00858B14h]
+00599E1D: fmul dword ptr ds:[00859024h]
+00599E23: call 00821B40
+00599E28: mov esi,2
+00599E2D: sub esi,eax
+00599E2F: mov eax,dword ptr [esp+18h]
+00599E33: cmp eax,3
+00599E36: jne 00599E3C
+00599E38: mov esi,eax
+00599E3A: jmp 00599E4C
+00599E3C: mov ecx,eax
+00599E3E: sub ecx,esi
+00599E40: jns 00599E46
+00599E42: mov esi,eax
+00599E44: jmp 00599E4C
+00599E46: cmp ecx,1
+00599E49: jne 00599E4C
+00599E4B: dec esi
+00599E4C: mov eax,dword ptr [esp+14h]
+00599E50: cmp eax,0FFFFFFFFh
+00599E53: push esi
+00599E54: jne 00599ECC
+00599E56: mov eax,dword ptr ds:[00BB3DE4h]
+00599E5B: cmp eax,32h
+00599E5E: jle 00599E79
+00599E60: mov eax,dword ptr [esp+24h]
+00599E64: push eax
+00599E65: push ebx
+00599E66: push ebp
+00599E67: push 0
+00599E69: mov ecx,edi
+00599E6B: call 00599BB0
+00599E70: mov eax,esi
+00599E72: pop esi
+00599E73: pop edi
+00599E74: pop ebp
+00599E75: pop ebx
+00599E76: ret 10h
+00599E79: cmp eax,19h
+00599E7C: jle 00599E97
+00599E7E: mov ecx,dword ptr [esp+24h]
+00599E82: push ecx
+00599E83: push ebx
+00599E84: push ebp
+00599E85: push 3
+00599E87: mov ecx,edi
+00599E89: call 00599BB0
+00599E8E: mov eax,esi
+00599E90: pop esi
+00599E91: pop edi
+00599E92: pop ebp
+00599E93: pop ebx
+00599E94: ret 10h
+00599E97: cmp eax,0Ah
+00599E9A: mov ecx,edi
+00599E9C: jle 00599EB5
+00599E9E: mov edx,dword ptr [esp+24h]
+00599EA2: push edx
+00599EA3: push ebx
+00599EA4: push ebp
+00599EA5: push 6
+00599EA7: call 00599BB0
+00599EAC: mov eax,esi
+00599EAE: pop esi
+00599EAF: pop edi
+00599EB0: pop ebp
+00599EB1: pop ebx
+00599EB2: ret 10h
+00599EB5: mov eax,dword ptr [esp+24h]
+00599EB9: push eax
+00599EBA: push ebx
+00599EBB: push ebp
+00599EBC: push 9
+00599EBE: call 00599BB0
+00599EC3: mov eax,esi
+00599EC5: pop esi
+00599EC6: pop edi
+00599EC7: pop ebp
+00599EC8: pop ebx
+00599EC9: ret 10h
+00599ECC: mov ecx,dword ptr [esp+24h]
+00599ED0: push ecx
+00599ED1: push ebx
+00599ED2: push ebp
+00599ED3: push eax
+00599ED4: mov ecx,edi
+00599ED6: call 00599BB0
+00599EDB: mov eax,esi
+00599EDD: pop esi
+00599EDE: pop edi
+00599EDF: pop ebp
+00599EE0: pop ebx
+00599EE1: ret 10h

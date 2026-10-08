@@ -1,0 +1,66 @@
+{
+  "kind": "historical_preliminary",
+  "current_source_claim": false,
+  "final_replay_required": true,
+  "cataloged_functions": 52,
+  "bonus_abi_functions": 2,
+  "pairs": 74752,
+  "banks": [
+    {
+      "bank": "InteriorBase",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-base\\20261008-083227-290154\\summary.json",
+      "observed_asi_sha256": "6342de3799774e45a4d0692bb610d796356ffd2a69a745dccf356c19e8ea67d5",
+      "matched_archived_manifest": "D:\\Original\\gta-reversed-master\\reversing\\Pending355\\batches\\5279557217c3\\artifacts\\build-manifest.json",
+      "matched_manifest_sha256": "85b6b5c47ca50f301a88627568372bfb3e660871aa8d8f282aeb2f297e93f5ee"
+    },
+    {
+      "bank": "InteriorSpatial",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-spatial\\20261008-091239-929682\\summary.json",
+      "observed_asi_sha256": "ef194764308c46bea6c95929c285110062c005f131129c039d34a7b4f3a02f48",
+      "matched_archived_manifest": "D:\\Original\\gta-reversed-master\\reversing\\Pending355\\batches\\83a96a01a572\\artifacts\\build-manifest.json",
+      "matched_manifest_sha256": "9b224207c4cfcc22a685ff5478396f7660622a0b2dc6df931f20f8b6743c44c7"
+    },
+    {
+      "bank": "InteriorLifecycleCore",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-lifecycle-core\\20261008-091325-846476\\summary.json",
+      "observed_asi_sha256": "ef194764308c46bea6c95929c285110062c005f131129c039d34a7b4f3a02f48",
+      "matched_archived_manifest": "D:\\Original\\gta-reversed-master\\reversing\\Pending355\\batches\\83a96a01a572\\artifacts\\build-manifest.json",
+      "matched_manifest_sha256": "9b224207c4cfcc22a685ff5478396f7660622a0b2dc6df931f20f8b6743c44c7"
+    },
+    {
+      "bank": "InteriorLifecycleRuntime",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-lifecycle-runtime\\20261008-091513-269647\\summary.json",
+      "observed_asi_sha256": "ef194764308c46bea6c95929c285110062c005f131129c039d34a7b4f3a02f48",
+      "matched_archived_manifest": "D:\\Original\\gta-reversed-master\\reversing\\Pending355\\batches\\83a96a01a572\\artifacts\\build-manifest.json",
+      "matched_manifest_sha256": "9b224207c4cfcc22a685ff5478396f7660622a0b2dc6df931f20f8b6743c44c7"
+    },
+    {
+      "bank": "InteriorPlacement",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-placement\\20261008-091811-274292\\summary.json",
+      "observed_asi_sha256": "2079e5c41067ad9c6205c52bd8d8d96e3bbc7e6f80ffb4ee62a76c0f6cf19e51",
+      "matched_archived_manifest": "D:\\Original\\gta-reversed-master\\reversing\\Pending355\\batches\\bca722a8c384\\artifacts\\build-manifest.json",
+      "matched_manifest_sha256": "3c2122a7ce865bf412d9933477207a26beffefede2ad2d35f8976d5e33843ca3"
+    },
+    {
+      "bank": "InteriorHome",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-home\\20261008-083956-220606\\summary.json",
+      "observed_asi_sha256": "6342de3799774e45a4d0692bb610d796356ffd2a69a745dccf356c19e8ea67d5",
+      "matched_archived_manifest": "D:\\Original\\gta-reversed-master\\reversing\\Pending355\\batches\\5279557217c3\\artifacts\\build-manifest.json",
+      "matched_manifest_sha256": "85b6b5c47ca50f301a88627568372bfb3e660871aa8d8f282aeb2f297e93f5ee"
+    },
+    {
+      "bank": "InteriorCommerce",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-commerce\\20261008-083356-311804\\summary.json",
+      "observed_asi_sha256": "6342de3799774e45a4d0692bb610d796356ffd2a69a745dccf356c19e8ea67d5",
+      "matched_archived_manifest": "D:\\Original\\gta-reversed-master\\reversing\\Pending355\\batches\\5279557217c3\\artifacts\\build-manifest.json",
+      "matched_manifest_sha256": "85b6b5c47ca50f301a88627568372bfb3e660871aa8d8f282aeb2f297e93f5ee"
+    },
+    {
+      "bank": "InteriorAbi",
+      "report": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-interior-abi\\20261008-090636-535990\\summary.json",
+      "observed_asi_sha256": "6b6596dd1f4cf8daa3e57bd19dab08a6c475209ace395129ced3cf56202d3439",
+      "matched_archived_manifest": "D:\\Original\\gta-reversed-master\\reversing\\Pending355\\batches\\d950663af8ac\\artifacts\\build-manifest.json",
+      "matched_manifest_sha256": "23e391076e60bb32fbf93c0c105edd43f7126403cf318721e7d3983729399de1"
+    }
+  ]
+}

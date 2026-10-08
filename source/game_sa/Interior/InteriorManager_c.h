@@ -14,6 +14,7 @@
  * asignaciones continuas devolviendo estructuras a listas libres al dejar de usarse.
  */
 class InteriorManager_c {
+    friend class Interior_c; // Furniture placement updates the original fixed steal-data store.
 public:
     static void InjectHooks();
 

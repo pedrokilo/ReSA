@@ -1,0 +1,52 @@
+// Interior_c::Exit @ 0x00592230 [0x592230..0x5922b5]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00592230(void)
+
+{
+  int in_ECX;
+  
+  FUN_00456d30(*(float *)(in_ECX + 0x48) - 50.0,*(float *)(in_ECX + 0x48) + 50.0,
+               *(float *)(in_ECX + 0x4c) - 50.0,*(float *)(in_ECX + 0x4c) + 50.0,
+               *(float *)(in_ECX + 0x50) - 50.0,*(float *)(in_ECX + 0x50) + 50.0);
+  FUN_005915d0();
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+00592230: sub esp,0Ch
+00592233: push esi
+00592234: mov esi,ecx
+00592236: lea eax,[esi+48h]
+00592239: mov ecx,dword ptr [eax]
+0059223B: mov edx,dword ptr [eax+4]
+0059223E: mov eax,dword ptr [eax+8]
+00592241: mov dword ptr [esp+0Ch],eax
+00592245: fld dword ptr [esp+0Ch]
+00592249: fadd dword ptr ds:[00858B40h]
+0059224F: sub esp,18h
+00592252: mov dword ptr [esp+20h],edx
+00592256: mov dword ptr [esp+1Ch],ecx
+0059225A: fstp dword ptr [esp+14h]
+0059225E: fld dword ptr [esp+24h]
+00592262: fsub dword ptr ds:[00858B40h]
+00592268: fstp dword ptr [esp+10h]
+0059226C: fld dword ptr [esp+20h]
+00592270: fadd dword ptr ds:[00858B40h]
+00592276: fstp dword ptr [esp+0Ch]
+0059227A: fld dword ptr [esp+20h]
+0059227E: fsub dword ptr ds:[00858B40h]
+00592284: fstp dword ptr [esp+8]
+00592288: fld dword ptr [esp+1Ch]
+0059228C: fadd dword ptr ds:[00858B40h]
+00592292: fstp dword ptr [esp+4]
+00592296: fld dword ptr [esp+1Ch]
+0059229A: fsub dword ptr ds:[00858B40h]
+005922A0: fstp dword ptr [esp]
+005922A3: call 00456D30
+005922A8: add esp,18h
+005922AB: mov ecx,esi
+005922AD: pop esi
+005922AE: add esp,0Ch
+005922B1: jmp 005915D0

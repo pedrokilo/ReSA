@@ -1,0 +1,97 @@
+// Interior_c::Lounge_AddChairInfo @ 0x005974e0 [0x5974e0..0x5975b6]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005974e0(int param_1,int param_2,undefined4 param_3)
+
+{
+  int in_ECX;
+  
+  if (param_1 == 0) {
+    FUN_00591e40(1,(float)param_2 + 0.5,
+                 (float)(int)(*(byte *)(*(int *)(in_ECX + 0x14) + 3) - 1) - 1.0,2,param_3);
+    return;
+  }
+  if (param_1 == 2) {
+    FUN_00591e40(1,(float)param_2 + 0.5,0x3f800000,0,param_3);
+    return;
+  }
+  if (param_1 == 1) {
+    FUN_00591e40(1,0x3f800000,(float)param_2 + 0.5,3,param_3);
+    return;
+  }
+  if (param_1 == 3) {
+    FUN_00591e40(1,(float)(int)(*(byte *)(*(int *)(in_ECX + 0x14) + 2) - 1) - 1.0,
+                 (float)param_2 + 0.5,1,param_3);
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+005974E0: mov edx,dword ptr [esp+4]
+005974E4: lea eax,[edx-2]
+005974E7: and eax,3
+005974EA: test edx,edx
+005974EC: jne 00597528
+005974EE: mov edx,dword ptr [esp+0Ch]
+005974F2: push edx
+005974F3: push eax
+005974F4: mov eax,dword ptr [ecx+14h]
+005974F7: movzx edx,byte ptr [eax+3]
+005974FB: dec edx
+005974FC: mov dword ptr [esp+14h],edx
+00597500: sub esp,8
+00597503: fild dword ptr [esp+1Ch]
+00597507: fsub dword ptr ds:[00858624h]
+0059750D: fstp dword ptr [esp+4]
+00597511: fild dword ptr [esp+18h]
+00597515: fadd dword ptr ds:[00858B8Ch]
+0059751B: fstp dword ptr [esp]
+0059751E: push 1
+00597520: call 00591E40
+00597525: ret 0Ch
+00597528: cmp edx,2
+0059752B: jne 00597550
+0059752D: mov edx,dword ptr [esp+0Ch]
+00597531: fild dword ptr [esp+8]
+00597535: push edx
+00597536: push eax
+00597537: fadd dword ptr ds:[00858B8Ch]
+0059753D: push 3F800000h
+00597542: push ecx
+00597543: fstp dword ptr [esp]
+00597546: push 1
+00597548: call 00591E40
+0059754D: ret 0Ch
+00597550: cmp edx,1
+00597553: jne 00597578
+00597555: mov edx,dword ptr [esp+0Ch]
+00597559: fild dword ptr [esp+8]
+0059755D: push edx
+0059755E: push eax
+0059755F: fadd dword ptr ds:[00858B8Ch]
+00597565: push ecx
+00597566: fstp dword ptr [esp]
+00597569: push 3F800000h
+0059756E: push 1
+00597570: call 00591E40
+00597575: ret 0Ch
+00597578: cmp edx,3
+0059757B: jne 005975B4
+0059757D: mov edx,dword ptr [esp+0Ch]
+00597581: fild dword ptr [esp+8]
+00597585: push edx
+00597586: push eax
+00597587: fadd dword ptr ds:[00858B8Ch]
+0059758D: mov eax,dword ptr [ecx+14h]
+00597590: movzx edx,byte ptr [eax+2]
+00597594: sub esp,8
+00597597: dec edx
+00597598: mov dword ptr [esp+1Ch],edx
+0059759C: fstp dword ptr [esp+4]
+005975A0: fild dword ptr [esp+1Ch]
+005975A4: fsub dword ptr ds:[00858624h]
+005975AA: fstp dword ptr [esp]
+005975AD: push 1
+005975AF: call 00591E40
+005975B4: ret 0Ch

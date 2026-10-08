@@ -1,0 +1,167 @@
+// Interior_c::SetCornerTiles @ 0x005917c0 [0x5917c0..0x5918db]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005917c0(int param_1,int param_2,undefined4 param_3,undefined4 param_4)
+
+{
+  int in_ECX;
+  
+  if (param_1 == 1) {
+    FUN_00591700(0,0,param_2,1,param_3,param_4);
+    FUN_00591700(0,0,1,param_2,param_3,param_4);
+    return;
+  }
+  if (param_1 == 0) {
+    FUN_00591700(0,*(byte *)(*(int *)(in_ECX + 0x14) + 3) - 1,param_2,1,param_3,param_4);
+    FUN_00591700(0,(uint)*(byte *)(*(int *)(in_ECX + 0x14) + 3) - param_2,1,param_2,param_3,param_4)
+    ;
+    return;
+  }
+  if (param_1 == 2) {
+    FUN_00591700((uint)*(byte *)(*(int *)(in_ECX + 0x14) + 2) - param_2,0,param_2,1,param_3,param_4)
+    ;
+    FUN_00591700(*(byte *)(*(int *)(in_ECX + 0x14) + 2) - 1,0,1,param_2,param_3,param_4);
+    return;
+  }
+  if (param_1 == 3) {
+    FUN_00591700((uint)*(byte *)(*(int *)(in_ECX + 0x14) + 2) - param_2,
+                 *(byte *)(*(int *)(in_ECX + 0x14) + 3) - 1,param_2,1,param_3,param_4);
+    FUN_00591700(*(byte *)(*(int *)(in_ECX + 0x14) + 2) - 1,
+                 (uint)*(byte *)(*(int *)(in_ECX + 0x14) + 3) - param_2,1,param_2,param_3,param_4);
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+005917C0: mov eax,dword ptr [esp+4]
+005917C4: cmp eax,1
+005917C7: push ebx
+005917C8: push ebp
+005917C9: push esi
+005917CA: push edi
+005917CB: mov esi,ecx
+005917CD: jne 005917FF
+005917CF: mov edi,dword ptr [esp+20h]
+005917D3: mov ebx,dword ptr [esp+1Ch]
+005917D7: mov ebp,dword ptr [esp+18h]
+005917DB: push edi
+005917DC: push ebx
+005917DD: push eax
+005917DE: push ebp
+005917DF: push 0
+005917E1: push 0
+005917E3: call 00591700
+005917E8: push edi
+005917E9: push ebx
+005917EA: push ebp
+005917EB: push 1
+005917ED: push 0
+005917EF: push 0
+005917F1: mov ecx,esi
+005917F3: call 00591700
+005917F8: pop edi
+005917F9: pop esi
+005917FA: pop ebp
+005917FB: pop ebx
+005917FC: ret 10h
+005917FF: test eax,eax
+00591801: jne 00591845
+00591803: mov ebx,dword ptr [esp+20h]
+00591807: mov eax,dword ptr [esi+14h]
+0059180A: mov ebp,dword ptr [esp+1Ch]
+0059180E: movzx ecx,byte ptr [eax+3]
+00591812: mov edi,dword ptr [esp+18h]
+00591816: push ebx
+00591817: push ebp
+00591818: push 1
+0059181A: push edi
+0059181B: dec ecx
+0059181C: push ecx
+0059181D: push 0
+0059181F: mov ecx,esi
+00591821: call 00591700
+00591826: mov edx,dword ptr [esi+14h]
+00591829: movzx eax,byte ptr [edx+3]
+0059182D: push ebx
+0059182E: push ebp
+0059182F: push edi
+00591830: push 1
+00591832: sub eax,edi
+00591834: push eax
+00591835: push 0
+00591837: mov ecx,esi
+00591839: call 00591700
+0059183E: pop edi
+0059183F: pop esi
+00591840: pop ebp
+00591841: pop ebx
+00591842: ret 10h
+00591845: cmp eax,2
+00591848: jne 0059188C
+0059184A: mov ebx,dword ptr [esp+20h]
+0059184E: mov ebp,dword ptr [esp+1Ch]
+00591852: mov ecx,dword ptr [esi+14h]
+00591855: movzx edx,byte ptr [ecx+2]
+00591859: mov edi,dword ptr [esp+18h]
+0059185D: push ebx
+0059185E: push ebp
+0059185F: push 1
+00591861: push edi
+00591862: push 0
+00591864: sub edx,edi
+00591866: push edx
+00591867: mov ecx,esi
+00591869: call 00591700
+0059186E: mov eax,dword ptr [esi+14h]
+00591871: movzx ecx,byte ptr [eax+2]
+00591875: push ebx
+00591876: push ebp
+00591877: push edi
+00591878: push 1
+0059187A: dec ecx
+0059187B: push 0
+0059187D: push ecx
+0059187E: mov ecx,esi
+00591880: call 00591700
+00591885: pop edi
+00591886: pop esi
+00591887: pop ebp
+00591888: pop ebx
+00591889: ret 10h
+0059188C: cmp eax,3
+0059188F: jne 005918D5
+00591891: mov eax,dword ptr [esi+14h]
+00591894: mov ebx,dword ptr [esp+20h]
+00591898: movzx edx,byte ptr [eax+3]
+0059189C: mov ebp,dword ptr [esp+1Ch]
+005918A0: mov edi,dword ptr [esp+18h]
+005918A4: movzx eax,byte ptr [eax+2]
+005918A8: push ebx
+005918A9: push ebp
+005918AA: push 1
+005918AC: push edi
+005918AD: dec edx
+005918AE: push edx
+005918AF: sub eax,edi
+005918B1: push eax
+005918B2: mov ecx,esi
+005918B4: call 00591700
+005918B9: mov eax,dword ptr [esi+14h]
+005918BC: movzx ecx,byte ptr [eax+3]
+005918C0: movzx edx,byte ptr [eax+2]
+005918C4: push ebx
+005918C5: push ebp
+005918C6: push edi
+005918C7: sub ecx,edi
+005918C9: push 1
+005918CB: push ecx
+005918CC: dec edx
+005918CD: push edx
+005918CE: mov ecx,esi
+005918D0: call 00591700
+005918D5: pop edi
+005918D6: pop esi
+005918D7: pop ebp
+005918D8: pop ebx
+005918D9: ret 10h

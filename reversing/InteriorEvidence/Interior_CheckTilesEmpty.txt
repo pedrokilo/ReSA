@@ -1,0 +1,101 @@
+// Interior_c::CheckTilesEmpty @ 0x00591680 [0x591680..0x5916fd]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_00591680(int param_1,int param_2,int param_3,int param_4,char param_5)
+
+{
+  int in_ECX;
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  
+  if ((((param_1 < 0) || (param_2 < 0)) ||
+      ((int)(uint)*(byte *)(*(int *)(in_ECX + 0x14) + 2) < param_1 + param_3)) ||
+     ((int)(uint)*(byte *)(*(int *)(in_ECX + 0x14) + 3) < param_2 + param_4)) {
+    return 0;
+  }
+  iVar3 = 0;
+  if (0 < param_3) {
+    iVar2 = param_1 * 0x1e + param_2 + 0x68 + in_ECX;
+    do {
+      iVar1 = 0;
+      if (0 < param_4) {
+        do {
+          if (*(char *)(iVar2 + iVar1) != '\0') {
+            if (param_5 == '\0') {
+              return 0;
+            }
+            if (*(char *)(iVar2 + iVar1) != '\t') {
+              return 0;
+            }
+          }
+          iVar1 = iVar1 + 1;
+        } while (iVar1 < param_4);
+      }
+      iVar3 = iVar3 + 1;
+      iVar2 = iVar2 + 0x1e;
+    } while (iVar3 < param_3);
+  }
+  return 1;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+00591680: mov eax,dword ptr [esp+4]
+00591684: test eax,eax
+00591686: push ebx
+00591687: push ebp
+00591688: push esi
+00591689: push edi
+0059168A: jl 005916F5
+0059168C: mov esi,dword ptr [esp+18h]
+00591690: test esi,esi
+00591692: jl 005916F5
+00591694: mov edx,dword ptr [ecx+14h]
+00591697: movzx edi,byte ptr [edx+2]
+0059169B: mov ebx,dword ptr [esp+1Ch]
+0059169F: lea ebp,[eax+ebx]
+005916A2: cmp ebp,edi
+005916A4: jg 005916F5
+005916A6: movzx edx,byte ptr [edx+3]
+005916AA: mov ebp,dword ptr [esp+20h]
+005916AE: lea edi,[esi+ebp]
+005916B1: cmp edi,edx
+005916B3: jg 005916F5
+005916B5: xor edi,edi
+005916B7: test ebx,ebx
+005916B9: jle 005916EC
+005916BB: mov dl,byte ptr [esp+24h]
+005916BF: imul eax,eax,1Eh
+005916C2: add eax,esi
+005916C4: lea esi,[eax+ecx+68h]
+005916C8: xor ecx,ecx
+005916CA: test ebp,ebp
+005916CC: jle 005916E4
+005916CE: mov edi,edi
+005916D0: mov al,byte ptr [esi+ecx]
+005916D3: test al,al
+005916D5: je 005916DF
+005916D7: test dl,dl
+005916D9: je 005916F5
+005916DB: cmp al,9
+005916DD: jne 005916F5
+005916DF: inc ecx
+005916E0: cmp ecx,ebp
+005916E2: jl 005916D0
+005916E4: inc edi
+005916E5: add esi,1Eh
+005916E8: cmp edi,ebx
+005916EA: jl 005916C8
+005916EC: pop edi
+005916ED: pop esi
+005916EE: pop ebp
+005916EF: mov al,1
+005916F1: pop ebx
+005916F2: ret 14h
+005916F5: pop edi
+005916F6: pop esi
+005916F7: pop ebp
+005916F8: xor al,al
+005916FA: pop ebx
+005916FB: ret 14h

@@ -1,0 +1,159 @@
+// Interior_c::GetBoundingBox @ 0x00593db0 [0x593db0..0x593f0e]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_00593db0(int param_1,int param_2)
+
+{
+  char cVar1;
+  float fVar2;
+  int in_ECX;
+  int iVar3;
+  undefined4 *puVar4;
+  uint local_e28;
+  uint local_e24;
+  uint local_e20;
+  uint local_e1c;
+  undefined4 local_e18 [901];
+  
+  cVar1 = **(char **)(in_ECX + 0x14);
+  if (((cVar1 != '\0') && (cVar1 != '\x01')) && (cVar1 != '\x06')) {
+    return 0;
+  }
+  local_e20 = (uint)*(ushort *)(param_1 + 0xc);
+  local_e28 = (uint)*(ushort *)(param_1 + 0xe);
+  puVar4 = local_e18;
+  for (iVar3 = 900; iVar3 != 0; iVar3 = iVar3 + -1) {
+    *puVar4 = 0;
+    puVar4 = puVar4 + 1;
+  }
+  local_e18[local_e20 * 0x1e + local_e28] = 1;
+  local_e24 = local_e28;
+  local_e1c = local_e20;
+  FUN_005922c0(local_e20,local_e28,&local_e1c,&local_e20,&local_e28,&local_e24,local_e18);
+  fVar2 = DAT_008d22b0;
+  FUN_00591bd0(((float)(int)local_e1c - 0.5) - DAT_008d22b0,
+               (float)(int)local_e24 + DAT_008d22b0 + 0.5,param_2);
+  FUN_00591bd0(((float)(int)local_e1c - 0.5) - fVar2,((float)(int)local_e28 - 0.5) - fVar2,
+               param_2 + 0xc);
+  FUN_00591bd0((float)(int)local_e20 + fVar2 + 0.5,((float)(int)local_e28 - 0.5) - fVar2,
+               param_2 + 0x18);
+  FUN_00591bd0((float)(int)local_e20 + fVar2 + 0.5,(float)(int)local_e24 + fVar2 + 0.5,
+               param_2 + 0x24);
+  return 1;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+00593DB0: push ebp
+00593DB1: mov ebp,esp
+00593DB3: and esp,0FFFFFFF8h
+00593DB6: sub esp,0E24h
+00593DBC: push ebx
+00593DBD: push esi
+00593DBE: mov esi,ecx
+00593DC0: mov eax,dword ptr [esi+14h]
+00593DC3: mov al,byte ptr [eax]
+00593DC5: test al,al
+00593DC7: push edi
+00593DC8: je 00593DDD
+00593DCA: cmp al,1
+00593DCC: je 00593DDD
+00593DCE: cmp al,6
+00593DD0: je 00593DDD
+00593DD2: xor al,al
+00593DD4: pop edi
+00593DD5: pop esi
+00593DD6: pop ebx
+00593DD7: mov esp,ebp
+00593DD9: pop ebp
+00593DDA: ret 8
+00593DDD: mov eax,dword ptr [ebp+8]
+00593DE0: movzx edx,word ptr [eax+0Ch]
+00593DE4: movzx ebx,word ptr [eax+0Eh]
+00593DE8: xor eax,eax
+00593DEA: mov ecx,384h
+00593DEF: lea edi,[esp+20h]
+00593DF3: rep stos dword ptr es:[edi]
+00593DF5: mov ecx,edx
+00593DF7: imul ecx,ecx,1Eh
+00593DFA: add ecx,ebx
+00593DFC: mov dword ptr [esp+ecx*4+20h],1
+00593E04: lea eax,[esp+20h]
+00593E08: push eax
+00593E09: lea ecx,[esp+18h]
+00593E0D: push ecx
+00593E0E: lea eax,[esp+18h]
+00593E12: push eax
+00593E13: lea ecx,[esp+24h]
+00593E17: push ecx
+00593E18: lea eax,[esp+2Ch]
+00593E1C: push eax
+00593E1D: push ebx
+00593E1E: push edx
+00593E1F: mov ecx,esi
+00593E21: mov dword ptr [esp+38h],edx
+00593E25: mov dword ptr [esp+34h],edx
+00593E29: mov dword ptr [esp+2Ch],ebx
+00593E2D: mov dword ptr [esp+30h],ebx
+00593E31: call 005922C0
+00593E36: mov ecx,dword ptr ds:[008D22B0h]
+00593E3C: fild dword ptr [esp+14h]
+00593E40: mov edi,dword ptr [ebp+0Ch]
+00593E43: mov dword ptr [esp+0Ch],ecx
+00593E47: push edi
+00593E48: fadd dword ptr [esp+10h]
+00593E4C: sub esp,8
+00593E4F: mov ecx,esi
+00593E51: fadd dword ptr ds:[00858B8Ch]
+00593E57: fstp dword ptr [esp+4]
+00593E5B: fild dword ptr [esp+28h]
+00593E5F: fsub dword ptr ds:[00858B8Ch]
+00593E65: fsub dword ptr [esp+18h]
+00593E69: fstp dword ptr [esp]
+00593E6C: call 00591BD0
+00593E71: fild dword ptr [esp+10h]
+00593E75: lea edx,[edi+0Ch]
+00593E78: push edx
+00593E79: sub esp,8
+00593E7C: fsub dword ptr ds:[00858B8Ch]
+00593E82: mov ecx,esi
+00593E84: fsub dword ptr [esp+18h]
+00593E88: fstp dword ptr [esp+4]
+00593E8C: fild dword ptr [esp+28h]
+00593E90: fsub dword ptr ds:[00858B8Ch]
+00593E96: fsub dword ptr [esp+18h]
+00593E9A: fstp dword ptr [esp]
+00593E9D: call 00591BD0
+00593EA2: fild dword ptr [esp+10h]
+00593EA6: lea eax,[edi+18h]
+00593EA9: push eax
+00593EAA: sub esp,8
+00593EAD: fsub dword ptr ds:[00858B8Ch]
+00593EB3: mov ecx,esi
+00593EB5: fsub dword ptr [esp+18h]
+00593EB9: fstp dword ptr [esp+4]
+00593EBD: fild dword ptr [esp+24h]
+00593EC1: fadd dword ptr [esp+18h]
+00593EC5: fadd dword ptr ds:[00858B8Ch]
+00593ECB: fstp dword ptr [esp]
+00593ECE: call 00591BD0
+00593ED3: fild dword ptr [esp+14h]
+00593ED7: add edi,24h
+00593EDA: push edi
+00593EDB: sub esp,8
+00593EDE: fadd dword ptr [esp+18h]
+00593EE2: fadd dword ptr ds:[00858B8Ch]
+00593EE8: fstp dword ptr [esp+4]
+00593EEC: fild dword ptr [esp+24h]
+00593EF0: fadd dword ptr [esp+18h]
+00593EF4: fadd dword ptr ds:[00858B8Ch]
+00593EFA: fstp dword ptr [esp]
+00593EFD: mov ecx,esi
+00593EFF: call 00591BD0
+00593F04: pop edi
+00593F05: pop esi
+00593F06: mov al,1
+00593F08: pop ebx
+00593F09: mov esp,ebp
+00593F0B: pop ebp
+00593F0C: ret 8

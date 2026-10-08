@@ -1,0 +1,79 @@
+// Interior_c::Bedroom_AddTableItem @ 0x00593f10 [0x593f10..0x593fb7]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00593f10(undefined4 param_1,undefined4 param_2,int param_3,float param_4,int param_5,
+                 int param_6)
+
+{
+  undefined4 uVar1;
+  int in_ECX;
+  undefined4 local_4;
+  
+  local_4 = (float)(int)param_4;
+  param_4 = (float)param_5;
+  if ((param_3 == 0) || (param_3 == 2)) {
+    local_4 = local_4 + 0.5;
+  }
+  else if ((param_3 == 1) || (param_3 == 3)) {
+    param_4 = param_4 + 0.5;
+  }
+  uVar1 = FUN_005911e0(param_1,param_2,0xffffffff,*(undefined1 *)(*(int *)(in_ECX + 0x14) + 0x1f));
+  FUN_005934e0(1,uVar1,local_4 + 0.5,param_4 + 0.5,0x3f000000,(float)param_6 * 90.0);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+00593F10: push ecx
+00593F11: fild dword ptr [esp+14h]
+00593F15: mov eax,dword ptr [esp+10h]
+00593F19: test eax,eax
+00593F1B: push esi
+00593F1C: fstp dword ptr [esp+4]
+00593F20: mov esi,ecx
+00593F22: fild dword ptr [esp+1Ch]
+00593F26: fstp dword ptr [esp+18h]
+00593F2A: je 00593F4B
+00593F2C: cmp eax,2
+00593F2F: je 00593F4B
+00593F31: cmp eax,1
+00593F34: je 00593F3B
+00593F36: cmp eax,3
+00593F39: jne 00593F59
+00593F3B: fld dword ptr [esp+18h]
+00593F3F: fadd dword ptr ds:[00858B8Ch]
+00593F45: fstp dword ptr [esp+18h]
+00593F49: jmp 00593F59
+00593F4B: fld dword ptr [esp+4]
+00593F4F: fadd dword ptr ds:[00858B8Ch]
+00593F55: fstp dword ptr [esp+4]
+00593F59: mov eax,dword ptr [esi+14h]
+00593F5C: mov edx,dword ptr [esp+10h]
+00593F60: xor ecx,ecx
+00593F62: mov cl,byte ptr [eax+1Fh]
+00593F65: mov eax,dword ptr [esp+0Ch]
+00593F69: push ecx
+00593F6A: push 0FFFFFFFFh
+00593F6C: push edx
+00593F6D: push eax
+00593F6E: mov ecx,0BAB380h
+00593F73: call 005911E0
+00593F78: fild dword ptr [esp+20h]
+00593F7C: push ecx
+00593F7D: mov ecx,esi
+00593F7F: fmul dword ptr ds:[0085991Ch]
+00593F85: fstp dword ptr [esp]
+00593F88: push 3F000000h
+00593F8D: fld dword ptr [esp+20h]
+00593F91: sub esp,8
+00593F94: fadd dword ptr ds:[00858B8Ch]
+00593F9A: fstp dword ptr [esp+4]
+00593F9E: fld dword ptr [esp+14h]
+00593FA2: fadd dword ptr ds:[00858B8Ch]
+00593FA8: fstp dword ptr [esp]
+00593FAB: push eax
+00593FAC: push 1
+00593FAE: call 005934E0
+00593FB3: pop esi
+00593FB4: pop ecx
+00593FB5: ret 18h

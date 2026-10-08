@@ -1,0 +1,90 @@
+// Interior_c::FurnishShop @ 0x0059a790 [0x59a790..0x59a834]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_0059a790(undefined1 param_1)
+
+{
+  int in_ECX;
+  int iVar1;
+  
+  *(undefined1 *)(in_ECX + 0x790) = param_1;
+  iVar1 = (int)*(char *)(*(int *)(in_ECX + 0x14) + 5);
+  if ((5 < iVar1 + -1) || (5 < (int)((uint)*(byte *)(*(int *)(in_ECX + 0x14) + 2) - iVar1))) {
+    FUN_00591700(0,0,1,1,2,0);
+    FUN_00591700(0,*(byte *)(*(int *)(in_ECX + 0x14) + 3) - 1,1,1,2,0);
+    FUN_00591700(*(byte *)(*(int *)(in_ECX + 0x14) + 2) - 1,0,1,1,2,0);
+    FUN_00591700(*(byte *)(*(int *)(in_ECX + 0x14) + 2) - 1,
+                 *(byte *)(*(int *)(in_ECX + 0x14) + 3) - 1,1,1,2,0);
+    FUN_0059a030();
+    FUN_0059a1b0();
+    FUN_0059a590();
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0059A790: mov al,byte ptr [esp+4]
+0059A794: push esi
+0059A795: mov esi,ecx
+0059A797: mov byte ptr [esi+00000790h],al
+0059A79D: mov eax,dword ptr [esi+14h]
+0059A7A0: movsx ecx,byte ptr [eax+5]
+0059A7A4: lea edx,[ecx-1]
+0059A7A7: cmp edx,6
+0059A7AA: jge 0059A7B7
+0059A7AC: movzx eax,byte ptr [eax+2]
+0059A7B0: sub eax,ecx
+0059A7B2: cmp eax,6
+0059A7B5: jl 0059A831
+0059A7B7: push 0
+0059A7B9: push 2
+0059A7BB: push 1
+0059A7BD: push 1
+0059A7BF: push 0
+0059A7C1: push 0
+0059A7C3: mov ecx,esi
+0059A7C5: call 00591700
+0059A7CA: mov ecx,dword ptr [esi+14h]
+0059A7CD: movzx edx,byte ptr [ecx+3]
+0059A7D1: push 0
+0059A7D3: push 2
+0059A7D5: push 1
+0059A7D7: push 1
+0059A7D9: dec edx
+0059A7DA: push edx
+0059A7DB: push 0
+0059A7DD: mov ecx,esi
+0059A7DF: call 00591700
+0059A7E4: mov eax,dword ptr [esi+14h]
+0059A7E7: movzx ecx,byte ptr [eax+2]
+0059A7EB: push 0
+0059A7ED: push 2
+0059A7EF: push 1
+0059A7F1: push 1
+0059A7F3: dec ecx
+0059A7F4: push 0
+0059A7F6: push ecx
+0059A7F7: mov ecx,esi
+0059A7F9: call 00591700
+0059A7FE: mov eax,dword ptr [esi+14h]
+0059A801: movzx edx,byte ptr [eax+3]
+0059A805: movzx eax,byte ptr [eax+2]
+0059A809: push 0
+0059A80B: push 2
+0059A80D: push 1
+0059A80F: push 1
+0059A811: dec edx
+0059A812: push edx
+0059A813: dec eax
+0059A814: push eax
+0059A815: mov ecx,esi
+0059A817: call 00591700
+0059A81C: mov ecx,esi
+0059A81E: call 0059A030
+0059A823: mov ecx,esi
+0059A825: call 0059A1B0
+0059A82A: mov ecx,esi
+0059A82C: call 0059A590
+0059A831: pop esi
+0059A832: ret 4

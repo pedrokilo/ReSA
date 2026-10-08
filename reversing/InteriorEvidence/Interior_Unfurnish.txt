@@ -1,0 +1,96 @@
+// Interior_c::Unfurnish @ 0x005915d0 [0x5915d0..0x59167a]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005915d0(void)
+
+{
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  int in_ECX;
+  
+  iVar2 = *(int *)(in_ECX + 0x5c);
+  while (iVar2 != 0) {
+    iVar1 = *(int *)(iVar2 + 4);
+    iVar3 = FUN_0056e210(0xffffffff);
+    if ((((iVar3 == 0) || (iVar3 = FUN_005e02e0(), iVar3 == 0)) || (iVar3 != *(int *)(iVar2 + 8)))
+       || (((*(byte *)(iVar3 + 0x36) & 7) != 4 || ((*(uint *)(iVar3 + 0x140) & 0x2000) == 0)))) {
+      FUN_00563280(*(undefined4 *)(iVar2 + 8));
+      if (*(undefined4 **)(iVar2 + 8) != (undefined4 *)0x0) {
+        (**(code **)**(undefined4 **)(iVar2 + 8))(1);
+      }
+    }
+    else {
+      DAT_00bb4a70 = DAT_00bb4a70 + 1;
+      *(undefined1 *)(iVar3 + 0x13c) = 3;
+      *(int *)(iVar3 + 0x150) = DAT_00b7cb84 + 99999999;
+    }
+    *(undefined4 *)(iVar2 + 8) = 0;
+    FUN_004a8e30(iVar2);
+    FUN_004a8df0(iVar2);
+    iVar2 = iVar1;
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+005915D0: push ebp
+005915D1: lea ebp,[ecx+5Ch]
+005915D4: push esi
+005915D5: mov esi,dword ptr [ebp]
+005915D8: test esi,esi
+005915DA: je 00591678
+005915E0: push edi
+005915E1: mov edi,dword ptr [esi+4]
+005915E4: push 0FFFFFFFFh
+005915E6: call 0056E210
+005915EB: add esp,4
+005915EE: test eax,eax
+005915F0: je 0059163A
+005915F2: mov ecx,eax
+005915F4: call 005E02E0
+005915F9: test eax,eax
+005915FB: je 0059163A
+005915FD: cmp eax,dword ptr [esi+8]
+00591600: jne 0059163A
+00591602: mov cl,byte ptr [eax+36h]
+00591605: and cl,7
+00591608: cmp cl,4
+0059160B: jne 0059163A
+0059160D: mov ecx,dword ptr [eax+00000140h]
+00591613: test ch,20h
+00591616: je 0059163A
+00591618: inc word ptr ds:[00BB4A70h]
+ 00
+0059161F: mov byte ptr [eax+0000013Ch],3
+ 03
+00591626: mov edx,dword ptr ds:[00B7CB84h]
+0059162C: add edx,5F5E0FFh
+00591632: mov dword ptr [eax+00000150h],edx
+00591638: jmp 00591653
+0059163A: mov eax,dword ptr [esi+8]
+0059163D: push eax
+0059163E: call 00563280
+00591643: mov ecx,dword ptr [esi+8]
+00591646: add esp,4
+00591649: test ecx,ecx
+0059164B: je 00591653
+0059164D: mov edx,dword ptr [ecx]
+0059164F: push 1
+00591651: call dword ptr [edx]
+00591653: push esi
+00591654: mov ecx,ebp
+00591656: mov dword ptr [esi+8],0
+ 00
+0059165D: call 004A8E30
+00591662: push esi
+00591663: mov ecx,0BAD3ECh
+00591668: call 004A8DF0
+0059166D: test edi,edi
+0059166F: mov esi,edi
+00591671: jne 005915E1
+00591677: pop edi
+00591678: pop esi
+00591679: pop ebp
+0059167A: ret

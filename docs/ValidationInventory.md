@@ -2,13 +2,13 @@
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **8,394 entradas reversed=1**, de 8,446 registradas. Las 52 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **8,446 entradas reversed=1**, de 8,446 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 6684 |
-| Vigencia acreditada para su alcance | 117 |
-| Evidencia histórica vinculada; revisión pendiente | 6567 |
+| `validated=1` · evidencia aprobada vinculada | 6736 |
+| Vigencia acreditada para su alcance | 52 |
+| Evidencia histórica vinculada; revisión pendiente | 6684 |
 | Sin evidencia aprobada vinculada en este registro | 1710 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
@@ -769,6 +769,24 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CBaseModelInfo | `SetTexDictionary` | [Resumen](../reversing/Model34/validation-summary.json) |
 | CBaseModelInfo | `Shutdown` | [Resumen](../reversing/Model34/validation-summary.json) |
 | CBaseModelInfo | `SwaysInWind` | [Resumen](../reversing/CBaseModelInfo/validation-summary.json) |
+| CBike | `BlowUpCar` | [Resumen](../reversing/BikeBlow355/validation-summary.json) |
+| CBike | `BurstTyre` | [Resumen](../reversing/BikeBurst355/validation-summary.json) |
+| CBike | `DoBurstAndSoftGroundRatios` | [Resumen](../reversing/BikeRatios355/validation-summary.json) |
+| CBike | `DoSoftGroundResistance` | [Resumen](../reversing/BikeCore355/validation-summary.json) |
+| CBike | `FixHandsToBars` | [Resumen](../reversing/BikeHands355/validation-summary.json) |
+| CBike | `GetCorrectedWorldDoorPosition` | [Resumen](../reversing/BikeCore355/validation-summary.json) |
+| CBike | `PlaceOnRoadProperly` | [Resumen](../reversing/BikeRoad355/validation-summary.json) |
+| CBike | `PlayCarHorn` | [Resumen](../reversing/BikeCore355/validation-summary.json) |
+| CBike | `PreRender` | [Resumen](../reversing/BikePreRender355/validation-summary.json) |
+| CBike | `ProcessAI` | [Resumen](../reversing/BikeAI355/validation-summary.json) |
+| CBike | `ProcessControl` | [Resumen](../reversing/BikeControl355/validation-summary.json) |
+| CBike | `ProcessControlInputs` | [Resumen](../reversing/BikeInputs355/validation-summary.json) |
+| CBike | `ProcessRiderAnims` | [Resumen](../reversing/BikeRider355/validation-summary.json) |
+| CBike | `ResetSuspension` | [Resumen](../reversing/BikeCore355/validation-summary.json) |
+| CBike | `SetRemoveAnimFlags` | [Resumen](../reversing/BikeCore355/validation-summary.json) |
+| CBike | `SetUpWheelColModel` | [Resumen](../reversing/BikeWheel355/validation-summary.json) |
+| CBike | `SetupSuspensionLines` | [Resumen](../reversing/BikeSetup355/validation-summary.json) |
+| CBike | `VehicleDamage` | [Resumen](../reversing/BikeDamage355/validation-summary.json) |
 | CBirds | `CreateNumberOfBirds` | [Resumen](../reversing/Misc6/validation-summary.json) |
 | CBirds | `HandleGunShot` | [Resumen](../reversing/Misc6/validation-summary.json) |
 | CBirds | `Init` | [Resumen](../reversing/Misc6/validation-summary.json) |
@@ -833,6 +851,55 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CBulletTraces | `Init` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | CBulletTraces | `Render` | [Resumen](../reversing/Fx43/validation-summary.json) |
 | CBulletTraces | `Update` | [Resumen](../reversing/Fx43/validation-summary.json) |
+| CCam | `GetLookFromLampPostPos` | [Resumen](../reversing/CamLamp355/validation-summary.json) |
+| CCam | `IsTimeToExitThisDWCineyCamMode` | [Resumen](../reversing/CamCineExit355/validation-summary.json) |
+| CCam | `KeepTrackOfTheSpeed` | [Resumen](../reversing/CamCore355/validation-summary.json) |
+| CCam | `LookBehind` | [Resumen](../reversing/CamLookBehind355/validation-summary.json) |
+| CCam | `LookRight` | [Resumen](../reversing/CamLookSide355/validation-summary.json) |
+| CCam | `Process` | [Resumen](../reversing/CamProcess355/validation-summary.json) |
+| CCam | `ProcessArrestCamOne` | [Resumen](../reversing/CamArrest355/validation-summary.json) |
+| CCam | `ProcessPedsDeadBaby` | [Resumen](../reversing/CamDead355/validation-summary.json) |
+| CCam | `Process_1rstPersonPedOnPC` | [Resumen](../reversing/CamFirstPerson355/validation-summary.json) |
+| CCam | `Process_AimWeapon` | [Resumen](../reversing/CamAim355/validation-summary.json) |
+| CCam | `Process_AttachedCam` | [Resumen](../reversing/CamAttached355/validation-summary.json) |
+| CCam | `Process_Cam_TwoPlayer` | [Resumen](../reversing/CamTwoPlayer355/validation-summary.json) |
+| CCam | `Process_Cam_TwoPlayer_InCarAndShooting` | [Resumen](../reversing/CamShooting355/validation-summary.json) |
+| CCam | `Process_Cam_TwoPlayer_Separate_Cars` | [Resumen](../reversing/CamTwoCars355/validation-summary.json) |
+| CCam | `Process_DW_BirdyCam` | [Resumen](../reversing/CamBirdy355/validation-summary.json) |
+| CCam | `Process_DW_CamManCam` | [Resumen](../reversing/CamMan355/validation-summary.json) |
+| CCam | `Process_DW_HeliChaseCam` | [Resumen](../reversing/CamHeliChase355/validation-summary.json) |
+| CCam | `Process_DW_PlaneCam1` | [Resumen](../reversing/CamPlaneOrbit355/validation-summary.json) |
+| CCam | `Process_DW_PlaneCam2` | [Resumen](../reversing/CamPlaneOrbit355/validation-summary.json) |
+| CCam | `Process_DW_PlaneCam3` | [Resumen](../reversing/CamPlane355/validation-summary.json) |
+| CCam | `Process_DW_PlaneSpotterCam` | [Resumen](../reversing/CamSpotter355/validation-summary.json) |
+| CCam | `Process_FlyBy` | [Resumen](../reversing/CamFlyBy355/validation-summary.json) |
+| CCam | `Process_FollowCar_SA` | [Resumen](../reversing/CamFollowCar355/validation-summary.json) |
+| CCam | `Process_FollowPedWithMouse` | [Resumen](../reversing/CamMouse355/validation-summary.json) |
+| CCam | `Process_FollowPed_SA` | [Resumen](../reversing/CamFollowPed355/validation-summary.json) |
+| CCam | `Process_M16_1stPerson` | [Resumen](../reversing/CamM16355/validation-summary.json) |
+| CCam | `Process_SpecialFixedForSyphon` | [Resumen](../reversing/CamSyphon355/validation-summary.json) |
+| CCam | `Process_WheelCam` | [Resumen](../reversing/CamWheel355/validation-summary.json) |
+| CCam | `RotCamIfInFrontCar` | [Resumen](../reversing/CamRotate355/validation-summary.json) |
+| CCam | `Using3rdPersonMouseCam` | [Resumen](../reversing/CamCore355/validation-summary.json) |
+| CCamera | `CalculateDerivedValues` | [Resumen](../reversing/CameraDerived355/validation-summary.json) |
+| CCamera | `CalculateFrustumPlanes` | [Resumen](../reversing/CameraFrustum355/validation-summary.json) |
+| CCamera | `CamControl` | [Resumen](../reversing/CamControl355/validation-summary.json) |
+| CCamera | `CameraColDetAndReact` | [Resumen](../reversing/CameraCollision355/validation-summary.json) |
+| CCamera | `CopyCameraMatrixToRWCam` | [Resumen](../reversing/CameraRwCopy355/validation-summary.json) |
+| CCamera | `HandleCameraMotionForDucking` | [Resumen](../reversing/CameraDuck355/validation-summary.json) |
+| CCamera | `HandleCameraMotionForDuckingDuringAim` | [Resumen](../reversing/CameraDuck355/validation-summary.json) |
+| CCamera | `ImproveNearClip` | [Resumen](../reversing/CameraImprove355/validation-summary.json) |
+| CCamera | `LoadPathSplines` | [Resumen](../reversing/CameraPath355/validation-summary.json) |
+| CCamera | `Process` | [Resumen](../reversing/CameraProcess355/validation-summary.json) |
+| CCamera | `ProcessFOVLerp-0` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
+| CCamera | `ProcessVectorMoveLinear-0` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
+| CCamera | `ProcessVectorMoveLinear-1` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
+| CCamera | `ProcessVectorTrackLinear-0` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
+| CCamera | `ProcessVectorTrackLinear-1` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
+| CCamera | `SetNearClipBasedOnPedCollision` | [Resumen](../reversing/CameraNear355/validation-summary.json) |
+| CCamera | `TryToStartNewCamMode` | [Resumen](../reversing/CameraNewMode355/validation-summary.json) |
+| CCamera | `VectorMoveLinear` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
+| CCamera | `VectorTrackLinear` | [Resumen](../reversing/CameraLinear355/validation-summary.json) |
 | CCarAI | `AddAmbulanceOccupants` | [Resumen](../reversing/CarAI25/validation-summary.json) |
 | CCarAI | `AddFiretruckOccupants` | [Resumen](../reversing/CarAI25/validation-summary.json) |
 | CCarAI | `AddPoliceCarOccupants` | [Resumen](../reversing/CarAI25/validation-summary.json) |
@@ -880,6 +947,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CCarCtrl | `ScriptGenerateOneEmergencyServicesCar` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarCtrl | `SlowCarDownForObject` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
 | CCarCtrl | `SlowCarOnRailsDownForTrafficAndLights` | [Resumen](../reversing/CarCtrl22/validation-summary.json) |
+| CCarEnterExit | `GetNearestCarPassengerDoor` | [Resumen](../reversing/CarNearest355/validation-summary.json) |
+| CCarEnterExit | `GetPositionToOpenCarDoor` | [Resumen](../reversing/CarDoorPosition355/validation-summary.json) |
+| CCarEnterExit | `IsPlayerToQuitCarEnter` | [Resumen](../reversing/CarQuit355/validation-summary.json) |
+| CCarEnterExit | `IsRoomForPedToLeaveCar` | [Resumen](../reversing/CarRoom355/validation-summary.json) |
+| CCarEnterExit | `MakeUndraggedPassengerPedsLeaveCar` | [Resumen](../reversing/CarPassenger355/validation-summary.json) |
 | CCarFXRenderer | `CustomCarPipeAtomicSetup` | [Resumen](../reversing/Misc61b/validation-summary.json) |
 | CCarFXRenderer | `CustomCarPipeClumpSetup` | [Resumen](../reversing/Misc61b/validation-summary.json) |
 | CCarFXRenderer | `Initialise` | [Resumen](../reversing/Misc61b/validation-summary.json) |
@@ -930,6 +1002,14 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CClothes | `RebuildPlayer` | [Resumen](../reversing/Audio11/validation-summary.json) |
 | CClothes | `RebuildPlayerIfNeeded` | [Resumen](../reversing/Audio11/validation-summary.json) |
 | CClothes | `RequestMotionGroupAnims` | [Resumen](../reversing/Audio11/validation-summary.json) |
+| CClothesBuilder | `BlendGeometry-2` | [Resumen](../reversing/ClothesGeometry355/validation-summary.json) |
+| CClothesBuilder | `BlendGeometry-3` | [Resumen](../reversing/ClothesGeometry355/validation-summary.json) |
+| CClothesBuilder | `ConstructGeometryAndSkinArrays` | [Resumen](../reversing/ClothesSkin355/validation-summary.json) |
+| CClothesBuilder | `ConstructGeometryArray` | [Resumen](../reversing/ClothesArray355/validation-summary.json) |
+| CClothesBuilder | `ConstructTextures` | [Resumen](../reversing/ClothesTextures355/validation-summary.json) |
+| CClothesBuilder | `CopyGeometry` | [Resumen](../reversing/ClothesGeometry355/validation-summary.json) |
+| CClothesBuilder | `PreprocessClothesDesc` | [Resumen](../reversing/ClothesRules355/validation-summary.json) |
+| CClothesBuilder | `ReleaseGeometry` | [Resumen](../reversing/ClothesRules355/validation-summary.json) |
 | CClouds | `Init` | [Resumen](../reversing/Clouds21/validation-summary.json) |
 | CClouds | `MovingFogInit` | [Resumen](../reversing/Clouds21/validation-summary.json) |
 | CClouds | `MovingFogRender` | [Resumen](../reversing/Clouds21/validation-summary.json) |
@@ -1950,6 +2030,14 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CFont | `PrintChar` | [Resumen](../reversing/FontPending/validation-summary.json) |
 | CFont | `ProcessCurrentString` | [Resumen](../reversing/FontPending/validation-summary.json) |
 | CFont | `RenderFontBuffer` | [Resumen](../reversing/FontPending/validation-summary.json) |
+| CFormation | `DistributeDestinations` | [Resumen](../reversing/FormationAssign355/validation-summary.json) |
+| CFormation | `DistributeDestinations_CoverPoints` | [Resumen](../reversing/FormationAssign355/validation-summary.json) |
+| CFormation | `DistributeDestinations_PedsToAttack` | [Resumen](../reversing/FormationAssign355/validation-summary.json) |
+| CFormation | `FindCoverPoints` | [Resumen](../reversing/FormationGather355/validation-summary.json) |
+| CFormation | `GenerateGatherDestinations` | [Resumen](../reversing/FormationLookup355/validation-summary.json) |
+| CFormation | `GenerateGatherDestinations_AroundCar` | [Resumen](../reversing/FormationGather355/validation-summary.json) |
+| CFormation | `ReturnDestinationForPed` | [Resumen](../reversing/FormationLookup355/validation-summary.json) |
+| CFormation | `ReturnTargetPedForPed` | [Resumen](../reversing/FormationLookup355/validation-summary.json) |
 | CGame | `CameraDestroy` | [Resumen](../reversing/Game22/validation-summary.json) |
 | CGame | `CanSeeOutSideFromCurrArea` | [Resumen](../reversing/Game22/validation-summary.json) |
 | CGame | `CanSeeWaterFromCurrArea` | [Resumen](../reversing/Game22/validation-summary.json) |
@@ -2711,13 +2799,19 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CPedGeometryAnalyser | `ComputeBuildingHitPoints` | [Resumen](../reversing/GeometryQueries355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeClearTarget` | [Resumen](../reversing/GeometryQueries355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeClosestSurfacePoint-posn` | [Resumen](../reversing/GeometryQueries355/validation-summary.json) |
+| CPedGeometryAnalyser | `ComputeClosestSurfacePoint-rect` | [Resumen](../reversing/GeometryCore355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityBoundingBoxCornersUncached` | [Resumen](../reversing/GeometryRoutes355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityBoundingBoxPlanes` | [Resumen](../reversing/GeometryQueries355/validation-summary.json) |
+| CPedGeometryAnalyser | `ComputeEntityBoundingBoxSegmentPlanesUncached` | [Resumen](../reversing/GeometryCore355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityBoundingSphere` | [Resumen](../reversing/GeometryQueries355/validation-summary.json) |
+| CPedGeometryAnalyser | `ComputeEntityDirs` | [Resumen](../reversing/GeometryCore355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityHitSide-1` | [Resumen](../reversing/GeometryQueries355/validation-summary.json) |
+| CPedGeometryAnalyser | `ComputeEntityHitSide-2` | [Resumen](../reversing/GeometryCore355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeEntityHitSide-3` | [Resumen](../reversing/GeometryQueries355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeMoveDirToAvoidEntity` | [Resumen](../reversing/GeometryQueries355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputePedHitSide-physical` | [Resumen](../reversing/GeometryQueries355/validation-summary.json) |
+| CPedGeometryAnalyser | `ComputePedHitSide-posn` | [Resumen](../reversing/GeometryCore355/validation-summary.json) |
+| CPedGeometryAnalyser | `ComputePedShotSide` | [Resumen](../reversing/GeometryCore355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeRouteRoundEntityBoundingBox-1` | [Resumen](../reversing/GeometryRoutes355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeRouteRoundEntityBoundingBox-2` | [Resumen](../reversing/GeometryRoutes355/validation-summary.json) |
 | CPedGeometryAnalyser | `ComputeRouteRoundSphere` | [Resumen](../reversing/GeometryQueries355/validation-summary.json) |
@@ -4004,6 +4098,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexFollowLeaderAnyMeans | `CreateSubTask` | [Resumen](../reversing/CTasks8a/validation-summary.json) |
 | CTaskComplexFollowLeaderAnyMeans | `Destructor` | [Resumen](../reversing/CTasks8a/validation-summary.json) |
 | CTaskComplexFollowLeaderAnyMeans | `GetTaskType` | [Resumen](../reversing/CTasks8a/validation-summary.json) |
+| CTaskComplexFollowLeaderInFormation | `Clone` | [Resumen](../reversing/FormationFollow355/validation-summary.json) |
+| CTaskComplexFollowLeaderInFormation | `Constructor` | [Resumen](../reversing/FormationFollow355/validation-summary.json) |
+| CTaskComplexFollowLeaderInFormation | `ControlSubTask` | [Resumen](../reversing/FormationFollow355/validation-summary.json) |
+| CTaskComplexFollowLeaderInFormation | `CreateFirstSubTask` | [Resumen](../reversing/FormationFollow355/validation-summary.json) |
+| CTaskComplexFollowLeaderInFormation | `CreateNextSubTask` | [Resumen](../reversing/FormationFollow355/validation-summary.json) |
+| CTaskComplexFollowLeaderInFormation | `GetTaskType` | [Resumen](../reversing/FormationFollow355/validation-summary.json) |
 | CTaskComplexFollowNodeRoute | `CalcBlendRatio` | [Resumen](../reversing/Route19/validation-summary.json) |
 | CTaskComplexFollowNodeRoute | `CalcGoToTaskType` | [Resumen](../reversing/Route19/validation-summary.json) |
 | CTaskComplexFollowNodeRoute | `CanGoStraightThere` | [Resumen](../reversing/Route19/validation-summary.json) |
@@ -4045,6 +4145,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexGangFollower | `Destructor` | [Resumen](../reversing/GangFollower355/validation-summary.json) |
 | CTaskComplexGangFollower | `MakeAbortable` | [Resumen](../reversing/GangFollower355/validation-summary.json) |
 | CTaskComplexGangFollower | `SetCanEnterLeadersCar` | [Resumen](../reversing/GroupTasksCompletion/validation-summary.json) |
+| CTaskComplexGangJoinRespond | `Clone` | [Resumen](../reversing/GangJoin355/validation-summary.json) |
+| CTaskComplexGangJoinRespond | `ControlSubTask` | [Resumen](../reversing/GangJoin355/validation-summary.json) |
+| CTaskComplexGangJoinRespond | `CreateFirstSubTask` | [Resumen](../reversing/GangJoin355/validation-summary.json) |
+| CTaskComplexGangJoinRespond | `CreateNextSubTask` | [Resumen](../reversing/GangJoin355/validation-summary.json) |
+| CTaskComplexGangJoinRespond | `MakeAbortable` | [Resumen](../reversing/GangJoin355/validation-summary.json) |
 | CTaskComplexGangLeader | `Clone` | [Resumen](../reversing/CTasks13/validation-summary.json) |
 | CTaskComplexGangLeader | `Constructor` | [Resumen](../reversing/CTasks13/validation-summary.json) |
 | CTaskComplexGangLeader | `ControlSubTask` | [Resumen](../reversing/CTasks13/validation-summary.json) |
@@ -4195,6 +4300,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CTaskComplexJump | `MakeAbortable` | [Resumen](../reversing/CTasks6b/validation-summary.json) |
 | CTaskComplexKillCriminal | `ControlSubTask` | [Resumen](../reversing/CriminalPending/validation-summary.json) |
 | CTaskComplexKillCriminal | `CreateFirstSubTask` | [Resumen](../reversing/CriminalPending/validation-summary.json) |
+| CTaskComplexKillPedFromBoat | `Clone` | [Resumen](../reversing/Boat355/validation-summary.json) |
+| CTaskComplexKillPedFromBoat | `ControlSubTask` | [Resumen](../reversing/Boat355/validation-summary.json) |
+| CTaskComplexKillPedFromBoat | `CreateFirstSubTask` | [Resumen](../reversing/Boat355/validation-summary.json) |
+| CTaskComplexKillPedFromBoat | `CreateNextSubTask` | [Resumen](../reversing/Boat355/validation-summary.json) |
+| CTaskComplexKillPedFromBoat | `GetTaskType` | [Resumen](../reversing/Boat355/validation-summary.json) |
 | CTaskComplexKillPedGroupOnFoot | `Clone` | [Resumen](../reversing/CTasks9b/validation-summary.json) |
 | CTaskComplexKillPedGroupOnFoot | `ComputeNearestLivingGroupPed` | [Resumen](../reversing/CTasks9b/validation-summary.json) |
 | CTaskComplexKillPedGroupOnFoot | `Constructor` | [Resumen](../reversing/CTasks9b/validation-summary.json) |
@@ -6150,6 +6260,13 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FurnitureSubGroup_c | `AddFurniture` | [Resumen](../reversing/FurnitureSubGroup_c/validation-summary.json) |
 | FurnitureSubGroup_c | `GetFurniture` | [Resumen](../reversing/FurnitureSubGroup_c/validation-summary.json) |
 | FurnitureSubGroup_c | `GetRandomId` | [Resumen](../reversing/FurnitureSubGroup_c/validation-summary.json) |
+| FxEmitterBP_c | `CreateInstance` | [Resumen](../reversing/FxEmitterCore355/validation-summary.json) |
+| FxEmitterBP_c | `FreePrtFromPrim` | [Resumen](../reversing/FxEmitterCore355/validation-summary.json) |
+| FxEmitterBP_c | `Load` | [Resumen](../reversing/FxEmitterCore355/validation-summary.json) |
+| FxEmitterBP_c | `Render` | [Resumen](../reversing/FxEmitterRender355/validation-summary.json) |
+| FxEmitterBP_c | `RenderHeatHaze` | [Resumen](../reversing/FxEmitterRender355/validation-summary.json) |
+| FxEmitterBP_c | `Update` | [Resumen](../reversing/FxEmitterCore355/validation-summary.json) |
+| FxEmitterBP_c | `UpdateParticle` | [Resumen](../reversing/FxEmitterParticle355/validation-summary.json) |
 | FxEmitterPrt_c | `operator new[]` | [Resumen](../reversing/Pools56/validation-summary.json) |
 | FxInfoManager_c | `AddFxInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | FxInfoManager_c | `ProcessEmissionInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
@@ -6663,7 +6780,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAudioZones` | 5 | 0 | 5 | 0 |
 | `CAutomobile` | 99 | 0 | 0 | 99 |
 | `CBaseModelInfo` | 34 | 0 | 34 | 0 |
-| `CBike` | 40 | 18 | 0 | 22 |
+| `CBike` | 40 | 0 | 18 | 22 |
 | `CBirds` | 6 | 0 | 6 | 0 |
 | `CBmx` | 10 | 0 | 10 | 0 |
 | `CBoat` | 23 | 0 | 23 | 0 |
@@ -6675,11 +6792,11 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CBuildingPool` | 1 | 0 | 1 | 0 |
 | `CBulletInfo` | 4 | 0 | 4 | 0 |
 | `CBulletTraces` | 5 | 0 | 5 | 0 |
-| `CCam` | 44 | 30 | 0 | 14 |
-| `CCamera` | 110 | 19 | 0 | 91 |
+| `CCam` | 44 | 0 | 30 | 14 |
+| `CCamera` | 110 | 0 | 19 | 91 |
 | `CCarAI` | 25 | 0 | 25 | 0 |
 | `CCarCtrl` | 22 | 0 | 22 | 0 |
-| `CCarEnterExit` | 32 | 5 | 0 | 27 |
+| `CCarEnterExit` | 32 | 0 | 5 | 27 |
 | `CCarFXRenderer` | 10 | 0 | 10 | 0 |
 | `CCarGenerator` | 8 | 0 | 8 | 0 |
 | `CCheat` | 72 | 0 | 0 | 72 |
@@ -6688,7 +6805,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CCivilianPed` | 3 | 0 | 3 | 0 |
 | `CClock` | 9 | 0 | 9 | 0 |
 | `CClothes` | 11 | 0 | 11 | 0 |
-| `CClothesBuilder` | 23 | 8 | 0 | 15 |
+| `CClothesBuilder` | 23 | 0 | 8 | 15 |
 | `CClouds` | 21 | 0 | 21 | 0 |
 | `CClumpModelInfo` | 24 | 0 | 24 | 0 |
 | `CColAccel` | 11 | 0 | 11 | 0 |
@@ -6817,7 +6934,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CFire` | 5 | 0 | 5 | 0 |
 | `CFireManager` | 24 | 0 | 24 | 0 |
 | `CFont` | 36 | 0 | 4 | 32 |
-| `CFormation` | 9 | 8 | 0 | 1 |
+| `CFormation` | 9 | 0 | 8 | 1 |
 | `CGame` | 22 | 0 | 22 | 0 |
 | `CGameLogic` | 27 | 0 | 27 | 0 |
 | `CGamma` | 2 | 0 | 2 | 0 |
@@ -6888,7 +7005,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CPedAttractorPool` | 1 | 0 | 1 | 0 |
 | `CPedClothesDesc` | 7 | 0 | 7 | 0 |
 | `CPedDamageResponseCalculator` | 6 | 0 | 4 | 2 |
-| `CPedGeometryAnalyser` | 38 | 6 | 23 | 9 |
+| `CPedGeometryAnalyser` | 38 | 0 | 29 | 9 |
 | `CPedGroup` | 12 | 0 | 12 | 0 |
 | `CPedGroupDefaultTaskAllocatorChat` | 2 | 0 | 2 | 0 |
 | `CPedGroupDefaultTaskAllocatorFollowAnyMeans` | 2 | 0 | 2 | 0 |
@@ -7039,12 +7156,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexFleePoint` | 11 | 0 | 11 | 0 |
 | `CTaskComplexFleeShooting` | 8 | 0 | 8 | 0 |
 | `CTaskComplexFollowLeaderAnyMeans` | 8 | 0 | 8 | 0 |
-| `CTaskComplexFollowLeaderInFormation` | 7 | 6 | 0 | 1 |
+| `CTaskComplexFollowLeaderInFormation` | 7 | 0 | 6 | 1 |
 | `CTaskComplexFollowNodeRoute` | 19 | 0 | 19 | 0 |
 | `CTaskComplexFollowPedFootsteps` | 1 | 0 | 1 | 0 |
 | `CTaskComplexFollowPointRoute` | 13 | 0 | 13 | 0 |
 | `CTaskComplexGangFollower` | 8 | 0 | 8 | 0 |
-| `CTaskComplexGangJoinRespond` | 7 | 5 | 0 | 2 |
+| `CTaskComplexGangJoinRespond` | 7 | 0 | 5 | 2 |
 | `CTaskComplexGangLeader` | 13 | 0 | 13 | 0 |
 | `CTaskComplexGetOnBoatSeat` | 8 | 0 | 8 | 0 |
 | `CTaskComplexGetUpAndStandStill` | 5 | 0 | 5 | 0 |
@@ -7067,7 +7184,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CTaskComplexInvestigateDisturbance` | 8 | 0 | 8 | 0 |
 | `CTaskComplexJump` | 6 | 0 | 6 | 0 |
 | `CTaskComplexKillCriminal` | 11 | 0 | 2 | 9 |
-| `CTaskComplexKillPedFromBoat` | 7 | 5 | 0 | 2 |
+| `CTaskComplexKillPedFromBoat` | 7 | 0 | 5 | 2 |
 | `CTaskComplexKillPedGroupOnFoot` | 9 | 0 | 9 | 0 |
 | `CTaskComplexKillPedOnFoot` | 1 | 0 | 1 | 0 |
 | `CTaskComplexKillPedOnFootArmed` | 11 | 0 | 2 | 9 |
@@ -7324,7 +7441,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FurnitureGroup_c` | 6 | 0 | 6 | 0 |
 | `FurnitureManager_c` | 7 | 0 | 7 | 0 |
 | `FurnitureSubGroup_c` | 3 | 0 | 3 | 0 |
-| `FxEmitterBP_c` | 9 | 7 | 0 | 2 |
+| `FxEmitterBP_c` | 9 | 0 | 7 | 2 |
 | `FxEmitterPrt_c` | 1 | 0 | 1 | 0 |
 | `FxInfoManager_c` | 4 | 0 | 4 | 0 |
 | `FxManager_c` | 25 | 0 | 25 | 0 |
@@ -7340,6 +7457,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `Input` | 5 | 0 | 5 | 0 |
 | `InteriorGroup_c` | 24 | 0 | 23 | 1 |
 | `InteriorManager_c` | 21 | 0 | 21 | 0 |
+| `Interior_c` | 52 | 52 | 0 | 0 |
 | `JPegPlugin` | 5 | 0 | 5 | 0 |
 | `Light` | 27 | 0 | 27 | 0 |
 | `ModelIndices` | 2 | 0 | 2 | 0 |

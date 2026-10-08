@@ -1,0 +1,87 @@
+// Interior_c::GetRandomTile @ 0x00591b20 [0x591b20..0x591bcc]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00591b20(uint param_1,int *param_2,int *param_3)
+
+{
+  int iVar1;
+  int iVar2;
+  int in_ECX;
+  uint uVar3;
+  
+  do {
+    _rand();
+    iVar1 = FUN_00821b40();
+    _rand();
+    iVar2 = FUN_00821b40();
+    if ((((iVar1 < (int)(uint)*(byte *)(*(int *)(in_ECX + 0x14) + 2)) &&
+         (iVar2 < (int)(uint)*(byte *)(*(int *)(in_ECX + 0x14) + 3))) && (-1 < iVar1)) &&
+       (-1 < iVar2)) {
+      uVar3 = (uint)*(byte *)(iVar1 * 0x1e + iVar2 + 0x68 + in_ECX);
+    }
+    else {
+      uVar3 = 1;
+    }
+  } while (uVar3 != param_1);
+  *param_2 = iVar1;
+  *param_3 = iVar2;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+00591B20: push ecx
+00591B21: push ebx
+00591B22: mov ebx,dword ptr [esp+0Ch]
+00591B26: push esi
+00591B27: push edi
+00591B28: mov edi,ecx
+00591B2A: mov eax,dword ptr [edi+14h]
+00591B2D: movzx edx,byte ptr [eax+2]
+00591B31: mov dword ptr [esp+0Ch],edx
+00591B35: call 00821B1E
+00591B3A: and eax,0FFFFh
+00591B3F: mov dword ptr [esp+14h],eax
+00591B43: fild dword ptr [esp+14h]
+00591B47: fmul dword ptr ds:[00858B14h]
+00591B4D: fimul dword ptr [esp+0Ch]
+00591B51: call 00821B40
+00591B56: mov ecx,dword ptr [edi+14h]
+00591B59: movzx edx,byte ptr [ecx+3]
+00591B5D: mov esi,eax
+00591B5F: mov dword ptr [esp+0Ch],edx
+00591B63: call 00821B1E
+00591B68: and eax,0FFFFh
+00591B6D: mov dword ptr [esp+14h],eax
+00591B71: fild dword ptr [esp+14h]
+00591B75: fmul dword ptr ds:[00858B14h]
+00591B7B: fimul dword ptr [esp+0Ch]
+00591B7F: call 00821B40
+00591B84: mov ecx,dword ptr [edi+14h]
+00591B87: movzx edx,byte ptr [ecx+2]
+00591B8B: cmp esi,edx
+00591B8D: jge 00591BAD
+00591B8F: movzx ecx,byte ptr [ecx+3]
+00591B93: cmp eax,ecx
+00591B95: jge 00591BAD
+00591B97: test esi,esi
+00591B99: jl 00591BAD
+00591B9B: test eax,eax
+00591B9D: jl 00591BAD
+00591B9F: mov ecx,esi
+00591BA1: imul ecx,ecx,1Eh
+00591BA4: add ecx,eax
+00591BA6: movzx ecx,byte ptr [ecx+edi+68h]
+00591BAB: jmp 00591BB2
+00591BAD: mov ecx,1
+00591BB2: cmp ecx,ebx
+00591BB4: jne 00591B31
+00591BBA: mov edx,dword ptr [esp+18h]
+00591BBE: mov ecx,dword ptr [esp+1Ch]
+00591BC2: pop edi
+00591BC3: mov dword ptr [edx],esi
+00591BC5: pop esi
+00591BC6: mov dword ptr [ecx],eax
+00591BC8: pop ebx
+00591BC9: pop ecx
+00591BCA: ret 0Ch

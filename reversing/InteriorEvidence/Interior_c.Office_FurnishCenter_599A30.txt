@@ -1,0 +1,113 @@
+// Interior_c::Office_FurnishCenter @ 0x00599a30 [0x599a30..0x599ae4]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00599a30(void)
+
+{
+  int in_ECX;
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  int iVar4;
+  int local_8;
+  
+  iVar1 = *(byte *)(*(int *)(in_ECX + 0x14) + 2) - 6;
+  local_8 = iVar1 / 6;
+  iVar4 = *(byte *)(*(int *)(in_ECX + 0x14) + 3) - 6;
+  iVar3 = (iVar1 % 6) / 2;
+  if (((0 < iVar1) && (0 < iVar4)) && (0 < local_8)) {
+    do {
+      iVar3 = iVar3 + 6;
+      iVar2 = iVar4 / 6;
+      iVar1 = (iVar4 % 6) / 2;
+      if (0 < iVar4 / 6) {
+        do {
+          FUN_00599960(0xffffffff,iVar3,iVar1 + 6,(int)*(char *)(in_ECX + 0x791));
+          iVar2 = iVar2 + -1;
+          iVar1 = iVar1 + 6;
+        } while (iVar2 != 0);
+      }
+      local_8 = local_8 + -1;
+    } while (local_8 != 0);
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00599A30: sub esp,0Ch
+00599A33: push ebx
+00599A34: push ebp
+00599A35: push esi
+00599A36: push edi
+00599A37: mov edi,ecx
+00599A39: mov eax,dword ptr [edi+14h]
+00599A3C: movzx ecx,byte ptr [eax+2]
+00599A40: movzx esi,byte ptr [eax+3]
+00599A44: sub ecx,6
+00599A47: mov eax,2AAAAAABh
+00599A4C: imul ecx
+00599A4E: mov eax,edx
+00599A50: shr eax,1Fh
+00599A53: add edx,eax
+00599A55: mov ebx,edx
+00599A57: sub esi,6
+00599A5A: mov eax,2AAAAAABh
+00599A5F: imul esi
+00599A61: mov eax,edx
+00599A63: shr eax,1Fh
+00599A66: add edx,eax
+00599A68: mov dword ptr [esp+10h],edx
+00599A6C: lea edx,[ebx+ebx*2]
+00599A6F: shl edx,1
+00599A71: mov eax,ecx
+00599A73: sub eax,edx
+00599A75: cdq
+00599A76: sub eax,edx
+00599A78: mov ebp,eax
+00599A7A: mov eax,dword ptr [esp+10h]
+00599A7E: lea eax,[eax+eax*2]
+00599A81: shl eax,1
+00599A83: mov edx,eax
+00599A85: mov eax,esi
+00599A87: sub eax,edx
+00599A89: cdq
+00599A8A: sub eax,edx
+00599A8C: sar eax,1
+00599A8E: sar ebp,1
+00599A90: test ecx,ecx
+00599A92: mov dword ptr [esp+18h],eax
+00599A96: jle 00599ADD
+00599A98: test esi,esi
+00599A9A: jle 00599ADD
+00599A9C: test ebx,ebx
+00599A9E: jle 00599ADD
+00599AA0: add ebp,6
+00599AA3: mov dword ptr [esp+14h],ebx
+00599AA7: mov ebx,dword ptr [esp+10h]
+00599AAB: test ebx,ebx
+00599AAD: jle 00599ACF
+00599AAF: lea esi,[eax+6]
+00599AB2: movsx eax,byte ptr [edi+00000791h]
+ 00
+00599AB9: push eax
+00599ABA: push esi
+00599ABB: push ebp
+00599ABC: push 0FFFFFFFFh
+00599ABE: mov ecx,edi
+00599AC0: call 00599960
+00599AC5: add esi,6
+00599AC8: dec ebx
+00599AC9: jne 00599AB2
+00599ACB: mov eax,dword ptr [esp+18h]
+00599ACF: mov ecx,dword ptr [esp+14h]
+00599AD3: add ebp,6
+00599AD6: dec ecx
+00599AD7: mov dword ptr [esp+14h],ecx
+00599ADB: jne 00599AA7
+00599ADD: pop edi
+00599ADE: pop esi
+00599ADF: pop ebp
+00599AE0: pop ebx
+00599AE1: add esp,0Ch
+00599AE4: ret

@@ -24,7 +24,7 @@ public:
     tEffectInterior*  m_box;                // 0x14
     RwMatrix          m_matrix;             // 0x18
     int32             field_58;             // 0x58
-    TList_c<void>     m_list;               // 0x5C - TODO: Figure out type
+    TList_c<FurnitureEntity_c> m_list;       // 0x5C
     char              field_68[900];        // 0x68
     int16             field_3EC;            // 0x3EC
     int16             field_3EE;            // 0x3EE
@@ -56,7 +56,9 @@ public:
     static void InjectHooks();
 
     Interior_c() = default;
+    Interior_c* Constructor(); // Native ABI wrapper: initializes only the EXE-written bytes.
     ~Interior_c() = default; // 0x591360
+    void Destructor(); // Native ABI wrapper; both list destructors are no-ops.
 
     int32 Init(const CVector& pos);
     void Exit();
@@ -70,7 +72,7 @@ public:
     void Lounge_AddChairInfo(int32 a2, int32 a3, CEntity* entityIgnoredCollision);
     void Lounge_AddSofaInfo(int32 sitType, int32 offsetX, CEntity* entityIgnoredCollision);
     void FurnishLounge();
-    bool Office_PlaceEdgeFillers(int32 arg0, int32 a2, int32 a3, int32 a6, int32);
+    int32 Office_PlaceEdgeFillers(int32 arg0, int32 a2, int32 a3, int32 a6, int32);
     int32 Office_PlaceDesk(int32 a3, int32 arg4, int32 offsetY, int32 a5, uint8 a6, int32 b);
     int32 Office_PlaceEdgeDesks(int32 a2, int32 a3, int32 a4, int32 a5, int32 a6);
     void Office_FurnishEdges();
@@ -106,10 +108,10 @@ public:
     void FindBoundingBox(int32, int32, int32*, int32*, int32*, int32*, int32*);
     void CalcExitPts();
     bool IsVisible();
-    void PlaceFurniture(Furniture_c* a1, int32 a2, int32 a3, float a4, int32 a5, int32 a6, int32* a7, int32* a8, uint8 a9);
-    void PlaceFurnitureOnWall(int32 furnitureGroupId, int32 furnitureSubgroupId, int32 furnitureId, float a5, int32 a6, int32 a7, int32 a8, int32 a9, int32* a10, int32* a11,
+    CEntity* PlaceFurniture(Furniture_c* a1, int32 a2, int32 a3, float a4, int32 a5, int32 a6, int32* a7, int32* a8, uint8 a9);
+    CEntity* PlaceFurnitureOnWall(int32 furnitureGroupId, int32 furnitureSubgroupId, int32 furnitureId, float a5, int32 a6, int32 a7, int32 a8, int32 a9, int32* a10, int32* a11,
                               int32* a12, int32* a13, int32* a14, int32* a15);
-    void PlaceFurnitureInCorner(int32 furnitureGroupId, int32 furnitureSubgroupId, int32 id, float a4, int32 a5, int32 a6, int32 a2, int32* a9, int32* a10, int32* a11, int32* a12,
+    CEntity* PlaceFurnitureInCorner(int32 furnitureGroupId, int32 furnitureSubgroupId, int32 id, float a4, int32 a5, int32 a6, int32 a2, int32* a9, int32* a10, int32* a11, int32* a12,
                                 int32* a13);
     bool FindEmptyTiles(int32 a3, int32 a4, int32* arg8, int32* a5);
     void FurnishShop(int32 a2);

@@ -1,0 +1,233 @@
+// Interior_c::AddPickups @ 0x00591f90 [0x591f90..0x5921cf]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00591f90(void)
+
+{
+  char cVar1;
+  int iVar2;
+  int iVar3;
+  int in_ECX;
+  int iVar4;
+  int iVar5;
+  undefined4 local_c;
+  undefined4 local_8;
+  float local_4;
+  
+  if (179999 < (uint)(DAT_00b7cb84 - DAT_00bb3dc4)) {
+    iVar5 = 0;
+    iVar4 = 0;
+    do {
+      if (0 < iVar5) {
+        return;
+      }
+      _rand();
+      iVar2 = FUN_00821b40();
+      _rand();
+      iVar3 = FUN_00821b40();
+      if ((((iVar2 < (int)(uint)*(byte *)(*(int *)(in_ECX + 0x14) + 2)) &&
+           (iVar3 < (int)(uint)*(byte *)(*(int *)(in_ECX + 0x14) + 3))) && (-1 < iVar2)) &&
+         ((-1 < iVar3 &&
+          (((cVar1 = *(char *)(iVar2 * 0x1e + iVar3 + 0x68 + in_ECX), cVar1 == '\0' ||
+            (cVar1 == '\x03')) || (cVar1 == '\x04')))))) {
+        FUN_00591bd0((float)iVar2,(float)iVar3,&local_c);
+        _rand();
+        iVar2 = FUN_00821b40();
+        if (iVar2 < 0x4b) {
+          _rand();
+          iVar2 = FUN_00821b40(0,0,0);
+          FUN_00456f20(local_c,local_8,local_4,DAT_008cd59c,8,10 - iVar2);
+        }
+        else {
+          local_4 = local_4 + 0.5;
+          _rand();
+          iVar2 = FUN_00821b40();
+          if (iVar2 < 0x28) {
+            iVar2 = 5;
+          }
+          else if (iVar2 < 0x50) {
+            iVar2 = 0x16;
+          }
+          else {
+            iVar2 = ((0x59 < iVar2) - 1 & 0xffffffeb) + 0x19;
+          }
+          _rand();
+          iVar3 = FUN_00821b40(0,0);
+          FUN_00457380(local_c,local_8,local_4,iVar2,3,3 - iVar3);
+        }
+        iVar5 = iVar5 + 1;
+      }
+      iVar4 = iVar4 + 1;
+    } while (iVar4 < 100);
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh, function_ranges.csv) ====
+00591F90: mov eax,dword ptr ds:[00B7CB84h]
+00591F95: mov edx,dword ptr ds:[00BB3DC4h]
+00591F9B: sub esp,18h
+00591F9E: push ebx
+00591F9F: push ebp
+00591FA0: push esi
+00591FA1: sub eax,edx
+00591FA3: cmp eax,2BF20h
+00591FA8: push edi
+00591FA9: mov edi,ecx
+00591FAB: jb 005921C8
+00591FB1: xor ebp,ebp
+00591FB3: xor ebx,ebx
+00591FB5: cmp ebp,1
+00591FB8: jge 005921C8
+00591FBE: mov ecx,dword ptr [edi+14h]
+00591FC1: movzx edx,byte ptr [ecx+2]
+00591FC5: dec edx
+00591FC6: mov dword ptr [esp+14h],edx
+00591FCA: call 00821B1E
+00591FCF: and eax,0FFFFh
+00591FD4: mov dword ptr [esp+10h],eax
+00591FD8: fild dword ptr [esp+10h]
+00591FDC: fmul dword ptr ds:[00858B14h]
+00591FE2: fimul dword ptr [esp+14h]
+00591FE6: call 00821B40
+00591FEB: mov esi,eax
+00591FED: mov eax,dword ptr [edi+14h]
+00591FF0: movzx ecx,byte ptr [eax+3]
+00591FF4: dec ecx
+00591FF5: mov dword ptr [esp+18h],esi
+00591FF9: mov dword ptr [esp+10h],ecx
+00591FFD: call 00821B1E
+00592002: and eax,0FFFFh
+00592007: mov dword ptr [esp+14h],eax
+0059200B: fild dword ptr [esp+14h]
+0059200F: fmul dword ptr ds:[00858B14h]
+00592015: fimul dword ptr [esp+10h]
+00592019: call 00821B40
+0059201E: mov ecx,dword ptr [edi+14h]
+00592021: movzx edx,byte ptr [ecx+2]
+00592025: cmp esi,edx
+00592027: mov dword ptr [esp+14h],eax
+0059202B: jge 005921BE
+00592031: movzx ecx,byte ptr [ecx+3]
+00592035: cmp eax,ecx
+00592037: jge 005921BE
+0059203D: test esi,esi
+0059203F: jl 005921BE
+00592045: test eax,eax
+00592047: jl 005921BE
+0059204D: imul esi,esi,1Eh
+00592050: add esi,eax
+00592052: movzx eax,byte ptr [esi+edi+68h]
+00592057: test eax,eax
+00592059: je 00592069
+0059205B: cmp eax,3
+0059205E: je 00592069
+00592060: cmp eax,4
+00592063: jne 005921BE
+00592069: fild dword ptr [esp+14h]
+0059206D: lea edx,[esp+1Ch]
+00592071: push edx
+00592072: sub esp,8
+00592075: fstp dword ptr [esp+4]
+00592079: mov ecx,edi
+0059207B: fild dword ptr [esp+24h]
+0059207F: fstp dword ptr [esp]
+00592082: call 00591BD0
+00592087: call 00821B1E
+0059208C: and eax,0FFFFh
+00592091: mov dword ptr [esp+18h],eax
+00592095: fild dword ptr [esp+18h]
+00592099: fmul dword ptr ds:[00858B14h]
+0059209F: fmul dword ptr ds:[00858628h]
+005920A5: call 00821B40
+005920AA: cmp eax,4Bh
+005920AD: jge 00592110
+005920AF: call 00821B1E
+005920B4: and eax,0FFFFh
+005920B9: mov dword ptr [esp+18h],eax
+005920BD: fild dword ptr [esp+18h]
+005920C1: push 0
+005920C3: push 0
+005920C5: push 0
+005920C7: fmul dword ptr ds:[00858B14h]
+005920CD: fmul dword ptr ds:[0085A708h]
+005920D3: call 00821B40
+005920D8: movzx edx,word ptr ds:[008CD59Ch]
+ 00
+005920DF: mov ecx,0Ah
+005920E4: sub ecx,eax
+005920E6: push ecx
+005920E7: mov ecx,dword ptr [esp+2Ch]
+005920EB: push 8
+005920ED: push edx
+005920EE: mov edx,dword ptr [esp+38h]
+005920F2: sub esp,0Ch
+005920F5: mov eax,esp
+005920F7: mov dword ptr [eax],ecx
+005920F9: mov ecx,dword ptr [esp+48h]
+005920FD: mov dword ptr [eax+4],edx
+00592100: mov dword ptr [eax+8],ecx
+00592103: call 00456F20
+00592108: add esp,24h
+0059210B: jmp 005921BD
+00592110: fld dword ptr [esp+24h]
+00592114: fadd dword ptr ds:[00858B8Ch]
+0059211A: fstp dword ptr [esp+24h]
+0059211E: call 00821B1E
+00592123: and eax,0FFFFh
+00592128: mov dword ptr [esp+18h],eax
+0059212C: fild dword ptr [esp+18h]
+00592130: fmul dword ptr ds:[00858B14h]
+00592136: fmul dword ptr ds:[00858628h]
+0059213C: call 00821B40
+00592141: cmp eax,28h
+00592144: jge 0059214D
+00592146: mov esi,5
+0059214B: jmp 0059216A
+0059214D: cmp eax,50h
+00592150: jge 00592159
+00592152: mov esi,16h
+00592157: jmp 0059216A
+00592159: xor edx,edx
+0059215B: cmp eax,5Ah
+0059215E: setge dl
+00592161: dec edx
+00592162: and edx,0FFFFFFEBh
+00592165: add edx,19h
+00592168: mov esi,edx
+0059216A: call 00821B1E
+0059216F: and eax,0FFFFh
+00592174: mov dword ptr [esp+18h],eax
+00592178: fild dword ptr [esp+18h]
+0059217C: push 0
+0059217E: push 0
+00592180: fmul dword ptr ds:[00858B14h]
+00592186: fmul dword ptr ds:[00866D14h]
+0059218C: call 00821B40
+00592191: mov ecx,3
+00592196: sub ecx,eax
+00592198: mov eax,dword ptr [esp+24h]
+0059219C: push ecx
+0059219D: mov ecx,dword ptr [esp+2Ch]
+005921A1: push 3
+005921A3: push esi
+005921A4: sub esp,0Ch
+005921A7: mov edx,esp
+005921A9: mov dword ptr [edx],eax
+005921AB: mov eax,dword ptr [esp+44h]
+005921AF: mov dword ptr [edx+4],ecx
+005921B2: mov dword ptr [edx+8],eax
+005921B5: call 00457380
+005921BA: add esp,20h
+005921BD: inc ebp
+005921BE: inc ebx
+005921BF: cmp ebx,64h
+005921C2: jl 00591FB5
+005921C8: pop edi
+005921C9: pop esi
+005921CA: pop ebp
+005921CB: pop ebx
+005921CC: add esp,18h
+005921CF: ret
+ 005921D0: 6A
