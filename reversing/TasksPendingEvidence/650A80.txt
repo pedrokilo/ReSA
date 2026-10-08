@@ -1,0 +1,145 @@
+// CTaskUtilityLineUpPedWithCar::GetPositionToOpenCarDoor @ 0x00650a80 [0x650a80..0x650ba0]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+float * FUN_00650a80(float *param_1,int param_2,undefined4 param_3,undefined4 param_4)
+
+{
+  float *pfVar1;
+  float *pfVar2;
+  float local_78;
+  float local_74;
+  float local_70;
+  float local_6c;
+  float local_68;
+  float local_64;
+  undefined1 local_60 [12];
+  undefined1 local_54 [72];
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_00843268;
+  local_c = ExceptionList;
+  ExceptionList = &local_c;
+  FUN_0059bcf0(*(undefined4 *)(param_2 + 0x14));
+  local_4 = 0;
+  pfVar1 = (float *)FUN_0064fc10(&local_6c,param_2,param_3,param_4);
+  local_78 = *pfVar1;
+  local_74 = pfVar1[1];
+  local_70 = pfVar1[2];
+  pfVar1 = (float *)FUN_0059c790(local_60,local_54,&local_78);
+  local_74 = pfVar1[1];
+  local_70 = pfVar1[2];
+  if (*(int *)(param_2 + 0x14) == 0) {
+    pfVar2 = (float *)(param_2 + 4);
+  }
+  else {
+    pfVar2 = (float *)(*(int *)(param_2 + 0x14) + 0x30);
+  }
+  local_6c = *pfVar2;
+  local_68 = pfVar2[1];
+  local_64 = pfVar2[2];
+  local_78 = local_6c + *pfVar1;
+  *param_1 = local_78;
+  local_74 = local_68 + local_74;
+  local_4 = 0xffffffff;
+  param_1[1] = local_74;
+  local_70 = local_64 + local_70;
+  param_1[2] = local_70;
+  FUN_0059acd0();
+  ExceptionList = local_c;
+  return param_1;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00650A80: push 0FFFFFFFFh
+00650A82: push 843268h
+00650A87: mov eax,dword ptr fs:[00000000h]
+00650A8D: push eax
+00650A8E: mov dword ptr fs:[00000000h],esp
+ 00
+00650A95: sub esp,6Ch
+00650A98: push esi
+00650A99: mov esi,dword ptr [esp+00000084h]
+ 00
+00650AA0: mov eax,dword ptr [esi+14h]
+00650AA3: push edi
+00650AA4: mov edi,ecx
+00650AA6: push eax
+00650AA7: lea ecx,[esp+30h]
+00650AAB: call 0059BCF0
+00650AB0: mov eax,dword ptr [esp+00000090h]
+ 00
+00650AB7: mov ecx,dword ptr [esp+0000008Ch]
+ 00
+00650ABE: push eax
+00650ABF: push ecx
+00650AC0: push esi
+00650AC1: lea edx,[esp+20h]
+00650AC5: push edx
+00650AC6: mov ecx,edi
+00650AC8: mov dword ptr [esp+0000008Ch],0
+00650AD3: call 0064FC10
+00650AD8: mov ecx,dword ptr [eax]
+00650ADA: mov dword ptr [esp+8],ecx
+00650ADE: mov edx,dword ptr [eax+4]
+00650AE1: mov dword ptr [esp+0Ch],edx
+00650AE5: mov eax,dword ptr [eax+8]
+00650AE8: lea ecx,[esp+8]
+00650AEC: push ecx
+00650AED: lea edx,[esp+30h]
+00650AF1: mov dword ptr [esp+14h],eax
+00650AF5: push edx
+00650AF6: lea eax,[esp+28h]
+00650AFA: push eax
+00650AFB: call 0059C790
+00650B00: mov ecx,dword ptr [eax]
+00650B02: mov dword ptr [esp+14h],ecx
+00650B06: mov edx,dword ptr [eax+4]
+00650B09: mov dword ptr [esp+18h],edx
+00650B0D: mov eax,dword ptr [eax+8]
+00650B10: mov dword ptr [esp+1Ch],eax
+00650B14: mov eax,dword ptr [esi+14h]
+00650B17: add esp,0Ch
+00650B1A: test eax,eax
+00650B1C: je 00650B23
+00650B1E: add eax,30h
+00650B21: jmp 00650B26
+00650B23: lea eax,[esi+4]
+00650B26: mov ecx,dword ptr [eax]
+00650B28: mov edx,dword ptr [eax+4]
+00650B2B: mov eax,dword ptr [eax+8]
+00650B2E: mov esi,dword ptr [esp+00000084h]
+ 00
+00650B35: mov dword ptr [esp+14h],ecx
+00650B39: fld dword ptr [esp+14h]
+00650B3D: fadd dword ptr [esp+8]
+00650B41: mov dword ptr [esp+18h],edx
+00650B45: mov dword ptr [esp+1Ch],eax
+00650B49: mov ecx,esi
+00650B4B: fstp dword ptr [esp+8]
+00650B4F: mov edx,dword ptr [esp+8]
+00650B53: fld dword ptr [esp+18h]
+00650B57: mov dword ptr [ecx],edx
+00650B59: fadd dword ptr [esp+0Ch]
+00650B5D: mov dword ptr [esp+7Ch],0FFFFFFFFh
+00650B65: fstp dword ptr [esp+0Ch]
+00650B69: mov eax,dword ptr [esp+0Ch]
+00650B6D: fld dword ptr [esp+1Ch]
+00650B71: mov dword ptr [ecx+4],eax
+00650B74: fadd dword ptr [esp+10h]
+00650B78: fstp dword ptr [esp+10h]
+00650B7C: mov edx,dword ptr [esp+10h]
+00650B80: mov dword ptr [ecx+8],edx
+00650B83: lea ecx,[esp+2Ch]
+00650B87: call 0059ACD0
+00650B8C: mov ecx,dword ptr [esp+74h]
+00650B90: pop edi
+00650B91: mov eax,esi
+00650B93: pop esi
+00650B94: mov dword ptr fs:[00000000h],ecx
+ 00
+00650B9B: add esp,78h
+00650B9E: ret 10h

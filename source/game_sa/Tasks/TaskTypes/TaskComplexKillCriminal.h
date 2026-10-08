@@ -31,6 +31,9 @@ public:
     CTask*    CreateFirstSubTask(CPed* ped) override;
     CTask*    ControlSubTask(CPed* ped) override;
 
+private:
+    CTask* CreateChaseSubTask(eTaskType type, CPed* ped);
+
 private: // Wrappers for hooks
     // 0x68BE70
     CTaskComplexKillCriminal* Constructor(CPed* criminal, bool randomize) {

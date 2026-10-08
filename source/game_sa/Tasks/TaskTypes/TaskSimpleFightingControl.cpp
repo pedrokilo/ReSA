@@ -6,17 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskSimpleFightingControl
- * Reconstrucción: INCOMPLETA — 6/7 funciones reconstruidas.
- * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 1.
- * Validación registrada: 0/7 entradas.
+ * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   ProcessPed | 0x00000000 | V
- * BLOQUEADAS (nombre | dirección | tipo):
- *   ProcessPed | 0x00000000 | V
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -85,7 +81,7 @@ void CTaskSimpleFightingControl::InjectHooks() {
     RH_ScopedVMTInstall(Clone, 0x622EB0);
     RH_ScopedVMTInstall(GetTaskType, 0x61DC90);
     RH_ScopedVMTInstall(MakeAbortable, 0x61DD00);
-    RH_ScopedVMTInstall(ProcessPed, 0x62A0A0, { .reversed = false });
+    RH_ScopedVMTInstall(ProcessPed, 0x62A0A0);
 }
 
 // 0x61DC10
@@ -262,7 +258,7 @@ bool CTaskSimpleFightingControl::ProcessPed(CPed* ped) {
             const bool startBlock = m_target->GetIsTypePed() && !m_someTime
                 && FightControlShouldBlock(CGeneral::GetRandomNumberInRange(0.f, 100.f), FightControlBlockChance, shootingRate);
             if (startBlock) {
-                m_someTime = CGeneral::GetRandomNumberInRange(FightControlBlockTimeMin, FightControlBlockTimeMax);
+                m_someTime = CGeneral::GetRandomIntInRange(FightControlBlockTimeMin, FightControlBlockTimeMax);
                 command = 2;
             } else if (m_someTime) {
                 const auto elapsed = FightControlElapsed(CTimer::GetTimeStep());

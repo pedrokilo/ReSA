@@ -7,6 +7,7 @@ Las fuentes registradas son las del manifiesto de la sonda que produjo el inform
 import csv
 import json
 import sys
+import time
 from pathlib import Path
 from runtime_runner import GAME, EXE_HASH, digest
 
@@ -15,9 +16,19 @@ ROOT = Path(__file__).resolve().parents[1]
 def main(here, prefix, limitations):
     here = Path(here).resolve()
     runs = sorted((GAME/f'resultados-{prefix}').glob('*/summary.json'))
-    run = next(p for p in reversed(runs) if json.loads(p.read_text(encoding='utf-8'))['passed'])
+    if not runs:
+        raise RuntimeError('No hay ejecuciones para ' + prefix)
+    run = runs[-1]
     result = json.loads(run.read_text(encoding='utf-8'))
-    manifest = json.loads((here/'artifacts/build-manifest.json').read_text())
+    manifest_path = here/'artifacts/build-manifest.json'
+    manifest = json.loads(manifest_path.read_text())
+    if not result['passed']:
+        raise RuntimeError('La última ejecución no está aprobada: ' + str(run))
+    if run.stat().st_mtime < manifest_path.stat().st_mtime:
+        raise RuntimeError('La sonda se recompiló después del resultado; ejecutar de nuevo: ' + prefix)
+    for ext, expected in manifest['binaries'].items():
+        if digest(here/'artifacts'/f'gta_reversed-{prefix}-probe.{ext}') != expected:
+            raise RuntimeError('Binario archivado no coincide: ' + prefix + '.' + ext)
     functions = result['pairs_per_function']
     summary = dict(result, evidence_directory=str(run.parent), original_exe_sha256=EXE_HASH,
                    covered_functions={k: True for k in functions}, probe_build_manifest=manifest, limitations=limitations)
@@ -46,7 +57,16 @@ def main(here, prefix, limitations):
             'scope': f"{pairs} pares original/candidato con hook conmutado dentro del motor; banco de {result['pairs']} pares. " + ' '.join(limitations),
             'review_reference': str((here/'README.md').relative_to(ROOT)).replace('\\', '/'),
         })
-    registry_path.write_text(json.dumps(registry, indent=2, ensure_ascii=False), encoding='utf-8')
+    temporary = registry_path.with_suffix('.json.tmp')
+    temporary.write_text(json.dumps(registry, indent=2, ensure_ascii=False), encoding='utf-8')
+    for attempt in range(50):
+        try:
+            temporary.replace(registry_path)
+            break
+        except OSError:
+            if attempt == 49:
+                raise
+            time.sleep(.2)
     print(run.parent.name, len(functions), result['pairs'])
 
 if __name__ == '__main__':

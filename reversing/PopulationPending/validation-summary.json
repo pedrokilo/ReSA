@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 2048,
+  "pairs_per_function": {
+    "CPopulation::ManageObject": 1024,
+    "CPopulation::AddToPopulation": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "fb9b3f88727dcc63edc366f1c8283fb21fd781c6d96c54b7b0e19204fa6fb6a5",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-population-pending\\20261007-200446-913379",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CPopulation::ManageObject": true,
+    "CPopulation::AddToPopulation": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "3229168825752128324ad2426f5773f1242db81bb81ea6f56545bf648a944209",
+      "pdb": "cff5fd41d03ff4eea0c08751e84ce2701f973c7fdb8b5af256163ab3f9748200"
+    },
+    "sources": {
+      "source/game_sa/Population.cpp": "d211c813e5792215db989871f5826079fd872b5b0f4a18fd5ba550280a39daad",
+      "source/game_sa/Population.h": "49a7b66162734ff4480da6f02bfa09b2c7b34034a4b27382258bf301e482a711"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "AddFixture.hpp": "6c92971e15b83c152c482ac90a898a9da07b511a2f119dace5faec70636d94a7",
+      "LiveComparison.hpp": "8a33beec08a37d489a27c15fbca118bcb58afa7fa249163fce62acead6fe5691",
+      "build_probe.py": "070eabd1d554672e2efdc82c907ad58bd5ca2da235f475fb716d59574991c152",
+      "run_local.py": "3dcb8b22e52863a54cb478c3cc75f05917154a8b37b1dea6bcfdbc9ff03c1d43"
+    }
+  },
+  "limitations": [
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+  ]
+}

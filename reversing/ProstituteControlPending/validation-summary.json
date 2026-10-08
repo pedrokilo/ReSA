@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 1024,
+  "pairs_per_function": {
+    "CTaskComplexProstituteSolicit::ControlSubTask": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "fbc8a5ef82216c54343c05d3b09f298f9ce9cbe4ffd250f3c7faddae18c37270",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-prostitute-control-pending\\20261007-195853-338047",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTaskComplexProstituteSolicit::ControlSubTask": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "a6eb698d7b34c29e5dc97196c1b7b677baafcd3348457b50fa167a7248e44206",
+      "pdb": "a9f3c974b00e029787c77f77eeb466650bfe44c00c23413b9eb6a1a01c6f6b78"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp": "11dea5cd266292b1ac6ae62093e84dfbd4871c36f5783b6a1262d6643ef994b4",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.h": "e33d4f016d49d437a32ef6ea9d2732dbf146edbe5f85a8b12e1782ca2c1f3fc6",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "d4e24513d36330e89aa843b2827b6fb827083463f743b68bca5d974b7bf99a26",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityXYOffset.h": "7e880aa6125b6f104ee6a0d44cec91dae2598536193a0c50d94fd80f83e75e1e",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.cpp": "fc048bc2ccf193ca4add149bd2816635a9fdac2cc2c4f862dd7b61e7d9ed49fb",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.h": "d642d88811d1a0153310ef1f3ca6ead0bf31dbd49a4fef33e09e155a80aa4d24",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.cpp": "4d5252f362a53cd4677e34f7b0c98c6d8dcfbb9064d56a56a2e82d1146a5f398",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.h": "280f22fd13ffd45a4eddd3a3e261b5d6769aabea2bbd3f0b8f801ac4d4b6e629",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp": "01e6a05c8b35009ead835917a49e4714e39926ff700afb5e3c10c3a63e5457af",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.h": "4f1284644245fbfc190363c8c425e9eaf7156935b32e42a0206184f116ab1649",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.cpp": "921d5f3f7fe35d7c4bc106ea20c88a25b50577a3296ee6a50937860b5a450a81",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.h": "c457da7020506df591768909a62af77e2ea43356744d84edb2b771de336ae71f"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "34712e14e15e7afbc3820ac308441d1f4eccd86f9d5dcb7812ca97b7d3e95285",
+      "build_probe.py": "1a74293057e28d3c4f39be7454b41d2b8e1c30a66a45f221926d13df83f1cca3",
+      "run_local.py": "352ba2d1e9d8be004540ce06bd1c4a9643e0c88ca9a74f601ab46f0d64f13b26"
+    }
+  },
+  "limitations": [
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+  ]
+}

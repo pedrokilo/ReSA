@@ -1,0 +1,61 @@
+// CAEStreamingChannel::Constructor @ 0x004f1800 [0x4f1800..0x4f186f]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_004f1800(undefined4 param_1,undefined4 param_2)
+
+{
+  undefined4 *in_ECX;
+  
+  FUN_004d7890(param_1,param_2,48000,0x10);
+  *(undefined1 *)(in_ECX + 0x18) = 0;
+  *(undefined1 *)((int)in_ECX + 0x61) = 0;
+  *(undefined1 *)((int)in_ECX + 0x62) = 0;
+  *(undefined1 *)((int)in_ECX + 99) = 0;
+  *(undefined1 *)(in_ECX + 0x19) = 0;
+  *(undefined1 *)((int)in_ECX + 0x65) = 0;
+  *(undefined1 *)((int)in_ECX + 0x66) = 0;
+  *(undefined1 *)((int)in_ECX + 0x67) = 0;
+  in_ECX[0x1a] = 0;
+  in_ECX[0x1801b] = 0;
+  in_ECX[0x1801c] = 0;
+  in_ECX[0x1801e] = 0;
+  in_ECX[0x18021] = 0;
+  *in_ECX = &PTR_FUN_0085f3f0;
+  in_ECX[0x1801d] = 0xfffffffa;
+  in_ECX[0x18025] = 0x3f800000;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+004F1800: mov eax,dword ptr [esp+8]
+004F1804: push esi
+004F1805: push 10h
+004F1807: push 0BB80h
+004F180C: mov esi,ecx
+004F180E: mov ecx,dword ptr [esp+10h]
+004F1812: push eax
+004F1813: push ecx
+004F1814: mov ecx,esi
+004F1816: call 004D7890
+004F181B: xor eax,eax
+004F181D: mov byte ptr [esi+60h],al
+004F1820: mov byte ptr [esi+61h],al
+004F1823: mov byte ptr [esi+62h],al
+004F1826: mov byte ptr [esi+63h],al
+004F1829: mov byte ptr [esi+64h],al
+004F182C: mov byte ptr [esi+65h],al
+004F182F: mov byte ptr [esi+66h],al
+004F1832: mov byte ptr [esi+67h],al
+004F1835: mov dword ptr [esi+68h],eax
+004F1838: mov dword ptr [esi+0006006Ch],eax
+004F183E: mov dword ptr [esi+00060070h],eax
+004F1844: mov dword ptr [esi+00060078h],eax
+004F184A: mov dword ptr [esi+00060084h],eax
+004F1850: mov dword ptr [esi],85F3F0h
+004F1856: mov dword ptr [esi+00060074h],0FFFFFFFAh
+004F1860: mov dword ptr [esi+00060094h],3F800000h
+004F186A: mov eax,esi
+004F186C: pop esi
+004F186D: ret 8
+004F1870: ret

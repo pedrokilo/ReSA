@@ -16,7 +16,8 @@ struct tScannerSlot {
 
 class NOTSA_EXPORT_VTABLE CAEPoliceScannerAudioEntity : public CAEAudioEntity {
 public:
-    enum State : int32 {
+    // Como el original: word en 0xB61D4C; el byte 0xB61D4E es ScannerDisabled.
+    enum State : int16 {
         STATE_INITIAL = 0,
         ONE           = 1,
         TWO           = 2,

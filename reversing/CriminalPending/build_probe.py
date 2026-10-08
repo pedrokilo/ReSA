@@ -1,0 +1,7 @@
+import json,sys
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from probe_build import build
+G='source/game_sa/'
+SOURCES=[G+p for p in ('Tasks/TaskTypes/TaskComplexKillCriminal.cpp','Tasks/TaskTypes/TaskComplexKillCriminal.h','Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp','Tasks/TaskTypes/TaskComplexKillPedOnFoot.h','Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp','Tasks/TaskTypes/TaskSimpleGangDriveBy.h','Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.cpp','Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.h','Tasks/TaskTypes/TaskComplexEnterCarAsDriver.cpp','Tasks/TaskTypes/TaskComplexEnterCarAsDriver.h','Tasks/TaskTypes/TaskComplexEnterCar.cpp','Tasks/TaskTypes/TaskComplexEnterCar.h','Tasks/TaskTypes/TaskComplexLeaveCar.cpp','Tasks/TaskTypes/TaskComplexLeaveCar.h','Tasks/TaskTypes/TaskSimpleCarDrive.cpp','Tasks/TaskTypes/TaskSimpleCarDrive.h','Tasks/TaskTypes/TaskComplexCarDriveMission.cpp','Tasks/TaskTypes/TaskComplexCarDriveMission.h','Tasks/TaskTypes/TaskComplexCarDrive.cpp','Tasks/TaskTypes/TaskComplexCarDrive.h','Tasks/TaskManager.cpp','Tasks/TaskManager.h','General.cpp','General.h','Core/Vector.cpp','Core/Vector.h','Events/EventAcquaintancePed.cpp','Events/EventAcquaintancePed.h','Events/EventAcquaintancePedHate.h','Events/Event.cpp','Events/Event.h','Events/EventEditableResponse.h','Tasks/TaskTimer.h','Tasks/TaskComplex.h','Tasks/TaskSimple.h')]
+if __name__=='__main__':print(json.dumps(build(Path(__file__).parent,'criminal-pending','CriminalPendingLive',SOURCES)))

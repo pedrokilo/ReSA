@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 1024,
+  "pairs_per_function": {
+    "CTaskUtilityLineUpPedWithCar::ProcessPed": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "e65ec709d4cdcafaa17826b130e4a4d8a1312bbb1f26d5a6909d210b51e97b69",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-line-up-process-pending\\20261007-200256-624723",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTaskUtilityLineUpPedWithCar::ProcessPed": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "14ee8487d5e7cc33e0acbe993a2fc8b8d98bfb5aa81ef5936a92d4ba41e8b468",
+      "pdb": "465fa2487cc4f0cbbb351d862cdbba27ed4f4e4f87d67438aba29f305b85ccac"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "f5ef260d0fdea390dd1404301e2b44f8229e1d6fe2bc5653320d43153a90d958",
+      "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "c5873b1eea4faeaa4c779c0ff7e8ee67f8a08d17565da4059d129fff1b27493c",
+      "source/game_sa/Entity/Placeable.cpp": "bf57b97b53cd9e8326d97de870b9934dd487effde705a3462061d883e052e16a",
+      "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
+      "source/game_sa/General.cpp": "808742b15646ca279418ead9bff4e959207bebeb304f5a6918ae5bfdccd0d007",
+      "source/game_sa/General.h": "392cf3dca613f3a5e5caa859b0a5d80a10ca5a5d01bf2c300b62119137a056ff",
+      "source/game_sa/Core/Matrix.cpp": "f5c9d1f294ca4fdd5245eb23ff28148550d78e9a1615d3e1f4de6f814281d69b",
+      "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
+      "source/game_sa/VehicleAnimGroupData.cpp": "136f5195676a089cf48206c70fa5c81f6f6af4c21a473f848d935e636d8ec114",
+      "source/game_sa/VehicleAnimGroupData.h": "63f5c5c3f6e38e99cd5113afcd7557e7ee82a3654e31b03118ed50efc79e8915",
+      "source/game_sa/Entity/Vehicle/Bike.cpp": "ef970f0a273c7c09891350d89b582a900cc9568074b7000629b3c46d3b43d6f9",
+      "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d",
+      "source/game_sa/Models/VehicleModelInfo.h": "fdd153f73de3805d8e6820fe8bfc926f4eee444f753552c35434a7b6f3a77255",
+      "source/game_sa/tHandlingData.h": "ea37455813b823f871ec95d5d9a796246b66e91be7241a2858caf7731ad08105",
+      "source/game_sa/Core/Quaternion.h": "48db9873122fa6bfad1c9a50ba0ac91c3a7c4d5a80e984984ec10f5f4bf38dec",
+      "source/game_sa/RenderWare/rw/rtslerp.h": "4aece1c7d6b08498a1b0bb869ed3be919439d6dccadfd08fbdefbc4d223745fc",
+      "source/game_sa/RenderWare/rw/rtquat.h": "e39c6ce841ee87f6c58e5aa5201659f0b30a6263698d0412c48acf8370196b19",
+      "source/game_sa/PedPlacement.h": "0f038fa32d9afb6d7f497aa0228f333e1d8adde1d46db74f124b57f9a9a35937"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "c06e0a13503b6f790887fc92ffeb202b760fe120d6f299e2d386586d81384446",
+      "build_probe.py": "074493ec6e8e47d91787362f5e1b9bedfa57074c9a4c9f519f73ad2c7f4118b1",
+      "run_local.py": "f81e18504248fbe388dfa53a9c5adab52e73d35167fb171c63242a6dcb8a9d8b"
+    }
+  },
+  "limitations": [
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+  ]
+}

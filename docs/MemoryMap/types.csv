@@ -657,7 +657,7 @@ CGameLogic,class,,source/game_sa/GameLogic.h,38,source_type_definition
 CGamma,class,,source/game_sa/Gamma.h,3,source_type_definition
 CGangInfo,class,,source/game_sa/GangInfo.h,9,source_type_definition
 CGangs,class,,source/game_sa/Gangs.h,17,source_type_definition
-GangRanking,struct,,source/game_sa/GangWars.cpp,1037,source_type_definition
+GangRanking,struct,,source/game_sa/GangWars.cpp,1151,source_type_definition
 CGangWars,class,,source/game_sa/GangWars.h,50,source_type_definition
 CGangWarsSaveStructure,class,,source/game_sa/GangWarsSaveStructure.h,11,source_type_definition
 CStoredCar,struct,,source/game_sa/Garage.h,64,source_type_definition

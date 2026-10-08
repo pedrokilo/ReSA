@@ -1,0 +1,7 @@
+import json, sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from probe_build import build
+G='source/game_sa/'
+SOURCES=[G+p for p in ('Tasks/TaskTypes/TaskComplexArrestPed.cpp', 'Tasks/TaskTypes/TaskComplexArrestPed.h', 'Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h', 'Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h','Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp', 'Tasks/TaskTypes/TaskSimpleArrestPed.cpp', 'Tasks/TaskTypes/TaskSimpleArrestPed.h', 'Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp', 'Tasks/TaskTypes/TaskComplexKillPedOnFoot.h', 'Tasks/TaskTypes/TaskComplexDestroyCar.cpp', 'Tasks/TaskTypes/TaskComplexDestroyCar.h', 'Tasks/TaskTypes/TaskComplexDragPedFromCar.cpp', 'Tasks/TaskTypes/TaskComplexDragPedFromCar.h', 'Tasks/TaskTypes/TaskComplexOpenDriverDoor.cpp', 'Tasks/TaskTypes/TaskComplexOpenDriverDoor.h', 'Tasks/TaskTypes/TaskComplexOpenPassengerDoor.cpp', 'Tasks/TaskTypes/TaskComplexOpenPassengerDoor.h', 'Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.cpp', 'Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.h', 'Tasks/TaskTypes/TaskComplexEnterCar.cpp', 'Tasks/TaskTypes/TaskComplexEnterCar.h', 'Tasks/TaskTypes/TaskComplexFallAndGetUp.cpp', 'Tasks/TaskTypes/TaskComplexFallAndGetUp.h')]
+if __name__=='__main__':print(json.dumps(build(Path(__file__).parent,'arrest-pending','ArrestPendingLive',SOURCES)))

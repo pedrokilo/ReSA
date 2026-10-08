@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 4608,
+  "pairs_per_function": {
+    "CAEPedAudioEntity::HandlePedSwing": 1024,
+    "CAEPedAudioEntity::HandlePedHit": 2048,
+    "CAEPedAudioEntity::HandlePedJacked": 512,
+    "CAEPedAudioEntity::Service": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "886ad813f2bcf90a5080ed33f1336e56e9c8dfdf9030f0a3a1d0e4d96eff7b2b",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio-ped-pending\\20261007-195322-568750",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CAEPedAudioEntity::HandlePedSwing": true,
+    "CAEPedAudioEntity::HandlePedHit": true,
+    "CAEPedAudioEntity::HandlePedJacked": true,
+    "CAEPedAudioEntity::Service": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "c00e16de7d83df9832df48a9713f7b1ae7f056fbb6c5cde1beea521ed137a966",
+      "pdb": "19459f7c7751962d31a88016fac7f9e520dc13a7c16239dcff7d7c73fc9926d5"
+    },
+    "sources": {
+      "source/game_sa/Audio/Entities/AEPedAudioEntity.cpp": "f5463bb43e709ea6a981ca76c88f1f3325d9bf980494a417e7f16bd2792a5888",
+      "source/game_sa/Audio/Entities/AEPedAudioEntity.h": "36ff93c3997768edf488fa60d956c4fd0cba35c399420a0541171f3fc0d5ad9c",
+      "source/game_sa/Audio/AESound.cpp": "b47f155be41c3d4e94655d2af6699394c41f43420bcd7f9ed7589c0a3c7049b8",
+      "source/game_sa/Audio/AESound.h": "840eabf88109ec6fa66da59e876d86ae8e36d0b362bb29a2b7f9820b4f1e6250",
+      "source/game_sa/Audio/AEAudioUtility.cpp": "64b6dc387de99da3e70c7e8f0e800e8a79ef4649c29d78e92299e59319b0252b",
+      "source/game_sa/Audio/AEAudioUtility.h": "ea4d1eb95c63065e11eca92a622fc646a726f87630e5a239c507fd62a1039fdc"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "54c6fd9989929770081d6d1fdab6a2ac03d8f1b78b232ce92deabf9ebf3d58d7",
+      "build_probe.py": "e944a7c2cb9bd3eafb6b309f309932fd7c9d82a6c1749087e6d7e19e6205c409",
+      "run_local.py": "2e0dbace0fa887937dc924632b38cbf6c74889ab6232ebb696755752f2d31886"
+    }
+  },
+  "limitations": [
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+  ]
+}

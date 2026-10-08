@@ -6,23 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CAEPoliceScannerAudioEntity
- * Reconstrucción: INCOMPLETA — 13/17 funciones reconstruidas.
- * Pendientes de reconstruir: 4.
- * Funciones bloqueadas: 4.
- * Validación registrada: 0/17 entradas.
+ * Reconstrucción: COMPLETA — 17/17 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 4/17 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   AddAudioEvent | 0x004E71E0 | S
- *   LoadSlots | 0x004E6CD0 | S
- *   PlayLoadedDialogue | 0x004E6F60 | S
- *   Service | 0x004E7630 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   AddAudioEvent | 0x004E71E0 | S
- *   LoadSlots | 0x004E6CD0 | S
- *   PlayLoadedDialogue | 0x004E6F60 | S
- *   Service | 0x004E7630 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -62,7 +52,65 @@ void CAEPoliceScannerAudioEntity::Reset() {
 
 // 0x4E71E0
 void CAEPoliceScannerAudioEntity::AddAudioEvent(eAudioEvents event, eCrimeType crimeType, const CVector& point) {
-    plugin::CallMethod<0x4E71E0, CAEPoliceScannerAudioEntity*, eAudioEvents, eCrimeType, const CVector&>(this, event, crimeType, point);
+    if (event != AE_CRIME_COMMITTED || static_cast<int32>(crimeType) <= 1 || static_cast<int32>(crimeType) >= 23) return;
+    std::array<tScannerSlot, 5> first{}, second{};
+    first[0] = {static_cast<eSoundBank>(150), static_cast<eSoundID>(reinterpret_cast<const int16*>(0x8C8160)[CAEAudioUtility::GetRandomNumberInRange<int32>(0, 3)])};
+    first[1] = {static_cast<eSoundBank>(151), static_cast<eSoundID>(reinterpret_cast<const int16*>(0x8C8168)[static_cast<int32>(crimeType)])};
+    const auto* zone = CTheZones::FindSmallestZoneForPosition(point, true);
+    if (!zone) return;
+    int index = 0;
+    for (; index < 194; ++index) {
+        if (!memcmp(zone->m_TextLabel, reinterpret_cast<const char*>(0x8C8198) + index * 8, 8) && reinterpret_cast<const int16*>(0x8C87A8)[index] >= 0) break;
+    }
+    if (index == 194) return;
+    if (reinterpret_cast<const uint8*>(0x8C8930)[index]) {
+        const float width = float(int32(zone->m_fX2) - int32(zone->m_fX1));
+        const float height = float(int32(zone->m_fY2) - int32(zone->m_fY1));
+        const float centreX = width * 0.5f + float(zone->m_fX1);
+        const float centreY = height * 0.5f + float(zone->m_fY1);
+        const float quarterX = width * 0.25f, quarterY = height * 0.25f;
+        bool hasY = false;
+        if (point.y > centreY + quarterY) { first[2] = {static_cast<eSoundBank>(149), static_cast<eSoundID>(2)}; hasY = true; }
+        else if (point.y < centreY - quarterY) { first[2] = {static_cast<eSoundBank>(149), static_cast<eSoundID>(3)}; hasY = true; }
+        if (point.x > centreX + quarterX) first[3] = {static_cast<eSoundBank>(149), static_cast<eSoundID>(1)};
+        else if (point.x < centreX - quarterX) first[3] = {static_cast<eSoundBank>(149), static_cast<eSoundID>(4)};
+        else if (!hasY) first[3] = {static_cast<eSoundBank>(149), static_cast<eSoundID>(0)};
+    }
+    first[4] = {static_cast<eSoundBank>(147), static_cast<eSoundID>(reinterpret_cast<const int16*>(0x8C87A8)[index])};
+    CPed* ped = nullptr;
+    for (int32 player = 0; player < 2; ++player) {
+        if (reinterpret_cast<uint8*>(FindPlayerWanted(player)) + 0x21C == reinterpret_cast<uint8*>(this)) ped = FindPlayerPed(player);
+    }
+    if (ped) {
+        if (ped->bInVehicle) {
+            if (auto* vehicle = ped->m_pVehicle) {
+                const int32 type = *reinterpret_cast<const int8*>(reinterpret_cast<const uint8*>(vehicle) + 0x1D4);
+                if (type >= 0 && type < 46 && reinterpret_cast<const int16*>(0x8C89F8)[type] >= 0) {
+                    second[0] = {static_cast<eSoundBank>(150), static_cast<eSoundID>(7)};
+                    second[1] = {static_cast<eSoundBank>(150), static_cast<eSoundID>(type == 25 || type == 29 || type == 30 || type == 37 || type == 41 || type == 34 ? 3 : 1)};
+                    if (reinterpret_cast<const uint8*>(0x8C8A54)[type]) {
+                        int16 colour = -1;
+                        if (vehicle->GetRemapIndex() != -1) colour = 4;
+                        else {
+                            const uint8 value = vehicle->m_nPrimaryColor;
+                            if (value > 0 && value < 127) colour = reinterpret_cast<const int16*>(0x8C8A88)[value];
+                        }
+                        if (colour >= 0) second[3] = {static_cast<eSoundBank>(148), static_cast<eSoundID>(colour)};
+                    }
+                    second[4] = {static_cast<eSoundBank>(152), static_cast<eSoundID>(reinterpret_cast<const int16*>(0x8C89F8)[type])};
+                }
+            }
+        } else {
+            int id = -1;
+            if (ped->GetIntelligence()->GetTaskSwim()) id = 2;
+            else if (!ped->GetIntelligence()->GetTaskJetPack()) id = 4;
+            if (id != -1) {
+                second[0] = {static_cast<eSoundBank>(150), static_cast<eSoundID>(7)};
+                second[4] = {static_cast<eSoundBank>(150), static_cast<eSoundID>(id)};
+            }
+        }
+    }
+    PlayPoliceScannerDialogue(first.data(), second.data());
 }
 
 // 0x4E6BC0
@@ -156,8 +204,6 @@ void CAEPoliceScannerAudioEntity::FinishedPlayingScannerDialogue() {
 
 // 0x4E6F60
 void CAEPoliceScannerAudioEntity::PlayLoadedDialogue() {
-    return plugin::CallMethod<0x4E6F60, CAEPoliceScannerAudioEntity*>(this);
-
     int16 i;
     for (i = 0; i < NUM_POLICE_SCANNER_SLOTS; ++i) {
         if (s_SlotState[i] == FIVE) {
@@ -172,7 +218,7 @@ void CAEPoliceScannerAudioEntity::PlayLoadedDialogue() {
 
     if (i >= NUM_POLICE_SCANNER_SLOTS) {
     LABEL_9:
-        auto volumeChange = s_fVolumeOffset /* + flt_B61D54 */;
+        auto volumeChange = StaticRef<float>(0xB61D54) + s_fVolumeOffset;
         AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_SCANNER_CLICK, volumeChange);
         AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_SCANNER_NOISE_STOP);
         if (s_nSectionPlaying) {
@@ -190,7 +236,7 @@ void CAEPoliceScannerAudioEntity::PlayLoadedDialogue() {
                 --v4;
             } while (v4);
             s_nPlaybackStartTime = 0;
-            // s_nAbortPlaybackTime = *(_DWORD*)&gSpeechContextLookup[366][0] + CTimer::GetTimeInMS();
+            s_nAbortPlaybackTime = StaticRef<uint32>(0x8C8148) + CTimer::GetTimeInMS();
             s_nScannerPlaybackState = TWO;
         }
     } else {
@@ -229,7 +275,7 @@ void CAEPoliceScannerAudioEntity::PopulateScannerDialogueLists(const tScannerSlo
 // inlined
 // 0x4E6C00
 bool CAEPoliceScannerAudioEntity::CanWePlayNewScannerDialogue() {
-    if (s_nScannerPlaybackState == STATE_INITIAL)
+    if (s_nScannerPlaybackState != STATE_INITIAL)
         return false;
 
     if (CTimer::GetTimeInMS() < s_NextNewScannerDialogueTime)
@@ -289,9 +335,9 @@ void CAEPoliceScannerAudioEntity::UpdateParameters(CAESound* sound, int16 curPla
 
 // 0x4E7630
 void CAEPoliceScannerAudioEntity::Service() {
-    static constexpr uint32 startDelay = 300;   // 0x8C8154
-    static constexpr float noiseVolume = -6.0f; // 0x8C8158
-    static constexpr float clickVolume = +0.0f; // 0xB61D54
+    const auto startDelay = StaticRef<uint32>(0x8C8154);
+    const auto noiseVolume = StaticRef<float>(0x8C8158);
+    const auto clickVolume = StaticRef<float>(0xB61D54);
 
     bool finishPlaying;
     if (TheCamera.m_bWideScreenOn && s_nScannerPlaybackState != STATE_INITIAL) {
@@ -317,7 +363,7 @@ void CAEPoliceScannerAudioEntity::Service() {
         }
 
         if (CTimer::GetTimeInMS() >= s_nPlaybackStartTime) {
-            s_fVolumeOffset = CAEVehicleAudioEntity::s_pVehicleAudioSettingsForRadio ? 0.0f : -8.0f; // todo: -8 is gSpeechContextLookup[367][2]
+            s_fVolumeOffset = CAEVehicleAudioEntity::s_pVehicleAudioSettingsForRadio ? 0.0f : StaticRef<float>(0x8C815C);
             AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_SCANNER_CLICK,       s_fVolumeOffset + clickVolume, 1.0f);
             AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_SCANNER_NOISE_START, s_fVolumeOffset + noiseVolume, 1.0f); // todo: noiseVolume is gSpeechContextLookup[367][0]
             s_nPlaybackStartTime = startDelay + CTimer::GetTimeInMS(); // todo: startDelay is gSpeechContextLookup[366][6]
@@ -348,19 +394,19 @@ void CAEPoliceScannerAudioEntity::InjectHooks() {
     RH_ScopedInstall(Destructor, 0x4E6E00);
     RH_ScopedInstall(StaticInitialise, 0x5B9C30);
     RH_ScopedInstall(Reset, 0x4E6E90);
-    RH_ScopedInstall(AddAudioEvent, 0x4E71E0, { .reversed = false });
+    RH_ScopedInstall(AddAudioEvent, 0x4E71E0);
     RH_ScopedInstall(PrepSlots, 0x4E6BC0);
-    RH_ScopedInstall(LoadSlots, 0x4E6CD0, { .reversed = false });
+    RH_ScopedInstall(LoadSlots, 0x4E6CD0);
     RH_ScopedInstall(EnableScanner, 0x4E6DB0);
     RH_ScopedInstall(DisableScanner, 0x4E71B0);
     RH_ScopedInstall(StopScanner, 0x4E6DC0);
     RH_ScopedInstall(FinishedPlayingScannerDialogue, 0x4E6C30);
-    RH_ScopedInstall(PlayLoadedDialogue, 0x4E6F60, { .reversed = false });
+    RH_ScopedInstall(PlayLoadedDialogue, 0x4E6F60);
     RH_ScopedInstall(PopulateScannerDialogueLists, 0x4E6B60);
     RH_ScopedInstall(CanWePlayNewScannerDialogue, 0x4E6C00);
     RH_ScopedInstall(PlayPoliceScannerDialogue, 0x4E6ED0);
     RH_ScopedVMTInstall(UpdateParameters, 0x4E7590);
-    RH_ScopedInstall(Service, 0x4E7630, { .reversed = false });
+    RH_ScopedInstall(Service, 0x4E7630);
 }
 
 CAEPoliceScannerAudioEntity* CAEPoliceScannerAudioEntity::Constructor() {

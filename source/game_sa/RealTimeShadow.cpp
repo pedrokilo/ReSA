@@ -89,6 +89,10 @@ void CRealTimeShadow::DrawBorderAroundTexture(RwRGBA const& color) {
 }
 
 // 0x706460
+bool CRealTimeShadow::SetupForThisEntity(CPhysical* owner) {
+    return plugin::CallMethodAndReturn<bool, 0x706520, CRealTimeShadow*, CPhysical*>(this, owner);
+}
+
 bool CRealTimeShadow::Create(bool isBlurred, int32 blurPasses, bool drawMoreBlur) {
     m_pLight = RpLightCreate(rpLIGHTDIRECTIONAL);
     if (!m_pLight) {

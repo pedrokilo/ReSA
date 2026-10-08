@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 2560,
+  "pairs_per_function": {
+    "CAEStreamingChannel::Constructor": 512,
+    "CAEStreamingChannel::PrepareStream": 1024,
+    "CAEStreamingChannel::Service": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "930bdd92039bebddc60cbee5d7877cedd455feeedecfb8c1f713a28daf4cf3b6",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio-streaming-pending\\20261007-195440-816486",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CAEStreamingChannel::Constructor": true,
+    "CAEStreamingChannel::PrepareStream": true,
+    "CAEStreamingChannel::Service": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "7af8278a7456ec6f5df2daeb27b1fc12a18dd9627879f267565aaa22240b9ad6",
+      "pdb": "c41f47bf5571546a3a9d9301b7ff579871f98d29ff57fd82e673b34c3467a171"
+    },
+    "sources": {
+      "source/game_sa/Audio/Hardware/AEStreamingChannel.cpp": "38b085b21f5102bc80bb75ffa816fa47b01b5546a53e2e5e2952e25288b871fd",
+      "source/game_sa/Audio/Hardware/AEStreamingChannel.h": "e3b2955d1dca1619146e9c31e905b88d394fa6e9fe1dcc3bd461606b8a045bad",
+      "source/game_sa/Audio/Hardware/AEAudioChannel.cpp": "67ef38a18d83947b04a4a19841b06cff02a12530cab5f864bac0008e7a534786",
+      "source/game_sa/Audio/Hardware/AEAudioChannel.h": "616e9689d1fd6ded10b14d7c90cf7c671e6e92cc95979b46e9a6dc75db2a8a55"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "83564f0964235543d0b2a4c3ee2cb9f3371689907b93fb026219f224800cbd15",
+      "build_probe.py": "014019d4c578d5e331d1c49410769af45b2f9732dc1f1246173bf0b0db63da98",
+      "run_local.py": "b30bde27aed3d8a18fba2247fa594d26d9ee667a616ad2eccff58815a352e7dd"
+    }
+  },
+  "limitations": [
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+  ]
+}

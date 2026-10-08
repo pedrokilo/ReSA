@@ -1,0 +1,76 @@
+// CTaskSimpleGangDriveBy::Clone @ 0x006236d0 [0x6236d0..0x623741]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_006236d0(void)
+
+{
+  int iVar1;
+  int in_ECX;
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_0083fc3b;
+  local_c = ExceptionList;
+  ExceptionList = &local_c;
+  iVar1 = FUN_0061a5a0(0x44);
+  local_4 = 0;
+  if (iVar1 == 0) {
+    iVar1 = 0;
+  }
+  else {
+    iVar1 = FUN_006217d0(*(undefined4 *)(in_ECX + 0x34),in_ECX + 0x38,*(undefined4 *)(in_ECX + 0x20)
+                         ,*(undefined1 *)(in_ECX + 0x13),*(undefined1 *)(in_ECX + 0x12),
+                         *(undefined1 *)(in_ECX + 10));
+  }
+  *(undefined1 *)(iVar1 + 0xe) = *(undefined1 *)(in_ECX + 0xe);
+  ExceptionList = local_c;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006236D0: push 0FFFFFFFFh
+006236D2: push 83FC3Bh
+006236D7: mov eax,dword ptr fs:[00000000h]
+006236DD: push eax
+006236DE: mov dword ptr fs:[00000000h],esp
+ 00
+006236E5: push ecx
+006236E6: push esi
+006236E7: push 44h
+006236E9: mov esi,ecx
+006236EB: call 0061A5A0
+006236F0: add esp,4
+006236F3: mov dword ptr [esp+4],eax
+006236F7: test eax,eax
+006236F9: mov dword ptr [esp+10h],0
+00623701: je 0062372A
+00623703: xor ecx,ecx
+00623705: mov cl,byte ptr [esi+0Ah]
+00623708: xor edx,edx
+0062370A: mov dl,byte ptr [esi+12h]
+0062370D: push ecx
+0062370E: xor ecx,ecx
+00623710: mov cl,byte ptr [esi+13h]
+00623713: push edx
+00623714: mov edx,dword ptr [esi+20h]
+00623717: push ecx
+00623718: push edx
+00623719: mov edx,dword ptr [esi+34h]
+0062371C: lea ecx,[esi+38h]
+0062371F: push ecx
+00623720: push edx
+00623721: mov ecx,eax
+00623723: call 006217D0
+00623728: jmp 0062372C
+0062372A: xor eax,eax
+0062372C: mov cl,byte ptr [esi+0Eh]
+0062372F: mov byte ptr [eax+0Eh],cl
+00623732: mov ecx,dword ptr [esp+8]
+00623736: pop esi
+00623737: mov dword ptr fs:[00000000h],ecx
+ 00
+0062373E: add esp,10h
+00623741: ret

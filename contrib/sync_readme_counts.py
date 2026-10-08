@@ -8,6 +8,7 @@ import csv
 import json
 import re
 from pathlib import Path
+from validation_registry import evaluate
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -20,6 +21,9 @@ def pct(a, b):
 def main():
     rows = list(csv.DictReader((ROOT/'docs/hooks.csv').open(encoding='utf-8-sig')))
     total = len(rows); rev = sum(r['reversed'] == '1' for r in rows); val = sum(r['validated'] == '1' for r in rows)
+    evidence = evaluate(ROOT, ROOT/'docs/hooks.csv')
+    current = evidence['current']
+    matching = evidence['source_matches']
     classes = {}
     for r in rows: classes.setdefault(r['class'], []).append(r)
     complete = sum(all(x['reversed'] == '1' for x in v) for v in classes.values())
@@ -58,7 +62,7 @@ def main():
         '##### Siguientes mediciones', '',
         'Todavía no tienen un porcentaje útil; la tabla explica qué falta hacer para poder medirlas.', '',
         '| Dimensión | Estado actual | Qué hay que hacer |', '| --- | --- | --- |',
-        f'| Validaciones vigentes para el árbol actual | 0/{fmt(val)} validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrar el resultado en el [registro de validaciones](reversing/ValidationRegistry/README.md). |',
+        f'| Validaciones vigentes para el árbol actual | {fmt(current)}/{fmt(val)} validadas confirmadas como vigentes | Volver a correr los bancos de cada función validada sobre el árbol actual, comprobar que sus dependencias no cambiaron desde la evidencia y registrar el resultado en el [registro de validaciones](reversing/ValidationRegistry/README.md). |',
         '| Dependencias de funciones originales eliminadas | No medido | Auditar, por cada función reconstruida, las llamadas directas y transitivas que aún saltan al EXE (`plugin::Call*`, direcciones fijas, hooks sin reconstruir) y contar las que ya no dependen de ninguna. |', '',
         f'Quedan {fmt(total - rev)} entradas pendientes, {fmt(len(classes) - complete)} clases incompletas y {fmt(locked)} locks.',
     ])
@@ -69,6 +73,21 @@ def main():
         p = ROOT/f; s = p.read_bytes().decode('utf-8'); n = 0
         for a, b in pairs:
             s, k = re.subn(a, b, s); n += k
+        if f == 'reversing/ValidationRegistry/README.md':
+            start = s.index('Hay **')
+            end = s.index('### Integridad del universo catalogado', start)
+            status = (
+                f'Hay **{fmt(val)} funciones con `validated=1`** y **{fmt(current)} con vigencia confirmada para el árbol modificado**. '
+                f'La barra de vigencia es **{fmt(current)}/{fmt(total)} · {pct(current, total)}%**.\n\n'
+                f'**{fmt(matching)} funciones conservan coincidencia de todas sus fuentes registradas.** '
+                'La coincidencia de fuentes y la evidencia aprobada se consultan por función en el inventario. '
+                'La revisión de dependencias es una condición adicional para acreditar vigencia; no se deduce de haber pasado un banco.\n\n'
+                f'El [inventario de todas las funciones reconstruidas](../../docs/ValidationInventory.md) clasifica las {fmt(rev)} entradas: '
+                f'{fmt(current)} vigentes, {fmt(val-current)} con evidencia histórica por revisar y {fmt(rev-val)} sin evidencia vinculada. '
+                f'Las {fmt(total-rev)} entradas pendientes de reconstrucción se contabilizan aparte. '
+                'Sin evidencia vinculada no significa nunca probada ni fallida.\n\n'
+            )
+            s = s[:start] + status + s[end:]
         p.write_bytes(s.encode('utf-8'))
         print(f'{f}: {n} cifras')
     print(f'total={total} reconstruidas={rev} validadas={val} clases completas={complete}/{len(classes)} casos={len(cases)}')

@@ -1,0 +1,70 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 2560,
+  "pairs_per_function": {
+    "CTaskComplexArrestPed::CreateSubTask": 512,
+    "CTaskComplexArrestPed::CreateNextSubTask": 1024,
+    "CTaskComplexArrestPed::ControlSubTask": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "aca16dcfee2c018a11892e96b7c78fbe0f4ef970efb5f31800d75db091a8829c",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-arrest-pending\\20261007-200023-270451",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTaskComplexArrestPed::CreateSubTask": true,
+    "CTaskComplexArrestPed::CreateNextSubTask": true,
+    "CTaskComplexArrestPed::ControlSubTask": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "f782b975cea03405fdabde2fab2f86882f7dd916f87c0820964b4495c8be77f7",
+      "pdb": "0ed0434d382ae77d04261969ca09a13aafa239b5d1e41065a90cebd255fe3d80"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp": "cb0d2c13b751877950b20367d122e055c31d45f22740b8470cd387ddb35483ea",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.h": "0a0743beed4f90e2a628168d1ac3b401dc77a135ddcebc50724ac35ae905e6b5",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "d4e24513d36330e89aa843b2827b6fb827083463f743b68bca5d974b7bf99a26",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "dd711db4f5c3ce2bf1d3036a571262fa2a3713aeb833a810fba9fffe1ce2297e",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp": "5245345869c8e22c6db81971c5161fd67b9e73739b06b00cfce4395aed339503",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.h": "899f4d5cadd6018558e90ea2e172f56f76d76fa970f77f54be63fec2e0a3d3b8",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp": "655c8a35cfa159f7004d66ceb4914ad21c2734c39d73a916496e4cd05a01e643",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h": "d29004fc9b9c11cda9076c309fcb7177703df8df9db9ff648f980da66266bce0",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "34c6dca5a8a384a8702a5bd219db0c24f66ebea605ea2f64af7f3fe312913557",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.h": "5f4b6638f8cba709847134cdc243b65245e41ab3eca3fbafb5ccda27b4b56299",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDragPedFromCar.cpp": "20920ca6808787904c34f38d84b7bddb6ac03e9737d90348c38c104bf52fcb81",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexDragPedFromCar.h": "54833f58d9652592a608e0bbad8c294f32f1be7317f1f2e17df5d577224324b9",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexOpenDriverDoor.cpp": "b2fb96895725451152ffbb5fc30c6cc627f1df71c49b7fd64b545759de018108",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexOpenDriverDoor.h": "8bef67183f5fa9c60c2b4e8b5655e6e71c063d574bc408444c2348f6ce87e139",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.cpp": "8e16b392bb5c8d75875179709e828beb6332d5618420f7130ecf3c86c8c3ba98",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.h": "4efca49a61b5c2597059823749e6b10757ee9267cec737e68bcca57c5f469d41",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.cpp": "2e290168d55ac558fe8676cb63b3cdfe4ff1d24a4083f601d0c24ebec1b46b90",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.h": "0c6b0e6efb4deaba84ab287c122c44279b0a276851c3dbe309fc1e6967ebfc8a",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp": "afb36a11b2619dbbd0888b47d8cc42d98393827c51d66859fa8e1d0b96df9022",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.h": "90511816d9859bfb2d2b0dbf445d279a17f3207aa0bdc571e97e353484225d3c",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFallAndGetUp.cpp": "579e736c02f61e2b004c2283291c103d0c88f53a658dad4915f27c15b5255c87",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexFallAndGetUp.h": "c9d40ef550c3e4ef830459786a6aaedca33559802947d4231a6fb89abd1a9a37"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "68a9241e3f23da2b998a0ae68948a02953df8dd1249f2f362b1b9f7b07327a09",
+      "build_probe.py": "8ed96b80648124099bf57fc578e0ac878eb02994559397d9fadbb9525b54ad2c",
+      "run_local.py": "853e7d02265180f6971bb1666a10485a6d6e6cc4a63eaff1fa67398436a04c21"
+    }
+  },
+  "limitations": [
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+  ]
+}

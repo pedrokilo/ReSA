@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 2048,
+  "pairs_per_function": {
+    "CTaskGangHasslePed::CreateFirstSubTask": 512,
+    "CTaskGangHasslePed::CreateNextSubTask": 512,
+    "CTaskGangHasslePed::ControlSubTask": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "49d831111e1e98f3eb2995bc26bba19807d52d8249727c4507e764e2eb695365",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gang-hassle-pending\\20261007-195743-015057",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTaskGangHasslePed::CreateFirstSubTask": true,
+    "CTaskGangHasslePed::CreateNextSubTask": true,
+    "CTaskGangHasslePed::ControlSubTask": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "6f528bfc948aae898c36a6e1967dd8af0215d931a203c623fb55bd49ae656a39",
+      "pdb": "a4c4fa4fa3ff45ac17ce50ea0fb10cdb443bd73b9e770d12fffad92803ab96e5"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp": "4408433721e5b3f552319b10827a4ea19f6a19120e4a7ba88ceecf6442f439f0",
+      "source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.h": "b04883b48ef8b252cf5934c60f77fd09863ae6652e8508dc49bdc0e787c8d6c9",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "d4e24513d36330e89aa843b2827b6fb827083463f743b68bca5d974b7bf99a26",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "dd711db4f5c3ce2bf1d3036a571262fa2a3713aeb833a810fba9fffe1ce2297e",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp": "655c8a35cfa159f7004d66ceb4914ad21c2734c39d73a916496e4cd05a01e643",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.h": "d29004fc9b9c11cda9076c309fcb7177703df8df9db9ff648f980da66266bce0",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.cpp": "b4f9a9afa80c1f715e62e161e05bfcb6cba13495ab5a9663853b450177991213",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.h": "4041c65038644cf2aaaf3683bb5c8cf02b46271cbb183e6b0ca4ffc562262c82",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp": "5ac95bd24920d2e84a977ce9b0cbed032c6ce8a8ac21e654e59b04a972e82ec9",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h": "604aed03ea7a5a04ebfda98d03ea8eaa28535e00e64d39cf5f73e733c7fdf48e"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "01d5b0b058d5c3c3658ad98b9030ee4dedfd23b7191c2ee3ba2b1f0f6754f160",
+      "build_probe.py": "339bc461716137bf652dd503563689f5eec08dde1b7c43b1e4f9bca0d5501bc3",
+      "run_local.py": "01600e7e38a3200080e9df16eb399a8313218a92a3b2d974cbc361161a4eee45"
+    }
+  },
+  "limitations": [
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+  ]
+}

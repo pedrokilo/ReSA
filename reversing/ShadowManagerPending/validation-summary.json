@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 2560,
+  "pairs_per_function": {
+    "CRealTimeShadowManager::ReInit": 512,
+    "CRealTimeShadowManager::GetRealTimeShadow": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "5aa896240cb3410afce8106417728cca298dd630343b92243f3bc161b45369c9",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shadow-manager-pending\\20261007-200912-414909",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CRealTimeShadowManager::ReInit": true,
+    "CRealTimeShadowManager::GetRealTimeShadow": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "283a6b3077d0a8ead351c68c33198b9183e9d8429d72721f071c15e323e80d0e",
+      "pdb": "608dd0cc9bf64dc8ed2250230e0e3e3264a708554bb3862cce5028c5c522c48d"
+    },
+    "sources": {
+      "source/game_sa/RealTimeShadowManager.cpp": "e844273fa9d0b36f1cbc833aa2e7144a9335a7dde45fb279f97a8d0d38db84dc",
+      "source/game_sa/RealTimeShadowManager.h": "0f614a440916acab27fa80efaaa1efbbeafcc61b0ad5862a3a4b9579beb0d32d",
+      "source/game_sa/RealTimeShadow.cpp": "78c7502d672b594e10c299a00a9812345f039987d38fa7eb7eb83135beeac7d6",
+      "source/game_sa/RealTimeShadow.h": "817407a109b81bbbf8a0e4e8733724eb62ab70ff99219df7b2d7c62443835548",
+      "source/game_sa/ShadowCamera.cpp": "6ad154328bd61d4231b5f8d2e6fca365825542330b2852af840e6c85280b9e23",
+      "source/game_sa/ShadowCamera.h": "18f1711463b40a46dae200b42171dee434dda0a758e37a0c9f52829559ae41dc"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "9d97bf3cd63cb6f3fad1821656600fcf1a926764f985ead97543c57b1a4318cb",
+      "build_probe.py": "c9f095c415fd683961ceba3221eb7d3bdbf51874ae7ce627fa445f443aa9c7f6",
+      "run_local.py": "af65dc72360d56724cfcb28769afe874b2bed68cc49575475c5578a5172eaaf8"
+    }
+  },
+  "limitations": [
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+  ]
+}

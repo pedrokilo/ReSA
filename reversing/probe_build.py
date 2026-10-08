@@ -8,6 +8,7 @@ import json
 import os
 import shutil
 import subprocess
+import time
 from pathlib import Path
 from runtime_runner import digest, GAME
 
@@ -19,6 +20,9 @@ def build(here: Path, prefix: str, namespace: str, tested_sources=(), install=Tr
     here = Path(here).resolve()
     saved = GAME_CPP.read_bytes()
     artifacts = here/'artifacts'; artifacts.mkdir(exist_ok=True)
+    hashes_before = {str(Path(p)).replace('\\', '/'): digest(ROOT/p) for p in tested_sources}
+    instruments = sorted(here.glob('*.hpp')) + sorted(here.glob('*.py'))
+    instrument_before = {p.name: digest(p) for p in instruments}
     try:
         content = saved.decode('utf-8').replace('\r\n', '\n')
         anchor = 'void CGame::Process() {'
@@ -29,16 +33,29 @@ def build(here: Path, prefix: str, namespace: str, tested_sources=(), install=Tr
         GAME_CPP.write_text(content, encoding='utf-8', newline='\n')
         with (artifacts/'probe-build.log').open('w') as log:
             subprocess.run([str(CMAKE), '--build', str(ROOT/'build'), '--config', 'Debug'], stdout=log, stderr=subprocess.STDOUT, check=True)
+        if any(digest(ROOT/p) != value for p, value in hashes_before.items()):
+            raise RuntimeError('Cambió una fuente probada durante la compilación; repetir la sonda.')
+        if any(digest(here/name) != value for name, value in instrument_before.items()):
+            raise RuntimeError('Cambió el banco durante la compilación; repetir la sonda.')
     finally:
-        GAME_CPP.write_bytes(saved)
+        deadline = time.monotonic() + 10
+        while True:
+            try:
+                GAME_CPP.write_bytes(saved)
+                break
+            except OSError:
+                if time.monotonic() >= deadline:
+                    (artifacts/'game-cpp-before-probe.bin').write_bytes(saved)
+                    raise
+                time.sleep(.2)
     hashes = {}
     for ext in ('asi', 'pdb'):
         dest = artifacts/f'gta_reversed-{prefix}-probe.{ext}'
         shutil.copy2(ROOT/f'bin/Debug/gta_reversed.{ext}', dest); hashes[ext] = digest(dest)
         if install: shutil.copy2(dest, GAME/'_baseline'/dest.name)
     manifest = dict(binaries=hashes,
-                    sources={str(Path(p)).replace('\\', '/'): hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in tested_sources},
+                    sources=hashes_before,
                     game_cpp=hashlib.sha256(saved).hexdigest(),
-                    instrumentation={p.name: digest(p) for p in sorted(here.glob('*.hpp')) + sorted(here.glob('*.py'))})
+                    instrumentation=instrument_before)
     (artifacts/'build-manifest.json').write_text(json.dumps(manifest, indent=2))
     return hashes

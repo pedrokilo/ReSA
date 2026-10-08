@@ -1,0 +1,116 @@
+// CTaskComplexProstituteSolicit::CreateFirstSubTask @ 0x006666a0 [0x6666a0..0x66677a]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_006666a0(int param_1)
+
+{
+  int iVar1;
+  char cVar2;
+  undefined4 *puVar3;
+  int iVar4;
+  undefined4 uVar5;
+  int in_ECX;
+  
+  cVar2 = FUN_00661bb0(param_1,*(undefined4 *)(in_ECX + 0xc));
+  if (cVar2 == '\0') {
+    *(byte *)(in_ECX + 0x2c) = *(byte *)(in_ECX + 0x2c) | 4;
+    return 0;
+  }
+  iVar4 = *(int *)(*(int *)(in_ECX + 0xc) + 0x58c);
+  iVar1 = *(int *)(iVar4 + 0x14);
+  if (iVar1 == 0) {
+    puVar3 = (undefined4 *)(iVar4 + 4);
+  }
+  else {
+    puVar3 = (undefined4 *)(iVar1 + 0x30);
+  }
+  *(undefined4 *)(in_ECX + 0x10) = *puVar3;
+  *(undefined4 *)(in_ECX + 0x14) = puVar3[1];
+  *(undefined4 *)(in_ECX + 0x18) = puVar3[2];
+  *(int *)(*(int *)(*(int *)(in_ECX + 0xc) + 0x480) + 0xa4) = param_1;
+  iVar4 = FUN_0056e210(0xffffffff);
+  FUN_00571b70(*(int *)(iVar4 + 0x480) + 0xa4);
+  iVar4 = *(int *)(*(int *)(in_ECX + 0xc) + 0x480);
+  iVar1 = *(int *)(iVar4 + 0xa8);
+  if (iVar1 != param_1) {
+    if (iVar1 != 0) {
+      FUN_00571a00(iVar4 + 0xa8);
+    }
+    *(int *)(*(int *)(*(int *)(in_ECX + 0xc) + 0x480) + 0xa8) = param_1;
+    FUN_00571b70(*(int *)(*(int *)(in_ECX + 0xc) + 0x480) + 0xa8);
+  }
+  uVar5 = FUN_00666360(0x38b,param_1);
+  return uVar5;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+006666A0: push esi
+006666A1: mov esi,ecx
+006666A3: mov eax,dword ptr [esi+0Ch]
+006666A6: push edi
+006666A7: mov edi,dword ptr [esp+0Ch]
+006666AB: push eax
+006666AC: push edi
+006666AD: call 00661BB0
+006666B2: add esp,8
+006666B5: test al,al
+006666B7: jne 006666C4
+006666B9: or byte ptr [esi+2Ch],4
+006666BD: pop edi
+006666BE: xor eax,eax
+006666C0: pop esi
+006666C1: ret 4
+006666C4: mov ecx,dword ptr [esi+0Ch]
+006666C7: mov eax,dword ptr [ecx+0000058Ch]
+006666CD: mov edx,dword ptr [eax+14h]
+006666D0: test edx,edx
+006666D2: je 006666D9
+006666D4: lea eax,[edx+30h]
+006666D7: jmp 006666DC
+006666D9: add eax,4
+006666DC: push ebx
+006666DD: mov ebx,dword ptr [eax]
+006666DF: lea edx,[esi+10h]
+006666E2: mov dword ptr [edx],ebx
+006666E4: mov ebx,dword ptr [eax+4]
+006666E7: mov dword ptr [edx+4],ebx
+006666EA: mov eax,dword ptr [eax+8]
+006666ED: mov dword ptr [edx+8],eax
+006666F0: mov ecx,dword ptr [ecx+00000480h]
+006666F6: push 0FFFFFFFFh
+006666F8: mov dword ptr [ecx+000000A4h],edi
+006666FE: call 0056E210
+00666703: mov eax,dword ptr [eax+00000480h]
+00666709: mov ecx,dword ptr [eax+000000A4h]
+0066670F: add eax,0A4h
+00666714: add esp,4
+00666717: push eax
+00666718: call 00571B70
+0066671D: mov edx,dword ptr [esi+0Ch]
+00666720: mov eax,dword ptr [edx+00000480h]
+00666726: mov ecx,dword ptr [eax+000000A8h]
+0066672C: add eax,0A8h
+00666731: cmp ecx,edi
+00666733: pop ebx
+00666734: je 00666769
+00666736: test ecx,ecx
+00666738: je 00666740
+0066673A: push eax
+0066673B: call 00571A00
+00666740: mov eax,dword ptr [esi+0Ch]
+00666743: mov ecx,dword ptr [eax+00000480h]
+00666749: mov dword ptr [ecx+000000A8h],edi
+0066674F: mov edx,dword ptr [esi+0Ch]
+00666752: mov eax,dword ptr [edx+00000480h]
+00666758: mov ecx,dword ptr [eax+000000A8h]
+0066675E: add eax,0A8h
+00666763: push eax
+00666764: call 00571B70
+00666769: push edi
+0066676A: push 38Bh
+0066676F: mov ecx,esi
+00666771: call 00666360
+00666776: pop edi
+00666777: pop esi
+00666778: ret 4

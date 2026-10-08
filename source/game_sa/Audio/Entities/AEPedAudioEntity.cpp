@@ -6,23 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CAEPedAudioEntity
- * Reconstrucción: INCOMPLETA — 16/20 funciones reconstruidas.
- * Pendientes de reconstruir: 4.
- * Funciones bloqueadas: 4.
- * Validación registrada: 1/20 entradas.
+ * Reconstrucción: COMPLETA — 20/20 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 5/20 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   HandlePedHit | 0x004E1CC0 | S
- *   HandlePedJacked | 0x004E2350 | S
- *   HandlePedSwing | 0x004E1A40 | S
- *   Service | 0x004E2EE0 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   HandlePedHit | 0x004E1CC0 | S
- *   HandlePedJacked | 0x004E2350 | S
- *   HandlePedSwing | 0x004E1A40 | S
- *   Service | 0x004E2EE0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -52,13 +42,13 @@ void CAEPedAudioEntity::InjectHooks() {
     RH_ScopedInstall(HandleFootstepEvent, 0x4E13A0);
     RH_ScopedInstall(HandleSkateEvent, 0x4E17E0);
     RH_ScopedInstall(HandleLandingEvent, 0x4E18E0);
-    RH_ScopedInstall(HandlePedSwing, 0x4E1A40, { .reversed = false });
-    RH_ScopedInstall(HandlePedHit, 0x4E1CC0, { .reversed = false });
-    RH_ScopedInstall(HandlePedJacked, 0x4E2350, { .reversed = false });
+    RH_ScopedInstall(HandlePedSwing, 0x4E1A40);
+    RH_ScopedInstall(HandlePedHit, 0x4E1CC0);
+    RH_ScopedInstall(HandlePedJacked, 0x4E2350);
     RH_ScopedInstall(HandleSwimSplash, 0x4E26A0);
     RH_ScopedInstall(HandleSwimWake, 0x4E2790);
     RH_ScopedInstall(PlayShirtFlap, 0x4E2A90);
-    RH_ScopedInstall(Service, 0x4E2EE0, { .reversed = false });
+    RH_ScopedInstall(Service, 0x4E2EE0);
 }
 
 // 0x5DE8D0
@@ -525,17 +515,150 @@ void CAEPedAudioEntity::HandleLandingEvent(eAudioEvents event) {
 
 // 0x4E1A40
 void CAEPedAudioEntity::HandlePedSwing(eAudioEvents event, int32 a3, uint32 volume) {
-    plugin::CallMethod<0x4E1A40, CAEPedAudioEntity*, int32, int32, uint32>(this, event, a3, volume);
+    const auto* weapon = reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(m_pPed) + 0x5A0 + int32(*reinterpret_cast<const int8*>(reinterpret_cast<const uint8*>(m_pPed) + 0x718)) * 0x1C);
+    if (!weapon) return;
+    if (!AEAudioHardware.IsSoundBankLoaded(static_cast<eSoundBank>(143), static_cast<eSoundBankSlot>(5))) {
+        if (!AudioEngine.IsLoadingTuneActive()) AEAudioHardware.LoadSoundBank(static_cast<eSoundBank>(143), static_cast<eSoundBankSlot>(5));
+        return;
+    }
+    int id = -1; float speed = 1.f, offset = 0.f;
+    switch (*weapon) {
+    case 2: case 15: id = 47; break;
+    case 3: case 7: id = 86; speed = std::bit_cast<float>(0x3F570A3Du); break;
+    case 4: case 8: id = 88; offset = -3.f; break;
+    case 5: case 6: id = 86; speed = std::bit_cast<float>(0x3F2B851Fu); break;
+    case 10: case 11: case 12: case 13: id = 86; offset = -6.f; speed = std::bit_cast<float>(0x3F570A3Du); break;
+    case 0: case 1: case 9: case 14: case 16: case 17: case 18:
+    case 22: case 23: case 24: case 25: case 26: case 27: case 28: case 29: case 30: case 31: case 32: case 33: case 34:
+    case 37: case 38: case 39: case 40: case 41: case 42: case 43: case 44: case 45:
+        id = 87; offset = -6.f; speed = std::bit_cast<float>(0x3F570A3Du); break;
+    default: break;
+    }
+    if (a3 >= 64 && a3 <= 68) { id = 87; offset = a3 >= 67 ? -2.f : -6.f; speed = std::bit_cast<float>(0x3F570A3Du); }
+    if (id < 0) return;
+    m_tempSound.Initialise(static_cast<eSoundBankSlot>(5), static_cast<eSoundID>(id), this, m_pPed->GetPosition(), GetDefaultVolume(event) + offset, 1.f, speed, 1.f, 0, 0x80, std::bit_cast<float>(0x3D23D70Au), 0);
+    m_tempSound.RegisterWithPhysicalEntity(m_pPed);
+    if (volume) {
+        m_tempSound.m_SpeedVariance = 0.f;
+        m_tempSound.m_Speed = 0.f;
+        m_tempSound.m_ClientVariable = static_cast<float>(CTimer::GetTimeInMS() + volume);
+        m_tempSound.m_Event = event;
+        m_tempSound.SetFlags(SOUND_REQUEST_UPDATES, true);
+    }
+    AESoundManager.RequestNewSound(&m_tempSound);
 }
 
 // 0x4E1CC0
 void CAEPedAudioEntity::HandlePedHit(eAudioEvents event, CPhysical* physical, uint8 surfaceId, float volume, uint32 maxVol) {
-    plugin::CallMethod<0x4E1CC0, CAEPedAudioEntity*, int32, CPhysical*, uint8, float, uint32>(this, event, physical, surfaceId, volume, maxVol);
+    const auto* weapon = reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(m_pPed) + 0x5A0 + int32(*reinterpret_cast<const int8*>(reinterpret_cast<const uint8*>(m_pPed) + 0x718)) * 0x1C);
+    if (!weapon) return;
+    if (!AEAudioHardware.IsSoundBankLoaded(static_cast<eSoundBank>(143), static_cast<eSoundBankSlot>(5))) {
+        if (!AudioEngine.IsLoadingTuneActive()) AEAudioHardware.LoadSoundBank(static_cast<eSoundBank>(143), static_cast<eSoundBankSlot>(5));
+        return;
+    }
+    const uint32 type = *weapon;
+    const float baseVolume = GetDefaultVolume(event) + volume;
+    int mainID = -1, secondID = -1, secondSlot = 5;
+    float mainOffset = 0.f, secondOffset = -3.f, variance = std::bit_cast<float>(0x3D70D845u);
+    switch (type) {
+    case 0: case 44: case 45: mainID = 58; break;
+    case 1: case 16: case 17: case 18: case 22: case 23: case 24: case 25: case 26: case 27: case 28: case 29: case 30: case 31: case 32: case 33: case 34:
+    case 37: case 38: case 39: case 40: case 41: case 42: case 43: mainID = 44; break;
+    case 2: mainID = 48; break;
+    case 3: mainID = 35; break;
+    case 4: mainID = 57; variance = std::bit_cast<float>(0x3CF5C28Fu); break;
+    case 5: mainID = 34; break;
+    case 6: mainID = 75; break;
+    case 7: mainID = 67; break;
+    case 8: mainID = 56; break;
+    case 10: case 11: case 12: case 13: mainID = 50; break;
+    case 14: mainID = 54; variance = std::bit_cast<float>(0x3D8F5C29u); break;
+    case 15: mainID = 46; break;
+    default: break;
+    }
+    bool onlySecond = false;
+    if (physical && physical->GetType() == ENTITY_TYPE_PED) {
+        switch (event) {
+        case 61: case 62: case 63:
+            if (type == 4 || type == 8) { secondID = 81; secondOffset = -9.f; onlySecond = true; }
+            else if (type == 9) {
+                if (!AEAudioHardware.IsSoundBankLoaded(static_cast<eSoundBank>(27), static_cast<eSoundBankSlot>(3))) return;
+                secondSlot = 3; secondID = CAEAudioUtility::GetRandomNumberInRange<int32>(7, 9); onlySecond = true;
+            } else if (type != 14) {
+                mainOffset = type == 1 && event != 63 ? 1.f : type == 5 ? -10.f : -15.f;
+                if (event == 63) { secondID = 82; secondOffset = -6.f; }
+                else secondID = CAEAudioUtility::GetRandomNumberInRange<int32>(event == 61 ? 40 : 36, event == 61 ? 43 : 39);
+            }
+            break;
+        case 64: secondID = 82; secondOffset = -6.f; onlySecond = true; break;
+        case 65: case 67: mainID = 58; secondID = CAEAudioUtility::GetRandomNumberInRange<int32>(40, 43); break;
+        case 66: mainID = 58; secondID = CAEAudioUtility::GetRandomNumberInRange<int32>(36, 39); break;
+        case 68: secondID = CAEAudioUtility::GetRandomNumberInRange<int32>(59, 62); onlySecond = true; break;
+        default: break;
+        }
+    } else {
+        const auto collision = [&] { AudioEngine.ReportCollision(m_pPed, physical, static_cast<eSurfaceType>(62), static_cast<eSurfaceType>(surfaceId), m_pPed->GetPosition(), nullptr, 1.f, 1.f, true, false); };
+        switch (event) {
+        case 64: case 68: collision(); return;
+        case 61: case 62: case 63: case 65: case 66: case 67: {
+            const float value = static_cast<float>(reinterpret_cast<const int32*>(0x8AD914)[size_t(surfaceId) * 4]) * StaticRef<float>(0x858C58);
+            float result; const float twenty = 20.f;
+            __asm {
+                fld value
+                fldlg2
+                fxch st(1)
+                fyl2x
+                fmul twenty
+                fstp result
+            }
+            mainOffset = result;
+            if (event >= 65) mainID = 58;
+            collision(); break;
+        }
+        default: break;
+        }
+    }
+    const auto play = [&](int slot, int id, float offset, float randomVariance) {
+        m_tempSound.Initialise(static_cast<eSoundBankSlot>(slot), static_cast<eSoundID>(id), this, m_pPed->GetPosition(), baseVolume + offset, 1.f, 1.f, 1.f, 0, 0x80, randomVariance, 0);
+        m_tempSound.RegisterWithPhysicalEntity(m_pPed);
+        if (maxVol) {
+            m_tempSound.m_SpeedVariance = 0.f; m_tempSound.m_Speed = 0.f;
+            m_tempSound.m_ClientVariable = static_cast<float>(CTimer::GetTimeInMS() + maxVol);
+            m_tempSound.m_Event = event; m_tempSound.SetFlags(SOUND_REQUEST_UPDATES, true);
+        }
+        AESoundManager.RequestNewSound(&m_tempSound);
+    };
+    if (!onlySecond && mainID >= 0) play(5, mainID, mainOffset, variance);
+    if (secondID >= 0) play(secondSlot, secondID, secondOffset, std::bit_cast<float>(0x3D70D845u));
 }
 
 // 0x4E2350
 void CAEPedAudioEntity::HandlePedJacked(eAudioEvents event) {
-    plugin::CallMethod<0x4E2350, CAEPedAudioEntity*, int32>(this, event);
+    if (!AEAudioHardware.IsSoundBankLoaded(static_cast<eSoundBank>(143), static_cast<eSoundBankSlot>(5))) {
+        if (!AudioEngine.IsLoadingTuneActive()) AEAudioHardware.LoadSoundBank(static_cast<eSoundBank>(143), static_cast<eSoundBankSlot>(5));
+        return;
+    }
+    const float volume = GetDefaultVolume(event);
+    uint32 firstTime = CTimer::GetTimeInMS(), collisionTime = firstTime;
+    int first = -1, second = -1;
+    switch (event) {
+    case 69: first = 58; second = CAEAudioUtility::GetRandomNumberInRange<int32>(40, 43); firstTime += 500; collisionTime += 2133; break;
+    case 70: first = 50; second = CAEAudioUtility::GetRandomNumberInRange<int32>(36, 39); firstTime += 933; collisionTime += 2633; break;
+    case 71: second = CAEAudioUtility::GetRandomNumberInRange<int32>(40, 43); firstTime += 900; collisionTime += 2800; break;
+    case 72: first = 58; second = CAEAudioUtility::GetRandomNumberInRange<int32>(40, 43); firstTime += 33; collisionTime += 366; break;
+    case 73: second = CAEAudioUtility::GetRandomNumberInRange<int32>(36, 39); firstTime += 266; collisionTime += 833; break;
+    default: break;
+    }
+    const auto play = [&](int slot, int id, uint32 deadline) {
+        m_tempSound.Initialise(static_cast<eSoundBankSlot>(slot), static_cast<eSoundID>(id), this, m_pPed->GetPosition(), volume, 2.f, 0.f, 1.f, 0, 0x84, 0.f, 0);
+        m_tempSound.RegisterWithPhysicalEntity(m_pPed);
+        m_tempSound.m_Event = event; m_tempSound.m_ClientVariable = static_cast<float>(deadline);
+        AESoundManager.RequestNewSound(&m_tempSound);
+    };
+    if (first >= 0) play(5, first, firstTime);
+    if (second >= 0) play(5, second, firstTime);
+    if (AEAudioHardware.IsSoundBankLoaded(static_cast<eSoundBank>(0), static_cast<eSoundBankSlot>(41))) play(41, 0, collisionTime);
+    else AEAudioHardware.LoadSoundBank(static_cast<eSoundBank>(0), static_cast<eSoundBankSlot>(41));
 }
 
 // 0x4E26A0
@@ -590,7 +713,77 @@ void CAEPedAudioEntity::PlayShirtFlap(float volume, float speed) {
     }
 }
 
+static float PedShirtLogarithmicVolume(float value, float baseVolume) {
+    float result;
+    const float scale = 20.f;
+    auto logFunction = &CAEAudioUtility::AudioLog10;
+    // Preserve the transcendental result in ST(0) through both operations.
+    __asm {
+        push value
+        call logFunction
+        add esp, 4
+        fmul scale
+        fadd baseVolume
+        fstp result
+    }
+    return result;
+}
+
 // 0x4E2EE0
 void CAEPedAudioEntity::Service() {
-    plugin::CallMethod<0x4E2EE0, CAEPedAudioEntity*>(this);
+    if (!m_pPed->IsPlayer()) return;
+    const auto readFloat = [](uintptr_t address) { return StaticRef<float>(address); };
+    const auto clamp = [](float value) { if (value > 1.f) return 1.f; if (value < 0.f) return 0.f; return value; };
+    const auto speedOf = [](const CPhysical* body) {
+        const auto& v = body->m_vecMoveSpeed;
+        return std::sqrt((v.x * v.x + v.y * v.y) + v.z * v.z);
+    };
+    float volume = -100.f, speed = 1.f, falling = 0.f, decel = 0.f;
+    const bool onFoot = !(m_pPed->m_pAttachedTo && m_pPed->m_pAttachedTo->GetType() == ENTITY_TYPE_VEHICLE) && !m_pPed->bInVehicle;
+    auto* vehicle = m_pPed->m_pVehicle;
+    if (static_cast<int32>(m_pPed->m_nPedState) == 50 && vehicle) {
+        const int32 vehicleType = *reinterpret_cast<const int32*>(reinterpret_cast<const uint8*>(vehicle) + 0x590);
+        bool movingVehicle = vehicleType == 9;
+        if (vehicleType == 0) {
+            const auto* vtable = *reinterpret_cast<const uintptr_t* const*>(vehicle);
+            movingVehicle = reinterpret_cast<bool(__thiscall*)(CVehicle*)>(vtable[39])(vehicle);
+        }
+        if (movingVehicle) {
+            const float magnitude = std::abs(speedOf(vehicle));
+            if (magnitude > 0.f) {
+                speed = clamp(magnitude);
+                volume = PedShirtLogarithmicVolume(speed, readFloat(*(reinterpret_cast<const uint8*>(vehicle) + 0x1B8) == 2 ? 0x8AE654 : 0x8AE650));
+                speed = readFloat(0xB613BC) * speed + readFloat(0x8AE658);
+            }
+        }
+    }
+    const bool parachute = m_pPed->GetIntelligence() && m_pPed->GetIntelligence()->GetUsingParachute();
+    if (onFoot) {
+        speed = speedOf(m_pPed) / readFloat(0x8AE6A4);
+        float offset;
+        if (!parachute) {
+            offset = readFloat(0x8AE660);
+            if (!(speed < readFloat(0x8AE69C))) speed = clamp((speed - readFloat(0x8AE69C)) / readFloat(0xB613CC));
+            else speed = 0.f;
+        } else {
+            offset = readFloat(0x8AE664);
+            if (auto* anim = RpAnimBlendClumpGetAssociation(m_pPed->GetRpClump(), "FALL_SkyDive_accel")) falling = clamp(anim->m_BlendAmount);
+            if (auto* anim = RpAnimBlendClumpGetAssociation(m_pPed->GetRpClump(), "Para_decel")) decel = clamp(anim->m_BlendAmount);
+            speed = clamp(speed);
+        }
+        volume = PedShirtLogarithmicVolume(speed, offset);
+        speed = readFloat(0xB613C0) * speed + readFloat(0x8AE668);
+    }
+    speed = (readFloat(0x8AE644) * falling + 1.f) * speed;
+    const float target = (readFloat(0x8AE648) * falling + volume) + readFloat(0x8AE64C) * decel;
+    if (target > field_158) {
+        const float up = readFloat(0x8AE670) + field_158;
+        field_158 = up < target ? up : target;
+    } else if (target < field_158) {
+        const float down = field_158 - readFloat(0x8AE674);
+        field_158 = down > target ? down : target;
+    }
+    if (target < readFloat(0x8AE6A0) && field_158 < readFloat(0x8AE6A0)) field_158 = target;
+    if (field_158 > -100.f || std::isnan(field_158)) PlayShirtFlap(field_158, speed);
+    else m_sTwinLoopSoundEntity.StopSoundAndForget();
 }

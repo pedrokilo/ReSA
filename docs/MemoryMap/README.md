@@ -2,7 +2,7 @@
 
 **[Abrir el visor local](index.html)**. Página interactiva sin servidor ni conexión, compatible con navegadores modernos. Busca una clase, función, dirección o archivo; selecciona una fila para consultar su ficha y procedencia. El filtro de estado permite consultar sólo lo reconstruido, la evidencia aprobada, la vigencia o los pendientes.
 
-Este mapa combina el **análisis del EXE de GTA SA** y el inventario de `D:\Original\gta-reversed-master`, del 6 de octubre de 2026. No ejecuta GTA, modifica hooks, recompila, cambia flags ni vuelve a correr bancos.
+Este mapa combina el **análisis del EXE de GTA SA** y el inventario de `D:\Original\gta-reversed-master`, actualizado el 7 de octubre de 2026; el análisis global del EXE se conserva del 6 de octubre. No ejecuta GTA, modifica hooks, recompila, cambia flags ni vuelve a correr bancos.
 
 ## Inventario del EXE
 
@@ -11,8 +11,8 @@ La vista inicial **Funciones del EXE** incluye el código detectado aunque no fi
 | Resultado del análisis binario | Cantidad |
 | --- | ---: |
 | Entradas de función detectadas | **17.765** |
-| Entradas con nombres cruzados del catálogo o sus registros fuente | 8.433 |
-| Entradas sin nombre del catálogo | **9.332** |
+| Entradas con nombres cruzados del catálogo o sus registros fuente | 8.439 |
+| Entradas sin nombre del catálogo | **9.326** |
 | Dirección candidata dentro de un cuerpo existente, sin entrada propia | 1 |
 | Direcciones de código en el inventario combinado | 17.766 |
 | Tablas fuente leídas del EXE | 445 |
@@ -26,7 +26,7 @@ La vista inicial **Funciones del EXE** incluye el código detectado aunque no fi
 | Bytes ejecutables sin cuerpo de función asignado | 823.025 |
 | Rangos de bytes sin cuerpo asignado | 15.639 |
 
-**8.441 es el tamaño del catálogo de ReSA, no el número de funciones del EXE.** El análisis abarca todas las secciones del binario; el mapa conserva cada rango de bytes ejecutables no asignado a un cuerpo en «Huecos por revisar». Esos huecos pueden incluir alineación, tablas de datos, instrucciones sueltas y código pendiente de identificar. No se suman como nuevas funciones.
+**8.447 es el tamaño del catálogo de ReSA, no el número de funciones del EXE.** El análisis abarca todas las secciones del binario; el mapa conserva cada rango de bytes ejecutables no asignado a un cuerpo en «Huecos por revisar». Esos huecos pueden incluir alineación, tablas de datos, instrucciones sueltas y código pendiente de identificar. No se suman como nuevas funciones.
 
 El análisis automático global se completó, pero **17.765 sigue siendo un número de entradas detectadas, no un total semántico exacto demostrado**. Puede haber límites imperfectos, thunks, cuerpos compartidos, saltos indirectos o funciones no reconocidas. La revisión de las cuatro entradas pendientes delimitó tres funciones adicionales. La cuarta, 0x007487CF, está dentro de la función 0x00748710: no se cuenta como una función nueva.
 
@@ -38,21 +38,21 @@ Binario analizado: `D:\Grand Theft Auto San Andreas\gta-sa.exe`, 5.189.632 bytes
 
 | Inventario | Cantidad |
 | --- | ---: |
-| Entradas de `docs/hooks.csv` | 8.441 |
-| Clases, namespaces o grupos del catálogo | 771 |
-| Entradas registradas como reconstruidas | 7.947 |
-| Pendientes de reconstrucción | 494 |
-| Evidencias aprobadas vinculadas, verificadas por el auditor | 6.003 |
+| Entradas de `docs/hooks.csv` | 8.447 |
+| Clases. namespaces o grupos del catálogo | 771 |
+| Entradas registradas como reconstruidas | 8.040 |
+| Pendientes de reconstrucción | 407 |
+| Evidencias aprobadas vinculadas. verificadas por el auditor | 6.329 |
 | Validaciones con vigencia acreditada para su alcance | 0 |
-| Registros con evidencia y coincidencia de fuentes probadas, sin acreditar dependencias | 858 |
-| Definiciones de class/struct en source, con repeticiones | 1.942 |
+| Registros con evidencia y coincidencia de fuentes probadas. sin acreditar dependencias | 950 |
+| Definiciones de class/struct en source. con repeticiones | 1.942 |
 | Nombres distintos de tipos captados | 1.929 |
-| Declaraciones y cuerpos candidatos de función, con repeticiones | 27.228 |
+| Declaraciones y cuerpos candidatos de función. con repeticiones | 27.265 |
 | Referencias de vtable declaradas en el código | 445 |
-| Referencias de globales StaticRef/StaticArray | 2.582 |
-| Registros explícitos de hooks captados | 8.441 |
+| Referencias de globales StaticRef/StaticArray | 2.692 |
+| Registros explícitos de hooks captados | 8.447 |
 | Archivos fuente examinados | 2.332 |
-| Extras NOTSA, fuera del catálogo principal | 3 |
+| Extras NOTSA. fuera del catálogo principal | 3 |
 
 El auditor estricto del catálogo devolvió **OK** durante esta generación. Sus 772 owners incluyen el grupo de los extras NOTSA; los 771 de este mapa corresponden sólo al catálogo principal. Los totales describen lo captado, no el total de funciones o clases presentes en gta_sa.exe.
 
@@ -68,7 +68,7 @@ El inventario no atribuye independencia del EXE por no tener locks. Una clase ca
 
 ## Direcciones y tablas
 
-Se conserva la VA del catálogo. **6.982 entradas tienen dirección distinta de cero y 1.459 tienen dirección cero**, principalmente hooks virtuales. Los ceros no se sustituyen ni se confunden con la base del módulo.
+Se conserva la VA del catálogo. **6.989 entradas tienen dirección distinta de cero y 1.458 tienen dirección cero**, principalmente hooks virtuales. Los ceros no se sustituyen ni se confunden con la base del módulo.
 
 Las direcciones candidatas del registro fuente se guardan en otra columna. El cruce requiere el mismo owner y nombre de entrada, incluyendo etiquetas de sobrecargas. No se inventan fuentes cuando el parser no consigue enlazarlas: 175 entradas del catálogo quedaron sin localización directa de registro por este criterio.
 

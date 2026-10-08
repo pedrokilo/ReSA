@@ -6,23 +6,14 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CAEVehicleAudioEntity
- * Reconstrucción: INCOMPLETA — 102/106 funciones reconstruidas.
- * Pendientes de reconstruir: 4.
- * Funciones bloqueadas: 7.
- * Validación registrada: 0/106 entradas.
+ * Reconstrucción: COMPLETA — 106/106 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 3.
+ * Validación registrada: 4/106 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   ProcessDummyBicycle | 0x004FFDC0 | S
- *   ProcessDummyHovercraft | 0x00500F50 | S
- *   ProcessGenericJet | 0x004FF900 | S
- *   ProcessPlayerBicycle | 0x00500040 | S
  * BLOQUEADAS (nombre | dirección | tipo):
- *   ProcessDummyBicycle | 0x004FFDC0 | S
- *   ProcessDummyHovercraft | 0x00500F50 | S
- *   ProcessGenericJet | 0x004FF900 | S
- *   ProcessPlayerBicycle | 0x00500040 | S
  *   ProcessPlayerVehicleEngine | 0x004FBB10 | S
  *   ProcessVehicle | 0x00501E10 | S
  *   Service | 0x00502280 | S
@@ -3793,7 +3784,39 @@ void CAEVehicleAudioEntity::ProcessDummySeaPlane(tVehicleParams& vp) {
 
 // 0x4FF900
 void CAEVehicleAudioEntity::ProcessGenericJet(bool bEngineOn, tVehicleParams& params, float fEngineSpeed, float fAccelRatio, float fBrakeRatio, float fStalledVolume, float fStalledFrequency) {
-    plugin::CallMethod<0x4FF900, CAEVehicleAudioEntity*, uint8, tVehicleParams&, float, float, float, float, float>(this, bEngineOn, params, fEngineSpeed, fAccelRatio, fBrakeRatio, fStalledVolume, fStalledFrequency);
+    if (!AEAudioHardware.IsSoundBankLoaded(static_cast<eSoundBank>(138), static_cast<eSoundBankSlot>(19))) return;
+    float front, rear, thrust, distant;
+    switch (params.Vehicle->GetModelId()) {
+    case 519: front=StaticRef<float>(0x8CBE68); rear=StaticRef<float>(0x8CBE6C); thrust=StaticRef<float>(0xB6B9F4); distant=StaticRef<float>(0x8CBE78); break;
+    case 520: front=StaticRef<float>(0x8CBE7C); rear=StaticRef<float>(0x8CBE80); thrust=StaticRef<float>(0xB6B9F8); distant=StaticRef<float>(0x8CBE8C); break;
+    case 577: front=StaticRef<float>(0x8CBE90); rear=StaticRef<float>(0x8CBE94); thrust=StaticRef<float>(0x8CBE98); distant=StaticRef<float>(0x8CBEA4); break;
+    case 592: front=StaticRef<float>(0x8CBEA8); rear=StaticRef<float>(0x8CBEAC); thrust=StaticRef<float>(0xB6B9FC); distant=StaticRef<float>(0x8CBEB8); break;
+    default: CancelAllVehicleEngineSounds(); return;
+    }
+    if (!bEngineOn) { CancelAllVehicleEngineSounds(); return; }
+    auto direction = m_Entity->GetPosition() - TheCamera.GetPosition();
+    direction.Normalise();
+    const auto& matrix = params.Vehicle->GetMatrix();
+    const auto& forward = matrix.GetForward();
+    const auto& right = matrix.GetRight();
+    const auto facing = ((direction.y * forward.y + direction.z * forward.z) + direction.x * forward.x + 1.f) * .5f;
+    const auto tilt = -((forward.y + forward.x) * 0.f + forward.z);
+    const auto bank = std::abs((right.y + right.x) * 0.f + right.z);
+    float pitch = fAccelRatio > 0.f ? .1f : 0.f;
+    if (fBrakeRatio > 0.f) pitch -= .05f;
+    const auto frontVolume = CAEAudioUtility::AudioLog10((1.f - StaticRef<float>(0x8CBD98) * facing) * fEngineSpeed) * 20.f + front;
+    const auto rearVolume = CAEAudioUtility::AudioLog10((facing * .5f + .5f) * fEngineSpeed) * 20.f + rear;
+    auto& fadingThrust = StaticRef<float>(reinterpret_cast<uintptr_t>(this) + 0x230);
+    fadingThrust = fAccelRatio > 0.f ? thrust : fadingThrust - 1.f;
+    const auto thrustVolume = (CAEAudioUtility::AudioLog10(fEngineSpeed) * 20.f + fadingThrust) + fStalledVolume;
+    const auto target = (((bank * StaticRef<float>(0x858B1C) + tilt * StaticRef<float>(0x858FCC)) + pitch) + 1.f) * fStalledFrequency;
+    auto& frequency = m_CurrentRotorFrequency;
+    if (frequency < 0.f) frequency = target;
+    frequency = target < frequency ? std::max(target, frequency - StaticRef<float>(0x862D04)) : std::min(target, frequency + StaticRef<float>(0x862D04));
+    PlayAircraftSound(AE_SOUND_AIRCRAFT_FRONT, static_cast<eSoundBankSlot>(19), 10, frontVolume, frequency);
+    PlayAircraftSound(AE_SOUND_AIRCRAFT_REAR, static_cast<eSoundBankSlot>(19), 11, rearVolume, frequency);
+    PlayAircraftSound(AE_SOUND_AIRCRAFT_THRUST, static_cast<eSoundBankSlot>(19), 26, thrustVolume, 1.f);
+    PlayAircraftSound(AE_SOUND_AIRCRAFT_JET_DISTANT, static_cast<eSoundBankSlot>(19), 14, distant, 1.f);
 }
 
 // 0x501960
@@ -3846,7 +3869,31 @@ void CAEVehicleAudioEntity::ProcessPlayerJet(tVehicleParams& vp) {
 #pragma region Hovercraft (Vortex)
 // 0x500F50
 void CAEVehicleAudioEntity::ProcessDummyHovercraft(tVehicleParams& params) {
-    plugin::CallMethod<0x500F50, CAEVehicleAudioEntity*, tVehicleParams&>(this, params);
+    auto* pad = CPad::GetPad(0);
+    if (m_DummySlot == SND_BANK_SLOT_NONE) {
+        m_DummySlot = RequestBankSlot(m_DummyEngineBank);
+        if (m_DummySlot == SND_BANK_SLOT_NONE) return;
+    }
+    if (!AEAudioHardware.IsSoundBankLoaded(m_DummyEngineBank, m_DummySlot)) {
+        if (DoesBankSlotContainThisBank(m_DummySlot, m_DummyEngineBank)) return;
+        m_DummySlot = RequestBankSlot(m_DummyEngineBank); m_State = static_cast<eAEState>(0); return;
+    }
+    auto* bytes = reinterpret_cast<uint8*>(params.Vehicle);
+    if (!(bytes[0x428] & 0x10) || m_IsWreckedVehicle) { CancelAllVehicleEngineSounds(); return; }
+    const auto ratio = std::clamp(std::abs(*reinterpret_cast<float*>(bytes+0x988) * StaticRef<float>(0x862D68)), 0.f, 1.f);
+    int16 accel = int16(std::bit_cast<uint32>(ratio)), brake = accel;
+    if (!(bytes[0x36] & 0xF8)) {
+        if (params.Speed < StaticRef<float>(0x858CDC)) { accel=pad->GetAccelerate(); accel=int16(accel-pad->GetBrake()); brake=0; }
+        else { brake=pad->GetBrake(); accel=pad->GetAccelerate(); }
+    }
+    float offset = accel > 0 ? StaticRef<float>(0x858B1C) : ratio;
+    if (brake > 0) offset = StaticRef<float>(0x85901C);
+    const auto rev = std::clamp(*reinterpret_cast<float*>(bytes+0x9C4) * StaticRef<float>(0x862D18), 0.f, 1.f);
+    const auto volume = StaticRef<float>(0xB6BA90) * rev + StaticRef<float>(0x8CBFAC);
+    const auto target = ((StaticRef<float>(0xB6BA94) * rev + StaticRef<float>(0x8CBFBC) * ratio) + StaticRef<float>(0x8CBFB4)) + offset;
+    if (m_CurrentRotorFrequency < 0.f) m_CurrentRotorFrequency = target;
+    m_CurrentRotorFrequency = target < m_CurrentRotorFrequency ? std::max(target, m_CurrentRotorFrequency-StaticRef<float>(0x862D04)) : std::min(target, m_CurrentRotorFrequency+StaticRef<float>(0x862D04));
+    UpdateGenericVehicleSound(1, m_DummySlot, m_DummyEngineBank, 0, m_CurrentRotorFrequency, volume, 3.5f);
 }
 
 // Android
@@ -4350,14 +4397,63 @@ float CAEVehicleAudioEntity::GetBaseVolumeForBicycleTyre(float ratio) const noex
         }, ratio);
 }
 
+namespace {
+void ProcessBicycleAudio(CAEVehicleAudioEntity& self, CAEVehicleAudioEntity::tVehicleParams& params, bool player) {
+    const auto slot = self.m_DummySlot;
+    const auto bank = self.m_DummyEngineBank;
+    if (player && !AEAudioHardware.IsSoundBankLoaded(bank, slot)) return;
+    auto* vehicle = reinterpret_cast<uint8*>(params.Vehicle);
+    if (player) {
+        if (*reinterpret_cast<float*>(vehicle+0x818) > 5.f && StaticRef<float>(0xB6BAD0) * *reinterpret_cast<float*>(vehicle+0x820) < 0.f && StaticRef<float>(0xB6BACC) == 0.f) StaticRef<float>(0xB6BACC)=6.f;
+        StaticRef<float>(0xB6BACC) -= StaticRef<float>(0x858CB0);
+        if (StaticRef<float>(0xB6BACC)<0.f) StaticRef<float>(0xB6BACC)=0.f;
+    }
+    const auto ratio = std::clamp(std::abs(params.Speed / *reinterpret_cast<float*>(reinterpret_cast<uint8*>(params.Transmission)+0x58)), 0.f, 1.f);
+    const auto wheel = float(vehicle[0x804]);
+    const auto volume = (CAEAudioUtility::AudioLog10(wheel * .25f * ratio) * 20.f + self.m_EventVolume) + StaticRef<float>(0x8CBEBC);
+    const auto frequencyBase = ((wheel * StaticRef<float>(0xB6BA6C)) * .125f + StaticRef<float>(0xB6BA6C) * ratio) + StaticRef<float>(0x8CBD5C);
+    float frequency;
+    const float angle = *reinterpret_cast<float*>(vehicle+0x648);
+    const float multiplier=StaticRef<float>(0x8CBD60);
+    const float one=1.f;
+    __asm {
+        fld angle
+        fsin
+        fabs
+        fmul multiplier
+        fadd one
+        fmul frequencyBase
+        fstp frequency
+    }
+    const bool pedaling = vehicle[0x834] != 0;
+    const auto tyre = pedaling ? self.GetBaseVolumeForBicycleTyre(ratio) : 0.f;
+    const auto sprocketVolume = (CAEAudioUtility::AudioLog10(tyre) * 20.f + self.m_EventVolume) + StaticRef<float>(0x8CBEC0);
+    const auto sprocketFrequency = StaticRef<float>(0xB6BA70) * ratio + StaticRef<float>(0x8CBD64);
+    self.PlayBicycleSound(CAEVehicleAudioEntity::AE_SOUND_BICYCLE_TYRE, slot, 0, volume, frequency);
+    self.PlayBicycleSound(CAEVehicleAudioEntity::AE_SOUND_BICYCLE_SPROCKET_1, slot, 1, sprocketVolume, sprocketFrequency);
+    auto& wasPedaling = StaticRef<uint8>(player ? 0xB6BAC9 : 0xB6BAC8);
+    if (!pedaling && wasPedaling) self.PlayBicycleSound(CAEVehicleAudioEntity::AE_SOUND_BICYCLE_CHAIN_CLANG, slot, 1, volume, 1.f);
+    wasPedaling=pedaling;
+    if (player) StaticRef<float>(0xB6BAD0)=*reinterpret_cast<float*>(vehicle+0x820);
+}
+}
+
 // 0x4FFDC0
 void CAEVehicleAudioEntity::ProcessDummyBicycle(tVehicleParams& params) {
-    plugin::CallMethod<0x4FFDC0, CAEVehicleAudioEntity*, tVehicleParams&>(this, params);
+    if (m_DummySlot == SND_BANK_SLOT_NONE) {
+        m_DummySlot=RequestBankSlot(m_DummyEngineBank);
+        if (m_DummySlot == SND_BANK_SLOT_NONE) return;
+    }
+    if (!AEAudioHardware.IsSoundBankLoaded(m_DummyEngineBank, m_DummySlot)) {
+        if (DoesBankSlotContainThisBank(m_DummySlot,m_DummyEngineBank)) return;
+        m_DummySlot=RequestBankSlot(m_DummyEngineBank); m_State=static_cast<eAEState>(0); return;
+    }
+    ProcessBicycleAudio(*this,params,false);
 }
 
 // 0x500040
 void CAEVehicleAudioEntity::ProcessPlayerBicycle(tVehicleParams& params) {
-    plugin::CallMethod<0x500040, CAEVehicleAudioEntity*, tVehicleParams&>(this, params);
+    ProcessBicycleAudio(*this,params,true);
 }
 #pragma endregion
 
@@ -4868,17 +4964,17 @@ void CAEVehicleAudioEntity::InjectHooks() {
     // Jet
     RH_ScopedInstall(ProcessPlayerJet, 0x501650);
     RH_ScopedInstall(ProcessDummyJet, 0x501960);
-    RH_ScopedInstall(ProcessGenericJet, 0x4FF900, { .reversed = false });
+    RH_ScopedInstall(ProcessGenericJet, 0x4FF900);
 
     // Bicycle
     RH_ScopedInstall(PlayBicycleSound, 0x4F9710);
     RH_ScopedInstall(GetBaseVolumeForBicycleTyre, 0x4F60B0);
-    RH_ScopedInstall(ProcessDummyBicycle, 0x4FFDC0, { .reversed = false });
-    RH_ScopedInstall(ProcessPlayerBicycle, 0x500040, { .reversed = false });
+    RH_ScopedInstall(ProcessDummyBicycle, 0x4FFDC0);
+    RH_ScopedInstall(ProcessPlayerBicycle, 0x500040);
 
     RH_ScopedInstall(ProcessPlayerCombine, 0x500CE0);
     RH_ScopedInstall(ProcessDummyRCCar, 0x500DC0);
-    RH_ScopedInstall(ProcessDummyHovercraft, 0x500F50, { .reversed = false });
+    RH_ScopedInstall(ProcessDummyHovercraft, 0x500F50);
     RH_ScopedInstall(ProcessDummyGolfCart, 0x501270);
     RH_ScopedInstall(ProcessDummyVehicleEngine, 0x501480);
     RH_ScopedInstall(ProcessSpecialVehicle, 0x501AB0);

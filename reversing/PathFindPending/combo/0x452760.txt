@@ -1,0 +1,105 @@
+// CPathFind::ComputeRoute @ 0x00452760 [0x452760..0x45281d]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00452760(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefined4 *param_4,
+                 int *param_5)
+
+{
+  int *piVar1;
+  int iVar2;
+  undefined4 local_24;
+  int local_20 [8];
+  
+  local_24 = 0;
+  piVar1 = local_20;
+  iVar2 = 8;
+  do {
+    *(undefined2 *)piVar1 = 0xffff;
+    piVar1 = piVar1 + 1;
+    iVar2 = iVar2 + -1;
+  } while (iVar2 != 0);
+  FUN_004515d0(param_1,*param_2,param_2[1],param_2[2],*param_4,*param_3,param_3[1],param_3[2],
+               local_20,&local_24,8,0,0x497423fe,0,0x497423fe,0,DAT_008a5f44,0,0);
+  iVar2 = 0;
+  *param_5 = 0;
+  if (0 < (short)local_24) {
+    do {
+      if (*param_5 < 8) {
+        param_5[*param_5 + 1] = local_20[iVar2];
+        *param_5 = *param_5 + 1;
+      }
+      iVar2 = iVar2 + 1;
+    } while (iVar2 < (short)local_24);
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00452760: sub esp,24h
+00452763: push esi
+00452764: push edi
+00452765: mov dword ptr [esp+8],0
+0045276D: lea eax,[esp+0Ch]
+00452771: mov edx,8
+00452776: mov word ptr [eax],0FFFFh
+0045277B: add eax,4
+0045277E: dec edx
+0045277F: jne 00452776
+00452781: mov eax,dword ptr ds:[008A5F44h]
+00452786: push 0
+00452788: push 0
+0045278A: push eax
+0045278B: push 0
+0045278D: push 497423FEh
+00452792: push 0
+00452794: push 497423FEh
+00452799: push 0
+0045279B: push 8
+0045279D: lea edx,[esp+2Ch]
+004527A1: push edx
+004527A2: mov edx,dword ptr [esp+60h]
+004527A6: mov esi,dword ptr [edx]
+004527A8: lea eax,[esp+34h]
+004527AC: push eax
+004527AD: sub esp,0Ch
+004527B0: mov eax,esp
+004527B2: mov dword ptr [eax],esi
+004527B4: mov esi,dword ptr [edx+4]
+004527B7: mov edx,dword ptr [edx+8]
+004527BA: mov dword ptr [eax+4],esi
+004527BD: mov dword ptr [eax+8],edx
+004527C0: mov eax,dword ptr [esp+74h]
+004527C4: mov edx,dword ptr [eax]
+004527C6: mov eax,dword ptr [esp+6Ch]
+004527CA: mov esi,dword ptr [eax]
+004527CC: push edx
+004527CD: sub esp,0Ch
+004527D0: mov edx,esp
+004527D2: mov dword ptr [edx],esi
+004527D4: mov esi,dword ptr [eax+4]
+004527D7: mov eax,dword ptr [eax+8]
+004527DA: mov dword ptr [edx+4],esi
+004527DD: mov dword ptr [edx+8],eax
+004527E0: mov edx,dword ptr [esp+78h]
+004527E4: push edx
+004527E5: call 004515D0
+004527EA: movsx esi,word ptr [esp+8]
+004527EF: mov eax,dword ptr [esp+40h]
+004527F3: xor ecx,ecx
+004527F5: test esi,esi
+004527F7: mov dword ptr [eax],0
+004527FD: jle 00452816
+00452800: mov edx,dword ptr [eax]
+00452802: cmp edx,8
+00452805: jge 00452811
+00452807: mov edi,dword ptr [esp+ecx*4+0Ch]
+0045280B: mov dword ptr [eax+edx*4+4],edi
+0045280F: inc dword ptr [eax]
+00452811: inc ecx
+00452812: cmp ecx,esi
+00452814: jl 00452800
+00452816: pop edi
+00452817: pop esi
+00452818: add esp,24h
+0045281B: ret 14h

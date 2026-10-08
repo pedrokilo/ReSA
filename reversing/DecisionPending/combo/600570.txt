@@ -1,0 +1,87 @@
+// CDecision::Set @ 0x00600570 [0x600570..0x6005f9]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00600570(int param_1,undefined4 param_2,int *param_3)
+
+{
+  undefined1 uVar1;
+  int in_ECX;
+  int iVar2;
+  undefined1 *puVar3;
+  int local_4;
+  
+  local_4 = in_ECX + 0x31;
+  iVar2 = 0;
+  puVar3 = (undefined1 *)(in_ECX + 0x19);
+  do {
+    *(undefined4 *)(puVar3 + -0x19) = *(undefined4 *)(param_1 + iVar2 * 4);
+    uVar1 = FUN_00821b40();
+    puVar3[-1] = uVar1;
+    uVar1 = FUN_00821b40();
+    *puVar3 = uVar1;
+    uVar1 = FUN_00821b40();
+    puVar3[1] = uVar1;
+    uVar1 = FUN_00821b40();
+    puVar3[2] = uVar1;
+    *(bool *)(local_4 + -1) = *param_3 != 0;
+    *(bool *)local_4 = param_3[1] != 0;
+    iVar2 = iVar2 + 1;
+    local_4 = local_4 + 2;
+    puVar3 = puVar3 + 4;
+    param_3 = param_3 + 2;
+  } while (iVar2 < 6);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00600570: push ecx
+00600571: push ebx
+00600572: push ebp
+00600573: mov ebp,dword ptr [esp+18h]
+00600577: push esi
+00600578: push edi
+00600579: mov edi,dword ptr [esp+1Ch]
+0060057D: lea eax,[ecx+31h]
+00600580: xor ebx,ebx
+00600582: mov dword ptr [esp+10h],eax
+00600586: lea esi,[ecx+19h]
+00600589: add edi,8
+0060058C: lea esp,[esp]
+00600590: mov ecx,dword ptr [esp+18h]
+00600594: mov edx,dword ptr [ecx+ebx*4]
+00600597: mov dword ptr [esi-19h],edx
+0060059A: fld dword ptr [edi-8]
+0060059D: call 00821B40
+006005A2: mov byte ptr [esi-1],al
+006005A5: fld dword ptr [edi-4]
+006005A8: call 00821B40
+006005AD: mov byte ptr [esi],al
+006005AF: fld dword ptr [edi]
+006005B1: call 00821B40
+006005B6: mov byte ptr [esi+1],al
+006005B9: fld dword ptr [edi+4]
+006005BC: call 00821B40
+006005C1: mov byte ptr [esi+2],al
+006005C4: cmp dword ptr [ebp],0
+006005C8: mov eax,dword ptr [esp+10h]
+006005CC: setne cl
+006005CF: mov byte ptr [eax-1],cl
+006005D2: mov edx,dword ptr [ebp+4]
+006005D5: test edx,edx
+006005D7: setne dl
+006005DA: mov byte ptr [eax],dl
+006005DC: inc ebx
+006005DD: add eax,2
+006005E0: add edi,10h
+006005E3: add esi,4
+006005E6: add ebp,8
+006005E9: cmp ebx,6
+006005EC: mov dword ptr [esp+10h],eax
+006005F0: jl 00600590
+006005F2: pop edi
+006005F3: pop esi
+006005F4: pop ebp
+006005F5: pop ebx
+006005F6: pop ecx
+006005F7: ret 10h

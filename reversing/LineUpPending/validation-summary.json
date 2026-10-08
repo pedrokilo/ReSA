@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 2048,
+  "pairs_per_function": {
+    "CTaskUtilityLineUpPedWithCar::GetLocalPositionToOpenCarDoor": 1024,
+    "CTaskUtilityLineUpPedWithCar::GetPositionToOpenCarDoor": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "bb822e26303f6c92254520a5d4f905c1acd13f887452b6b37f1d43ed3566791e",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-line-up-pending\\20261007-200227-088394",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTaskUtilityLineUpPedWithCar::GetLocalPositionToOpenCarDoor": true,
+    "CTaskUtilityLineUpPedWithCar::GetPositionToOpenCarDoor": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "c05930dc963643a58ac4acf1abf18915fb407d353a27f721714b7467eaa2facc",
+      "pdb": "59d4e1033462da7f6be3a476c1d22065628aac26266323d59ad060248a9ed06c"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp": "f5ef260d0fdea390dd1404301e2b44f8229e1d6fe2bc5653320d43153a90d958",
+      "source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.h": "c5873b1eea4faeaa4c779c0ff7e8ee67f8a08d17565da4059d129fff1b27493c",
+      "source/game_sa/Entity/Placeable.cpp": "bf57b97b53cd9e8326d97de870b9934dd487effde705a3462061d883e052e16a",
+      "source/game_sa/Entity/Placeable.h": "39566380c1c727f446b167f044a749312eaaba6e62b79a552a863769bfeea4fc",
+      "source/game_sa/General.cpp": "808742b15646ca279418ead9bff4e959207bebeb304f5a6918ae5bfdccd0d007",
+      "source/game_sa/General.h": "392cf3dca613f3a5e5caa859b0a5d80a10ca5a5d01bf2c300b62119137a056ff",
+      "source/game_sa/Core/Matrix.cpp": "f5c9d1f294ca4fdd5245eb23ff28148550d78e9a1615d3e1f4de6f814281d69b",
+      "source/game_sa/Core/Matrix.h": "ce13e5d67d90e414402c0a539c8c708e18eea1420ad03c6341b36b18f1e56c58",
+      "source/game_sa/VehicleAnimGroupData.cpp": "136f5195676a089cf48206c70fa5c81f6f6af4c21a473f848d935e636d8ec114",
+      "source/game_sa/VehicleAnimGroupData.h": "63f5c5c3f6e38e99cd5113afcd7557e7ee82a3654e31b03118ed50efc79e8915",
+      "source/game_sa/Entity/Vehicle/Bike.cpp": "ef970f0a273c7c09891350d89b582a900cc9568074b7000629b3c46d3b43d6f9",
+      "source/game_sa/Entity/Vehicle/Bike.h": "ee00eb273e45b9ade6fe65c550ab274bce1da133c14418033bab001be13c840d",
+      "source/game_sa/Models/VehicleModelInfo.h": "fdd153f73de3805d8e6820fe8bfc926f4eee444f753552c35434a7b6f3a77255",
+      "source/game_sa/tHandlingData.h": "ea37455813b823f871ec95d5d9a796246b66e91be7241a2858caf7731ad08105"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "b62230a219622a64b0218b5559e6fcc0ec05d1b2c609dc51c0bbb0fe8a23247a",
+      "build_probe.py": "9f62e825f493d741d7254f0db47c4b947d835fa12b9a193c4c02e3d99fd83dbb",
+      "run_local.py": "abcb7c2a1c8341f182dae3c45d87fe020c7292203a3eac7a11bf96a5cb1748b3"
+    }
+  },
+  "limitations": [
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+  ]
+}

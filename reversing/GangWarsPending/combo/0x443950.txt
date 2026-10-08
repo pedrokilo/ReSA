@@ -1,0 +1,76 @@
+// CGangWars::AddKillToProvocation @ 0x00443950 [0x443950..0x4439bd]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+void FUN_00443950(int param_1)
+
+{
+  char cVar1;
+  int iVar2;
+  
+  if ((DAT_0096ab93 == '\0') && (cVar1 = FUN_00464d50(), cVar1 != '\0')) {
+    return;
+  }
+  if ((param_1 == 7) || (param_1 == 9)) {
+    if (DAT_0096ab94 != 0) {
+      iVar2 = 0;
+      if (DAT_0096ab94 < 1) {
+        return;
+      }
+      while (*(char *)((uint)(ushort)(&DAT_00ba37b4)[(&DAT_0096ab68)[iVar2] * 0x10] * 0x11 +
+                       0xba1de9 + param_1) == '\0') {
+        iVar2 = iVar2 + 1;
+        if (DAT_0096ab94 <= iVar2) {
+          return;
+        }
+      }
+    }
+    _DAT_0096ab5c = _DAT_0096ab5c + 1.0;
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00443950: mov al,byte ptr ds:[0096AB93h]
+00443955: test al,al
+00443957: push ebx
+00443958: push esi
+00443959: jne 00443964
+0044395B: call 00464D50
+00443960: test al,al
+00443962: jne 004439BB
+00443964: mov edx,dword ptr [esp+0Ch]
+00443968: cmp edx,7
+0044396B: je 00443972
+0044396D: cmp edx,9
+00443970: jne 004439BB
+00443972: mov ecx,dword ptr ds:[0096AB94h]
+00443978: test ecx,ecx
+0044397A: je 004439A9
+0044397C: xor eax,eax
+0044397E: test ecx,ecx
+00443980: jle 004439BB
+00443982: mov esi,dword ptr [eax*4+0096AB68h]
+ 00
+00443989: shl esi,5
+0044398C: movzx esi,word ptr [esi+00BA37B4h]
+ 00
+00443993: imul esi,esi,11h
+00443996: mov bl,byte ptr [esi+edx+00BA1DE9h]
+ 00
+0044399D: test bl,bl
+0044399F: ja 004439A9
+004439A1: inc eax
+004439A2: cmp eax,ecx
+004439A4: jl 00443982
+004439A6: pop esi
+004439A7: pop ebx
+004439A8: ret
+004439A9: fld dword ptr ds:[0096AB5Ch]
+004439AF: fadd dword ptr ds:[00858624h]
+004439B5: fstp dword ptr ds:[0096AB5Ch]
+004439BB: pop esi
+004439BC: pop ebx
+004439BD: ret

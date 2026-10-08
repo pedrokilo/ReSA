@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 2048,
+  "pairs_per_function": {
+    "CIdleCam::ProcessFOVZoom": 1024,
+    "CPedAttractor::AbortPedTasks": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "84644c593f19cd4845c63fba573bdda6be030a03a226163053bfbf5dd9b063dd",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-idle-attractor-pending\\20261007-201404-402476",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CIdleCam::ProcessFOVZoom": true,
+    "CPedAttractor::AbortPedTasks": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "9ec242556a5f4dcd5c84fef82ae3e64c41300908b34c57133e6e32086adad592",
+      "pdb": "fc060aad376e941aa34e098c7cc1bfafa9a8ba3ffeb717982d7bb256b2fd32dc"
+    },
+    "sources": {
+      "source/game_sa/IdleCam.cpp": "aa037700427d33fc382c44a2c3fb76c469ed089d6b0248f3aa9a0075944422a9",
+      "source/game_sa/IdleCam.h": "730c34b9f5e7b7fe299038971dbe5d45fa5a257de22b183ef1a48408de339de4",
+      "source/game_sa/Attractors/PedAttractor.cpp": "495fcb6f97b57aa2366e9ad38ee51b8fc763f0d3914bf66d9ac6cc2bd5e883e7",
+      "source/game_sa/Attractors/PedAttractor.h": "12450ea6e5c248f03ee8c9d4f7381be81923cfcaf799aad790fe3bd9edca593f"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "e6c88de91a55ef1b4abbb02673f2f7d9edda30f2624fdc59c14905a2ba55bdf8",
+      "build_probe.py": "f022aa3d3785689431e7c3c7377f00b534fd15c94192c2e8cd21a639769c074e",
+      "run_local.py": "eb6b63b50a29ba3fc94053765d9cc3baffc777f2b4ace5cfe0804d2c999763c3"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; posicion, LOS y destructor virtual simulados y trazados en EXE y DLL. Sin NaN/infinito ni destructor mutando coleccion. Estado restaurado; sin regresion de juego completo."
+  ]
+}

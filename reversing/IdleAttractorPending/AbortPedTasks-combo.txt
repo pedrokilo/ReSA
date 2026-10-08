@@ -1,0 +1,81 @@
+// CPedAttractor::AbortPedTasks @ 0x005eaf60 [0x5eaf60..0x5eafc1]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005eaf60(void)
+
+{
+  undefined4 *puVar1;
+  int in_ECX;
+  int iVar2;
+  undefined4 *puVar3;
+  int iVar4;
+  
+  if (*(int *)(in_ECX + 0x30) == 0) {
+    iVar2 = 0;
+  }
+  else {
+    iVar2 = (*(int *)(in_ECX + 0x34) - *(int *)(in_ECX + 0x30)) / 0x14;
+  }
+  if (0 < iVar2) {
+    iVar4 = 0;
+    do {
+      puVar1 = *(undefined4 **)(*(int *)(in_ECX + 0x30) + 4 + iVar4);
+      puVar3 = (undefined4 *)(*(int *)(in_ECX + 0x30) + iVar4);
+      *puVar3 = 0;
+      if (puVar1 != (undefined4 *)0x0) {
+        (**(code **)*puVar1)(1);
+      }
+      iVar4 = iVar4 + 0x14;
+      iVar2 = iVar2 + -1;
+      puVar3[1] = 0;
+      puVar3[2] = 0xffffffff;
+    } while (iVar2 != 0);
+  }
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005EAF60: push ebp
+005EAF61: mov ebp,ecx
+005EAF63: mov eax,dword ptr [ebp+30h]
+005EAF66: test eax,eax
+005EAF68: jne 005EAF6E
+005EAF6A: xor edx,edx
+005EAF6C: jmp 005EAF84
+005EAF6E: mov ecx,dword ptr [ebp+34h]
+005EAF71: sub ecx,eax
+005EAF73: mov eax,66666667h
+005EAF78: imul ecx
+005EAF7A: sar edx,3
+005EAF7D: mov eax,edx
+005EAF7F: shr eax,1Fh
+005EAF82: add edx,eax
+005EAF84: test edx,edx
+005EAF86: jle 005EAFC0
+005EAF88: push ebx
+005EAF89: push esi
+005EAF8A: push edi
+005EAF8B: xor edi,edi
+005EAF8D: mov ebx,edx
+005EAF90: mov esi,dword ptr [ebp+30h]
+005EAF93: mov ecx,dword ptr [esi+edi+4]
+005EAF97: add esi,edi
+005EAF99: test ecx,ecx
+005EAF9B: mov dword ptr [esi],0
+005EAFA1: je 005EAFA9
+005EAFA3: mov edx,dword ptr [ecx]
+005EAFA5: push 1
+005EAFA7: call dword ptr [edx]
+005EAFA9: add edi,14h
+005EAFAC: dec ebx
+005EAFAD: mov dword ptr [esi+4],0
+ 00
+005EAFB4: mov dword ptr [esi+8],0FFFFFFFFh
+ FF
+005EAFBB: jne 005EAF90
+005EAFBD: pop edi
+005EAFBE: pop esi
+005EAFBF: pop ebx
+005EAFC0: pop ebp
+005EAFC1: ret

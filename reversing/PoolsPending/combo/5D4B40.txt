@@ -1,0 +1,145 @@
+// CPools::SavePedPool @ 0x005d4b40 [0x5d4b40..0x5d4c37]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_005d4b40(void)
+
+{
+  uint uVar1;
+  int iVar2;
+  int *piVar3;
+  uint uVar4;
+  int iVar5;
+  int iVar6;
+  int *piVar7;
+  int local_10;
+  undefined4 local_c;
+  int local_8;
+  int local_4;
+  
+  iVar5 = 0;
+  local_10 = 0;
+  uVar1 = DAT_00b74490[2];
+  uVar4 = 0;
+  if (uVar1 != 0) {
+    iVar6 = 0;
+    do {
+      if (((((*(byte *)(uVar4 + DAT_00b74490[1]) & 0x80) == 0) &&
+           (iVar2 = *DAT_00b74490 + iVar6, iVar2 != 0)) && ((*(uint *)(iVar2 + 0x46c) & 0x100) == 0)
+          ) && (*(int *)(iVar2 + 0x598) == 0)) {
+        local_10 = local_10 + 1;
+      }
+      uVar4 = uVar4 + 1;
+      iVar6 = iVar6 + 0x7c4;
+    } while (uVar4 < uVar1);
+  }
+  FUN_005d1270(&local_10,4);
+  uVar4 = 0;
+  piVar3 = DAT_00b74490;
+  if (uVar1 != 0) {
+    do {
+      if (((-1 < *(char *)(uVar4 + piVar3[1])) &&
+          (piVar7 = (int *)(*piVar3 + iVar5), piVar7 != (int *)0x0)) &&
+         (((piVar7[0x11b] & 0x100U) == 0 && (piVar7[0x166] == 0)))) {
+        local_c = FUN_0054ff60(piVar7);
+        local_8 = (int)*(short *)((int)piVar7 + 0x22);
+        local_4 = piVar7[0x166];
+        FUN_005d1270(&local_c,4);
+        FUN_005d1270(&local_8,4);
+        FUN_005d1270(&local_4,4);
+        (**(code **)(*piVar7 + 0x60))();
+        piVar3 = DAT_00b74490;
+      }
+      uVar4 = uVar4 + 1;
+      iVar5 = iVar5 + 0x7c4;
+    } while (uVar4 < uVar1);
+  }
+  return 1;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005D4B40: sub esp,10h
+005D4B43: mov edx,dword ptr ds:[00B74490h]
+005D4B49: push ebx
+005D4B4A: push ebp
+005D4B4B: xor ebp,ebp
+005D4B4D: mov dword ptr [esp+8],ebp
+005D4B51: mov ebx,dword ptr [edx+8]
+005D4B54: push esi
+005D4B55: xor ecx,ecx
+005D4B57: cmp ebx,ebp
+005D4B59: push edi
+005D4B5A: jbe 005D4B92
+005D4B5C: xor esi,esi
+005D4B5E: mov edi,edi
+005D4B60: mov eax,dword ptr [edx+4]
+005D4B63: test byte ptr [ecx+eax],80h
+005D4B67: jne 005D4B87
+005D4B69: mov eax,dword ptr [edx]
+005D4B6B: add eax,esi
+005D4B6D: je 005D4B87
+005D4B6F: test dword ptr [eax+0000046Ch],100h
+005D4B79: jne 005D4B87
+005D4B7B: cmp dword ptr [eax+00000598h],ebp
+005D4B81: jne 005D4B87
+005D4B83: inc dword ptr [esp+10h]
+005D4B87: inc ecx
+005D4B88: add esi,7C4h
+005D4B8E: cmp ecx,ebx
+005D4B90: jb 005D4B60
+005D4B92: lea ecx,[esp+10h]
+005D4B96: push 4
+005D4B98: push ecx
+005D4B99: call 005D1270
+005D4B9E: add esp,8
+005D4BA1: xor edi,edi
+005D4BA3: cmp ebx,ebp
+005D4BA5: jbe 005D4C2E
+005D4BAB: mov eax,dword ptr ds:[00B74490h]
+005D4BB0: mov edx,dword ptr [eax+4]
+005D4BB3: cmp byte ptr [edi+edx],0
+005D4BB7: js 005D4C23
+005D4BB9: mov esi,dword ptr [eax]
+005D4BBB: add esi,ebp
+005D4BBD: je 005D4C23
+005D4BBF: mov ecx,dword ptr [esi+0000046Ch]
+005D4BC5: test ch,1
+005D4BC8: jne 005D4C23
+005D4BCA: mov ecx,dword ptr [esi+00000598h]
+005D4BD0: test ecx,ecx
+005D4BD2: jne 005D4C23
+005D4BD4: push esi
+005D4BD5: call 0054FF60
+005D4BDA: mov dword ptr [esp+18h],eax
+005D4BDE: movsx eax,word ptr [esi+22h]
+005D4BE2: mov dword ptr [esp+1Ch],eax
+005D4BE6: mov ecx,dword ptr [esi+00000598h]
+005D4BEC: lea edx,[esp+18h]
+005D4BF0: push 4
+005D4BF2: push edx
+005D4BF3: mov dword ptr [esp+28h],ecx
+005D4BF7: call 005D1270
+005D4BFC: lea eax,[esp+24h]
+005D4C00: push 4
+005D4C02: push eax
+005D4C03: call 005D1270
+005D4C08: lea ecx,[esp+30h]
+005D4C0C: push 4
+005D4C0E: push ecx
+005D4C0F: call 005D1270
+005D4C14: mov edx,dword ptr [esi]
+005D4C16: add esp,1Ch
+005D4C19: mov ecx,esi
+005D4C1B: call dword ptr [edx+60h]
+005D4C1E: mov eax,dword ptr ds:[00B74490h]
+005D4C23: inc edi
+005D4C24: add ebp,7C4h
+005D4C2A: cmp edi,ebx
+005D4C2C: jb 005D4BB0
+005D4C2E: pop edi
+005D4C2F: pop esi
+005D4C30: pop ebp
+005D4C31: mov al,1
+005D4C33: pop ebx
+005D4C34: add esp,10h
+005D4C37: ret

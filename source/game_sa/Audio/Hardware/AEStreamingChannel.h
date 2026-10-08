@@ -67,7 +67,7 @@ public:
     void   SetBassEQ(eBassSetting mode, float gain);
     void   SetReady();
     void   Stop(bool bUpdateState);
-    void   PrepareStream(CAEStreamingDecoder* stream, int8 arg2, uint32 audioBytes);
+    int32  PrepareStream(CAEStreamingDecoder* stream, int8 soundFlags, bool stopCurrent);
     void   Pause();
 
 private:

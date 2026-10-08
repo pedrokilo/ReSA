@@ -6,19 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CRealTimeShadowManager
- * Reconstrucción: INCOMPLETA — 5/7 funciones reconstruidas.
- * Pendientes de reconstruir: 2.
- * Funciones bloqueadas: 2.
- * Validación registrada: 0/7 entradas.
+ * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 2/7 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   GetRealTimeShadow | 0x00706970 | S
- *   ReInit | 0x00706870 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   GetRealTimeShadow | 0x00706970 | S
- *   ReInit | 0x00706870 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -34,9 +28,9 @@ void CRealTimeShadowManager::InjectHooks() {
     RH_ScopedCategory("Shadows");
 
     RH_ScopedInstall(Init, 0x7067C0);
-    RH_ScopedInstall(ReInit, 0x706870, {.reversed = false});
+    RH_ScopedInstall(ReInit, 0x706870);
     RH_ScopedInstall(ReturnRealTimeShadow, 0x705B30);
-    RH_ScopedInstall(GetRealTimeShadow, 0x706970, { .reversed = false });
+    RH_ScopedInstall(GetRealTimeShadow, 0x706970);
     RH_ScopedInstall(Update, 0x706AB0);
     RH_ScopedInstall(DoShadowThisFrame, 0x706BA0);
     RH_ScopedInstall(Exit, 0x706A60);
@@ -91,7 +85,22 @@ void CRealTimeShadowManager::ReturnRealTimeShadow(CRealTimeShadow* shdw) {
 
 // 0x706870
 void CRealTimeShadowManager::ReInit() {
-    plugin::CallMethod<0x706870, CRealTimeShadowManager*>(this);
+    const auto recreateRaster = [](CShadowCamera& camera) {
+        auto* const raster = RwCameraGetRaster(camera.m_pRwCamera);
+        const auto size = RwRasterGetWidth(raster);
+        RwCameraSetRaster(camera.m_pRwCamera, nullptr);
+        RwRasterDestroy(raster);
+        auto* const replacement = RwRasterCreate(size, size, 0, 5);
+        RwCameraSetRaster(camera.m_pRwCamera, replacement);
+        RwTextureSetRaster(camera.m_pRwRenderTexture, replacement);
+    };
+    for (auto* shadow : m_apShadows) {
+        recreateRaster(shadow->m_camera);
+        recreateRaster(shadow->m_blurCamera);
+    }
+    recreateRaster(m_BlurCamera);
+    recreateRaster(m_GradientCamera);
+    m_GradientCamera.MakeGradientRaster();
 }
 
 // 0x706AB0
@@ -144,24 +153,33 @@ void CRealTimeShadowManager::Update() {
     }
 }
 
-CRealTimeShadow& CRealTimeShadowManager::GetRealTimeShadow(CPhysical* physical) {
-    return plugin::CallMethodAndReturn<CRealTimeShadow&, 0x706970, CRealTimeShadowManager*, CPhysical*>(this, physical);
-    /*
-    * Unfinished
-    if (m_bInitialised) {
-        return;
+// 0x706970
+CRealTimeShadow* CRealTimeShadowManager::GetRealTimeShadow(CPhysical* physical) {
+    const bool firstPlayer = physical->GetIsTypePed() && physical->AsPed()->m_nPedType == PED_TYPE_PLAYER1;
+    if (!firstPlayer) {
+        const auto* player = FindPlayerPed();
+        if (player->bInVehicle && player->m_pVehicle && player->m_pVehicle->GetMoveSpeed().SquaredMagnitude() > 0.09f) {
+            return nullptr;
+        }
     }
-
-    bool isFirstPlayer{};
-
-    if (!physical->GetIsTypePed() || physical->AsPed()->IsPlayer()) {
-        if (FindPlayerPed()->IsInVehicle()) { // Maybe wrong?
-            if (FindPlayerPed()->m_pVehicle->GetMoveSpeed().SquaredMagnitude() < sq(0.3f)) {
-                return;
+    if (!m_bInitialised) {
+        return nullptr;
+    }
+    CRealTimeShadow* selected = firstPlayer ? m_apShadows[0] : nullptr;
+    if (!firstPlayer) {
+        for (size_t i = 1; i < NUM_REALTIME_SHADOWS; ++i) {
+            if (!m_apShadows[i]->m_pOwner) {
+                selected = m_apShadows[i];
             }
         }
     }
-    */
+    if (selected) {
+        selected->SetupForThisEntity(physical);
+        physical->m_pShadowData = selected;
+        selected->m_bKeepAlive = true;
+        selected->m_nIntensity = 0;
+    }
+    return selected;
 }
 
 // 0x706BA0

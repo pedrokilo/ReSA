@@ -1,0 +1,377 @@
+// CTaskComplexArrestPed::CreateSubTask @ 0x0068cf80 [0x68cf80..0x68d2ad]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_0068cf80(int param_1,int param_2)
+
+{
+  byte *pbVar1;
+  char cVar2;
+  int iVar3;
+  int iVar4;
+  undefined4 uVar5;
+  int in_ECX;
+  undefined1 local_18 [12];
+  void *local_c;
+  undefined1 *puStack_8;
+  undefined4 local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_00846fb8;
+  local_c = ExceptionList;
+  if (param_1 < 0x38c) {
+    if (param_1 == 0x38b) {
+      param_1 = 0x40400000;
+      if ((*(byte *)(*(int *)(in_ECX + 0x10) + 0x474) & 0x40) != 0) {
+        param_1 = 0x40800000;
+      }
+      ExceptionList = &local_c;
+      iVar4 = FUN_0061a5a0(0x4c);
+      local_4 = 5;
+      if (iVar4 != 0) {
+        uVar5 = FUN_0046ac10(*(undefined4 *)(in_ECX + 0x10),50000,1000,param_1,0x40000000,0x40000000
+                             ,1,1);
+        ExceptionList = local_c;
+        return uVar5;
+      }
+    }
+    else {
+      switch(param_1) {
+      case 0x2bf:
+        ExceptionList = &local_c;
+        iVar4 = FUN_0061a5a0(0x54);
+        local_4 = 3;
+        if (iVar4 != 0) {
+          uVar5 = FUN_00640430(*(undefined4 *)(in_ECX + 0x10),100000);
+          ExceptionList = local_c;
+          return uVar5;
+        }
+        break;
+      case 0x2d2:
+        ExceptionList = &local_c;
+        iVar4 = FUN_0061a5a0(0x50);
+        local_4 = 1;
+        if (iVar4 != 0) {
+          uVar5 = FUN_00640390(*(undefined4 *)(*(int *)(in_ECX + 0x10) + 0x58c));
+          ExceptionList = local_c;
+          return uVar5;
+        }
+        break;
+      case 0x2d8:
+        ExceptionList = &local_c;
+        iVar4 = FUN_0061a5a0(0x50);
+        local_4 = 2;
+        if (iVar4 != 0) {
+          uVar5 = FUN_006403e0(*(undefined4 *)(*(int *)(in_ECX + 0x10) + 0x58c),8);
+          ExceptionList = local_c;
+          return uVar5;
+        }
+        break;
+      case 0x33d:
+        iVar4 = *(int *)(param_2 + 0x14) + 0x30;
+        if (*(int *)(param_2 + 0x14) == 0) {
+          iVar4 = param_2 + 4;
+        }
+        iVar3 = *(int *)(*(int *)(in_ECX + 0x10) + 0x14);
+        if (iVar3 == 0) {
+          iVar3 = *(int *)(in_ECX + 0x10) + 4;
+        }
+        else {
+          iVar3 = iVar3 + 0x30;
+        }
+        ExceptionList = &local_c;
+        FUN_0040fe60(local_18,iVar3,iVar4);
+        iVar4 = FUN_0061a5a0(0x1c);
+        local_4 = 7;
+        if (iVar4 != 0) {
+          uVar5 = FUN_00649450(*(undefined4 *)(in_ECX + 0x10),local_18);
+          ExceptionList = local_c;
+          return uVar5;
+        }
+      }
+    }
+  }
+  else if (param_1 < 0x44d) {
+    if (param_1 == 0x44c) {
+      ExceptionList = &local_c;
+      if ((*(int *)(*(int *)(in_ECX + 0x10) + 0x58c) != 0) &&
+         (ExceptionList = &local_c, cVar2 = FUN_006d1c40(*(int *)(in_ECX + 0x10)), cVar2 != '\0')) {
+        pbVar1 = (byte *)(*(int *)(*(int *)(in_ECX + 0x10) + 0x58c) + 0x428);
+        *pbVar1 = *pbVar1 | 0x20;
+        iVar4 = *(int *)(*(int *)(in_ECX + 0x10) + 0x58c);
+        *(byte *)(iVar4 + 0x36) = *(byte *)(iVar4 + 0x36) & 7 | 0x48;
+      }
+      iVar4 = FUN_0061a5a0(0x14);
+      local_4 = 4;
+      if (iVar4 != 0) {
+        uVar5 = FUN_0068b620(*(undefined4 *)(in_ECX + 0x10));
+        ExceptionList = local_c;
+        return uVar5;
+      }
+    }
+    else if (param_1 == 1000) {
+      ExceptionList = &local_c;
+      iVar4 = FUN_0061a5a0(0x38);
+      local_4 = 0;
+      if (iVar4 != 0) {
+        uVar5 = FUN_00620e30(*(undefined4 *)(in_ECX + 0x10),0xffffffff,0,0,0,1);
+        ExceptionList = local_c;
+        return uVar5;
+      }
+    }
+    else if (param_1 == 0x3eb) {
+      ExceptionList = &local_c;
+      iVar4 = FUN_0061a5a0(0x20);
+      local_4 = 6;
+      if (iVar4 != 0) {
+        uVar5 = FUN_00621c00(*(undefined4 *)(*(int *)(in_ECX + 0x10) + 0x58c),0,0,0);
+        ExceptionList = local_c;
+        return uVar5;
+      }
+    }
+  }
+  ExceptionList = local_c;
+  return 0;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+0068CF80: mov eax,dword ptr fs:[00000000h]
+0068CF86: push 0FFFFFFFFh
+0068CF88: push 846FB8h
+0068CF8D: push eax
+0068CF8E: mov eax,dword ptr [esp+10h]
+0068CF92: mov dword ptr fs:[00000000h],esp
+ 00
+0068CF99: sub esp,0Ch
+0068CF9C: cmp eax,38Bh
+0068CFA1: push esi
+0068CFA2: mov esi,ecx
+0068CFA4: jg 0068D17A
+0068CFAA: je 0068D0FF
+0068CFB0: add eax,0FFFFFD41h
+0068CFB5: cmp eax,7Eh
+0068CFB8: ja 0068D29A
+0068CFBE: movzx eax,byte ptr [eax+0068D2C4h]
+ 00
+0068CFC5: jmp dword ptr [eax*4+0068D2B0h]
+ 00
+0068CFCC: push 50h
+0068CFCE: call 0061A5A0
+0068CFD3: add esp,4
+0068CFD6: mov dword ptr [esp+20h],eax
+0068CFDA: test eax,eax
+0068CFDC: mov dword ptr [esp+18h],1
+0068CFE4: je 0068D29A
+0068CFEA: mov ecx,dword ptr [esi+10h]
+0068CFED: mov edx,dword ptr [ecx+0000058Ch]
+0068CFF3: push edx
+0068CFF4: mov ecx,eax
+0068CFF6: call 00640390
+0068CFFB: pop esi
+0068CFFC: mov ecx,dword ptr [esp+0Ch]
+0068D000: mov dword ptr fs:[00000000h],ecx
+ 00
+0068D007: add esp,18h
+0068D00A: ret 8
+0068D00D: push 50h
+0068D00F: call 0061A5A0
+0068D014: add esp,4
+0068D017: mov dword ptr [esp+20h],eax
+0068D01B: test eax,eax
+0068D01D: mov dword ptr [esp+18h],2
+0068D025: je 0068D29A
+0068D02B: mov ecx,dword ptr [esi+10h]
+0068D02E: mov edx,dword ptr [ecx+0000058Ch]
+0068D034: push 8
+0068D036: push edx
+0068D037: mov ecx,eax
+0068D039: call 006403E0
+0068D03E: pop esi
+0068D03F: mov ecx,dword ptr [esp+0Ch]
+0068D043: mov dword ptr fs:[00000000h],ecx
+ 00
+0068D04A: add esp,18h
+0068D04D: ret 8
+0068D050: push 54h
+0068D052: call 0061A5A0
+0068D057: add esp,4
+0068D05A: mov dword ptr [esp+20h],eax
+0068D05E: test eax,eax
+0068D060: mov dword ptr [esp+18h],3
+0068D068: je 0068D29A
+0068D06E: mov ecx,dword ptr [esi+10h]
+0068D071: push 186A0h
+0068D076: push ecx
+0068D077: mov ecx,eax
+0068D079: call 00640430
+0068D07E: pop esi
+0068D07F: mov ecx,dword ptr [esp+0Ch]
+0068D083: mov dword ptr fs:[00000000h],ecx
+ 00
+0068D08A: add esp,18h
+0068D08D: ret 8
+0068D090: mov ecx,dword ptr [esp+24h]
+0068D094: mov eax,dword ptr [ecx+14h]
+0068D097: test eax,eax
+0068D099: lea edx,[eax+30h]
+0068D09C: jne 0068D0A1
+0068D09E: lea edx,[ecx+4]
+0068D0A1: mov eax,dword ptr [esi+10h]
+0068D0A4: mov ecx,dword ptr [eax+14h]
+0068D0A7: test ecx,ecx
+0068D0A9: je 0068D0B0
+0068D0AB: lea eax,[ecx+30h]
+0068D0AE: jmp 0068D0B3
+0068D0B0: add eax,4
+0068D0B3: push edx
+0068D0B4: push eax
+0068D0B5: lea edx,[esp+0Ch]
+0068D0B9: push edx
+0068D0BA: call 0040FE60
+0068D0BF: push 1Ch
+0068D0C1: call 0061A5A0
+0068D0C6: add esp,10h
+0068D0C9: mov dword ptr [esp+20h],eax
+0068D0CD: test eax,eax
+0068D0CF: mov dword ptr [esp+18h],7
+0068D0D7: je 0068D29A
+0068D0DD: mov edx,dword ptr [esi+10h]
+0068D0E0: lea ecx,[esp+4]
+0068D0E4: push ecx
+0068D0E5: push edx
+0068D0E6: mov ecx,eax
+0068D0E8: call 00649450
+0068D0ED: pop esi
+0068D0EE: mov ecx,dword ptr [esp+0Ch]
+0068D0F2: mov dword ptr fs:[00000000h],ecx
+ 00
+0068D0F9: add esp,18h
+0068D0FC: ret 8
+0068D0FF: mov eax,dword ptr ds:[0087097Ch]
+0068D104: mov ecx,dword ptr [esi+10h]
+0068D107: mov dword ptr [esp+20h],eax
+0068D10B: test byte ptr [ecx+00000474h],40h
+ 40
+0068D112: je 0068D11E
+0068D114: mov edx,dword ptr ds:[00870980h]
+0068D11A: mov dword ptr [esp+20h],edx
+0068D11E: push 4Ch
+0068D120: call 0061A5A0
+0068D125: add esp,4
+0068D128: mov dword ptr [esp+24h],eax
+0068D12C: test eax,eax
+0068D12E: mov dword ptr [esp+18h],5
+0068D136: je 0068D29A
+0068D13C: mov ecx,dword ptr ds:[00859E34h]
+0068D142: mov edx,dword ptr ds:[00859E30h]
+0068D148: push 1
+0068D14A: push 1
+0068D14C: push ecx
+0068D14D: mov ecx,dword ptr [esp+2Ch]
+0068D151: push edx
+0068D152: mov edx,dword ptr [esi+10h]
+0068D155: push ecx
+0068D156: push 3E8h
+0068D15B: push 0C350h
+0068D160: push edx
+0068D161: mov ecx,eax
+0068D163: call 0046AC10
+0068D168: pop esi
+0068D169: mov ecx,dword ptr [esp+0Ch]
+0068D16D: mov dword ptr fs:[00000000h],ecx
+ 00
+0068D174: add esp,18h
+0068D177: ret 8
+0068D17A: cmp eax,44Ch
+0068D17F: jg 0068D29A
+0068D185: je 0068D227
+0068D18B: sub eax,3E8h
+0068D190: je 0068D1E2
+0068D192: sub eax,3
+0068D195: jne 0068D29A
+0068D19B: push 20h
+0068D19D: call 0061A5A0
+0068D1A2: add esp,4
+0068D1A5: mov dword ptr [esp+20h],eax
+0068D1A9: test eax,eax
+0068D1AB: mov dword ptr [esp+18h],6
+0068D1B3: je 0068D29A
+0068D1B9: mov ecx,dword ptr [esi+10h]
+0068D1BC: mov edx,dword ptr [ecx+0000058Ch]
+0068D1C2: push 0
+0068D1C4: push 0
+0068D1C6: push 0
+0068D1C8: push edx
+0068D1C9: mov ecx,eax
+0068D1CB: call 00621C00
+0068D1D0: pop esi
+0068D1D1: mov ecx,dword ptr [esp+0Ch]
+0068D1D5: mov dword ptr fs:[00000000h],ecx
+ 00
+0068D1DC: add esp,18h
+0068D1DF: ret 8
+0068D1E2: push 38h
+0068D1E4: call 0061A5A0
+0068D1E9: add esp,4
+0068D1EC: mov dword ptr [esp+20h],eax
+0068D1F0: test eax,eax
+0068D1F2: mov dword ptr [esp+18h],0
+0068D1FA: je 0068D29A
+0068D200: mov ecx,dword ptr [esi+10h]
+0068D203: push 1
+0068D205: push 0
+0068D207: push 0
+0068D209: push 0
+0068D20B: push 0FFFFFFFFh
+0068D20D: push ecx
+0068D20E: mov ecx,eax
+0068D210: call 00620E30
+0068D215: pop esi
+0068D216: mov ecx,dword ptr [esp+0Ch]
+0068D21A: mov dword ptr fs:[00000000h],ecx
+ 00
+0068D221: add esp,18h
+0068D224: ret 8
+0068D227: mov eax,dword ptr [esi+10h]
+0068D22A: mov ecx,dword ptr [eax+0000058Ch]
+0068D230: test ecx,ecx
+0068D232: je 0068D263
+0068D234: push eax
+0068D235: call 006D1C40
+0068D23A: test al,al
+0068D23C: je 0068D263
+0068D23E: mov edx,dword ptr [esi+10h]
+0068D241: mov eax,dword ptr [edx+0000058Ch]
+0068D247: or byte ptr [eax+00000428h],20h
+ 20
+0068D24E: mov eax,dword ptr [esi+10h]
+0068D251: mov eax,dword ptr [eax+0000058Ch]
+0068D257: mov cl,byte ptr [eax+36h]
+0068D25A: and cl,7
+0068D25D: or cl,48h
+0068D260: mov byte ptr [eax+36h],cl
+0068D263: push 14h
+0068D265: call 0061A5A0
+0068D26A: add esp,4
+0068D26D: mov dword ptr [esp+20h],eax
+0068D271: test eax,eax
+0068D273: mov dword ptr [esp+18h],4
+0068D27B: je 0068D29A
+0068D27D: mov edx,dword ptr [esi+10h]
+0068D280: push edx
+0068D281: mov ecx,eax
+0068D283: call 0068B620
+0068D288: pop esi
+0068D289: mov ecx,dword ptr [esp+0Ch]
+0068D28D: mov dword ptr fs:[00000000h],ecx
+ 00
+0068D294: add esp,18h
+0068D297: ret 8
+0068D29A: mov ecx,dword ptr [esp+10h]
+0068D29E: xor eax,eax
+0068D2A0: pop esi
+0068D2A1: mov dword ptr fs:[00000000h],ecx
+ 00
+0068D2A8: add esp,18h
+0068D2AB: ret 8
+ 0068D2AE: 8B

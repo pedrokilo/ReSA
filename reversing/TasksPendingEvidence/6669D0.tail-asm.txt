@@ -1,0 +1,43 @@
+00667282: mov ecx,dword ptr [esi+0Ch]
+00667285: mov eax,dword ptr [ecx+0000058Ch]
+0066728B: mov ecx,dword ptr [eax+14h]
+0066728E: test ecx,ecx
+00667290: je 00667297
+00667292: lea eax,[ecx+30h]
+00667295: jmp 0066729A
+00667297: add eax,4
+0066729A: fld dword ptr [eax]
+0066729C: fsub dword ptr [esi+10h]
+0066729F: fld dword ptr [eax+4]
+006672A2: fsub dword ptr [esi+14h]
+006672A5: fld dword ptr [eax+8]
+006672A8: fsub dword ptr [esi+18h]
+006672AB: fld st(2)
+006672AD: fmul st,st(3)
+006672AF: fld st(1)
+006672B1: fmul st,st(2)
+006672B3: faddp st(1),st
+006672B5: fld st(2)
+006672B7: fmul st,st(3)
+006672B9: faddp st(1),st
+006672BB: fcomp dword ptr ds:[0086F85Ch]
+006672C1: fstp st(0)
+006672C3: fnstsw ax
+006672C5: fstp st(0)
+006672C7: test ah,41h
+006672CA: fstp st(0)
+006672CC: jne 00666E10
+006672D2: or word ptr [esi+2Ch],di
+006672D6: mov eax,dword ptr [esi+8]
+006672D9: pop edi
+006672DA: pop esi
+006672DB: pop ebx
+006672DC: add esp,30h
+006672DF: ret 4
+006672F0: mov eax,ecx
+006672F2: mov ecx,dword ptr [esp+4]
+006672F6: mov edx,dword ptr [ecx]
+006672F8: mov dword ptr [eax],edx
+006672FA: mov ecx,dword ptr [ecx+4]
+006672FD: mov dword ptr [eax+4],ecx
+ 00667300: C2

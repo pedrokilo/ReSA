@@ -14,11 +14,11 @@ La tabla conserva lo acreditado en aquellas revalidaciones. El estado actual se 
 | IKChain_c::SetupBones | 131 pares únicos | Sí | Acreditada para el alcance del banco |
 | RpAnimBlendClumpUpdateAnimations | 652 pares | Sí | Acreditada para el alcance del banco |
 
-Hay **6.145 funciones con `validated=1`** y **0 con vigencia confirmada para el árbol modificado**. Las tres acreditaciones anteriores quedan pendientes por el cambio de huella global de source durante CustomBuilding; no significa que hayan fallado sus bancos. La barra es **0/8.441 · 0,00%**. CustomBuilding sigue aplazada y todavía no se incorpora al registro.
+Hay **6.329 funciones con `validated=1`** y **0 con vigencia confirmada para el árbol modificado**. La barra de vigencia es **0/8.447 · 0,00%**.
 
-**Ocho funciones conservan coincidencia de fuentes registradas:** `CConversationForPed::Update` e `IsPlayerInPositionForConversation`, con el banco final de 4.702 pares; las tres del [lote de audio](../AudioCompletion/README.md) (`UpdateAmbienceTrackAndVolume`, `AddAudioEvent` y `SetAudioBuffer`), con 10.086 pares; y las tres de los [asignadores de grupo](../GroupTasksCompletion/README.md) (`AllocateDefaultTasks` de Random y SitInLeaderCar, y `CTaskComplexGangFollower::SetCanEnterLeadersCar`), con 4.608 pares. La revisión de dependencias sigue pendiente y por eso no suman acreditaciones vigentes.
+**950 funciones conservan coincidencia de todas sus fuentes registradas.** La coincidencia de fuentes y la evidencia aprobada se consultan por función en el inventario. La revisión de dependencias es una condición adicional para acreditar vigencia; no se deduce de haber pasado un banco.
 
-El [inventario de todas las funciones reconstruidas](../../docs/ValidationInventory.md) clasifica las 7.950 entradas: 0 vigentes, 6.145 históricas por revisar y 7.817 sin evidencia vinculada todavía. Incluye las clases y la siguiente tanda de funciones concretas. No significa que las 7.817 nunca se probaran: faltan bancos por incorporar. Las 585 entradas sin reconstruir se contabilizan aparte.
+El [inventario de todas las funciones reconstruidas](../../docs/ValidationInventory.md) clasifica las 8.040 entradas: 0 vigentes, 6.329 con evidencia histórica por revisar y 1.711 sin evidencia vinculada. Las 407 entradas pendientes de reconstrucción se contabilizan aparte. Sin evidencia vinculada no significa nunca probada ni fallida.
 
 ### Integridad del universo catalogado
 
@@ -51,7 +51,7 @@ python contrib/validation_inventory.py
 python -m unittest discover -s contrib/tests -p test_validation_registry.py
 ```
 
-La primera orden muestra las comprobaciones; la segunda sincroniza `validated` en `hooks.csv`; la tercera actualiza el panel y la cuarta la lista completa de trabajo; la quinta ejecuta las pruebas del registro. El siguiente paso es revisar la vigencia de las 30 entradas históricas e incorporar los bancos restantes. No exige repetir automáticamente toda la suite. No se modifica `validated` manualmente en el CSV: lo mantiene `sync_validated_flags.py`. Los 85 bloqueos aplazados y las reglas de protección permanecen vigentes.
+La primera orden muestra las comprobaciones; la segunda sincroniza `validated` en `hooks.csv`; la tercera actualiza el panel y la cuarta la lista completa de trabajo; la quinta ejecuta las pruebas del registro. El siguiente paso es revisar dependencias para acreditar vigencia e incorporar los bancos restantes. No exige repetir automáticamente toda la suite. No se modifica `validated` manualmente en el CSV: lo mantiene `sync_validated_flags.py`. Los 85 bloqueos aplazados y las reglas de protección permanecen vigentes.
 
 Para repetir la comprobación actual del constructor, `python reversing/ValidationRegistry/revalidate_namedanim.py` recompila el banco existente, conserva la sonda anterior, ejecuta la copia de pruebas y verifica la restauración. Sus resultados nuevos requieren revisión antes de actualizar el registro; no acredita funciones automáticamente. Reutiliza el banco y runner existentes, sin añadir otro CMD.
 
@@ -70,3 +70,7 @@ Vinculadas las dos funciones a su [comparación de 4.702 pares](../ConversationF
 ### CAEAmbienceTrackManager::UpdateAmbienceTrackAndVolume (2026-10-01)
 
 Vinculada a su [comparación de 7.846 pares](../AudioCompletion/validation-summary.json), con `passed_path = covered_functions.UpdateAmbienceTrackAndVolume`. El banco ejecuta original y candidato por separado con proveedores de zonas, radio, clima, cámara y atenuación controlados, y compara el estado del gestor (44 bytes) y la traza de llamadas. Los hashes de `AEAmbienceTrackManager.cpp/.h` coinciden con el manifiesto de compilación `20261001-212155-352577`. `dependency_review` es nulo, así que la vigencia queda pendiente. La sonda se detuvo después en `AddAudioEvent`, una función distinta que no queda validada. [Detalle y corrección aplicada](../AudioCompletion/README.md).
+
+### Cinco pendientes completadas (2026-10-07)
+
+Vinculadas cinco funciones nuevas a 8.192 pares exactos: ProcessFOVZoom de CIdleCam (1.024), AbortPedTasks de CPedAttractor (1.024), CreateRoadBlockBetween2Points de CRoadBlocks (1.024), ProcessPed de CTaskSimpleFightingControl (1.024) y PlayerControlFighter de CTaskSimplePlayerOnFoot (4.096). Fuentes y manifiestos de las sondas finales registrados. Dependencias controladas, estado/INI/partidas restaurados; la revisión global de dependencias y regresión de juego no se acreditan con estos bancos.

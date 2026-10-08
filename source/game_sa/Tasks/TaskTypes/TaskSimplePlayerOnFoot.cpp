@@ -6,17 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskSimplePlayerOnFoot
- * Reconstrucción: INCOMPLETA — 11/12 funciones reconstruidas.
- * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 1.
- * Validación registrada: 0/12 entradas.
+ * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/12 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   PlayerControlFighter | 0x00687530 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   PlayerControlFighter | 0x00687530 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -52,7 +48,7 @@ void CTaskSimplePlayerOnFoot::InjectHooks() {
 
     RH_ScopedInstall(ProcessPlayerWeapon, 0x6859A0);
     RH_ScopedInstall(PlayIdleAnimations, 0x6872C0);
-    RH_ScopedInstall(PlayerControlFighter, 0x687530, {.reversed = false});
+    RH_ScopedInstall(PlayerControlFighter, 0x687530);
     RH_ScopedInstall(PlayerControlZelda, 0x6883D0);
 
     RH_ScopedVMTInstall(Clone, 0x68AFF0);
@@ -780,13 +776,82 @@ void CTaskSimplePlayerOnFoot::PlayIdleAnimations(CPlayerPed* player) {
     }
 }
 
+namespace {
+// Como el original: fsin/fcos x87, con redondeo a float al pasar la dirección cooperativa.
+CVector FighterDirection(float angle) {
+    CVector result;
+    float trigSin, trigCos;
+    __asm {
+        fld angle
+        fld st(0)
+        fsin
+        fchs
+        fstp trigSin
+        fcos
+        fstp trigCos
+    }
+    result = CVector{trigSin, trigCos, 0.0f};
+    return result;
+}
+
+// Como el original: seno/coseno permanecen en x87 en la rama no cooperativa;
+// productos en orden y, x, z, incluida la multiplicación por cero del eje z.
+CVector2D FighterProject(CMatrix* matrix, float angle, float magnitude, bool roundTrig) {
+    CVector2D result;
+    float projectedX, projectedY;
+    const CVector direction = roundTrig ? FighterDirection(angle) : CVector{};
+    const float trigSin = direction.x, trigCos = direction.y;
+    __asm {
+        cmp roundTrig, 0
+        je unrounded
+        fld trigSin
+        fld trigCos
+        jmp project
+    unrounded:
+        fld angle
+        fld st(0)
+        fsin
+        fchs
+        fxch st(1)
+        fcos
+    project:
+        mov eax, matrix
+        fld st(0)
+        fmul dword ptr [eax+4]
+        fld st(2)
+        fmul dword ptr [eax]
+        faddp st(1),st
+        fld dword ptr [eax+8]
+        fldz
+        fmulp st(1),st
+        faddp st(1),st
+        fmul magnitude
+        fstp projectedX
+        fmul dword ptr [eax+14h]
+        fxch st(1)
+        fmul dword ptr [eax+10h]
+        faddp st(1),st
+        fld dword ptr [eax+18h]
+        fldz
+        fmulp st(1),st
+        faddp st(1),st
+        fmul magnitude
+        fchs
+        fstp projectedY
+    }
+    result.x = projectedX;
+    result.y = projectedY;
+    return result;
+}
+} // namespace
+
 // 0x687530
 void CTaskSimplePlayerOnFoot::PlayerControlFighter(CPlayerPed* player) {
     auto* fight = player->GetIntelligence()->GetTaskFighting();
     if (!fight) {
         return;
     }
-    const bool nonMelee = CWeaponInfo::GetWeaponInfo(player->GetActiveWeapon().m_Type, eWeaponSkill::STD)->m_nWeaponFire != WEAPON_FIRE_MELEE;
+    const bool nonMelee = CWeaponInfo::GetWeaponInfo(player->m_aWeapons.data()[static_cast<int8>(player->m_nActiveWeaponSlot)].m_Type, eWeaponSkill::STD)->m_nWeaponFire != WEAPON_FIRE_MELEE;
     auto* pad = player->GetPadFromPlayer();
     const float walkX = static_cast<float>(pad->GetPedWalkLeftRight());
     const float walkY = static_cast<float>(pad->GetPedWalkUpDown());
@@ -794,8 +859,7 @@ void CTaskSimplePlayerOnFoot::PlayerControlFighter(CPlayerPed* player) {
     const float step = CTimer::GetTimeStep() * .07f;
     const bool coop = CGameLogic::IsPlayerUse2PlayerControls(player);
 
-    // In cooperative play the direction constraint is evaluated before
-    // projecting the stick into the fighter's local right/forward axes.
+    // Como el original: cooperativo consulta la dirección antes de proyectar los ejes locales.
     if (coop || player->m_pTargetedObject || (CCamera::m_bUseMouse3rdPerson && pad->GetTarget())) {
         float magnitude = movement.Magnitude();
         if (magnitude > 0.f) {
@@ -803,10 +867,9 @@ void CTaskSimplePlayerOnFoot::PlayerControlFighter(CPlayerPed* player) {
                 magnitude = 1.f;
             }
             const float angle = CGeneral::LimitRadianAngle(CGeneral::GetRadianAngleBetweenPoints(0.f, 0.f, -movement.x, movement.y) - TheCamera.m_fOrientation);
-            const CVector direction{-std::sin(angle), std::cos(angle), 0.f};
+            const CVector direction = FighterDirection(angle);
             if (!coop || CGameLogic::IsPlayerAllowedToGoInThisDirection(player, direction, 0.f)) {
-                movement.x = DotProduct(direction, player->GetRight()) * magnitude;
-                movement.y = -DotProduct(direction, player->GetForward()) * magnitude;
+                movement = FighterProject(player->m_matrix, angle, magnitude, coop);
             } else {
                 movement = {0.f, 0.f};
             }
@@ -838,7 +901,7 @@ void CTaskSimplePlayerOnFoot::PlayerControlFighter(CPlayerPed* player) {
             m_nTimer = 0;
         }
         if (pad->GetSprint() || pad->GetDuck() || nonMelee || movement.y > 0.f || static_cast<float>(static_cast<uint32>(m_nTimer)) >= 2000.f) {
-            (void)pad->GetSprint(); // This second query is also made by the original.
+            (void)pad->GetSprint(); // Como el original: segunda consulta antes de escoger comando.
             uint8 command = magnitude > .5f ? 16 : 15;
             if (pad->DuckJustDown() && CTaskSimpleDuck::CanPedDuck(player)) {
                 player->GetIntelligence()->SetTaskDuckSecondary(0);
@@ -851,7 +914,10 @@ void CTaskSimplePlayerOnFoot::PlayerControlFighter(CPlayerPed* player) {
         fightMovement.y = approach(fightMovement.y, movement.y);
         fightMovement.x = approach(fightMovement.x, movement.x);
         const bool farTarget = player->m_pTargetedObject
-            && (player->m_pTargetedObject->GetPosition() - player->GetPosition()).SquaredMagnitude() > 16.f
+            && [&] {
+                const CVector d = player->m_pTargetedObject->GetPosition() - player->GetPosition();
+                return (d.z * d.z + d.y * d.y) + d.x * d.x > 16.f;
+            }()
             && static_cast<int8>(fight->m_nLastCommand) < 11;
         if (farTarget || pad->GetSprint() || nonMelee) {
             const uint8 command = pad->GetSprint() ? 17 : movement.y < -.5f ? 16 : 15;

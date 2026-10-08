@@ -1,0 +1,193 @@
+// CGroupEventHandler::ComputeResponsLeaderQuitEnteringCar @ 0x005f9530 [0x5f9530..0x5f9701]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_005f9530(undefined4 param_1,int param_2)
+
+{
+  int iVar1;
+  int *piVar2;
+  int iVar3;
+  int iVar4;
+  int iVar5;
+  undefined1 local_74 [52];
+  undefined1 local_40 [52];
+  void *local_c;
+  undefined1 *puStack_8;
+  int local_4;
+  
+  local_4 = 0xffffffff;
+  puStack_8 = &LAB_0083e203;
+  local_c = ExceptionList;
+  iVar5 = 0;
+  piVar2 = (int *)(param_2 + 0xc);
+  ExceptionList = &local_c;
+  do {
+    iVar1 = *piVar2;
+    if (iVar1 != 0) {
+      if (((*(uint *)(iVar1 + 0x46c) & 0x100) == 0) || (*(int *)(iVar1 + 0x58c) == 0)) {
+        iVar3 = FUN_00600ee0(0x2ce);
+        if ((iVar3 == 0) || (iVar3 = *(int *)(iVar3 + 0xc), iVar3 == 0)) {
+          iVar3 = FUN_00600ee0(700);
+          if ((iVar3 == 0) || (iVar3 = *(int *)(iVar3 + 0xc), iVar3 == 0)) goto LAB_005f96ca;
+        }
+        _rand();
+        iVar4 = FUN_00821b40();
+        FUN_0063b8c0(iVar3,0,(iVar5 - iVar4) + 0xfa,0,0);
+        local_4 = 2;
+        FUN_0061a390();
+        local_4._0_1_ = 3;
+        FUN_005f7540(iVar1,local_40,param_2 + 0x3c,0xffffffff,0);
+        local_4 = CONCAT31(local_4._1_3_,2);
+        FUN_0061a3a0();
+      }
+      else {
+        FUN_0063b8c0(*(int *)(iVar1 + 0x58c),0,iVar5,1,0);
+        local_4 = 0;
+        FUN_0061a390();
+        local_4._0_1_ = 1;
+        FUN_005f7540(iVar1,local_74,param_2 + 0x3c,0xffffffff,0);
+        local_4 = (uint)local_4._1_3_ << 8;
+        FUN_0061a3a0();
+      }
+      local_4 = 0xffffffff;
+      FUN_0063b970();
+    }
+LAB_005f96ca:
+    piVar2 = piVar2 + 1;
+    iVar5 = iVar5 + 500;
+    if (0xdab < iVar5) {
+      ExceptionList = local_c;
+      return 0;
+    }
+  } while( true );
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005F9530: push 0FFFFFFFFh
+005F9532: push 83E203h
+005F9537: mov eax,dword ptr fs:[00000000h]
+005F953D: push eax
+005F953E: mov dword ptr fs:[00000000h],esp
+ 00
+005F9545: sub esp,80h
+005F954B: mov eax,dword ptr [esp+00000094h]
+ 00
+005F9552: push ebx
+005F9553: push ebp
+005F9554: push esi
+005F9555: push edi
+005F9556: lea edi,[eax+30h]
+005F9559: xor ebx,ebx
+005F955B: add eax,0Ch
+005F955E: mov dword ptr [esp+10h],eax
+005F9562: mov esi,dword ptr [eax]
+005F9564: test esi,esi
+005F9566: je 005F96CA
+005F956C: mov eax,dword ptr [esi+0000046Ch]
+005F9572: test ah,1
+005F9575: je 005F95EA
+005F9577: mov eax,dword ptr [esi+0000058Ch]
+005F957D: test eax,eax
+005F957F: je 005F95EA
+005F9581: push 0
+005F9583: push 1
+005F9585: push ebx
+005F9586: push 0
+005F9588: push eax
+005F9589: lea ecx,[esp+3Ch]
+005F958D: call 0063B8C0
+005F9592: lea ecx,[esp+18h]
+005F9596: mov dword ptr [esp+00000098h],0
+005F95A1: call 0061A390
+005F95A6: mov ebp,859CFCh
+005F95AB: mov dword ptr [esp+18h],ebp
+005F95AF: push 0
+005F95B1: push 0FFFFFFFFh
+005F95B3: lea eax,[edi+0Ch]
+005F95B6: push eax
+005F95B7: lea ecx,[esp+34h]
+005F95BB: push ecx
+005F95BC: push esi
+005F95BD: mov ecx,edi
+005F95BF: mov byte ptr [esp+000000ACh],1
+005F95C7: call 005F7540
+005F95CC: lea ecx,[esp+18h]
+005F95D0: mov byte ptr [esp+00000098h],0
+005F95D8: mov dword ptr [esp+18h],ebp
+005F95DC: call 0061A3A0
+005F95E1: lea ecx,[esp+28h]
+005F95E5: jmp 005F96BA
+005F95EA: mov ecx,dword ptr [esi+0000047Ch]
+005F95F0: push 2CEh
+005F95F5: call 00600EE0
+005F95FA: test eax,eax
+005F95FC: je 005F9605
+005F95FE: mov ebp,dword ptr [eax+0Ch]
+005F9601: test ebp,ebp
+005F9603: jne 005F9628
+005F9605: mov ecx,dword ptr [esi+0000047Ch]
+005F960B: push 2BCh
+005F9610: call 00600EE0
+005F9615: test eax,eax
+005F9617: je 005F96CA
+005F961D: mov ebp,dword ptr [eax+0Ch]
+005F9620: test ebp,ebp
+005F9622: je 005F96CA
+005F9628: call 00821B1E
+005F962D: and eax,0FFFFh
+005F9632: mov dword ptr [esp+14h],eax
+005F9636: fild dword ptr [esp+14h]
+005F963A: fmul dword ptr ds:[00858B14h]
+005F9640: fmul dword ptr ds:[0085AB78h]
+005F9646: call 00821B40
+005F964B: mov edx,eax
+005F964D: push 0
+005F964F: mov eax,ebx
+005F9651: sub eax,edx
+005F9653: push 0
+005F9655: add eax,0FAh
+005F965A: push eax
+005F965B: push 0
+005F965D: push ebp
+005F965E: lea ecx,[esp+70h]
+005F9662: call 0063B8C0
+005F9667: lea ecx,[esp+20h]
+005F966B: mov dword ptr [esp+00000098h],2
+005F9676: call 0061A390
+005F967B: mov ebp,859CFCh
+005F9680: mov dword ptr [esp+20h],ebp
+005F9684: push 0
+005F9686: push 0FFFFFFFFh
+005F9688: lea eax,[edi+0Ch]
+005F968B: push eax
+005F968C: lea ecx,[esp+68h]
+005F9690: push ecx
+005F9691: push esi
+005F9692: mov ecx,edi
+005F9694: mov byte ptr [esp+000000ACh],3
+005F969C: call 005F7540
+005F96A1: lea ecx,[esp+20h]
+005F96A5: mov byte ptr [esp+00000098h],2
+005F96AD: mov dword ptr [esp+20h],ebp
+005F96B1: call 0061A3A0
+005F96B6: lea ecx,[esp+5Ch]
+005F96BA: mov dword ptr [esp+00000098h],0FFFFFFFFh
+005F96C5: call 0063B970
+005F96CA: mov eax,dword ptr [esp+10h]
+005F96CE: add eax,4
+005F96D1: add ebx,1F4h
+005F96D7: cmp ebx,0DACh
+005F96DD: mov dword ptr [esp+10h],eax
+005F96E1: jl 005F9562
+005F96E7: mov ecx,dword ptr [esp+00000090h]
+ 00
+005F96EE: pop edi
+005F96EF: pop esi
+005F96F0: pop ebp
+005F96F1: xor eax,eax
+005F96F3: pop ebx
+005F96F4: mov dword ptr fs:[00000000h],ecx
+ 00
+005F96FB: add esp,8Ch
+005F9701: ret

@@ -1,0 +1,289 @@
+// Sin pseudocódigo de Ghidra para 0x005d6e90: None
+==== ensamblador exacto (dis.sh) ====
+005D6E90: mov eax,dword ptr [esp+4]
+005D6E94: mov ecx,dword ptr ds:[008D12BCh]
+005D6E9A: mov eax,dword ptr [ecx+eax]
+005D6E9D: ret
+005D6EA0: mov eax,dword ptr [esp+4]
+005D6EA4: mov ecx,dword ptr ds:[008D12BCh]
+005D6EAA: lea eax,[ecx+eax+8]
+005D6EAE: ret
+005D6EB0: test eax,eax
+005D6EB2: jne 005D6EB5
+005D6EB4: ret
+005D6EB5: mov ecx,dword ptr ds:[00C9AB74h]
+005D6EBB: mov edx,dword ptr [ecx+eax]
+005D6EBE: mov eax,dword ptr [edx+4]
+005D6EC1: ret
+005D6ED0: mov eax,dword ptr ds:[008D12C4h]
+005D6ED5: push esi
+005D6ED6: mov esi,dword ptr [esp+8]
+005D6EDA: add eax,esi
+005D6EDC: push eax
+005D6EDD: call 005D9570
+005D6EE2: add esp,4
+005D6EE5: test eax,eax
+005D6EE7: je 005D6F12
+005D6EE9: mov ecx,dword ptr [esp+0Ch]
+005D6EED: test ecx,ecx
+005D6EEF: jne 005D6F01
+005D6EF1: test esi,esi
+005D6EF3: je 005D6F01
+005D6EF5: mov ecx,dword ptr ds:[00C9AB74h]
+005D6EFB: mov edx,dword ptr [ecx+esi]
+005D6EFE: mov ecx,dword ptr [edx+4]
+005D6F01: mov dword ptr [eax+8],ecx
+005D6F04: mov eax,ecx
+005D6F06: test eax,eax
+005D6F08: je 005D6F12
+005D6F0A: mov byte ptr [eax+51h],11h
+005D6F0E: mov byte ptr [eax+50h],2
+005D6F12: pop esi
+005D6F13: ret
+005D6F20: mov eax,dword ptr [esp+4]
+005D6F24: mov ecx,dword ptr ds:[008D12C4h]
+005D6F2A: mov eax,dword ptr [ecx+eax]
+005D6F2D: test eax,eax
+005D6F2F: jne 005D6F32
+005D6F31: ret
+005D6F32: mov eax,dword ptr [eax+8]
+005D6F35: ret
+005D6F40: mov eax,dword ptr [esp+4]
+005D6F44: mov ecx,dword ptr ds:[008D12C4h]
+005D6F4A: add ecx,eax
+005D6F4C: push esi
+005D6F4D: push ecx
+005D6F4E: call 005D9570
+005D6F53: mov esi,eax
+005D6F55: add esp,4
+005D6F58: test esi,esi
+005D6F5A: je 005D6F7F
+005D6F5C: fld dword ptr [esp+0Ch]
+005D6F60: fmul dword ptr ds:[00859000h]
+005D6F66: call 00821B40
+005D6F6B: fld dword ptr [esp+10h]
+005D6F6F: fmul dword ptr ds:[00859000h]
+005D6F75: mov byte ptr [esi],al
+005D6F77: call 00821B40
+005D6F7C: mov byte ptr [esi+1],al
+005D6F7F: pop esi
+005D6F80: ret
+005D6F90: mov eax,dword ptr [esp+4]
+005D6F94: mov ecx,dword ptr ds:[008D12C4h]
+005D6F9A: mov eax,dword ptr [ecx+eax]
+005D6F9D: test eax,eax
+005D6F9F: jne 005D6FA8
+005D6FA1: fld dword ptr ds:[00858B50h]
+005D6FA7: ret
+005D6FA8: movsx edx,byte ptr [eax]
+005D6FAB: mov dword ptr [esp+4],edx
+005D6FAF: fild dword ptr [esp+4]
+005D6FB3: fmul dword ptr ds:[00858C48h]
+005D6FB9: ret
+005D6FC0: mov eax,dword ptr [esp+4]
+005D6FC4: mov ecx,dword ptr ds:[008D12C4h]
+005D6FCA: mov eax,dword ptr [ecx+eax]
+005D6FCD: test eax,eax
+005D6FCF: jne 005D6FD8
+005D6FD1: fld dword ptr ds:[00858B50h]
+005D6FD7: ret
+005D6FD8: movsx edx,byte ptr [eax+1]
+005D6FDC: mov dword ptr [esp+4],edx
+005D6FE0: fild dword ptr [esp+4]
+005D6FE4: fmul dword ptr ds:[00858C48h]
+005D6FEA: ret
+005D6FF0: mov eax,dword ptr [esp+4]
+005D6FF4: mov ecx,dword ptr ds:[008D12C4h]
+005D6FFA: add ecx,eax
+005D6FFC: push esi
+005D6FFD: push ecx
+005D6FFE: call 005D9570
+005D7003: mov esi,eax
+005D7005: add esp,4
+005D7008: test esi,esi
+005D700A: je 005D7030
+005D700C: fld dword ptr [esp+0Ch]
+005D7010: fmul dword ptr ds:[00859000h]
+005D7016: call 00821B40
+005D701B: fld dword ptr [esp+10h]
+005D701F: fmul dword ptr ds:[00859000h]
+005D7025: mov byte ptr [esi+2],al
+005D7028: call 00821B40
+005D702D: mov byte ptr [esi+3],al
+005D7030: pop esi
+005D7031: ret
+005D7040: mov eax,dword ptr [esp+4]
+005D7044: mov ecx,dword ptr ds:[008D12C4h]
+005D704A: mov eax,dword ptr [ecx+eax]
+005D704D: test eax,eax
+005D704F: jne 005D7058
+005D7051: fld dword ptr ds:[00858B50h]
+005D7057: ret
+005D7058: movsx edx,byte ptr [eax+2]
+005D705C: mov dword ptr [esp+4],edx
+005D7060: fild dword ptr [esp+4]
+005D7064: fmul dword ptr ds:[00858C48h]
+005D706A: ret
+005D7070: mov eax,dword ptr [esp+4]
+005D7074: mov ecx,dword ptr ds:[008D12C4h]
+005D707A: mov eax,dword ptr [ecx+eax]
+005D707D: test eax,eax
+005D707F: jne 005D7088
+005D7081: fld dword ptr ds:[00858B50h]
+005D7087: ret
+005D7088: movsx edx,byte ptr [eax+3]
+005D708C: mov dword ptr [esp+4],edx
+005D7090: fild dword ptr [esp+4]
+005D7094: fmul dword ptr ds:[00858C48h]
+005D709A: ret
+005D70A0: mov eax,dword ptr [esp+4]
+005D70A4: mov ecx,dword ptr ds:[008D12C4h]
+005D70AA: add ecx,eax
+005D70AC: push esi
+005D70AD: push ecx
+005D70AE: call 005D9570
+005D70B3: mov esi,eax
+005D70B5: add esp,4
+005D70B8: test esi,esi
+005D70BA: je 005D70CE
+005D70BC: fld dword ptr [esp+0Ch]
+005D70C0: fmul dword ptr ds:[00859AACh]
+005D70C6: call 00821B40
+005D70CB: mov byte ptr [esi+4],al
+005D70CE: pop esi
+005D70CF: ret
+005D70D0: mov eax,dword ptr [esp+4]
+005D70D4: mov ecx,dword ptr ds:[008D12C4h]
+005D70DA: mov eax,dword ptr [ecx+eax]
+005D70DD: test eax,eax
+005D70DF: jne 005D70E8
+005D70E1: fld dword ptr ds:[00858B50h]
+005D70E7: ret
+005D70E8: movzx edx,byte ptr [eax+4]
+005D70EC: mov dword ptr [esp+4],edx
+005D70F0: fild dword ptr [esp+4]
+005D70F4: fmul dword ptr ds:[00859A3Ch]
+005D70FA: ret
+005D7100: call 005D6750
+005D7105: xor ecx,ecx
+005D7107: test eax,eax
+005D7109: setne cl
+005D710C: mov dword ptr ds:[00C02C1Ch],eax
+005D7111: mov eax,ecx
+005D7113: ret
+005D7120: push esi
+005D7121: mov esi,dword ptr [esp+8]
+005D7125: push esi
+005D7126: mov dword ptr [esi+10h],0
+ 00
+005D712D: call 00812140
+005D7132: add esp,4
+005D7135: cmp eax,2
+005D7138: jne 005D7169
+005D713A: mov eax,dword ptr ds:[008D12C4h]
+005D713F: add eax,esi
+005D7141: push eax
+005D7142: call 005D9570
+005D7147: add esp,4
+005D714A: test eax,eax
+005D714C: je 005D7169
+005D714E: mov ecx,dword ptr ds:[00C9AB74h]
+005D7154: mov edx,dword ptr [ecx+esi]
+005D7157: mov ecx,dword ptr [edx+4]
+005D715A: test ecx,ecx
+005D715C: mov dword ptr [eax+8],ecx
+005D715F: je 005D7169
+005D7161: mov byte ptr [ecx+51h],11h
+005D7165: mov byte ptr [ecx+50h],2
+005D7169: mov eax,dword ptr ds:[008D12C4h]
+005D716E: mov ecx,dword ptr [eax+esi]
+005D7171: xor edx,edx
+005D7173: test ecx,ecx
+005D7175: je 005D71A6
+005D7177: movzx eax,byte ptr [ecx+4]
+005D717B: mov dword ptr [esp+8],eax
+005D717F: fild dword ptr [esp+8]
+005D7183: fmul dword ptr ds:[00859A3Ch]
+005D7189: fcomp dword ptr ds:[00858B50h]
+005D718F: fnstsw ax
+005D7191: test ah,44h
+005D7194: jnp 005D71A6
+005D7196: test ecx,ecx
+005D7198: je 005D71A6
+005D719A: mov eax,dword ptr [ecx+8]
+005D719D: test eax,eax
+005D719F: je 005D71A6
+005D71A1: mov edx,1
+005D71A6: mov ecx,dword ptr [esi+10h]
+005D71A9: and ecx,0FFFFFFF8h
+005D71AC: or ecx,edx
+005D71AE: mov dword ptr [esi+10h],ecx
+005D71B1: mov eax,esi
+005D71B3: pop esi
+005D71B4: ret
+005D71C0: push esi
+005D71C1: mov esi,dword ptr [esp+8]
+005D71C5: push edi
+005D71C6: mov edi,dword ptr [esi+18h]
+005D71C9: push 0
+005D71CB: push 5D7120h
+005D71D0: push edi
+005D71D1: call 0074C790
+005D71D6: push 8
+005D71D8: push edi
+005D71D9: call 007588B0
+005D71DE: mov eax,dword ptr ds:[00C02C1Ch]
+005D71E3: push 53F20098h
+005D71E8: push esi
+005D71E9: mov dword ptr [esi+6Ch],eax
+005D71EC: call 0072FC50
+005D71F1: add esp,1Ch
+005D71F4: pop edi
+005D71F5: mov eax,esi
+005D71F7: pop esi
+005D71F8: ret
+005D7200: mov ecx,dword ptr [esp+4]
+005D7204: test ecx,ecx
+005D7206: je 005D729A
+005D720C: mov eax,dword ptr ds:[00C02C1Ch]
+005D7211: cmp eax,dword ptr [ecx+6Ch]
+005D7214: jne 005D729A
+005D721A: mov eax,dword ptr ds:[008D12BCh]
+005D721F: mov edx,dword ptr [ecx+18h]
+005D7222: fld dword ptr [edx+eax+8]
+005D7226: push esi
+005D7227: mov esi,dword ptr [esp+0Ch]
+005D722B: fsub dword ptr ds:[008D12C0h]
+005D7231: fabs
+005D7233: fst dword ptr [esp+8]
+005D7237: fcomp dword ptr ds:[00858C58h]
+005D723D: fnstsw ax
+005D723F: test ah,41h
+005D7242: je 005D7248
+005D7244: test esi,esi
+005D7246: je 005D7299
+005D7248: mov eax,24924925h
+005D724D: mul eax,ecx
+005D724F: mov eax,ecx
+005D7251: sub eax,edx
+005D7253: shr eax,1
+005D7255: add eax,edx
+005D7257: mov edx,dword ptr ds:[00C02C14h]
+005D725D: shr eax,6
+005D7260: and eax,0Fh
+005D7263: cmp eax,edx
+005D7265: je 005D7285
+005D7267: mov eax,dword ptr ds:[00C02C18h]
+005D726C: test eax,eax
+005D726E: jne 005D7285
+005D7270: test esi,esi
+005D7272: jne 005D7285
+005D7274: fld dword ptr [esp+8]
+005D7278: fcomp dword ptr ds:[00858C24h]
+005D727E: fnstsw ax
+005D7280: test ah,41h
+005D7283: jne 005D7299
+005D7285: mov edx,dword ptr ds:[008D12C0h]
+005D728B: pop esi
+005D728C: mov dword ptr [esp+8],edx
+ 005D7290: 89

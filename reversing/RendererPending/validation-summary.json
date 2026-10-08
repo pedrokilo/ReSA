@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 6144,
+  "pairs_per_function": {
+    "CCustomBuildingRenderer::AtomicSetup": 1024,
+    "CCustomBuildingRenderer::IsCBPCPipelineAttached": 1024,
+    "CCustomBuildingRenderer::UpdateDayNightBalanceParam": 2048,
+    "CCustomBuildingRenderer::Update": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "a3e7834cc6ce28e687f47c221172fe70584678cd40d65855aadd85fd82cf512f",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-renderer-pending\\20261007-200833-500053",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CCustomBuildingRenderer::AtomicSetup": true,
+    "CCustomBuildingRenderer::IsCBPCPipelineAttached": true,
+    "CCustomBuildingRenderer::UpdateDayNightBalanceParam": true,
+    "CCustomBuildingRenderer::Update": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "cce67c7bb860c15bac850a78fb36bdda0a01a51249025ffc41bd5079a8612262",
+      "pdb": "5eb3285188a92730196a21b0ed8536f6dd65df5393916b8651f8fb3a348189ab"
+    },
+    "sources": {
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp": "b0290ac3c7c9433dfc8de143df7526815d768d5bb6e2facce8bd9ee341c1cc01",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.h": "b431ba8e610aa731aab09799f8060e00848138240ac9f937ed644093e4f4bf3f",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp": "8c80be4e05d996fcb5d564f64b12158bb815861f4b7f1f9d3472ca52d01a9831",
+      "source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h": "ae4eb2751d84458079f396055c4aefe2432cdc8f147c54753ca220ecd3cc65b4"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "be67ee9062d9e7910cd9d5be099d5d7b7535e4b816d12730f10ded00cff1040d",
+      "build_probe.py": "d37d7cceeba11931dd22e11899439785418a6568b05b62be7a8dfb3d21d5157a",
+      "run_local.py": "01ea000873e3b5bb18b46ba0f7ff2b997156c79a1b802761eadaa2f42ec6cb5c"
+    }
+  },
+  "limitations": [
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+  ]
+}

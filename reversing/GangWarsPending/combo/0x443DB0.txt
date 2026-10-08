@@ -1,0 +1,23 @@
+// CGangWars::CalculateTimeTillNextAttack @ 0x00443db0 [0x443db0..0x443ddd]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00443db0(void)
+
+{
+  _rand();
+  FUN_00821b40();
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00443DB0: push ecx
+00443DB1: call 00821B1E
+00443DB6: mov dword ptr [esp],eax
+00443DBA: fild dword ptr [esp]
+00443DBE: fmul dword ptr ds:[00858C7Ch]
+00443DC4: fmul dword ptr ds:[00858C20h]
+00443DCA: fmul dword ptr ds:[008598B8h]
+00443DD0: fadd dword ptr ds:[008598B4h]
+00443DD6: add esp,4
+00443DD9: jmp 00821B40

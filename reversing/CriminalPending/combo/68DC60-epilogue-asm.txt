@@ -1,0 +1,2 @@
+0068E4E8: mov eax,edi
+0068E4EA: jmp 0068DE6C

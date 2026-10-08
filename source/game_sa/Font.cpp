@@ -6,23 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CFont
- * Reconstrucción: INCOMPLETA — 32/36 funciones reconstruidas.
- * Pendientes de reconstruir: 4.
- * Funciones bloqueadas: 4.
- * Validación registrada: 0/36 entradas.
+ * Reconstrucción: COMPLETA — 36/36 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 4/36 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   FindSubFontCharacter | 0x007192C0 | S
- *   PrintChar | 0x00718A10 | S
- *   ProcessCurrentString | 0x0071A220 | S
- *   RenderFontBuffer | 0x00719840 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   FindSubFontCharacter | 0x007192C0 | S
- *   PrintChar | 0x00718A10 | S
- *   ProcessCurrentString | 0x0071A220 | S
- *   RenderFontBuffer | 0x00719840 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -49,7 +39,7 @@ void CFont::InjectHooks() {
 
     RH_ScopedInstall(Initialise, 0x5BA690);
     RH_ScopedInstall(Shutdown, 0x7189B0);
-    RH_ScopedInstall(PrintChar, 0x718A10, { .reversed = false });
+    RH_ScopedInstall(PrintChar, 0x718A10);
     RH_ScopedInstall(ParseToken, 0x718F00);
 
     // styling functions
@@ -73,10 +63,10 @@ void CFont::InjectHooks() {
     RH_ScopedInstall(SetOrientation, 0x719610);
 
     RH_ScopedInstall(InitPerFrame, 0x719800);
-    RH_ScopedInstall(RenderFontBuffer, 0x719840, { .reversed = false });
+    RH_ScopedInstall(RenderFontBuffer, 0x719840);
     RH_ScopedInstall(GetStringWidth, 0x71A0E0);
     RH_ScopedInstall(DrawFonts, 0x71A210);
-    RH_ScopedInstall(ProcessCurrentString, 0x71A220, { .reversed = false });
+    RH_ScopedInstall(ProcessCurrentString, 0x71A220);
     RH_ScopedInstall(GetNumberLines, 0x71A5E0);
     RH_ScopedInstall(ProcessStringToDisplay, 0x71A600);
     RH_ScopedInstall(GetTextRect, 0x71A620);
@@ -85,7 +75,7 @@ void CFont::InjectHooks() {
     RH_ScopedInstall(GetCharacterSize, 0x719750);
     RH_ScopedInstall(LoadFontValues, 0x7187C0);
     // Install("", "GetScriptLetterSize", 0x719670, &GetScriptLetterSize);
-    RH_ScopedInstall(FindSubFontCharacter, 0x7192C0, { .reversed = false });
+    RH_ScopedInstall(FindSubFontCharacter, 0x7192C0);
     RH_ScopedGlobalInstall(GetLetterIdPropValue, 0x718770);
 }
 
@@ -208,126 +198,58 @@ void CFont::Shutdown() {
 // this adds a single character into rendering buffer
 // 0x718A10
 void CFont::PrintChar(float x, float y, char character) {
-    return plugin::Call<0x718A10, float, float, char>(x, y, character);
-
-    // todo: check the fucking uv values
-
-    // out of screen
-    if (x < 0.0f || x > SCREEN_WIDTH || y < 0.0f || y > SCREEN_HEIGHT)
-        return;
-
-    if (PS2Symbol) {
-        // extra symbol to be drawn (e.g. PS2 buttons)
-
-        CRect rt = {
-            x,
-            2.0f * RenderState.m_fHeight + y,
-            17.0f * RenderState.m_fHeight + x,
-            19.0f * RenderState.m_fHeight + y
-        };
-
-        ButtonSprite[PS2Symbol].Draw(rt, { 255, 255, 255, RenderState.m_color.a });
-
+    if (y < 0.0f || y > float(SCREEN_HEIGHT) || x < 0.0f || x > float(SCREEN_WIDTH)) {
         return;
     }
-
-    if (!character || character == '?') {
-        float propValue = GetLetterIdPropValue(character) / 32.0f;
-        bool zeroed = false;
-
-        if (RenderState.m_nFontStyle == 1 && character == 208) {
-            character = 0;
-            zeroed = true;
+    auto& state = RenderState;
+    if (PS2Symbol != EXSYMBOL_NONE) {
+        CRect rect;
+        rect.left = x;
+        rect.bottom = (state.m_fHeight + state.m_fHeight) + y;
+        rect.right = state.m_fHeight * 17.0f + x;
+        rect.top = state.m_fHeight * 19.0f + y;
+        ButtonSprite[PS2Symbol].Draw(rect, {255, 255, 255, state.m_color.a});
+        return;
+    }
+    uint8 letter = static_cast<uint8>(character);
+    const bool blank = letter == 0 || letter == '?';
+    if (blank) letter = 0;
+    const float proportion = GetLetterIdPropValue(letter) * (1.0f / 32.0f);
+    if (state.m_nFontStyle == 1 && letter == 208) letter = 0;
+    const float u = float(letter & 15) * 0.0625f;
+    if (blank) return;
+    CRect rect;
+    rect.left = x;
+    if (static_cast<int16>(state.m_wFontTexture) != 0 && static_cast<int16>(state.m_wFontTexture) != 1) {
+        const float v = float(letter >> 4) * 0.0625f;
+        rect.bottom = y;
+        rect.right = (state.m_fWidth * 32.0f) * proportion + x;
+        rect.top = (state.m_fHeight * 32.0f) * 0.5f + y;
+        const float rightU = proportion * 0.0625f + u;
+        const float bottomV = v + 0.0625f;
+        CSprite2d::AddToBuffer(rect, state.m_color, u, v, rightU, v, u, bottomV, rightU - 0.0001f, bottomV - 0.0001f);
+        return;
+    }
+    const float v = float(double(letter >> 4) * 0.078125);
+    const float rightU = (u + 0.0625f) - 0.001f;
+    rect.right = state.m_fWidth * 32.0f + x;
+    if (state.m_fSlant == 0.0f) {
+        rect.bottom = y;
+        if (letter < 192) {
+            rect.top = (state.m_fHeight * 40.0f) * 0.5f + y;
+            const float bottomV = (v + 0.078125f) - 0.0021f;
+            CSprite2d::AddToBuffer(rect, state.m_color, u, v + 0.0021f, rightU, v + 0.0021f, u, bottomV, rightU, bottomV);
+        } else {
+            rect.top = (state.m_fHeight * 32.0f) * 0.5f + y;
+            CSprite2d::AddToBuffer(rect, state.m_color, u, v + 0.0021f, rightU, v + 0.0021f, u, (v + 0.078125f) - 0.016f, rightU, (v + 0.078125f) - 0.015f);
         }
-
-        //auto v1 = (character >> 4);
-        //auto u1 = (character & 0xf) / 16.0f;
-
-        auto propval = propValue / 32.0f;
-
-        if (RenderState.m_wFontTexture && RenderState.m_wFontTexture != 1) {
-            if (!zeroed) {
-                CRect rt = {
-                    y,
-                    x,
-                    32.0f * propValue * RenderState.m_fWidth + x,
-                    16.0f * RenderState.m_fHeight + y,
-                };
-
-                float u1 = (character & 0xF) / 16.0f;
-                float v1 = (character >> 4) / 16.0f;
-                float u2 = propval / 16.0f + u1;
-                float v2 = v1;
-                float u3 = u1;
-                float v3 = v1 + 0.0625f;
-                float u4 = u2 - 0.0001f;
-                float v4 = v3 - 0.0001f;
-
-                CSprite2d::AddToBuffer(rt, RenderState.m_color, u1, v1, u2, v2, u3, v3, u4, v4);
-            }
-
-            return;
-        }
-
-        if (!zeroed) {
-            CRect rt;
-
-            rt.left = x;
-
-            if (RenderState.m_fSlant == 0.0f) {
-                rt.bottom = y;
-                rt.right = 32.0f * RenderState.m_fWidth + x;
-
-                if (character < 0xC0) {
-                    rt.top = 20.0f * RenderState.m_fHeight + y;
-
-                    float u1 = (character & 0xF) / 16.0f;
-                    float v1 = (character >> 4) / 12.8f + 0.0021f;
-                    float u2 = u1 + 0.0615f;
-                    float v2 = v1;
-                    float u3 = u1;
-                    float v3 = v2 - 0.0021f;
-                    float u4 = u2;
-                    float v4 = v2 - 0.0021f;
-
-                    CSprite2d::AddToBuffer(rt, RenderState.m_color, u1, v1, u2, v2, u3, v3, u4, v4);
-                }
-                else {
-                    rt.top = 16.0f * RenderState.m_fHeight + y;
-
-                    float u1 = (character & 0xF) / 16.0f;
-                    float v1 = (character >> 4) / 12.8f + 0.0021f;
-                    float u2 = u1 + 0.0615f;
-                    float v2 = v1;
-                    float u3 = u1;
-                    float v3 = v2 - 0.016f;
-                    float u4 = u2;
-                    float v4 = v2 - 0.015f;
-
-                    CSprite2d::AddToBuffer(rt, RenderState.m_color, u1, v1, u2, v2, u3, v3, u4, v4);
-                }
-            }
-            else {
-                rt.bottom = y + 0.015f;
-                rt.right = 32.0f * RenderState.m_fWidth + x;
-                rt.top = 20.0f * RenderState.m_fHeight + y + 0.015f;
-
-                float u1 = (character & 0xF) / 16.0f;
-                float v1 = (character >> 4) / 12.8f + 0.00055f;
-                float u2 = u1 + 0.0615f;
-                float v2 = (character >> 4) / 12.8f + 0.078125f;
-                float u3 = u1;
-                float v3 = v2 - 0.016f;
-                float u4 = u2;
-                float v4 = v2 - 0.015f;
-
-                CSprite2d::AddToBuffer(rt, RenderState.m_color, u1, v1, u2, v2, u3, v3, u4, v4);
-            }
-        }
+    } else {
+        rect.bottom = y + 0.015f;
+        rect.top = ((state.m_fHeight * 40.0f) * 0.5f + y) + 0.015f;
+        CSprite2d::AddToBuffer(rect, state.m_color, u, v + 0.00055f, rightU, v + 0.0121f, u, (v + 0.078125f) - 0.009f, rightU, ((v + 0.078125f) - 0.0021f) + 0.01f);
     }
 }
 
-// Tags processing
 // 0x718F00
 char* CFont::ParseToken(char* text, CRGBA& color, bool isBlip, char* tag) {
     // info about tokens: https://gtamods.com/wiki/GXT#Tokens
@@ -620,7 +542,63 @@ void CFont::InitPerFrame() {
 // Draw text we have in buffer
 // 0x719840
 void CFont::RenderFontBuffer() {
-    plugin::Call<0x719840>();
+    auto* const beginning = reinterpret_cast<char*>(FontRenderStateBuf.data());
+    if (reinterpret_cast<char*>(pEmptyChar) == beginning) return;
+    Sprite[static_cast<int16>(RenderState.m_wFontTexture)].SetRenderState();
+    RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(TRUE));
+    RenderState.Set(*reinterpret_cast<CFontChar*>(beginning));
+    auto color = RenderState.m_color;
+    float x = RenderState.m_vPosn.x;
+    float y = RenderState.m_vPosn.y;
+    auto* cursor = beginning + sizeof(CFontChar);
+    while (cursor < reinterpret_cast<char*>(pEmptyChar)) {
+        if (*cursor == 0) {
+            do { ++cursor; } while (uintptr_t(cursor) & 3u);
+            if (cursor >= reinterpret_cast<char*>(pEmptyChar)) break;
+            RenderState.Set(*reinterpret_cast<CFontChar*>(cursor));
+            color = RenderState.m_color;
+            x = RenderState.m_vPosn.x;
+            y = RenderState.m_vPosn.y;
+            cursor += sizeof(CFontChar);
+        }
+        PS2Symbol = EXSYMBOL_NONE;
+        while (*cursor == '~' && PS2Symbol == EXSYMBOL_NONE) {
+            cursor = ParseToken(cursor, color, RenderState.m_bContainImages, nullptr);
+            if (!RenderState.m_bContainImages) RenderState.m_color = color;
+        }
+        uint8 letter = static_cast<uint8>(*cursor - 32);
+        if (RenderState.m_nFontStyle == 0) {
+            if (letter == 145) letter = 64;
+            else if (letter > 155) letter = 0;
+        } else {
+            letter = FindSubFontCharacter(letter, RenderState.m_nFontStyle);
+        }
+        if (RenderState.m_fSlant != 0.0f) {
+            y = (RenderState.m_vSlanRefPoint.x - x) * RenderState.m_fSlant + RenderState.m_vSlanRefPoint.y;
+        }
+        if (PS2Symbol == EXSYMBOL_NONE || !RenderState.m_bContainImages) {
+            PrintChar(x, y, static_cast<char>(letter));
+        }
+        const auto outline = static_cast<int8>(RenderState.m_nOutline);
+        if (PS2Symbol != EXSYMBOL_NONE) {
+            x = (RenderState.m_fHeight * 17.0f + float(outline)) + x;
+        } else {
+            const uint8 index = letter == '?' ? 0 : letter;
+            auto* const data = gFontData.data() + static_cast<int16>(RenderState.m_wFontTexture);
+            const auto width = RenderState.m_bPropOn == 1 ? data->m_propValues[index] : data->m_unpropValue;
+            x = (float(outline) + float(width)) * RenderState.m_fWidth + x;
+        }
+        if (letter == 0) x = RenderState.m_fWrap + x;
+        if (*cursor && PS2Symbol == EXSYMBOL_NONE) {
+            ++cursor;
+        } else if (PS2Symbol != EXSYMBOL_NONE) {
+            PS2Symbol = EXSYMBOL_NONE;
+            Sprite[static_cast<int16>(RenderState.m_wFontTexture)].SetRenderState();
+        }
+    }
+    CSprite::FlushSpriteBuffer();
+    CSprite2d::RenderVertexBuffer();
+    pEmptyChar = FontRenderStateBuf.data();
 }
 
 // 0x71A0E0
@@ -686,7 +664,79 @@ void CFont::DrawFonts() {
 
 // 0x71A220
 int16 CFont::ProcessCurrentString(bool print, float x, float y, const GxtChar* text) {
-    return plugin::CallAndReturn<int16, 0x71A220, bool, float, float, const GxtChar*>(print, x, y, text);
+    const auto savedColor = m_Color;
+    const auto emitLine = [](float left, float top, const char* begin, const char* end, float spacing) {
+        plugin::Call<0x719B40, float, float, const char*, const char*, float>(left, top, begin, end, spacing);
+    };
+    auto* lineBegin = reinterpret_cast<const char*>(text);
+    auto* cursor = lineBegin;
+    bool firstWord = true;
+    char lastTag = 0;
+    int32 lines = 0;
+    int32 spaces = 0;
+    float usedWidth = 0.0f;
+    float width = (m_bFontCentreAlign || m_bFontRightAlign) ? 0.0f : x;
+    float lineY = y;
+    char continued[256];
+    while (*cursor) {
+        PS2Symbol = EXSYMBOL_NONE;
+        float wordEnd = GetStringWidth(reinterpret_cast<const GxtChar*>(cursor), false, false);
+        CRGBA ignored;
+        if (*cursor == '~') cursor = ParseToken(const_cast<char*>(cursor), ignored, true, &lastTag);
+        const float limit = m_bFontCentreAlign ? m_fFontCentreSize : m_bFontRightAlign ? x - m_fRightJustifyWrap : m_fWrapx;
+        wordEnd += width;
+        if ((limit < wordEnd && !firstWord) || m_bNewLine) {
+            float spacing = 0.0f;
+            if (PS2Symbol != EXSYMBOL_NONE) cursor -= 3;
+            auto* end = m_bNewLine ? cursor - 3 : cursor;
+            float lineX;
+            if (m_bFontCentreAlign) {
+                lineX = x - width * 0.5f;
+            } else {
+                if (m_bFontJustify) spacing = (m_fWrapx - usedWidth) / float(static_cast<int16>(spaces));
+                lineX = m_bFontRightAlign ? x - (width - GetCharacterSize(0)) : x;
+            }
+            ++lines;
+            if (print) emitLine(lineX, lineY, lineBegin, end, spacing);
+            lineBegin = cursor;
+            if (lastTag) {
+                gString[0] = '~'; gString[1] = lastTag; gString[2] = '~'; gString[3] = 0;
+                memcpy(continued, gString, 4);
+                if (m_bNewLine) end += 3;
+                auto* write = continued + 3;
+                while (*end) *write++ = *end++;
+                *write = 0;
+                lineBegin = continued;
+                lastTag = 0;
+            }
+            m_bNewLine = false;
+            lineY = (m_Scale.y + m_Scale.y + (m_Scale.y * 32.0f) * 0.5f) + lineY;
+            width = (m_bFontCentreAlign || m_bFontRightAlign) ? 0.0f : x;
+            spaces = 0;
+            usedWidth = 0.0f;
+            firstWord = true;
+            cursor = lineBegin;
+        } else {
+            while (*cursor != ' ' && *cursor && *cursor != '~') ++cursor;
+            width = wordEnd;
+            if (!*cursor) {
+                const float lineX = m_bFontCentreAlign ? x - width * 0.5f : m_bFontRightAlign ? x - width : x;
+                ++lines;
+                if (print) emitLine(lineX, lineY, lineBegin, cursor, 0.0f);
+            } else {
+                if (!firstWord) ++spaces;
+                if (*cursor != '~') {
+                    width = GetCharacterSize(0) + width;
+                    ++cursor;
+                }
+                usedWidth = width;
+                firstWord = false;
+            }
+        }
+        if (PS2Symbol != EXSYMBOL_NONE) PS2Symbol = EXSYMBOL_NONE;
+    }
+    if (print) SetColor(savedColor);
+    return static_cast<int16>(lines);
 }
 
 // 0x71A5E0

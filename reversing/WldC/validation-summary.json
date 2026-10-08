@@ -1,0 +1,99 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 13120,
+  "pairs_per_function": {
+    "CWorld::Initialise": 256,
+    "CWorld::Add": 768,
+    "CWorld::Remove": 512,
+    "CWorld::CameraToIgnoreThisObject": 512,
+    "CWorld::CastShadowSectorList<CPtrListDoubleLink<CPhysical*>>": 512,
+    "CWorld::ClearForRestart": 256,
+    "CWorld::ClearScanCodes": 256,
+    "CWorld::FindPlayerCentreOfWorld": 768,
+    "CWorld::FindPlayerCentreOfWorldForMap": 512,
+    "CWorld::FindPlayerCentreOfWorld_NoSniperShift": 768,
+    "CWorld::FindPlayerCoors": 512,
+    "CWorld::FindPlayerEntity": 512,
+    "CWorld::FindPlayerHeading": 768,
+    "CWorld::FindPlayerPed": 256,
+    "CWorld::FindPlayerSlotWithPedPointer": 256,
+    "CWorld::FindPlayerSlotWithRemoteVehiclePointer": 256,
+    "CWorld::FindPlayerSlotWithVehiclePointer": 256,
+    "CWorld::FindPlayerSpeed": 256,
+    "CWorld::FindPlayerTrain": 512,
+    "CWorld::FindPlayerVehicle": 768,
+    "CWorld::FindPlayerWanted": 256,
+    "CWorld::FindUnsuspectingTargetCar": 1024,
+    "CWorld::FindUnsuspectingTargetPed": 1024,
+    "CWorld::GetCurrentScanCode": 64,
+    "CWorld::GetLodPtrList": 256,
+    "CWorld::GetRepeatSector": 512,
+    "CWorld::GetSector": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "27b95b10195855730afbe093f7f47f06fa937bc31230ab99c96c7d322027dcab",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-wldc\\20261007-164318-555649",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CWorld::Initialise": true,
+    "CWorld::Add": true,
+    "CWorld::Remove": true,
+    "CWorld::CameraToIgnoreThisObject": true,
+    "CWorld::CastShadowSectorList<CPtrListDoubleLink<CPhysical*>>": true,
+    "CWorld::ClearForRestart": true,
+    "CWorld::ClearScanCodes": true,
+    "CWorld::FindPlayerCentreOfWorld": true,
+    "CWorld::FindPlayerCentreOfWorldForMap": true,
+    "CWorld::FindPlayerCentreOfWorld_NoSniperShift": true,
+    "CWorld::FindPlayerCoors": true,
+    "CWorld::FindPlayerEntity": true,
+    "CWorld::FindPlayerHeading": true,
+    "CWorld::FindPlayerPed": true,
+    "CWorld::FindPlayerSlotWithPedPointer": true,
+    "CWorld::FindPlayerSlotWithRemoteVehiclePointer": true,
+    "CWorld::FindPlayerSlotWithVehiclePointer": true,
+    "CWorld::FindPlayerSpeed": true,
+    "CWorld::FindPlayerTrain": true,
+    "CWorld::FindPlayerVehicle": true,
+    "CWorld::FindPlayerWanted": true,
+    "CWorld::FindUnsuspectingTargetCar": true,
+    "CWorld::FindUnsuspectingTargetPed": true,
+    "CWorld::GetCurrentScanCode": true,
+    "CWorld::GetLodPtrList": true,
+    "CWorld::GetRepeatSector": true,
+    "CWorld::GetSector": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "2522e2b11ff1ee2b4d5c19a15c4b49f05ab3714a2c9f0fcdbac981a253b86c1b",
+      "pdb": "5bd156f08869cab58c08deac9606529acb9f6101857f8b5d91d654b9f61c7e6c"
+    },
+    "sources": {
+      "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
+      "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c",
+      "source/game_sa/World_Helper.cpp": "9123f85bf6571857625fa05ba2ee7e16a86a1715d3a0a841f6d5cabae1d19330"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "08351a28217c01a4628d2b81fedc3a39607d66cc7de6f530ca31aab0eae52836",
+      "build_probe.py": "df64a131d3bf022d93288d06dfaa875265ea3521839ab70ca02535ef2f9791d9",
+      "run_local.py": "03c879a12d4b61d93cc8c82391da14d23150a9900fc2b13ccec28bddef8bc8ce"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

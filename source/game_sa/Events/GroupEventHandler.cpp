@@ -6,19 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CGroupEventHandler
- * Reconstrucción: INCOMPLETA — 30/32 funciones reconstruidas.
- * Pendientes de reconstruir: 2.
- * Funciones bloqueadas: 2.
- * Validación registrada: 0/32 entradas.
+ * Reconstrucción: COMPLETA — 32/32 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 2/32 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   ComputeResponsLeaderQuitEnteringCar | 0x005F9530 | S
- *   ComputeResponseLeaderEnteredCar | 0x005F8900 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   ComputeResponsLeaderQuitEnteringCar | 0x005F9530 | S
- *   ComputeResponseLeaderEnteredCar | 0x005F8900 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -36,6 +30,9 @@ END GENERATED HOOK STATUS */
 #include "Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.h"
 #include "Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.h"
 #include "Tasks/TaskTypes/TaskComplexLeaveCar.h"
+#include "Tasks/TaskTypes/TaskSimpleCarDrive.h"
+#include "Tasks/TaskComplexUseSequence.h"
+#include "Tasks/TaskSequences.h"
 #include "Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.h"
 #include "Tasks/TaskTypes/TaskComplexSmartFleeEntity.h"
 #include "Tasks/TaskTypes/TaskSimpleWaitUntilLeaderAreaCodesMatch.h"
@@ -88,8 +85,8 @@ void CGroupEventHandler::InjectHooks() {
     RH_ScopedInstall(ComputeResponsePedFriend, 0x5FB2D0);
     RH_ScopedInstall(ComputeResponseNewGangMember, 0x5F9840);
     RH_ScopedInstall(ComputeResponseLeaderExitedCar, 0x5F90A0);
-    RH_ScopedInstall(ComputeResponsLeaderQuitEnteringCar, 0x5F9530, { .reversed = false });
-    RH_ScopedInstall(ComputeResponseLeaderEnteredCar, 0x5F8900, { .reversed = false });
+    RH_ScopedInstall(ComputeResponsLeaderQuitEnteringCar, 0x5F9530);
+    RH_ScopedInstall(ComputeResponseLeaderEnteredCar, 0x5F8900);
     RH_ScopedInstall(ComputeResponseLeaderEnterExit, 0x5F9710);
     RH_ScopedInstall(ComputeResponseGunAimedAt, 0x5FBD10);
     RH_ScopedInstall(ComputeResponseGather, 0x5F99F0);
@@ -380,7 +377,89 @@ CTaskAllocator* CGroupEventHandler::ComputeResponseLeaderExitedCar(const CEventE
 
 // 0x5F8900
 CTaskAllocator* CGroupEventHandler::ComputeResponseLeaderEnteredCar(const CEvent& e, CPedGroup* pg, CPed* originator) {
-    return plugin::CallAndReturn<CTaskAllocator*, 0x5F8900, const CEvent&, CPedGroup*, CPed*>(e, pg, originator);
+    auto* const leader = pg->GetMembership().GetLeader();
+    auto* const vehicle = *reinterpret_cast<CVehicle* const*>(reinterpret_cast<const uint8*>(&e) + 0x14);
+    if (!leader || !vehicle) return nullptr;
+    const auto eventTask = *reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(&e) + 0xE);
+    const auto sequenceId = *reinterpret_cast<const int32*>(reinterpret_cast<const uint8*>(pg) + 0x2CC);
+    auto& intelligence = pg->GetIntelligence();
+    auto* members = reinterpret_cast<CPed**>(reinterpret_cast<uint8*>(pg) + 0xC);
+    std::array<CPed*, 7> ordered{};
+    size_t count = 0;
+    for (int32 phase = 0; phase < 2; ++phase) {
+        for (int32 i = 0; i < 7; ++i) {
+            auto* member = members[i];
+            if (member && (static_cast<int32>(member->GetCreatedBy()) == 2) == (phase == 0)) ordered[count++] = member;
+        }
+    }
+    const auto setInline = [&](CPed* ped, const CTask& task, auto& pairs, bool incomingFirst = false) {
+        for (auto& pair : pairs) {
+            if (pair.Ped != ped) continue;
+            if (pair.Task) {
+                const auto first = incomingFirst ? task.GetTaskType() : pair.Task->GetTaskType();
+                const auto second = incomingFirst ? pair.Task->GetTaskType() : task.GetTaskType();
+                if (first == second) return;
+                auto* old = pair.Task;
+                pair.Task = task.Clone();
+                pair.Slot = TASK_SECONDARY_INVALID;
+                delete old;
+            } else {
+                pair.Task = task.Clone();
+                pair.Slot = TASK_SECONDARY_INVALID;
+            }
+            return;
+        }
+    };
+    const auto addDrive = [&](CPed* ped, bool inlineSet) {
+        if (ped->bHasGroupDriveTask) return;
+        ped->bHasGroupDriveTask = true;
+        CTaskComplexSequence sequence;
+        sequence.AddTask(new CTaskSimpleCarDrive{vehicle, nullptr, true});
+        for (auto& pair : intelligence.GetDefaultPedTaskPairs()) {
+            if (pair.Ped != ped) continue;
+            if (pair.Task) sequence.AddTask(pair.Task->Clone());
+            break;
+        }
+        if (inlineSet) setInline(ped, sequence, intelligence.GetDefaultPedTaskPairs(), true);
+        else intelligence.SetTask(ped, sequence, intelligence.GetDefaultPedTaskPairs());
+    };
+    auto* previous = leader;
+    int32 assigned = 0;
+    for (auto* ped : ordered) {
+        if (!ped) continue;
+        if (assigned >= vehicle->m_nMaxPassengers) {
+            CTaskComplexLeaveAnyCar task{0, true, false};
+            setInline(ped, task, intelligence.GetPedTaskPairs());
+            continue;
+        }
+        bool frontSeat = false;
+        int32 followers = 0;
+        for (int32 i = 0; i < 7; ++i) followers += members[i] != nullptr;
+        if (followers == 1 && vehicle->m_nVehicleType != VEHICLE_TYPE_BIKE && vehicle->m_nVehicleSubType != VEHICLE_TYPE_QUAD) {
+            frontSeat = true;
+            auto* driver = vehicle->m_pDriver;
+            if (driver && driver != ped) {
+                for (int32 i = 0; i < 7; ++i) {
+                    if (members[i] == driver) { frontSeat = false; break; }
+                }
+                if (leader == driver || driver->bDontDragMeOutCar) frontSeat = false;
+            }
+        }
+        if (eventTask == TASK_GROUP_ENTER_CAR_AND_PERFORM_SEQUENCE && sequenceId >= 0 && sequenceId < 64 && CTaskSequences::ms_taskSequence[sequenceId].IsActive()) {
+            CTaskComplexSequence sequence;
+            sequence.AddTask(new CTaskComplexEnterCarAsPassengerWait{vehicle, previous, frontSeat, static_cast<eMoveState>(6)});
+            sequence.AddTask(new CTaskComplexUseSequence{sequenceId});
+            intelligence.SetTask(ped, sequence, intelligence.GetPedTaskPairs());
+        } else {
+            CTaskComplexEnterCarAsPassengerWait task{vehicle, previous, frontSeat, static_cast<eMoveState>(6)};
+            setInline(ped, task, intelligence.GetPedTaskPairs());
+            addDrive(ped, true);
+        }
+        ++assigned;
+        previous = ped;
+    }
+    if (!leader->IsPlayer()) addDrive(leader, false);
+    return nullptr;
 }
 
 // 0x5F9710
@@ -490,7 +569,29 @@ CTaskAllocator* CGroupEventHandler::ComputeResponseDamage(const CEventDamage& e,
 
 // 0x5F9530
 CTaskAllocator* CGroupEventHandler::ComputeResponsLeaderQuitEnteringCar(const CEvent& e, CPedGroup* pg, CPed* originator) {
-    return plugin::CallAndReturn<CTaskAllocator*, 0x5F9530, const CEvent&, CPedGroup*, CPed*>(e, pg, originator);
+    auto& intelligence = pg->GetIntelligence();
+    // Como el original: conservar los huecos vacios al calcular el retardo por indice.
+    auto* members = reinterpret_cast<CPed**>(reinterpret_cast<uint8*>(pg) + 0xC);
+    for (int32 i = 0; i < 7; ++i) {
+        auto* ped = members[i];
+        if (!ped) continue;
+        CVehicle* vehicle = ped->m_pVehicle;
+        bool sensible = ped->bInVehicle && vehicle;
+        int32 delay = i * 500;
+        if (!sensible) {
+            const auto getCar = [](CTask* task) -> CVehicle* {
+                return task ? *reinterpret_cast<CVehicle**>(reinterpret_cast<uint8*>(task) + 0xC) : nullptr;
+            };
+            vehicle = getCar(ped->GetIntelligence()->FindTaskByType(TASK_COMPLEX_ENTER_CAR_AS_PASSENGER_WAIT));
+            if (!vehicle) vehicle = getCar(ped->GetIntelligence()->FindTaskByType(TASK_COMPLEX_ENTER_CAR_AS_PASSENGER));
+            if (!vehicle) continue;
+            const float randomDelay = (float(CGeneral::GetRandomNumber()) * std::bit_cast<float>(0x38000000u)) * -500.0f;
+            delay = delay - static_cast<int32>(randomDelay) + 250;
+        }
+        CTaskComplexLeaveCar task{vehicle, 0, delay, sensible, false};
+        intelligence.SetTask(ped, task, intelligence.GetPedTaskPairs());
+    }
+    return nullptr;
 }
 
 // 0x5FAA50

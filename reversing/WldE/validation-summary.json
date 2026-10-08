@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 8512,
+  "pairs_per_function": {
+    "CWorld::ResetLineTestOptions": 64,
+    "CWorld::SetAllCarsCanBeDamaged": 256,
+    "CWorld::StopAllLawEnforcersInTheirTracks": 256,
+    "CWorld::UseDetonator": 384,
+    "CWorld::SetPedsOnFire": 640,
+    "CWorld::SetPedsChoking": 512,
+    "CWorld::SetCarsOnFire": 512,
+    "CWorld::SetWorldOnFire": 256,
+    "CWorld::SprayPaintWorld": 640,
+    "CWorld::TestForBuildingsOnTopOfEachOther-Void": 128,
+    "CWorld::TestForBuildingsOnTopOfEachOther<CPtrListDoubleLink<CPhysical*>>-": 256,
+    "CWorld::TestForUnusedModels-": 128,
+    "CWorld::TestForUnusedModels<CPtrListDoubleLink<CPhysical*>>-InputArray": 256,
+    "CWorld::TestSphereAgainstSectorList<CPtrListDoubleLink<CPhysical*>>": 640,
+    "CWorld::TestSphereAgainstWorld": 640,
+    "CWorld::TriggerExplosionSectorList<CPtrListDoubleLink<CPhysical*>>": 1024,
+    "CWorld::TriggerExplosion": 768,
+    "CWorld::RepositionOneObject": 768,
+    "CWorld::RepositionCertainDynamicObjects": 256,
+    "CWorld::ShutDown": 128
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "4e7e8c5bd2741f5d85837f44606ba6d7536fe99ace6cd9b6c32fd0af035c8686",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-wlde\\20261007-164039-307798",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CWorld::ResetLineTestOptions": true,
+    "CWorld::SetAllCarsCanBeDamaged": true,
+    "CWorld::StopAllLawEnforcersInTheirTracks": true,
+    "CWorld::UseDetonator": true,
+    "CWorld::SetPedsOnFire": true,
+    "CWorld::SetPedsChoking": true,
+    "CWorld::SetCarsOnFire": true,
+    "CWorld::SetWorldOnFire": true,
+    "CWorld::SprayPaintWorld": true,
+    "CWorld::TestForBuildingsOnTopOfEachOther-Void": true,
+    "CWorld::TestForBuildingsOnTopOfEachOther<CPtrListDoubleLink<CPhysical*>>-": true,
+    "CWorld::TestForUnusedModels-": true,
+    "CWorld::TestForUnusedModels<CPtrListDoubleLink<CPhysical*>>-InputArray": true,
+    "CWorld::TestSphereAgainstSectorList<CPtrListDoubleLink<CPhysical*>>": true,
+    "CWorld::TestSphereAgainstWorld": true,
+    "CWorld::TriggerExplosionSectorList<CPtrListDoubleLink<CPhysical*>>": true,
+    "CWorld::TriggerExplosion": true,
+    "CWorld::RepositionOneObject": true,
+    "CWorld::RepositionCertainDynamicObjects": true,
+    "CWorld::ShutDown": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "b2893490b023c2966e30ebdf09de30ee810c9e9bd0aaf094929f0c196ee17f65",
+      "pdb": "4978a9407b2b31d11450fecf5a7c36c3958186bd76fe2faab51670aa5a67411a"
+    },
+    "sources": {
+      "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
+      "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "3f0371229647f41d1673f66b5d05f1b347b507c304f848a5ac1392a1ed0fc4fa",
+      "build_probe.py": "d3bc617f0660b52b6dfd546cc18ab59135bf4bc6dcf0c755bfc445d243c05fe5",
+      "run_local.py": "563b9fa4518b782c0100d3335e1db20aa1e07c87f229f67f0de5ac7b27dc3ac6"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

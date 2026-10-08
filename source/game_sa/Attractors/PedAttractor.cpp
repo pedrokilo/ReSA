@@ -6,17 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPedAttractor
- * Reconstrucción: INCOMPLETA — 19/20 funciones reconstruidas.
- * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 1.
- * Validación registrada: 19/20 entradas.
+ * Reconstrucción: COMPLETA — 20/20 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 20/20 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   AbortPedTasks | 0x005EAF60 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   AbortPedTasks | 0x005EAF60 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -58,7 +54,7 @@ void CPedAttractor::InjectHooks() {
     RH_ScopedVMTOverloadedInstall(ComputeAttractHeading, "v", 0x5EA1C0, void(CPedAttractor::*)(int32, float&));
     RH_ScopedVMTInstall(BroadcastDeparture, 0x5EF160);
     RH_ScopedInstall(BroadcastArrival, 0x5EEF80);
-    RH_ScopedInstall(AbortPedTasks, 0x5EAF60, { .reversed = false });
+    RH_ScopedInstall(AbortPedTasks, 0x5EAF60);
 }
 
 // 0x5EAFD0
@@ -334,9 +330,13 @@ bool CPedAttractor::BroadcastArrival(CPed* ped) {
 
 // 0x5EAF60
 void CPedAttractor::AbortPedTasks() {
-    for (auto& p : m_PedTaskPairs) {
+    const auto count = static_cast<int32>(m_PedTaskPairs.size());
+    for (int32 i = 0; i < count; ++i) {
+        auto& p = m_PedTaskPairs._First[i];
         p.Ped = nullptr;
-        delete std::exchange(p.Task, nullptr);
+        // Como el original: el destructor todavía ve el puntero Task.
+        delete p.Task;
+        p.Task = nullptr;
         p.Slot = TASK_SECONDARY_INVALID;
     }
     // TODO/NOTE: Why not clear the array?

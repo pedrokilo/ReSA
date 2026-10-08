@@ -6,17 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CIdleCam
- * Reconstrucción: INCOMPLETA — 13/14 funciones reconstruidas.
- * Pendientes de reconstruir: 1.
- * Funciones bloqueadas: 1.
- * Validación registrada: 0/14 entradas.
+ * Reconstrucción: COMPLETA — 14/14 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 1/14 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   ProcessFOVZoom | 0x00517BF0 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   ProcessFOVZoom | 0x00517BF0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -43,7 +39,7 @@ void CIdleCam::InjectHooks() {
     RH_ScopedInstall(IsTargetValid, 0x517770);
     RH_ScopedInstall(ProcessTargetSelection, 0x517870);
     RH_ScopedInstall(ProcessSlerp, 0x5179E0);
-    RH_ScopedInstall(ProcessFOVZoom, 0x517BF0, { .reversed = false });
+    RH_ScopedInstall(ProcessFOVZoom, 0x517BF0);
     RH_ScopedInstall(Run, 0x51D3E0);
     RH_ScopedInstall(Process, 0x522C80);
     RH_ScopedInstall(IdleCamGeneralProcess, 0x50E690);
@@ -148,7 +144,109 @@ void CIdleCam::GetLookAtPositionOnTarget(const CEntity* target, CVector& outPos)
 
 // 0x517BF0
 void CIdleCam::ProcessFOVZoom(float time) {
-    NOTSA_UNREACHABLE();
+    const auto ticks = static_cast<int32>(CTimer::GetTimeInMS());
+    // Como el original: FILD con signo y corrección del rango sin signo.
+    const float now = ticks < 0 ? static_cast<float>(ticks) + 4294967296.0f : static_cast<float>(ticks);
+    float nearest = m_ZoomNearest;
+    bool shouldZoom = false;
+    if (m_Target) {
+        CVector targetPos;
+        GetLookAtPositionOnTarget(m_Target, targetPos);
+        const auto delta = m_Cam->m_vecSource - targetPos;
+        // Como el original: suma z, y, x en ese orden.
+        const float distance = std::sqrt((delta.z * delta.z + delta.y * delta.y) + delta.x * delta.x);
+        if (m_Target->GetIsTypePed() && (m_Target->AsPed()->m_nPedType == PED_TYPE_PROSTITUTE || m_Target->AsPed()->m_nPedType == PED_TYPE_CIVFEMALE)) {
+            shouldZoom = true;
+            nearest *= 0.5f;
+            if (distance < 8.0f) {
+                m_nForceAZoomOut = true;
+            }
+        }
+        if (distance > m_DistStartFOVZoom) {
+            shouldZoom = true;
+        }
+    }
+    if (time >= 1.0f) {
+        const auto previousState = m_ZoomState;
+        bool changeTarget = false;
+        if (shouldZoom) {
+            if (now - m_TimeLastZoomIn > m_TimeBeforeNewZoomIn) {
+                bool clear = true;
+                if (m_Target) {
+                    const auto oldIgnore = CWorld::pIgnoreEntity;
+                    CWorld::pIgnoreEntity = m_Target;
+                    CVector targetPos;
+                    GetLookAtPositionOnTarget(m_Target, targetPos);
+                    clear = CWorld::GetIsLineOfSightClear(m_Cam->m_vecSource, targetPos, true, false, false, true, false, false, true);
+                    CWorld::pIgnoreEntity = oldIgnore;
+                }
+                if (m_TargetLOSCounter > 10 && m_ZoomState == eIdleCamZoomState::UNK_2) {
+                    m_ZoomState = static_cast<eIdleCamZoomState>(1);
+                }
+                if (m_ZoomState == eIdleCamZoomState::UNK_3 && !m_bHasZoomedIn && clear) {
+                    m_ZoomState = static_cast<eIdleCamZoomState>(0);
+                    m_ZoomTo = nearest;
+                    changeTarget = static_cast<int>(previousState) != 0;
+                }
+            }
+        } else if (previousState == eIdleCamZoomState::UNK_2) {
+            m_ZoomState = static_cast<eIdleCamZoomState>(1);
+            m_ZoomTo = m_ZoomFarthest;
+            changeTarget = true;
+        }
+        if (changeTarget) {
+            m_TimeZoomStarted = now;
+            m_ZoomFrom = m_CurFOV;
+        }
+    }
+    if (m_ZoomState == eIdleCamZoomState::UNK_2) {
+        m_TimeLastZoomIn = now;
+        if (m_nForceAZoomOut) {
+            m_TimeZoomStarted = now;
+            m_ZoomFrom = m_CurFOV;
+            m_ZoomState = static_cast<eIdleCamZoomState>(1);
+            m_ZoomTo = m_ZoomFarthest;
+        }
+    }
+    m_nForceAZoomOut = false;
+    switch (static_cast<int>(m_ZoomState)) {
+    case 0:
+        if (std::fabs(m_CurFOV - nearest) < 1.0f) {
+            m_ZoomState = eIdleCamZoomState::UNK_2;
+            m_bHasZoomedIn = true;
+            m_CurFOV = nearest;
+            break;
+        }
+        [[fallthrough]];
+    case 1:
+        if (static_cast<int>(m_ZoomState) == 1 && std::fabs(m_CurFOV - m_ZoomFarthest) < 1.0f) {
+            m_ZoomState = eIdleCamZoomState::UNK_3;
+            m_CurFOV = m_ZoomFarthest;
+            break;
+        }
+        {
+            // Como el original: FSIN y el orden x87 exacto de la interpolación.
+            const float angle = (270.0f - ((now - m_TimeZoomStarted) / m_DurationFOVZoom) * 180.0f) * std::bit_cast<float>(0x3C8EFA35u);
+            const float from = m_ZoomFrom, to = m_ZoomTo, one = 1.0f, half = 0.5f;
+            float result;
+            __asm {
+                fld angle
+                fsin
+                fadd one
+                fmul half
+                fld to
+                fsub from
+                fmulp st(1), st
+                fadd from
+                fstp result
+            }
+            m_CurFOV = result;
+        }
+        break;
+    case 2: m_CurFOV = nearest; break;
+    case 3: m_CurFOV = m_ZoomFarthest; break;
+    }
+    m_Cam->m_fFOV = m_CurFOV;
 }
 
 // 0x517770

@@ -1,0 +1,46 @@
+// CCustomBuildingRenderer::IsCBPCPipelineAttached @ 0x005d7f40 [0x5d7f40..0x5d7f7d]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 FUN_005d7f40(int param_1)
+
+{
+  int iVar1;
+  int iVar2;
+  
+  iVar2 = FUN_0072fc40(param_1);
+  iVar1 = *(int *)(param_1 + 0x18);
+  if ((iVar2 != 0x53f2009c) && (iVar2 != 0x53f20098)) {
+    iVar2 = FUN_005d6e90(iVar1);
+    if ((iVar2 == 0) || (*(int *)(iVar1 + 0x30) == 0)) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005D7F40: push esi
+005D7F41: mov esi,dword ptr [esp+8]
+005D7F45: push esi
+005D7F46: call 0072FC40
+005D7F4B: mov esi,dword ptr [esi+18h]
+005D7F4E: add esp,4
+005D7F51: cmp eax,53F2009Ch
+005D7F56: je 005D7F77
+005D7F58: cmp eax,53F20098h
+005D7F5D: je 005D7F77
+005D7F5F: push esi
+005D7F60: call 005D6E90
+005D7F65: add esp,4
+005D7F68: test eax,eax
+005D7F6A: je 005D7F73
+005D7F6C: mov eax,dword ptr [esi+30h]
+005D7F6F: test eax,eax
+005D7F71: jne 005D7F77
+005D7F73: xor eax,eax
+005D7F75: pop esi
+005D7F76: ret
+005D7F77: mov eax,1
+005D7F7C: pop esi
+005D7F7D: ret

@@ -6,19 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CDecision
- * Reconstrucción: INCOMPLETA — 1/3 funciones reconstruidas.
- * Pendientes de reconstruir: 2.
- * Funciones bloqueadas: 2.
- * Validación registrada: 0/3 entradas.
+ * Reconstrucción: COMPLETA — 3/3 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 2/3 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   Set | 0x00600570 | S
- *   SetDefault | 0x00600530 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   Set | 0x00600570 | S
- *   SetDefault | 0x00600530 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -30,8 +24,8 @@ void CDecision::InjectHooks() {
     RH_ScopedClass(CDecision);
     RH_ScopedCategory("DecisionMakers");
 
-    RH_ScopedInstall(SetDefault, 0x600530, { .reversed = false });
-    RH_ScopedInstall(Set, 0x600570, { .reversed = false }); // Stub plugin::Call: activarlo causaría recursión infinita
+    RH_ScopedInstall(SetDefault, 0x600530);
+    RH_ScopedInstall(Set, 0x600570);
     //RH_ScopedInstall(Add, 0x600600, { .reversed = false });
     RH_ScopedInstall(From, 0x6006B0);
     //RH_ScopedInstall(HasResponse, 0x600710, { .reversed = false });
@@ -45,12 +39,32 @@ CDecision::CDecision() {
 
 // 0x600530
 void CDecision::SetDefault() {
-    plugin::CallMethod<0x600530, CDecision*>(this);
+    for (size_t i = 0; i < MAX_NUM_CHOICES; ++i) {
+        m_Tasks[i] = static_cast<eTaskType>(-1);
+        m_Probs[i].fill(0);
+        m_Bools[i].fill(false);
+    }
 }
 
 // 0x6006B0
 void CDecision::From(const CDecision& rhs) {
     *this = rhs;
+}
+
+static uint8 ProbabilityByte(float value) {
+    int64 result;
+    uint16 savedControl, truncateControl;
+    __asm {
+        fnstcw savedControl
+        mov ax, savedControl
+        or ax, 0C00h
+        mov truncateControl, ax
+        fldcw truncateControl
+        fld value
+        fistp qword ptr result
+        fldcw savedControl
+    }
+    return static_cast<uint8>(result);
 }
 
 // 0x600570
@@ -60,7 +74,17 @@ void CDecision::Set(
     notsa::mdarray<int32, MAX_NUM_CHOICES, 2>& bools,
     notsa::mdarray<float, MAX_NUM_CHOICES, 6>& facialProbs
 ) {
-    plugin::CallMethod<0x600570>(this, &tasks, &probs, &bools, &facialProbs);
+    // _ftol2 truncates to a signed 64-bit integer; only its low byte is stored.
+    // Preserve its indefinite integer result for NaN and overflowing inputs too.
+    for (size_t i = 0; i < MAX_NUM_CHOICES; ++i) {
+        m_Tasks[i] = static_cast<eTaskType>(tasks[i]);
+        for (size_t j = 0; j < 4; ++j) {
+            m_Probs[i][j] = ProbabilityByte(probs[i][j]);
+        }
+        for (size_t j = 0; j < 2; ++j) {
+            m_Bools[i][j] = bools[i][j] != 0;
+        }
+    }
 }
 
 /*

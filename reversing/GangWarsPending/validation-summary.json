@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 3072,
+  "pairs_per_function": {
+    "CGangWars::AddKillToProvocation": 1024,
+    "CGangWars::Update": 1024,
+    "CGangWars::CreateAttackWave": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "b63fe486ad079aeed60b8023b97dec1b662a77ab4df5c36523c10f308b81118a",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gang-wars-pending\\20261007-200639-362824",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CGangWars::AddKillToProvocation": true,
+    "CGangWars::Update": true,
+    "CGangWars::CreateAttackWave": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "b61a719dd48c2553c5fc71bb37aca158edd52ad8aa3f9bfc483436a7e04f1a9e",
+      "pdb": "63ee2aef14772a3d54603098502bd84a66bcdeee64b2274272db9783db0957af"
+    },
+    "sources": {
+      "source/game_sa/GangWars.cpp": "15d9d8f9649782fd8fd4dc0664799cecfcea12df1759ed208996ae5c1f2d53bb",
+      "source/game_sa/GangWars.h": "932540e73ba872997770989903a9d13b6d8757b422e482894924eaac85a495ad"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "8fbc290ebfb2be829d07008652ff0293eb8f0bd4c95e548f501f634f1a34c4d1",
+      "build_probe.py": "d9dac40e89d5ca8c807679c8f660541ff608f23ff3e2532a0fcc08e34e91a105",
+      "run_local.py": "c49b65737d1a1d6f653b6690068287c7e32ade7d8ca3f73748a4b198f0fbdbc6"
+    }
+  },
+  "limitations": [
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+  ]
+}

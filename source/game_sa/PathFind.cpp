@@ -6,19 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPathFind
- * Reconstrucción: INCOMPLETA — 54/56 funciones reconstruidas.
- * Pendientes de reconstruir: 2.
- * Funciones bloqueadas: 2.
- * Validación registrada: 0/56 entradas.
+ * Reconstrucción: COMPLETA — 56/56 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 2/56 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   ComputeRoute | 0x00452760 | S
- *   DoPathSearch | 0x004515D0 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   ComputeRoute | 0x00452760 | S
- *   DoPathSearch | 0x004515D0 | S
  *
  * ESTADO: CPathNode
  * Reconstrucción: COMPLETA — 1/1 funciones reconstruidas.
@@ -107,13 +101,13 @@ void CPathFind::InjectHooks() {
     RH_ScopedInstall(SwitchPedRoadsOffInArea, 0x452F00);
     RH_ScopedInstall(SwitchRoadsOffInArea, 0x452C80);
     RH_ScopedInstall(SwitchRoadsOffInAreaForOneRegion, 0x452820);
-    RH_ScopedInstall(ComputeRoute, 0x452760, { .reversed = false });
+    RH_ScopedInstall(ComputeRoute, 0x452760);
     //RH_ScopedInstall(CompleteNewInterior, 0x452270);
     RH_ScopedInstall(SwitchOffNodeAndNeighbours, 0x452160);
     //RH_ScopedInstall(Find2NodesForCarCreation, 0x452090);
     //RH_ScopedInstall(TestCoorsCloseness, 0x452000);
     //RH_ScopedInstall(FindNextNodeWandering, 0x451B70);
-    RH_ScopedInstall(DoPathSearch, 0x4515D0, {.reversed = false}); // Sometimes breaks `CTaskComplexFollowNodeRoute::ComputePathNodes` - To repro just walk around in groove st. 
+    RH_ScopedInstall(DoPathSearch, 0x4515D0);
     //RH_ScopedInstall(FindParkingNodeInArea, 0x4513F0);
     RH_ScopedInstall(FindLinkBetweenNodes, 0x451350);
     RH_ScopedInstall(ReturnInteriorNodeIndex, 0x451300);
@@ -348,172 +342,100 @@ void CPathFind::DoPathSearch(
     bool bAllowWaterNodeTransitions,
     bool forBoats
 ) {
-    // Moved this up here, as it's set in every return path
-    outNodesCount = 0;
-
-    const auto ResolveNode = [&, this](CVector nodePosn, CNodeAddress* addr) {
-        if (addr && addr->IsValid()) {
-            // In case area is not loaded we still fall-back to
-            // finding the closest node, as that will yield the
-            // node closest in a loaded area
-            if (IsAreaNodesAvailable(*addr)) {
-                return GetPathNode(*addr);
-            }
+    // Como el original: resolver primero el destino y reiniciar solo el contador de la lista.
+    m_totalNumNodesInPathFindHashTable = 0;
+    const auto resolve = [&](CVector pos, CNodeAddress* hint) {
+        if (hint && hint->IsAreaValid() && IsAreaNodesAvailable(*hint)) {
+            return *hint;
         }
-        const auto foundAddr = FindNodeClosestToCoors(
-            nodePosn,
-            pathType,
-            maxSearchDistance,
-            false,
-            false,
-            false,
-            forBoats,
-            false
-        );
-        return foundAddr.IsValid()
-            ? GetPathNode(foundAddr)
-            : nullptr;
+        return FindNodeClosestToCoors(pos, pathType, maxSearchDistance, 0, 0, 0, forBoats, 0);
     };
-
-    // Resolve addresses to use. Dont use `originAddrAddr` or `targetNodeAddr` after this point
-    CPathNode *origin, *target{};
-    if (   !(origin = ResolveNode(originPos, &originAddrAddrHint))
-        || !(target = ResolveNode(targetPos, targetNodeAddrHint))
-    ) {
-    fail:
+    const auto targetAddr = resolve(targetPos, targetNodeAddrHint);
+    const auto fail = [&] {
         outNodesCount = 0;
-        if (outDistance) {
-            *outDistance = 100'000.f;
-        }
+        if (outDistance) *outDistance = 100000.0f;
+    };
+    if (!targetAddr.IsAreaValid()) { fail(); return; }
+    const auto originAddr = resolve(originPos, &originAddrAddrHint);
+    if (!originAddr.IsAreaValid()) { fail(); return; }
+    if (originAddr == targetAddr) {
+        outNodesCount = 0;
+        if (outDistance) *outDistance = 0.0f;
         return;
     }
-
-    // Check if the 2 nodes ended up being the same
-    if (*origin == *target) {
-        outNodesCount = 0;
-        if (outDistance) {
-            *outDistance = 0.f;
-        }
-        return;
-    }
-
-    // Check if flood fill values match, if not, fail
-    if (origin->m_nFloodFill != target->m_nFloodFill) {
-        goto fail;
-    }
-
+    auto* origin = GetPathNode(originAddr);
+    auto* target = GetPathNode(targetAddr);
+    if (origin->m_nFloodFill != target->m_nFloodFill) { fail(); return; }
     rng::fill(m_pathFindHashTable, nullptr);
-    m_totalNumNodesInPathFindHashTable = 0u;
-
-    AddNodeToList(target, 0);
-
-    size_t numNodesToBeCleared{};
-    const auto AddNodeToBeCleared = [&](const CPathNode& node) {
-        if (numNodesToBeCleared < std::size(aNodesToBeCleared)) {
-            aNodesToBeCleared[numNodesToBeCleared++] = node.GetAddress();
-        }
+    // Como el original: operaciones de lista en linea y bucket con mascara de 9 bits.
+    const auto remove = [&](CPathNode* node) {
+        node->m_prev->m_next = node->m_next;
+        if (node->m_next) node->m_next->m_prev = node->m_prev;
+        --m_totalNumNodesInPathFindHashTable;
     };
-    AddNodeToBeCleared(*target);
-
-    size_t iterDepth{};
-    bool finished{};
-    while (true) {
-        // Dijkstra's algorithm (probably)
-
-        // Find distances
-        for (auto node = m_pathFindHashTable[iterDepth % std::size(m_pathFindHashTable)]; node; node = node->m_next) {
-            if (*node == *origin) {
-                finished = true;
-            }
-
-            for (auto linkNum = 0u; linkNum < node->m_nNumLinks; linkNum++) {
-                const auto linkIdx    = node->m_wBaseLinkId + linkNum;
+    const auto add = [&](CPathNode* node, int32 distance) {
+        auto& head = m_pathFindHashTable[distance & 511];
+        node->m_next = head;
+        node->m_prev = reinterpret_cast<CPathNode*>(&head);
+        if (head) head->m_prev = node;
+        head = node;
+        node->m_totalDistFromOrigin = static_cast<int16>(distance);
+        ++m_totalNumNodesInPathFindHashTable;
+    };
+    add(target, 0);
+    int32 clearCount = 1;
+    aNodesToBeCleared[0] = target->GetAddress();
+    int32 depth = 0;
+    bool finished = false;
+    for (;;) {
+        for (auto* node = m_pathFindHashTable[depth & 511]; node; node = node->m_next) {
+            if (node == origin) finished = true;
+            for (int32 linkNum = 0; linkNum < static_cast<int32>(node->m_nNumLinks); ++linkNum) {
+                const auto linkIdx = node->m_wBaseLinkId + linkNum;
                 const auto linkedAddr = m_pNodeLinks[node->m_wAreaId][linkIdx];
-
-                if (!IsAreaNodesAvailable(linkedAddr)) {
-                    continue;
-                }
-
-                auto& linked = *GetPathNode(linkedAddr);
-
-                // Omitted the bool variable and instead used `continue`s
-
-                if (sameLaneOnly) { // 0x451814
-                    const auto& naviLinkAddr = m_pNaviLinks[node->m_wAreaId][linkIdx];
-                    if (IsAreaLoaded(naviLinkAddr.m_wAreaId)) {
-                        const auto& naviLink = GetCarPathLink(naviLinkAddr);
-                        if (naviLink.m_attachedTo == linked.GetAddress()) {
-                            if (!naviLink.m_numOppositeDirLanes) {
-                                continue;
-                            }
-                        } else if (!naviLink.m_numSameDirLanes) {
-                            continue;
-                        }
+                if (!IsAreaNodesAvailable(linkedAddr)) continue;
+                auto* linked = GetPathNode(linkedAddr);
+                bool forbidden = false;
+                if (sameLaneOnly) {
+                    const auto naviAddr = m_pNaviLinks[node->m_wAreaId][linkIdx];
+                    if (IsAreaLoaded(naviAddr.m_wAreaId)) {
+                        const auto& navi = GetCarPathLink(naviAddr);
+                        forbidden = navi.m_attachedTo == linkedAddr
+                            ? navi.m_numOppositeDirLanes == 0
+                            : navi.m_numSameDirLanes == 0;
                     }
                 }
-
-                if (forbiddenNodeAddr == linked.GetAddress()) {
-                    continue;
+                if (forbiddenNodeAddr == linkedAddr) forbidden = true;
+                if ((node->m_bWaterNode != linked->m_bWaterNode && !bAllowWaterNodeTransitions) || forbidden) continue;
+                const int32 distance = node->m_totalDistFromOrigin + m_pLinkLengths[node->m_wAreaId][linkIdx];
+                if (distance >= linked->m_totalDistFromOrigin) continue;
+                if (linked->m_totalDistFromOrigin != 32766) remove(linked);
+                if (linked->m_totalDistFromOrigin == 32766 && clearCount < 5000) {
+                    aNodesToBeCleared[clearCount++] = linked->GetAddress();
                 }
-
-                // 0x451885
-                if (node->m_bWaterNode != linked.m_bWaterNode && !bAllowWaterNodeTransitions) {
-                    continue;
-                }
-
-                // 0x4518BD
-                const auto distToOriginFromLinked = node->m_totalDistFromOrigin + m_pLinkLengths[node->m_wAreaId][linkIdx];
-
-                // If this new route we found is better than the previous re-insert node into hashtable
-                if (distToOriginFromLinked < linked.m_totalDistFromOrigin) {
-                    if (linked.m_totalDistFromOrigin != SHRT_MAX - 1) { // Why the fuck they used this instead of `SHRT_MAX`?
-                        RemoveNodeFromList(&linked);
-                    } else {
-                        AddNodeToBeCleared(linked);
-                    }
-                    AddNodeToList(&linked, distToOriginFromLinked);
-                }
+                add(linked, distance);
             }
-
-            // We've visited this node, so remove it
-            RemoveNodeFromList(node);
+            remove(node);
         }
-
-        // No more nodes? Well, too sad.
-        if (!m_totalNumNodesInPathFindHashTable) {
+        ++depth;
+        // Como el original: un fallo despues de explorar deja outDistance intacto.
+        if (!m_totalNumNodesInPathFindHashTable || static_cast<float>(depth) > maxSearchDepth || clearCount >= 4950) {
+            outNodesCount = 0;
             break;
         }
-
-        // Hit limit?
-        if (++iterDepth > maxSearchDepth) {
-            break;
-        }
-
-        if (numNodesToBeCleared >= std::size(aNodesToBeCleared) - 50) {
-            break;
-        }
-
-        if (!finished) { // Inverted 0x4519C0 
-            continue;
-        }
-
-        if (outDistance) {
-            *outDistance = origin->m_totalDistFromOrigin;
-        }
-        if (outResultNodes) { // Weird check really, because below it isn't checked :D
-            outResultNodes[outNodesCount++] = origin->GetAddress();
-        }
-
-        for (auto node = origin; node == target || outNodesCount < maxNodesToFind; outNodesCount++) {
-            for (auto linkNum = 0u; linkNum < node->m_nNumLinks; linkNum++) {
-                const auto linkedAddr = m_pNodeLinks[node->m_wAreaId][linkNum];
-                const auto linkIdx    = node->m_wBaseLinkId + linkNum;
-                if (!IsAreaNodesAvailable(linkedAddr)) {
-                    continue;
-                }
-                const auto linked = GetPathNode(linkedAddr);
-                if (const auto dist = node->m_totalDistFromOrigin - m_pLinkLengths[node->m_wAreaId][linkIdx]; dist == linked->m_totalDistFromOrigin) {
-                    outResultNodes[outNodesCount++] = linkedAddr;
+        if (!finished) continue;
+        outNodesCount = 0;
+        if (outDistance) *outDistance = static_cast<float>(origin->m_totalDistFromOrigin);
+        if (outResultNodes) outResultNodes[outNodesCount++] = origin->GetAddress();
+        auto* node = origin;
+        while (outNodesCount < maxNodesToFind && node != target) {
+            for (int32 linkNum = 0; linkNum < static_cast<int32>(node->m_nNumLinks); ++linkNum) {
+                const auto linkIdx = node->m_wBaseLinkId + linkNum;
+                const auto linkedAddr = m_pNodeLinks[node->m_wAreaId][linkIdx];
+                if (!IsAreaNodesAvailable(linkedAddr)) continue;
+                auto* linked = GetPathNode(linkedAddr);
+                if (node->m_totalDistFromOrigin - m_pLinkLengths[node->m_wAreaId][linkIdx] == linked->m_totalDistFromOrigin) {
+                    outResultNodes[outNodesCount++] = linked->GetAddress();
                     node = linked;
                     break;
                 }
@@ -521,14 +443,20 @@ void CPathFind::DoPathSearch(
         }
         break;
     }
-    for (auto& addr : aNodesToBeCleared | rng::views::take(numNodesToBeCleared)) {
-        GetPathNode(addr)->m_totalDistFromOrigin = SHRT_MAX - 1;
-    }
+    for (int32 i = 0; i < clearCount; ++i) GetPathNode(aNodesToBeCleared[i])->m_totalDistFromOrigin = 32766;
 }
 
 // 0x452760
 void CPathFind::ComputeRoute(uint8 nodeType, const CVector& vecStart, const CVector& vecEnd, const CNodeAddress& startAddress, CNodeRoute* route) {
-    plugin::CallMethod<0x452760>(this, nodeType, &vecStart, &vecEnd, &startAddress, route);
+    CNodeAddress nodes[8];
+    int16 count = 0;
+    DoPathSearch(static_cast<ePathType>(nodeType), vecStart, startAddress, vecEnd, nodes, count, 8,
+        nullptr, std::bit_cast<float>(0x497423FEu), nullptr, std::bit_cast<float>(0x497423FEu),
+        false, *reinterpret_cast<const CNodeAddress*>(0x8A5F44), false, false);
+    route->Clear();
+    for (int32 i = 0; i < count; ++i) {
+        if (!route->IsFull()) route->Add(nodes[i]);
+    }
 }
 
 // 0x44D960

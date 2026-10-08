@@ -1,0 +1,427 @@
+00690220: sub esp,0Ch
+00690223: push esi
+00690224: mov esi,ecx
+00690226: mov eax,dword ptr [esi+10h]
+00690229: push edi
+0069022A: xor edi,edi
+0069022C: test eax,eax
+0069022E: jne 00690249
+00690230: mov eax,dword ptr [esp+18h]
+00690234: push eax
+00690235: push 516h
+0069023A: call 0068CF80
+0069023F: mov edi,eax
+00690241: pop edi
+00690242: pop esi
+00690243: add esp,0Ch
+00690246: ret 4
+00690249: test byte ptr [eax+00000474h],40h
+ 40
+00690250: je 006902C8
+00690252: mov ecx,dword ptr [esi+8]
+00690255: mov edx,dword ptr [ecx]
+00690257: call dword ptr [edx+10h]
+0069025A: cmp eax,44Ch
+0069025F: je 006902C8
+00690261: mov ecx,dword ptr [esi+8]
+00690264: mov eax,dword ptr [ecx]
+00690266: call dword ptr [eax+10h]
+00690269: cmp eax,38Bh
+0069026E: jne 006902AD
+00690270: mov ecx,dword ptr [esi+8]
+00690273: test byte ptr [ecx+48h],4
+00690277: mov ecx,esi
+00690279: je 00690294
+0069027B: mov edx,dword ptr [esp+18h]
+0069027F: push edx
+00690280: push 44Ch
+00690285: call 0068CF80
+0069028A: mov edi,eax
+0069028C: pop edi
+0069028D: pop esi
+0069028E: add esp,0Ch
+00690291: ret 4
+00690294: mov eax,dword ptr [esp+18h]
+00690298: push eax
+00690299: push 38Bh
+0069029E: call 0068CF80
+006902A3: mov edi,eax
+006902A5: pop edi
+006902A6: pop esi
+006902A7: add esp,0Ch
+006902AA: ret 4
+006902AD: mov ecx,dword ptr [esp+18h]
+006902B1: push ecx
+006902B2: push 38Bh
+006902B7: mov ecx,esi
+006902B9: call 0068CF80
+006902BE: mov edi,eax
+006902C0: pop edi
+006902C1: pop esi
+006902C2: add esp,0Ch
+006902C5: ret 4
+006902C8: mov ecx,dword ptr [esi+8]
+006902CB: mov edx,dword ptr [ecx]
+006902CD: push ebx
+006902CE: call dword ptr [edx+10h]
+006902D1: cmp eax,38Bh
+006902D6: jg 0069056A
+006902DC: je 00690491
+006902E2: sub eax,2BFh
+006902E7: cmp eax,7Eh
+006902EA: ja 006906F2
+006902F0: movzx eax,byte ptr [eax+00690714h]
+ 00
+006902F7: jmp dword ptr [eax*4+00690700h]
+ 00
+006902FE: mov ecx,dword ptr [esi+8]
+00690301: mov al,byte ptr [ecx+10h]
+00690304: mov edi,dword ptr [esp+1Ch]
+00690308: mov bl,2
+0069030A: test bl,al
+0069030C: je 00690331
+0069030E: mov edx,dword ptr [esi+10h]
+00690311: mov ecx,dword ptr [edx+0000058Ch]
+00690317: test ecx,ecx
+00690319: je 00690331
+0069031B: push edi
+0069031C: call 006D1E20
+00690321: test al,al
+00690323: jne 00690331
+00690325: mov eax,dword ptr [esi+10h]
+00690328: mov ecx,dword ptr [eax+0000058Ch]
+0069032E: mov dword ptr [esi+20h],ecx
+00690331: mov ecx,dword ptr [esi+10h]
+00690334: call 005E0170
+00690339: test al,al
+0069033B: je 00690548
+00690341: mov eax,dword ptr [esi+10h]
+00690344: mov ecx,dword ptr [eax+0000046Ch]
+0069034A: test ch,1
+0069034D: je 006906E3
+00690353: mov edx,dword ptr [esi+8]
+00690356: test byte ptr [edx+10h],bl
+00690359: jne 006906E3
+0069035F: mov eax,dword ptr [eax+0000047Ch]
+00690365: push 2C0h
+0069036A: lea ecx,[eax+4]
+0069036D: call 00681740
+00690372: test eax,eax
+00690374: mov ecx,esi
+00690376: push edi
+00690377: je 00690422
+0069037D: push 3E8h
+00690382: call 0068CF80
+00690387: pop ebx
+00690388: mov edi,eax
+0069038A: pop edi
+0069038B: pop esi
+0069038C: add esp,0Ch
+0069038F: ret 4
+00690392: mov eax,dword ptr [esi+8]
+00690395: mov cl,byte ptr [eax+10h]
+00690398: mov edi,dword ptr [esp+1Ch]
+0069039C: mov bl,2
+0069039E: test bl,cl
+006903A0: je 006903C5
+006903A2: mov ecx,dword ptr [esi+10h]
+006903A5: mov ecx,dword ptr [ecx+0000058Ch]
+006903AB: test ecx,ecx
+006903AD: je 006903C5
+006903AF: push edi
+006903B0: call 006D1E20
+006903B5: test al,al
+006903B7: jne 006903C5
+006903B9: mov edx,dword ptr [esi+10h]
+006903BC: mov eax,dword ptr [edx+0000058Ch]
+006903C2: mov dword ptr [esi+20h],eax
+006903C5: mov ecx,dword ptr [esi+10h]
+006903C8: call 005E0170
+006903CD: test al,al
+006903CF: je 00690548
+006903D5: mov eax,dword ptr [esi+10h]
+006903D8: mov ecx,dword ptr [eax+0000046Ch]
+006903DE: test ch,1
+006903E1: je 006906E3
+006903E7: mov ecx,dword ptr [esi+8]
+006903EA: test byte ptr [ecx+10h],bl
+006903ED: jne 006906E3
+006903F3: mov eax,dword ptr [eax+0000047Ch]
+006903F9: push 2C0h
+006903FE: lea ecx,[eax+4]
+00690401: call 00681740
+00690406: test eax,eax
+00690408: mov ecx,esi
+0069040A: push edi
+0069040B: je 00690422
+0069040D: push 3E8h
+00690412: call 0068CF80
+00690417: pop ebx
+00690418: mov edi,eax
+0069041A: pop edi
+0069041B: pop esi
+0069041C: add esp,0Ch
+0069041F: ret 4
+00690422: push 44Ch
+00690427: call 0068CF80
+0069042C: pop ebx
+0069042D: mov edi,eax
+0069042F: pop edi
+00690430: pop esi
+00690431: add esp,0Ch
+00690434: ret 4
+00690437: mov edx,dword ptr [esi+10h]
+0069043A: mov eax,dword ptr [edx+0000047Ch]
+00690440: push 0D0h
+00690445: lea ecx,[eax+4]
+00690448: call 00681740
+0069044D: mov ebx,eax
+0069044F: test ebx,ebx
+00690451: je 00690487
+00690453: mov ecx,ebx
+00690455: call 006787D0
+0069045A: test al,al
+0069045C: je 00690487
+0069045E: mov eax,dword ptr [esi+8]
+00690461: test byte ptr [eax+10h],4
+00690465: jne 00690487
+00690467: mov edi,dword ptr [esp+1Ch]
+0069046B: mov eax,dword ptr [edi+14h]
+0069046E: test eax,eax
+00690470: lea edx,[eax+30h]
+00690473: jne 00690478
+00690475: lea edx,[edi+4]
+00690478: mov eax,dword ptr [esi+10h]
+0069047B: mov ecx,dword ptr [eax+14h]
+0069047E: test ecx,ecx
+00690480: je 006904ED
+00690482: lea eax,[ecx+30h]
+00690485: jmp 006904F0
+00690487: mov ecx,dword ptr [esp+1Ch]
+0069048B: push ecx
+0069048C: jmp 006906E4
+00690491: mov eax,dword ptr [esi+10h]
+00690494: mov eax,dword ptr [eax+0000047Ch]
+0069049A: push 0D0h
+0069049F: lea ecx,[eax+4]
+006904A2: call 00681740
+006904A7: mov ebx,eax
+006904A9: test ebx,ebx
+006904AB: je 00690560
+006904B1: mov ecx,ebx
+006904B3: call 006787D0
+006904B8: test al,al
+006904BA: je 00690560
+006904C0: mov ecx,dword ptr [esi+8]
+006904C3: test byte ptr [ecx+48h],4
+006904C7: je 00690560
+006904CD: mov edi,dword ptr [esp+1Ch]
+006904D1: mov eax,dword ptr [edi+14h]
+006904D4: test eax,eax
+006904D6: lea edx,[eax+30h]
+006904D9: jne 006904DE
+006904DB: lea edx,[edi+4]
+006904DE: mov eax,dword ptr [esi+10h]
+006904E1: mov ecx,dword ptr [eax+14h]
+006904E4: test ecx,ecx
+006904E6: je 006904ED
+006904E8: lea eax,[ecx+30h]
+006904EB: jmp 006904F0
+006904ED: add eax,4
+006904F0: push edx
+006904F1: push eax
+006904F2: lea ecx,[esp+14h]
+006904F6: call 0040FE00
+006904FB: fld dword ptr [esp+14h]
+006904FF: fabs
+00690501: mov dword ptr [esp+14h],0
+00690509: fcomp dword ptr ds:[00858CA0h]
+0069050F: fnstsw ax
+00690511: test ah,41h
+00690514: je 006906E3
+0069051A: lea ecx,[esp+0Ch]
+0069051E: call 00406DA0
+00690523: fld dword ptr ds:[0087097Ch]
+00690529: fmul dword ptr ds:[0087097Ch]
+0069052F: fcompp
+00690531: fnstsw ax
+00690533: test ah,5
+00690536: jnp 006906E3
+0069053C: push 186A0h
+00690541: mov ecx,ebx
+00690543: call 006787A0
+00690548: push edi
+00690549: push 44Ch
+0069054E: mov ecx,esi
+00690550: call 0068CF80
+00690555: pop ebx
+00690556: mov edi,eax
+00690558: pop edi
+00690559: pop esi
+0069055A: add esp,0Ch
+0069055D: ret 4
+00690560: mov edx,dword ptr [esp+1Ch]
+00690564: push edx
+00690565: jmp 006906E4
+0069056A: sub eax,3E8h
+0069056F: je 006905B7
+00690571: sub eax,3
+00690574: je 0069059B
+00690576: sub eax,61h
+00690579: jne 006906F2
+0069057F: mov eax,dword ptr [esp+1Ch]
+00690583: push eax
+00690584: push 516h
+00690589: mov ecx,esi
+0069058B: call 0068CF80
+00690590: pop ebx
+00690591: mov edi,eax
+00690593: pop edi
+00690594: pop esi
+00690595: add esp,0Ch
+00690598: ret 4
+0069059B: mov ecx,dword ptr [esp+1Ch]
+0069059F: push ecx
+006905A0: push 516h
+006905A5: mov ecx,esi
+006905A7: call 0068CF80
+006905AC: pop ebx
+006905AD: mov edi,eax
+006905AF: pop edi
+006905B0: pop esi
+006905B1: add esp,0Ch
+006905B4: ret 4
+006905B7: mov ecx,dword ptr [esi+10h]
+006905BA: fld dword ptr [ecx+00000540h]
+006905C0: fcomp dword ptr ds:[00858B50h]
+006905C6: fnstsw ax
+006905C8: test ah,41h
+006905CB: jp 006905E9
+006905CD: mov edx,dword ptr [esp+1Ch]
+006905D1: push edx
+006905D2: push 44Ch
+006905D7: mov ecx,esi
+006905D9: call 0068CF80
+006905DE: pop ebx
+006905DF: mov edi,eax
+006905E1: pop edi
+006905E2: pop esi
+006905E3: add esp,0Ch
+006905E6: ret 4
+006905E9: mov eax,dword ptr [ecx+0000047Ch]
+006905EF: push 0D0h
+006905F4: lea ecx,[eax+4]
+006905F7: call 00681740
+006905FC: mov ebx,eax
+006905FE: test ebx,ebx
+00690600: je 00690698
+00690606: mov ecx,ebx
+00690608: call 006787D0
+0069060D: test al,al
+0069060F: je 00690698
+00690615: mov edi,dword ptr [esp+1Ch]
+00690619: mov eax,dword ptr [edi+14h]
+0069061C: test eax,eax
+0069061E: lea edx,[eax+30h]
+00690621: jne 00690626
+00690623: lea edx,[edi+4]
+00690626: mov eax,dword ptr [esi+10h]
+00690629: mov ecx,dword ptr [eax+14h]
+0069062C: test ecx,ecx
+0069062E: je 00690635
+00690630: lea eax,[ecx+30h]
+00690633: jmp 00690638
+00690635: add eax,4
+00690638: push edx
+00690639: push eax
+0069063A: lea ecx,[esp+14h]
+0069063E: call 0040FE00
+00690643: fld dword ptr [esp+14h]
+00690647: fabs
+00690649: mov dword ptr [esp+14h],0
+00690651: fcomp dword ptr ds:[00858CA0h]
+00690657: fnstsw ax
+00690659: test ah,41h
+0069065C: je 00690680
+0069065E: lea ecx,[esp+0Ch]
+00690662: call 00406DA0
+00690667: fld dword ptr ds:[0087097Ch]
+0069066D: fmul dword ptr ds:[0087097Ch]
+00690673: fcompp
+00690675: fnstsw ax
+00690677: test ah,5
+0069067A: jp 0069053C
+00690680: push edi
+00690681: push 38Bh
+00690686: mov ecx,esi
+00690688: call 0068CF80
+0069068D: pop ebx
+0069068E: mov edi,eax
+00690690: pop edi
+00690691: pop esi
+00690692: add esp,0Ch
+00690695: ret 4
+00690698: mov edi,dword ptr [esp+1Ch]
+0069069C: cmp dword ptr [edi+00000598h],6
+ 06
+006906A3: je 006906E3
+006906A5: mov ecx,dword ptr [esi+10h]
+006906A8: call 005DF8F0
+006906AD: test al,al
+006906AF: je 006906E3
+006906B1: mov eax,dword ptr [esi+10h]
+006906B4: mov eax,dword ptr [eax+00000480h]
+006906BA: test eax,eax
+006906BC: je 006906C2
+006906BE: mov eax,dword ptr [eax]
+006906C0: jmp 006906C4
+006906C2: xor eax,eax
+006906C4: mov cl,byte ptr [eax+18h]
+006906C7: test cl,cl
+006906C9: jbe 006906E3
+006906CB: push edi
+006906CC: push 516h
+006906D1: mov ecx,esi
+006906D3: call 0068CF80
+006906D8: pop ebx
+006906D9: mov edi,eax
+006906DB: pop edi
+006906DC: pop esi
+006906DD: add esp,0Ch
+006906E0: ret 4
+006906E3: push edi
+006906E4: push 3E8h
+006906E9: mov ecx,esi
+006906EB: call 0068CF80
+006906F0: mov edi,eax
+006906F2: pop ebx
+006906F3: mov eax,edi
+006906F5: pop edi
+006906F6: pop esi
+006906F7: add esp,0Ch
+006906FA: ret 4
+006906FD: lea ecx,[ecx]
+00690700: aaa
+00690701: add al,69h
+00690703: add dh,bh
+00690705: add ch,byte ptr [ecx]
+00690708: xchg eax,edx
+00690709: add ebp,dword ptr [ecx]
+0069070C: pushad
+0069070D: add eax,6F20069h
+00690712: imul eax,dword ptr [eax],4040400h
+00690718: add al,4
+0069071A: add al,4
+0069071C: add al,4
+0069071E: add al,4
+00690720: add al,4
+00690722: add al,4
+00690724: add al,4
+00690726: add al,1
+00690728: add al,4
+0069072A: add al,4
+0069072C: add al,2
+0069072E: add al,4
+00690730: add al,4
+00690732: add al,4
+00690734: add al,4

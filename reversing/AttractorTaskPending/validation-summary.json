@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 1024,
+  "pairs_per_function": {
+    "CTaskComplexGoToAttractor::Clone": 256,
+    "CTaskComplexGoToAttractor::CreateNextSubTask": 256,
+    "CTaskComplexGoToAttractor::CreateFirstSubTask": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "8d1d8310febb421737bfd1e9264017e2d48ae46a843c37c4751d031087dfa0c7",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-attractor-task-pending\\20261007-195707-708603",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTaskComplexGoToAttractor::Clone": true,
+    "CTaskComplexGoToAttractor::CreateNextSubTask": true,
+    "CTaskComplexGoToAttractor::CreateFirstSubTask": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "bad6c7d057f39854f3217691e31cfe1d5cdf91e913435e5a55605b8afd90a6ba",
+      "pdb": "6d3e29e6489f0be1233b33cbe3b7db5c0218da80944edc7980ef238086d08c8b"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp": "b260fb049d8b16d4948deb709ad508b75062e29491794972af685667a8d1738c",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.h": "39ed65c996b4e4330cac52ce792f4189fb01e95079621f7ceff9b9bc056c74d8",
+      "source/game_sa/Tasks/TaskComplexSequence.cpp": "3497ea85aebba258669ea20dbd06fd3628f1e443bca554bfbdd257f1984d5df5",
+      "source/game_sa/Tasks/TaskComplexSequence.h": "9d2404579563e19da54b6c829f3f98129484cc3d10c6c2732e5845d5660926aa",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "0eaf10e15bed49090db67f0b03bac2b2d00b33294883b4dbc5617e137c3ba6b7",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.h": "70a6149b4fe79ca1505be3b8fa9cd90fee360a3f73d8d7b5f3417d09491163e9",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp": "788e7a8b3d40f382bbb1a9caad0be5a271aa78971d24e54a384a1d677e49c5bf",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.h": "5d1eb7ba3ef63b8555030d95a1fa6e391d1d1c522c779b0c71db02b85db7f159",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.cpp": "8575f31bad074baddab158103c05245072275f451b4421de73a49d7d08f2e660",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.h": "d192f48cb427c9a28ca961e7b423707a3b9c1c711897c44703dfb48da2bc43bb"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "94e96f34e17ba2d1c654482899f9de327fc01da465906371bac632af8ac4892a",
+      "build_probe.py": "1b6e42cc567f829d9b498b4a4f430bd0d3ab88a902453a60aa3ef49cfc589112",
+      "run_local.py": "df5eb588aa861eda19d6200272d42ce5d9c798231c44028323f4b61311d69a0b"
+    }
+  },
+  "limitations": [
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+  ]
+}

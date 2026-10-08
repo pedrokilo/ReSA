@@ -6,19 +6,13 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPickups
- * Reconstrucción: INCOMPLETA — 35/37 funciones reconstruidas.
- * Pendientes de reconstruir: 2.
- * Funciones bloqueadas: 2.
- * Validación registrada: 0/37 entradas.
+ * Reconstrucción: COMPLETA — 37/37 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 0.
+ * Validación registrada: 2/37 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   CreatePickupCoorsCloseToCoors- | 0x00458A80 | S
- *   DoPickUpEffects | 0x00455720 | S
- * BLOQUEADAS (nombre | dirección | tipo):
- *   CreatePickupCoorsCloseToCoors- | 0x00458A80 | S
- *   DoPickUpEffects | 0x00455720 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -33,6 +27,7 @@ END GENERATED HOOK STATUS */
 #include "Pickups.h"
 #include "Garages.h"
 #include "tPickupMessage.h"
+#include "PostEffects.h"
 #include "Radar.h"
 #include "Shadows.h"
 #include "Coronas.h"
@@ -46,13 +41,13 @@ void CPickups::InjectHooks() {
     RH_ScopedInstall(Init, 0x454A70);
     RH_ScopedInstall(ReInit, 0x456E60);
     RH_ScopedInstall(AddToCollectedPickupsArray, 0x455240);
-    RH_ScopedOverloadedInstall(CreatePickupCoorsCloseToCoors, "", 0x458A80, void(*)(float, float, float, float&, float&, float&), {.reversed = false});
+    RH_ScopedOverloadedInstall(CreatePickupCoorsCloseToCoors, "", 0x458A80, void(*)(float, float, float, float&, float&, float&), {});
     RH_ScopedInstall(CreateSomeMoney, 0x458970);
     RH_ScopedInstall(DetonateMinesHitByGunShot, 0x4590C0);
     RH_ScopedInstall(DoCollectableEffects, 0x455E20);
     RH_ScopedInstall(DoMineEffects, 0x4560E0);
     RH_ScopedInstall(DoMoneyEffects, 0x454E80);
-    RH_ScopedInstall(DoPickUpEffects, 0x455720, { .reversed = false });
+    RH_ScopedInstall(DoPickUpEffects, 0x455720);
     RH_ScopedInstall(FindPickUpForThisObject, 0x4551C0);
 
     // Cannot be hooked at all for now due to ABI fuckery, the return value is 32 bit, but causes the function to assume the calling convention of of T* Function(T*, ...)
@@ -121,7 +116,49 @@ void CPickups::AddToCollectedPickupsArray(int32 pickupIndex) {
  * @param [out] outX, outY, outZ Created pickup's position
  */
 void CPickups::CreatePickupCoorsCloseToCoors(float inX, float inY, float inZ, float& outX, float& outY, float& outZ) {
-    plugin::Call<0x458A80, float, float, float, float&, float&, float&>(inX, inY, inZ, outX, outY, outZ);
+    for (int32 attempt = 0; attempt < 32; ++attempt) {
+        const int32 randomAngle = CGeneral::GetRandomNumber() & 255;
+        const float angleStep = std::bit_cast<float>(0x3CC90FDBu), radius = 1.5f;
+        float pickupX, pickupY;
+        // Como el original: fsin/fcos permanecen en x87 hasta multiplicar y sumar.
+        __asm {
+            fild randomAngle
+            fmul angleStep
+            fld st(0)
+            fsin
+            fmul radius
+            fadd inX
+            fstp pickupX
+            fcos
+            fmul radius
+            fadd inY
+            fstp pickupY
+        }
+        bool found;
+        const float pickupZ = CWorld::FindGroundZFor3DCoord({pickupX, pickupY, inZ}, &found, nullptr) + 0.5f;
+        if (!found) continue;
+        const CVector from{inX, inY, inZ + 0.3f};
+        const CVector difference{pickupX - from.x, pickupY - from.y, pickupZ - from.z};
+        const float length = std::sqrt((difference.z * difference.z + difference.y * difference.y) + difference.x * difference.x);
+        const float scale = (length + 0.4f) / length;
+        const CVector to{difference.x * scale + from.x, difference.y * scale + from.y, difference.z * scale + from.z};
+        // Como el original: cuatro consultas distintas al jugador, en el mismo orden.
+        const auto p0 = FindPlayerCoors();
+        const auto p1 = FindPlayerCoors();
+        const float dy = pickupY - FindPlayerCoors().y;
+        const float otherDy = pickupY - FindPlayerCoors().y;
+        const float distance = std::sqrt(otherDy * dy + (pickupX - p1.x) * (pickupX - p0.x));
+        if (distance <= 2.0f) {
+            if (attempt <= 16) continue;
+        } else if (attempt <= 16 && TestForPickupsInBubble({pickupX, pickupY, pickupZ}, 1.3f)) {
+            continue;
+        }
+        if (!CWorld::GetIsLineOfSightClear(to, from, true, attempt < 16, false, attempt < 16, false, false, false)) continue;
+        if (attempt <= 16 && CWorld::TestSphereAgainstWorld({pickupX, pickupY, pickupZ}, 1.2f, nullptr, false, true, false, false, false, false)) continue;
+        outX = pickupX; outY = pickupY; outZ = pickupZ;
+        return;
+    }
+    outX = inX; outY = inY; outZ = inZ + 0.4f;
 }
 
 /*!
@@ -270,7 +307,130 @@ void CPickups::DoMoneyEffects(CEntity* entity) {
 
 // 0x455720
 void CPickups::DoPickUpEffects(CEntity* entity) {
-    plugin::Call<0x455720, CEntity*>(entity);
+    auto* const object = static_cast<CObject*>(entity);
+    auto* const pickup = FindPickUpForThisObject(object);
+    auto& flags = *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(object) + 0x140);
+    const int32 model = entity->GetModelId();
+    if (model == MI_PICKUP_CAMERA) {
+        if (TheCamera.GetActiveCam().m_nMode == MODE_CAMERA) {
+            flags &= ~0x02000000u;
+        } else {
+            flags |= 0x02000000u;
+            if (*reinterpret_cast<uint8*>(0xB70153) < 5 || CPostEffects::IsVisionFXActive()) {
+                const int32 red = 100 - static_cast<int32>((float(CGeneral::GetRandomNumber()) * std::bit_cast<float>(0x38000000u)) * -50.0f);
+                const int32 ticks = CTimer::GetTimeInMS() & 8191;
+                const float angleStep = std::bit_cast<float>(0x3A48F5C3u), bias = 1.7f, multiplier = 3.7f;
+                float coronaSize;
+                __asm {
+                    fild ticks
+                    fmul angleStep
+                    fsin
+                    fadd bias
+                    fmul multiplier
+                    fstp coronaSize
+                }
+                const uint8 green = static_cast<uint8>(static_cast<int32>(float(red) * 0.7f));
+                // Como el original: el identificador es una direccion de la pila, no la del objeto.
+                uint8 coronaId;
+                CCoronas::RegisterCorona(reinterpret_cast<uint32>(&coronaId), nullptr, uint8(red), green, green, 255,
+                    entity->GetPosition(), coronaSize, 100.0f, static_cast<eCoronaType>(1), FLARETYPE_NONE,
+                    eCoronaReflType::CORREFL_NONE, eCoronaLOSCheck::LOSCHECK_OFF, eCoronaTrail::TRAIL_OFF,
+                    0.0f, false, 1.5f, false, 15.0f, false, false);
+            }
+        }
+    } else {
+        flags = (flags & ~0x02000000u) | (pickup->PickUpShouldBeInvisible() ? 0x02000000u : 0);
+    }
+    if (flags & 0x02000000u) return;
+    // Como el original: algunos modelos conservan los 16 bits bajos del argumento como color.
+    // Sus objetos normales no solicitan texto y por ello no acceden a esa entrada.
+    int16 colorIndex = static_cast<int16>(reinterpret_cast<uintptr_t>(entity));
+    if (model == MI_PICKUP_ADRENALINE || model == MI_PICKUP_HEALTH || model == MI_PICKUP_BONUS ||
+        model == MI_PICKUP_PROPERTY_FORSALE || model == MI_PICKUP_CLOTHES) {
+        colorIndex = 47;
+    } else if (model == MI_PICKUP_BODYARMOUR) {
+        colorIndex = 48;
+    } else if (model == MI_PICKUP_REVENUE) {
+        colorIndex = 53;
+    } else if (model != MI_PICKUP_BRIBE && model != MI_PICKUP_INFO && model != MI_PICKUP_KILLFRENZY &&
+               model != MI_PICKUP_PROPERTY && model != MI_PICKUP_SAVEGAME) {
+        colorIndex = static_cast<int16>(WeaponForModel(model));
+    }
+    const uint8 textKind = *reinterpret_cast<uint8*>(reinterpret_cast<uint8*>(object) + 0x13D);
+    const uint16 price = *reinterpret_cast<uint16*>(reinterpret_cast<uint8*>(object) + 0x13E);
+    if ((flags & 12) || textKind || price) {
+        const auto& camera = TheCamera.GetPosition();
+        const auto& position = entity->GetPosition();
+        const float dy = camera.y - position.y, dx = camera.x - position.x;
+        const float distance = std::sqrt(dy * dy + dx * dx);
+        if (distance < 14.0f && NumMessages < 16) {
+            const CVector textPosition{position.x, position.y, position.z + 0.7f};
+            CVector screen; float width, height;
+            if (CSprite::CalcScreenCoors(textPosition, &screen, &width, &height, true, true)) {
+                auto& message = aMessages[NumMessages];
+                message.pos.x = screen.x;
+                message.pos.y = screen.y;
+                message.pos.z = std::bit_cast<float>(static_cast<uint32>(WeaponForModel(model)));
+                message.width = width; message.height = height;
+                const auto* color = reinterpret_cast<const uint8*>(0x8A5FB0 + colorIndex * 8);
+                message.color.r = color[0]; message.color.g = color[1]; message.color.b = color[2];
+                const float alphaFactor = std::bit_cast<float>(0x3D924925u), one = 1.0f, alphaScale = 255.0f;
+                int64 alphaValue; uint16 alphaOldControl, alphaTruncateControl;
+                __asm {
+                    fnstcw alphaOldControl
+                    mov ax, alphaOldControl
+                    or ax, 0C00h
+                    mov alphaTruncateControl, ax
+                    fld distance
+                    fmul alphaFactor
+                    fsubr one
+                    fmul alphaScale
+                    fldcw alphaTruncateControl
+                    fistp alphaValue
+                    fldcw alphaOldControl
+                }
+                message.color.a = static_cast<uint8>(alphaValue);
+                message.flags = (message.flags & ~1u) | ((flags & 8) ? 1u : 0u);
+                message.field_19 = textKind;
+                message.price = uint32(price) * 5;
+                if (model == MI_PICKUP_PROPERTY_FORSALE || model == MI_PICKUP_PROPERTY) {
+                    message.text = const_cast<GxtChar*>(TheText.Get(CPickup::FindStringForTextIndex(static_cast<ePickupPropertyText>(FindPickUpForThisObject(object)->m_nFlags.nPropertyTextIndex))));
+                    message.flags = (message.flags & ~2u) | (model == MI_PICKUP_PROPERTY_FORSALE ? 2u : 0u);
+                } else {
+                    message.text = nullptr;
+                    message.flags &= ~2u;
+                }
+                ++NumMessages;
+            }
+        }
+    }
+    const auto& box = CModelInfo::GetModelInfo(model)->GetColModel()->m_boundBox;
+    const float y = box.m_vecMax.y - box.m_vecMin.y, z = box.m_vecMax.z - box.m_vecMin.z;
+    const float yz = z < y ? y : z;
+    float dimension = box.m_vecMax.x - box.m_vecMin.x;
+    if (dimension <= yz) dimension = z < y ? y : z;
+    float scale = 1.2f / dimension;
+    if (scale < 1.0f) scale = 1.0f;
+    scale = (scale - 1.0f) * 0.6f + 1.0f;
+    if (model == 362) scale = 1.2f;
+    const int32 ticks = CTimer::GetTimeInMS() & 2047;
+    const float angleStep = std::bit_cast<float>(0x3B4851ECu);
+    float cosineScaled, sineScaled;
+    __asm {
+        fild ticks
+        fmul angleStep
+        fld st(0)
+        fcos
+        fmul scale
+        fstp cosineScaled
+        fsin
+        fmul scale
+        fstp sineScaled
+    }
+    auto& matrix = entity->GetMatrix();
+    matrix.GetRight() = CVector{cosineScaled, sineScaled, 0.0f};
+    matrix.GetForward() = CVector{-sineScaled, cosineScaled, 0.0f};
+    matrix.GetUp() = CVector{0.0f, 0.0f, scale};
 }
 
 // 0x4551C0

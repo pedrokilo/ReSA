@@ -1,0 +1,142 @@
+// CFont::FindSubFontCharacter @ 0x007192c0 [0x7192c0..0x719356]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+byte FUN_007192c0(byte param_1,char param_2)
+
+{
+  if (param_2 == '\x01') {
+    if (param_1 == 0x1a) {
+      return 0x9a;
+    }
+    if ((7 < param_1) && (param_1 < 10)) {
+      return param_1 + 0x56;
+    }
+    if (param_1 == 4) {
+      return 0x5d;
+    }
+    if (param_1 == 7) {
+      return 0xce;
+    }
+    if (param_1 == 0xe) {
+      return 0xcf;
+    }
+    if (param_1 == 1) {
+      return 0xd0;
+    }
+  }
+  if (param_1 == 0x8f) {
+    return 0xcd;
+  }
+  if (param_1 == 0x1f) {
+    return 0x5b;
+  }
+  if (param_1 == 6) {
+    return 10;
+  }
+  if (param_1 == 0x3e) {
+    return 0x20;
+  }
+  if ((0xf < param_1) && (param_1 < 0x1a)) {
+    return param_1 + 0x80;
+  }
+  if ((0x20 < param_1) && (param_1 < 0x3b)) {
+    return param_1 + 0x7a;
+  }
+  if ((0x40 < param_1) && (param_1 < 0x5b)) {
+    return param_1 + 0x5a;
+  }
+  if ((0x5f < param_1) && (param_1 < 0x77)) {
+    return param_1 + 0x55;
+  }
+  if ((0x76 < param_1) && (param_1 < 0x8d)) {
+    return param_1 + 0x3e;
+  }
+  if ((0x8c < param_1) && (param_1 < 0x8f)) {
+    param_1 = 0xcc;
+  }
+  return param_1;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+007192C0: cmp byte ptr [esp+8],1
+007192C5: mov al,byte ptr [esp+4]
+007192C9: jne 007192F9
+007192CB: cmp al,1Ah
+007192CD: jne 007192D2
+007192CF: mov al,9Ah
+007192D1: ret
+007192D2: cmp al,8
+007192D4: jb 007192DD
+007192D6: cmp al,9
+007192D8: ja 007192DD
+007192DA: add al,56h
+007192DC: ret
+007192DD: cmp al,4
+007192DF: jne 007192E4
+007192E1: mov al,5Dh
+007192E3: ret
+007192E4: cmp al,7
+007192E6: jne 007192EB
+007192E8: mov al,0CEh
+007192EA: ret
+007192EB: cmp al,0Eh
+007192ED: jne 007192F2
+007192EF: mov al,0CFh
+007192F1: ret
+007192F2: cmp al,1
+007192F4: jne 007192F9
+007192F6: mov al,0D0h
+007192F8: ret
+007192F9: cmp al,8Fh
+007192FB: jne 00719300
+007192FD: mov al,0CDh
+007192FF: ret
+00719300: cmp al,1Fh
+00719302: jne 00719307
+00719304: mov al,5Bh
+00719306: ret
+00719307: cmp al,6
+00719309: jne 0071930E
+0071930B: mov al,0Ah
+0071930D: ret
+0071930E: cmp al,3Eh
+00719310: jne 00719315
+00719312: mov al,20h
+00719314: ret
+00719315: cmp al,10h
+00719317: jb 00719320
+00719319: cmp al,19h
+0071931B: ja 00719320
+0071931D: add al,80h
+0071931F: ret
+00719320: cmp al,21h
+00719322: jb 0071932B
+00719324: cmp al,3Ah
+00719326: ja 0071932B
+00719328: add al,7Ah
+0071932A: ret
+0071932B: cmp al,41h
+0071932D: jb 00719336
+0071932F: cmp al,5Ah
+00719331: ja 00719336
+00719333: add al,5Ah
+00719335: ret
+00719336: cmp al,60h
+00719338: jb 00719341
+0071933A: cmp al,76h
+0071933C: ja 00719341
+0071933E: add al,55h
+00719340: ret
+00719341: cmp al,77h
+00719343: jb 0071934C
+00719345: cmp al,8Ch
+00719347: ja 0071934C
+00719349: add al,3Eh
+0071934B: ret
+0071934C: cmp al,8Dh
+0071934E: jb 00719356
+00719350: cmp al,8Eh
+00719352: ja 00719356
+00719354: mov al,0CCh
+00719356: ret

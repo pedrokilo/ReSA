@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 3072,
+  "pairs_per_function": {
+    "CPools::SaveObjectPool": 1024,
+    "CPools::SavePedPool": 1024,
+    "CPools::SaveVehiclePool": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "564cc9385164b9498d24c447f955a3d0d20db76dc0ae924ed25e4a186673f1f9",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-pools-pending\\20261007-201151-743253",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CPools::SaveObjectPool": true,
+    "CPools::SavePedPool": true,
+    "CPools::SaveVehiclePool": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "2fca9479230f6b862ee73013cf51e2b4da3034454d7d39e85f7a396e0bf3f9b8",
+      "pdb": "b2327663da0b9daff19619252376a41141c8e25aef33375b64952d237d254ec9"
+    },
+    "sources": {
+      "source/game_sa/Pools.cpp": "bcb6131d7e43c1ed38a7af1276d8b8ee508b93525c311154f796d57724c871d3",
+      "source/game_sa/Pools/Pools.h": "5ea9374b3db5cfc399404dbab9907ada18691dc16ad4acc24a25472ef2333ebe"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "67f99affb33f08511fbbdeea00803ea52e21f18777b6ce2c40ed296ef9a38a32",
+      "build_probe.py": "ac2bbd0d47da65aa354772cf38e19790214099c3414325e80b5458aa177e7eae",
+      "run_local.py": "f842ea61d95ee6cce61cad8b16dd50a89af3cfcdfbd2138257632cbe859a09e5"
+    }
+  },
+  "limitations": [
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+  ]
+}

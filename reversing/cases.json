@@ -36,12 +36,12 @@
   },
   {
     "id": "namedanim-init",
-    "name": "Peatones: inicializaciÃ³n y desplazamiento de animaciones",
+    "name": "Peatones: inicializaciÃƒÆ’Ã‚Â³n y desplazamiento de animaciones",
     "runner": "FallenPeds/run_local.py"
   },
   {
     "id": "entryexit-pool",
-    "name": "CEntryExit: saturaciÃ³n, reserva y reutilizaciÃ³n",
+    "name": "CEntryExit: saturaciÃƒÆ’Ã‚Â³n, reserva y reutilizaciÃƒÆ’Ã‚Â³n",
     "runner": "CEntryExitPool/run_local.py"
   },
   {
@@ -61,42 +61,42 @@
   },
   {
     "id": "unlock-core",
-    "name": "ABI, geometrÃ­a, recursos y memoria",
+    "name": "ABI, geometrÃƒÆ’Ã‚Â­a, recursos y memoria",
     "runner": "UnlockCore/run_local.py"
   },
   {
     "id": "unlock-tasks",
-    "name": "DestrucciÃ³n de vehÃ­culos y control de lanzamiento",
+    "name": "DestrucciÃƒÆ’Ã‚Â³n de vehÃƒÆ’Ã‚Â­culos y control de lanzamiento",
     "runner": "UnlockTasks/run_local.py"
   },
   {
     "id": "unlock-physical",
-    "name": "InserciÃ³n y redistribuciÃ³n de entidades fÃ­sicas",
+    "name": "InserciÃƒÆ’Ã‚Â³n y redistribuciÃƒÆ’Ã‚Â³n de entidades fÃƒÆ’Ã‚Â­sicas",
     "runner": "UnlockPhysical/run_local.py"
   },
   {
     "id": "unlock-audio",
-    "name": "PosiciÃ³n del audio respecto a la cÃ¡mara",
+    "name": "PosiciÃƒÆ’Ã‚Â³n del audio respecto a la cÃƒÆ’Ã‚Â¡mara",
     "runner": "UnlockAudio/run_local.py"
   },
   {
     "id": "unlock-radio",
-    "name": "EscÃ¡ner e hilo de radio del usuario",
+    "name": "EscÃƒÆ’Ã‚Â¡ner e hilo de radio del usuario",
     "runner": "UnlockRadio/run_local.py"
   },
   {
     "id": "unlock-driving",
-    "name": "Animaciones de conducciÃ³n y ABI",
+    "name": "Animaciones de conducciÃƒÆ’Ã‚Â³n y ABI",
     "runner": "UnlockDriving/run_local.py"
   },
   {
     "id": "unlock-input",
-    "name": "RatÃ³n y mando DirectInput",
+    "name": "RatÃƒÆ’Ã‚Â³n y mando DirectInput",
     "runner": "UnlockInput/run_local.py"
   },
   {
     "id": "unlock-platform",
-    "name": "Arranque, menÃº e integraciÃ³n SDL/ImGui",
+    "name": "Arranque, menÃƒÆ’Ã‚Âº e integraciÃƒÆ’Ã‚Â³n SDL/ImGui",
     "runner": "UnlockPlatform/run_local.py"
   },
   {
@@ -106,17 +106,17 @@
   },
   {
     "id": "leave-car-bus",
-    "name": "Salir del coche y esperar el autobÃºs",
+    "name": "Salir del coche y esperar el autobÃƒÆ’Ã‚Âºs",
     "runner": "LeaveCarBus/run_local.py"
   },
   {
     "id": "population-factory",
-    "name": "PoblaciÃ³n, fÃ¡brica de vehÃ­culos y amenazas",
+    "name": "PoblaciÃƒÆ’Ã‚Â³n, fÃƒÆ’Ã‚Â¡brica de vehÃƒÆ’Ã‚Â­culos y amenazas",
     "runner": "PopulationFactory/run_local.py"
   },
   {
     "id": "scanner-drag-fx",
-    "name": "EscÃ¡ner, expulsiÃ³n y primitivas FX",
+    "name": "EscÃƒÆ’Ã‚Â¡ner, expulsiÃƒÆ’Ã‚Â³n y primitivas FX",
     "runner": "ScannerDragFx/run_local.py"
   },
   {
@@ -461,12 +461,12 @@
   },
   {
     "id": "misc8",
-    "name": "Transmisión, cañones de agua, FX y superficies (lista de 8)",
+    "name": "TransmisiÃƒÂ³n, caÃƒÂ±ones de agua, FX y superficies (lista de 8)",
     "runner": "Misc8/run_local.py"
   },
   {
     "id": "rendervideo8",
-    "name": "Búfer de render, cámara RW y modos de vídeo (lista de 8)",
+    "name": "BÃƒÂºfer de render, cÃƒÂ¡mara RW y modos de vÃƒÂ­deo (lista de 8)",
     "runner": "RenderVideo8/run_local.py"
   },
   {
@@ -481,12 +481,12 @@
   },
   {
     "id": "events43",
-    "name": "Eventos, asignadores y datos de peatón/vehículo (lista de 43)",
+    "name": "Eventos, asignadores y datos de peatÃƒÂ³n/vehÃƒÂ­culo (lista de 43)",
     "runner": "Events43/run_local.py"
   },
   {
     "id": "world43",
-    "name": "Mundo, colisión, grúas y oclusión (lista de 43)",
+    "name": "Mundo, colisiÃƒÂ³n, grÃƒÂºas y oclusiÃƒÂ³n (lista de 43)",
     "runner": "World43/run_local.py"
   },
   {
@@ -516,7 +516,7 @@
   },
   {
     "id": "misc6",
-    "name": "Pájaros, créditos, curvas, cronómetros, horarios, muebles y ventana (lista de 6)",
+    "name": "PÃƒÂ¡jaros, crÃƒÂ©ditos, curvas, cronÃƒÂ³metros, horarios, muebles y ventana (lista de 6)",
     "runner": "Misc6/run_local.py"
   },
   {
@@ -526,7 +526,7 @@
   },
   {
     "id": "animaudio6",
-    "name": "Audio, animación, objetos de cinemática, puertas y vídeo (lista de 6)",
+    "name": "Audio, animaciÃƒÂ³n, objetos de cinemÃƒÂ¡tica, puertas y vÃƒÂ­deo (lista de 6)",
     "runner": "AnimAudio6/run_local.py"
   },
   {
@@ -536,7 +536,7 @@
   },
   {
     "id": "data7",
-    "name": "Policía, ropa, listas, plantas, marcas, efectos y streaming (lista de 7)",
+    "name": "PolicÃƒÂ­a, ropa, listas, plantas, marcas, efectos y streaming (lista de 7)",
     "runner": "Data7/run_local.py"
   },
   {
@@ -561,12 +561,12 @@
   },
   {
     "id": "data8a",
-    "name": "Pistas de cinemática, canal estático, generador de coches, checkpoints, colisión y bandas (lista de 8)",
+    "name": "Pistas de cinemÃƒÂ¡tica, canal estÃƒÂ¡tico, generador de coches, checkpoints, colisiÃƒÂ³n y bandas (lista de 8)",
     "runner": "Data8a/run_local.py"
   },
   {
     "id": "data8b",
-    "name": "Eventos de bici y script, tareas de script, sombras, rectángulos y coches atascados (lista de 8)",
+    "name": "Eventos de bici y script, tareas de script, sombras, rectÃƒÂ¡ngulos y coches atascados (lista de 8)",
     "runner": "Data8b/run_local.py"
   },
   {
@@ -606,12 +606,12 @@
   },
   {
     "id": "models9",
-    "name": "Modelos atómicos y de peatón, colisión, carteles y textos (lista de 9)",
+    "name": "Modelos atÃƒÂ³micos y de peatÃƒÂ³n, colisiÃƒÂ³n, carteles y textos (lista de 9)",
     "runner": "Models9/run_local.py"
   },
   {
     "id": "ped9",
-    "name": "IK del peatón, efectos de armas, cadena IK, lanzar y recoger bici (lista de 9)",
+    "name": "IK del peatÃƒÂ³n, efectos de armas, cadena IK, lanzar y recoger bici (lista de 9)",
     "runner": "Ped9/run_local.py"
   },
   {
@@ -631,7 +631,7 @@
   },
   {
     "id": "ctasks9d",
-    "name": "Búsqueda de entidad y sentarse en escritorio (lista de 9)",
+    "name": "BÃƒÂºsqueda de entidad y sentarse en escritorio (lista de 9)",
     "runner": "CTasks9d/run_local.py"
   },
   {
@@ -666,12 +666,12 @@
   },
   {
     "id": "audio11",
-    "name": "Voz sin peatón, decodificador WMA, ropa y aceleración de colisiones (lista de 11)",
+    "name": "Voz sin peatÃƒÂ³n, decodificador WMA, ropa y aceleraciÃƒÂ³n de colisiones (lista de 11)",
     "runner": "Audio11/run_local.py"
   },
   {
     "id": "world11",
-    "name": "Coronas, entradas/salidas, reaparición y manejo de vehículos (lista de 11)",
+    "name": "Coronas, entradas/salidas, reapariciÃƒÂ³n y manejo de vehÃƒÂ­culos (lista de 11)",
     "runner": "World11/run_local.py"
   },
   {
@@ -681,17 +681,17 @@
   },
   {
     "id": "mix11",
-    "name": "Helicóptero, ir a la puerta del coche y nadar (lista de 11)",
+    "name": "HelicÃƒÂ³ptero, ir a la puerta del coche y nadar (lista de 11)",
     "runner": "Mix11/run_local.py"
   },
   {
     "id": "sys12",
-    "name": "Scripts en streaming, Game y árbol cuaternario (lista de 12)",
+    "name": "Scripts en streaming, Game y ÃƒÂ¡rbol cuaternario (lista de 12)",
     "runner": "Sys12/run_local.py"
   },
   {
     "id": "world12",
-    "name": "Semáforos, pickups y explosiones (lista de 12)",
+    "name": "SemÃƒÂ¡foros, pickups y explosiones (lista de 12)",
     "runner": "World12/run_local.py"
   },
   {
@@ -706,12 +706,12 @@
   },
   {
     "id": "ctasks13",
-    "name": "Seguir ruta, líder de banda, persecución policial y secuencia (lista de 13)",
+    "name": "Seguir ruta, lÃƒÂ­der de banda, persecuciÃƒÂ³n policial y secuencia (lista de 13)",
     "runner": "CTasks13/run_local.py"
   },
   {
     "id": "sys13",
-    "name": "Tipos de peatón, temporizador y remolque (lista de 13)",
+    "name": "Tipos de peatÃƒÂ³n, temporizador y remolque (lista de 13)",
     "runner": "Sys13/run_local.py"
   },
   {
@@ -721,12 +721,12 @@
   },
   {
     "id": "render14",
-    "name": "Secuencias de animación y pipeline día/noche de edificios (lista de 14)",
+    "name": "Secuencias de animaciÃƒÂ³n y pipeline dÃƒÂ­a/noche de edificios (lista de 14)",
     "runner": "Render14/run_local.py"
   },
   {
     "id": "mix14",
-    "name": "Gestor de atractores y matrículas (lista de 14)",
+    "name": "Gestor de atractores y matrÃƒÂ­culas (lista de 14)",
     "runner": "Mix14/run_local.py"
   },
   {
@@ -746,7 +746,7 @@
   },
   {
     "id": "world15",
-    "name": "Ciclo de población y sprites (lista de 15)",
+    "name": "Ciclo de poblaciÃƒÂ³n y sprites (lista de 15)",
     "runner": "World15/run_local.py"
   },
   {
@@ -756,7 +756,7 @@
   },
   {
     "id": "anim16",
-    "name": "Jerarquías y nodos de animación (lista de 16)",
+    "name": "JerarquÃƒÂ­as y nodos de animaciÃƒÂ³n (lista de 16)",
     "runner": "Anim16/run_local.py"
   },
   {
@@ -771,7 +771,7 @@
   },
   {
     "id": "fixcore",
-    "name": "Arreglos de núcleo fuera de listas",
+    "name": "Arreglos de nÃƒÂºcleo fuera de listas",
     "runner": "FixCore/run_local.py"
   },
   {
@@ -836,12 +836,12 @@
   },
   {
     "id": "render19",
-    "name": "Cámara de sombras y cristales (lista de 19)",
+    "name": "CÃƒÂ¡mara de sombras y cristales (lista de 19)",
     "runner": "Render19/run_local.py"
   },
   {
     "id": "anim20",
-    "name": "Asociaciones de animación (lista de 20)",
+    "name": "Asociaciones de animaciÃƒÂ³n (lista de 20)",
     "runner": "Anim20/run_local.py"
   },
   {
@@ -861,7 +861,7 @@
   },
   {
     "id": "event20",
-    "name": "Evento de daño (lista de 20)",
+    "name": "Evento de daÃƒÂ±o (lista de 20)",
     "runner": "Event20/run_local.py"
   },
   {
@@ -891,7 +891,7 @@
   },
   {
     "id": "colstore23",
-    "name": "Almacén de colisiones (lista de 23)",
+    "name": "AlmacÃƒÂ©n de colisiones (lista de 23)",
     "runner": "ColStore23/run_local.py"
   },
   {
@@ -951,7 +951,7 @@
   },
   {
     "id": "txd26",
-    "name": "Almacén de TXD (lista de 26)",
+    "name": "AlmacÃƒÂ©n de TXD (lista de 26)",
     "runner": "Txd26/run_local.py"
   },
   {
@@ -976,17 +976,17 @@
   },
   {
     "id": "damage27",
-    "name": "Gestor de daños (lista de 27)",
+    "name": "Gestor de daÃƒÂ±os (lista de 27)",
     "runner": "Damage27/run_local.py"
   },
   {
     "id": "gamelogic27",
-    "name": "Lógica de juego (lista de 27)",
+    "name": "LÃƒÂ³gica de juego (lista de 27)",
     "runner": "GameLogic27/run_local.py"
   },
   {
     "id": "wanted33",
-    "name": "Nivel de búsqueda (lista de 33)",
+    "name": "Nivel de bÃƒÂºsqueda (lista de 33)",
     "runner": "Wanted33/run_local.py"
   },
   {
@@ -996,17 +996,17 @@
   },
   {
     "id": "stats32",
-    "name": "Estadísticas (lista de 32)",
+    "name": "EstadÃƒÂ­sticas (lista de 32)",
     "runner": "Stats32/run_local.py"
   },
   {
     "id": "player28",
-    "name": "Información del jugador (lista de 28)",
+    "name": "InformaciÃƒÂ³n del jugador (lista de 28)",
     "runner": "Player28/run_local.py"
   },
   {
     "id": "vehrec29",
-    "name": "Grabaciones de vehículos (lista de 29)",
+    "name": "Grabaciones de vehÃƒÂ­culos (lista de 29)",
     "runner": "VehRec29/run_local.py"
   },
   {
@@ -1041,7 +1041,7 @@
   },
   {
     "id": "cutscene35",
-    "name": "Cinemáticas CCutsceneMgr (lista de 35)",
+    "name": "CinemÃƒÂ¡ticas CCutsceneMgr (lista de 35)",
     "runner": "Cutscene35/run_local.py"
   },
   {
@@ -1051,7 +1051,7 @@
   },
   {
     "id": "envmap37",
-    "name": "Tubería de reflejos de coches (lista de 37)",
+    "name": "TuberÃƒÂ­a de reflejos de coches (lista de 37)",
     "runner": "EnvMap37/run_local.py"
   },
   {
@@ -1071,12 +1071,12 @@
   },
   {
     "id": "playerped51",
-    "name": "Peatón jugador CPlayerPed (lista de 51)",
+    "name": "PeatÃƒÂ³n jugador CPlayerPed (lista de 51)",
     "runner": "PlayerPed51/run_local.py"
   },
   {
     "id": "ctrlconfig58",
-    "name": "Configuración de controles (lista de 58)",
+    "name": "ConfiguraciÃƒÂ³n de controles (lista de 58)",
     "runner": "CtrlConfig58/run_local.py"
   },
   {
@@ -1096,7 +1096,7 @@
   },
   {
     "id": "physical56",
-    "name": "Físicas CPhysical (lista de 56)",
+    "name": "FÃƒÂ­sicas CPhysical (lista de 56)",
     "runner": "Physical56/run_local.py"
   },
   {
@@ -1206,7 +1206,7 @@
   },
   {
     "id": "cpede",
-    "name": "CPed grupo E (posición, enganches, voz y percepción)",
+    "name": "CPed grupo E (posiciÃƒÂ³n, enganches, voz y percepciÃƒÂ³n)",
     "runner": "CPedE/run_local.py"
   },
   {
@@ -1216,37 +1216,37 @@
   },
   {
     "id": "cvehb",
-    "name": "CVehicle grupo B (ocupantes, ciclo de vida y geometría)",
+    "name": "CVehicle grupo B (ocupantes, ciclo de vida y geometrÃƒÂ­a)",
     "runner": "CVehB/run_local.py"
   },
   {
     "id": "cvehc",
-    "name": "CVehicle grupo C (mejoras, átomos, remaps y componentes)",
+    "name": "CVehicle grupo C (mejoras, ÃƒÂ¡tomos, remaps y componentes)",
     "runner": "CVehC/run_local.py"
   },
   {
     "id": "cvehd",
-    "name": "CVehicle grupo D (dibujo, luces y partículas)",
+    "name": "CVehicle grupo D (dibujo, luces y partÃƒÂ­culas)",
     "runner": "CVehD/run_local.py"
   },
   {
     "id": "cvehe",
-    "name": "CVehicle grupo E (armas de avión, barco, cabrestante y colisión)",
+    "name": "CVehicle grupo E (armas de aviÃƒÂ³n, barco, cabrestante y colisiÃƒÂ³n)",
     "runner": "CVehE/run_local.py"
   },
   {
     "id": "centa",
-    "name": "CEntity grupo A (matrices, transformaciones, límites y visibilidad)",
+    "name": "CEntity grupo A (matrices, transformaciones, lÃƒÂ­mites y visibilidad)",
     "runner": "CEntA/run_local.py"
   },
   {
     "id": "centb",
-    "name": "CEntity grupo B (ciclo de vida, referencias, estado y colisión)",
+    "name": "CEntity grupo B (ciclo de vida, referencias, estado y colisiÃƒÂ³n)",
     "runner": "CEntB/run_local.py"
   },
   {
     "id": "centc",
-    "name": "CEntity grupo C (efectos 2D, dibujo e iluminación)",
+    "name": "CEntity grupo C (efectos 2D, dibujo e iluminaciÃƒÂ³n)",
     "runner": "CEntC/run_local.py"
   },
   {
@@ -1283,5 +1283,205 @@
     "id": "evhg",
     "name": "CEventHandler grupo G (EvHG)",
     "runner": "EvHG/run_local.py"
+  },
+  {
+    "id": "wlda",
+    "name": "CWorld grupo A: busquedas de entidades por sector",
+    "runner": "WldA/run_local.py"
+  },
+  {
+    "id": "wldb",
+    "name": "CWorld: lineas de vision y lineas verticales (grupo B)",
+    "runner": "WldB/run_local.py"
+  },
+  {
+    "id": "wldc",
+    "name": "CWorld grupo C: jugadores, sectores, Add/Remove y blancos desprevenidos",
+    "runner": "WldC/run_local.py"
+  },
+  {
+    "id": "wldd",
+    "name": "Mundo: limpieza y proceso (CWorld, grupo D)",
+    "runner": "WldD/run_local.py"
+  },
+  {
+    "id": "wlde",
+    "name": "CWorld, grupo E (fuego, explosiones, esfera, reposicion, apagado)",
+    "runner": "WldE/run_local.py"
+  },
+  {
+    "id": "ctaskdead",
+    "name": "CTaskSimpleDead: constructor, destructor, Clone y ProcessPed",
+    "runner": "CTaskDead/run_local.py"
+  },
+  {
+    "id": "player-fighter-pending",
+    "name": "PlayerOnFoot: PlayerControlFighter",
+    "runner": "PlayerFighterPending/run_local.py"
+  },
+  {
+    "id": "idle-attractor-pending",
+    "name": "IdleCam y PedAttractor: pendientes de zoom y tareas",
+    "runner": "IdleAttractorPending/run_local.py"
+  },
+  {
+    "id": "fighting-control-pending",
+    "name": "FightingControl: ProcessPed",
+    "runner": "FightingControlPending/run_local.py"
+  },
+  {
+    "id": "roadblock-pending",
+    "name": "RoadBlocks: CreateRoadBlockBetween2Points",
+    "runner": "RoadBlockPending/run_local.py"
+  },
+  {
+    "id": "audio-frontend-pending",
+    "name": "CAEFrontendAudioEntity: pendientes",
+    "runner": "AudioFrontendPending/run_local.py"
+  },
+  {
+    "id": "audio-ped-pending",
+    "name": "CAEPedAudioEntity: pendientes",
+    "runner": "AudioPedPending/run_local.py"
+  },
+  {
+    "id": "audio-scanner-pending",
+    "name": "CAEPoliceScannerAudioEntity: pendientes",
+    "runner": "AudioScannerPending/run_local.py"
+  },
+  {
+    "id": "audio-streaming-pending",
+    "name": "CAEStreamingChannel: pendientes",
+    "runner": "AudioStreamingPending/run_local.py"
+  },
+  {
+    "id": "audio-vehicle-pending",
+    "name": "CAEVehicleAudioEntity: pendientes",
+    "runner": "AudioVehiclePending/run_local.py"
+  },
+  {
+    "id": "decision-pending",
+    "name": "CDecision: pendientes",
+    "runner": "DecisionPending/run_local.py"
+  },
+  {
+    "id": "criminal-pending",
+    "name": "CTaskComplexKillCriminal: pendientes",
+    "runner": "CriminalPending/run_local.py"
+  },
+  {
+    "id": "attractor-task-pending",
+    "name": "CTaskComplexGoToAttractor: pendientes",
+    "runner": "AttractorTaskPending/run_local.py"
+  },
+  {
+    "id": "gang-hassle-pending",
+    "name": "CTaskGangHasslePed: pendientes",
+    "runner": "GangHasslePending/run_local.py"
+  },
+  {
+    "id": "prostitute-pending",
+    "name": "CTaskComplexProstituteSolicit: pendientes",
+    "runner": "ProstitutePending/run_local.py"
+  },
+  {
+    "id": "prostitute-control-pending",
+    "name": "CTaskComplexProstituteSolicit: pendientes",
+    "runner": "ProstituteControlPending/run_local.py"
+  },
+  {
+    "id": "drive-by-pending",
+    "name": "CTaskSimpleGangDriveBy: pendientes",
+    "runner": "DriveByPending/run_local.py"
+  },
+  {
+    "id": "arrest-pending",
+    "name": "CTaskComplexArrestPed: pendientes",
+    "runner": "ArrestPending/run_local.py"
+  },
+  {
+    "id": "armed-pending",
+    "name": "CTaskComplexKillPedOnFootArmed: pendientes",
+    "runner": "ArmedPending/run_local.py"
+  },
+  {
+    "id": "armed-next-pending",
+    "name": "CTaskComplexKillPedOnFootArmed: pendientes",
+    "runner": "ArmedNextPending/run_local.py"
+  },
+  {
+    "id": "line-up-pending",
+    "name": "CTaskUtilityLineUpPedWithCar: pendientes",
+    "runner": "LineUpPending/run_local.py"
+  },
+  {
+    "id": "line-up-process-pending",
+    "name": "CTaskUtilityLineUpPedWithCar: pendientes",
+    "runner": "LineUpProcessPending/run_local.py"
+  },
+  {
+    "id": "path-find-pending",
+    "name": "CPathFind: pendientes",
+    "runner": "PathFindPending/run_local.py"
+  },
+  {
+    "id": "pickups-pending",
+    "name": "CPickups: pendientes",
+    "runner": "PickupsPending/run_local.py"
+  },
+  {
+    "id": "population-pending",
+    "name": "CPopulation: pendientes",
+    "runner": "PopulationPending/run_local.py"
+  },
+  {
+    "id": "group-event-pending",
+    "name": "CGroupEventHandler: pendientes",
+    "runner": "GroupEventPending/run_local.py"
+  },
+  {
+    "id": "group-placer-pending",
+    "name": "CPedGroupPlacer: pendientes",
+    "runner": "GroupPlacerPending/run_local.py"
+  },
+  {
+    "id": "gang-wars-pending",
+    "name": "CGangWars: pendientes",
+    "runner": "GangWarsPending/run_local.py"
+  },
+  {
+    "id": "rope-pending",
+    "name": "CRope: pendientes",
+    "runner": "RopePending/run_local.py"
+  },
+  {
+    "id": "post-effects-pending",
+    "name": "CPostEffects: pendientes",
+    "runner": "PostEffectsPending/run_local.py"
+  },
+  {
+    "id": "renderer-pending",
+    "name": "CCustomBuildingRenderer: pendientes",
+    "runner": "RendererPending/run_local.py"
+  },
+  {
+    "id": "shadow-manager-pending",
+    "name": "CRealTimeShadowManager: pendientes",
+    "runner": "ShadowManagerPending/run_local.py"
+  },
+  {
+    "id": "font-pending",
+    "name": "CFont: pendientes",
+    "runner": "FontPending/run_local.py"
+  },
+  {
+    "id": "fx-system-pending",
+    "name": "FxSystem_c: pendientes",
+    "runner": "FxSystemPending/run_local.py"
+  },
+  {
+    "id": "pools-pending",
+    "name": "CPools: pendientes",
+    "runner": "PoolsPending/run_local.py"
   }
 ]

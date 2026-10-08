@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 1024,
+  "pairs_per_function": {
+    "CTaskComplexKillPedOnFootArmed::CreateSubTask": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "ee444a46899e2ee1354d8bf8f07ecb1ebe4ee69f41d3e2ed82a43fbbd7639d5d",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-armed-pending\\20261007-200110-322685",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTaskComplexKillPedOnFootArmed::CreateSubTask": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "dea2df7634477799ea414c6533ce26ccbb2cd81d447af21458a9e757d15a0bb3",
+      "pdb": "295948617ec5e8c7aca40f28d30730439bd6af4d1b0c4fddfc4deff44014a832"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp": "c720074564508aa652b0c440a93e5dddc86015bd7844324198ca8e6a108fc4cf",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.h": "2c2ad674a91c8c10497d6fcdf3e938b93ca0e682b09f3da3566b045814e183cb",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntity.h": "d4e24513d36330e89aa843b2827b6fb827083463f743b68bca5d974b7bf99a26",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.h": "7ff3c3e70040091030284224d23a5254341e75844fc8ce68e5974eeb31f71d0c",
+      "source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp": "dd711db4f5c3ce2bf1d3036a571262fa2a3713aeb833a810fba9fffe1ce2297e",
+      "source/game_sa/Tasks/TaskTypes/TaskSimplePause.cpp": "19734c7ec35ae1b969624c197bcc7dfe1a28488325ba91deb9603ae57399e9a8",
+      "source/game_sa/Tasks/TaskTypes/TaskSimplePause.h": "d3a14ab71e02f8ecbce222a04f79439f97075b6ec516d1d78dd79f3da6f8f494",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp": "2f9cb5c6c456a1e72832973a6f4575cb00329ba46a16f0683d9ec0bf5d067e9d",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.h": "8dbf353c2ae9ea97c24e4193546199c38cc79b3539edfadbcd3bf9cc70e37006",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp": "9ffb7e7373c96df0f3699e9e5a2a84158d65f10b84617d8aafc1f2c20f1b6cbd",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.h": "d54eed4e75e1c79bed74f14a43ea09039db40b710404d2c67b01064653f32c84",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.cpp": "5764f34c10625d604f502b9d993899faaecf8ed97be82eb83a6334c03c54f2e5",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.h": "cde577ea765bc9b65a0e70fff5cf56a47c17a8832d5e7d886a121537b64e5198",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp": "d5fd78cb50707f0a9c6dbf1bce33144f9da916b97a93246ce521677757cf5175",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.h": "122fabde06fcd9649f3cca9933a6a33e3bb48ac5d03ccb9090318a47936d97f0",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "0eaf10e15bed49090db67f0b03bac2b2d00b33294883b4dbc5617e137c3ba6b7",
+      "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.h": "70a6149b4fe79ca1505be3b8fa9cd90fee360a3f73d8d7b5f3417d09491163e9"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "3c50809a389bd0e6777126c0bec2d3047655a83f101a73aed9e79d237db25e4b",
+      "build_probe.py": "256539ee447d364d887ea813dbcbffcdcee2097175d5bb53a71dcd4a3e289a3f",
+      "run_local.py": "cf43a3ef2d7a49921ef8ea2e1563fe185ecfb8b6b6cc74866af374de13707930"
+    }
+  },
+  "limitations": [
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "configuration": "Debug",
+  "compiler_option": "/MP6",
+  "instrumented": false,
+  "binary_sha256": {
+    "asi": "21c3aba045a63606f79653b0150de726c1cf8be1f0d4ab8afbf03fef1ac7853d",
+    "pdb": "5832cc6cc08017c33ec09f93b5fac0d2dc04eabba865958b60989ce6cbcad347"
+  }
+}

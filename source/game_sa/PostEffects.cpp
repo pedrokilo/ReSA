@@ -6,22 +6,15 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CPostEffects
- * Reconstrucción: INCOMPLETA — 35/38 funciones reconstruidas.
- * Pendientes de reconstruir: 3.
- * Funciones bloqueadas: 4.
- * Validación registrada: 0/38 entradas.
+ * Reconstrucción: COMPLETA — 38/38 funciones reconstruidas.
+ * Pendientes de reconstruir: 0.
+ * Funciones bloqueadas: 1.
+ * Validación registrada: 3/38 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
- * PENDIENTES (nombre | dirección | tipo):
- *   HeatHazeFX | 0x00701780 | S
- *   Radiosity | 0x00702080 | S
- *   SpeedFX | 0x007030A0 | S
  * BLOQUEADAS (nombre | dirección | tipo):
- *   HeatHazeFX | 0x00701780 | S
  *   ImmediateModeRenderStatesStore | 0x00700CC0 | S
- *   Radiosity | 0x00702080 | S
- *   SpeedFX | 0x007030A0 | S
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
@@ -66,7 +59,7 @@ void CPostEffects::InjectHooks() {
     RH_ScopedInstall(ScriptResetForEffects, 0x7010F0);
     RH_ScopedInstall(UnderWaterRipple, 0x7039C0);
     RH_ScopedInstall(HeatHazeFXInit, 0x701450);
-    RH_ScopedInstall(HeatHazeFX, 0x701780, { .reversed = false });
+    RH_ScopedInstall(HeatHazeFX, 0x701780);
     RH_ScopedInstall(IsVisionFXActive, 0x7034F0);
     RH_ScopedInstall(NightVision, 0x7011C0);
     RH_ScopedInstall(NightVisionSetLights, 0x7012E0);
@@ -78,10 +71,10 @@ void CPostEffects::InjectHooks() {
     RH_ScopedInstall(Fog, 0x704150);
     RH_ScopedInstall(CCTV, 0x702F40);
     RH_ScopedInstall(Grain, 0x7037C0);
-    RH_ScopedInstall(SpeedFX, 0x7030A0, { .reversed = false });
+    RH_ScopedInstall(SpeedFX, 0x7030A0);
     RH_ScopedInstall(DarknessFilter, 0x702F00);
     RH_ScopedInstall(ColourFilter, 0x703650);
-    RH_ScopedInstall(Radiosity, 0x702080, { .reversed = false });
+    RH_ScopedInstall(Radiosity, 0x702080);
     RH_ScopedInstall(SetSpeedFXManualSpeedCurrentFrame, 0x700BE0);
     RH_ScopedInstall(Render, 0x7046E0);
 }
@@ -567,7 +560,47 @@ void CPostEffects::HeatHazeFXInit() {
 
 // 0x701780
 void CPostEffects::HeatHazeFX(float fIntensity, bool bAlphaMaskMode) {
-    plugin::Call<0x701780, float, bool>(fIntensity, bAlphaMaskMode);
+    auto state=[](int32 id,uintptr_t value){RwRenderStateSet(static_cast<RwRenderState>(id),reinterpret_cast<void*>(value));};
+    const bool alphaTest = Scene.m_pRwCamera->frameBuffer->depth != 16;
+    if(!bAlphaMaskMode)StaticRef<uint8>(0xC402BB)=0;
+    else {
+        RwRGBA clear{0,0,0,0};RwCameraClear(Scene.m_pRwCamera,&clear,rwCAMERACLEARZ);
+        ImmediateModeRenderStatesStore();ImmediateModeRenderStatesSet();state(10,5);state(11,2);
+        if(alphaTest){state(21,1);state(22,1);state(23,1);state(24,3);state(26,0);state(25,8);}
+        DrawQuad(0.f,0.f,float(RsGlobal.maximumWidth),float(RsGlobal.maximumHeight),0,0,0,255,nullptr);
+        if(alphaTest)state(26,1);
+        g_fx.Render(TheCamera.m_pRwCamera,true);ImmediateModeRenderStatesReStore();
+    }
+    if(fIntensity<0.f)fIntensity=0.f;else if(fIntensity>1.f)fIntensity=1.f;
+    HeatHazeFXInit();state(2,3);RwCameraEndUpdate(Scene.m_pRwCamera);RwRasterPushContext(pRasterFrontBuffer);RwRasterRenderFast(Scene.m_pRwCamera->frameBuffer,0,0);RwRasterPopContext();RwCameraBeginUpdate(Scene.m_pRwCamera);
+    auto& count=StaticRef<int32>(0xC4B950);auto& indexCount=StaticRef<int32>(0xC4B954);count=indexCount=0;
+    state(14,0);state(12,1);const auto alpha=int32(float(StaticRef<int32>(0x8D50E8))*fIntensity);count=0;
+    if(alphaTest){state(24,1);state(26,1);state(25,3);}
+    state(6,0);state(8,0);state(1,reinterpret_cast<uintptr_t>(pRasterFrontBuffer));state(9,2);state(10,5);state(11,6);
+    auto* vertices=reinterpret_cast<uint32*>(0xC5F958);auto* indices=reinterpret_cast<int16*>(0xC4B958);
+    const auto put=[&](int32 index,float x,float y,float u,float v,uint32 color,bool setUV=true,bool setRecip=true){auto* p=vertices+index*7;p[0]=std::bit_cast<uint32>(x);p[1]=std::bit_cast<uint32>(y);p[2]=StaticRef<uint32>(StaticRef<uintptr_t>(0xC97B24)+0x18);if(setRecip)p[3]=std::bit_cast<uint32>(1.f/Scene.m_pRwCamera->nearPlane);p[4]=color;if(setUV){p[5]=std::bit_cast<uint32>(u);p[6]=std::bit_cast<uint32>(v);}};
+    if(!StaticRef<uint8>(0xC402BB)){
+        const auto scanX=StaticRef<int32>(0xC40304),scanY=StaticRef<int32>(0xC40308),renderX=StaticRef<int32>(0xC4030C),renderY=StaticRef<int32>(0xC40310);
+        const auto halfX=(renderX-scanX)/2,halfY=(renderY-scanY)/2;const auto color=(uint32(alpha)<<24)|0xFFFFFFu;
+        for(uint32 i=0;i<180;++i){int32 ux=hpX[i],uy=hpY[i],x=ux-halfX,y=uy-halfY;const auto shift=StaticRef<int32>(0xC402C0);
+            const auto randomScaled=[](int32 range){return int32((float(CGeneral::GetRandomNumber()&0xFFFF)*StaticRef<float>(0x858B14))*float(range));};
+            if(shift>0){x+=randomScaled(shift*2)-shift;y+=randomScaled(shift*2)-shift;}
+            if(x<0){ux+=halfX;x=0;}if(x>pRasterFrontBuffer->width-renderX){ux-=halfX;x=pRasterFrontBuffer->width-renderX;}
+            if(y<0){uy+=halfY;y=0;}if(y>pRasterFrontBuffer->height-renderY){uy-=halfY;y=pRasterFrontBuffer->height-renderY;}
+            put(count,float(x),float(y),float(ux)/float(pRasterFrontBuffer->width),float(uy)/float(pRasterFrontBuffer->height),color);
+            put(count+1,float(x+renderX),float(y),float(ux+scanX)/float(pRasterFrontBuffer->width),float(uy)/float(pRasterFrontBuffer->height),color);
+            put(count+2,float(x),float(y+renderY),float(ux)/float(pRasterFrontBuffer->width),float(uy+scanY)/float(pRasterFrontBuffer->height),color);
+            put(count+3,float(x+renderX),float(y+renderY),float(ux+scanX)/float(pRasterFrontBuffer->width),float(uy+scanY)/float(pRasterFrontBuffer->height),color);
+            const auto begin=count;indices[indexCount]=int16(begin);indices[indexCount+1]=int16(begin+2);indices[indexCount+2]=int16(begin+1);indices[indexCount+3]=int16(begin+1);indices[indexCount+4]=int16(begin+2);indices[indexCount+5]=int16(begin+3);indexCount+=6;count+=4;
+            hpY[i]-=int32((CTimer::GetTimeStep()*.5f)*float(hpS[i]));if(hpY[i]<0){hpX[i]=randomScaled(pRasterFrontBuffer->width-scanX);hpY[i]=pRasterFrontBuffer->height-scanY;const auto min=StaticRef<int32>(0x8D50EC);hpS[i]=randomScaled(StaticRef<int32>(0x8D50F0)-min)+min;}
+        }
+    } else {
+        const auto color=(uint32(alpha)<<24)|0xFF0000u;const auto begin=count;put(count,0.f,0.f,0.f,0.f,color,false);put(count+1,float(pRasterFrontBuffer->width),0.f,0.f,0.f,color,false);put(count+2,0.f,float(pRasterFrontBuffer->height),0.f,0.f,color,false,false);put(count+3,float(pRasterFrontBuffer->width),float(pRasterFrontBuffer->height),0.f,0.f,color,false,false);
+        vertices[begin*7+3]=std::bit_cast<uint32>(1.f/Scene.m_pRwCamera->nearPlane);vertices[(begin+1)*7+3]=std::bit_cast<uint32>(1.f/Scene.m_pRwCamera->nearPlane);
+        indices[indexCount]=int16(begin);indices[indexCount+1]=int16(begin+2);indices[indexCount+2]=int16(begin+1);indices[indexCount+3]=int16(begin+1);indices[indexCount+4]=int16(begin+2);indices[indexCount+5]=int16(begin+3);count+=4;indexCount+=6;
+    }
+    state(1,reinterpret_cast<uintptr_t>(pRasterFrontBuffer));if(count)RwIm2DRenderIndexedPrimitive(rwPRIMTYPETRILIST,reinterpret_cast<RwIm2DVertex*>(vertices),count,reinterpret_cast<RwImVertexIndex*>(indices),indexCount);count=0;
+    state(14,0);state(6,1);state(8,1);state(1,0);state(12,0);state(10,5);state(11,6);if(alphaTest)state(21,0);
 }
 
 // 0x7034F0
@@ -868,7 +901,30 @@ void CPostEffects::Grain(int32 strengthMask, bool update) {
 
 // 0x7030A0
 void CPostEffects::SpeedFX(float speed) {
-    plugin::Call<0x7030A0, float>(speed);
+    const auto mode = StaticRef<int32>(0xB6F1C4 + uint32(StaticRef<uint8>(0xB6F081))*0x238);
+    int32 passes=0, spread=0, jitter=0;
+    for(int32 i=6;i>=0;--i){const auto address=0x8D5190+i*16;if(StaticRef<float>(address)<=speed){passes=StaticRef<int32>(address+4);spread=StaticRef<int32>(address+8);jitter=StaticRef<int32>(address+12);break;}}
+    if(mode==1||mode==2){spread/=2;jitter=0;}
+    if(passes<=0)return;
+    ImmediateModeRenderStatesStore();ImmediateModeRenderStatesSet();
+    float jx=0.f,jy=0.f;
+    if(int32(jitter)>0){const auto jitterScale=float(jitter)*StaticRef<float>(0x859CE0);jx=ms_imf.fFrontBufferU2*jitterScale;jy=ms_imf.fFrontBufferV2*jitterScale;jx=(float(CGeneral::GetRandomNumber())*StaticRef<float>(0x858C7C))*jx;jy=(float(CGeneral::GetRandomNumber())*StaticRef<float>(0x858C7C))*jy;}
+    const auto dx=(ms_imf.fFrontBufferU2*float(int32(spread)))*StaticRef<float>(0x86C340);
+    const auto dy=(float(int32(spread))*ms_imf.fFrontBufferV2)*StaticRef<float>(0x86C340);
+    float left=-dx,right=dx,top=-dy,bottom=dy;
+    for(int32 i=0;i<passes;++i){
+        float x1=right,x2=left,x3=right,x4=left,y1=bottom,y2=bottom,y3=top,y4=top,ax=jx,ay=jy,bx=jx,by=jy;
+        if(mode==1){ax=ay=bx=by=0.f;y1=y2=y3=y4=0.f;x2=x4=0.f;}
+        if(mode==2){ax=ay=bx=by=0.f;x1=x3=0.f;y1=y2=y3=y4=0.f;}
+        ms_imf.quad[0].u=(ms_imf.fFrontBufferU1+x1)+ax;ms_imf.quad[0].v=(ms_imf.fFrontBufferV1+y1)+ay;
+        ms_imf.quad[1].u=(ms_imf.fFrontBufferU2+x2)-bx;ms_imf.quad[1].v=(ms_imf.fFrontBufferV1+y2)+ay;
+        ms_imf.quad[2].u=(ms_imf.fFrontBufferU1+x3)+ax;ms_imf.quad[2].v=(ms_imf.fFrontBufferV2+y3)-bx;
+        ms_imf.quad[3].u=(ms_imf.fFrontBufferU2+x4)-bx;ms_imf.quad[3].v=(ms_imf.fFrontBufferV2+y4)-by;
+        DrawQuad(0.f,0.f,float(RsGlobal.maximumWidth),float(RsGlobal.maximumHeight),255,255,255,StaticRef<uint8>(0x8D5104),pRasterFrontBuffer);
+        left-=dx;right+=dx;top-=dy;bottom+=dy;
+    }
+    ms_imf.quad[0].u=0.f;ms_imf.quad[0].v=0.f;ms_imf.quad[1].u=1.f;ms_imf.quad[1].v=0.f;ms_imf.quad[2].u=0.f;ms_imf.quad[2].v=1.f;ms_imf.quad[3].u=1.f;ms_imf.quad[3].v=1.f;
+    ImmediateModeRenderStatesReStore();
 }
 
 // 0x702F00
@@ -912,7 +968,22 @@ void CPostEffects::ColourFilter(RwRGBA pass1, RwRGBA pass2) {
 
 // 0x702080
 void CPostEffects::Radiosity(int32 intensityLimit, int32 filterPasses, int32 renderPasses, int32 intensity) {
-    plugin::Call<0x702080>();
+    auto& count=StaticRef<int32>(0xC4B950);
+    auto* vertices=reinterpret_cast<uint32*>(0xC5F958);
+    auto state=[](int32 id,uintptr_t value){RwRenderStateSet(static_cast<RwRenderState>(id),reinterpret_cast<void*>(value));};
+    auto put=[&](int32 index,float x,float y,float u,float v,uint32 color,bool setUV=true,bool setColor=true){auto* p=vertices+index*7; p[0]=std::bit_cast<uint32>(x);p[1]=std::bit_cast<uint32>(y);p[2]=0;p[3]=std::bit_cast<uint32>(1.f/StaticRef<float>(reinterpret_cast<uintptr_t>(Scene.m_pRwCamera)+0x80));if(setColor)p[4]=color;if(setUV){p[5]=std::bit_cast<uint32>(u);p[6]=std::bit_cast<uint32>(v);}};
+    int32 width=StaticRef<int32>(0xC40314),height=StaticRef<int32>(0xC40318);
+    state(9,1);state(14,0);state(6,1);state(8,0);state(1,reinterpret_cast<uintptr_t>(pRasterFrontBuffer));state(12,0);state(10,5);state(11,6);
+    put(0,0.f,0.f,0.f,0.f,0,false,false);vertices[5]=vertices[6]=0;
+    put(1,float(StaticRef<uint8>(0x8D510B)?RsGlobal.maximumWidth:width),float(StaticRef<uint8>(0x8D510B)?RsGlobal.maximumHeight:height),1.f,1.f,0,true,false);
+    count=0;state(6,1);
+    if(filterPasses>0){state(9,2);for(int32 i=0;i<filterPasses;++i){const auto nextWidth=width/2,nextHeight=height/2;put(count,0.f,0.f,float(StaticRef<int32>(0x8D511C))/float(pRasterFrontBuffer->width),float(StaticRef<int32>(0x8D5120))/float(pRasterFrontBuffer->height),0xFFFFFFFF);put(count+1,float(nextWidth+1),float(nextHeight+1),float(width)/float(pRasterFrontBuffer->width),float(height)/float(pRasterFrontBuffer->height),0xFFFFFFFF);count+=2;width=nextWidth;height=nextHeight;}}
+    state(10,5);state(11,6);
+    const auto color=(((uint32(intensityLimit)|0xFFFF8000u)<<8|uint32(intensityLimit))<<8)|uint32(intensityLimit);
+    put(count,0.f,0.f,0.f,0.f,color,false);put(count+1,float(width+1),float(height+1),0.f,0.f,color,false);count+=2;
+    if(renderPasses>0){if(count>2)RwIm2DRenderPrimitive(rwPRIMTYPETRISTRIP,reinterpret_cast<RwIm2DVertex*>(vertices),count);count=0;state(9,StaticRef<uint8>(0x8D510A)?2:3);const auto renderColor=!StaticRef<uint8>(0x8D510B)&&StaticRef<uint8>(0xC402CD)?0xFFFFFFFFu:uint32(intensity)<<24;for(int32 i=0;i<renderPasses;++i){put(count,0.f,0.f,0.f,0.f,renderColor);put(count+1,float(RsGlobal.maximumWidth),float(RsGlobal.maximumHeight),float(width)/float(pRasterFrontBuffer->width),float(height)/float(pRasterFrontBuffer->height),renderColor);count+=2;}}
+    if(count>2)RwIm2DRenderPrimitive(rwPRIMTYPETRISTRIP,reinterpret_cast<RwIm2DVertex*>(vertices),count);
+    count=0;state(14,0);state(6,1);state(8,1);state(1,0);state(12,0);state(10,5);state(11,6);
 }
 
 // 0x700BE0

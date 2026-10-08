@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "pairs": 9984,
+  "banks": [
+    {
+      "bank": "CTaskDead",
+      "passed": true,
+      "pairs": 1792,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-ctaskdead\\20261007-201226-271151"
+    },
+    {
+      "bank": "IdleAttractorPending",
+      "passed": true,
+      "pairs": 2048,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-idle-attractor-pending\\20261007-201404-402476"
+    },
+    {
+      "bank": "FightingControlPending",
+      "passed": true,
+      "pairs": 1024,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fighting-control-pending\\20261007-201515-804276"
+    },
+    {
+      "bank": "PlayerFighterPending",
+      "passed": true,
+      "pairs": 4096,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-player-fighter-pending\\20261007-201558-576943"
+    },
+    {
+      "bank": "RoadBlockPending",
+      "passed": true,
+      "pairs": 1024,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-roadblock-pending\\20261007-201658-292020"
+    }
+  ]
+}

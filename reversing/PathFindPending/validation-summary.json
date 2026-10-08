@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 2048,
+  "pairs_per_function": {
+    "CPathFind::ComputeRoute": 1024,
+    "CPathFind::DoPathSearch": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "f38450a6e17122ca400bc51a7155dd2f7040cffe42cd60a386391e768a304197",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-path-find-pending\\20261007-200329-375884",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CPathFind::ComputeRoute": true,
+    "CPathFind::DoPathSearch": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "761dfa59b3099738f3f2e764b4ec2b05526331a7977614acaf8883e50743188f",
+      "pdb": "3385b66877015d83e635051d5f1b1b4ed231db83740ea8dd35ae5fe3e52382e6"
+    },
+    "sources": {
+      "source/game_sa/PathFind.cpp": "b57cf6b5365de50d90e410e41e75dc7bcd40d34065689b0289544494c927267c",
+      "source/game_sa/PathFind.h": "357ab650168e37e361b942ed271e2221605b075899dc0a8f273b30c59dd6f331",
+      "source/game_sa/NodeRoute.h": "1ff0e51714d88d63726e51d7c702fc79a6c9cd12b0ca808d667d12253aa5b196",
+      "source/game_sa/NodeAddress.h": "a22f707c909a6cc7786132304de10096a7e9721036e76ced52df9786fe2f8bdd",
+      "source/game_sa/Route.hpp": "daaa88cd5402a812f7c1ee6ce5d4829df5dc38d473757a3bfbe4cfef240fbaba"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "572b6d2bf93b57a5ce07e872188d689eaf9c8c4a903e270c16d667ede4a315d5",
+      "build_probe.py": "a54b388a9c10433d3066f5706b044aeb8ac80f3eb489ebf820ee0a982017fdf4",
+      "run_local.py": "2b5bb925d802e695d90c8139a5ce80220c1a17803957f6c60720b68f8a87f110"
+    }
+  },
+  "limitations": [
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+  ]
+}

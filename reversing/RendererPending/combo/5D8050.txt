@@ -1,0 +1,18 @@
+// CCustomBuildingRenderer::Update @ 0x005d8050 [0x5d8050..0x5d805d]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005d8050(void)
+
+{
+  FUN_005d7f80();
+  FUN_005d6830(0);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005D8050: call 005D7F80
+005D8055: push 0
+005D8057: call 005D6830
+005D805C: pop ecx
+005D805D: ret

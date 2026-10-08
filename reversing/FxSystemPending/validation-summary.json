@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 5120,
+  "pairs_per_function": {
+    "FxSystem_c::AddParticle-v3d": 1024,
+    "FxSystem_c::AddParticle-mat": 1024,
+    "FxSystem_c::UpdateBoundingBoxCB": 1024,
+    "FxSystem_c::Update": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "6291c3721265c6f839059fcf247137c203c378aa331e147251ba32e8870d41fd",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fx-system-pending\\20261007-201105-632762",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "FxSystem_c::AddParticle-v3d": true,
+    "FxSystem_c::AddParticle-mat": true,
+    "FxSystem_c::UpdateBoundingBoxCB": true,
+    "FxSystem_c::Update": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "2015e74f1702da5cc8fccf0034d2b670af02583b2343a675cb8c31f5b3ed57c8",
+      "pdb": "1c292e17b618eb78edd1631958dce389565ae3c6a85983f4d727923652edb6de"
+    },
+    "sources": {
+      "source/game_sa/Fx/FxSystem.cpp": "67be0ffe5584c34163b9de53c03b8dd3b18f5d35cae369685d7a4be714a5fd16",
+      "source/game_sa/Fx/FxSystem.h": "d1f22e3b262e8dbecf3fc3f4440fb8a37886212def84f9d4c4679aba922e1932",
+      "source/game_sa/Fx/FxPrim.h": "6d5eb93bef6fc0f1e8b7af9bd2e90b7bd266875757191c8d60c0c7c24bc7f962"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "69675250ffe9e80b869672a78901eeb4d99edd12b149f1048082d364c1042894",
+      "build_probe.py": "547f541feee20ce73664ff0bbd46c4e16e30fff5a82937a0479e484e24c9dc39",
+      "run_local.py": "8ddfda33411a5e2163ca0d494647fd916b29e9d2c0ecaeaffbb1e7727d4db6dd"
+    }
+  },
+  "limitations": [
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+  ]
+}

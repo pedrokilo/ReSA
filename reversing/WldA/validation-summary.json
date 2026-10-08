@@ -1,0 +1,74 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 8704,
+  "pairs_per_function": {
+    "CWorld::FindObjectsInRange": 640,
+    "CWorld::FindObjectsInRangeSectorList<CPtrListDoubleLink<CPhysical*>>": 512,
+    "CWorld::FindObjectsOfTypeInRange": 640,
+    "CWorld::FindObjectsOfTypeInRangeSectorList<CPtrListDoubleLink<CPhysical*>>": 512,
+    "CWorld::FindLodOfTypeInRange": 640,
+    "CWorld::FindObjectsKindaColliding": 640,
+    "CWorld::FindObjectsKindaCollidingSectorList<CPtrListDoubleLink<CPhysical*>>": 512,
+    "CWorld::FindObjectsIntersectingCube": 640,
+    "CWorld::FindObjectsIntersectingCubeSectorList<CPtrListDoubleLink<CPhysical*>>": 512,
+    "CWorld::FindObjectsIntersectingAngledCollisionBox": 640,
+    "CWorld::FindObjectsIntersectingAngledCollisionBoxSectorList<CPtrListDoubleLink<CPhysical*>>": 512,
+    "CWorld::FindMissionEntitiesIntersectingCube": 640,
+    "CWorld::FindMissionEntitiesIntersectingCubeSectorList<CPtrListDoubleLink<CPhysical*>>": 512,
+    "CWorld::FindNearestObjectOfType": 640,
+    "CWorld::FindNearestObjectOfTypeSectorList<CPtrListDoubleLink<CPhysical*>>": 512
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "4d306d1a6c63dfb0885e39cf6b62fa036e510ceb5f0a2697b5894db692a409f0",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-wlda\\20261007-164225-201193",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CWorld::FindObjectsInRange": true,
+    "CWorld::FindObjectsInRangeSectorList<CPtrListDoubleLink<CPhysical*>>": true,
+    "CWorld::FindObjectsOfTypeInRange": true,
+    "CWorld::FindObjectsOfTypeInRangeSectorList<CPtrListDoubleLink<CPhysical*>>": true,
+    "CWorld::FindLodOfTypeInRange": true,
+    "CWorld::FindObjectsKindaColliding": true,
+    "CWorld::FindObjectsKindaCollidingSectorList<CPtrListDoubleLink<CPhysical*>>": true,
+    "CWorld::FindObjectsIntersectingCube": true,
+    "CWorld::FindObjectsIntersectingCubeSectorList<CPtrListDoubleLink<CPhysical*>>": true,
+    "CWorld::FindObjectsIntersectingAngledCollisionBox": true,
+    "CWorld::FindObjectsIntersectingAngledCollisionBoxSectorList<CPtrListDoubleLink<CPhysical*>>": true,
+    "CWorld::FindMissionEntitiesIntersectingCube": true,
+    "CWorld::FindMissionEntitiesIntersectingCubeSectorList<CPtrListDoubleLink<CPhysical*>>": true,
+    "CWorld::FindNearestObjectOfType": true,
+    "CWorld::FindNearestObjectOfTypeSectorList<CPtrListDoubleLink<CPhysical*>>": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "9aae23dbf7b23bac1d7dc0f6bb7490dff975309f07533f45ab5a5dd5501736a6",
+      "pdb": "85d5bb2fcdc1d8fe2eb11c911dd81e9b9544f28f98d44e8c84cc5193fed12de5"
+    },
+    "sources": {
+      "source/game_sa/World.cpp": "3f991f51df2534fcfbcf9953c830960d443db5da8918c17136d9360f4c8eb21e",
+      "source/game_sa/World.h": "ea7d5962a1786181fc5f24c303e7b307ebdea32b6639d480bbaa5641e6763c6c"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "2efb51c14aabc5be277c829290e6b264579983bbdc0595cb72652e68d40c6409",
+      "build_probe.py": "fe3c5b0ec15497e925a3120f1b49cec0cc28e37a49a7d5280ff1ca0eed42d79c",
+      "run_local.py": "acb4e2690921c65613868da42b02b7f9ba7b265261bd226203e41fe3fb56b69b"
+    }
+  },
+  "limitations": [
+    "Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion.",
+    "Ver README del banco."
+  ]
+}

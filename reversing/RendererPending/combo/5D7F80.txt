@@ -1,0 +1,86 @@
+// CCustomBuildingRenderer::UpdateDayNightBalanceParam @ 0x005d7f80 [0x5d7f80..0x5d8048]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_005d7f80(void)
+
+{
+  float fVar1;
+  
+  fVar1 = (float)DAT_00b70150 * 0.016666668 +
+          (float)((uint)DAT_00b70153 * 0x3c + (uint)DAT_00b70152);
+  if (360.0 <= fVar1) {
+    if (fVar1 < 420.0) {
+      DAT_008d12c0 = (420.0 - fVar1) * 0.016666668;
+      return;
+    }
+    if (fVar1 < 1200.0) {
+      DAT_008d12c0 = 0.0;
+      return;
+    }
+    if (fVar1 < 1260.0) {
+      DAT_008d12c0 = 1.0 - (1260.0 - fVar1) * 0.016666668;
+      return;
+    }
+  }
+  DAT_008d12c0 = 1.0;
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+005D7F80: push ecx
+005D7F81: movzx eax,byte ptr ds:[00B70153h]
+ 00
+005D7F88: movzx ecx,byte ptr ds:[00B70152h]
+ 00
+005D7F8F: imul eax,eax,3Ch
+005D7F92: movzx edx,word ptr ds:[00B70150h]
+ 00
+005D7F99: add eax,ecx
+005D7F9B: mov dword ptr [esp],eax
+005D7F9F: fild dword ptr [esp]
+005D7FA3: mov dword ptr [esp],edx
+005D7FA7: fild dword ptr [esp]
+005D7FAB: fmul dword ptr ds:[00859044h]
+005D7FB1: faddp st(1),st
+005D7FB3: fst dword ptr [esp]
+005D7FB7: fcomp dword ptr ds:[00859E2Ch]
+005D7FBD: fnstsw ax
+005D7FBF: test ah,5
+005D7FC2: jnp 005D803B
+005D7FC4: fld dword ptr [esp]
+005D7FC8: fcomp dword ptr ds:[0086BE9Ch]
+005D7FCE: fnstsw ax
+005D7FD0: test ah,5
+005D7FD3: jp 005D7FED
+005D7FD5: fld dword ptr ds:[0086BE9Ch]
+005D7FDB: fsub dword ptr [esp]
+005D7FDF: fmul dword ptr ds:[00859044h]
+005D7FE5: fstp dword ptr ds:[008D12C0h]
+005D7FEB: pop ecx
+005D7FEC: ret
+005D7FED: fld dword ptr [esp]
+005D7FF1: fcomp dword ptr ds:[0086BE98h]
+005D7FF7: fnstsw ax
+005D7FF9: test ah,5
+005D7FFC: jp 005D800C
+005D7FFE: fld dword ptr ds:[00858B50h]
+005D8004: fstp dword ptr ds:[008D12C0h]
+005D800A: pop ecx
+005D800B: ret
+005D800C: fld dword ptr [esp]
+005D8010: fcomp dword ptr ds:[0086BE94h]
+005D8016: fnstsw ax
+005D8018: test ah,5
+005D801B: jp 005D803B
+005D801D: fld dword ptr ds:[0086BE94h]
+005D8023: fsub dword ptr [esp]
+005D8027: fmul dword ptr ds:[00859044h]
+005D802D: fsubr dword ptr ds:[00858624h]
+005D8033: fstp dword ptr ds:[008D12C0h]
+005D8039: pop ecx
+005D803A: ret
+005D803B: fld dword ptr ds:[00858624h]
+005D8041: fstp dword ptr ds:[008D12C0h]
+005D8047: pop ecx
+005D8048: ret

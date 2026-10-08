@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 4096,
+  "pairs_per_function": {
+    "CTaskSimplePlayerOnFoot::PlayerControlFighter": 4096
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "fdbb1304191af50cbdf9ec2f900cb1551b535917e401587d028e7cc731c65ba2",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-player-fighter-pending\\20261007-201558-576943",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTaskSimplePlayerOnFoot::PlayerControlFighter": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "7c5265de3a4213f94790a161eb9b239e115f2a9c2d618895a65c3ddfb0cf843d",
+      "pdb": "4f2f7767b707d255c12ff0db9e88bf356bde9c60f9d77e8d2b4283a67b6bf8ec"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp": "b78a9646d7470cefbb419368e777f788dd618f69ec10fc40369f397a8cca18ea",
+      "source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.h": "5bdba70fb5bb39b826f3e47e6ba001c7c885f22f90cdb9fc3c2ddd28c4be23fe"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "c8a7211bc39d699d9eadd02b473f0f17b2757eddbe8e71887efeccbc30effb2c",
+      "build_probe.py": "15ff2e892db89075e7a916048230d18dfa5b7cf9a68b40e15ebbdcef79b545f2",
+      "run_local.py": "c190c317d89e7e7e3c6ff3bcbab6bcc7ca32bb5680c17f004e5be53526bb7ebc"
+    }
+  },
+  "limitations": [
+    "Objetos falsos y proveedores de angulo/controles simulados en ambas versiones; FSIN/FCOS y calculos internos reales. Estado restaurado. Sin NaN ni regresion de juego completo."
+  ]
+}

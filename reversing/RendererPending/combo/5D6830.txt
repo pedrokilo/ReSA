@@ -1,0 +1,278 @@
+// Sin pseudocódigo de Ghidra para 0x005d6830: None
+==== ensamblador exacto (dis.sh) ====
+005D6830: mov eax,dword ptr ds:[00C02C14h]
+005D6835: mov ecx,dword ptr [esp+4]
+005D6839: inc eax
+005D683A: and eax,0Fh
+005D683D: mov dword ptr ds:[00C02C14h],eax
+005D6842: mov dword ptr ds:[00C02C18h],ecx
+005D6848: ret
+005D6850: sub esp,28h
+005D6853: mov eax,dword ptr [esp+2Ch]
+005D6857: fld dword ptr [esp+30h]
+005D685B: mov eax,dword ptr [eax+18h]
+005D685E: mov ecx,dword ptr ds:[008D12BCh]
+005D6864: push ebx
+005D6865: fstp dword ptr [ecx+eax+8]
+005D6869: mov ecx,dword ptr ds:[008D12BCh]
+005D686F: mov edx,dword ptr [ecx+eax]
+005D6872: mov ebx,dword ptr [eax+14h]
+005D6875: push ebp
+005D6876: push esi
+005D6877: mov esi,dword ptr [eax+30h]
+005D687A: push edi
+005D687B: mov edi,dword ptr [ecx+eax+4]
+005D687F: push 8
+005D6881: push eax
+005D6882: mov dword ptr [esp+1Ch],esi
+005D6886: mov dword ptr [esp+18h],edx
+005D688A: mov dword ptr [esp+34h],edi
+005D688E: mov dword ptr [esp+2Ch],ebx
+005D6892: call 0074C7D0
+005D6897: fld dword ptr [esp+48h]
+005D689B: fcomp dword ptr ds:[00858B50h]
+005D68A1: mov dword ptr [esp+3Ch],eax
+005D68A5: add esp,8
+005D68A8: fnstsw ax
+005D68AA: test ah,5
+005D68AD: jp 005D68B9
+005D68AF: mov dword ptr [esp+40h],0
+005D68B7: jmp 005D68D2
+005D68B9: fld dword ptr [esp+40h]
+005D68BD: fcomp dword ptr ds:[00858624h]
+005D68C3: fnstsw ax
+005D68C5: test ah,41h
+005D68C8: jne 005D68D2
+005D68CA: mov dword ptr [esp+40h],3F800000h
+005D68D2: fld dword ptr ds:[00858624h]
+005D68D8: xor ebp,ebp
+005D68DA: cmp ebx,4
+005D68DD: fsub dword ptr [esp+40h]
+005D68E1: fstp dword ptr [esp+3Ch]
+005D68E5: jl 005D6BFC
+005D68EB: mov edx,dword ptr [esp+2Ch]
+005D68EF: mov ecx,dword ptr [esp+10h]
+005D68F3: mov eax,edx
+005D68F5: sub eax,ecx
+005D68F7: mov ecx,dword ptr [esp+14h]
+005D68FB: mov dword ptr [esp+18h],eax
+005D68FF: mov eax,ecx
+005D6901: sub eax,dword ptr [esp+10h]
+005D6905: lea ebx,[edi+4]
+005D6908: lea edi,[esi+1]
+005D690B: mov esi,dword ptr [esp+10h]
+005D690F: mov dword ptr [esp+1Ch],eax
+005D6913: mov eax,edx
+005D6915: add esi,2
+005D6918: sub eax,ecx
+005D691A: mov dword ptr [esp+28h],3
+005D6922: mov dword ptr [esp+20h],eax
+005D6926: movzx eax,byte ptr [esi-2]
+005D692A: movzx ecx,byte ptr [ebx-4]
+005D692E: mov dword ptr [esp+30h],eax
+005D6932: fild dword ptr [esp+30h]
+005D6936: mov dword ptr [esp+30h],ecx
+005D693A: fmul dword ptr [esp+40h]
+005D693E: fild dword ptr [esp+30h]
+005D6942: fmul dword ptr [esp+3Ch]
+005D6946: faddp st(1),st
+005D6948: call 00821B40
+005D694D: mov edx,dword ptr [esp+18h]
+005D6951: mov byte ptr [edi-1],al
+005D6954: movzx eax,byte ptr [edx+esi]
+005D6958: movzx ecx,byte ptr [esi]
+005D695B: mov dword ptr [esp+30h],eax
+005D695F: fild dword ptr [esp+30h]
+005D6963: mov dword ptr [esp+30h],ecx
+005D6967: fmul dword ptr [esp+3Ch]
+005D696B: fild dword ptr [esp+30h]
+005D696F: fmul dword ptr [esp+40h]
+005D6973: faddp st(1),st
+005D6975: call 00821B40
+005D697A: mov edx,dword ptr [esp+1Ch]
+005D697E: mov byte ptr [edx+esi],al
+005D6981: mov eax,dword ptr [esp+20h]
+005D6985: movzx ecx,byte ptr [edi+eax]
+005D6989: movzx edx,byte ptr [esi-1]
+005D698D: mov dword ptr [esp+30h],ecx
+005D6991: fild dword ptr [esp+30h]
+005D6995: mov dword ptr [esp+30h],edx
+005D6999: fmul dword ptr [esp+3Ch]
+005D699D: fild dword ptr [esp+30h]
+005D69A1: fmul dword ptr [esp+40h]
+005D69A5: faddp st(1),st
+005D69A7: call 00821B40
+005D69AC: mov byte ptr [edi],al
+005D69AE: movzx eax,byte ptr [esi+1]
+005D69B2: movzx ecx,byte ptr [ebx-1]
+005D69B6: mov dword ptr [esp+30h],eax
+005D69BA: fild dword ptr [esp+30h]
+005D69BE: mov dword ptr [esp+30h],ecx
+005D69C2: fmul dword ptr [esp+40h]
+005D69C6: fild dword ptr [esp+30h]
+005D69CA: fmul dword ptr [esp+3Ch]
+005D69CE: faddp st(1),st
+005D69D0: call 00821B40
+005D69D5: mov byte ptr [edi+2],al
+005D69D8: movzx edx,byte ptr [esi+2]
+005D69DC: movzx eax,byte ptr [ebx]
+005D69DF: mov dword ptr [esp+30h],edx
+005D69E3: fild dword ptr [esp+30h]
+005D69E7: mov dword ptr [esp+30h],eax
+005D69EB: fmul dword ptr [esp+40h]
+005D69EF: fild dword ptr [esp+30h]
+005D69F3: fmul dword ptr [esp+3Ch]
+005D69F7: faddp st(1),st
+005D69F9: call 00821B40
+005D69FE: mov byte ptr [edi+3],al
+005D6A01: movzx ecx,byte ptr [esi+4]
+005D6A05: movzx edx,byte ptr [ebx+2]
+005D6A09: mov dword ptr [esp+30h],ecx
+005D6A0D: fild dword ptr [esp+30h]
+005D6A11: mov dword ptr [esp+30h],edx
+005D6A15: fmul dword ptr [esp+40h]
+005D6A19: fild dword ptr [esp+30h]
+005D6A1D: fmul dword ptr [esp+3Ch]
+005D6A21: faddp st(1),st
+005D6A23: call 00821B40
+005D6A28: mov byte ptr [edi+5],al
+005D6A2B: movzx eax,byte ptr [esi+3]
+005D6A2F: movzx ecx,byte ptr [ebx+1]
+005D6A33: mov dword ptr [esp+30h],eax
+005D6A37: fild dword ptr [esp+30h]
+005D6A3B: mov dword ptr [esp+30h],ecx
+005D6A3F: fmul dword ptr [esp+40h]
+005D6A43: fild dword ptr [esp+30h]
+005D6A47: fmul dword ptr [esp+3Ch]
+005D6A4B: faddp st(1),st
+005D6A4D: call 00821B40
+005D6A52: mov byte ptr [edi+4],al
+005D6A55: movzx edx,byte ptr [esi+5]
+005D6A59: movzx eax,byte ptr [ebx+3]
+005D6A5D: mov dword ptr [esp+30h],edx
+005D6A61: fild dword ptr [esp+30h]
+005D6A65: mov dword ptr [esp+30h],eax
+005D6A69: fmul dword ptr [esp+40h]
+005D6A6D: fild dword ptr [esp+30h]
+005D6A71: fmul dword ptr [esp+3Ch]
+005D6A75: faddp st(1),st
+005D6A77: call 00821B40
+005D6A7C: mov byte ptr [edi+6],al
+005D6A7F: movzx ecx,byte ptr [esi+6]
+005D6A83: movzx edx,byte ptr [ebx+4]
+005D6A87: mov dword ptr [esp+30h],ecx
+005D6A8B: fild dword ptr [esp+30h]
+005D6A8F: mov dword ptr [esp+30h],edx
+005D6A93: fmul dword ptr [esp+40h]
+005D6A97: fild dword ptr [esp+30h]
+005D6A9B: fmul dword ptr [esp+3Ch]
+005D6A9F: faddp st(1),st
+005D6AA1: call 00821B40
+005D6AA6: mov byte ptr [edi+7],al
+005D6AA9: movzx eax,byte ptr [esi+8]
+005D6AAD: movzx ecx,byte ptr [ebx+6]
+005D6AB1: mov dword ptr [esp+30h],eax
+005D6AB5: fild dword ptr [esp+30h]
+005D6AB9: mov dword ptr [esp+30h],ecx
+005D6ABD: fmul dword ptr [esp+40h]
+005D6AC1: fild dword ptr [esp+30h]
+005D6AC5: fmul dword ptr [esp+3Ch]
+005D6AC9: faddp st(1),st
+005D6ACB: call 00821B40
+005D6AD0: mov byte ptr [edi+9],al
+005D6AD3: movzx edx,byte ptr [esi+7]
+005D6AD7: movzx eax,byte ptr [ebx+5]
+005D6ADB: mov dword ptr [esp+30h],edx
+005D6ADF: fild dword ptr [esp+30h]
+005D6AE3: mov dword ptr [esp+30h],eax
+005D6AE7: fmul dword ptr [esp+40h]
+005D6AEB: fild dword ptr [esp+30h]
+005D6AEF: fmul dword ptr [esp+3Ch]
+005D6AF3: faddp st(1),st
+005D6AF5: call 00821B40
+005D6AFA: mov byte ptr [edi+8],al
+005D6AFD: movzx ecx,byte ptr [esi+9]
+005D6B01: movzx edx,byte ptr [ebx+7]
+005D6B05: mov dword ptr [esp+30h],ecx
+005D6B09: fild dword ptr [esp+30h]
+005D6B0D: mov dword ptr [esp+30h],edx
+005D6B11: fmul dword ptr [esp+40h]
+005D6B15: fild dword ptr [esp+30h]
+005D6B19: fmul dword ptr [esp+3Ch]
+005D6B1D: faddp st(1),st
+005D6B1F: call 00821B40
+005D6B24: mov byte ptr [edi+0Ah],al
+005D6B27: movzx eax,byte ptr [esi+0Ah]
+005D6B2B: mov dword ptr [esp+30h],eax
+005D6B2F: fild dword ptr [esp+30h]
+005D6B33: movzx ecx,byte ptr [ebx+8]
+005D6B37: fmul dword ptr [esp+40h]
+005D6B3B: mov dword ptr [esp+30h],ecx
+005D6B3F: fild dword ptr [esp+30h]
+005D6B43: fmul dword ptr [esp+3Ch]
+005D6B47: faddp st(1),st
+005D6B49: call 00821B40
+005D6B4E: mov byte ptr [edi+0Bh],al
+005D6B51: movzx edx,byte ptr [esi+0Ch]
+005D6B55: movzx eax,byte ptr [ebx+0Ah]
+005D6B59: mov dword ptr [esp+30h],edx
+005D6B5D: fild dword ptr [esp+30h]
+005D6B61: mov dword ptr [esp+30h],eax
+005D6B65: fmul dword ptr [esp+40h]
+005D6B69: fild dword ptr [esp+30h]
+005D6B6D: fmul dword ptr [esp+3Ch]
+005D6B71: faddp st(1),st
+005D6B73: call 00821B40
+005D6B78: mov byte ptr [edi+0Dh],al
+005D6B7B: movzx ecx,byte ptr [esi+0Bh]
+005D6B7F: movzx edx,byte ptr [ebx+9]
+005D6B83: mov dword ptr [esp+30h],ecx
+005D6B87: fild dword ptr [esp+30h]
+005D6B8B: mov dword ptr [esp+30h],edx
+005D6B8F: fmul dword ptr [esp+40h]
+005D6B93: fild dword ptr [esp+30h]
+005D6B97: fmul dword ptr [esp+3Ch]
+005D6B9B: faddp st(1),st
+005D6B9D: call 00821B40
+005D6BA2: mov byte ptr [edi+0Ch],al
+005D6BA5: movzx eax,byte ptr [esi+0Dh]
+005D6BA9: movzx ecx,byte ptr [ebx+0Bh]
+005D6BAD: mov dword ptr [esp+30h],eax
+005D6BB1: fild dword ptr [esp+30h]
+005D6BB5: mov dword ptr [esp+30h],ecx
+005D6BB9: fmul dword ptr [esp+40h]
+005D6BBD: fild dword ptr [esp+30h]
+005D6BC1: fmul dword ptr [esp+3Ch]
+005D6BC5: faddp st(1),st
+005D6BC7: call 00821B40
+005D6BCC: mov ecx,dword ptr [esp+24h]
+005D6BD0: mov byte ptr [edi+0Eh],al
+005D6BD3: mov eax,dword ptr [esp+28h]
+005D6BD7: add eax,4
+005D6BDA: add ebp,4
+005D6BDD: add ebx,10h
+005D6BE0: add esi,10h
+005D6BE3: add edi,10h
+005D6BE6: cmp eax,ecx
+005D6BE8: mov dword ptr [esp+28h],eax
+005D6BEC: jl 005D6926
+005D6BF2: mov edi,dword ptr [esp+2Ch]
+005D6BF6: mov esi,dword ptr [esp+14h]
+005D6BFA: mov ebx,ecx
+005D6BFC: cmp ebp,ebx
+005D6BFE: jge 005D6CF6
+005D6C04: mov edx,dword ptr [esp+10h]
+005D6C08: mov ecx,dword ptr [esp+14h]
+005D6C0C: mov eax,edi
+005D6C0E: sub eax,edx
+005D6C10: mov dword ptr [esp+18h],eax
+005D6C14: mov eax,ecx
+005D6C16: sub eax,edx
+005D6C18: mov dword ptr [esp+1Ch],eax
+005D6C1C: mov eax,edi
+005D6C1E: sub eax,ecx
+005D6C20: lea ebx,[esi+ebp*4+1]
+005D6C24: lea esi,[edx+ebp*4+2]
+005D6C28: mov dword ptr [esp+20h],eax
+005D6C2C: lea esp,[esp]
+ 005D6C30: 0F

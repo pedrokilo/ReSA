@@ -1,0 +1,501 @@
+{
+  "classes": [
+    "CAEFrontendAudioEntity",
+    "CDecision",
+    "CGroupEventHandler",
+    "CPathFind",
+    "CPickups",
+    "CPopulation",
+    "CRealTimeShadowManager",
+    "CRope",
+    "CTaskComplexKillCriminal",
+    "CTaskComplexKillPedOnFootArmed",
+    "CAEStreamingChannel",
+    "CGangWars",
+    "CPedGroupPlacer",
+    "CPools",
+    "CPostEffects",
+    "CTaskComplexArrestPed",
+    "CTaskComplexGoToAttractor",
+    "CTaskGangHasslePed",
+    "CTaskSimpleGangDriveBy",
+    "CTaskUtilityLineUpPedWithCar",
+    "CAEPedAudioEntity",
+    "CAEPoliceScannerAudioEntity",
+    "CAEVehicleAudioEntity",
+    "CCustomBuildingRenderer",
+    "CFont",
+    "CTaskComplexProstituteSolicit",
+    "FxSystem_c"
+  ],
+  "functions": [
+    {
+      "class": "CRope",
+      "fn_name": "Update",
+      "address": "0x00557530",
+      "type": "S"
+    },
+    {
+      "class": "CRope",
+      "fn_name": "UpdateWeightInRope",
+      "address": "0x005561B0",
+      "type": "S"
+    },
+    {
+      "class": "CPostEffects",
+      "fn_name": "HeatHazeFX",
+      "address": "0x00701780",
+      "type": "S"
+    },
+    {
+      "class": "CPostEffects",
+      "fn_name": "Radiosity",
+      "address": "0x00702080",
+      "type": "S"
+    },
+    {
+      "class": "CPostEffects",
+      "fn_name": "SpeedFX",
+      "address": "0x007030A0",
+      "type": "S"
+    },
+    {
+      "class": "CPopulation",
+      "fn_name": "AddToPopulation",
+      "address": "0x00614720",
+      "type": "S"
+    },
+    {
+      "class": "CPopulation",
+      "fn_name": "ManageObject",
+      "address": "0x00615DC0",
+      "type": "S"
+    },
+    {
+      "class": "CPools",
+      "fn_name": "SaveObjectPool",
+      "address": "0x005D4940",
+      "type": "S"
+    },
+    {
+      "class": "CPools",
+      "fn_name": "SavePedPool",
+      "address": "0x005D4B40",
+      "type": "S"
+    },
+    {
+      "class": "CPools",
+      "fn_name": "SaveVehiclePool",
+      "address": "0x005D4800",
+      "type": "S"
+    },
+    {
+      "class": "CPickups",
+      "fn_name": "CreatePickupCoorsCloseToCoors-",
+      "address": "0x00458A80",
+      "type": "S"
+    },
+    {
+      "class": "CPickups",
+      "fn_name": "DoPickUpEffects",
+      "address": "0x00455720",
+      "type": "S"
+    },
+    {
+      "class": "CPedGroupPlacer",
+      "fn_name": "PlaceChatGroup",
+      "address": "0x005FCE80",
+      "type": "S"
+    },
+    {
+      "class": "CPedGroupPlacer",
+      "fn_name": "PlaceFormationGroup",
+      "address": "0x005FC9B0",
+      "type": "S"
+    },
+    {
+      "class": "CPedGroupPlacer",
+      "fn_name": "PlaceRandomGroup",
+      "address": "0x005FD330",
+      "type": "S"
+    },
+    {
+      "class": "CPathFind",
+      "fn_name": "ComputeRoute",
+      "address": "0x00452760",
+      "type": "S"
+    },
+    {
+      "class": "CPathFind",
+      "fn_name": "DoPathSearch",
+      "address": "0x004515D0",
+      "type": "S"
+    },
+    {
+      "class": "CGangWars",
+      "fn_name": "AddKillToProvocation",
+      "address": "0x00443950",
+      "type": "S"
+    },
+    {
+      "class": "CGangWars",
+      "fn_name": "CreateAttackWave",
+      "address": "0x00444810",
+      "type": "S"
+    },
+    {
+      "class": "CGangWars",
+      "fn_name": "Update",
+      "address": "0x00446610",
+      "type": "S"
+    },
+    {
+      "class": "CFont",
+      "fn_name": "FindSubFontCharacter",
+      "address": "0x007192C0",
+      "type": "S"
+    },
+    {
+      "class": "CFont",
+      "fn_name": "PrintChar",
+      "address": "0x00718A10",
+      "type": "S"
+    },
+    {
+      "class": "CFont",
+      "fn_name": "ProcessCurrentString",
+      "address": "0x0071A220",
+      "type": "S"
+    },
+    {
+      "class": "CFont",
+      "fn_name": "RenderFontBuffer",
+      "address": "0x00719840",
+      "type": "S"
+    },
+    {
+      "class": "CCustomBuildingRenderer",
+      "fn_name": "AtomicSetup",
+      "address": "0x005D7F00",
+      "type": "S"
+    },
+    {
+      "class": "CCustomBuildingRenderer",
+      "fn_name": "IsCBPCPipelineAttached",
+      "address": "0x005D7F40",
+      "type": "S"
+    },
+    {
+      "class": "CCustomBuildingRenderer",
+      "fn_name": "Update",
+      "address": "0x005D8050",
+      "type": "S"
+    },
+    {
+      "class": "CCustomBuildingRenderer",
+      "fn_name": "UpdateDayNightBalanceParam",
+      "address": "0x005D7F80",
+      "type": "S"
+    },
+    {
+      "class": "CGroupEventHandler",
+      "fn_name": "ComputeResponsLeaderQuitEnteringCar",
+      "address": "0x005F9530",
+      "type": "S"
+    },
+    {
+      "class": "CGroupEventHandler",
+      "fn_name": "ComputeResponseLeaderEnteredCar",
+      "address": "0x005F8900",
+      "type": "S"
+    },
+    {
+      "class": "FxSystem_c",
+      "fn_name": "AddParticle-mat",
+      "address": "0x004AA540",
+      "type": "S"
+    },
+    {
+      "class": "FxSystem_c",
+      "fn_name": "AddParticle-v3d",
+      "address": "0x004AA440",
+      "type": "S"
+    },
+    {
+      "class": "FxSystem_c",
+      "fn_name": "Update",
+      "address": "0x004AAF70",
+      "type": "S"
+    },
+    {
+      "class": "FxSystem_c",
+      "fn_name": "UpdateBoundingBoxCB",
+      "address": "0x004AA9A0",
+      "type": "S"
+    },
+    {
+      "class": "CAEVehicleAudioEntity",
+      "fn_name": "ProcessDummyBicycle",
+      "address": "0x004FFDC0",
+      "type": "S"
+    },
+    {
+      "class": "CAEVehicleAudioEntity",
+      "fn_name": "ProcessDummyHovercraft",
+      "address": "0x00500F50",
+      "type": "S"
+    },
+    {
+      "class": "CAEVehicleAudioEntity",
+      "fn_name": "ProcessGenericJet",
+      "address": "0x004FF900",
+      "type": "S"
+    },
+    {
+      "class": "CAEVehicleAudioEntity",
+      "fn_name": "ProcessPlayerBicycle",
+      "address": "0x00500040",
+      "type": "S"
+    },
+    {
+      "class": "CAEPoliceScannerAudioEntity",
+      "fn_name": "AddAudioEvent",
+      "address": "0x004E71E0",
+      "type": "S"
+    },
+    {
+      "class": "CAEPoliceScannerAudioEntity",
+      "fn_name": "LoadSlots",
+      "address": "0x004E6CD0",
+      "type": "S"
+    },
+    {
+      "class": "CAEPoliceScannerAudioEntity",
+      "fn_name": "PlayLoadedDialogue",
+      "address": "0x004E6F60",
+      "type": "S"
+    },
+    {
+      "class": "CAEPoliceScannerAudioEntity",
+      "fn_name": "Service",
+      "address": "0x004E7630",
+      "type": "S"
+    },
+    {
+      "class": "CAEPedAudioEntity",
+      "fn_name": "HandlePedHit",
+      "address": "0x004E1CC0",
+      "type": "S"
+    },
+    {
+      "class": "CAEPedAudioEntity",
+      "fn_name": "HandlePedJacked",
+      "address": "0x004E2350",
+      "type": "S"
+    },
+    {
+      "class": "CAEPedAudioEntity",
+      "fn_name": "HandlePedSwing",
+      "address": "0x004E1A40",
+      "type": "S"
+    },
+    {
+      "class": "CAEPedAudioEntity",
+      "fn_name": "Service",
+      "address": "0x004E2EE0",
+      "type": "S"
+    },
+    {
+      "class": "CAEFrontendAudioEntity",
+      "fn_name": "AddAudioEvent",
+      "address": "0x004DD4A0",
+      "type": "S"
+    },
+    {
+      "class": "CAEFrontendAudioEntity",
+      "fn_name": "UpdateParameters",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CAEStreamingChannel",
+      "fn_name": "Constructor",
+      "address": "0x004F1800",
+      "type": "S"
+    },
+    {
+      "class": "CAEStreamingChannel",
+      "fn_name": "PrepareStream",
+      "address": "0x004F23D0",
+      "type": "S"
+    },
+    {
+      "class": "CAEStreamingChannel",
+      "fn_name": "Service",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskUtilityLineUpPedWithCar",
+      "fn_name": "GetLocalPositionToOpenCarDoor",
+      "address": "0x0064FC10",
+      "type": "S"
+    },
+    {
+      "class": "CTaskUtilityLineUpPedWithCar",
+      "fn_name": "GetPositionToOpenCarDoor",
+      "address": "0x00650A80",
+      "type": "S"
+    },
+    {
+      "class": "CTaskUtilityLineUpPedWithCar",
+      "fn_name": "ProcessPed",
+      "address": "0x006513A0",
+      "type": "S"
+    },
+    {
+      "class": "CTaskGangHasslePed",
+      "fn_name": "ControlSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskGangHasslePed",
+      "fn_name": "CreateFirstSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskGangHasslePed",
+      "fn_name": "CreateNextSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexKillPedOnFootArmed",
+      "fn_name": "CreateNextSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexKillPedOnFootArmed",
+      "fn_name": "CreateSubTask",
+      "address": "0x00626FC0",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexKillCriminal",
+      "fn_name": "ControlSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexKillCriminal",
+      "fn_name": "CreateFirstSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexGoToAttractor",
+      "fn_name": "Clone",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexGoToAttractor",
+      "fn_name": "CreateFirstSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexGoToAttractor",
+      "fn_name": "CreateNextSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexArrestPed",
+      "fn_name": "ControlSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexArrestPed",
+      "fn_name": "CreateNextSubTask",
+      "address": "0x00000000",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexArrestPed",
+      "fn_name": "CreateSubTask",
+      "address": "0x0068CF80",
+      "type": "S"
+    },
+    {
+      "class": "CRealTimeShadowManager",
+      "fn_name": "GetRealTimeShadow",
+      "address": "0x00706970",
+      "type": "S"
+    },
+    {
+      "class": "CRealTimeShadowManager",
+      "fn_name": "ReInit",
+      "address": "0x00706870",
+      "type": "S"
+    },
+    {
+      "class": "CTaskComplexProstituteSolicit",
+      "fn_name": "ControlSubTask",
+      "address": "0x006669D0",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexProstituteSolicit",
+      "fn_name": "CreateFirstSubTask",
+      "address": "0x006666A0",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexProstituteSolicit",
+      "fn_name": "CreateNextSubTask",
+      "address": "0x00666780",
+      "type": "V"
+    },
+    {
+      "class": "CTaskComplexProstituteSolicit",
+      "fn_name": "CreateSubTask",
+      "address": "0x00666360",
+      "type": "S"
+    },
+    {
+      "class": "CTaskSimpleGangDriveBy",
+      "fn_name": "Clone",
+      "address": "0x006236D0",
+      "type": "V"
+    },
+    {
+      "class": "CTaskSimpleGangDriveBy",
+      "fn_name": "MakeAbortable",
+      "address": "0x0062D290",
+      "type": "V"
+    },
+    {
+      "class": "CTaskSimpleGangDriveBy",
+      "fn_name": "ProcessPed",
+      "address": "0x0062D3B0",
+      "type": "V"
+    },
+    {
+      "class": "CDecision",
+      "fn_name": "Set",
+      "address": "0x00600570",
+      "type": "S"
+    },
+    {
+      "class": "CDecision",
+      "fn_name": "SetDefault",
+      "address": "0x00600530",
+      "type": "S"
+    }
+  ]
+}

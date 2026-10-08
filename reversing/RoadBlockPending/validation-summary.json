@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 1024,
+  "pairs_per_function": {
+    "CRoadBlocks::CreateRoadBlockBetween2Points": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "50dc2913369fa3388cb9609dddb7ab8445349ee35e44e4ef630449b27ce28dc1",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-roadblock-pending\\20261007-201658-292020",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CRoadBlocks::CreateRoadBlockBetween2Points": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "e19b47f4e954204e2a09642d5fb243ed3089e4b08b131bbf5c6ad5d9ae64ea11",
+      "pdb": "8400c08136f4162b7399db9792e06ad786c73e60472d29ae4e7ccea81a7aa4ce"
+    },
+    "sources": {
+      "source/game_sa/RoadBlocks.cpp": "929ad1bb6cf1248857ea7755c0235b64704c89370a8f50de997549768e0b1116",
+      "source/game_sa/RoadBlocks.h": "2574b9f0525b4cb7ea2b60ac7411c1f724e00b6e53b28e8960db5f8a2fbc58c0"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "313d5ea5614c68a7e11fab9fecd0b0acf8a06dd05d649c5e2126b4802d41f99b",
+      "build_probe.py": "e42ddd2c0adc505cd1e02a7ed379dc6f39700a61b8e0bfa82a5b0039ab7615ec",
+      "run_local.py": "05973efbddf35282d9c6e06475ff4c5119581d8fbd63de76d5288fa9345a5d6a"
+    }
+  },
+  "limitations": [
+    "Entidades y modelos falsos; constructores, pools, mundo, fuego, dano y puertas simulados en EXE y DLL. Comparacion integra con hashes FNV-1a64 y gate positivo de nueve ramas; padding de matriz temporal no inicializado excluido. Estado restaurado; sin regresion de juego completo."
+  ]
+}

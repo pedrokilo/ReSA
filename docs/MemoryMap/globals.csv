@@ -142,6 +142,7 @@ s_State,0x00B61324,0x00761324,source/game_sa/Audio/Entities/AEGlobalWeaponAudioE
 s_GunShots,0x00B61318,0x00761318,source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp,195,static auto& s_GunShots   = StaticRef<int32>(0xB61318);,source_global_reference
 s_WeaponType,0x00B6131C,0x0076131C,source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp,196,static auto& s_WeaponType = StaticRef<eWeaponType>(0xB6131C);,source_global_reference
 s_Delay,0x00B61320,0x00761320,source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp,197,static auto& s_Delay      = StaticRef<uint32>(0xB61320);,source_global_reference
+reference,0x00858C58,0x00458C58,source/game_sa/Audio/Entities/AEPedAudioEntity.cpp,604,const float value = static_cast<float>(reinterpret_cast<const int32*>(0x8AD914)[size_t(surfaceId) * 4]) * StaticRef<float>(0x858C58);,source_global_reference
 s_nCJMoodOverrideTime,0x00B613E0,0x007613E0,source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h,119,static inline auto& s_nCJMoodOverrideTime = StaticRef<uint32>(0xB613E0);,source_global_reference
 s_nCJWellDressed,0x00B613D0,0x007613D0,source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h,122,static inline auto& s_nCJWellDressed = StaticRef<int16>(0xB613D0);,source_global_reference
 s_nCJFat,0x00B613D4,0x007613D4,source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h,125,static inline auto& s_nCJFat = StaticRef<int16>(0xB613D4);,source_global_reference
@@ -163,20 +164,75 @@ s_NextSpeechSlot,0x00B61414,0x00761414,source/game_sa/Audio/Entities/AEPedSpeech
 s_PhraseMemory,0x00B61418,0x00761418,source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h,167,"static inline auto& s_PhraseMemory = StaticRef<std::array<tPhraseMemory, 150>>(0xB61418);",source_global_reference
 s_PedSpeechSlots,0x00B61C38,0x00761C38,source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h,170,"static inline auto&      s_PedSpeechSlots   = StaticRef<std::array<CAEPedSpeechSlot, SND_BANK_SLOT_SPEECH6 - SND_BANK_SLOT_SPEECH1 + 1>>(0xB61C38);",source_global_reference
 gGlobalSpeechContextNextPlayTime,0x00B61670,0x00761670,source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h,174,"static inline auto& gGlobalSpeechContextNextPlayTime = StaticRef<std::array<uint32, CTX_GLOBAL_NUM>>(0xB61670); // PAIN (CTX_GLOBAL_PAIN_START -> CTX_GLOBAL_PAIN_END) is ignored, and `m_NextTimeCanSayPain` is used instead",source_global_reference
-s_fVolumeOffset,0x00B61CF8,0x00761CF8,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,30,static inline auto& s_fVolumeOffset = StaticRef<float>(0xB61CF8);,source_global_reference
-s_bStoppingScanner,0x00B61CFC,0x00761CFC,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,31,static inline auto& s_bStoppingScanner = StaticRef<bool>(0xB61CFC);,source_global_reference
-s_pSound,0x00B61D00,0x00761D00,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,32,static inline auto& s_pSound = StaticRef<CAESound*>(0xB61D00);,source_global_reference
-s_nAbortPlaybackTime,0x00B61D08,0x00761D08,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,33,static inline auto& s_nAbortPlaybackTime = StaticRef<uint32>(0xB61D08);,source_global_reference
-s_nPlaybackStartTime,0x00B61D0C,0x00761D0C,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,34,static inline auto& s_nPlaybackStartTime = StaticRef<uint32>(0xB61D0C);,source_global_reference
-s_nSectionPlaying,0x00B61D04,0x00761D04,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,35,static inline auto& s_nSectionPlaying = StaticRef<int16>(0xB61D04);,source_global_reference
-s_SlotState,0x00B61D14,0x00761D14,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,37,static inline auto& s_SlotState = StaticRef<int16[NUM_POLICE_SCANNER_SLOTS]>(0xB61D14);,source_global_reference
-s_pCurrentSlots,0x00B61D10,0x00761D10,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,38,static inline auto& s_pCurrentSlots = StaticRef<tScannerSlot*>(0xB61D10);,source_global_reference
-s_ScannerSlotFirst,0x00B61D34,0x00761D34,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,39,static inline auto& s_ScannerSlotFirst = StaticRef<tScannerSlot[NUM_POLICE_SCANNER_SLOTS]>(0xB61D34);,source_global_reference
-s_ScannerSlotSecond,0x00B61D20,0x00761D20,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,40,static inline auto& s_ScannerSlotSecond = StaticRef<tScannerSlot[NUM_POLICE_SCANNER_SLOTS]>(0xB61D20);,source_global_reference
-s_pPSControlling,0x00B61D48,0x00761D48,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,42,static inline auto& s_pPSControlling = StaticRef<CAEPoliceScannerAudioEntity*>(0xB61D48);,source_global_reference
-s_nScannerPlaybackState,0x00B61D4C,0x00761D4C,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,43,static inline auto& s_nScannerPlaybackState = StaticRef<CAEPoliceScannerAudioEntity::State>(0xB61D4C);,source_global_reference
-s_bScannerDisabled,0x00B61D4E,0x00761D4E,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,44,static inline auto& s_bScannerDisabled = StaticRef<bool>(0xB61D4E);,source_global_reference
-s_NextNewScannerDialogueTime,0x00B61D50,0x00761D50,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,45,static inline auto& s_NextNewScannerDialogueTime = StaticRef<uint32>(0xB61D50);,source_global_reference
+volumeChange,0x00B61D54,0x00761D54,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.cpp,221,auto volumeChange = StaticRef<float>(0xB61D54) + s_fVolumeOffset;,source_global_reference
+s_nAbortPlaybackTime,0x008C8148,0x004C8148,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.cpp,239,s_nAbortPlaybackTime = StaticRef<uint32>(0x8C8148) + CTimer::GetTimeInMS();,source_global_reference
+startDelay,0x008C8154,0x004C8154,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.cpp,338,const auto startDelay = StaticRef<uint32>(0x8C8154);,source_global_reference
+noiseVolume,0x008C8158,0x004C8158,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.cpp,339,const auto noiseVolume = StaticRef<float>(0x8C8158);,source_global_reference
+clickVolume,0x00B61D54,0x00761D54,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.cpp,340,const auto clickVolume = StaticRef<float>(0xB61D54);,source_global_reference
+reference,0x008C815C,0x004C815C,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.cpp,366,s_fVolumeOffset = CAEVehicleAudioEntity::s_pVehicleAudioSettingsForRadio ? 0.0f : StaticRef<float>(0x8C815C);,source_global_reference
+s_fVolumeOffset,0x00B61CF8,0x00761CF8,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,31,static inline auto& s_fVolumeOffset = StaticRef<float>(0xB61CF8);,source_global_reference
+s_bStoppingScanner,0x00B61CFC,0x00761CFC,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,32,static inline auto& s_bStoppingScanner = StaticRef<bool>(0xB61CFC);,source_global_reference
+s_pSound,0x00B61D00,0x00761D00,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,33,static inline auto& s_pSound = StaticRef<CAESound*>(0xB61D00);,source_global_reference
+s_nAbortPlaybackTime,0x00B61D08,0x00761D08,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,34,static inline auto& s_nAbortPlaybackTime = StaticRef<uint32>(0xB61D08);,source_global_reference
+s_nPlaybackStartTime,0x00B61D0C,0x00761D0C,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,35,static inline auto& s_nPlaybackStartTime = StaticRef<uint32>(0xB61D0C);,source_global_reference
+s_nSectionPlaying,0x00B61D04,0x00761D04,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,36,static inline auto& s_nSectionPlaying = StaticRef<int16>(0xB61D04);,source_global_reference
+s_SlotState,0x00B61D14,0x00761D14,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,38,static inline auto& s_SlotState = StaticRef<int16[NUM_POLICE_SCANNER_SLOTS]>(0xB61D14);,source_global_reference
+s_pCurrentSlots,0x00B61D10,0x00761D10,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,39,static inline auto& s_pCurrentSlots = StaticRef<tScannerSlot*>(0xB61D10);,source_global_reference
+s_ScannerSlotFirst,0x00B61D34,0x00761D34,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,40,static inline auto& s_ScannerSlotFirst = StaticRef<tScannerSlot[NUM_POLICE_SCANNER_SLOTS]>(0xB61D34);,source_global_reference
+s_ScannerSlotSecond,0x00B61D20,0x00761D20,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,41,static inline auto& s_ScannerSlotSecond = StaticRef<tScannerSlot[NUM_POLICE_SCANNER_SLOTS]>(0xB61D20);,source_global_reference
+s_pPSControlling,0x00B61D48,0x00761D48,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,43,static inline auto& s_pPSControlling = StaticRef<CAEPoliceScannerAudioEntity*>(0xB61D48);,source_global_reference
+s_nScannerPlaybackState,0x00B61D4C,0x00761D4C,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,44,static inline auto& s_nScannerPlaybackState = StaticRef<CAEPoliceScannerAudioEntity::State>(0xB61D4C);,source_global_reference
+s_bScannerDisabled,0x00B61D4E,0x00761D4E,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,45,static inline auto& s_bScannerDisabled = StaticRef<bool>(0xB61D4E);,source_global_reference
+s_NextNewScannerDialogueTime,0x00B61D50,0x00761D50,source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.h,46,static inline auto& s_NextNewScannerDialogueTime = StaticRef<uint32>(0xB61D50);,source_global_reference
+front,0x008CBE68,0x004CBE68,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3790,case 519: front=StaticRef<float>(0x8CBE68); rear=StaticRef<float>(0x8CBE6C); thrust=StaticRef<float>(0xB6B9F4); distant=StaticRef<float>(0x8CBE78); break;,source_global_reference
+front,0x008CBE6C,0x004CBE6C,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3790,case 519: front=StaticRef<float>(0x8CBE68); rear=StaticRef<float>(0x8CBE6C); thrust=StaticRef<float>(0xB6B9F4); distant=StaticRef<float>(0x8CBE78); break;,source_global_reference
+front,0x00B6B9F4,0x0076B9F4,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3790,case 519: front=StaticRef<float>(0x8CBE68); rear=StaticRef<float>(0x8CBE6C); thrust=StaticRef<float>(0xB6B9F4); distant=StaticRef<float>(0x8CBE78); break;,source_global_reference
+front,0x008CBE78,0x004CBE78,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3790,case 519: front=StaticRef<float>(0x8CBE68); rear=StaticRef<float>(0x8CBE6C); thrust=StaticRef<float>(0xB6B9F4); distant=StaticRef<float>(0x8CBE78); break;,source_global_reference
+front,0x008CBE7C,0x004CBE7C,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3791,case 520: front=StaticRef<float>(0x8CBE7C); rear=StaticRef<float>(0x8CBE80); thrust=StaticRef<float>(0xB6B9F8); distant=StaticRef<float>(0x8CBE8C); break;,source_global_reference
+front,0x008CBE80,0x004CBE80,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3791,case 520: front=StaticRef<float>(0x8CBE7C); rear=StaticRef<float>(0x8CBE80); thrust=StaticRef<float>(0xB6B9F8); distant=StaticRef<float>(0x8CBE8C); break;,source_global_reference
+front,0x00B6B9F8,0x0076B9F8,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3791,case 520: front=StaticRef<float>(0x8CBE7C); rear=StaticRef<float>(0x8CBE80); thrust=StaticRef<float>(0xB6B9F8); distant=StaticRef<float>(0x8CBE8C); break;,source_global_reference
+front,0x008CBE8C,0x004CBE8C,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3791,case 520: front=StaticRef<float>(0x8CBE7C); rear=StaticRef<float>(0x8CBE80); thrust=StaticRef<float>(0xB6B9F8); distant=StaticRef<float>(0x8CBE8C); break;,source_global_reference
+front,0x008CBE90,0x004CBE90,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3792,case 577: front=StaticRef<float>(0x8CBE90); rear=StaticRef<float>(0x8CBE94); thrust=StaticRef<float>(0x8CBE98); distant=StaticRef<float>(0x8CBEA4); break;,source_global_reference
+front,0x008CBE94,0x004CBE94,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3792,case 577: front=StaticRef<float>(0x8CBE90); rear=StaticRef<float>(0x8CBE94); thrust=StaticRef<float>(0x8CBE98); distant=StaticRef<float>(0x8CBEA4); break;,source_global_reference
+front,0x008CBE98,0x004CBE98,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3792,case 577: front=StaticRef<float>(0x8CBE90); rear=StaticRef<float>(0x8CBE94); thrust=StaticRef<float>(0x8CBE98); distant=StaticRef<float>(0x8CBEA4); break;,source_global_reference
+front,0x008CBEA4,0x004CBEA4,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3792,case 577: front=StaticRef<float>(0x8CBE90); rear=StaticRef<float>(0x8CBE94); thrust=StaticRef<float>(0x8CBE98); distant=StaticRef<float>(0x8CBEA4); break;,source_global_reference
+front,0x008CBEA8,0x004CBEA8,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3793,case 592: front=StaticRef<float>(0x8CBEA8); rear=StaticRef<float>(0x8CBEAC); thrust=StaticRef<float>(0xB6B9FC); distant=StaticRef<float>(0x8CBEB8); break;,source_global_reference
+front,0x008CBEAC,0x004CBEAC,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3793,case 592: front=StaticRef<float>(0x8CBEA8); rear=StaticRef<float>(0x8CBEAC); thrust=StaticRef<float>(0xB6B9FC); distant=StaticRef<float>(0x8CBEB8); break;,source_global_reference
+front,0x00B6B9FC,0x0076B9FC,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3793,case 592: front=StaticRef<float>(0x8CBEA8); rear=StaticRef<float>(0x8CBEAC); thrust=StaticRef<float>(0xB6B9FC); distant=StaticRef<float>(0x8CBEB8); break;,source_global_reference
+front,0x008CBEB8,0x004CBEB8,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3793,case 592: front=StaticRef<float>(0x8CBEA8); rear=StaticRef<float>(0x8CBEAC); thrust=StaticRef<float>(0xB6B9FC); distant=StaticRef<float>(0x8CBEB8); break;,source_global_reference
+reference,0x008CBD98,0x004CBD98,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3807,const auto frontVolume = CAEAudioUtility::AudioLog10((1.f - StaticRef<float>(0x8CBD98) * facing) * fEngineSpeed) * 20.f + front;,source_global_reference
+reference,0x00858B1C,0x00458B1C,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3812,const auto target = (((bank * StaticRef<float>(0x858B1C) + tilt * StaticRef<float>(0x858FCC)) + pitch) + 1.f) * fStalledFrequency;,source_global_reference
+reference,0x00858FCC,0x00458FCC,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3812,const auto target = (((bank * StaticRef<float>(0x858B1C) + tilt * StaticRef<float>(0x858FCC)) + pitch) + 1.f) * fStalledFrequency;,source_global_reference
+reference,0x00862D04,0x00462D04,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3815,"frequency = target < frequency ? std::max(target, frequency - StaticRef<float>(0x862D04)) : std::min(target, frequency + StaticRef<float>(0x862D04));",source_global_reference
+reference,0x00862D04,0x00462D04,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3815,"frequency = target < frequency ? std::max(target, frequency - StaticRef<float>(0x862D04)) : std::min(target, frequency + StaticRef<float>(0x862D04));",source_global_reference
+reference,0x00862D68,0x00462D68,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3883,"const auto ratio = std::clamp(std::abs(*reinterpret_cast<float*>(bytes+0x988) * StaticRef<float>(0x862D68)), 0.f, 1.f);",source_global_reference
+reference,0x00858CDC,0x00458CDC,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3886,if (params.Speed < StaticRef<float>(0x858CDC)) { accel=pad->GetAccelerate(); accel=int16(accel-pad->GetBrake()); brake=0; },source_global_reference
+reference,0x00858B1C,0x00458B1C,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3889,float offset = accel > 0 ? StaticRef<float>(0x858B1C) : ratio;,source_global_reference
+offset,0x0085901C,0x0045901C,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3890,if (brake > 0) offset = StaticRef<float>(0x85901C);,source_global_reference
+reference,0x00862D18,0x00462D18,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3891,"const auto rev = std::clamp(*reinterpret_cast<float*>(bytes+0x9C4) * StaticRef<float>(0x862D18), 0.f, 1.f);",source_global_reference
+volume,0x00B6BA90,0x0076BA90,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3892,const auto volume = StaticRef<float>(0xB6BA90) * rev + StaticRef<float>(0x8CBFAC);,source_global_reference
+volume,0x008CBFAC,0x004CBFAC,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3892,const auto volume = StaticRef<float>(0xB6BA90) * rev + StaticRef<float>(0x8CBFAC);,source_global_reference
+reference,0x00B6BA94,0x0076BA94,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3893,const auto target = ((StaticRef<float>(0xB6BA94) * rev + StaticRef<float>(0x8CBFBC) * ratio) + StaticRef<float>(0x8CBFB4)) + offset;,source_global_reference
+reference,0x008CBFBC,0x004CBFBC,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3893,const auto target = ((StaticRef<float>(0xB6BA94) * rev + StaticRef<float>(0x8CBFBC) * ratio) + StaticRef<float>(0x8CBFB4)) + offset;,source_global_reference
+reference,0x008CBFB4,0x004CBFB4,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3893,const auto target = ((StaticRef<float>(0xB6BA94) * rev + StaticRef<float>(0x8CBFBC) * ratio) + StaticRef<float>(0x8CBFB4)) + offset;,source_global_reference
+reference,0x00862D04,0x00462D04,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3895,"m_CurrentRotorFrequency = target < m_CurrentRotorFrequency ? std::max(target, m_CurrentRotorFrequency-StaticRef<float>(0x862D04)) : std::min(target, m_CurrentRotorFrequency+StaticRef<float>(0x862D04));",source_global_reference
+reference,0x00862D04,0x00462D04,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,3895,"m_CurrentRotorFrequency = target < m_CurrentRotorFrequency ? std::max(target, m_CurrentRotorFrequency-StaticRef<float>(0x862D04)) : std::min(target, m_CurrentRotorFrequency+StaticRef<float>(0x862D04));",source_global_reference
+reference,0x00B6BAD0,0x0076BAD0,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,4407,if (*reinterpret_cast<float*>(vehicle+0x818) > 5.f && StaticRef<float>(0xB6BAD0) * *reinterpret_cast<float*>(vehicle+0x820) < 0.f && StaticRef<float>(0xB6BACC) == 0.f) StaticRef<float>(0xB6BACC)=6.f;,source_global_reference
+reference,0x00B6BACC,0x0076BACC,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,4407,if (*reinterpret_cast<float*>(vehicle+0x818) > 5.f && StaticRef<float>(0xB6BAD0) * *reinterpret_cast<float*>(vehicle+0x820) < 0.f && StaticRef<float>(0xB6BACC) == 0.f) StaticRef<float>(0xB6BACC)=6.f;,source_global_reference
+reference,0x00B6BACC,0x0076BACC,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,4407,if (*reinterpret_cast<float*>(vehicle+0x818) > 5.f && StaticRef<float>(0xB6BAD0) * *reinterpret_cast<float*>(vehicle+0x820) < 0.f && StaticRef<float>(0xB6BACC) == 0.f) StaticRef<float>(0xB6BACC)=6.f;,source_global_reference
+reference,0x00B6BACC,0x0076BACC,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,4408,StaticRef<float>(0xB6BACC) -= StaticRef<float>(0x858CB0);,source_global_reference
+reference,0x00858CB0,0x00458CB0,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,4408,StaticRef<float>(0xB6BACC) -= StaticRef<float>(0x858CB0);,source_global_reference
+reference,0x00B6BACC,0x0076BACC,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,4409,if (StaticRef<float>(0xB6BACC)<0.f) StaticRef<float>(0xB6BACC)=0.f;,source_global_reference
+reference,0x00B6BACC,0x0076BACC,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,4409,if (StaticRef<float>(0xB6BACC)<0.f) StaticRef<float>(0xB6BACC)=0.f;,source_global_reference
+reference,0x008CBEBC,0x004CBEBC,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,4413,const auto volume = (CAEAudioUtility::AudioLog10(wheel * .25f * ratio) * 20.f + self.m_EventVolume) + StaticRef<float>(0x8CBEBC);,source_global_reference
+reference,0x00B6BA6C,0x0076BA6C,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,4414,const auto frequencyBase = ((wheel * StaticRef<float>(0xB6BA6C)) * .125f + StaticRef<float>(0xB6BA6C) * ratio) + StaticRef<float>(0x8CBD5C);,source_global_reference
+reference,0x00B6BA6C,0x0076BA6C,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,4414,const auto frequencyBase = ((wheel * StaticRef<float>(0xB6BA6C)) * .125f + StaticRef<float>(0xB6BA6C) * ratio) + StaticRef<float>(0x8CBD5C);,source_global_reference
+reference,0x008CBD5C,0x004CBD5C,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,4414,const auto frequencyBase = ((wheel * StaticRef<float>(0xB6BA6C)) * .125f + StaticRef<float>(0xB6BA6C) * ratio) + StaticRef<float>(0x8CBD5C);,source_global_reference
+multiplier,0x008CBD60,0x004CBD60,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,4417,const float multiplier=StaticRef<float>(0x8CBD60);,source_global_reference
+reference,0x008CBEC0,0x004CBEC0,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,4430,const auto sprocketVolume = (CAEAudioUtility::AudioLog10(tyre) * 20.f + self.m_EventVolume) + StaticRef<float>(0x8CBEC0);,source_global_reference
+sprocketFrequency,0x00B6BA70,0x0076BA70,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,4431,const auto sprocketFrequency = StaticRef<float>(0xB6BA70) * ratio + StaticRef<float>(0x8CBD64);,source_global_reference
+sprocketFrequency,0x008CBD64,0x004CBD64,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,4431,const auto sprocketFrequency = StaticRef<float>(0xB6BA70) * ratio + StaticRef<float>(0x8CBD64);,source_global_reference
+reference,0x00B6BAD0,0x0076BAD0,source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp,4437,if (player) StaticRef<float>(0xB6BAD0)=*reinterpret_cast<float*>(vehicle+0x820);,source_global_reference
 s_pPlayerAttachedForRadio,0x00B6B98C,0x0076B98C,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,600,static inline auto& s_pPlayerAttachedForRadio       = StaticRef<CPed*>(0xB6B98C);,source_global_reference
 s_pPlayerDriver,0x00B6B990,0x0076B990,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,601,static inline auto& s_pPlayerDriver                 = StaticRef<CPed*>(0xB6B990);,source_global_reference
 s_HelicoptorsDisabled,0x00B6B994,0x0076B994,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,602,static inline auto& s_HelicoptorsDisabled           = StaticRef<bool>(0xB6B994);,source_global_reference
@@ -881,9 +937,9 @@ gta_user_dir_path,0x00C92368,0x00892368,source/game_sa/FileMgr.cpp,35,auto& gta_
 ms_dirName,0x00B71A60,0x00771A60,source/game_sa/FileMgr.h,19,static inline auto& ms_dirName = StaticRef<char[128]>(0xb71a60);,source_global_reference
 ms_rootDirName,0x00B71AE0,0x00771AE0,source/game_sa/FileMgr.h,20,static inline auto& ms_rootDirName = StaticRef<char[128]>(0xb71ae0);,source_global_reference
 gFireManager,0x00B71F80,0x00771F80,source/game_sa/FireManager.h,81,static inline auto& gFireManager = StaticRef<CFireManager>(0xB71F80);,source_global_reference
-FontRenderStateBuf,0x00C716B0,0x008716B0,source/game_sa/Font.cpp,41,"auto& FontRenderStateBuf = StaticRef<std::array<CFontChar, 9>>(0xC716B0);",source_global_reference
-pEmptyChar,0x00C716A8,0x008716A8,source/game_sa/Font.cpp,42,auto& pEmptyChar = StaticRef<CFontChar*>(0xC716A8);,source_global_reference
-gFontData,0x00C718B0,0x008718B0,source/game_sa/Font.cpp,44,"auto& gFontData = StaticRef<std::array<tFontData, 2>>(0xC718B0);",source_global_reference
+FontRenderStateBuf,0x00C716B0,0x008716B0,source/game_sa/Font.cpp,31,"auto& FontRenderStateBuf = StaticRef<std::array<CFontChar, 9>>(0xC716B0);",source_global_reference
+pEmptyChar,0x00C716A8,0x008716A8,source/game_sa/Font.cpp,32,auto& pEmptyChar = StaticRef<CFontChar*>(0xC716A8);,source_global_reference
+gFontData,0x00C718B0,0x008718B0,source/game_sa/Font.cpp,34,"auto& gFontData = StaticRef<std::array<tFontData, 2>>(0xC718B0);",source_global_reference
 RenderState,0x00C71AA0,0x00871AA0,source/game_sa/Font.h,92,static inline auto& RenderState = StaticRef<CFontChar>(0xC71AA0);,source_global_reference
 Sprite,0x00C71AD0,0x00871AD0,source/game_sa/Font.h,94,static inline auto& Sprite = StaticRef<CSprite2d[MAX_FONT_SPRITES]>(0xC71AD0);,source_global_reference
 ButtonSprite,0x00C71AD8,0x00871AD8,source/game_sa/Font.h,96,static inline auto& ButtonSprite = StaticRef<CSprite2d[MAX_FONT_BUTTON_SPRITES]>(0xC71AD8);,source_global_reference
@@ -933,8 +989,8 @@ ms_aDirtTextures,0x00C02BD0,0x00802BD0,source/game_sa/Fx/CarFXRenderer.h,8,stati
 TempVertexBuffer,0x00C4D958,0x0084D958,source/game_sa/Fx/Fx.cpp,30,"static auto& TempVertexBuffer = StaticRef<std::array<RxObjSpace3DVertex, 4>>(0xC4D958);",source_global_reference
 g_fx,0x00A9AE00,0x0069AE00,source/game_sa/Fx/Fx.cpp,32,auto& g_fx = StaticRef<Fx_c>(0xA9AE00);,source_global_reference
 g_fxMan,0x00A9AE80,0x0069AE80,source/game_sa/Fx/FxManager.cpp,36,auto& g_fxMan = StaticRef<FxManager_c>(0xA9AE80);,source_global_reference
-version_name,0x00B72C28,0x00772C28,source/game_sa/Game.cpp,143,static auto& version_name = StaticRef<char[64]>(0xB72C28);,source_global_reference
-reference,0x00BD0114,0x007D0114,source/game_sa/Game.cpp,645,StaticRef<rwD3D9DeviceRestoreCallBack>(0xBD0114) = _rwD3D9DeviceGetRestoreCallback();,source_global_reference
+version_name,0x00B72C28,0x00772C28,source/game_sa/Game.cpp,142,static auto& version_name = StaticRef<char[64]>(0xB72C28);,source_global_reference
+reference,0x00BD0114,0x007D0114,source/game_sa/Game.cpp,644,StaticRef<rwD3D9DeviceRestoreCallBack>(0xBD0114) = _rwD3D9DeviceGetRestoreCallback();,source_global_reference
 aDatFile,0x00B728EC,0x007728EC,source/game_sa/Game.h,18,static inline auto& aDatFile = StaticRef<char[32]>(0xB728EC);,source_global_reference
 currLevel,0x00B7290C,0x0077290C,source/game_sa/Game.h,19,static inline auto& currLevel = StaticRef<int32>(0xB7290C);,source_global_reference
 bMissionPackGame,0x00B72910,0x00772910,source/game_sa/Game.h,20,static inline auto& bMissionPackGame = StaticRef<uint8>(0xB72910);,source_global_reference
@@ -1135,8 +1191,8 @@ OddJob2On,0x00BAB1E0,0x007AB1E0,source/game_sa/Hud.h,102,static inline auto& Odd
 PagerXOffset,0x008D0938,0x004D0938,source/game_sa/Hud.h,104,static inline auto& PagerXOffset = StaticRef<float>(0x8D0938); // 150.0f,source_global_reference
 HelpTripSkipShown,0x00BAB229,0x007AB229,source/game_sa/Hud.h,105,static inline auto& HelpTripSkipShown = StaticRef<bool>(0xBAB229);,source_global_reference
 HudColour,0x00BAB22C,0x007AB22C,source/game_sa/HudColours.cpp,23,auto& HudColour = StaticRef<CHudColours>(0xBAB22C);,source_global_reference
-gIdleCam,0x00B6FDA0,0x0076FDA0,source/game_sa/IdleCam.cpp,29,auto& gIdleCam = StaticRef<CIdleCam>(0xB6FDA0);,source_global_reference
-gbCineyCamProcessedOnFrame,0x00B6EC40,0x0076EC40,source/game_sa/IdleCam.cpp,30,auto& gbCineyCamProcessedOnFrame = StaticRef<uint32>(0xB6EC40);,source_global_reference
+gIdleCam,0x00B6FDA0,0x0076FDA0,source/game_sa/IdleCam.cpp,25,auto& gIdleCam = StaticRef<CIdleCam>(0xB6FDA0);,source_global_reference
+gbCineyCamProcessedOnFrame,0x00B6EC40,0x0076EC40,source/game_sa/IdleCam.cpp,26,auto& gbCineyCamProcessedOnFrame = StaticRef<uint32>(0xB6EC40);,source_global_reference
 ms_informFriendsEvents,0x00A9AFB8,0x0069AFB8,source/game_sa/InformFriendsEventQueue.h,15,"static inline auto& ms_informFriendsEvents = StaticRef<std::array<CInformFriendsEvent, 8>>(0xA9AFB8);",source_global_reference
 ms_informGroupEvents,0x00A9B018,0x0069B018,source/game_sa/InformGroupEventQueue.h,10,"static inline auto& ms_informGroupEvents = StaticRef<std::array<CInformGroupEvent, 8>>(0xA9B018);",source_global_reference
 PedNumberMultiplier,0x008CDF14,0x004CDF14,source/game_sa/IniFile.h,11,static inline auto& PedNumberMultiplier = StaticRef<float>(0x8CDF14);,source_global_reference
@@ -1468,16 +1524,16 @@ NewKeyState,0x00B73190,0x00773190,source/game_sa/Pad.h,109,static inline auto& N
 Pads,0x00B73458,0x00773458,source/game_sa/Pad.h,111,static inline auto& Pads = StaticRef<CPad[MAX_PADS]>(0xB73458);,source_global_reference
 bInvertLook4Pad,0x00B73402,0x00773402,source/game_sa/Pad.h,113,static inline auto& bInvertLook4Pad = StaticRef<bool>(0xB73402);,source_global_reference
 padNumber,0x00B73400,0x00773400,source/game_sa/Pad.h,114,static inline auto& padNumber = StaticRef<char>(0xB73400);,source_global_reference
-s_pathsNeededPosn,0x00977B70,0x00577B70,source/game_sa/PathFind.cpp,52,auto& s_pathsNeededPosn = StaticRef<CVector>(0x977B70);,source_global_reference
-s_bLoadPathsNeeded,0x0096F030,0x0056F030,source/game_sa/PathFind.cpp,53,auto& s_bLoadPathsNeeded = StaticRef<bool>(0x96F030);,source_global_reference
-ToBeStreamed,0x0096EFD0,0x0056EFD0,source/game_sa/PathFind.cpp,56,"auto& ToBeStreamed = StaticRef<std::array<bool, NUM_PATH_MAP_AREAS>>(0x96EFD0);",source_global_reference
-XCoorGiven,0x0096EE80,0x0056EE80,source/game_sa/PathFind.cpp,58,"auto& XCoorGiven = StaticRef<std::array<float, 64>>(0x96EE80);",source_global_reference
-YCoorGiven,0x0096ED80,0x0056ED80,source/game_sa/PathFind.cpp,59,"auto& YCoorGiven = StaticRef<std::array<float, 64>>(0x96ED80);",source_global_reference
-ZCoorGiven,0x0096EC80,0x0056EC80,source/game_sa/PathFind.cpp,60,"auto& ZCoorGiven = StaticRef<std::array<float, 64>>(0x96EC80);",source_global_reference
-ConnectsToGiven,0x0096EAC0,0x0056EAC0,source/game_sa/PathFind.cpp,61,"auto& ConnectsToGiven = StaticRef<std::array<std::array<int8, 8>, 64>>(0x96EAC0);",source_global_reference
-aInteriorNodeLinkedToExterior,0x0096EA98,0x0056EA98,source/game_sa/PathFind.cpp,63,"auto& aInteriorNodeLinkedToExterior = StaticRef<std::array<int32, NUM_PATH_INTERIOR_AREAS>>(0x96EA98);",source_global_reference
-aExteriorNodeLinkedTo,0x00977B7C,0x00577B7C,source/game_sa/PathFind.cpp,64,"auto& aExteriorNodeLinkedTo = StaticRef<std::array<CNodeAddress, NUM_PATH_INTERIOR_AREAS>>(0x977B7C);",source_global_reference
-aNodesToBeCleared,0x00972CD0,0x00572CD0,source/game_sa/PathFind.cpp,66,"auto& aNodesToBeCleared = StaticRef<std::array<CNodeAddress, 5000>>(0x972CD0);",source_global_reference
+s_pathsNeededPosn,0x00977B70,0x00577B70,source/game_sa/PathFind.cpp,46,auto& s_pathsNeededPosn = StaticRef<CVector>(0x977B70);,source_global_reference
+s_bLoadPathsNeeded,0x0096F030,0x0056F030,source/game_sa/PathFind.cpp,47,auto& s_bLoadPathsNeeded = StaticRef<bool>(0x96F030);,source_global_reference
+ToBeStreamed,0x0096EFD0,0x0056EFD0,source/game_sa/PathFind.cpp,50,"auto& ToBeStreamed = StaticRef<std::array<bool, NUM_PATH_MAP_AREAS>>(0x96EFD0);",source_global_reference
+XCoorGiven,0x0096EE80,0x0056EE80,source/game_sa/PathFind.cpp,52,"auto& XCoorGiven = StaticRef<std::array<float, 64>>(0x96EE80);",source_global_reference
+YCoorGiven,0x0096ED80,0x0056ED80,source/game_sa/PathFind.cpp,53,"auto& YCoorGiven = StaticRef<std::array<float, 64>>(0x96ED80);",source_global_reference
+ZCoorGiven,0x0096EC80,0x0056EC80,source/game_sa/PathFind.cpp,54,"auto& ZCoorGiven = StaticRef<std::array<float, 64>>(0x96EC80);",source_global_reference
+ConnectsToGiven,0x0096EAC0,0x0056EAC0,source/game_sa/PathFind.cpp,55,"auto& ConnectsToGiven = StaticRef<std::array<std::array<int8, 8>, 64>>(0x96EAC0);",source_global_reference
+aInteriorNodeLinkedToExterior,0x0096EA98,0x0056EA98,source/game_sa/PathFind.cpp,57,"auto& aInteriorNodeLinkedToExterior = StaticRef<std::array<int32, NUM_PATH_INTERIOR_AREAS>>(0x96EA98);",source_global_reference
+aExteriorNodeLinkedTo,0x00977B7C,0x00577B7C,source/game_sa/PathFind.cpp,58,"auto& aExteriorNodeLinkedTo = StaticRef<std::array<CNodeAddress, NUM_PATH_INTERIOR_AREAS>>(0x977B7C);",source_global_reference
+aNodesToBeCleared,0x00972CD0,0x00572CD0,source/game_sa/PathFind.cpp,60,"auto& aNodesToBeCleared = StaticRef<std::array<CNodeAddress, 5000>>(0x972CD0);",source_global_reference
 InteriorIDBeingBuilt,0x0096EF88,0x0056EF88,source/game_sa/PathFind.h,223,static inline auto& InteriorIDBeingBuilt = StaticRef<int32>(0x96EF88);,source_global_reference
 bInteriorBeingBuilt,0x0096F031,0x0056F031,source/game_sa/PathFind.h,224,static inline auto& bInteriorBeingBuilt = StaticRef<bool>(0x96F031);,source_global_reference
 NumNodesGiven,0x0096EF80,0x0056EF80,source/game_sa/PathFind.h,225,static inline auto& NumNodesGiven = StaticRef<uint32>(0x96EF80);,source_global_reference
@@ -1519,8 +1575,8 @@ ms_extraVertColourPluginOffset,0x008D12BC,0x004D12BC,source/game_sa/Pipelines/Cu
 ObjPipeline,0x00C02C1C,0x00802C1C,source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.h,26,static inline auto& ObjPipeline = StaticRef<RxPipeline*>(0xC02C1C);,source_global_reference
 EnvMapTexMatrix,0x00C02C70,0x00802C70,source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp,29,static inline auto& EnvMapTexMatrix = StaticRef<D3DMATRIX>(0xC02C70);,source_global_reference
 ObjPipeline,0x00C02C68,0x00802C68,source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.h,5,static inline auto& ObjPipeline = StaticRef<RxPipeline*>(0xC02C68);,source_global_reference
-workingIndex,0x00C02C14,0x00802C14,source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp,119,auto& workingIndex = StaticRef<uint32>(0xC02C14);,source_global_reference
-reference,0x00C02C18,0x00802C18,source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp,121,StaticRef<uint32>(0xC02C18) = 0;,source_global_reference
+workingIndex,0x00C02C14,0x00802C14,source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp,107,auto& workingIndex = StaticRef<uint32>(0xC02C14);,source_global_reference
+reference,0x00C02C18,0x00802C18,source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp,109,StaticRef<uint32>(0xC02C18) = 0;,source_global_reference
 EnvCamTexMatrix,0x00C02D78,0x00802D78,source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp,30,auto& EnvCamTexMatrix  = StaticRef<D3DMATRIX>(0xC02D78);,source_global_reference
 EnvWaveTexMatrix,0x00C02D38,0x00802D38,source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp,31,auto& EnvWaveTexMatrix = StaticRef<D3DMATRIX>(0xC02D38);,source_global_reference
 gEnvMapD3DMaterial,0x008D12D8,0x004D12D8,source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp,34,auto& gEnvMapD3DMaterial = StaticRef<D3DMATERIAL9>(0x8D12D8);,source_global_reference
@@ -1588,23 +1644,23 @@ aLights,0x00C3F0E0,0x0083F0E0,source/game_sa/PointLights.h,43,static inline auto
 aCachedMapReadResults,0x00C3F050,0x0083F050,source/game_sa/PointLights.h,45,static inline auto& aCachedMapReadResults = StaticRef<float[MAX_POINT_LIGHTS]>(0xC3F050);,source_global_reference
 NextCachedValue,0x00C3F0D4,0x0083F0D4,source/game_sa/PointLights.h,46,static inline auto& NextCachedValue = StaticRef<int32>(0xC3F0D4);,source_global_reference
 aCachedMapReads,0x00C3F6E0,0x0083F6E0,source/game_sa/PointLights.h,47,static inline auto& aCachedMapReads = StaticRef<CVector[MAX_POINT_LIGHTS]>(0xC3F6E0);,source_global_reference
-ms_pPedPool,0x00B74490,0x00774490,source/game_sa/Pools.cpp,51,auto& ms_pPedPool               = StaticRef<CPedPool*>(0xB74490);,source_global_reference
-ms_pVehiclePool,0x00B74494,0x00774494,source/game_sa/Pools.cpp,52,auto& ms_pVehiclePool           = StaticRef<CVehiclePool*>(0xB74494);,source_global_reference
-ms_pBuildingPool,0x00B74498,0x00774498,source/game_sa/Pools.cpp,53,auto& ms_pBuildingPool          = StaticRef<CBuildingPool*>(0xB74498);,source_global_reference
-ms_pObjectPool,0x00B7449C,0x0077449C,source/game_sa/Pools.cpp,54,auto& ms_pObjectPool            = StaticRef<CObjectPool*>(0xB7449C);,source_global_reference
-ms_pDummyPool,0x00B744A0,0x007744A0,source/game_sa/Pools.cpp,55,auto& ms_pDummyPool             = StaticRef<CDummyPool*>(0xB744A0);,source_global_reference
-ms_pColModelPool,0x00B744A4,0x007744A4,source/game_sa/Pools.cpp,56,auto& ms_pColModelPool          = StaticRef<CColModelPool*>(0xB744A4);,source_global_reference
-ms_pTaskPool,0x00B744A8,0x007744A8,source/game_sa/Pools.cpp,57,auto& ms_pTaskPool              = StaticRef<CTaskPool*>(0xB744A8);,source_global_reference
-ms_pPedIntelligencePool,0x00B744C0,0x007744C0,source/game_sa/Pools.cpp,58,auto& ms_pPedIntelligencePool   = StaticRef<CPedIntelligencePool*>(0xB744C0);,source_global_reference
-ms_pPtrNodeSingleLinkPool,0x00B74484,0x00774484,source/game_sa/Pools.cpp,59,auto& ms_pPtrNodeSingleLinkPool = StaticRef<CPtrNodeSingleLinkPool*>(0xB74484);,source_global_reference
-ms_pPtrNodeDoubleLinkPool,0x00B74488,0x00774488,source/game_sa/Pools.cpp,60,auto& ms_pPtrNodeDoubleLinkPool = StaticRef<CPtrNodeDoubleLinkPool*>(0xB74488);,source_global_reference
-ms_pEntryInfoNodePool,0x00B7448C,0x0077448C,source/game_sa/Pools.cpp,61,auto& ms_pEntryInfoNodePool     = StaticRef<CEntryInfoNodePool*>(0xB7448C);,source_global_reference
-ms_pPointRoutePool,0x00B744B0,0x007744B0,source/game_sa/Pools.cpp,62,auto& ms_pPointRoutePool        = StaticRef<CPointRoutePool*>(0xB744B0);,source_global_reference
-ms_pPatrolRoutePool,0x00B744B4,0x007744B4,source/game_sa/Pools.cpp,63,auto& ms_pPatrolRoutePool       = StaticRef<CPatrolRoutePool*>(0xB744B4);,source_global_reference
-ms_pEventPool,0x00B744AC,0x007744AC,source/game_sa/Pools.cpp,64,auto& ms_pEventPool             = StaticRef<CEventPool*>(0xB744AC);,source_global_reference
-ms_pNodeRoutePool,0x00B744B8,0x007744B8,source/game_sa/Pools.cpp,65,auto& ms_pNodeRoutePool         = StaticRef<CNodeRoutePool*>(0xB744B8);,source_global_reference
-ms_pTaskAllocatorPool,0x00B744BC,0x007744BC,source/game_sa/Pools.cpp,66,auto& ms_pTaskAllocatorPool     = StaticRef<CTaskAllocatorPool*>(0xB744BC);,source_global_reference
-ms_pPedAttractorPool,0x00B744C4,0x007744C4,source/game_sa/Pools.cpp,67,auto& ms_pPedAttractorPool      = StaticRef<CPedAttractorPool*>(0xB744C4);,source_global_reference
+ms_pPedPool,0x00B74490,0x00774490,source/game_sa/Pools.cpp,44,auto& ms_pPedPool               = StaticRef<CPedPool*>(0xB74490);,source_global_reference
+ms_pVehiclePool,0x00B74494,0x00774494,source/game_sa/Pools.cpp,45,auto& ms_pVehiclePool           = StaticRef<CVehiclePool*>(0xB74494);,source_global_reference
+ms_pBuildingPool,0x00B74498,0x00774498,source/game_sa/Pools.cpp,46,auto& ms_pBuildingPool          = StaticRef<CBuildingPool*>(0xB74498);,source_global_reference
+ms_pObjectPool,0x00B7449C,0x0077449C,source/game_sa/Pools.cpp,47,auto& ms_pObjectPool            = StaticRef<CObjectPool*>(0xB7449C);,source_global_reference
+ms_pDummyPool,0x00B744A0,0x007744A0,source/game_sa/Pools.cpp,48,auto& ms_pDummyPool             = StaticRef<CDummyPool*>(0xB744A0);,source_global_reference
+ms_pColModelPool,0x00B744A4,0x007744A4,source/game_sa/Pools.cpp,49,auto& ms_pColModelPool          = StaticRef<CColModelPool*>(0xB744A4);,source_global_reference
+ms_pTaskPool,0x00B744A8,0x007744A8,source/game_sa/Pools.cpp,50,auto& ms_pTaskPool              = StaticRef<CTaskPool*>(0xB744A8);,source_global_reference
+ms_pPedIntelligencePool,0x00B744C0,0x007744C0,source/game_sa/Pools.cpp,51,auto& ms_pPedIntelligencePool   = StaticRef<CPedIntelligencePool*>(0xB744C0);,source_global_reference
+ms_pPtrNodeSingleLinkPool,0x00B74484,0x00774484,source/game_sa/Pools.cpp,52,auto& ms_pPtrNodeSingleLinkPool = StaticRef<CPtrNodeSingleLinkPool*>(0xB74484);,source_global_reference
+ms_pPtrNodeDoubleLinkPool,0x00B74488,0x00774488,source/game_sa/Pools.cpp,53,auto& ms_pPtrNodeDoubleLinkPool = StaticRef<CPtrNodeDoubleLinkPool*>(0xB74488);,source_global_reference
+ms_pEntryInfoNodePool,0x00B7448C,0x0077448C,source/game_sa/Pools.cpp,54,auto& ms_pEntryInfoNodePool     = StaticRef<CEntryInfoNodePool*>(0xB7448C);,source_global_reference
+ms_pPointRoutePool,0x00B744B0,0x007744B0,source/game_sa/Pools.cpp,55,auto& ms_pPointRoutePool        = StaticRef<CPointRoutePool*>(0xB744B0);,source_global_reference
+ms_pPatrolRoutePool,0x00B744B4,0x007744B4,source/game_sa/Pools.cpp,56,auto& ms_pPatrolRoutePool       = StaticRef<CPatrolRoutePool*>(0xB744B4);,source_global_reference
+ms_pEventPool,0x00B744AC,0x007744AC,source/game_sa/Pools.cpp,57,auto& ms_pEventPool             = StaticRef<CEventPool*>(0xB744AC);,source_global_reference
+ms_pNodeRoutePool,0x00B744B8,0x007744B8,source/game_sa/Pools.cpp,58,auto& ms_pNodeRoutePool         = StaticRef<CNodeRoutePool*>(0xB744B8);,source_global_reference
+ms_pTaskAllocatorPool,0x00B744BC,0x007744BC,source/game_sa/Pools.cpp,59,auto& ms_pTaskAllocatorPool     = StaticRef<CTaskAllocatorPool*>(0xB744BC);,source_global_reference
+ms_pPedAttractorPool,0x00B744C4,0x007744C4,source/game_sa/Pools.cpp,60,auto& ms_pPedAttractorPool      = StaticRef<CPedAttractorPool*>(0xB744C4);,source_global_reference
 m_NumOther_Cars,0x00C0BC30,0x0080BC30,source/game_sa/PopCycle.h,196,static inline auto& m_NumOther_Cars = StaticRef<float>(0xC0BC30);,source_global_reference
 m_NumCops_Cars,0x00C0BC34,0x0080BC34,source/game_sa/PopCycle.h,197,static inline auto& m_NumCops_Cars = StaticRef<float>(0xC0BC34);,source_global_reference
 m_NumGangs_Cars,0x00C0BC38,0x0080BC38,source/game_sa/PopCycle.h,198,static inline auto& m_NumGangs_Cars = StaticRef<float>(0xC0BC38);,source_global_reference
@@ -1664,19 +1720,51 @@ m_nNumCarsInGroup,0x00C0EC78,0x0080EC78,source/game_sa/Population.h,67,"static i
 m_CarGroups,0x00C0ED38,0x0080ED38,source/game_sa/Population.h,70,"static inline auto& m_CarGroups       = StaticRef<notsa::mdarray<int16, (size_t)(POPCYCLE_TOTAL_CARGROUPS), 23>>(0xC0ED38);",source_global_reference
 m_nNumPedsInGroup,0x00C0ECC0,0x0080ECC0,source/game_sa/Population.h,73,"static inline auto& m_nNumPedsInGroup = StaticRef<std::array<uint16, (size_t)(POPCYCLE_TOTAL_PEDGROUPS)>>(0xC0ECC0);",source_global_reference
 m_PedGroups,0x00C0F358,0x0080F358,source/game_sa/Population.h,76,"static inline auto& m_PedGroups       = StaticRef<notsa::mdarray<int16, (size_t)(POPCYCLE_TOTAL_PEDGROUPS), 21>>(0xC0F358);",source_global_reference
-cc_vertices,0x00C400D8,0x008400D8,source/game_sa/PostEffects.cpp,34,"auto& cc_vertices = StaticRef<std::array<RwIm2DVertex, 4>>(0xC400D8);",source_global_reference
-cc_indices,0x008D5174,0x004D5174,source/game_sa/PostEffects.cpp,35,"auto& cc_indices = StaticRef<std::array<RwImVertexIndex, 12>>(0x8D5174); // { 0, 1, 2, 0, 2, 3, 0, 1, 2, 0, 2, 3 };",source_global_reference
-hpX,0x00C3FE08,0x0083FE08,source/game_sa/PostEffects.cpp,37,"auto& hpX = StaticRef<std::array<int32, 180>>(0xC3FE08);",source_global_reference
-hpY,0x00C3FB38,0x0083FB38,source/game_sa/PostEffects.cpp,38,"auto& hpY = StaticRef<std::array<int32, 180>>(0xC3FB38);",source_global_reference
-hpS,0x00C3F868,0x0083F868,source/game_sa/PostEffects.cpp,39,"auto& hpS = StaticRef<std::array<int32, 180>>(0xC3F868); // speed",source_global_reference
-s_DayNightBalanceParamOld,0x00C3F860,0x0083F860,source/game_sa/PostEffects.cpp,41,static inline auto& s_DayNightBalanceParamOld = StaticRef<float>(0xC3F860);,source_global_reference
-s_FogRadius,0x00C402E4,0x008402E4,source/game_sa/PostEffects.cpp,737,static auto& s_FogRadius = StaticRef<float>(0xC402E4);,source_global_reference
-s_FogAngle,0x00C402DC,0x008402DC,source/game_sa/PostEffects.cpp,738,static auto& s_FogAngle  = StaticRef<float>(0xC402DC);,source_global_reference
-s_NumberOfReseeds,0x00C4031C,0x0084031C,source/game_sa/PostEffects.cpp,826,static auto& s_NumberOfReseeds = StaticRef<uint32>(0xC4031C);,source_global_reference
-s_CurrentStrength,0x00C40328,0x00840328,source/game_sa/PostEffects.cpp,927,static auto& s_CurrentStrength    = StaticRef<int32>(0xC40328);,source_global_reference
-s_WaterGreen,0x00C40324,0x00840324,source/game_sa/PostEffects.cpp,928,static auto& s_WaterGreen         = StaticRef<float>(0xC40324);,source_global_reference
-s_WaitForOneFrame,0x00C40321,0x00840321,source/game_sa/PostEffects.cpp,929,static auto& s_WaitForOneFrame    = StaticRef<bool>(0xC40321);,source_global_reference
-s_SavePhotoToGallery,0x00C40320,0x00840320,source/game_sa/PostEffects.cpp,930,static auto& s_SavePhotoToGallery = StaticRef<bool>(0xC40320);,source_global_reference
+cc_vertices,0x00C400D8,0x008400D8,source/game_sa/PostEffects.cpp,27,"auto& cc_vertices = StaticRef<std::array<RwIm2DVertex, 4>>(0xC400D8);",source_global_reference
+cc_indices,0x008D5174,0x004D5174,source/game_sa/PostEffects.cpp,28,"auto& cc_indices = StaticRef<std::array<RwImVertexIndex, 12>>(0x8D5174); // { 0, 1, 2, 0, 2, 3, 0, 1, 2, 0, 2, 3 };",source_global_reference
+hpX,0x00C3FE08,0x0083FE08,source/game_sa/PostEffects.cpp,30,"auto& hpX = StaticRef<std::array<int32, 180>>(0xC3FE08);",source_global_reference
+hpY,0x00C3FB38,0x0083FB38,source/game_sa/PostEffects.cpp,31,"auto& hpY = StaticRef<std::array<int32, 180>>(0xC3FB38);",source_global_reference
+hpS,0x00C3F868,0x0083F868,source/game_sa/PostEffects.cpp,32,"auto& hpS = StaticRef<std::array<int32, 180>>(0xC3F868); // speed",source_global_reference
+s_DayNightBalanceParamOld,0x00C3F860,0x0083F860,source/game_sa/PostEffects.cpp,34,static inline auto& s_DayNightBalanceParamOld = StaticRef<float>(0xC3F860);,source_global_reference
+reference,0x00C402BB,0x008402BB,source/game_sa/PostEffects.cpp,565,if(!bAlphaMaskMode)StaticRef<uint8>(0xC402BB)=0;,source_global_reference
+count,0x00C4B950,0x0084B950,source/game_sa/PostEffects.cpp,576,auto& count=StaticRef<int32>(0xC4B950);auto& indexCount=StaticRef<int32>(0xC4B954);count=indexCount=0;,source_global_reference
+count,0x00C4B954,0x0084B954,source/game_sa/PostEffects.cpp,576,auto& count=StaticRef<int32>(0xC4B950);auto& indexCount=StaticRef<int32>(0xC4B954);count=indexCount=0;,source_global_reference
+reference,0x008D50E8,0x004D50E8,source/game_sa/PostEffects.cpp,577,"state(14,0);state(12,1);const auto alpha=int32(float(StaticRef<int32>(0x8D50E8))*fIntensity);count=0;",source_global_reference
+reference,0x00C97B24,0x00897B24,source/game_sa/PostEffects.cpp,581,"const auto put=[&](int32 index,float x,float y,float u,float v,uint32 color,bool setUV=true,bool setRecip=true){auto* p=vertices+index*7;p[0]=std::bit_cast<uint32>(x);p[1]=std::bit_cast<uint32>(y);p[2]=StaticRef<uint32>(StaticRef<uintptr_t>(0xC97B24)+0x18);if(setRecip)p[3]=std::bit_cast<uint32>(1.f/Scene.m_pRwCamera->nearPlane);p[4]=color;if(setUV){p[5]=std::bit_cast<uint32>(u);p[6]=std::bit_cast<",source_global_reference
+reference,0x00C402BB,0x008402BB,source/game_sa/PostEffects.cpp,582,if(!StaticRef<uint8>(0xC402BB)){,source_global_reference
+scanX,0x00C40304,0x00840304,source/game_sa/PostEffects.cpp,583,"const auto scanX=StaticRef<int32>(0xC40304),scanY=StaticRef<int32>(0xC40308),renderX=StaticRef<int32>(0xC4030C),renderY=StaticRef<int32>(0xC40310);",source_global_reference
+scanX,0x00C40308,0x00840308,source/game_sa/PostEffects.cpp,583,"const auto scanX=StaticRef<int32>(0xC40304),scanY=StaticRef<int32>(0xC40308),renderX=StaticRef<int32>(0xC4030C),renderY=StaticRef<int32>(0xC40310);",source_global_reference
+scanX,0x00C4030C,0x0084030C,source/game_sa/PostEffects.cpp,583,"const auto scanX=StaticRef<int32>(0xC40304),scanY=StaticRef<int32>(0xC40308),renderX=StaticRef<int32>(0xC4030C),renderY=StaticRef<int32>(0xC40310);",source_global_reference
+scanX,0x00C40310,0x00840310,source/game_sa/PostEffects.cpp,583,"const auto scanX=StaticRef<int32>(0xC40304),scanY=StaticRef<int32>(0xC40308),renderX=StaticRef<int32>(0xC4030C),renderY=StaticRef<int32>(0xC40310);",source_global_reference
+shift,0x00C402C0,0x008402C0,source/game_sa/PostEffects.cpp,585,"for(uint32 i=0;i<180;++i){int32 ux=hpX[i],uy=hpY[i],x=ux-halfX,y=uy-halfY;const auto shift=StaticRef<int32>(0xC402C0);",source_global_reference
+reference,0x00858B14,0x00458B14,source/game_sa/PostEffects.cpp,586,const auto randomScaled=[](int32 range){return int32((float(CGeneral::GetRandomNumber()&0xFFFF)*StaticRef<float>(0x858B14))*float(range));};,source_global_reference
+min,0x008D50EC,0x004D50EC,source/game_sa/PostEffects.cpp,595,hpY[i]-=int32((CTimer::GetTimeStep()*.5f)*float(hpS[i]));if(hpY[i]<0){hpX[i]=randomScaled(pRasterFrontBuffer->width-scanX);hpY[i]=pRasterFrontBuffer->height-scanY;const auto min=StaticRef<int32>(0x8D50EC);hpS[i]=randomScaled(StaticRef<int32>(0x8D50F0)-min)+min;},source_global_reference
+min,0x008D50F0,0x004D50F0,source/game_sa/PostEffects.cpp,595,hpY[i]-=int32((CTimer::GetTimeStep()*.5f)*float(hpS[i]));if(hpY[i]<0){hpX[i]=randomScaled(pRasterFrontBuffer->width-scanX);hpY[i]=pRasterFrontBuffer->height-scanY;const auto min=StaticRef<int32>(0x8D50EC);hpS[i]=randomScaled(StaticRef<int32>(0x8D50F0)-min)+min;},source_global_reference
+s_FogRadius,0x00C402E4,0x008402E4,source/game_sa/PostEffects.cpp,770,static auto& s_FogRadius = StaticRef<float>(0xC402E4);,source_global_reference
+s_FogAngle,0x00C402DC,0x008402DC,source/game_sa/PostEffects.cpp,771,static auto& s_FogAngle  = StaticRef<float>(0xC402DC);,source_global_reference
+s_NumberOfReseeds,0x00C4031C,0x0084031C,source/game_sa/PostEffects.cpp,859,static auto& s_NumberOfReseeds = StaticRef<uint32>(0xC4031C);,source_global_reference
+mode,0x00B6F1C4,0x0076F1C4,source/game_sa/PostEffects.cpp,904,const auto mode = StaticRef<int32>(0xB6F1C4 + uint32(StaticRef<uint8>(0xB6F081))*0x238);,source_global_reference
+mode,0x00B6F081,0x0076F081,source/game_sa/PostEffects.cpp,904,const auto mode = StaticRef<int32>(0xB6F1C4 + uint32(StaticRef<uint8>(0xB6F081))*0x238);,source_global_reference
+reference,0x00859CE0,0x00459CE0,source/game_sa/PostEffects.cpp,911,if(int32(jitter)>0){const auto jitterScale=float(jitter)*StaticRef<float>(0x859CE0);jx=ms_imf.fFrontBufferU2*jitterScale;jy=ms_imf.fFrontBufferV2*jitterScale;jx=(float(CGeneral::GetRandomNumber())*StaticRef<float>(0x858C7C))*jx;jy=(float(CGeneral::GetRandomNumber())*StaticRef<float>(0x858C7C))*jy;},source_global_reference
+reference,0x00858C7C,0x00458C7C,source/game_sa/PostEffects.cpp,911,if(int32(jitter)>0){const auto jitterScale=float(jitter)*StaticRef<float>(0x859CE0);jx=ms_imf.fFrontBufferU2*jitterScale;jy=ms_imf.fFrontBufferV2*jitterScale;jx=(float(CGeneral::GetRandomNumber())*StaticRef<float>(0x858C7C))*jx;jy=(float(CGeneral::GetRandomNumber())*StaticRef<float>(0x858C7C))*jy;},source_global_reference
+reference,0x00858C7C,0x00458C7C,source/game_sa/PostEffects.cpp,911,if(int32(jitter)>0){const auto jitterScale=float(jitter)*StaticRef<float>(0x859CE0);jx=ms_imf.fFrontBufferU2*jitterScale;jy=ms_imf.fFrontBufferV2*jitterScale;jx=(float(CGeneral::GetRandomNumber())*StaticRef<float>(0x858C7C))*jx;jy=(float(CGeneral::GetRandomNumber())*StaticRef<float>(0x858C7C))*jy;},source_global_reference
+reference,0x0086C340,0x0046C340,source/game_sa/PostEffects.cpp,912,const auto dx=(ms_imf.fFrontBufferU2*float(int32(spread)))*StaticRef<float>(0x86C340);,source_global_reference
+reference,0x0086C340,0x0046C340,source/game_sa/PostEffects.cpp,913,const auto dy=(float(int32(spread))*ms_imf.fFrontBufferV2)*StaticRef<float>(0x86C340);,source_global_reference
+reference,0x008D5104,0x004D5104,source/game_sa/PostEffects.cpp,923,"DrawQuad(0.f,0.f,float(RsGlobal.maximumWidth),float(RsGlobal.maximumHeight),255,255,255,StaticRef<uint8>(0x8D5104),pRasterFrontBuffer);",source_global_reference
+count,0x00C4B950,0x0084B950,source/game_sa/PostEffects.cpp,971,auto& count=StaticRef<int32>(0xC4B950);,source_global_reference
+width,0x00C40314,0x00840314,source/game_sa/PostEffects.cpp,975,"int32 width=StaticRef<int32>(0xC40314),height=StaticRef<int32>(0xC40318);",source_global_reference
+width,0x00C40318,0x00840318,source/game_sa/PostEffects.cpp,975,"int32 width=StaticRef<int32>(0xC40314),height=StaticRef<int32>(0xC40318);",source_global_reference
+reference,0x008D510B,0x004D510B,source/game_sa/PostEffects.cpp,978,"put(1,float(StaticRef<uint8>(0x8D510B)?RsGlobal.maximumWidth:width),float(StaticRef<uint8>(0x8D510B)?RsGlobal.maximumHeight:height),1.f,1.f,0,true,false);",source_global_reference
+reference,0x008D510B,0x004D510B,source/game_sa/PostEffects.cpp,978,"put(1,float(StaticRef<uint8>(0x8D510B)?RsGlobal.maximumWidth:width),float(StaticRef<uint8>(0x8D510B)?RsGlobal.maximumHeight:height),1.f,1.f,0,true,false);",source_global_reference
+reference,0x008D511C,0x004D511C,source/game_sa/PostEffects.cpp,980,"if(filterPasses>0){state(9,2);for(int32 i=0;i<filterPasses;++i){const auto nextWidth=width/2,nextHeight=height/2;put(count,0.f,0.f,float(StaticRef<int32>(0x8D511C))/float(pRasterFrontBuffer->width),float(StaticRef<int32>(0x8D5120))/float(pRasterFrontBuffer->height),0xFFFFFFFF);put(count+1,float(nextWidth+1),float(nextHeight+1),float(width)/float(pRasterFrontBuffer->width),float(height)/float(pRast",source_global_reference
+reference,0x008D5120,0x004D5120,source/game_sa/PostEffects.cpp,980,"if(filterPasses>0){state(9,2);for(int32 i=0;i<filterPasses;++i){const auto nextWidth=width/2,nextHeight=height/2;put(count,0.f,0.f,float(StaticRef<int32>(0x8D511C))/float(pRasterFrontBuffer->width),float(StaticRef<int32>(0x8D5120))/float(pRasterFrontBuffer->height),0xFFFFFFFF);put(count+1,float(nextWidth+1),float(nextHeight+1),float(width)/float(pRasterFrontBuffer->width),float(height)/float(pRast",source_global_reference
+reference,0x008D510A,0x004D510A,source/game_sa/PostEffects.cpp,984,"if(renderPasses>0){if(count>2)RwIm2DRenderPrimitive(rwPRIMTYPETRISTRIP,reinterpret_cast<RwIm2DVertex*>(vertices),count);count=0;state(9,StaticRef<uint8>(0x8D510A)?2:3);const auto renderColor=!StaticRef<uint8>(0x8D510B)&&StaticRef<uint8>(0xC402CD)?0xFFFFFFFFu:uint32(intensity)<<24;for(int32 i=0;i<renderPasses;++i){put(count,0.f,0.f,0.f,0.f,renderColor);put(count+1,float(RsGlobal.maximumWidth),float",source_global_reference
+reference,0x008D510B,0x004D510B,source/game_sa/PostEffects.cpp,984,"if(renderPasses>0){if(count>2)RwIm2DRenderPrimitive(rwPRIMTYPETRISTRIP,reinterpret_cast<RwIm2DVertex*>(vertices),count);count=0;state(9,StaticRef<uint8>(0x8D510A)?2:3);const auto renderColor=!StaticRef<uint8>(0x8D510B)&&StaticRef<uint8>(0xC402CD)?0xFFFFFFFFu:uint32(intensity)<<24;for(int32 i=0;i<renderPasses;++i){put(count,0.f,0.f,0.f,0.f,renderColor);put(count+1,float(RsGlobal.maximumWidth),float",source_global_reference
+reference,0x00C402CD,0x008402CD,source/game_sa/PostEffects.cpp,984,"if(renderPasses>0){if(count>2)RwIm2DRenderPrimitive(rwPRIMTYPETRISTRIP,reinterpret_cast<RwIm2DVertex*>(vertices),count);count=0;state(9,StaticRef<uint8>(0x8D510A)?2:3);const auto renderColor=!StaticRef<uint8>(0x8D510B)&&StaticRef<uint8>(0xC402CD)?0xFFFFFFFFu:uint32(intensity)<<24;for(int32 i=0;i<renderPasses;++i){put(count,0.f,0.f,0.f,0.f,renderColor);put(count+1,float(RsGlobal.maximumWidth),float",source_global_reference
+s_CurrentStrength,0x00C40328,0x00840328,source/game_sa/PostEffects.cpp,998,static auto& s_CurrentStrength    = StaticRef<int32>(0xC40328);,source_global_reference
+s_WaterGreen,0x00C40324,0x00840324,source/game_sa/PostEffects.cpp,999,static auto& s_WaterGreen         = StaticRef<float>(0xC40324);,source_global_reference
+s_WaitForOneFrame,0x00C40321,0x00840321,source/game_sa/PostEffects.cpp,1000,static auto& s_WaitForOneFrame    = StaticRef<bool>(0xC40321);,source_global_reference
+s_SavePhotoToGallery,0x00C40320,0x00840320,source/game_sa/PostEffects.cpp,1001,static auto& s_SavePhotoToGallery = StaticRef<bool>(0xC40320);,source_global_reference
 SCREEN_EXTRA_MULT_CHANGE_RATE,0x008D5168,0x004D5168,source/game_sa/PostEffects.h,81,static inline auto& SCREEN_EXTRA_MULT_CHANGE_RATE = StaticRef<float>(0x8D5168); // 0.0005f;,source_global_reference
 SCREEN_EXTRA_MULT_BASE_CAP,0x008D516C,0x004D516C,source/game_sa/PostEffects.h,82,static inline auto& SCREEN_EXTRA_MULT_BASE_CAP = StaticRef<float>(0x8D516C); // 0.35f;,source_global_reference
 SCREEN_EXTRA_MULT_BASE_MULT,0x008D5170,0x004D5170,source/game_sa/PostEffects.h,83,static inline auto& SCREEN_EXTRA_MULT_BASE_MULT = StaticRef<float>(0x8D5170); // 1.0f;,source_global_reference
@@ -1738,8 +1826,8 @@ m_RadiosityFilterVCorrection,0x008D5120,0x004D5120,source/game_sa/PostEffects.h,
 m_RadiosityIntensity,0x008D5118,0x004D5118,source/game_sa/PostEffects.h,153,static inline auto& m_RadiosityIntensity = StaticRef<int32>(0x8D5118); // 35,source_global_reference
 m_RadiosityIntensityLimit,0x008D5114,0x004D5114,source/game_sa/PostEffects.h,154,static inline auto& m_RadiosityIntensityLimit = StaticRef<int32>(0x8D5114); // 220,source_global_reference
 m_bRadiosityBypassTimeCycleIntensityLimit,0x00C402CE,0x008402CE,source/game_sa/PostEffects.h,155,static inline auto& m_bRadiosityBypassTimeCycleIntensityLimit = StaticRef<bool>(0xC402CE);,source_global_reference
-m_RadiosityPixelsX,0x00C40314,0x00840314,source/game_sa/PostEffects.h,156,static inline auto& m_RadiosityPixelsX = StaticRef<float>(0xC40314);  // SCREEN_WIDTH,source_global_reference
-m_RadiosityPixelsY,0x00C40318,0x00840318,source/game_sa/PostEffects.h,157,static inline auto& m_RadiosityPixelsY = StaticRef<float>(0xC40318);  // SCREEN_HEIGHT,source_global_reference
+m_RadiosityPixelsX,0x00C40314,0x00840314,source/game_sa/PostEffects.h,156,static inline auto& m_RadiosityPixelsX = StaticRef<int32>(0xC40314);  // SCREEN_WIDTH,source_global_reference
+m_RadiosityPixelsY,0x00C40318,0x00840318,source/game_sa/PostEffects.h,157,static inline auto& m_RadiosityPixelsY = StaticRef<int32>(0xC40318);  // SCREEN_HEIGHT,source_global_reference
 m_RadiosityFilterPasses,0x008D5110,0x004D5110,source/game_sa/PostEffects.h,158,static inline auto& m_RadiosityFilterPasses = StaticRef<uint32>(0x8D5110); // 1,source_global_reference
 m_RadiosityRenderPasses,0x008D510C,0x004D510C,source/game_sa/PostEffects.h,159,static inline auto& m_RadiosityRenderPasses = StaticRef<uint32>(0x8D510C); // 2,source_global_reference
 m_VisionFXDayNightBalance,0x008D50A4,0x004D50A4,source/game_sa/PostEffects.h,161,static inline auto& m_VisionFXDayNightBalance = StaticRef<float>(0x8D50A4); // 1.0f,source_global_reference
@@ -1790,7 +1878,7 @@ s_bLimitBones,0x008D2BD2,0x004D2BD2,source/game_sa/Ragdoll/IKChain.cpp,287,stati
 g_ikChainMan,0x00C15448,0x00815448,source/game_sa/Ragdoll/IKChainManager.cpp,29,auto& g_ikChainMan = StaticRef<IKChainManager_c>(0xC15448);,source_global_reference
 s_MaxRange,0x00866BEC,0x00466BEC,source/game_sa/Ragdoll/IKChainManager.cpp,132,static auto& s_MaxRange = StaticRef<float>(0x866BEC); // 999.0f,source_global_reference
 s_bDisableLookAts,0x00C1542C,0x0081542C,source/game_sa/Ragdoll/IKChainManager.cpp,267,static auto& s_bDisableLookAts = StaticRef<bool>(0xC1542C); // Como el original: solo se lee aquí,source_global_reference
-g_realTimeShadowMan,0x00C40350,0x00840350,source/game_sa/RealTimeShadowManager.cpp,30,auto& g_realTimeShadowMan = StaticRef<CRealTimeShadowManager>(0xC40350);,source_global_reference
+g_realTimeShadowMan,0x00C40350,0x00840350,source/game_sa/RealTimeShadowManager.cpp,24,auto& g_realTimeShadowMan = StaticRef<CRealTimeShadowManager>(0xC40350);,source_global_reference
 aRefs,0x00B9B9A8,0x0079B9A8,source/game_sa/References.h,15,static inline auto& aRefs = StaticRef<CReference[MAX_NUM_REFERENCES]>(0xB9B9A8);,source_global_reference
 pEmptyList,0x00BA1768,0x007A1768,source/game_sa/References.h,16,static inline auto& pEmptyList = StaticRef<CReference*>(0xBA1768);,source_global_reference
 reference,0x00C40410,0x00840410,source/game_sa/RenderBuffer.cpp,23,auto& s_IndicesToBeStored{ StaticRef<int32>(0xC40410) };,source_global_reference
@@ -1920,6 +2008,16 @@ RoadBlockNodes,0x00A435A0,0x006435A0,source/game_sa/RoadBlocks.h,39,"static inli
 aScriptRoadBlocks,0x00A43AB8,0x00643AB8,source/game_sa/RoadBlocks.h,40,"static inline auto& aScriptRoadBlocks         = StaticRef<std::array<CScriptRoadBlock, MAX_SCRIPT_ROADBLOCKS>>(0xA43AB8);",source_global_reference
 GenerateDynamicRoadBlocks,0x00A43584,0x00643584,source/game_sa/RoadBlocks.h,41,static inline auto& GenerateDynamicRoadBlocks = StaticRef<bool>(0xA43584);,source_global_reference
 NumRoadBlocks,0x00A43580,0x00643580,source/game_sa/RoadBlocks.h,42,static inline auto& NumRoadBlocks             = StaticRef<int32>(0xA43580);,source_global_reference
+reference,0x00863E40,0x00463E40,source/game_sa/Rope.cpp,249,"const float blend=float(std::pow(StaticRef<double>(0x863E40),double(CTimer::GetTimeStep())));",source_global_reference
+reference,0x00863E38,0x00463E38,source/game_sa/Rope.cpp,252,if(!(m_nFlags2&1)&&m_nTime<CTimer::GetTimeInMS()){m_aSpeed[0].z-=CTimer::GetTimeStep()*StaticRef<float>(0x863E38);m_aSegments[0].x=CTimer::GetTimeStep()*m_aSpeed[0].x+m_aSegments[0].x;m_aSegments[0].y=CTimer::GetTimeStep()*m_aSpeed[0].y+m_aSegments[0].y;m_aSegments[0].z=CTimer::GetTimeStep()*m_aSpeed[0].z+m_aSegments[0].z;},source_global_reference
+reference,0x00A44496,0x00644496,source/game_sa/Rope.cpp,259,if(controls){auto* pad=CPad::GetPad(0);if(type<=3){const auto axis=pad->GetCarGunUpDown();if((axis<0&&StaticRef<uint8>(0xA44496))||(axis>0&&StaticRef<uint8>(0xA44495)))m_fSegmentLength-=(float(axis)*CTimer::GetTimeStep())*StaticRef<float>(0x858C14);if(m_fSegmentLength>.84f)m_fSegmentLength=.84f;}else{,source_global_reference
+reference,0x00A44495,0x00644495,source/game_sa/Rope.cpp,259,if(controls){auto* pad=CPad::GetPad(0);if(type<=3){const auto axis=pad->GetCarGunUpDown();if((axis<0&&StaticRef<uint8>(0xA44496))||(axis>0&&StaticRef<uint8>(0xA44495)))m_fSegmentLength-=(float(axis)*CTimer::GetTimeStep())*StaticRef<float>(0x858C14);if(m_fSegmentLength>.84f)m_fSegmentLength=.84f;}else{,source_global_reference
+reference,0x00858C14,0x00458C14,source/game_sa/Rope.cpp,259,if(controls){auto* pad=CPad::GetPad(0);if(type<=3){const auto axis=pad->GetCarGunUpDown();if((axis<0&&StaticRef<uint8>(0xA44496))||(axis>0&&StaticRef<uint8>(0xA44495)))m_fSegmentLength-=(float(axis)*CTimer::GetTimeStep())*StaticRef<float>(0x858C14);if(m_fSegmentLength>.84f)m_fSegmentLength=.84f;}else{,source_global_reference
+reference,0x00858C14,0x00458C14,source/game_sa/Rope.cpp,260,"const auto change=[&](uintptr_t enable,size_t padOffset,bool increase){if(!StaticRef<uint8>(enable))return;const auto amount=(float(field.operator()<int16>(pad,padOffset))*CTimer::GetTimeStep())*StaticRef<float>(0x858C14);if(amount>0.f&&(increase?amount+m_fSegmentLength<.9f:.01f<m_fSegmentLength-amount))AudioEngine.ReportMissionAudioEvent(104,reinterpret_cast<CPhysical*>(m_pRopeHolder),0.f,1.f);m_",source_global_reference
+coupling,0x008CD898,0x004CD898,source/game_sa/Rope.cpp,263,auto* suspended=m_pRopeAttachObject?m_pRopeAttachObject:m_pAttachedEntity;float coupling=StaticRef<float>(0x8CD898);,source_global_reference
+reference,0x008CD89C,0x004CD89C,source/game_sa/Rope.cpp,264,"if(m_pRopeAttachObject){const auto mass=model(suspended)==428?750.f:field.operator()<float>(suspended,0x8C);coupling=(StaticRef<float>(0x8CD89C)*StaticRef<float>(0x863E30))*mass+coupling;coupling=std::min(coupling,.5f);field.operator()<uint8>(suspended,0xB8)=0;}else field.operator()<uint32>(suspended,0x1C)|=1;",source_global_reference
+reference,0x00863E30,0x00463E30,source/game_sa/Rope.cpp,264,"if(m_pRopeAttachObject){const auto mass=model(suspended)==428?750.f:field.operator()<float>(suspended,0x8C);coupling=(StaticRef<float>(0x8CD89C)*StaticRef<float>(0x863E30))*mass+coupling;coupling=std::min(coupling,.5f);field.operator()<uint8>(suspended,0xB8)=0;}else field.operator()<uint32>(suspended,0x1C)|=1;",source_global_reference
+reference,0x00A44494,0x00644494,source/game_sa/Rope.cpp,274,"if(m_pRopeAttachObject){if(controls&&StaticRef<uint8>(0xA44494)&&CPad::GetPad(0)->CarGunJustDown())ReleasePickedUpObject();if(m_pRopeAttachObject&&(flags(m_pRopeAttachObject)&0x20000000)){flags(m_pRopeAttachObject)&=0xFDFFFFFF;flags(m_pRopeAttachObject)&=0x7FFFFFFF;m_pRopeAttachObject=nullptr;field.operator()<uint32>(m_pAttachedEntity,0x1C)|=1;m_nFlags1=60;}if(m_pRopeAttachObject&&(field.operator(",source_global_reference
 aRopes,0x00B768B8,0x007768B8,source/game_sa/Ropes.h,24,"static inline auto& aRopes = StaticRef<std::array<CRope, MAX_NUM_ROPES>>(0xB768B8); // Access using CRopes::GetRope()",source_global_reference
 PlayerControlsCrane,0x00B76898,0x00776898,source/game_sa/Ropes.h,25,static inline auto& PlayerControlsCrane = StaticRef<eControlledCrane>(0xB76898);,source_global_reference
 m_nRopeIdCreationCounter,0x00B781F8,0x007781F8,source/game_sa/Ropes.h,26,static inline auto& m_nRopeIdCreationCounter = StaticRef<uint32>(0xB781F8);,source_global_reference
@@ -2223,7 +2321,12 @@ ms_OverRailingVerticalForce,0x008D2F14,0x004D2F14,source/game_sa/Tasks/TaskTypes
 ms_LateralForceMagnitude,0x008D2F18,0x004D2F18,source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.h,29,static inline auto& ms_LateralForceMagnitude    = StaticRef<float>(0x8D2F18); // 6.0f,source_global_reference
 ms_offsets,0x00C196E8,0x008196E8,source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h,24,static inline auto& ms_offsets = StaticRef<Offsets>(0xC196E8);,source_global_reference
 s_EmptyNodeAddress,0x008A5F44,0x004A5F44,source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.cpp,61,auto& s_EmptyNodeAddress = StaticRef<CNodeAddress>(0x8A5F44);,source_global_reference
+reference,0x00B72994,0x00772994,source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp,395,|| !StaticRef<bool>(0xB72994) || ped->m_nPedType != PED_TYPE_COP) {,source_global_reference
+reference,0x00B72994,0x00772994,source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp,527,if (!StaticRef<bool>(0xB72994)) {,source_global_reference
+reference,0x00859E30,0x00459E30,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp,348,"StaticRef<float>(0x859E30), StaticRef<float>(0x859E34), true, true};",source_global_reference
+reference,0x00859E34,0x00459E34,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp,348,"StaticRef<float>(0x859E30), StaticRef<float>(0x859E34), true, true};",source_global_reference
 ms_animBlock,0x008D2E38,0x004D2E38,source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.h,16,static inline auto& ms_animBlock = StaticRef<uint32>(0x8D2E38);,source_global_reference
+reference,0x00B6F0D8,0x0076F0D8,source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp,291,if (StaticRef<int32>(0xB6F0D8) == 1) {,source_global_reference
 pedHitDist,0x008D22B0,0x004D22B0,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundCar.cpp,167,auto& pedHitDist = StaticRef<float>(0x8D22B0);,source_global_reference
 flt_8D2ED4,0x008D2ED4,0x004D2ED4,source/game_sa/Tasks/TaskTypes/TaskSimpleCarGetIn.cpp,158,const auto& flt_8D2ED4 = StaticRef<float>(0x8D2ED4); // 10.f,source_global_reference
 flt_8D2ED0,0x008D2ED0,0x004D2ED0,source/game_sa/Tasks/TaskTypes/TaskSimpleCarGetIn.cpp,161,const auto& flt_8D2ED0 = StaticRef<float>(0x8D2ED0); // 0.01f,source_global_reference
@@ -2233,20 +2336,23 @@ ms_VaultColModel,0x00C19578,0x00819578,source/game_sa/Tasks/TaskTypes/TaskSimple
 ms_FindEdgeColModel,0x00C195A8,0x008195A8,source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,35,auto& ms_FindEdgeColModel = StaticRef<CColModel>(0xC195A8);,source_global_reference
 m_nMaxPlayerDownTime,0x008D2EF4,0x004D2EF4,source/game_sa/Tasks/TaskTypes/TaskSimpleFall.h,15,static inline auto& m_nMaxPlayerDownTime = StaticRef<uint32>(0x8D2EF4);,source_global_reference
 m_aComboData,0x00C170D0,0x008170D0,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h,60,"static inline auto& m_aComboData = StaticRef<std::array<CMeleeInfo, 12>>(0xC170D0);",source_global_reference
-FightControlAttackInterval,0x008D2E4C,0x004D2E4C,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,35,static auto& FightControlAttackInterval = StaticRef<uint32>(0x8D2E4C);,source_global_reference
-FightControlIdleTime,0x008D2E50,0x004D2E50,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,36,static auto& FightControlIdleTime = StaticRef<float>(0x8D2E50);,source_global_reference
-FightControlBlockChance,0x008D2E54,0x004D2E54,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,37,static auto& FightControlBlockChance = StaticRef<float>(0x8D2E54);,source_global_reference
-FightControlBlockTimeMin,0x008D2E58,0x004D2E58,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,38,static auto& FightControlBlockTimeMin = StaticRef<int32>(0x8D2E58);,source_global_reference
-FightControlBlockTimeMax,0x008D2E5C,0x004D2E5C,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,39,static auto& FightControlBlockTimeMax = StaticRef<int32>(0x8D2E5C);,source_global_reference
+FightControlAttackInterval,0x008D2E4C,0x004D2E4C,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,31,static auto& FightControlAttackInterval = StaticRef<uint32>(0x8D2E4C);,source_global_reference
+FightControlIdleTime,0x008D2E50,0x004D2E50,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,32,static auto& FightControlIdleTime = StaticRef<float>(0x8D2E50);,source_global_reference
+FightControlBlockChance,0x008D2E54,0x004D2E54,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,33,static auto& FightControlBlockChance = StaticRef<float>(0x8D2E54);,source_global_reference
+FightControlBlockTimeMin,0x008D2E58,0x004D2E58,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,34,static auto& FightControlBlockTimeMin = StaticRef<int32>(0x8D2E58);,source_global_reference
+FightControlBlockTimeMax,0x008D2E5C,0x004D2E5C,source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp,35,static auto& FightControlBlockTimeMax = StaticRef<int32>(0x8D2E5C);,source_global_reference
+loopStart,0x008D2E7C,0x004D2E7C,source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp,176,auto& loopStart = StaticRef<float>(0x8D2E7C);,source_global_reference
+loopEnd,0x008D2E80,0x004D2E80,source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp,177,auto& loopEnd = StaticRef<float>(0x8D2E80);,source_global_reference
+fireTime,0x008D2E84,0x004D2E84,source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp,178,auto& fireTime = StaticRef<float>(0x8D2E84);,source_global_reference
 m_aColPoints,0x00C18F98,0x00818F98,source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.h,32,"static inline auto& m_aColPoints = StaticRef<std::array<CColPoint, 32>>(0xC18F98);",source_global_reference
 ms_fLookAtThresholdDotProduct,0x00C18D48,0x00818D48,source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h,22,static inline auto& ms_fLookAtThresholdDotProduct = StaticRef<float>(0xC18D48);,source_global_reference
 ms_fSlowFallThreshold,0x008D2EFC,0x004D2EFC,source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h,35,static inline auto& ms_fSlowFallThreshold = StaticRef<float>(0x8D2EFC); // -0.05f,source_global_reference
 ms_nMaxSlowFallFrames,0x008D2EF8,0x004D2EF8,source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.h,36,static inline auto& ms_nMaxSlowFallFrames = StaticRef<uint32>(0x8D2EF8); // 10,source_global_reference
 reference,0x00B6F178,0x0076F178,source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp,755,"const float angle = CGeneral::GetRadianAngleBetweenPoints(0.f, 0.f, -walkLeftRight, walkUpDown) - StaticRef<float>(0xB6F178);",source_global_reference
-gLastRandomNumberForIdleAnimationID,0x008D2FEC,0x004D2FEC,source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp,38,auto& gLastRandomNumberForIdleAnimationID = StaticRef<int32>(0x8D2FEC);,source_global_reference
-gLastTouchTimeDelta,0x00C19664,0x00819664,source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp,39,auto& gLastTouchTimeDelta = StaticRef<uint32>(0xC19664);,source_global_reference
-gDuckAnimBlendData,0x008D2FF0,0x004D2FF0,source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp,40,auto& gDuckAnimBlendData = StaticRef<float>(0x8D2FF0); // 4.0f,source_global_reference
-gbUnknown_8D2FE8,0x008D2FE8,0x004D2FE8,source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp,41,auto& gbUnknown_8D2FE8 = StaticRef<bool>(0x8D2FE8);     // default value true; also always true,source_global_reference
+gLastRandomNumberForIdleAnimationID,0x008D2FEC,0x004D2FEC,source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp,34,auto& gLastRandomNumberForIdleAnimationID = StaticRef<int32>(0x8D2FEC);,source_global_reference
+gLastTouchTimeDelta,0x00C19664,0x00819664,source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp,35,auto& gLastTouchTimeDelta = StaticRef<uint32>(0xC19664);,source_global_reference
+gDuckAnimBlendData,0x008D2FF0,0x004D2FF0,source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp,36,auto& gDuckAnimBlendData = StaticRef<float>(0x8D2FF0); // 4.0f,source_global_reference
+gbUnknown_8D2FE8,0x008D2FE8,0x004D2FE8,source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp,37,auto& gbUnknown_8D2FE8 = StaticRef<bool>(0x8D2FE8);     // default value true; also always true,source_global_reference
 SwimDiveUnderAngle,0x008D2FC4,0x004D2FC4,source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp,91,auto& SwimDiveUnderAngle  = StaticRef<float>(0x8D2FC4); // -35,source_global_reference
 SwimStopTime,0x008D2FC0,0x004D2FC0,source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp,92,auto& SwimStopTime        = StaticRef<float>(0x8D2FC0); // 15,source_global_reference
 SwimAnimShiftFactor,0x008D2FF4,0x004D2FF4,source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp,93,"auto& SwimAnimShiftFactor = StaticRef<float>(0x8D2FF4); // 0,5",source_global_reference
@@ -2559,6 +2665,9 @@ Number,0x00C81450,0x00881450,source/game_sa/WindModifiers.h,13,static inline aut
 Array,0x00C81458,0x00881458,source/game_sa/WindModifiers.h,14,static inline auto& Array = StaticRef<CWindModifier[MAX_NUM_MODIFIERS]>(0xC81458);,source_global_reference
 FilledColPointIndex,0x00B7CD7C,0x0077CD7C,source/game_sa/World.cpp,44,auto& FilledColPointIndex = StaticRef<uint32>(0xB7CD7C);,source_global_reference
 gaTempSphereColPoints,0x00B9B250,0x0079B250,source/game_sa/World.cpp,45,"auto& gaTempSphereColPoints = StaticRef<std::array<CColPoint, 32>>(0xB9B250);",source_global_reference
+SPRAY_ALPHA_CHANGE,0x008CDEF0,0x004CDEF0,source/game_sa/World.cpp,1368,const int16 SPRAY_ALPHA_CHANGE = StaticRef<int16>(0x8CDEF0); // Como el original: se lee la variable del EXE (vale 8),source_global_reference
+reference,0x00864F98,0x00464F98,source/game_sa/World.cpp,2197,float impactVelocityFactor = entity->m_fMass * StaticRef<float>(0x864F98) * entityRelDistToRadiusEnd_Doubled * visibleDistance; // 0x864F98 = 1/1400,source_global_reference
+reference,0x00863984,0x00463984,source/game_sa/World.cpp,2340,"z = CTimer::GetTimeStep() * ped->m_fMass * StaticRef<float>(0x863984) + z; // 0x863984 = 1/125; paso * masa, no GetTimeStepInMS",source_global_reference
 Players,0x00B7CD98,0x0077CD98,source/game_sa/World.h,54,inline static auto& Players = StaticRef<CPlayerInfo[MAX_PLAYERS]>(0xB7CD98);,source_global_reference
 PlayerInFocus,0x00B7CD74,0x0077CD74,source/game_sa/World.h,56,inline static auto& PlayerInFocus = StaticRef<uint8>(0xB7CD74);,source_global_reference
 bDoingCarCollisions,0x00B7CD73,0x0077CD73,source/game_sa/World.h,57,inline static auto& bDoingCarCollisions = StaticRef<bool>(0xB7CD73);,source_global_reference
@@ -2581,3 +2690,4 @@ ms_listMovingEntityPtrs,0x00B9ACC8,0x0079ACC8,source/game_sa/World.h,80,inline s
 ms_listObjectsWithControlCode,0x00B9ACCC,0x0079ACCC,source/game_sa/World.h,81,inline static auto& ms_listObjectsWithControlCode = StaticRef<CPtrListDoubleLink<CObject*>>(0xB9ACCC);,source_global_reference
 ms_nCurrentScanCode,0x00B7CD78,0x0077CD78,source/game_sa/World.h,82,inline static auto& ms_nCurrentScanCode = StaticRef<uint16>(0xB7CD78);,source_global_reference
 m_aTempColPts,0x00B9ACD0,0x0079ACD0,source/game_sa/World.h,84,"inline static auto& m_aTempColPts = StaticRef<std::array<CColPoint, 32>>(0xB9ACD0);",source_global_reference
+reference,0x00B9B970,0x0079B970,source/game_sa/World_Helper.cpp,105,return StaticRef<CVector>(0xB9B970); // vector global a cero del EXE,source_global_reference

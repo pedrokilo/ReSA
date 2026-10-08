@@ -1,0 +1,3 @@
+0062CCD5: xor ebp,ebp
+0062CCD7: mov dword ptr [esi+58h],ebp
+0062CCDA: jmp 0062C322

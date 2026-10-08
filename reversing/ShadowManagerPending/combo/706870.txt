@@ -1,0 +1,152 @@
+// CRealTimeShadowManager::ReInit @ 0x00706870 [0x706870..0x706967]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00706870(void)
+
+{
+  int iVar1;
+  int iVar2;
+  undefined4 uVar3;
+  int *in_ECX;
+  int *piVar4;
+  int local_8;
+  
+  local_8 = 0x10;
+  piVar4 = in_ECX;
+  do {
+    piVar4 = piVar4 + 1;
+    iVar1 = *piVar4;
+    iVar2 = *(int *)(*(int *)(iVar1 + 8) + 0x60);
+    uVar3 = *(undefined4 *)(iVar2 + 0xc);
+    *(undefined4 *)(*(int *)(iVar1 + 8) + 0x60) = 0;
+    FUN_007fb020(iVar2);
+    uVar3 = FUN_007fb230(uVar3,uVar3,0,5);
+    *(undefined4 *)(*(int *)(iVar1 + 8) + 0x60) = uVar3;
+    FUN_007f35d0(*(undefined4 *)(iVar1 + 0xc),uVar3);
+    iVar1 = *piVar4;
+    iVar2 = *(int *)(*(int *)(iVar1 + 0x14) + 0x60);
+    uVar3 = *(undefined4 *)(iVar2 + 0xc);
+    *(undefined4 *)(*(int *)(iVar1 + 0x14) + 0x60) = 0;
+    FUN_007fb020(iVar2);
+    uVar3 = FUN_007fb230(uVar3,uVar3,0,5);
+    *(undefined4 *)(*(int *)(iVar1 + 0x14) + 0x60) = uVar3;
+    FUN_007f35d0(*(undefined4 *)(iVar1 + 0x18),uVar3);
+    local_8 = local_8 + -1;
+  } while (local_8 != 0);
+  iVar1 = *(int *)(in_ECX[0x11] + 0x60);
+  uVar3 = *(undefined4 *)(iVar1 + 0xc);
+  *(undefined4 *)(in_ECX[0x11] + 0x60) = 0;
+  FUN_007fb020(iVar1);
+  uVar3 = FUN_007fb230(uVar3,uVar3,0,5);
+  *(undefined4 *)(in_ECX[0x11] + 0x60) = uVar3;
+  FUN_007f35d0(in_ECX[0x12],uVar3);
+  iVar1 = *(int *)(in_ECX[0x13] + 0x60);
+  uVar3 = *(undefined4 *)(iVar1 + 0xc);
+  *(undefined4 *)(in_ECX[0x13] + 0x60) = 0;
+  FUN_007fb020(iVar1);
+  uVar3 = FUN_007fb230(uVar3,uVar3,0,5);
+  *(undefined4 *)(in_ECX[0x13] + 0x60) = uVar3;
+  FUN_007f35d0(in_ECX[0x14],uVar3);
+  FUN_00705d20();
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00706870: sub esp,8
+00706873: push ebx
+00706874: push ebp
+00706875: push esi
+00706876: push edi
+00706877: mov dword ptr [esp+14h],ecx
+0070687B: lea edi,[ecx+4]
+0070687E: mov dword ptr [esp+10h],10h
+00706886: xor ebp,ebp
+00706888: mov esi,dword ptr [edi]
+0070688A: mov eax,dword ptr [esi+8]
+0070688D: mov ecx,dword ptr [eax+60h]
+00706890: mov ebx,dword ptr [ecx+0Ch]
+00706893: add esi,8
+00706896: push ecx
+00706897: mov dword ptr [eax+60h],ebp
+0070689A: call 007FB020
+0070689F: push 5
+007068A1: push ebp
+007068A2: push ebx
+007068A3: push ebx
+007068A4: call 007FB230
+007068A9: mov ecx,dword ptr [esi]
+007068AB: mov dword ptr [ecx+60h],eax
+007068AE: mov edx,dword ptr [esi+4]
+007068B1: push eax
+007068B2: push edx
+007068B3: call 007F35D0
+007068B8: mov esi,dword ptr [edi]
+007068BA: mov eax,dword ptr [esi+14h]
+007068BD: mov ecx,dword ptr [eax+60h]
+007068C0: mov ebx,dword ptr [ecx+0Ch]
+007068C3: add esi,14h
+007068C6: push ecx
+007068C7: mov dword ptr [eax+60h],ebp
+007068CA: call 007FB020
+007068CF: push 5
+007068D1: push ebp
+007068D2: push ebx
+007068D3: push ebx
+007068D4: call 007FB230
+007068D9: mov ecx,dword ptr [esi]
+007068DB: mov dword ptr [ecx+60h],eax
+007068DE: mov edx,dword ptr [esi+4]
+007068E1: push eax
+007068E2: push edx
+007068E3: call 007F35D0
+007068E8: mov eax,dword ptr [esp+48h]
+007068EC: add esp,38h
+007068EF: add edi,4
+007068F2: dec eax
+007068F3: mov dword ptr [esp+10h],eax
+007068F7: jne 00706888
+007068F9: mov esi,dword ptr [esp+14h]
+007068FD: mov eax,dword ptr [esi+44h]
+00706900: mov ecx,dword ptr [eax+60h]
+00706903: mov edi,dword ptr [ecx+0Ch]
+00706906: push ecx
+00706907: mov dword ptr [eax+60h],ebp
+0070690A: call 007FB020
+0070690F: push 5
+00706911: push ebp
+00706912: push edi
+00706913: push edi
+00706914: call 007FB230
+00706919: mov ecx,dword ptr [esi+44h]
+0070691C: mov dword ptr [ecx+60h],eax
+0070691F: mov edx,dword ptr [esi+48h]
+00706922: push eax
+00706923: push edx
+00706924: call 007F35D0
+00706929: mov eax,dword ptr [esi+4Ch]
+0070692C: mov ecx,dword ptr [eax+60h]
+0070692F: mov edi,dword ptr [ecx+0Ch]
+00706932: add esi,4Ch
+00706935: push ecx
+00706936: mov dword ptr [eax+60h],ebp
+00706939: call 007FB020
+0070693E: push 5
+00706940: push ebp
+00706941: push edi
+00706942: push edi
+00706943: call 007FB230
+00706948: mov ecx,dword ptr [esi]
+0070694A: mov dword ptr [ecx+60h],eax
+0070694D: mov edx,dword ptr [esi+4]
+00706950: push eax
+00706951: push edx
+00706952: call 007F35D0
+00706957: add esp,38h
+0070695A: pop edi
+0070695B: mov ecx,esi
+0070695D: pop esi
+0070695E: pop ebp
+0070695F: pop ebx
+00706960: add esp,8
+00706963: jmp 00705D20

@@ -1,0 +1,41 @@
+// CDecision::SetDefault @ 0x00600530 [0x600530..0x600560]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+void FUN_00600530(void)
+
+{
+  int iVar1;
+  int in_ECX;
+  undefined2 *puVar2;
+  
+  iVar1 = 0;
+  puVar2 = (undefined2 *)(in_ECX + 0x30);
+  do {
+    *(undefined4 *)(in_ECX + iVar1 * 4) = 0xffffffff;
+    *(undefined4 *)(in_ECX + 0x18 + iVar1 * 4) = 0;
+    *puVar2 = 0;
+    iVar1 = iVar1 + 1;
+    puVar2 = puVar2 + 1;
+  } while (iVar1 < 6);
+  return;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00600530: xor eax,eax
+00600532: lea edx,[ecx+30h]
+00600535: push esi
+00600536: jmp 00600540
+00600538: lea esp,[esp+00000000h]
+ 00
+00600540: mov dword ptr [ecx+eax*4],0FFFFFFFFh
+ FF
+00600547: lea esi,[ecx+eax*4+18h]
+0060054B: mov dword ptr [esi],0
+00600551: mov word ptr [edx],0
+00600556: inc eax
+00600557: add edx,2
+0060055A: cmp eax,6
+0060055D: jl 00600540
+0060055F: pop esi
+00600560: ret

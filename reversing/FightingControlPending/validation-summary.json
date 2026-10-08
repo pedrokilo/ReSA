@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 1024,
+  "pairs_per_function": {
+    "CTaskSimpleFightingControl::ProcessPed": 1024
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "302482758c0e8261df46692851c863a379539521560c99db4dcaa12404bb6666",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fighting-control-pending\\20261007-201515-804276",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CTaskSimpleFightingControl::ProcessPed": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "454f4420805917d7661563d179ac5eca751aae765cee4c2fabf6a4bb48475213",
+      "pdb": "22d799966dfb2b2022d8a513c572217e2c126b61836dae7a328294a257058c8c"
+    },
+    "sources": {
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp": "c0a67e40026b09625b817e8f172178ed8a698acb69d5d58200da3511067c9ad3",
+      "source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.h": "e014e9b08160b111a7fac0efafe2f8ed37bbd6f629696fa56bfca76be04dd07d"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "36a7ce71ab33a9c23f5c7345ed7b94ec49a22cf3306789d8f57626f7eaf705ed",
+      "build_probe.py": "f294ab40da244956aceca2836f623f31bcf7baea0191aacdc909ccb9b8b6f28e",
+      "run_local.py": "75de867e3fed3b0ce0740b788466714aafd6a5dcd15ddf7b13f15ac8c5e34e00"
+    }
+  },
+  "limitations": [
+    "Fixtures privados; controles, creacion de tarea, movimiento y RNG base simulados. Cobertura positiva exigida en once ramas reales. Estado restaurado; sin regresion de juego completo."
+  ]
+}

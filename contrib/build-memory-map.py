@@ -53,7 +53,8 @@ def scan(root):
                 # Local statements are excluded unless the name is explicitly qualified.
                 if stack and stack[-1][0]=='block': continue
                 qualified=name if '::' in name else '::'.join(names+[name])
-                functions.append(dict(name=qualified,signature=m[0].strip()[:700],file=rel,line=line,
+                signature = '\n'.join(line.rstrip() for line in m[0].strip().splitlines())[:700]
+                functions.append(dict(name=qualified,signature=signature,file=rel,line=line,
                     kind='definition_candidate' if m[3]=='{' else 'declaration_candidate',status='source_function_candidate',address=''))
         owners=[]
         for m in scope_hook.finditer(text):

@@ -90,7 +90,7 @@ public:
 
     static void AddKillToProvocation(ePedType pedType);
     static bool AttackWaveOvercome();
-    static float CalculateTimeTillNextAttack();
+    static uint32 CalculateTimeTillNextAttack();
     static bool CanPlayerStartAGangWarHere(CZoneInfo* zoneInfo);
     static void CheerVictory();
     static void ClearSpecificZonesToTriggerGangWar();

@@ -1,0 +1,35 @@
+# GroupEventPending
+
+Clase: `CGroupEventHandler`.
+
+Validado: 2048 pares aceptados. Evidencia: `D:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-group-event-pending/20261007-191407-747892`.
+
+| Función | Dirección EXE | Pares |
+
+| --- | --- | --- |
+
+| `ComputeResponsLeaderQuitEnteringCar` | `0x5F9530` | 1024 |
+
+| `ComputeResponseLeaderEnteredCar` | `0x5F8900` | 1024 |
+
+## Evidencia y ejecución
+
+La reconstrucción usa el pseudocódigo REA y el ensamblador conservados en `combo/`. El ensamblador determina convenciones de llamada, orden de efectos y conversiones. `build_probe.py` declara las fuentes contrastadas; `run_local.py` ejecuta la comparación mediante el banco compartido. Total esperado: 2048 pares.
+
+Cada caso ejecuta EXE y DLL con los mismos fixtures, conmuta y verifica el hook, registra `pair`, `equal` y `accepted`, y procesa mensajes durante la prueba. Los snapshots globales y los parches temporales se restauran al finalizar. Se rechaza cualquier diferencia o gate de cobertura incompleto.
+
+## Alcance
+
+Eventos, vehículos, miembros y tareas privados; comparación de clonaciones, respuestas y trazas. Exige respuestas activas y vacías en cada función.
+
+## Límites
+
+Los constructores, asignación y clonación de tareas están controlados en ambos lados. No valida la ejecución posterior de esas tareas.
+
+Los hashes de estado del banco usan FNV-1a de 64 bits: valor inicial 1469598103934665603, XOR por byte y multiplicación por 1099511628211 con desbordamiento uint64. Los demás datos se comparan estructuralmente; los floats observados se registran por sus bits cuando corresponde. La igualdad dentro de fixtures controlados no certifica las dependencias sustituidas ni todas las situaciones posibles.
+
+
+<!-- BEGIN FINAL PENDING BATCH RESULT -->
+
+Resultado final: **APROBADO**. 2.048 pares exactos. [Resumen y hashes](validation-summary.json); [informe completo](<D:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-group-event-pending\20261007-200524-500570/summary.json>). Esta aprobación cubre los fixtures y límites descritos arriba.
+<!-- END FINAL PENDING BATCH RESULT -->

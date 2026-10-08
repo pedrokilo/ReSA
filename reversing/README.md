@@ -2,11 +2,11 @@
 
 La [hoja de ruta de ReSA](../docs/ProjectRoadmap.md) sitúa estas pruebas dentro del objetivo de reconstrucción funcionalmente equivalente e independencia del EXE. Reconstrucción, validación, desbloqueo e independencia son dimensiones separadas; el total de pares no es un total de funciones validadas.
 
-La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 6.145 funciones a sus pruebas; las tres acreditaciones de la versión anterior quedan pendientes por el cambio de huella global de source durante CustomBuilding. Las 6.145 conservan evidencia vinculada pendiente de revisión de dependencias. El [inventario de las 7.950 reconstruidas](../docs/ValidationInventory.md) identifica también las 1.805 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
+La evolución de la suite debe relacionar cada función y versión con sus bancos, dependencias controladas, configuración y evidencia, y permitir probar una compilación conjunta vigente. El [registro de validaciones](ValidationRegistry/README.md) ya vincula 6.329 funciones a sus pruebas; las acreditaciones históricas se revisan contra las fuentes y dependencias del árbol actual. Las 6.329 conservan evidencia vinculada pendiente de revisión de dependencias. El [inventario de las 8.040 reconstruidas](../docs/ValidationInventory.md) identifica también las 1.711 todavía sin evidencia vinculada. El total global sigue parcialmente consolidado. Para matemáticas, física, manejo, IA y cámara se comparan entradas equivalentes, retornos, estados y efectos; las interacciones requieren además regresión de juego. Tras completar las clases, la campaña integral cubrirá nueva partida, guardar/cargar, misiones, conducción, muerte/arresto, interiores, clima, búsqueda policial, combate, streaming, audio y cinemáticas, con partidas desechables y restauración.
 
 ## Estado actual del catálogo de hooks
 
-El corte vigente de `ReSA` contiene **771 clases/grupos y 8.441 entradas**: 7.950 reconstruidas y 491 pendientes. De ellas, **6.145 tienen `validated=1`** porque cuentan con evidencia aprobada vinculada; 0 conservan vigencia acreditada para el árbol actual. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
+El corte vigente de `ReSA` contiene **771 clases/grupos y 8.447 entradas**: 8.040 reconstruidas y 407 pendientes. De ellas, **6.329 tienen `validated=1`** porque cuentan con evidencia aprobada vinculada; 0 conservan vigencia acreditada para el árbol actual. La integridad entre fuente, registro global y `docs/hooks.csv` se comprueba con:
 
 ```powershell
 python contrib/audit_hook_catalog.py --strict
@@ -18,7 +18,7 @@ Esta carpeta sí se utiliza. Ejecutar `PROBAR.cmd` desde la raíz para elegir un
 
 `PROBAR.cmd --all` ejecuta en serie todos los bancos dentro de GTA. Para evitar la pausa del CMD, usar `python reversing/run.py --all`. Abre y cierra la copia de pruebas para cada banco, vuelve a analizar sus logs nuevos y comprueba la restauración del ASI/PDB y los hashes de las partidas antes de continuar. Los informes conjuntos quedan en `reversing/artifacts/suite-*/summary.json`, con salidas por caso y rutas/hashes de la evidencia. Se omite `pcsave-isolated` porque la misma función ya se prueba dentro del motor.
 
-El catálogo actual contiene **257 casos: 256 dentro del motor y uno aislado**.
+El catálogo actual contiene **297 casos: 296 dentro del motor y uno aislado**.
 
 Esta serie usa las sondas archivadas de cada trabajo. El caso `conversation-for-ped` comprueba además que fuentes e instrumentación coinciden con su manifiesto; si cambiaron, recompilar con `python reversing/ConversationForPed/build.py --probe` antes de ejecutarlo. La serie no es una prueba de integración de todos los cambios en una única compilación actual ni sustituye la campaña de estabilidad futura.
 
@@ -288,3 +288,17 @@ Se conserva la configuración de inicio normal. Los bancos usan carga rápida te
 ## Recuperación del ratón al arrancar
 
 [Observación con el dispositivo real](MouseRecovery/README.md): el fallo inicial de Acquire se reproduce con la ventana oculta y sin foco; a los 1,485 s la adquisición y lectura son correctas, seguidas de 120 actualizaciones válidas. No requiere cambio del código normal. Este diagnóstico no suma pares ni casos al catálogo diferencial. La misma entrega revisa todos los Markdown propios y sus referencias vigentes.
+
+- [CTaskDead](CTaskDead/README.md): CTaskSimpleDead, seis funciones y 1.792 pares exactos; dependencias controladas y estado restaurado. Caso `ctaskdead`.
+
+- [PlayerFighterPending](PlayerFighterPending/README.md): CTaskSimplePlayerOnFoot::PlayerControlFighter, 4.096 pares exactos; dependencias controladas y estado restaurado. Caso `player-fighter-pending`.
+
+- [IdleAttractorPending](IdleAttractorPending/README.md): CIdleCam::ProcessFOVZoom y CPedAttractor::AbortPedTasks, 2.048 pares exactos; dependencias controladas y estado restaurado. Caso `idle-attractor-pending`.
+
+- [FightingControlPending](FightingControlPending/README.md): CTaskSimpleFightingControl::ProcessPed, 1.024 pares exactos y gate de once ramas; dependencias controladas y estado restaurado. Caso `fighting-control-pending`.
+
+- [RoadBlockPending](RoadBlockPending/README.md): CRoadBlocks::CreateRoadBlockBetween2Points, 1.024 pares exactos y gate de nueve ramas; dependencias controladas y estado restaurado. Caso `roadblock-pending`.
+
+## Lote de 78 pendientes (07/10/2026)
+
+[Reconstrucción y validación del lote](PendingBatch/README.md): 78 funciones de 27 clases, 30 bancos y 81.664 pares EXE/DLL. Se conservan las limitaciones de cada banco; no acredita validación completa de todas las funciones de esas clases. Las fuentes finales se recompilan con /MP6 y se comprueba la restauración del juego.

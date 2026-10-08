@@ -1,0 +1,157 @@
+// CRealTimeShadowManager::GetRealTimeShadow @ 0x00706970 [0x706970..0x706a5d]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+int * FUN_00706970(int param_1)
+
+{
+  bool bVar1;
+  char *pcVar2;
+  char *in_ECX;
+  int iVar3;
+  int *piVar4;
+  bool bVar5;
+  
+  piVar4 = (int *)0x0;
+  bVar5 = false;
+  bVar1 = true;
+  if (((((*(byte *)(param_1 + 0x36) & 7) != 3) || (bVar5 = *(int *)(param_1 + 0x598) == 0, !bVar5))
+      && (iVar3 = *(int *)((&DAT_00b7cd98)[(uint)DAT_00b7cd74 * 100] + 0x58c),
+         (*(byte *)((&DAT_00b7cd98)[(uint)DAT_00b7cd74 * 100] + 0x46d) & 1) != 0)) &&
+     ((iVar3 != 0 &&
+      (0.09 < *(float *)(iVar3 + 0x4c) * *(float *)(iVar3 + 0x4c) +
+              *(float *)(iVar3 + 0x48) * *(float *)(iVar3 + 0x48) +
+              *(float *)(iVar3 + 0x44) * *(float *)(iVar3 + 0x44))))) {
+    bVar1 = false;
+  }
+  if ((*in_ECX != '\0') && (bVar1)) {
+    if (bVar5) {
+      piVar4 = *(int **)(in_ECX + 4);
+    }
+    else {
+      pcVar2 = in_ECX + 0xc;
+      iVar3 = 3;
+      do {
+        if (**(int **)(pcVar2 + -4) == 0) {
+          piVar4 = *(int **)(pcVar2 + -4);
+        }
+        if (**(int **)pcVar2 == 0) {
+          piVar4 = *(int **)pcVar2;
+        }
+        if (**(int **)(pcVar2 + 4) == 0) {
+          piVar4 = *(int **)(pcVar2 + 4);
+        }
+        if (**(int **)(pcVar2 + 8) == 0) {
+          piVar4 = *(int **)(pcVar2 + 8);
+        }
+        if (**(int **)(pcVar2 + 0xc) == 0) {
+          piVar4 = *(int **)(pcVar2 + 0xc);
+        }
+        pcVar2 = pcVar2 + 0x14;
+        iVar3 = iVar3 + -1;
+      } while (iVar3 != 0);
+    }
+    if (piVar4 != (int *)0x0) {
+      FUN_00706520(param_1);
+      *(int **)(param_1 + 0x134) = piVar4;
+      *(undefined1 *)(piVar4 + 1) = 1;
+      *(undefined1 *)((int)piVar4 + 5) = 0;
+    }
+  }
+  return piVar4;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00706970: push ebx
+00706971: push ebp
+00706972: mov ebp,dword ptr [esp+0Ch]
+00706976: mov al,byte ptr [ebp+36h]
+00706979: push esi
+0070697A: and al,7
+0070697C: xor esi,esi
+0070697E: xor dl,dl
+00706980: cmp al,3
+00706982: push edi
+00706983: mov bl,1
+00706985: jne 00706996
+00706987: mov edx,dword ptr [ebp+00000598h]
+0070698D: test edx,edx
+0070698F: sete dl
+00706992: test dl,dl
+00706994: jne 007069EA
+00706996: movzx eax,byte ptr ds:[00B7CD74h]
+ 00
+0070699D: imul eax,eax,190h
+007069A3: mov edi,dword ptr [eax+00B7CD98h]
+007069A9: test byte ptr [edi+0000046Dh],1
+ 01
+007069B0: mov eax,dword ptr [edi+0000058Ch]
+007069B6: je 007069EA
+007069B8: test eax,eax
+007069BA: je 007069EA
+007069BC: fld dword ptr [eax+4Ch]
+007069BF: fld dword ptr [eax+48h]
+007069C2: fld dword ptr [eax+44h]
+007069C5: fld st(0)
+007069C7: fmul st,st(1)
+007069C9: fld st(2)
+007069CB: fmul st,st(3)
+007069CD: faddp st(1),st
+007069CF: fld st(3)
+007069D1: fmul st,st(4)
+007069D3: faddp st(1),st
+007069D5: fcomp dword ptr ds:[0085B324h]
+007069DB: fstp st(0)
+007069DD: fnstsw ax
+007069DF: fstp st(0)
+007069E1: test ah,41h
+007069E4: fstp st(0)
+007069E6: jne 007069EA
+007069E8: xor bl,bl
+007069EA: cmp byte ptr [ecx],0
+007069ED: je 00706A55
+007069EF: test bl,bl
+007069F1: je 00706A55
+007069F3: test dl,dl
+007069F5: je 007069FC
+007069F7: mov esi,dword ptr [ecx+4]
+007069FA: jmp 00706A3B
+007069FC: lea eax,[ecx+0Ch]
+007069FF: mov edx,3
+00706A04: mov ecx,dword ptr [eax-4]
+00706A07: cmp dword ptr [ecx],0
+00706A0A: jne 00706A0E
+00706A0C: mov esi,ecx
+00706A0E: mov ecx,dword ptr [eax]
+00706A10: cmp dword ptr [ecx],0
+00706A13: jne 00706A17
+00706A15: mov esi,ecx
+00706A17: mov ecx,dword ptr [eax+4]
+00706A1A: cmp dword ptr [ecx],0
+00706A1D: jne 00706A21
+00706A1F: mov esi,ecx
+00706A21: mov ecx,dword ptr [eax+8]
+00706A24: cmp dword ptr [ecx],0
+00706A27: jne 00706A2B
+00706A29: mov esi,ecx
+00706A2B: mov ecx,dword ptr [eax+0Ch]
+00706A2E: cmp dword ptr [ecx],0
+00706A31: jne 00706A35
+00706A33: mov esi,ecx
+00706A35: add eax,14h
+00706A38: dec edx
+00706A39: jne 00706A04
+00706A3B: test esi,esi
+00706A3D: je 00706A55
+00706A3F: push ebp
+00706A40: mov ecx,esi
+00706A42: call 00706520
+00706A47: mov dword ptr [ebp+00000134h],esi
+00706A4D: mov byte ptr [esi+4],1
+00706A51: mov byte ptr [esi+5],0
+00706A55: pop edi
+00706A56: mov eax,esi
+00706A58: pop esi
+00706A59: pop ebp
+00706A5A: pop ebx
+00706A5B: ret 4

@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "saves_before": {
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "config_hashes_before": {
+    "gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316",
+    "scripts/gta-reversed.ini": "2ab794f2512e5b0cf0477d11ad8dde304e875f7531365f3ad7be9c3820beb316"
+  },
+  "pairs": 6144,
+  "pairs_per_function": {
+    "CFont::PrintChar": 2048,
+    "CFont::FindSubFontCharacter": 1024,
+    "CFont::RenderFontBuffer": 1024,
+    "CFont::ProcessCurrentString": 2048
+  },
+  "all_equal": true,
+  "state_restored": true,
+  "log_sha256": "2c33bfffd9e3940f654b6521d9099fe7422f5d847c69fa742eab0f5b47279265",
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-font-pending\\20261007-201033-210407",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "covered_functions": {
+    "CFont::PrintChar": true,
+    "CFont::FindSubFontCharacter": true,
+    "CFont::RenderFontBuffer": true,
+    "CFont::ProcessCurrentString": true
+  },
+  "probe_build_manifest": {
+    "binaries": {
+      "asi": "8e4ec9fec0946ed8ed0912718ac712dc6528c1d194a4762933f9d8a9c03d6410",
+      "pdb": "37854ccb601eaefb05e8531b1017ef4943bd8402f79d3b3edb003a77fee3d51e"
+    },
+    "sources": {
+      "source/game_sa/Font.cpp": "51ed5006bc6fe140fbd99dd683ae2f09317a814989574519a8fa7b774cdc010b",
+      "source/game_sa/Font.h": "87e5bd9978ecfc2e34951832c5cc5e13e3b553f9b697753ba20869c68f545d07"
+    },
+    "game_cpp": "0639900130cc088be6264f392dbdf674433dd6d60db02bc2450cc14a338d1c87",
+    "instrumentation": {
+      "LiveComparison.hpp": "2785a79a9424ed2601685182022e0a2bb06624b770963f25f0c7847456672e05",
+      "build_probe.py": "2e0022b6ab3e179132f235e83f26d5ffb9ca4e91efec02d005c01ea916120ac5",
+      "run_local.py": "b3aaab3d2f879da92696e935c2189b38bca1eea07768fc7234c7ad9d71bd3019"
+    }
+  },
+  "limitations": [
+    "Equivalencia limitada a los fixtures del banco; dependencias aisladas y límites descritos en su README. No acredita independencia del EXE ni una campaña integral de juego."
+  ]
+}

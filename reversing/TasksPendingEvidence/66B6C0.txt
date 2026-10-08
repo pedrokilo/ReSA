@@ -1,0 +1,300 @@
+// Sin pseudocódigo de Ghidra para 0x0066b6c0: None
+==== ensamblador exacto (dis.sh) ====
+0066B6C0: push esi
+0066B6C1: mov esi,dword ptr [esp+8]
+0066B6C5: push edi
+0066B6C6: mov edi,ecx
+0066B6C8: mov eax,dword ptr [edi+0Ch]
+0066B6CB: push eax
+0066B6CC: push esi
+0066B6CD: call 005EE190
+0066B6D2: mov ecx,eax
+0066B6D4: call 005EFE20
+0066B6D9: test dword ptr [esi+00000474h],200000h
+0066B6E3: je 0066B6FB
+0066B6E5: mov ecx,dword ptr [edi+0Ch]
+0066B6E8: call 005EB590
+0066B6ED: cmp eax,esi
+0066B6EF: je 0066B6FB
+0066B6F1: and dword ptr [esi+00000474h],0FFDFFFFFh
+0066B6FB: pop edi
+0066B6FC: xor eax,eax
+0066B6FE: pop esi
+0066B6FF: ret 4
+0066B710: mov eax,dword ptr [ecx+8]
+0066B713: ret 4
+0066B720: push esi
+0066B721: mov esi,ecx
+0066B723: call 0061A3B0
+0066B728: mov ecx,dword ptr [esp+0Ch]
+0066B72C: mov dword ptr [esi],86FF68h
+0066B732: mov edx,dword ptr [ecx]
+0066B734: lea eax,[esi+0Ch]
+0066B737: mov dword ptr [eax],edx
+0066B739: mov edx,dword ptr [ecx+4]
+0066B73C: mov dword ptr [eax+4],edx
+0066B73F: mov ecx,dword ptr [ecx+8]
+0066B742: mov edx,dword ptr [esp+8]
+0066B746: mov dword ptr [eax+8],ecx
+0066B749: mov eax,dword ptr [esp+10h]
+0066B74D: mov ecx,dword ptr [esp+14h]
+0066B751: mov dword ptr [esi+1Ch],eax
+0066B754: xor eax,eax
+0066B756: mov dword ptr [esi+20h],eax
+0066B759: mov dword ptr [esi+18h],edx
+0066B75C: mov dword ptr [esi+24h],ecx
+0066B75F: mov dword ptr [esi+28h],eax
+0066B762: mov dword ptr [esi+2Ch],eax
+0066B765: mov byte ptr [esi+30h],al
+0066B768: mov byte ptr [esi+31h],al
+0066B76B: mov eax,esi
+0066B76D: pop esi
+0066B76E: ret 10h
+0066B780: mov eax,396h
+0066B785: ret
+0066B790: push 0FFFFFFFFh
+0066B792: push 845118h
+0066B797: mov eax,dword ptr fs:[00000000h]
+0066B79D: push eax
+0066B79E: mov dword ptr fs:[00000000h],esp
+ 00
+0066B7A5: push ecx
+0066B7A6: push esi
+0066B7A7: mov esi,ecx
+0066B7A9: push edi
+0066B7AA: mov dword ptr [esp+8],esi
+0066B7AE: call 0061A3B0
+0066B7B3: mov ecx,dword ptr [esp+20h]
+0066B7B7: mov dword ptr [esi],86FF68h
+0066B7BD: mov edi,dword ptr [ecx]
+0066B7BF: lea eax,[esi+0Ch]
+0066B7C2: mov dword ptr [eax],edi
+0066B7C4: mov edi,dword ptr [ecx+4]
+0066B7C7: mov dword ptr [eax+4],edi
+0066B7CA: mov ecx,dword ptr [ecx+8]
+0066B7CD: mov dword ptr [eax+8],ecx
+0066B7D0: mov eax,dword ptr [esp+1Ch]
+0066B7D4: mov ecx,dword ptr [esp+28h]
+0066B7D8: mov dword ptr [esi+1Ch],ecx
+0066B7DB: mov ecx,dword ptr [esp+24h]
+0066B7DF: mov dword ptr [esi+18h],eax
+0066B7E2: mov dword ptr [esi+20h],ecx
+0066B7E5: mov ecx,dword ptr [esp+2Ch]
+0066B7E9: xor edx,edx
+0066B7EB: lea eax,[esi+20h]
+0066B7EE: mov dword ptr [esi+24h],ecx
+0066B7F1: mov dword ptr [esi+28h],edx
+0066B7F4: mov dword ptr [esi+2Ch],edx
+0066B7F7: mov byte ptr [esi+30h],dl
+0066B7FA: mov byte ptr [esi+31h],dl
+0066B7FD: mov ecx,dword ptr [eax]
+0066B7FF: cmp ecx,edx
+0066B801: mov dword ptr [esp+14h],edx
+0066B805: je 0066B80D
+0066B807: push eax
+0066B808: call 00571B70
+0066B80D: mov ecx,dword ptr [esp+0Ch]
+0066B811: pop edi
+0066B812: mov eax,esi
+0066B814: pop esi
+0066B815: mov dword ptr fs:[00000000h],ecx
+ 00
+0066B81C: add esp,10h
+0066B81F: ret 14h
+0066B830: push 0FFFFFFFFh
+0066B832: push 845138h
+0066B837: mov eax,dword ptr fs:[00000000h]
+0066B83D: push eax
+0066B83E: mov dword ptr fs:[00000000h],esp
+ 00
+0066B845: push ecx
+0066B846: push esi
+0066B847: mov esi,ecx
+0066B849: mov dword ptr [esp+4],esi
+0066B84D: mov dword ptr [esi],86FF68h
+0066B853: mov ecx,dword ptr [esi+20h]
+0066B856: test ecx,ecx
+0066B858: lea eax,[esi+20h]
+0066B85B: mov dword ptr [esp+10h],0
+0066B863: je 0066B86B
+0066B865: push eax
+0066B866: call 00571A00
+0066B86B: mov ecx,esi
+0066B86D: mov dword ptr [esp+10h],0FFFFFFFFh
+0066B875: call 0061A3D0
+0066B87A: mov ecx,dword ptr [esp+8]
+0066B87E: pop esi
+0066B87F: mov dword ptr fs:[00000000h],ecx
+ 00
+0066B886: add esp,10h
+0066B889: ret
+0066B890: push 0FFFFFFFFh
+0066B892: push 845158h
+0066B897: mov eax,dword ptr fs:[00000000h]
+0066B89D: push eax
+0066B89E: mov dword ptr fs:[00000000h],esp
+ 00
+0066B8A5: push ecx
+0066B8A6: push esi
+0066B8A7: mov esi,ecx
+0066B8A9: mov dword ptr [esp+4],esi
+0066B8AD: call 0061A3B0
+0066B8B2: mov ecx,dword ptr [esp+18h]
+0066B8B6: test ecx,ecx
+0066B8B8: lea eax,[esi+0Ch]
+0066B8BB: mov dword ptr [esp+10h],0
+0066B8C3: mov dword ptr [esi],86FF94h
+0066B8C9: mov dword ptr [eax],ecx
+0066B8CB: mov byte ptr [esi+10h],1
+0066B8CF: je 0066B8D7
+0066B8D1: push eax
+0066B8D2: call 00571B70
+0066B8D7: mov ecx,dword ptr [esp+20h]
+0066B8DB: mov eax,dword ptr [esp+1Ch]
+0066B8DF: mov dword ptr [esi+24h],ecx
+0066B8E2: mov ecx,dword ptr [esp+8]
+0066B8E6: mov dword ptr [esi+20h],eax
+0066B8E9: mov eax,esi
+0066B8EB: pop esi
+0066B8EC: mov dword ptr fs:[00000000h],ecx
+ 00
+0066B8F3: add esp,10h
+0066B8F6: ret 0Ch
+0066B900: mov eax,398h
+0066B905: ret
+0066B910: push esi
+0066B911: mov esi,ecx
+0066B913: call 0061A3B0
+0066B918: mov ecx,dword ptr [esp+8]
+0066B91C: xor eax,eax
+0066B91E: mov dword ptr [esi+0Ch],eax
+0066B921: mov byte ptr [esi+10h],al
+0066B924: mov dword ptr [esi],86FF94h
+0066B92A: mov edx,dword ptr [ecx]
+0066B92C: lea eax,[esi+14h]
+0066B92F: mov dword ptr [eax],edx
+0066B931: mov edx,dword ptr [ecx+4]
+0066B934: mov dword ptr [eax+4],edx
+0066B937: mov ecx,dword ptr [ecx+8]
+0066B93A: mov edx,dword ptr [esp+0Ch]
+0066B93E: mov dword ptr [eax+8],ecx
+0066B941: mov eax,dword ptr [esp+10h]
+0066B945: mov dword ptr [esi+24h],eax
+0066B948: mov dword ptr [esi+20h],edx
+0066B94B: mov eax,esi
+0066B94D: pop esi
+0066B94E: ret 0Ch
+0066B960: push 0FFFFFFFFh
+0066B962: push 845178h
+0066B967: mov eax,dword ptr fs:[00000000h]
+0066B96D: push eax
+0066B96E: mov dword ptr fs:[00000000h],esp
+ 00
+0066B975: push ecx
+0066B976: push esi
+0066B977: mov esi,ecx
+0066B979: mov dword ptr [esp+4],esi
+0066B97D: mov dword ptr [esi],86FF94h
+0066B983: mov ecx,dword ptr [esi+0Ch]
+0066B986: test ecx,ecx
+0066B988: lea eax,[esi+0Ch]
+0066B98B: mov dword ptr [esp+10h],0
+0066B993: je 0066B99B
+0066B995: push eax
+0066B996: call 00571A00
+0066B99B: mov ecx,esi
+0066B99D: mov dword ptr [esp+10h],0FFFFFFFFh
+0066B9A5: call 0061A3D0
+0066B9AA: mov ecx,dword ptr [esp+8]
+0066B9AE: pop esi
+0066B9AF: mov dword ptr fs:[00000000h],ecx
+ 00
+0066B9B6: add esp,10h
+0066B9B9: ret
+0066B9C0: xor eax,eax
+0066B9C2: ret 4
+0066B9D0: mov al,byte ptr [ecx+10h]
+0066B9D3: sub esp,18h
+0066B9D6: test al,al
+0066B9D8: je 0066BA02
+0066B9DA: mov eax,dword ptr [ecx+0Ch]
+0066B9DD: mov ecx,dword ptr [eax+14h]
+0066B9E0: test ecx,ecx
+0066B9E2: je 0066B9E9
+0066B9E4: lea eax,[ecx+30h]
+0066B9E7: jmp 0066B9EC
+0066B9E9: add eax,4
+0066B9EC: mov ecx,dword ptr [eax]
+0066B9EE: mov edx,dword ptr [eax+4]
+0066B9F1: mov eax,dword ptr [eax+8]
+0066B9F4: mov dword ptr [esp],ecx
+0066B9F8: mov dword ptr [esp+4],edx
+0066B9FC: mov dword ptr [esp+8],eax
+0066BA00: jmp 0066BA19
+0066BA02: add ecx,14h
+0066BA05: mov edx,dword ptr [ecx]
+0066BA07: mov eax,dword ptr [ecx+4]
+0066BA0A: mov ecx,dword ptr [ecx+8]
+0066BA0D: mov dword ptr [esp],edx
+0066BA11: mov dword ptr [esp+4],eax
+0066BA15: mov dword ptr [esp+8],ecx
+0066BA19: mov ecx,dword ptr [esp+1Ch]
+0066BA1D: mov eax,dword ptr [ecx+14h]
+0066BA20: test eax,eax
+0066BA22: je 0066BA29
+0066BA24: add eax,30h
+0066BA27: jmp 0066BA2C
+0066BA29: lea eax,[ecx+4]
+0066BA2C: fld dword ptr [esp]
+0066BA30: lea ecx,[esp+0Ch]
+0066BA34: fsub dword ptr [eax]
+0066BA36: fstp dword ptr [esp+0Ch]
+0066BA3A: fld dword ptr [esp+4]
+0066BA3E: fsub dword ptr [eax+4]
+0066BA41: fstp dword ptr [esp+10h]
+0066BA45: fld dword ptr [esp+8]
+0066BA49: fsub dword ptr [eax+8]
+0066BA4C: fstp dword ptr [esp+14h]
+0066BA50: call 0059C910
+0066BA55: mov edx,dword ptr [esp+10h]
+0066BA59: mov eax,dword ptr [esp+0Ch]
+0066BA5D: push 0
+0066BA5F: push 0
+0066BA61: push edx
+0066BA62: push eax
+0066BA63: call 0053CBE0
+0066BA68: add esp,28h
+0066BA6B: ret 4
+0066BA70: push esi
+0066BA71: mov esi,ecx
+0066BA73: call 006677A0
+0066BA78: test byte ptr [esp+8],1
+0066BA7D: je 0066BA88
+0066BA7F: push esi
+0066BA80: call 0041B820
+0066BA85: add esp,4
+0066BA88: mov eax,esi
+0066BA8A: pop esi
+0066BA8B: ret 4
+0066BA90: push ebx
+0066BA91: push esi
+0066BA92: push edi
+0066BA93: mov edi,dword ptr [esp+14h]
+0066BA97: test edi,edi
+0066BA99: mov esi,ecx
+0066BA9B: jne 0066BAA2
+0066BA9D: mov eax,dword ptr [esi+1Ch]
+0066BAA0: mov dword ptr [eax],edi
+0066BAA2: mov edx,dword ptr [esp+10h]
+0066BAA6: mov eax,dword ptr [edx+14h]
+0066BAA9: test eax,eax
+0066BAAB: je 0066BAB2
+0066BAAD: add eax,30h
+0066BAB0: jmp 0066BAB5
+0066BAB2: lea eax,[edx+4]
+0066BAB5: mov ebx,dword ptr [eax]
+0066BAB7: lea ecx,[esi+24h]
+0066BABA: mov dword ptr [ecx],ebx
+0066BABC: mov ebx,dword ptr [eax+4]
+ 0066BABF: 89
+0066BAC0: pop ecx

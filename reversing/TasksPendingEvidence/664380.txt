@@ -1,0 +1,121 @@
+// TasksPending::Recovered @ 0x00664380 [0x664380..0x66447f]
+// Ghidra 12.1.4 vía REA, gta-sa.exe 1.0 US (sha256 72ae59e4…). Pseudocódigo orientativo: el orden exacto de operaciones se comprueba con dis.sh.
+
+undefined4 TasksPending_00664380(void)
+
+{
+  int iVar1;
+  int iVar2;
+  int iVar3;
+  undefined4 uVar4;
+  int in_ECX;
+  void *pvStack_c;
+  undefined4 uStack_8;
+  undefined4 uStack_4;
+  
+  uStack_4 = 0xffffffff;
+  uStack_8 = 0x844bcb;
+  pvStack_c = ExceptionList;
+  if (*(int *)(in_ECX + 0xc) != 0) {
+    ExceptionList = &pvStack_c;
+    iVar1 = _rand();
+    iVar3 = *(int *)(in_ECX + 0x14);
+    _rand();
+    *(undefined4 *)(in_ECX + 0x20) = DAT_00b7cb84;
+    iVar2 = FUN_00821b40();
+    *(int *)(in_ECX + 0x24) = iVar2 + iVar3;
+    *(undefined1 *)(in_ECX + 0x28) = 1;
+    iVar3 = FUN_0061a5a0(0x4c);
+    uStack_4 = 0;
+    if (iVar3 != 0) {
+      uVar4 = FUN_0046ac10(*(undefined4 *)(in_ECX + 0xc),999999,1000,
+                           ((float)iVar1 * 3.051851e-05 + (float)iVar1 * 3.051851e-05 + 3.0) * 1.0,
+                           0x40000000,0x40000000,0,1);
+      ExceptionList = pvStack_c;
+      return uVar4;
+    }
+  }
+  ExceptionList = pvStack_c;
+  return 0;
+}
+
+
+==== ensamblador exacto (dis.sh) ====
+00664380: mov eax,dword ptr fs:[00000000h]
+00664386: push 0FFFFFFFFh
+00664388: push 844BCBh
+0066438D: push eax
+0066438E: mov dword ptr fs:[00000000h],esp
+ 00
+00664395: sub esp,8
+00664398: push esi
+00664399: mov esi,ecx
+0066439B: mov eax,dword ptr [esi+0Ch]
+0066439E: test eax,eax
+006643A0: je 0066446C
+006643A6: push ebx
+006643A7: push edi
+006643A8: call 00821B1E
+006643AD: mov edi,dword ptr [esi+18h]
+006643B0: mov ebx,dword ptr [esi+14h]
+006643B3: mov dword ptr [esp+0Ch],eax
+006643B7: fild dword ptr [esp+0Ch]
+006643BB: fmul dword ptr ds:[00858C7Ch]
+006643C1: fadd st(0),st
+006643C3: fadd dword ptr ds:[00858B3Ch]
+006643C9: fstp dword ptr [esp+10h]
+006643CD: call 00821B1E
+006643D2: and eax,0FFFFh
+006643D7: mov dword ptr [esp+0Ch],eax
+006643DB: fild dword ptr [esp+0Ch]
+006643DF: mov eax,dword ptr ds:[00B7CB84h]
+006643E4: sub edi,ebx
+006643E6: fmul dword ptr ds:[00858B14h]
+006643EC: mov dword ptr [esp+0Ch],edi
+006643F0: fild dword ptr [esp+0Ch]
+006643F4: mov dword ptr [esi+20h],eax
+006643F7: fmul st,st(1)
+006643F9: call 00821B40
+006643FE: fstp st(0)
+00664400: add eax,ebx
+00664402: push 4Ch
+00664404: mov dword ptr [esi+24h],eax
+00664407: mov byte ptr [esi+28h],1
+0066440B: call 0061A5A0
+00664410: add esp,4
+00664413: mov dword ptr [esp+0Ch],eax
+00664417: test eax,eax
+00664419: pop edi
+0066441A: mov dword ptr [esp+18h],0
+00664422: pop ebx
+00664423: je 0066446C
+00664425: mov ecx,dword ptr ds:[0086FC30h]
+0066442B: fld dword ptr ds:[0086FC2Ch]
+00664431: mov edx,dword ptr ds:[0086FC28h]
+00664437: fmul dword ptr [esp+8]
+0066443B: push 1
+0066443D: push 0
+0066443F: push ecx
+00664440: push edx
+00664441: push ecx
+00664442: mov ecx,dword ptr [esi+0Ch]
+00664445: fstp dword ptr [esp]
+00664448: push 3E8h
+0066444D: push 0F423Fh
+00664452: push ecx
+00664453: mov ecx,eax
+00664455: call 0046AC10
+0066445A: pop esi
+0066445B: mov ecx,dword ptr [esp+8]
+0066445F: mov dword ptr fs:[00000000h],ecx
+ 00
+00664466: add esp,14h
+00664469: ret 4
+0066446C: mov ecx,dword ptr [esp+0Ch]
+00664470: xor eax,eax
+00664472: pop esi
+00664473: mov dword ptr fs:[00000000h],ecx
+ 00
+0066447A: add esp,14h
+0066447D: ret 4
+00664480: push esi

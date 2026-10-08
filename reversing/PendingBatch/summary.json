@@ -1,0 +1,189 @@
+{
+  "classes": 27,
+  "functions": 78,
+  "banks": 30,
+  "pairs": 81664,
+  "passed": true,
+  "results": [
+    {
+      "bank": "AudioFrontendPending",
+      "prefix": "audio-frontend-pending",
+      "pairs": 3072,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio-frontend-pending\\20261007-195246-913373"
+    },
+    {
+      "bank": "AudioPedPending",
+      "prefix": "audio-ped-pending",
+      "pairs": 4608,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio-ped-pending\\20261007-195322-568750"
+    },
+    {
+      "bank": "AudioScannerPending",
+      "prefix": "audio-scanner-pending",
+      "pairs": 4096,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio-scanner-pending\\20261007-195359-829903"
+    },
+    {
+      "bank": "AudioStreamingPending",
+      "prefix": "audio-streaming-pending",
+      "pairs": 2560,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio-streaming-pending\\20261007-195440-816486"
+    },
+    {
+      "bank": "AudioVehiclePending",
+      "prefix": "audio-vehicle-pending",
+      "pairs": 4096,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-audio-vehicle-pending\\20261007-195528-197908"
+    },
+    {
+      "bank": "DecisionPending",
+      "prefix": "decision-pending",
+      "pairs": 3072,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-decision-pending\\20261007-195600-386515"
+    },
+    {
+      "bank": "CriminalPending",
+      "prefix": "criminal-pending",
+      "pairs": 2048,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-criminal-pending\\20261007-195636-281114"
+    },
+    {
+      "bank": "AttractorTaskPending",
+      "prefix": "attractor-task-pending",
+      "pairs": 1024,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-attractor-task-pending\\20261007-195707-708603"
+    },
+    {
+      "bank": "GangHasslePending",
+      "prefix": "gang-hassle-pending",
+      "pairs": 2048,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gang-hassle-pending\\20261007-195743-015057"
+    },
+    {
+      "bank": "ProstitutePending",
+      "prefix": "prostitute-pending",
+      "pairs": 2048,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-prostitute-pending\\20261007-195816-628193"
+    },
+    {
+      "bank": "ProstituteControlPending",
+      "prefix": "prostitute-control-pending",
+      "pairs": 1024,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-prostitute-control-pending\\20261007-195853-338047"
+    },
+    {
+      "bank": "DriveByPending",
+      "prefix": "drive-by-pending",
+      "pairs": 2560,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-drive-by-pending\\20261007-195931-567873"
+    },
+    {
+      "bank": "ArrestPending",
+      "prefix": "arrest-pending",
+      "pairs": 2560,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-arrest-pending\\20261007-200023-270451"
+    },
+    {
+      "bank": "ArmedPending",
+      "prefix": "armed-pending",
+      "pairs": 1024,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-armed-pending\\20261007-200110-322685"
+    },
+    {
+      "bank": "ArmedNextPending",
+      "prefix": "armed-next-pending",
+      "pairs": 1024,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-armed-next-pending\\20261007-200146-998852"
+    },
+    {
+      "bank": "LineUpPending",
+      "prefix": "line-up-pending",
+      "pairs": 2048,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-line-up-pending\\20261007-200227-088394"
+    },
+    {
+      "bank": "LineUpProcessPending",
+      "prefix": "line-up-process-pending",
+      "pairs": 1024,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-line-up-process-pending\\20261007-200256-624723"
+    },
+    {
+      "bank": "PathFindPending",
+      "prefix": "path-find-pending",
+      "pairs": 2048,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-path-find-pending\\20261007-200329-375884"
+    },
+    {
+      "bank": "PickupsPending",
+      "prefix": "pickups-pending",
+      "pairs": 2048,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-pickups-pending\\20261007-200401-440292"
+    },
+    {
+      "bank": "PopulationPending",
+      "prefix": "population-pending",
+      "pairs": 2048,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-population-pending\\20261007-200446-913379"
+    },
+    {
+      "bank": "GroupEventPending",
+      "prefix": "group-event-pending",
+      "pairs": 2048,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-group-event-pending\\20261007-200524-500570"
+    },
+    {
+      "bank": "GroupPlacerPending",
+      "prefix": "group-placer-pending",
+      "pairs": 3072,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-group-placer-pending\\20261007-200600-010291"
+    },
+    {
+      "bank": "GangWarsPending",
+      "prefix": "gang-wars-pending",
+      "pairs": 3072,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-gang-wars-pending\\20261007-200639-362824"
+    },
+    {
+      "bank": "RopePending",
+      "prefix": "rope-pending",
+      "pairs": 2048,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-rope-pending\\20261007-200726-600449"
+    },
+    {
+      "bank": "PostEffectsPending",
+      "prefix": "post-effects-pending",
+      "pairs": 2304,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-post-effects-pending\\20261007-200758-885598"
+    },
+    {
+      "bank": "RendererPending",
+      "prefix": "renderer-pending",
+      "pairs": 6144,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-renderer-pending\\20261007-200833-500053"
+    },
+    {
+      "bank": "ShadowManagerPending",
+      "prefix": "shadow-manager-pending",
+      "pairs": 2560,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-shadow-manager-pending\\20261007-200912-414909"
+    },
+    {
+      "bank": "FontPending",
+      "prefix": "font-pending",
+      "pairs": 6144,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-font-pending\\20261007-201033-210407"
+    },
+    {
+      "bank": "FxSystemPending",
+      "prefix": "fx-system-pending",
+      "pairs": 5120,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-fx-system-pending\\20261007-201105-632762"
+    },
+    {
+      "bank": "PoolsPending",
+      "prefix": "pools-pending",
+      "pairs": 3072,
+      "evidence_directory": "D:\\JUEGOS\\GTA San Andreas - CVehicle Test\\resultados-pools-pending\\20261007-201151-743253"
+    }
+  ]
+}
